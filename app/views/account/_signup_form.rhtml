@@ -7,6 +7,8 @@
 
 <% @profile_data = @person %>
 
+<%= javascript_include_tag('sign_up_password_rate') %>
+
 <%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
 <% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form', :honeypot => true } do |f| %>
@@ -35,24 +37,30 @@
         <%= required text_field(:user, :login, :id => 'user_login',
                                 :onchange => 'this.value = convToValidUsername(this.value);') %>
         <div id='url-check'><p>&nbsp;</p></div>
+        <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
       </div>
       <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
       <br style="clear: both;" />
     </div>
   </div>
-  <%= observe_field 'user_login',
-        :url => { :action => 'check_url' },
-        :with => 'identifier',
-        :update => 'url-check',
-        :loading => "jQuery('#user_login').removeClass('#{validation_classes}').addClass('checking');
-                     jQuery('#url-check').html('<p><span class=\"checking\">#{checking_message(:url)}</span></p>');",
-        :complete => "jQuery('#user_login').removeClass('checking')"
-  %>
-
+  <%= javascript_include_tag "signup_form" %>
   <div id='signup-password'>
     <%= required f.password_field(:password, :id => 'user_pw') %>
     <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.'), :id => 'password-balloon') %>
-    <div id='fake-check'><p>&nbsp;</p></div>
+    <div id='password-rate'>
+      <p><span class="invalid hidden" id='result-short'>
+        <%=_('Short') %>
+      </span></p>
+      <p><span class="invalid hidden" id='result-bad'>
+        <%=_('Bad') %>
+      </span></p>
+      <p><span class="invalid hidden" id='result-good'>
+        <%=_('Good') %>
+      </span></p>
+      <p><span class="invalid hidden" id='result-strong'>
+        <%=_('Strong') %>
+      </span></p>
+    </div>
   </div>
 
   <div id='signup-password-confirmation'>
@@ -182,4 +190,9 @@ jQuery(function($) {
     else $(this).addClass('validated');
   });
 });
+
+function fill_username(element){
+  jQuery('#url-check').html("<p><span class='checking'><%= _('This login name is available') %></span></p>")
+  jQuery('#user_login').val(element).addClass('validated').removeClass('invalid')
+}
 </script>

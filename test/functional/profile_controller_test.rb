@@ -1255,6 +1255,7 @@ class ProfileControllerTest < ActionController::TestCase
         {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => lambda { 'Content from plugin2.' }}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     e = profile.environment
     e.enable_plugin(Plugin1.name)

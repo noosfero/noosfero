@@ -868,6 +868,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         {:title => "Plugin2 button", :icon => 'plugin2_icon', :url => 'plugin2_url'}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestControlPanelButtons1.to_s, TestControlPanelButtons2.to_s])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestControlPanelButtons1.new, TestControlPanelButtons2.new])
 
@@ -883,6 +884,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestProfileEditPlugin.to_s])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProfileEditPlugin.new])
 
@@ -911,6 +913,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -932,6 +935,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)

@@ -246,15 +246,19 @@ class AccountController < ApplicationController
     end
   end
 
-  def check_url
+  def check_valid_name
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
     if valid
       @status = _('This login name is available')
       @status_class = 'validated'
-    else
+    elsif !@identifier.empty?
+      @suggested_usernames = suggestion_based_on_username(@identifier)
       @status = _('This login name is unavailable')
       @status_class = 'invalid'
+    else
+      @status_class = 'invalid'
+      @status = _('This field can\'t be blank')
     end
     render :partial => 'identifier_status'
   end
@@ -286,6 +290,23 @@ class AccountController < ApplicationController
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
+
+  def search_cities
+    if request.xhr? and params[:state_name] and params[:city_name]
+      render :json => MapsHelper.search_city(params[:city_name], params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
+  def search_state
+    if request.xhr? and params[:state_name]
+      render :json => MapsHelper.search_state(params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
 
   protected
 

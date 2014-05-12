@@ -70,6 +70,8 @@ class LinkListBlock < Block
   def expand_address(address)
     add = if owner.respond_to?(:identifier)
       address.gsub('{profile}', owner.identifier)
+    elsif owner.is_a?(Environment) && owner.enabled?('use_portal_community') && owner.portal_community
+      address.gsub('{portal}', owner.portal_community.identifier)
     else
       address
     end

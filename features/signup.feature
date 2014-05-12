@@ -29,10 +29,20 @@ Feature: signup
     And I press "Log in"
     Then I should be logged in as "josesilva"
 
+  @selenium
+  Scenario: show error message if username is already used
+    Given the following users
+      | login     |
+      | josesilva |
+    When I go to signup page
+    And I fill in "Username" with "josesilva"
+    And I fill in "e-Mail" with "josesilva1"
+    Then I should see "This login name is unavailable"
+
   Scenario: be redirected if user goes to signup page and is logged
     Given the following users
       | login | name |
-      | joaosilva | Joao Silva |
+      | joaosilva | joao silva |
     Given I am logged in as "joaosilva"
     And I go to signup page
     Then I should be on joaosilva's control panel

@@ -13,8 +13,8 @@
 <%= optional_field(profile, 'address_reference', labelled_form_field(_('Address reference'), text_field(object_name, :address_reference))) %>
 <%= optional_field(profile, 'district', labelled_form_field(_('District'), text_field(object_name, :district))) %>
 <%= optional_field(profile, 'zip_code', labelled_form_field(_('ZIP code'), text_field(object_name, :zip_code))) %>
-<%= optional_field(profile, 'city', f.text_field(:city)) %>
-<%= optional_field(profile, 'state', f.text_field(:state)) %>
+<%= optional_field(profile, 'city', f.text_field(:city, :id =>'city_field')) %>
+<%= optional_field(profile, 'state', f.text_field(:state,:id =>'state_field')) %>
 <%= optional_field(profile, 'country', select_country(_('Country'), object_name, 'country', {:class => 'type-select'})) %>
 <%= optional_field(profile, 'tag_list', f.text_field(:tag_list)) %>
 
@@ -29,3 +29,4 @@
   <%= optional_field(profile, 'acronym', f.text_field(:acronym)) %>
   <%= optional_field(profile, 'foundation_year', f.text_field(:foundation_year)) %>
 <% end %>
+<%= javascript_include_tag('city_state_validation') %>

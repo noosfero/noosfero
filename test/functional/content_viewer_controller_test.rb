@@ -1197,6 +1197,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_remove_edit(content); false; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1213,6 +1214,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_expire_edit(content); nil; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1258,6 +1260,7 @@ class ContentViewerControllerTest < ActionController::TestCase
          }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -1282,6 +1285,7 @@ class ContentViewerControllerTest < ActionController::TestCase
         scope.where(:referrer => 'kernel.org')
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -1339,6 +1343,7 @@ class ContentViewerControllerTest < ActionController::TestCase
          }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)

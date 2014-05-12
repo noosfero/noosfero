@@ -80,8 +80,26 @@
     </h3>
   <% end %>
 
-  <% if @page.accept_comments? && @comments.count > 1 %>
+  <% if @page.accept_comments? && @comments_count > 1 %>
     <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button', :onclick => "jQuery('#page-comment-form .display-comment-form').first().click();") %>
+
+    <%= hidden_field_tag("page_url", url_for(:controller=>'content_viewer', :action=>'view_page', :profile=>profile.identifier)) %>
+    <%= javascript_include_tag "comment_order.js" %>
+    <div class="comment-order">
+      <% form_tag({:controller=>'content_viewer' , :action=>'view_page'}, {:method=>'get', :id=>"form_order"}) do %>
+        <%= select_tag 'comment_order', options_for_select({_('Oldest first')=>'oldest', _('Newest first')=>'newest'}, @comment_order) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @page.accept_comments? and @comments.count > 1 %>
+    <%= hidden_field_tag("page_url", url_for(:controller=>'content_viewer', :action=>'view_page', :profile=>profile.identifier)) %>
+    <%= javascript_include_tag "comment_order.js" %>
+    <div class="comment-order">
+      <% form_tag({:controller=>'content_viewer' , :action=>'view_page'}, {:method=>'get', :id=>"form_order"}) do %>
+        <%= select_tag 'comment_order', options_for_select({_('Oldest first')=>'oldest', _('Newest first')=>'newest'}, @comment_order) %>
+      <% end %>
+    </div>
   <% end %>
 
   <ul class="article-comments-list">

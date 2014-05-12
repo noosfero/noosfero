@@ -16,17 +16,36 @@ class Block < ActiveRecord::Base
 
   named_scope :enabled, :conditions => { :enabled => true }
 
+  def embedable?
+    false
+  end
+
+  def embed_code
+    me = self
+    lambda do
+      content_tag('iframe', '',
+        :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
+        :frameborder => 0,
+        :width => 1024,
+        :height => 768,
+        :class => "embed block #{me.class.name.to_css_class}"
+      )
+    end
+  end
+
   # Determines whether a given block must be visible. Optionally a
   # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and
   # may contain the following keys:
   #
   # * <tt>:article</tt>: the article being viewed currently
   # * <tt>:language</tt>: in which language the block will be displayed
+  # * <tt>:user</tt>: the logged user
   def visible?(context = nil)
     return false if display == 'never'
 
     if context
       return false if language != 'all' && language != context[:locale]
+      return false unless display_to_user?(context[:user])
 
       begin
         return self.send("display_#{display}", context)
@@ -36,6 +55,10 @@ class Block < ActiveRecord::Base
     end
 
     true
+  end
+
+  def display_to_user?(user)
+    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged')
   end
 
   def display_always(context)
@@ -67,6 +90,14 @@ class Block < ActiveRecord::Base
   # * <tt>'except_home_page'</tt> the block is displayed only when viewing
   #   the homepage of its owner.
   settings_items :display, :type => :string, :default => 'always'
+
+
+  # The condition for displaying a block to users. It can assume the following values:
+  #
+  # * <tt>'all'</tt>: the block is always displayed
+  # * <tt>'logged'</tt>: the block is displayed to logged users only
+  # * <tt>'not_logged'</tt>: the block is displayed only to not logged users
+  settings_items :display_user, :type => :string, :default => 'all'
 
   # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
   #
@@ -171,12 +202,20 @@ class Block < ActiveRecord::Base
     'never'            => __('Don\'t display'),
   }
 
-  def display_options
+  def display_options_available
     DISPLAY_OPTIONS.keys
   end
 
-  def display_option_label(option)
-    DISPLAY_OPTIONS[option]
+  def display_options
+    DISPLAY_OPTIONS.slice(*display_options_available)
+  end
+
+  def display_user_options
+    @display_user_options ||= {
+      'all'            => __('All users'),
+      'logged'         => __('Logged'),
+      'not_logged'     => __('Not logged'),
+    }
   end
 
   def duplicate

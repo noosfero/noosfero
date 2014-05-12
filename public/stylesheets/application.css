@@ -1859,20 +1859,70 @@ a.button.disabled, input.disabled {
   text-decoration: none;
 }
 /* ==> blocks/link-list-block.css <<= */
-
 #edit-link-list-block {
-  width: 820px;
+  width: 620px;
+  position: relative;
+  left: -24px;
 }
-
-#edit-link-list-block table {
-  width: auto;
-  margin-bottom: 10px;
+.link-list-header {
+  width: 98%;
+  height: 25px;
+  padding: 10px 1px 10px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
-#edit-link-list-block table .cel-address {
-  width: 220px;
+.link-list-header li {
+  list-style-type: none;
+  display: inline;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
 }
-#edit-link-list-block table .cel-address input {
-  width: 100%;
+#dropable-link-list {
+  padding-left: 23px;
+  margin-top: -12px;
+}
+#dropable-link-list li {
+  list-style-type: none;
+}
+.link-list-row {
+  line-height: 25px;
+  margin-bottom: 5px;
+  padding: 10px 1px 10px 10px;
+  cursor: pointer;
+  width: 97%;
+}
+.link-list-row:hover {
+  background: #ddd url(/images/drag-and-drop.png) no-repeat;
+  background-position: 98% 15px;
+}
+.link-list-row li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 5px;
+}
+.link-list-row li div {
+  float: left;
+  margin-top: 4px;
+}
+.link-list-row li a {
+  line-height: 27px !important;
+  padding-right: 5px;
+}
+.link-list-icon {
+  margin-left: 14px;
+}
+.link-list-name {
+  margin-left: 40px;
+}
+.link-list-address {
+  margin-left: 90px;
+}
+.link-list-target {
+  margin-left: 77px;
+}
+.new_link_row li {
+  margin-left: 7px;
 }
 #content .link-list-block {
   padding: 10px 0px 10px 10px;
@@ -5989,8 +6039,14 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   text-align: right;
 }
 
+#url-check .suggested_usernames,
+#url-check .suggested_usernames a {
+  color: #005000;
+}
+
 #email-check,
 #fake-check,
+#password-rate,
 #password-check {
   margin: -2px 16px -5px 13px;
   text-align: right;
@@ -5999,8 +6055,18 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #email-check p,
 #fake-check p,
+#password-rate p,
 #password-check p {
   margin: 0;
+}
+
+#password-rate {
+  font-weight:bold;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
 .available {
@@ -6016,6 +6082,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #email-check p,
+#password-rate p,
 #password-check p,
 #url-check p {
   margin: 0;
@@ -6606,4 +6673,20 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 .diff li.diff-block-info {
   background: none repeat scroll 0 0 gray;
+}
+
+#signup-form #result-short {
+  color: red;
+}
+
+#signup-form #result-bad {
+  color: #825A2C;
+}
+
+#signup-form #result-good {
+  color: #32CD32;
+}
+
+#signup-form #result-strong {
+  color: green;
 }

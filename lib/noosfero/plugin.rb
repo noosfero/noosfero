@@ -16,14 +16,7 @@ class Noosfero::Plugin
     end
 
     def init_system
-      enabled_plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
-      if Rails.env.test? && !enabled_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
-        enabled_plugins << File.join(Rails.root, 'plugins', 'foo')
-      end
-
-      enabled_plugins.select do |entry|
-        File.directory?(entry)
-      end.each do |dir|
+      available_plugins.each do |dir|
         load_plugin dir
       end
     end
@@ -76,12 +69,19 @@ class Noosfero::Plugin
       klass(plugin_name)
     end
 
-    def all
-      @all ||= []
+    def available_plugins
+      unless @available_plugins
+        path = File.join(Rails.root, 'config', 'plugins', '*')
+        @available_plugins = Dir.glob(path).select{ |i| File.directory?(i) }
+        if Rails.env.test? && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+          @available_plugins << File.join(Rails.root, 'plugins', 'foo')
+        end
+      end
+      @available_plugins
     end
 
-    def inherited(subclass)
-      all << subclass.to_s unless all.include?(subclass.to_s)
+    def all
+      @all ||= available_plugins.map{ |dir| (File.basename(dir) + "_plugin").camelize }
     end
 
     def public_name

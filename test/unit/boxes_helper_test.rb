@@ -54,6 +54,7 @@ class BoxesHelperTest < ActiveSupport::TestCase
     expects(:display_block).with(b, '')
     stubs(:request).returns(request)
     stubs(:block_target).returns('')
+    stubs(:user).returns(nil)
     expects(:locale).returns('en')
     with_box_decorator self do
       display_box_content(box, '')
@@ -73,6 +74,7 @@ class BoxesHelperTest < ActiveSupport::TestCase
     box.save!
     expects(:display_block).with(b, '').never
     stubs(:request).returns(request)
+    stubs(:user).returns(nil)
     stubs(:block_target).returns('')
     expects(:locale).returns('en')
     display_box_content(box, '')
@@ -111,8 +113,9 @@ class BoxesHelperTest < ActiveSupport::TestCase
     request.expects(:path).returns('/')
     request.expects(:params).returns({})
     stubs(:request).returns(request)
+    stubs(:user).returns(nil)
     expects(:locale).returns('en')
-    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/', :locale => 'en', :params => {}}).returns([])
+    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/', :locale => 'en', :params => {}, :user => nil}).returns([])
 
     display_box_content(box, '')
   end

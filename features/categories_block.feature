@@ -26,14 +26,9 @@ Feature: categories_block
     And I am logged in as admin
     And I go to /admin/environment_design
 
-  # Note that this @ignore-hidden-elements only works for seeing hidden
-  # elements. It actually doesn't work for following hidden link or pressing
-  # hidden buttons. That's why it's necessary to use this display hack to show
-  # the link.
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: List just product categories
-    Given display ".button-bar"
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     When I press "Save"
     Then I should see "Food"
@@ -44,8 +39,7 @@ Feature: categories_block
 
   @selenium
   Scenario: Show submenu if it exists
-    Given display ".button-bar"
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
     Then I should see "Food"
@@ -62,8 +56,7 @@ Feature: categories_block
 
   @selenium
   Scenario: Show only one submenu per time
-    Given display ".button-bar"
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
     Then I should see "Book"
@@ -73,16 +66,14 @@ Feature: categories_block
 
   @selenium
   Scenario: List just general categories
-    Given display ".button-bar"
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Generic category"
     When I press "Save"
     Then I should see "Wood"
 
   @selenium
   Scenario: List just regions
-    Given display ".button-bar"
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Region"
     When I press "Save"
     Then I should see "Bahia"

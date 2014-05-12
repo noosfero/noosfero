@@ -1790,6 +1790,7 @@ class ProfileTest < ActiveSupport::TestCase
         Person.members_of(Community.find_by_identifier('community2'))
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['ProfileTest::Plugin1', 'ProfileTest::Plugin2'])
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
 
@@ -1947,6 +1948,7 @@ class ProfileTest < ActiveSupport::TestCase
     end
 
     environment = Environment.default
+    Noosfero::Plugin.stubs(:all).returns(['ProfileTest::Plugin1'])
     environment.enable_plugin(Plugin1)
     plugins = Noosfero::Plugin::Manager.new(environment, self)
     p = fast_create(Profile)

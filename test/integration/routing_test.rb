@@ -270,5 +270,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/work/free-software/versions', :controller => 'content_viewer', :action =>  'article_versions', :page => [ 'work', 'free-software'] )
   end
 
+  should 'have route to get HTML code of Blocks to embed' do
+    assert_routing('/embed/block/12345', :controller => 'embed', :action => 'block', :id => '12345')
+  end
 
 end

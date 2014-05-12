@@ -676,6 +676,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   should 'parse macros' do
     class Plugin1 < Noosfero::Plugin
     end
+    Noosfero::Plugin.stubs(:all).returns(['ApplicationHelperTest::Plugin1'])
 
     class Plugin1::Macro1 < Noosfero::Plugin::Macro
       def parse(params, inner_html, source)
