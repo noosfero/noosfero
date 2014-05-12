@@ -1107,6 +1107,10 @@ jQuery(document).ready(function(){
     var suggestions_cache = {};
     $("#search-input").autocomplete({
       minLength: 2,
+      select: function(event, ui){
+        $(this).val(ui.item.value);
+        $(this).closest('form').submit();
+      },
       source: function(request, response) {
         var term = request.term;
         if (term in suggestions_cache) {
