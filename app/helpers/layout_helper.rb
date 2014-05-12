@@ -76,7 +76,7 @@ module LayoutHelper
   end
 
   def jquery_ui_theme_stylesheet_path
-    'jquery.ui/' + jquery_theme + '/jquery-ui-1.10.3.custom'
+    "https://code.jquery.com/ui/1.10.4/themes/#{jquery_theme}/jquery-ui.css"
   end
 
   def theme_stylesheet_path
