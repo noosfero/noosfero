@@ -94,6 +94,7 @@ class ShoppingCartPluginController < PublicController
   end
 
   def buy
+    @customer = user || Person.new
     if validate_cart_presence
       @cart = cart
       @enterprise = environment.enterprises.find(cart[:profile_id])
