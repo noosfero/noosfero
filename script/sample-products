@@ -12,9 +12,11 @@ for thing in THINGS
   for color in COLORS
     name = [color, thing].join(' ')
     rand(10).times do |i|
+    profile = enterprises.rand
+    next if profile.products.where(:name => name).first
       save Product.new(
         :name => name,
-        :profile_id => enterprises.rand.id, :price => (i * 13.7),
+        :profile_id => profile.id, :price => (i * 13.7),
         :product_category_id => categories.rand.id
       )
     end
