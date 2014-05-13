@@ -36,7 +36,7 @@ class PersonNotifier
 
   class NotifyAllJob
     def self.exists?
-      Delayed::Job.where(:handler => "--- !ruby/object:PersonNotifier::NotifyAllJob {}\n").count > 0
+      Delayed::Job.by_handler("--- !ruby/object:PersonNotifier::NotifyAllJob {}\n").count > 0
     end
 
     def perform
@@ -51,7 +51,7 @@ class PersonNotifier
     end
 
     def self.find(person_id)
-      Delayed::Job.where(:handler => "--- !ruby/struct:PersonNotifier::NotifyJob\nperson_id: #{person_id}\n")
+      Delayed::Job.by_handler("--- !ruby/struct:PersonNotifier::NotifyJob\nperson_id: #{person_id}\n")
     end
 
     def perform

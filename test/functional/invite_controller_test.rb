@@ -231,7 +231,7 @@ class InviteControllerTest < ActionController::TestCase
 
     contact_list = ContactList.create
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
-    job = Delayed::Job.where("handler LIKE '%InvitationJob%'").first
+    job = Delayed::Job.handler_like(InvitationJob.name).first
     assert_equal 'pt', job.payload_object.locale
   end
 
