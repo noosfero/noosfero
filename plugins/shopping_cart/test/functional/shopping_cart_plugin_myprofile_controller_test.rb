@@ -48,7 +48,7 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
     price = 4.35
     post :edit, :profile => enterprise.identifier, :settings => {:delivery_price => price}
 
-    assert settings.delivery_price == price
+    assert settings.delivery_price == price.to_s
   end
 
   should 'be able to choose delivery_options' do

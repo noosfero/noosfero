@@ -5,6 +5,8 @@ class ShoppingCartPlugin::PurchaseOrder < Noosfero::Plugin::ActiveRecord
 
   validates_presence_of :status, :seller
 
+  attr_accessible :seller, :status, :products_list
+
   acts_as_having_settings :field => :data
 
   settings_items :products_list, :type => Array, :default => {}
