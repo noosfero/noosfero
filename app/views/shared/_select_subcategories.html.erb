@@ -3,14 +3,6 @@
   <div class="category-helper-label"><%= _('Click to select a category') %></div>
 
   <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
-
-    <%= link_to_remote category.name,
-      { :update => "select-categories",
-        :url => { :action => "update_categories", :category_id => category.id, :id => @object},
-        :loaded => j(visual_effect(:highlight, "select-categories"))
-      },
-      :class => 'select-subcategory-link',
-      :id => "select-category-#{category.id}-link"
-    %>
+    <%= update_categories_link(category.name, category.id) %>
   <% end %>
 <% end %>
