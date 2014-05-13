@@ -372,10 +372,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     page.body = 'test article edited'; page.save
 
     get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'ul', :attributes => { :class => 'article-versions' }, :descendant => {
-      :tag => 'a',
-      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1" }
-    }
+    assert_select "ul#article-versions a[href=http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1]"
   end
 
   should "fetch correct article version" do
@@ -394,6 +391,17 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
 
     assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
+  end
+
+  should "display differences between article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :versions_diff, :profile => profile.identifier, :page => [ 'myarticle' ], :v1 => 1, :v2 => 2;
+
+    assert_tag :tag => 'li', :attributes => { :class => /del/ }, :content => /original/
+    assert_tag :tag => 'li', :attributes => { :class => /ins/ }, :content => /edited/
+    assert_response :success
   end
 
   should 'not return an article of a different user' do

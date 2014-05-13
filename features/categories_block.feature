@@ -25,7 +25,6 @@ Feature: categories_block
       | environment | CategoriesBlock |
     And I am logged in as admin
     And I go to /admin/environment_design
-    And display ".button-bar"
 
   @selenium
   Scenario: List just product categories

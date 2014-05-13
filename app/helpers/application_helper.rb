@@ -511,24 +511,25 @@ module ApplicationHelper
 
   def profile_cat_icons( profile )
     if profile.class == Enterprise
-      icons = profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
-        compact.uniq.map do |c|
-          cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
-          cat_icon = "/images/icons-cat/#{cat_name}.png"
-          if ! File.exists?(Rails.root.join('public', cat_icon))
-            cat_icon = '/images/icons-cat/undefined.png'
-          end
-          content_tag('span',
-            content_tag( 'span', c ),
-            :title => c,
-            :class => 'product-cat-icon cat_icon_' + cat_name,
-            :style => "background-image:url(#{cat_icon})"
-          )
-        end.join("\n").html_safe
-        content_tag('div',
-          content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-          :class => 'product-category-icons'
+      icons = profile.product_categories.unique_by_level(2).limit(3).map do |c|
+        filtered_category = c.filtered_category.blank? ? c.path.split('/').last : c.filtered_category
+        category_title = filtered_category.split(/[-_\s,.;'"]+/).map(&:capitalize).join(' ')
+        category_name = category_title.gsub(' ', '_' )
+        category_icon = "/images/icons-cat/#{category_name}.png"
+        if ! File.exists?(Rails.root.join('public', category_icon))
+          category_icon = '/images/icons-cat/undefined.png'
+        end
+        content_tag('span',
+          content_tag( 'span', category_title ),
+          :title => category_title,
+          :class => 'product-cat-icon cat_icon_' + category_name,
+          :style => "background-image:url(#{category_icon})"
         )
+      end.join("\n").html_safe
+      content_tag('div',
+        content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
+        :class => 'product-category-icons'
+      )
     else
       ''
     end
@@ -1154,6 +1155,7 @@ module ApplicationHelper
   #FIXME Use time_ago_in_words instead of this method if you're using Rails 2.2+
   def time_ago_as_sentence(from_time, include_seconds = false)
     to_time = Time.now
+    from_time = Time.parse(from_time.to_s)
     from_time = from_time.to_time if from_time.respond_to?(:to_time)
     to_time = to_time.to_time if to_time.respond_to?(:to_time)
     distance_in_minutes = (((to_time - from_time).abs)/60).round

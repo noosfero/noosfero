@@ -9,13 +9,13 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
   end
 
   should 'keep enterprise_id' do
-    assert_nil EnterpriseActivation.new.enterprise_id
+    assert_nil EnterpriseActivation.new.target_id
   end
 
   should 'have an enteprise through enterprise_id' do
     ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent')
 
-    assert_equal ent, EnterpriseActivation.new(:enterprise_id => ent.id).enterprise
+    assert_equal ent, EnterpriseActivation.new(:target => ent).enterprise
   end
 
   should 'require an enterprise' do
@@ -40,17 +40,6 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
     ent.reload
 
     assert ent.enabled, "finishing task should left enterprise enabled"
-  end
-
-  should 'require requestor to finish' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent').tap do |e| 
-      e.enabled = false
-    end
-    t = EnterpriseActivation.create!(:enterprise => ent)
-
-    assert_raise EnterpriseActivation::RequestorRequired do
-      t.finish
-    end
   end
 
   should 'put requestor as enterprise owner when finishing' do

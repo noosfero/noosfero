@@ -26,7 +26,7 @@ ActiveRecord::Base.store_full_sti_class = true
 #Tag.hierarchical = true
 
 # several local libraries
-require 'noosfero'
+require_dependency 'noosfero'
 #FIXME: error when call lib/sqlite_extention
 #require 'sqlite_extension'
 

@@ -53,6 +53,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
+  def test_default_enabled_features_are_enabled
+    environment = Environment.create(:name => 'Testing')
+    Environment::DEFAULT_FEATURES.each do |features|
+      assert environment.enabled?(features)
+    end
+  end
+
   def test_name_is_mandatory
     v = Environment.new
     v.valid?

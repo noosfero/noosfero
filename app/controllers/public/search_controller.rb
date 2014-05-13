@@ -80,7 +80,7 @@ class SearchController < PublicController
   end
 
   def enterprises
-    @scope = visible_profiles(Enterprise, [{:products => :product_category}])
+    @scope = visible_profiles(Enterprise)
     full_text_search
   end
 

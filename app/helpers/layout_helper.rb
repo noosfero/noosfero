@@ -2,9 +2,9 @@ module LayoutHelper
 
   def body_classes
     # Identify the current controller and action for the CSS:
-    " controller-#{controller.controller_name}" +
-    " action-#{controller.controller_name}-#{controller.action_name}" +
-    " template-#{profile.nil? ? "default" : profile.layout_template}" +
+    " controller-#{@controller.controller_name}" +
+    " action-#{@controller.controller_name}-#{@controller.action_name}" +
+    " template-#{@layout_template || if profile.blank? then 'default' else profile.layout_template end}" +
     (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
   end
 
@@ -85,7 +85,7 @@ module LayoutHelper
 
   def addthis_javascript
     if NOOSFERO_CONF['addthis_enabled']
-      '<script src="http://s7.addthis.com/js/152/addthis_widget.js"></script>'
+      '<script src="https://s7.addthis.com/js/152/addthis_widget.js"></script>'
     end
   end
 

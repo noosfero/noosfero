@@ -52,8 +52,8 @@
   )%>
 
   <%=
-    @plugins.dispatch(:profile_editor_extras).each do |content|
-      content.respond_to?(:call) ? content.call : content
+    @plugins.dispatch(:profile_editor_extras).map do |content|
+      if content.respond_to?(:call) then instance_eval(&content).html_safe else content.html_safe end
     end.join("\n")
   %>
 

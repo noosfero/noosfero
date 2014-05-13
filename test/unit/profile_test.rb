@@ -1694,28 +1694,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 1, community.members_count
   end
 
-  should 'order members by name alphabetically considering special characters' do
-    community = fast_create(Community)
-
-    community.add_member(create_user('José').person)
-    community.add_member(create_user('João').person)
-    community.add_member(create_user('Mariana').person)
-    members = community.members_by_name
-
-    assert_equal ["João", "José", "Mariana"], members.map(&:name)
-  end
-
-  should 'order members by name alphabetically considering upper and lower cases' do
-    community = fast_create(Community)
-
-    community.add_member(create_user('mariana').person)
-    community.add_member(create_user('João').person)
-    community.add_member(create_user('guest').person)
-    members = community.members_by_name
-
-    assert_equal ["guest", "João", "mariana"], members.map(&:name)
-  end
-
   should 'know if url is the profile homepage' do
     profile = fast_create(Profile)
 
