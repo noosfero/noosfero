@@ -5,12 +5,12 @@ class ProductCategory < Category
 
   attr_accessible :name, :parent, :environment
 
-  named_scope :unique, :select => 'DISTINCT ON (path) categories.*'
-  named_scope :by_enterprise, lambda { |enterprise| {
+  scope :unique, :select => 'DISTINCT ON (path) categories.*'
+  scope :by_enterprise, lambda { |enterprise| {
     :joins => :products,
     :conditions => ['products.profile_id = ?', enterprise.id]
   }}
-  named_scope :unique_by_level, lambda { |level| {
+  scope :unique_by_level, lambda { |level| {
     :select => "DISTINCT ON (filtered_category) split_part(path, '/', #{level}) AS filtered_category, categories.*"
   }}
 
