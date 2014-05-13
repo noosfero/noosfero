@@ -70,7 +70,7 @@
 
 <%= display_source_info(@page) %>
 
-<%= @plugins.dispatch(:article_extra_contents, @page).collect { |content| instance_eval(&content) }.join("") %>
+<%= @plugins.dispatch(:article_extra_contents, @page).collect { |content| instance_exec(&content) }.join("") %>
 
 <div class="comments" id="comments_list">
 

@@ -4,7 +4,7 @@
 
   <%= required f.text_field(:name) %>
 
-  <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+  <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
 
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">

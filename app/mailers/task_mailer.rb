@@ -45,7 +45,7 @@ class TaskMailer < ActionMailer::Base
 
   def extract_message(message)
     if message.kind_of?(Proc)
-      self.instance_eval(&message)
+      self.instance_exec(&message)
     else
       message.to_s
     end

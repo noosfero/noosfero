@@ -221,7 +221,7 @@ module BoxesHelper
 
     if block.embedable?
       embed_code = block.embed_code
-      embed_code = instance_eval(&embed_code) if embed_code.respond_to?(:call)
+      embed_code = instance_exec(&embed_code) if embed_code.respond_to?(:call)
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +
               content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +

@@ -23,7 +23,7 @@ module CommentHelper
 
   def comment_extra_contents(comment)
     @plugins.dispatch(:comment_extra_contents, comment).collect do |extra_content|
-      extra_content.kind_of?(Proc) ? self.instance_eval(&extra_content) : extra_content
+      extra_content.kind_of?(Proc) ? self.instance_exec(&extra_content) : extra_content
     end.join('\n')
   end
 
@@ -41,7 +41,7 @@ module CommentHelper
   def links_for_comment_actions(comment)
     actions = [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)]
     @plugins.dispatch(:comment_actions, comment).collect do |action|
-      actions << (action.kind_of?(Proc) ? self.instance_eval(&action) : action)
+      actions << (action.kind_of?(Proc) ? self.instance_exec(&action) : action)
     end
     actions.flatten.compact
   end

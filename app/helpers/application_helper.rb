@@ -571,7 +571,7 @@ module ApplicationHelper
   # #profile_image) and its name below it.
   def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
     if content = @plugins.dispatch_first(:profile_image_link, profile, size, tag, extra_info)
-      return instance_eval(&content)
+      return instance_exec(&content)
     end
     name = profile.short_name
     if profile.person?
@@ -928,7 +928,7 @@ module ApplicationHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
+    content = content.kind_of?(Proc) ? self.instance_exec(&content).html_safe : content.html_safe
     filter_html(content, article)
   end
 
@@ -1384,7 +1384,7 @@ module ApplicationHelper
     doc.search('.macro').each do |macro|
       macro_name = macro['data-macro']
       result = @plugins.parse_macro(macro_name, macro, source)
-      macro.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
+      macro.inner_html = result.kind_of?(Proc) ? self.instance_exec(&result) : result
     end
     doc.html
   end
