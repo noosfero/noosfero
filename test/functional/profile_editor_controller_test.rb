@@ -474,8 +474,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
     c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
     c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
-    get :update_categories, :profile => profile.identifier, :category_id => top.id
-    assert_template 'shared/_select_categories'
+    xhr :get, :update_categories, :profile => profile.identifier, :category_id => top.id
+    assert_template 'shared/update_categories'
     assert_equal top, assigns(:current_category)
     assert_equal [c1, c2], assigns(:categories)
   end

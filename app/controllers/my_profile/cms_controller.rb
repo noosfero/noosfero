@@ -231,7 +231,7 @@ class CmsController < MyProfileController
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
     end
-    render :partial => 'shared/select_categories', :locals => {:object_name => 'article', :multiple => true}, :layout => false
+    render :template => 'shared/update_categories', :locals => { :category => @current_category }
   end
 
   def publish
