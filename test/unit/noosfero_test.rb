@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'noosfero'
+require_dependency 'noosfero'
 
 class NoosferoTest < ActiveSupport::TestCase
 
