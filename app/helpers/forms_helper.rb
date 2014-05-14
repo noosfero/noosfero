@@ -1,11 +1,4 @@
 module FormsHelper
-
-  def generate_form( name, obj, fields={} )
-    labelled_form_for name, obj do |f|
-      f.text_field(:name)
-    end
-  end
-
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
     options[:id] ||= 'radio-' + FormsHelper.next_id_number
     radio_button_tag( name, value, checked, options ) +
