@@ -1,5 +1,4 @@
 require_dependency 'noosfero'
-include ActionView::Helpers::AssetTagHelper
 
 class Noosfero::Plugin
 
