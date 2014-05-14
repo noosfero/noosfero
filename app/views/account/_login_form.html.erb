@@ -1,4 +1,4 @@
-<%= labelled_form_for :user, @user,
+<%= labelled_form_for :user,
    :url => { :controller => 'account', :action => (params[:enterprise_code] ? 'activate_enterprise' : 'login') }  do |f| %>
 
 <%= f.text_field :login,

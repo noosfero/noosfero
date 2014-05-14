@@ -4,7 +4,7 @@
 <%= _('Select which plugins you want to enable in your environment') %>
 </p>
 
-<%= labelled_form_for(:environment, @environment, :url => {:action => 'update'}) do |f| %>
+<%= labelled_form_for(:environment, :url => {:action => 'update'}) do |f| %>
 
   <table>
     <% @active_plugins.sort_by(&:plugin_name).each do |plugin|   %>

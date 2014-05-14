@@ -805,8 +805,7 @@ module ApplicationHelper
     fields_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 
-  def labelled_form_for(name, object = nil, options = {}, &proc)
-    # FIXME remove the =object= argument and adapt the calling code
+  def labelled_form_for(name, options = {}, &proc)
     form_for(name, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 

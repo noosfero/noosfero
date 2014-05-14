@@ -1,7 +1,7 @@
 <h1><%= @ticket.target ? _('New request for %s') % @ticket.target.name : _('New request') %></h1>
 
 <%# FIXME: put style in css %>
-<%= labelled_form_for :ticket, @ticket do |f| %>
+<%= labelled_form_for :ticket do |f| %>
   <% if @ticket.target %>
     <%= f.hidden_field :target_id  %>
   <% else %>

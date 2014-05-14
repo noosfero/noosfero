@@ -1,8 +1,8 @@
 <h1><%= _('Profile settings for %s') % profile.name %></h1>
 
-<%= error_messages_for :profile %>
+<%= error_messages_for :profile_data %>
 
-<%= labelled_form_for :profile_data, @profile, :html => { :id => 'profile-data', :multipart => true } do |f| %>
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data', :multipart => true } do |f| %>
 
   <% if user.has_permission?('manage_environment_templates', profile.environment) %>
     <div id="profile-is-template">

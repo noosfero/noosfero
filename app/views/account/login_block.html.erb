@@ -8,8 +8,8 @@
 <%
   @user ||= User.new
 %>
-    
-    <%= labelled_form_for :user, @user, :url => login_url do |f| %>
+
+    <%= labelled_form_for :user, :url => login_url do |f| %>
 
       <%= f.text_field :login, :onchange => 'this.value = convToValidLogin( this.value )' %>
 
