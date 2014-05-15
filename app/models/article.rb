@@ -489,6 +489,7 @@ class Article < ActiveRecord::Base
   end
 
   def allow_post_content?(user = nil)
+    return true if allow_edit_topic?(user)
     user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == author))
   end
 
@@ -508,7 +509,12 @@ class Article < ActiveRecord::Base
   end
 
   def allow_edit?(user)
+    return true if allow_edit_topic?(user)
     allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
+  end
+
+  def allow_edit_topic?(user)
+    self.belongs_to_forum? && (user == author) && user.is_member_of?(profile)
   end
 
   def moderate_comments?
