@@ -41,7 +41,7 @@ namespace :noosfero do
   end
 
   def version
-    require_dependency 'noosfero'
+    require 'noosfero'
     Noosfero::VERSION
   end
 
@@ -135,7 +135,7 @@ EOF
     next if File.exist?("tmp/pending-release")
     release_kind = args[:release_kind] || 'stable'
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       version_question = "Release candidate of which version"
       distribution = 'squeeze-test'
     else
@@ -145,7 +145,7 @@ EOF
 
     version_name = new_version = ask(version_question)
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       rc_version = ask('RC version', Time.now.strftime('%Y%m%d%H%M%S'))
       version_name += "~rc#{rc_version}"
     end
@@ -177,9 +177,13 @@ EOF
     next if File.exist?("tmp/pending-release")
     release_kind = args[:release_kind] || 'stable'
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       version_question = "Release candidate of which version: "
-      distribution = 'squeeze-test'
+      if release_kind == 'squeeze-test'
+        distribution = 'squeeze-test'
+      elsif release_kind == 'wheezy-test'
+        distribution = 'wheezy-test'
+      end
     else
       version_question = "Version that is being released: "
       distribution = 'unstable'
@@ -187,7 +191,7 @@ EOF
 
     version_name = new_version = ask(version_question)
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
