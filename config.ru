@@ -10,11 +10,9 @@ require "config/environment"
 #run ActionController::Dispatcher.new
 
 rails_app = Rack::Builder.new do
-  use Rails::Rack::LogTailer
-  use Rails::Rack::Static
-  run ActionController::Dispatcher.new
+  run Noosfero::Application
 end
- 
+
 run Rack::Cascade.new([
   API::API,
   rails_app
