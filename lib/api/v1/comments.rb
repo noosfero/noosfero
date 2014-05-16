@@ -1,10 +1,10 @@
 module API
   module V1
     class Comments < Grape::API
-  
+
       before { detect_stuff_by_domain }
       before { authenticate! }
-   
+
       resource :articles do
         # Collect comments from articles
         #
@@ -27,18 +27,18 @@ module API
           present comments, :with => Entities::Comment
 
         end
-   
+
         get ":id/comments/:comment_id" do
           present environment.articles.find(params[:id]).comments.find(params[:comment_id]), :with => Entities::Comment
         end
-   
+
         # Example Request:
         #  POST api/v1/articles/12/comments?private_toke=234298743290432&body=new comment
         post ":id/comments" do
           present environment.articles.find(params[:id]).comments.create(:author => current_person, :body => params[:body]), :with => Entities::Comment
         end
       end
-   
+
     end
   end
 end

@@ -9,7 +9,7 @@ module API
     content_type :txt, "text/plain"
 
     helpers APIHelpers
- 
+
     mount V1::Articles
     mount V1::Comments
     mount V1::Users

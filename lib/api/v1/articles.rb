@@ -3,7 +3,7 @@ module API
     class Articles < Grape::API
       before { detect_stuff_by_domain }
       before { authenticate! }
-   
+
       resource :articles do
 
         # Collect comments from articles
@@ -19,18 +19,18 @@ module API
 #      :params => API::Entities::Article.documentation
 #    }
         get do
-  
+
           conditions = make_conditions_with_parameter(params)
-                  
+
           if params[:reference_id]
             articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           else
             articles = environment.articles.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           end
-          present articles, :with => Entities::Article 
+          present articles, :with => Entities::Article
         end
-  
-        desc "Return the article id" 
+
+        desc "Return the article id"
         get ':id' do
           present environment.articles.find(params[:id]), :with => Entities::Article
         end
@@ -45,7 +45,7 @@ module API
           else
             articles = environment.articles.find(params[:id]).children.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           end
-          present articles, :with => Entities::Article 
+          present articles, :with => Entities::Article
         end
 
         get ':id/children/:child_id' do
@@ -54,7 +54,7 @@ module API
 
 
       end
-   
+
     end
   end
 end

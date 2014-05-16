@@ -168,7 +168,7 @@ module API
 
     private
 
-    def default_limit 
+    def default_limit
       20
     end
 
