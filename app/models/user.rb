@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   def generate_private_token!
     self.private_token = SecureRandom.hex
     self.private_token_generated_at = DateTime.now
-    save(false)
+    save(:validate => false)
   end
 
   #FIXME make this test

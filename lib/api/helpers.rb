@@ -32,15 +32,12 @@ module API
     end
 
     def period(from_date, until_date)
-      if from_date.nil?
-        begin_period = Time.at(0).to_datetime
-        end_period = until_date.nil? ? DateTime.now : until_date
-      else
-        begin_period = from_date
-        end_period = DateTime.now
-      end
+      return nil if from_date.nil? && until_date.nil?
 
-      begin_period...end_period
+      begin_period = from_date.nil? ? Time.at(0).to_datetime : from_date
+      end_period = until_date.nil? ? DateTime.now : until_date
+
+      begin_period..end_period
     end
 
     def parse_content_type(content_type)
@@ -50,7 +47,6 @@ module API
       end
     end
 
-    
     def make_conditions_with_parameter(params = {})
       conditions = {}
       from_date = DateTime.parse(params[:from]) if params[:from]
@@ -58,7 +54,7 @@ module API
 
       conditions[:type] = parse_content_type(params[:content_type]) unless params[:content_type].nil?
 
-      conditions[:created_at] = period(from_date, until_date)
+      conditions[:created_at] = period(from_date, until_date) if from_date || until_date
 
       conditions
     end
