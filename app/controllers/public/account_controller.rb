@@ -17,6 +17,7 @@ class AccountController < ApplicationController
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
     if @user and @user.activate
       @message = _("Your account has been activated, now you can log in!")
+      session[:join] = params[:join] unless params[:join].blank?
       render :action => 'login', :userlogin => @user.login
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
@@ -35,6 +36,7 @@ class AccountController < ApplicationController
     self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
 
     if logged_in?
+      join_community(self.current_user)
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -91,6 +93,7 @@ class AccountController < ApplicationController
           if session[:may_be_a_bot]
             return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
           end
+          @user.community_to_join = session[:join]
           @user.signup!
           owner_role = Role.find_by_name('owner')
           @user.person.affiliate(@user.person, [owner_role]) if owner_role
@@ -101,6 +104,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
+            join_community(@user)
             go_to_signup_initial_page
           else
             @register_pending = true
@@ -446,6 +450,14 @@ class AccountController < ApplicationController
         redirect_to user.admin_url
     else
       redirect_back_or_default(default)
+    end
+  end
+
+  def join_community(user)
+    profile_to_join = session[:join]
+    unless profile_to_join.blank?
+     environment.profiles.find_by_identifier(profile_to_join).add_member(user.person)
+     session.delete(:join)
     end
   end
 end
