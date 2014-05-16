@@ -36,7 +36,7 @@ class AccountController < ApplicationController
     self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
 
     if logged_in?
-      join_community(self.current_user)
+      check_join_in_community(self.current_user)
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -104,7 +104,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
-            join_community(@user)
+            check_join_in_community(@user)
             go_to_signup_initial_page
           else
             @register_pending = true
@@ -453,7 +453,7 @@ class AccountController < ApplicationController
     end
   end
 
-  def join_community(user)
+  def check_join_in_community(user)
     profile_to_join = session[:join]
     unless profile_to_join.blank?
      environment.profiles.find_by_identifier(profile_to_join).add_member(user.person)
