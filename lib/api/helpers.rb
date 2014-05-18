@@ -59,6 +59,18 @@ module API
       conditions
     end
 
+
+    def select_filtered_collection_of(object, method, params)
+      conditions = make_conditions_with_parameter(params)
+               
+      if params[:reference_id]
+        objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+      else
+        objects = object.send(method).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+      end
+      objects
+    end
+
 #FIXME see if its needed
 #    def paginate(relation)
 #      per_page  = params[:per_page].to_i
