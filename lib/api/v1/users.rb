@@ -1,7 +1,8 @@
 module API
   module V1
     class Users < Grape::API
-
+   
+      before { detect_stuff_by_domain }
       before { authenticate! }
 
       resource :users do
@@ -9,11 +10,11 @@ module API
         #FIXME make the pagination
         #FIXME put it on environment context
         get do
-          present User.all, :with => Entities::User
+          present environment.users, :with => Entities::User
         end
 
         get ":id" do
-          present User.find(params[:id]), :with => Entities::User
+          present environment.users.find(params[:id]), :with => Entities::User
         end
 
       end

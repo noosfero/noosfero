@@ -19,15 +19,8 @@ module API
 #      :params => API::Entities::Article.documentation
 #    }
         get do
-
-          conditions = make_conditions_with_parameter(params)
-
-          if params[:reference_id]
-            articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          else
-            articles = environment.articles.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          end
-          present articles, :with => Entities::Article
+          articles = select_filtered_collection_of(environment, 'articles', params)
+          present articles, :with => Entities::Article 
         end
 
         desc "Return the article id"
@@ -36,8 +29,6 @@ module API
         end
 
         get ':id/children' do
-          from_date = DateTime.parse(params[:from]) if params[:from]
-          until_date = DateTime.parse(params[:until]) if params[:until]
 
           conditions = make_conditions_with_parameter(params)
           if params[:reference_id]
@@ -55,6 +46,35 @@ module API
 
       end
 
+      resource :communities do 
+        segment '/:community_id' do 
+          resource :articles do
+            get do
+              community = environment.communities.find(params[:community_id])
+              articles = select_filtered_collection_of(community, 'articles', params)
+              present articles, :with => Entities::Article 
+            end
+
+            get '/:id' do
+              community = environment.communities.find(params[:community_id])
+              present community.articles.find(params[:id]), :with => Entities::Article
+            end
+
+            # Example Request:
+            #  POST api/v1/communites/:community_id/articles?private_toke=234298743290432&article[name]=title&article[body]=body
+            post do
+              community = environment.communities.find(params[:community_id])
+              article = community.articles.build(params[:article].merge(:last_changed_by => current_person))
+              article.type= params[:type].nil? ? 'TinyMceArticle' : params[:type]
+              article.save
+              present article, :with => Entities::Article
+            end
+
+          end
+        end
+
+      end
+   
     end
   end
 end
