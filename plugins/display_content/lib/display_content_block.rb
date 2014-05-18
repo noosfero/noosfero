@@ -15,6 +15,8 @@ class DisplayContentBlock < Block
     N_('December')
   ]
 
+  AVAILABLE_SECTIONS = ['publish_date', 'title', 'abstract', 'body', 'image' ,'tags']
+
   settings_items :nodes, :type => Array, :default => []
   settings_items :sections,
                  :type => Array,
@@ -27,7 +29,7 @@ class DisplayContentBlock < Block
                               {:value => 'image', :checked => false},
                               {:value => 'tags', :checked => false}]
   settings_items :display_folder_children, :type => :boolean, :default => true
-  settings_items :types, :type => Array, :default => ['UploadedFile']
+  settings_items :types, :type => Array
 
   def self.description
     _('Display your contents')
@@ -112,12 +114,11 @@ class DisplayContentBlock < Block
 
   include ActionController::UrlWriter
   def content(args={})
-    nodes_conditions = nodes.blank? ? '' : " articles.id IN(:nodes) "
+    nodes_conditions = nodes.blank? ? '' : " AND articles.id IN(:nodes) "
     nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
-#    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : " AND (#{nodes_conditions})"}", {:nodes => self.nodes, :types => (types || VALID_CONTENT)}])
 
-    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types)", {:nodes => self.nodes, :types => (self.types || VALID_CONTENT)}])
+    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => (self.types.blank? ? VALID_CONTENT : self.types)}])
 
     block_title(title) +
       content_tag('ul', docs.map {|item|
