@@ -18,13 +18,16 @@ class DisplayContentBlock < Block
   settings_items :nodes, :type => Array, :default => []
   settings_items :sections,
                  :type => Array,
-                 :default => [{:name => _('Publish date'), :checked => true},
-                              {:name => _('Title'), :checked => true},
-                              {:name => _('Abstract'), :checked => true},
-                              {:name => _('Body'), :checked => false},
-                              {:name => _('Image'), :checked => false},
-                              {:name => _('Tags'), :checked => false}]
+#FIXME make test for values
+#Refactoring section stuff
+                 :default => [{:value => 'publish_date', :checked => true},
+                              {:value => 'title', :checked => true},
+                              {:value => 'abstract', :checked => true},
+                              {:value => 'body', :checked => false},
+                              {:value => 'image', :checked => false},
+                              {:value => 'tags', :checked => false}]
   settings_items :display_folder_children, :type => :boolean, :default => true
+  settings_items :types, :type => Array, :default => ['UploadedFile']
 
   def self.description
     _('Display your contents')
@@ -32,6 +35,44 @@ class DisplayContentBlock < Block
 
   def help
     _('This block displays articles chosen by you. You can edit the block to select which of your articles is going to be displayed in the block.')
+  end
+
+  def section_name(section)
+    {
+      'publish_date' => _('Publish date'),
+      'title' => _('Title'),
+      'abstract' => _('Abstract'),
+      'body' => _('Body'),
+      'image' => _('Image'),
+      'tags' => _('Tags')
+    }[section] || section
+  end
+
+  #FIXME make this test copy of Context Content
+  def available_content_types
+    @available_content_types ||= [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    checked_types = types.map {|t| t.constantize}
+    checked_types + (@available_content_types - checked_types)
+  end
+
+  #FIXME make this test copy of Context Content
+  def first_content_types
+    available_content_types.first(first_types_count)
+  end
+
+  #FIXME make this test copy of Context Content
+  def more_content_types
+    available_content_types.drop(first_types_count)
+  end
+
+  #FIXME make this test copy of Context Content
+  def first_types_count
+    [2, types.length].max
+  end
+
+  #FIXME make this test copy of Context Content
+  def types=(new_types)
+    settings[:types] = new_types.reject(&:blank?)
   end
 
   def checked_nodes= params
@@ -71,8 +112,12 @@ class DisplayContentBlock < Block
 
   include ActionController::UrlWriter
   def content(args={})
-    extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
-    docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
+    nodes_conditions = nodes.blank? ? '' : " articles.id IN(:nodes) "
+    nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
+
+#    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : " AND (#{nodes_conditions})"}", {:nodes => self.nodes, :types => (types || VALID_CONTENT)}])
+
+    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types)", {:nodes => self.nodes, :types => (self.types || VALID_CONTENT)}])
 
     block_title(title) +
       content_tag('ul', docs.map {|item|
@@ -82,24 +127,24 @@ class DisplayContentBlock < Block
         tags_section = ''
 
         sections.select { |section|
-          case section[:name]
-          when 'Publish date'
+          case section[:value]
+          when 'publish_date'
             content_sections += (display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
-          when 'Title'
+          when 'title'
             content_sections += (display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
-          when 'Abstract'
+          when 'abstract'
             content_sections += (display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
             if display_section?(section)
               read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
             end
-          when 'Body'
+          when 'body'
             content_sections += (display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
-          when 'Image'
+          when 'image'
             image_section = image_tag item.image.public_filename if item.image
             if !image_section.blank?
               content_sections += (display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
             end
-          when 'Tags'
+          when 'tags'
             if !item.tags.empty?
               tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
               content_sections += (display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
@@ -108,7 +153,7 @@ class DisplayContentBlock < Block
         }
 
         content_sections += read_more_section if !read_more_section.blank?
-
+#raise sections.inspect
         content_tag('li', content_sections)
       end
     }.join(" "))

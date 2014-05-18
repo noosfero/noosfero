@@ -1,0 +1,15 @@
+<%= label :block, :types, _('Display content types:'), :class => 'formlabel' %>
+<div class="content_types">
+  <% @block.first_content_types.each do |type| %>
+    <%= labelled_form_field check_box(:block, 'types', {:multiple => true}, type.name, nil) + _(type.short_description), '' %>
+  <% end %>
+  <% if !@block.more_content_types.empty? %>
+    <a href="#" onclick="jQuery('.content_types .more').toggle(); return false;"><%= _('more') %></a>
+  <% end %>
+  <div class="more" style="display: none">
+    <% @block.more_content_types.each do |type| %>
+      <%= labelled_form_field check_box(:block, 'types', {:multiple => true}, type.name, nil) + _(type.short_description), '' %>
+    <% end %>
+  </div>
+</div>
+
