@@ -20,14 +20,9 @@ class DisplayContentBlock < Block
   settings_items :nodes, :type => Array, :default => []
   settings_items :sections,
                  :type => Array,
-#FIXME make test for values
-#Refactoring section stuff
                  :default => [{:value => 'publish_date', :checked => true},
                               {:value => 'title', :checked => true},
-                              {:value => 'abstract', :checked => true},
-                              {:value => 'body', :checked => false},
-                              {:value => 'image', :checked => false},
-                              {:value => 'tags', :checked => false}]
+                              {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
   settings_items :types, :type => Array
 
@@ -50,7 +45,16 @@ class DisplayContentBlock < Block
     }[section] || section
   end
 
-  #FIXME make this test copy of Context Content
+  alias :orig_sections :sections
+  def sections
+    available_sections = AVAILABLE_SECTIONS
+    available_sections = available_sections - orig_sections.map{|e|e[:value]}
+    sections = available_sections.map do |section|
+      {:value => section, :checked => false}
+    end
+    sections + orig_sections
+  end
+
   def available_content_types
     @available_content_types ||= [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
     checked_types = types.map {|t| t.constantize}
@@ -62,17 +66,14 @@ class DisplayContentBlock < Block
     available_content_types.first(first_types_count)
   end
 
-  #FIXME make this test copy of Context Content
   def more_content_types
     available_content_types.drop(first_types_count)
   end
 
-  #FIXME make this test copy of Context Content
   def first_types_count
     [2, types.length].max
   end
 
-  #FIXME make this test copy of Context Content
   def types=(new_types)
     settings[:types] = new_types.reject(&:blank?)
   end

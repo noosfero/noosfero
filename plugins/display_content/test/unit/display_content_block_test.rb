@@ -472,8 +472,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
 
-    block.sections = [{:value => 'body', :checked => true}]
-    section = block.sections.first
+    section = {:value => 'body', :checked => true}
+    block.sections = [section]
 
     assert block.display_section?(section)
   end
@@ -555,6 +555,78 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:environment).returns(env)
     block.stubs(:box).returns(box)
     assert_equal [a1], block.articles_of_parent
+  end
+
+  should "the section display all available sections" do
+    block = DisplayContentBlock.new
+    assert_equivalent ['publish_date', 'abstract', 'body', 'image' ,'tags', 'title'], block.sections.map{|e|e[:value]}
+  end
+
+  should "the section display all available sections if the section value has only one key" do
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}]
+    assert_equivalent ['publish_date', 'abstract', 'body', 'image' ,'tags', 'title'], block.sections.map{|e|e[:value]}
+  end
+
+  should 'return available content types with checked types first' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+
+    block.types = ['TinyMceArticle', 'Folder']
+    assert_equal [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], block.available_content_types
+  end
+
+  should 'return available content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
+  end
+
+  should 'return first 2 content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal 2, block.first_content_types.length
+  end
+
+  should 'return all but first 2 content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal block.available_content_types.length - 2, block.more_content_types.length
+  end
+
+  should 'return 2 as default value for first_types_count' do
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal 2, block.first_types_count
+  end
+
+  should 'return types length if it has more than 2 selected types' do
+    block = DisplayContentBlock.create!
+    block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal 3, block.first_types_count
+  end
+
+  should 'return selected types at first_content_types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal [UploadedFile, Event, Folder], block.first_content_types
+    assert_equal block.available_content_types - [UploadedFile, Event, Folder], block.more_content_types
+  end
+
+  should 'include plugin content at available content types' do
+    block = DisplayContentBlock.create!
+    class SomePluginContent;end
+    class SomePlugin; def content_types; SomePluginContent end end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
+
+    block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
   end
 
 end
