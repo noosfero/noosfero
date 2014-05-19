@@ -163,6 +163,9 @@ module API
       error!({'message' => message, :code => status}, status)
     end
 
+    def render_api_errors!(messages)
+      render_api_error!(messages.join(','), 400)
+    end
     protected
 
     def detect_stuff_by_domain

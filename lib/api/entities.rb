@@ -2,6 +2,7 @@ module API
   module Entities
 
     class Image < Grape::Entity
+      root 'images', 'image'
 
       expose  :icon_url do |image, options|
         image.public_filename(:icon)
@@ -28,10 +29,12 @@ module API
     class Person < Profile;end;
     class Enterprise < Profile;end;
     class Community < Profile
+      root 'communities', 'community'
       expose :description
     end
 
     class Category < Grape::Entity
+      root 'categories', 'category'
       expose :name, :id, :slug
       expose :image, :using => Image
     end
@@ -44,12 +47,6 @@ module API
       expose :author, :using => Profile
       expose :profile, :using => Profile
       expose :categories, :using => Category
-#, :if => lambda { |instance, options| raise params.inspect }
-# do |instance, options|
-#    # examine available environment keys with `p options[:env].keys`
-#    options[:user]
-#  end
-
     end
 
     class Comment < Grape::Entity

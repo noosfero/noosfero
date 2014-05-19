@@ -16,48 +16,14 @@ module API
         # Example Request:
         #  GET /people?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
         #  GET /people?reference_id=10&limit=10&oldest
-#    desc 'Articles.', {
-#      :params => API::Entities::Article.documentation
-#    }
         get do
-          conditions = make_conditions_with_parameter(params)
-                  
-          if params[:reference_id]
-            people = environment.people.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          else
-            people = environment.people.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          end
+          people = select_filtered_collection_of(environment, 'people', params)
           present people, :with => Entities::Person
         end
-    
 
-        segment '/:person_id' do  
- 
-          desc "Return the person information" 
-          get do
-            present environment.people.find(params[:person_id]), :with => Entities::Person
-          end
-  
-          resource '/communities' do 
-            desc "Return all communities of person" 
-            get  do
-              person = environment.people.find(params[:person_id])
-              conditions = make_conditions_with_parameter(params)
-                      
-              if params[:reference_id]
-                communities = person.communities.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-              else
-                communities = person.communities.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-              end
-              present communities, :with => Entities::Community
-            end
-
-            desc "Return all communities of person" 
-            get '/:id' do
-              person = environment.people.find(params[:person_id])
-              present person.communities.find(params[:id]), :with => Entities::Community
-            end
-          end
+        desc "Return the person information" 
+        get '/:id' do
+          present environment.people.find(params[:id]), :with => Entities::Person
         end
 
       end

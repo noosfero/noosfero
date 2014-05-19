@@ -16,17 +16,8 @@ module API
         # Example Request:
         #  GET /enterprises?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
         #  GET /enterprises?reference_id=10&limit=10&oldest
-#    desc 'Articles.', {
-#      :params => API::Entities::Article.documentation
-#    }
         get do
-          conditions = make_conditions_with_parameter(params)
-                  
-          if params[:reference_id]
-            enterprises = environment.enterprises.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          else
-            enterprises = environment.enterprises.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          end
+          enterprises = select_filtered_collection_of(environment, 'enterprises', params)
           present enterprises, :with => Entities::Enterprise
         end
   
