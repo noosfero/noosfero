@@ -1669,6 +1669,7 @@ class ArticleTest < ActiveSupport::TestCase
     post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
 
     assert post.allow_edit?(author)
+    assert_select 'a', 'button with-text icon-delete'
   end
 
   should 'has a empty list of followers by default' do
