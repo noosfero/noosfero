@@ -16,27 +16,24 @@ module API
         # Example Request:
         #  GET /communities?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
         #  GET /communities?reference_id=10&limit=10&oldest
-#    desc 'Articles.', {
-#      :params => API::Entities::Article.documentation
-#    }
         get do
-          conditions = make_conditions_with_parameter(params)
-                  
-          if params[:reference_id]
-            communities = environment.communities.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          else
-            communities = environment.communities.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          end
+          communities = select_filtered_collection_of(current_person, 'communities', params)
           present communities, :with => Entities::Community
         end
-  
-        desc "Return the article id" 
+
+        #FIXME See only public communities
+        get '/all' do
+          communities = select_filtered_collection_of(environment, 'communities', params)
+          present communities, :with => Entities::Community
+        end
+
         get ':id' do
-          present environment.communities.find(params[:id]), :with => Entities::Community
+          community = environment.communities.find(params[:id])
+          present community, :with => Entities::Community
         end
 
       end
-   
+
     end
   end
 end

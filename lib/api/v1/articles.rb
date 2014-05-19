@@ -66,7 +66,9 @@ module API
               community = environment.communities.find(params[:community_id])
               article = community.articles.build(params[:article].merge(:last_changed_by => current_person))
               article.type= params[:type].nil? ? 'TinyMceArticle' : params[:type]
-              article.save
+              if !article.save
+                render_api_errors!(article.errors.full_messages)
+              end
               present article, :with => Entities::Article
             end
 
