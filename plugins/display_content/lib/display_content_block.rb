@@ -24,7 +24,7 @@ class DisplayContentBlock < Block
                               {:value => 'title', :checked => true},
                               {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
-  settings_items :types, :type => Array
+  settings_items :types, :type => Array, :default => []
 
   def self.description
     _('Display your contents')
