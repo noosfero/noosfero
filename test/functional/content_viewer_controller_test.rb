@@ -894,6 +894,16 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => 'New discussion topic'
   end
 
+  should 'display icon-edit button to author topic' do
+    community = fast_create(Community)
+    author = fast_create(Person)
+    community.add_member(author)
+    forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
+
+    assert_select 'div#article-actions'
+  end
+
   should 'add meta tag to rss feed on view forum' do
     login_as(profile.identifier)
     profile.articles << Forum.new(:name => 'Forum', :profile => profile)
