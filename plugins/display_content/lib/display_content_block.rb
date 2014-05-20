@@ -87,7 +87,7 @@ class DisplayContentBlock < Block
   def expand_nodes
     return self.nodes if self.holder.nil?
 
-    articles = self.holder.articles.find(nodes)
+    articles = self.holder.articles.where(:id => nodes)
     children = articles.map { |article| article.children }.compact.flatten
 
     if display_folder_children
