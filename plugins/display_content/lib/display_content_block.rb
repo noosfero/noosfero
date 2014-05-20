@@ -24,7 +24,7 @@ class DisplayContentBlock < Block
                               {:value => 'title', :checked => true},
                               {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
-  settings_items :types, :type => Array, :default => []
+  settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
 
   def self.description
     _('Display your contents')
@@ -56,7 +56,7 @@ class DisplayContentBlock < Block
   end
 
   def available_content_types
-    @available_content_types ||= [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    @available_content_types ||= [TinyMceArticle, RawHTMLArticle, TextileArticle, UploadedFile, Event, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
     checked_types = types.map {|t| t.constantize}
     checked_types + (@available_content_types - checked_types)
   end
@@ -119,7 +119,7 @@ class DisplayContentBlock < Block
     nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
 
-    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => (self.types.blank? ? VALID_CONTENT : self.types)}])
+    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}])
 
     block_title(title) +
       content_tag('ul', docs.map {|item|
