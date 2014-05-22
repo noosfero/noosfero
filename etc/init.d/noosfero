@@ -54,10 +54,10 @@ fi
 ######################
 
 main_script() {
-  cd $NOOSFERO_DIR
   if [ "$NOOSFERO_USER" != "$USER" ]; then
-    su $NOOSFERO_USER -l -c "./script/production $1"
+    su $NOOSFERO_USER -l -c "cd $NOOSFERO_DIR && ./script/production $1"
   else
+    cd $NOOSFERO_DIR
     ./script/production $1
   fi
 }
