@@ -1,12 +1,19 @@
 (function($) {
-  //TODO Sorting
-  // Sorting and pagination links.
-  $('#search-content .pagination a').live('click',
-    function () {
-      $.getScript(this.href);
-      return false;
-    }
-  );
+  // Pagination.
+  $('#search-content .pagination a').live('click', function () {
+    $.ajax({
+      url: this.href,
+      beforeSend: function(){$('#search-content').addClass('searching')},
+      complete: function() {$('#search-content').removeClass('searching')},
+      dataType: 'script'
+    })
+    return false;
+  });
+
+  // Sorting
+  $('#search-filters select').change(function(){
+    $('form.search_form').submit();
+  });
 
   // Search form
   $('form.search_form').submit(function () {
