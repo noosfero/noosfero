@@ -974,7 +974,7 @@ module ApplicationHelper
   end
 
   def jquery_theme
-    theme_option(:jquery_theme) || 'smoothness_mod'
+    theme_option(:jquery_theme) || 'smoothness'
   end
 
   def ui_error(message)

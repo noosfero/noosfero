@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
 
+  after_filter :set_csrf_cookie
+
+  def set_csrf_cookie
+    cookies['_noosfero_.XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery? && logged_in?
+  end
+
   def allow_cross_domain_access
     origin = request.headers['Origin']
     return if origin.blank?
@@ -90,6 +96,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_person, :current_person
 
   protected
+
+  def verified_request?
+    super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
+  end
 
   def setup_multitenancy
     Noosfero::MultiTenancy.setup!(request.host)
