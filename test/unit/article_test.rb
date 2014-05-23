@@ -1663,6 +1663,8 @@ class ArticleTest < ActiveSupport::TestCase
  
   should 'allow author to edit topic' do
     community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
     author = fast_create(Person)
     community.add_member(author)
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')

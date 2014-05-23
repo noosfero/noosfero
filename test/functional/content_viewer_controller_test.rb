@@ -896,12 +896,34 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display icon-edit button to author topic' do
     community = fast_create(Community)
-    author = fast_create(Person)
+    admin = fast_create(Person)
+    community.add_member(admin)
+    author = create_user('author').person
     community.add_member(author)
+
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
     post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
 
-    assert_select 'div#article-actions'
+    login_as(author.identifier)
+    get :view_page, :profile => community.identifier, :page => post.path.split('/')
+
+    assert_select "div#article-actions a.icon-edit"
+  end
+
+  should 'display icon-delete button to author topic' do
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
+    author = create_user('author').person
+    community.add_member(author)
+
+    forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
+
+    login_as(author.identifier)
+    get :view_page, :profile => community.identifier, :page => post.path.split('/')
+
+    assert_select "div#article-actions a.icon-delete"
   end
 
   should 'add meta tag to rss feed on view forum' do
