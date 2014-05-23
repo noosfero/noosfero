@@ -15,20 +15,14 @@ class ProfileEditorController < MyProfileController
     @possible_domains = profile.possible_domains
     if request.post?
       params[:profile_data][:fields_privacy] ||= {} if profile.person? && params[:profile_data].is_a?(Hash)
-      begin
-        Profile.transaction do
-        Image.transaction do
-          if profile.update_attributes!(params[:profile_data])
-            redirect_to :action => 'index', :profile => profile.identifier
-          end
+      Profile.transaction do
+      Image.transaction do
+        if @profile_data.update_attributes(params[:profile_data])
+          redirect_to :action => 'index', :profile => profile.identifier
+        else
+          profile.identifier = params[:profile] if profile.identifier.blank?
         end
-        end
-      rescue Exception => ex
-        if profile.identifier.blank?
-          profile.identifier = params[:profile]
-        end
-        session[:notice] = _('Cannot update profile')
-        logger.error ex.to_s
+      end
       end
     end
   end

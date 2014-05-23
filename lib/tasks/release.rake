@@ -41,7 +41,7 @@ namespace :noosfero do
   end
 
   def version
-    require_dependency 'noosfero'
+    require 'noosfero'
     Noosfero::VERSION
   end
 
@@ -130,42 +130,6 @@ EOF
     choice
   end
 
-  desc 'sets the new version on apropriate files'
-  task :set_version, :release_kind do |t, args|
-    next if File.exist?("tmp/pending-release")
-    release_kind = args[:release_kind] || 'stable'
-
-    if release_kind == 'test'
-      version_question = "Release candidate of which version"
-      distribution = 'squeeze-test'
-    else
-      version_question = "Version that is being released"
-      distribution = 'unstable'
-    end
-
-    version_name = new_version = ask(version_question)
-
-    if release_kind == 'test'
-      rc_version = ask('RC version', Time.now.strftime('%Y%m%d%H%M%S'))
-      version_name += "~rc#{rc_version}"
-    end
-    release_message = ask("Release message")
-
-    sh 'git checkout debian/changelog lib/noosfero.rb'
-    sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
-    sh "dch --newversion #{version_name} --distribution #{distribution} --force-distribution '#{release_message}'"
-
-    sh 'git diff debian/changelog lib/noosfero.rb'
-    if confirm("Commit version bump to #{version_name} on #{distribution} distribution")
-      sh 'git add debian/changelog lib/noosfero.rb'
-      sh "git commit -m 'Bumping version #{version_name}'"
-      sh "touch tmp/pending-release"
-    else
-      sh 'git checkout debian/changelog lib/noosfero.rb'
-      abort 'Version update not confirmed. Reverting changes and exiting...'
-    end
-  end
-
   desc "uploads the packages to the repository"
   task :upload_packages, :release_kind do |t, args|
     release_kind = args[:release_kind] || 'stable'
@@ -177,9 +141,13 @@ EOF
     next if File.exist?("tmp/pending-release")
     release_kind = args[:release_kind] || 'stable'
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       version_question = "Release candidate of which version: "
-      distribution = 'squeeze-test'
+      if release_kind == 'squeeze-test'
+        distribution = 'squeeze-test'
+      elsif release_kind == 'wheezy-test'
+        distribution = 'wheezy-test'
+      end
     else
       version_question = "Version that is being released: "
       distribution = 'unstable'
@@ -187,7 +155,7 @@ EOF
 
     version_name = new_version = ask(version_question)
 
-    if release_kind == 'test'
+    if release_kind =~ /test/
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
@@ -206,12 +174,6 @@ EOF
       sh 'git checkout debian/changelog lib/noosfero.rb'
       abort 'Version update not confirmed. Reverting changes and exiting...'
     end
-  end
-
-  desc "uploads the packages to the repository"
-  task :upload_packages, :release_kind do |t, args|
-    release_kind = args[:release_kind] || 'stable'
-    sh "dput --unchecked #{release_kind} #{Dir['pkg/*.changes'].first}"
   end
 
   desc 'prepares a release tarball'
@@ -283,5 +245,5 @@ EOF
       sh 'apt-ftparchive release . > Release'
     end
   end
-    
+
 end

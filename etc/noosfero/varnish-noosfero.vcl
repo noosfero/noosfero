@@ -45,7 +45,7 @@ sub vcl_error {
   <div id='wrap'>
     <div id='header'>
       <div id='logo'>&nbsp;</div>
-      <div id='details'><b>"} obj.status "</b> - " obj.response {"</div>
+      <div id='details'><b>"} + obj.status + "</b> - " + obj.response + {"</div>
     </div>
 
     <div id='de' style='display: none' class='message'>

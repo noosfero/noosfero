@@ -157,11 +157,6 @@ class Person < Profile
 
   validates_multiparameter_assignments
 
-  validates_each :birth_date do |record,attr,value|
-    date_str = record.birth_date_before_type_cast
-    record.errors.add(attr) if value.blank? && !date_str.blank?
-  end
-
   def self.fields
     FIELDS
   end
