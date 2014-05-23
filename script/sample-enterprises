@@ -32,9 +32,12 @@ groups.each do |group|
         :lat => rand_position(:lat),
         :lng => rand_position(:lng)
       )
+      next if Profile[enterprise.identifier]
       save enterprise do
-        categories.sample.enterprises << enterprise
-        categories.sample.enterprises << enterprise
+        2.times do
+          category = categories.sample
+          enterprise.add_category category
+        end
       end
     end
   end
@@ -43,7 +46,6 @@ done
 
 EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).each do |activation|
   enterprise = activation.enterprise
-  puts [activation.code, enterprise.name, enterprise.foundation_year].join(';')
 end
 
 ze = Person['ze']

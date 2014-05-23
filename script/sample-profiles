@@ -64,7 +64,7 @@ for name in NAMES
       if categories.present?
         2.times do
           category = categories.sample
-          category.people << user.person unless category.people.include?(user.person)
+          user.person.add_category category unless category.people.include?(user.person)
         end
       end
     end
@@ -149,7 +149,7 @@ for verb in VERBS
       if categories.present?
         2.times do
           category = categories.sample
-          category.communities << community unless category.communities.include?(community)
+          community.add_category category unless category.communities.include?(community)
         end
       end
     end
