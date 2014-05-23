@@ -949,6 +949,70 @@ a.search-image-pic {
   margin-left: 40px;
 }
 
+ul#assets-links {
+  text-align: justify;
+  text-justify: distribute-all-lines; /* distribute items in IE */
+  list-style-type: none;
+  margin: 5px 0 13px;
+  padding: 0;
+  width: 500px;
+  float: left;
+}
+
+ul#assets-links:after {
+  content: "";
+  display: inline-block;
+}
+
+ul#assets-links li {
+  display: inline-block;
+}
+
+ul#assets-links li + li {
+  margin-left: 10px;
+}
+
+ul#assets-links li a {
+  text-decoration: none;
+}
+
+ul#assets-links li.selected a {
+  border-bottom: 2px solid #EF2929;
+}
+
+ul#assets-links li.selected a {
+  color: #EF2929;
+  font-weight: bold;
+}
+
+#search-filters {
+  float: right;
+}
+
+#search-filters .sod_select {
+  padding: 5px 10px;
+  width: auto;
+  border-width: 2px;
+  border-color: #888A85;
+  color: #888A85;
+}
+
+#search-filters .sod_select:hover,
+#search-filters .sod_select.open,
+#search-filters .sod_select.focus { border-color: #555753; color: #555753; }
+
+#search-filters .sod_select .sod_list {
+  width: auto;
+  border-width: 2px;
+  margin: 0 0 0 -2px;
+  border-color: #555753;
+  color: #888A85;
+}
+
+#search-filters .sod_select .sod_list .selected {
+  color: #555753;
+}
+
 /******** tagged-items list ***************************/
 
 .search-tagged-items {
