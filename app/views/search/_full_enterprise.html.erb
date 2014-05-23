@@ -2,7 +2,7 @@
   <div class="search-enterprise-item">
     <div class="search-enterprise-item-column-left">
       <%= profile_image_link enterprise, :portrait, 'div',
-        @filter == 'more_recent' ? enterprise.send(@filter + '_label') + show_date(enterprise.created_at) : enterprise.send(@filter + '_label') %>
+        @order == 'more_recent' ? enterprise.send(@order + '_label') + show_date(enterprise.created_at) : enterprise.send(@order + '_label') %>
     </div>
     <div class="search-enterprise-item-column-right">
       <%= link_to_homepage(enterprise.name, enterprise.identifier, :class => "search-result-title") %>

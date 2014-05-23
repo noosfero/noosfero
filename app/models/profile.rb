@@ -17,11 +17,10 @@ class Profile < ActiveRecord::Base
     :nickname => 2,
   }
 
-  SEARCH_FILTERS = %w[
-    more_recent
-  ]
-
-  SEARCH_DISPLAYS = %w[compact]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent],
+    :display => %w[compact]
+  }
 
   def self.default_search_display
     'compact'

@@ -14,13 +14,10 @@ class Article < ActiveRecord::Base
     :filename => 1,
   }
 
-  SEARCH_FILTERS = %w[
-    more_recent
-    more_popular
-    more_comments
-  ]
-
-  SEARCH_DISPLAYS = %w[full]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent more_popular more_comments],
+    :display => %w[full]
+  }
 
   def self.default_search_display
     'full'

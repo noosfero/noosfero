@@ -3,10 +3,11 @@ class Person < Profile
 
   attr_accessible :organization, :contact_information, :sex, :birth_date
 
-  SEARCH_FILTERS += %w[
-    more_popular
-    more_active
-  ]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent more_popular more_active],
+    :display => %w[compact]
+  }
+
 
   def self.type_name
     _('Person')

@@ -558,7 +558,7 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
-  should 'list all communities filter by more active' do
+  should 'list all communities sort by more active' do
     person = fast_create(Person)
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
@@ -567,21 +567,21 @@ class SearchControllerTest < ActionController::TestCase
     create(ActionTracker::Record, :target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    get :communities, :filter => 'more_active'
+    get :communities, :order => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
 
   should "only include visible people in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Person, :visible => false)
-    get :people, :filter => 'more_recent'
+    get :people, :order => 'more_recent'
     assert_not_includes assigns(:searches)[:people][:results], p1
   end
 
   should "only include visible communities in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Community, :visible => false)
-    get :communities, :filter => 'more_recent'
+    get :communities, :order=> 'more_recent'
     assert_not_includes assigns(:searches)[:communities][:results], p1
   end
 
@@ -648,7 +648,7 @@ class SearchControllerTest < ActionController::TestCase
     art2 = create(Article, :name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
     art3 = create(Article, :name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
 
-    get :articles, :filter => :more_recent
+    get :articles, :order=> :more_recent
 
     assert_equal [art2, art1, art3], assigns(:searches)[:articles][:results]
   end

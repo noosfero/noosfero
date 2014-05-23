@@ -8,7 +8,7 @@ class SearchController < PublicController
   before_filter :load_category, :except => :suggestions
   before_filter :load_search_assets, :except => :suggestions
   before_filter :load_query, :except => :suggestions
-  before_filter :load_filter, :except => :suggestions
+  before_filter :load_order, :except => :suggestions
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -152,7 +152,7 @@ class SearchController < PublicController
 
   def load_query
     @asset = (params[:asset] || params[:action]).to_sym
-    @order ||= [@asset]
+    @assets ||= [@asset]
     @searches ||= {}
 
     @query = params[:query] || ''
@@ -189,11 +189,11 @@ class SearchController < PublicController
     @names = @titles if @names.nil?
   end
 
-  def load_filter
-    @filter = 'more_recent'
+  def load_order
+    @order = 'more_recent'
     if SEARCHES.keys.include?(@asset.to_sym)
-      available_filters = asset_class(@asset)::SEARCH_FILTERS
-      @filter = params[:filter] if available_filters.include?(params[:filter])
+      available_orders = asset_class(@asset)::SEARCH_FILTERS[:order]
+      @order = params[:order] if available_orders.include?(params[:order])
     end
   end
 
@@ -217,7 +217,7 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query, paginate_options, {:category => @category, :filter => @filter})
+    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query, paginate_options, {:category => @category, :filter => @order})
   end
 
   private
