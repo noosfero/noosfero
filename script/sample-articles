@@ -18,11 +18,11 @@ for subject in SUBJECTS
     article = TinyMceArticle.new(
       :name => name,
       :body => name,
-      :tag_list => [TAGS.rand, TAGS.rand],
+      :tag_list => [TAGS.sample, TAGS.sample],
       :profile => profile
     )
     save article do
-      article.add_category categories.rand
+      article.add_category categories.sample
     end
   end
 end
@@ -37,7 +37,7 @@ for subject in SUBJECTS
     save Gallery.new(
       :name => name,
       :body => name,
-      :tag_list => [TAGS.rand, TAGS.rand],
+      :tag_list => [TAGS.sample, TAGS.sample],
       :profile => profile
     )
   end
