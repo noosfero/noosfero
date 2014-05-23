@@ -32,8 +32,10 @@ class CategoriesMenuTest < ActionController::IntegrationTest
   end
 
   should 'cache the categories menu' do
-    ActionView::Base.any_instance.expects(:cache).with(Environment.default.id.to_s + "_categories_menu")
+    ActionController::Base.perform_caching = true
+    HomeController.any_instance.stubs(:fragment_cache_key).with(Environment.default.id.to_s + "_categories_menu").returns('dir')
     get '/'
+    ActionController::Base.perform_caching = false
   end
 
 end

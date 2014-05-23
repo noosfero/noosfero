@@ -1,12 +1,18 @@
-<tr id=<%= "field-#{counter}" %>>
-  <td style="text-align: left"><%= text_field "fields[#{counter}]", :name, :value => field.name, :size => 25 %></td>
-  <td><%= type_to_label(field.type) %></td>
-  <%= hidden_field "fields[#{counter}]", :type, :value => type_for_options(field.class) %>
-  <td><%= check_box "fields[#{counter}]", :mandatory, :checked => field.mandatory %></td>
-  <%= hidden_field "fields[#{counter}]", :real_id, :value => field.id %>
-  <%= hidden_field "fields[#{counter}]", :form_id, :value => @form.id %>
-  <td class='actions'>
-    <%= button_without_text :edit, _('Edit'), '#', :field_id => counter %>
-    <%= button_without_text :remove, _('Remove'), '#', :class => 'remove-field', :field_id => counter,  :confirm => _('Are you sure you want to remove this field?') %>
-  </td>
-</tr>
+<fieldset class="field-box" <%='style="display:none"' if f.object._destroy %> >
+  <legend><%= type_to_label(f.object.type) %></legend>
+  <div>
+  <%= required f.label :name, _('Name:') %>
+  <%= f.text_field :name, :style => 'width: 14em' %>
+
+  <%= f.hidden_field :type %>
+
+  <%= f.check_box :mandatory %>
+  <%= f.label :mandatory, _('Mandatory') %>
+
+  <%= f.hidden_field(:position) %>
+
+  <%= f.hidden_field :_destroy, :class => 'destroy-field' %>
+  <%= button_to_function :delete, _('Remove field'), "customFormsPlugin.removeFieldBox(this, #{j _('Are you sure you want to remove this field?').to_json})" %>
+  <%= yield %>
+</div>
+</fieldset>

@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../../test_helper'
 class TrackTest < ActiveSupport::TestCase
 
   def setup
-    profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:profile => profile, :name => 'track')
-    @step = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => 'step', :profile => profile)
-    @tool = fast_create(Article, :parent_id => @step.id, :profile_id => profile.id)
+    @profile = fast_create(Community)
+    @track = create_track('track', @profile)
+    @step = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => 'step', :profile => @profile)
+    @tool = fast_create(Article, :parent_id => @step.id, :profile_id => @profile.id)
   end
 
   should 'describe yourself' do
@@ -39,10 +39,13 @@ class TrackTest < ActiveSupport::TestCase
     assert_equal [@step], @track.steps_unsorted
   end
 
-  should 'return category name' do
-    category = fast_create(Category, :name => 'category')
-    @track.add_category(category, true)
-    assert_equal 'category', @track.category_name
+  should 'return name of the top category' do
+    top = fast_create(Category, :name => 'top category')
+    category1 = fast_create(Category, :name => 'category1', :parent_id => top.id )
+    category2 = fast_create(Category, :name => 'category2', :parent_id => category1.id )
+    @track.categories.delete_all
+    @track.add_category(category2, true)
+    assert_equal 'top category', @track.category_name
   end
 
   should 'return empty for category name if it has no category' do
@@ -52,6 +55,7 @@ class TrackTest < ActiveSupport::TestCase
 
   should 'return category name of first category' do
     category = fast_create(Category, :name => 'category')
+    @track.categories.delete_all
     @track.add_category(category, true)
     category2 = fast_create(Category, :name => 'category2')
     @track.add_category(category2, true)
@@ -122,6 +126,17 @@ class TrackTest < ActiveSupport::TestCase
   should 'provide first_paragraph even if body is nil' do
     @track.body = nil
     assert_equal '', @track.first_paragraph
+  end
+
+  should 'not be able to create a track without category' do
+    track = CommunityTrackPlugin::Track.create(:profile => @profile, :name => 'track')
+    assert track.errors.include?(:categories)
+  end
+
+  should 'not be able to save a track without category' do
+    @track.categories.delete_all
+    @track.save
+    assert @track.errors.include?(:categories)
   end
 
 end

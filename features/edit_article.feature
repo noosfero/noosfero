@@ -22,6 +22,70 @@ Feature: edit article
     And I go to joaosilva's control panel
     Then I should see "My Folder"
 
+  @selenium
+  Scenario: denied access folder for a not logged user
+    Given the following communities
+      | name           | identifier    | owner     |
+      | Free Software  | freesoftware  | joaosilva |
+    And the following users
+      | login | name        |
+      | mario | Mario Souto |
+      | maria | Maria Silva |
+    And "Mario Souto" is a member of "Free Software"
+    And "Maria Silva" is a member of "Free Software"
+    And I am on freesoftware's control panel
+    And I follow "Manage Content"
+    And I follow "New content"
+    When I follow "Folder"
+    And I fill in "Title" with "My Folder"
+    And I choose "article_published_false"
+    And I press "Save"
+    And I log off
+    And I go to /freesoftware/my-folder
+    Then I should see "Access denied"
+
+  @selenium
+  Scenario: show exception users field when you choose the private option
+    Given the following communities
+      | name           | identifier    | owner     |
+      | Free Software  | freesoftware  | joaosilva |
+    And the following users
+      | login | name        |
+      | mario | Mario Souto |
+      | maria | Maria Silva |
+    And "Mario Souto" is a member of "Free Software"
+    And "Maria Silva" is a member of "Free Software"
+    And I am on freesoftware's control panel
+    And I follow "Manage Content"
+    And I follow "New content"
+    When I follow "Folder"
+    And I fill in "Title" with "My Folder"
+    And I choose "article_published_false"
+    Then I should see "Fill in the search field to add the exception users to see this content"
+
+  @selenium
+  Scenario: allowed user should see the content of a folder
+    Given the following communities
+      | name           | identifier    | owner     |
+      | Free Software  | freesoftware  | joaosilva |
+    And the following users
+      | login | name        |
+      | mario | Mario Souto |
+      | maria | Maria Silva |
+    And the following articles
+      | owner        | name       | body |
+      | freesoftware | My Folder  | ...  |
+    And "Mario Souto" is a member of "Free Software"
+    And "Maria Silva" is a member of "Free Software"
+    And I go to /freesoftware/my-folder
+    When I follow "Edit"
+    And I choose "article_published_false"
+    And I press "Save"
+    And I add to "My Folder" the following exception "Maria Silva"
+    And I am logged in as "maria"
+    And I go to /freesoftware/my-folder
+    Then I should see "My Folder"
+
   Scenario: redirect to the created folder
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
@@ -40,6 +104,7 @@ Feature: edit article
     When I follow "Cancel" within ".main-block"
     Then I should be on joaosilva's cms
 
+  @selenium
   Scenario: display tag list field when creating event
     Given I am on joaosilva's control panel
     And I follow "Manage Content"

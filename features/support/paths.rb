@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^\//
       page_name
 
+    when /^(.*)'s profile/
+      '/profile/' + profile_identifier($1)
+
     when /article "([^"]+)"\s*$/
       url_for(Article.find_by_name($1).url.merge({:only_path => true}))
 
@@ -37,7 +40,7 @@ module NavigationHelpers
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
-      '/' + profile_identifier($1)
+      '/' + profile_identifier($1) + '/'
 
     when /^(.*)'s blog$/
       '/%s/blog' % profile_identifier($1)
@@ -108,8 +111,19 @@ module NavigationHelpers
     when /the user data path/
       '/account/user_data'
 
+    when /^(.+)'s confirmation URL/
+      user = User[$1]
+      "/account/activate?activation_code=#{user.activation_code}&redirection=" + (user.return_to.nil? ? 'false' : 'true')
+
     when /^(.+)'s members page/
       '/profile/%s/members' % profile_identifier($1)
+
+    when /^(.+)'s "(.+)" page from "(.*)" of "(.*)" plugin/
+      profile = $1
+      action = $2
+      plugin_name = $4.underscore
+      controller_type = $3.constantize.superclass.to_s.underscore.gsub(/_controller/, "")
+      "/#{controller_type}/#{profile}/plugin/#{plugin_name}/#{action}"
 
     else
       begin

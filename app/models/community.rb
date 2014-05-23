@@ -1,5 +1,8 @@
 class Community < Organization
 
+  attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id, :resource_type
+  after_destroy :check_invite_member_for_destroy
+
   def self.type_name
     _('Community')
   end
@@ -8,7 +11,6 @@ class Community < Organization
   N_('Language')
 
   settings_items :language
-  settings_items :zip_code, :city, :state, :country
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -17,12 +19,22 @@ class Community < Organization
     community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
   end
 
+  def check_invite_member_for_destroy
+      InviteMember.pending.select { |task| task.community_id == self.id }.map(&:destroy)
+  end
+
+  # Since it's not a good idea to add the environment as accessible through
+  # mass-assignment, we set it manually here. Note that this requires that the
+  # places that call this method are safe from mass-assignment by setting the
+  # environment key themselves.
   def self.create_after_moderation(requestor, attributes = {})
+    environment = attributes.delete(:environment)
     community = Community.new(attributes)
+    community.environment = environment
     if community.environment.enabled?('admin_must_approve_new_communities')
-      CreateCommunity.create(attributes.merge(:requestor => requestor))
+      CreateCommunity.create!(attributes.merge(:requestor => requestor, :environment => environment))
     else
-      community = Community.create(attributes)
+      community.save!
       community.add_admin(requestor)
     end
     community
@@ -38,8 +50,9 @@ class Community < Organization
     super + FIELDS
   end
 
-  def validate
-    super
+  validate :presence_of_required_fieds
+
+  def presence_of_required_fieds
     self.required_fields.each do |field|
       if self.send(field).blank?
         self.errors.add_on_blank(field)
@@ -84,7 +97,7 @@ class Community < Organization
   end
 
   def control_panel_settings_button
-    {:title => __('Community Info and settings'), :icon => 'edit-profile-group'}
+    {:title => _('Community Info and settings'), :icon => 'edit-profile-group'}
   end
 
   def activities

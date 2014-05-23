@@ -508,7 +508,13 @@ function new_qualifier_row(selector, select_qualifiers, delete_button) {
 
 // controls the display of the login/logout stuff
 jQuery(function($) {
-  $.ajaxSetup({cache: false});
+  $.ajaxSetup({
+    cache: false,
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   $.getJSON('/account/user_data', function userDataCallBack(data) {
     if (data.login) {
       // logged in
@@ -675,7 +681,6 @@ function hide_and_show(hide_elements, show_elements) {
 
 function limited_text_area(textid, limit) {
   var text = jQuery('#' + textid).val();
-  grow_text_area(textid);
   var textlength = text.length;
   jQuery('#' + textid + '_left span').html(limit - textlength);
   if (textlength > limit) {
@@ -690,14 +695,9 @@ function limited_text_area(textid, limit) {
   }
 }
 
-function grow_text_area(textid) {
-  var height = jQuery('#' + textid).attr('scrollHeight');
-  if (jQuery.browser.webkit) {
-    height -= parseInt(jQuery('#' + textid).css('padding-top')) +
-              parseInt(jQuery('#' + textid).css('padding-bottom'));
-  }
-  jQuery('#' + textid).css('height', height + 'px');
-}
+jQuery(function($) {
+  $('.autogrow').autogrow();
+});
 
 jQuery(function($) {
   $('a').each(function() {
@@ -1083,4 +1083,22 @@ jQuery(function($) {
     return false;
   });
 
+});
+
+function showHideTermsOfUse() {
+  if( jQuery("#article_has_terms_of_use").attr("checked") )
+    jQuery("#text_area_terms_of_use").show();
+  else {
+    jQuery("#text_area_terms_of_use").hide();
+    jQuery("#article_terms_of_use").val("");
+    jQuery("#article_terms_of_use_ifr").contents().find("body").html("");
+  }
+}
+
+jQuery(document).ready(function(){
+  showHideTermsOfUse();
+
+  jQuery("#article_has_terms_of_use").click(function(){
+    showHideTermsOfUse();
+  });
 });

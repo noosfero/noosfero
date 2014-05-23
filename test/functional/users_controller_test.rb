@@ -11,9 +11,15 @@ class UsersControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    admin_user = create_user_with_permission('adminuser', 'manage_environment_users', Environment.default)
+    Environment.destroy_all
+    @environment = fast_create(Environment, :is_default => true)
+ 
+
+    admin_user = create_user_with_permission('adminuser', 'manage_environment_users', environment)
     login_as('adminuser')
   end
+
+  attr_accessor :environment
 
   should 'not access without right permission' do
     create_user('guest')
@@ -63,6 +69,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'set admin role' do
     person = create_user.person
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
     assert_equal false, person.is_admin?
     post :set_admin_role, :id => person.id, :q => ''
     person.reload
@@ -70,8 +77,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'reset admin role' do
-    environment = Environment.default
     person = create_user.person
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
+
     environment.add_admin(person)
     assert person.is_admin?
 
@@ -99,6 +107,21 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal false, u.activated?
   end
 
+  should 'order users by name' do
+    create_user('jeremy')
+    create_user('bill')
+    create_user('ana')
+    create_user('creed')
+    get :index
+
+    assert_order ['ana', 'bill', 'creed', 'jeremy'], assigns(:collection).map(&:name)
+  end
+
+  should 'set filter to all_users by default' do
+    get :index
+    assert_equal 'all_users', assigns(:filter)
+  end
+
   should 'response as XML to export users' do
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
@@ -108,6 +131,22 @@ class UsersControllerTest < ActionController::TestCase
     get :download, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
     assert_equal 'name;email', @response.body.split("\n")[0]
+  end
+
+  should 'be able to remove a person' do
+    person = fast_create(Person, :environment_id => environment.id)
+    assert_difference 'Person.count', -1 do
+      post :destroy_user, :id => person.id
+    end
+  end
+
+  should 'not crash if user does not exist' do
+    person = fast_create(Person)
+
+    assert_no_difference 'Person.count' do
+      post :destroy_user, :id => 99999
+    end
+    assert_redirected_to :action => 'index'
   end
 
 end

@@ -1,7 +1,7 @@
 class DocSection < DocItem
 
   def self.root_dir
-    @root_dir ||= File.join(RAILS_ROOT, 'doc', 'noosfero')
+    @root_dir ||= Rails.root.join('doc', 'noosfero')
   end
 
   def items

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class QualifierTest < ActiveSupport::TestCase
@@ -12,10 +13,10 @@ class QualifierTest < ActiveSupport::TestCase
 
   should 'belongs to environment' do
     env_one = fast_create(Environment)
-    qualifier_from_env_one = Qualifier.create(:name => 'Qualifier from environment one', :environment => env_one)
+    qualifier_from_env_one = env_one.qualifiers.create(:name => 'Qualifier from environment one')
 
     env_two = fast_create(Environment)
-    qualifier_from_env_two = Qualifier.create(:name => 'Qualifier from environment two', :environment => env_two)
+    qualifier_from_env_two = env_two.qualifiers.create(:name => 'Qualifier from environment two')
 
     assert_includes env_one.qualifiers, qualifier_from_env_one
     assert_not_includes env_one.qualifiers, qualifier_from_env_two
@@ -23,7 +24,7 @@ class QualifierTest < ActiveSupport::TestCase
 
   should 'name is mandatory' do
     env_one = fast_create(Environment)
-    qualifier = Qualifier.new(:environment => env_one)
+    qualifier = env_one.qualifiers.build
     assert !qualifier.valid?
 
     qualifier.name = 'Qualifier name'

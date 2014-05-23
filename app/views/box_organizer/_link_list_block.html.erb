@@ -1,0 +1,49 @@
+<%= javascript_include_tag "edit-link-list.js" %>
+
+<strong><%= _('Links') %></strong>
+<div id='edit-link-list-block'>
+  <ul class='link-list-header'>
+    <li class='link-list-icon'><%= _('Icon') %></li>
+    <li class='link-list-name'><%= _('Name') %></li>
+    <li class='link-list-address'><%= _('Address') %></li>
+    <li class='link-list-target'><%= _('Target') %></li>
+  </ul>
+  <ul id="dropable-link-list">
+    <% for link in @block.links do %>
+      <li>
+        <ul class="link-list-row">
+          <li>
+            <%= icon_selector(link['icon']) %>
+          </li>
+          <li>
+            <%= text_field_tag 'block[links][][name]', link[:name], :class => 'link-name', :maxlength => 20 %>
+          </li>
+          <li>
+            <%= text_field_tag 'block[links][][address]', link[:address], :class => 'link-address' %>
+          </li>
+          <li>
+            <%= select_tag('block[links][][target]', options_for_select(LinkListBlock::TARGET_OPTIONS, link[:target])) %>
+          </li>
+          <li>
+            <%= button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row") %>
+          </li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+  <input type="hidden" id="page_url" value="<%=url_for(:action=>'search_autocomplete')%>" />
+</div>
+
+<%= link_to_function(_('New link'), nil, :class => 'button icon-add with-text') do |page|
+    page.insert_html :bottom, 'dropable-link-list', content_tag('li',
+      content_tag('ul',
+        content_tag('li', icon_selector('ok')) +
+        content_tag('li', text_field_tag('block[links][][name]', '', :maxlength => 20)) +
+        content_tag('li', text_field_tag('block[links][][address]', nil, :class => 'link-address')) +
+        content_tag('li', select_tag('block[links][][target]',
+        options_for_select(LinkListBlock::TARGET_OPTIONS, '_self'))) +
+        content_tag('li', button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row")),
+      :class=>"link-list-row new_link_row")
+    ) +
+    javascript_tag("new_link_action()")
+end %>

@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BlockTest < ActiveSupport::TestCase
 
+
   should 'describe itself' do
     assert_kind_of String, Block.description
   end
@@ -63,15 +64,15 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'not display when set to hidden' do
-    assert_equal false, Block.new(:display => 'never').visible?
-    assert_equal false, Block.new(:display => 'never').visible?(:article => Article.new)
+    assert_equal false, build(Block, :display => 'never').visible?
+    assert_equal false, build(Block, :display => 'never').visible?(:article => Article.new)
   end
 
   should 'be able to be displayed only in the homepage' do
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:article => home_page)
@@ -79,7 +80,7 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed only in the homepage (index) of the environment' do
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
 
     assert_equal true, block.visible?(:article => nil, :request_path => '/')
     assert_equal false, block.visible?(:article => nil)
@@ -89,7 +90,7 @@ class BlockTest < ActiveSupport::TestCase
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'except_home_page')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => home_page)
@@ -97,8 +98,8 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed everywhere except on profile index' do
-    profile = Profile.new(:identifier => 'testinguser')
-    block = Block.new(:display => 'except_home_page')
+    profile = build(Profile, :identifier => 'testinguser')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
@@ -132,7 +133,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed in all languages' do
     profile = Profile.new
-    block = Block.new(:language => 'all')
+    block = build(Block, :language => 'all')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -141,7 +142,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed only in the selected language' do
     profile = Profile.new
-    block = Block.new(:language => 'pt')
+    block = build(Block, :language => 'pt')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -150,7 +151,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'delegate environment to box' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = Block.new(:box => box)
+    block = build(Block, :box => box)
     box.stubs(:environment).returns(Environment.default)
 
     assert_equal box.environment, block.environment
@@ -165,4 +166,122 @@ class BlockTest < ActiveSupport::TestCase
     conditions = Block.expire_on
     assert conditions[:environment].kind_of?(Array)
   end
+
+  should 'create a cloned block' do
+    block = fast_create(Block, :title => 'test 1', :position => 1)
+    assert_difference 'Block.count', 1 do
+      block.duplicate
+    end
+  end
+
+  should 'clone and keep some fields' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'})
+    duplicated = block.duplicate
+    [:title, :box_id, :type].each do |f|
+      assert_equal duplicated.send(f), block.send(f)
+    end
+    assert 'test', duplicated[:settings][:test]
+  end
+
+  should 'clone block and set fields' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    block2 = create(TagsBlock, :title => 'test 2', :box_id => box.id, :settings => {:test => 'test'}, :position => 2)
+    duplicated = block.duplicate
+    block2.reload
+    block.reload
+    assert_equal 'never', duplicated.display
+    assert_equal 1, block.position
+    assert_equal 2, duplicated.position
+    assert_equal 3, block2.position
+  end
+
+  should 'not clone date creation and update attributes' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    duplicated = block.duplicate
+
+      assert_not_equal block.created_at, duplicated.created_at
+      assert_not_equal block.updated_at, duplicated.updated_at
+  end
+
+  should 'support custom display options for blocks visible' do
+    class MyBlock < Block
+      def display
+        'even_context'
+      end
+
+      def display_even_context(context)
+        context[:value] % 2 == 0
+      end
+    end
+
+    block = MyBlock.new
+
+    assert block.visible?({:value => 2})
+    assert !block.visible?({:value => 3})
+  end
+
+  should 'not be embedable by default' do
+    assert !Block.new.embedable?
+  end
+
+  should 'generate embed code' do
+    b = Block.new
+    b.stubs(:url_for).returns('http://myblogtest.com/embed/block/1')
+    assert_equal "<iframe class=\"embed block block\" frameborder=\"0\" height=\"768\" src=\"http://myblogtest.com/embed/block/1\" width=\"1024\"></iframe>", b.embed_code.call
+  end
+
+  should 'default value for display_user is all' do
+    block = Block.new
+    assert_equal 'all', block.display_user
+  end
+
+  should 'display block to not logged users for display_user = all' do
+    block = Block.new
+    assert block.display_to_user?(nil)
+  end
+
+  should 'display block to logged users for display_user = all' do
+    block = Block.new
+    assert block.display_to_user?(User.new)
+  end
+
+  should 'display block to logged users for display_user = logged' do
+    block = Block.new
+    block.display_user = 'logged'
+    assert block.display_to_user?(User.new)
+  end
+
+  should 'do not display block to logged users for display_user = not_logged' do
+    block = Block.new
+    block.display_user = 'not_logged'
+    assert !block.display_to_user?(User.new)
+  end
+
+  should 'do not display block to not logged users for display_user = logged' do
+    block = Block.new
+    block.display_user = 'logged'
+    assert !block.display_to_user?(nil)
+  end
+
+  should 'display block to not logged users for display_user = not_logged' do
+    block = Block.new
+    block.display_user = 'not_logged'
+    assert block.display_to_user?(nil)
+  end
+
+  should 'not be visible if display_to_user? is false' do
+    block = Block.new
+    block.expects(:display_to_user?).once.returns(false)
+    assert !block.visible?({})
+  end
+
+  should 'accept user as parameter on cache_key without change its value' do
+    person = fast_create(Person)
+    block = Block.new
+    assert_equal block.cache_key('en'), block.cache_key('en', person)
+  end
+
 end

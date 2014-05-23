@@ -1,15 +1,17 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121162641) do
+ActiveRecord::Schema.define(:version => 20140408172149) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -45,6 +47,11 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
+
+  create_table "article_privacy_exceptions", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "person_id"
+  end
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -135,6 +142,9 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer  "position"
   end
 
+  add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
+  add_index "articles", ["hits"], :name => "index_articles_on_hits"
   add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
@@ -248,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -277,6 +288,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
+    t.string   "noreply_email"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -410,7 +423,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   create_table "products", :force => true do |t|
-    t.integer  "enterprise_id"
+    t.integer  "profile_id"
     t.integer  "product_category_id"
     t.string   "name"
     t.decimal  "price"
@@ -422,10 +435,14 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.boolean  "highlighted",         :default => false
     t.integer  "unit_id"
     t.integer  "image_id"
+    t.string   "type"
+    t.text     "data"
+    t.boolean  "archived",            :default => false
   end
 
-  add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
+  add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
+  add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -460,10 +477,19 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
+    t.integer  "friends_count",                         :default => 0,     :null => false
+    t.integer  "members_count",                         :default => 0,     :null => false
+    t.integer  "activities_count",                      :default => 0,     :null => false
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
+  add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
+  add_index "profiles", ["created_at"], :name => "index_profiles_on_created_at"
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+  add_index "profiles", ["friends_count"], :name => "index_profiles_on_friends_count"
   add_index "profiles", ["identifier"], :name => "index_profiles_on_identifier"
+  add_index "profiles", ["members_count"], :name => "index_profiles_on_members_count"
   add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
 
   create_table "qualifier_certifiers", :force => true do |t|
@@ -539,9 +565,12 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
@@ -549,6 +578,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer "parent_id"
     t.boolean "pending",   :default => false
   end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "tasks", :force => true do |t|
     t.text     "data"
@@ -565,6 +596,13 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+
+  create_table "terms_forum_people", :id => false, :force => true do |t|
+    t.integer "forum_id"
+    t.integer "person_id"
+  end
+
+  add_index "terms_forum_people", ["forum_id", "person_id"], :name => "index_terms_forum_people_on_forum_id_and_person_id"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"
@@ -602,6 +640,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.datetime "chat_status_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.string   "return_to"
   end
 
   create_table "validation_infos", :force => true do |t|
@@ -609,5 +648,18 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.text    "restrictions"
     t.integer "organization_id"
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "vote",          :null => false
+    t.integer  "voteable_id",   :null => false
+    t.string   "voteable_type", :null => false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "fk_voteables"
+  add_index "votes", ["voter_id", "voter_type"], :name => "fk_voters"
 
 end

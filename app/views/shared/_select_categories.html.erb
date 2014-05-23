@@ -1,0 +1,29 @@
+<% extend CategoriesHelper %>
+
+<% if !@current_category.nil? %>
+  <%= hidden_field_tag "#{object_name}[#{object_name}_category_id]", @current_category.id unless multiple %>
+  <%= hidden_field_tag "#{object_name}[category_ids][]", @current_category.id if multiple %>
+
+  <%= update_categories_link("", nil, :id => "cancel-category-button", :class => "button icon-back") %>
+  <%
+    categories = [@current_category]
+    categories.push(@current_category) while @current_category = @current_category.parent
+  %>
+  <%= categories.compact.reverse.map{|i| update_categories_link(i.name, i.id)}.join %>
+
+  <script>
+    function add_category() {
+      var hidden_field = '<%= j hidden_field_tag("#{object_name}[category_ids][]", categories.first.id) %>';
+      var category_link = '<%= j selected_category_link(categories.first) %>';
+      jQuery('#selected-categories').append('<div id="selected-category-<%= categories.first.id %>">' + hidden_field + category_link + '</div>');
+      var subcategories = '<%= j(render :partial => 'shared/select_subcategories', :locals => {:object_name => object_name, :categories => @toplevel_categories}) %>';
+      jQuery('#select-categories').html(subcategories);
+    }
+  </script>
+
+  <%= button_to_function_without_text(:add, _('Add'), 'add_category()', :id => 'save-category-button') %>
+<% end %>
+
+<div class="toplevel-categories">
+  <%= render :partial => 'shared/select_subcategories', :locals => {:object_name => object_name, :categories => @categories} %>
+</div>

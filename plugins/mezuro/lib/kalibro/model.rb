@@ -103,7 +103,7 @@ class Kalibro::Model
   end
 
   def self.client(endpoint)
-    service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yml")
+    service_address = YAML.load_file("#{Rails.root}/plugins/mezuro/service.yml")
     Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
   end
 

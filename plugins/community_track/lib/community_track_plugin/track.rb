@@ -3,6 +3,14 @@ class CommunityTrackPlugin::Track < Folder
   settings_items :goals, :type => :string
   settings_items :expected_results, :type => :string
 
+  validate :validate_categories
+
+  attr_accessible :goals, :expected_results
+
+  def validate_categories
+    errors.add(:categories, _('should not be blank.')) if categories.empty? && pending_categorizations.blank?
+  end
+
   def self.icon_name(article = nil)
     'community-track'
   end
@@ -42,7 +50,7 @@ class CommunityTrackPlugin::Track < Folder
   end
 
   def comments_count
-    steps_unsorted.joins(:children).sum('childrens_articles.comments_count')
+    steps_unsorted.joins(:children).sum('children_articles.comments_count')
   end
 
   def css_class_name
@@ -57,13 +65,13 @@ class CommunityTrackPlugin::Track < Folder
 
   def category_name
     category = categories.first
-    category ? category.name : ''
+    category ? category.top_ancestor.name : ''
   end
 
   def to_html(options = {})
     track = self
-    lambda do
-      render :file => 'content_viewer/track.rhtml', :locals => {:track => track}
+    proc do
+      render :file => 'content_viewer/track', :locals => {:track => track}
     end
   end
 

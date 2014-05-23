@@ -10,7 +10,7 @@ class PgSearchPlugin < Noosfero::Plugin
 
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
     scope = scope.pg_search_plugin_search(query) unless query.blank?
-    scope = scope.send(options[:filter]) unless options[:filter]
+    scope = scope.send(options[:filter]) if options[:filter]
     {:results => scope.paginate(paginate_options)}
   end
 

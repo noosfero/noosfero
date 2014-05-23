@@ -1,0 +1,29 @@
+<% extend CommunityTrackPlugin::TrackHelper %>
+<div class="item_card <%= category_class(track_card) %>">
+  <a href="<%= url_for track_card.url %>">
+  <div class="track_content">
+    <div class="title">
+      <%= track_card.category_name %>
+    </div>
+    <div class="image">
+      <%= image_tag track_card.image.public_filename if track_card.image %>
+    </div>
+    <div class="name">
+      <%= track_card.name %>
+    </div>
+    <div class="lead">
+      <%= track_card_lead(track_card) %>
+    </div>
+  </div>
+  <div class="track_stats">
+    <div class="comments">
+      <span class="counter"><%= "#{track_card.comments_count}" %></span>
+      <span class="label"><%= _('comments') %></span>
+    </div>
+    <div class="hits">
+      <span class="counter"><%= "#{track_card.hits}" %></span>
+      <span class="label"><%= _('hits') %></span>
+    </div>
+  </div>
+  </a>
+</div>

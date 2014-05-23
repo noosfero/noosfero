@@ -9,15 +9,9 @@ class PluginTest < ActiveSupport::TestCase
 
   include Noosfero::Plugin::HotSpot
 
-  should 'keep the list of all loaded subclasses' do
-    class Plugin1 < Noosfero::Plugin
-    end
-
-    class Plugin2 < Noosfero::Plugin
-    end
-
-    assert_includes  Noosfero::Plugin.all, Plugin1.to_s
-    assert_includes  Noosfero::Plugin.all, Plugin2.to_s
+  should 'keep the list of all available plugins' do
+    assert File.directory?(File.join(Rails.root, 'plugins', 'foo'))
+    assert_includes  Noosfero::Plugin.all, 'FooPlugin'
   end
 
   should 'returns url to plugin management if plugin has admin_controller' do
@@ -494,6 +488,31 @@ class PluginTest < ActiveSupport::TestCase
     assert_raise NameError do
       p.extra_blocks
     end
+  end
+
+  should 'comment_actions be nil if the comment is nil' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_nil plugin.comment_actions(nil)
+  end
+
+  should 'comment_actions be nil by default' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_nil plugin.comment_actions(Comment.new)
+  end
+
+  should 'check_comment_actions be an empty array if the comment is nil' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_equal [], plugin.check_comment_actions(nil)
+  end
+
+
+  should 'check_comment_actions be  an empty array by default' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_equal [], plugin.check_comment_actions(Comment.new)
   end
 
 end

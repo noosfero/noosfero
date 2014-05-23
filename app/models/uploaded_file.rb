@@ -1,8 +1,12 @@
+require 'short_filename'
+
 # Article type that handles uploaded files.
 #
 # Limitation: only file metadata are versioned. Only the latest version
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
+
+  attr_accessible :uploaded_data, :title
 
   def self.type_name
     _('File')
@@ -12,15 +16,12 @@ class UploadedFile < Article
 
   include ShortFilename
 
-  settings_items :title, :type => 'string'
-  xss_terminate :only => [ :title ]
-
-  def title_with_default
-    title_without_default || short_filename(name, 60)
+  def title
+    if self.name.present? then self.name else self.filename end
   end
-  alias_method_chain :title, :default
-
-  validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
+  def title= value
+    self.name = value
+  end
 
   sanitize_filename
 
@@ -29,11 +30,7 @@ class UploadedFile < Article
   end
 
   def thumbnail_path
-    self.image? ? self.full_filename(:display).gsub(File.join(RAILS_ROOT, 'public'), '') : nil
-  end
-
-  def display_title
-    title.blank? ? name : title
+    self.image? ? self.full_filename(:display).to_s.gsub(Rails.root.join('public').to_s, '') : nil
   end
 
   def first_paragraph
@@ -109,7 +106,7 @@ class UploadedFile < Article
   alias :orig_set_filename :filename=
   def filename=(value)
     orig_set_filename(value)
-    self.name = self.filename
+    self.name ||= self.filename
   end
 
   def download_headers
@@ -132,14 +129,14 @@ class UploadedFile < Article
     puts warn if ENV['RAILS_ENV'] == 'development'
     article = self
     if image?
-      lambda do
+      proc do
         image_tag(article.public_filename(:display),
                   :class => article.css_class_name,
                   :style => 'max-width: 100%') +
         content_tag('div', article.abstract, :class => 'uploaded-file-description')
       end
     else
-      lambda do
+      proc do
         content_tag('div',
                     link_to(article.name, article.url),
                     :class => article.css_class_name) +

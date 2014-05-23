@@ -7,12 +7,26 @@ class ContainerBlockPlugin::ContainerBlock < Block
   settings_items :container_box_id, :type => Integer, :default => nil
   settings_items :children_settings, :type => Hash, :default => {}
 
+  validate :no_cyclical_reference, :if => 'container_box_id.present?'
+
+  def no_cyclical_reference
+    errors.add(:box_id, _('cyclical reference is not allowed.')) if box_id == container_box_id
+  end
+
+  before_save do |b|
+    raise "cyclical reference is not allowed" if b.box_id == b.container_box_id && !b.container_box_id.blank?
+  end
+
   def self.description
     _('Container')
   end
 
   def help
     _('This block acts as a container for another blocks')
+  end
+
+  def cacheable?
+    false
   end
 
   def layout_template
@@ -24,8 +38,9 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def create_box
-    box = Box.create!(:owner => owner)
-    settings[:container_box_id] = box.id
+    container_box = Box.create!(:owner => owner)
+    container_box.update_attribute(:position, nil)
+    settings[:container_box_id] = container_box.id
     save!
   end
 
@@ -38,7 +53,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def block_classes=(classes)
-    classes.each { |c| block = c.constantize.create!(:box => container_box) } if classes
+    classes.each { |c| block = c.constantize.create!(:box_id => container_box.id) } if classes
   end
 
   def blocks
@@ -51,8 +66,8 @@ class ContainerBlockPlugin::ContainerBlock < Block
 
   def content(args={})
     block = self
-    lambda do
-      render :file => 'blocks/container.rhtml', :locals => {:block => block}
+    proc do
+      render :file => 'blocks/container', :locals => {:block => block}
     end
   end
 

@@ -1,0 +1,42 @@
+<script language="JavaScript1.2">
+  function check_valid_year(form) {
+    var answer = parseInt(form.answer.value);
+    var val = form.answer.value;
+    if (!answer || (val.length != 4) || val > <%= Time.now.year %> || val < 1900) {
+      alert(<%= (_('The year must be between %d and %d') % [1900, Time.now.year]).inspect %>);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function check_valid_cnpj(form) {
+    var answer = parseInt(form.answer.value);
+    var val = form.answer.value;
+    if (!answer || (val.length != 14)) {
+      alert(<%= _('A CNPJ have 14 digits').inspect %>);
+      return false;
+    } else {
+      return true;
+    }
+  }
+</script>
+
+<div class='activation-box'>
+  <h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 1 of 2') : _('part 1 of 3')) %></h2>
+  <%= form_tag( {:action => 'accept_terms'}, {:method => 'get', :onsubmit => (@question == :foundation_year ? 'return check_valid_year(this)' : 'return check_valid_cnpj(this)')}) do %> 
+
+  <p>  <strong><%= _('Pay atention! You have only one chance!') %></strong> </p>
+
+  <p><%= _("This is a question to know if you really are part of this enterprise. Pay atention because you have only one chance to answer right and activate your enterprise. If you answer wrong you will not be able to activate the enterprise automaticaly and must get in touch with the admins of %s by email or phone.") % environment.name %> </p>
+
+  <%= ApplicationHelper::NoosferoFormBuilder::output_field(@question == :foundation_year ? (_("What year your enterprise was founded? It must have 4 digits, eg 1990. %s") % environment.tip_message_enterprise_activation_question) : _('What is the CNPJ of your enterprise?'), text_field_tag(:answer, nil, :id => 'enterprise-activation-answer')) %>
+
+    <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+
+    <% button_bar do %>
+      <%= button 'cancel', _('Cancel'), :action => 'index' %>
+      <%= submit_button 'forward', _('Continue') %>
+    <% end %>
+  <% end %>
+</div>

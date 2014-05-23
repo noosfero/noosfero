@@ -1,6 +1,8 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  attr_accessible :organization, :contact_information, :sex, :birth_date
+
   SEARCH_FILTERS += %w[
     more_popular
     more_active
@@ -13,21 +15,7 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
-  @@human_names = {}
-
-  def self.human_names
-    @@human_names
-  end
-
-  # FIXME ugly workaround
-  def self.human_attribute_name(attrib)
-    human_names.each do |key, human_text|
-      return human_text if attrib.to_sym == key.to_sym
-    end
-    super
-  end
-
-  named_scope :members_of, lambda { |resources|
+  scope :members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
@@ -43,7 +31,12 @@ class Person < Profile
   alias_method_chain :has_permission?, :plugins
 
   def memberships
-    Profile.memberships_of(self)
+    scopes = []
+    plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
+    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes << Profile.memberships_of(self)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
 
    def memberships_by_role(role)
@@ -53,7 +46,7 @@ class Person < Profile
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
-  named_scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
+  scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
@@ -63,25 +56,17 @@ class Person < Profile
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
-  named_scope :more_popular,
-      :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
-      :group => Profile.qualified_column_names,
-      :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
-      :order => "total DESC"
+  has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
+  has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
-  named_scope :more_active,
-    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
-    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
-    :group => Profile.qualified_column_names,
-    :order => 'total DESC',
-    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
+  scope :more_popular, :order => 'friends_count DESC'
 
-  named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
-  named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
+  scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
+  scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
 
-  named_scope :admins, :joins => [:role_assignments => :role], :conditions => ['roles.key = ?', 'environment_administrator' ]
-  named_scope :activated, :joins => :user, :conditions => ['users.activation_code IS NULL AND users.activated_at IS NOT NULL']
-  named_scope :deactivated, :joins => :user, :conditions => ['NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)']
+  scope :admins, :joins => [:role_assignments => :role], :conditions => ['roles.key = ?', 'environment_administrator' ]
+  scope :activated, :joins => :user, :conditions => ['users.activation_code IS NULL AND users.activated_at IS NOT NULL']
+  scope :deactivated, :joins => :user, :conditions => ['NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)']
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
@@ -124,7 +109,10 @@ class Person < Profile
 
   def add_friend(friend, group = nil)
    unless self.is_a_friend?(friend)
-      self.friendships.build(:friend => friend, :group => group).save!
+      friendship = self.friendships.build
+      friendship.friend = friend
+      friendship.group = group
+      friendship.save
    end
   end
 
@@ -137,48 +125,45 @@ class Person < Profile
   end
 
   FIELDS = %w[
+  description
+  image
   preferred_domain
   nickname
   sex
-  address
-  zip_code
-  city
-  state
-  country
-  nationality
   birth_date
+  nationality
+  country
+  state
+  city
+  district
+  zip_code
+  address
+  address_reference
   cell_phone
   comercial_phone
+  personal_website
+  jabber_id
   schooling
+  formation
+  custom_formation
+  area_of_study
+  custom_area_of_study
   professional_activity
   organization
   organization_website
-  area_of_study
-  custom_area_of_study
-  formation
-  custom_formation
   contact_phone
   contact_information
-  description
-  image
-  district
-  address_reference
   ]
 
   validates_multiparameter_assignments
-
-  validates_each :birth_date do |record,attr,value|
-    if value && value.year == 1
-      record.errors.add(attr)
-    end
-  end
 
   def self.fields
     FIELDS
   end
 
-  def validate
-    super
+  validate :presence_of_required_fields
+
+  def presence_of_required_fields
     self.required_fields.each do |field|
       if self.send(field).blank?
         unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')
@@ -489,6 +474,17 @@ class Person < Profile
   def profile_custom_icon(gravatar_default=nil)
     (self.image.present? && self.image.public_filename(:icon)) ||
     gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
+  end
+
+  settings_items :last_notification, :type => DateTime
+  settings_items :notification_time, :type => :integer, :default => 0
+
+  def notifier
+    @notifier ||= PersonNotifier.new(self)
+  end
+
+  after_update do |person|
+    person.notifier.reschedule_next_notification_mail
   end
 
   protected

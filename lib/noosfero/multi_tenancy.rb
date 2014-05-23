@@ -25,20 +25,20 @@ module Noosfero
     private
 
     def self.load_map
-      db_file = File.join(RAILS_ROOT, 'config', 'database.yml')
+      db_file = Rails.root.join('config', 'database.yml')
       db_config = YAML.load_file(db_file)
       map = { }
       db_config.each do |env, attr|
-        next unless env.match(/_#{RAILS_ENV}$/) and attr['adapter'] =~ /^postgresql$/i
+        next unless env.match(/_#{Rails.env}$/) and attr['adapter'] =~ /^postgresql$/i
         attr['domains'].each { |d| map[d] = attr['schema_search_path'] }
       end
       map
     end
 
     def self.is_hosted_environment?
-      db_file = File.join(RAILS_ROOT, 'config', 'database.yml')
+      db_file = Rails.root.join('config', 'database.yml')
       db_config = YAML.load_file(db_file)
-      db_config.select{ |env, attr| RAILS_ENV.to_s.match(/_#{env}$/) }.any?
+      db_config.select{ |env, attr| Rails.env.to_s.match(/_#{env}$/) }.any?
     end
 
   end

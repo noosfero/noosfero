@@ -24,11 +24,11 @@ Feature: categories_block
       | owner       | type          |
       | environment | CategoriesBlock |
     And I am logged in as admin
+    And I go to /admin/environment_design
 
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: List just product categories
-    Given I go to /admin/environment_design
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     When I press "Save"
     Then I should see "Food"
@@ -37,10 +37,9 @@ Feature: categories_block
     And "Steak" should not be visible within "span#category-name"
     And "Fiction" should not be visible within "span#category-name"
 
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: Show submenu if it exists
-    Given I go to /admin/environment_design
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
     Then I should see "Food"
@@ -55,10 +54,9 @@ Feature: categories_block
     And I should see "Steak"
     And I should not see "Fiction"
 
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: Show only one submenu per time
-    Given I go to /admin/environment_design
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
     Then I should see "Book"
@@ -66,18 +64,16 @@ Feature: categories_block
     When I follow "block_2_category_2"
     Then I should see "Literature"
 
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: List just general categories
-    Given I go to /admin/environment_design
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Generic category"
     When I press "Save"
     Then I should see "Wood"
 
-  @selenium @ignore-hidden-elements
+  @selenium
   Scenario: List just regions
-    Given I go to /admin/environment_design
-    And I follow "Edit" within ".categories-block"
+    Given I follow "Edit" within ".categories-block"
     And I check "Region"
     When I press "Save"
     Then I should see "Bahia"

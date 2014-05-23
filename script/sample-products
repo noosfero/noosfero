@@ -14,8 +14,7 @@ for thing in THINGS
     rand(10).times do |i|
       save Product.new(
         :name => name,
-        :enterprise_id => enterprises.rand.id, :price => (i * 13.7),
-        :product_category_id => categories.rand.id
+        :profile => enterprises.sample, :price => (i * 13.7),
       )
     end
   end

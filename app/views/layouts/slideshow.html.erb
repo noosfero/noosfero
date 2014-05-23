@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
+    <title><%=
+       (@page ? @page.name + ' - ' : '') +
+       (@profile ? @profile.name + ' - ' : '') +
+       @environment.name +
+       (@category ? "&rarr; #{@category.full_name}" : '')
+    %></title>
+
+    <%= stylesheet_import "slideshow" %>
+    <%= javascript_include_tag 'jquery-2.1.1.min', 'sliderjs', 'pikachoose', :cache => 'cache/slideshow' %>
+    <script type="text/javascript">
+      $(document).ready(function (){
+        $("#slideshow").PikaChoose({
+          buttons: { play: <%= _("Play").to_json %>, stop: <%= _("Stop").to_json %>, previous: <%= _("Previous").to_json %>, next: <%= _("Next").to_json %> }
+        });
+        $("#slideshow").SliderJS({
+          window_width: 320,
+          window_height: 55,
+          list_width: 832,
+          pikachoose: true,
+          auto_play: false
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

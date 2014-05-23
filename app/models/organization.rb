@@ -1,6 +1,8 @@
 # Represents any organization of the system
 class Organization < Profile
 
+  attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name, :enable_contact_us
+
   SEARCH_FILTERS += %w[
     more_popular
     more_active
@@ -26,18 +28,7 @@ class Organization < Profile
 
   has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
 
-  named_scope :more_popular,
-    :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
-    :group => Profile.qualified_column_names,
-    :joins => "LEFT OUTER JOIN role_assignments ON profiles.id = role_assignments.resource_id",
-    :order => "total DESC"
-
-  named_scope :more_active,
-    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
-    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.target_id",
-    :group => Profile.qualified_column_names,
-    :order => 'total DESC',
-    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
+  scope :more_popular, :order => 'members_count DESC'
 
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
@@ -105,6 +96,8 @@ class Organization < Profile
 
   N_('Display name'); N_('Description'); N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Tag list'); N_('District'); N_('Address reference')
   settings_items :display_name, :description, :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :district, :address_reference
+
+  settings_items :zip_code, :city, :state, :country
 
   validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.blank? })

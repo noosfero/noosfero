@@ -19,7 +19,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @page = fast_create(Folder, :profile_id => @profile.id)
 
     box = Box.create!(:owner => @profile)
-    @block = ContextContentPlugin::ContextContentBlock.new(:box => box)
+    @block = ContextContentPlugin::ContextContentBlock.new(:box_id => box.id)
     @block.types = ['TinyMceArticle']
     @block.limit = 1
     @block.save!
@@ -35,7 +35,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :id => 'block_show_image' }
     assert_tag :tag => 'input', :attributes => { :id => 'block_show_name' }
     assert_tag :tag => 'input', :attributes => { :id => 'block_show_parent_content' }
-    assert_tag :tag => 'input', :attributes => { :id => 'block_types' }
+    assert_tag :tag => 'input', :attributes => { :name => 'block[types][]' }
   end
 
   should 'be able to save TrackListBlock' do

@@ -70,7 +70,7 @@ class BoxOrganizerController < ApplicationController
     else
       @center_block_types = (Box.acceptable_center_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => 1)
       @side_block_types = (Box.acceptable_side_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => [2,3])
-      @boxes = boxes_holder.boxes
+      @boxes = boxes_holder.boxes.with_position
       render :action => 'add_block', :layout => false
     end
   end
@@ -78,6 +78,22 @@ class BoxOrganizerController < ApplicationController
   def edit
     @block = boxes_holder.blocks.find(params[:id])
     render :action => 'edit', :layout => false
+  end
+
+  def search_autocomplete
+    if request.xhr? and params[:query]
+      search = params[:query]
+      path_list = if boxes_holder.is_a?(Environment) && boxes_holder.enabled?('use_portal_community') && boxes_holder.portal_community
+        boxes_holder.portal_community.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20).map { |content| "/{portal}/"+content.path }
+      elsif boxes_holder.is_a?(Profile)
+        boxes_holder.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20).map { |content| "/{profile}/"+content.path }
+      else
+        []
+      end
+      render :json => path_list.to_json
+    else
+      redirect_to "/"
+    end
   end
 
   def save
@@ -97,6 +113,12 @@ class BoxOrganizerController < ApplicationController
     else
       session[:notice] = _('Failed to remove block')
     end
+  end
+
+  def clone_block
+    block = Block.find(params[:id])
+    block.duplicate
+    redirect_to :action => 'index'
   end
 
   protected :boxes_editor?

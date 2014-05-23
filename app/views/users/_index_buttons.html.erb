@@ -1,0 +1,6 @@
+<% button_bar do %>
+  <%= button :'text-plain', _('User list as [CSV]'), :action => 'download.csv' %>
+  <%= button :'text-html', _('User list as [XML]'), :action => 'download.xml' %>
+  <%= button :send, _('Send e-mail to all users'), :action => 'send_mail' %>
+  <%= button :back, _('Back'), :controller => 'admin_panel' %>
+<% end %>

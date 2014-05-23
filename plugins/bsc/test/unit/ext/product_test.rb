@@ -6,7 +6,7 @@ class ProductTest < ActiveSupport::TestCase
   should 'return have bsc' do
     bsc = BscPlugin::Bsc.create!({:business_name => 'Sample Bsc', :identifier => 'sample-bsc', :company_name => 'Sample Bsc Ltda.', :cnpj => VALID_CNPJ})
     enterprise = fast_create(Enterprise, :bsc_id => bsc.id)
-    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product = fast_create(Product, :profile_id => enterprise.id)
 
     assert_equal bsc, product.bsc
   end

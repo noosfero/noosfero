@@ -1,0 +1,16 @@
+<div class="common-profile-list-block">
+
+<h1><%= _("%s's fans") % profile.name %></h1>
+
+<ul class='profile-list'>
+<% @fans.each do |person| %>
+  <li><%= profile_image_link(person)%></li>
+<% end %>
+</ul>
+
+<% button_bar do %>
+  <%= button :back, _('Go back'), { :controller => 'profile' }%>
+<% end %>
+
+</div><!-- fim class="common-profile-list-block" -->
+

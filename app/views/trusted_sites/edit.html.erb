@@ -1,0 +1,15 @@
+<h2> <%= _("Editing trusted site") %> </h2>
+
+<%= form_tag :action => :update do %>
+
+  <%= text_field_tag :site, @site %>
+  <%= hidden_field_tag :orig_site, @site %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes'), :cancel => {:action => 'index'} ) %>
+  <% end %>
+<% end %>
+
+<script>
+  jQuery(function() { jQuery('input#site').focus(); } );
+</script>

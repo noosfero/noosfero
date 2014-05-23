@@ -1,0 +1,130 @@
+<% extra_content = [] %>
+<% extra_content_list = [] %>
+
+<div id="product-catalog">
+<% if !user.nil? && ( user.is_admin?(profile.environment) || user.is_admin?(profile) ) %>
+  <div class="product-catalog-ctrl">
+    <%= button :product, _('Manage Products/Services'), :controller => 'manage_products' %>
+  </div>
+<% end %>
+
+<h1><%= _('Products/Services') %></h1>
+
+<%= breadcrumb(@category) if params[:level] %>
+
+<ul id="product-list">
+  <% @products.each do |product| %>
+    <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
+    <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
+
+    <% status = [] %>
+    <% status << 'not-available' if !product.available %>
+    <% status << 'highlighted' if product.highlighted %>
+
+    <li id="product-<%= product.id %>" class="product <%= status.join(' ') %>">
+      <ul>
+        <li class="product-image-link">
+          <% if product.highlighted? %>
+            <%= link_to image_tag(themed_path('/images/star.png'), :class => 'star', :alt => _('Highlighted product')), product_path(product) %>
+          <% end %>
+          <% if product.image %>
+            <div class="zoomable-image">
+              <%= link_to_product product, :class => 'product-big', :style => "background-image: url(#{product.default_image(:big)})" %>
+              <%= link_to content_tag(:span, _('Zoom in')), product.default_image(:big).gsub('_big',''), :class => 'zoomify-image' %>
+            </div>
+          <% else %>
+            <div class="no-image"><%= _('No image') %></div>
+          <% end %>
+          <div class="catalog-item-extras"><%= extra_content.join("\n") %></div>
+        </li>
+
+        <li class="product-link"><%= link_to_product product %></li>
+
+        <li class="product-price-line">
+          <% unless product.discount.blank? or product.discount == 0 %>
+            <span class="product-discount">
+              <span><%= _('from ') + price_span(product.price) %></span>
+              <span class="product-discount-by"><%= _('by ') %></span>
+            </span>
+          <% end %>
+          <% unless product.price.blank? or product.price == 0 %>
+            <span class="product-price">
+              <%= price_span product.price_with_discount, :class => "product-price #{'with-discount' unless product.discount}" %>
+              <span class="product-unit"><%= _(' / ') + (product.unit ? product.unit.singular : _('unit')) %></span>
+            </span>
+          <% end %>
+          <div style="clear: both"></div>
+        </li>
+
+        <% if product.description %>
+          <li class="product-description expand-box">
+            <span class="product-description-button"><%= _('description') %></span>
+            <div class="float-box">
+              <div class="arrow"></div>
+              <div class="content"><%= product.description %></div>
+            </div>
+          </li>
+        <% end %>
+
+        <% if product.price_described? %>
+          <li class="product-price-composition expand-box">
+            <span class="product-price-composition-button"><%= _('price composition') %></span>
+            <div class="float-box">
+              <div class="arrow"></div>
+              <div class="content">
+                <% product.inputs.relevant_to_price.each do |i| %>
+                  <div class="search-product-input-dots-to-price">
+                    <div class="search-product-input-name"><%= i.product_category.name %></div>
+                    <%= price_span i.cost, :class => 'search-product-input-price' %>
+                  </div>
+                <% end %>
+                <% product.price_details.each do |i| %>
+                  <div class="search-product-input-dots-to-price">
+                    <div class="search-product-input-name"><%= i.name %></div>
+                    <%= price_span i.price, :class => 'search-product-input-price' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+
+        <% if product.inputs.count > 0 %>
+          <li class="product-inputs expand-box">
+            <span id="inputs-button"><%= _('inputs and raw materials') %></span>
+            <div class="float-box">
+              <div class="arrow"></div>
+              <div class="content">
+                <% product.inputs.each do |i| %>
+                  <div>
+                    <%= _('%{amount_used} %{unit} of') % {:amount_used => i.amount_used, :unit => i.unit.singular} + ' ' if i.has_all_price_details? %>
+                    <%= i.product_category.name %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+
+        <% unless product.qualifiers.blank? %>
+          <li class="product-qualifiers">
+            <span><%= _('qualifiers') if product.product_qualifiers.count > 0 %></span>
+            <div><%= render :partial => 'shared/product/qualifiers', :locals => {:product => product} %></div>
+        <% end %>
+
+        <% extra_content_list.map do |content| %>
+          <li class="catalog-list-item-extras"><%= content %></li>
+        <% end %>
+
+        <li class="product-unavailable"><%= _('product unavailable') unless product.available %></li>
+      </ul>
+    </li>
+  <% end %>
+</ul><!-- end id="product-list" -->
+
+<%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
+
+<%= add_zoom_to_images %>
+
+<br style="clear:both"/>
+</div><!-- end id="product-catalog" -->

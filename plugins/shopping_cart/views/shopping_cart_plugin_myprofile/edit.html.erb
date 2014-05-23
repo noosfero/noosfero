@@ -1,8 +1,8 @@
 <h1> <%= _('Basket options') %> </h1>
 
-<% form_for(:settings, @settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
-  <%= labelled_form_field(_('Enabled?'), f.check_box(:enabled)) %>
-  <%= labelled_form_field(_('Delivery?'), f.check_box(:delivery)) %>
+<%= form_for(:settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
+  <%= labelled_form_field(_('Enable shopping basket'), f.check_box(:enabled)) %>
+  <%= labelled_form_field(_('Enable delivery fields on orders'), f.check_box(:delivery)) %>
   <% display_delivery_settings = @settings.delivery ? 'auto' : 'none' %>
   <fieldset id='delivery_settings' style="display: <%= display_delivery_settings %>"><legend><%=_('Delivery')%></legend>
     <table>
@@ -33,8 +33,8 @@
       </tr>
     </table>
 
-    <%= labelled_form_field(_('Free delivery price:'), f.text_field(:free_delivery_price)) %>
-    <%= content_tag('small', _('Empty stands for no free delivery price.')) %>
+    <%= labelled_form_field(_("Order's minimum price for free delivery:"), f.text_field(:free_delivery_price)) %>
+    <%= content_tag('small', _('Leave empty to always charge the delivery.')) %>
   </fieldset>
   <br style='clear: both'/>
   <br style='clear: both'/>

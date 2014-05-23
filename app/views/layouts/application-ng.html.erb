@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
+  <head>
+    <title><%= h page_title %></title>
+    <%= yield(:feeds) %>
+    <!--<meta http-equiv="refresh" content="1"/>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="<%= @environment.name %>" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" value="summary">
+    <meta name="twitter:title" content="<%= h page_title %>">
+    <meta name="twitter:description" content="<%= meta_description_tag(@page) %>">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="<%= @page ? 'article' : 'website' %>">
+    <meta property="og:url" content="<%= @page ? url_for(@page.url) : @environment.top_url %>">
+    <meta property="og:title" content="<%= h page_title %>">
+    <meta property="og:site_name" content="<%= profile ? profile.name : @environment.name %>">
+    <meta property="og:description" content="<%= @page ? truncate(strip_tags(@page.body.to_s), :length => 200) : @environment.name %>">
+
+    <% if @page %>
+      <meta property="article:published_time" content="<%= show_date(@page.published_at) %>">
+      <% @page.body_images_paths.each do |img| %>
+        <meta name="twitter:image" content="<%= img.to_s %>">
+        <meta property="og:image" content="<%= img.to_s %>">
+      <% end %>
+    <% end %>
+
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
+    <%= noosfero_javascript %>
+    <%= noosfero_stylesheets %>
+
+    <%# Add custom tags/styles/etc via content_for %>
+    <%= yield :head %>
+    <%=
+      @plugins.dispatch(:head_ending).map do |content|
+        if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
+      end.join("\n")
+    %>
+
+    <script type='text/javascript'>
+      DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'" %>;
+    </script>
+
+    <%= csrf_meta_tag %>
+  </head>
+  <body class="<%= h body_classes %>">
+    <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+
+    <%=
+      @plugins.dispatch(:body_beginning).map do |content|
+        if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
+      end.join("\n")
+    %>
+
+    <div id="wrap-1">
+      <div id='theme-header'>
+        <%= theme_header %>
+      </div>
+      <div id="wrap-2">
+        <%= render :partial => 'layouts/user' %>
+        <h1 id="site-title">
+          <%= theme_site_title %>
+        </h1>
+        <div id="navigation">
+          <ul>
+            <%= theme_extra_navigation %>
+          </ul>
+          <div id="navigation-end"></div>
+        </div><!-- end id="navigation" -->
+        <div id="content">
+          <div id="content-inner">
+            <%= insert_boxes(yield) %>
+            <br style='clear: both'/>
+          </div><!-- end id="content-inner" -->
+        </div><!-- end id="content" -->
+      </div><!-- end id="wrap-2" -->
+    </div><!-- end id="wrap-1" -->
+    <%= render_environment_features(:logged_in) %>
+    <div id="theme-footer">
+      <%= theme_footer %>
+    </div><!-- end id="theme-footer" -->
+    <%= noosfero_layout_features %>
+    <%= theme_javascript_ng %>
+    <%= addthis_javascript %>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+<%= form_tag({:action => 'add_image', :id => @theme.id}, :multipart => true) do %>
+  <%= labelled_form_field(_('Choose the image file'), file_field_tag(:image)) %>
+  <% button_bar do %>
+    <%= submit_button(:add, _('Add image')) %>
+  <% end %>
+<% end %>

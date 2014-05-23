@@ -1,0 +1,5 @@
+<%
+  content = render :partial => 'shared/select_categories',
+      :locals => {:object_name => 'article', :multiple => true}, :layout => false
+%>
+jQuery('#select-categories').html('<%= j(content) %>');

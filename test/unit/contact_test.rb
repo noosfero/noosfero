@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ContactTest < ActiveSupport::TestCase
 
@@ -22,7 +22,7 @@ class ContactTest < ActiveSupport::TestCase
   should 'validates format of email only if not empty' do
     contact = Contact.new
     contact.valid?
-    assert_match(/can't be blank/, contact.errors[:email])
+    assert_match(/can't be blank/, contact.errors[:email].first)
   end
 
   should 'inicialize fields on instanciate' do
@@ -44,11 +44,14 @@ class ContactTest < ActiveSupport::TestCase
     assert !c.deliver
   end
 
-  should 'use sender name and environment contact_email on from' do
+  should 'use sender name and environment noreply_email on from' do
     ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
+    env = ent.environment
+    env.noreply_email = 'noreply@sample.org'
+    env.save!
     c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
     email = c.deliver
-    assert_equal "#{c.name} <#{ent.environment.contact_email}>", email['from'].to_s
+    assert_equal "#{c.name} <#{ent.environment.noreply_email}>", email['from'].to_s
   end
 
   should 'add dest name on subject' do
@@ -62,7 +65,7 @@ class ContactTest < ActiveSupport::TestCase
     ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
     c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
     email = c.deliver
-    assert_equal c.email, email.reply_to.to_s
+    assert_equal c.email, email.reply_to.first.to_s
   end
 
 end

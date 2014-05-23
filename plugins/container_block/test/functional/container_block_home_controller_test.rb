@@ -20,8 +20,8 @@ class HomeControllerTest < ActionController::TestCase
     @environment.add_admin(user.person)
     login_as(user.login)
 
-    box = Box.create!(:owner => @environment)
-    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => box)
+    box = create(Box, :owner => @environment)
+    @block = create(ContainerBlockPlugin::ContainerBlock, :box => box)
     
     @environment.boxes = [box]
   end
@@ -31,16 +31,23 @@ class HomeControllerTest < ActionController::TestCase
     assert_tag :div, :attributes => { :class => 'block container-block-plugin_container-block' }
   end
 
+  should 'display block title' do
+    @block.title = "Block Title"
+    @block.save!
+    get :index
+    assert_tag :div, :attributes => { :class => 'block container-block-plugin_container-block' }, :descendant => {:tag => 'h3', :attributes => { :class => "block-title"}, :content => @block.title }
+  end
+
   should 'display container children' do
-    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
-    c2 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child2 content')
+    c1 = RawHTMLBlock.create!(:box_id => @block.container_box.id, :html => 'child1 content')
+    c2 = RawHTMLBlock.create!(:box_id => @block.container_box.id, :html => 'child2 content')
     get :index
     assert_tag :div, :attributes => { :id => "block-#{c1.id}" }
     assert_tag :div, :attributes => { :id => "block-#{c2.id}" }
   end
 
   should 'display style tags for container children' do
-    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    c1 = RawHTMLBlock.create!(:box_id => @block.container_box.id, :html => 'child1 content')
     @block.children_settings = { c1.id => {:width => "123"} }
     @block.save!
     get :index
@@ -48,7 +55,7 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   should 'do not display hidden children of container' do
-    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content', :display => 'never')
+    c1 = RawHTMLBlock.create!(:box_id => @block.container_box.id, :html => 'child1 content', :display => 'never')
     get :index
     assert_no_tag :div, :attributes => { :id => "block-#{c1.id}" }
   end

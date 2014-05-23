@@ -42,7 +42,7 @@ class AdminPanelController < AdminController
         end
         redirect_to :action => 'set_portal_folders'
       else
-        session[:notice] = __('Community not found. You must insert the identifier of a community from this environment')
+        session[:notice] = _('Community not found. You must insert the identifier of a community from this environment')
       end
     end
   end

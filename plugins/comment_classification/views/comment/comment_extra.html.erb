@@ -1,0 +1,17 @@
+<div class='comment-classification-options'>
+
+  <% unless comment.label.nil? %>
+    <p class='label-name' style='color:<%= comment.label.color %>'>
+      <%= comment.label.name %>
+    </p>
+  <% end %>
+
+  <% statuses = CommentClassificationPlugin::Status.enabled %>
+  <% if profile.organization? && user && user.has_permission?(:moderate_comments, profile) && !statuses.empty? %>
+    <div class='comment-classification-status'>
+      <%= link_to(_('Status'), :profile => profile.identifier, :controller => :comment_classification_plugin_myprofile, :action => :add_status, :id => comment.id)
+    %>
+    </div>
+  <% end %>
+
+</div>

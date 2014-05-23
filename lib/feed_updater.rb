@@ -24,8 +24,8 @@ class FeedUpdater
       environment = Environment.default
 
       recipients NOOSFERO_CONF['exception_recipients']
-      from       environment.contact_email
-      reply_to   environment.contact_email
+      from       environment.noreply_email
+      reply_to   environment.noreply_email
       subject    "[#{environment.name}] Feed-updater: #{error.message}"
       body       render(:text => "
 Container:

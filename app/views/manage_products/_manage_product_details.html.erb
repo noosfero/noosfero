@@ -1,0 +1,43 @@
+<div id='price-composition-bar'>
+  <%= render :partial => 'manage_products/price_composition_bar' %>
+</div>
+
+<%= form_tag({:action => 'manage_product_details'}, :method => 'post', :id => 'manage-product-details-form') do %>
+  <div>
+    <table id='display-product-price-details'>
+      <tr>
+        <td><%= _('Inputs') %></td>
+        <td class='inputs-cost'>
+          <span><%= float_to_currency(@product.inputs_cost) %></span>
+        </td>
+        <td>
+          <small><%= _('This value is composed by the total value of registered inputs') %></small>
+        </td>
+      </tr>
+      <%= render :partial => 'manage_products/edit_price_details', :locals => {:price_details => @product.price_details} %>
+    </table>
+  </div>
+
+  <%= hidden_field(:product, :inputs_cost) %>
+  <%= hidden_field(:product, :price) %>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save'), :disabled => '', :class => 'disabled' %>
+    <%= button(:cancel, _('Cancel'), '#', :class => 'cancel-price-details', 'data-confirm' => _('If you leave, you will lose all unsaved information. Are you sure you want to quit?')) %>
+    <%= button(:add, _('New cost'), '#', :id => 'add-new-cost') %>
+    <span class='loading-area'></span>
+  <% end %>
+
+<% end %>
+
+<div style='display:none'>
+  <table id='new-cost-fields'>
+    <tr>
+      <td><%= select_production_cost(@product) %></td>
+      <td><%= labelled_form_field(environment.currency_unit, text_field_tag('price_details[][price]', nil, :class => 'numbers-only price-details-price', :size => 6)) %></td>
+      <td><%= link_to(_('Cancel'), '#', {:class => 'cancel-new-cost'}) %></td>
+    </tr>
+  </table>
+</div>
+
+<%= render :partial => 'shared/numbers_only_javascript' %>

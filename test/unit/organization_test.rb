@@ -21,7 +21,7 @@ class OrganizationTest < ActiveSupport::TestCase
       :requestor => requestor,
       :target => org,
     }
-    CreateEnterprise.create!(data)
+    create(CreateEnterprise, data)
   end
 
 
@@ -80,24 +80,24 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'validate contact_email if filled' do
     org = Organization.new
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
     org.contact_email = ''
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
 
     org.contact_email = 'invalid-email'
     org.valid?
-    assert org.errors.invalid?(:contact_email)
+    assert org.errors[:contact_email.to_s].present?
 
     org.contact_email = 'someone@somedomain.com'
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
   end
 
   should 'list contact_email plus admin emails as "notification emails"' do
-    o = Organization.new(:contact_email => 'org@email.com')
+    o = build(Organization, :contact_email => 'org@email.com')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -106,7 +106,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is nil' do
-    o = Organization.new(:contact_email => nil)
+    o = build(Organization, :contact_email => nil)
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -115,7 +115,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is a blank string' do
-    o = Organization.new(:contact_email => '')
+    o = build(Organization, :contact_email => '')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -124,13 +124,13 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'return empty array if contact_email is a blank string and it has no admin' do
-    o = Organization.new(:contact_email => '', :environment => Environment.default)
+    o = build(Organization, :contact_email => '', :environment => Environment.default)
     assert_equal [], o.notification_emails
   end
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    assert_kind_of Array, org.pending_validations
+    assert_kind_of ActiveRecord::Relation, org.pending_validations
   end
 
   should 'be able to find a pending validation by its code' do
@@ -148,7 +148,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'be able to find already processed validations' do
     org = Organization.new
-    assert_kind_of Array, org.processed_validations
+    assert_kind_of ActiveRecord::Relation, org.processed_validations
   end
 
   should 'be able to find an already processed validation by its code' do
@@ -160,7 +160,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'have boxes and blocks upon creation' do
-    profile = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    profile = create(Organization, :name => 'test org', :identifier => 'testorg')
 
     assert profile.boxes.size > 0
     assert profile.blocks.size > 0
@@ -183,15 +183,15 @@ class OrganizationTest < ActiveSupport::TestCase
     org = Organization.new
     org.foundation_year = 'xxxx'
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
 
     org.foundation_year = 20.07
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
     
     org.foundation_year = 2007
     org.valid?
-    assert ! org.errors.invalid?(:foundation_year)
+    assert ! org.errors[:foundation_year.to_s].present?
   end
 
   should 'has closed' do
@@ -302,18 +302,17 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'find more popular organizations' do
-    Organization.delete_all
     o1 = fast_create(Organization)
     o2 = fast_create(Organization)
 
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     o1.add_member(p1)
-    assert_equal [o1,o2] , Organization.more_popular
+    assert_order [o1,o2] , Organization.more_popular
 
     o2.add_member(p1)
     o2.add_member(p2)
-    assert_equal [o2,o1] , Organization.more_popular
+    assert_order [o2,o1] , Organization.more_popular
   end
 
   should 'list organizations that have no members in more popular list' do
@@ -331,6 +330,7 @@ class OrganizationTest < ActiveSupport::TestCase
     person = fast_create(Person)
     organization = fast_create(Organization)
     organization.add_member(person)
+    organization.reload
 
     assert_equal "one member", organization.more_popular_label
   end
@@ -342,47 +342,30 @@ class OrganizationTest < ActiveSupport::TestCase
 
     organization.add_member(person1)
     organization.add_member(person2)
+    organization.reload
     assert_equal "2 members", organization.more_popular_label
 
     person3 = fast_create(Person)
     organization.add_member(person3)
+    organization.reload
     assert_equal "3 members", organization.more_popular_label
   end
 
   should 'find more active organizations' do
     person = fast_create(Person)
-    Organization.destroy_all
     p1 = fast_create(Organization)
     p2 = fast_create(Organization)
     p3 = fast_create(Organization)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p1.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
+    ActionTracker::Record.create!(:user => person, :target => p1, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
 
-    assert_equal [p3,p2,p1] , Organization.more_active
-  end
-
-  should 'more active profile take in consideration only actions created only in the recent delay interval' do
-    ActionTracker::Record.destroy_all
-    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
-
-    person = fast_create(Person)
-    Organization.destroy_all
-    p1 = fast_create(Organization)
-    p2 = fast_create(Organization)
-
-    ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p1.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p1.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p2.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay - 1.day, :target_id => p2.id)
-
-    assert_equal [p1,p2] , Organization.more_active
+    assert_order [p3,p2,p1] , Organization.more_active
   end
 
   should 'list profiles that have no actions in more active list' do
@@ -391,13 +374,13 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'validates format of cnpj' do
-    organization = Organization.new(:cnpj => '239-234.234')
+    organization = build(Organization, :cnpj => '239-234.234')
     organization.valid?
-    assert organization.errors.invalid?(:cnpj)
+    assert organization.errors[:cnpj.to_s].present?
 
     organization.cnpj = '94.132.024/0001-48'
     organization.valid?
-    assert !organization.errors.invalid?(:cnpj)
+    assert !organization.errors[:cnpj.to_s].present?
   end
 
   should 'return members by role in a json format' do
@@ -420,6 +403,26 @@ class OrganizationTest < ActiveSupport::TestCase
 
     organization.disable
     assert !organization.visible
+  end
+
+  should 'increase members_count on new membership' do
+    member = fast_create(Person)
+    organization = fast_create(Organization)
+    assert_difference 'organization.members_count', 1 do
+      organization.add_member(member)
+      organization.reload
+    end
+  end
+
+  should 'decrease members_count on membership removal' do
+    member = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_member(member)
+    organization.reload
+    assert_difference 'organization.members_count', -1 do
+      organization.remove_member(member)
+      organization.reload
+    end
   end
 
 end

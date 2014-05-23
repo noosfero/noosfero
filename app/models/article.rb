@@ -2,6 +2,8 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent, :allow_members_to_edit, :translation_of_id, :language, :license_id, :parent_id, :display_posts_in_current_language, :category_ids, :posts_per_page, :moderate_comments, :accept_comments, :feed, :published, :source, :highlighted, :notify_comments, :display_hits, :slug, :external_feed_builder, :display_versions
+
   acts_as_having_image
 
   SEARCHABLE_FIELDS = {
@@ -69,6 +71,7 @@ class Article < ActiveRecord::Base
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
   settings_items :followers, :type => Array, :default => []
+  has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
@@ -95,11 +98,11 @@ class Article < ActiveRecord::Base
 
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
-  named_scope :in_category, lambda { |category|
+  scope :in_category, lambda { |category|
     {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
-  named_scope :by_range, lambda { |range| {
+  scope :by_range, lambda { |range| {
     :conditions => [
       'published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
     ]
@@ -147,7 +150,7 @@ class Article < ActiveRecord::Base
     self.profile
   end
 
-  def self.human_attribute_name(attrib)
+  def self.human_attribute_name(attrib, options = {})
     case attrib.to_sym
     when :name
       _('Title')
@@ -200,6 +203,7 @@ class Article < ActiveRecord::Base
   acts_as_filesystem
 
   acts_as_versioned
+  self.non_versioned_columns << 'setting'
 
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
@@ -217,14 +221,19 @@ class Article < ActiveRecord::Base
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  named_scope :top_level_for, lambda { |profile|
+  scope :top_level_for, lambda { |profile|
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
-  named_scope :join_profile, :joins => [:profile]
+  scope :public,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ], :joins => [:profile]
 
-  named_scope :public,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
+  scope :more_recent,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
+      ((articles.type != ?) OR articles.type is NULL)",
+      true, true, true, true, 'RssFeed'
+    ],
+    :order => 'articles.published_at desc, articles.id desc'
 
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
@@ -232,7 +241,8 @@ class Article < ActiveRecord::Base
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
+  scope :more_popular, :order => 'hits DESC'
+  scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
     result = scoped({:conditions => extra_conditions}).
@@ -240,13 +250,6 @@ class Article < ActiveRecord::Base
       relevant_as_recent.
       limit(limit).
       order(['articles.published_at desc', 'articles.id desc'])
-
-    if !( scoped_methods && scoped_methods.last &&
-        scoped_methods.last[:find] &&
-        scoped_methods.last[:find][:joins] &&
-        scoped_methods.last[:find][:joins].index('profiles') )
-      result = result.includes(:profile)
-    end
 
     pagination ? result.paginate({:page => 1, :per_page => limit}) : result
   end
@@ -259,16 +262,18 @@ class Article < ActiveRecord::Base
   # (To override short format representation, override the lead method)
   def to_html(options = {})
     if options[:format] == 'short'
-      display_short_format(self)
+      article = self
+      proc do
+        display_short_format(article)
+      end
     else
       body || ''
     end
   end
 
-  include ApplicationHelper
   def reported_version(options = {})
     article = self
-    search_path = File.join(Rails.root, 'app', 'views', 'shared', 'reported_versions')
+    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
     partial_path = File.join('shared', 'reported_versions', partial_for_class_in_view_path(article.class, search_path))
     lambda { render_to_string(:partial => partial_path, :locals => {:article => article}) }
   end
@@ -369,7 +374,7 @@ class Article < ActiveRecord::Base
     {}
   end
 
-  named_scope :native_translations, :conditions => { :translation_of_id => nil }
+  scope :native_translations, :conditions => { :translation_of_id => nil }
 
   def translatable?
     false
@@ -405,7 +410,7 @@ class Article < ActiveRecord::Base
 
   def native_translation_must_have_language
     unless self.translation_of.nil?
-      errors.add_to_base(N_('A language must be choosen for the native article')) if self.translation_of.language.blank?
+      errors.add(:base, N_('A language must be choosen for the native article')) if self.translation_of.language.blank?
     end
   end
 
@@ -447,17 +452,17 @@ class Article < ActiveRecord::Base
     ['TextArticle', 'TextileArticle', 'TinyMceArticle']
   end
 
-  named_scope :published, :conditions => { :published => true }
-  named_scope :folders, :conditions => { :type => folder_types}
-  named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
-  named_scope :galleries, :conditions => { :type => 'Gallery' }
-  named_scope :images, :conditions => { :is_image => true }
-  named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
-  named_scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
+  scope :published, :conditions => { :published => true }
+  scope :folders, lambda {|profile|{:conditions => { :type => profile.folder_types} }}
+  scope :no_folders, lambda {|profile|{:conditions => ['type NOT IN (?)', profile.folder_types]}}
+  scope :galleries, :conditions => { :type => 'Gallery' }
+  scope :images, :conditions => { :is_image => true }
+  scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+  scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
 
-  named_scope :more_popular, :order => 'hits DESC'
-  named_scope :more_comments, :order => "comments_count DESC"
-  named_scope :more_recent, :order => "created_at DESC"
+  scope :more_popular, :order => 'hits DESC'
+  scope :more_comments, :order => "comments_count DESC"
+  scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
     return {:conditions => ['published = ?', true]} if !user
@@ -470,7 +475,8 @@ class Article < ActiveRecord::Base
 
   def display_unpublished_article_to?(user)
     user == author || allow_view_private_content?(user) || user == profile ||
-    user.is_admin?(profile.environment) || user.is_admin?(profile)
+    user.is_admin?(profile.environment) || user.is_admin?(profile) ||
+    article_privacy_exceptions.include?(user)
   end
 
   def display_to?(user = nil)
@@ -528,13 +534,23 @@ class Article < ActiveRecord::Base
   def copy(options = {})
     attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
-    self.class.create(attrs)
+    object = self.class.new
+    attrs.each do |key, value|
+      object.send(key.to_s+'=', value)
+    end
+    object.save
+    object
   end
 
   def copy!(options = {})
     attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
-    self.class.create!(attrs)
+    object = self.class.new
+    attrs.each do |key, value|
+      object.send(key.to_s+'=', value)
+    end
+    object.save!
+    object
   end
 
   ATTRIBUTES_NOT_COPIED = [
@@ -602,25 +618,49 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def author
-    if versions.empty?
-      last_changed_by
-    else
-      author_id = versions.first.last_changed_by_id
+  settings_items :display_versions, :type => :boolean, :default => false
+
+  def can_display_versions?
+    false
+  end
+
+  def display_versions?
+    can_display_versions? && display_versions
+  end
+
+  def author(version_number = nil)
+    if version_number
+      version = versions.find_by_version(version_number)
+      author_id = version.last_changed_by_id if version
       Person.exists?(author_id) ? Person.find(author_id) : nil
+    else
+      if versions.empty?
+        last_changed_by
+      else
+        author_id = versions.first.last_changed_by_id
+        Person.exists?(author_id) ? Person.find(author_id) : nil
+      end
     end
   end
 
-  def author_name
-    author ? author.name : (setting[:author_name] || _('Unknown'))
+  def author_name(version_number = nil)
+    person = author(version_number)
+    person ? person.name : (setting[:author_name] || _('Unknown'))
   end
 
-  def author_url
-    author ? author.url : nil
+  def author_url(version_number = nil)
+    person = author(version_number)
+    person ? person.url : nil
   end
 
-  def author_id
-    author ? author.id : nil
+  def author_id(version_number = nil)
+    person = author(version_number)
+    person ? person.id : nil
+  end
+
+  def version_license(version_number = nil)
+    return license if version_number.nil?
+    profile.environment.licenses.find_by_id(versions.find_by_version(version_number).license_id)
   end
 
   alias :active_record_cache_key :cache_key
@@ -629,7 +669,9 @@ class Article < ActiveRecord::Base
       (allow_post_content?(the_profile) ? "-owner" : '') +
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
-      (params[:month] ? "-month-#{params[:month]}" : '')
+      (params[:month] ? "-month-#{params[:month]}" : '') +
+      (params[:version] ? "-version-#{params[:version]}" : '')
+
   end
 
   def first_paragraph
@@ -707,7 +749,7 @@ class Article < ActiveRecord::Base
 
   def sanitize_tag_list
     sanitizer = HTML::FullSanitizer.new
-    self.tag_list.names.map!{|i| strip_tag_name sanitizer.sanitize(i) }
+    self.tag_list.map!{|i| strip_tag_name sanitizer.sanitize(i) }
   end
 
   def strip_tag_name(tag_name)

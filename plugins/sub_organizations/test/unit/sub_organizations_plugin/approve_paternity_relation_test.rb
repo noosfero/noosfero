@@ -13,7 +13,7 @@ class SubOrganizationsPlugin::ApprovePaternityRelationTest < ActiveSupport::Test
     org2 = fast_create(Organization)
     task = SubOrganizationsPlugin::ApprovePaternity.create!(:requestor => requestor, :target => org2, :temp_parent_id => org1.id, :temp_parent_type => org1.class.name)
 
-    assert_equal SubOrganizationsPlugin::ApprovePaternityRelation.parent(task), org1
+    assert_equal SubOrganizationsPlugin::ApprovePaternityRelation.parent_approval(task), org1
   end
 
   should 'list pending children' do
@@ -25,8 +25,8 @@ class SubOrganizationsPlugin::ApprovePaternityRelationTest < ActiveSupport::Test
     SubOrganizationsPlugin::ApprovePaternity.create!(:requestor => requestor, :target => org1, :temp_parent_id => organization.id, :temp_parent_type => organization.class.name)
     SubOrganizationsPlugin::ApprovePaternity.create!(:requestor => requestor, :target => org2, :temp_parent_id => organization.id, :temp_parent_type => organization.class.name)
 
-    assert_includes SubOrganizationsPlugin::ApprovePaternityRelation.pending_children(organization), org1
-    assert_includes SubOrganizationsPlugin::ApprovePaternityRelation.pending_children(organization), org2
-    assert_not_includes SubOrganizationsPlugin::ApprovePaternityRelation.pending_children(organization), org3
+    assert_includes Organization.pending_children(organization), org1
+    assert_includes Organization.pending_children(organization), org2
+    assert_not_includes Organization.pending_children(organization), org3
   end
 end

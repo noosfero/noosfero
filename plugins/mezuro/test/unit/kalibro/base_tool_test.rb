@@ -1,5 +1,5 @@
 require "test_helper"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/base_tool_fixtures"
 
 class BaseToolTest < ActiveSupport::TestCase
 

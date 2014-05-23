@@ -35,7 +35,7 @@ class VideoBlock < Block
   def content(args={})
     block = self
 
-    lambda do
+    proc do
       render :file => 'video_block', :locals => { :block => block }
     end
   end

@@ -1,0 +1,99 @@
+<li id="<%= comment.anchor %>" class="article-comment">
+  <div class="article-comment-inner">
+
+  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %> <%= 'comment-from-owner' if ( comment.author && (profile == comment.author) ) %>">
+
+  <% if comment.author %>
+    <%= link_to image_tag(profile_icon(comment.author, :minor)) +
+                content_tag('span', comment.author_name, :class => 'comment-info'),
+        comment.author.url,
+        :class => 'comment-picture',
+        :title => comment.author_name
+    %>
+  <% else %>
+    <% url_image, status_class = comment.author_id ?
+       [comment.removed_user_image, 'icon-user-removed'] :
+       [str_gravatar_url_for( comment.email, :size => 50, :d=>404 ), 'icon-user-unknown'] %>
+
+    <%= link_to(
+          image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
+                   'data-gravatar'=>str_gravatar_url_for(comment.email, :size=>50)) +
+          content_tag('span', comment.author_name, :class => 'comment-info') +
+          content_tag('span', comment.message,
+                             :class => 'comment-user-status ' + status_class),
+        gravatar_profile_url(comment.email),
+        :target => '_blank',
+        :class => 'comment-picture',
+        :title => '%s %s' % [comment.author_name, comment.message]
+    )%>
+  <% end %>
+
+  <% comment_balloon do %>
+
+    <div class="comment-details">
+      <div class="comment-created-at">
+        <%= show_time(comment.created_at) %>
+      </div>
+      <h4><%= comment.title.blank? && '&nbsp;' || comment.title %></h4>
+      <div class="comment-text">
+        <p/>
+        <%= txt2html comment.body %>
+      </div>
+    </div>
+
+    <div class="comment_reply post_comment_box closed">
+      <% if @comment && @comment.errors.any? && @comment.reply_of_id.to_i == comment.id %>
+        <%= error_messages_for :comment %>
+        <script type="text/javascript">
+          jQuery(function() {
+            document.location.href = '#<%= comment.anchor %>';
+            add_comment_reply_form('#comment-reply-to-<%= comment.id %>', <%= comment.id %>);
+          });
+        </script>
+      <% end %>
+      <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
+
+      <% if comment.spam? %>
+        &nbsp;
+        <%= link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+      <% else %>
+        <% if (logged_in? && (user == profile || user.has_permission?(:moderate_comments, profile))) %>
+          &nbsp;
+          <%= link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:mark_comment_as_spam => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+        <% end %>
+      <% end %>
+
+      <% if comment.author && comment.author == user %>
+        &nbsp;
+        <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
+      <% end %>
+
+      <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
+        &nbsp;
+        <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => params[:profile], :remove_comment => comment.id, :view => params[:view]).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children') %>
+      <% end %>
+
+      <% unless comment.spam? %>
+        &nbsp;
+        <%= link_to_function _('Reply'),
+          "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
+          :class => 'comment-footer comment-footer-link comment-footer-hide',
+          :id => 'comment-reply-to-' + comment.id.to_s
+        %>
+      <% end %>
+    </div>
+
+  <% end %>
+
+  </div>
+
+  <% unless comment.replies.blank? || comment.spam? %>
+  <ul class="comment-replies">
+    <% comment.replies.each do |reply| %>
+      <%= render :partial => 'comment', :locals => { :comment => reply } %>
+    <% end %>
+  </ul>
+  <% end %>
+
+  </div>
+</li>

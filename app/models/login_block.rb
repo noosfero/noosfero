@@ -9,7 +9,7 @@ class LoginBlock < Block
   end
 
   def content(args={})
-    lambda do
+    lambda do |context|
       render :file => 'blocks/login_block'
     end
   end

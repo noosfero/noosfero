@@ -1,0 +1,28 @@
+<div class="vcard">
+
+<% if block.title.present? %>
+  <p><%= block.title %></p>
+<% end %>
+
+<div class="profile-big-image">
+  <div class="profile-big-image-inner1">
+    <span class="profile-big-image-inner2">
+      <%= link_to profile_image(block.owner, :big) +"\n", profile.url %>
+    </span>
+  </div>
+</div>
+
+<% if show_name %>
+  <p><%= h block.owner.short_name %></p>
+<% end %>
+
+<% if !user.nil? and user.has_permission?('edit_profile', profile) %>
+  <div class='admin-link'>
+    <%= link_to _('Control panel'), block.owner.admin_url %>
+  </div>
+<% end %>
+
+<div class="profile-info-options">
+  <%= render :file => view_for_profile_actions(block.owner.class) %>
+</div>
+</div><!-- end class="vcard" -->

@@ -20,4 +20,4 @@ def ldap_configured?
   end
 end
 
-LDAP_SERVER_ERROR_MESSAGE = "\n\nWARNING: LDAP test server is not configured properly. Please see the file fixtures/ldap.yml on ldap plugin\n\n"
+LDAP_SERVER_ERROR_MESSAGE = "\nWARNING: LDAP test server is not configured properly. Please see the file fixtures/ldap.yml on ldap plugin\n\n"

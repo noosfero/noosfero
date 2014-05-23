@@ -90,7 +90,7 @@ class FeedHandlerTest < ActiveSupport::TestCase
   [:external_feed, :feed_reader_block].each do |container_class|
 
     should "reset the errors count after a successfull run (#{container_class})" do
-      container = build(container_class, :update_errors => 1, :address => RAILS_ROOT + '/test/fixtures/files/feed.xml')
+      container = create(container_class, :update_errors => 1, :address => Rails.root.join('test/fixtures/files/feed.xml'))
       handler.expects(:actually_process_container).with(container)
       handler.process(container)
       assert_equal 0, container.update_errors
@@ -122,6 +122,8 @@ class FeedHandlerTest < ActiveSupport::TestCase
       5.times { handler.process(container) }
 
       # after disabled period, tries to process the container again
+      handler.stubs(:actually_process_container).with(container)
+      container.stubs(:only_once).returns(false)
       last_error = Time.now
       Time.stubs(:now).returns(last_error + FeedHandler.disabled_period + 1.second)
       handler.expects(:actually_process_container).with(container)

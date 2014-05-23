@@ -9,8 +9,8 @@ class LightboxHelperTest < ActiveSupport::TestCase
   end
 
   should 'provide the needed files' do
-    assert File.exists?(File.join(RAILS_ROOT, 'public', 'stylesheets', 'lightbox.css')), 'lightbox.css expected to be in public/stylesheets, but not found'
-    assert File.exists?(File.join(RAILS_ROOT, 'public', 'javascripts', 'lightbox.js')), 'lightbox.js expected to be in public/javascripts, but not found'
+    assert File.exists?(Rails.root.join('public', 'stylesheets', 'lightbox.css')), 'lightbox.css expected to be in public/stylesheets, but not found'
+    assert File.exists?(Rails.root.join('public', 'javascripts', 'lightbox.js')), 'lightbox.js expected to be in public/javascripts, but not found'
   end
 
   should 'provide lightbox_link_to helper' do

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../config/environment'
 include Noosfero::SampleDataHelper
 
@@ -62,7 +63,7 @@ for name in NAMES
       user.person.save!
       if categories.present?
         2.times do
-          category = categories.rand
+          category = categories.sample
           category.people << user.person unless category.people.include?(user.person)
         end
       end
@@ -112,8 +113,8 @@ done
 people = $environment.people
 print "Creating some friendships: "
 rand(people.size * 3).times do
-  from = people.rand
-  to = people.rand
+  from = people.sample
+  to = people.sample
   if from != to && !from.friends.include?(to)
     task = AddFriend.new(:requestor => to, :target => from)
     save task do
@@ -142,12 +143,12 @@ for verb in VERBS
     save community do
       communities << community
       rand(10).times do
-        person = people.rand
+        person = people.sample
         community.add_member(person) unless community.members.include?(person)
       end
       if categories.present?
         2.times do
-          category = categories.rand
+          category = categories.sample
           category.communities << community unless category.communities.include?(community)
         end
       end
@@ -156,7 +157,7 @@ for verb in VERBS
 end
 
 5.times do
-  community = communities.rand
+  community = communities.sample
   community.add_member(guest.person) unless community.members.include?(guest.person)
   community.add_admin(guest.person) unless community.admins.include?(guest.person)
 end

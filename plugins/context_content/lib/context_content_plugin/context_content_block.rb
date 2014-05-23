@@ -6,6 +6,8 @@ class ContextContentPlugin::ContextContentBlock < Block
   settings_items :types, :type => Array, :default => ['UploadedFile']
   settings_items :limit, :type => :integer, :default => 6
 
+  attr_accessible :show_image, :show_name, :show_parent_content, :types
+
   alias :profile :owner
 
   include Noosfero::Plugin::HotSpot
@@ -42,7 +44,7 @@ class ContextContentPlugin::ContextContentBlock < Block
 
   def content_image(content)
     block = self
-    lambda do
+    proc do
       if content.image?
         image_tag(content.public_filename(:thumb))
       else
@@ -65,7 +67,7 @@ class ContextContentPlugin::ContextContentBlock < Block
 
   def footer
     block = self
-    lambda do
+    proc do
       contents = block.contents(@page)
       if contents
         content_tag('div',
@@ -78,7 +80,7 @@ class ContextContentPlugin::ContextContentBlock < Block
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       contents = block.contents(@page)
       if !contents.blank?
         block_title(block.title) + content_tag('div',

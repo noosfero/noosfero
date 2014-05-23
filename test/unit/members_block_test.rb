@@ -14,16 +14,13 @@ class MembersBlockTest < ActiveSupport::TestCase
     assert_not_equal ProfileListBlock.new.default_title, MembersBlock.new.default_title
   end
 
-  should 'link to "all members" page' do
-    profile = create_user('mytestuser').person
-    block = MembersBlock.new
-    block.box = profile.boxes.first
-    block.save!
+  should 'display members file' do
+    community = fast_create(Community)
+    block = MembersBlock.create
+    block.expects(:owner).returns(community)
 
-    expects(:_).with('View all').returns('View all')
-    expects(:link_to).with('View all' , :profile => 'mytestuser', :controller => 'profile', :action => 'members').returns('link-to-members')
-
-    assert_equal 'link-to-members', instance_eval(&block.footer)
+    self.expects(:render).with(:file => 'blocks/members', :locals => { :profile => community, :show_join_leave_button => false}).returns('file-with-members-list')
+    assert_equal 'file-with-members-list', instance_eval(&block.footer)
   end
 
   should 'pick random members' do
@@ -38,5 +35,28 @@ class MembersBlockTest < ActiveSupport::TestCase
     assert_same list, block.profiles
   end
 
-end
+  should 'use logged-in to compose cache key' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    block = MembersBlock.create
+    block.expects(:owner).returns(community)
 
+    assert_match(/-logged-in/,block.cache_key('en', person))
+  end
+
+  should 'use logged-in and member to compose cache key for members' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member person
+    block = MembersBlock.create
+    block.expects(:owner).returns(community)
+
+    assert_match(/-logged-in-member/,block.cache_key('en', person))
+  end
+
+  should 'not change block cache key if user is nil' do
+    block = MembersBlock.new
+    assert_equal block.cache_key('en'), block.cache_key('en', nil)
+  end
+
+end

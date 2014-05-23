@@ -27,3 +27,10 @@ class ActiveRecord::Base
   end
 
 end
+
+ActiveRecord::Calculations.module_eval do
+  def count_with_default_distinct(column_name=:id, options={})
+    count_without_default_distinct(column_name, {:distinct => true}.merge(options))
+  end
+  alias_method_chain :count, :default_distinct
+end

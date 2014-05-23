@@ -8,7 +8,6 @@ class AccountControllerTest < ActionController::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper
-
   all_fixtures
 
   def teardown
@@ -17,8 +16,8 @@ class AccountControllerTest < ActionController::TestCase
 
   def setup
     @controller = AccountController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @request = ActionController::TestRequest.new
+    @response = ActionController::TestResponse.new
     disable_signup_bot_check
   end
 
@@ -57,7 +56,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_allow_signup
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       new_user
       assert_response :success
       assert_not_nil assigns(:register_pending)
@@ -65,44 +64,44 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_require_login_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:login => nil)
-      assert assigns(:user).errors.on(:login)
+      assert assigns(:user).errors[:login]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_password_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:password => nil)
-      assert assigns(:user).errors.on(:password)
+      assert assigns(:user).errors[:password]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_password_confirmation_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:password_confirmation => nil)
-      assert assigns(:user).errors.on(:password_confirmation)
+      assert assigns(:user).errors[:password_confirmation]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_email_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:email => nil)
-      assert assigns(:user).errors.on(:email)
+      assert assigns(:user).errors[:email]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_shoud_not_save_without_acceptance_of_terms_of_use_on_signup
-    assert_no_difference User, :count do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+    assert_no_difference 'User.count' do
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user
       assert_response :success
       assert_nil assigns(:register_pending)
@@ -110,8 +109,8 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_shoud_save_with_acceptance_of_terms_of_use_on_signup
-    assert_difference User, :count do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+    assert_difference 'User.count' do
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user(:terms_accepted => '1')
       assert_response :success
       assert_not_nil assigns(:register_pending)
@@ -200,6 +199,16 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'change_password'
     assert ! User.find_by_login('ze').authenticated?('blabla')
+    assert_equal users(:ze), @controller.send(:current_user)
+  end
+
+  should "not change password when new password and new password confirmation don't match" do
+    login_as 'ze'
+    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
+    assert_response :success
+    assert_template 'change_password'
+    assert !assigns(:current_user).authenticated?('blabla')
+    assert !assigns(:current_user).authenticated?('blibli')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -295,12 +304,12 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'restrict multiple users with the same e-mail' do
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       new_user(:login => 'user1', :email => 'user@example.com')
       assert assigns(:user).valid?
       @controller.stubs(:logged_in?).returns(false)
       new_user(:login => 'user2', :email => 'user@example.com')
-      assert assigns(:user).errors.on(:email)
+      assert assigns(:user).errors[:email]
     end
   end
 
@@ -574,6 +583,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'use the current environment for the template of user' do
     template = create_user('test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
+    template.is_template = true
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -622,7 +632,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'signup filling in mandatory person fields' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
       assert_response :success
     end
@@ -645,19 +655,26 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'home', :action => 'index'
   end
 
-  should 'check_url is available on environment' do
+  should 'check_valid_name is available on environment' do
     env = fast_create(Environment, :name => 'Environment test')
     @controller.expects(:environment).returns(env).at_least_once
     profile = create_user('mylogin').person
-    get :check_url, :identifier => 'mylogin'
+    get :check_valid_name, :identifier => 'mylogin'
     assert_equal 'validated', assigns(:status_class)
   end
 
   should 'check if url is not available on environment' do
     @controller.expects(:environment).returns(Environment.default).at_least_once
     profile = create_user('mylogin').person
-    get :check_url, :identifier => 'mylogin'
+    get :check_valid_name, :identifier => 'mylogin'
     assert_equal 'invalid', assigns(:status_class)
+  end
+
+  should 'suggest a list with three possible usernames' do
+    profile = create_user('mylogin').person
+    get :check_valid_name, :identifier => 'mylogin'
+
+    assert_equal 3, assigns(:suggested_usernames).uniq.size
   end
 
   should 'check if e-mail is available on environment' do
@@ -688,6 +705,7 @@ class AccountControllerTest < ActionController::TestCase
         {:test => 5}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     e = User.find_by_login('ze').environment
     e.enable_plugin(Plugin1.name)
@@ -770,14 +788,15 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on signup forms from plugins' do
     class Plugin1 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -794,6 +813,7 @@ class AccountControllerTest < ActionController::TestCase
         User.new(:login => 'testuser')
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
 
     post :login, :user => {:login => "testuser"}
@@ -808,6 +828,7 @@ class AccountControllerTest < ActionController::TestCase
         nil
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
@@ -821,6 +842,7 @@ class AccountControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestRegistrationPlugin.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
     post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }
@@ -839,6 +861,7 @@ class AccountControllerTest < ActionController::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
     get :login
@@ -852,6 +875,7 @@ class AccountControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestRegistrationPlugin.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
     #Redirect on get action
@@ -875,6 +899,7 @@ class AccountControllerTest < ActionController::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.new, Plugin2.new])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
     get :login
@@ -885,14 +910,15 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on login form from plugins' do
     class Plugin1 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -910,10 +936,34 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'not sign in if the honeypot field is filled' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :honeypot => 'something'
     end
     assert @response.body.blank?
+  end
+
+  should "Search for state" do
+    create_state_and_city
+
+    xhr :get, :search_state, :state_name=>"Rio Grande"
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    label = json_response[0]['label']
+
+    assert_equal label, "Rio Grande do Sul"
+  end
+
+  should "Search for city" do
+    create_state_and_city
+
+    xhr :get, :search_cities, :state_name=>"Rio Grande do Sul", :city_name=>"Lavras"
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    label = json_response[0]['label']
+    category =  json_response[0]['category']
+
+    assert_equal category, "Rio Grande do Sul"
+    assert_equal label, "Lavras do Sul"
   end
 
   protected
@@ -943,5 +993,19 @@ class AccountControllerTest < ActionController::TestCase
   def disable_signup_bot_check(environment = Environment.default)
     environment.min_signup_delay = 0
     environment.save!
+  end
+
+  def create_state_and_city
+    city = 'Lavras do Sul'
+    state = 'Rio Grande do Sul'
+
+    parent_region = fast_create(NationalRegion, :name => state,
+                                :national_region_code => '43',
+                                :national_region_type_id => NationalRegionType::STATE)
+
+    fast_create(NationalRegion, :name =>  city,
+                                :national_region_code => '431150',
+                                :national_region_type_id => NationalRegionType::CITY,
+                                :parent_national_region_code => parent_region.national_region_code)
   end
 end

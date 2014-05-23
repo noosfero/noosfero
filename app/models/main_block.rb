@@ -17,11 +17,15 @@ class MainBlock < Block
   end
 
   def editable?
-    false
+    true
   end
 
   def cacheable?
-   false
+    false
+  end
+
+  def display_options_available
+    ['always', 'except_home_page']
   end
 
 end

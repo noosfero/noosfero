@@ -244,3 +244,38 @@ Feature: events
     Given I am on /profile/josesilva/events/2009/10
     When I follow "Oktoberfest"
     Then I should see "Oktoberfest"
+
+  Scenario: list events paginated for a specific profile for the month
+    Given I am logged in as admin
+    And the following users
+      | login      |
+      | josemanuel |
+    And I am logged in as "josemanuel"
+    And the following events
+      | owner      | name              | start_date |
+      | josemanuel | Event 5           | 2009-10-12 |
+      | josemanuel | Event 3           | 2009-10-15 |
+      | josemanuel | Test Event        | 2009-10-15 |
+      | josemanuel | Oktoberfest       | 2009-10-19 |
+      | josemanuel | WikiSym           | 2009-10-21 |
+      | josemanuel | Free Software     | 2009-10-22 |
+      | josemanuel | Rachel Birthday   | 2009-10-23 |
+      | josemanuel | Manuel Birthday   | 2009-10-24 |
+      | josemanuel | Michelle Birthday | 2009-10-25 |
+      | josemanuel | Lecture Allien 10 | 2009-10-26 |
+      | josemanuel | Lecture Allien 11 | 2009-10-26 |
+      | josemanuel | Lecture Allien 12 | 2009-10-26 |
+      | josemanuel | Lecture Allien 13 | 2009-10-26 |
+      | josemanuel | Lecture Allien 14 | 2009-10-26 |
+      | josemanuel | Lecture Allien 15 | 2009-10-26 |
+      | josemanuel | Lecture Allien 16 | 2009-10-26 |
+      | josemanuel | Lecture Allien 17 | 2009-10-26 |
+      | josemanuel | Lecture Allien 18 | 2009-10-26 |
+      | josemanuel | Lecture Allien 19 | 2009-10-26 |
+      | josemanuel | Lecture Allien 20 | 2009-10-26 |
+      | josemanuel | Party On          | 2009-10-27 |
+
+    When I am on /profile/josemanuel/events/2009/10
+    Then I should not see "Party On" within "#agenda-items"
+    When I follow "Next"
+    Then I should see "Party On" within "#agenda-items"

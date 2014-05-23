@@ -35,7 +35,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     empty = []
     @org.expects(:pending_validations).returns(empty)
     get :index, :profile => 'myorg'
-    assert_same empty, assigns(:pending_validations)
+    assert_equal empty, assigns(:pending_validations)
     assert_template 'index'
   end
 
@@ -93,7 +93,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     
     get :list_processed, :profile => 'myorg'
 
-    assert_same processed_validations, assigns(:processed_validations)
+    assert_equal processed_validations, assigns(:processed_validations)
 
     assert_response :success
     assert_template 'list_processed'

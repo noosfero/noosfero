@@ -32,6 +32,7 @@ class ProfileDesignController < BoxOrganizerController
     if profile.enterprise?
       blocks << DisabledEnterpriseMessageBlock
       blocks << HighlightsBlock
+      blocks << ProductCategoriesBlock
       blocks << FeaturedProductsBlock
       blocks << FansBlock
       blocks += plugins.dispatch(:extra_blocks, :type => Enterprise)

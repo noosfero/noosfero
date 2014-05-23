@@ -70,28 +70,217 @@ Feature: forum
     When I follow "Configure forum"
     Then I should be on edit "Forum One" by joaosilva
 
+  @selenium
+  Scenario: show forum with terms of use for owner
+    Given the following forums
+       | owner     | name      |
+       | joaosilva | Forum One |
+    And I go to /joaosilva/forum-one
+    When I follow "Configure forum"
+    And I fill in "Description" with "My description"
+    And I check "Has terms of use:"
+    And I press "Save"
+    Then I should see "Forum One"
+    And I should see "My description"
+
+  @selenium
+  Scenario: accept terms in topics page
+    Given the following forums
+       | owner     | name      |
+       | joaosilva | Forum One |
+    And the following users
+       | login      | name        |
+       | mariasilva | Maria Silva |
+    And I go to /joaosilva/forum-one
+    When I follow "Configure forum"
+    And I fill in "Description" with "My description"
+    And I check "Has terms of use:"
+    And I press "Save"
+    When I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Topic"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /joaosilva/forum-one/topic
+    And I press "Accept"
+    Then I should see "Topic"
+
+  @selenium
+  Scenario: accept terms of use of a forum for others users
+    Given the following forums
+       | owner     | name      |
+       | joaosilva | Forum One |
+    And the following users
+       | login      | name        |
+       | mariasilva | Maria Silva |
+    And I go to /joaosilva/forum-one
+    When I follow "Configure forum"
+    And I fill in "Description" with "My description"
+    And I check "Has terms of use:"
+    And I press "Save"
+    When I follow "Logout"
+    And I am logged in as "mariasilva"
+    And I go to /joaosilva/forum-one?terms=terms
+    When I press "Accept"
+    Then I should see "Forum One"
+    And I should see "My description"
+
+  @selenium
+  Scenario: redirect user not logged
+    Given the following forums
+       | owner     | name      |
+       | joaosilva | Forum One |
+    And I go to /joaosilva/forum-one
+    When I follow "Configure forum"
+    And I fill in "Description" with "My description"
+    And I check "Has terms of use:"
+    And I press "Save"
+    When I follow "Logout"
+    And I go to /joaosilva/forum-one?terms=terms
+    When I follow "Accept"
+    Then I should see "Login" within ".login-box"
+
+  @selenium
   Scenario: last topic update by unautenticated user should not link
     Given the following forums
-       | owner     | name |
+       | owner     | name  |
        | joaosilva | Forum |
     And the following articles
-       | owner     | name | parent |
-       | joaosilva | Post one | Forum |
+       | owner     | name     | parent |
+       | joaosilva | Post one | Forum  |
     And the following comments
-       | article | name | email | title | body |
+       | article  | name | email            | title  | body   |
        | Post one | Joao | joao@example.com | Hi all | Hi all |
    When I go to /joaosilva/forum
    Then I should not see "Joao" link
 
   Scenario: last topic update by autenticated user should link to profile url
     Given the following forums
-       | owner     | name |
+       | owner     | name  |
        | joaosilva | Forum |
     And the following articles
-       | owner     | name | parent |
-       | joaosilva | Post one | Forum |
+       | owner     | name     | parent |
+       | joaosilva | Post one | Forum  |
     And the following comments
-       | article | author | title | body |
+       | article  | author    | title  | body   |
        | Post one | joaosilva | Hi all | Hi all |
    When I go to /joaosilva/forum
-   Then I should see "Joao" linking to "http://localhost/joaosilva"
+   Then I should see "Joao" linking to "http://localhost/joaosilva/"
+
+   @selenium
+   Scenario: community member should be able to see the discussion topic button
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And "Maria Silva" is a member of "Sample Community"
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I check "Allow members to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    Then I should see "New discussion topic"
+
+   @selenium
+   Scenario: a non community member should not be able to see the discussion topic button
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I check "Allow members to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    Then I should not see "New discussion topic"
+
+   @selenium
+   Scenario: community member should not be able to see the discussion topic button
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And "Maria Silva" is a member of "Sample Community"
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I uncheck "Allow members to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    Then I should not see "New discussion topic"
+
+   @selenium
+   Scenario: community member should be able to create a topic with the discussion topic button
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And "Maria Silva" is a member of "Sample Community"
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I check "Allow members to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    And I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Test"
+    And I press "Save"
+    Then I should see "Test"
+
+   @selenium
+   Scenario: community member should be able to create a topic on a topic page
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And "Maria Silva" is a member of "Sample Community"
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I check "Allow members to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    And I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Test"
+    And I press "Save"
+    And I go to /sample-community/forum/test
+    And I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Test inside the topic page"
+    And I press "Save"
+    And I go to /sample-community/forum
+    Then I should see "Test inside the topic page"

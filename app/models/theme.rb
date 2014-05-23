@@ -10,11 +10,11 @@ class Theme
     end
 
     def user_themes_dir
-      File.join(RAILS_ROOT, 'public', 'user_themes')
+      Rails.root.join('public', 'user_themes')
     end
 
     def system_themes_dir
-      File.join(RAILS_ROOT, 'public', 'designs', 'themes')
+      Rails.root.join('public', 'designs', 'themes')
     end
 
     def create(id, attributes = {})
@@ -42,17 +42,25 @@ class Theme
     end
 
     def approved_themes(owner)
-      Dir.glob(File.join(system_themes_dir, '*')).select do |item|
-        if File.exists?( File.join(item, 'theme.yml') )
-          config = YAML.load_file(File.join(item, 'theme.yml'))
-          (config['owner_type'] == owner.class.base_class.name) &&
-          (config['owner_id'] == owner.id) || config['public']
+      Dir.glob(File.join(system_themes_dir, '*')).map do |item|
+        next unless File.exists? File.join(item, 'theme.yml')
+        id = File.basename item
+        config = YAML.load_file File.join(item, 'theme.yml')
+
+        approved = config['public']
+        unless approved
+          begin
+            approved = owner.kind_of?(config['owner_type'].constantize)
+          rescue
+          end
+          approved &&= config['owner_id'] == owner.id if config['owner_id'].present?
         end
-      end.map do |desc|
-        new(File.basename(desc))
+
+        [id, config] if approved
+      end.compact.map do |id, config|
+        new id, config
       end
     end
-
   end
 
   class DuplicatedIdentifier < Exception; end
@@ -111,7 +119,7 @@ class Theme
 
   def add_image(filename, data)
     FileUtils.mkdir_p(images_directory)
-    File.open(image_path(filename), 'w') do |f|
+    File.open(image_path(filename), 'wb') do |f|
       f.write(data)
     end
   end

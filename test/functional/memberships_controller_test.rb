@@ -30,7 +30,7 @@ class MembershipsControllerTest < ActionController::TestCase
   should 'list current memberships' do
     get :index, :profile => profile.identifier
 
-    assert_kind_of Array, assigns(:memberships)
+    assert assigns(:memberships)
   end
 
   should 'present new community form' do
@@ -40,7 +40,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   should 'be able to create a new community' do
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
       assert_redirected_to :action => 'index'
@@ -134,7 +134,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   should 'use the current environment for the template of user' do
-    template = Community.create!(:identifier => 'test_template', :name => 'test@bli.com')
+    template = Community.create!(:identifier => 'test_template', :name => 'test@bli.com', :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -234,6 +234,7 @@ class MembershipsControllerTest < ActionController::TestCase
         {'plugin2' => 'Plugin 2'}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)

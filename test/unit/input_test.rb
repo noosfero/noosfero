@@ -7,11 +7,11 @@ class InputTest < ActiveSupport::TestCase
 
     input = Input.new
     input.valid?
-    assert input.errors.invalid?(:product_category)
+    assert input.errors[:product_category.to_s].present?
 
     input.product_category = product_category
     input.valid?
-    assert !input.errors.invalid?(:product_category)
+    assert !input.errors[:product_category.to_s].present?
   end
 
   should 'require product' do
@@ -20,21 +20,21 @@ class InputTest < ActiveSupport::TestCase
 
     input = Input.new
     input.valid?
-    assert input.errors.invalid?(:product)
+    assert input.errors[:product.to_s].present?
 
     input.product = product
     input.valid?
-    assert !input.errors.invalid?(:product)
+    assert !input.errors[:product.to_s].present?
   end
 
   should 'store inputs ordered by position' do
     product_category = fast_create(ProductCategory)
     product = fast_create(Product, :product_category_id => product_category.id)
 
-    first_input = Input.create!(:product => product, :product_category => product_category)
+    first_input = create(Input, :product => product, :product_category => product_category)
     assert_equal 1, first_input.position
 
-    second_input = Input.create!(:product => product, :product_category => product_category)
+    second_input = create(Input, :product => product, :product_category => product_category)
     assert_equal 2, second_input.position
   end
 
@@ -42,9 +42,9 @@ class InputTest < ActiveSupport::TestCase
     product_category = fast_create(ProductCategory)
     product = fast_create(Product, :product_category_id => product_category.id)
 
-    first_input = Input.create!(:product => product, :product_category => product_category)
-    second_input = Input.create!(:product => product, :product_category => product_category)
-    last_input = Input.create!(:product => product, :product_category => product_category)
+    first_input = create(Input, :product => product, :product_category => product_category)
+    second_input = create(Input, :product => product, :product_category => product_category)
+    last_input = create(Input, :product => product, :product_category => product_category)
 
     assert_equal [first_input, second_input, last_input], product.inputs(true)
 
@@ -68,17 +68,17 @@ class InputTest < ActiveSupport::TestCase
   end
 
   should 'has price details if price_per_unit filled' do
-    input = Input.new(:price_per_unit => 10.0)
+    input = build(Input, :price_per_unit => 10.0)
     assert input.has_price_details?
   end
 
   should 'has price details if amount_used filled' do
-    input = Input.new(:amount_used => 10)
+    input = build(Input, :amount_used => 10)
     assert input.has_price_details?
   end
 
   should 'not have price details if only unit is filled' do
-    input = Input.new(:unit => Unit.new)
+    input = build(Input, :unit => Unit.new)
     assert !input.has_price_details?
   end
 
@@ -92,7 +92,7 @@ class InputTest < ActiveSupport::TestCase
       ["12.345.678", 12345678.00],
       ["12,345,678", 12345678.00]
     ].each do |input, output|
-      new_input = Input.new(:price_per_unit => input)
+      new_input = build(Input, :price_per_unit => input)
       assert_equal output, new_input.price_per_unit
     end
   end
@@ -107,7 +107,7 @@ class InputTest < ActiveSupport::TestCase
       ["12.345.678", 12345678.00],
       ["12,345,678", 12345678.00]
     ].each do |input, output|
-      new_input = Input.new(:amount_used => input)
+      new_input = build(Input, :amount_used => input)
       assert_equal output, new_input.amount_used
     end
   end
@@ -115,9 +115,9 @@ class InputTest < ActiveSupport::TestCase
   should 'display amount used' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
-    input = Input.new(:product => product)
+    input = build(Input, :product => product)
     input.amount_used = 10.45
     assert_equal '10.45', input.formatted_amount
   end
@@ -134,9 +134,9 @@ class InputTest < ActiveSupport::TestCase
   should 'display only integer value if decimal value is 00' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
-    input = Input.new(:product => product)
+    input = build(Input, :product => product)
     input.amount_used = 10.00
     assert_equal '10', input.formatted_amount
   end
@@ -144,9 +144,9 @@ class InputTest < ActiveSupport::TestCase
   should 'display formatted value' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
-    input = Input.new(:product => product)
+    input = build(Input, :product => product)
     input.price_per_unit = 1.45
     assert_equal '1.45', input.formatted_value(:price_per_unit)
 
@@ -163,17 +163,17 @@ class InputTest < ActiveSupport::TestCase
   end
 
   should 'calculate cost of input' do
-    input = Input.new(:amount_used => 10, :price_per_unit => 2.00)
+    input = build(Input, :amount_used => 10, :price_per_unit => 2.00)
     assert_equal 20.00, input.cost
   end
 
   should 'cost 0 if amount not defined' do
-    input = Input.new(:price_per_unit => 2.00)
+    input = build(Input, :price_per_unit => 2.00)
     assert_equal 0.00, input.cost
   end
 
   should 'cost 0 if price_per_unit is not defined' do
-    input = Input.new(:amount_used => 10)
+    input = build(Input, :amount_used => 10)
     assert_equal 0.00, input.cost
   end
 
@@ -181,9 +181,9 @@ class InputTest < ActiveSupport::TestCase
     product_category = fast_create(ProductCategory)
     product = fast_create(Product, :product_category_id => product_category.id)
 
-    i1 = Input.create!(:product => product, :product_category => product_category, :relevant_to_price => true)
+    i1 = create(Input, :product => product, :product_category => product_category, :relevant_to_price => true)
 
-    i2 = Input.create!(:product => product, :product_category => product_category, :relevant_to_price => false)
+    i2 = create(Input, :product => product, :product_category => product_category, :relevant_to_price => false)
 
     i1.save!
     i2.save!

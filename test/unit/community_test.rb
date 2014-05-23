@@ -13,19 +13,20 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'convert name into identifier' do
-    c = Community.new(:environment => Environment.default, :name =>'My shiny new Community')
+    c = Community.new
+    c.name ='My shiny new Community'
     assert_equal 'My shiny new Community', c.name
     assert_equal 'my-shiny-new-community', c.identifier
   end
 
   should 'have a description attribute' do
-    c = Community.new(:environment => Environment.default)
+    c = build(Community, :environment => Environment.default)
     c.description = 'the description of the community'
     assert_equal 'the description of the community', c.description
   end
 
   should 'create default set of blocks' do
-    c = Community.create!(:environment => Environment.default, :name => 'my new community')
+    c = create(Community, :environment => Environment.default, :name => 'my new community')
 
     assert !c.boxes[0].blocks.empty?, 'person must have blocks in area 1'
     assert !c.boxes[1].blocks.empty?, 'person must have blocks in area 2'
@@ -33,15 +34,16 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'create a default set of articles' do
-    Community.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
-    community = Community.create!(:environment => Environment.default, :name => 'my new community')
+    blog = build(Blog)
+    Community.any_instance.stubs(:default_set_of_articles).returns([blog])
+    community = create(Community, :environment => Environment.default, :name => 'my new community')
 
-    assert_kind_of Blog, community.articles.find_by_path('blog')
-    assert_kind_of RssFeed, community.articles.find_by_path('blog/feed')
+    assert_kind_of Blog, community.articles.find_by_path(blog.path)
+    assert_kind_of RssFeed, community.articles.find_by_path(blog.feed.path)
   end
 
   should 'have contact_person' do
-    community = Community.new(:environment => Environment.default, :name => 'my new community')
+    community = build(Community, :environment => Environment.default, :name => 'my new community')
     assert_respond_to community, :contact_person
   end
 
@@ -86,20 +88,20 @@ class CommunityTest < ActiveSupport::TestCase
 
   should 'have a community template' do
     template = fast_create(Community, :is_template => true)
-    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :template => template)
+    p = create(Community, :name => 'test_com', :identifier => 'test_com', :template => template)
     assert_equal template, p.template
   end
 
   should 'have a default community template' do
-    env = Environment.create!(:name => 'test env')
-    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :environment => env)
+    env = create(Environment, :name => 'test env')
+    p = create(Community, :name => 'test_com', :identifier => 'test_com', :environment => env)
     assert_kind_of Community, p.template
   end
 
   should 'return active_community_fields' do
     e = Environment.default
     e.expects(:active_community_fields).returns(['contact_phone', 'contact_email']).at_least_once
-    ent = Community.new(:environment => e)
+    ent = build(Community, :environment => e)
 
     assert_equal e.active_community_fields, ent.active_fields
   end
@@ -107,7 +109,7 @@ class CommunityTest < ActiveSupport::TestCase
   should 'return required_community_fields' do
     e = Environment.default
     e.expects(:required_community_fields).returns(['contact_phone', 'contact_email']).at_least_once
-    community = Community.new(:environment => e)
+    community = build(Community, :environment => e)
 
     assert_equal e.required_community_fields, community.required_fields
   end
@@ -115,19 +117,19 @@ class CommunityTest < ActiveSupport::TestCase
   should 'require fields if community needs' do
     e = Environment.default
     e.expects(:required_community_fields).returns(['contact_phone']).at_least_once
-    community = Community.new(:name => 'My community', :environment => e)
+    community = build(Community, :name => 'My community', :environment => e)
     assert ! community.valid?
-    assert community.errors.invalid?(:contact_phone)
+    assert community.errors[:contact_phone.to_s].present?
 
     community.contact_phone = '99999'
     community.valid?
-    assert ! community.errors.invalid?(:contact_phone)
+    assert ! community.errors[:contact_phone.to_s].present?
   end
 
   should 'return newest text articles as news' do
     c = fast_create(Community, :name => 'test_com')
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id)
-    u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id)
     t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
     t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
@@ -152,13 +154,13 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'sanitize description' do
-    c = Community.create!(:name => 'test_com', :description => '<b>new</b> community')
+    c = create(Community, :name => 'test_com', :description => '<b>new</b> community')
 
     assert_sanitized c.description
   end
 
   should 'sanitize name' do
-    c = Community.create!(:name => '<b>test_com</b>')
+    c = create(Community, :name => '<b>test_com</b>')
 
     assert_sanitized c.name
   end
@@ -166,12 +168,13 @@ class CommunityTest < ActiveSupport::TestCase
   should 'create a task when creating a community if feature is enabled' do
     env = Environment.default
     env.enable('admin_must_approve_new_communities')
+    person.stubs(:notification_emails).returns(['sample@example.org'])
 
-    assert_difference CreateCommunity, :count do
+    assert_difference 'CreateCommunity.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
     end
 
-    assert_no_difference Community, :count do
+    assert_no_difference 'Community.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
     end
   end
@@ -180,12 +183,12 @@ class CommunityTest < ActiveSupport::TestCase
     env = Environment.default
     env.disable('admin_must_approve_new_communities')
 
-    assert_difference Community, :count do
-      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    assert_difference 'Community.count' do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example 1'})
     end
 
-    assert_no_difference CreateCommunity, :count do
-      Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
+    assert_no_difference 'CreateCommunity.count' do
+      Community.create_after_moderation(person, {:environment => env, :name => 'Example 2'})
     end
   end
 
@@ -194,7 +197,7 @@ class CommunityTest < ActiveSupport::TestCase
     community.closed = true
     community.save
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
     assert person.is_member_of?(community)
@@ -203,7 +206,7 @@ class CommunityTest < ActiveSupport::TestCase
   should 'set as member without task if organization is not closed and has no members' do
     community = fast_create(Community)
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
     assert person.is_member_of?(community)
@@ -213,14 +216,16 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
     community.closed = true
     community.save
-
     community.add_member(fast_create(Person))
+    community.reload
 
-    assert_difference AddMember, :count do
+    community.stubs(:notification_emails).returns(['sample@example.org'])
+
+    assert_difference 'AddMember.count' do
       community.add_member(person)
     end
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
   end
@@ -266,7 +271,7 @@ class CommunityTest < ActiveSupport::TestCase
 
     RoleAssignment.delete_all
     ActionTrackerNotification.delete_all
-    assert_difference(ActionTrackerNotification, :count, 5) do
+    assert_difference 'ActionTrackerNotification.count', 5 do
       community.add_member(p1)
       process_delayed_job_queue
       community.add_member(p3)
@@ -288,9 +293,9 @@ class CommunityTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
     community.add_member(p3)
     article = create(TextileArticle, :profile_id => community.id)
-    time = article.activity.updated_at
-    Time.stubs(:now).returns(time + 1.day)
-    Comment.create!(:source_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
+    time = article.activity.updated_at + 1.day
+    Time.stubs(:now).returns(time)
+    create(Comment, :source_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
     process_delayed_job_queue
     assert_equal time, article.activity.updated_at
   end
@@ -348,7 +353,7 @@ class CommunityTest < ActiveSupport::TestCase
     person = fast_create(Person)
     community = fast_create(Community)
 
-    scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
+    scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
     activity = ActionTracker::Record.last
 
     assert_equal [scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
@@ -359,9 +364,10 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
 
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
-    article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
-
-    assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_difference 'ActionTracker::Record.count', 1 do
+      article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
+      assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
+    end
   end
 
   should 'not return tracked_actions of other community as activities' do

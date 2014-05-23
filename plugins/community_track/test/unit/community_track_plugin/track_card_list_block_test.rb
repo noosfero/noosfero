@@ -5,7 +5,7 @@ class TrackCardListBlockTest < ActiveSupport::TestCase
   def setup
     @community = fast_create(Community)
     box = fast_create(Box, :owner_id => @community.id, :owner_type => @community.class.name)
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
   end
 
   should 'describe yourself' do

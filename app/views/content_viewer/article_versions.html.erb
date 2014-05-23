@@ -1,0 +1,58 @@
+<div class="article-versions">
+  <%= button(:back, _('Go back to latest version'), {:action => 'view_page'}) %>
+</div>
+
+<%= article_title(@page, :no_link => true) %>
+
+<p><%= _('This is the list of all versions of this content. Select a version to see it and then revert to it.') %>.</p>
+
+<%= form_tag({:controller => 'content_viewer', :action => 'versions_diff', :profile => profile.identifier, :page => @page.path.split('/')}, :method => 'get') do %>
+  <ul id="article-versions">
+    <% @versions.each do |v| %>
+      <li>
+        <%= radio_button_tag 'v1', v.version, false, :onclick => 'versionInputClicked(this)' %>
+        <%= radio_button_tag 'v2', v.version, false, :onclick => 'versionInputClicked(this)' %>
+        <%= link_to(_("Version #{v.version}"), @page.url.merge(:version => v.version)) %>
+        <%= @page.version == v.version ? _('(current)') : '' %>
+        <span class='updated-by'><%= _('by %{author}') % {:author => link_to(@page.author_name(v.version), @page.author_url(v.version))} %></span>
+        <span class='updated-on'><%= show_time(v.updated_at) %></span>
+      </li>
+    <% end %>
+  </ul>
+
+<script>
+  function versionInputClicked(input) {
+    var selectedColumn = input.name;
+    var sisterColumn = (selectedColumn == 'v1') ? 'v2' : 'v1';
+    var li = input.parentNode;
+    var checkedBrotherLi = jQuery('#article-versions input[name=' + sisterColumn + ']:checked').parent()[0];
+    updateColumn(selectedColumn, li);
+    updateColumn(sisterColumn, checkedBrotherLi);
+  }
+
+  function updateColumn(selectedColumn, startLi){
+    var sisterColumn = (selectedColumn == 'v1') ? 'v2' : 'v1';
+    var walkMethod = (selectedColumn == 'v1') ? 'prev' : 'next';
+    var li = startLi;
+    var foundCheckedBrother = false;
+    while(li = jQuery(li)[walkMethod]()[0]) {
+      li.className = '';
+      if (!foundCheckedBrother){
+        li.className = 'selected';
+        foundCheckedBrother = jQuery('input[name=' + sisterColumn + ']', li)[0].checked;
+      }
+      jQuery('input[name=' + selectedColumn + ']', li)[0].disabled = foundCheckedBrother;
+    }
+  }
+
+  var penultVersion = jQuery('#article-versions input[name=v1]')[1];
+  var lastVersion = jQuery('#article-versions input[name=v2]')[0];
+  jQuery('#article-versions input').attr('disabled', false);
+  if (penultVersion && lastVersion) {
+    penultVersion.checked = lastVersion.checked = true;
+    lastVersion.onclick();
+  }
+</script>
+  <%= submit_button(:clock, _('Show differences between selected versions')) %>
+<% end %>
+<%= pagination_links @versions, :param_name => 'npage' %>

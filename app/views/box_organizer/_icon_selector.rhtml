@@ -1,7 +1,0 @@
-<div class='icon' style='width:16px; height:16px;' onclick="hideOthersIconSelector(this); showIconSelector(this)">
-  <%= hidden_field_tag 'block[links][][icon]', icon %>
-  <span class='icon-<%= icon %>' style='display:block; width:16px; height:16px;'></span>
-  <div class="icon-selector" style='display:none;'>
-     <%= @block.icons_options %>
-  </div>
-</div>

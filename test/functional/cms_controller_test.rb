@@ -12,10 +12,6 @@ class CmsControllerTest < ActionController::TestCase
 
   def setup
     super
-    @controller = CmsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @profile = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
   end
@@ -36,7 +32,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'view'
     assert_equal profile, assigns(:profile)
     assert_nil assigns(:article)
-    assert_kind_of Array, assigns(:articles)
+    assert assigns(:articles)
   end
 
   should 'be able to view a particular document' do
@@ -49,8 +45,6 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'view'
     assert_equal a, assigns(:article)
     assert_equal [], assigns(:articles)
-
-    assert_kind_of Array, assigns(:articles)
   end
 
   should 'be able to edit a document' do
@@ -80,7 +74,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to save a document' do
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }
     end
   end
@@ -139,7 +133,7 @@ class CmsControllerTest < ActionController::TestCase
     a.save!
 
     profile.description = 'a' * 600
-    profile.save(false)
+    profile.save(:validate => false)
 
     assert !profile.valid?
     assert_not_equal a, profile.home_page
@@ -245,7 +239,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'be able to remove article' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-    assert_difference Article, :count, -1 do
+    assert_difference 'Article.count', -1 do
       post :destroy, :profile => profile.identifier, :id => a.id
     end
   end
@@ -276,7 +270,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
-    assert_difference RssFeed, :count do
+    assert_difference 'RssFeed.count' do
       post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'new-feed', :limit => 15, :include => 'all' }
       assert_response :redirect
     end
@@ -284,7 +278,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to update a RSS feed' do
     login_as(profile.identifier)
-    feed = RssFeed.create!(:name => 'myfeed', :limit => 5, :include => 'all', :profile_id => profile.id)
+    feed = create(RssFeed, :name => 'myfeed', :limit => 5, :include => 'all', :profile_id => profile.id)
     post :edit, :profile => profile.identifier, :id => feed.id, :article => { :limit => 77, :include => 'parent_and_children' }
     assert_response :redirect
 
@@ -294,7 +288,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to upload a file' do
-    assert_difference UploadedFile, :count do
+    assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
     assert_not_nil profile.articles.find_by_path('test.txt')
@@ -313,13 +307,13 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to upload an image' do
-    assert_difference UploadedFile, :count do
+    assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     end
   end
 
    should 'be able to upload more than one file at once' do
-    assert_difference UploadedFile, :count, 2 do
+    assert_difference 'UploadedFile.count', 2 do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
     end
     assert_not_nil profile.articles.find_by_path('test.txt')
@@ -405,7 +399,7 @@ class CmsControllerTest < ActionController::TestCase
     get :view, :profile => profile.identifier, :id => article.id
     assert_response :success
     assert_template 'view'
-    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true&amp;parent_id=#{article.id}"}
+    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true&parent_id=#{article.id}"}
   end
 
   should 'offer to create children' do
@@ -416,7 +410,7 @@ class CmsControllerTest < ActionController::TestCase
     article.save!
 
     get :new, :profile => profile.identifier, :parent_id => article.id, :cms => true
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}&amp;type=TextileArticle"}
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}&type=TextileArticle"}
   end
 
   should 'not offer to create children if article does not accept them' do
@@ -439,7 +433,7 @@ class CmsControllerTest < ActionController::TestCase
     article.profile = profile
     article.save!
 
-    assert_no_difference UploadedFile, :count do
+    assert_no_difference 'UploadedFile.count' do
       assert_raise ArgumentError do
         post :new, :type => UploadedFile.name, :parent_id => article.id, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
       end
@@ -451,24 +445,23 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'h3', :content => /max size #{UploadedFile.max_size.to_humanreadable}/
   end
 
-  should 'display link for selecting categories' do
-    # FIXME
-    assert true
-    #env = Environment.default
-    #top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
-    #c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
-    #c2  = env.categories.build(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id); c2.save!
-    #c3  = env.categories.build(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id); c3.save!
+  should 'display link for selecting top categories' do
+    env = Environment.default
+    top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
+    top2 = env.categories.build(:display_in_menu => true, :name => 'Top-Level category 2'); top2.save!
+    c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
+    c2  = env.categories.build(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id); c2.save!
+    c3  = env.categories.build(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id); c3.save!
 
-    #article = Article.new(:name => 'test')
-    #article.profile = profile
-    #article.save!
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
 
-    #get :edit, :profile => profile.identifier, :id => article.id
+    get :edit, :profile => profile.identifier, :id => article.id
 
-    #[c1,c2,c3].each do |item|
-    #  assert_tag :tag => 'a', :attributes => { :id => "select-category-#{item.id}-link" }
-    #end
+    [top, top2].each do |item|
+      assert_tag :tag => 'a', :attributes => { :id => "select-category-#{item.id}-link" }
+    end
   end
 
   should 'be able to associate articles with categories' do
@@ -521,7 +514,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'sanitize tags' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...', :tag_list => 'tag1, <strong>tag2</strong>' }
-    assert_sanitized assigns(:article).tag_list.names.join(', ')
+    assert_sanitized assigns(:article).tag_list.join(', ')
   end
 
   should 'keep informed parent_id' do
@@ -561,7 +554,7 @@ class CmsControllerTest < ActionController::TestCase
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     get :new, :profile => profile.identifier, :parent_id => f.id, :cms => true
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&amp;type=Folder" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&type=Folder" }
   end
 
   should 'redirect to article after creating top-level article' do
@@ -585,7 +578,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'redirect back to article after editing article inside a folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    a = TextileArticle.create!(:parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
+    a = create(TextileArticle, :parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
 
     post :edit, :profile => profile.identifier, :id => a.id
     assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
@@ -612,7 +605,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'point back to folder when cancelling edition of an article inside it' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    a = TextileArticle.create!(:name => 'test', :parent => f, :profile_id => profile.id)
+    a = create(TextileArticle, :name => 'test', :parent => f, :profile_id => profile.id)
     get :edit, :profile => profile.identifier, :id => a.id
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/view/#{f.id}" }, :descendant => { :content => /Cancel/ }
@@ -641,11 +634,16 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should "display properly a non-published articles' status" do
-    article = profile.articles.create!(:name => 'test', :published => false)
+    article = create(Article, :profile => profile, :name => 'test', :published => false)
 
     get :edit, :profile => profile.identifier, :id => article.id
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false', :checked => 'checked' }
+    assert_select 'input#article_published_true[name=?][type="radio"]', 'article[published]'
+    assert_select 'input#article_published_false[name=?][type="radio"]', 'article[published]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'be able to add image with alignment' do
@@ -684,8 +682,8 @@ class CmsControllerTest < ActionController::TestCase
     top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
     c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
     c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
-    get :update_categories, :profile => profile.identifier, :category_id => top.id
-    assert_template 'shared/_select_categories'
+    xhr :get, :update_categories, :profile => profile.identifier, :category_id => top.id
+    assert_template 'shared/update_categories'
     assert_equal top, assigns(:current_category)
     assert_equal [c1, c2], assigns(:categories)
   end
@@ -734,7 +732,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'create a private article child of private folder' do
-    folder = Folder.new(:name => 'my intranet', :published => false); profile.articles << folder; folder.save!
+    folder = build(Folder, :name => 'my intranet', :published => false); profile.articles << folder; folder.save!
 
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
@@ -760,7 +758,7 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
       assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
     end
@@ -771,7 +769,7 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = Event.create!(:name => "Some event", :profile => profile, :start_date => Date.today)
 
-    assert_difference Event, :count do
+    assert_difference 'Event.count' do
       post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
     end
   end
@@ -791,7 +789,7 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
     end
   end
@@ -801,9 +799,9 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference a.class, :count do
-      assert_difference ApproveArticle, :count do
-        assert_difference c.tasks, :count do
+    assert_no_difference 'a.class.count' do
+      assert_difference 'ApproveArticle.count' do
+        assert_difference 'c.tasks.count' do
           post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
           assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
         end
@@ -818,9 +816,9 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference article.class, :count do
-      assert_difference ApproveArticle, :count do
-        assert_difference portal_community.tasks, :count do
+    assert_no_difference 'article.class.count' do
+      assert_difference 'ApproveArticle.count' do
+        assert_difference 'portal_community.tasks.count' do
           post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
         end
       end
@@ -844,13 +842,23 @@ class CmsControllerTest < ActionController::TestCase
   should 'display posts per page input with default value on edit blog' do
     n = Blog.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=?]', 'article[posts_per_page]', n do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["selected"]
+      end
+    end
   end
 
   should 'display options for blog visualization with default value on edit blog' do
     format = Blog.new.visualization_format
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[visualization_format]' }, :child => { :tag => 'option', :attributes => {:value => 'full', :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=full]', 'article[visualization_format]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["selected"]
+      end
+    end
   end
 
   should 'not offer to create special article types' do
@@ -901,7 +909,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'remove the image of an article' do
-    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     post :edit, :profile => profile.identifier, :id => blog.id, :remove_image => 'true'
     blog.reload
@@ -961,7 +969,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'go to blog after create it' do
-    assert_difference Blog, :count do
+    assert_difference 'Blog.count' do
       post :new, :type => Blog.name, :profile => profile.identifier, :article => { :name => 'my-blog' }, :back_to => 'control_panel'
     end
     assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
@@ -983,6 +991,11 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
+  end
+
+  should 'have only one mandatory field in the blog creation form' do
+    get :new, :profile => profile.identifier, :type => Blog.name
+    assert_select '.required-field .formfieldline', 1
   end
 
   should 'create icon upload file in folder' do
@@ -1076,7 +1089,12 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'test blog', :profile => profile)
     profile.blog.create_external_feed(:address => 'address', :enabled => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]',  'article[external_feed_builder][enabled]' do |elements|
+      elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should "display 'Fetch posts from an external feed' unchecked if blog has disabled external feed" do
@@ -1094,7 +1112,12 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'only_once option marked by default' do
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][only_once]', :checked => 'checked', :value => 'true' }
+    assert_select 'input[name=?][value="true"]', 'article[external_feed_builder][only_once]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element['checked']
+      end
+    end
   end
 
   should 'display media listing when it is TinyMceArticle and enabled on environment' do
@@ -1166,7 +1189,7 @@ class CmsControllerTest < ActionController::TestCase
 
     get :new, :profile => c.identifier
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'allow user with permission create an article in community' do
@@ -1188,24 +1211,24 @@ class CmsControllerTest < ActionController::TestCase
 
     get :edit, :profile => c.identifier, :id => a.id
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 
@@ -1250,7 +1273,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'display posts per page input with default value on edit forum' do
     n = Forum.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Forum'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=?]', 'article[posts_per_page]', n do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element['selected']
+      end
+    end
   end
 
   should 'offer to edit a forum' do
@@ -1317,17 +1345,18 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'go to forum after create it' do
-    assert_difference Forum, :count do
+    assert_difference 'Forum.count' do
       post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
     end
     assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
   end
 
   should 'back to forum after config forum' do
-    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.forum.id
-
-    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+    assert_difference 'Forum.count' do
+      post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
+    end
+      post :edit, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my forum' }, :id => profile.forum.id
+    assert_redirected_to @profile.articles.find_by_name('my forum').view_url
   end
 
   should 'back to control panel if cancel create forum' do
@@ -1369,7 +1398,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
-    assert_difference SuggestArticle, :count do
+    assert_difference 'SuggestArticle.count' do
       post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
     end
   end
@@ -1404,7 +1433,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'add translation to an article' do
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'ru')
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       post :new, :profile => @profile.identifier, :type => 'TextileArticle', :article => { :name => 'english translation', :translation_of_id => textile.id, :language => 'en' }
     end
   end
@@ -1418,7 +1447,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'display display posts in current language input checked when editing blog' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]', 'article[display_posts_in_current_language]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'display display posts in current language input not checked on new blog' do
@@ -1443,7 +1477,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'be checked display posts in current language checkbox' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]', 'article[display_posts_in_current_language]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'be unchecked display posts in current language checkbox' do
@@ -1514,7 +1553,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'update file and be redirect to cms' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
     post :edit, :profile => @profile.identifier, :id => file.id, :article => { }
-    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
+    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index', :id => nil
   end
 
   should 'update file and be redirect to cms folder' do
@@ -1670,7 +1709,7 @@ class CmsControllerTest < ActionController::TestCase
 
     get :upload_files, :profile => c.identifier, :parent_id => a.id
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'filter profile folders to select' do
@@ -1695,6 +1734,44 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => article.id.to_s }}
+  end
+
+  should 'remove users that agreed with forum terms after removing terms' do
+    forum = Forum.create(:name => 'Forum test', :profile => profile, :has_terms_of_use => true)
+    person = fast_create(Person)
+    forum.users_with_agreement << person
+
+    assert_difference 'Forum.find(forum.id).users_with_agreement.count', -1 do
+      post :edit, :profile => profile.identifier, :id => forum.id, :article => { :has_terms_of_use => 'false' }
+    end
+  end
+
+  should 'go back to specified url when saving with success' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }, :success_back_to => '/'
+    assert_redirected_to '/'
+  end
+
+  should 'redirect back to specified url when edit with success' do
+    article = @profile.articles.create!(:name => 'myarticle')
+    post :edit, :profile => 'testinguser', :id => article.id, :success_back_to => '/'
+    assert_redirected_to '/'
+  end
+
+  should 'edit article with content from older version' do
+    article = profile.articles.create(:name => 'first version')
+    article.name = 'second version'; article.save
+
+    get :edit, :profile => profile.identifier, :id => article.id, :version => 1
+    assert_equal 'second version', Article.find(article.id).name
+    assert_equal 'first version', assigns(:article).name
+  end
+
+  should 'save article with content from older version' do
+    article = profile.articles.create(:name => 'first version')
+    article.name = 'second version'; article.save
+
+    post :edit, :profile => profile.identifier, :id => article.id, :version => 1
+    assert_equal 'first version', Article.find(article.id).name
   end
 
   protected

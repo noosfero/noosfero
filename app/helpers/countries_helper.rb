@@ -1,6 +1,11 @@
-class CountriesHelper
+# encoding: UTF-8
 
-  include Singleton
+module CountriesHelper
+
+  class Object
+    include ::CountriesHelper
+    include Singleton
+  end
 
   # a dump of iso_3166.xml from Debian source package iso-codes
   COUNTRIES = [
@@ -262,7 +267,7 @@ class CountriesHelper
   end
 
   def countries
-    self.class.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
+    CountriesHelper.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
   end
 
   def lookup(code)

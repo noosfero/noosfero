@@ -1,7 +1,10 @@
+# TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+#      the Noosfero core soon, see ActionItem3045
+
 class EnvironmentStatisticsBlock < Block
 
   def self.description
-    _('Environment stastistics')
+    _('Environment stastistics (DEPRECATED)')
   end
 
   def default_title
@@ -20,9 +23,9 @@ class EnvironmentStatisticsBlock < Block
     info = []
     info << (n_('One user', '%{num} users', users) % { :num => users })
     unless owner.enabled?('disable_asset_enterprises')
-      info << (n__('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises })
+      info << (n_('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises })
     end
-    info << (n__('One community', '%{num} communities', communities) % { :num => communities })
+    info << (n_('One community', '%{num} communities', communities) % { :num => communities })
 
     block_title(title) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
   end

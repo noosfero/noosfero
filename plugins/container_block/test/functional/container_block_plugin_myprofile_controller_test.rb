@@ -8,11 +8,11 @@ class ContainerBlockPluginMyprofileControllerTest < ActionController::TestCase
 
     @profile = fast_create(Community)
     @profile.add_admin(user.person)
-    @box = Box.new(:owner => @profile)
+    @box = Box.create!(:owner => @profile)
 
-    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => @box)
-    @child1 = Block.create!(:box => @block.container_box)
-    @child2 = Block.create!(:box => @block.container_box)
+    @block = ContainerBlockPlugin::ContainerBlock.create!(:box_id => @box.id)
+    @child1 = Block.create!(:box_id => @block.container_box.id)
+    @child2 = Block.create!(:box_id => @block.container_box.id)
   end
 
   should 'save widths of container block children' do

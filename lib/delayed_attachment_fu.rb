@@ -20,7 +20,7 @@ module DelayedAttachmentFu
       save_to_storage
       @temp_paths.clear
       @saved_attachment = nil
-      callback :after_attachment_saved
+      run_callbacks :after_attachment_saved
     end
 
     def create_thumbnails
@@ -33,7 +33,8 @@ module DelayedAttachmentFu
         self.class.attachment_options[:thumbnails].each do |suffix, size|
           self.create_or_update_thumbnail(self.full_filename, suffix, size)
         end
-        self.update_attributes!(:thumbnails_processed => true)
+        self.thumbnails_processed = true
+        self.save!
       end
     end
 

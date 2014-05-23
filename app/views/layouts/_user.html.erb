@@ -5,7 +5,7 @@
   <span class='not-logged-in' style='display: none'>
 
     <%= _("<span class='login'>%s</span>") % thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login') %>
-    <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_eval(&content) }.join("") %>
+    <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_exec(&content) }.join("") %>
 
     <div id='inlineLoginBox' style='display: none;'>
       <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>

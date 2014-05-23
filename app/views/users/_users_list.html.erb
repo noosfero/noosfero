@@ -1,0 +1,38 @@
+<div class="environment-users-results-header">
+  <div id='environment-users-filter-title'><%= users_filter_title(@filter) %></div>
+  <%= filter_selector(@filter) %>
+  <div style="clear: both"></div>
+</div>
+
+<table>
+  <colgroup>
+    <col width="80%">
+    <col width="20%">
+  </colgroup>
+  <tr>
+    <th><%= _('Member') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @collection.each do |p| %>
+    <tr title="<%= p.name %>">
+      <td><%= link_to_profile p.short_name, p.identifier, :title => p.name %> </td>
+      <td class='actions'>
+        <div class="members-buttons-cell">
+          <% if p.is_admin? %>
+            <%= button_without_text :'reset-admin-role', _('Reset admin role'), {:action => 'reset_admin_role', :id => p, :q => @q}, :filter => @filter, :confirm => _("Do you want to reset this user as administrator?") %>
+          <% else %>
+            <%= button_without_text :'set-admin-role', _('Set admin role'), {:action => 'set_admin_role', :id => p, :q => @q}, :filter => @filter, :confirm => _("Do you want to set this user as administrator?") %>
+          <% end %>
+          <% if !p.user.activated? %>
+            <%= button_without_text :'activate-user', _('Activate user'), {:action => 'activate', :id => p, :q => @q}, :filter => @filter, :confirm => _("Do you want to activate this user?") %>
+          <% else %>
+            <%= button_without_text :'deactivate-user', _('Deactivate user'), {:action => 'deactivate', :id => p, :q => @q}, :filter => @filter, :confirm => _("Do you want to deactivate this user?") %>
+          <% end %>
+          <%= button_without_text :'delete', _('Remove'), {:action => :destroy_user, :id => p, :q => @q}, :method => :post, :filter => @filter, :confirm => _("Do you want to remove this user?") %>
+       </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= pagination_links @collection, {:param_name => 'npage', :page_links => true} %>
