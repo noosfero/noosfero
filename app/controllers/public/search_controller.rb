@@ -20,7 +20,7 @@ class SearchController < PublicController
 
   def index
     @searches = {}
-    @order = []
+    @assets = []
     @names = {}
     @results_only = true
 
@@ -28,7 +28,7 @@ class SearchController < PublicController
       load_query
       @asset = key
       send(key)
-      @order << key
+      @assets << key
       @names[key] = _(description)
     end
     @asset = nil
@@ -42,7 +42,7 @@ class SearchController < PublicController
   # view the summary of one category
   def category_index
     @searches = {}
-    @order = []
+    @assets = []
     @names = {}
     limit = MULTIPLE_SEARCH_LIMIT
     [
@@ -53,7 +53,7 @@ class SearchController < PublicController
       [ :communities, _('Communities'), :recent_communities ],
       [ :articles, _('Contents'), :recent_articles ]
     ].each do |asset, name, filter|
-      @order << asset
+      @assets << asset
       @searches[asset]= {:results => @category.send(filter, limit)}
       raise "No total_entries for: #{asset}" unless @searches[asset][:results].respond_to?(:total_entries)
       @names[asset] = name

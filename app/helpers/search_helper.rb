@@ -110,29 +110,26 @@ module SearchHelper
   end
 
   def filters(asset)
+    return if !asset
     klass = asset_class(asset)
     content_tag('div', klass::SEARCH_FILTERS.map do |name, options|
       select_filter(name, options)
     end.join("\n"), :id => 'search-filters')
   end
+
+  def assets_links(selected)
+    assets = SEARCHES.keys
+    content_tag('ul',
+      assets.map do |asset|
+        options = {}
+        options.merge!(:class => 'selected') if selected.to_s == asset.to_s
+        content_tag('li', asset_link(asset), options)
+      end.join("\n"),
+    :id => 'assets-links')
   end
 
-  def filter_title(asset, filter)
-    {
-      'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More viewed contents from network'),
-      'articles_more_comments' => _('Most commented contents from network'),
-      'people_more_recent' => _('More recent people from network'),
-      'people_more_active' => _('More active people from network'),
-      'people_more_popular' => _('More popular people from network'),
-      'communities_more_recent' => _('More recent communities from network'),
-      'communities_more_active' => _('More active communities from network'),
-      'communities_more_popular' => _('More popular communities from network'),
-      'enterprises_more_recent' => _('More recent enterprises from network'),
-      'enterprises_more_active' => _('More active enterprises from network'),
-      'enterprises_more_popular' => _('More popular enterprises from network'),
-      'products_more_recent' => _('Highlights'),
-    }[asset.to_s + '_' + filter].to_s
+  def asset_link(asset)
+    link_to(SEARCHES[asset], "/search/#{asset}")
   end
 
 end

@@ -283,7 +283,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'search all enabled assets in general search' do
     ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
     prod_cat = create(ProductCategory, :name => 'pctest', :environment => Environment.default)
-    prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
+    prod = create(Product,:name => 'test product', :product_category => prod_cat, :enterprise => ent1)
     art = create(Article, :name => 'test article', :profile_id => fast_create(Person).id)
     per = create(Person, :name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
     com = create(Community, :name => 'test community')
@@ -301,7 +301,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent_id => parent.id,
-      :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
 
     process_delayed_job_queue
@@ -445,11 +445,6 @@ class SearchControllerTest < ActionController::TestCase
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_tag :tag => 'div', :attributes => {:class => /search-results-articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/articles/my-category'}}
-  end
-
-  should 'display correct title on list communities' do
-    get :communities
-    assert_tag :tag => 'h1', :content => 'Communities'
   end
 
   should 'indicate more than the page limit for total_entries' do
