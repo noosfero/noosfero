@@ -15,7 +15,10 @@
     $('form.search_form').submit();
   });
 
-  // Search form
+  // Custom styled select
+  $('#search-filters select').selectOrDie();
+
+  // Form Ajax submission
   $('form.search_form').submit(function () {
     $.ajax({
       url: this.action,
