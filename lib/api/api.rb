@@ -16,6 +16,7 @@ module API
     mount V1::Communities
     mount V1::People
     mount V1::Enterprises
+    mount V1::Categories
     mount Session
 
   end
