@@ -33,7 +33,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def find_or_create_author_folder(author)
-    children.find_by_slug(author.identifier.to_slug) || Folder.create!(:name => author.name, :slug => author.identifier.to_slug, :parent => self, :profile => profile)
+    children.find_by_slug(author.identifier) || Folder.create!(:name => author.name, :slug => author.identifier, :parent => self, :profile => profile)
   end
 
   def submissions
