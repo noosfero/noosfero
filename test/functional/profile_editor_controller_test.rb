@@ -211,14 +211,14 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'back when update community info fail' do
     org = fast_create(Community)
-    Community.any_instance.stubs(:update_attributes!).returns(false)
+    Community.any_instance.stubs(:update_attributes).returns(false)
     post :edit, :profile => org.identifier
     assert_template 'edit'
   end
 
   should 'back when update enterprise info fail' do
     org = fast_create(Enterprise)
-    Enterprise.any_instance.stubs(:update_attributes!).returns(false)
+    Enterprise.any_instance.stubs(:update_attributes).returns(false)
     post :edit, :profile => org.identifier
     assert_template 'edit'
   end
@@ -744,7 +744,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not crash if identifier is left blank' do
     c = fast_create(Community)
     assert_nothing_raised do
-      post :edit, :profile => c.identifier, :profile_data => c.attributes.merge('identifier' => '')
+      post :edit, :profile => c.identifier, :profile_data => {:identifier => ''}
     end
   end
 
