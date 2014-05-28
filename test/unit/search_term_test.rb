@@ -51,14 +51,16 @@ class SearchTermTest < ActiveSupport::TestCase
     SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3)
     # Search term must happens at least two times to be considered
     SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3)
-    search_term.calculate_score
+    SearchTerm.calculate_scores
+    search_term.reload
     assert search_term.score > 0, "Score was not calculated."
   end
 
   should 'not consider expired occurrences to calculate the score' do
     search_term = SearchTerm.find_or_create('universe', Environment.default)
     occurrence = SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3, :created_at => DateTime.now - (SearchTermOccurrence::EXPIRATION_TIME + 1.day))
-    search_term.calculate_score
+    SearchTerm.calculate_scores
+    search_term.reload
     assert search_term.score == 0, "Considered expired occurrence to calculate the score."
   end
 
@@ -78,6 +80,21 @@ class SearchTermTest < ActiveSupport::TestCase
 
     assert st1.score > 0, "Did not calculate st1 score."
     assert st2.score > 0, "Did not calculate st2 score."
+  end
+
+  should 'the older the occurrence the less it should influence the score' do
+    st1 = SearchTerm.find_or_create('st1', Environment.default)
+    SearchTermOccurrence.create!(:search_term => st1, :total => 10, :indexed => 3, :created_at => 1.month.ago)
+    SearchTermOccurrence.create!(:search_term => st1, :total => 20, :indexed => 8, :created_at => 1.month.ago)
+    st2 = SearchTerm.find_or_create('st2', Environment.default)
+    SearchTermOccurrence.create!(:search_term => st2, :total => 10, :indexed => 3, :created_at => 2.months.ago)
+    SearchTermOccurrence.create!(:search_term => st2, :total => 20, :indexed => 8, :created_at => 2.months.ago)
+
+    SearchTerm.calculate_scores
+    st1.reload
+    st2.reload
+
+    assert st1.score > st2.score, "Older occurrences are not influencing score less than newer ones."
   end
 
 end
