@@ -653,10 +653,10 @@ class CmsControllerTest < ActionController::TestCase
     assert_match /<img.*align="right".*\/>/, saved.body
   end
 
-  should 'not be able to add image with alignment when textile' do
+  should 'be able to add image with alignment when textile' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
     saved = TextileArticle.find_by_name('image-alignment')
-    assert_no_match /align="right"/, saved.body
+    assert_match /align="right"/, saved.body
   end
 
   should 'be able to create a new event document' do
