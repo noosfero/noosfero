@@ -213,6 +213,11 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
+  should 'require login to change password' do
+    post :change_password
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
   should 'provide a "I forget my password" link at the login page' do
     get :login
     assert_tag :tag => 'a', :attributes => {
