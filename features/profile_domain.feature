@@ -55,7 +55,7 @@ Feature: domain for profile
   Scenario: access community by domain
     Given I go to the search communities page
     When I follow "Sample Community" within ".search-profile-item"
-    Then the page title should be "Sample Community - Colivre.net"
+    Then the page title should be "Sample Community"
 
   # This test is not working because the community domain isn't at all different
   # from the environment (localhost / 127.0.0.1)
