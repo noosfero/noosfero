@@ -165,7 +165,7 @@ Feature: forum
        | article  | author    | title  | body   |
        | Post one | joaosilva | Hi all | Hi all |
    When I go to /joaosilva/forum
-   Then I should see "Joao" linking to "http://localhost/joaosilva/"
+   Then I should see "Joao Silva" within ".forum-post-last-answer"
 
    @selenium
    Scenario: community member should be able to see the discussion topic button
