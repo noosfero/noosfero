@@ -637,6 +637,10 @@ class Environment < ActiveRecord::Base
     domain
   end
 
+  def admin_url
+    { :controller => 'admin_panel', :action => 'index' }
+  end
+
   def top_url
     url = 'http://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)

@@ -1,21 +1,24 @@
 <div id="user">
-  <span class='logged-in' style='display: none;'>
-    <%= usermenu_logged_in %>
-  </span>
-  <span class='not-logged-in' style='display: none'>
+  <% user = (session[:user] && User.find_by_id(session[:user])) || nil %>
+  <% if user.present? %>
+    <% user = user.person %>
+    <span class='logged-in'>
+      <%= usermenu_logged_in %>
+    </span>
+  <% else %>
+    <span class='not-logged-in'>
+      <%= _("<span class='login'>%s</span>") % thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login') %>
+      <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_exec(&content) }.join("") %>
 
-    <%= _("<span class='login'>%s</span>") % thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login') %>
-    <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_exec(&content) }.join("") %>
+      <div id='inlineLoginBox' style='display: none;'>
+        <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
+      </div>
 
-    <div id='inlineLoginBox' style='display: none;'>
-      <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
-    </div>
-
-    <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-      <%= _("<span class='or'>or</span> <span class='signup'>%s</span>") % link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup')%>
-    <% end %>
-
-  </span>
+      <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+        <%= _("<span class='or'>or</span> <span class='signup'>%s</span>") % link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup')%>
+      <% end %>
+    </span>
+  <% end %>
   <form action="/search" id="top-search" class="search_form clean" method="get">
     <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />
     <div><%=_('Press <strong>Enter</strong> to send the search query.')%></div>
