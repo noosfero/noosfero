@@ -59,6 +59,7 @@ module API
 
     class User < Grape::Entity
       root 'users', 'user'
+      expose :id
       expose :login
       expose :person, :using => Profile
       expose :permissions do |user, options|
