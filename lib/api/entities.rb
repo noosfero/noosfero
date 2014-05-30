@@ -61,6 +61,15 @@ module API
       root 'users', 'user'
       expose :login
       expose :person, :using => Profile
+      expose :permissions do |user, options|
+        output = {}
+        user.person.role_assignments.map do |role_assigment|
+          if role_assigment.resource.respond_to?(:identifier)
+            output[role_assigment.resource.identifier] = role_assigment.role.permissions 
+          end
+        end
+        output
+      end
     end
 
     class UserLogin < User

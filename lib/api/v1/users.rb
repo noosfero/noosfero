@@ -17,6 +17,17 @@ module API
           present environment.users.find(params[:id]), :with => Entities::User
         end
 
+        get ":id/permissions" do
+          user = environment.users.find(params[:id])
+          output = {}
+          user.person.role_assignments.map do |role_assigment|
+            if role_assigment.resource.respond_to?(:identifier) && role_assigment.resource.identifier == params[:profile]
+              output[:permissions] = role_assigment.role.permissions 
+            end
+          end
+          present output
+        end
+  
       end
 
     end
