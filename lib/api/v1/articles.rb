@@ -64,8 +64,12 @@ module API
             #  POST api/v1/communites/:community_id/articles?private_toke=234298743290432&article[name]=title&article[body]=body
             post do
               community = environment.communities.find(params[:community_id])
-              article = community.articles.build(params[:article].merge(:last_changed_by => current_person))
-              article.type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+              klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+              article = klass_type.constantize.new(params[:article])
+              article.last_changed_by = current_person
+              article.created_by= current_person
+              article.profile = community
+
               if !article.save
                 render_api_errors!(article.errors.full_messages)
               end
