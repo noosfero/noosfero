@@ -35,7 +35,7 @@ class ManageProductsController < ApplicationController
   end
 
   def categories_for_selection
-    @category = Category.find(params[:category_id]) if params[:category_id]
+    @category = environment.categories.find_by_id params[:category_id]
     @object_name = params[:object_name]
     if @category
       @categories = @category.children
@@ -93,6 +93,20 @@ class ManageProductsController < ApplicationController
         render_dialog_error_messages 'product'
       end
     end
+  end
+
+  def show_category_tree
+    @category = environment.categories.find params[:category_id]
+    render :partial => 'selected_category_tree'
+  end
+
+  def search_categories
+    @term = params[:term].downcase
+    conditions = ['LOWER(name) LIKE ? OR LOWER(name) LIKE ?', "#{@term}%", "% #{@term}%"]
+    @categories = ProductCategory.all :conditions => conditions, :limit => 10
+    render :json => (@categories.map do |category|
+      {:label => category.name, :value => category.id}
+    end)
   end
 
   def add_input
