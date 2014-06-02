@@ -82,4 +82,26 @@ class APITest < ActiveSupport::TestCase
     assert_includes json["users"].map { |a| a["login"] }, user.login
   end
 
+  should 'list user permissions' do
+    community = fast_create(Community)
+    community.add_admin(user.person)
+    get "/api/v1/users/#{user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["user"]["permissions"], community.identifier
+  end
+
+  should 'list categories' do
+    category = fast_create(Category)
+    get "/api/v1/categories/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["categories"].map { |c| c["name"] }, category.name
+  end
+
+  should 'get category by id' do
+    category = fast_create(Category)
+    get "/api/v1/categories/#{category.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal category.name, json["category"]["name"]
+  end
+
 end
