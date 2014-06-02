@@ -53,7 +53,7 @@
 
   <%=
     @plugins.dispatch(:profile_editor_extras).map do |content|
-      if content.respond_to?(:call) then instance_eval(&content).html_safe else content.html_safe end
+      content.kind_of?(Proc) ? self.instance_eval(&content) : content
     end.join("\n")
   %>
 

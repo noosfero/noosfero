@@ -894,6 +894,23 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'field_added_by_plugin', :value => 'value_of_field_added_by_plugin'}
   end
 
+  should 'add extra content with block provided by plugins on edit' do
+    class TestProfileEditPlugin < Noosfero::Plugin
+      def profile_editor_extras
+        lambda do
+          render :text => "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
+        end
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([TestProfileEditPlugin.to_s])
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProfileEditPlugin.new])
+
+    get :edit, :profile => profile.identifier
+
+    assert_tag :tag => 'input', :attributes => {:id => 'field_added_by_plugin', :value => 'value_of_field_added_by_plugin'}
+  end
+
   should 'show image upload field from profile editor' do
     env = Environment.default
     env.custom_person_fields = { }
