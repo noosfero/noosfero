@@ -63,6 +63,9 @@ class User < ActiveRecord::Base
     self.person.preferred_domain && self.person.preferred_domain.name || self.environment.default_hostname(true)
   end
 
+  # virtual attribute used to stash which community to join on signup or login
+  attr_accessor :community_to_join
+
   class Mailer < ActionMailer::Base
     def activation_email_notify(user)
       user_email = "#{user.login}@#{user.email_domain}"
@@ -85,7 +88,8 @@ class User < ActiveRecord::Base
         :activation_code => user.activation_code,
         :environment => user.environment.name,
         :url => user.environment.top_url,
-        :redirection => (true if user.return_to)
+        :redirection => (true if user.return_to),
+        :join => (user.community_to_join if user.community_to_join)
     end
 
     def signup_welcome_email(user)

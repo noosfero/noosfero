@@ -474,17 +474,23 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal "/profile/#{community.identifier}", @request.session[:previous_location]
   end
 
-  should 'redirect to location before login after join community' do
+  should 'redirect to login after user not logged asks to join a community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
+    get :join_not_logged, :profile => community.identifier
+
+    assert_equal community.identifier, @request.session[:join]
+    assert_redirected_to :controller => :account, :action => :login
+  end
+
+  should 'redirect to join after user logged asks to join_not_logged a community' do
+    community = Community.create!(:name => 'my test community')
+
     login_as(profile.identifier)
+    get :join_not_logged, :profile => community.identifier
 
-    post :join_not_logged, :profile => community.identifier
-
-    assert_redirected_to "/profile/#{community.identifier}/to_go"
-
-    assert_nil @request.session[:previous_location]
+    assert_equal community.identifier, @request.session[:join]
+    assert_redirected_to :controller => :profile, :action => :join
   end
 
   should 'show number of published events in index' do
@@ -1186,7 +1192,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     get :index, :profile => profile.identifier
-    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 } 
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 }
   end
 
   should "view more comments paginated" do
@@ -1212,7 +1218,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
     profile.reload
     get :index, :profile => profile.identifier
-    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 } 
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 }
   end
 
   should "view more replies paginated" do
@@ -1267,15 +1273,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :content => /#{instance_eval(&plugin1.profile_tabs[:content])}/, :attributes => {:id => /#{plugin1.profile_tabs[:id]}/}
     assert_tag :tag => 'a', :content => /#{plugin2.profile_tabs[:title]}/, :attributes => {:href => /#{plugin2.profile_tabs[:id]}/}
     assert_tag :tag => 'div', :content => /#{instance_eval(&plugin2.profile_tabs[:content])}/, :attributes => {:id => /#{plugin2.profile_tabs[:id]}/}
-  end
-
-  should 'redirect to profile page when try to request join_not_logged via GET method' do
-    community = Community.create!(:name => 'my test community')
-    login_as(profile.identifier)
-    get :join_not_logged, :profile => community.identifier
-    assert_nothing_raised do
-      assert_redirected_to community.url
-    end
   end
 
   should 'check different profile from the domain profile' do
