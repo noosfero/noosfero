@@ -1501,7 +1501,7 @@ a.comment-picture {
   height: auto;
 }
 
-div.article-body.article-body-tiny-mce-article p img {
+div.article-body p img {
   max-width: 100%;
   height: auto;
 }
