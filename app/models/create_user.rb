@@ -26,17 +26,12 @@ class CreateUser < Task
   end
 
   def perform
-    user = User.new
-    person = Person.new(person_data)
+    user = User.new(user_data)
+    user.person = Person.new(person_data)
     author_name = user.name
-    user_data = self.data.reject do |key, value|
-      ! DATA_FIELDS.include?(key.to_s)
-    end
-    person.update_attributes(@person)
-    user.update_attributes(user_data)
     user.environment = self.environment
-    person.environment = user.environment
-    user.save!
+    user.person.environment = user.environment
+    user.signup!
   end
 
   def title
@@ -68,5 +63,15 @@ class CreateUser < Task
 
   def target_notification_message
     _("User \"%{user}\" just requested to register. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.name }
+  end
+
+  protected
+ 
+  def user_data
+     user_data = self.data.reject do |key, value|
+      !DATA_FIELDS.include?(key.to_s)
+    end
+ 
+    user_data
   end
 end

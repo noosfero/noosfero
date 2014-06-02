@@ -312,8 +312,8 @@ Feature: signup
     And feature "skip_new_user_email_confirmation" is enabled on environment
     And I go to /account/signup
     And I fill in "Username" with "teste"
-    And I fill in "Password" with "1234"
-    And I fill in "Password confirmation" with "1234"
+    And I fill in "Password" with "123456"
+    And I fill in "Password confirmation" with "123456"
     And I fill in "e-Mail" with "teste@teste.com"
     And I fill in "Full name" with "Teste da Silva"
     And I press "Create my account"
@@ -325,7 +325,7 @@ Feature: signup
     And I follow "Logout"
     And I follow "Login"
     And I fill in "Username / Email" with "teste"
-    And I fill in "Password" with "1234"
+    And I fill in "Password" with "123456"
     And I press "Log in"
     Then I should see "teste"
 

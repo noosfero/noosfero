@@ -87,7 +87,7 @@ class AccountController < ApplicationController
       @person.environment = @user.environment
       unless @user.environment.enabled?('admin_must_approve_new_users')
         if request.post?
-          @person.update_attributes(params[:profile_data])
+          @person.attributes = params[:profile_data]
           if may_be_a_bot
             set_signup_start_time_for_now
             @block_bot = true
