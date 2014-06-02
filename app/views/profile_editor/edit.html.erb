@@ -53,7 +53,7 @@
 
   <%=
     @plugins.dispatch(:profile_editor_extras).map do |content|
-      content.kind_of?(Proc) ? self.instance_eval(&content) : content
+      content.kind_of?(Proc) ? self.instance_exec(&content) : content
     end.join("\n")
   %>
 
