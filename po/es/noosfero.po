@@ -6128,7 +6128,7 @@ msgstr "Publicar comentario"
 #: app/views/scrap/notifier/mail.rhtml:1
 #: app/views/user/mailer/activation_code.rhtml:1
 msgid "Hi, %{recipient}!"
-msgstr "¡Hola, %recipient}!"
+msgstr "¡Hola, %{recipient}!"
 
 #: app/views/comment/notifier/mail.rhtml:3
 msgid ""
@@ -9831,7 +9831,7 @@ msgid ""
 "%{activation_url}"
 msgstr ""
 "¡Bienvenido a %{environment}! Para activar tu cuenta, sigue el enlace: "
-"%{activation_urñ}"
+"%{activation_url}"
 
 #: app/views/categories/new.rhtml:1 app/views/categories/index.rhtml:7
 #: app/views/categories/index.rhtml:16 app/views/categories/index.rhtml:25
