@@ -154,7 +154,7 @@ class ProfileControllerTest < ActionController::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_admin(@profile)
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/\{login\}/ }, :content => 'Control panel'
+    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/my-test-community/ }, :content => 'Control panel'
   end
 
   should 'show create community in own profile' do

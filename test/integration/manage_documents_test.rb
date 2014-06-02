@@ -9,7 +9,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     user.activate
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => "#{user.environment.top_url}/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{user.login}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -40,7 +40,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     article.save!
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -75,7 +75,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('myuser', 'myuser')
 
-    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
     get '/myprofile/myuser'
     assert_response :success
     
