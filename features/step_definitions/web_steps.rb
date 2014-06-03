@@ -118,9 +118,9 @@ end
 
 Then /^(?:|I )should see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
   if page.respond_to? :should
-    page.should have_css(selector, :content => text)
+    page.should have_css(selector, :text => text)
   else
-    assert page.has_css?(selector, :content => text)
+    assert page.has_css?(selector, :text => text)
   end
 end
 
