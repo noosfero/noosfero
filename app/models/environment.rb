@@ -248,6 +248,9 @@ class Environment < ActiveRecord::Base
   # store the Environment settings as YAML-serialized Hash.
   acts_as_having_settings :field => :settings
 
+  # introduce and explain to users something about the signup
+  settings_items :signup_intro, :type => String
+
   # the environment's terms of use: every user must accept them before registering.
   settings_items :terms_of_use, :type => String
 
