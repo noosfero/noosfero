@@ -575,4 +575,16 @@ class ApplicationControllerTest < ActionController::TestCase
     end
   end
 
+  should 'allow plugin to propose search terms suggestions' do
+    class SuggestionsPlugin < Noosfero::Plugin
+      def find_suggestions(query, context, asset, options={:limit => 5})
+        ['a', 'b', 'c']
+      end
+    end
+
+    controller = ApplicationController.new
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SuggestionsPlugin.new])
+
+    assert_equal ['a', 'b', 'c'], controller.send(:find_suggestions, 'random', Environment.default, 'random')
+  end
 end

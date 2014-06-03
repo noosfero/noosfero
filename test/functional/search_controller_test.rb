@@ -662,6 +662,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
   end
 
+  should 'get search suggestions on json' do
+    st1 = 'universe A'
+    st2 = 'universe B'
+    @controller.stubs(:find_suggestions).with('universe', Environment.default, 'communities').returns([st1, st2])
+    get :suggestions, :term => 'universe', :asset => 'communities'
+    assert_equal [st1,st2].to_json, response.body
+  end
+
   protected
 
   def create_event(profile, options)
