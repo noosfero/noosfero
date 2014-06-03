@@ -39,6 +39,7 @@ class Profile
     :boost => proc{ |p| 10 if p.enabled }
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   class_inheritable_accessor :solr_plugin_extra_index_methods
   self.solr_plugin_extra_index_methods = []

@@ -43,6 +43,7 @@ class Product
     :boost => proc{ |p| boost = 1; SolrPlugin::Boosts.each{ |b| boost = boost * (1 - ((1 - b[2].call(p)) * b[1])) }; boost}
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   private
 
