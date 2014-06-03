@@ -12,7 +12,7 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "1980-11-15" from "profile_data_birth_date"
+    And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"
@@ -23,7 +23,7 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "1980-11-15" from "profile_data_birth_date"
+    And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"
