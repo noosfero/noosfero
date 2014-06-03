@@ -6024,8 +6024,13 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   clear: both;
 }
 
+.action-account-signup #content {
+  text-align: center;
+}
+
 #signup-form {
   color: #4A4A4A;
+  display: inline-block;
 }
 
 #signup-form small {
@@ -6041,26 +6046,26 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form input.invalid_input {
-  border: 2px solid #7f0000;
+  border: 1px solid #7f0000;
   background: #FFF;
-  padding: 5px 30px 8px 5px;
+  box-shadow: 0 0 7px red;
+ /* padding: 5px 30px 8px 5px; */
 }
 
 #signup-form input.valid_input {
   border: 2px solid #005000;
   background: #FFF;
-  padding: 5px 30px 8px 5px;
+/*  padding: 5px 30px 8px 5px; */
 }
 
 #signup-form select,
 #signup-form textarea,
 #signup-form input {
-  padding: 7px 30px 10px 7px;
+  padding: 7px 7% 10px 3%;
   height: 20px;
-  width: 335px;
+  width: 90%;
   color: #6d786e;
   font-size: 18px;
-  margin: 1px 14px 5px;
 }
 
 #signup-form #profile_data_login {
@@ -6076,8 +6081,9 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background-color: #fff;
   background-position: right center;
   background-repeat: no-repeat;
-  padding: 5px 30px 8px 5px;
+  padding: 5px 7% 8px 3%;
   color: #4A4A4A;
+  box-shadow: 0 0 7px green;
 }
 
 #signup-form select {
@@ -6147,6 +6153,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #signup-form .invalid {
   border-color: #7f0000;
   background-image: url(/images/passwords_nomatch.png);
+  box-shadow: 0 0 7px red;
 }
 
 #signup-form span.invalid {
@@ -6189,16 +6196,21 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   color: #4A4A4A;
   font-size: 20px;
   text-transform: lowercase;
-  margin-left: 14px;
+  min-width: 190px;
 }
 
 #signup-form #signup-form-header #user_login {
   margin: 0;
   padding-right: 30px;
+  width: 150px;
 }
 
 #signup-login-field {
   float: left;
+}
+
+#signup-form #signup-login {
+  display: inline-block;
 }
 
 #signup-form #signup-password,
@@ -6245,7 +6257,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   color: #4A4A4A;
   font-size: 20px;
   font-weight: normal;
-  margin-left: 15px;
+  text-align: left;
 }
 
 #signup-form .required-field label::after {
@@ -6300,11 +6312,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 .action-account-signup .no-boxes {
   margin-left: 0px;
   margin-right: 0px;
-}
-
-.action-account-signup .no-boxes form {
-  margin-left: 247px;
-  margin-right: 247px;
 }
 
 .select-birth-date {
