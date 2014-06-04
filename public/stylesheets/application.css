@@ -1499,6 +1499,12 @@ a.comment-picture {
   max-width: 100%;
   height: auto;
 }
+
+div.article-body p img {
+  max-width: 100%;
+  height: auto;
+}
+
 #content .blog-post .read-more {
   text-align: right;
   clear: both;
