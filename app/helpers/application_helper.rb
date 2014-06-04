@@ -313,15 +313,9 @@ module ApplicationHelper
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
   end
 
-  def view_for_profile_actions(klass)
-    raise ArgumentError, 'No profile actions view for this class.' if klass.nil?
-
-    name = klass.name.underscore
-    VIEW_EXTENSIONS.each do |ext|
-      return "blocks/profile_info_actions/"+name+ext if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'blocks', 'profile_info_actions', name+ext))
-    end
-
-    view_for_profile_actions(klass.superclass)
+  def render_profile_actions klass
+    name = klass.to_s.underscore
+    render "blocks/profile_info_actions/#{name}" rescue render_profile_actions klass.superclass
   end
 
   def user
