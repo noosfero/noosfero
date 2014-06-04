@@ -28,8 +28,8 @@ class ShoppingCartPluginController < PublicController
 
   def add
     product = find_product(params[:id])
-    if product && enterprise = validate_same_enterprise(product)
-      self.cart = { :profile_id => enterprise.id, :items => {} } if self.cart.nil?
+    if product && profile = validate_same_profile(product)
+      self.cart = { :profile_id => profile.id, :items => {} } if self.cart.nil?
       self.cart[:items][product.id] = 0 if self.cart[:items][product.id].nil?
       self.cart[:items][product.id] += 1
       render :text => {
@@ -38,7 +38,7 @@ class ShoppingCartPluginController < PublicController
         :products => [{
           :id => product.id,
           :name => product.name,
-          :price => get_price(product, enterprise.environment),
+          :price => get_price(product, profile.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => self.cart[:items][product.id]
@@ -96,8 +96,8 @@ class ShoppingCartPluginController < PublicController
   def buy
     if validate_cart_presence
       @cart = cart
-      @enterprise = environment.enterprises.find(cart[:profile_id])
-      @settings = Noosfero::Plugin::Settings.new(@enterprise, ShoppingCartPlugin)
+      @profile = environment.profiles.find(cart[:profile_id])
+      @settings = Noosfero::Plugin::Settings.new(@profile, ShoppingCartPlugin)
       render :layout => false
     end
   end
@@ -105,9 +105,9 @@ class ShoppingCartPluginController < PublicController
   def send_request
     register_order(params[:customer], self.cart[:items])
     begin
-      enterprise = environment.enterprises.find(cart[:profile_id])
-      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option])
-      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option])
+      profile = environment.profiles.find(cart[:profile_id])
+      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, self.cart[:items], params[:delivery_option])
+      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, self.cart[:items], params[:delivery_option])
       self.cart = nil
       render :text => {
         :ok => true,
@@ -168,8 +168,8 @@ class ShoppingCartPluginController < PublicController
   end
 
   def update_delivery_option
-    enterprise = environment.enterprises.find(cart[:profile_id])
-    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    profile = environment.profiles.find(cart[:profile_id])
+    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     delivery_price = settings.delivery_options[params[:delivery_option]]
     delivery = Product.new(:name => params[:delivery_option], :price => delivery_price)
     delivery.save(false)
@@ -188,7 +188,7 @@ class ShoppingCartPluginController < PublicController
 
   private
 
-  def validate_same_enterprise(product)
+  def validate_same_profile(product)
     if self.cart && self.cart[:profile_id] && product.profile_id != self.cart[:profile_id]
       render :text => {
         :ok => false,
@@ -199,7 +199,7 @@ class ShoppingCartPluginController < PublicController
       }.to_json
       return nil
     end
-    product.enterprise
+    product.profile
   end
 
   def validate_cart_presence
@@ -268,7 +268,7 @@ class ShoppingCartPluginController < PublicController
       new_items[id] = {:quantity => quantity, :price => price, :name => product.name}
     end
     ShoppingCartPlugin::PurchaseOrder.create!(
-      :seller => Enterprise.find(cart[:profile_id]),
+      :seller => environment.profiles.find(cart[:profile_id]),
       :customer => user,
       :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
       :products_list => new_items,
@@ -325,7 +325,7 @@ class ShoppingCartPluginController < PublicController
       if product
         { :id => product.id,
           :name => product.name,
-          :price => get_price(product, product.enterprise.environment),
+          :price => get_price(product, product.profile.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => quantity
