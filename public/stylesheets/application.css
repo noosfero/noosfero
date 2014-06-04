@@ -6049,13 +6049,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   border: 1px solid #7f0000;
   background: #FFF;
   box-shadow: 0 0 7px red;
- /* padding: 5px 30px 8px 5px; */
 }
 
 #signup-form input.valid_input {
   border: 2px solid #005000;
   background: #FFF;
-/*  padding: 5px 30px 8px 5px; */
 }
 
 #signup-form select,
@@ -6076,7 +6074,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #signup-form .invalid,
 #signup-form input.validated,
 #signup-form .checking {
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   background-color: #fff;
   background-position: right center;
