@@ -1,6 +1,7 @@
-class ShoppingCartPluginMyprofileController < MyProfileController
+include ShoppingCartPlugin::CartHelper
 
-  include ShoppingCartPlugin::CartHelper
+class ShoppingCartPluginMyprofileController < MyProfileController
+  append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def edit
     params[:settings] = treat_cart_options(params[:settings])
