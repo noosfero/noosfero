@@ -102,8 +102,8 @@ class FolderHelperTest < ActiveSupport::TestCase
     expects(:list_type).returns(:folder).at_least_once
     expects(:recursive).returns(false).at_least_once
     expects(:pagination_links).with(anything, anything).returns('')
-    list = render 'shared/articles_list', binding
-    expects(:render).with(:file => 'shared/articles_list',
+    list = render 'shared/content_list', binding
+    expects(:render).with(:file => 'shared/content_list',
       :locals => { :contents => contents, :recursive => false, :list_type => :folder }
     ).returns(list)
 

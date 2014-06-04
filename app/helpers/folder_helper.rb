@@ -13,7 +13,7 @@ module FolderHelper
         :page => params[:npage]
       )
 
-      render :file => 'shared/articles_list', :locals => configure
+      render :file => 'shared/content_list', :locals => configure
     else
       content_tag('em', _('(empty folder)'))
     end
