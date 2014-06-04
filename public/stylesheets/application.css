@@ -6086,6 +6086,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   box-shadow: 0 0 7px green;
 }
 
+#signup-form input.checking {
+  box-shadow: none;
+}
+
 #signup-form select {
   height: auto;
   padding-right: 3px;
@@ -6161,6 +6165,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding: 0px;
   background: transparent;
   color: #7f0000;
+  box-shadow: none;
 }
 
 #signup-form .checking {
@@ -6173,6 +6178,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding: 0px;
   background: transparent;
   color: #4A4A4A;
+  box-shadow: none;
 }
 
 #signup-form .validated {
