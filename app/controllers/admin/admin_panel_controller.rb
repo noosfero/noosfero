@@ -7,6 +7,7 @@ class AdminPanelController < AdminController
   end
 
   def site_info
+    @no_design_blocks = true
     if request.post?
       if params[:environment][:languages]
         params[:environment][:languages] = params[:environment][:languages].map {|lang, value| lang if value=='true'}.compact
