@@ -1,6 +1,7 @@
 <h1> <%= _('Purchase Reports') %> </h1>
 
 <% extend ProfileHelper %>
+<% extend ShoppingCartPlugin::CartHelper %>
 
 <% status = ShoppingCartPlugin::PurchaseOrder::Status.name; pos=-1 %>
 <% status_collection = [[nil, _('All')]] %>
