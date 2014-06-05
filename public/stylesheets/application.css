@@ -144,6 +144,7 @@ div#notice {
   position: fixed;
   top: 30px;
   right: 30px;
+  pointer-events: none;
 }
 /* * * Generic Content Formating * * */
 
