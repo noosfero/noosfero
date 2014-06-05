@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CertifierTest < ActiveSupport::TestCase
@@ -21,10 +22,10 @@ class CertifierTest < ActiveSupport::TestCase
 
   should 'belongs to environment' do
     env_one = fast_create(Environment)
-    certifier_from_env_one = Certifier.create(:name => 'Certifier from environment one', :environment => env_one)
+    certifier_from_env_one = env_one.certifiers.create(:name => 'Certifier from environment one')
 
     env_two = fast_create(Environment)
-    certifier_from_env_two = Certifier.create(:name => 'Certifier from environment two', :environment => env_two)
+    certifier_from_env_two = env_two.certifiers.create(:name => 'Certifier from environment two')
 
     assert_includes env_one.certifiers, certifier_from_env_one
     assert_not_includes env_one.certifiers, certifier_from_env_two
@@ -32,7 +33,7 @@ class CertifierTest < ActiveSupport::TestCase
 
   should 'name is mandatory' do
     env_one = fast_create(Environment)
-    certifier = Certifier.new(:environment => env_one)
+    certifier = env_one.certifiers.new
     assert !certifier.valid?
 
     certifier.name = 'Certifier name'

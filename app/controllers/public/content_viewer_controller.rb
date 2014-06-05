@@ -1,3 +1,5 @@
+require 'diffy'
+
 class ContentViewerController < ApplicationController
 
   needs_profile
@@ -6,7 +8,9 @@ class ContentViewerController < ApplicationController
   helper TagsHelper
 
   def view_page
-    path = params[:page].join('/')
+    path = params[:page]
+    path = path.join('/') if path.kind_of?(Array)
+    path = "#{path}.#{params[:format]}" if params[:format]
     @version = params[:version].to_i
 
     if path.blank?
@@ -32,12 +36,12 @@ class ContentViewerController < ApplicationController
       return render_access_denied unless @page.display_versions?
       @versioned_article = @page.versions.find_by_version(@version)
       if @versioned_article && @page.versions.latest.version != @versioned_article.version
-        render :template => 'content_viewer/versioned_article.rhtml'
+        render :template => 'content_viewer/versioned_article.html.erb'
         return
       end
     end
 
-    redirect_to_translation if @page.profile.redirect_l10n
+    redirect_to_translation and return if @page.profile.redirect_l10n
 
     if request.post?
       if @page.forum? && @page.has_terms_of_use && params[:terms_accepted] == "true"
@@ -50,7 +54,7 @@ class ContentViewerController < ApplicationController
     end
 
     # At this point the page will be showed
-    @page.hit
+    @page.hit unless user_is_a_bot?
 
     @page = FilePresenter.for @page
 
@@ -87,7 +91,7 @@ class ContentViewerController < ApplicationController
       blog_with_translation = @page.blog? && @page.display_posts_in_current_language?
       posts = posts.native_translations if blog_with_translation
 
-      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile))).to_a
 
       if blog_with_translation
         @posts.replace @posts.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
@@ -111,14 +115,31 @@ class ContentViewerController < ApplicationController
     @comments = @plugins.filter(:unavailable_comments, @comments)
     @comments_count = @comments.count
     @comments = @comments.without_reply.paginate(:per_page => per_page, :page => params[:comment_page] )
+    @comment_order = params[:comment_order].nil? ? 'oldest' : params[:comment_order]
+
+    if request.xhr? and params[:comment_order]
+      if @comment_order == 'newest'
+        @comments = @comments.reverse
+      end
+
+      return render :partial => 'comment/comment', :collection => @comments
+    end
 
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
+      return
     end
+    render :view_page, :formats => [:html]
+  end
+
+  def versions_diff
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
   end
 
   def article_versions
-    path = params[:page].join('/')
+    path = params[:page]
     @page = profile.articles.find_by_path(path)
     return unless allow_access_to_page(path)
 
@@ -164,7 +185,7 @@ class ContentViewerController < ApplicationController
     elsif !@page.display_to?(user)
       if !profile.public?
         private_profile_partial_parameters
-        render :template => 'profile/_private_profile.rhtml', :status => 403
+        render :template => 'profile/_private_profile', :status => 403
         allowed = false
       else #if !profile.visible?
         render_access_denied
@@ -174,4 +195,12 @@ class ContentViewerController < ApplicationController
     allowed
   end
 
+  def user_is_a_bot?
+    user_agent= request.env["HTTP_USER_AGENT"]
+    user_agent.blank? ||
+    user_agent.match(/bot/) ||
+    user_agent.match(/spider/) ||
+    user_agent.match(/crawler/) ||
+    user_agent.match(/\(.*https?:\/\/.*\)/)
+  end
 end

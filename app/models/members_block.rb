@@ -1,6 +1,8 @@
 class MembersBlock < ProfileListBlock
   settings_items :show_join_leave_button, :type => :boolean, :default => false
 
+  attr_accessible :show_join_leave_button
+
   def self.description
     _('Members')
   end
@@ -17,7 +19,7 @@ class MembersBlock < ProfileListBlock
     profile = self.owner
     s = show_join_leave_button
 
-    lambda do
+    proc do
       render :file => 'blocks/members', :locals => { :profile => profile, :show_join_leave_button => s}
     end
   end
@@ -34,6 +36,17 @@ class MembersBlock < ProfileListBlock
       :checked => show_join_leave_button,
       :options => {}
     }
+  end
+
+  def cache_key(language='en', user=nil)
+    logged = ''
+    if user
+      logged += '-logged-in'
+      if user.is_member_of? self.owner
+        logged += '-member'
+      end
+    end
+    super + logged
   end
 
 end

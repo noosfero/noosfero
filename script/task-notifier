@@ -8,5 +8,5 @@ ActionController::Base.init_gettext 'noosfero'
 Person.with_pending_tasks.each do |p|
   set_locale_all p.last_lang
   PendingTaskNotifier.deliver_notification(p)
-  RAILS_DEFAULT_LOGGER.info('deliver notification for ' + p.identifier)
+  Rails.logger.info('deliver notification for ' + p.identifier)
 end

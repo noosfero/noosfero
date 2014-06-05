@@ -1,0 +1,8 @@
+<div id="addThis">
+  <script type="text/javascript">
+    addthis_pub = '<%= escape_javascript( NOOSFERO_CONF['addthis_pub'] ) %>';
+    addthis_logo = '<%= escape_javascript( NOOSFERO_CONF['addthis_logo'] ) %>';
+    addthis_options = '<%= escape_javascript( NOOSFERO_CONF['addthis_options'] ) %>';
+  </script>
+  <a href="http://www.addthis.com/bookmark.php" id="bt_addThis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><%= addthis_image_tag %></a>
+</div>

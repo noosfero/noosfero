@@ -17,6 +17,8 @@ class AccountController < ApplicationController
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
     if @user and @user.activate
       @message = _("Your account has been activated, now you can log in!")
+      check_redirection
+      session[:join] = params[:join] unless params[:join].blank?
       render :action => 'login', :userlogin => @user.login
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
@@ -35,6 +37,7 @@ class AccountController < ApplicationController
     self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
 
     if logged_in?
+      check_join_in_community(self.current_user)
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -69,6 +72,8 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow user registration.")
     end
 
+    store_location(request.referer) unless params[:return_to] or session[:return_to]
+
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
@@ -77,6 +82,7 @@ class AccountController < ApplicationController
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
       @user.person_data = params[:profile_data]
+      @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
@@ -88,6 +94,7 @@ class AccountController < ApplicationController
           if session[:may_be_a_bot]
             return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
           end
+          @user.community_to_join = session[:join]
           @user.signup!
           owner_role = Role.find_by_name('owner')
           @user.person.affiliate(@user.person, [owner_role]) if owner_role
@@ -98,7 +105,8 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
-            redirect_to '/'
+            check_join_in_community(@user)
+            go_to_signup_initial_page
           else
             @register_pending = true
           end
@@ -132,12 +140,8 @@ class AccountController < ApplicationController
                                params[:new_password_confirmation])
         session[:notice] = _('Your password has been changed successfully!')
         redirect_to :action => 'index'
-      rescue User::IncorrectPassword => e
-        session[:notice] = _('The supplied current password is incorrect.')
-        render :action => 'change_password'
+      rescue Exception
       end
-    else
-      render :action => 'change_password'
     end
   end
 
@@ -163,12 +167,12 @@ class AccountController < ApplicationController
         render :action => 'password_recovery_sent'
       rescue ActiveRecord::RecordNotFound
         if params[:value].blank?
-          @change_password.errors.add_to_base(_('Can not recover user password with blank value.'))
+          @change_password.errors[:base] << _('Can not recover user password with blank value.')
         else
-          @change_password.errors.add_to_base(_('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]])
+          @change_password.errors[:base] << _('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]]
         end
       rescue ActiveRecord::RecordInvald
-        @change_password.errors.add_to_base(_('Could not perform password recovery for the user.'))
+        @change_password.errors[:base] << _('Could not perform password recovery for the user.')
       end
     end
   end
@@ -247,15 +251,19 @@ class AccountController < ApplicationController
     end
   end
 
-  def check_url
+  def check_valid_name
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
     if valid
       @status = _('This login name is available')
       @status_class = 'validated'
-    else
+    elsif !@identifier.empty?
+      @suggested_usernames = suggestion_based_on_username(@identifier)
       @status = _('This login name is unavailable')
       @status_class = 'invalid'
+    else
+      @status_class = 'invalid'
+      @status = _('This field can\'t be blank')
     end
     render :partial => 'identifier_status'
   end
@@ -287,6 +295,23 @@ class AccountController < ApplicationController
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
+
+  def search_cities
+    if request.xhr? and params[:state_name] and params[:city_name]
+      render :json => MapsHelper.search_city(params[:city_name], params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
+  def search_state
+    if request.xhr? and params[:state_name]
+      render :json => MapsHelper.search_state(params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
 
   protected
 
@@ -371,27 +396,18 @@ class AccountController < ApplicationController
     if params[:return_to]
       redirect_to params[:return_to]
     elsif environment.enabled?('allow_change_of_redirection_after_login')
-      case user.preferred_login_redirection
-        when 'keep_on_same_page'
-          redirect_back_or_default(user.admin_url)
-        when 'site_homepage'
-          redirect_to :controller => :home
-        when 'user_profile_page'
-          redirect_to user.public_profile_url
-        when 'user_homepage'
-          redirect_to user.url
-        when 'user_control_panel'
-          redirect_to user.admin_url
-      else
-        redirect_back_or_default(user.admin_url)
-      end
+      check_redirection_options(user, user.preferred_login_redirection, user.admin_url)
     else
       if environment == current_user.environment
-        redirect_back_or_default(user.admin_url)
+        check_redirection_options(user, environment.redirection_after_login, user.admin_url)
       else
         redirect_back_or_default(:controller => 'home')
       end
     end
+  end
+
+  def go_to_signup_initial_page
+    check_redirection_options(user, user.environment.redirection_after_signup, user.url)
   end
 
   def redirect_if_logged_in
@@ -409,4 +425,37 @@ class AccountController < ApplicationController
     user
   end
 
+  protected
+
+  def check_redirection_options(user, condition, default)
+    case condition
+      when 'keep_on_same_page'
+        redirect_back_or_default(user.admin_url)
+      when 'site_homepage'
+        redirect_to :controller => :home
+      when 'user_profile_page'
+        redirect_to user.public_profile_url
+      when 'user_homepage'
+        redirect_to user.url
+      when 'user_control_panel'
+        redirect_to user.admin_url
+    else
+      redirect_back_or_default(default)
+    end
+  end
+
+  def check_redirection
+    unless params[:redirection].blank?
+      session[:return_to] = @user.return_to
+      @user.update_attributes(:return_to => nil)
+    end
+  end
+
+  def check_join_in_community(user)
+    profile_to_join = session[:join]
+    unless profile_to_join.blank?
+     environment.profiles.find_by_identifier(profile_to_join).add_member(user.person)
+     session.delete(:join)
+    end
+  end
 end

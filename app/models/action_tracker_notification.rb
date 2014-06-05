@@ -8,6 +8,8 @@ class ActionTrackerNotification < ActiveRecord::Base
   validates_presence_of :profile_id, :action_tracker_id
   validates_uniqueness_of :action_tracker_id, :scope => :profile_id
 
+  attr_accessible :profile_id, :action_tracker_id
+
 end
 
 ActionTracker::Record.has_many :action_tracker_notifications, :class_name => 'ActionTrackerNotification', :foreign_key => 'action_tracker_id', :dependent => :destroy

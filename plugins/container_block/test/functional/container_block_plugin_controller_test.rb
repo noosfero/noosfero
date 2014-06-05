@@ -14,9 +14,9 @@ class ContainerBlockPluginControllerTest < ActionController::TestCase
     @environment.add_admin(user.person)
     login_as(user.login)
 
-    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => @environment.boxes.first)
-    @child1 = Block.create!(:box => @block.container_box)
-    @child2 = Block.create!(:box => @block.container_box)
+    @block = ContainerBlockPlugin::ContainerBlock.create!(:box_id => @environment.boxes.first.id)
+    @child1 = Block.create!(:box_id => @block.container_box.id)
+    @child2 = Block.create!(:box_id => @block.container_box.id)
     @environment = Environment.find(@environment.id)
     stubs(:boxes_holder).returns(@environment)
     @params = {}

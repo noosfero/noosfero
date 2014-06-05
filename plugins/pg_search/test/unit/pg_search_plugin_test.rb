@@ -21,6 +21,11 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     assert_includes search(Profile, 'admin deb'), profile2
   end
 
+  should 'locate profile escaping special characters' do
+    profile = fast_create(Profile, :name => 'John', :identifier => 'waterfall')
+    assert_includes search(Profile, ') ( /\/\/\/\/\ o_o oOo o_o /\/\/\/\/\ ) ((tx waterfall)'), profile
+  end
+
   # TODO This feature is available only on Postgresql 9.0
   # http://www.postgresql.org/docs/9.0/static/unaccent.html
   # should 'ignore accents' do

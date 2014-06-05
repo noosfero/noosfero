@@ -12,51 +12,52 @@ class ContactSenderTest < ActiveSupport::TestCase
   end
 
   should 'be able to deliver mail' do
-    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = Environment.default.enterprises.new(:name => 'my enterprise', :identifier => 'myent')
+    Environment.default.update_attribute(:noreply_email, 'noreply@sample.org')
     ent.contact_email = 'contact@invalid.com'
     c = build(Contact, :dest => ent)
-    response = Contact::Sender.deliver_mail(c)
-    assert_equal Environment.default.contact_email, response.from.to_s
+    response = Contact::Sender.notification(c).deliver
+    assert_equal Environment.default.noreply_email, response.from.first.to_s
     assert_equal "[#{ent.name}] #{c.subject}", response.subject
   end
 
   should 'deliver mail to contact_email' do
-    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = Environment.default.enterprises.new(:name => 'my enterprise', :identifier => 'myent')
     ent.contact_email = 'contact@invalid.com'
     c = build(Contact, :dest => ent)
-    response = Contact::Sender.deliver_mail(c)
+    response = Contact::Sender.notification(c).deliver
     assert_includes response.to, c.dest.contact_email
   end
- 
+
   should 'deliver mail to admins of enterprise' do
     admin = create_user('admin_test').person
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = Environment.default.enterprises.create!(:name => 'my enterprise', :identifier => 'myent')
     ent.contact_email = 'contact@invalid.com'
     ent.add_admin(admin)
     assert ent.save!
     c = build(Contact, :dest => ent)
-    response = Contact::Sender.deliver_mail(c)
+    response = Contact::Sender.notification(c).deliver
     assert_includes response.to, admin.email
   end
 
   should 'deliver a copy of email if requester wants' do
-    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = Environment.default.enterprises.new(:name => 'my enterprise', :identifier => 'myent')
     c = build(Contact, :dest => ent, :email => 'requester@invalid.com', :receive_a_copy => true)
-    response = Contact::Sender.deliver_mail(c)
+    response = Contact::Sender.notification(c).deliver
     assert_includes response.cc, c.email
   end
 
   should 'not deliver a copy of email if requester dont wants' do
-    ent = Enterprise.new(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
+    ent = Environment.default.enterprises.new(:name => 'my enterprise', :identifier => 'myent')
     c = build(Contact, :dest => ent, :email => 'requester@invalid.com', :receive_a_copy => false)
-    response = Contact::Sender.deliver_mail(c)
+    response = Contact::Sender.notification(c).deliver
     assert_nil response.cc
   end
 
   should 'only deliver mail to email of person' do
     person = create_user('contacted_user').person
     c = build(Contact, :dest => person)
-    response = Contact::Sender.deliver_mail(c)
+    response = Contact::Sender.notification(c).deliver
     assert_equal [person.email], response.to
   end
 
@@ -64,7 +65,7 @@ class ContactSenderTest < ActiveSupport::TestCase
     recipient = create_user('contacted_user').person
     sender = create_user('sender_user').person
     c = build(Contact, :dest => recipient, :sender => sender)
-    sent_message = Contact::Sender.deliver_mail(c)
+    sent_message = Contact::Sender.notification(c).deliver
     assert_equal 'sender_user', sent_message['X-Noosfero-Sender'].to_s
   end
 

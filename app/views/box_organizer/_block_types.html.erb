@@ -1,0 +1,10 @@
+<% block_types.in_groups_of(2) do |block1, block2| %>
+  <div style='float: left; width: 48%; padding-top: 2px;'>
+    <%= labelled_radio_button(block1.description, :type, block1.name) %>
+  </div>
+  <% if block2 %>
+    <div style='float: left; width: 48%; padding-top: 2px;'>
+      <%= labelled_radio_button(block2.description, :type, block2.name) %>
+    </div>
+  <% end %>
+<% end %>

@@ -17,8 +17,8 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @profile = fast_create(Community, :environment_id => @environment.id)
     @page = fast_create(Folder, :profile_id => @profile.id)
 
-    box = Box.create!(:owner => @profile)
-    @block = BreadcrumbsPlugin::ContentBreadcrumbsBlock.create!(:box => box)
+    box = create(Box, :owner => @profile)
+    @block = create(BreadcrumbsPlugin::ContentBreadcrumbsBlock, :box => box)
 
     user = create_user('testinguser')
     @profile.add_admin(user.person)

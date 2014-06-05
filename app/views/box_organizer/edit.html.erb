@@ -1,0 +1,28 @@
+<div class="block-config-options <%= @block.class.name %>-options">
+  <h2 class="title"><%= _(@block.class.description) %></h2>
+
+  <%= form_tag(:action => 'save', :id => @block.id) do %>
+
+    <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
+
+    <%= render :partial => partial_for_class(@block.class) %>
+
+    <div class="display">
+      <%= labelled_form_field _('Display this block:'),
+        select_tag('block[display]', options_from_collection_for_select(@block.display_options, :first, :last, @block.display))
+      %>
+    </div>
+    <div class="display_user">
+      <%= labelled_form_field _('Display to users:'), '' %>
+      <%= select_tag('block[display_user]', options_from_collection_for_select(@block.display_user_options, :first, :last, @block.display_user)) %>
+    </div>
+
+    <%= labelled_form_field(_('Show for:'), select(:block, :language, [ [ _('all languages'), 'all']] + environment.locales.map {|key, value| [value, key]} )) %>
+
+    <% button_bar do %>
+      <%= submit_button(:save, _('Save')) %>
+      <%= colorbox_close_button(_('Cancel')) %>
+    <% end %>
+
+  <% end %>
+</div>

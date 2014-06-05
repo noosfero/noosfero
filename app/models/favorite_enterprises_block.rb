@@ -1,22 +1,22 @@
 class FavoriteEnterprisesBlock < ProfileListBlock
 
   def default_title
-    __('Favorite Enterprises')
+    _('Favorite Enterprises')
   end
 
   def help
-    __('This block lists your favorite enterprises.')
+    _('This block lists your favorite enterprises.')
   end
 
   def self.description
-    __('Favorite Enterprises')
+    _('Favorite Enterprises')
   end
 
   def footer
     owner = self.owner
     return '' unless owner.kind_of?(Person)
-    lambda do
-      link_to __('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'
+    proc do
+      link_to _('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'
     end
   end
 

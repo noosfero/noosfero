@@ -3,7 +3,7 @@ module SendEmailPluginBaseController
     if request.post?
       @context_url = profile ? profile.url : {:host => environment.default_hostname, :controller => 'home'}
       @mail = SendEmailPlugin::Mail.new(
-        :from => environment.contact_email,
+        :from => environment.noreply_email,
         :to => params[:to],
         :message => params[:message],
         :environment => environment,
@@ -11,7 +11,7 @@ module SendEmailPluginBaseController
       )
       @mail.subject = params[:subject] unless params[:subject].blank?
       if @mail.valid?
-        SendEmailPlugin::Sender.deliver_message(request.referer, @context_url, @mail)
+        SendEmailPlugin::Sender.message(request.referer, @context_url, @mail).deliver
         if request.xhr?
           render :text => _('Message sent')
         else

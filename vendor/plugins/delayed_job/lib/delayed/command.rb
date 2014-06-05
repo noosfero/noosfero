@@ -1,21 +1,23 @@
-require 'rubygems'
-require 'daemons'
+begin
+  require 'daemons'
+rescue LoadError
+  raise "You need to add gem 'daemons' to your Gemfile if you wish to use it."
+end
 require 'optparse'
 
 module Delayed
   class Command
     attr_accessor :worker_count
-    
+
     def initialize(args)
-      @files_to_reopen = []
       @options = {
         :quiet => true,
         :pid_dir => "#{Rails.root}/tmp/pids"
       }
-      
+
       @worker_count = 1
       @monitor = false
-      
+
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: #{File.basename($0)} [options] start|stop|restart|run"
 
@@ -44,22 +46,32 @@ module Delayed
         opts.on('-m', '--monitor', 'Start monitor process.') do
           @monitor = true
         end
-        
-
+        opts.on('--sleep-delay N', "Amount of time to sleep when no jobs are found") do |n|
+          @options[:sleep_delay] = n.to_i
+        end
+        opts.on('--read-ahead N', "Number of jobs from the queue to consider") do |n|
+          @options[:read_ahead] = n
+        end
+        opts.on('-p', '--prefix NAME', "String to be prefixed to worker process names") do |prefix|
+          @options[:prefix] = prefix
+        end
+        opts.on('--queues=queues', "Specify which queue DJ must look up for jobs") do |queues|
+          @options[:queues] = queues.split(',')
+        end
+        opts.on('--queue=queue', "Specify which queue DJ must look up for jobs") do |queue|
+          @options[:queues] = queue.split(',')
+        end
+        opts.on('--exit-on-complete', "Exit when no more jobs are available to run. This will exit if all jobs are scheduled to run in the future.") do
+          @options[:exit_on_complete] = true
+        end
       end
       @args = opts.parse!(args)
     end
-  
-    def daemonize
-      Delayed::Worker.backend.before_fork
 
-      ObjectSpace.each_object(File) do |file|
-        @files_to_reopen << file unless file.closed?
-      end
-      
+    def daemonize
       dir = @options[:pid_dir]
       Dir.mkdir(dir) unless File.exists?(dir)
-      
+
       if @worker_count > 1 && @options[:identifier]
         raise ArgumentError, 'Cannot specify both --number-of-workers and --identifier'
       elsif @worker_count == 1 && @options[:identifier]
@@ -72,28 +84,21 @@ module Delayed
         end
       end
     end
-    
+
     def run_process(process_name, dir)
+      Delayed::Worker.before_fork
       Daemons.run_proc(process_name, :dir => dir, :dir_mode => :normal, :monitor => @monitor, :ARGV => @args) do |*args|
+        $0 = File.join(@options[:prefix], process_name) if @options[:prefix]
         run process_name
       end
     end
-    
+
     def run(worker_name = nil)
       Dir.chdir(Rails.root)
-      
-      # Re-open file handles
-      @files_to_reopen.each do |file|
-        begin
-          file.reopen file.path, "a+"
-          file.sync = true
-        rescue ::Exception
-        end
-      end
-      
-      Delayed::Worker.logger = Logger.new(File.join(Rails.root, 'log', 'delayed_job.log'))
-      Delayed::Worker.backend.after_fork
-      
+
+      Delayed::Worker.after_fork
+      Delayed::Worker.logger ||= Logger.new(File.join(Rails.root, 'log', 'delayed_job.log'))
+
       worker = Delayed::Worker.new(@options)
       worker.name_prefix = "#{worker_name} "
       worker.start
@@ -102,6 +107,5 @@ module Delayed
       STDERR.puts e.message
       exit 1
     end
-    
   end
 end

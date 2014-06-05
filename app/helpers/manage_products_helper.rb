@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ManageProductsHelper
 
   def remote_function_to_update_categories_selection(container_id, options = {})
@@ -26,27 +28,10 @@ module ManageProductsHelper
   def hierarchy_category_navigation(current_category, options = {})
     hierarchy = []
     if current_category
-      count_chars = 0
-      unless options[:hide_current_category]
-        hierarchy << current_category.name
-        count_chars += current_category.name.length
-      end
+      hierarchy << current_category.name unless options[:hide_current_category]
       ancestors = current_category.ancestors
-      toplevel = ancestors.pop
-      if toplevel
-        count_chars += toplevel.name.length
-      end
       ancestors.each do |category|
-        if count_chars > 55
-          hierarchy << hierarchy_category_item(category, options[:make_links], '( … )')
-          break
-        else
-          hierarchy << hierarchy_category_item(category, options[:make_links])
-        end
-        count_chars += category.name.length
-      end
-      if toplevel
-        hierarchy << hierarchy_category_item(toplevel, options[:make_links])
+        hierarchy << hierarchy_category_item(category, options[:make_links])
       end
     end
     hierarchy.reverse.join(options[:separator] || ' &rarr; ')
@@ -55,7 +40,7 @@ module ManageProductsHelper
   def options_for_select_categories(categories, selected = nil)
     categories.sort_by{|cat| cat.name.transliterate}.map do |category|
       selected_attribute = selected.nil? ? '' : (category == selected ? "selected='selected'" : '')
-      "<option value='#{category.id}' title='#{category.name}' #{selected_attribute}>#{truncate(category.name, :length => 33) + (category.leaf? ? '': ' &raquo;')}</option>"
+      "<option value='#{category.id}' title='#{category.name}' #{selected_attribute}>#{category.name + (category.leaf? ? '': ' &raquo;')}</option>"
     end.join("\n")
   end
 
@@ -161,7 +146,7 @@ module ManageProductsHelper
   def cancel_edit_product_link(product, field, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
     button_to_function(:cancel, _('Cancel'), nil, html_options) do |page|
-      page.replace_html "product-#{field}", :partial => "display_#{field}", :locals => {:product => product}
+      page.replace_html "product-#{field}", CGI::escapeHTML(render :partial => "display_#{field}", :locals => {:product => product})
     end
   end
 

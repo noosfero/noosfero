@@ -10,7 +10,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     f2 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 2', :on_membership => true)
     f3 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 3', :on_membership => false)
 
-    assert_difference CustomFormsPlugin::MembershipSurvey, :count, 2 do
+    assert_difference 'CustomFormsPlugin::MembershipSurvey.count', 2 do
       organization.add_member(person)
     end
   end
@@ -22,7 +22,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     person = fast_create(Person)
     form = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form', :on_membership => true, :access => 'associated')
 
-    assert_difference CustomFormsPlugin::MembershipSurvey, :count, 1 do
+    assert_difference 'CustomFormsPlugin::MembershipSurvey.count', 1 do
       organization.add_member(person)
     end
   end
@@ -35,14 +35,14 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     form1 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 1', :on_membership => true)
     organization.add_member(person)
 
-    assert_difference CustomFormsPlugin::MembershipSurvey.pending, :count, -1 do
+    assert_difference 'CustomFormsPlugin::MembershipSurvey.pending.count', -1 do
       organization.remove_member(person)
     end
 
     form2 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 2', :for_admission => true)
     organization.add_member(person)
 
-    assert_difference CustomFormsPlugin::AdmissionSurvey.pending, :count, -1 do
+    assert_difference 'CustomFormsPlugin::AdmissionSurvey.pending.count', -1 do
       organization.remove_member(person)
     end
 
@@ -50,7 +50,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     tasks = CustomFormsPlugin::MembershipSurvey.all.last(2)
     tasks.each {|t| t.status = Task::Status::FINISHED }
     tasks.each {|t| t.save! }
-    assert_no_difference CustomFormsPlugin::MembershipSurvey.finished, :count do
+    assert_no_difference 'CustomFormsPlugin::MembershipSurvey.finished.count' do
       organization.remove_member(person)
     end
   end
@@ -64,7 +64,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     f2 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 2', :for_admission => true)
     f3 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 3', :for_admission => false)
 
-    assert_difference CustomFormsPlugin::AdmissionSurvey, :count, 2 do
+    assert_difference 'CustomFormsPlugin::AdmissionSurvey.count', 2 do
       organization.add_member(person)
     end
     assert !organization.members.include?(person)

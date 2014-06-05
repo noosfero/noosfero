@@ -1,8 +1,17 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class LanguageHelperTest < ActiveSupport::TestCase
 
   include LanguageHelper
+
+  def link_to(name, url, options = {})
+    name
+  end
+
+  def url_for(url)
+    ''
+  end
 
   should 'return current language' do
     expects(:locale).returns('pt')

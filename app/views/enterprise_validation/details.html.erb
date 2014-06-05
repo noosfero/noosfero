@@ -1,0 +1,34 @@
+<h2><%= _("%s's validation") % @pending.name  %></h2>
+
+<%= link_to _('Back'), :action => 'index' %>
+
+<%= error_messages_for 'pending' %>
+
+<h3><%= _('Provided information') %></h3>
+
+<%= render :partial => 'details', :locals => { :request => @pending } %>
+
+<h3><%= _('Final decision:') %></h3>
+
+<h4><%= _('Approve') %></h4>
+
+<p><%= _('If this enterprise passes the criteria to be considered an solidarity enconomy enterprise, you can approve it by click the button below.') %></p>
+
+<%= form_tag :action => 'approve', :id => @pending.code do %>
+  <% button_bar do %>
+    <%= submit_button('approve', _('Approve')) %>
+  <% end %>
+<% end %>
+
+<h4><%= _('Reject') %></h4>
+
+<p><%= _('If this enterprise does not pass the criteria do be considered, use this form.') %></p>
+
+<%= form_tag :action => 'reject', :id => @pending.code do %>
+  <%= labelled_form_field(_('Please provide an explanation for the rejection. This explanation will be sent to the requestor (required).'), text_area_tag('reject_explanation'))%>
+  <div>
+    <% button_bar do %>
+      <%= submit_button('reject', _('Reject')) %>
+    <% end %>
+  </div>
+<% end %>

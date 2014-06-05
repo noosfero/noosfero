@@ -8,12 +8,12 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
 
     relation.parent = org
     relation.valid?
-    assert relation.errors.invalid?(:child)
+    assert relation.errors.include?(:child)
 
     relation.parent = nil
     relation.child = org
     relation.valid?
-    assert relation.errors.invalid?(:parent)
+    assert relation.errors.include?(:parent)
   end
 
   should 'relate two organizations' do
@@ -27,9 +27,9 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
 
   should 'not allow self relation' do
     org = fast_create(Organization)
-    relation = SubOrganizationsPlugin::Relation.new(:parent_id => org, :child_id => org)
+    relation = SubOrganizationsPlugin::Relation.new(:parent => org, :child => org)
     assert !relation.valid?
-    assert relation.errors.invalid?(:child)
+    assert relation.errors.include?(:child)
   end
 
   should 'be able to retrieve parents of an organization' do
@@ -39,8 +39,8 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     SubOrganizationsPlugin::Relation.create!(:parent => parent1, :child => child)
     SubOrganizationsPlugin::Relation.create!(:parent => parent2, :child => child)
 
-    assert_includes SubOrganizationsPlugin::Relation.parents(child), parent1
-    assert_includes SubOrganizationsPlugin::Relation.parents(child), parent2
+    assert_includes Organization.parents(child), parent1
+    assert_includes Organization.parents(child), parent2
   end
 
   should 'be able to retrieve children of an organization' do
@@ -50,8 +50,8 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     SubOrganizationsPlugin::Relation.create!(:parent => parent, :child => child1)
     SubOrganizationsPlugin::Relation.create!(:parent => parent, :child => child2)
 
-    assert_includes SubOrganizationsPlugin::Relation.children(parent), child1
-    assert_includes SubOrganizationsPlugin::Relation.children(parent), child2
+    assert_includes Organization.children(parent), child1
+    assert_includes Organization.children(parent), child2
   end
 
   should 'not allow cyclical reference' do
@@ -61,7 +61,7 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     relation = SubOrganizationsPlugin::Relation.new(:parent => org2, :child => org1)
 
     assert !relation.valid?
-    assert relation.errors.invalid?(:child)
+    assert relation.errors.include?(:child)
   end
 
   should 'not allow multi-level paternity' do
@@ -73,10 +73,10 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     r2 = SubOrganizationsPlugin::Relation.new(:parent => org3, :child => org1)
 
     assert !r1.valid?
-    assert r1.errors.invalid?(:child)
+    assert r1.errors.include?(:child)
 
     assert !r2.valid?
-    assert r2.errors.invalid?(:child)
+    assert r2.errors.include?(:child)
   end
 
   should 'add children' do
@@ -86,11 +86,11 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     org4 = fast_create(Organization)
 
     SubOrganizationsPlugin::Relation.add_children(org1,org2)
-    assert_includes SubOrganizationsPlugin::Relation.children(org1), org2
+    assert_includes Organization.children(org1), org2
 
     SubOrganizationsPlugin::Relation.add_children(org1,org3,org4)
-    assert_includes SubOrganizationsPlugin::Relation.children(org1), org3
-    assert_includes SubOrganizationsPlugin::Relation.children(org1), org4
+    assert_includes Organization.children(org1), org3
+    assert_includes Organization.children(org1), org4
   end
 
   should 'remove children' do
@@ -101,10 +101,10 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     SubOrganizationsPlugin::Relation.add_children(org1,org2,org3,org4)
 
     SubOrganizationsPlugin::Relation.remove_children(org1,org2)
-    assert_not_includes SubOrganizationsPlugin::Relation.children(org1), org2
+    assert_not_includes Organization.children(org1), org2
 
     SubOrganizationsPlugin::Relation.remove_children(org1,org3,org4)
-    assert_not_includes SubOrganizationsPlugin::Relation.children(org1), org3
-    assert_not_includes SubOrganizationsPlugin::Relation.children(org1), org4
+    assert_not_includes Organization.children(org1), org3
+    assert_not_includes Organization.children(org1), org4
   end
 end

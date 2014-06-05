@@ -45,6 +45,20 @@ class UsersController < AdminController
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
+
+  def destroy_user
+    if request.post?
+      person = environment.people.find_by_id(params[:id])
+      if person && person.destroy
+        session[:notice] = _('The profile was deleted.')
+      else
+        session[:notice] = _('Could not remove profile')
+      end
+    end
+    redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
+  end
+
+
   def download
     respond_to do |format|
       format.html
@@ -65,7 +79,7 @@ class UsersController < AdminController
         users = User.connection.execute(command)
         csv_content = "name;email\n"
         users.each { |u|
-          CSV.generate_row([u['name'], u['email']], 2, csv_content, fs=';')
+          csv_content << CSV.generate_line([u['name'], u['email']], {:col_sep => ';'})
         }
         render :text => csv_content, :content_type => 'text/csv', :layout => false
       end

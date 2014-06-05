@@ -1,5 +1,6 @@
 module ArticleHelper
 
+  include PrototypeHelper
   include TokenHelper
 
   def custom_options_for_article(article, tokenized_children)
@@ -49,8 +50,14 @@ module ArticleHelper
         'div',
         check_box(:article, :display_versions) +
         content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
-      ) : '')
+      ) : '') +
 
+      (article.forum? && article.profile.community? ?
+      content_tag(
+        'div',
+        check_box(:article, :allows_members_to_create_topics) +
+        content_tag('label', _('Allow members to create topics'), :for => 'article_allows_members_to_create_topics')
+        ) : '')
     )
   end
 

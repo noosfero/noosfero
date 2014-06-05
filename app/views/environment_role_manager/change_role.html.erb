@@ -1,0 +1,13 @@
+<%= _('Changing role of %s') % @admin.name %>
+
+<%= labelled_form_for :admin, :url => {:action => 'update_roles'} do |f| %>
+  <%= _('Roles:') %> <br>
+  <% @roles.each do |r| %>
+    <%= labelled_form_field(r.name, (check_box_tag "roles[]", r.id, @admin.role_assignments.map{|ra|ra.role}.include?(r))) %>
+  <% end %>
+  <%= hidden_field_tag 'person', @admin.id %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes'), :cancel => {:action => 'index'})  %>
+  <% end %>
+<% end %>

@@ -7,10 +7,14 @@ class FilePresenter
   # like a Article and have no trouble with that.
   def self.for(f)
     return f if f.is_a? FilePresenter
-    klass = FilePresenter.subclasses.sort_by {|class_name|
-      class_name.constantize.accepts?(f) || 0
-    }.last.constantize
+    klass = FilePresenter.subclasses.sort_by {|class_instance|
+      class_instance.accepts?(f) || 0
+    }.last
     klass.accepts?(f) ? klass.new(f) : f
+  end
+
+  def self.base_class
+    Article
   end
 
   def initialize(f)
@@ -31,6 +35,10 @@ class FilePresenter
     self
   end
 
+  def kind_of?(klass)
+    @file.kind_of?(klass)
+  end
+
   # This method must be overridden in subclasses.
   #
   # If the class accepts the file, return a number that represents the
@@ -42,8 +50,17 @@ class FilePresenter
     nil
   end
 
+  def download?(view=nil)
+    false
+  end
+
   def short_description
-    _("File (%s)") % content_type.sub(/^application\//, '').sub(/^x-/, '').sub(/^image\//, '')
+    file_type = if content_type.present?
+      content_type.sub(/^application\//, '').sub(/^x-/, '').sub(/^image\//, '')
+    else
+      _('Unknown')
+    end
+    _("File (%s)") % file_type
   end
 
   # Define the css classes to style the page fragment with the file related
@@ -88,7 +105,7 @@ class FilePresenter
   # required `FilePresenter::Image` instance in the `image` variable.
   def to_html(options = {})
     file = self
-    lambda do
+    proc do
       render :partial => file.class.to_s.underscore,
              :locals => { :options => options },
              :object => file

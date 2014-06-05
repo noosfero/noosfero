@@ -17,6 +17,7 @@ Feature: upload files
       | owner | name |
       | sample-community | Gallery test |
     And I go to sample-community's profile
+    And I follow "Profile"
     And I follow "0 pictures"
     And I should see "Upload files"
 
@@ -29,6 +30,7 @@ Feature: upload files
       | owner | name |
       | sample-enterprise | Gallery test |
     And I go to sample-enterprise's profile
+    And I follow "Profile"
     And I follow "0 pictures"
     And I should see "Upload files"
 

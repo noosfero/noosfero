@@ -5,7 +5,7 @@ module VotePluginHelper
     like_action = like ? 'like' : 'dislike'
     type = target.kind_of?(Article) ? 'article' : target.kind_of?(Comment) ? 'comment' : nil
 
-    lambda do
+    proc do
       settings = Noosfero::Plugin::Settings.new(environment, VotePlugin)
 
       if settings.get_setting("enable_vote_#{type}").include?(vote)
@@ -14,7 +14,7 @@ module VotePluginHelper
         active = user ? (like ? user.voted_for?(target) : user.voted_against?(target)) : false
         count = like ? target.votes_for : target.votes_against
 
-        render(:partial => 'vote/vote.rhtml', :locals => {:target => target, :active => active, :action => like_action, :count => count, :voters => voters, :vote => vote, :model => type })
+        render(:partial => 'vote/vote', :locals => {:target => target, :active => active, :action => like_action, :count => count, :voters => voters, :vote => vote, :model => type })
       else
         ""
       end

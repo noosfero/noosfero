@@ -45,7 +45,7 @@ class Task < ActiveRecord::Base
   end
 
   attr_accessor :code_length
-  before_validation_on_create do |task|
+  before_validation(:on => :create) do |task|
     if task.code.nil?
       task.code = Task.generate_code(task.code_length)
       while (Task.find_by_code(task.code))
@@ -59,16 +59,16 @@ class Task < ActiveRecord::Base
       begin
         task.send(:send_notification, :created)
       rescue NotImplementedError => ex
-        RAILS_DEFAULT_LOGGER.info ex.to_s
+        Rails.logger.info ex.to_s
       end
 
       begin
         target_msg = task.target_notification_message
         if target_msg && task.target && !task.target.notification_emails.empty?
-          TaskMailer.deliver_target_notification(task, target_msg)
+          TaskMailer.target_notification(task, target_msg).deliver
         end
       rescue NotImplementedError => ex
-        RAILS_DEFAULT_LOGGER.info ex.to_s
+        Rails.logger.info ex.to_s
       end
     end
   end
@@ -89,7 +89,7 @@ class Task < ActiveRecord::Base
       begin
         send_notification(:finished)
       rescue NotImplementedError => ex
-        RAILS_DEFAULT_LOGGER.info ex.to_s
+        Rails.logger.info ex.to_s
       end
     end
     after_finish
@@ -117,7 +117,7 @@ class Task < ActiveRecord::Base
       begin
         send_notification(:cancelled)
       rescue NotImplementedError => ex
-        RAILS_DEFAULT_LOGGER.info ex.to_s
+        Rails.logger.info ex.to_s
       end
     end
   end
@@ -222,17 +222,40 @@ class Task < ActiveRecord::Base
     begin
       self.send(:send_notification, :activated)
     rescue NotImplementedError => ex
-      RAILS_DEFAULT_LOGGER.info ex.to_s
+      Rails.logger.info ex.to_s
     end
 
     begin
       target_msg = target_notification_message
        if target_msg && self.target && !self.target.notification_emails.empty?
-         TaskMailer.deliver_target_notification(self, target_msg)
+         TaskMailer.target_notification(self, target_msg).deliver
        end
     rescue NotImplementedError => ex
-      RAILS_DEFAULT_LOGGER.info ex.to_s
+      Rails.logger.info ex.to_s
     end
+  end
+
+  scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
+  scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
+  scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
+  scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
+  scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
+  scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
+  scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
+  scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
+
+  scope :to, lambda { |profile|
+    environment_condition = nil
+    if profile.person?
+      envs_ids = Environment.find(:all).select{ |env| profile.is_admin?(env) }.map { |env| "target_id = #{env.id}"}.join(' OR ')
+      environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
+    end
+    profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
+    { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
+  }
+
+  def opened?
+    status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
 
   include Spammable
@@ -263,33 +286,9 @@ class Task < ActiveRecord::Base
   def send_notification(action)
     if sends_email?
       if self.requestor
-        TaskMailer.send("deliver_task_#{action}", self)
+         TaskMailer.generic_message("task_#{action}", self)
       end
     end
-  end
-
-  named_scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
-  named_scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
-  named_scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
-  named_scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
-  named_scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
-  named_scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
-  named_scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
-  named_scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
-
-
-  named_scope :to, lambda { |profile|
-    environment_condition = nil
-    if profile.person?
-      envs_ids = Environment.find(:all).select{ |env| profile.is_admin?(env) }.map { |env| "target_id = #{env.id}"}.join(' OR ')
-      environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
-    end
-    profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
-    { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
-  }
-
-  def opened?
-    status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
 
   class << self

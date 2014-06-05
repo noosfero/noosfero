@@ -6,6 +6,8 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
+  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+  #      the Noosfero core soon, see ActionItem3045
   ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
 
   def setup
@@ -83,6 +85,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'p', :attributes => { :id => 'no_portal_community' }
   end
 
+  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+  #      the Noosfero core soon, see ActionItem3045
   should 'be able to edit EnvironmentStatisticsBlock' do
     login_as(create_admin_user(Environment.default))
     b = EnvironmentStatisticsBlock.create!
@@ -364,6 +368,49 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
     assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
+  end
+
+  should 'clone a block' do
+    login_as(create_admin_user(Environment.default))
+    block = TagsBlock.create!
+    assert_difference 'TagsBlock.count', 1 do
+      post :clone_block, :id => block.id
+      assert_response :redirect
+    end
+  end
+
+  should 'return a list of paths from portal related to the words used in the query search' do
+    env = Environment.default
+    login_as(create_admin_user(env))
+    community = fast_create(Community, :environment_id => env)
+    env.portal_community = community
+    env.enable('use_portal_community')
+    env.save
+    @controller.stubs(:boxes_holder).returns(env)
+    article1 = fast_create(Article, :profile_id => community.id, :name => "Some thing")
+    article2 = fast_create(Article, :profile_id => community.id, :name => "Some article")
+    article3 = fast_create(Article, :profile_id => community.id, :name => "Not an article")
+
+    xhr :get, :search_autocomplete, :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response.include?("/{portal}/"+article1.path), true
+    assert_equal json_response.include?("/{portal}/"+article2.path), true
+    assert_equal json_response.include?("/{portal}/"+article3.path), false
+  end
+
+  should 'return empty if portal not configured' do
+    env = Environment.default
+    login_as(create_admin_user(env))
+
+    xhr :get, :search_autocomplete, :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response, []
   end
 
 end

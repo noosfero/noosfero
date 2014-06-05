@@ -27,7 +27,7 @@ Technoweenie::AttachmentFu::ClassMethods.module_eval do
   #                        :size         => "The image you uploaded was larger than the maximum size of 10MB"
   def validates_attachment(options={})
     options[:empty] ||= "No file uploaded"
-    class_inheritable_accessor :attachment_validation_options
+    class_attribute :attachment_validation_options
     self.attachment_validation_options = options
     validate :attachment_valid?
   end

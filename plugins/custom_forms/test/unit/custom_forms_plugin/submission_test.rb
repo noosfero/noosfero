@@ -4,12 +4,12 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
   should 'validates presence of form' do
     submission = CustomFormsPlugin::Submission.new
     submission.valid?
-    assert submission.errors.invalid?(:form)
+    assert submission.errors.include?(:form)
 
     form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
     submission.form = form
     submission.valid?
-    assert !submission.errors.invalid?(:form)
+    assert !submission.errors.include?(:form)
   end
 
   should 'belong to a profile' do
@@ -22,14 +22,14 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
   should 'require presence of author name and email if profile is nil' do
     submission = CustomFormsPlugin::Submission.new
     submission.valid?
-    assert submission.errors.invalid?(:author_name)
-    assert submission.errors.invalid?(:author_email)
+    assert submission.errors.include?(:author_name)
+    assert submission.errors.include?(:author_email)
 
     submission.author_name = 'Jack Sparrow'
     submission.author_email = 'jack@black-pearl.com'
     submission.valid?
-    assert !submission.errors.invalid?(:author_name)
-    assert !submission.errors.invalid?(:author_email)
+    assert !submission.errors.include?(:author_name)
+    assert !submission.errors.include?(:author_email)
   end
 
   should 'have answers' do

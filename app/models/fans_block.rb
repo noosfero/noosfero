@@ -5,7 +5,7 @@ class FansBlock < ProfileListBlock
   end
 
   def default_title
-    n__('{#} fan', '{#} fans', profile_count)
+    n_('{#} fan', '{#} fans', profile_count)
   end
 
   def help
@@ -14,7 +14,7 @@ class FansBlock < ProfileListBlock
 
   def footer
     profile = self.owner
-    lambda do
+    proc do
       link_to _('View all'), :profile => profile.identifier, :controller =>
       'profile', :action => 'fans'
     end

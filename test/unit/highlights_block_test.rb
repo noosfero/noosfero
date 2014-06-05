@@ -60,7 +60,9 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   should 'be able to update display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
-    block = HighlightsBlock.create!(:display => 'never', :box => box)
+    block = HighlightsBlock.create!(:display => 'never').tap do |b|
+      b.box = box
+    end
     assert block.update_attributes!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
@@ -143,7 +145,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
       block = HighlightsBlock.new
       block.stubs(:owner).returns(owner)
 
-      assert_kind_of Array, block.folder_choices
+      assert_equal [], block.folder_choices
     end
   end
 

@@ -4,7 +4,6 @@ class EnableDisableFeaturesTest < ActionController::IntegrationTest
   all_fixtures
 
   def test_enable_features
-    uses_host 'anhetegua.net'
     login 'ze', 'test'
 
     get '/admin/features'

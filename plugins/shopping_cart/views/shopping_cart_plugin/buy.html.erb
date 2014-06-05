@@ -1,6 +1,5 @@
-<% person = user.nil? ? Person.new : user %>
 <div id='cart-request-box'>
-  <% form_for(:customer, person, :url => {:action => 'send_request'},
+  <% form_for(:customer, :url => {:action => 'send_request'},
               :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form' }) do |f| %>
     <div id="cart-form-main">
       <%= labelled_form_field('* ' + _("Name"), f.text_field(:name, :class => 'required') ) %>

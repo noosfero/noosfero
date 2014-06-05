@@ -22,7 +22,7 @@ class CmsControllerTest < ActionController::TestCase
 
     get :upload_files, :profile => organization.identifier, :parent_id => work_assignment.id
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
 
     organization.add_member(person)
 

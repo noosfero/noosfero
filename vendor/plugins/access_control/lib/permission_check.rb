@@ -20,7 +20,7 @@ module PermissionCheck
           target = target_method.kind_of?(Symbol) ? c.send(target_method) : target_method
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
           unless accessor && accessor.has_permission?(permission.to_s, target)
-            render_access_denied(c) && false
+            c.class.render_access_denied(c) && false
           end
       end
     end
@@ -34,9 +34,9 @@ module PermissionCheck
     end
 
     def access_denied_template_path
-      if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml'))
-        File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml')
-      elsif File.exists?(File.join(RAILS_ROOT, 'app','views', 'shared', 'access_denied.rhtml'))
+      if File.exists?(File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.rhtml'))
+        File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.rhtml')
+      elsif File.exists?(File.join(Rails.root, 'app','views', 'shared', 'access_denied.rhtml'))
         File.join('shared', 'access_denied.rhtml')
       else
         File.join(File.dirname(__FILE__), '..', 'views', 'access_denied.rhtml')

@@ -6,4 +6,6 @@ class Thumbnail < ActiveRecord::Base
   sanitize_filename
 
   postgresql_attachment_fu
+
+  attr_accessible :uploaded_data
 end

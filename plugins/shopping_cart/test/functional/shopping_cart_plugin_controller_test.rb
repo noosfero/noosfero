@@ -18,7 +18,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   should 'force cookie expiration with explicit path for an empty cart' do
     get :get
-    assert @response.headers['Set-Cookie'].any? { |c| c =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-1970/}
+    assert @response.headers['Set-Cookie'] =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-1970/
   end
 
   should 'add a new product to cart' do
@@ -41,7 +41,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
     assert !product_in_cart?(product)
     assert !response_ok?
-    assert 3, reponse_error_code
+    assert_equal 3, reponse_error_code
   end
 
   should 'remove cart if the product being removed is the last one' do
@@ -98,10 +98,10 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   should 'update the quantity of a product' do
     get :add, :id => product.id
-    assert 1, product_quantity(product)
+    assert_equal 1, product_quantity(product)
 
     get :update_quantity, :id => product.id, :quantity => 3
-    assert 3, product_quantity(product)
+    assert_equal 3, product_quantity(product)
   end
 
   should 'not try to update quantity the quantity of a product if there is no cart' do
@@ -153,7 +153,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     product1 = fast_create(Product, :profile_id => enterprise.id, :price => 1.99)
     product2 = fast_create(Product, :profile_id => enterprise.id, :price => 2.23)
     @controller.stubs(:cart).returns({ :profile_id => enterprise.id, :items => {product1.id => 1, product2.id => 2}})
-    assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
+    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
     end
@@ -170,7 +170,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   should 'register order on send request and not crash if product is not defined' do
     product1 = fast_create(Product, :profile_id => enterprise.id)
     @controller.stubs(:cart).returns({ :profile_id => enterprise.id, :items => {product1.id => 1}})
-    assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
+    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
     end

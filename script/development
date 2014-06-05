@@ -15,7 +15,7 @@ start() {
   ./script/feed-updater start
   ./script/delayed_job start
   trap stop INT TERM
-  ./script/server $@
+  rails s $@
 }
 
 start $@

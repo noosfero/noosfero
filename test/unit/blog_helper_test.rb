@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BlogHelperTest < ActiveSupport::TestCase
+class BlogHelperTest < ActionView::TestCase
 
   include BlogHelper
   include ContentViewerHelper
@@ -21,7 +21,7 @@ class BlogHelperTest < ActiveSupport::TestCase
   def h(s); s; end
 
   should 'list published posts with class blog-post' do
-    blog.children << published_post = TextileArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => true)
+    blog.children << published_post = create(TextileArticle, :name => 'Post', :profile => profile, :parent => blog, :published => true)
 
     expects(:display_post).with(anything, anything).returns('POST')
     expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last odd-post-inner', :id => "post-#{published_post.id}").returns('POST')
@@ -31,9 +31,9 @@ class BlogHelperTest < ActiveSupport::TestCase
   end
 
   should 'list even/odd posts with a different class' do
-    blog.children << older_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => blog, :published => true)
+    blog.children << older_post = create(TextileArticle, :name => 'First post', :profile => profile, :parent => blog, :published => true)
 
-    blog.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
+    blog.children << newer_post = create(TextileArticle, :name => 'Second post', :profile => profile, :parent => blog, :published => true)
 
     expects(:display_post).with(anything, anything).returns('POST').times(2)
 
@@ -48,7 +48,7 @@ class BlogHelperTest < ActiveSupport::TestCase
 
 
   should 'display post' do
-    blog.children << article = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => blog, :published => true)
+    blog.children << article = create(TextileArticle, :name => 'Second post', :profile => profile, :parent => blog, :published => true)
     expects(:article_title).with(article, anything).returns('TITLE')
     expects(:content_tag).with('p', article.to_html).returns(' TO_HTML')
     self.stubs(:params).returns({:npage => nil})
@@ -92,7 +92,7 @@ class BlogHelperTest < ActiveSupport::TestCase
 
 
   should 'display link to file if post is an uploaded_file' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
 
     result = display_post(file)
     assert_tag_in_string result, :tag => 'a',

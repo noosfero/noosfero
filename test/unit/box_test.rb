@@ -16,7 +16,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for center box' do
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 1 }.acceptable_blocks
 
     assert !blocks.include?('block')
     assert !blocks.include?('disabled-enterprise-message-block')
@@ -33,6 +33,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('categories-block')
     assert blocks.include?('communities-block')
     assert blocks.include?('enterprises-block')
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
@@ -53,7 +55,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for box at position 2' do
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 2 }.acceptable_blocks
 
     assert !blocks.include?('main-block')
     assert !blocks.include?('block')
@@ -65,6 +67,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('communities-block')
     assert blocks.include?('disabled-enterprise-message-block')
     assert blocks.include?('enterprises-block')
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
@@ -100,7 +104,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = build(Box, :position => 1).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
   end
 
@@ -115,7 +119,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = build(Box, :position => 2).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
   end
 
@@ -130,13 +134,13 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1, :owner => Person.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Person.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Enterprise.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Enterprise.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Community.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Community.new).acceptable_blocks
     assert !blocks.include?('box-test_plugin-block')
   end
 

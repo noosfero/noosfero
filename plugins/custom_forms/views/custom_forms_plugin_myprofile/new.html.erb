@@ -1,5 +1,5 @@
 <h1><%= _('New form') %></h1>
 
-<% form_for :form, @form, :url => { :action => 'create', :id => params[:id] }  do |f| %>
+<%= form_for @form, :as => :form, :url => { :action => 'create', :id => params[:id] }  do |f| %>
   <%= render :partial => 'form', :locals => {:f => f}  %>
 <% end %>

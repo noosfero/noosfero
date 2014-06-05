@@ -238,6 +238,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.nodes= [a1.id, a2.id, a3.id]
     box = mock()
     box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(Environment.default)
     block.stubs(:box).returns(box)
     assert_equal [], [a1, a2] - block.articles_of_parent
     assert_equal [], block.articles_of_parent - [a1, a2]
@@ -253,6 +254,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     box = mock()
     box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(Environment.default)
     block.stubs(:box).returns(box)
     assert_equal [], [a3] - block.articles_of_parent(a2)
     assert_equal [], block.articles_of_parent(a2) - [a3]
@@ -270,6 +272,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
     environment.stubs(:portal_community).returns(profile)
 
     assert_equal [], [a1, a2] - block.articles_of_parent
@@ -288,6 +291,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
     environment.stubs(:portal_community).returns(profile)
 
     assert_equal [], [a3] - block.articles_of_parent(a2)
@@ -301,6 +305,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
 
     assert_equal [], block.articles_of_parent()
   end
@@ -316,6 +321,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
+      box.stubs(:environment).returns(Environment.default)
       block.stubs(:box).returns(box)
       assert_equal [], [a2] - block.articles_of_parent
       assert_equal [], block.articles_of_parent - [a2]
@@ -334,6 +340,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
+      box.stubs(:environment).returns(Environment.default)
       block.stubs(:box).returns(box)
       assert_equal [a1], block.articles_of_parent
     end
@@ -352,8 +359,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a1.title}<\/a>/, block.content
-    assert_match /.*<a.*>#{a2.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a1.title}<\/a>/, instance_eval(&block.content)
+    assert_match /.*<a.*>#{a2.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'list content for all articles lead defined in nodes' do
@@ -369,8 +376,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /<div class="lead">#{a1.lead}<\/div>/, block.content
-    assert_match /<div class="lead">#{a2.lead}<\/div>/, block.content
+    assert_match /<div class="lead">#{a1.lead}<\/div>/, instance_eval(&block.content)
+    assert_match /<div class="lead">#{a2.lead}<\/div>/, instance_eval(&block.content)
   end
 
   should 'not crash when referenced article is removed' do
@@ -384,8 +391,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:owner).returns(profile)
 
     Article.delete_all
-    assert_match /<ul><\/ul>/, block.content
+    assert_match /<ul><\/ul>/, instance_eval(&block.content)
   end
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
 
   should 'url_params return myprofile url params if the owner is a profile' do
     profile = create_user('testuser').person
@@ -421,7 +430,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'show abstract if defined by user' do
@@ -435,7 +444,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.abstract}/, block.content
+    assert_match /#{a.abstract}/, instance_eval(&block.content)
   end
 
   should 'show body if defined by user' do
@@ -449,7 +458,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.body}/, block.content
+    assert_match /#{a.body}/, instance_eval(&block.content)
   end
 
   should 'display_attribute be true for title by default' do
@@ -490,7 +499,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.published_at}/, block.content
+    assert_match /#{a.published_at}/, instance_eval(&block.content)
   end
 
   should 'do not save children if a folder is checked' do
@@ -524,6 +533,31 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.checked_nodes= checked_articles
     block.save!
     assert_equivalent [f1.id, a1.id, a2.id, a3.id], block.nodes
+  end
+
+  should "test should return plugins articles in articles of parent method" do
+    class PluginArticle < Article; end
+
+    class Plugin1 < Noosfero::Plugin
+      def content_types
+        [PluginArticle]
+      end
+    end
+
+    profile = create_user('testuser').person
+    Article.delete_all
+    a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
+
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+    env = fast_create(Environment)
+    env.enable_plugin(Plugin1)
+
+    block = DisplayContentBlock.new
+    box = mock()
+    box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(env)
+    block.stubs(:box).returns(box)
+    assert_equal [a1], block.articles_of_parent
   end
 
 end

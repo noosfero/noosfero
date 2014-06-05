@@ -5,8 +5,7 @@ class ToleranceTimePlugin::Publication < Noosfero::Plugin::ActiveRecord
 
   class << self
     def find_by_target(target)
-      kind = target.kind_of?(Article) ? 'Article' : 'Comment'
-      find_by_target_id_and_target_type(target.id, kind)
+      find_by_target_id_and_target_type(target.id, target.class.base_class.name)
     end
   end
 

@@ -113,8 +113,10 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   should 'expire after a period' do
     # save current time
     now = Time.now
-    expired = FeedReaderBlock.create!
-    not_expired = FeedReaderBlock.create!
+    expired =  FeedReaderBlock.new
+    expired.save
+    not_expired = FeedReaderBlock.new
+    not_expired.save
 
     # Noosfero is configured to update feeds every 4 hours
     FeedUpdater.stubs(:update_interval).returns(4.hours)
@@ -168,7 +170,9 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   end
 
   should 'be disabled when address is empty' do
-    reader = build(:feed_reader_block, :enabled => true, :address => 'http://www.example.com/feed')
+    reader = build(:feed_reader_block, :address => 'http://www.example.com/feed').tap do |f|
+      f.enabled = true
+    end
     reader.address = nil
     assert_equal false, reader.enabled
   end

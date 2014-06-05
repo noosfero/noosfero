@@ -9,11 +9,11 @@ Feature: domain for profile
       | joaosilva | Joao Silva |
     And the following communities
       | identifier       | name             | domain    |
-      | sample-community | Sample Community | localhost |
+      | sample-community | Sample Community | 127.0.0.1 |
     And the following blocks
       | owner            | type              |
       | joaosilva        | ProfileInfoBlock  |
-    And the environment domain is "127.0.0.1"
+    And the environment domain is "localhost"
     And "Joao Silva" is environment admin
     And "Joao Silva" is admin of "Sample Community"
 
@@ -29,8 +29,7 @@ Feature: domain for profile
   @selenium
   Scenario: access user control panel
     Given I am logged in as "joaosilva"
-    When I go to the homepage
-    And I follow "joaosilva"
+    When I follow "joaosilva"
     And I go to sample-community's homepage
     And I follow "Login"
     And I fill in "joaosilva" for "Username"
@@ -39,18 +38,13 @@ Feature: domain for profile
     And I follow "Control panel" within "div#user"
     Then I should see "Joao Silva" within "span.control-panel-title"
 
-  # Looking for page title is problematic on selenium since it considers the
-  # title to be invibible. Checkout some information about this:
-  #   * https://github.com/jnicklas/capybara/issues/863
-  #   * https://github.com/jnicklas/capybara/pull/953
   @selenium
   Scenario: access user page
     Given I am logged in as "joaosilva"
-    When I go to the homepage
-    And I follow "joaosilva"
+    When I follow "joaosilva"
     Then I should be on joaosilva's profile
     And I should see "Joao Silva" within any "h1"
-    #And the page title should be "Joao Silva"
+    And the page title should be "Joao Silva"
 
   Scenario: access community by domain
     Given I go to the search communities page
@@ -64,7 +58,7 @@ Feature: domain for profile
     Given I am on sample-community's homepage
     When I go to /something-that-does-not-exist
     And I follow "Go to the home page"
-    Then the page title should be "Sample Community - Colivre.net"
+    Then the page title should be "Sample Community"
 
   Scenario: Go to environment homepage after clicking on home button on not found page
     Given I am on the homepage
@@ -72,8 +66,3 @@ Feature: domain for profile
     And I follow "Go to the home page"
     Then I should be on the homepage
     And the page title should be "Colivre.net"
-
-  @selenium
-  Scenario: Compose link to administration with environment domain
-    Given I am logged in as "joaosilva"
-    Then I should see "Administration" linking to "http://127.0.0.1.*/admin"

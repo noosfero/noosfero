@@ -1,4 +1,7 @@
 class RoleAssignment < ActiveRecord::Base
+
+  attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id, :resource_type
+
   belongs_to :role
   belongs_to :accessor, :polymorphic => true
   belongs_to :resource, :polymorphic => true

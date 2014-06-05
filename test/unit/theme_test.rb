@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ThemeTest < ActiveSupport::TestCase
 
-  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/themes'
+  TMP_THEMES_DIR = Rails.root.join('test', 'tmp', 'themes')
 
   def setup
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
@@ -13,11 +13,11 @@ class ThemeTest < ActiveSupport::TestCase
   end
 
   should 'list system themes' do
-    Dir.expects(:glob).with(RAILS_ROOT + '/public/designs/themes/*').returns(
+    Dir.expects(:glob).with(Rails.root.join('public', 'designs', 'themes', '*').to_s).returns(
       [
-        RAILS_ROOT + '/public/designs/themes/themeone',
-        RAILS_ROOT + '/public/designs/themes/themetwo',
-        RAILS_ROOT + '/public/designs/themes/themethree'
+        Rails.root.join('public', 'designs', 'themes', 'themeone'),
+        Rails.root.join('public', 'designs', 'themes', 'themetwo'),
+        Rails.root.join('public', 'designs', 'themes', 'themethree')
     ])
 
     assert_equal ['themeone', 'themetwo', 'themethree'], Theme.system_themes.map(&:id)
@@ -55,14 +55,14 @@ class ThemeTest < ActiveSupport::TestCase
   should 'be able to add new CSS file to theme' do
     t = Theme.create('mytheme')
     t.add_css('common.css')
-    assert_equal '', File.read(TMP_THEMES_DIR + '/mytheme/stylesheets/common.css')
+    assert_equal '', File.read(TMP_THEMES_DIR.join('mytheme', 'stylesheets', 'common.css'))
   end
 
   should 'be able to update CSS file' do
     t = Theme.create('mytheme')
     t.add_css('common.css')
     t.update_css('common.css', '/* only a comment */')
-    assert_equal '/* only a comment */', File.read(TMP_THEMES_DIR + '/mytheme/stylesheets/common.css')
+    assert_equal '/* only a comment */', File.read(TMP_THEMES_DIR.join('mytheme', 'stylesheets', 'common.css'))
   end
 
   should 'be able to get content of CSS file' do
@@ -144,7 +144,7 @@ class ThemeTest < ActiveSupport::TestCase
     theme = Theme.create('mytheme')
     theme.add_image('test.png', 'FAKE IMAGE DATA')
 
-    assert_equal 'FAKE IMAGE DATA', File.read(TMP_THEMES_DIR + '/mytheme/images/test.png')
+    assert_equal 'FAKE IMAGE DATA', File.read(TMP_THEMES_DIR.join('mytheme', 'images', 'test.png'))
   end
 
   should 'list images' do
@@ -173,8 +173,8 @@ class ThemeTest < ActiveSupport::TestCase
   should 'not list non theme files or dirs inside themes dir' do
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
     Dir.mkdir(TMP_THEMES_DIR)
-    Dir.mkdir(TMP_THEMES_DIR+'/empty-dir')
-    File.new(TMP_THEMES_DIR+'/my-logo.png', File::CREAT)
+    Dir.mkdir(TMP_THEMES_DIR.join('empty-dir'))
+    File.new(TMP_THEMES_DIR.join('my-logo.png'), File::CREAT)
     assert Theme.approved_themes(Environment.default).empty?
   end
 
@@ -191,4 +191,22 @@ class ThemeTest < ActiveSupport::TestCase
     assert ! Theme.new('test').public
   end
 
+  should 'not crash with nil or invalid owner_type' do
+    profile = fast_create(Profile)
+    Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
+
+    t1 = Theme.new('t1').save
+    t1.send(:write_config)
+    t2 = Theme.new('t2', {:owner_type => nil}).save
+    t2.send(:write_config)
+    t3 = Theme.new('t3', {:owner_type => 'InvalidClass'}).save
+    t3.send(:write_config)
+
+    assert_nothing_raised do
+      themes = Theme.approved_themes(profile)
+      assert_not_includes themes, t1
+      assert_not_includes themes, t2
+      assert_not_includes themes, t3
+    end
+  end
 end

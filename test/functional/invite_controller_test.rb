@@ -7,77 +7,78 @@ class InviteControllerTest < ActionController::TestCase
     @friend = create_user('thefriend').person
     @community = fast_create(Community)
     login_as ('testuser')
+    Delayed::Job.destroy_all
   end
   attr_accessor :profile, :friend, :community
 
   should 'add manually invitation of an added address with friend object on a queue and process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 1 do
+    assert_difference 'InviteFriend.count', 1 do
       process_delayed_job_queue
     end
   end
 
   should 'add manually invitation of an added address with only email on a queue and process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "test@test.com", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 1 do
+    assert_difference 'InviteFriend.count', 1 do
       process_delayed_job_queue
     end
   end
 
   should 'add manually invitation of an added address with email and other format on a queue and process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "test@test.cz.com", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 1 do
+    assert_difference 'InviteFriend.count', 1 do
       process_delayed_job_queue
     end
   end
 
   should 'add manually invitation of more than one added address on a queue and process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "Some Friend <somefriend@email.com>\r\notherperson@bleble.net\r\n", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 2 do
+    assert_difference 'InviteFriend.count', 2 do
       process_delayed_job_queue
     end
   end
 
   should 'add manually invitation of an added address with name and e-mail on a queue and process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "Test Name <test@test.com>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 1 do
+    assert_difference 'InviteFriend.count', 1 do
       process_delayed_job_queue
     end
   end
 
   should 'add invitation of yourself on a queue and not process it later' do
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{profile.name} <#{profile.user.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_no_difference InviteFriend, :count do
+    assert_no_difference 'InviteFriend.count' do
       process_delayed_job_queue
     end
   end
@@ -87,12 +88,12 @@ class InviteControllerTest < ActionController::TestCase
     friend.person.add_friend(profile)
 
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_no_difference InviteFriend, :count do
+    assert_no_difference 'InviteFriend.count' do
       process_delayed_job_queue
     end
   end
@@ -153,7 +154,7 @@ class InviteControllerTest < ActionController::TestCase
   should 'create a job to get emails after choose address book' do
     community.add_admin(profile)
     contact_list = ContactList.create
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :select_address_book, :profile => community.identifier, :contact_list => contact_list.id, :import_from => 'gmail'
     end
   end
@@ -185,7 +186,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'return hash as invitation data if contact list was fetched' do
-    contact_list = ContactList.create(:fetched => true)
+    contact_list = create(ContactList, :fetched => true)
     get :invitation_data, :profile => profile.identifier, :contact_list => contact_list.id
     hash = {'fetched' => true, 'contact_list' => contact_list.id, 'error' => nil}
 
@@ -194,7 +195,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'render empty list of contacts' do
-    contact_list = ContactList.create(:fetched => true)
+    contact_list = create(ContactList, :fetched => true)
     get :add_contact_list, :profile => profile.identifier, :contact_list => contact_list.id
 
     assert_response :success
@@ -203,7 +204,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'render list of contacts' do
-    contact_list = ContactList.create(:fetched => true, :list => ['email1@noosfero.org', 'email2@noosfero.org'])
+    contact_list = create(ContactList, :fetched => true, :list => ['email1@noosfero.org', 'email2@noosfero.org'])
     get :add_contact_list, :profile => profile.identifier, :contact_list => contact_list.id
 
     assert_response :success
@@ -219,7 +220,7 @@ class InviteControllerTest < ActionController::TestCase
   should 'destroy contact_list when cancel_fetching_emails' do
     contact_list = ContactList.create
 
-    assert_difference ContactList, :count, -1 do
+    assert_difference 'ContactList.count', -1 do
       get :cancel_fetching_emails, :profile => profile.identifier, :contact_list => contact_list.id
     end
     assert_redirected_to :action => 'select_address_book'
@@ -230,7 +231,8 @@ class InviteControllerTest < ActionController::TestCase
 
     contact_list = ContactList.create
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
-    assert_equal 'pt', Delayed::Job.first.payload_object.locale
+    job = Delayed::Job.handler_like(InvitationJob.name).first
+    assert_equal 'pt', job.payload_object.locale
   end
 
   private

@@ -1,0 +1,79 @@
+#content .relevant-content-plugin_relevant-content-block  {
+  padding: 10px 0px 10px 10px;
+  word-wrap: break-word;
+}
+
+.relevant-content-plugin_relevant-content-block ul {
+  margin: 0px;
+  padding: 0px 0px 0px 20px;
+}
+.relevant-content-plugin_relevant-content-block li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none
+}
+.relevant-content-plugin_relevant-content-block a {
+  text-decoration: none;
+}
+.relevant-content-plugin_relevant-content-block .block-footer-content {
+  font-size: 10px;
+}
+.relevant-content-plugin_relevant-content-block .block-footer-content a:hover {
+  text-decoration: underline;
+}
+
+.relevant-content-plugin_relevant-content-block p {
+    text-align:center;
+}
+
+.relevant-content-plugin_relevant-content-block  p.like{
+  background-image: url('images/positive-hand.png');
+  background-repeat: no-repeat;
+  min-width: 50px;
+  text-align:center;
+}
+
+.relevant-content-plugin_relevant-content-block  p.dislike{
+  background-image: url('images/negative-hand.png');
+  background-repeat: no-repeat;
+  min-width: 50px;
+  text-align:center;
+}
+
+
+.relevant-content-plugin_relevant-content-block {
+  //overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+
+.relevant-content-cover img {
+  width: 100%;
+}
+
+.relevant-content-plugin_relevant-content-block span.title {
+  display: block;
+  margin: 20px 0px 0px;
+  padding: 0px 0px 0px 20px;
+}
+
+.relevant-content-plugin_relevant-content-block span.title.mread {
+
+}
+
+.relevant-content-plugin_relevant-content-block span.title.mcommented {
+
+}
+
+.relevant-content-plugin_relevant-content-block span.title.mliked {
+
+}
+
+.relevant-content-plugin_relevant-content-block span.title.mdisliked {
+
+}
+
+.relevant-content-plugin_relevant-content-block span.title.mvoted {
+
+}

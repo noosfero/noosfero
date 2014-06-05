@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  function toggle_submit_button(id, enabled) {
+    button = $(id)
+    if (enabled){
+      button.className = button.className.replace(/disabled/, '')
+      button.enable()
+    } else  {
+      button.className += ' disabled'
+      button.disable()
+    }
+  }
+</script>
+<div class=activation-box>
+  <h2><%= _('Enterprise activation') + ' - ' + (logged_in? ? _('part 2 of 2') : _(' part 2 of 3')) %></h2>
+
+  <div id='terms-of-enterprise-use' class='height: 200px; overflow: auto;'><%= @terms_of_enterprise_use %></div>
+
+  <%= form_tag :action => 'activate_enterprise' do %>
+    <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+    <%= hidden_field_tag :answer, params[:answer] %>
+
+    <%= labelled_check_box(environment.terms_of_use_acceptance_text.blank? ? _('I read the terms of use and accepted them') : environment.terms_of_use_acceptance_text, :terms_accepted, '1', false, :id => 'accept-terms') %>
+    <% button_bar do %>
+      <%= button 'cancel', _('Cancel'), :controller => 'home', :action => 'index' %>
+      <%= submit_button 'forward', _('Continue'), {:disabled => true, :class => 'disabled', :id => 'submit-accept-terms'} %>
+    <% end %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  jQuery('#accept-terms').change(function(){
+    jQuery("#submit-accept-terms").toggleClass("disabled");
+    jQuery("#submit-accept-terms").prop("disabled", !jQuery("#submit-accept-terms").prop("disabled"));
+  });
+</script>
+

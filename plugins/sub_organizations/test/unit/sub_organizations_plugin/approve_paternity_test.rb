@@ -11,7 +11,7 @@ class SubOrganizationsPlugin::ApprovePaternityTest < ActiveSupport::TestCase
   should 'create relation after creation' do
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
-    assert_difference SubOrganizationsPlugin::ApprovePaternityRelation, :count, 1 do
+    assert_difference 'SubOrganizationsPlugin::ApprovePaternityRelation.count', 1 do
       SubOrganizationsPlugin::ApprovePaternity.create!(:requestor => requestor, :temp_parent_id => org1.id, :temp_parent_type => org1.class.name, :target => org2)
     end
   end
@@ -21,9 +21,9 @@ class SubOrganizationsPlugin::ApprovePaternityTest < ActiveSupport::TestCase
     org2 = fast_create(Organization)
 
     task = SubOrganizationsPlugin::ApprovePaternity.create!(:requestor => requestor, :temp_parent_id => org1.id, :temp_parent_type => org1.class.name, :target => org2)
-    assert_not_includes SubOrganizationsPlugin::Relation.children(org1), org2
+    assert_not_includes Organization.children(org1), org2
 
     task.finish
-    assert_includes SubOrganizationsPlugin::Relation.children(org1), org2
+    assert_includes Organization.children(org1), org2
   end
 end
