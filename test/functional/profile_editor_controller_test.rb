@@ -173,6 +173,15 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]', :value => 'my contact' }
   end
 
+  should 'mass assign all environment configurable community fields' do
+    cmm = fast_create(Community)
+
+    post :edit, :profile => cmm.identifier, :profile_data => { "name" => "new name", "display_name" => "N&w N@me", "description"=>"We sell food and other stuff.", "contact_person"=>"Joseph of the Jungle", "contact_email"=>"sac@company.net", "contact_phone"=>"+0551133445566", "legal_form"=>"New Name corp.", "economic_activity"=>"Food", "management_information"=>"No need for that here.", "address"=>"123, baufas street", "address_reference"=>"Next to baufas house", "district"=>"DC", "zip_code"=>"123456", "city"=>"Whashington", "state"=>"DC", "country"=>"US", "tag_list"=>"food, corporations", "language"=>"English" }
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
+  end
+
   should 'show field values on edit enterprise info' do
     Enterprise.any_instance.expects(:active_fields).returns(['contact_person']).at_least_once
     org = fast_create(Enterprise)
