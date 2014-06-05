@@ -34,29 +34,31 @@ class AddMemberTest < ActiveSupport::TestCase
     task = AddMember.new
     task.valid?
 
-    ok('must not validate with empty requestor') { task.errors.invalid?(:requestor_id) }
+    ok('must not validate with empty requestor') { task.errors[:requestor_id.to_s].present? }
 
     task.requestor = Person.new
     task.valid?
-    ok('must validate when requestor is given') { task.errors.invalid?(:requestor_id)}
+    ok('must validate when requestor is given') { task.errors[:requestor_id.to_s].present?}
   end
 
   should 'require target' do
     task = AddMember.new
     task.valid?
 
-    ok('must not validate with empty target') { task.errors.invalid?(:target_id) }
+    ok('must not validate with empty target') { task.errors[:target_id.to_s].present? }
 
     task.target = Person.new
     task.valid?
-    ok('must validate when target is given') { task.errors.invalid?(:target_id)}
+    ok('must validate when target is given') { task.errors[:target_id.to_s].present?}
   end
 
   should 'send e-mails' do
     community.update_attribute(:closed, true)
     community.stubs(:notification_emails).returns(["adm@example.com"])
 
-    TaskMailer.expects(:deliver_target_notification).at_least_once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddMember.create!(:person => person, :organization => community)
   end
@@ -115,7 +117,7 @@ class AddMemberTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = AddMember.new(:person => person, :organization => community)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} wants to be a member of this community/, email.subject)
   end
 

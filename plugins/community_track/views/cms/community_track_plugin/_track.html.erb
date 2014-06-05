@@ -1,0 +1,16 @@
+<div class='community-track'>
+  <%= required_fields_message %>
+
+  <%= render :file => 'shared/tiny_mce' %>
+
+  <div>
+    <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
+  </div>
+
+  <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :body_label => 'Description:'} %>
+
+  <div>
+    <%= labelled_form_field(_('Goals:'), text_area(:article, :goals, :rows => 3, :cols => 64)) %>
+    <%= labelled_form_field(_('Expected Results:'), text_area(:article, :expected_results, :rows => 3, :cols => 64)) %>
+  </div>
+</div>

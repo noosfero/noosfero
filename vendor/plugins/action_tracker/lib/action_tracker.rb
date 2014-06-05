@@ -74,7 +74,7 @@ module ActionTracker
       end
 
       def acts_as_trackable(options = {})
-        has_many :tracked_actions, { :class_name => "ActionTracker::Record", :order => "updated_at DESC", :foreign_key => :user_id }.merge(options)
+        has_many :tracked_actions, { :class_name => "ActionTracker::Record", :order => "updated_at DESC", :foreign_key => :user_id, :dependent => :destroy }.merge(options)
         send :include, InstanceMethods
       end
     end
@@ -124,7 +124,7 @@ module ActionTracker
 
   module ViewHelper
     def describe(ta)
-      returning "" do |result|
+      "".tap do |result|
         if ta.is_a?(ActionTracker::Record)
           result << ta.description.gsub(/\{\{(.*?)\}\}/) { eval $1 }
         else

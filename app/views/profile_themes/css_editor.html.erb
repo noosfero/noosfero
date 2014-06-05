@@ -1,0 +1,13 @@
+<h2><%= _('CSS code: "%s"') % @css %></h2>
+
+<%= form_tag({:action => 'update_css', :id => @theme.id }, :name => 'csscode_form') do %>
+  <%= hidden_field_tag('css', @css) %>
+  <%= text_area_tag('csscode', @code, :id => "codepressWindow", :class => 'codepress css') %>
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save')) %>
+  <% end %>
+<% end %>
+
+<!--<script type='text/javascript'>-->
+  <!--CodePress.run();-->
+<!--</script>-->

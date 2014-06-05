@@ -7,7 +7,5 @@
 # etc. The actual feed update logic is DelayedJob plugin.
 
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
-require 'daemons'
 require 'delayed/command'
-
 Delayed::Command.new(ARGV).daemonize

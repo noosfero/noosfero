@@ -1,0 +1,21 @@
+<% extend SubOrganizationsPlugin::SearchHelper %>
+<% extend SubOrganizationsPlugin::RelationHelper %>
+
+<div id="search-actions">
+  <%= display_selectors(params[:display]) %>
+</div>
+
+<%  if params[:type] == 'community' %>
+  <%= display_relation(@communities,params[:type],params[:display]) %>
+<% end %>
+
+<% if params[:type] == 'enterprise' %>
+  <%= display_relation(@enterprises,params[:type],params[:display]) %>
+<% end %>
+
+<% if ["full"].include?(params[:display]) and !params[:type] %>
+   <%= display_relation(@total,"organizations",params[:display]) %>
+<% elsif !params[:type] %>
+  <%= display_relation(@communities,"community",params[:display]) %>
+  <%= display_relation(@enterprises,"enterprise",params[:display]) %>
+<% end %>

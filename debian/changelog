@@ -1,3 +1,69 @@
+noosfero (0.47.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 05 May 2014 19:10:51 +0000
+
+noosfero (0.47.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 22 Apr 2014 20:13:33 +0000
+
+noosfero (0.47.0~rc3) squeeze-test; urgency=low
+
+  * Memory leak fix, performance improvements and bugfixes
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 09 Apr 2014 19:01:34 +0000
+
+noosfero (0.47.0~rc1) squeeze-test; urgency=low
+
+  * New features Release Candidate 1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 20 Mar 2014 20:26:45 +0000
+
+noosfero (0.46.3) unstable; urgency=low
+
+  * Bugfixes with package installation problem fixed
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 17 Apr 2014 14:31:25 +0000
+
+noosfero (0.46.2) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 19 Mar 2014 23:41:06 +0000
+
+noosfero (0.46.1) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Fri, 07 Mar 2014 10:33:11 +0000
+
+noosfero (0.46.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 20 Feb 2014 17:56:14 -0300
+
+noosfero (0.46.0~rc20140120171635) squeeze-test; urgency=low
+
+  * 0.46.0 RC1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 20 Jan 2014 17:16:45 +0000
+
+noosfero (0.45.2) unstable; urgency=low
+
+  * Small release with a critical bugfix
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 14 Jan 2014 13:25:18 +0000
+
+noosfero (0.45.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 07 Jan 2014 14:12:53 +0000
+
 noosfero (0.45.0) unstable; urgency=low
 
   * New features release

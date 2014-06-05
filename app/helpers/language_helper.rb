@@ -22,7 +22,7 @@ module LanguageHelper
     if options[:element] == 'dropdown'
       select_tag('lang', 
         options_for_select(locales.map{|code,name| [name, code]}, current),
-        :onchange => "document.location.href= #{url_for(params.merge(:lang => 'LANGUAGE')).inspect}.replace(/LANGUAGE/, this.value) ;",
+        :onchange => "document.location.href= #{url_for(params.merge(:lang => 'LANGUAGE'))}.replace(/LANGUAGE/, this.value) ;",
         :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.')
       )
     else

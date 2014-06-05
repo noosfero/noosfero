@@ -1,0 +1,36 @@
+<%= render :layout => 'field', :locals => { :f => f } do %>
+  <div class="field-select-type">
+    <%= _('Type:') %>
+    <%= f.radio_button(:select_field_type, 'radio') %>
+    <%= f.label(:select_field_type, _('Radio'), :value => 'radio') %>
+    <%= f.radio_button(:select_field_type, 'check_box') %>
+    <%= f.label(:select_field_type, _('Checkbox'), :value => 'check_box') %>
+    <%= f.radio_button(:select_field_type, 'select') %>
+    <%= f.label(:select_field_type, _('Drop down'), :value => 'select') %>
+    <%= f.radio_button(:select_field_type, 'multiple_select') %>
+    <%= f.label(:select_field_type, _('Multiple Select'), :value => 'multiple_select') %>
+  </div>
+
+  <table>
+    <thead>
+    <tr <%='style="display:none"' if f.object.alternatives.empty? %>>
+      <th><%= _('Alternative') %></th>
+      <th><%= _('Preselected') %></th>
+      <th><%= _('Remove') %></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr class="addition-buttons">
+      <td colspan="3">
+      <%= button(:add, _('Add a new alternative'), '#', :onclick => "customFormsPlugin.addFields(this, 'alternatives', #{j html_for_field(f, :alternatives, CustomFormsPlugin::Alternative).to_json}); return false") %>
+      </td>
+    </tr>
+    </tfoot>
+    <tbody class='field-list'>
+    <% f.fields_for :alternatives do |builder| %>
+      <%= render partial_for_class(builder.object.class), :f => builder %>
+    <% end %>
+    </tbody>
+  </table>
+
+<% end %>

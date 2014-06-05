@@ -60,7 +60,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
 
     post :index, :profile => organization.identifier, :q => [org2,org3,org4].map(&:id).join(',')
 
-    children = SubOrganizationsPlugin::Relation.children(organization)
+    children = Organization.children(organization)
     assert_not_includes children, org1
     assert_includes children, org2
     assert_not_includes children, org3
@@ -68,7 +68,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
 
     SubOrganizationsPlugin::ApprovePaternity.all.map(&:finish)
 
-    children = SubOrganizationsPlugin::Relation.children(organization)
+    children = Organization.children(organization)
     assert_not_includes children, org1
     assert_includes children, org2
     assert_includes children, org3
@@ -80,10 +80,10 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     org2 = fast_create(Organization)
     org2.add_admin(person)
 
-    assert_difference SubOrganizationsPlugin::ApprovePaternity, :count, 1 do
+    assert_difference 'SubOrganizationsPlugin::ApprovePaternity.count', 1 do
       post :index, :profile => organization.identifier, :q => [org1,org2].map(&:id).join(',')
     end
-    assert_includes SubOrganizationsPlugin::Relation.children(organization), org2
+    assert_includes Organization.children(organization), org2
   end
 
   should 'not access index if dont have permission' do
@@ -94,7 +94,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     get :index, :profile => organization.identifier
 
     assert_response 403
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not search organizations if dont have permission' do
@@ -107,7 +107,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     get :search_organization, :profile => organization.identifier, :q => 'sampl'
 
     assert_response 403
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
 end

@@ -14,6 +14,7 @@ Feature: chat
     And "tame" is friend of "mariasilva"
     And "tame" is friend of "josesilva"
 
+  @selenium
   Scenario: provide link to open chat
     Given feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"

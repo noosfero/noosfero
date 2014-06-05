@@ -1,0 +1,16 @@
+<h1><%= h profile.short_name(50) %></h1>
+
+<h2><%= _('Send e-mail to members') %></h2>
+
+<%= error_messages_for :mailing %>
+
+<%= form_for :mailing, :url => {:action => 'send_mail'}, :html => {:id => 'mailing-form'} do |f| %>
+
+  <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
+
+  <%= render :file => 'shared/tiny_mce' %>
+  <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
+
+  <%= submit_button(:send, _('Send')) %>
+  <%= button :cancel, _('Cancel e-mail'), :back %>
+<% end %>

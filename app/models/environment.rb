@@ -3,6 +3,8 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body
+
   has_many :users
 
   self.partial_updates = false
@@ -26,7 +28,8 @@ class Environment < ActiveRecord::Base
     'manage_environment_users' => N_('Manage environment users'),
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
-    'manage_environment_trusted_sites' => N_('Manage environment trusted sites')
+    'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
+    'edit_appearance'      => N_('Edit appearance'),
   }
 
   module Roles
@@ -90,9 +93,9 @@ class Environment < ActiveRecord::Base
   def self.available_features
     {
       'disable_asset_articles' => _('Disable search for articles '),
-      'disable_asset_enterprises' => __('Disable search for enterprises'),
+      'disable_asset_enterprises' => _('Disable search for enterprises'),
       'disable_asset_people' => _('Disable search for people'),
-      'disable_asset_communities' => __('Disable search for communities'),
+      'disable_asset_communities' => _('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
       'disable_categories' => _('Disable categories'),
@@ -103,11 +106,11 @@ class Environment < ActiveRecord::Base
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
 
-      'products_for_enterprises' => __('Enable products for enterprises'),
-      'enterprise_registration' => __('Enterprise registration'),
-      'enterprise_activation' => __('Enable activation of enterprises'),
-      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
-      'enterprises_are_validated_when_created' => __('Enterprises are validated when created'),
+      'products_for_enterprises' => _('Enable products for enterprises'),
+      'enterprise_registration' => _('Enterprise registration'),
+      'enterprise_activation' => _('Enable activation of enterprises'),
+      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
+      'enterprises_are_validated_when_created' => _('Enterprises are validated when created'),
 
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
@@ -144,6 +147,18 @@ class Environment < ActiveRecord::Base
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
+  def self.signup_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before signup.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_signup, :in => Environment.signup_redirection_options.keys, :allow_nil => true
+
+
   # #################################################
   # Relationships and applied behaviour
   # #################################################
@@ -160,6 +175,8 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
@@ -183,8 +200,10 @@ class Environment < ActiveRecord::Base
 
   has_many :product_categories, :conditions => { :type => 'ProductCategory'}
   has_many :regions
+  has_many :states
+  has_many :cities
 
-  has_many :roles
+  has_many :roles, :dependent => :destroy
 
   has_many :qualifiers
   has_many :certifiers
@@ -278,6 +297,12 @@ class Environment < ActiveRecord::Base
   settings_items :access_control_allow_origin, :type => Array, :default => []
   settings_items :access_control_allow_methods, :type => String
 
+  settings_items :signup_welcome_screen_body, :type => String
+
+  def has_custom_welcome_screen?
+    settings[:signup_welcome_screen_body].present?
+  end
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end
@@ -336,19 +361,22 @@ class Environment < ActiveRecord::Base
     features.delete_if{ |k, v| !self.enabled?(k) }
   end
 
+  DEFAULT_FEATURES = %w(
+    disable_asset_products
+    disable_gender_icon
+    products_for_enterprises
+    disable_select_city_for_contact
+    enterprise_registration
+    media_panel
+    organizations_are_moderated_by_default
+    show_balloon_with_profile_links_when_clicked
+    show_zoom_button_on_article_images
+    use_portal_community
+  )
+
   before_create :enable_default_features
   def enable_default_features
-    %w(
-      disable_asset_products
-      disable_gender_icon
-      products_for_enterprises
-      disable_select_city_for_contact
-      enterprise_registration
-      media_panel
-      organizations_are_moderated_by_default
-      show_balloon_with_profile_links_when_clicked
-      use_portal_community
-    ).each do |feature|
+    DEFAULT_FEATURES.each do |feature|
       enable(feature, false)
     end
   end
@@ -390,22 +418,6 @@ class Environment < ActiveRecord::Base
     raise ArgumentError unless accepted_values.include?(actual_value)
 
     self.settings[:organization_approval_method] = actual_value
-  end
-
-  def terminology
-    if self.settings[:terminology]
-      self.settings[:terminology].constantize.instance
-    else
-      Noosfero.terminology
-    end
-  end
-
-  def terminology=(value)
-    if value
-      self.settings[:terminology] = value.class.name
-    else
-      self.settings[:terminology] = nil
-    end
   end
 
   def custom_person_fields
@@ -590,7 +602,7 @@ class Environment < ActiveRecord::Base
   # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => N_('Only one Virtual Community can be the default one')
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.blank? })
+  validates_format_of :contact_email, :noreply_email, :with => Noosfero::Constants::EMAIL_FORMAT, :allow_blank => true
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
 
@@ -598,7 +610,10 @@ class Environment < ActiveRecord::Base
   validates_numericality_of :reports_lower_bound, :allow_nil => false, :only_integer => true, :greater_than_or_equal_to => 0
 
   include WhiteListFilter
-  filter_iframes :message_for_disabled_enterprise, :whitelist => lambda { trusted_sites_for_iframe }
+  filter_iframes :message_for_disabled_enterprise
+  def iframe_whitelist
+    trusted_sites_for_iframe
+  end
 
   # #################################################
   # Business logic in general
@@ -627,6 +642,10 @@ class Environment < ActiveRecord::Base
     domain
   end
 
+  def admin_url
+    { :controller => 'admin_panel', :action => 'index' }
+  end
+
   def top_url
     url = 'http://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
@@ -648,9 +667,7 @@ class Environment < ActiveRecord::Base
   has_many :tags, :through => :articles
 
   def tag_counts
-    options = Article.find_options_for_tag_counts.merge(:conditions => ['profiles.environment_id = ?', self.id])
-    options[:joins] = options[:joins] + ' LEFT OUTER JOIN profiles on profiles.id = articles.profile_id'
-    Tag.find(:all, options).inject({}) do |memo,tag|
+    articles.tag_counts.inject({}) do |memo,tag|
       memo[tag.name] = tag.count
       memo
     end
@@ -676,6 +693,16 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def update_theme(theme)
+    self.theme = theme
+    self.save!
+  end
+
+  def update_layout_template(template)
+    self.layout_template = template
+    self.save!
+  end
+
   before_create do |env|
     env.settings[:themes] ||= %w[
       aluminium
@@ -691,7 +718,8 @@ class Environment < ActiveRecord::Base
   end
 
   def community_template
-    Community.find_by_id settings[:community_template_id]
+    template = Community.find_by_id settings[:community_template_id]
+    template if template && template.is_template
   end
 
   def community_template=(value)
@@ -699,7 +727,8 @@ class Environment < ActiveRecord::Base
   end
 
   def person_template
-    Person.find_by_id settings[:person_template_id]
+    template = Person.find_by_id settings[:person_template_id]
+    template if template && template.is_template
   end
 
   def person_template=(value)
@@ -707,7 +736,8 @@ class Environment < ActiveRecord::Base
   end
 
   def enterprise_template
-    Enterprise.find_by_id settings[:enterprise_template_id]
+    template = Enterprise.find_by_id settings[:enterprise_template_id]
+    template if template && template.is_template
   end
 
   def enterprise_template=(value)
@@ -715,7 +745,8 @@ class Environment < ActiveRecord::Base
   end
 
   def inactive_enterprise_template
-    Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template = Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template if template && template.is_template
   end
 
   def inactive_enterprise_template=(value)
@@ -763,41 +794,78 @@ class Environment < ActiveRecord::Base
   end
 
   def notification_emails
-    [contact_email.blank? ? nil : contact_email].compact + admins.map(&:email)
+    [noreply_email.blank? ? nil : noreply_email].compact + admins.map(&:email)
   end
 
   after_create :create_templates
 
   def create_templates
-    pre = self.name.to_slug + '_'
-    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false, :is_template => true).id
-    inactive_enterprise_tmpl = Enterprise.create!(:name => 'Inactive Enterprise template', :identifier => pre + 'inactive_enterprise_template', :environment => self, :visible => false, :is_template => true)
-    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false, :is_template => true).id
+    prefix = self.name.to_slug + '_'
+
+    enterprise_template = Enterprise.new(
+      :name => 'Enterprise template',
+      :identifier => prefix + 'enterprise_template'
+    )
+
+    inactive_enterprise_template = Enterprise.new(
+      :name => 'Inactive Enterprise template',
+      :identifier => prefix + 'inactive_enterprise_template'
+    )
+
+    community_template = Community.new(
+      :name => 'Community template',
+      :identifier => prefix + 'community_template'
+    )
+
+    [
+      enterprise_template,
+      inactive_enterprise_template,
+      community_template
+    ].each do |profile|
+      profile.is_template = true
+      profile.visible = false
+      profile.environment = self
+      profile.save!
+    end
+
     pass = Digest::MD5.hexdigest rand.to_s
-    user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => self).person
-    user.update_attributes(:visible => false, :name => "Person template", :is_template => true)
-    usr_id = user.id
-    self.settings[:enterprise_template_id] = ent_id
-    self.inactive_enterprise_template = inactive_enterprise_tmpl
-    self.settings[:community_template_id] = com_id
-    self.settings[:person_template_id] = usr_id
+    user = User.new(:login => (prefix + 'person_template'), :email => (prefix + 'template@template.noo'), :password => pass, :password_confirmation => pass)
+    user.environment = self
+    user.save!
+
+    person_template = user.person
+    person_template.name = "Person template"
+    person_template.is_template = true
+    person_template.visible = false
+    person_template.save!
+
+    self.enterprise_template = enterprise_template
+    self.inactive_enterprise_template = inactive_enterprise_template
+    self.community_template = community_template
+    self.person_template = person_template
     self.save!
   end
 
   after_create :create_default_licenses
   def create_default_licenses
-    License.create!(:name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode', :environment => self)
-    License.create!(:name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en', :environment => self)
-    License.create!(:name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt', :environment => self)
+    [
+      { :name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode'},
+      { :name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode'},
+      { :name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode'},
+      { :name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode'},
+      { :name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode'},
+      { :name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode'},
+      { :name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en'},
+      { :name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt'},
+    ].each do |data|
+      license = License.new(data)
+      license.environment = self
+      license.save!
+    end
   end
 
   def highlighted_products_with_image(options = {})
-    Product.find(:all, {:conditions => {:highlighted => true, :enterprise_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
+    Product.find(:all, {:conditions => {:highlighted => true, :profile_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

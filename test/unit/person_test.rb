@@ -1,10 +1,11 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
-  def test_person_must_come_form_the_cration_of_an_user
-    p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
+  def test_person_must_come_from_the_creation_of_an_user
+    p = build(Person, :environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?
     p.user =  create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
     assert !p.valid?
@@ -13,22 +14,22 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   def test_can_associate_to_a_profile
-    pr = Profile.new(:identifier => 'mytestprofile', :name => 'My test profile')
+    pr = build(Profile, :identifier => 'mytestprofile', :name => 'My test profile')
     pr.save!
     pe = create_user('person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     pe.save!
-    member_role = Role.create(:name => 'somerandomrole')
+    member_role = create(Role, :name => 'somerandomrole')
     pr.affiliate(pe, member_role)
 
     assert pe.memberships.include?(pr)
   end
 
   def test_can_belong_to_an_enterprise
-    e = Enterprise.new(:identifier => 'enterprise', :name => 'enterprise')
+    e = build(Enterprise, :identifier => 'enterprise', :name => 'enterprise')
     e.save!
     p = create_user('person', :email => 'person@test.net', :password => 'dhoe', :password_confirmation => 'dhoe').person
     p.save!
-    member_role = Role.create(:name => 'somerandomrole')
+    member_role = create(Role, :name => 'somerandomrole')
     e.affiliate(p, member_role)
 
     assert p.memberships.include?(e)
@@ -45,7 +46,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'be associated with a user' do
-    u = User.new(:login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
+    u = build(User, :login => 'john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
     u.save!
     assert_equal u, Person['john'].user
   end
@@ -56,21 +57,21 @@ class PersonTest < ActiveSupport::TestCase
     p1 = u.person
     assert_equal u, p1.user
 
-    p2 = Person.new(:environment => Environment.default)
+    p2 = build(Person, :environment => Environment.default)
     p2.user = u
     assert !p2.valid?
-    assert p2.errors.invalid?(:user_id)
+    assert p2.errors[:user_id.to_s].present?
   end
 
   should "have person info fields" do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country, :zip_code, :image, :district, :address_reference ].each do |i|
       assert_respond_to p, i
     end
   end
 
   should 'not have person_info class' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     assert_raise NoMethodError do
       p.person_info
     end
@@ -79,9 +80,9 @@ class PersonTest < ActiveSupport::TestCase
   should 'change the roles of the user' do
     p = create_user('jonh', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
     e = fast_create(Enterprise)
-    r1 = Role.create(:name => 'associate')
+    r1 = create(Role, :name => 'associate')
     assert e.affiliate(p, r1)
-    r2 = Role.create(:name => 'partner')
+    r2 = create(Role, :name => 'partner')
     assert p.define_roles([r2], e)
     p = Person.find(p.id)
     assert p.role_assignments.any? {|ra| ra.role == r2}
@@ -90,7 +91,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'report that the user has the permission' do
     p = create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe').person
-    r = Role.create(:name => 'associate', :permissions => ['edit_profile'])
+    r = create(Role, :name => 'associate', :permissions => ['edit_profile'])
     e = fast_create(Enterprise)
     assert e.affiliate(p, r)
     p = Person.find(p.id)
@@ -105,7 +106,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'get no email address when there is no associated user' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     assert_nil p.email
   end
 
@@ -132,8 +133,8 @@ class PersonTest < ActiveSupport::TestCase
     other = create_user('seconduser', :email => 'other@domain.com').person
     other.email = 'user@domain.com'
     other.valid?
-    assert other.errors.invalid?(:email)
-    assert_no_match /\{fn\}/, other.errors.on(:email)
+    assert other.errors[:email.to_s].present?
+    assert_no_match /\{fn\}/, other.errors[:email].first
   end
 
   should 'be able to use an e-mail already used in other environment' do
@@ -143,11 +144,11 @@ class PersonTest < ActiveSupport::TestCase
     other = create_user('user', :email => 'other@example.com', :environment => other_env).person
     other.email = 'user@example.com'
     other.valid?
-    assert !other.errors.invalid?(:email)
+    assert !other.errors[:email.to_s].present?
   end
 
   should 'be an admin if have permission of environment administration' do
-    role = Role.create!(:name => 'just_another_admin_role')
+    role = create(Role, :name => 'just_another_admin_role')
     env = fast_create(Environment)
     person = create_user('just_another_person').person
     env.affiliate(person, role)
@@ -162,7 +163,7 @@ class PersonTest < ActiveSupport::TestCase
     env2 = fast_create(Environment)
 
     # role is an admin role
-    role = Role.create!(:name => 'just_another_admin_role')
+    role = create(Role, :name => 'just_another_admin_role')
     role.update_attributes(:permissions => ['view_environment_admin_panel'])
 
     # user is admin of env1, but not of env2
@@ -175,15 +176,16 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'create a default set of articles' do
-    Person.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
-    person = create_user_full('mytestuser').person
+    blog = build(Blog)
+    Person.any_instance.stubs(:default_set_of_articles).returns([blog])
+    person = create(User).person
 
-    assert_kind_of Blog, person.articles.find_by_path('blog')
-    assert_kind_of RssFeed, person.articles.find_by_path('blog/feed')
+    assert_kind_of Blog, person.articles.find_by_path(blog.path)
+    assert_kind_of RssFeed, person.articles.find_by_path(blog.feed.path)
   end
 
   should 'create a default set of blocks' do
-    p = create_user_full('testingblocks').person
+    p = create(User).person
 
     assert !p.boxes[0].blocks.empty?, 'person must have blocks in area 1'
     assert !p.boxes[1].blocks.empty?, 'person must have blocks in area 2'
@@ -191,7 +193,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'link to all articles created by default' do
-    p = create_user_full('testingblocks').person
+    p = create(User).person
     blocks = p.blocks.select { |b| b.is_a?(LinkListBlock) }
     p.articles.reject { |a| a.is_a?(RssFeed) }.each do |article|
       path = '/' + p.identifier + '/' + article.path
@@ -212,22 +214,21 @@ class PersonTest < ActiveSupport::TestCase
     p1.add_friend(p3)
 
     assert_equivalent [p2,p3], p1.friends(true) # force reload
-
   end
 
   should 'suggest default friend groups list' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     assert_equivalent [ 'friends', 'work', 'school', 'family' ], p.suggested_friend_groups
   end
 
   should 'suggest current groups as well' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     p.expects(:friend_groups).returns(['group1', 'group2'])
     assert_equivalent [ 'friends', 'work', 'school', 'family', 'group1', 'group2' ], p.suggested_friend_groups
   end
 
   should 'accept nil friend groups when suggesting friend groups' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     p.expects(:friend_groups).returns([nil])
     assert_equivalent [ 'friends', 'work', 'school', 'family' ], p.suggested_friend_groups
   end
@@ -259,7 +260,7 @@ class PersonTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
     p1.add_friend(p2, 'friends')
 
-    assert_difference Friendship, :count, -1 do
+    assert_difference 'Friendship.count', -1 do
       p1.remove_friend(p2)
     end
     assert_not_includes p1.friends(true), p2
@@ -271,7 +272,7 @@ class PersonTest < ActiveSupport::TestCase
     p1.add_friend(p2, 'friends')
     p2.add_friend(p1, 'friends')
 
-    assert_difference Friendship, :count, -2 do
+    assert_difference 'Friendship.count', -2 do
       p1.destroy
     end
     assert_not_includes p2.friends(true), p1
@@ -279,7 +280,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'destroy use when person is destroyed' do
     person = create_user('testuser').person
-    assert_difference User, :count, -1 do
+    assert_difference 'User.count', -1 do
       person.destroy
     end
   end
@@ -308,29 +309,29 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'provide desired info fields' do
-    p = Person.new(:environment => Environment.default)
+    p = build(Person, :environment => Environment.default)
     assert p.respond_to?(:photo)
     assert p.respond_to?(:address)
     assert p.respond_to?(:contact_information)
   end
 
   should 'required name' do
-    person = Person.new(:environment => Environment.default)
+    person = Person.new
     assert !person.valid?
-    assert person.errors.invalid?(:name)
+    assert person.errors[:name].present?
   end
 
   should 'already request friendship' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-    AddFriend.create!(:person => p1, :friend => p2)
+    create(AddFriend, :person => p1, :friend => p2)
     assert p1.already_request_friendship?(p2)
   end
 
   should 'have e-mail addresses' do
     env = fast_create(Environment)
-    env.domains <<  Domain.new(:name => 'somedomain.com')
-    person = Person.new(:environment => env, :identifier => 'testuser')
+    env.domains <<  build(Domain, :name => 'somedomain.com')
+    person = build(Person, :environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
     assert_equal ['testuser@somedomain.com'], person.email_addresses
@@ -338,9 +339,9 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not show www in e-mail addresses when force_www=true' do
     env = fast_create(Environment)
-    env.domains <<  Domain.new(:name => 'somedomain.com')
+    env.domains <<  build(Domain, :name => 'somedomain.com')
     env.update_attribute(:force_www, true)
-    person = Person.new(:environment => env, :identifier => 'testuser')
+    person = build(Person, :environment => env, :identifier => 'testuser')
     person.expects(:environment).returns(env)
 
     assert_equal ['testuser@somedomain.com'], person.email_addresses
@@ -365,7 +366,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'have a default person template' do
-    env = Environment.create!(:name => 'test env')
+    env = create(Environment, :name => 'test env')
     p = create_user('test_user', :environment => env).person
     assert_kind_of Person, p.template
   end
@@ -373,8 +374,8 @@ class PersonTest < ActiveSupport::TestCase
   should 'destroy all task that it requested when destroyed' do
     p = create_user('test_profile').person
 
-    assert_no_difference Task, :count do
-      Task.create(:requestor => p)
+    assert_no_difference 'Task.count' do
+      create(Task, :requestor => p)
       p.destroy
     end
   end
@@ -404,15 +405,14 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not allow simple member to view group pending tasks' do
     community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
     member = fast_create(Person)
+    community.reload
     community.add_member(member)
-
     community.tasks << Task.new
 
-    person = fast_create(Person)
-    community.add_member(person)
-
-    assert_not_includes Person.with_pending_tasks, person
+    assert_not_includes Person.with_pending_tasks, member
   end
 
   should 'person has organization pending tasks' do
@@ -436,7 +436,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'return active_person_fields' do
     e = Environment.default
     e.expects(:active_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once
-    person = Person.new(:environment => e)
+    person = build(Person, :environment => e)
 
     assert_equal e.active_person_fields, person.active_fields
   end
@@ -444,7 +444,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'return email as active_person_fields' do
     e = Environment.default
     e.expects(:active_person_fields).returns(['nickname']).at_least_once
-    person = Person.new(:environment => e)
+    person = build(Person, :environment => e)
 
     assert_equal ['nickname', 'email'], person.active_fields
   end
@@ -452,7 +452,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'return required_person_fields' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once
-    person = Person.new(:environment => e)
+    person = build(Person, :environment => e)
 
     assert_equal e.required_person_fields, person.required_fields
   end
@@ -460,57 +460,57 @@ class PersonTest < ActiveSupport::TestCase
   should 'require fields if person needs' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['cell_phone']).at_least_once
-    person = Person.new(:environment => e)
+    person = build(Person, :environment => e)
     assert ! person.valid?
-    assert person.errors.invalid?(:cell_phone)
+    assert person.errors[:cell_phone.to_s].present?
 
     person.cell_phone = '99999'
     person.valid?
-    assert ! person.errors.invalid?(:cell_phone)
+    assert ! person.errors[:cell_phone.to_s].present?
   end
 
   should 'require custom_area_of_study if area_of_study is others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['area_of_study', 'custom_area_of_study']).at_least_once
 
-    person = Person.new(:environment => e, :area_of_study => 'Others')
+    person = build(Person, :environment => e, :area_of_study => 'Others')
     assert !person.valid?
-    assert person.errors.invalid?(:custom_area_of_study)
+    assert person.errors[:custom_area_of_study.to_s].present?
 
     person.custom_area_of_study = 'Customized area of study'
     person.valid?
-    assert ! person.errors.invalid?(:custom_area_of_study)
+    assert ! person.errors[:custom_area_of_study.to_s].present?
   end
 
   should 'not require custom_area_of_study if area_of_study is not others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['area_of_study']).at_least_once
 
-    person = Person.new(:environment => e, :area_of_study => 'Agrometeorology')
+    person = build(Person, :environment => e, :area_of_study => 'Agrometeorology')
     person.valid?
-    assert ! person.errors.invalid?(:custom_area_of_study)
+    assert ! person.errors[:custom_area_of_study.to_s].present?
   end
 
   should 'require custom_formation if formation is others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['formation', 'custom_formation']).at_least_once
 
-    person = Person.new(:environment => e, :formation => 'Others')
+    person = build(Person, :environment => e, :formation => 'Others')
     assert !person.valid?
-    assert person.errors.invalid?(:custom_formation)
+    assert person.errors[:custom_formation.to_s].present?
 
     person.custom_formation = 'Customized formation'
     person.valid?
-    assert ! person.errors.invalid?(:custom_formation)
+    assert ! person.errors[:custom_formation.to_s].present?
   end
 
   should 'not require custom_formation if formation is not others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['formation']).at_least_once
 
-    person = Person.new(:environment => e, :formation => 'Agrometeorology')
+    person = build(Person, :environment => e, :formation => 'Agrometeorology')
     assert !person.valid?
-    assert ! person.errors.invalid?(:custom_formation)
+    assert ! person.errors[:custom_formation.to_s].present?
   end
 
   should 'identify when person is a friend' do
@@ -547,7 +547,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not ask to join if already asked' do
     p = create_user('test_user').person
     c = fast_create(Community)
-    AddMember.create!(:person => p, :organization => c)
+    create(AddMember, :person => p, :organization => c)
 
     assert !p.ask_to_join?(c)
   end
@@ -642,16 +642,18 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'find more popular people' do
+    extend CacheCounterHelper
+
     Person.delete_all
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    p1.add_friend(p2)
-    p2.add_friend(p1)
-    p2.add_friend(p3)
-    assert_equal p2, Person.more_popular[0]
-    assert_equal p1, Person.more_popular[1]
+    update_cache_counter(:friends_count, p1, 1)
+    update_cache_counter(:friends_count, p2, 2)
+    update_cache_counter(:friends_count, p3, 3)
+
+    assert_order [p3, p2, p1], Person.more_popular
   end
 
   should 'list people that have no friends in more popular list' do
@@ -834,7 +836,7 @@ class PersonTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
     ActionTrackerNotification.delete_all
     Delayed::Job.destroy_all
-    assert_difference ActionTrackerNotification, :count, 3 do
+    assert_difference 'ActionTrackerNotification.count', 3 do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
@@ -857,7 +859,7 @@ class PersonTest < ActiveSupport::TestCase
 
     action_tracker = fast_create(ActionTracker::Record)
 
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
   end
@@ -877,10 +879,10 @@ class PersonTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
     Delayed::Job.delete_all
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference 'ActionTrackerNotification.count', 3 do
       process_delayed_job_queue
     end
   end
@@ -891,6 +893,7 @@ class PersonTest < ActiveSupport::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
+    p4 = fast_create(Person)
 
     community.add_member(p1)
     assert p1.is_member_of?(community)
@@ -901,14 +904,15 @@ class PersonTest < ActiveSupport::TestCase
 
     action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
     action_tracker.target = community
+    action_tracker.user = p4
     action_tracker.save!
     ActionTrackerNotification.delete_all
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference 'ActionTrackerNotification.count', 4 do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [community,p1,p3].include?(profile)
+      assert [community,p1,p3,p4].include?(profile)
     end
   end
 
@@ -936,7 +940,7 @@ class PersonTest < ActiveSupport::TestCase
     article.stubs(:profile).returns(community)
     ActionTrackerNotification.delete_all
 
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
@@ -1011,9 +1015,9 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'the community specific notification created when a member joins community could not be propagated to members' do
     ActionTracker::Record.delete_all
-    p1 = create_user('test_user').person
-    p2 = create_user('test_user').person
-    p3 = create_user('test_user').person
+    p1 = create_user('p1').person
+    p2 = create_user('p2').person
+    p3 = create_user('p3').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p1)
     process_delayed_job_queue
@@ -1133,30 +1137,14 @@ class PersonTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+    ActionTracker::Record.create!(:user => p1, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
 
-    assert_equal [p3,p2,p1] , Person.more_active
-  end
-
-  should 'more active profile take in consideration only actions created only in the recent delay interval' do
-    Person.delete_all
-    ActionTracker::Record.destroy_all
-    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
-
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay - 1.day)
-
-    assert_equal [p1,p2], Person.more_active
+    assert_order [p3,p2,p1] , Person.more_active
   end
 
   should 'list profiles that have no actions in more active list' do
@@ -1164,33 +1152,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes Person.more_active, profile
   end
 
-  should 'handle multiparameter attribute exception on birth date field' do
-    assert_nothing_raised ActiveRecord::MultiparameterAssignmentErrors do
-      p = Person.new(
-        :name => 'birthday', :identifier => 'birthday', :user_id => 999,
-        'birth_date(1i)' => '', 'birth_date(2i)' => '6', 'birth_date(3i)' => '16'
-      )
-    end
-  end
-
-  should 'not accept an empty year on birth date' do
-    p = Person.new({"birth_date(2i)"=>"11", "birth_date(3i)"=>"15", "birth_date(1i)"=>""})
-    p.valid?
-    assert p.errors.invalid?(:birth_date)
-  end
-
   should 'associate report with the correct complaint' do
     p1 = create_user('user1').person
     p2 = create_user('user2').person
     profile = fast_create(Profile)
 
-    abuse_report1 = AbuseReport.new(:reason => 'some reason')
-    assert_difference AbuseComplaint, :count, 1 do
+    abuse_report1 = build(AbuseReport, :reason => 'some reason')
+    assert_difference 'AbuseComplaint.count', 1 do
       p1.register_report(abuse_report1, profile)
     end
 
-    abuse_report2 = AbuseReport.new(:reason => 'some reason')
-    assert_no_difference AbuseComplaint, :count do
+    abuse_report2 = build(AbuseReport, :reason => 'some reason')
+    assert_no_difference 'AbuseComplaint.count' do
       p2.register_report(abuse_report2, profile)
     end
 
@@ -1207,7 +1180,7 @@ class PersonTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     assert !person.already_reported?(profile)
 
-    person.register_report(AbuseReport.new(:reason => 'some reason'), profile)
+    person.register_report(build(AbuseReport, :reason => 'some reason'), profile)
     person.reload
     assert person.already_reported?(profile)
   end
@@ -1229,9 +1202,9 @@ class PersonTest < ActiveSupport::TestCase
     another_person = fast_create(Person)
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
-    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
+    scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
-    article = TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    article = create(TinyMceArticle, :profile => person, :name => 'An article about free software')
 
     assert_equivalent [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
   end
@@ -1241,15 +1214,15 @@ class PersonTest < ActiveSupport::TestCase
     person = fast_create(Person)
     another_person = fast_create(Person)
 
-    person_scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
-    another_person_scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
+    person_scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
+    another_person_scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
-    TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software from another person')
+    create(TinyMceArticle, :profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(person)
-    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    create(TinyMceArticle, :profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
@@ -1268,6 +1241,7 @@ class PersonTest < ActiveSupport::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
@@ -1291,7 +1265,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'define abuser?' do
     abuser = create_user('abuser').person
-    AbuseComplaint.create!(:reported => abuser).finish
+    create(AbuseComplaint, :reported => abuser).finish
     person = create_user('person').person
 
     assert abuser.abuser?
@@ -1300,21 +1274,21 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'be able to retrieve abusers and non abusers' do
     abuser1 = create_user('abuser1').person
-    AbuseComplaint.create!(:reported => abuser1).finish
+    create(AbuseComplaint, :reported => abuser1).finish
     abuser2 = create_user('abuser2').person
-    AbuseComplaint.create!(:reported => abuser2).finish
+    create(AbuseComplaint, :reported => abuser2).finish
     person = create_user('person').person
 
     abusers = Person.abusers
 
-    assert_equal ActiveRecord::NamedScope::Scope, abusers.class
+    assert_equal ActiveRecord::Relation, abusers.class
     assert_includes abusers, abuser1
     assert_includes abusers, abuser2
     assert_not_includes abusers, person
 
     non_abusers = Person.non_abusers
 
-    assert_equal ActiveRecord::NamedScope::Scope, non_abusers.class
+    assert_equal ActiveRecord::Relation, non_abusers.class
     assert_not_includes non_abusers, abuser1
     assert_not_includes non_abusers, abuser2
     assert_includes non_abusers, person
@@ -1322,9 +1296,9 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not return canceled complaints as abusers' do
     abuser = create_user('abuser1').person
-    AbuseComplaint.create!(:reported => abuser).finish
+    create(AbuseComplaint, :reported => abuser).finish
     not_abuser = create_user('abuser2').person
-    AbuseComplaint.create!(:reported => not_abuser).cancel
+    create(AbuseComplaint, :reported => not_abuser).cancel
 
     abusers = Person.abusers
     assert_includes abusers, abuser
@@ -1335,4 +1309,153 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, not_abuser
   end
 
+  should 'admins named_scope return persons who are admin users' do
+    Person.delete_all
+    e = Environment.default
+    admins = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      e.add_admin(u.person)
+      admins << u.person
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+    }
+    assert_equivalent admins, Person.admins
+  end
+
+  should 'activated named_scope return persons who are activated users' do
+    Person.delete_all
+    e = Environment.default
+    activated = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activate
+      activated << u.person
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+      u.deactivate
+    }
+    assert_equivalent activated, Person.activated
+  end
+
+  should 'deactivated named_scope return persons who are deactivated users' do
+    Person.delete_all
+    e = Environment.default
+    deactivated = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      u.deactivate
+      deactivated << u.person
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activate
+    }
+    assert_equivalent deactivated, Person.deactivated
+  end
+
+  should 'be able to retrieve memberships by role person has' do
+    user = create_user('john').person
+    c1 = fast_create(Community, :name => 'a-community')
+    c2 = fast_create(Community, :name => 'other-community')
+    member_role = Role.create(:name => 'somerandomrole')
+    user.affiliate(c2, member_role)
+
+    assert_includes user.memberships_by_role(member_role), c2
+    assert_not_includes user.memberships_by_role(member_role), c1
+  end
+
+  should 'not list leave_scrap_to_self in activities' do
+    person = fast_create(Person)
+    at = ActionTracker::Record.create!(:user => person, :verb => 'leave_scrap_to_self')
+    person.reload
+    assert_equal person.activities, []
+  end
+
+  should 'not list add_member_in_community in activities' do
+    person = fast_create(Person)
+    at = ActionTracker::Record.create!(:user => person, :verb => 'add_member_in_community')
+    person.reload
+    assert_equal person.activities, []
+  end
+
+  should 'not list reply_scrap_on_self in activities' do
+    person = fast_create(Person)
+    at = ActionTracker::Record.create!(:user => person, :verb => 'reply_scrap_on_self')
+    person.reload
+    assert_equal person.activities, []
+  end
+
+  should 'person notifier be PersonNotifier class' do
+    p =  Person.new
+    assert p.notifier.kind_of?(PersonNotifier)
+  end
+
+  should 'reschedule next notification after update' do
+    p = fast_create(Person, :user_id => fast_create(User).id)
+    PersonNotifier.any_instance.expects(:reschedule_next_notification_mail).once
+    assert p.update_attribute(:name, 'Person name changed')
+  end
+
+  should 'merge memberships of plugins to original memberships' do
+    class Plugin1 < Noosfero::Plugin
+      def person_memberships(person)
+        Profile.memberships_of(Person.find_by_identifier('person1'))
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def person_memberships(person)
+        Profile.memberships_of(Person.find_by_identifier('person2'))
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
+
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
+
+    original_person = fast_create(Person)
+    person1 = fast_create(Person, :identifier => 'person1')
+    person2 = fast_create(Person, :identifier => 'person2')
+    original_cmm = fast_create(Community)
+    plugin1_cmm = fast_create(Community)
+    plugin2_cmm = fast_create(Community)
+    original_cmm.add_member(original_person)
+    plugin1_cmm.add_member(person1)
+    plugin2_cmm.add_member(person2)
+
+    assert_includes original_person.memberships, original_cmm
+    assert_includes original_person.memberships, plugin1_cmm
+    assert_includes original_person.memberships, plugin2_cmm
+    assert_equal 3, original_person.memberships.count
+  end
+
+  should 'increase friends_count on new friendship' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    assert_difference 'person.friends_count', 1 do
+      assert_difference 'friend.friends_count', 1 do
+        person.add_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
+  end
+
+  should 'decrease friends_count on friendship removal' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    person.add_friend(friend)
+    friend.reload
+    person.reload
+    assert_difference 'person.friends_count', -1 do
+      assert_difference 'friend.friends_count', -1 do
+        person.remove_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
+  end
 end

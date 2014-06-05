@@ -27,7 +27,7 @@ class TasksController < MyProfileController
             task.send(decision)
           rescue Exception => ex
             message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
-            failed[ex.clean_message] ? failed[ex.clean_message] << message : failed[ex.clean_message] = [message]
+            failed[ex.message] ? failed[ex.message] << message : failed[ex.message] = [message]
           end
         end
       end

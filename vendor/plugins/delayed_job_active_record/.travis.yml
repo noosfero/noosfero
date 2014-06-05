@@ -1,0 +1,28 @@
+language: ruby
+before_script:
+  - mysql -e 'create database delayed_job_test;'
+  - psql -c 'create database delayed_job_test;' -U postgres
+script: bundle exec rspec
+gemfile:
+  - gemfiles/mysql/3-0.gemfile
+  - gemfiles/mysql/3-1.gemfile
+  - gemfiles/mysql/3-2.gemfile
+  - gemfiles/mysql/4-0.gemfile
+  - gemfiles/postgresql/3-0.gemfile
+  - gemfiles/postgresql/3-1.gemfile
+  - gemfiles/postgresql/3-2.gemfile
+  - gemfiles/postgresql/4-0.gemfile
+  - gemfiles/sqlite3/3-0.gemfile
+  - gemfiles/sqlite3/3-1.gemfile
+  - gemfiles/sqlite3/3-2.gemfile
+  - gemfiles/sqlite3/4-0.gemfile
+  - gemfiles/sqlite3/4-0-protected_attributes.gemfile
+rvm:
+  - rbx-19mode
+  - jruby-19mode
+  - 1.9.3
+  - 2.0.0
+matrix:
+  allow_failures:
+    - rvm: rbx-19mode
+    - rvm: jruby-19mode

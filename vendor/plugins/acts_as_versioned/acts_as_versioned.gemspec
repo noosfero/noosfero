@@ -1,29 +1,32 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{acts_as_versioned}
-  s.version = "0.5.2"
+  s.name = "acts_as_versioned"
+  s.version = "3.2.1"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["technoweenie"]
-  s.date = %q{2009-01-20}
-  s.description = %q{TODO}
-  s.email = %q{technoweenie@bidwell.textdrive.com}
-  s.files = ["VERSION.yml", "lib/acts_as_versioned.rb", "test/abstract_unit.rb", "test/database.yml", "test/fixtures", "test/fixtures/authors.yml", "test/fixtures/landmark.rb", "test/fixtures/landmark_versions.yml", "test/fixtures/landmarks.yml", "test/fixtures/locked_pages.yml", "test/fixtures/locked_pages_revisions.yml", "test/fixtures/migrations", "test/fixtures/migrations/1_add_versioned_tables.rb", "test/fixtures/page.rb", "test/fixtures/page_versions.yml", "test/fixtures/pages.yml", "test/fixtures/widget.rb", "test/migration_test.rb", "test/schema.rb", "test/versioned_test.rb"]
-  s.has_rdoc = true
-  s.homepage = %q{http://github.com/technoweenie/acts_as_versioned}
-  s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
+  s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
+  s.authors = ["Jason Whitehorn"]
+  s.date = "2013-05-03"
+  s.description = "Active Record model versioning"
+  s.email = "jason.whitehorn@gmail.com"
+  s.extra_rdoc_files = ["README.md", "lib/acts_as_versioned.rb"]
+  s.files = ["Gemfile", "Gemfile.lock", "MIT-LICENSE", "Manifest", "README.md", "RUNNING_UNIT_TESTS", "Rakefile", "acts_as_versioned.gemspec", "acts_as_versioned_plugin.sqlite3.db", "init.rb", "lib/acts_as_versioned.rb"]
+  s.homepage = "http://github.com/jwhitehorn/acts_as_versioned"
+  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Acts_as_versioned", "--main", "README.md"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.1}
-  s.summary = %q{TODO}
+  s.rubyforge_project = "acts_as_versioned"
+  s.rubygems_version = "1.8.25"
+  s.summary = "Active Record model versioning"
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
+    s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<activerecord>, [">= 0"])
     else
+      s.add_dependency(%q<activerecord>, [">= 0"])
     end
   else
+    s.add_dependency(%q<activerecord>, [">= 0"])
   end
 end

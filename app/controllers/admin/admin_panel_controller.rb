@@ -7,6 +7,7 @@ class AdminPanelController < AdminController
   end
 
   def site_info
+    @no_design_blocks = true
     if request.post?
       if params[:environment][:languages]
         params[:environment][:languages] = params[:environment][:languages].map {|lang, value| lang if value=='true'}.compact
@@ -42,7 +43,7 @@ class AdminPanelController < AdminController
         end
         redirect_to :action => 'set_portal_folders'
       else
-        session[:notice] = __('Community not found. You must insert the identifier of a community from this environment')
+        session[:notice] = _('Community not found. You must insert the identifier of a community from this environment')
       end
     end
   end

@@ -43,7 +43,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env.save
     region = fast_create(Region, {})
 
-    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region_id => region.id }
     create_enterprise = CreateEnterprise.new(data)
 
     post :index, :create_enterprise => data
@@ -56,7 +56,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env.save
     region = fast_create(Region, {})
 
-    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region_id => region.id }
     create_enterprise = CreateEnterprise.new(data)
 
     post :index, :create_enterprise => data
@@ -193,6 +193,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
         {'plugin2' => 'Plugin 2'}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)

@@ -1,0 +1,3 @@
+.article-comments-list .comment-mark-read .comment-text, .article-comments-list .comment-mark-read h4, .article-comments-list .comment-mark-read .comment-picture {
+  opacity: 0.2;
+}

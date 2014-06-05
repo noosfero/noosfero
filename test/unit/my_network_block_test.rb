@@ -24,7 +24,7 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
         :title => 'My network',
         :owner => owner
     })
-    instance_eval(& block.content)
+    instance_eval(&block.content)
   end
 
   should 'be able to update display setting' do

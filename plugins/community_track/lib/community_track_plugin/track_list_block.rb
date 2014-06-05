@@ -34,6 +34,10 @@ class CommunityTrackPlugin::TrackListBlock < Block
     settings[:category_ids] = ids.uniq.map{|item| item.to_i unless item.to_i.zero?}.compact
   end
 
+  def categories
+    Category.find(category_ids)
+  end
+
   def all_tracks
     tracks = owner.articles.where(:type => 'CommunityTrackPlugin::Track')
     if !category_ids.empty?
@@ -44,8 +48,8 @@ class CommunityTrackPlugin::TrackListBlock < Block
 
   def content(args={})
     block = self
-    lambda do
-      render :file => 'blocks/track_list.rhtml', :locals => {:block => block}
+    proc do
+      render :file => 'blocks/track_list', :locals => {:block => block}
     end
   end
 
@@ -56,9 +60,13 @@ class CommunityTrackPlugin::TrackListBlock < Block
   def footer
     block = self
     return nil if !has_page?(2)
-    lambda do
+    proc do
       render :partial => 'blocks/track_list_more', :locals => {:block => block, :page => 2, :per_page => block.limit}
     end
+  end
+
+  def self.expire_on
+    { :profile => [:article, :category], :environment => [:article, :category] }
   end
 
 end

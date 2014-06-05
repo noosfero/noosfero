@@ -71,7 +71,9 @@ class CommentController < ApplicationController
       return
     end
 
-    @comment.save
+    if @comment.save
+      @plugins.dispatch(:process_extra_comment_params, [@comment,params])
+    end
 
     respond_to do |format|
       format.js do
@@ -113,6 +115,8 @@ class CommentController < ApplicationController
 
   def update
     if @comment.update_attributes(params[:comment])
+      @plugins.dispatch(:process_extra_comment_params, [@comment,params])
+
       respond_to do |format|
         format.js do
           comment_to_render = @comment.comment_root

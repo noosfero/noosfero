@@ -5,4 +5,4 @@ set -e
 environment="$1"
 test -z "$environment" && environment=production
 
-cd /usr/share/noosfero && su noosfero -c "./script/console $environment"
+cd /usr/share/noosfero && su noosfero -c "rails console $environment"

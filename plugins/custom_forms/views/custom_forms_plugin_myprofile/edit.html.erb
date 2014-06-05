@@ -1,2 +1,5 @@
 <h1><%= _('Edit form') %></h1>
-<%= render :partial => 'form' %>
+
+<%= form_for @form, :as => :form, :url => { :action => 'update', :id => params[:id] } do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

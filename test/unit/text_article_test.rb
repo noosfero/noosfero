@@ -33,8 +33,56 @@ class TextArticleTest < ActiveSupport::TestCase
 
   should 'return blog icon name if the article is a blog post' do
     blog = fast_create(Blog)
-    article = TextArticle.new(:parent => blog)
+    article = TextArticle.new
+    article.parent = blog
     assert_equal Blog.icon_name, TextArticle.icon_name(article)
+  end
+
+  should 'change image path to relative' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    article.body = "<img src=\"http://#{env.default_hostname}/test.png\" />"
+    article.save!
+    assert_equal "<img src=\"/test.png\" />", article.body
+  end
+
+  should 'change link to relative path' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    article.body = "<a href=\"http://#{env.default_hostname}/test\">test</a>"
+    article.save!
+    assert_equal "<a href=\"/test\">test</a>", article.body
+  end
+
+  should 'change image path to relative for domain with https' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    article.body = "<img src=\"https://#{env.default_hostname}/test.png\" />"
+    article.save!
+    assert_equal "<img src=\"/test.png\" />", article.body
+  end
+
+  should 'change image path to relative for domain with port' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\" />"
+    article.save!
+    assert_equal "<img src=\"/test.png\" />", article.body
+  end
+
+  should 'change image path to relative for domain with www' do
+    person = create_user('testuser').person
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    env.force_www = true
+    env.save!
+    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\" />"
+    article.save!
+    assert_equal "<img src=\"/test.png\" />", article.body
   end
 
 end

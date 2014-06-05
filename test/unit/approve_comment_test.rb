@@ -9,7 +9,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     @profile = create_user('test_user', :email => "someone@anyhost.com").person
     @article = fast_create(TextileArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
     @community = create(Community, :contact_email => "someone@anyhost.com")
-    @comment = @article.comments.build(:title => 'any comment', :body => "any text", :author => create_user('someperson').person)
+    @comment = build(Comment, :article => @article, :title => 'any comment', :body => "any text", :author => create_user('someperson').person)
   end
 
   attr_reader :profile, :article, :community
@@ -71,16 +71,16 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
   should 'create comment when finishing task' do
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_difference @article.comments, :count, 1 do
+    assert_difference '@article.comments.count', 1 do
       approve_comment.finish
     end
   end
 
   should 'create comment with the created_at atribute passed as parameter when finishing task' do
-    now = Time.now - 10
+    now = Time.now.in_time_zone - 10
     @comment.created_at = now
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_difference @article.comments, :count, 1 do
+    assert_difference '@article.comments.count', 1 do
       approve_comment.finish
     end
     comment = Comment.last
@@ -91,15 +91,17 @@ class ApproveCommentTest < ActiveSupport::TestCase
     task = ApproveComment.new
     task.valid?
 
-    ok('must not validate with empty target') { task.errors.invalid?(:target_id) }
+    ok('must not validate with empty target') { task.errors[:target_id.to_s].present? }
 
     task.target = Person.new
     task.valid?
-    ok('must validate when target is given') { task.errors.invalid?(:target_id)}
+    ok('must validate when target is given') { task.errors[:target_id.to_s].present?}
   end
 
   should 'send e-mails' do
-    TaskMailer.expects(:deliver_target_notification).at_least_once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
 
@@ -115,7 +117,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = ApproveComment.new(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/\[#{task.environment.name}\] #{task.requestor.name} wants to comment the article: #{task.article_name}/, email.subject)
   end
 

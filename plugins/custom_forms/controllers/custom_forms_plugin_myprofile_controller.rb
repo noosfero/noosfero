@@ -1,47 +1,53 @@
-class CustomFormsPluginMyprofileController < MyProfileController
+require 'csv'
 
+class CustomFormsPluginMyprofileController < MyProfileController
   protect 'post_content', :profile
+
   def index
     @forms = CustomFormsPlugin::Form.from(profile)
   end
 
+  def new
+    @form = CustomFormsPlugin::Form.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def create
-    @form = CustomFormsPlugin::Form.new(:profile => profile)
-    @fields = []
-    @empty_field = CustomFormsPlugin::Field.new
-    if request.post?
-      begin
-        @form.update_attributes!(params[:form])
-        params[:fields] = format_kind(params[:fields])
-        params[:fields] = format_choices(params[:fields])
-        params[:fields] = set_form_id(params[:fields], @form.id)
-        create_fields(new_fields(params))
-        session['notice'] = _('Form created')
-        redirect_to :action => 'index'
-      rescue Exception => exception
-        logger.error(exception.to_s)
-        session['notice'] = _('Form could not be created')
+    params[:form][:profile_id] = profile.id
+    @form = CustomFormsPlugin::Form.new(params[:form])
+
+    normalize_positions(@form)
+
+    respond_to do |format|
+      if @form.save
+        flash[:notice] = _("Custom form #{@form.name} was successfully created.")
+        format.html { redirect_to(:action=>'index') }
+      else
+        format.html { render :action => 'new' }
       end
     end
   end
 
   def edit
     @form = CustomFormsPlugin::Form.find(params[:id])
-    @fields = @form.fields
-    @empty_field = CustomFormsPlugin::TextField.new
-    if request.post?
-      begin
-        @form.update_attributes!(params[:form])
-        params[:fields] = format_kind(params[:fields])
-        params[:fields] = format_choices(params[:fields])
-        remove_fields(params, @form)
-        create_fields(new_fields(params))
-        update_fields(edited_fields(params))
-        session['notice'] = _('Form updated')
-        redirect_to :action => 'index'
-      rescue Exception => exception
-        logger.error(exception.to_s)
+  end
+
+  def update
+    @form = CustomFormsPlugin::Form.find(params[:id])
+    @form.attributes = params[:form]
+
+    normalize_positions(@form)
+
+    respond_to do |format|
+      if @form.save
+        flash[:notice] = _("Custom form #{@form.name} was successfully updated.")
+        format.html { redirect_to(:action=>'index') }
+      else
         session['notice'] = _('Form could not be updated')
+        format.html { render :action => 'edit' }
       end
     end
   end
@@ -60,6 +66,27 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def submissions
     @form = CustomFormsPlugin::Form.find(params[:id])
     @submissions = @form.submissions
+
+    @sort_by = params[:sort_by]
+    @submissions = @submissions.sort_by { |s| s.profile.present? ? s.profile.name : s.author_name } if @sort_by == 'author'
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        # CSV contains form fields, timestamp, user name and user email
+        columns = @form.fields.count + 3
+        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name))
+        @submissions.each do |s|
+          fields = [s.updated_at.strftime('%Y/%m/%d %T %Z'), s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
+          @form.fields.each do |f|
+            fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
+          end
+          fields = fields.flatten
+          csv_content << CSV.generate_line(fields + (columns - fields.size).times.map{""})
+        end
+        send_data csv_content, :type => 'text/csv', :filename => "#{@form.name}.csv"
+      end
+    end
   end
 
   def show_submission
@@ -67,82 +94,29 @@ class CustomFormsPluginMyprofileController < MyProfileController
     @form = @submission.form
   end
 
+  def pending
+    @form = CustomFormsPlugin::Form.find(params[:id])
+    @pendings = CustomFormsPlugin::AdmissionSurvey.from(@form.profile).pending.select {|task| task.form_id == @form.id}.map {|a| {:profile => a.target, :time => a.created_at} }
+
+    @sort_by = params[:sort_by]
+    @pendings = @pendings.sort_by { |s| s[:profile].name } if @sort_by == 'user'
+  end
+
   private
 
-  def new_fields(params)
-    keys = params[:fields].keys.sort{|a, b| a.to_i <=> b.to_i}
-    result = keys.map { |id| (hash = params[:fields][id]).has_key?(:real_id) ? nil : hash}.compact
-    result.delete_if {|field| field[:name].blank?}
-    result
-  end
-
-  def edited_fields(params)
-    params[:fields].map {|id, hash| hash.has_key?(:real_id) ? hash : nil}.compact
-  end
-
-  def create_fields(fields)
-    fields.each do |field|
-      case field[:type]
-      when 'text_field'
-        CustomFormsPlugin::TextField.create!(field)
-      when 'select_field'
-        CustomFormsPlugin::SelectField.create!(field)
-      else
-        CustomFormsPlugin::Field.create!(field)
+  def normalize_positions(form)
+    counter = 0
+    form.fields.sort_by{ |f| f.position.to_i }.each do |field|
+      field.position = counter
+      counter += 1
+    end
+    form.fields.each do |field|
+      counter = 0
+      field.alternatives.sort_by{ |alt| alt.position.to_i }.each do |alt|
+        alt.position = counter
+        counter += 1
       end
     end
   end
 
-  def update_fields(fields)
-    fields.each do |field_attrs|
-      field = CustomFormsPlugin::Field.find(field_attrs.delete(:real_id))
-      field.attributes = field_attrs
-      field.save! if field.changed?
-    end
-  end
-
-  def format_kind(fields)
-    fields.each do |id, field|
-      next if field[:kind].blank?
-      kind = field.delete(:kind)
-      case kind
-      when 'radio'
-        field[:list] = false
-        field[:multiple] = false
-      when 'check_box'
-        field[:list] = false
-        field[:multiple] = true
-      when 'select'
-        field[:list] = true
-        field[:multiple] = false
-      when 'multiple_select'
-        field[:list] = true
-        field[:multiple] = true
-      end
-    end
-    fields
-  end
-
-  def format_choices(fields)
-    fields.each do |id, field|
-      next if !field.has_key?(:choices)
-      field[:choices] = field[:choices].map {|key, value| value}.inject({}) do |result, choice| 
-        hash = (choice[:name].blank? || choice[:value].blank?) ? {} : {choice[:name] => choice[:value]}
-        result.merge!(hash)
-      end
-    end
-    fields
-  end
-
-  def remove_fields(params, form)
-    present_fields = params[:fields].map{|id, value| value}.collect {|field| field[:real_id]}.compact
-    form.fields.each {|field| field.destroy if !present_fields.include?(field.id.to_s) }
-  end
-
-  def set_form_id(fields, form_id)
-    fields.each do |id, field|
-      field[:form_id] = form_id
-    end
-    fields
-  end
 end

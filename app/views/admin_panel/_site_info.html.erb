@@ -1,0 +1,19 @@
+<%= required labelled_form_field(_('Site name'), text_field(:environment, :name)) %>
+<%= labelled_form_field(_('Contact email'), text_field(:environment, :contact_email)) %>
+<%= labelled_form_field(_('No reply email'), text_field(:environment, :noreply_email)) %>
+<% themes_options = Theme.system_themes.map {|theme| [theme.name, theme.id] }.sort %>
+<%= labelled_form_field(_('Theme'), select(:environment, :theme, options_for_select(themes_options, environment.theme))) %>
+<%= required f.text_field(:reports_lower_bound, :size => 3) %>
+<%= labelled_form_field(_('Default language'), select(:environment, :default_language, environment.locales.invert, { :selected => environment.default_locale, :include_blank => true })) %>
+<%= label_tag :languages, _('Available languages') %>
+<br />
+
+<%
+  fields = Noosfero.locales.map do |value, name|
+    labelled_check_box(name, "environment[languages][#{value}]", true, environment.available_locales.include?(value))
+  end
+%>
+<%= balanced_table(fields)%>
+
+<br />
+<%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%', :class => 'mceEditor') %>

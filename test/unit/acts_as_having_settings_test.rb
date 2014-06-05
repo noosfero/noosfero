@@ -7,6 +7,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     settings_items :flag, :type => :boolean
     settings_items :flag_disabled_by_default, :type => :boolean, :default => false
     settings_items :name, :type => :string, :default => N_('ENGLISH TEXT')
+    attr_accessible :flag, :name, :flag_disabled_by_default
   end
 
   should 'store settings in a hash' do
@@ -80,4 +81,38 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     assert obj.save
   end
 
+  should 'setting_changed be true if a setting passed as parameter was changed' do
+    obj = TestClass.new
+    obj.flag = true
+    assert obj.setting_changed? 'flag'
+  end
+
+  should 'setting_changed be false if a setting passed as parameter was not changed' do
+    obj = TestClass.new
+    assert !obj.setting_changed?('flag')
+  end
+
+  should 'setting_changed be false if a setting passed as parameter was changed with the same value' do
+    obj = TestClass.new
+    obj.flag = true
+    obj.save
+    obj.flag = true
+    assert !obj.setting_changed?('flag')
+  end
+
+  should 'setting_changed be false if a setting passed as parameter was not changed but another setting is changed' do
+    obj = TestClass.new(:name => 'some name')
+    obj.save
+    obj.name = 'antoher nme'
+    assert !obj.setting_changed?('flag')
+  end
+
+  should 'setting_changed be true for all changed fields' do
+    obj = TestClass.new(:name => 'some name', :flag => false)
+    obj.save
+    obj.name = 'another nme'
+    obj.flag = true
+    assert obj.setting_changed?('flag')
+    assert obj.setting_changed?('name')
+  end
 end

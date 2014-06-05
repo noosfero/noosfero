@@ -1,9 +1,18 @@
+require 'noosfero/multi_tenancy'
+
 class ApplicationController < ActionController::Base
+  protect_from_forgery
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
+
+  after_filter :set_csrf_cookie
+
+  def set_csrf_cookie
+    cookies['_noosfero_.XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery? && logged_in?
+  end
 
   def allow_cross_domain_access
     origin = request.headers['Origin']
@@ -21,15 +30,19 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
-    prepend_view_path('public/' + theme_path)
-    theme_option(:layout) || 'application'
-  end
+    return nil if request.format == :js or request.xhr?
 
-  filter_parameter_logging :password
+    theme_layout = theme_option(:layout)
+    if theme_layout
+      theme_view_file('layouts/'+theme_layout) || theme_layout
+    else
+     'application'
+    end
+  end
 
   def log_processing
     super
-    return unless ENV['RAILS_ENV'] == 'production'
+    return unless Rails.env == 'production'
     if logger && logger.info?
       logger.info("  HTTP Referer: #{request.referer}")
       logger.info("  User Agent: #{request.user_agent}")
@@ -60,6 +73,7 @@ class ApplicationController < ActionController::Base
     FastGettext.default_locale = environment.default_locale
     FastGettext.locale = (params[:lang] || session[:lang] || environment.default_locale || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
     I18n.locale = FastGettext.locale
+    I18n.default_locale = FastGettext.default_locale
     if params[:lang]
       session[:lang] = params[:lang]
     end
@@ -69,17 +83,23 @@ class ApplicationController < ActionController::Base
 
   attr_reader :environment
 
-  before_filter :load_terminology
-
   # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
-    verify :method => :post, :only => actions, :redirect_to => redirect
+    before_filter(:only => actions) do |controller|
+      if !controller.request.post?
+        controller.redirect_to redirect
+      end
+    end
   end
 
   helper_method :current_person, :current_person
 
   protected
+
+  def verified_request?
+    super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
+  end
 
   def setup_multitenancy
     Noosfero::MultiTenancy.setup!(request.host)
@@ -106,7 +126,10 @@ class ApplicationController < ActionController::Base
       @environment = Environment.default
       if @environment.nil? && Rails.env.development?
         # This should only happen in development ...
-        @environment = Environment.create!(:name => "Noosfero", :is_default => true)
+        @environment = Environment.new
+        @environment.name = "Noosfero"
+        @environment.is_default = true
+        @environment.save!
       end
     else
       @environment = @domain.environment
@@ -122,37 +145,15 @@ class ApplicationController < ActionController::Base
 
   include Noosfero::Plugin::HotSpot
 
+  # FIXME this filter just loads @plugins to children controllers and helpers
   def init_noosfero_plugins
-    plugins.each do |plugin|
-      prepend_view_path(plugin.class.view_path)
-    end
-    init_noosfero_plugins_controller_filters
-  end
-
-  # This is a generic method that initialize any possible filter defined by a
-  # plugin to the current controller being initialized.
-  def init_noosfero_plugins_controller_filters
-    plugins.each do |plugin|
-      filters = plugin.send(self.class.name.underscore + '_filters')
-      filters = [filters] if !filters.kind_of?(Array)
-      filters.each do |plugin_filter|
-        self.class.send(plugin_filter[:type], plugin.class.name.underscore + '_' + plugin_filter[:method_name], (plugin_filter[:options] || {}))
-        self.class.send(:define_method, plugin.class.name.underscore + '_' + plugin_filter[:method_name], plugin_filter[:block])
-      end
-    end
-  end
-
-  def load_terminology
-    # cache terminology for performance
-    @@terminology_cache ||= {}
-    @@terminology_cache[environment.id] ||= environment.terminology
-    Noosfero.terminology = @@terminology_cache[environment.id]
+    plugins
   end
 
   def render_not_found(path = nil)
     @no_design_blocks = true
     @path ||= request.path
-    render :template => 'shared/not_found.rhtml', :status => 404, :layout => get_layout
+    render :template => 'shared/not_found.html.erb', :status => 404, :layout => get_layout
   end
   alias :render_404 :render_not_found
 
@@ -160,12 +161,12 @@ class ApplicationController < ActionController::Base
     @no_design_blocks = true
     @message = message
     @title = title
-    render :template => 'shared/access_denied.rhtml', :status => 403
+    render :template => 'shared/access_denied.html.erb', :status => 403
   end
 
   def load_category
     unless params[:category_path].blank?
-      path = params[:category_path].join('/')
+      path = params[:category_path]
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)
@@ -174,7 +175,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
-    @plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
+    plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
     fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end
 

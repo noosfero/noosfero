@@ -14,11 +14,11 @@ class SpaminatorPlugin::MailerTest < ActiveSupport::TestCase
   attr_accessor :environment, :settings
 
   should 'be able to send a inactive person notification message' do
-    environment.contact_email = 'no-reply@noosfero.org'
+    environment.noreply_email = 'no-reply@noosfero.org'
     environment.save
 
     person = create_user('spammer').person
-    mail = SpaminatorPlugin::Mailer.deliver_inactive_person_notification(person)
+    mail = SpaminatorPlugin::Mailer.inactive_person_notification(person).deliver
 
     assert_equal ['spammer@noosfero.org'], mail.to
     assert_equal ['no-reply@noosfero.org'], mail.from

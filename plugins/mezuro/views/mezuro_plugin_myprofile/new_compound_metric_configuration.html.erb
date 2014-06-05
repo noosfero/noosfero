@@ -1,0 +1,44 @@
+<h2><%= @configuration_content.name %> Configuration</h2>
+
+<%= form_for :metric_configuration, :url => {:action =>"create_compound_metric_configuration", 
+:controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+  <%= hidden_field_tag :id, @configuration_content.id %>
+  <%= f.hidden_field :configuration_name, :value => @configuration_content.name %>
+
+  <% f.fields_for :metric do |m| %>
+    <p>
+      <%= m.label :name, "Name:" %>
+      <%= m.text_field "name" %>
+    </p>
+    <p>
+      <%= m.label :description, "Description:" %>
+      <%= m.text_field "description" %>
+    </p>
+    <p>
+      <%= m.label :scope, "Scope:" %>
+      <%= m.select :scope, [["Class", "CLASS"]] %>
+    </p>
+    <p>
+      <%= m.label :script, "Script:" %>
+      <%= m.text_area "script" %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.label :code, "Code:" %>
+    <%= f.text_field "code" %>
+  </p>
+  <p>
+    <%= f.label :aggregation_form, "Aggregation Form:" %>
+    <%= f.select :aggregation_form, [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
+    ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]] %>
+  </p>
+  <p>
+    <%= f.label :weight, "Weight:" %>
+    <%= f.text_field :weight %>
+  </p>
+  <p>
+    <%= f.submit "Add" %>
+  </p>
+<% end %>
+
+<%= render :partial => "metric_codes", :locals => {:metric_configurations => @metric_configurations} %>

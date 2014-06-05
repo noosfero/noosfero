@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MacrosHelperTest < ActiveSupport::TestCase
+class MacrosHelperTest < ActionView::TestCase
   include MacrosHelper
   include ApplicationHelper
   include ActionView::Helpers::FormOptionsHelper
@@ -28,6 +28,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
   end
 
   def setup
+    Noosfero::Plugin.stubs(:all).returns(['MacrosHelperTest::Plugin1'])
     @environment = Environment.default
     @environment.enable_plugin(Plugin1)
     @plugins = Noosfero::Plugin::Manager.new(@environment, self)
@@ -101,7 +102,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
         {:js_files => 'macro.js' }
       end
     end
-
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
     assert_equal "<script src=\"#{Plugin1.public_path('macro.js')}\" type=\"text/javascript\"></script>", include_macro_js_files
   end
 
@@ -127,6 +128,29 @@ class MacrosHelperTest < ActiveSupport::TestCase
     end
 
     assert_equal 'macro_generator', macro_generator(Plugin1::Macro)
+  end
+
+  should 'get macro default generator' do
+    class Plugin1::Macro < Noosfero::Plugin::Macro
+      def self.configuration
+        { :params => [] }
+      end
+    end
+    assert_nothing_raised NoMethodError do
+      assert macro_generator(Plugin1::Macro)
+    end
+  end
+
+  should 'can use a code reference as macro generator' do
+    class Plugin1::Macro < Noosfero::Plugin::Macro
+      def self.configuration
+        { :params => [], :generator => method(:macro_generator_method) }
+      end
+      def self.macro_generator_method(macro)
+        "macro generator method return"
+      end
+    end
+    assert_equal "macro generator method return", macro_generator(Plugin1::Macro)
   end
 
 end

@@ -1,5 +1,7 @@
 class ArticleBlock < Block
 
+  attr_accessible :article_id
+
   def self.description
     _('Display one of your contents')
   end
@@ -10,7 +12,7 @@ class ArticleBlock < Block
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       block_title(block.title) +
       (block.article ? article_to_html(FilePresenter.for(block.article),
           :gallery_view => false,
@@ -49,8 +51,8 @@ class ArticleBlock < Block
   end
 
   def available_articles
-    return [] if self.box.nil? or self.box.owner.nil?
-    self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
+    return [] if self.owner.nil?
+    self.owner.kind_of?(Environment) ? self.owner.portal_community.articles : self.owner.articles
   end
 
   def posts_per_page

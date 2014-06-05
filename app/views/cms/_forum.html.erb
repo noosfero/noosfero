@@ -1,0 +1,19 @@
+<%= error_messages_for 'forum' %>
+
+<h1><%= _('My Forum') %></h1>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<%= required f.text_field(:name, :size => '64', :maxlength => 150, :onchange => "updateUrlField(this, 'article_slug')") %>
+
+<%= render :partial => 'general_fields' %>
+
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64, :rows => 10)) %>
+
+<%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, Forum.posts_per_page_options)) %>
+
+<%= labelled_form_field(_('Has terms of use:'), check_box(:article, :has_terms_of_use))%>
+
+<div id="text_area_terms_of_use">
+  <%= labelled_form_field(_('Terms of use:'), text_area(:article, :terms_of_use, :class => 'mceEditor',:cols => 64, :rows => 10)) %>
+</div>

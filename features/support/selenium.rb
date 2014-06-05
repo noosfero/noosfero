@@ -21,6 +21,7 @@ Before('@ignore-hidden-elements') do
 end
 
 Capybara.default_wait_time = 30
+Capybara.server_host = "localhost"
 
 After do
   DatabaseCleaner.clean

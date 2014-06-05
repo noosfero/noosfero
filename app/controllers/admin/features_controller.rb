@@ -2,7 +2,7 @@ class FeaturesController < AdminController
   protect 'edit_environment_features', :environment
   
   def index
-    @features = Environment.available_features
+    @features = Environment.available_features.sort_by{|k,v|v}
   end
 
   post_only :update
@@ -34,9 +34,9 @@ class FeaturesController < AdminController
   def manage_enterprise_fields
     environment.custom_enterprise_fields = params[:enterprise_fields]
     if environment.save!
-      session[:notice] = __('Enterprise fields updated successfully.')
+      session[:notice] = _('Enterprise fields updated successfully.')
     else
-      flash[:error] = __('Enterprise fields not updated successfully.')
+      flash[:error] = _('Enterprise fields not updated successfully.')
     end
     redirect_to :action => 'manage_fields'
   end

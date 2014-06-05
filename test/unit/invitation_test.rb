@@ -4,11 +4,11 @@ class InvitationTest < ActiveSupport::TestCase
 
   should 'expand message' do
     invitation = Invitation.new(
-      :person => Person.new(:name => 'Sadam', :environment => Environment.new(:name => 'AnarquiaOi')),
+      :person => create_user('sadam', {}, :name => 'Sadam').person,
       :friend_name => 'Fernandinho',
       :message => 'Hi <friend>, <user> is inviting you to <environment>!'
     )
-    assert_equal 'Hi Fernandinho, Sadam is inviting you to AnarquiaOi!', invitation.expanded_message
+    assert_equal 'Hi Fernandinho, Sadam is inviting you to %s!' % Environment.default.name, invitation.expanded_message
   end
 
   should 'require subclasses implement mail_template method' do
@@ -45,7 +45,7 @@ class InvitationTest < ActiveSupport::TestCase
     person = fast_create(Person)
     person.user = User.new(:email => 'current_user@email.invalid')
 
-    assert_difference InviteFriend, :count do
+    assert_difference 'InviteFriend.count' do
       Invitation.invite(person, ['sadam@garotos.podres'], 'hello friend <url>', person)
     end
   end
@@ -55,7 +55,7 @@ class InvitationTest < ActiveSupport::TestCase
     person.user = User.new(:email => 'current_user@email.invalid')
     community = fast_create(Community)
 
-    assert_difference InviteMember, :count do
+    assert_difference 'InviteMember.count' do
       Invitation.invite(person, ['sadam@garotos.podres'], 'hello friend <url>', community)
     end
   end

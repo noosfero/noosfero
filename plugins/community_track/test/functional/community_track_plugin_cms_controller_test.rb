@@ -7,7 +7,7 @@ class CmsControllerTest < ActionController::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => 'track', :profile => @profile)
+    @track = create_track('track', @profile)
     @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
 
     user = create_user('testinguser')
@@ -37,11 +37,6 @@ class CmsControllerTest < ActionController::TestCase
     post :edit, :id => @step.id, :profile => @profile.identifier, :article => {:name => 'changed'}
     @step.reload
     assert_equal 'changed', @step.name
-  end
-
-  should 'do not be able to edit visibility of step' do
-    get :edit, :id => @step.id, :profile => @profile.identifier
-    assert_no_tag :tag => 'input', :attributes => { :name => 'article[published]' }
   end
 
 end

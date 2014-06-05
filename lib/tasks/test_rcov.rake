@@ -22,8 +22,8 @@ namespace :test do
   task :rcov do |t|
     require 'rbconfig'
 
-    tests = Dir.glob(File.join(RAILS_ROOT, 'test', '*', '*_test.rb'))
-    outdir = File.join(RAILS_ROOT, 'coverage')
+    tests = Dir.glob(Rails.root.join('test', '*', '*_test.rb'))
+    outdir = Rails.root.join('coverage')
     test_loader = File.join(Config::CONFIG['rubylibdir'], 'rake', 'rake_test_loader.rb')
 
     system("rcov", '-o', outdir, '-T', '-x', 'rubygems/*,rcov*', '--rails', '-Ilib:test', test_loader, *tests)

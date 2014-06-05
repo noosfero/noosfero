@@ -30,7 +30,7 @@ class FriendsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:friends)
+    assert assigns(:friends)
   end
 
   should 'confirm removal of friend' do
@@ -45,7 +45,7 @@ class FriendsControllerTest < ActionController::TestCase
   should 'actually remove friend' do
     profile.add_friend(friend)
 
-    assert_difference Friendship, :count, -1 do
+    assert_difference 'Friendship.count', -1 do
       post :remove, :id => friend.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
     end
@@ -68,6 +68,7 @@ class FriendsControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     e = profile.environment
     e.enable_plugin(Plugin1.name)

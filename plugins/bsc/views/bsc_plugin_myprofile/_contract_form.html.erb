@@ -1,6 +1,6 @@
 <%= error_messages_for :contract %>
 
-<% labelled_form_for :contract, @contract, :html => {:id => 'bsc-plugin-sales-form'} do |f| %>
+<%= labelled_form_for :contract, :html => {:id => 'bsc-plugin-sales-form'} do |f| %>
   <%= hidden_field_tag :contract_id, @contract.id %>
   <%= required f.text_field(:client_name) %>
   <%= labelled_form_field(_('Client type'), f.select(:client_type, BscPlugin::Contract::ClientType.types.map{|type| [BscPlugin::Contract::ClientType.names[type], type]}))%>

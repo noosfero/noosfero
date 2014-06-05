@@ -30,15 +30,15 @@ Feature: online manual
 
   Scenario: adding title on browser
     When I go to /doc
-    Then I should see "Online Manual - Colivre.net"
+    Then the page title should be "Online Manual - Colivre.net"
 
   Scenario: adding title on browser in a section
     When I go to /doc
     And I follow "User features"
-    Then I should see "User features - Online Manual - Colivre.net"
+    Then the page title should be "User features - Online Manual - Colivre.net"
 
   Scenario: adding title on browser in a topic
     When I go to /doc
     And I follow "User features"
     And I follow "Commenting articles"
-    Then I should see "Commenting articles - User features - Online Manual - Colivre.net"
+    Then the page title should be "Commenting articles - User features - Online Manual - Colivre.net"

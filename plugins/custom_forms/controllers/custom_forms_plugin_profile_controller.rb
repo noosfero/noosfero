@@ -1,31 +1,44 @@
 class CustomFormsPluginProfileController < ProfileController
-
   before_filter :has_access, :show
 
   def show
+    extend(CustomFormsPlugin::Helper)
+
     @form = CustomFormsPlugin::Form.find(params[:id])
     if user
       @submission ||= CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
-      @submission ||= CustomFormsPlugin::Submission.new(:form_id => @form.id, :profile_id => user.id)
+      @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
     else
-      @submission ||= CustomFormsPlugin::Submission.new(:form_id => @form.id)
+      @submission ||= CustomFormsPlugin::Submission.new(:form => @form)
     end
+
+    # build the answers
+    @submission.answers.push(*(answers = build_answers(params[:submission], @form))) if params[:submission]
+
     if request.post?
       begin
-        extend(CustomFormsPlugin::Helper)
-        answers = build_answers(params[:submission], @form)
+        raise 'Submission already present!' if user.present? && CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
+        raise 'Form expired!' if @form.expired?
+
+        # @submission.answers for some reason has the same answer twice
         failed_answers = answers.select {|answer| !answer.valid? }
+
         if failed_answers.empty?
-          if !user
-            @submission.author_name = params[:author_name]
-            @submission.author_email = params[:author_email]
+          # Save the submission
+          ActiveRecord::Base.transaction do
+            if !user
+              @submission.author_name = params[:author_name]
+              @submission.author_email = params[:author_email]
+            end
+            @submission.save!
           end
-          @submission.save!
-          answers.map {|answer| answer.submission = @submission; answer.save!}
         else
-          @submission.valid?
+          @submission.errors.clear
           failed_answers.each do |answer|
-            @submission.errors.add(answer.field.name.to_sym, answer.errors[answer.field.slug.to_sym])
+            answer.valid?
+            answer.errors.each do |attribute, msg|
+              @submission.errors.add(answer.field.id.to_s.to_sym, msg)
+            end
           end
           raise 'Submission failed: answers not valid'
         end

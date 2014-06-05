@@ -1,7 +1,7 @@
 if @group_comment_page == 1
-  page.replace_html "comments_list_group_#{@group_id}", :partial => 'comment/comment.rhtml', :collection => @comments
+  page.replace_html "comments_list_group_#{@group_id}", :partial => 'comment/comment.html.erb', :collection => @comments
 else
-  page.insert_html :bottom, "comments_list_group_#{@group_id}", :partial => 'comment/comment.rhtml', :collection => @comments
+  page.insert_html :bottom, "comments_list_group_#{@group_id}", :partial => 'comment/comment.html.erb', :collection => @comments
 end
 page.replace_html "comment-count-#{@group_id}", @comments_count
 

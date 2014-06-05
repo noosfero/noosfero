@@ -10,6 +10,7 @@ Feature: manage enterprises
     And the following enterprise
       | identifier | name | owner |
       | tangerine-dream | Tangerine Dream | joaosilva |
+    And feature "display_my_enterprises_on_user_menu" is enabled on environment
 
   @selenium
   Scenario: seeing my enterprises on menu

@@ -4,8 +4,6 @@ class TaskMailerTest < ActiveSupport::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
-  include ActionMailer::Quoting
-
   def setup
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -24,7 +22,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -32,7 +30,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
     task.expects(:environment).returns(environment).at_least_once
 
-    TaskMailer.deliver_task_finished(task)
+    task.send(:send_notification, :finished).deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
 
@@ -47,7 +45,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -55,7 +53,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
     task.expects(:environment).returns(environment).at_least_once
 
-    TaskMailer.deliver_task_cancelled(task)
+    task.send(:send_notification, :cancelled).deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
 
@@ -71,7 +69,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -79,15 +77,17 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
     task.expects(:environment).returns(environment).at_least_once
 
-    TaskMailer.deliver_task_created(task)
+    task.send(:send_notification, :created).deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "target notification" message' do
-    task = Task.new(:target => fast_create(Person))
+    requestor = fast_create(Person)
+    requestor.expects(:notification_emails).returns(['requestor@example.com'])
+    task = Task.new(:target => requestor)
     task.expects(:target_notification_description).returns('the task')
 
-    TaskMailer.deliver_target_notification(task, 'the message')
+    TaskMailer.target_notification(task, 'the message').deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
 
@@ -105,7 +105,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.stubs(:public_profile_url).returns('requestor_path')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -114,21 +114,21 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(environment).at_least_once
     task.expects(:environment).returns(environment).at_least_once
 
-    mail = TaskMailer.create_invitation_notification(task)
+    mail = TaskMailer.invitation_notification(task)
 
     assert_match(/#{task.target_notification_description}/, mail.subject)
 
-    assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body
+    assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body.to_s
     
-    TaskMailer.deliver(mail)
+    mail.deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  should 'use environment name and contact email' do
+  should 'use environment name and no-reply email' do
     task = mock
     environment = mock
     environment.expects(:name).returns('My name')
-    environment.expects(:contact_email).returns('email@example.com')
+    environment.expects(:noreply_email).returns('email@example.com')
 
     task.expects(:environment).returns(environment).at_least_once
 

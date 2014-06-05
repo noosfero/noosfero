@@ -1,0 +1,12 @@
+<%= error_messages_for :status %>
+
+<%= form_for :status do |f| %>
+  <%= required_fields_message %>
+
+  <%= labelled_form_field(_('Status'), f.select(:status_id, @statuses.map{|s|[s.name,s.id]}))  %>
+  <%= labelled_form_field(_('Reason:'), f.text_area(:reason, :rows => 5)) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save') ) %>
+  <% end %>
+<% end %>

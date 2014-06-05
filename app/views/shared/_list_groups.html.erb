@@ -7,7 +7,7 @@
     <span class='profile-details'>
       <strong><%= group.name %></strong><br/>
       <%= _('Role: %s') % rolename_for(profile, group) + '<br/>' if profile.role_assignments.find_by_resource_id(group.id) %>
-      <%= _('Type: %s') % getterm(group.class.identification) %> <br/>
+      <%= _('Type: %s') % _(group.class.identification) %> <br/>
       <%= _('Description: %s') % group.description  + '<br/>' if group.community? %>
       <%= _('Members: %s') % group.members_count.to_s %> <br/>
       <%= _('Created at: %s') % show_date(group.created_at) unless group.enterprise? %> <br/>

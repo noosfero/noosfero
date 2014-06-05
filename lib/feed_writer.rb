@@ -1,6 +1,6 @@
 class FeedWriter
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
 
   def write(articles, options = {})
     result = ""

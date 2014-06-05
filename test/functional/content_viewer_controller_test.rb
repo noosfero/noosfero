@@ -72,9 +72,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => 'someone', :page => [ '500.html' ]
 
     assert_response :success
-    assert_match /^text\/html/, @response.headers['Content-Type']
-    assert @response.headers['Content-Disposition'].present?
-    assert_match /attachment/, @response.headers['Content-Disposition']
+    assert_match /#{html.public_filename}/, @response.body
   end
 
   should 'produce a download-link when article is not text/html' do
@@ -122,7 +120,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!(:public_content => false)
+    profile.update_attributes!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -131,7 +129,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display allowed articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!(:public_content => false)
+    profile.update_attributes!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(true)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -169,7 +167,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'show private content to profile moderators' do
@@ -250,7 +248,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not give access to private articles if logged in but not member' do
@@ -260,7 +258,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not give access to private articles if logged in and only member' do
@@ -272,7 +270,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'give access to private articles if logged in and moderator' do
@@ -330,20 +328,20 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'redirect to new article path under an old path' do
     p = create_user('test_user').person
     a = p.articles.create(:name => 'old-name')
-    old_path = a.explode_path
+    old_path = a.path
     a.name = 'new-name'
     a.save!
 
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a.path
   end
 
   should 'load new article name equal of another article old name' do
     p = create_user('test_user').person
     a1 = p.articles.create!(:name => 'old-name')
-    old_path = a1.explode_path
+    old_path = a1.path
     a1.name = 'new-name'
     a1.save!
     a2 = p.articles.create!(:name => 'old-name')
@@ -356,7 +354,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'redirect to article with most recent version with the name if there is no article with the name' do
     p = create_user('test_user').person
     a1 = p.articles.create!(:name => 'old-name')
-    old_path = a1.explode_path
+    old_path = a1.path
     a1.name = 'new-name'
     a1.save!
     a2 = p.articles.create!(:name => 'old-name')
@@ -366,13 +364,50 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.path
+  end
+
+  should "display current article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'test article', :display_versions => true, :profile => profile)
+    page.body = 'test article edited'; page.save
+
+    get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_select "ul#article-versions a[href=http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1]"
+  end
+
+  should "fetch correct article version" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /original article/
+  end
+
+  should "display current article if version does not exist" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
+  end
+
+  should "display differences between article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :versions_diff, :profile => profile.identifier, :page => [ 'myarticle' ], :v1 => 1, :v2 => 2;
+
+    assert_tag :tag => 'li', :attributes => { :class => /del/ }, :content => /original/
+    assert_tag :tag => 'li', :attributes => { :class => /ins/ }, :content => /edited/
+    assert_response :success
   end
 
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')
-    old_path = a.explode_path
+    old_path = a.path
     a.name = 'new-name'
     a.save!
 
@@ -384,7 +419,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'not show a profile in an environment that is not its home environment' do
-    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
+    p = create(Profile, :identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
 
     current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
@@ -458,7 +493,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = Blog.create!(:name => "blog", :profile => profile)
     profile.articles << blog
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :published_at => blog.created_at - 1.year)
+    past_post = create(TextileArticle, :name => "past post", :profile => profile, :parent => blog, :published_at => blog.created_at - 1.year)
     current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => blog)
     blog.children << past_post
     blog.children << current_post
@@ -514,7 +549,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not display delete button for homepage' do
     login_as(profile.identifier)
     page = profile.home_page
-    xhr :get, :view_page, :profile => profile.identifier, :page => page.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => page.path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
   end
 
@@ -542,24 +577,16 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render html for image when view' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
+    get :view_page, :profile => profile.identifier, :page => file.path, :view => true
 
     assert_response :success
     assert_template 'view_page'
   end
 
-  should 'download data for image when not view' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => file.explode_path
-
-    assert_response :success
-    assert_template nil
-  end
-
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)
-    xhr :get, :view_page, :profile => profile.identifier, :page => f.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => f.path, :toolbar => true
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
@@ -568,7 +595,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     folder1 = Gallery.create!(:name => 'gallery1', :profile => profile)
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
-    xhr :get, :view_page, :profile => profile.identifier, :page => folder2.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => folder2.path, :toolbar => true
     assert_tag :tag => 'a', :content => 'New article', :attributes => {:href =>/parent_id=#{folder2.id}/}
   end
 
@@ -576,14 +603,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    xhr :get, :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => file.path, :view => true, :toolbar => true
 
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
   end
 
   should 'render slideshow template' do
     f = Folder.create!(:name => 'gallery', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => f.explode_path, :slideshow => true
+    get :view_page, :profile => profile.identifier, :page => f.path, :slideshow => true
 
     assert_template 'slideshow'
   end
@@ -595,10 +622,33 @@ class ContentViewerControllerTest < ActionController::TestCase
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+    get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
     assert_equal 2, assigns(:images).size
   end
+
+  should 'not display private images in the slideshow for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.path, :slideshow => true
+    assert_response :success
+    assert_equal 0, assigns(:images).length
+  end
+
+  should 'not display private images thumbnails for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.path
+    assert_response :success
+    assert_select '.image-gallery-item', 0
+  end   
+  
 
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
@@ -606,7 +656,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+    get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
     assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
   end
@@ -618,7 +668,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
     process_delayed_job_queue
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+    get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
     assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
   end
@@ -629,7 +679,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+    get :view_page, :profile => profile.identifier, :page => folder.path
 
     assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
   end
@@ -641,7 +691,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
     process_delayed_job_queue
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+    get :view_page, :profile => profile.identifier, :page => folder.path
 
     assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(.*\/other-pic_thumb.jpg\)/}
   end
@@ -667,7 +717,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should "not display 'Upload files' when viewing blog" do
     login_as(profile.identifier)
     b = Blog.create!(:name => 'article folder', :profile => profile)
-    xhr :get, :view_page, :profile => profile.identifier, :page => b.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => b.path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -675,7 +725,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     b = Blog.create!(:name => 'article folder', :profile => profile)
     blog_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
-    xhr :get, :view_page, :profile => profile.identifier, :page => blog_post.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => blog_post.path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -684,17 +734,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     folder = fast_create(Gallery, :profile_id => profile.id)
     file = UploadedFile.create!(:title => 'my img title', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
-
-    assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
-  end
-
-  should 'not allow html on title of the images' do
-    login_as(profile.identifier)
-    folder = fast_create(Gallery, :profile_id => profile.id)
-    file = UploadedFile.create!(:title => '<b>my img title</b>', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+    get :view_page, :profile => profile.identifier, :page => folder.path
 
     assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
   end
@@ -703,9 +743,9 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => u, :published => false)
+    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => u, :published => false)
 
-    get :view_page, :profile => c.identifier, :page => a.explode_path
+    get :view_page, :profile => c.identifier, :page => a.path
 
     assert_response :success
     assert_template 'view_page'
@@ -715,9 +755,9 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => profile, :published => true)
+    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => profile, :published => true)
 
-    xhr :get, :view_page, :profile => c.identifier, :page => a.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => c.identifier, :page => a.path, :toolbar => true
 
     assert_tag :tag => 'a', :content => 'New article'
   end
@@ -728,7 +768,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.create(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(')
     to_be_removed.destroy
 
-    get :view_page, :profile => profile.identifier, :page => article.explode_path
+    get :view_page, :profile => profile.identifier, :page => article.path
 
     assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
   end
@@ -740,7 +780,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     blog.posts << TinyMceArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> Anything')
 
-    get :view_page, :profile => profile.identifier, :page => blog.explode_path
+    get :view_page, :profile => profile.identifier, :page => blog.path
 
     assert_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Content to be displayed./
     assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
@@ -749,7 +789,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'display link to edit blog for allowed' do
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     login_as(profile.identifier)
-    xhr :get, :view_page, :profile => profile.identifier, :page => blog.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => blog.path, :toolbar => true
     assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
   end
 
@@ -824,7 +864,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     forum = Forum.create!(:name => "forum", :profile => profile)
     profile.articles << forum
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :published_at => forum.created_at - 1.year)
+    past_post = create(TextileArticle, :name => "past post", :profile => profile, :parent => forum, :published_at => forum.created_at - 1.year)
     current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => forum)
     forum.children << past_post
     forum.children << current_post
@@ -872,7 +912,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should "not display 'Upload files' when viewing forum" do
     login_as(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
-    xhr :get, :view_page, :profile => profile.identifier, :page => b.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => b.path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -880,35 +920,35 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
     forum_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
-    xhr :get, :view_page, :profile => profile.identifier, :page => forum_post.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => forum_post.path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should 'display link to edit forum for allowed' do
     forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
     login_as(profile.identifier)
-    xhr :get, :view_page, :profile => profile.identifier, :page => forum.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => forum.path, :toolbar => true
     assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
   end
 
   should 'display add translation link if article is translatable' do
     login_as @profile.identifier
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
-    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
-    assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&amp;type=#{TextileArticle}" }
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.path, :toolbar => true
+    assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&type=#{TextileArticle}" }
   end
 
   should 'not display add translation link if article is not translatable' do
     login_as @profile.identifier
     blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
-    xhr :get, :view_page, :profile => @profile.identifier, :page => blog.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => @profile.identifier, :page => blog.path, :toolbar => true
     assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'not display add translation link if article hasnt a language defined' do
     login_as @profile.identifier
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile')
-    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.path, :toolbar => true
     assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
@@ -916,7 +956,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as @profile.identifier
     textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
-    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.path, :toolbar => true
     assert_tag :a, :attributes => { :class => /article-translations-menu/, :onmouseover => /toggleSubmenu/ }
   end
 
@@ -925,7 +965,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
     @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
     FastGettext.stubs(:locale).returns('es')
-    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    get :view_page, :profile => @profile.identifier, :page => es_article.path
     assert_response :success
     assert_equal es_article, assigns(:page)
   end
@@ -933,7 +973,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not be redirected if article does not have a language' do
     FastGettext.stubs(:locale).returns('es')
     article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'article')
-    get :view_page, :profile => @profile.identifier, :page => article.explode_path
+    get :view_page, :profile => @profile.identifier, :page => article.path
     assert_response :success
     assert_equal article, assigns(:page)
   end
@@ -943,7 +983,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
     @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
     FastGettext.stubs(:locale).returns('es')
-    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    get :view_page, :profile => @profile.identifier, :page => en_article.path
     assert_response :success
     assert_equal en_article, assigns(:page)
   end
@@ -953,7 +993,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
     FastGettext.stubs(:locale).returns('es')
     @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/edit/#{en_article.id}"
-    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    get :view_page, :profile => @profile.identifier, :page => es_article.path
     assert_response :success
     assert_equal es_article, assigns(:page)
   end
@@ -963,7 +1003,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
     FastGettext.stubs(:locale).returns('es')
     @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/new"
-    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    get :view_page, :profile => @profile.identifier, :page => es_article.path
     assert_response :success
     assert_equal es_article, assigns(:page)
   end
@@ -976,7 +1016,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
 
-    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    get :view_page, :profile => @profile.identifier, :page => blog.path
     assert_tag :div, :attributes => { :id => "post-#{es_article.id}" }
     assert_no_tag :div, :attributes => { :id => "post-#{en_article.id}" }
   end
@@ -994,7 +1034,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article2 = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article2)
 
 
-    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    get :view_page, :profile => @profile.identifier, :page => blog.path
 
     assert_equal [pt_article], assigns(:posts)
   end
@@ -1019,7 +1059,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
     blog.posts = [en_article, es_article]
 
-    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    get :view_page, :profile => @profile.identifier, :page => blog.path
     assert_equal [es_article], assigns(:posts)
   end
 
@@ -1028,7 +1068,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     article = profile.articles.build(:name => 'test')
     article.save!
     Comment.destroy_all
-    comment = Comment.create!(:author => profile, :title => 'a comment', :body => 'lalala', :article => article)
+    comment = article.comments.create!(:author => profile, :title => 'a comment', :body => 'lalala')
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
@@ -1157,6 +1197,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_remove_edit(content); false; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1173,6 +1214,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_expire_edit(content); nil; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1206,18 +1248,19 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'add extra content on comment form from plugins' do
     class Plugin1 < Noosfero::Plugin
       def comment_form_extra_contents(args)
-        lambda {
+        proc {
           hidden_field_tag('comment[some_field_id]', 1)
          }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def comment_form_extra_contents(args)
-        lambda {
+        proc {
           hidden_field_tag('comment[another_field_id]', 1)
          }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -1242,6 +1285,7 @@ class ContentViewerControllerTest < ActionController::TestCase
         scope.where(:referrer => 'kernel.org')
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -1283,11 +1327,78 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     assert_tag :tag => 'strong', :content => /bold/
   end
+  
+  should 'add extra content on article header from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        proc {
+          content_tag('div', '', :class => 'plugin1')
+         }
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        proc {
+          content_tag('div', '', :class => 'plugin2')
+         }
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    xhr :get, :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :toolbar => true
+
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin1'}
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin2'}
+  end
 
   should 'display link to download of non-recognized file types on its page' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
-    get :view_page, file.url.merge(:view=>:true)
-    assert_match /this is a sample text file/, @response.body
+    get :view_page, file.url
+    assert_match /#{file.public_filename}/, @response.body
+  end
+
+  should 'not count hit from bots' do
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_no_difference 'article.hits' do
+      @request.env['HTTP_USER_AGENT'] = 'bot'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'spider'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'crawler'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = '(http://some-crawler.com)'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      article.reload
+    end
+  end
+
+  should 'add meta tags with article info' do
+    a = TinyMceArticle.create(:name => 'Article to be shared', :body => 'This article should be shared with all social networks', :profile => profile)
+
+    get :view_page, :profile => profile.identifier, :page => [ a.name.to_slug ]
+
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:title', :content => /#{a.name} - #{a.profile.name}/ }
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:description', :content => a.body }
+    assert_no_tag :tag => 'meta', :attributes => { :name => 'twitter:image' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:type', :content => 'article' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:url', :content => /\/#{profile.identifier}\/#{a.name.to_slug}/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:title', :content => /#{a.name} - #{a.profile.name}/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:site_name', :content => a.profile.name }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:description', :content => a.body }
+    assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
+  end
+
+  should 'add meta tags with article images' do
+    a = TinyMceArticle.create(:name => 'Article to be shared with images', :body => 'This article should be shared with all social networks <img src="/images/x.png" />', :profile => profile)
+
+    get :view_page, :profile => profile.identifier, :page => [ a.name.to_slug ]
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:image', :content => /\/images\/x.png/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:image', :content => /\/images\/x.png/  }
   end
 
 end

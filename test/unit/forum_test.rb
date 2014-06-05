@@ -34,14 +34,14 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'save feed options' do
     p = create_user('testuser').person
-    p.articles << forum = Forum.new(:profile => p, :name => 'forum_feed_test', :body => 'Forum test')
+    p.articles << forum = build(Forum, :profile => p, :name => 'forum_feed_test', :body => 'Forum test')
     p.forum.feed = { :limit => 7 }
     assert_equal 7, Forum.find(forum.id).feed.limit
   end
 
   should 'save feed options after create forum' do
     p = create_user('testuser').person
-    p.articles << forum = Forum.new(:profile => p, :name => 'forum_feed_test', :body => 'Forum test', :feed => { :limit => 7 })
+    p.articles << forum = build(Forum, :profile => p, :name => 'forum_feed_test', :body => 'Forum test', :feed => { :limit => 7 })
     assert_equal 7, Forum.find(forum.id).feed.limit
   end
 
@@ -52,7 +52,7 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'update posts per page setting' do
     p = create_user('testuser').person
-    p.articles << forum = Forum.new(:profile => p, :name => 'Forum test', :body => 'Forum test')
+    p.articles << forum = build(Forum, :profile => p, :name => 'Forum test', :body => 'Forum test')
     forum.posts_per_page = 7
     assert forum.save!
     assert_equal 7, Forum.find(forum.id).posts_per_page
@@ -60,7 +60,7 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'has posts' do
     p = create_user('testuser').person
-    p.articles << forum = Forum.new(:profile => p, :name => 'Forum test', :body => 'Forum test')
+    p.articles << forum = build(Forum, :profile => p, :name => 'Forum test', :body => 'Forum test')
     post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
     forum.children << post
     assert_includes forum.posts, post
@@ -88,16 +88,17 @@ class ForumTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
     assert_nothing_raised ActiveRecord::RecordInvalid do
-      Forum.create!(:name => 'Another Forum', :profile => p, :body => 'Forum test')
+      create(Forum, :name => 'Another Forum', :profile => p, :body => 'Forum test')
     end
   end
 
   should 'not update slug from name for existing forum' do
     p = create_user('testuser').person
-    forum = Forum.create(:name => 'Forum test', :profile_id => p.id, :body => 'Forum')
-    assert_equal 'forum-test', forum.slug
-    forum.name = 'Changed name'
-    assert_not_equal 'changed-name', forum.slug
+    forum = create(Forum, :name => 'Forum test', :profile_id => p.id, :body => 'Forum')
+    new_name = 'Changed name'
+    assert_not_equal new_name.to_slug, forum.slug
+    forum.name = new_name
+    assert_not_equal new_name.to_slug, forum.slug
   end
 
   should 'have posts' do
@@ -131,6 +132,46 @@ class ForumTest < ActiveSupport::TestCase
   should 'provide first_paragraph even if body is nil' do
     f = fast_create(Forum, :body => nil)
     assert_equal '', f.first_paragraph
+  end
+
+  should 'include user that changes a forum as agreed with terms' do
+    author = fast_create(Person)
+    editor = fast_create(Person)
+    forum = create(Forum, :profile => author, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true, :last_changed_by => author)
+    forum.last_changed_by = editor
+    forum.save
+
+    assert_equivalent [author, editor], forum.users_with_agreement
+  end
+
+  should 'not crash if forum has terms and last_changed does not exist' do
+    profile = fast_create(Person)
+    forum = Forum.create(:profile => profile, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+
+    assert_equal [], forum.users_with_agreement
+  end
+
+  should 'agree with terms if forum doesn\'t have terms' do
+    person = fast_create(Person)
+    forum = fast_create(Forum)
+
+    assert_equal true, forum.agrees_with_terms?(person)
+  end
+
+  should 'not agree with terms if user is logged in but did not accept it' do
+    person = fast_create(Person)
+    forum = Forum.create(:profile => person, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+
+    assert_equal false, forum.agrees_with_terms?(person)
+  end
+
+  should 'agree with terms if user is logged in and accept it' do
+    person = fast_create(Person)
+    forum = Forum.create(:profile => person, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+    forum.users_with_agreement << person
+    forum.save
+
+    assert_equal true, Forum.find(forum.id).agrees_with_terms?(person)
   end
 
 end

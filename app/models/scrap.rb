@@ -1,4 +1,7 @@
 class Scrap < ActiveRecord::Base
+
+  attr_accessible :content, :sender_id, :receiver_id, :scrap_id
+
   SEARCHABLE_FIELDS = {
     :content => 1,
   }
@@ -10,20 +13,28 @@ class Scrap < ActiveRecord::Base
   has_many :replies, :class_name => 'Scrap', :foreign_key => 'scrap_id', :dependent => :destroy
   belongs_to :root, :class_name => 'Scrap', :foreign_key => 'scrap_id'
 
-  named_scope :all_scraps, lambda {|profile| {:conditions => ["receiver_id = ? OR sender_id = ?", profile, profile], :limit => 30}}
+  scope :all_scraps, lambda {|profile| {:conditions => ["receiver_id = ? OR sender_id = ?", profile, profile], :limit => 30}}
 
-  named_scope :not_replies, :conditions => {:scrap_id => nil}
+  scope :not_replies, :conditions => {:scrap_id => nil}
 
-  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.receiver != s.sender}, :custom_target => :action_tracker_target 
+  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target
 
-  track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.receiver == s.sender}
+  track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}
+
+  track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}
 
   after_create do |scrap|
     scrap.root.update_attribute('updated_at', DateTime.now) unless scrap.root.nil?
-    Scrap::Notifier.deliver_mail(scrap) if scrap.send_notification?
+    Scrap::Notifier.notification(scrap).deliver if scrap.send_notification?
   end
 
   before_validation :strip_all_html_tags
+
+  def top_root
+    scrap = self
+    scrap = Scrap.find(scrap.scrap_id) while scrap.scrap_id
+    scrap
+  end
 
   def strip_all_html_tags
     sanitizer = HTML::WhiteListSanitizer.new
@@ -44,23 +55,6 @@ class Scrap < ActiveRecord::Base
 
   def send_notification?
     sender != receiver && (is_root? ? root.receiver.receives_scrap_notification? : receiver.receives_scrap_notification?)
-  end
-
-  class Notifier < ActionMailer::Base
-    def mail(scrap)
-      sender, receiver = scrap.sender, scrap.receiver
-      recipients receiver.email
-
-      from "#{sender.environment.name} <#{sender.environment.contact_email}>"
-      subject _("[%s] You received a scrap!") % [sender.environment.name]
-      body :recipient => receiver.name,
-        :sender => sender.name,
-        :sender_link => sender.url,
-        :scrap_content => scrap.content,
-        :wall_url => scrap.scrap_wall_url,
-        :environment => sender.environment.name,
-        :url => sender.environment.top_url
-    end
   end
 
 end

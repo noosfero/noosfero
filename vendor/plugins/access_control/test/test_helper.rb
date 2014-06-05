@@ -5,7 +5,7 @@ require 'test/unit'
 require 'mocha'
 
 # from Rails
-require 'test_help'
+require 'rails/test_help'
 
 # load the database schema for the tests
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
@@ -18,6 +18,7 @@ RoleAssignment.set_table_name 'access_control_test_role_assignments'
 class AccessControlTestAccessor < ActiveRecord::Base
   set_table_name 'access_control_test_accessors'
   acts_as_accessor
+  attr_accessible :name
   def cache_keys(arg)
     []
   end
@@ -31,6 +32,8 @@ class AccessControlTestResource < ActiveRecord::Base
   set_table_name 'access_control_test_resources'
   acts_as_accessible  
   PERMISSIONS[self.class.name] = {'bla' => N_('Bla')}
+
+  attr_accessible :name
 end
 
 # controller to test protection

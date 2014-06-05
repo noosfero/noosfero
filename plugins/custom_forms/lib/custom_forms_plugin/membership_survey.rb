@@ -5,11 +5,29 @@ class CustomFormsPlugin::MembershipSurvey < Task
 
   include CustomFormsPlugin::Helper
 
+  scope :from, lambda {|profile| {:conditions => {:requestor_id => profile.id}}}
+
   def perform
     form = CustomFormsPlugin::Form.find(form_id)
+    raise 'Form expired' if form.expired?
+
     answers = build_answers(submission, form)
     s = CustomFormsPlugin::Submission.create!(:form => form, :profile => target)
-    answers.map {|answer| answer.submission = s; answer.save!}
+    s.answers.push(*answers)
+
+    failed_answers = answers.select {|answer| !answer.valid? }
+    if failed_answers.empty?
+      s.save!
+    else
+      s.errors.clear
+      answers.each do |answer|
+        answer.valid?
+        answer.errors.each do |attribute, msg|
+          s.errors.add(answer.field.id.to_s.to_sym, msg)
+        end
+      end
+      raise ActiveRecord::RecordInvalid, s
+    end
   end
 
   def title

@@ -1,5 +1,7 @@
 class Block < ActiveRecord::Base
 
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user, :box
+
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
@@ -14,7 +16,24 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
-  named_scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, :conditions => { :enabled => true }
+
+  def embedable?
+    false
+  end
+
+  def embed_code
+    me = self
+    proc do
+      content_tag('iframe', '',
+        :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
+        :frameborder => 0,
+        :width => 1024,
+        :height => 768,
+        :class => "embed block #{me.class.name.to_css_class}"
+      )
+    end
+  end
 
   # Determines whether a given block must be visible. Optionally a
   # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and
@@ -22,29 +41,46 @@ class Block < ActiveRecord::Base
   #
   # * <tt>:article</tt>: the article being viewed currently
   # * <tt>:language</tt>: in which language the block will be displayed
+  # * <tt>:user</tt>: the logged user
   def visible?(context = nil)
-    if display == 'never'
-      return false
-    end
+    return false if display == 'never'
+
     if context
-      if language != 'all' && language != context[:locale]
-        return false
-      end
-      if display == 'home_page_only'
-        if context[:article]
-          return context[:article] == owner.home_page
-        else
-          return context[:request_path] == '/'
-        end
-      elsif display == 'except_home_page'
-        if context[:article]
-          return context[:article] != owner.home_page
-        else
-          return context[:request_path] != '/' + owner.identifier
-        end
+      return false if language != 'all' && language != context[:locale]
+      return false unless display_to_user?(context[:user])
+
+      begin
+        return self.send("display_#{display}", context)
+      rescue NoMethodError => exception
+        raise "Display '#{display}' is not a valid value."
       end
     end
+
     true
+  end
+
+  def display_to_user?(user)
+    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged')
+  end
+
+  def display_always(context)
+    true
+  end
+
+  def display_home_page_only(context)
+    if context[:article]
+      return context[:article] == owner.home_page
+    else
+      return context[:request_path] == '/'
+    end
+  end
+
+  def display_except_home_page(context)
+    if context[:article]
+      return context[:article] != owner.home_page
+    else
+      return context[:request_path] != '/' + (owner.kind_of?(Profile) ? owner.identifier : '')
+    end
   end
 
   # The condition for displaying a block. It can assume the following values:
@@ -56,6 +92,14 @@ class Block < ActiveRecord::Base
   # * <tt>'except_home_page'</tt> the block is displayed only when viewing
   #   the homepage of its owner.
   settings_items :display, :type => :string, :default => 'always'
+
+
+  # The condition for displaying a block to users. It can assume the following values:
+  #
+  # * <tt>'all'</tt>: the block is always displayed
+  # * <tt>'logged'</tt>: the block is displayed to logged users only
+  # * <tt>'not_logged'</tt>: the block is displayed only to not logged users
+  settings_items :display_user, :type => :string, :default => 'all'
 
   # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
   #
@@ -130,7 +174,7 @@ class Block < ActiveRecord::Base
   end
 
   alias :active_record_cache_key :cache_key
-  def cache_key(language='en')
+  def cache_key(language='en', user=nil)
     active_record_cache_key+'-'+language
   end
 
@@ -151,6 +195,39 @@ class Block < ActiveRecord::Base
       :profile => [],
       :environment => []
     }
+  end
+
+  DISPLAY_OPTIONS = {
+    'always'           => _('In all pages'),
+    'home_page_only'   => _('Only in the homepage'),
+    'except_home_page' => _('In all pages, except in the homepage'),
+    'never'            => _('Don\'t display'),
+  }
+
+  def display_options_available
+    DISPLAY_OPTIONS.keys
+  end
+
+  def display_options
+    DISPLAY_OPTIONS.slice(*display_options_available)
+  end
+
+  def display_user_options
+    @display_user_options ||= {
+      'all'            => _('All users'),
+      'logged'         => _('Logged'),
+      'not_logged'     => _('Not logged'),
+    }
+  end
+
+  def duplicate
+    duplicated_block = self.dup
+    duplicated_block.display = 'never'
+    duplicated_block.created_at = nil
+    duplicated_block.updated_at = nil
+    duplicated_block.save!
+    duplicated_block.insert_at(self.position + 1)
+    duplicated_block
   end
 
 end

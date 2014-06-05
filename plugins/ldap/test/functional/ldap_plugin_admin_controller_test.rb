@@ -7,10 +7,6 @@ class LdapPluginAdminController; def rescue_action(e) raise e end; end
 class LdapPluginAdminControllerTest < ActionController::TestCase
 
   def setup
-    @controller = LdapPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @environment = Environment.default
     user_login = create_admin_user(@environment)
     login_as(user_login)
@@ -33,7 +29,7 @@ class LdapPluginAdminControllerTest < ActionController::TestCase
     @environment.save
     assert_nil @environment.ldap_plugin_host
     post :update, :environment => { :ldap_plugin_host => 'http://something' }
-    assert_equal 'Ldap configuration updated successfully.', @response.session[:notice]
+    assert_equal 'Ldap configuration updated successfully.', @request.session[:notice]
   end
 
   should 'wrong ldap update display a message unsuccessfully' do
@@ -41,7 +37,7 @@ class LdapPluginAdminControllerTest < ActionController::TestCase
     @environment.save
     assert_nil @environment.ldap_plugin_host
     post :update, :environment => { :ldap_plugin_host => '' }
-    assert_equal 'Ldap configuration could not be saved.', @response.session[:notice]
+    assert_equal 'Ldap configuration could not be saved.', @request.session[:notice]
   end
 
   should 'update ldap successfully render index template' do

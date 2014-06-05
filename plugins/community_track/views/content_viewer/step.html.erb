@@ -1,0 +1,28 @@
+<div id="step">
+  <div class="event-info">
+    <ul class="event-data">
+      <li class="event-dates">
+        <span><%= _('When:') %></span><%= show_period(step.start_date, step.end_date) %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <%= step.body %>
+  </div>
+  <% if step.allow_create?(user) && !step.tool && step.tool_class %>
+    <h3><%= _("Tool") %></h3>
+    <div class="actions">
+      <a href="<%= url_for({:controller => 'cms', :action => 'new', :type => step.tool_type.constantize, :parent_id => @page}) %>" class="button with-text icon-new icon-new<%= step.tool_class.icon_name %>"><%= _('Create %s' % step.tool_class.short_description) %></a>
+    </div>
+  <% end %>
+  <% if step.tool %>
+    <h3><%= _("Tool") %></h3>
+    <div class="tools">
+      <div class="item">
+        <div class="name">
+          <%= link_to(step.tool.name, step.tool.view_url, :class=>"button with-text icon-new icon-new#{step.tool.class.icon_name}") %>
+          </div>
+        </div>
+    </div>
+  <% end %>
+</div>

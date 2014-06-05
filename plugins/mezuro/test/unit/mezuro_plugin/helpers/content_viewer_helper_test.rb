@@ -1,6 +1,6 @@
 require "test_helper"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_snapshot_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_metric_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/metric_configuration_snapshot_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/date_metric_result_fixtures"
 
 class ContentViewerHelperTest < ActiveSupport::TestCase
 
@@ -28,7 +28,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
   end
 
   should 'create the license options array' do
-   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
+   options = YAML.load_file("#{Rails.root}/plugins/mezuro/licenses.yml")
    options = options.split("; ")
    assert_equal options, @helper.license_options
   end

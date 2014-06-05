@@ -4,6 +4,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   
   def setup
     @profile = create_user('testing').person
+    ActionTracker::Record.stubs(:current_user_from_model).returns(fast_create(Person))
   end
   attr_reader :profile
 
@@ -16,7 +17,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should 'convert Textile to HTML' do
-    assert_equal '<p><strong>my text</strong></p>', TextileArticle.new(:body => '*my text*').to_html
+    assert_equal '<p><strong>my text</strong></p>', build(TextileArticle, :body => '*my text*').to_html
   end
 
   should 'accept empty body' do
@@ -34,17 +35,17 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'notify activity on create' do
     ActionTracker::Record.delete_all
-    TextileArticle.create! :name => 'test', :profile_id => fast_create(Profile).id, :published => true
+    create TextileArticle, :name => 'test', :profile_id => fast_create(Profile).id, :published => true
     assert_equal 1, ActionTracker::Record.count
   end
 
   should 'not group trackers activity of article\'s creation' do
-    ActionTracker::Record.delete_all
     profile = fast_create(Profile)
-    TextileArticle.create! :name => 'bar', :profile_id => profile.id, :published => true
-    TextileArticle.create! :name => 'another bar', :profile_id => profile.id, :published => true
-    TextileArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 3, ActionTracker::Record.count
+    assert_difference 'ActionTracker::Record.count', 3 do
+      create TextileArticle, :name => 'bar', :profile_id => profile.id, :published => true
+      create TextileArticle, :name => 'another bar', :profile_id => profile.id, :published => true
+      create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
+    end
   end
 
   should 'not update activity on update of an article' do
@@ -53,7 +54,7 @@ class TextileArticleTest < ActiveSupport::TestCase
     article = create(TextileArticle, :profile_id => profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       article.name = 'foo'
       article.save!
     end
@@ -62,9 +63,9 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
-    a1 = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    a2 = TextileArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_no_difference ActionTracker::Record, :count do
+    a1 = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a2 = create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
+    assert_no_difference 'ActionTracker::Record.count' do
       a1.name = 'foo';a1.save!
       a2.name = 'another foo';a2.save!
     end
@@ -72,18 +73,18 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'remove activity after destroying article' do
     ActionTracker::Record.delete_all
-    a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_difference ActionTracker::Record, :count, -1 do
+    a = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    assert_difference 'ActionTracker::Record.count', -1 do
       a.destroy
     end
   end
 
   should 'remove activity after article is destroyed' do
     ActionTracker::Record.delete_all
-    a1 = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    a2 = TextileArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
+    a1 = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a2 = create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
     assert_equal 2, ActionTracker::Record.count
-    assert_difference ActionTracker::Record, :count, -2 do
+    assert_difference 'ActionTracker::Record.count', -2 do
       a1.destroy
       a2.destroy
     end
@@ -95,20 +96,20 @@ class TextileArticleTest < ActiveSupport::TestCase
     p1 = Person.first
     community.add_member(p1)
     assert p1.is_member_of?(community)
-    article = TextileArticle.create! :name => 'test', :profile_id => community.id
+    article = create TextileArticle, :name => 'test', :profile_id => community.id
     assert_equal article, ActionTracker::Record.last.target
   end
 
   should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = Person.first
-    article = TextileArticle.create! :name => 'test', :profile_id => person.id
+    article = create TextileArticle, :name => 'test', :profile_id => person.id
     assert_equal article, ActionTracker::Record.last.target
   end
 
   should 'not notify activity if the article is not advertise' do
     ActionTracker::Record.delete_all
-    a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true, :advertise => false
+    a = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true, :advertise => false
     assert_equal true, a.published?
     assert_equal true, a.notifiable?
     assert_equal false, a.image?
@@ -121,7 +122,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should "the common trackable conditions return the correct value" do
-    a =  TextileArticle.new(:profile => profile)
+    a =  build(TextileArticle, :profile => profile)
     a.published = a.advertise = true
     assert_equal true, a.published?
     assert_equal true, a.notifiable?
@@ -177,7 +178,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   protected
 
   def build_article(input = nil, options = {})
-    article = TextileArticle.new({:body => input}.merge(options))
+    article = build(TextileArticle, {:body => input}.merge(options))
     article.valid? # trigger the xss terminate thingy
     article
   end

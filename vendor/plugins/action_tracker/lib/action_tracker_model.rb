@@ -1,5 +1,6 @@
 module ActionTracker
   class Record < ActiveRecord::Base
+    attr_accessible :verb, :params, :user, :target
 
     set_table_name 'action_tracker'
 
@@ -23,8 +24,8 @@ module ActionTracker
     # In days
     RECENT_DELAY = 30
 
-    named_scope :recent, :conditions => ['created_at >= ?', RECENT_DELAY.days.ago]
-    named_scope :visible, :conditions => { :visible => true }
+    scope :recent, :conditions => ['created_at >= ?', RECENT_DELAY.days.ago]
+    scope :visible, :conditions => { :visible => true }
 
     def self.current_user_from_model
       u = new

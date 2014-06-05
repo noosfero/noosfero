@@ -1,0 +1,43 @@
+<h1><%= _('Select folders') %></h1>
+
+<p><%= _('Select the folders that will hold the news of the initial page of the environment') %></p>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('#add').click(function() {
+      return !jQuery('#portal-folders-list option:selected').remove().appendTo('#selected-folders');
+    });
+    jQuery('#remove').click(function() {
+      return !jQuery('#selected-folders option:selected').remove().appendTo('#portal-folders-list');
+    });
+
+    jQuery('form').submit(function() {
+      jQuery('#selected-folders option').each(function(i) {
+        jQuery(this).attr('selected','selected');
+      });
+    });
+  });
+ </script>
+
+<div id='available-folders'>
+  <%= labelled_form_field(_('Available folders'), select_tag( 'folders[]', options_from_collection_for_select(@available_portal_folders, :id, :name, nil), {:id => 'portal-folders-list', :multiple => true, :size => 6 }) ) %>
+</div>
+
+<div id='selection-buttons'>
+  <%= button :down, _('Add'), '#', { :id => 'add' } %>
+  <%= button :up, _('Remove'), '#', { :id => 'remove' } %>
+</div>
+
+<%= form_tag do %>
+  <div id='portal-folders'>
+    <%= labelled_form_field(_('Portal folders'), select_tag( 'folders[]', options_from_collection_for_select(@selected, :id, :name, nil), {:id => 'selected-folders', :multiple => true, :size => 6 })) %>
+  </div>
+
+  <p>
+    <%= _('The same order in which you arrange the folders here will be used for arranging the boxes in the environment initial page.') %>
+  </p>
+
+  <% button_bar do %>
+    <%= submit_button 'save', _('Save'), :cancel => {:action => 'index'} %>
+  <% end %>
+<% end %>

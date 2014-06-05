@@ -1,0 +1,11 @@
+<h1><%= _("Disabling '%s' enterprise") % @to_disable.name %></h1>
+
+<p>
+<%= _('Are you sure you want to disable %s?') % @to_disable.name %>
+</p>
+
+<%= form_tag do %>
+  <%= hidden_field_tag(:confirmation, 1) %>
+  <%= submit_button(:ok, _("Yes, I want to disable.")) %>
+  <%= button(:cancel, _("No, I don't want."), :action => 'index') %>
+<% end %>

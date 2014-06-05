@@ -1,0 +1,68 @@
+<%= labelled_form_for(:environment, :url => {:action => 'manage_person_fields'}) do |f| %>
+
+<table id='person_fields_conf'>
+  <tr>
+    <th><%= _('Field') %></th>
+    <th><%= _('Active') %></th>
+    <th><%= _('Required') %></th>
+    <th><%= _('Display on signup?') %></th>
+  </tr>
+
+  <tr class='manage-fields-batch-actions'>
+    <td>
+      <%= _("Check/Uncheck All")%>
+    </td>
+    <td>
+      <input type="checkbox" id="person_active" />
+    </td>
+    <td>
+      <input type="checkbox" id="person_required" />
+    </td>
+    <td>
+      <input type="checkbox" id="person_signup" />
+    </td>
+  </tr>
+
+  <% @person_fields.each do |field| %>
+  <tr>
+    <td><label for="person_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
+    <td>
+      <%= hidden_field_tag  "person_fields[#{field}][active]", false %>
+      <%= check_box_tag "person_fields[#{field}][active]", true, environment.custom_person_field(field, 'active'), :onclick => "active_action(this, 'person_fields[#{field}][required]', 'person_fields[#{field}][signup]')" %>
+    </td>
+    <td>
+      <%= hidden_field_tag  "person_fields[#{field}][required]", false %>
+      <%= check_box_tag "person_fields[#{field}][required]", true, environment.custom_person_field(field, 'required'), :onclick => "required_action('person_fields[#{field}][active]','person_fields[#{field}][required]', 'person_fields[#{field}][signup]')" %>
+    </td>
+    <td>
+      <%= hidden_field_tag  "person_fields[#{field}][signup]", false %>
+      <%= check_box_tag "person_fields[#{field}][signup]", true, environment.custom_person_field(field, 'signup'), :onclick => "signup_action('person_fields[#{field}][active]','person_fields[#{field}][required]', 'person_fields[#{field}][signup]')" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<script type='text/javascript'>// <!--
+  var trs = jQuery('#person_fields_conf tr');
+
+  var tr, td2;
+  for ( var i=2; tr=trs[i]; i++ ) {
+    if ( td2 = tr.getElementsByTagName('td')[1] ) {
+      td2.getElementsByTagName('input')[1].onclick();
+    }
+  }
+  // -->
+</script>
+
+<div>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes'), :id=>"save_person_fields") %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
+  <% end %>
+</div>
+
+<% end %>
+
+
+
+

@@ -1,0 +1,26 @@
+<h2><%= _('Personal information') %></h2>
+
+  <%= required_fields_message %>
+
+  <div class="field-with-privacy-selector">
+    <%= required f.text_field(:name) %>
+    <div class="field-privacy-selector">
+      <%= unchangeable_privacy_field @profile %>
+    </div>
+  </div>
+
+  <div class="field-with-privacy-selector">
+    <%= required f.text_field(:email) %>
+    <div class="field-privacy-selector">
+      <%= profile_field_privacy_selector @profile, 'email' %>
+    </div>
+  </div>
+
+  <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
+
+  <%= render :partial => 'person_form', :locals => {:f => f} %>
+
+  <h2><%= _('Notification options') %></h2>
+  <div>
+    <%= select_tag 'profile_data[notification_time]', options_for_select([[_('Disabled'), 0], [_('Hourly'), 1], [_('Half Day'), 12], [_('Daily'), 24]], @profile.notification_time) %>
+  </div>

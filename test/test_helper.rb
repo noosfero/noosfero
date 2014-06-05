@@ -1,17 +1,18 @@
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'test_help'
+require 'rails/test_help'
 require 'mocha'
 require 'tidy'
 require 'hpricot'
 
 require 'noosfero/test'
+require 'authenticated_test_helper'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
 
-FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
+FileUtils.rm_rf(Rails.root.join('index', 'test'))
 
 Image.attachment_options[:path_prefix] = 'test/tmp/public/images'
 Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
@@ -44,7 +45,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   # for fixture_file_upload
-  include ActionController::TestProcess
+  include ActionDispatch::TestProcess
 
   include Noosfero::Factory
 
@@ -53,7 +54,7 @@ class ActiveSupport::TestCase
   fixtures :environments, :roles
 
   def self.all_fixtures
-    Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
+    Dir.glob(Rails.root.join('test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
     end
   end
@@ -94,16 +95,16 @@ class ActiveSupport::TestCase
   def assert_mandatory(object, attribute, test_value = 'some random string')
     object.send("#{attribute}=", nil)
     object.valid?
-    assert object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to be mandatory."
+    assert object.errors[attribute.to_s].present?, "Attribute \"#{attribute.to_s}\" expected to be mandatory."
     object.send("#{attribute}=", test_value)
     object.valid?
-    assert !object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
+    assert !object.errors[attribute.to_s].present?, "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
   end
 
   def assert_optional(object, attribute)
     object.send("#{attribute}=", nil)
     object.valid?
-    assert !object.errors.invalid?(attribute)
+    assert !object.errors[attribute.to_s].present?
   end
 
   def assert_subclass(parent, child)
@@ -144,7 +145,7 @@ class ActiveSupport::TestCase
                      patch ? patch[1] : nil
                    end.compact
       s.each do |css_ref|
-        if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ css_ref )
+        if ! File.exists?(File.join(Rails.root, 'public', css_ref))
           flunk 'CSS reference missed on HTML: "%s"' % css_ref
         end
       end
@@ -153,7 +154,7 @@ class ActiveSupport::TestCase
     # Test image references:
     (doc/'img').each do |img|
       src = img.get_attribute( 'src' ).gsub(/\?[0-9]+$/, '')
-      if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ src )
+      if ! File.exists?(File.join(Rails.root, 'public', src))
         flunk 'Image reference missed on HTML: "%s"' % src
       end
     end
@@ -177,6 +178,19 @@ class ActiveSupport::TestCase
     assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
 
+  def assert_order(reference, original)
+    original.each do |value|
+      if reference.include?(value)
+        if reference.first == value
+          reference.shift
+        else
+          assert false, "'#{value.inspect}' was found before it should be on: #{original.inspect}"
+        end
+      end
+    end
+    assert reference.blank?, "The following elements are not in the collection: #{reference.inspect}"
+  end
+
   # For models that render views (blocks, articles, ...)
   def render(*args)
     view_paths = @explicit_view_paths || ActionController::Base.view_paths
@@ -186,7 +200,8 @@ class ActiveSupport::TestCase
   private
 
   def uses_host(name)
-    @request.instance_variable_set('@host', name)
+    #@request.instance_variable_set('@host', name)
+    @request.host = name
   end
 
   def process_delayed_job_queue
@@ -206,6 +221,12 @@ class ActiveSupport::TestCase
     adapter = ActiveRecord::Base.connection.class
     adapter.any_instance.stubs(:adapter_name).returns('SQLite')
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
+  end
+
+  def unsafe(string)
+    ret = ActiveSupport::SafeBuffer.new(string)
+    ret.instance_eval { @html_safe = false }
+    ret
   end
 
 end
