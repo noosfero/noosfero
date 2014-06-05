@@ -3,15 +3,17 @@ module FolderHelper
   include ShortFilename
   include ArticleHelper
 
-  def list_articles(articles, recursive = false)
-    if !articles.blank?
-      articles = articles.paginate(
+  def list_contents(configure={})
+    configure[:recursive] ||= false
+    configure[:list_type] ||= :folder
+    if !configure[:contents].blank?
+      configure[:contents] = configure[:contents].paginate(
         :order => "updated_at DESC",
         :per_page => 10,
         :page => params[:npage]
       )
 
-      render :file => 'shared/articles_list', :locals => {:articles => articles, :recursive => recursive}
+      render :file => 'shared/content_list', :locals => configure
     else
       content_tag('em', _('(empty folder)'))
     end
@@ -21,21 +23,33 @@ module FolderHelper
     articles.select {|article| article.display_to?(user)}
   end
 
-  def display_article_in_listing(article, recursive = false, level = 0)
-    article = FilePresenter.for article
-    article_link = if article.image?
-         link_to('&nbsp;' * (level * 4) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true))
+  def display_content_in_listing(configure={})
+    recursive = configure[:recursive] || false
+    list_type = configure[:list_type] || :folder
+    level = configure[:level] || 0
+    content = FilePresenter.for configure[:content]
+    content_link = if content.image?
+         link_to('&nbsp;' * (level * 4) +
+           image_tag(icon_for_article(content)) + short_filename(content.name),
+           content.url.merge(:view => true)
+         )
        else
-         link_to('&nbsp;' * (level * 4) + short_filename(article.name), article.url.merge(:view => true), :class => icon_for_article(article))
+         link_to('&nbsp;' * (level * 4) +
+           short_filename(content.name),
+           content.url.merge(:view => true), :class => icon_for_article(content)
+         )
        end
     result = content_tag(
       'tr',
-      content_tag('td', article_link )+
-      content_tag('td', show_date(article.updated_at), :class => 'last-update'),
-      :class => 'sitemap-item'
+      content_tag('td', content_link ) +
+      content_tag('td', show_date(content.updated_at), :class => 'last-update'),
+      :class => "#{list_type}-item"
     )
     if recursive
-      result + article.children.map {|item| display_article_in_listing(item, recursive, level + 1) }.join('')
+      result + content.children.map {|item|
+        display_content_in_listing :content=>item, :recursive=>recursive,
+                                   :list_type=>list_type, :level=>level+1
+      }.join("\n")
     else
       result
     end

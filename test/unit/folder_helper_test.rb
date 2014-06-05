@@ -97,14 +97,17 @@ class FolderHelperTest < ActiveSupport::TestCase
     article2 = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
     self.stubs(:params).returns({:npage => nil})
 
-    articles = folder.children.find(:all, :order => 'updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
+    contents = folder.children.find(:all, :order => 'updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
     expects(:user).returns(profile).at_least_once
+    expects(:list_type).returns(:folder).at_least_once
     expects(:recursive).returns(false).at_least_once
     expects(:pagination_links).with(anything, anything).returns('')
-    list = render 'shared/articles_list', binding
-    expects(:render).with(:file => 'shared/articles_list', :locals => { :articles => articles, :recursive => false}).returns(list)
+    list = render 'shared/content_list', binding
+    expects(:render).with(:file => 'shared/content_list',
+      :locals => { :contents => contents, :recursive => false, :list_type => :folder }
+    ).returns(list)
 
-    result = list_articles(folder.children)
+    result = list_contents(:contents=>contents)
 
     assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article1/
     assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article2/

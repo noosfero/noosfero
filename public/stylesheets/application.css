@@ -305,17 +305,19 @@ div.pending-tasks {
   -khtml-border-radius: 2px;
   border-radius: 2px;
 }
+
 /* sitemap and agenda */
 
-
-.agenda-item a.icon, .sitemap-item a.icon {
+.agenda-item a.icon {
   background-image: none;
   line-height: 150%;
 }
-.agenda-item .icon:hover, .sitemap-item .icon:hover {
+
+.agenda-item:hover, .sitemap-item:hover, .sitemap-item:hover a {
   background-color: transparent;
   text-decoration: underline;
 }
+
 .agenda-item a, a:visited{
  font-weight: bold;
  color: black;
@@ -324,6 +326,14 @@ div.pending-tasks {
 .sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
   border: none;
   text-decoration: none;
+}
+
+.sitemap-item a.icon {
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  padding-left: 20px;
+  display: inline-block;
+  line-height: 16px;
 }
 
 .sitemap-item img, .agenda-item img {
@@ -3459,7 +3469,15 @@ div.with_media_panel .formfield input[type="checkbox"] {
 .pagination a:hover {
   color: #2e3436;
 }
-/* ==> @import url('folder.css'); <== */
+
+/* Folders */
+
+.folder-content .folder-item img {
+  vertical-align: middle;
+  position: relative;
+  left: -3px;
+}
+
 .image-gallery {
   text-align: center;
 }
