@@ -6,7 +6,7 @@ class ProfileEditorController; def rescue_action(e) raise e end; end
 
 class ProfileEditorControllerTest < ActionController::TestCase
   all_fixtures
-  
+
   def setup
     @controller = ProfileEditorController.new
     @request    = ActionController::TestRequest.new
@@ -20,11 +20,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => profile.identifier
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   def test_index
     get :index, :profile => profile.identifier
     assert_template 'index'
@@ -50,7 +50,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'saving profile info' do
-    person = profile 
+    person = profile
     post :edit, :profile => profile.identifier, :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address', 'sex' => 'female' }
     assert_redirected_to :controller => 'profile_editor', :action => 'index'
     person = Person.find(person.id)
@@ -58,6 +58,15 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_equal 'new contact information', person.contact_information
     assert_equal 'new address', person.address
     assert_equal 'female', person.sex
+  end
+
+  should 'mass assign all environment configurable person fields' do
+    person = profile
+
+    post :edit, :profile => profile.identifier, :profile_data => { "nickname" => "ze", "description" => "Just a regular ze.", "contact_information" => "What?", "contact_phone" => "+0551133445566", "cell_phone" => "+0551188889999", "comercial_phone" => "+0551144336655", "jabber_id" => "ze1234", "personal_website" => "http://ze.com.br", "sex" => "male", "birth_date" => "2014-06-04", "nationality" => "Brazilian", "country" => "BR", "state" => "DF", "city" => "Brasilia", "zip_code" => "70300-010", "address" => "Palacio do Planalto", "address_reference" => "Praca dos tres poderes", "district" => "DF", "schooling" => "Undergraduate", "schooling_status" => "Concluded", "formation" => "Engineerings", "area_of_study" => "Metallurgy", "professional_activity" => "Metallurgic", "organization" => "Metal Corp.", "organization_website" => "http://metal.com" }
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
   end
 
   should 'not permmit if not logged' do
@@ -426,7 +435,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :index, :profile => ent.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{ent.identifier}/profile_editor/enable" }
   end
-  
+
   should 'link to disable enterprise' do
     ent = fast_create(Enterprise, :enabled => true)
     get :index, :profile => ent.identifier
