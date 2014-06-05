@@ -177,6 +177,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_display_change_password_screen
+    login_as 'johndoe'
     get :change_password
     assert_response :success
     assert_template 'change_password'
