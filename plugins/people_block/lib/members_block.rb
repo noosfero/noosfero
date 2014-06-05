@@ -22,7 +22,7 @@ class MembersBlock < PeopleBlockBase
   def footer
     owner = self.owner
     role_key = visible_role
-    lambda do
+    proc do
       link_to _('View all'), :profile => owner.identifier, :controller => 'people_block_plugin_profile', :action => 'members', :role_key => role_key
     end
   end

@@ -52,7 +52,7 @@ class PeopleBlockBase < Block
       expanded_address = expand_address(self.address)
     end
 
-    lambda do
+    proc do
       count = 0
       list = profiles.map {|item|
                count += 1

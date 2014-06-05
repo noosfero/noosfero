@@ -18,7 +18,7 @@ class FriendsBlock < PeopleBlockBase
 
   def footer
     owner = self.owner
-    lambda do
+    proc do
       link_to _('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'friends'
     end
   end
