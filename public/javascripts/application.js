@@ -675,7 +675,8 @@ function hide_and_show(hide_elements, show_elements) {
 
 function limited_text_area(textid, limit) {
   var text = jQuery('#' + textid).val();
-  grow_text_area(textid);
+  // FIXME This will be fixed by: http://noosfero.org/Development/ActionItem3136
+  //grow_text_area(textid);
   var textlength = text.length;
   jQuery('#' + textid + '_left span').html(limit - textlength);
   if (textlength > limit) {
