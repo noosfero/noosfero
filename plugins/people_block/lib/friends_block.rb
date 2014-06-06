@@ -17,9 +17,9 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def footer
-    owner = self.owner
+    profile = self.owner
     proc do
-      link_to _('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'friends'
+      render :file => 'blocks/friends', :locals => { :profile => profile }
     end
   end
 
@@ -28,4 +28,3 @@ class FriendsBlock < PeopleBlockBase
   end
 
 end
-

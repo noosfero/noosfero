@@ -1,9 +1,9 @@
 class PeopleBlockBase < Block
-
-  settings_items :prioritize_people_with_image, :type => :boolean, :default => true
+  settings_items :prioritize_profiles_with_image, :type => :boolean, :default => true
   settings_items :limit, :type => :integer, :default => 6
   settings_items :name, :type => String, :default => ""
   settings_items :address, :type => String, :default => ""
+  attr_accessible :name, :address, :prioritize_profiles_with_image
 
   def self.description
     _('Random people')
@@ -28,7 +28,7 @@ class PeopleBlockBase < Block
   def profile_list
     result = nil
     visible_profiles = profiles.visible.includes([:image,:domains,:preferred_domain,:environment])
-    if !prioritize_people_with_image
+    if !prioritize_profiles_with_image
       result = visible_profiles.all(:limit => limit, :order => 'updated_at DESC').sort_by{ rand }
     elsif visible_profiles.with_image.count >= limit
       result = visible_profiles.with_image.all(:limit => limit * 5, :order => 'updated_at DESC').sort_by{ rand }
@@ -43,7 +43,6 @@ class PeopleBlockBase < Block
   end
 
   def content(args={})
-
     profiles = self.profile_list
     title = self.view_title
 
@@ -94,5 +93,8 @@ class PeopleBlockBase < Block
     end
   end
 
-end
+  def extra_option
+    { }
+  end
 
+end

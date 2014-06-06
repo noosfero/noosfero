@@ -1,6 +1,7 @@
 class MembersBlock < PeopleBlockBase
-
+  settings_items :show_join_leave_button, :type => :boolean, :default => false
   settings_items :visible_role, :type => :string, :default => nil
+  attr_accessible :show_join_leave_button, :visible_role
 
   def self.description
     _('Members')
@@ -20,10 +21,11 @@ class MembersBlock < PeopleBlockBase
   end
 
   def footer
-    owner = self.owner
+    profile = self.owner
     role_key = visible_role
+    s = show_join_leave_button
     proc do
-      link_to _('View all'), :profile => owner.identifier, :controller => 'people_block_plugin_profile', :action => 'members', :role_key => role_key
+      render :file => 'blocks/members', :locals => { :profile => profile, :show_join_leave_button => s, :role_key => role_key}
     end
   end
 
@@ -35,5 +37,14 @@ class MembersBlock < PeopleBlockBase
     Profile::Roles.organization_member_roles(owner.environment)
   end
 
-end
+  def extra_option
+    data = {
+      :human_name => _("Show join leave button"),
+      :name => 'block[show_join_leave_button]',
+      :value => true,
+      :checked => show_join_leave_button,
+      :options => {}
+    }
+  end
 
+end

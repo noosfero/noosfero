@@ -9,7 +9,6 @@
   color: #000;
   text-decoration: none;
   padding-right: 15px;
-  background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
 
 .people-block .banner-span {
@@ -56,4 +55,50 @@
   width: 192px;
   margin: 0px 0px 0px -3px;
   padding: 0px;
+}
+
+/*******************************************************************
+ *                        BLOCKs                                   *
+ *******************************************************************/
+#content .friends-block ul,
+#content .members-block ul {
+  min-width: 196px;
+  width: 192px;
+  margin: 0px 0px 0px -3px;
+  padding: 0px;
+}
+#content .box-1 .people-block ul,
+#content .box-1 .friends-block ul,
+#content .box-1 .members-block ul {
+  width: auto;
+  display: block;
+}
+#content .people-block .block-footer-content a,
+#content .friends-block .block-footer-content a,
+#content .members-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+}
+#content .members-block .block-footer-content .join-leave-button a {
+  position: relative;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  color: #555;
+  padding-right: inherit;
+}
+#content .members-block .block-footer-content .join-leave-button a:hover {
+  color: #FFF;
+  background-color: #555;
+  border: 1px solid #2e3436;
+  text-decoration: none;
+}
+#content .people-block .block-footer-content a.view-all,
+#content .friends-block .block-footer-content a.view-all,
+#content .members-block .block-footer-content a.view-all {
+  background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
 }

@@ -17,8 +17,8 @@ class PeopleBlock < PeopleBlockBase
   end
 
   def footer
-    lambda do |context|
-      link_to _('View all'), :controller => 'search', :action => 'people'
+    proc do
+      render :file => 'blocks/people'
     end
   end
 
