@@ -6052,7 +6052,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form input.valid_input {
-  border: 2px solid #005000;
+  border: 1px solid #005000;
   background: #FFF;
 }
 
@@ -6079,7 +6079,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background-color: #fff;
   background-position: right center;
   background-repeat: no-repeat;
-  padding: 5px 7% 8px 3%;
+  padding: 7px 7% 8px 3%;
   color: #4A4A4A;
   box-shadow: 0 0 7px green;
 }
