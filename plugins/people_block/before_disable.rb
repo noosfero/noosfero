@@ -1,4 +1,2 @@
-raise "\n\n" +
-      "WARNING: PeopleBlockPlugin shouldn't be disabled,\n" +
-      "         Noosfero doesn't works without that!" +
-      "\n\n"
+raise "\nPeopleBlockPlugin shouldn't be enabled/disabled by hand, Noosfero" +
+      "\ninstallation already comes with it enabled by default!\n"

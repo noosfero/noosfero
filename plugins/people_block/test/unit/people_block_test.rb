@@ -60,7 +60,7 @@ class PeopleBlockTest < ActiveSupport::TestCase
 
 
   should 'prioritize profiles with image by default' do
-    assert PeopleBlock.new.prioritize_people_with_image
+    assert PeopleBlock.new.prioritize_profiles_with_image
   end
 
 
@@ -97,7 +97,7 @@ class PeopleBlockTest < ActiveSupport::TestCase
     expects(:profile_image_link).with(person2, :minor).returns(person2.name)
     expects(:block_title).with(anything).returns('')
 
-    content = instance_eval(&block.content)
+    content = instance_exec(&block.content)
 
     assert_match(/#{person1.name}/, content)
     assert_match(/#{person2.name}/, content)
@@ -109,10 +109,11 @@ class PeopleBlockTest < ActiveSupport::TestCase
 
     block = PeopleBlock.new
 
-    expects(:_).with('View all').returns('View all')
-    expects(:link_to).with('View all', :controller => 'search', :action => 'people').returns('link-to-people')
+    stubs(:_).with('View all').returns('View all')
+    stubs(:link_to).returns('link-to-people')
+    stubs(:url_for).returns('  ')
 
-    assert_equal 'link-to-people', instance_eval(&block.footer)
+    assert_equal 'link-to-people', instance_exec(&block.footer)
   end
 
 

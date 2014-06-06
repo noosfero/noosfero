@@ -76,7 +76,8 @@ run(){
 
 _enable(){
   plugin="$1"
-  source="$available_plugins_dir/$plugin"
+  cd $enabled_plugins_dir
+  source="../../plugins/$plugin"
   target="$enabled_plugins_dir/$plugin"
   run "$source/before_enable.rb"
   if [ -h "$target" ]; then
@@ -98,11 +99,13 @@ _enable(){
       fi
     fi
     if [ "$installation_ok" = true ] && [ "$dependencies_ok" = true ]; then
-      ln -s "$source" "$target"
+      ln -s "$source" "$plugin"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
-      test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
-      test -d "$NOOSFERO_DIR/features" && test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
+      cd $plugins_public_dir
+      test -d "$source/public" && ln -s "$source/public" "$plugin"
+      cd $plugins_features_dir
+      test -d "$NOOSFERO_DIR/features" && test -d "$source/features" && ln -s "$source/features" "$plugin"
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
@@ -122,15 +125,19 @@ _disable(){
   target="$enabled_plugins_dir/$plugin"
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   plugins_features_dir="$NOOSFERO_DIR/features/plugins"
-  run "$source/before_disable.rb"
-  if [ -h "$target" ]; then
-    rm "$target"
-    test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
-    test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
-    _say "$plugin disabled"
-    run "$source/after_disable.rb"
+  if ! run "$source/before_disable.rb"; then
+    echo "W: failed to disabling $plugin"
+    echo
   else
-    _say "$plugin already disabled"
+    if [ -h "$target" ]; then
+      rm "$target"
+      test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
+      test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
+      _say "$plugin disabled"
+      run "$source/after_disable.rb"
+    else
+      _say "$plugin already disabled"
+    fi
   fi
 }
 
