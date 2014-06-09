@@ -1382,4 +1382,32 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.save!
     assert_equal ['en', 'pt'], environment.available_locales
   end
+
+  should 'not consider custom welcome screen text if not defined' do
+    env = Environment.default
+    assert !env.has_custom_welcome_screen?
+  end
+
+  should 'not consider custom welcome screen text if nil' do
+    env = Environment.default
+
+    env.signup_welcome_screen_body = nil
+    assert !env.has_custom_welcome_screen?
+  end
+
+  should 'consider signup welcome screen if body is defined' do
+    env = Environment.default
+    env.signup_welcome_screen_body  = 'Welcome to the environment'
+    assert env.has_custom_welcome_screen?
+  end
+
+  should 'store custom welcome screen body' do
+    environment = Environment.default
+
+    environment.signup_welcome_screen_body = 'Welcome to the environment'
+    environment.save
+    environment.reload
+
+    assert_equal 'Welcome to the environment', environment.signup_welcome_screen_body
+  end
 end

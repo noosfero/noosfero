@@ -8,6 +8,8 @@ class CategoriesBlock < Block
 
   settings_items :category_types, :type => Array, :default => []
 
+  attr_accessible :category_types
+
   def self.description
     _("Categories Menu")
   end

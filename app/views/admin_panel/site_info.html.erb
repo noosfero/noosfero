@@ -12,6 +12,8 @@
     :content => (render :partial => 'terms_of_use', :locals => {:f => f})} %>
   <% tabs << {:title => _('Signup welcome text'), :id => 'signup-welcome-text',
     :content => (render :partial => 'signup_welcome_text', :locals => {:f => f})} %>
+  <% tabs << {:title => _('Signup welcome message'), :id => 'signup-welcome-message',
+    :content => (render :partial => 'signup_welcome_screen', :locals => {:f => f}) }%>
   <%= render_tabs(tabs) %>
   <% button_bar do %>
     <%= submit_button(:save, _('Save'), :cancel => {:action => 'index'}) %>
