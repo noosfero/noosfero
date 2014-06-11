@@ -1,5 +1,11 @@
 <div class='description'>
-  <%= _('This text will be showed as a welcome message to users after signup') %><br/><br/>
+  <%= _('This text will be showed as a welcome message to users after signup.') %><br/><br/>
 </div>
-
 <%= labelled_form_field(_('Body'), text_area(:environment, :signup_welcome_screen_body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor')) %>
+
+<p>
+<div class='description'>
+  <%= _('If this content is left blank, the following page will be displayed to the user.') %><br/><br/>
+</div>
+<p>
+<%= render :file => 'home/welcome' %>
