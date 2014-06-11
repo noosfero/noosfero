@@ -20,9 +20,22 @@ class MembershipsController < MyProfileController
     @community.environment = environment
     @back_to = params[:back_to] || url_for(:action => 'index')
     if request.post? && @community.valid?
-      @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment}))
-      redirect_to @back_to
+      begin
+        # Community was created
+        @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment}))
+        @community.reload
+        redirect_to :action => 'welcome', :community_id => @community.id, :back_to => @back_to
+      rescue ActiveRecord::RecordNotFound
+        # Community pending approval
+        session[:notice] = _('Your community creation request is waiting approval of the administrator.')
+        redirect_to @back_to
+      end
       return
     end
+  end
+
+  def welcome
+    @community = Community.find(params[:community_id])
+    @back_to = params[:back_to]
   end
 end

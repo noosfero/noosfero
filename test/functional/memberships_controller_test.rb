@@ -35,7 +35,6 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_difference 'Community.count' do
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
-      assert_redirected_to :action => 'index'
 
       assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
     end
@@ -238,8 +237,10 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
   end
 
-  should 'redirect to back_to parameter when create a new community' do
+  should 'redirect to back_to parameter when community needs admin approval' do
     back_to = '/'
+    environment = Environment.default
+    environment.enable('admin_must_approve_new_communities')
     post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, :back_to => back_to
     assert_response :redirect
     assert_redirected_to back_to
