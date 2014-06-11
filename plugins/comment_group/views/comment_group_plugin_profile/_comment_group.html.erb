@@ -3,7 +3,6 @@
     <div style="float: left">
     <%= link_to_remote(image_tag("/plugins/comment_group/images/comments.gif"),
         :url => { :profile => profile_identifier, :controller => 'comment_group_plugin_profile', :action => 'view_comments', :group_id => group_id, :article_id => article_id},
-        :loaded => j(visual_effect(:highlight, "comments_list_group_#{group_id}")),
         :method => :post,
         :condition => "!toggleGroup(#{group_id})",
         :complete => "loadCompleted(#{group_id})")%>
