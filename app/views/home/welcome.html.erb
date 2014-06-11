@@ -16,8 +16,5 @@
       <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
       <p><%= _("Start exploring and have fun!") %></p>
   <% end %>
-  <% if @template_welcome_page.present? %>
-    <h1><%= _("What can I do as a %s?") % @person_template.name %></h1>
-    <%= @template_welcome_page.html_safe %>
-  <% end %>
+  <%= render :partial => 'shared/template_welcome_page', :locals => {:template => @person_template, :header => _("What can I do as a %s?") % @person_template.name}%>
 </div>

@@ -1,0 +1,4 @@
+<% if template.welcome_page_content.present? %>
+  <h1><%= header %></h1>
+  <%= template.welcome_page_content.html_safe %>
+<% end %>
