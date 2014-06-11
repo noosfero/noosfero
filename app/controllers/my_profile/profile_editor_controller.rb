@@ -100,7 +100,7 @@ class ProfileEditorController < MyProfileController
   private
 
   def has_welcome_page
-    profile.person? && profile.is_template
+    profile.is_template
   end
 
   def access_welcome_page
