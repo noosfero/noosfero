@@ -1965,4 +1965,26 @@ class ProfileTest < ActiveSupport::TestCase
     welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id)
     assert !template.copy_article?(welcome_page)
   end
+
+  should 'return nil on welcome_page_content if template has no welcome page' do
+    template = fast_create(Profile, :is_template => true)
+    assert_nil template.welcome_page_content
+  end
+
+  should 'return nil on welcome_page_content if content is not published' do
+    template = fast_create(Profile, :is_template => true)
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id, :body => 'Template welcome page', :published => false)
+    template.welcome_page = welcome_page
+    template.save!
+    assert_nil template.welcome_page_content
+  end
+
+  should 'return template welcome page content on welcome_page_content if content is published' do
+    template = fast_create(Profile, :is_template => true)
+    body = 'Template welcome page'
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id, :body => body, :published => true)
+    template.welcome_page = welcome_page
+    template.save!
+    assert_equal body, template.welcome_page_content
+  end
 end

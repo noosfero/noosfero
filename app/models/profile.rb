@@ -143,6 +143,10 @@ class Profile < ActiveRecord::Base
   # welcome_page... =P
   belongs_to :welcome_page, :class_name => 'Article', :dependent => :destroy
 
+  def welcome_page_content
+    welcome_page && welcome_page.published ? welcome_page.body : nil
+  end
+
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
