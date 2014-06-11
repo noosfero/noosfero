@@ -1034,7 +1034,7 @@ module ApplicationHelper
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => nil}, :id => 'submenu-contents') +
-    link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+    link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links.to_json)}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
   alias :browse_contents_menu :search_contents_menu
 
@@ -1050,7 +1050,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
-    link_to(content_tag(:span, _('People menu')), '#', :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
+    link_to(content_tag(:span, _('People menu')), '#', :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links.to_json)}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
   alias :browse_people_menu :search_people_menu
 
@@ -1066,7 +1066,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +
-    link_to(content_tag(:span, _('Communities menu')), '#', :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
+    link_to(content_tag(:span, _('Communities menu')), '#', :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links.to_json)}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
   alias :browse_communities_menu :search_communities_menu
 
