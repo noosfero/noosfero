@@ -15,16 +15,16 @@ class DisplayContentBlock < Block
     N_('December')
   ]
 
+  AVAILABLE_SECTIONS = ['publish_date', 'title', 'abstract', 'body', 'image' ,'tags']
+
   settings_items :nodes, :type => Array, :default => []
   settings_items :sections,
                  :type => Array,
-                 :default => [{:name => _('Publish date'), :checked => true},
-                              {:name => _('Title'), :checked => true},
-                              {:name => _('Abstract'), :checked => true},
-                              {:name => _('Body'), :checked => false},
-                              {:name => _('Image'), :checked => false},
-                              {:name => _('Tags'), :checked => false}]
+                 :default => [{:value => 'publish_date', :checked => true},
+                              {:value => 'title', :checked => true},
+                              {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
+  settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
 
   attr_accessible :sections, :checked_nodes, :display_folder_children
 
@@ -36,6 +36,50 @@ class DisplayContentBlock < Block
     _('This block displays articles chosen by you. You can edit the block to select which of your articles is going to be displayed in the block.')
   end
 
+  def section_name(section)
+    {
+      'publish_date' => _('Publish date'),
+      'title' => _('Title'),
+      'abstract' => _('Abstract'),
+      'body' => _('Body'),
+      'image' => _('Image'),
+      'tags' => _('Tags')
+    }[section] || section
+  end
+
+  alias :orig_sections :sections
+  def sections
+    available_sections = AVAILABLE_SECTIONS
+    available_sections = available_sections - orig_sections.map{|e|e[:value]}
+    sections = available_sections.map do |section|
+      {:value => section, :checked => false}
+    end
+    sections + orig_sections
+  end
+
+  def available_content_types
+    @available_content_types ||= [TinyMceArticle, RawHTMLArticle, TextileArticle, UploadedFile, Event, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    checked_types = types.map {|t| t.constantize}
+    checked_types + (@available_content_types - checked_types)
+  end
+
+  #FIXME make this test copy of Context Content
+  def first_content_types
+    available_content_types.first(first_types_count)
+  end
+
+  def more_content_types
+    available_content_types.drop(first_types_count)
+  end
+
+  def first_types_count
+    [2, types.length].max
+  end
+
+  def types=(new_types)
+    settings[:types] = new_types.reject(&:blank?)
+  end
+
   def checked_nodes= params
     self.nodes = params.keys
   end
@@ -45,7 +89,7 @@ class DisplayContentBlock < Block
   def expand_nodes
     return self.nodes if self.holder.nil?
 
-    articles = self.holder.articles.find(nodes)
+    articles = self.holder.articles.where(:id => nodes)
     children = articles.map { |article| article.children }.compact.flatten
 
     if display_folder_children
@@ -73,9 +117,10 @@ class DisplayContentBlock < Block
 
   def content(args={})
     block = self
-    extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
-    docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
+    nodes_conditions = nodes.blank? ? '' : " AND articles.id IN(:nodes) "
+    nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
+    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}])
     proc do
       block.block_title(block.title) +
         content_tag('ul', docs.map {|item|
@@ -85,24 +130,24 @@ class DisplayContentBlock < Block
           tags_section = ''
 
           block.sections.select { |section|
-            case section[:name]
-            when 'Publish date'
-              content_sections += (block.display_section?(section) ? (content_tag('div', block.show_date(item.published_at, false), :class => 'published-at') ) : '')
-            when 'Title'
+            case section[:value]
+            when 'publish_date'
+              content_sections += (block.display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
+            when 'title'
               content_sections += (block.display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
-            when 'Abstract'
+            when 'abstract'
               content_sections += (block.display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
               if block.display_section?(section)
                 read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
               end
-            when 'Body'
+            when 'body'
               content_sections += (block.display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
-            when 'Image'
+            when 'image'
               image_section = image_tag item.image.public_filename if item.image
               if !image_section.blank?
                 content_sections += (block.display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
               end
-            when 'Tags'
+            when 'tags'
               if !item.tags.empty?
                 tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
                 content_sections += (block.display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
@@ -111,7 +156,7 @@ class DisplayContentBlock < Block
           }
 
           content_sections += read_more_section if !read_more_section.blank?
-
+#raise sections.inspect
           content_tag('li', content_sections)
         end
       }.join(" "))
