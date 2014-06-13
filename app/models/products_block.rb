@@ -46,17 +46,10 @@ class ProductsBlock < Block
 
   def products(reload = false)
     if product_ids.blank?
-      products_list = owner.products(reload)
-      result = []
-      [4, products_list.size].min.times do
-        p = products_list.rand
-        result << p
-        products_list -= [p]
-      end
-      result
+      owner.products.order('RANDOM()').limit([4,owner.products.count].min)
     else
-      product_ids.map {|item| owner.products.find(item) }
-    end
+      owner.products.where(:id => product_ids)
+    end.compact
   end
 
 end
