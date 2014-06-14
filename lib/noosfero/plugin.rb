@@ -277,6 +277,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds content to the ending of the page
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def body_ending
+    nil
+  end
+
   # -> Adds content to the ending of the page head
   # returns = lambda block that creates html code or raw rhtml/html.erb
   def head_ending
