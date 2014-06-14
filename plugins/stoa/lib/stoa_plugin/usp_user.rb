@@ -3,7 +3,7 @@ class StoaPlugin::UspUser < ActiveRecord::Base
   establish_connection(:stoa)
   set_table_name('pessoa')
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   alias_attribute :cpf, :numcpf
   alias_attribute :birth_date, :dtanas

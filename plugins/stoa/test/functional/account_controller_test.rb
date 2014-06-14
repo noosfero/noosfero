@@ -6,7 +6,7 @@ class AccountController; def rescue_action(e) raise e end; end
 
 class AccountControllerTest < ActionController::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   def setup
     @controller = AccountController.new

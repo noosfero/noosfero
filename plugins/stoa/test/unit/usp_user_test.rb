@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
 class StoaPlugin::UspUserTest < ActiveSupport::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   def setup
     @db = Tempfile.new('stoa-test')

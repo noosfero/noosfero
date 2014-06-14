@@ -6,7 +6,7 @@ class ProfileEditorController; def rescue_action(e) raise e end; end
 
 class StoaPluginProfileEditorControllerTest < ActionController::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   def setup
     @controller = ProfileEditorController.new
