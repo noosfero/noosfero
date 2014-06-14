@@ -2,8 +2,6 @@ require_dependency 'person'
 
 class StoaPlugin < Noosfero::Plugin
 
-  Person.human_names[:usp_id] = _('USP number')
-
   def self.plugin_name
     "Stoa"
   end
