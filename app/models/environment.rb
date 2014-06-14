@@ -182,6 +182,7 @@ class Environment < ActiveRecord::Base
 
     # "right" area
     env.boxes[2].blocks << CommunitiesBlock.new(:limit => 6)
+    env.boxes[2].blocks << PeopleBlock.new(:limit => 6)
   end
 
   # One Environment can be reached by many domains

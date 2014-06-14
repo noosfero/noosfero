@@ -6,7 +6,8 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 class ProfileDesignControllerTest < ActionController::TestCase
 
   COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock ]
-  PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
+  PERSON_BLOCKS = COMMOM_BLOCKS + [FriendsBlock, FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
+  PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
   ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock, ProductCategoriesBlock]
