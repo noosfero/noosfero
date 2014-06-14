@@ -28,7 +28,7 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def tags
-    articles.published.tag_counts({:order => 'tags.count desc', :limit => 10}).inject({}) do |memo,tag|
+    articles.published.tag_counts({:order => 'count desc', :limit => 10}).inject({}) do |memo,tag|
       memo[tag.name] = tag.count
       memo
     end
