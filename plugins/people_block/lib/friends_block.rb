@@ -9,7 +9,7 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def default_title
-    _('{#} Friends')
+    n_('{#} friend', '{#} friends', profile_count)
   end
 
   def profiles
