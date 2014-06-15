@@ -636,14 +636,8 @@ class Article < ActiveRecord::Base
       author_id = self.created_by_id
     end
 
-    begin
-      @author = Person.find(author_id) if !@author || @author.id != author_id
-    rescue
-      @author = nil
-    end
-
-    @author
-   end
+    environment.people.find_by_id(author_id)
+  end
 
   def author_name(version_number = nil)
     person = author(version_number)
