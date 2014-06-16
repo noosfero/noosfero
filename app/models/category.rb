@@ -1,5 +1,7 @@
 class Category < ActiveRecord::Base
 
+  attr_accessible :name, :parent_id, :display_color, :display_in_menu, :image_builder, :environment, :parent
+
   SEARCHABLE_FIELDS = {
     :name => 10,
     :acronym => 5,
@@ -16,11 +18,11 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('{fn} was already assigned to another category.').fix_i18n
 
   # Finds all top level categories for a given environment. 
-  named_scope :top_level_for, lambda { |environment|
+  scope :top_level_for, lambda { |environment|
     {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
   }
 
-  named_scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
+  scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
 
   acts_as_filesystem
 
@@ -40,7 +42,7 @@ class Category < ActiveRecord::Base
 
   acts_as_having_image
 
-  named_scope :from_types, lambda { |types|
+  scope :from_types, lambda { |types|
     types.select{ |t| t.blank? }.empty? ?
       { :conditions => { :type => types } } :
       { :conditions => [ "type IN (?) OR type IS NULL", types.reject{ |t| t.blank? } ] }
@@ -67,7 +69,7 @@ class Category < ActiveRecord::Base
   end
 
   def recent_comments(limit = 10)
-    comments.paginate(:all, :order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
+    comments.paginate(:order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
   end
 
   def most_commented_articles(limit = 10)

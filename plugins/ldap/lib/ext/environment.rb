@@ -6,6 +6,8 @@ class Environment
 
   validates_presence_of :ldap_plugin_host, :if => lambda {|env| !env.ldap_plugin.blank? }
 
+  attr_accessible :ldap_plugin_host, :ldap_plugin_port, :ldap_plugin_tls, :ldap_plugin_onthefly_register, :ldap_plugin_account, :ldap_plugin_account_password, :ldap_plugin_filter, :ldap_plugin_base_dn, :ldap_plugin_attr_mail, :ldap_plugin_attr_login, :ldap_plugin_attr_fullname
+
   def ldap_plugin_attributes
     self.ldap_plugin || {}
   end

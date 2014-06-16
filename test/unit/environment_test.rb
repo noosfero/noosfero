@@ -5,20 +5,20 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def test_exists_default_and_it_is_unique
     Environment.delete_all
-    vc = Environment.new(:name => 'Test Community')
+    vc = build(Environment, :name => 'Test Community')
     vc.is_default = true
     assert vc.save
 
-    vc2 = Environment.new(:name => 'Another Test Community')
+    vc2 = build(Environment, :name => 'Another Test Community')
     vc2.is_default = true
     assert !vc2.valid?
-    assert vc2.errors.invalid?(:is_default)
+    assert vc2.errors[:is_default.to_s].present?
 
     assert_equal vc, Environment.default
   end
 
   def test_acts_as_configurable
-    vc = Environment.new(:name => 'Testing Environment')
+    vc = build(Environment, :name => 'Testing Environment')
     assert_kind_of Hash, vc.settings
     vc.settings[:some_setting] = 1
     assert vc.save
@@ -53,17 +53,24 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
+  def test_default_enabled_features_are_enabled
+    environment = Environment.create(:name => 'Testing')
+    Environment::DEFAULT_FEATURES.each do |features|
+      assert environment.enabled?(features)
+    end
+  end
+
   def test_name_is_mandatory
     v = Environment.new
     v.valid?
-    assert v.errors.invalid?(:name)
+    assert v.errors[:name.to_s].present?
     v.name = 'blablabla'
     v.valid?
-    assert !v.errors.invalid?(:name)
+    assert !v.errors[:name.to_s].present?
   end
 
   def test_terms_of_use
-    v = Environment.new(:name => 'My test environment')
+    v = fast_create(Environment, :name => 'My test environment')
     assert_nil v.terms_of_use
     v.terms_of_use = 'To be part of this environment, you must accept the following terms: ...'
     assert v.save
@@ -72,7 +79,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should "terms of use not be an empty string" do
-    v = Environment.new(:name => 'My test environment')
+    v = fast_create(Environment, :name => 'My test environment')
     assert_nil v.terms_of_use
     v.terms_of_use = ""
     assert v.save
@@ -88,7 +95,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   def test_terms_of_enterprise_use
-    v = Environment.new(:name => 'My test environment')
+    v = fast_create(Environment, :name => 'My test environment')
     assert_nil v.terms_of_enterprise_use
     v.terms_of_enterprise_use = 'To be owner of an enterprise in this environment, you must accept the following terms: ...'
     assert v.save
@@ -133,12 +140,12 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def test_should_list_all_product_categories
     env = fast_create(Environment)
-    Category.create!(:name => 'first category', :environment_id => env.id)
-    cat = Category.create!(:name => 'second category', :environment_id => env.id)
-    Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat.id)
-    cat1 = ProductCategory.create!(:name => 'first product category', :environment_id => env.id)
-    cat2 = ProductCategory.create!(:name => 'second product category', :environment_id => env.id)
-    subcat = ProductCategory.create!(:name => 'child product category', :environment_id => env.id, :parent_id => cat2.id)
+    create(Category, :name => 'first category', :environment_id => env.id)
+    cat = create(Category, :name => 'second category', :environment_id => env.id)
+    create(Category, :name => 'child category', :environment_id => env.id, :parent_id => cat.id)
+    cat1 = create(ProductCategory, :name => 'first product category', :environment_id => env.id)
+    cat2 = create(ProductCategory, :name => 'second product category', :environment_id => env.id)
+    subcat = create(ProductCategory, :name => 'child product category', :environment_id => env.id, :parent_id => cat2.id)
 
     cats = env.product_categories
     assert_equal 3, cats.size
@@ -149,14 +156,14 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'list displayable categories' do
     env = fast_create(Environment)
-    cat1 = env.categories.create(:name => 'category one', :display_color => 1)
+    cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 1)
     assert ! cat1.new_record?
 
     # subcategories should be ignored
-    subcat1 = env.categories.create(:name => 'subcategory one', :parent_id => cat1.id)
+    subcat1 = create(Category, :environment => env, :name => 'subcategory one', :parent_id => cat1.id)
     assert ! subcat1.new_record?
 
-    cat2 = env.categories.create(:name => 'category two')
+    cat2 = create(Category, :environment => env, :name => 'category two')
     assert !cat2.new_record?
 
     assert_equal 1,  env.display_categories.size
@@ -181,16 +188,16 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     env.contact_email = 'test'
     env.valid?
-    assert env.errors.invalid?(:contact_email)
+    assert env.errors[:contact_email.to_s].present?
 
     env.contact_email = 'test@example.com'
     env.valid?
-    assert !env.errors.invalid?(:contact_email)
+    assert !env.errors[:contact_email.to_s].present?
   end
 
   should 'provide a default hostname' do
     env = fast_create(Environment)
-    env.domains << Domain.create(:name => 'example.com', :is_default => true)
+    env.domains << create(Domain, :name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname
   end
 
@@ -202,27 +209,27 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'add www when told to force www' do
     env = fast_create(Environment); env.force_www = true; env.save!
 
-    env.domains << Domain.create(:name => 'example.com', :is_default => true)
+    env.domains << create(Domain, :name => 'example.com', :is_default => true)
     assert_equal 'www.example.com', env.default_hostname
   end
 
   should 'not add www when requesting domain for email address' do
     env = fast_create(Environment)
-    env.domains << Domain.create(:name => 'example.com', :is_default => true)
+    env.domains << create(Domain, :name => 'example.com', :is_default => true)
     assert_equal 'example.com', env.default_hostname(true)
   end
 
   should 'use default domain when there is more than one' do
     env = fast_create(Environment)
-    env.domains << Domain.create(:name => 'example.com', :is_default => false)
-    env.domains << Domain.create(:name => 'default.com', :is_default => true)
+    env.domains << create(Domain, :name => 'example.com', :is_default => false)
+    env.domains << create(Domain, :name => 'default.com', :is_default => true)
     assert_equal 'default.com', env.default_hostname
   end
 
   should 'use first domain when there is no default' do
     env = fast_create(Environment)
-    env.domains << Domain.create(:name => 'domain1.com', :is_default => false)
-    env.domains << Domain.create(:name => 'domain2.com', :is_default => false)
+    env.domains << create(Domain, :name => 'domain1.com', :is_default => false)
+    env.domains << create(Domain, :name => 'domain2.com', :is_default => false)
     assert_equal 'domain1.com', env.default_hostname
   end
 
@@ -265,19 +272,19 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'provide environment name in to_s' do
-    env = Environment.new(:name => 'my name')
+    env = build(Environment, :name => 'my name')
     assert_equal 'my name', env.to_s
   end
 
   should 'fallback to "?" when calling to_s with empty name' do
-    env = Environment.new(:name => nil)
+    env = build(Environment, :name => nil)
     assert_nil env.name
     assert_equal "?", env.to_s
   end
 
   should 'remove boxes and blocks when removing environment' do
     Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
-    env = Environment.create!(:name => 'test environment')
+    env = create(Environment, :name => 'test environment')
 
     env_boxes = env.boxes.size
     env_blocks = env.blocks.size
@@ -295,14 +302,14 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'have boxes and blocks upon creation' do
     Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
-    environment = Environment.create!(:name => 'a test environment')
+    environment = create(Environment, :name => 'a test environment')
     assert environment.boxes.size > 0
     assert environment.blocks.size > 0
   end
 
   should 'have at least one MainBlock upon creation' do
     Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
-    environment = Environment.create!(:name => 'a test environment')
+    environment = create(Environment, :name => 'a test environment')
     assert(environment.blocks.any? { |block| block.kind_of? MainBlock })
   end
 
@@ -381,16 +388,16 @@ class EnvironmentTest < ActiveSupport::TestCase
     env = Environment.default
     e1 = fast_create(Enterprise)
     category = fast_create(ProductCategory)
-    p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => category.id)
+    p1 = create(Product, :enterprise => e1, :name => 'test_prod1', :product_category_id => category.id)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :profile_id => e1.id,
+      products.push(create(Product, :name => "product #{n}", :profile_id => e1.id,
         :product_category_id => category.id, :highlighted => true,
         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
       ))
     }
-    Product.create!(:name => "product 4", :profile_id => e1.id, :product_category_id => category.id, :highlighted => true)
-    Product.create!(:name => "product 5", :profile_id => e1.id, :product_category_id => category.id, :image_builder => {
+    create(Product, :name => "product 4", :profile_id => e1.id, :product_category_id => category.id, :highlighted => true)
+    create(Product, :name => "product 5", :profile_id => e1.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     assert_equal products, env.highlighted_products_with_image
@@ -427,15 +434,15 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'provide custom header' do
-    assert_equal 'my header', Environment.new(:custom_header => 'my header').custom_header
+    assert_equal 'my header', build(Environment, :custom_header => 'my header').custom_header
   end
 
   should 'provide custom footer' do
-    assert_equal 'my footer', Environment.new(:custom_footer => "my footer").custom_footer
+    assert_equal 'my footer', build(Environment, :custom_footer => "my footer").custom_footer
   end
 
   should 'provide theme' do
-    assert_equal 'my-custom-theme', Environment.new(:theme => 'my-custom-theme').theme
+    assert_equal 'my-custom-theme', build(Environment, :theme => 'my-custom-theme').theme
   end
 
   should 'give default theme' do
@@ -481,7 +488,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'create templates' do
-    e = Environment.create!(:name => 'test_env')
+    e = create(Environment, :name => 'test_env')
     e.reload
 
     # the templates must be created
@@ -514,7 +521,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'have a layout template' do
-    e = Environment.new(:layout_template => 'mytemplate')
+    e = build(Environment, :layout_template => 'mytemplate')
     assert_equal 'mytemplate', e.layout_template
   end
 
@@ -523,7 +530,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'set replace_enterprise_template_when_enable on environment' do
-    e = Environment.new(:name => 'Enterprise test')
+    e = fast_create(Environment, :name => 'Enterprise test')
     e.replace_enterprise_template_when_enable = true
     e.save
     assert_equal true, e.replace_enterprise_template_when_enable
@@ -767,18 +774,18 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'have roles with names independent of other environments' do
     e1 = fast_create(Environment)
-    role1 = Role.create!(:name => 'test_role', :environment => e1)
+    role1 = create(Role, :name => 'test_role', :environment => e1)
     e2 = fast_create(Environment)
-    role2 = Role.new(:name => 'test_role', :environment => e2)
+    role2 = build(Role, :name => 'test_role', :environment => e2)
 
     assert role2.valid?
   end
 
   should 'have roles with keys independent of other environments' do
     e1 = fast_create(Environment)
-    role1 = Role.create!(:name => 'test_role', :environment => e1, :key => 'a_member')
+    role1 = create(Role, :name => 'test_role', :environment => e1, :key => 'a_member')
     e2 = fast_create(Environment)
-    role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
+    role2 = build(Role, :name => 'test_role', :environment => e2, :key => 'a_member')
 
     assert role2.valid?
   end
@@ -910,15 +917,14 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should "not crash when set nil as terms of use" do
-    v = Environment.new(:name => 'My test environment')
+    v = fast_create(Environment, :name => 'My test environment')
     v.terms_of_use = nil
     assert v.save!
   end
 
   should "terms of use not be an blank string" do
-    v = Environment.new(:name => 'My test environment')
-    v.terms_of_use = "   "
-    assert v.save!
+    v = fast_create(Environment)
+    v.terms_of_use = '   '
     assert !v.has_terms_of_use?
   end
 
@@ -979,7 +985,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'store cache time for home page' do
-    env = Environment.new(:home_cache_in_minutes => 99)
+    env = build(Environment, :home_cache_in_minutes => 99)
     assert_equal 99, env.home_cache_in_minutes
   end
 
@@ -1002,7 +1008,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'store cache time for general content' do
-    env = Environment.new(:general_cache_in_minutes => 99)
+    env = build(Environment, :general_cache_in_minutes => 99)
     assert_equal 99, env.general_cache_in_minutes
   end
 
@@ -1025,7 +1031,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'store cache time for profile content' do
-    env = Environment.new(:profile_cache_in_minutes => 99)
+    env = build(Environment, :profile_cache_in_minutes => 99)
     assert_equal 99, env.profile_cache_in_minutes
   end
 
@@ -1082,9 +1088,9 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'has a list of units ordered by position' do
-    litre = Unit.create!(:singular => 'Litre', :plural => 'Litres', :environment => Environment.default)
-    meter = Unit.create!(:singular => 'Meter', :plural => 'Meters', :environment => Environment.default)
-    kilo  = Unit.create!(:singular => 'Kilo',  :plural => 'Kilo',   :environment => Environment.default)
+    litre = create(Unit, :singular => 'Litre', :plural => 'Litres', :environment => Environment.default)
+    meter = create(Unit, :singular => 'Meter', :plural => 'Meters', :environment => Environment.default)
+    kilo  = create(Unit, :singular => 'Kilo',  :plural => 'Kilo',   :environment => Environment.default)
     litre.move_to_bottom
     assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
   end
@@ -1132,8 +1138,8 @@ class EnvironmentTest < ActiveSupport::TestCase
     title2 = "Sample Article2"
     profile = fast_create(Profile)
 
-    p1 = School::Project.new(:name => title1, :profile => profile)
-    p2 = Work::Project.new(:name => title2, :profile => profile)
+    p1 = build(School::Project, :name => title1, :profile => profile)
+    p2 = build(Work::Project, :name => title2, :profile => profile)
 
     p1.save!
     p2.save!
@@ -1152,19 +1158,19 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.reports_lower_bound = nil
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = -3
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = 1.5
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = 5
     environment.valid?
-    assert !environment.errors.invalid?(:reports_lower_bound)
+    assert !environment.errors[:reports_lower_bound.to_s].present?
   end
 
   should 'be able to enable or disable a plugin with the class or class name' do
@@ -1188,9 +1194,9 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'be able to have many licenses' do
     environment = Environment.default
     another_environment = fast_create(Environment)
-    l1 = License.create!(:name => 'GPLv3', :environment => environment)
-    l2 = License.create!(:name => 'AGPL', :environment => environment)
-    l3 = License.create!(:name => 'Apache', :environment => another_environment)
+    l1 = fast_create(License, :environment_id => environment.id)
+    l2 = fast_create(License, :environment_id => environment.id)
+    l3 = fast_create(License, :environment_id => another_environment)
 
     environment.reload
 
@@ -1211,12 +1217,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment = fast_create(Environment)
     environment.redirection_after_login = 'invalid_option'
     environment.save
-    assert environment.errors.invalid?(:redirection_after_login)
+    assert environment.errors[:redirection_after_login.to_s].present?
 
     Environment.login_redirection_options.keys.each do |redirection|
       environment.redirection_after_login = redirection
       environment.save
-      assert !environment.errors.invalid?(:redirection_after_login)
+      assert !environment.errors[:redirection_after_login.to_s].present?
     end
   end
 
@@ -1232,12 +1238,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment = fast_create(Environment)
     environment.redirection_after_signup = 'invalid_option'
     environment.save
-    assert environment.errors.invalid?(:redirection_after_signup)
+    assert environment.errors[:redirection_after_signup.to_s].present?
 
     Environment.signup_redirection_options.keys.each do |redirection|
       environment.redirection_after_signup = redirection
       environment.save
-      assert !environment.errors.invalid?(:redirection_after_signup)
+      assert !environment.errors[:redirection_after_signup.to_s].present?
     end
   end
 
@@ -1324,11 +1330,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.stubs(:available_locales).returns(['en'])
     environment.default_language = 'pt'
     environment.valid?
-    assert environment.errors.invalid?(:default_language)
+    assert environment.errors[:default_language.to_s].present?
 
     environment.default_language = 'en'
     environment.valid?
-    assert !environment.errors.invalid?(:default_language)
+    assert !environment.errors[:default_language.to_s].present?
   end
 
   should 'define default locale or use the config default locale' do
@@ -1347,11 +1353,11 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.languages = ['zz']
     environment.valid?
-    assert environment.errors.invalid?(:languages)
+    assert environment.errors[:languages.to_s].present?
 
     environment.languages = ['en']
     environment.valid?
-    assert !environment.errors.invalid?(:languages)
+    assert !environment.errors[:languages.to_s].present?
   end
 
   should 'define locales or use the config locales' do
@@ -1375,5 +1381,33 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.languages = ['pt', 'en']
     environment.save!
     assert_equal ['en', 'pt'], environment.available_locales
+  end
+
+  should 'not consider custom welcome screen text if not defined' do
+    env = Environment.default
+    assert !env.has_custom_welcome_screen?
+  end
+
+  should 'not consider custom welcome screen text if nil' do
+    env = Environment.default
+
+    env.signup_welcome_screen_body = nil
+    assert !env.has_custom_welcome_screen?
+  end
+
+  should 'consider signup welcome screen if body is defined' do
+    env = Environment.default
+    env.signup_welcome_screen_body  = 'Welcome to the environment'
+    assert env.has_custom_welcome_screen?
+  end
+
+  should 'store custom welcome screen body' do
+    environment = Environment.default
+
+    environment.signup_welcome_screen_body = 'Welcome to the environment'
+    environment.save
+    environment.reload
+
+    assert_equal 'Welcome to the environment', environment.signup_welcome_screen_body
   end
 end

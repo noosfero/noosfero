@@ -1,6 +1,6 @@
 class EnvironmentRoleManagerController < AdminController
   protect 'manage_environment_roles', :environment
-  
+
   def index
     @admins = Person.find(:all, :conditions => ['role_assignments.resource_type = ?', 'Environment'], :include => :role_assignments )
   end
@@ -8,7 +8,7 @@ class EnvironmentRoleManagerController < AdminController
   def change_roles
     @admin = Person.find(params[:id])
     @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
-  end  
+  end
 
   def update_roles
     @roles = params[:roles] ? Role.find(params[:roles]) : []
@@ -20,7 +20,7 @@ class EnvironmentRoleManagerController < AdminController
     end
     redirect_to :action => :index
   end
-  
+
   def change_role
     @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
     @admin = Person.find(params[:id])

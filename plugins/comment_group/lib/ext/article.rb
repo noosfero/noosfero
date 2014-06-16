@@ -10,7 +10,7 @@ class Article
     if body && body_changed?
       groups_with_comments = Comment.find(:all, :select => 'distinct group_id', :conditions => {:source_id => self.id}).map(&:group_id).compact
       groups = Hpricot(body.to_s).search('.macro').collect{|element| element['data-macro-group_id'].to_i}
-      errors.add_to_base(N_('Not empty group comment cannot be removed')) unless (groups_with_comments-groups).empty?
+      errors[:base] << (N_('Not empty group comment cannot be removed')) unless (groups_with_comments-groups).empty?
     end
   end
 

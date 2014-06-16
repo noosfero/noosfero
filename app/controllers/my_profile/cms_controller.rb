@@ -53,8 +53,7 @@ class CmsController < MyProfileController
       conditions = ['type != ?', 'RssFeed']
     end
 
-    @articles = @article.children.paginate(
-      :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
+    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name").paginate(
       :conditions => conditions,
       :per_page => per_page,
       :page => params[:npage]
@@ -145,6 +144,7 @@ class CmsController < MyProfileController
 
     @article.profile = profile
     @article.last_changed_by = user
+    @article.created_by = user
 
     translations if @article.translatable?
 
@@ -188,7 +188,7 @@ class CmsController < MyProfileController
     end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent, :last_changed_by => user) unless file == ''
+        @uploaded_files << UploadedFile.create({:uploaded_data => file, :profile => profile, :parent => @parent, :last_changed_by => user}, :without_protection => true) unless file == ''
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
@@ -210,7 +210,7 @@ class CmsController < MyProfileController
     if request.post?
       @article.destroy
       session[:notice] = _("\"#{@article.name}\" was removed.")
-      referer = ActionController::Routing::Routes.recognize_path URI.parse(request.referer).path rescue nil
+      referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer
       elsif @article.parent
@@ -232,7 +232,7 @@ class CmsController < MyProfileController
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
     end
-    render :partial => 'shared/select_categories', :locals => {:object_name => 'article', :multiple => true}, :layout => false
+    render :template => 'shared/update_categories', :locals => { :category => @current_category }
   end
 
   def publish
@@ -253,7 +253,7 @@ class CmsController < MyProfileController
         begin
           task.finish unless item[:group].moderated_articles?
         rescue Exception => ex
-           @failed[ex.clean_message] ? @failed[ex.clean_message] << item[:group].name : @failed[ex.clean_message] = [item[:group].name]
+           @failed[ex.message] ? @failed[ex.message] << item[:group].name : @failed[ex.message] = [item[:group].name]
         end
       end
       if @failed.blank?

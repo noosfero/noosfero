@@ -6,7 +6,7 @@ makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
 task :makemo => makemo_stamp
 file makemo_stamp => Dir.glob('po/*/noosfero.po') do
-  ruby '-rconfig/boot -e \'require "gettext"; require "gettext/utils"; GetText.create_mofiles(true, "po", "locale")\' 2>/dev/null'
+  ruby '-I. -rconfig/boot -e \'require "gettext"; require "gettext/utils"; GetText.create_mofiles(true, "po", "locale")\''
   Rake::Task['symlinkmo'].invoke
   FileUtils.mkdir_p 'tmp'
   FileUtils.touch makemo_stamp
@@ -21,14 +21,14 @@ task :symlinkmo do
   langmap = {
     'pt' => 'pt_BR',
   }
-  mkdir_p(File.join(Rails.root, 'locale'))
-  Dir.glob(File.join(Rails.root, 'locale/*')).each do |dir|
+  mkdir_p(Rails.root.join('locale'))
+  Dir.glob(Rails.root.join('locale/*')).each do |dir|
     lang = File.basename(dir)
     orig_lang = langmap[lang] || lang
-    mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
+    mkdir_p(Rails.root.join('locale', "#{lang}", 'LC_MESSAGES'))
     ['iso_3166'].each do |domain|
       origin = "/usr/share/locale/#{orig_lang}/LC_MESSAGES/#{domain}.mo"
-      target = "#{Rails.root}/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
+      target = Rails.root.join('locale', "#{lang}", 'LC_MESSAGES', "#{domain}.mo")
       if !File.symlink?(target)
         ln_s origin, target
       end
@@ -39,7 +39,7 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext_rails/tools'
-  require 'noosfero'
+  require_dependency 'noosfero'
 
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'

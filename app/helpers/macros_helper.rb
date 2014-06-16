@@ -39,7 +39,7 @@ module MacrosHelper
     plugins_javascripts = []
     @plugins.dispatch(:macros).map do |macro|
       if macro.configuration[:js_files]
-        macro.configuration[:js_files].map { |js| plugins_javascripts << macro.plugin.public_path(js) }
+        [macro.configuration[:js_files]].flatten.map { |js| plugins_javascripts << macro.plugin.public_path(js) }
       end
     end
     javascript_include_tag(plugins_javascripts, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty?
@@ -49,7 +49,7 @@ module MacrosHelper
     plugins_css = []
     @plugins.dispatch(:macros).map do |macro|
       if macro.configuration[:css_files]
-        macro.configuration[:css_files].map { |css| plugins_css << macro.plugin.public_path(css) }
+        [macro.configuration[:css_files]].flatten.map { |css| plugins_css << macro.plugin.public_path(css) }
       end
     end
     plugins_css.join(',')

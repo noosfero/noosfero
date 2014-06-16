@@ -1,0 +1,14 @@
+<%= javascript_include_tag 'prototype.js', 'effects.js', 'dragdrop.js', 'controls.js',
+'jquery-2.1.1.min', 'jquery-migrate-1.2.1',
+'jquery.noconflict.js', 'jquery.cycle.all.min.js', 'thickbox.js', 'lightbox', 'colorbox',
+'jquery-ui-1.10.4/js/jquery-ui-1.10.4.min', 'jquery.scrollTo', 'jquery.form.js', 'jquery-validation/jquery.validate',
+'jquery.cookie', 'jquery.ba-bbq.min.js', 'reflection', 'jquery.tokeninput',
+'add-and-join', 'report-abuse', 'catalog', 'manage-products', 'autogrow',
+'jquery-timepicker-addon/dist/jquery-ui-timepicker-addon', 'application.js', 'rails.js', :cache => 'cache/application' %>
+
+<% language = FastGettext.locale %>
+<% %w{messages methods}.each do |type| %>
+  <% require_path = File.join('jquery-validation', 'localization', type+'_'+language) %>
+  <% full_path = Rails.root.join('public', 'javascripts', require_path+'.js')%>
+  <%= javascript_include_tag require_path if File.exists?(full_path) %>
+<% end %>

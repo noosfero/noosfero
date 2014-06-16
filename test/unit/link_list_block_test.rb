@@ -102,7 +102,9 @@ class LinkListBlockTest < ActiveSupport::TestCase
   should 'be able to update display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
-    block = LinkListBlock.create!(:display => 'never', :box => box)
+    block = LinkListBlock.new(:display => 'never').tap do |b|
+      b.box = box
+    end
     assert block.update_attributes!(:display => 'always')
     block.reload
     assert_equal 'always', block.display

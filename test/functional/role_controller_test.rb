@@ -66,14 +66,14 @@ class RoleControllerTest < ActionController::TestCase
   end
 
   def test_should_create_new_role
-    assert_difference Role, :count do
+    assert_difference 'Role.count' do
       post 'create', :role => { :name => 'Test Role', :permissions => ["test"] }
     end
     assert_redirected_to :action => 'show', :id => Role.last.id
   end
 
   def test_should_not_create_new_role
-    assert_no_difference Role, :count do
+    assert_no_difference 'Role.count' do
       post 'create', :role => { }
     end
     assert_template :new

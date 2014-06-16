@@ -1,6 +1,6 @@
 <h1> <%= _('Basket options') %> </h1>
 
-<% form_for(:settings, @settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
+<%= form_for(:settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
   <%= labelled_form_field(_('Enable shopping basket'), f.check_box(:enabled)) %>
   <%= labelled_form_field(_('Enable delivery fields on orders'), f.check_box(:delivery)) %>
   <% display_delivery_settings = @settings.delivery ? 'auto' : 'none' %>

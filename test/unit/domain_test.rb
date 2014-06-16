@@ -10,42 +10,42 @@ class DomainTest < ActiveSupport::TestCase
   should 'not allow domains without name' do
     domain = Domain.new
     domain.valid?
-    assert domain.errors.invalid?(:name)
+    assert domain.errors[:name.to_s].present?
   end
 
   should 'not allow domain without dot' do
-    domain = Domain.new(:name => 'test')
+    domain = build(Domain, :name => 'test')
     domain.valid?
-    assert domain.errors.invalid?(:name)
+    assert domain.errors[:name.to_s].present?
   end
 
   should 'allow domains with dot' do
-    domain = Domain.new(:name => 'test.org')
+    domain = build(Domain, :name => 'test.org')
     domain.valid?
-    assert !domain.errors.invalid?(:name)
+    assert !domain.errors[:name.to_s].present?
   end
 
   should 'not allow domains with upper cased letters' do
-    domain = Domain.new(:name => 'tEst.org')
+    domain = build(Domain, :name => 'tEst.org')
     domain.valid?
-    assert domain.errors.invalid?(:name)
+    assert domain.errors[:name.to_s].present?
   end
 
   should 'allow domains with hyphen' do
-    domain = Domain.new(:name => 'test-domain.org')
+    domain = build(Domain, :name => 'test-domain.org')
     domain.valid?
-    assert !domain.errors.invalid?(:name)
+    assert !domain.errors[:name.to_s].present?
   end
 
   should 'allow domains with underscore' do
-    domain = Domain.new(:name => 'test_domain.org')
+    domain = build(Domain, :name => 'test_domain.org')
     domain.valid?
-    assert !domain.errors.invalid?(:name)
+    assert !domain.errors[:name.to_s].present?
   end
 
   def test_owner
-    d = Domain.new(:name => 'example.com')
-    d.owner = Environment.new(:name => 'Example')
+    d = build(Domain, :name => 'example.com')
+    d.owner = build(Environment, :name => 'Example')
     assert d.save
     assert_kind_of Environment, d.owner
   end
@@ -59,11 +59,11 @@ class DomainTest < ActiveSupport::TestCase
     d = Domain.new
     d.name = 'www.example.net'
     d.valid?
-    assert d.errors.invalid?(:name)
+    assert d.errors[:name.to_s].present?, "Name should not accept www."
 
     d.name = 'example.net'
     d.valid?
-    assert !d.errors.invalid?(:name)
+    assert !d.errors[:name.to_s].present?
   end
 
   def test_find_by_name
@@ -78,11 +78,11 @@ class DomainTest < ActiveSupport::TestCase
 
   def test_unique_name
     Domain.delete_all
-    assert Domain.create(:name => 'example.net')
+    assert create(Domain, :name => 'example.net')
 
-    d = Domain.new(:name => 'example.net')
+    d = build(Domain, :name => 'example.net')
     assert !d.valid?
-    assert d.errors.invalid?(:name)
+    assert d.errors[:name.to_s].present?
   end
 
   def test_environment
@@ -108,12 +108,12 @@ class DomainTest < ActiveSupport::TestCase
     assert_equal false, Domain.hosting_profile_at('example.com')
 
     profile = create_user('hosted_user').person
-    Domain.create!(:name => 'example.com', :owner => profile)
+    create(Domain, :name => 'example.com', :owner => profile)
     assert_equal true, Domain.hosting_profile_at('example.com')
   end
 
   def test_not_report_profile_hosted_for_environment_domains
-    Domain.create!(:name => 'example.com', :owner => Environment.default)
+    create(Domain, :name => 'example.com', :owner => Environment.default)
     assert_equal false, Domain.hosting_profile_at('example.com')
   end
 

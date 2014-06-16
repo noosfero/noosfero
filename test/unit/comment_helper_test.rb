@@ -12,6 +12,7 @@ class CommentHelperTest < ActiveSupport::TestCase
     self.stubs(:logged_in?).returns(true)
     self.stubs(:report_abuse).returns('<a href="#">link</a>')
     self.stubs(:expirable_comment_link).returns('<a href="#">link</a>')
+    @plugins = mock
     @plugins.stubs(:dispatch).returns([])
   end
 
@@ -19,7 +20,7 @@ class CommentHelperTest < ActiveSupport::TestCase
 
   should 'show menu if it has links for actions' do
     article = Article.new(:profile => profile)
-    comment = Comment.new(:article => article)
+    comment = build(Comment, :article => article)
     menu = comment_actions(comment)
     assert_match /class=\"comment-actions\"/, menu
   end
@@ -43,7 +44,7 @@ class CommentHelperTest < ActiveSupport::TestCase
 
   should 'include actions of plugins in menu' do
     article = Article.new(:profile => profile)
-    comment = Comment.new(:article => article)
+    comment = build(Comment, :article => article)
     plugin_action = {:link => 'plugin_action'}
     @plugins.stubs(:dispatch).returns([plugin_action])
     links = links_for_comment_actions(comment)
@@ -52,8 +53,8 @@ class CommentHelperTest < ActiveSupport::TestCase
 
   should 'include lambda actions of plugins in menu' do
     article = Article.new(:profile => profile)
-    comment = Comment.new(:article => article)
-    plugin_action = lambda{[{:link => 'plugin_action'}, {:link => 'plugin_action2'}]}
+    comment = build(Comment, :article => article)
+    plugin_action = proc{[{:link => 'plugin_action'}, {:link => 'plugin_action2'}]}
     @plugins.stubs(:dispatch).returns([plugin_action])
     links = links_for_comment_actions(comment)
     assert_includes links, {:link => 'plugin_action'}

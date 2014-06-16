@@ -1,4 +1,8 @@
+require 'noosfero/multi_tenancy'
+
 class Domain < ActiveRecord::Base
+
+  attr_accessible :name, :owner
 
   # relationships
   ###############
@@ -15,7 +19,9 @@ class Domain < ActiveRecord::Base
   # checks validations that could not be expressed using Rails' predefined
   # validations. In particular:
   # * <tt>name</tt> must not start with 'www.'
-  def validate
+  validate :no_www
+
+  def no_www
     if self.name =~ /^www\./
       self.errors.add(:name, _('{fn} must not start with www.').fix_i18n)
     end

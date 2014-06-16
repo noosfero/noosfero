@@ -1,10 +1,11 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class TagsHelperTest < ActiveSupport::TestCase
 
   include ApplicationHelper
   include TagsHelper
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
 
   def h(s); s; end
   def link_to(text, *args); text; end

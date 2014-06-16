@@ -13,22 +13,22 @@ class ApproveArticleTest < ActiveSupport::TestCase
   attr_reader :profile, :article, :community
 
   should 'have name, reference article and profile' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
 
     assert_equal article, a.article
     assert_equal community, a.target
   end
 
   should 'have abstract and body' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
 
     assert_equal ['Lead of article', 'This is my article'], [a.abstract, a.body]
   end
 
   should 'create an article with the same class as original when finished' do
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       a.finish
     end
   end
@@ -36,28 +36,28 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'override target notification message method from Task' do
     p1 = profile
     p2 = create_user('testuser2').person
-    task = AddFriend.new(:person => p1, :friend => p2)
+    task = build(AddFriend, :person => p1, :friend => p2)
     assert_nothing_raised NotImplementedError do
       task.target_notification_message
     end
   end
 
   should 'have parent if defined' do
-    folder = profile.articles.create!(:name => 'test folder', :type => 'Folder')
+    folder = create(Folder, :name => 'test folder', :profile => profile)
 
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile, :article_parent_id => folder.id)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => profile, :requestor => profile, :article_parent_id => folder.id)
 
     assert_equal folder, a.article_parent
   end
 
   should 'not have parent if not defined' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => profile, :requestor => profile)
 
     assert_nil a.article_parent
   end
 
   should 'alert when reference article is removed' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => profile, :requestor => profile)
 
     article.destroy
     a.reload
@@ -66,15 +66,15 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'preserve article_parent' do
-    a = ApproveArticle.new(:article_parent => article)
+    a = build(ApproveArticle, :article_parent => article)
 
     assert_equal article, a.article_parent
   end
 
   should 'handle blank names' do
-    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       a.finish
     end
   end
@@ -84,7 +84,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.save
     community.stubs(:notification_emails).returns(['adm@example.com'])
 
-    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
     assert !ActionMailer::Base.deliveries.empty?
   end
 
@@ -92,7 +92,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.moderated_articles = false
     community.save
 
-    a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
     assert ActionMailer::Base.deliveries.empty?
   end
 
@@ -100,14 +100,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article.source = 'sample-feed.com'
     article.save
 
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal article.class.last.source, article.source
   end
 
   should 'have a reference article and profile on published article' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     published = article.class.last
@@ -115,14 +115,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'copy name from original article' do
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal 'test name', article.class.last.name
   end
 
   should 'be able to edit name of generated article' do
-    a = ApproveArticle.create!(:name => 'Other name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'Other name', :article => article, :target => community, :requestor => profile)
     a.abstract = 'Abstract edited';a.save
     a.finish
 
@@ -130,14 +130,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'copy abstract from original article' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal 'Lead of article', article.class.last.abstract
   end
 
   should 'be able to edit abstract of generated article' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.abstract = 'Abstract edited';a.save
     a.finish
 
@@ -145,14 +145,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'copy body from original article' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal 'This is my article', article.class.last.body
   end
 
   should 'be able to edit body of generated article' do
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.body = 'Body edited';a.save
     a.finish
 
@@ -164,7 +164,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article.parent = profile_blog
     article.save
 
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert !community.has_blog?
@@ -177,7 +177,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article.save
 
     community.articles << Blog.new(:profile => community)
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal community.blog, article.class.last.parent
@@ -189,7 +189,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article.save
 
     blog = fast_create(Blog, :profile_id => community.id)
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_nil article.class.last.parent
@@ -203,7 +203,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.articles << Blog.new(:profile => community)
     community_folder = fast_create(Folder, :profile_id => profile.id)
 
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile, :article_parent => community_folder)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile, :article_parent => community_folder)
     a.finish
 
     assert_equal community_folder, article.class.last.parent
@@ -211,7 +211,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'use author from original article on published' do
     article.class.any_instance.stubs(:author).returns(profile)
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal profile, article.class.last.author
@@ -219,7 +219,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'use original article author even if article is destroyed' do
     article.class.any_instance.stubs(:author).returns(profile)
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     article.destroy
@@ -229,14 +229,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'the published article have parent if defined' do
     folder = fast_create(Folder, :profile_id => community.id)
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile, :article_parent => folder)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile, :article_parent => folder)
     a.finish
 
     assert_equal folder, article.class.last.parent
   end
 
   should 'copy to_html from reference_article' do
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal article.to_html, article.class.last.to_html
@@ -244,7 +244,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'notify activity on creating published' do
     ActionTracker::Record.delete_all
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal 1, ActionTracker::Record.count
@@ -254,16 +254,16 @@ class ApproveArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
 
     article = fast_create(TextileArticle)
-    a = ApproveArticle.create!(:name => 'bar', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'bar', :article => article, :target => community, :requestor => profile)
     a.finish
 
     article = fast_create(TextileArticle)
-    a = ApproveArticle.create!(:name => 'another bar', :article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'another bar', :article => article, :target => community, :requestor => profile)
     a.finish
 
     article = fast_create(TextileArticle)
     other_community = fast_create(Community)
-    a = ApproveArticle.create!(:name => 'another bar', :article => article, :target => other_community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'another bar', :article => article, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 3, ActionTracker::Record.count
   end
@@ -271,16 +271,16 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
     article1 = fast_create(TextileArticle)
-    a = ApproveArticle.create!(:name => 'bar', :article => article1, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'bar', :article => article1, :target => community, :requestor => profile)
     a.finish
 
     article2 = fast_create(TinyMceArticle)
     other_community = fast_create(Community)
-    a = ApproveArticle.create!(:name => 'another bar', :article => article2, :target => other_community, :requestor => profile)
+    a = create(ApproveArticle, :name => 'another bar', :article => article2, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 2, ActionTracker::Record.count
 
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       published = article1.class.last
       published.name = 'foo';published.save!
   
@@ -294,7 +294,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     person = fast_create(Person)
     community.add_member(person)
 
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     approved_article = community.articles.find_by_name(article.name)
@@ -305,8 +305,9 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = fast_create(Person)
+    person.stubs(:notification_emails).returns(['target@example.org'])
 
-    a = ApproveArticle.create!(:article => article, :target => person, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => person, :requestor => profile)
     a.finish
 
     approved_article = person.articles.find_by_name(article.name)
@@ -315,7 +316,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should "have the same is_trackable method as original article" do
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal article.is_trackable?, article.class.last.is_trackable?
@@ -323,13 +324,13 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'not have target notification message if it is not a moderated oganization' do
     community.moderated_articles = false; community.save
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
     assert_nil task.target_notification_message
   end
 
   should 'have target notification message if is organization and not moderated' do
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
     community.expects(:moderated_articles?).returns(['true'])
 
@@ -338,53 +339,53 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'have target notification description' do
     community.moderated_articles = false; community.save
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, task.target_notification_description)
   end
 
   should 'deliver target notification message' do
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
     community.expects(:notification_emails).returns(['target@example.com'])
     community.expects(:moderated_articles?).returns(['true'])
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
   should 'deliver target finished message' do
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
-    email = TaskMailer.deliver_task_finished(task)
+    email = task.send(:send_notification, :finished).deliver
 
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
   should 'deliver target finished message about article deleted' do
-    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
     article.destroy
 
-    email = TaskMailer.deliver_task_finished(task)
+    email = task.send(:send_notification, :finished).deliver
 
     assert_match(/#{task.requestor.name} wanted to publish an article but it was removed/, email.subject)
   end
 
   should 'approve an event' do
     event = fast_create(Event, :profile_id => profile.id, :name => 'Event test', :slug => 'event-test', :abstract => 'Lead of article', :body => 'This is my event')
-    task = ApproveArticle.create!(:name => 'Event test', :article => event, :target => community, :requestor => profile)
-    assert_difference event.class, :count do
+    task = create(ApproveArticle, :name => 'Event test', :article => event, :target => community, :requestor => profile)
+    assert_difference 'event.class.count' do
       task.finish
     end
   end
 
   should 'approve same article twice changing its name' do
-    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    task1 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
+    assert_difference 'article.class.count' do
       task1.finish
     end
-    task2 = ApproveArticle.create!(:name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    task2 = create(ApproveArticle, :name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
+    assert_difference 'article.class.count' do
       assert_nothing_raised ActiveRecord::RecordInvalid do
          task2.finish
       end
@@ -392,12 +393,12 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'not approve same article twice if not changing its name' do
-    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    task1 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
+    assert_difference 'article.class.count' do
       task1.finish
     end
-    task2 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
-    assert_no_difference article.class, :count do
+    task2 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
+    assert_no_difference 'article.class.count' do
       assert_raises ActiveRecord::RecordInvalid do
          task2.finish
       end
@@ -405,18 +406,18 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'return reject message even without reject explanation' do
-    task = ApproveArticle.new(:name => 'My Article')
+    task = build(ApproveArticle, :name => 'My Article')
     assert_not_nil task.task_cancelled_message
   end
 
   should 'show the name of the article in the reject message' do
-    task = ApproveArticle.new(:name => 'My Article')
+    task = build(ApproveArticle, :name => 'My Article')
     assert_match /My Article/, task.task_cancelled_message
   end
 
   should 'not save 4 on the new article\'s last_changed_by_ud after approval if author is nil' do
     article = fast_create(Article)
-    task = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    task = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     task.finish
     new_article = Article.last
     assert_nil new_article.last_changed_by_id
@@ -424,9 +425,9 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'not crash if target has its own domain' do
     article = fast_create(Article)
-    profile.domains << Domain.create(:name => 'example.org')
+    profile.domains << create(Domain, :name => 'example.org')
     assert_nothing_raised do
-      ApproveArticle.create!(:article => article, :target => profile, :requestor => community)
+      create(ApproveArticle, :article => article, :target => profile, :requestor => community)
     end
   end
 

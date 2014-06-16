@@ -94,6 +94,7 @@ class ShoppingCartPluginController < PublicController
   end
 
   def buy
+    @customer = user || Person.new
     if validate_cart_presence
       @cart = cart
       @enterprise = environment.enterprises.find(cart[:profile_id])
@@ -106,8 +107,8 @@ class ShoppingCartPluginController < PublicController
     register_order(params[:customer], self.cart[:items])
     begin
       enterprise = environment.enterprises.find(cart[:profile_id])
-      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option])
-      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option])
+      ShoppingCartPlugin::Mailer.customer_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option]).deliver
+      ShoppingCartPlugin::Mailer.supplier_notification(params[:customer], enterprise, self.cart[:items], params[:delivery_option]).deliver
       self.cart = nil
       render :text => {
         :ok => true,
@@ -267,22 +268,22 @@ class ShoppingCartPluginController < PublicController
       price = product.price || 0
       new_items[id] = {:quantity => quantity, :price => price, :name => product.name}
     end
-    ShoppingCartPlugin::PurchaseOrder.create!(
-      :seller => Enterprise.find(cart[:profile_id]),
-      :customer => user,
-      :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
-      :products_list => new_items,
-      :customer_delivery_option => params[:delivery_option],
-      :customer_payment => params[:customer][:payment],
-      :customer_change => params[:customer][:change],
-      :customer_name => params[:customer][:name],
-      :customer_email => params[:customer][:email],
-      :customer_contact_phone => params[:customer][:contact_phone],
-      :customer_address => params[:customer][:address],
-      :customer_district => params[:customer][:district],
-      :customer_city => params[:customer][:city],
-      :customer_zip_code => params[:customer][:zip_code]
-    )
+    purchase_order = ShoppingCartPlugin::PurchaseOrder.new
+    purchase_order.seller = Enterprise.find(cart[:profile_id])
+    purchase_order.customer = user
+    purchase_order.status = ShoppingCartPlugin::PurchaseOrder::Status::OPENED
+    purchase_order.products_list = new_items
+    purchase_order.customer_delivery_option = params[:delivery_option]
+    purchase_order.customer_payment = params[:customer][:payment]
+    purchase_order.customer_change = params[:customer][:change]
+    purchase_order.customer_name = params[:customer][:name]
+    purchase_order.customer_email = params[:customer][:email]
+    purchase_order.customer_contact_phone = params[:customer][:contact_phone]
+    purchase_order.customer_address = params[:customer][:address]
+    purchase_order.customer_district = params[:customer][:district]
+    purchase_order.customer_city = params[:customer][:city]
+    purchase_order.customer_zip_code = params[:customer][:zip_code]
+    purchase_order.save!
   end
 
   protected

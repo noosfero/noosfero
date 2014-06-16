@@ -14,7 +14,7 @@ Given /^the following users?$/ do |table|
 end
 
 Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
-  User.find_by_login(user).person.update_attributes(:visible => (visibility == 'visible'))
+  User.find_by_login(user).person.update_attributes({:visible => (visibility == 'visible')}, :without_protection => true)
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
@@ -30,13 +30,13 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     category = row.delete("category")
     img_name = row.delete("img")
     city = row.delete("region")
-    organization = klass.create!(row)
+    organization = klass.create!(row, :without_protection => true)
     if owner
       organization.add_admin(Profile[owner])
     end
     if domain
       d = Domain.new :name => domain, :owner => organization
-      d.save(false)
+      d.save(:validate => false)
     end
     if city
       c = City.find_by_name city
@@ -79,7 +79,7 @@ Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
     end
     if domain
       d = Domain.new :name => domain, :owner => organization
-      d.save(false)
+      d.save(:validate => false)
     end
   end
 end
@@ -203,7 +203,7 @@ Given /^the following products?$/ do |table|
       qualifier = Qualifier.find_by_name(data.delete("qualifier"))
       data.merge!(:qualifiers => [qualifier])
     end
-    product = Product.create!(data)
+    product = Product.create!(data, :without_protection => true)
   end
 end
 
@@ -215,8 +215,8 @@ Given /^the following inputs?$/ do |table|
     unit = Unit.find_by_singular(data.delete("unit"))
     solidary = data.delete("solidary")
     input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit,
-                                     :is_from_solidarity_economy => solidary))
-    input.update_attributes!(:position => data['position'])
+                                     :is_from_solidarity_economy => solidary), :without_protection => true)
+    input.update_attribute(:position,  data['position'])
   end
 end
 
@@ -224,7 +224,7 @@ Given /^the following states$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     if validator = Enterprise.find_by_name(data.delete("validator_name"))
-      State.create!(data.merge(:environment => Environment.default, :validators => [validator]))
+      State.create!(data.merge(:environment => Environment.default, :validators => [validator]), :without_protection => true)
     else
       r = State.create!(data.merge(:environment => Environment.default))
     end
@@ -247,13 +247,13 @@ Given /^the following (product_categories|product_category|category|categories|r
       parent = Category.find_by_slug(parent.to_slug)
       row.merge!({:parent_id => parent.id})
     end
-    category = klass.create!({:environment_id => Environment.default.id}.merge(row))
+    category = klass.create!({:environment => Environment.default}.merge(row))
   end
 end
 
 Given /^the following qualifiers$/ do |table|
   table.hashes.each do |row|
-    Qualifier.create!(row.merge(:environment_id => 1))
+    Qualifier.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -264,7 +264,7 @@ Given /^the following certifiers$/ do |table|
     if qualifiers_list
       row["qualifiers"] = qualifiers_list.split(', ').map{|i| Qualifier.find_by_name(i)}
     end
-    Certifier.create!(row.merge(:environment_id => 1))
+    Certifier.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -286,17 +286,12 @@ end
 
 Given /^I am logged in as "(.+)"$/ do |username|
   Given %{I go to logout page}
-    And %{I go to login page}
-    And %{I fill in "main_user_login" with "#{username}"}
-    And %{I fill in "user_password" with "123456"}
-   When %{I press "Log in"}
-    # FIXME:
-    # deveria apenas verificar que esta no myprofile do usuario
-    # nao conseguir fazer funcionar sem essa reduntancia no capybara
-    # acho que e algum problema com o http_referer
-    # olhar account_controller#store_location
-    And %{I go to #{username}'s control panel}
-   Then %{I should be on #{username}'s control panel}
+  And %{I go to login page}
+  And %{I fill in "main_user_login" with "#{username}"}
+  And %{I fill in "user_password" with "123456"}
+  When %{I press "Log in"}
+  And %{I go to #{username}'s control panel}
+  Then %{I should be on #{username}'s control panel}
 end
 
 Given /^"([^"]*)" is environment admin$/ do |person|
@@ -324,8 +319,7 @@ end
 
 Given /^feature "(.+)" is (enabled|disabled) on environment$/ do |feature, status|
   e = Environment.default
-  status.chop!
-  e.send status, feature
+  e.send status.chop, feature
   e.save
 end
 
@@ -422,7 +416,7 @@ Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
 end
 
 Then /^the page title should be "(.*)"$/ do |text|
-  Then %{I should see "#{text}" within "title"}
+  page.title.should == text
 end
 
 Then /^The page should contain "(.*)"$/ do |selector|
@@ -439,9 +433,9 @@ end
 
 Given /^the (.+) mail (?:is|has) (.+) (.+)$/ do |position, field, value|
   if(/^[0-9]+$/ =~ position)
-    ActionMailer::Base.deliveries[position.to_i][field] == value
+    ActionMailer::Base.deliveries[position.to_i][field].to_s == value
   else
-    ActionMailer::Base.deliveries.send(position)[field] == value
+    ActionMailer::Base.deliveries.send(position)[field].to_s == value
   end
 end
 
@@ -513,7 +507,7 @@ end
 
 Given /^the following units?$/ do |table|
   table.hashes.each do |row|
-    Unit.create!(row.merge(:environment_id => 1))
+    Unit.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -535,7 +529,7 @@ end
 
 Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
-  d.save(false)
+  d.save(:validate => false)
 end
 
 When /^([^\']*)'s account is activated$/ do |person|

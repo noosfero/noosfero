@@ -21,7 +21,7 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
   should 'be able to show group comments' do
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
     xhr :get, :view_comments, :profile => @profile.identifier, :article_id => article.id, :group_id => 0
-    assert_template 'comment_group_plugin_profile/view_comments.rjs'
+    assert_template 'comment_group_plugin_profile/view_comments'
     assert_match /comments_list_group_0/, @response.body
     assert_match /\"comment-count-0\", \"1\"/, @response.body
   end
@@ -30,16 +30,16 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
     fast_create(Comment, :source_id => article, :author_id => profile, :title => 'global comment', :body => 'global', :group_id => nil)
     fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
     xhr :get, :view_comments, :profile => @profile.identifier, :article_id => article.id, :group_id => 0
-    assert_template 'comment_group_plugin_profile/view_comments.rjs'
+    assert_template 'comment_group_plugin_profile/view_comments'
     assert_match /comments_list_group_0/, @response.body
     assert_match /\"comment-count-0\", \"1\"/, @response.body
   end
 
   should 'show first page comments only' do
-    comment1 = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :created_at => Time.now, :body => 'secondpage', :group_id => 0)
-    comment2 = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :created_at => Time.now - 1.day, :body => 'firstpage 1', :group_id => 0)
-    comment3 = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :created_at => Time.now - 2.days, :body => 'firstpage 2', :group_id => 0)
-    comment4 = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :created_at => Time.now - 3.days, :body => 'firstpage 3', :group_id => 0)
+    comment1 = fast_create(Comment, :created_at => Time.now - 1.days, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'secondpage', :group_id => 0)
+    comment2 = fast_create(Comment, :created_at => Time.now - 2.days, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'firstpage 1', :group_id => 0)
+    comment3 = fast_create(Comment, :created_at => Time.now - 3.days, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'firstpage 2', :group_id => 0)
+    comment4 = fast_create(Comment, :created_at => Time.now - 4.days, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'firstpage 3', :group_id => 0)
     xhr :get, :view_comments, :profile => @profile.identifier, :article_id => article.id, :group_id => 0
     assert_match /firstpage 1/, @response.body
     assert_match /firstpage 2/, @response.body

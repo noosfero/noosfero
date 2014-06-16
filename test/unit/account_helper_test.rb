@@ -18,4 +18,19 @@ class AccountHelperTest < ActiveSupport::TestCase
     end
   end
 
+  should 'remove chars which are not allowed' do
+    stubs(:environment).returns(Environment.default)
+    suggestions = suggestion_based_on_username('z/%&#e')
+    suggestions.each do |suggestion|
+      assert_no_match /.*%&#.*/, suggestion
+    end
+  end
+
+  should 'return empty suggestions if do not find any identifier available' do
+    stubs(:environment).returns(Environment.default)
+    Person.stubs(:is_available?).returns(false)
+    suggestions = suggestion_based_on_username('z/%&#e')
+    assert_equal [], suggestions
+  end
+
 end

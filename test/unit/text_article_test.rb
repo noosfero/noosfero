@@ -33,7 +33,8 @@ class TextArticleTest < ActiveSupport::TestCase
 
   should 'return blog icon name if the article is a blog post' do
     blog = fast_create(Blog)
-    article = TextArticle.new(:parent => blog)
+    article = TextArticle.new
+    article.parent = blog
     assert_equal Blog.icon_name, TextArticle.icon_name(article)
   end
 

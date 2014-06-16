@@ -1,5 +1,6 @@
 module ArticleHelper
 
+  include PrototypeHelper
   include TokenHelper
 
   def custom_options_for_article(article, tokenized_children)

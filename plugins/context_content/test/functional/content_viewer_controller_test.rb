@@ -14,7 +14,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @page = fast_create(Folder, :profile_id => @profile.id)
 
     box = Box.create!(:owner => @profile)
-    @block = ContextContentPlugin::ContextContentBlock.new(:box => box)
+    @block = ContextContentPlugin::ContextContentBlock.new(:box_id => box.id)
     @block.types = ['TinyMceArticle']
     @block.limit = 1
     @block.save!

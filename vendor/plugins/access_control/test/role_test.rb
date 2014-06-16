@@ -4,6 +4,8 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class RoleTest < Test::Unit::TestCase
 
   def setup
+    RoleAssignment.attr_accessible :role, :accessor
+    Role.attr_accessible :system
     Role.delete_all
   end
 
@@ -23,7 +25,7 @@ class RoleTest < Test::Unit::TestCase
   def test_uniqueness_of_key
     Role.create!(:name => 'unique key', :key => 'my_key')
     role = Role.new(:key => 'my_key'); role.valid?
-    assert role.errors.invalid?(:key)
+    assert role.errors.include?(:key)
   end
 
   def test_permission_setting

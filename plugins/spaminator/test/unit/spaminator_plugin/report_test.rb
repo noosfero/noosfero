@@ -5,11 +5,11 @@ class SpaminatorPlugin::ReportTest < ActiveSupport::TestCase
   should 'must belong to an environment' do
     report = SpaminatorPlugin::Report.new
     report.valid?
-    assert report.errors.invalid?(:environment)
+    assert report.errors.include?(:environment)
 
     report.environment = Environment.default
     report.valid?
-    assert !report.errors.invalid?(:environment)
+    assert !report.errors.include?(:environment)
   end
 
   should 'have scope of all reports from an environment' do
@@ -21,7 +21,7 @@ class SpaminatorPlugin::ReportTest < ActiveSupport::TestCase
 
     reports = SpaminatorPlugin::Report.from(environment)
 
-    assert_equal ActiveRecord::NamedScope::Scope, reports.class
+    assert_equal ActiveRecord::Relation, reports.class
     assert_includes reports, r1
     assert_includes reports, r2
     assert_includes reports, r3

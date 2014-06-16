@@ -2,6 +2,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table :attachments, :force => true do |t|
     t.column :db_file_id,      :integer
     t.column :parent_id,       :integer
+    t.column :imageable_id,    :integer
+    t.column :imageable_type,  :string, :limit => 255
     t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
@@ -13,6 +15,19 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table :file_attachments, :force => true do |t|
     t.column :parent_id,       :integer
+    t.column :thumbnail,       :string 
+    t.column :filename,        :string, :limit => 255
+    t.column :content_type,    :string, :limit => 255
+    t.column :size,            :integer
+    t.column :width,           :integer
+    t.column :height,          :integer
+    t.column :type,            :string
+    t.column :aspect_ratio,    :float
+  end
+  
+  create_table :file_attachments_with_string_id, :id => false, :force => true do |t|
+    t.column :id,              :string
+    t.column :parent_id,       :string
     t.column :thumbnail,       :string 
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
@@ -105,4 +120,17 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :type,            :string
     t.column :aspect_ratio,    :float
   end
+  
+  create_table :cloud_files_attachments, :force => true do |t|
+    t.column :parent_id,       :integer
+    t.column :thumbnail,       :string 
+    t.column :filename,        :string, :limit => 255
+    t.column :content_type,    :string, :limit => 255
+    t.column :size,            :integer
+    t.column :width,           :integer
+    t.column :height,          :integer
+    t.column :type,            :string
+    t.column :aspect_ratio,    :float
+  end
+  
 end

@@ -6,6 +6,8 @@ class Comment < ActiveRecord::Base
     :body => 2,
   }
 
+  attr_accessible :body, :author, :name, :email, :title, :reply_of_id, :source
+
   validates_presence_of :body
 
   belongs_to :source, :counter_cache => true, :polymorphic => true
@@ -16,7 +18,7 @@ class Comment < ActiveRecord::Base
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
-  named_scope :without_reply, :conditions => ['reply_of_id IS NULL']
+  scope :without_reply, :conditions => ['reply_of_id IS NULL']
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
@@ -127,11 +129,11 @@ class Comment < ActiveRecord::Base
   def notify_by_mail
     if source.kind_of?(Article) && article.notify_comments?
       if !notification_emails.empty?
-        Comment::Notifier.deliver_mail(self)
+        Comment::Notifier.notification(self).deliver
       end
       emails = article.followers - [author_email]
       if !emails.empty?
-        Comment::Notifier.deliver_mail_to_followers(self, emails)
+        Comment::Notifier.mail_to_followers(self, emails).deliver
       end
     end
   end
@@ -166,40 +168,6 @@ class Comment < ActiveRecord::Base
 
   def to_html(option={})
     body || ''
-  end
-
-  class Notifier < ActionMailer::Base
-    def mail(comment)
-      profile = comment.article.profile
-      recipients comment.notification_emails
-      from "#{profile.environment.name} <#{profile.environment.noreply_email}>"
-      subject _("[%s] you got a new comment!") % [profile.environment.name]
-      body :recipient => profile.nickname || profile.name,
-        :sender => comment.author_name,
-        :sender_link => comment.author_link,
-        :article_title => comment.article.name,
-        :comment_url => comment.url,
-        :comment_title => comment.title,
-        :comment_body => comment.body,
-        :environment => profile.environment.name,
-        :url => profile.environment.top_url
-    end
-    def mail_to_followers(comment, emails)
-      profile = comment.article.profile
-      bcc emails
-      from "#{profile.environment.name} <#{profile.environment.noreply_email}>"
-      subject _("[%s] %s commented on a content of %s") % [profile.environment.name, comment.author_name, profile.short_name]
-      body :recipient => profile.nickname || profile.name,
-        :sender => comment.author_name,
-        :sender_link => comment.author_link,
-        :article_title => comment.article.name,
-        :comment_url => comment.url,
-        :unsubscribe_url => comment.article.view_url.merge({:unfollow => true}),
-        :comment_title => comment.title,
-        :comment_body => comment.body,
-        :environment => profile.environment.name,
-        :url => profile.environment.top_url
-    end
   end
 
   def rejected?

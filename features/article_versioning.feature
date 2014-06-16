@@ -34,8 +34,8 @@ Feature: article versioning
     Given I am on article "Edited Article"
     When I follow "All versions"
     Then I should be on /joaosilva/edited-article/versions
-    And I should see "Version 1" within ".article-versions"
-    And I should see "Version 2" within ".article-versions"
+    And I should see "Version 1" within "#article-versions"
+    And I should see "Version 2" within "#article-versions"
 
   @selenium
   Scenario: see specific version
@@ -51,13 +51,13 @@ Feature: article versioning
   Scenario: revert to a specific version generates a new version
     Given I go to article "Edited Article"
     When I follow "All versions"
-    Then I should not see "Version 3" within ".article-versions"
+    Then I should not see "Version 3" within "#article-versions"
     And I follow "Version 1"
     And I follow "Revert to this version"
     And I press "Save"
     Then I should see "Sample Article" within ".title"
     When I follow "All versions"
-    Then I should see "Version 3" within ".article-versions"
+    Then I should see "Version 3" within "#article-versions"
 
   Scenario: try to access versions of unexistent article
     Given I go to /joaosilva/unexistent-article/versions

@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/stack_trace_element_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/stack_trace_element_fixtures"
 
 class StackTraceElementTest < ActiveSupport::TestCase
 

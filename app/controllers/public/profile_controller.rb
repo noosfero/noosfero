@@ -3,7 +3,7 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail]
+  before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail]
 
   helper TagsHelper
 
@@ -32,7 +32,7 @@ class ProfileController < PublicController
     @tag = params[:id]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_#{profile.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @tagged = profile.find_tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
+      @tagged = profile.tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
     end
   end
 
@@ -97,21 +97,12 @@ class ProfileController < PublicController
   end
 
   def join_not_logged
-    if request.post?
-      profile.add_member(user)
-      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
-      redirect_to_previous_location
+    session[:join] = profile.identifier
+
+    if user
+      redirect_to :controller => 'profile', :action => 'join'
     else
-      if user.memberships.include?(profile)
-        session[:notice] = _('You are already a member of %s.') % profile.name
-        redirect_to profile.url
-        return
-      end
-      if request.xhr?
-        render :layout => false
-      else
-        redirect_to profile.url
-      end
+      redirect_to :controller => '/account', :action => 'login'
     end
   end
 
@@ -167,7 +158,7 @@ class ProfileController < PublicController
       session[:notice] = _("You have unblocked %s successfully. ") % profile.name
       redirect_to :controller => 'profile', :action => 'index'
     else
-      message = __('You are not allowed to unblock enterprises in this environment.')
+      message = _('You are not allowed to unblock enterprises in this environment.')
       render_access_denied(message)
     end
   end
@@ -219,7 +210,7 @@ class ProfileController < PublicController
 
     render :update do |page|
       page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
-        :partial => 'comment', :collection => activity.comments.paginate(:per_page => comments_per_page, :page => comment_page)
+        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
 
       if no_more_pages
         page.remove 'profile-wall-activities-comments-more-'+params[:activity]

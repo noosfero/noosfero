@@ -15,7 +15,7 @@ class ProductCategoriesBlock < Block
 
   def content(args={})
     profile = owner
-    lambda do
+    proc do
       if @categories.nil? or @categories.length == 0
         categories = ProductCategory.on_level().order(:name)
         if @categories and @categories.length == 0
@@ -33,7 +33,7 @@ class ProductCategoriesBlock < Block
     end
   end
 
-  DISPLAY_OPTIONS['catalog_only'] = __('Only on the catalog')
+  DISPLAY_OPTIONS['catalog_only'] = _('Only on the catalog')
 
   def display
     settings[:display].nil? ? 'catalog_only' : super

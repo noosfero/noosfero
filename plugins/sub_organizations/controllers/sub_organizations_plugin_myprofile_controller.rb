@@ -5,12 +5,12 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
   protect 'edit_profile', :profile
 
   def index
-    @children = SubOrganizationsPlugin::Relation.children(profile)
+    @children = Organization.children(profile)
     @tokenized_children = prepare_to_token_input(@children)
-    @pending_children = SubOrganizationsPlugin::ApprovePaternityRelation.pending_children(profile)
+    @pending_children = Organization.pending_children(profile)
     if request.post?
       begin
-        original = SubOrganizationsPlugin::Relation.children(profile)
+        original = Organization.children(profile)
         requested = Organization.find(params[:q].split(','))
         added = requested - original
         removed = original - requested
@@ -37,8 +37,8 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
         AND (identifier NOT LIKE ?) AND (id != ?)",
         "%#{params[:q]}%", "%#{params[:q]}%", "%_template", profile.id]).
       select { |organization|
-        SubOrganizationsPlugin::Relation.children(organization).blank? &&
-        !SubOrganizationsPlugin::ApprovePaternityRelation.pending_children(profile).include?(organization)
+        Organization.children(organization).blank? &&
+        !Organization.pending_children(profile).include?(organization)
       }).to_json
   end
 

@@ -1,0 +1,91 @@
+<div id="profile-editor-index">
+
+  <h1 class="block-title">
+    <span class='control-panel-title'><%= h profile.short_name %></span>
+    <span class='control-panel-sep'>&#150;</span>
+    <span class='control-panel-subtitle'><%= _('Control Panel') %></span>
+  </h1>
+
+<%= render :partial => 'pending_tasks' %>
+
+<% control_panel do %>
+
+  <%= control_panel_button(profile.control_panel_settings_button[:title],
+                           profile.control_panel_settings_button[:icon],
+                           :controller => 'profile_editor', :action => 'edit') %>
+
+  <%= control_panel_button(_('Location'), 'edit-location', :controller => 'maps', :action => 'edit_location') %>
+
+  <%= control_panel_button(_('Mail settings'), 'mail', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
+
+  <%= control_panel_button(_('Tasks'), 'todo', :controller => 'tasks', :action => 'index') %>
+
+  <%= control_panel_button(_('Edit sideboxes'), 'blocks', :controller => 'profile_design', :action => 'index') %>
+
+  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'profile_themes', :action => 'index') %>
+
+  <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
+
+  <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
+
+  <% unless profile.enterprise? %>
+    <%= case profile.blogs.count
+      when 0
+        control_panel_button(_('Create blog'), 'blog-disabled', :controller => 'cms', :action => 'new', :type => 'Blog')
+      when 1
+        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms', :action => 'edit', :id => profile.blog)
+      else
+        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms')
+    end %>
+  <% end %>
+
+  <%= control_panel_button(_('Change Password'), 'change-password', :controller => 'account', :action => 'change_password') if profile.person? %>
+
+  <%= control_panel_button(_('Manage friends'), 'friends', :controller => 'friends', :action => 'index') if profile.person? %>
+
+  <%= control_panel_button(_('Manage Members'), 'members', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
+
+  <%= control_panel_button(_('Manage Products/Services'), 'products', :controller => 'manage_products') if profile.enterprise? && environment.enabled?('products_for_enterprises') %>
+
+  <% if !environment.enabled?('disable_asset_enterprises') %>
+    <% if profile.is_validation_entity? %>
+      <%= control_panel_button(_('Enterprise Validation'), 'validation', :controller => 'enterprise_validation') %>
+    <% end %>
+    <% if profile.person? %>
+      <%= control_panel_button(_('Favorite Enterprises'), 'favorites', :controller => 'favorite_enterprises') %>
+    <% end %>
+  <% end %>
+
+  <% if profile.enterprise? %>
+    <% if profile.enabled? %>
+      <%= control_panel_button(_('Disable'), 'disable', :action => 'disable') %>
+    <% else %>
+      <%= control_panel_button(_('Enable'), 'enable', :action => 'enable') %>
+    <% end %>
+  <% end %>
+
+  <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
+
+  <%= control_panel_button(_('Manage SPAM'), 'manage-spam', :controller => 'spam', :action => 'index') %>
+
+  <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
+    <%= control_panel_button(button[:title], button[:icon], button[:url]) %>
+  <% end %>
+
+<% end %>
+
+  <% if profile.person? && environment.enabled?('enterprise_activation') %>
+
+      <div id='activation_enterprise'>
+      <%= form_tag({:controller => 'account', :action => 'activation_question'}, {:method => 'get'}) do %>
+        <p><strong><%= _('Activate your enterprise') %></strong></p>
+	<p><%= _("If you received a letter with information about your enterprise activation, add here the activation code that was sent.") %></p>
+	<p><%= environment.help_message_to_add_enterprise %> </p>
+        <%= labelled_form_field(_('Enterprise activation code') + ': ', text_field_tag('enterprise_code')) %>
+        <%= submit_button(:ok, _('Activate')) %>
+      <% end %>
+    </div>
+
+  <% end %>
+
+</div>

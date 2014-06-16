@@ -1,14 +1,46 @@
-all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
+@all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
+@all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
+
 def enabled_plugins
   Dir.glob('config/plugins/*').map { |f| File.basename(f) } - ['README']
 end
-disabled_plugins = all_plugins - enabled_plugins
+
+@original_enabled_plugins = enabled_plugins
+
+def disabled_plugins
+  @all_plugins - enabled_plugins
+end
+
+def enable_plugins(plugins = nil)
+  if plugins == '*' || plugins.nil?
+    sh './script/noosfero-plugins', '-q', 'enableall'
+  else
+    plugins = Array(plugins)
+    sh './script/noosfero-plugins', '-q', 'enable', *plugins
+  end
+end
+
+def disable_plugins(plugins = nil)
+  if plugins == '*' || plugins.nil?
+    sh './script/noosfero-plugins', '-q', 'disableall'
+  else
+    plugins = Array(plugins)
+    sh './script/noosfero-plugins', '-q', 'disable', *plugins
+  end
+end
+
+def rollback_plugins_state
+  puts
+  puts "==> Rolling back plugins to their original states..."
+  disable_plugins
+  enable_plugins(@original_enabled_plugins)
+end
 
 task 'db:test:plugins:prepare' do
   if Dir.glob('config/plugins/*/db/migrate/*.rb').empty?
     puts "I: skipping database setup, enabled plugins have no migrations"
   else
-    Rake::Task['db:test:prepare'].invoke
+    Rake::Task['db:test:prepare'].execute
     sh 'rake db:migrate RAILS_ENV=test SCHEMA=/dev/null'
   end
 end
@@ -101,72 +133,74 @@ def run_tests(name, plugins, run=:individually)
   end
 end
 
-def plugin_test_task(name, plugin, run=:individually)
-  desc "Run #{name} tests for #{plugin_name(plugin)}"
-  task name => 'db:test:plugins:prepare' do |t|
-    if plugin_enabled?(plugin)
-      run_tests(name, plugin, run)
-    else
-      plugin_disabled_warning(plugin)
+def test_sequence(plugins, tasks)
+  failed = {}
+  disable_plugins
+  plugins = @all_plugins if plugins == '*'
+  plugins = Array(plugins)
+  tasks = Array(tasks)
+  plugins.each do |plugin|
+    failed[plugin] = []
+    enable_plugins(plugin)
+    next if !plugin_enabled?(plugin)
+    begin
+      Rake::Task['db:test:plugins:prepare' ].execute
+    rescue Exception => ex
+      failed[plugin] << :migration
     end
-  end
-end
-
-def test_sequence_task(name, plugin, *tasks)
-  desc "Run all tests for #{plugin_name(plugin)}"
-  task name do
-    failed = []
     tasks.each do |task|
       begin
-        Rake::Task['test:noosfero_plugins:' + task.to_s].invoke
+        run_tests(task, plugin)
       rescue Exception => ex
         puts ex
-        failed << task
+        failed[plugin] << task
       end
     end
-    unless failed.empty?
-      fail 'Tests failed: ' + failed.join(', ')
+    disable_plugins(plugin)
+  end
+  fail_flag = false
+  failed.each do |plugin, tasks|
+    unless tasks.empty?
+      puts "Tests failed on #{plugin} plugin: #{tasks.join(', ')}"
+      fail_flag = true
     end
+  end
+  rollback_plugins_state
+  fail 'There are broken tests to be fixed!' if fail_flag
+end
+
+def plugin_test_task(plugin, task, run=:individually)
+  desc "Run #{task} tests for #{plugin_name(plugin)}"
+  task task do
+    test_sequence(plugin, task)
   end
 end
 
 namespace :test do
   namespace :noosfero_plugins do
-    all_plugins.each do |plugin|
+    @all_plugins.each do |plugin|
       namespace plugin do
-        plugin_test_task :units, plugin
-        plugin_test_task :functionals, plugin
-        plugin_test_task :integration, plugin
-        plugin_test_task :cucumber, plugin
-        plugin_test_task :selenium, plugin
+        @all_tasks.each do |taskname|
+          plugin_test_task plugin, taskname
+        end
       end
 
-      test_sequence_task(plugin, plugin, "#{plugin}:units", "#{plugin}:functionals", "#{plugin}:integration", "#{plugin}:cucumber", "#{plugin}:selenium")
-    end
-
-    [:units, :functionals, :integration].each do |taskname|
-      task taskname => 'db:test:plugins:prepare' do |t|
-        run_tests taskname, enabled_plugins
+      desc "Run all tests for #{plugin_name(plugin)}"
+      task plugin do
+        test_sequence([plugin], @all_tasks)
       end
     end
 
-    task :cucumber => 'db:test:plugins:prepare' do |t|
-      run_tests :cucumber, enabled_plugins
-    end
-
-    task :selenium => 'db:test:plugins:prepare' do |t|
-      run_tests :selenium, enabled_plugins
-    end
-
-    task :temp_enable_all_plugins do
-      sh './script/noosfero-plugins', 'enableall'
-    end
-
-    task :rollback_enable_all_plugins do
-      sh './script/noosfero-plugins', 'disable', *disabled_plugins
+    @all_tasks.each do |taskname|
+      desc "Run #{taskname} tests for all plugins"
+      task taskname do
+        test_sequence(@all_plugins, taskname)
+      end
     end
   end
 
-  test_sequence_task(:noosfero_plugins, '*', :temp_enable_all_plugins, :units, :functionals, :integration, :cucumber, :selenium, :rollback_enable_all_plugins)
-
+  desc "Run all tests for all plugins"
+  task :noosfero_plugins do
+    test_sequence(@all_plugins, @all_tasks)
+  end
 end

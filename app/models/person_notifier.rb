@@ -13,7 +13,7 @@ class PersonNotifier
   end
 
   def dispatch_notification_mail
-    Delayed::Job.enqueue(NotifyJob.new(@person.id), nil, @person.notification_time.hours.from_now) if @person.notification_time>0
+    Delayed::Job.enqueue(NotifyJob.new(@person.id), {:run_at => @person.notification_time.hours.from_now}) if @person.notification_time>0
   end
 
   def reschedule_next_notification_mail
@@ -27,7 +27,7 @@ class PersonNotifier
       from = @person.last_notification || DateTime.now - @person.notification_time.hours
       notifications = @person.tracked_notifications.find(:all, :conditions => ["created_at > ?", from])
       Noosfero.with_locale @person.environment.default_language do
-        Mailer::deliver_content_summary(@person, notifications) unless notifications.empty?
+        Mailer::content_summary(@person, notifications).deliver unless notifications.empty?
       end
       @person.settings[:last_notification] = DateTime.now
       @person.save!
@@ -36,7 +36,7 @@ class PersonNotifier
 
   class NotifyAllJob
     def self.exists?
-      Delayed::Job.where(:handler => "--- !ruby/object:PersonNotifier::NotifyAllJob {}\n\n").count > 0
+      Delayed::Job.by_handler("--- !ruby/object:PersonNotifier::NotifyAllJob {}\n").count > 0
     end
 
     def perform
@@ -51,14 +51,14 @@ class PersonNotifier
     end
 
     def self.find(person_id)
-      Delayed::Job.where(:handler => "--- !ruby/struct:PersonNotifier::NotifyJob \nperson_id: #{person_id}\n")
+      Delayed::Job.by_handler("--- !ruby/struct:PersonNotifier::NotifyJob\nperson_id: #{person_id}\n")
     end
 
     def perform
       Person.find(person_id).notifier.notify
     end
 
-    def on_permanent_failure
+    def failure(job)
       person = Person.find(person_id)
       person.notifier.dispatch_notification_mail
     end
@@ -76,14 +76,16 @@ class PersonNotifier
     def content_summary(person, notifications)
       @current_theme = 'default'
       @profile = person
-      recipients person.email
-      from "#{@profile.environment.name} <#{@profile.environment.contact_email}>"
-      subject _("[%s] Network Activity") % [@profile.environment.name]
-      body :recipient => @profile.nickname || @profile.name,
-        :environment => @profile.environment.name,
-        :url => @profile.environment.top_url,
-        :notifications => notifications
-      content_type "text/html"
+      @recipient = @profile.nickname || @profile.name
+      @notifications = notifications
+      @environment = @profile.environment.name
+      @url = @profile.environment.top_url
+      mail(
+        content_type: "text/html",
+        from: "#{@profile.environment.name} <#{@profile.environment.contact_email}>",
+        to: @profile.email,
+        subject: _("[%s] Network Activity") % [@profile.environment.name]
+      )
     end
   end
 end

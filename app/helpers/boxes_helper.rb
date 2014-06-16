@@ -1,12 +1,12 @@
 module BoxesHelper
 
   def insert_boxes(content)
-    if @controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?)
-      content + display_boxes_editor(@controller.boxes_holder)
+    if controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?)
+      content + display_boxes_editor(controller.boxes_holder)
     else
-      maybe_display_custom_element(@controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
-      if @controller.send(:uses_design_blocks?)
-        display_boxes(@controller.boxes_holder, content)
+      maybe_display_custom_element(controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
+      if controller.send(:uses_design_blocks?)
+        display_boxes(controller.boxes_holder, content)
       else
         content_tag('div',
           content_tag('div',
@@ -16,7 +16,7 @@ module BoxesHelper
           :class => 'no-boxes'
         )
       end +
-      maybe_display_custom_element(@controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
+      maybe_display_custom_element(controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
     end
   end
 
@@ -221,7 +221,7 @@ module BoxesHelper
 
     if block.embedable?
       embed_code = block.embed_code
-      embed_code = instance_eval(&embed_code) if embed_code.respond_to?(:call)
+      embed_code = instance_exec(&embed_code) if embed_code.respond_to?(:call)
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +
               content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
@@ -234,7 +234,7 @@ module BoxesHelper
   end
 
   def current_blocks
-    @controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
+    controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
   end
 
   # DEPRECATED. Do not use this.

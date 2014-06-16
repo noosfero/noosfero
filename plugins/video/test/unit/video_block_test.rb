@@ -70,6 +70,13 @@ class VideoBlockTest < ActiveSupport::TestCase
     assert_equal id, block.send('extract_youtube_id')
   end
 
+  should "extract youtube id from youtube video url's if it has underline and hyphen" do
+    block = VideoBlock.new
+    id = 'oi43_re-d2'
+    block.url = "youtube.com/?v=#{id}"
+    assert_equal id, block.send('extract_youtube_id')
+  end
+
   should "extract youtube id from youtube video url's if it's a valid youtube short url" do
     block = VideoBlock.new
     id = 'oi43jre2d2'

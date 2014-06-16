@@ -1,0 +1,20 @@
+<ul>
+  <li>
+    <%= render "blocks/profile_info_actions/join_leave_community" %>
+  </li>
+  <% if logged_in? %>
+    <% if profile.enable_contact? %>
+      <li>
+      <%= link_to content_tag('span', _('Send an e-mail')),
+        { :profile => profile.identifier,
+          :controller => 'contact',
+          :action => 'new' },
+        {:class => 'button with-text icon-menu-mail', :title => _('Send an e-mail to the administrators')} %>
+      </li>
+    <% end %>
+
+    <li><%= report_abuse(profile, :button) %></li>
+
+    <%= render_environment_features(:profile_actions) %>
+  <% end %>
+</ul>

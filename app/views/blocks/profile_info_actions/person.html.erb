@@ -1,0 +1,16 @@
+<ul>
+  <%if logged_in? && (user != profile) %>
+
+    <% if !user.already_request_friendship?(profile) and !user.is_a_friend?(profile) %>
+      <li>
+      <%= button(:add, content_tag('span', _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
+      </li>
+    <% end %>
+
+    <% if user.is_a_friend?(profile) && profile.enable_contact? %>
+      <li> <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %> </li>
+    <% end %>
+
+    <li><%= report_abuse(profile, :button) %></li>
+  <% end %>
+</ul>

@@ -20,7 +20,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.body = "<div class=\"macro\" data-macro-group_id=2></div>"
     comment1 = fast_create(Comment, :group_id => 1, :source_id => article.id)
     assert !article.save
-    assert_equal 'Not empty group comment cannot be removed', article.errors[:base]
+    assert_equal ['Not empty group comment cannot be removed'], article.errors[:base]
   end
 
   should 'allow save if comment group macro is not removed for group with comments' do

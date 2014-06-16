@@ -6,7 +6,11 @@ class ApproveComment < Task
   validates_presence_of :comment_attributes
 
   def comment
-    @comment ||= Comment.new(ActiveSupport::JSON.decode(self.comment_attributes)) unless self.comment_attributes.nil?
+    unless @comment || self.comment_attributes.nil?
+      @comment = Comment.new
+      @comment.assign_attributes(ActiveSupport::JSON.decode(self.comment_attributes), :without_protection => true)
+    end
+    @comment
   end
 
   def requestor_name

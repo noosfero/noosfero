@@ -2,7 +2,7 @@
 
 <%= error_messages_for :tolerance %>
 
-<% form_for :tolerance, @tolerance do |f| %>
+<%= form_for :tolerance, @tolerance do |f| %>
 
   <% time_units = [[_('Seconds'), 1], [_('Minutes'), 60], [_('Hours'), 3600]]%>
 

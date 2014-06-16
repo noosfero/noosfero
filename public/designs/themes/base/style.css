@@ -478,12 +478,9 @@ div#notice {
 
 /************************** Profile List *****************************/
 
-#content .people-block ul,
 #content .profile-list-block ul,
 #content .enterprises-block ul,
-#content .members-block ul,
 #content .communities-block ul,
-#content .friends-block ul,
 #content .fans-block ul {
   min-width: 196px;
   width: 192px;
@@ -491,24 +488,18 @@ div#notice {
   padding: 0px;
 }
 
-#content .box-1 .people-block ul,
 #content .box-1 .profile-list-block ul,
 #content .box-1 .enterprises-block ul,
-#content .box-1 .members-block ul,
 #content .box-1 .communities-block ul,
-#content .box-1 .friends-block ul,
 #content .box-1 .fans-block ul {
   width: auto;
   display: block;
 }
 
 #content .tags-block .block-footer-content a,
-#content .people-block .block-footer-content a,
 #content .profile-list-block .block-footer-content a,
 #content .enterprises-block .block-footer-content a,
-#content .members-block .block-footer-content a,
-#content .communities-block .block-footer-content a,
-#content .friends-block .block-footer-content a {
+#content .communities-block .block-footer-content a {
   position: absolute;
   top: 2px;
   right: 0px;
@@ -518,27 +509,10 @@ div#notice {
   padding-right: 15px;
 }
 #content .tags-block .block-footer-content a,
-#content .people-block .block-footer-content a,
 #content .profile-list-block .block-footer-content a,
 #content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a,
-#content .friends-block .block-footer-content a {
+#content .communities-block .block-footer-content a {
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
-}
-
-#content .members-block .block-footer-content .join-leave-button a {
-  position: relative;
-  background-color: #EEE;
-  border: 1px solid #CCC;
-  color: #555;
-  padding-right: inherit;
-}
-
-#content .members-block .block-footer-content .join-leave-button a:hover {
-  color: #FFF;
-  background-color: #555;
-  border: 1px solid #2e3436;
-  text-decoration: none;
 }
 
 #content .profile-list-block .block-title {

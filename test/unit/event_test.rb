@@ -15,17 +15,17 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'have a body' do
-    e = Event.new(:body => 'some useful description')
+    e = build(Event, :body => 'some useful description')
     assert_equal 'some useful description', e.body
   end
 
   should 'have a link' do
-    e = Event.new(:link => 'http://some.nice.site/')
+    e = build(Event, :link => 'http://some.nice.site/')
     assert_equal 'http://some.nice.site/', e.link
   end
 
   should 'have an address' do
-    e = Event.new(:address => 'South Noosfero street, 88')
+    e = build(Event, :address => 'South Noosfero street, 88')
     assert_equal 'South Noosfero street, 88', e.address
   end
 
@@ -44,10 +44,10 @@ class EventTest < ActiveSupport::TestCase
     e = Event.new
     e.start_date = nil
     e.valid?
-    assert e.errors.invalid?(:start_date)
+    assert e.errors[:start_date.to_s].present?
     e.start_date = Date.today
     e.valid?
-    assert !e.errors.invalid?(:start_date)
+    assert !e.errors[:start_date.to_s].present?
   end
 
   should 'have a end date' do
@@ -61,20 +61,20 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'not allow end date before start date' do
-    e = Event.new(:start_date => Date.new(2008, 01, 01), :end_date => Date.new(2007,01,01))
+    e = build(Event, :start_date => Date.new(2008, 01, 01), :end_date => Date.new(2007,01,01))
     e.valid?
-    assert e.errors.invalid?(:start_date)
+    assert e.errors[:start_date.to_s].present?
 
     e.end_date = Date.new(2008,01,05)
     e.valid?
-    assert !e.errors.invalid?(:start_date)
+    assert !e.errors[:start_date.to_s].present?
   end
 
   should 'find by range of dates' do
     profile = create_user('testuser').person
-    e1 = Event.create!(:name => 'e1', :start_date =>  Date.new(2008,1,1), :profile => profile)
-    e2 = Event.create!(:name => 'e2', :start_date =>  Date.new(2008,2,1), :profile => profile)
-    e3 = Event.create!(:name => 'e3', :start_date =>  Date.new(2008,3,1), :profile => profile)
+    e1 = create(Event, :name => 'e1', :start_date =>  Date.new(2008,1,1), :profile => profile)
+    e2 = create(Event, :name => 'e2', :start_date =>  Date.new(2008,2,1), :profile => profile)
+    e3 = create(Event, :name => 'e3', :start_date =>  Date.new(2008,3,1), :profile => profile)
 
     found = Event.by_range(Date.new(2008, 1, 1)..Date.new(2008, 2, 28))
     assert_includes found, e1
@@ -84,7 +84,7 @@ class EventTest < ActiveSupport::TestCase
 
   should 'filter events by range' do
     profile = create_user('testuser').person
-    e1 = Event.create!(:name => 'e1', :start_date => Date.new(2008,1,15), :profile => profile)
+    e1 = create(Event, :name => 'e1', :start_date => Date.new(2008,1,15), :profile => profile)
     assert_includes profile.events.by_range(Date.new(2008, 1, 10)..Date.new(2008, 1, 20)), e1
   end
 
@@ -99,19 +99,17 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'provide range of dates for event with both dates filled' do
-    e = Event.new(:start_date => Date.new(2008, 1, 1), :end_date => Date.new(2008, 1, 5))
-
+    e = build(Event, :start_date => Date.new(2008, 1, 1), :end_date => Date.new(2008, 1, 5))
     assert_equal (Date.new(2008,1,1)..Date.new(2008,1,5)), e.date_range
   end
 
   should 'provide range of dates for event with only start date' do
-    e = Event.new(:start_date => Date.new(2008, 1, 1))
-
+    e = build(Event, :start_date => Date.new(2008, 1, 1))
     assert_equal (Date.new(2008,1,1)..Date.new(2008,1,1)), e.date_range
   end
 
   should 'provide nice display format' do
-    e = Event.new(:start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :body => 'my somewhat short description')
+    e = build(Event, :start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :body => 'my somewhat short description')
 
     assert_tag_in_string e.to_html, :content => Regexp.new("January 1, 2008")
     assert_tag_in_string e.to_html, :content => 'my somewhat short description'
@@ -125,7 +123,7 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'add http:// to the link if not already present' do
-    a = Event.new(:link => 'www.nohttp.net')
+    a = build(Event, :link => 'www.nohttp.net')
     assert_equal 'http://www.nohttp.net', a.link
   end
 
@@ -144,14 +142,14 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'not escape HTML in body' do
-    a = Event.new(:body => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
+    a = build(Event, :body => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
 
     assert_match '<p>a paragraph of text</p>', a.to_html
   end
 
   should 'filter HTML in body' do
     profile = create_user('testuser').person
-    e = Event.create!(:profile => profile, :name => 'test', :body => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
+    e = create(Event, :profile => profile, :name => 'test', :body => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
 
     assert_tag_in_string e.body, :tag => 'p', :content => 'a paragraph (valid)'
     assert_no_tag_in_string e.body, :tag => 'script'
@@ -166,8 +164,8 @@ class EventTest < ActiveSupport::TestCase
 
   should 'list all events' do
     profile = fast_create(Profile)
-    event1 = Event.new(:name => 'Ze Birthday', :start_date => Date.today)
-    event2 = Event.new(:name => 'Mane Birthday', :start_date => Date.today >> 1)
+    event1 = build(Event, :name => 'Ze Birthday', :start_date => Date.today)
+    event2 = build(Event, :name => 'Mane Birthday', :start_date => Date.today >> 1)
     profile.events << [event1, event2]
     assert_includes profile.events, event1
     assert_includes profile.events, event2
@@ -177,9 +175,9 @@ class EventTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
 
     today = Date.today
-    yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
-    today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
-    tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
+    yesterday_event = build(Event, :name => 'Joao Birthday', :start_date => today - 1.day)
+    today_event = build(Event, :name => 'Ze Birthday', :start_date => today)
+    tomorrow_event = build(Event, :name => 'Mane Birthday', :start_date => today + 1.day)
 
     profile.events << [yesterday_event, today_event, tomorrow_event]
 
@@ -231,8 +229,8 @@ class EventTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
 
     today = Date.today
-    event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
-    event_in_day = Event.new(:name => 'Ze Birthday', :start_date => today)
+    event_in_range = build(Event, :name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_day = build(Event, :name => 'Ze Birthday', :start_date => today)
 
     profile.events << [event_in_range, event_in_day]
 
@@ -245,9 +243,9 @@ class EventTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
 
     today = Date.today
-    event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
-    event_in_range2 = Event.new(:name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
-    event_out_of_range = Event.new(:name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
+    event_in_range1 = build(Event, :name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
+    event_in_range2 = build(Event, :name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
+    event_out_of_range = build(Event, :name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
 
     profile.events << [event_in_range1, event_in_range2, event_out_of_range]
 

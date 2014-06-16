@@ -2,7 +2,7 @@ require_dependency 'article'
 
 class Article
 
-  named_scope :relevant_content, :conditions => ["articles.published = true and (articles.type != 'UploadedFile' and articles.type != 'Blog' and articles.type != 'RssFeed') OR articles.type is NULL"]
+  scope :relevant_content, :conditions => ["articles.published = true and (articles.type != 'UploadedFile' and articles.type != 'Blog' and articles.type != 'RssFeed') OR articles.type is NULL"]
 
   def self.articles_columns
     Article.column_names.map {|c| "articles.#{c}"} .join(",")

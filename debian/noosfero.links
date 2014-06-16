@@ -7,11 +7,6 @@ etc/noosfero/plugins                                usr/share/noosfero/config/pl
 etc/noosfero/noosfero.yml                           usr/share/noosfero/config/noosfero.yml
 etc/noosfero/local.rb                               usr/share/noosfero/config/local.rb
 var/lib/noosfero-data/index                         usr/share/noosfero/index
-var/lib/noosfero-data/cache/cache-general.js        usr/share/noosfero/public/javascripts/cache-general.js
-var/lib/noosfero-data/cache/cache-chat.js           usr/share/noosfero/public/javascripts/cache-chat.js
-var/lib/noosfero-data/cache/cache-slideshow.js      usr/share/noosfero/public/javascripts/cache-slideshow.js
-var/lib/noosfero-data/cache/cache.css               usr/share/noosfero/public/stylesheets/cache.css
-var/lib/noosfero-data/cache/cache-media-listing.css usr/share/noosfero/public/stylesheets/cache-media-listing.css
 var/lib/noosfero-data/cache                         usr/share/noosfero/public/javascripts/cache
 var/lib/noosfero-data/cache                         usr/share/noosfero/public/stylesheets/cache
 var/lib/noosfero-data/public/articles               usr/share/noosfero/public/articles

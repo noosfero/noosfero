@@ -25,7 +25,7 @@ namespace :po do
     puts "+----------+----------+------------+--------+--------------+"
     puts "| Language | Messages | Translated |  Fuzzy | Untranslated |"
     puts "+----------+----------+------------+--------+--------------+"
-    Dir.glob(RAILS_ROOT + '/po/*/noosfero.po').each do |file|
+    Dir.glob(Rails.root.join('po', '*', 'noosfero.po')).each do |file|
       language = File.basename(File.dirname(file))
       output = `msgfmt --output /dev/null --statistics #{file} 2>&1`
       translated   = extract_po_stat('translated', output)

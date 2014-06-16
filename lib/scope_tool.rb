@@ -2,7 +2,7 @@ module ScopeTool
 
   # Sum scope results by SQL, allowing post filtering of the group.
   def union(*scopes)
-    model = scopes.first.class_name.constantize
+    model = scopes.first.klass.name.constantize
     scopes = scopes.map &:to_sql
     model.from "(\n#{scopes.join("\nUNION\n")}\n) as #{model.table_name}"
   end

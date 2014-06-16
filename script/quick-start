@@ -85,8 +85,8 @@ run rake db:schema:load
 run rake db:data:minimal
 run rake db:test:prepare
 
-# compile translations
-run rake noosfero:translations:compile
+# FIXME compile translations depends on ruby-gettext-rails, please see debian/control
+# run rake noosfero:translations:compile
 
 # create needed directory
 mkdir -p tmp/pids

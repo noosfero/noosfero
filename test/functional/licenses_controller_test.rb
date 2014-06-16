@@ -39,7 +39,7 @@ class LicensesControllerTest < ActionController::TestCase
   end
 
   should 'create a new license' do
-    assert_difference License, :count, 1 do
+    assert_difference 'License.count', 1 do
       post :create, :license => {:name => 'GPLv3'}
     end
   end

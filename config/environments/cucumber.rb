@@ -1,27 +1,29 @@
-# Edit at your own peril - it's recommended to regenerate this file
-# in the future when you upgrade to a newer version of Cucumber.
+Noosfero::Application.configure do
+  # Edit at your own peril - it's recommended to regenerate this file
+  # in the future when you upgrade to a newer version of Cucumber.
 
-# IMPORTANT: Setting config.cache_classes to false is known to
-# break Cucumber's use_transactional_fixtures method.
-# For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
-config.cache_classes = true
+  # IMPORTANT: Setting config.cache_classes to false is known to
+  # break Cucumber's use_transactional_fixtures method.
+  # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
+  config.cache_classes = true
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  config.active_support.deprecation = :log
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
-config.action_controller.perform_caching             = false
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
 
-# Disable request forgery protection in test environment
-config.action_controller.allow_forgery_protection    = false
+  # Show full error reports and disable caching
+  config.action_controller.perform_caching             = false
 
-# Tell Action Mailer not to deliver emails to the real world.
-# The :test delivery method accumulates sent emails in the
-# ActionMailer::Base.deliveries array.
-config.action_mailer.delivery_method = :test
+  # Disable request forgery protection in test environment
+  config.action_controller.allow_forgery_protection    = false
 
-config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))
-config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
-config.gem 'capybara',         :lib => false, :version => '>=0.3.5' unless File.directory?(File.join(Rails.root, 'vendor/plugins/capybara'))
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
 
+  config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.2' unless File.directory?(Rails.root.join('vendor/plugins/cucumber-rails'))
+  config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(Rails.root.join('vendor/plugins/database_cleaner'))
+  config.gem 'capybara',         :lib => false, :version => '>=0.3.5' unless File.directory?(Rails.root.join('vendor/plugins/capybara'))
+end

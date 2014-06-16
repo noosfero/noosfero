@@ -5,8 +5,8 @@ class ColorboxHelperTest < ActiveSupport::TestCase
   include ColorboxHelper
 
   should 'provide the needed files' do
-    assert File.exists?(File.join(RAILS_ROOT, 'public', 'stylesheets', 'colorbox.css')), 'colorbox.css expected to be in public/stylesheets, but not found'
-    assert File.exists?(File.join(RAILS_ROOT, 'public', 'javascripts', 'colorbox.js')), 'colorbox.js expected to be in public/javascripts, but not found'
+    assert File.exists?(Rails.root.join('public', 'stylesheets', 'colorbox.css')), 'colorbox.css expected to be in public/stylesheets, but not found'
+    assert File.exists?(Rails.root.join('public', 'javascripts', 'colorbox.js')), 'colorbox.js expected to be in public/javascripts, but not found'
   end
 
   should 'provide link to close colorbox' do

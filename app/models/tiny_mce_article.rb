@@ -1,3 +1,5 @@
+require 'white_list_filter'
+
 class TinyMceArticle < TextArticle
 
   def self.short_description
@@ -13,7 +15,10 @@ class TinyMceArticle < TextArticle
   xss_terminate :only => [ :name, :abstract, :body ], :with => 'white_list', :on => 'validation'
 
   include WhiteListFilter
-  filter_iframes :abstract, :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+  filter_iframes :abstract, :body
+  def iframe_whitelist
+    profile && profile.environment && profile.environment.trusted_sites_for_iframe
+  end
 
   def notifiable?
     true

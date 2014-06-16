@@ -1,15 +1,15 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'noosfero'
+require_dependency 'noosfero'
 
 class NoosferoTest < ActiveSupport::TestCase
 
   def test_should_list_controllers_in_directory
-    Dir.expects(:glob).with("#{RAILS_ROOT}/app/controllers/lala/*_controller.rb").returns(["app/controllers/lala/system_admin_controller.rb", "app/controllers/lala/environment_admin_controller.rb", "app/controllers/lala/public_controller.rb", "app/controllers/lala/profile_admin_controller.rb"]).once
+    Dir.expects(:glob).with(Rails.root.join('app', 'controllers', 'lala', '*_controller.rb')).returns(["app/controllers/lala/system_admin_controller.rb", "app/controllers/lala/environment_admin_controller.rb", "app/controllers/lala/public_controller.rb", "app/controllers/lala/profile_admin_controller.rb"]).once
     assert_equal ["system_admin", "environment_admin", "public", "profile_admin"], Noosfero.controllers_in_directory('lala')
   end
 
   def test_should_generate_pattern_for_controllers_in_directory
-    Dir.expects(:glob).with("#{RAILS_ROOT}/app/controllers/lala/*_controller.rb").returns(["app/controllers/lala/system_admin_controller.rb", "app/controllers/lala/environment_admin_controller.rb", "app/controllers/lala/public_controller.rb", "app/controllers/lala/profile_admin_controller.rb"]).once
+    Dir.expects(:glob).with(Rails.root.join('app', 'controllers', 'lala', '*_controller.rb')).returns(["app/controllers/lala/system_admin_controller.rb", "app/controllers/lala/environment_admin_controller.rb", "app/controllers/lala/public_controller.rb", "app/controllers/lala/profile_admin_controller.rb"]).once
     assert_equal(/(system_admin|environment_admin|public|profile_admin)/, Noosfero.pattern_for_controllers_in_directory('lala'))
   end
 
@@ -30,17 +30,8 @@ class NoosferoTest < ActiveSupport::TestCase
     assert_match /^#{Noosfero.identifier_format}$/, 'with.dot'
   end
 
-  should 'delegate terminology' do
-    Noosfero.terminology.expects(:get).with('lalala').returns('lelele')
-    assert_equal 'lelele', Noosfero.term('lalala')
-  end
-
-  should 'use default terminology by default' do
-    assert_equal 'lalalalala', Noosfero.term('lalalalala')
-  end
-
   should 'provide url options to identify development environment' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    Rails.expects('env').returns('development')
     Noosfero.expects(:development_url_options).returns({ :port => 9999 })
     assert_equal({:port => 9999}, Noosfero.url_options)
   end
@@ -56,21 +47,10 @@ class NoosferoTest < ActiveSupport::TestCase
     assert_equal 'en', FastGettext.locale
   end
 
-  should 'use terminology with ngettext' do
-   Noosfero.stubs(:terminology).returns(UnifreireTerminology.instance)
-
-   Noosfero.with_locale('en') do
-     assert_equal 'One institution', n__('One enterprise', '%{num} enterprises', 1)
-   end
-
-   Noosfero.with_locale('pt') do
-     stubs(:ngettext).with('One institution', '%{num} institutions', 1).returns('Uma instituição')
-     assert_equal 'Uma instituição', n__('One enterprise', '%{num} enterprises', 1)
-   end
-  end
-
   should "use default hostname of default environment as hostname of Noosfero instance" do
-    Environment.default.domains << Domain.new(:name => 'thisisdefaulthostname.com', :is_default => true)
+    Environment.default.domains << Domain.new(:name => 'thisisdefaulthostname.com').tap do |d| 
+      d.is_default = true
+    end
     assert_equal 'thisisdefaulthostname.com', Noosfero.default_hostname
   end
 

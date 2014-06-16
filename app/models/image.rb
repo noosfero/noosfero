@@ -23,4 +23,6 @@ class Image < ActiveRecord::Base
 
   postgresql_attachment_fu
 
+  attr_accessible :uploaded_data
+
 end
