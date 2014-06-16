@@ -1,4 +1,7 @@
 module CustomFormsPlugin::Helper
+
+  protected
+
   def html_for_field(builder, association, klass)
     new_object = klass.new
     builder.fields_for(association, new_object, :child_index => "new_#{association}") do |f|
@@ -117,22 +120,4 @@ module CustomFormsPlugin::Helper
     type_for_options(field.class) == 'select_field' && field.select_field_type == 'check_box'
   end
 
-  def build_answers(submission, form)
-    answers = []
-    form.fields.each do |field|
-      final_value = ''
-      if submission.has_key?(field.id.to_s)
-        value = submission[field.id.to_s]
-        if value.kind_of?(String)
-          final_value = value
-        elsif value.kind_of?(Array)
-          final_value = value.join(',')
-        elsif value.kind_of?(Hash)
-          final_value = value.map {|option, present| present == '1' ? option : nil}.compact.join(',')
-        end
-      end
-      answers << CustomFormsPlugin::Answer.new(:field => field, :value => final_value)
-    end
-    answers
-  end
 end
