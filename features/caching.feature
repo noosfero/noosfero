@@ -19,9 +19,9 @@ Feature: caching
       | mario | Post1 | Sample Blog  |
       | mario | Post2 | Sample Blog  |
     When I go to article "Sample Blog"
-    Then I should see "No comments yet"
+    Then I should see "no comments yet"
     When I follow "Português"
-    Then I should see "Sem comentários ainda"
+    Then I should see "sem comentários ainda"
 
   Scenario: blocks
     Given I am on Mario's homepage

@@ -50,35 +50,35 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'properly save images' do
-    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.profile = profile
     assert file.save
     assert file.is_image
   end
 
   should 'has attachment_fu validation options' do
-    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     assert_respond_to file, :attachment_validation_options
   end
 
   should 'has attachment_fu validation option for size' do
-    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     assert_includes file.attachment_validation_options, :size
   end
 
   should 'can display hits' do
-    file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     assert_equal false, file.can_display_hits?
   end
 
   should 'not upload files bigger than max_size' do
-    f = UploadedFile.new(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    f = build(UploadedFile, :profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     f.expects(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
     assert !f.valid?
   end
 
   should 'upload files smaller than max_size' do
-    f = UploadedFile.new(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    f = build(UploadedFile, :profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     f.expects(:size).returns(UploadedFile.attachment_options[:max_size] - 1024)
     assert f.valid?
   end
@@ -86,16 +86,18 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'create icon when created in folder' do
     p = create_user('test_user').person
     f = fast_create(Folder, :name => 'test_folder', :profile_id => p.id)
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
     process_delayed_job_queue
-    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
+
+    file.reload
+    assert File.exists?(file.public_filename(:icon))
     file.destroy
   end
 
   should 'create icon when not created in folder' do
     p = create_user('test_user').person
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
 
     process_delayed_job_queue
     assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
@@ -103,15 +105,15 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'match max_size in validates message of size field' do
-    up = UploadedFile.new(:filename => 'fake_filename.png')
+    up = build(UploadedFile, :filename => 'fake_filename.png')
     up.valid?
 
-    assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size]
+    assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size].first
   end
 
   should 'display link to download of non-image files' do
     p = create_user('test_user').person
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => p)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => p)
 
     ENV.stubs('[]').with('RAILS_ENV').returns('other')
     Rails.logger.expects(:warn) # warn about deprecatede usage of UploadedFile#to_html
@@ -123,7 +125,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'have title' do
-    assert_equal 'my title', UploadedFile.new(:title => 'my title').title
+    assert_equal 'my title', build(UploadedFile, :title => 'my title').title
   end
 
   should 'always provide a display title' do
@@ -143,13 +145,13 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'use name as title by default but cut down the title' do
-    upload = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
+    upload = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
     upload.valid?
-    assert_nil upload.errors[:title]
+    assert_blank upload.errors[:title]
   end
 
   should 'create thumbnails after processing jobs' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
 
     process_delayed_job_queue
 
@@ -160,7 +162,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'set thumbnails_processed to true after creating thumbnails' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
 
     process_delayed_job_queue
 
@@ -190,7 +192,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'return image thumbnail if thumbnails were processed' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
     process_delayed_job_queue
 
     assert_match(/rails_thumb.png/, UploadedFile.find(file.id).public_filename(:thumb))
@@ -199,7 +201,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'store width and height after processing' do
-    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = create(UploadedFile, :profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.create_thumbnails
 
     file = UploadedFile.find(file.id)
@@ -208,7 +210,7 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'have a loading image to each size of thumbnails' do
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
-      image = RAILS_ROOT + '/public/images/icons-app/image-loading-%s.png' % suffix
+      image = Rails.root.join('public', 'images', 'icons-app', "image-loading-#{suffix}.png")
       assert File.exists?(image)
     end
   end
@@ -216,17 +218,17 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'return a thumbnail for images' do
     f = UploadedFile.new
     f.expects(:image?).returns(true)
-    f.expects(:full_filename).with(:display).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.expects(:full_filename).with(:display).returns(Rails.root.join('public', 'images', '0000', '0005', 'x.png'))
     assert_equal '/images/0000/0005/x.png', f.thumbnail_path
     f = UploadedFile.new
-    f.stubs(:full_filename).with(:display).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.stubs(:full_filename).with(:display).returns(Rails.root.join('public', 'images', '0000', '0005', 'x.png'))
     f.expects(:image?).returns(false)
     assert_nil f.thumbnail_path
   end
 
   should 'track action when a published image is uploaded in a gallery' do
     p = fast_create(Gallery, :profile_id => @profile.id)
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
     ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
     assert_kind_of String, ta.get_thumbnail_path[0]
     assert_equal [f.reload.view_url], ta.get_view_url
@@ -237,26 +239,26 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'not track action when is not image' do
     ActionTracker::Record.delete_all
     p = fast_create(Gallery, :profile_id => @profile.id)
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
   should 'not track action when has no parent' do
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => nil, :profile => @profile)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => nil, :profile => @profile)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
   should 'not track action when is not published' do
     ActionTracker::Record.delete_all
     p = fast_create(Gallery, :profile_id => @profile.id)
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
   should 'not track action when parent is not gallery' do
     ActionTracker::Record.delete_all
     p = fast_create(Folder, :profile_id => @profile.id)
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
@@ -274,11 +276,11 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'upload to a folder with same name as the schema if database is postgresql' do
     uses_postgresql 'image_schema_one'
-    file1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    file1 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
     process_delayed_job_queue
     assert_match(/image_schema_one\/\d{4}\/\d{4}\/rails.png/, UploadedFile.find(file1.id).public_filename)
     uses_postgresql 'image_schema_two'
-    file2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
+    file2 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
     assert_match(/image_schema_two\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file2.id).public_filename)
     file1.destroy
     file2.destroy
@@ -286,13 +288,13 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'return extension' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
     assert_equal 'png', file.extension
   end
 
   should 'upload to path prefix folder if database is not postgresql' do
     uses_sqlite
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
     assert_match(/\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file.id).public_filename)
     assert_no_match(/test_schema\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file.id).public_filename)
     file.destroy
@@ -300,7 +302,7 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'upload thumbnails to a folder with same name as the schema if database is postgresql' do
     uses_postgresql
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
     process_delayed_job_queue
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
       assert_match(/test_schema\/\d{4}\/\d{4}\/rails_#{suffix}.png/, UploadedFile.find(file.id).public_filename(suffix))
@@ -310,20 +312,22 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'not allow script files to be uploaded without append .txt in the end' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('files/hello_world.php', 'application/x-php'), :profile => @profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('files/hello_world.php', 'application/x-php'), :profile => @profile)
     assert_equal 'hello_world.php.txt', file.filename
   end
 
   should 'use gallery as target for action tracker' do
     gallery = fast_create(Gallery, :profile_id => profile.id)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
     activity = ActionTracker::Record.find_last_by_verb 'upload_image'
     assert_equal gallery, activity.target
   end
 
   should 'group trackers activity of image\'s upload' do
     ActionTracker::Record.delete_all
+    ActionTracker::Record.stubs(:current_user_from_model).returns(profile)
     gallery = fast_create(Gallery, :profile_id => profile.id)
+
     image1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
     assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
 

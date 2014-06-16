@@ -2,7 +2,8 @@ class TagsBlock < Block
 
   include TagsHelper
   include BlockHelper
-  include ActionController::UrlWriter
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
 
   settings_items :limit, :type => :integer, :default => 12
 
@@ -31,7 +32,7 @@ class TagsBlock < Block
     end
 
     url = is_env ? {:host=>owner.default_hostname, :controller=>'search', :action => 'tag'} :
-          owner.public_profile_url.merge(:controller => 'profile', :action => 'tags')
+          owner.public_profile_url.merge(:controller => 'profile', :action => 'content_tagged')
     tagname_option = is_env ? :tag : :id
 
     block_title(title) +
@@ -42,13 +43,13 @@ class TagsBlock < Block
 
   def footer
     if owner.class == Environment
-      lambda do
+      proc do
         link_to s_('tags|View all'),
           :controller => 'search', :action => 'tags'
       end
     else
       owner_id = owner.identifier
-      lambda do
+      proc do
         link_to s_('tags|View all'),
           :profile => owner_id, :controller => 'profile', :action => 'tags'
       end

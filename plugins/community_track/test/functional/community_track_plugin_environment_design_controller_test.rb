@@ -15,9 +15,9 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     @environment.add_admin(user.person)
     login_as(user.login)
 
-    box = Box.create!(:owner => @environment)
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
-    @block_card = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    box = create(Box, :owner => @environment)
+    @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
+    @block_card = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
   end
 
   should 'be able to edit TrackListBlock' do

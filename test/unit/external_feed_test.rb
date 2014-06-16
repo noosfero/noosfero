@@ -5,10 +5,10 @@ class ExternalFeedTest < ActiveSupport::TestCase
   should 'require blog' do
     e = ExternalFeed.new
     e.valid?
-    assert e.errors[:blog_id]
+    assert e.errors[:blog_id].present?
     e.blog = create_blog
     e.valid?
-    assert !e.errors[:blog_id]
+    assert e.errors[:blog_id].blank?
   end
 
   should 'belong to blog' do
@@ -58,15 +58,15 @@ class ExternalFeedTest < ActiveSupport::TestCase
   end
 
   should 'require address if enabled' do
-    e = ExternalFeed.new(:enabled => true)
+    e = build(ExternalFeed, :enabled => true, :address => nil)
     assert !e.valid?
-    assert e.errors[:address]
+    assert e.errors[:address].present?
   end
 
   should 'not require address if disabled' do
-    e = ExternalFeed.new(:enabled => false, :address => nil)
+    e = build(ExternalFeed, :enabled => false, :address => nil)
     e.valid?
-    assert !e.errors[:address]
+    assert e.errors[:address].blank?
   end
 
   should 'list enabled external feeds' do
@@ -132,7 +132,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
   end
 
   should 'have an update errors counter' do
-    assert_equal 3, ExternalFeed.new(:update_errors => 3).update_errors
+    assert_equal 3, build(ExternalFeed, :update_errors => 3).update_errors
   end
 
   should 'have 0 update errors by default' do
@@ -161,6 +161,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
 
     dd = []
     Article.where(['parent_id = ?', blog.id]).all.each do |a|
+      next if a.kind_of?(RssFeed)
       dd << a.body.to_s.strip.gsub(/\s+/, ' ')
     end
     assert_equal '<img src="noosfero.png" /><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join

@@ -1,0 +1,10 @@
+<% if @enterprise && logged_in? %>
+  <h1><%= _('Welcome to %s') % environment.name %></h1>
+
+  <%= _('%s was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise') % @enterprise.name %>
+
+  <% button_bar do %>
+    <%= button 'forward', _('Go to my control panel'), :action => 'index', :controller => 'profile_editor', :profile => current_user.person.identifier %> 
+    <%= button 'forward', _('Go to my enterprise control panel') % @enterprise.name, :action => 'index', :controller => 'profile_editor', :profile => @enterprise.identifier %>
+  <% end %>
+<% end %>

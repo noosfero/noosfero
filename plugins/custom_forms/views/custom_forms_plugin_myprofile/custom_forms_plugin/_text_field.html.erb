@@ -1,4 +1,4 @@
-<% render :layout => 'field', :locals => { :f => f } do %>
+<%= render :layout => 'field', :locals => { :f => f } do %>
   <div class="field-text-default">
     <%= f.label(:default_value, _('Default text:')) %>
     <%= f.text_field(:default_value) %>

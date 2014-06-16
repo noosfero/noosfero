@@ -24,15 +24,15 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'create product' do
-    assert_difference Product, :count do
-      p = Product.new(:name => 'test product1', :product_category => @product_category, :profile_id => @profile.id)
+    assert_difference 'Product.count' do
+      p = build(Product, :name => 'test product1', :product_category => @product_category, :profile_id => @profile.id)
       assert p.save
     end
   end
 
   should 'destroy product' do
     p = fast_create(Product, :name => 'test product2', :product_category_id => @product_category.id)
-    assert_difference Product, :count, -1 do
+    assert_difference 'Product.count', -1 do
       p.destroy
     end
   end
@@ -81,27 +81,12 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'save image on create product' do
-    assert_difference Product, :count do
-      p = Product.create!(:name => 'test product1', :product_category => @product_category, :image_builder => {
+    assert_difference 'Product.count' do
+      p = create(Product, :name => 'test product1', :product_category => @product_category, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       }, :profile_id => @profile.id)
       assert_equal p.image(true).filename, 'rails.png'
     end
-  end
-
-  should 'calculate category full name' do
-    cat = mock
-    cat.expects(:full_name).returns('A/B/C')
-
-    p = Product.new
-    p.stubs(:product_category).returns(cat)
-    assert_equal ['A','B','C'], p.category_full_name
-  end
-
-  should 'return a nil cateory full name when not categorized' do
-    p = Product.new
-    p.stubs(:product_category).returns(nil)
-    assert_equal nil, p.category_full_name
   end
 
   should 'have same lat and lng of its enterprise' do
@@ -158,7 +143,7 @@ class ProductTest < ActiveSupport::TestCase
       ["12.345.678", 12345678.00],
       ["12,345,678", 12345678.00]
     ].each do |input, output|
-      product = Product.new(:price => input)
+      product = build(Product, :price => input)
       assert_equal output, product.price
     end
   end
@@ -173,13 +158,13 @@ class ProductTest < ActiveSupport::TestCase
       ["12.345.678", 12345678.00],
       ["12,345,678", 12345678.00]
     ].each do |input, output|
-      product = Product.new(:discount => input)
+      product = build(Product, :discount => input)
       assert_equal output, product.discount
     end
   end
 
   should 'strip name with malformed HTML when sanitize' do
-    product = Product.new(:product_category => @product_category)
+    product = build(Product, :product_category => @product_category)
     product.name = "<h1 Bla </h1>"
     product.valid?
 
@@ -187,7 +172,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'escape malformed html tags' do
-    product = Product.new(:product_category => @product_category)
+    product = build(Product, :product_category => @product_category)
     product.name = "<h1 Malformed >> html >< tag"
     product.description = "<h1 Malformed</h1>><<<a>> >> html >< tag"
     product.valid?
@@ -197,21 +182,23 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'use name of category when has no name yet' do
-    product = Product.new(:product_category => @product_category, :profile_id => @profile.id)
+    product = Product.new
+    product.product_category = @product_category
+    product.profile = @profile
     assert product.valid?
-    assert_equal product.name, @product_category.name
+    assert_equal @product_category.name, product.name
   end
 
   should 'not save without category' do
-    product = Product.new(:name => 'A product without category')
+    product = build(Product, :name => 'A product without category')
     product.valid?
-    assert product.errors.invalid?(:product_category_id)
+    assert product.errors[:product_category_id.to_s].present?
   end
 
   should 'not save with a invalid category' do
-    category = Category.new(:name => 'Region', :environment => Environment.default)
+    category = build(Category, :name => 'Region', :environment => Environment.default)
     assert_raise ActiveRecord::AssociationTypeMismatch do
-      Product.new(:name => 'Invalid category product', :product_category => category)
+      build(Product, :name => 'Invalid category product', :product_category => category)
     end
   end
 
@@ -268,7 +255,7 @@ class ProductTest < ActiveSupport::TestCase
     services_category = fast_create(ProductCategory, :name => 'Services')
     input2 = fast_create(Input, :product_id => product.id, :product_category_id => services_category.id)
 
-    assert_difference Input, :count, -2 do
+    assert_difference 'Input.count', -2 do
       product.destroy
     end
   end
@@ -282,13 +269,13 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new
     assert !product.has_basic_info?
 
-    product = Product.new(:unit => Unit.new)
+    product = build(Product, :unit => Unit.new)
     assert product.has_basic_info?
 
-    product = Product.new(:price => 1)
+    product = build(Product, :price => 1)
     assert product.has_basic_info?
 
-    product = Product.new(:discount => 1)
+    product = build(Product, :discount => 1)
     assert product.has_basic_info?
   end
 
@@ -307,9 +294,9 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'save order of inputs' do
     product = fast_create(Product)
-    first = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
-    second = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
-    third = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
+    first = create(Input, :product => product, :product_category => fast_create(ProductCategory))
+    second = create(Input, :product => product, :product_category => fast_create(ProductCategory))
+    third = create(Input, :product => product, :product_category => fast_create(ProductCategory))
 
     assert_equal [first, second, third], product.inputs
 
@@ -319,9 +306,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'format name with unit' do
-    product = Product.new(:name => "My product")
+    product = build(Product, :name => "My product")
     assert_equal "My product", product.name_with_unit
-    product.unit = Unit.new(:name => 'litre')
+    product.unit = build(Unit, :name => 'litre')
     assert_equal "My product - litre", product.name_with_unit
   end
 
@@ -400,7 +387,7 @@ class ProductTest < ActiveSupport::TestCase
     cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
     price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
 
-    assert_difference PriceDetail, :count, -1 do
+    assert_difference 'PriceDetail.count', -1 do
       product.destroy
     end
   end
@@ -427,7 +414,7 @@ class ProductTest < ActiveSupport::TestCase
 
     env_production_cost = fast_create(ProductionCost, :owner_id => ent.environment.id, :owner_type => 'Environment')
     ent_production_cost = fast_create(ProductionCost, :owner_id => ent.id, :owner_type => 'Profile')
-    product.price_details.create(:production_cost => env_production_cost, :product => product)
+    create(PriceDetail, :product => product, :production_cost => env_production_cost, :product => product)
     assert_equal [env_production_cost, ent_production_cost], product.available_production_costs
   end
 
@@ -436,7 +423,7 @@ class ProductTest < ActiveSupport::TestCase
     product = fast_create(Product, :profile_id => ent.id)
 
     env_production_cost = fast_create(ProductionCost, :owner_id => ent.environment.id, :owner_type => 'Environment')
-    price_detail = product.price_details.create(:production_cost => env_production_cost, :price => 10)
+    price_detail = create(PriceDetail, :product => product, :production_cost => env_production_cost, :price => 10)
 
     input = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
 
@@ -493,31 +480,31 @@ class ProductTest < ActiveSupport::TestCase
     prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :profile_id => @profile.id)
     assert_equal 0, prod.percentage_from_solidarity_economy.first
 
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
     assert_equal 0, prod.percentage_from_solidarity_economy.first
 
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
     assert_equal 50, prod.percentage_from_solidarity_economy.first
 
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
     assert_equal 25, prod.percentage_from_solidarity_economy.first
 
     prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :profile_id => @profile.id)
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
     assert_equal 75, prod.percentage_from_solidarity_economy.first
 
     prod = fast_create(Product, :name => 'test product', :product_category_id => @product_category.id, :profile_id => @profile.id)
-    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+    create(Input, :product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
     assert_equal 100, prod.percentage_from_solidarity_economy.first
   end
@@ -543,9 +530,9 @@ class ProductTest < ActiveSupport::TestCase
   should 'return more recent products' do
     Product.destroy_all
 
-    prod1 = Product.create!(:name => 'Damaged LP', :profile_id => @profile.id, :product_category_id => @product_category.id)
-    prod2 = Product.create!(:name => 'Damaged CD', :profile_id => @profile.id, :product_category_id => @product_category.id)
-    prod3 = Product.create!(:name => 'Damaged DVD', :profile_id => @profile.id, :product_category_id => @product_category.id)
+    prod1 = create(Product, :name => 'Damaged LP', :profile_id => @profile.id, :product_category_id => @product_category.id)
+    prod2 = create(Product, :name => 'Damaged CD', :profile_id => @profile.id, :product_category_id => @product_category.id)
+    prod3 = create(Product, :name => 'Damaged DVD', :profile_id => @profile.id, :product_category_id => @product_category.id)
 
     prod1.update_attribute :created_at, Time.now-2.days
     prod2.update_attribute :created_at, Time.now-1.days

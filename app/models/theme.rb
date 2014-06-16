@@ -10,11 +10,11 @@ class Theme
     end
 
     def user_themes_dir
-      File.join(RAILS_ROOT, 'public', 'user_themes')
+      Rails.root.join('public', 'user_themes')
     end
 
     def system_themes_dir
-      File.join(RAILS_ROOT, 'public', 'designs', 'themes')
+      Rails.root.join('public', 'designs', 'themes')
     end
 
     def create(id, attributes = {})
@@ -119,7 +119,7 @@ class Theme
 
   def add_image(filename, data)
     FileUtils.mkdir_p(images_directory)
-    File.open(image_path(filename), 'w') do |f|
+    File.open(image_path(filename), 'wb') do |f|
       f.write(data)
     end
   end

@@ -3,17 +3,25 @@ require File.dirname(__FILE__) + '/../test_helper'
 class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
   def setup
+    @articles = []
     @profile = create_user('testinguser').person
     @profile.articles.destroy_all
     ['first', 'second', 'third', 'fourth', 'fifth'].each do |name|
-      @profile.articles << TextArticle.create(:name => name)
+      article = @profile.articles.create!(:name => name)
+      @articles << article
     end
 
-    box = Box.create!(:owner => profile)
-    @block = RecentDocumentsBlock.create!(:box_id => box.id)
+    box = Box.new
+    box.owner = profile
+    box.save!
+
+
+    @block = RecentDocumentsBlock.new
+    @block.box_id = box.id
+    @block.save!
 
   end
-  attr_reader :block, :profile
+  attr_reader :block, :profile, :articles
 
   should 'describe itself' do
     assert_not_equal Block.description, RecentDocumentsBlock.description
@@ -23,26 +31,31 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, RecentDocumentsBlock.new.default_title
   end
 
-  should 'output list with links to recent documents' do
-    output = block.content
+  should 'list recent documents' do
+    assert_equivalent block.docs, articles
+  end
 
-    assert_match /href=.*\/testinguser\/first/, output
-    assert_match /href=.*\/testinguser\/second/, output
-    assert_match /href=.*\/testinguser\/third/, output
-    assert_match /href=.*\/testinguser\/fourth/, output
-    assert_match /href=.*\/testinguser\/fifth/, output
+  should 'link to documents' do
+    articles.each do |a|
+      expects(:link_to).with(a.title, a.url)
+    end
+    stubs(:block_title).returns("")
+    stubs(:content_tag).returns("")
+    stubs(:li).returns("")
+
+    instance_eval(&block.content)
   end
 
   should 'respect the maximum number of items as configured' do
     block.limit = 3
 
-    output = block.content
+    list = block.docs
 
-    assert_match /href=.*\/testinguser\/fifth/, output
-    assert_match /href=.*\/testinguser\/fourth/, output
-    assert_match /href=.*\/testinguser\/third/, output
-    assert_no_match /href=.*\/testinguser\/second/, output
-    assert_no_match /href=.*\/testinguser\/first/, output
+    assert_includes list, articles[4]
+    assert_includes list, articles[3]
+    assert_includes list, articles[2]
+    assert_not_includes list, articles[1]
+    assert_not_includes list, articles[0]
   end
 
   should 'store limit as a number' do
@@ -71,12 +84,9 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to update display setting' do
-    user = create_user('testinguser').person
-    box = fast_create(Box, :owner_id => user.id)
-    block = RecentDocumentsBlock.create!(:display => 'never', :box => box)
-    assert block.update_attributes!(:display => 'always')
-    block.reload
-    assert_equal 'always', block.display
+    assert @block.update_attributes!(:display => 'always')
+    @block.reload
+    assert_equal 'always', @block.display
   end
 
 end

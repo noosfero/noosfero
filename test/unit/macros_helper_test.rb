@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MacrosHelperTest < ActiveSupport::TestCase
+class MacrosHelperTest < ActionView::TestCase
   include MacrosHelper
   include ApplicationHelper
   include ActionView::Helpers::FormOptionsHelper
@@ -102,7 +102,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
         {:js_files => 'macro.js' }
       end
     end
-
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
     assert_equal "<script src=\"#{Plugin1.public_path('macro.js')}\" type=\"text/javascript\"></script>", include_macro_js_files
   end
 

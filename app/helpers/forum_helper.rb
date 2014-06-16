@@ -36,7 +36,7 @@ module ForumHelper
                              :id => "post-#{art.id}"
                             )
     }
-    content_tag('table', content) + (pagination or '')
+    content_tag('table', content.join) + (pagination or '')
   end
 
   def last_topic_update(article)

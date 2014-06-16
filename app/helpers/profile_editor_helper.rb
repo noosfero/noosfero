@@ -101,7 +101,7 @@ module ProfileEditorHelper
   end
 
   def country_helper
-    @country_helper ||= CountriesHelper.instance
+    @country_helper ||= CountriesHelper::Object.instance
   end
 
   def select_country(title, object, method, html_options = {}, options = {})
@@ -129,7 +129,7 @@ module ProfileEditorHelper
     else
       domains = environment.domains
     end
-    labelled_form_field(__('Preferred domain name:'), select(object, :preferred_domain_id, domains.map {|item| [item.name, item.id]}, :prompt => '&lt;' + _('Select domain') + '&gt;'))
+    labelled_form_field(_('Preferred domain name:'), select(object, :preferred_domain_id, domains.map {|item| [item.name, item.id]}, :prompt => '&lt;' + _('Select domain') + '&gt;'))
   end
 
   def control_panel(&block)

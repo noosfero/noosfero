@@ -20,7 +20,7 @@ class SlideshowBlock < Block
 
   def check_filename(image, size)
     filename = image.public_filename(size)
-    if File.exists?(File.join(Rails.root, 'public', filename))
+    if File.exists?(File.join(Rails.root.join('public').to_s, filename))
       filename
     else
       nil
@@ -38,11 +38,11 @@ class SlideshowBlock < Block
       if shuffle
         images = images.shuffle
       end
-      lambda do
+      proc do
         render :file => 'blocks/slideshow', :locals => { :block => block, :images => images }
       end
     else
-      lambda do
+      proc do
         render :file => 'blocks/slideshow', :locals => { :block => block, :images => nil }
       end
     end

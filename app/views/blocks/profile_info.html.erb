@@ -1,0 +1,46 @@
+<div class="vcard">
+
+<h2 class="<%= profile.class == Person ? 'fn' : 'org' %>"><%= h block.owner.short_name %></h2>
+
+<div class="profile-info-picture">
+  <div class="profile-info-picture-inner1">
+    <span class="profile-info-picture-inner2">
+      <%=
+        profile_image(block.owner, :thumb) +"\n"+
+        profile_sex_icon( profile ) +
+        profile_cat_icons( profile )
+      %>
+    </span>
+  </div>
+</div>
+
+<ul class="profile-info-data">
+  <li><%= link_to _('Homepage'), block.owner.url, :class => 'url' %></li>
+  <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
+  <% if block.owner.enterprise? && block.owner.environment.enabled?('products_for_enterprises') %>
+    <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) %></li>
+  <% end %>
+  <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
+    <li><%= link_to _('Control panel'), block.owner.admin_url %></li>
+  <% end %>
+  <% if profile.person? %>
+    <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
+  <% end %>
+</ul>
+
+<% if profile.respond_to? :city %>
+<div class="adr">
+<%=
+  [ [ profile.city, 'locality' ],
+    [ profile.state, 'region' ],
+    [ profile.country_name, 'country-name' ]
+  ].map{ |s,c| s =~ /^\s*$/ ? nil : content_tag( 'span', s, :class => c ) }.compact.join ' - '
+%>
+</div>
+<% end %>
+
+<div class="profile-info-options">
+  <%= render :file => view_for_profile_actions(block.owner.class) %>
+</div>
+
+</div><!-- end class="vcard" -->

@@ -13,37 +13,37 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'have the article_name' do
     t = SuggestArticle.new
-    assert !t.errors.invalid?(:article_name)
+    assert !t.errors[:article_name.to_s].present?
     t.valid?
-    assert t.errors.invalid?(:article_name)
+    assert t.errors[:article_name.to_s].present?
   end
 
   should 'have the article_body' do
     t = SuggestArticle.new
-    assert !t.errors.invalid?(:article_body)
+    assert !t.errors[:article_body.to_s].present?
     t.valid?
-    assert t.errors.invalid?(:article_body)
+    assert t.errors[:article_body.to_s].present?
   end
 
   should 'have the email' do
     t = SuggestArticle.new
-    assert !t.errors.invalid?(:email)
+    assert !t.errors[:email.to_s].present?
     t.valid?
-    assert t.errors.invalid?(:email)
+    assert t.errors[:email.to_s].present?
   end
 
   should 'have the name' do
     t = SuggestArticle.new
-    assert !t.errors.invalid?(:name)
+    assert !t.errors[:name.to_s].present?
     t.valid?
-    assert t.errors.invalid?(:name)
+    assert t.errors[:name.to_s].present?
   end
 
   should 'have the target_id' do
     t = SuggestArticle.new
-    assert !t.errors.invalid?(:target_id)
+    assert !t.errors[:target_id.to_s].present?
     t.valid?
-    assert t.errors.invalid?(:target_id)
+    assert t.errors[:target_id.to_s].present?
   end
 
   should 'have the article_abstract' do
@@ -146,7 +146,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
 
     assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}/, email.subject)
   end

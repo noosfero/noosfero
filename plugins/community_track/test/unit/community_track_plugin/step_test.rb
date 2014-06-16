@@ -4,7 +4,7 @@ class StepTest < ActiveSupport::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.new(:profile_id => @profile.id, :name => 'track')
+    @track = CommunityTrackPlugin::Track.new(:profile => @profile, :name => 'track')
     @category = fast_create(Category)
     @track.add_category(@category)
     @track.save!
@@ -61,13 +61,13 @@ class StepTest < ActiveSupport::TestCase
   should 'do not validate date period if start date is nil' do
     @step.start_date = nil
     @step.end_date_equal_or_after_start_date.inspect
-    assert [], @step.errors
+    assert @step.errors.empty?
   end
 
   should 'do not validate date period if end date is nil' do
     @step.end_date = nil
     @step.end_date_equal_or_after_start_date.inspect
-    assert [], @step.errors
+    assert @step.errors.empty?
   end
 
   should 'be active if today is between start and end dates' do

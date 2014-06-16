@@ -1,6 +1,6 @@
 class MyNetworkBlock < Block
 
-  include ActionController::UrlWriter
+  attr_accessible :display, :box
 
   def self.description
     _('My network')
@@ -16,7 +16,7 @@ class MyNetworkBlock < Block
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       render :file => 'blocks/my_network', :locals => {
         :title => block.title,
         :owner => block.owner

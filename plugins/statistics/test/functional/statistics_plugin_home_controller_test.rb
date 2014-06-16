@@ -6,13 +6,7 @@ class HomeController; def rescue_action(e) raise e end; end
 class HomeControllerTest < ActionController::TestCase
 
   def setup
-    @controller = HomeController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
-    Environment.delete_all
-
-    @environment = Environment.create(:name => 'testenv', :is_default => true)
+    @environment = Environment.default
     @environment.enabled_plugins = ['StatisticsPlugin']
     @environment.save!
 

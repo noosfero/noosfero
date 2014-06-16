@@ -21,11 +21,11 @@ module WhiteListFilter
 
   module ClassMethods
     def filter_iframes(*opts)
-      options = opts.pop
-      white_list_method = options[:whitelist]
+      options = opts.last.is_a?(Hash) && opts.pop || {}
+      white_list_method = options[:whitelist] || :iframe_whitelist
       opts.each do |field|
         before_validation do |obj|
-          obj.check_iframe_on_content(obj.send(field), obj.instance_eval(&white_list_method))
+          obj.check_iframe_on_content(obj.send(field), obj.send(white_list_method))
         end
       end
     end

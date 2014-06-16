@@ -1,11 +1,11 @@
 class DisabledEnterpriseMessageBlock < Block
 
   def self.description
-    __('"Disabled enterprise" message')
+    _('"Disabled enterprise" message')
   end
 
   def help
-    __('Shows a message for disabled enterprises.')
+    _('Shows a message for disabled enterprises.')
   end
 
   def default_title
@@ -14,7 +14,7 @@ class DisabledEnterpriseMessageBlock < Block
 
   def content(args={})
     message = self.owner.environment.message_for_disabled_enterprise || ''
-    lambda do
+    lambda do |_|
        render :file => 'blocks/disabled_enterprise_message', :locals => {:message => message}
     end
   end

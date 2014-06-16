@@ -6,9 +6,13 @@ class ContextContentPluginProfileControllerTest < ActionController::TestCase
 
   def setup
     @profile = fast_create(Community)
+    box = create(Box, :owner_type => 'Profile', :owner_id => @profile.id)
     @block = ContextContentPlugin::ContextContentBlock.new
+    @block.box = box
     @block.types = ['TinyMceArticle']
     @block.limit = 1
+    owner = create_user('block-owner').person
+    @block.box = owner.boxes.last
     @block.save!
     @page = fast_create(Folder, :profile_id => @profile.id)
   end

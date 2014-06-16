@@ -1,5 +1,7 @@
 class HighlightsBlock < Block
 
+  attr_accessible :images
+
   settings_items :images, :type => Array, :default => []
   settings_items :interval, :type => 'integer', :default => 4
   settings_items :shuffle, :type => 'boolean', :default => false
@@ -30,7 +32,7 @@ class HighlightsBlock < Block
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       render :file => 'blocks/highlights', :locals => { :block => block }
     end
   end

@@ -1,12 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BoxesHelperTest < ActiveSupport::TestCase
+class BoxesHelperTest < ActionView::TestCase
 
   include BoxesHelper
   include ActionView::Helpers::TagHelper
 
   def setup
-    @controller = mock
     @controller.stubs(:boxes_editor?).returns(false)
     @controller.stubs(:uses_design_blocks?).returns(true)
   end
@@ -35,7 +34,7 @@ class BoxesHelperTest < ActiveSupport::TestCase
 
   def create_user_with_blocks
     p = create_user('test_user').person
-    LinkListBlock.create!(:box => p.boxes.first)
+    create(LinkListBlock, :box => p.boxes.first)
     p
   end
 
@@ -103,13 +102,13 @@ class BoxesHelperTest < ActiveSupport::TestCase
   end
 
   should 'add invisible CSS class name for invisible blocks' do
-    assert !block_css_classes(Block.new(:display => 'always')).split.any? { |item| item == 'invisible-block'}
-    assert block_css_classes(Block.new(:display => 'never')).split.any? { |item| item == 'invisible-block'}
+    assert !block_css_classes(build(Block, :display => 'always')).split.any? { |item| item == 'invisible-block'}
+    assert block_css_classes(build(Block, :display => 'never')).split.any? { |item| item == 'invisible-block'}
   end
 
   should 'fill context with the article, request_path and locale' do
     request = mock()
-    box = Box.create!(:owner => fast_create(Profile))
+    box = create(Box, :owner => fast_create(Profile))
     request.expects(:path).returns('/')
     request.expects(:params).returns({})
     stubs(:request).returns(request)

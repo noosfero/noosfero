@@ -6,9 +6,9 @@ class RoleAssignmentExtTest < ActiveSupport::TestCase
     role2 = Role.create!(:name => 'role2')
     member = create_user('person').person
     organization = Organization.create!(:name => 'Organization', :identifier => 'organization')
-    assert_difference organization, :members_count, 1 do
-      RoleAssignment.create!(:accessor => member, :resource => organization, :role => role1)
-      RoleAssignment.create!(:accessor => member, :resource => organization, :role => role2)
+    assert_difference 'organization.members_count', 1 do
+      create(RoleAssignment, :accessor => member, :resource => organization, :role => role1)
+      create(RoleAssignment, :accessor => member, :resource => organization, :role => role2)
       organization.reload
     end
   end
@@ -18,10 +18,10 @@ class RoleAssignmentExtTest < ActiveSupport::TestCase
     role2 = Role.create!(:name => 'role2')
     member = create_user('person').person
     organization = Organization.create!(:name => 'Organization', :identifier => 'organization')
-    RoleAssignment.create!(:accessor => member, :resource => organization, :role => role1)
-    RoleAssignment.create!(:accessor => member, :resource => organization, :role => role2)
+    create(RoleAssignment, :accessor => member, :resource => organization, :role => role1)
+    create(RoleAssignment, :accessor => member, :resource => organization, :role => role2)
     organization.reload
-    assert_difference organization, :members_count, -1 do
+    assert_difference 'organization.members_count', -1 do
       organization.role_assignments.destroy_all
       organization.reload
     end

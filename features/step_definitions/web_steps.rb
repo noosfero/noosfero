@@ -11,6 +11,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 
 module WithinHelpers
   def with_scope(locator)
+    locator = locator ? first(locator) : locator
     locator ? within(locator) { yield } : yield
   end
 end
@@ -26,19 +27,19 @@ end
 
 When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   with_scope(selector) do
-    click_button(button)
+    first(:button, button).click
   end
 end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    click_link(link)
+    first(:link, link).click
   end
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    fill_in(field, :with => value)
+    fill_in(field, :with => value, :match => :prefer_exact)
   end
 end
 
@@ -87,7 +88,7 @@ end
 
 When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
   with_scope(selector) do
-    choose(field)
+    choose(field, :match => :prefer_exact)
   end
 end
 
@@ -117,9 +118,9 @@ end
 
 Then /^(?:|I )should see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
   if page.respond_to? :should
-    page.should have_css(selector, :content => text)
+    page.should have_css(selector, :text => text)
   else
-    assert page.has_css?(selector, :content => text)
+    assert page.has_css?(selector, :text => text)
   end
 end
 
@@ -246,4 +247,10 @@ end
 
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
   should have_selector('div', :class => klass)
+end
+
+When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+  with_scope(selector) do
+    find("a", :text => /\A#{link}\z/).click
+  end
 end

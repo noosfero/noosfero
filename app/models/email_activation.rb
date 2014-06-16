@@ -1,13 +1,14 @@
 class EmailActivation < Task
 
   validates_presence_of :requestor_id, :target_id
+  validate :already_requested, :on => :create
 
   alias :environment :target
   alias :person :requestor
 
-  def validate_on_create
+  def already_requested
     if !self.requestor.nil? && self.requestor.user.email_activation_pending?
-      self.errors.add_to_base(_('You have already requested activation of your mailbox.'))
+      self.errors.add(:base, _('You have already requested activation of your mailbox.'))
     end
   end
 
@@ -33,7 +34,7 @@ class EmailActivation < Task
 
   # :nodoc:
   def after_finish
-    User::Mailer.deliver_activation_email_notify(person.user)
+    UserMailer.activation_email_notify(person.user).deliver
   end
 
   def sends_email?

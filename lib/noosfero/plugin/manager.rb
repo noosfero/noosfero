@@ -90,10 +90,9 @@ class Noosfero::Plugin::Manager
     end
   end
 
-  def [](name)
-    klass = Noosfero::Plugin.klass(name)
+  def [](class_name)
     enabled_plugins.select do |plugin|
-      plugin.kind_of?(klass)
+      plugin.kind_of?(class_name.constantize)
     end.first
   end
 

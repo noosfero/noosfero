@@ -13,7 +13,7 @@ Given /^I approve community "(.+)"$/ do |community|
    Given %{I go to admin_user's control panel}
    click_link('Process requests')
    choose("decision-finish-#{task.id}")
-   click_button('Apply!')
+   first(:button, 'Apply!').click
 end
 
 Given /^I reject community "(.+)"$/ do |community|
@@ -21,7 +21,7 @@ Given /^I reject community "(.+)"$/ do |community|
    Given %{I go to admin_user's control panel}
    click_link('Process requests')
    choose("decision-cancel-#{task.id}")
-   click_button('Apply!')
+   first(:button, 'Apply!').click
 end
 
 Then /^I should see "([^\"]*)"'s creation date$/ do |community|

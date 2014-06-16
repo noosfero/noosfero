@@ -6,13 +6,7 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup
-    @controller = EnvironmentDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
-    Environment.delete_all
-
-    @environment = Environment.create(:name => 'testenv', :is_default => true)
+    @environment = Environment.default
     @environment.enabled_plugins = ['StatisticsPlugin']
     @environment.save!
 

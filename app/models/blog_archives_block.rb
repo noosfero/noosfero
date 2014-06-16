@@ -2,7 +2,8 @@ class BlogArchivesBlock < Block
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
   include ActionView::Helpers::AssetTagHelper
   include DatesHelper
 
@@ -31,10 +32,10 @@ class BlogArchivesBlock < Block
     return nil unless owner_blog
     results = ''
     posts = visible_posts(args[:person])
-    posts.count(:all, :group => 'EXTRACT(YEAR FROM published_at)').sort_by {|year, count| -year.to_i}.each do |year, count|
+    posts.except(:order).count(:all, :group => 'EXTRACT(YEAR FROM published_at)').sort_by {|year, count| -year.to_i}.each do |year, count|
       results << content_tag('li', content_tag('strong', "#{year} (#{count})"))
       results << "<ul class='#{year}-archive'>"
-      posts.count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
+      posts.except(:order).count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
         month_name = gettext(MONTHS[month.to_i - 1])
         results << content_tag('li', link_to("#{month_name} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
       end

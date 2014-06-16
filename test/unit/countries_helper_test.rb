@@ -1,9 +1,10 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CountriesHelperTest < ActiveSupport::TestCase
 
   def setup
-    @helper = CountriesHelper.instance
+    @helper = CountriesHelper::Object.instance
   end
   attr_reader :helper
 

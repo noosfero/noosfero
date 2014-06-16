@@ -6,39 +6,13 @@ Feature: edit profile
       | joao    |
     Given I am logged in as "joao"
 
-  Scenario: Warn about invalid birth date when active
-    Given the following person fields are active fields
-      | display_name |
-      | birth_date |
-    When I go to joao's control panel
-    And I follow "Edit Profile"
-    And I select "November" from "profile_data_birth_date_2i"
-    And I select "15" from "profile_data_birth_date_3i"
-    And I press "Save"
-    Then I should see "Birth date is invalid"
-    And I should not see "Birth date can't be blank"
-
-  Scenario: Warn about invalid birth date when required
-    Given the following person fields are required fields
-      | display_name |
-      | birth_date |
-    When I go to joao's control panel
-    And I follow "Edit Profile"
-    And I select "November" from "profile_data_birth_date_2i"
-    And I select "15" from "profile_data_birth_date_3i"
-    And I press "Save"
-    Then I should see "Birth date is invalid"
-    And I should not see "Birth date can't be blank"
-
   Scenario: Not warn if birth date is valid when active
     Given the following person fields are active fields
       | display_name |
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November" from "profile_data_birth_date_2i"
-    And I select "15" from "profile_data_birth_date_3i"
-    And I select "1980" from "profile_data_birth_date_1i"
+    And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"
@@ -49,9 +23,7 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November" from "profile_data_birth_date_2i"
-    And I select "15" from "profile_data_birth_date_3i"
-    And I select "1980" from "profile_data_birth_date_1i"
+    And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"

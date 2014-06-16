@@ -23,9 +23,9 @@ class EnvironmentStatisticsBlock < Block
     info = []
     info << (n_('One user', '%{num} users', users) % { :num => users })
     unless owner.enabled?('disable_asset_enterprises')
-      info << (n__('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises })
+      info << (n_('One enterprise', '%{num} enterprises', enterprises) % { :num => enterprises })
     end
-    info << (n__('One community', '%{num} communities', communities) % { :num => communities })
+    info << (n_('One community', '%{num} communities', communities) % { :num => communities })
 
     block_title(title) + content_tag('ul', info.map {|item| content_tag('li', item) }.join("\n"))
   end

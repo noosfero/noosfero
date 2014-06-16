@@ -16,7 +16,7 @@ begin
     end
 
     should 'deliver mail notification about exceptions' do
-      assert_difference ActionMailer::Base.deliveries, :size do
+      assert_difference 'ActionMailer::Base.deliveries.size' do
         get '/account/signup'
       end
     end
@@ -29,7 +29,7 @@ begin
 
     should 'render not found when try to access invalid url' do
       get '/profile/ze/tag/notexists'
-      assert_template 'not_found.rhtml'
+      assert_template 'not_found'
     end
   end
 rescue LoadError

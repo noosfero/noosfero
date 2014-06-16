@@ -130,13 +130,13 @@ class TrackTest < ActiveSupport::TestCase
 
   should 'not be able to create a track without category' do
     track = CommunityTrackPlugin::Track.create(:profile => @profile, :name => 'track')
-    assert track.errors.invalid?(:categories)
+    assert track.errors.include?(:categories)
   end
 
   should 'not be able to save a track without category' do
     @track.categories.delete_all
     @track.save
-    assert @track.errors.invalid?(:categories)
+    assert @track.errors.include?(:categories)
   end
 
 end

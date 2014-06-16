@@ -1,7 +1,7 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_metric_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/metric_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/date_metric_result_fixtures"
 
 class MetricResultTest < ActiveSupport::TestCase
 
