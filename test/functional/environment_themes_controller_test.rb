@@ -21,7 +21,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     FileUtils.rm_rf(TMP_THEMES_DIR)
   end
 
-  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/environment_themes_controller'
+  TMP_THEMES_DIR = Rails.root.join("test", "tmp", "environment_themes_controller")
 
   should 'display themes that can be applied' do
     env = Environment.default
@@ -91,7 +91,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     LayoutTemplate.expects(:all).returns(all)
     get :index
-    assert_same all, assigns(:layout_templates)
+    assert_equivalent all, assigns(:layout_templates)
   end
 
   should 'display links to set template' do
@@ -109,7 +109,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
   should 'highlight current template' do
     env = Environment.default
-    env.update_attributes!(:layout_template => 'default')
+    env.update_attribute(:layout_template, 'default')
     env.layout_template = 'default'
 
     t1 = LayoutTemplate.find('default')

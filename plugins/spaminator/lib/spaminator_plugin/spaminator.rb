@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spaminator_plugin/mailer'
 
 class SpaminatorPlugin::Spaminator
@@ -13,8 +14,8 @@ class SpaminatorPlugin::Spaminator
     end
 
     def initialize_logger(environment)
-      logdir = File.join(RAILS_ROOT, 'log', SpaminatorPlugin.name.underscore)
-      File.makedirs(logdir) if !File.exist?(logdir)
+      logdir = Rails.root.join('log', SpaminatorPlugin.name.underscore)
+      FileUtils.mkdir_p(logdir) if !File.exist?(logdir)
       logpath = File.join(logdir, "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime('%F_%T')}.log")
       @logger = Logger.new(logpath)
     end
@@ -28,9 +29,10 @@ class SpaminatorPlugin::Spaminator
   def initialize(environment)
     @environment = environment
     @settings = Noosfero::Plugin::Settings.new(@environment, SpaminatorPlugin)
-    @report = SpaminatorPlugin::Report.new(:environment => environment, 
+    @report = SpaminatorPlugin::Report.new({:environment => environment,
                                            :total_people => Person.count,
-                                           :total_comments => Comment.count)
+                                           :total_comments => Comment.count},
+                                           :without_protection => true)
     self.class.initialize_logger(environment)
   end
 
@@ -158,7 +160,7 @@ class SpaminatorPlugin::Spaminator
 
   def disable_person(person)
     if person.disable
-      SpaminatorPlugin::Mailer.delay.deliver_inactive_person_notification(person)
+      Delayed::Job.enqueue(SpaminatorPlugin::Mailer::Job.new(person, :inactive_person_notification))
     end
   end
 

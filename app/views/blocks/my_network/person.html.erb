@@ -1,0 +1,10 @@
+<ul>
+  <li><%= link_to(n_( 'One article published', '%s articles published', owner.articles.count) %
+  content_tag('b', owner.articles.count), owner.public_profile_url.merge(:action => 'sitemap') ) %></li>
+  <li><%= link_to(n_('One friend', '%s friends', owner.friends.count) %
+  content_tag('b', owner.friends.count), owner.public_profile_url.merge(:action => 'friends')) %></li>
+  <li><%= link_to(n_('One community', '%{num} communities', owner.communities.visible.size) %
+  {:num => content_tag('b', owner.communities.visible.size)}, owner.public_profile_url.merge(:action => 'communities')) %></li>
+  <li><%= link_to(n_('One tag', '%s tags', owner.article_tags.size) %
+  content_tag('b', owner.article_tags.size), owner.public_profile_url.merge(:action => 'tags')) %></li>
+</ul>

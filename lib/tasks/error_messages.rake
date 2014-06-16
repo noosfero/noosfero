@@ -1,4 +1,4 @@
-templates = Dir.glob(RAILS_ROOT + '/public/*.html.erb')
+templates = Dir.glob(Rails.root.join('public', '*.html.erb'))
 targets = []
 templates.each do |template|
   target = template.gsub(/.erb$/, '')

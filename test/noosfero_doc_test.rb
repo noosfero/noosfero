@@ -1,9 +1,10 @@
+# encoding: UTF-8
 require 'mocha'
 
 module Noosfero::DocTest
 
   unless defined?(ROOT)
-    ROOT = File.join(Rails.root, "test", "tmp", "doc")
+    ROOT = Rails.root.join("test", "tmp", "doc")
   end
 
   def create_doc(section, topic, language, title, body = nil)

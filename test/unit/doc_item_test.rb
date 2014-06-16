@@ -27,10 +27,10 @@ class DocItemTest < ActiveSupport::TestCase
 
   should 'translate images' do
     doc = DocItem.new(:language => 'pt', :text => '<p>Look the image:</p><p><img src="/images/doc/myimage.en.png" alt="The image"/></p>')
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.pt.png').returns(false)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.pt.png')).returns(false)
     assert_equal doc.text, doc.html
 
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.pt.png').returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.pt.png')).returns(true)
     assert_match(/<img src="\/images\/doc\/myimage.pt.png"/, doc.html)
   end
 
@@ -38,8 +38,8 @@ class DocItemTest < ActiveSupport::TestCase
     doc = DocItem.new(:language => 'pt', :text => '<p>Look the image:</p><p><img src="/images/doc/myimage.en.png" alt="The image"/></p>')
 
     # the image exists in both the system *and* on the theme
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.pt.png').returns(true)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/designs/themes/mytheme/images/doc/myimage.pt.png').returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.pt.png')).returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'designs', 'themes', 'mytheme', 'images', 'doc', 'myimage.pt.png')).returns(true)
     # the one in the theme must be used
     assert_match(/<img src="\/designs\/themes\/mytheme\/images\/doc\/myimage.pt.png"/, doc.html('mytheme'))
   end
@@ -48,9 +48,9 @@ class DocItemTest < ActiveSupport::TestCase
     doc = DocItem.new(:language => 'pt', :text => '<p>Look the image:</p><p><img src="/images/doc/myimage.en.png" alt="The image"/></p>')
 
     # the image has a translation in the system but not in the theme
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.pt.png').returns(true)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/designs/themes/mytheme/images/doc/myimage.en.png').returns(false)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/designs/themes/mytheme/images/doc/myimage.pt.png').returns(false)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.pt.png')).returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'designs', 'themes', 'mytheme', 'images', 'doc', 'myimage.en.png')).returns(false)
+    File.stubs(:exist?).with(Rails.root.join('public', 'designs', 'themes', 'mytheme', 'images', 'doc', 'myimage.pt.png')).returns(false)
     # the one in the theme must be used
     assert_match(/<img src="\/images\/doc\/myimage.pt.png"/, doc.html('mytheme'))
   end
@@ -59,10 +59,10 @@ class DocItemTest < ActiveSupport::TestCase
     doc = DocItem.new(:language => 'pt', :text => '<p>Look the image:</p><p><img src="/images/doc/myimage.en.png" alt="The image"/></p>')
 
     # the image has no translation, but both system and theme provide an image
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.en.png').returns(true)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/images/doc/myimage.pt.png').returns(false)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/designs/themes/mytheme/images/doc/myimage.en.png').returns(true)
-    File.stubs(:exist?).with(RAILS_ROOT + '/public/designs/themes/mytheme/images/doc/myimage.pt.png').returns(false)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.en.png')).returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'images', 'doc', 'myimage.pt.png')).returns(false)
+    File.stubs(:exist?).with(Rails.root.join('public', 'designs', 'themes', 'mytheme', 'images', 'doc', 'myimage.en.png')).returns(true)
+    File.stubs(:exist?).with(Rails.root.join('public', 'designs', 'themes', 'mytheme', 'images', 'doc', 'myimage.pt.png')).returns(false)
     # the one in the theme must be used
     assert_match(/<img src="\/designs\/themes\/mytheme\/images\/doc\/myimage.en.png"/, doc.html('mytheme'))
   end

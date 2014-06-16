@@ -9,12 +9,12 @@ class SlideshowBlockTest < ActiveSupport::TestCase
 
   should 'refer to a gallery' do
     gallery = fast_create(Gallery, :profile_id => profile.id)
-    slideshow_block = SlideshowBlock.create!(:gallery_id => gallery.id)
+    slideshow_block = create(SlideshowBlock, :gallery_id => gallery.id)
     assert_equal gallery, slideshow_block.gallery
   end
 
   should 'not crash if referencing unexisting folder' do
-    assert_nil SlideshowBlock.new(:gallery_id => -999).gallery
+    assert_nil build(SlideshowBlock, :gallery_id => -999).gallery
   end
 
   should 'default interval between transitions is 4 seconds' do
@@ -37,7 +37,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     gallery = mock
     images = []
     shuffled = []
-    block = SlideshowBlock.new(:shuffle => true)
+    block = build(SlideshowBlock, :shuffle => true)
     block.stubs(:gallery).returns(gallery)
     block.stubs(:block_images).returns(images)
     images.expects(:shuffle).once.returns(shuffled)
@@ -68,37 +68,37 @@ class SlideshowBlockTest < ActiveSupport::TestCase
   end
 
   should 'set different image size' do
-    block = SlideshowBlock.new(:image_size => 'slideshow')
+    block = build(SlideshowBlock, :image_size => 'slideshow')
     assert_equal 'slideshow', block.image_size
   end
 
   should 'decide correct public filename for image' do
     image = mock
     image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(true)
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'slideshow.png').to_s).returns(true)
 
-    assert_equal '/bli/slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
+    assert_equal '/bli/slideshow.png', build(SlideshowBlock, :image_size => 'slideshow').public_filename_for(image)
   end
 
   should 'display the default slideshow image if thumbnails were not processed' do
     image = mock
     image.expects(:public_filename).with('slideshow').returns('/images/icons-app/image-loading-slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/images/icons-app/image-loading-slideshow.png").returns(true)
+    File.expects(:exists?).with(Rails.root.join('public', 'images', 'icons-app', 'image-loading-slideshow.png').to_s).returns(true)
 
-    assert_equal '/images/icons-app/image-loading-slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
+    assert_equal '/images/icons-app/image-loading-slideshow.png', build(SlideshowBlock, :image_size => 'slideshow').public_filename_for(image)
   end
 
   should 'fallback to existing size in case the requested size does not exist' do
-    block = SlideshowBlock.new(:image_size => 'slideshow')
+    block = build(SlideshowBlock, :image_size => 'slideshow')
 
     image = mock
     # "slideshow" size does not exist
     image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(false) # <<<<<
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'slideshow.png').to_s).returns(false) # <<<<<
 
     # thumb size does exist
     image.expects(:public_filename).with('thumb').returns('/bli/thumb.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/thumb.png").returns(true) # <<<<<
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'thumb.png').to_s).returns(true) # <<<<<
 
     assert_equal '/bli/thumb.png', block.public_filename_for(image)
   end

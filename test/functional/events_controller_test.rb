@@ -43,7 +43,7 @@ class EventsControllerTest < ActionController::TestCase
       profile.events << Event.new(:name => "Lesson #{i}", :start_date => Date.today)
     end
     get :events, :profile => profile.identifier
-    assert_equal 20, assigns(:events).count
+    assert_equal 20, assigns(:events).size
   end
 
   should 'show events of specific day' do

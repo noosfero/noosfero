@@ -9,7 +9,7 @@ Rails.configuration.to_prepare do
         #FIXME This will only work as long as the role_assignment associations
         #happen only between profiles, due to the polymorphic column type.
         if resource.role_assignments.where(:accessor_id => accessor.id).count == 1
-          update_cache_counter(:members_count, resource, 1)
+          RoleAssignment.update_cache_counter(:members_count, resource, 1)
         end
       end
     end
@@ -21,7 +21,7 @@ Rails.configuration.to_prepare do
         #FIXME This will only work as long as the role_assignment associations
         #happen only between profiles, due to the polymorphic column type.
         if resource.role_assignments.where(:accessor_id => accessor.id).count == 0
-          update_cache_counter(:members_count, resource, -1)
+          RoleAssignment.update_cache_counter(:members_count, resource, -1)
         end
       end
     end

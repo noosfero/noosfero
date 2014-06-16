@@ -1,4 +1,4 @@
-<% render :layout => 'field', :locals => { :f => f } do %>
+<%= render :layout => 'field', :locals => { :f => f } do %>
   <div class="field-select-type">
     <%= _('Type:') %>
     <%= f.radio_button(:select_field_type, 'radio') %>
@@ -22,7 +22,7 @@
     <tfoot>
     <tr class="addition-buttons">
       <td colspan="3">
-      <%= button(:add, _('Add a new alternative'), '#', :onclick => "customFormsPlugin.addFields(this, 'alternatives', #{html_for_field(f, :alternatives, CustomFormsPlugin::Alternative).to_json}); return false") %>
+      <%= button(:add, _('Add a new alternative'), '#', :onclick => "customFormsPlugin.addFields(this, 'alternatives', #{j html_for_field(f, :alternatives, CustomFormsPlugin::Alternative).to_json}); return false") %>
       </td>
     </tr>
     </tfoot>

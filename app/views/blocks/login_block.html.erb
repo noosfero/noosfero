@@ -1,0 +1,16 @@
+<% if user.present? %>
+  <div class="logged-user-info">
+    <h2><%= _('Logged in as %s') % user.identifier %></h2>
+    <ul>
+      <li><%= _('User since %s/%s') % [user.created_at.month, user.created_at.year] %></li>
+      <li><%= link_to _('Homepage'), user.public_profile_url %></li>
+    </ul>
+    <div class="user-actions">
+      <%= link_to content_tag('span', _('Logout')), { :controller => 'account', :action => 'logout' }, :class => 'button with-text icon-menu-logout' %>
+    </div>
+  </div>
+<% else %>
+  <div class='not-logged-user'>
+    <%= render :file => 'account/login_block' %>
+  </div>
+<% end%>

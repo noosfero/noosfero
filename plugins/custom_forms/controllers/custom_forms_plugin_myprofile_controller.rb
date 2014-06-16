@@ -75,13 +75,14 @@ class CustomFormsPluginMyprofileController < MyProfileController
       format.csv do
         # CSV contains form fields, timestamp, user name and user email
         columns = @form.fields.count + 3
-        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name)) + "\n"
+        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name))
         @submissions.each do |s|
           fields = [s.updated_at.strftime('%Y/%m/%d %T %Z'), s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
           @form.fields.each do |f|
             fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
           end
-          CSV.generate_row(fields, columns, csv_content)
+          fields = fields.flatten
+          csv_content << CSV.generate_line(fields + (columns - fields.size).times.map{""})
         end
         send_data csv_content, :type => 'text/csv', :filename => "#{@form.name}.csv"
       end

@@ -5,6 +5,8 @@ class RecentContentBlock < Block
   settings_items :show_blog_picture, :type => :boolean, :default => false
   settings_items :selected_folder, :type => Integer
 
+  attr_accessible :presentation_mode, :total_items, :show_blog_picture, :selected_folder
+
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle']
 
   def self.description
@@ -41,12 +43,11 @@ class RecentContentBlock < Block
     end
   end
 
-  include ActionController::UrlWriter
   include DatesHelper
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       render :file => 'blocks/recent_content_block', :locals => {:root => block.root, :block => block}
     end
   end

@@ -359,8 +359,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a1.title}<\/a>/, block.content
-    assert_match /.*<a.*>#{a2.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a1.title}<\/a>/, instance_eval(&block.content)
+    assert_match /.*<a.*>#{a2.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'list content for all articles lead defined in nodes' do
@@ -376,8 +376,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /<div class="lead">#{a1.lead}<\/div>/, block.content
-    assert_match /<div class="lead">#{a2.lead}<\/div>/, block.content
+    assert_match /<div class="lead">#{a1.lead}<\/div>/, instance_eval(&block.content)
+    assert_match /<div class="lead">#{a2.lead}<\/div>/, instance_eval(&block.content)
   end
 
   should 'not crash when referenced article is removed' do
@@ -391,8 +391,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:owner).returns(profile)
 
     Article.delete_all
-    assert_match /<ul><\/ul>/, block.content
+    assert_match /<ul><\/ul>/, instance_eval(&block.content)
   end
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
 
   should 'url_params return myprofile url params if the owner is a profile' do
     profile = create_user('testuser').person
@@ -428,7 +430,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'show abstract if defined by user' do
@@ -442,7 +444,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.abstract}/, block.content
+    assert_match /#{a.abstract}/, instance_eval(&block.content)
   end
 
   should 'show body if defined by user' do
@@ -456,7 +458,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.body}/, block.content
+    assert_match /#{a.body}/, instance_eval(&block.content)
   end
 
   should 'display_attribute be true for title by default' do
@@ -497,7 +499,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.published_at}/, block.content
+    assert_match /#{a.published_at}/, instance_eval(&block.content)
   end
 
   should 'do not save children if a folder is checked' do
@@ -546,6 +548,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     Article.delete_all
     a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
 
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     env = fast_create(Environment)
     env.enable_plugin(Plugin1)
 

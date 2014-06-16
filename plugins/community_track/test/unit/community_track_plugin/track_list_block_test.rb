@@ -6,7 +6,7 @@ class TrackListBlockTest < ActiveSupport::TestCase
     @profile = fast_create(Community)
     @track = create_track('track', profile)
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
   end
 
   attr_reader :profile
@@ -31,7 +31,7 @@ class TrackListBlockTest < ActiveSupport::TestCase
 
   should 'list of articles be limited by block configuration' do
     (@block.limit + 1).times { |i| create_track("track#{i}", profile) }
-    assert_equal @block.limit, @block.tracks.count
+    assert_equal @block.limit, @block.tracks.size
   end
 
   should 'return more link if has more tracks to show' do

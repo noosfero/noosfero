@@ -5,10 +5,12 @@ class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
 
   validates_presence_of :environment
 
-  named_scope :from, lambda { |environment| {:conditions => {:environment_id => environment}}}
+  attr_accessible :environment
 
-  def after_initialize
-    self.failed ||= {:people => [], :comments => []}
+  scope :from, lambda { |environment| {:conditions => {:environment_id => environment}}}
+
+  after_initialize do |report|
+    report.failed = {:people => [], :comments => []} if report.failed.blank?
   end
 
   def spams

@@ -10,35 +10,35 @@ class ScrapTest < ActiveSupport::TestCase
   should "have the content" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:content)
+    assert s.errors[:content.to_s].present?
 
     s.content = ''
     s.valid?
-    assert s.errors.invalid?(:content)
+    assert s.errors[:content.to_s].present?
 
     s.content = 'some content'
     s.valid?
-    assert !s.errors.invalid?(:content)
+    assert !s.errors[:content.to_s].present?
   end
 
   should "have the sender" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:sender_id)
+    assert s.errors[:sender_id.to_s].present?
 
     s.sender_id = 1
     s.valid?
-    assert !s.errors.invalid?(:sender_id)
+    assert !s.errors[:sender_id.to_s].present?
   end
 
   should "have the receiver" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:receiver_id)
+    assert s.errors[:receiver_id.to_s].present?
 
     s.receiver_id = 1
     s.valid?
-    assert !s.errors.invalid?(:receiver_id)
+    assert !s.errors[:receiver_id.to_s].present?
   end
 
   should "be associated to Person as sender" do
@@ -219,7 +219,8 @@ class ScrapTest < ActiveSupport::TestCase
     person = fast_create(Person)
     s = fast_create(Scrap, :updated_at => DateTime.parse('2010-01-01'))
     assert_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
-    s1 = Scrap.create!(:content => 'some content', :sender => person, :receiver => person, :scrap_id => s.id)
+    DateTime.stubs(:now).returns(DateTime.parse('2010-09-07'))
+    s1 = create(Scrap, :content => 'some content', :sender => person, :receiver => person, :scrap_id => s.id)
     s.reload
     assert_not_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
   end
@@ -242,20 +243,20 @@ class ScrapTest < ActiveSupport::TestCase
 
   should 'strip all html tags' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
     assert_equal "Test Rails", s.strip_all_html_tags
   end
 
   should 'strip html before save' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
     s.save!
     assert_equal "Test Rails", s.reload.content
   end
 
   should 'strip html before validate' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p><b></b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p><b></b></p>"
     assert !s.valid?
     s.content = "<p>Test</p>"
     assert s.valid?
@@ -272,23 +273,23 @@ class ScrapTest < ActiveSupport::TestCase
 
   should 'scrap wall url be the root scrap receiver url if it is a reply' do
     p1, p2 = fast_create(Person), fast_create(Person)
-    r = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
-    s = Scrap.new :sender => p2, :receiver => p1, :content => "Hi!"
+    r = create Scrap, :sender => p1, :receiver => p2, :content => "Hello!"
+    s = build Scrap, :sender => p2, :receiver => p1, :content => "Hi!"
     r.replies << s; s.reload
     assert_equal s.scrap_wall_url, s.root.receiver.wall_url
   end
 
   should 'scrap wall url be the scrap receiver url if it is not a reply' do
     p1, p2 = fast_create(Person), fast_create(Person)
-    s = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
+    s = create Scrap, :sender => p1, :receiver => p2, :content => "Hello!"
     assert_equal s.scrap_wall_url, s.receiver.wall_url
   end
 
   should 'create activity with reply_scrap_on_self when top_root scrap receiver is the same as sender' do
     s, r = fast_create(Person), fast_create(Person)
     root = fast_create(Scrap, :sender_id => s.id, :receiver_id => r.id)
-    assert_difference ActionTracker::Record, :count, 1 do
-      reply = Scrap.create!(:sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
+    assert_difference 'ActionTracker::Record.count', 1 do
+      reply = create(Scrap, :sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
     end
     activity = ActionTracker::Record.last
     assert_equal 'reply_scrap_on_self', activity.verb.to_s

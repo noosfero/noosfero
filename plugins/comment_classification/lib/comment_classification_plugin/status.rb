@@ -2,7 +2,9 @@ class CommentClassificationPlugin::Status < Noosfero::Plugin::ActiveRecord
 
   belongs_to :owner, :polymorphic => true
 
+  attr_accessible :name, :enabled
+
   validates_presence_of :name
 
-  named_scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, :conditions => { :enabled => true }
 end

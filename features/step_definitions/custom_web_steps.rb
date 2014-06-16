@@ -19,7 +19,7 @@ Then /^I should not see "([^"]*)" link$/ do |text|
 end
 
 When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
-  page.should have_xpath("//a", :href => /#{href}/)
+  page.should have_xpath("//a[@href='#{href}']")
 end
 
 Then /^the "([^"]*)" button should be disabled$/ do |selector|

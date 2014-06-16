@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+
+cache = '/tmp/debundler.' + ENV['USER'] + '.cache.yaml'
+unless File.exists?(cache)
+  unless system("apt-file search /usr/share/rubygems-integration/1.9.1 > #{cache}")
+    exit 1
+  end
+end
+
+$gems = []
+def source(s)
+end
+def group(g)
+  yield
+end
+def gem(n, v = nil)
+  $gems << n
+end
+load './Gemfile'
+
+require 'yaml'
+deb2gem = YAML.load_file(cache)
+gem2deb = {}
+deb2gem.each do |package,spec|
+  gem_info = File.basename(spec).sub(/\.gemspec$/, '').split('-')
+  gem_version = gem_info.pop
+  gem_name = gem_info.join('-')
+  gem2deb[gem_name] = package
+end
+
+packages = []
+$gems.each do |g|
+  package = gem2deb[g]
+  if package
+    packages << package
+  else
+    puts "E: gem #{g} not found"
+    not_found += 1
+  end
+end
+
+if packages.size == $gems.size
+  system("sudo apt-get -y install #{packages.join(" ")}")
+else
+  exit 1
+end

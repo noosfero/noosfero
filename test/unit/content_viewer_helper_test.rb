@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ContentViewerHelperTest < ActiveSupport::TestCase
+class ContentViewerHelperTest < ActionView::TestCase
 
   include ActionView::Helpers::TagHelper
   include ContentViewerHelper
@@ -14,7 +14,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
 
   should 'display published-at for blog posts' do
     blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
-    post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
+    post = create(TextileArticle, :name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
     assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
   end
@@ -27,7 +27,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
   end
 
   should 'not display published-at for non-blog and non-forum posts' do
-    article = TextileArticle.create!(:name => 'article for test', :profile => profile)
+    article = create(TextileArticle, :name => 'article for test', :profile => profile)
     result = article_title(article)
     assert_no_match /<span class="date">#{show_date(article.published_at)}<\/span><span class="author">, by .*#{profile.identifier}/, result
   end
@@ -44,13 +44,13 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
     post = fast_create(TextileArticle, :name => 'post test', :profile_id => profile.id, :parent_id => blog.id)
     result = article_title(post, :no_link => :true)
-    assert_no_match /a href='#{post.url}'>#{post.name}</, result
+    assert_no_match /a href='#{url_for(post.url)}'>#{post.name}</, result
   end
 
   should 'not create link on title if non-blog post' do
     article = fast_create(TextileArticle, :name => 'art test', :profile_id => profile.id)
     result = article_title(article)
-    assert_no_match /a href='#{article.url}'>#{article.name}</, result
+    assert_no_match /a href='#{url_for(article.url)}'>#{article.name}</, result
   end
 
   should 'not create link to comments if called with no_comments' do
@@ -69,21 +69,21 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
 
   should 'count total of comments from post' do
     article = fast_create(TextileArticle, :profile_id => profile.id)
-    article.comments.create!(:author => profile, :title => 'test', :body => 'test')
+    create(Comment, :article => article, :author => profile, :title => 'test', :body => 'test')
     result = link_to_comments(article)
     assert_match /One comment/, result
   end
 
   should 'not display total of comments if the article doesn\'t allow comments' do
-    article = TextileArticle.new(:name => 'first post for test', :body => 'first post for test', :profile => profile, :accept_comments => false)
+    article = build(TextileArticle, :name => 'first post for test', :body => 'first post for test', :profile => profile, :accept_comments => false)
     article.stubs(:url).returns({})
-    article.stubs(:comments).returns([Comment.new(:author => profile, :title => 'test', :body => 'test')])
+    article.stubs(:comments).returns([build(Comment, :author => profile, :title => 'test', :body => 'test')])
     result = link_to_comments(article)
     assert_equal '', result
   end
 
   should 'not list feed article' do
-    profile.articles << Blog.new(:name => 'Blog test', :profile => profile)
+    profile.articles << build(Blog, :name => 'Blog test', :profile => profile)
     assert_includes profile.blog.children.map{|i| i.class}, RssFeed
     result = list_posts(profile.blog.posts)
     assert_no_match /feed/, result

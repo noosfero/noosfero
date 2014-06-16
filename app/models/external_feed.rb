@@ -5,10 +5,12 @@ class ExternalFeed < ActiveRecord::Base
   validates_presence_of :address, :if => lambda {|efeed| efeed.enabled}
   validates_uniqueness_of :blog_id
 
-  named_scope :enabled, :conditions => { :enabled => true }
-  named_scope :expired, lambda {
+  scope :enabled, :conditions => { :enabled => true }
+  scope :expired, lambda {
     { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
+
+  attr_accessible :address, :enabled
 
   def add_item(title, link, date, content)
     doc = Hpricot(content)
@@ -20,7 +22,14 @@ class ExternalFeed < ActiveRecord::Base
     end
     content = doc.to_s
 
-    article = TinyMceArticle.new(:name => title, :profile => blog.profile, :body => content, :published_at => date, :source => link, :profile => blog.profile, :parent => blog)
+    article = TinyMceArticle.new
+    article.name = title
+    article.profile = blog.profile
+    article.body = content 
+    article.published_at = date 
+    article.source = link 
+    article.profile = blog.profile 
+    article.parent = blog
     unless blog.children.exists?(:slug => article.slug)
       article.save!
       article.delay.create_activity

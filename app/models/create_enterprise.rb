@@ -36,14 +36,18 @@ class CreateEnterprise < Task
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
   xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
 
-  def validate
+  validate :validator_correct_region
+  validate :not_used_identifier
 
+  def validator_correct_region
     if self.region && self.target
       unless self.region.validators.include?(self.target) || self.target_type == "Environment"
         self.errors.add(:target, _('{fn} is not a validator for the chosen region').fix_i18n)
       end
     end
+  end
 
+  def not_used_identifier
     if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
       self.errors.add(:identifier, _('{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
     end
@@ -165,18 +169,18 @@ class CreateEnterprise < Task
   end
 
   def task_finished_message
-    __('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
+    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
   end
 
   def task_cancelled_message
-    __("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
+    _("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
   end
 
   def target_notification_message
     msg = ""
-    msg << __("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
+    msg << _("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
     msg << "\n"
-    msg << __("The data provided by the enterprise was the following:\n") << "\n"
+    msg << _("The data provided by the enterprise was the following:\n") << "\n"
 
 
     msg << (_("Name: %s") % self.name) << "\n"
@@ -186,12 +190,12 @@ class CreateEnterprise < Task
     msg << (_("Foundation Year: %d") % self.foundation_year) << "\n" unless self.foundation_year.blank?
     msg << (_("Economic activity: %s") % self.economic_activity) << "\n"
 
-    msg << __("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
+    msg << _("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
 
     msg << (_("Contact phone: %s") % self.contact_phone) << "\n"
     msg << (_("Contact person: %s") % self.contact_person) << "\n"
 
-    msg << __('CreateEnterprise|Identifier')
+    msg << _('CreateEnterprise|Identifier')
 
     msg
   end

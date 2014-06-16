@@ -19,8 +19,8 @@ Feature: edit_image
   Scenario: dont offer to edit external link if no image
     Given the following files
       | owner   | file     | mime       |
-      | morgoth | test.txt | text/plain |
-    When I go to edit "test.txt" by morgoth
+      | morgoth | test_another.txt | text/plain |
+    When I go to edit "test_another.txt" by morgoth
     Then I should not see "External link"
 
   Scenario: display tag list field when editing file

@@ -31,7 +31,7 @@ class DocItem
       search_path.unshift("/designs/themes/#{theme}#{translation}") # higher priority
       search_path.push("/designs/themes/#{theme}#{image}") # lower priority
     end
-    search_path.find {|file| File.exist?("#{RAILS_ROOT}/public#{file}") }
+    search_path.find {|file| File.exist?(Rails.root.join('public', file[1..-1])) }
   end
 
 end

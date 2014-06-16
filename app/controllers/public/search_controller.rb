@@ -29,7 +29,7 @@ class SearchController < PublicController
       @asset = key
       send(key)
       @order << key
-      @names[key] = getterm(description)
+      @names[key] = _(description)
     end
     @asset = nil
 
@@ -80,7 +80,7 @@ class SearchController < PublicController
   end
 
   def enterprises
-    @scope = visible_profiles(Enterprise, [{:products => :product_category}])
+    @scope = visible_profiles(Enterprise)
     full_text_search
   end
 
@@ -133,7 +133,7 @@ class SearchController < PublicController
     @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @searches[@asset] = {:results => environment.articles.find_tagged_with(@tag).paginate(paginate_options)}
+      @searches[@asset] = {:results => environment.articles.tagged_with(@tag).paginate(paginate_options)}
     end
   end
 
@@ -159,7 +159,7 @@ class SearchController < PublicController
     if params[:category_path].blank?
       render_not_found if params[:action] == 'category_index'
     else
-      path = params[:category_path].join('/')
+      path = params[:category_path]
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)

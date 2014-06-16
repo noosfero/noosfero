@@ -26,6 +26,8 @@ class DisplayContentBlock < Block
                               {:name => _('Tags'), :checked => false}]
   settings_items :display_folder_children, :type => :boolean, :default => true
 
+  attr_accessible :sections, :checked_nodes, :display_folder_children
+
   def self.description
     _('Display your contents')
   end
@@ -69,49 +71,51 @@ class DisplayContentBlock < Block
     holder.articles.find(:all, :conditions => {:type => types, :parent_id => (parent.nil? ? nil : parent)})
   end
 
-  include ActionController::UrlWriter
   def content(args={})
+    block = self
     extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
     docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
 
-    block_title(title) +
-      content_tag('ul', docs.map {|item|
-      if !item.folder?
-        content_sections = ''
-        read_more_section = ''
-        tags_section = ''
+    proc do
+      block.block_title(block.title) +
+        content_tag('ul', docs.map {|item|
+        if !item.folder?
+          content_sections = ''
+          read_more_section = ''
+          tags_section = ''
 
-        sections.select { |section|
-          case section[:name]
-          when 'Publish date'
-            content_sections += (display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
-          when 'Title'
-            content_sections += (display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
-          when 'Abstract'
-            content_sections += (display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
-            if display_section?(section)
-              read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
+          block.sections.select { |section|
+            case section[:name]
+            when 'Publish date'
+              content_sections += (block.display_section?(section) ? (content_tag('div', block.show_date(item.published_at, false), :class => 'published-at') ) : '')
+            when 'Title'
+              content_sections += (block.display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
+            when 'Abstract'
+              content_sections += (block.display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
+              if block.display_section?(section)
+                read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
+              end
+            when 'Body'
+              content_sections += (block.display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
+            when 'Image'
+              image_section = image_tag item.image.public_filename if item.image
+              if !image_section.blank?
+                content_sections += (block.display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
+              end
+            when 'Tags'
+              if !item.tags.empty?
+                tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
+                content_sections += (block.display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
+              end
             end
-          when 'Body'
-            content_sections += (display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
-          when 'Image'
-            image_section = image_tag item.image.public_filename if item.image
-            if !image_section.blank?
-              content_sections += (display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
-            end
-          when 'Tags'
-            if !item.tags.empty?
-              tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
-              content_sections += (display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
-            end
-          end
-        }
+          }
 
-        content_sections += read_more_section if !read_more_section.blank?
+          content_sections += read_more_section if !read_more_section.blank?
 
-        content_tag('li', content_sections)
-      end
-    }.join(" "))
+          content_tag('li', content_sections)
+        end
+      }.join(" "))
+    end
   end
 
   def url_params
@@ -127,6 +131,23 @@ class DisplayContentBlock < Block
 
   def display_section?(section)
     section[:checked]
+  end
+
+  #FIXME: this should be in a helper
+  def show_date(date, use_numbers = false, year=true)
+    if date && use_numbers
+      date_format = year ? _('%{month}/%{day}/%{year}') : _('%{month}/%{day}')
+      date_format % { :day => date.day, :month => date.month, :year => date.year }
+    elsif date
+      date_format = year ? _('%{month_name} %{day}, %{year}') : _('%{month_name} %{day}')
+      date_format % { :day => date.day, :month_name => month_name(date.month), :year => date.year }
+    else
+      ''
+    end
+  end
+
+  def month_name(n)
+    _(MONTHS[n-1])
   end
 
   protected
@@ -149,22 +170,6 @@ class DisplayContentBlock < Block
 
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
-  end
-
-  def show_date(date, use_numbers = false, year=true)
-    if date && use_numbers
-      date_format = year ? _('%{month}/%{day}/%{year}') : _('%{month}/%{day}')
-      date_format % { :day => date.day, :month => date.month, :year => date.year }
-    elsif date
-      date_format = year ? _('%{month_name} %{day}, %{year}') : _('%{month_name} %{day}')
-      date_format % { :day => date.day, :month_name => month_name(date.month), :year => date.year }
-    else
-      ''
-    end
-  end
-
-  def month_name(n)
-    _(MONTHS[n-1])
   end
 
 end

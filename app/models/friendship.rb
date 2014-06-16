@@ -7,12 +7,12 @@ class Friendship < ActiveRecord::Base
   belongs_to :friend, :class_name => 'Person', :foreign_key => 'friend_id'
 
   after_create do |friendship|
-    update_cache_counter(:friends_count, friendship.person, 1)
-    update_cache_counter(:friends_count, friendship.friend, 1)
+    Friendship.update_cache_counter(:friends_count, friendship.person, 1)
+    Friendship.update_cache_counter(:friends_count, friendship.friend, 1)
   end
 
   after_destroy do |friendship|
-    update_cache_counter(:friends_count, friendship.person, -1)
-    update_cache_counter(:friends_count, friendship.friend, -1)
+    Friendship.update_cache_counter(:friends_count, friendship.person, -1)
+    Friendship.update_cache_counter(:friends_count, friendship.friend, -1)
   end
 end

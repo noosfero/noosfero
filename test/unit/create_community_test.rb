@@ -20,10 +20,10 @@ class CreateCommunityTest < ActiveSupport::TestCase
     task = CreateCommunity.new(:name => 'community test', :target => Environment.default)
     task.valid?
 
-    assert task.errors.invalid?(:requestor_id)
+    assert task.errors[:requestor_id.to_s].present?
     task.requestor = person
     task.valid?
-    assert !task.errors.invalid?(:requestor_id)
+    assert !task.errors[:requestor_id.to_s].present?
   end
 
   should 'actually create a community when finishing the task and associate the task requestor as its admin' do
@@ -34,7 +34,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
       :target => Environment.default,
     })
 
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       task.finish
     end
 
@@ -76,7 +76,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
     })
 
     assert_equal 'rails.png', task.image.filename
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       task.finish
     end
 
@@ -98,7 +98,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = CreateCommunity.new(:name => 'community test', :target => Environment.default, :requestor => person)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} wants to create community #{task.subject}/, email.subject)
   end
 

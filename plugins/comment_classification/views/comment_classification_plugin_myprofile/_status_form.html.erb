@@ -1,6 +1,6 @@
 <%= error_messages_for :status %>
 
-<% form_for :status, @status do |f| %>
+<%= form_for :status do |f| %>
   <%= required_fields_message %>
 
   <%= labelled_form_field(_('Status'), f.select(:status_id, @statuses.map{|s|[s.name,s.id]}))  %>

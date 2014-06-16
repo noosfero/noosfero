@@ -40,11 +40,11 @@ Feature: manage categories
   Scenario: admin user could hide the category tree
     Given I follow "Administration"
     And I follow "Categories"
-    When I follow "Show" and wait while it hides
+    When I follow "Show"
     Then I should see "Vegetarian"
     And I should see "Steak"
-    When I follow "Hide" and wait while it hides
-    Then "Vegetarian" should not be visible within "div"
+    When I follow "Hide"
+    Then I should not see "Vegetarian"
     And "Steak" should not be visible within "div"
 
   @selenium
@@ -52,7 +52,6 @@ Feature: manage categories
     Given the following category
       | parent  | name     | display_in_menu |
       | Steak   | Pig      | true            |
-    And I am on the homepage
     When I follow "Administration"
     And I follow "Categories"
     Then I should see "Food Show"

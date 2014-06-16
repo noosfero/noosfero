@@ -28,17 +28,17 @@ class SuggestArticle < Task
   end
 
   def perform
-    TinyMceArticle.create!(
-      :profile => target,
-      :name => article_name,
-      :author_name => name,
-      :body => article_body,
-      :abstract => article_abstract,
-      :parent_id => article_parent_id,
-      :source => source,
-      :source_name => source_name,
-      :highlighted => highlighted
-    )
+    task = TinyMceArticle.new
+    task.profile = target
+    task.name = article_name
+    task.author_name = name
+    task.body = article_body
+    task.abstract = article_abstract
+    task.parent_id = article_parent_id
+    task.source = source
+    task.source_name = source_name
+    task.highlighted = highlighted
+    task.save!
   end
 
   def title

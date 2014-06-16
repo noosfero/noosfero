@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
+  <head>
+    <title><%= h page_title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="<%= @environment.name %>" />
+    <meta name="keywords" content="Noosfero, Community, Open Source" />
+    <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
+    <%= yield(:feeds) %>
+
+    <%= noosfero_javascript %>
+    <%= theme_javascript %>
+    <%= noosfero_stylesheets %>
+
+    <%=
+      # Load the principal css files:
+      stylesheet_import( %w( common help menu article button search blocks forms login-box ),
+                         :themed_source => true ) + "\n" +
+      import_blocks_stylesheets(:themed_source => true) + "\n" +
+      # Load the controller's css file if it exists:
+      import_controller_stylesheets(:themed_source => true)
+    %>
+    <%= stylesheet_link_tag template_stylesheet_path %>
+    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
+
+    <%# Add custom tags/styles/etc via content_for %>
+    <%= yield :head %>
+    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
+
+    <%= render :partial => 'shared/numbers_only_javascript' %>
+  </head>
+
+  <body class='noosfero category<%= category_color %><%=
+    # Identify the current controller and action for the CSS:
+    " controller-"+ controller.controller_name() +
+    " action_"+ controller.controller_name() +"_"+ controller.action_name()
+    %>' onload='noosfero_init();'
+    onresize="registerDocumentSize()">
+    <script type="text/javascript">
+      // <!--
+      function registerDocumentSize() {
+        document.body.className = document.body.className.replace(/docSize-(G|L)T-\d+/g, "");
+        for ( var x=100; x<=1500; x+=100 ) {
+          if ( document.body.clientWidth > x ) {
+            document.body.className += " docSize-GT-" + x;
+          } else {
+            document.body.className += " docSize-LT-" + x;
+          }
+        }
+      }
+      registerDocumentSize();
+      // -->
+    </script>
+
+    <div id="accessibility_menu">
+      <a href="#content" id="link_go_content"><span><%= _('Go to content') %></span></a>
+    </div><!-- accessibility_menu -->
+
+    <div id="wrap">
+    <div id="wrap2">
+    <div id="wrap3">
+    <div id="wrap4">
+
+      <div id="beta-tag"><span>BETA</span></div>
+
+      <div id="noosfero_bar">
+
+        <div id="navigation_bar">
+          <%= link_to "<span>"+ @environment.name() +"</span>",
+                      @environment.top_url,
+                        :id=>"menu_link_to_envhome",
+                        :title=>@environment.name  %>
+          <% unless environment.enabled?(:disable_categories) %>
+            <% cache(environment.id.to_s +  '_categories_menu') do %>
+              <%= render :file => 'shared/categories_menu' %>
+            <% end %>
+          <% end %>
+          <%= render :file => 'shared/assets_menu' %>
+        </div><!-- id='navigation_bar' -->
+
+        <div id="language-selector">
+           <%= language_chooser(environment, :element => 'dropdown') %>
+        </div>
+
+        <div id="user_box">
+          <%= render :file => 'shared/user_menu' %>
+        </div><!-- id='user_box' -->
+
+        <a href="/doc" id="btShowHelp" class="icon-help32on help-on icon-help-on"
+           title="<%= _('Manual') %>"><span><%= _('Manual') %></span></a>
+
+      </div><!-- id="noosfero_bar" -->
+
+      <div id="frame"><!-- Frame que envolve toda pagina de um usuario -->
+        <div id="header">
+          <!-- Abaixo um cabeçalho especifico para a pagina de usuario. -->
+        </div><!-- id="header" -->
+        <div id="content">
+          <div id="header_content">
+          </div>
+
+          <%= insert_boxes(yield) %>
+
+        </div><!-- id="content" -->
+        <div id="footer_content"><!-- Rodape do Conteudo -->
+        </div><!-- id="footer_content" -->
+      </div><!-- id="frame" -->
+    </div><!-- id="wrap4" -->
+    </div><!-- id="wrap3" -->
+    </div><!-- id="wrap2" -->
+    </div><!-- id="wrap" -->
+
+    <div id="footer">
+      <%= theme_footer %>
+    </div><!-- id="footer" -->
+
+    <%# if you need to add HTML stuff to the layout, include it in
+    app/views/shared/noosfero_layout_features.html.erb! %>
+    <%= noosfero_layout_features %>
+  </body>
+</html>

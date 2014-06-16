@@ -3,9 +3,11 @@ class Box < ActiveRecord::Base
   acts_as_list :scope => 'owner_id = #{owner_id} and owner_type = \'#{owner_type}\''
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
+  attr_accessible :owner
+
   include Noosfero::Plugin::HotSpot
 
-  named_scope :with_position, :conditions => ['boxes.position > 0']
+  scope :with_position, :conditions => ['boxes.position > 0']
 
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
@@ -32,14 +34,11 @@ class Box < ActiveRecord::Base
       FansBlock,
       FavoriteEnterprisesBlock,
       FeedReaderBlock,
-      FriendsBlock,
       HighlightsBlock,
       LinkListBlock,
       LoginBlock,
       MainBlock,
-      MembersBlock,
       MyNetworkBlock,
-      PeopleBlock,
       ProfileImageBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
@@ -61,14 +60,11 @@ class Box < ActiveRecord::Base
       FavoriteEnterprisesBlock,
       FeaturedProductsBlock,
       FeedReaderBlock,
-      FriendsBlock,
       HighlightsBlock,
       LinkListBlock,
       LocationBlock,
       LoginBlock,
-      MembersBlock,
       MyNetworkBlock,
-      PeopleBlock,
       ProductsBlock,
       ProductCategoriesBlock,
       ProfileImageBlock,

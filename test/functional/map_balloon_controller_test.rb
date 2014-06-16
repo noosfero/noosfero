@@ -17,14 +17,14 @@ class MapBalloonControllerTest < ActionController::TestCase
   end
 
   should 'find product to show' do
-    prod = Product.create!(:name => 'Product1', :product_category_id => fast_create(ProductCategory).id,
+    prod = create(Product, :name => 'Product1', :product_category_id => fast_create(ProductCategory).id,
       :profile_id => fast_create(Enterprise).id)
     get :product, :id => prod.id
     assert_equal prod, assigns(:product)
   end
 
   should 'find person to show' do
-    pers = Person.create!(:name => 'Person1', :user_id => fast_create(User).id, :identifier => 'pers1')
+    pers = create(Person, :name => 'Person1', :user_id => fast_create(User).id, :identifier => 'pers1')
     get :person, :id => pers.id
     assert_equal pers, assigns(:profile)
   end

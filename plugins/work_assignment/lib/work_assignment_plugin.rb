@@ -36,8 +36,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def content_viewer_controller_filters
-    block = lambda do
-      path = params[:page].join('/')
+    block = proc do
+      path = params[:page]
       content = profile.articles.find_by_path(path)
 
       if WorkAssignmentPlugin.is_submission?(content) && !WorkAssignmentPlugin.can_download_submission?(user, content)

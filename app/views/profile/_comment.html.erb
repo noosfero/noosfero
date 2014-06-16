@@ -1,0 +1,87 @@
+<% Comment %>
+<% Profile %>
+<% Person %>
+
+<li class="article-comment" style='border-bottom:none;'>
+  <div class="article-comment-inner">
+
+  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %>">
+
+  <% if comment.author %>
+    <%= link_to image_tag(profile_icon(comment.author, :minor)),
+        comment.author_url,
+        :class => 'comment-picture',
+        :title => comment.author_name
+    %>
+  <% else %>
+    <% url_image, status_class = comment.author_id ?
+       [comment.removed_user_image, 'icon-user-removed'] :
+       [gravatar_profile_image_url( comment.email ), 'icon-user-unknown'] %>
+
+    <%= link_to(
+          image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
+                   'data-gravatar'=>gravatar_profile_image_url(comment.email)) +
+          content_tag('span', comment.author_name, :class => 'comment-info') +
+          content_tag('span', comment.message,
+                   :class => 'comment-user-status comment-user-status-wall ' + status_class),
+        gravatar_profile_url(comment.email),
+        :target => '_blank',
+        :class => 'comment-picture',
+        :title => '%s %s' % [comment.author_name, comment.message]
+    )%>
+  <% end %>
+
+  <div class="comment-details">
+    <div class="comment-text">
+      <%= comment.author.present? ? link_to(comment.author_name, comment.author.url) : content_tag('strong', comment.author_name) %>
+      <% unless comment.title.blank? %>
+        <span class="comment-title"><%= comment.title %></span><br/>
+      <% end %>
+      <%= txt2html comment.body %>
+    </div>
+    <div class="profile-activity-time">
+      <%= time_ago_as_sentence(comment.created_at) %>
+    </div>
+  </div>
+
+  <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
+    <% button_bar(:style => 'float: right; margin-top: 0px;') do %>
+      <%= link_to_function(_('Remove'), 'remove_item_wall(this, \'%s\', \'%s\', \'%s\'); return false ;' % [".article-comment", url_for(:profile => params[:profile], :action => :remove_comment, :comment_id => comment.id, :view => params[:view]), _('Are you sure you want to remove this comment and all its replies?')], :class => 'button icon-button icon-delete') %>
+    <% end %>
+  <% end %>
+  <br style="clear: both;" />
+
+  <div class="comment_reply post_comment_box closed">
+    <% if @comment && @comment.errors.any? && @comment.reply_of_id.to_i == comment.id %>
+      <%= error_messages_for :comment %>
+      <script type="text/javascript">
+        jQuery(function() {
+          document.location.href = '#<%= comment.anchor %>';
+          add_comment_reply_form('#comment-reply-to-<%= comment.id %>', <%= comment.id %>);
+        });
+      </script>
+    <% end %>
+    <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
+    <% if comment.author && comment.author == user %>
+      <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
+      <%= content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide') %>
+    <% end %>
+    <%= link_to_function _('Reply'),
+        "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
+        :class => 'comment-footer comment-footer-link comment-footer-hide',
+        :id => 'comment-reply-to-' + comment.id.to_s
+    %>
+  </div>
+
+  </div>
+
+  <% unless comment.replies.blank? %>
+  <ul class="comment-replies">
+    <% comment.replies.each do |reply| %>
+      <%= render :partial => 'comment', :locals => { :comment => reply } %>
+    <% end %>
+  </ul>
+  <% end %>
+
+  </div>
+</li>

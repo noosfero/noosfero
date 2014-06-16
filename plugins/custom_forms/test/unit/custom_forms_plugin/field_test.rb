@@ -27,7 +27,7 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
 
-    assert_no_difference CustomFormsPlugin::Form, :count do
+    assert_no_difference 'CustomFormsPlugin::Form.count' do
       url_field.destroy
     end
     assert_equal form.fields, [license_field]

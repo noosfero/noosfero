@@ -26,7 +26,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:regions)
+    assert assigns(:regions)
   end
 
   should 'view validators for a  specific region' do
@@ -51,7 +51,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
 
@@ -67,7 +67,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
 
@@ -84,7 +84,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
     region.validators << org
 
     @controller.expects(:environment).returns(environment).at_least_once

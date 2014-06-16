@@ -7,9 +7,9 @@ module AssetsHelper
       [ options.merge(:asset => 'articles'), "icon-menu-articles",   _('Articles') ],
       [ options.merge(:asset => 'people'), "icon-menu-people",     _('People') ],
       [ options.merge(:asset => 'products'), "icon-menu-product",    _('Products') ],
-      [ options.merge(:asset => 'enterprises'), "icon-menu-enterprise", __('Enterprises') ],
-      [ options.merge(:asset => 'communities'), "icon-menu-community",  __('Communities') ],
-      [ options.merge(:asset => 'events'), "icon-event",   __('Events') ],
+      [ options.merge(:asset => 'enterprises'), "icon-menu-enterprise", _('Enterprises') ],
+      [ options.merge(:asset => 'communities'), "icon-menu-community",  _('Communities') ],
+      [ options.merge(:asset => 'events'), "icon-event",   _('Events') ],
 
     ].select do |target, css_class, name|
       !environment.enabled?('disable_asset_' + target[:asset])

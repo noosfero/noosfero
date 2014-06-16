@@ -6,13 +6,7 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 class ProfileDesignControllerTest < ActionController::TestCase
 
   def setup
-    @controller = ProfileDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
-    Environment.delete_all
-
-    @environment = Environment.create(:name => 'testenv', :is_default => true)
+    @environment = Environment.default
     @environment.enabled_plugins = ['StatisticsPlugin']
     @environment.save!
 
@@ -22,7 +16,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     StatisticsBlock.delete_all
     @box1 = Box.create!(:owner => @person)
-    @environment.boxes = [@box1]
 
     @block = StatisticsBlock.new
     @block.box = @box1
