@@ -123,7 +123,7 @@ class Organization < Profile
     [
       [MainBlock.new],
       [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
-      [MembersBlock.new, RecentDocumentsBlock.new]
+      [RecentDocumentsBlock.new]
     ]
   end
 
