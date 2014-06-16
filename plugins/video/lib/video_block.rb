@@ -4,7 +4,7 @@ class VideoBlock < Block
   settings_items :width, :type => :integer, :default => 400
   settings_items :height, :type => :integer, :default => 315
 
-  YOUTUBE_ID_FORMAT = 'a-zA-Z0-9_-'
+  YOUTUBE_ID_FORMAT = '\w-'
 
   def is_youtube?
     url.match(/.*(youtube.com.*v=[#{YOUTUBE_ID_FORMAT}]+|youtu.be\/[#{YOUTUBE_ID_FORMAT}]+).*/) ? true : false
