@@ -1228,7 +1228,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :created_by => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 
@@ -1772,6 +1772,31 @@ class CmsControllerTest < ActionController::TestCase
 
     post :edit, :profile => profile.identifier, :id => article.id, :version => 1
     assert_equal 'first version', Article.find(article.id).name
+  end
+
+  should 'set created_by when creating article' do
+    login_as(profile.identifier)
+
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
+
+    a = profile.articles.find_by_path('changed-by-me')
+    assert_not_nil a
+    assert_equal profile, a.created_by
+  end
+
+  should 'not change created_by when updating article' do
+    other_person = create_user('otherperson').person
+
+    a = profile.articles.build(:name => 'my article')
+    a.created_by = other_person
+    a.save!
+
+    login_as(profile.identifier)
+    post :edit, :profile => profile.identifier, :id => a.id, :article => { :body => 'new content for this article' }
+
+    a.reload
+
+    assert_equal other_person, a.created_by
   end
 
   protected

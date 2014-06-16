@@ -38,7 +38,7 @@ class ForumHelperTest < ActiveSupport::TestCase
 
   should 'return post update if it has no comments' do
     author = create_user('forum test author').person
-    some_post = create(TextileArticle, :name => 'First post', :profile => profile, :parent => forum, :published => true, :last_changed_by => author)
+    some_post = create(TextileArticle, :name => 'First post', :profile => profile, :parent => forum, :published => true, :created_by => author)
     assert some_post.comments.empty?
     out = last_topic_update(some_post)
     assert_match some_post.updated_at.to_s, out

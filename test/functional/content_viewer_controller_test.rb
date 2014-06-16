@@ -743,7 +743,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => u, :published => false)
+    a = create(Article, :profile => c, :name => 'test-article', :created_by => u, :published => false)
 
     get :view_page, :profile => c.identifier, :page => a.path
 
