@@ -118,8 +118,30 @@ a img {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
-/*********************************************************/
 
+table.actions {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.actions img {
+  width: 16px;
+  height: 16px;
+}
+
+table.actions a.icon {
+  display: block;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table.actions td:last-child {
+  text-align: center;
+}
+
+/*********************************************************/
 
 #spinner {
   z-index: 10;
