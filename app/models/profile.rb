@@ -3,6 +3,14 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time
+
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Profile')
+  end
+
   SEARCHABLE_FIELDS = {
     :name => 10,
     :identifier => 5,
@@ -74,12 +82,12 @@ class Profile < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
-  named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
+  scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
   #FIXME: these will work only if the subclass is already loaded
-  named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  named_scope :templates, {:conditions => {:is_template => true}}
-  named_scope :no_templates, {:conditions => {:is_template => false}}
+  scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
+  scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
+  scope :templates, {:conditions => {:is_template => true}}
+  scope :no_templates, {:conditions => {:is_template => false}}
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
@@ -112,14 +120,14 @@ class Profile < ActiveRecord::Base
     Profile.column_names.map{|n| [Profile.table_name, n].join('.')}.join(',')
   end
 
-  named_scope :visible, :conditions => { :visible => true }
-  named_scope :public, :conditions => { :visible => true, :public_profile => true }
+  scope :visible, :conditions => { :visible => true }
+  scope :public, :conditions => { :visible => true, :public_profile => true }
 
   # Subclasses must override this method
-  named_scope :more_popular
+  scope :more_popular
 
-  named_scope :more_active,  :order => 'activities_count DESC'
-  named_scope :more_recent, :order => "created_at DESC"
+  scope :more_active,  :order => 'activities_count DESC'
+  scope :more_recent, :order => "created_at DESC"
 
   acts_as_trackable :dependent => :destroy
 
@@ -129,11 +137,6 @@ class Profile < ActiveRecord::Base
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
-
-  # FIXME ugly workaround
-  def self.human_attribute_name(attrib)
-      _(self.superclass.human_attribute_name(attrib))
-  end
 
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
@@ -252,7 +255,7 @@ class Profile < ActiveRecord::Base
   end
 
   def country_name
-    CountriesHelper.instance.lookup(country) if respond_to?(:country)
+    CountriesHelper::Object.instance.lookup(country) if respond_to?(:country)
   end
 
   def pending_categorizations
@@ -345,9 +348,14 @@ class Profile < ActiveRecord::Base
   def copy_blocks_from(profile)
     self.boxes.destroy_all
     profile.boxes.each do |box|
-      self.boxes << Box.new(:position => box.position)
+      new_box = Box.new
+      new_box.position = box.position
+      self.boxes << new_box
       box.blocks.each do |block|
-        self.boxes[-1].blocks << block.class.new(:title => block[:title], :settings => block.settings, :position => block.position)
+        new_block = block.class.new(:title => block[:title])
+        new_block.settings = block.settings
+        new_block.position = block.position
+        self.boxes[-1].blocks << new_block
       end
     end
   end
@@ -375,7 +383,7 @@ class Profile < ActiveRecord::Base
     self.public_profile = template.public_profile
 
     # flush
-    self.save_without_validation!
+    self.save(:validate => false)
   end
 
   def apply_type_specific_template(template)
@@ -385,8 +393,10 @@ class Profile < ActiveRecord::Base
   xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list', :on => 'validation'
 
   include WhiteListFilter
-  filter_iframes :custom_header, :custom_footer, :whitelist => lambda { environment && environment.trusted_sites_for_iframe }
-
+  filter_iframes :custom_header, :custom_footer
+  def iframe_whitelist
+    environment && environment.trusted_sites_for_iframe
+  end
 
   # returns the contact email for this profile.
   #
@@ -540,8 +550,8 @@ private :generate_url, :url_options
     end
   end
 
-  def find_tagged_with(tag)
-    self.articles.find_tagged_with(tag)
+  def tagged_with(tag)
+    self.articles.tagged_with(tag)
   end
 
   # Tells whether a specified profile has members or nor.
@@ -791,7 +801,9 @@ private :generate_url, :url_options
     []
   end
 
-  def validate
+  validate :image_valid
+
+  def image_valid
     unless self.image.nil?
       self.image.valid?
       self.image.errors.delete(:empty) # dont validate here if exists uploaded data
@@ -814,7 +826,7 @@ private :generate_url, :url_options
   def update_header_and_footer(header, footer)
     self.custom_header = header
     self.custom_footer = footer
-    self.save(false)
+    self.save(:validate => false)
   end
 
   def update_theme(theme)

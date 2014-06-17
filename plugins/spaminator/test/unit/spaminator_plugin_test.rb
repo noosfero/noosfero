@@ -12,13 +12,13 @@ class SpaminatorPluginTest < ActiveSupport::TestCase
   should 'schedule a scan if not already scanning' do
     settings.scanning = true
     settings.save!
-    assert_no_difference Delayed::Job, :count do
+    assert_no_difference 'Delayed::Job.count' do
       SpaminatorPlugin.schedule_scan(environment)
     end
 
     settings.scanning = false
     settings.save!
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       SpaminatorPlugin.schedule_scan(environment)
     end
   end

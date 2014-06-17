@@ -1,0 +1,68 @@
+<%= labelled_form_for(:environment, :url => {:action => 'manage_enterprise_fields'}) do |f| %>
+
+<table id='enterprise_fields_conf'>
+  <tr>
+    <th><%= _('Field') %></th>
+    <th><%= _('Active') %></th>
+    <th><%= _('Required') %></th>
+    <th><%= _('Display on registration?') %></th>
+  </tr>
+
+  <tr class='manage-fields-batch-actions'>
+    <td>
+      <%= _("Check/Uncheck All")%>
+    </td>
+    <td>
+      <input type="checkbox" id="enterprise_active" />
+    </td>
+    <td>
+      <input type="checkbox" id="enterprise_required" />
+    </td>
+    <td>
+      <input type="checkbox" id="enterprise_signup" />
+    </td>
+  </tr>
+
+  <% @enterprise_fields.each do |field| %>
+  <tr>
+
+    <td><label for="enterprise_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
+    <td>
+      <%= hidden_field_tag  "enterprise_fields[#{field}][active]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][active]", true, environment.custom_enterprise_field(field, 'active'), :onclick => "active_action(this, 'enterprise_fields[#{field}][required]', 'enterprise_fields[#{field}][signup]')" %>
+    </td>
+    <td>
+      <%= hidden_field_tag  "enterprise_fields[#{field}][required]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][required]", true, environment.custom_enterprise_field(field, 'required'), :onclick => "required_action('enterprise_fields[#{field}][active]','enterprise_fields[#{field}][required]', 'enterprise_fields[#{field}][signup]')" %>
+    </td>
+    <td>
+      <%= hidden_field_tag  "enterprise_fields[#{field}][signup]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][signup]", true, environment.custom_enterprise_field(field, 'signup'), :onclick => "signup_action('enterprise_fields[#{field}][active]','enterprise_fields[#{field}][required]', 'enterprise_fields[#{field}][signup]')" %>
+    </td>
+
+  </tr>
+  <% end %>
+</table>
+
+<script type='text/javascript'>
+  var trs = jQuery('#enterprise_fields_conf tr');
+  var tr, td2;
+  for ( var i=2; tr=trs[i]; i++ ) {
+    if ( td2 = tr.getElementsByTagName('td')[1] ) {
+      td2.getElementsByTagName('input')[1].onclick();
+    }
+  }
+</script>
+
+<div>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes'), :id=>"save_enterprise_fields") %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
+  <% end %>
+</div>
+
+<% end %>
+
+
+
+

@@ -39,8 +39,8 @@ class GalleryTest < ActiveSupport::TestCase
   should 'have images that are only images or other galleries' do
     p = create_user('test_user').person
     f = fast_create(Gallery, :profile_id => p.id)
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => f, :profile => p)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
     gallery = fast_create(Gallery, :profile_id => p.id, :parent_id => f.id)
 
     assert_equivalent [gallery, image], f.images
@@ -50,7 +50,7 @@ class GalleryTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     f = fast_create(Gallery, :profile_id => p.id)
     gallery1 = fast_create(Gallery, :name => 'b', :profile_id => p.id, :parent_id => f.id)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
     gallery2 = fast_create(Gallery, :name => 'c', :profile_id => p.id, :parent_id => f.id)
     gallery3 = fast_create(Gallery, :name => 'a', :profile_id => p.id, :parent_id => f.id)
 
@@ -61,7 +61,7 @@ class GalleryTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     f = fast_create(Gallery, :profile_id => p.id)
     gallery = fast_create(Gallery, :profile_id => p.id, :parent_id => f.id)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
 
     assert_equal [image], f.images.paginate(:page => 2, :per_page => 1)
   end
@@ -70,7 +70,7 @@ class GalleryTest < ActiveSupport::TestCase
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
     f = fast_create(Gallery, :name => 'gallery', :profile_id => c.id, :parent_id => gallery.id)
-    u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
+    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
     older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id, :parent_id => gallery.id)
     t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
     t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
@@ -103,7 +103,7 @@ class GalleryTest < ActiveSupport::TestCase
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
 
-    a = ApproveArticle.create!(:article => i, :target => c, :requestor => p, :article_parent => gallery)
+    a = create(ApproveArticle, :article => i, :target => c, :requestor => p, :article_parent => gallery)
     a.finish
 
     assert_includes gallery.images(true), c.articles.find_by_name('rails.png')

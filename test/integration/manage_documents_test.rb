@@ -9,7 +9,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     user.activate
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => "#{user.environment.top_url}/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{user.login}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -23,7 +23,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       post '/myprofile/myuser/cms/new', :type => 'TinyMceArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
     end
 
@@ -40,7 +40,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     article.save!
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -54,7 +54,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
 
-    assert_no_difference Article, :count do
+    assert_no_difference 'Article.count' do
       post "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
     end
 
@@ -75,7 +75,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     login('myuser', 'myuser')
 
-    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
     get '/myprofile/myuser'
     assert_response :success
     
@@ -83,7 +83,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     get '/myprofile/myuser/cms'
     assert_response :success
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/destroy/#{article.id}", :onclick => /confirm/ }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
     post "/myprofile/myuser/cms/destroy/#{article.id}"
 
     assert_response :redirect

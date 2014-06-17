@@ -19,7 +19,7 @@ class AllowCommentTest < ActiveSupport::TestCase
     inner_html = 'inner'
     content = macro.parse({:group_id => comment.group_id}, inner_html, article)
 
-    expects(:render).with({:partial => 'plugins/comment_group/views/comment_group.rhtml', :locals => {:group_id => comment.group_id, :article_id => article.id, :inner_html => inner_html, :count => 1, :profile_identifier => profile.identifier} })
+    expects(:render).with({:partial => 'comment_group_plugin_profile/comment_group', :locals => {:group_id => comment.group_id, :article_id => article.id, :inner_html => inner_html, :count => 1, :profile_identifier => profile.identifier} })
     instance_eval(&content)
   end
 

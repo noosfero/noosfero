@@ -1,0 +1,8 @@
+<% if !categories.nil? && !categories.empty? && !@object.nil? %>
+  <hr>
+  <div class="category-helper-label"><%= _('Click to select a category') %></div>
+
+  <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
+    <%= update_categories_link(category.name, category.id) %>
+  <% end %>
+<% end %>

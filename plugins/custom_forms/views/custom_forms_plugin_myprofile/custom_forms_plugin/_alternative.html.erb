@@ -7,6 +7,6 @@
 
   <td>
     <%= f.hidden_field :_destroy, :class => 'destroy-field' %>
-    <%= button_to_function_without_text :remove, _('Remove alternative'), "customFormsPlugin.removeAlternative(this, #{_('Are you sure you want to remove this alternative?').to_json})", :class => 'remove-field', :title => _('Remove alternative') %>
+    <%= button_to_function_without_text :remove, _('Remove alternative'), "customFormsPlugin.removeAlternative(this, #{j _('Are you sure you want to remove this alternative?').to_json})", :class => 'remove-field', :title => _('Remove alternative') %>
   </td>
 </tr>

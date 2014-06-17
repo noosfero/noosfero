@@ -1,0 +1,17 @@
+<h1><%= @ticket.target ? _('New request for %s') % @ticket.target.name : _('New request') %></h1>
+
+<%# FIXME: put style in css %>
+<%= labelled_form_for :ticket do |f| %>
+  <% if @ticket.target %>
+    <%= f.hidden_field :target_id  %>
+  <% else %>
+    <%= display_form_field( _('To: '), f.select(:target_id, profile.friends.map{|p|[p.name, p.id]})) %>
+  <% end %>
+  <%= hidden_field_tag 'ticket[target_type]', 'Profile' %>
+  <%= f.text_field :title, :style => 'width:80%;' %>
+  <%= f.text_area :message, :style => 'height:200px; width:80%;' %>
+
+  <% button_bar do %>
+    <%= submit_button(:ok, _('Send'), :cancel => {:action => 'index'}) %>
+  <% end %>
+<% end %>

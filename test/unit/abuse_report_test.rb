@@ -14,8 +14,8 @@ class AbuseReportTest < ActiveSupport::TestCase
     abuse_report = AbuseReport.new(:reason => 'some reason')
 
     assert !abuse_report.valid?
-    assert abuse_report.errors.invalid?(:reporter)
-    assert abuse_report.errors.invalid?(:abuse_complaint)
+    assert abuse_report.invalid?(:reporter)
+    assert abuse_report.invalid?(:abuse_complaint)
 
     abuse_report.reporter = reporter
     abuse_report.abuse_complaint = abuse_complaint
@@ -24,9 +24,15 @@ class AbuseReportTest < ActiveSupport::TestCase
   end
 
   should 'not allow more than one report by a user to the same complaint' do
-    abuse_report = AbuseReport.create!(:reporter => reporter, :abuse_complaint => abuse_complaint, :reason => 'some reason')
+    abuse_report = AbuseReport.new(:reason => 'some reason')
+    abuse_report.reporter = reporter
+    abuse_report.abuse_complaint = abuse_complaint
+    abuse_report.save!
     assert_raise ActiveRecord::RecordInvalid do
-      another_abuse = AbuseReport.create!(:reporter => reporter, :abuse_complaint => abuse_complaint, :reason => 'some reason')
+      another_abuse = AbuseReport.new(:reason => 'some reason')
+      another_abuse.reporter = reporter
+      another_abuse.abuse_complaint = abuse_complaint
+      another_abuse.save!
     end
   end
 end

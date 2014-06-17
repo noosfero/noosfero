@@ -1,0 +1,28 @@
+<h1><%= _('Delete: %s') % @article.name %></h1>
+
+<%= error_messages_for 'article' %>
+
+<%= labelled_form_for 'article', :url => { :action => 'destroy' }, :method => 'post' do |f| %>
+
+  <strong>
+    <% if @article.folder? %>
+      <%= _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
+    <% else %>
+      <%= _('Are you sure that you want to remove this item?') %>
+    <% end %>
+  </strong>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Yes, I want.') %>
+    <%= button :cancel, _("No, I don't want."), @article.url %>
+  <% end %>
+
+  <h2><%= @article.title %></h2>
+
+  <%= @article.to_html %>
+
+  <%= hidden_field_tag('id', @article) %>
+
+  <hr/>
+
+<% end %>

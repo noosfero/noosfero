@@ -1,0 +1,35 @@
+<h1><%= _('Manage plugins') %></h1>
+
+<p>
+<%= _('Select which plugins you want to enable in your environment') %>
+</p>
+
+<%= labelled_form_for(:environment, :url => {:action => 'update'}) do |f| %>
+
+  <table>
+    <% @active_plugins.sort_by(&:plugin_name).each do |plugin|   %>
+      <tr>
+        <td style='vertical-align: top'><%= check_box_tag "environment[enabled_plugins][]", plugin, @environment.enabled_plugins.include?(plugin.to_s), :id => plugin.plugin_name %></td>
+        <td>
+          <%= hidden_field_tag('environment[enabled_plugins][]', '') %>
+          <strong><%= plugin.plugin_name %></strong>
+          <br/>
+          <%= plugin.plugin_description %>
+          <% if plugin.has_admin_url? %>
+            <br/>
+            <br/>
+            <%= link_to(_('Configuration'), plugin.admin_url) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+<div>
+  <% button_bar do %>
+    <%= submit_button('save', _('Save changes')) %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
+  <% end %>
+</div>
+
+<% end %>

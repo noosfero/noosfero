@@ -11,13 +11,13 @@ module Noosfero::SampleDataHelper
 
   def save(obj, &block)
     begin
-      if obj.save
-        print '.'
-        instance_eval &block if block
-        return obj
-      else
-        print 'F'
-      end
+     if obj.save
+       print '.'
+       instance_eval &block if block
+       return obj
+     else
+       print 'F'
+     end
     rescue
       print 'E'
     end

@@ -13,7 +13,7 @@ class SubOrganizationsPlugin::ApprovePaternity < Task
   end
 
   def parent
-    SubOrganizationsPlugin::ApprovePaternityRelation.parent(self)
+    SubOrganizationsPlugin::ApprovePaternityRelation.parent_approval(self)
   end
 
   def title

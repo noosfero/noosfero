@@ -86,7 +86,7 @@ class MailconfControllerTest < ActionController::TestCase
 
   should 'create task to environment admin when enable email' do
     login_as('ze')
-    assert_difference EmailActivation, :count do
+    assert_difference 'EmailActivation.count' do
       post :enable, :profile => 'ze'
     end
   end

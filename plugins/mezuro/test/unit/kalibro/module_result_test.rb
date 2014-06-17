@@ -1,7 +1,6 @@
 require "test_helper"
-
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_module_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/date_module_result_fixtures"
 
 class ModuleResultTest < ActiveSupport::TestCase
 

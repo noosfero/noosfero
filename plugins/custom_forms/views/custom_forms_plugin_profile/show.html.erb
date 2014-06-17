@@ -12,7 +12,7 @@
 
   <%= error_messages_for :submission %>
 
-  <% form_for :submission, @submission do |f| %>
+  <%= form_for :submission do |f| %>
     <% if !user %>
       <%= required labelled_form_field _('Author name'), text_field_tag(:author_name, @submission.author_name) %>
       <%= required labelled_form_field _('Author email'), text_field_tag(:author_email, @submission.author_email) %>

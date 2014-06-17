@@ -1,5 +1,7 @@
 class RssFeed < Article
 
+  attr_accessible :limit, :enabled, :language, :include
+
   def self.type_name
     _('RssFeed')
   end
@@ -26,15 +28,15 @@ class RssFeed < Article
     self.body[:feed_item_description] = feed_item_description
   end
 
-  # The maximum number of articles to be displayed in the RSS feed. Default: 10
-  def limit
-    settings[:limit] || 10
-  end
-  def limit=(value)
+  settings_items :limit, :type => :integer, :default => 10
+
+  def limit_with_body_change=(value)
     #UPGRADE Leandro: I add this line to save the serialize attribute
     self.body_will_change!
-    settings[:limit] = value
+    self.limit_without_body_change= value
   end
+
+  alias_method_chain :limit=, :body_change
 
   # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes
@@ -63,7 +65,7 @@ class RssFeed < Article
     'text/xml'
   end
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   def fetch_articles
     if parent && parent.has_posts?
       language = self.language.blank? ? {} : { :language => self.language }

@@ -1,0 +1,45 @@
+<div class="task_box" id="task-<%= task.id %>">
+
+  <%= render :partial => 'task_icon', :locals => {:task => task} %>
+
+  <div class="task_decisions">
+    <%=
+        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
+                              :id => "decision-finish-#{task.id}",
+                              :class => 'task_accept_radio',
+                              :disabled => task.accept_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.default_decision == 'reject',
+                              :id => "decision-cancel-#{task.id}",
+                              :class => 'task_reject_radio',
+                              :disabled => task.reject_disabled?,
+                              :task_id => "#{task.id}") +
+        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip',
+                              :id => "decision-skip-#{task.id}",
+                              :class => 'task_skip_radio',
+                              :disabled => task.skip_disabled?,
+                              :task_id => "#{task.id}")
+    %>
+  </div><!-- class="task_decisions" -->
+
+  <%= render :partial => 'task_title', :locals => {:task => task} %>
+
+  <div class="task_information">
+    <%= task_information(task) %>
+  </div>
+
+  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
+    <% if task.accept_details %>
+      <div id="on-accept-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+
+    <% if task.reject_details %>
+      <div id="on-reject-information-<%=task.id%>" style="display: none">
+        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div><!-- class="task_box" -->

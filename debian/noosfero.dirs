@@ -1,3 +1,4 @@
 etc/noosfero
 etc/noosfero/plugins
 usr/share/noosfero/locale
+usr/share/noosfero/.bundle

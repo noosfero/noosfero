@@ -23,7 +23,7 @@ module CommentHelper
 
   def comment_extra_contents(comment)
     @plugins.dispatch(:comment_extra_contents, comment).collect do |extra_content|
-      extra_content.kind_of?(Proc) ? self.instance_eval(&extra_content) : extra_content
+      extra_content.kind_of?(Proc) ? self.instance_exec(&extra_content) : extra_content
     end.join('\n')
   end
 
@@ -41,7 +41,7 @@ module CommentHelper
   def links_for_comment_actions(comment)
     actions = [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)]
     @plugins.dispatch(:comment_actions, comment).collect do |action|
-      actions << (action.kind_of?(Proc) ? self.instance_eval(&action) : action)
+      actions << (action.kind_of?(Proc) ? self.instance_exec(&action) : action)
     end
     actions.flatten.compact
   end
@@ -56,9 +56,9 @@ module CommentHelper
   def link_for_spam(comment)
     if comment.can_be_marked_as_spam_by?(user)
       if comment.spam?
-        {:link => link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')}
+        {:link => link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, \'%s\'); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id), :class => 'comment-footer comment-footer-link comment-footer-hide')}
       else
-        {:link => link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')}
+        {:link => link_to_function(_('Mark as SPAM'), 'remove_comment(this, \'%s\', \'%s\'); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id), _('Are you sure you want to mark this comment as SPAM?')], :class => 'comment-footer comment-footer-link comment-footer-hide')}
       end
     end
   end
@@ -71,7 +71,7 @@ module CommentHelper
 
   def link_for_remove(comment)
     if comment.can_be_destroyed_by?(user)
-      {:link => link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :destroy, :id => comment.id).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children')}
+      {:link => link_to_function(_('Remove'), 'remove_comment(this, \'%s\', \'%s\'); return false ;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :destroy, :id => comment.id), _('Are you sure you want to remove this comment and all its replies?')], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children')}
     end
   end
 

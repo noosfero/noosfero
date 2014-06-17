@@ -50,10 +50,17 @@ module CategoriesHelper
 
   #FIXME make this test
   def selected_category_link(cat)
-    content_tag('div', button_to_function_without_text(:remove, _('Remove'), nil) {|page| page["selected-category-#{cat.id}"].remove} +
-      link_to_function(cat.full_name(' &rarr; '), nil, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link') {|page| page["selected-category-#{cat.id}"].remove},
+    js_remove = "jQuery('#selected-category-#{cat.id}').remove();"
+    content_tag('div', button_to_function_without_text(:remove, _('Remove'), js_remove) +
+      link_to_function(cat.full_name(' &rarr; '), js_remove, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link'),
       :class => 'selected-category'
     )
+  end
+
+  def update_categories_link(body, category_id=nil, html_options={})
+    link_to body,
+      { :action => "update_categories", :category_id => category_id, :id => @object },
+      {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => 'select-subcategory-link'}.merge(html_options)
   end
 
 end

@@ -1,0 +1,13 @@
+<h1><%= _("Piwik plugin settings") %></h1>
+
+<%= form_for(:environment) do |f| %>
+
+  <%= labelled_form_field _('Piwik domain'), f.text_field(:piwik_domain) %>
+
+  <%= labelled_form_field _('Piwik site id'), f.text_field(:piwik_site_id) %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>

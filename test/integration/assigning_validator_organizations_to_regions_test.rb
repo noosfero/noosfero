@@ -10,8 +10,8 @@ class AssigningValidatorOrganizationsToRegionsTest < ActionController::Integrati
     org2 = Organization.create!(:name => 'Organization two', :identifier => 'org2')
 
     Region.destroy_all
-    region1 = Region.create!(:name => "Region 1", :environment_id => env.id)
-    region2 = Region.create!(:name => "Region 2", :environment_id => env.id)
+    region1 = create(Region, :name => "Region 1", :environment_id => env.id)
+    region2 = create(Region, :name => "Region 2", :environment_id => env.id)
 
     login('ze', 'test')
 

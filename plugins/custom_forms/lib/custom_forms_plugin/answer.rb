@@ -1,9 +1,12 @@
-class CustomFormsPlugin::Answer < Noosfero::Plugin::ActiveRecord
+class CustomFormsPlugin::Answer < ActiveRecord::Base
+  set_table_name :custom_forms_plugin_answers
   belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
   belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission'
 
   validates_presence_of :field
   validate :value_mandatory, :if => 'field.present?'
+
+  attr_accessible :field, :value, :submission
 
   def value_mandatory
     if field.mandatory && value.blank?

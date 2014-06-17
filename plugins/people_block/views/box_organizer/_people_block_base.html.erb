@@ -1,0 +1,10 @@
+<%= labelled_form_field _('Name:'), text_field(:block, :name) %>
+
+<%= labelled_form_field _('Address:'), text_field(:block, :address) %>
+
+<% if @block.kind_of?(MembersBlock) %>
+  <%= labelled_form_field _('Filter by role:'), '' %>
+  <%= select_tag 'block[visible_role]', options_for_select(@block.roles.map{|r| [r.name, r.key]}.insert(0,''), @block.visible_role) %>
+<% end %>
+
+<%= render :partial => 'profile_list_block' %>

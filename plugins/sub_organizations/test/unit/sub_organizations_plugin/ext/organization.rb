@@ -13,11 +13,11 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'relate organization with parent if the attribute is set' do
     parent = fast_create(Organization)
-    organization = Organization.new(:identifier => 'some-org',:name => 'Some Org', :sub_organizations_plugin_parent_to_be => parent.id)
-    assert_not_includes SubOrganizationsPlugin::Relation.children(parent), organization
+    organization = build(Organization, :identifier => 'some-org',:name => 'Some Org', :sub_organizations_plugin_parent_to_be => parent.id)
+    assert_not_includes Organization.children(parent), organization
 
     organization.save!
-    assert_includes SubOrganizationsPlugin::Relation.children(parent), organization
+    assert_includes Organization.children(parent), organization
   end
 
 end

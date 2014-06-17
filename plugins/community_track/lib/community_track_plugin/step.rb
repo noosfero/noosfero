@@ -3,6 +3,8 @@ class CommunityTrackPlugin::Step < Folder
   settings_items :hidden, :type => :boolean, :default => false
   settings_items :tool_type, :type => String
 
+  attr_accessible :start_date, :end_date, :tool_type, :hidden
+
   alias :tools :children
 
   acts_as_list  :scope => :parent
@@ -64,8 +66,8 @@ class CommunityTrackPlugin::Step < Folder
 
   def to_html(options = {})
     step = self
-    lambda do
-      render :file => 'content_viewer/step.rhtml', :locals => {:step => step}
+    proc do
+      render :file => 'content_viewer/step', :locals => {:step => step}
     end
   end
 
@@ -86,7 +88,7 @@ class CommunityTrackPlugin::Step < Folder
     if Date.today <= end_date || accept_comments
       schedule_date = !accept_comments ? start_date : end_date + 1.day
       CommunityTrackPlugin::ActivationJob.find(id).destroy_all
-      Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), 0, schedule_date)
+      Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), :run_at => schedule_date)
     end
   end
 

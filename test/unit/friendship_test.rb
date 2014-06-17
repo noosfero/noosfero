@@ -24,11 +24,17 @@ class FriendshipTest < ActiveSupport::TestCase
 
   should 'create tracked action' do
     a, b, c = create_user('a').person, create_user('b').person, create_user('c').person
-    f = Friendship.create! :person => a, :friend => b
+    f = Friendship.new
+    f.person = a
+    f.friend = b
+    f.save!
     ta = ActionTracker::Record.last
     assert_equal a, ta.user
     assert_equal 'b', ta.get_friend_name[0]
-    f = Friendship.create! :person => a, :friend => c
+    f = Friendship.new
+    f.person = a
+    f.friend = c
+    f.save!
     ta = ActionTracker::Record.last
     assert_equal a, ta.user
     assert_equal 'c', ta.get_friend_name[1]
@@ -36,11 +42,17 @@ class FriendshipTest < ActiveSupport::TestCase
 
   should 'create tracked action for both people' do
     a, b = create_user('a').person, create_user('b').person
-    f = Friendship.create! :person => a, :friend => b
+    f = Friendship.new
+    f.person = a
+    f.friend = b
+    f.save!
     ta = ActionTracker::Record.last
     assert_equal a, ta.user
     assert_equal ['b'], ta.get_friend_name
-    f = Friendship.create! :person => b, :friend => a
+    f = Friendship.new
+    f.person = b
+    f.friend = a
+    f.save!
     ta = ActionTracker::Record.last
     assert_equal b, ta.user
     assert_equal ['a'], ta.get_friend_name

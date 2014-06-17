@@ -1,5 +1,7 @@
 class ProductionCost < ActiveRecord::Base
 
+  attr_accessible :name, :owner
+
   belongs_to :owner, :polymorphic => true
   validates_presence_of :owner
   validates_presence_of :name

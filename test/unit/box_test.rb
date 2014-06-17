@@ -16,7 +16,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for center box' do
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 1 }.acceptable_blocks
 
     assert !blocks.include?('block')
     assert !blocks.include?('disabled-enterprise-message-block')
@@ -39,14 +39,11 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
     assert blocks.include?('feed-reader-block')
-    assert blocks.include?('friends-block')
     assert blocks.include?('highlights-block')
     assert blocks.include?('link-list-block')
     assert blocks.include?('login-block')
     assert blocks.include?('main-block')
-    assert blocks.include?('members-block')
     assert blocks.include?('my-network-block')
-    assert blocks.include?('people-block')
     assert blocks.include?('profile-image-block')
     assert blocks.include?('raw-html-block')
     assert blocks.include?('recent-documents-block')
@@ -55,7 +52,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for box at position 2' do
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 2 }.acceptable_blocks
 
     assert !blocks.include?('main-block')
     assert !blocks.include?('block')
@@ -74,14 +71,11 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('favorite-enterprises-block')
     assert blocks.include?('featured-products-block')
     assert blocks.include?('feed-reader-block')
-    assert blocks.include?('friends-block')
     assert blocks.include?('highlights-block')
     assert blocks.include?('link-list-block')
     assert blocks.include?('location-block')
     assert blocks.include?('login-block')
-    assert blocks.include?('members-block')
     assert blocks.include?('my-network-block')
-    assert blocks.include?('people-block')
     assert blocks.include?('products-block')
     assert blocks.include?('profile-image-block')
     assert blocks.include?('profile-info-block')
@@ -104,7 +98,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = build(Box, :position => 1).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
   end
 
@@ -119,7 +113,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = build(Box, :position => 2).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
   end
 
@@ -134,13 +128,13 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1, :owner => Person.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Person.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Enterprise.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Enterprise.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Community.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Community.new).acceptable_blocks
     assert !blocks.include?('box-test_plugin-block')
   end
 

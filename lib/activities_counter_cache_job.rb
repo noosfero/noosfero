@@ -6,6 +6,6 @@ class ActivitiesCounterCacheJob
     activities_counts.each do |count|
       ActiveRecord::Base.connection.execute("UPDATE profiles SET activities_count=#{count['count'].to_i} WHERE profiles.id=#{count['id']};")
     end
-    Delayed::Job.enqueue(ActivitiesCounterCacheJob.new, -3, 1.day.from_now)
+    Delayed::Job.enqueue(ActivitiesCounterCacheJob.new, {:priority => -3, :run_at => 1.day.from_now})
   end
 end

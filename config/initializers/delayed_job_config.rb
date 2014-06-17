@@ -1,5 +1,16 @@
+require 'delayed_job'
 Delayed::Worker.backend = :active_record
 Delayed::Worker.max_attempts = 2
+
+class Delayed::Job
+  def self.handler_like(handler)
+    Delayed::Job.where("handler LIKE '%#{handler}%'")
+  end
+
+  def self.by_handler(handler)
+    Delayed::Job.where(:handler => handler)
+  end
+end
 
 # TODO This is consuming ton of space on development with a postgres connection
 # error on the jobs. This must be verified before going into production.

@@ -16,12 +16,16 @@ class ContactList < ActiveRecord::Base
 
   def register_auth_error
     msg = _('There was an error while authenticating. Did you enter correct login and password?')
-    self.update_attributes(:fetched => true, :error_fetching => msg)
+    self.fetched = true
+    self.error_fetching = msg
+    self.save!
   end
 
   def register_error
     msg = _('There was an error while looking for your contact list. Please, try again')
-    self.update_attributes(:fetched => true, :error_fetching => msg)
+    self.fetched = true
+    self.error_fetching = msg
+    self.save!
   end
 
 end

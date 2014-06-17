@@ -1,6 +1,7 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ManageProductsHelperTest < ActiveSupport::TestCase
+class ManageProductsHelperTest < ActionView::TestCase
 
   include ManageProductsHelper
   include ContentViewerHelper
@@ -11,23 +12,6 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     stubs(:show_date).returns('')
     @environment = Environment.default
     @profile = create_user('blog_helper_test').person
-  end
-
-  should 'omit second category when lenght of all names is over 60 chars' do
-    category_1 = fast_create(ProductCategory, :name => ('Category 1' * 5), :environment_id => @environment.id)
-    category_2 = fast_create(ProductCategory, :name => ('Category 2' * 5), :environment_id => @environment.id, :parent_id => category_1.id)
-    category_3 = fast_create(ProductCategory, :name => ('Category 3' * 5), :environment_id => @environment.id, :parent_id => category_2.id)
-
-    assert_match /Category 1/, hierarchy_category_navigation(category_3)
-    assert_no_match /Category 2/, hierarchy_category_navigation(category_3)
-  end
-
-  should 'show dots when lenght of all names is over 60 chars' do
-    category_1 = fast_create(ProductCategory, :name => ('Category 1' * 5), :environment_id => @environment.id)
-    category_2 = fast_create(ProductCategory, :name => ('Category 2' * 5), :environment_id => @environment.id, :parent_id => category_1.id)
-    category_3 = fast_create(ProductCategory, :name => ('Category 3' * 5), :environment_id => @environment.id, :parent_id => category_2.id)
-
-    assert_match /…/, hierarchy_category_navigation(category_3)
   end
 
   should 'display select for categories' do
@@ -138,13 +122,13 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
   end
 
   should 'show unit on label of amount selection' do
-    input = Input.new()
-    input.expects(:product).returns(Product.new(:unit => Unit.new(:singular => 'Meter')))
+    input = build(Input)
+    input.expects(:product).returns(build(Product, :unit => Unit.new(:singular => 'Meter')))
     assert_equal 'Amount used by meter of this product or service', label_amount_used(input)
   end
 
   should 'not show unit on label of amount selection if product has no unit selected' do
-    input = Input.new()
+    input = build(Input)
     input.expects(:product).returns(Product.new)
     assert_equal 'Amount used in this product or service', label_amount_used(input)
   end
@@ -160,8 +144,8 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     qualifier = fast_create(Qualifier, :name => 'Organic')
     fbes = fast_create(Certifier, :name => 'FBES')
     colivre = fast_create(Certifier, :name => 'Colivre')
-    QualifierCertifier.create!(:qualifier => qualifier, :certifier => colivre)
-    QualifierCertifier.create!(:qualifier => qualifier, :certifier => fbes)
+    create(QualifierCertifier, :qualifier => qualifier, :certifier => colivre)
+    create(QualifierCertifier, :qualifier => qualifier, :certifier => fbes)
 
     result = certifiers_for_select(qualifier)
     assert_equal ["Self declared", "Colivre", "FBES"], result.map{|i| i[0]}
@@ -171,7 +155,7 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
-    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    create(ProductQualifier, :product => product, :qualifier => qualifier, :certifier => certifier)
     assert_match /✔ Qualifier \d+ certified by Certifier \d+/, display_qualifiers(product)
   end
 
@@ -179,7 +163,7 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
-    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    create(ProductQualifier, :product => product, :qualifier => qualifier, :certifier => certifier)
     qualifier.destroy
     assert_nothing_raised do
       assert_no_match /✔ Qualifier \d+ certified by Certifier \d+/, display_qualifiers(product)
@@ -190,7 +174,7 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
-    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    create(ProductQualifier, :product => product, :qualifier => qualifier, :certifier => certifier)
     certifier.destroy
     assert_nothing_raised do
       result = display_qualifiers(product)

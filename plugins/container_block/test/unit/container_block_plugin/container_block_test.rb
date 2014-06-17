@@ -32,7 +32,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'create new blocks when receive block classes' do
     @block.save!
-    assert_difference Block, :count, 1 do
+    assert_difference 'Block.count', 1 do
       @block.block_classes = ['Block']
     end
     assert_equal Block, Block.last.class
@@ -40,14 +40,14 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'do not create blocks when nothing is passed as block classes' do
     @block.save!
-    assert_no_difference Block, :count do
+    assert_no_difference 'Block.count' do
       @block.block_classes = []
     end
   end
 
   should 'do not create blocks when nil is passed as block classes' do
     @block.save!
-    assert_no_difference Block, :count do
+    assert_no_difference 'Block.count' do
       @block.block_classes = nil
     end
   end
@@ -89,7 +89,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'destroy box when container is removed' do
     @block.save!
-    assert_difference Box, :count, -1 do
+    assert_difference 'Box.count', -1 do
       @block.destroy
     end
   end
@@ -99,7 +99,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     box1 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 1)
     box2 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 2)
     box3 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 3)
-    block = ContainerBlockPlugin::ContainerBlock.create!(:box => box1)
+    block = create(ContainerBlockPlugin::ContainerBlock, :box => box1)
     block.destroy
     assert_equal [1, 2, 3], [box1.reload.position, box2.reload.position, box3.reload.position]
   end
@@ -114,7 +114,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     @block.save!
     @block.box = @block.container_box
     @block.save
-    assert @block.errors.invalid?(:box_id)
+    assert @block.errors.include?(:box_id)
   end
 
 end

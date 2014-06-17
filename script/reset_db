@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
-system "rm #{RAILS_ROOT}/tmp/*.db"
-system "rm #{RAILS_ROOT}/db/*.db"
-system "rm -rf #{RAILS_ROOT}/public/articles"
+system "rm #{Rails.root.join('tmp', '*.db')}"
+system "rm #{Rails.root.join('db', '*.db')}"
+system "rm -rf #{Rails.root.join('public', 'articles')}"
 system "rake db:migrate VERSION=0"
 system "rake db:migrate"
-system "#{RAILS_ROOT}/script/anhetegua"
+system "#{Rails.root.join('script', 'anhetegua')}"
 system "rake db:test:prepare"

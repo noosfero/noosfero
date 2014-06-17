@@ -4,6 +4,8 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
 
   has_many :answers, :class_name => 'CustomFormsPlugin::Answer', :dependent => :destroy
 
+  attr_accessible :form, :profile
+
   validates_presence_of :form
   validates_presence_of :author_name, :author_email, :if => lambda {|submission| submission.profile.nil?}
   validates_uniqueness_of :author_email, :scope => :form_id, :allow_nil => true

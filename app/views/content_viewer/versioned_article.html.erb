@@ -1,0 +1,53 @@
+<div class="article-versions">
+  <%= button(:back, _('Back to the versions'), {:action => 'article_versions'}) %>
+</div>
+
+<div id="article" class="<%= @page.css_class_name %>">
+
+  <div id="article-actions">
+    <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
+
+    <% if @page.allow_edit?(user) && !remove_content_button(:undo) %>
+      <% content = content_tag('span', _('Revert to this version')) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
+      <%= expirable_button @page, :undo, content, url, :id => 'article-revert-version-link' %>
+    <% end %>
+
+    <%= button(:forward, _('Go to latest version'), {:action => 'view_page'}) %>
+</div>
+  <div id="article-header">
+    <h1 class='title'><%= @versioned_article.name %></h1>
+    <%= _("Version %{version} - %{author} on %{date}") % {:version => @version, :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>
+  </div>
+
+  <p id="no-current-version">
+    <%= _('This is not the latest version of this content.') %>
+  </p>
+</div>
+
+  <% version_license = @page.version_license(@version) %>
+  <%# This seemingly doubled verification exists because the article-sub-header
+      div must appear only if at least one content inside it will appear.
+      Although we have only one content now, we might have others in the future.
+      So we're keeping it like that to avoid mistakes. %>
+  <% if version_license.present? %>
+    <div id='article-sub-header'>
+      <% if version_license.present? %>
+        <div id="article-license">
+          <%= _('Licensed under %s') % (version_license.url.present? ? link_to(version_license.name, version_license.url, :target => '_blank') : version_license.name) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% cache(@page.cache_key(params, user, language)) do %>
+    <div class="<%="article-body article-body-" + @page.css_class_name %>">
+      <%= @versioned_article.body %>
+      <br style="clear:both" />
+    </div> <!-- end class="article-body" -->
+  <% end %>
+
+  <%= display_source_info(@page) %>
+
+</div><!-- end id="article" -->
+<%= add_zoom_to_article_images %>

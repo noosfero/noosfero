@@ -27,7 +27,7 @@ class ProfileControllerTest < ActionController::TestCase
     @environment.save!
 
     CommunityBlock.delete_all
-    @box1 = Box.create!(:owner => @community)
+    @box1 = create(Box, :owner => @community)
     @community.boxes = [@box1]
 
     @block = CommunityBlock.new
