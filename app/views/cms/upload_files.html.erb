@@ -19,6 +19,15 @@
 
 <h5><%= _('Uploading files to %s') % content_tag('code', @target) %></h5>
 
-<%= form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
-  <%= render :partial => 'upload_file_form', :locals => { :size => '45'} %>
+<% if @plugins.dispatch(:upload_files_extra_contents).size == 0 %>
+  <% form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
+
+    <%= render :partial => 'upload_file_form', :locals => { :size => '45'} %>
+  
+  <% end %> 
+<% else %>
+
+  <%= @plugins.dispatch(:upload_files_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+
 <% end %>
+

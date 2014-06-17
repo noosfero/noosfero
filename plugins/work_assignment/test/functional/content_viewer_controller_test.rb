@@ -29,13 +29,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => folder)
     WorkAssignmentPlugin.stubs(:can_download_submission?).returns(false)
 
-    get :view_page, :profile => organization.identifier, :page => submission.path
+    get :view_page, :profile => organization.identifier, :page => submission.explode_path
     assert_response :forbidden
-    assert_template 'access_denied'
+    assert_template 'access_denied.rhtml'
 
     WorkAssignmentPlugin.stubs(:can_download_submission?).returns(true)
 
-    get :view_page, :profile => organization.identifier, :page => submission.path
+    get :view_page, :profile => organization.identifier, :page => submission.explode_path
     assert_response :success
   end
 

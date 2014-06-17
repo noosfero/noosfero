@@ -1,8 +1,7 @@
 class WorkAssignmentPlugin::WorkAssignment < Folder
 
   settings_items :publish_submissions, :type => :boolean, :default => false
-
-  attr_accessible :publish_submissions
+  settings_items :email_notification, :type => :boolean, :default => false
 
   def self.icon_name(article = nil)
     'work-assignment'
@@ -29,7 +28,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def to_html(options = {})
-    proc do
+    lambda do
       render :file => 'content_viewer/work_assignment.html.erb'
     end
   end

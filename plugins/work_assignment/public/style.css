@@ -1,2 +1,26 @@
 .icon-newwork-assignment { background-image: url(../../designs/icons/tango/Tango/16x16/categories/applications-office.png) }
 .icon-work-assignment { background-image: url(../../designs/icons/tango/Tango/16x16/categories/applications-office.png) }
+
+#email_notifications{
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+#email_notifications label{
+  width: 117px;
+  display: block;
+  float: left;
+}
+
+#email_notifications input, #email_notifications textarea{
+  display: block;
+  float: left;
+  resize: vertical;
+  width: 330px;
+  line-height: 1.5em;
+}
+
+body.action-cms-upload_files #uploaded_files p:nth-child(3),
+body.action-cms-upload_files #uploaded_files p:nth-child(5){
+  display: none;
+ }

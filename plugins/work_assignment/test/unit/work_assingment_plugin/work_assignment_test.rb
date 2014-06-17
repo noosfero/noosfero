@@ -38,7 +38,7 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     submission = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
-    assert_equal author_folder, submission.parent
+    assert author_folder, submission.parent
   end
 
   should 'add logged user on cache_key if is a member' do
