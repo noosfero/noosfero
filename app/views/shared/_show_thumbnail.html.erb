@@ -2,10 +2,15 @@
 
   <br/>
 
-  <%= link_to_function(_('Change image'), nil, :id => 'change-image-link', :class => 'button icon-photos with-text') do |page|
-    page['change-image'].replace_html :partial => 'shared/change_image', :locals => { :i => i, :image => image }
-    page['change-image-link'].hide
-    page['cancel-change-image-link'].show
-  end %>
+  <%= link_to_function(_('Change image'), 'display_change_image()', :id => 'change-image-link', :class => 'button icon-photos with-text') %>
+
+  <script>
+    function display_change_image() {
+      var content = "<%= j(render :partial => 'shared/change_image', :locals => { :i => i, :image => image }) %>";
+      jQuery('#change-image').html(content);
+      jQuery('#change-image-link').hide();
+      jQuery('#cancel-change-image-link').show();
+    }
+  </script>
 
   <div id='change-image'> </div> <br/>
