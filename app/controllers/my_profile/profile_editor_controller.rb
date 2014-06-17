@@ -4,6 +4,7 @@ class ProfileEditorController < MyProfileController
   protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
   before_filter :access_welcome_page, :only => [:welcome_page]
+  before_filter :back_to
   helper_method :has_welcome_page
 
   def index
@@ -107,5 +108,10 @@ class ProfileEditorController < MyProfileController
     unless has_welcome_page
       render_access_denied
     end
+  end
+
+  #TODO Consider using this as a general controller feature to be available on every action.
+  def back_to
+    @back_to = params[:back_to] || request.referer
   end
 end
