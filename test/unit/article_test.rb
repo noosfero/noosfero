@@ -1842,7 +1842,9 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'not create version when receive a comment' do
-    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    a = Article.new(:name => 'my article', :body => 'my text')
+    a.profile = profile
+    a.save!
     Comment.create!(:title => 'test', :body => 'asdsad', :author => profile, :source => a)
     assert_equal 1, a.versions.count
   end
