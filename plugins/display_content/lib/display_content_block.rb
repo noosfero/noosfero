@@ -102,7 +102,7 @@ class DisplayContentBlock < Block
   end
 
   def parent_nodes
-    @parent_nodes ||= self.holder.articles.find(nodes).map { |article| get_parent(article) }.compact.flatten
+    @parent_nodes ||= self.holder.articles.where(:id => nodes).map { |article| get_parent(article) }.compact.flatten
   end
 
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']

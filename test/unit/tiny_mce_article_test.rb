@@ -8,7 +8,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     @profile = create_user('zezinho').person
   end
   attr_reader :profile
-  
+
   # this test can be removed when we get real tests for TinyMceArticle 
   should 'be an article' do
     assert_subclass TextArticle, TinyMceArticle
@@ -210,7 +210,7 @@ end
     assert_equal true, a.notifiable?
     assert_equal true, a.advertise?
     assert_equal true, a.is_trackable?
-   
+
     a.published=false
     assert_equal false, a.published?
     assert_equal false, a.is_trackable?
@@ -235,6 +235,15 @@ end
     article = TinyMceArticle.create!(:name => 'html5 video', :body => "Video: <video controls='controls' autoplay='autoplay'><source src='http://example.ogv' type='video/ogg' />Video not playing?</video>", :profile => profile)
     assert_tag_in_string article.body, :tag => 'video', :attributes => {:controls => 'controls', :autoplay => 'autoplay'}
     assert_tag_in_string article.body, :tag => 'source', :attributes => {:src => 'http://example.ogv', :type => 'video/ogg'}
+  end
+
+  should 'not sanitize colspan and rowspan attributes' do
+    article = TinyMceArticle.create!(:name => 'table with colspan and rowspan',
+      :body => "<table colspan='2' rowspan='3'><tr></tr></table>",
+      :profile => profile
+    )
+    assert_tag_in_string article.body, :tag => 'table',
+      :attributes => { :colspan => 2, :rowspan => 3 }
   end
 
 end

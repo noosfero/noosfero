@@ -85,10 +85,6 @@ class Community < Organization
     recent_documents(limit, ["articles.type != ? AND articles.highlighted = ?", 'Folder', highlight])
   end
 
-  def blocks_to_expire_cache
-    [MembersBlock]
-  end
-
   def each_member(offset=0)
     while member = self.members.first(:order => :id, :offset => offset)
       yield member

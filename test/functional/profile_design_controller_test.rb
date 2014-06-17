@@ -6,8 +6,7 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 class ProfileDesignControllerTest < ActionController::TestCase
 
   COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock ]
-  PERSON_BLOCKS = COMMOM_BLOCKS + [FriendsBlock, FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
-  PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
+  PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
   ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock, ProductCategoriesBlock]
@@ -523,23 +522,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @controller.stubs(:user).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal PERSON_BLOCKS, @controller.available_blocks
-  end
-
-  should 'the person with members blocks are all available' do
-    profile = mock
-    profile.stubs(:has_members?).returns(true)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
-    profile.stubs(:has_blog?).returns(false)
-    profile.stubs(:is_admin?).with(anything).returns(false)
-    environment = mock
-    profile.stubs(:environment).returns(environment)
-    environment.stubs(:enabled?).returns(false)
-    @controller.stubs(:profile).returns(profile)
-    @controller.stubs(:user).returns(profile)
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
-    assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_MEMBERS
   end
 
   should 'the person with blog blocks are all available' do

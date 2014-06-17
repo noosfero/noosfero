@@ -269,7 +269,7 @@ class Person < Profile
     [
       [MainBlock.new],
       [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
-      [FriendsBlock.new, CommunitiesBlock.new]
+      [CommunitiesBlock.new]
     ]
   end
 

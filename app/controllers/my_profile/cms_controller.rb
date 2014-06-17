@@ -144,6 +144,7 @@ class CmsController < MyProfileController
 
     @article.profile = profile
     @article.last_changed_by = user
+    @article.created_by = user
 
     translations if @article.translatable?
 
