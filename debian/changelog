@@ -1,3 +1,9 @@
+noosfero (0.99.0~rc20140618202455) wheezy-test; urgency=low
+
+  * Another rc with rails3
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 18 Jun 2014 20:25:01 +0000
+
 noosfero (0.47.1) unstable; urgency=low
 
   * Bugfix release
