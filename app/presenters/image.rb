@@ -12,7 +12,8 @@ class FilePresenter::Image < FilePresenter
     _('Image (%s)') % content_type.split('/')[1].upcase
   end
 
-  def download? view = nil
+  #Overwriting method from FilePresenter to allow download of images
+  def download?(view = nil)
     view.blank? || view == 'false'
   end
 end

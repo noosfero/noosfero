@@ -75,7 +75,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_match /#{html.public_filename}/, @response.body
   end
 
-  should 'produce a download-link when article is a image' do
+  should 'download file when article is image' do
     profile = create_user('someone').person
     image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
     image.save!
@@ -84,7 +84,19 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_not_nil assigns(:page).data
-    assert_match /image/, @response.headers['Content-Type']
+    assert_match /image\/png/, @response.headers['Content-Type']
+  end
+
+  should 'display image on a page when article is image and has a view param' do
+    profile = create_user('someone').person
+    image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
+    image.save!
+
+    get :view_page, :profile => 'someone', :page => [ 'rails.png' ], :view => true
+
+    assert_response :success
+    assert_template 'view_page'
+    assert_match /text\/html/, @response.headers['Content-Type']
   end
 
   should 'produce a download-link when article is not text/html' do
