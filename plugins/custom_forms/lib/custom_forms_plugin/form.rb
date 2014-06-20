@@ -19,7 +19,7 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   end
 
   after_destroy do |form|
-    tasks = CustomFormsPlugin::MembershipSurvey.from(form.profile).opened.select { |t| t.form_id == form.id }
+    tasks = CustomFormsPlugin::MembershipSurvey.opened.select { |t| t.form_id == form.id }
     tasks.each {|task| task.cancel}
   end
 

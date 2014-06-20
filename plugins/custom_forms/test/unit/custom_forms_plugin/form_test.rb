@@ -274,4 +274,15 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
       s2.reload
     end
   end
+
+  should 'destroy forms after profile is destroyed' do
+    profile = fast_create(Profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    profile.destroy
+
+    assert_raise ActiveRecord::RecordNotFound do
+      CustomFormsPlugin::Form.find(form.id)
+    end
+  end
+
 end
