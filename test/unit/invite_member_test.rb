@@ -22,6 +22,20 @@ class InviteMemberTest < ActiveSupport::TestCase
     ok('friend is member of community') { community.members.include?(friend) }
   end
 
+  should 'cancel other invitations for same community when confirmed' do
+    friend = create_user('friend').person
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    community = fast_create(Community)
+
+    task = InviteMember.create!(:person => p1, :friend => friend, :community_id => community.id)
+    InviteMember.create!(:person => p2, :friend => friend, :community_id => community.id)
+
+    assert_difference friend.tasks.pending, :count, -2 do
+      task.finish
+    end
+  end
+
   should 'require community (person inviting other to be a member)' do
     task = InviteMember.new
     task.valid?
@@ -78,11 +92,11 @@ class InviteMemberTest < ActiveSupport::TestCase
     task = InviteMember.create!(:person => p1, :friend_email => 'test@test.com', :message => '<url>', :community_id => fast_create(Community).id)
   end
 
-  should 'not send e-mails to friend if target given (person being invited)' do
+  should 'send e-mails notification to friend if target given (person being invited)' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    TaskMailer.expects(:deliver_invitation_notification).never
+    TaskMailer.expects(:deliver_target_notification).once
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
   end
@@ -117,7 +131,8 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, email.subject)
   end
 
-  should 'destroy InviteMember task when the community is destroyed' do    
+<<<<<<< HEAD
+  should 'destroy InviteMember task when the community is destroyed' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
     p3 = create_user('testuser3').person
@@ -131,5 +146,28 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_raise ActiveRecord::RecordNotFound do; t2.reload; end
   end
 
-end
+  should 'have target notification message only if target given (person being invited)' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
 
+    task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
+    assert_nothing_raised NotImplementedError do
+      task.target_notification_message
+    end
+
+    task = InviteMember.create!(:person => p1, :friend_email => 'test@test.com', :message => '<url>', :community_id => fast_create(Community).id)
+    assert_raise NotImplementedError do
+      task.target_notification_message
+    end
+  end
+
+  should 'deliver target notification message if target given (person being invited)' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+
+    task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    assert_match(/#{task.requestor.name} invited you to join #{task.community.name}/, email.subject)
+  end
+end

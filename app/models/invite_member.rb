@@ -12,7 +12,7 @@ class InviteMember < Invitation
   end
 
   def perform
-    community.add_member(friend)
+    community.add_member(friend) and friend.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == community_id }.each { |invite| invite.cancel }
   end
 
   def title
@@ -37,6 +37,14 @@ class InviteMember < Invitation
 
   def target_notification_description
     _('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}
+  end
+
+  def target_notification_message
+    if friend
+      _('%{requestor} is inviting you to join "%{community}" on %{system}.') % { :system => target.environment.name, :requestor => requestor.name, :community => community.name }
+    else
+      super
+    end
   end
 
   def expanded_message
