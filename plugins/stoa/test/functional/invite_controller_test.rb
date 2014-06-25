@@ -49,15 +49,17 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'search friends profiles by usp_id' do
-    person1 = User.create!(:login => 'john', :email => 'john@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12345678}).person
-    User.create!(:login => 'mary', :email => 'mary@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 11111111}).person
-    organization = fast_create(Organization)
-    organization.add_admin(person1)
+    person = User.create!(:login => 'john', :email => 'john@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12345678}).person
+    User.create!(:login => 'joseph', :email => 'joseph@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12333333})
 
-    login_as(person1.identifier)
+    admin = User.create!(:login => 'mary', :email => 'mary@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 11111111}).person
+    organization = fast_create(Organization)
+    organization.add_admin(admin)
+
+    login_as(admin.identifier)
     get :search_friend, :profile => organization.identifier, :q => '1234'
 
-    assert_equal [{"name" => person1.name, "id" => person1.id}].to_json, @response.body
+    assert_equal [{"id" => person.id, "name" => person.name}].to_json, @response.body
     assert_response 200
   end
 end
