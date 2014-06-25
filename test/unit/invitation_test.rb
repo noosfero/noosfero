@@ -78,7 +78,7 @@ class InvitationTest < ActiveSupport::TestCase
 
     invited_friend.add_friend(person)
 
-    assert_no_difference InviteFriend, :count do
+    assert_no_difference 'InviteFriend.count' do
       Invitation.invite( person, [invited_friend.user.email], "", person )
     end
   end
@@ -90,7 +90,7 @@ class InvitationTest < ActiveSupport::TestCase
     invited_friend.add_friend(person)
     community = fast_create(Community)
 
-    assert_difference InviteMember, :count do
+    assert_difference 'InviteMember.count' do
       Invitation.invite( person, [invited_friend.user.email], "", community )
     end
   end
@@ -126,10 +126,10 @@ class InvitationTest < ActiveSupport::TestCase
     friend = create_user('testuser2').person
     community = fast_create(Community)
 
-    assert_difference InviteMember, :count do
+    assert_difference 'InviteMember.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
     end
-    assert_difference InviteFriend, :count do
+    assert_difference 'InviteFriend.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
     end
   end
@@ -139,17 +139,17 @@ class InvitationTest < ActiveSupport::TestCase
     friend = create_user('testuser2').person
     community = fast_create(Community)
 
-    assert_difference InviteMember, :count do
+    assert_difference 'InviteMember.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
     end
-    assert_difference InviteFriend, :count do
+    assert_difference 'InviteFriend.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
     end
 
-    assert_no_difference InviteMember, :count do
+    assert_no_difference 'InviteMember.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
     end
-    assert_no_difference InviteFriend, :count do
+    assert_no_difference 'InviteFriend.count' do
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
     end
   end
