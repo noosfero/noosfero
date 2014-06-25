@@ -131,7 +131,6 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, email.subject)
   end
 
-<<<<<<< HEAD
   should 'destroy InviteMember task when the community is destroyed' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
