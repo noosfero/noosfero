@@ -18,10 +18,6 @@ class CmsControllerTest < ActionController::TestCase
 
   attr_reader :profile
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => profile.identifier
-  end
-
   should 'list top level documents on index' do
     get :index, :profile => profile.identifier
 

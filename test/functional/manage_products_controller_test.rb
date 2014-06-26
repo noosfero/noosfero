@@ -18,10 +18,6 @@ class ManageProductsControllerTest < ActionController::TestCase
     login_as :test_user
   end
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => @enterprise.identifier
-  end
-
   should "not have permission" do
     u = create_user('user_test')
     login_as :user_test

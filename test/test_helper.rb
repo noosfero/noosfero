@@ -110,39 +110,6 @@ class ActiveSupport::TestCase
     assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
   end
 
-  def assert_local_files_reference(method=:get, action=:index, params = {})
-    if method.to_s() == 'post'
-      post action, params
-    else
-      get action, params
-    end
-    doc = Hpricot @response.body
-
-    # Test style references:
-    (doc/'style').each do |s|
-      s = s.to_s().gsub( /\/\*.*\*\//, '' ).
-                   split( /;|<|>|\n/ ).
-                   map do |l|
-                     patch = l.match( /@import url\((.*)\)/ )
-                     patch ? patch[1] : nil
-                   end.compact
-      s.each do |css_ref|
-        if ! File.exists?(File.join(Rails.root, 'public', css_ref))
-          flunk 'CSS reference missed on HTML: "%s"' % css_ref
-        end
-      end
-    end
-
-    # Test image references:
-    (doc/'img').each do |img|
-      src = img.get_attribute( 'src' ).gsub(/\?[0-9]+$/, '')
-      if ! File.exists?(File.join(Rails.root, 'public', src))
-        flunk 'Image reference missed on HTML: "%s"' % src
-      end
-    end
-
-  end
-
   # this check only if text has html tag
   def assert_sanitized(text)
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"

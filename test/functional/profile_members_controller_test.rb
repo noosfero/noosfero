@@ -12,11 +12,6 @@ class ProfileMembersControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_local_files_reference
-    user = create_user('test_user').person
-    assert_local_files_reference :get, :index, :profile => user.identifier
-  end
-  
   should 'not access index if dont have permission' do
     user = create_user('test_user')
     fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')

@@ -18,10 +18,6 @@ class FriendsControllerTest < ActionController::TestCase
   end
   attr_accessor :profile, :friend
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
   should 'list friends' do
     get :index
     assert_response :success

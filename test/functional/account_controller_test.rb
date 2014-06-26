@@ -21,10 +21,6 @@ class AccountControllerTest < ActionController::TestCase
     disable_signup_bot_check
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
   def test_should_login_and_redirect
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]

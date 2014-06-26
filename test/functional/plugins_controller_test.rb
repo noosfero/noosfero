@@ -16,10 +16,6 @@ class PluginsControllerTest < ActionController::TestCase
   end
   attr_reader :environment
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
   should 'list system active plugins' do
     class Plugin1 < Noosfero::Plugin
       class << self

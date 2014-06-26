@@ -45,10 +45,6 @@ class SearchControllerTest < ActionController::TestCase
     fast_create(klass, { :name => name }.merge(data), :search => true, :category => category)
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
   should 'espape xss attack' do
     get 'index', :query => '<wslite>'
     assert_no_tag :tag => 'wslite'

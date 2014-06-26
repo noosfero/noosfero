@@ -17,10 +17,6 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     login_as 'ze'
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
   should 'go to the first step on index' do
     get :index
     assert_response :success

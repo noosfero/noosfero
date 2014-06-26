@@ -17,10 +17,6 @@ class HomeControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
   should 'not display news from portal if disabled in environment' do
     env = Environment.default
     env.disable('use_portal_community')

@@ -18,12 +18,6 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
   attr_reader :profile, :environment
 
-  def test_local_files_reference
-    page = profile.articles.build(:name => 'test')
-    page.save!
-    assert_local_files_reference :get, :view_page, :profile => profile.identifier, :page => [ 'test' ]
-  end
-
   def test_should_display_page
     page = profile.articles.build(:name => 'test')
     page.save!

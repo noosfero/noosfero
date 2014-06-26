@@ -12,10 +12,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
     login_as('ze')
   end
-
-  def test_local_files_reference
-    assert_local_files_reference
-  end
   
   # Replace this with your real tests.
   should 'list regions at index' do

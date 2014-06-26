@@ -75,10 +75,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
   attr_reader :profile
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'designtestuser'
-  end
-
   ######################################################
   # BEGIN - tests for BoxOrganizerController features
   ######################################################

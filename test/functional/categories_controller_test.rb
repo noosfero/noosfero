@@ -20,10 +20,6 @@ class CategoriesControllerTest < ActionController::TestCase
 
   attr_reader :env, :cat1, :cat2
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
   def test_index
     login_as(create_admin_user(Environment.default))
     get :index

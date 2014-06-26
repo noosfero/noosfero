@@ -60,10 +60,6 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
   def test_exist_environment_variable_to_helper_environment_identification
     get :index
     assert_not_nil assigns(:environment)

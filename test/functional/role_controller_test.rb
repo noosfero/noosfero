@@ -15,10 +15,6 @@ class RoleControllerTest < ActionController::TestCase
     login_as(:ze)
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
   def test_index_should_get_roles
     get 'index'
     assert_response :success

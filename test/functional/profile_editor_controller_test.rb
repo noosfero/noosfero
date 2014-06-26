@@ -17,10 +17,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
   attr_reader :profile
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => profile.identifier
-  end
-
   def test_index
     get :index, :profile => profile.identifier
     assert_template 'index'

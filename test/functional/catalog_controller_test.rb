@@ -16,10 +16,6 @@ class CatalogControllerTest < ActionController::TestCase
   end
   attr_accessor :enterprise
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => @enterprise.identifier
-  end
-
   should 'not display for non-enterprises' do
     u = create_user('testinguser').person
     get :index, :profile => 'testinguser'

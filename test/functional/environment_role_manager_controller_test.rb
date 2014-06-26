@@ -11,8 +11,4 @@ class EnvironmentRoleManagerControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
 end
