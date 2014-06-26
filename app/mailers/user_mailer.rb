@@ -15,10 +15,12 @@ class UserMailer < ActionMailer::Base
   end
 
   def activation_code(user)
-    @recipient = user.name,
+    @recipient = user.name
     @activation_code = user.activation_code
     @environment = user.environment.name
     @url = user.environment.top_url
+    @redirection = (true if user.return_to)
+    @join = (user.community_to_join if user.community_to_join)
 
     mail(
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
