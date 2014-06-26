@@ -24,10 +24,6 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   def test_index
     login_as(create_admin_user(Environment.default))
     get :index

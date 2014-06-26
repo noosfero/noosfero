@@ -21,10 +21,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'not display news from portal if disabled in environment' do
     env = Environment.default
     env.disable('use_portal_community')

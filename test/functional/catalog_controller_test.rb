@@ -20,10 +20,6 @@ class CatalogControllerTest < ActionController::TestCase
     assert_local_files_reference :get, :index, :profile => @enterprise.identifier
   end
 
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'not display for non-enterprises' do
     u = create_user('testinguser').person
     get :index, :profile => 'testinguser'

@@ -21,10 +21,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
 
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'indicate only actual blocks as such' do
     assert(@controller.available_blocks.all? {|item| item.new.is_a? Block})
   end

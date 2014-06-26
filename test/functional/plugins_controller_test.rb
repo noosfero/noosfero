@@ -20,10 +20,6 @@ class PluginsControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
 
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'list system active plugins' do
     class Plugin1 < Noosfero::Plugin
       class << self

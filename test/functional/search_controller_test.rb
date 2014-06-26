@@ -49,10 +49,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
 
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'espape xss attack' do
     get 'index', :query => '<wslite>'
     assert_no_tag :tag => 'wslite'

@@ -22,10 +22,6 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_local_files_reference :get, :index, :profile => @enterprise.identifier
   end
 
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should "not have permission" do
     u = create_user('user_test')
     login_as :user_test

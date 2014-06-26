@@ -19,10 +19,6 @@ class EditTemplateControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   def test_redirect_to_design_editor_when_index_action_is_called
     give_permission('ze', 'edit_environment_design', Environment.default)
     get :index

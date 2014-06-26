@@ -17,10 +17,6 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_local_files_reference :get, :index, :profile => user.identifier
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'not access index if dont have permission' do
     user = create_user('test_user')
     fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')

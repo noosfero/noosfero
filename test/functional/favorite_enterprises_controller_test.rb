@@ -22,10 +22,6 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'list favorite enterprises' do
     get :index
     assert_response :success

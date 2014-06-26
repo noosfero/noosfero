@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'rails/test_help'
 require 'mocha'
-require 'tidy'
 require 'hpricot'
 
 require 'noosfero/test'
@@ -109,23 +108,6 @@ class ActiveSupport::TestCase
 
   def assert_subclass(parent, child)
     assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
-  end
-
-  def assert_valid_xhtml(method=:get, action=:index, params = {})
-    return true
-    if method.to_s() == 'post'
-      post action, params
-    else
-      get action, params
-    end
-    tidy = Tidy.open(:show_warnings=>false)
-    tidy.options.output_xml = true
-    tidy.clean @response.body
-    if tidy.errors
-      flunk "HTML ERROR - Tidy Diagnostics:\n  "+
-            tidy.errors.join("\n  ") +"\n  "+
-            tidy.diagnostics.join("\n  ")
-    end
   end
 
   def assert_local_files_reference(method=:get, action=:index, params = {})

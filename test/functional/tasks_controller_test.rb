@@ -26,10 +26,6 @@ class TasksControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'list pending tasks' do
     get :index
 

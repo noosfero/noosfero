@@ -18,10 +18,6 @@ class FeaturesControllerTest < ActionController::TestCase
     assert_local_files_reference
   end
   
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   def test_listing_features
     uses_host 'anhetegua.net'
     get :index
