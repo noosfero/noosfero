@@ -17,7 +17,7 @@ class ContentViewerController < ApplicationController
       return if redirected_to_profile_index
     else
       @page = profile.articles.find_by_path(path)
-      return if redirecetd_page_from_old_path(path)
+      return if redirected_page_from_old_path(path)
     end
 
     return unless allow_access_to_page(path)
@@ -161,7 +161,7 @@ class ContentViewerController < ApplicationController
     return false
   end
 
-  def redirecetd_page_from_old_path(path)
+  def redirected_page_from_old_path(path)
     unless @page
       page_from_old_path = profile.articles.find_by_old_path(path)
       if page_from_old_path
