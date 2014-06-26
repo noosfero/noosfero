@@ -6,7 +6,7 @@ class ProfileEditorController; def rescue_action(e) raise e end; end
 
 class ProfileEditorControllerTest < ActionController::TestCase
   all_fixtures
-  
+
   def setup
     @controller = ProfileEditorController.new
     @request    = ActionController::TestRequest.new
@@ -46,7 +46,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'saving profile info' do
-    person = profile 
+    person = profile
     post :edit, :profile => profile.identifier, :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address', 'sex' => 'female' }
     assert_redirected_to :controller => 'profile_editor', :action => 'index'
     person = Person.find(person.id)
@@ -54,6 +54,15 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_equal 'new contact information', person.contact_information
     assert_equal 'new address', person.address
     assert_equal 'female', person.sex
+  end
+
+  should 'mass assign all environment configurable person fields' do
+    person = profile
+
+    post :edit, :profile => profile.identifier, :profile_data => { "nickname" => "ze", "description" => "Just a regular ze.", "contact_information" => "What?", "contact_phone" => "+0551133445566", "cell_phone" => "+0551188889999", "comercial_phone" => "+0551144336655", "jabber_id" => "ze1234", "personal_website" => "http://ze.com.br", "sex" => "male", "birth_date" => "2014-06-04", "nationality" => "Brazilian", "country" => "BR", "state" => "DF", "city" => "Brasilia", "zip_code" => "70300-010", "address" => "Palacio do Planalto", "address_reference" => "Praca dos tres poderes", "district" => "DF", "schooling" => "Undergraduate", "schooling_status" => "Concluded", "formation" => "Engineerings", "area_of_study" => "Metallurgy", "professional_activity" => "Metallurgic", "organization" => "Metal Corp.", "organization_website" => "http://metal.com" }
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
   end
 
   should 'not permmit if not logged' do
@@ -160,6 +169,15 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]', :value => 'my contact' }
   end
 
+  should 'mass assign all environment configurable community fields' do
+    cmm = fast_create(Community)
+
+    post :edit, :profile => cmm.identifier, :profile_data => { "name" => "new name", "display_name" => "N&w N@me", "description"=>"We sell food and other stuff.", "contact_person"=>"Joseph of the Jungle", "contact_email"=>"sac@company.net", "contact_phone"=>"+0551133445566", "legal_form"=>"New Name corp.", "economic_activity"=>"Food", "management_information"=>"No need for that here.", "address"=>"123, baufas street", "address_reference"=>"Next to baufas house", "district"=>"DC", "zip_code"=>"123456", "city"=>"Whashington", "state"=>"DC", "country"=>"US", "tag_list"=>"food, corporations", "language"=>"English" }
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
+  end
+
   should 'show field values on edit enterprise info' do
     Enterprise.any_instance.expects(:active_fields).returns(['contact_person']).at_least_once
     org = fast_create(Enterprise)
@@ -167,6 +185,15 @@ class ProfileEditorControllerTest < ActionController::TestCase
     org.save!
     get :edit, :profile => org.identifier
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[contact_person]', :value => 'my contact' }
+  end
+
+  should 'mass assign all environment configurable enterprise fields' do
+    enterprise = fast_create(Enterprise)
+
+    post :edit, :profile => enterprise.identifier, :profile_data => { "name"=>"Enterprise", "display_name"=>"Enterprise name", "business_name"=>"Enterprise", "description"=>"Hello IT.", "contact_person"=>"Joseph", "contact_email"=>"joe@enterprise.net", "contact_phone"=>"+0551133445566", "legal_form"=>"Enterprise corp.", "economic_activity"=>"Food", "management_information"=>"None.", "address"=>"123, baufas street", "address_reference"=>"Next to baufas house", "district"=>"DC", "zip_code"=>"123456", "city"=>"Washington", "state"=>"DC", "country"=>"US", "tag_list"=>"food, corporations", "organization_website"=>"http://enterprise.net", "historic_and_current_context"=>"Historic.", "activities_short_description"=>"Activies.", "acronym"=>"E", "foundation_year"=>"1995",}
+
+    assert_response :redirect
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
   end
 
   should 'display profile publication option in edit profile screen' do
@@ -422,7 +449,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :index, :profile => ent.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{ent.identifier}/profile_editor/enable" }
   end
-  
+
   should 'link to disable enterprise' do
     ent = fast_create(Enterprise, :enabled => true)
     get :index, :profile => ent.identifier
