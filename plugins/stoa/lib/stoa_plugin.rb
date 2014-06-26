@@ -2,8 +2,6 @@ require_dependency 'person'
 
 class StoaPlugin < Noosfero::Plugin
 
-  Person.human_names[:usp_id] = _('USP number')
-
   def self.plugin_name
     "Stoa"
   end
@@ -17,7 +15,7 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def signup_extra_contents
-    lambda {
+    proc {
       content_tag(:div, labelled_form_field(_('USP number'), text_field(:profile_data, :usp_id, :id => 'usp_id_field')) +
       content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it with a valid number if you have one.'), :id => 'usp-id-balloon') +
       content_tag('p', _("Either this usp number is being used by another user or is not valid"), :id => 'usp-id-invalid') +
@@ -45,7 +43,7 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def login_extra_contents
-    lambda {
+    proc {
       content_tag('div', labelled_form_field(_('USP number / Username'), text_field_tag('usp_id_login', '', :id => 'stoa_field_login')) +
       labelled_form_field(_('Password'), password_field_tag('password', '', :id => 'stoa_field_password')), :id => 'stoa-login-fields')
     }
@@ -62,14 +60,13 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def account_controller_filters
-    environment = context.environment
-    block = lambda do
+    block = lambda do |context|
       params[:profile_data] ||= {}
       params[:profile_data][:invitation_code] = params[:invitation_code]
       invitation = Task.pending.find(:first, :conditions => {:code => params[:invitation_code]})
       if request.post?
         if !invitation && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
-          @person = Person.new(:environment => environment)
+          @person = Person.new(:environment => context.environment)
           @person.errors.add(:usp_id, _(' validation failed'))
           render :action => :signup
         end
@@ -83,7 +80,7 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def profile_editor_controller_filters
-    block = lambda do
+    block = proc do
       if request.post?
         if !params[:profile_data][:usp_id].blank? && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
           @profile_data = profile
@@ -106,7 +103,7 @@ class StoaPlugin < Noosfero::Plugin
   def invite_controller_filters
     [{ :type => 'before_filter',
       :method_name => 'check_usp_id_existence',
-      :block => lambda {render_access_denied if !user || user.usp_id.blank?} }]
+      :block => proc {render_access_denied if !user || user.usp_id.blank?} }]
   end
 
   def control_panel_buttons
