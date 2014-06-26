@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class UpdateDisplayContentSectionsArray < ActiveRecord::Migration
 
   def self.up
