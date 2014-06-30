@@ -4,11 +4,11 @@ class SearchController < PublicController
   include SearchHelper
   include ActionView::Helpers::NumberHelper
 
-  before_filter :redirect_asset_param, :except => :assets
-  before_filter :load_category
-  before_filter :load_search_assets
-  before_filter :load_query
-  before_filter :load_filter
+  before_filter :redirect_asset_param, :except => [:assets, :suggestions]
+  before_filter :load_category, :except => :suggestions
+  before_filter :load_search_assets, :except => :suggestions
+  before_filter :load_query, :except => :suggestions
+  before_filter :load_order, :except => :suggestions
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -20,7 +20,7 @@ class SearchController < PublicController
 
   def index
     @searches = {}
-    @order = []
+    @assets = []
     @names = {}
     @results_only = true
 
@@ -28,7 +28,7 @@ class SearchController < PublicController
       load_query
       @asset = key
       send(key)
-      @order << key
+      @assets << key
       @names[key] = _(description)
     end
     @asset = nil
@@ -42,7 +42,7 @@ class SearchController < PublicController
   # view the summary of one category
   def category_index
     @searches = {}
-    @order = []
+    @assets = []
     @names = {}
     limit = MULTIPLE_SEARCH_LIMIT
     [
@@ -53,7 +53,7 @@ class SearchController < PublicController
       [ :communities, _('Communities'), :recent_communities ],
       [ :articles, _('Contents'), :recent_articles ]
     ].each do |asset, name, filter|
-      @order << asset
+      @assets << asset
       @searches[asset]= {:results => @category.send(filter, limit)}
       raise "No total_entries for: #{asset}" unless @searches[asset][:results].respond_to?(:total_entries)
       @names[asset] = name
@@ -143,12 +143,16 @@ class SearchController < PublicController
     render :partial => 'events/events'
   end
 
+  def suggestions
+    render :text => find_suggestions(params[:term], environment, params[:asset]).to_json
+  end
+
   #######################################################
   protected
 
   def load_query
     @asset = (params[:asset] || params[:action]).to_sym
-    @order ||= [@asset]
+    @assets ||= [@asset]
     @searches ||= {}
 
     @query = params[:query] || ''
@@ -185,11 +189,11 @@ class SearchController < PublicController
     @names = @titles if @names.nil?
   end
 
-  def load_filter
-    @filter = 'more_recent'
+  def load_order
+    @order = 'more_recent'
     if SEARCHES.keys.include?(@asset.to_sym)
-      available_filters = asset_class(@asset)::SEARCH_FILTERS
-      @filter = params[:filter] if available_filters.include?(params[:filter])
+      available_orders = asset_class(@asset)::SEARCH_FILTERS[:order]
+      @order = params[:order] if available_orders.include?(params[:order])
     end
   end
 
@@ -213,7 +217,7 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(@asset, @scope, @query, paginate_options, {:category => @category, :filter => @filter})
+    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query, paginate_options, {:category => @category, :filter => @order})
   end
 
   private

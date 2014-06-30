@@ -17,11 +17,10 @@ class Profile < ActiveRecord::Base
     :nickname => 2,
   }
 
-  SEARCH_FILTERS = %w[
-    more_recent
-  ]
-
-  SEARCH_DISPLAYS = %w[compact]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent],
+    :display => %w[compact]
+  }
 
   def self.default_search_display
     'compact'
@@ -137,6 +136,8 @@ class Profile < ActiveRecord::Base
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
+
+  has_many :search_terms, :as => :context
 
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap

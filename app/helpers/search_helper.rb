@@ -14,11 +14,23 @@ module SearchHelper
     :events, _('Events'),
   ]
 
-  FILTER_TRANSLATION = {
-    'more_popular' => _('More popular'),
-    'more_active' => _('More active'),
-    'more_recent' => _('More recent'),
-    'more_comments' => _('More comments')
+  FILTERS_TRANSLATIONS = {
+    :order => _('Order'),
+    :display => _('Display')
+  }
+
+  FILTERS_OPTIONS_TRANSLATION = {
+    :order => {
+      'more_popular' => _('More popular'),
+      'more_active' => _('More active'),
+      'more_recent' => _('More recent'),
+      'more_comments' => _('More comments')
+    },
+    :display => {
+      'map' => _('Map'),
+      'full' => _('Full'),
+      'compact' => _('Compact')
+    }
   }
 
   # FIXME remove it after search_controler refactored
@@ -50,7 +62,7 @@ module SearchHelper
   end
 
   def display?(asset, mode)
-    defined?(asset_class(asset)::SEARCH_DISPLAYS) && asset_class(asset)::SEARCH_DISPLAYS.include?(mode.to_s)
+    defined?(asset_class(asset)::SEARCH_FILTERS[:display]) && asset_class(asset)::SEARCH_FILTERS[:display].include?(mode.to_s)
   end
 
   def display_results(searches=nil, asset=nil)
@@ -87,50 +99,37 @@ module SearchHelper
     end
   end
 
-  def display_selector(asset, display, float = 'right')
-    display = nil if display.blank?
-    display ||= asset_class(asset).default_search_display
-    if [display?(asset, :map), display?(asset, :compact), display?(asset, :full)].select {|option| option}.count > 1
-      compact_link = display?(asset, :compact) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
-      map_link = display?(asset, :map) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
-      full_link = display?(asset, :full) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
-      content_tag('div', 
-        content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | ').html_safe,
-        :class => 'search-customize-options'
-      )
+  def select_filter(name, options)
+    if options.size <= 1
+      return
+    else
+      options = options.map {|option| [FILTERS_OPTIONS_TRANSLATION[name][option], option]}
+      options = options_for_select(options, :selected => params[name])
+      select_tag(name, options)
     end
   end
 
-  def filter_selector(asset, filter, float = 'right')
+  def filters(asset)
+    return if !asset
     klass = asset_class(asset)
-    if klass::SEARCH_FILTERS.count > 1
-      options = options_for_select(klass::SEARCH_FILTERS.map {|f| [FILTER_TRANSLATION[f], f]}, filter)
-      url_params = url_for(params.merge(:filter => 'FILTER'))
-      onchange = "document.location.href = '#{url_params}'.replace('FILTER', this.value)"
-      select_field = select_tag(:filter, options, :onchange => onchange)
-      content_tag('div',
-        content_tag('strong', _('Filter')) + ': ' + select_field,
-        :class => "search-customize-options"
-      )
-    end
+    content_tag('div', klass::SEARCH_FILTERS.map do |name, options|
+      select_filter(name, options)
+    end.join("\n"), :id => 'search-filters')
   end
 
-  def filter_title(asset, filter)
-    {
-      'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More viewed contents from network'),
-      'articles_more_comments' => _('Most commented contents from network'),
-      'people_more_recent' => _('More recent people from network'),
-      'people_more_active' => _('More active people from network'),
-      'people_more_popular' => _('More popular people from network'),
-      'communities_more_recent' => _('More recent communities from network'),
-      'communities_more_active' => _('More active communities from network'),
-      'communities_more_popular' => _('More popular communities from network'),
-      'enterprises_more_recent' => _('More recent enterprises from network'),
-      'enterprises_more_active' => _('More active enterprises from network'),
-      'enterprises_more_popular' => _('More popular enterprises from network'),
-      'products_more_recent' => _('Highlights'),
-    }[asset.to_s + '_' + filter].to_s
+  def assets_links(selected)
+    assets = SEARCHES.keys
+    content_tag('ul',
+      assets.map do |asset|
+        options = {}
+        options.merge!(:class => 'selected') if selected.to_s == asset.to_s
+        content_tag('li', asset_link(asset), options)
+      end.join("\n"),
+    :id => 'assets-links')
+  end
+
+  def asset_link(asset)
+    link_to(SEARCHES[asset], "/search/#{asset}")
   end
 
 end

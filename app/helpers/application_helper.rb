@@ -1415,4 +1415,8 @@ module ApplicationHelper
     content_tag('ul', article.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:version => v.version))})
   end
 
+  def search_input_with_suggestions(name, asset, default, options = {})
+    text_field_tag name, default, options.merge({:id => 'search-input', 'data-asset' => asset})
+  end
+
 end

@@ -6,6 +6,11 @@ class Enterprise < Organization
 
   SEARCH_DISPLAYS += %w[map full]
 
+  SEARCH_FILTERS = {
+    :order => %w[more_recent more_popular more_active],
+    :display => %w[compact full map]
+  }
+
   def self.type_name
     _('Enterprise')
   end
