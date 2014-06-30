@@ -19,7 +19,7 @@
   <table class='profile'>
     <tr>
       <td colspan='2'>
-        <% plugins_tabs = @plugins.dispatch(:profile_tabs).map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:title]} }%>
+        <% plugins_tabs = @plugins.dispatch(:profile_tabs).map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:start]} }%>
 
         <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
 
