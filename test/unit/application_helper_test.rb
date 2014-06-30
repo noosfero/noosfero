@@ -606,6 +606,22 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'Open chat', render_environment_features(:usermenu)
   end
 
+  should 'not inlude administration link if user is not an environment administrator' do
+    user = mock()
+    stubs(:environment).returns(Environment.default)
+    user.stubs(:is_admin?).with(environment).returns(false)
+    stubs(:user).returns(user)
+    assert admin_link.blank?
+  end
+
+  should 'inlude administration link if user is an environment administrator' do
+    user = mock()
+    stubs(:environment).returns(Environment.default)
+    user.stubs(:is_admin?).with(environment).returns(true)
+    stubs(:user).returns(user)
+    assert admin_link.present?
+  end
+
   should 'not return mime type of profile icon if not requested' do
     stubs(:profile).returns(Person.new)
     stubs(:current_theme).returns('default')

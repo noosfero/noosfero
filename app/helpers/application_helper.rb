@@ -1002,17 +1002,26 @@ module ApplicationHelper
   def display_category_menu(block, categories, root = true)
     categories = categories.sort{|x,y| x.name <=> y.name}
     return "" if categories.blank?
-    content_tag(:ul,
+    content_tag(:ul) do
       categories.map do |category|
         category_path = category.kind_of?(ProductCategory) ? {:controller => 'search', :action => 'assets', :asset => 'products', :product_category => category.id} : { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
-        category.display_in_menu? ?
-        content_tag(:li,
-          ( !category.is_leaf_displayable_in_menu? ? content_tag(:a, collapsed_item_icon, :href => "#", :id => "block_#{block.id}_category_#{category.id}", :class => 'category-link-expand ' + (root ? 'category-root' : 'category-no-root'), :onclick => "expandCategory(#{block.id}, #{category.id}); return false", :style => 'display: none') : leaf_item_icon) +
-          link_to(content_tag(:span, category.name, :class => 'category-name'), category_path, :class => ("category-leaf" if category.is_leaf_displayable_in_menu?)) +
-          content_tag(:div, display_category_menu(block, category.children, false), :id => "block_#{block.id}_category_content_#{category.id}", :class => 'child-category')
-        ) : ''
-      end
-    ) +
+        if category.display_in_menu?
+          content_tag(:li) do
+            if !category.is_leaf_displayable_in_menu?
+              content_tag(:a, collapsed_item_icon, :href => "#", :id => "block_#{block.id}_category_#{category.id}", :class => "category-link-expand " + (root ? "category-root" : "category-no-root"), :onclick => "expandCategory(#{block.id}, #{category.id}); return false", :style => "display: none")
+            else
+              leaf_item_icon
+            end +
+            link_to(content_tag(:span, category.name, :class => "category-name"), category_path, :class => ("category-leaf" if category.is_leaf_displayable_in_menu?)) +
+            content_tag(:div, :id => "block_#{block.id}_category_content_#{category.id}", :class => 'child-category') do
+              display_category_menu(block, category.children, false)
+            end
+          end
+        else
+          ""
+        end
+      end.join.html_safe
+    end +
     content_tag(:p) +
     (root ? javascript_tag("
       jQuery('.child-category').hide();
@@ -1104,14 +1113,18 @@ module ApplicationHelper
   end
 
   def manage_enterprises
-    return unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
-    manage_link(user.enterprises, :enterprises)
+    return '' unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
+    manage_link(user.enterprises, :enterprises).to_s
   end
 
   def manage_communities
-    return unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
+    return '' unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
     administered_communities = user.communities.more_popular.select {|c| c.admins.include? user}
-    manage_link(administered_communities, :communities)
+    manage_link(administered_communities, :communities).to_s
+  end
+
+  def admin_link
+    user.is_admin?(environment) ? link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', environment.admin_url, :title => _("Configure the environment"), :class => 'admin-link') : ''
   end
 
   def usermenu_logged_in
@@ -1123,9 +1136,9 @@ module ApplicationHelper
 
     (_("<span class='welcome'>Welcome,</span> %s") % link_to("<i style='background-image:url(#{user.profile_custom_icon(gravatar_default)})'></i><strong>#{user.identifier}</strong>", user.public_profile_url, :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
-    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.admin_url, :title => _("Configure the environment"), :class => 'admin-link') +
-    manage_enterprises.to_s +
-    manage_communities.to_s +
+    admin_link +
+    manage_enterprises +
+    manage_communities +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', user.admin_url, :class => 'ctrl-panel', :title => _("Configure your personal account and content")) +
     pending_tasks_count +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))

@@ -6,7 +6,7 @@ class ProfileEditorController; def rescue_action(e) raise e end; end
 
 class StoaPluginProfileEditorControllerTest < ActionController::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   def setup
     @controller = ProfileEditorController.new
@@ -45,7 +45,7 @@ class StoaPluginProfileEditorControllerTest < ActionController::TestCase
   should 'display error if usp_id does not match with supplied confirmation' do
     StoaPlugin::UspUser.stubs(:matches?).returns(false)
     post :edit, :profile => person.identifier, :profile_data => {:usp_id => 12345678}, :confirmation_field => 'cpf', :cpf => 99999999
-    assert assigns(:profile_data).errors.invalid?(:usp_id)
+    assert assigns(:profile_data).errors.include?(:usp_id)
   end
 
   should 'save usp_id if everyhtings is ok' do

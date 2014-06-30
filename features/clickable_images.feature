@@ -14,6 +14,7 @@ Feature: clickable images
       | owner   | name  | image     | dimensions |
       | booking | small | rails.png | 20x20      |
     When I go to /booking/small
+    And display ".zoomify-image"
     Then I should see "Zoom in"
 
   @selenium
@@ -22,6 +23,7 @@ Feature: clickable images
       | owner   | name | image     | dimensions |
       | booking | real | rails.png | 50x64      |
     When I go to /booking/real
+    And display ".zoomify-image"
     Then "Zoom in" should not be visible within "a#zoomify-image"
 
   @selenium
@@ -30,6 +32,7 @@ Feature: clickable images
       | owner   | name    | image     |
       | booking | not set | rails.png |
     When I go to /booking/not-set
+    And display ".zoomify-image"
     Then "Zoom in" should not be visible within "a#zoomify-image"
 
   @selenium-fixme

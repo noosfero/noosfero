@@ -6,30 +6,27 @@ class AccountController; def rescue_action(e) raise e end; end
 
 class AccountControllerTest < ActionController::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
+
+  @db = Tempfile.new('stoa-test')
+  configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
+  ActiveRecord::Base.establish_connection(:stoa)
+  ActiveRecord::Schema.verbose = false
+  ActiveRecord::Schema.create_table "pessoa" do |t|
+    t.integer  "codpes"
+    t.text     "numcpf"
+    t.date     "dtanas"
+  end
+  ActiveRecord::Base.establish_connection(:test)
 
   def setup
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @db = Tempfile.new('stoa-test')
-    configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
-    ActiveRecord::Base.establish_connection(:stoa)
-    ActiveRecord::Schema.verbose = false
-    ActiveRecord::Schema.create_table "pessoa" do |t|
-      t.integer  "codpes"
-      t.text     "numcpf"
-      t.date     "dtanas"
-    end
-    ActiveRecord::Base.establish_connection(:test)
-    StoaPlugin::UspUser.create!(:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30')
+    StoaPlugin::UspUser.create!({:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30'}, :without_protection => true)
     Environment.default.enable_plugin(StoaPlugin.name)
     @user = create_user('joao-stoa', {:password => 'pass', :password_confirmation => 'pass'},:usp_id=>'87654321')
     @user.activate
-  end
-
-  def teardown
-    @db.unlink
   end
 
   should 'fail if confirmation value doesn\'t match' do
@@ -41,10 +38,10 @@ class AccountControllerTest < ActionController::TestCase
   should 'pass if confirmation value matches' do
     #StoaPlugin::UspUser.stubs(:matches?).returns(true)
     post :signup, :profile_data => {:usp_id => '12345678'}, :confirmation_field => 'cpf', :cpf => '12345678'
-    assert_nil assigns(:person).errors[:usp_id]
+    assert !assigns(:person).errors.include?(:usp_id)
   end
 
-  should 'inlude invitation_code param in the person\'s attributes' do
+  should 'include invitation_code param in the person\'s attributes' do
     get :signup, :invitation_code => 12345678
     assert assigns(:person).invitation_code == '12345678'
   end

@@ -25,4 +25,7 @@ class Image < ActiveRecord::Base
 
   attr_accessible :uploaded_data
 
+  def current_data
+    File.file?(full_filename) ? File.read(full_filename) : nil
+  end
 end

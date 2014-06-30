@@ -395,7 +395,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds fields to the signup form
-  # returns = lambda block that creates html code
+  # returns = proc that creates html code
   def signup_extra_contents
     nil
   end
@@ -470,7 +470,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds fields to the login form
-  # returns = lambda block that creates html code
+  # returns = proc that creates html code
   def login_extra_contents
     nil
   end

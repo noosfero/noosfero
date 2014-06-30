@@ -15,7 +15,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     another_person = Person.new(:usp_id => usp_id)
     another_person.valid?
 
-    assert another_person.errors.invalid?(:usp_id)
+    assert another_person.errors.include?(:usp_id)
   end
 
   should 'not allow usp_id as an empty string' do
@@ -28,17 +28,17 @@ class StoaPlugin::Person < ActiveSupport::TestCase
   should 'allow nil usp_id only if person has an invitation_code or is a template' do
     person = Person.new(:environment => environment)
     person.valid?
-    assert person.errors.invalid?(:usp_id)
+    assert person.errors.include?(:usp_id)
 
     Task.create!(:code => 12345678)
     person.invitation_code = 12345678
     person.valid?
-    assert !person.errors.invalid?(:usp_id)
+    assert !person.errors.include?(:usp_id)
 
     person.invitation_code = nil
     person.is_template = true
     person.valid?
-    assert !person.errors.invalid?(:usp_id)
+    assert !person.errors.include?(:usp_id)
   end
 
   should 'allow multiple nil usp_id' do
@@ -47,7 +47,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     person = Person.new(:invitation_code => 87654321)
     person.valid?
 
-    assert !person.errors.invalid?(:usp_id)
+    assert !person.errors.include?(:usp_id)
   end
 
   should 'not allow person to be saved with a finished invitation that is not his own' do
@@ -56,7 +56,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     person = Person.new(:environment => environment, :invitation_code => 87654321)
     person.valid?
 
-    assert person.errors.invalid?(:usp_id)
+    assert person.errors.include?(:usp_id)
   end
 
   should 'allow person to be saved with a finished invitation if it is his own' do
@@ -68,7 +68,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     t.finish
 
     person.valid?
-    assert !person.errors.invalid?(:usp_id)
+    assert !person.errors.include?(:usp_id)
   end
 
 
