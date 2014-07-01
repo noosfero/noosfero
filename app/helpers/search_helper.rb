@@ -110,6 +110,10 @@ module SearchHelper
 
   def assets_menu(selected)
     assets = @enabled_searches.keys
+    #     Events is a search asset but do not have a good interface for
+    #TODO searching. When this is solved we may add it back again to the assets
+    #     menu.
+    assets.delete(:events)
     content_tag('ul',
       assets.map do |asset|
         options = {}
