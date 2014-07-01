@@ -117,7 +117,7 @@ module SearchHelper
     end.join("\n"), :id => 'search-filters')
   end
 
-  def assets_links(selected)
+  def assets_menu(selected)
     assets = SEARCHES.keys
     content_tag('ul',
       assets.map do |asset|
