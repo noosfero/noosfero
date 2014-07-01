@@ -519,7 +519,7 @@ jQuery(function($) {
       }
     } else {
       // not logged in
-      $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
+      $('#user .not-logged-in, .login-block .not-logged-user').hide().fadeIn();
     }
     if (data.notice) {
       display_notice(data.notice);
