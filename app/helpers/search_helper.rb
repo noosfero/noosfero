@@ -5,15 +5,6 @@ module SearchHelper
   BLOCKS_SEARCH_LIMIT = 24
   MULTIPLE_SEARCH_LIMIT = 8
 
-  SEARCHES = ActiveSupport::OrderedHash[
-    :articles, _('Contents'),
-    :enterprises, _('Enterprises'),
-    :people, _('People'),
-    :communities, _('Communities'),
-    :products, _('Products and Services'),
-    :events, _('Events'),
-  ]
-
   FILTERS_TRANSLATIONS = {
     :order => _('Order'),
     :display => _('Display')
@@ -118,7 +109,7 @@ module SearchHelper
   end
 
   def assets_menu(selected)
-    assets = SEARCHES.keys
+    assets = @enabled_searches.keys
     content_tag('ul',
       assets.map do |asset|
         options = {}
@@ -129,7 +120,7 @@ module SearchHelper
   end
 
   def asset_link(asset)
-    link_to(SEARCHES[asset], "/search/#{asset}")
+    link_to(@enabled_searches[asset], "/search/#{asset}")
   end
 
 end

@@ -173,13 +173,21 @@ class SearchController < PublicController
     end
   end
 
+  AVAILABLE_SEARCHES = ActiveSupport::OrderedHash[
+    :articles, _('Contents'),
+    :enterprises, _('Enterprises'),
+    :people, _('People'),
+    :communities, _('Communities'),
+    :products, _('Products and Services'),
+  ]
+
   def load_search_assets
-    if SEARCHES.keys.include?(params[:action].to_sym) && environment.enabled?("disable_asset_#{params[:action]}")
+    if AVAILABLE_SEARCHES.keys.include?(params[:action].to_sym) && environment.enabled?("disable_asset_#{params[:action]}")
       render_not_found
       return
     end
 
-    @enabled_searches = SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{key}") }
+    @enabled_searches = AVAILABLE_SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{key}") }
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|
@@ -191,7 +199,7 @@ class SearchController < PublicController
 
   def load_order
     @order = 'more_recent'
-    if SEARCHES.keys.include?(@asset.to_sym)
+    if AVAILABLE_SEARCHES.keys.include?(@asset.to_sym)
       available_orders = asset_class(@asset)::SEARCH_FILTERS[:order]
       @order = params[:order] if available_orders.include?(params[:order])
     end
@@ -230,6 +238,16 @@ class SearchController < PublicController
 
   def per_page
     20
+  end
+
+  def available_assets
+    assets = ActiveSupport::OrderedHash[
+      :articles, _('Contents'),
+      :enterprises, _('Enterprises'),
+      :people, _('People'),
+      :communities, _('Communities'),
+      :products, _('Products and Services'),
+    ]
   end
 
 end
