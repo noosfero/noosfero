@@ -7,6 +7,7 @@ export RAILS_ENV=development
 stop() {
   ./script/delayed_job stop
   ./script/feed-updater stop
+  whenever --clear-crontab
   exit
 }
 
@@ -15,6 +16,7 @@ start() {
   ./script/feed-updater start
   ./script/delayed_job start
   trap stop INT TERM
+  whenever --write-crontab --set 'environment=development'
   rails s $@
 }
 

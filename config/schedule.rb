@@ -18,9 +18,8 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-#
-set :environment, 'development'
-set :output, "/home/rodrigo/noosfero/log/cron.log"
+
+set :output, "log/cron.log"
 
 every 1.minute do
   runner "SearchTerm.calculate_scores"
