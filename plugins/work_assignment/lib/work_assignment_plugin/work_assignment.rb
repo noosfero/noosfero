@@ -3,6 +3,9 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   settings_items :publish_submissions, :type => :boolean, :default => false
   settings_items :email_notification, :type => :boolean, :default => false
 
+  attr_accessible :publish_submissions
+  attr_accessible :email_notification
+
   def self.icon_name(article = nil)
     'work-assignment'
   end

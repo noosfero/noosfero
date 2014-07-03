@@ -34,7 +34,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       !content.profile.members.include?(context.send(:user))
     end
   end
-=begin
+
   def content_viewer_controller_filters
     block = proc do
       path = params[:page].join('/')
@@ -50,7 +50,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :options => {:only => 'view_page'},
       :block => block }
   end
-=end
+  
   def upload_files_extra_contents
     proc do
       render :partial => 'work_assignment_form', :locals => { :size => '45'} 
