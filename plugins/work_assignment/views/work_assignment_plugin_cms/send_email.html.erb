@@ -1,20 +1,20 @@
 
-<%= error_messages_for 'contact' %>
+<%= error_messages_for 'email_contact' %>
 
-<%=labelled_form_for :contact do |f| %>
+<%=labelled_form_for :email_contact do |f| %>
   <%= hidden_field_tag(:confirm, 'false') %>
   <%= hidden_field_tag(:self_files_id, @files_id_list) %>
 
   <%= required_fields_message %>
 
   <%= required f.text_field(:subject) %>
-  <%# required f.text_field(:dest) %>
+  <%= required f.text_field(:reciever) %>
   <%= required f.text_field(:name) %>
 
   <%= render :file => 'shared/tiny_mce' %>
   <%= required f.text_area(:message, :class => 'mceEditor') %>
 
-  <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
+  <%= labelled_form_field check_box(:email_contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 
   <%= submit_button(:send, _('Send'), :onclick => "$('confirm').value = 'true'") %>
   <%= submit_button(:cancel, _('Cancel'), :onclick =>"$('confirm').value = 'false'") %>
