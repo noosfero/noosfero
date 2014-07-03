@@ -33,6 +33,7 @@ class ContentViewerController < ApplicationController
       process_forum_terms_of_use(user, params[:terms_accepted])
     elsif is_a_forum_topic?(@page)
       redirect_to @page.parent.url unless @page.parent.agrees_with_terms?(user)
+      return
     end
 
     # At this point the page will be showed
