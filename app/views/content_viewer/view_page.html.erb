@@ -80,7 +80,7 @@
     </h3>
   <% end %>
 
-  <% if @page.accept_comments? && @comments.count > 1 %>
+  <% if @page.accept_comments? && @comments.present? && @comments.count > 1 %>
     <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button', :onclick => "jQuery('#page-comment-form .display-comment-form').first().click();") %>
 
     <%= hidden_field_tag("page_url", url_for(:controller=>'content_viewer', :action=>'view_page', :profile=>profile.identifier, :page => @page.explode_path)) %>
@@ -90,15 +90,15 @@
         <%= select_tag 'comment_order', options_for_select({_('Oldest first')=>'oldest', _('Newest first')=>'newest'}, @comment_order) %>
       <% end %>
     </div>
+
+    <ul class="article-comments-list">
+      <%= render :partial => 'comment/comment', :collection => @comments %>
+      <%= pagination_links @comments, :param_name => 'comment_page' %>
+    </ul>
   <% end %>
 
-  <ul class="article-comments-list">
-    <%= render :partial => 'comment/comment', :collection => @comments %>
-    <%= pagination_links @comments, :param_name => 'comment_page' %>
-  </ul>
-
   <% if @page.accept_comments? %>
-    <div id='page-comment-form' class='page-comment-form'><%= render :partial => 'comment/comment_form', :locals =>{:comment => Comment.new, :url => {:controller => :comment, :action => :create}, :display_link => true, :cancel_triggers_hide => true}%></div>
+    <div id='page-comment-form' class='page-comment-form'><%= render :partial => 'comment/comment_form', :locals =>{:url => {:controller => :comment, :action => :create}, :display_link => true, :cancel_triggers_hide => true}%></div>
   <% end %>
 </div><!-- end class="comments" -->
 
