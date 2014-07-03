@@ -34,11 +34,12 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to o-rappa's control panel
-    And I follow "Community Info and settings"
-    And I should not see "identifier-change-confirmation"
-    When I fill in "Address" with "banda-o-rappa"
-    And I should see "identifier-change-confirmation"
+    And I go to o-rappa's control panel
+    When I follow "Community Info and settings"
+    Then I should not see "WARNING" within "#identifier-change-confirmation"
+    And I fill in "Address" with "banda-o-rappa"
+    When I leave the "#profile_data_identifier" field
+    Then I should see "WARNING" within "#identifier-change-confirmation"
 
   @selenium
   Scenario: Confirm url change
@@ -46,12 +47,13 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to o-rappa's control panel
+    And I go to o-rappa's control panel
     And I follow "Community Info and settings"
-    When I fill in "Address" with "banda-o-rappa"
-    Then I should see "identifier-change-confirmation"
+    And I fill in "Address" with "banda-o-rappa"
+    When I leave the "#profile_data_identifier" field
+    Then I should see "WARNING" within "#identifier-change-confirmation"
     When I follow "Yes"
-    Then "identifier-change-confirmation" should not be visible within "profile-identifier-formitem"
+    Then I should not see "WARNING" within "#identifier-change-confirmation"
 
   @selenium
   Scenario: Cancel url change
@@ -59,9 +61,10 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to o-rappa's control panel
+    And I go to o-rappa's control panel
     And I follow "Community Info and settings"
-    When I fill in "Address" with "banda-o-rappa"
-    Then I should see "identifier-change-confirmation"
+    And I fill in "Address" with "banda-o-rappa"
+    When I leave the "#profile_data_identifier" field
+    Then I should see "WARNING" within "#identifier-change-confirmation"
     When I follow "No"
-    Then "identifier-change-confirmation" should not be visible within "profile-identifier-formitem"
+    Then I should not see "WARNING" within "#identifier-change-confirmation"
