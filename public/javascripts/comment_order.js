@@ -1,14 +1,12 @@
 function send_order(order, url) {
-  open_loading(DEFAULT_LOADING_MESSAGE);
-
+  jQuery('.article-comments-list').addClass('fetching');
   jQuery.ajax({
     url:url,
     data: {"comment_order":order},
     success: function(response) {
-      close_loading();
       jQuery(".article-comments-list").html(response);
     },
-    error: function() { close_loading() }
+    complete: function(){ jQuery('.article-comments-list').removeClass('fetching') }
   });
 }
 
