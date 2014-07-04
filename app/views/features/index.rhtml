@@ -37,6 +37,11 @@ Check all the features you want to enable for your environment, uncheck all the 
   <%= select_organization_approval_method('environment', 'organization_approval_method') %>
 <hr/>
 
+<h3><%= _('Members Whitelist') %></h3>
+  <div class="info"><%= _('Allow these people to access this environment (separate with commas):') %></div>
+  <%= text_field :environment, :members_whitelist, :value => environment.members_whitelist.join(',') %>
+<hr/>
+
 <div>
   <% button_bar do %>
     <%= submit_button('save', _('Save changes')) %>

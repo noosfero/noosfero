@@ -295,6 +295,16 @@ class Environment < ActiveRecord::Base
   settings_items :access_control_allow_origin, :type => Array, :default => []
   settings_items :access_control_allow_methods, :type => String
 
+  settings_items :members_whitelist, :type => Array, :default => []
+
+  def in_whitelist?(person)
+    members_whitelist.include?(person.identifier)
+  end
+
+  def members_whitelist=(members)
+    settings[:members_whitelist] = members.split(',').map(&:strip).reject(&:blank?)
+  end
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end

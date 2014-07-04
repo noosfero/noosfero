@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_filter :init_noosfero_plugins_controller_filters
   before_filter :allow_cross_domain_access
   before_filter :login_required, :if => :private_environment?
+  before_filter :verify_members_whitelist, :if => :user
+
+  def verify_members_whitelist
+    render_access_denied unless user.is_admin? || environment.members_whitelist.blank? || environment.in_whitelist?(user)
+  end
 
   def allow_cross_domain_access
     origin = request.headers['Origin']
