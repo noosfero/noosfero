@@ -4,7 +4,8 @@ Given /^the following users?$/ do |table|
     person_data = item.dup
     person_data.delete("login")
     category = Category.find_by_slug person_data.delete("category")
-    user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data)
+    email = item[:email] || item[:login] + "@example.com"
+    user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => email, :person_data => person_data)
     user.activate
     p = user.person
     p.categories << category if category
