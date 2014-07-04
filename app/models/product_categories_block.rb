@@ -33,7 +33,7 @@ class ProductCategoriesBlock < Block
     end
   end
 
-  DISPLAY_OPTIONS['catalog_only'] = __('Only on the catalog')
+  DISPLAY_OPTIONS = DISPLAY_OPTIONS.merge('catalog_only' => _('Only on the catalog'))
 
   def display
     settings[:display].nil? ? 'catalog_only' : super
