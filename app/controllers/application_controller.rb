@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins_controller_filters
   before_filter :allow_cross_domain_access
+  before_filter :login_required, :if => :private_environment?
 
   def allow_cross_domain_access
     origin = request.headers['Origin']
@@ -188,6 +189,10 @@ class ApplicationController < ActionController::Base
     scope = scope.like_search(query) unless query.blank?
     scope = scope.send(options[:filter]) unless options[:filter].blank?
     {:results => scope.paginate(paginate_options)}
+  end
+
+  def private_environment?
+    @environment.enabled?(:restrict_to_members)
   end
 
 end

@@ -130,7 +130,8 @@ class Environment < ActiveRecord::Base
       'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
       'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login'),
       'display_my_communities_on_user_menu' => _('Display on menu the list of communities the user can manage'),
-      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage')
+      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage'),
+      'restrict_to_members' => _('Show content only to members')
     }
   end
 

@@ -574,4 +574,11 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'meta', :attributes => { :property => 'article:published_time' }
     assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
   end
+
+  should 'redirect to login if environment is restrict to members' do
+    Environment.default.enable(:restrict_to_members)
+    get :index
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
 end
