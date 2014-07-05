@@ -846,6 +846,78 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     filter_html(article.body, article)
   end
 
+  should 'not display enterprises if not logged' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(nil)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    assert_nil manage_enterprises
+  end
+
+  should 'display enterprises if logged and enabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).returns('enterprises list')
+    assert_equal 'enterprises list', manage_enterprises
+  end
+
+  should 'not display enterprises if logged and disabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.disable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    assert_nil manage_enterprises
+  end
+
+  should 'not display communities if not logged' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(nil)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    assert_nil manage_communities
+  end
+
+  should 'display communities if logged and enabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).returns('communities list')
+    assert_equal 'communities list', manage_communities
+  end
+
+  should 'not display communities if logged and disabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.disable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    assert_nil manage_communities
+  end
+
   protected
   include NoosferoTestHelper
 

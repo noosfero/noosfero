@@ -1075,7 +1075,7 @@ module ApplicationHelper
     result
   end
 
-  def manage_link(list, kind)
+  def manage_link(list, kind, title)
     if list.present?
       link_to_all = nil
       if list.count > 5
@@ -1088,19 +1088,19 @@ module ApplicationHelper
       if link_to_all
         link << link_to_all
       end
-      render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s}
+      render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s, :title => title}
     end
   end
 
   def manage_enterprises
     return unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
-    manage_link(user.enterprises.visible, :enterprises)
+    manage_link(user.enterprises.visible, :enterprises, _('My enterprises'))
   end
 
   def manage_communities
     return unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
     administered_communities = user.communities.visible.more_popular.select {|c| c.admins.include? user}
-    manage_link(administered_communities, :communities)
+    manage_link(administered_communities, :communities, _('My communities'))
   end
 
   def usermenu_logged_in
