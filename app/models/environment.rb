@@ -298,11 +298,11 @@ class Environment < ActiveRecord::Base
   settings_items :members_whitelist, :type => Array, :default => []
 
   def in_whitelist?(person)
-    members_whitelist.include?(person.identifier)
+    members_whitelist.include?(person.id)
   end
 
   def members_whitelist=(members)
-    settings[:members_whitelist] = members.split(',').map(&:strip).reject(&:blank?)
+    settings[:members_whitelist] = members.split(',').map(&:to_i)
   end
 
   def news_amount_by_folder=(amount)

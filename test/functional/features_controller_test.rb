@@ -154,4 +154,12 @@ class FeaturesControllerTest < ActionController::TestCase
     assert_equal true, e.custom_community_fields['contact_person']['required']
   end
 
+  should 'search members' do
+    uses_host 'anhetegua.net'
+    person = fast_create(Person, :environment_id => Environment.find(2).id)
+    xhr :get, :search_members, :q => person.name[0..2]
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    assert_includes json_response, {"id"=>person.id, "name"=>person.name}
+  end
+
 end

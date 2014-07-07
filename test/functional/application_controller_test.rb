@@ -584,7 +584,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'do allow member in whitelist to access an environment' do
     user = create_user
     e = Environment.default
-    e.members_whitelist = 'admin'
+    e.members_whitelist = '1'
     e.save!
     login_as(user.login)
     get :index
@@ -594,7 +594,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'allow member in whitelist to access an environment' do
     user = create_user
     e = Environment.default
-    e.members_whitelist = user.person.identifier
+    e.members_whitelist = "#{user.person.id}"
     e.save!
     login_as(user.login)
     get :index
@@ -613,7 +613,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'allow admin to access an environment' do
     e = Environment.default
-    e.members_whitelist = 'ze'
+    e.members_whitelist = '1'
     e.save!
     login_as(create_admin_user(e))
     get :index
