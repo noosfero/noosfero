@@ -58,6 +58,7 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Add the inputs or raw material used by this product"
+    And I should see "Cancel" within "#categories_selection_actionbar"
     And I follow "Cancel" within "#categories_selection_actionbar"
     Then I should see "Abbey Road"
     And I should see "Add the inputs or raw material used by this product"
@@ -199,6 +200,7 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Edit" within ".input-details"
+    And I should see "Cancel" within ".edit_input"
     And I follow "Cancel" within ".edit_input"
     And I follow "Edit" within ".input-details"
     Then I should see "Amount used"
