@@ -1,4 +1,4 @@
-<%= form_for @abuse_report, :url => {:action => 'register_report'},
+<%= form_for :abuse_report, :url => {:action => 'register_report'},
                            :html => {:onsubmit => "return send_request(this)", :id => 'report-abuse-form'} do |f| %>
   <%= labelled_form_field('* ' + _('Report reasons'), f.text_area(:reason, :rows => 6, :cols => 60, :class => 'required')) %>
   <%= hidden_field_tag(:content_type, params[:content_type]) %>

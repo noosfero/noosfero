@@ -1,4 +1,4 @@
-<% javascript_tag do %>
+<%= javascript_tag do %>
   var value = <%= @product.price_description_percentage %>;
   var total_cost = <%= @product.total_production_cost %>;
   var price = '<%= @product.formatted_value(:price) %>';
