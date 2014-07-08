@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :verify_members_whitelist, :if => :user
 
   def verify_members_whitelist
-    render_access_denied unless user.is_admin? || environment.members_whitelist.blank? || environment.in_whitelist?(user)
+    render_access_denied unless user.is_admin? || environment.in_whitelist?(user)
   end
 
   def allow_cross_domain_access

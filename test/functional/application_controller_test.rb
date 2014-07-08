@@ -581,10 +581,10 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should 'do allow member in whitelist to access an environment' do
+  should 'do not allow member not included in whitelist to access an environment' do
     user = create_user
     e = Environment.default
-    e.members_whitelist = '1'
+    e.members_whitelist_enabled = true
     e.save!
     login_as(user.login)
     get :index
@@ -594,6 +594,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'allow member in whitelist to access an environment' do
     user = create_user
     e = Environment.default
+    e.members_whitelist_enabled = true
     e.members_whitelist = "#{user.person.id}"
     e.save!
     login_as(user.login)
@@ -601,19 +602,19 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'allow members to access an environment if whitelist is blank' do
+  should 'allow members to access an environment if whitelist is disabled' do
     user = create_user
     e = Environment.default
-    e.members_whitelist = ''
+    e.members_whitelist_enabled = false
     e.save!
     login_as(user.login)
     get :index
     assert_response :success
   end
 
-  should 'allow admin to access an environment' do
+  should 'allow admin to access an environment if whitelist is enabled' do
     e = Environment.default
-    e.members_whitelist = '1'
+    e.members_whitelist_enabled = true
     e.save!
     login_as(create_admin_user(e))
     get :index
