@@ -1,6 +1,6 @@
 <%= select_for_categories(categories, level) %>
 
-<% javascript_tag do %>
+<%= javascript_tag do %>
   jQuery('#categories_container_wrapper').scrollTo('100%', 1000)
   $('selected_category_id').value = <%= @category && @category.id %>
   $('hierarchy_navigation').update('<%= escape_javascript(hierarchy_category_navigation(@category, :make_links => true)) %>')

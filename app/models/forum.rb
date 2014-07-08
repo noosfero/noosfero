@@ -3,7 +3,7 @@ class Forum < Folder
   acts_as_having_posts :order => 'updated_at DESC'
   include PostsLimit
 
-  attr_accessible :has_terms_of_use, :terms_of_use
+  attr_accessible :has_terms_of_use, :terms_of_use, :allows_members_to_create_topics
 
   settings_items :terms_of_use, :type => :string, :default => ""
   settings_items :has_terms_of_use, :type => :boolean, :default => false

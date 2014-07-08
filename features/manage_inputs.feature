@@ -58,6 +58,7 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Add the inputs or raw material used by this product"
+    And I should see "Cancel" within "#categories_selection_actionbar"
     And I follow "Cancel" within "#categories_selection_actionbar"
     Then I should see "Abbey Road"
     And I should see "Add the inputs or raw material used by this product"
@@ -199,6 +200,7 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Edit" within ".input-details"
+    And I should see "Cancel" within ".edit_input"
     And I follow "Cancel" within ".edit_input"
     And I follow "Edit" within ".input-details"
     Then I should see "Amount used"
@@ -217,25 +219,6 @@ Feature: manage inputs
     When I follow "Remove"
     And I confirm the browser dialog
     Then I should see "Add the inputs or raw material used by this product"
-
-  @selenium
-  Scenario: Remember in which tab I was
-    Given the following products
-      | owner      | category | name         |
-      | redemoinho | Music    | Depeche Mode |
-      | redemoinho | Music    | Manu Chao    |
-    And I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Depeche Mode
-    Then I should see "Add some description to your product"
-    And "Add the inputs or raw material used by this product" should not be visible within "#show_product"
-    When I follow "Inputs and raw material"
-    Then I should see "Add the inputs or raw material used by this product"
-    And "Add some description to your product" should not be visible within "#show_product"
-    When I go to Rede Moinho's page of product Manu Chao
-    Then I should see "Add some description to your product"
-    When I go to Rede Moinho's page of product Depeche Mode
-    Then I should see "Add the inputs or raw material used by this product"
-    And "Add some description to your product" should not be visible within "#show_product"
 
   @selenium-fixme
   Scenario: Order input list
