@@ -1112,11 +1112,12 @@ function apply_zoom_to_images(zoom_text) {
         if ($(this).width() < original['width'] || $(this).height() < original['height']) {
           $(this).wrap('<div class="zoomable-image" />');
           $(this).parent('.zoomable-image')
-          .attr({style: $(this).attr('style')})
-          .css({
-            width: $(this).width(),
-            height: $(this).height(),
-          });
+            .attr({style: $(this).attr('style')})
+            .addClass(this.className)
+            .css({
+              width: $(this).width(),
+              height: $(this).height(),
+            });
           $(this).attr('style', '');
           $(this).after('<a href="' + $(this).attr('src') + '" class="zoomify-image"><span class="zoomify-text">'+zoom_text+'</span></a>');
         }
