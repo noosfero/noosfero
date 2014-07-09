@@ -6,40 +6,26 @@ class CustomFormsPluginProfileController < ProfileController
 
     @form = CustomFormsPlugin::Form.find(params[:id])
     if user
-      @submission ||= CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
+      @submission = CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
       @submission ||= CustomFormsPlugin::Submission.new(:form_id => @form.id, :profile_id => user.id)
     else
-      @submission ||= CustomFormsPlugin::Submission.new(:form_id => @form.id)
+      @submission = CustomFormsPlugin::Submission.new(:form_id => @form.id)
     end
 
     # build the answers
-    @submission.answers.push(*(answers = build_answers(params[:submission], @form))) if params[:submission]
+    @answers = if params[:submission] then @submission.build_answers params[:submission] else @submission.answers end
 
     if request.post?
       begin
         raise 'Submission already present!' if user.present? && CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
         raise 'Form expired!' if @form.expired?
 
-        # @submission.answers for some reason has the same answer twice
-        failed_answers = answers.select {|answer| !answer.valid? }
+        if !user
+          @submission.author_name = params[:author_name]
+          @submission.author_email = params[:author_email]
+        end
 
-        if failed_answers.empty?
-          # Save the submission
-          ActiveRecord::Base.transaction do
-            if !user
-              @submission.author_name = params[:author_name]
-              @submission.author_email = params[:author_email]
-            end
-            @submission.save!
-          end
-        else
-          @submission.errors.clear
-          failed_answers.each do |answer|
-            answer.valid?
-            answer.errors.each do |attribute, msg|
-              @submission.errors.add(answer.field.id.to_s.to_sym, msg)
-            end
-          end
+        if not @submission.save
           raise 'Submission failed: answers not valid'
         end
         session[:notice] = _('Submission saved')
