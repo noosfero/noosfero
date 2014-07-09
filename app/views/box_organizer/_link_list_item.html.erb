@@ -1,0 +1,19 @@
+<li>
+  <ul class="link-list-row">
+    <li>
+      <%= icon_selector(link['icon']) %>
+    </li>
+    <li>
+      <%= text_field_tag 'block[links][][name]', link[:name], :class => 'link-name', :maxlength => 20 %>
+    </li>
+    <li>
+      <%= text_field_tag 'block[links][][address]', link[:address], :class => 'link-address' %>
+    </li>
+    <li>
+      <%= select_tag('block[links][][target]', options_for_select(LinkListBlock::TARGET_OPTIONS, link[:target])) %>
+    </li>
+    <li>
+      <%= button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row") %>
+    </li>
+  </ul>
+</li>

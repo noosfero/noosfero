@@ -1864,6 +1864,9 @@ a.button.disabled, input.disabled {
   position: relative;
   left: -24px;
 }
+#edit-link-list-block #new-template {
+  display: none;
+}
 .link-list-header {
   width: 98%;
   height: 25px;
