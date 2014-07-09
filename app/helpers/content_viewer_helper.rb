@@ -10,7 +10,7 @@ module ContentViewerHelper
   end
 
   def number_of_comments(article)
-    display_number_of_comments(article.comments.without_spam.count)
+    display_number_of_comments(article.comments_count - article.spam_comments_count)
   end
 
   def article_title(article, args = {})

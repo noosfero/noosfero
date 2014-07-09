@@ -107,14 +107,17 @@ class Comment < ActiveRecord::Base
   include Noosfero::Plugin::HotSpot
 
   include Spammable
+  include CacheCounterHelper
 
   def after_spam!
     SpammerLogger.log(ip_address, self)
     Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
+    update_cache_counter(:spam_comments_count, source, 1) if source.kind_of?(Article)
   end
 
   def after_ham!
     Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
+    update_cache_counter(:spam_comments_count, source, -1) if source.kind_of?(Article)
   end
 
   def verify_and_notify

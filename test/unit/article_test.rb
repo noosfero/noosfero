@@ -1824,7 +1824,7 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
- should 'return articles with specific types' do
+  should 'return articles with specific types' do
     Article.delete_all
 
     c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)
