@@ -1,5 +1,9 @@
 # Be sure to restart your web server when you modify this file.
 
+#FIXME Necessary hack to avoid the need of downgrading rubygems on rails 2.3.5
+# http://stackoverflow.com/questions/5564251/uninitialized-constant-activesupportdependenciesmutex
+require 'thread'
+
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way
 #ENV['RAILS_ENV'] ||= 'production'
