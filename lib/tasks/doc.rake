@@ -136,7 +136,6 @@ namespace :noosfero do
     desc "Translates Noosfero online documentation (does not touch PO files)"
     task :translate => [:link_plugins_textiles, :do_translation]
     task :do_translation => english_xhtml do
-      require_dependency 'noosfero'
       languages = Noosfero.locales.keys - ['en']
       languages.each do |lang|
         po = "po/#{lang}/noosfero-doc.po"
