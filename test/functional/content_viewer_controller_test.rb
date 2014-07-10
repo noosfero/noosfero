@@ -767,7 +767,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => u, :published => false)
+    a = c.articles.create!(:name => 'test-article', :author => u, :published => false)
 
     get :view_page, :profile => c.identifier, :page => a.explode_path
 
@@ -779,7 +779,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => profile, :published => true)
+    a = c.articles.create!(:name => 'test-article', :author => profile, :published => true)
 
     xhr :get, :view_page, :profile => c.identifier, :page => a.explode_path, :toolbar => true
 
@@ -926,7 +926,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     community.add_member(author)
 
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
 
     login_as(author.identifier)
     get :view_page, :profile => community.identifier, :page => post.path.split('/')
@@ -942,7 +942,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     community.add_member(author)
 
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :last_changed_by_id => author.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
 
     login_as(author.identifier)
     get :view_page, :profile => community.identifier, :page => post.path.split('/')

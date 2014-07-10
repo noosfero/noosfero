@@ -39,8 +39,8 @@ class Article < ActiveRecord::Base
   before_save :sanitize_tag_list
 
   before_create do |article|
-    if article.last_changed_by_id
-      article.author_name = Person.find(article.last_changed_by_id).name
+    if article.author
+      article.author_name = article.author.name
     end
   end
 
@@ -52,6 +52,7 @@ class Article < ActiveRecord::Base
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
+  belongs_to :author, :class_name => 'Person'
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
@@ -449,7 +450,7 @@ class Article < ActiveRecord::Base
     ['TextArticle', 'TextileArticle', 'TinyMceArticle']
   end
 
-  named_scope :published, :conditions => { :published => true }
+  named_scope :published, :conditions => ['articles.published = ?', true]
   named_scope :folders, lambda {|profile|{:conditions => ['articles.type IN (?)', profile.folder_types] }}
   named_scope :no_folders, lambda {|profile|{:conditions => ['articles.type NOT IN (?)', profile.folder_types]}}
   named_scope :galleries, :conditions => [ "articles.type IN ('Gallery')" ]
@@ -462,7 +463,7 @@ class Article < ActiveRecord::Base
   named_scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
-    return {:conditions => ['published = ?', true]} if !user
+    return {:conditions => ['articles.published = ?', true]} if !user
     {:conditions => ["  articles.published = ? OR
                         articles.last_changed_by_id = ? OR
                         articles.profile_id = ? OR
@@ -621,39 +622,36 @@ class Article < ActiveRecord::Base
     can_display_versions? && display_versions
   end
 
-  def author(version_number = nil)
-    if version_number
-      version = versions.find_by_version(version_number)
-      author_id = version.last_changed_by_id if version
-      Person.exists?(author_id) ? Person.find(author_id) : nil
-    else
-      if versions.empty?
-        last_changed_by
-      else
-        author_id = versions.first.last_changed_by_id
-        Person.exists?(author_id) ? Person.find(author_id) : nil
-      end
-    end
+  def get_version(version_number = nil)
+    version_number ? versions.find(:first, :order => 'version', :offset => version_number - 1) : versions.earliest
+  end
+
+  def author_by_version(version_number = nil)
+    version_number ? profile.environment.people.find_by_id(get_version(version_number).last_changed_by_id) : author
   end
 
   def author_name(version_number = nil)
-    person = author(version_number)
-    person ? person.name : (setting[:author_name] || _('Unknown'))
+    person = author_by_version(version_number)
+    if version_number
+      person ? person.name : _('Unknown')
+    else
+      person ? person.name : (setting[:author_name] || _('Unknown'))
+    end
   end
 
   def author_url(version_number = nil)
-    person = author(version_number)
+    person = author_by_version(version_number)
     person ? person.url : nil
   end
 
   def author_id(version_number = nil)
-    person = author(version_number)
+    person = author_by_version(version_number)
     person ? person.id : nil
   end
 
   def version_license(version_number = nil)
     return license if version_number.nil?
-    profile.environment.licenses.find_by_id(versions.find_by_version(version_number).license_id)
+    profile.environment.licenses.find_by_id(get_version(version_number).license_id)
   end
 
   alias :active_record_cache_key :cache_key

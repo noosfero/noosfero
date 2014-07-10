@@ -83,7 +83,7 @@ class ContentViewerController < ApplicationController
         @page.posts
       end
 
-      posts = posts.includes(:parent, {:profile => [:domains, :environment]})
+      posts = posts.includes(:parent, {:profile => [:domains, :environment]}, :author)
 
       #FIXME Need to run this before the pagination because this version of
       #      will_paginate returns a will_paginate collection instead of a
