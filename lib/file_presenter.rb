@@ -6,7 +6,9 @@ class FilePresenter
   # one accepts it. That behave allow to give any model to this class,
   # like a Article and have no trouble with that.
   def self.for(f)
-    return f if f.is_a? FilePresenter
+    #FIXME This check after the || is redundant but increases the blog_page
+    #      speed considerably.
+    return f if f.is_a?(FilePresenter ) || (!f.kind_of?(UploadedFile) && !f.kind_of?(Image))
     klass = FilePresenter.subclasses.sort_by {|class_name|
       class_name.constantize.accepts?(f) || 0
     }.last.constantize
