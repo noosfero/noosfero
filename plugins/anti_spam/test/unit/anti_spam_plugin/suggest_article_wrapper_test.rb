@@ -4,7 +4,7 @@ class AntiSpamPlugin::SuggestArticleWrapperTest < ActiveSupport::TestCase
 
   def setup
     @suggest_article = SuggestArticle.new(
-      :article_body => 'comment body',
+      :article => {:body=> 'comment body'},
       :name => 'author',
       :email => 'foo@example.com',
       :ip_address => '1.2.3.4',
@@ -15,7 +15,7 @@ class AntiSpamPlugin::SuggestArticleWrapperTest < ActiveSupport::TestCase
   end
 
   should 'get contents' do
-    assert_equal @suggest_article.article_body, @wrapper.content
+    assert_equal @suggest_article.article[:body], @wrapper.content
   end
 
   should 'get author name' do
