@@ -1,5 +1,5 @@
 <% form_for('uploaded_file', :url => { :controller => 'work_assignment_plugin_cms', :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
 	<%= render :partial => 'notify_checkbox',  :locals => { :size => '45'} %>
   <%= render :partial => 'upload_file_form', :locals => { :size => '45'} %>
-  x
+  
 <% end %>

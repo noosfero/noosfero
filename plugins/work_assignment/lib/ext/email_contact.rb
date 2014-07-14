@@ -40,6 +40,7 @@ class EmailContact
         to: email_contact.reciever,
         reply_to: email_contact.email,
         subject: email_contact.subject,
+        message: email_contact.message,
         from: "#{email_contact.name} <#{email_contact.email}>"
       }
 

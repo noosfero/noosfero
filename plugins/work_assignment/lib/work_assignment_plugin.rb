@@ -50,6 +50,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :options => {:only => 'view_page'},
       :block => block }
   end
+
   
   def upload_files_extra_contents
     proc do

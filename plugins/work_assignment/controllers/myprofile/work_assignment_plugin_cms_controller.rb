@@ -92,4 +92,29 @@ class WorkAssignmentPluginCmsController < CmsController
       redirect_to referer
     end
   end
+
+#TODO
+#Refatorar o método send_email para utilizar o build_mail_message para inserir o link dos arquivos
+=begin
+  def build_mail_message
+    @files_paths = []
+      @files_string = params[:self_files_id]
+      @files_id_list = @files_string.split(' ')
+      
+      @files_id_list.each do |file_id|
+        @file = environment.articles.find_by_id(file_id)
+        @real_file_url = "http://#{@file.url[:host]}:#{@file.url[:port]}/#{@file.url[:profile]}/#{@file.path}"
+        @files_paths << @real_file_url
+        unless params[:email_contact][:message].include? "#{@real_file_url}"
+          params[:email_contact][:message] += "<br> Clique <a href='#{@real_file_url}'>aqui</a> para acessar o arquivo ou acesse pela URL: <br>"
+          params[:email_contact][:message] += "<br><a href='#{@real_file_url}'>#{@real_file_url}</a>"
+        end
+      end
+      @message = "AVISO: O aluno deve imprimir este email e entrega-lo na secretaria como comprovante do envio!"
+      unless params[:email_contact][:message].include? "#{@message}"
+        params[:email_contact][:message] += "<br><br>#{@message}"
+      end
+  end
+=end
+
 end
