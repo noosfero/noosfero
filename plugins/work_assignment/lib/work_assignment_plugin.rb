@@ -54,7 +54,17 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   
   def upload_files_extra_contents
     proc do
-      render :partial => 'work_assignment_form', :locals => { :size => '45'} 
+      if params[:parent_id]
+        parent_id = params[:parent_id]
+        path = Article.find_by_id(parent_id).path.split("/")[0]
+        content = profile.articles.find_by_path(path)
+
+        if content.type == "WorkAssignmentPlugin::WorkAssignment"
+          render :partial => 'work_assignment_form', :locals => { :size => '45'} 
+        end
+      else
+        render :partial => 'upload_file_form', :locals => { :size => '45'}
+      end
     end
   end
 
