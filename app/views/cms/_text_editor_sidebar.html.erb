@@ -16,9 +16,7 @@
                 "type='Folder' or type='Gallery'"
           ) %>
         </div>
-        <p><%= file_field_tag('file1') %></p>
-        <p><%= file_field_tag('file2') %></p>
-        <p><%= file_field_tag('file3') %></p>
+        <p><%= file_field_tag('images[]', :multiple => true) %></p>
         <% button_bar do %>
           <%= submit_button(:save, _('Upload')) %>
         <% end %>
