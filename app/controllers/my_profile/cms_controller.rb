@@ -318,14 +318,12 @@ class CmsController < MyProfileController
   end
 
   def media_upload
-    files_uploaded = []
     parent = check_parent(params[:parent_id])
     if request.post?
-      params[:images].each do |file|
-        files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
-      end
+      @file = UploadedFile.create(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
     end
-    render :text => article_list_to_json(files_uploaded), :content_type => 'text/plain'
+    #render :text => article_list_to_json([file]), :content_type => 'text/plain'
+    render :text => ''
   end
 
   protected

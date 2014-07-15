@@ -3380,6 +3380,27 @@ div.with_media_panel .formfield input[type="checkbox"] {
   width: auto;
 }
 
+#media-upload-form {
+  padding-bottom: 5px;
+}
+
+.upload {
+  border-top: solid 1px #CCC;
+  width: 100%;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+.percentage {
+  float: right;
+}
+
+.bar {
+  height: 18px;
+  background: #729fcf;
+  border-radius: 4px;
+}
+
 .text-editor-sidebar {
   position: absolute;
   width: 280px;

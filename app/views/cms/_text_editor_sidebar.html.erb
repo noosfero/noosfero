@@ -16,10 +16,7 @@
                 "type='Folder' or type='Gallery'"
           ) %>
         </div>
-        <p><%= file_field_tag('images[]', :multiple => true) %></p>
-        <% button_bar do %>
-          <%= submit_button(:save, _('Upload')) %>
-        <% end %>
+        <p><%= file_field_tag('file', :multiple => true) %></p>
       <% end %>
     </div>
     <div id='media-upload-results' style='display: none'>
@@ -47,4 +44,11 @@
   </div>
 </div>
 
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}<span class="percentage"></span>
+    <div class="progress"><div class="bar" style="width: 0%;"></div></div>
+  </div>
+</script>
 
+<%= javascript_include_tag 'jquery.fileupload.js', 'tmpl.js', 'media-upload.js' %>
