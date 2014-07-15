@@ -52,6 +52,7 @@ else
     # special case Debian-based systems; in others people will have to install
     # lsb-release by themselves
     if which apt-get >/dev/null 2>&1; then
+      sudo apt-get update
       sudo apt-get -y install lsb-release
     else
       complain "E: lsb_release not available! (Try installing the lsb-release package)"
