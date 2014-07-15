@@ -3374,10 +3374,7 @@ table.cms-articles .icon:hover {
 
 .controller-cms div.with_media_panel {
   float: left;
-  width: 500px;
-}
-div.with_media_panel .formfield input {
-  width: 100%;
+  width: 600px;
 }
 div.with_media_panel .formfield input[type="checkbox"] {
   width: auto;
@@ -3385,7 +3382,7 @@ div.with_media_panel .formfield input[type="checkbox"] {
 
 .text-editor-sidebar {
   position: absolute;
-  width: 380px;
+  width: 280px;
   right: 20px;
   top: 70px;
 }
