@@ -28,6 +28,7 @@ class CreateUser < Task
   def perform
     user = User.new(user_data)
     user.person = Person.new(person_data)
+    user.person.identifier = user.login
     author_name = user.name
     user.environment = self.environment
     user.person.environment = user.environment

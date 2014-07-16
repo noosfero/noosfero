@@ -87,7 +87,6 @@ class AccountController < ApplicationController
       @person.environment = @user.environment
       unless @user.environment.enabled?('admin_must_approve_new_users')
         if request.post?
-          @person.attributes = params[:profile_data]
           if may_be_a_bot
             set_signup_start_time_for_now
             @block_bot = true
@@ -107,6 +106,7 @@ class AccountController < ApplicationController
             end
             if @user.activated?
               self.current_user = @user
+              check_join_in_community(@user)
               go_to_signup_initial_page
             else
               @register_pending = true
@@ -117,11 +117,13 @@ class AccountController < ApplicationController
         @task = CreateUser.new(params[:user])
         @task.person_data = @user.person_data
         if request.post?
-          @task.target = @user.environment
-          @task.name = @user.name
-          if @task.save
-            session[:notice] = _('Thanks for registering. The administrators were notified.')
-            @register_pending = true
+          if @user.valid?
+            @task.target = @user.environment
+            @task.name = @user.name
+            if @task.save
+              session[:notice] = _('Thanks for registering. The administrators were notified.')
+              @register_pending = true
+            end
           end
         end
       end
