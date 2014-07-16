@@ -23,20 +23,10 @@
 
   <div id='published-media' class='text-editor-sidebar-box'>
     <div class='header'><strong><%= _('Published media') %></strong></div>
+    <%= select_profile_folder(nil, :parent_id, profile, 'recent-media', {'data-url' => url_for({:controller => 'cms', :action => 'published_media_items', :profile => profile.identifier})}, {},
+        "type='Folder' or type='Gallery'", {:root_label => _('Recent media')}) %>
     <%= render :partial => 'drag_and_drop_note' %>
-    <div class='items'>
-      <% file_types.each do |key, label| %>
-        <% if @recent_files[key].present? %>
-          <div class='<%= key.to_s%>'>
-            <h3><%= label %></h3>
-            <% @recent_files[key].each do |file| %>
-              <% @file = file %>
-              <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render :partial => 'published_media_items' %>
   </div>
 
   <div id='media-search-box' class='text-editor-sidebar-box'>
@@ -64,4 +54,4 @@
   </div>
 </script>
 
-<%= javascript_include_tag 'jquery.fileupload.js', 'tmpl.js', 'media-upload.js' %>
+<%= javascript_include_tag 'jquery.fileupload.js', 'tmpl.js', 'media-panel.js' %>

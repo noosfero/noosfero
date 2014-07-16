@@ -329,6 +329,13 @@ class CmsController < MyProfileController
     #render :text => article_list_to_json([file]), :content_type => 'text/plain'
   end
 
+  def published_media_items
+    parent = profile.articles.find(params[:parent_id])
+    load_recent_files(parent)
+    @published_media_items_id = params[:parent_id]
+    render :partial => 'published_media_items'
+  end
+
   protected
 
   include CmsHelper
@@ -425,14 +432,21 @@ class CmsController < MyProfileController
     {:images => _('Images'), :generics => _('Files')}
   end
 
-  def load_recent_files
+  def load_recent_files(parent = nil)
     #TODO Since we only have special support for images, I'm limiting myself to
     #     consider generic files as non-images. In the future, with more supported
     #     file types we'll need to have a smart way to fetch from the database
     #     scopes of each supported type as well as the non-supported types as a
     #     whole.
     @recent_files = {}
-    files = profile.files.more_recent
+    if parent.present?
+     files = parent.children.files
+     @published_media_items_id = parent.id
+    else
+      files = profile.files
+      @published_media_items_id = 'recent-media'
+    end
+    files = files.more_recent
     @recent_files[:images] = files.images.limit(6)
     @recent_files[:generics] = files.no_images.limit(6)
   end

@@ -200,7 +200,6 @@ class Profile < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
   has_many :events, :source => 'articles', :class_name => 'Event', :order => 'start_date'
-  has_many :files, :source => 'articles', :class_name => 'UploadedFile', :order => 'start_date'
 
   def find_in_all_tasks(task_id)
     begin
