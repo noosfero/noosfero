@@ -54,7 +54,7 @@ class ProfileEditorController < MyProfileController
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
     end
-    render :template => 'shared/update_categories', :locals => { :category => @current_category }
+    render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => 'profile_data' }
   end
 
   def header_footer
