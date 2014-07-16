@@ -25,12 +25,17 @@
     <div class='header'><strong><%= _('Published media') %></strong></div>
     <%= render :partial => 'drag_and_drop_note' %>
     <div class='items'>
-      <div class='images'>
-        <h3><%= _('Images') %></h3>
-      </div>
-      <div class='generics'>
-        <h3><%= _('Files') %></h3>
-      </div>
+      <% file_types.each do |key, label| %>
+        <% if @recent_files[key].present? %>
+          <div class='<%= key.to_s%>'>
+            <h3><%= label %></h3>
+            <% @recent_files[key].each do |file| %>
+              <% @file = file %>
+              <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 

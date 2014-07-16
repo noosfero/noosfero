@@ -17,6 +17,9 @@ class CmsController < MyProfileController
   end
 
   before_filter :login_required, :except => [:suggest_an_article]
+  before_filter :load_recent_files, :only => [:new, :edit]
+
+  helper_method :file_types
 
   protect_if :only => :upload_files do |c, user, profile|
     article_id = c.params[:parent_id]
@@ -416,6 +419,22 @@ class CmsController < MyProfileController
     else
       redirect_to @article.view_url
     end
+  end
+
+  def file_types
+    {:images => _('Images'), :generics => _('Files')}
+  end
+
+  def load_recent_files
+    #TODO Since we only have special support for images, I'm limiting myself to
+    #     consider generic files as non-images. In the future, with more supported
+    #     file types we'll need to have a smart way to fetch from the database
+    #     scopes of each supported type as well as the non-supported types as a
+    #     whole.
+    @recent_files = {}
+    files = profile.files.more_recent
+    @recent_files[:images] = files.images.limit(6)
+    @recent_files[:generics] = files.no_images.limit(6)
   end
 
 end

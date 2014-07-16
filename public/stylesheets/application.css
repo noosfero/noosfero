@@ -3441,11 +3441,6 @@ div.with_media_panel .formfield input[type="checkbox"] {
   margin-bottom: 10px;
 }
 
-#published-media .items .images,
-#published-media .items .generics {
-  display: none;
-}
-
 .text-editor-sidebar .items .file {
   background-repeat: no-repeat;
   background-position: 0px 0px;
