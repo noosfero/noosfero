@@ -3384,21 +3384,25 @@ div.with_media_panel .formfield input[type="checkbox"] {
   padding-bottom: 5px;
 }
 
-.upload {
+#media-upload-form .upload {
   border-top: solid 1px #CCC;
   width: 100%;
   padding-top: 5px;
   margin-top: 5px;
 }
 
-.percentage {
+#media-upload-form .percentage {
   float: right;
 }
 
-.bar {
-  height: 18px;
+#media-upload-form .bar {
+  height: 10px;
   background: #729fcf;
-  border-radius: 4px;
+  border-radius: 3px;
+}
+
+#media-upload-form input#file {
+  width: 100%;
 }
 
 .text-editor-sidebar {
@@ -3435,6 +3439,11 @@ div.with_media_panel .formfield input[type="checkbox"] {
 }
 .text-editor-sidebar .items {
   margin-bottom: 10px;
+}
+
+#published-media .items .images,
+#published-media .items .generics {
+  display: none;
 }
 
 .text-editor-sidebar .items .file {
@@ -3487,7 +3496,7 @@ div.with_media_panel .formfield input[type="checkbox"] {
 }
 .text-editor-sidebar img {
  max-height: 70px;
- max-width: 110px;
+ max-width: 74px;
 }
 .text-editor-sidebar .media-upload-error {
   color: red;

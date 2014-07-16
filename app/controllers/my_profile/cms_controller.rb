@@ -322,8 +322,8 @@ class CmsController < MyProfileController
     if request.post?
       @file = UploadedFile.create(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
     end
+    @file = FilePresenter.for(@file)
     #render :text => article_list_to_json([file]), :content_type => 'text/plain'
-    render :text => ''
   end
 
   protected
