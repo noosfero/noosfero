@@ -1,4 +1,4 @@
-<div id='<%= @published_media_items_id %>' class='items'>
+<div class='items'>
   <% file_types.each do |key, header| %>
     <% display = @recent_files[key].present? ? '' : 'none' %>
     <div class='<%= key.to_s %>' style='display: <%= display%>;'>

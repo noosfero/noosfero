@@ -13,31 +13,34 @@ jQuery('#file').fileupload({
   }
 });
 
-jQuery('#published-media #parent_id').change(function(){
-  value = jQuery(this).val();
-  if(value == '')
-    value = 'recent-media'
-  selector = '#published-media #'+value
+function loadPublishedMedia() {
+  var parent_id = jQuery('#published-media #parent_id').val();
+  var q = jQuery('#published-media #q').val();
+  var url = jQuery('#published-media').data('url');
 
-  if (jQuery(selector).length > 0){
-    jQuery('#published-media .items').hide();
-    jQuery(selector).show();
-  } else {
-    jQuery('#published-media').addClass('fetching');
-    url = jQuery(this).data('url');
-    jQuery.ajax({
-      url: url,
-      data: {"parent_id":value},
-      dataType: 'html',
-      success: function(response) {
-        jQuery('#published-media .items').hide();
-        jQuery("#published-media").append('<div id="'+ value +'" class="items">' + response + '</div>');
-        jQuery('#published-media').removeClass('fetching');
-      },
-      error: function(response, textStatus, xhr) {
-        console.log(response);
-        console.log(textStatus);
-      }
-    });
-  }
+  jQuery('#published-media').addClass('fetching');
+  jQuery.ajax({
+    url: url,
+    data: {'parent_id': parent_id, 'q': q},
+    dataType: 'html',
+    success: function(response) {
+      jQuery("#published-media .items").html(response);
+      jQuery('#published-media').removeClass('fetching');
+    },
+    error: function(response, textStatus, xhr) {
+      console.log(response);
+      console.log(textStatus);
+    }
+  });
+}
+
+jQuery('#published-media #parent_id').change(function(){ loadPublishedMedia() });
+
+jQuery("#published-media #q").typeWatch({
+  callback: function (value) { loadPublishedMedia() },
+  wait: 750,
+  highlight: true,
+  captureLength: 2
 });
+
+jQuery("#published-media #q").bind('notext', function(){ loadPublishedMedia() });

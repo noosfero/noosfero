@@ -3448,6 +3448,11 @@ div.with_media_panel .formfield input[type="checkbox"] {
   margin-bottom: 12px;
 }
 
+.text-editor-sidebar select,
+.text-editor-sidebar input {
+  width: 100%;
+}
+
 .text-editor-sidebar .items .image {
 	display: inline-block;
 	vertical-align: middle;
