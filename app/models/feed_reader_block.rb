@@ -1,8 +1,11 @@
 class FeedReaderBlock < Block
 
-  def initialize(attributes = nil)
+  attr_accessible :address, :update_errors
+
+  def initialize(attributes = nil, options = {})
     data = attributes || {}
-    super({ :enabled => !data[:address].blank? }.merge(data))
+    super(data)
+    self.enabled= !data[:address].blank?
   end
 
   include DatesHelper
@@ -24,7 +27,7 @@ class FeedReaderBlock < Block
   settings_items :update_errors, :type => :integer, :default => 0
   settings_items :error_message, :type => :string
 
-  named_scope :expired, lambda {
+  scope :expired, lambda {
     { :conditions => [ '(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
 

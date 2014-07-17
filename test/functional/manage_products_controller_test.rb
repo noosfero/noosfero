@@ -18,20 +18,12 @@ class ManageProductsControllerTest < ActionController::TestCase
     login_as :test_user
   end
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => @enterprise.identifier
-  end
-
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should "not have permission" do
     u = create_user('user_test')
     login_as :user_test
     get 'index', :profile => @enterprise.identifier
     assert :success
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should "get index" do
@@ -49,7 +41,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "create new product" do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}, :selected_category_id => @product_category.id
       assert assigns(:product)
       assert !assigns(:product).new_record?
@@ -57,7 +49,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "not create invalid product" do
-    assert_no_difference Product, :count do
+    assert_no_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}
       assert_response :success
       assert assigns(:product)
@@ -132,7 +124,7 @@ class ManageProductsControllerTest < ActionController::TestCase
 
   should "destroy product" do
     product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
-    assert_difference Product, :count, -1 do
+    assert_difference 'Product.count', -1 do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
@@ -144,7 +136,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should "fail to destroy product" do
     product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     Product.any_instance.stubs(:destroy).returns(false)
-    assert_no_difference Product, :count do
+    assert_no_difference 'Product.count' do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :controller => "manage_products", :profile => @enterprise.identifier, :action => 'show', :id => product.id
@@ -164,7 +156,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should "create new product categorized" do
     category1 = fast_create(ProductCategory, :name => 'Category 1')
     category2 = fast_create(ProductCategory, :name => 'Category 2', :parent_id => category1)
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
       assert_equal category2, assigns(:product).product_category
     end
@@ -198,7 +190,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     @enterprise.save!
     get :index, :profile => @enterprise.identifier
 
-    assert_template 'not_found.rhtml'
+    assert_template 'not_found'
   end
 
   should 'show top level product categories for the user to choose' do
@@ -248,7 +240,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'render redirect_via_javascript template after save' do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post :new, :profile => @enterprise.identifier, :product => { :name => 'Invalid product' }, :selected_category_id => @product_category.id
       assert_template 'shared/_redirect_via_javascript'
     end
@@ -261,7 +253,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'link back to index from product show' do
-    enterprise = Enterprise.create!(:name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
+    enterprise = create(Enterprise, :name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
     prod = enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
     get :show, :id => prod.id, :profile => enterprise.identifier
     assert_tag({
@@ -361,7 +353,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       fast_create(Product, :name => "test product_#{n}", :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     end
     get :index, :profile => @enterprise.identifier
-    assert_equal 10, assigns(:products).count
+    assert_equal 10, assigns(:products).size
   end
 
   should 'paginate the manage products list of enterprise' do
@@ -373,7 +365,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :rel => 'next', :href => "/myprofile/#{@enterprise.identifier}/manage_products?page=2" }
 
     get :index, :profile => @enterprise.identifier, :page => 2
-    assert_equal 2, assigns(:products).count
+    assert_equal 2, assigns(:products).size
   end
 
   should 'display tabs even if description and inputs are empty and user is allowed' do
@@ -440,12 +432,12 @@ class ManageProductsControllerTest < ActionController::TestCase
   should 'include extra content supplied by plugins on products info extras' do
     class TestProductInfoExtras1Plugin < Noosfero::Plugin
       def product_info_extras(p)
-        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
     class TestProductInfoExtras2Plugin < Noosfero::Plugin
       def product_info_extras(p)
-        lambda { "<span id='plugin2'>This is Plugin2 speaking!</span>" }
+        proc { "<span id='plugin2'>This is Plugin2 speaking!</span>" }
       end
     end
 

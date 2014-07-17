@@ -10,13 +10,18 @@ class MailingJobTest < ActiveSupport::TestCase
   attr_reader :environment
 
   should 'create delayed job' do
-    assert_difference Delayed::Job, :count, 1 do
-      mailing = EnvironmentMailing.create(:source_id => environment.id, :subject => 'Hello', :body => 'We have some news', :person => @person_1)
+    assert_difference 'Delayed::Job.count', 1 do
+      mailing = @environment.mailings.build(:subject => 'Hello', :body => 'We have some news')
+      mailing.person = @person_1
+      mailing.save!
     end
   end
 
   should 'change locale according to the locale informed' do
-    mailing = EnvironmentMailing.create(:source_id => environment.id, :subject => 'Hello', :body => 'We have some news', :locale => 'pt', :person => @person_1)
+    mailing = @environment.mailings.build(:subject => 'Hello', :body => 'We have some news')
+    mailing.locale = 'pt'
+    mailing.person = @person_1
+    mailing.save!
     Noosfero.expects(:with_locale).with('pt')
     process_delayed_job_queue
   end

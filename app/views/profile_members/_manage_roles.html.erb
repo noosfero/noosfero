@@ -1,4 +1,4 @@
-<% form_tag :action => 'save_associations' do %>
+<%= form_tag :action => 'save_associations' do %>
   <% @roles.each do |role|%>
     <%= content_tag('p', content_tag('b', role.name.pluralize+':'), :style => 'margin-top: 30px; margin-bottom: 0px;') %>
     <%= text_field_tag('q_'+role.key, nil, :id => 'search_'+role.key) %>

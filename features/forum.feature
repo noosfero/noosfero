@@ -14,7 +14,9 @@ Feature: forum
   Scenario: create a forum
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
+    And I should see "Forum"
     When I follow "Forum"
     And I fill in "Title" with "My Forum"
     And I press "Save"
@@ -97,6 +99,7 @@ Feature: forum
     And I check "Has terms of use:"
     And I press "Save"
     When I follow "New discussion topic"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "Topic"
     And I press "Save"
@@ -165,7 +168,7 @@ Feature: forum
        | article  | author    | title  | body   |
        | Post one | joaosilva | Hi all | Hi all |
    When I go to /joaosilva/forum
-   Then I should see "Joao" linking to "http://localhost/joaosilva"
+   Then I should see "Joao Silva" within ".forum-post-last-answer"
 
    @selenium
    Scenario: community member should be able to see the discussion topic button
@@ -182,7 +185,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -202,7 +205,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -223,7 +226,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I uncheck "Allow member to create topics"
+    And I uncheck "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -244,11 +247,12 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
     And I follow "New discussion topic"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "Test"
     And I press "Save"
@@ -269,16 +273,18 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
     And I follow "New discussion topic"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "Test"
     And I press "Save"
     And I go to /sample-community/forum/test
     And I follow "New discussion topic"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "Test inside the topic page"
     And I press "Save"

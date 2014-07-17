@@ -1,11 +1,13 @@
 class SellersSearchBlock < Block
 
+  attr_accessible :title
+
   def self.description
-    __('Search for enterprises and products')
+    _('Search for enterprises and products')
   end
 
   def self.short_description
-    __('Products/Enterprises search')
+    _('Products/Enterprises search')
   end
 
   def default_title
@@ -18,7 +20,7 @@ class SellersSearchBlock < Block
 
   def content(args={})
     title = self.title
-    lambda do
+    lambda do |object|
       render :file => 'search/_sellers_form', :locals => { :title => title }
     end
   end

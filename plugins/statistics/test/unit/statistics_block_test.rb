@@ -144,15 +144,11 @@ class StatisticsBlockTest < ActiveSupport::TestCase
 
     p1 = fast_create(Person, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => p1.id)
-    t1 = fast_create(Tag, :name => 'T1')
-    t2 = fast_create(Tag, :name => 'T2')
-    a1.tags << t1
-    a1.tags << t2
+    a1.tag_list.add('T1', 'T2')
+    a1.save!
     a2 = fast_create(Article, :profile_id => p1.id)
-    t3 = fast_create(Tag, :name => 'T3')
-    t4 = fast_create(Tag, :name => 'T4')
-    a2.tags << t3
-    a2.tags << t4
+    a2.tag_list.add('T3', 'T4')
+    a2.save!
 
     b.expects(:owner).at_least_once.returns(e)
 
@@ -165,15 +161,11 @@ class StatisticsBlockTest < ActiveSupport::TestCase
 
     c1 = fast_create(Community, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => c1.id)
-    t1 = fast_create(Tag, :name => 'T1')
-    t2 = fast_create(Tag, :name => 'T2')
-    a1.tags << t1
-    a1.tags << t2
+    a1.tag_list.add('T1', 'T2')
+    a1.save!
     a2 = fast_create(Article, :profile_id => c1.id)
-    t3 = fast_create(Tag, :name => 'T3')
-    t4 = fast_create(Tag, :name => 'T4')
-    a2.tags << t3
-    a2.tags << t4
+    a2.tag_list.add('T3', 'T4')
+    a2.save!
 
     b.expects(:owner).at_least_once.returns(c1)
 
@@ -186,15 +178,11 @@ class StatisticsBlockTest < ActiveSupport::TestCase
 
     p1 = fast_create(Person, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => p1.id)
-    t1 = fast_create(Tag, :name => 'T1')
-    t2 = fast_create(Tag, :name => 'T2')
-    a1.tags << t1
-    a1.tags << t2
+    a1.tag_list.add('T1', 'T2')
+    a1.save!
     a2 = fast_create(Article, :profile_id => p1.id)
-    t3 = fast_create(Tag, :name => 'T3')
-    t4 = fast_create(Tag, :name => 'T4')
-    a2.tags << t3
-    a2.tags << t4
+    a2.tag_list.add('T3', 'T4')
+    a2.save!
 
     b.expects(:owner).at_least_once.returns(p1)
 
@@ -208,12 +196,12 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     p1 = fast_create(Person, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => p1.id)
 
-    Comment.create!(:source => a1, :body => 'C1', :author_id => 1)
-    Comment.create!(:source => a1, :body => 'C2', :author_id => 1)
+    Comment.create!(:source => a1, :body => 'C1', :author => p1)
+    Comment.create!(:source => a1, :body => 'C2', :author => p1)
 
     a2 = fast_create(Article, :profile_id => p1.id)
-    Comment.create!(:source => a2, :body => 'C3', :author_id => 1)
-    Comment.create!(:source => a2, :body => 'C4', :author_id => 1)
+    Comment.create!(:source => a2, :body => 'C3', :author => p1)
+    Comment.create!(:source => a2, :body => 'C4', :author => p1)
 
     b.expects(:owner).at_least_once.returns(e)
 
@@ -224,14 +212,15 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     b = StatisticsBlock.new
     e = Environment.default
 
+    p1 = fast_create(Person, :environment_id => e.id)
     c1 = fast_create(Community, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => c1.id)
-    Comment.create!(:source => a1, :body => 'C1', :author_id => 1)
-    Comment.create!(:source => a1, :body => 'C2', :author_id => 1)
+    Comment.create!(:source => a1, :body => 'C1', :author => p1)
+    Comment.create!(:source => a1, :body => 'C2', :author => p1)
 
     a2 = fast_create(Article, :profile_id => c1.id)
-    Comment.create!(:source => a2, :body => 'C3', :author_id => 1)
-    Comment.create!(:source => a2, :body => 'C4', :author_id => 1)
+    Comment.create!(:source => a2, :body => 'C3', :author => p1)
+    Comment.create!(:source => a2, :body => 'C4', :author => p1)
 
     b.expects(:owner).at_least_once.returns(c1)
 
@@ -244,12 +233,12 @@ class StatisticsBlockTest < ActiveSupport::TestCase
 
     p1 = fast_create(Person, :environment_id => e.id)
     a1 = fast_create(Article, :profile_id => p1.id)
-    Comment.create!(:source => a1, :body => 'C1', :author_id => 1)
-    Comment.create!(:source => a1, :body => 'C2', :author_id => 1)
+    Comment.create!(:source => a1, :body => 'C1', :author => p1)
+    Comment.create!(:source => a1, :body => 'C2', :author => p1)
 
     a2 = fast_create(Article, :profile_id => p1.id)
-    Comment.create!(:source => a1, :body => 'C3', :author_id => 1)
-    Comment.create!(:source => a1, :body => 'C4', :author_id => 1)
+    Comment.create!(:source => a1, :body => 'C3', :author => p1)
+    Comment.create!(:source => a1, :body => 'C4', :author => p1)
 
     b.expects(:owner).at_least_once.returns(p1)
 

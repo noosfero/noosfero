@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnterpriseTest < ActiveSupport::TestCase
@@ -12,27 +13,27 @@ class EnterpriseTest < ActiveSupport::TestCase
   def test_identifier_validation
     p = Enterprise.new
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'with space'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'áéíóú'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat2007'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'right_format'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
   end
 
   def test_has_domains
@@ -41,7 +42,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   def test_belongs_to_environment_and_has_default
-    assert_equal Environment.default, Enterprise.create!(:name => 'my test environment', :identifier => 'mytestenvironment').environment
+    assert_equal Environment.default, create(Enterprise, :name => 'my test environment', :identifier => 'mytestenvironment').environment
   end
 
   def test_cannot_rename
@@ -62,24 +63,25 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'remove products when removing enterprise' do
     e = fast_create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise')
-    e.products.create!(:name => 'One product', :product_category => @product_category)
-    e.products.create!(:name => 'Another product', :product_category => @product_category)
+    create(Product, :enterprise => e, :name => 'One product', :product_category => @product_category)
+    create(Product, :enterprise => e, :name => 'Another product', :product_category => @product_category)
 
-    assert_difference Product, :count, -2 do
+    assert_difference 'Product.count', -2 do
       e.destroy
     end
   end
 
   should 'create a default set of articles' do
-    Enterprise.any_instance.expects(:default_set_of_articles).returns([Blog.new(:name => 'Blog')])
-    enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier => 'myenterprise')
+    blog = build(Blog)
+    Enterprise.any_instance.expects(:default_set_of_articles).returns([blog])
+    enterprise = create(Enterprise, :name => 'my test enterprise', :identifier => 'myenterprise')
 
-    assert_kind_of Blog, enterprise.articles.find_by_path('blog')
-    assert_kind_of RssFeed, enterprise.articles.find_by_path('blog/feed')
+    assert_kind_of Blog, enterprise.articles.find_by_path(blog.path)
+    assert_kind_of RssFeed, enterprise.articles.find_by_path(blog.feed.path)
   end
 
   should 'create default set of blocks' do
-    e = Enterprise.create(:name => 'my new community', :identifier => 'mynewcommunity')
+    e = create(Enterprise, :name => 'my new community', :identifier => 'mynewcommunity')
 
     assert !e.boxes[0].blocks.empty?, 'enterprise must have blocks in area 1'
     assert !e.boxes[1].blocks.empty?, 'enterprise must have blocks in area 2'
@@ -102,6 +104,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     enterprise.reload
 
     person = fast_create(Person)
+    enterprise.stubs(:notification_emails).returns(['sample@example.org'])
     enterprise.add_member(person)
 
     assert_equal false, person.is_member_of?(enterprise)
@@ -184,7 +187,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     inactive_template.boxes << Box.new
     inactive_template.save!
 
-    active_template = Enterprise.create!(:name => 'enteprise template', :identifier => 'enterprise_template')
+    active_template = create(Enterprise, :name => 'enteprise template', :identifier => 'enterprise_template')
     assert_equal 3, active_template.boxes.size
 
     e = Environment.default
@@ -192,7 +195,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.enterprise_template = active_template
     e.save!
 
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
 
     p = create_user('test_user').person
     ent.enable(p)
@@ -202,18 +205,18 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'create EnterpriseActivation task when creating with enabled = false' do
     EnterpriseActivation.delete_all
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
     assert_equal [ent], EnterpriseActivation.find(:all).map(&:enterprise)
   end
 
   should 'create EnterpriseActivation with 7-characters codes' do
     EnterpriseActivation.delete_all
-    Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
+    create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
     assert_equal 7, EnterpriseActivation.find(:first).code.size
   end
 
   should 'not create activation task when enabled = true' do
-    assert_no_difference EnterpriseActivation, :count do
+    assert_no_difference 'EnterpriseActivation.count' do
       fast_create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => true)
     end
   end
@@ -234,12 +237,12 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert enterprise.enable(person)
   end
 
-  should 'list product categories full name' do
+  should 'list product categories' do
     subcategory = fast_create(ProductCategory, :name => 'Products subcategory', :parent_id => @product_category.id)
     ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.create!(:name => 'test prod', :product_category => subcategory)
+    p = create(Product, :name => 'test prod', :product_category => subcategory, :enterprise => ent)
 
-    assert_equal [p.category_full_name], ent.product_categories
+    assert_equivalent [subcategory], ent.product_categories
   end
 
   should 'not create a products block for enterprise if environment do not let' do
@@ -256,7 +259,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'have a default enterprise template' do
-    env = Environment.create!(:name => 'test env')
+    env = create(Environment, :name => 'test env')
     p = fast_create(Enterprise, :name => 'test_com', :identifier => 'test_com', :environment_id => env.id)
     assert_kind_of Enterprise, p.template
   end
@@ -270,7 +273,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.inactive_enterprise_template = inactive_template
     e.save!
 
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent', :template => another_template, :environment => e)
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :template => another_template, :environment => e)
     assert_equal inactive_template, ent.template
   end
 
@@ -282,7 +285,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'return active_enterprise_fields' do
     e = Environment.default
     e.expects(:active_enterprise_fields).returns(['contact_phone', 'contact_email']).at_least_once
-    ent = Enterprise.new(:environment => e)
+    ent = build(Enterprise, :environment => e)
 
     assert_equal e.active_enterprise_fields, ent.active_fields
   end
@@ -290,7 +293,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'return required_enterprise_fields' do
     e = Environment.default
     e.expects(:required_enterprise_fields).returns(['contact_phone', 'contact_email']).at_least_once
-    enterprise = Enterprise.new(:environment => e)
+    enterprise = build(Enterprise, :environment => e)
 
     assert_equal e.required_enterprise_fields, enterprise.required_fields
   end
@@ -298,38 +301,38 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'require fields if enterprise needs' do
     e = Environment.default
     e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
-    enterprise = Enterprise.new(:environment => e)
+    enterprise = build(Enterprise, :environment => e)
     assert ! enterprise.valid?
-    assert enterprise.errors.invalid?(:contact_phone)
+    assert enterprise.errors[:contact_phone.to_s].present?
 
     enterprise.contact_phone = '99999'
     enterprise.valid?
-    assert ! enterprise.errors.invalid?(:contact_phone)
+    assert ! enterprise.errors[:contact_phone.to_s].present?
   end
 
   should 'enable contact' do
-    enterprise = Enterprise.new(:enable_contact_us => false)
+    enterprise = build(Enterprise, :enable_contact_us => false)
     assert !enterprise.enable_contact?
     enterprise.enable_contact_us = true
     assert enterprise.enable_contact?
   end
 
   should 'save organization_website with http' do
-    p = Enterprise.new(:name => 'test_ent', :identifier => 'test_ent')
+    p = build(Enterprise, :name => 'test_ent', :identifier => 'test_ent')
     p.organization_website = 'website.without.http'
     p.save!
     assert_equal 'http://website.without.http', p.organization_website
   end
 
   should 'save not add http to empty organization_website' do
-    p = Enterprise.new(:name => 'test_ent', :identifier => 'test_ent')
+    p = build(Enterprise, :name => 'test_ent', :identifier => 'test_ent')
     p.organization_website = ''
     p.save!
     assert_equal '', p.organization_website
   end
 
   should 'save organization_website as typed if has http' do
-    p = Enterprise.new(:name => 'test_ent', :identifier => 'test_ent')
+    p = build(Enterprise, :name => 'test_ent', :identifier => 'test_ent')
     p.organization_website = 'http://website.with.http'
     p.save
     assert_equal 'http://website.with.http', p.organization_website
@@ -340,7 +343,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.enable('enterprises_are_disabled_when_created')
     e.save!
 
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent')
     assert_equal false, Enterprise['test_ent'].enabled?
   end
 
@@ -349,12 +352,12 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     e.enable('enterprises_are_validated_when_created')
     e.save
-    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent1')
+    enterprise = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent1')
     assert enterprise.validated
 
     e.disable('enterprises_are_validated_when_created')
     e.save
-    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent2')
+    enterprise = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent2')
     assert !enterprise.validated
   end
 
@@ -369,7 +372,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.inactive_enterprise_template = inactive_template
     e.save!
 
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent')
     assert_equal 1, ent.boxes.size
   end
 
@@ -384,23 +387,23 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.inactive_enterprise_template = inactive_template
     e.save!
 
-    ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
+    ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent')
     assert_equal 3, ent.boxes.size
   end
 
   should 'collect the highlighted products with image' do
     env = Environment.default
     e1 = fast_create(Enterprise)
-    p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => @product_category.id)
+    p1 = create(Product, :name => 'test_prod1', :product_category_id => @product_category.id, :enterprise => e1)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :profile_id => e1.id,
+      products.push(create(Product, :name => "product #{n}", :profile_id => e1.id,
         :highlighted => true, :product_category_id => @product_category.id,
         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
       ))
     }
-    Product.create!(:name => "product 4", :profile_id => e1.id, :product_category_id => @product_category.id, :highlighted => true)
-    Product.create!(:name => "product 5", :profile_id => e1.id, :product_category_id => @product_category.id, :image_builder => {
+    create(Product, :name => "product 4", :profile_id => e1.id, :product_category_id => @product_category.id, :highlighted => true)
+    create(Product, :name => "product 5", :profile_id => e1.id, :product_category_id => @product_category.id, :image_builder => {
       :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
     })
     assert_equal products, e1.highlighted_products_with_image
@@ -409,8 +412,8 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'has many inputs through products' do
     enterprise = fast_create(Enterprise)
     product = fast_create(Product, :profile_id => enterprise.id, :product_category_id => @product_category.id)
-    product.inputs << Input.new(:product_category => @product_category)
-    product.inputs << Input.new(:product_category => @product_category)
+    product.inputs << build(Input, :product_category => @product_category)
+    product.inputs << build(Input, :product_category => @product_category)
 
     assert_equal product.inputs, enterprise.inputs
   end
@@ -451,7 +454,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
 
     activity = ActionTracker::Record.last
-    scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => enterprise, :content => 'A scrap'))
+    scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => enterprise, :content => 'A scrap'))
 
     assert_equal [scrap], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
   end

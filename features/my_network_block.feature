@@ -9,9 +9,11 @@ Feature: my_network_block
     And the following blocks
       | owner     | type           |
       | joaosilva | MyNetworkBlock |
+      | joaosilva | FriendsBlock   |
     And the following communities
       | identifier       | name              | public_profile |
       | public-community | Public Community  | true           |
+    And plugin FriendsBlock is enabled on environment
 
   @selenium
   Scenario: display how many public/private communities I am member
@@ -46,6 +48,10 @@ Feature: my_network_block
       | login      | name        | public_profile |
       | mariasilva | Maria Silva | true           |
       | josesilva  | Jose Silva  | false          |
+    And the following blocks
+      | owner      | type         |
+      | mariasilva | FriendsBlock |
+      | josesilva  | FriendsBlock |
     And "joaosilva" is friend of "mariasilva"
     And I am logged in as "joaosilva"
     And I am on joaosilva's homepage
@@ -59,6 +65,10 @@ Feature: my_network_block
       | login      | name        |
       | mariasilva | Maria Silva |
       | josesilva  | Jose Silva  |
+    And the following blocks
+      | owner      | type         |
+      | mariasilva | FriendsBlock |
+      | josesilva  | FriendsBlock |
     And "josesilva" is invisible
     And "joaosilva" is friend of "mariasilva"
     And I am logged in as "joaosilva"

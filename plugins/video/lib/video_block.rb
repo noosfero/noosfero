@@ -1,11 +1,15 @@
 class VideoBlock < Block
 
+  attr_accessible :url, :width, :height
+  
   settings_items :url, :type => :string, :default => ""
   settings_items :width, :type => :integer, :default => 400
   settings_items :height, :type => :integer, :default => 315
 
+  YOUTUBE_ID_FORMAT = '\w-'
+
   def is_youtube?
-    url.match(/.*(youtube.com.*v=[[:alnum:]]+|youtu.be\/[[:alnum:]]+).*/) ? true : false
+    url.match(/.*(youtube.com.*v=[#{YOUTUBE_ID_FORMAT}]+|youtu.be\/[#{YOUTUBE_ID_FORMAT}]+).*/) ? true : false
   end
 
   def is_vimeo?
@@ -35,7 +39,7 @@ class VideoBlock < Block
   def content(args={})
     block = self
 
-    lambda do
+    proc do
       render :file => 'video_block', :locals => { :block => block }
     end
   end
@@ -44,8 +48,8 @@ class VideoBlock < Block
 
   def extract_youtube_id
     return nil unless is_youtube?
-    youtube_match = url.match('v=([[:alnum:]]*)')
-    youtube_match ||= url.match('youtu.be\/([[:alnum:]]*)')
+    youtube_match = url.match("v=([#{YOUTUBE_ID_FORMAT}]*)")
+    youtube_match ||= url.match("youtu.be\/([#{YOUTUBE_ID_FORMAT}]*)")
     youtube_match[1] unless youtube_match.nil?
   end
 

@@ -67,7 +67,7 @@ Feature: bsc
     And feature "disable_products_for_enterprises" is disabled on environment
     And I am logged in as "pedro-silva"
     And I am on Bsc Test's control panel
-    When I follow "Manage Products and Services"
+    When I follow "Manage Products/Services"
     Then I should not see "New product or service"
 
   Scenario: display bsc's enterprises' products name on the bsc catalog

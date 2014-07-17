@@ -1,5 +1,7 @@
 class ArticleBlock < Block
 
+  attr_accessible :article_id
+
   def self.description
     _('Display one of your contents')
   end
@@ -10,7 +12,7 @@ class ArticleBlock < Block
 
   def content(args={})
     block = self
-    lambda do
+    proc do
       block_title(block.title) +
       (block.article ? article_to_html(FilePresenter.for(block.article),
           :gallery_view => false,

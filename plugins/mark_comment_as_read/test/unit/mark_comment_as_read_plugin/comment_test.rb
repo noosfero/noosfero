@@ -5,7 +5,7 @@ class MarkCommentAsReadPlugin::CommentTest < ActiveSupport::TestCase
   def setup
     @person = create_user('user').person
     @article = TinyMceArticle.create!(:profile => @person, :name => 'An article')
-    @comment = Comment.create!(:title => 'title', :body => 'body', :author_id => @person.id, :source => @article)
+    @comment = Comment.create!(:title => 'title', :body => 'body', :author => @person, :source => @article)
   end
 
   should 'mark comment as read' do
@@ -16,7 +16,7 @@ class MarkCommentAsReadPlugin::CommentTest < ActiveSupport::TestCase
 
   should 'do not mark a comment as read again' do
     @comment.mark_as_read(@person)
-    assert_raise ActiveRecord::StatementInvalid do
+    assert_raise ActiveRecord::RecordNotUnique do
       @comment.mark_as_read(@person)
     end
   end

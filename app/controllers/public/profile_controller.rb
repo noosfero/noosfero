@@ -32,7 +32,7 @@ class ProfileController < PublicController
     @tag = params[:id]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_#{profile.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @tagged = profile.find_tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
+      @tagged = profile.tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
     end
   end
 
@@ -158,7 +158,7 @@ class ProfileController < PublicController
       session[:notice] = _("You have unblocked %s successfully. ") % profile.name
       redirect_to :controller => 'profile', :action => 'index'
     else
-      message = __('You are not allowed to unblock enterprises in this environment.')
+      message = _('You are not allowed to unblock enterprises in this environment.')
       render_access_denied(message)
     end
   end
@@ -210,7 +210,7 @@ class ProfileController < PublicController
 
     render :update do |page|
       page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
-        :partial => 'comment', :collection => activity.comments.paginate(:per_page => comments_per_page, :page => comment_page)
+        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
 
       if no_more_pages
         page.remove 'profile-wall-activities-comments-more-'+params[:activity]

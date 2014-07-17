@@ -26,11 +26,11 @@ module XssTerminate
         else
           before_save filter_with
       end
-      write_inheritable_attribute("xss_terminate_#{options[:with]}_options".to_sym, {
+      class_attribute "xss_terminate_#{options[:with]}_options".to_sym
+      self.send("xss_terminate_#{options[:with]}_options=".to_sym, {
         :except => (options[:except] || []),
         :only => (options[:only] || options[:sanitize] || [])
       })
-      class_inheritable_reader "xss_terminate_#{options[:with]}_options".to_sym
       include XssTerminate::InstanceMethods
     end
 
@@ -57,12 +57,15 @@ module XssTerminate
           end
 
         else
-          self.send("#{field}=", sanitizer.sanitize(self.send("#{field}")))
+          value = self.send("#{field}")
+          return unless value
+          value = sanitizer.sanitize(value)
+          self.send("#{field}=", value)
 
           if with == :full
-            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}")))
+            self.send("#{field}=", CGI.escapeHTML(value))
           elsif with == :white_list
-            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}"))) if !wellformed_html_code?(self.send("#{field}"))
+            self.send("#{field}=", CGI.escapeHTML(value)) if !wellformed_html_code?(value)
           end
 
         end

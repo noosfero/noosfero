@@ -6,7 +6,7 @@ class StoaPluginController; def rescue_action(e) raise e end; end
 
 class StoaPluginControllerTest < ActionController::TestCase
 
-  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   def setup
     @controller = StoaPluginController.new
@@ -18,6 +18,7 @@ class StoaPluginControllerTest < ActionController::TestCase
     env.enable('skip_new_user_email_confirmation')
     env.save!
     @user = create_user_full('real_user', {:password => '123456', :password_confirmation => '123456'}, {:usp_id => 9999999})
+    @user.activate
   end
 
   attr_accessor :user

@@ -1,5 +1,7 @@
 class Block < ActiveRecord::Base
 
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user, :box
+
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
@@ -14,7 +16,7 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
-  named_scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, :conditions => { :enabled => true }
 
   def embedable?
     false
@@ -22,7 +24,7 @@ class Block < ActiveRecord::Base
 
   def embed_code
     me = self
-    lambda do
+    proc do
       content_tag('iframe', '',
         :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
         :frameborder => 0,
@@ -196,10 +198,10 @@ class Block < ActiveRecord::Base
   end
 
   DISPLAY_OPTIONS = {
-    'always'           => __('In all pages'),
-    'home_page_only'   => __('Only in the homepage'),
-    'except_home_page' => __('In all pages, except in the homepage'),
-    'never'            => __('Don\'t display'),
+    'always'           => _('In all pages'),
+    'home_page_only'   => _('Only in the homepage'),
+    'except_home_page' => _('In all pages, except in the homepage'),
+    'never'            => _('Don\'t display'),
   }
 
   def display_options_available
@@ -212,14 +214,14 @@ class Block < ActiveRecord::Base
 
   def display_user_options
     @display_user_options ||= {
-      'all'            => __('All users'),
-      'logged'         => __('Logged'),
-      'not_logged'     => __('Not logged'),
+      'all'            => _('All users'),
+      'logged'         => _('Logged'),
+      'not_logged'     => _('Not logged'),
     }
   end
 
   def duplicate
-    duplicated_block = self.clone
+    duplicated_block = self.dup
     duplicated_block.display = 'never'
     duplicated_block.created_at = nil
     duplicated_block.updated_at = nil

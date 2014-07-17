@@ -1,0 +1,18 @@
+<div class="task_box" id="task-<%= task.id %>">
+  <%= render :partial => 'tasks/task_icon', :locals => {:task => task} %>
+  <%= render :partial => 'tasks/task_title', :locals => {:task => task} %>
+  <div class="task-information">
+    <%= task_information(task) %>
+  </div>
+
+  <%= yield %> <%# ??? %>
+
+  <% button_bar do %>
+    <%= button_to_function('new', _('Mark as NOT SPAM'), 'removeTaskBox(this, %s, "%s", "")' % [url_for(:mark_task_as_ham => task.id).to_json, "task-#{task.id}"]) %>
+    <%= yield :extra_buttons %>
+    <%= button_to_function('delete', _('Remove'), 'removeTaskBox(this, %s, "%s", %s)' % [url_for(:profile => params[:profile], :remove_task => task.id).to_json, "task-#{task.id}", _('Are you sure you want to remove this article suggestion?').to_json]) %>
+
+  <% end %>
+
+  <%= yield :extra_content %>
+</div>

@@ -1,4 +1,7 @@
 class Input < ActiveRecord::Base
+
+  attr_accessible :product, :product_category, :product_category_id, :amount_used, :unit_id, :price_per_unit, :relevant_to_price
+
   belongs_to :product
   belongs_to :product_category
 
@@ -9,7 +12,7 @@ class Input < ActiveRecord::Base
 
   belongs_to :unit
 
-  named_scope :relevant_to_price, :conditions => { :relevant_to_price => true }
+  scope :relevant_to_price, :conditions => { :relevant_to_price => true }
 
   include FloatHelper
 

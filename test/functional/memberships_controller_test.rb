@@ -19,18 +19,10 @@ class MembershipsControllerTest < ActionController::TestCase
   end
   attr_reader :profile
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => profile.identifier
-  end
-
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'list current memberships' do
     get :index, :profile => profile.identifier
 
-    assert_kind_of Array, assigns(:memberships)
+    assert assigns(:memberships)
   end
 
   should 'present new community form' do
@@ -40,7 +32,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   should 'be able to create a new community' do
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
       assert_redirected_to :action => 'index'

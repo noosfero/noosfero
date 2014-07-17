@@ -110,7 +110,7 @@ Setup Noosfero log and tmp directories:
     # cd /var/lib/noosfero/current
     # ./etc/init.d/noosfero setup
 
-Now it's time to setup the database. In this example we are using PostgreSQL, so if you are planning to use a different database this steps won't apply.
+Now it's time to setup the database. In this example we are using PostgreSQL, so if you are planning to use a different database this steps won't apply. Pay special attention to the default collation defined on your setup by the environment variable LC_COLLATE because it might interfere in some sorting operations on your database. For more information checkout `man locale`.
 
     # apt-get install postgresql libpgsql-ruby
     # su postgres -c 'createuser noosfero -S -d -R'

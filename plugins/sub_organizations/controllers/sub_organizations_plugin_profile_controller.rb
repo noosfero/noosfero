@@ -4,13 +4,13 @@ class SubOrganizationsPluginProfileController < ProfileController
   before_filter :organizations_only
 
   def children
-    children = SubOrganizationsPlugin::Relation.children(profile)
+    children = Organization.children(profile)
     family_relation(children)
     render 'related_organizations'
   end
 
   def parents
-    parents = SubOrganizationsPlugin::Relation.parents(profile)
+    parents = Organization.parents(profile)
     family_relation(parents)
     render 'related_organizations'
   end

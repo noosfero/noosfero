@@ -17,14 +17,6 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     login_as 'ze'
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'go to the first step on index' do
     get :index
     assert_response :success
@@ -43,7 +35,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env.save
     region = fast_create(Region, {})
 
-    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region_id => region.id }
     create_enterprise = CreateEnterprise.new(data)
 
     post :index, :create_enterprise => data
@@ -56,7 +48,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env.save
     region = fast_create(Region, {})
 
-    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region_id => region.id }
     create_enterprise = CreateEnterprise.new(data)
 
     post :index, :create_enterprise => data

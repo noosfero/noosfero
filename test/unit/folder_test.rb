@@ -31,8 +31,8 @@ class FolderTest < ActiveSupport::TestCase
   should 'have images that are only images or other folders' do
     p = create_user('test_user').person
     f = fast_create(Folder, :profile_id => p.id)
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => f, :profile => p)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
     folder = fast_create(Folder, :profile_id => p.id, :parent_id => f.id)
 
     assert_equivalent [folder, image], f.images
@@ -42,7 +42,7 @@ class FolderTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     f = fast_create(Folder, :profile_id => p.id)
     folder1 = fast_create(Folder, :name => 'b', :profile_id => p.id, :parent_id => f.id)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
     folder2 = fast_create(Folder, :name => 'c', :profile_id => p.id, :parent_id => f.id)
     folder3 = fast_create(Folder, :name => 'a', :profile_id => p.id, :parent_id => f.id)
 
@@ -53,7 +53,7 @@ class FolderTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     f = fast_create(Folder, :profile_id => p.id)
     folder = fast_create(Folder, :profile_id => p.id, :parent_id => f.id)
-    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => f, :profile => p)
 
     assert_equal [image], f.images.paginate(:page => 2, :per_page => 1)
   end
@@ -62,7 +62,7 @@ class FolderTest < ActiveSupport::TestCase
     c = fast_create(Community)
     folder = fast_create(Folder, :profile_id => c.id)
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id, :parent_id => folder.id)
-    u = UploadedFile.create!(:profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => folder)
+    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => folder)
     older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id, :parent_id => folder.id)
     t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => folder.id)
     t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
@@ -94,7 +94,7 @@ class FolderTest < ActiveSupport::TestCase
 
     community = fast_create(Community)
     folder = fast_create(Folder, :profile_id => community.id)
-    a = ApproveArticle.create!(:article => image, :target => community, :requestor => person, :article_parent => folder)
+    a = create(ApproveArticle, :article => image, :target => community, :requestor => person, :article_parent => folder)
     a.finish
 
     assert_includes folder.images(true), community.articles.find_by_name('rails.png')
@@ -137,7 +137,7 @@ class FolderTest < ActiveSupport::TestCase
     folder.parent = Blog.new
     folder.valid?
 
-    assert folder.errors.on(:parent)
+    assert folder.errors[:parent].present?
   end
 
   should 'accept uploads' do

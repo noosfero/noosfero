@@ -21,7 +21,7 @@ class OrganizationTest < ActiveSupport::TestCase
       :requestor => requestor,
       :target => org,
     }
-    CreateEnterprise.create!(data)
+    create(CreateEnterprise, data)
   end
 
 
@@ -80,24 +80,24 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'validate contact_email if filled' do
     org = Organization.new
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
     org.contact_email = ''
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
 
     org.contact_email = 'invalid-email'
     org.valid?
-    assert org.errors.invalid?(:contact_email)
+    assert org.errors[:contact_email.to_s].present?
 
     org.contact_email = 'someone@somedomain.com'
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
   end
 
   should 'list contact_email plus admin emails as "notification emails"' do
-    o = Organization.new(:contact_email => 'org@email.com')
+    o = build(Organization, :contact_email => 'org@email.com')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -106,7 +106,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is nil' do
-    o = Organization.new(:contact_email => nil)
+    o = build(Organization, :contact_email => nil)
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -115,7 +115,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is a blank string' do
-    o = Organization.new(:contact_email => '')
+    o = build(Organization, :contact_email => '')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -124,13 +124,13 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'return empty array if contact_email is a blank string and it has no admin' do
-    o = Organization.new(:contact_email => '', :environment => Environment.default)
+    o = build(Organization, :contact_email => '', :environment => Environment.default)
     assert_equal [], o.notification_emails
   end
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    assert_kind_of Array, org.pending_validations
+    assert_kind_of ActiveRecord::Relation, org.pending_validations
   end
 
   should 'be able to find a pending validation by its code' do
@@ -148,7 +148,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'be able to find already processed validations' do
     org = Organization.new
-    assert_kind_of Array, org.processed_validations
+    assert_kind_of ActiveRecord::Relation, org.processed_validations
   end
 
   should 'be able to find an already processed validation by its code' do
@@ -160,7 +160,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'have boxes and blocks upon creation' do
-    profile = Organization.create!(:name => 'test org', :identifier => 'testorg')
+    profile = create(Organization, :name => 'test org', :identifier => 'testorg')
 
     assert profile.boxes.size > 0
     assert profile.blocks.size > 0
@@ -183,15 +183,15 @@ class OrganizationTest < ActiveSupport::TestCase
     org = Organization.new
     org.foundation_year = 'xxxx'
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
 
     org.foundation_year = 20.07
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
     
     org.foundation_year = 2007
     org.valid?
-    assert ! org.errors.invalid?(:foundation_year)
+    assert ! org.errors[:foundation_year.to_s].present?
   end
 
   should 'has closed' do
@@ -374,13 +374,13 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'validates format of cnpj' do
-    organization = Organization.new(:cnpj => '239-234.234')
+    organization = build(Organization, :cnpj => '239-234.234')
     organization.valid?
-    assert organization.errors.invalid?(:cnpj)
+    assert organization.errors[:cnpj.to_s].present?
 
     organization.cnpj = '94.132.024/0001-48'
     organization.valid?
-    assert !organization.errors.invalid?(:cnpj)
+    assert !organization.errors[:cnpj.to_s].present?
   end
 
   should 'return members by role in a json format' do
@@ -408,7 +408,7 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'increase members_count on new membership' do
     member = fast_create(Person)
     organization = fast_create(Organization)
-    assert_difference organization, :members_count, 1 do
+    assert_difference 'organization.members_count', 1 do
       organization.add_member(member)
       organization.reload
     end
@@ -419,7 +419,7 @@ class OrganizationTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     organization.add_member(member)
     organization.reload
-    assert_difference organization, :members_count, -1 do
+    assert_difference 'organization.members_count', -1 do
       organization.remove_member(member)
       organization.reload
     end

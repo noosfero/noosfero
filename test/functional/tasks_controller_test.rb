@@ -22,20 +22,12 @@ class TasksControllerTest < ActionController::TestCase
     super({ :controller => 'tasks', :profile => profile.identifier }.merge(options))
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'list pending tasks' do
     get :index
 
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:tasks)
+    assert assigns(:tasks)
   end
 
   should 'list pending tasks without spam' do
@@ -59,8 +51,8 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'list processed tasks without spam' do
     requestor = fast_create(Person)
-    task_spam = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)
-    task_ham = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => false)
+    task_spam = create(Task, :status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)
+    task_ham = create(Task, :status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => false)
 
     get :processed
     assert_response :success
@@ -144,7 +136,7 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   should 'create a ticket' do
-    assert_difference Ticket, :count do
+    assert_difference 'Ticket.count' do
       post :new, :profile => profile.identifier, :ticket => {:name => 'test ticket'}
     end
   end
@@ -197,7 +189,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    folder = create(Folder, :profile => c, :name => 'test folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
@@ -210,7 +202,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    folder = create(Article, :profile => c, :name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:article => article, :target => c, :requestor => profile)
@@ -244,7 +236,7 @@ class TasksControllerTest < ActionController::TestCase
     a = ApproveArticle.create!(:article => article, :target => c, :requestor => person)
     assert_includes c.tasks, a
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :close, :tasks => {a.id => {:decision => 'finish', :task => {:name => "", :highlighted => "0", :article_parent_id => c_blog2.id.to_s}}}
     end
     assert p_article = article.class.find_by_reference_article_id(article.id)
@@ -275,8 +267,8 @@ class TasksControllerTest < ActionController::TestCase
     t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
-    assert_tag :tag => 'textarea', :content => 'test abstract', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :content => 'test body', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /article_body/, :class => 'mceEditor' }
   end
 
   should 'create TinyMceArticle article after finish approve suggested article task' do
@@ -357,10 +349,10 @@ class TasksControllerTest < ActionController::TestCase
   should 'return tasks ordered accordingly and limited by pages' do
     time = Time.now
     person = fast_create(Person)
-    t1 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time)
-    t2 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 1.second)
-    t3 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 2.seconds)
-    t4 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 3.seconds)
+    t1 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time)
+    t2 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 1.second)
+    t3 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 2.seconds)
+    t4 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 3.seconds)
 
     Task.stubs(:per_page).returns(2)
 

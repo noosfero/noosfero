@@ -1,0 +1,62 @@
+<h1><%= _('Creating new community') %></h1>
+
+<% if environment.enabled?('admin_must_approve_new_communities') %>
+  <div class='explanation'>
+    <%= _("Note that the creation of communities in this environment is restricted. Your request to create this new community will be sent to %{environment} administrators and will be approved or rejected according to their methods and criteria.") % { :environment => environment.name }%>
+  </div>
+<%end %>
+
+<%= error_messages_for :community %>
+
+<div>
+
+<%= labelled_form_for :community, :html => { :multipart => true } do |f| %>
+
+  <%= required_fields_message %>
+
+  <%= required f.text_field(:name) %>
+
+  <% @plugins.dispatch(:new_community_hidden_fields).each do |field| %>
+    <% field.each do |key, value| %>
+      <%= f.hidden_field(key, :value => value) %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
+
+  <%= f.fields_for :image_builder, @community.image do |i| %>
+    <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
+  <% end %>
+
+  <div style='margin-bottom: 1em; margin-top: 1em;'>
+  <%= _('New members must be approved:')%>
+  </div>
+  <div style='margin-bottom: 0.5em' id='community-join-before'>
+    <%= radio_button 'community', 'closed', 'true', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).') %>
+    </div>
+  </div>
+  <div id='community-join-after'>
+    <%= radio_button 'community', 'closed', 'false', :style => 'float: left' %>
+    <div style='margin-left: 30px'>
+      <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
+    </div>
+  </div>
+
+  <%= template_options(:communities, 'community')%>
+
+  <%= hidden_field_tag('back_to', @back_to) %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Create')) %>
+    <%= button(:cancel, _('Cancel'), @back_to ) %>
+  <% end %>
+
+<% end %>
+
+</div>
+
+
+
+

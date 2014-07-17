@@ -3,7 +3,7 @@ require 'test_helper'
 class AntiSpamPlugin::CommentWrapperTest < ActiveSupport::TestCase
 
   def setup
-    @comment = Comment.new(
+    @comment = build(Comment,
       :title => 'comment title',
       :body => 'comment body',
       :name => 'foo',

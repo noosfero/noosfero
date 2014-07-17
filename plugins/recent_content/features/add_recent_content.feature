@@ -13,6 +13,9 @@ Background:
   And the following blocks
     | owner     |         type       |
     | joaosilva | RecentContentBlock |
+  And the following blogs
+    | owner     | name        |
+    | joaosilva | JSilva blog |
   And the following articles
     | owner     | parent      | name    | body                        | abstract |
     | joaosilva | JSilva blog | post #1 | Primeiro post do joao silva | Resumo 1 |

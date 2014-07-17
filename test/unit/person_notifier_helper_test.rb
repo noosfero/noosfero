@@ -1,9 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PersonNotifierHelperTest < ActiveSupport::TestCase
+class PersonNotifierHelperTest < ActionView::TestCase
 
   include PersonNotifierHelper
-  include ActionView::Helpers::TagHelper
 
   def setup
     @profile = mock

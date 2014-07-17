@@ -1,7 +1,7 @@
 Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
   identifier = Community.find_by_name(community).identifier
   visit("/myprofile/#{identifier}/profile_members")
-  click_link('Invite your friends to join 26 Bsslines')
+  first(:link, "Invite your friends to join #{community}").click
   click_button('Next')
   fill_in('manual_import_addresses', :with => "#{email}")
   click_link('Personalize invitation mail')

@@ -15,7 +15,7 @@ class RssFeedTest < ActiveSupport::TestCase
       :search => 'parent_and_children',
     }
     feed.valid?
-    assert !feed.errors.invalid?('body')
+    assert !feed.errors['body'.to_s].present?
   end
 
   should 'alias body as "settings"' do
@@ -29,7 +29,7 @@ class RssFeedTest < ActiveSupport::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -45,7 +45,7 @@ class RssFeedTest < ActiveSupport::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -73,7 +73,7 @@ class RssFeedTest < ActiveSupport::TestCase
     a3_2_1 = a3_2.children.build(:name => 'article 3.2.1', :parent => a3_2, :profile => profile); a3_2_1.save!
 
     a3.reload
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.parent = a3
     feed.profile = profile
     feed.include = 'parent_and_children'
@@ -91,7 +91,7 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'list blog posts with more recent first and respecting limit' do
     profile = create_user('testuser').person
-    blog = Blog.create!(:name => 'blog-test', :profile => profile)
+    blog = create(Blog, :name => 'blog-test', :profile => profile)
     posts = []
     6.times do |i|
       posts << fast_create(TextArticle, :name => "post #{i}", :profile_id => profile.id, :parent_id => blog.id)
@@ -105,7 +105,7 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'list only published posts from blog' do
     profile = create_user('testuser').person
-    blog = Blog.create!(:name => 'blog-test', :profile => profile)
+    blog = create(Blog, :name => 'blog-test', :profile => profile)
     posts = []
     5.times do |i|
       posts << fast_create(TextArticle, :name => "post #{i}", :profile_id => profile.id, :parent_id => blog.id)
@@ -119,17 +119,17 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'provide link to profile' do
     profile = create_user('testuser').person
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
-    assert_match "<link>http://#{profile.environment.default_hostname}/testuser</link>", feed.data
+    assert_match "<link>http://#{profile.environment.default_hostname}/testuser/homepage</link>", feed.data
   end
 
   should 'provide link to each article' do
     profile = create_user('testuser').person
     art = profile.articles.build(:name => 'myarticle'); art.save!
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -144,7 +144,7 @@ class RssFeedTest < ActiveSupport::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -159,26 +159,24 @@ class RssFeedTest < ActiveSupport::TestCase
   should 'limit should only accept integers' do
     feed = RssFeed.new
     feed.limit = 'text'
-    feed.valid?
-    assert feed.errors.invalid?(:limit)
+    assert_not_equal 'text', feed.limit
     feed.limit = 10
-    feed.valid?
-    assert !feed.errors.invalid?(:limit)
+    assert_equal 10, feed.limit
   end
 
   should 'allow only parent_and_children and all as include setting' do
     feed = RssFeed.new
     feed.include = :something_else
     feed.valid?
-    assert feed.errors.invalid?(:include)
+    assert feed.errors[:include.to_s].present?
 
     feed.include = 'parent_and_children'
     feed.valid?
-    assert !feed.errors.invalid?(:include)
+    assert !feed.errors[:include.to_s].present?
 
     feed.include = 'all'
     feed.valid?
-    assert !feed.errors.invalid?(:include)
+    assert !feed.errors[:include.to_s].present?
   end
 
   should 'provide proper short description' do
@@ -195,13 +193,13 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'advertise is false before create' do
     profile = create_user('testuser').person
-    feed = RssFeed.create!(:name => 'testfeed', :profile => profile)
+    feed = create(RssFeed, :name => 'testfeed', :profile => profile)
     assert !feed.advertise?
   end
 
   should 'can display hits' do
     p = create_user('testuser').person
-    a = RssFeed.create!(:name => 'Test article', :profile => p)
+    a = create(RssFeed, :name => 'Test article', :profile => p)
     assert_equal false, a.can_display_hits?
   end
 
@@ -209,14 +207,15 @@ class RssFeedTest < ActiveSupport::TestCase
     article = fast_create(TextileArticle, :body => 'This is the content of the Sample Article.', :profile_id => fast_create(Person).id)
     profile = fast_create(Profile)
     blog = fast_create(Blog, :profile_id => profile.id)
-    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))
+    a.requestor.stubs(:notification_emails).returns(['random@example.org'])
     a.finish
 
     published_article = article.class.last
     published_article.parent = blog
     published_article.save
 
-    feed = RssFeed.new(:parent => blog, :profile => profile)
+    feed = build(RssFeed, :parent => blog, :profile => profile)
 
     assert_match "This is the content of the Sample Article", feed.data
   end
@@ -229,7 +228,7 @@ class RssFeedTest < ActiveSupport::TestCase
     a2 = profile.articles.build(:name => 'article 2'); a2.save!
     a3 = profile.articles.build(:name => 'article 3'); a3.save!
 
-    feed = RssFeed.new(:name => 'testfeed')
+    feed = build(RssFeed, :name => 'testfeed')
     feed.profile = profile
     feed.save!
 
@@ -245,7 +244,7 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'include posts from all languages' do
     profile = create_user('testuser').person
-    blog = Blog.create!(:name => 'blog-test', :profile => profile, :language => nil)
+    blog = create(Blog, :name => 'blog-test', :profile => profile, :language => nil)
     blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
     blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
 
@@ -255,7 +254,7 @@ class RssFeedTest < ActiveSupport::TestCase
 
   should 'include only posts from some language' do
     profile = create_user('testuser').person
-    blog = Blog.create!(:name => 'blog-test', :profile => profile)
+    blog = create(Blog, :name => 'blog-test', :profile => profile)
     blog.feed.update_attributes! :language => 'es'
     blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
     blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')

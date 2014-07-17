@@ -1,4 +1,9 @@
+require 'noosfero/translatable_content'
+require 'builder'
+
 class Event < Article
+
+  attr_accessible :start_date, :end_date, :link, :address
 
   def self.type_name
     _('Event')
@@ -29,27 +34,30 @@ class Event < Article
     end
   end
 
-  named_scope :by_day, lambda { |date|
+  scope :by_day, lambda { |date|
     { :conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}],
       :order => 'start_date ASC'
     }
   }
 
-  named_scope :next_events_from_month, lambda { |date|
+  scope :next_events_from_month, lambda { |date|
     date_temp = date.strftime("%Y-%m-%d")
     { :conditions => ["start_date >= ?","#{date_temp}"],
       :order => 'start_date ASC'
     }
   }
 
-  named_scope :by_month, lambda { |date|
+  scope :by_month, lambda { |date|
     { :conditions => ["EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?",date.year,date.month],
       :order => 'start_date ASC'
     }
   }
 
   include WhiteListFilter
-  filter_iframes :body, :link, :address, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+  filter_iframes :body, :link, :address
+  def iframe_whitelist
+    profile && profile.environment && profile.environment.trusted_sites_for_iframe
+  end
 
   def self.description
     _('A calendar event.')
@@ -63,7 +71,7 @@ class Event < Article
     'event'
   end
 
-  named_scope :by_range, lambda { |range| {
+  scope :by_range, lambda { |range| {
     :conditions => [
       'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
       { :start_day => range.first, :end_day => range.last }
@@ -93,29 +101,27 @@ class Event < Article
   # FIXME this shouldn't be needed
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
   include DatesHelper
 
   def to_html(options = {})
 
     result = ''
-    html = Builder::XmlMarkup.new(:target => result)
+    html = ::Builder::XmlMarkup.new(:target => result)
 
     html.div(:class => 'event-info' ) {
-
       html.ul(:class => 'event-data' ) {
         html.li(:class => 'event-dates' ) {
           html.span _('When:')
           html.text! show_period(start_date, end_date)
-        }
+        } if start_date.present? || end_date.present?
         html.li {
           html.span _('URL:')
           html.a(self.link || "", 'href' => self.link || "")
-        }
+        } if self.link.present?
         html.li {
           html.span _('Address:')
           html.text! self.address || ""
-        }
+        } if self.address.present?
       }
 
       # TODO: some good soul, please clean this ugly hack:

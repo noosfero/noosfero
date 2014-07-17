@@ -1,0 +1,30 @@
+<div id="display_content">
+</div>
+
+<div class="display_folder_children">
+  <%= labelled_form_field check_box(:block, :display_folder_children) + _('Dinamically load children of selected folders'), '' %>
+</div>
+
+<script type="text/javascript" >
+
+jQuery_1_8_3("#display_content").jstree({
+   plugins : ["themes","json_data", "checkbox"],
+   checkbox : {
+     real_checkboxes : true,
+     real_checkboxes_names : function (n) { return [("block[checked_nodes[" + n.attr('node_id') + "]]"), 1]; }
+   },
+   themes : {"theme" : "classic", "icons" : true, "url": "/plugins/display_content/javascripts/jstree/themes/classic/style.css"},
+   json_data : {
+     ajax : {
+         url : '<%= url_for @block.url_params %>',
+         async: true,
+         data : function (m) {
+           return m.attr ? {"id" : m.attr("node_id")} : {};
+         }
+       }
+   }
+});
+
+jQuery( "#sortable" ).sortable();
+
+</script>

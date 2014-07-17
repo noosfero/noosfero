@@ -19,7 +19,7 @@ class SubOrganizationsPlugin < Noosfero::Plugin
   end
 
   def control_panel_buttons
-    if context.profile.organization? && SubOrganizationsPlugin::Relation.parents(context.profile).blank?
+    if context.profile.organization? && Organization.parents(context.profile).blank?
       { :title => _('Manage sub-groups'), :icon => 'groups', :url => {:controller => 'sub_organizations_plugin_myprofile'} }
     end
   end
@@ -29,17 +29,17 @@ class SubOrganizationsPlugin < Noosfero::Plugin
   end
 
   def organization_members(organization)
-    children = SubOrganizationsPlugin::Relation.children(organization)
-    Person.members_of(children) if children.present?
+    children = Organization.children(organization)
+    Person.members_of(children.all) if children.present?
   end
 
   def person_memberships(person)
-    SubOrganizationsPlugin::Relation.parents(*Profile.memberships_of(person))
+    Organization.parents(*Profile.memberships_of(person))
   end
 
   def has_permission?(person, permission, target)
     if !target.kind_of?(Environment) && target.organization?
-      SubOrganizationsPlugin::Relation.parents(target).map do |parent|
+      Organization.parents(target).map do |parent|
         person.has_permission_without_plugins?(permission, parent)
       end.include?(true)
     end

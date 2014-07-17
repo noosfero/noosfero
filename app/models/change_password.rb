@@ -2,7 +2,7 @@ class ChangePassword < Task
 
   attr_accessor :password, :password_confirmation
 
-  def self.human_attribute_name(attrib)
+  def self.human_attribute_name(attrib, options = {})
     case attrib.to_sym
     when :password
       _('Password')
@@ -58,13 +58,13 @@ class ChangePassword < Task
     _('Your password was changed successfully.')
   end
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   def task_created_message
     hostname = self.requestor.environment.default_hostname
     code = self.code
     url = url_for(:host => hostname, :controller => 'account', :action => 'new_password', :code => code)
 
-    lambda do
+    proc do
       _("In order to change your password, please visit the following address:\n\n%s\n\nIf you did not required any change to your password just desconsider this email.") % url
     end
   end

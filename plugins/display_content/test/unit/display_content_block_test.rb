@@ -359,8 +359,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a1.title}<\/a>/, block.content
-    assert_match /.*<a.*>#{a2.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a1.title}<\/a>/, instance_eval(&block.content)
+    assert_match /.*<a.*>#{a2.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'list content for all articles lead defined in nodes' do
@@ -370,14 +370,14 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
-    block.sections = [{:name => 'Abstract', :checked => true}]
+    block.sections = [{:value => 'abstract', :checked => true}]
     block.nodes = [a1.id, a2.id]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /<div class="lead">#{a1.lead}<\/div>/, block.content
-    assert_match /<div class="lead">#{a2.lead}<\/div>/, block.content
+    assert_match /<div class="lead">#{a1.lead}<\/div>/, instance_eval(&block.content)
+    assert_match /<div class="lead">#{a2.lead}<\/div>/, instance_eval(&block.content)
   end
 
   should 'not crash when referenced article is removed' do
@@ -391,8 +391,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:owner).returns(profile)
 
     Article.delete_all
-    assert_match /<ul><\/ul>/, block.content
+    assert_match /<ul><\/ul>/, instance_eval(&block.content)
   end
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
 
   should 'url_params return myprofile url params if the owner is a profile' do
     profile = create_user('testuser').person
@@ -423,12 +425,12 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.sections = [{:name => 'Title', :checked => true}]
+    block.sections = [{:value => 'title', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /.*<a.*>#{a.title}<\/a>/, block.content
+    assert_match /.*<a.*>#{a.title}<\/a>/, instance_eval(&block.content)
   end
 
   should 'show abstract if defined by user' do
@@ -437,12 +439,12 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.sections = [{:name => 'Abstract', :checked => true}]
+    block.sections = [{:value => 'abstract', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.abstract}/, block.content
+    assert_match /#{a.abstract}/, instance_eval(&block.content)
   end
 
   should 'show body if defined by user' do
@@ -451,12 +453,12 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.sections = [{:name => 'Body', :checked => true}]
+    block.sections = [{:value => 'body', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.body}/, block.content
+    assert_match /#{a.body}/, instance_eval(&block.content)
   end
 
   should 'display_attribute be true for title by default' do
@@ -464,7 +466,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
 
-    assert block.display_section?({:name => 'Title', :checked => true})
+    assert block.display_section?({:value => 'title', :checked => true})
   end
 
   should 'display_attribute be true if the attribute was chosen' do
@@ -472,8 +474,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
 
-    block.sections = [{:name => 'Body', :checked => true}]
-    section = block.sections.first
+    section = {:value => 'body', :checked => true}
+    block.sections = [section]
 
     assert block.display_section?(section)
   end
@@ -483,7 +485,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
 
-    assert block.display_section?({:name => 'Publish date', :checked => true})
+    assert block.display_section?({:value => 'publish_date', :checked => true})
   end
 
   should 'show publishd date if defined by user' do
@@ -492,12 +494,12 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.sections = [{:name => 'Publish date', :checked => true}]
+    block.sections = [{:value => 'publish_date', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_match /#{a.published_at}/, block.content
+    assert_match /#{a.published_at}/, instance_eval(&block.content)
   end
 
   should 'do not save children if a folder is checked' do
@@ -545,16 +547,104 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
-
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     env = fast_create(Environment)
-    env.enable_plugin(Plugin1)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
 
     block = DisplayContentBlock.new
     box = mock()
     box.stubs(:owner).returns(profile)
+    Noosfero::Plugin.stubs(:all).returns(['DisplayContentBlockTest::Plugin1'])
     box.stubs(:environment).returns(env)
     block.stubs(:box).returns(box)
     assert_equal [a1], block.articles_of_parent
+  end
+
+  should "the section display all available sections" do
+    block = DisplayContentBlock.new
+    assert_equivalent ['publish_date', 'abstract', 'body', 'image' ,'tags', 'title'], block.sections.map{|e|e[:value]}
+  end
+
+  should "the section display all available sections if the section value has only one key" do
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}]
+    assert_equivalent ['publish_date', 'abstract', 'body', 'image' ,'tags', 'title'], block.sections.map{|e|e[:value]}
+  end
+
+  should 'return available content types with checked types first' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+
+    block.types = ['TinyMceArticle', 'Folder']
+    assert_equal [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], block.available_content_types
+  end
+
+  should 'return available content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
+  end
+
+  should 'return first 2 content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal 2, block.first_content_types.length
+  end
+
+  should 'return all but first 2 content types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal block.available_content_types.length - 2, block.more_content_types.length
+  end
+
+  should 'return 2 as default value for first_types_count' do
+    block = DisplayContentBlock.create!
+    block.types = ['TinyMceArticle']
+    assert_equal 2, block.first_types_count
+  end
+
+  should 'return types length if it has more than 2 selected types' do
+    block = DisplayContentBlock.create!
+    block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal 3, block.first_types_count
+  end
+
+  should 'return selected types at first_content_types' do
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    block = DisplayContentBlock.create!
+    block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal [UploadedFile, Event, Folder], block.first_content_types
+    assert_equal block.available_content_types - [UploadedFile, Event, Folder], block.more_content_types
+  end
+
+  should 'include plugin content at available content types' do
+    block = DisplayContentBlock.create!
+    class SomePluginContent;end
+    class SomePlugin; def content_types; SomePluginContent end end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
+
+    block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
+  end
+
+  should 'do not fail if a selected article was removed' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {a1.id => true}
+
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+    a1.destroy
+    assert_equal [], block.parent_nodes
   end
 
 end

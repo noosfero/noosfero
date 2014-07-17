@@ -1,5 +1,7 @@
 class PriceDetail < ActiveRecord::Base
 
+  attr_accessible :price, :production_cost_id
+
   belongs_to :product
   validates_presence_of :product_id
 

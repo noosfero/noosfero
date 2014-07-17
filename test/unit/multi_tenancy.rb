@@ -48,11 +48,8 @@ class MultiTenancyTest < ActiveSupport::TestCase
 
   def test_if_is_hosted_environment
     YAML.expects(:load_file).returns(db_config)
-    Object.send(:remove_const, :RAILS_ENV)
-    Object.const_set(:RAILS_ENV, 'one_test')
+    Rails.stubs(:env).returns('one_test')
     assert Noosfero::MultiTenancy.send(:is_hosted_environment?)
-    Object.send(:remove_const, :RAILS_ENV)
-    Object.const_set(:RAILS_ENV, 'test')
   end
 
   def test_if_is_not_hosted_environment

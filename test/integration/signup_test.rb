@@ -8,7 +8,7 @@ class SignupTest < ActionController::IntegrationTest
   end
 
   def test_signup_form_submission_must_be_blocked_for_fast_bots
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       registering_with_bot_test 5, 1
     end
     assert_template 'signup'
@@ -16,7 +16,7 @@ class SignupTest < ActionController::IntegrationTest
   end
 
   def test_signup_form_submission_must_not_block_after_min_signup_delay
-    assert_difference User, :count, 1 do
+    assert_difference 'User.count', 1 do
       registering_with_bot_test 1, 2
     end
   end

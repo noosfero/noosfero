@@ -20,15 +20,15 @@ class CommentClassificationPlugin < Noosfero::Plugin
 
   def comment_form_extra_contents(args)
     comment = args[:comment]
-    lambda {
-      render :file => 'comment/comments_labels_select.rhtml', :locals => {:comment => comment }
+    proc {
+      render :file => 'comment/comments_labels_select', :locals => {:comment => comment }
     }
   end
 
   def comment_extra_contents(args)
     comment = args[:comment]
-    lambda {
-      render :file => 'comment/comment_extra.rhtml', :locals => {:comment => comment}
+    proc {
+      render :file => 'comment/comment_extra', :locals => {:comment => comment}
     }
   end
 

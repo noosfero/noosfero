@@ -21,10 +21,9 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should "list owner products" do
-
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product two', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
 
     block.expects(:products).returns(enterprise.products)
 
@@ -34,13 +33,12 @@ class ProductsBlockTest < ActiveSupport::TestCase
 
     assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product one/ }
     assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product two/ }
-
   end
 
   should 'point to all products in footer' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product two', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -50,12 +48,12 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'list 4 random products by default' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product three', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product four', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product five', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product five', :product_category => @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -63,10 +61,10 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'list all products if less than 4 by default' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product three', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -75,13 +73,12 @@ class ProductsBlockTest < ActiveSupport::TestCase
 
 
   should 'be able to set product_ids and have them listed' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-
-    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    p3 = enterprise.products.create!(:name => 'product three', :product_category => @product_category)
-    p4 = enterprise.products.create!(:name => 'product four', :product_category => @product_category)
-    p5 = enterprise.products.create!(:name => 'product five', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+    p3 = create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
+    p4 = create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
+    p5 = create(Product, :enterprise => enterprise, :name => 'product five', :product_category => @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -90,9 +87,9 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'save product_ids' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
 
     block = ProductsBlock.new
     enterprise.boxes.first.blocks << block
@@ -109,11 +106,11 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'not repeat products' do
-    enterprise = Enterprise.create!(:name => 'test_enterprise', :identifier => 'test_enterprise')
-    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    p3 = enterprise.products.create!(:name => 'product three', :product_category => @product_category)
-    p4 = enterprise.products.create!(:name => 'product four', :product_category => @product_category)
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+    p3 = create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
+    p4 = create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
 
     block = ProductsBlock.new
     enterprise.boxes.first.blocks << block
@@ -125,10 +122,10 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'generate footer when enterprise has own hostname' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
     enterprise.domains << Domain.new(:name => 'sometest.com'); enterprise.save!
-    enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    enterprise.products.create!(:name => 'product two', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -138,8 +135,8 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'display the default minor image if thumbnails were not processed' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
 
     block.expects(:products).returns(enterprise.products)
 
@@ -149,8 +146,8 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 
   should 'display the thumbnail image if thumbnails were processed' do
-    enterprise = Enterprise.create!(:name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.products.create!(:name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
 
     process_delayed_job_queue
     block.expects(:products).returns(enterprise.products.reload)

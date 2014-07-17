@@ -1,26 +1,45 @@
 source "https://rubygems.org"
+gem 'rails'
+gem 'fast_gettext'
+gem 'acts-as-taggable-on'
+gem 'prototype-rails'
+gem 'prototype_legacy_helper', '0.0.0', :path => 'vendor/prototype_legacy_helper'
+gem 'rails_autolink'
+gem 'pg'
+gem 'rmagick'
+gem 'RedCloth'
+gem 'will_paginate'
+gem 'ruby-feedparser'
+gem 'daemons'
+gem 'thin'
+gem 'hpricot'
+gem 'nokogiri'
+gem 'rake', :require => false
 
-gem 'exception_notification', '1.0.20090728'
-gem 'system_timer'
+# FIXME list here all actual dependencies (i.e. the ones in debian/control),
+# with their GEM names (not the Debian package names)
+
+group :production do
+  gem 'dalli'
+end
 
 group :test do
-  gem 'rspec', '1.2.9'
-  gem 'rspec-rails', '1.2.9'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'mocha', :require => false
 end
 
 group :cucumber do
-  gem 'rake', '0.8.7'
-  gem 'cucumber-rails', '0.3.2'
-  gem 'capybara', '1.1.1'
-  gem 'cucumber', '1.1.0'
+  gem 'rake'
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'cucumber'
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
-def program(name)
-  unless system("which #{name} > /dev/null")
-    puts "W: Program #{name} is needed, but was not found in your PATH"
-  end
+# include plugin gemfiles
+Dir.glob(File.join('config', 'plugins', '*')).each do |plugin|
+  plugin_gemfile = File.join(plugin, 'Gemfile')
+  eval File.read(plugin_gemfile) if File.exists?(plugin_gemfile)
 end
-
-program 'java'
-program 'firefox'

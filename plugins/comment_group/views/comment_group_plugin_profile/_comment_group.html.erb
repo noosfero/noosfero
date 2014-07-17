@@ -1,0 +1,31 @@
+<div class="comments">
+  <div class="comment_group_<%= group_id %>" style="float: left">
+    <div style="float: left">
+    <%= link_to_remote(image_tag("/plugins/comment_group/images/comments.gif"),
+        :url => { :profile => profile_identifier, :controller => 'comment_group_plugin_profile', :action => 'view_comments', :group_id => group_id, :article_id => article_id},
+        :method => :post,
+        :condition => "!toggleGroup(#{group_id})",
+        :complete => "loadCompleted(#{group_id})")%>
+    </div>
+    <!-- FIXME: css file -->
+    <div id="comments_group_count_<%= group_id %>" style="float: right; vertical-align: middle; padding-left: 3px; padding-right: 5px; color: #5AC1FC"><span id="comment-count-<%= group_id %>" class='comment-count'><%= count %></span></div>
+
+  </div>
+
+  <div>
+    <%= inner_html %>
+  </div>
+
+  <div class="comment-group-loading-<%= group_id %>"/>
+
+  <div class="comments_list_toggle_group_<%= group_id %>" style="display:none">
+    <div class="article-comments-list" id="comments_list_group_<%= group_id %>">
+    </div>
+    <div class ="article-comments-list-more" id="comments_list_group_<%= group_id %>_more">
+    </div>
+    <div id="page-comment-form-<%= group_id %>" class='post_comment_box closed'>
+      <%= render :partial => 'comment/comment_form', :locals => {:comment => Comment.new, :display_link => true, :cancel_triggers_hide => true, :group_id => group_id}%>
+    </div>
+
+  </div>
+</div>

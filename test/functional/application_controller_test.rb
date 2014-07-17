@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 require 'test_controller'
 
@@ -58,14 +59,6 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_equal current, assigns(:environment)
   end
 
-
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
 
   def test_exist_environment_variable_to_helper_environment_identification
     get :index
@@ -173,8 +166,8 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'display only some categories in menu' do
     @controller.stubs(:get_layout).returns('application')
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
-    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_tag :tag => 'a', :content => /Category 2/
   end
@@ -244,21 +237,10 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
   end
 
-  should 'load terminology from environment' do
-    term = Zen3Terminology.instance
-    env = Environment.default
-    Environment.stubs(:default).returns(env)
-    env.stubs(:terminology).returns(term)
-    env.stubs(:id).returns(-9999)
-
-    get :index
-    assert_equal Noosfero.terminology, term
-  end
-
   should 'not display categories menu if categories feature disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
-    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_no_tag :tag => 'a', :content => /Category 2/
   end
@@ -380,6 +362,9 @@ class ApplicationControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
+    ActionView::Helpers::AssetTagHelper::StylesheetIncludeTag.any_instance.stubs('asset_file_path!')
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
+
     get :index
 
     assert_tag :tag => 'link', :attributes => {:href => /#{plugin1_path}/, :type => 'text/css', :rel => 'stylesheet'}
@@ -413,6 +398,8 @@ class ApplicationControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
+
     get :index
 
     assert_tag :tag => 'script', :attributes => {:src => /#{plugin1_path}/, :type => 'text/javascript'}
@@ -422,11 +409,8 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
     class TestBodyBeginning1Plugin < Noosfero::Plugin
-      def plugin1_method
-        '[[plugin1]]'
-      end
       def body_beginning
-        lambda {"<span id='plugin1'>This is #{plugin1_method} speaking!</span>"}
+        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>"}
       end
     end
     class TestBodyBeginning2Plugin < Noosfero::Plugin
@@ -448,11 +432,8 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include content in the ending of head supplied by plugins regardless it is a block or html code' do
 
     class TestHeadEnding1Plugin < Noosfero::Plugin
-      def plugin1_method
-        '[[plugin1]]'
-      end
       def head_ending
-        lambda {"<script>alert('This is #{plugin1_method} speaking!')</script>"}
+        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>"}
       end
     end
     class TestHeadEnding2Plugin < Noosfero::Plugin
@@ -529,11 +510,12 @@ class ApplicationControllerTest < ActionController::TestCase
     end
     Noosfero::Plugin.stubs(:all).returns([FilterPlugin.name])
 
+    Noosfero::Plugin.load_plugin_filters(FilterPlugin)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
 
     get :index
     get :index
-    assert_equal 1, @controller.class.filter_chain.select{|c| c.method == 'application_controller_test_filter_plugin_filter_plugin'}.count
+    assert_equal 1, @controller.class._process_action_callbacks.select{|c| c.filter == :application_controller_test_filter_plugin_filter_plugin}.count
   end
 
   should 'do not call plugin filter block on a environment that this plugin is not enabled' do
@@ -543,11 +525,12 @@ class ApplicationControllerTest < ActionController::TestCase
         { :type => 'before_filter',
           :method_name => 'filter_plugin',
           :options => {:only => 'some_method'},
-          :block => lambda {'plugin block called'} }
+          :block => proc {'plugin block called'} }
       end
     end
     Noosfero::Plugin.stubs(:all).returns([OtherFilterPlugin.name])
 
+    Noosfero::Plugin.load_plugin_filters(OtherFilterPlugin)
     environment1 = fast_create(Environment, :name => 'test environment')
     environment1.enable_plugin(OtherFilterPlugin.name)
     environment2 = fast_create(Environment, :name => 'other test environment')

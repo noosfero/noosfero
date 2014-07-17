@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 
 class MetricConfigurationTest < ActiveSupport::TestCase
 

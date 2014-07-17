@@ -11,8 +11,8 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
     @track = create_track('track', @community)
 
     box = fast_create(Box, :owner_id => @community.id, :owner_type => 'Community')
-    @card_block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
+    @card_block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
+    @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
   end
 
   should 'display tracks for card block' do

@@ -1,0 +1,23 @@
+<%= javascript_tag do %>
+  jQuery(function($) {
+    $("#loading-dialog").dialog({
+      height: 160,
+      width: 450,
+      modal: true,
+      resizable: false,
+      title: "<%= ui_icon('ui-icon-info') + _('Please, wait...') %>",
+      open: check_contact_list('<%= contact_list.to_s %>'),
+     });
+   });
+<% end %>
+
+
+<div id="loading-dialog">
+  <p><%= _('Your e-mails contacts are being fetched') %></p>
+  <p><%=  _('If it takes too long, you will be redirected to the previous page to try again. Be sure to fill in the fields with your correct login and password.') %>
+  <span class='loading-message'/>
+  <%= link_to(_('Verify contact list'), {:action => 'invitation_data', :contact_list => @contact_list}, :id => "verify-contact-list", :style => 'display:none') %>
+  <%= link_to(_('Add contact list'), {:action => 'add_contact_list', :contact_list => @contact_list}, :id => "add-contact-list", :style => 'display:none') %>
+  <%= link_to(_('Cancel fetching e-mails'), {:action => 'cancel_fetching_emails', :contact_list => @contact_list}, :id => "cancel-fetching-emails", :style => 'display:none') %>
+</div>
+

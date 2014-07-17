@@ -1,8 +1,38 @@
+noosfero (0.99.0~rc20140618202455) wheezy-test; urgency=low
+
+  * Another rc with rails3
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 18 Jun 2014 20:25:01 +0000
+
+noosfero (0.47.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 05 May 2014 19:10:51 +0000
+
+noosfero (0.47.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 22 Apr 2014 20:13:33 +0000
+
+noosfero (0.47.0~rc3) squeeze-test; urgency=low
+
+  * Memory leak fix, performance improvements and bugfixes
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 09 Apr 2014 19:01:34 +0000
+
 noosfero (0.47.0~rc1) squeeze-test; urgency=low
 
   * New features Release Candidate 1
 
  -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 20 Mar 2014 20:26:45 +0000
+
+noosfero (0.46.3) unstable; urgency=low
+
+  * Bugfixes with package installation problem fixed
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 17 Apr 2014 14:31:25 +0000
 
 noosfero (0.46.2) unstable; urgency=low
 

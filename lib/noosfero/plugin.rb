@@ -1,5 +1,4 @@
-require 'noosfero'
-include ActionView::Helpers::AssetTagHelper
+require_dependency 'noosfero'
 
 class Noosfero::Plugin
 
@@ -11,17 +10,30 @@ class Noosfero::Plugin
 
   class << self
 
-    def klass(dir)
-      (dir.to_s.camelize + 'Plugin').constantize # load the plugin
+    attr_writer :should_load
+
+    def should_load
+      @should_load.nil? && true || @boot
     end
 
-    def init_system
-      available_plugins.each do |dir|
-        load_plugin dir
+    def initialize!
+      return if !should_load
+      available_plugins.each do |plugin_dir|
+        plugin_name = File.basename(plugin_dir)
+        plugin = load_plugin(plugin_name)
+        load_plugin_extensions(plugin_dir)
+        load_plugin_filters(plugin)
       end
     end
 
-    def load_plugin dir
+    def setup(config)
+      return if !should_load
+      available_plugins.each do |dir|
+        setup_plugin(dir, config)
+      end
+    end
+
+    def setup_plugin(dir, config)
       plugin_name = File.basename(dir)
 
       plugin_dependencies_ok = true
@@ -35,38 +47,59 @@ class Noosfero::Plugin
         end
       end
 
-      return unless plugin_dependencies_ok
+      if plugin_dependencies_ok
+        %w[
+            controllers
+            controllers/public
+            controllers/profile
+            controllers/myprofile
+            controllers/admin
+        ].each do |folder|
+          config.autoload_paths << File.join(dir, folder)
+        end
+        [ config.autoload_paths, $:].each do |path|
+          path << File.join(dir, 'models')
+          path << File.join(dir, 'lib')
+          # load vendor/plugins
+          Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
+            path << "#{vendor_plugin}/lib" 
+            init = "#{vendor_plugin}/init.rb"
+            require init.gsub(/.rb$/, '') if File.file? init
+         end
+        end
 
-      # add load paths
-      Rails.configuration.controller_paths << File.join(dir, 'controllers')
-      ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-      controllers_folders = %w[public profile myprofile admin]
-      controllers_folders.each do |folder|
-        Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
-        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
+        # add view path
+        ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
       end
-      [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-        path << File.join(dir, 'models')
-        path << File.join(dir, 'lib')
+    end
+
+    def load_plugin(plugin_name)
+      (plugin_name.to_s.camelize + 'Plugin').constantize
+    end
+
+    # This is a generic method that initialize any possible filter defined by a
+    # plugin to a specific controller
+    def load_plugin_filters(plugin)
+      plugin_methods = plugin.instance_methods.select {|m| m.to_s.end_with?('_filters')}
+      plugin_methods.each do |plugin_method|
+        controller_class = plugin_method.to_s.gsub('_filters', '').camelize.constantize
+        filters = plugin.new.send(plugin_method)
+        filters = [filters] if !filters.kind_of?(Array)
+
+        filters.each do |plugin_filter|
+          filter_method = (plugin.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
+          controller_class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
+          controller_class.send(:define_method, filter_method) do
+            instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin)
+          end
+        end
       end
+    end
 
-      # add view path
-      ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
-
-      # load vendor/plugins
-      Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
-        [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
-        init = "#{vendor_plugin}/init.rb"
-        require init.gsub(/.rb$/, '') if File.file? init
-      end
-
-      # load extensions
+    def load_plugin_extensions(dir)
       Rails.configuration.to_prepare do
         Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
       end
-
-      # load class
-      klass(plugin_name)
     end
 
     def available_plugins
@@ -89,11 +122,11 @@ class Noosfero::Plugin
     end
 
     def public_path(file = '')
-      compute_public_path((public_name + '/' + file), 'plugins')
+      File.join('/plugins', public_name, file)
     end
 
     def root_path
-      File.join(RAILS_ROOT, 'plugins', public_name)
+      Rails.root.join('plugins', public_name)
     end
 
     def view_path
@@ -119,7 +152,7 @@ class Noosfero::Plugin
   end
 
   def expanded_template(file_path, locals = {})
-    views_path = "#{RAILS_ROOT}/plugins/#{self.class.public_name}/views"
+    views_path = Rails.root.join('plugins', "#{self.class.public_name}", 'views')
     ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
   end
 
@@ -244,6 +277,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds content to the ending of the page
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def body_ending
+    nil
+  end
+
   # -> Adds content to the ending of the page head
   # returns = lambda block that creates html code or raw rhtml/html.erb
   def head_ending
@@ -356,7 +395,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds fields to the signup form
-  # returns = lambda block that creates html code
+  # returns = proc that creates html code
   def signup_extra_contents
     nil
   end
@@ -431,7 +470,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds fields to the login form
-  # returns = lambda block that creates html code
+  # returns = proc that creates html code
   def login_extra_contents
     nil
   end
@@ -569,7 +608,13 @@ class Noosfero::Plugin
   def content_actions
     #FIXME 'new' and 'upload' only works for content_remove. It should work for
     #content_expire too.
-    %w[edit delete spread locale suggest home new upload]
+    %w[edit delete spread locale suggest home new upload undo]
   end
 
 end
+
+require 'noosfero/plugin/hot_spot'
+require 'noosfero/plugin/manager'
+require 'noosfero/plugin/active_record'
+require 'noosfero/plugin/mailer_base'
+require 'noosfero/plugin/settings'

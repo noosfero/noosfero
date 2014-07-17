@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 require 'search_controller'
 
@@ -12,7 +13,7 @@ class SearchControllerTest < ActionController::TestCase
     @request.stubs(:ssl?).returns(false)
     @response   = ActionController::TestResponse.new
 
-    @category = Category.create!(:name => 'my category', :environment => Environment.default)
+    @category = Category.create!(:name => 'my-category', :environment => Environment.default)
 
     env = Environment.default
     domain = env.domains.first
@@ -32,6 +33,7 @@ class SearchControllerTest < ActionController::TestCase
     user.stubs(:valid?).returns(true)
     user.stubs(:email).returns('some@test.com')
     user.stubs(:save!).returns(true)
+    user.stubs(:marked_for_destruction?).returns(false)
     Person.any_instance.stubs(:user).returns(user)
   end
 
@@ -43,14 +45,6 @@ class SearchControllerTest < ActionController::TestCase
     fast_create(klass, { :name => name }.merge(data), :search => true, :category => category)
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'espape xss attack' do
     get 'index', :query => '<wslite>'
     assert_no_tag :tag => 'wslite'
@@ -58,7 +52,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search only in specified types of content' do
     get :articles, :query => 'something not important'
-    assert_equal [:articles], assigns(:searches).keys
+    assert_equal ['articles'], assigns(:searches).keys
   end
 
   should 'render success in search' do
@@ -112,7 +106,9 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'search for people' do
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
+    p1 = create_user('people_1').person;
+    p1.name = 'a beautiful person';
+    p1.save!
     get :people, :query => 'beautiful'
     assert_includes assigns(:searches)[:people][:results], p1
   end
@@ -154,13 +150,13 @@ class SearchControllerTest < ActionController::TestCase
   should 'include extra content supplied by plugins on product asset' do
     class Plugin1 < Noosfero::Plugin
       def asset_product_extras(product)
-        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def asset_product_extras(product)
-        lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
+        proc {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
@@ -182,12 +178,12 @@ class SearchControllerTest < ActionController::TestCase
   should 'include extra properties of the product supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def asset_product_properties(product)
-        return { :name => _('Property1'), :content => lambda { link_to(product.name, '/plugin1') } }
+        return { :name => _('Property1'), :content => proc { link_to(product.name, '/plugin1') } }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def asset_product_properties(product)
-        return { :name => _('Property2'), :content => lambda { link_to(product.name, '/plugin2') } }
+        return { :name => _('Property2'), :content => proc { link_to(product.name, '/plugin2') } }
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
@@ -248,7 +244,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search in category hierachy' do
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
-    child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
+    child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent_id => parent.id)
 
     p = create_profile_with_optional_category(Person, 'test_profile', child)
 
@@ -278,12 +274,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search all enabled assets in general search' do
     ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
-    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod_cat = create(ProductCategory, :name => 'pctest', :environment => Environment.default)
     prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
-    art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
-    per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
-    com = Community.create!(:name => 'test community')
-    eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
+    art = create(Article, :name => 'test article', :profile_id => fast_create(Person).id)
+    per = create(Person, :name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
+    com = create(Community, :name => 'test community')
+    eve = create(Event, :name => 'test event', :profile_id => fast_create(Person).id)
 
     get :index, :query => 'test'
 
@@ -296,12 +292,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
-    cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
+    cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent_id => parent.id,
       :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
 
     process_delayed_job_queue
-    get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
+    get :category_index, :category_path => 'category1/category2', :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end
 
@@ -378,7 +374,7 @@ class SearchControllerTest < ActionController::TestCase
       create_event(person, :name => "Event #{i}", :start_date => Date.today)
     end
     get :events
-    assert_equal 20, assigns(:events).count
+    assert_equal 20, assigns(:events).size
   end
 
   %w[ people enterprises articles events communities products ].each do |asset|
@@ -389,10 +385,10 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'display only within a product category when specified' do
-    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
+    prod_cat = create(ProductCategory, :name => 'prod cat test', :environment => Environment.default)
     ent = create_profile_with_optional_category(Enterprise, 'test ent')
 
-    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
+    p = create(Product, :product_category => prod_cat, :name => 'prod test 1', :enterprise => ent)
 
     get :products, :product_category => prod_cat.id
 
@@ -400,12 +396,12 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'display properly in conjuntion with a category' do
-    cat = Category.create(:name => 'cat', :environment => Environment.default)
-    prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
-    prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
+    cat = create(Category, :name => 'cat', :environment => Environment.default)
+    prod_cat1 = create(ProductCategory, :name => 'prod cat test 1', :environment => Environment.default)
+    prod_cat2 = create(ProductCategory, :name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
     ent = create_profile_with_optional_category(Enterprise, 'test ent', cat)
 
-    product = prod_cat2.products.create!(:name => 'prod test 1', :profile_id => ent.id)
+    product = create(Product, :product_category => prod_cat2, :name => 'prod test 1', :profile_id => ent.id)
 
     get :products, :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
@@ -530,7 +526,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :people
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Person.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:people][:results].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:people][:results].size
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -550,7 +546,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :communities
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Community.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:communities][:results].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:communities][:results].size
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -560,9 +556,9 @@ class SearchControllerTest < ActionController::TestCase
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
     ActionTracker::Record.delete_all
-    ActionTracker::Record.create!(:target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :filter => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
@@ -598,7 +594,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'show tag cloud' do
     @controller.stubs(:is_cache_expired?).returns(true)
-    a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
+    a = create(Article, :name => 'my article', :profile_id => fast_create(Person).id)
     a.tag_list = ['one', 'two']
     a.save_tags
 
@@ -610,8 +606,8 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'show tagged content' do
     @controller.stubs(:is_cache_expired?).returns(true)
-    a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
-    a2 = Article.create!(:name => 'my article 2', :profile_id => fast_create(Person).id)
+    a = Article.create!(:name => 'my article', :profile => fast_create(Person))
+    a2 = Article.create!(:name => 'my article 2', :profile => fast_create(Person))
     a.tag_list = ['one', 'two']
     a2.tag_list = ['two', 'three']
     a.save_tags
@@ -628,10 +624,10 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'not show assets from other environments' do
     other_env = Environment.create!(:name => 'Another environment')
-    p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
-    p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
-    art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
-    art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
+    p1 = create(Person, :name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
+    p2 = create(Person, :name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
+    art1 = create(Article, :name => 'my article', :profile_id => p1.id)
+    art2 = create(Article, :name => 'my article', :profile_id => p2.id)
 
     get :articles, :query => 'my article'
 
@@ -640,9 +636,9 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'order articles by more recent' do
     Article.destroy_all
-    art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
-    art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
-    art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
+    art1 = create(Article, :name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
+    art2 = create(Article, :name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
+    art3 = create(Article, :name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
 
     get :articles, :filter => :more_recent
 
@@ -651,14 +647,14 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'add highlighted CSS class around a highlighted product' do
     enterprise = fast_create(Enterprise)
-    product = Product.create!(:name => 'Enter Sandman', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
+    product = create(Product, :name => 'Enter Sandman', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
     get :products
     assert_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Enter Sandman/
   end
 
   should 'do not add highlighted CSS class around an ordinary product' do
     enterprise = fast_create(Enterprise)
-    product = Product.create!(:name => 'Holier Than Thou', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
+    product = create(Product, :name => 'Holier Than Thou', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
     get :products
     assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
   end
@@ -666,7 +662,7 @@ class SearchControllerTest < ActionController::TestCase
   protected
 
   def create_event(profile, options)
-    ev = Event.new({ :name => 'some event', :start_date => Date.new(2008,1,1) }.merge(options))
+    ev = build(Event, { :name => 'some event', :start_date => Date.new(2008,1,1) }.merge(options))
     ev.profile = profile
     ev.save!
     ev

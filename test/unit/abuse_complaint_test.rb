@@ -7,7 +7,7 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     abuse_complaint = AbuseComplaint.new
 
     assert !abuse_complaint.valid?
-    assert abuse_complaint.errors.invalid?(:reported)
+    assert abuse_complaint.errors[:reported].any?
 
     abuse_complaint.reported = reported
 
@@ -24,9 +24,18 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     assert_equal Task::Status::HIDDEN, abuse_complaint.status
 
     reported.environment.stubs(:reports_lower_bound).returns(2)
-    r1 = AbuseReport.create!(:reporter => p1, :abuse_complaint => abuse_complaint, :reason => 'some reason')
-    r2 = AbuseReport.create!(:reporter => p2, :abuse_complaint => abuse_complaint, :reason => 'some reason')
-    r3 = AbuseReport.create!(:reporter => p3, :abuse_complaint => abuse_complaint, :reason => 'some reason')
+    r1 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+      a.reporter = p1
+      a.abuse_complaint = abuse_complaint
+    end.save
+    r2 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+      a.reporter = p2
+      a.abuse_complaint = abuse_complaint
+    end.save
+    r3 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+      a.reporter = p3
+      a.abuse_complaint = abuse_complaint
+    end.save
 
     assert_equal Task::Status::ACTIVE, abuse_complaint.status
   end

@@ -14,14 +14,6 @@ class AdminPanelControllerTest < ActionController::TestCase
     login_as(create_admin_user(Environment.default))
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'manage the correct environment' do
     current = fast_create(Environment, :name => 'test environment', :is_default => false)
     current.domains.create!(:name => 'example.com')
@@ -73,6 +65,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
     assert_tag :tag => 'input', :attributes => { :name => 'environment[signup_welcome_text_subject]'}
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[signup_welcome_text_body]'}
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[signup_welcome_screen_body]'}
   end
 
   should 'display form for editing message for disabled enterprise' do
@@ -245,7 +238,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     e = Environment.default
     @controller.stubs(:environment).returns(e)
     other_e = fast_create(Environment, :name => 'other environment')
-    c = Community.create!(:name => 'portal community', :environment => other_e)
+    c = create(Community, :name => 'portal community', :environment => other_e)
 
     post :set_portal_community, :portal_community_identifier => c.identifier
     e.reload
@@ -379,6 +372,15 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal 'pt', environment.default_language
     assert_includes environment.languages, 'pt'
     assert_not_includes environment.languages, 'en'
+  end
+
+  should 'save body of signup welcome screen' do
+    body = "This is my welcome body"
+    post :site_info, :environment => { :signup_welcome_screen_body => body }
+    assert_redirected_to :action => 'index'
+
+    assert_equal body, Environment.default.signup_welcome_screen_body
+    assert !Environment.default.signup_welcome_screen_body.blank?
   end
 
 end

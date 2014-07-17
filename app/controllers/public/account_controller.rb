@@ -140,12 +140,8 @@ class AccountController < ApplicationController
                                params[:new_password_confirmation])
         session[:notice] = _('Your password has been changed successfully!')
         redirect_to :action => 'index'
-      rescue User::IncorrectPassword => e
-        session[:notice] = _('The supplied current password is incorrect.')
-        render :action => 'change_password'
+      rescue Exception
       end
-    else
-      render :action => 'change_password'
     end
   end
 
@@ -171,12 +167,12 @@ class AccountController < ApplicationController
         render :action => 'password_recovery_sent'
       rescue ActiveRecord::RecordNotFound
         if params[:value].blank?
-          @change_password.errors.add_to_base(_('Can not recover user password with blank value.'))
+          @change_password.errors[:base] << _('Can not recover user password with blank value.')
         else
-          @change_password.errors.add_to_base(_('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]])
+          @change_password.errors[:base] << _('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]]
         end
       rescue ActiveRecord::RecordInvald
-        @change_password.errors.add_to_base(_('Could not perform password recovery for the user.'))
+        @change_password.errors[:base] << _('Could not perform password recovery for the user.')
       end
     end
   end

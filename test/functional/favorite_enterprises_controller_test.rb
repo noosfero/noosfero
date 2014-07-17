@@ -18,14 +18,6 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
   end
   attr_accessor :profile, :favorite_enterprise
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'list favorite enterprises' do
     get :index
     assert_response :success
@@ -44,7 +36,7 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
   end
 
   should 'actually add favorite_enterprise' do
-    assert_difference profile.favorite_enterprises, :count do
+    assert_difference 'profile.favorite_enterprises.count' do
       post :add, :id => favorite_enterprise.id, :confirmation => '1'
       assert_response :redirect
 
@@ -64,7 +56,7 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
   should 'actually remove favorite_enterprise' do
     profile.favorite_enterprises << favorite_enterprise
 
-    assert_difference profile.favorite_enterprises, :count, -1 do
+    assert_difference 'profile.favorite_enterprises.count', -1 do
       post :remove, :id => favorite_enterprise.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
 

@@ -25,7 +25,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     FileUtils.rm_rf(TMP_THEMES_DIR)
   end
 
-  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes_controller'
+  TMP_THEMES_DIR = Rails.root.join("test", "tmp", "profile_themes_controller")
 
   should 'display themes that can be applied' do
     env = Environment.default
@@ -166,7 +166,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
     get :css_editor, :profile => 'testinguser', :id => 'mytheme', :css => 'test.css'
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => '/* sample code */' }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => /\/\* sample code \*\// }
   end
 
   should 'be able to save CSS code' do
@@ -216,7 +216,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     post :add_image, :profile => 'testinguser', :id => 'mytheme', :image => fixture_file_upload('/files/rails.png', 'image/png', :binary)
     assert_redirected_to :action => "edit", :id => 'mytheme'
     assert theme.image_files.include?('rails.png')
-    assert(system('diff', RAILS_ROOT + '/test/fixtures/files/rails.png', TMP_THEMES_DIR + '/mytheme/images/rails.png'), 'should put the correct uploaded file in the right place')
+    assert(system('diff', Rails.root.join('test', 'fixtures', 'files','rails.png').to_s, TMP_THEMES_DIR.join('mytheme/images/rails.png').to_s), 'should put the correct uploaded file in the right place')
   end
 
   should 'link to "test theme"' do
@@ -250,7 +250,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
     LayoutTemplate.expects(:all).returns(all)
     get :index, :profile => 'testinguser'
-    assert_same all, assigns(:layout_templates)
+    assert_equal all, assigns(:layout_templates)
   end
 
   should 'display links to set template' do

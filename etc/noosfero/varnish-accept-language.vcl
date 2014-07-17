@@ -186,7 +186,7 @@ sub vcl_recv {
 
 sub vcl_fetch {
   if (beresp.http.Vary) {
-    set beresp.http.Vary = beresp.http.Vary ", X-Varnish-Accept-Language";
+    set beresp.http.Vary = beresp.http.Vary + ", X-Varnish-Accept-Language";
   } else {
     set beresp.http.Vary = "X-Varnish-Accept-Language";
   }

@@ -14,14 +14,6 @@ class FeaturesControllerTest < ActionController::TestCase
     login_as(create_admin_user(Environment.find(2)))
   end
   
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   def test_listing_features
     uses_host 'anhetegua.net'
     get :index

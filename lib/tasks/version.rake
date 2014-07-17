@@ -1,5 +1,5 @@
 desc "shows noosfero version"
 task :version do
-  require 'noosfero'
+  require_dependency 'noosfero'
   puts "noosfero, version #{Noosfero::VERSION}"
 end

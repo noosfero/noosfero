@@ -10,10 +10,10 @@ module Spammable
 
   module ClassMethods
     def self.extended (base)
-      if base.respond_to?(:named_scope)
+      if base.respond_to?(:scope)
         base.class_eval do
-          named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
-          named_scope :spam, :conditions => ['spam = ?', true]
+          scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+          scope :spam, :conditions => ['spam = ?', true]
         end
       end
     end

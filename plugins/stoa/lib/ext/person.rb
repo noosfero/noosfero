@@ -1,6 +1,8 @@
 require_dependency 'person'
 
 class Person
+  attr_accessible :usp_id, :invitation_code
+
   validates_uniqueness_of :usp_id, :allow_nil => true
   settings_items :invitation_code
   validate :usp_id_or_invitation, :if => lambda { |person| person.environment && person.environment.plugin_enabled?(StoaPlugin)}

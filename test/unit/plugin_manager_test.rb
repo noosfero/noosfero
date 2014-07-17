@@ -118,7 +118,7 @@ class PluginManagerTest < ActiveSupport::TestCase
 
     Plugin3.any_instance.expects(:random_event).never
 
-    assert 'Plugin2', manager.first(:random_event)
+    assert 'Plugin2', manager.dispatch_first(:random_event)
   end
 
   should 'returns plugins that returns true to the event' do

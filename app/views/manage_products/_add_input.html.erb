@@ -1,0 +1,25 @@
+<div id='request_result_message' style='display: none'></div>
+
+<%= form_for(:input,
+           :url => {:action => 'add_input', :id => @product},
+           :html => {:method => 'post', :id => 'input-category-form'}
+           ) do |f| %>
+
+  <h3><%= _('Choose an input or raw material to this product:') %><span class='loading-area'></span></h3>
+
+  <%= categories_container(select_for_new_category(@categories, @level)) %>
+
+  <div id='categories_selection_actionbar'>
+    <span id='save_and_continue_wrapper'>
+      <%= submit_button(:save, _('Save and continue'), :id => 'save_and_continue') %>
+      <span class='tooltip' id='save_and_continue_disabled_tooltip'>
+         <%= ui_icon('ui-icon-alert') %>
+         <%= _('This category does not allow registration of products, select a more specific category') %>
+      </span>
+    </span>
+    <%= button :cancel, _('Cancel'), '#', :class => 'cancel-add-input' %>
+  </div>
+
+<% end %>
+
+<%= javascript_tag "add_input_stuff()" %>

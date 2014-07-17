@@ -13,7 +13,7 @@ Then /^there must be no cache at all$/ do
 end
 
 Then 'there must be no cookies' do
-  cookies.should == {}
+  cookies.to_hash.should == {}
 end
 
 Then /^there must be a cookie "(.+)"$/ do |cookie_name|

@@ -21,14 +21,6 @@ class AccountControllerTest < ActionController::TestCase
     disable_signup_bot_check
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   def test_should_login_and_redirect
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
@@ -56,7 +48,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_allow_signup
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       new_user
       assert_response :success
       assert_not_nil assigns(:register_pending)
@@ -64,44 +56,44 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_require_login_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:login => nil)
-      assert assigns(:user).errors.on(:login)
+      assert assigns(:user).errors[:login]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_password_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:password => nil)
-      assert assigns(:user).errors.on(:password)
+      assert assigns(:user).errors[:password]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_password_confirmation_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:password_confirmation => nil)
-      assert assigns(:user).errors.on(:password_confirmation)
+      assert assigns(:user).errors[:password_confirmation]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_should_require_email_on_signup
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       new_user(:email => nil)
-      assert assigns(:user).errors.on(:email)
+      assert assigns(:user).errors[:email]
       assert_response :success
       assert_nil assigns(:register_pending)
     end
   end
 
   def test_shoud_not_save_without_acceptance_of_terms_of_use_on_signup
-    assert_no_difference User, :count do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+    assert_no_difference 'User.count' do
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user
       assert_response :success
       assert_nil assigns(:register_pending)
@@ -109,8 +101,8 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_shoud_save_with_acceptance_of_terms_of_use_on_signup
-    assert_difference User, :count do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+    assert_difference 'User.count' do
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user(:terms_accepted => '1')
       assert_response :success
       assert_not_nil assigns(:register_pending)
@@ -199,6 +191,16 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'change_password'
     assert ! User.find_by_login('ze').authenticated?('blabla')
+    assert_equal users(:ze), @controller.send(:current_user)
+  end
+
+  should "not change password when new password and new password confirmation don't match" do
+    login_as 'ze'
+    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
+    assert_response :success
+    assert_template 'change_password'
+    assert !assigns(:current_user).authenticated?('blabla')
+    assert !assigns(:current_user).authenticated?('blibli')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -294,12 +296,12 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'restrict multiple users with the same e-mail' do
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       new_user(:login => 'user1', :email => 'user@example.com')
       assert assigns(:user).valid?
       @controller.stubs(:logged_in?).returns(false)
       new_user(:login => 'user2', :email => 'user@example.com')
-      assert assigns(:user).errors.on(:email)
+      assert assigns(:user).errors[:email]
     end
   end
 
@@ -622,7 +624,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'signup filling in mandatory person fields' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
       assert_response :success
     end
@@ -778,12 +780,12 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on signup forms from plugins' do
     class Plugin1 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -900,12 +902,12 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on login form from plugins' do
     class Plugin1 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -926,7 +928,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'not sign in if the honeypot field is filled' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :honeypot => 'something'
     end
     assert @response.body.blank?

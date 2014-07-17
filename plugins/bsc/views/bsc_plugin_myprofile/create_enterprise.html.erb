@@ -4,7 +4,7 @@
 
 <%= required_fields_message %>
 
-<% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
+<%= labelled_form_for(:create_enterprise) do |f| %>
 
   <%= required f.text_field 'name', :onchange => "updateUrlField(this, 'create_enterprise_identifier')", :size => 40 %>
   <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise } %>

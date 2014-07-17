@@ -1,5 +1,0 @@
-  <%= i.file_field( :uploaded_data, { :onchange => 'updateImg(this.value)' } ) %>
-  <%= link_to_function(_('Cancel'), nil, :id => 'cancel-change-image-link', :class => 'button icon-cancel with-text', :style => 'display: none') do |page|
-    page['change-image-link'].show
-    page['change-image'].replace_html ''
-  end %>

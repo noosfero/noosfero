@@ -14,7 +14,7 @@ module RoleAssignmentTrigger
         end
       end
 
-      before_validation_on_create do |ra|
+      before_validation :on => :create do |ra|
         proceed_creation = true
         if ra.resource.kind_of?(Profile)
           profile = ra.resource

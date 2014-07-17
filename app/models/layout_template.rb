@@ -7,7 +7,7 @@ class LayoutTemplate
   end
 
   def self.all
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'designs', 'templates', '*')).map {|item| find(File.basename(item)) }
+    Dir.glob(Rails.root.join('public', 'designs', 'templates', '*')).map {|item| find(File.basename(item)) }
   end
 
   attr_reader :id
@@ -34,7 +34,7 @@ class LayoutTemplate
   protected
 
   def read_config
-    @config = YAML.load_file(File.join(RAILS_ROOT, 'public', 'designs', 'templates', id, 'config.yml'))
+    @config = YAML.load_file(Rails.root.join('public', 'designs', 'templates', id, 'config.yml'))
   end
 
 end

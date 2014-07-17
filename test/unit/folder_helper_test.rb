@@ -1,10 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FolderHelperTest < ActiveSupport::TestCase
+class FolderHelperTest < ActionView::TestCase
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
   include ActionView::Helpers::AssetTagHelper
   include DatesHelper
 
@@ -25,7 +24,7 @@ class FolderHelperTest < ActiveSupport::TestCase
 
   should 'display icon for images' do
     profile = fast_create(Profile)
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
     file = FilePresenter.for file
     process_delayed_job_queue
 
@@ -97,7 +96,7 @@ class FolderHelperTest < ActiveSupport::TestCase
     article2 = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
     self.stubs(:params).returns({:npage => nil})
 
-    articles = folder.children.find(:all, :order => 'updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
+    articles = folder.children.order('updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
     expects(:user).returns(profile).at_least_once
     expects(:recursive).returns(false).at_least_once
     expects(:pagination_links).with(anything, anything).returns('')
@@ -128,7 +127,7 @@ class FolderHelperTest < ActiveSupport::TestCase
 
   private
   def render(template, the_binding)
-    ERB.new(File.read(RAILS_ROOT + '/app/views/' + template + '.rhtml')).result(the_binding)
+    ERB.new(File.read(Rails.root.join('app/views', template + '.html.erb'))).result(the_binding)
   end
 
 end

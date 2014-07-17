@@ -19,23 +19,11 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     Profile.expects(:find_by_identifier).with('myorg').returns(@org).at_least_once
   end
 
-  def test_local_files_reference
-    assert_local_files_reference :get, :index, :profile => 'myorg'
-  end
-  
-  def test_valid_xhtml
-
-    # FIXME remove this after enable assert_valid_xhtml
-    Profile.find_by_identifier('myorg')
-
-    assert_valid_xhtml :get, :index, :profile => 'myorg'
-  end
-  
   should 'list pending validations on index' do
     empty = []
     @org.expects(:pending_validations).returns(empty)
     get :index, :profile => 'myorg'
-    assert_same empty, assigns(:pending_validations)
+    assert_equal empty, assigns(:pending_validations)
     assert_template 'index'
   end
 
@@ -93,7 +81,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     
     get :list_processed, :profile => 'myorg'
 
-    assert_same processed_validations, assigns(:processed_validations)
+    assert_equal processed_validations, assigns(:processed_validations)
 
     assert_response :success
     assert_template 'list_processed'

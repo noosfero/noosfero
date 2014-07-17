@@ -56,6 +56,7 @@ Feature: publish article
     And I am on mariasilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
+    And I should see "Text article with Textile markup language"
     And I follow "Text article with Textile markup language"
     And I fill in the following:
       | Title | Sample Article |

@@ -167,20 +167,20 @@ class EnvironmentTest < ActiveSupport::TestCase
     @enviroment.ldap_plugin= {:port => 3000}
     @enviroment.valid?
 
-    assert @enviroment.errors.invalid?(:ldap_plugin_host)
+    assert @enviroment.errors.include?(:ldap_plugin_host)
 
     @enviroment.ldap_plugin_host= "http://somehost.com"
     @enviroment.valid?
-    assert !@enviroment.errors.invalid?(:ldap_plugin_host)
+    assert !@enviroment.errors.include?(:ldap_plugin_host)
   end
 
   should 'validates presence of host only if some ldap configuration is defined' do
     @enviroment.valid?
-    assert !@enviroment.errors.invalid?(:ldap_plugin_host)
+    assert !@enviroment.errors.include?(:ldap_plugin_host)
 
     @enviroment.ldap_plugin= {:port => 3000}
     @enviroment.valid?
-    assert @enviroment.errors.invalid?(:ldap_plugin_host)
+    assert @enviroment.errors.include?(:ldap_plugin_host)
   end
 
 end

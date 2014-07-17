@@ -17,14 +17,6 @@ class HomeControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-
   should 'not display news from portal if disabled in environment' do
     env = Environment.default
     env.disable('use_portal_community')
@@ -81,7 +73,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'display block in index page if it\'s configured to display on homepage and its an environment block' do
     env = Environment.default
-    box = Box.create(:owner_type => 'Environment', :owner_id => env.id)
+    box = create(Box, :owner_type => 'Environment', :owner_id => env.id)
     block = Block.create(:title => "Index Block", :box_id => box.id, :display => 'home_page_only')
     env.save!
 
@@ -99,12 +91,12 @@ class HomeControllerTest < ActionController::TestCase
   should 'provide a link to make the user authentication' do
     class Plugin1 < Noosfero::Plugin
       def alternative_authentication_link
-        lambda {"<a href='plugin1'>Plugin1 link</a>"}
+        proc {"<a href='plugin1'>Plugin1 link</a>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def alternative_authentication_link
-        lambda {"<a href='plugin2'>Plugin2 link</a>"}
+        proc {"<a href='plugin2'>Plugin2 link</a>"}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])

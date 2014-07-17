@@ -1,15 +1,17 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140314200103) do
+ActiveRecord::Schema.define(:version => 20140605222753) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
+    t.integer  "created_by_id"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
@@ -138,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
+    t.integer  "created_by_id"
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
@@ -256,6 +260,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -285,8 +290,8 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
-    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
     t.string   "noreply_email"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -474,11 +479,11 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
-    t.string   "personal_website"
-    t.string   "jabber_id"
     t.integer  "friends_count",                         :default => 0,     :null => false
     t.integer  "members_count",                         :default => 0,     :null => false
     t.integer  "activities_count",                      :default => 0,     :null => false
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
@@ -562,9 +567,12 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
@@ -572,6 +580,8 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.integer "parent_id"
     t.boolean "pending",   :default => false
   end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "tasks", :force => true do |t|
     t.text     "data"

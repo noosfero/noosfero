@@ -53,7 +53,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def block_classes=(classes)
-    classes.each { |c| block = c.constantize.create!(:box => container_box) } if classes
+    classes.each { |c| block = c.constantize.create!(:box_id => container_box.id) } if classes
   end
 
   def blocks
@@ -66,8 +66,8 @@ class ContainerBlockPlugin::ContainerBlock < Block
 
   def content(args={})
     block = self
-    lambda do
-      render :file => 'blocks/container.rhtml', :locals => {:block => block}
+    proc do
+      render :file => 'blocks/container', :locals => {:block => block}
     end
   end
 

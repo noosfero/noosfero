@@ -64,15 +64,15 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'not display when set to hidden' do
-    assert_equal false, Block.new(:display => 'never').visible?
-    assert_equal false, Block.new(:display => 'never').visible?(:article => Article.new)
+    assert_equal false, build(Block, :display => 'never').visible?
+    assert_equal false, build(Block, :display => 'never').visible?(:article => Article.new)
   end
 
   should 'be able to be displayed only in the homepage' do
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:article => home_page)
@@ -80,7 +80,7 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed only in the homepage (index) of the environment' do
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
 
     assert_equal true, block.visible?(:article => nil, :request_path => '/')
     assert_equal false, block.visible?(:article => nil)
@@ -90,7 +90,7 @@ class BlockTest < ActiveSupport::TestCase
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'except_home_page')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => home_page)
@@ -98,8 +98,8 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed everywhere except on profile index' do
-    profile = Profile.new(:identifier => 'testinguser')
-    block = Block.new(:display => 'except_home_page')
+    profile = build(Profile, :identifier => 'testinguser')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
@@ -133,7 +133,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed in all languages' do
     profile = Profile.new
-    block = Block.new(:language => 'all')
+    block = build(Block, :language => 'all')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -142,7 +142,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed only in the selected language' do
     profile = Profile.new
-    block = Block.new(:language => 'pt')
+    block = build(Block, :language => 'pt')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -151,7 +151,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'delegate environment to box' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = Block.new(:box => box)
+    block = build(Block, :box => box)
     box.stubs(:environment).returns(Environment.default)
 
     assert_equal box.environment, block.environment
@@ -169,14 +169,14 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'create a cloned block' do
     block = fast_create(Block, :title => 'test 1', :position => 1)
-    assert_difference Block, :count, 1 do
+    assert_difference 'Block.count', 1 do
       block.duplicate
     end
   end
 
   should 'clone and keep some fields' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'})
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'})
     duplicated = block.duplicate
     [:title, :box_id, :type].each do |f|
       assert_equal duplicated.send(f), block.send(f)
@@ -186,8 +186,8 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'clone block and set fields' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
-    block2 = TagsBlock.create!(:title => 'test 2', :box_id => box.id, :settings => {:test => 'test'}, :position => 2)
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    block2 = create(TagsBlock, :title => 'test 2', :box_id => box.id, :settings => {:test => 'test'}, :position => 2)
     duplicated = block.duplicate
     block2.reload
     block.reload
@@ -198,8 +198,8 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'not clone date creation and update attributes' do
-     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = create(TagsBlock, :title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
     duplicated = block.duplicate
 
       assert_not_equal block.created_at, duplicated.created_at
@@ -213,14 +213,14 @@ class BlockTest < ActiveSupport::TestCase
       end
 
       def display_even_context(context)
-        context % 2 == 0
+        context[:value] % 2 == 0
       end
     end
 
     block = MyBlock.new
 
-    assert block.visible?(2)
-    assert !block.visible?(3)
+    assert block.visible?({:value => 2})
+    assert !block.visible?({:value => 3})
   end
 
   should 'not be embedable by default' do

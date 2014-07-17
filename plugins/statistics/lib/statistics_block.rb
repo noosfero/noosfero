@@ -9,6 +9,8 @@ class StatisticsBlock < Block
   settings_items :hit_counter, :default => false
   settings_items :templates_ids_counter, Hash, :default => {}
 
+  attr_accessible :comment_counter, :community_counter, :user_counter, :enterprise_counter, :category_counter, :tag_counter, :hit_counter, :templates_ids_counter
+
   USER_COUNTERS = [:community_counter, :user_counter, :enterprise_counter, :tag_counter, :comment_counter, :hit_counter]
   COMMUNITY_COUNTERS = [:user_counter, :tag_counter, :comment_counter, :hit_counter]
   ENTERPRISE_COUNTERS = [:user_counter, :tag_counter, :comment_counter, :hit_counter]
@@ -138,7 +140,7 @@ class StatisticsBlock < Block
   def content(args={})
     block = self
 
-    lambda do
+    proc do
       render :file => 'statistics_block', :locals => { :block => block }
     end
   end

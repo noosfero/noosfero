@@ -12,15 +12,6 @@ class ProfileMembersControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_local_files_reference
-    user = create_user('test_user').person
-    assert_local_files_reference :get, :index, :profile => user.identifier
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'not access index if dont have permission' do
     user = create_user('test_user')
     fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
@@ -29,7 +20,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     get 'index', :profile => 'test_enterprise'
 
     assert_response 403
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'access index' do
@@ -122,7 +113,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     get :unassociate, :profile => com.identifier, :id => member
 
     assert_response :success
-    assert_equal nil, @response.layout
+    assert_template :layout => nil
     member.reload
     com.reload
     assert_not_includes com.members, member
@@ -339,12 +330,12 @@ class ProfileMembersControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
-    r = ent.environment.roles.create!(:name => 'test_role', :permissions => ['some_perm'])
+    r = ent.environment.roles.create!(:name => 'test_role', :permissions => ['edit_profile'])
     get :update_roles, :profile => ent.identifier, :person => p.id, :roles => ["0", r.id, nil]
 
     p_roles = p.find_roles(ent).map(&:role).uniq
 
-    assert p_roles, [r]
+    assert_equal [r], p_roles
   end
 
   should 'set a community member as admin' do

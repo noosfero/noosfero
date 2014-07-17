@@ -18,19 +18,11 @@ class FriendsControllerTest < ActionController::TestCase
   end
   attr_accessor :profile, :friend
 
-  def test_local_files_reference
-    assert_local_files_reference
-  end
-  
-  def test_valid_xhtml
-    assert_valid_xhtml
-  end
-  
   should 'list friends' do
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:friends)
+    assert assigns(:friends)
   end
 
   should 'confirm removal of friend' do
@@ -45,7 +37,7 @@ class FriendsControllerTest < ActionController::TestCase
   should 'actually remove friend' do
     profile.add_friend(friend)
 
-    assert_difference Friendship, :count, -1 do
+    assert_difference 'Friendship.count', -1 do
       post :remove, :id => friend.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
     end

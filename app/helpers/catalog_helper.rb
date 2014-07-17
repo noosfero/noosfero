@@ -9,11 +9,9 @@ module CatalogHelper
       @categories = ProductCategory.on_level(params[:level]).order(:name)
     end
 
-    @products = profile.products.from_category(@category).paginate(
-      :order => 'available desc, highlighted desc, name asc',
-      :per_page => @profile.products_per_catalog_page,
-      :page => options[:page]
-    )
+    @products = profile.products.from_category(@category).
+      reorder('available desc, highlighted desc, name asc').
+      paginate(:per_page => @profile.products_per_catalog_page, :page => options[:page])
   end
 
   def breadcrumb(category)
@@ -41,7 +39,7 @@ module CatalogHelper
       cat_link = category_link sub_category
       sub_categories << content_tag('li', cat_link) unless cat_link.nil?
     end
-    content_tag('ul', sub_categories) if sub_categories.size > 0
+    content_tag('ul', sub_categories.join) if sub_categories.size > 0
   end
 
 end
