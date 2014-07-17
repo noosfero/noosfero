@@ -334,6 +334,12 @@ class CmsController < MyProfileController
     render :partial => 'published_media_items'
   end
 
+  def view_all_media
+    paginate_options = {:page => 1}
+    @key = params[:key].to_sym
+    load_recent_files(params[:parent_id], params[:q], paginate_options)
+  end
+
   protected
 
   include CmsHelper
@@ -430,7 +436,7 @@ class CmsController < MyProfileController
     {:images => _('Images'), :generics => _('Files')}
   end
 
-  def load_recent_files(parent_id = nil, q = nil)
+  def load_recent_files(parent_id = nil, q = nil, paginate_options = {:page => 1, :per_page => 6})
     #TODO Since we only have special support for images, I'm limiting myself to
     #     consider generic files as non-images. In the future, with more supported
     #     file types we'll need to have a smart way to fetch from the database
@@ -446,15 +452,15 @@ class CmsController < MyProfileController
     end
 
     files = files.more_recent
-    images = files.images.limit(6)
-    generics = files.no_images.limit(6)
+    images = files.images
+    generics = files.no_images
 
     if q.present?
-      @recent_files[:images] = find_by_contents(:images, images, q)[:results]
-      @recent_files[:generics] = find_by_contents(:generics, generics, q)[:results]
+      @recent_files[:images] = find_by_contents(:images, images, q, paginate_options)[:results]
+      @recent_files[:generics] = find_by_contents(:generics, generics, q, paginate_options)[:results]
     else
-      @recent_files[:images] = images
-      @recent_files[:generics] = generics
+      @recent_files[:images] = images.paginate(paginate_options)
+      @recent_files[:generics] = generics.paginate(paginate_options)
     end
   end
 

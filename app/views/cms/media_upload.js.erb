@@ -1,7 +1,7 @@
 <% if @file.valid? %>
   <% klass = @file.class.name.split('::').last.to_css_class %>
-  jQuery("#published-media #recent-media .<%= klass.pluralize %> h3").after("<%= j render :partial => "cms/media_panel/#{klass}" %>");
-  jQuery("#published-media #recent-media .<%= klass.pluralize %>").show();
+  jQuery("#published-media .items .<%= klass.pluralize %> .section-title").after("<%= j render :partial => "cms/media_panel/#{klass}" %>");
+  jQuery("#published-media .items .<%= klass.pluralize %>").show();
 <% else %>
   alert("Failed to upload file: <%= j @file.errors.full_messages.join(', ').html_safe %>");
 <% end %>

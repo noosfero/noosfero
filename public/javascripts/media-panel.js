@@ -26,11 +26,24 @@ function loadPublishedMedia() {
     success: function(response) {
       jQuery("#published-media .items").html(response);
       jQuery('#published-media').removeClass('fetching');
+      updateViewAllLinks();
     },
     error: function(response, textStatus, xhr) {
       console.log(response);
       console.log(textStatus);
     }
+  });
+}
+
+function updateViewAllLinks() {
+  var parent_id = jQuery('#published-media #parent_id').val();
+  var q = jQuery('#published-media #q').val();
+  jQuery('#published-media .view-all').each(function(){
+    var key = jQuery(this).data('key');
+    var params = {parent_id: parent_id, q: q, key: key}
+    var href = jQuery(this).attr('href');
+    href = href.replace(/\?.*/, '?'+jQuery.param(params));
+    jQuery(this).attr('href', href);
   });
 }
 

@@ -1,12 +1,15 @@
-<div class='items'>
-  <% file_types.each do |key, header| %>
-    <% display = @recent_files[key].present? ? '' : 'none' %>
-    <div class='<%= key.to_s %>' style='display: <%= display%>;'>
+<% file_types.each do |key, header| %>
+  <% display = @recent_files[key].present? ? '' : 'none' %>
+  <div class='<%= key.to_s %>' style='display: <%= display%>;'>
+    <div class='section-title'>
       <h3><%= header %></h3>
-      <% @recent_files[key].each do |file| %>
-        <% @file = file %>
-        <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
+      <% if @recent_files[key].total_pages > 1 %>
+        <%= link_to(_('View all'), {:controller => 'cms', :action => 'view_all_media', :profile => profile.identifier, :key => key}, :class => 'view-all colorbox', 'data-key' => key) %>
       <% end %>
     </div>
-  <% end %>
-</div>
+    <% @recent_files[key].each do |file| %>
+      <% @file = file %>
+      <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
+    <% end %>
+  </div>
+<% end %>

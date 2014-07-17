@@ -79,6 +79,11 @@ jQuery(function($) {
     return '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 640px; max-height: 480px"/></div>' + '<div class="button-bar">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>'
   }
 
+  $('.view-all-images .item').live('click', function(){
+    insert_item_in_text(jQuery(this).find('span'));
+    $.colorbox.close();
+  });
+
   $('a.add-to-text').live('click', function() {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');

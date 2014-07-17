@@ -23,7 +23,9 @@
         "type='Folder' or type='Gallery'", {:root_label => _('Recent media')}) %>
     <%= labelled_form_field _('Search'), text_field_tag('q') %>
     <%= render :partial => 'drag_and_drop_note' %>
-    <%= render :partial => 'published_media_items' %>
+    <div class='items'>
+      <%= render :partial => 'published_media_items' %>
+    </div>
   </div>
 </div>
 
