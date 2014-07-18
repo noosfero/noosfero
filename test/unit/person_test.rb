@@ -1114,6 +1114,15 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [person], Person.members_of(community)
   end
 
+  should 'return unique non-members of a community' do
+    member = fast_create(Person)
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(member)
+
+    assert_equal (Person.all - Person.members_of(community)).sort, Person.not_members_of(community).sort
+  end
+
   should 'be able to pass array to members_of' do
     person1 = fast_create(Person)
     community = fast_create(Community)
@@ -1124,6 +1133,20 @@ class PersonTest < ActiveSupport::TestCase
 
     assert_includes Person.members_of([community, enterprise]), person1
     assert_includes Person.members_of([community, enterprise]), person2
+  end
+
+  should 'be able to pass array to not_members_of' do
+    person1 = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person1)
+    person2 = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_member(person2)
+    person3 = fast_create(Person)
+
+    assert_not_includes Person.not_members_of([community, enterprise]), person1
+    assert_not_includes Person.not_members_of([community, enterprise]), person2
+    assert_includes Person.not_members_of([community, enterprise]), person3
   end
 
   should 'find more active people' do
