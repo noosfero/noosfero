@@ -15,6 +15,10 @@
         <p><%= file_field_tag('file', :multiple => true) %></p>
       <% end %>
     </div>
+    <div class='hide-and-show-uploads'>
+      <%= link_to(_('Hide all uploads'), nil, :id => 'hide-uploads', :style => 'display: none;', 'data-bootstraped' => false) %>
+      <%= link_to(_('Show all uploads'), nil, :id => 'show-uploads', :style => 'display: none;') %>
+    </div>
   </div>
 
   <div id='published-media' class='text-editor-sidebar-box' data-url='<%= url_for({:controller => 'cms', :action => 'published_media_items', :profile => profile.identifier}) %>'>

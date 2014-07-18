@@ -5,6 +5,10 @@ jQuery('#file').fileupload({
     data.submit();
   },
   progress: function (e, data) {
+    if (jQuery('#hide-uploads').data('bootstraped') == false) {
+      jQuery('#hide-uploads').show();
+      jQuery('#hide-uploads').data('bootstraped', true);
+    }
     if (data.context) {
       progress = parseInt(data.loaded / data.total * 100, 10);
       data.context.find('.bar').css('width', progress + '%');
@@ -16,6 +20,20 @@ jQuery('#file').fileupload({
     jQuery(file_id).find('.progress .bar').addClass('error');
     jQuery(file_id).append("<div class='error-message'>" + data.jqXHR.responseText + "</div>")
   }
+});
+
+jQuery('#hide-uploads').click(function(){
+  jQuery('#hide-uploads').hide();
+  jQuery('#show-uploads').show();
+  jQuery('.upload').slideUp();
+  return false;
+});
+
+jQuery('#show-uploads').click(function(){
+  jQuery('#hide-uploads').show();
+  jQuery('#show-uploads').hide();
+  jQuery('.upload').slideDown();
+  return false;
 });
 
 function loadPublishedMedia() {

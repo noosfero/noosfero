@@ -3415,6 +3415,10 @@ div.with_media_panel .formfield input[type="checkbox"] {
 
 }
 
+#media-upload-box .hide-and-show-uploads {
+  text-align: center;
+}
+
 .text-editor-sidebar {
   position: absolute;
   width: 280px;
