@@ -78,7 +78,7 @@ class InviteController < PublicController
 
   def search_friend
     fields = %w[name identifier email] + plugins_options.map {|field| field[:field].to_s }
-    render :text => find_by_contents(:people, environment.people, params['q'], {:page => 1}, {:fields => fields, :joins => :user})[:results].select {|person| !profile.members.include?(person) }.map {|person| {:id => person.id, :name => person.name} }.to_json
+    render :text => find_by_contents(:people, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:fields => fields, :joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
   end
 
   protected
