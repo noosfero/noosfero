@@ -3419,6 +3419,23 @@ div.with_media_panel .formfield input[type="checkbox"] {
   text-align: center;
 }
 
+#media-upload-box .upload .file-name,
+#media-upload-box .upload .percentage {
+  display: inline-block;
+}
+
+#media-upload-box .upload .file-name{
+  width: 87%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#media-upload-box .upload .percentage {
+  width: 12%;
+}
+
+
 .text-editor-sidebar {
   position: absolute;
   width: 280px;
