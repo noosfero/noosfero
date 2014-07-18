@@ -1,6 +1,7 @@
 class InviteFriend < Invitation
 
   settings_items :group_for_person, :group_for_friend
+  before_create :check_for_invitation_existence
 
   def perform
     person.add_friend(friend, group_for_person)
@@ -39,6 +40,13 @@ class InviteFriend < Invitation
       '<url>',
       "--\n<environment>",
     ].join("\n\n")
+  end
+
+  private
+  def check_for_invitation_existence
+    if friend
+      friend.tasks.pending.of("InviteFriend").find(:all, :conditions => {:requestor_id => person.id, :target_id => friend.id}).blank?
+    end
   end
 
 end
