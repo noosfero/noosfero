@@ -77,9 +77,9 @@ class Invitation < Task
 
       if !task_args.nil?
         if profile.person?
-          InviteFriend.create(task_args) if !user || user.person.tasks.pending.of("InviteFriend").find(:all, :conditions => {:requestor_id => person.id, :target_id => user.person.id}).blank?
+          InviteFriend.create(task_args)
         elsif profile.community?
-          InviteMember.create(task_args.merge(:community_id => profile.id)) if !user || user.person.tasks.pending.of("InviteMember").find(:all, :conditions => {:requestor_id => person.id}).select { |t| t.data[:community_id] == profile.id }.blank?
+          InviteMember.create(task_args.merge(:community_id => profile.id))
         else
           raise NotImplementedError, 'Don\'t know how to invite people to a %s' % profile.class.to_s
         end

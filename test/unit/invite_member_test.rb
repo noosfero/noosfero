@@ -154,4 +154,17 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} invited you to join #{task.community.name}/, email.subject)
   end
 
+  should 'not invite member if there is a pending invitation' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    community = fast_create(Community)
+
+    assert_difference 'InviteMember.count' do
+      InviteMember.create({:person => person, :target => friend, :community_id => community.id})
+    end
+
+    assert_no_difference 'InviteMember.count' do
+      InviteMember.create({:person => person, :target => friend, :community_id => community.id})
+    end
+  end
 end
