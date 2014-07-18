@@ -323,10 +323,13 @@ class CmsController < MyProfileController
   def media_upload
     parent = check_parent(params[:parent_id])
     if request.post?
-      @file = UploadedFile.create(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
+      begin
+        @file = UploadedFile.create!(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
+        @file = FilePresenter.for(@file)
+      rescue Exception => exception
+        render :text => exception.to_s, :status => :bad_request
+      end
     end
-    @file = FilePresenter.for(@file)
-    #render :text => article_list_to_json([file]), :content_type => 'text/plain'
   end
 
   def published_media_items

@@ -10,6 +10,11 @@ jQuery('#file').fileupload({
       data.context.find('.bar').css('width', progress + '%');
       data.context.find('.percentage').text(progress + '%');
     }
+  },
+  fail: function(e, data){
+    var file_id = '#'+S(data.files[0].name).slugify().s;
+    jQuery(file_id).find('.progress .bar').addClass('error');
+    jQuery(file_id).append("<div class='error-message'>" + data.jqXHR.responseText + "</div>")
   }
 });
 

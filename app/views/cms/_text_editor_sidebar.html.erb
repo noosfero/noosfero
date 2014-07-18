@@ -30,7 +30,7 @@
 </div>
 
 <script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
+  <div id="{%= S(o.name).slugify().s %}" class="upload">
     {%=o.name%}<span class="percentage"></span>
     <div class="progress"><div class="bar" style="width: 0%;"></div></div>
   </div>
