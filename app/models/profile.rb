@@ -629,6 +629,7 @@ private :generate_url, :url_options
         self.affiliate(person, Profile::Roles.admin(environment.id)) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
+      person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
     else
       raise _("%s can't have members") % self.class.name
     end
