@@ -13,7 +13,7 @@ class InviteMember < Invitation
   end
 
   def perform
-    community.add_member(friend) and friend.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == community_id }.each { |invite| invite.cancel }
+    community.add_member(friend)
   end
 
   def title
