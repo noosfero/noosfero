@@ -271,31 +271,6 @@ class InviteControllerTest < ActionController::TestCase
     assert_equal [{"id" => friend1.id, "name" => friend1.name}].to_json, @response.body
   end
 
-  should 'search friends profiles by fields provided by plugins' do
-    class Plugin1 < Noosfero::Plugin
-      def search_friend_fields
-        [{:field => 'nickname'}, {:field => 'contact_phone'}]
-      end
-    end
-    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
-
-    environment = Environment.default
-    environment.enable_plugin(Plugin1.name)
-
-    friend1 = create_user('harry').person
-    friend2 = create_user('william').person
-    friend1.nickname = 'prince'
-    friend2.contact_phone = '2222'
-    friend1.save
-    friend2.save
-
-    get :search_friend, :profile => profile.identifier, :q => 'prince'
-    assert_equal [{"id" => friend1.id, "name" => friend1.name}].to_json, @response.body
-
-    get :search_friend, :profile => profile.identifier, :q => '222'
-    assert_equal [{"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
-  end
-
   should 'invite registered users through profile id' do
     friend1 = create_user('testuser1').person
     friend2 = create_user('testuser2').person
