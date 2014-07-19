@@ -10,7 +10,7 @@
   <% form_tag :action => 'invite_registered_friend' do %>
     <% search_action = url_for(:action => 'search_friend') %>
     <%= token_input_field_tag(:q, 'search-friends', search_action,
-                              { :hint_text => _('Type in your friend\'s ') + search_friend_fields,
+                              { :hint_text => _('Type in your friend\'s ') + @search_friend_fields,
                                 :focus => false }) %>
 
     <% button_bar do %>

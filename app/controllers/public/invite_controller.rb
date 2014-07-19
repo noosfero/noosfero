@@ -7,6 +7,17 @@ class InviteController < PublicController
   def invite_friends
     @import_from = params[:import_from] || "manual"
     @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
+
+    extra_labels = Profile::SEARCHABLE_FIELDS.keys - [:name, :identifier, :nickname]
+    labels = [
+      _('Name'),
+      _('Username'),
+      _('Email'),
+    ] + extra_labels.map { |label| Profile.human_attribute_name(label) }
+    last = labels.pop
+    label = labels.join(', ')
+    @search_friend_fields = "#{label} #{_('or')} #{last}"
+
     if request.post?
       contact_list = ContactList.create
       Delayed::Job.enqueue GetEmailContactsJob.new(@import_from, params[:login], params[:password], contact_list.id) if @import_from != 'manual'
@@ -73,12 +84,8 @@ class InviteController < PublicController
     end
   end
 
-  include InviteHelper
-  helper :invite
-
   def search_friend
-    fields = %w[name identifier email] + plugins_options.map {|field| field[:field].to_s }
-    render :text => find_by_contents(:people, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:fields => fields, :joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
+    render :text => find_by_contents(:people, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
   end
 
   protected
