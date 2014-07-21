@@ -53,7 +53,7 @@ class FeaturesController < AdminController
 
   def search_members
     arg = params[:q].downcase
-    result = environment.people.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    result = environment.people.find(:all, :conditions => ['LOWER(name) LIKE ? OR identifier LIKE ?', "%#{arg}%", "%#{arg}%"])
     render :text => prepare_to_token_input(result).to_json
   end
 
