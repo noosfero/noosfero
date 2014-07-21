@@ -34,6 +34,7 @@ class AccountController < ApplicationController
           @register_pending = true
           @user.activation_code = nil
           @user.save!
+          redirect_to :controller => :home
         end      
       end
     else
