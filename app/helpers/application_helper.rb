@@ -671,7 +671,7 @@ module ApplicationHelper
 
   def theme_javascript_ng
     script = File.join(theme_path, 'theme.js')
-    if File.exists?(Rails.root.join('public', script))
+    if File.join(Rails.root, 'public', script)
       javascript_include_tag script
     else
       nil

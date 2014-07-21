@@ -350,10 +350,11 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'list links for all articles title defined in nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
 
     block = DisplayContentBlock.new
+    block.sections = [{:value => 'title', :checked => true}]
     block.nodes = [a1.id, a2.id]
     box = mock()
     block.stubs(:box).returns(box)
@@ -366,8 +367,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'list content for all articles lead defined in nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
-    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
+    a1 = fast_create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
+    a2 = fast_create(TinyMceArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'abstract', :checked => true}]
@@ -421,7 +422,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
   should 'show title if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -435,7 +436,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
   should 'show abstract if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -449,7 +450,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
   should 'show body if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -577,7 +578,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.types = ['TinyMceArticle']
 
     block.types = ['TinyMceArticle', 'Folder']
-    assert_equal [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], block.available_content_types
+    assert_equivalent [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], block.available_content_types
   end
 
   should 'return available content types' do
@@ -585,7 +586,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.create!
     block.types = ['TinyMceArticle']
     block.types = []
-    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
+    assert_equivalent [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
   end
 
   should 'return first 2 content types' do
@@ -629,7 +630,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
     block.types = []
-    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
+    assert_equivalent [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
   end
 
   should 'do not fail if a selected article was removed' do
