@@ -1,19 +1,14 @@
 class CreateUser < Task
 
-  settings_items :email, :type => String
+  settings_items :user_id, :type => String
   settings_items :name, :type => String
   settings_items :author_name, :type => String
-  settings_items :person_data, :type => String
+  settings_items :email, :type => String
 
   after_create :schedule_spam_checking
 
   alias :environment :target
   alias :environment= :target=
-
-  DATA_FIELDS = Person.fields + ['name', 'email', 'login', 'author_name', 'password', 'password_confirmation']
-  DATA_FIELDS.each do |field|
-    settings_items field.to_sym
-  end
 
   def schedule_spam_checking
     self.delay.check_for_spam
@@ -26,13 +21,8 @@ class CreateUser < Task
   end
 
   def perform
-    user = User.new(user_data)
-    user.person = Person.new(person_data)
-    user.person.identifier = user.login
-    author_name = user.name
-    user.environment = self.environment
-    user.person.environment = user.environment
-    user.signup!
+    user=User.find_by_id(user_id)
+    user.activate
   end
 
   def title
@@ -66,13 +56,4 @@ class CreateUser < Task
     _("User \"%{user}\" just requested to register. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.name }
   end
 
-  protected
- 
-  def user_data
-     user_data = self.data.reject do |key, value|
-      !DATA_FIELDS.include?(key.to_s)
-    end
- 
-    user_data
-  end
 end

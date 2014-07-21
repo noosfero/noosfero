@@ -15,11 +15,27 @@ class AccountController < ApplicationController
 
   def activate
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
-    if @user and @user.activate
-      @message = _("Your account has been activated, now you can log in!")
-      check_redirection
-      session[:join] = params[:join] unless params[:join].blank?
-      render :action => 'login', :userlogin => @user.login
+    if @user
+      unless @user.environment.enabled?('admin_must_approve_new_users') 
+        if @user.activate
+          @message = _("Your account has been activated, now you can log in!")
+          check_redirection
+          session[:join] = params[:join] unless params[:join].blank?
+          render :action => 'login', :userlogin => @user.login
+        end
+      else
+        @task = CreateUser.new
+        @task.user_id = @user.id
+        @task.name = @user.name
+        @task.email =@user.email
+        @task.target = @user.environment
+        if @task.save
+          session[:notice] = _('Thanks for registering. The administrators were notified.')
+          @register_pending = true
+          @user.activation_code = nil
+          @user.save!
+        end      
+      end
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
       redirect_to :controller => :home
@@ -85,45 +101,30 @@ class AccountController < ApplicationController
       @user.return_to = session[:return_to]
       @person = Person.new
       @person.environment = @user.environment
-      unless @user.environment.enabled?('admin_must_approve_new_users')
-        if request.post?
-          if may_be_a_bot
-            set_signup_start_time_for_now
-            @block_bot = true
-            session[:may_be_a_bot] = true
-          else
-            if session[:may_be_a_bot]
-              return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
-            end
-            @user.community_to_join = session[:join]
-            @user.signup!
-            owner_role = Role.find_by_name('owner')
-            @user.person.affiliate(@user.person, [owner_role]) if owner_role
-            invitation = Task.find_by_code(@invitation_code)
-            if invitation
-              invitation.update_attributes!({:friend => @user.person})
-              invitation.finish
-            end
-            if @user.activated?
-              self.current_user = @user
-              check_join_in_community(@user)
-              go_to_signup_initial_page
-            else
-              @register_pending = true
-            end
+      if request.post?
+        @person.attributes = params[:profile_data]
+        if may_be_a_bot
+          set_signup_start_time_for_now
+          @block_bot = true
+          session[:may_be_a_bot] = true
+        else
+          if session[:may_be_a_bot]
+            return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
           end
-        end
-      else
-        @task = CreateUser.new(params[:user])
-        @task.person_data = @user.person_data
-        if request.post?
-          if @user.valid?
-            @task.target = @user.environment
-            @task.name = @user.name
-            if @task.save
-              session[:notice] = _('Thanks for registering. The administrators were notified.')
-              @register_pending = true
-            end
+          @user.community_to_join = session[:join]
+          @user.signup!
+          owner_role = Role.find_by_name('owner')
+          @user.person.affiliate(@user.person, [owner_role]) if owner_role
+          invitation = Task.find_by_code(@invitation_code)
+          if invitation
+            invitation.update_attributes!({:friend => @user.person})
+            invitation.finish
+          end
+          if @user.activated?
+            self.current_user = @user
+            go_to_signup_initial_page
+          else
+            @register_pending = true
           end
         end
       end
