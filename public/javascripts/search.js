@@ -43,4 +43,6 @@
   //   highlight: true,
   //   captureLength: 2
   // });
+
+  $("input#search-input").bind('notext', function(){ $('form.search_form').submit() });
 })(jQuery);
