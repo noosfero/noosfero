@@ -1,5 +1,5 @@
 <div id="search-results" class="<%= !multiple_search? ? 'only-one-result-box' : 'multiple-results-boxes' %>">
-  <% @order.each do |name| %>
+  <% @assets.each do |name| %>
     <% search = @searches[name] %>
 
     <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if search[:results].blank? %>">

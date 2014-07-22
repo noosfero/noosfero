@@ -1,5 +1,5 @@
-<% filter_label = profile.send(@filter + '_label') %>
-<% filter_label += show_date(profile.created_at) if @filter == 'more_recent' %>
+<% filter_label = profile.send(@order + '_label') %>
+<% filter_label += show_date(profile.created_at) if @order == 'more_recent' %>
 <li class="search-profile-item">
   <%= profile_image_link profile, :portrait, 'div', filter_label %>
 </li>
