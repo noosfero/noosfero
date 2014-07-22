@@ -3,19 +3,18 @@
     <% if environment.has_custom_welcome_screen? %>
       <%= environment.settings[:signup_welcome_screen_body].html_safe %>
     <% elsif environment.enabled?('admin_must_approve_new_users')%>
-      <h1><%= _("The environment %s has a registration moderated policy!") % environment.name %></h1>
-      <h3><%= _("Your registration was sent to the environment administrator!") %></h3>
-      <h3><%= _("Once your registration is accepted you can start doing the cool stuffs bellow!") %></h3>
+        <h1><%= _("Welcome to %s!") % environment.name %></h1>
+      <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
       <p><%= _("Firstly, some tips for getting started:") %></p>
       <h4><%= _("Confirm your account!") %></h4>
       <p><%= _("You should receive a welcome email from us shortly. Please take a second to follow the link within to confirm your account.") %></p>
-      <p><%= _("You won't appear as %s until your account is confirmed.") % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
+      <p><%= _("After your confirmation the administrators will be able to approve your signup request.") %></p>
+      <p><%= _("You won't appear as %s until your account is confirmed and approved.") % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
       <h4><%= _("What to do next?") %></h4>
       <p><%= _("%s. Upload an avatar and let your friends find you easily :)") % link_to(_('Customize your profile'), {:controller => 'doc', :section => 'user', :topic => 'editing-person-info'}, :target => '_blank') %></p>
       <p><%= _("Learn the guidelines. Read the %s for more details on how to use this social network!") % link_to(_('Documentation'), {:controller => 'doc'}, :target => '_blank') %></p>
       <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
       <p><%= _("Start exploring and have fun!") %></p>
-      <h3><%= _("If by any chance your registration wasn't successful and you should be registred, send an email for the administrator!")%></h3>
     <% else %>
       <h1><%= _("Welcome to %s!") % environment.name %></h1>
       <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
