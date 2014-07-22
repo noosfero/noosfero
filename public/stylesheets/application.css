@@ -3521,6 +3521,12 @@ div.with_media_panel .formfield input[type="checkbox"] {
   text-align: left;
 }
 
+.text-editor-sidebar .file,
+.view-all-media .file {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .text-editor-sidebar select,
 .text-editor-sidebar input {
   width: 100%;
