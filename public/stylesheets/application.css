@@ -3399,18 +3399,71 @@ table.cms-articles .icon:hover {
 
 .controller-cms div.with_media_panel {
   float: left;
-  width: 500px;
-}
-div.with_media_panel .formfield input {
-  width: 100%;
+  width: 600px;
 }
 div.with_media_panel .formfield input[type="checkbox"] {
   width: auto;
 }
 
+#media-upload-form {
+  padding-bottom: 5px;
+}
+
+#media-upload-form .upload {
+  border-top: solid 1px #CCC;
+  width: 100%;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+#media-upload-form .percentage {
+  float: right;
+}
+
+#media-upload-form .bar {
+  height: 10px;
+  background: #729fcf;
+  border-radius: 3px;
+}
+
+#media-upload-form .bar.error {
+  background: #ef2929;
+}
+
+#media-upload-form input#file {
+  width: 100%;
+}
+
+#media-upload-form .error-message {
+  color: #a40000;
+  font-size: 10px;
+
+}
+
+#media-upload-box .hide-and-show-uploads {
+  text-align: center;
+}
+
+#media-upload-box .upload .file-name,
+#media-upload-box .upload .percentage {
+  display: inline-block;
+}
+
+#media-upload-box .upload .file-name{
+  width: 87%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#media-upload-box .upload .percentage {
+  width: 12%;
+}
+
+
 .text-editor-sidebar {
   position: absolute;
-  width: 380px;
+  width: 280px;
   right: 20px;
   top: 70px;
 }
@@ -3418,7 +3471,7 @@ div.with_media_panel .formfield input[type="checkbox"] {
 .text-editor-sidebar-box  {
   background: #fcfcf9;
   border: 1px solid #d3d7cf;
-  padding: 10px 10px 0px 10px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -3444,44 +3497,96 @@ div.with_media_panel .formfield input[type="checkbox"] {
   margin-bottom: 10px;
 }
 
-.text-editor-sidebar .items .file {
+.text-editor-sidebar .image,
+.view-all-media .image {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+}
+
+.text-editor-sidebar .image {
+  width: 80px;
+  margin: 2px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.view-all-media .image {
+  width: 150px;
+  margin: 3px;
+  height: 125px;
+  line-height: 125px;
+}
+
+.view-all-images .image:hover {
+  cursor: pointer;
+  background-color: #EEE;
+}
+
+.text-editor-sidebar img,
+.view-all-media img {
+  vertical-align: middle;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.view-all-images {
+  text-align: center;
+}
+
+.text-editor-sidebar .file,
+.view-all-media .file {
   background-repeat: no-repeat;
   background-position: 0px 0px;
   border: none;
   margin-bottom: 12px;
+  padding-left: 20px;
+  overflow: hidden;
+  text-align: left;
 }
 
-.text-editor-sidebar .items .image {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 5px;
-	position: relative;
+.text-editor-sidebar .file,
+.view-all-media .file {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.text-editor-sidebar .items .file {
-	padding-left: 20px;
+.text-editor-sidebar select,
+.text-editor-sidebar input {
+  width: 100%;
 }
 
-.text-editor-sidebar .items :hover {
+.text-editor-sidebar .items :hover,
+.view-all-media :hover {
   background-color: transparent;
 }
 
-.text-editor-sidebar .items .image-controls {
+.text-editor-sidebar .items .image-controls,
+.view-all-media .image-controls {
   display: none;
 	position: absolute;
 	top: 5px;
 	left: 5px;
+  line-height: 16px;
 }
 
-.text-editor-sidebar .items .item:hover .image-controls {
+.text-editor-sidebar .items .item:hover .image-controls,
+.view-all-media .item:hover .image-controls {
 	display: block;
 }
 
-.text-editor-sidebar .items .file-controls {
+.view-all-images .item:hover .image-controls {
+  display: none;
+}
+
+.text-editor-sidebar .items .file-controls,
+.view-all-media .file-controls {
 	margin-top: 5px;
 }
 
-.text-editor-sidebar .items .image-controls .icon-zoom {
+.text-editor-sidebar .items .image-controls .icon-zoom,
+.view-all-media .image-controls .icon-zoom  {
 	background-image: url(../images/zoom-dark.png);
 	display: block;
 	width: 0px;
@@ -3492,15 +3597,34 @@ div.with_media_panel .formfield input[type="checkbox"] {
   background-repeat: no-repeat;
   background-position: 98% 10px;
 }
-.text-editor-sidebar img {
- max-height: 70px;
- max-width: 110px;
-}
 .text-editor-sidebar .media-upload-error {
   color: red;
 }
 .text-editor-sidebar select {
   max-width: 355px;
+}
+
+.view-all-media {
+  max-width: 830px;
+  max-height: 600px;
+}
+
+.view-all-media a.button {
+  background-color: #EEE;
+}
+
+#published-media .section-title {
+  width: 100%;
+  height: 40px;
+}
+
+#published-media .section-title h3 {
+  float: left;
+}
+
+#published-media .section-title a.view-all {
+  float: right;
+  line-height: 40px
 }
 
 /* ==> public/stylesheets/controller_contact.css <== */

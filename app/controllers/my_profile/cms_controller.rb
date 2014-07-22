@@ -17,6 +17,9 @@ class CmsController < MyProfileController
   end
 
   before_filter :login_required, :except => [:suggest_an_article]
+  before_filter :load_recent_files, :only => [:new, :edit]
+
+  helper_method :file_types
 
   protect_if :only => :upload_files do |c, user, profile|
     article_id = c.params[:parent_id]
@@ -318,15 +321,26 @@ class CmsController < MyProfileController
   end
 
   def media_upload
-    files_uploaded = []
     parent = check_parent(params[:parent_id])
-    files = [:file1,:file2, :file3].map { |f| params[f] }.compact
     if request.post?
-      files.each do |file|
-        files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
+      begin
+        @file = UploadedFile.create!(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
+        @file = FilePresenter.for(@file)
+      rescue Exception => exception
+        render :text => exception.to_s, :status => :bad_request
       end
     end
-    render :text => article_list_to_json(files_uploaded), :content_type => 'text/plain'
+  end
+
+  def published_media_items
+    load_recent_files(params[:parent_id], params[:q])
+    render :partial => 'published_media_items'
+  end
+
+  def view_all_media
+    paginate_options = {:page => 1}
+    @key = params[:key].to_sym
+    load_recent_files(params[:parent_id], params[:q], paginate_options)
   end
 
   protected
@@ -418,6 +432,38 @@ class CmsController < MyProfileController
       redirect_to @success_back_to
     else
       redirect_to @article.view_url
+    end
+  end
+
+  def file_types
+    {:images => _('Images'), :generics => _('Files')}
+  end
+
+  def load_recent_files(parent_id = nil, q = nil, paginate_options = {:page => 1, :per_page => 6})
+    #TODO Since we only have special support for images, I'm limiting myself to
+    #     consider generic files as non-images. In the future, with more supported
+    #     file types we'll need to have a smart way to fetch from the database
+    #     scopes of each supported type as well as the non-supported types as a
+    #     whole.
+    @recent_files = {}
+
+    parent = parent_id.present? ? profile.articles.find(parent_id) : nil
+    if parent.present?
+     files = parent.children.files
+    else
+      files = profile.files
+    end
+
+    files = files.more_recent
+    images = files.images
+    generics = files.no_images
+
+    if q.present?
+      @recent_files[:images] = find_by_contents(:images, images, q, paginate_options)[:results]
+      @recent_files[:generics] = find_by_contents(:generics, generics, q, paginate_options)[:results]
+    else
+      @recent_files[:images] = images.paginate(paginate_options)
+      @recent_files[:generics] = generics.paginate(paginate_options)
     end
   end
 

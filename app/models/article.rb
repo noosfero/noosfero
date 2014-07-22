@@ -458,7 +458,9 @@ class Article < ActiveRecord::Base
   scope :no_folders, lambda {|profile|{:conditions => ['type NOT IN (?)', profile.folder_types]}}
   scope :galleries, :conditions => { :type => 'Gallery' }
   scope :images, :conditions => { :is_image => true }
+  scope :no_images, :conditions => { :is_image => false }
   scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+  scope :files, :conditions => { :type => 'UploadedFile' }
   scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
 
   scope :more_popular, :order => 'hits DESC'

@@ -265,7 +265,7 @@ module FormsHelper
     )
   end
 
-  def select_profile_folder(label_text, field_id, profile, default_value='', html_options = {}, js_options = {}, find_options = {})
+  def select_profile_folder(label_text, field_id, profile, default_value='', html_options = {}, js_options = {}, find_options = {}, extra_options = {})
     if find_options.empty?
       folders = profile.folders
     else
@@ -276,7 +276,7 @@ module FormsHelper
       select_tag(
         field_id,
         options_for_select(
-          [[profile.identifier, '']] +
+          [[(extra_options[:root_label] || profile.identifier), '']] +
           folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id.to_s ] },
           default_value.to_s
         ),

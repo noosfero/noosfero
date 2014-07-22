@@ -1,0 +1,3 @@
+<% klass = @file.class.name.split('::').last.to_css_class %>
+jQuery("#published-media .items .<%= klass.pluralize %> .section-title").after("<%= j render :partial => "cms/media_panel/#{klass}" %>");
+jQuery("#published-media .items .<%= klass.pluralize %>").show();

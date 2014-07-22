@@ -1,0 +1,9 @@
+<div class="item image" data-item="span" title="<%= @file.name %>">
+  <span>
+    <img src="<%= @file.public_filename(:uploaded) %>"/>
+  </span>
+  <div class="controls image-controls">
+    <a class="button icon-add add-to-text" href="#"><span><%= _('Add to the text') %></span></a>
+    <a class="button icon-zoom zoom" href="#" title="<%= _('Zoom in') %>"><span><%= _('Zoom in') %></span></a>
+  </div>
+</div>
