@@ -4,7 +4,7 @@
 <div style="clear: both"></div>
 
 <% if @asset == :product %>
-  <% javascript_tag do %>
+  <%= javascript_tag do %>
     jQuery('.search-product-price-details').altBeautify();
   <% end %>
 <% end %>

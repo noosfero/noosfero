@@ -35,7 +35,9 @@ Feature: edit article
     And "Maria Silva" is a member of "Free Software"
     And I am on freesoftware's control panel
     And I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
+    And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
@@ -57,7 +59,9 @@ Feature: edit article
     And "Maria Silva" is a member of "Free Software"
     And I am on freesoftware's control panel
     And I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
+    And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
@@ -108,14 +112,17 @@ Feature: edit article
   Scenario: display tag list field when creating event
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
-    When I follow "Event"
+    And I should see "Event" within ".article-types"
+    When I follow "Event" within ".article-types"
     Then I should see "Tag list"
 
   Scenario: display tag list field when creating folder
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
+    And I should see "Folder"
     When I follow "Folder"
     Then I should see "Tag list"
 
@@ -163,12 +170,15 @@ Feature: edit article
   Scenario: create an article inside a folder
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
+    And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "My Article"
     And I press "Save"
@@ -179,12 +189,15 @@ Feature: edit article
   Scenario: cancel button back to folder after giving up creating
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
+    And I should see "New content"
     And I follow "New content"
+    And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I follow "Cancel" within ".no-boxes"
     Then I should be on /joaosilva/my-folder
@@ -202,6 +215,7 @@ Feature: edit article
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
     And I follow "New content"
+    And I should see "Text article with visual editor"
     And I follow "Text article with visual editor"
     And I fill in "Title" with "My new article"
     And I fill in "Text" with "text for the new article"

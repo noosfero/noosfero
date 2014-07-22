@@ -1,4 +1,4 @@
-<%= form_for(@input, :url => {:controller => 'manage_products', :action => 'edit_input', :id => @input},
+<%= form_for(:input, :url => {:controller => 'manage_products', :action => 'edit_input', :id => @input},
             :html => {:method => 'post', :id => "edit-input-#{ @input.id }-form"}) do |f| %>
 
   <%= hidden_field_tag 'input-bar-update-url', @input.product.price_composition_bar_display_url, :class => 'bar-update-url' %>

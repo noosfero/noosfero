@@ -1864,6 +1864,9 @@ a.button.disabled, input.disabled {
   position: relative;
   left: -24px;
 }
+#edit-link-list-block #new-template {
+  display: none;
+}
 .link-list-header {
   width: 98%;
   height: 25px;
@@ -6691,6 +6694,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   color: green;
 }
 
-#search-content.searching {
+.fetching {
   opacity: 0.3;
 }

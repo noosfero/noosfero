@@ -1,6 +1,6 @@
 <%= error_messages_for :product %> <br/>
 
-<%= form_for :product, @product, :html => {:multipart => true }, :url => {:action => mode} do |f| %>
+<%= form_for :product, :html => {:multipart => true }, :url => {:action => mode} do |f| %>
   <%= required_fields_message %>
 
   <%= display_form_field( _('Name:'), f.text_field(:name) ) %>

@@ -26,7 +26,7 @@ class DisplayContentBlock < Block
   settings_items :display_folder_children, :type => :boolean, :default => true
   settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
 
-  attr_accessible :sections, :checked_nodes, :display_folder_children
+  attr_accessible :sections, :checked_nodes, :display_folder_children, :types
 
   def self.description
     _('Display your contents')

@@ -5,7 +5,7 @@
     <% if ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'svg'].include? extension %>
       <%= link_to '', image.view_url, :class => "search-image-pic", :style => 'background-image: url(%s)'% image.public_filename(:thumb) %>
       <% if image.width && image.height %>
-        <% javascript_tag do %>
+        <%= javascript_tag do %>
           image = jQuery('script').last().parent().find('.search-image-pic');
           des_width = parseInt(image.css('width'));
           des_height = parseInt(image.css('height'));

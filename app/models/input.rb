@@ -1,6 +1,6 @@
 class Input < ActiveRecord::Base
 
-  attr_accessible :product, :product_category
+  attr_accessible :product, :product_category, :product_category_id, :amount_used, :unit_id, :price_per_unit, :relevant_to_price
 
   belongs_to :product
   belongs_to :product_category

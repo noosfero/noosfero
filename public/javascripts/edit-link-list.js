@@ -29,6 +29,13 @@ function new_link_action(){
   jQuery(document).scrollTop(jQuery('#dropable-link-list').scrollTop());
 }
 
+function add_new_link() {
+  var new_link = jQuery('#edit-link-list-block #new-template>li').clone();
+  new_link.show();
+  jQuery('#dropable-link-list').append(new_link);
+  new_link_action();
+}
+
 jQuery(document).ready(function(){
   new_link_action();
 

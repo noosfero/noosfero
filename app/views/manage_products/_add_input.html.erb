@@ -1,6 +1,6 @@
 <div id='request_result_message' style='display: none'></div>
 
-<%= form_for(@input,
+<%= form_for(:input,
            :url => {:action => 'add_input', :id => @product},
            :html => {:method => 'post', :id => 'input-category-form'}
            ) do |f| %>

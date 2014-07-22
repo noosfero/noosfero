@@ -58,6 +58,7 @@ Feature: check all manage fields
     Given I follow "Community's fields"
     And I check "community_active"
     And I press "save_community_fields"
+    And I follow "Community's fields"
     And I uncheck "community_active"
     And I press "save_community_fields"
     When I go to mycommunity's control panel
@@ -69,6 +70,7 @@ Feature: check all manage fields
     Given I follow "Enterprise's fields"
     And I check "enterprise_active"
     And I press "save_enterprise_fields"
+    And I follow "Enterprise's fields"
     And I uncheck "enterprise_active"
     And I press "save_enterprise_fields"
     When I go to paper-street's control panel
