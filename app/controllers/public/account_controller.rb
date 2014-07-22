@@ -100,10 +100,9 @@ class AccountController < ApplicationController
       @terms_of_use = environment.terms_of_use
       @user.person_data = params[:profile_data]
       @user.return_to = session[:return_to]
-      @person = Person.new
+      @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
-        @person.attributes = params[:profile_data]
         if may_be_a_bot
           set_signup_start_time_for_now
           @block_bot = true
@@ -123,6 +122,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
+            check_join_in_community(@user)
             go_to_signup_initial_page
           else
             @register_pending = true
