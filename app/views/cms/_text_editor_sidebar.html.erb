@@ -1,4 +1,8 @@
 <div class='text-editor-sidebar'>
+  <span class='button-add' data-value='<%= _('Add to the text') %>'></span>
+  <span class='button-zoom' data-value='<%= _('Zoom in') %>'></span>
+  <span class='button-close' data-value='<%= _('Close') %>'></span>
+
   <%= render(:partial => 'textile_quick_reference') if @article.is_a?(TextileArticle) %>
   <div class='text-editor-sidebar-box' id='media-upload-box'>
     <div class='header'><strong><%= _('Insert media') %></strong></div>
