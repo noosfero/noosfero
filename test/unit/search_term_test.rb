@@ -118,4 +118,12 @@ class SearchTermTest < ActiveSupport::TestCase
 
     assert st1.score > st2.score, "Less ratio results:total are not getting higher scores."
   end
+
+  should 'consider relevance zero if no results indexed' do
+    st = SearchTerm.find_or_create('st', Environment.default)
+    SearchTermOccurrence.create!(:search_term => st, :total => 10, :indexed => 0)
+    SearchTerm.calculate_scores
+    st.reload
+    assert_equal 0, st.score
+  end
 end

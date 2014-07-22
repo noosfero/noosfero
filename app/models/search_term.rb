@@ -42,6 +42,7 @@ class SearchTerm < ActiveRecord::Base
 
   def calculate_relevance(valid_occurrences)
     indexed = valid_occurrences.last.indexed.to_f
+    return 0 if indexed == 0
     total = valid_occurrences.last.total.to_f
     (1 - indexed/total)*100
   end
