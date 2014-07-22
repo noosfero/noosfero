@@ -21,6 +21,8 @@
 
 set :output, "log/cron.log"
 
+#TODO This value should be updated to a more realistic one once this goes to
+#     production.
 every 1.minute do
   runner "SearchTerm.calculate_scores"
 end
