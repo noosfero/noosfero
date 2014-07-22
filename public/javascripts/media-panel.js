@@ -1,5 +1,9 @@
+var file_id = 1;
+
 jQuery('#file').fileupload({
   add: function(e, data){
+    data.files[0].id = file_id;
+    file_id++;
     data.context = jQuery(tmpl("template-upload", data.files[0]));
     jQuery('#media-upload-form').append(data.context);
     data.submit();
@@ -16,7 +20,7 @@ jQuery('#file').fileupload({
     }
   },
   fail: function(e, data){
-    var file_id = '#'+S(data.files[0].name).slugify().s;
+    var file_id = '#file-'+data.files[0].id;
     jQuery(file_id).find('.progress .bar').addClass('error');
     jQuery(file_id).append("<div class='error-message'>" + data.jqXHR.responseText + "</div>")
   }
