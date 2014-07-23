@@ -266,7 +266,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'not create ApproveComment task when the comment author is the same of article author' do
     login_as @profile.identifier
     community = Community.create!(:name => 'testcomm')
-    page = community.articles.create!(:name => 'myarticle', :moderate_comments => true, :last_changed_by => @profile)
+    page = community.articles.create!(:name => 'myarticle', :moderate_comments => true, :author => @profile)
     community.add_moderator(@profile)
 
     assert_no_difference ApproveComment, :count do
