@@ -69,7 +69,8 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
 
   should 'count total of comments from post' do
     article = fast_create(TextileArticle, :profile_id => profile.id)
-    article.comments.create!(:author => profile, :title => 'test', :body => 'test')
+    Comment.create!(:source => article, :author => profile, :title => 'test', :body => 'test')
+    article.reload
     result = link_to_comments(article)
     assert_match /One comment/, result
   end
