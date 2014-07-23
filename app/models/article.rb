@@ -515,7 +515,7 @@ class Article < ActiveRecord::Base
   end
 
   def allow_edit_topic?(user)
-    self.belongs_to_forum? && (user == author) && user.is_member_of?(profile)
+    self.belongs_to_forum? && (user == author) && user.present? && user.is_member_of?(profile)
   end
 
   def moderate_comments?
