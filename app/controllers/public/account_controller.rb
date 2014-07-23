@@ -124,6 +124,9 @@ class AccountController < ApplicationController
             self.current_user = @user
             check_join_in_community(@user)
             go_to_signup_initial_page
+          elsif environment.enabled?('skip_new_user_email_confirmation') && environment.enabled?('admin_must_approve_new_users')
+            session[:notice] = _('Thanks for registering. The administrators were notified.')
+            redirect_to :controller => 'home', :action => 'index'
           else
             @register_pending = true
           end

@@ -47,8 +47,17 @@ class User < ActiveRecord::Base
 
       user.person = p
     end
-    if user.environment.enabled?('skip_new_user_email_confirmation')
-      user.activate
+    if user.environment.enabled?('skip_new_user_email_confirmation') 
+      unless user.environment.enabled?('admin_must_approve_new_users')
+        user.activate
+      else
+        @task = CreateUser.new
+        @task.user_id = user.id
+        @task.name = user.name
+        @task.email = user.email
+        @task.target = user.environment
+        @task.save
+      end
     end
   end
   after_create :deliver_activation_code
