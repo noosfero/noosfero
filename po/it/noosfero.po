@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.47.1\n"
-"POT-Creation-Date: 2014-06-05 20:27-0000\n"
+"Project-Id-Version: noosfero 0.47.3\n"
+"POT-Creation-Date: 2014-07-24 14:20-0000\n"
 "PO-Revision-Date: 2012-06-05 10:27-0300\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
@@ -61,8 +61,8 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:540 app/models/friends_block.rb:4
 #: app/views/profile/_person_profile.rhtml:25
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:41
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:17
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
 msgid "Friends"
 msgstr ""
 
@@ -95,8 +95,8 @@ msgstr ""
 #: app/helpers/application_helper.rb:548 app/helpers/application_helper.rb:557
 #: app/models/members_block.rb:5
 #: app/views/profile/_organization_profile.rhtml:7
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:13
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:41
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
 msgid "Members"
 msgstr ""
 
@@ -170,8 +170,8 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:844
 #: app/helpers/profile_editor_helper.rb:150
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:10
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:43
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:13
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:46
 #: plugins/stoa/lib/stoa_plugin.rb:39
 msgid "Public"
 msgstr ""
@@ -260,6 +260,7 @@ msgid "communities|More popular"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1053
+#: app/helpers/application_helper.rb:1103
 msgid "My communities"
 msgstr ""
 
@@ -297,6 +298,10 @@ msgstr ""
 #: app/helpers/application_helper.rb:1086 app/views/shared/user_menu.rhtml:26
 #: app/views/shared/_manage_link.html.erb:2
 msgid "Manage %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1097
+msgid "My enterprises"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1110
@@ -397,41 +402,34 @@ msgstr ""
 msgid "Source: %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1217
-#: app/views/cms/_text_editor_sidebar.rhtml:3
-#: app/views/manage_products/_display_image.rhtml:6
-#: app/views/catalog/index.rhtml:33 app/views/search/_image.html.erb:44
-msgid "Zoom in"
-msgstr ""
-
-#: app/helpers/application_helper.rb:1231
+#: app/helpers/application_helper.rb:1218
 #: plugins/community_block/views/community_block.rhtml:17
 msgid "Report abuse"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1233
+#: app/helpers/application_helper.rb:1220
 msgid "You already reported this profile."
 msgstr ""
 
-#: app/helpers/application_helper.rb:1234
+#: app/helpers/application_helper.rb:1221
 msgid "Report this profile for abusive behaviour"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1303
+#: app/helpers/application_helper.rb:1290
 msgid "Profile organization"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1304
+#: app/helpers/application_helper.rb:1291
 msgid ""
 "Your profile will be created according to the selected template. Click on "
 "the options to view them."
 msgstr ""
 
-#: app/helpers/application_helper.rb:1330
+#: app/helpers/application_helper.rb:1317
 msgid "The content here is available to %s's friends only."
 msgstr ""
 
-#: app/helpers/application_helper.rb:1333
+#: app/helpers/application_helper.rb:1320
 msgid "The contents in this profile is available to members only."
 msgstr ""
 
@@ -746,7 +744,7 @@ msgstr ""
 msgid "One comment"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:703
+#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:701
 #: app/views/person_notifier/mailer/_profile_comments.rhtml:4
 msgid "%s comments"
 msgstr ""
@@ -2034,7 +2032,7 @@ msgstr ""
 msgid "Management information"
 msgstr ""
 
-#: app/models/organization.rb:95 app/models/article.rb:199
+#: app/models/organization.rb:95 app/models/article.rb:200
 msgid "Tag list"
 msgstr ""
 
@@ -2301,7 +2299,7 @@ msgstr ""
 msgid "block"
 msgstr ""
 
-#: app/models/article_categorization.rb:- app/models/article.rb:154
+#: app/models/article_categorization.rb:- app/models/article.rb:155
 #: app/views/comment/_comment_form.rhtml:75
 #: app/views/shared/content_list.rhtml:3
 #: app/views/box_organizer/_link_list_block.rhtml:8
@@ -2515,6 +2513,18 @@ msgid "Jabber"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Bar"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Usp"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Welcome page"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
 msgid "article"
 msgstr ""
 
@@ -2665,6 +2675,18 @@ msgid "License"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Spam comments count"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+#: app/views/search/_article_author.rhtml:4
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:6
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:17
+msgid "Author"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
 msgid "environment"
 msgstr ""
 
@@ -2703,7 +2725,16 @@ msgid "Redirection after signup"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Send email plugin allow to"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
 msgid "person"
+msgstr ""
+
+#: app/models/article_categorization.rb:- plugins/stoa/lib/stoa_plugin.rb:5
+#: plugins/stoa/lib/stoa_plugin.rb:21 plugins/stoa/lib/stoa_plugin.rb:37
+msgid "USP number"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
@@ -2731,14 +2762,6 @@ msgid "comment"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
-#: app/views/search/_article_author.rhtml:4
-#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:6
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:17
-msgid "Author"
-msgstr ""
-
-#: app/models/article_categorization.rb:-
 msgid "Reply of"
 msgstr ""
 
@@ -2760,6 +2783,10 @@ msgstr ""
 
 #: app/models/article_categorization.rb:-
 msgid "Referrer"
+msgstr ""
+
+#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
+msgid "Group"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
@@ -2853,6 +2880,22 @@ msgid "commentclassificationplugin::label"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:7
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.rhtml:10
+msgid "Color"
+msgstr ""
+
+#: app/models/article_categorization.rb:- app/models/production_cost.rb:-
+#: app/models/box.rb:- app/models/domain.rb:-
+msgid "Owner"
+msgstr ""
+
+#: app/models/article_categorization.rb:- app/models/production_cost.rb:-
+#: app/models/box.rb:- app/models/domain.rb:-
+msgid "Owner type"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
 msgid "friendship"
 msgstr ""
 
@@ -2864,10 +2907,6 @@ msgstr ""
 
 #: app/models/article_categorization.rb:-
 msgid "Friend"
-msgstr ""
-
-#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
-msgid "Group"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
@@ -2924,11 +2963,11 @@ msgstr ""
 msgid "(unauthenticated user)"
 msgstr ""
 
-#: app/models/comment.rb:176
+#: app/models/comment.rb:179
 msgid "[%s] you got a new comment!"
 msgstr ""
 
-#: app/models/comment.rb:191
+#: app/models/comment.rb:194
 msgid "[%s] %s commented on a content of %s"
 msgstr ""
 
@@ -2965,75 +3004,68 @@ msgid ""
 "use another title."
 msgstr ""
 
-#: app/models/article.rb:121
+#: app/models/article.rb:122
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:11
 msgid "self-reference is not allowed."
 msgstr ""
 
-#: app/models/article.rb:128
+#: app/models/article.rb:129
 #: plugins/container_block/lib/container_block_plugin/container_block.rb:13
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:16
 msgid "cyclical reference is not allowed."
 msgstr ""
 
-#: app/models/article.rb:303
+#: app/models/article.rb:304
 msgid "HTML Text document"
 msgstr ""
 
-#: app/models/article.rb:392
+#: app/models/article.rb:393
 msgid "Language not supported by the environment."
 msgstr ""
 
-#: app/models/article.rb:398
+#: app/models/article.rb:399
 msgid "Language is already used"
 msgstr ""
 
-#: app/models/article.rb:404
+#: app/models/article.rb:405
 msgid "Language must be choosen"
 msgstr ""
 
-#: app/models/article.rb:410
+#: app/models/article.rb:411
 msgid "A language must be choosen for the native article"
 msgstr ""
 
-#: app/models/article.rb:641 lib/file_presenter.rb:61
+#: app/models/article.rb:636 app/models/article.rb:638
+#: lib/file_presenter.rb:63
 msgid "Unknown"
 msgstr ""
 
-#: app/models/article.rb:701
+#: app/models/article.rb:699
 msgid "no comments"
 msgstr ""
 
-#: app/models/article.rb:702
+#: app/models/article.rb:700
 msgid "one comment"
 msgstr ""
 
-#: app/models/article.rb:710
+#: app/models/article.rb:708
 msgid "no views"
 msgstr ""
 
-#: app/models/article.rb:711
+#: app/models/article.rb:709
 msgid "one view"
 msgstr ""
 
-#: app/models/article.rb:712
+#: app/models/article.rb:710
 msgid "%s views"
 msgstr ""
 
-#: app/models/article.rb:717
+#: app/models/article.rb:715
 msgid "Created at: "
 msgstr ""
 
 #: app/models/production_cost.rb:-
 msgid "production cost"
-msgstr ""
-
-#: app/models/production_cost.rb:- app/models/box.rb:- app/models/domain.rb:-
-msgid "Owner"
-msgstr ""
-
-#: app/models/production_cost.rb:- app/models/box.rb:- app/models/domain.rb:-
-msgid "Owner type"
 msgstr ""
 
 #: app/models/unit.rb:- app/views/catalog/index.rhtml:53
@@ -5181,37 +5213,37 @@ msgstr ""
 msgid "Address was updated successfully!"
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:174
+#: app/controllers/my_profile/cms_controller.rb:175
 msgid "Homepage reseted."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:176
+#: app/controllers/my_profile/cms_controller.rb:177
 msgid "\"%s\" configured as homepage."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:260
-#: app/controllers/my_profile/cms_controller.rb:277
+#: app/controllers/my_profile/cms_controller.rb:261
+#: app/controllers/my_profile/cms_controller.rb:278
 msgid "Your publish request was sent successfully"
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:279
+#: app/controllers/my_profile/cms_controller.rb:280
 msgid "Your publish request couldn't be sent."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:282
+#: app/controllers/my_profile/cms_controller.rb:283
 msgid "There is no portal community to publish your article."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:301
+#: app/controllers/my_profile/cms_controller.rb:302
 #: app/controllers/public/comment_controller.rb:50
 msgid "Please type the words correctly"
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:302
+#: app/controllers/my_profile/cms_controller.rb:303
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
 
-#: app/controllers/my_profile/cms_controller.rb:407
+#: app/controllers/my_profile/cms_controller.rb:408
 msgid "%s could not be uploaded"
 msgstr ""
 
@@ -5597,7 +5629,7 @@ msgstr ""
 msgid "This e-mail address is taken"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:108
+#: app/controllers/public/content_viewer_controller.rb:110
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr ""
 
@@ -7858,7 +7890,7 @@ msgid "Use as homepage"
 msgstr ""
 
 #: app/views/cms/_enterprise_homepage.rhtml:3
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:51
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:54
 msgid "Text"
 msgstr ""
 
@@ -7892,6 +7924,12 @@ msgstr ""
 
 #: app/views/cms/_text_editor_sidebar.rhtml:2
 msgid "Add to the text"
+msgstr ""
+
+#: app/views/cms/_text_editor_sidebar.rhtml:3
+#: app/views/manage_products/_display_image.rhtml:6
+#: app/views/catalog/index.rhtml:33 app/views/search/_image.html.erb:44
+msgid "Zoom in"
 msgstr ""
 
 #: app/views/cms/_text_editor_sidebar.rhtml:8
@@ -8550,7 +8588,7 @@ msgstr ""
 msgid "Create my account"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:157
+#: app/views/account/_signup_form.rhtml:155
 msgid "Passwords don't match"
 msgstr ""
 
@@ -9738,10 +9776,6 @@ msgstr ""
 msgid "This link might be unavailable if the content is removed"
 msgstr ""
 
-#: app/views/shared/_manage_link.html.erb:2
-msgid "My %s"
-msgstr ""
-
 #: app/views/cms/_general_fields.html.erb:1
 msgid "Parent folder:"
 msgstr ""
@@ -9930,7 +9964,7 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
-#: lib/file_presenter.rb:63
+#: lib/file_presenter.rb:65
 msgid "File (%s)"
 msgstr ""
 
@@ -10310,11 +10344,11 @@ msgid ""
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
 
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:45
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
 msgid "Submission saved"
 msgstr ""
 
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:48
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
 msgid "Submission could not be saved"
 msgstr ""
 
@@ -10673,40 +10707,40 @@ msgstr ""
 msgid "Manage Forms"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:11
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
 msgid "Logged users"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
 msgid "Custom"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:21
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:24
 msgid "Always"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:25
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:28
 msgid "Until %s"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:27
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:30
 msgid "From %s until %s"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:52
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:55
 msgid "Select"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:58
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:61
 msgid "Text field"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:59
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:62
 msgid "Select field"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:98
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:101
 msgid "Hold down Ctrl to select options"
 msgstr ""
 
@@ -10801,21 +10835,21 @@ msgstr ""
 msgid "Selected by default"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:34
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:20
 msgid "Membership survey"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:46
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:32
 msgid "%{requestor} wants you to fill in some information."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:58
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:44
 msgid ""
 "After joining %{requestor}, the administrators of this organization\n"
 "      wants you to fill in some further information."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:63
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:49
 msgid "%{requestor} wants to fill in some further information."
 msgstr ""
 
@@ -10833,11 +10867,6 @@ msgstr ""
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "stoaplugin::uspuser"
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:5 plugins/stoa/lib/stoa_plugin.rb:21
-#: plugins/stoa/lib/stoa_plugin.rb:37
-msgid "USP number"
 msgstr ""
 
 #: plugins/stoa/lib/stoa_plugin.rb:12
@@ -11874,11 +11903,6 @@ msgstr ""
 #: plugins/comment_classification/views/comment_classification_plugin_labels/create.rhtml:1
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.rhtml:29
 msgid "Add a new label"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:7
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.rhtml:10
-msgid "Color"
 msgstr ""
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:8

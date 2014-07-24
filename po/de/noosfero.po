@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.47.1\n"
-"POT-Creation-Date: 2014-06-05 20:27-0000\n"
+"Project-Id-Version: noosfero 0.47.3\n"
+"POT-Creation-Date: 2014-07-24 14:20-0000\n"
 "PO-Revision-Date: 2013-03-07 20:14+0100\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -60,8 +60,8 @@ msgstr "Pinnwand"
 
 #: app/helpers/application_helper.rb:540 app/models/friends_block.rb:4
 #: app/views/profile/_person_profile.rhtml:25
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:41
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:17
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
 msgid "Friends"
 msgstr "Freunde"
 
@@ -94,8 +94,8 @@ msgstr "Hinzufügen"
 #: app/helpers/application_helper.rb:548 app/helpers/application_helper.rb:557
 #: app/models/members_block.rb:5
 #: app/views/profile/_organization_profile.rhtml:7
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:13
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:41
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
 msgid "Members"
 msgstr "Mitglieder"
 
@@ -171,8 +171,8 @@ msgstr "Suche"
 
 #: app/helpers/application_helper.rb:844
 #: app/helpers/profile_editor_helper.rb:150
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:10
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:43
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:13
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:46
 #: plugins/stoa/lib/stoa_plugin.rb:39
 msgid "Public"
 msgstr "Öffentlich"
@@ -261,6 +261,7 @@ msgid "communities|More popular"
 msgstr "communities|Populärste"
 
 #: app/helpers/application_helper.rb:1053
+#: app/helpers/application_helper.rb:1103
 msgid "My communities"
 msgstr "Meine Communities"
 
@@ -300,6 +301,10 @@ msgstr "%s <span>verwalten</span>"
 #: app/views/shared/_manage_link.html.erb:2
 msgid "Manage %s"
 msgstr "Verwalte %s"
+
+#: app/helpers/application_helper.rb:1097
+msgid "My enterprises"
+msgstr "Meine Unternehmen"
 
 #: app/helpers/application_helper.rb:1110
 msgid "Manage your pending tasks"
@@ -399,31 +404,24 @@ msgstr "vor %{distance} Tagen"
 msgid "Source: %s"
 msgstr "Quelle: %s"
 
-#: app/helpers/application_helper.rb:1217
-#: app/views/cms/_text_editor_sidebar.rhtml:3
-#: app/views/manage_products/_display_image.rhtml:6
-#: app/views/catalog/index.rhtml:33 app/views/search/_image.html.erb:44
-msgid "Zoom in"
-msgstr "heranzoomen"
-
-#: app/helpers/application_helper.rb:1231
+#: app/helpers/application_helper.rb:1218
 #: plugins/community_block/views/community_block.rhtml:17
 msgid "Report abuse"
 msgstr "Missbräuchliches Verhalten melden"
 
-#: app/helpers/application_helper.rb:1233
+#: app/helpers/application_helper.rb:1220
 msgid "You already reported this profile."
 msgstr "Sie haben dieses Profil bereits gemeldet."
 
-#: app/helpers/application_helper.rb:1234
+#: app/helpers/application_helper.rb:1221
 msgid "Report this profile for abusive behaviour"
 msgstr "Melden Sie dieses Profil für missbräuchliches Verhalten"
 
-#: app/helpers/application_helper.rb:1303
+#: app/helpers/application_helper.rb:1290
 msgid "Profile organization"
 msgstr "Organisationsprofil"
 
-#: app/helpers/application_helper.rb:1304
+#: app/helpers/application_helper.rb:1291
 msgid ""
 "Your profile will be created according to the selected template. Click on "
 "the options to view them."
@@ -431,11 +429,11 @@ msgstr ""
 "Ihr Profil wird in Übereinstimmung mit der ausgewählten Vorlage angelegt "
 "werden.Klicken Sie auf die Optionen, um sie zu sehen."
 
-#: app/helpers/application_helper.rb:1330
+#: app/helpers/application_helper.rb:1317
 msgid "The content here is available to %s's friends only."
 msgstr "Dieser Inhalt ist nur für %s's Freunde verfügbar."
 
-#: app/helpers/application_helper.rb:1333
+#: app/helpers/application_helper.rb:1320
 #, fuzzy
 msgid "The contents in this profile is available to members only."
 msgstr "Der Inhalt dieser Communitiy ist nur für Mitglieder verfügbar."
@@ -766,7 +764,7 @@ msgstr "Bisher keine Kommentare"
 msgid "One comment"
 msgstr "Ein Kommentar"
 
-#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:703
+#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:701
 #: app/views/person_notifier/mailer/_profile_comments.rhtml:4
 msgid "%s comments"
 msgstr "%s Kommentare"
@@ -2102,7 +2100,7 @@ msgstr "Tätigkeitsfeld"
 msgid "Management information"
 msgstr "Verwaltungsinformationen"
 
-#: app/models/organization.rb:95 app/models/article.rb:199
+#: app/models/organization.rb:95 app/models/article.rb:200
 msgid "Tag list"
 msgstr "Tag Liste"
 
@@ -2371,7 +2369,7 @@ msgstr "noosfero::plugin::activerecord"
 msgid "block"
 msgstr "Block"
 
-#: app/models/article_categorization.rb:- app/models/article.rb:154
+#: app/models/article_categorization.rb:- app/models/article.rb:155
 #: app/views/comment/_comment_form.rhtml:75
 #: app/views/shared/content_list.rhtml:3
 #: app/views/box_organizer/_link_list_block.rhtml:8
@@ -2590,6 +2588,19 @@ msgid "Jabber"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Bar"
+msgstr "Bar"
+
+#: app/models/article_categorization.rb:-
+msgid "Usp"
+msgstr "USP"
+
+#: app/models/article_categorization.rb:-
+#, fuzzy
+msgid "Welcome page"
+msgstr "Homepage"
+
+#: app/models/article_categorization.rb:-
 msgid "article"
 msgstr "Artikel"
 
@@ -2740,6 +2751,19 @@ msgid "License"
 msgstr "Lizenz"
 
 #: app/models/article_categorization.rb:-
+#, fuzzy
+msgid "Spam comments count"
+msgstr "Anzahl der Kommentare"
+
+#: app/models/article_categorization.rb:-
+#: app/views/search/_article_author.rhtml:4
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:6
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:17
+msgid "Author"
+msgstr "Autor"
+
+#: app/models/article_categorization.rb:-
 msgid "environment"
 msgstr "environment"
 
@@ -2780,8 +2804,17 @@ msgid "Redirection after signup"
 msgstr "Weiterleitung nach der Anmeldung"
 
 #: app/models/article_categorization.rb:-
+msgid "Send email plugin allow to"
+msgstr "Send email plugin allow to"
+
+#: app/models/article_categorization.rb:-
 msgid "person"
 msgstr "Person"
+
+#: app/models/article_categorization.rb:- plugins/stoa/lib/stoa_plugin.rb:5
+#: plugins/stoa/lib/stoa_plugin.rb:21 plugins/stoa/lib/stoa_plugin.rb:37
+msgid "USP number"
+msgstr "USP-Nummer"
 
 #: app/models/article_categorization.rb:-
 #, fuzzy
@@ -2813,14 +2846,6 @@ msgid "comment"
 msgstr "Kommentar"
 
 #: app/models/article_categorization.rb:-
-#: app/views/search/_article_author.rhtml:4
-#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:6
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:17
-msgid "Author"
-msgstr "Autor"
-
-#: app/models/article_categorization.rb:-
 msgid "Reply of"
 msgstr "Antwort von"
 
@@ -2843,6 +2868,10 @@ msgstr "User-Agent"
 #: app/models/article_categorization.rb:-
 msgid "Referrer"
 msgstr "Referrer"
+
+#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
+msgid "Group"
+msgstr "Gruppe"
 
 #: app/models/article_categorization.rb:-
 #, fuzzy
@@ -2939,6 +2968,22 @@ msgid "commentclassificationplugin::label"
 msgstr "Moderationseinstellungen"
 
 #: app/models/article_categorization.rb:-
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:7
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.rhtml:10
+msgid "Color"
+msgstr ""
+
+#: app/models/article_categorization.rb:- app/models/production_cost.rb:-
+#: app/models/box.rb:- app/models/domain.rb:-
+msgid "Owner"
+msgstr "Besitzer"
+
+#: app/models/article_categorization.rb:- app/models/production_cost.rb:-
+#: app/models/box.rb:- app/models/domain.rb:-
+msgid "Owner type"
+msgstr "Besitzer-Typ"
+
+#: app/models/article_categorization.rb:-
 msgid "friendship"
 msgstr "Freundschaft"
 
@@ -2951,10 +2996,6 @@ msgstr "Person"
 #: app/models/article_categorization.rb:-
 msgid "Friend"
 msgstr "Freund"
-
-#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
-msgid "Group"
-msgstr "Gruppe"
 
 #: app/models/article_categorization.rb:-
 msgid "category"
@@ -3011,11 +3052,11 @@ msgstr "(gelöschte Nutzer)"
 msgid "(unauthenticated user)"
 msgstr "(nicht angemeldeter Nutzer)"
 
-#: app/models/comment.rb:176
+#: app/models/comment.rb:179
 msgid "[%s] you got a new comment!"
 msgstr "[%s] Sie haben einen neuen Kommentar erhalten!"
 
-#: app/models/comment.rb:191
+#: app/models/comment.rb:194
 msgid "[%s] %s commented on a content of %s"
 msgstr "[%s] %s kommentierte einen Beitrag von %s"
 
@@ -3056,76 +3097,69 @@ msgstr ""
 "Der Titel (Artikelname) wird bereits durch einen anderen Artikel genutzt. "
 "Bitte nutzen Sie einen anderen Titel."
 
-#: app/models/article.rb:121
+#: app/models/article.rb:122
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:11
 msgid "self-reference is not allowed."
 msgstr "Selbstreferenzen sind nicht erlaubt."
 
-#: app/models/article.rb:128
+#: app/models/article.rb:129
 #: plugins/container_block/lib/container_block_plugin/container_block.rb:13
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:16
 msgid "cyclical reference is not allowed."
 msgstr "Zyklische Referenzen sind nicht erlaubt."
 
-#: app/models/article.rb:303
+#: app/models/article.rb:304
 msgid "HTML Text document"
 msgstr "HTML-Textdokument"
 
-#: app/models/article.rb:392
+#: app/models/article.rb:393
 msgid "Language not supported by the environment."
 msgstr "Die Sprache wird nicht von der Umgebung unterstützt."
 
-#: app/models/article.rb:398
+#: app/models/article.rb:399
 msgid "Language is already used"
 msgstr "Sprache wird bereits verwendet"
 
-#: app/models/article.rb:404
+#: app/models/article.rb:405
 msgid "Language must be choosen"
 msgstr "Eine Sprache muss ausgewählt werden"
 
-#: app/models/article.rb:410
+#: app/models/article.rb:411
 msgid "A language must be choosen for the native article"
 msgstr "Für den ursprünglichen Artikel muss eine Sprache ausgewählt werden"
 
-#: app/models/article.rb:641 lib/file_presenter.rb:61
+#: app/models/article.rb:636 app/models/article.rb:638
+#: lib/file_presenter.rb:63
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: app/models/article.rb:701
+#: app/models/article.rb:699
 msgid "no comments"
 msgstr "Keine Kommentare"
 
-#: app/models/article.rb:702
+#: app/models/article.rb:700
 msgid "one comment"
 msgstr "Ein Kommentar"
 
-#: app/models/article.rb:710
+#: app/models/article.rb:708
 msgid "no views"
 msgstr "Keine Abrufe"
 
-#: app/models/article.rb:711
+#: app/models/article.rb:709
 msgid "one view"
 msgstr "ein Abruf"
 
-#: app/models/article.rb:712
+#: app/models/article.rb:710
 msgid "%s views"
 msgstr "%s Abrufe"
 
-#: app/models/article.rb:717
+#: app/models/article.rb:715
 msgid "Created at: "
 msgstr "Erstellt am: "
 
 #: app/models/production_cost.rb:-
 msgid "production cost"
 msgstr "Produktionskosten"
-
-#: app/models/production_cost.rb:- app/models/box.rb:- app/models/domain.rb:-
-msgid "Owner"
-msgstr "Besitzer"
-
-#: app/models/production_cost.rb:- app/models/box.rb:- app/models/domain.rb:-
-msgid "Owner type"
-msgstr "Besitzer-Typ"
 
 #: app/models/unit.rb:- app/views/catalog/index.rhtml:53
 msgid "unit"
@@ -5413,41 +5447,41 @@ msgstr "Kann Profil nicht löschen"
 msgid "Address was updated successfully!"
 msgstr "Die Adresse wurde erfolgreich aktualisiert!"
 
-#: app/controllers/my_profile/cms_controller.rb:174
+#: app/controllers/my_profile/cms_controller.rb:175
 #, fuzzy
 msgid "Homepage reseted."
 msgstr "Homepage Inhalt"
 
-#: app/controllers/my_profile/cms_controller.rb:176
+#: app/controllers/my_profile/cms_controller.rb:177
 #, fuzzy
 msgid "\"%s\" configured as homepage."
 msgstr "\"%s\" konfiguriert als Homepage."
 
-#: app/controllers/my_profile/cms_controller.rb:260
-#: app/controllers/my_profile/cms_controller.rb:277
+#: app/controllers/my_profile/cms_controller.rb:261
+#: app/controllers/my_profile/cms_controller.rb:278
 msgid "Your publish request was sent successfully"
 msgstr "Ihre beabsichtigte Publizierung wurde erfolgreich abgesandt"
 
-#: app/controllers/my_profile/cms_controller.rb:279
+#: app/controllers/my_profile/cms_controller.rb:280
 msgid "Your publish request couldn't be sent."
 msgstr "Ihre beabsichtigte Publikation konnte nicht abgeschickt werden."
 
-#: app/controllers/my_profile/cms_controller.rb:282
+#: app/controllers/my_profile/cms_controller.rb:283
 msgid "There is no portal community to publish your article."
 msgstr "Es existiert keine Portal-Community um Ihre Artikel zu publizieren."
 
-#: app/controllers/my_profile/cms_controller.rb:301
+#: app/controllers/my_profile/cms_controller.rb:302
 #: app/controllers/public/comment_controller.rb:50
 msgid "Please type the words correctly"
 msgstr "Bitte geben Sie die Wörter korrekt ein"
 
-#: app/controllers/my_profile/cms_controller.rb:302
+#: app/controllers/my_profile/cms_controller.rb:303
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
 "Vielen Dank für Ihren Vorschlag. Die Administratoren der Community werden "
 "darüber informiert."
 
-#: app/controllers/my_profile/cms_controller.rb:407
+#: app/controllers/my_profile/cms_controller.rb:408
 msgid "%s could not be uploaded"
 msgstr "%s konnte nicht hochgeladen werden"
 
@@ -5859,7 +5893,7 @@ msgstr "Diese E-Mail-Adresse ist verfügbar"
 msgid "This e-mail address is taken"
 msgstr "Diese E-Mail-Adresse ist bereits in Verwendung"
 
-#: app/controllers/public/content_viewer_controller.rb:108
+#: app/controllers/public/content_viewer_controller.rb:110
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr ""
 "Die Benachrichtigung von '%s' zu neuen Kommentaren wurde erfolgreich "
@@ -8272,7 +8306,7 @@ msgid "Use as homepage"
 msgstr "Nutze als Homepage"
 
 #: app/views/cms/_enterprise_homepage.rhtml:3
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:51
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:54
 msgid "Text"
 msgstr "Text"
 
@@ -8307,6 +8341,12 @@ msgstr "Tags mit Kommas abtrennen"
 #: app/views/cms/_text_editor_sidebar.rhtml:2
 msgid "Add to the text"
 msgstr "Text ergänzen"
+
+#: app/views/cms/_text_editor_sidebar.rhtml:3
+#: app/views/manage_products/_display_image.rhtml:6
+#: app/views/catalog/index.rhtml:33 app/views/search/_image.html.erb:44
+msgid "Zoom in"
+msgstr "heranzoomen"
 
 #: app/views/cms/_text_editor_sidebar.rhtml:8
 msgid "Insert media"
@@ -9018,7 +9058,7 @@ msgstr "Nutzungsbedingungen"
 msgid "Create my account"
 msgstr "Meinen Zugang erstellen"
 
-#: app/views/account/_signup_form.rhtml:157
+#: app/views/account/_signup_form.rhtml:155
 msgid "Passwords don't match"
 msgstr "Die Passwörter stimmen nicht überein"
 
@@ -10312,11 +10352,6 @@ msgstr ""
 "Dieser Verweis wird nicht mehr verfügbar sein, wenn der Inhalt gelöscht "
 "worden ist"
 
-#: app/views/shared/_manage_link.html.erb:2
-#, fuzzy
-msgid "My %s"
-msgstr "von %s"
-
 #: app/views/cms/_general_fields.html.erb:1
 msgid "Parent folder:"
 msgstr "Übergeordneter Ordner:"
@@ -10508,7 +10543,7 @@ msgstr "Institutionen sind zunächst deaktiviert, wenn sie erstellt wurden"
 msgid "Feed"
 msgstr "Feed"
 
-#: lib/file_presenter.rb:63
+#: lib/file_presenter.rb:65
 #, fuzzy
 msgid "File (%s)"
 msgstr "Preis (%s)"
@@ -10912,11 +10947,11 @@ msgstr ""
 "\">GNU Affero General Public License</a> Version 3 oder einer späteren "
 "Version lizenziert ist."
 
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:45
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
 msgid "Submission saved"
 msgstr "Beitrag gespeichert"
 
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:48
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
 msgid "Submission could not be saved"
 msgstr "Der Beitrag konnte nicht gespeichert werden"
 
@@ -11311,41 +11346,41 @@ msgstr "Ermöglicht die Erstellung von Formularen."
 msgid "Manage Forms"
 msgstr "Formulare verwalten"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:11
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
 msgid "Logged users"
 msgstr "Angemeldete Benutzer"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
 msgid "Custom"
 msgstr "Individuell"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:21
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:24
 msgid "Always"
 msgstr "Immer"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:25
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:28
 msgid "Until %s"
 msgstr "Bis %s"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:27
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:30
 msgid "From %s until %s"
 msgstr "Von %s bis %s"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:52
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:55
 msgid "Select"
 msgstr "Wählen"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:58
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:61
 msgid "Text field"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:59
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:62
 #, fuzzy
 msgid "Select field"
 msgstr "Ordner auswählen"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:98
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:101
 msgid "Hold down Ctrl to select options"
 msgstr ""
 
@@ -11448,18 +11483,19 @@ msgid "Label"
 msgstr ""
 
 #: plugins/custom_forms/lib/custom_forms_plugin/alternative.rb:-
+#, fuzzy
 msgid "Selected by default"
-msgstr ""
+msgstr "Ordner auswählen"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:34
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:20
 msgid "Membership survey"
 msgstr "Umfrage unter den Mitgliedern"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:46
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:32
 msgid "%{requestor} wants you to fill in some information."
 msgstr "%{requestor} möchte von Ihnen, dass Sie ein paar Felder ausfüllen."
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:58
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:44
 msgid ""
 "After joining %{requestor}, the administrators of this organization\n"
 "      wants you to fill in some further information."
@@ -11468,7 +11504,7 @@ msgstr ""
 "Organisation,\n"
 "      dass Sie noch weitere Angaben tätigen."
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:63
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:49
 msgid "%{requestor} wants to fill in some further information."
 msgstr "%{requestor} möchte von Ihnen, dass Sie weitere Felder ausfüllen."
 
@@ -11487,11 +11523,6 @@ msgstr "USP-Nutzer"
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "stoaplugin::uspuser"
 msgstr "stoaplugin::uspuser"
-
-#: plugins/stoa/lib/stoa_plugin.rb:5 plugins/stoa/lib/stoa_plugin.rb:21
-#: plugins/stoa/lib/stoa_plugin.rb:37
-msgid "USP number"
-msgstr "USP-Nummer"
 
 #: plugins/stoa/lib/stoa_plugin.rb:12
 msgid "Add Stoa features"
@@ -12635,11 +12666,6 @@ msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
 msgid "Add a new label"
 msgstr "Neues Feld hinzufügen"
 
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:7
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.rhtml:10
-msgid "Color"
-msgstr ""
-
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.rhtml:8
 #, fuzzy
 msgid "Enable this label?"
@@ -13523,6 +13549,10 @@ msgstr "Grund"
 msgid "Manage comment classification"
 msgstr "Verwaltungsinformationen"
 
+#, fuzzy
+#~ msgid "My %s"
+#~ msgstr "von %s"
+
 #~ msgid "The supplied current password is incorrect."
 #~ msgstr "Das übermittelte aktuelle Passwort ist falsch."
 
@@ -13576,9 +13606,6 @@ msgstr "Verwaltungsinformationen"
 #~ msgid "Empty stands for no free delivery price."
 #~ msgstr "Leer heißt kostenlose Auslieferung."
 
-#~ msgid "Usp"
-#~ msgstr "USP"
-
 #~ msgid "must be filled in"
 #~ msgstr "muss ausgefüllt werden"
 
@@ -13613,14 +13640,8 @@ msgstr "Verwaltungsinformationen"
 #~ msgid "Body: "
 #~ msgstr "Hauptteil:"
 
-#~ msgid "Bar"
-#~ msgstr "Bar"
-
 #~ msgid "Company name"
 #~ msgstr "Firmenname"
-
-#~ msgid "Send email plugin allow to"
-#~ msgstr "Send email plugin allow to"
 
 #~ msgid "textarticle"
 #~ msgstr "textarticle"
@@ -13658,9 +13679,6 @@ msgstr "Verwaltungsinformationen"
 
 #~ msgid "Manage enterprises"
 #~ msgstr "Verwalte Unternehmen"
-
-#~ msgid "My enterprises"
-#~ msgstr "Meine Unternehmen"
 
 #~ msgid "Choices"
 #~ msgstr "Auswahl"
