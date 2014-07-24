@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20140709224246) do
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
+  add_index "article_versions", ["path", "profile_id"], :name => "index_article_versions_on_path_and_profile_id"
+  add_index "article_versions", ["path"], :name => "index_article_versions_on_path"
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -149,9 +151,14 @@ ActiveRecord::Schema.define(:version => 20140709224246) do
   add_index "articles", ["hits"], :name => "index_articles_on_hits"
   add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
+  add_index "articles", ["path", "profile_id"], :name => "index_articles_on_path_and_profile_id"
+  add_index "articles", ["path"], :name => "index_articles_on_path"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
   add_index "articles", ["slug"], :name => "index_articles_on_slug"
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
+  add_index "articles", ["type", "parent_id"], :name => "index_articles_on_type_and_parent_id"
+  add_index "articles", ["type", "profile_id"], :name => "index_articles_on_type_and_profile_id"
+  add_index "articles", ["type"], :name => "index_articles_on_type"
 
   create_table "articles_categories", :id => false, :force => true do |t|
     t.integer "article_id"
@@ -271,6 +278,11 @@ ActiveRecord::Schema.define(:version => 20140709224246) do
     t.boolean "is_default",      :default => false
     t.string  "google_maps_key"
   end
+
+  add_index "domains", ["is_default"], :name => "index_domains_on_is_default"
+  add_index "domains", ["name"], :name => "index_domains_on_name"
+  add_index "domains", ["owner_id", "owner_type", "is_default"], :name => "index_domains_on_owner_id_and_owner_type_and_is_default"
+  add_index "domains", ["owner_id", "owner_type"], :name => "index_domains_on_owner_id_and_owner_type"
 
   create_table "environments", :force => true do |t|
     t.string   "name"
