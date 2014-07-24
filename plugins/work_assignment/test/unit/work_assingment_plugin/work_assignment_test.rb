@@ -35,7 +35,7 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     author = fast_create(Person)
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => organization)
-    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :last_changed_by => author)
+    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
     assert author_folder, submission.parent
