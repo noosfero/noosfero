@@ -8,12 +8,7 @@ class InviteController < PublicController
     @import_from = params[:import_from] || "manual"
     @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
 
-    extra_labels = Profile::SEARCHABLE_FIELDS.keys - [:name, :identifier, :nickname]
-    labels = [
-      _('Name'),
-      _('Username'),
-      _('Email'),
-    ] + extra_labels.map { |label| Profile.human_attribute_name(label) }
+    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label] }
     last = labels.pop
     label = labels.join(', ')
     @search_friend_fields = "#{label} #{_('or')} #{last}"

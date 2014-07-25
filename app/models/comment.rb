@@ -1,9 +1,9 @@
 class Comment < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = {
-    :title => 10,
-    :name => 4,
-    :body => 2,
+    :title => {:label => _('Title'), :weight => 10},
+    :name => {:label => _('Name'), :weight => 4},
+    :body => {:label => _('Content'), :weight => 2},
   }
 
   validates_presence_of :body

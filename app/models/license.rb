@@ -1,8 +1,8 @@
 class License < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :url => 5,
+    :name => {:label => _('Name'), :weight => 10},
+    :url => {:label => _('URL'), :weight => 5},
   }
 
   belongs_to :environment

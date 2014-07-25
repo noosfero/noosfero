@@ -5,11 +5,11 @@ class Article < ActiveRecord::Base
   acts_as_having_image
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :abstract => 3,
-    :body => 2,
-    :slug => 1,
-    :filename => 1,
+    :name => {:label => _('Name'), :weight => 10},
+    :abstract => {:label => _('Abstract'), :weight => 3},
+    :body => {:label => _('Content'), :weight => 2},
+    :slug => {:label => _('Slug'), :weight => 1},
+    :filename => {:label => _('Filename'), :weight => 1},
   }
 
   SEARCH_FILTERS = %w[

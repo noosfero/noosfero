@@ -1,7 +1,7 @@
 class Qualifier < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = {
-    :name => 1,
+    :name => {:label => _('Name'), :weight => 1},
   }
 
   belongs_to :environment

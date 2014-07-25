@@ -1,7 +1,7 @@
 require_dependency 'person'
 
 class Person
-  SEARCHABLE_FIELDS[:usp_id] = 5
+  SEARCHABLE_FIELDS[:usp_id] = {:label => _('USP Number'), :weight => 5}
 
   validates_uniqueness_of :usp_id, :allow_nil => true
   settings_items :invitation_code

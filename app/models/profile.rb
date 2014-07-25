@@ -4,9 +4,9 @@
 class Profile < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :identifier => 5,
-    :nickname => 2,
+    :name => {:label => _('Name'), :weight => 10},
+    :identifier => {:label => _('Username'), :weight => 5},
+    :nickname => {:label => _('Nickname'), :weight => 2},
   }
 
   SEARCH_FILTERS = %w[
