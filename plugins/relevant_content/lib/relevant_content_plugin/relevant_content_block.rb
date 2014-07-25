@@ -18,6 +18,8 @@ class RelevantContentPlugin::RelevantContentBlock < Block
   settings_items :show_most_disliked,   :type => :boolean, :default => 0
   settings_items :show_most_voted,      :type => :boolean, :default => 1
 
+  attr_accessible :limit, :show_most_voted, :show_most_disliked, :show_most_liked, :show_most_commented, :show_most_read
+
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
