@@ -3,10 +3,10 @@ class Category < ActiveRecord::Base
   attr_accessible :name, :parent_id, :display_color, :display_in_menu, :image_builder, :environment, :parent
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :acronym => 5,
-    :abbreviation => 5,
-    :slug => 1,
+    :name => {:label => _('Name'), :weight => 10},
+    :acronym => {:label => _('Acronym'), :weight => 5},
+    :abbreviation => {:label => _('Abbreviation'), :weight => 5},
+    :slug => {:label => _('Slug'), :weight => 1},
   }
 
   validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('{fn} cannot be like that.').fix_i18n

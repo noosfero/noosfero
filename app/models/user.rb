@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   N_('Terms accepted')
 
   SEARCHABLE_FIELDS = {
-    :email => 5,
+    :email => {:label => _('Email'), :weight => 5},
   }
 
   def self.[](login)
