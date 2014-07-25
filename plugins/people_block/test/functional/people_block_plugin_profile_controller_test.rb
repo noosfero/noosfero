@@ -34,7 +34,7 @@ class PeopleBlockPluginProfileControllerTest < ActionController::TestCase
   attr_accessor :profile, :block, :admin, :member, :moderator
 
   should 'list members without role_key' do
-    get :members, :profile => profile.identifier
+    get :members, :profile => profile.identifier, :role_key => ""
     assert_response :success
     assert_template 'members'
     assert_equivalent [@admin, @member, @moderator], assigns(:members)
