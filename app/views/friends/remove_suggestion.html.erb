@@ -1,0 +1,5 @@
+<div id="remove_suggestion">
+  <h1><%= _('Removing suggestion for friend: %s') % @person.name %></h1>
+
+  <%= render :partial => 'shared/remove_suggestion', :locals => { :suggestion => @person } %>
+</div>

@@ -1,0 +1,31 @@
+<ul class="profile-list">
+  <% profiles.each do |profile| %>
+    <li>
+    <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
+                        profile.identifier, :class => 'profile-link' %>
+    <div class="controll">
+      <% if collection == :friends %>
+        <%= link_to content_tag('span',_('remove')),
+            { :action => 'remove', :id => profile.id },
+              :class => 'button icon-remove',
+              :title => _('remove') %>
+        <%= link_to content_tag('span',_('contact')),
+              profile.url.merge(:controller => 'contact', :action => 'new', :profile => profile.identifier),
+              :class => 'button icon-menu-mail',
+              :title => _('contact') %>
+      <% elsif collection == :suggestions %>
+        <%= link_to content_tag('span',_('add')),
+              profile.add_url,
+              :class => 'button icon-add add-friend',
+              :title => _('Add friend') %>
+        <%= link_to content_tag('span',_('remove')),
+            { :action => 'remove_suggestion', :id => profile.identifier },
+              :class => 'button icon-remove',
+              :title => _('Remove suggestion'),
+              :method => 'post',
+              :confirm => _('Are you sure you want to remove this suggestion?') %>
+      <% end %>
+    </div><!-- end class="controll" -->
+    </li>
+  <% end %>
+</ul>
