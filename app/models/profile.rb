@@ -217,6 +217,8 @@ class Profile < ActiveRecord::Base
 
   has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
 
+  has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
+
   def top_level_categorization
     ret = {}
     self.profile_categorizations.each do |c|
