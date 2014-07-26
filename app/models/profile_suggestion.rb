@@ -31,7 +31,7 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   RULES = %w[
-    friends_of_friends_with_common_friends
+    friends_of_friends
     people_with_common_communities
     people_with_common_tags
     communities_with_common_friends
@@ -53,7 +53,7 @@ class ProfileSuggestion < ActiveRecord::Base
   # Number of friends in common
   COMMON_TAGS = 2
 
-  def self.friends_of_friends_with_common_friends(person)
+  def self.friends_of_friends(person)
     person_attempts = 0
     person_friends = person.friends
     person_friends.each do |friend|
@@ -63,7 +63,9 @@ class ProfileSuggestion < ActiveRecord::Base
         unless friend_of_friend == person || friend_of_friend.is_a_friend?(person) || person.already_request_friendship?(friend_of_friend)
           common_friends = friend_of_friend.friends & person_friends
           if common_friends.size >= COMMON_FRIENDS
-            person.profile_suggestions.create(:suggestion => friend_of_friend, :common_friends => common_friends.size)
+            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(friend_of_friend.id)
+            suggestion.common_friends = common_friends.size
+            suggestion.save
           end
         end
       end
@@ -80,7 +82,9 @@ class ProfileSuggestion < ActiveRecord::Base
         unless member == person || member.is_a_friend?(person) || person.already_request_friendship?(member)
           common_communities = person_communities & member.communities
           if common_communities.size >= COMMON_COMMUNITIES
-            person.profile_suggestions.create(:suggestion => member, :common_communities => common_communities.size)
+            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(member.id)
+            suggestion.common_communities = common_communities.size
+            suggestion.save
           end
         end
       end
@@ -99,7 +103,9 @@ class ProfileSuggestion < ActiveRecord::Base
         unless author.nil? || author == person || author.is_a_friend?(person) || person.already_request_friendship?(author)
           common_tags = tags & author.article_tags.keys
           if common_tags.size >= COMMON_TAGS
-            person.profile_suggestions.create(:suggestion => author, :common_tags => common_tags.size)
+            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(author.id)
+            suggestion.common_tags = common_tags.size
+            suggestion.save
           end
         end
       end
@@ -116,7 +122,9 @@ class ProfileSuggestion < ActiveRecord::Base
         unless person.is_member_of?(community) || community.already_request_membership?(person)
           common_friends = community.members & person.friends
           if common_friends.size >= COMMON_FRIENDS
-            person.profile_suggestions.create(:suggestion => community, :common_friends => common_friends.size)
+            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(community.id)
+            suggestion.common_friends = common_friends.size
+            suggestion.save
           end
         end
       end
@@ -135,7 +143,9 @@ class ProfileSuggestion < ActiveRecord::Base
         unless !profile.community? || person.is_member_of?(profile) || profile.already_request_membership?(person)
           common_tags = tags & profile.article_tags.keys
           if common_tags.size >= COMMON_TAGS
-            person.profile_suggestions.create(:suggestion => profile, :common_tags => common_tags.size)
+            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(profile.id)
+            suggestion.common_tags = common_tags.size
+            suggestion.save
           end
         end
       end

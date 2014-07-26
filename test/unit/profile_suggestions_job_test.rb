@@ -6,26 +6,15 @@ class ProfileSuggestionsJobTest < ActiveSupport::TestCase
     person = create_user('person').person
     friend = create_user('friend').person
     friend2 = create_user('friend2').person
-    friend3 = create_user('friend3').person
 
     person.add_friend friend
-    friend.add_friend person
-
     person.add_friend friend2
-    friend2.add_friend person
-
-    person.add_friend friend3
-    friend3.add_friend person
 
     friend_of_friend = create_user('friend_of_friend').person
     friend.add_friend friend_of_friend
+
     friend_of_friend.add_friend friend
-
     friend_of_friend.add_friend friend2
-    friend2.add_friend friend_of_friend
-
-    friend_of_friend.add_friend friend3
-    friend3.add_friend friend_of_friend
 
     job = ProfileSuggestionsJob.new(person.id)
     assert_difference 'ProfileSuggestion.count', 1 do
