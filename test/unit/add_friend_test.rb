@@ -137,4 +137,11 @@ class AddFriendTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to be your friend/, email.subject)
   end
 
+  should 'disable suggestion if profile requested friendship' do
+    suggestion = ProfileSuggestion.create(:person => person1, :suggestion => person2, :enabled => true)
+
+    task = AddFriend.create(:person => person1, :friend => person2)
+    assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
+  end
+
 end

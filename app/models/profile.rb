@@ -631,6 +631,7 @@ private :generate_url, :url_options
         self.affiliate(person, Profile::Roles.admin(environment.id)) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
+      remove_from_suggestion_list person
     else
       raise _("%s can't have members") % self.class.name
     end
@@ -959,4 +960,10 @@ private :generate_url, :url_options
   def preferred_login_redirection
     redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
   end
+
+  def remove_from_suggestion_list(person)
+    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion.disable if suggestion
+  end
+
 end

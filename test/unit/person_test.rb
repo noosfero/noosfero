@@ -1458,4 +1458,67 @@ class PersonTest < ActiveSupport::TestCase
       person.reload
     end
   end
+
+  should 'have a list of suggested people to be friend' do
+    person = create_user('person').person
+    suggested_friend = fast_create(Person)
+
+    ProfileSuggestion.create(:person => person, :suggestion => suggested_friend)
+    assert_equal [suggested_friend], person.suggested_people
+  end
+
+  should 'have a list of suggested communities to be member' do
+    person = create_user('person').person
+    suggested_community = fast_create(Community)
+
+    ProfileSuggestion.create(:person => person, :suggestion => suggested_community)
+    assert_equal [suggested_community], person.suggested_communities
+  end
+
+  should 'remove profile suggestion when person is destroyed' do
+    person = create_user('person').person
+    suggested_community = fast_create(Community)
+
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_community)
+
+    person.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      ProfileSuggestion.find suggestion.id
+    end
+  end
+
+  should 'remove profile suggestion when suggested profile is destroyed' do
+    person = create_user('person').person
+    suggested_community = fast_create(Community)
+
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_community)
+
+    suggested_community.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      ProfileSuggestion.find suggestion.id
+    end
+  end
+
+  should 'not suggest disabled suggestion of people' do
+    person = create_user('person').person
+    suggested_person = fast_create(Person)
+    disabled_suggested_person = fast_create(Person)
+
+    enabled_suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_person)
+    disabled_suggestion = ProfileSuggestion.create(:person => person, :suggestion => disabled_suggested_person, :enabled => false)
+
+    assert_equal [suggested_person], person.suggested_people
+  end
+
+  should 'not suggest disabled suggestion of communities' do
+    person = create_user('person').person
+    suggested_community = fast_create(Community)
+    disabled_suggested_community = fast_create(Community)
+
+    enabled_suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_community)
+    disabled_suggestion = ProfileSuggestion.create(:person => person, :suggestion => disabled_suggested_community, :enabled => false)
+
+    assert_equal [suggested_community], person.suggested_communities
+  end
+
 end
