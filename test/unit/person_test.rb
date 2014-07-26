@@ -1521,4 +1521,16 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [suggested_community], person.suggested_communities
   end
 
+  should 'return url to people suggestions for a person' do
+    environment = create_environment('mycolivre.net')
+    profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'friends', :action => 'suggest' }, profile.people_suggestions_url)
+  end
+
+  should 'return url to communities suggestions for a person' do
+    environment = create_environment('mycolivre.net')
+    profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'memberships', :action => 'suggest' }, profile.communities_suggestions_url)
+  end
+
 end

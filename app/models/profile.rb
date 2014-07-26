@@ -513,6 +513,14 @@ class Profile < ActiveRecord::Base
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end
 
+  def people_suggestions_url
+    generate_url(:profile => identifier, :controller => 'friends', :action => 'suggest')
+  end
+
+  def communities_suggestions_url
+    generate_url(:profile => identifier, :controller => 'memberships', :action => 'suggest')
+  end
+
   def generate_url(options)
     url_options.merge(options)
   end

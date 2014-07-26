@@ -1955,4 +1955,14 @@ class ProfileTest < ActiveSupport::TestCase
     p = fast_create(Profile)
     assert p.folder_types.include?('ProfileTest::Folder1')
   end
+
+  should 'disable suggestion if profile requested membership' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => community, :enabled => true)
+
+    community.add_member person
+    assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
+  end
+
 end
