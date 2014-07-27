@@ -1,0 +1,40 @@
+<div class='communities-suggestions'>
+  <h1><%= _("Communities suggestions for %s") % profile.name %></h1>
+
+  <% button_bar do %>
+    <%= button(:back, _('Go to groups list'), :controller => 'memberships') %>
+  <% end %>
+
+  <% if @suggestions.empty? %>
+    <p>
+      <em>
+        <%= _('You have no suggestions yet.') %>
+        <%= link_to _('Do you want to see communities in this environment?'), :controller => 'search', :action => 'assets', :asset => 'communities' %>
+      </em>
+    </p>
+  <% else %>
+    <ul class="profile-list">
+      <% @suggestions.each do |suggestion| %>
+        <li>
+        <%= link_to_profile profile_image(suggestion) + '<br/>' + suggestion.short_name,
+                            suggestion.identifier, :class => 'profile-link' %>
+        <div class="controll">
+          <%= link_to content_tag('span',_('join')),
+                suggestion.join_url,
+                :class => 'button icon-add join-community',
+                :title => _("Join %s") % suggestion.name %>
+          <%= link_to content_tag('span',_('remove')),
+              { :action => 'remove_suggestion', :id => suggestion.identifier },
+                :class => 'button icon-remove',
+                :title => _('Remove suggestion'),
+                :method => 'post',
+                :confirm => _('Are you sure you want to remove this suggestion?') %>
+        </div><!-- end class="controll" -->
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= pagination_links @suggestions, :param_name => 'npage' %>
+  <br style="clear:both" />
+</div>

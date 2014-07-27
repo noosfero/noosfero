@@ -25,4 +25,19 @@ class MembershipsController < MyProfileController
       return
     end
   end
+
+  def suggest
+    @suggestions = profile.suggested_communities.paginate(:per_page => 8, :page => params[:npage])
+  end
+
+  def remove_suggestion
+    @community = profile.suggested_communities.find_by_identifier(params[:id])
+    redirect_to :action => 'suggest' unless @community
+    if @community && request.post?
+      suggestion = profile.profile_suggestions.find_by_suggestion_id @community.id
+      suggestion.disable
+      redirect_to :action => 'suggest'
+    end
+  end
+
 end

@@ -12,7 +12,7 @@ jQuery(function($) {
   })
 
   $(".join-community").live('click', function(){
-    clicked = $(".join-community");
+    clicked = $(this);
     url = clicked.attr("href");
     loading_for_button(this);
     $.post(url, function(data){
