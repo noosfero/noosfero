@@ -7,9 +7,9 @@ class MembershipsController < MyProfileController
       ra = profile.role_assignments.find_by_role_id(role.id)
       ra.present? && ra.resource_type == 'Profile'
     end
-    @filter = params[:filter_type].blank? ? nil : params[:filter_type]
+    @filter = params[:filter_type].to_i
     begin
-      @memberships = @filter.nil? ? profile.memberships : profile.memberships_by_role(environment.roles.find(@filter))
+      @memberships = @filter.zero? ? profile.memberships : profile.memberships_by_role(environment.roles.find(@filter))
     rescue ActiveRecord::RecordNotFound
       @memberships = []
     end

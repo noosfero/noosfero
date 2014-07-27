@@ -8,11 +8,12 @@
   <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
 
-<% type_collection = [[nil, _('All')]] %>
+<% type_collection = [[0, _('All')]] %>
 <% type_collection += @roles.sort_by {|role| role.id}.map{|r| ["#{r.id}", r.name]} %>
 
+<%= javascript_include_tag "memberships_filter.js" %>
 <p>
-  <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => 'document.location.href = "?filter_type="+this.value')%>
+  <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :id => 'memberships_filter')%>
 </p>
 
 <% if @memberships.empty? %>
