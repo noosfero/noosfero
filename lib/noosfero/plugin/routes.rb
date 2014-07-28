@@ -24,7 +24,7 @@ Dir.glob(Rails.root.join(plugins_root, '*', 'controllers')) do |controllers_dir|
   end
 
   match 'plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin'
-  match 'profile/:profile/plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin_profile'
-  match 'myprofile/:profile/plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin_myprofile'
+  match 'profile/:profile/plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin_profile', :profile => /#{Noosfero.identifier_format}/
+  match 'myprofile/:profile/plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin_myprofile', :profile => /#{Noosfero.identifier_format}/
   match 'admin/plugin/' + plugin_name + '(/:action(/:id))', :controller => plugin_name + '_plugin_admin'
 end
