@@ -1,0 +1,21 @@
+<div class='profiles-suggestions'>
+  <h1><%= _("Friends suggestions for %s") % profile.name %></h1>
+
+  <% button_bar do %>
+    <%= button(:back, _('Go to friends list'), :controller => 'friends') %>
+  <% end %>
+
+  <% if @suggestions.empty? %>
+    <p>
+      <em>
+        <%= _('You have no suggestions yet.') %>
+        <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
+      </em>
+    </p>
+  <% else %>
+    <%= render :partial => 'shared/profile_list', :locals => { :profiles => @suggestions, :collection => :friends_suggestions } %>
+
+    <%= pagination_links @suggestions, :param_name => 'npage' %>
+  <% end %>
+  <br style="clear:both" />
+</div>

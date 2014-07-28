@@ -3869,12 +3869,16 @@ h1#agenda-title {
 
 /* ==> @import url(manage_contacts_list.css); <== */
 
-.controller-favorite_enterprises .profile-list, .controller-friends .profile-list {
+.controller-favorite_enterprises .profile-list,
+.controller-friends .profile-list,
+.profiles-suggestions .profile-list {
   margin: 0px;
   padding: 0px;
   list-style: none;
 }
-.controller-favorite_enterprises .profile-list li, .controller-friends .profile-list li {
+.controller-favorite_enterprises .profile-list li,
+.controller-friends .profile-list li,
+.profiles-suggestions .profile-list li {
   float: left;
   width: 90px;
   height: 90px;
@@ -3886,52 +3890,74 @@ h1#agenda-title {
   list-style: none;
   position: relative;
 }
-.controller-favorite_enterprises .profile-list li:hover, .controller-friends .profile-list li:hover {
+.controller-favorite_enterprises .profile-list li:hover,
+.controller-friends .profile-list li:hover,
+.profiles-suggestions .profile-list li:hover {
   border: 2px solid #eeeeec;
 }
-.controller-favorite_enterprises .profile-list img, .controller-friends .profile-list img {
+.controller-favorite_enterprises .profile-list img,
+.controller-friends .profile-list img,
+.profiles-suggestions .profile-list img {
   border: none;
 }
-.controller-favorite_enterprises .profile-list a.profile-link, .controller-friends .profile-list a.profile-link {
+.controller-favorite_enterprises .profile-list a.profile-link,
+.controller-friends .profile-list a.profile-link,
+.profiles-suggestions .profile-list a.profile-link {
   text-decoration: none;
   text-align: center;
   display: block;
   font-size: 11px;
 }
-.controller-favorite_enterprises .profile-list a.profile-link:hover, .controller-friends .profile-list a.profile-link:hover {
+.controller-favorite_enterprises .profile-list a.profile-link:hover,
+.controller-friends .profile-list a.profile-link:hover,
+.profiles-suggestions .profile-list a.profile-link:hover {
   color: #FFF;
 }
-.controller-favorite_enterprises .profile-list .profile_link span, .controller-friends .profile-list .profile_link span {
+.controller-favorite_enterprises .profile-list .profile_link span,
+.controller-friends .profile-list .profile_link span,
+.profiles-suggestions .profile-list .profile_link span {
   width: 80px;
   display: block;
   overflow: hidden;
 }
-.controller-favorite_enterprises .profile-list, .controller-friends .profile-list {
+.controller-favorite_enterprises .profile-list,
+.controller-friends .profile-list,
+.profiles-suggestions .profile-list {
   position: relative;
 }
-.controller-favorite_enterprises .profile-list .controll, .controller-friends .profile-list .controll {
+.controller-favorite_enterprises .profile-list .controll,
+.controller-friends .profile-list .controll,
+.profiles-suggestions .profile-list .controll {
   position: absolute;
   top: 7px;
   right: -10px;
 }
-.controller-favorite_enterprises .profile-list .controll a, .controller-friends .profile-list .controll a {
+.controller-favorite_enterprises .profile-list .controll a,
+.controller-friends .profile-list .controll a,
+.profiles-suggestions .profile-list .controll a {
   display: block;
   margin-bottom: 2px;
 }
-.controller-favorite_enterprises .msie6 .profile-list .controll a, .controller-friends .msie6 .profile-list .controll a {
+.controller-favorite_enterprises .msie6 .profile-list .controll a,
+.controller-friends .msie6 .profile-list .controll a,
+.profiles-suggestions .msie6 .profile-list .controll a {
   width: 0px;
 }
-.controller-favorite_enterprises .button-bar, .controller-friends .button-bar {
+.controller-favorite_enterprises .button-bar,
+.controller-friends .button-bar,
+.profiles-suggestions .button-bar {
   clear: both;
   padding-top: 20px;
 }
 /* ==> public/stylesheets/controller_friends.css <== */
 
-.controller-friends #remove_friend .friend_picture {
+.controller-friends #remove_friend .friend_picture,
+#remove_suggestion .suggestion_picture {
   float: left;
   margin-right: 15px;
 }
-.controller-friends #remove_friend form {
+.controller-friends #remove_friend form,
+#remove_suggestion form {
   clear: both;
   padding-top: 20px;
 }

@@ -66,6 +66,10 @@ class Person < Profile
   has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
+  has_many :profile_suggestions, :foreign_key => :person_id, :dependent => :destroy
+  has_many :suggested_people, :through => :profile_suggestions, :source => :suggestion, :conditions => ['profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Person', true]
+  has_many :suggested_communities, :through => :profile_suggestions, :source => :suggestion, :conditions => ['profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Community', true]
+
   scope :more_popular, :order => 'friends_count DESC'
 
   scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'

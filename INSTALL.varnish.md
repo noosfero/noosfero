@@ -24,10 +24,6 @@ Install the RPAF apache module (or skip this step if not using apache):
 
 3b) Edit `/etc/apache2/sites-enabled/*`, and change `<VirtualHost *:80>` to `<VirtualHost *:8080>`
 
-3c) Restart apache
-
-    # invoke-rc.d apache2 restart
-
 4) Varnish configuration
 
 4a) Edit `/etc/default/varnish`
@@ -44,10 +40,6 @@ On manual installations, change `/etc/noosfero/*` to `{Rails.root}/etc/noosfero/
 
 **NOTE**: it is very important that the `*.vcl` files are included in that order, i.e. *first* include `varnish-noosfero.vcl`, and *after* `noosfero-accept-language.cvl`.
 
-4c) Restart Varnish
-
-    # invoke-rc.d varnish restart
-
 5) Enable varnish logging:
 
 5a) Edit `/etc/default/varnishncsa` and uncomment the line that contains:
@@ -56,8 +48,10 @@ On manual installations, change `/etc/noosfero/*` to `{Rails.root}/etc/noosfero/
 
 The varnish log will be written to `/var/log/varnish/varnishncsa.log` in an apache-compatible format. You should change your statistics generation software (e.g. awstats) to use that instead of apache logs.
 
-5b) Restart Varnish Logging service
-
-    # invoke-rc.d varnishncsa restart
-
 Thanks to Cosimo Streppone for varnish-accept-language. See http://github.com/cosimo/varnish-accept-language for more information.
+
+6) Restart services
+
+    # service apache2 restart
+    # service varnish restart
+    # service varnishncsa restart

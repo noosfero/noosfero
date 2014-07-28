@@ -227,6 +227,8 @@ class Profile < ActiveRecord::Base
 
   has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
 
+  has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
+
   def top_level_categorization
     ret = {}
     self.profile_categorizations.each do |c|
@@ -521,6 +523,14 @@ class Profile < ActiveRecord::Base
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end
 
+  def people_suggestions_url
+    generate_url(:profile => identifier, :controller => 'friends', :action => 'suggest')
+  end
+
+  def communities_suggestions_url
+    generate_url(:profile => identifier, :controller => 'memberships', :action => 'suggest')
+  end
+
   def generate_url(options)
     url_options.merge(options)
   end
@@ -645,6 +655,7 @@ private :generate_url, :url_options
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
       person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
+      remove_from_suggestion_list person
     else
       raise _("%s can't have members") % self.class.name
     end
@@ -973,4 +984,10 @@ private :generate_url, :url_options
   def preferred_login_redirection
     redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
   end
+
+  def remove_from_suggestion_list(person)
+    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion.disable if suggestion
+  end
+
 end
