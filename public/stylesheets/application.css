@@ -2642,6 +2642,9 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   background: #B8CFE7;
   padding: 0px 20px 5px 20px;
 }
+#TB_window .login-box .button-bar {
+  padding-top: 0;
+}
 .login-box-content .button-bar .button {
   position: relative;
 }
