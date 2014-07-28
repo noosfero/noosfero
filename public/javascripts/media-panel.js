@@ -45,14 +45,14 @@ function loadPublishedMedia() {
   var q = jQuery('#published-media #q').val();
   var url = jQuery('#published-media').data('url');
 
-  jQuery('#published-media').addClass('fetching');
+  jQuery('#published-media .items').addClass('fetching');
   jQuery.ajax({
     url: url,
     data: {'parent_id': parent_id, 'q': q},
     dataType: 'html',
     success: function(response) {
       jQuery("#published-media .items").html(response);
-      jQuery('#published-media').removeClass('fetching');
+      jQuery('#published-media .items').removeClass('fetching');
       updateViewAllLinks();
     },
     error: function(response, textStatus, xhr) {
