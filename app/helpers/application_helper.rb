@@ -1223,8 +1223,8 @@ module ApplicationHelper
   end
 
   def add_zoom_to_images
-    stylesheet_link_tag('fancybox') +
-    javascript_include_tag('jquery.fancybox-1.3.4.pack') +
+    stylesheet_link_tag('jquery.fancybox') +
+    javascript_include_tag('jquery.fancybox.pack') +
     javascript_tag("jQuery(function($) {
       $(window).load( function() {
         $('#article .article-body img').each( function(index) {
