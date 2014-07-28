@@ -1,4 +1,5 @@
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
+@all_plugins.sort!
 @all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
 
 def enabled_plugins
@@ -110,7 +111,7 @@ def run_cucumber(profile, files)
   sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
 end
 
-def custom_run(name, files, run=:individually)
+def custom_run(name, files, run=:all)
   case run
   when :all
     run_test name, files
@@ -122,7 +123,7 @@ def custom_run(name, files, run=:individually)
   end
 end
 
-def run_tests(name, plugins, run=:individually)
+def run_tests(name, plugins, run=:all)
   plugins = Array(plugins)
   glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
   files = Dir.glob(glob)
@@ -169,7 +170,7 @@ def test_sequence(plugins, tasks)
   fail 'There are broken tests to be fixed!' if fail_flag
 end
 
-def plugin_test_task(plugin, task, run=:individually)
+def plugin_test_task(plugin, task, run=:all)
   desc "Run #{task} tests for #{plugin_name(plugin)}"
   task task do
     test_sequence(plugin, task)
