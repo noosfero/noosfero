@@ -239,7 +239,7 @@ class CmsController < MyProfileController
   end
 
   def search_communities_to_publish
-    render :text => find_by_contents(:profiles, user.memberships, params['q'], {:page => 1}, {:fields => ['name']})[:results].map {|community| {:id => community.id, :name => community.name} }.to_json
+    render :text => find_by_contents(:profiles, environment, user.memberships, params['q'], {:page => 1}, {:fields => ['name']})[:results].map {|community| {:id => community.id, :name => community.name} }.to_json
   end
 
   def publish
@@ -482,8 +482,8 @@ class CmsController < MyProfileController
     generics = files.no_images
 
     if q.present?
-      @recent_files[:images] = find_by_contents(:images, images, q, paginate_options)[:results]
-      @recent_files[:generics] = find_by_contents(:generics, generics, q, paginate_options)[:results]
+      @recent_files[:images] = find_by_contents(:images, profile, images, q, paginate_options)[:results]
+      @recent_files[:generics] = find_by_contents(:generics, profile, generics, q, paginate_options)[:results]
     else
       @recent_files[:images] = images.paginate(paginate_options)
       @recent_files[:generics] = generics.paginate(paginate_options)
