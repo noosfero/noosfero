@@ -25,7 +25,9 @@
   <div id='article-full-path'>
     <strong><%= _('Current folder: ') %></strong>
     <%= link_to profile.identifier, :action => 'index' %>
-    <%= @article.hierarchy.map {|item| " / " + ((item == @article) ? item.name : link_to(item.slug, :id => item.id)) } %>
+    <% @article.hierarchy.each do |item| %>
+      <%= " / " + ((item == @article) ? item.name.html_safe : link_to(item.slug, :id => item.id).html_safe) %>
+    <% end %>
   </div>
 <% end %>
 
