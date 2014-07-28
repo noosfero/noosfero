@@ -58,4 +58,18 @@ class FriendshipTest < ActiveSupport::TestCase
     assert_equal ['a'], ta.get_friend_name
   end
 
+  should 'remove friendships when a friend removal occurs' do
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p1.add_friend(p2, 'friends')
+    p2.add_friend(p1, 'friends')
+
+    assert_difference 'Friendship.count', -2 do
+      Friendship.remove_friendship(p1, p2)
+    end
+
+    assert_not_includes p1.friends(true), p2
+    assert_not_includes p2.friends(true), p1
+  end
+
 end
