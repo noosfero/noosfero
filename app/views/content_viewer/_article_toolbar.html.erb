@@ -15,15 +15,9 @@
       <%= expirable_button @page, :delete, content, url, options %>
     <% end %>
 
-    <% if !@page.folder? && @page.allow_spread?(user) && !remove_content_button(:spread) %>
-      <% content = content_tag( 'span', _('Spread this') ) %>
-      <% url = nil %>
-      <% if profile.kind_of?(Person) %>
-        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page.id }) %>
-      <% elsif profile.kind_of?(Community) && environment.portal_community %>
-        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish_on_portal_community', :id => @page.id }) %>
-      <% end %>
-      <%= expirable_button @page, :spread, content, url if url %>
+    <% if !@page.folder? && @page.public? && !remove_content_button(:spread) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page.id }) %>
+      <%= expirable_button @page, :spread, content_tag( 'span', _('Spread this') ), url, {:class => 'colorbox'} if url %>
     <% end %>
 
     <% if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user))) %>

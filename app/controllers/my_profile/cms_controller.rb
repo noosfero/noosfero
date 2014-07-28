@@ -238,25 +238,48 @@ class CmsController < MyProfileController
     render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => 'article' }
   end
 
+  def search_communities_to_publish
+    render :text => find_by_contents(:profiles, user.memberships, params['q'], {:page => 1}, {:fields => ['name']})[:results].map {|community| {:id => community.id, :name => community.name} }.to_json
+  end
+
   def publish
     @article = profile.articles.find(params[:id])
+    @portal_enabled = environment.portal_community && environment.enabled?('use_portal_community')
     record_coming
-    @groups = profile.memberships - [profile]
-    @marked_groups = []
-    groups_ids = profile.memberships.map{|m|m.id.to_s}
-    @marked_groups = params[:marked_groups].map do |key, item|
-      if groups_ids.include?(item[:group_id])
-        item.merge :group => Profile.find(item.delete(:group_id))
-      end
-    end.compact unless params[:marked_groups].nil?
+    @failed = {}
     if request.post?
+      article_name = params[:name]
+      task = ApproveArticle.create!(:article => @article, :name => article_name, :target => user, :requestor => user)
+      begin
+        task.finish
+      rescue Exception => ex
+         @failed[ex.message] ? @failed[ex.message] << item.name : @failed[ex.message] = [item.name]
+      end
+      if @failed.blank?
+        session[:notice] = _("Your publish request was sent successfully")
+        if @back_to
+          redirect_to @back_to
+        else
+          redirect_to @article.view_url
+        end
+      end
+    end
+  end
+
+  def publish_on_communities
+    if request.post?
+      @back_to = params[:back_to]
+      @article = profile.articles.find(params[:id])
       @failed = {}
+      article_name = params[:name]
+      params_marked = params['q'].split(',').select { |marked| user.memberships.map(&:id).include? marked.to_i }
+      @marked_groups = Profile.find(params_marked)
       @marked_groups.each do |item|
-        task = ApproveArticle.create!(:article => @article, :name => item[:name], :target => item[:group], :requestor => profile)
+        task = ApproveArticle.create!(:article => @article, :name => article_name, :target => item, :requestor => user)
         begin
-          task.finish unless item[:group].moderated_articles?
+          task.finish unless item.moderated_articles?
         rescue Exception => ex
-           @failed[ex.message] ? @failed[ex.message] << item[:group].name : @failed[ex.message] = [item[:group].name]
+           @failed[ex.message] ? @failed[ex.message] << item.name : @failed[ex.message] = [item.name]
         end
       end
       if @failed.blank?
@@ -271,9 +294,9 @@ class CmsController < MyProfileController
   end
 
   def publish_on_portal_community
-    @article = profile.articles.find(params[:id])
     if request.post?
-      if environment.portal_community
+      @article = profile.articles.find(params[:id])
+      if environment.portal_community && environment.enabled?('use_portal_community')
         task = ApproveArticle.create!(:article => @article, :name => params[:name], :target => environment.portal_community, :requestor => user)
         begin
           task.finish unless environment.portal_community.moderated_articles?

@@ -40,11 +40,9 @@ module CmsHelper
     end
   end
 
-  def display_spread_button(profile, article)
-    if profile.person?
-      expirable_button article, :spread, _('Spread this'), :action => 'publish', :id => article.id
-    elsif profile.community? && environment.portal_community
-      expirable_button article, :spread, _('Spread this'), :action => 'publish_on_portal_community', :id => article.id
+  def display_spread_button(article)
+    if article.public?
+      expirable_button article, :spread, _('Spread this'), {:action => 'publish', :id => article.id}, {:class => 'colorbox'}
     end
   end
 
