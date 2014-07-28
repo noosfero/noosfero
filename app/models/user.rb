@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   N_('Password confirmation')
   N_('Terms accepted')
 
+  SEARCHABLE_FIELDS = {
+    :email => {:label => _('Email'), :weight => 5},
+  }
+
   def self.[](login)
     self.find_by_login(login)
   end

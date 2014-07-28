@@ -3,7 +3,7 @@ class Scrap < ActiveRecord::Base
   attr_accessible :content, :sender_id, :receiver_id, :scrap_id
 
   SEARCHABLE_FIELDS = {
-    :content => 1,
+    :content => {:label => _('Content'), :weight => 1},
   }
   validates_presence_of :content
   validates_presence_of :sender_id, :receiver_id

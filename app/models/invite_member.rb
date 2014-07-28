@@ -2,6 +2,7 @@ class InviteMember < Invitation
 
   settings_items :community_id, :type => :integer
   validates_presence_of :community_id
+  before_create :check_for_invitation_existence
 
   def community
     Community.find(community_id)
@@ -39,6 +40,14 @@ class InviteMember < Invitation
     _('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}
   end
 
+  def target_notification_message
+    if friend
+      _('%{requestor} is inviting you to join "%{community}" on %{system}.') % { :system => target.environment.name, :requestor => requestor.name, :community => community.name }
+    else
+      super
+    end
+  end
+
   def expanded_message
     super.gsub /<community>/, community.name
   end
@@ -51,6 +60,13 @@ class InviteMember < Invitation
       '<url>',
       "--\n<environment>",
     ].join("\n\n")
+  end
+
+  private
+  def check_for_invitation_existence
+    if friend
+      friend.tasks.pending.of("InviteMember").find(:all, :conditions => {:requestor_id => person.id}).select { |t| t.data[:community_id] == community_id }.blank?
+    end
   end
 
 end

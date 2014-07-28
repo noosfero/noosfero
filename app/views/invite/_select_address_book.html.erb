@@ -1,10 +1,5 @@
-<% if profile.person? %>
-  <h1><%= _('Invite your friends') %></h1>
-<% else %>
-  <h1><%= _('Invite your friends to join %s') % profile.name %></h1>
-<% end %>
-
-<h2><%= _('Step 1 of 2: Select address book') %></h2>
+<% header ||='h2' %>
+<<%= header %>><%= _('Step 1 of 2: Select address book') %></<%= header %>>
 
 <%= form_tag do %>
 
@@ -44,8 +39,3 @@
   <% end %>
   <p><%= _("We won't store your password or contact anyone without your permission.") %></p>
 <% end %>
-
-<div id="loadingScreen"></div>
-
-
-
