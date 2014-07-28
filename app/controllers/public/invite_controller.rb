@@ -4,8 +4,15 @@ class InviteController < PublicController
   before_filter :login_required
   before_filter :check_permissions_to_invite
 
-  def select_address_book
+  def invite_friends
     @import_from = params[:import_from] || "manual"
+    @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
+
+    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label] }
+    last = labels.pop
+    label = labels.join(', ')
+    @search_friend_fields = "#{label} #{_('or')} #{last}"
+
     if request.post?
       contact_list = ContactList.create
       Delayed::Job.enqueue GetEmailContactsJob.new(@import_from, params[:login], params[:password], contact_list.id) if @import_from != 'manual'
@@ -22,7 +29,7 @@ class InviteController < PublicController
       webmail_import_addresses = params[:webmail_import_addresses]
       contacts_to_invite = Invitation.join_contacts(manual_import_addresses, webmail_import_addresses)
       if !contacts_to_invite.empty?
-        Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
+        Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
         session[:notice] = _('Your invitations are being sent.')
         if profile.person?
           redirect_to :controller => 'profile', :action => 'friends'
@@ -52,14 +59,35 @@ class InviteController < PublicController
   def cancel_fetching_emails
     contact_list = ContactList.find(params[:contact_list])
     contact_list.destroy
-    redirect_to :action => 'select_address_book'
+    redirect_to :action => 'invite_friends'
+  end
+
+  def invite_registered_friend
+    contacts_to_invite = params['q'].split(',')
+    if !contacts_to_invite.empty? && request.post?
+      Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, '', profile.id, nil, locale)
+      session[:notice] = _('Your invitations are being sent.')
+      if profile.person?
+        redirect_to :controller => 'profile', :action => 'friends'
+      else
+        redirect_to :controller => 'profile', :action => 'members'
+      end
+      return
+    else
+      redirect_to :action => 'invite_friends'
+      session[:notice] = _('Please enter a valid profile.')
+    end
+  end
+
+  def search_friend
+    render :text => find_by_contents(:people, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
   end
 
   protected
 
   def check_permissions_to_invite
-    if profile.person? and !current_user.person.has_permission?(:manage_friends, profile) or
-      profile.community? and !current_user.person.has_permission?(:invite_members, profile)
+    if profile.person? and !user.has_permission?(:manage_friends, profile) or
+      profile.community? and !user.has_permission?(:invite_members, profile)
       render_access_denied
     end
   end

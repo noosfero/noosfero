@@ -3,9 +3,9 @@ class Certifier < ActiveRecord::Base
   attr_accessible :name, :environment
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :description => 3,
-    :link => 1,
+    :name => {:label => _('Name'), :weight => 10},
+    :description => {:label => _('Description'), :weight => 3},
+    :link => {:label => _('Link'), :weight => 1},
   }
 
   belongs_to :environment

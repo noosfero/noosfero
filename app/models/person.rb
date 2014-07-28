@@ -22,6 +22,12 @@ class Person < Profile
     { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
   }
 
+  scope :not_members_of, lambda { |resources|
+    resources = [resources] if !resources.kind_of?(Array)
+    conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
+    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions] }
+  }
+
   def has_permission_with_plugins?(permission, profile)
     permissions = [has_permission_without_plugins?(permission, profile)]
     permissions += plugins.map do |plugin|

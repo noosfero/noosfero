@@ -511,7 +511,7 @@ class Noosfero::Plugin
   # P.S.: The plugin might add other informations on the return hash for its
   # own use in specific views
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
-    scope = scope.like_search(query) unless query.blank?
+    scope = scope.like_search(query, options) unless query.blank?
     scope = scope.send(options[:filter]) unless options[:filter].blank?
     {:results => scope.paginate(paginate_options)}
   end

@@ -1,8 +1,8 @@
 class Product < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :description => 1,
+    :name => {:label => _('Name'), :weight => 10},
+    :description => {:label => _('Description'), :weight => 1},
   }
 
   SEARCH_FILTERS = {
