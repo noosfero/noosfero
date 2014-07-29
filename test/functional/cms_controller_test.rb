@@ -1791,6 +1791,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal other_person, a.created_by
   end
 
+  should 'continue on the same page, when no group is selected' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {}}
+    assert_template 'cms/publish'
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

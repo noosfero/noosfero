@@ -15,4 +15,9 @@ class Friendship < ActiveRecord::Base
     Friendship.update_cache_counter(:friends_count, friendship.person, -1)
     Friendship.update_cache_counter(:friends_count, friendship.friend, -1)
   end
+
+  def self.remove_friendship(person1, person2)
+    person1.remove_friend(person2)
+    person2.remove_friend(person1)
+  end
 end

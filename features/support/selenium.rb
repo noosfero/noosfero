@@ -10,7 +10,7 @@ end
 
 # FIXME: 'DELETE FROM ...' is being ran 3x - see cucumber.log
 DatabaseCleaner.clean_with :truncation
-DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.strategy = :truncation, {:pre_count => true, :reset_ids => false}
 
 Before do
   DatabaseCleaner.start

@@ -31,8 +31,8 @@ class ContentViewerController < ApplicationController
 
     if request.post? && @page.forum?
       process_forum_terms_of_use(user, params[:terms_accepted])
-    elsif is_a_forum_topic?(@page)
-      redirect_to @page.parent.url unless @page.parent.agrees_with_terms?(user)
+    elsif is_a_forum_topic?(@page) && !@page.parent.agrees_with_terms?(user)
+      redirect_to @page.parent.url
       return
     end
 

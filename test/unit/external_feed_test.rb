@@ -142,7 +142,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
   should 'save hour when feed was fetched' do
     external_feed = create(:external_feed)
 
-    now = Time.parse('2009-01-23 09:35')
+    now = Time.zone.parse('2009-01-23 09:35')
     Time.stubs(:now).returns(now)
 
     external_feed.finish_fetch

@@ -472,13 +472,13 @@ class ApplicationHelperTest < ActionView::TestCase
     profile = mock
     profile.stubs(:theme).returns('some-theme')
     stubs(:profile).returns(profile)
-    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      assert_equal gravatar_default, 'crazyvatar'
-    end
+
+    NOOSFERO_CONF.stubs(:[]).with('gravatar').returns('crazyvatar')
+    assert_equal gravatar_default, 'crazyvatar'
+
     stubs(:theme_option).returns('gravatar' => 'nicevatar')
-    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      assert_equal gravatar_default, 'nicevatar'
-    end
+    NOOSFERO_CONF.stubs(:[]).with('gravatar').returns('nicevatar')
+    assert_equal gravatar_default, 'nicevatar'
   end
 
   should 'use theme passed via param when in development mode' do
