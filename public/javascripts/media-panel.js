@@ -84,3 +84,36 @@ jQuery("#published-media #q").typeWatch({
 });
 
 jQuery("#published-media #q").bind('notext', function(){ loadPublishedMedia() });
+
+jQuery("#new_folder").keypress(function( event ) {
+  if ( event.which == 13 ) {
+    event.preventDefault();
+    var url = jQuery(this).data('url');
+    var name = jQuery(this).val();
+    var parent_id = jQuery("#media-upload-box #parent_id").val();
+    jQuery('#media-upload-form').addClass('fetching');
+    jQuery.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        'parent_id': parent_id,
+        'article': {'name': name, 'published': true},
+        'type': 'Folder' },
+      dataType: 'json',
+      success: function(response) {
+        var option_selected = "<option value='"+ response.id +"' selected='selected'>"+ response.full_name +"</options>"
+        var option = "<option value='"+ response.id +"'>"+ response.full_name +"</options>"
+        jQuery('#media-upload-form #parent_id').append(option_selected);
+        jQuery('#published-media #parent_id').append(option);
+        jQuery('#new_folder').val('');
+      },
+      error: function(response, textStatus, xhr) {
+        console.log(response);
+        console.log(textStatus);
+      },
+      complete: function(response){
+        jQuery('#media-upload-form').removeClass('fetching');
+      }
+    });
+  }
+})

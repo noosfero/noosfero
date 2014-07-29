@@ -15,6 +15,7 @@
                 :parent_id, profile, default_folder, {}, {},
                 "type='Folder' or type='Gallery'"
           ) %>
+          <%= labelled_form_field _('Or create a folder under the selected above:'), text_field_tag(:new_folder, nil, 'data-url' => url_for({:action => 'new', :profile => profile.identifier})) %>
         </div>
         <p><%= file_field_tag('file', :multiple => true) %></p>
       <% end %>
