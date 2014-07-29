@@ -33,7 +33,7 @@ class RecentDocumentsBlock < Block
   end
 
   def docs
-    self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.limit, {}, false)
+    self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.get_limit, {}, false)
   end
 
   def self.expire_on

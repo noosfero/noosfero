@@ -89,4 +89,14 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert_equal 'always', @block.display
   end
 
+  should 'return the max value in the range between zero and limit' do
+    block = RecentDocumentsBlock.new
+    assert_equal 5, block.get_limit
+  end
+
+  should 'return 0 if limit of the block is negative' do
+    block = RecentDocumentsBlock.new
+    block.limit = -5
+    assert_equal 0, block.get_limit
+  end
 end
