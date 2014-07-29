@@ -1,5 +1,13 @@
 class ProfileSuggestionsJob < Struct.new(:person_id)
 
+  def self.exists?(person_id)
+    !find(person_id).empty?
+  end
+
+  def self.find(person_id)
+    Delayed::Job.by_handler("--- !ruby/struct:ProfileSuggestionsJob\nperson_id: #{person_id}\n")
+  end
+
   def perform
     begin
       person = Person.find(person_id)
