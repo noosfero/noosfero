@@ -116,4 +116,9 @@ jQuery("#new_folder").keypress(function( event ) {
       }
     });
   }
-})
+});
+
+jQuery('.text-editor-sidebar .header .icon-vertical-toggle').click(function(){
+  jQuery('#content').toggleClass('show-media-panel');
+  return false;
+});
