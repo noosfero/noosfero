@@ -1,6 +1,6 @@
 <h1><%= _('Edit welcome page') %></h1>
 
-<% labelled_form_for :welcome_page do |f| %>
+<%= labelled_form_for :welcome_page do |f| %>
   <%= error_messages_for :welcome_page %>
 
   <%= f.check_box(:published) %>
