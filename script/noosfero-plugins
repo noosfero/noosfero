@@ -104,8 +104,10 @@ _enable(){
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       cd $plugins_public_dir
       test -d "$source/public" && ln -s "$source/public" "$plugin"
-      cd $plugins_features_dir
-      test -d "$NOOSFERO_DIR/features" && test -d "$source/features" && ln -s "$source/features" "$plugin"
+      if [ -d "$NOOSFERO_DIR/features" ]; then
+        cd $plugins_features_dir
+        test -d "$source/features" && ln -s "$source/features" "$plugin"
+      fi
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
