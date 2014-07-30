@@ -26,3 +26,7 @@ set :output, "log/cron.log"
 every 1.minute do
   runner "SearchTerm.calculate_scores"
 end
+
+every 90.days do
+  runner "ProfileSuggestion.generate_all_profile_suggestions"
+end

@@ -1,13 +1,13 @@
 .social_share_privacy_area.line .flattr img {
 	width: 72px;
 	height: 20px;
-	margin-right: 98px;
+	margin-right: 48px;
 }
 .social_share_privacy_area.line .flattr a,
 .social_share_privacy_area.line .flattr iframe {
-	width: 150px;
+	width: 110px;
 	height: 20px;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 .social_share_privacy_area.line .flattr a {
 	display: inline-block;
