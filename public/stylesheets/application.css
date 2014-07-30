@@ -3525,7 +3525,7 @@ table.cms-articles .icon:hover {
 }
 
 .show-media-panel .text-editor-sidebar {
-  max-height: 800px;
+  max-height: 1200px;
   transition: 1s 0.5s;
 }
 
@@ -3627,6 +3627,7 @@ table.cms-articles .icon:hover {
 .text-editor-sidebar select,
 .text-editor-sidebar input {
   width: 100%;
+  margin-bottom: 5px;
 }
 
 .text-editor-sidebar .items :hover,
@@ -6939,4 +6940,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 .fetching {
   opacity: 0.3;
+}
+
+body .ui-widget-overlay {
+  background: #000;
 }

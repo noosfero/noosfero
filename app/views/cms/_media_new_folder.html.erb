@@ -1,0 +1,15 @@
+<%= form_tag({:action => 'new', :profile => profile.identifier}, :id => 'new-folder-dialog', :title => _('Create new folder'), :style => 'display: none;') do %>
+  <%= select_profile_folder(
+    _('Choose parent folder:'),
+    :parent_id, profile, default_folder, {}, {},
+    "type='Folder' or type='Gallery'")
+  %>
+
+  <%= content_tag(:label, radio_button_tag(:folder_type, 'Gallery', true) + _('Gallery')) %>
+  <%= content_tag(:label, radio_button_tag(:folder_type, 'Folder', false) +  _('Folder')) %>
+
+  <%= labelled_form_field _('Name:'), text_field_tag(:new_folder, nil, 'data-url' => url_for({:action => 'new', :profile => profile.identifier})) %>
+  <% button_bar do %>
+    <%= submit_button(:newfolder, _('Create')) %>
+  <% end %>
+<% end %>
