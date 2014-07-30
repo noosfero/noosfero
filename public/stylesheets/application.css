@@ -3473,6 +3473,11 @@ table.cms-articles .icon:hover {
   float: right;
 }
 
+#media-upload-form .progress {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+
 #media-upload-form .bar {
   height: 10px;
   background: #729fcf;
@@ -3503,13 +3508,14 @@ table.cms-articles .icon:hover {
 }
 
 #media-upload-box .upload .file-name{
-  width: 87%;
+  width: 86%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 #media-upload-box .upload .percentage {
+  text-align: right;
   width: 12%;
 }
 
