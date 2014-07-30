@@ -321,6 +321,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal 'test.txt', f.children[0].name
   end
 
+  should 'set author of uploaded files' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+
+    uf = profile.articles.find_by_name('test.txt')
+    assert_equal profile, uf.author
+  end
+
   should 'display destination folder of files when uploading file in root folder' do
     get :upload_files, :profile => profile.identifier
 

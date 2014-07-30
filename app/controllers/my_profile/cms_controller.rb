@@ -188,7 +188,18 @@ class CmsController < MyProfileController
     end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        @uploaded_files << UploadedFile.create({:uploaded_data => file, :profile => profile, :parent => @parent, :last_changed_by => user}, :without_protection => true) unless file == ''
+        unless file == ''
+          @uploaded_files << UploadedFile.create(
+            {
+              :uploaded_data => file,
+              :profile => profile,
+              :parent => @parent,
+              :last_changed_by => user,
+              :created_by => user,
+            },
+            :without_protection => true
+          )
+        end
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
