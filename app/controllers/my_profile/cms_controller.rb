@@ -480,7 +480,7 @@ class CmsController < MyProfileController
       files = profile.files
     end
 
-    files = files.more_recent
+    files = files.reorder('created_at DESC')
     images = files.images
     generics = files.no_images
 
