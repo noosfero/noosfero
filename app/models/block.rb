@@ -22,6 +22,10 @@ class Block < ActiveRecord::Base
     false
   end
 
+  def get_limit
+    [0,limit].max
+  end
+
   def embed_code
     me = self
     proc do
