@@ -1,0 +1,23 @@
+require File.dirname(__FILE__) + '/../../../../test/test_helper'
+
+class SocialSharePrivacyPluginTest < ActiveSupport::TestCase
+
+  include NoosferoTestHelper
+
+  def setup
+    @plugin = SocialSharePrivacyPlugin.new
+  end
+
+  should 'be a noosfero plugin' do
+    assert_kind_of Noosfero::Plugin, @plugin
+  end
+
+  should 'have name' do
+    assert_equal "Social Share Privacy", SocialSharePrivacyPlugin.plugin_name
+  end
+
+  should 'have description' do
+    assert_equal "A plugin that adds share buttons from other networks.", SocialSharePrivacyPlugin.plugin_description
+  end
+
+end
