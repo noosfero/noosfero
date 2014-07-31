@@ -8,4 +8,12 @@ class SocialSharePrivacyPlugin < Noosfero::Plugin
     _("A plugin that adds share buttons from other networks.")
   end
 
+  def self.networks_default_setting
+    []
+  end
+
+  def stylesheet?
+    true
+  end
+
 end

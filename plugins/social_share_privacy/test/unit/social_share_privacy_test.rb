@@ -20,4 +20,9 @@ class SocialSharePrivacyPluginTest < ActiveSupport::TestCase
     assert_equal "A plugin that adds share buttons from other networks.", SocialSharePrivacyPlugin.plugin_description
   end
 
+  should 'have default value for networks setting' do
+    @settings = Noosfero::Plugin::Settings.new(Environment.default, SocialSharePrivacyPlugin)
+    assert_equal [], @settings.get_setting(:networks)
+  end
+
 end
