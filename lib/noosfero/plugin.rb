@@ -394,6 +394,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds social networks share buttons to content
+  # returns = proc that creates html code
+  def social_buttons_contents
+    nil
+  end
+
   # -> Adds fields to the signup form
   # returns = proc that creates html code
   def signup_extra_contents
