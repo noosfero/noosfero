@@ -175,9 +175,9 @@ class SearchController < PublicController
 
   AVAILABLE_SEARCHES = ActiveSupport::OrderedHash[
     :articles, _('Contents'),
-    :enterprises, _('Enterprises'),
     :people, _('People'),
     :communities, _('Communities'),
+    :enterprises, _('Enterprises'),
     :products, _('Products and Services'),
     :events, _('Events'),
   ]
