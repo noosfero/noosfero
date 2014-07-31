@@ -25,4 +25,10 @@ class SocialSharePrivacyPluginTest < ActiveSupport::TestCase
     assert_equal [], @settings.get_setting(:networks)
   end
 
+  should 'return html code for social share privacy buttons' do
+    self.stubs(:environment).returns(Environment.default)
+    content = @plugin.social_buttons_contents
+    assert self.instance_eval(&content)
+  end
+
 end

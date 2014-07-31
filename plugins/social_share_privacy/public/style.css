@@ -4,3 +4,7 @@
 #selected-social-networks {
   width: 50%;
 }
+.social-buttons {
+  display: inline-block;
+  width: 100%;
+}
