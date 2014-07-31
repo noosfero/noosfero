@@ -202,7 +202,8 @@ class ProfileController < PublicController
   end
 
   def more_comments
-    activity = ActionTracker::Record.find(:first, :conditions => {:id => params[:activity], :user_id => @profile})
+    profile_filter = @profile.person? ? {:user_id => @profile} : {:target_id => @profile}
+    activity = ActionTracker::Record.find(:first, :conditions => {:id => params[:activity]}.merge(profile_filter))
     comments_count = activity.comments.count
     comment_page = (params[:comment_page] || 1).to_i
     comments_per_page = 5
