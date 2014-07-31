@@ -72,6 +72,7 @@
 .icon-newupload-file  { background-image: url(Tango/16x16/actions/filesave.png) }
 .icon-slideshow       { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png) }
 .icon-photos          { background-image: url(Tango/16x16/devices/camera-photo.png) }
+.icon-vertical-toggle { background-image: url(Tango/16x16/actions/mail-send-receive.png) }
 
 .icon-text-html       { background-image: url(Tango/16x16/mimetypes/text-html.png) }
 .icon-text-plain      { background-image: url(Tango/16x16/mimetypes/text-x-generic.png) }

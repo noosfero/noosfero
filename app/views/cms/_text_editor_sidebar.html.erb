@@ -1,21 +1,24 @@
+<% default_folder = content_id_to_str default_folder_for_image_upload(profile) %>
+
 <div class='text-editor-sidebar'>
   <span class='button-add' data-value='<%= _('Add to the text') %>'></span>
   <span class='button-zoom' data-value='<%= _('Zoom in') %>'></span>
   <span class='button-close' data-value='<%= _('Close') %>'></span>
 
+  <div class='header'><strong><%= _('Insert media') %></strong><%= button('vertical-toggle', _('Show/Hide'), '#') %></div>
+
   <%= render(:partial => 'textile_quick_reference') if @article.is_a?(TextileArticle) %>
   <div class='text-editor-sidebar-box' id='media-upload-box'>
-    <div class='header'><strong><%= _('Insert media') %></strong></div>
     <div id='media-upload-form'>
       <%= form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
-          <% default_folder = content_id_to_str default_folder_for_image_upload(profile) %>
           <%= select_profile_folder(
                 _('Choose folder to upload files:'),
                 :parent_id, profile, default_folder, {}, {},
                 "type='Folder' or type='Gallery'"
           ) %>
         </div>
+        <%= button(:newfolder, _('New folder'), '#', :id => 'new-folder-button') %>
         <p><%= file_field_tag('file', :multiple => true) %></p>
       <% end %>
     </div>
@@ -26,7 +29,6 @@
   </div>
 
   <div id='published-media' class='text-editor-sidebar-box' data-url='<%= url_for({:controller => 'cms', :action => 'published_media_items', :profile => profile.identifier}) %>'>
-    <div class='header'><strong><%= _('Published media') %></strong></div>
     <%= select_profile_folder(nil, :parent_id, profile, 'recent-media', {}, {},
         "type='Folder' or type='Gallery'", {:root_label => _('Recent media')}) %>
     <%= labelled_form_field _('Search'), text_field_tag('q') %>
@@ -45,4 +47,5 @@
   </div>
 </script>
 
+<%= render :partial => 'media_new_folder', :locals => {:default_folder => default_folder} %>
 <%= javascript_include_tag 'jquery.fileupload.js', 'tmpl.js', 'media-panel.js' %>

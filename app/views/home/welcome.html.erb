@@ -1,6 +1,8 @@
+<% default_message = defined?(default_message) ? default_message : false %>
+
 <div id='thanks-for-signing'>
   <h1><%= _("Welcome to %s!") % environment.name %></h1>
-  <% if environment.has_custom_welcome_screen? %>
+  <% if environment.has_custom_welcome_screen? && !default_message %>
     <%= environment.settings[:signup_welcome_screen_body].html_safe %>
   <% else %>
       <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>

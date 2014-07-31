@@ -114,7 +114,7 @@ class CmsController < MyProfileController
     @success_back_to = params[:success_back_to]
     # user must choose an article type first
 
-    @parent = profile.articles.find(params[:parent_id]) if params && params[:parent_id]
+    @parent = profile.articles.find(params[:parent_id]) if params && params[:parent_id].present?
     record_coming
     @type = params[:type]
     if @type.blank?
@@ -159,7 +159,10 @@ class CmsController < MyProfileController
         if continue
           redirect_to :action => 'edit', :id => @article
         else
-          success_redirect
+          respond_to do |format|
+            format.html { success_redirect }
+            format.json { render :text => {:id => @article.id, :full_name => profile.identifier + '/' + @article.full_name}.to_json }
+          end
         end
         return
       end
@@ -477,7 +480,7 @@ class CmsController < MyProfileController
       files = profile.files
     end
 
-    files = files.more_recent
+    files = files.reorder('created_at DESC')
     images = files.images
     generics = files.no_images
 

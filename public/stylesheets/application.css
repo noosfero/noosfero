@@ -3443,11 +3443,18 @@ table.cms-articles .icon:hover {
 
 /* Text editors sidebar */
 
-.controller-cms div.with_media_panel {
+.controller-cms .with_media_panel {
   float: left;
-  width: 600px;
+  width: 900px;
+  transition: 1s 0.5s;
 }
-div.with_media_panel .formfield input[type="checkbox"] {
+
+.controller-cms .show-media-panel .with_media_panel {
+  width: 600px;
+  transition: 1s;
+}
+
+.with_media_panel .formfield input[type="checkbox"] {
   width: auto;
 }
 
@@ -3464,6 +3471,11 @@ div.with_media_panel .formfield input[type="checkbox"] {
 
 #media-upload-form .percentage {
   float: right;
+}
+
+#media-upload-form .progress {
+  background-color: #ddd;
+  border-radius: 3px;
 }
 
 #media-upload-form .bar {
@@ -3496,13 +3508,14 @@ div.with_media_panel .formfield input[type="checkbox"] {
 }
 
 #media-upload-box .upload .file-name{
-  width: 87%;
+  width: 86%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 #media-upload-box .upload .percentage {
+  text-align: right;
   width: 12%;
 }
 
@@ -3512,6 +3525,14 @@ div.with_media_panel .formfield input[type="checkbox"] {
   width: 280px;
   right: 20px;
   top: 70px;
+  max-height: 45px;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.show-media-panel .text-editor-sidebar {
+  max-height: 1200px;
+  transition: 1s 0.5s;
 }
 
 .text-editor-sidebar-box  {
@@ -3521,12 +3542,23 @@ div.with_media_panel .formfield input[type="checkbox"] {
   margin-bottom: 10px;
 }
 
-.text-editor-sidebar-box .header {
-	margin: -10px -10px 0px -10px;
-	padding: 10px;
-	font-weight: bold;
-	border-bottom: 1px solid #d3d7cf;
-	background-color: #eeeeec;
+.text-editor-sidebar .header {
+  margin: 0 0 10px 0;
+  padding: 10px;
+  font-weight: bold;
+  border: 1px solid #d3d7cf;
+  background-color: #eeeeec;
+  background-repeat: no-repeat;
+  background-position: 98% 10px;
+  position: relative;
+}
+
+.text-editor-sidebar .header .icon-vertical-toggle {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .text-editor-sidebar code,
@@ -3601,6 +3633,7 @@ div.with_media_panel .formfield input[type="checkbox"] {
 .text-editor-sidebar select,
 .text-editor-sidebar input {
   width: 100%;
+  margin-bottom: 5px;
 }
 
 .text-editor-sidebar .items :hover,
@@ -3639,10 +3672,6 @@ div.with_media_panel .formfield input[type="checkbox"] {
 	margin-top: 4px;
 }
 
-.text-editor-sidebar .header {
-  background-repeat: no-repeat;
-  background-position: 98% 10px;
-}
 .text-editor-sidebar .media-upload-error {
   color: red;
 }
@@ -6917,4 +6946,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 .fetching {
   opacity: 0.3;
+}
+
+body .ui-widget-overlay {
+  background: #000;
 }

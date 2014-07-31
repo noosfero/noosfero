@@ -84,3 +84,45 @@ jQuery("#published-media #q").typeWatch({
 });
 
 jQuery("#published-media #q").bind('notext', function(){ loadPublishedMedia() });
+
+jQuery("#new-folder-dialog").submit(function( event ) {
+  var name = jQuery('#new_folder').val();
+  var parent_id = jQuery("#new-folder-dialog #parent_id").val();
+    jQuery("#media-upload-box #parent_id").val();
+  jQuery.ajax({
+    url: this.action,
+    type: 'POST',
+    data: {
+      'parent_id': parent_id,
+      'article': {'name': name, 'published': true},
+      'type': jQuery('input[name=folder_type]:checked').val() },
+    dataType: 'json',
+    beforeSend: function(){jQuery("#new-folder-dialog").addClass('fetching')},
+    success: function(response) {
+      var option_selected = "<option value='"+ response.id +"' selected='selected'>"+ response.full_name +"</options>"
+      var option = "<option value='"+ response.id +"'>"+ response.full_name +"</options>"
+      jQuery('#media-upload-form #parent_id').append(option_selected);
+      jQuery('#published-media #parent_id').append(option);
+      jQuery('#new_folder').val('');
+    },
+    error: function(response, textStatus, xhr) {
+      console.log(response);
+      console.log(textStatus);
+    },
+    complete: function(response){
+      jQuery("#new-folder-dialog").removeClass('fetching');
+      jQuery("#new-folder-dialog").dialog('close');
+    }
+  });
+  return false;
+});
+
+jQuery('.text-editor-sidebar .header .icon-vertical-toggle').click(function(){
+  jQuery('#content').toggleClass('show-media-panel');
+  return false;
+});
+
+jQuery('#new-folder-button').click(function(){
+  jQuery('#new-folder-dialog').dialog({modal: true});
+  return false;
+});

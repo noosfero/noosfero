@@ -157,4 +157,22 @@ class ProfileSuggestion < ActiveRecord::Base
     self.save
   end
 
+  def self.generate_all_profile_suggestions
+    Delayed::Job.enqueue(ProfileSuggestion::GenerateAllJob.new) unless ProfileSuggestion::GenerateAllJob.exists?
+  end
+
+  def self.generate_profile_suggestions(person_id)
+    Delayed::Job.enqueue ProfileSuggestionsJob.new(person_id) unless ProfileSuggestionsJob.exists?(person_id)
+  end
+
+  class GenerateAllJob
+    def self.exists?
+      Delayed::Job.by_handler("--- !ruby/object:ProfileSuggestion::GenerateAllJob {}\n").count > 0
+    end
+
+    def perform
+      Person.find_each {|person| ProfileSuggestion.generate_profile_suggestions(person.id) }
+    end
+  end
+
 end
