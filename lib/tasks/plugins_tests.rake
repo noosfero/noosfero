@@ -3,7 +3,7 @@
 @all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
 
 def enabled_plugins
-  Dir.glob('config/plugins/*').map { |f| File.basename(f) } - ['README']
+  Dir.glob('{baseplugins,config/plugins}/*').map { |f| File.basename(f) } - ['README']
 end
 
 @original_enabled_plugins = enabled_plugins
@@ -51,7 +51,7 @@ def plugin_name(plugin)
 end
 
 def plugin_enabled?(plugin)
-  File.exist?(File.join('config', 'plugins', plugin))
+  File.exist?(File.join('config', 'plugins', plugin)) || File.exist?(File.join('baseplugins', plugin))
 end
 
 def plugin_disabled_warning(plugin)
