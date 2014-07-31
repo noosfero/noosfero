@@ -527,7 +527,7 @@ class Noosfero::Plugin
   def find_suggestions(query, context, asset, options={:limit => 5})
     context.search_terms.
       where(:asset => asset).
-      where("search_terms.term like ?", "#{query}%").
+      where("search_terms.term like ?", "%#{query}%").
       where('search_terms.score > 0').
       order('search_terms.score DESC').
       limit(options[:limit]).map(&:term)
