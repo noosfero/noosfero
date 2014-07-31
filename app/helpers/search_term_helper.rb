@@ -10,8 +10,8 @@ module SearchTermHelper
   #FIXME For some reason the job is created but nothing is ran.
   #handle_asynchronously :register_search_term
 
-  #TODO Think better on how to normalize them properly
+  #TODO Think smarter criteria to normalize search terms properly
   def normalize_term(search_term)
-    search_term
+    search_term.downcase
   end
 end

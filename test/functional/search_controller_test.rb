@@ -662,6 +662,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [st1,st2].to_json, response.body
   end
 
+  should 'normalize search term for suggestions' do
+    st1 = 'UnIvErSe A'
+    st2 = 'uNiVeRsE B'
+    @controller.stubs(:find_suggestions).with('universe', Environment.default, 'communities').returns([st1, st2])
+    get :suggestions, :term => 'UNIveRSE', :asset => 'communities'
+    assert_equal [st1,st2].to_json, response.body
+  end
+
   protected
 
   def create_event(profile, options)

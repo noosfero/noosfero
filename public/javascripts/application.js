@@ -1070,7 +1070,7 @@ jQuery(document).ready(function(){
         $(this).closest('form').submit();
       },
       source: function(request, response) {
-        var term = request.term;
+        var term = request.term.toLowerCase();
         if (term in suggestions_cache) {
           response(suggestions_cache[term]);
           return;
