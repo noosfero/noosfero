@@ -24,6 +24,7 @@
 .social_share_privacy_area.line li {
 	height: 21px;
 	float: left;
+        width: 33%;
 }
 .social_share_privacy_area li .dummy_btn {
     cursor: pointer;
@@ -32,7 +33,7 @@
 }
 .social_share_privacy_area.line li .dummy_btn {
     float: left;
-    margin: 0 20px 0 10px;
+    margin: 0 10px 0 10px;
 }
 .social_share_privacy_area.box li .dummy_btn {
 	margin-bottom: 10px;
