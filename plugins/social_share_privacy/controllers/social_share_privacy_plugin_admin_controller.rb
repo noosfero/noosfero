@@ -1,17 +1,26 @@
 class SocialSharePrivacyPluginAdminController < AdminController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
+  protect 'edit_environment_features', :environment
+
+  include SocialSharePrivacyPluginHelper
+
   def index
-    available_networks = Dir[SocialSharePrivacyPlugin.root_path + 'public/javascripts/modules/*.js'].map { |entry| entry.split('/').last.gsub(/\.js$/,'') }
-    @selected = environment.socialshare
-    @tags = available_networks - @selected
+    @settings = Noosfero::Plugin::Settings.new(environment, SocialSharePrivacyPlugin, params[:settings])
+    @settings.networks ||= []
+
+    @available_networks = social_share_privacy_networks.sort
+    @settings.networks &= @available_networks
+    @available_networks -= @settings.networks
+
     if request.post?
-      networks = params[:networks].map{ |network| network.strip } if params[:networks]
-      environment.socialshare = networks
-      if environment.save
-        session[:notice] = _('Saved the selected social buttons')
-        redirect_to :controller => 'plugins', :action => 'index'
+      begin
+        @settings.save!
+        session[:notice] = _('Option updated successfully.')
+      rescue Exception => exception
+        session[:notice] = _('Option wasn\'t updated successfully.')
       end
+      redirect_to :controller => 'plugins', :action => 'index'
     end
   end
 

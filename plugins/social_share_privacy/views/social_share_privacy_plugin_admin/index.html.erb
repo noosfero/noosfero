@@ -19,8 +19,8 @@
   });
  </script>
 
-<div id='available-folders'>
-  <%= labelled_form_field(_('Available networks'), select_tag('networks[]', options_for_select(@tags), {:id => 'social-networks-list', :multiple => true, :size => 6 }) ) %>
+<div id='available-networks'>
+  <%= labelled_form_field(_('Available networks'), select_tag('networks[]', options_for_select(@available_networks), {:id => 'social-networks-list', :multiple => true, :size => 6 }) ) %>
 </div>
 
 <div id='selection-buttons'>
@@ -29,8 +29,9 @@
 </div>
 
 <%= form_tag do %>
-  <div id='portal-folders'>
-    <%= labelled_form_field(_('Selected networks'), select_tag('networks[]', options_for_select(@selected), {:id => 'selected-social-networks', :multiple => true, :size => 6 })) %>
+  <div id='selected-networks'>
+    <%= hidden_field_tag 'settings[networks][]' %>
+    <%= labelled_form_field(_('Selected networks'), select_tag('settings[networks]', options_for_select(@settings.networks), {:id => 'selected-social-networks', :multiple => true, :size => 6 })) %>
   </div>
 
   <p>
