@@ -28,6 +28,7 @@ OptionParser.new do |opts|
 end.parse!(ARGV)
 
 Daemons.run_proc(options[:app_name], options) do
-  require NOOSFERO_ROOT + '/config/environment'
+  Dir.chdir NOOSFERO_ROOT
+  require './config/environment'
   FeedUpdater.new.start
 end
