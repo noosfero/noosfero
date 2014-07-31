@@ -1,5 +1,0 @@
-if @error.nil?
-  page.reload()
-else
-  page.alert @error
-end

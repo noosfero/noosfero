@@ -1,6 +1,0 @@
-if @error.nil?
-  page.visual_effect :toggle_slide, "form"
-  page.insert_html :bottom, "ranges", :partial => "range", :locals => {:range => @range, :reading_group_id => @reading_group_id, :compound => @compound}
-else
-  page.alert @error
-end

@@ -1,4 +1,0 @@
-<% remote_form_for :range, :url => {:action =>"update", :controller => "mezuro_plugin_range"}, :method => :get do |f| %>
-  <%= hidden_field_tag :beginning_id, @beginning_id %>
-  <%= render :partial => "form", :locals => {:f => f} %>
-<% end %>
