@@ -51,7 +51,7 @@ class ProfileController < PublicController
 
   def communities
     if is_cache_expired?(profile.communities_cache_key(params))
-      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
+      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.communities.count)
     end
   end
 
