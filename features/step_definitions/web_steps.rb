@@ -27,13 +27,13 @@ end
 
 When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   with_scope(selector) do
-    first(:button, button).click
+    click_button(button, :match => :prefer_exact)
   end
 end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    first(:link, link).click
+    click_link(link, :match => :prefer_exact)
   end
 end
 
