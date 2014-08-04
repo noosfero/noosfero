@@ -395,8 +395,8 @@ class Noosfero::Plugin
   end
 
   # -> Adds social networks share buttons to content
-  # returns = lambda block that creates html code
-  def social_buttons_javascript(environment)
+  # returns = proc that creates html code
+  def social_buttons_contents
     nil
   end
 

@@ -507,7 +507,10 @@ class Article < ActiveRecord::Base
   end
 
   alias :allow_delete?  :allow_post_content?
-  alias :allow_spread?  :allow_post_content?
+
+  def allow_spread?(user = nil)
+    user && public?
+  end
 
   def allow_create?(user)
     allow_post_content?(user) || allow_publish_content?(user)

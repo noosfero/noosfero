@@ -54,7 +54,7 @@ class UserMailer < ActionMailer::Base
       content_type: 'text/html',
       to: user.email,
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
-      subject: _("[%s] We have suggestions for your network") % user.environment.name
+      subject: _("[%s] What about grow up your network?") % user.environment.name
     )
   end
 

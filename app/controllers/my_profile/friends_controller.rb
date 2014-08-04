@@ -3,7 +3,7 @@ class FriendsController < MyProfileController
   protect 'manage_friends', :profile
   
   def index
-    @suggestions = profile.suggested_people.limit(per_page/2)
+    @suggestions = profile.profile_suggestions.of_person.enabled.includes(:suggestion).limit(per_page)
     if is_cache_expired?(profile.manage_friends_cache_key(params))
       @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
     end
@@ -18,17 +18,16 @@ class FriendsController < MyProfileController
   end
 
   def suggest
-    @suggestions = profile.suggested_people.paginate(:per_page => per_page, :page => params[:npage])
+    @suggestions = profile.profile_suggestions.of_person.enabled.includes(:suggestion).limit(per_page)
   end
 
   def remove_suggestion
     @person = profile.suggested_people.find_by_identifier(params[:id])
     redirect_to :action => 'suggest' unless @person
     if @person && request.post?
-      suggestion = profile.profile_suggestions.find_by_suggestion_id @person.id
-      suggestion.disable
-      session[:notice] = _('Suggestion removed')
-      redirect_to :action => 'suggest'
+      profile.remove_suggestion(@person)
+      @suggestions = profile.profile_suggestions.of_person.enabled.includes(:suggestion).limit(per_page)
+      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions }
     end
   end
 

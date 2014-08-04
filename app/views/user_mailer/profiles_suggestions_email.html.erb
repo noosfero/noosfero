@@ -1,6 +1,7 @@
 <%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
 
-<p><%= _('We want to give you some suggestions to grow up your network. Check it out!') %></p>
+<p><%= _('We want to give you some suggestions to grow up your network.') %>
+<p><%= _('Check it out!') %></p>
 
 <% unless @people_suggestions.empty? %>
   <p><%= _('Friends suggestions:') %></p>

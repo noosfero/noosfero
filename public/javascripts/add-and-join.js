@@ -120,4 +120,23 @@ jQuery(function($) {
     return false;
   })
 
+  $(".remove-suggestion").live('click', function(){
+    clicked = $(this)
+    url = clicked.attr("href");
+    loading_for_button(this);
+    $.post(url, function(data){
+      clicked.fadeOut();
+      clicked.parents('.profiles-suggestions').html(data);
+    });
+    return false;
+  })
+
+  /* After adding a suggestion need to remove it from list */
+  $(".accept-suggestion").live('click', function(){
+    clicked = $(this)
+    loading_for_button(this);
+    clicked.parents('li').fadeOut();
+    return false;
+  })
+
 });

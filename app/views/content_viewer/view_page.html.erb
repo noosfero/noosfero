@@ -42,7 +42,6 @@
 
 <%= render :partial => 'shared/disabled_enterprise' %>
 
-<%= @plugins.dispatch(:social_buttons_javascript, @page).collect { |content| instance_exec(&content) }.join("") %>
 <% if NOOSFERO_CONF['addthis_enabled'] %>
   <%= render :partial => 'addthis' %>
 <% end %>
@@ -70,6 +69,8 @@
 <% end %>
 
 <%= display_source_info(@page) %>
+
+<%= @plugins.dispatch(:social_buttons_contents).collect { |content| instance_exec(&content) }.join("") %>
 
 <%= @plugins.dispatch(:article_extra_contents, @page).collect { |content| instance_exec(&content) }.join("") %>
 

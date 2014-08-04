@@ -1,21 +1,9 @@
-<div class='profiles-suggestions'>
-  <h1><%= _("Communities suggestions for %s") % profile.name %></h1>
+<h1><%= _("Communities suggestions for %s") % profile.name %></h1>
 
-  <% button_bar do %>
-    <%= button(:back, _('Go to groups list'), :controller => 'memberships') %>
-  <% end %>
+<% button_bar do %>
+  <%= button(:back, _('Go to groups list'), :controller => 'memberships') %>
+<% end %>
 
-  <% if @suggestions.empty? %>
-    <p>
-      <em>
-        <%= _('You have no suggestions yet.') %>
-        <%= link_to _('Do you want to see communities in this environment?'), :controller => 'search', :action => 'assets', :asset => 'communities' %>
-      </em>
-    </p>
-  <% else %>
-    <%= render :partial => 'shared/profile_list', :locals => { :profiles => @suggestions, :collection => :communities_suggestions } %>
-  <% end %>
-
-  <%= pagination_links @suggestions, :param_name => 'npage' %>
-  <br style="clear:both" />
+<div class="profiles-suggestions">
+  <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions } %>
 </div>

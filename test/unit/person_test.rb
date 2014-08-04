@@ -1544,6 +1544,28 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [suggested_community], person.suggested_communities
   end
 
+  should 'disable friend suggestion' do
+    person = create_user('person').person
+    suggested_person = fast_create(Person)
+
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_person)
+
+    assert_difference 'person.suggested_people.count', -1 do
+      person.remove_suggestion(suggested_person)
+    end
+  end
+
+  should 'disable community suggestion' do
+    person = create_user('person').person
+    suggested_community = fast_create(Community)
+
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_community)
+
+    assert_difference 'person.suggested_communities.count', -1 do
+      person.remove_suggestion(suggested_community)
+    end
+  end
+
   should 'return url to people suggestions for a person' do
     environment = create_environment('mycolivre.net')
     profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
