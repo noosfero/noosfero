@@ -1,8 +1,7 @@
 <% if suggestions.empty? %>
   <p>
     <em>
-      <%= _('You have no suggestions yet.') %>
-      <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
+      <%= _('You have no more suggestions :(') %>
     </em>
   </p>
 <% else %>
@@ -32,12 +31,12 @@
           <% elsif collection == :communities_suggestions %>
               <%= button_without_text :add, content_tag('span',_('join')),
                     s.suggestion.join_url,
-                    :class => 'join-community',
+                    :class => 'join-community accept-suggestion',
                     :title => _("Join %s") % s.suggestion.name %>
               <%= button_without_text :remove, content_tag('span',_('remove')),
                   { :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                    :class => 'remove-suggestion',
                     :title => _('Remove suggestion'),
-                    :method => 'post',
                     :confirm => _('Are you sure you want to remove this suggestion?') %>
           <% end %>
         </div><!-- end class="controll" -->

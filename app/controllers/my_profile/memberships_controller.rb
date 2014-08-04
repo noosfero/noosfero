@@ -40,16 +40,16 @@ class MembershipsController < MyProfileController
   end
 
   def suggest
-    @suggestions = profile.profile_suggestions.of_community.includes(:suggestion).limit(per_page)
+    @suggestions = profile.profile_suggestions.of_community.enabled.includes(:suggestion).limit(per_page)
   end
 
   def remove_suggestion
     @community = profile.suggested_communities.find_by_identifier(params[:id])
     redirect_to :action => 'suggest' unless @community
     if @community && request.post?
-      suggestion = profile.profile_suggestions.find_by_suggestion_id @community.id
-      suggestion.disable
-      redirect_to :action => 'suggest'
+      profile.remove_suggestion(@community)
+      @suggestions = profile.profile_suggestions.of_community.enabled.includes(:suggestion).limit(per_page)
+      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions }
     end
   end
 
