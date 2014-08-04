@@ -4,8 +4,8 @@
 
 <table class="noborder"><tbody id="highlights-data-table">
   <tr><th><%= _('Image') %></th><th><%= _('Address') %></th><th><%= _('Position') %></th></tr>
-  <% for image in @block.images do %>
-    <%= highlights_block_config_image_fields @block, image %>
+  <% @block.images.each_with_index do |image, index| %>
+    <%= highlights_block_config_image_fields @block, image, index %>
   <% end %>
 </tbody></table>
 
