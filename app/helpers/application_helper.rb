@@ -1419,4 +1419,9 @@ module ApplicationHelper
     text_field_tag name, default, options.merge({:id => 'search-input', 'data-asset' => asset})
   end
 
+  def profile_suggestion_categories(suggestion)
+    suggestion.categories.map do |cat|
+      content_tag(:p, content_tag(:span, "#{suggestion.category_label(cat[0])}: #{cat[1]}", :class => suggestion.category_icon(cat[0])))
+    end.join
+  end
 end

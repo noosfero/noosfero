@@ -2131,7 +2131,8 @@ a.button.disabled, input.disabled {
 #content .common-profile-list-block .sex-male span, #content .common-profile-list-block .sex-female span, #content .common-profile-list-block .sex-undef span {
   display: none;
 }
-.common-profile-list-block .extra_info {
+.common-profile-list-block .extra_info,
+.profile-list .extra_info {
   font-size: 9px;
   opacity: 0.5;
   filter: alpha(opacity=50);
@@ -3955,16 +3956,24 @@ h1#agenda-title {
 .controller-friends .profile-list li,
 .profiles-suggestions .profile-list li {
   float: left;
-  width: 90px;
-  height: 90px;
-  max-width: 80px;
-  max-height: 80px;
   margin: 5px;
+  height: 90px;
+  max-height: 80px;
   padding: 5px;
   border: 2px solid transparent;
   list-style: none;
   position: relative;
 }
+.controller-favorite_enterprises .profile-list li,
+.controller-friends .profile-list li {
+  width: 90px;
+  max-width: 80px;
+}
+.profiles-suggestions .profile-list li {
+  width: 76px;
+  max-width: 76px;
+}
+
 .controller-favorite_enterprises .profile-list li:hover,
 .controller-friends .profile-list li:hover,
 .profiles-suggestions .profile-list li:hover {
@@ -4000,12 +4009,22 @@ h1#agenda-title {
 .profiles-suggestions .profile-list {
   position: relative;
 }
+.profiles-suggestions .profile-list .explain-suggestion {
+  position: absolute;
+  top: 7px;
+  left: -5px;
+  z-index: 10;
+}
+#content .profiles-suggestions .profile-list .explain-suggestion.active {
+  border-bottom-color: transparent;
+}
+
 .controller-favorite_enterprises .profile-list .controll,
 .controller-friends .profile-list .controll,
 .profiles-suggestions .profile-list .controll {
   position: absolute;
   top: 7px;
-  right: -10px;
+  right: -5px;
 }
 .controller-favorite_enterprises .profile-list .controll a,
 .controller-friends .profile-list .controll a,
@@ -4024,6 +4043,31 @@ h1#agenda-title {
   clear: both;
   padding-top: 20px;
 }
+
+.profiles-suggestions .profile-list .extra_info {
+  background: url("/images/down-arrow.png") no-repeat scroll center top #eee;
+  border: 1px solid #ccc;
+  left: -66px;
+  min-width: 135px;
+  padding: 5px;
+  position: absolute;
+  top: 29px;
+  opacity: 0.9;
+  z-index: 5;
+}
+
+.profiles-suggestions .profile-list .extra_info p {
+  margin: 0px;
+}
+
+.profiles-suggestions .profile-list .extra_info span {
+  background-position: 4px 50%;
+  background-repeat: no-repeat;
+  display: block;
+  line-height: 20px;
+  padding: 0 0 0 25px;
+}
+
 /* ==> public/stylesheets/controller_friends.css <== */
 
 .controller-friends #remove_friend .friend_picture,

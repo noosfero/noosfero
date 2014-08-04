@@ -2,7 +2,7 @@ class ProfileSuggestion < ActiveRecord::Base
   belongs_to :person
   belongs_to :suggestion, :class_name => 'Profile', :foreign_key => :suggestion_id
 
-  attr_accessible :person, :suggestion, :suggestion_type, :categories, :similarity, :enabled
+  attr_accessible :person, :suggestion, :suggestion_type, :categories, :enabled
 
   before_create do |profile_suggestion|
     profile_suggestion.suggestion_type = self.suggestion.class.to_s
@@ -18,16 +18,28 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   validates_uniqueness_of :suggestion_id, :scope => [ :person_id ]
+  scope :of_person, :conditions => { :suggestion_type => 'Person' }
+  scope :of_community, :conditions => { :suggestion_type => 'Community' }
+  scope :enabled, :conditions => { :enabled => true }
 
+  # {:category_type => ['category-icon', 'category-label']}
   CATEGORIES = {
-    :common_friends => _('Friends in common'),
-    :common_communities => _('Communities in common'),
-    :common_tags => _('Tags in common')
+    :common_friends => ['menu-people', _('Friends in common')],
+    :common_communities => ['menu-community',_('Communities in common')],
+    :common_tags => ['edit', _('Tags in common')]
   }
 
   CATEGORIES.keys.each do |category|
     settings_items category.to_sym
     attr_accessible category.to_sym
+  end
+
+  def category_icon(category)
+    'icon-' + ProfileSuggestion::CATEGORIES[category][0]
+  end
+
+  def category_label(category)
+    ProfileSuggestion::CATEGORIES[category][1]
   end
 
   RULES = %w[

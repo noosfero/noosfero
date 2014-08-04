@@ -1,0 +1,16 @@
+<ul class="profile-list">
+  <% profiles.each do |profile| %>
+    <li>
+    <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
+                        profile.identifier, :class => 'profile-link' %>
+    <div class="controll">
+      <%= button_without_text :remove, content_tag('span',_('remove')),
+          { :action => 'remove', :id => profile.id },
+            :title => _('remove') %>
+      <%= button_without_text 'menu-mail', content_tag('span',_('contact')),
+            profile.url.merge(:controller => 'contact', :action => 'new', :profile => profile.identifier),
+            :title => _('contact') %>
+    </div><!-- end class="controll" -->
+    </li>
+  <% end %>
+</ul>

@@ -40,7 +40,7 @@ class MembershipsController < MyProfileController
   end
 
   def suggest
-    @suggestions = profile.suggested_communities.paginate(:per_page => 8, :page => params[:npage])
+    @suggestions = profile.profile_suggestions.of_community.includes(:suggestion).limit(per_page)
   end
 
   def remove_suggestion
@@ -51,6 +51,12 @@ class MembershipsController < MyProfileController
       suggestion.disable
       redirect_to :action => 'suggest'
     end
+  end
+
+  protected
+
+  def per_page
+    10
   end
 
 end

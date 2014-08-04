@@ -1,38 +1,38 @@
 <ul class="profile-list">
-  <% profiles.each do |profile| %>
+  <% suggestions.each do |s| %>
     <li>
-    <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
-                        profile.identifier, :class => 'profile-link' %>
-    <div class="controll">
-      <% if collection == :friends %>
-        <%= button_without_text :remove, content_tag('span',_('remove')),
-            { :action => 'remove', :id => profile.id },
-              :title => _('remove') %>
-        <%= button_without_text 'menu-mail', content_tag('span',_('contact')),
-              profile.url.merge(:controller => 'contact', :action => 'new', :profile => profile.identifier),
-              :title => _('contact') %>
-      <% elsif collection == :friends_suggestions %>
-        <%= button_without_text :add, content_tag('span',_('add')),
-              profile.add_url,
-              :class => 'add-friend',
-              :title => _('Add friend') %>
-        <%= button_without_text :remove, content_tag('span',_('remove')),
-            { :action => 'remove_suggestion', :id => profile.identifier },
-              :title => _('Remove suggestion'),
-              :method => 'post',
-              :confirm => _('Are you sure you want to remove this suggestion?') %>
-      <% elsif collection == :communities_suggestions %>
-          <%= button_without_text :add, content_tag('span',_('join')),
-                profile.join_url,
-                :class => 'join-community',
-                :title => _("Join %s") % profile.name %>
+      <%= link_to_profile profile_image(s.suggestion, :minor) + '<br/>' + s.suggestion.short_name,
+                          s.suggestion.identifier, :class => 'profile-link' %>
+      <%= button_without_text :help, content_tag('span',_('info about suggestion')),
+          { :action => '#' },
+            :class => 'explain-suggestion',
+            :title => _('Why this suggestion?') %>
+      <div class='extra_info' style='display:none'>
+        <%= profile_suggestion_categories(s) %>
+      </div>
+      <div class="controll">
+        <% if collection == :friends_suggestions %>
+          <%= button_without_text :add, content_tag('span',_('add')),
+                s.suggestion.add_url,
+                :class => 'add-friend',
+                :title => _('Add friend') %>
           <%= button_without_text :remove, content_tag('span',_('remove')),
-              { :action => 'remove_suggestion', :id => profile.identifier },
+              { :action => 'remove_suggestion', :id => s.suggestion.identifier },
                 :title => _('Remove suggestion'),
                 :method => 'post',
                 :confirm => _('Are you sure you want to remove this suggestion?') %>
-      <% end %>
-    </div><!-- end class="controll" -->
+        <% elsif collection == :communities_suggestions %>
+            <%= button_without_text :add, content_tag('span',_('join')),
+                  s.suggestion.join_url,
+                  :class => 'join-community',
+                  :title => _("Join %s") % s.suggestion.name %>
+            <%= button_without_text :remove, content_tag('span',_('remove')),
+                { :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                  :title => _('Remove suggestion'),
+                  :method => 'post',
+                  :confirm => _('Are you sure you want to remove this suggestion?') %>
+        <% end %>
+      </div><!-- end class="controll" -->
     </li>
   <% end %>
 </ul>
