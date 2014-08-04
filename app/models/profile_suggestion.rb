@@ -31,7 +31,7 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   RULES = %w[
-    friends_of_friends
+    people_with_common_friends
     people_with_common_communities
     people_with_common_tags
     communities_with_common_friends
@@ -48,108 +48,106 @@ class ProfileSuggestion < ActiveRecord::Base
   COMMON_FRIENDS = 2
 
   # Number of communities in common
-  COMMON_COMMUNITIES = 1
+  COMMON_COMMUNITIES = 2
 
   # Number of friends in common
   COMMON_TAGS = 2
 
-  def self.friends_of_friends(person)
-    person_attempts = 0
-    person_friends = person.friends
-    person_friends.each do |friend|
-      friend.friends.includes.each do |friend_of_friend|
-        person_attempts += 1
-        return unless person.profile_suggestions.count < N_SUGGESTIONS && person_attempts < MAX_ATTEMPTS
-        unless friend_of_friend == person || friend_of_friend.is_a_friend?(person) || person.already_request_friendship?(friend_of_friend)
-          common_friends = friend_of_friend.friends & person_friends
-          if common_friends.size >= COMMON_FRIENDS
-            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(friend_of_friend.id)
-            suggestion.common_friends = common_friends.size
-            suggestion.save
-          end
-        end
-      end
+  def self.register_suggestions(person, suggested_profiles, rule)
+    counter = rule.split(/.*_with_/).last
+    suggested_profiles.find_each do |suggested_profile|
+      suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
+      suggestion.send(counter+'=', suggested_profile.common_count.to_i)
+      suggestion.save!
     end
+  end
+
+  def self.calculate_suggestions(person)
+    ProfileSuggestion::RULES.each do |rule|
+      register_suggestions(person, ProfileSuggestion.send(rule, person), rule)
+    end
+  end
+
+  # If you are about to rewrite the following sql queries, think twice. After
+  # that make sure that whatever you are writing to replace it should be faster
+  # than how it is now. Yes, sqls are ugly but are fast! And fast is what we
+  # need here.
+
+  def self.people_with_common_friends(person)
+    person_friends = person.friends.map(&:id)
+    person.environment.people.
+      select("profiles.*, suggestions.count AS common_count").
+      joins("
+        INNER JOIN (SELECT person_id, count(person_id) FROM
+          friendships WHERE friend_id IN (#{person_friends.join(',')}) AND
+          person_id NOT IN (#{(person_friends << person.id).join(',')})
+          GROUP BY person_id
+          HAVING count(person_id) >= #{COMMON_FRIENDS}) AS suggestions
+        ON profiles.id = suggestions.person_id")
   end
 
   def self.people_with_common_communities(person)
-    person_attempts = 0
-    person_communities = person.communities
-    person_communities.each do |community|
-      community.members.each do |member|
-        person_attempts += 1
-        return unless person.profile_suggestions.count < N_SUGGESTIONS && person_attempts < MAX_ATTEMPTS
-        unless member == person || member.is_a_friend?(person) || person.already_request_friendship?(member)
-          common_communities = person_communities & member.communities
-          if common_communities.size >= COMMON_COMMUNITIES
-            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(member.id)
-            suggestion.common_communities = common_communities.size
-            suggestion.save
-          end
-        end
-      end
-    end
+    person_communities = person.communities.map(&:id)
+    person.environment.people.
+      select("profiles.*, suggestions.count AS common_count").
+      joins("
+        INNER JOIN (SELECT common_members.accessor_id, count(common_members.accessor_id) FROM
+          (SELECT DISTINCT accessor_id, resource_id FROM
+          role_assignments WHERE role_assignments.resource_id IN (#{person_communities.join(',')}) AND
+          role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
+          role_assignments.accessor_type = 'Profile') AS common_members
+          GROUP BY common_members.accessor_id
+          HAVING count(common_members.accessor_id) >= #{COMMON_COMMUNITIES})
+        AS suggestions ON profiles.id = suggestions.accessor_id")
   end
 
   def self.people_with_common_tags(person)
-    person_attempts = 0
-    tags = person.article_tags.keys
-    tags.each do |tag|
-      person_attempts += 1
-      return unless person.profile_suggestions.count < N_SUGGESTIONS && person_attempts < MAX_ATTEMPTS
-      tagged_content = ActsAsTaggableOn::Tagging.includes(:taggable).where(:tag_id => ActsAsTaggableOn::Tag.find_by_name(tag))
-      tagged_content.each do |tg|
-        author = tg.taggable.created_by
-        unless author.nil? || author == person || author.is_a_friend?(person) || person.already_request_friendship?(author)
-          common_tags = tags & author.article_tags.keys
-          if common_tags.size >= COMMON_TAGS
-            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(author.id)
-            suggestion.common_tags = common_tags.size
-            suggestion.save
-          end
-        end
-      end
-    end
+    profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    person.environment.people.
+    select("profiles.*, suggestions.count as common_count").
+    joins("
+      INNER JOIN (
+        SELECT results.profiles_id as profiles_id, count(results.profiles_id) FROM (
+          SELECT DISTINCT tags.id, profiles.id as profiles_id FROM profiles
+          INNER JOIN articles ON articles.profile_id = profiles.id
+          INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
+          INNER JOIN tags ON tags.id = taggings.tag_id
+          WHERE (tags.id in (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
+        GROUP BY results.profiles_id
+        HAVING count(results.profiles_id) >= #{COMMON_TAGS})
+      as suggestions on profiles.id = suggestions.profiles_id")
   end
 
   def self.communities_with_common_friends(person)
-    community_attempts = 0
-    person_friends = person.friends
-    person_friends.each do |friend|
-      friend.communities.each do |community|
-        community_attempts += 1
-        return unless person.profile_suggestions.count < N_SUGGESTIONS && community_attempts < MAX_ATTEMPTS
-        unless person.is_member_of?(community) || community.already_request_membership?(person)
-          common_friends = community.members & person.friends
-          if common_friends.size >= COMMON_FRIENDS
-            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(community.id)
-            suggestion.common_friends = common_friends.size
-            suggestion.save
-          end
-        end
-      end
-    end
+    person_friends = person.friends.map(&:id)
+    person.environment.communities.
+      select("profiles.*, suggestions.count AS common_count").
+      joins("
+        INNER JOIN (SELECT common_communities.resource_id, count(common_communities.resource_id) FROM
+          (SELECT DISTINCT accessor_id, resource_id FROM
+          role_assignments WHERE role_assignments.accessor_id IN (#{person_friends.join(',')}) AND
+          role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
+          role_assignments.accessor_type = 'Profile') AS common_communities
+          GROUP BY common_communities.resource_id
+          HAVING count(common_communities.resource_id) >= #{COMMON_FRIENDS})
+        AS suggestions ON profiles.id = suggestions.resource_id")
   end
 
   def self.communities_with_common_tags(person)
-    community_attempts = 0
-    tags = person.article_tags.keys
-    tags.each do |tag|
-      community_attempts += 1
-      return unless person.profile_suggestions.count < N_SUGGESTIONS && community_attempts < MAX_ATTEMPTS
-      tagged_content = ActsAsTaggableOn::Tagging.includes(:taggable).where(:tag_id => ActsAsTaggableOn::Tag.find_by_name(tag))
-      tagged_content.each do |tg|
-        profile = tg.taggable.profile
-        unless !profile.community? || person.is_member_of?(profile) || profile.already_request_membership?(person)
-          common_tags = tags & profile.article_tags.keys
-          if common_tags.size >= COMMON_TAGS
-            suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(profile.id)
-            suggestion.common_tags = common_tags.size
-            suggestion.save
-          end
-        end
-      end
-    end
+    profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    person.environment.communities.
+    select("profiles.*, suggestions.count AS common_count").
+    joins("
+      INNER JOIN (
+        SELECT results.profiles_id AS profiles_id, count(results.profiles_id) FROM (
+          SELECT DISTINCT tags.id, profiles.id AS profiles_id FROM profiles
+          INNER JOIN articles ON articles.profile_id = profiles.id
+          INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
+          INNER JOIN tags ON tags.id = taggings.tag_id
+          WHERE (tags.id IN (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
+        GROUP BY results.profiles_id
+        HAVING count(results.profiles_id) >= #{COMMON_TAGS})
+      AS suggestions ON profiles.id = suggestions.profiles_id")
   end
 
   def disable

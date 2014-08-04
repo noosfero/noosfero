@@ -12,13 +12,10 @@ class ProfileSuggestionsJob < Struct.new(:person_id)
     logger = Delayed::Worker.logger
     begin
       person = Person.find(person_id)
-
-      ProfileSuggestion::RULES.each do |rule|
-        ProfileSuggestion.send(rule, person)
-      end
+      ProfileSuggestion.calculate_suggestions(person)
       UserMailer.profiles_suggestions_email(person).deliver
     rescue Exception => exception
-      logger.warn("Error with suggestions for person ID %d: %s" % [person_id, exception.to_s])
+      logger.error("Error with suggestions for person ID %d: %s" % [person_id, exception.to_s])
     end
   end
 
