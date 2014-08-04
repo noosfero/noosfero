@@ -21,9 +21,10 @@ class SocialSharePrivacyPlugin < Noosfero::Plugin
       settings = Noosfero::Plugin::Settings.new(environment, SocialSharePrivacyPlugin)
       locale = FastGettext.locale
       javascript_include_tag('plugins/social_share_privacy/socialshareprivacy/javascripts/socialshareprivacy.js') + 
+      javascript_include_tag('plugins/social_share_privacy/socialshareprivacy/javascripts/localstorage.js') +
       javascript_include_tag(settings.get_setting(:networks).map { |service| "plugins/social_share_privacy/socialshareprivacy/javascripts/modules/#{service}.js" }) + 
       (locale != 'en' ? javascript_include_tag("plugins/social_share_privacy/socialshareprivacy/javascripts/locale/jquery.socialshareprivacy.min.#{locale}.js") : '') +
-      javascript_tag("jQuery.fn.socialSharePrivacy.settings.path_prefix = '../../plugins/social_share_privacy/socialshareprivacy/'; jQuery.fn.socialSharePrivacy.settings.order = #{settings.get_setting(:networks)}; jQuery(document).ready(function () { jQuery('.social-buttons').socialSharePrivacy({perma_option: false, info_link_target: '_blank'});});") +
+      javascript_tag("jQuery.fn.socialSharePrivacy.settings.path_prefix = '../../plugins/social_share_privacy/socialshareprivacy/'; jQuery.fn.socialSharePrivacy.settings.order = #{settings.get_setting(:networks)}; jQuery(document).ready(function () { jQuery('.social-buttons').socialSharePrivacy({info_link_target: '_blank'});});") +
       content_tag(:div, '', :class => "social-buttons")
     end
   end
