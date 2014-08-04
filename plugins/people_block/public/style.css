@@ -102,3 +102,29 @@
 #content .members-block .block-footer-content a.view-all {
   background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
+
+#content .friends-block .block-footer-content .profiles-suggestions a,
+#content .friends-block .block-footer-content a.more-suggestions {
+  position: relative;
+}
+#content .friends-block .block-footer-content .profiles-suggestions a.explain-suggestion {
+  position: absolute;
+}
+
+#content .common-profile-list-block .profiles-suggestions .profile-list .extra_info {
+  top: 20px;
+  left: -69px;
+}
+
+#content .common-profile-list-block .profiles-suggestions .button span {
+  display: none;
+}
+#content .common-profile-list-block .profiles-suggestions .controll {
+  top: 0px;
+  right: 0px;
+}
+#content .common-profile-list-block .profiles-suggestions .controll a,
+#content .friends-block .block-footer-content .profiles-suggestions a.explain-suggestion {
+  width: 16px;
+  padding: 1px;
+}

@@ -11,7 +11,7 @@
         <%= link_to_profile profile_image(s.suggestion, :minor) + '<br/>' + s.suggestion.short_name,
                             s.suggestion.identifier, :class => 'profile-link' %>
         <%= button_without_text :help, content_tag('span',_('info about suggestion')),
-            { :action => '#' },
+              '#',
               :class => 'explain-suggestion',
               :title => _('Why this suggestion?') %>
         <div class='extra_info' style='display:none'>
@@ -24,7 +24,7 @@
                   :class => 'add-friend accept-suggestion',
                   :title => _('Add friend') %>
             <%= button_without_text :remove, content_tag('span',_('remove')),
-                { :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier },
                   :class => 'remove-suggestion',
                   :title => _('Remove suggestion'),
                   :confirm => _('Are you sure you want to remove this suggestion?') %>

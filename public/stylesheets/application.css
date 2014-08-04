@@ -3969,14 +3969,10 @@ h1#agenda-title {
   width: 90px;
   max-width: 80px;
 }
-.profiles-suggestions .profile-list li {
-  width: 76px;
-  max-width: 76px;
-}
 
 .controller-favorite_enterprises .profile-list li:hover,
 .controller-friends .profile-list li:hover,
-.profiles-suggestions .profile-list li:hover {
+.box-1 .profiles-suggestions .profile-list li:hover {
   border: 2px solid #eeeeec;
 }
 .controller-favorite_enterprises .profile-list img,
@@ -3999,7 +3995,7 @@ h1#agenda-title {
 }
 .controller-favorite_enterprises .profile-list .profile_link span,
 .controller-friends .profile-list .profile_link span,
-.profiles-suggestions .profile-list .profile_link span {
+.box-1 .profiles-suggestions .profile-list .profile_link span {
   width: 80px;
   display: block;
   overflow: hidden;
@@ -4066,6 +4062,18 @@ h1#agenda-title {
   display: block;
   line-height: 20px;
   padding: 0 0 0 25px;
+  width: auto;
+}
+
+.profiles-suggestions .profile-list li {
+  width: 58px;
+  max-width: 58px;
+}
+
+.box-1 .profiles-suggestions .profile-list li {
+  width: 76px;
+  max-width: 76px;
+  border: 2px solid transparent;
 }
 
 /* ==> public/stylesheets/controller_friends.css <== */
