@@ -28,14 +28,9 @@
 
 <% unless @suggestions.empty? %>
   <br style="clear:both" />
+  <h2><%= _("Friends suggestions") %></h2>
   <div class="profiles-suggestions">
-    <h2><%= _("Friends suggestions") %></h2>
-
-    <%= render :partial => 'shared/profile_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions } %>
-
-    <% button_bar do %>
-      <%= link_to _('See more suggestions...'), :action => 'suggest' %>
-    <% end %>
+    <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions } %>
   </div>
 <% end %>
 

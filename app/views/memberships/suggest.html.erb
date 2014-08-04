@@ -13,7 +13,7 @@
       </em>
     </p>
   <% else %>
-    <%= render :partial => 'shared/profile_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions } %>
+    <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions } %>
   <% end %>
   <br style="clear:both" />
 </div>

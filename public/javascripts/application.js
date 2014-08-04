@@ -1055,7 +1055,6 @@ function showHideTermsOfUse() {
 
 jQuery('.profiles-suggestions .explain-suggestion').live('click', function() {
   var clicked = jQuery(this);
-  jQuery('.profiles-suggestions .extra_info').hide();
   clicked.toggleClass('active');
   clicked.next('.extra_info').toggle();
   return false;
