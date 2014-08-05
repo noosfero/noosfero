@@ -8,6 +8,10 @@ class ProfileSuggestion < ActiveRecord::Base
     profile_suggestion.suggestion_type = self.suggestion.class.to_s
   end
 
+  after_destroy do |profile_suggestion|
+    self.class.generate_profile_suggestions(profile_suggestion.person)
+  end
+
   acts_as_having_settings :field => :categories
 
   validate :must_be_a_valid_category, :on => :create
@@ -50,11 +54,11 @@ class ProfileSuggestion < ActiveRecord::Base
     communities_with_common_tags
   ]
 
-  # Number of suggestions
-  N_SUGGESTIONS = 30
+  # Number of suggestions by rule
+  SUGGESTIONS_BY_RULE = 10
 
-  # Number max of attempts
-  MAX_ATTEMPTS = N_SUGGESTIONS * 2
+  # Minimum number of suggestions
+  MIN_LIMIT = 15
 
   # Number of friends in common
   COMMON_FRIENDS = 2
@@ -66,8 +70,12 @@ class ProfileSuggestion < ActiveRecord::Base
   COMMON_TAGS = 2
 
   def self.register_suggestions(person, suggested_profiles, rule)
+    already_suggested_profiles = person.profile_suggestions.map(&:suggestion_id).join(',')
+    suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
+    suggested_profiles = suggested_profiles.limit(SUGGESTIONS_BY_RULE)
+    return if suggested_profiles.blank?
     counter = rule.split(/.*_with_/).last
-    suggested_profiles.find_each do |suggested_profile|
+    suggested_profiles.each do |suggested_profile|
       suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
       suggestion.send(counter+'=', suggested_profile.common_count.to_i)
       suggestion.save!
@@ -87,6 +95,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_friends(person)
     person_friends = person.friends.map(&:id)
+    return [] if person_friends.blank?
     person.environment.people.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -100,6 +109,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_communities(person)
     person_communities = person.communities.map(&:id)
+    return [] if person_communities.blank?
     person.environment.people.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -115,6 +125,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    return [] if profile_tags.blank?
     person.environment.people.
     select("profiles.*, suggestions.count as common_count").
     joins("
@@ -132,6 +143,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.communities_with_common_friends(person)
     person_friends = person.friends.map(&:id)
+    return [] if person_friends.blank?
     person.environment.communities.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -147,6 +159,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.communities_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    return [] if profile_tags.blank?
     person.environment.communities.
     select("profiles.*, suggestions.count AS common_count").
     joins("
@@ -164,15 +177,17 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def disable
     self.enabled = false
-    self.save
+    self.save!
+    self.class.generate_profile_suggestions(self.person)
   end
 
   def self.generate_all_profile_suggestions
     Delayed::Job.enqueue(ProfileSuggestion::GenerateAllJob.new) unless ProfileSuggestion::GenerateAllJob.exists?
   end
 
-  def self.generate_profile_suggestions(person_id)
-    Delayed::Job.enqueue ProfileSuggestionsJob.new(person_id) unless ProfileSuggestionsJob.exists?(person_id)
+  def self.generate_profile_suggestions(person, force = false)
+    return if person.profile_suggestions.enabled.count >= MIN_LIMIT && !force
+    Delayed::Job.enqueue ProfileSuggestionsJob.new(person.id) unless ProfileSuggestionsJob.exists?(person.id)
   end
 
   class GenerateAllJob
@@ -181,7 +196,7 @@ class ProfileSuggestion < ActiveRecord::Base
     end
 
     def perform
-      Person.find_each {|person| ProfileSuggestion.generate_profile_suggestions(person.id) }
+      Person.find_each {|person| ProfileSuggestion.generate_profile_suggestions(person) }
     end
   end
 
