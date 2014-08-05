@@ -515,7 +515,7 @@ div#notice {
 #content .tags-block .block-footer-content a,
 #content .profile-list-block .block-footer-content a,
 #content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a {
+#content .communities-block .block-footer-content a.view-all {
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
 

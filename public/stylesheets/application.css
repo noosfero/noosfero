@@ -1667,6 +1667,30 @@ a.button.disabled, input.disabled {
   text-align: center;
   padding-bottom: 0px;
 }
+
+#content .communities-block .block-footer-content .profiles-suggestions a.explain-suggestion {
+    padding: 1px;
+    width: 16px;
+}
+
+#content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
+#content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
+  position: relative;
+  z-index: 5;
+}
+
+#content .communities-block .profiles-suggestions .profile-list .extra_info {
+  z-index: 10;
+}
+
+#content .communities-block .block-footer-content a.more-suggestions {
+  position: relative;
+}
+
+.suggestions-block .block-subtitle {
+  cursor: pointer;
+}
+
 .msie7 .communities-block .common-profile-list-block .vcard .profile_link {
   height: 75px;
   padding-bottom: 0px;
@@ -4066,8 +4090,8 @@ h1#agenda-title {
 }
 
 .profiles-suggestions .profile-list li {
-  width: 58px;
-  max-width: 58px;
+  width: 85px;
+  max-width: 85px;
 }
 
 .box-1 .profiles-suggestions .profile-list li {

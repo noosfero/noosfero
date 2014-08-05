@@ -34,7 +34,7 @@
                     :class => 'join-community accept-suggestion',
                     :title => _("Join %s") % s.suggestion.name %>
               <%= button_without_text :remove, content_tag('span',_('remove')),
-                  { :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                  { :controller => 'memberships', :action => 'remove_suggestion', :id => s.suggestion.identifier },
                     :class => 'remove-suggestion',
                     :title => _('Remove suggestion'),
                     :confirm => _('Are you sure you want to remove this suggestion?') %>

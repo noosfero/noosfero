@@ -1,0 +1,17 @@
+<% if owner.kind_of?(Profile) %>
+  <%= link_to s_('communities|View all'), {:profile => owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
+<% elsif owner.kind_of?(Environment) %>
+  <%= link_to s_('communities|View all'), {:controller => 'search', :action => 'communities'}, :class => 'view-all' %>
+<% else %>
+  ''
+<% end %>
+
+<% if user == profile && suggestions && !suggestions.empty? %>
+  <div class='suggestions-block common-profile-list-block'>
+    <h4 class='block-subtitle'><%= _('Some suggestions for you') %></h4>
+    <div class='profiles-suggestions'>
+      <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => suggestions, :collection => :communities_suggestions } %>
+    </div>
+    <%= link_to _('See more suggestions'), profile.communities_suggestions_url, :class => 'more-suggestions' %>
+  </div>
+<% end %>

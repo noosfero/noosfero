@@ -1060,6 +1060,13 @@ jQuery('.profiles-suggestions .explain-suggestion').live('click', function() {
   return false;
 });
 
+jQuery('.suggestions-block .block-subtitle').live('click', function() {
+  var clicked = jQuery(this);
+  clicked.next('.profiles-suggestions').toggle();
+  clicked.nextAll('.more-suggestions').toggle();
+  return false;
+});
+
 jQuery(document).ready(function(){
   showHideTermsOfUse();
 
