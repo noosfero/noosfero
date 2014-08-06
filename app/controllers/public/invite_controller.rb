@@ -80,7 +80,7 @@ class InviteController < PublicController
   end
 
   def search_friend
-    render :text => find_by_contents(:people, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
+    render :text => find_by_contents(:people, environment, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
   end
 
   protected
