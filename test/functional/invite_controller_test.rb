@@ -246,15 +246,15 @@ class InviteControllerTest < ActionController::TestCase
     get :search_friend, :profile => profile.identifier, :q => 'me@'
 
     assert_equal 'text/html', @response.content_type
-    assert_equal [{"name" => friend2.name, "id" => friend2.id}].to_json, @response.body
+    assert_equal [{"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
 
     get :search_friend, :profile => profile.identifier, :q => 'cri'
 
-    assert_equal [{"name" => friend1.name, "id" => friend1.id}].to_json, @response.body
+    assert_equal [{"id" => friend1.id, "name" => friend1.name}].to_json, @response.body
 
     get :search_friend, :profile => profile.identifier, :q => 'will'
 
-    assert_equal [{"name" => friend1.name, "id" => friend1.id}, {"name" => friend2.name, "id" => friend2.id}].to_json, @response.body
+    assert_equal [{"id" => friend1.id, "name" => friend1.name}, {"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
   end
 
   should 'not include members in search friends profiles' do
@@ -268,18 +268,18 @@ class InviteControllerTest < ActionController::TestCase
 
     get :search_friend, :profile => community.identifier, :q => 'will'
 
-    assert_equal [{"name" => friend1.name, "id" => friend1.id}].to_json, @response.body
+    assert_equivalent [{"name" => friend1.name, "id" => friend1.id}].to_json, @response.body
   end
 
   should 'invite registered users through profile id' do
     friend1 = create_user('testuser1').person
     friend2 = create_user('testuser2').person
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :invite_registered_friend, :profile => profile.identifier, :q => "#{friend1.id},#{friend2.id}", :mail_template => "click: <url>"
       assert_redirected_to :controller => 'profile', :action => 'friends'
     end
 
-    assert_difference InviteFriend, :count, 2 do
+    assert_difference 'InviteFriend.count', 2 do
       process_delayed_job_queue
     end
   end

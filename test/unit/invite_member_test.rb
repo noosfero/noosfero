@@ -31,7 +31,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     task = InviteMember.create!(:person => p1, :friend => friend, :community_id => community.id)
     InviteMember.create!(:person => p2, :friend => friend, :community_id => community.id)
 
-    assert_difference friend.tasks.pending, :count, -2 do
+    assert_difference 'friend.tasks.pending.count', -2 do
       task.finish
     end
   end
@@ -96,7 +96,9 @@ class InviteMemberTest < ActiveSupport::TestCase
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
 
-    TaskMailer.expects(:deliver_target_notification).once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).once
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
   end
@@ -166,7 +168,7 @@ class InviteMemberTest < ActiveSupport::TestCase
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} invited you to join #{task.community.name}/, email.subject)
   end
 
