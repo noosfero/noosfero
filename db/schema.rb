@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140720144212) do
+ActiveRecord::Schema.define(:version => 20140805205626) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -452,11 +452,13 @@ ActiveRecord::Schema.define(:version => 20140720144212) do
     t.string   "suggestion_type"
     t.text     "categories"
     t.boolean  "enabled",         :default => true
+    t.float    "score"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
 
   add_index "profile_suggestions", ["person_id"], :name => "index_profile_suggestions_on_person_id"
+  add_index "profile_suggestions", ["score"], :name => "index_profile_suggestions_on_score"
   add_index "profile_suggestions", ["suggestion_id"], :name => "index_profile_suggestions_on_suggestion_id"
 
   create_table "profiles", :force => true do |t|

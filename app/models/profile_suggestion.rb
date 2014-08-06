@@ -66,8 +66,16 @@ class ProfileSuggestion < ActiveRecord::Base
   # Number of communities in common
   COMMON_COMMUNITIES = 2
 
-  # Number of friends in common
-  COMMON_TAGS = 2
+  # Number of tags in common
+  COMMON_TAGS = 5
+
+  def self.connections(rule)
+    rule.split(/.*_with_/).last + '_connections'
+  end
+
+  def self.counter(rule)
+    rule.split(/.*_with_/).last + '_count'
+  end
 
   def self.register_suggestions(person, suggested_profiles, rule)
     return if suggested_profiles.nil?
@@ -75,10 +83,9 @@ class ProfileSuggestion < ActiveRecord::Base
     suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
     suggested_profiles = suggested_profiles.limit(SUGGESTIONS_BY_RULE)
     return if suggested_profiles.blank?
-    counter = rule.split(/.*_with_/).last
     suggested_profiles.each do |suggested_profile|
       suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
-      suggestion.send(counter+'=', suggested_profile.common_count.to_i)
+      suggestion.send(counter(rule)+'=', suggested_profile.common_count.to_i)
       suggestion.save!
     end
   end
@@ -95,18 +102,43 @@ class ProfileSuggestion < ActiveRecord::Base
   # need here.
 
   def self.people_with_common_friends(person)
-    person_friends = person.friends.map(&:id)
-    return if person_friends.blank?
-    person.environment.people.
-      select("profiles.*, suggestions.count AS common_count").
-      joins("
-        INNER JOIN (SELECT person_id, count(person_id) FROM
+    "SELECT person_id as profiles_id, array_agg(friend_id) as common_friends_connections, count(person_id) as common_friends_count FROM
           friendships WHERE friend_id IN (#{person_friends.join(',')}) AND
           person_id NOT IN (#{(person_friends << person.id).join(',')})
           GROUP BY person_id
-          HAVING count(person_id) >= #{COMMON_FRIENDS}) AS suggestions
-        ON profiles.id = suggestions.person_id")
+          HAVING count(person_id) >= #{COMMON_FRIENDS}"
   end
+
+  def self.all_suggestions(person)
+    select_string = "profiles.*, " + RULES.map { rule| "suggestions.#{counter(rule)} as #{counter(rule)}, suggestions.#{connections(rule)} as #{connections(rule)}" }.join(',')
+    suggestions_join = RULES.map.with_index do |rule, i|
+      if i == 0
+        "(#{self.send(rule, person)}) AS #{rule}"
+      else
+        previous_rule = RULES[i-1]
+        "LEFT OUTER JOIN (#{self.send(rule, person)}) AS #{rule} ON #{previous_rule}.profiles_id = #{rule}.profiles_id"
+      end
+    end.join(' ')
+    join_string = "INNER JOIN (SELECT * FROM #{suggestions_join}) AS suggestions ON profiles.id = suggestions.profiles_id"
+    person.environment.profiles.
+      select(select_string).
+      joins(join_string)
+
+  end
+
+#  def self.people_with_common_friends(person)
+#    person_friends = person.friends.map(&:id)
+#    return if person_friends.blank?
+#    person.environment.people.
+#      select("profiles.*, suggestions.count as common_count, suggestions.array_agg as connections").
+#      joins("
+#        INNER JOIN (SELECT person_id, array_agg(friend_id), count(person_id) FROM
+#          friendships WHERE friend_id IN (#{person_friends.join(',')}) AND
+#          person_id NOT IN (#{(person_friends << person.id).join(',')})
+#          GROUP BY person_id
+#          HAVING count(person_id) >= #{COMMON_FRIENDS}) AS suggestions
+#        ON profiles.id = suggestions.person_id")
+#  end
 
   def self.people_with_common_communities(person)
     person_communities = person.communities.map(&:id)
