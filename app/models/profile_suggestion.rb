@@ -70,6 +70,7 @@ class ProfileSuggestion < ActiveRecord::Base
   COMMON_TAGS = 2
 
   def self.register_suggestions(person, suggested_profiles, rule)
+    return if suggested_profiles.nil?
     already_suggested_profiles = person.profile_suggestions.map(&:suggestion_id).join(',')
     suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
     suggested_profiles = suggested_profiles.limit(SUGGESTIONS_BY_RULE)
@@ -95,7 +96,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_friends(person)
     person_friends = person.friends.map(&:id)
-    return [] if person_friends.blank?
+    return if person_friends.blank?
     person.environment.people.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -109,7 +110,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_communities(person)
     person_communities = person.communities.map(&:id)
-    return [] if person_communities.blank?
+    return if person_communities.blank?
     person.environment.people.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -125,7 +126,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.people_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
-    return [] if profile_tags.blank?
+    return if profile_tags.blank?
     person.environment.people.
     select("profiles.*, suggestions.count as common_count").
     joins("
@@ -143,7 +144,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.communities_with_common_friends(person)
     person_friends = person.friends.map(&:id)
-    return [] if person_friends.blank?
+    return if person_friends.blank?
     person.environment.communities.
       select("profiles.*, suggestions.count AS common_count").
       joins("
@@ -159,7 +160,7 @@ class ProfileSuggestion < ActiveRecord::Base
 
   def self.communities_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
-    return [] if profile_tags.blank?
+    return if profile_tags.blank?
     person.environment.communities.
     select("profiles.*, suggestions.count AS common_count").
     joins("
