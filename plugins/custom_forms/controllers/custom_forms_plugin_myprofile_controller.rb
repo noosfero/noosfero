@@ -65,10 +65,8 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def submissions
     @form = CustomFormsPlugin::Form.find(params[:id])
-    @submissions = @form.submissions
-
-    @sort_by = params[:sort_by]
-    @submissions = @submissions.sort_by { |s| s.profile.present? ? s.profile.name : s.author_name } if @sort_by == 'author'
+    @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
+    @submissions = @form.submissions.order(@sort_by)
 
     respond_to do |format|
       format.html

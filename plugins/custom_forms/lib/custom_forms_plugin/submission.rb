@@ -21,6 +21,12 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
     end
   end
 
+  before_create do |submission|
+    if submission.profile
+      submission.author_name = profile.name
+    end
+  end
+
   def build_answers submission
     self.form.fields.each do |field|
       next unless value = submission[field.id.to_s]
@@ -52,4 +58,3 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
   end
 
 end
-
