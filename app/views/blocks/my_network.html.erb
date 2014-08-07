@@ -1,6 +1,6 @@
 <%= block_title(title) %>
 
-<%= render :file => 'blocks/my_network/' + owner.class.name.underscore, :locals => { :owner => owner } %>
+<%= render_profile_actions owner.class %>
 
 <ul>
   <li><%= link_to(_('Homepage'), owner.url, :class => 'url') %></li>

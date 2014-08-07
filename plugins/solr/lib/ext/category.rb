@@ -15,6 +15,7 @@ class Category
   ]
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   private
 

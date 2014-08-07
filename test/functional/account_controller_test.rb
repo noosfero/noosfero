@@ -168,6 +168,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_display_change_password_screen
+    login_as 'johndoe'
     get :change_password
     assert_response :success
     assert_template 'change_password'
@@ -202,6 +203,11 @@ class AccountControllerTest < ActionController::TestCase
     assert !assigns(:current_user).authenticated?('blabla')
     assert !assigns(:current_user).authenticated?('blibli')
     assert_equal users(:ze), @controller.send(:current_user)
+  end
+
+  should 'require login to change password' do
+    post :change_password
+    assert_redirected_to :controller => 'account', :action => 'login'
   end
 
   should 'provide a "I forget my password" link at the login page' do
