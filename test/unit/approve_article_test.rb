@@ -431,4 +431,13 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'create link to referenced article' do
+    article = fast_create(Article)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
+    a.create_link = true
+    a.finish
+
+    assert_equal article, LinkArticle.last.reference_article
+  end
+
 end
