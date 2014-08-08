@@ -2,9 +2,10 @@
 
 <%= _('Manage the templates used on creation of profiles') %>
 
-<% list_of_templates = [[_('Person')    , environment.people.templates     , 'person'    ],
+<% list_of_templates = [[_('Person')    , environment.person_templates     , 'person'    ],
                         [_('Community') , environment.communities.templates, 'community' ],
                         [_('Enterprise'), environment.enterprises.templates, 'enterprise']] %>
+
 
 <% list_of_templates.each do |title, templates, kind|%>
   <div class='template-kind'>

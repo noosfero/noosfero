@@ -300,7 +300,7 @@ class Person < Profile
   end
 
   def default_template
-    environment.person_template
+    environment.person_default_template
   end
 
   def apply_type_specific_template(template)

@@ -495,13 +495,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_kind_of Enterprise, e.enterprise_template
     assert_kind_of Enterprise, e.inactive_enterprise_template
     assert_kind_of Community, e.community_template
-    assert_kind_of Person, e.person_template
+    assert_kind_of Person, e.person_default_template
 
     # the templates must be private
     assert !e.enterprise_template.visible?
     assert !e.inactive_enterprise_template.visible?
     assert !e.community_template.visible?
-    assert !e.person_template.visible?
+    assert !e.person_default_template.visible?
   end
 
   should 'set templates' do
@@ -512,13 +512,75 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal comm, e.community_template
 
     person = fast_create(Person, :is_template => true)
-    e.person_template = person
-    assert_equal person, e.person_template
+    e.person_default_template = person
+    assert_equal person, e.person_default_template
 
     enterprise = fast_create(Enterprise, :is_template => true)
     e.enterprise_template = enterprise
     assert_equal enterprise, e.enterprise_template
   end
+
+  should 'person_templates return all templates of person' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+    assert_equivalent [p1,p3], e.person_templates    
+  end
+
+  should 'person_templates return an empty array if there is no templates of person' do
+    e = fast_create(Environment)
+
+    fast_create(Person, :environment_id => e.id)
+    fast_create(Person, :environment_id => e.id)
+    assert_equivalent [], e.person_templates    
+  end
+
+  should 'person_default_template return the template defined as default' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.settings[:person_template_id]= p3.id
+    assert_equal p3, e.person_default_template
+  end
+
+  should 'person_default_template not return a person if its not a template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.settings[:person_template_id]= p2.id
+    assert_nil e.person_default_template
+  end
+
+  should 'person_default_template= define a person model passed as paremeter as default template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.person_default_template= p3
+    assert_equal p3, e.person_default_template
+  end
+
+  should 'person_default_template= define an id passed as paremeter as the default template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.person_default_template= p3.id
+    assert_equal p3, e.person_default_template
+  end
+
 
   should 'have a layout template' do
     e = build(Environment, :layout_template => 'mytemplate')
