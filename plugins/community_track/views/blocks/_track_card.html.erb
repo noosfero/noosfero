@@ -2,7 +2,7 @@
 <div class="item_card <%= category_class(track_card) %>">
   <a href="<%= url_for track_card.url %>">
   <div class="track_content">
-    <div class="title">
+    <div class="title" style="<%= track_color_style(track_card) %>">
       <%= track_card.category_name %>
     </div>
     <div class="image">

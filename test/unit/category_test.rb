@@ -505,4 +505,28 @@ class CategoryTest < ActiveSupport::TestCase
     assert_includes Category.on_level(parent.id), category
   end
 
+  should 'return self if the category has display_color defined' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2, :display_color => 'FFFFFF')
+    c4 = fast_create(Category, :parent_id => c3, :display_color => '000000')
+    assert_equal c4, c4.with_color
+  end
+
+  should 'return first category on hierarchy with display_color defined' do
+    c1 = fast_create(Category, :display_color => '111111')
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2)
+    c4 = fast_create(Category, :parent_id => c3)
+    assert_equal c1, c4.with_color
+  end
+
+  should 'return nil if no category on hierarchy has display_color defined' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2)
+    c4 = fast_create(Category, :parent_id => c3)
+    assert_equal nil, c4.with_color
+  end
+
 end

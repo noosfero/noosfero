@@ -11,15 +11,6 @@ module CategoriesHelper
     labelled_form_field(_('Type of category'), select_tag('type', options_for_select(TYPES, value)))
   end
 
-  def display_color_for_category(category)
-    color = category.display_color
-    if color.nil?
-      ""
-    else
-      "[" + gettext(CategoriesHelper::COLORS.find {|item| item[1] == color}.first) + "]"
-    end
-  end
-
   def category_color_style(category)
     return '' if category.display_color.blank?
     'background-color: #'+category.display_color+';'
@@ -38,16 +29,6 @@ module CategoriesHelper
     link_to body,
       { :action => "update_categories", :category_id => category_id, :id => @object },
       {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => 'select-subcategory-link'}.merge(html_options)
-  end
-
-  protected
-
-  def search_category_tree_for_color(category)
-    if category.display_color.blank?
-      category.parent.nil? ? nil : search_category_tree_for_color(category.parent)
-    else
-      category.display_color
-    end
   end
 
 end

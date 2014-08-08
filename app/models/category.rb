@@ -105,4 +105,12 @@ class Category < ActiveRecord::Base
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
 
+  def with_color
+    if display_color.blank?
+      parent.nil? ? nil : parent.with_color
+    else
+      self
+    end
+  end
+
 end
