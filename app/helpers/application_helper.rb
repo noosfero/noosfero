@@ -314,7 +314,11 @@ module ApplicationHelper
 
   def render_profile_actions klass
     name = klass.to_s.underscore
-    render "blocks/profile_info_actions/#{name}" rescue render_profile_actions klass.superclass
+    begin
+      render "blocks/profile_info_actions/#{name}"
+    rescue ActionView::MissingTemplate
+      render_profile_actions klass.superclass
+    end
   end
 
   def user
