@@ -50,7 +50,7 @@ class ApproveArticle < Task
 
   def perform
     if create_link
-      LinkArticle.create!(:reference_article => article, :profile => target)
+      LinkArticle.create!(:reference_article => article, :profile => target, :parent => article_parent, :highlighted => highlighted)
     else
       article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source, :last_changed_by_id => article.last_changed_by_id, :created_by_id => article.created_by_id)
     end
