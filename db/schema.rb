@@ -452,7 +452,7 @@ ActiveRecord::Schema.define(:version => 20140805205626) do
     t.string   "suggestion_type"
     t.text     "categories"
     t.boolean  "enabled",         :default => true
-    t.float    "score"
+    t.float    "score",           :default => 0.0
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end

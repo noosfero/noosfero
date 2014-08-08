@@ -28,15 +28,12 @@ class ProfileSuggestion < ActiveRecord::Base
 
   # {:category_type => ['category-icon', 'category-label']}
   CATEGORIES = {
-    :common_friends => ['menu-people', _('Friends in common')],
-    :common_communities => ['menu-community',_('Communities in common')],
-    :common_tags => ['edit', _('Tags in common')]
+    :people_with_common_friends => ['menu-people', _('Friends in common')],
+    :people_with_common_communities => ['menu-community',_('Communities in common')],
+    :people_with_common_tags => ['edit', _('Tags in common')],
+    :communities_with_common_friends => ['menu-people', _('Friends in common')],
+    :communities_with_common_tags => ['edit', _('Tags in common')]
   }
-
-  CATEGORIES.keys.each do |category|
-    settings_items category.to_sym
-    attr_accessible category.to_sym
-  end
 
   def category_icon(category)
     'icon-' + ProfileSuggestion::CATEGORIES[category][0]
@@ -46,166 +43,192 @@ class ProfileSuggestion < ActiveRecord::Base
     ProfileSuggestion::CATEGORIES[category][1]
   end
 
-  RULES = %w[
-    people_with_common_friends
-    people_with_common_communities
-    people_with_common_tags
-    communities_with_common_friends
-    communities_with_common_tags
-  ]
+  RULES = {
+    :people_with_common_communities => {
+      :threshold => 2, :weight => 1
+    },
+    :people_with_common_friends => {
+      :threshold => 2, :weight => 1
+    },
+    :people_with_common_tags => {
+      :threshold => 2, :weight => 1
+    },
+    :communities_with_common_friends => {
+      :threshold => 2, :weight => 1
+    },
+    :communities_with_common_tags => {
+      :threshold => 2, :weight => 1
+    }
+  }
+
+  RULES.keys.each do |rule|
+    settings_items rule
+    attr_accessible rule
+  end
 
   # Number of suggestions by rule
-  SUGGESTIONS_BY_RULE = 10
+  N_SUGGESTIONS = 30
 
   # Minimum number of suggestions
-  MIN_LIMIT = 15
+  MIN_LIMIT = 10
 
-  # Number of friends in common
-  COMMON_FRIENDS = 2
-
-  # Number of communities in common
-  COMMON_COMMUNITIES = 2
-
-  # Number of tags in common
-  COMMON_TAGS = 5
+  def self.profile_id(rule)
+    "#{rule}_profile_id"
+  end
 
   def self.connections(rule)
-    rule.split(/.*_with_/).last + '_connections'
+    "#{rule}_connections"
   end
 
   def self.counter(rule)
-    rule.split(/.*_with_/).last + '_count'
-  end
-
-  def self.register_suggestions(person, suggested_profiles, rule)
-    return if suggested_profiles.nil?
-    already_suggested_profiles = person.profile_suggestions.map(&:suggestion_id).join(',')
-    suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
-    suggested_profiles = suggested_profiles.limit(SUGGESTIONS_BY_RULE)
-    return if suggested_profiles.blank?
-    suggested_profiles.each do |suggested_profile|
-      suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
-      suggestion.send(counter(rule)+'=', suggested_profile.common_count.to_i)
-      suggestion.save!
-    end
-  end
-
-  def self.calculate_suggestions(person)
-    ProfileSuggestion::RULES.each do |rule|
-      register_suggestions(person, ProfileSuggestion.send(rule, person), rule)
-    end
+    "#{rule}_count"
   end
 
   # If you are about to rewrite the following sql queries, think twice. After
   # that make sure that whatever you are writing to replace it should be faster
   # than how it is now. Yes, sqls are ugly but are fast! And fast is what we
   # need here.
+  #
+  # The logic behind this code is to produce a table somewhat like this:
+  # profile_id | rule1_count | rule1_connections | rule2_count | rule2_connections | ... | score |
+  #     12     |      2      |      {32,54}      |      3      |     {8,22,27}     | ... |   13  |
+  #     13     |      4      |   {3,12,32,54}    |      2      |      {11,24}      | ... |   15  |
+  #     14     |             |                   |      2      |      {44,56}      | ... |   17  |
+  #                                        ...
+  #                                        ...
+  #
+  # This table has the suggested profile id and the count and connections of
+  # each rule that made this profile be suggested. Each suggestion has a score
+  # associated based on the rules' counts and rules' weights.
+  #
+  # From this table, we can sort suggestions by the score and save a small
+  # amount of them in the database. At this moment we also register the
+  # connections of each suggestion.
+
+  def self.calculate_suggestions(person)
+    suggested_profiles = all_suggestions(person)
+    return if suggested_profiles.nil?
+
+    already_suggested_profiles = person.profile_suggestions.map(&:suggestion_id).join(',')
+    suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
+    #TODO suggested_profiles = suggested_profiles.order('score DESC')
+    suggested_profiles = suggested_profiles.limit(N_SUGGESTIONS)
+    return if suggested_profiles.blank?
+
+    suggested_profiles.each do |suggested_profile|
+      suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
+      RULES.each do |rule, options|
+        value = suggested_profile.send("#{rule}_count").to_i
+        suggestion.send("#{rule}=", value)
+        #TODO Create suggestion connections.
+        suggestion.score += value * options[:weight]
+      end
+      suggestion.save!
+    end
+  end
 
   def self.people_with_common_friends(person)
-    "SELECT person_id as profiles_id, array_agg(friend_id) as common_friends_connections, count(person_id) as common_friends_count FROM
-          friendships WHERE friend_id IN (#{person_friends.join(',')}) AND
-          person_id NOT IN (#{(person_friends << person.id).join(',')})
-          GROUP BY person_id
-          HAVING count(person_id) >= #{COMMON_FRIENDS}"
+    person_friends = person.friends.map(&:id)
+    rule = "people_with_common_friends"
+    return if person_friends.blank?
+    "SELECT person_id as #{profile_id(rule)},
+            array_agg(friend_id) as #{connections(rule)},
+            count(person_id) as #{counter(rule)}
+     FROM friendships WHERE friend_id IN (#{person_friends.join(',')})
+     AND person_id NOT IN (#{(person_friends << person.id).join(',')})
+     GROUP BY person_id"
   end
-
-  def self.all_suggestions(person)
-    select_string = "profiles.*, " + RULES.map { rule| "suggestions.#{counter(rule)} as #{counter(rule)}, suggestions.#{connections(rule)} as #{connections(rule)}" }.join(',')
-    suggestions_join = RULES.map.with_index do |rule, i|
-      if i == 0
-        "(#{self.send(rule, person)}) AS #{rule}"
-      else
-        previous_rule = RULES[i-1]
-        "LEFT OUTER JOIN (#{self.send(rule, person)}) AS #{rule} ON #{previous_rule}.profiles_id = #{rule}.profiles_id"
-      end
-    end.join(' ')
-    join_string = "INNER JOIN (SELECT * FROM #{suggestions_join}) AS suggestions ON profiles.id = suggestions.profiles_id"
-    person.environment.profiles.
-      select(select_string).
-      joins(join_string)
-
-  end
-
-#  def self.people_with_common_friends(person)
-#    person_friends = person.friends.map(&:id)
-#    return if person_friends.blank?
-#    person.environment.people.
-#      select("profiles.*, suggestions.count as common_count, suggestions.array_agg as connections").
-#      joins("
-#        INNER JOIN (SELECT person_id, array_agg(friend_id), count(person_id) FROM
-#          friendships WHERE friend_id IN (#{person_friends.join(',')}) AND
-#          person_id NOT IN (#{(person_friends << person.id).join(',')})
-#          GROUP BY person_id
-#          HAVING count(person_id) >= #{COMMON_FRIENDS}) AS suggestions
-#        ON profiles.id = suggestions.person_id")
-#  end
 
   def self.people_with_common_communities(person)
     person_communities = person.communities.map(&:id)
+    rule = "people_with_common_communities"
     return if person_communities.blank?
-    person.environment.people.
-      select("profiles.*, suggestions.count AS common_count").
-      joins("
-        INNER JOIN (SELECT common_members.accessor_id, count(common_members.accessor_id) FROM
-          (SELECT DISTINCT accessor_id, resource_id FROM
-          role_assignments WHERE role_assignments.resource_id IN (#{person_communities.join(',')}) AND
-          role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
-          role_assignments.accessor_type = 'Profile') AS common_members
-          GROUP BY common_members.accessor_id
-          HAVING count(common_members.accessor_id) >= #{COMMON_COMMUNITIES})
-        AS suggestions ON profiles.id = suggestions.accessor_id")
+    "SELECT common_members.accessor_id as #{profile_id(rule)},
+            array_agg(common_members.resource_id) as #{connections(rule)},
+            count(common_members.accessor_id) as #{counter(rule)}
+     FROM
+       (SELECT DISTINCT accessor_id, resource_id FROM
+       role_assignments WHERE role_assignments.resource_id IN (#{person_communities.join(',')}) AND
+       role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
+       role_assignments.accessor_type = 'Profile') AS common_members
+     GROUP BY common_members.accessor_id"
   end
 
   def self.people_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    rule = "people_with_common_tags"
     return if profile_tags.blank?
-    person.environment.people.
-    select("profiles.*, suggestions.count as common_count").
-    joins("
-      INNER JOIN (
-        SELECT results.profiles_id as profiles_id, count(results.profiles_id) FROM (
-          SELECT DISTINCT tags.id, profiles.id as profiles_id FROM profiles
-          INNER JOIN articles ON articles.profile_id = profiles.id
-          INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
-          INNER JOIN tags ON tags.id = taggings.tag_id
-          WHERE (tags.id in (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
-        GROUP BY results.profiles_id
-        HAVING count(results.profiles_id) >= #{COMMON_TAGS})
-      as suggestions on profiles.id = suggestions.profiles_id")
+    "SELECT results.profiles_id as #{profile_id(rule)},
+            array_agg(results.tags_id) as #{connections(rule)},
+            count(results.profiles_id) as #{counter(rule)}
+     FROM (
+       SELECT DISTINCT tags.id as tags_id, profiles.id as profiles_id FROM profiles
+       INNER JOIN articles ON articles.profile_id = profiles.id
+       INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
+       INNER JOIN tags ON tags.id = taggings.tag_id
+       WHERE (tags.id in (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
+     GROUP BY results.profiles_id"
   end
 
   def self.communities_with_common_friends(person)
     person_friends = person.friends.map(&:id)
+    rule = "communities_with_common_friends"
     return if person_friends.blank?
-    person.environment.communities.
-      select("profiles.*, suggestions.count AS common_count").
-      joins("
-        INNER JOIN (SELECT common_communities.resource_id, count(common_communities.resource_id) FROM
-          (SELECT DISTINCT accessor_id, resource_id FROM
-          role_assignments WHERE role_assignments.accessor_id IN (#{person_friends.join(',')}) AND
-          role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
-          role_assignments.accessor_type = 'Profile') AS common_communities
-          GROUP BY common_communities.resource_id
-          HAVING count(common_communities.resource_id) >= #{COMMON_FRIENDS})
-        AS suggestions ON profiles.id = suggestions.resource_id")
+    "SELECT common_communities.resource_id as #{profile_id(rule)},
+            array_agg(common_communities.accessor_id) as #{connections(rule)},
+            count(common_communities.resource_id) as #{counter(rule)}
+     FROM
+       (SELECT DISTINCT accessor_id, resource_id FROM
+       role_assignments WHERE role_assignments.accessor_id IN (#{person_friends.join(',')}) AND
+       role_assignments.accessor_id != #{person.id} AND role_assignments.resource_type = 'Profile' AND
+       role_assignments.accessor_type = 'Profile') AS common_communities
+     GROUP BY common_communities.resource_id"
   end
 
   def self.communities_with_common_tags(person)
     profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    rule = "communities_with_common_tags"
     return if profile_tags.blank?
-    person.environment.communities.
-    select("profiles.*, suggestions.count AS common_count").
-    joins("
-      INNER JOIN (
-        SELECT results.profiles_id AS profiles_id, count(results.profiles_id) FROM (
-          SELECT DISTINCT tags.id, profiles.id AS profiles_id FROM profiles
-          INNER JOIN articles ON articles.profile_id = profiles.id
-          INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
-          INNER JOIN tags ON tags.id = taggings.tag_id
-          WHERE (tags.id IN (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
-        GROUP BY results.profiles_id
-        HAVING count(results.profiles_id) >= #{COMMON_TAGS})
-      AS suggestions ON profiles.id = suggestions.profiles_id")
+    "SELECT results.profiles_id as #{profile_id(rule)},
+            array_agg(results.tags_id) as #{connections(rule)},
+            count(results.profiles_id) as #{counter(rule)}
+     FROM
+       (SELECT DISTINCT tags.id as tags_id, profiles.id AS profiles_id FROM profiles
+       INNER JOIN articles ON articles.profile_id = profiles.id
+       INNER JOIN taggings ON taggings.taggable_id = articles.id AND taggings.context = ('tags') AND taggings.taggable_type = 'Article'
+       INNER JOIN tags ON tags.id = taggings.tag_id
+       WHERE (tags.id IN (#{profile_tags.join(',')}) AND profiles.id != #{person.id})) AS results
+     GROUP BY results.profiles_id"
+  end
+
+  def self.all_suggestions(person)
+    select_string = "profiles.*, " + RULES.keys.map { |rule| "suggestions.#{counter(rule)} as #{counter(rule)}, suggestions.#{connections(rule)} as #{connections(rule)}" }.join(',')
+    previous_rule = nil
+    suggestions_join = RULES.keys.map do |rule|
+      rule_select = "
+        (SELECT profiles.id as #{profile_id(rule)},
+                #{rule}_sub.#{counter(rule)} as #{counter(rule)},
+                #{rule}_sub.#{connections(rule)} as #{connections(rule)}
+        FROM profiles
+        LEFT OUTER JOIN (#{self.send(rule, person)}) as #{rule}_sub
+        ON profiles.id = #{rule}_sub.#{profile_id(rule)}) AS #{rule}"
+
+      if previous_rule.nil?
+        result = rule_select
+      else
+        result = "INNER JOIN #{rule_select}
+         ON #{previous_rule}.#{profile_id(previous_rule)} = #{rule}.#{profile_id(rule)}"
+      end
+      previous_rule = rule
+      result
+    end.join(' ')
+    join_string = "INNER JOIN (SELECT * FROM #{suggestions_join}) AS suggestions ON profiles.id = suggestions.#{profile_id(RULES.keys.first)}"
+    where_string = RULES.map { |rule, options| "#{counter(rule)} >= #{options[:threshold]}"}.join(' OR ')
+
+    person.environment.profiles.
+      select(select_string).
+      joins(join_string).
+      where(where_string)
   end
 
   def disable
