@@ -58,4 +58,10 @@ class TrackHelperTest < ActiveSupport::TestCase
     assert_equal 'background-color: #fbfbfb;', track_color_style(@track)
   end
 
+  should 'return category color for track name' do
+    category1 = fast_create(Category, :name => 'education', :display_color => 'fbfbfb')
+    @track.categories << category1
+    assert_equal 'color: #fbfbfb;', track_name_color_style(@track)
+  end
+
 end

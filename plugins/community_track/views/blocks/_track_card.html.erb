@@ -8,7 +8,7 @@
     <div class="image">
       <%= image_tag track_card.image.public_filename if track_card.image %>
     </div>
-    <div class="name">
+    <div class="name" style="<%= track_name_color_style(track_card) %>">
       <%= track_card.name %>
     </div>
     <div class="lead">

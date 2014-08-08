@@ -15,4 +15,9 @@ module CommunityTrackPlugin::TrackHelper
     category_color_style(track.categories.first.with_color) if !track.categories.empty?
   end
 
+  def track_name_color_style(track)
+    category = track.categories.empty? ? nil : track.categories.first.with_color
+    category ? "color: ##{category.display_color};" : ''
+  end
+
 end
