@@ -57,7 +57,10 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     p4.add_friend(p6) ; p6.add_friend(p4)
     p2.add_friend(p7) ; p7.add_friend(p2)
 
-    assert_equivalent ProfileSuggestion.people_with_common_friends(p1), [p5,p6]
+    suggestions = ProfileSuggestion.calculate_suggestions(p1)
+
+    assert_includes suggestions, p5
+    assert_includes suggestions, p6
   end
 
   should 'calculate people with common_communities' do
@@ -81,7 +84,10 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     c3.add_member(p4)
     c4.add_member(p5)
 
-    assert_equivalent ProfileSuggestion.people_with_common_communities(p1), [p2,p4]
+    suggestions = ProfileSuggestion.calculate_suggestions(p1)
+
+    assert_includes suggestions, p2
+    assert_includes suggestions, p4
   end
 
   should 'calculate people with common_tags' do
@@ -121,7 +127,10 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     a52.tag_list = ['onivorism', 'facism']
     a52.save!
 
-    assert_equivalent ProfileSuggestion.people_with_common_tags(p1), [p2, p3]
+    suggestions = ProfileSuggestion.calculate_suggestions(p1)
+
+    assert_includes suggestions, p2
+    assert_includes suggestions, p3
   end
 
   should 'calculate communities with common_friends' do
@@ -146,7 +155,10 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     c3.add_member(p2)
     c4.add_member(p3)
 
-    assert_equivalent ProfileSuggestion.communities_with_common_friends(p1), [c1,c2]
+    suggestions = ProfileSuggestion.calculate_suggestions(p1)
+
+    assert_includes suggestions, c1
+    assert_includes suggestions, c2
   end
 
   should 'calculate communities with common_tags' do
@@ -186,39 +198,10 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     a52.tag_list = ['onivorism', 'facism']
     a52.save!
 
-    assert_equivalent ProfileSuggestion.communities_with_common_tags(p1), [p2, p3]
-  end
+    suggestions = ProfileSuggestion.calculate_suggestions(p1)
 
-  should 'register suggestions' do
-    person = create_user('person').person
-    rule = ProfileSuggestion::RULES.sample
-    p1 = fast_create(Profile)
-    p2 = fast_create(Profile)
-    p3 = fast_create(Profile)
-    # Hack to simulate a common_count that generated on the rules
-    suggestions = Profile.select('profiles.*, profiles.id as common_count').where("id in (#{[p1,p2,p3].map(&:id).join(',')})")
-
-    assert_difference 'ProfileSuggestion.count', 3 do
-      ProfileSuggestion.register_suggestions(person, suggestions, rule)
-    end
-    assert_no_difference 'ProfileSuggestion.count' do
-      s1 = ProfileSuggestion.find_or_initialize_by_suggestion_id(p1.id)
-      assert_equal p1, s1.suggestion
-      s2 = ProfileSuggestion.find_or_initialize_by_suggestion_id(p2.id)
-      assert_equal p2, s2.suggestion
-      s3 = ProfileSuggestion.find_or_initialize_by_suggestion_id(p3.id)
-      assert_equal p3, s3.suggestion
-    end
-  end
-
-  should 'calculate every rule suggestion' do
-    person = create_user('person').person
-    ProfileSuggestion::RULES.each do |rule|
-      suggestion = fast_create(Profile)
-      ProfileSuggestion.expects(rule).returns([suggestion])
-      ProfileSuggestion.expects(:register_suggestions).with(person, [suggestion], rule).returns(true)
-    end
-    ProfileSuggestion.calculate_suggestions(person)
+    assert_includes suggestions, p2
+    assert_includes suggestions, p3
   end
 
 #FIXME This might not be necessary anymore...
@@ -302,22 +285,6 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
 #      ProfileSuggestion.register_suggestions(person, ProfileSuggestion.communities_with_common_tags(person), 'communities_with_common_tags')
 #    end
 #  end
-
-  should 'register only new suggestions' do
-    person = create_user('person').person
-    ProfileSuggestion::SUGGESTIONS_BY_RULE.times do
-      ProfileSuggestion.create!(:person => person, :suggestion => fast_create(Person))
-    end
-
-    person.reload
-    new_suggestion = fast_create(Person)
-    ids = (person.suggested_people + [new_suggestion]).map(&:id).join(',')
-    suggested_profiles = Profile.select('profiles.*, profiles.id as common_count').where("profiles.id IN (#{ids})")
-
-    assert_difference 'ProfileSuggestion.count', 1 do
-      ProfileSuggestion.register_suggestions(person, suggested_profiles, 'people_with_common_friends')
-    end
-  end
 
   should 'calculate new suggestions when number of available suggestions reaches the min_limit' do
     person = create_user('person').person

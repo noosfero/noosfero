@@ -4,6 +4,10 @@ class ProfileSuggestion < ActiveRecord::Base
 
   attr_accessible :person, :suggestion, :suggestion_type, :categories, :enabled
 
+  has_many :suggestion_connections, :foreign_key => 'suggestion_id'
+  has_many :profile_connections, :through => :suggestion_connections, :source => :connection, :source_type => 'Profile'
+  has_many :tag_connections, :through => :suggestion_connections, :source => :connection, :source_type => 'ActsAsTaggableOn::Tag'
+
   before_create do |profile_suggestion|
     profile_suggestion.suggestion_type = self.suggestion.class.to_s
   end
@@ -45,19 +49,19 @@ class ProfileSuggestion < ActiveRecord::Base
 
   RULES = {
     :people_with_common_communities => {
-      :threshold => 2, :weight => 1
+      :threshold => 2, :weight => 1, :connection => 'Profile'
     },
     :people_with_common_friends => {
-      :threshold => 2, :weight => 1
+      :threshold => 2, :weight => 1, :connection => 'Profile'
     },
     :people_with_common_tags => {
-      :threshold => 2, :weight => 1
+      :threshold => 2, :weight => 1, :connection => 'ActsAsTaggableOn::Tag'
     },
     :communities_with_common_friends => {
-      :threshold => 2, :weight => 1
+      :threshold => 2, :weight => 1, :connection => 'Profile'
     },
     :communities_with_common_tags => {
-      :threshold => 2, :weight => 1
+      :threshold => 2, :weight => 1, :connection => 'ActsAsTaggableOn::Tag'
     }
   }
 
@@ -118,9 +122,21 @@ class ProfileSuggestion < ActiveRecord::Base
     suggested_profiles.each do |suggested_profile|
       suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
       RULES.each do |rule, options|
-        value = suggested_profile.send("#{rule}_count").to_i
+        begin
+          value = suggested_profile.send("#{rule}_count").to_i
+        rescue NoMethodError
+          next
+        end
+        connections = suggested_profile.send("#{rule}_connections")
+        if connections.present?
+          connections = connections[1..-2].split(',')
+        else
+          connections = []
+        end
         suggestion.send("#{rule}=", value)
-        #TODO Create suggestion connections.
+        connections.each do |connection_id|
+           SuggestionConnection.create!(:suggestion => suggestion, :connection_id => connection_id, :connection_type => options[:connection])
+        end
         suggestion.score += value * options[:weight]
       end
       suggestion.save!
@@ -202,15 +218,25 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   def self.all_suggestions(person)
-    select_string = "profiles.*, " + RULES.keys.map { |rule| "suggestions.#{counter(rule)} as #{counter(rule)}, suggestions.#{connections(rule)} as #{connections(rule)}" }.join(',')
+    select_string = ["profiles.*"]
+    suggestions_join = []
+    where_string = []
+    valid_rules = []
     previous_rule = nil
-    suggestions_join = RULES.keys.map do |rule|
+    join_column = nil
+    RULES.each do |rule, options|
+      rule_select = self.send(rule, person)
+      next if !rule_select.present?
+
+      valid_rules << rule
+      select_string << "suggestions.#{counter(rule)} as #{counter(rule)}, suggestions.#{connections(rule)} as #{connections(rule)}"
+      where_string << "#{counter(rule)} >= #{options[:threshold]}"
       rule_select = "
         (SELECT profiles.id as #{profile_id(rule)},
                 #{rule}_sub.#{counter(rule)} as #{counter(rule)},
                 #{rule}_sub.#{connections(rule)} as #{connections(rule)}
         FROM profiles
-        LEFT OUTER JOIN (#{self.send(rule, person)}) as #{rule}_sub
+        LEFT OUTER JOIN (#{rule_select}) as #{rule}_sub
         ON profiles.id = #{rule}_sub.#{profile_id(rule)}) AS #{rule}"
 
       if previous_rule.nil?
@@ -220,10 +246,14 @@ class ProfileSuggestion < ActiveRecord::Base
          ON #{previous_rule}.#{profile_id(previous_rule)} = #{rule}.#{profile_id(rule)}"
       end
       previous_rule = rule
-      result
-    end.join(' ')
-    join_string = "INNER JOIN (SELECT * FROM #{suggestions_join}) AS suggestions ON profiles.id = suggestions.#{profile_id(RULES.keys.first)}"
-    where_string = RULES.map { |rule, options| "#{counter(rule)} >= #{options[:threshold]}"}.join(' OR ')
+      suggestions_join << result
+    end
+
+    return if valid_rules.blank?
+
+    select_string = select_string.compact.join(',')
+    join_string = "INNER JOIN (SELECT * FROM #{suggestions_join.compact.join(' ')}) AS suggestions ON profiles.id = suggestions.#{profile_id(valid_rules.first)}"
+    where_string = where_string.compact.join(' OR ')
 
     person.environment.profiles.
       select(select_string).

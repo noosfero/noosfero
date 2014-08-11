@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140805205626) do
+ActiveRecord::Schema.define(:version => 20140811141211) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -602,6 +602,12 @@ ActiveRecord::Schema.define(:version => 20140805205626) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "suggestion_connections", :force => true do |t|
+    t.integer "suggestion_id",   :null => false
+    t.integer "connection_id",   :null => false
+    t.string  "connection_type", :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
