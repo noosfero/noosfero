@@ -687,6 +687,42 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal e3, env.enterprise_default_template
   end
 
+  should 'is_default_template? method identify a person default template as default' do
+    env = fast_create(Environment)
+
+    p1 = fast_create(Person, :is_template => true, :environment_id => env.id)
+    env.person_default_template= p1.id
+    assert env.is_default_template?(p1)
+
+    p2 = fast_create(Person, :is_template => true, :environment_id => env.id)
+    env.person_default_template= p2.id
+    assert !env.is_default_template?(p1)
+  end
+
+  should 'is_default_template? method identify a community default template as default' do
+    env = fast_create(Environment)
+
+    c1 = fast_create(Community, :is_template => true, :environment_id => env.id)
+    env.community_default_template= c1.id
+    assert env.is_default_template?(c1)
+
+    c2 = fast_create(Community, :is_template => true, :environment_id => env.id)
+    env.community_default_template= c2.id
+    assert !env.is_default_template?(c1)
+  end
+
+  should 'is_default_template? method identify a enterprise default template as default' do
+    env = fast_create(Environment)
+
+    e1 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    env.enterprise_default_template= e1.id
+    assert env.is_default_template?(e1)
+
+    e2 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    env.enterprise_default_template= e2.id
+    assert !env.is_default_template?(e1)
+  end
+
   should 'have a layout template' do
     e = build(Environment, :layout_template => 'mytemplate')
     assert_equal 'mytemplate', e.layout_template

@@ -717,6 +717,13 @@ class Environment < ActiveRecord::Base
     ]
   end
 
+  def is_default_template?(template)
+    is_default = template == community_default_template 
+    is_default = is_default || template == person_default_template 
+    is_default = is_default || template == enterprise_default_template
+    is_default
+  end
+
   def community_templates
     self.communities.templates
   end
