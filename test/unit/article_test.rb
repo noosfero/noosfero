@@ -1077,6 +1077,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'create the notification to organization and all organization members' do
+    ActionTracker::Record.delete_all
+
     community = fast_create(Community)
     member_1 = Person.first
     community.add_member(member_1)
