@@ -717,13 +717,17 @@ class Environment < ActiveRecord::Base
     ]
   end
 
-  def community_template
-    template = Community.find_by_id settings[:community_template_id]
-    template if template && template.is_template
+  def community_templates
+    self.communities.templates
   end
 
-  def community_template=(value)
-    settings[:community_template_id] = value.id
+  def community_default_template
+    template = Community.find_by_id settings[:community_template_id]
+    template if template && template.is_template?
+  end
+
+  def community_default_template=(value)
+    settings[:community_template_id] = value.kind_of?(Community) ? value.id : value
   end
 
   def person_templates
@@ -845,7 +849,7 @@ class Environment < ActiveRecord::Base
 
     self.enterprise_template = enterprise_template
     self.inactive_enterprise_template = inactive_enterprise_template
-    self.community_template = community_template
+    self.community_default_template = community_template
     self.person_default_template = person_template
     self.save!
   end
