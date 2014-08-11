@@ -16,6 +16,7 @@ gem 'hpricot'
 gem 'nokogiri'
 gem 'rake', :require => false
 gem 'rest-client'
+gem 'exception_notification'
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
