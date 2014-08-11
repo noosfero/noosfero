@@ -1789,23 +1789,12 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.author_id
   end
 
-  should "return the author of a specific version" do
-    author1 = fast_create(Person)
-    author2 = fast_create(Person)
-    article = create(Article, :name => 'first version', :profile => profile, :created_by => author1, :last_changed_by => author1)
-    article.name = 'second version'
-    article.last_changed_by = author2
-    article.save
-    assert_equal author1, article.author_by_version(1)
-    assert_equal author2, article.author_by_version(2)
-  end
-
   should "return the author_name of a specific version" do
     author1 = fast_create(Person)
     author2 = fast_create(Person)
-    article = create(Article, :name => 'first version', :profile => profile, :created_by => author1)
+    article = create(Article, :name => 'first version', :profile => profile, :author => author1)
     article.name = 'second version'
-    article.last_changed_by = author2
+    article.author = author2
     article.save
     assert_equal author1.name, article.author_name(1)
     assert_equal author2.name, article.author_name(2)
@@ -1877,11 +1866,13 @@ class ArticleTest < ActiveSupport::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
-    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => p1)
+    article = create(Article, :name => 'first version', :profile => profile, :author => p1)
+
     article.name = 'second version'
-    article.last_changed_by = p2
+    article.author = p2
     article.save!
-    article.last_changed_by = p3
+
+    article.author = p3
     article.name = 'third version'
     article.save!
 

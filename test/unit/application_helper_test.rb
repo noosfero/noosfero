@@ -861,7 +861,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     stubs(:user).returns(nil)
     expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
-    assert_nil manage_enterprises
+    assert_equal '', manage_enterprises
   end
 
   should 'display enterprises if logged and enabled on environment' do
@@ -885,7 +885,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     stubs(:user).returns(profile)
     expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
-    assert_nil manage_enterprises
+    assert_equal '', manage_enterprises
   end
 
   should 'not display communities if not logged' do
@@ -897,7 +897,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     stubs(:user).returns(nil)
     expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
-    assert_nil manage_communities
+    assert_equal '', manage_communities
   end
 
   should 'display communities if logged and enabled on environment' do
@@ -921,7 +921,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     stubs(:user).returns(profile)
     expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
-    assert_nil manage_communities
+    assert_equal '', manage_communities
   end
 
   protected

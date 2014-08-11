@@ -11,7 +11,7 @@ class FilePresenter
     return f if f.is_a?(FilePresenter ) || (!f.kind_of?(UploadedFile) && !f.kind_of?(Image))
     klass = FilePresenter.subclasses.sort_by {|class_instance|
       class_instance.accepts?(f) || 0
-    }.last.constantize
+    }.last
     klass.accepts?(f) ? klass.new(f) : f
   end
 

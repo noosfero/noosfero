@@ -645,23 +645,12 @@ class Article < ActiveRecord::Base
     can_display_versions? && display_versions
   end
 
-  def author(version_number = nil)
-    if version_number
-      version = self.versions.find_by_version(version_number)
-      author_id = version.last_changed_by_id if version
-    else
-      author_id = self.created_by_id
-    end
-
-    environment.people.find_by_id(author_id)
-  end
-
   def get_version(version_number = nil)
     version_number ? versions.find(:first, :order => 'version', :offset => version_number - 1) : versions.earliest
   end
 
   def author_by_version(version_number = nil)
-    version_number ? profile.environment.people.find_by_id(get_version(version_number).last_changed_by_id) : author
+    version_number ? profile.environment.people.find_by_id(get_version(version_number).author_id) : author
   end
 
   def author_name(version_number = nil)

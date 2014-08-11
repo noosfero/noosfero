@@ -1113,12 +1113,12 @@ module ApplicationHelper
   end
 
   def manage_enterprises
-    return unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
+    return '' unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
     manage_link(user.enterprises, :enterprises, _('My enterprises')).to_s
   end
 
   def manage_communities
-    return unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
+    return '' unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
     administered_communities = user.communities.more_popular.select {|c| c.admins.include? user}
     manage_link(administered_communities, :communities, _('My communities')).to_s
   end
