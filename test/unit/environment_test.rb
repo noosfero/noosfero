@@ -492,13 +492,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     e.reload
 
     # the templates must be created
-    assert_kind_of Enterprise, e.enterprise_template
+    assert_kind_of Enterprise, e.enterprise_default_template
     assert_kind_of Enterprise, e.inactive_enterprise_template
     assert_kind_of Community, e.community_default_template
     assert_kind_of Person, e.person_default_template
 
     # the templates must be private
-    assert !e.enterprise_template.visible?
+    assert !e.enterprise_default_template.visible?
     assert !e.inactive_enterprise_template.visible?
     assert !e.community_default_template.visible?
     assert !e.person_default_template.visible?
@@ -626,6 +626,66 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal c3, e.community_default_template
   end
 
+  should 'enterprise_templates return all templates of enterprise' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    assert_equivalent [e1,e3], env.enterprise_templates    
+  end
+
+  should 'enterprise_templates return an empty array if there is no templates of enterprise' do
+    env = fast_create(Environment)
+
+    fast_create(Enterprise, :environment_id => env.id)
+    fast_create(Enterprise, :environment_id => env.id)
+    assert_equivalent [], env.enterprise_templates    
+  end
+
+  should 'enterprise_default_template return the template defined as default' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.settings[:enterprise_template_id]= e3.id
+    assert_equal e3, env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template not return a enterprise if its not a template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.settings[:enterprise_template_id]= e2.id
+    assert_nil env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template= define a enterprise model passed as paremeter as default template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.enterprise_default_template= e3
+    assert_equal e3, env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template= define an id passed as paremeter as the default template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.enterprise_default_template= e3.id
+    assert_equal e3, env.enterprise_default_template
+  end
 
   should 'have a layout template' do
     e = build(Environment, :layout_template => 'mytemplate')
