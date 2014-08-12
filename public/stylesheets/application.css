@@ -4132,12 +4132,6 @@ h1#agenda-title {
   -webkit-border-radius: 5px;
 }
 
-.list-profile-connections .profile-list li:hover,
-.profiles-suggestions .profile-list li:hover {
-  border: 1px solid #ccc;
-  background: #eee;
-}
-
 .box-1 .profiles-suggestions .profile-list li {
   width: 100px;
   max-width: 100px;

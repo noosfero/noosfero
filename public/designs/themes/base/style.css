@@ -1278,20 +1278,6 @@ hr.pre-posts, hr.sep-posts {
 
 /******** controller-friends action-friends-index ********/
 
-.action-friends-index .profile-list li,
-.common-profile-list-block .vcard {
-  border: 1px solid transparent;
-}
-
-.action-friends-index .profile-list li:hover,
-.common-profile-list-block .vcard:hover {
-  border: 1px solid #CCC;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  background: #EEE;
-  text-decoration: none;
-}
-
 .common-profile-list-block .vcard a,
 .common-profile-list-block .vcard a:hover {
   background: transparent;
