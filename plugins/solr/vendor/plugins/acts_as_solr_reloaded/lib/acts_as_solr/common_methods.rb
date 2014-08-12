@@ -1,5 +1,5 @@
 module ActsAsSolr #:nodoc:
-  
+
   module CommonMethods
 
     TypeMapping = {
@@ -14,6 +14,7 @@ module ActsAsSolr #:nodoc:
       :range_integer => "ri",
       :facet => "facet",
       :text => "t",
+      :ngram_text => "nt",
     }
 
     # Converts field types into Solr types
@@ -39,39 +40,39 @@ module ActsAsSolr #:nodoc:
       result = [result] unless result.is_a?(Array)
       solr_batch_add result
     end
-    
+
     # Sends an add command to Solr
     def solr_add(add_xml)
       ActsAsSolr::Post.execute(Solr::Request::AddDocument.new(add_xml))
     end
-    
+
     # Sends the delete command to Solr
     def solr_delete(solr_ids)
       ActsAsSolr::Post.execute(Solr::Request::Delete.new(:id => solr_ids))
     end
-    
+
     # Sends the commit command to Solr
     def solr_commit
       ActsAsSolr::Post.execute(Solr::Request::Commit.new)
     end
-    
+
     # Optimizes the Solr index. Solr says:
-    # 
-    # Optimizations can take nearly ten minutes to run. 
-    # We are presuming optimizations should be run once following large 
+    #
+    # Optimizations can take nearly ten minutes to run.
+    # We are presuming optimizations should be run once following large
     # batch-like updates to the collection and/or once a day.
-    # 
-    # One of the solutions for this would be to create a cron job that 
+    #
+    # One of the solutions for this would be to create a cron job that
     # runs every day at midnight and optmizes the index:
     #   0 0 * * * /your_rails_dir/script/runner -e production "Model.solr_optimize"
-    # 
+    #
     def solr_optimize
       ActsAsSolr::Post.execute(Solr::Request::Optimize.new)
     end
-    
+
     # Returns the id for the given instance
-    def record_id(object)
-      eval "object.#{object.class.primary_key}"
+    def record_id object
+      object.send object.class.primary_key
     end
   end
 end
