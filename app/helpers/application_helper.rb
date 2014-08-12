@@ -1420,12 +1420,12 @@ module ApplicationHelper
   end
 
   def profile_suggestion_profile_connections(suggestion)
-    profiles = suggestion.profile_connections.first(5).map do |profile|
+    profiles = suggestion.profile_connections.first(4).map do |profile|
       link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon', :title => profile.name)
     end
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
-    profiles << link_to("<big> +#{suggestion.profile_connections.count - 5}</big>", :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 5
+    profiles << link_to("<big> +#{suggestion.profile_connections.count - 4}</big>", :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 4
 
     content_tag(:div, profiles.join , :class => 'profile-connections')
   end

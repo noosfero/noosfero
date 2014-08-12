@@ -4102,8 +4102,6 @@ h1#agenda-title {
   margin-left: 2px;
   margin-top: 3px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 120px;
 }
 
