@@ -4035,6 +4035,7 @@ h1#agenda-title {
 }
 .controller-favorite_enterprises .profile-list a.profile-link,
 .controller-friends .profile-list a.profile-link,
+.list-profile-connections .profile-list a.profile-link,
 .profiles-suggestions .profile-list a.profile-link {
   text-decoration: none;
   text-align: center;
