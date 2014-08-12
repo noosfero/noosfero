@@ -346,7 +346,7 @@ class ProfileTest < ActiveSupport::TestCase
     t2 = c.tasks.build
     t2.save!
 
-    assert_equal [t1, t2], c.tasks
+    assert_equivalent [t1, t2], c.tasks
   end
 
   should 'have pending tasks' do
@@ -355,7 +355,7 @@ class ProfileTest < ActiveSupport::TestCase
     t2 = c.tasks.build; t2.save!; t2.finish
     t3 = c.tasks.build; t3.save!
 
-    assert_equal [t1, t3], c.tasks.pending
+    assert_equivalent [t1, t3], c.tasks.pending
   end
 
   should 'have finished tasks' do
@@ -1240,7 +1240,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     Person.any_instance.stubs(:is_admin?).returns(true)
 
-    assert_equal [task1, task2], Task.to(person).pending
+    assert_equivalent [task1, task2], Task.to(person).pending
   end
 
   should 'find task by id on all environments' do

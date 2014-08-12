@@ -36,8 +36,8 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
     form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     submission = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
-    a1 = CustomFormsPlugin::Answer.create!(:field => field, :submission => submission)
-    a2 = CustomFormsPlugin::Answer.create!(:field => field, :submission => submission)
+    a1 = submission.answers.create!(:field => field, :submission => submission)
+    a2 = submission.answers.create!(:field => field, :submission => submission)
 
     assert_includes submission.answers, a1
     assert_includes submission.answers, a2

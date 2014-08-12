@@ -40,6 +40,7 @@ class Article
     :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   def solr_plugin_comments_updated
     solr_save

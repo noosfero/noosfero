@@ -409,13 +409,13 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert_equal products, e1.highlighted_products_with_image
   end
 
-  should 'has many inputs through products' do
+  should 'have many inputs through products' do
     enterprise = fast_create(Enterprise)
     product = fast_create(Product, :profile_id => enterprise.id, :product_category_id => @product_category.id)
     product.inputs << build(Input, :product_category => @product_category)
     product.inputs << build(Input, :product_category => @product_category)
 
-    assert_equal product.inputs, enterprise.inputs
+    assert_equal product.inputs.sort, enterprise.inputs.sort
   end
 
   should "the followed_by? be true only to members" do
