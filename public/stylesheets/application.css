@@ -4095,6 +4095,10 @@ h1#agenda-title {
   margin: 0px;
 }
 
+.profiles-suggestions .profile-list .extra_info a {
+  text-decoration: none;
+}
+
 #content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {
   position: relative;
 }
@@ -4114,6 +4118,13 @@ h1#agenda-title {
   width: auto;
 }
 
+.list-profile-connections .profile-list li {
+  border: 1px solid transparent;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.list-profile-connections .profile-list li:hover,
 .profiles-suggestions .profile-list li:hover {
   border: 1px solid #ccc;
   background: #eee;

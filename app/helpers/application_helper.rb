@@ -1422,9 +1422,12 @@ module ApplicationHelper
   def profile_suggestion_profile_connections(suggestion)
     profiles = suggestion.profile_connections.first(4).map do |profile|
       link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon')
-    end.join
-    extra = suggestion.profile_connections.count > 4 ? "<big> +#{suggestion.profile_connections.count - 4}</big>" : ''
-    content_tag(:p, profiles + extra)
+    end
+
+    controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
+    profiles << link_to("<big> +#{suggestion.profile_connections.count - 4}</big>", :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 4
+
+    content_tag(:p, profiles.join)
   end
 
   def profile_suggestion_tag_connections(suggestion)
@@ -1433,7 +1436,10 @@ module ApplicationHelper
     end
     last_tag = tags.pop
     tags << last_tag.strip.chop if last_tag.present?
-    tags << '...' if suggestion.tag_connections.count > 4
+
+    controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
+    tags << link_to('...', :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.tag_connections.count > 4
+
     content_tag(:p, tags.join)
   end
 end
