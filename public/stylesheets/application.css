@@ -4147,7 +4147,6 @@ h1#agenda-title {
 .common-profile-list-block .profiles-suggestions .profile-list li {
   width: 100%;
   max-width: 100%;
-  height: 70px;
   max-height: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
