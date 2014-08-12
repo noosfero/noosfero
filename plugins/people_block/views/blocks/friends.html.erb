@@ -6,6 +6,8 @@
     <div class='profiles-suggestions'>
       <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => suggestions, :collection => :friends_suggestions } %>
     </div>
-    <%= link_to _('See more suggestions'), profile.people_suggestions_url, :class => 'more-suggestions' %>
+    <div class='more-suggestions'>
+      <%= link_to _('See more suggestions'), profile.people_suggestions_url %>
+    </div>
   </div>
 <% end %>

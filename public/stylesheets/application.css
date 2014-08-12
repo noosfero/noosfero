@@ -1680,7 +1680,7 @@ a.button.disabled, input.disabled {
 
 #content .block-footer-content .profiles-suggestions a.accept-suggestion {
   padding-bottom: 3px;
-  display: block;
+  display: inline-block;
   color: #333;
   font-size: 11px
 }
@@ -1715,12 +1715,13 @@ a.button.disabled, input.disabled {
   font-weight: bold;
 }
 
-#content .communities-block .profiles-suggestions .profile-list .extra_info {
-  z-index: 10;
+.more-suggestions {
+  text-align: center;
 }
 
-#content .communities-block .block-footer-content a.more-suggestions {
-  position: relative;
+.profiles-suggestions .profile-list .extra_info {
+  z-index: 10;
+  display: inline-block;
 }
 
 .suggestions-block .block-subtitle {
@@ -4097,6 +4098,7 @@ h1#agenda-title {
 
 .tag-connections {
   margin-left: 2px;
+  margin-top: 3px;
 }
 
 #content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {
@@ -4129,9 +4131,10 @@ h1#agenda-title {
   border: 2px solid transparent;
 }
 
-.common-profile-list-block .profiles-suggestions .profile-list li {
+#content .common-profile-list-block .profiles-suggestions .profile-list li {
   width: 100%;
   max-width: 100%;
+  padding: 3px 0;
 }
 
 .common-profile-list-block .profiles-suggestions .profile-list li img {
