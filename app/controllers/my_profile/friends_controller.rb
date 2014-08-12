@@ -31,6 +31,16 @@ class FriendsController < MyProfileController
     end
   end
 
+  def connections
+    @suggestion = profile.profile_suggestions.of_person.enabled.find_by_suggestion_id(params[:id])
+    if @suggestion
+      @tags = @suggestion.tag_connections
+      @profiles = @suggestion.profile_connections
+    else
+      redirect_to :action => 'suggest'
+    end
+  end
+
   protected
 
   class << self
