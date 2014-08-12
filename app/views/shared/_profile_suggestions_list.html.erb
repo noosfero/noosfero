@@ -18,7 +18,8 @@
                       s.suggestion.add_url, :class => 'accept-suggestion' %>
         <% end %>
         <div class='extra_info'>
-          <%= profile_suggestion_categories(s) %>
+          <%= profile_suggestion_profile_connections(s) %>
+          <%= profile_suggestion_tag_connections(s) %>
         </div>
         <div class="controll">
           <% if collection == :friends_suggestions %>

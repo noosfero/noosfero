@@ -4085,6 +4085,16 @@ h1#agenda-title {
   margin: 0px;
 }
 
+#content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {
+  position: relative;
+}
+
+.profiles-suggestions .profile-list .extra_info big {
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: text-bottom;
+}
+
 .profiles-suggestions .profile-list .extra_info span {
   background-position: 4px 50%;
   background-repeat: no-repeat;
