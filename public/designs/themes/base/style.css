@@ -405,8 +405,7 @@ div#notice {
 }
 
 
-#content .block-title,
-#content .block-subtitle {
+#content .block-title {
   font-variant: small-caps;
   color: #AAA;
   font-size: 14px;
@@ -414,7 +413,12 @@ div#notice {
   border-bottom: 2px solid #AAA;
 }
 #content .block-subtitle {
-  font-size: 13px;
+  font-variant: normal;
+  color: #AAA;
+  font-size: 11px;
+  text-align: left;
+  border-bottom: 1px solid #AAA;
+  padding: 2px 0;
 }
 
 /*************************** Login block *****************************/
