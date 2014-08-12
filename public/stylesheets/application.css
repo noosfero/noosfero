@@ -4003,8 +4003,7 @@ h1#agenda-title {
   list-style: none;
 }
 .controller-favorite_enterprises .profile-list li,
-.controller-friends .profile-list li,
-.profiles-suggestions .profile-list li {
+.controller-friends .profile-list li {
   float: left;
   margin: 5px;
   height: 90px;
@@ -4014,6 +4013,18 @@ h1#agenda-title {
   list-style: none;
   position: relative;
 }
+.profiles-suggestions .profile-list li {
+  float: left;
+  margin: 5px;
+  height: 90px;
+  max-height: 80px;
+  padding: 5px;
+  border: 1px solid transparent;
+  list-style: none;
+  position: relative;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
 .controller-favorite_enterprises .profile-list li,
 .controller-friends .profile-list li {
   width: 90px;
@@ -4021,8 +4032,7 @@ h1#agenda-title {
 }
 
 .controller-favorite_enterprises .profile-list li:hover,
-.controller-friends .profile-list li:hover,
-.box-1 .profiles-suggestions .profile-list li:hover {
+.controller-friends .profile-list li:hover {
   border: 2px solid #eeeeec;
 }
 .controller-favorite_enterprises .profile-list img,
@@ -4104,20 +4114,32 @@ h1#agenda-title {
   width: auto;
 }
 
-.profiles-suggestions .profile-list li {
-  width: 85px;
-  max-width: 85px;
+.profiles-suggestions .profile-list li:hover {
+  border: 1px solid #ccc;
+  background: #eee;
 }
 
 .box-1 .profiles-suggestions .profile-list li {
-  width: 76px;
-  max-width: 76px;
-  border: 2px solid transparent;
+  width: 100px;
+  max-width: 100px;
+  height: 130px;
+  max-height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-1 .profiles-suggestions .profile-list .remove-suggestion,
+.box-1 .profiles-suggestions .profile-list li > a {
+  text-decoration: none;
 }
 
 .common-profile-list-block .profiles-suggestions .profile-list li {
   width: 100%;
   max-width: 100%;
+  height: 70px;
+  max-height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .common-profile-list-block .profiles-suggestions .profile-list li img {
