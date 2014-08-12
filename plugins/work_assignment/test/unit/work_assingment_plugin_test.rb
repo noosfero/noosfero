@@ -3,7 +3,7 @@ require 'test_helper'
 class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'verify if a content is a work_assignment submission' do
     organization = fast_create(Organization)
-    content = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :created_by => fast_create(Person))
+    content = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :author => fast_create(Person))
     assert !WorkAssignmentPlugin.is_submission?(content)
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
@@ -51,6 +51,6 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     author_folder = work_assignment.find_or_create_author_folder(author)
-    create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => author_folder, :created_by => author)
+    create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => author_folder, :author => author, :last_changed_by => author)
   end
 end

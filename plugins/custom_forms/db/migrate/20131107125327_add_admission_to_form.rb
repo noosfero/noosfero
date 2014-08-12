@@ -4,10 +4,7 @@ class AddAdmissionToForm < ActiveRecord::Migration
       t.boolean :for_admission, :default => false
     end 
 
-    CustomFormsPlugin::Form.find_each do |f|
-      f.for_admission = false
-      f.save!
-    end
+    execute('update custom_forms_plugin_forms set for_admission = (1<0)')
   end
 
   def self.down
