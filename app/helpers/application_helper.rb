@@ -1428,11 +1428,12 @@ module ApplicationHelper
   end
 
   def profile_suggestion_tag_connections(suggestion)
-    tags = suggestion.tag_connections.map do |tag|
+    tags = suggestion.tag_connections.first(4).map do |tag|
       tag.name + ', '
     end
     last_tag = tags.pop
     tags << last_tag.strip.chop if last_tag.present?
+    tags << '...' if suggestion.tag_connections.count > 4
     content_tag(:p, tags.join)
   end
 end
