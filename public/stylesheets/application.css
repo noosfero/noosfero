@@ -4139,6 +4139,7 @@ h1#agenda-title {
   width: 100%;
   max-width: 100%;
   padding: 3px 0;
+  border-radius: 5px;
 }
 
 .common-profile-list-block .profiles-suggestions .profile-list li img {
