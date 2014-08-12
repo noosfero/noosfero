@@ -1668,6 +1668,10 @@ a.button.disabled, input.disabled {
   padding-bottom: 0px;
 }
 
+#content .block-footer-content .profiles-suggestions a {
+  text-decoration: none;
+}
+
 #content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
 #content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
   position: relative;
@@ -1678,6 +1682,11 @@ a.button.disabled, input.disabled {
   padding-bottom: 3px;
   display: block;
   color: #333;
+  font-size: 11px
+}
+
+#content .block-footer-content .profiles-suggestions a.accept-suggestion:hover {
+  text-decoration: underline;
 }
 
 #content .profiles-suggestions .profile-list a.remove-suggestion {
@@ -1690,6 +1699,7 @@ a.button.disabled, input.disabled {
   font-size: 14px;
   text-align: center;
   font-weight: bold;
+  margin: 1px 1px 0 0;
 }
 
 #content .profiles-suggestions .profile-list a.remove-suggestion:hover {
@@ -3995,39 +4005,31 @@ h1#agenda-title {
 
 /* ==> @import url(manage_contacts_list.css); <== */
 
-.controller-favorite_enterprises .profile-list,
-.controller-friends .profile-list,
-.profiles-suggestions .profile-list {
+.profile-list {
   margin: 0px;
   padding: 0px;
   list-style: none;
 }
-.controller-favorite_enterprises .profile-list li,
-.controller-friends .profile-list li,
-.profiles-suggestions .profile-list li {
+
+.profile-list li {
   float: left;
   margin: 5px;
-  height: 90px;
-  max-height: 80px;
   padding: 5px;
-  border: 2px solid transparent;
   list-style: none;
   position: relative;
 }
+
+.profile-list li:hover {
+  background-color: #eeeeec;
+}
+
 .controller-favorite_enterprises .profile-list li,
 .controller-friends .profile-list li {
   width: 90px;
   max-width: 80px;
 }
 
-.controller-favorite_enterprises .profile-list li:hover,
-.controller-friends .profile-list li:hover,
-.box-1 .profiles-suggestions .profile-list li:hover {
-  border: 2px solid #eeeeec;
-}
-.controller-favorite_enterprises .profile-list img,
-.controller-friends .profile-list img,
-.profiles-suggestions .profile-list img {
+.profile-list img {
   border: none;
 }
 .controller-favorite_enterprises .profile-list a.profile-link,
@@ -4085,6 +4087,18 @@ h1#agenda-title {
   margin: 0px;
 }
 
+.profiles-suggestions .profile-list .extra_info a {
+  padding: 0;
+}
+
+.profile-connections {
+  height: 20px;
+}
+
+.tag-connections {
+  margin-left: 2px;
+}
+
 #content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {
   position: relative;
 }
@@ -4092,7 +4106,7 @@ h1#agenda-title {
 .profiles-suggestions .profile-list .extra_info big {
     font-size: 14px;
     font-weight: bold;
-    vertical-align: text-bottom;
+    line-height: 20px;
 }
 
 .profiles-suggestions .profile-list .extra_info span {
@@ -4127,6 +4141,10 @@ h1#agenda-title {
 #content .common-profile-list-block .profiles-suggestions .profile-list a.profile-link {
   text-align: left;
   position: relative;
+  height: 50px;
+  width: 50px;
+  float: left;
+  margin-right: 5px;
 }
 
 /* ==> public/stylesheets/controller_friends.css <== */

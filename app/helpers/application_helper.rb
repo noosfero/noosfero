@@ -1433,6 +1433,6 @@ module ApplicationHelper
     end
     last_tag = tags.pop
     tags << last_tag.strip.chop if last_tag.present?
-    content_tag(:p, tags.join)
+    content_tag(:div, tags.join, :class => 'tag-connections')
   end
 end
