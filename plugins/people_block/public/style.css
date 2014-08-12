@@ -107,9 +107,6 @@
 #content .friends-block .block-footer-content a.more-suggestions {
   position: relative;
 }
-#content .friends-block .block-footer-content .profiles-suggestions a.explain-suggestion {
-  position: absolute;
-}
 
 #content .common-profile-list-block .profiles-suggestions .profile-list .extra_info {
   top: 20px;
@@ -123,8 +120,7 @@
   top: 0px;
   right: 0px;
 }
-#content .common-profile-list-block .profiles-suggestions .controll a,
-#content .friends-block .block-footer-content .profiles-suggestions a.explain-suggestion {
+#content .common-profile-list-block .profiles-suggestions .controll a {
   width: 16px;
   padding: 1px;
 }
