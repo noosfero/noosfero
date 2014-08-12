@@ -73,17 +73,6 @@
   width: auto;
   display: block;
 }
-#content .people-block .block-footer-content a,
-#content .friends-block .block-footer-content a,
-#content .members-block .block-footer-content a {
-  position: absolute;
-  top: 2px;
-  right: 0px;
-  font-size: 11px;
-  color: #000;
-  text-decoration: none;
-  padding-right: 15px;
-}
 #content .members-block .block-footer-content .join-leave-button a {
   position: relative;
   background-color: #EEE;

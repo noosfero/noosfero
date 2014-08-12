@@ -416,7 +416,7 @@ div#notice {
   font-variant: normal;
   color: #AAA;
   font-size: 11px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #AAA;
   padding: 2px 0;
 }
@@ -504,10 +504,7 @@ div#notice {
   display: block;
 }
 
-#content .tags-block .block-footer-content a,
-#content .profile-list-block .block-footer-content a,
-#content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a {
+.block-footer-content a.view-all {
   position: absolute;
   top: 2px;
   right: 0px;
@@ -515,11 +512,6 @@ div#notice {
   color: #000;
   text-decoration: none;
   padding-right: 15px;
-}
-#content .tags-block .block-footer-content a,
-#content .profile-list-block .block-footer-content a,
-#content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a.view-all {
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
 
