@@ -4100,6 +4100,10 @@ h1#agenda-title {
 .tag-connections {
   margin-left: 2px;
   margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 120px;
 }
 
 #content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {

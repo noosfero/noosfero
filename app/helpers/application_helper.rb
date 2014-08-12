@@ -1436,10 +1436,11 @@ module ApplicationHelper
     end
     last_tag = tags.pop
     tags << last_tag.strip.chop if last_tag.present?
+    title = tags.join
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
     tags << link_to('...', :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.tag_connections.count > 4
 
-    content_tag(:div, tags.join, :class => 'tag-connections')
+    content_tag(:div, tags.join, :class => 'tag-connections', :title => title)
   end
 end
