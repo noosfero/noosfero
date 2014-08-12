@@ -1427,7 +1427,11 @@ module ApplicationHelper
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
     profiles << link_to("<big> +#{suggestion.profile_connections.count - 4}</big>", :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 4
 
-    content_tag(:div, profiles.join , :class => 'profile-connections')
+    if profiles.present?
+      content_tag(:div, profiles.join , :class => 'profile-connections')
+    else
+      ''
+    end
   end
 
   def profile_suggestion_tag_connections(suggestion)
@@ -1439,8 +1443,12 @@ module ApplicationHelper
     title = tags.join
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
-    tags << link_to('...', :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.tag_connections.count > 4
+    tags << ' ' + link_to('...', {:controller => controller_target, :action => :connections, :id => suggestion.suggestion_id}, :class => 'more-tag-connections') if suggestion.tag_connections.count > 4
 
-    content_tag(:div, tags.join, :class => 'tag-connections', :title => title)
+    if tags.present?
+      content_tag(:div, tags.join, :class => 'tag-connections', :title => title)
+    else
+      ''
+    end
   end
 end

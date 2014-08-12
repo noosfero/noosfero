@@ -1668,10 +1668,6 @@ a.button.disabled, input.disabled {
   padding-bottom: 0px;
 }
 
-#content .block-footer-content .profiles-suggestions a {
-  text-decoration: none;
-}
-
 #content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
 #content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
   position: relative;
@@ -2195,8 +2191,6 @@ a.button.disabled, input.disabled {
 .common-profile-list-block .extra_info,
 .profile-list .extra_info {
   font-size: 9px;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
 }
 /* ==> blocks/recent-documents-block.css <<= */
 
@@ -4102,7 +4096,12 @@ h1#agenda-title {
   margin-left: 2px;
   margin-top: 3px;
   overflow: hidden;
-  width: 120px;
+  width: 100px;
+}
+
+#content .block-footer-content .profiles-suggestions .tag-connections a.more-tag-connections {
+  text-decoration: underline;
+  font-size: 14px;
 }
 
 #content .profiles-suggestions .profile-list .extra_info .profile-suggestion-connection-icon {
@@ -4131,12 +4130,11 @@ h1#agenda-title {
 }
 
 .box-1 .profiles-suggestions .profile-list li {
-  width: 100px;
-  max-width: 100px;
-  height: 130px;
-  max-height: 100%;
+  width: 100%;
+  height: 95px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 .box-1 .profiles-suggestions .profile-list .remove-suggestion,
