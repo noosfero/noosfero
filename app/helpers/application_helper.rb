@@ -1420,12 +1420,19 @@ module ApplicationHelper
   end
 
   def profile_suggestion_profile_connections(suggestion)
-    suggestion.profile_connections.map do |cat|
+    profiles = suggestion.profile_connections.first(4).map do |profile|
+      link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon')
     end.join
+    extra = suggestion.profile_connections.count > 4 ? "<big> +#{suggestion.profile_connections.count - 4}</big>" : ''
+    content_tag(:p, profiles + extra)
   end
 
   def profile_suggestion_tag_connections(suggestion)
-    suggestion.tag_connections.map do |cat|
-    end.join
+    tags = suggestion.tag_connections.map do |tag|
+      tag.name + ', '
+    end
+    last_tag = tags.pop
+    tags << last_tag.strip.chop if last_tag.present?
+    content_tag(:p, tags.join)
   end
 end
