@@ -1420,11 +1420,11 @@ module ApplicationHelper
   end
 
   def profile_suggestion_profile_connections(suggestion)
-    profiles = suggestion.profile_connections.first(4).map do |profile|
-      link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon')
+    profiles = suggestion.profile_connections.first(5).map do |profile|
+      link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon', :title => profile.name)
     end.join
-    extra = suggestion.profile_connections.count > 4 ? "<big> +#{suggestion.profile_connections.count - 4}</big>" : ''
-    content_tag(:p, profiles + extra)
+    extra = suggestion.profile_connections.count > 5 ? "<big> +#{suggestion.profile_connections.count - 5}</big>" : ''
+    content_tag(:div, profiles + extra, :class => 'profile-connections')
   end
 
   def profile_suggestion_tag_connections(suggestion)

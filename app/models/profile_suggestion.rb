@@ -135,6 +135,7 @@ class ProfileSuggestion < ActiveRecord::Base
         end
         suggestion.send("#{rule}=", value)
         connections.each do |connection_id|
+          next if SuggestionConnection.where(:suggestion_id => suggestion.id, :connection_id => connection_id, :connection_type => options[:connection]).present?
            SuggestionConnection.create!(:suggestion => suggestion, :connection_id => connection_id, :connection_type => options[:connection])
         end
         suggestion.score += value * options[:weight]
