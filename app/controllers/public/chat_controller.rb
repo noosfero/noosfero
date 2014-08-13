@@ -28,15 +28,6 @@ class ChatController < PublicController
     end
   end
 
-  def index
-    #presence = current_user.last_chat_status
-    #if presence.blank? or presence == 'chat'
-    #  render :action => 'auto_connect_online'
-    #else
-    #  render :action => 'auto_connect_busy'
-    #end
-  end
-
   def update_presence_status
     if request.xhr?
       current_user.update_attributes({:chat_status_at => DateTime.now}.merge(params[:status] || {}))

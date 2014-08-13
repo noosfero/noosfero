@@ -16,6 +16,18 @@
       var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
     </script>
 
+
+  <% presence = current_user.last_chat_status %>
+  <script>
+    jQuery(function($) {
+    <% if presence.blank? or presence == 'chat' %>
+      $('#chat-connect').trigger('click');
+    <% else %>
+      $('#chat-busy').trigger('click');
+    <% end %>
+    });
+  </script>
+
   <div id='chat'>
     <div id='title-bar'>
       <h1 class='title'><%= _("Online") % h(page_title) %>&nbsp;(<span id='friends-online'>0</span>)</h1>

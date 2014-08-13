@@ -1,5 +1,6 @@
 #chat {
   width: 250px;
+  display: none;
 }
 
 #buddy-list {
