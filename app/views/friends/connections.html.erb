@@ -1,0 +1,7 @@
+<h1><%= _("Connections with %s") % @suggestion.suggestion.name %></h1>
+
+<% button_bar do %>
+  <%= button(:back, _('Go to friends list'), :controller => 'friends') %>
+<% end %>
+
+<%= render :partial => 'shared/profile_connections', :locals => { :suggestion => @suggestion, :tags => @tags, :profiles => @profiles } %>
