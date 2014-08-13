@@ -165,9 +165,8 @@ jQuery(function($) {
      },
 
      update_chat_title: function () {
-        var friends_online = $('#buddy-list .buddy-list li:visible').length;
+        var friends_online = $('#buddy-list .buddy-list li.chat').length;
         $('#friends-online').text(friends_online);
-        document.title = $('#title-bar .title').text();
      },
 
      on_connect: function (status) {
