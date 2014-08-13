@@ -5,6 +5,6 @@ class CustomFormsPlugin::Alternative < ActiveRecord::Base
 
   belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
 
-  attr_accessible :label, :field, :position
+  attr_accessible :label, :field, :position, :selected_by_default
 end
 
