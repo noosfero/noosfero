@@ -36,6 +36,7 @@ Depends:
  ruby1.9.3,
  rake,
  ruby-dalli,
+ ruby-exception-notification,
  ruby-fast-gettext,
  ruby-pg,
  ruby-rmagick,
