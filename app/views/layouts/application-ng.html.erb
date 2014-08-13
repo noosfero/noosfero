@@ -76,7 +76,7 @@
         </div><!-- end id="content" -->
       </div><!-- end id="wrap-2" -->
     </div><!-- end id="wrap-1" -->
-    <%= render_environment_features(:logged_in) %>
+    <%= render_environment_features(:logged_in) if logged_in? %>
     <div id="theme-footer">
       <%= theme_footer %>
     </div><!-- end id="theme-footer" -->
@@ -88,6 +88,5 @@
         if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
       end.join("\n")
     %>
-    <%= render :file => 'chat/index' if logged_in? %>
   </body>
 </html>

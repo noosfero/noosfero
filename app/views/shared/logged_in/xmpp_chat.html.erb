@@ -1,11 +1,82 @@
-<div id='chat-online-users' style='display: none'>
-  <div id='chat-online-users-content' style='display: none;'>
-    <div id='chat-online-users-hidden-content'>
-      <ul></ul>
-      <span id='anyone-online' style='display: none'><%= _('None of your friends is online at the moment') %></span>
+    <%= javascript_include_tag 'strophejs-1.0.1/strophe', 'jquery.emoticon', '../designs/icons/pidgin/emoticons.js', 'ba-linkify', 'jquery.ba-hashchange', 'jquery.sound', 'chat', 'perfect-scrollbar.min.js', 'perfect-scrollbar.with-mousewheel.min.js', :cache => 'cache/chat' %>
+    <%= stylesheet_link_tag 'perfect-scrollbar.min.css' %>
+
+    <% extend ChatHelper %>
+
+    <script type='text/javascript'>
+      var $presence_status_label = {
+        chat: '<%= _('Online') %>',
+        dnd: '<%= _('Busy') %>',
+        '': '<%= _('Offline') %>'
+      };
+      var $own_name = '<%= user.name %>';
+      var $starting_chat_notice = '<%= _("starting chat with %{name}") %>';
+      var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
+      var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
+      var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
+    </script>
+
+
+  <% presence = current_user.last_chat_status %>
+  <script>
+    jQuery(function($) {
+    <% if presence.blank? or presence == 'chat' %>
+      $('#chat-connect').trigger('click');
+    <% else %>
+      $('#chat-busy').trigger('click');
+    <% end %>
+    });
+  </script>
+
+  <div id='chat'>
+    <div id='title-bar'>
+      <h1 class='title'><%= _("Online") % h(page_title) %>&nbsp;(<span id='friends-online'>0</span>)</h1>
+    </div>
+    <div id='buddy-list'>
+      <div class='toolbar'>
+        <div id='user-status'><%= user_status_menu('icon-menu-offline', _('Offline')) %></div>
+        <div class='dialog-error' style='display: none'></div>
+      </div>
+      <ul class='buddy-list'>
+      </ul>
+    </div>
+    <div id='chat-window' class='tabs-bottom'>
+      <div id='tabs'>
+        <ul>
+        </ul>
+      </div>
+    </div>
+
+    <div id="chat-templates">
+      <div class='conversation'>
+        <a href="#" class="back"><%= _('Back') %></a>
+        <div class='history'></div>
+        <div class='input-div'>
+            <div class='icon-chat'></div>
+            <textarea class='input'></textarea>
+        </div>
+      </div>
+
+      <div class="buddy-item">
+        <li class='%{presence_status}'>
+          <a id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>
+            <img class="avatar" src="%{avatar_url}"/>
+            <span class="name">%{name}<span>
+          </a>
+        </li>
+      </div>
+
+      <div class="message">
+        <div data-who="%{who}" class="message %{who}">
+          <div class="author">
+            <img class="avatar" src="%{avatar_url}"/>
+            <h5 class="%{who}-name">%{name}</h5>
+          </div>
+          <div class="content">
+            <span class="time">%{time}</span>
+            <p>%{message}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <a href='#' id='chat-online-users-title' onclick='return false;'>
-    <div class='header'><i class='icon-chat'></i><span><%= _("Friends in chat (<span class='amount_of_friends'>%{amount}</span>)") %></span></div>
-  </a>
-</div>
