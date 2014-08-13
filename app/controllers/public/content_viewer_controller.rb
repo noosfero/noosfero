@@ -74,7 +74,7 @@ class ContentViewerController < ApplicationController
   end
 
   def versions_diff
-    path = params[:page].join('/')
+    path = params[:page]
     @page = profile.articles.find_by_path(path)
     @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
   end
