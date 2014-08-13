@@ -1685,6 +1685,11 @@ a.button.disabled, input.disabled {
   text-decoration: underline;
 }
 
+
+#content .box-1 .profiles-suggestions .profile-list a.remove-suggestion {
+  margin: -5px 7px 0 0;
+}
+
 #content .profiles-suggestions .profile-list a.remove-suggestion {
   display: block;
   width: 15px !important;
@@ -4018,12 +4023,6 @@ h1#agenda-title {
   background-color: #eeeeec;
 }
 
-.controller-favorite_enterprises .profile-list li,
-.controller-friends .profile-list li {
-  width: 90px;
-  max-width: 80px;
-}
-
 .profile-list img {
   border: none;
 }
@@ -4130,14 +4129,14 @@ h1#agenda-title {
 }
 
 .box-1 .profiles-suggestions .profile-list li {
-  width: 100%;
-  height: 95px;
+  width: 100px;
+  height: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
 }
 
-.box-1 .profiles-suggestions .profile-list .remove-suggestion,
+.profiles-suggestions .profile-list .remove-suggestion,
 .box-1 .profiles-suggestions .profile-list li > a {
   text-decoration: none;
 }
