@@ -1,5 +1,5 @@
 <div class="article-versions">
-  <%= button(:back, _('Go back to latest version'), {:action => 'view_page'}) %>
+  <%= button(:back, _('Go back to latest version'), @page.url) %>
 </div>
 
 <%= article_title(@page, :no_link => true) %>
