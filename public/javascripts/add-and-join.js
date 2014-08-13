@@ -135,7 +135,15 @@ jQuery(function($) {
   $(".accept-suggestion").live('click', function(){
     clicked = $(this)
     loading_for_button(this);
-    clicked.parents('li').fadeOut();
+    url = clicked.attr("href");
+    remove_suggestion = clicked.parents('li').find('.remove-suggestion');
+    remove_url = remove_suggestion.attr('href')
+    $.post(remove_url, function(suggestions_data){
+      remove_suggestion.parents('.profiles-suggestions').html(suggestions_data);
+      $.post(url, function(add_data){
+        clicked.parents('li').fadeOut();
+      });
+    });
     return false;
   })
 

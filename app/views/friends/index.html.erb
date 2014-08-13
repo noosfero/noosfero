@@ -30,7 +30,7 @@
   <br style="clear:both" />
   <h2><%= _("Friends suggestions") %></h2>
   <div class="profiles-suggestions">
-    <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions } %>
+    <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions, :per_page => 12 } %>
   </div>
 <% end %>
 

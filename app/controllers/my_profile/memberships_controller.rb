@@ -45,11 +45,12 @@ class MembershipsController < MyProfileController
 
   def remove_suggestion
     @community = profile.suggested_communities.find_by_identifier(params[:id])
+    custom_per_page = params[:per_page] || per_page
     redirect_to :action => 'suggest' unless @community
     if @community && request.post?
       profile.remove_suggestion(@community)
-      @suggestions = profile.profile_suggestions.of_community.enabled.includes(:suggestion).limit(per_page)
-      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions }
+      @suggestions = profile.profile_suggestions.of_community.enabled.includes(:suggestion).limit(custom_per_page)
+      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions, :per_page => custom_per_page}
     end
   end
 
@@ -66,7 +67,7 @@ class MembershipsController < MyProfileController
   protected
 
   def per_page
-    10
+    12
   end
 
 end

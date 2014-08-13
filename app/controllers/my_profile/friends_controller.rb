@@ -27,7 +27,7 @@ class FriendsController < MyProfileController
     if @person && request.post?
       profile.remove_suggestion(@person)
       @suggestions = profile.profile_suggestions.of_person.enabled.includes(:suggestion).limit(per_page)
-      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions }
+      render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions, :per_page => params[:per_page] || per_page }
     end
   end
 
@@ -45,7 +45,7 @@ class FriendsController < MyProfileController
 
   class << self
     def per_page
-      10
+      12
     end
   end
   def per_page

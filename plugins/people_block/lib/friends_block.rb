@@ -17,7 +17,7 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def suggestions
-    owner.profile_suggestions.of_person.enabled.limit(limit).includes(:suggestion)
+    owner.profile_suggestions.of_person.enabled.limit(3).includes(:suggestion)
   end
 
   def footer

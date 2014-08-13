@@ -1723,6 +1723,7 @@ a.button.disabled, input.disabled {
 .profiles-suggestions .profile-list .extra_info {
   z-index: 10;
   display: inline-block;
+  width: 100px;
 }
 
 .suggestions-block .block-subtitle {

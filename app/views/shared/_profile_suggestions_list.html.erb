@@ -1,3 +1,5 @@
+<% per_page = defined?(:per_page) ? per_page : nil %>
+
 <% if suggestions.empty? %>
   <p>
     <em>
@@ -24,13 +26,13 @@
         <div class="controll">
           <% if collection == :friends_suggestions %>
             <%= link_to 'x',
-                { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
                   :class => 'remove-suggestion',
                   :title => _('Remove suggestion'),
                   :confirm => _('Are you sure you want to remove this suggestion?') %>
           <% elsif collection == :communities_suggestions %>
               <%= link_to 'x',
-                  { :controller => 'memberships', :action => 'remove_suggestion', :id => s.suggestion.identifier },
+                  { :controller => 'memberships', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
                     :class => 'remove-suggestion',
                     :title => _('Remove suggestion'),
                     :confirm => _('Are you sure you want to remove this suggestion?') %>

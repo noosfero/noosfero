@@ -5,5 +5,5 @@
 <% end %>
 
 <div class="profiles-suggestions">
-  <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions } %>
+  <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions, :per_page => 12 } %>
 </div>

@@ -16,7 +16,7 @@ class CommunitiesBlock < ProfileListBlock
 
   def suggestions
     return nil unless owner.kind_of?(Profile)
-    owner.profile_suggestions.of_community.enabled.limit(limit).includes(:suggestion)
+    owner.profile_suggestions.of_community.enabled.limit(3).includes(:suggestion)
   end
 
   def footer
