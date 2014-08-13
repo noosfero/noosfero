@@ -29,12 +29,12 @@ class ChatController < PublicController
   end
 
   def index
-    presence = current_user.last_chat_status
-    if presence.blank? or presence == 'chat'
-      render :action => 'auto_connect_online'
-    else
-      render :action => 'auto_connect_busy'
-    end
+    #presence = current_user.last_chat_status
+    #if presence.blank? or presence == 'chat'
+    #  render :action => 'auto_connect_online'
+    #else
+    #  render :action => 'auto_connect_busy'
+    #end
   end
 
   def update_presence_status

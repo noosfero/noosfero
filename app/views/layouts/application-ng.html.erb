@@ -88,5 +88,6 @@
         if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
       end.join("\n")
     %>
+    <%= render :file => 'chat/index' if logged_in? %>
   </body>
 </html>

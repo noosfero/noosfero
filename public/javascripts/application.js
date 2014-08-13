@@ -599,9 +599,7 @@ function display_notice(message) {
 }
 
 function open_chat_window(self_link, anchor) {
-   anchor = anchor || '#';
-   var noosfero_chat_window = window.open('/chat' + anchor,'noosfero_chat','width=900,height=500');
-   noosfero_chat_window.focus();
+   jQuery('#chat').toggle('fast');
    return false;
 }
 
