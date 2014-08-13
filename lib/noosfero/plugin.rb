@@ -531,6 +531,29 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Perform extra transactions related to profile in profile editor
+  # returns = true in success or raise and exception if it could not update the data
+  def profile_editor_transaction_extras
+    nil
+  end
+
+  # -> Return a list of extra person fields
+  # returns = a list of strings with fields' name
+  def extra_person_fields
+    []
+  end
+
+  # -> Return a list of hashs with the needed information to create optional fields
+  # returns = a list of hashs as {:name => "string", :label => "string", :object_name => :key, :method => :key}
+  def extra_optional_fields
+    []
+  end
+
+  # -> Return a hash with another object's params
+  def extra_person_data_params
+    {}
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.

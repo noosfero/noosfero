@@ -2,14 +2,17 @@ require_dependency 'person'
 
 class Person
 
-	attr_accessible :lattes_url
-	validate :lattes_url_validate?
+  attr_accessible :lattes_url, :academic_info_attributes
 
-  def lattes_url_validate?
-      valid_url_start = 'http://lattes.cnpq.br/'
-      unless self.lattes_url =~ /http:\/\/lattes.cnpq.br\/\d+/  
-			errors[:base] << "Sorry, the lattes url is not valid."      	
-      end
+  has_one :academic_info, :dependent=>:delete
+
+  accepts_nested_attributes_for :academic_info
+
+  def lattes_url
+    self.academic_info.nil? ? nil : self.academic_info.lattes_url
   end
 
+  def lattes_url= value
+    self.academic_info.lattes_url = value unless self.academic_info.nil?
+  end
 end

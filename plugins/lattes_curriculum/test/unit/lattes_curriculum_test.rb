@@ -5,7 +5,7 @@ class LattesCurriculumPluginTest < ActiveSupport::TestCase
   def setup
     @plugin = LattesCurriculumPlugin.new
   end
- 
+
   should 'be a noosfero plugin' do
     assert_kind_of Noosfero::Plugin, @plugin
   end

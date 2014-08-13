@@ -27,6 +27,10 @@
 <%= optional_field(@person, 'district', labelled_form_field(_('District'), text_field(:profile_data, :district, :rel => _('District')))) %>
 <%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
 
+<% @plugins.dispatch(:extra_optional_fields).each do |field| %>
+  <%= optional_field(@person, field[:name], labelled_form_field(field[:label], text_field(field[:object_name], field[:method], :rel => field[:label], :value => field[:value]))) %>
+<% end %>
+
 <% optional_field(@person, 'schooling') do %>
   <div class="formfieldline">
     <label class='formlabel' for='profile_data_schooling'><%= _('Schooling') %></label>
