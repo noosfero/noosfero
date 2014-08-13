@@ -1070,4 +1070,25 @@ class ProfileEditorControllerTest < ActionController::TestCase
                :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_products_per_catalog_page'} }
   end
 
+  should 'show head and footer for admin' do
+    login_as('default_user')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Edit Header and Footer' }
+  end
+
+  should 'not display header and footer for user when feature is enable' do
+    user = create_user('user').person
+    login_as('user')
+    profile.environment.enable('disable_header_and_footer')
+    get :index, :profile => user.identifier
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Edit Header and Footer' }
+  end
+
+  should 'display header and footer for user when feature is disabled ' do
+    user = create_user('user').person
+    login_as('user')
+    profile.environment.disable('disable_header_and_footer')
+    get :index, :profile => user.identifier
+    assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Edit Header and Footer' }
+  end
 end
