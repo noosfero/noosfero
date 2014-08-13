@@ -32,7 +32,6 @@ group :test do
 end
 
 group :cucumber do
-  gem 'rake'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'cucumber'
