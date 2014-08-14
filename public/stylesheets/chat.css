@@ -140,6 +140,10 @@
   display: inline-block;
   width: 74%;
 }
+#chat-window .history .message .content a {
+  color: rgb(98, 129, 253);
+  text-decoration: none;
+}
 #chat-window .history .message.self .content {
   background-color: #383838;
 }
