@@ -29,27 +29,33 @@
   </script>
 
   <div id='chat'>
-    <div id='title-bar'>
-      <h1 class='title'><%= _("Online") % h(page_title) %>&nbsp;(<span id='friends-online'>0</span>)</h1>
-    </div>
     <div id='buddy-list'>
       <div class='toolbar'>
-        <div id='user-status'><%= user_status_menu('icon-menu-offline', _('Offline')) %></div>
+        <div id='user-status'>
+          <span class="avatar"></span>
+          <%= user_status_menu('icon-menu-offline', _('Offline')) %>
+        </div>
         <div class='dialog-error' style='display: none'></div>
+      </div>
+      <div id='title-bar'>
+        <h1 class='title'><%= _("Online") % h(page_title) %>&nbsp;(<span id='friends-online'>0</span>)</h1>
       </div>
       <ul class='buddy-list'>
       </ul>
     </div>
-    <div id='chat-window' class='tabs-bottom'>
-      <div id='tabs'>
-        <ul>
-        </ul>
-      </div>
+    <div id='chat-window'>
+      <div id='conversations'></div>
     </div>
 
     <div id="chat-templates">
-      <div class='conversation'>
-        <a href="#" class="back"><%= _('Back') %></a>
+      <div class='conversation' style="display: none;">
+        <div class="header">
+          <span class="chat-target">
+            <img class="avatar">
+            <span class="other-name"></span>
+          </span>
+          <a href="#" class="back"><%= _('Back') %></a>
+        </div>
         <div class='history'></div>
         <div class='input-div'>
             <div class='icon-chat'></div>
@@ -60,8 +66,9 @@
       <div class="buddy-item">
         <li class='%{presence_status}'>
           <a id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>
-            <img class="avatar" src="%{avatar_url}"/>
+            %{avatar}
             <span class="name">%{name}<span>
+            <span class="unread-messages icon-chat"></span>
           </a>
         </li>
       </div>
@@ -69,7 +76,7 @@
       <div class="message">
         <div data-who="%{who}" class="message %{who}">
           <div class="author">
-            <img class="avatar" src="%{avatar_url}"/>
+            %{avatar}
             <h5 class="%{who}-name">%{name}</h5>
           </div>
           <div class="content">

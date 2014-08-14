@@ -25,7 +25,7 @@ jQuery(function($) {
      muc_supported: false,
      presence_status: '',
      update_presence_status_every: $update_presence_status_every, // time in seconds of how often update presence status to Noosfero DB
-     tab_prefix: 'conversation-', // used to compose jQuery UI tabs and anchors to select then
+     conversation_prefix: 'conversation-',
      jids: {},
      rooms: {},
 
@@ -60,7 +60,7 @@ jQuery(function($) {
         var html = template
            .replace('%{jid_id}', jid_id)
            .replace(/%{presence_status}/g, presence)
-           .replace('%{avatar_url}', '/chat/avatar/' + identifier)
+           .replace('%{avatar}', getAvatar(identifier))
            .replace('%{name}', name);
         if ($(item).length > 0) {
            $(item).parent('li').replaceWith(html);
@@ -76,14 +76,14 @@ jQuery(function($) {
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
         log('adding or updating contact ' + jid + ' as ' + presence);
         Jabber.insert_or_update_user(list, item, jid, name, presence, $('#chat #chat-templates .buddy-item').clone().html());
-        $("#chat-window .tab a[href='#"+ Jabber.tab_prefix + jid_id +"']")
+        $("#chat-window .tab a[href='#"+ Jabber.conversation_prefix + jid_id +"']")
            .removeClass()
            .addClass('icon-menu-' + presence + '-11');
      },
      insert_or_update_occupant: function (jid, name, presence, room_jid) {
         log('adding or updating occupant ' + jid + ' as ' + presence);
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#' + Jabber.tab_prefix + Jabber.jid_to_id(room_jid) + ' .occupant-list ul');
+        var list = $('#' + Jabber.conversation_prefix + Jabber.jid_to_id(room_jid) + ' .occupant-list ul');
         var item = $(list).find('a[data-id='+ jid_id +']');
         Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.templates.occupant_item);
         if (Jabber.rooms[Jabber.jid_to_id(room_jid)] === undefined) {
@@ -113,7 +113,7 @@ jQuery(function($) {
          if (body) {
             body = Jabber.render_body_message(body);
             var jid_id = Jabber.jid_to_id(jid);
-            var tab_id = '#' + Jabber.tab_prefix + jid_id;
+            var tab_id = '#' + Jabber.conversation_prefix + jid_id;
             if ($(tab_id).find('.message').length > 0 && $(tab_id).find('.message:last').attr('data-who') == who) {
                $(tab_id).find('.history').find('.message:last .content').append('<p>' + body + '</p>');
             }
@@ -125,8 +125,8 @@ jQuery(function($) {
                  .replace(/%{who}/g, who)
                  .replace('%{time}', time)
                  .replace('%{name}', name)
-                 .replace('%{avatar_url}', '/chat/avatar/' + identifier);
-               $('#' + Jabber.tab_prefix + jid_id).find('.history').append(message_html);
+                 .replace('%{avatar}', getAvatar(identifier));
+               $('#' + Jabber.conversation_prefix + jid_id).find('.history').append(message_html);
             }
             $(tab_id).find('.history').scrollTo({top:'100%', left:'0%'});
             if (who != "self") {
@@ -144,8 +144,8 @@ jQuery(function($) {
            .removeClass('icon-menu-chat')
            .removeClass('icon-menu-offline')
            .removeClass('icon-menu-dnd')
-           .addClass('icon-menu-' + (presence || 'offline'))
-           .find('span').html($presence_status_label[presence]);
+           .addClass('icon-menu-' + (presence || 'offline'));
+        $('#buddy-list #user-status span.avatar').replaceWith(getMyAvatar());
         $.get('/chat/update_presence_status', { status: {chat_status: presence, last_chat_status: presence} });
      },
 
@@ -165,7 +165,7 @@ jQuery(function($) {
      },
 
      update_chat_title: function () {
-        var friends_online = $('#buddy-list .buddy-list li.chat').length;
+        var friends_online = $('#buddy-list .buddy-list li:not(.offline)').length;
         $('#friends-online').text(friends_online);
      },
 
@@ -439,7 +439,7 @@ jQuery(function($) {
      },
 
      show_notice: function(jid_id, msg) {
-        var tab_id = '#' + Jabber.tab_prefix + jid_id;
+        var tab_id = '#' + Jabber.conversation_prefix + jid_id;
         $(tab_id).find('.history').append("<span class='notice'>" + msg + "</span>");
      }
    };
@@ -470,6 +470,7 @@ jQuery(function($) {
       Jabber.connect();
    });
 
+   // FIXME
    // detect when click in chat with a community or person in main window of Noosfero environment
    $(window).bind('hashchange', function() {
       if (window.location.hash) {
@@ -511,6 +512,10 @@ jQuery(function($) {
       var jid_id = $(this).attr('id');
       var name = Jabber.name_of(jid_id);
       create_conversation_tab(name, jid_id);
+
+      var conversation_id = Jabber.conversation_prefix + jid_id;
+      $('#' + conversation_id).find('.conversation').show();
+      count_unread_messages(jid_id, true);
    });
 
    // put name into text area when click in one occupant
@@ -526,22 +531,22 @@ jQuery(function($) {
    });
 
    $('.conversation .back').live('click', function() {
-      $(this).parents('.conversation').hide();
+      $('#chat #chat-window .conversation').hide();
    });
 
    function create_conversation_tab(title, jid_id) {
-      var conversation_id = Jabber.tab_prefix + jid_id;
+      var conversation_id = Jabber.conversation_prefix + jid_id;
       if (! $('#' + conversation_id).length > 0) {
+         var jid = Jabber.jid_of(jid_id);
+         var identifier = getIdentifier(jid);
+
          // opening chat with selected online friend
-         var panel = $('<div id="'+conversation_id +'"></div>').appendTo($tabs);
+         var panel = $('<div id="'+conversation_id +'"></div>').appendTo($conversations);
          panel.append($('#chat #chat-templates .conversation').clone());
+         panel.find('.chat-target .avatar').replaceWith(getAvatar(identifier));
+         panel.find('.chat-target .other-name').html(title);
          $('#chat .history').perfectScrollbar();
 
-         //FIXME
-         //var notice = $starting_chat_notice.replace('%{name}', $(ui.tab).html());
-         //Jabber.show_notice(jid_id, notice);
-
-         // define textarea name as '<TAB_ID>'
          panel.find('textarea').attr('name', panel.id);
 
          if (Jabber.is_a_room(jid_id)) {
@@ -549,32 +554,26 @@ jQuery(function($) {
              panel.find('.history').addClass('room');
          }
 
-         $tabs.find('.ui-tabs-nav').append( "<li><a href='"+('#' + Jabber.tab_prefix + jid_id)+"'><span class=\"unread-messages\" style=\"display:none\"></span>"+title+"</a></li>" );
-
-         var jid = Jabber.jid_of(jid_id);
-         $("a[href='#" + Jabber.tab_prefix + jid_id + "']").addClass($('#' + jid_id).attr('class') || 'icon-chat');
-         $('#' + Jabber.tab_prefix + jid_id).find('textarea').attr('data-to', jid);
-      } else {
-         $('#' + conversation_id).find('.conversation').show();
+         $('#' + Jabber.conversation_prefix + jid_id).find('textarea').attr('data-to', jid);
       }
    }
 
    function count_unread_messages(jid_id, hide) {
+      var unread = $('.buddy-list #'+jid_id+ ' .unread-messages');
       if (hide) {
-         $('a[href=#' + Jabber.tab_prefix + jid_id + ']').find('.unread-messages').hide();
+         unread.hide();
          Jabber.unread_messages_of(jid_id, 0);
-         $('a[href=#' + Jabber.tab_prefix + jid_id + ']').find('.unread-messages').text('');
+         unread.text('');
       }
       else {
-         $('a[href=#' + Jabber.tab_prefix + jid_id + ']').find('.unread-messages').show();
+         unread.show();
          var unread_messages = Jabber.unread_messages_of(jid_id) || 0;
          Jabber.unread_messages_of(jid_id, ++unread_messages);
-         $('a[href=#' + Jabber.tab_prefix + jid_id + ']').find('.unread-messages').text(unread_messages);
+         unread.text(unread_messages);
       }
    }
 
-   // creating tabs
-   var $tabs = $('#chat-window #tabs');
+   var $conversations = $('#chat-window #conversations');
 
    function log(msg) {
       if(Jabber.debug && window.console && window.console.log) {
@@ -588,6 +587,22 @@ jQuery(function($) {
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
+   }
+
+   function getCurrentIdentifier() {
+     return getIdentifier(Jabber.connection.jid);
+   }
+
+   function getIdentifier(jid) {
+     return Strophe.getNodeFromJid(jid);
+   }
+
+   function getMyAvatar() {
+     return getAvatar(getCurrentIdentifier());
+   }
+
+   function getAvatar(identifier) {
+     return '<img class="avatar" src="/chat/avatar/' + identifier + '">';
    }
 
 });

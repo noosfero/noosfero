@@ -7,7 +7,7 @@ module ChatHelper
       ['icon-menu-offline', _('Sign out of chat'), 'chat-disconnect'],
     ]
     content_tag('span',
-      link_to(content_tag('span', status) + ui_icon('ui-icon-triangle-1-s'),
+      link_to(content_tag('span', user.name) + ui_icon('ui-icon-triangle-1-s'),
         '#',
         :onclick => 'toggleMenu(this); return false',
         :class => icon_class + ' simplemenu-trigger'
