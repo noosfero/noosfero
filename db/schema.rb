@@ -194,19 +194,19 @@ ActiveRecord::Schema.define(:version => 20140808185510) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",            :default => ""
-    t.integer "display_color"
+    t.text    "path",                         :default => ""
     t.integer "environment_id"
     t.integer "parent_id"
     t.string  "type"
     t.float   "lat"
     t.float   "lng"
-    t.boolean "display_in_menu", :default => false
-    t.integer "children_count",  :default => 0
-    t.boolean "accept_products", :default => true
+    t.boolean "display_in_menu",              :default => false
+    t.integer "children_count",               :default => 0
+    t.boolean "accept_products",              :default => true
     t.integer "image_id"
     t.string  "acronym"
     t.string  "abbreviation"
+    t.string  "display_color",   :limit => 6
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
