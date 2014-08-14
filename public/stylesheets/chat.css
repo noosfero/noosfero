@@ -12,7 +12,7 @@
   background-color: #303030;
   width: 250px;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 }
 #buddy-list .buddy-list {
   list-style-type: none;
@@ -24,7 +24,7 @@
   border-bottom: 1px solid #383838;
 }
 #buddy-list .buddy-list li a:hover, .occupant-list li a:hover {
-  background: rgb(58, 58, 58);
+  background: #257CAD;
 }
 #buddy-list .buddy-list li a, .occupant-list li a {
   background: none;
@@ -133,10 +133,10 @@
 }
 
 #chat-window .history .message .content {
-  background-color: #494949;
+  background-color: #257CAD;
   color: rgb(223, 223, 223);
   padding: 5px;
-  border-radius: 3%;
+  border-radius: 5%;
   display: inline-block;
   width: 74%;
 }
@@ -223,11 +223,8 @@
   font-weight: bold;
   color: white;
 }
-#chat #chat-window .other-name {
-  color: #6C9EDD;
-}
-#chat #chat-window .history .self-name {
-  color: #6C87DD;
+#chat #chat-window .other-name, #chat #chat-window .history .self-name {
+  color: #257CAD;
 }
 #chat #chat-window .history h5 {
   text-align: center;
