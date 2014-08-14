@@ -517,10 +517,6 @@ jQuery(function($) {
 
   $.getJSON('/account/user_data', function userDataCallBack(data) {
     if (data.login) {
-      // logged in
-      if (data.chat_enabled) {
-        setInterval(function(){ $.getJSON('/account/user_data', chatOnlineUsersDataCallBack)}, 10000);
-      }
       $('head').append('<meta content="authenticity_token" name="csrf-param" />');
       $('head').append('<meta content="'+$.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
     }
@@ -531,32 +527,6 @@ jQuery(function($) {
     $(window).trigger("userDataLoaded", data);
   });
 
-  function chatOnlineUsersDataCallBack(data) {
-    if ($('#chat-online-users').length == 0) {
-      return;
-    }
-    var content = '';
-    $('#chat-online-users .amount_of_friends').html(data['amount_of_friends']);
-    $('#chat-online-users').fadeIn();
-    for (var user in data['friends_list']) {
-      var name = "<span class='friend_name'>%{name}</span>";
-      var avatar = data['friends_list'][user]['avatar'];
-      var jid = data['friends_list'][user]['jid'];
-      var status_name = data['friends_list'][user]['status'] || 'offline';
-      avatar = avatar ? '<img src="' + avatar + '" />' : ''
-        name = name.replace('%{name}',data['friends_list'][user]['name']);
-      open_chat_link = "onclick='open_chat_window(this, \"#" + jid + "\")'";
-      var status_icon = "<div class='chat-online-user-status icon-menu-"+ status_name + "-11'><span>" + status_name + '</span></div>';
-      content += "<li><a href='#' class='chat-online-user' " + open_chat_link + "><div class='chat-online-user-avatar'>" + avatar + '</div>' + name + status_icon + '</a></li>';
-    }
-    content ? $('#chat-online-users-hidden-content ul').html(content) : $('#anyone-online').show();
-    $('#chat-online-users-title').click(function(){
-      if($('#chat-online-users-content').is(':visible'))
-      $('#chat-online-users-content').hide();
-      else
-      $('#chat-online-users-content').show();
-    });
-  }
 });
 
 // controls the display of contact list
