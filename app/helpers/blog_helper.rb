@@ -45,9 +45,9 @@ module BlogHelper
 
   def display_post(article, format = 'full')
     no_comments = (format == 'full') ? false : true
+    title = article_title(article, :no_comments => no_comments)
     html = send("display_#{format}_format", FilePresenter.for(article)).html_safe
-
-    article_title(article, :no_comments => no_comments) + html
+    title + html
   end
 
   def display_full_format(article)

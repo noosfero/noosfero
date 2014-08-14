@@ -2,7 +2,7 @@ require 'noosfero/multi_tenancy'
 
 class Domain < ActiveRecord::Base
 
-  attr_accessible :name, :owner
+  attr_accessible :name, :owner, :is_default
 
   # relationships
   ###############

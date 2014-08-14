@@ -32,10 +32,10 @@ Package: noosfero
 Architecture: all
 Depends:
  rails3 (>= 3.2.6-1~),
- ruby,
- ruby1.9.3,
+ ruby (>= 1:1.9.3),
  rake,
  ruby-dalli,
+ ruby-exception-notification,
  ruby-fast-gettext,
  ruby-pg,
  ruby-rmagick,

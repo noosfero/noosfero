@@ -48,8 +48,9 @@ FPQAoNmiMgP6zGF9rgOEWMEiFEryayrz
 =70DR
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
-  run sudo apt-get update
 fi
+
+run sudo apt-get update
 
 run sudo apt-get -y install dctrl-tools
 
