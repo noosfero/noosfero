@@ -1,3 +1,9 @@
+noosfero (1.0~rc1) wheezy-test; urgency=low
+
+  * First 1.0 release candidate
+
+ -- Rodrigo Souto <vagrant@wheezy-base>  Fri, 15 Aug 2014 16:35:35 -0300
+
 noosfero (0.99.0~rc20140618202455) wheezy-test; urgency=low
 
   * Another rc with rails3
