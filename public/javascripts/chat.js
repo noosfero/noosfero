@@ -145,11 +145,12 @@ jQuery(function($) {
            .removeClass('icon-menu-offline')
            .removeClass('icon-menu-dnd')
            .addClass('icon-menu-' + (presence || 'offline'));
-        $('#buddy-list #user-status span.avatar').replaceWith(getMyAvatar());
+        $('#buddy-list #user-status img.avatar').replaceWith(getMyAvatar());
         $.get('/chat/update_presence_status', { status: {chat_status: presence, last_chat_status: presence} });
      },
 
      send_availability_status: function(presence) {
+        log('send availability status ' + presence);
         Jabber.connection.send($pres().c('show').t(presence).up());
         Jabber.show_status(presence);
      },
@@ -183,10 +184,9 @@ jQuery(function($) {
               break;
            case Strophe.Status.DISCONNECTED:
               log('disconnected');
-              Jabber.show_status('');
+              //Jabber.show_status('');
               $('#buddy-list ul.buddy-list, .occupant-list ul.occupant-list').html('');
               Jabber.update_chat_title();
-              $('#chat-window .tab a').removeClass().addClass('icon-menu-offline-11');
               $('#buddy-list .toolbar').removeClass('small-loading-dark');
               $('textarea').prop('disabled', 'disabled');
               break;
@@ -450,14 +450,12 @@ jQuery(function($) {
    });
 
    $('#chat-disconnect').click(function() {
-      if (Jabber.connection && Jabber.connection.connected) {
-         Jabber.connection.disconnect();
-      }
+      disconnect();
    });
 
    // save presence_status as offline in Noosfero database when close or reload chat window
    $(window).unload(function() {
-      $.get('/chat/update_presence_status', { status: {chat_status: ''} });
+      disconnect();
    });
 
    $('#chat-busy').click(function() {
@@ -516,6 +514,7 @@ jQuery(function($) {
       var conversation_id = Jabber.conversation_prefix + jid_id;
       $('#' + conversation_id).find('.conversation').show();
       count_unread_messages(jid_id, true);
+      $('#' + conversation_id).find('.conversation .input-div textarea.input').focus();
    });
 
    // put name into text area when click in one occupant
@@ -547,14 +546,14 @@ jQuery(function($) {
          panel.find('.chat-target .other-name').html(title);
          $('#chat .history').perfectScrollbar();
 
-         panel.find('textarea').attr('name', panel.id);
+         var textarea = panel.find('textarea');
+         textarea.attr('name', panel.id);
 
          if (Jabber.is_a_room(jid_id)) {
              panel.append(Jabber.templates.occupant_list);
              panel.find('.history').addClass('room');
          }
-
-         $('#' + Jabber.conversation_prefix + jid_id).find('textarea').attr('data-to', jid);
+         textarea.attr('data-to', jid);
       }
    }
 
@@ -570,6 +569,20 @@ jQuery(function($) {
          var unread_messages = Jabber.unread_messages_of(jid_id) || 0;
          Jabber.unread_messages_of(jid_id, ++unread_messages);
          unread.text(unread_messages);
+      }
+      update_total_unread_messages();
+   }
+
+   function update_total_unread_messages() {
+      var total_unread = $('#openchat .unread-messages');
+      var sum = 0;
+      $('.buddy-list .unread-messages').each(function() {
+         sum += Number($(this).text());
+      });
+      if(sum>0) {
+        total_unread.text(sum);
+      } else {
+        total_unread.text('');
       }
    }
 
@@ -603,6 +616,22 @@ jQuery(function($) {
 
    function getAvatar(identifier) {
      return '<img class="avatar" src="/chat/avatar/' + identifier + '">';
+   }
+
+   function disconnect() {
+      log('disconnect');
+      if (Jabber.connection && Jabber.connection.connected) {
+         Jabber.connection.disconnect();
+      }
+      Jabber.presence_status = 'offline';
+      Jabber.show_status('offline');
+   }
+
+   //restore connection if user was connected
+   if($presence=='' || $presence == 'chat') {
+      $('#chat-connect').trigger('click');
+   } else if($presence == 'dnd') {
+      $('#chat-busy').trigger('click');
    }
 
 });

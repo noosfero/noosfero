@@ -4,36 +4,19 @@
     <% extend ChatHelper %>
 
     <script type='text/javascript'>
-      var $presence_status_label = {
-        chat: '<%= _('Online') %>',
-        dnd: '<%= _('Busy') %>',
-        '': '<%= _('Offline') %>'
-      };
       var $own_name = '<%= user.name %>';
-      var $starting_chat_notice = '<%= _("starting chat with %{name}") %>';
       var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
       var $bosh_service = '//<%= environment.default_hostname %>/http-bind';
       var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
       var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
+      var $presence = '<%= current_user.last_chat_status %>';
     </script>
-
-
-  <% presence = current_user.last_chat_status %>
-  <script>
-    jQuery(function($) {
-    <% if presence.blank? or presence == 'chat' %>
-      $('#chat-connect').trigger('click');
-    <% else %>
-      $('#chat-busy').trigger('click');
-    <% end %>
-    });
-  </script>
 
   <div id='chat'>
     <div id='buddy-list'>
       <div class='toolbar'>
         <div id='user-status'>
-          <span class="avatar"></span>
+          <%= profile_image(user, :portrait, :class => 'avatar') %>
           <%= user_status_menu('icon-menu-offline', _('Offline')) %>
         </div>
         <div class='dialog-error' style='display: none'></div>
