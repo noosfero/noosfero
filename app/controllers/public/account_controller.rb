@@ -24,12 +24,7 @@ class AccountController < ApplicationController
           render :action => 'login', :userlogin => @user.login
         end
       else
-        @task = CreateUser.new
-        @task.user_id = @user.id
-        @task.name = @user.name
-        @task.email =@user.email
-        @task.target = @user.environment
-        if @task.save
+        if @user.create_moderate_task
           session[:notice] = _('Thanks for registering. The administrators were notified.')
           @register_pending = true
           @user.activation_code = nil
@@ -124,10 +119,8 @@ class AccountController < ApplicationController
             self.current_user = @user
             check_join_in_community(@user)
             go_to_signup_initial_page
-          elsif environment.enabled?('skip_new_user_email_confirmation') && environment.enabled?('admin_must_approve_new_users')
-            session[:notice] = _('Thanks for registering. The administrators were notified.')
-            redirect_to :controller => 'home', :action => 'index'
           else
+            session[:notice] = _('Thanks for registering!')
             @register_pending = true
           end
         end

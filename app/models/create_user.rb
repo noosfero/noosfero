@@ -21,7 +21,7 @@ class CreateUser < Task
   end
 
   def perform
-    user=User.find_by_id(user_id)
+    user=environment.users.find_by_id(user_id)
     user.activate
   end
 

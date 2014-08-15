@@ -51,12 +51,7 @@ class User < ActiveRecord::Base
       unless user.environment.enabled?('admin_must_approve_new_users')
         user.activate
       else
-        @task = CreateUser.new
-        @task.user_id = user.id
-        @task.name = user.name
-        @task.email = user.email
-        @task.target = user.environment
-        @task.save
+        create_moderate_task
       end
     end
   end
@@ -144,6 +139,15 @@ class User < ActiveRecord::Base
     else
       true
     end
+  end
+
+  def create_moderate_task
+    @task = CreateUser.new
+    @task.user_id = self.id
+    @task.name = self.name
+    @task.email = self.email
+    @task.target = self.environment
+    @task.save
   end
 
   def activated?
