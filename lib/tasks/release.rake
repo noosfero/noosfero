@@ -204,20 +204,22 @@ EOF
 
     puts "==> Preparing debian packages..."
     Rake::Task['noosfero:debian_packages'].invoke
-    if confirm('Do you want to upload the packages')
-      puts "==> Uploading debian packages..."
-      Rake::Task['noosfero:upload_packages'].invoke(target)
-    end
 
     sh "git tag #{$version.gsub('~','-')}"
-    push_tags = confirm('Push new version tag')
-    if push_tags
+    if confirm('Push new version tag')
       repository = ask('Repository name', 'origin')
       puts "==> Uploading tags..."
       sh "git push #{repository} #{$version.gsub('~','-')}"
     end
 
-    sh "rm tmp/pending-release" if Dir["tmp/pending-release"].first.present?
+    if confirm('Do you want to upload the packages')
+      puts "==> Uploading debian packages..."
+      Rake::Task['noosfero:upload_packages'].invoke(target)
+    else
+      puts "I: please upload the package manually!"
+    end
+
+    rm_f "rm tmp/pending-release"
   end
 
   desc 'Build Debian packages'
