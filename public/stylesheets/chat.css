@@ -13,6 +13,7 @@
   width: 250px;
   height: 100%;
   overflow: hidden;
+  position: absolute;
 }
 #buddy-list .buddy-list {
   list-style-type: none;
@@ -72,7 +73,12 @@
   background: white;
 }
 .conversation {
-  margin: 15px;
+  background-color: #303030;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
 }
 .conversation .input-div {
   position: absolute;
@@ -106,7 +112,6 @@
   bottom: 100px;
   overflow: hidden;
   width: 100%;
-  background-color: #303030;
 }
 .msie7 #chat-window .conversation .history {
   overflow-x: hidden;
@@ -175,9 +180,6 @@
   list-style: none;
   font-size: 12px;
 }
-#chat-window .history.room {
-  right: 200px
-}
 #chat-window .comment-balloon-content {
   min-height: 50px;
   padding: 5px 0 5px 25px;
@@ -230,7 +232,7 @@
   font-weight: bold;
   color: white;
 }
-#chat #chat-window .other-name, #chat #chat-window .history .self-name {
+#chat #chat-window .other-name, #chat #chat-window .history .self-name, #chat #chat-window .history h5 {
   color: #257CAD;
   height: 23px;
   overflow: hidden;

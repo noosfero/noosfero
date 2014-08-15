@@ -21,12 +21,18 @@
         </div>
         <div class='dialog-error' style='display: none'></div>
       </div>
-      <div id='title-bar'>
-        <h1 class='title'><%= _("Online") % h(page_title) %>&nbsp;(<span id='friends-online'>0</span>)</h1>
+
+      <div id="friends">
+        <div id='title-bar'><h1 class='title'><%= _("Online") %>&nbsp;(<span id='friends-online'>0</span>)</h1></div>
+        <ul class='buddy-list'></ul>
       </div>
-      <ul class='buddy-list'>
-      </ul>
+
+      <div id="rooms">
+        <div id='title-bar'><h1 class='title'><%= _("Groups") %></h1></div>
+        <ul class="buddy-list room-list"></ul>
+      </div>
     </div>
+
     <div id='chat-window'>
       <div id='conversations'></div>
     </div>

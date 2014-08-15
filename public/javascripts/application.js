@@ -569,7 +569,12 @@ function display_notice(message) {
 }
 
 function open_chat_window(self_link, anchor) {
-   jQuery('#chat').toggle('fast');
+   if(anchor) {
+      jQuery('#chat').show('fast');
+      jQuery("#chat" ).trigger('opengroup', anchor);
+   } else {
+      jQuery('#chat').toggle('fast');
+   }
    return false;
 }
 
