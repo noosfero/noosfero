@@ -20,7 +20,7 @@ jQuery(function($) {
    var Jabber = {
      debug: true,
      connection: null,
-     bosh_service: 'http://10.32.113.131/http-bind',
+     bosh_service: $bosh_service,
      muc_domain: $muc_domain,
      muc_supported: false,
      presence_status: '',

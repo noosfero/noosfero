@@ -12,6 +12,7 @@
       var $own_name = '<%= user.name %>';
       var $starting_chat_notice = '<%= _("starting chat with %{name}") %>';
       var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
+      var $bosh_service = '//<%= environment.default_hostname %>/http-bind';
       var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
       var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
     </script>
