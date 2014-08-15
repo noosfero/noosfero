@@ -33,22 +33,24 @@
   padding-top: 10px;
   text-decoration: none;
   color: rgb(238, 238, 238);
+  height: 44px;
+  overflow: hidden;
 }
 #buddy-list .buddy-list li a .name, .occupant-list li a .name {
   vertical-align: top;
   margin-left: 5px;
 }
 #buddy-list .buddy-list li a img, .occupant-list li a img, #chat .avatar {
-  height: 32px;
-  max-width: 32px;
   border-radius: 5px;
+  width: 32px;
+  max-height: 40px;
 }
 #buddy-list .buddy-list li.offline, .occupant-list li.offline {
   display: none;
 }
 #chat #buddy-list .toolbar {
   border: 0;
-  height: 40px;
+  height: 45px;
   background-color: rgb(39, 39, 39);
   border-bottom: 1px solid #383838;
 }
@@ -100,7 +102,7 @@
 .conversation .history {
   position: absolute;
   right: 0;
-  top: 41px;
+  top: 40px;
   bottom: 100px;
   overflow: hidden;
   width: 100%;
@@ -149,7 +151,7 @@
 }
 
 #chat-window .history .message .avatar {
-  max-height: 32px;
+  max-height: 42px;
   max-width: 32px;
   margin: auto;
   display: block;
@@ -215,6 +217,9 @@
   display: inline-block;
   max-width: 70%;
 }
+.conversation .header .other-name {
+ color: rgb(238, 238, 238);
+}
 .conversation .header .back {
   float: right;
   margin: 6px;
@@ -229,6 +234,7 @@
   color: #257CAD;
   height: 23px;
   overflow: hidden;
+  vertical-align: top;
 }
 #chat #chat-window .history h5 {
   text-align: center;
@@ -240,6 +246,9 @@
 #chat .simplemenu-submenu {
   background: #585858;
   border: 1px solid #6B6B6B;
+}
+#chat #user-status {
+  padding: 2px 4px;
 }
 #chat .user-status a {
   color: rgb(224, 224, 224);
