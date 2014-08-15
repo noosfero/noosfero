@@ -85,7 +85,15 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  scope :templates, {:conditions => {:is_template => true}}
+  scope :templates, lambda { |template_id = nil|
+    conditions = {:conditions => {:is_template => true}}
+    conditions[:conditions].merge!({:id => template_id}) unless template_id.nil?
+    conditions
+  }
+
+  scope :with_templates, lambda { |templates|
+    {:conditions => {:template_id => templates}}
+  }
   scope :no_templates, {:conditions => {:is_template => false}}
 
   def members

@@ -1406,6 +1406,71 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes environment.profiles.templates, profile
   end
 
+  should 'return an specific template when specified' do
+    environment = Environment.default
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile)
+
+    assert_equal [t1], environment.profiles.templates(t1)
+    assert_equal [t2], environment.profiles.templates(t2)
+  end
+
+  should 'not return a template when and invalid template is specified' do
+    environment = Environment.default
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    t3 = fast_create(Profile)
+
+    assert_equal [], environment.profiles.templates(t3)
+  end
+
+  should 'return profiles of specified template passing object' do
+    environment = Environment.default
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    p1 = fast_create(Profile, :template_id => t1.id)
+    p2 = fast_create(Profile, :template_id => t2.id)
+    p3 = fast_create(Profile, :template_id => t1.id)
+
+    assert_equivalent [p1,p3], environment.profiles.with_templates(t1)
+  end
+
+  should 'return profiles of specified template passing id' do
+    environment = Environment.default
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    p1 = fast_create(Profile, :template_id => t1.id)
+    p2 = fast_create(Profile, :template_id => t2.id)
+    p3 = fast_create(Profile, :template_id => t1.id)
+
+    assert_equivalent [p1,p3], environment.profiles.with_templates(t1.id)
+  end
+
+  should 'return profiles of a list of specified templates' do
+    environment = Environment.default
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    t3 = fast_create(Profile, :is_template => true)
+    p1 = fast_create(Profile, :template_id => t1.id)
+    p2 = fast_create(Profile, :template_id => t2.id)
+    p3 = fast_create(Profile, :template_id => t3.id)
+
+    assert_equivalent [p1,p2], environment.profiles.with_templates([t1,t2])
+  end
+
+  should 'return all profiles without any template if nil is passed as parameter' do
+    environment = Environment.default
+    Profile.delete_all
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    p1 = fast_create(Profile, :template_id => t1.id)
+    p2 = fast_create(Profile, :template_id => t2.id)
+    p3 = fast_create(Profile)
+
+    assert_equivalent [t1,t2,p3], environment.profiles.with_templates(nil)
+  end
+
   should 'return a list of profiles that are not templates' do
     environment = Environment.default
     p1 = fast_create(Profile, :is_template => false)

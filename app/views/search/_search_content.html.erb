@@ -1,4 +1,8 @@
 <div id='search-content'>
+  <div class='total'>
+    <%= _('Total of %s results ') % @searches[@asset][:results].total_entries.inspect %>
+  </div>
+
 <%= display_results(@searches, @asset) %>
 <% if params[:display] != 'map' %>
   <%= pagination_links @searches[@asset][:results] %>

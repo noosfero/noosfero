@@ -5,8 +5,12 @@
     <div id='search-header'>
       <%= assets_menu(@asset) %>
       <%= filters(@asset) %>
+      <div class="clear"></div>
     </div>
 
+    <div id='search-subheader'>
+      <%= assets_submenu(@asset) %>
+    </div>
     <div class="search-field">
       <span class="formfield">
         <%= search_input_with_suggestions('query', @asset, @query, {:id => 'search-input', :size => 50, :placeholder => hint}) %>

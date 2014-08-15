@@ -953,7 +953,7 @@ ul#assets-menu {
   text-align: justify;
   text-justify: distribute-all-lines; /* distribute items in IE */
   list-style-type: none;
-  margin: 5px 0 13px;
+  margin: 5px 0px 10px 0px;
   padding: 0;
   width: 500px;
   float: left;
@@ -982,6 +982,15 @@ ul#assets-menu li.selected a {
 
 ul#assets-menu li.selected a {
   color: #EF2929;
+  font-weight: bold;
+}
+ul#assets-links li.selected a {
+  border-bottom: 4px solid #dd4b39;
+  padding-bottom: 6px;
+}
+
+ul#assets-links li.selected a {
+  color: #dd4b39;
   font-weight: bold;
 }
 
@@ -1036,4 +1045,14 @@ ul#assets-menu li.selected a {
   display: block;
   border-bottom:1px solid #ccc;
   margin-bottom: 10px;
+}
+
+#search-header{
+  border-bottom: 1px solid #ebebeb;
+}
+
+#search-content .total{
+  color: #808080;
+  line-height: 20px;
+  font-style: oblique;
 }
