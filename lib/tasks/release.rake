@@ -224,7 +224,7 @@ EOF
 
   desc 'Build Debian packages'
   task :debian_packages => :package do
-    target = "pkg/noosfero-#{Noosfero::VERSION}"
+    target = "pkg/noosfero-#{$version}"
 
     # base pre-config
     mkdir "#{target}/tmp"
@@ -240,7 +240,7 @@ EOF
   desc 'Test Debian package'
   task 'debian:test' => :debian_packages do
     Dir.chdir 'pkg' do
-      rm_rf "noosfero-#{Noosfero::VERSION}"
+      rm_rf "noosfero-#{$version}"
       sh 'apt-ftparchive packages . > Packages'
       sh 'apt-ftparchive release . > Release'
     end
