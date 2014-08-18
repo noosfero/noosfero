@@ -1,4 +1,4 @@
-class CreateUser < Task
+class ModerateUserRegistration < Task
 
   settings_items :user_id, :type => String
   settings_items :name, :type => String
