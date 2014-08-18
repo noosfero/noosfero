@@ -99,7 +99,7 @@ jQuery(function($) {
      },
 
      render_body_message: function(body) {
-        body = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r?\n/g, '<br>');
+        body = body.replace(/\r?\n/g, '<br>');
         body = $().emoticon(body);
         body = linkify(body, {
            callback: function(text, href) {
@@ -320,7 +320,7 @@ jQuery(function($) {
         var jid_id = Jabber.jid_to_id(jid);
         var name = Jabber.name_of(jid_id);
         create_conversation_tab(name, jid_id);
-        Jabber.show_message(jid, name, message.body, 'other', Strophe.getNodeFromJid(jid));
+        Jabber.show_message(jid, name, escape_html(message.body), 'other', Strophe.getNodeFromJid(jid));
         $.sound.play('/sounds/receive.wav');
         return true;
      },
@@ -336,7 +336,7 @@ jQuery(function($) {
         // is a message from another user, not mine
         else if ($own_name != name) {
            var jid = Jabber.rooms[Jabber.jid_to_id(message.from)][name];
-           Jabber.show_message(message.from, name, message.body, name, Strophe.getNodeFromJid(jid));
+           Jabber.show_message(message.from, name, escape_html(message.body), name, Strophe.getNodeFromJid(jid));
            $.sound.play('/sounds/receive.wav');
         }
         return true;
@@ -432,7 +432,7 @@ jQuery(function($) {
             .c('body').t(body).up()
             .c('active', {xmlns: Strophe.NS.CHAT_STATES});
         Jabber.connection.send(message);
-        Jabber.show_message(jid, $own_name, body, 'self', Strophe.getNodeFromJid(Jabber.connection.jid));
+        Jabber.show_message(jid, $own_name, escape_html(body), 'self', Strophe.getNodeFromJid(Jabber.connection.jid));
      },
 
      is_a_room: function(jid_id) {
@@ -529,11 +529,27 @@ jQuery(function($) {
    function create_conversation_tab(title, jid_id) {
       if (! $('#' + Jabber.tab_prefix + jid_id).length > 0) {
          // opening chat with selected online friend
-         var tab = $tabs.tabs('add', '#' + Jabber.tab_prefix + jid_id, title);
+         var panel = $('<div id="'+Jabber.tab_prefix + jid_id+'"></div>').appendTo($tabs);
+         panel.append("<div class='conversation'><div class='history'></div><div class='input-div'><div class='icon-chat'></div><textarea class='input'></textarea></div></div>");
+
+         //FIXME
+         //var notice = $starting_chat_notice.replace('%{name}', $(ui.tab).html());
+         //Jabber.show_notice(jid_id, notice);
+
+         // define textarea name as '<TAB_ID>'
+         panel.find('textarea').attr('name', panel.id);
+
+         if (Jabber.is_a_room(jid_id)) {
+             panel.append(Jabber.templates.occupant_list);
+             panel.find('.history').addClass('room');
+         }
+
+         $tabs.find('.ui-tabs-nav').append( "<li><a href='"+('#' + Jabber.tab_prefix + jid_id)+"'><span class=\"unread-messages\" style=\"display:none\"></span>"+title+"</a></li>" );
+         $tabs.tabs('refresh');
+
          var jid = Jabber.jid_of(jid_id);
          $("a[href='#" + Jabber.tab_prefix + jid_id + "']").addClass($('#' + jid_id).attr('class') || 'icon-chat');
          $('#' + Jabber.tab_prefix + jid_id).find('textarea').attr('data-to', jid);
-         $tabs.tabs('select', '#' + Jabber.tab_prefix + jid_id);
       }
    }
 
@@ -555,7 +571,7 @@ jQuery(function($) {
    var $tabs = $('#chat-window #tabs').tabs({
       tabTemplate: '<li class="tab"><a href="#{href}"><span class="unread-messages" style="display:none"></span>#{label}</a></li>',
       panelTemplate: "<div class='conversation'><div class='history'></div><div class='input-div'><div class='icon-chat'></div><textarea class='input'></textarea></div></div>",
-      add: function(event, ui) {
+      add: function(event, ui) { //FIXME DEPRECATED
          var jid_id = ui.panel.id.replace(Jabber.tab_prefix, '');
 
          var notice = $starting_chat_notice.replace('%{name}', $(ui.tab).html());
@@ -575,7 +591,7 @@ jQuery(function($) {
          var jid_id = ui.panel.id.replace(Jabber.tab_prefix, '');
          count_unread_messages(jid_id, true);
       },
-      remove: function(event, ui) {
+      remove: function(event, ui) { //FIXME DEPRECATED
          var jid_id = ui.panel.id.replace(Jabber.tab_prefix, '');
          if (Jabber.is_a_room(jid_id)) {
             // exiting from a chat room
@@ -630,6 +646,13 @@ jQuery(function($) {
          var time = new Date();
          window.console.log('['+ time.toTimeString() +'] ' + msg);
       }
+   }
+
+   function escape_html(body) {
+      return body
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
    }
 
 });

@@ -17,7 +17,7 @@ class ProductCategoriesBlock < Block
     profile = owner
     proc do
       if @categories.nil? or @categories.length == 0
-        categories = ProductCategory.on_level().order(:name)
+        categories = ProductCategory.on_level(nil).order(:name)
         if @categories and @categories.length == 0
           notice = _('There are no sub-categories for %s') % @category.name
         end
@@ -33,7 +33,7 @@ class ProductCategoriesBlock < Block
     end
   end
 
-  DISPLAY_OPTIONS['catalog_only'] = _('Only on the catalog')
+  DISPLAY_OPTIONS = DISPLAY_OPTIONS.merge('catalog_only' => _('Only on the catalog'))
 
   def display
     settings[:display].nil? ? 'catalog_only' : super

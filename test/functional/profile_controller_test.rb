@@ -219,30 +219,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_match /Add friend/, @response.body
   end
 
-  should 'show message for disabled enterprise' do
-    login_as(@profile.identifier)
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    get :index, :profile => ent.identifier
-    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => /#{Environment.default.message_for_disabled_enterprise}/
-  end
-
-  should 'not show message for disabled enterprise to non-enterprises' do
-    login_as(@profile.identifier)
-    @profile.enabled = false; @profile.save!
-    get :index, :profile => @profile.identifier
-    assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
-  end
-
-  should 'not show message for disabled enterprise if there is a block for it' do
-    login_as(@profile.identifier)
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    ent.boxes << Box.new
-    ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
-    ent.save
-    get :index, :profile => ent.identifier
-    assert_no_tag :tag => 'div', :attributes => {:class => 'blocks'}, :descendant => { :tag => 'div', :attributes => { :id => 'profile-disabled' }}
-  end
-
   should 'display "Products" link for enterprise' do
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
 

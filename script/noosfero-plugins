@@ -14,9 +14,10 @@ fi
 # data
 available_plugins_dir="$NOOSFERO_DIR/plugins"
 enabled_plugins_dir="$NOOSFERO_DIR/config/plugins"
+base_plugins_dir="$NOOSFERO_DIR/baseplugins"
 available_plugins=$(find "$available_plugins_dir" -maxdepth 1 -mindepth 1 -type d -not -name 'template' -printf '%f\n' | sort)
 enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
-disabled_plugins=$(printf "%s\n" $available_plugins $enabled_plugins_dir | sort | uniq -u)
+base_plugins=$(find -L "$base_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 
 # operation defaults
 quiet=false
@@ -32,7 +33,7 @@ _list() {
 
 _status() {
   for plugin in $available_plugins; do
-    if [ -h "$enabled_plugins_dir/$plugin" ]; then
+    if [ -h "$enabled_plugins_dir/$plugin" -o -h "$base_plugins_dir/$plugin" ]; then
       status="*"
     else
       status=" "
@@ -79,8 +80,9 @@ _enable(){
   cd $enabled_plugins_dir
   source="../../plugins/$plugin"
   target="$enabled_plugins_dir/$plugin"
+  base="$base_plugins_dir/$plugin"
   run "$source/before_enable.rb"
-  if [ -h "$target" ]; then
+  if [ -h "$target" -o -h "$base" ]; then
     _say "$plugin already enabled"
   else
     if [ ! -d "$source" ]; then
@@ -104,8 +106,10 @@ _enable(){
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       cd $plugins_public_dir
       test -d "$source/public" && ln -s "$source/public" "$plugin"
-      cd $plugins_features_dir
-      test -d "$NOOSFERO_DIR/features" && test -d "$source/features" && ln -s "$source/features" "$plugin"
+      if [ -d "$NOOSFERO_DIR/features" ]; then
+        cd $plugins_features_dir
+        test -d "$source/features" && ln -s "$source/features" "$plugin"
+      fi
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
@@ -125,19 +129,20 @@ _disable(){
   target="$enabled_plugins_dir/$plugin"
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   plugins_features_dir="$NOOSFERO_DIR/features/plugins"
-  if ! run "$source/before_disable.rb"; then
-    echo "W: failed to disabling $plugin"
-    echo
+
+  if [ -h "$base_plugins_dir/$plugin" ]; then
+    _say "$plugin is a base plugin and cannot be disabled"
+    return
+  fi
+
+  if [ -h "$target" ]; then
+    rm "$target"
+    test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
+    test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
+    _say "$plugin disabled"
+    run "$source/after_disable.rb"
   else
-    if [ -h "$target" ]; then
-      rm "$target"
-      test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
-      test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
-      _say "$plugin disabled"
-      run "$source/after_disable.rb"
-    else
-      _say "$plugin already disabled"
-    fi
+    _say "$plugin already disabled"
   fi
 }
 

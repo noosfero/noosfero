@@ -11,7 +11,7 @@ class CatalogController < PublicController
   protected
 
   def check_enterprise_and_environment
-    unless profile.kind_of?(Enterprise) && @profile.environment.enabled?('products_for_enterprises')
+    unless profile.enterprise? && @profile.environment.enabled?('products_for_enterprises')
       redirect_to :controller => 'profile', :profile => profile.identifier, :action => 'index'
     end
   end

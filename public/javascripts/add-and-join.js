@@ -1,7 +1,7 @@
 jQuery(function($) {
 
   $(".add-friend").live('click', function(){
-    clicked = $(this)
+    clicked = $(this);
     url = clicked.attr("href");
     loading_for_button(this);
     $.post(url, function(data){
@@ -12,7 +12,7 @@ jQuery(function($) {
   })
 
   $(".join-community").live('click', function(){
-    clicked = $(".join-community");
+    clicked = $(this);
     url = clicked.attr("href");
     loading_for_button(this);
     $.post(url, function(data){
@@ -29,7 +29,7 @@ jQuery(function($) {
   })
 
   $(".leave-community").live('click', function(){
-    clicked = $(".leave-community");
+    clicked = $(this);
     url = clicked.attr("href");
     loading_for_button(this);
     $.post(url, function(data){

@@ -26,7 +26,7 @@ class DisplayContentBlock < Block
   settings_items :display_folder_children, :type => :boolean, :default => true
   settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
 
-  attr_accessible :sections, :checked_nodes, :display_folder_children
+  attr_accessible :sections, :checked_nodes, :display_folder_children, :types
 
   def self.description
     _('Display your contents')
@@ -120,7 +120,7 @@ class DisplayContentBlock < Block
     nodes_conditions = nodes.blank? ? '' : " AND articles.id IN(:nodes) "
     nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
-    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}], :include => :profile)
+    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}], :include => [:profile, :image, :tags])
     proc do
       block.block_title(block.title) +
         content_tag('ul', docs.map {|item|
