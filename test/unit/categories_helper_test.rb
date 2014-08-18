@@ -31,4 +31,10 @@ class CategoriesHelperTest < ActiveSupport::TestCase
     assert_equal '', category_color_style(category2)
   end
 
+  should 'not return category parent color if category is nil' do
+    assert_nothing_raised do
+      assert_equal '', category_color_style(nil)
+    end
+  end
+
 end

@@ -12,7 +12,7 @@ module CategoriesHelper
   end
 
   def category_color_style(category)
-    return '' if category.display_color.blank?
+    return '' if category.nil? or category.display_color.blank?
     'background-color: #'+category.display_color+';'
   end
 
