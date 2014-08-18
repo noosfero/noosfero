@@ -2565,6 +2565,15 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   color: #585858;
   font-size: 11px;
 }
+.colorpicker_field {
+  display: none;
+}
+.color_marker {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid;
+}
 .formfield input {
   text-indent: 5px;
   padding: 2px 0px;

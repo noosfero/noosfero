@@ -45,9 +45,11 @@ class CategoriesController < AdminController
       if request.post?
         @category.update_attributes!(params[:category])
         @saved = true
+        session[:notice] = _("Category %s saved." % @category.name)
         redirect_to :action => 'index'
       end
     rescue Exception => e
+      session[:notice] = _('Could not save category.')
       render :action => 'edit'
     end
   end

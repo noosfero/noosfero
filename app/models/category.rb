@@ -14,9 +14,6 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('{fn} is already being used by another category.').fix_i18n
   belongs_to :environment
 
-  validates_inclusion_of :display_color, :in => 1..15, :allow_nil => true
-  validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('{fn} was already assigned to another category.').fix_i18n
-
   # Finds all top level categories for a given environment. 
   scope :top_level_for, lambda { |environment|
     {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
@@ -41,6 +38,13 @@ class Category < ActiveRecord::Base
   has_many :products, :through => :enterprises
 
   acts_as_having_image
+
+  before_save :normalize_display_color
+
+  def normalize_display_color
+    display_color.gsub!('#', '') if display_color
+    display_color = nil if display_color.blank?
+  end
 
   scope :from_types, lambda { |types|
     types.select{ |t| t.blank? }.empty? ?
@@ -99,6 +103,14 @@ class Category < ActiveRecord::Base
   def is_leaf_displayable_in_menu?
     return false if self.display_in_menu == false
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
+  end
+
+  def with_color
+    if display_color.blank?
+      parent.nil? ? nil : parent.with_color
+    else
+      self
+    end
   end
 
 end
