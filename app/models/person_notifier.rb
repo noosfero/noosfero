@@ -82,7 +82,7 @@ class PersonNotifier
       @url = @profile.environment.top_url
       mail(
         content_type: "text/html",
-        from: "#{@profile.environment.name} <#{@profile.environment.contact_email}>",
+        from: "#{@profile.environment.name} <#{@profile.environment.noreply_email}>",
         to: @profile.email,
         subject: _("[%s] Network Activity") % [@profile.environment.name]
       )

@@ -321,6 +321,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal 'test.txt', f.children[0].name
   end
 
+  should 'set author of uploaded files' do
+    f = Folder.new(:name => 'f'); profile.articles << f; f.save!
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+
+    uf = profile.articles.find_by_name('test.txt')
+    assert_equal profile, uf.author
+  end
+
   should 'display destination folder of files when uploading file in root folder' do
     get :upload_files, :profile => profile.identifier
 
@@ -1209,7 +1217,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
@@ -1220,7 +1228,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = create(Article, :profile => c, :name => 'test_article', :created_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 
@@ -1789,6 +1797,14 @@ class CmsControllerTest < ActionController::TestCase
     a.reload
 
     assert_equal other_person, a.created_by
+  end
+
+  should 'continue on the same page, when no group is selected' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
+    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+    post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {}}
+    assert_template 'cms/publish'
   end
 
   protected

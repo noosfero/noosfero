@@ -6,6 +6,8 @@ class SlideshowBlock < Block
   settings_items :navigation, :type => 'boolean', :default => false
   settings_items :image_size, :type => 'string', :default => 'thumb'
 
+  attr_accessible :gallery_id, :image_size, :interval, :shuffle, :navigation
+
   def self.description
     _('Slideshow')
   end

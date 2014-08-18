@@ -51,7 +51,7 @@ class ProfileController < PublicController
 
   def communities
     if is_cache_expired?(profile.communities_cache_key(params))
-      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
+      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.communities.count)
     end
   end
 
@@ -202,7 +202,8 @@ class ProfileController < PublicController
   end
 
   def more_comments
-    activity = ActionTracker::Record.find(:first, :conditions => {:id => params[:activity], :user_id => @profile})
+    profile_filter = @profile.person? ? {:user_id => @profile} : {:target_id => @profile}
+    activity = ActionTracker::Record.find(:first, :conditions => {:id => params[:activity]}.merge(profile_filter))
     comments_count = activity.comments.count
     comment_page = (params[:comment_page] || 1).to_i
     comments_per_page = 5

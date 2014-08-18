@@ -1,0 +1,3 @@
+Plugins in this directory are enabled by default, and cannot be disabled at the
+system level. Each environment admistrator can still disable it in the web UI,
+though.

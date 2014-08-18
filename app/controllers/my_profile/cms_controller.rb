@@ -146,6 +146,7 @@ class CmsController < MyProfileController
     end
 
     @article.profile = profile
+    @article.author = user
     @article.last_changed_by = user
     @article.created_by = user
 
@@ -194,7 +195,18 @@ class CmsController < MyProfileController
     end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        @uploaded_files << UploadedFile.create({:uploaded_data => file, :profile => profile, :parent => @parent, :last_changed_by => user}, :without_protection => true) unless file == ''
+        unless file == ''
+          @uploaded_files << UploadedFile.create(
+            {
+              :uploaded_data => file,
+              :profile => profile,
+              :parent => @parent,
+              :last_changed_by => user,
+              :author => user,
+            },
+            :without_protection => true
+          )
+        end
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
@@ -277,6 +289,9 @@ class CmsController < MyProfileController
       article_name = params[:name]
       params_marked = params['q'].split(',').select { |marked| user.memberships.map(&:id).include? marked.to_i }
       @marked_groups = Profile.find(params_marked)
+      if @marked_groups.empty?
+        return session[:notice] = _("Select some group to publish your article")
+      end
       @marked_groups.each do |item|
         task = ApproveArticle.create!(:article => @article, :name => article_name, :target => item, :requestor => user)
         begin

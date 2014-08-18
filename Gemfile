@@ -15,6 +15,8 @@ gem 'thin'
 gem 'hpricot'
 gem 'nokogiri'
 gem 'rake', :require => false
+gem 'rest-client'
+gem 'exception_notification'
 
 gem 'whenever', :require => false
 
@@ -32,7 +34,6 @@ group :test do
 end
 
 group :cucumber do
-  gem 'rake'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'cucumber'

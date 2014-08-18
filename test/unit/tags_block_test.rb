@@ -58,4 +58,14 @@ class TagsBlockTest < ActiveSupport::TestCase
     assert /\/first-tag".*\/second-tag".*\/third-tag"/m =~  block.content
   end
 
+  should 'return the max value in the range between zero and limit' do
+    block = TagsBlock.new
+    assert_equal 12, block.get_limit
+  end
+
+  should '' do
+    block = TagsBlock.new
+    block.limit = -5
+    assert_equal 0, block.get_limit
+  end
 end

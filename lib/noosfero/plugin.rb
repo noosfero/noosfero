@@ -104,13 +104,17 @@ class Noosfero::Plugin
 
     def available_plugins
       unless @available_plugins
-        path = File.join(Rails.root, 'config', 'plugins', '*')
+        path = File.join(Rails.root, '{baseplugins,config/plugins}', '*')
         @available_plugins = Dir.glob(path).select{ |i| File.directory?(i) }
         if Rails.env.test? && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
           @available_plugins << File.join(Rails.root, 'plugins', 'foo')
         end
       end
       @available_plugins
+    end
+
+    def available_plugin_names
+      available_plugins.map { |f| File.basename(f).camelize }
     end
 
     def all

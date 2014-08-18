@@ -21,6 +21,7 @@ config/locales                    usr/share/noosfero/config
 config.ru                         usr/share/noosfero
 
 plugins                           usr/share/noosfero
+baseplugins                       usr/share/noosfero
 
 debian/dbinstall                  usr/lib/noosfero
 debian/dbupgrade                  usr/lib/noosfero

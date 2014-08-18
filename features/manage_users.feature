@@ -15,7 +15,7 @@ Background:
   Scenario: deactive user
     When I follow "Deactivate user" within "tr[title='Joao Silva']"
     And I confirm the "Do you want to deactivate this user?" dialog
-    Then I should see "Activate user" within "tr[title='Joao Silva']"
+    Then the "tr[title='Joao Silva'] td.actions a.icon-activate-user" button should be enabled
 
   @selenium
   Scenario: activate user
@@ -23,7 +23,7 @@ Background:
     Given I confirm the "Do you want to deactivate this user?" dialog
     When I follow "Activate user" within "tr[title='Paulo Santos']"
     And I confirm the "Do you want to activate this user?" dialog
-    Then I should see "Deactivate user" within "tr[title='Paulo Santos']"
+    Then the "tr[title='Paulo Santos'] td.actions a.icon-deactivate-user" button should be enabled
 
   @selenium
   Scenario: remove user
@@ -36,7 +36,7 @@ Background:
   Scenario: admin user
     When I follow "Set admin role" within "tr[title='Joao Silva']"
     And I confirm the "Do you want to set this user as administrator?" dialog
-    Then I should see "Reset admin role" within "tr[title='Joao Silva']"
+    Then the "tr[title='Joao Silva'] td.actions a.icon-reset-admin-role" button should be enabled
 
   @selenium
   Scenario: unadmin user
@@ -44,4 +44,4 @@ Background:
     And I confirm the "Do you want to set this user as administrator?" dialog
     When I follow "Reset admin role" within "tr[title='Paulo Santos']"
     And I confirm the "Do you want to reset this user as administrator?" dialog
-    Then I should see "Set admin role" within "tr[title='Paulo Santos']"
+    Then the "tr[title='Paulo Santos'] td.actions a.icon-set-admin-role" button should be enabled

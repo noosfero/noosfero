@@ -1,12 +1,12 @@
 <div class="article-versions">
-  <%= button(:back, _('Go back to latest version'), {:action => 'view_page'}) %>
+  <%= button(:back, _('Go back to latest version'), @page.url) %>
 </div>
 
 <%= article_title(@page, :no_link => true) %>
 
 <p><%= _('This is the list of all versions of this content. Select a version to see it and then revert to it.') %>.</p>
 
-<%= form_tag({:controller => 'content_viewer', :action => 'versions_diff', :profile => profile.identifier, :page => @page.path.split('/')}, :method => 'get') do %>
+<%= form_tag({:controller => 'content_viewer', :action => 'versions_diff', :profile => profile.identifier, :page => @page.path}, :method => 'get') do %>
   <ul id="article-versions">
     <% @versions.each do |v| %>
       <li>

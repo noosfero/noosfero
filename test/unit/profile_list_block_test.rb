@@ -216,4 +216,14 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     assert ProfileListBlock.new.prioritize_profiles_with_image
   end
 
+  should 'return the max value in the range between zero and limit' do
+    block = ProfileListBlock.new
+    assert_equal 6, block.get_limit
+  end
+
+  should 'return 0 if limit of the block is negative' do
+    block = ProfileListBlock.new
+    block.limit = -5
+    assert_equal 0, block.get_limit
+  end
 end

@@ -36,12 +36,12 @@ class FriendsControllerTest < ActionController::TestCase
 
   should 'actually remove friend' do
     profile.add_friend(friend)
+    friend.add_friend(profile)
 
-    assert_difference 'Friendship.count', -1 do
+    assert_difference 'Friendship.count', -2 do
       post :remove, :id => friend.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
     end
-    assert_equal friend, Profile.find(friend.id)
   end
 
   should 'display find people button' do
