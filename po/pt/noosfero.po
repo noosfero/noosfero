@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.1\n"
 "POT-Creation-Date: 2014-06-05 20:27-0000\n"
-"PO-Revision-Date: 2013-07-30 12:53-0300\n"
+"PO-Revision-Date: 2014-08-19 10:30-0300\n"
 "Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
 "Language-Team: Noosfero Develeopers <noosfero-dev@listas.softwarelivre.org>\n"
 "Language: pt\n"
@@ -469,7 +469,7 @@ msgstr "Local: "
 #: app/helpers/boxes_helper.rb:37 app/helpers/boxes_helper.rb:63
 #: app/models/main_block.rb:4
 msgid "Main content"
-msgstr "Gerenciar conteúdo"
+msgstr "Conteúdo principal"
 
 #: app/helpers/boxes_helper.rb:100
 msgid "This block is invisible. Your visitors will not see it."
