@@ -467,7 +467,7 @@ jQuery(function($) {
 
    // save presence_status as offline in Noosfero database when close or reload chat window
    $(window).unload(function() {
-      disconnect();
+      //disconnect();
    });
 
    $('#chat-busy').click(function() {
@@ -508,11 +508,19 @@ jQuery(function($) {
         var jid = $(this).attr('data-to');
         var body = $(this).val();
         body = body.stripScripts();
+        save_message(jid, body);
         Jabber.deliver_message(jid, body);
         $(this).val('');
         return false;
      }
    });
+
+   function save_message(jid, body) {
+      $.post('/chat/save_message', {
+        to: getIdentifier(jid),
+        body: body
+      });
+   }
 
    // open new conversation or change to already opened tab
    $('#buddy-list .buddy-list li a').live('click', function() {
@@ -534,12 +542,16 @@ jQuery(function($) {
       $('.conversation textarea:visible').val(val + name + ', ').focus();
    });
 
-   $('.conversation .history').live('click', function() {
+   $('#chat .conversation .history').live('click', function() {
       $('.conversation textarea:visible').focus();
    });
 
-   $('.conversation .back').live('click', function() {
+   $('#chat .conversation .back').live('click', function() {
       $('#chat #chat-window .conversation').hide();
+   });
+
+   $('#chat .toolbar .back').live('click', function() {
+      $('#chat').hide('fast');
    });
 
    function create_conversation_tab(title, jid_id) {
@@ -567,7 +579,28 @@ jQuery(function($) {
           panel.find('.history').addClass('room');
       }
       textarea.attr('data-to', jid);
+
+      recent_messages(jid);
+
       return panel;
+   }
+
+   function recent_messages(jid) {
+      $.getJSON('/chat/recent_messages', {
+        identifier: getIdentifier(jid)
+      }, function(data) {
+        $.each(data, function(i, message) {
+          var body = message['body'];
+          var from = message['from'];
+          var to = message['to'];
+
+          if(from['id']!=getCurrentIdentifier()) {
+            Jabber.show_message(from['id']+'@127.0.0.1', from['name'], body, 'other', from['id']);
+          } else {
+            Jabber.show_message(to['id']+'@127.0.0.1', $own_name, body, 'self', to['id']);
+          }
+        });
+      });
    }
 
    function count_unread_messages(jid_id, hide) {
