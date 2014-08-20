@@ -73,10 +73,6 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def self.all_types
-    %w[Invitation EnterpriseActivation AddMember Ticket SuggestArticle  AddFriend CreateCommunity AbuseComplaint ApproveComment ApproveArticle CreateEnterprise ChangePassword EmailActivation InviteFriend InviteMember]
-  end
-
   # this method finished the task. It calls #perform, which must be overriden
   # by subclasses. At the end a message (as returned by #finish_message) is
   # sent to the requestor with #notify_requestor.
