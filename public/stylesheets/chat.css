@@ -129,9 +129,12 @@
 }
 #chat-window .history .message .time {
   float: right;
-  color: gray;
+  color: rgb(184, 184, 184);
   font-style: italic;
-  font-size: 11px;
+  font-size: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  text-align: right;
 }
 #chat-window .history .message h5, #chat-window .history .message p {
   margin: 0;
@@ -139,6 +142,7 @@
 #chat-window .history .message p {
   max-width: 100%;
   overflow: auto;
+  clear: both;
 }
 
 #chat-window .history .message .content {

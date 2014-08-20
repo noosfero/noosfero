@@ -120,7 +120,7 @@ jQuery(function($) {
         return body;
      },
 
-     show_message: function (jid, name, body, who, identifier) {
+     show_message: function (jid, name, body, who, identifier, time) {
          if (body) {
             body = Jabber.render_body_message(body);
             var jid_id = Jabber.jid_to_id(jid);
@@ -129,8 +129,9 @@ jQuery(function($) {
                $(tab_id).find('.history').find('.message:last .content').append('<p>' + body + '</p>');
             }
             else {
-               var time = new Date();
-               time = time.getHours() + ':' + checkTime(time.getMinutes());
+               if (time==undefined) {
+                  time = new Date().toISOString();
+               }
                var message_html = $('#chat #chat-templates .message').clone().html()
                  .replace('%{message}', body)
                  .replace(/%{who}/g, who)
@@ -138,6 +139,7 @@ jQuery(function($) {
                  .replace('%{name}', name)
                  .replace('%{avatar}', getAvatar(identifier));
                $('#' + Jabber.conversation_prefix + jid_id).find('.history').append(message_html);
+               $(".message span.time").timeago();
             }
             $(tab_id).find('.history').scrollTo({top:'100%', left:'0%'});
             if (who != "self") {
@@ -593,11 +595,12 @@ jQuery(function($) {
           var body = message['body'];
           var from = message['from'];
           var to = message['to'];
+          var date = message['created_at'];
 
           if(from['id']!=getCurrentIdentifier()) {
-            Jabber.show_message(from['id']+'@127.0.0.1', from['name'], body, 'other', from['id']);
+            Jabber.show_message(from['id']+'@127.0.0.1', from['name'], body, 'other', from['id'], date);
           } else {
-            Jabber.show_message(to['id']+'@127.0.0.1', $own_name, body, 'self', to['id']);
+            Jabber.show_message(to['id']+'@127.0.0.1', $own_name, body, 'self', to['id'], date);
           }
         });
       });
