@@ -49,7 +49,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
   end
 
   def profile_tabs
-    unless context.profile.academic_info.nil? || context.profile.academic_info.lattes_url.nil?
+    unless context.profile.academic_info.nil? || context.profile.academic_info.lattes_url.blank?
       href = context.profile.academic_info.lattes_url
       html_parser = Html_parser.new
       {

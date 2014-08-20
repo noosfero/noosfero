@@ -15,8 +15,8 @@ class Html_parser
       page = remove_select(page)
       page = remove_footer(page)
       page = remove_further_informations(page)
-		rescue
-      page = ""
+		rescue OpenURI::HTTPError => e
+      page = _("Lattes not found. Please, make sure the informed URL is correct.")
 		end
 	end
 
