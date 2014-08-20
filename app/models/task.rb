@@ -250,6 +250,10 @@ class Task < ActiveRecord::Base
     { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
   }
 
+  def self.pending_types_for(profile)
+    Task.to(profile).pending.select('distinct type').map { |t| [t.class.name, t.title] }
+  end
+
   def opened?
     status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
