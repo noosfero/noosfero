@@ -21,5 +21,4 @@ class HtmlParserTest < ActiveSupport::TestCase
   should 'inform that lattes was not found' do
     assert_equal "Lattes not found. Please, make sure the informed URL is correct.", @parser.get_html("http://lattes.cnpq.br/123")
   end
-
 end

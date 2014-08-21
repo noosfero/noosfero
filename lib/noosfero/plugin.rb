@@ -537,21 +537,10 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Return a list of extra person fields
-  # returns = a list of strings with fields' name
-  def extra_person_fields
-    []
-  end
-
   # -> Return a list of hashs with the needed information to create optional fields
   # returns = a list of hashs as {:name => "string", :label => "string", :object_name => :key, :method => :key}
   def extra_optional_fields
     []
-  end
-
-  # -> Return a hash with another object's params
-  def extra_person_data_params
-    {}
   end
 
   # -> Adds additional blocks to profiles and environments.

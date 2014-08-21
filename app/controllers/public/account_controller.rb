@@ -93,13 +93,7 @@ class AccountController < ApplicationController
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
-
-      params_profile_data = params[:profile_data]
-      @plugins.dispatch(:extra_person_data_params).each do |data|
-        params_profile_data = params_profile_data.merge(data) unless params[:profile_data].blank?
-      end
-
-      @user.person_data = params_profile_data
+      @user.person_data = params[:profile_data]
       @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment

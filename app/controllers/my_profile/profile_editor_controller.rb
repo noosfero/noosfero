@@ -16,21 +16,15 @@ class ProfileEditorController < MyProfileController
     if request.post?
       params[:profile_data][:fields_privacy] ||= {} if profile.person? && params[:profile_data].is_a?(Hash)
       begin
-        @plugins.dispatch(:profile_editor_transaction_extras)
-
         Profile.transaction do
           Image.transaction do
-            if @profile_data.update_attributes(params[:profile_data])
-              redirect_to :action => 'index', :profile => profile.identifier
-            else
-              profile.identifier = params[:profile] if profile.identifier.blank?
-            end
+            @plugins.dispatch(:profile_editor_transaction_extras)
+            @profile_data.update_attributes!(params[:profile_data])
+            redirect_to :action => 'index', :profile => profile.identifier
           end
         end
       rescue Exception => ex
-        if profile.identifier.blank?
-          profile.identifier = params[:profile]
-        end
+        profile.identifier = params[:profile] if profile.identifier.blank?
       end
     end
   end

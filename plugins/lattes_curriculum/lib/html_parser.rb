@@ -6,8 +6,8 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 class Html_parser
-	def get_html(lattes_link = "")
-		begin
+  def get_html(lattes_link = "")
+    begin
       page = Nokogiri::HTML(open(lattes_link), nil, "UTF-8")
       page = page.css(".main-content").to_s()
       page = remove_class_tooltip(page)
@@ -17,8 +17,10 @@ class Html_parser
       page = remove_further_informations(page)
 		rescue OpenURI::HTTPError => e
       page = _("Lattes not found. Please, make sure the informed URL is correct.")
-		end
-	end
+    rescue Timeout::Error => e
+      page = _("Lattes Platform is unreachable. Please, try it later.")
+    end
+  end
 
   def remove_class_tooltip(page = "")
     while page.include? 'class="tooltip"' do

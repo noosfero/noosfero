@@ -11,7 +11,7 @@ class LattesCurriculumPluginTest < ActiveSupport::TestCase
   end
 
   should 'have name' do
-    assert_equal 'LattesCurriculumPlugin', LattesCurriculumPlugin.plugin_name
+    assert_equal 'Lattes Curriculum Plugin', LattesCurriculumPlugin.plugin_name
   end
 
   should 'have description' do
@@ -21,5 +21,4 @@ class LattesCurriculumPluginTest < ActiveSupport::TestCase
   should 'have stylesheet' do
     assert @plugin.stylesheet?
   end
-
 end

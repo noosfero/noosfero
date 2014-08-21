@@ -15,4 +15,6 @@ class Person
   def lattes_url= value
     self.academic_info.lattes_url = value unless self.academic_info.nil?
   end
+
+  FIELDS << "lattes_url"
 end

@@ -17,10 +17,6 @@ class FeaturesController < AdminController
 
   def manage_fields
     @person_fields = Person.fields
-    @plugins.dispatch(:extra_person_fields).collect do |field|
-      @person_fields << field unless @person_fields.include?(field)
-    end
-
     @enterprise_fields = Enterprise.fields
     @community_fields = Community.fields
   end

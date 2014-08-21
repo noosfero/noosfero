@@ -20,6 +20,4 @@ class AcademicInfoTest < ActiveSupport::TestCase
     @academic_info.lattes_url = "http://lattes.cnpq.br/2193972715230641"
     assert @academic_info.save
   end
-
-
 end

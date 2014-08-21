@@ -29,8 +29,6 @@ class User < ActiveRecord::Base
     alias_method_chain :human_attribute_name, :customization
   end
 
-  include Noosfero::Plugin::HotSpot
-
   before_create do |user|
     if user.environment.nil?
       user.environment = Environment.default
@@ -48,7 +46,6 @@ class User < ActiveRecord::Base
       p.environment = user.environment
       p.name ||= user.name || user.login
       p.visible = false unless user.activated?
-
       p.save!
 
       user.person = p
