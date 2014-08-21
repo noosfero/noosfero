@@ -317,6 +317,10 @@ jQuery(function($) {
               else {
                  // why server sends presence from myself to me?
                  log('ignoring presence from myself');
+                 if(presence.show=='offline') {
+                   console.log(Jabber.presence_status);
+                   Jabber.send_availability_status(Jabber.presence_status);
+                 }
               }
            }
         }
@@ -585,7 +589,7 @@ jQuery(function($) {
           var domain = '127.0.0.1';
 
           if(from['id']==getCurrentIdentifier()) {
-            Jabber.show_message(to['id']+'@'+group+domain, $own_name, body, 'self', to['id'], date);
+            Jabber.show_message(to['id']+'@'+group+domain, $own_name, body, 'self', from['id'], date);
           } else {
             var target = group!='' ? to['id'] : from['id']
             Jabber.show_message(target+'@'+group+domain, from['name'], body, 'other', from['id'], date);
