@@ -47,7 +47,7 @@
   max-height: 40px;
 }
 #buddy-list .buddy-list li.offline, .occupant-list li.offline {
-  display: none;
+/*  display: none;*/
 }
 #chat #buddy-list .toolbar {
   border: 0;

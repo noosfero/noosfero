@@ -45,9 +45,14 @@ class ChatController < PublicController
 
   def recent_messages
     other = environment.profiles.find_by_identifier(params[:identifier])
-    messages = ChatMessage.where('(to_id=:other and from_id=:me) or (to_id=:me and from_id=:other)', {:me => user.id, :other => other.id}).order('created_at DESC').includes(:to, :from).limit(20)
+    if other.kind_of?(Organization)
+      messages = ChatMessage.where('to_id=:other', :other => other.id)
+    else
+      messages = ChatMessage.where('(to_id=:other and from_id=:me) or (to_id=:me and from_id=:other)', {:me => user.id, :other => other.id})
+    end
 
-    messages = messages.map do |message|
+    messages = messages.order('created_at DESC').includes(:to, :from).limit(20)
+    messages_json = messages.map do |message|
       {
         :body => message.body,
         :to => {:id => message.to.identifier, :name => message.to.name, :type => message.to.type},
@@ -55,7 +60,7 @@ class ChatController < PublicController
         :created_at => message.created_at
       }
     end
-    render :json => messages.reverse
+    render :json => messages_json.reverse
   end
 
   protected
