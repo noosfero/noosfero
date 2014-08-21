@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.3\n"
-"POT-Creation-Date: 2014-07-24 14:20-0000\n"
+"POT-Creation-Date: 2014-08-21 19:13-0000\n"
 "PO-Revision-Date: 2013-07-30 12:53-0300\n"
 "Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
 "Language-Team: Noosfero Develeopers <noosfero-dev@listas.softwarelivre.org>\n"
@@ -5762,7 +5762,7 @@ msgstr "Este endereço de e-mail está disponível"
 msgid "This e-mail address is taken"
 msgstr "Este endereço de e-mail já está sendo utilizado"
 
-#: app/controllers/public/content_viewer_controller.rb:110
+#: app/controllers/public/content_viewer_controller.rb:108
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "A notificação de novos comentários para '%s' foi cancelada com sucesso"
 

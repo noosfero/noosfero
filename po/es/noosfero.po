@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.3\n"
-"POT-Creation-Date: 2014-07-24 14:20-0000\n"
+"POT-Creation-Date: 2014-08-21 19:13-0000\n"
 "PO-Revision-Date: 2013-01-03 18:39-0300\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
@@ -5945,7 +5945,7 @@ msgstr "Esta dirección de correo electrónico está disponible"
 msgid "This e-mail address is taken"
 msgstr "Esta dirección de correo electrónico está en uso"
 
-#: app/controllers/public/content_viewer_controller.rb:110
+#: app/controllers/public/content_viewer_controller.rb:108
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Notificación eliminada correctamente."

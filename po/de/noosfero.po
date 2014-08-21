@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.3\n"
-"POT-Creation-Date: 2014-07-24 14:20-0000\n"
+"POT-Creation-Date: 2014-08-21 19:13-0000\n"
 "PO-Revision-Date: 2013-03-07 20:14+0100\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -5893,7 +5893,7 @@ msgstr "Diese E-Mail-Adresse ist verfügbar"
 msgid "This e-mail address is taken"
 msgstr "Diese E-Mail-Adresse ist bereits in Verwendung"
 
-#: app/controllers/public/content_viewer_controller.rb:110
+#: app/controllers/public/content_viewer_controller.rb:108
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr ""
 "Die Benachrichtigung von '%s' zu neuen Kommentaren wurde erfolgreich "

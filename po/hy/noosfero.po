@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.3\n"
-"POT-Creation-Date: 2014-07-24 14:20-0000\n"
+"POT-Creation-Date: 2014-08-21 19:13-0000\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6128,7 +6128,7 @@ msgstr ""
 msgid "This e-mail address is taken"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:110
+#: app/controllers/public/content_viewer_controller.rb:108
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Արտադրանքը հաջողությամբ հեռացված է"
