@@ -1,3 +1,9 @@
+noosfero (0.47.4) unstable; urgency=low
+
+  * Bugfixes and performance optimizations
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 21 Aug 2014 19:25:37 +0000
+
 noosfero (0.47.3) unstable; urgency=low
 
   * Bugfixes release
