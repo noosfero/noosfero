@@ -46,8 +46,8 @@
   width: 32px;
   max-height: 40px;
 }
-#buddy-list .buddy-list li.offline, .occupant-list li.offline {
-/*  display: none;*/
+#buddy-list .buddy-list.offline, .occupant-list.offline {
+  display: none;
 }
 #chat #buddy-list .toolbar {
   border: 0;
@@ -195,14 +195,17 @@
   margin-left: 0;
 }
 
-#chat #title-bar {
+#chat .title-bar {
   height: 34px;
   background: #ccc url(/images/icons-app/chat-22x22.png) 3px 5px no-repeat;
   width: 250px;
   background-color: #303030;
   border-bottom: 1px solid #383838;
 }
-#title-bar .title {
+#chat .title-bar a {
+  text-decoration: none;
+}
+.title-bar .title {
   margin: 0;
   font-size: 12px;
   padding-left: 30px;

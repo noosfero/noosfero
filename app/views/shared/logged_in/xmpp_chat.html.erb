@@ -24,16 +24,22 @@
       </div>
 
       <div id="friends">
-        <div id='title-bar'><h1 class='title'><%= _("Online") %>&nbsp;(<span id='friends-online'>0</span>)</h1></div>
-        <ul class='buddy-list online'></ul>
+        <div class="status-group">
+          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Online") %>&nbsp;(<span id='friends-online'>0</span>)</h1></a></div>
+          <ul class='buddy-list online'></ul>
+        </div>
 
-        <div id='title-bar'><h1 class='title'><%= _("Offline") %></h1></div>
-        <ul class='buddy-list offline'></ul>
+        <div class="status-group">
+          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Offline") %>&nbsp;(<span id='friends-offline'>0</span>)</h1></a></div>
+          <ul class='buddy-list offline'></ul>
+        </div>
       </div>
 
       <div id="rooms">
-        <div id='title-bar'><h1 class='title'><%= _("Groups") %></h1></div>
-        <ul class="buddy-list room-list"></ul>
+        <div class="status-group">
+          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Groups") %>&nbsp;(<span id='groups-online'>0</span>)</h1></a></div>
+          <ul class="buddy-list room-list"></ul>
+        </div>
       </div>
     </div>
 
@@ -42,18 +48,21 @@
     </div>
 
     <div id="chat-templates">
-      <div class='conversation' style="display: none;">
-        <div class="header">
-          <span class="chat-target">
-            <img class="avatar">
-            <span class="other-name"></span>
-          </span>
-          <a href="#" class="back"><%= _('Back') %></a>
-        </div>
-        <div class='history'></div>
-        <div class='input-div'>
-            <div class='icon-chat'></div>
-            <textarea class='input'></textarea>
+
+      <div class="conversation-template">
+        <div class='conversation' style="display: none;">
+          <div class="header">
+            <span class="chat-target">
+              <img class="avatar">
+              <span class="other-name"></span>
+            </span>
+            <a href="#" class="back"><%= _('Back') %></a>
+          </div>
+          <div class='history'></div>
+          <div class='input-div'>
+              <div class='icon-chat'></div>
+              <textarea class='input'></textarea>
+          </div>
         </div>
       </div>
 
@@ -63,6 +72,20 @@
             %{avatar}
             <span class="name">%{name}<span>
             <span class="unread-messages icon-chat"></span>
+          </a>
+        </li>
+      </div>
+
+      <div class="occupant-list-template">
+        <div class="occupant-list">
+          <ul class='occupant-list'></ul>
+        </div>
+      </div>
+
+      <div class="occupant-item">
+        <li class='%{presence_status}'>
+          <a data-id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>
+            %{name}
           </a>
         </li>
       </div>
@@ -79,5 +102,10 @@
           </div>
         </div>
       </div>
+
+      <div class="error-message">
+        <span class='error'>%{text}</span>
+      </div>
+
     </div>
   </div>
