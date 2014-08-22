@@ -89,7 +89,7 @@ jQuery(function($) {
      insert_or_update_occupant: function (jid, name, presence, room_jid) {
         log('adding or updating occupant ' + jid + ' as ' + presence);
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#' + Jabber.conversation_prefix + Jabber.jid_to_id(room_jid) + ' .occupant-list ul');
+        var list = $('#' + Jabber.conversation_prefix + Jabber.jid_to_id(room_jid) + ' .occupants ul');
         var item = $(list).find('a[data-id='+ jid_id +']');
         Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.template('.occupant-item'), 'chat');
         if (Jabber.rooms[Jabber.jid_to_id(room_jid)] === undefined) {
@@ -199,7 +199,7 @@ jQuery(function($) {
               break;
            case Strophe.Status.DISCONNECTED:
               log('disconnected');
-              $('#buddy-list ul.buddy-list, .occupant-list ul.occupant-list').html('');
+              $('#buddy-list ul.buddy-list, .occupants ul.occupant-list').html('');
               Jabber.update_chat_title();
               $('#buddy-list .toolbar').removeClass('small-loading-dark');
               $('textarea').prop('disabled', 'disabled');
@@ -528,12 +528,11 @@ jQuery(function($) {
    });
 
    // put name into text area when click in one occupant
-   // FIXME
-   $('.occupant-list .occupant-list li a').live('click', function() {
+   $('.occupants .occupant-list li a').live('click', function() {
       var jid_id = $(this).attr('data-id');
       var name = Jabber.name_of(jid_id);
       var val = $('.conversation textarea:visible').val();
-      $('.conversation textarea:visible').val(val + name + ', ').focus();
+      $('.conversation textarea:visible').focus().val(val + name + ', ');
    });
 
    $('#chat .conversation .history').live('click', function() {
@@ -569,8 +568,9 @@ jQuery(function($) {
       textarea.attr('name', panel.id);
 
       if (Jabber.is_a_room(jid_id)) {
-          panel.append(Jabber.template('.occupant-list-template'));
+          panel.find('.conversation').append(Jabber.template('.occupant-list-template'));
           panel.find('.history').addClass('room');
+          $('#chat .occupants .occupant-list').perfectScrollbar();
       }
       textarea.attr('data-to', jid);
 
@@ -671,6 +671,10 @@ jQuery(function($) {
 
    $('.title-bar a').click(function() {
      $(this).parents('.status-group').find('.buddy-list').toggle('fast');
+   });
+   $('#chat').on('click', '.occupants a', function() {
+     $(this).siblings('.occupant-list').toggle('fast');
+     $(this).toggleClass('up');
    });
 
    //restore connection if user was connected

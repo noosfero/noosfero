@@ -174,18 +174,33 @@
   text-align: center;
   display: block;
 }
-.conversation .occupant-list {
+div.occupants {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  bottom: 125px;
+  width: 100%;
+  bottom: 98px;
+  background-color: rgba(0, 0, 0, 0.7);
 }
-.conversation .occupant-list ul {
+div.occupants ul.occupant-list {
   padding: 0;
-  list-style: none;
-  font-size: 12px;
+  margin: 0;
+  max-height: 162px;
+  overflow: hidden;
+  position: relative;
+  display: none;
+  border-top: 1px solid rgb(37, 37, 37);
 }
+div.occupants > a {
+  color: rgb(168, 168, 168);
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+  background: url(/images/down-arrow.png) center center no-repeat;
+}
+div.occupants > a.up {
+  background: url(/images/top-arrow.png) center center no-repeat;
+}
+
 #chat-window .comment-balloon-content {
   min-height: 50px;
   padding: 5px 0 5px 25px;
