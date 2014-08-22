@@ -124,6 +124,7 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
+      'admin_must_approve_new_users' => _("Admin must approve registration of new users"),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),

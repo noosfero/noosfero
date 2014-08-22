@@ -15,11 +15,23 @@ class AccountController < ApplicationController
 
   def activate
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
-    if @user and @user.activate
-      @message = _("Your account has been activated, now you can log in!")
-      check_redirection
-      session[:join] = params[:join] unless params[:join].blank?
-      render :action => 'login', :userlogin => @user.login
+    if @user
+      unless @user.environment.enabled?('admin_must_approve_new_users') 
+        if @user.activate
+          @message = _("Your account has been activated, now you can log in!")
+          check_redirection
+          session[:join] = params[:join] unless params[:join].blank?
+          render :action => 'login', :userlogin => @user.login
+        end
+      else
+        if @user.create_moderate_task
+          session[:notice] = _('Thanks for registering. The administrators were notified.')
+          @register_pending = true
+          @user.activation_code = nil
+          @user.save!
+          redirect_to :controller => :home
+        end      
+      end
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
       redirect_to :controller => :home
@@ -108,6 +120,7 @@ class AccountController < ApplicationController
             check_join_in_community(@user)
             go_to_signup_initial_page
           else
+            session[:notice] = _('Thanks for registering!')
             @register_pending = true
           end
         end

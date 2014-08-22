@@ -47,8 +47,12 @@ class User < ActiveRecord::Base
 
       user.person = p
     end
-    if user.environment.enabled?('skip_new_user_email_confirmation')
-      user.activate
+    if user.environment.enabled?('skip_new_user_email_confirmation') 
+      if user.environment.enabled?('admin_must_approve_new_users')
+        create_moderate_task
+      else
+        user.activate
+      end
     end
   end
   after_create :deliver_activation_code
@@ -135,6 +139,15 @@ class User < ActiveRecord::Base
     else
       true
     end
+  end
+
+  def create_moderate_task
+    @task = ModerateUserRegistration.new
+    @task.user_id = self.id
+    @task.name = self.name
+    @task.email = self.email
+    @task.target = self.environment
+    @task.save
   end
 
   def activated?
