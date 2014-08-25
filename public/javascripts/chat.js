@@ -96,6 +96,7 @@ jQuery(function($) {
            Jabber.rooms[Jabber.jid_to_id(room_jid)] = {};
         }
         Jabber.rooms[Jabber.jid_to_id(room_jid)][name] = jid;
+        list.parents('.occupants').find('.occupants-online').text(list.find('li').length);
      },
 
      remove_contact: function(jid) {

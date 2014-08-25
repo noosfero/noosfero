@@ -70,7 +70,7 @@
         <li class='%{presence_status}'>
           <a id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>
             %{avatar}
-            <span class="name">%{name}<span>
+            <span class="name">%{name}</span>
             <span class="unread-messages icon-chat"></span>
           </a>
         </li>
@@ -78,7 +78,7 @@
 
       <div class="occupant-list-template">
         <div class="occupants">
-          <a href="#" class="up">&nbsp;</a>
+          <a href="#" class="up"><%= _('Online') %>&nbsp;(<span class="occupants-online">0</span>)</a>
           <ul class='occupant-list'></ul>
         </div>
       </div>

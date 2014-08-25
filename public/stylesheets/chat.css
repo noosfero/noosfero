@@ -21,7 +21,6 @@
   margin: 0;
 }
 #buddy-list .buddy-list li {
-  line-height: 30px;
   border-bottom: 1px solid #383838;
 }
 #buddy-list .buddy-list li a:hover, .occupant-list li a:hover {
@@ -40,6 +39,13 @@
 #buddy-list .buddy-list li a .name, .occupant-list li a .name {
   vertical-align: top;
   margin-left: 5px;
+  padding: 0 0 5px 20px;
+  position: relative;
+  left: -20px;
+  display: inline-block;
+  max-width: 128px;
+  overflow: hidden;
+  height: 30px;
 }
 #buddy-list .buddy-list li a img, .occupant-list li a img, #chat .avatar {
   border-radius: 5px;
@@ -119,8 +125,8 @@
 }
 #chat .unread-messages {
   float: right;
-  margin-right: 25px;
-  padding-left: 22px;
+  margin-right: 12px;
+  padding-left: 19px;
   background-position: 0;
 }
 #chat-window .history .message {
@@ -154,7 +160,7 @@
   width: 74%;
 }
 #chat-window .history .message .content a {
-  color: rgb(98, 129, 253);
+  color: rgb(108, 226, 255);
   text-decoration: none;
 }
 #chat-window .history .message.self .content {
@@ -195,10 +201,14 @@ div.occupants > a {
   width: 100%;
   display: inline-block;
   text-decoration: none;
-  background: url(/images/down-arrow.png) center center no-repeat;
+  background-image: url(/images/down-arrow.png);
+  background-position: 158px center;
+  background-repeat: no-repeat;
+  font-size: 10px;
+  font-weight: bold;
 }
 div.occupants > a.up {
-  background: url(/images/top-arrow.png) center center no-repeat;
+  background-image: url(/images/top-arrow.png);
 }
 
 #chat-window .comment-balloon-content {
@@ -226,6 +236,7 @@ div.occupants > a.up {
   padding-left: 30px;
   line-height: 32px;
   color: rgb(82, 212, 253);
+  float: left;
 }
 #chat #chat-templates {
   display: none;
@@ -261,15 +272,17 @@ div.occupants > a.up {
   overflow: hidden;
   display: inline-block;
   max-width: 140px;
-  width: 100%;
 }
 #chat .toolbar #user-status span, #chat #conversations .header .chat-target span {
-  width: auto;
+  max-width: 140px;
   color: rgb(238, 238, 238);
+  display: inline-block
 }
 #chat #chat-window .history h5 {
   text-align: center;
   word-wrap: break-word;
+  font-size: 9px;
+  max-height: 20px;
 }
 .webkit .simplemenu-submenu.opened {
   top: 18px;
@@ -285,11 +298,11 @@ div.occupants > a.up {
 #chat .user-status a {
   color: rgb(224, 224, 224);
 }
-#user-status .avatar {
+#chat .user-status > a {
   position: relative;
-  left: 16px;
-  top: 2px;
+  left: -15px;
 }
+
 .user-status span {
   position: relative;
 }
@@ -297,16 +310,11 @@ div.occupants > a.up {
   top: -3px;
 }
 
-.buddy-list span.name {
-  padding: 20px 0 20px 20px;
-  position: relative;
-  left: -20px;
-}
 .buddy-list .dnd span.name {
-  background: url(/designs/icons/pidgin/pidgin/status/16/busy.png) 0px 30px no-repeat;
+  background: url(/designs/icons/pidgin/pidgin/status/16/busy.png) 0px 20px no-repeat;
 }
 .buddy-list .chat span.name {
-  background: url(/designs/icons/pidgin/pidgin/status/16/available.png) 0px 30px no-repeat;
+  background: url(/designs/icons/pidgin/pidgin/status/16/available.png) 0px 20px no-repeat;
 }
 
 .conversation .author {
