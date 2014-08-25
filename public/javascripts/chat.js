@@ -594,7 +594,7 @@ jQuery(function($) {
             Jabber.show_message(to['id']+'@'+group+domain, $own_name, body, 'self', from['id'], date);
           } else {
             var target = group!='' ? to['id'] : from['id']
-            Jabber.show_message(target+'@'+group+domain, from['name'], body, 'other', from['id'], date);
+            Jabber.show_message(target+'@'+group+domain, from['name'], body, from['id'], from['id'], date);
           }
         });
       });
