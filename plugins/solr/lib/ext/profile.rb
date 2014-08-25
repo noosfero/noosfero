@@ -14,10 +14,11 @@ class Profile
       :solr_plugin_f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
         :proc => proc { |id| solr_plugin_f_enabled_proc(id) }},
       :solr_plugin_f_region => {:label => _('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
+      :solr_plugin_f_profile_type => {:label => _('Type'), :proc => proc{|klass| solr_plugin_f_profile_type_proc(klass)}},
       :solr_plugin_f_categories => {:multi => true, :proc => proc {|facet, id| solr_plugin_f_categories_proc(facet, id)},
         :label => proc { |env| solr_plugin_f_categories_label_proc(env) }, :label_abbrev => proc{ |env| solr_plugin_f_categories_label_abbrev_proc(env) }},
     }, :category_query => proc { |c| "solr_plugin_category_filter:#{c.id}" },
-    :order => [:solr_plugin_f_region, :solr_plugin_f_categories, :solr_plugin_f_enabled]
+    :order => [:solr_plugin_f_region, :solr_plugin_f_categories, :solr_plugin_f_enabled, :solr_plugin_f_profile_type]
 
   acts_as_searchable :fields => facets_fields_for_solr + [:solr_plugin_extra_data_for_index,
       # searched fields
@@ -39,6 +40,7 @@ class Profile
     :boost => proc{ |p| 10 if p.enabled }
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   class_inheritable_accessor :solr_plugin_extra_index_methods
   self.solr_plugin_extra_index_methods = []
@@ -116,4 +118,13 @@ class Profile
   def solr_plugin_name_sortable
     name
   end
+
+  def solr_plugin_f_profile_type
+    self.class.name
+  end
+
+  def self.solr_plugin_f_profile_type_proc klass
+    klass.constantize.type_name
+  end
+
 end

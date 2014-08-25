@@ -11,8 +11,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 
 module WithinHelpers
   def with_scope(locator)
-    locator = locator ? first(locator) : locator
-    locator ? within(locator) { yield } : yield
+    if locator
+      locator = first(locator) || locator
+      within(locator) do
+        yield
+      end
+    else
+      yield
+    end
   end
 end
 World(WithinHelpers)

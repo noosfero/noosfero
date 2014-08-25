@@ -6,6 +6,7 @@ class FixYamlEncoding < ActiveRecord::Migration
     fix_encoding(Profile, 'data')
     fix_encoding(ActionTracker::Record, 'params')
     fix_encoding(Article, 'setting')
+    fix_encoding(Task, 'data')
   end
 
   def self.down

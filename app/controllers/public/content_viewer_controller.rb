@@ -74,7 +74,7 @@ class ContentViewerController < ApplicationController
   end
 
   def versions_diff
-    path = params[:page].join('/')
+    path = params[:page]
     @page = profile.articles.find_by_path(path)
     @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
   end
@@ -215,6 +215,8 @@ class ContentViewerController < ApplicationController
   def process_page_posts(params)
     if @page.has_posts?
       posts = get_posts(params[:year], params[:month])
+
+      posts = posts.includes(:parent, {:profile => [:domains, :environment]}, :author)
 
       #FIXME Need to run this before the pagination because this version of
       #      will_paginate returns a will_paginate collection instead of a

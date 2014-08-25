@@ -127,7 +127,7 @@ module ActsAsSolr #:nodoc:
       classes = [self] + (self.subclasses || []) + (options[:models] || [])
       classes.map do |klass|
         next if klass.name.empty?
-        "#{solr_configuration[:type_field]}:\"#{Solr::Util.query_parser_escape klass.name}\""
+        "#{solr_configuration[:type_field]}:\"#{klass.name}\""
       end.compact.join(' OR ')
     end
 

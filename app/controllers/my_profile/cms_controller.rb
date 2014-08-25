@@ -149,6 +149,7 @@ class CmsController < MyProfileController
     end
 
     @article.profile = profile
+    @article.author = user
     @article.last_changed_by = user
     @article.created_by = user
 
@@ -201,7 +202,7 @@ class CmsController < MyProfileController
               :profile => profile,
               :parent => @parent,
               :last_changed_by => user,
-              :created_by => user,
+              :author => user,
             },
             :without_protection => true
           )

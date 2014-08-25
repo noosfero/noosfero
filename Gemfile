@@ -16,6 +16,8 @@ gem 'hpricot'
 gem 'nokogiri'
 gem 'rake', :require => false
 gem 'rest-client'
+gem 'exception_notification'
+gem 'gettext_rails'
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
@@ -31,7 +33,6 @@ group :test do
 end
 
 group :cucumber do
-  gem 'rake'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'cucumber'

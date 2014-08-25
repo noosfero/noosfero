@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140724134601) do
+ActiveRecord::Schema.define(:version => 20140808185510) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.integer  "image_id"
     t.integer  "position"
     t.integer  "created_by_id"
+    t.integer  "spam_comments_count",  :default => 0
+    t.integer  "author_id"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
@@ -142,6 +144,8 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.integer  "image_id"
     t.integer  "position"
     t.integer  "created_by_id"
+    t.integer  "spam_comments_count",  :default => 0
+    t.integer  "author_id"
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
@@ -190,19 +194,19 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",            :default => ""
-    t.integer "display_color"
+    t.text    "path",                         :default => ""
     t.integer "environment_id"
     t.integer "parent_id"
     t.string  "type"
     t.float   "lat"
     t.float   "lng"
-    t.boolean "display_in_menu", :default => false
-    t.integer "children_count",  :default => 0
-    t.boolean "accept_products", :default => true
+    t.boolean "display_in_menu",              :default => false
+    t.integer "children_count",               :default => 0
+    t.boolean "accept_products",              :default => true
     t.integer "image_id"
     t.string  "acronym"
     t.string  "abbreviation"
+    t.string  "display_color",   :limit => 6
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -597,7 +601,12 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.boolean  "spam",                       :default => false
   end
 
+  add_index "tasks", ["requestor_id"], :name => "index_tasks_on_requestor_id"
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+  add_index "tasks", ["status"], :name => "index_tasks_on_status"
+  add_index "tasks", ["target_id", "target_type"], :name => "index_tasks_on_target_id_and_target_type"
+  add_index "tasks", ["target_id"], :name => "index_tasks_on_target_id"
+  add_index "tasks", ["target_type"], :name => "index_tasks_on_target_type"
 
   create_table "terms_forum_people", :id => false, :force => true do |t|
     t.integer "forum_id"
