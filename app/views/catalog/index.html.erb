@@ -14,8 +14,8 @@
 
 <ul id="product-list">
   <% @products.each do |product| %>
-    <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
-    <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
+    <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_exec(&content) } %>
+    <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_exec(&content) } %>
 
     <% status = [] %>
     <% status << 'not-available' if !product.available %>

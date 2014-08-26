@@ -13,7 +13,7 @@
       <%= render :partial => 'manage_products/display_image' %>
     </div>
     <div id='product-extra-content'>
-      <% extra_content = @plugins.dispatch(:product_info_extras, @product).collect { |content| instance_eval(&content) } %>
+      <% extra_content = @plugins.dispatch(:product_info_extras, @product).collect { |content| instance_exec(&content) } %>
       <%= extra_content.join("\n") %>
     </div>
     <div id='product-info'>
