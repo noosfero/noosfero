@@ -7,7 +7,7 @@ class CmsController < MyProfileController
   def search_tags
     arg = params[:term].downcase
     result = ActsAsTaggableOn::Tag.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
-    render :text => prepare_to_token_input2(result).to_json
+    render :text => prepare_to_token_input_by_label(result).to_json, :content_type => 'application/json'
   end
 
   def self.protect_if(*args)

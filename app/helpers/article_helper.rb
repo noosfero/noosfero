@@ -83,7 +83,7 @@ module ArticleHelper
     array.map { |object| {:id => object.id, :name => object.name} }
   end
 
-  def prepare_to_token_input2(array)
+  def prepare_to_token_input_by_label(array)
     array.map { |object| {:label => object.name, :value => object.name} }
   end
 

@@ -27,6 +27,7 @@ module LayoutHelper
       'thickbox',
       'lightbox',
       'colorbox',
+      'inputosaurus',
       pngfix_stylesheet_path,
     ] + tokeninput_stylesheets
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }

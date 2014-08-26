@@ -1807,6 +1807,23 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'cms/publish'
   end
 
+  should 'response of search_tags be json' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal 'application/json', @response.content_type
+  end
+
+  should 'return empty json if does not find tag' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal "[]", @response.body
+  end
+
+  should 'return tags found' do
+    tag = mock; tag.stubs(:name).returns('linux')
+    ActsAsTaggableOn::Tag.stubs(:find).returns([tag])
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal '[{"label":"linux","value":"linux"}]', @response.body
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.
