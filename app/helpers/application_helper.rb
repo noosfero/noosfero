@@ -1281,9 +1281,9 @@ module ApplicationHelper
 
   def delete_article_message(article)
     if article.folder?
-      _("Are you sure that you want to remove the folder \"#{article.name}\"? Note that all the items inside it will also be removed!")
+      _("Are you sure that you want to remove the folder \"%s\"? Note that all the items inside it will also be removed!") % article.name
     else
-      _("Are you sure that you want to remove the item \"#{article.name}\"?")
+      _("Are you sure that you want to remove the item \"%s\"?") % article.name
     end
   end
 

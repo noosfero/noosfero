@@ -2,15 +2,18 @@ class ChangePassword < Task
 
   attr_accessor :password, :password_confirmation
 
-  def self.human_attribute_name(attrib, options = {})
+  def self.human_attribute_name_with_customization(attrib, options={})
     case attrib.to_sym
     when :password
       _('Password')
     when :password_confirmation
       _('Password Confirmation')
     else
-      _(self.superclass.human_attribute_name(attrib))
+      _(self.human_attribute_name_without_customization(attrib))
     end
+  end
+  class << self
+    alias_method_chain :human_attribute_name, :customization
   end
 
   validates_presence_of :requestor

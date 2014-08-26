@@ -227,7 +227,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
-      session[:notice] = _("\"#{@article.name}\" was removed.")
+      session[:notice] = _("\"%s\" was removed." % @article.name)
       referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer

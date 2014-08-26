@@ -16,14 +16,17 @@ class User < ActiveRecord::Base
   end
 
   # FIXME ugly workaround
-  def self.human_attribute_name(attrib, options={})
+  def self.human_attribute_name_with_customization(attrib, options={})
     case attrib.to_sym
       when :login
         return [_('Username'), _('Email')].join(' / ')
       when :email
         return _('e-Mail')
-      else _(self.superclass.human_attribute_name(attrib))
+      else _(self.human_attribute_name_without_customization(attrib))
     end
+  end
+  class << self
+    alias_method_chain :human_attribute_name, :customization
   end
 
   before_create do |user|
