@@ -177,9 +177,6 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area

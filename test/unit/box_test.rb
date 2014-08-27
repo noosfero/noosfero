@@ -33,9 +33,6 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('categories-block')
     assert blocks.include?('communities-block')
     assert blocks.include?('enterprises-block')
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
     assert blocks.include?('feed-reader-block')
@@ -64,9 +61,6 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('communities-block')
     assert blocks.include?('disabled-enterprise-message-block')
     assert blocks.include?('enterprises-block')
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
     assert blocks.include?('featured-products-block')
