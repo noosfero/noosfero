@@ -37,7 +37,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def content_viewer_controller_filters
     block = proc do
-      path = params[:page].join('/')
+      path = params[:page]
       content = profile.articles.find_by_path(path)
 
       if WorkAssignmentPlugin.is_submission?(content) && !WorkAssignmentPlugin.can_download_submission?(user, content)
@@ -51,7 +51,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :block => block }
   end
 
-  
+
   def upload_files_extra_contents
     proc do
       if params[:parent_id]
@@ -60,7 +60,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
         content = profile.articles.find_by_path(path)
 
         if content.type == "WorkAssignmentPlugin::WorkAssignment"
-          render :partial => 'work_assignment_form', :locals => { :size => '45'} 
+          render :partial => 'work_assignment_form', :locals => { :size => '45'}
         end
       else
         render :partial => 'upload_file_form', :locals => { :size => '45'}

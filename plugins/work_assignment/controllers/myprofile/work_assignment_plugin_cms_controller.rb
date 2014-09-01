@@ -1,25 +1,31 @@
 class WorkAssignmentPluginCmsController < CmsController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
- 
+
   def upload_files
     @uploaded_files = []
     @article = @parent = check_parent(params[:parent_id])
     @email_notification = params[:article_email_notification]
-    
+
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     if @article
       record_coming
     end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        if file != ''
-          u = UploadedFile.new(:uploaded_data => file, :profile => profile, :parent => @parent)
-          u.last_changed_by = user
-          u.save!
-          @uploaded_files << u
-        end 
-      end
+		unless file == ''
+          @uploaded_files << UploadedFile.create(
+            {
+              :uploaded_data => file,
+              :profile => profile,
+              :parent => @parent,
+              :last_changed_by => user,
+              :author => user,
+            },
+            :without_protection => true
+          )
+        end
+	  end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
         render :action => 'upload_files', :id => @parent_id
@@ -48,7 +54,7 @@ class WorkAssignmentPluginCmsController < CmsController
       @files_paths = []
       @files_string = params[:self_files_id]
       @files_id_list = @files_string.split(' ')
-      
+
       @files_id_list.each do |file_id|
         @file = environment.articles.find_by_id(file_id)
         @real_file_url = "http://#{@file.url[:host]}:#{@file.url[:port]}/#{@file.url[:profile]}/#{@file.path}"
@@ -100,7 +106,7 @@ class WorkAssignmentPluginCmsController < CmsController
     @files_paths = []
       @files_string = params[:self_files_id]
       @files_id_list = @files_string.split(' ')
-      
+
       @files_id_list.each do |file_id|
         @file = environment.articles.find_by_id(file_id)
         @real_file_url = "http://#{@file.url[:host]}:#{@file.url[:port]}/#{@file.url[:profile]}/#{@file.path}"
