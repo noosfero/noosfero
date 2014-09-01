@@ -121,6 +121,7 @@ class Profile < ActiveRecord::Base
   end
 
   scope :visible, :conditions => { :visible => true }
+  scope :disabled, :conditions => { :visible => false }
   scope :public, :conditions => { :visible => true, :public_profile => true }
 
   # Subclasses must override this method
@@ -775,7 +776,7 @@ private :generate_url, :url_options
   end
 
   include Noosfero::Plugin::HotSpot
-  
+
   def folder_types
     types = Article.folder_types
     plugins.dispatch(:content_types).each {|type|
@@ -899,6 +900,13 @@ private :generate_url, :url_options
   end
 
   def disable
+    self.visible = false
+    self.save
+  end
+
+  def enable
+    self.visible = true
+    self.save
   end
 
   def control_panel_settings_button
