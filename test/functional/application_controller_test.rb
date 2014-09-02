@@ -564,9 +564,10 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should 'do not allow member not included in whitelist to access an environment' do
+  should 'do not allow member not included in whitelist to access an restricted environment' do
     user = create_user
     e = Environment.default
+    e.enable(:restrict_to_members)
     e.members_whitelist_enabled = true
     e.save!
     login_as(user.login)
@@ -600,6 +601,17 @@ class ApplicationControllerTest < ActionController::TestCase
     e.members_whitelist_enabled = true
     e.save!
     login_as(create_admin_user(e))
+    get :index
+    assert_response :success
+  end
+
+  should 'not check whitelist members if the environment is not restrict to members' do
+    e = Environment.default
+    e.disable(:restrict_to_members)
+    e.members_whitelist_enabled = true
+    e.save!
+    @controller.expects(:verify_members_whitelist).never
+    login_as create_user.login
     get :index
     assert_response :success
   end

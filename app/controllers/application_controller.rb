@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
   before_filter :login_required, :if => :private_environment?
-  before_filter :verify_members_whitelist, :if => :user
+  before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
 
   def verify_members_whitelist
     render_access_denied unless user.is_admin? || environment.in_whitelist?(user)
