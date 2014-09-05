@@ -51,6 +51,7 @@ EOF
 fi
 
 run sudo apt-get update
+run sudo apt-get -qy dist-upgrade
 
 run sudo apt-get -y install dctrl-tools
 
