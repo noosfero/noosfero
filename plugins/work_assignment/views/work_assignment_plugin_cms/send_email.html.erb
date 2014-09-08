@@ -14,7 +14,7 @@
   <%= render :file => 'shared/tiny_mce' %>
   <%= required f.text_area(:message, :class => 'mceEditor') %>
 
-  <%= labelled_form_field check_box(:email_contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
+<%= labelled_form_field check_box(:email_contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 
   <%= submit_button(:send, _('Send'), :onclick => "$('confirm').value = 'true'") %>
   <%= submit_button(:cancel, _('Cancel'), :onclick =>"$('confirm').value = 'false'") %>

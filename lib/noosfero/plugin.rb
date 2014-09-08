@@ -529,6 +529,12 @@ class Noosfero::Plugin
     params
   end
 
+  # -> Checks adicional parameters passed through html 
+  # by the work_assignment plugin 
+  def check_extra_parameters(uploaded_files, params = {})
+    nil
+  end
+
   # -> Finds objects by their contents
   # returns = {:results => [a, b, c, ...], ...}
   # P.S.: The plugin might add other informations on the return hash for its

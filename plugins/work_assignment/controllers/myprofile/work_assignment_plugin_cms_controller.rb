@@ -2,49 +2,6 @@ class WorkAssignmentPluginCmsController < CmsController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  def upload_files
-    @uploaded_files = []
-    @article = @parent = check_parent(params[:parent_id])
-    @email_notification = params[:article_email_notification]
-
-    @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
-    if @article
-      record_coming
-    end
-    if request.post? && params[:uploaded_files]
-      params[:uploaded_files].each do |file|
-		unless file == ''
-          @uploaded_files << UploadedFile.create(
-            {
-              :uploaded_data => file,
-              :profile => profile,
-              :parent => @parent,
-              :last_changed_by => user,
-              :author => user,
-            },
-            :without_protection => true
-          )
-        end
-	  end
-      @errors = @uploaded_files.select { |f| f.errors.any? }
-      if @errors.any?
-        render :action => 'upload_files', :id => @parent_id
-      else
-        if @back_to
-          if @email_notification == 'true'
-            redirect_to :controller => 'work_assignment_plugin_cms', :action => 'send_email', :id => @parent.id, :files_id => @uploaded_files, :confirm => true
-          else
-            redirect_to @back_to
-          end
-        elsif @parent
-          redirect_to :controller => 'cms', :action => 'view', :id => @parent.id
-        else
-          redirect_to :controller => 'cms', :action => 'index'
-        end
-      end
-    end
-  end
-
   def send_email
     @parent = check_parent(params[:id])
     @files_id_list = params[:files_id]

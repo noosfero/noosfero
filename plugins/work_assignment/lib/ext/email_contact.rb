@@ -29,6 +29,7 @@ class EmailContact
   end
 
   class EmailSender < ActionMailer::Base
+
     def notification(email_contact)
       @name = email_contact.name
       @email = email_contact.email
@@ -40,16 +41,12 @@ class EmailContact
         to: email_contact.reciever,
         reply_to: email_contact.email,
         subject: email_contact.subject,
-        message: email_contact.message,
+        body: email_contact.message,
         from: "#{email_contact.name} <#{email_contact.email}>"
       }
 
-      if email_contact.sender
-        options.merge!('X-Noosfero-Sender' => email_contact.sender.identifier)
-      end
-
-      if email_contact.receive_a_copy
-        options.merge!(cc: "#{email_contact.name} <#{email_contact.email}>")
+      if email_contact.receive_a_copy == "1"
+        options.merge!(cc: "#{email_contact.email}")
       end
 
       mail(options)

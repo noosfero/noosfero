@@ -52,18 +52,22 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
 
-  def upload_files_extra_contents
+  def article_extra_contents(article_id)
     proc do
-      if params[:parent_id]
-        parent_id = params[:parent_id]
-        path = Article.find_by_id(parent_id).path.split("/")[0]
-        content = profile.articles.find_by_path(path)
+        @article = Article.find_by_id(article_id)
+        if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
+          render :partial => 'notify_checkbox',  :locals => { :size => '45'} 
+        end      
+    end
+  end
 
-        if content.type == "WorkAssignmentPlugin::WorkAssignment"
-          render :partial => 'work_assignment_form', :locals => { :size => '45'}
-        end
-      else
-        render :partial => 'upload_file_form', :locals => { :size => '45'}
+  def check_extra_parameters (uploaded_files, params = {})   
+    @email_notification = params[:article_email_notification]
+   # uploaded_files = params[:uploaded_files]
+    id = params[:parent_id]
+    if @email_notification == 'true'
+      proc do
+        @back_to = url_for :controller => 'work_assignment_plugin_cms', :action => 'send_email', :id => id, :files_id => uploaded_files, :confirm => true
       end
     end
   end
