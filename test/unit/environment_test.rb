@@ -156,7 +156,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'list displayable categories' do
     env = fast_create(Environment)
-    cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 1)
+    cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 'ffa500')
     assert ! cat1.new_record?
 
     # subcategories should be ignored

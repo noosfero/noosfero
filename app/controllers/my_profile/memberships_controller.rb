@@ -27,7 +27,7 @@ class MembershipsController < MyProfileController
         redirect_to :action => 'welcome', :community_id => @community.id, :back_to => @back_to
       rescue ActiveRecord::RecordNotFound
         # Community pending approval
-        session[:notice] = _('Your community creation request is waiting approval of the administrator.')
+        session[:notice] = _('Your new community creation request will be evaluated by an administrator. You will be notified.')
         redirect_to @back_to
       end
       return

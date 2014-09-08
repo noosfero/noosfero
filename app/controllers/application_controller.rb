@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
+  before_filter :login_required, :if => :private_environment?
+  before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
+
+  def verify_members_whitelist
+    render_access_denied unless user.is_admin? || environment.in_whitelist?(user)
+  end
 
   after_filter :set_csrf_cookie
 
@@ -184,5 +190,9 @@ class ApplicationController < ActionController::Base
 
   def find_suggestions(query, context, asset, options={})
     plugins.dispatch_first(:find_suggestions, query, context, asset, options)
+  end
+
+  def private_environment?
+    @environment.enabled?(:restrict_to_members)
   end
 end

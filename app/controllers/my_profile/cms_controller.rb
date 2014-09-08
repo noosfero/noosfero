@@ -4,6 +4,12 @@ class CmsController < MyProfileController
 
   include ArticleHelper
 
+  def search_tags
+    arg = params[:term].downcase
+    result = ActsAsTaggableOn::Tag.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    render :text => prepare_to_token_input_by_label(result).to_json, :content_type => 'application/json'
+  end
+
   def self.protect_if(*args)
     before_filter(*args) do |c|
       user, profile = c.send(:user), c.send(:profile)

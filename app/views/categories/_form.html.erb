@@ -1,3 +1,7 @@
+<%= stylesheet_link_tag 'spectrum.css' %>
+<%= javascript_include_tag "spectrum.js" %>
+<%= javascript_include_tag "colorpicker-noosfero.js" %>
+
 <%= error_messages_for 'category' %>
 
 <%= labelled_form_for 'category', :html => { :multipart => true} do |f| %>
@@ -13,11 +17,12 @@
     <% end %>
   <% end %>
 
-  <%= select_color_for_category if !environment.enabled?('disable_categories_menu') %>
-
   <%= required f.text_field('name') %>
 
   <%= labelled_check_box(_('Display in the menu'), 'category[display_in_menu]', '1', @category.display_in_menu) %>
+
+  <%= labelled_colorpicker_field(_('Pick a color'), :category, 'display_color' ) unless environment.enabled?('disable_categories_menu')%>
+  <span id="color_preview" class = "color_marker" style="<%= category_color_style(@category) %>" ></span>
 
   <%= f.fields_for :image_builder, @category.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @category.image, i) %>

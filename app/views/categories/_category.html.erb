@@ -1,7 +1,10 @@
 <li>
 <div class='treeitem'>
-  <%= display_color_for_category(category) %>
-  <%= category.name %>
+  <% unless category_color_style(category).empty? %>
+    <span class="color_marker" style="<%= category_color_style(category) %>" ></span>
+  <% end %>
+  <span><%= category.name %></span>
+
   <% if category.children.count > 0 %>
     <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">
       <a href="#" id="show-button-<%= category.id %>" class="show-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Show') %></a>

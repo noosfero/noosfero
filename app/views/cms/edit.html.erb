@@ -31,8 +31,17 @@
 
   <%= select_categories(:article, _('Categorize your article')) %>
 
+  <br />
+
   <%= f.text_field('tag_list', :size => 64) %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
+
+  <script>
+    jQuery('#article_tag_list').inputosaurus({
+      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags'," %>
+      activateFinalResult : true
+    })
+  </script>
 
   <div id='edit-article-options'>
     <%= options_for_article(@article, @tokenized_children) %>

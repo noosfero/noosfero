@@ -159,36 +159,6 @@ class CategoryTest < ActiveSupport::TestCase
 
   end
 
-  should "limit the possibile display colors" do
-    c = build(Category, :name => 'test category', :environment_id => @env.id)
-
-    c.display_color = 16
-    c.valid?
-    assert c.errors[:display_color.to_s].present?
-
-    valid = (1..15).map { |item| item.to_i }
-    valid.each do |item|
-      c.display_color = item
-      c.valid?
-      assert !c.errors[:display_color.to_s].present?
-    end
-
-  end
-
-  should 'avoid duplicated display colors' do
-    c1 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :display_color => 1)
-
-    c = build(Category, :name => 'lalala', :environment_id => @env.id)
-    c.display_color = 1
-    assert !c.valid?
-    assert c.errors[:display_color.to_s].present?
-
-    c.display_color = 2
-    c.valid?
-    assert !c.errors[:display_color.to_s].present?
-
-  end
-
   should 'be able to get top ancestor' do
     c1 = fast_create(Category, :name => 'test category', :environment_id => @env.id)
     c2 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :parent_id => c1.id)
@@ -533,6 +503,30 @@ class CategoryTest < ActiveSupport::TestCase
 
     assert_includes Category.on_level(parent), category
     assert_includes Category.on_level(parent.id), category
+  end
+
+  should 'return self if the category has display_color defined' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2, :display_color => 'FFFFFF')
+    c4 = fast_create(Category, :parent_id => c3, :display_color => '000000')
+    assert_equal c4, c4.with_color
+  end
+
+  should 'return first category on hierarchy with display_color defined' do
+    c1 = fast_create(Category, :display_color => '111111')
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2)
+    c4 = fast_create(Category, :parent_id => c3)
+    assert_equal c1, c4.with_color
+  end
+
+  should 'return nil if no category on hierarchy has display_color defined' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category, :parent_id => c1)
+    c3 = fast_create(Category, :parent_id => c2)
+    c4 = fast_create(Category, :parent_id => c3)
+    assert_equal nil, c4.with_color
   end
 
 end
