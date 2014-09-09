@@ -45,7 +45,7 @@ if [ -z "$NOOSFERO_DIR" ] || [ -z "$NOOSFERO_USER" ]; then
 fi
 
 if test -x /usr/sbin/noosfero-check-dbconfig ; then
-  if ! noosfero-check-dbconfig; then
+  if ! /usr/sbin/noosfero-check-dbconfig; then
     echo "Noosfero database access not configured, service disabled."
     exit 0
   fi
