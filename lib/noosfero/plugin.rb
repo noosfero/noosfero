@@ -62,10 +62,12 @@ class Noosfero::Plugin
           path << File.join(dir, 'lib')
           # load vendor/plugins
           Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
-            path << "#{vendor_plugin}/lib" 
-            init = "#{vendor_plugin}/init.rb"
-            require init.gsub(/.rb$/, '') if File.file? init
-         end
+            path << "#{vendor_plugin}/lib"
+          end
+        end
+        Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
+          init = "#{vendor_plugin}/init.rb"
+          require init.gsub(/.rb$/, '') if File.file? init
         end
 
         # add view path
