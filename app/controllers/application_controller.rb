@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
     theme_layout = theme_option(:layout)
     if theme_layout
-      theme_view_file('layouts/'+theme_layout) || theme_layout
+      (theme_view_file('layouts/'+theme_layout) || theme_layout).to_s
     else
      'application'
     end
