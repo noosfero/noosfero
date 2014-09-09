@@ -71,21 +71,24 @@ else
   fi
 fi
 
-# create the database with sample data
 if test -e config/database.yml && test "$force_install" = 'false'; then
   say 'Not updating existent database.yml.'
-  say 'If you wish to automatic reconfigure your database connection, you can delete config/database.yml and run this script again.'
+  say 'If you wish to automatic reconfigure your database connection and'
+  say 'recreate the database, you can delete config/database.yml and run'
+  say 'this script again.'
 else
+  # create the database with sample data
   say 'Configuring Noosfero to use PostgreSQL, with your user.'
   run cp config/database.yml.pgsql config/database.yml
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
   sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole"
   sudo su - postgres -c "createdb noosfero_development -O $USER"
+
+  run rake db:schema:load
+  run rake db:data:minimal
+  run rake db:test:prepare
+  rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 fi
-run rake db:schema:load
-run rake db:data:minimal
-run rake db:test:prepare
-rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 
 # FIXME compile translations depends on ruby-gettext-rails, please see debian/control
 # run rake noosfero:translations:compile
