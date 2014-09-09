@@ -482,7 +482,12 @@ module ApplicationHelper
             '/images/icons-app/enterprise-'+ size.to_s() +'.png'
           end
         else
-          '/images/icons-app/person-'+ size.to_s() +'.png'
+          pixels = Image.attachment_options[:thumbnails][size].split('x').first
+          gravatar_profile_image_url(
+            profile.email,
+            :size => pixels,
+            :d => gravatar_default
+          )
         end
       filename = default_or_themed_icon(icon)
     end
@@ -602,7 +607,7 @@ module ApplicationHelper
   end
 
   def gravatar_default
-    (respond_to?(:theme_option) && theme_option.present? && theme_option['gravatar']) || NOOSFERO_CONF['gravatar']
+    (respond_to?(:theme_option) && theme_option.present? && theme_option['gravatar']) || NOOSFERO_CONF['gravatar'] || 'mm'
   end
 
   attr_reader :environment
