@@ -71,7 +71,7 @@ class Noosfero::Plugin
         end
 
         # add view path
-        ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
+        config.paths['app/views'].unshift File.join(dir, 'views')
       end
     end
 
