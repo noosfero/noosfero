@@ -1447,29 +1447,4 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'meta', :attributes => { :property => 'og:image', :content => /\/images\/x.png/  }
   end
 
-  should 'add social content on content view page from plugins' do
-    class Plugin1 < Noosfero::Plugin
-      def social_buttons_contents
-        proc {"<strong>Plugin1 text</strong>"}
-      end
-    end
-    class Plugin2 < Noosfero::Plugin
-      def social_buttons_contents
-        proc {"<div class='social-buttons'></div>"}
-      end
-    end
-    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
-
-    Environment.default.enable_plugin(Plugin1.name)
-    Environment.default.enable_plugin(Plugin2.name)
-
-    page = profile.articles.build(:name => 'test')
-    page.save!
-
-    get :view_page, :profile => profile.identifier, :page => ['test']
-
-    assert_tag :tag => 'strong', :content => 'Plugin1 text'
-    assert_tag :tag => 'div', :attributes => {:class => 'social-buttons'}
-  end
-
 end

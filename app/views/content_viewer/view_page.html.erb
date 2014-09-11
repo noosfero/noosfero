@@ -68,8 +68,6 @@
 
 <%= display_source_info(@page) %>
 
-<%= @plugins.dispatch(:social_buttons_contents).collect { |content| instance_exec(&content) }.join("") %>
-
 <%= @plugins.dispatch(:article_extra_contents, @page).collect { |content| instance_exec(&content) }.join("") %>
 
 <div class="comments" id="comments_list">

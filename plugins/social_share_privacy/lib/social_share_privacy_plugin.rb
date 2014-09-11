@@ -16,7 +16,7 @@ class SocialSharePrivacyPlugin < Noosfero::Plugin
     true
   end
 
-  def social_buttons_contents
+  def article_extra_contents(article)
     proc do
       settings = Noosfero::Plugin::Settings.new(environment, SocialSharePrivacyPlugin)
       locale = FastGettext.locale
