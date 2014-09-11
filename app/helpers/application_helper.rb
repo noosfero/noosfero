@@ -1296,8 +1296,19 @@ module ApplicationHelper
     end
   end
 
+  def content_remove_spread(content)
+    not (profile != user || user.communities.present? || @portal_enabled)
+  end
+
   def remove_content_button(action)
-    @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
+    method_name = "content_remove_#{action.to_s}"
+    plugin_condition = @plugins.dispatch(method_name, @page).include?(true)
+    begin
+      core_condition = self.send(method_name, @page)
+    rescue NoMethodError
+      core_condition = false
+    end
+    core_condition || plugin_condition
   end
 
   def template_options(kind, field_name)
