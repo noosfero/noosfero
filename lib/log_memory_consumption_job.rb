@@ -20,7 +20,5 @@ class LogMemoryConsumptionJob < Struct.new(:last_stat)
       i += 1
     end
     logger << "\n"
-
-    Delayed::Job.enqueue(LogMemoryConsumptionJob.new(stats), {:priority => 0, :run_at => PERIOD.seconds.from_now})
   end
 end
