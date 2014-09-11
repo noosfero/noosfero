@@ -216,8 +216,6 @@ class ContentViewerController < ApplicationController
     if @page.has_posts?
       posts = get_posts(params[:year], params[:month])
 
-      posts = posts.includes(:parent, {:profile => [:domains, :environment]}, :author)
-
       #FIXME Need to run this before the pagination because this version of
       #      will_paginate returns a will_paginate collection instead of a
       #      relation.
