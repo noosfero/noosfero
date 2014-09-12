@@ -95,14 +95,15 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
-    t.integer  "created_by_id"
     t.integer  "spam_comments_count",  :default => 0
     t.integer  "author_id"
+    t.integer  "created_by_id"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
   add_index "article_versions", ["path", "profile_id"], :name => "index_article_versions_on_path_and_profile_id"
   add_index "article_versions", ["path"], :name => "index_article_versions_on_path"
+  add_index "article_versions", ["published_at", "id"], :name => "index_article_versions_on_published_at_and_id"
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -145,9 +146,9 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
-    t.integer  "created_by_id"
     t.integer  "spam_comments_count",  :default => 0
     t.integer  "author_id"
+    t.integer  "created_by_id"
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
   add_index "articles", ["path", "profile_id"], :name => "index_articles_on_path_and_profile_id"
   add_index "articles", ["path"], :name => "index_articles_on_path"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
+  add_index "articles", ["published_at", "id"], :name => "index_articles_on_published_at_and_id"
   add_index "articles", ["slug"], :name => "index_articles_on_slug"
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
   add_index "articles", ["type", "parent_id"], :name => "index_articles_on_type_and_parent_id"
