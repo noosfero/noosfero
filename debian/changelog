@@ -1,3 +1,9 @@
+noosfero (1.0~rc2) wheezy-test; urgency=low
+
+  * Second 1.0 release candidate
+
+ -- Antonio Terceiro <terceiro@debian.org>  Fri, 12 Sep 2014 13:01:11 -0300
+
 noosfero (1.0~rc1) wheezy-test; urgency=low
 
   * First 1.0 release candidate
