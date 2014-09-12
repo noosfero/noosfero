@@ -30,9 +30,9 @@ Vcs-Browser: http://git.colivre.coop.br/?p=noosfero.git
 
 Package: noosfero
 Architecture: all
-Pre-Depends: ruby (>= 1:1.9.3),
 Depends:
  rails3 (>= 3.2.6-1~),
+ ruby (>= 1:1.9.3),
  rake,
  ruby-dalli,
  ruby-exception-notification,
