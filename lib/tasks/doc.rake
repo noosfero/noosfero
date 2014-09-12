@@ -5,7 +5,7 @@ namespace :noosfero do
     end
     task :link_plugins_textiles do
       plugins_textiles.each do |file|
-        ln_sf Rails.root.join(file), 'doc/noosfero/plugins/'
+        ln_sf File.join('../../../', file), 'doc/noosfero/plugins/'
       end
     end
     task :unlink_plugins_textiles do
