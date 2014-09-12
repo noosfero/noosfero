@@ -131,7 +131,7 @@ EOF
     new_version = $version.dup
 
     if target =~ /-test$/
-      if new_version =~ /~rc\d\+/
+      if new_version =~ /~rc\d+/
         new_version.sub!(/\~rc([0-9]+)/) { "~rc#{$1.to_i + 1}" }
       else
         new_version += '~rc1'
