@@ -141,7 +141,7 @@ EOF
     end
 
     puts "Current version: #{$version}"
-    ask("Version to release" % new_version, new_version)
+    new_version = ask("Version to release", new_version)
     release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero/version.rb'
