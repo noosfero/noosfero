@@ -9,18 +9,18 @@
 production:
   url: http://127.0.0.1:8983/solr
   jvm_options: -server -Xmx192M -Xms64M
-  timeout: 0
+  timeout: 600
   data_path: /var/lib/noosfero-data/solr/index
 
 development:
   url: http://0.0.0.0:8982/solr
   jvm_options: -server -Xmx128M -Xms16M
-  timeout: 0
+  timeout: 600
 
 test: &TEST
   url: http://0.0.0.0:8981/solr
   jvm_options: -server -Xmx128M -Xms16M
-  timeout: 0
+  timeout: 600
 
 cucumber:
   <<: *TEST

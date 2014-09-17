@@ -33,8 +33,8 @@ class SolrPlugin < Noosfero::Plugin
 
     solr_options = solr_options(class_asset(klass), category)
     solr_options[:filter_queries] ||= []
-    solr_options[:filter_queries] += scopes_to_solr_filters scope, klass, options
-    solr_options.merge! products_options(user) if klass == Product and empty_query
+    solr_options[:filter_queries] += scopes_to_solr_options scope, klass, options
+    solr_options.merge! products_options(user) if asset == :products and empty_query
     solr_options.merge! options.except(:category, :filter)
 
     scope.find_by_contents query, paginate_options, solr_options
@@ -42,14 +42,14 @@ class SolrPlugin < Noosfero::Plugin
 
   protected
 
-  def scopes_to_solr_filters scope, klass = nil, options = {}
+  def scopes_to_solr_options scope, klass = nil, options = {}
     filter_queries = []
     klass ||= scope.base_class
     solr_fields = klass.configuration[:solr_fields].keys
     scopes_applied = scope.scopes_applied.dup rescue [] #rescue association and class direct filtering
 
-    scope.current_scoped_methods[:create].each do |attr, value|
-      next unless solr_fields.include? attr.to_sym
+    scope.scope_attributes.each do |attr, value|
+      raise "Non-indexed attribute '#{attr}' speficied in scope_attributes" unless solr_fields.include? attr.to_sym
 
       # if the filter is present here, then prefer it
       scopes_applied.reject!{ |name| name == attr.to_sym }

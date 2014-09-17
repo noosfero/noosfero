@@ -27,7 +27,8 @@ class Product
       {:name => {:type => :text, :boost => 2.0}},
       {:description => :text}, {:category_full_name => :text},
       # filtered fields
-      {:solr_plugin_public => :boolean}, {:environment_id => :integer},
+      {:solr_plugin_public => :boolean},
+      {:environment_id => :integer}, {:profile_id => :integer},
       {:enabled => :boolean}, {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
       {:solr_plugin_price_sortable => :decimal}, {:solr_plugin_name_sortable => :string},

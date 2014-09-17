@@ -1,4 +1,4 @@
-raise "Not ready yet. Some tests are failing."
+#raise "Not ready yet. Some tests are failing."
 require 'rubygems'
 require 'rake'
 
