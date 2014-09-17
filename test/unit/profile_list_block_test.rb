@@ -77,7 +77,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     block.save!
     assert_equal 'Title from block', block.view_title
   end
-  
+
   should 'provide view title with variables' do
     env = fast_create(Environment)
     env.boxes << Box.new
@@ -87,7 +87,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     assert_equal '0 members', block.view_title
   end
 
-  should 'count number of public and private profiles' do
+  should 'count number of only public profiles' do
     env = fast_create(Environment)
     env.boxes << Box.new
     block = ProfileListBlock.new
@@ -103,7 +103,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     priv_e = fast_create(Enterprise, :public_profile => false , :environment_id => env.id)
     pub_e = fast_create(Enterprise, :public_profile => true , :environment_id => env.id)
 
-    assert_equal 6, block.profile_count
+    assert_equal 3, block.profile_count
   end
 
   should 'only count number of visible profiles' do
