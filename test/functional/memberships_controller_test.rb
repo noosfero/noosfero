@@ -340,7 +340,7 @@ class MembershipsControllerTest < ActionController::TestCase
     community = fast_create(Community)
     profile.profile_suggestions.create(:suggestion => community)
     get :suggest, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => community.name, :attributes => { :href => "/profile/#{community.identifier}" }
+    assert_tag :tag => 'a', :content => "+ #{community.name}", :attributes => { :href => "/profile/#{community.identifier}/join" }
   end
 
   should 'display button to join on community suggestion' do
@@ -354,7 +354,7 @@ class MembershipsControllerTest < ActionController::TestCase
     community = fast_create(Community)
     profile.profile_suggestions.create(:suggestion => community)
     get :suggest, :profile => 'testuser'
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/remove_suggestion/#{community.identifier}" }
+    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/testuser\/memberships\/remove_suggestion\/#{community.identifier}/ }
   end
 
   should 'remove suggestion of community' do
@@ -362,7 +362,7 @@ class MembershipsControllerTest < ActionController::TestCase
     suggestion = profile.profile_suggestions.create(:suggestion => community)
     post :remove_suggestion, :profile => 'testuser', :id => community.identifier
 
-    assert_redirected_to :action => 'suggest'
+    assert_response :success
     assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
   end
 

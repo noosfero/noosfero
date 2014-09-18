@@ -121,30 +121,29 @@ jQuery(function($) {
   })
 
   $(".remove-suggestion").live('click', function(){
-    clicked = $(this)
-    url = clicked.attr("href");
-    loading_for_button(this);
-    $.post(url, function(data){
-      clicked.fadeOut();
-      clicked.parents('.profiles-suggestions').html(data);
-    });
-    return false;
+    clicked = $(this);
+    removeSuggestionFromList(clicked);
   })
 
-  /* After adding a suggestion need to remove it from list */
   $(".accept-suggestion").live('click', function(){
     clicked = $(this)
     loading_for_button(this);
     url = clicked.attr("href");
-    remove_suggestion = clicked.parents('li').find('.remove-suggestion');
-    remove_url = remove_suggestion.attr('href')
-    $.post(remove_url, function(suggestions_data){
-      remove_suggestion.parents('.profiles-suggestions').html(suggestions_data);
-      $.post(url, function(add_data){
-        clicked.parents('li').fadeOut();
-      });
+    removeSuggestionFromList(clicked.parents('li').find('.remove-suggestion'));
+    $.post(url, function(add_data){
+      clicked.parents('li').fadeOut();
     });
     return false;
   })
 
 });
+
+/* Used after clicking on remove and after adding a suggestion */
+function removeSuggestionFromList( element ) {
+  url = element.attr("href");
+  loading_for_button(element);
+  jQuery.post(url, function(data){
+    element.fadeOut();
+    element.parents('.profiles-suggestions').html(data);
+  });
+}

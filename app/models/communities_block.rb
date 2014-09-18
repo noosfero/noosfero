@@ -22,6 +22,7 @@ class CommunitiesBlock < ProfileListBlock
   def footer
     owner = self.owner
     suggestions = self.suggestions
+    return '' unless owner.kind_of?(Profile) || owner.kind_of?(Environment)
     proc do
       render :file => 'blocks/communities', :locals => { :owner => owner, :suggestions => suggestions }
     end

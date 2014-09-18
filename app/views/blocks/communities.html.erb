@@ -2,11 +2,9 @@
   <%= link_to s_('communities|View all'), {:profile => owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
 <% elsif owner.kind_of?(Environment) %>
   <%= link_to s_('communities|View all'), {:controller => 'search', :action => 'communities'}, :class => 'view-all' %>
-<% else %>
-  ''
 <% end %>
 
-<% if user == profile && suggestions && !suggestions.empty? %>
+<% if user && user == profile && suggestions && !suggestions.empty? %>
   <div class='suggestions-block common-profile-list-block'>
     <h4 class='block-subtitle'><%= _('Some suggestions for you') %></h4>
     <div class='profiles-suggestions'>

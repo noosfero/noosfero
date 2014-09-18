@@ -1424,7 +1424,7 @@ module ApplicationHelper
 
   def profile_suggestion_profile_connections(suggestion)
     profiles = suggestion.profile_connections.first(4).map do |profile|
-      link_to(profile_image(profile, :icon), profile.url, :class => 'profile-suggestion-connection-icon', :title => profile.name)
+      link_to(profile_image(profile, :icon, :title => profile.name), profile.url, :class => 'profile-suggestion-connection-icon')
     end
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
@@ -1446,7 +1446,7 @@ module ApplicationHelper
     title = tags.join
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
-    tags << ' ' + link_to('...', {:controller => controller_target, :action => :connections, :id => suggestion.suggestion_id}, :class => 'more-tag-connections') if suggestion.tag_connections.count > 4
+    tags << ' ' + link_to('...', {:controller => controller_target, :action => :connections, :id => suggestion.suggestion_id}, :class => 'more-tag-connections', :title => _('See all connections')) if suggestion.tag_connections.count > 4
 
     if tags.present?
       content_tag(:div, tags.join, :class => 'tag-connections', :title => title)

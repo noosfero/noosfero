@@ -1688,12 +1688,11 @@ a.button.disabled, input.disabled {
 #content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
 #content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
   position: relative;
-  z-index: 5;
 }
 
 #content .block-footer-content .profiles-suggestions a.accept-suggestion {
   padding-bottom: 3px;
-  display: inline-block;
+  display: block;
   color: #333;
   font-size: 11px
 }
