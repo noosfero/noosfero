@@ -25,6 +25,7 @@
 <%= optional_field(@person, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address, :rel => _('Address')))) %>
 <%= optional_field(@person, 'address_reference', labelled_form_field(_('Address reference'), text_field(:profile_data, :address_reference, :rel => _('Address reference')))) %>
 <%= optional_field(@person, 'district', labelled_form_field(_('District'), text_field(:profile_data, :district, :rel => _('District')))) %>
+<%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
 
 <% optional_field(@person, 'schooling') do %>
   <div class="formfieldline">
