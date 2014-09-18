@@ -84,10 +84,6 @@ class LinkListBlock < Block
     end
   end
 
-  def editable?
-    true
-  end
-
   def icons_options
     ICONS.map do |i|
       "<span title=\"#{i[1]}\" class=\"icon-#{i[0]}\" onclick=\"changeIcon(this, '#{i[0]}')\"></span>".html_safe

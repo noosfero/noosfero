@@ -17,6 +17,7 @@ gem 'nokogiri'
 gem 'rake', :require => false
 gem 'rest-client'
 gem 'exception_notification'
+gem 'gettext', :require => false, :group => :development
 
 gem 'whenever', :require => false
 

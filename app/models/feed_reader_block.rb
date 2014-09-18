@@ -85,8 +85,4 @@ class FeedReaderBlock < Block
     block_title(title) + formatted_feed_content
   end
 
-  def editable?
-    true
-  end
-
 end

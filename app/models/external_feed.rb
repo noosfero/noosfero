@@ -30,6 +30,7 @@ class ExternalFeed < ActiveRecord::Base
     article.source = link 
     article.profile = blog.profile 
     article.parent = blog
+    article.author_name = self.feed_title
     unless blog.children.exists?(:slug => article.slug)
       article.save!
       article.delay.create_activity

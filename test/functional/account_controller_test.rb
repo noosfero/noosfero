@@ -707,7 +707,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as 'ze'
 
     xhr :get, :user_data
-    assert_equal User.find_by_login('ze').data_hash.merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
+    assert_equal User.find_by_login('ze').data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
   end
 
   should 'activate user when activation code is present and correct' do

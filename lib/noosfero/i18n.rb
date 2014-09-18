@@ -20,5 +20,5 @@ if File.exists?(locale_dir)
   repos << FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => locale_dir)
 end
 
-FastGettext.add_text_domain 'noosferofull', :type => :chain, :chain => repos
-FastGettext.default_text_domain = 'noosferofull'
+FastGettext.add_text_domain 'noosfero', :type => :chain, :chain => repos
+FastGettext.default_text_domain = 'noosfero'

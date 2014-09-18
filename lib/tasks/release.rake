@@ -131,7 +131,7 @@ EOF
     new_version = $version.dup
 
     if target =~ /-test$/
-      if new_version =~ /~rc\d\+/
+      if new_version =~ /~rc\d+/
         new_version.sub!(/\~rc([0-9]+)/) { "~rc#{$1.to_i + 1}" }
       else
         new_version += '~rc1'
@@ -141,7 +141,7 @@ EOF
     end
 
     puts "Current version: #{$version}"
-    ask("Version to release" % new_version, new_version)
+    new_version = ask("Version to release", new_version)
     release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero/version.rb'
@@ -205,14 +205,17 @@ EOF
     puts "==> Preparing debian packages..."
     Rake::Task['noosfero:debian_packages'].invoke
 
-    sh "git tag #{$version.gsub('~','-')}"
-    if confirm('Push new version tag')
-      repository = ask('Repository name', 'origin')
-      puts "==> Uploading tags..."
-      sh "git push #{repository} #{$version.gsub('~','-')}"
+    if confirm("Create tag for version #{$version}")
+      sh "git tag #{$version.gsub('~','-')}"
+
+      if confirm('Push new version tag')
+        repository = ask('Repository name', 'origin')
+        puts "==> Uploading tags..."
+        sh "git push #{repository} #{$version.gsub('~','-')}"
+      end
     end
 
-    if confirm('Do you want to upload the packages')
+    if confirm('Upload the packages')
       puts "==> Uploading debian packages..."
       Rake::Task['noosfero:upload_packages'].invoke(target)
     else

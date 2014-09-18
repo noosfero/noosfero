@@ -41,6 +41,7 @@ Alessandro Palmeira + Paulo Meirelles <alessandro.palmeira@gmail.com>
 Alessandro Palmeira + Paulo Meirelles + João M. M. da Silva <alessandro.palmeira@gmail.com>
 Alessandro Palmeira + Rafael Manzo <alessandro.palmeira@gmail.com>
 Ana Losnak <analosnak@gmail.com>
+Andre Bernardes <andrebsguedes@gmail.com>
 Antonio Terceiro + Carlos Morais <terceiro@colivre.coop.br>
 Antonio Terceiro + Paulo Meirelles <terceiro@colivre.coop.br>
 Antonio Terceiro <terceiro@colivre.coop.br>
@@ -132,6 +133,7 @@ Francisco Marcelo de Araújo Lima Júnior <maljunior@gmail.com>
 Gabriela Navarro <navarro1703@gmail.com>
 Grazieno Pellegrino <grazieno@gmail.com>
 Gust <darksshades@hotmail.com>
+Hebert Douglas <hebertdougl@gmail.com>
 Hugo Melo <hugo@riseup.net>
 Isaac Canan <isaac@intelletto.com.br>
 Italo Valcy <italo@dcc.ufba.br>
@@ -230,6 +232,8 @@ Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
 root <root@debian.sdr.serpro>
 Samuel R. C. Vale <srcvale@holoscopio.com>
+Tallys Martins <tallysmartins@gmail.com>
+tallys <tallys@tallys.(none)>
 Valessio Brito <contato@valessiobrito.com.br>
 Valessio Brito <contato@valessiobrito.info>
 Valessio Brito <valessio@gmail.com>

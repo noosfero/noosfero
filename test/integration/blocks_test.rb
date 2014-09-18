@@ -42,15 +42,4 @@ class BlocksTest < ActionController::IntegrationTest
     assert_match(/Wasserstoffbombe/, @response.body)
   end
 
-  should 'link correctly in pagination' do
-    block = blog_on_article_block_bootstrap
-    p = block.owner
-    b = block.article
-    f = Folder.create!(:name => 'Folder1', :profile => p)
-    b.parent = f
-    b.save!
-    get "/profile/#{block.owner.identifier}"
-    assert_tag :tag => 'a', :attributes => { :href => "/#{p.identifier}/#{f.slug}/#{b.slug}?npage=2" }
-  end
-
 end
