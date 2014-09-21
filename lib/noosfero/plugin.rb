@@ -12,6 +12,12 @@ class Noosfero::Plugin
 
     attr_writer :should_load
 
+    # Called for each ActiveRecord class with parents
+    # See http://apidock.com/rails/ActiveRecord/ModelSchema/ClassMethods/full_table_name_prefix
+    def table_name_prefix
+      @table_name_prefix ||= "#{name.to_s.underscore}_"
+    end
+
     def should_load
       @should_load.nil? && true || @boot
     end
