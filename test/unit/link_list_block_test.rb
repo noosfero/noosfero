@@ -65,6 +65,18 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/address'}
   end
 
+  should 'handle /prefix if not already added' do
+    Noosfero.stubs(:root).returns('/prefix')
+    l = LinkListBlock.new(:links => [{:name => "foo", :address => '/bar'}] )
+    assert_tag_in_string l.content, :tag => 'a', :attributes => { :href => '/prefix/bar' }
+  end
+
+  should 'not add /prefix if already there' do
+    Noosfero.stubs(:root).returns('/prefix')
+    l = LinkListBlock.new(:links => [{:name => "foo", :address => '/prefix/bar'}] )
+    assert_tag_in_string l.content, :tag => 'a', :attributes => { :href => '/prefix/bar' }
+  end
+
   should 'display options for icons' do
     l = LinkListBlock.new
     l.icons_options.each do |option|
@@ -92,8 +104,8 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_no_tag_in_string l.link_html(l.links.first), :attributes => { :onclick => /.*/ }
   end
 
-  should 'add http in front of incomplete external links' do
-    {'/local/link' => '/local/link', 'http://example.org' => 'http://example.org', 'example.org' => 'http://example.org'}.each do |input, output|
+  should 'add protocol in front of incomplete external links' do
+    {'/local/link' => '/local/link', 'http://example.org' => 'http://example.org', 'example.org' => '//example.org'}.each do |input, output|
       l = LinkListBlock.new(:links => [{:name => 'categ', :address => input}])
       assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => output}
     end

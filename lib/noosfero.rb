@@ -3,6 +3,10 @@
 require 'fast_gettext'
 module Noosfero
 
+  def self.root(default = nil)
+    ENV.fetch('RAILS_RELATIVE_URL_ROOT', default)
+  end
+
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
     pattern = disjunction.blank? ? '' : ('(' + disjunction + ')')

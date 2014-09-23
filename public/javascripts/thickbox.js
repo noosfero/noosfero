@@ -13,7 +13,7 @@ var tb_pathToImage = "/images/loading.gif";
 jQuery(document).ready(function(){   
 	tb_init('a.thickbox, area.thickbox, input.thickbox');//pass where to apply thickbox
 	imgLoader = new Image();// preload image
-	imgLoader.src = tb_pathToImage;
+	imgLoader.src = noosfero_root() + tb_pathToImage;
 });
 
 //add thickbox to href & area elements that have a class of .thickbox

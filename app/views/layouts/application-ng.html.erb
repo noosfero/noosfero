@@ -19,6 +19,9 @@
     <meta property="og:site_name" content="<%= profile ? profile.name : @environment.name %>">
     <meta property="og:description" content="<%= @page ? truncate(strip_tags(@page.body.to_s), :length => 200) : @environment.name %>">
 
+    <!-- site root -->
+    <meta property="noosfero:root" content="<%= Noosfero.root %>"/>
+
     <% if @page %>
       <meta property="article:published_time" content="<%= show_date(@page.published_at) %>">
       <% @page.body_images_paths.each do |img| %>

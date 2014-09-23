@@ -221,7 +221,7 @@ function addLightboxMarkup() {
 	lb.id				= 'lightbox';
 	lb.className 	= 'loading';
 	lb.innerHTML	= '<div id="lbLoadMessage">' +
-						  '<img src="/images/loading.gif"/>' +
+						  '<img src="' + noosfero_root() + '/images/2loading.gif"/>' +
 						  '</div>';
 	bod.appendChild(overlay);
 	bod.appendChild(lb);
