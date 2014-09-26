@@ -1198,8 +1198,8 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'return tracked_actions and scraps as activities' do
     ActionTracker::Record.destroy_all
-    person = fast_create(Person)
-    another_person = fast_create(Person)
+    person = create_user.person
+    another_person = create_user.person
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
     scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
