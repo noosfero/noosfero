@@ -865,7 +865,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not be able to destroy enterprise if is a regular member' do
     enterprise = fast_create(Enterprise)
-    enterprise.add_member(fast_create(Person)) # first member is admin by default
+    enterprise.add_member(create_user.person) # first member is admin by default
 
     person = create_user('foo').person
     enterprise.add_member(person)
