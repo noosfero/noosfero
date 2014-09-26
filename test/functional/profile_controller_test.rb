@@ -737,13 +737,13 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see all the activities in the current profile network' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -759,27 +759,21 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
-
     process_delayed_job_queue
-    get :index, :profile => p1.identifier
 
+    login_as p3.user.login
+    get :index, :profile => p1.identifier
     assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
 
   should 'the network activity be visible only to profile followers' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -795,24 +789,11 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p2)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-
-    get :index, :profile => p1.identifier
-    assert assigns(:network_activities).blank?
-
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
     process_delayed_job_queue
 
-    get :index, :profile => p3.identifier
-    assert_equivalent [a1,a3], assigns(:network_activities)
+    login_as p2.user.login
+    get :index, :profile => p1.identifier
+    assert assigns(:network_activities).blank?
   end
 
   should 'the network activity be paginated' do
