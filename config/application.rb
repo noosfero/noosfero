@@ -107,26 +107,9 @@ module Noosfero
     config.sass.cache = true
     config.sass.line_comments = false
 
-    def noosfero_session_secret
-      require 'fileutils'
-      target_dir = File.join(File.dirname(__FILE__), '../tmp')
-      FileUtils.mkdir_p(target_dir)
-      file = File.join(target_dir, 'session.secret')
-      if !File.exists?(file)
-        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
-        File.open(file, 'w') do |f|
-          f.puts secret
-        end
-      end
-      File.read(file).strip
-    end
-
-    # Your secret key for verifying cookie session data integrity.
-    # If you change this key, all old sessions will become invalid!
-    # Make sure the secret is at least 30 characters and all random,
-    # no regular words or you'll be exposed to dictionary attacks.
-    config.secret_token = noosfero_session_secret
-    config.session_store :cookie_store, :key => '_noosfero_session'
+    config.action_dispatch.session = {
+      :key    => '_noosfero_session',
+    }
 
     config.paths['db/migrate'] += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate"
     config.i18n.load_path += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}"
