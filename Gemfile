@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 3.2.22'
+gem 'rails',                    '~> 4.0'
 gem 'minitest',                 '~> 3.2.0'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.4.2'
@@ -24,6 +24,17 @@ gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
 
+# gems to enable rails3 behaviour
+gem 'protected_attributes'
+gem 'rails-observers'
+gem 'actionpack-page_caching'
+gem 'actionpack-action_caching'
+gem 'activerecord-session_store'
+
+
+# FIXME list here all actual dependencies (i.e. the ones in debian/control),
+# with their GEM names (not the Debian package names)
+
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
@@ -45,6 +56,14 @@ end
 
 # Requires custom dependencies
 eval(File.read('config/Gemfile'), binding) rescue nil
+
+vendor = Dir.glob('vendor/{,plugins/}*') - ['vendor/plugins']
+vendor.each do |dir|
+  plugin = File.basename dir
+  version = if Dir.glob("#{dir}/*.gemspec").length > 0 then '> 0.0.0' else '0.0.0' end
+
+  gem plugin, version, path: dir
+end
 
 # include gemfiles from enabled plugins
 # plugins in baseplugins/ are not included on purpose. They should not have any
