@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base; end
 class RoleWithEnvironment < ActiveRecord::Base
-  set_table_name 'roles'
+  self.table_name = 'roles'
   belongs_to :environment
 end
 class RoleAssignment < ActiveRecord::Base

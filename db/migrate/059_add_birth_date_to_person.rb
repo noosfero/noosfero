@@ -30,7 +30,7 @@ class AddBirthDateToPerson < ActiveRecord::Migration
   end
 
   class Person < ActiveRecord::Base
-    set_table_name 'profiles'
+    self.table_name = 'profiles'
     serialize :data, Hash
   end
 

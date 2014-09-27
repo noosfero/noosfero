@@ -23,12 +23,12 @@ ActiveRecord::Schema.define do
 end
 
 class SomeModel < ActiveRecord::Base
-  set_table_name :some_table
+  self.table_name = :some_table
   acts_as_trackable
 end
 
 class OtherModel < ActiveRecord::Base
-  set_table_name :other_table
+  self.table_name = :other_table
   acts_as_trackable
 end
 
@@ -108,7 +108,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
   end
 
   def test_track_actions_executes_block
-    @controller = create_controller do 
+    @controller = create_controller do
       track_actions :some_verb do
         throw :some_symbol
       end
@@ -162,7 +162,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     assert_difference 'ActionTracker::Record.count' do
       get :index, :foo => 5
     end
-    assert_equal({"action"=>"index", "foo"=>"5", "controller"=>"things"}, ActionTracker::Record.first.params) 
+    assert_equal({"action"=>"index", "foo"=>"5", "controller"=>"things"}, ActionTracker::Record.first.params)
 	end
 
   def test_keep_params_not_set_should_store_all_params
@@ -237,7 +237,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     end
 		assert_equal "test", ActionTracker::Record.last.user.some_column
   end
- 
+
   def test_should_update_when_verb_is_updatable_and_no_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :updatable } }
     ActionTrackerConfig.timeout = 5.minutes
@@ -252,7 +252,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_no_difference 'ActionTracker::Record.count' do
       get :test
     end
-  end 
+  end
 
   def test_should_create_when_verb_is_updatable_and_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :updatable } }
@@ -268,7 +268,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_difference 'ActionTracker::Record.count' do
       get :test
     end
-  end 
+  end
 
   def test_should_update_when_verb_is_groupable_and_no_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :groupable } }
@@ -284,7 +284,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_no_difference 'ActionTracker::Record.count' do
       get :test, :foo => "test"
     end
-  end 
+  end
 
   def test_should_create_when_verb_is_groupable_and_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :groupable } }
@@ -330,7 +330,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
   def test_should_get_time_spent_doing_something
     ActionTrackerConfig.verbs = { :some_verb => { :type => :updatable }, :other_verb => { :type => :updatable } }
     m = SomeModel.create!
-    @controller = create_controller do 
+    @controller = create_controller do
       track_actions :some_verb
     end
     @controller.stubs(:current_user).returns(m)
@@ -394,7 +394,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 		assert_equal "foo", ActionTracker::Record.last.params["other_column"]
 		assert_nil ActionTracker::Record.last.params["another_column"]
   end
-  
+
   def test_replace_dots_by_underline_in_param_name
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
@@ -407,7 +407,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 		assert_equal 3, ActionTracker::Record.last.params["other_column_size"]
 		assert_equal 5, ActionTracker::Record.last.params["another_column"]
   end
-  
+
   def test_track_actions_store_all_params
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
@@ -452,7 +452,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :if => Proc.new { 2 > 1 } }
     @controller = create_controller_for_model(model)
     assert_difference('ActionTracker::Record.count') { get :test }
-    
+
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :if => Proc.new { 2 < 1 } }
     @controller = create_controller_for_model(model)
     assert_no_difference('ActionTracker::Record.count') { get :test }
@@ -460,7 +460,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :unless => Proc.new { 2 > 1 } }
     @controller = create_controller_for_model(model)
     assert_no_difference('ActionTracker::Record.count') { get :test }
-    
+
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :unless => Proc.new { 2 < 1 } }
     @controller = create_controller_for_model(model)
     assert_difference('ActionTracker::Record.count') { get :test }

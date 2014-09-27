@@ -1,5 +1,5 @@
 class CommentClassificationPlugin::CommentLabelUser < ActiveRecord::Base
-  set_table_name :comment_classification_plugin_comment_label_user
+  self.table_name = :comment_classification_plugin_comment_label_user
 
   belongs_to :profile
   belongs_to :comment

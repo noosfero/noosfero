@@ -19,7 +19,7 @@ ActiveRecord::Schema.define do
 end
 
 class SomeModel < ActiveRecord::Base
-  set_table_name :some_table
+  self.table_name = :some_table
   acts_as_trackable
 end
 
@@ -37,7 +37,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
   end
 
   def test_params_is_a_hash
-    assert_kind_of Hash, @tracked_action.params 
+    assert_kind_of Hash, @tracked_action.params
   end
 
   def test_has_a_polymorphic_relation_with_user
@@ -57,7 +57,7 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     ta = ActionTracker::Record.create! :user => SomeModel.create!, :verb => :some_verb
     assert_equal "some_verb", ta.verb
   end
-  
+
   def test_verb_is_mandatory
     ta = ActionTracker::Record.new
     ta.valid?

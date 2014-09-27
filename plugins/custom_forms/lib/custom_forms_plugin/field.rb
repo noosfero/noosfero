@@ -1,5 +1,5 @@
 class CustomFormsPlugin::Field < ActiveRecord::Base
-  set_table_name :custom_forms_plugin_fields
+  self.table_name = :custom_forms_plugin_fields
 
   validates_presence_of :name
 

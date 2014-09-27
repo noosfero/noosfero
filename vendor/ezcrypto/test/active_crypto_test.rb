@@ -24,7 +24,7 @@ end
 class Asset<ActiveRecord::Base
   encrypt :title, :base64=>true
   has_many :caps,:dependent=>:destroy
-  
+
   def self.create(title,email)
     asset=Asset.new
     asset.set_session_key(EzCrypto::Key.generate)
@@ -39,17 +39,17 @@ class Asset<ActiveRecord::Base
   def share(email=nil)
     Cap.create_for_asset(self,email)
   end
-  
+
 end
 
 class AssetRaw<ActiveRecord::Base
-  set_table_name "assets"
+  self.table_name = "assets"
 end
 
 class Cap < ActiveRecord::Base
   belongs_to :asset
   encrypt :shared_key, :base64=>true
-  
+
   def self.find_by_key(cap_key)
     cap_key.chop
     hash=Digest::SHA1.hexdigest(cap_key)
@@ -64,7 +64,7 @@ class Cap < ActiveRecord::Base
       nil
     end
   end
-  
+
   def self.create_for_asset(asset,email=nil)
     cap=Cap.new
     cap.email=email if email
@@ -80,28 +80,28 @@ class Cap < ActiveRecord::Base
       nil
     end
   end
-  
+
 end
 
 class Group < ActiveRecord::Base
 	belongs_to :user
 	has_many :group_secrets
-	
+
 	encrypt :name,:group_key, :key=>:user	, :base64=>true
 end
 
 class GroupSecret < ActiveRecord::Base
 	belongs_to :group
-	
+
 	encrypt :title,:body, :key=>:group, :base64=>true
-	
+
 end
 
 class ActiveCryptoTest < Test::Unit::TestCase
- 
+
   def setup
   end
-    
+
   def test_key_holder_in_record
     user=User.new
     user.name="bob"
@@ -112,9 +112,9 @@ class ActiveCryptoTest < Test::Unit::TestCase
     assert_nil user.session_key
   	user.enter_password "shhcccc"
   	assert_not_nil user.session_key
-  	assert_not_nil user.session_key.encrypt("test")    
+  	assert_not_nil user.session_key.encrypt("test")
   end
-  
+
   def test_encrypted_child
     user=User.new
     user.save
@@ -124,22 +124,22 @@ class ActiveCryptoTest < Test::Unit::TestCase
   	assert user.kind_of?(ActiveCrypto::KeyHolder)
   	assert user.kind_of?(ActiveRecord::Base)
   	assert user.kind_of?(User)
-  	
+
   	jill=user.secrets.create
-  	
+
   	assert_not_nil jill
   	assert jill.kind_of?(ActiveCrypto::AssociationKeyHolder)
   	assert jill.kind_of?(ActiveCrypto::KeyHolder)
   	assert jill.kind_of?(ActiveCrypto::Encrypted)
   	assert jill.kind_of?(ActiveRecord::Base)
   	assert jill.kind_of?(Secret)
-  	
+
   	assert jill.respond_to?(:session_key)
-  	
+
     assert_not_nil jill.user
     assert_not_nil jill.user.session_key
-  	
-  	
+
+
     assert_not_nil jill.session_key
     assert_equal user.session_key,jill.session_key
 
@@ -148,12 +148,12 @@ class ActiveCryptoTest < Test::Unit::TestCase
 
 
     assert_equal "jill",jill.name
-    
+
     jill=user.secrets.first
     assert_not_nil jill.session_key
     assert_equal user.session_key,jill.session_key
     assert_equal "jill",jill.name
-    
+
     child=jill.children.create
     child.email="pelle@neubia.com"
     child.save
@@ -186,20 +186,20 @@ class ActiveCryptoTest < Test::Unit::TestCase
     cap=Cap.find_by_key key
     assert_not_nil cap
     assert_not_nil cap.asset
-    
+
     assert_equal "title",cap.asset.title
     assert_equal "title",cap.asset["title"]
     assert_equal "pelle@neubia.com",cap.email
     assert_equal "pelle@neubia.com",cap["email"]
-    
+
     # Non decrypting version
     raw=AssetRaw.find cap.asset.id
     assert_not_equal "title",raw.title
     assert_not_equal "title",raw["title"]
-    
+
     bob_key=cap.asset.share("bob@bob.com")
     bob_cap=Cap.find_by_key bob_key
-    
+
     assert_not_equal key,bob_key
     assert_not_nil bob_cap
     assert_not_nil bob_cap.asset
