@@ -2,19 +2,19 @@ module UserStamp
   mattr_accessor :creator_attribute
   mattr_accessor :updater_attribute
   mattr_accessor :current_user_method
-  
+
   def self.creator_assignment_method
     "#{UserStamp.creator_attribute}="
   end
-  
+
   def self.updater_assignment_method
     "#{UserStamp.updater_attribute}="
   end
-  
+
   module ClassMethods
     def user_stamp(*models)
       models.each { |klass| UserStampSweeper.observe(klass) }
-      
+
       class_eval do
         cache_sweeper :user_stamp_sweeper
       end
@@ -26,25 +26,34 @@ UserStamp.creator_attribute   = :creator_id
 UserStamp.updater_attribute   = :updater_id
 UserStamp.current_user_method = :current_user
 
+# see https://github.com/rails/rails-observers/issues/4
+require 'rails/observers/active_model/active_model'
+require "rails/observers/activerecord/active_record"
+require 'rails/observers/action_controller/caching'
+
 class UserStampSweeper < ActionController::Caching::Sweeper
   def before_validation(record)
     return unless current_user
-    
+
     attribute, method = UserStamp.creator_attribute, UserStamp.creator_assignment_method
     if record.respond_to?(method) && record.new_record?
       record.send(method, current_user) unless record.send("#{attribute}_id_changed?") || record.send("#{attribute}_type_changed?")
     end
-    
+
     attribute, method = UserStamp.updater_attribute, UserStamp.updater_assignment_method
     if record.respond_to?(method)
       record.send(method, current_user) if record.send(attribute).blank?
     end
   end
-  
-  private  
+
+  private
     def current_user
       if controller.respond_to?(UserStamp.current_user_method)
         controller.send UserStamp.current_user_method
       end
     end
+end
+
+class ActionController::Base
+  extend UserStamp::ClassMethods
 end

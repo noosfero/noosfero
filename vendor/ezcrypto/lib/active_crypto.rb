@@ -1,11 +1,11 @@
 require "ezcrypto.rb"
 module ActiveCrypto # :nodoc:
-    
+
     def self.append_features(base)  #:nodoc:
       super
       base.extend(ClassMethods)
     end
-    
+
 =begin rdoc
 
 Usage is very simple. You will generally only need the two class methods listed here in your ActiveRecord class model.
@@ -47,19 +47,19 @@ Options are:
   	belongs_to :user
   	encrypt :title,:body,:key=>:user, :base64 => true
   end
-	
+
 =end
-      def encrypt(*attributes)        
+      def encrypt(*attributes)
       	include ActiveCrypto::Encrypted
       	before_save :encrypt_attributes
       	after_save :decrypt_attributes
         options=attributes.last.is_a?(Hash) ? attributes.pop : {}
         keyholder
         if options and options[:key]
-  				module_eval <<-"end;"				 
+  				module_eval <<-"end;"
   					def session_key
   						(send :#{options[:key]} ).send :session_key
-  					end	 
+  					end
   					@@external_key=true
   				end;
         end
@@ -70,10 +70,10 @@ Options are:
             #{base64_encode.to_s}
           end
         end;
-        
+
         self.encrypted_attributes=attributes
-      end   
-		
+      end
+
 =begin rdoc
 Creates support in this class for holding a key. Adds the following methods:
 
@@ -88,10 +88,10 @@ Use it as follows:
   	keyholder
   end
 
-=end        
+=end
       def keyholder()
-      	include ActiveCrypto::AssociationKeyHolder   
-      	after_create :save_session_key       
+      	include ActiveCrypto::AssociationKeyHolder
+      	after_create :save_session_key
       end
 
 =begin rdoc
@@ -100,8 +100,8 @@ do something out of the ordinary.
 =end
       def clear_session_keys() #:nodoc:
         @@session_keys.clear
-      end 
-      
+      end
+
 =begin rdoc
 Sets the session_keys array. Only use these if you need to
 do something out of the ordinary, as it is handled
@@ -109,17 +109,17 @@ do something out of the ordinary, as it is handled
       def session_keys=(keys) #:nodoc:
         @@session_keys=keys
       end
-      
+
       def session_keys() #:nodoc:
         @@session_keys
       end
-      
+
     end
 
 =begin rdoc
 This module handles all standard key management features.
 =end
-    module KeyHolder   
+    module KeyHolder
 
 =begin rdoc
 Creates a key for object based on given password and an optional salt.
@@ -137,10 +137,10 @@ Decodes the Base64 encoded key and uses it as it's session key
 =begin rdoc
 Sets a session key for the object. This should be a EzCrypto::Key instance.
 =end
-      def set_session_key(key)    
+      def set_session_key(key)
         @session_key=key
         self.decrypt_attributes if self.class.include? Encrypted
-      end      
+      end
 
 =begin rdoc
 Returns the session_key
@@ -148,28 +148,28 @@ Returns the session_key
       def session_key
         @session_key
       end
-      
+
     end
 
-    module AssociationKeyHolder   
+    module AssociationKeyHolder
       include ActiveCrypto::KeyHolder
-      
-      
+
+
       def save_session_key
         ActiveRecord::Base.session_keys[session_key_id]=@session_key if @session_key
       end
 =begin rdoc
 Sets a session key for the object. This should be a EzCrypto::Key instance.
 =end
-      def set_session_key(key)    
+      def set_session_key(key)
         if self.new_record?
           @session_key=key
         else
           ActiveRecord::Base.session_keys[session_key_id]=key
         end
         decrypt_attributes if self.class.include? Encrypted #if respond_to?(:decrypt_attributes)
-        
-      end      
+
+      end
 
 =begin rdoc
 Returns the session_key
@@ -181,13 +181,13 @@ Returns the session_key
           ActiveRecord::Base.session_keys[session_key_id]
         end
       end
-        
-      
+
+
 
       def session_key_id
         "#{self.class.to_s}:#{id}"
-      end      
-      
+      end
+
     end
 
     module Encrypted    #:nodoc:
@@ -195,7 +195,7 @@ Returns the session_key
         super
         base.extend ClassAccessors
       end
-      
+
       module ClassAccessors
         def encrypted_attributes
           @encrypted_attributes||=[]
@@ -204,9 +204,9 @@ Returns the session_key
         def encrypted_attributes=(attrs)
           @encrypted_attributes=attrs
         end
-        
+
       end
-    
+
       protected
 
       def encrypt_attributes
@@ -219,7 +219,7 @@ Returns the session_key
         end
         true
       end
-    
+
       def decrypt_attributes
         if is_encrypted?
           self.class.encrypted_attributes.each do |key|
@@ -230,17 +230,17 @@ Returns the session_key
         end
         true
       end
-      
+
       def after_find
         @is_encrypted=true
         decrypt_attributes unless session_key.nil?
       end
-      
+
       private
       def is_encrypted?
         @is_encrypted
       end
-      
+
       def _decrypt(data)
         if session_key.nil?
           raise MissingKeyError
@@ -252,11 +252,11 @@ Returns the session_key
           end
         end
       end
-    
+
       def _encrypt(data)
         if session_key.nil?
           raise MissingKeyError
-        else 
+        else
           if data
             self.class.ezcrypto_base64? ? session_key.encrypt64(data) : session_key.encrypt(data)
           else
@@ -264,28 +264,28 @@ Returns the session_key
           end
         end
       end
-               
+
     end
-  
+
 
 module ActionController # :nodoc:
 =begin rdoc
 This includes some basic support in the ActionController for handling session keys. It creates two filters one before the action and one after.
 These do the following:
-  
-If the users session already has a 'session_keys' value it loads it into the ActiveRecord::Base.session_keys class field. If not it 
+
+If the users session already has a 'session_keys' value it loads it into the ActiveRecord::Base.session_keys class field. If not it
 clears any existing session_keys.
 
 Leaving the action it stores any session_keys in the corresponding session variable.
 
 These filters are automatically enabled. You do not have to do anything.
-  
+
 To manually clear the session keys call clear_session_keys. This should be done for example as part of a session log off action.
-=end      
+=end
     def self.append_features(base) #:nodoc:
       super
       base.send :prepend_before_filter, :load_session_keys
-      base.send :prepend_after_filter, :save_session_keys      
+      base.send :prepend_after_filter, :save_session_keys
     end
 
 =begin rdoc
@@ -294,8 +294,8 @@ Clears the session keys. Call this when a user logs of.
     def clear_session_keys
       ActiveRecord::Base.clear_session_keys
     end
-    
-    
+
+
     private
     def load_session_keys
       if session['session_keys']
@@ -312,14 +312,12 @@ Clears the session keys. Call this when a user logs of.
         session['session_keys']=nil
       end
     end
-    
+
 
 end
 
 class MissingKeyError < RuntimeError
-end 
+end
 end
 ActiveRecord::Base.send :include, ActiveCrypto
-require 'actionpack'
-require 'action_controller'
 ActionController::Base.send :include, ActiveCrypto::ActionController

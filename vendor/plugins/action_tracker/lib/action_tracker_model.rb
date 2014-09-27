@@ -2,7 +2,7 @@ module ActionTracker
   class Record < ActiveRecord::Base
     attr_accessible :verb, :params, :user, :target
 
-    set_table_name 'action_tracker'
+    self.table_name = 'action_tracker'
 
     belongs_to :user, :polymorphic => true
     belongs_to :target, :polymorphic => true
