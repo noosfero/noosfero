@@ -14,7 +14,7 @@ class RssFeed < Article
 
   # store setting in body
   serialize :body, Hash
-  
+
   def body
     self[:body] ||= {}
   end
@@ -40,7 +40,7 @@ class RssFeed < Article
 
   # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes
-  validates_format_of :limit, :with => /^\d+$/, :if => :limit
+  validates_format_of :limit, :with => /\d+/, :if => :limit
 
   # determinates what to include in the feed. Possible values are +:all+
   # (include everything from the profile) and :parent_and_children (include

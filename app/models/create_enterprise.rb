@@ -16,13 +16,13 @@ class CreateEnterprise < Task
     settings_items field.to_sym
   end
 
-  # checks for virtual attributes 
+  # checks for virtual attributes
   validates_presence_of :name, :identifier
 
   #checks if the validation method is region to validates
   validates_presence_of :region_id, :if => lambda { |obj| obj.environment.organization_approval_method == :region }
 
-  validates_format_of :foundation_year, :with => /^\d*$/
+  validates_format_of :foundation_year, :with => /\d*/
 
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id
@@ -127,7 +127,7 @@ class CreateEnterprise < Task
     finish
   end
 
-  # tells if this request was appoved 
+  # tells if this request was appoved
   def approved?
     self.status == Task::Status::FINISHED
   end
