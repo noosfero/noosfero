@@ -7,10 +7,9 @@ Noosfero::Application.configure do
   # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
   config.cache_classes = true
 
-  config.active_support.deprecation = :log
+  config.eager_load = false
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  config.active_support.deprecation = :log
 
   # Show full error reports and disable caching
   config.action_controller.perform_caching             = false

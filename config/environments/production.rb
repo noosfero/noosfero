@@ -5,6 +5,8 @@ Noosfero::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
+
   # Full error reports are disabled and caching is turned on
   # config.action_controller.perform_caching = true
 
