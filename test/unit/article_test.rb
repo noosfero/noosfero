@@ -1646,7 +1646,7 @@ class ArticleTest < ActiveSupport::TestCase
     art4 = create(Article, :name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
     art5 = create(Article, :name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
 
-    articles = Article.public
+    articles = Article.is_public
     assert_includes articles, art1
     assert_not_includes articles, art2
     assert_not_includes articles, art3

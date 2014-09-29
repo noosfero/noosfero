@@ -62,7 +62,7 @@ class SearchController < PublicController
   end
 
   def articles
-    @scope = @environment.articles.public
+    @scope = @environment.articles.is_public
     full_text_search
   end
 

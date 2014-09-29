@@ -133,7 +133,7 @@ class Profile < ActiveRecord::Base
 
   scope :visible, :conditions => { :visible => true, :secret => false }
   scope :disabled, :conditions => { :visible => false }
-  scope :public, :conditions => { :visible => true, :public_profile => true, :secret => false }
+  scope :is_public, :conditions => { :visible => true, :public_profile => true, :secret => false }
   scope :enabled, :conditions => { :enabled => true }
 
   # Subclasses must override this method

@@ -2074,10 +2074,10 @@ class ProfileTest < ActiveSupport::TestCase
     p3 = fast_create(Profile, :public_profile => false)
     p4 = fast_create(Profile, :visible => false, :public_profile => false)
 
-    assert_includes Profile.public, p1
-    assert_not_includes Profile.public, p2
-    assert_not_includes Profile.public, p3
-    assert_not_includes Profile.public, p4
+    assert_includes Profile.is_public, p1
+    assert_not_includes Profile.is_public, p2
+    assert_not_includes Profile.is_public, p3
+    assert_not_includes Profile.is_public, p4
   end
 
   should 'folder_types search for folders in the plugins' do

@@ -259,7 +259,8 @@ class Article < ActiveRecord::Base
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
-  scope :public,
+  # :public is reserved on rails 4.1, use is_public instead
+  scope :is_public,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ], :joins => [:profile]
 
   scope :more_recent,
@@ -280,7 +281,7 @@ class Article < ActiveRecord::Base
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
     result = scoped({:conditions => extra_conditions}).
-      public.
+      is_public.
       relevant_as_recent.
       limit(limit).
       order(['articles.published_at desc', 'articles.id desc'])
