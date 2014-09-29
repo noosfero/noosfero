@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 4.0'
+gem 'rails',                    '~> 4.1'
 gem 'minitest',                 '~> 3.2.0'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.4.2'
@@ -7,11 +7,14 @@ gem 'rails_autolink',           '~> 1.1.5'
 gem 'pg',                       '~> 0.13.2'
 gem 'rmagick',                  '~> 2.13.1'
 gem 'RedCloth',                 '~> 4.2.9'
-gem 'will_paginate',            '~> 3.0.3'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1.5'
 gem 'thin',                     '~> 1.3.1'
 gem 'nokogiri',                 '~> 1.5.5'
+gem 'will_paginate'
+gem 'pothoven-attachment_fu'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 gem 'rake', :require => false
 gem 'rest-client',              '~> 1.6.7'
 gem 'exception_notification',   '~> 4.0.1'
@@ -30,6 +33,7 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 gem 'activerecord-session_store'
+gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
