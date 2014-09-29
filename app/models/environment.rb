@@ -17,7 +17,10 @@ class Environment < ActiveRecord::Base
 
   has_many :users
 
-  self.partial_updates = false
+  # allow roles use
+  def self.dangerous_attribute_method? name
+    false
+  end
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
   has_many :search_terms, :as => :context
