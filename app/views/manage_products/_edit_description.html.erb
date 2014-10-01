@@ -1,7 +1,6 @@
 <%= render :file => 'shared/tiny_mce', :locals => {:mode => 'simple'} %>
 <%= remote_form_for(@product,
                    :loading => "small_loading('product-description-form')",
-                   :before => ("tinyMCE.triggerSave()" unless Rails.env == 'test'),
                    :update => 'product-description',
                    :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'description'},
                    :html => {:id => 'product-description-form', :method => 'post'}) do |f| %>
