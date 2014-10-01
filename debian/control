@@ -9,7 +9,7 @@ Build-Depends:
  ruby-gettext,
  ruby-sqlite3,
  rake,
- rails3 (>= 3.2.6-1~),
+ rails3 (>= 3.2.19-1~),
  ruby-rspec,
  ruby-rspec-rails,
  ruby-will-paginate,

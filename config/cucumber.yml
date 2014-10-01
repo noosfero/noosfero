@@ -1,5 +1,8 @@
 <% base_requires = '-r features/support -r features/step_definitions' %>
-<% default_options = "--color --format progress --strict --tags ~@selenium --tags ~@selenium-fixme --tags ~@fixme --exclude features/support/selenium.rb #{base_requires}" %>
+<% default_options = "--format progress --strict --tags ~@selenium --tags ~@selenium-fixme --tags ~@fixme --exclude features/support/selenium.rb #{base_requires}" %>
+<%
+  default_options += ' --color' if $stdout.isatty
+%>
 <% selenium_options = "--strict --tags @selenium #{base_requires}" %>
 
 default: <%= default_options %>

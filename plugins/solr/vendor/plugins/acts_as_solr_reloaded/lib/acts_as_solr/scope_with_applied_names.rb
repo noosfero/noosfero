@@ -1,11 +1,45 @@
-require_dependency 'active_record/named_scope'
 
-if Rails::VERSION::STRING < "2.3.99"
-
+if Rails::VERSION::STRING >= "3.2"
   module ::ActiveRecord
 
-    module NamedScope
+    class Relation
+      attr_accessor :scopes_applied
+    end
 
+    module Scoping
+      module Named
+        module ClassMethods
+          attr_accessor :scope_name, :scopes_applied
+
+          def scope_with_applied_names name, scope_options = {}
+            name = name.to_sym
+            valid_scope_name?(name)
+            extension = Module.new(&Proc.new) if block_given?
+
+            scope_proc = lambda do |*args|
+              options = scope_options.respond_to?(:call) ? unscoped { scope_options.call(*args) } : scope_options
+              options = scoped.apply_finder_options(options) if options.is_a?(Hash)
+
+              relation = scoped.merge(options)
+              relation.scopes_applied ||= Set.new
+              relation.scopes_applied << name
+
+              extension ? relation.extending(extension) : relation
+            end
+
+            singleton_class.send(:redefine_method, name, &scope_proc)
+          end
+          alias_method_chain :scope, :applied_names
+
+        end
+      end
+    end
+  end
+else
+  require_dependency 'active_record/named_scope'
+
+  module ::ActiveRecord
+    module NamedScope
       module ClassMethods
 
         def named_scope_with_applied_names name, options = {}, &block

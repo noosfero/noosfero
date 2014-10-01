@@ -16,7 +16,7 @@ require 'mongo_mapper'
 
 class Rails
   def self.root
-    RAILS_ROOT
+    Rails.root
   end
 
   def self.env
@@ -26,12 +26,13 @@ end
 
 MongoMapper.database = "acts_as_solr_reloaded-test"
 
-RAILS_ROOT = File.dirname(__FILE__) unless defined? RAILS_ROOT
-RAILS_ENV  = 'test' unless defined? RAILS_ENV
+RAILS_ENV = 'test' unless defined? RAILS_ENV
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path(File.dirname(__FILE__) + '/../config/solr_environment')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/acts_as_solr')
+
+ActiveRecord::Base.logger = Logger.new('/dev/null')
 
 # Load Models
 models_dir = File.join(File.dirname( __FILE__ ), 'models')
@@ -60,10 +61,10 @@ class Test::Unit::TestCase
       klass = instance_eval table_name.to_s.capitalize.singularize
       klass.find(:all).each{|content| content.solr_save}
     end
-    
+
     clear_from_solr(:novels)
   end
-  
+
   private
   def self.clear_from_solr(table_name)
     ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "type_s:#{table_name.to_s.capitalize.singularize}"))

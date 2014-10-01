@@ -42,7 +42,7 @@ class Profile
   handle_asynchronously :solr_save
   handle_asynchronously :solr_destroy
 
-  class_inheritable_accessor :solr_plugin_extra_index_methods
+  class_attribute :solr_plugin_extra_index_methods
   self.solr_plugin_extra_index_methods = []
 
   def solr_plugin_extra_data_for_index

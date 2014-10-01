@@ -78,7 +78,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'actually add friend' do
     login_as(@profile.identifier)
-    person = fast_create(Person)
+    person = create_user.person
     assert_difference 'AddFriend.count' do
       post :add, :profile => person.identifier
     end
@@ -366,10 +366,10 @@ class ProfileControllerTest < ActionController::TestCase
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
-  should 'create task when join to closed organization with members' do
+  should 'create a task when joining a closed organization with members' do
     community = fast_create(Community)
     community.update_attribute(:closed, true)
-    admin = fast_create(Person)
+    admin = create_user.person
     community.add_member(admin)
 
     login_as profile.identifier
@@ -587,7 +587,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "leave a scrap on another profile" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     assert another_person.scraps_received.empty?
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     assert_equal count + 1, Scrap.count
@@ -645,7 +645,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "the sender be the logged user by default" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     last = Scrap.last
     assert_equal profile, last.sender
@@ -654,7 +654,7 @@ class ProfileControllerTest < ActionController::TestCase
  should "the receiver be the current profile by default" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     last = Scrap.last
     assert_equal another_person, last.receiver
@@ -686,8 +686,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not display activities of the current profile when he is not followed by the viewer' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     scrap1 = create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p2))
@@ -714,9 +714,9 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not see the friends activities in the current profile' do
-    p2= fast_create(Person)
+    p2 = create_user.person
     assert !profile.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3 = create_user.person
     p3.add_friend(profile)
     assert p3.is_a_friend?(profile)
     ActionTracker::Record.destroy_all
@@ -737,13 +737,13 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see all the activities in the current profile network' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -759,27 +759,21 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
-
     process_delayed_job_queue
-    get :index, :profile => p1.identifier
 
+    login_as p3.user.login
+    get :index, :profile => p1.identifier
     assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
 
   should 'the network activity be visible only to profile followers' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -795,24 +789,11 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p2)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-
-    get :index, :profile => p1.identifier
-    assert assigns(:network_activities).blank?
-
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
     process_delayed_job_queue
 
-    get :index, :profile => p3.identifier
-    assert_equivalent [a1,a3], assigns(:network_activities)
+    login_as p2.user.login
+    get :index, :profile => p1.identifier
+    assert assigns(:network_activities).blank?
   end
 
   should 'the network activity be paginated' do
@@ -829,10 +810,10 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'the network activity be visible only to logged users' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
@@ -891,10 +872,10 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'the self activity not crashes with user not logged in' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all

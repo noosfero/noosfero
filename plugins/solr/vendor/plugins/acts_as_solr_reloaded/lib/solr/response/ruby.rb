@@ -14,13 +14,14 @@ class Solr::Response::Ruby < Solr::Response::Base
   attr_reader :data, :header
 
   def initialize(ruby_code)
+    ruby_code.force_encoding('UTF-8') if RUBY_VERSION >= '1.9'
     super
     begin
       #TODO: what about pulling up data/header/response to ResponseBase,
       #      or maybe a new middle class like SelectResponseBase since
       #      all Select queries return this same sort of stuff??
       #      XML (&wt=xml) and Ruby (&wt=ruby) responses contain exactly the same structure.
-      #      a goal of solrb is to make it irrelevant which gets used under the hood, 
+      #      a goal of solrb is to make it irrelevant which gets used under the hood,
       #      but favor Ruby responses.
       @data = eval(ruby_code)
       @header = @data['responseHeader']
@@ -38,5 +39,5 @@ class Solr::Response::Ruby < Solr::Response::Base
   def query_time
     @header['QTime']
   end
-  
+
 end

@@ -8,7 +8,6 @@ Rakefile                          usr/share/noosfero
 vendor                            usr/share/noosfero
 
 Gemfile                           usr/share/noosfero
-Gemfile.lock                      usr/share/noosfero
 debian/bundle/config              usr/share/noosfero/.bundle
 
 config/application.rb             usr/share/noosfero/config
