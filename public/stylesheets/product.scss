@@ -43,12 +43,6 @@
   padding-bottom: 10px;
   position: relative;
 }
-#product-name h2 {
-  display: inline;
-}
-#product_name {
-  width: 60%;
-}
 #edit-product-name {
   margin-top: 10px;
 }
@@ -77,9 +71,6 @@
 }
 .edit_product #product_price, .edit_product #product_discount {
   width: 110px;
-}
-#product-info #product-qualifiers-list select {
-  width: 140px;
 }
 #product_unit {
   width: 100px;
