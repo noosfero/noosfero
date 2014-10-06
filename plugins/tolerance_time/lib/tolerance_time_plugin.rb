@@ -51,7 +51,6 @@ class ToleranceTimePlugin < Noosfero::Plugin
         redirect_to content.article.url
       end
     end
-
     { :type => 'before_filter',
       :method_name => 'expired_content',
       :options => {:only => 'edit_comment'},
