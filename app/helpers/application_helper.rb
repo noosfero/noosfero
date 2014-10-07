@@ -304,7 +304,7 @@ module ApplicationHelper
   def partial_for_class(klass, prefix=nil, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
     name = klass.name.underscore
-    controller.view_paths.reverse_each do |view_path|
+    controller.view_paths.each do |view_path|
       partial = partial_for_class_in_view_path(klass, view_path, prefix, suffix)
       return partial if partial
     end

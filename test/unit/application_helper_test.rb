@@ -49,6 +49,20 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  should 'plugins path take precedence over core path' do
+    core_path = 'core/'
+    plugin_path = 'path/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([plugin_path, core_path])
+    self.stubs(:params).returns({:controller => 'test'})
+
+    File.stubs(:exists?).returns(false)
+    File.stubs(:exists?).with(core_path+"test/_block.html.erb").returns(true)
+    File.stubs(:exists?).with(plugin_path+"test/_raw_html_block.html.erb").returns(true)
+
+    assert_equal 'raw_html_block', partial_for_class(RawHTMLBlock)
+  end
+
   should 'generate link to stylesheet' do
     File.stubs(:exists?).returns(false)
     File.expects(:exists?).with(Rails.root.join('public', 'stylesheets', 'something.css')).returns(true)
