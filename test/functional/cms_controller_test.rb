@@ -638,7 +638,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'display OK button on why_categorize popup' do
     get :why_categorize, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :rel => 'deactivate'} # colorbox close button
+    assert_tag :tag => 'a', :attributes => { :rel => 'deactivate'} # modal close button
   end
 
   should 'display published option' do

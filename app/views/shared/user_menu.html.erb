@@ -20,7 +20,7 @@
         </li>
 
         <li>
-        <%= colorbox_link_to '<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new' %>
+        <%= modal_link_to '<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new' %>
         </li>
 
         <li id='manage-enterprises-link-template' style='display: none'><a href='/myprofile/{identifier}'><span class="icon-menu-enterprise"></span><%= _('Manage %s') % '{name}' %></a></li>
@@ -58,7 +58,7 @@
       <% if theme_option( :menu_login ) == 'full_form' %>
         <%= render :file => 'account/login_block' %>
       <% else %>
-        <%= colorbox_inline_link_to('<span class="icon-menu-login"></span>'+ _('Login'), login_url, '#inlineLoginBox', :id => 'link_login') %>
+        <%= modal_inline_link_to('<span class="icon-menu-login"></span>'+ _('Login'), login_url, '#inlineLoginBox', :id => 'link_login') %>
         <div id='inlineLoginBox' style='display: none;'>
           <%= render :file => 'account/login', :locals => { :is_popin => true } %>
         </div>

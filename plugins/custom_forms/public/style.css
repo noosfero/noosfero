@@ -25,7 +25,7 @@
 .edit-information {
   display: none;
 }
-#colorbox .edit-information {
+.modal .edit-information {
   display: block;
 }
 

@@ -13,7 +13,7 @@
 
 <% button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
-  <%= colorbox_close_button _('Cancel') if request.xhr? %>
+  <%= modal_close_button _('Cancel') if request.xhr? %>
 <% end %>
 
 <% end %>

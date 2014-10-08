@@ -16,7 +16,7 @@
     <% end %>
   </ul>
   <% button_bar do %>
-    <%= colorbox_button :add, _('New CSS'), :action => 'add_css', :id => @theme.id %>
+    <%= modal_button :add, _('New CSS'), :action => 'add_css', :id => @theme.id %>
   <% end %>
 </div>
 
@@ -28,7 +28,7 @@
     <% end %>
   </ul>
   <% button_bar do %>
-    <%= colorbox_button :add, _('Add image'), :action => 'add_image', :id =>  @theme.id %>
+    <%= modal_button :add, _('Add image'), :action => 'add_image', :id =>  @theme.id %>
   <% end %>
 </div>
 

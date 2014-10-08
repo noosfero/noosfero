@@ -28,7 +28,7 @@
         <%= expirable_button @page, :locale, content, url %>
       <% end %>
 
-      <%= colorbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new, @page) %>
+      <%= modal_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new, @page) %>
     <% end %>
 
     <% if @page.accept_uploads? && @page.allow_create?(user) %>

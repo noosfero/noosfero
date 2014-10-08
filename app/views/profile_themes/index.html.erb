@@ -42,7 +42,7 @@
 
 <% button_bar do %>
   <% if environment.enabled?('user_themes')  %>
-    <%= colorbox_button :add, _('New theme ...'), :action => 'new' %>
+    <%= modal_button :add, _('New theme ...'), :action => 'new' %>
   <% end %>
   <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
 <% end %>

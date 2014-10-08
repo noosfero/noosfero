@@ -1,14 +1,15 @@
-colorbox_helpers = {
+noosfero.modal = {
 
   watchClass: function() {
     jQuery(function($) {
-      $('.colorbox').live('click', function() {
+      $(document).delegate('.modal-toggle', 'click', function() {
         $.colorbox({
           href:       $(this).attr('href'),
           maxWidth:   $(window).width()-50,
           height:     $(window).height()-50,
           open:       true,
           close:      'Cancel',
+          class:      'modal',
           onComplete: function(bt) {
             var opt = {}, maxH = $(window).height()-50;
             if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
@@ -18,7 +19,7 @@ colorbox_helpers = {
         return false;
       });
 
-      $('.colorbox-close').live('click', function() {
+      $(document).delegate('.modal-close', 'click', function() {
         $.colorbox.close();
         return false;
       });
@@ -26,19 +27,32 @@ colorbox_helpers = {
     });
   },
 
-  inline: function(href) {
-    var href = jQuery(href);
-
-    jQuery.colorbox({
+  inline: function(href, options) {
+    href = jQuery(href);
+    options = jQuery.extend({
       inline: true, href: href,
       onLoad: function(){ href.show(); },
       onCleanup: function(){ href.hide(); },
-    });
+    }, options)
+
+    jQuery.colorbox(options);
 
     return false;
   },
 
+  html: function(html, options) {
+    options = jQuery.extend({
+      html: html,
+    }, options);
+
+    jQuery.colorbox(options);
+  },
+
+  close: function() {
+    jQuery.colorbox.close();
+  },
+
 };
 
-colorbox_helpers.watchClass();
+noosfero.modal.watchClass();
 

@@ -17,7 +17,7 @@
     </div>
   <% end %>
   <%= items_table(session[:cart][:items], profile) %>
-  <%= link_to '', '#', :onclick => "Cart.colorbox_close(this);", :class => 'cart-box-close icon-cancel' %>
+  <%= link_to_function '', "noosfero.modal.close();", :class => 'cart-box-close icon-cancel' %>
 </div>
 
 <script type="text/javascript">

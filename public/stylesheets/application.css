@@ -1901,17 +1901,6 @@ a.button.disabled, input.disabled {
  * Block options editor floating window *
  ****************************************/
 
-/* FIXME This changes broke colorboxes all over the place.
- * Therefore I'm canceling them until they are properly treateda. */
-#cboxLoadedContent {
-  background: #FFF;
-/*  box-shadow: 0 0 15px #888 inset;
-    border-radius: 5px;
-    border: 1px solid #777;
-    border-left: none;
-    border-right: none; */
-}
-
 .block-config-options {
   padding: 0px 10px 0px 30px;
 }
