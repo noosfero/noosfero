@@ -62,7 +62,7 @@ module ProfileHelper
   end
 
   def title(field, entry = nil)
-    return self.send("#{field}_title", entry) if MULTIPLE[kind].include?(field) && entry.present?
+    return self.send("#{field}_custom_title", entry) if MULTIPLE[kind].include?(field) && entry.present?
     CUSTOM_LABELS[field.to_sym] || field.to_s.humanize
   end
 
@@ -154,13 +154,13 @@ module ProfileHelper
     link_to interest.name, :controller => 'search', :action => 'category_index', :category_path => interest.explode_path
   end
 
-  def article_title(article)
+  def article_custom_title(article)
     article.name
   end
-  alias :blogs_title :article_title
-  alias :image_galleries_title :article_title
+  alias :blogs_custom_title :article_custom_title
+  alias :image_galleries_custom_title :article_custom_title
 
-  def interests_title(interest)
+  def interests_custom_title(interest)
     ''
   end
 
