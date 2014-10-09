@@ -242,10 +242,11 @@ table.noborder:hover td.selected, td.selected {
 td .button {
   background-color: transparent;
 }
-td.field-name {
+table.profile td.field-name {
   width: 150px;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  padding-right: 5px;
 }
 
 table.profile .ui-tabs .ui-tabs-panel {
