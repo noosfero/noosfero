@@ -10,7 +10,7 @@
 
     <% if @page != profile.home_page && !@page.has_posts?  && @page.allow_delete?(user) && !remove_content_button(:delete)%>
       <% content = content_tag( 'span', _('Delete') ) %>
-      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page}) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page.id}) %>
       <% options = {:method => :post, :confirm => delete_article_message(@page)} %>
       <%= expirable_button @page, :delete, content, url, options %>
     <% end %>
@@ -19,9 +19,9 @@
       <% content = content_tag( 'span', _('Spread this') ) %>
       <% url = nil %>
       <% if profile.kind_of?(Person) %>
-        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page }) %>
+        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page.id }) %>
       <% elsif profile.kind_of?(Community) && environment.portal_community %>
-        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish_on_portal_community', :id => @page }) %>
+        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish_on_portal_community', :id => @page.id }) %>
       <% end %>
       <%= expirable_button @page, :spread, content, url if url %>
     <% end %>
