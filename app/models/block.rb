@@ -192,7 +192,7 @@ class Block < ActiveRecord::Base
 
   # Override in your subclasses.
   # Define which events and context should cause the block cache to expire
-  # Possible events are: :article, :profile, :friendship, :category
+  # Possible events are: :article, :profile, :friendship, :category, :role_assignment
   # Possible contexts are: :profile, :environment
   def self.expire_on
     {
