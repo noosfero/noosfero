@@ -234,4 +234,9 @@ class Block < ActiveRecord::Base
     duplicated_block
   end
 
+  def copy_from(block)
+    self.settings = block.settings
+    self.position = block.position
+  end
+
 end
