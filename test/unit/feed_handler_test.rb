@@ -149,4 +149,30 @@ class FeedHandlerTest < ActiveSupport::TestCase
     end
   end
 
+  should 'set proxy when FEED_HTTP_PROXY is setted from env' do
+    ENV.stubs('[]').with('FEED_HTTP_PROXY').returns('http://127.0.0.1:3128')
+    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+  end
+
+  should 'set proxy when FEED_HTTPS_PROXY is setted from env' do
+    ENV.stubs('[]').with('FEED_HTTPS_PROXY').returns('http://127.0.0.1:3128')
+    handler.expects(:open).with('https://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    assert_equal 'bli content', handler.fetch('https://site.org/feed.xml')
+  end
+
+  should 'use https proxy for https address when both env variables were defined' do
+    ENV.stubs('[]').with('FEED_HTTPS_PROXY').returns('http://127.0.0.2:3128')
+    ENV.stubs('[]').with('FEED_HTTP_PROXY').returns('http://127.0.0.1:3128')
+    handler.expects(:open).with('https://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.2:3128'}, anything).returns('bli content')
+    assert_equal 'bli content', handler.fetch('https://site.org/feed.xml')
+  end
+
+  should 'use http proxy for http address when both env variables were defined' do
+    ENV.stubs('[]').with('FEED_HTTPS_PROXY').returns('http://127.0.0.2:3128')
+    ENV.stubs('[]').with('FEED_HTTP_PROXY').returns('http://127.0.0.1:3128')
+    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+  end
+
 end
