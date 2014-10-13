@@ -115,6 +115,8 @@ module Noosfero
       :key    => '_noosfero_session',
     }
 
+    config.i18n.load_path += Dir.glob "#{Rails.root}/{baseplugins,config/plugins/*}/locales/*.{rb,yml}"
+
     Noosfero::Plugin.setup(config)
 
   end
