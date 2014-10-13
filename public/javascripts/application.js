@@ -1,6 +1,10 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+// scope for noosfero stuff
+noosfero = {
+};
+
 function noosfero_init() {
   // focus_first_field(); it is moving the page view when de form is down.
 }
