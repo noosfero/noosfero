@@ -42,22 +42,10 @@ module TinymceHelper
       EOS
     end
 
-    apply_etherpadlite_options options
-
     #cleanup non tinymce options
     options = options.except :mode
 
     "noosfero.tinymce.init(#{options.to_json})"
   end
 
-  def apply_etherpadlite_options options
-    return if options[:mode] == 'simple'
-    return unless environment.tinymce_plugin_etherpadlite_padServerUrl.present?
-    options.merge! :plugin_etherpadlite_padServerUrl => environment.tinymce_plugin_etherpadlite_padServerUrl,
-      :plugin_etherpadlite_padNamesPrefix => environment.default_hostname,
-      :plugin_etherpadlite_padWidth => environment.tinymce_plugin_etherpadlite_padWidth,
-      :plugin_etherpadlite_padHeight => environment.tinymce_plugin_etherpadlite_padHeight
-    options[:plugins] << "etherpadlite"
-    options[:toolbar2] += " | etherpadlite"
-  end
 end
