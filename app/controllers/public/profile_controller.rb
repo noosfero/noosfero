@@ -18,6 +18,7 @@ class ProfileController < PublicController
     @tags = profile.article_tags
     unless profile.display_info_to?(user)
       profile.visible? ? private_profile : invisible_profile
+      render :action => 'index', :status => 403
     end
   end
 

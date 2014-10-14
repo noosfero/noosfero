@@ -74,6 +74,23 @@ class HttpCachingTest < ActionController::IntegrationTest
     assert_no_cache
   end
 
+  test 'private community profile should not return cache headers' do
+    create_private_community('the-community')
+
+    get "/profile/the-community"
+    assert_response 403
+    assert_no_cache
+  end
+
+  test 'private community content should not return cache headers' do
+    community = create_private_community('the-community')
+    create(Article, profile_id: community.id, name: 'Test page')
+
+    get "/the-community/test-page"
+    assert_response 403
+    assert_no_cache
+  end
+
   protected
 
   def set_env_config(data)
@@ -82,6 +99,13 @@ class HttpCachingTest < ActionController::IntegrationTest
       env.send("#{key}=", value)
     end
     env.save!
+  end
+
+  def create_private_community(identifier)
+    community = fast_create(Community, identifier: identifier)
+    community.public_profile = false
+    community.save!
+    community
   end
 
   def assert_no_cache
