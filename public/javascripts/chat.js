@@ -337,7 +337,7 @@ jQuery(function($) {
         var name = Jabber.name_of(jid_id);
         create_conversation_tab(name, jid_id);
         Jabber.show_message(jid, name, escape_html(message.body), 'other', Strophe.getNodeFromJid(jid));
-        $.sound.play('/sounds/receive.wav');
+	notifyMessage(message);
         return true;
      },
 
@@ -353,8 +353,8 @@ jQuery(function($) {
         else if ($own_name != name) {
            var jid = Jabber.rooms[Jabber.jid_to_id(message.from)][name];
            Jabber.show_message(message.from, name, escape_html(message.body), name, Strophe.getNodeFromJid(jid));
-           $.sound.play('/sounds/receive.wav');
         }
+	notifyMessage(message);
         return true;
      },
 
@@ -492,8 +492,11 @@ jQuery(function($) {
          }
          else {
             log('opening chat with ' + jid);
-            create_conversation_tab(name, jid_id);
+            var conversation = create_conversation_tab(name, jid_id);
+            conversation.find('.conversation').show();
+            recent_messages(jid);
          }
+	 conversation.find('.input').focus();
       }
    });
 
@@ -662,6 +665,21 @@ jQuery(function($) {
       }
       Jabber.presence_status = 'offline';
       Jabber.show_status('offline');
+   }
+
+   function notifyMessage(message) {
+     var jid = Strophe.getBareJidFromJid(message.from);
+     var jid_id = Jabber.jid_to_id(jid);
+     var name = Jabber.name_of(jid_id);
+     var identifier = Strophe.getNodeFromJid(jid);
+     var avatar = "/chat/avatar/"+identifier
+     if(!$('#chat').is(':visible') || window.isHidden()) {
+       var options = {body: message.body, icon: avatar, tag: jid_id};
+       notifyMe(name, options).onclick = function(){
+         open_chat_window(this, '#'+jid);
+       };
+       $.sound.play('/sounds/receive.wav');
+     }
    }
 
    $('.title-bar a').click(function() {
