@@ -55,8 +55,8 @@ class ChatController < PublicController
     messages_json = messages.map do |message|
       {
         :body => message.body,
-        :to => {:id => message.to.identifier, :name => message.to.name, :type => message.to.type},
-        :from => {:id => message.from.identifier, :name => message.from.name, :type => message.from.type},
+        :to => {:id => message.to.identifier, :name => message.to.name},
+        :from => {:id => message.from.identifier, :name => message.from.name},
         :created_at => message.created_at
       }
     end

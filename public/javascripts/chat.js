@@ -587,15 +587,9 @@ jQuery(function($) {
           var from = message['from'];
           var to = message['to'];
           var date = message['created_at'];
-          var group = to['type']=='Community' ? 'conference.' : '';
-          var domain = '127.0.0.1';
+          var who = from['id']==getCurrentIdentifier() ? 'self' : from['id']
 
-          if(from['id']==getCurrentIdentifier()) {
-            Jabber.show_message(to['id']+'@'+group+domain, $own_name, body, 'self', from['id'], date);
-          } else {
-            var target = group!='' ? to['id'] : from['id']
-            Jabber.show_message(target+'@'+group+domain, from['name'], body, from['id'], from['id'], date);
-          }
+	  Jabber.show_message(jid, from['name'], body, who, from['id'], date);
         });
       });
    }
