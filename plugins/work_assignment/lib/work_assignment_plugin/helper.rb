@@ -36,7 +36,6 @@ module WorkAssignmentPlugin::Helper
       ),
       :class => "submission-from-#{submission.parent.id}",
       :style => 'display: none'
-         #content_tag('button', _('Destroy file'), :class => 'button icon-delete  ', 
     )
   end
 

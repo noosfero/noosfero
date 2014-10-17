@@ -51,24 +51,33 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :block => block }
   end
 
-
-  def article_extra_contents(article_id)
-    proc do
-        @article = Article.find_by_id(article_id)
-        if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
-          render :partial => 'notify_checkbox',  :locals => { :size => '45'} 
-        end      
+  def cms_controller_filters
+    block = proc do
+      @email_notification = params[:article_email_notification]
+      if !@email_notification.nil? and @email_notification.include? "@" 
+        @subject = "#{@parent.name} file submission"
+        @email_contact = user.build_email_contact(:name => user.name, :subject => @subject, :email => user.email, :receiver => @email_notification, :sender => user)
+        @email_contact.message = @email_contact.build_mail_message(environment, @uploaded_files, @parent.name)
+        if @email_contact.deliver
+          session[:notice] = _('Notification successfully sent')
+        else
+          session[:notice] = _('Notification not sent')
+        end
+      end
     end
+
+    { :type => 'after_filter',
+      :method_name => 'send_email_after_upload_file',
+      :options => {:only => 'upload_files'},
+      :block => block }
   end
 
-  def check_extra_parameters (uploaded_files, params = {})   
-    @email_notification = params[:article_email_notification]
-   # uploaded_files = params[:uploaded_files]
-    id = params[:parent_id]
-    if @email_notification == 'true'
-      proc do
-        @back_to = url_for :controller => 'work_assignment_plugin_cms', :action => 'send_email', :id => id, :files_id => uploaded_files, :confirm => true
-      end
+  def article_extra_fields(article)
+    proc do
+        @article = Article.find_by_id(article)
+        if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
+          render :partial => 'notify_text_field',  :locals => { :size => '45'} 
+        end      
     end
   end
 

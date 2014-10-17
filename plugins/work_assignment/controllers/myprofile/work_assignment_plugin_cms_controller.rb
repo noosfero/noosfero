@@ -1,34 +1,5 @@
 class WorkAssignmentPluginCmsController < CmsController
-
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-
-  def send_email
-    @parent = check_parent(params[:id])
-    @files_id_list = params[:files_id]
-    @target = ['',@parent.url[:profile], @parent.url[:page]].join('/')
-    @email_contact
-    if request.post? && params[:confirm] == 'true'
-      params[:email_contact][:message] = build_mail_message(params[:self_files_id],params[:email_contact][:message])
-	  @email_contact = user.build_email_contact(params[:email_contact])
-      if @email_contact.deliver
-        session[:notice] = _('Contact successfully sent')
-        redirect_to @target
-	  else
-        session[:notice] = _('Contact not sent')
-      end
-    elsif request.post? && params[:confirm] == 'false'
-      if @target
-        session[:notice] = _('Email not sent')
-        redirect_to @target
-      elsif @parent
-        redirect_to :action => 'view', :id => @parent.id, :paths_list => @paths_list
-      else
-        redirect_to :action => 'index'
-      end
-    else
-      @email_contact = user.build_email_contact()
-    end
-  end
 
   def destroy
     @article = profile.articles.find(params[:id])
@@ -39,26 +10,4 @@ class WorkAssignmentPluginCmsController < CmsController
       redirect_to referer
     end
   end
-
-  def build_mail_message(files_ids, message)
-    @files_paths = []
-      @files_string = files_ids
-      @files_id_list = @files_string.split(' ')
-
-      @files_id_list.each do |file_id|
-        @file = environment.articles.find_by_id(file_id)
-        @real_file_url = "http://#{@file.url[:host]}:#{@file.url[:port]}/#{@file.url[:profile]}/#{@file.path}"
-        @files_paths << @real_file_url
-        unless message.include? "#{@real_file_url}"
-          message += "<br> Clique <a href='#{@real_file_url}'>aqui</a> para acessar o arquivo ou acesse pela URL: <br>"
-          message += "<br><a href='#{@real_file_url}'>#{@real_file_url}</a>"
-        end
-      end
-      @warning_message = "AVISO: O aluno deve imprimir este email e entrega-lo na secretaria como comprovante do envio!"
-      unless message.include? "#{@warning_message}"
-        message += "<br><br>#{@warning_message}"
-      end
-  	message
-  end
-
 end
