@@ -1260,6 +1260,17 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'register abuse report with content' do
+    reported = fast_create(Profile)
+    content = fast_create(RawHTMLArticle, :profile_id => reported.id)
+    login_as(profile.identifier)
+    @controller.stubs(:verify_recaptcha).returns(true)
+
+    assert_difference 'AbuseReport.count', 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}, :content_type => content.class.name, :content_id => content.id
+    end
+  end
+
   should 'not ask admin for captcha to register abuse' do
     reported = fast_create(Profile)
     login_as(profile.identifier)
