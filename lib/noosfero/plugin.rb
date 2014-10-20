@@ -417,6 +417,8 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional fields to a view
+  # returns = proc block that creates html code
   def article_extra_fields(article)
     nil
   end
@@ -530,12 +532,6 @@ class Noosfero::Plugin
   #
   def process_extra_comment_params(params)
     params
-  end
-
-  # -> Checks adicional parameters passed through html 
-  # by the work_assignment plugin 
-  def check_extra_parameters(uploaded_files, params = {})
-    nil
   end
 
   # -> Finds objects by their contents

@@ -53,15 +53,16 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def cms_controller_filters
     block = proc do
-      @email_notification = params[:article_email_notification]
-      if !@email_notification.nil? and @email_notification.include? "@" 
-        @subject = "#{@parent.name} file submission"
-        @email_contact = user.build_email_contact(:name => user.name, :subject => @subject, :email => user.email, :receiver => @email_notification, :sender => user)
-        @email_contact.message = @email_contact.build_mail_message(environment, @uploaded_files, @parent.name)
-        if @email_contact.deliver
-          session[:notice] = _('Notification successfully sent')
-        else
-          session[:notice] = _('Notification not sent')
+      if request.post? && params[:uploaded_files]
+        @email_notification = params[:article_email_notification]
+        unless @email_notification.include? "example@example.com, example2@example.com.br"
+          @email_contact = user.build_email_contact(:name => user.name, :subject => @parent.name, :email => user.email, :receiver => @email_notification, :sender => user)
+          @email_contact.message = @email_contact.build_mail_message(environment, @uploaded_files, @parent.id)
+          if @email_contact.deliver
+            session[:notice] = _('Notification successfully sent')
+          else
+            session[:notice] = _('Notification not sent')
+          end
         end
       end
     end
@@ -76,8 +77,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
     proc do
         @article = Article.find_by_id(article)
         if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
-          render :partial => 'notify_text_field',  :locals => { :size => '45'} 
-        end      
+          render :partial => 'notify_text_field',  :locals => { :size => '45'}
+        end
     end
   end
 

@@ -53,18 +53,14 @@ class EmailContact
     end
   end
 
-  def build_mail_message(environment, files_ids, parent_name)
-    @files_paths = []
-    @message
-    @files_string = files_ids
-    @files_id_list = @files_string.split(' ')
-
-    @files_id_list.each do |file_id|
-      @file = environment.articles.find_by_id(file_id)
-      @real_file_url = "http://#{@file.url[:host]}:#{@file.url[:port]}/#{@file.url[:profile]}/#{@file.path}"
-      @files_paths << @real_file_url
-      @message = "<br>A file was sent to #{parent_name} and you are being notified."
-      @message += "<br> Click <a href='#{@real_file_url}'>here</a> to access the file or use the URL below: <br>"
+  def build_mail_message(environment, uploaded_files, parent_id)
+    @article = environment.articles.find_by_id(parent_id)
+    @message = ""
+    if !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
+      @message = @article.default_email + "<br>"
+    end
+    uploaded_files.each do |file|
+      @real_file_url = "http://#{file.url[:host]}:#{file.url[:port]}/#{file.url[:profile]}/#{file.path}"
       @message += "<br><a href='#{@real_file_url}'>#{@real_file_url}</a>"
     end
     @message

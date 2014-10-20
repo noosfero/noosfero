@@ -64,6 +64,6 @@ module WorkAssignmentPlugin::Helper
   end
 
   def display_delete_button(article)
-    expirable_button article, :delete, _('Delete'), {:controller =>'work_assignment_plugin_cms', :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
+    expirable_button article, :delete, _('Delete'), {:controller =>'cms', :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
   end
 end
