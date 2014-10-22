@@ -78,7 +78,9 @@ module ProfileHelper
       entries = multiple ? value : [] << value
       entries.map do |entry|
         content = self.send("treat_#{field}", entry)
-        content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        unless content.blank?
+          content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        end
       end.join("\n")
     else
       ''
