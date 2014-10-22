@@ -73,7 +73,6 @@ module ProfileHelper
       return ''
     end
     value = begin profile.send(field) rescue nil end
-    p field
     if !value.blank?
       entries = multiple ? value : [] << value
       entries.map do |entry|
@@ -100,7 +99,6 @@ module ProfileHelper
   end
 
   def treat_date(date)
-    puts date.inspect
     show_date(date.to_date)
   end
   alias :treat_birth_date :treat_date
@@ -135,12 +133,10 @@ module ProfileHelper
   end
 
   def treat_blogs(blog)
-    p blog
     link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url)
   end
 
   def treat_image_galleries(gallery)
-    p gallery
     link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url)
   end
 
