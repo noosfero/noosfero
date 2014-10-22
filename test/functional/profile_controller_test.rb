@@ -495,6 +495,14 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
   end
 
+  should 'show tags in index' do
+    article = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => ['tag1'])
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => 'tag1', :attributes => { :href => /profile\/#{profile.identifier}\/tags\/tag1$/ }
+  end
+
   should 'show description of orgarnization' do
     login_as(@profile.identifier)
     ent = fast_create(Enterprise)
