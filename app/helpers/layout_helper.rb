@@ -8,6 +8,24 @@ module LayoutHelper
     (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
   end
 
+  def html_tag_classes
+    [
+      body_classes, (
+        profile.blank? ? nil : [
+          'profile-type-is-' + profile.class.name.downcase,
+          'profile-name-is-' + profile.identifier,
+        ]
+      ), 'theme-' + current_theme,
+      @plugins.dispatch(:html_tag_classes).map do |content|
+        if content.respond_to?(:call)
+          instance_exec(&content)
+        else
+          content.html_safe
+        end
+      end
+    ].flatten.compact.join(' ')
+  end
+
   def noosfero_javascript
     plugins_javascripts = @plugins.map { |plugin| [plugin.js_files].flatten.map { |js| plugin.class.public_path(js) } }.flatten
 
