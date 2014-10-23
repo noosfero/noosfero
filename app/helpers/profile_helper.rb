@@ -1,7 +1,7 @@
 module ProfileHelper
 
   COMMON_CATEGORIES = ActiveSupport::OrderedHash.new
-  COMMON_CATEGORIES[:content] = [:blogs, :image_galleries, :events, :tags]
+  COMMON_CATEGORIES[:content] = [:blogs, :image_galleries, :events, :article_tags]
   COMMON_CATEGORIES[:interests] = [:interests]
   COMMON_CATEGORIES[:general] = nil
 
@@ -41,6 +41,7 @@ module ProfileHelper
     :birth_date => _('Date of birth'),
     :created_at => _('Profile created at'),
     :members_count => _('Members'),
+    :article_tags => _('Tags')
   }
 
   EXCEPTION = {
@@ -73,14 +74,18 @@ module ProfileHelper
       return ''
     end
     value = begin profile.send(field) rescue nil end
-    if !value.blank?
+    return '' if value.blank?
+    if value.kind_of?(Hash)
+      content = self.send("treat_#{field}", value)
+      content_tag('tr', content_tag('td', title(field), :class => 'field-name') + content_tag('td', content))
+    else
       entries = multiple ? value : [] << value
       entries.map do |entry|
         content = self.send("treat_#{field}", entry)
-        content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        unless content.blank?
+          content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        end
       end.join("\n")
-    else
-      ''
     end
   end
 
@@ -142,7 +147,7 @@ module ProfileHelper
     link_to events.published.count, :controller => 'events', :action => 'events'
   end
 
-  def treat_tags(tags)
+  def treat_article_tags(tags)
     tag_cloud @tags, :id, { :action => 'tags' }, :max_size => 18, :min_size => 10
   end
 

@@ -13,6 +13,7 @@ class ExternalFeed < ActiveRecord::Base
   attr_accessible :address, :enabled
 
   def add_item(title, link, date, content)
+    return if content.blank?
     doc = Hpricot(content)
     doc.search('*').each do |p|
       if p.instance_of? Hpricot::Elem
