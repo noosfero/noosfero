@@ -116,13 +116,19 @@ jQuery(function($) {
         return body;
      },
 
-     show_message: function (jid, name, body, who, identifier, time) {
+     show_message: function (jid, name, body, who, identifier, time, offset) {
          if (body) {
             body = Jabber.render_body_message(body);
             var jid_id = Jabber.jid_to_id(jid);
             var tab_id = '#' + Jabber.conversation_prefix + jid_id;
-            if ($(tab_id).find('.message').length > 0 && $(tab_id).find('.message:last').attr('data-who') == who) {
-               $(tab_id).find('.history').find('.message:last .content').append('<p>' + body + '</p>');
+            var history = $(tab_id).find('.history');
+
+            var offset_container = $('#chat-offset-container-'+offset);
+            if(offset_container.length == 0) 
+	      offset_container = $('<div id="chat-offset-container-'+offset+'"></div>').prependTo(history);
+
+            if (offset_container.find('.message:last').attr('data-who') == who) {
+               offset_container.find('.message:last .content').append('<p>' + body + '</p>');
             }
             else {
                if (time==undefined) {
@@ -134,10 +140,11 @@ jQuery(function($) {
                  .replace('%{time}', time)
                  .replace('%{name}', name)
                  .replace('%{avatar}', getAvatar(identifier));
-               $('#' + Jabber.conversation_prefix + jid_id).find('.history').append(message_html);
+               offset_container.append(message_html);
                $(".message span.time").timeago();
             }
-            $(tab_id).find('.history').scrollTo({top:'100%', left:'0%'});
+            if(offset == 0) history.scrollTo({top:'100%', left:'0%'});
+            else history.scrollTo(offset_container.height());
             if (who != "self") {
                if ($(tab_id).find('.history:visible').length == 0) {
                  count_unread_messages(jid_id);
@@ -568,6 +575,13 @@ jQuery(function($) {
       panel.find('.chat-target .other-name').html(title);
       $('#chat .history').perfectScrollbar();
 
+      panel.find('.history').scroll(function(){
+        if($(this).scrollTop() == 0){
+          var offset = panel.find('.message').size();
+          recent_messages(jid, offset);
+        }
+      });
+
       var textarea = panel.find('textarea');
       textarea.attr('name', panel.id);
 
@@ -581,10 +595,9 @@ jQuery(function($) {
       return panel;
    }
 
-   function recent_messages(jid) {
-      $.getJSON('/chat/recent_messages', {
-        identifier: getIdentifier(jid)
-      }, function(data) {
+   function recent_messages(jid, offset) {
+      if(!offset) offset = 0;
+      $.getJSON('/chat/recent_messages', {identifier: getIdentifier(jid), offset: offset}, function(data) {
         $.each(data, function(i, message) {
           var body = message['body'];
           var from = message['from'];
@@ -592,7 +605,7 @@ jQuery(function($) {
           var date = message['created_at'];
           var who = from['id']==getCurrentIdentifier() ? 'self' : from['id']
 
-	  Jabber.show_message(jid, from['name'], body, who, from['id'], date);
+	  Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
         });
       });
    }

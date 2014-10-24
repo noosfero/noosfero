@@ -51,7 +51,7 @@ class ChatController < PublicController
       messages = ChatMessage.where('(to_id=:other and from_id=:me) or (to_id=:me and from_id=:other)', {:me => user.id, :other => other.id})
     end
 
-    messages = messages.order('created_at DESC').includes(:to, :from).limit(20)
+    messages = messages.order('created_at DESC').includes(:to, :from).offset(params[:offset]).limit(20)
     messages_json = messages.map do |message|
       {
         :body => message.body,
