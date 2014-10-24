@@ -422,6 +422,7 @@ class Noosfero::Plugin
   def article_extra_fields(article)
     nil
   end
+  
   # -> Adds fields to the signup form
   # returns = proc that creates html code
   def signup_extra_contents

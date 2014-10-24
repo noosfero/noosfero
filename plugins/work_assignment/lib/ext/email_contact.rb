@@ -15,13 +15,13 @@ class EmailContact
   attr_accessor :message
   attr_accessor :email
   attr_accessor :receive_a_copy
-  attr_accessor :receiver
   attr_accessor :sender
+  attr_accessor :receiver
 
   N_('Subject'); N_('Message'); N_('e-Mail'); N_('Name')
 
-  validates_presence_of :subject, :email, :message, :name
-  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
+  validates_presence_of :receiver, :subject, :message, :sender
+  validates_format_of :receiver, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
 
   def deliver
     return false unless self.valid?
@@ -31,29 +31,25 @@ class EmailContact
   class EmailSender < ActionMailer::Base
 
     def notification(email_contact)
-      @name = email_contact.name
-      @email = email_contact.email
+      @name = email_contact.sender.name
+      @email = email_contact.sender.email
       @message = email_contact.message
       @target = email_contact.receiver
 
       options = {
         content_type: 'text/html',
-        to: email_contact.receiver,
-        reply_to: email_contact.email,
+        to: @target,
+        reply_to: @email,
         subject: email_contact.subject,
-        body: email_contact.message,
-        from: "#{email_contact.name} <#{email_contact.email}>"
+        body: @message,
+        from: "#{email_contact.sender.environment.name} <#{email_contact.sender.environment.contact_email}>",
       }
-
-      if email_contact.receive_a_copy == "1"
-        options.merge!(cc: "#{email_contact.email}")
-      end
 
       mail(options)
     end
   end
 
-  def build_mail_message(environment, uploaded_files, parent_id)
+  def build_mail_message!(environment, uploaded_files, parent_id)
     @article = environment.articles.find_by_id(parent_id)
     @message = ""
     if !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
@@ -63,7 +59,7 @@ class EmailContact
       @real_file_url = "http://#{file.url[:host]}:#{file.url[:port]}/#{file.url[:profile]}/#{file.path}"
       @message += "<br><a href='#{@real_file_url}'>#{@real_file_url}</a>"
     end
-    @message
+    self.message = @message
   end
 
 end

@@ -10,7 +10,19 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def self.can_download_submission?(user, submission)
     work_assignment = submission.parent.parent
-    work_assignment.publish_submissions || (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
+
+    if work_assignment.publish_submissions
+      if work_assignment.only_friends.include?(submission.author)
+        submission.author.friends.include?(user)        
+      else
+        true
+      end
+    elsif (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
+      #work_assignment.publish_submissions || (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
+      true
+    else
+      false
+    end
   end
 
   def self.is_submission?(content)
@@ -55,9 +67,9 @@ class WorkAssignmentPlugin < Noosfero::Plugin
     block = proc do
       if request.post? && params[:uploaded_files]
         @email_notification = params[:article_email_notification]
-        unless @email_notification.include? "example@example.com, example2@example.com.br"
-          @email_contact = user.build_email_contact(:name => user.name, :subject => @parent.name, :email => user.email, :receiver => @email_notification, :sender => user)
-          @email_contact.message = @email_contact.build_mail_message(environment, @uploaded_files, @parent.id)
+        unless !@email_notification || @email_notification.empty?
+          @email_contact = EmailContact.new(:subject => @parent.name, :receiver => @email_notification, :sender => user)
+          @email_contact.build_mail_message!(environment, @uploaded_files, @parent.id)
           if @email_contact.deliver
             session[:notice] = _('Notification successfully sent')
           else
@@ -75,10 +87,10 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def article_extra_fields(article)
     proc do
-        @article = Article.find_by_id(article)
-        if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
-          render :partial => 'notify_text_field',  :locals => { :size => '45'}
-        end
+      @article = Article.find_by_id(article)
+      if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
+        render :partial => 'notify_text_field',  :locals => { :size => '45'}
+      end
     end
   end
 

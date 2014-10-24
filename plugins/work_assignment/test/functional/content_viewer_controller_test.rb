@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
 require 'content_viewer_controller'
 
 # Re-raise errors caught by the controller.
@@ -31,7 +31,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => organization.identifier, :page => submission.explode_path
     assert_response :forbidden
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
 
     WorkAssignmentPlugin.stubs(:can_download_submission?).returns(true)
 

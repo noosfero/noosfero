@@ -1,5 +1,4 @@
 <h5><%= _('If you want to notify someone about this action, fill the field below with the emails of the destinies, separated by comma.') %></h5>
 
-<%= labelled_text_field(_('Send notification to: '), 'article_email_notification', "", :style => 'width: 60%;') %>
+<%= labelled_text_field(_('Send notification to: '), 'article_email_notification', user.email, :style => 'width: 60%;') %>
 
-<%= javascript_include_tag '../plugins/work_assignment/text_field_css' %>

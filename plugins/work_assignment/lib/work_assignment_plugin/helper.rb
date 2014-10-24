@@ -15,11 +15,14 @@ module WorkAssignmentPlugin::Helper
 
   def display_author_folder(author_folder, user)
     return if author_folder.children.empty?
+    only_friends = author_folder.parent.only_friends
+    action = 'toggle_friends_permission'
     content_tag('tr',
       content_tag('td', link_to_last_submission(author_folder, user)) +
       content_tag('td', time_format(author_folder.children.last.created_at)) +
       content_tag('td', author_folder.children.count, :style => 'text-align: center') +
-      content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id))
+      content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
+      content_tag('td', button('toggle_friends_permission', only_friends.include?(author_folder.author) ? _('All') : _('Only Friends'),:controller => 'work_assignment_plugin_content_viewer', :action => action, :folder_id => author_folder.id))
     ).html_safe +
     author_folder.children.map {|submission| display_submission(submission, user)}.join("\n").html_safe
   end
