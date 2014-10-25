@@ -52,7 +52,6 @@ Noosfero::Application.routes.draw do
 
   # categories index
   match 'cat/*category_path' => 'search#category_index', :as => :category
-  match 'assets/:asset(/*category_path)' => 'search#assets', :as => :assets
   # search
   match 'search(/:action(/*category_path))', :controller => 'search'
 

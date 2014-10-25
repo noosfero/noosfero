@@ -14,11 +14,18 @@ Noosfero::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
-
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  # pre-compile every asset
+  config.assets.precompile = Dir.glob("app/assets/**/*").map do |file|
+    next unless File.exists?(file) and File.file?(file)
+    File.basename file
+  end.compact
+
+  # fallback to assets pipeline if a precompiled asset is missed
+  config.assets.digest = true
+  config.assets.cache_store = :assets_live_compile_store
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

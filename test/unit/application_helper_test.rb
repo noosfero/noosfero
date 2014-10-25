@@ -463,13 +463,13 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'base theme uses default icon theme' do
     stubs(:current_theme).returns('base')
-    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path.first
+    assert_equal "designs/icons/default/style.css", icon_theme_stylesheet_path.first
   end
 
   should 'base theme uses config to specify more then an icon theme' do
     stubs(:current_theme).returns('base')
-    assert_includes icon_theme_stylesheet_path, "/designs/icons/default/style.css"
-    assert_includes icon_theme_stylesheet_path, "/designs/icons/pidgin/style.css"
+    assert_includes icon_theme_stylesheet_path, "designs/icons/default/style.css"
+    assert_includes icon_theme_stylesheet_path, "designs/icons/pidgin/style.css"
   end
 
   should 'not display active field if only required' do

@@ -88,10 +88,24 @@ module Noosfero
     config.active_record.whitelist_attributes = true
 
     # Enable the asset pipeline
-    config.assets.enabled = false
+    config.assets.enabled = true
+
+    # don't let rails prepend app/assets to config.assets.paths
+    # as we are doing it
+    config.paths['app/assets'] = ''
+
+    config.assets.paths =
+      Dir.glob("app/assets/plugins/*/{,stylesheets,javascripts}") +
+      Dir.glob("app/assets/{,stylesheets,javascripts}") +
+      # no precedence over core
+      Dir.glob("app/assets/designs/{icons,themes,user_themes}/*")
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.sass.preferred_syntax = :scss
+    config.sass.cache = true
+    config.sass.line_comments = false
 
     def noosfero_session_secret
       require 'fileutils'

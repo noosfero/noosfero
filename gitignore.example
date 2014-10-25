@@ -22,8 +22,12 @@ public/user_themes
 public/designs/themes/default
 public/designs/themes/*
 public/designs/icons/default
+
+public/assets
+.sass-cache
 public/javascripts/cache*
 public/stylesheets/cache*
+
 public/plugins
 db/development.db
 db/production.db

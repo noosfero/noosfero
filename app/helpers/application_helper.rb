@@ -919,18 +919,6 @@ module ApplicationHelper
     end
   end
 
-  def icon_theme_stylesheet_path
-    icon_themes = []
-    theme_icon_themes = theme_option(:icon_theme) || []
-    for icon_theme in theme_icon_themes do
-      theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(Rails.root.join('public', theme_path[1..-1]))
-        icon_themes << theme_path
-      end
-    end
-    icon_themes
-  end
-
   def page_title
     CGI.escapeHTML(
       (@page ? @page.title + ' - ' : '') +

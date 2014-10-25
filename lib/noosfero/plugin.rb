@@ -150,8 +150,8 @@ class Noosfero::Plugin
       self.name.underscore.gsub('_plugin','')
     end
 
-    def public_path(file = '')
-      File.join('/plugins', public_name, file)
+    def public_path file = '', relative=false
+      File.join "#{if relative then '' else  '/' end}plugins", public_name, file
     end
 
     def root_path

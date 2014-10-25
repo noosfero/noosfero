@@ -28,12 +28,12 @@ module LayoutHelper
   end
 
   def noosfero_javascript
-    plugins_javascripts = @plugins.map { |plugin| [plugin.js_files].flatten.map { |js| plugin.class.public_path(js) } }.flatten
+    plugins_javascripts = @plugins.map { |plugin| [plugin.js_files].flatten.map { |js| plugin.class.public_path(js, true) } }.flatten
 
     output = ''
     output += render 'layouts/javascript'
     unless plugins_javascripts.empty?
-      output += javascript_include_tag plugins_javascripts, :cache => "cache/plugins-#{Digest::MD5.hexdigest plugins_javascripts.to_s}"
+      output += javascript_include_tag *plugins_javascripts
     end
     output += theme_javascript_ng.to_s
     output += javascript_tag 'render_all_jquery_ui_widgets()'
@@ -42,16 +42,6 @@ module LayoutHelper
   end
 
   def noosfero_stylesheets
-    standard_stylesheets = [
-      'application',
-      'search',
-      'colorbox',
-      'selectordie',
-      'inputosaurus',
-      'chat',
-      'selectordie-theme',
-      pngfix_stylesheet_path,
-    ] + tokeninput_stylesheets
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin|
       plugin.class.public_path('style.css')
     }
@@ -59,27 +49,19 @@ module LayoutHelper
     global_css_at_fs = Rails.root.join 'public' + global_css_pub
 
     output = []
-    output << stylesheet_link_tag(standard_stylesheets, :cache => 'cache/application')
+    output << stylesheet_link_tag('application')
     output << stylesheet_link_tag(template_stylesheet_path)
-    output << stylesheet_link_tag(icon_theme_stylesheet_path)
+    output << stylesheet_link_tag(*icon_theme_stylesheet_path)
     output << stylesheet_link_tag(jquery_ui_theme_stylesheet_path)
     unless plugins_stylesheets.empty?
       cacheid = "cache/plugins-#{Digest::MD5.hexdigest plugins_stylesheets.to_s}"
-      output << stylesheet_link_tag(plugins_stylesheets, :cache => cacheid)
+      output << stylesheet_link_tag(*plugins_stylesheets, cache: cacheid)
     end
     if File.exists? global_css_at_fs
       output << stylesheet_link_tag(global_css_pub)
     end
     output << stylesheet_link_tag(theme_stylesheet_path)
     output.join "\n"
-  end
-
-  def pngfix_stylesheet_path
-    'iepngfix/iepngfix.css' #TODO: deprecate it
-  end
-
-  def tokeninput_stylesheets
-    ['token-input', 'token-input-facebook', 'token-input-mac', 'token-input-facet']
   end
 
   def noosfero_layout_features
@@ -99,7 +81,7 @@ module LayoutHelper
     icon_themes = []
     theme_icon_themes = theme_option(:icon_theme) || []
     for icon_theme in theme_icon_themes do
-      theme_path = "/designs/icons/#{icon_theme}/style.css"
+      theme_path = "designs/icons/#{icon_theme}/style.css"
       if File.exists?(Rails.root.join('public', theme_path))
         icon_themes << theme_path
       end
@@ -112,7 +94,7 @@ module LayoutHelper
   end
 
   def theme_stylesheet_path
-    theme_path + '/style.css'
+    "/assets#{theme_path}/style.css"
   end
 
   def layout_template

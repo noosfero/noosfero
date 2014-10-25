@@ -42,7 +42,9 @@ module MacrosHelper
         [macro.configuration[:js_files]].flatten.map { |js| plugins_javascripts << macro.plugin.public_path(js) }
       end
     end
-    javascript_include_tag(plugins_javascripts, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty?
+    unless plugins_javascripts.empty?
+      javascript_include_tag *plugins_javascripts
+    end
   end
 
   def macro_css_files

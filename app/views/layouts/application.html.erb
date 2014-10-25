@@ -21,7 +21,7 @@
       import_controller_stylesheets(:themed_source => true)
     %>
     <%= stylesheet_link_tag template_stylesheet_path %>
-    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag *icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>

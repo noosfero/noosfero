@@ -1,3 +1,21 @@
+/*
+ * thidparty libraries
+ *= require colorbox
+ *= require selectordie
+ *= require selectordie-theme
+ *= require inputosaurus
+ *= require token-input
+ *= require token-input-facebook
+ *= require token-input-mac
+ *= require token-input-facet
+ * noosfero libraries
+ *= require_self
+ *= require iepngfix/iepngfix
+ * views specifics
+ *= require chat
+ *= require search
+ */
+
 /* browser fixes */
 
 img:-moz-broken {
@@ -6920,8 +6938,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 .fetching-overlay {
-  position: absolute; 
-  top: 0px; 
+  position: absolute;
+  top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
