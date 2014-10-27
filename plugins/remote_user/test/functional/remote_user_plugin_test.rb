@@ -52,6 +52,7 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_equal 1, User.count
     assert_equal "testuser", User.last.login
+    assert_equal true, User.last.activated?
     assert_equal User.last.id, session[:user]
   end
 
@@ -67,6 +68,7 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_equal 2, User.count
     assert_equal "another_user", User.last.login
+    assert_equal true, User.last.activated?
     assert_equal User.last.id, session[:user]
   end
 end
