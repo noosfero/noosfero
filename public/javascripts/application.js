@@ -1093,4 +1093,12 @@ function notifyMe(title, options) {
   // want to be respectful there is no need to bother them any more.
 }
 
+function start_fetching(element){
+  jQuery(element).append('<div class="fetching-overlay">Loading...</div>');
+}
+
+function stop_fetching(element){
+  jQuery('.fetching-overlay', element).remove();
+}
+
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };

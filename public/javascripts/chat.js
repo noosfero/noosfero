@@ -596,18 +596,20 @@ jQuery(function($) {
    }
 
    function recent_messages(jid, offset) {
-      if(!offset) offset = 0;
-      $.getJSON('/chat/recent_messages', {identifier: getIdentifier(jid), offset: offset}, function(data) {
-        $.each(data, function(i, message) {
-          var body = message['body'];
-          var from = message['from'];
-          var to = message['to'];
-          var date = message['created_at'];
-          var who = from['id']==getCurrentIdentifier() ? 'self' : from['id']
+     if(!offset) offset = 0;
+     start_fetching('.history');
+     $.getJSON('/chat/recent_messages', {identifier: getIdentifier(jid), offset: offset}, function(data) {
+       $.each(data, function(i, message) {
+         var body = message['body'];
+         var from = message['from'];
+         var to = message['to'];
+         var date = message['created_at'];
+         var who = from['id']==getCurrentIdentifier() ? 'self' : from['id']
 
-	  Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
-        });
-      });
+         Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
+       });
+       stop_fetching('.history');
+     });
    }
 
    function count_unread_messages(jid_id, hide) {
