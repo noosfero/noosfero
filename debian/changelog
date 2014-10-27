@@ -1,9 +1,3 @@
-noosfero (0.47.5) unstable; urgency=low
-
-  * Bugfixes release
-
- -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 23 Oct 2014 02:24:14 +0000
-
 noosfero (1.0~rc3) wheezy-test; urgency=low
 
   * Third release candidate to Noosfero 1.0
@@ -27,6 +21,12 @@ noosfero (0.99.0~rc20140618202455) wheezy-test; urgency=low
   * Another rc with rails3
 
  -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 18 Jun 2014 20:25:01 +0000
+
+noosfero (0.47.5) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 23 Oct 2014 02:24:14 +0000
 
 noosfero (0.47.4) unstable; urgency=low
 
