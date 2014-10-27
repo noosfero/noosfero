@@ -41,6 +41,7 @@ module ProfileHelper
     :birth_date => _('Date of birth'),
     :created_at => _('Profile created at'),
     :members_count => _('Members'),
+    :privacy_setting => _('Privacy setting'),
     :article_tags => _('Tags')
   }
 
@@ -64,7 +65,7 @@ module ProfileHelper
 
   def title(field, entry = nil)
     return self.send("#{field}_custom_title", entry) if MULTIPLE[kind].include?(field) && entry.present?
-    CUSTOM_LABELS[field.to_sym] || field.to_s.humanize
+    CUSTOM_LABELS[field.to_sym] || _(field.to_s.humanize)
   end
 
   def display_field(field)
