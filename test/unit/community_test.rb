@@ -126,6 +126,18 @@ class CommunityTest < ActiveSupport::TestCase
     assert ! community.errors[:contact_phone.to_s].present?
   end
 
+  should 'not require fields if community is a template' do
+    e = Environment.default
+    e.expects(:required_community_fields).returns(['contact_phone']).at_least_once
+    community = build(Community, :name => 'My community', :environment => e)
+    assert ! community.valid?
+    assert community.errors[:contact_phone.to_s].present?
+
+    community.is_template = true
+    community.valid?
+    assert ! community.errors[:contact_phone.to_s].present?
+  end
+
   should 'return newest text articles as news' do
     c = fast_create(Community, :name => 'test_com')
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id)

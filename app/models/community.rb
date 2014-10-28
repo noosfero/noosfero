@@ -50,7 +50,7 @@ class Community < Organization
     super + FIELDS
   end
 
-  validate :presence_of_required_fieds
+  validate :presence_of_required_fieds, :unless => :is_template
 
   def presence_of_required_fieds
     self.required_fields.each do |field|
