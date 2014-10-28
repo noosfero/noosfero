@@ -310,6 +310,18 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert ! enterprise.errors[:contact_phone.to_s].present?
   end
 
+  should 'not require fields if enterprise is a template' do
+    e = Environment.default
+    e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
+    enterprise = build(Enterprise, :environment => e)
+    assert ! enterprise.valid?
+    assert enterprise.errors[:contact_phone.to_s].present?
+
+    enterprise.is_template = true
+    enterprise.valid?
+    assert ! enterprise.errors[:contact_phone.to_s].present?
+  end
+
   should 'enable contact' do
     enterprise = build(Enterprise, :enable_contact_us => false)
     assert !enterprise.enable_contact?

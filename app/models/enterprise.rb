@@ -59,16 +59,6 @@ class Enterprise < Organization
     super + FIELDS
   end
 
-  validate :presence_of_required_fieds
-
-  def presence_of_required_fieds
-    self.required_fields.each do |field|
-      if self.send(field).blank?
-        self.errors.add_on_blank(field)
-      end
-    end
-  end
-
   def active_fields
     environment ? environment.active_enterprise_fields : []
   end
