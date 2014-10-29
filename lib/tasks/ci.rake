@@ -8,10 +8,6 @@ namespace :ci do
     to = ENV['HEAD'] || current_branch
     changed_files = `git diff --name-only #{from}..#{to}`.split
 
-    unless $stdout.isatty
-      sh "git", "log", "--name-status", "#{from}..#{to}"
-    end
-
     # explicitly changed tests
     tests = changed_files.select { |f| f =~ /test\/.*_test\.rb$/ }
     features = changed_files.select { |f| f =~ /\.feature$/ }
