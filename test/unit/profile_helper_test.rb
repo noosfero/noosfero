@@ -59,12 +59,13 @@ class ProfileHelperTest < ActiveSupport::TestCase
     assert_equal '', display_work
   end
 
-  should 'display work info if both fields should be displayed' do
+  should 'display work info if any of the fields is to be displayed' do
     self.stubs(:user).returns(nil)
     profile.stubs(:may_display_field_to?).returns(true)
     profile.stubs(:kind_of?).with(Person).returns(:person)
     profile.expects(:organization).returns('Organization Name')
     profile.expects(:organization_website).returns('')
+    profile.expects(:professional_activity).returns('')
     assert_match /Work.*Organization Name/, display_work
   end
 
