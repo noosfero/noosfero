@@ -6,7 +6,14 @@ C{
 /*
  * Accept-language header normalization
  *
- * Cosimo, 21/01/2010
+ * - Parses client Accept-Language HTTP header
+ * - Tries to find the best match with the supported languages
+ * - Writes the best match as req.http.X-Varnish-Accept-Language
+ *
+ * First version: Cosimo, 21/Jan/2010
+ * Last update:   Cosimo, 03/Nov/2011
+ *
+ * http://github.com/cosimo/varnish-accept-language
  *
  */
 
@@ -16,11 +23,12 @@ C{
 #include <string.h>
 
 #define DEFAULT_LANGUAGE "en"
-#define SUPPORTED_LANGUAGES ":de:fr:es:ru:pt:hy:en:"
+#define SUPPORTED_LANGUAGES ":de:eo:es:fr:hy:it:pt:ru:"
 
 #define vcl_string char
-#define LANG_LIST_SIZE 16 
-#define LANG_MAXLEN 16
+#define LANG_LIST_SIZE 16
+#define HDR_MAXLEN 256
+#define LANG_MAXLEN 8
 #define RETURN_LANG(x) { \
     strncpy(lang, x, LANG_MAXLEN); \
     return; \
@@ -64,9 +72,8 @@ int is_supported(vcl_string *lang) {
     strncat(match_str, lang, LANG_MAXLEN);
     strncat(match_str, ":\0", 2);
 
-    if (strstr(supported_languages, match_str)) {
+    if (strstr(supported_languages, match_str))
         is_supported = 1;
-    }
 
     return is_supported;
 }
@@ -90,6 +97,7 @@ void select_language(const vcl_string *incoming_header, char *lang) {
     vcl_string *lang_tok = NULL;
     vcl_string root_lang[3];
     vcl_string *header;
+    vcl_string header_copy[HDR_MAXLEN];
     vcl_string *pos = NULL;
     vcl_string *q_spec = NULL;
     unsigned int curr_lang = 0, i = 0;
@@ -106,7 +114,7 @@ void select_language(const vcl_string *incoming_header, char *lang) {
         RETURN_DEFAULT_LANG;
 
     /* Tokenize Accept-Language */
-    header = (vcl_string *) incoming_header;
+    header = strncpy(header_copy, incoming_header, sizeof(header_copy));
 
     while ((lang_tok = strtok_r(header, " ,", &pos))) {
 
@@ -137,7 +145,8 @@ void select_language(const vcl_string *incoming_header, char *lang) {
         header = NULL;
 
         /* Break out if stored max no. of languages */
-        if (curr_lang >= LANG_MAXLEN) break;
+        if (curr_lang >= LANG_LIST_SIZE)
+            break;
     }
 
     /* Sort by priority */
@@ -157,12 +166,11 @@ void vcl_rewrite_accept_language(const struct sess *sp) {
     vcl_string *in_hdr;
     vcl_string lang[LANG_MAXLEN];
 
-    memset(lang, 0, LANG_MAXLEN);
-
     /* Get Accept-Language header from client */
     in_hdr = VRT_GetHdr(sp, HDR_REQ, "\020Accept-Language:");
 
     /* Normalize and filter out by list of supported languages */
+    memset(lang, 0, sizeof(lang));
     select_language(in_hdr, lang);
 
     /* By default, use a different header name: don't mess with backend logic */
@@ -191,3 +199,4 @@ sub vcl_fetch {
     set beresp.http.Vary = "X-Varnish-Accept-Language";
   }
 }
+
