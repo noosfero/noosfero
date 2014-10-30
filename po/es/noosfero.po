@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc1\n"
-"POT-Creation-Date: 2014-09-09 16:15-0300\n"
+"Project-Id-Version: 1.0~rc3\n"
+"POT-Creation-Date: 2014-10-30 09:24-0300\n"
 "PO-Revision-Date: 2013-01-03 18:39-0300\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
@@ -562,20 +562,19 @@ msgstr "Tu empresa ha sido bloqueada"
 msgid "Only one Virtual Community can be the default one"
 msgstr "Solamente una Comunidad Virtual puede ser la predeterminada"
 
-#: app/models/environment.rb:923
+#: app/models/environment.rb:924
 #, fuzzy
 msgid "is not available."
 msgstr "No disponible"
 
-#: app/models/environment.rb:931
+#: app/models/environment.rb:932
 msgid "have unsupported languages."
 msgstr ""
 
-#: app/models/communities_block.rb:6 app/helpers/application_helper.rb:544
-#: app/helpers/application_helper.rb:1077 app/helpers/search_helper.rb:12
+#: app/models/communities_block.rb:6 app/helpers/application_helper.rb:549
+#: app/helpers/application_helper.rb:1082 app/helpers/search_helper.rb:12
 #: app/helpers/assets_helper.rb:11
 #: app/controllers/public/search_controller.rb:53
-#: app/views/profile/_person_profile.html.erb:29
 msgid "Communities"
 msgstr "Comunidades"
 
@@ -627,8 +626,7 @@ msgstr "Cuando:"
 msgid "URL:"
 msgstr "URL:"
 
-#: app/models/event.rb:122 app/helpers/profile_helper.rb:20
-#: app/helpers/enterprise_homepage_helper.rb:10
+#: app/models/event.rb:122 app/helpers/enterprise_homepage_helper.rb:10
 #: app/views/cms/_event.html.erb:17
 #: plugins/people_block/views/box_organizer/_people_block_base.html.erb:3
 msgid "Address:"
@@ -660,7 +658,6 @@ msgstr "Este bloque muestra las empresas donde este usuario trabaja."
 #: app/helpers/assets_helper.rb:10
 #: app/controllers/public/search_controller.rb:50
 #: app/views/search/_sellers_form.html.erb:7
-#: app/views/profile/_person_profile.html.erb:34
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:18
 msgid "Enterprises"
@@ -759,24 +756,24 @@ msgstr "Teléfono comercial"
 msgid "Nationality"
 msgstr "Nacionalidad"
 
-#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:31
+#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:32
 msgid "Schooling"
 msgstr "Enseñanza"
 
-#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:57
+#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:58
 msgid "Area of study"
 msgstr "Área de estudio"
 
-#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:64
+#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:65
 msgid "Professional activity"
 msgstr "Actividad profesional"
 
-#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:65
+#: app/models/person.rb:196 app/views/profile_editor/_person_form.html.erb:66
 msgid "Organization"
 msgstr "Organización"
 
 #: app/models/person.rb:196 app/models/enterprise.rb:25
-#: app/views/profile_editor/_person_form.html.erb:66
+#: app/views/profile_editor/_person_form.html.erb:67
 msgid "Organization website"
 msgstr "Sitio web de la organización"
 
@@ -785,7 +782,7 @@ msgid "Schooling status"
 msgstr "Nivel educativo"
 
 #: app/models/person.rb:202 app/helpers/profile_editor_helper.rb:26
-#: app/views/profile_editor/_person_form.html.erb:50
+#: app/views/profile_editor/_person_form.html.erb:51
 msgid "Education"
 msgstr "Educación"
 
@@ -793,7 +790,7 @@ msgstr "Educación"
 msgid "Custom education"
 msgstr "Educación personalizada"
 
-#: app/models/person.rb:202 app/views/profile_editor/_person_form.html.erb:60
+#: app/models/person.rb:202 app/views/profile_editor/_person_form.html.erb:61
 msgid "Custom area of study"
 msgstr "Área de estudio personalizada"
 
@@ -840,7 +837,7 @@ msgstr "Sexo"
 msgid "Zip code"
 msgstr "Código postal"
 
-#: app/models/person.rb:205 app/models/organization.rb:97
+#: app/models/person.rb:205 app/models/organization.rb:107
 #: app/views/profile_editor/_person_form.html.erb:27
 #: app/views/shared/_organization_custom_fields.html.erb:14
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
@@ -849,7 +846,7 @@ msgstr "Código postal"
 msgid "District"
 msgstr "Restricciones"
 
-#: app/models/person.rb:205 app/models/organization.rb:97
+#: app/models/person.rb:205 app/models/organization.rb:107
 #: app/views/profile_editor/_person_form.html.erb:26
 #: app/views/shared/_organization_custom_fields.html.erb:13
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:15
@@ -868,23 +865,23 @@ msgstr "%{fn} ya lo tiene otro usuario"
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/models/person.rb:265 app/models/organization.rb:120
+#: app/models/person.rb:265 app/models/organization.rb:130
 msgid "Image gallery"
 msgstr "Galería de imágenes"
 
-#: app/models/person.rb:266 app/models/organization.rb:119
-#: app/helpers/application_helper.rb:552 app/helpers/application_helper.rb:561
+#: app/models/person.rb:266 app/models/organization.rb:129
+#: app/helpers/application_helper.rb:557 app/helpers/application_helper.rb:566
 msgid "Agenda"
 msgstr "Agenda"
 
 #: app/models/person.rb:267 app/models/person.rb:278
-#: app/models/organization.rb:121 app/models/organization.rb:132
-#: app/models/enterprise.rb:140 app/models/enterprise.rb:159
+#: app/models/organization.rb:131 app/models/organization.rb:142
+#: app/models/enterprise.rb:130 app/models/enterprise.rb:149
 #: app/models/blog.rb:16 app/models/blog.rb:20
 msgid "Blog"
 msgstr "Blog"
 
-#: app/models/person.rb:279 app/models/organization.rb:133
+#: app/models/person.rb:279 app/models/organization.rb:143
 #: app/models/gallery.rb:4 app/models/gallery.rb:8
 #: app/views/search/_full_uploaded_file.html.erb:16
 msgid "Gallery"
@@ -906,7 +903,7 @@ msgstr "%s amigos"
 msgid "You just left %s."
 msgstr "Acabas de abandonar %s."
 
-#: app/models/person.rb:452 app/models/profile.rb:904
+#: app/models/person.rb:452 app/models/profile.rb:905
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
@@ -1026,7 +1023,8 @@ msgstr "Nombre de usuario"
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: app/models/user.rb:24 app/mailers/contact.rb:23
+#: app/models/user.rb:24 app/helpers/profile_helper.rb:39
+#: app/mailers/contact.rb:23
 msgid "e-Mail"
 msgstr "correo electrónico"
 
@@ -1062,7 +1060,7 @@ msgstr ""
 msgid "(The original text was removed)"
 msgstr "(El texto original fue removido)"
 
-#: app/models/approve_article.rb:55 app/helpers/article_helper.rb:91
+#: app/models/approve_article.rb:55 app/helpers/article_helper.rb:97
 #: app/helpers/folder_helper.rb:90 app/views/shared/user_menu.html.erb:23
 msgid "New article"
 msgstr "Nuevo artículo"
@@ -1133,8 +1131,7 @@ msgstr ""
 msgid "Article not selected yet."
 msgstr "Artículo no seleccionado aun."
 
-#: app/models/article.rb:35 app/views/profile/_common.html.erb:5
-#: plugins/solr/lib/ext/article.rb:8
+#: app/models/article.rb:35 plugins/solr/lib/ext/article.rb:8
 msgid "Content"
 msgstr "Contenido"
 
@@ -1160,8 +1157,8 @@ msgstr ""
 #: app/models/article.rb:163
 #: app/views/content_viewer/_comment_form.html.erb:70
 #: app/views/tasks/_suggest_article_accept_details.html.erb:5
-#: app/views/shared/reported_versions/_article.html.erb:2
-#: app/views/shared/reported_versions/_comment.html.erb:2
+#: app/views/shared/reported_versions/profile/_article.html.erb:2
+#: app/views/shared/reported_versions/profile/_comment.html.erb:2
 #: app/views/shared/content_list.html.erb:3 app/views/cms/_article.html.erb:6
 #: app/views/cms/publish_on_portal_community.html.erb:6
 #: app/views/cms/suggest_an_article.html.erb:9
@@ -1175,70 +1172,70 @@ msgstr ""
 msgid "Title"
 msgstr "Título"
 
-#: app/models/article.rb:211 app/models/organization.rb:97
+#: app/models/article.rb:211 app/models/organization.rb:107
 msgid "Tag list"
 msgstr "Lista de etiquetas"
 
-#: app/models/article.rb:320
+#: app/models/article.rb:313
 msgid "HTML Text document"
 msgstr "Documento de texto HTML"
 
-#: app/models/article.rb:409
+#: app/models/article.rb:402
 #, fuzzy
 msgid "Language not supported by the environment."
 msgstr "Lenguaje no soportado por Noosfero"
 
-#: app/models/article.rb:415
+#: app/models/article.rb:408
 msgid "Language is already used"
 msgstr "El lenguaje ya está en uso"
 
-#: app/models/article.rb:421
+#: app/models/article.rb:414
 msgid "Language must be choosen"
 msgstr "El lenguaje debe ser elegido"
 
-#: app/models/article.rb:427
+#: app/models/article.rb:420
 msgid "A language must be choosen for the native article"
 msgstr "El lenguaje puede ser elegido para el artículo nativo"
 
-#: app/models/article.rb:662 app/models/article.rb:664
+#: app/models/article.rb:655 app/models/article.rb:657
 #: lib/file_presenter.rb:63
 msgid "Unknown"
 msgstr ""
 
-#: app/models/article.rb:725
+#: app/models/article.rb:718
 msgid "no comments"
 msgstr "sin comentarios"
 
-#: app/models/article.rb:726
+#: app/models/article.rb:719
 msgid "one comment"
 msgstr "un comentario"
 
-#: app/models/article.rb:727 app/helpers/content_viewer_helper.rb:8
+#: app/models/article.rb:720 app/helpers/content_viewer_helper.rb:8
 #: app/views/person_notifier/mailer/_profile_comments.html.erb:4
 msgid "%s comments"
 msgstr "%s comentarios"
 
-#: app/models/article.rb:734
+#: app/models/article.rb:727
 msgid "no views"
 msgstr "sin visitas"
 
-#: app/models/article.rb:735
+#: app/models/article.rb:728
 msgid "one view"
 msgstr "una vista"
 
-#: app/models/article.rb:736
+#: app/models/article.rb:729
 msgid "%s views"
 msgstr "%s vistas"
 
-#: app/models/article.rb:741
+#: app/models/article.rb:734
 msgid "Created at: "
 msgstr "Creado el: "
 
-#: app/models/organization.rb:97
+#: app/models/organization.rb:107
 msgid "Display name"
 msgstr "Mostrar nombre"
 
-#: app/models/organization.rb:97
+#: app/models/organization.rb:107
 #: app/views/search/_article_description.html.erb:4
 #: app/views/search/_full_product.html.erb:52
 #: app/views/profile_editor/_person_form.html.erb:10
@@ -1248,40 +1245,40 @@ msgstr "Mostrar nombre"
 msgid "Description"
 msgstr "Descripción"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:7
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:7
 msgid "Contact person"
 msgstr "Persona de contacto"
 
-#: app/models/organization.rb:97 app/views/admin_panel/_site_info.html.erb:2
+#: app/models/organization.rb:107 app/views/admin_panel/_site_info.html.erb:2
 msgid "Contact email"
 msgstr "Correo electrónico de contacto"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:8
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:8
 #: app/views/enterprise_validation/_details.html.erb:19
 msgid "Acronym"
 msgstr "Siglas"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:9
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:9
 msgid "Foundation year"
 msgstr "Año de fundación"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:10
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:10
 msgid "Legal form"
 msgstr "Forma Legal"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:11
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:11
 msgid "Economic activity"
 msgstr "Actividad económica"
 
-#: app/models/organization.rb:97 app/models/create_enterprise.rb:12
+#: app/models/organization.rb:107 app/models/create_enterprise.rb:12
 msgid "Management information"
 msgstr "Información de gestión"
 
-#: app/models/organization.rb:117
+#: app/models/organization.rb:127
 msgid "Community's profile"
 msgstr "Perfil de la comunidad"
 
-#: app/models/organization.rb:118
+#: app/models/organization.rb:128
 msgid "Invite Friends"
 msgstr "Invitar Amigos"
 
@@ -1312,7 +1309,8 @@ msgstr "Tarea"
 msgid "%{requestor} sent you a task."
 msgstr "%{requestor} te envió una tarea"
 
-#: app/models/tags_block.rb:11 app/views/search/_article_tags.html.erb:2
+#: app/models/tags_block.rb:11 app/helpers/profile_helper.rb:45
+#: app/views/search/_article_tags.html.erb:2
 #: plugins/display_content/lib/display_content_block.rb:46
 msgid "Tags"
 msgstr "Etiquetas"
@@ -1341,7 +1339,7 @@ msgid "(No icon)"
 msgstr "(Sin ícono)"
 
 #: app/models/link_list_block.rb:7 app/helpers/boxes_helper.rb:210
-#: app/helpers/article_helper.rb:95 app/helpers/comment_helper.rb:68
+#: app/helpers/article_helper.rb:101 app/helpers/comment_helper.rb:68
 #: app/views/trusted_sites/index.html.erb:18
 #: app/views/content_viewer/_comment.html.erb:68
 #: app/views/role/show.html.erb:11 app/views/role/index.html.erb:14
@@ -1382,7 +1380,7 @@ msgstr "Nuevo"
 #: app/views/enterprise_validation/edit_validation_info.html.erb:9
 #: app/views/manage_products/_edit_image.html.erb:11
 #: app/views/manage_products/_edit_input.html.erb:36
-#: app/views/manage_products/_edit_description.html.erb:11
+#: app/views/manage_products/_edit_description.html.erb:10
 #: app/views/manage_products/_edit_info.html.erb:58
 #: app/views/manage_products/_edit_name.html.erb:10
 #: app/views/manage_products/_manage_product_details.html.erb:25
@@ -1391,7 +1389,7 @@ msgstr "Nuevo"
 #: app/views/admin_panel/message_for_disabled_enterprise.html.erb:10
 #: app/views/admin_panel/site_info.html.erb:19
 #: app/views/admin_panel/set_portal_news_amount.html.erb:8
-#: plugins/send_email/views/send_email_plugin_admin/index.rhtml:7
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:7
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:10
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:11
 #: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:11
@@ -1460,7 +1458,7 @@ msgstr "Enviar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: app/models/link_list_block.rb:12 app/helpers/application_helper.rb:546
+#: app/models/link_list_block.rb:12 app/helpers/application_helper.rb:551
 #: app/views/profile_themes/add_css.html.erb:7
 #: app/views/box_organizer/add_block.html.erb:44
 #: app/views/shared/_select_categories.html.erb:24
@@ -1505,7 +1503,7 @@ msgstr ""
 msgid "Red Up"
 msgstr "Rojo"
 
-#: app/models/link_list_block.rb:22 app/helpers/application_helper.rb:648
+#: app/models/link_list_block.rb:22 app/helpers/application_helper.rb:653
 #: app/views/search/_sellers_form.html.erb:21
 #: app/views/search/_search_form.html.erb:15
 #: app/views/shared/_profile_search_form.html.erb:6
@@ -1558,7 +1556,7 @@ msgstr "Paquete"
 msgid "To do list"
 msgstr "Lista de quehaceres"
 
-#: app/models/link_list_block.rb:35 app/helpers/application_helper.rb:909
+#: app/models/link_list_block.rb:35 app/helpers/application_helper.rb:914
 msgid "Chat"
 msgstr "Chat"
 
@@ -1620,7 +1618,7 @@ msgstr "Título"
 msgid "description"
 msgstr "descripción"
 
-#: app/models/create_community.rb:38 app/helpers/application_helper.rb:1074
+#: app/models/create_community.rb:38 app/helpers/application_helper.rb:1079
 msgid "New community"
 msgstr "Nueva comunidad"
 
@@ -1749,51 +1747,51 @@ msgstr "Enviar correo electrónico a los miembros"
 msgid "is not a template."
 msgstr "Editar plantillas"
 
-#: app/models/profile.rb:633
+#: app/models/profile.rb:634
 msgid "%s can't have members"
 msgstr "%s no puede tener miembros"
 
-#: app/models/profile.rb:654
+#: app/models/profile.rb:655
 msgid "%s can't has moderators"
 msgstr "%s no puede tener moderadores"
 
-#: app/models/profile.rb:735
+#: app/models/profile.rb:736
 msgid "Public profile"
 msgstr "Perfil público"
 
-#: app/models/profile.rb:735
+#: app/models/profile.rb:736
 msgid "Private profile"
 msgstr "Perfil privado"
 
-#: app/models/profile.rb:846
+#: app/models/profile.rb:847
 msgid "Since: "
 msgstr "Desde: "
 
-#: app/models/profile.rb:861
+#: app/models/profile.rb:862
 msgid "no activity"
 msgstr "sin actividad"
 
-#: app/models/profile.rb:862
+#: app/models/profile.rb:863
 msgid "one activity"
 msgstr "una actividad"
 
-#: app/models/profile.rb:863
+#: app/models/profile.rb:864
 msgid "%s activities"
 msgstr "actividades %s"
 
-#: app/models/profile.rb:869
+#: app/models/profile.rb:870
 msgid "no members"
 msgstr "sin miembros"
 
-#: app/models/profile.rb:870
+#: app/models/profile.rb:871
 msgid "one member"
 msgstr "un miembro"
 
-#: app/models/profile.rb:871
+#: app/models/profile.rb:872
 msgid "%s members"
 msgstr "miembros %s"
 
-#: app/models/profile.rb:941
+#: app/models/profile.rb:942
 msgid "Profile Info and settings"
 msgstr "Información y configuración de Perfil"
 
@@ -1807,7 +1805,7 @@ msgstr "Comunidad"
 msgid "Language"
 msgstr "Idioma"
 
-#: app/models/community.rb:96
+#: app/models/community.rb:86
 msgid "Community Info and settings"
 msgstr "Información de la comunidad y ajustes"
 
@@ -2119,7 +2117,7 @@ msgstr "Contexto histórico y actual"
 msgid "Activities short description"
 msgstr "Descripción corta de actividades"
 
-#: app/models/enterprise.rb:25
+#: app/models/enterprise.rb:25 app/helpers/profile_helper.rb:38
 #: app/views/profile_editor/_person_form.html.erb:24
 #: app/views/shared/_organization_custom_fields.html.erb:15
 #: app/views/maps/edit_location.html.erb:12
@@ -2132,12 +2130,12 @@ msgstr "Código postal"
 msgid "Business name"
 msgstr "Nombre del negocio"
 
-#: app/models/enterprise.rb:139
+#: app/models/enterprise.rb:129
 msgid "Enterprises's profile"
 msgstr "Perfil de empresas"
 
-#: app/models/enterprise.rb:141 app/models/products_block.rb:11
-#: app/models/products_block.rb:15 app/helpers/application_helper.rb:559
+#: app/models/enterprise.rb:131 app/models/products_block.rb:11
+#: app/models/products_block.rb:15 app/helpers/application_helper.rb:564
 #: app/helpers/assets_helper.rb:9
 #: app/controllers/public/search_controller.rb:51
 #: app/views/search/_sellers_form.html.erb:8
@@ -2145,7 +2143,7 @@ msgstr "Perfil de empresas"
 msgid "Products"
 msgstr "Productos"
 
-#: app/models/enterprise.rb:181 app/models/enterprise.rb:191
+#: app/models/enterprise.rb:171 app/models/enterprise.rb:181
 msgid "Enterprise Info and settings"
 msgstr "Información y configuración de la empresa"
 
@@ -2462,44 +2460,61 @@ msgstr "Tipo de categoría"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: app/helpers/profile_helper.rb:21
-msgid "ZIP code:"
-msgstr "Código ZIP:"
-
-#: app/helpers/profile_helper.rb:22
-msgid "Contact phone:"
-msgstr "Télefono de contacto:"
-
-#: app/helpers/profile_helper.rb:23
-#: app/helpers/enterprise_homepage_helper.rb:7
-msgid "e-Mail:"
-msgstr "Correo electrónico:"
-
-#: app/helpers/profile_helper.rb:24
-#, fuzzy
-msgid "Personal website:"
-msgstr "Eventos del sitio web"
-
-#: app/helpers/profile_helper.rb:25
-msgid "Jabber:"
+#: app/helpers/profile_helper.rb:40
+#: app/views/profile_editor/_person_form.html.erb:16
+msgid "Jabber"
 msgstr ""
 
-#: app/helpers/profile_helper.rb:29 plugins/bsc/lib/bsc_plugin.rb:109
-#: plugins/bsc/views/shared/_fields.html.erb:53
-msgid "Contact"
-msgstr "Contacto"
+#: app/helpers/profile_helper.rb:41
+#, fuzzy
+msgid "Date of birth"
+msgstr "Fecha de nacimiento:"
 
-#: app/helpers/profile_helper.rb:34
-msgid "Organization:"
-msgstr "Organización:"
+#: app/helpers/profile_helper.rb:42
+#, fuzzy
+msgid "Profile created at"
+msgstr "perfil creado en:"
 
-#: app/helpers/profile_helper.rb:35
-msgid "Organization website:"
-msgstr "Sitio web de la organización:"
+#: app/helpers/profile_helper.rb:43 app/helpers/application_helper.rb:556
+#: app/helpers/application_helper.rb:565
+#: plugins/people_block/lib/members_block.rb:7
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
+msgid "Members"
+msgstr "Miembros"
 
-#: app/helpers/profile_helper.rb:39
-msgid "Work"
-msgstr "Trabajo"
+#: app/helpers/profile_helper.rb:44
+#, fuzzy
+msgid "Privacy setting"
+msgstr "Opciones de privacidad"
+
+#: app/helpers/profile_helper.rb:102 app/helpers/application_helper.rb:509
+#: app/views/profile_editor/_person_form.html.erb:18
+msgid "Male"
+msgstr "Masculino"
+
+#: app/helpers/profile_helper.rb:102 app/helpers/application_helper.rb:509
+#: app/views/profile_editor/_person_form.html.erb:18
+msgid "Female"
+msgstr "Femenino"
+
+#: app/helpers/profile_helper.rb:131 app/views/catalog/index.html.erb:11
+#: app/views/blocks/profile_info.html.erb:21
+msgid "Products/Services"
+msgstr "Productos/Servicios"
+
+# sigue la duda sobre como traducir "post"
+#: app/helpers/profile_helper.rb:140
+msgid "One post"
+msgid_plural "%{num} posts"
+msgstr[0] "Una publicación"
+msgstr[1] "%{num} publicaciones"
+
+#: app/helpers/profile_helper.rb:144
+msgid "One picture"
+msgid_plural "%{num} pictures"
+msgstr[0] "Una imagen"
+msgstr[1] "%{num} imágenes"
 
 #: app/helpers/application_helper.rb:113 app/helpers/boxes_helper.rb:219
 #: app/helpers/boxes_helper.rb:229
@@ -2514,41 +2529,28 @@ msgid "This is %s, version %s"
 msgstr "Esto es %s, versión %s"
 
 # Le ponemos "no registrado" o "sin registrar"? O no especificado?
-#: app/helpers/application_helper.rb:504
+#: app/helpers/application_helper.rb:509
 msgid "non registered gender"
 msgstr "género no registrado"
 
-#: app/helpers/application_helper.rb:504
-#: app/views/profile_editor/_person_form.html.erb:18
-#: app/views/profile/_person_profile.html.erb:5
-msgid "Male"
-msgstr "Masculino"
-
-#: app/helpers/application_helper.rb:504
-#: app/views/profile_editor/_person_form.html.erb:18
-#: app/views/profile/_person_profile.html.erb:5
-msgid "Female"
-msgstr "Femenino"
-
-#: app/helpers/application_helper.rb:530
+#: app/helpers/application_helper.rb:535
 msgid "Principal Product Categories"
 msgstr "Principales Categorías de Productos"
 
-#: app/helpers/application_helper.rb:542 app/helpers/application_helper.rb:550
+#: app/helpers/application_helper.rb:547 app/helpers/application_helper.rb:555
 #: app/views/profile/index.html.erb:26 app/views/profile/index.html.erb:31
 msgid "Wall"
 msgstr "Muro"
 
-#: app/helpers/application_helper.rb:543
-#: app/views/profile/_person_profile.html.erb:25
+#: app/helpers/application_helper.rb:548
 #: plugins/people_block/lib/friends_block.rb:4
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:17
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
 msgid "Friends"
 msgstr "Amigos"
 
-#: app/helpers/application_helper.rb:545 app/helpers/application_helper.rb:555
-#: app/helpers/application_helper.rb:562
+#: app/helpers/application_helper.rb:550 app/helpers/application_helper.rb:560
+#: app/helpers/application_helper.rb:567
 #: app/views/blocks/profile_info_actions/_community.html.erb:8
 #: app/views/blocks/profile_info_actions/_enterprise.html.erb:8
 #: app/views/blocks/profile_info_actions/_person.html.erb:11
@@ -2556,15 +2558,7 @@ msgstr "Amigos"
 msgid "Send an e-mail"
 msgstr "Enviar correo electrónico"
 
-#: app/helpers/application_helper.rb:551 app/helpers/application_helper.rb:560
-#: app/views/profile/_organization_profile.html.erb:7
-#: plugins/people_block/lib/members_block.rb:7
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:16
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:44
-msgid "Members"
-msgstr "Miembros"
-
-#: app/helpers/application_helper.rb:553
+#: app/helpers/application_helper.rb:558
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:8
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:18
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:25
@@ -2572,7 +2566,7 @@ msgstr "Miembros"
 msgid "Join"
 msgstr "Unirse"
 
-#: app/helpers/application_helper.rb:554
+#: app/helpers/application_helper.rb:559
 #: app/views/shared/_list_groups.html.erb:18
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:4
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:6
@@ -2581,15 +2575,15 @@ msgstr "Unirse"
 msgid "Leave community"
 msgstr "Abandonar la comunidad"
 
-#: app/helpers/application_helper.rb:592
+#: app/helpers/application_helper.rb:597
 msgid "Profile links"
 msgstr "Perfil"
 
-#: app/helpers/application_helper.rb:599
+#: app/helpers/application_helper.rb:604
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Haga clic en este icono para ir a la página de inicio de <b>%s</b>"
 
-#: app/helpers/application_helper.rb:613
+#: app/helpers/application_helper.rb:618
 #: app/views/content_viewer/view_page.html.erb:57
 #: app/views/search/_article_categories.html.erb:2
 #: app/views/categories/index.html.erb:1
@@ -2597,124 +2591,124 @@ msgstr "Haga clic en este icono para ir a la página de inicio de <b>%s</b>"
 msgid "Categories"
 msgstr "Categorías"
 
-#: app/helpers/application_helper.rb:639 app/views/layouts/_user.html.erb:23
+#: app/helpers/application_helper.rb:644 app/views/layouts/_user.html.erb:23
 msgid "Search..."
 msgstr "Buscar..."
 
-#: app/helpers/application_helper.rb:641
+#: app/helpers/application_helper.rb:646
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
 "Esta es una caja de búsqueda. Seleccione aquí, escribe tu consulta y "
 "presione enter para buscar."
 
-#: app/helpers/application_helper.rb:642
+#: app/helpers/application_helper.rb:647
 msgid "Click, write and press enter to find"
 msgstr "Seleccione aquí, escriba y presione enter para buscar"
 
-#: app/helpers/application_helper.rb:850
+#: app/helpers/application_helper.rb:855
 #: app/helpers/profile_editor_helper.rb:150 plugins/stoa/lib/stoa_plugin.rb:37
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:13
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:46
 msgid "Public"
 msgstr "Público"
 
-#: app/helpers/application_helper.rb:908
+#: app/helpers/application_helper.rb:913
 msgid "Online Manual"
 msgstr "Manual en línea"
 
-#: app/helpers/application_helper.rb:956 app/views/home/index.html.erb:12
+#: app/helpers/application_helper.rb:961 app/views/home/index.html.erb:12
 #: plugins/display_content/lib/display_content_block.rb:141
 #: plugins/recent_content/views/blocks/recent_content_block.html.erb:26
 #: plugins/recent_content/views/blocks/recent_content_block.html.erb:35
 msgid "Read more"
 msgstr "Leer más"
 
-#: app/helpers/application_helper.rb:1037
+#: app/helpers/application_helper.rb:1042
 msgid "contents|More recent"
 msgstr "Más recientes"
 
-#: app/helpers/application_helper.rb:1038
+#: app/helpers/application_helper.rb:1043
 msgid "contents|More viewed"
 msgstr "Más vistos"
 
-#: app/helpers/application_helper.rb:1039
+#: app/helpers/application_helper.rb:1044
 msgid "contents|Most commented"
 msgstr "Más comentados"
 
-#: app/helpers/application_helper.rb:1042 app/views/cms/view.html.erb:20
+#: app/helpers/application_helper.rb:1047 app/views/cms/view.html.erb:20
 msgid "New content"
 msgstr "Nuevo contenido"
 
-#: app/helpers/application_helper.rb:1045 app/helpers/search_helper.rb:9
+#: app/helpers/application_helper.rb:1050 app/helpers/search_helper.rb:9
 #: app/controllers/public/search_controller.rb:54
 msgid "Contents"
 msgstr "Contenido"
 
-#: app/helpers/application_helper.rb:1046
+#: app/helpers/application_helper.rb:1051
 #: app/views/comment/_comment_actions.html.erb:5
 msgid "Contents menu"
 msgstr "Menú de contenido"
 
-#: app/helpers/application_helper.rb:1052
+#: app/helpers/application_helper.rb:1057
 msgid "people|More recent"
 msgstr "Más recientes"
 
-#: app/helpers/application_helper.rb:1053
+#: app/helpers/application_helper.rb:1058
 msgid "people|More active"
 msgstr "Más activas"
 
-#: app/helpers/application_helper.rb:1054
+#: app/helpers/application_helper.rb:1059
 msgid "people|More popular"
 msgstr "Más populares"
 
-#: app/helpers/application_helper.rb:1057
+#: app/helpers/application_helper.rb:1062
 msgid "My friends"
 msgstr "Mis amigos"
 
-#: app/helpers/application_helper.rb:1058 plugins/stoa/lib/stoa_plugin.rb:110
+#: app/helpers/application_helper.rb:1063 plugins/stoa/lib/stoa_plugin.rb:110
 msgid "Invite friends"
 msgstr "Invitar amigos"
 
-#: app/helpers/application_helper.rb:1061 app/helpers/search_helper.rb:11
+#: app/helpers/application_helper.rb:1066 app/helpers/search_helper.rb:11
 #: app/helpers/assets_helper.rb:8
 #: app/controllers/public/search_controller.rb:49
 #: plugins/people_block/lib/people_block.rb:4
 msgid "People"
 msgstr "Personas"
 
-#: app/helpers/application_helper.rb:1062
+#: app/helpers/application_helper.rb:1067
 msgid "People menu"
 msgstr "Menú de personas"
 
-#: app/helpers/application_helper.rb:1068
+#: app/helpers/application_helper.rb:1073
 msgid "communities|More recent"
 msgstr "Más recientes"
 
-#: app/helpers/application_helper.rb:1069
+#: app/helpers/application_helper.rb:1074
 msgid "communities|More active"
 msgstr "Más activas"
 
-#: app/helpers/application_helper.rb:1070
+#: app/helpers/application_helper.rb:1075
 msgid "communities|More popular"
 msgstr "Más populares"
 
-#: app/helpers/application_helper.rb:1073
-#: app/helpers/application_helper.rb:1123
+#: app/helpers/application_helper.rb:1078
+#: app/helpers/application_helper.rb:1128
 msgid "My communities"
 msgstr "Mis comunidades"
 
-#: app/helpers/application_helper.rb:1078
+#: app/helpers/application_helper.rb:1083
 msgid "Communities menu"
 msgstr "Menú comunidades"
 
-#: app/helpers/application_helper.rb:1083
+#: app/helpers/application_helper.rb:1088
 #: app/views/layouts/slideshow.html.erb:18
 #: app/views/blocks/slideshow.html.erb:17
 #: app/views/blocks/featured_products.html.erb:3
 msgid "Previous"
 msgstr "Anterior"
 
-#: app/helpers/application_helper.rb:1083 app/helpers/forms_helper.rb:169
+#: app/helpers/application_helper.rb:1088 app/helpers/forms_helper.rb:169
 #: app/views/layouts/slideshow.html.erb:18
 #: app/views/enterprise_registration/basic_information.html.erb:40
 #: app/views/blocks/slideshow.html.erb:21
@@ -2723,45 +2717,45 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Siguiente"
 
-#: app/helpers/application_helper.rb:1103
+#: app/helpers/application_helper.rb:1108
 msgid "See all"
 msgstr "Ver todos"
 
-#: app/helpers/application_helper.rb:1106
+#: app/helpers/application_helper.rb:1111
 msgid "<span>Manage</span> %s"
 msgstr "<span>Administrar</span> %s"
 
-#: app/helpers/application_helper.rb:1106
+#: app/helpers/application_helper.rb:1111
 #: app/views/shared/user_menu.html.erb:26
 #: app/views/shared/_manage_link.html.erb:2
 msgid "Manage %s"
 msgstr "Administrar %s"
 
-#: app/helpers/application_helper.rb:1117
+#: app/helpers/application_helper.rb:1122
 msgid "My enterprises"
 msgstr "Mis empresas"
 
-#: app/helpers/application_helper.rb:1127
+#: app/helpers/application_helper.rb:1132
 msgid "Administration"
 msgstr "Administación"
 
-#: app/helpers/application_helper.rb:1127
+#: app/helpers/application_helper.rb:1132
 msgid "Configure the environment"
 msgstr "Configurar entorno de trabajo"
 
-#: app/helpers/application_helper.rb:1134
+#: app/helpers/application_helper.rb:1139
 msgid "Manage your pending tasks"
 msgstr "Administrar tus tareas pendientes"
 
-#: app/helpers/application_helper.rb:1137
+#: app/helpers/application_helper.rb:1142
 msgid "<span class='welcome'>Welcome,</span> %s"
 msgstr "<span class='welcome'>Bienvenido,</span> %s"
 
-#: app/helpers/application_helper.rb:1137
+#: app/helpers/application_helper.rb:1142
 msgid "Go to your homepage"
 msgstr "Ir a tu página de inicio"
 
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1147
 #: app/views/shared/user_menu.html.erb:37
 #: app/views/blocks/profile_info.html.erb:24
 #: app/views/blocks/profile_image.html.erb:21
@@ -2770,92 +2764,92 @@ msgstr "Ir a tu página de inicio"
 msgid "Control panel"
 msgstr "Panel de control"
 
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1147
 msgid "Configure your personal account and content"
 msgstr "Configurar cuenta personal y contenido"
 
-#: app/helpers/application_helper.rb:1144
+#: app/helpers/application_helper.rb:1149
 #: app/views/shared/user_menu.html.erb:45
 #: app/views/blocks/login_block.html.erb:9
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: app/helpers/application_helper.rb:1144
+#: app/helpers/application_helper.rb:1149
 msgid "Leave the system"
 msgstr "Abandonar el sistema"
 
-#: app/helpers/application_helper.rb:1150
+#: app/helpers/application_helper.rb:1155
 msgid " characters left"
 msgstr "caracteres restantes"
 
-#: app/helpers/application_helper.rb:1151
+#: app/helpers/application_helper.rb:1156
 msgid "Limit of characters reached"
 msgstr "Limite de caracteres alcanzado"
 
-#: app/helpers/application_helper.rb:1177
-#: app/helpers/application_helper.rb:1183
+#: app/helpers/application_helper.rb:1182
+#: app/helpers/application_helper.rb:1188
 msgid "less than a minute"
 msgstr "menos de un minuto"
 
-#: app/helpers/application_helper.rb:1177
-#: app/helpers/application_helper.rb:1184
+#: app/helpers/application_helper.rb:1182
+#: app/helpers/application_helper.rb:1189
 msgid "1 minute"
 msgstr "1 minuto"
 
-#: app/helpers/application_helper.rb:1179
+#: app/helpers/application_helper.rb:1184
 msgid "less than 5 seconds"
 msgstr "menos de 5 segundos"
 
-#: app/helpers/application_helper.rb:1180
+#: app/helpers/application_helper.rb:1185
 msgid "less than 10 seconds"
 msgstr "menos de 10 segundos"
 
-#: app/helpers/application_helper.rb:1181
+#: app/helpers/application_helper.rb:1186
 msgid "less than 20 seconds"
 msgstr "menos de 20 segundos"
 
-#: app/helpers/application_helper.rb:1182
+#: app/helpers/application_helper.rb:1187
 msgid "half a minute"
 msgstr "medio minuto"
 
-#: app/helpers/application_helper.rb:1187
+#: app/helpers/application_helper.rb:1192
 msgid "%{distance} minutes ago"
 msgstr "hace %{distance} minutos"
 
-#: app/helpers/application_helper.rb:1188
+#: app/helpers/application_helper.rb:1193
 msgid "about 1 hour ago"
 msgstr "cerca de 1 hora"
 
-#: app/helpers/application_helper.rb:1189
+#: app/helpers/application_helper.rb:1194
 msgid "about %{distance} hours ago"
 msgstr "hace %{distance} horas"
 
-#: app/helpers/application_helper.rb:1190
+#: app/helpers/application_helper.rb:1195
 msgid "1 day ago"
 msgstr "hace 1 día"
 
-#: app/helpers/application_helper.rb:1191
+#: app/helpers/application_helper.rb:1196
 msgid "%{distance} days ago"
 msgstr "hace %{distance} días"
 
-#: app/helpers/application_helper.rb:1209
+#: app/helpers/application_helper.rb:1214
 msgid "Source: %s"
 msgstr "Origen: %s"
 
-#: app/helpers/application_helper.rb:1242
+#: app/helpers/application_helper.rb:1247
 #: plugins/community_block/views/community_block.html.erb:17
 msgid "Report abuse"
 msgstr "Reportar abuso"
 
-#: app/helpers/application_helper.rb:1244
+#: app/helpers/application_helper.rb:1249
 msgid "You already reported this profile."
 msgstr "Tú ya has reportado este perfil"
 
-#: app/helpers/application_helper.rb:1245
+#: app/helpers/application_helper.rb:1250
 msgid "Report this profile for abusive behaviour"
 msgstr "Reportar este perfil por comportamiento abusivo"
 
-#: app/helpers/application_helper.rb:1284
+#: app/helpers/application_helper.rb:1289
 #, fuzzy
 msgid ""
 "Are you sure that you want to remove the folder \"%s\"? Note that all the "
@@ -2864,32 +2858,32 @@ msgstr ""
 "¿Estás seguro que quieres eliminar esta carpeta? ¡Ten en cuenta que todos "
 "los elementos dentro serán también borrados!"
 
-#: app/helpers/application_helper.rb:1286
+#: app/helpers/application_helper.rb:1291
 #, fuzzy
 msgid "Are you sure that you want to remove the item \"%s\"?"
 msgstr "¿Estás seguro que quieres eliminar estos elementos?"
 
-#: app/helpers/application_helper.rb:1314
+#: app/helpers/application_helper.rb:1319
 #, fuzzy
 msgid "Profile organization"
 msgstr "Una organización"
 
-#: app/helpers/application_helper.rb:1315
+#: app/helpers/application_helper.rb:1320
 msgid ""
 "Your profile will be created according to the selected template. Click on "
 "the options to view them."
 msgstr ""
 
-#: app/helpers/application_helper.rb:1350
+#: app/helpers/application_helper.rb:1355
 #, fuzzy
 msgid "Errors while saving"
 msgstr "Mensaje de error"
 
-#: app/helpers/application_helper.rb:1360
+#: app/helpers/application_helper.rb:1365
 msgid "The content here is available to %s's friends only."
 msgstr "Este contenido está disponible solamente para amigos de %s."
 
-#: app/helpers/application_helper.rb:1363
+#: app/helpers/application_helper.rb:1368
 #, fuzzy
 msgid "The contents in this profile is available to members only."
 msgstr ""
@@ -3186,13 +3180,15 @@ msgstr "Noticias más viejas &raquo;"
 msgid "Contact person:"
 msgstr "Contactar persona:"
 
+#: app/helpers/enterprise_homepage_helper.rb:7
+msgid "e-Mail:"
+msgstr "Correo electrónico:"
+
 #: app/helpers/enterprise_homepage_helper.rb:8
 msgid "Phone(s):"
 msgstr "Teléfono (s):"
 
 #: app/helpers/enterprise_homepage_helper.rb:9
-#: app/views/profile/_organization_profile.html.erb:15
-#: app/views/profile/_person_profile.html.erb:7
 msgid "Location:"
 msgstr "Ubicación"
 
@@ -3205,67 +3201,67 @@ msgstr "Actividad económica:"
 msgid "Distance:"
 msgstr "Distancia:"
 
-#: app/helpers/article_helper.rb:10
+#: app/helpers/article_helper.rb:16
 #: plugins/solr/views/search/_facets_menu.html.erb:25
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:2
 msgid "Options"
 msgstr "Opciones"
 
-#: app/helpers/article_helper.rb:16
+#: app/helpers/article_helper.rb:22
 msgid "Allow all members to edit this article"
 msgstr "Permitir que todos los miembros editen este artículo"
 
-#: app/helpers/article_helper.rb:25
+#: app/helpers/article_helper.rb:31
 msgid "This topic is opened for replies"
 msgstr "Este tema esta abierto para respuestas"
 
-#: app/helpers/article_helper.rb:25
+#: app/helpers/article_helper.rb:31
 msgid "I want to receive comments about this article"
 msgstr "Deseo recibir comentarios sobre este artículo"
 
-#: app/helpers/article_helper.rb:31
+#: app/helpers/article_helper.rb:37
 msgid "I want to receive a notification of each comment written by e-mail"
 msgstr ""
 "Quiero recibir una notificación por correo electrónico sobre cada comentario"
 
-#: app/helpers/article_helper.rb:38
+#: app/helpers/article_helper.rb:44
 #, fuzzy
 msgid "I want to approve comments on this article"
 msgstr "Deseo recibir comentarios sobre este artículo"
 
-#: app/helpers/article_helper.rb:45
+#: app/helpers/article_helper.rb:51
 msgid "I want this article to display the number of hits it received"
 msgstr "Quiero que este artículo muestre el número de visitas que recibió"
 
-#: app/helpers/article_helper.rb:52
+#: app/helpers/article_helper.rb:58
 #, fuzzy
 msgid "I want this article to display a link to older versions"
 msgstr "Quiero que este artículo muestre el número de visitas que recibió"
 
-#: app/helpers/article_helper.rb:59
+#: app/helpers/article_helper.rb:65
 #, fuzzy
 msgid "Allow members to create topics"
 msgstr "Permitir a los usuarios crear sus propios temas"
 
-#: app/helpers/article_helper.rb:65
+#: app/helpers/article_helper.rb:71
 #, fuzzy
 msgid "Visibility"
 msgstr "Visible"
 
-#: app/helpers/article_helper.rb:69
+#: app/helpers/article_helper.rb:75
 #, fuzzy
 msgid "Public (visible to other people)"
 msgstr "Este artículo debe ser público (visible a otras personas)"
 
-#: app/helpers/article_helper.rb:73
+#: app/helpers/article_helper.rb:79
 msgid "Private"
 msgstr "Privado"
 
-#: app/helpers/article_helper.rb:76
+#: app/helpers/article_helper.rb:82
 msgid "Fill in the search field to add the exception users to see this content"
 msgstr ""
 
-#: app/helpers/article_helper.rb:78 app/views/features/index.html.erb:48
+#: app/helpers/article_helper.rb:84 app/views/features/index.html.erb:48
 #, fuzzy
 msgid "Type in a search term for a user"
 msgstr "Escribe un término de búsqueda para los usuarios"
@@ -4362,12 +4358,12 @@ msgid "Could not remove profile"
 msgstr "El perfil no puede ser eliminado"
 
 #: app/controllers/admin/users_controller.rb:95
-#: app/controllers/public/profile_controller.rb:362
+#: app/controllers/public/profile_controller.rb:363
 msgid "The e-mails are being sent"
 msgstr "El correo electrónico está siendo enviado"
 
 #: app/controllers/admin/users_controller.rb:98
-#: app/controllers/public/profile_controller.rb:365
+#: app/controllers/public/profile_controller.rb:366
 msgid "Could not create the e-mail"
 msgstr "No se ha podido crear el correo electrónico"
 
@@ -4391,7 +4387,7 @@ msgstr "Por favor, introduzca una dirección de correo electrónico válida."
 msgid "Upcoming events"
 msgstr "Próximos eventos"
 
-#: app/controllers/public/content_viewer_controller.rb:259
+#: app/controllers/public/content_viewer_controller.rb:257
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Notificación eliminada correctamente."
@@ -4434,58 +4430,58 @@ msgstr "Nombre de usuario o contraseña incorrecta"
 msgid "This environment doesn't allow user registration."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:107
+#: app/controllers/public/account_controller.rb:108
 msgid "Captcha (the human test)"
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:123
+#: app/controllers/public/account_controller.rb:132
 #, fuzzy
 msgid "Thanks for registering!"
 msgstr "¡Gracias por ingresar!"
 
-#: app/controllers/public/account_controller.rb:143
+#: app/controllers/public/account_controller.rb:152
 msgid "You have been logged out."
 msgstr "Has cerrado sesión."
 
-#: app/controllers/public/account_controller.rb:154
+#: app/controllers/public/account_controller.rb:163
 msgid "Your password has been changed successfully!"
 msgstr "¡Tu contraseña fue modificada correctamente!"
 
-#: app/controllers/public/account_controller.rb:167
+#: app/controllers/public/account_controller.rb:176
 msgid "This environment doesn't allow password recovery."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:183
+#: app/controllers/public/account_controller.rb:192
 msgid "Can not recover user password with blank value."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:185
+#: app/controllers/public/account_controller.rb:194
 msgid "Could not find any user with %s equal to \"%s\"."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:188
+#: app/controllers/public/account_controller.rb:197
 msgid "Could not perform password recovery for the user."
 msgstr ""
 
-#: app/controllers/public/account_controller.rb:271
+#: app/controllers/public/account_controller.rb:280
 #: app/views/account/_signup_form.html.erb:193
 msgid "This login name is available"
 msgstr "Este nombre de usuario esta disponible"
 
-#: app/controllers/public/account_controller.rb:275
+#: app/controllers/public/account_controller.rb:284
 msgid "This login name is unavailable"
 msgstr "Este nombre de usuario no está disponible"
 
-#: app/controllers/public/account_controller.rb:279
+#: app/controllers/public/account_controller.rb:288
 #, fuzzy
 msgid "This field can't be blank"
 msgstr "Este archivo no puede ser guardado"
 
-#: app/controllers/public/account_controller.rb:286
+#: app/controllers/public/account_controller.rb:295
 msgid "This e-mail address is available"
 msgstr "Esta dirección de correo electrónico está disponible"
 
-#: app/controllers/public/account_controller.rb:289
+#: app/controllers/public/account_controller.rb:298
 msgid "This e-mail address is taken"
 msgstr "Esta dirección de correo electrónico está en uso"
 
@@ -4532,80 +4528,80 @@ msgid "You couldn't mark this comment as spam."
 msgstr ""
 "¿Estás seguro de que quieres eliminar este comentario y todas sus respuestas?"
 
-#: app/controllers/public/profile_controller.rb:45
 #: app/controllers/public/profile_controller.rb:46
+#: app/controllers/public/profile_controller.rb:47
 #: app/views/profile/content_tagged.html.erb:3
 msgid "%s's contents tagged with \"%s\""
 msgstr "%ss contenidos etiquetados con \"%s\""
 
-#: app/controllers/public/profile_controller.rb:90
+#: app/controllers/public/profile_controller.rb:91
 msgid "%s administrator still needs to accept you as member."
 msgstr "El administrador de %s aun debe aceptarte como miembro."
 
-#: app/controllers/public/profile_controller.rb:92
+#: app/controllers/public/profile_controller.rb:93
 msgid "You just became a member of %s."
 msgstr "Acabas de convertirte en miembro de %s."
 
-#: app/controllers/public/profile_controller.rb:95
+#: app/controllers/public/profile_controller.rb:96
 msgid "You are already a member of %s."
 msgstr "Ya eres miembro de %s."
 
-#: app/controllers/public/profile_controller.rb:117
+#: app/controllers/public/profile_controller.rb:118
 msgid "You are not a member of %s."
 msgstr "Tú no eres miembro de %s."
 
-#: app/controllers/public/profile_controller.rb:137
+#: app/controllers/public/profile_controller.rb:138
 msgid "%s still needs to accept being your friend."
 msgstr "%s aun necesita aceptarte como amigo."
 
-#: app/controllers/public/profile_controller.rb:139
+#: app/controllers/public/profile_controller.rb:140
 msgid "You are already a friend of %s."
 msgstr "Ya eres amigo de %s."
 
-#: app/controllers/public/profile_controller.rb:158
+#: app/controllers/public/profile_controller.rb:159
 msgid "You have unblocked %s successfully. "
 msgstr "Has desbloqueado %s correctamente."
 
-#: app/controllers/public/profile_controller.rb:161
+#: app/controllers/public/profile_controller.rb:162
 msgid "You are not allowed to unblock enterprises in this environment."
 msgstr "No tienes permisos para desbloquear empresas en este entorno."
 
-#: app/controllers/public/profile_controller.rb:173
+#: app/controllers/public/profile_controller.rb:174
 msgid "Message successfully sent."
 msgstr "Mensaje enviado correctamente."
 
-#: app/controllers/public/profile_controller.rb:173
+#: app/controllers/public/profile_controller.rb:174
 msgid "You can't leave an empty message."
 msgstr "No puedes dejar un mensaje en blanco."
 
-#: app/controllers/public/profile_controller.rb:184
+#: app/controllers/public/profile_controller.rb:185
 msgid "Comment successfully added."
 msgstr "Comentario añadido correctamente."
 
-#: app/controllers/public/profile_controller.rb:184
+#: app/controllers/public/profile_controller.rb:185
 msgid "You can't leave an empty comment."
 msgstr "No puedes dejar un comentario vacio."
 
-#: app/controllers/public/profile_controller.rb:275
+#: app/controllers/public/profile_controller.rb:276
 msgid "Notification successfully removed."
 msgstr "Notificación eliminada correctamente."
 
-#: app/controllers/public/profile_controller.rb:277
+#: app/controllers/public/profile_controller.rb:278
 msgid "You could not remove this notification."
 msgstr "No se ha podido eliminar esta notificación."
 
-#: app/controllers/public/profile_controller.rb:310
+#: app/controllers/public/profile_controller.rb:311
 msgid "You could not answer the captcha."
 msgstr "No has podido responder el captcha."
 
-#: app/controllers/public/profile_controller.rb:330
+#: app/controllers/public/profile_controller.rb:331
 msgid ""
 "Your abuse report was registered. The administrators are reviewing your "
 "report."
 msgstr ""
 "Tu reporte de abuso fue registrado. Los administradores lo están revisando."
 
-#: app/controllers/public/profile_controller.rb:338
+#: app/controllers/public/profile_controller.rb:339
 msgid ""
 "Your report couldn't be saved due to some problem. Please contact the "
 "administrator."
@@ -4613,13 +4609,13 @@ msgstr ""
 "Tu reporte no pudo ser guardado debido a algún problema. Por favor, contacta "
 "al administrador."
 
-#: app/controllers/public/profile_controller.rb:401
+#: app/controllers/public/profile_controller.rb:402
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
 msgstr "Este perfil es inaccesible. No tienes permiso para ver el contenido."
 
-#: app/controllers/public/profile_controller.rb:401
+#: app/controllers/public/profile_controller.rb:402
 msgid "Oops ... you cannot go ahead here"
 msgstr "Oops ... No puedes ir más allá"
 
@@ -4951,7 +4947,7 @@ msgstr "Ir al contenido"
 msgid "Manual"
 msgstr "Manual"
 
-#: app/views/layouts/application-ng.html.erb:48
+#: app/views/layouts/application-ng.html.erb:51
 msgid "Go to the content"
 msgstr "Ir al contenido"
 
@@ -4959,12 +4955,6 @@ msgstr "Ir al contenido"
 #: app/views/profile_editor/index.html.erb:48
 msgid "Manage Products/Services"
 msgstr "Administrar productos y servicios"
-
-#: app/views/catalog/index.html.erb:11
-#: app/views/blocks/profile_info.html.erb:21
-#: app/views/profile/_organization_profile.html.erb:26
-msgid "Products/Services"
-msgstr "Productos/Servicios"
 
 #: app/views/catalog/index.html.erb:28
 #, fuzzy
@@ -5782,6 +5772,7 @@ msgid "all languages"
 msgstr "todos los idiomas"
 
 #: app/views/box_organizer/_highlights_block.html.erb:6
+#: app/views/profile_editor/_person_form.html.erb:28
 #: plugins/display_content/lib/display_content_block.rb:45
 msgid "Image"
 msgstr "Imagen"
@@ -6118,10 +6109,6 @@ msgstr ""
 msgid "Home phone"
 msgstr "Teléfono de casa"
 
-#: app/views/profile_editor/_person_form.html.erb:16
-msgid "Jabber"
-msgstr ""
-
 #: app/views/profile_editor/_person_form.html.erb:17
 #, fuzzy
 msgid "Personal website"
@@ -6139,7 +6126,7 @@ msgstr "Fecha de nacimiento"
 msgid "Address (street and number)"
 msgstr "Dirección (calle y número)"
 
-#: app/views/profile_editor/_person_form.html.erb:53
+#: app/views/profile_editor/_person_form.html.erb:54
 msgid "Custom formation"
 msgstr "Formación perzonalizada"
 
@@ -6573,29 +6560,29 @@ msgstr "Prueba finalizada"
 msgid "Edit theme"
 msgstr "Editar tema"
 
-#: app/views/shared/reported_versions/_article.html.erb:3
-#: app/views/shared/reported_versions/_comment.html.erb:3
+#: app/views/shared/reported_versions/profile/_article.html.erb:3
+#: app/views/shared/reported_versions/profile/_comment.html.erb:3
 #: app/views/cms/view.html.erb:39 plugins/solr/lib/ext/article.rb:12
 #: plugins/solr/lib/ext/profile.rb:17
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:22
 msgid "Type"
 msgstr "Tipo"
 
-#: app/views/shared/reported_versions/_article.html.erb:5
-#: app/views/shared/reported_versions/_comment.html.erb:5
+#: app/views/shared/reported_versions/profile/_article.html.erb:5
+#: app/views/shared/reported_versions/profile/_comment.html.erb:5
 msgid "Original content"
 msgstr "Contenido original"
 
-#: app/views/shared/reported_versions/_article.html.erb:6
-#: app/views/shared/reported_versions/_comment.html.erb:6
+#: app/views/shared/reported_versions/profile/_article.html.erb:6
+#: app/views/shared/reported_versions/profile/_comment.html.erb:6
 msgid "This link might be unavailable if the content is removed"
 msgstr "Este enlace puede estar no disponible si el contenido es eliminado"
 
-#: app/views/shared/reported_versions/_folder.html.erb:1
+#: app/views/shared/reported_versions/profile/_folder.html.erb:1
 msgid "Reported folder"
 msgstr "Carpeta reportada"
 
-#: app/views/shared/reported_versions/_comment.html.erb:3
+#: app/views/shared/reported_versions/profile/_comment.html.erb:3
 msgid "Comment"
 msgstr "Comentario"
 
@@ -7274,7 +7261,7 @@ msgstr "Licencia"
 #: app/views/cms/_folder.html.erb:6 app/views/cms/_gallery.html.erb:7
 #: app/views/cms/_blog.html.erb:55 app/views/cms/_forum.html.erb:11
 #: app/views/manage_products/_form.html.erb:8
-#: app/views/manage_products/_edit_description.html.erb:9
+#: app/views/manage_products/_edit_description.html.erb:8
 msgid "Description:"
 msgstr "Descripción:"
 
@@ -8794,31 +8781,6 @@ msgstr ""
 "Puedes acceder a tu correo electrónico desde cualquier lugar, usando la "
 "siguiente dirección:"
 
-# sigue la duda sobre como traducir "post"
-#: app/views/profile/_common.html.erb:13
-msgid "One post"
-msgid_plural "%{num} posts"
-msgstr[0] "Una publicación"
-msgstr[1] "%{num} publicaciones"
-
-#: app/views/profile/_common.html.erb:21
-msgid "One picture"
-msgid_plural "%{num} pictures"
-msgstr[0] "Una imagen"
-msgstr[1] "%{num} imágenes"
-
-#: app/views/profile/_common.html.erb:27
-msgid "Events:"
-msgstr "Eventos:"
-
-#: app/views/profile/_common.html.erb:34
-msgid "Tags:"
-msgstr "Etiquetas:"
-
-#: app/views/profile/_common.html.erb:43
-msgid "Interests"
-msgstr "Intereses"
-
 #: app/views/profile/join.html.erb:1
 msgid "Joining %s"
 msgstr "Uniéndose a %s"
@@ -8886,28 +8848,6 @@ msgstr "Deja tu comentario"
 msgid "%s's tags"
 msgstr "Etiquetas de %s"
 
-#: app/views/profile/_organization_profile.html.erb:3
-#: app/views/profile/_person_profile.html.erb:3
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
-#: plugins/bsc/views/shared/_fields.html.erb:5
-msgid "Basic information"
-msgstr "Información básica"
-
-#: app/views/profile/_organization_profile.html.erb:13
-#: app/views/profile/_person_profile.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
-msgid "Type:"
-msgstr "Tipo:"
-
-#: app/views/profile/_organization_profile.html.erb:18
-#: app/views/profile/_person_profile.html.erb:12
-msgid "Profile created at:"
-msgstr "perfil creado en:"
-
-#: app/views/profile/_organization_profile.html.erb:32
-msgid "Administrators:"
-msgstr "Administradores:"
-
 #: app/views/profile/_profile_scraps.html.erb:15
 #: app/views/profile/_profile_scrap.html.erb:15
 #, fuzzy
@@ -8922,19 +8862,6 @@ msgstr "Razones de reporte"
 #: app/views/profile/report_abuse.html.erb:11
 msgid "Report profile"
 msgstr "Reportar perfil"
-
-#: app/views/profile/_person_profile.html.erb:5
-msgid "Sex:"
-msgstr "Género:"
-
-#: app/views/profile/_person_profile.html.erb:6
-msgid "Date of birth:"
-msgstr "Fecha de nacimiento:"
-
-#: app/views/profile/_person_profile.html.erb:22
-#: app/views/profile/index.html.erb:32
-msgid "Network"
-msgstr "Red"
 
 #: app/views/profile/content_tagged.html.erb:5
 msgid "Content tagged with \"%s\""
@@ -8990,6 +8917,10 @@ msgstr "Fanáticos de %s"
 #: app/views/profile/_create_article.html.erb:12
 msgid "See more"
 msgstr "Ver más"
+
+#: app/views/profile/index.html.erb:32
+msgid "Network"
+msgstr "Red"
 
 #: app/views/profile/favorite_enterprises.html.erb:3
 #: app/views/favorite_enterprises/index.html.erb:3
@@ -9597,7 +9528,7 @@ msgstr "Distancia: "
 msgid "Unsupported macro %s!"
 msgstr ""
 
-#: lib/noosfero/plugin.rb:146
+#: lib/noosfero/plugin.rb:154
 msgid "No description informed."
 msgstr "Sin descripción informada."
 
@@ -10138,11 +10069,11 @@ msgstr ""
 "desarrollado por %s y bajo la licencia <a href=\"http://www.gnu.org/licenses/"
 "agpl.html\">GNU Affero General Public License</a> versión 3 o superior."
 
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:8
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
 msgid "Configurations was saved"
 msgstr "La configuración fue guardada"
 
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:11
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
 msgid "Configurations could not be saved"
 msgstr "La configuración no pudo guardarse"
 
@@ -10437,7 +10368,7 @@ msgid "'%s' address is not allowed (see SendEmailPlugin config)"
 msgstr ""
 "La dirección '%s' no es permitida (ver configuración de SendEmailPlugin) "
 
-#: plugins/send_email/lib/send_email_plugin.rb:8
+#: plugins/send_email/lib/send_email_plugin.rb:10
 msgid "A plugin that allows sending e-mails via HTML forms."
 msgstr ""
 "Una característica adicional que permite enviar correos electrónicos via "
@@ -10678,6 +10609,11 @@ msgstr "Administrar contratos"
 msgid "Bsc"
 msgstr "Bsc"
 
+#: plugins/bsc/lib/bsc_plugin.rb:109
+#: plugins/bsc/views/shared/_fields.html.erb:53
+msgid "Contact"
+msgstr "Contacto"
+
 #: plugins/bsc/lib/bsc_plugin/bsc.rb:28
 msgid "Bsc info and settings"
 msgstr "Información y configuración de Bsc"
@@ -10915,12 +10851,12 @@ msgid "Tolerance Adjustements"
 msgstr ""
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:35
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:51
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:50
 msgid ""
 "This content can't be edited anymore because it expired the tolerance time"
 msgstr ""
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:64
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:62
 msgid "The tolerance time for editing this content is over."
 msgstr ""
 
@@ -11141,6 +11077,16 @@ msgid ""
 "compatible with the Akismet API"
 msgstr ""
 
+#: plugins/remote_user/lib/remote_user_plugin.rb:8
+#, fuzzy
+msgid "A plugin that add remote user support."
+msgstr "Un plugin que hace ésto y aquello."
+
+#: plugins/remote_user/lib/remote_user_plugin.rb:45
+#, fuzzy
+msgid "Could not create the remote_user."
+msgstr "No se ha podido crear el correo electrónico"
+
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:3
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:7
 #, fuzzy
@@ -11191,7 +11137,7 @@ msgstr ""
 msgid "Related products"
 msgstr "Productos relacionados"
 
-#: plugins/solr/lib/ext/product.rb:72
+#: plugins/solr/lib/ext/product.rb:73
 msgid " cert. "
 msgstr " cert. "
 
@@ -11407,18 +11353,6 @@ msgstr "El mensaje no pudo ser enviado"
 msgid "Contact from %s"
 msgstr "Contactar desde %s"
 
-#: plugins/send_email/views/send_email_plugin_admin/index.rhtml:1
-msgid "SendEmailPlugin's config"
-msgstr "Configuración de SendEmailPlugin"
-
-#: plugins/send_email/views/send_email_plugin_admin/index.rhtml:4
-msgid "E-Mail addresses you want to allow to send"
-msgstr "Direcciones de correo electrónico que quieres permitir enviar"
-
-#: plugins/send_email/views/send_email_plugin_admin/index.rhtml:5
-msgid "(list of email addresses separated by comma)"
-msgstr "(lista de direcciones de correo electrónico separadas por coma)"
-
 #: plugins/google_analytics/views/profile-editor-extras.rhtml:4
 msgid "Google Analytics Profile ID"
 msgstr "ID Perfil Análisis Google"
@@ -11430,6 +11364,18 @@ msgstr "Ve cómo configurar las estadísticas para tu perfil"
 #: plugins/solr/views/search/_facets_unselect_menu.rhtml:3
 msgid "Applied filters"
 msgstr "Filtros aplicados"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:1
+msgid "SendEmailPlugin's config"
+msgstr "Configuración de SendEmailPlugin"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:4
+msgid "E-Mail addresses you want to allow to send"
+msgstr "Direcciones de correo electrónico que quieres permitir enviar"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:5
+msgid "(list of email addresses separated by comma)"
+msgstr "(lista de direcciones de correo electrónico separadas por coma)"
 
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
@@ -12059,6 +12005,11 @@ msgstr "Período de suministro"
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
 msgid "Type in a search term for product"
 msgstr "Ingresa un término de búsqueda para el producto"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
+#: plugins/bsc/views/shared/_fields.html.erb:5
+msgid "Basic information"
+msgstr "Información básica"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:12
 msgid "Number of producers"
@@ -12695,6 +12646,10 @@ msgstr "Eliminar miembro"
 msgid "Default text:"
 msgstr "todos los idiomas"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
+msgid "Type:"
+msgstr "Tipo:"
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
 msgid "Radio"
 msgstr ""
@@ -12848,6 +12803,40 @@ msgstr "¿Estás seguro de que deseas eliminar este elemento?"
 #, fuzzy
 msgid "Add a new form"
 msgstr "Añadir un nuevo calificador"
+
+#~ msgid "ZIP code:"
+#~ msgstr "Código ZIP:"
+
+#~ msgid "Contact phone:"
+#~ msgstr "Télefono de contacto:"
+
+#, fuzzy
+#~ msgid "Personal website:"
+#~ msgstr "Eventos del sitio web"
+
+#~ msgid "Organization:"
+#~ msgstr "Organización:"
+
+#~ msgid "Organization website:"
+#~ msgstr "Sitio web de la organización:"
+
+#~ msgid "Work"
+#~ msgstr "Trabajo"
+
+#~ msgid "Events:"
+#~ msgstr "Eventos:"
+
+#~ msgid "Tags:"
+#~ msgstr "Etiquetas:"
+
+#~ msgid "Interests"
+#~ msgstr "Intereses"
+
+#~ msgid "Administrators:"
+#~ msgstr "Administradores:"
+
+#~ msgid "Sex:"
+#~ msgstr "Género:"
 
 #~ msgid "Do not display at the menu"
 #~ msgstr "No mostrar en el menú"
