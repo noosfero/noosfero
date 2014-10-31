@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-10-31 13:22+0200\n"
-"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
+"PO-Revision-Date: 2014-10-31 14:53+0200\n"
+"Last-Translator: Evandro Junior <evandrojr@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -949,21 +949,18 @@ msgid "%{sender} tried to register."
 msgstr "%{sender} tentou se registrar."
 
 #: app/models/moderate_user_registration.rb:52
-#, fuzzy
 msgid "You need to login on %{system} in order to approve or reject this user."
 msgstr ""
-"Você precisa entrar no %{system} para poder aprovar ou rejeitar este "
-"comentário."
+"Você precisa entrar no %{system} para poder aprovar ou rejeitar este usuário."
 
 #: app/models/moderate_user_registration.rb:56
-#, fuzzy
 msgid ""
 "User \"%{user}\" just requested to register. You have to approve or reject "
 "it through the \"Pending Validations\" section in your control panel.\n"
 msgstr ""
 "O usuário \"%{user}\" requisitou a criação da comunidade %{community}. Você "
 "tem que aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\" no "
-"seupainel de controle.\n"
+"seu painel de controle.\n"
 
 #: app/models/user.rb:10 app/models/change_password.rb:8
 #: app/views/invite/select_address_book.html.erb:39
