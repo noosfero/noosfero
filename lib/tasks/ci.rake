@@ -6,7 +6,9 @@ namespace :ci do
     current_branch = `git rev-parse --abbrev-ref HEAD`.strip
     from = ENV['PREV_HEAD'] || "origin/#{current_branch}"
     to = ENV['HEAD'] || current_branch
-    changed_files = `git diff --name-only #{from}..#{to}`.split
+    changed_files = `git diff --name-only #{from}..#{to}`.split.select do |f|
+      File.exist?(f)
+    end
 
     # explicitly changed tests
     tests = changed_files.select { |f| f =~ /test\/.*_test\.rb$/ }
