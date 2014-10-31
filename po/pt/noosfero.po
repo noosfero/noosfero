@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-10-31 14:53+0200\n"
-"Last-Translator: Evandro Junior <evandrojr@gmail.com>\n"
+"PO-Revision-Date: 2014-10-31 15:24+0200\n"
+"Last-Translator: analosnak <analosnak@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -2416,14 +2416,12 @@ msgid "Jabber"
 msgstr "Jabber"
 
 #: app/helpers/profile_helper.rb:41
-#, fuzzy
 msgid "Date of birth"
-msgstr "Data de nascimento:"
+msgstr "Data de nascimento"
 
 #: app/helpers/profile_helper.rb:42
-#, fuzzy
 msgid "Profile created at"
-msgstr "Perfil criado em:"
+msgstr "Perfil criado em"
 
 #: app/helpers/profile_helper.rb:43 app/helpers/application_helper.rb:556
 #: app/helpers/application_helper.rb:565
@@ -4088,14 +4086,12 @@ msgid "Trusted site could not be removed"
 msgstr "O site confiável não pode ser removido"
 
 #: app/controllers/admin/categories_controller.rb:48
-#, fuzzy
 msgid "Category %s saved."
-msgstr "Categoria: %s"
+msgstr "Categoria %s salva."
 
 #: app/controllers/admin/categories_controller.rb:52
-#, fuzzy
 msgid "Could not save category."
-msgstr "Clique para selecionar a categoria"
+msgstr "Não foi possível salvar a categoria."
 
 #: app/controllers/admin/features_controller.rb:11
 msgid "Features updated successfully."
@@ -4275,10 +4271,9 @@ msgid "Your account has been activated, now you can log in!"
 msgstr "Sua conta foi ativada, agora você pode fazer login!"
 
 #: app/controllers/public/account_controller.rb:28
-#, fuzzy
 msgid "Thanks for registering. The administrators were notified."
 msgstr ""
-"Obrigado pela sua sugestão. Os administradores da comunidade foram "
+"Obrigado por registrar-se. Os administradores da comunidade foram "
 "notificados."
 
 #: app/controllers/public/account_controller.rb:36
