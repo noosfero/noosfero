@@ -169,7 +169,7 @@ module API
     protected
 
     def start_log
-      logger.info "Started #{request.path}"
+      logger.info "Started #{request.path} #{request.params.except('password')}"
     end
     def end_log
       logger.info "Completed #{request.path}"
