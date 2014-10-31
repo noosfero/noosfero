@@ -3,6 +3,11 @@ Dir["#{Rails.root}/lib/api/*.rb"].each {|file| require file}
 
 module API
   class API < Grape::API
+    before { start_log }
+    before { setup_multitenancy }
+    before { detect_stuff_by_domain }
+    after { end_log }
+
     version 'v1'
     prefix "api"
     format :json

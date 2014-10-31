@@ -1,8 +1,6 @@
 module API
   module V1
     class Comments < Grape::API
-
-      before { detect_stuff_by_domain }
       before { authenticate! }
 
       resource :articles do
