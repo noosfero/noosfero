@@ -3,7 +3,7 @@ module API
     PRIVATE_TOKEN_PARAM = :private_token
 
     def logger
-      API.logger
+      @logger ||= Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV']}_api.log"))
     end
 
     def current_user
@@ -167,6 +167,17 @@ module API
       render_api_error!(messages.join(','), 400)
     end
     protected
+
+    def start_log
+      logger.info "Started #{request.path}"
+    end
+    def end_log
+      logger.info "Completed #{request.path}"
+    end
+
+    def setup_multitenancy
+      Noosfero::MultiTenancy.setup!(request.host)
+    end
 
     def detect_stuff_by_domain
       @domain = Domain.find_by_name(request.host)

@@ -1,8 +1,6 @@
 module API
   module V1
     class Users < Grape::API
-   
-      before { detect_stuff_by_domain }
       before { authenticate! }
 
       resource :users do

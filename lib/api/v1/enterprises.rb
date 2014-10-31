@@ -1,7 +1,6 @@
 module API
   module V1
     class Enterprises < Grape::API
-      before { detect_stuff_by_domain }
       before { authenticate! }
    
       resource :enterprises do
