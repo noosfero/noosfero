@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-10-31 15:24+0200\n"
-"Last-Translator: analosnak <analosnak@gmail.com>\n"
+"PO-Revision-Date: 2014-10-31 17:29+0200\n"
+"Last-Translator: Thiago Zoroastro <thiago.zoroastro@bol.com.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -134,7 +134,7 @@ msgstr "Convite de comunidade"
 
 #: app/models/invite_member.rb:27
 msgid "%{requestor} invited you to join %{linked_subject}."
-msgstr "%{requestor} convidou você para ser integrante de %{linked_subject}"
+msgstr "%{requestor} convidou você para juntar-se a %{linked_subject}"
 
 #: app/models/invite_member.rb:39
 msgid "%{requestor} invited you to join %{community}."
@@ -2203,14 +2203,12 @@ msgid "All users"
 msgstr "Todos os usuários"
 
 #: app/models/block.rb:222
-#, fuzzy
 msgid "Logged"
-msgstr "Usuários logados"
+msgstr "Usuário logado"
 
 #: app/models/block.rb:223
-#, fuzzy
 msgid "Not logged"
-msgstr "Não informado"
+msgstr "Não logado"
 
 #: app/models/add_member.rb:21
 msgid "New member"
@@ -2218,7 +2216,7 @@ msgstr "Novo membro"
 
 #: app/models/add_member.rb:25 app/models/add_member.rb:41
 msgid "%{requestor} wants to be a member of this community."
-msgstr "%{requestor} quer ser um integrante desta comunidade."
+msgstr "%{requestor} quer ser um membro desta comunidade."
 
 #: app/models/add_member.rb:46
 msgid ""
@@ -2432,9 +2430,8 @@ msgid "Members"
 msgstr "Integrantes"
 
 #: app/helpers/profile_helper.rb:44
-#, fuzzy
 msgid "Privacy setting"
-msgstr "Opções de privacidade"
+msgstr "Configurações de privacidade"
 
 #: app/helpers/profile_helper.rb:102 app/helpers/application_helper.rb:509
 #: app/views/profile_editor/_person_form.html.erb:18
@@ -2796,13 +2793,12 @@ msgid "Report this profile for abusive behaviour"
 msgstr "Denunciar este perfil por comportamento abusivo"
 
 #: app/helpers/application_helper.rb:1289
-#, fuzzy
 msgid ""
 "Are you sure that you want to remove the folder \"%s\"? Note that all the "
 "items inside it will also be removed!"
 msgstr ""
-"Tem certeza que quer excluir esta pasta? Perceba que todos os itens dentro "
-"dela também serão removidos!"
+"Tem certeza que quer excluir a pasta \"%s\"? Perceba que todos os itens "
+"dentro dela também serão também removidos!"
 
 #: app/helpers/application_helper.rb:1291
 #, fuzzy
