@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-10-31 17:29+0200\n"
-"Last-Translator: Thiago Zoroastro <thiago.zoroastro@bol.com.br>\n"
+"PO-Revision-Date: 2014-10-31 20:28+0200\n"
+"Last-Translator: Raquel <rcordioli@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -2801,9 +2801,8 @@ msgstr ""
 "dentro dela também serão também removidos!"
 
 #: app/helpers/application_helper.rb:1291
-#, fuzzy
 msgid "Are you sure that you want to remove the item \"%s\"?"
-msgstr "Tem certeza que quer excluir este ítem?"
+msgstr "Tem certeza que quer excluir este item?"
 
 #: app/helpers/application_helper.rb:1319
 msgid "Profile organization"
@@ -2818,9 +2817,8 @@ msgstr ""
 "para visualizá-los."
 
 #: app/helpers/application_helper.rb:1355
-#, fuzzy
 msgid "Errors while saving"
-msgstr "Mensagem de erro"
+msgstr "Erro ao salvar"
 
 #: app/helpers/application_helper.rb:1365
 msgid "The content here is available to %s's friends only."
@@ -4335,9 +4333,8 @@ msgid "This login name is unavailable"
 msgstr "Este nome de usuário está indisponível"
 
 #: app/controllers/public/account_controller.rb:288
-#, fuzzy
 msgid "This field can't be blank"
-msgstr "Este campo precisa ser público"
+msgstr "Este campo precisa ser preenchido"
 
 #: app/controllers/public/account_controller.rb:295
 msgid "This e-mail address is available"
@@ -4582,6 +4579,8 @@ msgid ""
 "Your new community creation request will be evaluated by an administrator. "
 "You will be notified."
 msgstr ""
+"O seu pedido de registro na comunidade será avaliado por um administrador. "
+"Você será notificado."
 
 #: app/controllers/my_profile/mailconf_controller.rb:23
 msgid ""
@@ -4923,14 +4922,12 @@ msgid "Post a comment"
 msgstr "Enviar um comentário"
 
 #: app/views/content_viewer/view_page.html.erb:88
-#, fuzzy
 msgid "Oldest first"
-msgstr "Data(mais antigos primeiro)"
+msgstr "Data (mais antigos primeiro)"
 
 #: app/views/content_viewer/view_page.html.erb:88
-#, fuzzy
 msgid "Newest first"
-msgstr "Data(mais recentes primeiro)"
+msgstr "Data (mais recentes primeiro)"
 
 #: app/views/content_viewer/slideshow.html.erb:1
 msgid "Back to gallery"
@@ -4970,7 +4967,7 @@ msgstr ""
 
 #: app/views/content_viewer/article_versions.html.erb:15
 msgid "\"Version #{v.version}\""
-msgstr ""
+msgstr "\"Versão #{v.version}\""
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -5590,9 +5587,8 @@ msgid "Display this block:"
 msgstr "Mostrar este bloco:"
 
 #: app/views/box_organizer/edit.html.erb:16
-#, fuzzy
 msgid "Display to users:"
-msgstr "Mostrar cor"
+msgstr "Mostrar aos usuários:"
 
 #: app/views/box_organizer/edit.html.erb:20
 msgid "Show for:"
@@ -6655,9 +6651,8 @@ msgid "Enable whitelist"
 msgstr "Habilitar esse marcador?"
 
 #: app/views/features/index.html.erb:46
-#, fuzzy
 msgid "Allow these people to access this environment:"
-msgstr "Você quer ver outras pessoas neste ambiente?"
+msgstr "Permitir que outras pessoas acessem este ambiente:"
 
 #: app/views/embed/unavailable.html.erb:2
 #, fuzzy
@@ -6710,7 +6705,7 @@ msgstr "Criar papel"
 
 #: app/views/role/edit.html.erb:1
 msgid "\"Editing #{@role.name}\""
-msgstr ""
+msgstr "\"Editando #{@role.name}\""
 
 #: app/views/role/show.html.erb:3
 msgid "Permissions"
@@ -6872,9 +6867,8 @@ msgid "Display in the menu"
 msgstr "Mostrar no menu"
 
 #: app/views/categories/_form.html.erb:24
-#, fuzzy
 msgid "Pick a color"
-msgstr "Mostrar cor"
+msgstr "Escolha uma cor"
 
 #: app/views/categories/edit.html.erb:1
 msgid "Editing %s"
@@ -7589,9 +7583,8 @@ msgid "Logged in as %s"
 msgstr "Identificado(a) como %s"
 
 #: app/views/blocks/login_block.html.erb:5
-#, fuzzy
 msgid "User since %s/%s"
-msgstr "Preço %s (%s)"
+msgstr "Usuário desde %s/%s"
 
 #: app/views/blocks/my_network/person.html.erb:2
 #: app/views/blocks/my_network/community.html.erb:2
@@ -7712,7 +7705,7 @@ msgstr "Barra"
 
 #: app/views/account/_signup_form.html.erb:58
 msgid "Good"
-msgstr ""
+msgstr "Bom"
 
 #: app/views/account/_signup_form.html.erb:61
 msgid "Strong"
@@ -7779,7 +7772,7 @@ msgstr ""
 #: app/views/account/_identifier_status.html.erb:6
 #, fuzzy
 msgid "Available: "
-msgstr "Disponível:"
+msgstr "Disponível: "
 
 #: app/views/account/activation_question.html.erb:6
 msgid "The year must be between %d and %d"
@@ -7960,9 +7953,8 @@ msgid "Firstly, some tips for getting started:"
 msgstr "Em primeiro lugar, algumas dicas para começar:"
 
 #: app/views/account/signup.html.erb:10
-#, fuzzy
 msgid "Confirm your account and wait for admin approvement!"
-msgstr "Configurar sua conta pessoal e conteúdo"
+msgstr "Confirme a sua conta e aguarde pela aprovação do administrador!"
 
 #: app/views/account/signup.html.erb:11 app/views/account/signup.html.erb:28
 msgid ""
@@ -7984,11 +7976,11 @@ msgstr "usuário"
 
 #: app/views/account/signup.html.erb:14
 msgid "Wait for admin approvement!"
-msgstr ""
+msgstr "Aguarde a aprovação do administrador!"
 
 #: app/views/account/signup.html.erb:15
 msgid "The administrators will evaluate your signup request for approvement."
-msgstr ""
+msgstr "O administrador avaliará seu pedido de aprovação."
 
 #: app/views/account/signup.html.erb:16
 #, fuzzy
@@ -9058,6 +9050,7 @@ msgstr "Definir Quantidade por Pasta"
 #: app/views/admin_panel/_signup_welcome_screen.html.erb:2
 msgid "This text will be showed as a welcome message to users after signup"
 msgstr ""
+"Este é o texto de boas vindas que será mostrado aos usuários após o cadastro"
 
 #: app/views/admin_panel/set_portal_folders.html.erb:1
 msgid "Select folders"
@@ -9979,14 +9972,12 @@ msgid "Enterprise validations couldn't be saved."
 msgstr "As validações de empreendimento não puderam ser salvas."
 
 #: plugins/piwik/controllers/piwik_plugin_admin_controller.rb:8
-#, fuzzy
 msgid "Piwik plugin settings updated successfully."
-msgstr "Os plugins foram atualizados com sucesso."
+msgstr "As configurações do plugin Piwik foram atualizadas com sucesso."
 
 #: plugins/piwik/controllers/piwik_plugin_admin_controller.rb:10
-#, fuzzy
 msgid "Piwik plugin settings could not be saved."
-msgstr "A submissão não pode ser salva"
+msgstr "As configurações do plugin Piwik não puderam ser gravadas."
 
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:21
 msgid "Incorrect user/password pair."
@@ -10022,9 +10013,8 @@ msgid "\"Custom form #{@form.name} was successfully created.\""
 msgstr "O formulário #{@form.name} foi criado com sucesso."
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-#, fuzzy
 msgid "\"Custom form #{@form.name} was successfully updated.\""
-msgstr "O formulário #{@form.name} foi atualizado com sucesso."
+msgstr "O formulário personalizado #{@form.name} foi atualizado com sucesso"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
 msgid "Form could not be updated"
@@ -10167,18 +10157,16 @@ msgid "A plugin that add ldap support."
 msgstr "Um plugin que adiciona suporte a ldap."
 
 #: plugins/variables/lib/variables_plugin/macros/profile.rb:7
-#, fuzzy
 msgid "Variables"
-msgstr "Disponível"
+msgstr "Variáveis"
 
 #: plugins/variables/lib/variables_plugin/macros/profile.rb:13
-#, fuzzy
 msgid "Select the desired variable"
-msgstr "Selecione o Estado"
+msgstr "Selecione a variável desejada"
 
 #: plugins/variables/lib/variables_plugin.rb:8
 msgid "A set of simple variables to be used in a macro context"
-msgstr ""
+msgstr "Um conjunto de variáveis simples para serem usadas em um contexto amplo"
 
 #: plugins/community_track/lib/community_track_plugin.rb:8
 msgid "New kind of content for communities."
@@ -10352,9 +10340,8 @@ msgid "ProjectB"
 msgstr "ProjetoB"
 
 #: plugins/piwik/lib/piwik_plugin.rb:13
-#, fuzzy
 msgid "Tracking and web analytics to your Noosfero's environment"
-msgstr "Rastreamento e análise web para pessoas e comunidades"
+msgstr "Rastreamento e análise web para o seu ambiente Noosfero"
 
 #: plugins/display_content/lib/display_content_plugin.rb:10
 msgid ""
@@ -10587,9 +10574,8 @@ msgid "multi-level paternity is not allowed."
 msgstr "paternidade multi-nível não é permitido."
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:8
-#, fuzzy
 msgid "Related Organizations"
-msgstr "Organizações Favoritas"
+msgstr "Organizações Relacionadas"
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:18
 msgid "\"{#} #{display_type[:title]} enterprise\""
@@ -10614,6 +10600,7 @@ msgid ""
 "\"This block displays #{display_type[:title]} organizations of this "
 "organization\""
 msgstr ""
+"\"Este bloco mostra #{display_type[:title]} organizações desta organização\""
 
 #: plugins/statistics/lib/statistics_block.rb:23
 msgid "Statistics for %s"
@@ -10648,9 +10635,8 @@ msgstr ""
 "esse bloco para escolher qual dos seus blogs será mostrado nele."
 
 #: plugins/people_block/lib/friends_block.rb:8
-#, fuzzy
 msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Clicando em uma pessoa você será enviado para sua página inicial."
+msgstr "Clicando em um amigo você será enviado a página inicial dele"
 
 #: plugins/people_block/lib/friends_block.rb:12
 msgid "{#} friend"
@@ -10669,9 +10655,8 @@ msgid "{#} People"
 msgstr "Pessoas"
 
 #: plugins/people_block/lib/members_block.rb:11
-#, fuzzy
 msgid "Clicking a member takes you to his/her homepage"
-msgstr "Clicando em uma pessoa você será enviado para sua página inicial."
+msgstr "Clicando em um membro você irá para a página dele"
 
 #: plugins/people_block/lib/members_block.rb:15
 #, fuzzy
@@ -10681,16 +10666,15 @@ msgstr "Integrantes"
 #: plugins/people_block/lib/members_block.rb:16
 #, fuzzy
 msgid "{#} %s"
-msgstr "{#} grupos"
+msgstr "{#} %s"
 
 #: plugins/people_block/lib/members_block.rb:42
 msgid "Show join leave button"
 msgstr "Mostrar botão entrar/sair"
 
 #: plugins/people_block/lib/people_block_plugin.rb:8
-#, fuzzy
 msgid "A plugin that adds a people block"
-msgstr "Um plugin que adiciona um bloco container."
+msgstr "Um plugin que adiciona um bloco de pessoas"
 
 #: plugins/people_block/lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"
@@ -10746,45 +10730,37 @@ msgid "A plugin that add remote user support."
 msgstr "Um plugin que adiciona suporte a ldap."
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:45
-#, fuzzy
 msgid "Could not create the remote_user."
-msgstr "Não foi possível criar o e-mail"
+msgstr "Não foi possível criar o usuário remoto"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:3
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:7
-#, fuzzy
 msgid "Relevant content"
-msgstr "Conteúdo recente"
+msgstr "Conteúdo relevante"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:11
-#, fuzzy
 msgid "This block lists the most popular content."
-msgstr "Este bloco apresenta os integrantes de um coletivo."
+msgstr "Este bloco apresenta o conteúdo mais popular"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:34
-#, fuzzy
 msgid "Most read articles"
-msgstr "Sugerir um artigo"
+msgstr "Artigos mais lidos"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:44
-#, fuzzy
 msgid "Most commented articles"
-msgstr "Novo comentário para o artigo"
+msgstr "Artigos mais comentados"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:61
-#, fuzzy
 msgid "Most liked articles"
-msgstr "Todos os artigos"
+msgstr "Artigos mais curtidos"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:70
-#, fuzzy
 msgid "Most disliked articles"
-msgstr "textilearticle"
+msgstr "Artigos mais rejeitados"
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:80
-#, fuzzy
 msgid "Most voted articles"
-msgstr "Limite de artigos"
+msgstr "Artigos mais votados"
 
 #: plugins/relevant_content/lib/relevant_content_plugin.rb:8
 msgid ""
