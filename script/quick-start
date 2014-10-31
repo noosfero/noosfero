@@ -98,8 +98,7 @@ else
   rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 fi
 
-# FIXME compile translations depends on ruby-gettext-rails, please see debian/control
-# run rake noosfero:translations:compile
+run rake noosfero:translations:compile
 
 # create needed directory
 mkdir -p tmp/pids
