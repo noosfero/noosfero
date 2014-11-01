@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
     :email => {:label => _('Email'), :weight => 5},
   }
 
+  # see http://stackoverflow.com/a/2513456/670229
+  def self.current
+    Thread.current[:current_user]
+  end
+  def self.current=(user)
+    Thread.current[:current_user] = user
+  end
+
   def self.[](login)
     self.find_by_login(login)
   end
