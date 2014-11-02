@@ -90,9 +90,12 @@ else
   # create the database with sample data
   say 'Configuring Noosfero to use PostgreSQL, with your user.'
   run cp config/database.yml.pgsql config/database.yml
+  if [ -z "$USER" ]; then
+    USER=$(stat -c %U $0)
+  fi
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
-  sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole"
-  sudo su - postgres -c "createdb noosfero_development -O $USER"
+  sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
+  sudo su - postgres -c "createdb noosfero_development -O $USER" || true
 
   run rake db:schema:load
   run rake db:data:minimal
