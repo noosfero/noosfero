@@ -24,7 +24,7 @@ namespace :ci do
       end
     end
 
-    sh 'testrb', *tests unless tests.empty?
+    sh 'testrb', '-Itest', *tests unless tests.empty?
     sh 'cucumber', *features unless features.empty?
     sh 'cucumber', '-p', 'selenium', *features unless features.empty?
   end
