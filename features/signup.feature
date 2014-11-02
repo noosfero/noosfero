@@ -297,7 +297,8 @@ Feature: signup
       | Full name             | José da Silva         |
     And wait for the captcha signup time
     And I press "Create my account"
-    Then "José da Silva" should be a member of "Free Software"
+    Then I should see "Control panel"
+    And "José da Silva" should be a member of "Free Software"
 
   @selenium
   Scenario: user registration is moderated by admin
