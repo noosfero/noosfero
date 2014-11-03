@@ -117,6 +117,7 @@ jQuery(function($) {
      },
 
      show_message: function (jid, name, body, who, identifier, time, offset) {
+        if(!offset) offset = 0;
          if (body) {
             body = Jabber.render_body_message(body);
             var jid_id = Jabber.jid_to_id(jid);
@@ -124,7 +125,7 @@ jQuery(function($) {
             var history = $(tab_id).find('.history');
 
             var offset_container = $('#chat-offset-container-'+offset);
-            if(offset_container.length == 0) 
+            if(offset_container.length == 0)
 	      offset_container = $('<div id="chat-offset-container-'+offset+'"></div>').prependTo(history);
 
             if (offset_container.find('.message:last').attr('data-who') == who) {
