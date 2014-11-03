@@ -692,7 +692,8 @@ jQuery(function($) {
      if(!$('#chat').is(':visible') || window.isHidden()) {
        var options = {body: message.body, icon: avatar, tag: jid_id};
        notifyMe(name, options).onclick = function(){
-         open_chat_window(null, '#'+jid);
+         jQuery('#chat').show('fast');
+         jQuery('a#'+jid_id).click();
        };
        $.sound.play('/sounds/receive.wav');
      }
