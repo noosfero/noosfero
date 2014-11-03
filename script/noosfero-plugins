@@ -97,6 +97,11 @@ _enable(){
     else
       dependencies_ok=true
       dependencies_file="$source/dependencies.rb"
+      if [ -e $source/Gemfile ]; then
+        if ! (cd $source && bundle --local); then
+          dependencies_ok=false
+        fi
+      fi
       if ! run $dependencies_file; then
         dependencies_ok=false
       fi
