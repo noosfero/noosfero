@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-10-31 20:28+0200\n"
-"Last-Translator: Raquel <rcordioli@gmail.com>\n"
+"PO-Revision-Date: 2014-11-03 20:20+0200\n"
+"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -3067,17 +3067,19 @@ msgstr "Ajuda sobre este bloco"
 
 #: app/helpers/boxes_helper.rb:226
 msgid "Embed block code"
-msgstr ""
+msgstr "Código para Incorporação do Bloco"
 
 #: app/helpers/boxes_helper.rb:227
 msgid ""
 "Below, youll see a field containing embed code for the block. Just copy the "
 "code and paste it into your website or blogging software."
 msgstr ""
+"Abaixo, você vê um campo contendo o código de incorporação deste bloco. "
+"Apenas copie o código e cole no seu site ou blog."
 
 #: app/helpers/boxes_helper.rb:230
 msgid "Embed code"
-msgstr ""
+msgstr "Código de incorporação"
 
 #: app/helpers/account_helper.rb:10 app/views/account/_signup_form.html.erb:40
 msgid "Checking availability of login name..."
@@ -4483,12 +4485,10 @@ msgid "\"%s\" configured as homepage."
 msgstr "\"%s\" configurado como página inicial."
 
 #: app/controllers/my_profile/cms_controller.rb:230
-#, fuzzy
 msgid "\"%s\" was removed."
-msgstr "%s foi removido."
+msgstr "\"%s\" foi removido."
 
 #: app/controllers/my_profile/cms_controller.rb:270
-#, fuzzy
 msgid "Select some group to publish your article"
 msgstr "Selecione os grupos onde você quer publicar seu artigo"
 
@@ -6641,23 +6641,20 @@ msgid "Organization Approval Method"
 msgstr "Método de Aprovação de Organização"
 
 #: app/views/features/index.html.erb:40
-#, fuzzy
 msgid "Members Whitelist"
-msgstr "Integrantes: %s"
+msgstr "Lista de Integrantes Permitidos"
 
 #: app/views/features/index.html.erb:43
-#, fuzzy
 msgid "Enable whitelist"
-msgstr "Habilitar esse marcador?"
+msgstr "Habilitar lista de integrantes permitidos"
 
 #: app/views/features/index.html.erb:46
 msgid "Allow these people to access this environment:"
 msgstr "Permitir que outras pessoas acessem este ambiente:"
 
 #: app/views/embed/unavailable.html.erb:2
-#, fuzzy
 msgid "Embed unavailable."
-msgstr "produto indisponível"
+msgstr "Inclusão indisponível."
 
 #: app/views/chat/start_session_error.html.erb:3
 msgid "Could not connect to chat"
@@ -7696,12 +7693,11 @@ msgstr ""
 
 #: app/views/account/_signup_form.html.erb:52
 msgid "Short"
-msgstr ""
+msgstr "Curto"
 
 #: app/views/account/_signup_form.html.erb:55
-#, fuzzy
 msgid "Bad"
-msgstr "Barra"
+msgstr "Ruim"
 
 #: app/views/account/_signup_form.html.erb:58
 msgid "Good"
@@ -7709,7 +7705,7 @@ msgstr "Bom"
 
 #: app/views/account/_signup_form.html.erb:61
 msgid "Strong"
-msgstr ""
+msgstr "Forte"
 
 #: app/views/account/_signup_form.html.erb:68
 msgid ""
@@ -7770,7 +7766,6 @@ msgstr ""
 "página onde você poderá criar uma nova senha."
 
 #: app/views/account/_identifier_status.html.erb:6
-#, fuzzy
 msgid "Available: "
 msgstr "Disponível: "
 
@@ -7965,9 +7960,8 @@ msgstr ""
 "segundo para seguir o link no e-mail e confirmar sua conta."
 
 #: app/views/account/signup.html.erb:12
-#, fuzzy
 msgid "You won't appear as %s until your account is confirmed and approved."
-msgstr "Você não aparecerá como um %s até sua conta ser confirmada."
+msgstr "Você não aparecerá como %s até sua conta ser confirmada."
 
 #: app/views/account/signup.html.erb:12 app/views/account/signup.html.erb:16
 #: app/views/account/signup.html.erb:29
@@ -7983,9 +7977,8 @@ msgid "The administrators will evaluate your signup request for approvement."
 msgstr "O administrador avaliará seu pedido de aprovação."
 
 #: app/views/account/signup.html.erb:16
-#, fuzzy
 msgid "You won't appear as %s until your account is approved."
-msgstr "Você não aparecerá como um %s até sua conta ser confirmada."
+msgstr "Você não aparecerá como %s até sua conta ser confirmada."
 
 #: app/views/account/signup.html.erb:18 app/views/account/signup.html.erb:30
 msgid "What to do next?"
@@ -9138,7 +9131,6 @@ msgid "Signup welcome text"
 msgstr "Texto de boas vindas no registro"
 
 #: app/views/admin_panel/site_info.html.erb:15
-#, fuzzy
 msgid "Signup welcome message"
 msgstr "Texto de boas vindas no registro"
 
@@ -10008,7 +10000,6 @@ msgid "Sub-organizations could not be updated"
 msgstr "As sub-organizações não puderam ser salvas"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-#, fuzzy
 msgid "\"Custom form #{@form.name} was successfully created.\""
 msgstr "O formulário #{@form.name} foi criado com sucesso."
 
@@ -10580,14 +10571,14 @@ msgstr "Organizações Relacionadas"
 #: plugins/sub_organizations/lib/related_organizations_block.rb:18
 msgid "\"{#} #{display_type[:title]} enterprise\""
 msgid_plural " \"{#} #{display_type[:title]} enterprises\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{#} #{display_type[:title]} empreendimento"
+msgstr[1] "{#} #{display_type[:title]} empreendimentos"
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:20
 msgid "\"{#} #{display_type[:title]} community\""
 msgid_plural " \"{#} #{display_type[:title]} communities\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{#} #{display_type[:title]} comunidade"
+msgstr[1] "{#} #{display_type[:title]} comunidades"
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:22
 msgid "\"{#} #{display_type[:title]} organization\""
