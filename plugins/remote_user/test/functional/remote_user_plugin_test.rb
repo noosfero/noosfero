@@ -71,4 +71,20 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal true, User.last.activated?
     assert_equal User.last.id, session[:user]
   end
+
+  should 'logout if there is a current logged user but not a remote user' do
+    user1 = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user1.activate
+
+    login_as user1.login
+
+    get :index
+
+    assert session[:user].blank?
+    
+    @request.env["HTTP_REMOTE_USER"] = ""
+    get :index
+
+    assert session[:user].blank?
+  end
 end
