@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-11-03 20:20+0200\n"
-"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
+"PO-Revision-Date: 2014-11-04 21:43+0200\n"
+"Last-Translator: Raquel <rcordioli@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -4297,9 +4297,8 @@ msgid "Captcha (the human test)"
 msgstr "Captcha (o teste humano)"
 
 #: app/controllers/public/account_controller.rb:132
-#, fuzzy
 msgid "Thanks for registering!"
-msgstr "Obrigado por se registrar!"
+msgstr "Obrigado por se cadastrar!"
 
 #: app/controllers/public/account_controller.rb:152
 msgid "You have been logged out."
@@ -10583,8 +10582,8 @@ msgstr[1] "{#} #{display_type[:title]} comunidades"
 #: plugins/sub_organizations/lib/related_organizations_block.rb:22
 msgid "\"{#} #{display_type[:title]} organization\""
 msgid_plural " \"{#} #{display_type[:title]} organizations\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\"{#} #{display_type[:title]} organização\""
+msgstr[1] "\"{#} #{display_type[:title]} organizações\""
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:27
 msgid ""
@@ -10641,9 +10640,8 @@ msgstr "Pessoas aleatórias"
 
 #: plugins/people_block/lib/people_block_base.rb:17
 #: plugins/people_block/lib/people_block.rb:12
-#, fuzzy
 msgid "{#} People"
-msgstr "Pessoas"
+msgstr "{#} Pessoas"
 
 #: plugins/people_block/lib/members_block.rb:11
 msgid "Clicking a member takes you to his/her homepage"
@@ -10716,9 +10714,8 @@ msgstr ""
 "spams compatível com a API Akismet"
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:8
-#, fuzzy
 msgid "A plugin that add remote user support."
-msgstr "Um plugin que adiciona suporte a ldap."
+msgstr "Um plugin que adiciona suporte a usuário remoto."
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:45
 msgid "Could not create the remote_user."
@@ -10758,6 +10755,8 @@ msgid ""
 "A plugin that lists the most accessed, most commented, most liked and most "
 "disliked contents."
 msgstr ""
+"Um plugin que lista os conteúdos mais acessados, mais comentados, mais "
+"curtidos e mais rejeitados"
 
 #: plugins/solr/lib/solr_plugin.rb:14
 msgid "Uses Solr as search engine."
@@ -11686,18 +11685,16 @@ msgid "Validate enterprises"
 msgstr "Validar empreendimentos"
 
 #: plugins/piwik/views/piwik_plugin_admin/index.html.erb:1
-#, fuzzy
 msgid "Piwik plugin settings"
-msgstr "Configurações de e-mail"
+msgstr "Configurações do plugin Piwik"
 
 #: plugins/piwik/views/piwik_plugin_admin/index.html.erb:5
-#, fuzzy
 msgid "Piwik domain"
-msgstr "domínio"
+msgstr "Domínio do Piwik"
 
 #: plugins/piwik/views/piwik_plugin_admin/index.html.erb:7
 msgid "Piwik site id"
-msgstr ""
+msgstr "Id do site do Piwik"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
@@ -11710,12 +11707,11 @@ msgstr "Escolha qual conteúdo deve ser mostrado:"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
 msgid "Choose directly"
-msgstr ""
+msgstr "Escolha diretamente"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
-#, fuzzy
 msgid "Choose by Content Type"
-msgstr "Tipo de conteúdo"
+msgstr "Escolha pelo Tipo de conteúdo"
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:8
@@ -11953,17 +11949,16 @@ msgstr "Ambos"
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
 msgid "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
-msgstr ""
+msgstr "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "\"There are no sub-#{organization_type.pluralize} yet. \""
-msgstr ""
+msgstr "\"Ainda não há sub-#{organization_type.pluralize}.\""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
-#, fuzzy
 msgid "\"Add a new #{organization_type}\""
-msgstr "Registrar nova organização"
+msgstr "\"Adicionar #{organization_type}\""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
 msgid "Sub-groups awaiting approval:"
@@ -12080,7 +12075,7 @@ msgstr ""
 
 #: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
-msgstr ""
+msgstr "Filtrar por papel:"
 
 #: plugins/people_block/views/blocks/friends.html.erb:1
 msgid "friends|View all"
@@ -12111,34 +12106,28 @@ msgid "API key"
 msgstr "Chave da API"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:2
-#, fuzzy
 msgid "Limit of items per category"
-msgstr "Limite de itens"
+msgstr "Limite de itens por categoria"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:3
-#, fuzzy
 msgid "Display most accessed content"
-msgstr "Mostrar conteúdo contextual"
+msgstr "Mostrar conteúdo mais acessado"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:4
-#, fuzzy
 msgid "Display most commented content"
-msgstr "Mostrar conteúdo contextual"
+msgstr "Mostrar conteúdo mais comentado"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:5
-#, fuzzy
 msgid "Display most liked content"
-msgstr "Mostrar conteúdo contextual"
+msgstr "Mostrar conteúdo mais curtido"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:6
-#, fuzzy
 msgid "Display most voted content"
-msgstr "Mostrar conteúdo contextual"
+msgstr "Mostrar conteúdo mais votado"
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:7
-#, fuzzy
 msgid "Display most disliked content"
-msgstr "Mostrar conteúdo contextual"
+msgstr "Mostrar conteúdo mais rejeitado"
 
 #: plugins/solr/views/search/_results_header.html.erb:7
 msgid "Showing page %s of %s"
