@@ -578,7 +578,7 @@ jQuery(function($) {
 
       panel.find('.history').scroll(function(){
         if($(this).scrollTop() == 0){
-          var offset = panel.find('.message').size();
+          var offset = panel.find('.message p').size();
           recent_messages(jid, offset);
         }
       });
@@ -596,10 +596,22 @@ jQuery(function($) {
       return panel;
    }
 
+   function ensure_scroll(jid, offset) {
+     var jid_id = Jabber.jid_to_id(jid);
+     var history = jQuery('#conversation-'+jid_id+' .history');
+     // Load more messages if was not enough to show the scroll
+     if(history.prop('scrollHeight') - history.prop('clientHeight') <= 0){
+       var offset = history.find('.message p').size();
+       recent_messages(jid, offset);
+     }
+   }
+
    function recent_messages(jid, offset) {
      if(!offset) offset = 0;
      start_fetching('.history');
      $.getJSON('/chat/recent_messages', {identifier: getIdentifier(jid), offset: offset}, function(data) {
+       //TODO Register if no more messages returned and stop trying to load
+       //     more messages in the future.
        $.each(data, function(i, message) {
          var body = message['body'];
          var from = message['from'];
@@ -610,6 +622,7 @@ jQuery(function($) {
          Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
        });
        stop_fetching('.history');
+       ensure_scroll(jid, offset);
      });
    }
 
