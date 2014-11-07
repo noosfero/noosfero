@@ -1,10 +1,18 @@
 source "https://rubygems.org"
+
+platform :ruby do
+  gem 'pg',                     '~> 0.17'
+  gem 'rmagick',                '~> 2.13'
+end
+platform :jruby do
+  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'rmagick4j'
+end
+
 gem 'rails',                    '~> 4.2.4'
 gem 'fast_gettext',             '~> 0.9'
 gem 'acts-as-taggable-on',      '~> 3.5'
 gem 'rails_autolink',           '~> 1.1.5'
-gem 'pg',                       '~> 0.17'
-gem 'rmagick',                  '~> 2.13'
 gem 'RedCloth',                 '~> 4.2'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1'
