@@ -14,7 +14,7 @@ class RemoteUserPlugin < Noosfero::Plugin
       begin
         remote_user = request.headers["HTTP_REMOTE_USER"]
 
-        if remote_user.nil?
+        if remote_user.blank?
           if logged_in?
             self.current_user.forget_me
             reset_session
