@@ -59,7 +59,7 @@ class CommunityTrackPlugin::Track < Folder
 
   def first_paragraph
     return '' if body.blank?
-    paragraphs = Hpricot(body).search('p')
+    paragraphs = Nokogiri::HTML.fragment(body).css('p')
     paragraphs.empty? ? '' : paragraphs.first.to_html
   end
 

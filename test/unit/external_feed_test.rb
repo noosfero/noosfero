@@ -166,7 +166,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
       next if a.kind_of?(RssFeed)
       dd << a.body.to_s.strip.gsub(/\s+/, ' ')
     end
-    assert_equal '<img src="noosfero.png" /><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join
+    assert_equal '<img src="noosfero.png"><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join
   end
 
   should 'use feed title as author name' do
