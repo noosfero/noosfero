@@ -11,10 +11,6 @@ end
 class ProfileControllerTest < ActionController::TestCase
 
   def setup
-    @controller = ProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @user = create_user('testinguser').person
     login_as(@user.identifier)
 
