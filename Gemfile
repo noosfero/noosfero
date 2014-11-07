@@ -28,7 +28,6 @@ group :production do
 end
 
 group :test do
-  gem 'test-unit',              '~> 1.2.3'
   gem 'rspec',                  '~> 2.10.0'
   gem 'rspec-rails',            '~> 2.10.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
