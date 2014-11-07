@@ -13,6 +13,7 @@ class RemoteUserPlugin < Noosfero::Plugin
 
       begin
         remote_user = request.headers["HTTP_REMOTE_USER"]
+        user_data = request.env['HTTP_REMOTE_USER_DATA']
 
         if remote_user.blank?
           if logged_in?
@@ -20,10 +21,19 @@ class RemoteUserPlugin < Noosfero::Plugin
             reset_session
           end
         else
+          if user_data.blank?
+            remote_user_email = remote_user + '@remote.user'
+            remote_user_name = remote_user
+          else
+            user_data = JSON.parse(user_data)
+            remote_user_email = user_data['email']
+            remote_user_name = user_data['name']
+          end
+
           if !logged_in?
             self.current_user = User.find_by_login(remote_user)
             unless self.current_user
-              self.current_user = User.create!(:login => remote_user, :email => (remote_user + '@remote.user'), :password => ('pw4'+remote_user), :password_confirmation => ('pw4'+remote_user))
+              self.current_user = User.create!(:login => remote_user, :email => remote_user_email, :name => remote_user_name, :password => ('pw4'+remote_user), :password_confirmation => ('pw4'+remote_user))
               self.current_user.activate
             end
             self.current_user.save!
@@ -34,7 +44,7 @@ class RemoteUserPlugin < Noosfero::Plugin
 
               self.current_user = User.find_by_login(remote_user)
               unless self.current_user
-                self.current_user = User.create!(:login => remote_user, :email => (remote_user + '@remote.user'), :password => ('pw4'+remote_user), :password_confirmation => ('pw4'+remote_user))
+                self.current_user = User.create!(:login => remote_user, :email => remote_user_email, :name => remote_user_name, :password => ('pw4'+remote_user), :password_confirmation => ('pw4'+remote_user))
                 self.current_user.activate
               end
               self.current_user.save!
