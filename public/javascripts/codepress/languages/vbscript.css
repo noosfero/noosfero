@@ -1,12 +1,12 @@
 /*
- * CodePress color styles for ASP-VB syntax highlighting 
+ * CodePress color styles for ASP-VB syntax highlighting
  * By Martin D. Kirk
  */
 
 /* tags */
 b {
 	color:#000080;
-} 
+}
 /* comments */
 big, big b, big em, big ins, big s, strong i, strong i b, strong i s, strong i u, strong i a, strong i a u, strong i s u {
 	color:gray;
@@ -17,12 +17,12 @@ strong dfn, strong dfn a,strong dfn var, strong dfn a u, strong dfn u{
 	color:gray;
 	font-weight:normal;
 }
- /* attributes */ 
+ /* attributes */
 s, s b, span s u, span s cite, strong span s {
 	color:#5656fa ;
 	font-weight:normal;
 }
- /* strings */ 
+ /* strings */
 strong s,strong s b, strong s u, strong s cite {
 	color:#009900;
 	font-weight:normal;
@@ -34,7 +34,6 @@ strong ins{
  /* Syntax */
 strong a, strong a u {
 	color:#0000FF;
-	font-weight:;
 }
  /* Native Keywords */
 strong u {
@@ -58,7 +57,7 @@ em {
 	color:#800080;
 	font-style:normal;
 }
- /* script */ 
+ /* script */
 ins {
 	color:#800000;
 	font-weight:bold;

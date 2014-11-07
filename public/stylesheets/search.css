@@ -563,7 +563,8 @@ li.search-product-item {
 }
 li.search-product-item {
   display:block;
-  float:none overflow:visible;
+  float:none;
+  overflow:visible;
   padding:10px 0;
   margin:10px 0;
   border-bottom:1px solid #ccc;

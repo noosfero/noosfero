@@ -4414,7 +4414,8 @@ h1#agenda-title {
 #groups-list li {
   display: block;
   list-style: none;
-  margin-bottom: 20px background-color: #B8CFE7;
+  margin-bottom: 20px;
+  background-color: #B8CFE7;
 }
 
 #groups-list li .vcard {
