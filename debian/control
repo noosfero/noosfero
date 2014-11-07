@@ -51,6 +51,7 @@ Depends:
  ruby-hpricot,
  ruby-nokogiri,
  ruby-acts-as-taggable-on,
+ ruby-progressbar,
  ruby-prototype-rails,
  ruby-rails-autolink,
  memcached,
