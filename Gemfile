@@ -41,8 +41,9 @@ group :cucumber do
   gem 'selenium-webdriver',     '~> 2.39.0'
 end
 
-# include plugin gemfiles
-Dir.glob(File.join('config', 'plugins', '*')).each do |plugin|
-  plugin_gemfile = File.join(plugin, 'Gemfile')
-  eval File.read(plugin_gemfile) if File.exists?(plugin_gemfile)
+# include gemfiles from enabled plugins
+# plugins in baseplugins/ are not included on purpose. They should not have any
+# dependencies.
+Dir.glob('config/plugins/*/Gemfile').each do |gemfile|
+  eval File.read(gemfile)
 end
