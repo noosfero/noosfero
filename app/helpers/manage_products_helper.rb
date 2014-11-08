@@ -137,7 +137,7 @@ module ManageProductsHelper
     ui_button_to_remote(label,
                    {:update => "product-#{field}",
                    :url => { :controller => 'manage_products', :action => "edit", :id => product.id, :field => field },
-                   :complete => "$('edit-product-button-ui-#{field}').hide()",
+                   :complete => "jQuery('#edit-product-button-ui-#{field}').hide()",
                    :method => :get,
                    :loading => "loading_for_button('##{id}')"},
                    options)
