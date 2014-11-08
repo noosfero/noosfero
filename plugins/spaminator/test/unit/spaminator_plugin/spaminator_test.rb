@@ -50,6 +50,7 @@ class SpaminatorPlugin::SpaminatorTest < ActiveSupport::TestCase
   end
 
   should 'process only people from the environment and that are not abusers' do
+    Person.delete_all
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person, :environment_id => fast_create(Environment))
