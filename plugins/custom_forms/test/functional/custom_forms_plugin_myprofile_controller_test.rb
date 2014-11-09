@@ -226,7 +226,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'list pending submissions for a form' do
-    person = fast_create(Person)
+    person = create_user('john').person
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :for_admission => true)
     task = CustomFormsPlugin::AdmissionSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
 
