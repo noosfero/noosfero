@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-11-05 01:19+0200\n"
-"Last-Translator: Raquel <rcordioli@gmail.com>\n"
+"PO-Revision-Date: 2014-11-11 00:42+0200\n"
+"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0-dev\n"
+"X-Generator: Weblate 2.0\n"
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
@@ -5752,7 +5752,6 @@ msgstr "contato"
 #: app/views/search/enterprises.html.erb:3 app/views/search/people.html.erb:3
 #: app/views/search/articles.html.erb:3 app/views/search/products.html.erb:3
 #: plugins/solr/views/search/_results.html.erb:1
-#, fuzzy
 msgid "Type words about the %s you're looking for"
 msgstr "Digite palavras sobre o/a %s que você está procurando"
 
@@ -9078,7 +9077,7 @@ msgstr "Nome do site"
 
 #: app/views/admin_panel/_site_info.html.erb:3
 msgid "No reply email"
-msgstr "No reply email"
+msgstr "e-mail somente para envio (no-replay)"
 
 #: app/views/admin_panel/_site_info.html.erb:5
 msgid "Theme"
@@ -9391,7 +9390,7 @@ msgstr "Meu ePortfolio"
 
 #: lib/zen3_terminology.rb:9
 msgid "ePortfolio"
-msgstr "ePortfolio"
+msgstr "e-Portfólio"
 
 #: lib/zen3_terminology.rb:10
 msgid "Groups"
@@ -10222,7 +10221,7 @@ msgstr "Este bloco apresenta a lista das trilhas mais relevantes."
 
 #: plugins/vote/lib/vote_plugin.rb:8
 msgid "Provide buttons to like/dislike a articles and comments."
-msgstr "Prover botões de curti/não curti para artigos e comentários."
+msgstr "Provê botões de curtir/rejeitar para artigos e comentários."
 
 #: plugins/pg_search/lib/pg_search_plugin.rb:8
 msgid "Search engine that uses Postgres Full-Text Search."
@@ -10851,7 +10850,6 @@ msgid "Type in an option"
 msgstr "Digite uma opção"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
-#, fuzzy
 msgid "Invalid string format of access."
 msgstr "Tipo de acesso inválido."
 
@@ -11502,7 +11500,7 @@ msgstr "Curtir"
 
 #: plugins/vote/views/vote_plugin_admin/index.html.erb:8
 msgid "Dislike"
-msgstr "Não curtir"
+msgstr "Rejeitar"
 
 #: plugins/vote/views/vote_plugin_admin/index.html.erb:13
 msgid "Limit of voters to display:"
@@ -11618,7 +11616,6 @@ msgid "Existing enterprises:"
 msgstr "Empreendimentos existentes:"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:3
-#, fuzzy
 msgid ""
 "Were found %{count} enterprises with similar names on the same city, you can "
 "decide to associate one of them or create the new enterprise confirming the "
@@ -12081,14 +12078,12 @@ msgid "Filter by role:"
 msgstr "Filtrar por papel:"
 
 #: plugins/people_block/views/blocks/friends.html.erb:1
-#, fuzzy
 msgid "friends|View all"
-msgstr "amigos|Ver todos"
+msgstr "Ver todos"
 
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:3
-#, fuzzy
 msgid "Show content name"
-msgstr "Mostrar nome do conteúdo"
+msgstr "Mostrar o nome do conteúdo"
 
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:4
 msgid "Show content image"
