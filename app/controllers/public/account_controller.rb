@@ -193,7 +193,7 @@ class AccountController < ApplicationController
         else
           @change_password.errors[:base] << _('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]]
         end
-      rescue ActiveRecord::RecordInvald
+      rescue ActiveRecord::RecordInvalid
         @change_password.errors[:base] << _('Could not perform password recovery for the user.')
       end
     end
