@@ -18,9 +18,9 @@ module API
           conditions = make_conditions_with_parameter(params)
 
           if params[:reference_id]
-            comments = environment.articles.find(params[:id]).comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+            comments = environment.articles.find(params[:id]).comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
           else
-            comments = environment.articles.find(params[:id]).comments.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+            comments = environment.articles.find(params[:id]).comments.reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
           end
           present comments, :with => Entities::Comment
 
