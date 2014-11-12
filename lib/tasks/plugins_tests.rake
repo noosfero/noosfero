@@ -104,7 +104,7 @@ def run_test(name, files)
 end
 
 def run_testrb(files)
-  sh 'testrb', '-Itest', *files
+  sh 'testrb', '-I.:test', *files
 end
 
 def run_cucumber(profile, files)

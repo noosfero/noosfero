@@ -23,7 +23,7 @@
       <%= link_to(
             content_tag('span','',:class => 'community-block-button icon-arrow'),
             '#',
-            :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false;",
+            :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links.to_json)}); return false;",
             :class => 'simplemenu-trigger') %>
 
       <% end %>
@@ -32,11 +32,11 @@
         <% if profile.members.include?(user) || profile.already_request_membership?(user) %>
             <%= link_to(
                   content_tag('span', '', :class => 'community-block-button icon-remove'),
-                  profile.leave_url) %>
+                  profile.leave_url, :class => 'join-community') %>
         <% else %>
             <%= link_to(
                   content_tag('span', '', :class => 'community-block-button icon-add'),
-                  profile.join_url) %>
+                  profile.join_url, :class => 'join-community') %>
         <% end %>
       <% else %>
         <%= link_to(

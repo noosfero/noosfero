@@ -6,10 +6,13 @@ class CommunityTrackPluginTest < ActiveSupport::TestCase
     @plugin = CommunityTrackPlugin.new
     @profile = fast_create(Community)
     @params = {}
-    @plugin.stubs(:context).returns(self)
+    @context = mock
+    @context.stubs(:profile).returns(@profile)
+    @context.stubs(:params).returns(@params)
+    @plugin.stubs(:context).returns(@context)
   end
 
-  attr_reader :profile, :params
+  attr_reader :profile, :params, :context
 
   should 'has name' do
     assert CommunityTrackPlugin.plugin_name
@@ -28,37 +31,37 @@ class CommunityTrackPluginTest < ActiveSupport::TestCase
   end
 
   should 'do not return Track as a content type if profile is not a community' do
-    @profile = Organization.new
+    context.stubs(:profile).returns(Organization.new)
     assert_not_includes @plugin.content_types, CommunityTrackPlugin::Track
   end
 
   should 'do not return Track as a content type if there is a parent' do
-    parent = fast_create(Blog, :profile_id => @profile.id)
-    @params[:parent_id] = parent.id
+    parent = fast_create(Blog, :profile_id => profile.id)
+    params[:parent_id] = parent.id
     assert_not_includes @plugin.content_types, CommunityTrackPlugin::Track
   end
 
   should 'return Step as a content type if parent is a Track' do
-    parent = fast_create(CommunityTrackPlugin::Track, :profile_id => @profile.id)
-    @params[:parent_id] = parent.id
+    parent = fast_create(CommunityTrackPlugin::Track, :profile_id => profile.id)
+    params[:parent_id] = parent.id
     assert_includes @plugin.content_types, CommunityTrackPlugin::Step
   end
 
   should 'do not return Step as a content type if parent is not a Track' do
-    parent = fast_create(Blog, :profile_id => @profile.id)
-    @params[:parent_id] = parent.id
+    parent = fast_create(Blog, :profile_id => profile.id)
+    params[:parent_id] = parent.id
     assert_not_includes @plugin.content_types, CommunityTrackPlugin::Step
   end
 
   should 'return Track and Step as a content type if context has no params' do
-    parent = fast_create(Blog, :profile_id => @profile.id)
-    expects(:respond_to?).with(:params).returns(false)
+    parent = fast_create(Blog, :profile_id => profile.id)
+    context.expects(:respond_to?).with(:params).returns(false)
     assert_equivalent [CommunityTrackPlugin::Step, CommunityTrackPlugin::Track], @plugin.content_types
   end
 
   should 'return Track and Step as a content type if params is nil' do
-    parent = fast_create(Blog, :profile_id => @profile.id)
-    @params = nil
+    parent = fast_create(Blog, :profile_id => profile.id)
+    context.stubs(:params).returns(nil)
     assert_equivalent [CommunityTrackPlugin::Step, CommunityTrackPlugin::Track], @plugin.content_types
   end
 

@@ -244,7 +244,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'cancel survey tasks after removing a form' do
     profile = fast_create(Profile)
-    person = fast_create(Person)
+    person = create_user('john').person
 
     form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
     form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System', :profile => profile)
