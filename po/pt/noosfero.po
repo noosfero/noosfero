@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-11-11 00:42+0200\n"
-"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
+"PO-Revision-Date: 2014-11-13 11:45+0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -11531,9 +11531,8 @@ msgstr "Tipo de cliente"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:7
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:8
-#, fuzzy
 msgid "Business type"
-msgstr "Nome fantasia"
+msgstr "Tipo de negócio"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
 msgid "Type in search term for enterprise"
