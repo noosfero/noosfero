@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2014-11-13 11:45+0200\n"
+"PO-Revision-Date: 2014-11-13 11:46+0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -5753,7 +5753,7 @@ msgstr "contato"
 #: app/views/search/articles.html.erb:3 app/views/search/products.html.erb:3
 #: plugins/solr/views/search/_results.html.erb:1
 msgid "Type words about the %s you're looking for"
-msgstr "Digite palavras sobre o/a %s que você está procurando"
+msgstr "Digite palavras sobre o(a) %s que você está procurando"
 
 #: app/views/search/_full_event.html.erb:13 app/views/cms/_event.html.erb:11
 msgid "Start date"
