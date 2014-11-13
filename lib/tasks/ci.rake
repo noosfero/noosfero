@@ -7,7 +7,7 @@ namespace :ci do
     from = ENV['PREV_HEAD'] || "origin/#{current_branch}"
     to = ENV['HEAD'] || current_branch
     changed_files = `git diff --name-only #{from}..#{to}`.split.select do |f|
-      File.exist?(f)
+      File.exist?(f) && f.split(File::SEPARATOR).first != 'vendor'
     end
 
     changed_plugin_files = changed_files.select do |f|
