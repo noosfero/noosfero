@@ -13,7 +13,7 @@ class RoleAssignmentSweeper < ActiveRecord::Observer
 protected
 
   def expire_caches(role_assignment)
-    expire_cache(role_assignment.accessor)
+    expire_cache(role_assignment.accessor) if role_assignment.accessor.kind_of?(Profile)
     expire_cache(role_assignment.resource) if role_assignment.resource.kind_of?(Profile)
   end
 

@@ -55,6 +55,10 @@ profile_admin:
    - view_private_content
    - manage_products
    - send_mail_to_members
+   - edit_appearance
+   - manage_friends
+   - validate_enterprise
+   - publish_content
 profile_member:
   id: 6
   environment_id: 1
