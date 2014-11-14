@@ -120,7 +120,7 @@ module SearchHelper
         options.merge!(:class => 'selected') if selected.to_s == asset.to_s
         content_tag('li', asset_link(asset), options)
       end.join("\n"),
-    :id => 'assets-links')
+    :id => 'assets-menu')
   end
 
   def asset_link(asset)

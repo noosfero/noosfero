@@ -31,7 +31,7 @@
   });
 
   // Assets links
-  $('#assets-links a').click(function(e){
+  $('#assets-menu a').click(function(e){
     e.preventDefault();
     window.location.href = $(this).attr("href") + '?query=' + $('#search-input').val();
   });

@@ -949,7 +949,7 @@ a.search-image-pic {
   margin-left: 40px;
 }
 
-ul#assets-links {
+ul#assets-menu {
   text-align: justify;
   text-justify: distribute-all-lines; /* distribute items in IE */
   list-style-type: none;
@@ -959,28 +959,28 @@ ul#assets-links {
   float: left;
 }
 
-ul#assets-links:after {
+ul#assets-menu:after {
   content: "";
   display: inline-block;
 }
 
-ul#assets-links li {
+ul#assets-menu li {
   display: inline-block;
 }
 
-ul#assets-links li + li {
+ul#assets-menu li + li {
   margin-left: 10px;
 }
 
-ul#assets-links li a {
+ul#assets-menu li a {
   text-decoration: none;
 }
 
-ul#assets-links li.selected a {
+ul#assets-menu li.selected a {
   border-bottom: 2px solid #EF2929;
 }
 
-ul#assets-links li.selected a {
+ul#assets-menu li.selected a {
   color: #EF2929;
   font-weight: bold;
 }
