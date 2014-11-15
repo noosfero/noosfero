@@ -1090,7 +1090,7 @@ jQuery(document).ready(function(){
   // Suggestions on search inputs
   (function($) {
     var suggestions_cache = {};
-    $("#search-input").autocomplete({
+    $(".search-input-with-suggestions").autocomplete({
       minLength: 2,
       select: function(event, ui){
         $(this).val(ui.item.value);
@@ -1102,7 +1102,7 @@ jQuery(document).ready(function(){
           response(suggestions_cache[term]);
           return;
         }
-        request["asset"] = $("#search-input").data("asset");
+        request["asset"] = this.element.data("asset");
         $.getJSON("/search/suggestions", request, function(data, status, xhr) {
           suggestions_cache[term] = data;
           response(data);

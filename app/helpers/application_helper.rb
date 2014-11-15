@@ -1419,7 +1419,7 @@ module ApplicationHelper
   end
 
   def search_input_with_suggestions(name, asset, default, options = {})
-    text_field_tag name, default, options.merge({:id => 'search-input', 'data-asset' => asset})
+    text_field_tag name, default, options.merge({:class => 'search-input-with-suggestions', 'data-asset' => asset})
   end
 
   def profile_suggestion_profile_connections(suggestion)

@@ -37,12 +37,12 @@
   });
 
   // Real time search
-  // $("input#search-input").typeWatch({
+  // $(".search-input-with-suggestions").typeWatch({
   //   callback: function (value) {$('form.search_form').submit()},
   //   wait: 750,
   //   highlight: true,
   //   captureLength: 2
   // });
 
-  $("input#search-input").bind('notext', function(){ $('form.search_form').submit() });
+  $(".search-input-with-suggestions").bind('notext', function(){ $('form.search_form').submit() });
 })(jQuery);
