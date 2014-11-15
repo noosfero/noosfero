@@ -1,6 +1,6 @@
 (function($) {
   // Pagination.
-  $('#search-content .pagination a').live('click', function () {
+  $('#search-content .pagination').on('click', 'a', function () {
     $.ajax({
       url: this.href,
       beforeSend: function(){$('#search-content').addClass('fetching')},
