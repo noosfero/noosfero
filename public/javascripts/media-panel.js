@@ -88,7 +88,6 @@ jQuery("#published-media #q").bind('notext', function(){ loadPublishedMedia() })
 jQuery("#new-folder-dialog").submit(function( event ) {
   var name = jQuery('#new_folder').val();
   var parent_id = jQuery("#new-folder-dialog #parent_id").val();
-    jQuery("#media-upload-box #parent_id").val();
   jQuery.ajax({
     url: this.action,
     type: 'POST',
