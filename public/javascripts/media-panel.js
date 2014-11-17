@@ -1,5 +1,15 @@
 var file_id = 1;
 
+jQuery('.view-all-media').on('click', '.pagination a', function(event) {
+  jQuery.ajax({
+    url: this.href,
+    beforeSend: function(){jQuery('.view-all-media').addClass('fetching')},
+    complete: function() {jQuery('.view-all-media').removeClass('fetching')},
+    dataType: 'script'
+  });
+  return false;
+});
+
 jQuery('#file').fileupload({
   add: function(e, data){
     data.files[0].id = file_id;

@@ -385,7 +385,7 @@ class CmsController < MyProfileController
   end
 
   def view_all_media
-    paginate_options = {:page => 1}
+    paginate_options = {:page => params[:page].blank? ? 1 : params[:page] }
     @key = params[:key].to_sym
     load_recent_files(params[:parent_id], params[:q], paginate_options)
   end

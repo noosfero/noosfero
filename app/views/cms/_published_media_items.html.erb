@@ -7,9 +7,6 @@
         <%= link_to(_('View all'), {:controller => 'cms', :action => 'view_all_media', :profile => profile.identifier, :key => key}, :class => 'view-all colorbox', 'data-key' => key) %>
       <% end %>
     </div>
-    <% @recent_files[key].each do |file| %>
-      <% @file = file %>
-      <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
-    <% end %>
+    <%= render :partial => "cms/media_panel/list_published_media_items", :locals => { key: key, show_pagination_links: false } %>
   </div>
 <% end %>
