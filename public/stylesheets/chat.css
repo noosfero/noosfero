@@ -31,8 +31,7 @@
 #buddy-list .buddies li a, .occupant-list li a {
   background-position: 0% 50%;
   display: block;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 17px;
   text-decoration: none;
   height: 35px;
   overflow: hidden;
@@ -40,18 +39,17 @@
 #buddy-list .buddies li a .name, .occupant-list li a .name {
   vertical-align: middle;
   margin-left: 5px;
-  padding: 0 0 5px 20px;
   position: relative;
-  left: -20px;
   display: inline-block;
   max-width: 128px;
   overflow: hidden;
-  height: 30px;
+  line-height: 35px;
 }
 #buddy-list .buddies li a img, .occupant-list li a img, #chat .avatar {
   border-radius: 5px;
   width: 32px;
-  max-height: 40px;
+  max-height: 35px;
+  vertical-align: middle;
 }
 #chat #buddy-list .toolbar {
   border: 0;
@@ -86,6 +84,7 @@
   color: #FFF;
   background-color: #BABDB6;
   border: 0;
+  margin-bottom: 5px;
 }
 
 .conversation {
