@@ -26,7 +26,7 @@
   margin: 0;
 }
 #buddy-list .buddies a:hover, .occupant-list li a:hover {
-  background: #257CAD;
+  background-color: #EEEEEC;
 }
 #buddy-list .buddies li a, .occupant-list li a {
   background-position: 0% 50%;
@@ -35,6 +35,7 @@
   text-decoration: none;
   height: 35px;
   overflow: hidden;
+  margin-top: 5px;
 }
 #buddy-list .buddies li a .name, .occupant-list li a .name {
   vertical-align: middle;
