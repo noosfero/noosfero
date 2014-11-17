@@ -48,6 +48,7 @@ class FeedHandler
           else
             header.merge!(:proxy => ENV['FEED_HTTP_PROXY']) if ENV['FEED_HTTP_PROXY']
           end
+          header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if ENV['SSL_VERIFY_NONE']
           open(address, header, &block)
         end
       return content

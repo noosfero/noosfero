@@ -5,6 +5,7 @@ class FeedHandlerTest < ActiveSupport::TestCase
   def setup
     @handler = FeedHandler.new
     @container = nil
+    ENV.stubs('[]').with(anything)
   end
   attr_reader :handler
   def container
@@ -173,6 +174,12 @@ class FeedHandlerTest < ActiveSupport::TestCase
     ENV.stubs('[]').with('FEED_HTTP_PROXY').returns('http://127.0.0.1:3128')
     handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
     assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+  end
+
+  should 'not verify ssl when define env parameter SSL_VERIFY_NONE' do
+    ENV.stubs('[]').with('SSL_VERIFY_NONE').returns(true)
+    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE}, anything)
+    handler.fetch('http://site.org/feed.xml')
   end
 
 end
