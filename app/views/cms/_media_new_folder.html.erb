@@ -5,8 +5,8 @@
     "type='Folder' or type='Gallery'")
   %>
 
-  <%= content_tag(:label, radio_button_tag(:folder_type, 'Gallery', true) + _('Gallery')) %>
-  <%= content_tag(:label, radio_button_tag(:folder_type, 'Folder', false) +  _('Folder')) %>
+  <%= labelled_radio_button _('Gallery'), :folder_type, 'Gallery', true %>
+  <%= labelled_radio_button _('Folder'), :folder_type, 'Folder', false %>
 
   <%= labelled_form_field _('Name:'), text_field_tag(:new_folder, nil, 'data-url' => url_for({:action => 'new', :profile => profile.identifier})) %>
   <% button_bar do %>
