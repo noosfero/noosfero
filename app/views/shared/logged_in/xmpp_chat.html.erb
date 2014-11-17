@@ -13,33 +13,23 @@
     </script>
 
   <div id='chat'>
+    <div class='header'>
+      <%= _("Chat %s") % environment.name %>
+    </div>
     <div id='buddy-list'>
       <div class='toolbar'>
         <div id='user-status'>
           <%= profile_image(user, :portrait, :class => 'avatar') %>
           <%= user_status_menu('icon-menu-offline', _('Offline')) %>
         </div>
-        <a href="#" class="back"><%= _('Close') %></a>
         <div class='dialog-error' style='display: none'></div>
       </div>
 
-      <div id="friends">
-        <div class="status-group">
-          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Online") %>&nbsp;(<span id='friends-online'>0</span>)</h1></a></div>
-          <ul class='buddy-list online'></ul>
-        </div>
+      <div class='body'>
+        <%= text_field_tag(:query, '', :placeholder => _('Search...'), :class => 'search') %>
 
-        <div class="status-group">
-          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Offline") %>&nbsp;(<span id='friends-offline'>0</span>)</h1></a></div>
-          <ul class='buddy-list offline'></ul>
-        </div>
-      </div>
-
-      <div id="rooms">
-        <div class="status-group">
-          <div class='title-bar'><a href="#"><h1 class='title'><%= _("Groups") %>&nbsp;(<span id='groups-online'>0</span>)</h1></a></div>
-          <ul class="buddy-list room-list"></ul>
-        </div>
+        <ul class='buddies .online'></ul>
+        <ul class='buddies .offline'></ul>
       </div>
     </div>
 

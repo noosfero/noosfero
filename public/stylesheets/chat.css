@@ -1,32 +1,37 @@
 #chat {
-  width: 250px;
+  width: 350px;
   height: 100%;
   display: none;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 900;
+  background-color: #FFF;
+  box-shadow: -3px 0px 5px #888;
 }
 
 #chat #buddy-list {
-  background-color: #303030;
-  width: 250px;
-  height: 100%;
+  background-color: #f9f9f9;
+  width: 175px;
+  height: 75%;
   overflow: hidden;
   position: absolute;
+  right: 0;
+  border-left: 1px solid #DCE4E7;
+  border-bottom: 1px solid #DCE4E7;
 }
-#buddy-list .buddy-list {
+#buddy-list .buddies {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-#buddy-list .buddy-list li {
+#buddy-list .buddies li {
   border-bottom: 1px solid #383838;
 }
-#buddy-list .buddy-list li a:hover, .occupant-list li a:hover {
+#buddy-list .buddies a:hover, .occupant-list li a:hover {
   background: #257CAD;
 }
-#buddy-list .buddy-list li a, .occupant-list li a {
+#buddy-list .buddies li a, .occupant-list li a {
   background: none;
   display: block;
   padding-left: 20px;
@@ -36,7 +41,7 @@
   height: 44px;
   overflow: hidden;
 }
-#buddy-list .buddy-list li a .name, .occupant-list li a .name {
+#buddy-list .buddies li a .name, .occupant-list li a .name {
   vertical-align: top;
   margin-left: 5px;
   padding: 0 0 5px 20px;
@@ -47,12 +52,12 @@
   overflow: hidden;
   height: 30px;
 }
-#buddy-list .buddy-list li a img, .occupant-list li a img, #chat .avatar {
+#buddy-list .buddies li a img, .occupant-list li a img, #chat .avatar {
   border-radius: 5px;
   width: 32px;
   max-height: 40px;
 }
-#buddy-list .buddy-list.offline, .occupant-list.offline {
+#buddy-list .buddies.offline, .occupant-list.offline {
   display: none;
 }
 #chat #buddy-list .toolbar {
@@ -75,9 +80,21 @@
 #buddy-list .toolbar .dialog-error p {
   margin: 0 0 5px 0;
 }
-#chat-window {
-  background: white;
+
+
+#buddy-list .body{
+  position: relative;
+  padding: 5px;
 }
+
+#buddy-list .search{
+  width: 150px;
+  padding: 7px;
+  color: #FFF;
+  background-color: #BABDB6;
+  border: 0;
+}
+
 .conversation {
   background-color: #303030;
   height: 100%;
@@ -310,10 +327,10 @@ div.occupants > a.up {
   top: -3px;
 }
 
-.buddy-list .dnd span.name {
+.buddies .dnd span.name {
   background: url(/designs/icons/pidgin/pidgin/status/16/busy.png) 0px 20px no-repeat;
 }
-.buddy-list .chat span.name {
+.buddies .chat span.name {
   background: url(/designs/icons/pidgin/pidgin/status/16/available.png) 0px 20px no-repeat;
 }
 
@@ -329,4 +346,15 @@ div.occupants > a.up {
   color: red;
   font-weight: bold;
   font-size: 14px;
+}
+
+#chat .header {
+  border: 0;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #FFF;
+  font-size: 19px;
+  background-image: linear-gradient(to left, #E3E3E3 25%, #BABDB6 100%, #FFFFFF 100%);
+  xbackground-color: #BABDB6;
 }
