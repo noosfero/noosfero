@@ -313,10 +313,13 @@ div.occupants > a.up {
   left: -15px;
 }
 
-.user-status span {
-  position: relative;
+.user-status {
   vertical-align: bottom;
   bottom: -5px;
+}
+
+.user-status span {
+  position: relative;
 }
 .user-status span, .user-status .ui-icon {
   top: -3px;
