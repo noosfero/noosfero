@@ -170,49 +170,54 @@ module BoxesHelper
       else
         "before-block-#{block.id}"
       end
-
-    content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover')
+    if block.nil? or modifiable?(block)
+      content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover')
+    else
+      ""
+    end
   end
 
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
-    draggable_element("block-#{block.id}", :revert => true)
+    modifiable?(block) ? draggable_element("block-#{block.id}", :revert => true) : ""
   end
 
   def block_edit_buttons(block)
     buttons = []
     nowhere = 'javascript: return false;'
 
-    if block.first?
-      buttons << icon_button('up-disabled', _("Can't move up anymore."), nowhere)
-    else
-      buttons << icon_button('up', _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' })
-    end
-
-    if block.last?
-      buttons << icon_button('down-disabled', _("Can't move down anymore."), nowhere)
-    else
-      buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'})
-    end
-
-    holder = block.owner
-    # move to opposite side
-    # FIXME too much hardcoded stuff
-    if holder.layout_template == 'default'
-      if block.box.position == 2 # area 2, left side => move to right side
-        buttons << icon_button('right', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[2].id.to_s, :id => block.id }, :method => 'post' )
-      elsif block.box.position == 3 # area 3, right side => move to left side
-        buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
+    if modifiable?(block)
+      if block.first?
+        buttons << icon_button('up-disabled', _("Can't move up anymore."), nowhere)
+      else
+        buttons << icon_button('up', _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' })
       end
-    end
 
-    if block.editable?
-      buttons << colorbox_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
-    end
+      if block.last?
+        buttons << icon_button('down-disabled', _("Can't move down anymore."), nowhere)
+      else
+        buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'})
+      end
 
-    if !block.main?
-      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
-      buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
+      holder = block.owner
+      # move to opposite side
+      # FIXME too much hardcoded stuff
+      if holder.layout_template == 'default'
+        if block.box.position == 2 # area 2, left side => move to right side
+          buttons << icon_button('right', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[2].id.to_s, :id => block.id }, :method => 'post' )
+        elsif block.box.position == 3 # area 3, right side => move to left side
+          buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
+        end
+      end
+
+      if block.editable?
+        buttons << colorbox_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
+      end
+
+      if !block.main?
+        buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
+        buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
+      end
     end
 
     if block.respond_to?(:help)
@@ -248,5 +253,7 @@ module BoxesHelper
     classes
   end
 
-
+  def modifiable?(block)
+    return !block.fixed || environment.admins.include?(user)
+  end
 end

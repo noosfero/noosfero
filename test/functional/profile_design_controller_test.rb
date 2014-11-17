@@ -737,4 +737,22 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should forbid POST to save for fixed blocks' do
+    block = profile.blocks.last
+    block.fixed = true
+    block.save!
+
+    post :save, id: block.id, profile: profile.identifier
+    assert_response :forbidden
+  end
+
+  test 'should forbid POST to move_block for fixed blocks' do
+    block = profile.blocks.last
+    block.fixed = true
+    block.save!
+
+    post :move_block, id: block.id, profile: profile.identifier, target: "end-of-box-#{@box3.id}"
+    assert_response :forbidden
+  end
+
 end
