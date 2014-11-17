@@ -496,7 +496,7 @@ class CmsController < MyProfileController
 
     parent = parent_id.present? ? profile.articles.find(parent_id) : nil
     if parent.present?
-     files = parent.children.files
+      files = parent.children.files
     else
       files = profile.files
     end
