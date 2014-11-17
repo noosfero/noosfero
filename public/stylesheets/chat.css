@@ -25,24 +25,20 @@
   padding: 0;
   margin: 0;
 }
-#buddy-list .buddies li {
-  border-bottom: 1px solid #383838;
-}
 #buddy-list .buddies a:hover, .occupant-list li a:hover {
   background: #257CAD;
 }
 #buddy-list .buddies li a, .occupant-list li a {
-  background: none;
+  background-position: 0% 50%;
   display: block;
   padding-left: 20px;
   padding-top: 10px;
   text-decoration: none;
-  color: rgb(238, 238, 238);
-  height: 44px;
+  height: 35px;
   overflow: hidden;
 }
 #buddy-list .buddies li a .name, .occupant-list li a .name {
-  vertical-align: top;
+  vertical-align: middle;
   margin-left: 5px;
   padding: 0 0 5px 20px;
   position: relative;
@@ -56,9 +52,6 @@
   border-radius: 5px;
   width: 32px;
   max-height: 40px;
-}
-#buddy-list .buddies.offline, .occupant-list.offline {
-  display: none;
 }
 #chat #buddy-list .toolbar {
   border: 0;
@@ -325,13 +318,6 @@ div.occupants > a.up {
 }
 .user-status span, .user-status .ui-icon {
   top: -3px;
-}
-
-.buddies .dnd span.name {
-  background: url(/designs/icons/pidgin/pidgin/status/16/busy.png) 0px 20px no-repeat;
-}
-.buddies .chat span.name {
-  background: url(/designs/icons/pidgin/pidgin/status/16/available.png) 0px 20px no-repeat;
 }
 
 .conversation .author {
