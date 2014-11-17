@@ -315,6 +315,8 @@ div.occupants > a.up {
 
 .user-status span {
   position: relative;
+  vertical-align: bottom;
+  bottom: -5px;
 }
 .user-status span, .user-status .ui-icon {
   top: -3px;
