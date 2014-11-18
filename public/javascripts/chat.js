@@ -65,7 +65,7 @@ jQuery(function($) {
      },
      insert_or_update_group: function (jid, presence) {
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#buddy-list .buddies.online');
+        var list = $('#buddy-list .buddies .online');
         var item = $('#' + jid_id);
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
         log('adding or updating contact ' + jid + ' as ' + presence);
@@ -78,7 +78,7 @@ jQuery(function($) {
         var jid_id = Jabber.jid_to_id(jid);
         var item = $('#' + jid_id);
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
-        var list = $('#buddy-list .buddies' + (presence=='offline' ? '.offline' : '.online'));
+        var list = $('#buddy-list .buddies ' + (presence=='offline' ? '.offline' : '.online'));
 
         log('adding or updating contact ' + jid + ' as ' + presence);
         Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.template('.buddy-item'), 'chat');
@@ -528,7 +528,7 @@ jQuery(function($) {
    }
 
    // open new conversation or change to already opened tab
-   $('#buddy-list .buddy-list li a').live('click', function() {
+   $('#buddy-list .buddies li a').live('click', function() {
       var jid_id = $(this).attr('id');
       var name = Jabber.name_of(jid_id);
       var conversation = create_conversation_tab(name, jid_id);
@@ -627,7 +627,7 @@ jQuery(function($) {
    }
 
    function count_unread_messages(jid_id, hide) {
-      var unread = $('.buddy-list #'+jid_id+ ' .unread-messages');
+      var unread = $('.buddies #'+jid_id+ ' .unread-messages');
       if (hide) {
          unread.hide();
          Jabber.unread_messages_of(jid_id, 0);
@@ -645,7 +645,7 @@ jQuery(function($) {
    function update_total_unread_messages() {
       var total_unread = $('#openchat .unread-messages');
       var sum = 0;
-      $('.buddy-list .unread-messages').each(function() {
+      $('.buddies .unread-messages').each(function() {
          sum += Number($(this).text());
       });
       if(sum>0) {
@@ -713,7 +713,7 @@ jQuery(function($) {
    }
 
    $('.title-bar a').click(function() {
-     $(this).parents('.status-group').find('.buddy-list').toggle('fast');
+     $(this).parents('.status-group').find('.buddies').toggle('fast');
    });
    $('#chat').on('click', '.occupants a', function() {
      $(this).siblings('.occupant-list').toggle('fast');
@@ -726,7 +726,8 @@ jQuery(function($) {
    } else if($presence == 'dnd') {
       $('#chat-busy').trigger('click');
    }
-   $('#chat #buddy-list').perfectScrollbar();
+
+   $('#chat #buddy-list .buddies').perfectScrollbar();
 
   // custom css expression for a case-insensitive contains()
   jQuery.expr[':'].Contains = function(a,i,m){

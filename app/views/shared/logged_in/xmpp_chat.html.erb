@@ -28,8 +28,10 @@
       <div class='body'>
         <%= text_field_tag(:query, '', :placeholder => _('Search...'), :class => 'search') %>
 
-        <ul class='buddies online'></ul>
-        <ul class='buddies offline'></ul>
+        <div class='buddies'>
+          <ul class='online'></ul>
+          <ul class='offline'></ul>
+        </div>
       </div>
     </div>
 
@@ -46,7 +48,7 @@
               <img class="avatar">
               <span class="other-name"></span>
             </span>
-            <a href="#" class="back"><%= _('Back') %></a>
+            <a href="" class="back"><%= _('Back') %></a>
           </div>
           <div class='history'></div>
           <div class='input-div'>
