@@ -727,4 +727,30 @@ jQuery(function($) {
       $('#chat-busy').trigger('click');
    }
    $('#chat #buddy-list').perfectScrollbar();
+
+  // custom css expression for a case-insensitive contains()
+  jQuery.expr[':'].Contains = function(a,i,m){
+      return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+  };
+
+  $('#chat .search').change( function () {
+    var filter = $(this).val();
+    var list = $('#buddy-list .buddies a');
+    if(filter) {
+      // this finds all links in a list that contain the input,
+      // and hide the ones not containing the input while showing the ones that do
+      $(list).find("span:not(:Contains(" + filter + "))").parent().hide();
+      $(list).find("span:Contains(" + filter + ")").parent().show();
+    } else {
+      $(list).show();
+    }
+    return false;
+  }).keyup( function () {
+    // fire the above change event after every letter
+    $(this).change();
+  });
+
+  $('#chat .buddies a').live('click', function(){
+    $('#chat .search').val('').change();
+  });
 });
