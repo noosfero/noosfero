@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MembersBlockTest < ActiveSupport::TestCase
+class MembersBlockTest < ActionView::TestCase
 
   should 'inherit from Block' do
     assert_kind_of Block, MembersBlock.new
@@ -60,7 +60,7 @@ class MembersBlockTest < ActiveSupport::TestCase
 
 
   should 'prioritize profiles with image by default' do
-    assert MembersBlock.new.prioritize_people_with_image
+    assert MembersBlock.new.prioritize_profiles_with_image
   end
 
 
@@ -145,10 +145,10 @@ class MembersBlockTest < ActiveSupport::TestCase
     block.box = profile.boxes.first
     block.save!
 
-    expects(:_).with('View all').returns('View all')
-    expects(:link_to).with('View all' , :profile => 'mytestuser', :controller => 'people_block_plugin_profile', :action => 'members', :role_key => block.visible_role).returns('link-to-members')
-
-    assert_equal 'link-to-members', instance_eval(&block.footer)
+    instance_eval(&block.footer)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestuser/plugin/people_block/members]'
+    end
   end
 
   should 'provide link to members page with a selected role' do
@@ -158,10 +158,10 @@ class MembersBlockTest < ActiveSupport::TestCase
     block.visible_role = 'profile_member'
     block.save!
 
-    expects(:_).with('View all').returns('View all')
-    expects(:link_to).with('View all' , :profile => 'mytestuser', :controller => 'people_block_plugin_profile', :action => 'members', :role_key => block.visible_role).returns('link-to-members')
-
-    assert_equal 'link-to-members', instance_eval(&block.footer)
+    instance_eval(&block.footer)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestuser/plugin/people_block/members?role_key=profile_member]'
+    end
   end
 
   should 'provide a role to be displayed (and default to nil)' do

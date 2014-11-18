@@ -109,7 +109,7 @@ run 'rake noosfero:translations:compile >/dev/null 2>&1'
 mkdir -p tmp/pids
 
 # use default gitignore rules
-ln -s gitignore.example .gitignore
+ln -s gitignore.example .gitignore || true
 
 # you can now start the server
 say "I: Congratulations, you are ready to run Noosfero."

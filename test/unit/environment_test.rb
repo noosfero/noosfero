@@ -363,6 +363,14 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
   end
 
+  should 'create environment and profile default roles' do
+    env = Environment.default
+    assert_equal 'Environment', env.roles.find_by_key('environment_administrator').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_admin').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_member').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_moderator').kind
+  end
+
   should 'be able to add admins easily' do
     env = Environment.default
     user = create_user('testuser').person

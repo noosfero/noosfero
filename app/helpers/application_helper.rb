@@ -1377,7 +1377,7 @@ module ApplicationHelper
       #     are old things that do not support it we are keeping this hot spot.
       html = @plugins.pipeline(:parse_content, html, source).first
     end
-    html
+    html && html.html_safe
   end
 
   def convert_macro(html, source)

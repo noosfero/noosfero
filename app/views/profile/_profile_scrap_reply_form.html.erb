@@ -9,8 +9,8 @@
                                  :rows => 1,
                                  :class => 'submit-with-keypress',
                                  :title => _('Leave your comment'),
-                                 :onfocus => ('if(this.value==this.title){this.value="";this.style.color="#000"};this.style.backgroundImage="url(' + profile_icon(current_person, :icon, false) + ')"' if logged_in?),
-                                 :onblur => ('if(this.value==""){this.value=this.title;this.style.color="#ccc"};this.style.backgroundImage="none"' if logged_in?),
+                                 :onfocus => ("if(this.value==this.title){this.value='';this.style.color='#000'};this.style.backgroundImage='url(" + profile_icon(current_person, :icon, false) + ")'" if logged_in?),
+                                 :onblur => ("if(this.value==''){this.value=this.title;this.style.color='#ccc'};this.style.backgroundImage='none'" if logged_in?),
                                  :value => _('Leave your comment') %>
         <%= hidden_field_tag 'scrap[scrap_id]', scrap.id %>
         <%= hidden_field_tag 'receiver_id', scrap.sender.id %>
