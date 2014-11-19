@@ -61,6 +61,8 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'create a new user with remote_user_data even if there is a logged user but the remote user is different' do
+    users = User.count
+
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
     user.activate
 
@@ -71,7 +73,7 @@ class AccountControllerTest < ActionController::TestCase
     @request.env["HTTP_REMOTE_USER_DATA"] = '{"email":"another_user@domain.com", "name":"Another User"}'
     get :index
 
-    assert_equal 2, User.count
+    assert_equal users + 2, User.count
     assert_equal "another_user", User.last.login
     assert_equal true, User.last.activated?
     assert_equal User.last.id, session[:user]
@@ -96,6 +98,8 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'create a new user without remote_user_data even if there is a logged user but the remote user is different' do
+    users = User.count
+
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
     user.activate
 
@@ -104,7 +108,7 @@ class AccountControllerTest < ActionController::TestCase
     @request.env["HTTP_REMOTE_USER"] = 'another_user'
     get :index
 
-    assert_equal 2, User.count
+    assert_equal users + 2, User.count
     assert_equal "another_user", User.last.login
     assert_equal true, User.last.activated?
     assert_equal User.last.id, session[:user]
