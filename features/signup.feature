@@ -278,29 +278,6 @@ Feature: signup
     Then "José da Silva" should be a member of "Free Software"
 
   @selenium
-  Scenario: join community on direct signup
-    Given the following users
-      | login | name |
-      | mariasilva | Maria Silva |
-    And the following communities
-       | name           | identifier    | owner      |
-       | Free Software  | freesoftware  | mariasilva |
-    And feature "skip_new_user_email_confirmation" is enabled on environment
-    And I am on /freesoftware
-    When I follow "Join"
-    And I follow "New user"
-    And I fill in the following within ".no-boxes":
-      | e-Mail                | josesilva@example.com |
-      | Username              | josesilva             |
-      | Password              | secret                |
-      | Password confirmation | secret                |
-      | Full name             | José da Silva         |
-    And wait for the captcha signup time
-    And I press "Create my account"
-    Then I should see "Control panel"
-    And "José da Silva" should be a member of "Free Software"
-
-  @selenium
   Scenario: user registration is moderated by admin
     Given feature "admin_must_approve_new_users" is enabled on environment
     And feature "skip_new_user_email_confirmation" is disabled on environment
