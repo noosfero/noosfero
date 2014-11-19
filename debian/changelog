@@ -1,3 +1,9 @@
+noosfero (1.0~rc4) wheezy-test; urgency=low
+
+  * Fourth release candidate
+
+ -- Antonio Terceiro <vagrant@wheezy-base>  Wed, 19 Nov 2014 10:31:16 -0300
+
 noosfero (1.0~rc3) wheezy-test; urgency=low
 
   * Third release candidate to Noosfero 1.0
