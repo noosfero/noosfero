@@ -7,7 +7,8 @@ VAGRANTFILE_API_VERSION = "2"
 require 'fileutils'
 debs = `find ../../pkg/ -name '*.deb' | sort -t _ -V | tail -2`.split
 if debs.empty?
-  puts "W: no debs built in ../../pkg/; will install local ones, or none at all"
+  puts "W: no debs built in ../../pkg/; will either install existing local"
+  puts "   ones, or the ones from the remote repository"
 else
   local_debs = Dir.glob('*.deb')
   debs.each do |f|
