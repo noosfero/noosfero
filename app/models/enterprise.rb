@@ -16,7 +16,8 @@ class Enterprise < Organization
   has_many :inputs, :through => :products
   has_many :production_costs, :as => :owner
 
-  has_and_belongs_to_many :fans, :class_name => 'Person', :join_table => 'favorite_enteprises_people'
+  has_many :favorite_enterprise_people
+  has_many :fans, through: :favorite_enterprise_people, source: :person
 
   def product_categories
     ProductCategory.by_enterprise(self)
