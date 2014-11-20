@@ -172,7 +172,7 @@ class Person < Profile
     FIELDS
   end
 
-  validate :presence_of_required_fields
+  validate :presence_of_required_fields, :unless => :is_template
 
   def presence_of_required_fields
     self.required_fields.each do |field|

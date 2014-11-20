@@ -222,7 +222,7 @@ EOF
       puts "I: please upload the package manually!"
     end
 
-    rm_f "rm tmp/pending-release"
+    rm_f "tmp/pending-release"
   end
 
   desc 'Build Debian packages'

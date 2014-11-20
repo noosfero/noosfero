@@ -18,7 +18,7 @@ class Solr::Response::Xml < Solr::Response::Base
     # parse the xml
     @doc = REXML::Document.new(xml)
 
-    # look for the result code and string 
+    # look for the result code and string
     # <?xml version="1.0" encoding="UTF-8"?>
     # <response>
     # <lst name="responseHeader"><int name="status">0</int><int name="QTime">2</int></lst>

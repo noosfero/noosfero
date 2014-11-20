@@ -1,13 +1,21 @@
+services: 
+  - mongodb
+
+language: ruby
+rvm:
+  - 1.8.7
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install default-jdk
+
 before_script:
   - mongo mydb_test --eval 'db.addUser("travis", "test");'
   - gem update --system 1.4.1 > /dev/null 2>&1
   - rake solr:download
   - RAILS_ENV=test rake solr:start
 
-script: "bundle exec rake $TASK --trace"
+script: 
+  - bundle exec rake test --trace
+  - bundle exec rake test:functional --trace
 
-rvm:
-  - 1.8.7
-env: 
-  - TASK=test
-  - TASK=test:functional

@@ -314,7 +314,7 @@ class CommentControllerTest < ActionController::TestCase
     Time.stubs(:now).returns(now)
     xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     task = Task.last
-    assert_equal now.to_s, task.comment.created_at.to_s
+    assert_equal now.utc.to_s, task.comment.created_at.utc.to_s
   end
 
   should "render_target be nil in article with moderation" do

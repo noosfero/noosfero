@@ -21,8 +21,4 @@ class ProfileInfoBlockTest < ActiveSupport::TestCase
     instance_eval(& block.content)
   end
 
-  should 'not be editable' do
-    assert !ProfileInfoBlock.new.editable?
-  end
-  
 end

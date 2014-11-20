@@ -195,6 +195,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !env.errors[:contact_email.to_s].present?
   end
 
+  should 'notify contact email' do
+    env = Environment.new(:contact_email => 'foo@bar.com')
+    env.stubs(:admins).returns([])
+    assert_equal ['foo@bar.com'], env.notification_emails
+  end
+
   should 'provide a default hostname' do
     env = fast_create(Environment)
     env.domains << create(Domain, :name => 'example.com', :is_default => true)
@@ -355,6 +361,14 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'have admin role' do
     Role.expects(:find_by_key_and_environment_id).with('environment_administrator', Environment.default.id).returns(Role.new)
     assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
+  end
+
+  should 'create environment and profile default roles' do
+    env = Environment.default
+    assert_equal 'Environment', env.roles.find_by_key('environment_administrator').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_admin').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_member').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_moderator').kind
   end
 
   should 'be able to add admins easily' do

@@ -126,7 +126,7 @@ class ContentViewerController < ApplicationController
     elsif !@page.display_to?(user)
       if !profile.public?
         private_profile_partial_parameters
-        render :template => 'profile/_private_profile', :status => 403
+        render :template => 'profile/_private_profile', :status => 403, :formats => [:html]
         allowed = false
       else #if !profile.visible?
         render_access_denied

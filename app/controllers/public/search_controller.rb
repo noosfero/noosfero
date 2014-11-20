@@ -90,10 +90,14 @@ class SearchController < PublicController
   end
 
   def events
-    year = (params[:year] ? params[:year].to_i : Date.today.year)
-    month = (params[:month] ? params[:month].to_i : Date.today.month)
-    day = (params[:day] ? params[:day].to_i : Date.today.day)
-    @date = build_date(year, month, day)
+    if params[:year].blank? && params[:year].blank? && params[:day].blank?
+      @date = Date.today
+    else
+      year = (params[:year] ? params[:year].to_i : Date.today.year)
+      month = (params[:month] ? params[:month].to_i : Date.today.month)
+      day = (params[:day] ? params[:day].to_i : 1)
+      @date = build_date(year, month, day)
+    end
     date_range = (@date - 1.month).at_beginning_of_month..(@date + 1.month).at_end_of_month
 
     @events = []

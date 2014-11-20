@@ -3,6 +3,12 @@ module ArticleHelper
   include PrototypeHelper
   include TokenHelper
 
+  def article_reported_version(article)
+    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
+    partial_path = File.join('shared', 'reported_versions', 'profile', partial_for_class_in_view_path(article.class, search_path))
+    render_to_string(:partial => partial_path, :locals => {:article => article})
+  end
+
   def custom_options_for_article(article, tokenized_children)
     @article = article
 

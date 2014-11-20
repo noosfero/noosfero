@@ -78,7 +78,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'actually add friend' do
     login_as(@profile.identifier)
-    person = fast_create(Person)
+    person = create_user.person
     assert_difference 'AddFriend.count' do
       post :add, :profile => person.identifier
     end
@@ -98,8 +98,9 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show friends link to person' do
     person = create_user('person_1').person
+    person.add_friend(profile)
     get :index, :profile => person.identifier
-    assert_tag :tag => 'a', :content => /#{profile.friends.count}/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
+    assert_tag :tag => 'a', :content => /#{person.friends.count}/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
   should 'display tag for profile' do
@@ -221,6 +222,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display "Products" link for enterprise' do
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    product = fast_create(Product, :profile_id => ent.id)
 
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -366,10 +368,10 @@ class ProfileControllerTest < ActionController::TestCase
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
-  should 'create task when join to closed organization with members' do
+  should 'create a task when joining a closed organization with members' do
     community = fast_create(Community)
     community.update_attribute(:closed, true)
-    admin = fast_create(Person)
+    admin = create_user.person
     community.add_member(admin)
 
     login_as profile.identifier
@@ -488,6 +490,14 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
   end
 
+  should 'show tags in index' do
+    article = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => ['tag1'])
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => 'tag1', :attributes => { :href => /profile\/#{profile.identifier}\/tags\/tag1$/ }
+  end
+
   should 'show description of orgarnization' do
     login_as(@profile.identifier)
     ent = fast_create(Enterprise)
@@ -587,7 +597,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "leave a scrap on another profile" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     assert another_person.scraps_received.empty?
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     assert_equal count + 1, Scrap.count
@@ -645,7 +655,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "the sender be the logged user by default" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     last = Scrap.last
     assert_equal profile, last.sender
@@ -654,7 +664,7 @@ class ProfileControllerTest < ActionController::TestCase
  should "the receiver be the current profile by default" do
     login_as(profile.identifier)
     count = Scrap.count
-    another_person = fast_create(Person)
+    another_person = create_user.person
     post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
     last = Scrap.last
     assert_equal another_person, last.receiver
@@ -686,8 +696,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not display activities of the current profile when he is not followed by the viewer' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     scrap1 = create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p2))
@@ -714,9 +724,9 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not see the friends activities in the current profile' do
-    p2= fast_create(Person)
+    p2 = create_user.person
     assert !profile.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3 = create_user.person
     p3.add_friend(profile)
     assert p3.is_a_friend?(profile)
     ActionTracker::Record.destroy_all
@@ -737,13 +747,13 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see all the activities in the current profile network' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -759,27 +769,21 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
-
     process_delayed_job_queue
-    get :index, :profile => p1.identifier
 
+    login_as p3.user.login
+    get :index, :profile => p1.identifier
     assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
 
   should 'the network activity be visible only to profile followers' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
 
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
+    p1.add_friend(p3)
 
     ActionTracker::Record.delete_all
 
@@ -795,24 +799,11 @@ class ProfileControllerTest < ActionController::TestCase
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
-    @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p2)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-
-    get :index, :profile => p1.identifier
-    assert assigns(:network_activities).blank?
-
-    user = mock()
-    user.stubs(:person).returns(p3)
-    user.stubs(:login).returns('some')
-    @controller.stubs(:current_user).returns(user)
-    Person.any_instance.stubs(:follows?).returns(true)
     process_delayed_job_queue
 
-    get :index, :profile => p3.identifier
-    assert_equivalent [a1,a3], assigns(:network_activities)
+    login_as p2.user.login
+    get :index, :profile => p1.identifier
+    assert assigns(:network_activities).blank?
   end
 
   should 'the network activity be paginated' do
@@ -829,10 +820,10 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'the network activity be visible only to logged users' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
@@ -891,10 +882,10 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'the self activity not crashes with user not logged in' do
-    p1= fast_create(Person)
-    p2= fast_create(Person)
+    p1= create_user.person
+    p2= create_user.person
     assert !p1.is_a_friend?(p2)
-    p3= fast_create(Person)
+    p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
@@ -1076,8 +1067,16 @@ class ProfileControllerTest < ActionController::TestCase
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+  end
+
+  should "show the network activity if the viewer follows the profile" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => person.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
 
     person.add_friend(profile)
+    profile.add_friend(person)
     get :index, :profile => person.identifier
     assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
@@ -1096,8 +1095,16 @@ class ProfileControllerTest < ActionController::TestCase
     scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+  end
+
+  should "show the scrap area on wall if the user follows the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
 
     person.add_friend(profile)
+    profile.add_friend(person)
+
     get :index, :profile => person.identifier
     assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
@@ -1279,6 +1286,17 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'register abuse report with content' do
+    reported = fast_create(Profile)
+    content = fast_create(RawHTMLArticle, :profile_id => reported.id)
+    login_as(profile.identifier)
+    @controller.stubs(:verify_recaptcha).returns(true)
+
+    assert_difference 'AbuseReport.count', 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}, :content_type => content.class.name, :content_id => content.id
+    end
+  end
+
   should 'not ask admin for captcha to register abuse' do
     reported = fast_create(Profile)
     login_as(profile.identifier)
@@ -1457,9 +1475,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public', 'birth_date' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1471,9 +1489,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'Date of birth'
     assert_no_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1487,9 +1505,9 @@ class ProfileControllerTest < ActionController::TestCase
     strange = create_user('person_2').person
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'Date of birth'
     assert_no_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1504,9 +1522,9 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:is_a_friend?).returns(true)
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1519,9 +1537,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.save!
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1534,7 +1552,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to friend' do
@@ -1547,7 +1565,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to self' do
@@ -1558,7 +1576,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'not show contact to non friend' do
@@ -1570,7 +1588,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
     assert_no_tag :tag => 'th', :content => 'Contact'
-    assert_no_tag :tag => 'td', :content => 'e-Mail:'
+    assert_no_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to friend even if private' do
@@ -1583,7 +1601,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to self even if private' do
@@ -1594,7 +1612,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'not display list of communities to manage on menu by default' do
@@ -1702,22 +1720,28 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show enterprises field if enterprises are enabled on environment' do
     person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin person
     environment = person.environment
     environment.disable('disable_asset_enterprises')
     environment.save!
 
     get :index, :profile => person.identifier
-    assert_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+    assert_tag :tag => 'td', :content => 'Enterprises'
+    assert_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
   end
 
   should 'not show enterprises field if enterprises are disabled on environment' do
     person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin person
     environment = person.environment
     environment.enable('disable_asset_enterprises')
     environment.save!
 
     get :index, :profile => person.identifier
-    assert_no_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+    assert_no_tag :tag => 'td', :content => 'Enterprises'
+    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
   end
 
 end

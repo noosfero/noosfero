@@ -692,11 +692,6 @@ Given /^the cache is turned (on|off)$/ do |state|
   ActionController::Base.perform_caching = (state == 'on')
 end
 
-When /^I make a AJAX request to (.*)$/ do |page|
-  header 'X-Requested-With', 'XMLHttpRequest'
-  visit(path_to(page))
-end
-
 Given /^the environment is configured to (.*) after login$/ do |option|
   redirection = case option
     when 'stay on the same page'

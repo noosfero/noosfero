@@ -632,6 +632,23 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal 'example.com', Person['testuser'].organization
   end
 
+  should "create a new user with image" do
+    post :signup, :user => {
+      :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com'
+      },
+      :profile_data => {
+        :organization => 'example.com'
+      },
+      :file => {
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    assert_response :success
+
+    person = Person["testuser"]
+    assert_equal "rails.png", person.image.filename
+  end
+
   should 'activate user after signup if environment is set to skip confirmation' do
     env = Environment.default
     env.enable('skip_new_user_email_confirmation')
@@ -968,6 +985,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   protected
+
   def new_user(options = {}, extra_options ={})
     data = {:profile_data => person_data}
     if extra_options[:profile_data]

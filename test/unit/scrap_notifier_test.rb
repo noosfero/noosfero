@@ -57,10 +57,10 @@ class ScrapNotifierTest < ActiveSupport::TestCase
 
   should 'not deliver mail if is a reply on a community' do
     community = fast_create(Community)
-    person = fast_create(Person)
+    person = create_user.person
     scrap = fast_create(Scrap, :receiver_id => community.id, :sender_id => @sender.id)
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      Scrap.create!(:sender_id => person, :receiver_id => @sender.id, :scrap_id => scrap.id, :content => 'Hi myself!')
+      Scrap.create!(:sender_id => person.id, :receiver_id => @sender.id, :scrap_id => scrap.id, :content => 'Hi myself!')
     end
   end
 

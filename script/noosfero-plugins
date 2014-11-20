@@ -6,7 +6,9 @@ program_name=$(basename $0)
 
 if [ -e /etc/default/noosfero ]; then
   . /etc/default/noosfero
-else
+fi
+
+if [ -z "$NOOSFERO_DIR"]; then
   this_script=$(readlink -f $0)
   NOOSFERO_DIR=$(dirname $this_script | xargs dirname)
 fi
@@ -95,6 +97,14 @@ _enable(){
     else
       dependencies_ok=true
       dependencies_file="$source/dependencies.rb"
+      if [ -e $source/Gemfile ]; then
+        gemfile=$(mktemp --tmpdir=.)
+        cat Gemfile $source/Gemfile > $gemfile
+        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle --local --quiet; then
+          dependencies_ok=false
+        fi
+        rm -f $gemfile $gemfile.lock
+      fi
       if ! run $dependencies_file; then
         dependencies_ok=false
       fi

@@ -1,13 +1,23 @@
 #!/bin/sh
 
+set -e
+
 say() {
   msg="$@"
-  printf "\033[1;34;49m%s\033[m\n" "$msg"
+  if [ -t 1 ]; then
+    printf "\033[1;34;49m%s\033[m\n" "$msg"
+  else
+    echo "$msg"
+  fi
 }
 
 complain() {
   msg="$@"
-  printf "\033[1;31;49m%s\033[m\n" "$msg"
+  if [ -t 1 ]; then
+    printf "\033[1;31;49m%s\033[m\n" "$msg"
+  else
+    echo "$msg"
+  fi
 }
 
 run() {
@@ -80,9 +90,12 @@ else
   # create the database with sample data
   say 'Configuring Noosfero to use PostgreSQL, with your user.'
   run cp config/database.yml.pgsql config/database.yml
+  if [ -z "$USER" ]; then
+    USER=$(stat -c %U $0)
+  fi
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
-  sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole"
-  sudo su - postgres -c "createdb noosfero_development -O $USER"
+  sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
+  sudo su - postgres -c "createdb noosfero_development -O $USER" || true
 
   run rake db:schema:load
   run rake db:data:minimal
@@ -90,14 +103,13 @@ else
   rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 fi
 
-# FIXME compile translations depends on ruby-gettext-rails, please see debian/control
-# run rake noosfero:translations:compile
+run 'rake noosfero:translations:compile >/dev/null 2>&1'
 
 # create needed directory
 mkdir -p tmp/pids
 
 # use default gitignore rules
-ln -s gitignore.example .gitignore
+ln -s gitignore.example .gitignore || true
 
 # you can now start the server
 say "I: Congratulations, you are ready to run Noosfero."

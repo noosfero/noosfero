@@ -1,3 +1,5 @@
 --ignore-dir=log
 --ignore-dir=tmp
 --ignore-dir=pkg
+--ignore-dir=public/javascripts/cache
+--ignore-dir=public/stylesheets/cache

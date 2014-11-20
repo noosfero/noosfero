@@ -130,11 +130,6 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
-  should 'always use WYSIWYG' do
-    get :site_info
-    assert_tag :tag => "script", :content => /tinyMCE\.init/
-  end
-
   should 'set portal community' do
     e = Environment.default
     @controller.stubs(:environment).returns(e)

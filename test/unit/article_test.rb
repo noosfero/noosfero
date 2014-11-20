@@ -1077,10 +1077,11 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'create the notification to organization and all organization members' do
+    Profile.delete_all
     ActionTracker::Record.delete_all
 
     community = fast_create(Community)
-    member_1 = Person.first
+    member_1 = fast_create(Person)
     community.add_member(member_1)
 
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => community.id

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class FriendsBlockTest < ActiveSupport::TestCase
+class FriendsBlockTest < ActionView::TestCase
 
   should 'inherit from Block' do
     assert_kind_of Block, FriendsBlock.new
@@ -8,6 +8,7 @@ class FriendsBlockTest < ActiveSupport::TestCase
 
 
   should 'declare its default title' do
+    FriendsBlock.any_instance.expects(:profile_count).returns(0)
     assert_not_equal Block.new.default_title, FriendsBlock.new.default_title
   end
 
@@ -60,7 +61,7 @@ class FriendsBlockTest < ActiveSupport::TestCase
 
 
   should 'prioritize profiles with image by default' do
-    assert FriendsBlock.new.prioritize_people_with_image
+    assert FriendsBlock.new.prioritize_profiles_with_image
   end
 
 
@@ -98,10 +99,10 @@ class FriendsBlockTest < ActiveSupport::TestCase
     block = FriendsBlock.new
     block.expects(:owner).returns(person1).at_least_once
 
-    expects(:_).with('View all').returns('View all')
-    expects(:link_to).with('View all', :profile => 'mytestperson', :controller => 'profile', :action => 'friends').returns('link-to-friends')
-
-    assert_equal 'link-to-friends', instance_eval(&block.footer)
+    instance_eval(&block.footer)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestperson/friends]'
+    end
   end
 
 

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+mkdir -p log
+
+rc=0
+./script/quick-start > log/quick-start.log 2>&1 || rc=$?
+
+if [ $rc -ne 0 ]; then
+  cat log/quick-start.log
+  exit $rc
+fi

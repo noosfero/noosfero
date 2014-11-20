@@ -198,6 +198,7 @@ Martín Olivera <molivera@solar.org.ar>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
 Nanda Lopes <nanda.listas+psl@gmail.com>
+Parley Martins <parleypachecomartins@gmail.com>
 Paulo Meirelles + Alessandro Palmeira + João M. M. da Silva <paulo@softwarelivre.org>
 Paulo Meirelles + Alessandro Palmeira <paulo@softwarelivre.org>
 Paulo Meirelles + Carlos Morais <paulo@softwarelivre.org>

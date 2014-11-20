@@ -47,4 +47,8 @@ class MembersBlock < PeopleBlockBase
     }
   end
 
+  def self.expire_on
+    {:profile => [:role_assignment]}
+  end
+
 end
