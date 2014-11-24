@@ -35,7 +35,7 @@ namespace :ci do
 
     sh 'testrb', '-Itest', *tests unless tests.empty?
     sh 'cucumber', *features unless features.empty?
-    sh 'cucumber', '-p', 'selenium', *features unless features.empty?
+    sh 'xvfb-run', 'cucumber', '-p', 'selenium', *features unless features.empty?
 
     changed_plugins.each do |plugin|
       task = "test:noosfero_plugins:#{plugin}"
