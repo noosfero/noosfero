@@ -1049,10 +1049,11 @@ module ApplicationHelper
   end
 
   def search_contents_menu
+    host = environment.default_hostname
     links = [
-      {s_('contents|More recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
-      {s_('contents|More viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
-      {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
+      {s_('contents|More recent') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_recent'})}},
+      {s_('contents|More viewed') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_popular'})}},
+      {s_('contents|Most commented') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_comments'})}}
     ]
     if logged_in?
       links.push(_('New content') => modal_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
@@ -1064,10 +1065,11 @@ module ApplicationHelper
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
+    host = environment.default_hostname
      links = [
-       {s_('people|More recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
-       {s_('people|More active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
-       {s_('people|More popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
+       {s_('people|More recent') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_recent'})}},
+       {s_('people|More active') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_active'})}},
+       {s_('people|More popular') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
@@ -1080,10 +1082,11 @@ module ApplicationHelper
   alias :browse_people_menu :search_people_menu
 
   def search_communities_menu
+    host = environment.default_hostname
      links = [
-       {s_('communities|More recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
-       {s_('communities|More active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
-       {s_('communities|More popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
+       {s_('communities|More recent') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_recent'})}},
+       {s_('communities|More active') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_active'})}},
+       {s_('communities|More popular') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
