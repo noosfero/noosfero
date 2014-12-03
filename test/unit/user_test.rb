@@ -525,6 +525,13 @@ class UserTest < ActiveSupport::TestCase
     assert_match /UserActivationJob/, Delayed::Job.last.handler
   end
 
+  should 'not create job to check activation to template users' do
+    Person.any_instance.stubs(:is_template?).returns(true)
+
+    user = new_user
+    assert_equal 0, Delayed::Job.by_handler("--- !ruby/struct:UserActivationJob\nuser_id: #{user.id}\n").count
+  end
+
   should 'deactivate an user' do
     user = new_user
     user.activate

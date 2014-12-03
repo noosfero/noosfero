@@ -34,7 +34,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     user.person.is_template = true
     user.person.save
     job = UserActivationJob.new(user.id)
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       job.perform
       process_delayed_job_queue
     end
