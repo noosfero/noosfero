@@ -907,13 +907,15 @@ module ApplicationHelper
   end
 
   def page_title
-    (@page ? @page.title + ' - ' : '') +
-    (@topic ? @topic.title + ' - ' : '') +
-    (@section ? @section.title + ' - ' : '') +
-    (@toc ? _('Online Manual') + ' - ' : '') +
-    (controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
-    (profile ? profile.short_name : environment.name) +
-    (@category ? " - #{@category.full_name}" : '')
+    CGI.escapeHTML(
+      (@page ? @page.title + ' - ' : '') +
+      (@topic ? @topic.title + ' - ' : '') +
+      (@section ? @section.title + ' - ' : '') +
+      (@toc ? _('Online Manual') + ' - ' : '') +
+      (controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
+      (profile ? profile.short_name : environment.name) +
+      (@category ? " - #{@category.full_name}" : '')
+    )
   end
 
   # DEPRECATED. Do not use this.
@@ -1285,11 +1287,13 @@ module ApplicationHelper
   end
 
   def delete_article_message(article)
-    if article.folder?
-      _("Are you sure that you want to remove the folder \"%s\"? Note that all the items inside it will also be removed!") % article.name
-    else
-      _("Are you sure that you want to remove the item \"%s\"?") % article.name
-    end
+    CGI.escapeHTML(
+      if article.folder?
+        _("Are you sure that you want to remove the folder \"%s\"? Note that all the items inside it will also be removed!") % article.name
+      else
+        _("Are you sure that you want to remove the item \"%s\"?") % article.name
+      end
+    )
   end
 
   def expirable_link_to(expired, content, url, options = {})
