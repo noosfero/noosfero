@@ -65,13 +65,13 @@ class ProfileController < PublicController
 
   def friends
     if is_cache_expired?(profile.friends_cache_key(params))
-      @friends = profile.friends.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
+      @friends = profile.friends.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.friends.count)
     end
   end
 
   def members
     if is_cache_expired?(profile.members_cache_key(params))
-      @members = profile.members_by_name.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage])
+      @members = profile.members_by_name.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage], :total_entries => profile.members.count)
     end
   end
 
