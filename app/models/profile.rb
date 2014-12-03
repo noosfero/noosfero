@@ -97,7 +97,7 @@ class Profile < ActiveRecord::Base
   end
 
   def members_by_name
-    members.order(:name)
+    members.order('profiles.name')
   end
 
   class << self
