@@ -6,10 +6,14 @@
 
   <%= required f.text_field(:name) %>
 
-  <p><%= _('Permissions:') %><p>
-  <% permissions.keys.each do |p| %>
-    <%= check_box_tag("role[permissions][]", p, role.has_permission?(p), { :id => p }) %>
-    <%= content_tag(:label, permission_name(p), { :for => p }) %><br/>
+  <% permissions.each do |key| %>
+  <div class="permissions <%= key.downcase %>">
+    <h4><%= _('%s Permissions:' % key) %></h4>
+    <% ActiveRecord::Base::PERMISSIONS[key].keys.each do |p| %>
+      <%= check_box_tag("role[permissions][]", p, role.has_permission?(p), { :id => p }) %>
+      <%= content_tag(:label, permission_name(p), { :for => p }) %><br/>
+    <% end %>
+  </div>
   <% end %>
 
   <% button_bar do %>
