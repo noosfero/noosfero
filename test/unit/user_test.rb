@@ -349,7 +349,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal expected_hash['since_year'], person.user.data_hash['since_year']
 
     # Avatar stuff
-    assert_match 'http://www.gravatar.com/avatar/a0517761d5125820c28d87860bc7c02e', person.user.data_hash['avatar']
+    assert_match '/www.gravatar.com/avatar/a0517761d5125820c28d87860bc7c02e', person.user.data_hash['avatar']
     assert_match 'only_path=false', person.user.data_hash['avatar']
     assert_match 'd=', person.user.data_hash['avatar']
     assert_match 'size=20', person.user.data_hash['avatar']
