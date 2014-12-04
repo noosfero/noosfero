@@ -6,7 +6,6 @@
   send_email
   shopping_cart
   solr
-  tolerance_time
 ]
 
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
