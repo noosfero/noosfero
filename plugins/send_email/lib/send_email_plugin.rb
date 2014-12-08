@@ -24,3 +24,6 @@ class SendEmailPlugin < Noosfero::Plugin
   end
 
 end
+
+require_dependency 'send_email_plugin/mail'
+require_dependency 'send_email_plugin/sender'
