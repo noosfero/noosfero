@@ -28,7 +28,7 @@
 
 <%# image_tag(article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') %>
 
-<img src="<%=image.public_filename(:display)%>" class="<%=image.css_class_name%>">
+<img src="<%= [Noosfero.root, image.public_filename(:display)].join %>" class="<%=image.css_class_name%>">
 
 <div class="uploaded-file-description <%= 'empty' if image.abstract.blank? %>">
   <%= image.abstract %>
