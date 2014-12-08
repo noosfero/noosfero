@@ -4,7 +4,6 @@
   comment_classification
   ldap
   send_email
-  shopping_cart
   solr
 ]
 
