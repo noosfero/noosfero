@@ -3,7 +3,6 @@
   bsc
   comment_classification
   ldap
-  send_email
   solr
 ]
 
