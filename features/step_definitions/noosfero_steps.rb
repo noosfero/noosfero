@@ -762,3 +762,11 @@ When /^I confirm the "(.*)" dialog$/ do |confirmation|
   assert_equal confirmation, a.text
   a.accept
 end
+
+Given /^the field (.*) is public for all users$/ do |field|
+  Person.all.each do |person|
+    person.fields_privacy = Hash.new if person.fields_privacy.nil?
+    person.fields_privacy[field] = "public"
+    person.save!
+  end
+end
