@@ -201,6 +201,10 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(password)
   end
 
+  add_encryption_method :salted_md5 do |password, salt|
+    Digest::MD5.hexdigest(password+salt)
+  end
+
   add_encryption_method :clear do |password, salt|
     password
   end
