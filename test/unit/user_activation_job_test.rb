@@ -29,6 +29,17 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not destroy user if not activated but is template' do
+    user = new_user :login => 'test3'
+    user.person.is_template = true
+    user.person.save
+    job = UserActivationJob.new(user.id)
+    assert_no_difference 'User.count' do
+      job.perform
+      process_delayed_job_queue
+    end
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

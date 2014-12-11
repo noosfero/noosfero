@@ -1,0 +1,1 @@
+plugins/compat3x/tiny_mce_popup.js

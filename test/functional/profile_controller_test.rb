@@ -98,8 +98,9 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show friends link to person' do
     person = create_user('person_1').person
+    person.add_friend(profile)
     get :index, :profile => person.identifier
-    assert_tag :tag => 'a', :content => /#{profile.friends.count}/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
+    assert_tag :tag => 'a', :content => /#{person.friends.count}/, :attributes => { :href => /profile\/#{person.identifier}\/friends$/ }
   end
 
   should 'display tag for profile' do
@@ -221,6 +222,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display "Products" link for enterprise' do
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    product = fast_create(Product, :profile_id => ent.id)
 
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -486,6 +488,14 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => 'One picture', :attributes => { :href => /\/testuser\/gallery/ }
+  end
+
+  should 'show tags in index' do
+    article = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => ['tag1'])
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => 'tag1', :attributes => { :href => /profile\/#{profile.identifier}\/tags\/tag1$/ }
   end
 
   should 'show description of orgarnization' do
@@ -1057,8 +1067,16 @@ class ProfileControllerTest < ActionController::TestCase
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+  end
+
+  should "show the network activity if the viewer follows the profile" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => person.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
 
     person.add_friend(profile)
+    profile.add_friend(person)
     get :index, :profile => person.identifier
     assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
@@ -1077,8 +1095,16 @@ class ProfileControllerTest < ActionController::TestCase
     scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+  end
+
+  should "show the scrap area on wall if the user follows the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
 
     person.add_friend(profile)
+    profile.add_friend(person)
+
     get :index, :profile => person.identifier
     assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
@@ -1260,6 +1286,17 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'register abuse report with content' do
+    reported = fast_create(Profile)
+    content = fast_create(RawHTMLArticle, :profile_id => reported.id)
+    login_as(profile.identifier)
+    @controller.stubs(:verify_recaptcha).returns(true)
+
+    assert_difference 'AbuseReport.count', 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}, :content_type => content.class.name, :content_id => content.id
+    end
+  end
+
   should 'not ask admin for captcha to register abuse' do
     reported = fast_create(Profile)
     login_as(profile.identifier)
@@ -1438,9 +1475,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public', 'birth_date' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1452,9 +1489,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'Date of birth'
     assert_no_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1468,9 +1505,9 @@ class ProfileControllerTest < ActionController::TestCase
     strange = create_user('person_2').person
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'Date of birth'
     assert_no_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1485,9 +1522,9 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:is_a_friend?).returns(true)
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1500,9 +1537,9 @@ class ProfileControllerTest < ActionController::TestCase
     viewed.save!
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
-    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'Date of birth'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
@@ -1515,7 +1552,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to friend' do
@@ -1528,7 +1565,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to self' do
@@ -1539,7 +1576,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'not show contact to non friend' do
@@ -1551,7 +1588,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
     assert_no_tag :tag => 'th', :content => 'Contact'
-    assert_no_tag :tag => 'td', :content => 'e-Mail:'
+    assert_no_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to friend even if private' do
@@ -1564,7 +1601,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(friend.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to self even if private' do
@@ -1575,7 +1612,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(viewed.identifier)
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
-    assert_tag :tag => 'td', :content => 'e-Mail:'
+    assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'not display list of communities to manage on menu by default' do
@@ -1683,22 +1720,28 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show enterprises field if enterprises are enabled on environment' do
     person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin person
     environment = person.environment
     environment.disable('disable_asset_enterprises')
     environment.save!
 
     get :index, :profile => person.identifier
-    assert_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+    assert_tag :tag => 'td', :content => 'Enterprises'
+    assert_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
   end
 
   should 'not show enterprises field if enterprises are disabled on environment' do
     person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin person
     environment = person.environment
     environment.enable('disable_asset_enterprises')
     environment.save!
 
     get :index, :profile => person.identifier
-    assert_no_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+    assert_no_tag :tag => 'td', :content => 'Enterprises'
+    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
   end
 
 end

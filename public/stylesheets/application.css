@@ -1047,7 +1047,7 @@ code input {
   width: 100%;
   height: 16px;
   text-align: left;
-  background: transparent url(/images/black-alpha-pixel.png);
+  background: transparent url(../images/black-alpha-pixel.png);
   border-bottom: 1px solid #333;
   text-decoration: none;
 }
@@ -1065,7 +1065,7 @@ code input {
   padding-left: 16px;
   border-bottom: 1px solid #eee;
   display: block;
-  background: transparent url(/images/zoom.png) left center no-repeat;
+  background: transparent url(../images/zoom.png) left center no-repeat;
   color: #fff;
 }
 #article pre {
@@ -1257,7 +1257,7 @@ a.comment-picture {
   background: transparent;
 }
 .comment-replies .comment-from-owner.comment-content {
-  background: transparent url(/images/comment-reply-owner-bg.png) left bottom repeat-x;
+  background: transparent url(../images/comment-reply-owner-bg.png) left bottom repeat-x;
 }
 .comment-replies .comment-user-status {
   top: 15px;
@@ -1318,7 +1318,7 @@ a.comment-picture {
   border: 1px solid #808080;
   padding: 0;
   margin-bottom: 10px;
-  background: transparent url(/images/black-alpha-pixel-5.png) left top repeat;
+  background: transparent url(../images/black-alpha-pixel-5.png) left top repeat;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1527,7 +1527,7 @@ div.article-body p img {
 /* NOT PUBLISHED BLOG POSTS */
 
 .blog-post.not-published {
-  background: url(/images/hachure.png);
+  background: url(../images/hachure.png);
   opacity: 0.25;
   filter: alpha(opacity=25);
   zoom: 1;
@@ -1623,7 +1623,7 @@ body.noosfero a.button.with-text.icon-none, body.noosfero input.button.with-text
   padding-left: 2px;
 }
 a.disabled{
-  filter: url(/filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: url(../filters.svg#grayscale); /* Firefox 3.5+ */
   filter: gray; /* IE6-9 */
   -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
   cursor: default;
@@ -1699,7 +1699,7 @@ a.button.disabled, input.disabled {
   display: none;
 }
 .invisible-block {
-  background: url(/images/hachure.png);
+  background: url(../images/hachure.png);
   opacity: 0.25;
 }
 .msie .invisible-block {
@@ -1914,7 +1914,7 @@ a.button.disabled, input.disabled {
   width: 97%;
 }
 .link-list-row:hover {
-  background: #ddd url(/images/drag-and-drop.png) no-repeat;
+  background: #ddd url(../images/drag-and-drop.png) no-repeat;
   background-position: 98% 15px;
 }
 .link-list-row li {
@@ -2007,7 +2007,7 @@ a.button.disabled, input.disabled {
 }
 #content .comment-header .comment-actions-reply {
   float: right;
-  background-image: url(/designs/icons/tango/Tango/16x16/actions/go-jump.png);
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-jump.png);
   height: 12px;
 }
 #content .comment-header ul {
@@ -2104,13 +2104,13 @@ a.button.disabled, input.disabled {
   height: 15px;
 }
 .common-profile-list-block .sex-male {
-  background: url(/images/icons-app/ico-male.png);
+  background: url(../images/icons-app/ico-male.png);
 }
 .common-profile-list-block .sex-female {
-  background: url(/images/icons-app/ico-female.png);
+  background: url(../images/icons-app/ico-female.png);
 }
 .common-profile-list-block .sex-undef {
-  background: url(/images/icons-app/ico-sex-undef.png);
+  background: url(../images/icons-app/ico-sex-undef.png);
 }
 .msie6 .common-profile-list-block .sex-male {
   background: none;
@@ -2357,13 +2357,13 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   height: 15px;
 }
 .profile-info-picture .sex-male {
-  background: url(/images/icons-app/ico-male.png);
+  background: url(../images/icons-app/ico-male.png);
 }
 .profile-info-picture .sex-female {
-  background: url(/images/icons-app/ico-female.png);
+  background: url(../images/icons-app/ico-female.png);
 }
 .profile-info-picture .sex-undef {
-  background: url(/images/icons-app/ico-sex-undef.png);
+  background: url(../images/icons-app/ico-sex-undef.png);
 }
 .msie6 .profile-info-picture .sex-male {
   background: none;
@@ -2805,7 +2805,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   font-size: 0.70em;
   color: white;
   font-weight: bold;
-  background: url(/images/catalog-expanders.png) no-repeat;
+  background: url(../images/catalog-expanders.png) no-repeat;
   display: block;
   line-height: 15px;
   background-position: left 100%;
@@ -3844,7 +3844,7 @@ h1#agenda-title {
   bottom: 5px;
   position: absolute;
   display: block;
-  background: transparent url(/images/loading-dark.gif) center center no-repeat;
+  background: transparent url(../images/loading-dark.gif) center center no-repeat;
 }
 /* hide the close x on the loading screen */
 .controller-invite .ui-dialog-titlebar-close {
@@ -3860,7 +3860,7 @@ h1#agenda-title {
   border: 1px solid #AABB88;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  background: url(/images/ccc.gif); /* image ccc.gif from http://www.wannabegirl.org/translucent */
+  background: url(../images/ccc.gif); /* image ccc.gif from http://www.wannabegirl.org/translucent */
   padding: 10px 30px 20px 30px;
 }
 #categories_container_wrapper {
@@ -3869,7 +3869,7 @@ h1#agenda-title {
   padding: 5px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  background: url(/images/fff.gif); /* image fff.gif from http://www.wannabegirl.org/translucent */
+  background: url(../images/fff.gif); /* image fff.gif from http://www.wannabegirl.org/translucent */
   border: 1px solid #CCC;
   border-bottom: 0;
   position: relative;
@@ -4668,7 +4668,7 @@ h1#agenda-title {
   position: absolute;
   bottom: 0;
   z-index: 2;
-  background: transparent url(/images/black-alpha-pixel.png);
+  background: transparent url(../images/black-alpha-pixel.png);
   color: #fff;
   text-decoration: none;
   display: block;
@@ -4750,10 +4750,10 @@ h1#agenda-title {
   display: none;
 }
 .featured-product-prev {
-  background-image: url(/designs/icons/tango/Tango/16x16/actions/go-previous.png);
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-previous.png);
 }
 .featured-product-next {
-  background-image: url(/designs/icons/tango/Tango/16x16/actions/go-next.png);
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-next.png);
 }
 .featured-products-block-container {
   width: 92%;
@@ -4882,14 +4882,14 @@ h1#agenda-title {
   top: -1px;
   left: -3px;
   overflow: hidden;
-  background: #efefef url(/images/top-arrow.png) center center no-repeat;
+  background: #efefef url(../images/top-arrow.png) center center no-repeat;
   border: 1px solid #ccc;
   z-index: 2;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
 .common-profile-list-block .vcard .menu-submenu-trigger:hover, .menu-submenu-trigger:hover, .comment-actions .vcard .menu-submenu-trigger:hover {
-  background: #fff url(/images/top-arrow.png) center center no-repeat;
+  background: #fff url(../images/top-arrow.png) center center no-repeat;
   border: 1px solid #ccc;
 }
 .menu-submenu-trigger span {
@@ -4916,17 +4916,17 @@ h1#agenda-title {
   right: -44px;
 }
 .menu-submenu-footer {
-  background: transparent url(/images/balloon-footer.png) center center no-repeat;
+  background: transparent url(../images/balloon-footer.png) center center no-repeat;
   height: 29px;
   margin: 0;
 }
 .menu-submenu-header {
-  background: transparent url(/images/balloon-header.png) center center no-repeat;
+  background: transparent url(../images/balloon-header.png) center center no-repeat;
   height: 17px;
   margin: 0;
 }
 .menu-submenu-content {
-  background: transparent url(/images/balloon-middle.png) top left repeat-y;
+  background: transparent url(../images/balloon-middle.png) top left repeat-y;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -5034,7 +5034,7 @@ h1#agenda-title {
   height: 25px;
   width: 100%;
   position: absolute;
-  background: #ccc url(/images/icons-app/chat-22x22.png) 2px 2px no-repeat;
+  background: #ccc url(../images/icons-app/chat-22x22.png) 2px 2px no-repeat;
 }
 #title-bar .title {
   margin: 0;
@@ -5280,7 +5280,7 @@ h1#agenda-title {
   padding-left: 60px;
   float: none;
   overflow: hidden;
-  background: transparent url(/images/forum-activity-bg.png) left center no-repeat;
+  background: transparent url(../images/forum-activity-bg.png) left center no-repeat;
 }
 
 .profile-activity-article-forum .see-forum {
@@ -5288,7 +5288,7 @@ h1#agenda-title {
 }
 
 .profile-activity-article-forum .see-forum a {
-  background: transparent url(/images/forum-activity-icon.png) left center no-repeat;
+  background: transparent url(../images/forum-activity-icon.png) left center no-repeat;
   padding-left: 30px;
   font-weight: bold;
   color: #dadada !important;
@@ -6263,7 +6263,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form .invalid {
   border-color: #7f0000;
-  background-image: url(/images/passwords_nomatch.png);
+  background-image: url(../images/passwords_nomatch.png);
   box-shadow: 0 0 7px red;
 }
 
@@ -6277,7 +6277,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form .checking {
   border-color: #4A4A4A;
-  background-image: url(/images/login_checking.png);
+  background-image: url(../images/login_checking.png);
 }
 
 #signup-form span.checking {
@@ -6290,7 +6290,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form .validated {
   border-color: #005000;
-  background-image: url(/images/passwords_match.png);
+  background-image: url(../images/passwords_match.png);
 }
 
 #signup-form span.validated {
@@ -6348,7 +6348,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
+  background: transparent url(../images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
   right: -150px;
@@ -6410,7 +6410,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #content #signup-form .submit {
   border: 0;
   padding: 8px 36px 12px;
-  background: transparent url(/images/gray-bg.png) left center repeat-x;
+  background: transparent url(../images/gray-bg.png) left center repeat-x;
   font-size: 17px;
   color: #FFF;
   text-align: center;

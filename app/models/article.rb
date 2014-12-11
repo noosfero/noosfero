@@ -285,13 +285,6 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def reported_version(options = {})
-    article = self
-    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
-    partial_path = File.join('shared', 'reported_versions', partial_for_class_in_view_path(article.class, search_path))
-    lambda { render_to_string(:partial => partial_path, :locals => {:article => article}) }
-  end
-
   # returns the data of the article. Must be overriden in each subclass to
   # provide the correct content for the article.
   def data

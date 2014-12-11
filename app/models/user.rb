@@ -354,6 +354,7 @@ class User < ActiveRecord::Base
     end
 
     def delay_activation_check
+      return if person.is_template?
       Delayed::Job.enqueue(UserActivationJob.new(self.id), {:priority => 0, :run_at => 72.hours.from_now})
     end
 end

@@ -12,6 +12,12 @@ class Noosfero::Plugin
 
     attr_writer :should_load
 
+    # Called for each ActiveRecord class with parents
+    # See http://apidock.com/rails/ActiveRecord/ModelSchema/ClassMethods/full_table_name_prefix
+    def table_name_prefix
+      @table_name_prefix ||= "#{name.to_s.underscore}_"
+    end
+
     def should_load
       @should_load.nil? && true || @boot
     end
@@ -523,6 +529,18 @@ class Noosfero::Plugin
   # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
   def change_password_fields
     nil
+  end
+
+  # -> Perform extra transactions related to profile in profile editor
+  # returns = true in success or raise and exception if it could not update the data
+  def profile_editor_transaction_extras
+    nil
+  end
+
+  # -> Return a list of hashs with the needed information to create optional fields
+  # returns = a list of hashs as {:name => "string", :label => "string", :object_name => :key, :method => :key}
+  def extra_optional_fields
+    []
   end
 
   # -> Adds additional blocks to profiles and environments.

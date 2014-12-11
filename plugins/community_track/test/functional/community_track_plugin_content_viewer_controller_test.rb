@@ -101,9 +101,6 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'render tracks in track list block' do
     @block = CommunityTrackPlugin::TrackListBlock.create!(:box => @profile.boxes.last)
     get :view_page, @step.url
-    file = File.open('result.html', 'w+')
-    file.write(@response.body)
-    file.close
     assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'span', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
   end
 

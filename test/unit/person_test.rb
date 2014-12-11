@@ -513,6 +513,18 @@ class PersonTest < ActiveSupport::TestCase
     assert ! person.errors[:custom_formation.to_s].present?
   end
 
+  should 'not require fields if person is a template' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['cell_phone']).at_least_once
+    person = build(Person, :environment => e)
+    assert ! person.valid?
+    assert person.errors[:cell_phone.to_s].present?
+
+    person.is_template = true
+    person.valid?
+    assert ! person.errors[:cell_phone.to_s].present?
+  end
+
   should 'identify when person is a friend' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person

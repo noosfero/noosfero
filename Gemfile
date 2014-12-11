@@ -18,6 +18,7 @@ gem 'rake', :require => false
 gem 'rest-client',              '~> 1.6.7'
 gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false, :group => :development
+gem 'locale',                   '~> 2.0.5'
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
@@ -40,8 +41,9 @@ group :cucumber do
   gem 'selenium-webdriver',     '~> 2.39.0'
 end
 
-# include plugin gemfiles
-Dir.glob(File.join('config', 'plugins', '*')).each do |plugin|
-  plugin_gemfile = File.join(plugin, 'Gemfile')
-  eval File.read(plugin_gemfile) if File.exists?(plugin_gemfile)
+# include gemfiles from enabled plugins
+# plugins in baseplugins/ are not included on purpose. They should not have any
+# dependencies.
+Dir.glob('config/plugins/*/Gemfile').each do |gemfile|
+  eval File.read(gemfile)
 end

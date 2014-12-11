@@ -97,6 +97,14 @@ _enable(){
     else
       dependencies_ok=true
       dependencies_file="$source/dependencies.rb"
+      if [ -e $source/Gemfile ]; then
+        gemfile=$(mktemp --tmpdir=.)
+        cat Gemfile $source/Gemfile > $gemfile
+        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle --local --quiet; then
+          dependencies_ok=false
+        fi
+        rm -f $gemfile $gemfile.lock
+      fi
       if ! run $dependencies_file; then
         dependencies_ok=false
       fi

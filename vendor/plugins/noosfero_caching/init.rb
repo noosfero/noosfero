@@ -21,7 +21,7 @@ module NoosferoHttpCaching
         end
       end
     end
-    if n
+    if n && response.status < 400
       expires_in n.minutes, :private => false, :public => true
     end
   end

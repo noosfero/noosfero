@@ -97,7 +97,7 @@ class Profile < ActiveRecord::Base
   end
 
   def members_by_name
-    members.order(:name)
+    members.order('profiles.name')
   end
 
   class << self
@@ -346,16 +346,17 @@ class Profile < ActiveRecord::Base
   end
 
   def copy_blocks_from(profile)
+    template_boxes = profile.boxes.select{|box| box.position}
     self.boxes.destroy_all
-    profile.boxes.each do |box|
-      new_box = Box.new
+    self.boxes = template_boxes.size.times.map { Box.new }
+
+    template_boxes.each_with_index do |box, i|
+      new_box = self.boxes[i]
       new_box.position = box.position
-      self.boxes << new_box
       box.blocks.each do |block|
         new_block = block.class.new(:title => block[:title])
-        new_block.settings = block.settings
-        new_block.position = block.position
-        self.boxes[-1].blocks << new_block
+        new_block.copy_from(block)
+        new_box.blocks << new_block
       end
     end
   end

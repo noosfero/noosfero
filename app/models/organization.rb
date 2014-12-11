@@ -30,6 +30,16 @@ class Organization < Profile
 
   scope :more_popular, :order => 'members_count DESC'
 
+  validate :presence_of_required_fieds, :unless => :is_template
+
+  def presence_of_required_fieds
+    self.required_fields.each do |field|
+      if self.send(field).blank?
+        self.errors.add_on_blank(field)
+      end
+    end
+  end
+
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
   end
