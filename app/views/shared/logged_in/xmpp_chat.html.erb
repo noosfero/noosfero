@@ -13,13 +13,9 @@
     </script>
 
   <div id='chat'>
-    <div class='header'>
-      <%= _("Chat %s") % environment.name %>
-    </div>
     <div id='buddy-list'>
       <div class='toolbar'>
         <div id='user-status'>
-          <%= profile_image(user, :portrait, :class => 'avatar') %>
           <%= user_status_menu('icon-menu-offline', _('Offline')) %>
         </div>
         <div class='dialog-error' style='display: none'></div>
@@ -39,22 +35,19 @@
       <div id='conversations'></div>
     </div>
 
-    <div id="chat-templates">
+    <div id="chat-templates" style="display: none;">
 
-      <div class="conversation-template">
-        <div class='conversation' style="display: none;">
-          <div class="header">
-            <span class="chat-target">
-              <img class="avatar">
-              <span class="other-name"></span>
-            </span>
-            <a href="" class="back"><%= _('Back') %></a>
-          </div>
-          <div class='history'></div>
-          <div class='input-div'>
-              <div class='icon-chat'></div>
-              <textarea class='input'></textarea>
-          </div>
+      <div class="conversation">
+        <div class="conversation-header">
+          <span class="chat-target">
+	    <img class="avatar">
+            <span class="other-name"></span>
+          </span>
+        </div>
+        <div class='history'></div>
+        <div class='input-div'>
+            <div class='icon-chat'></div>
+            <textarea class='input'></textarea>
         </div>
       </div>
 
@@ -86,12 +79,11 @@
 
       <div class="message">
         <div data-who="%{who}" class="message %{who}">
-          <div class="author">
-            %{avatar}
-            <h5 class="%{who}-name">%{name}</h5>
-          </div>
           <div class="content">
             <span class="time" title="%{time}"></span>
+            <div class="author">
+              %{avatar}
+            </div>
             <p>%{message}</p>
           </div>
         </div>

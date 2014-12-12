@@ -65,7 +65,7 @@ jQuery(function($) {
      },
      insert_or_update_group: function (jid, presence) {
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#buddy-list .buddies .online');
+        var list = $('#buddy-list .buddies ul.online');
         var item = $('#' + jid_id);
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
         log('adding or updating contact ' + jid + ' as ' + presence);
@@ -78,7 +78,7 @@ jQuery(function($) {
         var jid_id = Jabber.jid_to_id(jid);
         var item = $('#' + jid_id);
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
-        var list = $('#buddy-list .buddies ' + (presence=='offline' ? '.offline' : '.online'));
+        var list = $('#buddy-list .buddies ul' + (presence=='offline' ? '.offline' : '.online'));
 
         log('adding or updating contact ' + jid + ' as ' + presence);
         Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.template('.buddy-item'), 'chat');
@@ -535,7 +535,8 @@ jQuery(function($) {
 
       conversation.find('.conversation').show();
       count_unread_messages(jid_id, true);
-      recent_messages(Jabber.jid_of(jid_id));
+      if(conversation.find('#chat-offset-container-0').length == 0)
+        recent_messages(Jabber.jid_of(jid_id));
       conversation.find('.conversation .input-div textarea.input').focus();
    });
 
@@ -551,14 +552,6 @@ jQuery(function($) {
       $('.conversation textarea:visible').focus();
    });
 
-   $('#chat .conversation .back').live('click', function() {
-      $('#chat #chat-window .conversation').hide();
-   });
-
-   $('#chat .toolbar .back').live('click', function() {
-      $('#chat').hide('fast');
-   });
-
    function create_conversation_tab(title, jid_id) {
       var conversation_id = Jabber.conversation_prefix + jid_id;
       var conversation = $('#' + conversation_id);
@@ -569,9 +562,7 @@ jQuery(function($) {
       var jid = Jabber.jid_of(jid_id);
       var identifier = getIdentifier(jid);
 
-      // opening chat with selected online friend
-      var panel = $('<div id="'+conversation_id +'"></div>').appendTo($conversations);
-      panel.append(Jabber.template('.conversation-template'));
+      var panel = $('#chat-templates .conversation').clone().appendTo($conversations).attr('id', conversation_id);
       panel.find('.chat-target .avatar').replaceWith(getAvatar(identifier));
       panel.find('.chat-target .other-name').html(title);
       $('#chat .history').perfectScrollbar();
