@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2009-12-04 18:46-0300\n"
-"Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2014-12-12 14:22+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 #: app/models/approve_comment.rb:17
 #, fuzzy
@@ -6159,7 +6160,7 @@ msgstr "Vous n'avez pas encore de contact."
 
 #: app/views/friends/index.html.erb:10
 msgid "Do you want to see other people in this environment?"
-msgstr "Voulez -vous voir d'autres personnes de cet environnement"
+msgstr "Voulez -vous voir d'autres personnes de cet environnement?"
 
 #: app/views/friends/index.html.erb:16 app/views/friends/index.html.erb:47
 msgid "Find people"
@@ -8499,7 +8500,7 @@ msgstr "partie 2 sur 2"
 
 #: app/views/account/accept_terms.html.erb:14
 msgid " part 2 of 3"
-msgstr "partie 2 sur 3"
+msgstr " partie 2 sur 3"
 
 #: app/views/account/accept_terms.html.erb:22
 msgid "I read the terms of use and accepted them"
