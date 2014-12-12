@@ -7,14 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc3\n"
 "POT-Creation-Date: 2014-10-30 09:24-0300\n"
-"PO-Revision-Date: 2010-10-26 09:57-0300\n"
-"Last-Translator: Anton <anton.c@live.com>\n"
-"Language-Team: German <de@li.org>\n"
-"Language: de\n"
+"PO-Revision-Date: 2014-12-12 14:23+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 #: app/models/approve_comment.rb:17
 #, fuzzy
@@ -2801,7 +2804,7 @@ msgstr "Выйти из системы"
 
 #: app/helpers/application_helper.rb:1155
 msgid " characters left"
-msgstr "символов осталось"
+msgstr " символов осталось"
 
 #: app/helpers/application_helper.rb:1156
 msgid "Limit of characters reached"
@@ -4590,7 +4593,7 @@ msgstr "Вы и %s уже друзья"
 
 #: app/controllers/public/profile_controller.rb:159
 msgid "You have unblocked %s successfully. "
-msgstr " %s успешно разблокирован"
+msgstr "%s успешно разблокирован. "
 
 #: app/controllers/public/profile_controller.rb:162
 msgid "You are not allowed to unblock enterprises in this environment."
@@ -7595,7 +7598,8 @@ msgstr ""
 msgid "This file couldn't be saved"
 msgid_plural "These %{num} files couldn't be saved"
 msgstr[0] "Файл не может быть сохранен"
-msgstr[1] " %{num} файлов не могут быть сохранены"
+msgstr[1] "%{num} файлов не могут быть сохранены"
+msgstr[2] ""
 
 #: app/views/cms/upload_files.html.erb:4
 msgid "There were problems with the following files:"
@@ -8171,7 +8175,7 @@ msgstr "Часть 2 из 2х"
 
 #: app/views/account/accept_terms.html.erb:14
 msgid " part 2 of 3"
-msgstr "Часть 2 из 3х"
+msgstr " Часть 2 из 3х"
 
 #: app/views/account/accept_terms.html.erb:22
 msgid "I read the terms of use and accepted them"
