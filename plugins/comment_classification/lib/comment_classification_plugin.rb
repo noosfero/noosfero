@@ -1,5 +1,3 @@
-require 'ext/environment'
-require 'ext/comment'
 
 class CommentClassificationPlugin < Noosfero::Plugin
 
