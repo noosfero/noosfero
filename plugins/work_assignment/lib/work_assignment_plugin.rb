@@ -9,20 +9,18 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def self.can_download_submission?(user, submission)
-    work_assignment = submission.parent.parent
+      work_assignment = submission.parent.parent
+      submission_folder = submission.parent
 
-    if work_assignment.publish_submissions
-      if work_assignment.only_friends.include?(submission.author)
-        submission.author.friends.include?(user)        
+      if work_assignment.allow_privacy_edition
+        submission_folder.published? || (user && (submission.author == user ||
+        user.has_permission?('view_private_content', work_assignment.profile)))
       else
-        true
+        # work_assignment.publish_submissions || (user && (submission.author == user ||
+        # user.has_permission?('view_private_content', work_assignment.profile) ||
+        # work_assignment.display_unpublished_article_to?(user)))
+        false
       end
-    elsif (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
-      #work_assignment.publish_submissions || (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
-      true
-    else
-      false
-    end
   end
 
   def self.is_submission?(content)

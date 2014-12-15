@@ -1,0 +1,24 @@
+<!-- <div class='<%= (environment.enabled?('media_panel') ? 'with_media_panel' : 'no_media_panel') %>'> -->
+<div class="select-privacy-options">
+<%= labelled_form_for 'article', :html => { :multipart => true, :class => @type } do |f| %>
+
+  <% @article = environment.articles.find_by_id((params[:article_id]))%>
+
+  <% @tokenized_children = params[:tokenized_children]%>
+
+  <%= hidden_field_tag('article_id', @article.id) %>
+
+  <div id='edit-article-options'>
+    <%= options_for_article(@article, @tokenized_children) %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= colorbox_close_button(_('Cancel')) %>
+  <% end %>
+<% end %>
+</div>
+
+<br style='clear: both'/>
+
+<%= javascript_include_tag "article.js" %>

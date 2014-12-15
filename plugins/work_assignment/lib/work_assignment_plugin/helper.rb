@@ -7,6 +7,7 @@ module WorkAssignmentPlugin::Helper
         content_tag('th', c_('Author'), :style => 'width: 50%') +
         content_tag('th', _('Submission date')) +
         content_tag('th', _('Versions'), :style => 'text-align: center') +
+        content_tag('th', '') +
         content_tag('th', '')
       ).html_safe +
       work_assignment.children.map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
@@ -15,14 +16,13 @@ module WorkAssignmentPlugin::Helper
 
   def display_author_folder(author_folder, user)
     return if author_folder.children.empty?
-    only_friends = author_folder.parent.only_friends
     action = 'toggle_friends_permission'
     content_tag('tr',
       content_tag('td', link_to_last_submission(author_folder, user)) +
       content_tag('td', time_format(author_folder.children.last.created_at)) +
       content_tag('td', author_folder.children.count, :style => 'text-align: center') +
       content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
-      content_tag('td', button('toggle_friends_permission', only_friends.include?(author_folder.author) ? _('All') : _('Only Friends'),:controller => 'work_assignment_plugin_content_viewer', :action => action, :folder_id => author_folder.id))
+      content_tag('td', display_privacy_button(author_folder, user))
     ).html_safe +
     author_folder.children.map {|submission| display_submission(submission, user)}.join("\n").html_safe
   end
@@ -69,4 +69,23 @@ module WorkAssignmentPlugin::Helper
   def display_delete_button(article)
     expirable_button article, :delete, _('Delete'), {:controller =>'cms', :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
   end
+
+
+  def display_privacy_button(author_folder, user)
+    if author_folder
+      @folder = environment.articles.find_by_id(author_folder.id)
+      work_assignment = @folder.parent
+
+      if(user && (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile))) 
+        @tokenized_children = prepare_to_token_input(
+                              profile.members.includes(:articles_with_access).find_all{ |m|
+                                m.articles_with_access.include?(@folder)
+                              }
+                            )
+        colorbox_button('edit', _('Edit'), :controller => 'work_assignment_plugin_cms', 
+        :action => 'edits', :layout => false, :article_id => @folder.id, :tokenized_children => @tokenized_children)
+      end
+    end
+  end
+
 end
