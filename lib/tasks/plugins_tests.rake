@@ -134,9 +134,9 @@ end
 def run_tests(name, plugins, run=:all)
   plugins = Array(plugins)
   if name == :cucumber || name == :selenium
-  glob =  "plugins/{#{plugins.join(',')}}/#{task2folder(name)}/**/*.#{task2ext(name)}"
+    glob =  "plugins/{#{plugins.join(',')}}/#{task2folder(name)}/**/*.#{task2ext(name)}"
   else
-  glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
+    glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
   end
   files = Dir.glob(glob)
   if files.empty?
