@@ -160,8 +160,10 @@
 }
 .conversation textarea {
   height: 100%;
-  width: 100%;
+  width: 304px;
   overflow: auto;
+  padding-left: 25px;
+  padding-top: 3px;
 }
 #conversations .history {
   overflow: hidden;
@@ -200,12 +202,13 @@
   margin: 0;
 }
 #chat-window .history .message p {
-  overflow: auto;
   margin-left: 40px;
+  word-break: break-all;
 }
 
 #chat-window .history .message.self p {
   margin-left: 1px;
+  margin-right: 40px;
 }
 
 #chat-window .history .message .content {
@@ -239,6 +242,13 @@
   text-align: center;
   display: block;
 }
+
+#chat .user-status a:hover {
+  color: #FFF;
+  background-color: #999;
+  transition: 0.2s;
+}
+
 div.occupants {
   position: absolute;
   width: 100%;
@@ -362,6 +372,9 @@ div.occupants > a.up {
   color: white;
   display: inline-block
 }
+#chat .toolbar #user-status span.user-status {
+  max-width: 200px;
+}
 #chat #chat-window .history h5 {
   text-align: center;
   word-wrap: break-word;
@@ -374,18 +387,23 @@ div.occupants > a.up {
 #chat .simplemenu-submenu {
   background: #585858;
   border: 1px solid #6B6B6B;
+  top: 42px;
+  left: auto;
+  right: 0;
 }
+
+#chat .simplemenu-item:hover {
+  background: none;
+}
+
 #buddy-list #user-status {
   display: table-cell;
   vertical-align: middle;
-  padding: 0 5px;
+  padding: 0;
   white-space: nowrap; 
   transition: padding 0.3s ease-in;
 }
-#buddy-list:hover #user-status {
-  padding: 0 15px;
-  transition: padding 0.3s ease-in;
-}
+
 #chat .user-status a {
   color: rgb(224, 224, 224);
 }
@@ -399,6 +417,29 @@ div.occupants > a.up {
 }
 .user-status span, .user-status .ui-icon {
   margin-left: 7px;
+}
+
+.user-status .simplemenu-trigger {
+  display: block;
+  height: 42px;
+  line-height: 40px;
+  width: 161px;
+  padding-left: 21px;
+  background-position: 5px 11px;
+  margin: 0px;
+}
+
+.user-status .simplemenu-trigger .ui-icon-triangle-1-s {
+  top: 20px;
+  right: 0px;
+}
+
+.user-status .simplemenu-item a {
+  display: block;
+  height: 20px;
+  padding-left: 20px;
+  line-height: 19px;
+  background-position: 2px 1px;
 }
 
 .conversation .author {
