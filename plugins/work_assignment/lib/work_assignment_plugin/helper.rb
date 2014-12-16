@@ -50,7 +50,6 @@ module WorkAssignmentPlugin::Helper
     end
   end
 
-
   def link_to_last_submission(author_folder, user)
     if WorkAssignmentPlugin.can_download_submission?(user, author_folder.children.last)
       link_to(author_folder.name, author_folder.children.last.url)
@@ -58,6 +57,7 @@ module WorkAssignmentPlugin::Helper
       author_folder.name
     end
   end
+
   # FIXME Copied from custom-froms. Consider passing it to core...
   def time_format(time)
     minutes = (time.min == 0) ? '' : ':%M'
@@ -67,23 +67,24 @@ module WorkAssignmentPlugin::Helper
   end
 
   def display_delete_button(article)
-    expirable_button article, :delete, _('Delete'), {:controller =>'cms', :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
+    expirable_button article, :delete, _('Delete'), 
+    {:controller =>'cms', :action => 'destroy', :id => article.id }, 
+    :method => :post, :confirm => delete_article_message(article)
   end
-
 
   def display_privacy_button(author_folder, user)
     if author_folder
       @folder = environment.articles.find_by_id(author_folder.id)
       work_assignment = @folder.parent
 
-      if(user && (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile))) 
+      if(user && work_assignment.allow_privacy_edition && (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile))) 
         @tokenized_children = prepare_to_token_input(
                               profile.members.includes(:articles_with_access).find_all{ |m|
                                 m.articles_with_access.include?(@folder)
                               }
                             )
-        colorbox_button('edit', _('Edit'), :controller => 'work_assignment_plugin_cms', 
-        :action => 'edits', :layout => false, :article_id => @folder.id, :tokenized_children => @tokenized_children)
+        colorbox_button :edit, _('Edit'), { :controller => 'work_assignment_plugin_cms', 
+        :action => 'edit_visibility', :article_id => @folder.id, :tokenized_children => @tokenized_children}
       end
     end
   end

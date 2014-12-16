@@ -9,18 +9,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def self.can_download_submission?(user, submission)
-      work_assignment = submission.parent.parent
-      submission_folder = submission.parent
-
-      if work_assignment.allow_privacy_edition
-        submission_folder.published? || (user && (submission.author == user ||
-        user.has_permission?('view_private_content', work_assignment.profile)))
-      else
-        # work_assignment.publish_submissions || (user && (submission.author == user ||
-        # user.has_permission?('view_private_content', work_assignment.profile) ||
-        # work_assignment.display_unpublished_article_to?(user)))
-        false
-      end
+      submission.published? || (user && (submission.author == user || user.has_permission?('view_private_content', submission.profile) ||
+      submission.display_unpublished_article_to?(user)))
   end
 
   def self.is_submission?(content)
@@ -47,7 +37,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def content_viewer_controller_filters
     block = proc do
-      path = params[:page]
+      path = get_path(params[:page], params[:format])
       content = profile.articles.find_by_path(path)
 
       if WorkAssignmentPlugin.is_submission?(content) && !WorkAssignmentPlugin.can_download_submission?(user, content)
@@ -91,5 +81,11 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       end
     end
   end
+
+  def add_action_to_list
+    proc do
+      action_list.append(", edits, search_article_privacy_exceptions")
+    end
+  end 
 
 end

@@ -45,6 +45,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
                                                                   :parent => self,
                                                                   :profile => profile,
                                                                   :author => author,
+                                                                  :published => publish_submissions,
                                                                 }, 
                                                                 :without_protection => true
                                                   )
