@@ -27,6 +27,7 @@ jQuery(function($) {
      conversation_prefix: 'conversation-',
      jids: {},
      rooms: {},
+     no_more_messages: {},
 
      template: function(selector) {
        return $('#chat #chat-templates '+selector).clone().html();
@@ -124,9 +125,9 @@ jQuery(function($) {
             var tab_id = '#' + Jabber.conversation_prefix + jid_id;
             var history = $(tab_id).find('.history');
 
-            var offset_container = $('#chat-offset-container-'+offset);
+            var offset_container = history.find('.chat-offset-container-'+offset);
             if(offset_container.length == 0)
-	      offset_container = $('<div id="chat-offset-container-'+offset+'"></div>').prependTo(history);
+	      offset_container = $('<div class="chat-offset-container-'+offset+'"></div>').prependTo(history);
 
             if (offset_container.find('.message:last').attr('data-who') == who) {
                offset_container.find('.message:last .content').append('<p>' + body + '</p>');
@@ -536,9 +537,10 @@ jQuery(function($) {
       var name = Jabber.name_of(jid_id);
       var conversation = create_conversation_tab(name, jid_id);
 
-      conversation.find('.conversation').show();
+      $('.conversation').hide();
+      conversation.show();
       count_unread_messages(jid_id, true);
-      if(conversation.find('#chat-offset-container-0').length == 0)
+      if(conversation.find('.chat-offset-container-0').length == 0)
         recent_messages(Jabber.jid_of(jid_id));
       conversation.find('.conversation .input-div textarea.input').focus();
    });
@@ -601,11 +603,16 @@ jQuery(function($) {
    }
 
    function recent_messages(jid, offset) {
+     if (Jabber.no_more_messages[jid]) return;
+
      if(!offset) offset = 0;
      start_fetching('.history');
      $.getJSON('/chat/recent_messages', {identifier: getIdentifier(jid), offset: offset}, function(data) {
-       //TODO Register if no more messages returned and stop trying to load
-       //     more messages in the future.
+       // Register if no more messages returned and stop trying to load
+       // more messages in the future.
+       if(data.length == 0)
+         Jabber.no_more_messages[jid] = true;
+
        $.each(data, function(i, message) {
          var body = message['body'];
          var from = message['from'];
