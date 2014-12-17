@@ -450,6 +450,8 @@ jQuery(function($) {
             .c('active', {xmlns: Strophe.NS.CHAT_STATES});
         Jabber.connection.send(message);
         Jabber.show_message(jid, $own_name, escape_html(body), 'self', Strophe.getNodeFromJid(Jabber.connection.jid));
+        Archive.register(jid, Jabber.connection.jid, body);
+        move_conversation_to_the_top(jid);
      },
 
      is_a_room: function(jid_id) {
@@ -613,8 +615,27 @@ jQuery(function($) {
          Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
        });
        stop_fetching('.history');
+       console.log('Done fetching...');
        ensure_scroll(jid, offset);
      });
+   }
+
+   function move_conversation_to_the_top(jid) {
+      id = Jabber.jid_to_id(jid);
+      console.log('Moving ' + id);
+      console.log(id);
+      var link = $('#'+id);
+      var li = link.closest('li');
+      var ul = link.closest('ul');
+      ul.prepend(li);
+   }
+
+   function recent_conversations() {
+     $.getJSON('/chat/recent_conversations', {}, function(data) {
+       $.each(data['order'], function(i, identifier) {
+         move_conversation_to_the_top(identifier+'-'+data['domain']);
+       })
+     })
    }
 
    function count_unread_messages(jid_id, hide) {
