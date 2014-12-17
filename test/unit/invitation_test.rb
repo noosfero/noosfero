@@ -60,6 +60,19 @@ class InvitationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not create task if the invited member is already a member of the community' do
+    person = fast_create(Person)
+    person.user = User.new(:email => 'current_user@email.invalid')
+    community = fast_create(Community)
+    user_to_invite = fast_create(User, :email => 'person_to_invite@email.invalid')
+    person_to_invite = fast_create(Person, :user_id => user_to_invite.id)
+    community.add_member(person_to_invite)
+
+    assert_no_difference 'InviteMember.count' do
+      Invitation.invite(person, ['person_to_invite@email.invalid'], 'hello friend <url>', community)
+    end
+  end
+
   should 'not crash if the invited friend is already your friend in the environment' do
     person = create_user('person').person
     invited_friend = create_user('invited_friend').person
