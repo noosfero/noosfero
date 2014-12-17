@@ -231,6 +231,7 @@ jQuery(function($) {
            var jid_id = Jabber.jid_to_id(jid);
            Jabber.insert_or_update_contact(jid, name);
         });
+        sort_conversations();
         // set up presence handler and send initial presence
         Jabber.connection.addHandler(Jabber.on_presence, null, "presence");
         Jabber.send_availability_status(Jabber.presence_status);
@@ -615,22 +616,19 @@ jQuery(function($) {
          Jabber.show_message(jid, from['name'], body, who, from['id'], date, offset);
        });
        stop_fetching('.history');
-       console.log('Done fetching...');
        ensure_scroll(jid, offset);
      });
    }
 
    function move_conversation_to_the_top(jid) {
       id = Jabber.jid_to_id(jid);
-      console.log('Moving ' + id);
-      console.log(id);
       var link = $('#'+id);
       var li = link.closest('li');
       var ul = link.closest('ul');
       ul.prepend(li);
    }
 
-   function recent_conversations() {
+   function sort_conversations() {
      $.getJSON('/chat/recent_conversations', {}, function(data) {
        $.each(data['order'], function(i, identifier) {
          move_conversation_to_the_top(identifier+'-'+data['domain']);
