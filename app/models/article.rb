@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers,
-                  :author, :display_preview
+                  :author, :display_preview, :published_at
 
   acts_as_having_image
 

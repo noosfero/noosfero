@@ -5,6 +5,7 @@
 <div>
   <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
 
+  <%= render :partial => 'text_fields' %>
   <%= render :partial => 'general_fields' %>
   <%= render :partial => 'translatable' %>
   <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true} %>
