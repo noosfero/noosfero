@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0~rc4\n"
 "POT-Creation-Date: 2014-12-18 17:22-0300\n"
-"PO-Revision-Date: 2014-11-13 11:46+0200\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
@@ -6682,9 +6682,8 @@ msgid "Create a new role"
 msgstr "Criar um novo papel"
 
 #: app/views/role/_form.html.erb:11
-#, fuzzy
 msgid "%s Permissions:"
-msgstr "Permissões:"
+msgstr "Permissões de %s:"
 
 #: app/views/role/_form.html.erb:20
 msgid "Create role"
@@ -9987,14 +9986,12 @@ msgid "Sub-organizations could not be updated"
 msgstr "As sub-organizações não puderam ser salvas"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-#, fuzzy
 msgid "Custom form %s was successfully created."
-msgstr "\"O formulário #{@form.name} foi criado com sucesso.\""
+msgstr "\"O formulário %s foi criado com sucesso.\""
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-#, fuzzy
 msgid "Custom form %s was successfully updated."
-msgstr "O formulário personalizado #{@form.name} foi atualizado com sucesso"
+msgstr "O formulário personalizado %s foi atualizado com sucesso"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
 msgid "Form could not be updated"
@@ -10225,30 +10222,28 @@ msgstr ""
 
 #: plugins/lattes_curriculum/lib/html_parser.rb:19
 msgid "Lattes not found. Please, make sure the informed URL is correct."
-msgstr ""
+msgstr "Lattes não encontrado. Por favor certifique-se que a URL informada está correta."
 
 #: plugins/lattes_curriculum/lib/html_parser.rb:21
 msgid "Lattes Platform is unreachable. Please, try it later."
-msgstr ""
+msgstr "A Plataforma Lattes está inacessível. Por favor tente novamente mais tarde."
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
 msgid "A plugin that imports the lattes curriculum into the users profiles"
-msgstr ""
+msgstr "Um plugins que importa o currículo Lattes no perfil dos usuários"
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:40
 msgid "Lattes"
-msgstr ""
+msgstr "Lattes"
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:73
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:106
-#, fuzzy
 msgid " Invalid lattes url"
-msgstr "Endereço inválido"
+msgstr "URL do Lattes inválida"
 
 #: plugins/lattes_curriculum/lib/academic_info.rb:10
-#, fuzzy
 msgid " is invalid."
-msgstr "%{fn} é inválido"
+msgstr " é inválido."
 
 #: plugins/bsc/lib/bsc_plugin.rb:10
 msgid "Adds the Bsc feature"
