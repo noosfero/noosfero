@@ -83,7 +83,7 @@ module WorkAssignmentPlugin::Helper
                                 m.articles_with_access.include?(@folder)
                               }
                             )
-        colorbox_button :edit, _('Edit'), { :controller => 'work_assignment_plugin_cms', 
+        colorbox_button :edit, _('Edit'), { :controller => 'cms', 
         :action => 'edit_visibility', :article_id => @folder.id, :tokenized_children => @tokenized_children}
       end
     end
