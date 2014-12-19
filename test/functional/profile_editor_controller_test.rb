@@ -230,16 +230,20 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'back when update community info fail' do
     org = fast_create(Community)
-    Community.any_instance.stubs(:update_attributes).returns(false)
+    Community.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
+
     assert_template 'edit'
+    assert_response :success
   end
 
   should 'back when update enterprise info fail' do
     org = fast_create(Enterprise)
-    Enterprise.any_instance.stubs(:update_attributes).returns(false)
+
+    Enterprise.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
     assert_template 'edit'
+    assert_response :success
   end
 
   should 'show edit profile button' do

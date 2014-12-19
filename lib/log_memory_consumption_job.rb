@@ -1,8 +1,6 @@
 class LogMemoryConsumptionJob < Struct.new(:last_stat)
   # Number of entries do display
   N = 20
-  # In seconds
-  PERIOD = 10
 
   def perform
     logpath = File.join(Rails.root, 'log', "#{ENV['RAILS_ENV']}_memory_consumption.log")

@@ -92,7 +92,7 @@ module LayoutHelper
   end
 
   def meta_description_tag(article=nil)
-    article ? truncate(strip_tags(article.body.to_s), :length => 200) : environment.name
+    article ? CGI.escapeHTML(truncate(strip_tags(article.body.to_s), :length => 200)) : environment.name
   end
 end
 

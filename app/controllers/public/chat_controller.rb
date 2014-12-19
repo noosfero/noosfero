@@ -19,7 +19,7 @@ class ChatController < PublicController
   def avatar
     profile = environment.profiles.find_by_identifier(params[:id])
     filename, mimetype = profile_icon(profile, :minor, true)
-    if filename =~ /^https?:/
+    if filename =~ /^(https?:)?\/\//
       redirect_to filename
     else
       data = File.read(File.join(Rails.root, 'public', filename))
