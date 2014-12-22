@@ -40,6 +40,7 @@ Alessandro Palmeira + João M. M. Silva <alessandro.palmeira@gmail.com>
 Alessandro Palmeira + Paulo Meirelles <alessandro.palmeira@gmail.com>
 Alessandro Palmeira + Paulo Meirelles + João M. M. da Silva <alessandro.palmeira@gmail.com>
 Alessandro Palmeira + Rafael Manzo <alessandro.palmeira@gmail.com>
+analosnak <analosnak@gmail.com>
 Ana Losnak <analosnak@gmail.com>
 Andre Bernardes <andrebsguedes@gmail.com>
 Antonio Terceiro + Carlos Morais <terceiro@colivre.coop.br>
@@ -81,7 +82,6 @@ Carlos Morais + Diego Araújo <diegoamc90@gmail.com>
 Carlos Morais + Eduardo Morais <carlos88morais@gmail.com>
 Carlos Morais + Paulo Meirelles <carlos88morais@gmail.com>
 Carlos Morais + Pedro Leal <carlos88morais@gmail.com>
-Daniela Feitosa <dani@dohko.(none)>
 Daniel Alves + Diego Araújo <danpaulalves@gmail.com>
 Daniel Alves + Diego Araújo <diegoamc90@gmail.com>
 Daniel Alves + Diego Araújo + Guilherme Rojas <danpaulalves@gmail.com>
@@ -119,7 +119,6 @@ Diego Araújo + Renan Teruo <diegoamc90@gmail.com>
 Diego Araujo + Rodrigo Souto + Rafael Manzo <rr.manzo@gmail.com>
 Diego + Jefferson <diegoamc90@gmail.com>
 Diego Martinez <diegoamc90@gmail.com>
-Diego Martinez <diego@diego-K55A.(none)>
 Diego + Renan <renanteruoc@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Evandro Jr <evandrojr@gmail.com>
@@ -195,6 +194,7 @@ Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Martín Olivera <molivera@solar.org.ar>
+Michal Čihař <michal@cihar.com>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
 Nanda Lopes <nanda.listas+psl@gmail.com>
@@ -221,6 +221,7 @@ Rafael Reggiani Manzo + João M. M. da Silva <rr.manzo@gmail.com>
 Rafael Reggiani Manzo <rr.manzo@gmail.com>
 Raphaël Rousseau <raph@r4f.org>
 Raquel Lira <raquel.lira@gmail.com>
+Raquel <rcordioli@gmail.com>
 Renan Teruo + Caio Salgado <renanteruoc@gmail.com>
 Renan Teruoc + Diego Araujo <renanteruoc@gmail.com>
 Renan Teruo + Diego Araujo <renanteruoc@gmail.com>
@@ -228,13 +229,13 @@ Renan Teruo + Diego Araújo <renanteruoc@gmail.com>
 Renan Teruo + Paulo Meirelles <renanteruoc@gmail.com>
 Renan Teruo + Rafael Manzo <renanteruoc@gmail.com>
 Rodrigo Souto + Ana Losnak + Daniel Bucher + Caio Almeida + Leandro Nunes + Daniela Feitosa + Mariel Zasso <noosfero-br@listas.softwarelivre.org>
-Rodrigo Souto <diguliu@gmail.com>
 Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
 root <root@debian.sdr.serpro>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Tallys Martins <tallysmartins@gmail.com>
 tallys <tallys@tallys.(none)>
+Thiago Zoroastro <thiago.zoroastro@bol.com.br>
 Valessio Brito <contato@valessiobrito.com.br>
 Valessio Brito <contato@valessiobrito.info>
 Valessio Brito <valessio@gmail.com>
