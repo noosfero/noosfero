@@ -83,7 +83,7 @@ EOF
     begin
       File.open("AUTHORS.md", 'w') do |output|
         output.puts AUTHORS_HEADER
-        output.puts `git log --pretty=format:'%aN <%aE>' | sort | uniq`
+        output.puts `git log --no-merges --pretty=format:'%aN <%aE>' | sort | uniq`
         output.puts AUTHORS_FOOTER
       end
       commit_changes(['AUTHORS.md'], 'Updating authors file') if !pendencies_on_authors[:ok]
