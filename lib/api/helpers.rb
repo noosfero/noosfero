@@ -47,6 +47,11 @@ module API
       end
     end
 
+    def find_article(articles, id)
+      article = articles.find(id)
+      article.display_to?(current_user.person) ? article : forbidden!
+    end
+
     def make_conditions_with_parameter(params = {})
       conditions = {}
       from_date = DateTime.parse(params[:from]) if params[:from]
@@ -64,9 +69,9 @@ module API
       conditions = make_conditions_with_parameter(params)
                
       if params[:reference_id]
-        objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+        objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).where(conditions).limit(limit).order("created_at DESC")
       else
-        objects = object.send(method).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+        objects = object.send(method).where(conditions).limit(limit).order("created_at DESC")
       end
       objects
     end
