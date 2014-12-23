@@ -19,29 +19,27 @@ module API
 #    }
         get do
           articles = select_filtered_collection_of(environment, 'articles', params)
+          articles = articles.where(Article.display_filter(current_user.person, nil)[:conditions])
           present articles, :with => Entities::Article 
         end
 
         desc "Return the article id"
         get ':id' do
-          present environment.articles.find(params[:id]), :with => Entities::Article
+          article = find_article(environment.articles, params[:id])
+          present article, :with => Entities::Article
         end
 
         get ':id/children' do
-
-          conditions = make_conditions_with_parameter(params)
-          if params[:reference_id]
-            articles = environment.articles.find(params[:id]).children.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          else
-            articles = environment.articles.find(params[:id]).children.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
-          end
+          article = find_article(environment.articles, params[:id])
+          articles = select_filtered_collection_of(article, 'children', params)
+          articles = articles.where(Article.display_filter(current_user.person, nil)[:conditions])
           present articles, :with => Entities::Article
         end
 
         get ':id/children/:child_id' do
-          present environment.articles.find(params[:id]).children.find(params[:child_id]), :with => Entities::Article
+          article = find_article(environment.articles, params[:id])
+          present find_article(article.children, params[:child_id]), :with => Entities::Article
         end
-
 
       end
 
@@ -51,12 +49,14 @@ module API
             get do
               community = environment.communities.find(params[:community_id])
               articles = select_filtered_collection_of(community, 'articles', params)
+              articles = articles.where(Article.display_filter(current_user.person, community)[:conditions])
               present articles, :with => Entities::Article 
             end
 
             get '/:id' do
               community = environment.communities.find(params[:community_id])
-              present community.articles.find(params[:id]), :with => Entities::Article
+              article = find_article(community.articles, params[:id])
+              present article, :with => Entities::Article
             end
 
             # Example Request:
