@@ -123,6 +123,11 @@ roles] }
     self.tracked_notifications.exists?(activity)
   end
 
+  def can_post_content?(profile, parent=nil)
+    (!parent.nil? && (parent.allow_create?(self))) ||
+      (self.has_permission?('post_content', profile) || self.has_permission?('publish_content', profile))
+  end
+
   # Sets the identifier for this person. Raises an exception when called on a
   # existing person (since peoples' identifiers cannot be changed)
   def identifier=(value)

@@ -1524,6 +1524,7 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
+<<<<<<< HEAD
   should 'have a list of suggested people to be friend' do
     person = create_user('person').person
     suggested_friend = fast_create(Person)
@@ -1636,6 +1637,29 @@ class PersonTest < ActiveSupport::TestCase
   should 'follow? return false when no profile is passed as parameter' do
     person = Person.new
     assert_equal false, person.follows?(nil)
+  end
+
+  should 'allow posting content when has post_content permission' do
+    person = create_user('person').person
+    profile = mock
+    person.expects(:has_permission?).with('post_content', profile).returns(true)
+    assert person.can_post_content?(profile)
+  end
+
+  should 'allow posting content when has publish_content permission' do
+    person = create_user('person').person
+    profile = mock
+    person.expects(:has_permission?).with('post_content', profile).returns(false)
+    person.expects(:has_permission?).with('publish_content', profile).returns(true)
+    assert person.can_post_content?(profile)
+  end
+
+  should 'allow posting content when has permission in the parent' do
+    person = create_user('person').person
+    profile = mock
+    parent = mock
+    parent.expects(:allow_create?).with(person).returns(true)
+    assert person.can_post_content?(profile, parent)
   end
 
 end
