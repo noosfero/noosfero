@@ -53,6 +53,7 @@ module API
       expose :author, :using => Profile
       expose :profile, :using => Profile
       expose :categories, :using => Category
+      expose :parent, :using => Article
     end
 
     class Comment < Grape::Entity
