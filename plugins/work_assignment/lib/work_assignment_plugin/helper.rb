@@ -68,7 +68,7 @@ module WorkAssignmentPlugin::Helper
 
   def display_delete_button(article)
     expirable_button article, :delete, _('Delete'), 
-    {:controller =>'cms', :action => 'destroy', :id => article.id }, 
+    {:controller =>'cms', :action => 'destroy', :id => article.id },
     :method => :post, :confirm => delete_article_message(article)
   end
 
@@ -76,15 +76,17 @@ module WorkAssignmentPlugin::Helper
     if author_folder
       @folder = environment.articles.find_by_id(author_folder.id)
       work_assignment = @folder.parent
+      @back_to = url_for(@folder.parent.url)
+      if(user && work_assignment.allow_privacy_edition &&
+        (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile)))
 
-      if(user && work_assignment.allow_privacy_edition && (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile))) 
         @tokenized_children = prepare_to_token_input(
                               profile.members.includes(:articles_with_access).find_all{ |m|
                                 m.articles_with_access.include?(@folder)
-                              }
-                            )
-        colorbox_button :edit, _('Edit'), { :controller => 'cms', 
-        :action => 'edit_visibility', :article_id => @folder.id, :tokenized_children => @tokenized_children}
+                              })
+        button :edit, _('Edit'), { :controller => 'cms',
+        :action => 'edit_visibility', :article_id => @folder.id,
+        :tokenized_children => @tokenized_children, :back_to => @back_to}, :method => :post
       end
     end
   end

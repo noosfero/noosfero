@@ -34,8 +34,7 @@ class CmsController < MyProfileController
     false 
   end
 
-  action_list = [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new]
-  protect_if :except => action_list do |c, user, profile|
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new] do |c, user, profile|
     add_as_exception?(c.action_name) || user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
 

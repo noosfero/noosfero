@@ -1,4 +1,3 @@
-<!-- <div class='<%= (environment.enabled?('media_panel') ? 'with_media_panel' : 'no_media_panel') %>'> -->
 <div class="select-privacy-options">
 <%= labelled_form_for 'article', :html => { :multipart => true, :class => @type } do |f| %>
 
@@ -14,7 +13,7 @@
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
-    <%= colorbox_close_button(_('Cancel')) %>
+    <%= button :cancel, _('Cancel'), @back_to %>
   <% end %>
 <% end %>
 </div>
