@@ -9,7 +9,7 @@
   <% for section in @block.sections do %>
   <tr>
     <td>
-      <%= hidden_field_tag 'block[sections][][value]', section[:value] %> 
+      <%= hidden_field_tag 'block[sections][][value]', section[:value] %>
       <%= check_box_tag 'block[sections][][checked]', section[:value], section[:checked] %>
     </td>
     <td><%= @block.section_name(section[:value]) %></td>
@@ -25,5 +25,8 @@
 
 <%= render_tabs(tabs) %>
 
+<h3> <%= _('Order by:')%> </h3>
+<%= labelled_radio_button(_("Most recent"), "block[order_by_recent]", true, @block.order_by_recent)%>
+<%= labelled_radio_button(_("Most oldest"), "block[order_by_recent]", false, !@block.order_by_recent)%>
 </div>
 

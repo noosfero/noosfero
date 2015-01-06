@@ -25,8 +25,9 @@ class DisplayContentBlock < Block
                               {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
   settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
+  settings_items :order_by_recent, :type => :boolean, :default => :true
 
-  attr_accessible :sections, :checked_nodes, :display_folder_children, :types
+  attr_accessible :sections, :checked_nodes, :display_folder_children, :types, :order_by_recent
 
   def self.description
     _('Display your contents')
@@ -120,7 +121,11 @@ class DisplayContentBlock < Block
     nodes_conditions = nodes.blank? ? '' : " AND articles.id IN(:nodes) "
     nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
-    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}], :include => [:profile, :image, :tags])
+    order_string = "published_at"
+    order_string += " DESC" if order_by_recent
+
+    docs = owner.articles.order(order_string).find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}], :include => [:profile, :image, :tags])
+
     proc do
       block.block_title(block.title) +
         content_tag('ul', docs.map {|item|
