@@ -6,7 +6,7 @@ class BlockTest < ActiveSupport::TestCase
   should 'describe itself' do
     assert_kind_of String, Block.description
   end
-  
+
   should 'access owner through box' do
     user = create_user('testinguser').person
 
@@ -82,7 +82,7 @@ class BlockTest < ActiveSupport::TestCase
   should 'be able to be displayed only in the homepage (index) of the environment' do
     block = build(Block, :display => 'home_page_only')
 
-    assert_equal true, block.visible?(:article => nil, :request_path => '/')
+    assert_equal true, block.visible?(:article => nil, :request_path => "#{Noosfero.root('/')}")
     assert_equal false, block.visible?(:article => nil)
   end
 
@@ -102,7 +102,7 @@ class BlockTest < ActiveSupport::TestCase
     block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
-    assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
+    assert_equal false, block.visible?(:article => nil, :request_path => "#{Noosfero.root('/')}profile/testinguser")
     assert_equal true, block.visible?(:article => nil)
   end
 
