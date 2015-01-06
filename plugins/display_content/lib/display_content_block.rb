@@ -134,7 +134,7 @@ class DisplayContentBlock < Block
     proc do
       block.block_title(block.title) +
         content_tag('ul', docs.map {|item|
-        if !item.folder?
+        if !item.folder? && item.class != RssFeed
           content_sections = ''
           read_more_section = ''
           tags_section = ''
