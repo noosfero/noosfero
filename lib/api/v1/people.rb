@@ -2,7 +2,7 @@ module API
   module V1
     class People < Grape::API
       before { authenticate! }
-   
+
       resource :people do
 
         # Collect comments from articles
@@ -20,13 +20,13 @@ module API
           present people, :with => Entities::Person
         end
 
-        desc "Return the person information" 
+        desc "Return the person information"
         get '/:id' do
           present environment.people.find(params[:id]), :with => Entities::Person
         end
 
       end
-   
+
     end
   end
 end

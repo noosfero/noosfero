@@ -2,7 +2,7 @@ module API
   module V1
     class Enterprises < Grape::API
       before { authenticate! }
-   
+
       resource :enterprises do
 
         # Collect comments from articles
@@ -19,14 +19,14 @@ module API
           enterprises = select_filtered_collection_of(environment, 'enterprises', params)
           present enterprises, :with => Entities::Enterprise
         end
-  
-        desc "Return the article id" 
+
+        desc "Return one environment by id"
         get ':id' do
           present environment.enterprises.find(params[:id]), :with => Entities::Enterprise
         end
 
       end
-   
+
     end
   end
 end
