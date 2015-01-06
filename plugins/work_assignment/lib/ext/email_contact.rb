@@ -31,17 +31,17 @@ class EmailContact
   class EmailSender < ActionMailer::Base
 
     def notification(email_contact)
-      @name = email_contact.sender.name
-      @email = email_contact.sender.email
-      @message = email_contact.message
-      @target = email_contact.receiver
+      name = email_contact.sender.name
+      email = email_contact.sender.email
+      message = email_contact.message
+      target = email_contact.receiver
 
       options = {
         content_type: 'text/html',
-        to: @target,
-        reply_to: @email,
+        to: target,
+        reply_to: email,
         subject: email_contact.subject,
-        body: @message,
+        body: message,
         from: "#{email_contact.sender.environment.name} <#{email_contact.sender.environment.contact_email}>",
       }
 
@@ -50,16 +50,16 @@ class EmailContact
   end
 
   def build_mail_message!(environment, uploaded_files, parent_id)
-    @article = environment.articles.find_by_id(parent_id)
-    @message = ""
-    if !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
-      @message = @article.default_email + "<br>"
+    article = environment.articles.find_by_id(parent_id)
+    message = ""
+    if !article.nil? && article.type == "WorkAssignmentPlugin::WorkAssignment"
+      message = article.default_email + "<br>"
     end
     uploaded_files.each do |file|
-      @real_file_url = "http://#{file.url[:host]}:#{file.url[:port]}/#{file.url[:profile]}/#{file.path}"
-      @message += "<br><a href='#{@real_file_url}'>#{@real_file_url}</a>"
+      file_url = "http://#{file.url[:host]}:#{file.url[:port]}/#{file.url[:profile]}/#{file.path}"
+      message += "<br><a href='#{file_url}'>#{file_url}</a>"
     end
-    self.message = @message
+    self.message = message
   end
 
 end

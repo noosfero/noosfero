@@ -224,12 +224,6 @@ class Noosfero::Plugin
     false
   end
 
-  # -> Add action names to a list of filtered actions on cms controller
-  # returns = []
-  def add_action_to_list
-    []
-  end
-
   # -> Adds buttons to the control panel
   # returns = { :title => title, :icon => icon, :url => url }
   #   title = name that will be displayed.

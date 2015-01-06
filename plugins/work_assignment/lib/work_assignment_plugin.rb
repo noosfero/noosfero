@@ -54,11 +54,11 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   def cms_controller_filters
     block = proc do
       if request.post? && params[:uploaded_files]
-        @email_notification = params[:article_email_notification]
-        unless !@email_notification || @email_notification.empty?
-          @email_contact = EmailContact.new(:subject => @parent.name, :receiver => @email_notification, :sender => user)
-          @email_contact.build_mail_message!(environment, @uploaded_files, @parent.id)
-          if @email_contact.deliver
+        email_notification = params[:article_email_notification]
+        unless !email_notification || email_notification.empty?
+          email_contact = EmailContact.new(:subject => @parent.name, :receiver => email_notification, :sender => user)
+          email_contact.build_mail_message!(environment, @uploaded_files, @parent.id)
+          if email_contact.deliver
             session[:notice] = _('Notification successfully sent')
           else
             session[:notice] = _('Notification not sent')
@@ -81,11 +81,4 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       end
     end
   end
-
-  def add_action_to_list
-    proc do
-      action_list.append(", edits, search_article_privacy_exceptions")
-    end
-  end 
-
 end

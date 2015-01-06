@@ -16,7 +16,6 @@ module WorkAssignmentPlugin::Helper
 
   def display_author_folder(author_folder, user)
     return if author_folder.children.empty?
-    action = 'toggle_friends_permission'
     content_tag('tr',
       content_tag('td', link_to_last_submission(author_folder, user)) +
       content_tag('td', time_format(author_folder.children.last.created_at)) +
@@ -74,21 +73,21 @@ module WorkAssignmentPlugin::Helper
 
   def display_privacy_button(author_folder, user)
     if author_folder
-      @folder = environment.articles.find_by_id(author_folder.id)
-      work_assignment = @folder.parent
-      @back_to = url_for(@folder.parent.url)
+      folder = environment.articles.find_by_id(author_folder.id)
+      work_assignment = folder.parent
+      @back_to = url_for(folder.parent.url)
       if(user && work_assignment.allow_privacy_edition &&
-        (author_folder.author_id == user.id || user.has_permission?('view_private_content', work_assignment.profile)))
+        ((author_folder.author_id == user.id && (user.is_member_of? work_assignment.profile)) || 
+        user.has_permission?('view_private_content', work_assignment.profile)))
 
         @tokenized_children = prepare_to_token_input(
                               profile.members.includes(:articles_with_access).find_all{ |m|
-                                m.articles_with_access.include?(@folder)
+                                m.articles_with_access.include?(folder)
                               })
         button :edit, _('Edit'), { :controller => 'cms',
-        :action => 'edit_visibility', :article_id => @folder.id,
+        :action => 'edit_visibility', :article_id => folder.id,
         :tokenized_children => @tokenized_children, :back_to => @back_to}, :method => :post
       end
     end
   end
-
 end

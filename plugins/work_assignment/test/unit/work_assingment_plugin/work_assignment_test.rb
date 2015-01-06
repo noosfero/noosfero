@@ -1,4 +1,4 @@
-require "test_helper"
+require File.expand_path(File.dirname(__FILE__) + "/../../../../../test/test_helper")
 
 class WorkAssignmentTest < ActiveSupport::TestCase
   should 'find or create sub-folder based on author identifier' do
@@ -38,7 +38,7 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     submission = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
-    assert author_folder, submission.parent
+    assert_equal author_folder, submission.parent
   end
 
   should 'add logged user on cache_key if is a member' do

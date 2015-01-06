@@ -52,8 +52,6 @@ class CmsController < MyProfileController
     profile.articles.find(c.params[:id]).allow_edit?(user)
   end
 
-
-
   def boxes_holder
     profile
   end

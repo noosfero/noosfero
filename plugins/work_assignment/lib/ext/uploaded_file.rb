@@ -9,4 +9,16 @@ class UploadedFile < Article
       uploaded_file.parent = author_folder
     end
   end
+
+  after_validation do |uploaded_file|
+    if uploaded_file.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+    	uploaded_file.published = uploaded_file.parent.published
+    end
+  end
+
+  # after_create do |uploaded_file|
+  #   if uploaded_file.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+  #   	uploaded_file.published = uploaded_file.parent.published
+  #   end
+  # end
 end
