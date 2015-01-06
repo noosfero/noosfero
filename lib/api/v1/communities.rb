@@ -20,14 +20,14 @@ module API
           present communities, :with => Entities::Community
         end
 
-        #FIXME See only public communities
         get '/all' do
           communities = select_filtered_collection_of(environment, 'communities', params)
+          communities = communities.visible
           present communities, :with => Entities::Community
         end
 
         get ':id' do
-          community = environment.communities.find(params[:id])
+          community = environment.communities.visible.find_by_id(params[:id])
           present community, :with => Entities::Community
         end
 

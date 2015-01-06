@@ -16,24 +16,27 @@ module API
         get ":id/comments" do
 
           conditions = make_conditions_with_parameter(params)
+          article = find_article(environment.articles, params[:id])
 
           if params[:reference_id]
-            comments = environment.articles.find(params[:id]).comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
+            comments = article.comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
           else
-            comments = environment.articles.find(params[:id]).comments.reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
+            comments = article.comments.reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
           end
           present comments, :with => Entities::Comment
 
         end
 
         get ":id/comments/:comment_id" do
-          present environment.articles.find(params[:id]).comments.find(params[:comment_id]), :with => Entities::Comment
+          article = find_article(environment.articles, params[:id])
+          present article.comments.find(params[:comment_id]), :with => Entities::Comment
         end
 
         # Example Request:
         #  POST api/v1/articles/12/comments?private_toke=234298743290432&body=new comment
         post ":id/comments" do
-          present environment.articles.find(params[:id]).comments.create(:author => current_person, :body => params[:body]), :with => Entities::Comment
+          article = find_article(environment.articles, params[:id])
+          present article.comments.create(:author => current_person, :body => params[:body]), :with => Entities::Comment
         end
       end
 
