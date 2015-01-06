@@ -2,7 +2,7 @@
 
 ## Developer Roles
 
-* *Developers* are everyone that are contributing code to Noosfero.
+* *Developers* are everyone that is contributing code to Noosfero.
 * *Committers* are the people with direct commit access to the Noosfero source
   code. They are responsible for reviewing contributions from other developers
   and integrating them in the Noosfero code base. They are the members of the
@@ -23,6 +23,8 @@
   There are no strict rule on what makes a change trivial or urgent; committers
   are expected to exercise good judgement on a case by case basis.
 
+  * Usually changes to the database are not trivial.
+
 * In the case of unsolvable conflict between commiters regarding any change to
   the code, the current release manager(s) will have the final say in the
   matter.
@@ -35,8 +37,9 @@
 
   * The release schedule may include a period of feature freeze, during which
     no new features or any other changes that are not pre-approved by the
-    release manager must be committed to the repository. Committers must
-    respect the feature freezes.
+    release manager must be committed to the repository.
+
+  * Committers must respect the release schedule and feature freezes.
 
 ## Maintainance process
 
@@ -77,8 +80,8 @@ matters related to that branch.
 
 Every developer that wants to be a committer should create [an issue on
 Gitlab](https://gitlab.com/noosfero/noosfero/issues) requesting to be added as
-a committer. This request must include information the requestor's previous
-contributions to the project.
+a committer. This request must include information about the requestor's
+previous contributions to the project.
 
 If 2 or more commiters consider second the request, the requestor is accepted
 as new commiter and added to the Noosfero group.
@@ -96,6 +99,6 @@ that includes new features, a.k.a. the master branch) is apointed by the
 current release manager, and must be a committer first.
 
 Release managers for stable branches are self-appointed, i.e. whoever takes the
-work takes the role. In case of a conflict (e.g. 2+ different people want to
+work takes the role. In case of a conflict (e.g. 2+ different people want to do
 the work but can't agree on working together), the development release manager
 decides.
