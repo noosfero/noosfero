@@ -101,6 +101,13 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
   end
 
+  should 'display the profile homepage if logged user is an environment admin' do
+    env = Environment.default; env.enable('cant_change_homepage'); env.save!
+    env.add_admin(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
   should 'not display the profile homepage if cannot change homepage' do
     env = Environment.default; env.enable('cant_change_homepage')
     get :index, :profile => profile.identifier
