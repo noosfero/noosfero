@@ -114,6 +114,13 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
   end
 
+  should 'not allow profile homepage changes if cannot change homepage' do
+    env = Environment.default; env.enable('cant_change_homepage')
+    a = profile.articles.create!(:name => 'my new home page')
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_response 403
+  end
+
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!
