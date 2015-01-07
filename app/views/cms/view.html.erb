@@ -2,7 +2,7 @@
   <%= _('Content management') %>
 </h1>
 
-<% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
+<% if user.can_change_homepage? && !remove_content_button(:home) %>
   <div class="cms-homepage">
     <%= _('Profile homepage:') %>
     <% if profile.home_page %>
@@ -69,7 +69,7 @@
         <%= expirable_button article, :edit, _('Edit'), {:action => 'edit', :id => article.id} if !remove_content_button(:edit) %>
         <%= button_without_text :eyes, _('Public view'), article.view_url %>
         <%= display_spread_button(profile, article) unless article.folder? || remove_content_button(:spread)%>
-        <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
+        <% if user.can_change_homepage? && !remove_content_button(:home) %>
           <% if profile.home_page != article %>
             <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
           <% else %>
