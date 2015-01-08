@@ -59,8 +59,12 @@ class PersonNotifier
     end
 
     def failure(job)
-      person = Person.find(person_id)
-      person.notifier.dispatch_notification_mail
+      begin
+        person = Person.find(person_id)
+        person.notifier.dispatch_notification_mail
+      rescue
+        Rails.logger.error "PersonNotifier::NotifyJob: Cannot recover from failure"
+      end
     end
 
   end
