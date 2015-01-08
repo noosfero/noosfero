@@ -561,7 +561,7 @@ jQuery(function($) {
       var conversation_id = Jabber.conversation_prefix + jid_id;
       var conversation = $('#' + conversation_id);
       if (conversation.length > 0) {
-         return conversation;
+        return conversation;
       }
 
       var jid = Jabber.jid_of(jid_id);

@@ -334,8 +334,7 @@ function toggleSubmenu(trigger, title, link_list) {
 }
 
 function toggleMenu(trigger) {
-  hideAllSubmenus();
-  jQuery(trigger).siblings('.simplemenu-submenu').toggle().toggleClass('opened');
+  jQuery(trigger).siblings('.simplemenu-submenu').toggle();
 }
 
 function hideAllSubmenus() {
@@ -569,6 +568,7 @@ function display_notice(message) {
 }
 
 function open_chat_window(self_link, anchor) {
+   if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
    if(anchor) {
       jQuery('#chat').show('fast');
       jQuery("#chat" ).trigger('opengroup', anchor);
