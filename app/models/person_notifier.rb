@@ -74,6 +74,11 @@ class PersonNotifier
     end
 
     def content_summary(person, notifications)
+      if person.environment
+        ActionMailer::Base.asset_host = person.environment.top_url
+        ActionMailer::Base.default_url_options[:host] = person.environment.default_hostname
+      end
+
       @current_theme = 'default'
       @profile = person
       @recipient = @profile.nickname || @profile.name
