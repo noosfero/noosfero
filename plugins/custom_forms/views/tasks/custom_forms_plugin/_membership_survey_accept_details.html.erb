@@ -1,5 +1,5 @@
 <% @form = CustomFormsPlugin::Form.find(task.form_id) %>
-<% @submission = CustomFormsPlugin::Submission.new(:form_id => @form.id, :profile_id => user.id) %>
+<% @submission = CustomFormsPlugin::Submission.new(:form => @form, :profile => user) %>
 
 <h2><%= @form.name %></h2>
 <p><%= @form.description %></p>
@@ -11,6 +11,6 @@
   <% end %>
 <% end %>
 
-<% f.fields_for :submission do |fi| %>
+<%= f.fields_for :submission do |fi| %>
   <%= render :partial => 'shared/form_submission', :locals => {:f => fi} %>
 <% end %>

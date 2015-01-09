@@ -23,7 +23,7 @@
 <h2><%= _('Fields') %></h2>
 
 <ul class='field-list'>
-  <% f.fields_for :fields do |builder| %>
+  <%= f.fields_for :fields do |builder| %>
     <li>
       <%= render partial_for_class(builder.object.class), :f => builder %>
     </li>
