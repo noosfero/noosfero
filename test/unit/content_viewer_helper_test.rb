@@ -83,6 +83,14 @@ class ContentViewerHelperTest < ActionView::TestCase
     assert_equal '', result
   end
 
+  should 'not crash if spam_comments_count is nil' do
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.stubs(:comments_count).returns(10)
+    article.stubs(:spam_comments_count).returns(nil)
+    result = number_of_comments(article)
+    assert_match /10 comments/, result
+  end
+
   should 'not list feed article' do
     profile.articles << build(Blog, :name => 'Blog test', :profile => profile)
     assert_includes profile.blog.children.map{|i| i.class}, RssFeed

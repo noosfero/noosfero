@@ -76,3 +76,6 @@ else
   apt-cache policy noosfero
   apt-get install -qy noosfero noosfero-apache
 fi
+
+a2dissite 000-default
+service apache2 reload

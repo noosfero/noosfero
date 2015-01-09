@@ -79,7 +79,22 @@ run(){
 
 _enable(){
   plugin="$1"
-  source="$available_plugins_dir/$plugin"
+
+  if [ -d "$available_plugins_dir/$plugin" ]; then
+    source="$available_plugins_dir/$plugin"
+    linksource="../../plugins/$plugin"
+  else
+    if [ ! -d "$plugin" ]; then
+      echo "E: $plugin not found (needs to be an existing directory)"
+      return
+    fi
+
+    # out-of-tree plugins
+    source="$plugin"
+    linksource="$source"
+    plugin=$(basename "$plugin")
+  fi
+
   target="$enabled_plugins_dir/$plugin"
   base="$base_plugins_dir/$plugin"
   run "$source/before_enable.rb"
@@ -110,7 +125,7 @@ _enable(){
       fi
     fi
     if [ "$installation_ok" = true ] && [ "$dependencies_ok" = true ]; then
-      ln -s "$source" "$target"
+      ln -s "$linksource" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       test -d "$target/public" && ln -s "$target/public" "$plugins_public_dir/$plugin"
