@@ -1,0 +1,26 @@
+var theme_id = <%= current_theme.to_json %>;
+
+<% if @pjax_loaded_themes.blank? or not @pjax_loaded_themes.include? current_theme %>
+  pjax.themes[theme_id] = {
+    id: theme_id,
+    favicon: '<%= image_path theme_favicon %>',
+    header: '<%= escape_javascript theme_header %>',
+    site_title: '<%= escape_javascript theme_site_title %>',
+    extra_navigation: '<%= escape_javascript theme_extra_navigation %>',
+    footer: '<%= escape_javascript theme_footer %>',
+    js_src: <%= theme_javascript_src.to_json %>,
+  };
+<% end %>
+
+var state = {
+  body_classes: <%= body_classes.to_json %>,
+  layout_template: <%= layout_template.to_json %>,
+  theme: pjax.themes[theme_id],
+};
+
+if (jQuery.pjax.state)
+  pjax.states[jQuery.pjax.state.id] = state;
+
+if (!pjax.initial_state)
+  pjax.initial_state = state;
+
