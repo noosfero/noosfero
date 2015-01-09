@@ -19,6 +19,26 @@
   * In the case the original author is a committer, he/she should feel free to
     commit directly if after 1 week nobody has provided any kind of feedback.
 
+  * Developers who are not committers should feel free to ping committers if
+    they do not get feedback on their contributions after 1 week.
+
+    * On GitLab, one can just add a comment to the merge request; one can also
+      @-mention specific committers or other developers who have expertise on
+      the area of the contribution.
+
+  * Committers should follow the activity of the project, and try to help
+    reviewing contributions from others as much as possible.
+
+    * On GitLab one can get emails for all activity on a project by setting the
+      [notification settings](https://gitlab.com/profile/notifications) to
+      "watch".
+
+  * Anyone can help by reviewing contributions. Committers are the only ones
+    who can give the final approval to a contribution, but everyone is welcome
+    to help with code review, testing, etc.
+
+    * See note above about setting up notification on GitLab.
+
 * Committers should feel free to push trivial (or urgent) changes directly.
   There are no strict rule on what makes a change trivial or urgent; committers
   are expected to exercise good judgement on a case by case basis.
