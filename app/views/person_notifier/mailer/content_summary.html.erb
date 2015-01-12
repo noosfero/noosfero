@@ -7,14 +7,21 @@
       <% end %>
       <span style="font-weight:bold;color: #333;font-size:19px;margin-left: 8px;"><%= _("%s's Notifications") % @profile.name %></h3>
     </div>
-    <div style="margin: 0 20px 20px 20px;border-top:2px solid #e2e2e2;">
+    <div style="margin: 0 20px 20px 20px;border-top:1px solid #e2e2e2;">
       <% if @tasks.present? %>
-        <div style="border-bottom: 1px solid #CBCBCB;padding-top: 15px;font-weight: bold;text-align: right;color: #7c7c7c;float: right;min-width: 140px;"><%= _('Tasks') %></div>
-        <%= render :partial => 'task', :collection => @tasks %>
+        <div style="border-top: 1px solid #e2e2e2;">
+          <div style="border-bottom: 1px solid #CBCBCB;padding-top: 15px;font-weight: bold;text-align: right;color: #7c7c7c;float: right;min-width: 140px;">
+            <%= _('Tasks') %>
+          </div>
+          <%= render :partial => 'task', :collection => @tasks %>
+        </div>
       <% end %>
 
       <% if @notifications.present? %>
-        <div style="border-bottom: 1px solid #CBCBCB;padding-top: 15px;font-weight: bold;text-align: right;color: #7c7c7c;float: right;min-width: 140px;"><%= _('Network Activity') %></div>
+        <div style="border-top: 1px solid #e2e2e2;">
+          <div style="border-bottom: 1px solid #CBCBCB;padding-top: 15px;font-weight: bold;text-align: right;color: #7c7c7c;float: right;min-width: 140px;">
+            <%= _('Network Activity') %>
+          </div>
           <% @notifications.each do |activity| %>
               <div style="border-bottom:1px solid #e2e2e2;padding:15px 0;width:600px">
               <table style="width:100%;">
