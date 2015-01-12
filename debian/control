@@ -61,6 +61,11 @@ Depends:
  dbconfig-common,
  adduser,
  exim4 | mail-transport-agent,
+# to minimize upgrade issues:
+ ruby-feedparser (>= 0.7-3~),
+ ruby-eventmachine (>= 0.12.10-4~),
+ ruby-rack (>= 1.4.5-2~),
+ ruby-tzinfo (>= 1.1.0-2~),
  ${misc:Depends}
 Recommends:
  postgresql,
