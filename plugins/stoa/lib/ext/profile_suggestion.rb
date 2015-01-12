@@ -4,10 +4,9 @@ class ProfileSuggestion
 
   CATEGORIES.merge!({:common_classroom => _('Classroom in common')})
 
-  RULES += %w[
-    people_with_common_classroom
-  ]
-
+  RULES[:people_with_common_classroom] = {
+    :threshold => 2, :weight => 1, :connection => 'Profile'
+  }
   def self.people_with_common_classroom(person)
     usp_id = person.usp_id
     return if usp_id.nil?
