@@ -2,7 +2,14 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent, :allow_members_to_edit, :translation_of_id, :language, :license_id, :parent_id, :display_posts_in_current_language, :category_ids, :posts_per_page, :moderate_comments, :accept_comments, :feed, :published, :source, :highlighted, :notify_comments, :display_hits, :slug, :external_feed_builder, :display_versions, :external_link, :image_builder
+  attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent,
+                  :allow_members_to_edit, :translation_of_id, :language,
+                  :license_id, :parent_id, :display_posts_in_current_language,
+                  :category_ids, :posts_per_page, :moderate_comments,
+                  :accept_comments, :feed, :published, :source,
+                  :highlighted, :notify_comments, :display_hits, :slug,
+                  :external_feed_builder, :display_versions, :external_link,
+                  :image_builder, :show_to_followers
 
   acts_as_having_image
 
@@ -333,7 +340,7 @@ class Article < ActiveRecord::Base
   def belongs_to_blog?
     self.parent and self.parent.blog?
   end
-  
+
   def belongs_to_forum?
     self.parent and self.parent.forum?
   end
@@ -445,6 +452,7 @@ class Article < ActiveRecord::Base
       if self.parent && !self.parent.published?
         return false
       end
+
       true
     else
       false
@@ -476,14 +484,17 @@ class Article < ActiveRecord::Base
     {:conditions => ["  articles.published = ? OR
                         articles.last_changed_by_id = ? OR
                         articles.profile_id = ? OR
-                        ?",
-                        true, user.id, user.id, user.has_permission?(:view_private_content, profile)] }
+                        ? OR  articles.show_to_followers = ? AND ?",
+                        true, user.id, user.id, user.has_permission?(:view_private_content, profile),
+                        true, user.follows?(profile)]}
   end
+
 
   def display_unpublished_article_to?(user)
     user == author || allow_view_private_content?(user) || user == profile ||
     user.is_admin?(profile.environment) || user.is_admin?(profile) ||
-    article_privacy_exceptions.include?(user)
+    article_privacy_exceptions.include?(user) ||
+    (self.show_to_followers && user.follows?(profile))
   end
 
   def display_to?(user = nil)

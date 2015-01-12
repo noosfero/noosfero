@@ -47,6 +47,28 @@ Feature: edit article
     Then I should see "Access denied"
 
   @selenium
+  Scenario: Hide token field when show to members is activated
+    Given the following communities
+      | name           | identifier    | owner     |
+      | Free Software  | freesoftware  | joaosilva |
+    And the following users
+      | login | name        |
+      | mario | Mario Souto |
+      | maria | Maria Silva |
+    And "Mario Souto" is a member of "Free Software"
+    And "Maria Silva" is a member of "Free Software"
+    And I am on freesoftware's control panel
+    And I follow "Manage Content"
+    And I should see "New content"
+    And I follow "New content"
+    And I should see "Folder"
+    When I follow "Folder"
+    And I fill in "Title" with "My Folder"
+    And I choose "article_published_false"
+    And I check "article_show_to_followers"
+    Then I should not see "Fill in the search"
+
+  @selenium
   Scenario: show exception users field when you choose the private option
     Given the following communities
       | name           | identifier    | owner     |
