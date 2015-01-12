@@ -10,6 +10,13 @@ sub vcl_recv {
   }
 }
 
+sub vcl_deliver {
+  # Force clients to aways hit the server again for HTML pages
+  if (resp.http.Content-Type ~ "^text/html") {
+    set resp.http.Cache-Control = "no-cache";
+  }
+}
+
 sub vcl_error {
     set obj.http.Content-Type = "text/html; charset=utf-8";
 
