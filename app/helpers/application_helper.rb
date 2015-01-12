@@ -433,19 +433,19 @@ module ApplicationHelper
   end
 
   def theme_site_title
-    theme_include('site_title')
+    @theme_site_title ||= theme_include 'site_title'
   end
 
   def theme_header
-    theme_include('header')
+    @theme_header ||= theme_include 'header'
   end
 
   def theme_footer
-    theme_include('footer')
+    @theme_footer ||= theme_include 'footer'
   end
 
   def theme_extra_navigation
-    theme_include('navigation')
+    @theme_extra_navigation ||= theme_include 'navigation'
   end
 
   def is_testing_theme
@@ -674,13 +674,14 @@ module ApplicationHelper
     html.join "\n"
   end
 
+  def theme_javascript_src
+    script = File.join theme_path, 'theme.js'
+    script if File.exists? File.join(Rails.root, 'public', script)
+  end
+
   def theme_javascript_ng
-    script = File.join(theme_path, 'theme.js')
-    if File.exists?(File.join(Rails.root, 'public', script))
-      javascript_include_tag script
-    else
-      nil
-    end
+    script = theme_javascript_src
+    javascript_include_tag script if script
   end
 
   def file_field_or_thumbnail(label, image, i)
