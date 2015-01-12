@@ -71,6 +71,7 @@ class CmsController < MyProfileController
 
   def index
     @article = nil
+    @portal_enabled = environment.portal_community && environment.enabled?('use_portal_community')
     @articles = profile.top_level_articles.paginate(
       :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
       :per_page => per_page,
@@ -274,7 +275,7 @@ class CmsController < MyProfileController
       begin
         task.finish
       rescue Exception => ex
-         @failed[ex.message] ? @failed[ex.message] << item.name : @failed[ex.message] = [item.name]
+         @failed[ex.message] ? @failed[ex.message] << @article.name : @failed[ex.message] = [@article.name]
       end
       if @failed.blank?
         session[:notice] = _("Your publish request was sent successfully")
@@ -293,7 +294,7 @@ class CmsController < MyProfileController
       @article = profile.articles.find(params[:id])
       @failed = {}
       article_name = params[:name]
-      params_marked = params['q'].split(',').select { |marked| user.memberships.map(&:id).include? marked.to_i }
+      params_marked = (params['q'] || '').split(',').select { |marked| user.memberships.map(&:id).include? marked.to_i }
       @marked_groups = Profile.find(params_marked)
       if @marked_groups.empty?
         return session[:notice] = _("Select some group to publish your article")
