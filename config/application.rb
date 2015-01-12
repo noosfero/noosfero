@@ -111,9 +111,7 @@ module Noosfero
     # Make sure the secret is at least 30 characters and all random,
     # no regular words or you'll be exposed to dictionary attacks.
     config.secret_token = noosfero_session_secret
-    config.action_dispatch.session = {
-      :key    => '_noosfero_session',
-    }
+    config.session_store :cookie_store, :key => '_noosfero_session'
 
     config.time_zone = File.read('/etc/timezone').split("\n").first
     config.active_record.default_timezone = :local

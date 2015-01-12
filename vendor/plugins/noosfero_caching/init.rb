@@ -49,11 +49,11 @@ module NoosferoHttpCaching
 
     # filter off all cookies except for plugin-provided ones that are
     # path-specific (i.e path != "/").
-    def remove_unwanted_cookies(cookie_list)
-      return nil if cookie_list.nil?
-      cookie_list.select do |c|
+    def remove_unwanted_cookies(set_cookie)
+      return nil if set_cookie.nil?
+      set_cookie.split(/\s*,\s*/).select do |c|
         c =~ /^_noosfero_plugin_\w+=/ && c =~ /path=\/\w+/
-      end
+      end.join(', ')
     end
 
   end
@@ -61,7 +61,7 @@ module NoosferoHttpCaching
 end
 
 unless Rails.env.development?
-  middleware = Rails.application.config.middleware
+  middleware = Noosfero::Application.config.middleware
   ActionController::Base.send(:include, NoosferoHttpCaching)
-  middleware.use NoosferoHttpCaching::Middleware
+  middleware.insert_before ::ActionDispatch::Cookies, NoosferoHttpCaching::Middleware
 end
