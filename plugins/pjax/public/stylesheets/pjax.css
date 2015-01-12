@@ -1,0 +1,16 @@
+.loading-overlay {
+  position: absolute;
+  background-image: url(/plugins/pjax/images/loading-overlay.gif);
+  opacity: 0.1;
+  z-index: 10; }
+
+#pjax-loading-gears {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: white url(/plugins/pjax/images/loading-gears.gif) no-repeat center center;
+  background-size: 5%; }
