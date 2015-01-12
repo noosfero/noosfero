@@ -70,16 +70,6 @@ module Noosfero
     end
   end
 
-  def self.term(t)
-    self.terminology.get(t)
-  end
-  def self.terminology
-    @terminology ||= Noosfero::Terminology::Default.instance
-  end
-  def self.terminology=(term)
-    @terminology = term
-  end
-
   def self.url_options
     case Rails.env
     when 'development'
