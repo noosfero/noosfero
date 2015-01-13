@@ -523,8 +523,10 @@ function userDataCallback(data) {
   if (data.login) {
     // logged in
     if (data.chat_enabled) {
-      setInterval(function(){ $.getJSON(user_data, chatOnlineUsersDataCallBack)}, 10000);
+      setInterval(function(){ jQuery.getJSON(user_data, chatOnlineUsersDataCallBack)}, 10000);
     }
+    jQuery('head').append('<meta content="authenticity_token" name="csrf-param" />');
+    jQuery('head').append('<meta content="'+jQuery.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
   }
   if (data.notice) {
     display_notice(data.notice);
@@ -546,10 +548,6 @@ jQuery(function($) {
 
   var user_data = noosfero_root() + '/account/user_data';
   $.getJSON(user_data, userDataCallback)
-  if (user_data.login) {
-    $('head').append('<meta content="authenticity_token" name="csrf-param" />');
-    $('head').append('<meta content="'+$.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
-  }
 
   $.ajaxSetup({ cache: false });
 
