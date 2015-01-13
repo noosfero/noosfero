@@ -67,7 +67,7 @@
   <% end %>
 
 
-  <% if @portal_enabled %>
+  <% if environment.portal_enabled %>
     <li onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
       <strong><%= _("Publish your article on portal community") %></strong>
       <div class='description'><%= _('You can suggest this article to the portal community, where it can show up on the homepage.') %></div>

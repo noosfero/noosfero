@@ -71,7 +71,6 @@ class CmsController < MyProfileController
 
   def index
     @article = nil
-    @portal_enabled = environment.portal_community && environment.enabled?('use_portal_community')
     @articles = profile.top_level_articles.paginate(
       :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
       :per_page => per_page,
@@ -266,7 +265,6 @@ class CmsController < MyProfileController
 
   def publish
     @article = profile.articles.find(params[:id])
-    @portal_enabled = environment.portal_community && environment.enabled?('use_portal_community')
     record_coming
     @failed = {}
     if request.post?
@@ -321,7 +319,7 @@ class CmsController < MyProfileController
   def publish_on_portal_community
     if request.post?
       @article = profile.articles.find(params[:id])
-      if environment.portal_community && environment.enabled?('use_portal_community')
+      if environment.portal_enabled
         task = ApproveArticle.create!(:article => @article, :name => params[:name], :target => environment.portal_community, :requestor => user)
         begin
           task.finish unless environment.portal_community.moderated_articles?

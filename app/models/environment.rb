@@ -806,6 +806,10 @@ class Environment < ActiveRecord::Base
     "home-page-news/#{cache_key}-#{language}"
   end
 
+  def portal_enabled
+    portal_community && enabled?('use_portal_community')
+  end
+
   def notification_emails
     [contact_email].select(&:present?) + admins.map(&:email)
   end
