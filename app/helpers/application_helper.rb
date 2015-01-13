@@ -1306,7 +1306,7 @@ module ApplicationHelper
   end
 
   def content_remove_spread(content)
-    not (profile != user || user.communities.present? || @portal_enabled)
+    !content.public? || content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
   end
 
   def remove_content_button(action)

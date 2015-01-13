@@ -48,20 +48,11 @@ class CmsHelperTest < ActionView::TestCase
     result = link_to_article(file)
   end
 
-  should 'display spread button when content is public' do
+  should 'display spread button' do
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
     article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'button with-text icon-spread', :title => nil)
-
-    result = display_spread_button(article)
-  end
-
-  should 'not display spread button when content is not public' do
-    plugins.stubs(:dispatch).returns([])
-    profile = fast_create(Person)
-    article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id, :published => false)
-    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'button with-text icon-spread', :title => nil).never
+    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'button with-text icon-spread colorbox', :title => nil)
 
     result = display_spread_button(article)
   end
