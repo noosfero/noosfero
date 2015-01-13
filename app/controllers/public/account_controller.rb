@@ -315,7 +315,11 @@ class AccountController < ApplicationController
       session[:notice] = nil # consume the notice
     end
 
-    @plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
+    @plugins.each do |plugin|
+      user_data_extras = plugin.user_data_extras
+      user_data_extras = instance_exec(&user_data_extras) if user_data_extras.kind_of?(Proc)
+      user_data.merge!(user_data_extras)
+    end
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end

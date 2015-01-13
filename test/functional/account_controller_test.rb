@@ -712,7 +712,9 @@ class AccountControllerTest < ActionController::TestCase
 
     class Plugin2 < Noosfero::Plugin
       def user_data_extras
-        {:test => 5}
+        proc do
+          {:test => 5}
+        end
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
