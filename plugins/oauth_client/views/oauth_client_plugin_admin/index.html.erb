@@ -1,0 +1,24 @@
+<h1><%= _('Oauth Client Settings') %></h1>
+<h3><%= _('Providers') %></h3>
+<%= button :add, _('New'), {:action => 'new'} %>
+<table>
+  <tr>
+    <th><%= _('Name') %></th>
+    <th><%= _('Strategy') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+
+  <% environment.oauth_providers.each do |provider| %>
+    <tr>
+      <td><%= provider.name %></td>
+      <td><%= provider.strategy %></td>
+      <td>
+        <%= link_to _('Edit'), {:action => 'edit', :id => provider.id} %>
+        <%= link_to _('Remove'), {:action => 'remove', :id => provider.id} %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<div class="actions">
+  <%= button(:back, _('Go back'), {:controller => 'plugins', :action => 'index'}) %>
+</div>

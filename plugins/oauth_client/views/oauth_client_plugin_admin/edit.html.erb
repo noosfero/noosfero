@@ -1,0 +1,39 @@
+<h1><%= _('Oauth Client Settings') %></h1>
+<h3><%= _('Edit Provider') %></h3>
+
+<%= form_for @provider, :url => {:action => 'edit'}, :method => 'post' do |f| %>
+
+  <div class="enabled">
+    <%= labelled_form_field f.check_box(:enabled) + _('Enabled'), '' %>
+  </div>
+
+  <div class="name">
+    <%= labelled_form_field _('Name'), f.text_field(:name) %>
+  </div>
+
+  <div class="strategy">
+    <%= labelled_form_field _('Strategy'), f.select(:strategy, OauthClientPlugin::PROVIDERS) %>
+  </div>
+
+  <div class="client-id">
+    <%= labelled_form_field _('Client Id'), f.text_field(:client_id) %>
+  </div>
+
+  <div class="client-secret">
+    <%= labelled_form_field _('Client Secret'), f.text_field(:client_secret) %>
+  </div>
+
+  <% if File.exists?(File.join(File.dirname(__FILE__), "_#{@provider.strategy}.html.erb")) %>
+    <%= render :partial => "#{@provider.strategy}", :locals => {:f => f, :provider => @provider} %>
+  <% end %>
+
+  <div class="image-icon">
+    <%= f.fields_for :image_builder, @provider.image do |i| %>
+      <%= file_field_or_thumbnail(_('Image:'), @provider.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
+    <% end %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save'), :cancel => {:action => 'index'}) %>
+  <% end %>
+<% end %>
