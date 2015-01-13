@@ -102,8 +102,11 @@ class Noosfero::Plugin
       end
     end
 
-    def add_controller_filters controller_class, plugin, filters
-      Array(filters).each do |plugin_filter|
+    def add_controller_filters(controller_class, plugin, filters)
+      unless filters.is_a?(Array)
+        filters = [filters]
+      end
+      filters.each do |plugin_filter|
         filter_method = (plugin.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
         controller_class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
         controller_class.send(:define_method, filter_method) do
