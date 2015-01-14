@@ -2835,7 +2835,8 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 .controller-admin_panel .description {
   background-color: #E6E6E6;
   border: 1px solid #CCC;
-  padding: 5px;
+  padding: 10px 5px;
+  margin-top: 10px;
 }
 
 /* ==> public/stylesheets/controller_catalog.css <== */
