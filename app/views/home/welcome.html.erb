@@ -17,8 +17,11 @@
         <p><%= _("You won't appear as %s until your account is approved.") % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
       <% end %>
       <h4><%= _("What to do next?") %></h4>
-      <p><%= _("Access your %s and see your face on the network!") % link_to(_('Profile'), {:controller => 'profile', :profile => user.identifier}, :target => '_blank') %></p>
-      <p><%= _("Explore your %s to customize your profile. Here are some %s on what you can do there.") % [link_to(_('Control Panel'), {:controller => 'profile_editor', :profile => user.identifier}, :target => '_blank'), link_to(_('tips'), {:controller => 'doc', :action => 'topic', :section => 'user', :topic => 'editing-person-info'}, :target => '_blank')] %></p>
+      <p><%= _("Access your %s and see your face on the network!") %
+        (user.present? ? link_to(_('Profile'), {:controller => 'profile', :profile => user.identifier}, :target => '_blank') : 'Profile') %>
+      <%= _("You can also explore your %s to customize your profile. Here are some %s on what you can do there.") %
+        [user.present? ? link_to(_('Control Panel'), {:controller => 'profile_editor', :profile => user.identifier}, :target => '_blank') : 'Control Panel',
+          link_to(_('tips'), {:controller => 'doc', :action => 'topic', :section => 'user', :topic => 'editing-person-info'}, :target => '_blank')] %></p>
       <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :action => 'topic', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
       <p><%= _("Learn the guidelines. Read the %s for more details on how to use this social network!") % link_to(_('Documentation'), {:controller => 'doc'}, :target => '_blank') %></p>
       <p><%= _("Start exploring and have fun!") %></p>

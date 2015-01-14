@@ -66,7 +66,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     template.welcome_page = welcome_page
     template.save!
 
-    data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region, :template_id => template.id }
+    data = { :name => 'My new enterprise', :identifier => 'mynew', :region_id => region.id, :template_id => template.id }
     create_enterprise = CreateEnterprise.new(data)
 
     post :index, :create_enterprise => data

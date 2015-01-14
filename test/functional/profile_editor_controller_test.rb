@@ -880,14 +880,14 @@ class ProfileEditorControllerTest < ActionController::TestCase
     end
   end
 
-  should 'have welcome_page only for person template' do
+  should 'have welcome_page only for template' do
     organization = fast_create(Organization, :is_template => false)
     @controller.stubs(:profile).returns(organization)
     assert !@controller.send(:has_welcome_page)
 
     organization = fast_create(Organization, :is_template => true)
     @controller.stubs(:profile).returns(organization)
-    assert !@controller.send(:has_welcome_page)
+    assert @controller.send(:has_welcome_page)
 
     person = fast_create(Person, :is_template => false)
     @controller.stubs(:profile).returns(person)
@@ -901,11 +901,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'display welcome_page button only if profile has_welcome_page' do
     @controller.stubs(:has_welcome_page).returns(true)
     get :index, :profile => fast_create(Profile).identifier
-    assert_tag :tag => 'a', :content => 'Edit Welcome Page'
+    assert_tag :tag => 'a', :content => 'Edit welcome page'
 
     @controller.stubs(:has_welcome_page).returns(false)
     get :index, :profile => fast_create(Profile).identifier
-    assert_no_tag :tag => 'a', :content => 'Edit Welcome Page'
+    assert_no_tag :tag => 'a', :content => 'Edit welcome page'
   end
 
   should 'not be able to access welcome_page if profile does not has_welcome_page' do
@@ -920,11 +920,14 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'update welcome page and redirect to index' do
-    welcome_page = fast_create(TinyMceArticle, :body => 'Initial welcome page')
     person_template = create_user('person_template').person
     person_template.is_template = true
+
+    welcome_page = fast_create(TinyMceArticle, :body => 'Initial welcome page')
     person_template.welcome_page = welcome_page
     person_template.save!
+    welcome_page.profile = person_template
+    welcome_page.save!
     new_content = 'New welcome page'
 
     post :welcome_page, :profile => person_template.identifier, :welcome_page => {:body => new_content}
