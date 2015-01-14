@@ -643,7 +643,7 @@ class AccountControllerTest < ActionController::TestCase
         :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
-    assert_response :success
+    assert_redirected_to controller: 'home', action: 'welcome'
 
     person = Person["testuser"]
     assert_equal "rails.png", person.image.filename
