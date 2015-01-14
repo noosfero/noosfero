@@ -1,0 +1,39 @@
+<%= block_title(block.title) %>
+
+<% unless members.empty? %>
+  <div class='headlines-container'>
+    <% members.each do |member| %>
+      <div>
+        <% headline = member.headline %>
+        <%= link_to_profile(profile_image(member, :big) + content_tag(:p, member.short_name), member.identifier, {:class => 'author'})  %>
+        <div class='post'>
+          <h4><%= link_to(headline.title, headline.url, :class => 'title') %></h4>
+          <div class='lead'>
+            <%= headline.short_lead %>
+          </div>
+          <div class='date'>
+            <%= show_date(headline.published_at) %>
+          </div>
+          <div class='tags'>
+            <%= headline.tags.map { |t| link_to(t, :controller => 'profile', :profile => member.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% if block.navigation %>
+    <div class='headlines-block-pager'>
+    </div>
+  <% end %>
+
+  <script>
+    (function($) {
+     var options = {fx: 'fade', pause: 1, fastOnEvent: 1, timeout: <%= block.interval * 1000 %>};
+      options.pager = '#block-<%= block.id %> .headlines-block-pager';
+      $('#block-<%= block.id %> .headlines-container').cycle(options);
+    })(jQuery);
+  </script>
+<% else %>
+  <em><%= _('No headlines to be shown.') %></em>
+<% end %>
+
