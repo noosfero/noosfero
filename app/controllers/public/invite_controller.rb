@@ -8,7 +8,7 @@ class InviteController < PublicController
     @import_from = params[:import_from] || "manual"
     @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
 
-    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label] }
+    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label].downcase }
     last = labels.pop
     label = labels.join(', ')
     @search_friend_fields = "#{label} #{_('or')} #{last}"
@@ -72,7 +72,6 @@ class InviteController < PublicController
       else
         redirect_to :controller => 'profile', :action => 'members'
       end
-      return
     else
       redirect_to :action => 'invite_friends'
       session[:notice] = _('Please enter a valid profile.')

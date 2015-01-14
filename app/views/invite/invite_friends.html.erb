@@ -4,13 +4,13 @@
   <h1><%= _('Invite your friends to join %s') % profile.name %></h1>
 <% end %>
 
-<% unless profile.person? %>
-  <h2><%= _('Invite other registered users') %></h2>
+<% if profile.community? %>
+  <h2><%= _('Invite registered users') %></h2>
   <p><%= _('You can search for user profiles and invite them to join this community.') %></p>
   <%= form_tag :action => 'invite_registered_friend' do %>
     <% search_action = url_for(:action => 'search_friend') %>
     <%= token_input_field_tag(:q, 'search-friends', search_action,
-                              { :hint_text => _('Type in your friend\'s ') + @search_friend_fields,
+                              { :hint_text => _('Type in your friend\'s %{search_fields}') % {:search_fields => @search_friend_fields},
                                 :focus => false }) %>
 
     <% button_bar do %>
