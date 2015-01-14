@@ -25,14 +25,18 @@ class ProfileSuggestionsJobTest < ActiveSupport::TestCase
 
   should 'suggest friends from communities' do
     person = create_user('person').person
-    community = fast_create(Community)
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
 
     member1 = create_user('member1').person
     member2 = create_user('member2').person
 
-    community.add_member person
-    community.add_member member1
-    community.add_member member2
+    c1.add_member person
+    c1.add_member member1
+    c1.add_member member2
+    c2.add_member person
+    c2.add_member member1
+    c2.add_member member2
 
     job = ProfileSuggestionsJob.new(person.id)
     assert_difference 'ProfileSuggestion.count', 2 do
