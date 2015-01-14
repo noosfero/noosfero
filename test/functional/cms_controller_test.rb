@@ -1588,44 +1588,19 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'upload media by AJAX' do
-    post :media_upload, :profile => profile.identifier, :file1 => fixture_file_upload('/files/test.txt', 'text/plain'), :file2 => fixture_file_upload('/files/rails.png', 'image/png'), :file3 => ''
-    assert_match 'test.txt', @response.body
-    assert_equal 'text/plain', @response.content_type
-
-    data = parse_json_response
-
-    assert_equal 'test.txt', data[0]['title']
-    assert_match /\/testinguser\/test.txt$/, data[0]['url']
-    assert_match /text/, data[0]['icon']
-    assert_match /text/, data[0]['content_type']
-    assert_nil data[0]['error']
-
-    assert_equal 'rails.png', data[1]['title']
-    assert_no_match /\/public\/articles\/.*\/rails.png$/, data[1]['url']
-    assert_match /png$/, data[1]['icon']
-    assert_match /image/, data[1]['content_type']
-    assert_nil data[1]['error']
-
+    assert_difference 'UploadedFile.count', 1 do
+      post :media_upload, :format => 'js', :profile => profile.identifier, :file => fixture_file_upload('/files/test.txt', 'text/plain')
+    end
   end
 
   should 'not when media upload via AJAX contains empty files' do
     post :media_upload, :profile => @profile.identifier
   end
 
-  should 'mark unsuccessfull uploads' do
+  should 'mark unsuccessfull upload' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
-
-    post :media_upload, :profile => profile.identifier, :media_listing => true, :file1 => fixture_file_upload('files/rails.png', 'image/png'), :file2 => fixture_file_upload('/files/test.txt', 'text/plain')
-
-    assert_equal 'text/plain', @response.content_type
-    data = parse_json_response
-
-    assert_equal 'rails.png', data[0]['title']
-    assert_not_nil data[0]['error']
-    assert_match /rails.png/, data[0]['error']
-
-    assert_equal 'test.txt', data[1]['title']
-    assert_nil data[1]['error']
+    post :media_upload, :profile => profile.identifier, :media_listing => true, :file => fixture_file_upload('files/rails.png', 'image/png')
+    assert_response :bad_request
   end
 
   should 'make RawHTMLArticle available only to environment admins' do
