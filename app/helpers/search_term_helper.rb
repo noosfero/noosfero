@@ -12,6 +12,7 @@ module SearchTermHelper
 
   #TODO Think smarter criteria to normalize search terms properly
   def normalize_term(search_term)
+    search_term ||= ''
     search_term.downcase
   end
 end
