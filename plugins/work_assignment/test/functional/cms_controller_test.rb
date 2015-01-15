@@ -27,7 +27,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'not allow non-members to upload submissions on work_assignment' do
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     get :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id
     assert_response :forbidden
     assert_template 'access_denied'
@@ -36,20 +36,20 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow members to upload submissions on work_assignment' do
     @organization.add_member(person)
     # then he trys to upload new stuff
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     get :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id
     assert_response :success
   end
 
   should 'redirect to Work Assignment view page after upload submission' do
     @organization.add_member(person)
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')] , :back_to => @work_assignment.url
     assert_redirected_to work_assignment.url
   end
 
   should 'upload submission and automatically move it to the author folder' do
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     @organization.add_member(person)
     post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     submission = UploadedFile.last
@@ -57,21 +57,21 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'work_assignment attribute allow_privacy_edition is true when set a new work_assignment' do
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, true)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, true)
     @organization.add_member(person)
     assert_equal true, work_assignment.allow_privacy_edition
   end
 
   should 'a submission and parent attribute "published" be equal to Work Assignment attribute publish submissions' do
     @organization.add_member(person)
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, true, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, true, nil)
     assert_equal true, work_assignment.publish_submissions
     post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     submission = UploadedFile.last
     assert_equal work_assignment.publish_submissions, submission.published
     assert_equal work_assignment.publish_submissions, submission.parent.published
 
-    other_work_assignment = create_work_assignment('Another Other Work Assigment', @organization, false, nil)
+    other_work_assignment = create_work_assignment('Other Work Assigment', @organization, false, nil)
     assert_equal false, other_work_assignment.publish_submissions
     post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     submission = UploadedFile.last
@@ -82,7 +82,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'submission edit visibility deny access to users and admin when Work Assignment allow_privacy_edition is false' do
     @organization.add_member(person)
     ##### Testing with normal user
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     submission = UploadedFile.last
     assert_equal false, submission.published
@@ -115,7 +115,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'redirect an unlogged user to the login page if he tryes to access the edit visibility page and work_assignment allow_privacy_edition is true' do
     @organization.add_member(person)
-    work_assignment = create_work_assignment('Another Work Assignment', @organization, nil, nil)
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     work_assignment.allow_privacy_edition = true # the user can edit the privacy
     assert_equal true, work_assignment.allow_privacy_edition
     work_assignment.save!
@@ -192,6 +192,26 @@ class CmsControllerTest < ActionController::TestCase
     submission.reload
     assert_equal true, submission.parent.display_unpublished_article_to?(other_person)
     assert_equal true, submission.display_unpublished_article_to?(other_person)
+  end
+
+  should 'submission edit_visibility deny access to owner if not organization member' do
+    @organization.add_member(person) # current_user is a member
+    work_assignment = create_work_assignment('Work Assignment', @organization, nil, true)
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    @organization.remove_member(person)
+    submission = UploadedFile.last
+
+    assert_equal false, (person.is_member_of? submission.profile)
+
+    post :edit_visibility, :profile => @organization.identifier, :article_id => submission.parent.id
+    assert_template 'access_denied'
+
+    post :edit_visibility, :profile => @organization.identifier, :article_id => submission.parent.id, :article => { :published => true }
+    assert_template 'access_denied'
+
+    submission.reload
+    assert_equal false, submission.parent.published
+    assert_equal false, submission.published
   end
 
   private

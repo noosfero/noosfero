@@ -4,7 +4,8 @@ class CmsController
 
 protect_if :only => :edit_visibility do |c, user, profile|
   article = c.environment.articles.find_by_id(c.params[:article_id])
-  (user && !article.nil? && article.folder? && article.parent.allow_privacy_edition && 
+  (user && !article.nil? && (user.is_member_of? article.profile) &&
+  article.parent.allow_privacy_edition && article.folder? &&
   (article.author == user || user.has_permission?('view_private_content', profile)))
 end
 
