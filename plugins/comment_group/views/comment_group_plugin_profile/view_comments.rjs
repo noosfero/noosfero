@@ -8,5 +8,5 @@ page.replace_html "comment-count-#{@group_id}", @comments_count
 if @no_more_pages
   page.replace_html "comments_list_group_#{@group_id}_more", ""
 else
-  page.replace_html "comments_list_group_#{@group_id}_more", link_to_remote(_('More'), :url => { :profile => profile.identifier, :controller => 'comment_group_plugin_profile', :action => 'view_comments', :group_id => @group_id, :article_id => @article_id, :group_comment_page => @group_comment_page + 1}, :method => :get)
+  page.replace_html "comments_list_group_#{@group_id}_more", link_to_remote(c_('More'), :url => { :profile => profile.identifier, :controller => 'comment_group_plugin_profile', :action => 'view_comments', :group_id => @group_id, :article_id => @article_id, :group_comment_page => @group_comment_page + 1}, :method => :get)
 end

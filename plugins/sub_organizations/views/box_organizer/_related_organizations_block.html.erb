@@ -1,7 +1,7 @@
 <div id='edit-related-organizations-block'>
   <label for="block_organization_type"><%= _('Type of organizations to be displayed') %></label><br/>
-  <%= select_tag('block[organization_type]', options_for_select([[_('Both'), 'both'], [_('Community'), 'community'], [_('Enterprise'), 'enterprise']], @block.organization_type)) %>
-  <%= labelled_form_field _('Limit of items'), text_field(:block, :limit, :size => 3) %>
+  <%= select_tag('block[organization_type]', options_for_select([[_('Both'), 'both'], [c_('Community'), 'community'], [c_('Enterprise'), 'enterprise']], @block.organization_type)) %>
+  <%= labelled_form_field c_('Limit of items'), text_field(:block, :limit, :size => 3) %>
   <%= check_box(:block, :prioritize_profiles_with_image) %>
-  <label for="block_prioritize_profiles_with_image"><%= _('Prioritize profiles with image') %></label>
+  <label for="block_prioritize_profiles_with_image"><%= c_('Prioritize profiles with image') %></label>
 </div>

@@ -5,8 +5,8 @@ class Product
 
   acts_as_faceted :fields => {
       :solr_plugin_f_category => {:label => _('Related products')},
-      :solr_plugin_f_region => {:label => _('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
-      :solr_plugin_f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| solr_plugin_f_qualifier_proc(id) }},
+      :solr_plugin_f_region => {:label => c_('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
+      :solr_plugin_f_qualifier => {:label => c_('Qualifiers'), :proc => proc { |id| solr_plugin_f_qualifier_proc(id) }},
     }, :category_query => proc { |c| "solr_plugin_category_filter:#{c.id}" },
     :order => [:solr_plugin_f_category, :solr_plugin_f_region, :solr_plugin_f_qualifier]
 

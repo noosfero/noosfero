@@ -4,7 +4,7 @@
 
 <table>
   <tr>
-    <th><%= _('Configuration') %></th>
+    <th><%= c_('Configuration') %></th>
     <th><%= _('Value') %></th>
   </tr>
   <tr>
@@ -46,7 +46,7 @@
     <th colspan='2'> <%= _('Attributes') %> </th>
   </tr>
   <tr>
-    <td><%= _('Login') %></td>
+    <td><%= c_('Login') %></td>
     <td><%= text_field :environment, :ldap_plugin_attr_login %></td>
   </tr>
   <tr>
@@ -61,7 +61,7 @@
 
 <div>
   <% button_bar do %>
-    <%= submit_button('save', _('Save changes')) %>
+    <%= submit_button('save', c_('Save changes')) %>
     <%= button :back, _('Back to plugins administration panel'), :controller => 'plugins' %>
   <% end %>
 </div>

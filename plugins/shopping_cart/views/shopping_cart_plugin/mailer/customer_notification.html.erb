@@ -14,15 +14,15 @@
     </p>
 
     <ul>
-      <li><b><%= _('Full name') %>: </b><%= @customer[:name] %></li>
-      <li><b><%= _('Email') %>: </b><%= @customer[:email] %></li>
+      <li><b><%= c_('Full name') %>: </b><%= @customer[:name] %></li>
+      <li><b><%= c_('Email') %>: </b><%= @customer[:email] %></li>
       <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
       <li><b><%= _('Payment') %>: </b><%= @customer[:payment] == 'money' ? _('Money') : _('shopping_cart|Check') %></li>
       <% if @customer[:payment] == 'money' %>
         <li><b><%= _('shopping_cart|Change') %>: </b><%= @customer[:change] %></li>
       <% end %>
       <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? || !@customer[:district].blank? || !@customer[:address_reference].blank? %>
-        <li><b><%= _('Address') %>:</b>
+        <li><b><%= c_('Address') %>:</b>
       <% end %>
       <% if !@customer[:address].blank? %>
         <%= @customer[:address] %><br \>

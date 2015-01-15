@@ -17,8 +17,8 @@
           <td><%= label.color %></td>
           <td><%= label.enabled %></td>
           <td>
-            <%= button_without_text :edit, _('Edit'), {:action => 'edit', :id => label} %>
-            <%= button_without_text :delete, _('Remove'), {:action => 'destroy', :id => label}, :confirm => _('Are you sure you want to  remove this label?') %>
+            <%= button_without_text :edit, c_('Edit'), {:action => 'edit', :id => label} %>
+            <%= button_without_text :delete, c_('Remove'), {:action => 'destroy', :id => label}, :confirm => _('Are you sure you want to  remove this label?') %>
           </td>
         </tr>
       <% end %>
@@ -27,6 +27,6 @@
 
   <% button_bar do %>
     <%= button(:add, _('Add a new label'), :action => 'create')%>
-    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+    <%= button :back, c_('Back to admin panel'), :controller => 'admin_panel' %>
   <% end %>
 </div>

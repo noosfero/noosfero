@@ -2,13 +2,13 @@
 
 <div id='comment-classification-status-list'>
   <% unless @comment.title.blank? %>
-    <div class='comment-title'><%= _("Title: %s") % @comment.title %></div>
+    <div class='comment-title'><%= c_("Title: %s") % @comment.title %></div>
   <% end %>
 
-  <b><%= _('Body:') %></b>
+  <b><%= c_('Body:') %></b>
   <p><%= @comment.body %></p>
 
-  <h2> <%= _("History") %> </h2>
+  <h2> <%= c_("History") %> </h2>
 
     <ul>
     <% @comment.comment_classification_plugin_comment_status_users.each do |relation| %>

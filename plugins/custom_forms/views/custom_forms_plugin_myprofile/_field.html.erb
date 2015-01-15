@@ -1,7 +1,7 @@
 <fieldset class="field-box" <%='style="display:none"' if f.object._destroy %> >
   <legend><%= type_to_label(f.object.type) %></legend>
   <div>
-  <%= required f.label :name, _('Name:') %>
+  <%= required f.label :name, c_('Name:') %>
   <%= f.text_field :name, :style => 'width: 14em' %>
 
   <%= f.hidden_field :type %>

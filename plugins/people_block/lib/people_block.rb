@@ -1,7 +1,7 @@
 class PeopleBlock < PeopleBlockBase
 
   def self.description
-    _('People')
+    c_('People')
   end
 
   def help

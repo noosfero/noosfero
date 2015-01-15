@@ -19,8 +19,8 @@
   <%= button('add', _('Add new enterprise'), {:action => 'create_enterprise'}) %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Save'))%>
-    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+    <%= submit_button('save', c_('Save'))%>
+    <%= button('cancel', c_('Cancel'), {:controller => 'profile_editor'})%>
   <% end %>
 
 <% end %>

@@ -1,18 +1,18 @@
 class DisplayContentBlock < Block
 
   MONTHS = [
-    N_('January'),
-    N_('February'),
-    N_('March'),
-    N_('April'),
-    N_('May'),
-    N_('June'),
-    N_('July'),
-    N_('August'),
-    N_('September'),
-    N_('October'),
-    N_('November'),
-    N_('December')
+    cN_('January'),
+    cN_('February'),
+    cN_('March'),
+    cN_('April'),
+    cN_('May'),
+    cN_('June'),
+    cN_('July'),
+    cN_('August'),
+    cN_('September'),
+    cN_('October'),
+    cN_('November'),
+    cN_('December')
   ]
 
   AVAILABLE_SECTIONS = ['publish_date', 'title', 'abstract', 'body', 'image' ,'tags']
@@ -39,11 +39,11 @@ class DisplayContentBlock < Block
   def section_name(section)
     {
       'publish_date' => _('Publish date'),
-      'title' => _('Title'),
+      'title' => c_('Title'),
       'abstract' => _('Abstract'),
-      'body' => _('Body'),
-      'image' => _('Image'),
-      'tags' => _('Tags')
+      'body' => c_('Body'),
+      'image' => c_('Image'),
+      'tags' => c_('Tags')
     }[section] || section
   end
 
