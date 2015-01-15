@@ -27,7 +27,7 @@
     </tr>
     </tfoot>
     <tbody class='field-list'>
-    <% f.fields_for :alternatives do |builder| %>
+    <%= f.fields_for :alternatives do |builder| %>
       <%= render partial_for_class(builder.object.class), :f => builder %>
     <% end %>
     </tbody>
