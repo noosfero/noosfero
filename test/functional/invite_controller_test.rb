@@ -268,7 +268,7 @@ class InviteControllerTest < ActionController::TestCase
 
     get :search_friend, :profile => community.identifier, :q => 'will'
 
-    assert_equivalent [{"name" => friend1.name, "id" => friend1.id}].to_json, @response.body
+    assert_equivalent [{"name" => friend1.name, "id" => friend1.id}], json_response
   end
 
   should 'invite registered users through profile id' do
