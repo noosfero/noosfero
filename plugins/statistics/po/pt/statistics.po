@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -38,11 +38,6 @@ msgid ""
 msgstr ""
 "Um plugin que adiciona um bloco onde você pode ver estatísticas do seu "
 "contexto."
-
-#: plugins/community_track/views/blocks/_track_card.html.erb:25
-#: plugins/statistics/views/statistics_block.html.erb:25
-msgid "hits"
-msgstr "acessos"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
 msgid "Show user counter"
@@ -91,3 +86,7 @@ msgstr "comunidades"
 #: plugins/statistics/views/statistics_block.html.erb:16
 msgid "categories"
 msgstr "categorias"
+
+#: plugins/statistics/views/statistics_block.html.erb:25
+msgid "hits"
+msgstr "acessos"

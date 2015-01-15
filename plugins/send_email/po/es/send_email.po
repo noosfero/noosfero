@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,19 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
-msgid "Configurations was saved"
-msgstr "La configuración fue guardada"
-
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
-msgid "Configurations could not be saved"
-msgstr "La configuración no pudo guardarse"
-
-#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:16
-#: plugins/send_email/views/send_email_plugin/success.html.erb:1
-msgid "Message sent"
-msgstr "Mensaje enviado"
 
 #: plugins/send_email/lib/send_email_plugin/mail.rb:4
 msgid "To"
@@ -49,6 +36,19 @@ msgid "A plugin that allows sending e-mails via HTML forms."
 msgstr ""
 "Una característica adicional que permite enviar correos electrónicos via "
 "formularios HTML."
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
+msgid "Configurations was saved"
+msgstr "La configuración fue guardada"
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
+msgid "Configurations could not be saved"
+msgstr "La configuración no pudo guardarse"
+
+#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:16
+#: plugins/send_email/views/send_email_plugin/success.html.erb:1
+msgid "Message sent"
+msgstr "Mensaje enviado"
 
 #: plugins/send_email/views/send_email_plugin/sender/message.html.erb:1
 msgid "Contact from %s"

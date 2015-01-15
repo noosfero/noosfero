@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:9
+#, fuzzy
+msgid "A shopping basket feature for enterprises"
+msgstr "Դիզակտիվացնել ձեռնարկությունների որոնումը"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:30
+msgid "Add to basket"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:58
+msgid "Shopping basket"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:61
+msgid "Purchase reports"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+#, fuzzy
+msgid "Opened"
+msgstr "բացել"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+#, fuzzy
+msgid "Canceled"
+msgstr "Հրաժարում"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+#, fuzzy
+msgid "Confirmed"
+msgstr "Հաստատել"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+#, fuzzy
+msgid "Shipped"
+msgstr "Տարածաշրջան %d"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
+#, fuzzy
+msgid "Free delivery"
+msgstr "Դեկտեմբեր"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+#, fuzzy
+msgid "Delivery"
+msgstr "Դեկտեմբեր"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
+#, fuzzy
+msgid "Item name"
+msgstr "Ֆայլի անուն"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
+#: plugins/shopping_cart/views/cart.html.erb:7
+msgid "Total:"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
+#, fuzzy
+msgid "[%s] Your buy request was performed successfully."
+msgstr "Ձեր գաղտնաբառը բարեհաջող փոխվել է:"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:36
+msgid "[%s] You have a new buy request from %s."
+msgstr ""
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:115
 msgid "Request sent successfully. Check your email."
@@ -78,84 +145,11 @@ msgstr "Առանձնահատկությունները հաջողությամբ թ
 msgid "Option wasn't updated successfully."
 msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:9
-#, fuzzy
-msgid "A shopping basket feature for enterprises"
-msgstr "Դիզակտիվացնել ձեռնարկությունների որոնումը"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:30
-msgid "Add to basket"
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
+msgid "Name"
 msgstr ""
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:58
-msgid "Shopping basket"
-msgstr ""
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:61
-msgid "Purchase reports"
-msgstr ""
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Opened"
-msgstr "բացել"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Canceled"
-msgstr "Հրաժարում"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Confirmed"
-msgstr "Հաստատել"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Shipped"
-msgstr "Տարածաշրջան %d"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
-#, fuzzy
-msgid "Free delivery"
-msgstr "Դեկտեմբեր"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
-#, fuzzy
-msgid "Delivery"
-msgstr "Դեկտեմբեր"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
-#, fuzzy
-msgid "Item name"
-msgstr "Ֆայլի անուն"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
-#: plugins/shopping_cart/views/cart.html.erb:7
-msgid "Total:"
-msgstr ""
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
-#, fuzzy
-msgid "[%s] Your buy request was performed successfully."
-msgstr "Ձեր գաղտնաբառը բարեհաջող փոխվել է:"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:36
-msgid "[%s] You have a new buy request from %s."
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
-#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
-msgid "Status"
-msgstr "Կարգավիճակ"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13
@@ -175,8 +169,6 @@ msgid "No results."
 msgstr "Կատարված առաջադրանքներ չկան:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
-#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
 #, fuzzy
 msgid "Date"
 msgstr "Տվյալներ"
@@ -189,6 +181,11 @@ msgstr "մասնակից"
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
 msgid "Purchase value"
 msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
+msgid "Status"
+msgstr "Կարգավիճակ"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #, fuzzy
@@ -217,8 +214,6 @@ msgid "shopping_cart|Change"
 msgstr "Վերացնել անհատական էջը"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
 #, fuzzy
 msgid "Quantity"
 msgstr "Որակ"
@@ -333,7 +328,6 @@ msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
 msgid "Hi %s!"
 msgstr ""
 

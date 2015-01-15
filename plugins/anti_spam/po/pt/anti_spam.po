@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 11:00-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -32,14 +32,13 @@ msgstr ""
 "Testa comentários e sugestões de artigo contra um serviço de verificação de "
 "spams compatível com a API Akismet"
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:11
-#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:5
-msgid "Host"
-msgstr "Host"
-
 #: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:1
 msgid "AntiSpam settings"
 msgstr "Configurações de AntiSpam"
+
+#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:5
+msgid "Host"
+msgstr "Host"
 
 #: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:7
 msgid "API key"

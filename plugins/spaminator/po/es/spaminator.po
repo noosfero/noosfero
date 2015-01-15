@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -27,28 +27,14 @@ msgstr ""
 msgid "[%s] You must reactivate your account."
 msgstr "[%s] Activa tu cuenta"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
+msgid "Spaminator reports"
+msgstr ""
+
 #: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
 msgid "Date"
 msgstr "Fecha"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
-msgid "Hi %s!"
-msgstr "¡Hola %s!"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
-msgid "Total"
-msgstr "Total"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
-msgid "Spaminator reports"
-msgstr ""
 
 #: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
 #, fuzzy
@@ -69,6 +55,11 @@ msgstr "Contenido principal"
 #: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
 msgid "From spammers"
 msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
+msgid "Total"
+msgstr "Total"
 
 #: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
 #, fuzzy
@@ -183,6 +174,10 @@ msgstr ""
 #, fuzzy
 msgid "No Report"
 msgstr "Reportador"
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
+msgid "Hi %s!"
+msgstr "¡Hola %s!"
 
 #: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
 msgid ""

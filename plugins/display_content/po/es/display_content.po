@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -47,6 +47,27 @@ msgstr "Fecha de publicación"
 msgid "Abstract"
 msgstr "Resumen"
 
+#: plugins/display_content/lib/display_content_block.rb:141
+#, fuzzy
+msgid "Read more"
+msgstr "Ver más"
+
+#: plugins/display_content/lib/display_content_block.rb:184
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:184
+msgid "%{month}/%{day}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:187
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:187
+msgid "%{month_name} %{day}"
+msgstr ""
+
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
@@ -65,13 +86,11 @@ msgid "Choose by Content Type"
 msgstr "Tipo de contenido"
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
-#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:8
 #, fuzzy
 msgid "Display content types:"
 msgstr "Mostrar alguno de tus contenidos"
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
-#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:14
 #, fuzzy
 msgid "more"
 msgstr "Ver más"

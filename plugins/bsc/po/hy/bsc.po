@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,91 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
-#, fuzzy
-msgid "This Bsc associations were saved successfully."
-msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:42
-#, fuzzy
-msgid "This Bsc associations couldn't be saved."
-msgstr "Անհանատական էջի տվյալների բաժին"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:71
-#, fuzzy
-msgid "Enterprise ownership transferred."
-msgstr "Ձեռնարկության գլխավոր էջ"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:85
-#, fuzzy
-msgid "Enterprise was created in association with %s."
-msgstr "Ձեռնարկության գրանցում «%s»"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:117
-#, fuzzy
-msgid "Contract created."
-msgstr "էլ. հասցե"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
-msgid "Contract created but some products could not be added."
-msgstr ""
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
-msgid "Contract doesn't exists! Maybe it was already removed."
-msgstr ""
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
-#, fuzzy
-msgid "Could not edit such contract."
-msgstr "Արտադրանք թարմացնելն անհնար է"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:170
-#, fuzzy
-msgid "Contract edited."
-msgstr "էլ. հասցե"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
-#, fuzzy
-msgid "Contract edited but some products could not be added."
-msgstr "Անհանատական էջի տվյալների բաժին"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
-#, fuzzy
-msgid "Contract removed."
-msgstr "Բուն հոդված"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:185
-#, fuzzy
-msgid "Contract could not be removed. Sorry! ^^"
-msgstr "Անհանատական էջի տվյալների բաժին"
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
-#, fuzzy
-msgid "Your Bsc was created."
-msgstr "%s վերացված է"
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
-#, fuzzy
-msgid "Enterprises validated."
-msgstr "Ձեռնարկությունների վավերացում"
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
-#, fuzzy
-msgid "Enterprise validations couldn't be saved."
-msgstr "Ձեռնարկությունների վավերացում"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Opened"
-msgstr "բացել"
-
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Closed"
-msgstr "Փակել"
 
 #: plugins/bsc/lib/bsc_plugin.rb:10
 #, fuzzy
@@ -183,6 +98,11 @@ msgstr ""
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 #, fuzzy
+msgid "Opened"
+msgstr "բացել"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
 msgid "Negotiating"
 msgstr "Պարամետրեր"
 
@@ -190,6 +110,11 @@ msgstr "Պարամետրեր"
 #, fuzzy
 msgid "Executing"
 msgstr "Փոփոխում"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Closed"
+msgstr "Փակել"
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:46
 #, fuzzy
@@ -206,23 +131,78 @@ msgstr "Արտադրանք"
 msgid "ProjectB"
 msgstr "Արտադրանք"
 
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
-#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
-msgid "Status"
-msgstr "Կարգավիճակ"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
 #, fuzzy
-msgid "Quantity"
-msgstr "Որակ"
+msgid "This Bsc associations were saved successfully."
+msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:42
+#, fuzzy
+msgid "This Bsc associations couldn't be saved."
+msgstr "Անհանատական էջի տվյալների բաժին"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:71
+#, fuzzy
+msgid "Enterprise ownership transferred."
+msgstr "Ձեռնարկության գլխավոր էջ"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:85
+#, fuzzy
+msgid "Enterprise was created in association with %s."
+msgstr "Ձեռնարկության գրանցում «%s»"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:117
+#, fuzzy
+msgid "Contract created."
+msgstr "էլ. հասցե"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
+msgid "Contract created but some products could not be added."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
+msgid "Contract doesn't exists! Maybe it was already removed."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
+#, fuzzy
+msgid "Could not edit such contract."
+msgstr "Արտադրանք թարմացնելն անհնար է"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:170
+#, fuzzy
+msgid "Contract edited."
+msgstr "էլ. հասցե"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
+#, fuzzy
+msgid "Contract edited but some products could not be added."
+msgstr "Անհանատական էջի տվյալների բաժին"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
+#, fuzzy
+msgid "Contract removed."
+msgstr "Բուն հոդված"
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:185
+#, fuzzy
+msgid "Contract could not be removed. Sorry! ^^"
+msgstr "Անհանատական էջի տվյալների բաժին"
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
+#, fuzzy
+msgid "Your Bsc was created."
+msgstr "%s վերացված է"
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
+#, fuzzy
+msgid "Enterprises validated."
+msgstr "Ձեռնարկությունների վավերացում"
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
+#, fuzzy
+msgid "Enterprise validations couldn't be saved."
+msgstr "Ձեռնարկությունների վավերացում"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
 msgid "Associations awaiting approval:"
@@ -257,10 +237,22 @@ msgstr "Բովանդակության տեսակ"
 msgid "Business type"
 msgstr "Սեփականատիրոջ տեսակ"
 
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
+msgid "Status"
+msgstr "Կարգավիճակ"
+
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
 #, fuzzy
 msgid "Type in search term for enterprise"
 msgstr "Դիզակտիվացնել ձեռնարկությունների որոնումը"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
+#, fuzzy
+msgid "Quantity"
+msgstr "Որակ"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:24
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:28
@@ -270,8 +262,6 @@ msgstr "Հեռավորություն"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
 msgid "Total"
 msgstr ""
 
@@ -308,8 +298,6 @@ msgid "Annotations"
 msgstr "Կառավարման վահանակ"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
 #, fuzzy
 msgid "Sort by"
 msgstr "Մեկ համայնք"

@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 11:00-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -75,6 +75,15 @@ msgstr "facets|Nicht aktiviert"
 #: plugins/solr/lib/solr_plugin/search_helper.rb:32
 msgid "Relevance"
 msgstr "Relevanz"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:14
+#: plugins/solr/lib/solr_plugin/search_helper.rb:20
+#: plugins/solr/lib/solr_plugin/search_helper.rb:23
+#: plugins/solr/lib/solr_plugin/search_helper.rb:27
+#: plugins/solr/lib/solr_plugin/search_helper.rb:30
+#: plugins/solr/lib/solr_plugin/search_helper.rb:33
+msgid "Name"
+msgstr ""
 
 #: plugins/solr/lib/solr_plugin/search_helper.rb:15
 msgid "Closest to me"

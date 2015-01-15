@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,14 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
-msgid "Incorrect user/password pair."
-msgstr "Nombre de usuario o contraseña incorrecta."
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
-msgid "Conection requires SSL certificate and post method."
-msgstr "La conexión requiere certificación SSL y el método post."
 
 #: plugins/stoa/lib/stoa_plugin.rb:10
 msgid "Add Stoa features"
@@ -99,3 +91,11 @@ msgstr "Numero de USP"
 #, fuzzy
 msgid "is being used by another user or is not valid"
 msgstr "%{fn} ya está siendo usado por otra categoría."
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
+msgid "Incorrect user/password pair."
+msgstr "Nombre de usuario o contraseña incorrecta."
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+msgid "Conection requires SSL certificate and post method."
+msgstr "La conexión requiere certificación SSL y el método post."

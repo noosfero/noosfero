@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -36,16 +36,6 @@ msgstr "Mostrar conteúdo contextual"
 msgid "This block displays content based on context."
 msgstr "Este bloco apresenta conteúdo baseado no contexto."
 
-#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
-#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:8
-msgid "Display content types:"
-msgstr "Mostrar tipos de conteúdos:"
-
-#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
-#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:14
-msgid "more"
-msgstr "mais"
-
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:3
 msgid "Show content name"
 msgstr "Mostrar o nome do conteúdo"
@@ -57,3 +47,11 @@ msgstr "Mostrar imagem do conteúdo"
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:5
 msgid "Show parent content when children is empty"
 msgstr "Mostrar conteúdo do pai quando os filhos estão vazios"
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:8
+msgid "Display content types:"
+msgstr "Mostrar tipos de conteúdos:"
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:14
+msgid "more"
+msgstr "mais"

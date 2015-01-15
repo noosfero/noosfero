@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -40,11 +40,6 @@ msgid ""
 msgstr ""
 "Esse bloco apresenta todos os conteúdos do blog escolhido. Você pode editar "
 "esse bloco para escolher qual dos seus blogs será mostrado nele."
-
-#: plugins/community_track/views/blocks/_track_list_more.html.erb:5
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
-msgid "View All"
-msgstr "Ver Todos(as)"
 
 #: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:3
 msgid "No blogs found. Please add a blog in order to configure this block."
@@ -79,6 +74,15 @@ msgstr "Escolha quantos itens devem ser mostrados"
 #: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:33
 msgid "Display blog cover image"
 msgstr "Mostrar imagem de capa do blog"
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:26
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:35
+msgid "Read more"
+msgstr ""
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
+msgid "View All"
+msgstr "Ver Todos(as)"
 
 #: plugins/recent_content/views/blocks/recent_content_block.html.erb:43
 msgid ""

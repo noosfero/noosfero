@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 11:00-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,40 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-#, fuzzy
-msgid "Custom form %s was successfully created."
-msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-#, fuzzy
-msgid "Custom form %s was successfully updated."
-msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
-#, fuzzy
-msgid "Form could not be updated"
-msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
-#, fuzzy
-msgid "Form removed"
-msgstr "Բուն հոդված"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
-#, fuzzy
-msgid "Form could not be removed"
-msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr ""
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
-#, fuzzy
-msgid "Submission could not be saved"
-msgstr "Անհանատական էջի տվյալների բաժին"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
@@ -168,22 +134,39 @@ msgstr "Ակտիվացնել «%s» ձեռնարկությունը"
 msgid "Manage Forms"
 msgstr "Կառավարել"
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
-msgid "Value"
-msgstr ""
-
-#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
 #, fuzzy
-msgid "Sort by"
-msgstr "Մեկ համայնք"
+msgid "Custom form %s was successfully created."
+msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
+#, fuzzy
+msgid "Custom form %s was successfully updated."
+msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
+#, fuzzy
+msgid "Form could not be updated"
+msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
+#, fuzzy
+msgid "Form removed"
+msgstr "Բուն հոդված"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
+#, fuzzy
+msgid "Form could not be removed"
+msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr ""
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
+#, fuzzy
+msgid "Submission could not be saved"
+msgstr "Անհանատական էջի տվյալների բաժին"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
@@ -209,6 +192,16 @@ msgstr "Հեղինակ"
 #, fuzzy
 msgid "New form"
 msgstr "Նոր թղթապանակ"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
+msgid "Value"
+msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
 #, fuzzy
@@ -315,6 +308,12 @@ msgid "There are no pending submissions for this form."
 msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#, fuzzy
+msgid "Sort by"
+msgstr "Մեկ համայնք"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
@@ -365,10 +364,18 @@ msgstr ""
 msgid "Manage forms"
 msgstr "Կառավարել ընկերներին"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr ""
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 #, fuzzy
 msgid "Submissions"
 msgstr "Թույլտվություններ"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
 #, fuzzy

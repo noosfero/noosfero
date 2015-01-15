@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -30,11 +30,6 @@ msgstr "Este bloque presenta algunas estadísticas sobre su entorno."
 #: plugins/statistics/lib/statistics_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
-msgstr ""
-
-#: plugins/community_track/views/blocks/_track_card.html.erb:25
-#: plugins/statistics/views/statistics_block.html.erb:25
-msgid "hits"
 msgstr ""
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
@@ -95,3 +90,7 @@ msgstr "Comunidades"
 #, fuzzy
 msgid "categories"
 msgstr "Categorías"
+
+#: plugins/statistics/views/statistics_block.html.erb:25
+msgid "hits"
+msgstr ""

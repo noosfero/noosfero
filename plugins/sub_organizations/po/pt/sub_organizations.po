@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,14 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
-msgid "Sub-organizations updated"
-msgstr "Sub-organizações atualizadas"
-
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
-msgid "Sub-organizations could not be updated"
-msgstr "As sub-organizações não puderam ser salvas"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
 msgid "Sub-groups"
@@ -89,6 +81,14 @@ msgid ""
 "organization\""
 msgstr ""
 "\"Este bloco mostra #{display_type[:title]} organizações desta organização\""
+
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
+msgid "Sub-organizations updated"
+msgstr "Sub-organizações atualizadas"
+
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
+msgid "Sub-organizations could not be updated"
+msgstr "As sub-organizações não puderam ser salvas"
 
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:2
 msgid "Type of organizations to be displayed"

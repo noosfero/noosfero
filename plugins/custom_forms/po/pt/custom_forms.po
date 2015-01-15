@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 11:00-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,34 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-msgid "Custom form %s was successfully created."
-msgstr "\"O formulário %s foi criado com sucesso.\""
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-msgid "Custom form %s was successfully updated."
-msgstr "O formulário personalizado %s foi atualizado com sucesso"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
-msgid "Form could not be updated"
-msgstr "O formulário não pode ser atualizado"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
-msgid "Form removed"
-msgstr "Formulário removido"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
-msgid "Form could not be removed"
-msgstr "O formulário não pode ser removido"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr "Submissão salva"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
-msgid "Submission could not be saved"
-msgstr "A submissão não pode ser salva"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
@@ -159,21 +131,33 @@ msgstr "Habilita a criação de formulários."
 msgid "Manage Forms"
 msgstr "Gerenciar Formulários"
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
-msgid "Value"
-msgstr "Valor"
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
+msgid "Custom form %s was successfully created."
+msgstr "\"O formulário %s foi criado com sucesso.\""
 
-#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr "Período"
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
+msgid "Custom form %s was successfully updated."
+msgstr "O formulário personalizado %s foi atualizado com sucesso"
 
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-msgid "Sort by"
-msgstr "Ordenar por"
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
+msgid "Form could not be updated"
+msgstr "O formulário não pode ser atualizado"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
+msgid "Form removed"
+msgstr "Formulário removido"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
+msgid "Form could not be removed"
+msgstr "O formulário não pode ser removido"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr "Submissão salva"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
+msgid "Submission could not be saved"
+msgstr "A submissão não pode ser salva"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
@@ -196,6 +180,16 @@ msgstr "Email do autor"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
 msgid "New form"
 msgstr "Novo formulário"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
+msgid "Value"
+msgstr "Valor"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
 msgid "Add a new option"
@@ -287,6 +281,11 @@ msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
@@ -331,9 +330,17 @@ msgstr "Baixar todas as respostas como"
 msgid "Manage forms"
 msgstr "Gerenciar formulários"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr "Período"
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 msgid "Submissions"
 msgstr "Submissões"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
 msgid "Pending"

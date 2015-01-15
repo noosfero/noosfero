@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,76 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
-msgid "This Bsc associations were saved successfully."
-msgstr "Estas asociaciones Bsc fueron guardadas correctamente."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:42
-msgid "This Bsc associations couldn't be saved."
-msgstr "Estas asociaciones Bsc no pudieron ser guardadas."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:71
-msgid "Enterprise ownership transferred."
-msgstr "Propiedad de la empresa transferida."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:85
-msgid "Enterprise was created in association with %s."
-msgstr "La empresa fue creada en asociación con %s."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:117
-msgid "Contract created."
-msgstr "Contrato creado."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
-msgid "Contract created but some products could not be added."
-msgstr "Contrato creado pero algunos productos no pudieron agregarse."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
-msgid "Contract doesn't exists! Maybe it was already removed."
-msgstr "¡El contrato no existe! Quizás ya fue eliminado."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
-msgid "Could not edit such contract."
-msgstr "No se puede editar tal contrato."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:170
-msgid "Contract edited."
-msgstr "contrato editado."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
-msgid "Contract edited but some products could not be added."
-msgstr "Contrato editado pero algunos productos no pueden ser agregados."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
-msgid "Contract removed."
-msgstr "Contrato eliminado."
-
-#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:185
-msgid "Contract could not be removed. Sorry! ^^"
-msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
-msgid "Your Bsc was created."
-msgstr "Tu Bsc fue creado."
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
-msgid "Enterprises validated."
-msgstr "Empresas validadas."
-
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
-msgid "Enterprise validations couldn't be saved."
-msgstr "Las validaciones de la empresa no pudieron guardarse."
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Opened"
-msgstr "Abierto"
-
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Closed"
-msgstr "Cerrado"
 
 #: plugins/bsc/lib/bsc_plugin.rb:10
 msgid "Adds the Bsc feature"
@@ -162,12 +92,20 @@ msgid "[%s] Bsc management transferred to you."
 msgstr "[%s] administración de bsc transferida a ti"
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Opened"
+msgstr "Abierto"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
 msgstr "Negociando"
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Executing"
 msgstr "Ejecutando"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Closed"
+msgstr "Cerrado"
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:46
 msgid "Federal"
@@ -181,22 +119,65 @@ msgstr "Proyecto A"
 msgid "ProjectB"
 msgstr "Proyecto B"
 
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
-#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
-msgid "Status"
-msgstr "Estado"
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
+msgid "This Bsc associations were saved successfully."
+msgstr "Estas asociaciones Bsc fueron guardadas correctamente."
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
-msgid "Quantity"
-msgstr "Cantidad"
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:42
+msgid "This Bsc associations couldn't be saved."
+msgstr "Estas asociaciones Bsc no pudieron ser guardadas."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:71
+msgid "Enterprise ownership transferred."
+msgstr "Propiedad de la empresa transferida."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:85
+msgid "Enterprise was created in association with %s."
+msgstr "La empresa fue creada en asociación con %s."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:117
+msgid "Contract created."
+msgstr "Contrato creado."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
+msgid "Contract created but some products could not be added."
+msgstr "Contrato creado pero algunos productos no pudieron agregarse."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
+msgid "Contract doesn't exists! Maybe it was already removed."
+msgstr "¡El contrato no existe! Quizás ya fue eliminado."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
+msgid "Could not edit such contract."
+msgstr "No se puede editar tal contrato."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:170
+msgid "Contract edited."
+msgstr "contrato editado."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
+msgid "Contract edited but some products could not be added."
+msgstr "Contrato editado pero algunos productos no pueden ser agregados."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
+msgid "Contract removed."
+msgstr "Contrato eliminado."
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:185
+msgid "Contract could not be removed. Sorry! ^^"
+msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
+msgid "Your Bsc was created."
+msgstr "Tu Bsc fue creado."
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
+msgid "Enterprises validated."
+msgstr "Empresas validadas."
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
+msgid "Enterprise validations couldn't be saved."
+msgstr "Las validaciones de la empresa no pudieron guardarse."
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
 msgid "Associations awaiting approval:"
@@ -226,9 +207,20 @@ msgstr "Tipo de cliente"
 msgid "Business type"
 msgstr "Tipo de negocio"
 
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
+msgid "Status"
+msgstr "Estado"
+
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
 msgid "Type in search term for enterprise"
 msgstr "Ingresa un término de búsqueda para la empresa"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
+msgid "Quantity"
+msgstr "Cantidad"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:24
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:28
@@ -237,8 +229,6 @@ msgstr "Precio unitario"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
 msgid "Total"
 msgstr "Total"
 
@@ -269,8 +259,6 @@ msgid "Annotations"
 msgstr "Anotaciones"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
 msgid "Sort by"
 msgstr "Ordenar por"
 

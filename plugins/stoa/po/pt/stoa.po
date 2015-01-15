@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,14 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
-msgid "Incorrect user/password pair."
-msgstr "O par usuário/senha está incorreto."
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
-msgid "Conection requires SSL certificate and post method."
-msgstr "A conexão exige um certificado SSL e a utilização do método 'post'."
 
 #: plugins/stoa/lib/stoa_plugin.rb:10
 msgid "Add Stoa features"
@@ -99,3 +91,11 @@ msgstr "Número USP"
 #: plugins/stoa/lib/ext/person.rb:16
 msgid "is being used by another user or is not valid"
 msgstr "está sendo usado por outro usuário ou não é válido"
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
+msgid "Incorrect user/password pair."
+msgstr "O par usuário/senha está incorreto."
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+msgid "Conection requires SSL certificate and post method."
+msgstr "A conexão exige um certificado SSL e a utilização do método 'post'."

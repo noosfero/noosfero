@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:40
-#, fuzzy
-msgid "Select one community to proceed"
-msgstr "Editar plantilla de comunidad"
 
 #: plugins/community_track/lib/community_track_plugin.rb:8
 #, fuzzy
@@ -55,7 +50,6 @@ msgid "This block displays a list of most relevant tracks as cards."
 msgstr "Este bloque muestra las empresas donde este usuario trabaja."
 
 #: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Closed"
 msgstr "Cerrado"
 
@@ -65,6 +59,7 @@ msgid "Join!"
 msgstr "Unirse"
 
 #: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
 msgid "Soon"
 msgstr ""
 
@@ -89,6 +84,11 @@ msgstr ""
 #, fuzzy
 msgid "This block displays a list of most relevant tracks."
 msgstr "Este bloque presenta una lista de tus productos."
+
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:40
+#, fuzzy
+msgid "Select one community to proceed"
+msgstr "Editar plantilla de comunidad"
 
 #: plugins/community_track/views/content_viewer/step.html.erb:13
 #: plugins/community_track/views/content_viewer/step.html.erb:19
@@ -161,7 +161,6 @@ msgid "Expected Results:"
 msgstr "Buscar resultados"
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
 msgid "Period"
 msgstr ""
 
@@ -176,12 +175,10 @@ msgid "Hidden Step"
 msgstr "Oculto"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
-#: plugins/statistics/views/statistics_block.html.erb:25
 msgid "hits"
 msgstr ""
 
 #: plugins/community_track/views/blocks/_track_list_more.html.erb:5
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
 #, fuzzy
 msgid "View All"
 msgstr "Ver todos"

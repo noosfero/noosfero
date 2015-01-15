@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
+#, fuzzy
+msgid "A plugin that allow classification of comments."
+msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
 #: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:16
 #, fuzzy
@@ -79,19 +84,9 @@ msgstr "Բուն հոդված"
 msgid "Status could not be removed"
 msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
 
-#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
-#, fuzzy
-msgid "A plugin that allow classification of comments."
-msgstr "Ձեր խմբերը ցուցադրող բաժին"
-
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
 #: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
 msgid "Status"
 msgstr "Կարգավիճակ"
 
@@ -126,6 +121,11 @@ msgstr "Մեկ ձեռնարկություն"
 #, fuzzy
 msgid "Manage comment classification"
 msgstr "Տեղեկություններ ղեկավարության մասին"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr ""
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
@@ -168,6 +168,11 @@ msgstr ""
 msgid "Enabled"
 msgstr "Ակտիվացված է"
 
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr ""
+
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
 #, fuzzy
 msgid "Are you sure you want to  remove this label?"
@@ -202,6 +207,10 @@ msgstr "%s ակտիվացված չէ:"
 #, fuzzy
 msgid "Are you sure you want to remove this status?"
 msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+
+#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
+msgid "[Select ...]"
+msgstr ""
 
 #: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
 #, fuzzy

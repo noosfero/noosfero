@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,6 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
+#: plugins/ldap/lib/ldap_plugin.rb:10
+#, fuzzy
+msgid "A plugin that add ldap support."
+msgstr "Ein Plugin, welches dies und jenes tut."
+
 #: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:10
 #, fuzzy
 msgid "Ldap configuration updated successfully."
@@ -29,23 +34,16 @@ msgstr "Optionen erfolgreich aktualisiert."
 msgid "Ldap configuration could not be saved."
 msgstr "Die Konfiguration konnte nicht gespeichert werden"
 
-#: plugins/ldap/lib/ldap_plugin.rb:10
-#, fuzzy
-msgid "A plugin that add ldap support."
-msgstr "Ein Plugin, welches dies und jenes tut."
-
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:1
 #, fuzzy
 msgid "Ldap Management"
 msgstr "Inhalt verwalten"
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
 msgid "Value"
 msgstr "Wert"
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:11
-#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:5
 msgid "Host"
 msgstr "Rechner"
 

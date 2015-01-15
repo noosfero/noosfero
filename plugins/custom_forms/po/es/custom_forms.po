@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 11:00-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,40 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-#, fuzzy
-msgid "Custom form %s was successfully created."
-msgstr "Comentario añadido correctamente."
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-#, fuzzy
-msgid "Custom form %s was successfully updated."
-msgstr "El comentario fue eliminado correctamente"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
-#, fuzzy
-msgid "Form could not be updated"
-msgstr "%s no pudo ser actualizado"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
-#, fuzzy
-msgid "Form removed"
-msgstr "Contrato eliminado."
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
-#, fuzzy
-msgid "Form could not be removed"
-msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr ""
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
-#, fuzzy
-msgid "Submission could not be saved"
-msgstr "La configuración no pudo guardarse"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 #, fuzzy
@@ -172,21 +138,39 @@ msgstr "Permitir activación de empresas"
 msgid "Manage Forms"
 msgstr "Administrar %s"
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
-msgid "Value"
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
+#, fuzzy
+msgid "Custom form %s was successfully created."
+msgstr "Comentario añadido correctamente."
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
+#, fuzzy
+msgid "Custom form %s was successfully updated."
+msgstr "El comentario fue eliminado correctamente"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
+#, fuzzy
+msgid "Form could not be updated"
+msgstr "%s no pudo ser actualizado"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
+#, fuzzy
+msgid "Form removed"
+msgstr "Contrato eliminado."
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
+#, fuzzy
+msgid "Form could not be removed"
+msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
 msgstr ""
 
-#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-msgid "Sort by"
-msgstr "Ordenar por"
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
+#, fuzzy
+msgid "Submission could not be saved"
+msgstr "La configuración no pudo guardarse"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
@@ -212,6 +196,16 @@ msgstr "Autor"
 #, fuzzy
 msgid "New form"
 msgstr "Forma Legal"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
+msgid "Value"
+msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
 #, fuzzy
@@ -317,6 +311,11 @@ msgid "There are no pending submissions for this form."
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
@@ -367,10 +366,18 @@ msgstr ""
 msgid "Manage forms"
 msgstr "Administrar amigos"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr ""
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 #, fuzzy
 msgid "Submissions"
 msgstr "Permisos"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
 msgid "Pending"

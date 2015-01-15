@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0~rc4\n"
-"POT-Creation-Date: 2014-12-18 17:22-0300\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-15 10:59-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,10 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:40
-msgid "Select one community to proceed"
-msgstr "Selecione uma comunidade para prosseguir"
 
 #: plugins/community_track/lib/community_track_plugin.rb:8
 msgid "New kind of content for communities."
@@ -57,7 +53,6 @@ msgid "This block displays a list of most relevant tracks as cards."
 msgstr "Este bloco apresenta a lista das trilhas mais relevantes como cartas."
 
 #: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Closed"
 msgstr "Fechado"
 
@@ -66,6 +61,7 @@ msgid "Join!"
 msgstr "Entrar!"
 
 #: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
 msgid "Soon"
 msgstr "Logo"
 
@@ -88,6 +84,10 @@ msgstr "Lista de Trilhas"
 #: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
 msgid "This block displays a list of most relevant tracks."
 msgstr "Este bloco apresenta a lista das trilhas mais relevantes."
+
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:40
+msgid "Select one community to proceed"
+msgstr "Selecione uma comunidade para prosseguir"
 
 #: plugins/community_track/views/content_viewer/step.html.erb:13
 #: plugins/community_track/views/content_viewer/step.html.erb:19
@@ -153,7 +153,6 @@ msgid "Expected Results:"
 msgstr "Resultados Esperados:"
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
 msgid "Period"
 msgstr "Período"
 
@@ -166,11 +165,9 @@ msgid "Hidden Step"
 msgstr "Passo Oculto"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
-#: plugins/statistics/views/statistics_block.html.erb:25
 msgid "hits"
 msgstr "acessos"
 
 #: plugins/community_track/views/blocks/_track_list_more.html.erb:5
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
 msgid "View All"
 msgstr "Ver Todos(as)"
