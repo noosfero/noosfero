@@ -90,12 +90,12 @@ module SearchHelper
     end
   end
 
-  def select_filter(name, options)
+  def select_filter(name, options, default = nil)
     if options.size <= 1
       return
     else
       options = options.map {|option| [FILTERS_OPTIONS_TRANSLATION[name][option], option]}
-      options = options_for_select(options, :selected => params[name])
+      options = options_for_select(options, :selected => (params[name] || default))
       select_tag(name, options)
     end
   end
@@ -104,7 +104,8 @@ module SearchHelper
     return if !asset
     klass = asset_class(asset)
     content_tag('div', klass::SEARCH_FILTERS.map do |name, options|
-      select_filter(name, options)
+      default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
+      select_filter(name, options, default)
     end.join("\n"), :id => 'search-filters')
   end
 
