@@ -28,16 +28,20 @@ Feature: publish article
     When I go to sample-community's sitemap
     Then I should see "Sample Article"
 
+  @selenium
   Scenario: publishing an article with a different name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
     And I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "Spread"
-    And I check "Sample Community"
+    And I choose the following communities to spread
+      | name             |
+      | Sample Community |
     And I fill in "Title" with "Another name"
     And I press "Spread this"
-    When I go to sample-community's sitemap
+    And show sample-community tasks
+    When I go to sample-community's blog
     Then I should see "Another name"
     And I should not see "Sample Article"
 

@@ -1,16 +1,3 @@
-<script type="text/javascript" charset="utf-8">
-  jQuery(document).ready( function() {
-      jQuery('.publish-article-title').find('label')
-        .click( function(event) {
-            if (this == event.target) {
-                jQuery(this).toggleClass('expanded');
-                jQuery(this).next('input').slideToggle();
-            }
-            return false;
-        }).addClass('collapsed').next('input').hide();
-  });
-
-</script>
 <div class="select-publish-target">
 
 <h2><%= _('Where do you want to publish this article?') %></h2>
@@ -36,9 +23,7 @@
       <div class='description'><%= _('You can publish this article on your profile where your friends and followers will see.') %></div>
       <%= form_tag do %>
         <%= hidden_field_tag :back_to, @back_to %>
-        <div class='publish-article-title'>
-          <%= labelled_text_field _('Title'), 'name', @article.name %>
-        </div>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
 
         <% button_bar do %>
           <%= submit_button 'spread', _('Spread this') %>
@@ -55,10 +40,7 @@
         <%= hidden_field_tag :back_to, @back_to %>
         <% search_action = url_for(:action => 'search_communities_to_publish') %>
         <%= token_input_field_tag(:q, 'search-communities-to-publish', search_action, { :hint_text => _('Type in a search for your community'), :zindex => 10000, :focus => false }) %>
-
-        <div class='publish-article-title'>
-          <%= labelled_text_field _('Title'), 'name', @article.name %>
-        </div>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
         <% button_bar do %>
           <%= submit_button 'spread', _('Spread this') %>
         <% end %>
@@ -74,9 +56,7 @@
 
       <%= form_tag :action => 'publish_on_portal_community', :id => @article.id do %>
         <%= hidden_field_tag :back_to, @back_to %>
-        <div class='publish-article-title'>
-          <%= labelled_text_field _('Title'), :name, @article.name %>
-        </div>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
 
         <% button_bar do %>
           <%= submit_button 'spread', _('Spread this') %>
