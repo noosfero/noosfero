@@ -1309,11 +1309,11 @@ module ApplicationHelper
     !content.public? || content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
   end
 
-  def remove_content_button(action)
+  def remove_content_button(action, content)
     method_name = "content_remove_#{action.to_s}"
-    plugin_condition = @plugins.dispatch(method_name, @page).include?(true)
+    plugin_condition = @plugins.dispatch(method_name, content).include?(true)
     begin
-      core_condition = self.send(method_name, @page)
+      core_condition = self.send(method_name, content)
     rescue NoMethodError
       core_condition = false
     end

@@ -2,40 +2,40 @@
   <div id="article-actions">
 
 
-    <% if @page.allow_edit?(user) && !remove_content_button(:edit) %>
+    <% if @page.allow_edit?(user) && !remove_content_button(:edit, @page) %>
       <% content = content_tag('span', label_for_edit_article(@page)) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }) %>
       <%= expirable_button @page, :edit, content, url %>
     <% end %>
 
-    <% if @page != profile.home_page && !@page.has_posts?  && @page.allow_delete?(user) && !remove_content_button(:delete)%>
+    <% if @page != profile.home_page && !@page.has_posts?  && @page.allow_delete?(user) && !remove_content_button(:delete, @page)%>
       <% content = content_tag( 'span', _('Delete') ) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page.id}) %>
       <% options = {:method => :post, :confirm => delete_article_message(@page)} %>
       <%= expirable_button @page, :delete, content, url, options %>
     <% end %>
 
-    <% if @page.allow_spread?(user) && !remove_content_button(:spread) %>
+    <% if @page.allow_spread?(user) && !remove_content_button(:spread, @page) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page.id }) %>
       <%= expirable_button @page, :spread, content_tag( 'span', _('Spread this') ), url, {:class => 'colorbox'} if url %>
     <% end %>
 
     <% if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user))) %>
-      <% if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale) %>
+      <% if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale, @page) %>
         <% content = _('Add translation') %>
         <% parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)) %>
         <% url = profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => parent_id, :type => @page.type, :article => { :translation_of_id => @page.native_translation.id })%>
         <%= expirable_button @page, :locale, content, url %>
       <% end %>
 
-      <%= colorbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new) %>
+      <%= colorbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new, @page) %>
     <% end %>
 
     <% if @page.accept_uploads? && @page.allow_create?(user) %>
-      <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload)%>
+      <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload, @page)%>
     <% end %>
 
-    <% if !@page.allow_create?(user) && profile.community? && (@page.blog? || @page.parent && @page.parent.blog?) && !remove_content_button(:suggest) %>
+    <% if !@page.allow_create?(user) && profile.community? && (@page.blog? || @page.parent && @page.parent.blog?) && !remove_content_button(:suggest, @page) %>
       <% content = content_tag( 'span', _('Suggest an article') ) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}) %>
       <% options = {:id => 'suggest-article-link'} %>
