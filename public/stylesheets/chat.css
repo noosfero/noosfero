@@ -1,13 +1,18 @@
 #chat {
-  width: 350px;
+  width: 0;
   height: 100%;
-  display: none;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 900;
   background-color: #FFF;
   box-shadow: -3px 0px 5px #888;
+  transition: width 0.3s ease-in;
+}
+
+#chat.opened {
+  width: 350px;
+  transition: width 0.3s ease-in;
 }
 
 #chat-window {
@@ -19,12 +24,17 @@
   background-color: #f9f9f9;
   top: 0;
   right: 0;
-  width: 65px;
+  width: 0;
   bottom: 100px;
   position: absolute;
   border-left: 1px solid #DCE4E7;
   border-bottom: 1px solid #DCE4E7;
   z-index: 2;
+  transition: width 0.3s ease-in;
+}
+
+#chat.opened #buddy-list {
+  width: 65px;
   transition: width 0.3s ease-in;
 }
 
@@ -466,4 +476,57 @@ div.occupants > a.up {
   font-size: 19px;
   background-image: linear-gradient(to left, #E3E3E3 25%, #BABDB6 100%, #FFFFFF 100%);
   xbackground-color: #BABDB6;
+}
+
+#chat-label {
+  width: 20px;
+  height: 80px;
+  background-color: #2E3436;
+  position: fixed;
+  top: 20%;
+  right: 350px;
+  cursor: pointer;
+  text-align: center;
+  z-index: 7;
+  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+#chat-label.opened {
+  right: 0;
+  width: 100px;
+  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
+}
+
+#chat-label.opened:hover {
+  background-color: #888A85;
+  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
+}
+
+#chat-label:hover {
+  background-color: #888A85;
+  transition: background-color 0.2s linear, right 0.3s ease-in;
+  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
+}
+
+#chat-label span {
+  color: white;
+  font-size: 18px;
+  line-height: 24px;
+  display: none;
+}
+
+#chat-label.opened span {
+  display: inline;
+}
+
+#chat-label div {
+  width: 64px;
+  height: 64px;
+  display: none;
+}
+
+#chat-label.opened div {
+  display: inline-block;
 }

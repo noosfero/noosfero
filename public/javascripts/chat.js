@@ -771,4 +771,8 @@ jQuery(function($) {
   $('#chat .buddies a').live('click', function(){
     $('#chat .search').val('').change();
   });
+
+  $('#chat-label').click(function(){
+    toggle_chat_window(this);
+  });
 });

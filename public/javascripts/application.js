@@ -567,14 +567,11 @@ function display_notice(message) {
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
 
-function open_chat_window(self_link, anchor) {
+function toggle_chat_window(self_link, anchor) {
    if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
-   if(anchor) {
-      jQuery('#chat').show('fast');
-      jQuery("#chat" ).trigger('opengroup', anchor);
-   } else {
-      jQuery('#chat').toggle('fast');
-   }
+   jQuery('#chat').toggleClass('opened');
+   jQuery('#chat-label').toggleClass('opened');
+   if(anchor) jQuery("#chat" ).trigger('opengroup', anchor);
    return false;
 }
 
@@ -1089,7 +1086,7 @@ function notifyMe(title, options) {
     });
   }
   return notification;
-  // At last, if the user already denied any notification, and you 
+  // At last, if the user already denied any notification, and you
   // want to be respectful there is no need to bother them any more.
 }
 
