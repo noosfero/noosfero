@@ -79,6 +79,8 @@ end
 Dir.glob('plugins/*').each do |plugindir|
   plugin = File.basename(plugindir)
   task :updatepo => "updatepo:plugin:#{plugin}"
+
+  desc "Extract strings from #{plugin} plugin"
   task "updatepo:plugin:#{plugin}" do
     files = Dir.glob("#{plugindir}/**/*.{rb,html.erb}")
     po_root = File.join(plugindir, 'po')

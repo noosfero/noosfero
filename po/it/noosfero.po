@@ -8740,5 +8740,3 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "members"
-#~ msgstr "novembre"
