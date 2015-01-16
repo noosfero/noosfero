@@ -40,7 +40,6 @@ Feature: publish article
       | Sample Community |
     And I fill in "Title" with "Another name"
     And I press "Spread this"
-    And show sample-community tasks
     When I go to sample-community's blog
     Then I should see "Another name"
     And I should not see "Sample Article"

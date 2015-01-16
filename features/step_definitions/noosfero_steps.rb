@@ -772,7 +772,3 @@ Given /^the field (.*) is public for all users$/ do |field|
     person.save!
   end
 end
-
-And /^show (.*) tasks$/ do |identifier|
-  puts Community.find_by_identifier(identifier).tasks.pending.count
-end
