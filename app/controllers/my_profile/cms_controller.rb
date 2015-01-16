@@ -295,6 +295,7 @@ class CmsController < MyProfileController
       params_marked = (params['q'] || '').split(',').select { |marked| user.memberships.map(&:id).include? marked.to_i }
       @marked_groups = Profile.find(params_marked)
       if @marked_groups.empty?
+        redirect_to @back_to
         return session[:notice] = _("Select some group to publish your article")
       end
       @marked_groups.each do |item|

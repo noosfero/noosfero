@@ -763,6 +763,14 @@ class CmsControllerTest < ActionController::TestCase
     end
   end
 
+  should 'not crash if no community is selected' do
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+
+    assert_nothing_raised do
+      post :publish_on_communities, :profile => profile.identifier, :id => article.id, :q => '', :back_to => '/'
+    end
+  end
+
   should "not crash if there is a post and no portal community defined" do
     Environment.any_instance.stubs(:portal_community).returns(nil)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
