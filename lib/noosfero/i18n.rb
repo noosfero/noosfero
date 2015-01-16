@@ -4,6 +4,8 @@ class Object
   include FastGettext::Translation
   alias :gettext :_
   alias :ngettext :n_
+  alias :c_ :_
+  alias :cN_ :N_
 end
 
 
@@ -11,6 +13,11 @@ custom_locale_dir = Rails.root.join('custom_locales', Rails.env)
 repos = []
 if File.exists?(custom_locale_dir)
   repos << FastGettext::TranslationRepository.build('environment', :type => 'po', :path => custom_locale_dir)
+end
+
+Dir.glob('{baseplugins,config/plugins}/*/locale') do |plugin_locale_dir|
+  plugin = File.basename(File.dirname(plugin_locale_dir))
+  repos << FastGettext::TranslationRepository.build(plugin, :type => 'mo', :path => plugin_locale_dir)
 end
 
 # translations in place?

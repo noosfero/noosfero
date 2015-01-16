@@ -11,7 +11,7 @@
   <% if track.allow_create?(user) %>
     <div class="track actions">
         <%= content_tag('a', :href => url_for({:controller => 'cms', :action => 'new', :type => "CommunityTrackPlugin::Step", :parent_id => track.id}), :class => 'button with-text icon-add') do %>
-          <strong><%= _("New %s") % CommunityTrackPlugin::Step.short_description %></strong>
+          <strong><%= c_("New %s") % CommunityTrackPlugin::Step.short_description %></strong>
         <% end %>
         <a href="#" class="reorder_button button with-text icon-up" onclick="enableReorder();"><%= _('Reorder Steps') %></a>
         <%= submit_button :save, _('Save Order'), :class => "save_button" %>

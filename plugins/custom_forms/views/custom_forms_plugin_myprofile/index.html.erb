@@ -16,9 +16,9 @@
       <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, {:action => 'submissions', :id => form.id}) : 0 %></td>
       <td><%= access_text(form) %></td>
       <td class="actions">
-        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => form.id %>
+        <%= button_without_text :edit, c_('Edit'), :action => 'edit', :id => form.id %>
         <%= button_without_text :search, _('Pending'), :action => 'pending', :id => form.id if form.for_admission %>
-        <%= button_without_text :remove, _('Remove'), {:action => 'remove', :id => form.id}, :confirm => _('Are you sure you want to remove this form?') %>
+        <%= button_without_text :remove, c_('Remove'), {:action => 'remove', :id => form.id}, :confirm => _('Are you sure you want to remove this form?') %>
       </td>
     </tr>
   <% end %>

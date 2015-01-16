@@ -16,7 +16,7 @@ class StatisticsBlock < Block
   ENTERPRISE_COUNTERS = [:user_counter, :tag_counter, :comment_counter, :hit_counter]
 
   def self.description
-    _('Statistics')
+    c_('Statistics')
   end
 
   def default_title

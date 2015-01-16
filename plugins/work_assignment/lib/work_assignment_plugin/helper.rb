@@ -3,7 +3,7 @@ module WorkAssignmentPlugin::Helper
     return if work_assignment.submissions.empty?
     content_tag('table',
       content_tag('tr',
-        content_tag('th', _('Author'), :style => 'width: 50%') +
+        content_tag('th', c_('Author'), :style => 'width: 50%') +
         content_tag('th', _('Submission date')) +
         content_tag('th', _('Versions'), :style => 'text-align: center') +
         content_tag('th', '')

@@ -5,7 +5,7 @@ class Profile
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
-    _('Profile')
+    c_('Profile')
   end
 
   after_save_reindex [:articles], :with => :delayed_job
@@ -13,8 +13,8 @@ class Profile
   acts_as_faceted :fields => {
       :solr_plugin_f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
         :proc => proc { |id| solr_plugin_f_enabled_proc(id) }},
-      :solr_plugin_f_region => {:label => _('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
-      :solr_plugin_f_profile_type => {:label => _('Type'), :proc => proc{|klass| solr_plugin_f_profile_type_proc(klass)}},
+      :solr_plugin_f_region => {:label => c_('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
+      :solr_plugin_f_profile_type => {:label => c_('Type'), :proc => proc{|klass| solr_plugin_f_profile_type_proc(klass)}},
       :solr_plugin_f_categories => {:multi => true, :proc => proc {|facet, id| solr_plugin_f_categories_proc(facet, id)},
         :label => proc { |env| solr_plugin_f_categories_label_proc(env) }, :label_abbrev => proc{ |env| solr_plugin_f_categories_label_abbrev_proc(env) }},
     }, :category_query => proc { |c| "solr_plugin_category_filter:#{c.id}" },

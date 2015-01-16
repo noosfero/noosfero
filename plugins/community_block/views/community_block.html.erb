@@ -11,13 +11,13 @@
         if logged_in?
 
           if profile.enable_contact?
-            links.push(_('Send an e-mail') => {:href => url_for({:controller => 'contact', :action => 'new', :profile => profile.identifier})})
+            links.push(c_('Send an e-mail') => {:href => url_for({:controller => 'contact', :action => 'new', :profile => profile.identifier})})
           end
 
-          links.push(_('Report abuse') => {:href => url_for({:controller => 'profile', :action => 'report_abuse', :profile => profile.identifier})})
+          links.push(c_('Report abuse') => {:href => url_for({:controller => 'profile', :action => 'report_abuse', :profile => profile.identifier})})
 
           if !user.nil? && user.has_permission?('edit_profile', profile)
-            links.push(_('Control panel') => {:href => url_for({:controller => 'profile_editor', :profile => profile.identifier})})
+            links.push(c_('Control panel') => {:href => url_for({:controller => 'profile_editor', :profile => profile.identifier})})
           end %>
 
       <%= link_to(

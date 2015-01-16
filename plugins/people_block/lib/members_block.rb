@@ -4,7 +4,7 @@ class MembersBlock < PeopleBlockBase
   attr_accessible :show_join_leave_button, :visible_role
 
   def self.description
-    _('Members')
+    c_('Members')
   end
 
   def help

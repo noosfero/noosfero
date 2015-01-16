@@ -7,7 +7,7 @@
   <%= labelled_form_field _('Piwik site id'), f.text_field(:piwik_site_id) %>
 
   <% button_bar do %>
-    <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+    <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
   <% end %>
 
 <% end %>
