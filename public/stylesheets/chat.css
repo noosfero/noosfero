@@ -58,7 +58,7 @@
 #buddy-list:hover .buddies {
   top: 57px;
   left: 15px;
-  right: 15px;
+  right: 0;
   transition: all 0.3s ease-in;
 }
 
