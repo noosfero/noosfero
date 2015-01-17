@@ -4,7 +4,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 900;
+  z-index: 10;
   background-color: #FFF;
   box-shadow: -3px 0px 5px #888;
   transition: width 0.3s ease-in;
@@ -487,7 +487,7 @@ div.occupants > a.up {
   right: 350px;
   cursor: pointer;
   text-align: center;
-  z-index: 7;
+  z-index: 11;
   transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -512,13 +512,32 @@ div.occupants > a.up {
 
 #chat-label span {
   color: white;
+}
+
+#chat-label span.title {
   font-size: 18px;
   line-height: 24px;
+}
+
+#chat-label span.right-arrow {
+  font-size: 24px;
+  line-height: 77px;
+}
+
+#chat-label .title {
   display: none;
 }
 
-#chat-label.opened span {
+#chat-label.opened .title {
   display: inline;
+}
+
+#chat-label .right-arrow {
+  display: inline;
+}
+
+#chat-label.opened .right-arrow {
+  display: none;
 }
 
 #chat-label div {
