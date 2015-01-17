@@ -567,11 +567,17 @@ function display_notice(message) {
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
 
-function toggle_chat_window(self_link, anchor) {
+function open_chat_window(self_link, anchor) {
+   jQuery('#chat').addClass('opened');
+   jQuery('#chat-label').removeClass('opened');
+   jQuery("#chat" ).trigger('opengroup', anchor);
+   return false;
+}
+
+function toggle_chat_window(self_link) {
    if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
    jQuery('#chat').toggleClass('opened');
    jQuery('#chat-label').toggleClass('opened');
-   if(anchor) jQuery("#chat" ).trigger('opengroup', anchor);
    return false;
 }
 
