@@ -8,7 +8,7 @@ end
 
 
 # Adds custom locales for a whole environment
-custom_locale_dir = Rails.root.join('custom_locales', Rails.env)
+custom_locale_dir = Rails.root.join('config', 'custom_locales', Rails.env)
 repos = []
 if File.exists?(custom_locale_dir)
   repos << FastGettext::TranslationRepository.build('environment', :type => 'po', :path => custom_locale_dir)
@@ -30,7 +30,7 @@ hosted_environments = Noosfero::MultiTenancy.mapping.values
 hosted_environments += Domain.all.map { |domain| domain.name[/(.*?)\./,1] } if Domain.table_exists?
 
 hosted_environments.uniq.each do |env|
-  custom_locale_dir = Rails.root.join('custom_locales', env)
+  custom_locale_dir = Rails.root.join('config', 'custom_locales', env)
   if File.exists?(custom_locale_dir)
     FastGettext.add_text_domain(env, :type => :chain, :chain => [FastGettext::TranslationRepository.build('environment', :type => 'po', :path => custom_locale_dir)] + repos)
   end
