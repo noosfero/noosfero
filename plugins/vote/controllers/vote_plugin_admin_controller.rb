@@ -1,4 +1,4 @@
-class VotePluginAdminController < AdminController
+class VotePluginAdminController < PluginAdminController
 
   def index
     settings = params[:settings]
