@@ -11,14 +11,8 @@ class UploadedFile < Article
   end
 
   after_validation do |uploaded_file|
-    if uploaded_file.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+    if uploaded_file.parent && uploaded_file.parent.parent && uploaded_file.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
     	uploaded_file.published = uploaded_file.parent.published
     end
   end
-
-  # after_create do |uploaded_file|
-  #   if uploaded_file.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
-  #   	uploaded_file.published = uploaded_file.parent.published
-  #   end
-  # end
 end

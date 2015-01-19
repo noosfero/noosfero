@@ -15,7 +15,6 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
             },
             :without_protection => true
           )
-    #content = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :author => fast_create(Person))
     assert !WorkAssignmentPlugin.is_submission?(content)
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)

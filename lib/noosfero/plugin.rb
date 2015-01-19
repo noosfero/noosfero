@@ -419,7 +419,7 @@ class Noosfero::Plugin
 
   # -> Adds adicional fields to a view
   # returns = proc block that creates html code
-  def article_extra_fields(article)
+  def upload_files_extra_fields(article)
     nil
   end
   

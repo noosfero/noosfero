@@ -73,7 +73,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :block => block }
   end
 
-  def article_extra_fields(article)
+  def upload_files_extra_fields(article)
     proc do
       @article = Article.find_by_id(article)
       if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"

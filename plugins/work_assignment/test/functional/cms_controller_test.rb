@@ -7,7 +7,7 @@ class CmsController; def rescue_action(e) raise e end; end
 class CmsControllerTest < ActionController::TestCase
 
   include NoosferoTestHelper
-
+  #necessario?
   fixtures :environments
 
 

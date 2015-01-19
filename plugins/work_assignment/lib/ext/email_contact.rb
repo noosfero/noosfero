@@ -52,6 +52,7 @@ class EmailContact
   def build_mail_message!(environment, uploaded_files, parent_id)
     article = environment.articles.find_by_id(parent_id)
     message = ""
+    #kind_of?
     if !article.nil? && article.type == "WorkAssignmentPlugin::WorkAssignment"
       message = article.default_email + "<br>"
     end
