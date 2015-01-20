@@ -5,6 +5,10 @@
   <%= labelled_form_field check_box(:block, :display_folder_children) + _('Dinamically load children of selected folders'), '' %>
 </div>
 
+<div id="limit">
+ <%= labelled_text_field(_('Limit:'), "block[limit_to_show]", @block.limit_to_show, :class => "limit-input") %>
+</div>
+
 <script type="text/javascript" >
 
 jQuery_1_8_3("#display_content").jstree({
@@ -13,7 +17,7 @@ jQuery_1_8_3("#display_content").jstree({
      real_checkboxes : true,
      real_checkboxes_names : function (n) { return [("block[checked_nodes[" + n.attr('node_id') + "]]"), 1]; }
    },
-   themes : {"theme" : "classic", "icons" : true, "url": "/plugins/display_content/javascripts/jstree/themes/classic/style.css"},
+   themes : {"theme" : "classic", "icons" : true, "url": "<%= Noosfero.root %>/plugins/display_content/javascripts/jstree/themes/classic/style.css"},
    json_data : {
      ajax : {
          url : '<%= url_for @block.url_params %>',
@@ -26,5 +30,20 @@ jQuery_1_8_3("#display_content").jstree({
 });
 
 jQuery( "#sortable" ).sortable();
+
+function show_limit_field(show){
+  if (show){
+    jQuery("#limit").show();
+  }else {
+    jQuery("#limit").hide();
+  }
+}
+
+jQuery(document).ready(function(){
+  show_limit_field(jQuery("#block_display_folder_children").is(":checked"));
+  jQuery("#block_display_folder_children").click(function(event){
+    show_limit_field(jQuery("#block_display_folder_children").is(":checked"));
+  });
+});
 
 </script>
