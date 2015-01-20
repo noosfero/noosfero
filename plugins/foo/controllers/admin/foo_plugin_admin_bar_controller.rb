@@ -1,3 +1,3 @@
-class FooPluginAdminBarController < AdminController
+class FooPluginAdminBarController < PluginAdminController
 end
 
