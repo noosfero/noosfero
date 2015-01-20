@@ -3,7 +3,7 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login, :email_suggestions, :allow_members_to_invite, :invite_friends_only
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -119,9 +119,9 @@ class Profile < ActiveRecord::Base
     Profile.column_names.map{|n| [Profile.table_name, n].join('.')}.join(',')
   end
 
-  scope :visible, :conditions => { :visible => true }
+  scope :visible, :conditions => { :visible => true, :secret => false }
   scope :disabled, :conditions => { :visible => false }
-  scope :public, :conditions => { :visible => true, :public_profile => true }
+  scope :public, :conditions => { :visible => true, :public_profile => true, :secret => false }
   scope :enabled, :conditions => { :enabled => true }
 
   # Subclasses must override this method
