@@ -1955,4 +1955,22 @@ class ProfileTest < ActiveSupport::TestCase
     p = fast_create(Profile)
     assert p.folder_types.include?('ProfileTest::Folder1')
   end
+
+  should 'enable profile visibility' do
+    profile = fast_create(Profile)
+
+    assert_equal true, profile.disable
+
+    assert_equal true, profile.enable
+    assert_equal true, profile.visible?
+  end
+
+  should 'disable profile visibility' do
+    profile = fast_create(Profile)
+
+    assert_equal true, profile.enable
+
+    assert_equal true, profile.disable
+    assert_equal false, profile.visible?
+  end
 end
