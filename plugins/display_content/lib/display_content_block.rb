@@ -25,8 +25,10 @@ class DisplayContentBlock < Block
                               {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
   settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
+  settings_items :order_by_recent, :type => :boolean, :default => :true
+  settings_items :limit_to_show, :type => :integer, :default => 6
 
-  attr_accessible :sections, :checked_nodes, :display_folder_children, :types
+  attr_accessible :sections, :checked_nodes, :display_folder_children, :types, :order_by_recent, :limit_to_show
 
   def self.description
     _('Display your contents')
@@ -117,14 +119,22 @@ class DisplayContentBlock < Block
 
   def content(args={})
     block = self
+
     nodes_conditions = nodes.blank? ? '' : " AND articles.id IN(:nodes) "
     nodes_conditions += ' OR articles.parent_id IN(:nodes) ' if !nodes.blank? && display_folder_children
 
-    docs = owner.articles.find(:all, :conditions => ["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}], :include => [:profile, :image, :tags])
+    order_string = "published_at"
+    order_string += " DESC" if order_by_recent
+
+    limit_final = [limit_to_show, 0].max
+
+    docs = owner.articles.order(order_string).where(["articles.type IN(:types) #{nodes.blank? ? '' : nodes_conditions}", {:nodes => self.nodes, :types => self.types}]).includes(:profile, :image, :tags)
+    docs = docs.limit(limit_final) if display_folder_children
+
     proc do
       block.block_title(block.title) +
         content_tag('ul', docs.map {|item|
-        if !item.folder?
+        if !item.folder? && item.class != RssFeed
           content_sections = ''
           read_more_section = ''
           tags_section = ''
