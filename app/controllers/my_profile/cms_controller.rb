@@ -30,10 +30,6 @@ class CmsController < MyProfileController
     (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
-  def self.add_as_exception?(action)
-    false 
-  end
-
   protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end

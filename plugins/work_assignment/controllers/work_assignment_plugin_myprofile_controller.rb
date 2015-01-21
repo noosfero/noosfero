@@ -1,19 +1,18 @@
 class WorkAssignmentPluginMyprofileController < MyProfileController
 
-include ArticleHelper
-include CmsHelper
+helper ArticleHelper
+helper CmsHelper
 
 before_filter :protect_if, :only => [:edit_visibility]
 
-
 def protect_if
-  article = c.environment.articles.find_by_id(c.params[:article_id])
-  (user && !article.nil? && (user.is_member_of? article.profile) &&
-  article.parent.allow_privacy_edition && article.folder? &&
+  article = environment.articles.find_by_id(params[:article_id])
+  render_access_denied unless (user && !article.nil? && (user.is_member_of? article.profile) &&
+  article.parent.allow_visibility_edition && article.folder? &&
   (article.author == user || user.has_permission?('view_private_content', profile)))
 end 
 
-def edit_privacy
+def edit_visibility
   unless params[:article_id].blank?
     folder = profile.environment.articles.find_by_id(params[:article_id])
     @back_to = url_for(folder.parent.url)
@@ -27,4 +26,10 @@ def edit_privacy
     end    
   end
  end
+
+  def search_article_privacy_exceptions
+    arg = params[:q].downcase
+    result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    render :text => prepare_to_token_input(result).to_json
+  end
 end

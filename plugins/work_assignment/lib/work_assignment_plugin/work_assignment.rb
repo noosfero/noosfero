@@ -2,11 +2,11 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
 
   settings_items :publish_submissions, :type => :boolean, :default => false
   settings_items :default_email, :type => :string, :default => ""
-  settings_items :allow_privacy_edition, :type => :boolean, :default => false
+  settings_items :allow_visibility_edition, :type => :boolean, :default => false
 
   attr_accessible :publish_submissions
   attr_accessible :default_email
-  attr_accessible :allow_privacy_edition
+  attr_accessible :allow_visibility_edition
   
   def self.icon_name(article = nil)
     'work-assignment'

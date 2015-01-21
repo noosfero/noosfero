@@ -866,13 +866,11 @@ module ApplicationHelper
   end
 
   def helper_for_article(article)
-    puts "teste "*20
     article_helper = ActionView::Base.new
     article_helper.controller = controller
     article_helper.extend ArticleHelper
     article_helper.extend Rails.application.routes.url_helpers
     begin
-      puts "erro "*20
       class_name = article.class.name + 'Helper'
       klass = class_name.constantize
       article_helper.extend klass

@@ -1,6 +1,6 @@
 module WorkAssignmentPlugin::Helper
   include CmsHelper
-  include ArticleHelper
+  
   def display_submissions(work_assignment, user)
     return if work_assignment.submissions.empty?
     content_tag('table',
@@ -73,41 +73,21 @@ module WorkAssignmentPlugin::Helper
   end
 
   def display_privacy_button(author_folder, user)
-    #ver if
-    if author_folder
-      folder = environment.articles.find_by_id(author_folder.id)
-      work_assignment = folder.parent
-      @back_to = url_for(folder.parent.url)
-      if(user && work_assignment.allow_privacy_edition &&
-        ((author_folder.author_id == user.id && (user.is_member_of? work_assignment.profile)) || 
-        user.has_permission?('view_private_content', work_assignment.profile)))#@profile?
+    folder = environment.articles.find_by_id(author_folder.id)
+    work_assignment = folder.parent
+    @back_to = url_for(work_assignment.url)
 
-        @tokenized_children = prepare_to_token_input(
-                              profile.members.includes(:articles_with_access).find_all{ |m|
-                                m.articles_with_access.include?(folder)
-                              })
-        button :edit, _('Edit'), { :controller => 'work_assignment_plugin_myprofile',
-        :action => 'edit_privacy', :article_id => folder.id,
-        :tokenized_children => @tokenized_children, :back_to => @back_to}, :method => :post
-      end
+    if(user && work_assignment.allow_visibility_edition &&
+      ((author_folder.author_id == user.id && (user.is_member_of? profile)) ||
+      user.has_permission?('view_private_content', profile)))
+
+      @tokenized_children = prepare_to_token_input(
+                            profile.members.includes(:articles_with_access).find_all{ |m|
+                              m.articles_with_access.include?(folder)
+                            })
+      button :edit, _('Edit'), { :controller => 'work_assignment_plugin_myprofile',
+      :action => 'edit_visibility', :article_id => folder.id,
+      :tokenized_children => @tokenized_children, :back_to => @back_to}, :method => :post
     end
-  end
-
-  def visibility_options(article, tokenized_children)
-    content_tag('h4', _('Visibility')) +
-    content_tag('div',
-      content_tag('div',
-        radio_button(:article, :published, true) +
-          content_tag('label', _('Public (visible to other people)'), :for => 'article_published_true')
-           ) +
-      content_tag('div',
-        radio_button(:article, :published, false) +
-          content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private")
-       ) +
-      (article.profile.community? ? content_tag('div',
-        content_tag('label', _('Fill in the search field to add the exception users to see this content'), :id => "text-input-search-exception-users") +
-        token_input_field_tag(:q, 'search-article-privacy-exceptions', {:action => 'search_article_privacy_exceptions'},
-          {:focus => false, :hint_text => _('Type in a search term for a user'), :pre_populate => tokenized_children})) :
-          ''))
   end
 end
