@@ -1,6 +1,6 @@
 class Block < ActiveRecord::Base
 
-  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user, :box
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user, :box, :fixed
 
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
@@ -109,6 +109,9 @@ class Block < ActiveRecord::Base
   #
   # * <tt>'all'</tt>: the block is always displayed
   settings_items :language, :type => :string, :default => 'all'
+
+  # The block can be configured to be fixed. Only can be edited by environment admins
+  settings_items :fixed, :type => :boolean, :default => false
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.

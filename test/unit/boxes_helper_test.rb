@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../../app/helpers/boxes_helper'
 
 class BoxesHelperTest < ActionView::TestCase
 
@@ -119,4 +120,31 @@ class BoxesHelperTest < ActionView::TestCase
     display_box_content(box, '')
   end
 
+  should 'not show move options on block when block is fixed' do
+    p = create_user_with_blocks
+
+    b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
+    b.fixed = true
+    b.save!
+
+    stubs(:environment).returns(p.environment)
+    stubs(:user).returns(p)
+
+    assert_equal false, modifiable?(b)
+  end
+
+  should 'show move options on block when block is fixed and user is admin' do
+    p = create_user_with_blocks
+
+    b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
+    b.fixed = true
+    b.save!
+
+    p.environment.add_admin(p)
+
+    stubs(:environment).returns(p.environment)
+    stubs(:user).returns(p)
+
+    assert_equal true, modifiable?(b)
+  end
 end
