@@ -53,6 +53,8 @@ namespace :noosfero do
   end
 
   AUTHORS_HEADER = <<EOF
+This list is automatically generated at release time. Please do not change it.
+
 If you are not listed here, but should be, please write to the noosfero mailing
 list: http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/noosfero-dev
 (this list requires subscription to post, but since you are an author of
@@ -82,7 +84,7 @@ EOF
     begin
       File.open("AUTHORS.md", 'w') do |output|
         output.puts AUTHORS_HEADER
-        output.puts `git log --no-merges --pretty=format:'%aN <%aE>' | sort | uniq`
+        output.puts `./script/authors`
         output.puts AUTHORS_FOOTER
       end
       commit_changes(['AUTHORS.md'], 'Updating authors file') if !pendencies_on_authors[:ok]
