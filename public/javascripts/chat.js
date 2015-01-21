@@ -177,7 +177,7 @@ jQuery(function($) {
         Jabber.connection.send(
            $pres({to: room_jid + '/' + $own_name}).c('x', {xmlns: Strophe.NS.MUC}).c('history', {maxchars: 0})
         );
-        Jabber.insert_or_update_group(room_jid, 'group');
+        Jabber.insert_or_update_group(room_jid, 'online');
         Jabber.update_chat_title();
      },
 
@@ -231,6 +231,22 @@ jQuery(function($) {
            var name = $(this).attr('name') || jid;
            var jid_id = Jabber.jid_to_id(jid);
            Jabber.insert_or_update_contact(jid, name);
+        });
+        //TODO Add groups through roster too...
+        $.ajax({
+          url: '/chat/roster_groups',
+          dataType: 'json',
+          success: function(data){
+            data.each(function(room){
+              console.log('==> '+room.jid);
+              var jid_id = Jabber.jid_to_id(room.jid);
+              Jabber.jids[jid_id] = {jid: room.jid, name: room.name, type: 'groupchat'};
+              Jabber.insert_or_update_group(room.jid, 'online');
+            });
+          },
+          error: function(data, textStatus, jqXHR){
+            console.log(data);
+          },
         });
         sort_conversations();
         // set up presence handler and send initial presence
@@ -719,12 +735,12 @@ jQuery(function($) {
      var name = Jabber.name_of(jid_id);
      var identifier = Strophe.getNodeFromJid(jid);
      var avatar = "/chat/avatar/"+identifier
-     if(!$('#chat').is(':visible') || window.isHidden()) {
+     if(!$('#chat').hasClass('opened') || window.isHidden()) {
        var options = {body: message.body, icon: avatar, tag: jid_id};
-       notifyMe(name, options).onclick = function(){
-         jQuery('#chat').show('fast');
-         jQuery('a#'+jid_id).click();
-       };
+       console.log('Notify '+name);
+       $(notifyMe(name, options)).on('click', function(){
+         open_chat_window('#'+jid+'/'+name);
+       });
        $.sound.play('/sounds/receive.wav');
      }
    }
@@ -773,6 +789,6 @@ jQuery(function($) {
   });
 
   $('#chat-label').click(function(){
-    toggle_chat_window(this);
+    toggle_chat_window();
   });
 });

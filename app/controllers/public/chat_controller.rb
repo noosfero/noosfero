@@ -68,6 +68,11 @@ class ChatController < PublicController
     render :json => {:order => conversations_order.reverse, :domain => environment.default_hostname.gsub('.','-')}.to_json
   end
 
+  #TODO Ideally this is done through roster table on ejabberd.
+  def roster_groups
+    render :text => user.memberships.map {|m| {:jid => m.jid, :name => m.name}}.to_json
+  end
+
   protected
 
   def check_environment_feature

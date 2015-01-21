@@ -23,7 +23,7 @@
 #chat #buddy-list {
   background-color: #f9f9f9;
   top: 0;
-  right: 0;
+  right: -5px;
   width: 0;
   bottom: 100px;
   position: absolute;
@@ -39,6 +39,7 @@
 }
 
 #chat #buddy-list:hover {
+  right: 0;
   width: 190px;
   transition: width 0.3s ease-in;
 }
@@ -479,35 +480,31 @@ div.occupants > a.up {
 }
 
 #chat-label {
-  width: 20px;
-  height: 80px;
-  background-color: #2E3436;
+  right: 0;
+  width: 0;
+  height: 0;
+  background-color: #888A85;
   position: fixed;
   top: 20%;
-  right: 350px;
   cursor: pointer;
   text-align: center;
   z-index: 11;
-  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  transition: background-color 0.2s linear, right 0.3s ease-in;
 }
 
 #chat-label.opened {
-  right: 0;
-  width: 100px;
-  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
+  width: 20px;
+  height: 90px;
+  right: 350px;
+  background-color: #888A85;
+  border-radius: 10px 0px 0 10px;
+  font-size: 14px;
+  transition: background-color 0.2s linear, right 0.3s ease-in;
 }
 
 #chat-label.opened:hover {
-  background-color: #888A85;
-  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
-}
-
-#chat-label:hover {
-  background-color: #888A85;
+  background-color: #2E3436;
   transition: background-color 0.2s linear, right 0.3s ease-in;
-  transition: background-color 0.2s linear, right 0.3s ease-in, width 0.3s ease-in;
 }
 
 #chat-label span {
@@ -515,29 +512,43 @@ div.occupants > a.up {
 }
 
 #chat-label span.title {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  position: absolute;
+  background-color: #888A85;
+  border-radius: 10px 10px 0 0;
+  transform: rotate(-90deg);
+  top: 35px;
+  right: -34px;
+  width: 80px;
+  padding: 2px 5px;
+  text-shadow: 1px -1px 0 #666;
+  transition: background-color 0.2s linear, right 0.3s ease-in;
+}
+
+#chat-label:hover span.title {
+  background-color: #2E3436;
+  transition: background-color 0.2s linear, right 0.3s ease-in;
 }
 
 #chat-label span.right-arrow {
-  font-size: 24px;
-  line-height: 77px;
+  font-size: 18pxpx;
+  line-height: 87px;
 }
 
 #chat-label .title {
-  display: none;
+  display: inline;
 }
 
 #chat-label.opened .title {
-  display: inline;
+  display: none;
 }
 
 #chat-label .right-arrow {
-  display: inline;
+  display: none;
 }
 
 #chat-label.opened .right-arrow {
-  display: none;
+  display: inline;
 }
 
 #chat-label div {
