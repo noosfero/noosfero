@@ -214,6 +214,7 @@ class CmsController < MyProfileController
       if @errors.any?
         render :action => 'upload_files', :parent_id => @parent_id
       else
+        session[:notice] = _('File(s) successfully uploaded') 
         if @back_to
           redirect_to @back_to
         elsif @parent

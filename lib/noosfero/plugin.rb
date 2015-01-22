@@ -417,6 +417,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional fields to a view
+  # returns = proc block that creates html code
+  def upload_files_extra_fields(article)
+    nil
+  end
+  
   # -> Adds fields to the signup form
   # returns = proc that creates html code
   def signup_extra_contents
