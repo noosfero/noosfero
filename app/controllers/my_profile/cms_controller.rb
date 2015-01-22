@@ -174,6 +174,8 @@ class CmsController < MyProfileController
 
   post_only :set_home_page
   def set_home_page
+    return render_access_denied unless user.can_change_homepage?
+
     article = params[:id].nil? ? nil : profile.articles.find(params[:id])
     profile.update_attribute(:home_page, article)
 
