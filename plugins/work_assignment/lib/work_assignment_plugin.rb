@@ -56,8 +56,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       if request.post? && params[:uploaded_files]
         email_notification = params[:article_email_notification]
         unless !email_notification || email_notification.empty?
-          email_contact = EmailContact.new(:subject => @parent.name, :receiver => email_notification, :sender => user)
-          email_contact.build_mail_message!(environment, @uploaded_files, @parent.id)
+          email_contact = WorkAssignmentPlugin::EmailContact.new(:subject => @parent.name, :receiver => email_notification, :sender => user)
+          WorkAssignmentPlugin::EmailContact::EmailSender.build_mail_message(email_contact, @uploaded_files)
           if email_contact.deliver
             session[:notice] = _('Notification successfully sent')
           else

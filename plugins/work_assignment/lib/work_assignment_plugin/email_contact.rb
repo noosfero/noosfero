@@ -1,4 +1,4 @@
-class EmailContact
+class WorkAssignmentPlugin::EmailContact
 
   include ActiveModel::Validations
 
@@ -25,7 +25,7 @@ class EmailContact
 
   def deliver
     return false unless self.valid?
-    EmailContact::EmailSender.notification(self).deliver
+    WorkAssignmentPlugin::EmailContact::EmailSender.notification(self).deliver
   end
 
   class EmailSender < ActionMailer::Base
@@ -47,19 +47,18 @@ class EmailContact
 
       mail(options)
     end
-  end
 
-  def build_mail_message!(environment, uploaded_files, parent_id)
-    article = environment.articles.find_by_id(parent_id)
-    message = ""
-    if !article.nil? && article.kind_of?(WorkAssignmentPlugin::WorkAssignment)
-      message = article.default_email + "<br>"
+    def build_mail_message(email_contact, uploaded_files)
+      message = ""
+      if uploaded_files && uploaded_files.first && uploaded_files.first.parent && uploaded_files.first.parent.parent
+        article = uploaded_files.first.parent.parent
+        message = article.default_email + "<br>"
+        uploaded_files.each do |file|
+          url = url_for(file.url)
+          message += "<br><a href='#{url}'>#{url}</a>"
+        end
+      end
+      email_contact.message = message
     end
-    uploaded_files.each do |file|
-      file_url = "http://#{file.url[:host]}:#{file.url[:port]}/#{file.url[:profile]}/#{file.path}"
-      message += "<br><a href='#{file_url}'>#{file_url}</a>"
-    end
-    self.message = message
   end
-
 end

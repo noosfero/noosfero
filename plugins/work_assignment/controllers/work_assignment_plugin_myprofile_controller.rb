@@ -5,13 +5,6 @@ helper CmsHelper
 
 before_filter :protect_if, :only => [:edit_visibility]
 
-def protect_if
-  article = environment.articles.find_by_id(params[:article_id])
-  render_access_denied unless (user && !article.nil? && (user.is_member_of? article.profile) &&
-  article.parent.allow_visibility_edition && article.folder? &&
-  (article.author == user || user.has_permission?('view_private_content', profile)))
-end 
-
 def edit_visibility
   unless params[:article_id].blank?
     folder = profile.environment.articles.find_by_id(params[:article_id])
@@ -32,4 +25,14 @@ def edit_visibility
     result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
     render :text => prepare_to_token_input(result).to_json
   end
+
+  protected
+
+  def protect_if
+    article = environment.articles.find_by_id(params[:article_id])
+    render_access_denied unless (user && !article.nil? && (user.is_member_of? article.profile) &&
+    article.parent.allow_visibility_edition && article.folder? &&
+    (article.author == user || user.has_permission?('view_private_content', profile)))
+  end
+
 end
