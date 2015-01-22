@@ -663,11 +663,13 @@ jQuery(function($) {
       var unread = $('.buddies #'+jid_id+ ' .unread-messages');
       if (hide) {
          unread.hide();
+         unread.siblings('img').show();
          Jabber.unread_messages_of(jid_id, 0);
          unread.text('');
       }
       else {
-         unread.show();
+         unread.siblings('img').hide();
+         unread.css('display', 'inline-block');
          var unread_messages = Jabber.unread_messages_of(jid_id) || 0;
          Jabber.unread_messages_of(jid_id, ++unread_messages);
          unread.text(unread_messages);

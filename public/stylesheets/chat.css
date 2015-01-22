@@ -34,7 +34,7 @@
 }
 
 #chat.opened #buddy-list {
-  width: 65px;
+  width: 70px;
   transition: width 0.3s ease-in;
 }
 
@@ -87,7 +87,6 @@
   display: inline-block;
   max-width: 128px;
   overflow: hidden;
-  line-height: 35px;
 }
 #buddy-list .buddies li a img, .occupant-list li a img, #chat .avatar {
   border-radius: 5px;
@@ -184,12 +183,19 @@
   top: 45px;
   bottom: 100px;
 }
+
 #chat .unread-messages {
-  float: right;
-  margin-right: 12px;
-  padding-left: 19px;
-  background-position: 0;
+  height: 32px;
+  line-height: 32px;
+  width: 32px;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+  font-size: 22px;
+  text-align: center;
+  vertical-align: middle;
 }
+
 #chat-window .history .message {
   padding: 10px 8px 10px 6px;
   clear: both;
@@ -427,7 +433,7 @@ div.occupants > a.up {
   position: relative;
 }
 .user-status span, .user-status .ui-icon {
-  margin-left: 7px;
+  margin-left: 10px;
 }
 
 .user-status .simplemenu-trigger {
@@ -461,11 +467,6 @@ div.occupants > a.up {
 }
 .conversation .self .author {
   float: right;
-}
-#openchat .unread-messages {
-  color: red;
-  font-weight: bold;
-  font-size: 14px;
 }
 
 #chat .header {
