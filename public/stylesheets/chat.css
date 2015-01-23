@@ -68,9 +68,18 @@
   padding: 0;
   margin: 0;
 }
-#buddy-list .buddies a:hover, .occupant-list li a:hover {
-  background-color: #EEEEEC;
+#buddy-list .buddies a:hover {
+  background-color: #eeeeec;
 }
+
+.occupant-list li a:hover {
+  background-color: black;
+}
+
+.occupant-list .icon-menu-chat-11 {
+  background-image: none;
+}
+
 #buddy-list .buddies li a, .occupant-list li a {
   background-position: 0% 50%;
   display: block;
@@ -88,6 +97,10 @@
   max-width: 128px;
   overflow: hidden;
 }
+.occupant-list li a .name {
+  color: white;
+}
+
 #buddy-list .buddies li a img, .occupant-list li a img, #chat .avatar {
   border-radius: 5px;
   width: 32px;
@@ -150,9 +163,9 @@
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 0;
+  bottom: 33px;
   height: 80px;
-  padding: 20px 15px 31px 7px;
+  padding-left: 7px;
 }
 .msie7 .conversation .input-div {
   padding-left: 5px;
@@ -182,6 +195,10 @@
   left: 0;
   top: 45px;
   bottom: 100px;
+}
+
+#conversations .history.room {
+  bottom: 132px;
 }
 
 #chat .unread-messages {
@@ -266,12 +283,11 @@
   transition: 0.2s;
 }
 
-div.occupants {
-  position: absolute;
-  width: 100%;
-  bottom: 98px;
-  background-color: rgba(0, 0, 0, 0.7);
+.conversation div.occupants {
+  bottom: 118px;
+  background-color: #2e3436;
 }
+
 div.occupants ul.occupant-list {
   padding: 0;
   margin: 0;
@@ -281,6 +297,10 @@ div.occupants ul.occupant-list {
   display: none;
   border-top: 1px solid rgb(37, 37, 37);
 }
+div.occupants ul.occupant-list {
+  text-align: left;
+}
+
 div.occupants > a {
   color: rgb(168, 168, 168);
   text-align: center;
@@ -560,4 +580,25 @@ div.occupants > a.up {
 
 #chat-label.opened div {
   display: inline-block;
+}
+
+.conversation .room-action {
+  position: absolute;
+  bottom: 100px;
+  left: 7px;
+  right: 79px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  color: white;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.conversation .join {
+ background-color: #4E9A06;
+}
+
+.conversation .leave {
+ background-color: #A40000;
 }

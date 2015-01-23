@@ -51,7 +51,7 @@ jQuery(function($) {
         return Jabber.jids[jid_id].unread_messages;
      },
 
-     insert_or_update_user: function (list, item, jid, name, presence, template, type) {
+     insert_or_update_user: function (list, item, jid, name, presence, template, type, remove_on_offline) {
         var jid_id = Jabber.jid_to_id(jid);
         var identifier = Strophe.getNodeFromJid(jid);
         var html = template
@@ -61,12 +61,13 @@ jQuery(function($) {
            .replace('%{name}', name);
 
         $(item).parent().remove();
-        $(list).append(html);
+        if(presence != 'offline' || !remove_on_offline)
+          $(list).append(html);
         Jabber.jids[jid_id] = {jid: jid, name: name, type: type, presence: presence};
      },
      insert_or_update_group: function (jid, presence) {
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#buddy-list .buddies ul.online');
+        var list = $('#buddy-list .buddies ul.'+presence);
         var item = $('#' + jid_id);
         presence = presence || ($(item).length > 0 ? $(item).parent('li').attr('class') : 'offline');
         log('adding or updating contact ' + jid + ' as ' + presence);
@@ -90,14 +91,22 @@ jQuery(function($) {
      insert_or_update_occupant: function (jid, name, presence, room_jid) {
         log('adding or updating occupant ' + jid + ' as ' + presence);
         var jid_id = Jabber.jid_to_id(jid);
-        var list = $('#' + Jabber.conversation_prefix + Jabber.jid_to_id(room_jid) + ' .occupants ul');
+        var room_jid_id = Jabber.jid_to_id(room_jid);
+        var list = $('#' + Jabber.conversation_prefix + room_jid_id + ' .occupants ul');
         var item = $(list).find('a[data-id='+ jid_id +']');
-        Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.template('.occupant-item'), 'chat');
-        if (Jabber.rooms[Jabber.jid_to_id(room_jid)] === undefined) {
-           Jabber.rooms[Jabber.jid_to_id(room_jid)] = {};
+        Jabber.insert_or_update_user(list, item, jid, name, presence, Jabber.template('.occupant-item'), 'chat', true);
+        if (Jabber.rooms[room_jid_id] === undefined)
+           Jabber.rooms[room_jid_id] = {};
+
+        var room = Jabber.rooms[room_jid_id];
+        if(presence == 'offline') {
+          delete Jabber.rooms[room_jid_id][name];
         }
-        Jabber.rooms[Jabber.jid_to_id(room_jid)][name] = jid;
-        list.parents('.occupants').find('.occupants-online').text(list.find('li').length);
+        else {
+          Jabber.rooms[room_jid_id][name] = jid;
+        }
+
+        list.parents('.occupants').find('.occupants-online').text(Object.keys(Jabber.rooms[room_jid_id]).length);
      },
 
      remove_contact: function(jid) {
@@ -183,6 +192,7 @@ jQuery(function($) {
 
      leave_room: function(room_jid) {
         Jabber.connection.send($pres({from: Jabber.connection.jid, to: room_jid + '/' + $own_name, type: 'unavailable'}))
+        Jabber.insert_or_update_group(room_jid, 'offline');
         //FIXME remove group
      },
 
@@ -238,10 +248,10 @@ jQuery(function($) {
           dataType: 'json',
           success: function(data){
             data.each(function(room){
-              console.log('==> '+room.jid);
               var jid_id = Jabber.jid_to_id(room.jid);
               Jabber.jids[jid_id] = {jid: room.jid, name: room.name, type: 'groupchat'};
-              Jabber.insert_or_update_group(room.jid, 'online');
+              //FIXME This must check on session if the user is inside the room...
+              Jabber.insert_or_update_group(room.jid, 'offline');
             });
           },
           error: function(data, textStatus, jqXHR){
@@ -599,8 +609,11 @@ jQuery(function($) {
       textarea.attr('name', panel.id);
 
       if (Jabber.is_a_room(jid_id)) {
-          panel.find('.conversation').append(Jabber.template('.occupant-list-template'));
+          panel.append(Jabber.template('.occupant-list-template'));
           panel.find('.history').addClass('room');
+          var room_actions = $('#chat-templates .room-action').clone();
+          room_actions.data('jid', jid);
+          panel.find('.history').after(room_actions);
           $('#chat .occupants .occupant-list').perfectScrollbar();
       }
       textarea.attr('data-to', jid);
@@ -793,4 +806,19 @@ jQuery(function($) {
   $('#chat-label').click(function(){
     toggle_chat_window();
   });
+
+  $('.room-action.join').live('click', function(){
+    Jabber.enter_room($(this).data('jid'));
+    $(this).hide();
+    $(this).siblings('.leave').show();
+    sort_conversations();
+  });
+
+  $('.room-action.leave').live('click', function(){
+    Jabber.leave_room($(this).data('jid'));
+    $(this).hide();
+    $(this).siblings('.join').show();
+    sort_conversations();
+  });
+
 });

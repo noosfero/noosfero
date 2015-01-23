@@ -57,6 +57,9 @@
         </div>
       </div>
 
+      <a class='join room-action'><%= _('Join room') %></a>
+      <a class='leave room-action' style="display: none"><%= _('Leave room') %></a>
+
       <div class="buddy-item">
         <li class='%{presence_status}'>
           <a id='%{jid_id}' class='icon-menu-%{presence_status}-11' href='#'>
@@ -68,7 +71,7 @@
       </div>
 
       <div class="occupant-list-template">
-        <div class="occupants">
+        <div class="occupants room-action">
           <a href="#" class="up"><%= _('Online') %>&nbsp;(<span class="occupants-online">0</span>)</a>
           <ul class='occupant-list'></ul>
         </div>
