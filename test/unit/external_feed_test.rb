@@ -176,4 +176,13 @@ class ExternalFeedTest < ActiveSupport::TestCase
 
   end
 
+  should 'allow mass assign attributes' do
+    p = create_user('testuser').person
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
+
+    assert_difference 'ExternalFeed.count', 1 do
+      efeed = blog.create_external_feed(:address => 'http://invalid.url', :enabled => true, :only_once => 'false')
+    end
+  end
+
 end
