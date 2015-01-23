@@ -10,7 +10,7 @@ class ExternalFeed < ActiveRecord::Base
     { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
 
-  attr_accessible :address, :enabled
+  attr_accessible :address, :enabled, :only_once
 
   def add_item(title, link, date, content)
     return if content.blank?
