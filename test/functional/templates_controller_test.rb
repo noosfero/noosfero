@@ -71,5 +71,91 @@ class TemplatesControllerTest < ActionController::TestCase
     assert_equal e3, environment.enterprise_default_template
   end
 
+  should 'not allow set_community_as_default define a community template of another environment as default' do
+    c1= fast_create(Community, :is_template => true, :environment_id => environment.id)
+    environment.community_default_template= c1
+    environment.save
+
+    env2 = fast_create(Environment)
+
+    c3 = fast_create(Community, :is_template => true, :environment_id => env2.id)
+
+    post :set_community_as_default, :template_id => c3.id
+    environment.reload
+    assert_not_equal c3, environment.community_default_template
+  end
+
+  should 'not allow set_person_as_default define a person template of another environment as default' do
+    p1= fast_create(Person, :is_template => true, :environment_id => environment.id)
+    environment.person_default_template= p1
+    environment.save
+ 
+    env2 = fast_create(Environment)
+    p3 = fast_create(Person, :is_template => true, :environment_id => env2.id)
+   
+    post :set_person_as_default, :template_id => p3.id
+    environment.reload
+    assert_not_equal p3, environment.person_default_template
+
+  end
+
+  should 'not allow set_enterprise_as_default define a enterprise of another environment as default' do
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    environment.enterprise_default_template= e1
+    environment.save
+ 
+    env2 = fast_create(Environment)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env2.id)
+   
+    post :set_enterprise_as_default, :template_id => e3.id
+    environment.reload
+    assert_not_equal e3, environment.enterprise_default_template
+  end
+
+  should 'display successfully notice message after define a community template as default' do
+    c3 = fast_create(Community, :is_template => true, :environment_id => environment)
+
+    post :set_community_as_default, :template_id => c3.id
+    assert_equal "#{c3.name} defined as default", session[:notice]
+  end
+
+  should 'display successfully notice message after define a person template as default' do
+    p3 = fast_create(Person, :is_template => true, :environment_id => environment)
+
+    post :set_person_as_default, :template_id => p3.id
+    assert_equal "#{p3.name} defined as default", session[:notice]
+  end
+
+  should 'display successfully notice message after define a enterprise template as default' do
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => environment)
+
+    post :set_enterprise_as_default, :template_id => e3.id
+    assert_equal "#{e3.name} defined as default", session[:notice]
+  end
+
+  should 'display unsuccessfully notice message when a community template could not be defined as default' do
+    env2 = fast_create(Environment)
+    c3 = fast_create(Community, :is_template => true, :environment_id => env2.id)
+
+    post :set_community_as_default, :template_id => c3.id
+    assert_equal "Community not found. The template could no be changed.", session[:notice]
+  end
+
+  should 'display unsuccessfully notice message when a person template could not be defined as default' do
+    env2 = fast_create(Environment)
+    p3 = fast_create(Person, :is_template => true, :environment_id => env2.id)
+
+    post :set_person_as_default, :template_id => p3.id
+    assert_equal "Person not found. The template could no be changed.", session[:notice]
+  end
+
+  should 'display unsuccessfully notice message when a enterprise template could not be defined as default' do
+    env2 = fast_create(Environment)
+    e3 = fast_create(Community, :is_template => true, :environment_id => env2.id)
+
+    post :set_enterprise_as_default, :template_id => e3.id
+    assert_equal "Enterprise not found. The template could no be changed.", session[:notice]
+  end
+
 end
 

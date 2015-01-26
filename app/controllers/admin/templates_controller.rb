@@ -41,17 +41,44 @@ class TemplatesController < AdminController
   end
 
   def set_community_as_default
-    set_as_default(Community.find(params[:template_id]))
+    begin
+      community = environment.communities.find(params[:template_id])
+    rescue ActiveRecord::RecordNotFound
+      message = _('Community not found. The template could no be changed.')
+      community = nil
+    end
+
+    message = _('%s defined as default') % community.name if set_as_default(community)
+    session[:notice] = message
+
     redirect_to :action => 'index'
   end
 
   def set_person_as_default
-    set_as_default(Person.find(params[:template_id]))
+    begin
+      person = environment.people.find(params[:template_id])
+    rescue ActiveRecord::RecordNotFound
+      message = _('Person not found. The template could no be changed.')
+      person = nil
+    end
+
+    message = _('%s defined as default') % person.name if set_as_default(person)
+    session[:notice] = message
+
     redirect_to :action => 'index'
   end
 
   def set_enterprise_as_default
-    set_as_default(Enterprise.find(params[:template_id]))
+    begin
+      enterprise = environment.enterprises.find(params[:template_id])
+    rescue ActiveRecord::RecordNotFound
+      message = _('Enterprise not found. The template could no be changed.')
+      enterprise = nil
+    end
+
+    message = _('%s defined as default') % enterprise.name if set_as_default(enterprise)
+    session[:notice] = message
+
     redirect_to :action => 'index'
   end
 
