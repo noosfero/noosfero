@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'favorite_enterprises_controller'
 
 class FavoriteEnterprisesController; def rescue_action(e) raise e end; end
