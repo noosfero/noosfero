@@ -284,4 +284,50 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal block.cache_key('en'), block.cache_key('en', person)
   end
 
+  should 'display block to members of community for display_user = members' do
+    community = fast_create(Community)
+    user = create_user('testinguser')
+    community.add_member(user.person)
+
+    box = fast_create(Box, :owner_id => community.id, :owner_type => 'Community')
+    block = create(Block, :box_id => box.id)
+    block.display_user = 'followers'
+    block.save!
+    assert block.display_to_user?(user.person)
+  end
+
+  should 'do not display block to non members of community for display_user = members' do
+    community = fast_create(Community)
+    user = create_user('testinguser')
+
+    box = fast_create(Box, :owner_id => community.id, :owner_type => 'Community')
+    block = create(Block, :box_id => box.id)
+    block.display_user = 'followers'
+    block.save!
+    assert !block.display_to_user?(user.person)
+  end
+
+  should 'display block to friends of person for display_user = friends' do
+    person = create_user('person_one').person
+    person_friend = create_user('person_friend').person
+
+    person.add_friend(person_friend)
+
+    box = fast_create(Box, :owner_id => person.id, :owner_type => 'Person')
+    block = create(Block, :box_id => box.id)
+    block.display_user = 'followers'
+    block.save!
+    assert block.display_to_user?(person_friend)
+  end
+
+  should 'do not display block to non friends of person for display_user = friends' do
+    person = create_user('person_one').person
+    person_friend = create_user('person_friend').person
+
+    box = fast_create(Box, :owner_id => person.id, :owner_type => 'Person')
+    block = create(Block, :box_id => box.id)
+    block.display_user = 'followers'
+    block.save!
+    assert !block.display_to_user?(person_friend)
+  end
 end

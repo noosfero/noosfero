@@ -64,7 +64,7 @@ class Block < ActiveRecord::Base
   end
 
   def display_to_user?(user)
-    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged')
+    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged') || (user && display_user == 'followers' && user.follows?(owner))
   end
 
   def display_always(context)
@@ -224,6 +224,7 @@ class Block < ActiveRecord::Base
       'all'            => _('All users'),
       'logged'         => _('Logged'),
       'not_logged'     => _('Not logged'),
+      'followers'      => owner.organization? ? _('Members') : _('Friends')
     }
   end
 
