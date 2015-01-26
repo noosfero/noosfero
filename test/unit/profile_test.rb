@@ -883,7 +883,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy communities from person template' do
     template = create_user('test_template').person
-    Environment.any_instance.stubs(:person_template).returns(template)
+    Environment.any_instance.stubs(:person_default_template).returns(template)
 
     c1 = fast_create(Community)
     c2 = fast_create(Community)
@@ -1336,7 +1336,7 @@ class ProfileTest < ActiveSupport::TestCase
     template = create_user('test_template').person
     template.custom_footer = "footer customized"
     template.custom_header = "header customized"
-    Environment.any_instance.stubs(:person_template).returns(template)
+    Environment.any_instance.stubs(:person_default_template).returns(template)
 
     person = create_user_full('mytestuser').person
     assert_equal "footer customized", person.custom_footer

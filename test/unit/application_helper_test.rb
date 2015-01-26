@@ -254,6 +254,44 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  should 'define the community default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    community = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    fast_create(Community, :is_template => true, :environment_id => environment.id)
+    environment.community_default_template= community
+    environment.save
+    
+    assert_tag_in_string template_options(:communities, 'community'), :tag => 'input',
+                                 :attributes => { :name => "community[template_id]", :value => community.id, :checked => true }
+  end
+
+  should 'define the person default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    person = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    fast_create(Person, :is_template => true, :environment_id => environment.id)
+    environment.person_default_template= person
+    environment.save
+    
+    assert_tag_in_string template_options(:people, 'profile_data'), :tag => 'input',
+                                 :attributes => { :name => "profile_data[template_id]", :value => person.id, :checked => true }
+  end
+
+  should 'define the enterprise default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    enterprise = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+
+    environment.enterprise_default_template= enterprise
+    environment.save
+    environment.reload
+    
+    assert_tag_in_string template_options(:enterprises, 'create_enterprise'), :tag => 'input',
+                                 :attributes => { :name => "create_enterprise[template_id]", :value => enterprise.id, :checked => true }
+  end
+
   should 'return nil if disable_categories is enabled' do
     env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
