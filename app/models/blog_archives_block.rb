@@ -36,8 +36,7 @@ class BlogArchivesBlock < Block
       results << content_tag('li', content_tag('strong', "#{year} (#{count})"))
       results << "<ul class='#{year}-archive'>"
       posts.except(:order).count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
-        month_name = gettext(MONTHS[month.to_i - 1])
-        results << content_tag('li', link_to("#{month_name} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
+        results << content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
       end
       results << "</ul>"
     end
