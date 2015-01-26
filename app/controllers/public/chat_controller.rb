@@ -6,6 +6,7 @@ class ChatController < PublicController
   def start_session
     login = user.jid
     password = current_user.crypted_password
+    session[:chat] ||= {:rooms => []}
     begin
       jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind",
                                                   :wait => 30, :hold => 1, :window => 5)
@@ -14,6 +15,31 @@ class ChatController < PublicController
     rescue
       render :action => 'start_session_error', :layout => false, :status => 500
     end
+  end
+
+  def toggle
+    session[:chat][:status] = session[:chat][:status] == 'opened' ? 'closed' : 'opened'
+    render :nothing => true
+  end
+
+  def tab
+    session[:chat][:tab_id] = params[:tab_id]
+    render :nothing => true
+  end
+
+  def join
+    session[:chat][:rooms] << params[:room_id]
+    session[:chat][:rooms].uniq!
+    render :nothing => true
+  end
+
+  def leave
+    session[:chat][:rooms].delete(params[:room_id])
+    render :nothing => true
+  end
+
+  def my_session
+    render :text => session[:chat].to_json, :layout => false
   end
 
   def avatar
