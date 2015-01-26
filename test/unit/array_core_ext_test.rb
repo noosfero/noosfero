@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 # tests for Array core extension. See lib/noosfero/core_ext/array.rb
 class StringCoreExtTest < ActiveSupport::TestCase

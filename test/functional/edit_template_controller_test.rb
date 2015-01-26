@@ -1,6 +1,6 @@
 # FIXME: this tests must me moved into design plugin
 
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'edit_template_controller'
 
 # Re-raise errors caught by the controller.

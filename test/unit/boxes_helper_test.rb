@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require File.dirname(__FILE__) + '/../../app/helpers/boxes_helper'
 
 class BoxesHelperTest < ActionView::TestCase

@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
