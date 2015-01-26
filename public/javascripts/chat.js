@@ -488,7 +488,11 @@ jQuery(function($) {
 
      show_notice: function(jid_id, msg) {
         var tab_id = '#' + Jabber.conversation_prefix + jid_id;
-        $(tab_id).find('.history').append("<span class='notice'>" + msg + "</span>");
+        var notice = $(tab_id).find('.history .notice');
+        if (notice.length > 0)
+          notice.html(msg)
+        else
+          $(tab_id).find('.history').append("<span class='notice'>" + msg + "</span>");
      }
    };
 
@@ -515,6 +519,7 @@ jQuery(function($) {
    $('#chat').bind('opengroup', function(ev, anchor) {
       var full_jid = anchor.replace('#', '');
       var jid = Strophe.getBareJidFromJid(full_jid);
+      console.log('>>>> '+jid);
       var name = Strophe.getResourceFromJid(full_jid);
       var jid_id = Jabber.jid_to_id(full_jid);
       if (full_jid) {
