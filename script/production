@@ -45,6 +45,16 @@ do_stop() {
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
 }
 
+do_restart() {
+  rake db:migrate SCHEMA=/dev/null
+  environments_loop stop ||
+    stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
+  environments_loop start
+
+  clear_cache
+  ruby -S thin -C config/thin.yml restart --onebyone
+}
+
 stop_via_pid_file() {
   for pidfile in $@; do
     if [ -e "$pidfile" ]; then
@@ -84,9 +94,7 @@ case "$ACTION" in
     ;;
 
   restart)
-    do_stop
-    sleep 1
-    do_start
+    do_restart
     ;;
 
   *)

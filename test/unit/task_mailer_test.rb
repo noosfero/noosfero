@@ -18,7 +18,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com'])
+    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
     requestor.expects(:name).returns('my name')
 
     environment = mock()
@@ -41,7 +41,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com'])
+    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
     requestor.expects(:name).returns('my name')
 
     environment = mock()
@@ -65,7 +65,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com'])
+    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
     requestor.expects(:name).returns('my name')
 
     environment = mock()

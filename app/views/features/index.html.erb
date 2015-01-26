@@ -37,6 +37,18 @@ Check all the features you want to enable for your environment, uncheck all the 
   <%= select_organization_approval_method('environment', 'organization_approval_method') %>
 <hr/>
 
+<h3><%= _('Members Whitelist') %></h3>
+  <div class="option">
+    <%= check_box :environment, :members_whitelist_enabled %>
+    <label><%= _('Enable whitelist') %></label>
+  </div>
+  <div class="input">
+    <div class="info"><%= _('Allow these people to access this environment:') %></div>
+    <% tokenized_members = prepare_to_token_input(environment.people.find(:all, :conditions => {:id => environment.members_whitelist})) %>
+    <%= token_input_field_tag('environment[members_whitelist]', 'search-members', {:action => 'search_members'}, {:focus => false, :hint_text => _('Type in a search term for a user'), :pre_populate => tokenized_members}) %>
+  </div>
+<hr/>
+
 <div>
   <% button_bar do %>
     <%= submit_button('save', _('Save changes')) %>

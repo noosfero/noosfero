@@ -13,6 +13,7 @@ class ExternalFeed < ActiveRecord::Base
   attr_accessible :address, :enabled
 
   def add_item(title, link, date, content)
+    return if content.blank?
     doc = Hpricot(content)
     doc.search('*').each do |p|
       if p.instance_of? Hpricot::Elem
@@ -30,6 +31,7 @@ class ExternalFeed < ActiveRecord::Base
     article.source = link 
     article.profile = blog.profile 
     article.parent = blog
+    article.author_name = self.feed_title
     unless blog.children.exists?(:slug => article.slug)
       article.save!
       article.delay.create_activity

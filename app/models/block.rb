@@ -75,7 +75,7 @@ class Block < ActiveRecord::Base
     if context[:article]
       return context[:article] == owner.home_page
     else
-      return context[:request_path] == '/'
+      return home_page_path?(context[:request_path])
     end
   end
 
@@ -83,7 +83,7 @@ class Block < ActiveRecord::Base
     if context[:article]
       return context[:article] != owner.home_page
     else
-      return context[:request_path] != '/' + (owner.kind_of?(Profile) ? owner.identifier : '')
+      return !home_page_path?(context[:request_path])
     end
   end
 
@@ -114,7 +114,7 @@ class Block < ActiveRecord::Base
   # blocks to choose one to include in the design.
   #
   # Must be redefined in subclasses to match the description of each block
-  # type. 
+  # type.
   def self.description
     '(dummy)'
   end
@@ -124,13 +124,13 @@ class Block < ActiveRecord::Base
   # This method can return several types of objects:
   #
   # * <tt>String</tt>: if the string starts with <tt>http://</tt> or <tt>https://</tt>, then it is assumed to be address of an IFRAME. Otherwise it's is used as regular HTML.
-  # * <tt>Hash</tt>: the hash is used to build an URL that is used as the address for a IFRAME. 
+  # * <tt>Hash</tt>: the hash is used to build an URL that is used as the address for a IFRAME.
   # * <tt>Proc</tt>: the Proc is evaluated in the scope of BoxesHelper. The
   # block can then use <tt>render</tt>, <tt>link_to</tt>, etc.
   #
   # The method can also return <tt>nil</tt>, which means "no content".
   #
-  # See BoxesHelper#extract_block_content for implementation details. 
+  # See BoxesHelper#extract_block_content for implementation details.
   def content(args={})
     "This is block number %d" % self.id
   end
@@ -192,7 +192,7 @@ class Block < ActiveRecord::Base
 
   # Override in your subclasses.
   # Define which events and context should cause the block cache to expire
-  # Possible events are: :article, :profile, :friendship, :category
+  # Possible events are: :article, :profile, :friendship, :category, :role_assignment
   # Possible contexts are: :profile, :environment
   def self.expire_on
     {
@@ -232,6 +232,28 @@ class Block < ActiveRecord::Base
     duplicated_block.save!
     duplicated_block.insert_at(self.position + 1)
     duplicated_block
+  end
+
+  def copy_from(block)
+    self.settings = block.settings
+    self.position = block.position
+  end
+
+  private
+
+  def home_page_path
+    home_page_url = Noosfero.root('/')
+
+    if owner.kind_of?(Profile)
+      home_page_url += "profile/" if owner.home_page.nil?
+      home_page_url += owner.identifier
+    end
+
+    return home_page_url
+  end
+
+  def home_page_path? path
+    return path == home_page_path || path == (home_page_path + '/')
   end
 
 end

@@ -78,14 +78,15 @@ class LinkListBlock < Block
       address
     end
     if add !~ /^[a-z]+:\/\// && add !~ /^\//
-      'http://' + add
+      '//' + add
     else
+      if root = Noosfero.root
+        if !add.starts_with?(root)
+          add = root + add
+        end
+      end
       add
     end
-  end
-
-  def editable?
-    true
   end
 
   def icons_options
@@ -100,4 +101,5 @@ class LinkListBlock < Block
     sanitizer = HTML::WhiteListSanitizer.new
     sanitizer.sanitize(text)
   end
+
 end

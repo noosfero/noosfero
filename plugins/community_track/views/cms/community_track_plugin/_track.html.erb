@@ -4,7 +4,7 @@
   <%= render :file => 'shared/tiny_mce' %>
 
   <div>
-    <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
+    <%= required labelled_form_field(c_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
   </div>
 
   <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :body_label => 'Description:'} %>

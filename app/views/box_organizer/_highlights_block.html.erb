@@ -1,15 +1,21 @@
+<%= javascript_include_tag "highlight_block" %>
+
 <strong><%= _('Highlights') %></strong>
 
 <table class="noborder"><tbody id="highlights-data-table">
   <tr><th><%= _('Image') %></th><th><%= _('Address') %></th><th><%= _('Position') %></th></tr>
-  <% for image in @block.images do %>
-    <%= highlights_block_config_image_fields @block, image %>
+  <% @block.images.each_with_index do |image, index| %>
+    <%= highlights_block_config_image_fields @block, image, index %>
   <% end %>
 </tbody></table>
 
-<%= link_to_function(_('New highlight'), nil, :class => 'button icon-add with-text') do |page|
-  page.insert_html :bottom, 'highlights-data-table', highlights_block_config_image_fields(@block)
-end %>
+<table class="hidden highlight-table-row">
+  <tbody>
+    <%= highlights_block_config_image_fields(@block) %>
+  </tbody>
+</table>
+
+<%= link_to(_('New highlight'), '#', :class => 'button icon-add with-text new-highlight-button')%>
 
 <%= labelled_form_field _('Image transition:'), select('block', 'interval', [[_('No automatic transition'), 0]] + [1, 2, 3, 4, 5, 10, 20, 30, 60].map {|item| [n_('Every 1 second', 'Every %d seconds', item) % item, item]}) %>
 

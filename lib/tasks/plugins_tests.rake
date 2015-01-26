@@ -1,3 +1,11 @@
+@broken_plugins = %w[
+  anti_spam
+  bsc
+  comment_classification
+  ldap
+  solr
+]
+
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
 @all_plugins.sort!
 @all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
@@ -104,7 +112,7 @@ def run_test(name, files)
 end
 
 def run_testrb(files)
-  sh 'testrb', '-Itest', *files
+  sh 'testrb', '-I.:test', *files
 end
 
 def run_cucumber(profile, files)
@@ -167,6 +175,7 @@ def test_sequence(plugins, tasks)
     end
   end
   rollback_plugins_state
+  yield(failed) if block_given?
   fail 'There are broken tests to be fixed!' if fail_flag
 end
 
@@ -195,13 +204,39 @@ namespace :test do
     @all_tasks.each do |taskname|
       desc "Run #{taskname} tests for all plugins"
       task taskname do
-        test_sequence(@all_plugins, taskname)
+        test_sequence(@all_plugins - @broken_plugins, taskname)
       end
     end
   end
 
   desc "Run all tests for all plugins"
   task :noosfero_plugins do
-    test_sequence(@all_plugins, @all_tasks)
+    test_sequence(@all_plugins - @broken_plugins, @all_tasks) do |failed|
+      plugins_status_report(failed)
+    end
   end
+end
+
+def plugins_status_report(failed)
+  w = @all_plugins.map { |s| s.size }.max
+
+  puts
+  printf ('=' * (w + 21)) + "\n"
+  puts 'Plugins status report'
+  printf ('=' * (w + 21)) + "\n"
+  printf "%-#{w}s %s\n", "Plugin", "Status"
+  printf ('-' * w) + ' ' + ('-' * 20) + "\n"
+
+  @all_plugins.each do |plugin|
+    if @broken_plugins.include?(plugin)
+      status = "SKIP"
+    elsif !failed[plugin] || failed[plugin].empty?
+      status = "PASS"
+    else
+      status = "FAIL: #{failed[plugin].join(', ')}"
+    end
+    printf "%-#{w}s %s\n", plugin, status
+  end
+  printf ('=' * (w + 21)) + "\n"
+  puts
 end

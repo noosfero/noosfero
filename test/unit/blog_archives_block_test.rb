@@ -18,7 +18,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list amount posts by year' do
-    date = DateTime.parse('2008-01-01')
+    date = DateTime.parse('2008-01-10')
     blog = profile.blog
     for i in 1..10 do
       post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
@@ -30,7 +30,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list amount posts by month' do
-    date = DateTime.parse('2008-01-01')
+    date = DateTime.parse('2008-01-10')
     blog = profile.blog
     for i in 1..10 do
       post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
@@ -103,7 +103,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list amount native posts by year' do
-    date = DateTime.parse('2008-01-01')
+    date = DateTime.parse('2008-01-10')
     blog = profile.blog
     2.times do |i|
       post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
@@ -119,7 +119,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list amount native posts by month' do
-    date = DateTime.parse('2008-01-01')
+    date = DateTime.parse('2008-01-10')
     blog = profile.blog
     2.times do |i|
       post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,

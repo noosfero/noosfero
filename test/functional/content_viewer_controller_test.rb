@@ -65,6 +65,30 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_match /#{html.public_filename}/, @response.body
   end
 
+  should 'download file when article is image' do
+    profile = create_user('someone').person
+    image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
+    image.save!
+
+    get :view_page, :profile => 'someone', :page => [ 'rails.png' ]
+
+    assert_response :success
+    assert_not_nil assigns(:page).data
+    assert_match /image\/png/, @response.headers['Content-Type']
+  end
+
+  should 'display image on a page when article is image and has a view param' do
+    profile = create_user('someone').person
+    image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
+    image.save!
+
+    get :view_page, :profile => 'someone', :page => [ 'rails.png' ], :view => true
+
+    assert_response :success
+    assert_template 'view_page'
+    assert_match /text\/html/, @response.headers['Content-Type']
+  end
+
   should 'produce a download-link when article is not text/html' do
 
     # for example, RSS feeds
@@ -733,7 +757,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = create(Article, :profile => c, :name => 'test-article', :created_by => u, :published => false)
+    a = create(Article, :profile => c, :name => 'test-article', :author => u, :published => false)
 
     get :view_page, :profile => c.identifier, :page => a.path
 
@@ -745,7 +769,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => profile, :published => true)
+    a = create(Article, :profile => c, :name => 'test-article', :author => profile, :published => true)
 
     xhr :get, :view_page, :profile => c.identifier, :page => a.path, :toolbar => true
 
@@ -882,6 +906,38 @@ class ContentViewerControllerTest < ActionController::TestCase
     t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
     xhr :get, :view_page, :profile => profile.identifier, :page => [t.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should 'display icon-edit button to author topic' do
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
+    author = create_user('author').person
+    community.add_member(author)
+
+    forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
+
+    login_as(author.identifier)
+    get :view_page, :profile => community.identifier, :page => post.path.split('/')
+
+    assert_select "div#article-actions a.icon-edit"
+  end
+
+  should 'display icon-delete button to author topic' do
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
+    author = create_user('author').person
+    community.add_member(author)
+
+    forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
+
+    login_as(author.identifier)
+    get :view_page, :profile => community.identifier, :page => post.path.split('/')
+
+    assert_select "div#article-actions a.icon-delete"
   end
 
   should 'add meta tag to rss feed on view forum' do

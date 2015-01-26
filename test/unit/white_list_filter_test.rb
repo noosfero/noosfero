@@ -40,6 +40,15 @@ class WhiteListFilterTest < ActiveSupport::TestCase
     assert_equal "<iframe src='http://avideosite.com/videos.ogg'></iframe>", check_iframe_on_content(content, environment.trusted_sites_for_iframe)
   end
 
+  should 'allow iframe if it is from a trusted site and protocol was not specified' do
+    env = Environment.default
+    env.trusted_sites_for_iframe = ['avideosite.com']
+    env.save
+    assert_includes Environment.default.trusted_sites_for_iframe, 'avideosite.com'
+    content = "<iframe src='//avideosite.com/videos.ogg'></iframe>"
+    assert_equal "<iframe src='//avideosite.com/videos.ogg'></iframe>", check_iframe_on_content(content, environment.trusted_sites_for_iframe)
+  end
+
   should 'remove only the iframe from untrusted site' do
     content = "<iframe src='http://stream.softwarelivre.org/videos.ogg'></iframe><iframe src='http://untrusted_site.com/videos.ogg'></iframe>"
     assert_equal "<iframe src='http://stream.softwarelivre.org/videos.ogg'></iframe>", check_iframe_on_content(content, environment.trusted_sites_for_iframe)

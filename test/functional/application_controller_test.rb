@@ -166,7 +166,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'display only some categories in menu' do
     @controller.stubs(:get_layout).returns('application')
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 'ffa500', :parent_id => nil, :display_in_menu => true )
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_tag :tag => 'a', :content => /Category 2/
@@ -174,7 +174,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'not display some categories in menu' do
     @controller.stubs(:get_layout).returns('application')
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true)
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 'ffa500', :parent_id => nil, :display_in_menu => true)
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
     get :index
     assert_no_tag :tag => 'a', :content => /Category 2/
@@ -239,7 +239,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'not display categories menu if categories feature disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 'ffa500', :parent_id => nil, :display_in_menu => true )
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_no_tag :tag => 'a', :content => /Category 2/
@@ -557,4 +557,63 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'meta', :attributes => { :property => 'article:published_time' }
     assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
   end
+
+  should 'redirect to login if environment is restrict to members' do
+    Environment.default.enable(:restrict_to_members)
+    get :index
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'do not allow member not included in whitelist to access an restricted environment' do
+    user = create_user
+    e = Environment.default
+    e.enable(:restrict_to_members)
+    e.members_whitelist_enabled = true
+    e.save!
+    login_as(user.login)
+    get :index
+    assert_response :forbidden
+  end
+
+  should 'allow member in whitelist to access an environment' do
+    user = create_user
+    e = Environment.default
+    e.members_whitelist_enabled = true
+    e.members_whitelist = "#{user.person.id}"
+    e.save!
+    login_as(user.login)
+    get :index
+    assert_response :success
+  end
+
+  should 'allow members to access an environment if whitelist is disabled' do
+    user = create_user
+    e = Environment.default
+    e.members_whitelist_enabled = false
+    e.save!
+    login_as(user.login)
+    get :index
+    assert_response :success
+  end
+
+  should 'allow admin to access an environment if whitelist is enabled' do
+    e = Environment.default
+    e.members_whitelist_enabled = true
+    e.save!
+    login_as(create_admin_user(e))
+    get :index
+    assert_response :success
+  end
+
+  should 'not check whitelist members if the environment is not restrict to members' do
+    e = Environment.default
+    e.disable(:restrict_to_members)
+    e.members_whitelist_enabled = true
+    e.save!
+    @controller.expects(:verify_members_whitelist).never
+    login_as create_user.login
+    get :index
+    assert_response :success
+  end
+
 end

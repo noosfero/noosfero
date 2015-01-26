@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140724134601) do
+ActiveRecord::Schema.define(:version => 20140827191326) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -95,10 +95,15 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
+    t.integer  "spam_comments_count",  :default => 0
+    t.integer  "author_id"
     t.integer  "created_by_id"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
+  add_index "article_versions", ["path", "profile_id"], :name => "index_article_versions_on_path_and_profile_id"
+  add_index "article_versions", ["path"], :name => "index_article_versions_on_path"
+  add_index "article_versions", ["published_at", "id"], :name => "index_article_versions_on_published_at_and_id"
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -141,6 +146,8 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
+    t.integer  "spam_comments_count",  :default => 0
+    t.integer  "author_id"
     t.integer  "created_by_id"
   end
 
@@ -149,9 +156,15 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
   add_index "articles", ["hits"], :name => "index_articles_on_hits"
   add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
+  add_index "articles", ["path", "profile_id"], :name => "index_articles_on_path_and_profile_id"
+  add_index "articles", ["path"], :name => "index_articles_on_path"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
+  add_index "articles", ["published_at", "id"], :name => "index_articles_on_published_at_and_id"
   add_index "articles", ["slug"], :name => "index_articles_on_slug"
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
+  add_index "articles", ["type", "parent_id"], :name => "index_articles_on_type_and_parent_id"
+  add_index "articles", ["type", "profile_id"], :name => "index_articles_on_type_and_profile_id"
+  add_index "articles", ["type"], :name => "index_articles_on_type"
 
   create_table "articles_categories", :id => false, :force => true do |t|
     t.integer "article_id"
@@ -190,19 +203,19 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",            :default => ""
-    t.integer "display_color"
+    t.text    "path",                         :default => ""
     t.integer "environment_id"
     t.integer "parent_id"
     t.string  "type"
     t.float   "lat"
     t.float   "lng"
-    t.boolean "display_in_menu", :default => false
-    t.integer "children_count",  :default => 0
-    t.boolean "accept_products", :default => true
+    t.boolean "display_in_menu",              :default => false
+    t.integer "children_count",               :default => 0
+    t.boolean "accept_products",              :default => true
     t.integer "image_id"
     t.string  "acronym"
     t.string  "abbreviation"
+    t.string  "display_color",   :limit => 6
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -272,6 +285,11 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.boolean "is_default",      :default => false
     t.string  "google_maps_key"
   end
+
+  add_index "domains", ["is_default"], :name => "index_domains_on_is_default"
+  add_index "domains", ["name"], :name => "index_domains_on_name"
+  add_index "domains", ["owner_id", "owner_type", "is_default"], :name => "index_domains_on_owner_id_and_owner_type_and_is_default"
+  add_index "domains", ["owner_id", "owner_type"], :name => "index_domains_on_owner_id_and_owner_type"
 
   create_table "environments", :force => true do |t|
     t.string   "name"
@@ -597,7 +615,12 @@ ActiveRecord::Schema.define(:version => 20140724134601) do
     t.boolean  "spam",                       :default => false
   end
 
+  add_index "tasks", ["requestor_id"], :name => "index_tasks_on_requestor_id"
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+  add_index "tasks", ["status"], :name => "index_tasks_on_status"
+  add_index "tasks", ["target_id", "target_type"], :name => "index_tasks_on_target_id_and_target_type"
+  add_index "tasks", ["target_id"], :name => "index_tasks_on_target_id"
+  add_index "tasks", ["target_type"], :name => "index_tasks_on_target_type"
 
   create_table "terms_forum_people", :id => false, :force => true do |t|
     t.integer "forum_id"

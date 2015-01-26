@@ -7,7 +7,7 @@ class CategoriesMenuTest < ActionController::IntegrationTest
     SearchController.any_instance.stubs(:get_layout).returns('application')
 
     Category.delete_all
-    @cat1 = Category.create!(:display_in_menu => true, :name => 'Food', :environment => Environment.default, :display_color => 1)
+    @cat1 = Category.create!(:display_in_menu => true, :name => 'Food', :environment => Environment.default, :display_color => '#888a85')
     @cat2 = Category.create!(:display_in_menu => true, :name => 'Vegetables', :environment => Environment.default, :parent => @cat1)
 
     # all categories must be shown for these tests 

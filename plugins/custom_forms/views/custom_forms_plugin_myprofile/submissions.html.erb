@@ -10,11 +10,11 @@
     <%= link_to '[CSV]', :format => 'csv' %>
   </p>
   <p>
-    <%= labelled_select(_('Sort by')+': ', :sort_by, :first, :last, @sort_by, [['time', _('Time')], ['author', _('Author')]], :onchange => 'document.location.href = "?sort_by="+this.value') %>
+    <%= labelled_select(_('Sort by')+': ', :sort_by, :first, :last, @sort_by, [['created_at', _('Time')], ['author_name', c_('Author')]], :class => 'filter') %>
   </p>
   <table class="action-table">
     <tr>
-      <th style='width: 50%'><%= _('Author') %></th>
+      <th style='width: 50%'><%= c_('Author') %></th>
       <th style='width: 50%'><%= _('Time') %></th>
     </tr>
     <% @submissions.each do |submission| %>
@@ -30,3 +30,5 @@
 <% button_bar do %>
   <%= button :back, _('Back to forms'), :action => 'index' %>
 <% end %>
+
+<%= javascript_include_tag '../plugins/custom_forms/order' %>

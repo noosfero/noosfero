@@ -1,7 +1,7 @@
 <h1><%= @form.name %></h1>
 <p><%= @form.description %></p>
 
-<% fields_for :submission, @submission do |f| %>
+<%= fields_for :submission, @submission do |f| %>
   <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
 <% end %>
 

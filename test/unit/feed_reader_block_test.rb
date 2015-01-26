@@ -53,7 +53,7 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
   end
 
   should 'display last fetched date' do
-    now = Time.now
+    now = Time.new(2014,1,1)
     feed.feed_items = ['one', 'two']
     feed.fetched_at = now
     assert_equal "Updated: #{show_date(now)}", feed.footer

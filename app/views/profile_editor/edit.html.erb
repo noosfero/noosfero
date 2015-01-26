@@ -1,5 +1,6 @@
 <h1><%= _('Profile settings for %s') % profile.name %></h1>
 
+<%= javascript_include_tag 'deactivate_profile' %>
 <%= error_messages_for :profile_data %>
 
 <%= labelled_form_for :profile_data, :html => { :id => 'profile-data', :multipart => true } do |f| %>
@@ -67,6 +68,15 @@
   <% if user && user.has_permission?('destroy_profile', profile) %>
     <% button_bar(:id => 'delete-profile') do %>
       <%= button(:remove, _('Delete profile'), {:action => :destroy_profile}) %>
+
+      <% if environment.admins.include?(current_person) %>
+
+        <% if profile.visible? %>
+          <%= button(:remove, _('Deactivate profile'), {:action => :deactivate_profile, :id=>profile.id}, :id=>'deactivate_profile_button', :data => {:confirm=>_("Are you sure you want to deactivate this profile?")}) %>
+        <% else %>
+          <%= button(:add, _('Activate profile'), {:action => :activate_profile, :id=>profile.id}, :data => {:confirm=>_("Are you sure you want to deactivate this profile?")}) %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

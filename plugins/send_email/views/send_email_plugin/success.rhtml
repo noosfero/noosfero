@@ -1,8 +1,0 @@
-<h2><%= _('Message sent') %></h2>
-
-<table class='sendemail-plugin-message-sent'>
-  <tr><td class='label'><strong><%= _('Subject') %>:</strong></td><td class='value'><em><%=h @mail.subject %></em></td></tr>
-  <tr><td class='label'><strong><%= _('Message') %>:</strong></td><td class='value'><pre><%=h render :file => 'send_email_plugin/sender/message' %></pre></td></tr>
-</table>
-
-<p><%= button :back, _('Back'), :back %></p>

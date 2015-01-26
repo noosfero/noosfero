@@ -8,7 +8,7 @@ class VotePluginAdminControllerTest < ActionController::TestCase
 
   def setup
     @environment = Environment.default
-    @profile = create_user('profile').person
+    @profile = create_user_with_permission('profile', 'edit_environment_features', Environment.default)
     login_as(@profile.identifier)
   end
 

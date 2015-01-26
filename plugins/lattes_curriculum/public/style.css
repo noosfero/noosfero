@@ -1,0 +1,37 @@
+#signup-form label[for="lattes_id_field"],
+{
+  display: block;
+}
+
+#signup-form small#lattes-id-balloon
+{
+  display: none;
+  width: 142px;
+  height: 69px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px 45px 10px;
+  margin: 0;
+  line-height: 1.5em;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
+  position: absolute;
+  z-index: 2;
+  right: -150px;
+  top: -75px;
+}
+
+#signup-form .formfield.checking {
+  border-color: transparent;
+  background-image: none;
+}
+
+#signup-form small#lattes-id-balloon
+{
+  top: -80px;
+}
+
+#signup-form #signup-lattes-id
+{
+  position: relative;
+}

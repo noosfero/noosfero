@@ -4,6 +4,12 @@ class CmsController < MyProfileController
 
   include ArticleHelper
 
+  def search_tags
+    arg = params[:term].downcase
+    result = ActsAsTaggableOn::Tag.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    render :text => prepare_to_token_input_by_label(result).to_json, :content_type => 'application/json'
+  end
+
   def self.protect_if(*args)
     before_filter(*args) do |c|
       user, profile = c.send(:user), c.send(:profile)
@@ -143,6 +149,7 @@ class CmsController < MyProfileController
     end
 
     @article.profile = profile
+    @article.author = user
     @article.last_changed_by = user
     @article.created_by = user
 
@@ -195,7 +202,7 @@ class CmsController < MyProfileController
               :profile => profile,
               :parent => @parent,
               :last_changed_by => user,
-              :created_by => user,
+              :author => user,
             },
             :without_protection => true
           )
@@ -220,7 +227,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
-      session[:notice] = _("\"#{@article.name}\" was removed.")
+      session[:notice] = _("\"%s\" was removed." % @article.name)
       referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer

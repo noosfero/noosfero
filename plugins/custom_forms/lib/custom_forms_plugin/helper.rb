@@ -1,4 +1,7 @@
 module CustomFormsPlugin::Helper
+
+  protected
+
   def html_for_field(builder, association, klass)
     new_object = klass.new
     builder.fields_for(association, new_object, :child_index => "new_#{association}") do |f|
@@ -7,11 +10,11 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    return _('Public') if form.access.nil?
+    return c_('Public') if form.access.nil?
     return _('Logged users') if form.access == 'logged'
     if form.access == 'associated'
-      return _('Members') if form.profile.organization?
-      return _('Friends') if form.profile.person?
+      return c_('Members') if form.profile.organization?
+      return c_('Friends') if form.profile.person?
     end
     return _('Custom')
   end
@@ -38,9 +41,9 @@ module CustomFormsPlugin::Helper
   # TODO add the custom option that should offer the user the hability to
   # choose the profiles one by one, using something like tokeninput
   def access_options(profile)
-    associated = profile.organization? ? _('Members') : _('Friends')
+    associated = profile.organization? ? c_('Members') : c_('Friends')
     [
-      [_('Public'), nil         ],
+      [c_('Public'), nil         ],
       [_('Logged users'), 'logged'    ],
       [ associated, 'associated'],
     ]
@@ -48,7 +51,7 @@ module CustomFormsPlugin::Helper
 
   def type_options
     [
-      [_('Text'),   'text_field'  ],
+      [c_('Text'),   'text_field'  ],
       [_('Select'), 'select_field']
     ]
   end
@@ -117,22 +120,4 @@ module CustomFormsPlugin::Helper
     type_for_options(field.class) == 'select_field' && field.select_field_type == 'check_box'
   end
 
-  def build_answers(submission, form)
-    answers = []
-    form.fields.each do |field|
-      final_value = ''
-      if submission.has_key?(field.id.to_s)
-        value = submission[field.id.to_s]
-        if value.kind_of?(String)
-          final_value = value
-        elsif value.kind_of?(Array)
-          final_value = value.join(',')
-        elsif value.kind_of?(Hash)
-          final_value = value.map {|option, present| present == '1' ? option : nil}.compact.join(',')
-        end
-      end
-      answers << CustomFormsPlugin::Answer.new(:field => field, :value => final_value)
-    end
-    answers
-  end
 end

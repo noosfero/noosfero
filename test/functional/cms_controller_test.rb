@@ -1217,7 +1217,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
@@ -1228,7 +1228,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = create(Article, :profile => c, :name => 'test_article', :created_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 
@@ -1805,6 +1805,23 @@ class CmsControllerTest < ActionController::TestCase
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
     post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {}}
     assert_template 'cms/publish'
+  end
+
+  should 'response of search_tags be json' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal 'application/json', @response.content_type
+  end
+
+  should 'return empty json if does not find tag' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal "[]", @response.body
+  end
+
+  should 'return tags found' do
+    tag = mock; tag.stubs(:name).returns('linux')
+    ActsAsTaggableOn::Tag.stubs(:find).returns([tag])
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal '[{"label":"linux","value":"linux"}]', @response.body
   end
 
   protected

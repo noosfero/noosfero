@@ -11,19 +11,19 @@
         if logged_in?
 
           if profile.enable_contact?
-            links.push(_('Send an e-mail') => {:href => url_for({:controller => 'contact', :action => 'new', :profile => profile.identifier})})
+            links.push(c_('Send an e-mail') => {:href => url_for({:controller => 'contact', :action => 'new', :profile => profile.identifier})})
           end
 
-          links.push(_('Report abuse') => {:href => url_for({:controller => 'profile', :action => 'report_abuse', :profile => profile.identifier})})
+          links.push(c_('Report abuse') => {:href => url_for({:controller => 'profile', :action => 'report_abuse', :profile => profile.identifier})})
 
           if !user.nil? && user.has_permission?('edit_profile', profile)
-            links.push(_('Control panel') => {:href => url_for({:controller => 'profile_editor', :profile => profile.identifier})})
+            links.push(c_('Control panel') => {:href => url_for({:controller => 'profile_editor', :profile => profile.identifier})})
           end %>
 
       <%= link_to(
             content_tag('span','',:class => 'community-block-button icon-arrow'),
             '#',
-            :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false;",
+            :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links.to_json)}); return false;",
             :class => 'simplemenu-trigger') %>
 
       <% end %>
@@ -32,11 +32,11 @@
         <% if profile.members.include?(user) || profile.already_request_membership?(user) %>
             <%= link_to(
                   content_tag('span', '', :class => 'community-block-button icon-remove'),
-                  profile.leave_url) %>
+                  profile.leave_url, :class => 'join-community') %>
         <% else %>
             <%= link_to(
                   content_tag('span', '', :class => 'community-block-button icon-add'),
-                  profile.join_url) %>
+                  profile.join_url, :class => 'join-community') %>
         <% end %>
       <% else %>
         <%= link_to(

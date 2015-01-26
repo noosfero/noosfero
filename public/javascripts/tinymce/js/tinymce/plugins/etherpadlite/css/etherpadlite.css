@@ -1,0 +1,24 @@
+.epinstr{
+	margin:3px 0;
+	padding:0;
+	background-color:#BBBBBB;
+	border:1px solid #BBBBBB;
+	border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	text-align:center;
+	width:220px;
+	display:block;
+	position:relative;
+}
+.epinstr p{
+	margin:0;
+	padding:0;
+	font-size:10px;
+}
+.ep_logo_contener{margin:0;padding:0;float:right;}
+table{margin:0;padding:0;width:100%;border-collapse: collapse;}
+table tr td{vertical-align:top;}
+.etherpadlite-table-child tr td{
+	width:100px;
+}

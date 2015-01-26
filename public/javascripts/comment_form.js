@@ -3,7 +3,7 @@ jQuery('.display-comment-form').click(function(){
   var $button = jQuery(this);
   toggleBox($button.parents('.post_comment_box'));
   jQuery($button).hide();
-  $button.closest('.page-comment-form').find('input').first().focus();
+  $button.closest('.page-comment-form').find('input[type="text"]:visible,textarea').first().focus();
   return false;
 });
 

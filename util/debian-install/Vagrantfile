@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+require 'fileutils'
+debs = `find ../../pkg/ -name '*.deb' | sort -t _ -V | tail -2`.split
+if debs.empty?
+  puts "W: no debs built in ../../pkg/; will either install existing local"
+  puts "   ones, or the ones from the remote repository"
+else
+  local_debs = Dir.glob('*.deb')
+  debs.each do |f|
+    fn = File.basename(f)
+    if local_debs.include?(fn)
+      local_debs.delete(fn)
+    else
+      FileUtils::Verbose.ln f, '.'
+    end
+  end
+  local_debs.each do |f|
+    FileUtils::Verbose.rm_f f
+  end
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "debian-wheezy"
+  config.vm.provision :shell, path: 'install'
+end

@@ -130,11 +130,6 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
-  should 'always use WYSIWYG' do
-    get :site_info
-    assert_tag :tag => "script", :content => /tinyMCE\.init/
-  end
-
   should 'set portal community' do
     e = Environment.default
     @controller.stubs(:environment).returns(e)
@@ -383,4 +378,35 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert !Environment.default.signup_welcome_screen_body.blank?
   end
 
+  should 'show list to deactivate organizations' do
+    enabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"enabled community")
+    disabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"disabled community")
+    user = create_user('user')
+
+    disabled_community.disable
+
+    Environment.default.add_admin user.person
+    login_as('user')
+
+    get :manage_organizations_status, :filter=>"enabled"
+    assert_match(/Organization profiles - enabled/, @response.body)
+    assert_match(/enabled community/, @response.body)
+    assert_not_match(/disabled community/, @response.body)
+  end
+
+  should 'show list to activate organizations' do
+    enabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"enabled community")
+    disabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"disabled community")
+    user = create_user('user')
+
+    disabled_community.disable
+
+    Environment.default.add_admin user.person
+    login_as('user')
+
+    get :manage_organizations_status, :filter=>"disabled"
+    assert_match(/Organization profiles - disabled/, @response.body)
+    assert_not_match(/enabled community/, @response.body)
+    assert_match(/disabled community/, @response.body)
+  end
 end

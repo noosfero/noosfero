@@ -10,7 +10,7 @@ class RecentContentBlock < Block
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle']
 
   def self.description
-    _('Recent content')
+    c_('Recent content')
   end
 
   def help

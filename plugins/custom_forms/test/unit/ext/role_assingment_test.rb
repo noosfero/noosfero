@@ -5,7 +5,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)
-    person = fast_create(Person)
+    person = create_user('john').person
     f1 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 1', :on_membership => true)
     f2 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 2', :on_membership => true)
     f3 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 3', :on_membership => false)
@@ -19,7 +19,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)
-    person = fast_create(Person)
+    person = create_user('john').person
     form = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form', :on_membership => true, :access => 'associated')
 
     assert_difference 'CustomFormsPlugin::MembershipSurvey.count', 1 do
@@ -31,7 +31,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)
-    person = fast_create(Person)
+    person = create_user('john').person
     form1 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 1', :on_membership => true)
     organization.add_member(person)
 
@@ -59,7 +59,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)
-    person = fast_create(Person)
+    person = create_user('john').person
     f1 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 1', :for_admission => true)
     f2 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 2', :for_admission => true)
     f3 = CustomFormsPlugin::Form.create!(:profile => organization, :name => 'Form 3', :for_admission => false)

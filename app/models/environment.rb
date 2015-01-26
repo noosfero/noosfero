@@ -3,7 +3,7 @@
 # domains.
 class Environment < ActiveRecord::Base
 
-  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body
+  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body, :members_whitelist_enabled, :members_whitelist
 
   has_many :users
 
@@ -124,6 +124,7 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
+      'admin_must_approve_new_users' => _("Admin must approve registration of new users"),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
@@ -132,7 +133,8 @@ class Environment < ActiveRecord::Base
       'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
       'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login'),
       'display_my_communities_on_user_menu' => _('Display on menu the list of communities the user can manage'),
-      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage')
+      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage'),
+      'restrict_to_members' => _('Show content only to members')
     }
   end
 
@@ -175,9 +177,6 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area
@@ -301,6 +300,17 @@ class Environment < ActiveRecord::Base
 
   def has_custom_welcome_screen?
     settings[:signup_welcome_screen_body].present?
+  end
+
+  settings_items :members_whitelist_enabled, :type => :boolean, :default => false
+  settings_items :members_whitelist, :type => Array, :default => []
+
+  def in_whitelist?(person)
+    !members_whitelist_enabled || members_whitelist.include?(person.id)
+  end
+
+  def members_whitelist=(members)
+    settings[:members_whitelist] = members.split(',').map(&:to_i)
   end
 
   def news_amount_by_folder=(amount)
@@ -650,6 +660,7 @@ class Environment < ActiveRecord::Base
     url = 'http://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
     url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
+    url << Noosfero.root('')
     url
   end
 
@@ -813,7 +824,7 @@ class Environment < ActiveRecord::Base
   end
 
   def notification_emails
-    [noreply_email.blank? ? nil : noreply_email].compact + admins.map(&:email)
+    [contact_email].select(&:present?) + admins.map(&:email)
   end
 
   after_create :create_templates

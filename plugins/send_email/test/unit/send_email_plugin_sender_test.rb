@@ -15,21 +15,21 @@ class SendEmailPluginSenderTest < ActiveSupport::TestCase
   end
 
   should 'be able to deliver mail' do
-    response = SendEmailPlugin::Sender.deliver_message("http://localhost/contact", 'http//profile', @mail)
-    assert_equal 'noreply@localhost', response.from.to_s
+    response = SendEmailPlugin::Sender.send_message("http://localhost/contact", 'http//profile', @mail)
+    assert_equal 'noreply@localhost', response.from.join
     assert_equal "[Noosfero] #{@mail.subject}", response.subject
   end
 
   should 'deliver mail to john@example.com' do
-    response = SendEmailPlugin::Sender.deliver_message("http://localhost/contact", 'http//profile', @mail)
+    response = SendEmailPlugin::Sender.send_message("http://localhost/contact", 'http//profile', @mail)
     assert_equal ['john@example.com'], response.to
   end
 
   should 'add each key value pair to message body' do
     @mail.params = {:param1 => 'value1', :param2 => 'value2'}
-    response = SendEmailPlugin::Sender.deliver_message("http://localhost/contact", 'http//profile', @mail)
-    assert_match /param1.+value1/m, response.body
-    assert_match /param2.+value2/m, response.body
+    response = SendEmailPlugin::Sender.send_message("http://localhost/contact", 'http//profile', @mail)
+    assert_match /param1.+value1/m, response.body.to_s
+    assert_match /param2.+value2/m, response.body.to_s
   end
 
 end

@@ -2,8 +2,10 @@
 
 require 'fast_gettext'
 module Noosfero
-  PROJECT = 'noosfero'
-  VERSION = '0.99.0~rc20140618202455'
+
+  def self.root(default = nil)
+    ENV.fetch('RAILS_RELATIVE_URL_ROOT', default)
+  end
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
@@ -68,16 +70,6 @@ module Noosfero
     end
   end
 
-  def self.term(t)
-    self.terminology.get(t)
-  end
-  def self.terminology
-    @terminology ||= Noosfero::Terminology::Default.instance
-  end
-  def self.terminology=(term)
-    @terminology = term
-  end
-
   def self.url_options
     case Rails.env
     when 'development'
@@ -95,5 +87,6 @@ module Noosfero
 
 end
 
+require 'noosfero/version'
 require 'noosfero/constants'
 require 'noosfero/core_ext'

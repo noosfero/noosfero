@@ -90,7 +90,7 @@ class CmsHelperTest < ActionView::TestCase
     profile = fast_create(Profile)
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
-    confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
+    confirm_message = CGI.escapeHTML("Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!")
     expects(:link_to).with('Delete', {:action => 'destroy', :id => folder.id}, :method => :post, :confirm => confirm_message, :class => 'button with-text icon-delete', :title => nil)
 
     result = display_delete_button(folder)
@@ -101,7 +101,7 @@ class CmsHelperTest < ActionView::TestCase
     profile = fast_create(Profile)
     name = 'My article'
     article = fast_create(TinyMceArticle, :name => name, :profile_id => profile.id)
-    confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
+    confirm_message = CGI.escapeHTML("Are you sure that you want to remove the item \"#{name}\"?")
     expects(:link_to).with('Delete', {:action => 'destroy', :id => article.id}, :method => :post, :confirm => confirm_message, :class => 'button with-text icon-delete', :title => nil)
 
     result = display_delete_button(article)

@@ -45,7 +45,7 @@ class RelatedOrganizationsBlock < ProfileListBlock
     params = {:profile => profile.identifier, :controller => 'sub_organizations_plugin_profile', :action => display_type[:action]}
     params[:type] = type if type == 'enterprise' || type == 'community'
     proc do
-      link_to _('View all'), params.merge(params)
+      link_to c_('View all'), params.merge(params)
     end
   end
 

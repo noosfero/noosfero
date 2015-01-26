@@ -278,23 +278,53 @@ Feature: signup
     Then "José da Silva" should be a member of "Free Software"
 
   @selenium
-  Scenario: join community on direct signup
-    Given the following users
-      | login | name |
-      | mariasilva | Maria Silva |
-    And the following communities
-       | name           | identifier    | owner      |
-       | Free Software  | freesoftware  | mariasilva |
-    And feature "skip_new_user_email_confirmation" is enabled on environment
-    And I am on /freesoftware
-    When I follow "Join"
-    And I follow "New user"
-    And I fill in the following within ".no-boxes":
-      | e-Mail                | josesilva@example.com |
-      | Username              | josesilva             |
-      | Password              | secret                |
-      | Password confirmation | secret                |
-      | Full name             | José da Silva         |
+  Scenario: user registration is moderated by admin
+    Given feature "admin_must_approve_new_users" is enabled on environment
+    And feature "skip_new_user_email_confirmation" is disabled on environment
+    And I go to /account/signup
+    And I fill in "Username" with "teste"
+    And I fill in "Password" with "123456"
+    And I fill in "Password confirmation" with "123456"
+    And I fill in "e-Mail" with "teste@teste.com"
+    And I fill in "Full name" with "Teste da Silva"
     And wait for the captcha signup time
     And I press "Create my account"
-    Then "José da Silva" should be a member of "Free Software"
+    And I go to teste's confirmation URL
+    And I am logged in as admin
+    And I follow "Control panel"
+    And I follow "Tasks"
+    And I choose "Accept"
+    And I press "Apply!"
+    And I follow "Logout"
+    And Teste da Silva's account is activated
+    And I follow "Login"
+    And I fill in "Username / Email" with "teste"
+    And I fill in "Password" with "123456"
+    And I press "Log in"
+    Then I should see "teste"
+
+
+  @selenium
+  Scenario: user registration is not accepted by the admin
+    Given feature "admin_must_approve_new_users" is enabled on environment
+    And feature "skip_new_user_email_confirmation" is disabled on environment
+    And I go to /account/signup
+    And I fill in "Username" with "teste"
+    And I fill in "Password" with "123456"
+    And I fill in "Password confirmation" with "123456"
+    And I fill in "e-Mail" with "teste@teste.com"
+    And I fill in "Full name" with "Teste da Silva"
+    And wait for the captcha signup time
+    And I press "Create my account"
+    And I go to teste's confirmation URL
+    And I am logged in as admin
+    And I follow "Control panel"
+    And I follow "Tasks"
+    And I choose "Reject"
+    And I press "Apply!"
+    And I follow "Logout"
+    And I follow "Login"
+    And I fill in "Username / Email" with "teste"
+    And I fill in "Password" with "123456"
+    And I press "Log in"
+    Then I should not see "teste"

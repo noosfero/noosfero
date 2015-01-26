@@ -10,10 +10,11 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     @controller = ShoppingCartPluginController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @enterprise = fast_create(Enterprise)
-    @product = fast_create(Product, :profile_id => @enterprise.id)
+    @profile = fast_create(Enterprise)
+    @profile.contact_email = 'enterprise@noosfero.org';@profile.save
+    @product = fast_create(Product, :profile_id => @profile.id)
   end
-  attr_reader :enterprise
+  attr_reader :profile
   attr_reader :product
 
   should 'force cookie expiration with explicit path for an empty cart' do
@@ -62,7 +63,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'just remove product if there are other products on cart' do
-    another_product = fast_create(Product, :profile_id => enterprise.id)
+    another_product = fast_create(Product, :profile_id => profile.id)
     get :add, :id => product.id
     get :add, :id => another_product.id
 
@@ -135,7 +136,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'clean the cart' do
-    another_product = fast_create(Product, :profile_id => enterprise.id)
+    another_product = fast_create(Product, :profile_id => profile.id)
     get :add, :id => product.id
     get :add, :id => another_product.id
 
@@ -150,9 +151,9 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'register order on send request' do
-    product1 = fast_create(Product, :profile_id => enterprise.id, :price => 1.99)
-    product2 = fast_create(Product, :profile_id => enterprise.id, :price => 2.23)
-    @controller.stubs(:cart).returns({ :profile_id => enterprise.id, :items => {product1.id => 1, product2.id => 2}})
+    product1 = fast_create(Product, :profile_id => profile.id, :price => 1.99)
+    product2 = fast_create(Product, :profile_id => profile.id, :price => 2.23)
+    @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1, product2.id => 2}})
     assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
@@ -168,8 +169,8 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'register order on send request and not crash if product is not defined' do
-    product1 = fast_create(Product, :profile_id => enterprise.id)
-    @controller.stubs(:cart).returns({ :profile_id => enterprise.id, :items => {product1.id => 1}})
+    product1 = fast_create(Product, :profile_id => profile.id)
+    @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1}})
     assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
@@ -181,7 +182,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'clean the cart after placing the order' do
-    product1 = fast_create(Product, :profile_id => enterprise.id)
+    product1 = fast_create(Product, :profile_id => profile.id)
     post :add, :id => product1.id
     post :send_request, :customer => { :name => "Manuel", :email => "manuel@ceu.com" }
     assert !cart?, "cart expected to be empty!"

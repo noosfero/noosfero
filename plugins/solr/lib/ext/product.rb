@@ -5,8 +5,8 @@ class Product
 
   acts_as_faceted :fields => {
       :solr_plugin_f_category => {:label => _('Related products')},
-      :solr_plugin_f_region => {:label => _('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
-      :solr_plugin_f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| solr_plugin_f_qualifier_proc(id) }},
+      :solr_plugin_f_region => {:label => c_('City'), :proc => proc { |id| solr_plugin_f_region_proc(id) }},
+      :solr_plugin_f_qualifier => {:label => c_('Qualifiers'), :proc => proc { |id| solr_plugin_f_qualifier_proc(id) }},
     }, :category_query => proc { |c| "solr_plugin_category_filter:#{c.id}" },
     :order => [:solr_plugin_f_category, :solr_plugin_f_region, :solr_plugin_f_qualifier]
 
@@ -27,7 +27,8 @@ class Product
       {:name => {:type => :text, :boost => 2.0}},
       {:description => :text}, {:category_full_name => :text},
       # filtered fields
-      {:solr_plugin_public => :boolean}, {:environment_id => :integer},
+      {:solr_plugin_public => :boolean},
+      {:environment_id => :integer}, {:profile_id => :integer},
       {:enabled => :boolean}, {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
       {:solr_plugin_price_sortable => :decimal}, {:solr_plugin_name_sortable => :string},
@@ -43,6 +44,7 @@ class Product
     :boost => proc{ |p| boost = 1; SolrPlugin::Boosts.each{ |b| boost = boost * (1 - ((1 - b[2].call(p)) * b[1])) }; boost}
 
   handle_asynchronously :solr_save
+  handle_asynchronously :solr_destroy
 
   private
 

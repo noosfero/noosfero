@@ -5,7 +5,7 @@
   <%= render :partial => 'shared/fields', :locals => {:f => f, :profile => @bsc} %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Save')) %>
-    <%= button('cancel', _('Cancel'), {:controller => 'admin_panel'}) %>
+    <%= submit_button('save', c_('Save')) %>
+    <%= button('cancel', c_('Cancel'), {:controller => 'admin_panel'}) %>
   <% end %>
 <% end %>

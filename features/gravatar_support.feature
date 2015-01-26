@@ -20,11 +20,11 @@ Feature: Gravatar Support
   Scenario: The Aurium's gravatar picture must link to his gravatar profile
     # because Aurium has his picture registered at garvatar.com.
     When I go to article "My Article"
-    Then I should see "Aurium" linking to "http://www.gravatar.com/24a625896a07aa37fdb2352e302e96de"
+    Then I should see "Aurium" linking to "//www.gravatar.com/24a625896a07aa37fdb2352e302e96de"
 
   @selenium
   Scenario: The NoOne's gravatar picture must link to Gravatar homepage
     # because NoOne <nobody@colivre.coop.br> has no picture registered.
     When I go to article "My Article"
-    Then I should see "NoOne" linking to "http://www.gravatar.com"
+    Then I should see "NoOne" linking to "//www.gravatar.com"
 
