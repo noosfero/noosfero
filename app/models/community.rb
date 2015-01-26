@@ -68,7 +68,7 @@ class Community < Organization
   end
 
   def default_template
-    environment.community_template
+    environment.community_default_template
   end
 
   def news(limit = 30, highlight = false)

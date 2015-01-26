@@ -1315,10 +1315,8 @@ module ApplicationHelper
     return '' if templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
-    counter = 0
     radios = templates.map do |template|
-      counter += 1
-      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
+      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, environment.is_default_template?(template)))
     end.join("\n")
 
     content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +
