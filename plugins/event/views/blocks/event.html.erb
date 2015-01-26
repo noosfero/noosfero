@@ -1,0 +1,19 @@
+<%= block_title(block.title) %>
+
+<ul class="events">
+  <% block.events(@user).map do |event| %>
+    <% days_left = ( event.start_date - Date.today ).round %>
+      <li itemscope="itemscope" itemtype="http://data-vocabulary.org/Event" class="event">
+        <%= render(
+              :file => 'event_plugin/event_block_item',
+              :locals => {
+                :event => event,
+                :block => block,
+                :time_class => days_left < 0 ? 'future' : 'past',
+                :time_left_str => block.human_time_left(days_left)
+              }
+            )
+        %>
+      </li>
+  <% end %>
+</ul>

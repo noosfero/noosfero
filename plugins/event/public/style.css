@@ -1,0 +1,186 @@
+.event-plugin_event-block {
+  font-size: 12px;
+}
+
+.event-plugin_event-block .events {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #DDD;
+}
+
+.event-plugin_event-block .events li {
+  margin: 0;
+  padding: 1px 0;
+  list-style: none;
+  border-top: 1px solid #DDD;
+}
+
+.event-plugin_event-block .event a {
+  display: block;
+  min-height: 60px;
+  overflow: hidden;
+  padding: 3px 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.event-plugin_event-block .event a:hover {
+  background-color: #EEE;
+  text-decoration: none;
+  color: inherit;
+}
+
+.event-plugin_event-block .event a:visited {
+  color: inherit;
+}
+
+.event-plugin_event-block .event .date {
+  display: block;
+  width: 60px;
+  height: auto;
+  background-size: cover;
+  background-position: 50% 40%;
+  font-weight: bold;
+  text-align: center;
+  float: left;
+  margin-right: 10px;
+}
+
+.event-plugin_event-block .event .date.no-img {
+  background-color: #AAA;
+}
+
+.event-plugin_event-block .event:hover .date.no-img {
+  background-color: #79B;
+}
+
+.event-plugin_event-block .event:hover .date.no-img * {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.event-plugin_event-block .event .month {
+  display: block;
+  background: rgba(90,90,90,0.6);
+  color: #FFF;
+  text-shadow: 0 0 2px #000;
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.msie8 .event-plugin_event-block .event .month{
+  background: #797979;
+  width: 60px;
+  float: left;
+  text-align: center;
+}
+
+.event-plugin_event-block .event:hover .has-img .month {
+  opacity: 0.9;
+  background: rgba(90,90,90,0.4);
+}
+
+.msie8 .event-plugin_event-block .event:hover .has-img .month {
+  background: #D8D8D8;
+}
+
+.event-plugin_event-block .event .day {
+  display: block;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(90,90,90,0.6);
+  border-top: none;
+  color: #000;
+  font-size: 36px;
+  line-height: 36px;
+}
+
+.msie8 .event-plugin_event-block .event .day {
+  display: block;
+  background: #D4D4D4;
+  border: 2px solid  #797979;
+  width: 56px;
+  text-align: center;
+}
+
+.event-plugin_event-block .event .has-img .day {
+  text-shadow: 0 0 5px #FFF, 0 0 5px #FFF;
+}
+
+.event-plugin_event-block .event:hover .has-img .day {
+  opacity: 0.8;
+  background: rgba(255,255,255,0.3);
+}
+
+.event-plugin_event-block .event:hover .has-img .day {
+  filter: alpha(opacity=80);
+}
+
+.msie8 .event-plugin_event-block .event:hover .has-img .day{
+  background: #D4D4D4;
+}
+
+.event-plugin_event-block .event .duration {
+  display: block;
+}
+
+.event-plugin_event-block .event .duration span {
+  font-weight: bold;
+}
+
+#content .event-plugin_event-block .event .title {
+  position: relative;
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  overflow: hidden;
+  max-height: 33px;
+}
+
+.event-plugin_event-block .event .title.toobig:after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 5em;
+  padding-right: 4px;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.5);
+  background: -webkit-gradient(linear, left top, right top,
+    from(rgba(255, 255, 255, 0)), to(#FFF), color-stop(80%, #FFF));
+  background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), #FFF 80%, #FFF);
+  background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), #FFF 80%, #FFF);
+  background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), #FFF 80%, #FFF);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFF 80%, #FFF);
+}
+
+.event-plugin_event-block .event:hover .title.toobig:after {
+  background: -webkit-gradient(linear, left top, right top,
+    from(rgba(238, 238, 238, 0)), to(#EEE), color-stop(80%, #EEE));
+  background: -moz-linear-gradient(to right, rgba(238, 238, 238, 0), #EEE 80%, #EEE);
+  background: -ms-linear-gradient(to right, rgba(238, 238, 238, 0), #EEE 80%, #EEE);
+  background: -o-linear-gradient(to right, rgba(238, 238, 238, 0), #EEE 80%, #EEE);
+  background: linear-gradient(to right, rgba(238, 238, 238, 0), #EEE 80%, #EEE);
+}
+
+.event-plugin_event-block .event .address i {
+  display: block;
+  font-style: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.event-plugin_event-block .event .days-left {
+  display: block;
+}
+
+.event-plugin_event-block .event .days-left.past {
+  filter: alpha(opacity=50);
+}
+
+.msie8 #content .event-plugin_event-block .event .title,
+.msie8 #content .event-plugin_event-block .event .adress i,
+.msie8 #content .event-plugin_event-block .event .days-left {
+  float: left;
+}
