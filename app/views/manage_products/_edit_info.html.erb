@@ -47,7 +47,7 @@
     <%= button_to_function(
       :add,
       _('Add new qualifier'),
-      "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(select_qualifiers(@product))}', '#{escape_javascript(remove_qualifier_button)}')"
+      "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(CGI::escape_html(select_qualifiers(@product)))}', '#{escape_javascript(CGI::escape_html(remove_qualifier_button))}')"
     ) %>
     <%= hidden_field_tag "product[qualifiers_list][nil]" %>
   <% end %>

@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class DocTopicTest < ActiveSupport::TestCase
   should 'be a DocItem' do

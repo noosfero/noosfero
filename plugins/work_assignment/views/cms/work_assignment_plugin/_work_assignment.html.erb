@@ -1,3 +1,7 @@
 <%= render :partial => 'folder', :locals => {:f => f} %>
 
-<%= labelled_check_box(_('Publish submissions'), 'article[publish_submissions]', true, @article.publish_submissions) %>
+<%= labelled_form_field(_('Default email message:'), text_area(:article, :default_email, :rows => 3, :cols => 64)) %>
+
+<%=labelled_check_box(_('Publish submissions'), 'article[publish_submissions]', true, @article.publish_submissions) %>
+
+<%=labelled_check_box(_('Allow users change submissions privacy?'), 'article[allow_visibility_edition]', true, @article.allow_visibility_edition) %>

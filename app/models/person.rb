@@ -80,6 +80,10 @@ roles] }
 
   belongs_to :user, :dependent => :delete
 
+  def can_change_homepage?
+    !environment.enabled?('cant_change_homepage') || is_admin?
+  end
+
   def can_control_scrap?(scrap)
     begin
       !self.scraps(scrap).nil?

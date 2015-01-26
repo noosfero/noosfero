@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'cms_controller'
 
 # Re-raise errors caught by the controller.
@@ -101,10 +101,24 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
   end
 
+  should 'display the profile homepage if logged user is an environment admin' do
+    env = Environment.default; env.enable('cant_change_homepage'); env.save!
+    env.add_admin(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
   should 'not display the profile homepage if cannot change homepage' do
     env = Environment.default; env.enable('cant_change_homepage')
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
+  should 'not allow profile homepage changes if cannot change homepage' do
+    env = Environment.default; env.enable('cant_change_homepage')
+    a = profile.articles.create!(:name => 'my new home page')
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_response 403
   end
 
   should 'be able to set home page' do
