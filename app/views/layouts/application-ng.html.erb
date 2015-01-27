@@ -14,7 +14,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="<%= @page ? 'article' : 'website' %>">
-    <meta property="og:url" content="<%= @page ? url_for(@page.url) : @environment.top_url %>">
+    <meta property="og:url" content="<%= @page ? url_for(@page.url) : top_url %>">
     <meta property="og:title" content="<%= h page_title %>">
     <meta property="og:site_name" content="<%= profile ? profile.name : @environment.name %>">
     <meta property="og:description" content="<%= meta_description_tag(@page) %>">

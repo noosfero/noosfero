@@ -31,7 +31,7 @@
   <%= hidden_field_tag 'old_bsc_identifier', profile.identifier %>
   <div id="bsc-formitem">
     <%=   content_tag('code',
-            environment.top_url + '/ ' +
+            top_url + '/ ' +
             text_field(:profile_data, :identifier, :onchange => "warn_value_change()", :size => 25)
           ) +
           content_tag('div',

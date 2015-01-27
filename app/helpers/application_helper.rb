@@ -861,8 +861,9 @@ module ApplicationHelper
   end
 
   def base_url
-    environment.top_url
+    environment.top_url(request.scheme)
   end
+  alias :top_url :base_url
 
   def helper_for_article(article)
     article_helper = ActionView::Base.new
