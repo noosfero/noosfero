@@ -657,8 +657,8 @@ class Environment < ActiveRecord::Base
     { :controller => 'admin_panel', :action => 'index' }
   end
 
-  def top_url
-    url = 'http://'
+  def top_url(scheme = 'http')
+    url = scheme + '://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
     url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
     url << Noosfero.root('')
