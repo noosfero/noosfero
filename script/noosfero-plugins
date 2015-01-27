@@ -177,7 +177,7 @@ _new(){
     mkdir "$target"
 
     plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/g')
-    for source_file in $(find "$template" -type f); do
+    for source_file in $(find "$template" -type f -and '(' -not -name '*.po' -and -not -name '*.mo' ')'); do
       target_file=$(echo "$source_file" | sed -e "s/template/$plugin/g")
       mkdir -p $(dirname "$target_file")
       sed "s/TemplatePlugin/${plugin_name}Plugin/g" "$source_file" > "$target_file"
