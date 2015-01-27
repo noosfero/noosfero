@@ -92,4 +92,11 @@ class Domain < ActiveRecord::Base
     @hosting = {}
   end
 
+  # Detects a domain's custom text domain chain if available based on a domain
+  # served on multitenancy configuration or a registered domain.
+  def self.custom_locale(domainname)
+    domain = Noosfero::MultiTenancy.mapping[domainname] || domainname[/(.*?)\./,1]
+    FastGettext.translation_repositories.keys.include?(domain) ? domain : FastGettext.default_text_domain
+  end
+
 end

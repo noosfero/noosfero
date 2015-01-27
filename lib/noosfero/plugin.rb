@@ -560,6 +560,12 @@ class Noosfero::Plugin
     []
   end
 
+  # -> Adds css class to <html> tag
+  # returns = ['class1', 'class2']
+  def html_tag_classes
+    nil
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.
