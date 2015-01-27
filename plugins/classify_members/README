@@ -1,0 +1,7 @@
+Classify Members
+Plugin that allows the association of communities with types of user profiles to classify and highlight them within the environment.
+
+ * In a school env we want to visit a profile and know it is a teacher or a student.
+ * In a enterprise env we want to view a forum comment and know it comes from a director or a lawyer.
+
+This plugin will allow the admin to select communities for classification. When the user enter in one of these communities, its profile pages comes with a community related class allowing the theme to adapt it. Also the picture block and other places where the user picture is displayed will have labels like "Teacher" or "Lawyer", also themable with css.
