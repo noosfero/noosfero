@@ -1627,4 +1627,26 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     assert_equal 'Welcome to the environment', environment.signup_welcome_screen_body
   end
+
+  should 'has_license be true if there is one license in enviroment' do
+    e = fast_create(Environment)
+    fast_create(License, :name => 'Some', :environment_id => e.id)
+
+    assert e.has_license?
+  end
+
+  should 'has_license be true if there is many licenses in enviroment' do
+    e = fast_create(Environment)
+    fast_create(License, :name => 'Some', :environment_id => e.id)
+    fast_create(License, :name => 'Another', :environment_id => e.id)
+
+    assert e.has_license?
+  end
+
+  should 'has_license be false if there is no license in enviroment' do
+    e = fast_create(Environment)
+
+    assert !e.has_license?
+  end
+
 end

@@ -937,6 +937,10 @@ class Environment < ActiveRecord::Base
     locales_list
   end
 
+  def has_license?
+    self.licenses.any?
+  end
+
   private
 
   def default_language_available
