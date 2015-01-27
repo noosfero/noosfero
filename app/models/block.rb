@@ -224,7 +224,7 @@ class Block < ActiveRecord::Base
       'all'            => _('All users'),
       'logged'         => _('Logged'),
       'not_logged'     => _('Not logged'),
-      'followers'      => owner.organization? ? _('Members') : _('Friends')
+      'followers'      => owner.class != Environment && owner.organization? ? _('Members') : _('Friends')
     }
   end
 
