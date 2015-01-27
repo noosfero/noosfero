@@ -274,6 +274,7 @@ class CmsController < MyProfileController
         task.finish
       rescue Exception => ex
          @failed[ex.message] ? @failed[ex.message] << @article.name : @failed[ex.message] = [@article.name]
+         task.cancel
       end
       if @failed.blank?
         session[:notice] = _("Your publish request was sent successfully")
@@ -304,6 +305,7 @@ class CmsController < MyProfileController
           task.finish unless item.moderated_articles?
         rescue Exception => ex
            @failed[ex.message] ? @failed[ex.message] << item.name : @failed[ex.message] = [item.name]
+           task.cancel
         end
       end
       if @failed.blank?
@@ -313,6 +315,9 @@ class CmsController < MyProfileController
         else
           redirect_to @article.view_url
         end
+      else
+        session[:notice] = _("Some of your publish requests couldn't be sent.")
+        render :action => 'publish'
       end
     end
   end
@@ -324,12 +329,13 @@ class CmsController < MyProfileController
         task = ApproveArticle.create!(:article => @article, :name => params[:name], :target => environment.portal_community, :requestor => user)
         begin
           task.finish unless environment.portal_community.moderated_articles?
-          flash[:notice] = _("Your publish request was sent successfully")
+          session[:notice] = _("Your publish request was sent successfully")
         rescue
-          flash[:error] = _("Your publish request couldn't be sent.")
+          session[:notice] = _("Your publish request couldn't be sent.")
+          task.cancel
         end
       else
-        flash[:notice] = _("There is no portal community to publish your article.")
+        session[:notice] = _("There is no portal community to publish your article.")
       end
 
       if @back_to
