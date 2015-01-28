@@ -1,4 +1,4 @@
-@broken_plugins = %w[
+$broken_plugins = %w[
   anti_spam
   bsc
   comment_classification
@@ -205,14 +205,14 @@ namespace :test do
     @all_tasks.each do |taskname|
       desc "Run #{taskname} tests for all plugins"
       task taskname do
-        test_sequence(@all_plugins - @broken_plugins, taskname)
+        test_sequence(@all_plugins - $broken_plugins, taskname)
       end
     end
   end
 
   desc "Run all tests for all plugins"
   task :noosfero_plugins do
-    test_sequence(@all_plugins - @broken_plugins, @all_tasks) do |failed|
+    test_sequence(@all_plugins - $broken_plugins, @all_tasks) do |failed|
       plugins_status_report(failed)
     end
   end
@@ -229,7 +229,7 @@ def plugins_status_report(failed)
   printf ('-' * w) + ' ' + ('-' * 20) + "\n"
 
   @all_plugins.each do |plugin|
-    if @broken_plugins.include?(plugin)
+    if $broken_plugins.include?(plugin)
       status = "SKIP"
     elsif !failed[plugin] || failed[plugin].empty?
       status = "PASS"
