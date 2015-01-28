@@ -14,16 +14,15 @@ class TasksController < MyProfileController
     @filter_text = params[:filter_text].presence
     @filter_responsible = params[:filter_responsible]
     @task_types = Task.pending_types_for(profile)
-
-    @tasks = Task.pending_all(profile, @filter_type, @filter_text).order_by('created_at', 'asc')
+    @tasks = Task.pending_all(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
     @tasks = @tasks.where(:responsible_id => @filter_responsible.to_i != -1 ? @filter_responsible : nil) if @filter_responsible.present?
     @tasks = @tasks.paginate(:per_page => Task.per_page, :page => params[:page])
-
     @failed = params ? params[:failed] : {}
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
 
     @view_only = !current_person.has_permission?(:perform_task, profile)
+
   end
 
   def processed
@@ -93,6 +92,14 @@ class TasksController < MyProfileController
 
   def ticket_details
     @ticket = Ticket.where('(requestor_id = ? or target_id = ?) and id = ?', profile.id, profile.id, params[:id]).first
+  end
+
+  def search_tasks
+    filter_type = params[:filter_type].presence
+    filter_text = params[:filter_text].presence
+    result = Task.pending_all(profile,filter_type, filter_text)
+
+    render :json => result.map { |task| {:label => task.data[:name], :value => task.data[:name]} }
   end
 
 end

@@ -4,6 +4,7 @@ require 'tasks_controller'
 class TasksControllerTest < ActionController::TestCase
 
   self.default_params = {profile: 'testuser'}
+
   def setup
     @controller = TasksController.new
     @request    = ActionController::TestRequest.new
@@ -26,6 +27,37 @@ class TasksControllerTest < ActionController::TestCase
     assert_template 'index'
     assert assigns(:tasks)
   end
+
+ should 'get filtered tasks to autocomplete text field' do
+
+   #Create a admin user and a simple user
+   profile_admin = create_user('admin_tester').person
+   Environment.default.add_admin(profile_admin)
+   user = fast_create(Person,:name => 'FakeUser')
+
+   #Create a task of type 'ModerateUserRegistration'
+   task_data = {
+       :target => Environment.default,
+       :spam => false,
+       :data => {:user_id => user.id,:name => user.name}
+   }
+   ModerateUserRegistration.create!(task_data)
+
+   #Use admin user to your profile with a pending task above
+   @controller.stubs(:profile).returns(profile_admin)
+   login_as profile_admin.identifier
+
+   #Perform a http request to 'search_task' action with params
+   post :search_tasks, :filter_type =>'ModerateUserRegistration', :filter_text => 'Fak'
+
+   assert_response :success
+
+   #Check if json response matches with a 'FakeUser'
+   json_response = ActiveSupport::JSON.decode(@response.body)
+   value = json_response[0]['value']
+
+   assert_equal value, 'FakeUser'
+ end
 
   should 'list pending tasks without spam' do
     requestor = fast_create(Person)
@@ -437,13 +469,13 @@ class TasksControllerTest < ActionController::TestCase
     t2 = CleanHouse.create!(:requestor => requestor, :target => profile)
     t3 = FeedDog.create!(:requestor => requestor, :target => profile)
 
-    get :index, :filter_type => t1.type, :filter_text => 'test'
+    post :index, :filter_type => t1.type, :filter_text => 'test'
 
     assert_includes assigns(:tasks), t1
     assert_not_includes assigns(:tasks), t2
     assert_not_includes assigns(:tasks), t3
 
-    get :index
+    post :index
 
     assert_includes assigns(:tasks), t1
     assert_includes assigns(:tasks), t2

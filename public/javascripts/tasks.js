@@ -58,6 +58,22 @@
   $('.task_title').css('margin-right', $('.task_decisions').width()+'px');
   $('.task_title').css('margin-left', $('.task_arrow').width()+'px');
 
+  //Autocomplete tasks by type
+  $('#filter-text-autocomplete').autocomplete({
+    source:function(request,response){
+      $.ajax({
+        url:document.location.pathname+'/search_tasks',
+        dataType:'json',
+        data:{
+          filter_text:request.term,
+          filter_type:jQuery('#filter-type').val()
+        },
+        success:response
+      })
+    },
+    minLength:2
+  });
+
 })(jQuery)
 
 function change_task_responsible(el) {
