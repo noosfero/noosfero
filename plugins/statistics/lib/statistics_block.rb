@@ -85,7 +85,7 @@ class StatisticsBlock < Block
 
   def enterprises
     if owner.kind_of?(Environment) || owner.kind_of?(Person)
-      owner.enterprises.visible.count
+      owner.enterprises.visible.enabled.count
     else
       0
     end
