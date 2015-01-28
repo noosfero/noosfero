@@ -1678,6 +1678,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal license, article.license
   end
 
+  should 'not display license field if there is no license availabe in environment' do
+    article = fast_create(Article, :profile_id => profile.id)
+    License.delete_all
+    login_as(profile.identifier)
+
+    get :new, :profile => profile.identifier, :type => 'TinyMceArticle'
+    assert_no_tag :tag => 'select', :attributes => {:id => 'article_license_id'}
+  end
+
   should 'list folders options to move content' do
     article = fast_create(Article, :profile_id => profile.id)
     f1 = fast_create(Folder, :profile_id => profile.id)
