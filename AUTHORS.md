@@ -120,6 +120,7 @@ Diego Araujo + Rodrigo Souto + Rafael Manzo <rr.manzo@gmail.com>
 Diego + Jefferson <diegoamc90@gmail.com>
 Diego Martinez <diegoamc90@gmail.com>
 Diego + Renan <renanteruoc@gmail.com>
+Eduardo Passos <eduardosteps@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
