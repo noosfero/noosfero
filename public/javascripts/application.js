@@ -521,9 +521,6 @@ function userDataCallback(data) {
   noosfero.user_data = data;
   if (data.login) {
     // logged in
-    if (data.chat_enabled) {
-      setInterval(function(){ jQuery.getJSON(user_data, chatOnlineUsersDataCallBack)}, 10000);
-    }
     jQuery('head').append('<meta content="authenticity_token" name="csrf-param" />');
     jQuery('head').append('<meta content="'+jQuery.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
   }
