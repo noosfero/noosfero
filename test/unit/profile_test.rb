@@ -1973,4 +1973,14 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal true, profile.disable
     assert_equal false, profile.visible?
   end
+
+  should 'fetch enabled profiles' do
+    p1 = fast_create(Profile, :enabled => true)
+    p2 = fast_create(Profile, :enabled => true)
+    p3 = fast_create(Profile, :enabled => false)
+
+    assert_includes Profile.enabled, p1
+    assert_includes Profile.enabled, p2
+    assert_not_includes Profile.enabled, p3
+  end
 end

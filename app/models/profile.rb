@@ -123,6 +123,7 @@ class Profile < ActiveRecord::Base
   scope :visible, :conditions => { :visible => true }
   scope :disabled, :conditions => { :visible => false }
   scope :public, :conditions => { :visible => true, :public_profile => true }
+  scope :enabled, :conditions => { :enabled => true }
 
   # Subclasses must override this method
   scope :more_popular
