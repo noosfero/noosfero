@@ -68,7 +68,7 @@
 
         <div id="navigation_bar">
           <%= link_to "<span>"+ @environment.name() +"</span>",
-                      @environment.top_url,
+                        top_url,
                         :id=>"menu_link_to_envhome",
                         :title=>@environment.name  %>
           <% unless environment.enabled?(:disable_categories) %>
