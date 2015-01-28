@@ -13,7 +13,7 @@ class ProfileSuggestionsJob < Struct.new(:person_id)
     begin
       person = Person.find(person_id)
       ProfileSuggestion.calculate_suggestions(person)
-      UserMailer.profiles_suggestions_email(person).deliver
+      UserMailer.profiles_suggestions_email(person).deliver if person.email_suggestions
     rescue Exception => exception
       logger.error("Error with suggestions for person ID %d: %s" % [person_id, exception.to_s])
     end

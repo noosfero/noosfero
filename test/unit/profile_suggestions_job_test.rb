@@ -98,4 +98,24 @@ class ProfileSuggestionsJobTest < ActiveSupport::TestCase
     assert_equivalent [community], person.suggested_communities
   end
 
+  should 'send suggestion e-mail only if the user enabled it' do
+    person = create_user('person').person
+    person.email_suggestions = true
+    person.save!
+    job = ProfileSuggestionsJob.new(person.id)
+    assert_difference 'ActionMailer::Base.deliveries.count', 1  do
+      job.perform
+    end
+  end
+
+  should 'not send suggestion e-mail if the user disabled it' do
+    person = create_user('person').person
+    person.email_suggestions = false
+    person.save!
+    job = ProfileSuggestionsJob.new(person.id)
+    assert_no_difference 'ActionMailer::Base.deliveries.count'  do
+      job.perform
+    end
+  end
+
 end
