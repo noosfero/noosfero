@@ -83,6 +83,7 @@ class BoxOrganizerController < ApplicationController
 
   def save
     @block = boxes_holder.blocks.find(params[:id])
+    return render_access_denied unless @block.editable?(user)
     @block.update(params[:block])
     redirect_to :action => 'index'
   end

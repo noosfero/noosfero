@@ -19,7 +19,7 @@ class DisabledEnterpriseMessageBlock < Block
     end
   end
 
-  def editable?
+  def editable?(user=nil)
     false
   end
 

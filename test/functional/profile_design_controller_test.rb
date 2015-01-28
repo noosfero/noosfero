@@ -311,6 +311,12 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_equal 999, @b1.article_id
   end
 
+  should 'not be able to save a non editable block' do
+    Block.any_instance.expects(:editable?).returns(false)
+    post :save, :profile => 'designtestuser', :id => @b1.id, :block => { }
+    assert_response :forbidden
+  end
+
   should 'be able to edit ProductsBlock' do
     block = ProductsBlock.new
 

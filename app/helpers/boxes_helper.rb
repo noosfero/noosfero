@@ -250,7 +250,7 @@ module BoxesHelper
       end
     end
 
-    if editable?(block)
+    if editable?(block, user)
       buttons << modal_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
     end
 
@@ -296,7 +296,7 @@ module BoxesHelper
     return block.movable? || user.is_admin?
   end
 
-  def editable?(block)
-    return block.editable? || user.is_admin?
+  def editable?(block, user=nil)
+    return block.editable?(user) || user.is_admin?
   end
 end

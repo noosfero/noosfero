@@ -195,8 +195,8 @@ class Block < ActiveRecord::Base
     nil
   end
 
-  # Is this block editable? (Default to <tt>false</tt>)
-  def editable?
+  # Is this block editable? (Default to <tt>true</tt>)
+  def editable?(user=nil)
     self.edit_modes == "all"
   end
 

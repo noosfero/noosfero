@@ -100,3 +100,4 @@ environment_administrator:
    - destroy_profile
    - manage_environment_templates
    - manage_environment_licenses
+   - edit_raw_html_block
