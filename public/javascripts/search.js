@@ -10,7 +10,7 @@
     return false;
   });
 
-  // Sorting
+  // Sorting and Views
   $('#search-filters select').change(function(){
     $('form.search_form').submit();
   });

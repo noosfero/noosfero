@@ -1667,6 +1667,7 @@ a.button.disabled, input.disabled {
 }
 #map {
   height: 500px;
+  margin-top: 10px;
 }
 .map {
   clear: both;
