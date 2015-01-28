@@ -4,6 +4,7 @@
   comment_classification
   ldap
   solr
+  stoa
 ]
 
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
