@@ -1,3 +1,9 @@
+noosfero (1.0.2) wheezy; urgency=low
+
+  * Bugfixes release
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 28 Jan 2015 17:57:05 -0300
+
 noosfero (1.0.1) wheezy; urgency=low
 
   * Maintainance release for the 1.0 series
