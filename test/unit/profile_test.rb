@@ -840,6 +840,14 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'environment footer', profile.custom_footer
   end
 
+  should 'sanitize custom header and footer' do
+    p = fast_create(Profile)
+    script_kiddie_code = '<script>alert("look mom, I am a hacker!")</script>'
+    p.update_header_and_footer(script_kiddie_code, script_kiddie_code)
+    assert_no_tag_in_string p.custom_header, tag: 'script'
+    assert_no_tag_in_string p.custom_footer, tag: 'script'
+  end
+
   should 'store theme' do
     p = build(Profile, :theme => 'my-shiny-theme')
     assert_equal 'my-shiny-theme', p.theme
@@ -1555,8 +1563,6 @@ class ProfileTest < ActiveSupport::TestCase
     profile.address = "<h1><</h2< Malformed >> html >< tag"
     profile.contact_phone = "<h1<< Malformed ><>>> html >< tag"
     profile.description = "<h1<a> Malformed >> html ></a>< tag"
-    profile.custom_header = "<h1<a>><<> Malformed >> html ></a>< tag"
-    profile.custom_footer = "<h1> Malformed <><< html ></a>< tag"
     profile.valid?
 
     assert_no_match /[<>]/, profile.name
@@ -1564,6 +1570,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, profile.address
     assert_no_match /[<>]/, profile.contact_phone
     assert_no_match /[<>]/, profile.description
+    assert_no_match /[<>]/, profile.custom_header
+    assert_no_match /[<>]/, profile.custom_footer
+  end
+
+  should 'escape malformed html tags in header and footer' do
+    profile = fast_create(Profile)
+    profile.custom_header = "<h1<a>><<> Malformed >> html ></a>< tag"
+    profile.custom_footer = "<h1> Malformed <><< html ></a>< tag"
+    profile.save
+
     assert_no_match /[<>]/, profile.custom_header
     assert_no_match /[<>]/, profile.custom_footer
   end
