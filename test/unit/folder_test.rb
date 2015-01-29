@@ -100,6 +100,14 @@ class FolderTest < ActiveSupport::TestCase
     assert_includes folder.images(true), community.articles.find_by_name('rails.png')
   end
 
+  should 'not let pass javascript in the name' do
+    folder = Folder.new
+    folder.name = "<script> alert(Xss!); </script>"
+    folder.valid?
+
+    assert_no_match /(<script>)/, folder.name
+  end
+
   should 'not let pass javascript in the body' do
     folder = Folder.new
     folder.body = "<script> alert(Xss!); </script>"
