@@ -155,6 +155,14 @@ class EventTest < ActiveSupport::TestCase
     assert_no_tag_in_string e.body, :tag => 'script'
   end
 
+  should 'filter HTML in name' do
+    profile = create_user('testuser').person
+    e = create(Event, :profile => profile, :name => '<p>a paragraph (valid)</p><script type="text/javascript">/* this is invalid */</script>"', :link => 'www.colivre.coop.br', :start_date => Date.today)
+
+    assert_tag_in_string e.name, :tag => 'p', :content => 'a paragraph (valid)'
+    assert_no_tag_in_string e.name, :tag => 'script'
+  end
+
   should 'nil to link' do
     e = Event.new
     assert_nothing_raised TypeError do
