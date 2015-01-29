@@ -2,105 +2,23 @@
 
 set -e
 
-export RAILS_ENV=production
-
 say(){
-  echo -e "\033[33;01m$0: $1\033[m"
-}
-
-get_value(){
-  ruby -ryaml -e "puts YAML.load_file('config/database.yml')['$RAILS_ENV']['$1']"
-}
-
-usage(){
-  echo "usage: $0 [OPTIONS]"
-  echo
-  echo "Options:"
-  echo
-  echo "  -s, --shell     Opens a shell just after upgrading code and"
-  echo "                  database to make manual steps if needed"
-  echo
-  echo "  -h, --help      Displays the help (this screen)"
-  echo
-  echo "  -v, --version   Displays Noosfero current version"
-  echo
-  exit $1
-}
-
-version(){
-  version=$(ruby -Ilib -rnoosfero -e 'puts Noosfero::VERSION')
-  echo "Noosfero version $version"
-  exit 0
-}
-
-stop_service(){
-  say "Stopping service"
-  ./script/production stop || say "Stop failed, trying to continue anyway"
-  sudo /etc/init.d/memcached restart
-}
-
-start_service(){
-  say "Starting service"
-  ./script/production start
-}
-
-upgrade_code(){
-  say "Upgrading code"
-
-  # db:migrate always changes this
-  git checkout db/schema.rb
-
-  git pull --quiet
-
-  say "Compiling translations"
-  rake noosfero:translations:compile 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
-
-  # remove cached files
-  rm -f public/javascripts/cache*.js
-  rm -f public/stylesheets/cache*.css
-}
-
-upgrade_database(){
-  say "Upgrading database"
-
-  rake db:migrate
-
-  if test "$shell" = "yes"; then
-    echo "################################################"
-    echo "# Noosfero upgrade shell                       #"
-    echo "################################################"
-    echo "#                                              #"
-    echo "# If you need to do any manual steps during    #"
-    echo "# this upgrade, now is the time.               #"
-    echo "#                                              #"
-    echo "# After you finish, just exit this shell and   #"
-    echo "# the upgrade will proceed                     #"
-    echo "################################################"
-    export PS1="[Noosfero upgrade] $PS1"
-    bash --rcfile config/bashrc
+  if [ -t 1 ]; then
+    printf "\033[33;01m$0: $1\033[m\n"
   fi
 }
 
-shell=no
-while test $# -gt 0; do
-  case "$1" in
-    -s|--shell)
-      shell=yes
-      ;;
-    -h|--help)
-      usage 0
-      ;;
-    -v|--version)
-      version
-      ;;
-    *)
-      usage 1
-      ;;
-  esac
-  shift
-done
+say "Upgrading code"
 
-stop_service
-upgrade_code
-upgrade_database
-start_service
+last_passed=$(curl --silent --fail http://ci.noosfero.org/noosfero/LAST_SUCCESS_HEAD || true)
+if [ -n "$last_passed" ]; then
+  git fetch
+  git reset --hard "$last_passed"
+else
+  exit
+fi
+
+say "Compiling translations"
+rake noosfero:translations:compile 2>/dev/null || (echo "Translations compilation failed; run manually to check"; false)
+
+./script/production restart
