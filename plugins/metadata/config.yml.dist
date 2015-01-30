@@ -1,0 +1,12 @@
+open_graph:
+  domain: cirandas.net
+  environment_logo: 'http://cirandas.net/designs/themes/cirandas-responsive/images/cirandas-logo-110.png'
+  types:
+    article: article
+    product: app_cirandas:sse_product
+    uploaded_file: app_cirandas:document
+    image: app_cirandas:picture
+    profile: app_cirandas:profile
+    person: app_cirandas:user
+    community: app_cirandas:community
+    enterprise: app_cirandas:sse_initiative
