@@ -978,6 +978,8 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'display add translation link if article is translatable' do
+    environment.languages = ['en']
+    environment.save
     login_as @profile.identifier
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     xhr :get, :view_page, :profile => @profile.identifier, :page => textile.path, :toolbar => true

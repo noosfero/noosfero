@@ -1432,6 +1432,9 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'article language should be selected' do
+    e = Environment.default
+    e.languages = ['ru']
+    e.save
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'ru')
     get :edit, :profile => @profile.identifier, :id => textile.id
     assert_tag :option, :attributes => { :selected => 'selected', :value => 'ru' }, :parent => {
@@ -1439,6 +1442,9 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'list possible languages and include blank option' do
+    e = Environment.default
+    e.languages = ['en', 'pt','fr','hy','de', 'ru', 'es', 'eo', 'it']
+    e.save
     get :new, :profile => @profile.identifier, :type => 'TextileArticle'
     assert_equal Noosfero.locales.invert, assigns(:locales)
     assert_tag :option, :attributes => { :value => '' }, :parent => {
