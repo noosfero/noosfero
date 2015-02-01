@@ -2,11 +2,11 @@
 class MetadataPlugin < Noosfero::Plugin
 
   def self.plugin_name
-    I18n.t 'metadata_plugin.lib.plugin.name'
+    _('Export metadata')
   end
 
   def self.plugin_description
-    I18n.t 'metadata_plugin.lib.plugin.description'
+    _('Export metadata for models on meta tags')
   end
 
   def self.config
