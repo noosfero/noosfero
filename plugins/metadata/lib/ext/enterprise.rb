@@ -3,16 +3,18 @@ require_dependency "#{File.dirname __FILE__}/profile"
 
 class Enterprise
 
-  Metadata = Metadata.merge({
-    'og:type' => MetadataPlugin.og_types[:enterprise],
-	  'business:contact_data:email' => proc{ |e, c| e.contact_email },
-	  'business:contact_data:phone_number' => proc{ |e, c| e.contact_phone },
-	  'business:contact_data:street_address' => proc{ |e, c| e.address },
-	  'business:contact_data:locality' => proc{ |e, c| e.city },
-	  'business:contact_data:region' => proc{ |e, c| e.state },
-	  'business:contact_data:postal_code' => proc{ |e, c| e.zip_code },
-	  'business:contact_data:country_name' => proc{ |e| e.country },
-	  'place:location:latitude' => proc{ |e, c| p.lat },
-	  'place:location:longitude' => proc{ |e, c| p.lng },
-  })
+  metadata_spec namespace: :og, tags: {
+    type: MetadataPlugin.og_types[:enterprise] || :enterprise,
+  }
+
+  metadata_spec namespace: 'business:contact_data', tags: {
+    email: proc{ |e, plugin| e.contact_email },
+	  phone_number: proc{ |e, plugin| e.contact_phone },
+	  street_address: proc{ |e, plugin| e.address },
+	  locality: proc{ |e, plugin| e.city },
+	  region: proc{ |e, plugin| e.state },
+	  postal_code: proc{ |e, plugin| e.zip_code },
+	  country_name: proc{ |e, plugin| e.country },
+  }
+
 end
