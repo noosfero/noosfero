@@ -17,7 +17,7 @@ class MetadataPlugin < Noosfero::Plugin
     @og_types ||= self.config[:open_graph][:types] rescue {}
   end
 
-  Controllers = {
+  CONTROLLERS = {
     manage_products: {
       variable: :@product,
     },
@@ -44,9 +44,9 @@ class MetadataPlugin < Noosfero::Plugin
   def head_ending
     plugin = self
     lambda do
-      options = MetadataPlugin::Controllers[controller.controller_path.to_sym]
-      options ||= MetadataPlugin::Controllers[:profile] if controller.is_a? ProfileController
-      options ||= MetadataPlugin::Controllers[:environment]
+      options = MetadataPlugin::CONTROLLERS[controller.controller_path.to_sym]
+      options ||= MetadataPlugin::CONTROLLERS[:profile] if controller.is_a? ProfileController
+      options ||= MetadataPlugin::CONTROLLERS[:environment]
       return unless options
 
       return unless object = case variable = options[:variable]
