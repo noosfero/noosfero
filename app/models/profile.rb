@@ -992,4 +992,8 @@ private :generate_url, :url_options
     suggestion.disable if suggestion
   end
 
+  def allow_invitation_from(person)
+    false
+  end
+
 end

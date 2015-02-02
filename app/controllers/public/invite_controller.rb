@@ -85,10 +85,6 @@ class InviteController < PublicController
   protected
 
   def check_permissions_to_invite
-    if profile.person? and !user.has_permission?(:manage_friends, profile) or
-      profile.community? and !user.has_permission?(:invite_members, profile)
-      render_access_denied
-    end
+    render_access_denied if !profile.allow_invitation_from?(user)
   end
-
 end

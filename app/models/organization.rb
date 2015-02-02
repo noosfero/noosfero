@@ -177,4 +177,8 @@ class Organization < Profile
     self.visible = false
     save!
   end
+
+  def allow_invitation_from?(person)
+    (followed_by?(person) && self.allow_members_to_invite) || person.has_permission?('invite-members', self)
+  end
 end

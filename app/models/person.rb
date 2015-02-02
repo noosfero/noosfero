@@ -514,6 +514,10 @@ class Person < Profile
     suggestion.disable if suggestion
   end
 
+  def allow_invitation_from?(person)
+    person.has_permission?(:manage_friends, self)
+  end
+
   protected
 
   def followed_by?(profile)
