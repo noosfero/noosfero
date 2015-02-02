@@ -17,25 +17,22 @@ Feature: invitation
 
   Scenario: see link to invite friends
     When I am on /profile/josesilva/friends
-    Then I should see "Invite people from my e-mail contacts" link
+    Then I should see "Invite people" link
 
   Scenario: see link to invite friends in myprofile
     When I am on /myprofile/josesilva/friends
-    Then I should see "Invite people from my e-mail contacts" link
+    Then I should see "Invite people" link
 
   Scenario: go to invitation screen when follow link to invite friends
     Given I am on /myprofile/josesilva/friends
-    When I follow "Invite people from my e-mail contacts"
+    When I follow "Invite people"
     Then I am on /profile/josesilva/invite/friends
-
-  Scenario: see title when invite friends
-    When I am on /profile/josesilva/invite/friends
-    Then I should see "Invite your friends"
 
   @selenium
   Scenario: back to friends after invite friends
     Given I am on /myprofile/josesilva/friends
-    And I follow "Invite people from my e-mail contacts"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
@@ -77,7 +74,8 @@ Feature: invitation
   @selenium
   Scenario: back to members after invite friends to join a community
     Given I am on 26 Bsslines's members management
-    And I follow "Invite your friends to join 26 Bsslines"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
@@ -88,7 +86,8 @@ Feature: invitation
   @selenium
   Scenario: noosfero user receives a task when a user invites to join a community
     Given I am on 26 Bsslines's members management
-    And I follow "Invite your friends to join 26 Bsslines"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
@@ -133,7 +132,8 @@ Feature: invitation
   Scenario: noosfero user receives a task when a user invites to be friend
     Given I am on josesilva's control panel
     And I follow "Manage friends"
-    And I follow "Invite people from my e-mail contacts"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
