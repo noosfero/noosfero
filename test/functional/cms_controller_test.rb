@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'cms_controller'
 
 # Re-raise errors caught by the controller.
@@ -101,10 +101,24 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
   end
 
+  should 'display the profile homepage if logged user is an environment admin' do
+    env = Environment.default; env.enable('cant_change_homepage'); env.save!
+    env.add_admin(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
   should 'not display the profile homepage if cannot change homepage' do
     env = Environment.default; env.enable('cant_change_homepage')
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
+  should 'not allow profile homepage changes if cannot change homepage' do
+    env = Environment.default; env.enable('cant_change_homepage')
+    a = profile.articles.create!(:name => 'my new home page')
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_response 403
   end
 
   should 'be able to set home page' do
@@ -1217,7 +1231,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
@@ -1228,7 +1242,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = create(Article, :profile => c, :name => 'test_article', :created_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :author => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 
@@ -1664,6 +1678,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal license, article.license
   end
 
+  should 'not display license field if there is no license availabe in environment' do
+    article = fast_create(Article, :profile_id => profile.id)
+    License.delete_all
+    login_as(profile.identifier)
+
+    get :new, :profile => profile.identifier, :type => 'TinyMceArticle'
+    assert_no_tag :tag => 'select', :attributes => {:id => 'article_license_id'}
+  end
+
   should 'list folders options to move content' do
     article = fast_create(Article, :profile_id => profile.id)
     f1 = fast_create(Folder, :profile_id => profile.id)
@@ -1805,6 +1828,23 @@ class CmsControllerTest < ActionController::TestCase
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
     post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {}}
     assert_template 'cms/publish'
+  end
+
+  should 'response of search_tags be json' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal 'application/json', @response.content_type
+  end
+
+  should 'return empty json if does not find tag' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal "[]", @response.body
+  end
+
+  should 'return tags found' do
+    tag = mock; tag.stubs(:name).returns('linux')
+    ActsAsTaggableOn::Tag.stubs(:find).returns([tag])
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal '[{"label":"linux","value":"linux"}]', @response.body
   end
 
   protected

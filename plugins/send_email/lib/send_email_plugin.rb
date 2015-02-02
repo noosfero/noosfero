@@ -1,3 +1,5 @@
+require 'send_email_plugin/core_ext'
+
 class SendEmailPlugin < Noosfero::Plugin
 
   def self.plugin_name
@@ -22,3 +24,6 @@ class SendEmailPlugin < Noosfero::Plugin
   end
 
 end
+
+require_dependency 'send_email_plugin/mail'
+require_dependency 'send_email_plugin/sender'

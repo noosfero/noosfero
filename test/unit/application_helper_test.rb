@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ApplicationHelperTest < ActionView::TestCase
 
@@ -43,17 +43,24 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
   end
 
-  should 'look for superclasses on view_for_profile actions' do
-    File.stubs(:exists?).returns(false)
-    File.expects(:exists?).with(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', 'numeric.html.erb')).returns(true)
-
-    assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
-  end
-
   should 'give error when there is no partial for class' do
     assert_raises ArgumentError do
       partial_for_class(nil)
     end
+  end
+
+  should 'plugins path take precedence over core path' do
+    core_path = 'core/'
+    plugin_path = 'path/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([plugin_path, core_path])
+    self.stubs(:params).returns({:controller => 'test'})
+
+    File.stubs(:exists?).returns(false)
+    File.stubs(:exists?).with(core_path+"test/_block.html.erb").returns(true)
+    File.stubs(:exists?).with(plugin_path+"test/_raw_html_block.html.erb").returns(true)
+
+    assert_equal 'raw_html_block', partial_for_class(RawHTMLBlock)
   end
 
   should 'generate link to stylesheet' do
@@ -245,6 +252,44 @@ class ApplicationHelperTest < ActionView::TestCase
     [:people, :communities, :enterprises].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
+  end
+
+  should 'define the community default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    community = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    fast_create(Community, :is_template => true, :environment_id => environment.id)
+    environment.community_default_template= community
+    environment.save
+    
+    assert_tag_in_string template_options(:communities, 'community'), :tag => 'input',
+                                 :attributes => { :name => "community[template_id]", :value => community.id, :checked => true }
+  end
+
+  should 'define the person default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    person = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    fast_create(Person, :is_template => true, :environment_id => environment.id)
+    environment.person_default_template= person
+    environment.save
+    
+    assert_tag_in_string template_options(:people, 'profile_data'), :tag => 'input',
+                                 :attributes => { :name => "profile_data[template_id]", :value => person.id, :checked => true }
+  end
+
+  should 'define the enterprise default template as checked' do
+    environment = Environment.default
+    self.stubs(:environment).returns(environment)
+    enterprise = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+
+    environment.enterprise_default_template= enterprise
+    environment.save
+    environment.reload
+    
+    assert_tag_in_string template_options(:enterprises, 'create_enterprise'), :tag => 'input',
+                                 :attributes => { :name => "create_enterprise[template_id]", :value => enterprise.id, :checked => true }
   end
 
   should 'return nil if disable_categories is enabled' do
@@ -857,6 +902,78 @@ class ApplicationHelperTest < ActionView::TestCase
 
     expects(:convert_macro).never
     filter_html(article.body, article)
+  end
+
+  should 'not display enterprises if not logged' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(nil)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    assert_equal '', manage_enterprises
+  end
+
+  should 'display enterprises if logged and enabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).returns('enterprises list')
+    assert_equal 'enterprises list', manage_enterprises
+  end
+
+  should 'not display enterprises if logged and disabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.disable('display_my_enterprises_on_user_menu')
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    assert_equal '', manage_enterprises
+  end
+
+  should 'not display communities if not logged' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(nil)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    assert_equal '', manage_communities
+  end
+
+  should 'display communities if logged and enabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.enable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).returns('communities list')
+    assert_equal 'communities list', manage_communities
+  end
+
+  should 'not display communities if logged and disabled on environment' do
+    @controller = ApplicationController.new
+    profile = create_user('testuser').person
+    profile.environment.disable('display_my_communities_on_user_menu')
+    community = fast_create(Community)
+    community.add_admin(profile)
+
+    stubs(:user).returns(profile)
+    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    assert_equal '', manage_communities
   end
 
   protected

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class DatesHelperTest < ActiveSupport::TestCase
 
@@ -57,7 +57,6 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'not crash with events that have start_date and end_date' do
-    FastGettext.default_text_domain = 'noosferofull'
     assert_nothing_raised do
       Noosfero.locales.keys.each do |key|
         Noosfero.with_locale(key) do

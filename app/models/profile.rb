@@ -97,7 +97,7 @@ class Profile < ActiveRecord::Base
   end
 
   def members_by_name
-    members.order(:name)
+    members.order('profiles.name')
   end
 
   class << self
@@ -108,8 +108,8 @@ class Profile < ActiveRecord::Base
     alias_method_chain :count, :distinct
   end
 
-  def members_by_role(role)
-    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
+  def members_by_role(roles)
+    Person.members_of(self).by_role(roles)
   end
 
   acts_as_having_boxes
@@ -121,7 +121,9 @@ class Profile < ActiveRecord::Base
   end
 
   scope :visible, :conditions => { :visible => true }
+  scope :disabled, :conditions => { :visible => false }
   scope :public, :conditions => { :visible => true, :public_profile => true }
+  scope :enabled, :conditions => { :enabled => true }
 
   # Subclasses must override this method
   scope :more_popular
@@ -346,16 +348,17 @@ class Profile < ActiveRecord::Base
   end
 
   def copy_blocks_from(profile)
+    template_boxes = profile.boxes.select{|box| box.position}
     self.boxes.destroy_all
-    profile.boxes.each do |box|
-      new_box = Box.new
+    self.boxes = template_boxes.size.times.map { Box.new }
+
+    template_boxes.each_with_index do |box, i|
+      new_box = self.boxes[i]
       new_box.position = box.position
-      self.boxes << new_box
       box.blocks.each do |block|
         new_block = block.class.new(:title => block[:title])
-        new_block.settings = block.settings
-        new_block.position = block.position
-        self.boxes[-1].blocks << new_block
+        new_block.copy_from(block)
+        new_box.blocks << new_block
       end
     end
   end
@@ -390,7 +393,7 @@ class Profile < ActiveRecord::Base
   end
 
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'
-  xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
 
   include WhiteListFilter
   filter_iframes :custom_header, :custom_footer
@@ -774,7 +777,7 @@ private :generate_url, :url_options
   end
 
   include Noosfero::Plugin::HotSpot
-  
+
   def folder_types
     types = Article.folder_types
     plugins.dispatch(:content_types).each {|type|
@@ -898,6 +901,13 @@ private :generate_url, :url_options
   end
 
   def disable
+    self.visible = false
+    self.save
+  end
+
+  def enable
+    self.visible = true
+    self.save
   end
 
   def control_panel_settings_button

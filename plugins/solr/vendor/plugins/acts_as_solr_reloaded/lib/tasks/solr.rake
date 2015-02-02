@@ -158,7 +158,7 @@ namespace :solr do
 
     logger = ActiveRecord::Base.logger = Logger.new(STDOUT)
     logger.level = ActiveSupport::BufferedLogger::INFO unless debug_output
-    Dir["#{RAILS_ROOT}/app/models/*.rb"].each{ |file| require file }
+    Dir["#{Rails.root}/app/models/*.rb"].each{ |file| require file }
 
     if start_server
       puts "Starting Solr server..."

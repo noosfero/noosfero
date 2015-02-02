@@ -6,7 +6,7 @@
     </div>
   <% else %>
     <div class="more">
-      <%= link_to_remote(_('More'), :url => {:id => block.id, :controller => 'community_track_plugin_public', :action => 'view_tracks', :page => page, :per_page => per_page, :force_same_page => force_same_page}, :loaded => visual_effect(:highlight, "track_card_list_#{block.id}")) %>
+      <%= link_to_remote(c_('More'), :url => {:id => block.id, :controller => 'community_track_plugin_public', :action => 'view_tracks', :page => page, :per_page => per_page, :force_same_page => force_same_page}, :loaded => visual_effect(:highlight, "track_card_list_#{block.id}")) %>
     </div>
   <% end %>
 </div>

@@ -26,13 +26,13 @@
             %>
           <% end %>
         </td>
-        <td><button class="view-order-details" data-order="<%=order.id%>"><%=_('View details')%></button></td>
+        <td><button class="view-order-details" data-order="<%=order.id%>"><%=c_('View details')%></button></td>
       </tr>
       <tr id="order-details-<%=order.id%>" style="display:none">
         <td class="order-info" colspan="5">
           <div style="display:none">
             <ul class="customer-details">
-              <% [['name', _('Name')], ['email', _('E-mail')], ['contact_phone', _('Contact phone')], ['address', _('Address')], ['district', _('District')], ['city', _('City')], ['zip_code', _('Zip code')], ['delivery_option', _('Delivery option')], ['payment', _('Payment')], ['change', _('shopping_cart|Change')]].each do |field| %>
+              <% [['name', _('Name')], ['email', _('E-mail')], ['contact_phone', c_('Contact phone')], ['address', c_('Address')], ['district', c_('District')], ['city', c_('City')], ['zip_code', c_('Zip code')], ['delivery_option', _('Delivery option')], ['payment', _('Payment')], ['change', _('shopping_cart|Change')]].each do |field| %>
                 <% attribute = field.first %>
                 <% name = field.last %>
                 <%= content_tag('li', content_tag('strong', name+': ') + order.send('customer_'+attribute)) if !order.send('customer_'+attribute).blank? %>

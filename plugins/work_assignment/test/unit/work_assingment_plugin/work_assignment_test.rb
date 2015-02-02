@@ -1,4 +1,4 @@
-require "test_helper"
+require File.expand_path(File.dirname(__FILE__) + "/../../../../../test/test_helper")
 
 class WorkAssignmentTest < ActiveSupport::TestCase
   should 'find or create sub-folder based on author identifier' do
@@ -35,7 +35,7 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     author = fast_create(Person)
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => organization)
-    submission = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :created_by => author)
+    submission = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
     assert_equal author_folder, submission.parent

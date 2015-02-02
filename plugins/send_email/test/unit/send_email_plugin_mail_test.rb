@@ -44,7 +44,7 @@ class SendEmailPluginMailTest < ActiveSupport::TestCase
 
   should 'discard some keys on set params hash' do
     mail = SendEmailPlugin::Mail.new(:params => {:action => 1, :controller => 2, :to => 3, :message => 4, :subject => 5, :age => 6})
-    [:action, :controller, :to, :message, :subject].each do |k|
+    [:params].each do |k|
       assert !mail.params.include?(k)
     end
     assert mail.params.include?(:age)

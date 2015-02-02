@@ -1,3 +1,4 @@
+Object.send :remove_const, :SearchController if defined? SearchController and not ActionController::Base.perform_caching
 require_dependency 'search_controller'
 
 module SolrPlugin::FacetsBrowse

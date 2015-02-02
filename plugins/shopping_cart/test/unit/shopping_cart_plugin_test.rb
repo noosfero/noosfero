@@ -19,16 +19,16 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
   end
 
   should 'not add button if product unavailable' do
-    enterprise = fast_create(:enterprise)
-    product = fast_create(Product, :available => false, :profile_id => enterprise.id)
-    enterprise.stubs(:shopping_cart).returns(true)
+    profile = fast_create(:enterprise)
+    product = fast_create(Product, :available => false, :profile_id => profile.id)
+    profile.stubs(:shopping_cart).returns(true)
 
     assert_nil shopping_cart.add_to_cart_button(product)
   end
 
   should 'be disabled by default on the enterprise' do
-    enterprise = fast_create(Enterprise)
-    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    profile = fast_create(Enterprise)
+    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     assert !settings.enabled
   end
 end

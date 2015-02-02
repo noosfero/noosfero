@@ -16,13 +16,15 @@ class ProfileEditorController < MyProfileController
     if request.post?
       params[:profile_data][:fields_privacy] ||= {} if profile.person? && params[:profile_data].is_a?(Hash)
       Profile.transaction do
-      Image.transaction do
-        if @profile_data.update_attributes(params[:profile_data])
-          redirect_to :action => 'index', :profile => profile.identifier
-        else
-          profile.identifier = params[:profile] if profile.identifier.blank?
+        Image.transaction do
+          begin
+            @plugins.dispatch(:profile_editor_transaction_extras)
+            @profile_data.update_attributes!(params[:profile_data])
+            redirect_to :action => 'index', :profile => profile.identifier
+          rescue Exception => ex
+            profile.identifier = params[:profile] if profile.identifier.blank?
+          end
         end
-      end
       end
     end
   end
@@ -72,10 +74,51 @@ class ProfileEditorController < MyProfileController
     if request.post?
       if @profile.destroy
         session[:notice] = _('The profile was deleted.')
-        redirect_to :controller => 'home'
+        if(params[:return_to])
+          redirect_to params[:return_to]
+        else
+          redirect_to :controller => 'home'
+        end
       else
         session[:notice] = _('Could not delete profile')
       end
     end
+  end
+
+  def deactivate_profile
+    if environment.admins.include?(current_person)
+      profile = environment.profiles.find(params[:id])
+      if profile.disable
+        profile.save
+        session[:notice] = _("The profile '#{profile.name}' was deactivated.")
+      else
+        session[:notice] = _('Could not deactivate profile.')
+      end
+    end
+
+    redirect_to_previous_location
+  end
+
+  def activate_profile
+    if environment.admins.include?(current_person)
+      profile = environment.profiles.find(params[:id])
+
+      if profile.enable
+        session[:notice] = _("The profile '#{profile.name}' was activated.")
+      else
+        session[:notice] = _('Could not activate the profile.')
+      end
+    end
+
+    redirect_to_previous_location
+  end
+
+  protected
+
+  def redirect_to_previous_location
+    back = request.referer
+    back = "/" if back.nil?
+
+    redirect_to back
   end
 end

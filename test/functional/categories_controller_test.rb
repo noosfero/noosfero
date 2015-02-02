@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'categories_controller'
 
 # Re-raise errors caught by the controller.
@@ -41,7 +41,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   def test_edit_save
-    post :edit, :id => cat1.id, :category => { :name => 'new name for category' }
+    post :edit, :id => cat1.id, :category => { :name => 'new name for category', :display_color => nil }
     assert_redirected_to :action => 'index'
     assert_equal 'new name for category', Category.find(cat1.id).name
   end
@@ -134,7 +134,7 @@ class CategoriesControllerTest < ActionController::TestCase
     env.save!
     get :new
 
-    assert_no_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
+    assert_no_tag :tag => 'input', :attributes => { :name => "category[display_color]" }
   end
 
   should 'display color selection if environment.categories_menu is true' do
@@ -142,7 +142,7 @@ class CategoriesControllerTest < ActionController::TestCase
     env.save!
     get :new
 
-    assert_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
+    assert_tag :tag => 'input', :attributes => { :name => "category[display_color]" }
   end
 
   should 'not list regions and product categories' do

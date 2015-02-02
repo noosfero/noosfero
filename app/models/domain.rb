@@ -2,7 +2,7 @@ require 'noosfero/multi_tenancy'
 
 class Domain < ActiveRecord::Base
 
-  attr_accessible :name, :owner
+  attr_accessible :name, :owner, :is_default
 
   # relationships
   ###############
@@ -90,6 +90,13 @@ class Domain < ActiveRecord::Base
   # clears the cache of hosted domains. Used for testing.
   def self.clear_cache
     @hosting = {}
+  end
+
+  # Detects a domain's custom text domain chain if available based on a domain
+  # served on multitenancy configuration or a registered domain.
+  def self.custom_locale(domainname)
+    domain = Noosfero::MultiTenancy.mapping[domainname] || domainname[/(.*?)\./,1]
+    FastGettext.translation_repositories.keys.include?(domain) ? domain : FastGettext.default_text_domain
   end
 
 end

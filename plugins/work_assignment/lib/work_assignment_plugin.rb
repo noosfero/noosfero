@@ -9,8 +9,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def self.can_download_submission?(user, submission)
-    work_assignment = submission.parent.parent
-    work_assignment.publish_submissions || (user && (submission.author == user || user.has_permission?('view_private_content', work_assignment.profile)))
+      submission.published? || (user && (submission.author == user || user.has_permission?('view_private_content', submission.profile) ||
+      submission.display_unpublished_article_to?(user)))
   end
 
   def self.is_submission?(content)
@@ -37,7 +37,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def content_viewer_controller_filters
     block = proc do
-      path = params[:page]
+      path = get_path(params[:page], params[:format])
       content = profile.articles.find_by_path(path)
 
       if WorkAssignmentPlugin.is_submission?(content) && !WorkAssignmentPlugin.can_download_submission?(user, content)
@@ -51,4 +51,34 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       :block => block }
   end
 
+  def cms_controller_filters
+    block = proc do
+      if request.post? && params[:uploaded_files]
+        email_notification = params[:article_email_notification]
+        unless !email_notification || email_notification.empty?
+          email_contact = WorkAssignmentPlugin::EmailContact.new(:subject => @parent.name, :receiver => email_notification, :sender => user)
+          WorkAssignmentPlugin::EmailContact::EmailSender.build_mail_message(email_contact, @uploaded_files)
+          if email_contact.deliver
+            session[:notice] = _('Notification successfully sent')
+          else
+            session[:notice] = _('Notification not sent')
+          end
+        end
+      end
+    end
+
+    { :type => 'after_filter',
+      :method_name => 'send_email_after_upload_file',
+      :options => {:only => 'upload_files'},
+      :block => block }
+  end
+
+  def upload_files_extra_fields(article)
+    proc do
+      @article = Article.find_by_id(article)
+      if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
+        render :partial => 'notify_text_field',  :locals => { :size => '45'}
+      end
+    end
+  end
 end

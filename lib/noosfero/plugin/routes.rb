@@ -1,4 +1,4 @@
-plugins_root = Rails.env.test? ? 'plugins' : File.join('config', 'plugins')
+plugins_root = Rails.env.test? ? 'plugins' : '{baseplugins,config/plugins}'
 
 Dir.glob(Rails.root.join(plugins_root, '*', 'controllers')) do |controllers_dir|
   prefixes_by_folder = {'public' => 'plugin',

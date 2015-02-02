@@ -4,9 +4,9 @@ module BscPlugin::BscHelper
 
   def token_input_field_tag(name, element_id, search_action, options = {}, text_field_options = {}, html_options = {})
     options[:min_chars] ||= 3
-    options[:hint_text] ||= _("Type in a search term")
-    options[:no_results_text] ||= _("No results")
-    options[:searching_text] ||= _("Searching...")
+    options[:hint_text] ||= c_("Type in a search term")
+    options[:no_results_text] ||= c_("No results")
+    options[:searching_text] ||= c_("Searching...")
     options[:search_delay] ||= 1000
     options[:prevent_duplicates] ||=  true
     options[:backspace_delete_item] ||= false

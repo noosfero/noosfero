@@ -21,6 +21,12 @@ class Person < Profile
     { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
   }
 
+  scope :by_role, lambda { |roles|
+    roles = [roles] unless roles.kind_of?(Array)
+    { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.role_id IN (?)',
+roles] }
+  }
+
   def has_permission_with_plugins?(permission, profile)
     permissions = [has_permission_without_plugins?(permission, profile)]
     permissions += plugins.map do |plugin|
@@ -73,6 +79,10 @@ class Person < Profile
   end
 
   belongs_to :user, :dependent => :delete
+
+  def can_change_homepage?
+    !environment.enabled?('cant_change_homepage') || is_admin?
+  end
 
   def can_control_scrap?(scrap)
     begin
@@ -161,7 +171,7 @@ class Person < Profile
     FIELDS
   end
 
-  validate :presence_of_required_fields
+  validate :presence_of_required_fields, :unless => :is_template
 
   def presence_of_required_fields
     self.required_fields.each do |field|
@@ -300,7 +310,7 @@ class Person < Profile
   end
 
   def default_template
-    environment.person_template
+    environment.person_default_template
   end
 
   def apply_type_specific_template(template)

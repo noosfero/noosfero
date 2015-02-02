@@ -20,6 +20,10 @@ override_dh_link:
 		dh_link usr/lib/noosfero/dbinstall usr/share/dbconfig-common/scripts/noosfero/install/$$db; \
 	done
 
+override_dh_auto_install:
+	dh_auto_install
+	debian/filter-gemfile > $(CURDIR)/debian/noosfero/usr/share/noosfero/Gemfile
+
 override_dh_installinit:
 	dh_installinit -pnoosfero --onlyscripts
 
@@ -29,4 +33,4 @@ override_dh_clean:
 
 override_dh_auto_build:
 	dh_auto_build
-	rake noosfero:translations:compile
+	rake noosfero:translations:compile > /dev/null

@@ -6,7 +6,9 @@ program_name=$(basename $0)
 
 if [ -e /etc/default/noosfero ]; then
   . /etc/default/noosfero
-else
+fi
+
+if [ -z "$NOOSFERO_DIR"]; then
   this_script=$(readlink -f $0)
   NOOSFERO_DIR=$(dirname $this_script | xargs dirname)
 fi
@@ -77,8 +79,22 @@ run(){
 
 _enable(){
   plugin="$1"
-  cd $enabled_plugins_dir
-  source="../../plugins/$plugin"
+
+  if [ -d "$available_plugins_dir/$plugin" ]; then
+    source="$available_plugins_dir/$plugin"
+    linksource="../../plugins/$plugin"
+  else
+    if [ ! -d "$plugin" ]; then
+      echo "E: $plugin not found (needs to be an existing directory)"
+      return
+    fi
+
+    # out-of-tree plugins
+    source="$plugin"
+    linksource="$source"
+    plugin=$(basename "$plugin")
+  fi
+
   target="$enabled_plugins_dir/$plugin"
   base="$base_plugins_dir/$plugin"
   run "$source/before_enable.rb"
@@ -96,20 +112,24 @@ _enable(){
     else
       dependencies_ok=true
       dependencies_file="$source/dependencies.rb"
+      if [ -e $source/Gemfile ]; then
+        gemfile=$(mktemp --tmpdir=.)
+        cat Gemfile $source/Gemfile > $gemfile
+        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle --local --quiet; then
+          dependencies_ok=false
+        fi
+        rm -f $gemfile $gemfile.lock
+      fi
       if ! run $dependencies_file; then
         dependencies_ok=false
       fi
     fi
     if [ "$installation_ok" = true ] && [ "$dependencies_ok" = true ]; then
-      ln -s "$source" "$plugin"
+      ln -s "$linksource" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
-      cd $plugins_public_dir
-      test -d "$source/public" && ln -s "$source/public" "$plugin"
-      if [ -d "$NOOSFERO_DIR/features" ]; then
-        cd $plugins_features_dir
-        test -d "$source/features" && ln -s "$source/features" "$plugin"
-      fi
+      test -d "$target/public" && ln -s "$target/public" "$plugins_public_dir/$plugin"
+      test -d "$NOOSFERO_DIR/features" && test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
@@ -157,7 +177,7 @@ _new(){
     mkdir "$target"
 
     plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/g')
-    for source_file in $(find "$template" -type f); do
+    for source_file in $(find "$template" -type f -and '(' -not -name '*.po' -and -not -name '*.mo' ')'); do
       target_file=$(echo "$source_file" | sed -e "s/template/$plugin/g")
       mkdir -p $(dirname "$target_file")
       sed "s/TemplatePlugin/${plugin_name}Plugin/g" "$source_file" > "$target_file"

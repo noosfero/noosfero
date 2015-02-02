@@ -65,18 +65,16 @@ class Invitation < Task
 
       task_args = if user.nil?
         {:person => person, :friend_name => friend_name, :friend_email => friend_email, :message => message}
-      elsif !user.person.is_a_friend?(person)
+      else
         {:person => person, :target => user.person}
       end
 
-      if !task_args.nil?
-        if profile.person?
-          InviteFriend.create(task_args)
-        elsif profile.community?
-          InviteMember.create(task_args.merge(:community_id => profile.id))
-        else
-          raise NotImplementedError, 'Don\'t know how to invite people to a %s' % profile.class.to_s
-        end
+      if profile.person?
+        InviteFriend.create(task_args) if user.nil? || !user.person.is_a_friend?(person)
+      elsif profile.community?
+        InviteMember.create(task_args.merge(:community_id => profile.id)) if user.nil? || !user.person.is_member_of?(profile)
+      else
+        raise NotImplementedError, 'Don\'t know how to invite people to a %s' % profile.class.to_s
       end
     end
   end

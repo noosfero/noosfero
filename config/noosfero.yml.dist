@@ -5,7 +5,7 @@ development:
   addthis_pub: your-user-name
   addthis_logo: http://localhost:3000/images/logo-200x50.png
   addthis_options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
-  gravatar: wavatar
+  gravatar: mm
   googlemaps_initial_zoom: 4
   exception_recipients: [admin@example.com]
   max_upload_size: 5MB

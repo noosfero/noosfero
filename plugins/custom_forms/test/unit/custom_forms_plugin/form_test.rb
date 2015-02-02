@@ -244,7 +244,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'cancel survey tasks after removing a form' do
     profile = fast_create(Profile)
-    person = fast_create(Person)
+    person = create_user('john').person
 
     form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
     form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System', :profile => profile)
@@ -274,4 +274,15 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
       s2.reload
     end
   end
+
+  should 'destroy forms after profile is destroyed' do
+    profile = fast_create(Profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    profile.destroy
+
+    assert_raise ActiveRecord::RecordNotFound do
+      CustomFormsPlugin::Form.find(form.id)
+    end
+  end
+
 end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ProductCategoriesBlockTest < ActiveSupport::TestCase
   should 'not be visible if products are disabled on the environment ' do

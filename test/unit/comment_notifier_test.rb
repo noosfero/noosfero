@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class CommentNotifierTest < ActiveSupport::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
@@ -55,15 +55,6 @@ class CommentNotifierTest < ActiveSupport::TestCase
     create_comment_and_notify(:author => @author, :title => 'comment title', :body => 'comment body', :source => @article)
     sent = ActionMailer::Base.deliveries.first
     assert_match /comment body/, sent.body.to_s
-  end
-
-  should 'not deliver mail if has no notification emails' do
-    community = fast_create(Community)
-    assert_equal [], community.notification_emails
-    article = fast_create(Article, :name => 'Article test', :profile_id => community.id, :notify_comments => true)
-    assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      create_comment_and_notify(:author => @author, :title => 'test comment', :body => 'there is no addresses to send notification', :source => article)
-    end
   end
 
   should "deliver mail to followers" do

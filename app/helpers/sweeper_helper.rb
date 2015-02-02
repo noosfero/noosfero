@@ -56,12 +56,12 @@ module SweeperHelper
     if profile
       profile.blocks.each {|block|
         conditions = block.class.expire_on
-        blocks_to_expire << block unless (conditions[:profile] & causes).empty?
+        blocks_to_expire << block unless (conditions[:profile] & causes).blank?
       }
     end
     environment.blocks.each {|block|
       conditions = block.class.expire_on
-      blocks_to_expire << block unless (conditions[:environment] & causes).empty?
+      blocks_to_expire << block unless (conditions[:environment] & causes).blank?
     }
 
     blocks_to_expire.uniq!

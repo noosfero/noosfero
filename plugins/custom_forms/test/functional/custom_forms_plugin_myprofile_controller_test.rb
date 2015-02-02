@@ -220,13 +220,13 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_not_nil assigns(:sort_by)
     assert_select 'table.action-table', /Author\W*Time\W*john[\W\dh]*bob[\W\dh]*/
 
-    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'author'
+    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'author_name'
     assert_not_nil assigns(:sort_by)
     assert_select 'table.action-table', /Author\W*Time\W*bob[\W\dh]*john[\W\dh]*/
   end
 
   should 'list pending submissions for a form' do
-    person = fast_create(Person)
+    person = create_user('john').person
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :for_admission => true)
     task = CustomFormsPlugin::AdmissionSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
 

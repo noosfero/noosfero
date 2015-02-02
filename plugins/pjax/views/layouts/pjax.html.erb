@@ -1,0 +1,19 @@
+<%
+  update_js = render(:file => "#{Rails.root}/public/designs/themes/#{current_theme}/pjax_update.js.erb").to_json rescue nil
+%>
+
+<title><%= h page_title %></title>
+
+<%= render :file => "#{Rails.root}/public/designs/themes/#{current_theme}/layouts/_content.html.erb" rescue
+    render "layouts/content" %>
+
+<%= javascript_tag do %>
+  <%= render 'pjax_shared/load_state.js' %>
+
+  <% if update_js %>
+    state.theme_update_js = <%= update_js %>;
+  <% end %>
+
+  pjax.update(state);
+<% end %>
+

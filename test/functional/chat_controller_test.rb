@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ChatControllerTest < ActionController::TestCase
 
@@ -26,8 +26,7 @@ class ChatControllerTest < ActionController::TestCase
 
     get :avatar, :id => 'testuser'
 
-    assert_equal 'image/png', @response.content_type
-    assert @response.body.index('PNG')
+    assert_response :redirect
   end
 
   should 'get avatar from community' do

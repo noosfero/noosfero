@@ -9,7 +9,7 @@ task :package => 'package:clobber' do
     fail
   end
 
-  release = "#{Noosfero::PROJECT}-#{Noosfero::VERSION}"
+  release = "#{Noosfero::PROJECT}-#{$version}"
   target = "pkg/#{release}"
   mkdir_p target
   sh "git archive HEAD | (cd #{target} && tar x)"

@@ -11,8 +11,4 @@ class ProfileSearchBlock < Block
     end
   end
 
-  def editable?
-    true
-  end
-
 end

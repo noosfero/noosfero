@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ProductsBlockTest < ActiveSupport::TestCase
 
@@ -83,7 +83,7 @@ class ProductsBlockTest < ActiveSupport::TestCase
     block.stubs(:owner).returns(enterprise)
 
     block.product_ids = [p1, p3, p5].map(&:id)
-    assert_equal [p1, p3, p5], block.products
+    assert_equivalent [p1, p3, p5], block.products
   end
 
   should 'save product_ids' do

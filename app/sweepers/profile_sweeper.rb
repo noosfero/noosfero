@@ -8,9 +8,6 @@ class ProfileSweeper # < ActiveRecord::Observer
   end
 
   def after_create(profile)
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    expire_statistics_block_cache(profile)
   end
 
 protected
@@ -29,13 +26,6 @@ protected
     end
 
     expire_blogs(profile) if profile.organization?
-  end
-
-  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-  #      the Noosfero core soon, see ActionItem3045
-  def expire_statistics_block_cache(profile)
-    blocks = profile.environment.blocks.select { |b| b.kind_of?(EnvironmentStatisticsBlock) }
-    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_blogs(profile)

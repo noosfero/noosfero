@@ -273,7 +273,8 @@ module ActsAsSolr #:nodoc:
       end
 
       if items_processed > 0
-        solr_optimize
+        # FIXME: not recommended, reenable with option
+        #solr_optimize
         time_elapsed = Time.now - start_time
         logger.info "Index for #{self.name} has been rebuilt (took #{'%.3f' % time_elapsed}s)"
       else

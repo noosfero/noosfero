@@ -53,7 +53,7 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   protected
 
-  CMS_ACTIONS = {:edit => _('Edit'), :upload_files => _('Upload Files'), :new => _('New')}
+  CMS_ACTIONS = {:edit => c_('Edit'), :upload_files => _('Upload Files'), :new => c_('New')}
 
   def cms_action(action)
     CMS_ACTIONS[action.to_sym] || action

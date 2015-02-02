@@ -178,6 +178,8 @@ module ActsAsSolr #:nodoc:
       include CommonMethods
       include ParserMethods
 
+      attr_accessor :solr_score
+
       define_solr_configuration_methods
 
       acts_as_taggable_on :tags if options[:taggable]

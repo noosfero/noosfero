@@ -1,4 +1,4 @@
-class PiwikPluginAdminController < AdminController
+class PiwikPluginAdminController < PluginAdminController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 

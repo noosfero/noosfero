@@ -48,8 +48,17 @@ FPQAoNmiMgP6zGF9rgOEWMEiFEryayrz
 =70DR
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
-  run sudo apt-get update
 fi
+
+if test -f tmp/debian/Release.gpg; then
+  echo "deb file://$(pwd)/tmp/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list
+  sudo apt-key add tmp/debian/signing-key.asc
+else
+  sudo rm -f /etc/apt/sources.list.d/local.list
+fi
+
+run sudo apt-get update
+run sudo apt-get -qy dist-upgrade
 
 run sudo apt-get -y install dctrl-tools
 

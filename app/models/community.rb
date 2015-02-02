@@ -50,16 +50,6 @@ class Community < Organization
     super + FIELDS
   end
 
-  validate :presence_of_required_fieds
-
-  def presence_of_required_fieds
-    self.required_fields.each do |field|
-      if self.send(field).blank?
-        self.errors.add_on_blank(field)
-      end
-    end
-  end
-
   def active_fields
     environment ? environment.active_community_fields : []
   end
@@ -78,7 +68,7 @@ class Community < Organization
   end
 
   def default_template
-    environment.community_template
+    environment.community_default_template
   end
 
   def news(limit = 30, highlight = false)

@@ -73,10 +73,6 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def self.all_types
-    %w[Invitation EnterpriseActivation AddMember Ticket SuggestArticle  AddFriend CreateCommunity AbuseComplaint ApproveComment ApproveArticle CreateEnterprise ChangePassword EmailActivation InviteFriend InviteMember]
-  end
-
   # this method finished the task. It calls #perform, which must be overriden
   # by subclasses. At the end a message (as returned by #finish_message) is
   # sent to the requestor with #notify_requestor.
@@ -254,6 +250,10 @@ class Task < ActiveRecord::Base
     { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
   }
 
+  def self.pending_types_for(profile)
+    Task.to(profile).pending.select('distinct type').map { |t| [t.class.name, t.title] }
+  end
+
   def opened?
     status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
@@ -285,8 +285,9 @@ class Task < ActiveRecord::Base
   # If
   def send_notification(action)
     if sends_email?
-      if self.requestor
-         TaskMailer.generic_message("task_#{action}", self)
+      if self.requestor && !self.requestor.notification_emails.empty?
+        message = TaskMailer.generic_message("task_#{action}", self)
+        message.deliver if message
       end
     end
   end

@@ -10,9 +10,10 @@ class ExternalFeed < ActiveRecord::Base
     { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
 
-  attr_accessible :address, :enabled
+  attr_accessible :address, :enabled, :only_once
 
   def add_item(title, link, date, content)
+    return if content.blank?
     doc = Hpricot(content)
     doc.search('*').each do |p|
       if p.instance_of? Hpricot::Elem
@@ -30,6 +31,7 @@ class ExternalFeed < ActiveRecord::Base
     article.source = link 
     article.profile = blog.profile 
     article.parent = blog
+    article.author_name = self.feed_title
     unless blog.children.exists?(:slug => article.slug)
       article.save!
       article.delay.create_activity

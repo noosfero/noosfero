@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'features_controller'
 
 # Re-raise errors caught by the controller.
@@ -144,6 +144,22 @@ class FeaturesControllerTest < ActionController::TestCase
     e.reload
     assert_equal true, e.custom_community_fields['contact_person']['active']
     assert_equal true, e.custom_community_fields['contact_person']['required']
+  end
+
+  should 'search members by name' do
+    uses_host 'anhetegua.net'
+    person = fast_create(Person, :environment_id => Environment.find(2).id)
+    xhr :get, :search_members, :q => person.name[0..2]
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    assert_includes json_response, {"id"=>person.id, "name"=>person.name}
+  end
+
+  should 'search members by identifier' do
+    uses_host 'anhetegua.net'
+    person = fast_create(Person, :name => 'Some Name', :identifier => 'person-identifier', :environment_id => Environment.find(2).id)
+    xhr :get, :search_members, :q => person.identifier
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    assert_includes json_response, {"id"=>person.id, "name"=>person.name}
   end
 
 end

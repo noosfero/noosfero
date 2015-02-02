@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'enterprise_validation_controller'
 
 # Re-raise errors caught by the controller.

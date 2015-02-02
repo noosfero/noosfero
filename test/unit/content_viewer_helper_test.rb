@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ContentViewerHelperTest < ActionView::TestCase
 
@@ -70,6 +70,7 @@ class ContentViewerHelperTest < ActionView::TestCase
   should 'count total of comments from post' do
     article = fast_create(TextileArticle, :profile_id => profile.id)
     create(Comment, :article => article, :author => profile, :title => 'test', :body => 'test')
+    article.reload
     result = link_to_comments(article)
     assert_match /One comment/, result
   end
@@ -80,6 +81,14 @@ class ContentViewerHelperTest < ActionView::TestCase
     article.stubs(:comments).returns([build(Comment, :author => profile, :title => 'test', :body => 'test')])
     result = link_to_comments(article)
     assert_equal '', result
+  end
+
+  should 'not crash if spam_comments_count is nil' do
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.stubs(:comments_count).returns(10)
+    article.stubs(:spam_comments_count).returns(nil)
+    result = number_of_comments(article)
+    assert_match /10 comments/, result
   end
 
   should 'not list feed article' do

@@ -23,10 +23,6 @@ class ProfileImageBlock < Block
     end
   end
 
-  def editable?
-    true
-  end
-
   def cacheable?
     false
   end

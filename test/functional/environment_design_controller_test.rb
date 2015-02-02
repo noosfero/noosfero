@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'environment_design_controller'
 
 # Re-raise errors caught by the controller.
@@ -6,9 +6,7 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
-  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-  #      the Noosfero core soon, see ActionItem3045
-  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
+  ALL_BLOCKS = [ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
 
   def setup
     @controller = EnvironmentDesignController.new
@@ -75,18 +73,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     Environment.any_instance.expects(:portal_community).returns(nil)
     get :edit, :id => l.id
     assert_tag :tag => 'p', :attributes => { :id => 'no_portal_community' }
-  end
-
-  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-  #      the Noosfero core soon, see ActionItem3045
-  should 'be able to edit EnvironmentStatisticsBlock' do
-    login_as(create_admin_user(Environment.default))
-    b = EnvironmentStatisticsBlock.create!
-    e = Environment.default
-    e.boxes.create!
-    e.boxes.first.blocks << b
-    get :edit, :id => b.id
-    assert_tag :tag => 'input', :attributes => { :id => 'block_title' }
   end
 
   should 'be able to edit EnterprisesBlock' do

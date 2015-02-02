@@ -20,7 +20,7 @@
             <%= excerpt(body_stripped, body_stripped.first(3), 200) if body_stripped %>
           </div>
           <div class="related-organizations-region">
-            <span class="related-organizations-region-label"><%= _("City") %></span>
+            <span class="related-organizations-region-label"><%= c_("City") %></span>
             <% if organization.region %>
               <span class="related-organizations-region-name"><%= city_with_state(organization.region) %></span>
             <% elsif organization.city and organization.state %>
@@ -52,11 +52,11 @@
   </div>
 
   <% button_bar(:class => "related-organizations-button-bar") do %>
-    <%= button :back, _('Go back'), { :controller => 'profile' } %>
+    <%= button :back, c_('Go back'), { :controller => 'profile' } %>
     <%= button :add, _("Add a new #{organization_type}"), :controller => 'sub_organizations_plugin_myprofile', :action => 'index' if logged_in? && user.has_permission?(:edit_profile, profile) && !environment.enabled?("disable_asset_#{organization_type.pluralize}") %>
 
     <% if !@full %>
-      <%= button :more, _('View all'), { :controller => 'sub_organizations_plugin_profile', :action => params[:action], :type => organization_type } %>
+      <%= button :more, c_('View all'), { :controller => 'sub_organizations_plugin_profile', :action => params[:action], :type => organization_type } %>
     <% end %>
  <% end %>
 

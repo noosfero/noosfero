@@ -12,6 +12,12 @@ class Noosfero::Plugin
 
     attr_writer :should_load
 
+    # Called for each ActiveRecord class with parents
+    # See http://apidock.com/rails/ActiveRecord/ModelSchema/ClassMethods/full_table_name_prefix
+    def table_name_prefix
+      @table_name_prefix ||= "#{name.to_s.underscore}_"
+    end
+
     def should_load
       @should_load.nil? && true || @boot
     end
@@ -62,14 +68,16 @@ class Noosfero::Plugin
           path << File.join(dir, 'lib')
           # load vendor/plugins
           Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
-            path << "#{vendor_plugin}/lib" 
-            init = "#{vendor_plugin}/init.rb"
-            require init.gsub(/.rb$/, '') if File.file? init
-         end
+            path << "#{vendor_plugin}/lib"
+          end
+        end
+        Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
+          init = "#{vendor_plugin}/init.rb"
+          require init.gsub(/.rb$/, '') if File.file? init
         end
 
         # add view path
-        ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
+        config.paths['app/views'].unshift File.join(dir, 'views')
       end
     end
 
@@ -80,18 +88,29 @@ class Noosfero::Plugin
     # This is a generic method that initialize any possible filter defined by a
     # plugin to a specific controller
     def load_plugin_filters(plugin)
-      plugin_methods = plugin.instance_methods.select {|m| m.to_s.end_with?('_filters')}
-      plugin_methods.each do |plugin_method|
-        controller_class = plugin_method.to_s.gsub('_filters', '').camelize.constantize
-        filters = plugin.new.send(plugin_method)
-        filters = [filters] if !filters.kind_of?(Array)
+      Rails.configuration.to_prepare do
+        filters = plugin.new.send 'application_controller_filters' rescue []
+        Noosfero::Plugin.add_controller_filters ApplicationController, plugin, filters
 
-        filters.each do |plugin_filter|
-          filter_method = (plugin.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
-          controller_class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
-          controller_class.send(:define_method, filter_method) do
-            instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin)
-          end
+        plugin_methods = plugin.instance_methods.select {|m| m.to_s.end_with?('_filters')}
+        plugin_methods.each do |plugin_method|
+          controller_class = plugin_method.to_s.gsub('_filters', '').camelize.constantize
+
+          filters = plugin.new.send(plugin_method)
+          Noosfero::Plugin.add_controller_filters controller_class, plugin, filters
+        end
+      end
+    end
+
+    def add_controller_filters(controller_class, plugin, filters)
+      unless filters.is_a?(Array)
+        filters = [filters]
+      end
+      filters.each do |plugin_filter|
+        filter_method = (plugin.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
+        controller_class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
+        controller_class.send(:define_method, filter_method) do
+          instance_exec(&plugin_filter[:block]) if environment.plugin_enabled?(plugin)
         end
       end
     end
@@ -237,7 +256,7 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Adds content to calalog item
+  # -> Adds content to catalog item
   # returns = lambda block that creates html code
   def catalog_item_extras(item)
     nil
@@ -249,7 +268,7 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Adds content to calalog list item
+  # -> Adds content to catalog list item
   # returns = lambda block that creates html code
   def catalog_list_item_extras(item)
     nil
@@ -398,6 +417,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional fields to a view
+  # returns = proc block that creates html code
+  def upload_files_extra_fields(article)
+    nil
+  end
+  
   # -> Adds fields to the signup form
   # returns = proc that creates html code
   def signup_extra_contents
@@ -520,6 +545,24 @@ class Noosfero::Plugin
   # -> Adds aditional fields for change_password
   # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
   def change_password_fields
+    nil
+  end
+
+  # -> Perform extra transactions related to profile in profile editor
+  # returns = true in success or raise and exception if it could not update the data
+  def profile_editor_transaction_extras
+    nil
+  end
+
+  # -> Return a list of hashs with the needed information to create optional fields
+  # returns = a list of hashs as {:name => "string", :label => "string", :object_name => :key, :method => :key}
+  def extra_optional_fields
+    []
+  end
+
+  # -> Adds css class to <html> tag
+  # returns = ['class1', 'class2']
+  def html_tag_classes
     nil
   end
 

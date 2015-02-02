@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
 jQuery('#delivery_option').change(function(){
   jQuery('#cboxLoadingGraphic').show();
   me = this;
-  enterprise = jQuery(me).attr('data-profile-identifier');
+  profile = jQuery(me).attr('data-profile-identifier');
   option = jQuery(me).val();
   jQuery.ajax({
     url: '/plugin/shopping_cart/update_delivery_option',

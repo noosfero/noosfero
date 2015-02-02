@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'comment_controller'
 
 # Re-raise errors caught by the controller.
@@ -269,7 +269,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'not create ApproveComment task when the comment author is the same of article author' do
     login_as @profile.identifier
     community = Community.create!(:name => 'testcomm')
-    page = create(Article, :profile => community, :name => 'myarticle', :moderate_comments => true, :last_changed_by => @profile)
+    page = create(Article, :profile => community, :name => 'myarticle', :moderate_comments => true, :author => @profile)
     community.add_moderator(@profile)
 
     assert_no_difference 'ApproveComment.count' do
@@ -314,7 +314,7 @@ class CommentControllerTest < ActionController::TestCase
     Time.stubs(:now).returns(now)
     xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     task = Task.last
-    assert_equal now.to_s, task.comment.created_at.to_s
+    assert_equal now.utc.to_s, task.comment.created_at.utc.to_s
   end
 
   should "render_target be nil in article with moderation" do

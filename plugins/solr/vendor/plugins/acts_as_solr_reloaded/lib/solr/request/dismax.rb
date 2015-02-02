@@ -12,13 +12,15 @@
 
 class Solr::Request::Dismax < Solr::Request::Standard
 
-  VALID_PARAMS.replace(VALID_PARAMS + [:tie_breaker, :query_fields, :minimum_match, :phrase_fields, :phrase_slop,
-                                       :alternate_query, :boost_query, :boost_functions])
+  VALID_PARAMS.replace VALID_PARAMS + [
+    :tie_breaker, :query_fields, :minimum_match, :phrase_fields, :phrase_slop,
+    :alternate_query, :boost_query, :boost_functions,
+  ]
 
   def initialize(params)
     super
   end
-  
+
   def to_hash
     hash = super
     hash[:defType] = 'edismax'

@@ -27,11 +27,12 @@ class Solr::Util
 
   # from http://lucene.apache.org/core/old_versioned_docs/versions/3_0_0/queryparsersyntax.html#Escaping Special Characters
   ESCAPES = %w[+ - && || ! ( ) { } \[ \] " ~ * ? \\]
-  
+
   def self.query_parser_escape(string, fields = [])
-    string = string.split(' ').map do |str| 
+    string = string.split(' ').map do |str|
       if /(\w+):(.*)/ =~ str # escape : considering fields
-        (!$2.empty? and fields.include?($1.to_sym)) ? "#{$1}:#{$2}" : "#{$1}\\:#{$2}"
+        field, value = $1, $2
+        if field.present? and fields.include?(field.to_sym) then "#{field}:#{value}" else "#{field}\\:#{value.gsub ':', "\\:"}" end
       elsif /^\^(.*)/ =~ str # escape ^
         "\\^#{$1}"
       else

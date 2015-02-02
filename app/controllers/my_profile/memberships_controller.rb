@@ -21,6 +21,9 @@ class MembershipsController < MyProfileController
     @back_to = params[:back_to] || url_for(:action => 'index')
     if request.post? && @community.valid?
       @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment}))
+      if @community.new_record?
+        session[:notice] = _('Your new community creation request will be evaluated by an administrator. You will be notified.')
+      end
       redirect_to @back_to
       return
     end

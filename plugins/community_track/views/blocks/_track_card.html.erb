@@ -2,13 +2,13 @@
 <div class="item_card <%= category_class(track_card) %>">
   <a href="<%= url_for track_card.url %>">
   <div class="track_content">
-    <div class="title">
+    <div class="title" style="<%= track_color_style(track_card) %>">
       <%= track_card.category_name %>
     </div>
     <div class="image">
       <%= image_tag track_card.image.public_filename if track_card.image %>
     </div>
-    <div class="name">
+    <div class="name" style="<%= track_name_color_style(track_card) %>">
       <%= track_card.name %>
     </div>
     <div class="lead">
@@ -18,7 +18,7 @@
   <div class="track_stats">
     <div class="comments">
       <span class="counter"><%= "#{track_card.comments_count}" %></span>
-      <span class="label"><%= _('comments') %></span>
+      <span class="label"><%= c_('comments') %></span>
     </div>
     <div class="hits">
       <span class="counter"><%= "#{track_card.hits}" %></span>

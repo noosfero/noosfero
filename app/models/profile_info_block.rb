@@ -15,10 +15,6 @@ class ProfileInfoBlock < Block
     end
   end
 
-  def editable?
-    false
-  end
-
   def cacheable?
     false
   end

@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../test_helper"
+require_relative "../test_helper"
 
 class AssetsMenuTest < ActionController::IntegrationTest
 
@@ -6,7 +6,7 @@ class AssetsMenuTest < ActionController::IntegrationTest
 #    HomeController.any_instance.stubs(:get_layout).returns('application')
 #    SearchController.any_instance.stubs(:get_layout).returns('application')
 
-    parent = Category.create!(:name => "Parent Category", :environment => Environment.default, :display_color => 1)
+    parent = Category.create!(:name => "Parent Category", :environment => Environment.default, :display_color => '#888a85')
     @category = Category.create!(:name => "Category A", :environment => Environment.default, :parent => parent)
   end
   

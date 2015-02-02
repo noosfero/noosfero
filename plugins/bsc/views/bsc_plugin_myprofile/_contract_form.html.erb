@@ -10,7 +10,7 @@
   <%= labelled_form_field(_('Status'), f.select(:status, BscPlugin::Contract::Status.types.
         map { |s| [BscPlugin::Contract::Status.names[s], s] })) %>
   <%= f.text_field(:number_of_producers, :size => 8, :id => 'bsc-plugin-contract-spinner') %>
-  <%= _('Enterprises')+':' %>
+  <%= c_('Enterprises')+':' %>
 
   <% search_action = {:action => 'search_contract_enterprises', :profile => profile.identifier} %>
   <%= token_input_field_tag(:enterprises, 'involved-enterprises', search_action, 
@@ -19,7 +19,7 @@
 
   <table id="bsc-plugin-sales-table" class="alternate-colors">
     <tr>
-      <th class="bsc-plugin-sales-products-column"><%= _('Products') %></th>
+      <th class="bsc-plugin-sales-products-column"><%= c_('Products') %></th>
       <th class="bsc-plugin-sales-quantity-column" ><%= _('Quantity') %></th>
       <th class="bsc-plugin-sales-price-column" ><%= _('Unit price') %></th>
     </tr>
@@ -34,13 +34,13 @@
 
   <%= labelled_form_field( _('Supply period'), 
     text_field_tag('contract[supply_start]', (@contract.supply_start ? @contract.supply_start.strftime("%Y-%m-%d") : nil), :id => 'from', :size => 9) + 
-    _(' to ') +
+    c_(' to ') +
     text_field_tag('contract[supply_end]', (@contract.supply_end ? @contract.supply_end.strftime("%Y-%m-%d") : nil), :id => 'to', :size => 9) )
   %>
 
   <%= f.text_area(:annotations, :rows => 5, :cols => 68) %>
   <% button_bar do%>
-    <%= submit_button(:save, _('Save'), :cancel => {:action => 'manage_contracts'})%>
+    <%= submit_button(:save, c_('Save'), :cancel => {:action => 'manage_contracts'})%>
   <% end %>
 <% end %>
 
@@ -55,8 +55,8 @@
   BSCContracts.tokenInputOptions = {
     minChars: 3,
     hintText: <%= _('Type in a search term for product').to_json %>,
-    noResultsText: <%= _("No results").to_json %>,
-    searchingText: <%= _("Searching...").to_json %>,
+    noResultsText: <%= c_("No results").to_json %>,
+    searchingText: <%= c_("Searching...").to_json %>,
     searchDelay: 1000,
     preventDuplicates: true,
     backspaceDeleteItem: false,

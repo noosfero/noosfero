@@ -16,7 +16,7 @@ class StatisticsBlock < Block
   ENTERPRISE_COUNTERS = [:user_counter, :tag_counter, :comment_counter, :hit_counter]
 
   def self.description
-    _('Statistics')
+    c_('Statistics')
   end
 
   def default_title
@@ -85,7 +85,7 @@ class StatisticsBlock < Block
 
   def enterprises
     if owner.kind_of?(Environment) || owner.kind_of?(Person)
-      owner.enterprises.visible.count
+      owner.enterprises.visible.enabled.count
     else
       0
     end

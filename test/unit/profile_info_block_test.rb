@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ProfileInfoBlockTest < ActiveSupport::TestCase
 
@@ -21,8 +21,4 @@ class ProfileInfoBlockTest < ActiveSupport::TestCase
     instance_eval(& block.content)
   end
 
-  should 'not be editable' do
-    assert !ProfileInfoBlock.new.editable?
-  end
-  
 end

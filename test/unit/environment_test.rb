@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class EnvironmentTest < ActiveSupport::TestCase
   fixtures :environments
@@ -156,7 +156,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'list displayable categories' do
     env = fast_create(Environment)
-    cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 1)
+    cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 'ffa500')
     assert ! cat1.new_record?
 
     # subcategories should be ignored
@@ -193,6 +193,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.contact_email = 'test@example.com'
     env.valid?
     assert !env.errors[:contact_email.to_s].present?
+  end
+
+  should 'notify contact email' do
+    env = Environment.new(:contact_email => 'foo@bar.com')
+    env.stubs(:admins).returns([])
+    assert_equal ['foo@bar.com'], env.notification_emails
   end
 
   should 'provide a default hostname' do
@@ -357,6 +363,14 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
   end
 
+  should 'create environment and profile default roles' do
+    env = Environment.default
+    assert_equal 'Environment', env.roles.find_by_key('environment_administrator').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_admin').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_member').kind
+    assert_equal 'Profile', env.roles.find_by_key('profile_moderator').kind
+  end
+
   should 'be able to add admins easily' do
     env = Environment.default
     user = create_user('testuser').person
@@ -492,32 +506,235 @@ class EnvironmentTest < ActiveSupport::TestCase
     e.reload
 
     # the templates must be created
-    assert_kind_of Enterprise, e.enterprise_template
+    assert_kind_of Enterprise, e.enterprise_default_template
     assert_kind_of Enterprise, e.inactive_enterprise_template
-    assert_kind_of Community, e.community_template
-    assert_kind_of Person, e.person_template
+    assert_kind_of Community, e.community_default_template
+    assert_kind_of Person, e.person_default_template
 
     # the templates must be private
-    assert !e.enterprise_template.visible?
+    assert !e.enterprise_default_template.visible?
     assert !e.inactive_enterprise_template.visible?
-    assert !e.community_template.visible?
-    assert !e.person_template.visible?
+    assert !e.community_default_template.visible?
+    assert !e.person_default_template.visible?
   end
 
-  should 'set templates' do
+  should 'person_templates return all templates of person' do
     e = fast_create(Environment)
 
-    comm = fast_create(Community, :is_template => true)
-    e.community_template = comm
-    assert_equal comm, e.community_template
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+    assert_equivalent [p1,p3], e.person_templates    
+  end
 
-    person = fast_create(Person, :is_template => true)
-    e.person_template = person
-    assert_equal person, e.person_template
+  should 'person_templates return an empty array if there is no templates of person' do
+    e = fast_create(Environment)
 
-    enterprise = fast_create(Enterprise, :is_template => true)
-    e.enterprise_template = enterprise
-    assert_equal enterprise, e.enterprise_template
+    fast_create(Person, :environment_id => e.id)
+    fast_create(Person, :environment_id => e.id)
+    assert_equivalent [], e.person_templates    
+  end
+
+  should 'person_default_template return the template defined as default' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.settings[:person_template_id]= p3.id
+    assert_equal p3, e.person_default_template
+  end
+
+  should 'person_default_template not return a person if its not a template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.settings[:person_template_id]= p2.id
+    assert_nil e.person_default_template
+  end
+
+  should 'person_default_template= define a person model passed as paremeter as default template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.person_default_template= p3
+    assert_equal p3, e.person_default_template
+  end
+
+  should 'person_default_template= define an id passed as paremeter as the default template' do
+    e = fast_create(Environment)
+
+    p1= fast_create(Person, :is_template => true, :environment_id => e.id)
+    p2 = fast_create(Person, :environment_id => e.id)
+    p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
+
+    e.person_default_template= p3.id
+    assert_equal p3, e.person_default_template
+  end
+
+  should 'community_templates return all templates of community' do
+    e = fast_create(Environment)
+
+    c1= fast_create(Community, :is_template => true, :environment_id => e.id)
+    c2 = fast_create(Community, :environment_id => e.id)
+    c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
+    assert_equivalent [c1,c3], e.community_templates    
+  end
+
+  should 'community_templates return an empty array if there is no templates of community' do
+    e = fast_create(Environment)
+
+    fast_create(Community, :environment_id => e.id)
+    fast_create(Community, :environment_id => e.id)
+    assert_equivalent [], e.community_templates
+  end
+
+  should 'community_default_template return the template defined as default' do
+    e = fast_create(Environment)
+
+    c1= fast_create(Community, :is_template => true, :environment_id => e.id)
+    c2 = fast_create(Community, :environment_id => e.id)
+    c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
+
+    e.settings[:community_template_id]= c3.id
+    assert_equal c3, e.community_default_template
+  end
+
+  should 'community_default_template not return a community if its not a template' do
+    e = fast_create(Environment)
+
+    c1= fast_create(Community, :is_template => true, :environment_id => e.id)
+    c2 = fast_create(Community, :environment_id => e.id)
+    c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
+
+    e.settings[:community_template_id]= c2.id
+    assert_nil e.community_default_template
+  end
+
+  should 'community_default_template= define a community model passed as paremeter as default template' do
+    e = fast_create(Environment)
+
+    c1= fast_create(Community, :is_template => true, :environment_id => e.id)
+    c2 = fast_create(Community, :environment_id => e.id)
+    c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
+
+    e.community_default_template= c3
+    assert_equal c3, e.community_default_template
+  end
+
+  should 'community_default_template= define an id passed as paremeter as the default template' do
+    e = fast_create(Environment)
+
+    c1= fast_create(Community, :is_template => true, :environment_id => e.id)
+    c2 = fast_create(Community, :environment_id => e.id)
+    c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
+
+    e.community_default_template= c3.id
+    assert_equal c3, e.community_default_template
+  end
+
+  should 'enterprise_templates return all templates of enterprise' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    assert_equivalent [e1,e3], env.enterprise_templates    
+  end
+
+  should 'enterprise_templates return an empty array if there is no templates of enterprise' do
+    env = fast_create(Environment)
+
+    fast_create(Enterprise, :environment_id => env.id)
+    fast_create(Enterprise, :environment_id => env.id)
+    assert_equivalent [], env.enterprise_templates    
+  end
+
+  should 'enterprise_default_template return the template defined as default' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.settings[:enterprise_template_id]= e3.id
+    assert_equal e3, env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template not return a enterprise if its not a template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.settings[:enterprise_template_id]= e2.id
+    assert_nil env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template= define a enterprise model passed as paremeter as default template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.enterprise_default_template= e3
+    assert_equal e3, env.enterprise_default_template
+  end
+
+  should 'enterprise_default_template= define an id passed as paremeter as the default template' do
+    env = fast_create(Environment)
+
+    e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    e2 = fast_create(Enterprise, :environment_id => env.id)
+    e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+
+    env.enterprise_default_template= e3.id
+    assert_equal e3, env.enterprise_default_template
+  end
+
+  should 'is_default_template? method identify a person default template as default' do
+    env = fast_create(Environment)
+
+    p1 = fast_create(Person, :is_template => true, :environment_id => env.id)
+    env.person_default_template= p1.id
+    assert env.is_default_template?(p1)
+
+    p2 = fast_create(Person, :is_template => true, :environment_id => env.id)
+    env.person_default_template= p2.id
+    assert !env.is_default_template?(p1)
+  end
+
+  should 'is_default_template? method identify a community default template as default' do
+    env = fast_create(Environment)
+
+    c1 = fast_create(Community, :is_template => true, :environment_id => env.id)
+    env.community_default_template= c1.id
+    assert env.is_default_template?(c1)
+
+    c2 = fast_create(Community, :is_template => true, :environment_id => env.id)
+    env.community_default_template= c2.id
+    assert !env.is_default_template?(c1)
+  end
+
+  should 'is_default_template? method identify a enterprise default template as default' do
+    env = fast_create(Environment)
+
+    e1 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    env.enterprise_default_template= e1.id
+    assert env.is_default_template?(e1)
+
+    e2 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
+    env.enterprise_default_template= e2.id
+    assert !env.is_default_template?(e1)
   end
 
   should 'have a layout template' do
@@ -1049,7 +1266,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'have a list of trusted sites by default' do
-    assert_equal ['developer.myspace.com', 'itheora.org', 'maps.google.com', 'platform.twitter.com', 'player.vimeo.com', 'stream.softwarelivre.org', 'tv.softwarelivre.org', 'www.facebook.com', 'www.flickr.com', 'www.gmodules.com', 'www.youtube.com', 'a.yimg.com', 'b.yimg.com', 'c.yimg.com', 'd.yimg.com', 'e.yimg.com', 'f.yimg.com', 'g.yimg.com', 'h.yimg.com', 'i.yimg.com', 'j.yimg.com', 'k.yimg.com', 'l.yimg.com', 'm.yimg.com', 'n.yimg.com', 'o.yimg.com', 'p.yimg.com', 'q.yimg.com', 'r.yimg.com', 's.yimg.com', 't.yimg.com', 'u.yimg.com', 'v.yimg.com', 'w.yimg.com', 'x.yimg.com', 'y.yimg.com', 'z.yimg.com'], Environment.new.trusted_sites_for_iframe
+    assert_equal [String], Environment.new.trusted_sites_for_iframe.map(&:class).uniq
   end
 
   should 'have a list of trusted sites' do
@@ -1410,4 +1627,26 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     assert_equal 'Welcome to the environment', environment.signup_welcome_screen_body
   end
+
+  should 'has_license be true if there is one license in enviroment' do
+    e = fast_create(Environment)
+    fast_create(License, :name => 'Some', :environment_id => e.id)
+
+    assert e.has_license?
+  end
+
+  should 'has_license be true if there is many licenses in enviroment' do
+    e = fast_create(Environment)
+    fast_create(License, :name => 'Some', :environment_id => e.id)
+    fast_create(License, :name => 'Another', :environment_id => e.id)
+
+    assert e.has_license?
+  end
+
+  should 'has_license be false if there is no license in enviroment' do
+    e = fast_create(Environment)
+
+    assert !e.has_license?
+  end
+
 end

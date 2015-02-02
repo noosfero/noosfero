@@ -3,7 +3,7 @@
 # domains.
 class Environment < ActiveRecord::Base
 
-  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body
+  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body, :members_whitelist_enabled, :members_whitelist
 
   has_many :users
 
@@ -124,6 +124,7 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
+      'admin_must_approve_new_users' => _("Admin must approve registration of new users"),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
@@ -132,7 +133,8 @@ class Environment < ActiveRecord::Base
       'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
       'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login'),
       'display_my_communities_on_user_menu' => _('Display on menu the list of communities the user can manage'),
-      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage')
+      'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage'),
+      'restrict_to_members' => _('Show content only to members')
     }
   end
 
@@ -175,9 +177,6 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
-    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
-    #      the Noosfero core soon, see ActionItem3045
-    env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area
@@ -284,6 +283,7 @@ class Environment < ActiveRecord::Base
     www.flickr.com
     www.gmodules.com
     www.youtube.com
+    openstreetmap.org
   ] + ('a' .. 'z').map{|i| "#{i}.yimg.com"}
 
   settings_items :enabled_plugins, :type => Array, :default => Noosfero::Plugin.available_plugin_names
@@ -301,6 +301,17 @@ class Environment < ActiveRecord::Base
 
   def has_custom_welcome_screen?
     settings[:signup_welcome_screen_body].present?
+  end
+
+  settings_items :members_whitelist_enabled, :type => :boolean, :default => false
+  settings_items :members_whitelist, :type => Array, :default => []
+
+  def in_whitelist?(person)
+    !members_whitelist_enabled || members_whitelist.include?(person.id)
+  end
+
+  def members_whitelist=(members)
+    settings[:members_whitelist] = members.split(',').map(&:to_i)
   end
 
   def news_amount_by_folder=(amount)
@@ -646,10 +657,11 @@ class Environment < ActiveRecord::Base
     { :controller => 'admin_panel', :action => 'index' }
   end
 
-  def top_url
-    url = 'http://'
+  def top_url(scheme = 'http')
+    url = scheme + '://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
     url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
+    url << Noosfero.root('')
     url
   end
 
@@ -717,31 +729,50 @@ class Environment < ActiveRecord::Base
     ]
   end
 
-  def community_template
+  def is_default_template?(template)
+    is_default = template == community_default_template 
+    is_default = is_default || template == person_default_template 
+    is_default = is_default || template == enterprise_default_template
+    is_default
+  end
+
+  def community_templates
+    self.communities.templates
+  end
+
+  def community_default_template
     template = Community.find_by_id settings[:community_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def community_template=(value)
-    settings[:community_template_id] = value.id
+  def community_default_template=(value)
+    settings[:community_template_id] = value.kind_of?(Community) ? value.id : value
   end
 
-  def person_template
+  def person_templates
+    self.people.templates
+  end
+
+  def person_default_template
     template = Person.find_by_id settings[:person_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def person_template=(value)
-    settings[:person_template_id] = value.id
+  def person_default_template=(value)
+    settings[:person_template_id] = value.kind_of?(Person) ? value.id : value
   end
 
-  def enterprise_template
+  def enterprise_templates
+    self.enterprises.templates
+  end
+
+  def enterprise_default_template
     template = Enterprise.find_by_id settings[:enterprise_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def enterprise_template=(value)
-    settings[:enterprise_template_id] = value.id
+  def enterprise_default_template=(value)
+    settings[:enterprise_template_id] = value.kind_of?(Enterprise) ? value.id : value
   end
 
   def inactive_enterprise_template
@@ -794,7 +825,7 @@ class Environment < ActiveRecord::Base
   end
 
   def notification_emails
-    [noreply_email.blank? ? nil : noreply_email].compact + admins.map(&:email)
+    [contact_email].select(&:present?) + admins.map(&:email)
   end
 
   after_create :create_templates
@@ -839,10 +870,10 @@ class Environment < ActiveRecord::Base
     person_template.visible = false
     person_template.save!
 
-    self.enterprise_template = enterprise_template
+    self.enterprise_default_template = enterprise_template
     self.inactive_enterprise_template = inactive_enterprise_template
-    self.community_template = community_template
-    self.person_template = person_template
+    self.community_default_template = community_template
+    self.person_default_template = person_template
     self.save!
   end
 
@@ -904,6 +935,10 @@ class Environment < ActiveRecord::Base
       locales_list = ['en'] + (locales_list - ['en']).sort
     end
     locales_list
+  end
+
+  def has_license?
+    self.licenses.any?
   end
 
   private

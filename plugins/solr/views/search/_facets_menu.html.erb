@@ -22,7 +22,7 @@
         </div> <br />
 
         <% if facet_count > less_options_limit %>
-          <%= link_to_function _("Options"),
+          <%= link_to_function c_("Options"),
             "facet_options_toggle('#{facet[:id].to_s}', '#{url_for(params.merge(:action => 'facets_browse', :facet_id => facet[:id], :asset_key => @asset, :escape => false))}'); " +
             "jQuery(this).toggleClass('facet-less-options')", :class => "facet-options-toggle" %>
           <br />

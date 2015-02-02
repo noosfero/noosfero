@@ -31,7 +31,7 @@ function check_captcha(button, confirm_action) {
   return true;
   <% else %>
   jQuery('#recaptcha-container').show();
-  jQuery.colorbox({ inline : true, href : '#recaptcha-container', maxWidth : '600px', maxHeight : '300px' });
+  jQuery.colorbox({ html: jQuery('#recaptcha-container').html(), maxWidth : '600px', maxHeight : '300px' });
   jQuery('#confirm-captcha').unbind('click');
   jQuery('#confirm-captcha').bind('click', function() {
     jQuery.colorbox.close();

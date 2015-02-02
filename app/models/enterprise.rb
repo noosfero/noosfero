@@ -25,7 +25,10 @@ class Enterprise < Organization
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description
+
   settings_items :products_per_catalog_page, :type => :integer, :default => 6
+  alias_method :products_per_catalog_page_before_type_cast, :products_per_catalog_page
+  validates_numericality_of :products_per_catalog_page, :allow_nil => true, :greater_than => 0
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -54,16 +57,6 @@ class Enterprise < Organization
 
   def self.fields
     super + FIELDS
-  end
-
-  validate :presence_of_required_fieds
-
-  def presence_of_required_fieds
-    self.required_fields.each do |field|
-      if self.send(field).blank?
-        self.errors.add_on_blank(field)
-      end
-    end
   end
 
   def active_fields
@@ -104,7 +97,12 @@ class Enterprise < Organization
     self.tasks.where(:type => 'EnterpriseActivation').first
   end
 
-  def enable(owner)
+  def enable(owner = nil)
+    if owner.nil?
+      self.visible = true
+      return self.save
+    end
+
     return if enabled
     # must be set first for the following to work
     self.enabled = true
@@ -166,7 +164,7 @@ class Enterprise < Organization
   end
 
   def default_template
-    environment.enterprise_template
+    environment.enterprise_default_template
   end
 
   def template_with_inactive_enterprise
