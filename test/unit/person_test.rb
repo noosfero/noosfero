@@ -1139,6 +1139,17 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal (Person.all - Person.members_of(community)).sort, Person.not_members_of(community).sort
   end
 
+  should 'return unique non-friends of a person' do
+    friend = fast_create(Person)
+    not_friend = fast_create(Person)
+    person = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+
+    assert_includes Person.not_friends_of(person), not_friend
+    assert_not_includes Person.not_friends_of(person), friend
+  end
+
   should 'be able to pass array to members_of' do
     person1 = fast_create(Person)
     community = fast_create(Community)
