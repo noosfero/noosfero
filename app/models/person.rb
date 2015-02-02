@@ -28,6 +28,12 @@ class Person < Profile
     { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions] }
   }
 
+  def has_permission_with_admin?(permission, profile)
+    return true if profile.admins.include?(self) || profile.environment.admins.include?(self)
+    has_permission_without_admin?(permission, profile)
+  end
+  alias_method_chain :has_permission?, :admin
+
   def has_permission_with_plugins?(permission, profile)
     permissions = [has_permission_without_plugins?(permission, profile)]
     permissions += plugins.map do |plugin|

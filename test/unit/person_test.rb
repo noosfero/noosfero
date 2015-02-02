@@ -1263,6 +1263,23 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
+  should 'grant every permission over profile for its admin' do
+    admin = create_user('some-user').person
+    profile = fast_create(Profile)
+    profile.add_admin(admin)
+
+    assert admin.has_permission?('anything', profile), 'Admin does not have every permission!'
+  end
+
+  should 'grant every permission over profile for environment admin' do
+    admin = create_user('some-user').person
+    profile = fast_create(Profile)
+    environment = profile.environment
+    environment.add_admin(admin)
+
+    assert admin.has_permission?('anything', profile), 'Environment admin does not have every permission!'
+  end
+
   should 'allow plugins to extend person\'s permission access' do
     person = create_user('some-user').person
     class Plugin1 < Noosfero::Plugin
