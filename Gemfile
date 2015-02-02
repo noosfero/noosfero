@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 gem 'rails',                    '~> 3.2.19'
+gem 'minitest',                 '~> 3.2.0'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.0.2'
 gem 'prototype-rails',          '~> 3.2.1'
