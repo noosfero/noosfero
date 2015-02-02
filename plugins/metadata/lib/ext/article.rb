@@ -15,8 +15,8 @@ class Article
     see_also: [],
     site_name: proc{ |a, c| a.profile.name },
     updated_time: proc{ |a, c| a.updated_at.iso8601 },
-    'locale:locale' => proc{ |a, c| a.environment.default_language },
-    'locale:alternate' => proc{ |a, c| a.environment.languages - [a.environment.default_language] },
+    'locale:locale' => proc{ |a, c| a.language || a.environment.default_language },
+    'locale:alternate' => proc{ |a, c| a.alternate_languages },
 
     description: proc{ |a, plugin| ActionView::Base.full_sanitizer.sanitize a.body },
     rich_attachment: "",
