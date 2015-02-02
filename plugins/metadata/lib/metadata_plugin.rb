@@ -50,7 +50,7 @@ class MetadataPlugin < Noosfero::Plugin
       return unless options
 
       return unless object = case variable = options[:variable]
-        when Proc then instance_exec(&variable) rescue nil
+        when Proc then instance_exec(&variable)
         else instance_variable_get variable
         end
       return unless specs = (object.class.metadata_specs rescue nil)
@@ -64,11 +64,11 @@ class MetadataPlugin < Noosfero::Plugin
 
         tags.each do |key, values|
           key = "#{namespace}#{key}"
-          values = values.call(object, plugin) rescue nil if values.is_a? Proc
+          values = values.call(object, plugin) if values.is_a? Proc
           next if values.blank?
 
           Array(values).each do |value|
-            value = value.call(object, plugin) rescue nil if value.is_a? Proc
+            value = value.call(object, plugin) if value.is_a? Proc
             next if value.blank?
             r << tag(:meta, key_attr => key, value_attr => value)
           end
