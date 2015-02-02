@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140827191326) do
+ActiveRecord::Schema.define(:version => 20150122164937) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -518,6 +518,8 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
     t.string   "personal_website"
     t.string   "jabber_id"
     t.integer  "welcome_page_id"
+    t.boolean  "allow_members_to_invite",               :default => true
+    t.boolean  "invite_friends_only",                   :default => false
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
