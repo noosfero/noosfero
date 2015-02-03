@@ -4,7 +4,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
   end
 
   def default_title
-      _('Relevant content')
+    _('Relevant content')
   end
 
   def help
@@ -53,7 +53,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
       env =  owner.environment
     end
 
-    if env.plugin_enabled?(VotePlugin)
+    if env.plugin_enabled?('VotePlugin')
       if self.show_most_liked
         docs = Article.more_positive_votes(owner, self.limit)
         if !docs.blank?
