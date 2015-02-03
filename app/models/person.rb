@@ -25,7 +25,7 @@ class Person < Profile
   scope :not_members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions]
+    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions] }
   }
 
   scope :by_role, lambda { |roles|
@@ -64,9 +64,9 @@ roles] }
     ScopeTool.union *scopes
   end
 
-   def memberships_by_role(role)
-     memberships.where('role_assignments.role_id = ?', role.id)
-   end
+  def memberships_by_role(role)
+    memberships.where('role_assignments.role_id = ?', role.id)
+  end
 
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
@@ -141,12 +141,12 @@ roles] }
   end
 
   def add_friend(friend, group = nil)
-   unless self.is_a_friend?(friend)
+    unless self.is_a_friend?(friend)
       friendship = self.friendships.build
       friendship.friend = friend
       friendship.group = group
       friendship.save
-   end
+    end
   end
 
   def already_request_friendship?(person)
