@@ -18,7 +18,7 @@ class UsersController < AdminController
     end
     scope = scope.order('name ASC')
     @q = params[:q]
-    @collection = find_by_contents(:people, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
+    @collection = find_by_contents(:people, environment, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
   end
 
   def set_admin_role

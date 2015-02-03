@@ -52,6 +52,12 @@
     'profile_data[redirect_l10n]', true, @profile.redirect_l10n
   )%>
 
+  <h2><%= _('Suggestions') %></h2>
+  <%= labelled_check_box(
+    _('Send me relationship suggestions by email'),
+    'profile_data[email_suggestions]', true, @profile.email_suggestions
+  )%>
+
   <%=
     @plugins.dispatch(:profile_editor_extras).map do |content|
       content.kind_of?(Proc) ? self.instance_exec(&content) : content

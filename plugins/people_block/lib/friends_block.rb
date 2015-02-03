@@ -16,10 +16,15 @@ class FriendsBlock < PeopleBlockBase
     owner.friends
   end
 
+  def suggestions
+    owner.profile_suggestions.of_person.enabled.limit(3).includes(:suggestion)
+  end
+
   def footer
     profile = self.owner
+    suggestions = self.suggestions
     proc do
-      render :file => 'blocks/friends', :locals => { :profile => profile }
+      render :file => 'blocks/friends', :locals => { :profile => profile, :suggestions => suggestions }
     end
   end
 

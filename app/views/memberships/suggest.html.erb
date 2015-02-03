@@ -1,0 +1,9 @@
+<h1><%= _("Communities suggestions for %s") % profile.name %></h1>
+
+<% button_bar do %>
+  <%= button(:back, _('Go to groups list'), :controller => 'memberships') %>
+<% end %>
+
+<div class="profiles-suggestions">
+  <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :communities_suggestions, :per_page => 12 } %>
+</div>

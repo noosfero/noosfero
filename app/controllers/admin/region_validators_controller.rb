@@ -33,7 +33,7 @@ class RegionValidatorsController < AdminController
   def load_region_and_search
     @region = environment.regions.find(params[:id])
     if params[:search]
-      @search = find_by_contents(:organizations, Organization, params[:search])[:results].reject {|item| @region.validator_ids.include?(item.id) }
+      @search = find_by_contents(:organizations, environment, Organization, params[:search])[:results].reject {|item| @region.validator_ids.include?(item.id) }
     end
   end
 

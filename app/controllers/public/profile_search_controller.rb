@@ -9,9 +9,12 @@ class ProfileSearchController < PublicController
     @q = params[:q]
     unless @q.blank?
       if params[:where] == 'environment'
-        redirect_to :controller => 'search', :query => @q
+        # user is using global search, redirects to the search controller with
+        # the query
+        search_path = url_for(:controller => 'search', :query => @q)
+        request.xhr? ? render(:js => "window.location.href = #{search_path.to_json}") : redirect_to(search_path)
       else
-        @results = find_by_contents(:articles, profile.articles.published, @q, {:per_page => 10, :page => params[:page]})[:results]
+        @results = find_by_contents(:articles, profile, profile.articles.published, @q, {:per_page => 10, :page => params[:page]})[:results]
       end
     end
   end

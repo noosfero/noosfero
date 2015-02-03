@@ -21,6 +21,8 @@ gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false, :group => :development
 gem 'locale',                   '~> 2.0.5'
 
+gem 'whenever', :require => false
+
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
 

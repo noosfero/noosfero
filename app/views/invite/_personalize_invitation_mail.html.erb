@@ -1,0 +1,8 @@
+<br/>
+
+<%= link_to ('Personalize invitation mail'), nil, :onclick => "jQuery('#invitation-mail_template').show(); return false;" %>
+
+<div id='invitation-mail_template' style='display:none'>
+  <%= h _("Now enter an invitation message. You must keep the <url> code in your invitation text. When your friends receive the invitation e-mail, <url> will be replaced by a link that they need to click to activate their account. <user> and <friend> codes will be replaced by your name and friend name, but they are optional.") %>
+  <%= labelled_form_field(_('Invitation text:'), text_area_tag(:mail_template, mail_template, :cols => 72, :rows => 8)) %>
+</div>

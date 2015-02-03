@@ -1,0 +1,5 @@
+<% @recent_files[key].each do |file| %>
+  <% @file = file %>
+  <%= render :partial => "cms/media_panel/#{key.to_s.singularize}" %>
+<% end %>
+<%= pagination_links @recent_files[key] if show_pagination_links %>

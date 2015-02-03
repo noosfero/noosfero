@@ -20,16 +20,16 @@
 <div class='article-lead' id="article-lead-<%=lead_id.to_s%>">
 
   <% if f %>
-    <%= labelled_form_field(_(abstract_label), f.text_area(abstract_method, :style => 'width: 98%; height: 200px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(abstract_label), f.text_area(abstract_method, :style => 'width: 100%; height: 200px;', :class => editor_type)) %>
   <% else %>
-    <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, :style => 'width: 98%; height: 200px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, :style => 'width: 100%; height: 200px;', :class => editor_type)) %>
   <% end %>
 </div>
 <div style="margin-top: 10px;">
   <% if f %>
-    <%= labelled_form_field(_(body_label), f.text_area(body_method, :style => 'width: 98%; height: 400px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(body_label), f.text_area(body_method, :style => 'width: 100%; height: 400px;', :class => editor_type)) %>
   <% else %>
-    <%= labelled_form_field(_(body_label), text_area(object, body_method, :style => 'width: 98%; height: 400px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(body_label), text_area(object, body_method, :style => 'width: 100%; height: 400px;', :class => editor_type)) %>
   <% end %>
 </div>
 

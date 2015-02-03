@@ -42,7 +42,7 @@ Feature: approve article
     And I go to mariasilva's cms
     And I follow "Sample Article"
     And I follow "Spread"
-    And I check "Sample Community"
+    And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
     And I press "Spread this"
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
@@ -58,7 +58,7 @@ Feature: approve article
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"
     And I follow "Spread"
-    And I check "Sample Community"
+    And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
     And I press "Spread this"
     And I follow "Delete"
     And I confirm the browser dialog

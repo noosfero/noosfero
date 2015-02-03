@@ -1,0 +1,44 @@
+<h1><%= _('Social Share Privacy Options')%></h1>
+
+<p><%= _('Choose the social networks you want to enable the share buttons.') %></p>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('#add').click(function() {
+      return !jQuery('#social-networks-list option:selected').remove().appendTo('#selected-social-networks');
+    });
+    jQuery('#remove').click(function() {
+      return !jQuery('#selected-social-networks option:selected').remove().appendTo('#social-networks-list');
+    });
+
+    jQuery('form').submit(function() {
+      jQuery('#selected-social-networks option').each(function(i) {
+        jQuery(this).attr('selected','selected');
+      });
+    });
+  });
+ </script>
+
+<div id='available-networks'>
+  <%= labelled_form_field(_('Available networks'), select_tag('networks[]', options_for_select(@available_networks), {:id => 'social-networks-list', :multiple => true, :size => 6 }) ) %>
+</div>
+
+<div id='selection-buttons'>
+  <%= button :down, _('Add'), '#', { :id => 'add' } %>
+  <%= button :up, _('Remove'), '#', { :id => 'remove' } %>
+</div>
+
+<%= form_tag do %>
+  <div id='selected-networks'>
+    <%= hidden_field_tag 'settings[networks][]' %>
+    <%= labelled_form_field(_('Selected networks'), select_tag('settings[networks]', options_for_select(@settings.networks), {:id => 'selected-social-networks', :multiple => true, :size => 6 })) %>
+  </div>
+
+  <p>
+    <%= _('The same order in which you arrange the social networks here will be used for arranging the share buttons.') %>
+  </p>
+
+  <% button_bar do %>
+    <%= submit_button 'save', _('Save'), :cancel => {:controller => 'plugins', :action => 'index'} %>
+  <% end %>
+<% end %>

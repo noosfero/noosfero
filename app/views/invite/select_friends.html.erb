@@ -1,18 +1,18 @@
 <%= render :partial => 'invite/dialog_wait_loading', :locals => {:contact_list => @contact_list.id } if @import_from != 'manual' %>
 
 <% if profile.person? %>
-  <h1><%= _('Invite your friends') %></h1>
+  <h1><%= _('Invite people') %></h1>
 <% else %>
-  <h1><%= _('Invite your friends to join %s') % profile.name %></h1>
+  <h1><%= _('Invite people to join') %></h1>
 <% end %>
 
 
-<h2><%= _('Step 2 of 2: Selecting Friends') %></h2>
+<h2><%= _('Step 2 of 2: Selecting People') %></h2>
 
-<%= button(:back, _('Back'), { :action => 'select_address_book' }, :id => 'invitation_back_button') %>
+<%= button(:back, _('Back'), { :action => 'invite_friends' }, :id => 'invitation_back_button') %>
 
 <p>
-<%= _('Indicate which friends you want to invite.') %>
+<%= _('Indicate which people you want to invite.') %>
 </p>
 
 <%= form_tag do %>
@@ -30,16 +30,9 @@
     </div>
   <% end -%>
 
-  <br/>
-
-  <%= link_to ('Personalize invitation mail'), nil, :onclick => "jQuery('#invitation-mail_template').show(); return false;" %>
-
-  <div id='invitation-mail_template' style='display:none'>
-    <%= h _("Now enter an invitation message. You must keep the <url> code in your invitation text. When your friends receive the invitation e-mail, <url> will be replaced by a link that they need to click to activate their account. <user> and <friend> codes will be replaced by your name and friend name, but they are optional.") %>
-    <%= labelled_form_field(_('Invitation text:'), text_area_tag(:mail_template, @mail_template, :cols => 72, :rows => 8)) %>
-  </div>
+  <%= render :partial => 'invite/personalize_invitation_mail', :locals => {:mail_template => @mail_template } %>
 
   <% button_bar do %>
-    <%= submit_button(:ok, _("Invite my friends!")) %>
+    <%= submit_button(:ok, _("Invite!")) %>
   <% end %>
 <% end %>

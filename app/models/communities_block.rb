@@ -14,19 +14,17 @@ class CommunitiesBlock < ProfileListBlock
     _('This block displays the communities in which the user is a member.')
   end
 
+  def suggestions
+    return nil unless owner.kind_of?(Profile)
+    owner.profile_suggestions.of_community.enabled.limit(3).includes(:suggestion)
+  end
+
   def footer
     owner = self.owner
-    case owner
-    when Profile
-      lambda do |context|
-        link_to s_('communities|View all'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
-      end
-    when Environment
-      lambda do |context|
-        link_to s_('communities|View all'), :controller => 'search', :action => 'communities'
-      end
-    else
-      ''
+    suggestions = self.suggestions
+    return '' unless owner.kind_of?(Profile) || owner.kind_of?(Environment)
+    proc do
+      render :file => 'blocks/communities', :locals => { :owner => owner, :suggestions => suggestions }
     end
   end
 

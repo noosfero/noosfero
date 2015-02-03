@@ -74,10 +74,15 @@ jQuery(function($) {
     }
   }
 
-  function zoom_dialog_html(img) {
+  function zoom_dialog_html(name, img) {
     // FIXME organize this code better
-    return '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 640px; max-height: 480px"/></div>' + '<div class="button-bar">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>'
+    return '<h3 style="text-align: center;">'+ name +'</h3><div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 640px; max-height: 480px"/></div>' + '<div class="button-bar">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>'
   }
+
+  $('.view-all-images .item').live('click', function(){
+    insert_item_in_text(jQuery(this).find('span'));
+    $.colorbox.close();
+  });
 
   $('a.add-to-text').live('click', function() {
     var $item = $(this).closest('.item');
@@ -89,9 +94,10 @@ jQuery(function($) {
   $('a.zoom').live('click', function() {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
+    var name = $item.attr('title');
     var img = $item.find(html_selector).find('img').attr('src');
     $.colorbox({
-      html: zoom_dialog_html(img),
+      html: zoom_dialog_html(name, img),
       scrolling: false
     });
     return false;

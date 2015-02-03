@@ -130,6 +130,35 @@ class HomeControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
 
+  should 'display template welcome page' do
+    template = create_user('template').person
+    template.is_template = true
+    welcome_page = TinyMceArticle.create!(:name => 'Welcome page', :profile => template, :published => true, :body => 'Template welcome page')
+    template.welcome_page = welcome_page
+    template.save!
+    get :welcome, :template_id => template.id
+    assert_match /#{welcome_page.body}/, @response.body
+  end
+
+  should 'not display template welcome page if it is not published' do
+    template = create_user('template').person
+    template.is_template = true
+    welcome_page = TinyMceArticle.create!(:name => 'Welcome page', :profile => template, :published => false, :body => 'Template welcome page')
+    template.welcome_page = welcome_page
+    template.save!
+    get :welcome, :template_id => template.id
+    assert_no_match /#{welcome_page.body}/, @response.body
+  end
+
+  should 'not crash template doess not have a welcome page' do
+    template = create_user('template').person
+    template.is_template = true
+    template.save!
+    assert_nothing_raised do
+      get :welcome, :template_id => template.id
+    end
+  end
+
   should 'add class to the <html>' do
     get :index
 

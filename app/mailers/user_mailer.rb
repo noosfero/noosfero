@@ -41,6 +41,23 @@ class UserMailer < ActionMailer::Base
     )
   end
 
+  def profiles_suggestions_email(user)
+    @recipient = user.name
+    @environment = user.environment.name
+    @url = user.environment.top_url
+    @people_suggestions_url = user.people_suggestions_url
+    @people_suggestions = user.suggested_people.sample(3)
+    @communities_suggestions_url = user.communities_suggestions_url
+    @communities_suggestions = user.suggested_communities.sample(3)
+
+    mail(
+      content_type: 'text/html',
+      to: user.email,
+      from: "#{user.environment.name} <#{user.environment.contact_email}>",
+      subject: _("[%s] What about grow up your network?") % user.environment.name
+    )
+  end
+
   class Job < Struct.new(:user, :method)
     def perform
       UserMailer.send(method, user).deliver

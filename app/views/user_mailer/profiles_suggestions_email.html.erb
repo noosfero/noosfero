@@ -1,0 +1,33 @@
+<%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
+
+<p><%= _('We want to give you some suggestions to grow up your network.') %></p>
+<p><%= _('Check it out!') %></p>
+
+<% unless @people_suggestions.empty? %>
+  <p><%= _('Friends suggestions:') %></p>
+
+  <ul>
+    <% @people_suggestions.each do |person| %>
+    <li><a href="<%= url_for(person.public_profile_url) %>"><%= person.name %></a></li>
+    <% end %>
+  <ul>
+  <%= _("To see the full list of friends suggestions, follow the link: %s") % @people_suggestions_url %>
+<% end %>
+
+<% unless @communities_suggestions.empty? %>
+  <p><%= _('Communities suggestions:') %></p>
+
+  <ul>
+    <% @communities_suggestions.each do |community| %>
+    <li><a href="<%= url_for(community.public_profile_url) %>"><%= community.name %></a></li>
+    <% end %>
+  <ul>
+  <%= _("To see the full list of communities suggestions, follow the link: %s") % @communities_suggestions_url %>
+<% end %>
+
+
+<%= _("Greetings,") %>
+
+--
+<%= _('%s team.') % @environment %>
+<%= @url %>

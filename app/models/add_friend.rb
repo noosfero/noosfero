@@ -14,6 +14,11 @@ class AddFriend < Task
   alias :friend :target
   alias :friend= :target=
 
+  after_create do |task|
+    TaskMailer.invitation_notification(task).deliver unless task.friend
+    remove_from_suggestion_list(task)
+  end
+
   def perform
     target.add_friend(requestor, group_for_friend)
     requestor.add_friend(target, group_for_person)
@@ -48,4 +53,8 @@ class AddFriend < Task
     {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
+  def remove_from_suggestion_list(task)
+    suggestion = task.requestor.profile_suggestions.find_by_suggestion_id task.target.id
+    suggestion.disable if suggestion
+  end
 end

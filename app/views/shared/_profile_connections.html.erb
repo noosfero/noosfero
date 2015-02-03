@@ -1,0 +1,23 @@
+<% if profiles.present? %>
+  <h2><%= _("Profiles in common:") %></h2>
+  <div class="list-profile-connections">
+    <ul class="profile-list">
+      <% profiles.each do |profile| %>
+        <li>
+        <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
+                            profile.identifier, :class => 'profile-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <br style="clear:both" />
+<% end %>
+
+<% if tags.present? %>
+  <h2><%= _("Tags in common:") %></h2>
+  <ul>
+    <% tags.each do |tag| %>
+      <li><%= tag.name %></li>
+    <% end %>
+  </ul>
+<% end %>

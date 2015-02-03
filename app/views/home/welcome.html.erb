@@ -1,0 +1,30 @@
+<% default_message = defined?(default_message) ? default_message : false %>
+
+<div id='thanks-for-signing'>
+  <h1><%= _("Welcome to %s!") % environment.name %></h1>
+  <% if environment.has_custom_welcome_screen? && !default_message %>
+    <%= environment.settings[:signup_welcome_screen_body].html_safe %>
+  <% else %>
+      <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
+      <% if @display_confirmation_tips %>
+        <p><%= _("Firstly, some tips for getting started:") %></p>
+        <h4><%= _("Confirm your account!") %></h4>
+        <p><%= _("You should receive a welcome email from us shortly. Please take a second to follow the link within to confirm your account.") %></p>
+        <p><%= _("You won't appear as %s until your account is confirmed.") % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
+      <% else %>
+        <h4><%= _("Wait for admin approvement!") %></h4>
+        <p><%= _("The administrators will evaluate your signup request for approvement.") %></p>
+        <p><%= _("You won't appear as %s until your account is approved.") % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
+      <% end %>
+      <h4><%= _("What to do next?") %></h4>
+      <p><%= _("Access your %s and see your face on the network!") %
+        (user.present? ? link_to(_('Profile'), {:controller => 'profile', :profile => user.identifier}, :target => '_blank') : 'Profile') %>
+      <%= _("You can also explore your %s to customize your profile. Here are some %s on what you can do there.") %
+        [user.present? ? link_to(_('Control Panel'), {:controller => 'profile_editor', :profile => user.identifier}, :target => '_blank') : 'Control Panel',
+          link_to(_('tips'), {:controller => 'doc', :action => 'topic', :section => 'user', :topic => 'editing-person-info'}, :target => '_blank')] %></p>
+      <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :action => 'topic', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
+      <p><%= _("Learn the guidelines. Read the %s for more details on how to use this social network!") % link_to(_('Documentation'), {:controller => 'doc'}, :target => '_blank') %></p>
+      <p><%= _("Start exploring and have fun!") %></p>
+  <% end %>
+  <%= render :partial => 'shared/template_welcome_page', :locals => {:template => @person_template, :header => _("What can I do as a %s?")} %>
+</div>

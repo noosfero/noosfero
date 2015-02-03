@@ -1,6 +1,24 @@
 <h2><%= _('Moderation options') %></h2>
 <% if profile.community? %>
   <div style='margin-bottom: 1em'>
+    <h4><%= _('Invitation moderation:')%></h4>
+  </div>
+  <div style='margin-bottom: 0.5em'>
+    <%= check_box(:profile_data, :allow_members_to_invite, :style => 'float: left') %>
+    <div style='margin-left: 30px'>
+      <%= _('Allow all members to send invitation (Default: only administrator)') %>
+    </div>
+    <br>
+    <div class = 'invite_friends_only' >
+      <%= check_box(:profile_data, :invite_friends_only, :style => 'float: left') %>
+      <div style='margin-left: 30px'>
+        <%= _('Allow members to invite only friends (Default: all users)') %>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div style='margin-bottom: 1em'>
     <%= _('New members must be approved:')%>
   </div>
   <div style='margin-bottom: 0.5em'>
@@ -33,3 +51,5 @@
     <%= _('<strong>After</strong> being published in this group (a moderator can always remove publicated articles later).') %>
   </div>
 </div>
+
+<%= javascript_include_tag('invite') %>

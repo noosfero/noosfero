@@ -12,6 +12,7 @@ module TokenHelper
     options[:search_delay] ||= 1000
     options[:prevent_duplicates] ||=  true
     options[:backspace_delete_item] ||= false
+    options[:zindex] ||= 999
     options[:focus] ||= false
     options[:avoid_enter] ||= true
     options[:on_result] ||= 'null'
@@ -31,6 +32,7 @@ module TokenHelper
         searchDelay: #{options[:search_delay].to_json},
         preventDuplicates: #{options[:prevent_duplicates].to_json},
         backspaceDeleteItem: #{options[:backspace_delete_item].to_json},
+        zindex: #{options[:zindex].to_json},
         queryParam: #{options[:query_param].to_json},
         tokenLimit: #{options[:token_limit].to_json},
         onResult: #{options[:on_result]},

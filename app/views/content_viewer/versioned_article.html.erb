@@ -7,7 +7,7 @@
   <div id="article-actions">
     <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
 
-    <% if @page.allow_edit?(user) && !remove_content_button(:undo) %>
+    <% if @page.allow_edit?(user) && !remove_content_button(:undo, @page) %>
       <% content = content_tag('span', _('Revert to this version')) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
       <%= expirable_button @page, :undo, content, url, :id => 'article-revert-version-link' %>
