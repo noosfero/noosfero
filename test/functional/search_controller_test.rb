@@ -471,25 +471,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
-  should 'not add script tag for google maps if searching articles' do
-    ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'articles', :query => 'article', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
-  should 'not add script tag for google maps if searching people' do
-    get 'people', :query => 'person', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
-  should 'not add script tag for google maps if searching communities' do
-    get 'communities', :query => 'community', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
   should 'show events of specific day' do
     person = create_user('anotheruser').person
     event = create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28))

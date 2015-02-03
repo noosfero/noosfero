@@ -11,7 +11,7 @@ class InviteController < PublicController
     labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label].downcase }
     last = labels.pop
     label = labels.join(', ')
-    @search_friend_fields = "#{label} #{_('or')} #{last}"
+    @search_fields = "#{label} #{_('or')} #{last}"
 
     if request.post?
       contact_list = ContactList.create
@@ -78,17 +78,17 @@ class InviteController < PublicController
     end
   end
 
-  def search_friend
-    render :text => find_by_contents(:people, environment, environment.people.not_members_of(profile), params['q'], {:page => 1}, {:joins => :user})[:results].map {|person| {:id => person.id, :name => person.name} }.to_json
+  def search
+    scope = profile.invite_friends_only ? user.friends : environment.people
+    scope = scope.not_members_of(profile) if profile.organization?
+    scope = scope.not_friends_of(profile) if profile.person?
+    results = find_by_contents(:people, environment, scope, params['q'], {:page => 1}, {:joins => :user})[:results]
+    render :text => prepare_to_token_input(results).to_json
   end
 
   protected
 
   def check_permissions_to_invite
-    if profile.person? and !user.has_permission?(:manage_friends, profile) or
-      profile.community? and !user.has_permission?(:invite_members, profile)
-      render_access_denied
-    end
+    render_access_denied if !profile.allow_invitation_from?(user)
   end
-
 end

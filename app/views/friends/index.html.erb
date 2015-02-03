@@ -16,7 +16,7 @@
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
     <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
-      <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'invite_friends') %>
+      <%= button(:person, _('Invite people'), :controller => 'invite', :action => 'invite_friends') %>
     <% end %>
   <% end %>
 

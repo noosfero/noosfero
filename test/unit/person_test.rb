@@ -1139,6 +1139,17 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal (Person.all - Person.members_of(community)).sort, Person.not_members_of(community).sort
   end
 
+  should 'return unique non-friends of a person' do
+    friend = fast_create(Person)
+    not_friend = fast_create(Person)
+    person = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+
+    assert_includes Person.not_friends_of(person), not_friend
+    assert_not_includes Person.not_friends_of(person), friend
+  end
+
   should 'be able to pass array to members_of' do
     person1 = fast_create(Person)
     community = fast_create(Community)
@@ -1261,6 +1272,23 @@ class PersonTest < ActiveSupport::TestCase
     person_activity = ActionTracker::Record.last
 
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'grant every permission over profile for its admin' do
+    admin = create_user('some-user').person
+    profile = fast_create(Profile)
+    profile.add_admin(admin)
+
+    assert admin.has_permission?('anything', profile), 'Admin does not have every permission!'
+  end
+
+  should 'grant every permission over profile for environment admin' do
+    admin = create_user('some-user').person
+    profile = fast_create(Profile)
+    environment = profile.environment
+    environment.add_admin(admin)
+
+    assert admin.has_permission?('anything', profile), 'Environment admin does not have every permission!'
   end
 
   should 'allow plugins to extend person\'s permission access' do

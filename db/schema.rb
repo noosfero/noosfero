@@ -519,6 +519,8 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string   "personal_website"
     t.string   "jabber_id"
     t.integer  "welcome_page_id"
+    t.boolean  "allow_members_to_invite",               :default => true
+    t.boolean  "invite_friends_only",                   :default => false
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"

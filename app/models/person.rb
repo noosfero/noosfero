@@ -34,10 +34,22 @@ class Person < Profile
 roles] }
   }
 
-  def has_permission_with_plugins?(permission, profile)
-    permissions = [has_permission_without_plugins?(permission, profile)]
+  scope :not_friends_of, lambda { |resources|
+    resources = Array(resources)
+    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id)] }
+  }
+
+  def has_permission_with_admin?(permission, resource)
+    return true if resource.blank? || resource.admins.include?(self)
+    return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)
+    has_permission_without_admin?(permission, resource)
+  end
+  alias_method_chain :has_permission?, :admin
+
+  def has_permission_with_plugins?(permission, resource)
+    permissions = [has_permission_without_plugins?(permission, resource)]
     permissions += plugins.map do |plugin|
-      plugin.has_permission?(self, permission, profile)
+      plugin.has_permission?(self, permission, resource)
     end
     permissions.include?(true)
   end
@@ -511,6 +523,10 @@ roles] }
   def remove_suggestion(profile)
     suggestion = profile_suggestions.find_by_suggestion_id profile.id
     suggestion.disable if suggestion
+  end
+
+  def allow_invitation_from?(person)
+    person.has_permission?(:manage_friends, self)
   end
 
   protected

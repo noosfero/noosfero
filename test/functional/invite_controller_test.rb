@@ -101,7 +101,6 @@ class InviteControllerTest < ActionController::TestCase
   should 'display invitation page' do
     get :invite_friends, :profile => profile.identifier
     assert_response :success
-    assert_tag :tag => 'h1', :content => 'Invite your friends'
   end
 
   should 'get mail template to invite members' do
@@ -243,18 +242,18 @@ class InviteControllerTest < ActionController::TestCase
     friend1.save
     friend2.save
 
-    get :search_friend, :profile => profile.identifier, :q => 'me@'
+    get :search, :profile => profile.identifier, :q => 'me@'
 
     assert_equal 'text/html', @response.content_type
     assert_equal [{"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
 
-    get :search_friend, :profile => profile.identifier, :q => 'cri'
+    get :search, :profile => profile.identifier, :q => 'cri'
 
     assert_equal [{"id" => friend1.id, "name" => friend1.name}].to_json, @response.body
 
-    get :search_friend, :profile => profile.identifier, :q => 'will'
+    get :search, :profile => profile.identifier, :q => 'will'
 
-    assert_equal [{"id" => friend1.id, "name" => friend1.name}, {"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
+    assert_equivalent [{"id" => friend1.id, "name" => friend1.name}, {"id" => friend2.id, "name" => friend2.name}], json_response
   end
 
   should 'not include members in search friends profiles' do
@@ -266,9 +265,23 @@ class InviteControllerTest < ActionController::TestCase
 
     community.add_member(friend2)
 
-    get :search_friend, :profile => community.identifier, :q => 'will'
+    get :search, :profile => community.identifier, :q => 'will'
 
     assert_equivalent [{"name" => friend1.name, "id" => friend1.id}], json_response
+  end
+
+  should 'not include friends in search for people to request friendship' do
+    friend1 = create_user('willy').person
+    friend2 = create_user('william').person
+
+    profile.add_friend friend1
+    friend1.add_friend profile
+    profile.add_friend friend2
+    friend2.add_friend profile
+
+    get :search, :profile => profile.identifier, :q => 'will'
+
+    assert_empty json_response
   end
 
   should 'invite registered users through profile id' do
