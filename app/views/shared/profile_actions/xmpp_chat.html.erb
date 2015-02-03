@@ -1,5 +1,0 @@
-<% if profile.members.include?(user) %>
-  <li>
-  <%= button_to_function(:chat, _('Enter chat room'), "open_chat_window(this, '##{profile.full_jid}')") %>
-  </li>
-<% end %>
