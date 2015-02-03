@@ -1,0 +1,270 @@
+.mpog_hidden_field {
+  display: none;
+}
+
+#signup-form small#secondary-email-balloon ,
+#signup-form small#area-interest-balloon {
+  display: none;
+  width: 142px;
+  height: 69px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px 45px 10px;
+  margin: 0;
+  line-height: 1.5em;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
+  position: absolute;
+  z-index: 2;
+  right: -150px;
+}
+
+#signup-form #signup-secondary-email,
+#signup-form #signup-area-interest {
+  position: relative;
+}
+
+#signup-form small#secondary-email-balloon,
+#signup-form small#area-interest-balloon {
+  top: -80px;
+}
+
+.dynamic-table {
+  border: solid 1px #000;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.dynamic-table td, .dynamic-table tr {
+  border: none;
+}
+.dynamic-table input {
+  width: 220px;
+}
+
+.mpog-incomplete-percentage img {
+  margin-left: 5px;
+}
+
+.mpog-incomplete-percentage img:hover {
+  cursor: pointer;
+}
+
+#institution_dialog {
+  display: none;
+}
+
+.errorExplanation {
+  color: red;
+  margin-left: 10px;
+}
+
+.hide-field {
+  display: none !important;
+}
+
+.show-field {
+  display: block !important;
+}
+
+#user_filter_content {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mpog_search_form_fields {
+  margin-top: 10px;
+  width: 80%;
+  height: auto;
+  position: relative;
+  float: left;
+}
+
+.mpog_search_form_button {
+  margin-top: 10px;
+}
+
+.mpog_search_form_fields input[type='text'] {
+  width: 90%;
+
+}
+
+.mpog_search_form_table tr td:first-child {
+  width: 22%;
+}
+
+.formfieldline {
+  margin-top: 10px;
+}
+.formfieldline input[type="text"] {
+  width: 180px;
+}
+
+#complete_registration {
+  padding: 5px;
+  width: 100%;
+  background-color: #fff;
+}
+
+#complete_registration a {
+  text-decoration: none;
+}
+
+#complete_registration a:hover {
+  font-weight: bold;
+}
+
+#complete_registration_percentage {
+  width: 100%;
+  height: 20px;
+  background: #fff;
+  border: solid 1px #000;
+}
+
+#profile-data .invalid {
+  border-color: rgb(127, 0, 0);
+  box-shadow: 0px 0px 7px red;
+}
+
+#profile-data .validated {
+  box-shadow: 0px 0px 7px green;
+  border-color: rgb(0, 80, 0)
+}
+
+#software-name-field
+{
+  padding-bottom: 10px;
+}
+
+#software-hostname
+{
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+
+  background: #EEE;
+  border: 1px solid #CFCFCF;
+
+  line-height: 22px;
+  padding: 0px 7px;
+  color: #4A4A4A;
+  font-size: 20px;
+  text-transform: lowercase;
+  min-width: 190px;
+  border-spacing: 20px;
+}
+
+.mandatory::after
+{
+  color: red;
+  content: ' (*)'
+}
+
+.autocomplete_validation_message {
+  color: red;
+}
+
+
+#content .institutions-block ul,
+#content .softwares-block ul {
+  min-width: 196px;
+  width: 192px;
+  margin: 0px 0px 0px -3px;
+  padding: 0px;
+}
+
+#content .box-1 .institutions-block ul,
+#content .box-1 .softwares-block ul {
+  width: auto;
+  display: block;
+}
+
+#content .institutions-block .block-footer-content a,
+#content .softwares-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+}
+
+#content .institutions-block .block-footer-content a,
+#content .lock-footer-content a {
+  background: url(../../../designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
+}
+
+.improve_input_size {
+  width: 315px !important;
+}
+
+.search-community-content-block span {
+  width: auto;
+}
+
+#catalog-list ul li {
+    display: inline;
+    margin-right: 5px;
+    font-size: 14px;
+    padding: 5px;
+  }
+
+#catalog-list ul li span {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.catalog-remove-item {
+  padding: 3px;
+  border: solid 1px #999;
+  border-radius: 3px;
+}
+
+.category_box {
+  font-size: 11px;
+  border:1px solid #e9e8ed;
+  border-radius:8px;
+  background-color:#e9e8ed;
+  padding:3px 6px;
+  margin: 10px 3px;
+  color: blue;
+}
+
+.search-results-type-software_info li {
+  width: 100% !important;
+  display: block !important;
+}
+
+/* Start software block main area definitions */
+.software-block {
+  position: relative;
+  float: left;
+  margin: 0px 10px 10px 0px;
+  width: 30%;
+  height: 200px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.software-block-logo {
+  width: 150px;
+  height: 150px;
+  margin: 0px auto;
+}
+
+.software-block-content, .software-block-finality {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.software-block-finality {
+  background-color: #fff;
+  top: 100%;
+  display: block;
+  background-color:rgba(255, 255, 255, 0.9);
+}
+/* End software block main area definitions */
