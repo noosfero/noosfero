@@ -1,13 +1,13 @@
 Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
   identifier = Community.find_by_name(community).identifier
   visit("/myprofile/#{identifier}/profile_members")
-  first(:link, "Invite your friends to join #{community}").click
+  first(:link, "Invite people to join").click
   choose("Email")
   click_button('Next')
   fill_in('manual_import_addresses', :with => "#{email}")
   click_link('Personalize invitation mail')
   fill_in('mail_template', :with => 'Follow this link <url>')
-  click_button("Invite my friends!")
+  click_button("Invite!")
 end
 
 Given /^I invite email "(.+)" to be my friend$/ do |email|
@@ -18,5 +18,5 @@ Given /^I invite email "(.+)" to be my friend$/ do |email|
   fill_in('manual_import_addresses', :with => "#{email}")
   click_link('Personalize invitation mail')
   fill_in('mail_template', :with => 'Follow this link <url>')
-  click_button("Invite my friends!")
+  click_button("Invite!")
 end
