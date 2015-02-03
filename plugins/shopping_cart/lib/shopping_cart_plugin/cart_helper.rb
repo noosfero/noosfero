@@ -52,7 +52,7 @@ module ShoppingCartPlugin::CartHelper
     content_tag('tr',
       content_tag('th', _('Item name')) +
       content_tag('th', by_mail ? '&nbsp;#&nbsp;' : '#') +
-      content_tag('th', _('Price'))
+      content_tag('th', c_('Price'))
     ) +
     items.map do |id, quantity|
       product = Product.find(id)

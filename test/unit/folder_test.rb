@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class FolderTest < ActiveSupport::TestCase
 
@@ -98,6 +98,14 @@ class FolderTest < ActiveSupport::TestCase
     a.finish
 
     assert_includes folder.images(true), community.articles.find_by_name('rails.png')
+  end
+
+  should 'not let pass javascript in the name' do
+    folder = Folder.new
+    folder.name = "<script> alert(Xss!); </script>"
+    folder.valid?
+
+    assert_no_match /(<script>)/, folder.name
   end
 
   should 'not let pass javascript in the body' do

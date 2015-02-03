@@ -5,7 +5,13 @@ namespace :ci do
 
     current_branch = `git rev-parse --abbrev-ref HEAD`.strip
     from = ENV['PREV_HEAD'] || "origin/#{current_branch}"
+    if !system("git show-ref --verify --quiet refs/remotes/#{from}")
+      from = 'origin/master'
+    end
     to = ENV['HEAD'] || current_branch
+
+    puts "Testing changes between #{from} and #{to} ..."
+
     changed_files = `git diff --name-only #{from}..#{to}`.split.select do |f|
       File.exist?(f) && f.split(File::SEPARATOR).first != 'vendor'
     end
@@ -33,14 +39,23 @@ namespace :ci do
       end
     end
 
+    if tests.empty? && features.empty? && changed_plugins.empty?
+      puts "Could not figure out specific changes to be tested in isolation!"
+    end
+    puts
+
     sh 'testrb', '-Itest', *tests unless tests.empty?
     sh 'cucumber', *features unless features.empty?
     sh 'xvfb-run', 'cucumber', '-p', 'selenium', *features unless features.empty?
 
     changed_plugins.each do |plugin|
-      task = "test:noosfero_plugins:#{plugin}"
-      puts "Running #{task}"
-      Rake::Task[task].execute
+      if $broken_plugins.include?(plugin)
+        puts "Skipping plugins/#{plugin}: marked as broken"
+      else
+        task = "test:noosfero_plugins:#{plugin}"
+        puts "Running #{task}"
+        Rake::Task[task].execute
+      end
     end
 
   end

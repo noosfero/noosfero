@@ -19,7 +19,7 @@ Given /^"([^\"]*)" is the active enterprise template$/ do |enterprise|
   template.save!
 
   e = Environment.default
-  e.enterprise_template = template
+  e.enterprise_default_template = template
   e.save
 end
 

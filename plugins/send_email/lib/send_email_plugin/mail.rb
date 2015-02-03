@@ -1,7 +1,7 @@
 class SendEmailPlugin::Mail
   include ActiveModel::Validations
 
-  N_('Subject'); N_('Message'); N_('To'); N_('From')
+  cN_('Subject'); cN_('Message'); N_('To'); cN_('From')
 
   attr_accessor :environment, :from, :to, :subject, :message, :params
 

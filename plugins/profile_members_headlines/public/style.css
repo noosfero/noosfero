@@ -1,0 +1,59 @@
+.profile-members-headlines-block {
+  width: 100%;
+}
+
+.profile-members-headlines-block .headlines-container {
+  height: 180px;
+}
+
+.profile-members-headlines-block .headlines-container .author,
+.profile-members-headlines-block .headlines-container .post {
+  vertical-align: top;
+  min-width: 150px;
+}
+
+.profile-members-headlines-block .headlines-container .author {
+  position: absolute;
+}
+
+.profile-members-headlines-block .headlines-container .author p {
+  text-align: center;
+}
+
+.profile-members-headlines-block .headlines-container .post {
+  margin-left: 160px;
+}
+
+.profile-members-headlines-block #content .headlines-container h4 {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.profile-members-headlines-block .headlines-container a {
+  text-decoration: none;
+}
+
+.profile-members-headlines-block .headlines-container a:hover {
+  text-decoration: underline;
+}
+
+.profile-members-headlines-block .headlines-container .post .date {
+  margin-top: 15px;
+}
+
+.profile-members-headlines-block .headlines-block-pager {
+  text-align: center;
+}
+
+.profile-members-headlines-block .headlines-block-pager a {
+  padding: 0px 5px;
+}
+
+.profile-members-headlines-block .headlines-block-pager a.activeSlide {
+  text-decoration: none;
+}
+
+.profile-members-headlines-block .headlines-block-pager a.activeSlide:visited,
+.profile-members-headlines-block .headlines-block-pager a.activeSlide {
+  color: #000;
+}

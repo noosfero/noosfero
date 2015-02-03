@@ -16,7 +16,7 @@
     <tr <%='style="display:none"' if f.object.alternatives.empty? %>>
       <th><%= _('Alternative') %></th>
       <th><%= _('Preselected') %></th>
-      <th><%= _('Remove') %></th>
+      <th><%= c_('Remove') %></th>
     </tr>
     </thead>
     <tfoot>
@@ -27,7 +27,7 @@
     </tr>
     </tfoot>
     <tbody class='field-list'>
-    <% f.fields_for :alternatives do |builder| %>
+    <%= f.fields_for :alternatives do |builder| %>
       <%= render partial_for_class(builder.object.class), :f => builder %>
     <% end %>
     </tbody>

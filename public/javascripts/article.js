@@ -142,7 +142,7 @@ jQuery(function($) {
       if (data.length && data.length > 0) {
         $('#media-search-results').slideDown();
       }
-    $('#media-search-box .header').toggleClass('icon-loading');
+      $('#media-search-box .header').toggleClass('icon-loading');
     });
     return false;
   });
@@ -150,20 +150,20 @@ jQuery(function($) {
   $('#media-upload-form form').ajaxForm({
     resetForm: true,
     beforeSubmit:
-      function() {
-        $('#media-upload-form').slideUp();
-        $('#media-upload-box .header').toggleClass('icon-loading');
-      },
+    function() {
+      $('#media-upload-form').slideUp();
+      $('#media-upload-box .header').toggleClass('icon-loading');
+    },
     success:
-      function(text) {
-        text = text.replace('<pre>', '').replace('</pre>', ''); // old firefox
-        var data = $.parseJSON(text);
-        list_items(data, '#media-upload-results .items', true);
-        if (data.length && data.length > 0) {
-          $('#media-upload-results').slideDown();
-        }
-        $('#media-upload-box .header').toggleClass('icon-loading');
+    function(text) {
+      text = text.replace('<pre>', '').replace('</pre>', ''); // old firefox
+      var data = $.parseJSON(text);
+      list_items(data, '#media-upload-results .items', true);
+      if (data.length && data.length > 0) {
+        $('#media-upload-results').slideDown();
       }
+      $('#media-upload-box .header').toggleClass('icon-loading');
+    }
   });
 
   $('#media-upload-more-files').click(function() {
@@ -172,19 +172,45 @@ jQuery(function($) {
     return false;
   });
 
+  function is_public_article() {
+    return $("#article_published_true").attr('checked');
+  }
+
+  function show_hide_privacy_options() {
+    var show_privacy_options = $("#article_published_false").attr('checked');
+    var custom_privacy_option = $(".custom_privacy_option").parent("div");
+
+    if( show_privacy_options ) {
+      custom_privacy_option.show();
+    } else {
+      custom_privacy_option.hide();
+    }
+    show_hide_token_input();
+  }
+
   function show_hide_token_input() {
-    if($("#article_published_false").attr('checked'))
-      $("#text-input-search-exception-users").parent("div").css('display', 'block');
-    else
-      $("#text-input-search-exception-users").parent("div").css('display', 'none');
+    var display_token =  $(".custom_privacy_option:checked").length == 0;
+    var token_field = $("#text-input-search-exception-users").parent("div");
+
+    if( display_token && !is_public_article() ) {
+      token_field.css('display', 'block');
+    } else {
+      token_field.css('display', 'none');
+    }
   }
 
   if( $("#token-input-search-article-privacy-exceptions").length == 1 ) {
+    show_hide_privacy_options();
     show_hide_token_input();
-
-    //Hide / Show the text area
-    $("#article_published_false").click(show_hide_token_input);
-    $("#article_published_true").click(show_hide_token_input);
   }
+
+  $(document).ready(function(){
+    show_hide_privacy_options();
+  });
+
+  //Hide / Show the text area
+  $("#article_published_false").click(show_hide_privacy_options);
+  $("#article_published_true").click(show_hide_privacy_options);
+  $(".custom_privacy_option").click(show_hide_token_input);
 
 });

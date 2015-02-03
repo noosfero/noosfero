@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
@@ -1588,6 +1588,19 @@ class PersonTest < ActiveSupport::TestCase
     environment = create_environment('mycolivre.net')
     profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
     assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'memberships', :action => 'suggest' }, profile.communities_suggestions_url)
+  end
+
+  should 'allow homepage change if user is an environment admin' do
+    person = create_user('person').person
+    person.environment.expects(:enabled?).with('cant_change_homepage').returns(true)
+    person.expects(:is_admin?).returns(true)
+    assert person.can_change_homepage?
+  end
+
+  should 'allow homepage change if environment feature permit it' do
+    person = create_user('person').person
+    person.environment.expects(:enabled?).with('cant_change_homepage').returns(false)
+    assert person.can_change_homepage?
   end
 
 end

@@ -1,0 +1,49 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+#: plugins/video/lib/video_block.rb:32
+msgid "Display a Video"
+msgstr "Mostrar um Vídeo"
+
+#: plugins/video/lib/video_block.rb:36
+msgid ""
+"This block presents a video from youtube, vimeo and some video formats (mp4, "
+"ogg, ogv and webm)"
+msgstr ""
+"Esse bloco apresenta um vídeo do youtube, vimeo e alguns formatos de video "
+"(mp4, ogg, ogv e webm)"
+
+#: plugins/video/lib/video_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can add videos from youtube, vimeo and "
+"html5."
+msgstr ""
+"Um plugin que adiciona um bloco onde você pode adicionar vídeos do youtube, "
+"vimeo e html5."
+
+#: plugins/video/views/video_block.html.erb:18
+msgid "Register a valid url (Vimeo, Youtube, video files)"
+msgstr "Registre uma url válida (Vimeo, Youtube, arquivo de vídeo)"

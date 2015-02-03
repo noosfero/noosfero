@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class LicenseTest < ActiveSupport::TestCase
   should 'validate presence of name and environment' do

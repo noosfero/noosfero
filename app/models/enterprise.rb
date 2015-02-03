@@ -100,7 +100,12 @@ class Enterprise < Organization
     self.tasks.where(:type => 'EnterpriseActivation').first
   end
 
-  def enable(owner)
+  def enable(owner = nil)
+    if owner.nil?
+      self.visible = true
+      return self.save
+    end
+
     return if enabled
     # must be set first for the following to work
     self.enabled = true
@@ -162,7 +167,7 @@ class Enterprise < Organization
   end
 
   def default_template
-    environment.enterprise_template
+    environment.enterprise_default_template
   end
 
   def template_with_inactive_enterprise

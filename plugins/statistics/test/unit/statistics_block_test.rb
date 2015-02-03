@@ -126,6 +126,19 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     assert_equal 2, b.enterprises
   end
 
+  should 'return the amount of enabled enterprises' do
+    b = StatisticsBlock.new
+    e = fast_create(Environment)
+
+    fast_create(Enterprise, :environment_id => e.id)
+    fast_create(Enterprise, :environment_id => e.id)
+    fast_create(Enterprise, :enabled => false, :environment_id => e.id)
+
+    b.expects(:owner).at_least_once.returns(e)
+
+    assert_equal 2, b.enterprises
+  end
+
   should 'categories return the amount of categories of the Environment' do
     b = StatisticsBlock.new
     e = fast_create(Environment)

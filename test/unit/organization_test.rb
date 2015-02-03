@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class OrganizationTest < ActiveSupport::TestCase
   fixtures :profiles
@@ -381,6 +381,33 @@ class OrganizationTest < ActiveSupport::TestCase
     organization.cnpj = '94.132.024/0001-48'
     organization.valid?
     assert !organization.errors[:cnpj.to_s].present?
+  end
+
+  should 'get members by role' do
+    community = fast_create(Community)
+    role1 = Role.create!(:name => 'role1')
+    person1 = fast_create(Person)
+    community.affiliate(person1, role1)
+    role2 = Role.create!(:name => 'role2')
+    person2 = fast_create(Person)
+    community.affiliate(person2, role2)
+
+    assert_equal [person1], community.members_by_role([role1])
+  end
+
+  should 'get members by more than one role' do
+    community = fast_create(Community)
+    role1 = Role.create!(:name => 'role1')
+    person1 = fast_create(Person)
+    community.affiliate(person1, role1)
+    role2 = Role.create!(:name => 'role2')
+    person2 = fast_create(Person)
+    community.affiliate(person2, role2)
+    role3 = Role.create!(:name => 'role3')
+    person3 = fast_create(Person)
+    community.affiliate(person3, role3)
+
+    assert_equal [person2, person3], community.members_by_role([role2, role3])
   end
 
   should 'return members by role in a json format' do

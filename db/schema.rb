@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140827191326) do
+ActiveRecord::Schema.define(:version => 20150122165042) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
     t.integer  "spam_comments_count",  :default => 0
     t.integer  "author_id"
     t.integer  "created_by_id"
+    t.boolean  "show_to_followers",    :default => false
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
@@ -315,7 +316,7 @@ ActiveRecord::Schema.define(:version => 20140827191326) do
   create_table "external_feeds", :force => true do |t|
     t.string   "feed_title"
     t.datetime "fetched_at"
-    t.string   "address"
+    t.text     "address"
     t.integer  "blog_id",                         :null => false
     t.boolean  "enabled",       :default => true, :null => false
     t.boolean  "only_once",     :default => true, :null => false

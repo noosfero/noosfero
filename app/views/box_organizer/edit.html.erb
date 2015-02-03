@@ -5,6 +5,12 @@
 
     <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
 
+    <% if environment.admins.include?(user) %>
+      <div class="fixed_block">
+        <%= labelled_check_box(_("Fixed"), "block[fixed]", value = "1", checked = @block.fixed) %>
+      </div>
+    <% end %>
+
     <%= render :partial => partial_for_class(@block.class) %>
 
     <div class="display">

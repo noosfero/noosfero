@@ -1,0 +1,135 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+#: plugins/solr/lib/solr_plugin.rb:14
+msgid "Uses Solr as search engine."
+msgstr "Usa Solr como motor de busca."
+
+#: plugins/solr/lib/ext/product.rb:7
+msgid "Related products"
+msgstr "Produtos relacionados"
+
+#: plugins/solr/lib/ext/product.rb:73
+msgid " cert. "
+msgstr " cert. "
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Published date"
+msgstr "Data de publicação"
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Older than one year"
+msgstr "Mais de um ano"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last year"
+msgstr "No último ano"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last month"
+msgstr "No último mês"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last week"
+msgstr "Na última semana"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last day"
+msgstr "No último dia"
+
+#: plugins/solr/lib/ext/profile.rb:14
+msgid "Situation"
+msgstr "Situação"
+
+#: plugins/solr/lib/ext/profile.rb:103
+msgid "facets|Enabled"
+msgstr "Habilitado"
+
+#: plugins/solr/lib/ext/profile.rb:103
+msgid "facets|Not enabled"
+msgstr "Não habilitado"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:12
+#: plugins/solr/lib/solr_plugin/search_helper.rb:19
+#: plugins/solr/lib/solr_plugin/search_helper.rb:22
+#: plugins/solr/lib/solr_plugin/search_helper.rb:26
+#: plugins/solr/lib/solr_plugin/search_helper.rb:29
+#: plugins/solr/lib/solr_plugin/search_helper.rb:32
+msgid "Relevance"
+msgstr "Relevância"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:14
+#: plugins/solr/lib/solr_plugin/search_helper.rb:20
+#: plugins/solr/lib/solr_plugin/search_helper.rb:23
+#: plugins/solr/lib/solr_plugin/search_helper.rb:27
+#: plugins/solr/lib/solr_plugin/search_helper.rb:30
+#: plugins/solr/lib/solr_plugin/search_helper.rb:33
+msgid "Name"
+msgstr ""
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:15
+msgid "Closest to me"
+msgstr "Mais próximo de mim"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:125
+msgid "Sort results by "
+msgstr "Ordenar resultados por "
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:135
+msgid "%s products offers found"
+msgstr "%s ofertas de produtos encontrados"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:136
+msgid "%s articles found"
+msgstr "%s artigos encontrados"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:137
+msgid "%s events found"
+msgstr "%s eventos encontrados"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:138
+msgid "%s people found"
+msgstr "%s pessoas encontradas"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:139
+msgid "%s enterprises found"
+msgstr "%s empreendimentos encontrados"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:140
+msgid "%s communities found"
+msgstr "%s comunidades encontradas"
+
+#: plugins/solr/lib/solr_plugin/search_helper.rb:222
+msgid "Type in an option"
+msgstr "Digite uma opção"
+
+#: plugins/solr/views/search/_results_header.html.erb:7
+msgid "Showing page %s of %s"
+msgstr "Mostrando página %d de %d"
+
+#: plugins/solr/views/search/_facets_menu.html.erb:32
+msgid "No filter available"
+msgstr "Nenhum filtro disponível"

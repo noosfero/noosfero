@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../test_helper"
+require_relative "../test_helper"
 
 class BlocksTest < ActionController::IntegrationTest
   def blog_on_article_block_bootstrap

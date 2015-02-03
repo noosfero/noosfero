@@ -1,0 +1,24 @@
+<div class="select-visibility-options">
+
+<%= labelled_form_for 'article', :html => { :multipart => true, :class => @type } do |f| %>
+
+  <% @article = environment.articles.find_by_id((params[:article_id]))%>
+
+  <% @tokenized_children = params[:tokenized_children]%>
+
+  <%= hidden_field_tag('article_id', @article.id) %>
+
+  <div id='edit-article-options'>
+    <%= visibility_options(@article, @tokenized_children) %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= button :cancel, _('Cancel'), @back_to %>
+  <% end %>
+<% end %>
+</div>
+
+<br style='clear: both'/>
+
+<%= javascript_include_tag "article.js" %>

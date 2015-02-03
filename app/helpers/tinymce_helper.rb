@@ -11,7 +11,7 @@ module TinymceHelper
   end
 
   def tinymce_init_js options = {}
-    options.merge! :document_base_url => environment.top_url,
+    options.merge! :document_base_url => top_url,
       :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
       :plugins => %w[compat3x advlist autolink lists link image charmap print preview hr anchor pagebreak
         searchreplace wordcount visualblocks visualchars code fullscreen

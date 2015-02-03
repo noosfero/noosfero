@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"PO-Revision-Date: 2009-10-26 16:20-0300\n"
+"Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
+
+#: plugins/statistics/lib/statistics_block.rb:23
+msgid "Statistics for %s"
+msgstr "Վիճակագրություն"
+
+#: plugins/statistics/lib/statistics_block.rb:45
+#, fuzzy
+msgid "This block presents some statistics about your context."
+msgstr "Ձեր նախընտրած ձեռնարկությունները ցուցադրող բաժին"
+
+#: plugins/statistics/lib/statistics_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
+#, fuzzy
+msgid "Show user counter"
+msgstr "Վայր"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:4
+#, fuzzy
+msgid "Show community counter"
+msgstr "Մեկ համայնք"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:8
+#, fuzzy
+msgid "Show enterprise counter"
+msgstr "%s-ի բոլոր ձեռնարկությունները"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
+#, fuzzy
+msgid "Show category counter"
+msgstr "Նոր կատեգորիա"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#, fuzzy
+msgid "Show tag counter"
+msgstr "Ամբողջ բովանդակությունը"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
+#, fuzzy
+msgid "Show comment counter"
+msgstr "Մեկնաբանությունների հաշվարկում"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
+#, fuzzy
+msgid "Show hit counter"
+msgstr "Ամբողջ բովանդակությունը"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:30
+msgid "Show counter for communities with template %s"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:7
+#, fuzzy
+msgid "users"
+msgstr "մասնակից"
+
+#: plugins/statistics/views/statistics_block.html.erb:10
+#, fuzzy
+msgid "enterprises"
+msgstr "Կազմակերպություն Ձեռնարկություն"
+
+#: plugins/statistics/views/statistics_block.html.erb:13
+#, fuzzy
+msgid "communities"
+msgstr "Համայնքներ"
+
+#: plugins/statistics/views/statistics_block.html.erb:16
+#, fuzzy
+msgid "categories"
+msgstr "Կատեգորիաներ"
+
+#: plugins/statistics/views/statistics_block.html.erb:25
+msgid "hits"
+msgstr ""

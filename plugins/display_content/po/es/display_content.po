@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-11-03 15:52+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0-dev\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:34
+#, fuzzy
+msgid "Display your contents"
+msgstr "Mostrar alguno de tus contenidos"
+
+#: plugins/display_content/lib/display_content_block.rb:38
+#, fuzzy
+msgid ""
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
+msgstr ""
+"Este bloque muestra uno de tus artículos. Puedes editar el bloque "
+"seleccionandocuál de tus artículos será mostrado en el bloque."
+
+#: plugins/display_content/lib/display_content_block.rb:43
+#, fuzzy
+msgid "Publish date"
+msgstr "Fecha de publicación"
+
+#: plugins/display_content/lib/display_content_block.rb:45
+msgid "Abstract"
+msgstr "Resumen"
+
+#: plugins/display_content/lib/display_content_block.rb:151
+#, fuzzy
+msgid "Read more"
+msgstr "Ver más"
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
+msgid "Choose which attributes should be displayed and drag to reorder them:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
+msgid "Choose which content should be displayed:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
+msgid "Choose directly"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
+#, fuzzy
+msgid "Choose by Content Type"
+msgstr "Tipo de contenido"
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
+#, fuzzy
+msgid "Display content types:"
+msgstr "Mostrar alguno de tus contenidos"
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
+#, fuzzy
+msgid "more"
+msgstr "Ver más"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""

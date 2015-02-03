@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class RoleAssignmentExtTest < ActiveSupport::TestCase
   should 'increase organization members_count only on the first role_assignment' do

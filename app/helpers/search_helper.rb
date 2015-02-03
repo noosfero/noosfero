@@ -24,6 +24,12 @@ module SearchHelper
     }
   }
 
+  COMMON_PROFILE_LIST_BLOCK = [
+    :enterprises,
+    :people,
+    :communities
+  ]
+
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
@@ -97,6 +103,20 @@ module SearchHelper
       options = options.map {|option| [FILTERS_OPTIONS_TRANSLATION[name][option], option]}
       options = options_for_select(options, :selected => (params[name] || default))
       select_tag(name, options)
+    end
+  end
+
+  def display_selector(asset, display, float = 'right')
+    display = nil if display.blank?
+    display ||= asset_class(asset).default_search_display
+    if [display?(asset, :map), display?(asset, :compact), display?(asset, :full)].select {|option| option}.count > 1
+      compact_link = display?(asset, :compact) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
+      map_link = display?(asset, :map) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
+      full_link = display?(asset, :full) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
+      content_tag('div',
+        content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | ').html_safe,
+        :class => 'search-customize-options'
+      )
     end
   end
 

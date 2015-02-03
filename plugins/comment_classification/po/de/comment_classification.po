@@ -1,0 +1,230 @@
+# German translation of noosfero.
+# Copyright (C) 2009-2013 Josef Spillner
+# Copyright (C) 2009, 2011 Ronny Kursawe
+# This file is distributed under the same license as the noosfero package.
+# Josef Spillner <josef.spillner@tu-dresden.de>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-12 14:23+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"de/>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
+#, fuzzy
+msgid "A plugin that allow classification of comments."
+msgstr "Ein Block, der Ihre Gruppen anzeigt"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:16
+#, fuzzy
+msgid "Label created"
+msgstr "Lizenz erstellt"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:19
+#, fuzzy
+msgid "Label could not be created"
+msgstr "Die Lizenz konnte nicht erstellt werden"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:31
+#, fuzzy
+msgid "Label updated"
+msgstr "Letzte Änderung"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:34
+#, fuzzy
+msgid "Failed to edit label"
+msgstr "Änderung der Aufgabe fehlgeschlagen"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:45
+#, fuzzy
+msgid "Label removed"
+msgstr "Lizenz entfernt"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:47
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:50
+#, fuzzy
+msgid "Label could not be removed"
+msgstr "Lizenz konnte nicht entfernt werden"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:15
+#, fuzzy
+msgid "Status created"
+msgstr "Vertrag erstellt."
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:18
+#, fuzzy
+msgid "Status could not be created"
+msgstr "Das Formular konnte nicht erstellt werden"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:29
+#, fuzzy
+msgid "Status updated"
+msgstr "Startdatum"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:32
+#, fuzzy
+msgid "Failed to edit status"
+msgstr "Änderung der Aufgabe fehlgeschlagen"
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:43
+#, fuzzy
+msgid "Status removed"
+msgstr "Vertrag entfernt."
+
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:45
+#: plugins/comment_classification/controllers/admin/comment_classification_plugin_status_controller.rb:48
+#, fuzzy
+msgid "Status could not be removed"
+msgstr "Das Formular konnte nicht entfernt werden"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
+#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
+msgid "Status"
+msgstr "Status"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:7
+#, fuzzy
+msgid "Reason:"
+msgstr "Grund"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:1
+#, fuzzy
+msgid "Status for comment"
+msgstr "Spam auf Kommentaren"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:16
+msgid ""
+"<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
+"i>."
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:18
+msgid "<i>Reason:</i> %s"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:24
+#: plugins/comment_classification/views/comment_classification_plugin_status/create.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:29
+#, fuzzy
+msgid "Add a new status"
+msgstr "Neue Option hinzufügen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/index.html.erb:1
+#, fuzzy
+msgid "Manage comment classification"
+msgstr "Verwaltungsinformationen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
+msgid "Color"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
+#, fuzzy
+msgid "Enable this label?"
+msgstr "Unternehmen aktivieren"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
+#, fuzzy
+msgid "Editing label %s"
+msgstr "Ändere %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
+#, fuzzy
+msgid "Add a new label"
+msgstr "Neues Feld hinzufügen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
+#, fuzzy
+msgid "Manage comments labels"
+msgstr "Communityfelder verwalten"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:5
+#, fuzzy
+msgid "(no label registered yet)"
+msgstr "(bisher kein Produkt registriert)"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:9
+#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
+msgid "Label"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:10
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
+#, fuzzy
+msgid "Are you sure you want to  remove this label?"
+msgstr "Sind Sie sicher, dass Sie diesen Block löschen wollen?"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
+#, fuzzy
+msgid "Enable this status?"
+msgstr "\"Kontaktieren Sie uns\" aktivieren"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/edit.html.erb:1
+#, fuzzy
+msgid "Editing status %s"
+msgstr "Ändere %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:1
+#, fuzzy
+msgid "Manage comments status"
+msgstr "Kontakte verwalten"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:5
+#, fuzzy
+msgid "(no status registered yet)"
+msgstr "(bisher kein Produkt registriert)"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:11
+#, fuzzy
+msgid "Reason enabled?"
+msgstr "facets|Nicht aktiviert"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:21
+#, fuzzy
+msgid "Are you sure you want to remove this status?"
+msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
+
+#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
+msgid "[Select ...]"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
+#, fuzzy
+msgid "Comments classification options"
+msgstr "Moderationseinstellungen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:4
+#, fuzzy
+msgid "Manage Labels"
+msgstr "Felder verwalten"
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:5
+#, fuzzy
+msgid "Manage Status"
+msgstr "Kontakte verwalten"

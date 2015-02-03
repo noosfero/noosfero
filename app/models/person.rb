@@ -25,7 +25,13 @@ class Person < Profile
   scope :not_members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions] }
+    { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions]
+  }
+
+  scope :by_role, lambda { |roles|
+    roles = [roles] unless roles.kind_of?(Array)
+    { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.role_id IN (?)',
+roles] }
   }
 
   def has_permission_with_plugins?(permission, profile)
@@ -84,6 +90,10 @@ class Person < Profile
   end
 
   belongs_to :user, :dependent => :delete
+
+  def can_change_homepage?
+    !environment.enabled?('cant_change_homepage') || is_admin?
+  end
 
   def can_control_scrap?(scrap)
     begin
@@ -311,7 +321,7 @@ class Person < Profile
   end
 
   def default_template
-    environment.person_template
+    environment.person_default_template
   end
 
   def apply_type_specific_template(template)

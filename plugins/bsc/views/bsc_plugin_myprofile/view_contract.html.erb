@@ -6,8 +6,8 @@
   </tr>
   <%= display_text_field(_('Client type'), BscPlugin::Contract::ClientType.names[@contract.client_type]) %>
   <%= display_text_field(_('Business type'), BscPlugin::Contract::BusinessType.names[@contract.business_type]) %>
-  <%= display_text_field(_('State'), @contract.state) %>
-  <%= display_text_field(_('City'), @contract.city) %>
+  <%= display_text_field(c_('State'), @contract.state) %>
+  <%= display_text_field(c_('City'), @contract.city) %>
   <%= display_text_field(_('Status'), BscPlugin::Contract::Status.names[@contract.status]) %>
   <%= display_text_field(_('Number of producers'), @contract.number_of_producers) %>
   <%= display_text_field(_('Supply period'), show_period(@contract.supply_start, @contract.supply_end, true)) %>
@@ -15,7 +15,7 @@
 
 <table class='bsc-fields-table' style="float: right;">
   <tr>
-    <th colspan='2'><%= _('Enterprises') %></th>
+    <th colspan='2'><%= c_('Enterprises') %></th>
   </tr>
   <%= display_list_field(@contract.enterprises.map {|enterprise| link_to(enterprise.short_name(60), enterprise.url)}) %>
 </table>
@@ -23,7 +23,7 @@
 <% if !@contract.sales.blank?%>
   <table id='bsc-plugin-sales-table' class="bsc-plugin-view-contract alternate-colors">
     <tr>
-      <th><%= _('Product') %></th>
+      <th><%= c_('Product') %></th>
       <th align="center"><%= _('Quantity') %></th>
       <th><%= _('Unit price') %></th>
     </tr>
@@ -51,5 +51,5 @@
 <% end %>
 
 <% button_bar do %>
-  <%= button(:back, _('Go back'), :action => 'manage_contracts') %>
+  <%= button(:back, c_('Go back'), :action => 'manage_contracts') %>
 <% end %>

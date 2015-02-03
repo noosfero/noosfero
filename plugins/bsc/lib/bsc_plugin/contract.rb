@@ -43,7 +43,7 @@ class BscPlugin::Contract < Noosfero::Plugin::ActiveRecord
     end
 
     def self.names
-      [_('State'), _('Federal')]
+      [c_('State'), _('Federal')]
     end
   end
 

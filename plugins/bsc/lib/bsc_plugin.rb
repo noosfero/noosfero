@@ -101,7 +101,7 @@ class BscPlugin < Noosfero::Plugin
     else
       content = lambda { product.enterprise.name }
     end
-    properties << { :name => _('Supplier'), :content => content }
+    properties << { :name => c_('Supplier'), :content => content }
   end
 
   def profile_tabs

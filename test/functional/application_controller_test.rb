@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'test_controller'
 
 # Re-raise errors caught by the controller.
@@ -496,51 +496,6 @@ class ApplicationControllerTest < ActionController::TestCase
       assert_nothing_raised(ActiveRecord::StatementInvalid) { get :index }
     end
 
-  end
-
-  should 'do not duplicate plugin filters' do
-
-    class FilterPlugin < Noosfero::Plugin
-      def test_controller_filters
-        { :type => 'before_filter',
-          :method_name => 'filter_plugin',
-          :options => {:only => 'some_method'},
-          :block => lambda {} }
-      end
-    end
-    Noosfero::Plugin.stubs(:all).returns([FilterPlugin.name])
-
-    Noosfero::Plugin.load_plugin_filters(FilterPlugin)
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
-
-    get :index
-    get :index
-    assert_equal 1, @controller.class._process_action_callbacks.select{|c| c.filter == :application_controller_test_filter_plugin_filter_plugin}.count
-  end
-
-  should 'do not call plugin filter block on a environment that this plugin is not enabled' do
-
-    class OtherFilterPlugin < Noosfero::Plugin
-      def test_controller_filters
-        { :type => 'before_filter',
-          :method_name => 'filter_plugin',
-          :options => {:only => 'some_method'},
-          :block => proc {'plugin block called'} }
-      end
-    end
-    Noosfero::Plugin.stubs(:all).returns([OtherFilterPlugin.name])
-
-    Noosfero::Plugin.load_plugin_filters(OtherFilterPlugin)
-    environment1 = fast_create(Environment, :name => 'test environment')
-    environment1.enable_plugin(OtherFilterPlugin.name)
-    environment2 = fast_create(Environment, :name => 'other test environment')
-
-    @controller.stubs(:environment).returns(environment1)
-    get :index
-    assert_equal 'plugin block called', @controller.application_controller_test_other_filter_plugin_filter_plugin
-
-    @controller.stubs(:environment).returns(environment2)
-    assert_equal nil, @controller.application_controller_test_other_filter_plugin_filter_plugin
   end
 
   should 'display meta tags for social media' do

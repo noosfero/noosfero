@@ -1,0 +1,100 @@
+# German translation of noosfero.
+# Copyright (C) 2009-2013 Josef Spillner
+# Copyright (C) 2009, 2011 Ronny Kursawe
+# This file is distributed under the same license as the noosfero package.
+# Josef Spillner <josef.spillner@tu-dresden.de>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-12 14:23+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"de/>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: plugins/stoa/lib/stoa_plugin.rb:10
+msgid "Add Stoa features"
+msgstr "Fügt die Stoa-Funktion hinzu"
+
+#: plugins/stoa/lib/stoa_plugin.rb:19 plugins/stoa/lib/stoa_plugin.rb:35
+msgid "USP number"
+msgstr "USP-Nummer"
+
+#: plugins/stoa/lib/stoa_plugin.rb:20
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"with a valid number if you have one."
+msgstr ""
+"Die USP-Nummer gibt Ihnen spezielle Kräfte im Netzwerk. Vergessen Sie nicht, "
+"sie als gültige Nummer anzugeben, sofern Sie eine haben."
+
+#: plugins/stoa/lib/stoa_plugin.rb:21
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr ""
+"Die USP-Nummer wird entweder bereits von einem anderen Nutzer belegt oder "
+"ist ungültig"
+
+#: plugins/stoa/lib/stoa_plugin.rb:22
+msgid "Checking usp number..."
+msgstr "Überprüfe USP-Nummer..."
+
+#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:38
+msgid "Birth date (yyyy-mm-dd)"
+msgstr "Geburtstag (jjjj-mm-tt)"
+
+#: plugins/stoa/lib/stoa_plugin.rb:24
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr ""
+"Bestätigen Sie Ihr Geburtsdatum. Folgen Sie dabei diesem Format: jjjj-mm-tt"
+
+#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:39
+msgid "CPF"
+msgstr "CPF"
+
+#: plugins/stoa/lib/stoa_plugin.rb:26
+msgid "Confirm your CPF number."
+msgstr "Bestätigen Sie Ihre CPF-Nummer."
+
+#: plugins/stoa/lib/stoa_plugin.rb:36
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"if you have one."
+msgstr ""
+"Die USP-Nummer gibt Ihnen spezielle Kräfte im Netzwerk. Vergessen Sie nicht, "
+"sie als gültige Nummer anzugeben, sofern Sie eine haben."
+
+#: plugins/stoa/lib/stoa_plugin.rb:37
+msgid "This field must be private"
+msgstr "Dieses Feld muss privat sein"
+
+#: plugins/stoa/lib/stoa_plugin.rb:47
+msgid "USP number / Username"
+msgstr "USP-Nummer/Telefonnummer"
+
+#: plugins/stoa/lib/stoa_plugin.rb:70 plugins/stoa/lib/stoa_plugin.rb:89
+msgid " validation failed"
+msgstr " Validierung fehlgeschlagen"
+
+#: plugins/stoa/lib/stoa_plugin.rb:121
+#, fuzzy
+msgid "USP Number"
+msgstr "USP-Nummer"
+
+#: plugins/stoa/lib/ext/person.rb:16
+msgid "is being used by another user or is not valid"
+msgstr "wird bereits von einem anderen Nutzer eingesetzt oder ist ungültig"
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
+msgid "Incorrect user/password pair."
+msgstr "Falsches Paar aus Nutzername und Passwort."
+
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+msgid "Conection requires SSL certificate and post method."
+msgstr "Die Verbindung benötigt ein SSL-Zertifikat und eine POST-Methode."

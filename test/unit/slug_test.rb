@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 # tests for String#to_slug core extension. See lib/noosfero/core_ext/string.rb
 class SlugTest < ActiveSupport::TestCase

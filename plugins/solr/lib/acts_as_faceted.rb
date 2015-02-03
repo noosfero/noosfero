@@ -7,11 +7,11 @@ module ActsAsFaceted
     # Example:
     #
     #acts_as_faceted :fields => {
-    #  :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
+    #  :f_type => {:label => c_('Type'), :proc => proc{|klass| f_type_proc(klass)}},
     #  :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
     #    '[NOW-1YEARS TO NOW/DAY]' => _("Last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("Last month"), '[NOW-7DAYS TO NOW/DAY]' => _("Last week"), '[NOW-1DAYS TO NOW/DAY]' => _("Last day")}},
-    #  :f_profile_type => {:label => _('Author'), :proc => proc{|klass| f_profile_type_proc(klass)}},
-    #  :f_category => {:label => _('Categories')}},
+    #  :f_profile_type => {:label => c_('Author'), :proc => proc{|klass| f_profile_type_proc(klass)}},
+    #  :f_category => {:label => c_('Categories')}},
     #  :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
     #
     #acts_as_searchable :additional_fields => [ {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets_fields_for_solr,

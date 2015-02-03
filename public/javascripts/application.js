@@ -518,6 +518,25 @@ function new_qualifier_row(selector, select_qualifiers, delete_button) {
   jQuery(selector).append("<tr><td>" + select_qualifiers + "</td><td id='certifier-area-" + index + "'><select></select>" + delete_button + "</td></tr>");
 }
 
+function userDataCallback(data) {
+  noosfero.user_data = data;
+  if (data.login) {
+    // logged in
+    if (data.chat_enabled) {
+      setInterval(function(){ jQuery.getJSON(user_data, chatOnlineUsersDataCallBack)}, 10000);
+    }
+    jQuery('head').append('<meta content="authenticity_token" name="csrf-param" />');
+    jQuery('head').append('<meta content="'+jQuery.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
+  }
+  if (data.notice) {
+    display_notice(data.notice);
+    // clear notice so that it is not display again in the case this function is called again.
+    data.notice = null;
+  }
+  // Bind this event to do more actions with the user data (for example, inside plugins)
+  jQuery(window).trigger("userDataLoaded", data);
+};
+
 // controls the display of the login/logout stuff
 jQuery(function($) {
   $.ajaxSetup({
@@ -528,21 +547,9 @@ jQuery(function($) {
   });
 
   var user_data = noosfero_root() + '/account/user_data';
-  $.getJSON(user_data, function userDataCallBack(data) {
-    if (data.login) {
-      // logged in
-      if (data.chat_enabled) {
-        setInterval(function(){ $.getJSON(user_data, chatOnlineUsersDataCallBack)}, 10000);
-      }
-      $('head').append('<meta content="authenticity_token" name="csrf-param" />');
-      $('head').append('<meta content="'+$.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
-    }
-    if (data.notice) {
-      display_notice(data.notice);
-    }
-    // Bind this event to do more actions with the user data (for example, inside plugins)
-    $(window).trigger("userDataLoaded", data);
-  });
+  $.getJSON(user_data, userDataCallback)
+
+  $.ajaxSetup({ cache: false });
 
   function chatOnlineUsersDataCallBack(data) {
     if ($('#chat-online-users').length == 0) {
@@ -829,9 +836,12 @@ Array.min = function(array) {
 };
 
 function hideAndGetUrl(link) {
+  document.body.style.cursor = 'wait';
   link.hide();
   url = jQuery(link).attr('href');
-  jQuery.get(url);
+  jQuery.get(url, function( data ) {
+    document.body.style.cursor = 'default';
+  });
 }
 
 jQuery(function($){

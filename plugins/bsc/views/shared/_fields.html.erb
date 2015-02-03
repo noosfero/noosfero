@@ -31,15 +31,15 @@
   <%= hidden_field_tag 'old_bsc_identifier', profile.identifier %>
   <div id="bsc-formitem">
     <%=   content_tag('code',
-            environment.top_url + '/ ' +
+            top_url + '/ ' +
             text_field(:profile_data, :identifier, :onchange => "warn_value_change()", :size => 25)
           ) +
           content_tag('div',
-            content_tag('strong', _('WARNING!')) + '&nbsp;' +
+            content_tag('strong', c_('WARNING!')) + '&nbsp;' +
               _("You are about to change the address, and this will break external links to this bsc or to posts inside it. Do you really want to change?") +
             content_tag('div',
-              button_to_function(:ok, _("Yes"), "confirm_change()") + ' ' +
-              button_to_function(:cancel, _('No'), 'no_change()')
+              button_to_function(:ok, c_("Yes"), "confirm_change()") + ' ' +
+              button_to_function(:cancel, c_('No'), 'no_change()')
             ),
             :id => 'identifier-change-confirmation',
             :class => 'change-confirmation',
@@ -57,10 +57,10 @@
 </fieldset>
 
 <fieldset>
-  <legend><%= _('Location')%></legend>
+  <legend><%= c_('Location')%></legend>
   <%= f.text_field(:address) %>
   <%= f.text_field(:zip_code) %>
   <%= f.text_field(:city) %>
   <%= f.text_field(:state) %>
-  <%= select_country(_('Country'), :profile_data, 'country', {:class => 'type-select'}) %>
+  <%= select_country(c_('Country'), :profile_data, 'country', {:class => 'type-select'}) %>
 </fieldset>

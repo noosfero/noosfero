@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"PO-Revision-Date: 2009-10-26 16:20-0300\n"
+"Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
+
+#: plugins/people_block/lib/friends_block.rb:8
+#, fuzzy
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
+
+#: plugins/people_block/lib/friends_block.rb:12
+#, fuzzy
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "ընկերներ"
+msgstr[1] "ընկերներ"
+
+#: plugins/people_block/lib/people_block_base.rb:9
+#, fuzzy
+msgid "Random people"
+msgstr "Բոլոր մարդիկ"
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+#, fuzzy
+msgid "{#} People"
+msgstr "Մարդիկ"
+
+#: plugins/people_block/lib/members_block.rb:11
+#, fuzzy
+msgid "Clicking a member takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
+
+#: plugins/people_block/lib/members_block.rb:15
+#, fuzzy
+msgid "members"
+msgstr "Անդամներ"
+
+#: plugins/people_block/lib/members_block.rb:16
+#, fuzzy
+msgid "{#} %s"
+msgstr "%{num} խմբեր"
+
+#: plugins/people_block/lib/members_block.rb:42
+msgid "Show join leave button"
+msgstr ""
+
+#: plugins/people_block/lib/people_block_plugin.rb:8
+#, fuzzy
+msgid "A plugin that adds a people block"
+msgstr "Ձեր խմբերը ցուցադրող բաժին"
+
+#: plugins/people_block/lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
+
+#: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
+msgid "Filter by role:"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:1
+#, fuzzy
+msgid "friends|View all"
+msgstr "Տեսնել բոլորին"

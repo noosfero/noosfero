@@ -78,7 +78,11 @@ class ProfileEditorController < MyProfileController
     if request.post?
       if @profile.destroy
         session[:notice] = _('The profile was deleted.')
-        redirect_to :controller => 'home'
+        if(params[:return_to])
+          redirect_to params[:return_to]
+        else
+          redirect_to :controller => 'home'
+        end
       else
         session[:notice] = _('Could not delete profile')
       end
@@ -100,6 +104,45 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def deactivate_profile
+    if environment.admins.include?(current_person)
+      profile = environment.profiles.find(params[:id])
+      if profile.disable
+        profile.save
+        session[:notice] = _("The profile '#{profile.name}' was deactivated.")
+      else
+        session[:notice] = _('Could not deactivate profile.')
+      end
+    end
+
+    redirect_to_previous_location
+  end
+
+  def activate_profile
+    if environment.admins.include?(current_person)
+      profile = environment.profiles.find(params[:id])
+
+      if profile.enable
+        session[:notice] = _("The profile '#{profile.name}' was activated.")
+      else
+        session[:notice] = _('Could not activate the profile.')
+      end
+    end
+
+    redirect_to_previous_location
+  end
+
+  protected
+
+  def redirect_to_previous_location
+    redirect_to @back_to
+  end
+
+  #TODO Consider using this as a general controller feature to be available on every action.
+  def back_to
+    @back_to = params[:back_to] || request.referer || "/"
+  end
+
   private
 
   def has_welcome_page
@@ -112,8 +155,4 @@ class ProfileEditorController < MyProfileController
     end
   end
 
-  #TODO Consider using this as a general controller feature to be available on every action.
-  def back_to
-    @back_to = params[:back_to] || request.referer
-  end
 end

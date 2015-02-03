@@ -1,0 +1,22 @@
+<h1><%= _("Classify Members Plugin's config") %></h1>
+
+<%= form_for(:settings) do |f| %>
+
+  <%= labelled_form_field _('Communities to classify people:'), f.text_area(:communities) %>
+
+  <p><%=
+    _('List of community identifiers and the applicable person label, line by line.')
+  %></p>
+
+  <fieldset>
+    <legend><%=_('Example:')%></legend>
+    <%=_('teachers: Teacher')%> <br>
+    <%=_('office-lawyers: Lawyer')%> <br>
+    <%=_('salvador-ba: Soteropolitano')%>
+  </fieldset>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>

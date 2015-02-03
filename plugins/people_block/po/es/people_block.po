@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"PO-Revision-Date: 2014-11-03 15:52+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0-dev\n"
+
+#: plugins/people_block/lib/friends_block.rb:8
+#, fuzzy
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Presionando en una persona te lleva a su página de inicio"
+
+#: plugins/people_block/lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "{#} amigo"
+msgstr[1] "{#} amigos"
+
+#: plugins/people_block/lib/people_block_base.rb:9
+msgid "Random people"
+msgstr "Gente aleatoria"
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+#, fuzzy
+msgid "{#} People"
+msgstr "Personas"
+
+#: plugins/people_block/lib/members_block.rb:11
+#, fuzzy
+msgid "Clicking a member takes you to his/her homepage"
+msgstr "Presionando en una persona te lleva a su página de inicio"
+
+#: plugins/people_block/lib/members_block.rb:15
+#, fuzzy
+msgid "members"
+msgstr "Miembros"
+
+#: plugins/people_block/lib/members_block.rb:16
+#, fuzzy
+msgid "{#} %s"
+msgstr "{#} grupos"
+
+#: plugins/people_block/lib/members_block.rb:42
+msgid "Show join leave button"
+msgstr ""
+
+#: plugins/people_block/lib/people_block_plugin.rb:8
+#, fuzzy
+msgid "A plugin that adds a people block"
+msgstr "Un plugin que hace ésto y aquello."
+
+#: plugins/people_block/lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Presionando en una persona te lleva a su página de inicio"
+
+#: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
+msgid "Filter by role:"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:1
+msgid "friends|View all"
+msgstr "Ver todos"

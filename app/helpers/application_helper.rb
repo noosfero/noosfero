@@ -433,19 +433,19 @@ module ApplicationHelper
   end
 
   def theme_site_title
-    theme_include('site_title')
+    @theme_site_title ||= theme_include 'site_title'
   end
 
   def theme_header
-    theme_include('header')
+    @theme_header ||= theme_include 'header'
   end
 
   def theme_footer
-    theme_include('footer')
+    @theme_footer ||= theme_include 'footer'
   end
 
   def theme_extra_navigation
-    theme_include('navigation')
+    @theme_extra_navigation ||= theme_include 'navigation'
   end
 
   def is_testing_theme
@@ -674,13 +674,14 @@ module ApplicationHelper
     html.join "\n"
   end
 
+  def theme_javascript_src
+    script = File.join theme_path, 'theme.js'
+    script if File.exists? File.join(Rails.root, 'public', script)
+  end
+
   def theme_javascript_ng
-    script = File.join(theme_path, 'theme.js')
-    if File.exists?(File.join(Rails.root, 'public', script))
-      javascript_include_tag script
-    else
-      nil
-    end
+    script = theme_javascript_src
+    javascript_include_tag script if script
   end
 
   def file_field_or_thumbnail(label, image, i)
@@ -861,8 +862,9 @@ module ApplicationHelper
   end
 
   def base_url
-    environment.top_url
+    environment.top_url(request.scheme)
   end
+  alias :top_url :base_url
 
   def helper_for_article(article)
     article_helper = ActionView::Base.new
@@ -944,9 +946,9 @@ module ApplicationHelper
   # from Article model for an ArticleBlock.
   def reference_to_article(text, article, anchor=nil)
     if article.profile.domains.empty?
-      href = "/#{article.url[:profile]}/"
+      href = "#{Noosfero.root}/#{article.url[:profile]}/"
     else
-      href = "http://#{article.profile.domains.first.name}/"
+      href = "http://#{article.profile.domains.first.name}#{Noosfero.root}/"
     end
     href += article.url[:page].join('/')
     href += '#' + anchor if anchor
@@ -1325,10 +1327,8 @@ module ApplicationHelper
     return '' if templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
-    counter = 0
     radios = templates.map do |template|
-      counter += 1
-      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
+      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, environment.is_default_template?(template)))
     end.join("\n")
 
     content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +

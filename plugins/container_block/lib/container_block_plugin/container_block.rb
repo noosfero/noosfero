@@ -10,7 +10,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   validate :no_cyclical_reference, :if => 'container_box_id.present?'
 
   def no_cyclical_reference
-    errors.add(:box_id, _('cyclical reference is not allowed.')) if box_id == container_box_id
+    errors.add(:box_id, c_('cyclical reference is not allowed.')) if box_id == container_box_id
   end
 
   before_save do |b|
