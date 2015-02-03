@@ -110,6 +110,11 @@ class Article < ActiveRecord::Base
     self.activity.destroy if self.activity
   end
 
+  after_destroy :destroy_link_article
+  def destroy_link_article
+    Article.where(:reference_article_id => self.id, :type => LinkArticle).destroy_all
+  end
+
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
   scope :in_category, lambda { |category|
