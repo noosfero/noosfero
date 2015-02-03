@@ -795,7 +795,10 @@ private :generate_url, :url_options
   end
 
   def admins
-    self.members_by_role(Profile::Roles.admin(environment.id))
+    return [] if environment.blank?
+    admin_role = Profile::Roles.admin(environment.id)
+    return [] if admin_role.blank?
+    self.members_by_role(admin_role)
   end
 
   def enable_contact?
@@ -803,7 +806,7 @@ private :generate_url, :url_options
   end
 
   include Noosfero::Plugin::HotSpot
-  
+
   def folder_types
     types = Article.folder_types
     plugins.dispatch(:content_types).each {|type|

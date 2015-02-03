@@ -86,7 +86,9 @@ class Environment < ActiveRecord::Base
   end
 
   def admins
-    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', Environment::Roles.admin(self).id])
+    admin_role = Environment::Roles.admin(self)
+    return [] if admin_role.blank?
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', admin_role.id])
   end
 
   # returns the available features for a Environment, in the form of a
