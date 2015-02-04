@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 # tests for Integer core extension. See lib/noosfero/core_ext/integer.rb
 class IntegerCoreExtTest < ActiveSupport::TestCase

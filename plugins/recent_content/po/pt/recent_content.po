@@ -1,0 +1,93 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+#: plugins/recent_content/lib/recent_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can display the content of any of your "
+"blogs."
+msgstr ""
+"Um plugin que adiciona blocos onde você pode mostrar o conteúdo de qualquer "
+"um dos seus blogs."
+
+#: plugins/recent_content/lib/recent_content_block.rb:17
+msgid ""
+"This block displays all articles inside the blog you choose. You can edit "
+"the block to select which of your blogs is going to be displayed in the "
+"block."
+msgstr ""
+"Esse bloco apresenta todos os conteúdos do blog escolhido. Você pode editar "
+"esse bloco para escolher qual dos seus blogs será mostrado nele."
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:3
+msgid "No blogs found. Please add a blog in order to configure this block."
+msgstr ""
+"Nenhum blog encontrado. Por favor adicione um blog para configurar esse "
+"bloco."
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:6
+msgid "Choose which blog should be displayed"
+msgstr "Escolha qual blog deve ser mostrado"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:14
+msgid "Choose how the content should be displayed"
+msgstr "Escolha como o conteúdo deve ser mostrado"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:19
+msgid "Title only"
+msgstr "Somente título"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:20
+msgid "Title and abstract"
+msgstr "Título e resumo"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:21
+msgid "Full content"
+msgstr "Conteúdo completo"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:28
+msgid "Choose how many items will be displayed"
+msgstr "Escolha quantos itens devem ser mostrados"
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:33
+msgid "Display blog cover image"
+msgstr "Mostrar imagem de capa do blog"
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:26
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:35
+msgid "Read more"
+msgstr ""
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
+msgid "View All"
+msgstr "Ver Todos(as)"
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:43
+msgid ""
+"This is the recent content block. Please edit it to show the content you "
+"want."
+msgstr ""
+"Esse é o bloco de conteúdo recente. Por favor edite-o para mostrar o "
+"conteúdo que você deseja."

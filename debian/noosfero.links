@@ -15,4 +15,4 @@ var/lib/noosfero-data/public/thumbnails             usr/share/noosfero/public/th
 usr/share/noosfero/public/designs/themes/noosfero   usr/share/noosfero/public/designs/themes/default
 usr/share/noosfero/public/designs/icons/tango       usr/share/noosfero/public/designs/icons/default
 usr/share/noosfero/script/noosfero-plugins          usr/sbin/noosfero-plugins
-usr/share/noosfero/Gemfile.lock                     /dev/null
+/dev/null                                           usr/share/noosfero/Gemfile.lock

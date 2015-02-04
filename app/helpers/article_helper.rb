@@ -3,6 +3,12 @@ module ArticleHelper
   include PrototypeHelper
   include TokenHelper
 
+  def article_reported_version(article)
+    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
+    partial_path = File.join('shared', 'reported_versions', 'profile', partial_for_class_in_view_path(article.class, search_path))
+    render_to_string(:partial => partial_path, :locals => {:article => article})
+  end
+
   def custom_options_for_article(article, tokenized_children)
     @article = article
 
@@ -71,12 +77,59 @@ module ArticleHelper
       content_tag('div',
         radio_button(:article, :published, false) +
           content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private")
-       ) +
-      (article.profile.community? ? content_tag('div',
-        content_tag('label', _('Fill in the search field to add the exception users to see this content'), :id => "text-input-search-exception-users") +
-        token_input_field_tag(:q, 'search-article-privacy-exceptions', {:action => 'search_article_privacy_exceptions'},
-          {:focus => false, :hint_text => _('Type in a search term for a user'), :pre_populate => tokenized_children})) :
-          ''))
+      ) +
+      privacity_exceptions(article, tokenized_children)
+    )
+  end
+
+  def privacity_exceptions(article, tokenized_children)
+    content_tag('div',
+      content_tag('div',
+        (
+          if article.profile
+            add_option_to_followers(article, tokenized_children)
+          else
+            ''
+          end
+        )
+      ),
+      :style => "margin-left:10px"
+    )
+  end
+
+  def add_option_to_followers(article, tokenized_children)
+    label_message = article.profile.organization? ? _('For all community members') : _('For all your friends')
+
+    check_box(
+      :article,
+      :show_to_followers,
+      {:class => "custom_privacy_option"}
+    ) +
+    content_tag(
+      'label',
+      label_message,
+      :for => 'article_show_to_followers',
+      :id => 'label_show_to_followers'
+    ) +
+    (article.profile.community? ?
+      content_tag(
+        'div',
+        content_tag(
+          'label',
+          _('Fill in the search field to add the exception users to see this content'),
+          :id => "text-input-search-exception-users"
+        ) +
+        token_input_field_tag(
+          :q,
+          'search-article-privacy-exceptions',
+          {:action => 'search_article_privacy_exceptions'},
+          {
+            :focus => false,
+            :hint_text => _('Type in a search term for a user'),
+            :pre_populate => tokenized_children
+          }
+        )
+      ) : '')
   end
 
   def prepare_to_token_input(array)

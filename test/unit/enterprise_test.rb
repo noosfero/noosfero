@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
@@ -169,7 +169,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     e = Environment.default
     e.replace_enterprise_template_when_enable = true
-    e.enterprise_template = template
+    e.enterprise_default_template = template
     e.save!
 
     ent = fast_create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
@@ -192,7 +192,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     e = Environment.default
     e.inactive_enterprise_template = inactive_template
-    e.enterprise_template = active_template
+    e.enterprise_default_template = active_template
     e.save!
 
     ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
@@ -306,6 +306,18 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert enterprise.errors[:contact_phone.to_s].present?
 
     enterprise.contact_phone = '99999'
+    enterprise.valid?
+    assert ! enterprise.errors[:contact_phone.to_s].present?
+  end
+
+  should 'not require fields if enterprise is a template' do
+    e = Environment.default
+    e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
+    enterprise = build(Enterprise, :environment => e)
+    assert ! enterprise.valid?
+    assert enterprise.errors[:contact_phone.to_s].present?
+
+    enterprise.is_template = true
     enterprise.valid?
     assert ! enterprise.errors[:contact_phone.to_s].present?
   end

@@ -16,10 +16,10 @@
       <li class="categories"><span class="amount"><%= block.categories%> </span><span class="label"><%= _('categories')%></span></li>
     <% end %>
     <% if block.is_visible?('tag_counter') %>
-      <li class="tags"><span class="amount"><%= block.tags%> </span><span class="label"><%= _('tags')%></span></li>
+      <li class="tags"><span class="amount"><%= block.tags%> </span><span class="label"><%= c_('tags')%></span></li>
     <% end %>
     <% if block.is_visible?('comment_counter') %>
-      <li class="comments"><span class="amount"><%= block.comments%> </span><span class="label"><%= _('comments')%></span></li>
+      <li class="comments"><span class="amount"><%= block.comments%> </span><span class="label"><%= c_('comments')%></span></li>
     <% end %>
     <% if block.is_visible?('hit_counter') %>
       <li class="hits"><span class="amount"><%= block.hits%> </span><span class="label"><%= _('hits')%></span></li>

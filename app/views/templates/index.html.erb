@@ -2,9 +2,10 @@
 
 <%= _('Manage the templates used on creation of profiles') %>
 
-<% list_of_templates = [[_('Person')    , environment.people.templates     , 'person'    ],
+<% list_of_templates = [[_('Person')    , environment.person_templates     , 'person'    ],
                         [_('Community') , environment.communities.templates, 'community' ],
                         [_('Enterprise'), environment.enterprises.templates, 'enterprise']] %>
+
 
 <% list_of_templates.each do |title, templates, kind|%>
   <div class='template-kind'>
@@ -15,6 +16,11 @@
         <li>
           <%= image_tag "icons-app/#{kind}-icon.png" %>
           <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier}, :title => _('Edit template "%s"') % template.name ) %>
+          <% if environment.is_default_template?(template) %>
+            <%= _('is the default template') %>
+          <% else %>
+            <%= link_to(_('Set as default'), {:action => "set_#{kind}_as_default", :template_id => template.id}, :title => _('Set %s template as default') % template.name ) %>
+          <% end %>
         </li>
       <% end %>
     </ul>

@@ -10,11 +10,11 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    return _('Public') if form.access.nil?
+    return c_('Public') if form.access.nil?
     return _('Logged users') if form.access == 'logged'
     if form.access == 'associated'
-      return _('Members') if form.profile.organization?
-      return _('Friends') if form.profile.person?
+      return c_('Members') if form.profile.organization?
+      return c_('Friends') if form.profile.person?
     end
     return _('Custom')
   end
@@ -41,9 +41,9 @@ module CustomFormsPlugin::Helper
   # TODO add the custom option that should offer the user the hability to
   # choose the profiles one by one, using something like tokeninput
   def access_options(profile)
-    associated = profile.organization? ? _('Members') : _('Friends')
+    associated = profile.organization? ? c_('Members') : c_('Friends')
     [
-      [_('Public'), nil         ],
+      [c_('Public'), nil         ],
       [_('Logged users'), 'logged'    ],
       [ associated, 'associated'],
     ]
@@ -51,7 +51,7 @@ module CustomFormsPlugin::Helper
 
   def type_options
     [
-      [_('Text'),   'text_field'  ],
+      [c_('Text'),   'text_field'  ],
       [_('Select'), 'select_field']
     ]
   end

@@ -1,4 +1,4 @@
-<%= link_to _('View all'), {:profile => profile.identifier, :controller => 'people_block_plugin_profile', :action => 'members', :role_key => role_key}, :class => 'view-all' %>
+<%= link_to c_('View all'), {:profile => profile.identifier, :controller => 'people_block_plugin_profile', :action => 'members', :role_key => role_key}, :class => 'view-all' %>
 
 <% if show_join_leave_button %>
   <%= render :partial => 'blocks/profile_info_actions/join_leave_community' %>

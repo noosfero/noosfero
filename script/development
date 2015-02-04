@@ -5,8 +5,13 @@ set -e
 export RAILS_ENV=development
 
 stop() {
+  echo "Stopping ..."
   ./script/delayed_job stop
   ./script/feed-updater stop
+  if [ -f tmp/pids/thin.pid ]; then
+    kill -9 $(cat tmp/pids/thin.pid)
+    rm -f tmp/pids/thin.pid
+  fi
   exit
 }
 
@@ -15,7 +20,18 @@ start() {
   ./script/feed-updater start
   ./script/delayed_job start
   trap stop INT TERM
-  rails s $@
+  if [ -z "$RAILS_RELATIVE_URL_ROOT" ]; then
+    rails s $@
+  else
+    mkdir -p log
+    touch log/development.log
+    thin \
+      --prefix "$RAILS_RELATIVE_URL_ROOT" \
+      --pid tmp/pids/thin.pid \
+      --daemonize \
+      start
+    tail -n 0 -f log/development.log || true
+  fi
 }
 
 start $@

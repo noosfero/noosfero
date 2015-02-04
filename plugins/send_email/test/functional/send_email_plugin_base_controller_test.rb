@@ -1,5 +1,14 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
+def base_setup
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+    environment = Environment.default
+    environment.noreply_email = 'noreply@example.com'
+    environment.save!
+end
+
 def run_common_tests
   should 'not deliver emails via GET requests' do
     get :deliver, @extra_args
@@ -35,7 +44,7 @@ def run_common_tests
 
   should 'deliver mail' do
     Environment.any_instance.stubs(:send_email_plugin_allow_to).returns('john@example.com')
-    assert_difference ActionMailer::Base.deliveries, :size do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       post :deliver, @extra_args.merge(:to => 'john@example.com', :message => 'Hi john')
     end
   end
@@ -49,23 +58,19 @@ end
 
 class SendEmailPluginProfileControllerTest < ActionController::TestCase
   def setup
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
+    base_setup
     community = fast_create(Community)
     @extra_args = {:profile => community.identifier}
   end
 
-  run_common_tests()
+  run_common_tests
 end
 
 class SendEmailPluginControllerTest < ActionController::TestCase
   def setup
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
+    base_setup
     @extra_args = {}
   end
 
-  run_common_tests()
+  run_common_tests
 end

@@ -174,6 +174,8 @@ class CmsController < MyProfileController
 
   post_only :set_home_page
   def set_home_page
+    return render_access_denied unless user.can_change_homepage?
+
     article = params[:id].nil? ? nil : profile.articles.find(params[:id])
     profile.update_attribute(:home_page, article)
 
@@ -212,6 +214,7 @@ class CmsController < MyProfileController
       if @errors.any?
         render :action => 'upload_files', :parent_id => @parent_id
       else
+        session[:notice] = _('File(s) successfully uploaded') 
         if @back_to
           redirect_to @back_to
         elsif @parent

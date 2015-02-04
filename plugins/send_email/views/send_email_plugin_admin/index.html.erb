@@ -1,0 +1,9 @@
+<h1><%= _("SendEmailPlugin's config") %></h1>
+
+<%= form_for :environment, :url => {:action => 'index'}, :html => {:method => 'post'} do |f| %>
+  <%= labelled_form_field(_("E-Mail addresses you want to allow to send"), f.text_area(:send_email_plugin_allow_to, :rows => 8)) %>
+  <small><%= _('(list of email addresses separated by comma)') %></small>
+  <% button_bar do %>
+    <%= submit_button 'save', c_('Save'), :cancel => {:controller => 'plugins'} %>
+  <% end %>
+<% end %>

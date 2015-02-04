@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 # tests for String core extension. See lib/noosfero/core_ext/string.rb
 class StringCoreExtTest < ActiveSupport::TestCase

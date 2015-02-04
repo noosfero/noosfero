@@ -10,7 +10,7 @@ class PeopleBlockBase < Block
   end
 
   def help
-    _('Clicking on the people or groups will take you to their home page.')
+    c_('Clicking on the people or groups will take you to their home page.')
   end
 
   def default_title
@@ -58,7 +58,7 @@ class PeopleBlockBase < Block
                send(:profile_image_link, item, :minor )
              }.join("\n")
       if list.empty?
-        list = content_tag 'div', _('None'), :class => 'common-profile-list-block-none'
+        list = content_tag 'div', c_('None'), :class => 'common-profile-list-block-none'
       else
         if !name.blank? && !expanded_address.blank?
           list << content_tag(

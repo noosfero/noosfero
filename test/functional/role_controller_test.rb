@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'role_controller'
 
 # Re-raise errors caught by the controller.
@@ -78,4 +78,24 @@ class RoleControllerTest < ActionController::TestCase
       get :edit, :id => role.id
     end
   end
+
+  should 'display permissions for both environment and profile when editing a environment role' do
+    role = Role.create!(:name => 'environment_role', :key => 'environment_role', :environment => Environment.default)
+    get :edit, :id => role.id
+    ['Environment', 'Profile'].each do |key|
+      ActiveRecord::Base::PERMISSIONS[key].each do |permission, value|
+        assert_select ".permissions.#{key.downcase} input##{permission}"
+      end
+    end
+  end
+
+  should 'display permissions only for profile when editing a profile role' do
+    role = Role.create!(:name => 'profile_role', :key => 'profile_role', :environment => Environment.default)
+    get :edit, :id => role.id
+    ActiveRecord::Base::PERMISSIONS['Profile'].each do |permission, value|
+      assert_select "input##{permission}"
+    end
+    assert_select ".permissions.environment", false
+  end
+
 end

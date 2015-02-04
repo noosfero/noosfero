@@ -10,7 +10,7 @@ module ContentViewerHelper
   end
 
   def number_of_comments(article)
-    display_number_of_comments(article.comments_count - article.spam_comments_count)
+    display_number_of_comments(article.comments_count - article.spam_comments_count.to_i)
   end
 
   def article_title(article, args = {})
@@ -45,7 +45,7 @@ module ContentViewerHelper
         { article.environment.locales[translation.language] => { :href => url_for(translation.url) } }
       end
       content_tag(:div, link_to(_('Translations'), '#',
-                                :onmouseover => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
+                                :onmouseover => "toggleSubmenu(this, '#{_('Translations')}', #{CGI::escape_html(links.to_json)}); return false",
                                 :class => 'article-translations-menu simplemenu-trigger up'),
                   :class => 'article-translations')
     end

@@ -285,8 +285,9 @@ class Task < ActiveRecord::Base
   # If
   def send_notification(action)
     if sends_email?
-      if self.requestor
-         TaskMailer.generic_message("task_#{action}", self)
+      if self.requestor && !self.requestor.notification_emails.empty?
+        message = TaskMailer.generic_message("task_#{action}", self)
+        message.deliver if message
       end
     end
   end

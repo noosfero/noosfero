@@ -7,9 +7,6 @@ util                              usr/share/noosfero
 Rakefile                          usr/share/noosfero
 vendor                            usr/share/noosfero
 
-Gemfile                           usr/share/noosfero
-debian/bundle/config              usr/share/noosfero/.bundle
-
 config/application.rb             usr/share/noosfero/config
 config/boot.rb                    usr/share/noosfero/config
 config/environment.rb             usr/share/noosfero/config

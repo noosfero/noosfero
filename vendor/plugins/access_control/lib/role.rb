@@ -35,12 +35,7 @@ class Role < ActiveRecord::Base
   end
 
   def kind
-    env_perms = perms['Environment'].keys
-    if permissions.any?{ |perm| env_perms.include?(perm) }
-      'Environment'
-    else
-      'Profile'
-    end
+    key.present? && key.starts_with?('environment_') ? 'Environment' : 'Profile'
   end
 
   def name

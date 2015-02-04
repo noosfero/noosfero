@@ -1,0 +1,75 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+#: plugins/send_email/lib/send_email_plugin/mail.rb:4
+msgid "To"
+msgstr "Para"
+
+#: plugins/send_email/lib/send_email_plugin/mail.rb:24
+msgid "'%s' isn't a valid e-mail address"
+msgstr "'%s' não é um endereço de e-mail válido"
+
+#: plugins/send_email/lib/send_email_plugin/mail.rb:31
+msgid "'%s' address is not allowed (see SendEmailPlugin config)"
+msgstr ""
+"%{fn} '%s' endereço não permitido (veja as configurações do SendEmailPlugin)"
+
+#: plugins/send_email/lib/send_email_plugin.rb:10
+msgid "A plugin that allows sending e-mails via HTML forms."
+msgstr "Um plugin que permite envio de e-mails via formulários HTML."
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
+msgid "Configurations was saved"
+msgstr "As configurações foram salvas"
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
+msgid "Configurations could not be saved"
+msgstr "As configurações não puderam ser salvas"
+
+#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:16
+#: plugins/send_email/views/send_email_plugin/success.html.erb:1
+msgid "Message sent"
+msgstr "A mensagem foi enviada"
+
+#: plugins/send_email/views/send_email_plugin/sender/message.html.erb:1
+msgid "Contact from %s"
+msgstr "Contato de %s"
+
+#: plugins/send_email/views/send_email_plugin/fail.html.erb:1
+msgid "The message could not be sent"
+msgstr "A mensagem não pode ser enviada"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:1
+msgid "SendEmailPlugin's config"
+msgstr "Configurações do SendEmailPlugin"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:4
+msgid "E-Mail addresses you want to allow to send"
+msgstr "Endereços de e-mail que você deseja liberar para envio"
+
+#: plugins/send_email/views/send_email_plugin_admin/index.html.erb:5
+msgid "(list of email addresses separated by comma)"
+msgstr "(lista de endereços de e-mail separadas por vírgula)"

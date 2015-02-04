@@ -1,12 +1,14 @@
 class FixYamlEncoding < ActiveRecord::Migration
   def self.up
-    fix_encoding(Block, 'settings')
-    fix_encoding(Product, 'data')
-    fix_encoding(Environment, 'settings')
-    fix_encoding(Profile, 'data')
-    fix_encoding(ActionTracker::Record, 'params')
-    fix_encoding(Article, 'setting')
-    fix_encoding(Task, 'data')
+    ActiveRecord::Base.transaction do
+      fix_encoding(Environment, 'settings')
+      fix_encoding(Profile, 'data')
+      fix_encoding(Product, 'data')
+      fix_encoding(ActionTracker::Record, 'params')
+      fix_encoding(Article, 'setting')
+      fix_encoding(Task, 'data')
+      fix_encoding(Block, 'settings')
+    end
   end
 
   def self.down
@@ -16,15 +18,34 @@ class FixYamlEncoding < ActiveRecord::Migration
   private
 
   def self.fix_encoding(model, param)
-    result = model.find(:all, :conditions => "#{param} LIKE '%!binary%'")
+    result = model.all
     puts "Fixing #{result.count} rows of #{model} (#{param})"
-    result.each {|r| r.update_column(param, deep_fix(r.send(param)).to_yaml)}
+    result.each do |r|
+      begin
+        yaml = r.send(param)
+        # if deserialization failed then a string is returned
+        if yaml.is_a? String
+          yaml.gsub! ': `', ': '
+          yaml = YAML.load yaml
+        end
+        r.update_column param, deep_fix(yaml).to_yaml
+      rescue => e
+        puts "FAILED #{r.inspect}"
+        puts e.message
+      end
+    end
   end
 
   def self.deep_fix(hash)
     hash.each do |value|
-      value.force_encoding('UTF-8') if value.is_a?(String) && !value.frozen? && value.encoding == Encoding::ASCII_8BIT
       deep_fix(value) if value.respond_to?(:each)
+      if value.is_a? String and not value.frozen?
+        if value.encoding == Encoding::ASCII_8BIT
+          value.force_encoding "utf-8"
+        else
+          value.encode!("iso-8859-1").force_encoding("utf-8")
+        end
+      end
     end
   end
 

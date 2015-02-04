@@ -1,0 +1,119 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
+"Um plugin que adiciona blocos onde você pode escolher qualuer um dos seus "
+"conteúdos e mostrá-lo."
+
+#: plugins/display_content/lib/display_content_block.rb:34
+msgid "Display your contents"
+msgstr "Apresente seus conteúdos"
+
+#: plugins/display_content/lib/display_content_block.rb:38
+msgid ""
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
+msgstr ""
+"Este bloco apresenta artigos escolhidos por você. Você pode editar o bloco "
+"para escolher qual dos seus artigos será apresentado nele."
+
+#: plugins/display_content/lib/display_content_block.rb:43
+msgid "Publish date"
+msgstr "Data de publicação"
+
+#: plugins/display_content/lib/display_content_block.rb:45
+msgid "Abstract"
+msgstr "Resumo"
+
+#: plugins/display_content/lib/display_content_block.rb:151
+#, fuzzy
+msgid "Read more"
+msgstr "mais"
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
+msgid "Choose which attributes should be displayed and drag to reorder them:"
+msgstr ""
+"Escolha quais atributos devem ser mostrados e mova-os parar reordená-los:"
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
+msgid "Choose which content should be displayed:"
+msgstr "Escolha qual conteúdo deve ser mostrado:"
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
+msgid "Choose directly"
+msgstr "Escolha diretamente"
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
+msgid "Choose by Content Type"
+msgstr "Escolha pelo Tipo de conteúdo"
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
+msgid "Display content types:"
+msgstr "Mostrar tipos de conteúdos:"
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
+msgid "more"
+msgstr "mais"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr "Carregar dinamicamente filhos das pastas selecionadas"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""

@@ -8,7 +8,7 @@
     <table>
       <tr>
         <th><%= _('Option') %></th>
-        <th><%= _('Price') %></th>
+        <th><%= c_('Price') %></th>
         <th>&nbsp;</th>
       </tr>
       <% @settings.delivery_options.each do |option, price| %>
@@ -39,8 +39,8 @@
   <br style='clear: both'/>
   <br style='clear: both'/>
   <div>
-    <%= submit_button(:save, _('Save')) %>
-    <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+    <%= submit_button(:save, c_('Save')) %>
+    <%= button :back, c_('Back to control panel'), :controller => 'profile_editor' %>
   </div>
 <% end%>
 

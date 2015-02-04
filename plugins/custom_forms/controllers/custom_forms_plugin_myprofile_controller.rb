@@ -23,7 +23,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
     respond_to do |format|
       if @form.save
-        flash[:notice] = _("Custom form #{@form.name} was successfully created.")
+        flash[:notice] = _("Custom form %s was successfully created.") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
         format.html { render :action => 'new' }
@@ -43,7 +43,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
     respond_to do |format|
       if @form.save
-        flash[:notice] = _("Custom form #{@form.name} was successfully updated.")
+        flash[:notice] = _("Custom form %s was successfully updated.") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
         session['notice'] = _('Form could not be updated')

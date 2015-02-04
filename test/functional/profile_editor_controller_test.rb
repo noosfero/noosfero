@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'profile_editor_controller'
 
 # Re-raise errors caught by the controller.
@@ -230,16 +230,20 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'back when update community info fail' do
     org = fast_create(Community)
-    Community.any_instance.stubs(:update_attributes).returns(false)
+    Community.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
+
     assert_template 'edit'
+    assert_response :success
   end
 
   should 'back when update enterprise info fail' do
     org = fast_create(Enterprise)
-    Enterprise.any_instance.stubs(:update_attributes).returns(false)
+
+    Enterprise.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
     assert_template 'edit'
+    assert_response :success
   end
 
   should 'show edit profile button' do
@@ -1090,5 +1094,58 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.environment.disable('disable_header_and_footer')
     get :index, :profile => user.identifier
     assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Edit Header and Footer' }
+  end
+
+  should 'deactivate organization profile' do
+    @request.env['HTTP_REFERER'] = 'http://localhost:3000/admin/admin_panel/manage_organizations_status'
+    user = create_user('user').person
+    Environment.default.add_admin user
+    login_as('user')
+
+    community = fast_create(Community)
+    assert_equal true, community.enable
+
+    get :index, :profile => community.identifier
+    get :deactivate_profile, {:profile => community.identifier, :id => community.id}
+    assert_equal @request.session[:notice], "The profile '#{community.name}' was deactivated."
+  end
+
+  should 'activate organization profile' do
+    @request.env['HTTP_REFERER'] = 'http://localhost:3000/admin/admin_panel/manage_organizations_status'
+    user = create_user('user').person
+    Environment.default.add_admin user
+    login_as('user')
+
+    community = fast_create(Community)
+    assert_equal true, community.disable
+
+    get :index, :profile => community.identifier
+    get :activate_profile, {:profile => community.identifier, :id => community.id}
+    assert_equal @request.session[:notice], "The profile '#{community.name}' was activated."
+  end
+
+  should 'not deactivate organization profile if user is not an admin' do
+    @request.env['HTTP_REFERER'] = 'http://localhost:3000/admin/admin_panel/manage_organizations_status'
+    user = create_user('user').person
+    login_as('user')
+
+    community = fast_create(Community)
+    get :index, :profile => community.identifier
+    get :deactivate_profile, {:profile => community.identifier, :id => community.id}
+    assert_not_equal @request.session[:notice], "The profile '#{community.name}' was disabled."
+  end
+
+  should 'destroy organization profile' do
+    @request.env['HTTP_REFERER'] = 'http://localhost:3000/admin/admin_panel/manage_organizations_status'
+    user = create_user('user').person
+    Environment.default.add_admin user
+    login_as('user')
+
+    community = fast_create(Community)
+    assert_equal true, community.enable
+
+    get :index, :profile => community.identifier
+    post :destroy_profile, {:profile => community.identifier, :id => community.id}
+    assert_equal @request.session[:notice], "The profile was deleted."
   end
 end

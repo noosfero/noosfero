@@ -1,7 +1,7 @@
 module ProfileHelper
 
   COMMON_CATEGORIES = ActiveSupport::OrderedHash.new
-  COMMON_CATEGORIES[:content] = [:blogs, :image_galleries, :events, :tags]
+  COMMON_CATEGORIES[:content] = [:blogs, :image_galleries, :events, :article_tags]
   COMMON_CATEGORIES[:interests] = [:interests]
   COMMON_CATEGORIES[:general] = nil
 
@@ -41,6 +41,8 @@ module ProfileHelper
     :birth_date => _('Date of birth'),
     :created_at => _('Profile created at'),
     :members_count => _('Members'),
+    :privacy_setting => _('Privacy setting'),
+    :article_tags => _('Tags')
   }
 
   EXCEPTION = {
@@ -63,7 +65,7 @@ module ProfileHelper
 
   def title(field, entry = nil)
     return self.send("#{field}_custom_title", entry) if MULTIPLE[kind].include?(field) && entry.present?
-    CUSTOM_LABELS[field.to_sym] || field.to_s.humanize
+    CUSTOM_LABELS[field.to_sym] || _(field.to_s.humanize)
   end
 
   def display_field(field)
@@ -73,15 +75,18 @@ module ProfileHelper
       return ''
     end
     value = begin profile.send(field) rescue nil end
-    p field
-    if !value.blank?
+    return '' if value.blank?
+    if value.kind_of?(Hash)
+      content = self.send("treat_#{field}", value)
+      content_tag('tr', content_tag('td', title(field), :class => 'field-name') + content_tag('td', content))
+    else
       entries = multiple ? value : [] << value
       entries.map do |entry|
         content = self.send("treat_#{field}", entry)
-        content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        unless content.blank?
+          content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+        end
       end.join("\n")
-    else
-      ''
     end
   end
 
@@ -98,7 +103,6 @@ module ProfileHelper
   end
 
   def treat_date(date)
-    puts date.inspect
     show_date(date.to_date)
   end
   alias :treat_birth_date :treat_date
@@ -133,12 +137,10 @@ module ProfileHelper
   end
 
   def treat_blogs(blog)
-    p blog
     link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url)
   end
 
   def treat_image_galleries(gallery)
-    p gallery
     link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url)
   end
 
@@ -146,7 +148,7 @@ module ProfileHelper
     link_to events.published.count, :controller => 'events', :action => 'events'
   end
 
-  def treat_tags(tags)
+  def treat_article_tags(tags)
     tag_cloud @tags, :id, { :action => 'tags' }, :max_size => 18, :min_size => 10
   end
 

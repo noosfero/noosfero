@@ -1,9 +1,20 @@
-require 'test_helper'
+require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
 
 class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'verify if a content is a work_assignment submission' do
     organization = fast_create(Organization)
-    content = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :author => fast_create(Person))
+    folder = fast_create(Folder)
+    person = fast_create(Person)
+    content = UploadedFile.create(
+            {
+              :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+              :profile => organization,
+              :parent => folder,
+              :last_changed_by => person,
+              :author => person,
+            },
+            :without_protection => true
+          )
     assert !WorkAssignmentPlugin.is_submission?(content)
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
@@ -22,7 +33,9 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     work_assignment = submission.parent.parent
     work_assignment.publish_submissions = true
     work_assignment.save!
-    assert WorkAssignmentPlugin.can_download_submission?(nil, submission)
+
+    other_submission = create_submission(nil, work_assignment)
+    assert WorkAssignmentPlugin.can_download_submission?(nil, other_submission)
   end
 
   should 'be able to download submission if the user is author of it' do
@@ -45,12 +58,21 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
 
   private
 
-  def create_submission(author=nil)
+  def create_submission(author=nil, work_assignment=nil)
     author ||= fast_create(Person)
     organization = fast_create(Organization)
-
-    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
+    organization.add_member(author)
+    work_assignment ||= WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     author_folder = work_assignment.find_or_create_author_folder(author)
-    create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => author_folder, :author => author, :last_changed_by => author)
+    content = UploadedFile.create(
+            {
+              :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+              :profile => organization,
+              :parent => author_folder,
+              :last_changed_by => author,
+              :author => author,
+            },
+            :without_protection => true
+          )
   end
 end

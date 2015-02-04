@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class CommunityTest < ActiveSupport::TestCase
 
@@ -122,6 +122,18 @@ class CommunityTest < ActiveSupport::TestCase
     assert community.errors[:contact_phone.to_s].present?
 
     community.contact_phone = '99999'
+    community.valid?
+    assert ! community.errors[:contact_phone.to_s].present?
+  end
+
+  should 'not require fields if community is a template' do
+    e = Environment.default
+    e.expects(:required_community_fields).returns(['contact_phone']).at_least_once
+    community = build(Community, :name => 'My community', :environment => e)
+    assert ! community.valid?
+    assert community.errors[:contact_phone.to_s].present?
+
+    community.is_template = true
     community.valid?
     assert ! community.errors[:contact_phone.to_s].present?
   end

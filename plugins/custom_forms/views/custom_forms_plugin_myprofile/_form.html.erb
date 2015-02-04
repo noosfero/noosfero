@@ -18,12 +18,12 @@
   <%= labelled_check_box _('Triggered after membership'), 'form[on_membership]', '1', @form.on_membership %>
   </p>
 <% end %>
-<%= labelled_form_field _('Description'), f.text_area(:description, :style => 'width: 100%', :class => 'mceEditor') %>
+<%= labelled_form_field c_('Description'), f.text_area(:description, :style => 'width: 100%', :class => 'mceEditor') %>
 
-<h2><%= _('Fields') %></h2>
+<h2><%= c_('Fields') %></h2>
 
 <ul class='field-list'>
-  <% f.fields_for :fields do |builder| %>
+  <%= f.fields_for :fields do |builder| %>
     <li>
       <%= render partial_for_class(builder.object.class), :f => builder %>
     </li>
@@ -36,7 +36,7 @@
 </div>
 
 <% button_bar do %>
-  <%= submit_button :save, _('Save'), :cancel => {:action => 'index'}%>
+  <%= submit_button :save, c_('Save'), :cancel => {:action => 'index'}%>
 <% end %>
 
 <%= javascript_include_tag '../plugins/custom_forms/field' %>

@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 class AccessControlTestController; def rescue_action(e) raise e end; end
-class PermissionCheckTest < Test::Unit::TestCase
+class PermissionCheckTest < ActionController::TestCase
 
   def setup
     @controller = AccessControlTestController.new
@@ -12,7 +12,7 @@ class PermissionCheckTest < Test::Unit::TestCase
   def test_access_denied
     get :index
     assert_response 403
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied.html'
   end
 
   def test_specific_permission_granted

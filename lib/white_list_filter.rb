@@ -9,7 +9,7 @@ module WhiteListFilter
       unless iframe =~ /src=['"].*src=['"]/
         trusted_sites.each do |trusted_site|
           re_dom = trusted_site.gsub('.', '\.')
-          if iframe =~ /src=["']https?:\/\/(www\.)?#{re_dom}\//
+          if iframe =~ /src=["'](https?:)?\/\/(www\.)?#{re_dom}\//
             result = iframe
           end
         end

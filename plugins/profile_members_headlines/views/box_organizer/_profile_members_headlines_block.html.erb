@@ -1,0 +1,13 @@
+<div id="profile_members_headlines_plugin">
+
+  <%= labelled_form_field _('Headlines transition:'), select('block', 'interval', [[_('No automatic transition'), 0]] + [1, 2, 3, 4, 5, 10, 20, 30, 60].map {|item| [n_('Every 1 second', 'Every %d seconds', item) % item, item]}) %>
+
+  <%= labelled_form_field check_box(:block, :navigation) + _('Display navigation buttons'), '' %>
+  <%= labelled_form_field _('Limit of headlines'), text_field(:block, :limit, :size => 3) %>
+
+  <%= label :block, :filtered_roles, _('Choose which roles should be displayed:'), :class => 'formlabel' %>
+
+  <% Profile::Roles.organization_member_roles(environment).each do |role| %>
+    <%= labelled_check_box(role.name, 'block[filtered_roles][]', role.id, @block.filtered_roles.include?(role.id)) %>
+  <% end %>
+</div>

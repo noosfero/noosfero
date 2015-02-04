@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
@@ -511,6 +511,18 @@ class PersonTest < ActiveSupport::TestCase
     person = build(Person, :environment => e, :formation => 'Agrometeorology')
     assert !person.valid?
     assert ! person.errors[:custom_formation.to_s].present?
+  end
+
+  should 'not require fields if person is a template' do
+    e = Environment.default
+    e.expects(:required_person_fields).returns(['cell_phone']).at_least_once
+    person = build(Person, :environment => e)
+    assert ! person.valid?
+    assert person.errors[:cell_phone.to_s].present?
+
+    person.is_template = true
+    person.valid?
+    assert ! person.errors[:cell_phone.to_s].present?
   end
 
   should 'identify when person is a friend' do
@@ -1458,4 +1470,18 @@ class PersonTest < ActiveSupport::TestCase
       person.reload
     end
   end
+
+  should 'allow homepage change if user is an environment admin' do
+    person = create_user('person').person
+    person.environment.expects(:enabled?).with('cant_change_homepage').returns(true)
+    person.expects(:is_admin?).returns(true)
+    assert person.can_change_homepage?
+  end
+
+  should 'allow homepage change if environment feature permit it' do
+    person = create_user('person').person
+    person.environment.expects(:enabled?).with('cant_change_homepage').returns(false)
+    assert person.can_change_homepage?
+  end
+
 end

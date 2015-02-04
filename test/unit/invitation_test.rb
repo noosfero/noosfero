@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class InvitationTest < ActiveSupport::TestCase
 
@@ -57,6 +57,19 @@ class InvitationTest < ActiveSupport::TestCase
 
     assert_difference 'InviteMember.count' do
       Invitation.invite(person, ['sadam@garotos.podres'], 'hello friend <url>', community)
+    end
+  end
+
+  should 'not create task if the invited member is already a member of the community' do
+    person = fast_create(Person)
+    person.user = User.new(:email => 'current_user@email.invalid')
+    community = fast_create(Community)
+    user_to_invite = fast_create(User, :email => 'person_to_invite@email.invalid')
+    person_to_invite = fast_create(Person, :user_id => user_to_invite.id)
+    community.add_member(person_to_invite)
+
+    assert_no_difference 'InviteMember.count' do
+      Invitation.invite(person, ['person_to_invite@email.invalid'], 'hello friend <url>', community)
     end
   end
 

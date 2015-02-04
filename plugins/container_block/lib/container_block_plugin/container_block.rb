@@ -10,7 +10,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   validate :no_cyclical_reference, :if => 'container_box_id.present?'
 
   def no_cyclical_reference
-    errors.add(:box_id, _('cyclical reference is not allowed.')) if box_id == container_box_id
+    errors.add(:box_id, c_('cyclical reference is not allowed.')) if box_id == container_box_id
   end
 
   before_save do |b|
@@ -38,9 +38,11 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def create_box
-    container_box = Box.create!(:owner => owner)
-    container_box.update_attribute(:position, nil)
+    container_box = Box.new(:owner => owner)
+    container_box.save!
     settings[:container_box_id] = container_box.id
+    copy_blocks unless @blocks_to_copy.blank?
+    container_box.update_attribute(:position, nil)
     save!
   end
 
@@ -69,6 +71,25 @@ class ContainerBlockPlugin::ContainerBlock < Block
     proc do
       render :file => 'blocks/container', :locals => {:block => block}
     end
+  end
+
+  def copy_from_with_container(block)
+    copy_from_without_container(block)
+    children_settings = block.children_settings
+    @blocks_to_copy = block.blocks
+  end
+
+  alias_method_chain :copy_from, :container
+
+  def copy_blocks
+    new_children_settings = {}
+    @blocks_to_copy.map do |child|
+      new_block = child.class.new(:title => child[:title])
+      new_block.copy_from(child)
+      container_box.blocks << new_block
+      new_children_settings[new_block.id] = children_settings[child.id] if children_settings[child.id]
+    end
+    settings[:children_settings] = new_children_settings
   end
 
 end

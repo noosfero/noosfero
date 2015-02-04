@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'content_viewer_controller'
 
 # Re-raise errors caught by the controller.
@@ -661,8 +661,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => owner.identifier, :page => folder.path
     assert_response :success
     assert_select '.image-gallery-item', 0
-  end   
-  
+  end
+
 
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
@@ -1296,14 +1296,14 @@ class ContentViewerControllerTest < ActionController::TestCase
       def comment_form_extra_contents(args)
         proc {
           hidden_field_tag('comment[some_field_id]', 1)
-         }
+        }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def comment_form_extra_contents(args)
         proc {
           hidden_field_tag('comment[another_field_id]', 1)
-         }
+        }
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -1373,20 +1373,20 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     assert_tag :tag => 'strong', :content => /bold/
   end
-  
+
   should 'add extra content on article header from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_header_extra_contents(args)
         proc {
           content_tag('div', '', :class => 'plugin1')
-         }
+        }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def article_header_extra_contents(args)
         proc {
           content_tag('div', '', :class => 'plugin2')
-         }
+        }
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -1447,4 +1447,35 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'meta', :attributes => { :property => 'og:image', :content => /\/images\/x.png/  }
   end
 
+  should 'manage  private article visualization' do
+    community = Community.create(:name => 'test-community')
+    community.add_member(@profile)
+    community.save!
+
+    blog = community.articles.find_by_name("Blog")
+
+    article = TinyMceArticle.create(:name => 'Article to be shared with images',
+                                    :body => 'This article should be shared with all social networks',
+                                    :profile => @profile,
+                                    :published => false,
+                                    :show_to_followers => true)
+    article.parent = blog
+    article.save!
+
+    otheruser = create_user('otheruser').person
+    community.add_member(otheruser)
+    login_as(otheruser.identifier)
+
+    get :view_page, :profile => community.identifier, "page" => 'blog'
+
+    assert_response :success
+    assert_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
+
+    article.show_to_followers = false
+    article.save!
+
+    get :view_page, :profile => community.identifier, "page" => 'blog'
+
+    assert_no_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
+  end
 end

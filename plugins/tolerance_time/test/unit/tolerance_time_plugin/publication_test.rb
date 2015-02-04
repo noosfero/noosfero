@@ -4,13 +4,14 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
   should 'validate presence of target' do
     publication = ToleranceTimePlugin::Publication.new
     publication.valid?
-    assert publication.errors.invalid?(:target_id)
-    assert publication.errors.invalid?(:target_type)
+    assert publication.errors[:target_id].present?
+    assert publication.errors[:target_type].present?
 
     publication.target = fast_create(Article)
     publication.valid?
-    assert !publication.errors.invalid?(:target_id)
-    assert !publication.errors.invalid?(:target_type)
+
+    assert !publication.errors[:target_id].present?
+    assert !publication.errors[:target_type].present?
   end
 
   should 'validate uniqueness of target' do
@@ -19,7 +20,7 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
     p2 = ToleranceTimePlugin::Publication.new(:target => target)
     p2.valid?
 
-    assert p2.errors.invalid?(:target_id)
+    assert p2.errors[:target_id].present?
   end
 
   should 'be able to find publication by target' do

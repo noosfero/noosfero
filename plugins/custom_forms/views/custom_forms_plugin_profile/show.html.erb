@@ -22,15 +22,15 @@
 
     <% button_bar do %>
       <% if @form.expired? %>
-        <%= submit_button :save, _('Save'), :disabled => '', :class => 'disabled', :cancel => {:controller => :profile, :profile => profile.identifier} %>
+        <%= submit_button :save, c_('Save'), :disabled => '', :class => 'disabled', :cancel => {:controller => :profile, :profile => profile.identifier} %>
       <% else %>
-        <%= submit_button :save, _('Save'), :cancel => {:controller => :profile, :profile => profile.identifier} %>
+        <%= submit_button :save, c_('Save'), :cancel => {:controller => :profile, :profile => profile.identifier} %>
       <% end %>
     <% end %>
 
   <% end %>
 <% else %>
-  <% fields_for :submission, @submission do |f| %>
+  <%= fields_for :submission, @submission do |f| %>
     <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
   <% end %>
 <% end %>

@@ -1,0 +1,99 @@
+# German translation of noosfero.
+# Copyright (C) 2009-2013 Josef Spillner
+# Copyright (C) 2009, 2011 Ronny Kursawe
+# This file is distributed under the same license as the noosfero package.
+# Josef Spillner <josef.spillner@tu-dresden.de>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"PO-Revision-Date: 2014-12-12 14:23+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"de/>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
+
+#: plugins/ldap/lib/ldap_plugin.rb:10
+#, fuzzy
+msgid "A plugin that add ldap support."
+msgstr "Ein Plugin, welches dies und jenes tut."
+
+#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:10
+#, fuzzy
+msgid "Ldap configuration updated successfully."
+msgstr "Optionen erfolgreich aktualisiert."
+
+#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:12
+#, fuzzy
+msgid "Ldap configuration could not be saved."
+msgstr "Die Konfiguration konnte nicht gespeichert werden"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:1
+#, fuzzy
+msgid "Ldap Management"
+msgstr "Inhalt verwalten"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
+msgid "Value"
+msgstr "Wert"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:11
+msgid "Host"
+msgstr "Rechner"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:15
+msgid "Port"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:19
+#, fuzzy
+msgid "Account"
+msgstr "Preisermäßigung"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:23
+#, fuzzy
+msgid "Account Password"
+msgstr "Derzeitiges Passwort"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:27
+msgid "Base DN"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:31
+#, fuzzy
+msgid "LDAP Filter"
+msgstr "Filter"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:35
+#, fuzzy
+msgid "On the fly creation"
+msgstr "Im letzten Monat"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:39
+msgid "LDAPS"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:46
+msgid "Attributes"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:53
+#, fuzzy
+msgid "Fullname"
+msgstr "Vollständiger Name"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:57
+#, fuzzy
+msgid "Mail"
+msgstr "E-Mail"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:65
+#, fuzzy
+msgid "Back to plugins administration panel"
+msgstr "Zurück zum Adminfeld"

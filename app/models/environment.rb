@@ -283,6 +283,7 @@ class Environment < ActiveRecord::Base
     www.flickr.com
     www.gmodules.com
     www.youtube.com
+    openstreetmap.org
   ] + ('a' .. 'z').map{|i| "#{i}.yimg.com"}
 
   settings_items :enabled_plugins, :type => Array, :default => Noosfero::Plugin.available_plugin_names
@@ -656,10 +657,11 @@ class Environment < ActiveRecord::Base
     { :controller => 'admin_panel', :action => 'index' }
   end
 
-  def top_url
-    url = 'http://'
+  def top_url(scheme = 'http')
+    url = scheme + '://'
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
     url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
+    url << Noosfero.root('')
     url
   end
 
@@ -727,31 +729,50 @@ class Environment < ActiveRecord::Base
     ]
   end
 
-  def community_template
+  def is_default_template?(template)
+    is_default = template == community_default_template 
+    is_default = is_default || template == person_default_template 
+    is_default = is_default || template == enterprise_default_template
+    is_default
+  end
+
+  def community_templates
+    self.communities.templates
+  end
+
+  def community_default_template
     template = Community.find_by_id settings[:community_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def community_template=(value)
-    settings[:community_template_id] = value.id
+  def community_default_template=(value)
+    settings[:community_template_id] = value.kind_of?(Community) ? value.id : value
   end
 
-  def person_template
+  def person_templates
+    self.people.templates
+  end
+
+  def person_default_template
     template = Person.find_by_id settings[:person_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def person_template=(value)
-    settings[:person_template_id] = value.id
+  def person_default_template=(value)
+    settings[:person_template_id] = value.kind_of?(Person) ? value.id : value
   end
 
-  def enterprise_template
+  def enterprise_templates
+    self.enterprises.templates
+  end
+
+  def enterprise_default_template
     template = Enterprise.find_by_id settings[:enterprise_template_id]
-    template if template && template.is_template
+    template if template && template.is_template?
   end
 
-  def enterprise_template=(value)
-    settings[:enterprise_template_id] = value.id
+  def enterprise_default_template=(value)
+    settings[:enterprise_template_id] = value.kind_of?(Enterprise) ? value.id : value
   end
 
   def inactive_enterprise_template
@@ -849,10 +870,10 @@ class Environment < ActiveRecord::Base
     person_template.visible = false
     person_template.save!
 
-    self.enterprise_template = enterprise_template
+    self.enterprise_default_template = enterprise_template
     self.inactive_enterprise_template = inactive_enterprise_template
-    self.community_template = community_template
-    self.person_template = person_template
+    self.community_default_template = community_template
+    self.person_default_template = person_template
     self.save!
   end
 
@@ -914,6 +935,10 @@ class Environment < ActiveRecord::Base
       locales_list = ['en'] + (locales_list - ['en']).sort
     end
     locales_list
+  end
+
+  def has_license?
+    self.licenses.any?
   end
 
   private

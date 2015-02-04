@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ApproveArticleTest < ActiveSupport::TestCase
 
@@ -429,6 +429,15 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_nothing_raised do
       create(ApproveArticle, :article => article, :target => profile, :requestor => community)
     end
+  end
+
+  should 'create link to referenced article' do
+    article = fast_create(Article)
+    a = create(ApproveArticle, :name => 'test name', :article => article, :target => community, :requestor => profile)
+    a.create_link = true
+    a.finish
+
+    assert_equal article, LinkArticle.last.reference_article
   end
 
 end

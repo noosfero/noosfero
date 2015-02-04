@@ -1,6 +1,6 @@
 <span class="download-link">
   <span>Download</span>
-  <strong><%= link_to generic.filename, generic.public_filename %></strong>
+  <strong><%= link_to generic.filename, [Noosfero.root, generic.public_filename].join %></strong>
 </span>
 
 <div class="uploaded-file-description <%= 'empty' if generic.abstract.blank? %>">

@@ -1,6 +1,6 @@
-<%= labelled_form_field _('Name:'), text_field(:block, :name) %>
+<%= labelled_form_field c_('Name:'), text_field(:block, :name) %>
 
-<%= labelled_form_field _('Address:'), text_field(:block, :address) %>
+<%= labelled_form_field c_('Address:'), text_field(:block, :address) %>
 
 <% if @block.kind_of?(MembersBlock) %>
   <%= labelled_form_field _('Filter by role:'), '' %>

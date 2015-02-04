@@ -1,26 +1,44 @@
+noosfero (1.0) wheezy; urgency=low
+
+  * Noosfero 1.0 \o/
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Mon, 22 Dec 2014 10:52:21 -0300
+
+noosfero (1.0~rc4) wheezy-test; urgency=low
+
+  * Fourth release candidate
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 19 Nov 2014 10:31:16 -0300
+
 noosfero (1.0~rc3) wheezy-test; urgency=low
 
   * Third release candidate to Noosfero 1.0
 
- -- Antonio Terceiro <terceiro@debian.org>  Fri, 12 Sep 2014 16:20:58 -0300
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Fri, 12 Sep 2014 16:20:58 -0300
 
 noosfero (1.0~rc2) wheezy-test; urgency=low
 
   * Second 1.0 release candidate
 
- -- Antonio Terceiro <terceiro@debian.org>  Fri, 12 Sep 2014 13:01:11 -0300
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Fri, 12 Sep 2014 13:01:11 -0300
 
 noosfero (1.0~rc1) wheezy-test; urgency=low
 
   * First 1.0 release candidate
 
- -- Rodrigo Souto <vagrant@wheezy-base>  Fri, 15 Aug 2014 16:35:35 -0300
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 15 Aug 2014 16:35:35 -0300
 
 noosfero (0.99.0~rc20140618202455) wheezy-test; urgency=low
 
   * Another rc with rails3
 
  -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 18 Jun 2014 20:25:01 +0000
+
+noosfero (0.47.5) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 23 Oct 2014 02:24:14 +0000
 
 noosfero (0.47.4) unstable; urgency=low
 

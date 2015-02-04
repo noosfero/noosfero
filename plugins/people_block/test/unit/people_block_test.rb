@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PeopleBlockTest < ActiveSupport::TestCase
+class PeopleBlockTest < ActionView::TestCase
 
   should 'inherit from Block' do
     assert_kind_of Block, PeopleBlock.new
@@ -106,14 +106,12 @@ class PeopleBlockTest < ActiveSupport::TestCase
 
   should 'link to "all people"' do
     env = fast_create(Environment)
-
     block = PeopleBlock.new
 
-    stubs(:_).with('View all').returns('View all')
-    stubs(:link_to).returns('link-to-people')
-    stubs(:url_for).returns('  ')
-
-    assert_equal 'link-to-people', instance_exec(&block.footer)
+    instance_eval(&block.footer)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/search/people]'
+    end
   end
 
 

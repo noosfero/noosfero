@@ -13,11 +13,16 @@
 
   <%= required_fields_message %>
 
-  <% location_fields = select_city(true) %>
+  <% unless logged_in? %>
+    <%= required f.text_field(:name) %>
+    <%= required f.text_field(:email) %>
+  <% end %>
 
+  <% location_fields = select_city(true) %>
   <% unless environment.enabled?('disable_select_city_for_contact') || location_fields.blank? %>
     <%= labelled_form_field _('City and state'), location_fields %>
   <% end %>
+
   <%= required f.text_field(:subject) %>
 
   <%= render :file => 'shared/tiny_mce' %>
@@ -25,5 +30,9 @@
 
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 
-  <%= submit_button(:send, _('Send'), :onclick => "$('confirm').value = 'true'") %>
+  <% unless logged_in? %>
+    <%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} %>
+  <% end %>
+
+  <%= submit_button(:send, _('Send'), :onclick => "jQuery('#confirm').val('true')") %>
 <% end %>

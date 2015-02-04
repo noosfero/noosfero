@@ -59,16 +59,6 @@ class Enterprise < Organization
     super + FIELDS
   end
 
-  validate :presence_of_required_fieds
-
-  def presence_of_required_fieds
-    self.required_fields.each do |field|
-      if self.send(field).blank?
-        self.errors.add_on_blank(field)
-      end
-    end
-  end
-
   def active_fields
     environment ? environment.active_enterprise_fields : []
   end
@@ -107,7 +97,12 @@ class Enterprise < Organization
     self.tasks.where(:type => 'EnterpriseActivation').first
   end
 
-  def enable(owner)
+  def enable(owner = nil)
+    if owner.nil?
+      self.visible = true
+      return self.save
+    end
+
     return if enabled
     # must be set first for the following to work
     self.enabled = true
@@ -169,7 +164,7 @@ class Enterprise < Organization
   end
 
   def default_template
-    environment.enterprise_template
+    environment.enterprise_default_template
   end
 
   def template_with_inactive_enterprise

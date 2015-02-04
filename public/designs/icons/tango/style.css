@@ -107,7 +107,7 @@
 .icon-activate-user           { background-image: url(Tango/16x16/emblems/emblem-system.png) }
 .icon-deactivate-user         { background-image: url(Tango/16x16/emblems/emblem-unreadable.png) }
 .icon-set-admin-role          { background-image: url(mod/16x16/apps/user.png) }
-.icon-reset-admin-role        { background-image: url(/images/icons-app/person-icon.png) }
+.icon-reset-admin-role        { background-image: url(../../../images/icons-app/person-icon.png) }
 .icon-clock                   { background-image: url(Tango/16x16/actions/appointment.png) }
 
 /******************LARGE ICONS********************/

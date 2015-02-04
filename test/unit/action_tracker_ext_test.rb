@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 class ActionTrackerExtTest < ActiveSupport::TestCase
   should 'increase person activities_count on new activity' do

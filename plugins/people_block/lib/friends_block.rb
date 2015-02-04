@@ -1,7 +1,7 @@
 class FriendsBlock < PeopleBlockBase
 
   def self.description
-    _('Friends')
+    c_('Friends')
   end
 
   def help

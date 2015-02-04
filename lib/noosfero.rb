@@ -3,6 +3,10 @@
 require 'fast_gettext'
 module Noosfero
 
+  def self.root(default = nil)
+    ENV.fetch('RAILS_RELATIVE_URL_ROOT', default)
+  end
+
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
     pattern = disjunction.blank? ? '' : ('(' + disjunction + ')')
@@ -64,16 +68,6 @@ module Noosfero
     app_controller_path.map do |item|
       item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
     end
-  end
-
-  def self.term(t)
-    self.terminology.get(t)
-  end
-  def self.terminology
-    @terminology ||= Noosfero::Terminology::Default.instance
-  end
-  def self.terminology=(term)
-    @terminology = term
   end
 
   def self.url_options

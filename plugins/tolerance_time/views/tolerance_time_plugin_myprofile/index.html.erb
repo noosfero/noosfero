@@ -2,7 +2,7 @@
 
 <%= error_messages_for :tolerance %>
 
-<%= form_for :tolerance, @tolerance do |f| %>
+<%= form_for :tolerance do |f| %>
 
   <% time_units = [[_('Seconds'), 1], [_('Minutes'), 60], [_('Hours'), 3600]]%>
 
@@ -18,7 +18,7 @@
   <%= content_tag( 'small', _('Empty means unlimited and zero means right away.') ) %>
 
   <% button_bar do %>
-    <%= submit_button('save', _('Save'))%>
-    <%= button('back', _('Back'), {:controller => 'profile_editor'})%>
+    <%= submit_button('save', c_('Save'))%>
+    <%= button('back', c_('Back'), {:controller => 'profile_editor'})%>
   <% end %>
 <% end %>

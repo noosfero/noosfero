@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 require 'contact_controller'
 
 # Re-raise errors caught by the controller.
@@ -90,11 +90,12 @@ class ContactControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
   end
 
-  should 'not allow if not logged' do
+  should 'show name, email and captcha if not logged' do
     logout
     get :new, :profile => profile.identifier
-    assert_response :redirect
-    assert_redirected_to :controller => 'account', :action => 'login'
+    assert_tag :tag => 'input', :attributes => {:name => 'contact[name]'}
+    assert_tag :tag => 'input', :attributes => {:name => 'contact[email]'}
+    assert_tag :attributes => {id: 'dynamic_recaptcha'}
   end
 
   should 'identify sender' do

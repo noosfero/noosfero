@@ -182,18 +182,37 @@ jQuery(function($) {
         Jabber.show_status(presence);
      },
 
-     enter_room: function(room_jid) {
+     enter_room: function(jid, push) {
+        if(push == undefined)
+          push = true
+        var jid_id = Jabber.jid_to_id(jid);
+        var conversation_id = Jabber.conversation_prefix + jid_id;
+        var button = $('#' + conversation_id + ' .join');
+        button.hide();
+        button.siblings('.leave').show();
         Jabber.connection.send(
-           $pres({to: room_jid + '/' + $own_name}).c('x', {xmlns: Strophe.NS.MUC}).c('history', {maxchars: 0})
+           $pres({to: jid + '/' + $own_name}).c('x', {xmlns: Strophe.NS.MUC}).c('history', {maxchars: 0})
         );
-        Jabber.insert_or_update_group(room_jid, 'online');
+        Jabber.insert_or_update_group(jid, 'online');
         Jabber.update_chat_title();
+        sort_conversations();
+        if(push)
+          $.post('/chat/join', {room_id: jid});
      },
 
      leave_room: function(room_jid) {
+        if(push == undefined)
+          push = true
+        var jid_id = Jabber.jid_to_id(room_jid);
+        var conversation_id = Jabber.conversation_prefix + jid_id;
+        var button = $('#' + conversation_id + ' .leave');
+        button.hide();
+        button.siblings('.join').show();
         Jabber.connection.send($pres({from: Jabber.connection.jid, to: room_jid + '/' + $own_name, type: 'unavailable'}))
         Jabber.insert_or_update_group(room_jid, 'offline');
-        //FIXME remove group
+        sort_conversations();
+        if(push)
+          $.post('/chat/leave', {room_id: room_jid});
      },
 
      update_chat_title: function () {
@@ -262,6 +281,7 @@ jQuery(function($) {
         // set up presence handler and send initial presence
         Jabber.connection.addHandler(Jabber.on_presence, null, "presence");
         Jabber.send_availability_status(Jabber.presence_status);
+        load_defaults();
      },
 
      // NOTE: cause Noosfero store's rosters in database based on friendship relation between people
@@ -488,7 +508,11 @@ jQuery(function($) {
 
      show_notice: function(jid_id, msg) {
         var tab_id = '#' + Jabber.conversation_prefix + jid_id;
-        $(tab_id).find('.history').append("<span class='notice'>" + msg + "</span>");
+        var notice = $(tab_id).find('.history .notice');
+        if (notice.length > 0)
+          notice.html(msg)
+        else
+          $(tab_id).find('.history').append("<span class='notice'>" + msg + "</span>");
      }
    };
 
@@ -515,6 +539,7 @@ jQuery(function($) {
    $('#chat').bind('opengroup', function(ev, anchor) {
       var full_jid = anchor.replace('#', '');
       var jid = Strophe.getBareJidFromJid(full_jid);
+      console.log('>>>> '+jid);
       var name = Strophe.getResourceFromJid(full_jid);
       var jid_id = Jabber.jid_to_id(full_jid);
       if (full_jid) {
@@ -569,6 +594,7 @@ jQuery(function($) {
       if(conversation.find('.chat-offset-container-0').length == 0)
         recent_messages(Jabber.jid_of(jid_id));
       conversation.find('.conversation .input-div textarea.input').focus();
+      $.post('/chat/tab', {tab_id: jid_id});
    });
 
    // put name into text area when click in one occupant
@@ -669,6 +695,20 @@ jQuery(function($) {
        $.each(data['order'], function(i, identifier) {
          move_conversation_to_the_top(identifier+'-'+data['domain']);
        })
+     })
+   }
+
+   function load_defaults() {
+     $.getJSON('/chat/my_session', {}, function(data) {
+       $.each(data.rooms, function(i, room_jid) {
+         Jabber.enter_room(room_jid, false);
+       })
+
+       $('#'+data.tab_id).click();
+
+       console.log(data);
+       if(data.status == 'opened')
+         toggle_chat_window();
      })
    }
 
@@ -805,20 +845,17 @@ jQuery(function($) {
 
   $('#chat-label').click(function(){
     toggle_chat_window();
+    $.post('/chat/toggle');
   });
 
   $('.room-action.join').live('click', function(){
-    Jabber.enter_room($(this).data('jid'));
-    $(this).hide();
-    $(this).siblings('.leave').show();
-    sort_conversations();
+    var jid = $(this).data('jid');
+    Jabber.enter_room(jid);
   });
 
   $('.room-action.leave').live('click', function(){
-    Jabber.leave_room($(this).data('jid'));
-    $(this).hide();
-    $(this).siblings('.join').show();
-    sort_conversations();
+    var jid = $(this).data('jid');
+    Jabber.leave_room(jid);
   });
 
 });

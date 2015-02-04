@@ -9,7 +9,7 @@
       <br style="clear:both" />
     <% end %>
     <br style="clear:both" />
-    <%= submit_button(:save, _('Filter')) %>
+    <%= submit_button(:save, c_('Filter')) %>
   </div>
 
   <div id='bsc-plugin-contracts-results'>
@@ -31,8 +31,8 @@
               <%= content_tag('i', show_date(contract.created_at)) %>
             </td>
             <td class="links">
-              <%= link_to(_('Edit'), :action => 'edit_contract', :contract_id => contract.id)%>
-              <%= link_to(_('Remove'), {:action => 'destroy_contract', :contract_id => contract.id}, :confirm => _('Are you sure?'))%>
+              <%= link_to(c_('Edit'), :action => 'edit_contract', :contract_id => contract.id)%>
+              <%= link_to(c_('Remove'), {:action => 'destroy_contract', :contract_id => contract.id}, :confirm => _('Are you sure?'))%>
             </td>
           </tr>
         <% end %>
@@ -41,7 +41,7 @@
     <% end %>
     
     <% button_bar do %>
-      <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
+      <%= button(:back, c_('Go back'), :controller => 'profile_editor') %>
       <%= button(:new, _('Create new contract'), :action => 'new_contract')%>
     <% end %>
   </div>

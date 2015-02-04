@@ -1,19 +1,24 @@
-class SendEmailPlugin::Mail < ActiveRecord::Base #WithoutTable
+class SendEmailPlugin::Mail
+  include ActiveModel::Validations
 
-  N_('Subject'); N_('Message'); N_('To'); N_('From')
-  tableless :columns => [
-    [:from, :string],
-    [:to, :string],
-    [:subject, :string, _('New mail')],
-    [:message, :string],
-    [:params, :hash, {}],
-  ]
-  attr_accessor :environment
+  cN_('Subject'); cN_('Message'); N_('To'); cN_('From')
+
+  attr_accessor :environment, :from, :to, :subject, :message, :params
 
   validates_presence_of :environment
   validates_presence_of :to, :message
+  validate :recipients_format
 
-  def validate
+  def initialize(attributes = {:subject => 'New mail'})
+    @environment = attributes[:environment]
+    @from = attributes[:from]
+    @to = attributes[:to]
+    @subject = attributes[:subject]
+    @message = attributes[:message]
+    @params = attributes[:params]
+  end
+
+  def recipients_format
     if to_as_list.any? do |value|
         if value !~ Noosfero::Constants::EMAIL_FORMAT
           self.errors.add(:to, _("'%s' isn't a valid e-mail address") % value)
@@ -32,7 +37,7 @@ class SendEmailPlugin::Mail < ActiveRecord::Base #WithoutTable
 
   def params=(value = {})
     [:action, :controller, :to, :message, :subject, :from].each{|k| value.delete(k)}
-    self[:params] = value
+    @params = value
   end
 
   def to_as_list

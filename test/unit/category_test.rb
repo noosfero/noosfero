@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative "../test_helper"
 
 # FIXME move the filesystem-related tests out here
 class CategoryTest < ActiveSupport::TestCase
