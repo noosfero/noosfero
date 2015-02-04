@@ -1,40 +1,33 @@
-app                               usr/share/noosfero
-db                                usr/share/noosfero
-doc                               usr/share/noosfero
-lib                               usr/share/noosfero
-script                            usr/share/noosfero
-util                              usr/share/noosfero
 Rakefile                          usr/share/noosfero
-vendor                            usr/share/noosfero
-
+app                               usr/share/noosfero
+baseplugins                       usr/share/noosfero
+config.ru                         usr/share/noosfero
 config/application.rb             usr/share/noosfero/config
 config/boot.rb                    usr/share/noosfero/config
 config/environment.rb             usr/share/noosfero/config
 config/environments               usr/share/noosfero/config
 config/initializers               usr/share/noosfero/config
-config/routes.rb                  usr/share/noosfero/config
 config/locales                    usr/share/noosfero/config
-config.ru                         usr/share/noosfero
-
-plugins                           usr/share/noosfero
-baseplugins                       usr/share/noosfero
-
+config/routes.rb                  usr/share/noosfero/config
+db                                usr/share/noosfero
+debian/database.yml.template      usr/share/noosfero/config
 debian/dbinstall                  usr/lib/noosfero
 debian/dbupgrade                  usr/lib/noosfero
-debian/database.yml.template      usr/share/noosfero/config
-
-public                            usr/share/noosfero
-
 debian/default/noosfero           etc/default
-etc/init.d/noosfero               etc/init.d
-debian/thin.yml                   etc/noosfero
-etc/logrotate.d/noosfero          etc/logrotate.d
+debian/noosfero-check-dbconfig    usr/sbin
+debian/noosfero-console           usr/sbin
 debian/noosfero.yml               etc/noosfero
+debian/thin.yml                   etc/noosfero
+doc                               usr/share/noosfero
+doc/noosfero                      usr/share/noosfero/doc
+etc/init.d/noosfero               etc/init.d
+etc/logrotate.d/noosfero          etc/logrotate.d
 etc/noosfero/varnish-accept-language.vcl  etc/noosfero
 etc/noosfero/varnish-noosfero.vcl         etc/noosfero
-
+lib                               usr/share/noosfero
 locale                            usr/share/noosfero
-doc/noosfero                      usr/share/noosfero/doc
-
-debian/noosfero-console           usr/sbin
-debian/noosfero-check-dbconfig    usr/sbin
+plugins                           usr/share/noosfero
+public                            usr/share/noosfero
+script                            usr/share/noosfero
+util                              usr/share/noosfero
+vendor                            usr/share/noosfero
