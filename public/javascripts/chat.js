@@ -534,31 +534,6 @@ jQuery(function($) {
       Jabber.connect();
    });
 
-   // detect when click in chat with a community or person in main window of Noosfero environment
-   $('#chat').bind('opengroup', function(ev, jid) {
-      var jid_id = Jabber.jid_to_id(jid);
-      var name = Jabber.name_of(jid_id);
-      if (jid) {
-         if (Strophe.getDomainFromJid(jid) == Jabber.muc_domain) {
-            if (Jabber.muc_supported) {
-               log('opening groupchat with ' + jid);
-               Jabber.jids[jid_id] = {jid: jid, name: name, type: 'groupchat'};
-               var conversation = create_conversation_tab(name, jid_id);
-               Jabber.enter_room(jid);
-               conversation.find('.conversation').show();
-               recent_messages(jid);
-            }
-         }
-         else {
-            log('opening chat with ' + jid);
-            var conversation = create_conversation_tab(name, jid_id);
-            conversation.find('.conversation').show();
-            recent_messages(jid);
-         }
-	 conversation.find('.input').focus();
-      }
-   });
-
    $('.conversation textarea').live('keydown', function(e) {
      if (e.keyCode == 13) {
         var jid = $(this).attr('data-to');
@@ -604,6 +579,51 @@ jQuery(function($) {
    $('#chat .conversation .history').live('click', function() {
       $('.conversation textarea:visible').focus();
    });
+
+   function toggle_chat_window() {
+      if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
+      jQuery('#chat').toggleClass('opened');
+      jQuery('#chat-label').toggleClass('opened');
+   }
+
+   function load_conversation(jid) {
+      var jid_id = Jabber.jid_to_id(jid);
+      var name = Jabber.name_of(jid_id);
+      if (jid) {
+         if (Strophe.getDomainFromJid(jid) == Jabber.muc_domain) {
+            if (Jabber.muc_supported) {
+               log('opening groupchat with ' + jid);
+               Jabber.jids[jid_id] = {jid: jid, name: name, type: 'groupchat'};
+               var conversation = create_conversation_tab(name, jid_id);
+               Jabber.enter_room(jid);
+               recent_messages(jid);
+               return conversation;
+            }
+         }
+         else {
+            log('opening chat with ' + jid);
+	    Jabber.jids[jid_id] = {jid: jid, name: name, type: 'friendchat'};
+            var conversation = create_conversation_tab(name, jid_id);
+            recent_messages(jid);
+	    return conversation;
+         }
+      }
+   }
+
+   function open_conversation(jid) {
+     var conversation = load_conversation(jid);
+     var jid_id = $(this).attr('id');
+
+     $('.conversation').hide();
+     conversation.show();
+     count_unread_messages(jid_id, true);
+     if(conversation.find('.chat-offset-container-0').length == 0)
+       recent_messages(Jabber.jid_of(jid_id));
+     conversation.find('.input').focus();
+     $('#chat').addClass('opened');
+     $('#chat-label').addClass('opened');
+     $.post('/chat/tab', {tab_id: jid_id});
+   }
 
    function create_conversation_tab(title, jid_id) {
       var conversation_id = Jabber.conversation_prefix + jid_id;
@@ -789,7 +809,7 @@ jQuery(function($) {
        var options = {body: message.body, icon: avatar, tag: jid_id};
        console.log('Notify '+name);
        $(notifyMe(name, options)).on('click', function(){
-         open_chat_window(jid);
+         open_conversation(jid);
        });
        $.sound.play('/sounds/receive.wav');
      }
