@@ -200,7 +200,7 @@ jQuery(function($) {
           $.post('/chat/join', {room_id: jid});
      },
 
-     leave_room: function(jid) {
+     leave_room: function(jid, push) {
         if(push == undefined)
           push = true
         var jid_id = Jabber.jid_to_id(jid);
@@ -498,7 +498,6 @@ jQuery(function($) {
             .c('active', {xmlns: Strophe.NS.CHAT_STATES});
         Jabber.connection.send(message);
         Jabber.show_message(jid, $own_name, escape_html(body), 'self', Strophe.getNodeFromJid(Jabber.connection.jid));
-        Archive.register(jid, Jabber.connection.jid, body);
         move_conversation_to_the_top(jid);
      },
 
@@ -536,19 +535,16 @@ jQuery(function($) {
    });
 
    // detect when click in chat with a community or person in main window of Noosfero environment
-   $('#chat').bind('opengroup', function(ev, anchor) {
-      var full_jid = anchor.replace('#', '');
-      var jid = Strophe.getBareJidFromJid(full_jid);
-      console.log('>>>> '+jid);
-      var name = Strophe.getResourceFromJid(full_jid);
-      var jid_id = Jabber.jid_to_id(full_jid);
-      if (full_jid) {
+   $('#chat').bind('opengroup', function(ev, jid) {
+      var jid_id = Jabber.jid_to_id(jid);
+      var name = Jabber.name_of(jid_id);
+      if (jid) {
          if (Strophe.getDomainFromJid(jid) == Jabber.muc_domain) {
             if (Jabber.muc_supported) {
                log('opening groupchat with ' + jid);
                Jabber.jids[jid_id] = {jid: jid, name: name, type: 'groupchat'};
-               Jabber.enter_room(jid);
                var conversation = create_conversation_tab(name, jid_id);
+               Jabber.enter_room(jid);
                conversation.find('.conversation').show();
                recent_messages(jid);
             }
@@ -701,12 +697,11 @@ jQuery(function($) {
    function load_defaults() {
      $.getJSON('/chat/my_session', {}, function(data) {
        $.each(data.rooms, function(i, room_jid) {
-         Jabber.enter_room(room_jid, false);
+         $('#chat').trigger('opengroup', room_jid);
        })
 
        $('#'+data.tab_id).click();
 
-       console.log(data);
        if(data.status == 'opened')
          toggle_chat_window();
      })
@@ -794,7 +789,7 @@ jQuery(function($) {
        var options = {body: message.body, icon: avatar, tag: jid_id};
        console.log('Notify '+name);
        $(notifyMe(name, options)).on('click', function(){
-         open_chat_window('#'+jid+'/'+name);
+         open_chat_window(jid);
        });
        $.sound.play('/sounds/receive.wav');
      }

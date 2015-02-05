@@ -587,10 +587,10 @@ function display_notice(message) {
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
 
-function open_chat_window(anchor) {
+function open_chat_window(jid) {
    jQuery('#chat').addClass('opened');
    jQuery('#chat-label').addClass('opened');
-   jQuery("#chat" ).trigger('opengroup', anchor);
+   jQuery("#chat" ).trigger('opengroup', jid);
    return false;
 }
 
