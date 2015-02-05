@@ -1,0 +1,22 @@
+<%= error_messages_for :role %>
+
+<%= labelled_form_for :role, :url => (mode == :edit) ? {:action => 'update', :id => role} : {:action => 'create'} do |f| %>
+
+  <%= required_fields_message %>
+
+  <%= required f.text_field(:name) %>
+
+  <% permissions.each do |key| %>
+  <div class="permissions <%= key.downcase %>">
+    <h4><%= _('%s Permissions:' % key) %></h4>
+    <% ActiveRecord::Base::PERMISSIONS[key].keys.each do |p| %>
+      <%= check_box_tag("role[permissions][]", p, role.has_permission?(p), { :id => p }) %>
+      <%= content_tag(:label, permission_name(p), { :for => p }) %><br/>
+    <% end %>
+  </div>
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button('save', (mode == :edit) ? _('Save changes') : _('Create role'), :cancel => {:action => 'index'} ) %>
+  <% end %>
+<% end %>
