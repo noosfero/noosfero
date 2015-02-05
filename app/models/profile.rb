@@ -155,15 +155,23 @@ class Profile < ActiveRecord::Base
 
   include TimeScopes
 
-  def members
+  def members(by_field = '')
     scopes = plugins.dispatch_scopes(:organization_members, self)
-    scopes << Person.members_of(self)
+    scopes << Person.members_of(self,by_field)
     return scopes.first if scopes.size == 1
     ScopeTool.union *scopes
   end
 
-  def members_by_name
-    members.order('profiles.name')
+  def members_by(field,value = nil)
+    if value and !value.blank?
+      members_like(field,value).order('profiles.name')
+    else
+      members.order('profiles.name')
+    end
+  end
+
+  def members_like(field,value)
+    members(field).where("LOWER(#{field}) LIKE ?", "%#{value.downcase}%") if value
   end
 
   class << self
@@ -1096,6 +1104,10 @@ private :generate_url, :url_options
     else
       (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
     end
+  end
+
+  def can_view_field? current_person, field
+    display_private_info_to?(current_person) || (public_fields.include?(field) && public?)
   end
 
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true

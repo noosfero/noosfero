@@ -1,0 +1,18 @@
+<%= form_tag '#', :method => 'post' do %>
+
+    <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+        <p>
+          <%= labelled_text_field(_('Name or Email')+': ', "filters[name]", @filters[:name], {:id => 'filter-name-autocomplete',:size => 30}) %>
+        </p>
+
+        <p><%= _('Roles:') %> </p>
+        <% @data[:roles].each do |r| %>
+          <%= labelled_check_box(r.name, 'filters[roles][]', r.id, @filters[:roles].include?(r.id.to_s), :add_hidden => false) %><br/>
+        <% end %>
+        <p>
+          <%= submit_button(:search, _('Search')) %>
+        </p>
+    <% end %>
+<% end %>
+
+<%= javascript_include_tag params[:controller] %>

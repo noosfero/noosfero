@@ -5,9 +5,16 @@ class OrganizationMailing < Mailing
   end
 
   def recipients(offset=0, limit=100)
-    source.members.order(:id).offset(offset).limit(limit)
+    if data.present? and data.is_a?(Hash) and data[:members_filtered]
+      result = source.members.where('profiles.id IN (?)', data[:members_filtered])
+    end
+
+    if result.blank?
+      result = source.members.order(:id).offset(offset).limit(limit)
       .joins("LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)")
       .where("m.person_id" => nil)
+    end
+    result
   end
 
   def each_recipient

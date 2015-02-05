@@ -1465,9 +1465,39 @@ class ProfileControllerTest < ActionController::TestCase
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
     login_as('profile_moderator_user')
     @controller.stubs(:locale).returns('pt')
+
     assert_difference 'Delayed::Job.count', 1 do
       post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
     end
+  end
+
+  should 'send to members_filtered if available' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    person = create_user('Any').person
+    community.add_member(person)
+    community.save!
+    login_as('profile_moderator_user')
+
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equivalent community.members, OrganizationMailing.last.recipients
+
+    @request.session[:members_filtered] = [person.id]
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'RUN!!', :body => 'Run to the hills!!'}
+    assert_equal [person], OrganizationMailing.last.recipients
+  end
+
+  should 'send email to all members if there is no valid member in members_filtered' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    person = create_user('Any').person
+    community.add_member(person)
+    community.save!
+    login_as('profile_moderator_user')
+
+    @request.session[:members_filtered] = [Profile.last.id+1]
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'RUN!!', :body => 'Run to the hills!!'}
+    assert_equivalent community.members, OrganizationMailing.last.recipients
   end
 
   should 'save mailing' do

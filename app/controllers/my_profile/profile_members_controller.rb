@@ -2,8 +2,16 @@ class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
 
   def index
-    @members = profile.members_by_name
-    @member_role = environment.roles.find_by_name('member')
+    @filters = params[:filters] || {:roles => []}
+    @filters[:roles] = [] unless @filters[:roles]
+    @data = {}
+    field = 'name'
+    field = 'email' if @filters[:name] =~ /\@/
+
+    @data[:members] = profile.members_by(field,@filters[:name]).by_role(@filters[:roles])
+    session[:members_filtered] = @data[:members].map{|m|m.id} if request.post?
+    @data[:roles] = Profile::Roles.organization_member_roles(environment.id)
+
   end
 
   def update_roles
@@ -154,6 +162,15 @@ class ProfileMembersController < MyProfileController
         redirect_to :controller => 'profile_editor'
       end
     end
+  end
+
+  def search_members
+    field = 'name'
+    field = 'email' if params[:filter_name] =~ /\@/
+
+    result = profile.members_like field, params[:filter_name]
+    result = result.select{|member| member.can_view_field?(current_person, "email") } if field=="email"
+    render :json => result.map { |member| {:label => "#{member.name}#{member.can_view_field?(current_person, "email") ? " <#{member.email}>" : ""}", :value => member.name }}
   end
 
 end
