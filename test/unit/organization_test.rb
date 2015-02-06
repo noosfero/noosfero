@@ -407,7 +407,7 @@ class OrganizationTest < ActiveSupport::TestCase
     person3 = fast_create(Person)
     community.affiliate(person3, role3)
 
-    assert_equal [person2, person3], community.members_by_role([role2, role3])
+    assert_equivalent [person2, person3], community.members_by_role([role2, role3])
   end
 
   should 'return members by role in a json format' do
