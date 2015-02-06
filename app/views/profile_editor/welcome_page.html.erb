@@ -1,0 +1,21 @@
+<h1><%= _('Edit welcome page') %></h1>
+
+<%= labelled_form_for :welcome_page do |f| %>
+  <%= error_messages_for :welcome_page %>
+
+  <%= f.check_box(:published) %>
+  <div class='explanation'>
+    <%= _('Your welcome page will only be displayed if this options is selected.') %>
+  </div>
+
+  <%= f.text_area(:body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor') %>
+  <div class='explanation'>
+    <%= _('This page will be displayed to the user after his signup with this template.') %>
+  </div>
+
+  <% button_bar do%>
+    <%= submit_button('save',  _('Save'), :cancel => @back_to) %>
+  <% end %>
+<% end %>
+
+<%= render :file => 'shared/tiny_mce' %>

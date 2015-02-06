@@ -756,25 +756,14 @@ class CmsControllerTest < ActionController::TestCase
     assert !folder.children[0].published?
   end
 
-  should 'load communities for that the user belongs' do
-    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
-    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
-    a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
-
-    get :publish, :profile => profile.identifier, :id => a.id
-
-    assert_equal [c], assigns(:groups)
-    assert_template 'publish'
-  end
-
   should 'publish the article in the selected community if community is not moderated' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => false)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
     assert_difference 'article.class.count' do
-      post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
-      assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
+      post :publish_on_communities, :profile => profile.identifier, :id => article.id, :q => c.id.to_s
+      assert_includes  assigns(:marked_groups), c
     end
   end
 
@@ -784,7 +773,15 @@ class CmsControllerTest < ActionController::TestCase
     a = Event.create!(:name => "Some event", :profile => profile, :start_date => Date.today)
 
     assert_difference 'Event.count' do
-      post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
+      post :publish_on_communities, :profile => profile.identifier, :id => a.id, :q => c.id.to_s
+    end
+  end
+
+  should 'not crash if no community is selected' do
+    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
+
+    assert_nothing_raised do
+      post :publish_on_communities, :profile => profile.identifier, :id => article.id, :q => '', :back_to => '/'
     end
   end
 
@@ -800,7 +797,10 @@ class CmsControllerTest < ActionController::TestCase
     portal_community = fast_create(Community)
     portal_community.moderated_articles = false
     portal_community.save
-    Environment.any_instance.stubs(:portal_community).returns(portal_community)
+    environment = portal_community.environment
+    environment.portal_community = portal_community
+    environment.enable('use_portal_community')
+    environment.save!
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
     assert_difference 'article.class.count' do
@@ -816,8 +816,8 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_difference 'a.class.count' do
       assert_difference 'ApproveArticle.count' do
         assert_difference 'c.tasks.count' do
-          post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
-          assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
+          post :publish_on_communities, :profile => profile.identifier, :id => a.id, :q => c.id.to_s
+          assert_includes assigns(:marked_groups), c
         end
       end
     end
@@ -826,8 +826,11 @@ class CmsControllerTest < ActionController::TestCase
   should 'create a task for article approval if portal community is moderated' do
     portal_community = fast_create(Community)
     portal_community.moderated_articles = true
-    portal_community.save
-    Environment.any_instance.stubs(:portal_community).returns(portal_community)
+    portal_community.save!
+    environment = portal_community.environment
+    environment.portal_community = portal_community
+    environment.enable('use_portal_community')
+    environment.save!
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
     assert_no_difference 'article.class.count' do
@@ -1160,30 +1163,33 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :div, :attributes => { :id => "text-editor-sidebar" }
   end
 
-  should "display 'Publish' when profile is a person" do
+  should "display 'Publish' when profile is a person and is member of communities" do
     a = fast_create(TextileArticle, :profile_id => profile.id, :updated_at => DateTime.now)
-    Article.stubs(:short_description).returns('bli')
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c1.add_member(profile)
+    c2.add_member(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/publish/#{a.id}"}
+  end
+
+  should "display 'Publish' when profile is a person and there is a portal community" do
+    a = fast_create(TextileArticle, :profile_id => profile.id, :updated_at => DateTime.now)
+    environment = profile.environment
+    environment.portal_community = fast_create(Community)
+    environment.enable('use_portal_community')
+    environment.save!
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/publish/#{a.id}"}
   end
 
   should "display 'Publish' when profile is a community" do
     community = fast_create(Community)
-    community.add_member(profile)
-    Environment.any_instance.stubs(:portal_community).returns(community)
+    community.add_admin(profile)
     a = fast_create(TextileArticle, :profile_id => community.id, :updated_at => DateTime.now)
     Article.stubs(:short_description).returns('bli')
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{community.identifier}/cms/publish_on_portal_community/#{a.id}"}
-  end
-
-  should "not display 'Publish' when profile is not a person nor a community" do
-    p = Community.create!(:name => 'community-test')
-    p.add_admin(profile)
-    a = p.articles.create!(:name => 'my new home page')
-    Article.stubs(:short_description).returns('bli')
-    get :index, :profile => p.identifier
-    assert_no_tag :tag => 'a', :attributes => {:href => "/myprofile/#{p.identifier}/cms/publish/#{a.id}"}
+    assert_tag :tag => 'a', :attributes => {:href => "/myprofile/#{community.identifier}/cms/publish/#{a.id}"}
   end
 
   should 'not offer to upload files to blog' do
@@ -1604,44 +1610,19 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'upload media by AJAX' do
-    post :media_upload, :profile => profile.identifier, :file1 => fixture_file_upload('/files/test.txt', 'text/plain'), :file2 => fixture_file_upload('/files/rails.png', 'image/png'), :file3 => ''
-    assert_match 'test.txt', @response.body
-    assert_equal 'text/plain', @response.content_type
-
-    data = parse_json_response
-
-    assert_equal 'test.txt', data[0]['title']
-    assert_match /\/testinguser\/test.txt$/, data[0]['url']
-    assert_match /text/, data[0]['icon']
-    assert_match /text/, data[0]['content_type']
-    assert_nil data[0]['error']
-
-    assert_equal 'rails.png', data[1]['title']
-    assert_no_match /\/public\/articles\/.*\/rails.png$/, data[1]['url']
-    assert_match /png$/, data[1]['icon']
-    assert_match /image/, data[1]['content_type']
-    assert_nil data[1]['error']
-
+    assert_difference 'UploadedFile.count', 1 do
+      post :media_upload, :format => 'js', :profile => profile.identifier, :file => fixture_file_upload('/files/test.txt', 'text/plain')
+    end
   end
 
   should 'not when media upload via AJAX contains empty files' do
     post :media_upload, :profile => @profile.identifier
   end
 
-  should 'mark unsuccessfull uploads' do
+  should 'mark unsuccessfull upload' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
-
-    post :media_upload, :profile => profile.identifier, :media_listing => true, :file1 => fixture_file_upload('files/rails.png', 'image/png'), :file2 => fixture_file_upload('/files/test.txt', 'text/plain')
-
-    assert_equal 'text/plain', @response.content_type
-    data = parse_json_response
-
-    assert_equal 'rails.png', data[0]['title']
-    assert_not_nil data[0]['error']
-    assert_match /rails.png/, data[0]['error']
-
-    assert_equal 'test.txt', data[1]['title']
-    assert_nil data[1]['error']
+    post :media_upload, :profile => profile.identifier, :media_listing => true, :file => fixture_file_upload('files/rails.png', 'image/png')
+    assert_response :bad_request
   end
 
   should 'make RawHTMLArticle available only to environment admins' do
@@ -1820,14 +1801,6 @@ class CmsControllerTest < ActionController::TestCase
     a.reload
 
     assert_equal other_person, a.created_by
-  end
-
-  should 'continue on the same page, when no group is selected' do
-    c = Community.create!(:name => 'test comm', :identifier => 'test_comm')
-    c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
-    article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
-    post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {}}
-    assert_template 'cms/publish'
   end
 
   should 'response of search_tags be json' do

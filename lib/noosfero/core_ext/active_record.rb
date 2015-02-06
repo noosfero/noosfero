@@ -13,14 +13,32 @@ class ActiveRecord::Base
     key.join('/')
   end
 
-  def self.like_search(query)
-    if defined?(self::SEARCHABLE_FIELDS)
-      fields = self::SEARCHABLE_FIELDS.keys.map(&:to_s) & column_names
+  def self.like_search(query, options={})
+    if defined?(self::SEARCHABLE_FIELDS) || options[:fields].present?
+      fields_per_table = {}
+      fields_per_table[table_name] = (options[:fields].present? ? options[:fields] : self::SEARCHABLE_FIELDS.keys.map(&:to_s)) & column_names
+
+      if options[:joins].present?
+        join_asset = options[:joins].to_s.classify.constantize
+        if defined?(join_asset::SEARCHABLE_FIELDS) || options[:fields].present?
+          fields_per_table[join_asset.table_name] = (options[:fields].present? ? options[:fields] : join_asset::SEARCHABLE_FIELDS.keys.map(&:to_s)) & join_asset.column_names
+        end
+      end
+
       query = query.downcase.strip
-      conditions = fields.map do |field|
-        "lower(#{table_name}.#{field}) LIKE '%#{query}%'"
+      fields_per_table.delete_if { |table,fields| fields.blank? }
+      conditions = fields_per_table.map do |table,fields|
+        fields.map do |field|
+          "lower(#{table}.#{field}) LIKE '%#{query}%'"
+        end.join(' OR ')
       end.join(' OR ')
-      where(conditions)
+
+      if options[:joins].present?
+        joins(options[:joins]).where(conditions)
+      else
+        where(conditions)
+      end
+
     else
       raise "No searchable fields defined for #{self.name}"
     end

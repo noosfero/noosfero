@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>Social Share Privacy: Perma Option</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://panzi.github.com/SocialSharePrivacy/javascripts/jquery.cookies.js"></script>
+<script type="text/javascript" src="../javascripts/socialshareprivacy.js"></script>
+<script type="text/javascript" src="../javascripts/modules/facebook.js"></script>
+<script type="text/javascript" src="../javascripts/modules/twitter.js"></script>
+<script type="text/javascript" src="../javascripts/modules/gplus.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+// define the default order of the buttons:
+$.fn.socialSharePrivacy.settings.order = ['facebook', 'gplus', 'twitter'];
+$.fn.socialSharePrivacy.settings.path_prefix = '../';
+
+$(document).ready(function () {
+	$('#share1').socialSharePrivacy({
+		perma_option: false,
+		info_link_target: '_blank'
+	});
+
+	$('#share2').socialSharePrivacy({
+		// Set perma_option to true.
+		// Initially it is only set to true if jQuery.cookie is available.
+		perma_option: true,
+		set_perma_option: function (service_name) {
+			localStorage.setItem('socialSharePrivacy_'+service_name, 'perma_on');
+		},
+		del_perma_option: function (service_name) {
+			localStorage.removeItem('socialSharePrivacy_'+service_name);
+		},
+		// Only one of the two methods "get_perma_options" and "get_perma_option" has
+		// to be implemented. Though the other has to be set to null, so the default
+		// cookie based method is not used.
+		get_perma_options: null,
+		get_perma_option: function (service_name) {
+			return localStorage.getItem('socialSharePrivacy_'+service_name) === 'perma_on';
+		}
+	});
+
+	var $share3 = $('#share3').socialSharePrivacy({
+		// no perma options menu:
+		perma_option: false
+	}).on('socialshareprivacy:enable', function (event) {
+		// set perma option for enabled service:
+		var options = $(this).socialSharePrivacy('options');
+		options.set_perma_option(event.serviceName, options);
+	}).on('socialshareprivacy:disable', function (event) {
+		// delete perma option for disabled service:
+		var options = $(this).socialSharePrivacy('options');
+		options.del_perma_option(event.serviceName, options);
+	});
+
+	// manually enable services for which the perma option is set:
+	var options = $share3.socialSharePrivacy('options');
+	var perma = options.get_perma_options(options);
+	for (var service_name in options.services) {
+		if (perma[service_name]) {
+			$share3.socialSharePrivacy('enable',service_name);
+		}
+	}
+
+	// prevent ref-cycles via closures (not needed for somewhat recent browsers,
+	// but I like to do it anyway):
+	options = $share3 = perma = null;
+});
+// ]]>
+</script>
+</head>
+<body>
+
+<h1>Social Share Privacy: perma Option</h1>
+
+<p>
+Share buttons without perma option:
+</p>
+
+<div id="share1"></div>
+
+<p>
+Share buttons that use HTML5 localStorage for perma options:
+</p>
+
+<div id="share2"></div>
+
+<p>
+Automatically set the perma option if you enable a service:
+</p>
+
+<div id="share3"></div>
+
+</body>
+</html>

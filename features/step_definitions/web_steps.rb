@@ -99,6 +99,7 @@ When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
 end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do |path, field, selector|
+  path = File.expand_path(path).gsub('/', File::ALT_SEPARATOR || File::SEPARATOR)
   with_scope(selector) do
     attach_file(field, path)
   end
@@ -252,7 +253,7 @@ Then /^display "([^\"]*)"$/ do |element|
 end
 
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
-  should have_selector('div', :class => klass)
+  should have_selector("div.#{klass}")
 end
 
 When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|

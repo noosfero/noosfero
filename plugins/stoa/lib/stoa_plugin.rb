@@ -110,7 +110,7 @@ class StoaPlugin < Noosfero::Plugin
     { :title => c_('Invite friends'),
       :icon => 'invite-friends',
       :url => {:controller => 'invite',
-               :action => 'select_address_book'} } if context.send(:user) && context.send(:user).usp_id.present?
+               :action => 'invite_friends'} } if context.send(:user) && context.send(:user).usp_id.present?
   end
 
   def remove_invite_friends_button
@@ -119,6 +119,10 @@ class StoaPlugin < Noosfero::Plugin
 
   def change_password_fields
     {:field => :usp_id, :name => _('USP Number'), :model => 'person'}
+  end
+
+  def search_friend_fields
+    [{:field => :usp_id, :name => _('USP Number')}]
   end
 
 end

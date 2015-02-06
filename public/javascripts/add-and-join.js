@@ -120,4 +120,30 @@ jQuery(function($) {
     return false;
   })
 
+  $(".remove-suggestion").live('click', function(){
+    clicked = $(this);
+    removeSuggestionFromList(clicked);
+  })
+
+  $(".accept-suggestion").live('click', function(){
+    clicked = $(this)
+    loading_for_button(this);
+    url = clicked.attr("href");
+    removeSuggestionFromList(clicked.parents('li').find('.remove-suggestion'));
+    $.post(url, function(add_data){
+      clicked.parents('li').fadeOut();
+    });
+    return false;
+  })
+
 });
+
+/* Used after clicking on remove and after adding a suggestion */
+function removeSuggestionFromList( element ) {
+  url = element.attr("href");
+  loading_for_button(element);
+  jQuery.post(url, function(data){
+    element.fadeOut();
+    element.parents('.profiles-suggestions').html(data);
+  });
+}

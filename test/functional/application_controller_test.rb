@@ -513,6 +513,28 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
   end
 
+  should 'register search_term occurrence on find_by_contents' do
+    controller = ApplicationController.new
+    controller.stubs(:environment).returns(Environment.default)
+    assert_difference 'SearchTermOccurrence.count', 1 do
+      controller.send(:find_by_contents, :people, Environment.default, Person, 'search_term', paginate_options={:page => 1}, options={})
+      process_delayed_job_queue
+    end
+  end
+
+  should 'allow plugin to propose search terms suggestions' do
+    class SuggestionsPlugin < Noosfero::Plugin
+      def find_suggestions(query, context, asset, options={:limit => 5})
+        ['a', 'b', 'c']
+      end
+    end
+
+    controller = ApplicationController.new
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SuggestionsPlugin.new])
+
+    assert_equal ['a', 'b', 'c'], controller.send(:find_suggestions, 'random', Environment.default, 'random')
+  end
+
   should 'redirect to login if environment is restrict to members' do
     Environment.default.enable(:restrict_to_members)
     get :index

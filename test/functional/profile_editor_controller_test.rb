@@ -880,6 +880,63 @@ class ProfileEditorControllerTest < ActionController::TestCase
     end
   end
 
+  should 'have welcome_page only for template' do
+    organization = fast_create(Organization, :is_template => false)
+    @controller.stubs(:profile).returns(organization)
+    assert !@controller.send(:has_welcome_page)
+
+    organization = fast_create(Organization, :is_template => true)
+    @controller.stubs(:profile).returns(organization)
+    assert @controller.send(:has_welcome_page)
+
+    person = fast_create(Person, :is_template => false)
+    @controller.stubs(:profile).returns(person)
+    assert !@controller.send(:has_welcome_page)
+
+    person = fast_create(Person, :is_template => true)
+    @controller.stubs(:profile).returns(person)
+    assert @controller.send(:has_welcome_page)
+  end
+
+  should 'display welcome_page button only if profile has_welcome_page' do
+    @controller.stubs(:has_welcome_page).returns(true)
+    get :index, :profile => fast_create(Profile).identifier
+    assert_tag :tag => 'a', :content => 'Edit welcome page'
+
+    @controller.stubs(:has_welcome_page).returns(false)
+    get :index, :profile => fast_create(Profile).identifier
+    assert_no_tag :tag => 'a', :content => 'Edit welcome page'
+  end
+
+  should 'not be able to access welcome_page if profile does not has_welcome_page' do
+    @controller.stubs(:has_welcome_page).returns(false)
+    get :welcome_page, :profile => fast_create(Profile).identifier
+    assert_response :forbidden
+  end
+
+  should 'create welcome_page with public false by default' do
+    get :welcome_page, :profile => fast_create(Person, :is_template => true).identifier
+    assert !assigns(:welcome_page).published
+  end
+
+  should 'update welcome page and redirect to index' do
+    person_template = create_user('person_template').person
+    person_template.is_template = true
+
+    welcome_page = fast_create(TinyMceArticle, :body => 'Initial welcome page')
+    person_template.welcome_page = welcome_page
+    person_template.save!
+    welcome_page.profile = person_template
+    welcome_page.save!
+    new_content = 'New welcome page'
+
+    post :welcome_page, :profile => person_template.identifier, :welcome_page => {:body => new_content}
+    assert_redirected_to :action => 'index'
+
+    welcome_page.reload
+    assert_equal new_content, welcome_page.body
+  end
+
   should 'display plugins buttons on the control panel' do
 
     class TestControlPanelButtons1 < Noosfero::Plugin

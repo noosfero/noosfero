@@ -3,10 +3,11 @@ class Organization < Profile
 
   attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name, :enable_contact_us
 
-  SEARCH_FILTERS += %w[
-    more_popular
-    more_active
-  ]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent more_popular more_active],
+    :display => %w[compact]
+  }
+
 
   settings_items :closed, :type => :boolean, :default => false
   def closed?
@@ -175,5 +176,9 @@ class Organization < Profile
   def disable
     self.visible = false
     save!
+  end
+
+  def allow_invitation_from?(person)
+    (followed_by?(person) && self.allow_members_to_invite) || person.has_permission?('invite-members', self)
   end
 end

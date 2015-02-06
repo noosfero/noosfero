@@ -70,4 +70,35 @@ class FriendsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/profile/testuser/invite/friends" }
   end
 
+  should 'not display list suggestions button if there is no suggestion' do
+    get :index, :profile => 'testuser'
+    assert_no_tag :tag => 'a', :content => 'Suggest friends', :attributes => { :href => "/myprofile/testuser/friends/suggest" }
+  end
+
+  should 'display people suggestions' do
+    profile.profile_suggestions.create(:suggestion => friend)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => "+ #{friend.name}", :attributes => { :href => "/profile/#{friend.identifier}/add" }
+  end
+
+  should 'display button to add friend suggestion' do
+    profile.profile_suggestions.create(:suggestion => friend)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{friend.identifier}/add" }
+  end
+
+  should 'display button to remove people suggestion' do
+    profile.profile_suggestions.create(:suggestion => friend)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/testuser\/friends\/remove_suggestion\/#{friend.identifier}/ }
+  end
+
+  should 'remove suggestion of friend' do
+    suggestion = profile.profile_suggestions.create(:suggestion => friend)
+    post :remove_suggestion, :profile => 'testuser', :id => friend.identifier
+
+    assert_response :success
+    assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
+  end
+
 end

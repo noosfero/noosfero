@@ -1,7 +1,5 @@
 <%= block_title(title) %>
 
-<%= render_profile_actions owner.class %>
-
 <ul>
   <li><%= link_to(_('Homepage'), owner.url, :class => 'url') %></li>
   <li><%= link_to(_('View profile'), owner.public_profile_url) %></li>
@@ -11,5 +9,5 @@
 </ul>
 
 <div class="my-network-actions">
-  <%= render 'blocks/profile_info_actions/' + owner.class.name.underscore %>
+  <%= render_profile_actions owner.class %>
 </div>

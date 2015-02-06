@@ -72,6 +72,7 @@
 .icon-newupload-file  { background-image: url(Tango/16x16/actions/filesave.png) }
 .icon-slideshow       { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png) }
 .icon-photos          { background-image: url(Tango/16x16/devices/camera-photo.png) }
+.icon-vertical-toggle { background-image: url(Tango/16x16/actions/mail-send-receive.png) }
 
 .icon-text-html       { background-image: url(Tango/16x16/mimetypes/text-html.png) }
 .icon-text-plain      { background-image: url(Tango/16x16/mimetypes/text-x-generic.png) }
@@ -85,6 +86,10 @@
 .icon-application-vnd-oasis-opendocument-text         { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.text.png) }
 .icon-application-vnd-oasis-opendocument-spreadsheet  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.spreadsheet.png) }
 .icon-application-vnd-oasis-opendocument-presentation { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.presentation.png) }
+.icon-welcome-page   { background-image: url(mod/16x16/mimetypes/welcome-page.png) }
+.icon-blocks         { background-image: url(mod/16x16/mimetypes/blocks.png) }
+.icon-header-footer  { background-image: url(mod/16x16/mimetypes/header-footer.png) }
+.icon-appearance     { background-image: url(Tango/16x16/apps/preferences-desktop-wallpaper.png) }
 
 .icon-media-pause  { background-image: url(Tango/16x16/actions/media-playback-pause.png) }
 .icon-media-play   { background-image: url(Tango/16x16/actions/media-playback-start.png) }

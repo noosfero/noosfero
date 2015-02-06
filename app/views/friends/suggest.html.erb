@@ -1,0 +1,9 @@
+<h1><%= _("Friends suggestions for %s") % profile.name %></h1>
+
+<% button_bar do %>
+  <%= button(:back, _('Go to friends list'), :controller => 'friends') %>
+<% end %>
+
+<div class="profiles-suggestions">
+  <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions, :per_page => 12 } %>
+</div>

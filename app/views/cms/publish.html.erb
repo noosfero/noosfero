@@ -1,4 +1,6 @@
-<h1><%= _('Select the groups where you want to publish your article') %></h1>
+<div class="select-publish-target">
+
+<h2><%= _('Where do you want to publish this article?') %></h2>
 
 <% if !@failed.blank? %>
   <div class="errorExplanation" id="errorExplanation">
@@ -14,15 +16,54 @@
   </div>
 <% end %>
 
-<%= form_tag do%>
-  <%= hidden_field_tag :back_to, @back_to %>
-  <% @groups.each do |group| %>
-    <%= labelled_check_box group.name, "marked_groups[#{group.id}][group_id]", group.id, @marked_groups.include?(group) %><br />
-    <%= labelled_text_field _('Title') + ': ', "marked_groups[#{group.id}][name]", @article.name, :style => 'width: 100%' %>
-    <hr />
+<ul class='publish-targets'>
+  <% if profile != user %>
+    <li onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
+      <strong><%= _("Publish this article on your profile") %></strong>
+      <div class='description'><%= _('You can publish this article on your profile where your friends and followers will see.') %></div>
+      <%= form_tag do %>
+        <%= hidden_field_tag :back_to, @back_to %>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
+
+        <% button_bar do %>
+          <%= submit_button 'spread', _('Spread this') %>
+        <% end %>
+      <% end %>
+    </li>
   <% end %>
 
-  <% button_bar do %>
-    <%= submit_button 'spread', _('Spread this'), :cancel => @back_to %>
+  <% if user.communities.present? %>
+    <li onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
+      <strong><%= _("Publish this article on communities you are part of") %></strong>
+      <div class='description'><%= _('You can submit this article to one or more communities you are a member of, just search for the community below.') %></div>
+      <%= form_tag :action => 'publish_on_communities', :id => @article.id do %>
+        <%= hidden_field_tag :back_to, @back_to %>
+        <% search_action = url_for(:action => 'search_communities_to_publish') %>
+        <%= token_input_field_tag(:q, 'search-communities-to-publish', search_action, { :hint_text => _('Type in a search for your community'), :zindex => 10000, :focus => false }) %>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
+        <% button_bar do %>
+          <%= submit_button 'spread', _('Spread this') %>
+        <% end %>
+      <% end %>
+    </li>
   <% end %>
-<% end %>
+
+
+  <% if environment.portal_enabled %>
+    <li onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
+      <strong><%= _("Publish your article on portal community") %></strong>
+      <div class='description'><%= _('You can suggest this article to the portal community, where it can show up on the homepage.') %></div>
+
+      <%= form_tag :action => 'publish_on_portal_community', :id => @article.id do %>
+        <%= hidden_field_tag :back_to, @back_to %>
+        <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
+
+        <% button_bar do %>
+          <%= submit_button 'spread', _('Spread this') %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+</div>

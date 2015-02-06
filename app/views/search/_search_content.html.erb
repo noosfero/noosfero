@@ -1,0 +1,6 @@
+<div id='search-content'>
+<%= display_results(@searches, @asset) %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @searches[@asset][:results] %>
+<% end %>
+</div>

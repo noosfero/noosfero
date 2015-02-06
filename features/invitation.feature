@@ -17,53 +17,50 @@ Feature: invitation
 
   Scenario: see link to invite friends
     When I am on /profile/josesilva/friends
-    Then I should see "Invite people from my e-mail contacts" link
+    Then I should see "Invite people" link
 
   Scenario: see link to invite friends in myprofile
     When I am on /myprofile/josesilva/friends
-    Then I should see "Invite people from my e-mail contacts" link
+    Then I should see "Invite people" link
 
   Scenario: go to invitation screen when follow link to invite friends
     Given I am on /myprofile/josesilva/friends
-    When I follow "Invite people from my e-mail contacts"
+    When I follow "Invite people"
     Then I am on /profile/josesilva/invite/friends
-
-  Scenario: see title when invite friends
-    When I am on /profile/josesilva/invite/friends
-    Then I should see "Invite your friends"
 
   @selenium
   Scenario: back to friends after invite friends
     Given I am on /myprofile/josesilva/friends
-    And I follow "Invite people from my e-mail contacts"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    When I press "Invite my friends!"
+    When I press "Invite!"
     Then I should be on /profile/josesilva/friends
 
   Scenario: see link to invite members to community
     When I am on /profile/26-bsslines/members
-    Then I should see "Invite your friends to join 26 Bsslines" link
+    Then I should see "Invite people to join" link
 
   Scenario: not see link to invite members to community if has no rights
     Given I am logged in as "josesantos"
     When I am on /profile/26-bsslines/members
-    Then I should not see "Invite your friends to join 26 Bsslines" link
+    Then I should not see "Invite people to join" link
 
   Scenario: go to invitation screen when follow link to invite members
     Given I am on /profile/26-bsslines/members
-    When I follow "Invite your friends to join 26 Bsslines"
+    When I follow "Invite people to join"
     Then I am on /profile/26-bsslines/invite/friends
 
   Scenario: see title when invite members
     When I am on /profile/26-bsslines/invite/friends
-    Then I should see "Invite your friends to join 26 Bsslines"
+    Then I should see "Invite people to join"
 
   Scenario: not see link to invite members to enterprise
     When I am on /profile/beatles-for-sale/members
-    Then I should not see "Invite your friends to join Beatles For Sale" link
+    Then I should not see "Invite people to join" link
 
   Scenario: deny access if user has no right to invite members
     Given I am logged in as "josesantos"
@@ -72,28 +69,30 @@ Feature: invitation
 
   Scenario: not see link to invite members to enterprise in manage members
     Given I am on Beatles For Sale's members management
-    Then I should not see "Invite your friends to join Beatles For Sale" link
+    Then I should not see "Invite people to join" link
 
   @selenium
   Scenario: back to members after invite friends to join a community
     Given I am on 26 Bsslines's members management
-    And I follow "Invite your friends to join 26 Bsslines"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    When I press "Invite my friends!"
+    When I press "Invite!"
     Then I should be on /profile/26-bsslines/members
 
   @selenium
   Scenario: noosfero user receives a task when a user invites to join a community
     Given I am on 26 Bsslines's members management
-    And I follow "Invite your friends to join 26 Bsslines"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    And I press "Invite my friends!"
+    And I press "Invite!"
     Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
@@ -133,12 +132,13 @@ Feature: invitation
   Scenario: noosfero user receives a task when a user invites to be friend
     Given I am on josesilva's control panel
     And I follow "Manage friends"
-    And I follow "Invite people from my e-mail contacts"
+    And I follow "Invite people"
+    And I choose "Email"
     And I press "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    And I press "Invite my friends!"
+    And I press "Invite!"
     Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel

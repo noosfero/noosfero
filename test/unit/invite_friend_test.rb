@@ -140,4 +140,16 @@ class InviteFriendTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to be your friend./, email.subject)
   end
 
+  should 'not invite friends if there is a pending invitation' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+
+    assert_difference 'InviteFriend.count' do
+      InviteFriend.create({:person => person, :target => friend})
+    end
+
+    assert_no_difference 'InviteFriend.count' do
+      InviteFriend.create({:person => person, :target => friend})
+    end
+  end
 end

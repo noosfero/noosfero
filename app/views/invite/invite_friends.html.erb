@@ -1,0 +1,42 @@
+<% if profile.person? %>
+  <h1><%= _('Ask for friendship') %></h1>
+  <% description = _('You can search for user profiles and ask them to become your friends.') %>
+<% else %>
+  <h1><%= _('Invite people to join') %></h1>
+  <% description = _('You can search for user profiles and invite them to join this group.') %>
+<% end %>
+
+<h3>
+  <%= _("Choose person by:") %>
+</h3>
+
+<p>
+  <%= labelled_radio_button _("Name"), :invite_friend_by, 1, true, :id => "invite_friend_by_name", :class => "invite_friend_by" %>
+  <%= labelled_radio_button _("Email"), :invite_friend_by, 2, false, :id => "invite_friend_by_email", :class => "invite_friend_by" %>
+</p>
+
+<div class='invite_by_name'>
+  <p><%= description %></p>
+  <%= form_tag :action => 'invite_registered_friend' do %>
+    <% search_action = url_for(:action => 'search') %>
+    <%= token_input_field_tag(
+      :q, 'search-people', search_action,
+      { :hint_text => _('Type in the person\'s %{search_fields}') % {:search_fields => @search_fields},
+        :focus => false }) %>
+
+    <% button_bar do %>
+      <%= submit_button('save', _('Invite'))%>
+      <%= button('cancel', _('Cancel'), profile.url)%>
+    <% end %>
+  <% end %>
+</div>
+
+<div class='invite_by_email' style="display: none;">
+  <h2><%= _('Invite people from my e-mail contacts') %></h2>
+  <% header = 'h3' %>
+
+<%= render :partial => 'invite/select_address_book', :locals => {:header => header} %>
+</div>
+
+<div id="loadingScreen"></div>
+<%= javascript_include_tag 'invite' %>

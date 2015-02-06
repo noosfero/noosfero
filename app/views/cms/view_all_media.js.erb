@@ -1,0 +1,1 @@
+jQuery('.view-all-media').html('<%= escape_javascript(render :partial => "cms/media_panel/list_published_media_items", :locals => { key: @key, show_pagination_links: true }) %>');

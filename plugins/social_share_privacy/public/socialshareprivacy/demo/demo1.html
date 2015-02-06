@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>Social Share Privacy: Demo 1</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://panzi.github.com/SocialSharePrivacy/javascripts/jquery.cookies.js"></script>
+<script type="text/javascript" src="../javascripts/socialshareprivacy.js"></script>
+<script type="text/javascript" src="../javascripts/modules/facebook.js"></script>
+<script type="text/javascript" src="../javascripts/modules/twitter.js"></script>
+<script type="text/javascript" src="../javascripts/modules/gplus.js"></script>
+<script type="text/javascript" src="../javascripts/modules/tumblr.js"></script>
+<script type="text/javascript" src="../javascripts/modules/reddit.js"></script>
+<script type="text/javascript" src="../javascripts/modules/pinterest.js"></script>
+<script type="text/javascript" src="../javascripts/modules/flattr.js"></script>
+<script type="text/javascript" src="../javascripts/modules/stumbleupon.js"></script>
+<script type="text/javascript" src="../javascripts/modules/mail.js"></script>
+<script type="text/javascript" src="../javascripts/modules/linkedin.js"></script>
+<script type="text/javascript" src="../javascripts/modules/xing.js"></script>
+<script type="text/javascript" src="../javascripts/modules/buffer.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+// define the default order of the buttons:
+$.fn.socialSharePrivacy.settings.order = ['facebook', 'gplus', 'twitter', 'reddit'];
+$.fn.socialSharePrivacy.settings.path_prefix = '../';
+
+$(document).ready(function () {
+  $('.share').socialSharePrivacy({enable_all: false});
+	$('#other').socialSharePrivacy({uri: 'http://example.com/'});
+});
+// ]]>
+</script>
+</head>
+<body>
+
+<h1>Social Share Privacy: Demo 1</h1>
+
+<p>
+Demo share buttons:
+</p>
+
+<div class="share"></div>
+
+<p>
+Social share privacy actually supports more than one share button list in one document.
+</p>
+
+<div class="share"></div>
+
+<p>
+Different share buttons can have different options. E.g. these share buttons use the URI
+"http://example.com/" instead of the document.location.
+</p>
+
+<div id="other"></div>
+
+</body>
+</html>

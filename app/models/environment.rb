@@ -10,6 +10,7 @@ class Environment < ActiveRecord::Base
   self.partial_updates = false
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
+  has_many :search_terms, :as => :context
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 
@@ -85,7 +86,9 @@ class Environment < ActiveRecord::Base
   end
 
   def admins
-    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', Environment::Roles.admin(self).id])
+    admin_role = Environment::Roles.admin(self)
+    return [] if admin_role.blank?
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', admin_role.id])
   end
 
   # returns the available features for a Environment, in the form of a
@@ -155,7 +158,8 @@ class Environment < ActiveRecord::Base
       'site_homepage' => _('Redirects the user to the environment homepage.'),
       'user_profile_page' => _('Redirects the user to his profile page.'),
       'user_homepage' => _('Redirects the user to his homepage.'),
-      'user_control_panel' => _('Redirects the user to his control panel.')
+      'user_control_panel' => _('Redirects the user to his control panel.'),
+      'welcome_page' => _('Redirects the user to the environment welcome page.')
     }
   end
   validates_inclusion_of :redirection_after_signup, :in => Environment.signup_redirection_options.keys, :allow_nil => true
@@ -822,6 +826,10 @@ class Environment < ActiveRecord::Base
 
   def portal_news_cache_key(language='en')
     "home-page-news/#{cache_key}-#{language}"
+  end
+
+  def portal_enabled
+    portal_community && enabled?('use_portal_community')
   end
 
   def notification_emails

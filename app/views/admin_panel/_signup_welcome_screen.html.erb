@@ -1,5 +1,10 @@
 <div class='description'>
-  <%= _('This text will be showed as a welcome message to users after signup') %><br/><br/>
+  <%= _('If you enable this feature on the "Features" section of the Administration Panel, this text will be shown as a welcome message to users after signup.') %>
+</div>
+<%= labelled_form_field(_('Body'), text_area(:environment, :signup_welcome_screen_body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor')) %>
+
+<div class='description'>
+  <%= _('If this content is left blank, the following page will be displayed to the user:') %>
 </div>
 
-<%= labelled_form_field(_('Body'), text_area(:environment, :signup_welcome_screen_body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor')) %>
+<%= render :file => 'home/welcome', :locals => {:default_message => true} %>

@@ -12,7 +12,7 @@ class SignupTest < ActionController::IntegrationTest
       registering_with_bot_test 5, 1
     end
     assert_template 'signup'
-    assert_match /robot/, response.body
+    assert_match /robot/, @response.body
   end
 
   def test_signup_form_submission_must_not_block_after_min_signup_delay
@@ -41,7 +41,7 @@ class SignupTest < ActionController::IntegrationTest
     assert_equal mail_count, ActionMailer::Base.deliveries.count
 
     post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
-    assert_response :success
+    assert_redirected_to controller: 'home', action: 'welcome'
 
     assert_equal count + 1, User.count
     assert_equal mail_count + 1, ActionMailer::Base.deliveries.count
@@ -58,10 +58,10 @@ class SignupTest < ActionController::IntegrationTest
     assert_response :success
     get '/account/signup_time'
     assert_response :success
-    data = ActiveSupport::JSON.decode response.body
+    data = ActiveSupport::JSON.decode @response.body
     sleep sleep_secs
     post '/account/signup', :user => { :login => 'someone', :password => 'test', :password_confirmation => 'test', :email => 'someone@example.com' }, :signup_time_key => data['key']
-    assert_response :success
+    sleep_secs > min_signup_delay ? assert_redirected_to(controller: 'home', action: 'welcome') : assert_response(:success)
   end
 
 end

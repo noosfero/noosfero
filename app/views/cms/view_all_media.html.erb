@@ -1,0 +1,7 @@
+<h1><%= file_types[@key] %></h1>
+
+<div class='view-all-media view-all-<%= @key %>'>
+  <%= render :partial => "cms/media_panel/list_published_media_items", :locals => { key: @key, show_pagination_links: true } %>
+</div>
+
+<%= javascript_include_tag 'media-panel.js' %>

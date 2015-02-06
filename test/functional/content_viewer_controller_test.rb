@@ -319,26 +319,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :content => /list my comment/
   end
 
-  should 'show link to publication on view' do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    login_as(profile.identifier)
-
-    xhr :get, :view_page, :profile => profile.identifier, :page => ['myarticle'], :toolbar => true
-
-    assert_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + profile.identifier + '/cms/publish/' + page.id.to_s)}
-  end
-
-  should 'not show link to publication on view if not on person profile' do
-    prof = Community.create!(:name => 'test comm', :identifier => 'test_comm')
-    page = prof.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    prof.affiliate(profile, Profile::Roles.all_roles(prof.environment.id))
-    login_as(profile.identifier)
-
-    xhr :get, :view_page, :profile => prof.identifier, :page => ['myarticle'], :toolbar => true
-
-    assert_no_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + prof.identifier + '/cms/publish/' + page.id.to_s)}
-  end
-
   should 'redirect to new article path under an old path' do
     p = create_user('test_user').person
     a = p.articles.create(:name => 'old-name')

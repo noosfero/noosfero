@@ -18,7 +18,7 @@
   <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <% if user == profile %>
     <%= button :edit, _('Manage my friends'), :controller => 'friends', :action => 'index', :profile => profile.identifier %>
-    <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+    <%= button(:person, _('Invite people'), :controller => 'invite', :action => 'invite_friends') %>
   <% end %>
 <% end %>
 

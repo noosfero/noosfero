@@ -1,4 +1,4 @@
-sources_entry='deb http://download.noosfero.org/debian/wheezy ./'
+sources_entry='deb http://download.noosfero.org/debian/wheezy-1.1 ./'
 
 if ! grep -q "$sources_entry" /etc/apt/sources.list.d/noosfero.list; then
   sudo tee /etc/apt/sources.list.d/noosfero.list <<EOF

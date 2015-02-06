@@ -167,8 +167,8 @@ Feature: events
     And I go to josesilva's control panel
     And I follow "Manage Content"
     And I follow "Another Conference"
-    And I follow "Spread"
-    And I check "Sample Community"
+    And I follow "Spread this"
+    And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
     And I press "Spread this"
     And I am on /profile/sample-community/events/2009/10/24
     Then I should see "Another Conference"

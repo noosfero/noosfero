@@ -48,6 +48,7 @@ module LayoutHelper
       'thickbox',
       'lightbox',
       'colorbox',
+      'selectordie',
       'inputosaurus',
       'chat',
       pngfix_stylesheet_path,

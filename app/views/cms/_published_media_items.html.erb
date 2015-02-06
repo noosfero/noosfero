@@ -1,0 +1,12 @@
+<% file_types.each do |key, header| %>
+  <% display = @recent_files[key].present? ? '' : 'none' %>
+  <div class='<%= key.to_s %>' style='display: <%= display%>;'>
+    <div class='section-title'>
+      <h3><%= header %></h3>
+      <% if @recent_files[key].total_pages > 1 %>
+        <%= link_to(_('View all'), {:controller => 'cms', :action => 'view_all_media', :profile => profile.identifier, :key => key}, :class => 'view-all colorbox', 'data-key' => key) %>
+      <% end %>
+    </div>
+    <%= render :partial => "cms/media_panel/list_published_media_items", :locals => { key: key, show_pagination_links: false } %>
+  </div>
+<% end %>

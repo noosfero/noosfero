@@ -1972,6 +1972,47 @@ class ProfileTest < ActiveSupport::TestCase
     assert p.folder_types.include?('ProfileTest::Folder1')
   end
 
+  should 'not copy rss_feed' do
+    assert !fast_create(Profile).copy_article?(fast_create(RssFeed))
+  end
+
+  should 'not copy template welcome_page' do
+    template = fast_create(Person, :is_template => true)
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id)
+    assert !template.copy_article?(welcome_page)
+  end
+
+  should 'return nil on welcome_page_content if template has no welcome page' do
+    template = fast_create(Profile, :is_template => true)
+    assert_nil template.welcome_page_content
+  end
+
+  should 'return nil on welcome_page_content if content is not published' do
+    template = fast_create(Profile, :is_template => true)
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id, :body => 'Template welcome page', :published => false)
+    template.welcome_page = welcome_page
+    template.save!
+    assert_nil template.welcome_page_content
+  end
+
+  should 'return template welcome page content on welcome_page_content if content is published' do
+    template = fast_create(Profile, :is_template => true)
+    body = 'Template welcome page'
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id, :body => body, :published => true)
+    template.welcome_page = welcome_page
+    template.save!
+    assert_equal body, template.welcome_page_content
+  end
+
+  should 'disable suggestion if profile requested membership' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => community, :enabled => true)
+
+    community.add_member person
+    assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
+  end
+
   should 'enable profile visibility' do
     profile = fast_create(Profile)
 

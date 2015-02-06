@@ -1,0 +1,57 @@
+<% per_page = defined?(:per_page) ? per_page : nil %>
+
+<% if suggestions.empty? %>
+  <p>
+    <em>
+      <%= _('You have no more suggestions :(') %>
+    </em>
+  </p>
+<% else %>
+  <ul class="profile-list">
+    <% suggestions.each do |s| %>
+      <li>
+        <%= link_to_profile profile_image(s.suggestion, :minor, :title => s.suggestion.short_name),
+                            s.suggestion.identifier, :class => 'profile-link' %>
+        <% if collection == :friends_suggestions %>
+          <%= link_to '+ %s' % s.suggestion.short_name,
+                        s.suggestion.add_url,
+                        :class => 'accept-suggestion',
+                        :title => _('Add suggestion'),
+                        :remote => true
+                      %>
+        <% elsif collection == :communities_suggestions %>
+          <%= link_to '+ %s' % s.suggestion.name,
+                        s.suggestion.join_url,
+                        :class => 'accept-suggestion',
+                        :title => _('Add suggestion'),
+                        :remote => true
+                      %>
+        <% end %>
+        <div class='extra_info'>
+          <%= profile_suggestion_profile_connections(s) %>
+          <%= profile_suggestion_tag_connections(s) %>
+        </div>
+        <div class="controll">
+          <% if collection == :friends_suggestions %>
+            <%= link_to 'x',
+                { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
+                  :class => 'remove-suggestion',
+                  :title => _('Remove suggestion'),
+                  :confirm => _('Are you sure you want to remove this suggestion?'),
+                  :remote => true
+                %>
+          <% elsif collection == :communities_suggestions %>
+              <%= link_to 'x',
+                  { :controller => 'memberships', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
+                    :class => 'remove-suggestion',
+                    :title => _('Remove suggestion'),
+                    :confirm => _('Are you sure you want to remove this suggestion?'),
+                    :remote => true
+                  %>
+          <% end %>
+        </div><!-- end class="controll" -->
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<br style="clear:both" />

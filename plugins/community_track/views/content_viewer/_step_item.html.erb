@@ -28,14 +28,14 @@
     </div>
   </div>
   <div class="step_actions">
-    <% if step_item.allow_edit?(user) && !remove_content_button(:edit) %>
+    <% if step_item.allow_edit?(user) && !remove_content_button(:edit, step_item) %>
       <%= button('eyes', _('View'), step_item.url) %>
       <% content = content_tag('span', label_for_edit_article(step_item)) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => step_item.id, :success_back_to => url_for(step_item.parent.view_url) }) %>
       <%= expirable_button step_item, :edit, content, url %>
     <% end %>
     <% if step_item.accept_uploads? && step_item.allow_create?(user) %>
-      <%= button('upload-file', c_('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => step_item)) unless remove_content_button(:upload)%>
+      <%= button('upload-file', c_('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => step_item)) unless remove_content_button(:upload, step_item)%>
     <% end %>
   </div>
 </li>

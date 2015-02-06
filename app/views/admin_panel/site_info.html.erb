@@ -10,9 +10,12 @@
     :content => (render :partial => 'site_info', :locals => {:f => f})} %>
   <% tabs << {:title => _('Terms of use'), :id => 'terms-of-use',
     :content => (render :partial => 'terms_of_use', :locals => {:f => f})} %>
-  <% tabs << {:title => _('Signup welcome text'), :id => 'signup-welcome-text',
+  <% #TODO I renamed the labels of signup-welcome-text and signup-welcome-page
+     # so texts more meaningful but I'm not rewriting every variable or reference to
+     # this. I leave this task to whoever thinks this is too annoying.%>
+  <% tabs << {:title => _('Signup welcome email'), :id => 'signup-welcome-text',
     :content => (render :partial => 'signup_welcome_text', :locals => {:f => f})} %>
-  <% tabs << {:title => _('Signup welcome message'), :id => 'signup-welcome-message',
+  <% tabs << {:title => _('Signup welcome page'), :id => 'signup-welcome-message',
     :content => (render :partial => 'signup_welcome_screen', :locals => {:f => f}) }%>
   <%= render_tabs(tabs) %>
   <% button_bar do %>
