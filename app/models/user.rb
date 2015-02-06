@@ -359,6 +359,6 @@ class User < ActiveRecord::Base
 
     def delay_activation_check
       return if person.is_template?
-      Delayed::Job.enqueue(UserActivationJob.new(self.id), {:priority => 0, :run_at => 72.hours.from_now})
+      Delayed::Job.enqueue(UserActivationJob.new(self.id), {:priority => 0, :run_at => (NOOSFERO_CONF['hours_until_user_activation_check'] || 72).hours.from_now})
     end
 end
