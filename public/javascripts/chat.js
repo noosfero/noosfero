@@ -200,19 +200,19 @@ jQuery(function($) {
           $.post('/chat/join', {room_id: jid});
      },
 
-     leave_room: function(room_jid) {
+     leave_room: function(jid, push) {
         if(push == undefined)
           push = true
-        var jid_id = Jabber.jid_to_id(room_jid);
+        var jid_id = Jabber.jid_to_id(jid);
         var conversation_id = Jabber.conversation_prefix + jid_id;
         var button = $('#' + conversation_id + ' .leave');
         button.hide();
         button.siblings('.join').show();
-        Jabber.connection.send($pres({from: Jabber.connection.jid, to: room_jid + '/' + $own_name, type: 'unavailable'}))
-        Jabber.insert_or_update_group(room_jid, 'offline');
+        Jabber.connection.send($pres({from: Jabber.connection.jid, to: jid + '/' + $own_name, type: 'unavailable'}))
+        Jabber.insert_or_update_group(jid, 'offline');
         sort_conversations();
         if(push)
-          $.post('/chat/leave', {room_id: room_jid});
+          $.post('/chat/leave', {room_id: jid});
      },
 
      update_chat_title: function () {
@@ -498,7 +498,6 @@ jQuery(function($) {
             .c('active', {xmlns: Strophe.NS.CHAT_STATES});
         Jabber.connection.send(message);
         Jabber.show_message(jid, $own_name, escape_html(body), 'self', Strophe.getNodeFromJid(Jabber.connection.jid));
-        Archive.register(jid, Jabber.connection.jid, body);
         move_conversation_to_the_top(jid);
      },
 
@@ -533,34 +532,6 @@ jQuery(function($) {
    $('#chat-retry').live('click', function() {
       Jabber.presence_status = Jabber.presence_status || 'chat';
       Jabber.connect();
-   });
-
-   // detect when click in chat with a community or person in main window of Noosfero environment
-   $('#chat').bind('opengroup', function(ev, anchor) {
-      var full_jid = anchor.replace('#', '');
-      var jid = Strophe.getBareJidFromJid(full_jid);
-      console.log('>>>> '+jid);
-      var name = Strophe.getResourceFromJid(full_jid);
-      var jid_id = Jabber.jid_to_id(full_jid);
-      if (full_jid) {
-         if (Strophe.getDomainFromJid(jid) == Jabber.muc_domain) {
-            if (Jabber.muc_supported) {
-               log('opening groupchat with ' + jid);
-               Jabber.jids[jid_id] = {jid: jid, name: name, type: 'groupchat'};
-               Jabber.enter_room(jid);
-               var conversation = create_conversation_tab(name, jid_id);
-               conversation.find('.conversation').show();
-               recent_messages(jid);
-            }
-         }
-         else {
-            log('opening chat with ' + jid);
-            var conversation = create_conversation_tab(name, jid_id);
-            conversation.find('.conversation').show();
-            recent_messages(jid);
-         }
-	 conversation.find('.input').focus();
-      }
    });
 
    $('.conversation textarea').live('keydown', function(e) {
@@ -608,6 +579,51 @@ jQuery(function($) {
    $('#chat .conversation .history').live('click', function() {
       $('.conversation textarea:visible').focus();
    });
+
+   function toggle_chat_window() {
+      if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
+      jQuery('#chat').toggleClass('opened');
+      jQuery('#chat-label').toggleClass('opened');
+   }
+
+   function load_conversation(jid) {
+      var jid_id = Jabber.jid_to_id(jid);
+      var name = Jabber.name_of(jid_id);
+      if (jid) {
+         if (Strophe.getDomainFromJid(jid) == Jabber.muc_domain) {
+            if (Jabber.muc_supported) {
+               log('opening groupchat with ' + jid);
+               Jabber.jids[jid_id] = {jid: jid, name: name, type: 'groupchat'};
+               var conversation = create_conversation_tab(name, jid_id);
+               Jabber.enter_room(jid);
+               recent_messages(jid);
+               return conversation;
+            }
+         }
+         else {
+            log('opening chat with ' + jid);
+	    Jabber.jids[jid_id] = {jid: jid, name: name, type: 'friendchat'};
+            var conversation = create_conversation_tab(name, jid_id);
+            recent_messages(jid);
+	    return conversation;
+         }
+      }
+   }
+
+   function open_conversation(jid) {
+     var conversation = load_conversation(jid);
+     var jid_id = $(this).attr('id');
+
+     $('.conversation').hide();
+     conversation.show();
+     count_unread_messages(jid_id, true);
+     if(conversation.find('.chat-offset-container-0').length == 0)
+       recent_messages(Jabber.jid_of(jid_id));
+     conversation.find('.input').focus();
+     $('#chat').addClass('opened');
+     $('#chat-label').addClass('opened');
+     $.post('/chat/tab', {tab_id: jid_id});
+   }
 
    function create_conversation_tab(title, jid_id) {
       var conversation_id = Jabber.conversation_prefix + jid_id;
@@ -701,12 +717,11 @@ jQuery(function($) {
    function load_defaults() {
      $.getJSON('/chat/my_session', {}, function(data) {
        $.each(data.rooms, function(i, room_jid) {
-         Jabber.enter_room(room_jid, false);
+         $('#chat').trigger('opengroup', room_jid);
        })
 
        $('#'+data.tab_id).click();
 
-       console.log(data);
        if(data.status == 'opened')
          toggle_chat_window();
      })
@@ -794,7 +809,7 @@ jQuery(function($) {
        var options = {body: message.body, icon: avatar, tag: jid_id};
        console.log('Notify '+name);
        $(notifyMe(name, options)).on('click', function(){
-         open_chat_window('#'+jid+'/'+name);
+         open_conversation(jid);
        });
        $.sound.play('/sounds/receive.wav');
      }

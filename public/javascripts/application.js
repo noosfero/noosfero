@@ -587,20 +587,6 @@ function display_notice(message) {
    setTimeout(function() { $noticeBox.fadeOut('fast'); }, 5000);
 }
 
-function open_chat_window(anchor) {
-   jQuery('#chat').addClass('opened');
-   jQuery('#chat-label').addClass('opened');
-   jQuery("#chat" ).trigger('opengroup', anchor);
-   return false;
-}
-
-function toggle_chat_window() {
-   if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
-   jQuery('#chat').toggleClass('opened');
-   jQuery('#chat-label').toggleClass('opened');
-   return false;
-}
-
 jQuery(function($) {
    /* Adds a class to "opera" to the body element if Opera browser detected.
     */
