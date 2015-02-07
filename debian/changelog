@@ -1,3 +1,10 @@
+noosfero (1.0.3) wheezy; urgency=low
+
+  * New maintainance release, backporting a change that Colivre needs
+    for one of its customers
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Sat, 07 Feb 2015 10:56:30 -0300
+
 noosfero (1.0.2) wheezy; urgency=low
 
   * Bugfixes release
