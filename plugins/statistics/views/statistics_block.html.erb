@@ -9,6 +9,9 @@
     <% if block.is_visible?('enterprise_counter') && !block.environment.enabled?('disable_asset_enterprises') %>
       <li class="enterprises"><span class="amount"><%= block.enterprises%> </span><span class="label"><%= _('enterprises')%></span></li>
     <% end %>
+    <% if block.is_visible?('product_counter') && !block.environment.enabled?('disable_asset_products') %>
+      <li class="products"><span class="amount"><%= block.products%> </span><span class="label"><%= _('products')%></span></li>
+    <% end %>
     <% if block.is_visible?('community_counter') %>
       <li class="communities"><span class="amount"><%= block.communities%> </span><span class="label"><%= _('communities')%></span></li>
     <% end %>
