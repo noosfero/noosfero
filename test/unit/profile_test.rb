@@ -1613,6 +1613,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal false, Profile.is_available?('identifier-test', Environment.default)
   end
 
+  should 'not be available if identifier match with custom exclusion pattern' do
+    NOOSFERO_CONF.stubs(:[]).with('exclude_profile_identifier_pattern').returns('identifier.*')
+    assert_equal false, Profile.is_available?('identifier-test', Environment.default)
+  end
+
+  should 'be available if identifier do not match with custom exclusion pattern' do
+    NOOSFERO_CONF.stubs(:[]).with('exclude_profile_identifier_pattern').returns('identifier.*')
+    assert_equal false, Profile.is_available?('test-identifier', Environment.default)
+  end
+
   should 'not have long descriptions' do
     long_description = 'a' * 600
     profile = Profile.new

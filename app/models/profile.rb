@@ -318,7 +318,9 @@ class Profile < ActiveRecord::Base
   end
 
   def self.is_available?(identifier, environment, profile_id=nil)
-    return false unless identifier =~ IDENTIFIER_FORMAT && !RESERVED_IDENTIFIERS.include?(identifier)
+    return false unless identifier =~ IDENTIFIER_FORMAT &&
+      !RESERVED_IDENTIFIERS.include?(identifier) &&
+      (NOOSFERO_CONF['exclude_profile_identifier_pattern'].blank? || identifier !~ /#{NOOSFERO_CONF['exclude_profile_identifier_pattern']}/)
     return true if environment.nil?
 
     profiles = environment.profiles.where(:identifier => identifier)
