@@ -3,7 +3,7 @@ class ProfileRolesController < MyProfileController
   include RoleHelper
 
   def index
-    @roles = environment.roles.find(:all, :conditions => {:profile_id => profile.id} )
+    @roles = Profile::Roles.organization_custom_roles(environment.id, profile.id)
   end
 
   def new
@@ -28,6 +28,13 @@ class ProfileRolesController < MyProfileController
     @role = environment.roles.find(params[:id])
   end
 
+  def assign_role_by_members
+    return redirect_to "/" if params[:q].nil? or !request.xhr?
+    arg = params[:q].downcase
+    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
+    render :text => prepare_to_token_input(result).to_json
+  end
+
   def destroy
     @role = environment.roles.find(params[:id])
     @members = profile.members_by_role(@role)
@@ -38,11 +45,8 @@ class ProfileRolesController < MyProfileController
   def remove
     @role = environment.roles.find(params[:id])
     @members = profile.members_by_role(@role)
-    new_roles = params[:roles] ? environment.roles.find(params[:roles].select{|r|!r.to_i.zero?}) : []
-    @members.each do |person|
-      member_roles = person.find_roles(profile).map(&:role) + new_roles
-      person.define_roles(member_roles, profile)
-    end
+    member_roles = params[:roles] ? environment.roles.find(params[:roles].select{|r|!r.to_i.zero?}) : []
+    append_roles(@members, member_roles, profile)
     if @role.destroy
       session[:notice] = _('Role successfuly removed!')
     else
@@ -61,5 +65,45 @@ class ProfileRolesController < MyProfileController
     end
   end
 
+  def assign
+    @role = environment.roles.find(params[:id])
+    @roles_list = Profile::Roles.organization_all_roles(environment.id, profile.id)
+    @roles_list.delete(@role)
+  end
+
+  def define
+    @role = environment.roles.find(params[:id])
+    selected_role = params[:selected_role] ? environment.roles.find(params[:selected_role].to_i) : nil
+    if params[:assign_role_by].eql? "members"
+      members_list = params[:person_id].split(',').collect {|id| environment.profiles.find(id.to_i)}
+      members_list.collect{|person| person.add_role(@role, profile)}
+    elsif params[:assign_role_by].eql? "roles"
+      members = profile.members_by_role(selected_role)
+      replace_role(members, selected_role, @role, profile)
+    else
+      session[:notice] = _("Error")
+    end
+    redirect_to :action => 'index'
+  end
+
+  protected
+
+  def append_roles(members, roles, profile)
+    members.each do |person|
+      all_roles = person.find_roles(profile).map(&:role) + roles
+      person.define_roles(all_roles, profile)
+    end
+  end
+  def replace_roles(members, roles, profile)
+    members.each do |person|
+      person.define_roles(roles, profile)
+    end
+  end
+  def replace_role(members, role, new_role, profile)
+    members.each do |person|
+      person.remove_role(role, profile)
+      person.add_role(new_role, profile)
+    end
+  end
 
 end
