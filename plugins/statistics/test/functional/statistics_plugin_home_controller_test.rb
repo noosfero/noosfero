@@ -76,6 +76,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'display products class in statistics-block-data block' do
     @block.product_counter = true
+    @environment.enable('products_for_enterprises')
     @block.save!
     get :index
 
