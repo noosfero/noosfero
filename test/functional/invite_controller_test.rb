@@ -99,9 +99,8 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'display invitation page' do
-    get :select_address_book, :profile => profile.identifier
+    get :invite_friends, :profile => profile.identifier
     assert_response :success
-    assert_tag :tag => 'h1', :content => 'Invite your friends'
   end
 
   should 'get mail template to invite members' do
@@ -118,8 +117,8 @@ class InviteControllerTest < ActionController::TestCase
     assert_equal InviteFriend.mail_template, assigns(:mail_template)
   end
 
-  should 'deny select_address_book f user has no rights to invite members' do
-    get :select_address_book, :profile => community.identifier
+  should 'deny invite_friends if user has no rights to invite members' do
+    get :invite_friends, :profile => community.identifier
     assert_response 403 # forbidden
   end
 
@@ -128,13 +127,13 @@ class InviteControllerTest < ActionController::TestCase
     assert_response 403 # forbidden
   end
 
-  should 'deny select_address_book access when trying to invite friends to another user' do
-    get :select_address_book, :profile => friend.identifier
+  should 'deny invite_friends access when trying to invite friends to another user' do
+    get :invite_friends, :profile => friend.identifier
     assert_response 403 # forbidden
   end
 
   should 'deny select_friends access when trying to invite friends to another user' do
-    get :select_address_book, :profile => friend.identifier
+    get :select_friends, :profile => friend.identifier
     assert_response 403 # forbidden
   end
 
@@ -155,7 +154,7 @@ class InviteControllerTest < ActionController::TestCase
     community.add_admin(profile)
     contact_list = ContactList.create
     assert_difference 'Delayed::Job.count', 1 do
-      post :select_address_book, :profile => community.identifier, :contact_list => contact_list.id, :import_from => 'gmail'
+      post :invite_friends, :profile => community.identifier, :contact_list => contact_list.id, :import_from => 'gmail'
     end
   end
 
@@ -223,7 +222,7 @@ class InviteControllerTest < ActionController::TestCase
     assert_difference 'ContactList.count', -1 do
       get :cancel_fetching_emails, :profile => profile.identifier, :contact_list => contact_list.id
     end
-    assert_redirected_to :action => 'select_address_book'
+    assert_redirected_to :action => 'invite_friends'
   end
 
   should 'set locale in the background job' do
@@ -233,6 +232,69 @@ class InviteControllerTest < ActionController::TestCase
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
     job = Delayed::Job.handler_like(InvitationJob.name).first
     assert_equal 'pt', job.payload_object.locale
+  end
+
+  should 'search friends profiles by name, email or identifier' do
+    friend1 = create_user('willy').person
+    friend2 = create_user('william').person
+    friend1.name = 'cris'
+    friend2.email = 'me@example.com'
+    friend1.save
+    friend2.save
+
+    get :search, :profile => profile.identifier, :q => 'me@'
+
+    assert_equal 'text/html', @response.content_type
+    assert_equal [{"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
+
+    get :search, :profile => profile.identifier, :q => 'cri'
+
+    assert_equal [{"id" => friend1.id, "name" => friend1.name}].to_json, @response.body
+
+    get :search, :profile => profile.identifier, :q => 'will'
+
+    assert_equivalent [{"id" => friend1.id, "name" => friend1.name}, {"id" => friend2.id, "name" => friend2.name}], json_response
+  end
+
+  should 'not include members in search friends profiles' do
+    community.add_admin(profile)
+    friend1 = create_user('willy').person
+    friend2 = create_user('william').person
+    friend1.save
+    friend2.save
+
+    community.add_member(friend2)
+
+    get :search, :profile => community.identifier, :q => 'will'
+
+    assert_equivalent [{"name" => friend1.name, "id" => friend1.id}], json_response
+  end
+
+  should 'not include friends in search for people to request friendship' do
+    friend1 = create_user('willy').person
+    friend2 = create_user('william').person
+
+    profile.add_friend friend1
+    friend1.add_friend profile
+    profile.add_friend friend2
+    friend2.add_friend profile
+
+    get :search, :profile => profile.identifier, :q => 'will'
+
+    assert_empty json_response
+  end
+
+  should 'invite registered users through profile id' do
+    friend1 = create_user('testuser1').person
+    friend2 = create_user('testuser2').person
+    assert_difference 'Delayed::Job.count', 1 do
+      post :invite_registered_friend, :profile => profile.identifier, :q => "#{friend1.id},#{friend2.id}", :mail_template => "click: <url>"
+      assert_redirected_to :controller => 'profile', :action => 'friends'
+    end
+
+    assert_difference 'InviteFriend.count', 2 do
+      process_delayed_job_queue
+    end
   end
 
   private

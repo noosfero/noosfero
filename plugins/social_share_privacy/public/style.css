@@ -1,0 +1,11 @@
+#social-networks-list {
+  width: 50%;
+}
+#selected-social-networks {
+  width: 50%;
+}
+.social-buttons {
+  display: inline-block;
+  width: 100%;
+  margin: 10px 0;
+}

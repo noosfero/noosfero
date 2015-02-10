@@ -42,18 +42,19 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     @block.user_counter = true
     @block.community_counter = true
     @block.enterprise_counter = true
+    @block.product_counter = true
     @block.category_counter = true
     @block.tag_counter = true
     @block.comment_counter = true
     @block.hit_counter = true
     @block.save!
     get :edit, :id => @block.id
-    post :save, :id => @block.id, :block => {:user_counter => '0', :community_counter => '0', :enterprise_counter => '0',
-      :category_counter => '0', :tag_counter => '0', :comment_counter => '0', :hit_counter => '0' }
+    post :save, :id => @block.id, :block => {:user_counter => '0', :community_counter => '0', :enterprise_counter => '0', :product_counter => '0', :category_counter => '0', :tag_counter => '0', :comment_counter => '0', :hit_counter => '0'}
     @block.reload
     any_checked = @block.is_visible?('user_counter') ||
                   @block.is_visible?('community_counter') ||
                   @block.is_visible?('enterprise_counter') ||
+                  @block.is_visible?('product_counter') ||
                   @block.is_visible?('category_counter') ||
                   @block.is_visible?('tag_counter') ||
                   @block.is_visible?('comment_counter') ||
@@ -66,18 +67,20 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     @block.user_counter = false
     @block.community_counter = false
     @block.enterprise_counter = false
+    @block.product_counter = false
     @block.category_counter = false
     @block.tag_counter = false
     @block.comment_counter = false
     @block.hit_counter = false
     @block.save!
     get :edit, :id => @block.id
-    post :save, :id => @block.id, :block => {:user_counter => '1', :community_counter => '1', :enterprise_counter => '1',
+    post :save, :id => @block.id, :block => {:user_counter => '1', :community_counter => '1', :enterprise_counter => '1', :product_counter => '1',
       :category_counter => '1', :tag_counter => '1', :comment_counter => '1', :hit_counter => '1' }
     @block.reload
     all_checked = @block.is_visible?('user_counter') &&
                   @block.is_visible?('community_counter') &&
                   @block.is_visible?('enterprise_counter') &&
+                  @block.is_visible?('product_counter') &&
                   @block.is_visible?('category_counter') &&
                   @block.is_visible?('tag_counter') &&
                   @block.is_visible?('comment_counter') &&
@@ -128,14 +131,21 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_no_tag :input, :attributes => {:id => 'block_enterprise_counter', :checked => 'checked'}
   end
 
-    should 'not input category counter be checked by default' do
+  should 'not input product counter be checked by default' do
+    get :edit, :id => @block.id
+
+    assert_tag :input, :attributes => {:id => 'block_product_counter'}
+    assert_no_tag :input, :attributes => {:id => 'block_product_counter', :checked => 'checked'}
+  end  
+
+  should 'not input category counter be checked by default' do
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_category_counter'}
     assert_no_tag :input, :attributes => {:id => 'block_category_counter', :checked => 'checked'}
   end
 
-    should 'input tag counter be checked by default' do
+  should 'input tag counter be checked by default' do
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_tag_counter', :checked => 'checked'}

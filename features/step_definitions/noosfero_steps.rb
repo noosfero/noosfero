@@ -740,6 +740,8 @@ Given /^the environment is configured to (.*) after signup$/ do |option|
       'user_homepage'
     when 'redirect to profile control panel'
       'user_control_panel'
+    when 'redirect to welcome page'
+      'welcome_page'
   end
   environment = Environment.default
   environment.redirection_after_signup = redirection

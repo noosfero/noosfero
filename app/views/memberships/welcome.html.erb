@@ -1,0 +1,9 @@
+<h1><%= _('Community created') %></h1>
+<p><%= _("Your community (%s) was successfully created.") % @community.name %></p>
+<p><%= link_to _('You can manage your community now.'), @community.admin_url %></p>
+
+<%= render :partial => 'shared/template_welcome_page', :locals => {:template => @community.template, :header => _("What can I do with a %s?")} %>
+
+<% button_bar do %>
+  <%= button :back, _('Back'), @back_to %>
+<% end %>

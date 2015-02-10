@@ -20,7 +20,7 @@ class InviteControllerTest < ActionController::TestCase
     person_without_usp_id = User.create!(:login => 'user-without', :email => 'user-without@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:invitation_code => 12345678}).person
 
     login_as(person_without_usp_id.identifier)
-    get :select_address_book, :profile => person_without_usp_id.identifier
+    get :invite_friends, :profile => person_without_usp_id.identifier
     assert_response 403
     get :select_friends, :profile => person_without_usp_id.identifier
     assert_response 403
@@ -30,7 +30,7 @@ class InviteControllerTest < ActionController::TestCase
     person_with_usp_id = User.create!(:login => 'user-with', :email => 'user-with@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12345678}).person
 
     login_as(person_with_usp_id.identifier)
-    get :select_address_book, :profile => person_with_usp_id.identifier
+    get :invite_friends, :profile => person_with_usp_id.identifier
     assert_response 200
     get :select_friends, :profile => person_with_usp_id.identifier, :contact_list => ContactList.create.id
     assert_response 200
@@ -42,11 +42,25 @@ class InviteControllerTest < ActionController::TestCase
     organization.add_admin(person_with_usp_id)
 
     login_as(person_with_usp_id.identifier)
-    get :select_address_book, :profile => organization.identifier
+    get :invite_friends, :profile => organization.identifier
     assert_response 200
     get :select_friends, :profile => organization.identifier, :contact_list => ContactList.create.id
     assert_response 200
   end
 
+  should 'search friends profiles by usp_id' do
+    person = User.create!(:login => 'john', :email => 'john@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12345678}).person
+    User.create!(:login => 'joseph', :email => 'joseph@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12333333})
+
+    admin = User.create!(:login => 'mary', :email => 'mary@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 11111111}).person
+    organization = fast_create(Organization)
+    organization.add_admin(admin)
+
+    login_as(admin.identifier)
+    get :search_friend, :profile => organization.identifier, :q => '1234'
+
+    assert_equal [{"id" => person.id, "name" => person.name}].to_json, @response.body
+    assert_response 200
+  end
 end
 

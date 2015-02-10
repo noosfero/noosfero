@@ -3,6 +3,10 @@ class ProfileEditorController < MyProfileController
   protect 'edit_profile', :profile, :except => [:destroy_profile]
   protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
+  before_filter :access_welcome_page, :only => [:welcome_page]
+  before_filter :back_to
+  helper_method :has_welcome_page
+
   def index
     @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}
   end
@@ -85,6 +89,21 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def welcome_page
+    @welcome_page = profile.welcome_page || TinyMceArticle.new(:name => 'Welcome Page', :profile => profile, :published => false)
+    if request.post?
+      begin
+        @welcome_page.update_attributes!(params[:welcome_page])
+        profile.welcome_page = @welcome_page
+        profile.save!
+        session[:notice] = _('Welcome page saved successfully.')
+        redirect_to :action => 'index'
+      rescue Exception => exception
+        session[:notice] = _('Welcome page could not be saved.')
+      end
+    end
+  end
+
   def deactivate_profile
     if environment.admins.include?(current_person)
       profile = environment.profiles.find(params[:id])
@@ -116,9 +135,24 @@ class ProfileEditorController < MyProfileController
   protected
 
   def redirect_to_previous_location
-    back = request.referer
-    back = "/" if back.nil?
-
-    redirect_to back
+    redirect_to @back_to
   end
+
+  #TODO Consider using this as a general controller feature to be available on every action.
+  def back_to
+    @back_to = params[:back_to] || request.referer || "/"
+  end
+
+  private
+
+  def has_welcome_page
+    profile.is_template
+  end
+
+  def access_welcome_page
+    unless has_welcome_page
+      render_access_denied
+    end
+  end
+
 end

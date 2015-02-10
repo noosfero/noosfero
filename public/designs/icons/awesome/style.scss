@@ -1,0 +1,299 @@
+// variable overrides
+$fa-font-path: "fonts";
+
+// vanilla awesome
+@import 'scss/font-awesome';
+
+// noosfero icons stylesheets
+
+[class*=' icon-']:before,
+[class^='icon-']:before,
+[class*=' icon-next']:after,
+[class^='icon-next']:after {
+    line-height: 1;
+    width: 1.7em;
+    text-align: center;
+    @include fa-icon;
+}
+
+.icon-add:before,
+.icon-more:before,
+.icon-new:before {
+  @extend .fa-plus:before;
+}
+
+.icon-menu-search:before,
+.icon-search:before {
+  @extend .fa-search:before;
+}
+
+.icon-menu-mail:before {
+  @extend .fa-envelope-o:before;
+}
+
+.icon-login:before,
+.icon-menu-login:before,
+.icon-login:before,
+.icon-set-admin-role:before {
+  @extend .fa-user:before;
+}
+
+.icon-todo:before {
+  @extend .fa-th-list:before;
+}
+
+.icon-ok:before {
+  @extend .fa-check:before;
+}
+
+.icon-close:before {
+  @extend .fa-times:before;
+}
+
+.icon-activate-user:before {
+  @extend .fa-gear:before;
+}
+
+.icon-home:before,
+.icon-content-enterprise-homepage:before,
+.icon-menu-home:before {
+  @extend .fa-home:before;
+}
+
+.icon-application-octet-stream:before,
+.icon-application-postscript:before {
+  @extend .fa-file-o:before;
+}
+
+.icon-clock:before {
+  @extend .fa-clock-o:before;
+}
+
+.icon-lock:before {
+  @extend .fa-lock:before;
+}
+
+.icon-gallery:before,
+.icon-newgallery:before,
+.icon-photos:before,
+.image-gallery-item.gallery:before {
+  @extend .fa-picture-o:before;
+}
+
+.icon-edit:before {
+  @extend .fa-pencil:before;
+}
+
+.icon-blog:before,
+.icon-content-blog:before,
+.icon-menu-articles:before,
+.icon-newblog:before {
+  @extend .fa-pencil-square-o:before;
+}
+
+.icon-media-prev:before {
+  @extend .fa-step-backward:before;
+}
+.icon-media-play:before {
+  @extend .fa-play:before;
+}
+.icon-media-pause:before {
+  @extend .fa-pause:before;
+}
+.icon-media-next:before {
+  @extend .fa-step-forward:before;
+}
+
+.icon-cancel:before,
+.icon-delete:before,
+.icon-help32off:before,
+.icon-remove:before,
+.icon-user-removed:before {
+  @extend .fa-times-circle:before;
+}
+
+.icon-help32on:before,
+.icon-help:before {
+  @extend .fa-question-circle:before;
+}
+
+.icon-deactivate-user:before,
+.icon-home-not:before {
+  @extend .fa-ban:before;
+}
+
+.icon-back:before,
+.icon-left:before {
+  @extend .fa-arrow-left:before;
+}
+.icon-forward:before,
+.icon-next:after,
+.icon-right:before {
+  @extend .fa-arrow-right:before;
+}
+.icon-up:before,
+.icon-up-red:before {
+  @extend .fa-arrow-up:before;
+}
+.icon-down:before {
+  @extend .fa-arrow-down:before;
+}
+
+.icon-spread:before {
+  @extend .fa-share:before;
+}
+
+.icon-menu-product:before,
+.icon-product:before {
+  @extend .fa-gift:before;
+}
+
+.icon-eyes:before {
+  @extend .fa-eye:before;
+}
+
+.icon-alert:before {
+  @extend .fa-warning:before;
+}
+
+.icon-event:before,
+.icon-menu-events:before,
+.icon-content-event:before,
+.icon-newevent:before {
+  @extend .fa-calendar:before;
+}
+
+.icon-parent-folder:before {
+  @extend .fa-chevron-up:before;
+}
+
+.icon-folder:before,
+.icon-content-folder:before,
+.image-gallery-item.folder:before {
+  @extend .fa-folder:before;
+}
+
+.icon-menu-admin:before {
+  @extend .fa-cogs:before;
+}
+
+.icon-chat:before,
+.icon-forum:before,
+.icon-content-forum:before,
+.icon-newforum:before {
+  @extend .fa-comments:before;
+}
+
+.icon-menu-logout:before {
+  @extend .fa-sign-out:before;
+}
+
+.icon-newupload-file:before,
+.icon-upload-file:before {
+  @extend .fa-upload:before;
+}
+
+.icon-feed:before,
+.icon-newrss-feed:before,
+.icon-rss-feed:before,
+.icon-rss:before {
+  @extend .fa-rss:before;
+}
+
+.icon-menu-community:before,
+.icon-menu-my-groups:before {
+  @extend .fa-users:before;
+}
+
+.icon-clone:before {
+  @extend .fa-copy:before;
+}
+
+.icon-save:before {
+  @extend .fa-save:before;
+}
+
+.icon-undo:before {
+  @extend .fa-undo:before;
+}
+
+.icon-suggest:before {
+  @extend .fa-lightbulb-o:before;
+}
+
+.icon-application-vnd-oasis-opendocument-text:before,
+.icon-text-html:before,
+.icon-newtext-html:before,
+.icon-content-textile-article:before,
+.icon-content-tiny-mce-article:before,
+.icon-content-text-article:before {
+  @extend .fa-file-text-o:before;
+}
+
+.icon-reply:before {
+  @extend .fa-reply:before;
+}
+
+.icon-newfolder:before {
+  @extend .fa-folder-o:before;
+}
+
+.icon-embed:before {
+  @extend .fa-code:before;
+}
+
+.icon-user-unknown:before {
+  @extend .fa-question:before;
+}
+
+.icon-slideshow:before {
+  @extend .fa-play-circle:before;
+}
+
+.icon-text-plain:before {
+  @extend .fa-file-text:before;
+}
+
+.icon-locale:before {
+  @extend .fa-language:before;
+}
+
+.icon-menu-people:before,
+.icon-person:before {
+  @extend .fa-child:before;
+}
+
+.icon-application-pdf:before {
+  @extend .fa-file-pdf-o:before;
+}
+.icon-application-vnd-oasis-opendocument-spreadsheet:before {
+  @extend .fa-file-excel-o:before;
+}
+.icon-application-vnd-oasis-opendocument-presentation:before {
+  @extend .fa-file-powerpoint-o:before;
+}
+.icon-application-x-gzip:before {
+  @extend .fa-file-zip-o:before,
+}
+.icon-image-svg-xml:before {
+  @extend .fa-file-image-o:before;
+}
+.icon-application-ogg:before {
+  @extend .fa-file-audio-o:before;
+}
+.icon-video:before,
+.icon-video-mpeg:before {
+  @extend .fa-file-video-o:before;
+}
+
+.icon-menu-enterprise:before {
+  @extend .fa-empire:before;
+}
+
+.icon-send:before {
+  @extend .fa-send-o:before;
+}
+
+.icon-menu-ctrl-panel:before {
+  @extend .fa-sliders:before;
+}

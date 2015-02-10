@@ -73,17 +73,6 @@
   width: auto;
   display: block;
 }
-#content .people-block .block-footer-content a,
-#content .friends-block .block-footer-content a,
-#content .members-block .block-footer-content a {
-  position: absolute;
-  top: 2px;
-  right: 0px;
-  font-size: 11px;
-  color: #000;
-  text-decoration: none;
-  padding-right: 15px;
-}
 #content .members-block .block-footer-content .join-leave-button a {
   position: relative;
   background-color: #EEE;
@@ -101,4 +90,26 @@
 #content .friends-block .block-footer-content a.view-all,
 #content .members-block .block-footer-content a.view-all {
   background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
+}
+
+#content .friends-block .block-footer-content .profiles-suggestions a,
+#content .friends-block .block-footer-content a.more-suggestions {
+  position: relative;
+}
+
+#content .common-profile-list-block .profiles-suggestions .profile-list .extra_info {
+  top: 20px;
+  left: -69px;
+}
+
+#content .common-profile-list-block .profiles-suggestions .button span {
+  display: none;
+}
+#content .common-profile-list-block .profiles-suggestions .controll {
+  top: 0px;
+  right: 0px;
+}
+#content .common-profile-list-block .profiles-suggestions .controll a {
+  width: 16px;
+  padding: 1px;
 }

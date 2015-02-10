@@ -3,7 +3,7 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login, :email_suggestions, :allow_members_to_invite, :invite_friends_only
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -12,16 +12,15 @@ class Profile < ActiveRecord::Base
   end
 
   SEARCHABLE_FIELDS = {
-    :name => 10,
-    :identifier => 5,
-    :nickname => 2,
+    :name => {:label => _('Name'), :weight => 10},
+    :identifier => {:label => _('Username'), :weight => 5},
+    :nickname => {:label => _('Nickname'), :weight => 2},
   }
 
-  SEARCH_FILTERS = %w[
-    more_recent
-  ]
-
-  SEARCH_DISPLAYS = %w[compact]
+  SEARCH_FILTERS = {
+    :order => %w[more_recent],
+    :display => %w[compact]
+  }
 
   def self.default_search_display
     'compact'
@@ -140,6 +139,17 @@ class Profile < ActiveRecord::Base
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
+  # Although this should be a has_one relation, there are no non-silly names for
+  # a foreign key on article to reference the template to which it is
+  # welcome_page... =P
+  belongs_to :welcome_page, :class_name => 'Article', :dependent => :destroy
+
+  def welcome_page_content
+    welcome_page && welcome_page.published ? welcome_page.body : nil
+  end
+
+  has_many :search_terms, :as => :context
+
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
@@ -155,6 +165,7 @@ class Profile < ActiveRecord::Base
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
   settings_items :fields_privacy, :type => :hash, :default => {}
+  settings_items :email_suggestions, :type => :boolean, :default => false
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
@@ -218,6 +229,8 @@ class Profile < ActiveRecord::Base
   has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
 
   has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
+
+  has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
 
   def top_level_categorization
     ret = {}
@@ -514,6 +527,14 @@ class Profile < ActiveRecord::Base
     generate_url(:profile => identifier, :controller => 'profile', :action => 'index')
   end
 
+  def people_suggestions_url
+    generate_url(:profile => identifier, :controller => 'friends', :action => 'suggest')
+  end
+
+  def communities_suggestions_url
+    generate_url(:profile => identifier, :controller => 'memberships', :action => 'suggest')
+  end
+
   def generate_url(options)
     url_options.merge(options)
   end
@@ -603,7 +624,7 @@ private :generate_url, :url_options
   end
 
   def copy_article_tree(article, parent=nil)
-    return if article.is_a?(RssFeed)
+    return if !copy_article?(article)
     original_article = self.articles.find_by_name(article.name)
     if original_article
       num = 2
@@ -623,6 +644,11 @@ private :generate_url, :url_options
     end
   end
 
+  def copy_article?(article)
+    !article.is_a?(RssFeed) &&
+    !(is_template && article.slug=='welcome-page')
+  end
+
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
@@ -632,6 +658,8 @@ private :generate_url, :url_options
         self.affiliate(person, Profile::Roles.admin(environment.id)) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
+      person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
+      remove_from_suggestion_list person
     else
       raise _("%s can't have members") % self.class.name
     end
@@ -769,7 +797,10 @@ private :generate_url, :url_options
   end
 
   def admins
-    self.members_by_role(Profile::Roles.admin(environment.id))
+    return [] if environment.blank?
+    admin_role = Profile::Roles.admin(environment.id)
+    return [] if admin_role.blank?
+    self.members_by_role(admin_role)
   end
 
   def enable_contact?
@@ -967,4 +998,14 @@ private :generate_url, :url_options
   def preferred_login_redirection
     redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
   end
+
+  def remove_from_suggestion_list(person)
+    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion.disable if suggestion
+  end
+
+  def allow_invitation_from(person)
+    false
+  end
+
 end

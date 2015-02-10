@@ -412,6 +412,14 @@ div#notice {
   text-align: left;
   border-bottom: 2px solid #AAA;
 }
+#content .block-subtitle {
+  font-variant: normal;
+  color: #AAA;
+  font-size: 11px;
+  text-align: center;
+  border-bottom: 1px solid #AAA;
+  padding: 2px 0;
+}
 
 /*************************** Login block *****************************/
 
@@ -496,10 +504,7 @@ div#notice {
   display: block;
 }
 
-#content .tags-block .block-footer-content a,
-#content .profile-list-block .block-footer-content a,
-#content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a {
+.block-footer-content a.view-all {
   position: absolute;
   top: 2px;
   right: 0px;
@@ -507,11 +512,6 @@ div#notice {
   color: #000;
   text-decoration: none;
   padding-right: 15px;
-}
-#content .tags-block .block-footer-content a,
-#content .profile-list-block .block-footer-content a,
-#content .enterprises-block .block-footer-content a,
-#content .communities-block .block-footer-content a {
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
 
@@ -1278,12 +1278,12 @@ hr.pre-posts, hr.sep-posts {
 
 /******** controller-friends action-friends-index ********/
 
-.action-friends-index .profile-list li,
+.profile-list li,
 .common-profile-list-block .vcard {
   border: 1px solid transparent;
 }
 
-.action-friends-index .profile-list li:hover,
+.profile-list li:hover,
 .common-profile-list-block .vcard:hover {
   border: 1px solid #CCC;
   -moz-border-radius: 5px;

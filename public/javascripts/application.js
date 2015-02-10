@@ -1076,12 +1076,50 @@ function showHideTermsOfUse() {
   }
 }
 
+jQuery('.profiles-suggestions .explain-suggestion').live('click', function() {
+  var clicked = jQuery(this);
+  clicked.toggleClass('active');
+  clicked.next('.extra_info').toggle();
+  return false;
+});
+
+jQuery('.suggestions-block .block-subtitle').live('click', function() {
+  var clicked = jQuery(this);
+  clicked.next('.profiles-suggestions').toggle();
+  clicked.nextAll('.more-suggestions').toggle();
+  return false;
+});
+
 jQuery(document).ready(function(){
   showHideTermsOfUse();
 
   jQuery("#article_has_terms_of_use").click(function(){
     showHideTermsOfUse();
   });
+
+  // Suggestions on search inputs
+  (function($) {
+    var suggestions_cache = {};
+    $(".search-input-with-suggestions").autocomplete({
+      minLength: 2,
+      select: function(event, ui){
+        $(this).val(ui.item.value);
+        $(this).closest('form').submit();
+      },
+      source: function(request, response) {
+        var term = request.term.toLowerCase();
+        if (term in suggestions_cache) {
+          response(suggestions_cache[term]);
+          return;
+        }
+        request["asset"] = this.element.data("asset");
+        $.getJSON("/search/suggestions", request, function(data, status, xhr) {
+          suggestions_cache[term] = data;
+          response(data);
+        });
+      }
+    });
+  })(jQuery);
 });
 
 function apply_zoom_to_images(zoom_text) {

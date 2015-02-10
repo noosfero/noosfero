@@ -1,1 +1,13 @@
 <%= link_to s_('friends|View all'), {:profile => profile.identifier, :controller => 'profile', :action => 'friends'}, :class => 'view-all' %>
+
+<% if !suggestions.empty? && user == profile %>
+  <div class='suggestions-block common-profile-list-block'>
+    <h4 class='block-subtitle'><%= _('Some suggestions for you') %></h4>
+    <div class='profiles-suggestions'>
+      <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => suggestions, :collection => :friends_suggestions } %>
+    </div>
+    <div class='more-suggestions'>
+      <%= link_to _('See all suggestions'), profile.people_suggestions_url %>
+    </div>
+  </div>
+<% end %>

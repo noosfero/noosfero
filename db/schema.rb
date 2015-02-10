@@ -465,6 +465,21 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
   add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
+  create_table "profile_suggestions", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "suggestion_id"
+    t.string   "suggestion_type"
+    t.text     "categories"
+    t.boolean  "enabled",         :default => true
+    t.float    "score",           :default => 0.0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "profile_suggestions", ["person_id"], :name => "index_profile_suggestions_on_person_id"
+  add_index "profile_suggestions", ["score"], :name => "index_profile_suggestions_on_score"
+  add_index "profile_suggestions", ["suggestion_id"], :name => "index_profile_suggestions_on_suggestion_id"
+
   create_table "profiles", :force => true do |t|
     t.string   "name"
     t.string   "type"
@@ -503,6 +518,9 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.integer  "activities_count",                      :default => 0,     :null => false
     t.string   "personal_website"
     t.string   "jabber_id"
+    t.integer  "welcome_page_id"
+    t.boolean  "allow_members_to_invite",               :default => true
+    t.boolean  "invite_friends_only",                   :default => false
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
@@ -571,6 +589,31 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.integer  "context_id"
   end
 
+  create_table "search_term_occurrences", :force => true do |t|
+    t.integer  "search_term_id"
+    t.datetime "created_at"
+    t.integer  "total",          :default => 0
+    t.integer  "indexed",        :default => 0
+  end
+
+  add_index "search_term_occurrences", ["created_at"], :name => "index_search_term_occurrences_on_created_at"
+
+  create_table "search_terms", :force => true do |t|
+    t.string  "term"
+    t.integer "context_id"
+    t.string  "context_type"
+    t.string  "asset",            :default => "all"
+    t.float   "score",            :default => 0.0
+    t.float   "relevance_score",  :default => 0.0
+    t.float   "occurrence_score", :default => 0.0
+  end
+
+  add_index "search_terms", ["asset"], :name => "index_search_terms_on_asset"
+  add_index "search_terms", ["occurrence_score"], :name => "index_search_terms_on_occurrence_score"
+  add_index "search_terms", ["relevance_score"], :name => "index_search_terms_on_relevance_score"
+  add_index "search_terms", ["score"], :name => "index_search_terms_on_score"
+  add_index "search_terms", ["term"], :name => "index_search_terms_on_term"
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -580,6 +623,12 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "suggestion_connections", :force => true do |t|
+    t.integer "suggestion_id",   :null => false
+    t.integer "connection_id",   :null => false
+    t.string  "connection_type", :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

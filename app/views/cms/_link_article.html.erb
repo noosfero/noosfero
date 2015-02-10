@@ -1,0 +1,6 @@
+<div>
+  <%= labelled_form_field(_('Title'), @article.name) %>
+  <%= labelled_form_field(_('Reference'), link_to(url_for @article.view_url)) %>
+
+  <%= render :partial => 'general_fields' %>
+</div>

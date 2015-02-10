@@ -1,6 +1,0 @@
-<div class="search-results-header <%= "search-no-results" if @searches[@asset].nil? or @searches[@asset].length == 0 %>">
-  <div id='search-filter-title'><%= filter_title(@asset, @filter) %></div>
-  <%= display_selector(@asset, params[:display]) %>
-  <%= filter_selector(@asset, @filter) %>
-  <div style="clear: both"></div>
-</div>

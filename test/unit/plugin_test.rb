@@ -508,11 +508,56 @@ class PluginTest < ActiveSupport::TestCase
     assert_equal [], plugin.check_comment_actions(nil)
   end
 
-
   should 'check_comment_actions be  an empty array by default' do
     class SomePlugin < Noosfero::Plugin; end
     plugin = SomePlugin.new
     assert_equal [], plugin.check_comment_actions(Comment.new)
+  end
+
+  should 'have default search suggestions based on search terms' do
+    context = Environment.default
+    st1 = SearchTerm.new(:term => 'universe', :asset => 'science', :context => context)
+    st1.score = 3
+    st1.save!
+    st2 = SearchTerm.new(:term => 'unisound', :asset => 'science', :context => context)
+    st2.score = 5
+    st2.save!
+    st3 = SearchTerm.new(:term => 'unicrowd', :asset => 'science', :context => context)
+    st3.score = 2
+    st3.save!
+    st4 = SearchTerm.new(:term => 'univault', :asset => 'science', :context => context)
+    st4.score = 8
+    st4.save!
+    # Query not match
+    st5 = SearchTerm.create!(:term => 'destroyer', :asset => 'science', :context => context)
+    st5.score = 8
+    st5.save!
+    # Different asset
+    st6 = SearchTerm.create!(:term => 'unilight', :asset => 'pseudo-science', :context => context)
+    st6.score = 8
+    st6.save!
+    # Score not bigger than zero
+    st7 = SearchTerm.create!(:term => 'unicloud', :asset => 'science', :context => context)
+    st7.score = 0
+    st7.save!
+
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+
+    suggestions = plugin.find_suggestions('uni', context, 'science')
+
+    assert_includes suggestions, st1.term
+    assert_includes suggestions, st2.term
+    assert_includes suggestions, st3.term
+    assert_includes suggestions, st4.term
+    assert_not_includes suggestions, st5.term
+    assert_not_includes suggestions, st6.term
+    assert_not_includes suggestions, st7.term
+
+    assert_order [st4.term, st2.term, st1.term, st3.term], suggestions
+
+    limited_suggestions = plugin.find_suggestions('uni', context, 'science', {:limit => 2})
+    assert_equivalent [st4.term, st2.term], limited_suggestions
   end
 
 end

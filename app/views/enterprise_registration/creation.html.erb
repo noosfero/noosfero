@@ -1,9 +1,10 @@
 <h1><%= _('Enterprise registration completed') %></h1>
+<p><%= _("Your enterprise (%s) was successfully registered.") % @enterprise.name %></p>
+<p><%= link_to _('You can manage your enterprise now.'), @enterprise.admin_url %></p>
 
-<p>
-<%= _("Your enterprise (%s) was successfully registered.") % @enterprise.name %>
-</p>
+<%= render :partial => 'shared/template_welcome_page', :locals => {:template => @enterprise.template, :header => _("What can I do with a %s?")} %>
 
-<p>
-<%= link_to _('You can manage your enterprise now.'), @enterprise.admin_url %>
-</p>
+<% button_bar do %>
+  <%= button :back, _('Back'), {:controller => 'memberships', :action => 'index', :profile => user.identifier} %>
+<% end %>
+

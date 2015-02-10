@@ -8,6 +8,7 @@ stop() {
   echo "Stopping ..."
   ./script/delayed_job stop
   ./script/feed-updater stop
+  whenever --clear-crontab
   if [ -f tmp/pids/thin.pid ]; then
     kill -9 $(cat tmp/pids/thin.pid)
     rm -f tmp/pids/thin.pid
@@ -20,6 +21,7 @@ start() {
   ./script/feed-updater start
   ./script/delayed_job start
   trap stop INT TERM
+  whenever --write-crontab --set 'environment=development'
   if [ -z "$RAILS_RELATIVE_URL_ROOT" ]; then
     rails s $@
   else

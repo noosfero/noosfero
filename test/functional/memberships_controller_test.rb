@@ -35,7 +35,6 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_difference 'Community.count' do
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
-      assert_redirected_to :action => 'index'
 
       assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
     end
@@ -238,8 +237,10 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
   end
 
-  should 'redirect to back_to parameter when create a new community' do
+  should 'redirect to back_to parameter when community needs admin approval' do
     back_to = '/'
+    environment = Environment.default
+    environment.enable('admin_must_approve_new_communities')
     post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, :back_to => back_to
     assert_response :redirect
     assert_redirected_to back_to
@@ -327,4 +328,42 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_includes assigns(:roles), role1
     assert_not_includes assigns(:roles), role2
   end
+
+  should 'display list suggestions button' do
+    community = fast_create(Community)
+    profile.profile_suggestions.create(:suggestion => community)
+    get :index, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => 'See some suggestions of communities...', :attributes => { :href => "/myprofile/testuser/memberships/suggest" }
+  end
+
+  should 'display communities suggestions' do
+    community = fast_create(Community)
+    profile.profile_suggestions.create(:suggestion => community)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :content => "+ #{community.name}", :attributes => { :href => "/profile/#{community.identifier}/join" }
+  end
+
+  should 'display button to join on community suggestion' do
+    community = fast_create(Community)
+    profile.profile_suggestions.create(:suggestion => community)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/join" }
+  end
+
+  should 'display button to remove community suggestion' do
+    community = fast_create(Community)
+    profile.profile_suggestions.create(:suggestion => community)
+    get :suggest, :profile => 'testuser'
+    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/testuser\/memberships\/remove_suggestion\/#{community.identifier}/ }
+  end
+
+  should 'remove suggestion of community' do
+    community = fast_create(Community)
+    suggestion = profile.profile_suggestions.create(:suggestion => community)
+    post :remove_suggestion, :profile => 'testuser', :id => community.identifier
+
+    assert_response :success
+    assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
+  end
+
 end

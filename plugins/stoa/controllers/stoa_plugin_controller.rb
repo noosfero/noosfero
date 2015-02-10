@@ -6,7 +6,7 @@ class StoaPluginController < PublicController
   include StoaPlugin::PersonFields
 
   def authenticate
-    if request.ssl? && request.post?
+    if request.post?
       if params[:login].blank?
         person = Person.find_by_usp_id(params[:usp_id])
         login = person ? person.user.login : nil
@@ -22,7 +22,7 @@ class StoaPluginController < PublicController
       end
       render :text => result.to_json
     else
-      render :text => { :error => _('Conection requires SSL certificate and post method.'), :ok => false }.to_json
+      render :text => { :error => _('Conection requires post method.'), :ok => false }.to_json
     end
   end
 

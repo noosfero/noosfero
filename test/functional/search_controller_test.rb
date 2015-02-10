@@ -275,7 +275,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'search all enabled assets in general search' do
     ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
     prod_cat = create(ProductCategory, :name => 'pctest', :environment => Environment.default)
-    prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
+    prod = create(Product,:name => 'test product', :product_category => prod_cat, :enterprise => ent1)
     art = create(Article, :name => 'test article', :profile_id => fast_create(Person).id)
     per = create(Person, :name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
     com = create(Community, :name => 'test community')
@@ -293,7 +293,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent_id => parent.id,
-      :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
 
     process_delayed_job_queue
@@ -439,11 +439,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:class => /search-results-articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/articles/my-category'}}
   end
 
-  should 'display correct title on list communities' do
-    get :communities
-    assert_tag :tag => 'h1', :content => 'Communities'
-  end
-
   should 'indicate more than the page limit for total_entries' do
     Enterprise.destroy_all
     ('1'..'20').each do |n|
@@ -474,25 +469,6 @@ class SearchControllerTest < ActionController::TestCase
     get 'enterprises', :query => 'enterprise', :display => 'map'
 
     assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
-  should 'not add script tag for google maps if searching articles' do
-    ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'articles', :query => 'article', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
-  should 'not add script tag for google maps if searching people' do
-    get 'people', :query => 'person', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
-  end
-
-  should 'not add script tag for google maps if searching communities' do
-    get 'communities', :query => 'community', :display => 'map'
-
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'show events of specific day' do
@@ -550,7 +526,7 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
-  should 'list all communities filter by more active' do
+  should 'list all communities sort by more active' do
     person = fast_create(Person)
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
@@ -559,21 +535,21 @@ class SearchControllerTest < ActionController::TestCase
     create(ActionTracker::Record, :target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    get :communities, :filter => 'more_active'
+    get :communities, :order => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
 
   should "only include visible people in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Person, :visible => false)
-    get :people, :filter => 'more_recent'
+    get :people, :order => 'more_recent'
     assert_not_includes assigns(:searches)[:people][:results], p1
   end
 
   should "only include visible communities in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Community, :visible => false)
-    get :communities, :filter => 'more_recent'
+    get :communities, :order=> 'more_recent'
     assert_not_includes assigns(:searches)[:communities][:results], p1
   end
 
@@ -640,7 +616,7 @@ class SearchControllerTest < ActionController::TestCase
     art2 = create(Article, :name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
     art3 = create(Article, :name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
 
-    get :articles, :filter => :more_recent
+    get :articles, :order=> :more_recent
 
     assert_equal [art2, art1, art3], assigns(:searches)[:articles][:results]
   end
@@ -657,6 +633,22 @@ class SearchControllerTest < ActionController::TestCase
     product = create(Product, :name => 'Holier Than Thou', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
     get :products
     assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
+  end
+
+  should 'get search suggestions on json' do
+    st1 = 'universe A'
+    st2 = 'universe B'
+    @controller.stubs(:find_suggestions).with('universe', Environment.default, 'communities').returns([st1, st2])
+    get :suggestions, :term => 'universe', :asset => 'communities'
+    assert_equal [st1,st2].to_json, response.body
+  end
+
+  should 'normalize search term for suggestions' do
+    st1 = 'UnIvErSe A'
+    st2 = 'uNiVeRsE B'
+    @controller.stubs(:find_suggestions).with('universe', Environment.default, 'communities').returns([st1, st2])
+    get :suggestions, :term => 'UNIveRSE', :asset => 'communities'
+    assert_equal [st1,st2].to_json, response.body
   end
 
   protected

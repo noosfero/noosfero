@@ -22,6 +22,7 @@ class ApproveArticle < Task
   end
 
   settings_items :closing_statment, :article_parent_id, :highlighted
+  settings_items :create_link, :type => :boolean, :default => false
 
   def article_parent
     Article.find_by_id article_parent_id.to_i
@@ -48,7 +49,11 @@ class ApproveArticle < Task
   end
 
   def perform
-    article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source, :last_changed_by_id => article.last_changed_by_id, :created_by_id => article.created_by_id)
+    if create_link
+      LinkArticle.create!(:reference_article => article, :profile => target, :parent => article_parent, :highlighted => highlighted)
+    else
+      article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source, :last_changed_by_id => article.last_changed_by_id, :created_by_id => article.created_by_id)
+    end
   end
 
   def title

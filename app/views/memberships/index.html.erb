@@ -16,6 +16,8 @@
   <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :id => 'memberships_filter')%>
 </p>
 
+<p><%= link_to _('See some suggestions of communities...'), :action => 'suggest' %></p>
+
 <% if @memberships.empty? %>
   <p>
     <em><%= _('No groups to list') %></em>

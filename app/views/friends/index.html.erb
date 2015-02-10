@@ -10,46 +10,28 @@
         <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
       </em>
     </p>
-  <% else %>
-    <% button_bar do %>
-      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-      <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
-      <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
-        <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
-      <% end %>
-    <% end %>
   <% end %>
-
-  <ul class="profile-list">
-    <% @friends.each do |friend| %>
-      <li>
-      <%= link_to_profile profile_image(friend) + '<br/>' + friend.short_name,
-                          friend.identifier, :class => 'profile-link' %>
-      <div class="controll">
-        <%= link_to content_tag('span',_('remove')),
-            { :action => 'remove', :id => friend.id },
-              :class => 'button icon-remove',
-              :title => _('remove') %>
-        <%= link_to content_tag('span',_('contact')),
-              friend.url.merge(:controller => 'contact', :action => 'new', :profile => friend.identifier),
-              :class => 'button icon-menu-mail',
-              :title => _('contact') %>
-      </div><!-- end class="controll" -->
-      </li>
-    <% end %>
-  </ul>
-  <div id='pagination-friends'>
-    <%= pagination_links @friends, :param_name => 'npage' %>
-  </div>
 
   <% button_bar do %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
     <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
-      <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+      <%= button(:person, _('Invite people'), :controller => 'invite', :action => 'invite_friends') %>
     <% end %>
   <% end %>
+
+  <%= render :partial => 'profile_list', :locals => { :profiles => @friends } %>
+
+  <br style="clear:both" />
+  <%= pagination_links @friends, :param_name => 'npage' %>
+<% end %>
+
+<% unless @suggestions.empty? %>
+  <br style="clear:both" />
+  <h2><%= _("Friends suggestions") %></h2>
+  <div class="profiles-suggestions">
+    <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions, :per_page => 12 } %>
+  </div>
 <% end %>
 
 </div><!-- end id="manage_friends" -->
-

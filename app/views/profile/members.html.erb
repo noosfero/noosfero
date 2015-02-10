@@ -18,7 +18,7 @@
   <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <% if profile.community? and user %>
     <% if user.has_permission?(:invite_members, profile) %>
-      <%= button :search, _('Invite your friends to join %s') % profile.name, :controller => 'invite', :action => 'select_address_book' %>
+      <%= button :person, _('Invite people to join'), :controller => 'invite', :action => 'invite_friends' %>
     <% end %>
     <% if user.has_permission?(:send_mail_to_members, profile) %>
       <%= button :send, _('Send e-mail to members'), :controller => 'profile', :action => 'send_mail' %>

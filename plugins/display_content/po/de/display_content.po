@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-01-15 10:59-0300\n"
+"POT-Creation-Date: 2015-02-02 21:43-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -25,12 +25,12 @@ msgid ""
 "display it."
 msgstr ""
 
-#: plugins/display_content/lib/display_content_block.rb:32
+#: plugins/display_content/lib/display_content_block.rb:34
 #, fuzzy
 msgid "Display your contents"
 msgstr "Zeige einen Ihrer Inhalte an"
 
-#: plugins/display_content/lib/display_content_block.rb:36
+#: plugins/display_content/lib/display_content_block.rb:38
 #, fuzzy
 msgid ""
 "This block displays articles chosen by you. You can edit the block to select "
@@ -39,33 +39,33 @@ msgstr ""
 "Dieser Block zeigt einen Ihrer Artikel an. Sie können ihn ändern, in dem sie "
 "einen Artikel auswählen, der in dem Block angezeigt werden soll."
 
-#: plugins/display_content/lib/display_content_block.rb:41
+#: plugins/display_content/lib/display_content_block.rb:43
 #, fuzzy
 msgid "Publish date"
 msgstr "Veröffentlichungsdatum"
 
-#: plugins/display_content/lib/display_content_block.rb:43
+#: plugins/display_content/lib/display_content_block.rb:45
 msgid "Abstract"
 msgstr "Zusammenfassung"
 
-#: plugins/display_content/lib/display_content_block.rb:141
+#: plugins/display_content/lib/display_content_block.rb:151
 #, fuzzy
 msgid "Read more"
 msgstr "Mehr zeigen"
 
-#: plugins/display_content/lib/display_content_block.rb:184
+#: plugins/display_content/lib/display_content_block.rb:194
 msgid "%{month}/%{day}/%{year}"
 msgstr ""
 
-#: plugins/display_content/lib/display_content_block.rb:184
+#: plugins/display_content/lib/display_content_block.rb:194
 msgid "%{month}/%{day}"
 msgstr ""
 
-#: plugins/display_content/lib/display_content_block.rb:187
+#: plugins/display_content/lib/display_content_block.rb:197
 msgid "%{month_name} %{day}, %{year}"
 msgstr ""
 
-#: plugins/display_content/lib/display_content_block.rb:187
+#: plugins/display_content/lib/display_content_block.rb:197
 msgid "%{month_name} %{day}"
 msgstr ""
 
@@ -86,6 +86,18 @@ msgstr ""
 msgid "Choose by Content Type"
 msgstr "Typ des Inhaltes"
 
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
 #, fuzzy
 msgid "Display content types:"
@@ -98,4 +110,8 @@ msgstr "Mehr zeigen"
 
 #: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
 msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
 msgstr ""

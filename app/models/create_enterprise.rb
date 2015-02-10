@@ -73,7 +73,13 @@ class CreateEnterprise < Task
 
   # sets the associated region for the enterprise creation
   def region=(value)
-    raise ArgumentError.new("Region expected, but got #{value.class}") unless value.kind_of?(Region)
+    unless value.kind_of?(Region)
+      begin
+        value = Region.find(value)
+      rescue
+        raise ArgumentError.new("Could not find any region with the id #{value}")
+      end
+    end
 
     @region = value
     self.region_id = value.id

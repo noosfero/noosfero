@@ -213,7 +213,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_invite_routing
-    assert_routing('/profile/colivre/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => 'colivre')
+    assert_routing('/profile/colivre/invite/friends', :controller => 'invite', :action => 'invite_friends', :profile => 'colivre')
   end
 
   def test_chat_routing

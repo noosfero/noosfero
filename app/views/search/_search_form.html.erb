@@ -1,15 +1,15 @@
-<div class='search-form'>
 
+<div class='search-form'>
   <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.path : nil ) },
                  :method => 'get', :class => 'search_form' ) do %>
-
-    <%= hidden_field_tag :display, params[:display] %>
-    <%= hidden_field_tag :filter, params[:filter] %>
+    <div id='search-header'>
+      <%= assets_menu(@asset) %>
+      <%= filters(@asset) %>
+    </div>
 
     <div class="search-field">
       <span class="formfield">
-        <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
-        <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
+        <%= search_input_with_suggestions('query', @asset, @query, {:id => 'search-input', :size => 50, :placeholder => hint}) %>
       </span>
 
       <%= submit_button(:search, _('Search')) %>

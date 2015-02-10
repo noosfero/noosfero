@@ -1,0 +1,15 @@
+<div id='search-content'>
+  <% if @results %>
+    <div class='results-found-message'>
+      <%= _("%s results found") % @results.total_entries %>
+    </div>
+
+    <ul class='results-list'>
+      <% @results.sort_by { |r| r.is_image? ? 0 : 1}.each do |result| %>
+        <%= render :partial => partial_for_class(result.class), :locals => { :article => result } %>
+      <% end %>
+    </ul>
+
+    <%= pagination_links @results %>
+  <% end %>
+</div>

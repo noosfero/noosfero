@@ -5,20 +5,23 @@ module SearchHelper
   BLOCKS_SEARCH_LIMIT = 24
   MULTIPLE_SEARCH_LIMIT = 8
 
-  SEARCHES = ActiveSupport::OrderedHash[
-    :articles, _('Contents'),
-    :enterprises, _('Enterprises'),
-    :people, _('People'),
-    :communities, _('Communities'),
-    :products, _('Products and Services'),
-    :events, _('Events'),
-  ]
+  FILTERS_TRANSLATIONS = {
+    :order => _('Order'),
+    :display => _('Display')
+  }
 
-  FILTER_TRANSLATION = {
-    'more_popular' => _('More popular'),
-    'more_active' => _('More active'),
-    'more_recent' => _('More recent'),
-    'more_comments' => _('More comments')
+  FILTERS_OPTIONS_TRANSLATION = {
+    :order => {
+      'more_popular' => _('More popular'),
+      'more_active' => _('More active'),
+      'more_recent' => _('More recent'),
+      'more_comments' => _('More comments')
+    },
+    :display => {
+      'map' => _('Map'),
+      'full' => _('Full'),
+      'compact' => _('Compact')
+    }
   }
 
   COMMON_PROFILE_LIST_BLOCK = [
@@ -56,7 +59,7 @@ module SearchHelper
   end
 
   def display?(asset, mode)
-    defined?(asset_class(asset)::SEARCH_DISPLAYS) && asset_class(asset)::SEARCH_DISPLAYS.include?(mode.to_s)
+    defined?(asset_class(asset)::SEARCH_FILTERS[:display]) && asset_class(asset)::SEARCH_FILTERS[:display].include?(mode.to_s)
   end
 
   def display_results(searches=nil, asset=nil)
@@ -93,6 +96,16 @@ module SearchHelper
     end
   end
 
+  def select_filter(name, options, default = nil)
+    if options.size <= 1
+      return
+    else
+      options = options.map {|option| [FILTERS_OPTIONS_TRANSLATION[name][option], option]}
+      options = options_for_select(options, :selected => (params[name] || default))
+      select_tag(name, options)
+    end
+  end
+
   def display_selector(asset, display, float = 'right')
     display = nil if display.blank?
     display ||= asset_class(asset).default_search_display
@@ -107,36 +120,32 @@ module SearchHelper
     end
   end
 
-  def filter_selector(asset, filter, float = 'right')
+  def filters(asset)
+    return if !asset
     klass = asset_class(asset)
-    if klass::SEARCH_FILTERS.count > 1
-      options = options_for_select(klass::SEARCH_FILTERS.map {|f| [FILTER_TRANSLATION[f], f]}, filter)
-      url_params = url_for(params.merge(:filter => 'FILTER'))
-      onchange = "document.location.href = '#{url_params}'.replace('FILTER', this.value)"
-      select_field = select_tag(:filter, options, :onchange => onchange)
-      content_tag('div',
-        content_tag('strong', _('Filter')) + ': ' + select_field,
-        :class => "search-customize-options"
-      )
-    end
+    content_tag('div', klass::SEARCH_FILTERS.map do |name, options|
+      default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
+      select_filter(name, options, default)
+    end.join("\n"), :id => 'search-filters')
   end
 
-  def filter_title(asset, filter)
-    {
-      'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More viewed contents from network'),
-      'articles_more_comments' => _('Most commented contents from network'),
-      'people_more_recent' => _('More recent people from network'),
-      'people_more_active' => _('More active people from network'),
-      'people_more_popular' => _('More popular people from network'),
-      'communities_more_recent' => _('More recent communities from network'),
-      'communities_more_active' => _('More active communities from network'),
-      'communities_more_popular' => _('More popular communities from network'),
-      'enterprises_more_recent' => _('More recent enterprises from network'),
-      'enterprises_more_active' => _('More active enterprises from network'),
-      'enterprises_more_popular' => _('More popular enterprises from network'),
-      'products_more_recent' => _('Highlights'),
-    }[asset.to_s + '_' + filter].to_s
+  def assets_menu(selected)
+    assets = @enabled_searches.keys
+    #     Events is a search asset but do not have a good interface for
+    #TODO searching. When this is solved we may add it back again to the assets
+    #     menu.
+    assets.delete(:events)
+    content_tag('ul',
+      assets.map do |asset|
+        options = {}
+        options.merge!(:class => 'selected') if selected.to_s == asset.to_s
+        content_tag('li', asset_link(asset), options)
+      end.join("\n"),
+    :id => 'assets-menu')
+  end
+
+  def asset_link(asset)
+    link_to(@enabled_searches[asset], "/search/#{asset}")
   end
 
 end

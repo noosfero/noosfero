@@ -8,7 +8,7 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     end
   end
 
-  ['community_counter', 'enterprise_counter', 'category_counter', 'hit_counter'].map do |counter|
+  ['community_counter', 'enterprise_counter', 'product_counter', 'category_counter', 'hit_counter'].map do |counter|
     should "#{counter} be false by default" do
       b = StatisticsBlock.new
       assert !b.is_visible?(counter)
@@ -137,6 +137,40 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     b.expects(:owner).at_least_once.returns(e)
 
     assert_equal 2, b.enterprises
+  end
+
+  should 'return the amount of visible environment products' do
+    b = StatisticsBlock.new
+    e = fast_create(Environment)
+
+    e1 = fast_create(Enterprise, :visible => true, :enabled => true, :environment_id => e.id)
+    e2 = fast_create(Enterprise, :visible => true, :enabled => false, :environment_id => e.id)
+    e3 = fast_create(Enterprise, :visible => false, :enabled => true, :environment_id => e.id)
+
+    fast_create(Product, :profile_id => e1.id)
+    fast_create(Product, :profile_id => e1.id)
+    fast_create(Product, :profile_id => e2.id)
+    fast_create(Product, :profile_id => e2.id)
+    fast_create(Product, :profile_id => e3.id)
+    fast_create(Product, :profile_id => e3.id)
+
+    b.expects(:owner).at_least_once.returns(e)
+
+    assert_equal 2, b.products
+  end
+
+  should 'return the amount of visible enterprise products' do
+    b = StatisticsBlock.new
+
+    e = fast_create(Enterprise)
+
+    fast_create(Product, :profile_id => e.id)
+    fast_create(Product, :profile_id => e.id)
+    fast_create(Product, :profile_id => nil)
+
+    b.expects(:owner).at_least_once.returns(e)
+
+    assert_equal 2, b.products
   end
 
   should 'categories return the amount of categories of the Environment' do
