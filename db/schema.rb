@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
   add_index "article_versions", ["path", "profile_id"], :name => "index_article_versions_on_path_and_profile_id"
   add_index "article_versions", ["path"], :name => "index_article_versions_on_path"
   add_index "article_versions", ["published_at", "id"], :name => "index_article_versions_on_published_at_and_id"
+  add_index "article_versions", ["parent_id"], :name => "index_article_versions_on_parent_id"
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -217,7 +218,10 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string  "acronym"
     t.string  "abbreviation"
     t.string  "display_color",   :limit => 6
+    t.text    "ancestry"
   end
+
+  add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
 
   create_table "categories_profiles", :id => false, :force => true do |t|
     t.integer "profile_id"
@@ -251,6 +255,7 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string   "source_type"
     t.string   "user_agent"
     t.string   "referrer"
+    t.integer  "group_id"
   end
 
   add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
@@ -356,6 +361,8 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.integer "height"
     t.boolean "thumbnails_processed", :default => false
   end
+
+  add_index "images", ["parent_id"], :name => "index_images_on_parent_id"
 
   create_table "inputs", :force => true do |t|
     t.integer  "product_id",                                    :null => false
@@ -649,7 +656,11 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.boolean "pending",   :default => false
   end
 
+<<<<<<< HEAD
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+=======
+  add_index "tags", ["parent_id"], :name => "index_tags_on_parent_id"
+>>>>>>> Update schema.rb
 
   create_table "tasks", :force => true do |t|
     t.text     "data"
@@ -688,6 +699,8 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.integer "parent_id"
     t.string  "thumbnail"
   end
+
+  add_index "thumbnails", ["parent_id"], :name => "index_thumbnails_on_parent_id"
 
   create_table "units", :force => true do |t|
     t.string  "singular",       :null => false

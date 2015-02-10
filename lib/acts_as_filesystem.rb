@@ -1,6 +1,6 @@
 module ActsAsFileSystem
 
-  module ClassMethods
+  module ActsMethods
 
     # Declares the ActiveRecord model to acts like a filesystem: objects are
     # arranged in a tree (liks acts_as_tree), and . The underlying table must
@@ -14,66 +14,81 @@ module ActsAsFileSystem
     #   the parent, a "/" and the slug of the object)
     # * children_count - a cache of the number of children elements.
     def acts_as_filesystem
-
-      include ActsAsFileSystem::InstanceMethods
-
       # a filesystem is a tree
-      acts_as_tree :order => 'name', :counter_cache => :children_count
+      acts_as_tree :counter_cache => :children_count
 
-      # calculate the right path
-      before_create do |record|
-        if record.path == record.slug && (! record.top_level?)
-          record.path = record.calculate_path
-        end
-        true
+      extend ClassMethods
+      include InstanceMethods
+      if self.has_path?
+        after_update :update_children_path
+        before_create :set_path
+        include InstanceMethods::PathMethods
       end
 
-      # when renaming a category, all children categories must have their paths
-      # recalculated
-      after_update do |record|
-        if record.recalculate_path
-          record.children.each do |item|
-            item.path = item.calculate_path
-            item.recalculate_path = true
-            item.save!
-          end
-        end
-        record.recalculate_path = false
-        true
-      end
-
+      before_save :set_ancestry
     end
+
+  end
+
+  module ClassMethods
+
+    def build_ancestry(parent_id = nil, ancestry = '')
+      ActiveRecord::Base.transaction do
+        self.base_class.all(:conditions => {:parent_id => parent_id}).each do |node|
+          node.ancestry = ancestry
+          node.send :create_or_update_without_callbacks
+
+          build_ancestry node.id, (ancestry.empty? ? "#{node.formatted_ancestry_id}" :
+                                   "#{ancestry}#{node.ancestry_sep}#{node.formatted_ancestry_id}")
+        end
+      end
+
+      #raise "Couldn't reach and set ancestry on every record" if self.base_class.count(:conditions => ['ancestry is null']) != 0
+    end
+
+    def has_path?
+      (['name', 'slug', 'path'] - self.column_names).blank?
+    end
+
   end
 
   module InstanceMethods
-    # used to know when to trigger batch renaming
-    attr_accessor :recalculate_path
 
-    # calculates the full name of a category by accessing the name of all its
-    # ancestors.
-    #
-    # If you have this category hierarchy:
-    #   Category "A"
-    #     Category "B"
-    #       Category "C"
-    #
-    # Then Category "C" will have "A/B/C" as its full name.
-    def full_name(sep = '/')
-      self.hierarchy.map {|item| item.name || '?' }.join(sep)
+    def ancestry_column
+      'ancestry'
+    end
+    def ancestry_sep
+      '.'
+    end
+    def has_ancestry?
+      self.class.column_names.include? self.ancestry_column
     end
 
-    # gets the name without leading parents. Usefull when dividing categories
-    # in top-level groups and full names must not include the top-level
-    # category which is already a emphasized label
-    def full_name_without_leading(count, sep = '/')
-      parts = self.full_name(sep).split(sep)
-      count.times { parts.shift }
-      parts.join(sep)
+    def formatted_ancestry_id
+      "%010d" % self.id if self.id
     end
 
-    # calculates the level of the category in the category hierarchy. Top-level
-    # categories have level 0; the children of the top-level categories have
-    # level 1; the children of categories with level 1 have level 2, and so on.
+    def ancestry
+      self[ancestry_column]
+    end
+    def ancestor_ids
+      return nil if !has_ancestry? or ancestry.nil?
+      @ancestor_ids ||= ancestry.split(ancestry_sep).map{ |id| id.to_i }
+    end
+
+    def ancestry=(value)
+      self[ancestry_column] = value
+    end
+    def set_ancestry
+      return unless self.has_ancestry?
+      if self.ancestry.nil? or (new_record? or parent_id_changed?) or recalculate_path
+        self.ancestry = self.hierarchy(true)[0...-1].map{ |p| p.formatted_ancestry_id }.join(ancestry_sep)
+      end
+    end
+
+    # calculates the level of the record in the records hierarchy. Top-level
+    # records have level 0; the children of the top-level records have
+    # level 1; the children of records with level 1 have level 2, and so on.
     #
     #      A    level 0
     #     / \
@@ -82,59 +97,34 @@ module ActsAsFileSystem
     #   E F G H level 2
     #     ...
     def level
-      self.parent ? (self.parent.level + 1) : 0
+      self.hierarchy.size - 1
     end
 
-    # Is this category a top-level category?
+    # Is this record a top-level record?
     def top_level?
       self.parent.nil?
     end
 
-    # Is this category a leaf in the hierarchy tree of categories?
+    # Is this record a leaf in the hierarchy tree of records?
     #
-    # Being a leaf means that this category has no subcategories.
+    # Being a leaf means that this record has no subrecord.
     def leaf?
       self.children.empty?
     end
 
-    def set_name(value)
-      if self.name != value
-        self.recalculate_path = true
-      end
-      self[:name] = value
-    end
-
-    # sets the name of the category. Also sets #slug accordingly.
-    def name=(value)
-      self.set_name(value)
-      unless self.name.blank?
-        self.slug = self.name.to_slug
-      end
-    end
-
-    # sets the slug of the category. Also sets the path with the new slug value.
-    def slug=(value)
-      self[:slug] = value
-      unless self.slug.blank?
-        self.path = self.calculate_path
-      end
-    end
-
-    # calculates the full path to this category using parent's path.
-    def calculate_path
-      if self.top_level?
-        self.slug
-      else
-        self.parent.calculate_path + "/" + self.slug
-      end
-    end
-
     def top_ancestor
-      self.top_level? ? self : self.parent.top_ancestor
+      if has_ancestry? and !ancestry.nil?
+        self.class.base_class.find_by_id self.top_ancestor_id
+      else
+        self.hierarchy.first
+      end
     end
-
-    def explode_path
-      path.split(/\//)
+    def top_ancestor_id
+      if has_ancestry? and !ancestry.nil?
+        self.ancestor_ids.first
+      else
+        self.hierarchy.first.id
+      end
     end
 
     # returns the full hierarchy from the top-level item to this one. For
@@ -145,16 +135,21 @@ module ActsAsFileSystem
     # when the ActiveRecord object was modified in some way, or just after
     # changing parent)
     def hierarchy(reload = false)
-      if reload
-        @hierarchy = nil
-      end
+      @hierarchy = nil if reload or recalculate_path
 
-      unless @hierarchy
+      if @hierarchy.nil?
         @hierarchy = []
-        item = self
-        while item
-          @hierarchy.unshift(item)
-          item = item.parent
+
+        if !reload and !recalculate_path and ancestor_ids
+          objects = self.class.base_class.all(:conditions => {:id => ancestor_ids})
+          ancestor_ids.each{ |id| @hierarchy << objects.find{ |t| t.id == id } }
+          @hierarchy << self
+        else
+          item = self
+          while item
+            @hierarchy.unshift(item)
+            item = item.parent
+          end
         end
       end
 
@@ -181,8 +176,86 @@ module ActsAsFileSystem
       res
     end
 
+    #####
+    # Path methods
+    # These methods are used when _path_, _name_ and _slug_ attributes exist
+    # and should be calculated based on the tree
+    #####
+    module PathMethods
+      # used to know when to trigger batch renaming
+      attr_accessor :recalculate_path
+
+      # calculates the full path to this record using parent's path.
+      def calculate_path
+        self.hierarchy.map{ |obj| obj.slug }.join('/')
+      end
+      def set_path
+        if self.path == self.slug && !self.top_level?
+          self.path = self.calculate_path
+        end
+      end
+      def explode_path
+        path.split(/\//)
+      end
+
+      def update_children_path
+        if self.recalculate_path
+          self.children.each do |child|
+            child.path = child.calculate_path
+            child.recalculate_path = true
+            child.save!
+          end
+        end
+        self.recalculate_path = false
+      end
+
+      # calculates the full name of a record by accessing the name of all its
+      # ancestors.
+      #
+      # If you have this record hierarchy:
+      #   Record "A"
+      #     Record "B"
+      #       Record "C"
+      #
+      # Then Record "C" will have "A/B/C" as its full name.
+      def full_name(sep = '/')
+        self.hierarchy.map {|item| item.name || '?' }.join(sep)
+      end
+
+      # gets the name without leading parents. Useful when dividing records
+      # in top-level groups and full names must not include the top-level
+      # record which is already a emphasized label
+      def full_name_without_leading(count, sep = '/')
+        parts = self.full_name(sep).split(sep)
+        count.times { parts.shift }
+        parts.join(sep)
+      end
+
+      def set_name(value)
+        if self.name != value
+          self.recalculate_path = true
+        end
+        self[:name] = value
+      end
+
+      # sets the name of the record. Also sets #slug accordingly.
+      def name=(value)
+        self.set_name(value)
+        unless self.name.blank?
+          self.slug = self.name.to_slug
+        end
+      end
+
+      # sets the slug of the record. Also sets the path with the new slug value.
+      def slug=(value)
+        self[:slug] = value
+        unless self.slug.blank?
+          self.path = self.calculate_path
+        end
+      end
+    end
   end
 end
 
-ActiveRecord::Base.extend ActsAsFileSystem::ClassMethods
+ActiveRecord::Base.extend ActsAsFileSystem::ActsMethods
 
