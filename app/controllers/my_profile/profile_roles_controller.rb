@@ -1,7 +1,7 @@
 class ProfileRolesController < MyProfileController
 
-  include RoleHelper
-
+  protect 'manage_custom_roles', :profile
+  
   def index
     @roles = Profile::Roles.organization_custom_roles(environment.id, profile.id)
   end

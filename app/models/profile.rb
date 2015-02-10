@@ -43,7 +43,7 @@ class Profile < ActiveRecord::Base
       find_role('editor', env_id)
     end
     def self.organization_member_roles(env_id)
-      all_roles(env_id, nil).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
+      all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
     end
     def self.organization_custom_roles(env_id, profile_id)
       all_roles(env_id, profile_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
@@ -51,7 +51,7 @@ class Profile < ActiveRecord::Base
     def self.organization_all_roles(env_id, profile_id)
       self.organization_member_roles(env_id) + self.organization_custom_roles(env_id, profile_id)
     end
-    def self.all_roles(env_id, profile_id)
+    def self.all_roles(env_id, profile_id=nil)
       Role.all :conditions => { :profile_id => profile_id, :environment_id => env_id }
     end
     def self.method_missing(m, *args, &block)
@@ -81,6 +81,7 @@ class Profile < ActiveRecord::Base
     'publish_content'      => N_('Publish content'),
     'invite_members'       => N_('Invite members'),
     'send_mail_to_members' => N_('Send e-Mail to members'),
+    'manage_custom_roles'  => N_('Manage custom roles'),
   }
 
   acts_as_accessible
