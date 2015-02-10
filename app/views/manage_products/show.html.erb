@@ -24,6 +24,8 @@
   <br style='clear: both'/>
 
   <% unless !@allowed_user && (@product.description.blank? && @product.inputs.empty? && !@product.price_described? ) %>
+    <% plugins_tabs = plugins_product_tabs %>
+
     <div class='ui-tabs' id='product-<%= @product.id %>-tabs'>
       <ul>
         <% if !@product.description.blank? || @allowed_user %>
@@ -35,19 +37,32 @@
         <% if @product.price_described? || @allowed_user %>
           <li class='tab'><a href='#product-price-details'><%= _('Price composition') %></a></li>
         <% end %>
+
+        <% plugins_tabs.each do |tab| %>
+          <li class='tab'><a href='#<%=tab[:id]%>'><%= tab[:title] %></a></li>
+        <% end %>
+
       </ul>
+
       <div id='product-description'>
         <%= render :partial => 'manage_products/display_description' %>
       </div>
+
       <div id='product-inputs'>
         <%= render :partial => 'manage_products/display_inputs' %>
       </div>
+
       <% if @product.price_described? || @allowed_user %>
         <div id='product-price-details'>
           <%= render :partial => 'manage_products/display_price_details' %>
           <%= render :partial => 'manage_products/price_details_button' %>
         </div>
       <% end %>
+
+      <% plugins_tabs.each do |tab| %>
+        <div id='<%=tab[:id]%>'><%= raw tab[:content] %></div>
+      <% end %>
+
     </div>
   <% end %>
 
