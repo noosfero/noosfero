@@ -29,6 +29,7 @@ class Article
       {:profile_id => :integer}, :language,
       {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
+      {:lat => :float}, {:lng => :float},
       {:solr_plugin_name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
       :updated_at, :created_at,
     ], :include => [
