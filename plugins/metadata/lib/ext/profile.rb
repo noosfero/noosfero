@@ -24,4 +24,10 @@ class Profile
 	  longitude: proc{ |p, plugin| p.lng },
   }
 
+  metadata_spec namespace: :twitter, key_attr: :name, tags: {
+    card: 'summary',
+    title: proc{ |p, plugin| p.name },
+    description: proc{ |p, plugin| p.description },
+  }
+
 end
