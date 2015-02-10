@@ -85,4 +85,29 @@ class TextArticleTest < ActiveSupport::TestCase
     assert_equal "<img src=\"/test.png\" />", article.body
   end
 
+  should 'not be translatable if there is no language available on environment' do
+    environment = fast_create(Environment)
+    environment.languages = nil
+    profile = fast_create(Person, :environment_id => environment.id)
+ 
+    text = TextArticle.new(:profile => profile)
+
+    assert !text.translatable?
+  end
+
+  should 'be translatable if there is languages on environment' do
+    environment = fast_create(Environment)
+    environment.languages = nil
+    profile = fast_create(Person, :environment_id => environment.id)
+    text = fast_create(TextArticle, :profile_id => profile.id)
+
+    assert !text.translatable?
+ 
+
+    environment.languages = ['en','pt','fr']
+    environment.save
+    text.reload 
+    assert text.translatable?
+  end
+
 end
