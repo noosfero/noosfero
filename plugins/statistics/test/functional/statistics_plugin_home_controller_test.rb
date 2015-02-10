@@ -74,6 +74,20 @@ class HomeControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block-data'}, :descendant => { :tag => 'li', :attributes => {:class => 'enterprises'} }
   end
 
+  should 'display products class in statistics-block-data block' do
+    @block.product_counter = true
+    @block.save!
+    get :index
+
+    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block-data'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
+  end
+
+  should 'not display products class in statistics-block-data block' do
+    get :index
+
+    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block-data'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
+  end
+
   should 'display categories class in statistics-block-data block' do
     @block.category_counter = true
     @block.save!
