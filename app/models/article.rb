@@ -390,6 +390,10 @@ class Article < ActiveRecord::Base
     {}
   end
 
+  def alternate_languages
+    self.translations.map(&:language)
+  end
+
   scope :native_translations, :conditions => { :translation_of_id => nil }
 
   def translatable?
