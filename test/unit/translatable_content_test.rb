@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class TranslatableContentTest < ActiveSupport::TestCase
 
   class Content
-    attr_accessor :parent
+    attr_accessor :parent, :profile
     include Noosfero::TranslatableContent
   end
 
