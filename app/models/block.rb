@@ -1,6 +1,8 @@
 class Block < ActiveRecord::Base
 
-  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user, :box, :fixed
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page,
+                  :visualization_format, :language, :display_user,
+                  :box, :edit_modes, :move_modes
 
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
@@ -110,8 +112,14 @@ class Block < ActiveRecord::Base
   # * <tt>'all'</tt>: the block is always displayed
   settings_items :language, :type => :string, :default => 'all'
 
-  # The block can be configured to be fixed. Only can be edited by environment admins
-  settings_items :fixed, :type => :boolean, :default => false
+  # The block can be configured to define the edition modes options. Only can be edited by environment admins
+  # It can assume the following values:
+  #
+  # * <tt>'all'</tt>: the block owner has all edit options for this block
+  # * <tt>'only_edit'</tt>: the block owner can only edit the block content, but can't move it
+  # * <tt>'none'</tt>: the block owner can't do anything with the block
+  settings_items :edit_modes, :type => :string, :default => 'all'
+  settings_items :move_modes, :type => :string, :default => 'all'
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.
@@ -148,7 +156,11 @@ class Block < ActiveRecord::Base
 
   # Is this block editable? (Default to <tt>false</tt>)
   def editable?
-    true
+    self.edit_modes == "all"
+  end
+
+  def movable?
+    self.move_modes == "all"
   end
 
   # must always return false, except on MainBlock clas.
@@ -227,6 +239,21 @@ class Block < ActiveRecord::Base
       'followers'      => owner.class != Environment && owner.organization? ? _('Members') : _('Friends')
     }
   end
+
+  def edit_block_options
+    @edit_options ||= {
+      'all'            => _('Can be modified'),
+      'none'           => _('Cannot be modified')
+    }
+  end
+
+  def move_block_options
+    @move_options ||= {
+      'all'            => _('Can be moved'),
+      'none'           => _('Cannot be moved')
+    }
+  end
+
 
   def duplicate
     duplicated_block = self.dup

@@ -5,12 +5,6 @@
 
     <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
 
-    <% if environment.admins.include?(user) %>
-      <div class="fixed_block">
-        <%= labelled_check_box(_("Fixed"), "block[fixed]", value = "1", checked = @block.fixed) %>
-      </div>
-    <% end %>
-
     <%= render :partial => partial_for_class(@block.class) %>
 
     <div class="display">
@@ -24,6 +18,15 @@
     </div>
 
     <%= labelled_form_field(_('Show for:'), select(:block, :language, [ [ _('all languages'), 'all']] + environment.locales.map {|key, value| [value, key]} )) %>
+
+    <% if user.is_admin? %>
+      <div class="edit-modes">
+        <%= labelled_form_field _('Edit options:'), select_tag('block[edit_modes]', options_from_collection_for_select(@block.edit_block_options, :first, :last, @block.edit_modes)) %>
+      </div>
+      <div class="move-modes">
+        <%= labelled_form_field _('Move options:'), select_tag('block[move_modes]', options_from_collection_for_select(@block.move_block_options, :first, :last, @block.move_modes)) %>
+      </div>
+    <% end %>
 
     <% button_bar do %>
       <%= submit_button(:save, _('Save')) %>
