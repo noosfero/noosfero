@@ -498,21 +498,6 @@ class ApplicationControllerTest < ActionController::TestCase
 
   end
 
-  should 'display meta tags for social media' do
-    get :index
-    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:card', :value => 'summary' }
-    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:title', :content => assigns(:environment).name }
-    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:description', :content => assigns(:environment).name }
-    assert_no_tag :tag => 'meta', :attributes => { :name => 'twitter:image' }
-    assert_tag :tag => 'meta', :attributes => { :property => 'og:type', :content => 'website' }
-    assert_tag :tag => 'meta', :attributes => { :property => 'og:url', :content => assigns(:environment).top_url }
-    assert_tag :tag => 'meta', :attributes => { :property => 'og:title', :content => assigns(:environment).name }
-    assert_tag :tag => 'meta', :attributes => { :property => 'og:site_name', :content => assigns(:environment).name }
-    assert_tag :tag => 'meta', :attributes => { :property => 'og:description', :content => assigns(:environment).name }
-    assert_no_tag :tag => 'meta', :attributes => { :property => 'article:published_time' }
-    assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
-  end
-
   should 'register search_term occurrence on find_by_contents' do
     controller = ApplicationController.new
     controller.stubs(:environment).returns(Environment.default)
