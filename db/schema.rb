@@ -101,10 +101,10 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
+  add_index "article_versions", ["parent_id"], :name => "index_article_versions_on_parent_id"
   add_index "article_versions", ["path", "profile_id"], :name => "index_article_versions_on_path_and_profile_id"
   add_index "article_versions", ["path"], :name => "index_article_versions_on_path"
   add_index "article_versions", ["published_at", "id"], :name => "index_article_versions_on_published_at_and_id"
-  add_index "article_versions", ["parent_id"], :name => "index_article_versions_on_parent_id"
 
   create_table "articles", :force => true do |t|
     t.string   "name"
@@ -255,7 +255,6 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string   "source_type"
     t.string   "user_agent"
     t.string   "referrer"
-    t.integer  "group_id"
   end
 
   add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
