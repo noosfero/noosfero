@@ -19,7 +19,7 @@ class EventPlugin::EventBlockTest < ActiveSupport::TestCase
                   :start_date => Date.today-30)
 
     box = fast_create(Box, :owner_id => @p1)
-    @block = EventPlugin::EventBlock.new(:limit => 99, :box => box)
+    @block = EventPlugin::EventBlock.new(:limit => 99, :future_only => false, :box => box)
   end
 
   def set_portal(env, portal)
@@ -78,9 +78,7 @@ class EventPlugin::EventBlockTest < ActiveSupport::TestCase
   end
 
   should 'say human left time for an event' do
-    one_day = @block.human_time_left(Date.tomorrow - Date.today)
-
-    assert_match /One day left/, one_day
+    assert_match /Tomorrow/, @block.human_time_left(1)
     assert_match /5 days left/, @block.human_time_left(5)
     assert_match /30 days left/, @block.human_time_left(30)
     assert_match /2 months left/, @block.human_time_left(60)
@@ -88,13 +86,15 @@ class EventPlugin::EventBlockTest < ActiveSupport::TestCase
   end
 
   should 'say human past time for an event' do
-    one_day = @block.human_time_left(Date.yesterday - Date.today)
+    assert_match /Yesterday/, @block.human_time_left(-1)
+    assert_match /5 days ago/, @block.human_time_left(-5)
+    assert_match /30 days ago/, @block.human_time_left(-30)
+    assert_match /2 months ago/, @block.human_time_left(-60)
+    assert_match /3 months ago/, @block.human_time_left(-85)
+  end
 
-    assert_match /One day past/, one_day
-    assert_match /5 days past/, @block.human_time_left(-5)
-    assert_match /30 days past/, @block.human_time_left(-30)
-    assert_match /2 months past/, @block.human_time_left(-60)
-    assert_match /3 months past/, @block.human_time_left(-85)
+  should 'say human present time for an event' do
+    assert_match /Today/, @block.human_time_left(0)
   end
 
   should 'write formatable data in html' do

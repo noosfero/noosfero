@@ -119,6 +119,11 @@
   background: #D4D4D4;
 }
 
+.event-plugin_event-block .event .week-day,
+.event-plugin_event-block .event .year {
+  display: none;
+}
+
 .event-plugin_event-block .event .duration {
   display: block;
 }
@@ -183,4 +188,9 @@
 .msie8 #content .event-plugin_event-block .event .adress i,
 .msie8 #content .event-plugin_event-block .event .days-left {
   float: left;
+}
+
+.event-plugin-config-tip {
+  display: block;
+  margin-bottom: 3px;
 }

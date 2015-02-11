@@ -42,17 +42,17 @@ class HomeControllerTest < ActionController::TestCase
   should 'see event duration' do
     @e1a.slug = 'event1a'
     @e1a.start_date = Date.today
-    @e1a.end_date = Date.tomorrow
+    @e1a.end_date = Date.today + 1.day
     @e1a.save!
     get :index
-    assert_select ev + 'time.duration[itemprop="endDate"]', '+1 day'
+    assert_select ev + 'time.duration[itemprop="endDate"]', /1 day/
 
     @e1a.slug = 'event1a'
     @e1a.start_date = Date.today
-    @e1a.end_date = Date.tomorrow+1
+    @e1a.end_date = Date.today + 2.day
     @e1a.save!
     get :index
-    assert_select ev + 'time.duration[itemprop="endDate"]', '+2 days'
+    assert_select ev + 'time.duration[itemprop="endDate"]', /2 days/
   end
 
   should 'not see event duration for one day events' do

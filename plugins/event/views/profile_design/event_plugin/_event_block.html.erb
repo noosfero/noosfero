@@ -1,23 +1,24 @@
 <%= labelled_form_field _('Limit of items'), text_field(:block, :limit, :size => 4) %>
 
-<%= labelled_check_box(_('Show all environment events'), "block[all_env_events]", "1", @block.all_env_events) %>
-<br>
-<small><%=
-  if @profile
-    if @profile.person?
-      _("(Don't check to show only your events)")
-    else
-      _("(Don't check to show only %s events)") % @profile.name
-    end
-  elsif environment.portal_community
-    _("(Don't check to show only the environment events)")
-  end
-%></small>
-<br>
+<% unless @block.owner.kind_of?(Environment) && !@block.owner.portal_community %>
+  <%= labelled_check_box(_('Show all environment events'), "block[all_env_events]", "1", @block.all_env_events) %>
+
+  <small class='event-plugin-config-tip'>
+    <%= if @block.owner.kind_of?(Profile)
+          if @block.owner.person?
+            _("(Don't check to show only your events)")
+          else
+            _("(Don't check to show only %s events)") % @profile.name
+          end
+        elsif environment.portal_community
+          _("(Don't check to show only %s events)") % link_to(environment.portal_community.name, environment.portal_community.url)
+        end
+     %>
+  </small>
+<% end %>
+
+<%= labelled_check_box(_('Only show future events'), "block[future_only]", "1", @block.future_only) %>
 
 <%= labelled_form_field _('Limit of days to display'),
                         text_field(:block, :date_distance_limit, :size => 4) %>
-<small>(<%=_('Only show events on this limit of days.')%>)</small>
-<br><br>
-
-<%= labelled_check_box(_('Only show future events'), "block[future_only]", "1", @block.future_only) %>
+<small class='event-plugin-config-tip'>(<%=_('Only show events in this interval of days.')%>)</small>
