@@ -94,7 +94,7 @@ class StatisticsBlock < Block
 
   def products
     if owner.kind_of?(Environment)
-      owner.products.where("profiles.enabled = 't' and profiles.visible = 't'").count 
+      owner.products.where("profiles.enabled = true and profiles.visible = true").count
     elsif owner.kind_of?(Enterprise)
       owner.products.count
     else
