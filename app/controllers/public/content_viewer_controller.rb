@@ -11,6 +11,7 @@ class ContentViewerController < ApplicationController
     path = get_path(params[:page], params[:format])
 
     @version = params[:version].to_i
+    @npage = params[:npage] || '1'
 
     if path.blank?
       @page = profile.home_page
