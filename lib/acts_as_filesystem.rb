@@ -35,8 +35,7 @@ module ActsAsFileSystem
     def build_ancestry(parent_id = nil, ancestry = '')
       ActiveRecord::Base.transaction do
         self.base_class.all(:conditions => {:parent_id => parent_id}).each do |node|
-          node.ancestry = ancestry
-          node.send :create_or_update_without_callbacks
+          node.update_column :ancestry, ancestry
 
           build_ancestry node.id, (ancestry.empty? ? "#{node.formatted_ancestry_id}" :
                                    "#{ancestry}#{node.ancestry_sep}#{node.formatted_ancestry_id}")
