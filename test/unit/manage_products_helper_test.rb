@@ -101,7 +101,7 @@ class ManageProductsHelperTest < ActionView::TestCase
     category = fast_create(ProductCategory, :name => 'Category 1', :environment_id => @environment.id)
     product = fast_create(Product, :product_category_id => category.id)
 
-    expects(:ui_button_to_remote).with('link to edit', {:update => "product-info", :loading => "loading_for_button('#edit-product-remote-button-ui-info')", :url => {:controller => 'manage_products', :action => 'edit', :id => product.id, :field => 'info'}, :complete => "$('edit-product-button-ui-info').hide()", :method => :get}, :id => 'edit-product-remote-button-ui-info').returns('LINK')
+    expects(:ui_button_to_remote).with('link to edit', {:update => "product-info", :loading => "loading_for_button('#edit-product-remote-button-ui-info')", :url => {:controller => 'manage_products', :action => 'edit', :id => product.id, :field => 'info'}, :complete => "$('#edit-product-button-ui-info').hide()", :method => :get}, :id => 'edit-product-remote-button-ui-info').returns('LINK')
 
     assert_equal 'LINK', edit_product_ui_button_to_remote(product, 'info', 'link to edit')
   end

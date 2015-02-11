@@ -9,7 +9,7 @@ var mapZoom = 15;
 var delay_autocomplete = 500;
 
 function pointToAddress(latlng) {
-  $('location-fields').addClassName("loading");
+  jQuery('#location-fields').addClass("loading");
 
   if (latlng == null)
     return;
@@ -22,11 +22,11 @@ function pointToAddress(latlng) {
 
     var place = results[0];
 
-    $('location-fields').removeClassName("loading");
+    jQuery('#location-fields').removeClass("loading");
 
     var position = marker.getPosition();
-    $('profile_data_lat').value = position.lat();
-    $('profile_data_lng').value = position.lng();
+    jQuery('#profile_data_lat').val(position.lat());
+    jQuery('#profile_data_lng').val(position.lng());
 
     form = jQuery('#location-form')[0];
     form.lat = marker.getPosition().lat();
@@ -85,26 +85,26 @@ function pointToAddress(latlng) {
     }
 
     if (country_code)
-      $('profile_data_country').value = country_code;
+      jQuery('#profile_data_country').val(country_code);
     if (state)
-      $('profile_data_state').value = state;
+      jQuery('#profile_data_state').val(state);
     if (city)
-      $('profile_data_city').value = city;
+      jQuery('#profile_data_city').val(city);
     if (zip_code)
-      $('profile_data_zip_code').value = zip_code;
+      jQuery('#profile_data_zip_code').val(zip_code);
     if (address)
-      $('profile_data_address').value = address;
+      jQuery('#profile_data_address').val(address);
 
     map.setCenter(marker.getPosition());
   });
 }
 
 function addressToPoint() {
-  $('location-fields').addClassName("loading");
+  jQuery('#location-fields').addClass("loading");
 
-  var country_option = $('profile_data_country').value;
-  var address = $('profile_data_address').value + ", " + $('profile_data_zip_code').value + ", "
-    + $('profile_data_city').value+ ", " + $('profile_data_state').value + ", " + country_option;
+  var country_option = jQuery('#profile_data_country').val();
+  var address = jQuery('#profile_data_address').val() + ", " + jQuery('#profile_data_zip_code').val() + ", "
+    + jQuery('#profile_data_city').val() + ", " + jQuery('#profile_data_state').val() + ", " + country_option;
 
   if (geocoder) {
    geocoder.geocode({ 'address': address}, function(results, status) {
@@ -113,12 +113,12 @@ function addressToPoint() {
        marker.setPosition(results[0].geometry.location);
        pointToAddress(marker.getPosition());
 
-       $('profile_data_lat').value = results[0].geometry.location.lat();
-       $('profile_data_lng').value = results[0].geometry.location.lng();
-       $('location-fields').removeClassName("loading");
+       jQuery('#profile_data_lat').val(results[0].geometry.location.lat());
+       jQuery('#profile_data_lng').val(results[0].geometry.location.lng());
+       jQuery('#location-fields').removeClass("loading");
        enable_save();
      } else {
-       $('location-fields').removeClassName("loading");
+       jQuery('#location-fields').removeClass("loading");
        alert('<%=_("Address not found, reason:")%>' + statusErrorMessage(status));
      }
    });
@@ -175,7 +175,6 @@ function initializeMap() {
 
 }
 
-jQuery.noConflict();
 jQuery(document).ready(function () {
 
   initializeMap();
@@ -198,7 +197,7 @@ jQuery(document).ready(function () {
     source: "../maps/search_city",
     minLength: 3,
     delay: delay_autocomplete,
-    select: function( event, ui ) { $('profile_data_state').value =( ui.item ? ui.item.category : this.value ); }
+    select: function( event, ui ) { jQuery('#profile_data_state').val( ui.item ? ui.item.category : this.value ); }
   });
 
   jQuery("#profile_data_state").autocomplete({

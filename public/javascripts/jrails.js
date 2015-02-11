@@ -1,0 +1,1 @@
+../../vendor/plugins/eita-jrails/assets/javascripts/jrails/jrails.js

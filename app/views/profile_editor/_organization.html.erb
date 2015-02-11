@@ -19,7 +19,7 @@
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
     function submit_button() {
-       return $("profile-data").select("input.submit")[0];
+       return jQuery("#profile-data").find("input.submit")[0];
     }
     function warn_value_change() {
        show_warning('profile-identifier-formitem', "identifier-change-confirmation");
@@ -30,7 +30,7 @@
        hide_warning('identifier-change-confirmation');
     }
     function no_change() {
-       $("profile_data_identifier").value = $("old_profile_identifier").value;
+       jQuery("#profile_data_identifier").val(jQuery("#old_profile_identifier").val());
        enable_button(submit_button());
        hide_warning('identifier-change-confirmation');
     }

@@ -26,5 +26,5 @@
 <% end %>
 
 <%= javascript_tag do %>
-  toggleDisabled(<%= @category && @category.accept_products? ? 'true' : 'false' %>, $('save_and_continue'))
+  toggleDisabled(<%= @category && @category.accept_products? ? 'true' : 'false' %>, jQuery('#save_and_continue')[0])
 <% end %>

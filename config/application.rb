@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'active_support/dependencies'
 
 # FIXME this silences the warnings about Rails 2.3-style plugins under
 # vendor/plugins, which are deprecated. Hiding those warnings makes it easier

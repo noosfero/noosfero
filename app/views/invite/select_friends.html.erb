@@ -24,8 +24,8 @@
   </div>
   <% if @import_from != 'manual' %>
     <div>
-      <%= link_to_function _('Check all'), "$$('input.contact_to_invite').each(function(checkbox) { checkbox.checked = true; });" %>
-      <%= link_to_function _('Uncheck all'), "$$('input.contact_to_invite').each(function(checkbox) { checkbox.checked = false; });" %>
+      <%= link_to_function _('Check all'), "jQuery('input.contact_to_invite').each(function(index,checkbox) { checkbox.checked = true; });" %>
+      <%= link_to_function _('Uncheck all'), "jQuery('input.contact_to_invite').each(function(index,checkbox) { checkbox.checked = false; });" %>
       <div id='contacts-list'></div>
     </div>
   <% end -%>

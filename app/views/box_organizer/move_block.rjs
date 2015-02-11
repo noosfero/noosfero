@@ -6,3 +6,4 @@ page.replace_html(to, display_updated_box(@target_box))
 
 page.visual_effect(:highlight, from)
 page.visual_effect(:highlight, to) unless (from == to)
+
