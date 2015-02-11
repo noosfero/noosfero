@@ -17,9 +17,9 @@
           <%= button_without_text :edit, _('Edit'), :action => 'change_role', :id => m %>
           <%= button_to_remote_without_text(:remove, _('Remove'),
                 :update => 'members-list',
-                :loading => "$('members-list').addClassName('loading')",
-                :success => "$('tr-#{m.identifier}').show()",
-                :complete => "$('members-list').removeClassName('loading')",
+                :loading => "jQuery('#members-list').addClass('loading')",
+                :success => "jQuery('#tr-#{m.identifier}').show()",
+                :complete => "jQuery('#members-list').removeClass('loading')",
                 :url => { :id => m }.merge(remove_action)) if m != user %>
         </div>
       </td>

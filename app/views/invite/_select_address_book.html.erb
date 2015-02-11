@@ -12,16 +12,16 @@
 
   <script type="text/javascript">
     function hide_invite_friend_login_password() {
-      $('invite-friends-login-password').hide();
+      jQuery('#invite-friends-login-password').hide();
     }
     function show_invite_friend_login_password(option) {
       if (option == 'hotmail') {
-        $('hotmail_username_tip').show();
+        jQuery('#hotmail_username_tip').show();
       } else {
-        $('hotmail_username_tip').hide();
+        jQuery('#hotmail_username_tip').hide();
       }
-      $('invite-friends-login-password').show();
-      $('login').focus();
+      jQuery('#invite-friends-login-password').show();
+      jQuery('#login').focus();
     }
   </script>
   <div id='invite-friends-login-password' <%= "style='display: none;'" if (@import_from == 'manual') %>>
