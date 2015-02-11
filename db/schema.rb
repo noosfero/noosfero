@@ -656,11 +656,8 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.boolean "pending",   :default => false
   end
 
-<<<<<<< HEAD
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
-=======
   add_index "tags", ["parent_id"], :name => "index_tags_on_parent_id"
->>>>>>> Update schema.rb
 
   create_table "tasks", :force => true do |t|
     t.text     "data"
