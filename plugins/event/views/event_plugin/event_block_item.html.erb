@@ -1,0 +1,41 @@
+<%
+  # compute layout values
+  ev_days_tag = ''
+  if event.duration > 0
+    ev_days_tag = content_tag('time',
+      n_('Duration: 1 day', 'Duration: %s days', event.duration) % "<b>#{event.duration}</b>",
+      :itemprop => 'endDate',
+      :datetime => show_date(event.end_date) + 'T00:00',
+      :class => 'duration',
+      :title => show_date(event.start_date) + ' &mdash; ' + time_left_str
+    )
+  end
+
+  img = event.image.nil? ? event.first_image : event.image.public_filename
+  bg = "background-image: url(#{img})" if not img.blank?
+  img_class = img.blank? ? 'no-img' : 'has-img'
+%>
+<%=
+  link_to([
+      content_tag('time',
+        block.date_to_html(event.start_date),
+        :itemprop => 'startDate',
+        :datetime => show_date(event.start_date),
+        :class => 'date ' + img_class, :style => bg,
+        :title => show_date(event.start_date) + ' &mdash; ' + time_left_str
+      ),
+      ev_days_tag,
+      content_tag('strong', h(event.name), :class => 'title',
+                  :title => event.name, :itemprop => 'summary'),
+      content_tag('span', content_tag('i', event.address, :itemprop=>:name),
+                  :title => h(event.address),
+                  :class => 'address', :itemscope => :itemscope,
+                  :itemtype => 'http://schema.org/Place',
+                  :itemprop => :location),
+      content_tag('span', time_left_str, :class => 'days-left ' + time_class)
+    ].join("\n"),
+    (event.link.blank? ? event.url : event.link),
+    :class => 'ev-days-' + event.duration.to_s,
+    :itemprop => :url
+  )
+%>

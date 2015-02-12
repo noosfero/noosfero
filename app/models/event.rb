@@ -141,6 +141,10 @@ class Event < Article
     result
   end
 
+  def duration
+    ((self.end_date || self.start_date) - self.start_date).to_i
+  end
+
   def lead
     content_tag('div',
       show_period(start_date, end_date),

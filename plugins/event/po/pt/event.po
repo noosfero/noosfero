@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2015-01-30 11:52-0000\n"
+"PO-Revision-Date: 2015-01-30 00:18-0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/event/lib/event_plugin/event_block.rb:12
+msgid "Events"
+msgstr "Eventos"
+
+#: plugins/event/lib/event_plugin/event_block.rb:16
+msgid "Show the profile events or all environment events."
+msgstr "Mostrar todos os eventos."
+
+#: plugins/event/lib/event_plugin/event_block.rb:68
+msgid "Started one month ago."
+msgid_plural "Started %d months ago."
+msgstr[0] "Iniciou a um mês atrás."
+msgstr[1] "Iniciou a %d meses atrás."
+
+#: plugins/event/lib/event_plugin/event_block.rb:70
+msgid "Started one day ago."
+msgid_plural "Started %d days ago."
+msgstr[0] "Iniciou a Um dia atrás."
+msgstr[1] "Iniciou a %d dias atrás."
+
+#: plugins/event/lib/event_plugin/event_block.rb:72
+msgid "I happens today."
+msgstr "Acontece hoje."
+
+#: plugins/event/lib/event_plugin/event_block.rb:74
+msgid "One day left to start."
+msgid_plural "%d days left to start."
+msgstr[0] "Um dia para iniciar."
+msgstr[1] "%d dias para iniciar."
+
+#: plugins/event/lib/event_plugin/event_block.rb:76
+msgid "One month left to start."
+msgid_plural "%d months left to start."
+msgstr[0] "Um mês para iniciar"
+msgstr[1] "% meses para iniciar"
+
+#: plugins/event/lib/event_plugin.rb:4
+msgid "Event Extras"
+msgstr "Eventos"
+
+#: plugins/event/lib/event_plugin.rb:8
+msgid ""
+"Include a new block to show the environment's or profiles' events information"
+msgstr ""
+"Adiciona um novo bloco para apresentar as informações de eventos do ambiente "
+"ou de perfis"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:1
+msgid "Limit of items"
+msgstr "Limite de itens"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:3
+msgid "Show all environment events"
+msgstr "Apresentar todos os eventos do ambiente"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:8
+msgid "(Don't check to show only your events)"
+msgstr "(Não marque para apresentar somente seus eventos)"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:10
+msgid "(Don't check to show only %s events)"
+msgstr "(Não marque para apresentar somente os eventos de %s)"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:13
+msgid "(Don't check to show only the environment events)"
+msgstr "(Não marque para apresentar somente os eventos do ambiente)"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:18
+msgid "Limit of days to display"
+msgstr "Limite de dias de distância para mostrar eventos"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:20
+msgid "Only show events on this limit of days."
+msgstr "Mostar somente eventos que acontecem dentro do limite de dias"
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:23
+msgid "Only show future events"
+msgstr "Mostrar apenas eventos futuros"
+
+#: plugins/event/views/event_plugin/event_block_item.html.erb:6
+msgid "Duration: 1 day"
+msgid_plural "Duration: %s days"
+msgstr[0] ""
+msgstr[1] ""
+
+#~ msgid "1 day"
+#~ msgid_plural "%s days"
+#~ msgstr[0] "1 dia"
+#~ msgstr[1] "%s dias"
+
+#~ msgid "Event Block Plugin"
+#~ msgstr "Plugin de Bloco de Eventos"
