@@ -1,7 +1,7 @@
 <%= block_title(block.title) %>
 
 <ul class="events">
-  <% block.events(@user).map do |event| %>
+  <% block.events(user).map do |event| %>
     <% days_left = ( event.start_date - Date.today ).round %>
       <li itemscope="itemscope" itemtype="http://data-vocabulary.org/Event" class="event">
         <%= render(
