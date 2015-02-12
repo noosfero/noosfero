@@ -87,6 +87,6 @@ class AdminPanelController < AdminController
     scope = scope.order('name ASC')
 
     @q = params[:q]
-    @collection = find_by_contents(:organizations, scope, @q, {:per_page => 10, :page => params[:npage]})[:results]
+    @collection = find_by_contents(:organizations, environment, scope, @q, {:per_page => 10, :page => params[:npage]})[:results]
   end
 end
