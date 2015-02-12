@@ -334,10 +334,12 @@ class AdminPanelControllerTest < ActionController::TestCase
   end
 
   should 'save amount of news' do
-    post :set_portal_news_amount, :environment => { :news_amount_by_folder => '3' }
+    post :set_portal_news_amount, :environment => { :news_amount_by_folder => '3', :highlighted_news_amount => '2', :portal_news_amount => '5' }
     assert_redirected_to :action => 'index'
 
     assert_equal 3, Environment.default.news_amount_by_folder
+    assert_equal 2, Environment.default.highlighted_news_amount
+    assert_equal 5, Environment.default.portal_news_amount
   end
 
   should 'display plugins links' do
