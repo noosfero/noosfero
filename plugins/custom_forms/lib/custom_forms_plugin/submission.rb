@@ -52,7 +52,7 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
     self.answers.each do |answer|
       answer.valid?
       answer.errors.each do |attribute, msg|
-        self.errors.add answer.field.id.to_s.to_sym, msg
+        self.errors.add answer.field.id.to_s.to_sym, msg if answer.field.present?
       end
     end
   end
