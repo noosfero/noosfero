@@ -236,7 +236,7 @@ class Product < ActiveRecord::Base
 
   def percentage_from_solidarity_economy
     se_i = t_i = 0
-    self.inputs(true).each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
+    self.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
     t_i = 1 if t_i == 0 # avoid division by 0
     p = case (se_i.to_f/t_i)*100
         when 0 then [0, '']
