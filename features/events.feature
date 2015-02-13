@@ -9,6 +9,7 @@ Feature: events
     And the following events
       | owner     | name               | start_date |
       | josesilva | Another Conference | 2009-10-24 |
+      | josesilva | Some Conference    | 2009-10-22 |
 
   Scenario: go to next month
     Given I am on /profile/josesilva/events/2009/10
@@ -114,9 +115,11 @@ Feature: events
   @selenium
   Scenario: show events when i follow a specific day
     Given I am on /profile/josesilva/events/2009/10
-    And I should see "Another Conference"
+    And I should see "Another Conference" within "#agenda"
+    And I should see "Some Conference" within "#agenda"
     When I follow "24"
-    Then I should see "Another Conference"
+    Then I should see "Another Conference" within "#agenda"
+    And I should not see "Some Conference" within "#agenda"
 
   @selenium
   Scenario: show events in a range when i follow a specific day
