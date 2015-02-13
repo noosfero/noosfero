@@ -9,11 +9,6 @@
 #title-bar {
   background-color: gray;
 }
-#buddy-list .toolbar {
-  background-color: gray;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-}
 #title-bar h1 {
   color: white;
 }

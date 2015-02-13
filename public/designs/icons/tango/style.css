@@ -97,6 +97,7 @@
 .icon-media-next   { background-image: url(Tango/16x16/actions/media-skip-forward.png) }
 .icon-lock	       { background-image: url(Tango/16x16/actions/lock.png) }
 .icon-chat         { background-image: url(Tango/16x16/apps/internet-group-chat.png); background-repeat: no-repeat }
+.icon-big-chat     { background-image: url(mod/64x64/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-reply        { background-image: url(Tango/16x16/actions/mail-reply-sender.png) }
 .icon-newforum     { background-image: url(Tango/16x16/apps/internet-group-chat.png) }
 .icon-forum        { background-image: url(Tango/16x16/apps/system-users.png) }
