@@ -3248,7 +3248,7 @@ msgstr "%{day}/%{month}"
 
 #: app/helpers/dates_helper.rb:31
 msgid "%{month_name} %{day}, %{year}"
-msgstr "%{day} de %{month} de %{year}"
+msgstr "%{day} de %{month_name} de %{year}"
 
 # LAs cadenas de este tipo NO se traducen
 #: app/helpers/dates_helper.rb:31
