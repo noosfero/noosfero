@@ -126,5 +126,5 @@ fi
 
 # you can now start the server
 say "I: Congratulations, you are ready to run Noosfero."
-say "I: To execute Noosfero in development mode, run \`/script/development\` and browse to http://localhost:3000"
+say "I: To execute Noosfero in development mode, run \`./script/development\` and browse to http://localhost:3000"
 say "I: To execute Noosfero tests, run \`rake\`."
