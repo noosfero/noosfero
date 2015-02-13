@@ -1,6 +1,7 @@
 class EventsController < PublicController
 
   needs_profile
+  before_filter :allow_access_to_page
 
   def events
     @events = []

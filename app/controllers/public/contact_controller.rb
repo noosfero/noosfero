@@ -1,6 +1,7 @@
 class ContactController < PublicController
 
   needs_profile
+  before_filter :allow_access_to_page
 
   def new
     @contact = build_contact
