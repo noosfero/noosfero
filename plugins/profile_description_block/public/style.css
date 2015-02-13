@@ -1,0 +1,10 @@
+#content .box-1 .profile-description-block {
+  display: table;
+  width: 100%;
+}
+
+#content .profile-description-block-title {
+  font-family: arial;
+  font-size: 15px;
+  text-align: left;
+}
