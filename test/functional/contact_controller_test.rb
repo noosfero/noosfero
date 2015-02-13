@@ -125,4 +125,31 @@ class ContactControllerTest < ActionController::TestCase
     assert_equal 'Bahia', assigns(:contact).state
   end
 
+  should 'not show send e-mail page to non members of private community' do
+    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :public_profile => false)
+
+    post :new, :profile => community.identifier
+
+    assert_response :forbidden
+    assert_template :access_denied
+  end
+
+  should 'not show send e-mail page to non members of invisible community' do
+    community = fast_create(Community, :identifier => 'invisible-community', :name => 'Private Community', :visible => false)
+
+    post :new, :profile => community.identifier
+
+    assert_response :forbidden
+    assert_template :access_denied
+  end
+
+  should 'show send e-mail page to members of private community' do
+    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :public_profile => false)
+    community.add_member(@profile)
+
+    post :new, :profile => community.identifier
+
+    assert_response :success
+  end
+
 end
