@@ -1,8 +1,10 @@
-<h1><%= _('News amount by folder') %></h1>
+<h1><%= _('News amount on portal') %></h1>
 
 <%= labelled_form_for :environment do |f| %>
 
-  <%= labelled_form_field _('Number of news'), select(:environment, :news_amount_by_folder, (1..10).to_a) %>
+  <%= labelled_form_field _('Number of highlighted news'), select(:environment, :highlighted_news_amount, (0..10).to_a) %>
+  <%= labelled_form_field _('Number of portal news'), select(:environment, :portal_news_amount, (0..10).to_a) %>
+  <%= labelled_form_field _('Number of news by folder'), select(:environment, :news_amount_by_folder, (1..10).to_a) %>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>

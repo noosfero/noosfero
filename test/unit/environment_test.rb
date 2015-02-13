@@ -1056,6 +1056,30 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 4, e.news_amount_by_folder
   end
 
+  should 'have amount of highlighted news' do
+    e = Environment.default
+
+    assert_respond_to e, :highlighted_news_amount
+
+    assert_equal 2, e.highlighted_news_amount
+    e.highlighted_news_amount = 4
+    e.save!
+
+    assert_equal 4, Environment.default.highlighted_news_amount
+  end
+
+  should 'have amount of portal news' do
+    e = Environment.default
+
+    assert_respond_to e, :portal_news_amount
+
+    assert_equal 5, e.portal_news_amount
+    e.portal_news_amount = 2
+    e.save!
+
+    assert_equal 2, Environment.default.portal_news_amount
+  end
+
   should 'list tags with their counts' do
     person = fast_create(Person)
     person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
