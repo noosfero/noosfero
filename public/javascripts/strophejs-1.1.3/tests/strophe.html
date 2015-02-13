@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      <!--
+          // remove Function.prototype.bind so we can test Strophe's
+          Function.prototype.bind = undefined;
+          // -->
+    </script>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet"
+          href="http://code.jquery.com/qunit/qunit-git.css"
+          type="text/css">
+    <script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+    <script src="http://cjohansen.no/sinon/releases/sinon-0.8.0.js"></script>
+    <script src="http://cjohansen.no/sinon/releases/sinon-qunit-0.8.0.js"></script>
+    <script src='../strophe.js'></script>
+    <script src='tests.js'></script>
+    
+    <title>Strophe.js Tests</title>
+  </head>
+  <body>
+    <h1 id="qunit-header">Strophe.js Tests</h1>
+    <h2 id="qunit-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="main"></div>
+  </body>
+</html>
