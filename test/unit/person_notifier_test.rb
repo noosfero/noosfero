@@ -168,7 +168,8 @@ class PersonNotifierTest < ActiveSupport::TestCase
       a.verb = verb
       a.user = @member
       a.created_at = @member.notifier.notify_from + 1.day
-      a.target = fast_create(Forum)
+      profile = create(Community)
+      a.target = create(Forum, profile: profile)
       a.comments_count = 0
       a.params = {
         'name' => 'home', 'url' => '/', 'lead' => '',

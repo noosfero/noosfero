@@ -468,7 +468,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     activity = ActionTracker::Record.last
     scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => enterprise, :content => 'A scrap'))
 
-    assert_equal [scrap], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [scrap], enterprise.activities.map(&:activity)
   end
 
   should 'return tracked_actions of community as activities' do
@@ -478,7 +478,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     User.current = person.user
     article = create(TinyMceArticle, :profile => enterprise, :name => 'An article about free software')
 
-    assert_equal [article.activity], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [article.activity], enterprise.activities.map(&:activity)
   end
 
   should 'not return tracked_actions of other community as activities' do
@@ -489,7 +489,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     User.current = person.user
     article = create(TinyMceArticle, :profile => enterprise2, :name => 'Another article about free software')
 
-    assert_not_includes enterprise.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
+    assert_not_includes enterprise.activities.map(&:activity), article.activity
   end
 
   should 'provide URL to catalog area' do
@@ -503,7 +503,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     c = fast_create(Enterprise, :name => 'my test profile', :identifier => 'mytestprofile')
     admin = create_user('adminuser').person
     c.add_admin(admin)
-   
+
     assert c.is_admin?(admin)
   end
 

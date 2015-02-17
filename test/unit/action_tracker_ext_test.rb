@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class ActionTrackerExtTest < ActiveSupport::TestCase
+
   should 'increase person activities_count on new activity' do
     person = fast_create(Person)
     assert_difference 'person.activities_count', 1 do
@@ -61,4 +62,12 @@ class ActionTrackerExtTest < ActiveSupport::TestCase
       organization.reload
     end
   end
+
+  should 'create profile activity' do
+    person = fast_create(Profile)
+    organization = fast_create(Enterprise)
+    record = create ActionTracker::Record, :verb => :create_product, :user => person, :target => organization
+    assert_equal record, organization.activities.first.activity
+  end
+
 end

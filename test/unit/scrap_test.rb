@@ -3,8 +3,8 @@ require_relative "../test_helper"
 class ScrapTest < ActiveSupport::TestCase
 
   def setup
-    Person.delete_all
-    Scrap.delete_all
+    Person.destroy_all
+    Scrap.destroy_all
     ActionTracker::Record.destroy_all
   end
 
@@ -126,16 +126,16 @@ class ScrapTest < ActiveSupport::TestCase
     p1 = create_user.person
     p2 = create_user.person
     p1.add_friend(p2)
-    ActionTrackerNotification.delete_all
-    Delayed::Job.delete_all
+    process_delayed_job_queue
     s = Scrap.new
     s.sender= p1
     s.receiver= p2
     s.content = 'some content'
     s.save!
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
-    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+    assert_difference 'ActionTrackerNotification.count', 2 do
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map(&:profile).map do |profile|
       assert [p1,p2].include?(profile)
     end
   end
@@ -151,7 +151,9 @@ class ScrapTest < ActiveSupport::TestCase
     s.receiver= c
     s.content = 'some content'
     s.save!
-    process_delayed_job_queue
+    assert_difference 'ActionTrackerNotification.count', 2 do
+      process_delayed_job_queue
+    end
     assert_equal 2, ActionTrackerNotification.count
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       assert [p,c].include?(profile)
@@ -183,8 +185,9 @@ class ScrapTest < ActiveSupport::TestCase
     s.receiver= p1
     s.content = 'some content'
     s.save!
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    assert_difference 'ActionTrackerNotification.count', 2 do
+      process_delayed_job_queue
+    end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       assert [p1,p2].include?(profile)
     end
@@ -218,7 +221,7 @@ class ScrapTest < ActiveSupport::TestCase
 
   should "update the scrap on reply creation" do
     person = create_user.person
-    s = fast_create(Scrap, :updated_at => DateTime.parse('2010-01-01'))
+    s = create(Scrap, sender: person, receiver: person, updated_at: DateTime.parse('2010-01-01'))
     assert_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
     DateTime.stubs(:now).returns(DateTime.parse('2010-09-07'))
     s1 = create(Scrap, :content => 'some content', :sender => person, :receiver => person, :scrap_id => s.id)
@@ -288,12 +291,18 @@ class ScrapTest < ActiveSupport::TestCase
 
   should 'create activity with reply_scrap_on_self when top_root scrap receiver is the same as sender' do
     s, r = create_user.person, create_user.person
-    root = fast_create(Scrap, :sender_id => s.id, :receiver_id => r.id)
+    root = create(Scrap, :sender_id => s.id, :receiver_id => r.id)
     assert_difference 'ActionTracker::Record.count', 1 do
       reply = create(Scrap, :sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
     end
     activity = ActionTracker::Record.last
     assert_equal 'reply_scrap_on_self', activity.verb.to_s
+  end
+
+  should 'create profile activity' do
+    p1, p2 = create_user.person, create_user.person
+    s = create Scrap, :sender => p1, :receiver => p2, :content => "Hello!"
+    assert_equal s, p2.activities.first.activity
   end
 
 end
