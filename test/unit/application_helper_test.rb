@@ -636,21 +636,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
   end
 
-  should 'include item in usermenu for environment enabled features' do
-    env = fast_create(Environment)
-    env.enable('xmpp_chat', false)
-    stubs(:environment).returns(env)
-
-    @controller = ApplicationController.new
-    path = Rails.root.join('app', 'views')
-    @controller.stubs(:view_paths).returns([path])
-
-    file = path.join('shared','usermenu', 'xmpp_chat.html.erb')
-    expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
-
-    assert_equal 'Open chat', render_environment_features(:usermenu)
-  end
-
   should 'not inlude administration link if user is not an environment administrator' do
     user = mock()
     stubs(:environment).returns(Environment.default)
