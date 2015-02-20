@@ -50,7 +50,7 @@ module API
       expose :id, :body
       expose :created_at, :format_with => :timestamp
       expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
-      expose :author, :using => Profile
+      expose :created_by, :as => :author, :using => Profile
       expose :profile, :using => Profile
       expose :categories, :using => Category
       expose :parent, :using => Article
