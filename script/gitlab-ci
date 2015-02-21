@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+# These just forward the signals to the whole process group and
+# then immediately exit.
+pgid = Process.getpgid Process.pid
+Signal.trap(:TERM) { Process.kill(:TERM, -pgid); exit }
+Signal.trap(:INT)  { Process.kill(:INT,  -pgid); exit }
+
+def run command, options = {}
+  command = "#{command} 2>&1 > /dev/null" if options[:output] == false
+  #command = "time #{command}" unless options[:runtime] == false
+  puts "== #{command}"
+  system command
+end
+
+@id = (0...10).map{ ('a'..'z').to_a[rand(26)] }.join
+@db = "gitlab-ci-#{@id}"
+
+def config
+  require 'yaml'
+  db_config = {
+    'adapter' => 'postgresql', 'encoding' => 'unicode', 
+    'database' => @db, 'username' => ENV['USER'],
+  }
+  File.write 'config/database.yml', YAML.dump('test' => db_config, 'development' => db_config)
+end
+
+def prepare
+  run("createdb #{@db}") and
+  run('mkdir -p tmp/pids log') and
+  run('bundle check || bundle install') and
+  run('rake db:schema:load', output: false) and
+  run('script/noosfero-plugins disableall') and
+  run('rake db:migrate')
+end
+
+def test
+  %w[
+    test:units
+    test:functionals
+    test:integration
+    cucumber 
+    test:noosfero_plugins
+  ].each do |task|
+    run "rake #{task}"
+  end
+end
+
+def cleanup
+  run "dropdb #{@db}"
+end
+
+ret = config and prepare and test
+cleanup
+
+exit (if ret == true then 0 else 1 end)
