@@ -76,6 +76,12 @@ class ActiveSupport::TestCase
 
   end
 
+  setup :global_setup
+
+  def global_setup
+    User.current = nil
+  end
+
   alias :ok :assert_block
 
   def assert_equivalent(enum1, enum2)

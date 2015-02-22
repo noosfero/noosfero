@@ -1,10 +1,9 @@
 require_relative "../test_helper"
 
 class TextileArticleTest < ActiveSupport::TestCase
-  
+
   def setup
     @profile = create_user('testing').person
-    ActionTracker::Record.stubs(:current_user_from_model).returns(fast_create(Person))
   end
   attr_reader :profile
 
@@ -128,7 +127,7 @@ class TextileArticleTest < ActiveSupport::TestCase
     assert_equal true, a.notifiable?
     assert_equal true, a.advertise?
     assert_equal true, a.is_trackable?
-   
+
     a.published=false
     assert_equal false, a.published?
     assert_equal false, a.is_trackable?

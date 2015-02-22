@@ -43,10 +43,6 @@ class ThingsController < ActionController::Base
     render :text => "test"
   end
 
-  def current_user
-    SomeModel.first || SomeModel.create!
-  end
-
   def rescue_action(e)
     raise e
   end
@@ -58,9 +54,7 @@ ActionController::Routing::Routes.draw { |map| map.resources :things, :collectio
 class ActionTrackerTest < ActiveSupport::TestCase
 
   def setup
-    UserStamp.creator_attribute = :user
-    UserStamp.updater_attribute = :user
-    ActionTrackerConfig.current_user_method = :current_user
+    ActionTrackerConfig.current_user = proc{ SomeModel.first || SomeModel.create! }
     ActionTracker::Record.delete_all
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something" } }
     @request = ActionController::TestRequest.new
@@ -108,7 +102,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
   end
 
   def test_track_actions_executes_block
-    @controller = create_controller do 
+    @controller = create_controller do
       track_actions :some_verb do
         throw :some_symbol
       end
@@ -162,7 +156,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     assert_difference 'ActionTracker::Record.count' do
       get :index, :foo => 5
     end
-    assert_equal({"action"=>"index", "foo"=>"5", "controller"=>"things"}, ActionTracker::Record.first.params) 
+    assert_equal({"action"=>"index", "foo"=>"5", "controller"=>"things"}, ActionTracker::Record.first.params)
 	end
 
   def test_keep_params_not_set_should_store_all_params
@@ -228,16 +222,15 @@ class ActionTrackerTest < ActiveSupport::TestCase
   def test_store_user
     @controller = create_controller do
 			track_actions_before :some_verb
-			def current_user
-				SomeModel.create! :some_column => "test"
-			end
 		end
+    ActionTrackerConfig.current_user = proc{ SomeModel.create! :some_column => "test" }
+
     assert_difference 'ActionTracker::Record.count' do
       get :test
     end
 		assert_equal "test", ActionTracker::Record.last.user.some_column
   end
- 
+
   def test_should_update_when_verb_is_updatable_and_no_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :updatable } }
     ActionTrackerConfig.timeout = 5.minutes
@@ -252,7 +245,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_no_difference 'ActionTracker::Record.count' do
       get :test
     end
-  end 
+  end
 
   def test_should_create_when_verb_is_updatable_and_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :updatable } }
@@ -268,7 +261,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_difference 'ActionTracker::Record.count' do
       get :test
     end
-  end 
+  end
 
   def test_should_update_when_verb_is_groupable_and_no_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :groupable } }
@@ -284,7 +277,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 	  assert_no_difference 'ActionTracker::Record.count' do
       get :test, :foo => "test"
     end
-  end 
+  end
 
   def test_should_create_when_verb_is_groupable_and_timeout
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something", :type => :groupable } }
@@ -330,7 +323,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
   def test_should_get_time_spent_doing_something
     ActionTrackerConfig.verbs = { :some_verb => { :type => :updatable }, :other_verb => { :type => :updatable } }
     m = SomeModel.create!
-    @controller = create_controller do 
+    @controller = create_controller do
       track_actions :some_verb
     end
     @controller.stubs(:current_user).returns(m)
@@ -394,7 +387,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 		assert_equal "foo", ActionTracker::Record.last.params["other_column"]
 		assert_nil ActionTracker::Record.last.params["another_column"]
   end
-  
+
   def test_replace_dots_by_underline_in_param_name
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
@@ -407,7 +400,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
 		assert_equal 3, ActionTracker::Record.last.params["other_column_size"]
 		assert_equal 5, ActionTracker::Record.last.params["another_column"]
   end
-  
+
   def test_track_actions_store_all_params
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
@@ -452,7 +445,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :if => Proc.new { 2 > 1 } }
     @controller = create_controller_for_model(model)
     assert_difference('ActionTracker::Record.count') { get :test }
-    
+
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :if => Proc.new { 2 < 1 } }
     @controller = create_controller_for_model(model)
     assert_no_difference('ActionTracker::Record.count') { get :test }
@@ -460,7 +453,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :unless => Proc.new { 2 > 1 } }
     @controller = create_controller_for_model(model)
     assert_no_difference('ActionTracker::Record.count') { get :test }
-    
+
     model = create_model { track_actions :test, :after_create, :keep_params => :all, :unless => Proc.new { 2 < 1 } }
     @controller = create_controller_for_model(model)
     assert_difference('ActionTracker::Record.count') { get :test }
@@ -498,13 +491,11 @@ class ActionTrackerTest < ActiveSupport::TestCase
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
       track_actions :test, :after_create, :custom_user => :test_custom_user
-      def current_user
-        SomeModel.create!
-      end
       def test_custom_user
         OtherModel.create!
       end
     end
+    ActionTrackerConfig.current_user = proc{ SomeModel.create! }
     @controller = create_controller_for_model(model, :another_column => 2)
     assert_difference('ActionTracker::Record.count') { get :test }
 		assert_kind_of OtherModel, ActionTracker::Record.last.user
@@ -514,13 +505,11 @@ class ActionTrackerTest < ActiveSupport::TestCase
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
       track_actions :test, :after_create, "custom_user" => :test_custom_user
-      def current_user
-        SomeModel.create!
-      end
       def test_custom_user
         OtherModel.create!
       end
     end
+    ActionTrackerConfig.current_user = proc{ SomeModel.create! }
     @controller = create_controller_for_model(model, :another_column => 2)
     assert_difference('ActionTracker::Record.count') { get :test }
 		assert_kind_of OtherModel, ActionTracker::Record.last.user
@@ -530,13 +519,11 @@ class ActionTrackerTest < ActiveSupport::TestCase
     ActionTrackerConfig.verbs = { :test => { :description => "Some" } }
     model = create_model do
       track_actions :test, :after_create
-      def current_user
-        SomeModel.create!
-      end
       def test_custom_user
         OtherModel.create!
       end
     end
+    ActionTrackerConfig.current_user = proc{ SomeModel.create! }
     @controller = create_controller_for_model(model, :another_column => 2)
     assert_difference('ActionTracker::Record.count') { get :test }
 		assert_kind_of SomeModel, ActionTracker::Record.last.user
@@ -625,10 +612,8 @@ class ActionTrackerTest < ActiveSupport::TestCase
         render :text => "test"
       end
 
-			def current_user
-				SomeModel.create! :some_column => "test"
-			end
 		end
+    ActionTrackerConfig.current_user = proc{ SomeModel.create! :some_column => "test" }
   end
 
 end

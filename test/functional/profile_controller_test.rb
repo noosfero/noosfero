@@ -703,13 +703,13 @@ class ProfileControllerTest < ActionController::TestCase
     p1= create_user.person
     p2= create_user.person
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
+    User.current = p1.user
     scrap1 = create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p2))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p1))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
+    User.current = p1.user
     create(TinyMceArticle, :profile => p1, :name => 'An article about free software')
     a1 = ActionTracker::Record.last
 
@@ -738,10 +738,10 @@ class ProfileControllerTest < ActionController::TestCase
     scrap1 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => profile))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    User.current = p3.user
     article1 = TinyMceArticle.create!(:profile => p3, :name => 'An article about free software')
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     article2 = TinyMceArticle.create!(:profile => p2, :name => 'Another article about free software')
 
     login_as(profile.identifier)
@@ -761,15 +761,15 @@ class ProfileControllerTest < ActionController::TestCase
 
     ActionTracker::Record.delete_all
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
+    User.current = p1.user
     create(Scrap,defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    User.current = p3.user
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
@@ -791,15 +791,15 @@ class ProfileControllerTest < ActionController::TestCase
 
     ActionTracker::Record.delete_all
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
+    User.current = p1.user
     create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    User.current = p3.user
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
@@ -833,10 +833,10 @@ class ProfileControllerTest < ActionController::TestCase
     ActionTracker::Record.destroy_all
     create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    User.current = p3.user
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
@@ -868,7 +868,7 @@ class ProfileControllerTest < ActionController::TestCase
     ActionTracker::Record.destroy_all
     create(Article, :name => 'a', :profile_id => community.id)
     create(Article, :name => 'b', :profile_id => community.id)
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     create(Article, :name => 'c', :profile_id => community.id)
     process_delayed_job_queue
 
@@ -895,10 +895,10 @@ class ProfileControllerTest < ActionController::TestCase
     ActionTracker::Record.destroy_all
     create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    User.current = p2.user
     create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    User.current = p3.user
     create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
@@ -1317,7 +1317,7 @@ class ProfileControllerTest < ActionController::TestCase
     another_person = fast_create(Person)
     create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    User.current = profile.user
     ActionTracker::Record.destroy_all
     TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
 
@@ -1332,7 +1332,7 @@ class ProfileControllerTest < ActionController::TestCase
     another_person = fast_create(Person)
     scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    User.current = profile.user
     ActionTracker::Record.destroy_all
     TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
@@ -1380,7 +1380,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'display comment in wall if user was removed after click in view all comments' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    User.current = profile.user
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     to_be_removed = create_user('removed_user').person
     comment = create(Comment, :author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
@@ -1397,7 +1397,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not display spam comments in wall' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    User.current = profile.user
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
     comment = create(Comment, :author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
     comment.spam!
@@ -1408,7 +1408,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'display comment in wall from non logged users after click in view all comments' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    User.current = profile.user
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     comment = create(Comment, :name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
 

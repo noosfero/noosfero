@@ -301,8 +301,8 @@ class CommunityTest < ActiveSupport::TestCase
     ActionTrackerNotification.delete_all
     p1 = Person.first
     community = fast_create(Community)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
+    p2 = create_user.person
+    p3 = create_user.person
     community.add_member(p3)
     article = create(TextileArticle, :profile_id => community.id)
     time = article.activity.updated_at + 1.day
@@ -372,10 +372,10 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'return tracked_actions of community as activities' do
-    person = fast_create(Person)
+    person = create_user.person
     community = fast_create(Community)
 
-    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    User.current = person.user
     assert_difference 'ActionTracker::Record.count', 1 do
       article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
       assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
@@ -387,7 +387,7 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
     community2 = fast_create(Community)
 
-    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    User.current = person.user
     article = create(TinyMceArticle, :profile => community2, :name => 'Another article about free software')
 
     assert_not_includes community.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity

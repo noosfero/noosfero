@@ -475,7 +475,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     person = fast_create(Person)
     enterprise = fast_create(Enterprise)
 
-    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    User.current = person.user
     article = create(TinyMceArticle, :profile => enterprise, :name => 'An article about free software')
 
     assert_equal [article.activity], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
@@ -486,7 +486,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise)
     enterprise2 = fast_create(Enterprise)
 
-    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    User.current = person.user
     article = create(TinyMceArticle, :profile => enterprise2, :name => 'Another article about free software')
 
     assert_not_includes enterprise.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity

@@ -33,16 +33,6 @@ class ActionTrackerConfigTest < ActiveSupport::TestCase
     %w(search delete login).each { |verb| assert ActionTrackerConfig.verb_names.include?(verb) }
   end
 
-  def test_current_user_is_default_method
-    ActionTrackerConfig.config[:current_user_method] = nil
-    assert_equal :current_user, ActionTrackerConfig.current_user_method
-  end
-
-  def test_current_user_can_be_set
-    ActionTrackerConfig.current_user_method = :logged_in_user
-    assert_equal :logged_in_user, ActionTrackerConfig.current_user_method
-  end
-
   def test_default_filter_time_is_after
     ActionTrackerConfig.config[:default_filter_time] = nil
     assert_equal :after, ActionTrackerConfig.default_filter_time
@@ -66,7 +56,7 @@ class ActionTrackerConfigTest < ActiveSupport::TestCase
   def test_get_verb_return_hash
     assert_kind_of Hash, ActionTrackerConfig.get_verb(:search)
   end
-  
+
   def test_get_verb_symbol_search_by_symbol
     ActionTrackerConfig.verbs = { :search => { :description => "Got it" } }
     assert_equal "Got it", ActionTrackerConfig.get_verb(:search)[:description]

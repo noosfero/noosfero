@@ -985,12 +985,12 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'track action when a published article is created in a community' do
     community = fast_create(Community)
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
+    p1 = create_user.person
+    p2 = create_user.person
+    p3 = create_user.person
     community.add_member(p1)
     community.add_member(p2)
-    UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+    User.current = p1.user
 
     article = create(TinyMceArticle, :profile_id => community.id)
     activity = article.activity
@@ -1085,11 +1085,11 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'create the notification to organization and all organization members' do
-    Profile.delete_all
-    ActionTracker::Record.delete_all
+    Profile.destroy_all
+    ActionTracker::Record.destroy_all
 
     community = fast_create(Community)
-    member_1 = fast_create(Person)
+    member_1 = create_user.person
     community.add_member(member_1)
 
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => community.id
@@ -1116,7 +1116,7 @@ class ArticleTest < ActiveSupport::TestCase
     Article.destroy_all
     ActionTracker::Record.destroy_all
     ActionTrackerNotification.destroy_all
-    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    User.current = profile.user
     article = create(TinyMceArticle, :profile_id => profile.id)
 
     process_delayed_job_queue
@@ -1127,7 +1127,7 @@ class ArticleTest < ActiveSupport::TestCase
     f1 = fast_create(Person)
     profile.add_friend(f1)
 
-    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    User.current = profile.user
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => profile.id
     assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
@@ -1147,7 +1147,7 @@ class ArticleTest < ActiveSupport::TestCase
     Article.destroy_all
     ActionTracker::Record.destroy_all
     ActionTrackerNotification.destroy_all
-    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    User.current = profile.user
     article = create(TinyMceArticle, :profile_id => profile.id)
     activity = article.activity
 
@@ -1165,11 +1165,11 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'destroy action_tracker and notifications when an article is destroyed in a community' do
     community = fast_create(Community)
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
+    p1 = create_user.person
+    p2 = create_user.person
     community.add_member(p1)
     community.add_member(p2)
-    UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+    User.current = p1.user
 
     article = create(TinyMceArticle, :profile_id => community.id)
     activity = article.activity

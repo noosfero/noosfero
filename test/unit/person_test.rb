@@ -1249,9 +1249,9 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user.person
     another_person = create_user.person
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
+    User.current = another_person.user
     scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
-    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    User.current = person.user
     article = create(TinyMceArticle, :profile => person, :name => 'An article about free software')
 
     assert_equivalent [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
@@ -1259,17 +1259,17 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not return tracked_actions and scraps from others as activities' do
     ActionTracker::Record.destroy_all
-    person = fast_create(Person)
-    another_person = fast_create(Person)
+    person = create_user.person
+    another_person = create_user.person
 
     person_scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
     another_person_scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
+    User.current = another_person.user
     create(TinyMceArticle, :profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(person)
+    User.current = person.user
     create(TinyMceArticle, :profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
