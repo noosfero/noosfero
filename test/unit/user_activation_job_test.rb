@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
+class UserActivationJobTest < ActiveSupport::TestCase
 
   should 'create job on user creation' do
     user = new_user :login => 'test1'
