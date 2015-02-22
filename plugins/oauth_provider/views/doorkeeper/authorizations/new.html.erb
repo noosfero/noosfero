@@ -1,0 +1,43 @@
+<div class="oauth-provider-authorize">
+
+<header class="page-header" role="banner">
+  <h1><%= _('Authorize required') %></h1>
+</header>
+
+<main role="main">
+  <p class="h4">
+  <%= _('Authorize %s to use your account?' % "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>") %>
+  </p>
+
+  <% if @pre_auth.scopes %>
+    <div id="oauth-permissions">
+      <p><%= _('This application will be able to:') %></p>
+
+      <ul class="text-info">
+        <% @pre_auth.scopes.each do |scope| %>
+          <li><%= OauthProviderPlugin::SCOPE_TRANSLATION[scope] %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form_tag oauth_authorization_path, method: :post do %>
+      <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+      <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+      <%= hidden_field_tag :state, @pre_auth.state %>
+      <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+      <%= hidden_field_tag :scope, @pre_auth.scope %>
+      <%= submit_button :ok, _("Authorize") %>
+    <% end %>
+    <%= form_tag oauth_authorization_path, method: :delete do %>
+      <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+      <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+      <%= hidden_field_tag :state, @pre_auth.state %>
+      <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+      <%= hidden_field_tag :scope, @pre_auth.scope %>
+      <%= submit_button :cancel, _("Deny") %>
+    <% end %>
+  </div>
+</main>
+</div>

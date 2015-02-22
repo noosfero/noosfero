@@ -1,0 +1,18 @@
+.oauth-login .provider a {
+  min-width: 20px;
+  min-height: 20px;
+  background-size: 20px;
+  display: inline-block;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  line-height: 20px;
+}
+.oauth-login .provider a img {
+  max-width: 40px;
+}
+.oauth-login .provider a:hover {
+  opacity: 0.7;
+}
+.oauth-login .provider .developer {
+  display: none;
+}
