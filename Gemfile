@@ -41,6 +41,9 @@ group :cucumber do
   gem 'selenium-webdriver',     '~> 2.39.0'
 end
 
+# Requires custom dependencies
+eval(File.read('config/Gemfile'), binding) rescue nil
+
 # include gemfiles from enabled plugins
 # plugins in baseplugins/ are not included on purpose. They should not have any
 # dependencies.
