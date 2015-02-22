@@ -526,9 +526,19 @@ class UserTest < ActiveSupport::TestCase
     assert user.activated?
   end
 
-  should 'delay activation check' do
+  should 'delay activation check with default time' do
     user = new_user
-    assert_match /UserActivationJob/, Delayed::Job.last.handler
+    job = Delayed::Job.last
+    assert_match /UserActivationJob/, job.handler
+    assert_equal 72, ((job.run_at - user.created_at)/1.hour).round
+  end
+
+  should 'delay activation check with custom time' do
+    NOOSFERO_CONF.stubs(:[]).with('hours_until_user_activation_check').returns(240)
+    user = new_user
+    job = Delayed::Job.last
+    assert_match /UserActivationJob/, job.handler
+    assert_equal 240, ((job.run_at - user.created_at)/1.hour).round
   end
 
   should 'not create job to check activation to template users' do
