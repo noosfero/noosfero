@@ -290,14 +290,11 @@ function Cart(config) {
         log.error('Send request - HTTP '+status, errorThrown);
       },
       complete: function() {
-        $.colorbox.close();
+        noosfero.modal.close();
       }
     });
   }
 
-  Cart.colorbox_close = function() {
-    $.colorbox.close();
-  }
 
   $(window).bind('beforeunload', function(){
     log('Page unload.');
