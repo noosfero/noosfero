@@ -1,9 +1,12 @@
 <%= javascript_include_tag 'jquery-2.1.1.min', 'jquery-migrate-1.2.1', 'jrails', 'rails.js',
-'jquery.cycle.all.min.js', 'thickbox.js', 'lightbox', 'colorbox',
-'jquery-ui-1.10.4/js/jquery-ui-1.10.4.min', 'jquery.scrollTo', 'jquery.form.js', 'jquery-validation/jquery.validate',
-'jquery.cookie', 'jquery.ba-bbq.min.js', 'reflection', 'jquery.tokeninput', 'jquery.typewatch', 'jquery.textchange',
-'add-and-join', 'report-abuse', 'catalog', 'manage-products', 'autogrow', 'select-or-die/_src/selectordie',
-'jquery-timepicker-addon/dist/jquery-ui-timepicker-addon', 'application.js', 'inputosaurus.js', :cache => 'cache/application' %>
+  'jquery.cycle.all.min.js', 'jquery.colorbox-min.js',
+  'jquery-ui-1.10.4/js/jquery-ui-1.10.4.min', 'jquery.scrollTo', 'jquery.form.js', 'jquery-validation/jquery.validate',
+  'jquery.cookie', 'jquery.ba-bbq.min.js', 'reflection', 'jquery.tokeninput', 'jquery.typewatch', 'jquery.textchange',
+  'jquery-timepicker-addon/dist/jquery-ui-timepicker-addon', 'inputosaurus.js', 'select-or-die/_src/selectordie',
+  # noosfero libraries
+  'application.js', 'modal.js',
+  'add-and-join', 'report-abuse', 'catalog', 'manage-products', 'autogrow',
+  :cache => 'cache/application' %>
 
 <% language = FastGettext.locale %>
 <% %w{messages methods}.each do |type| %>
