@@ -20,10 +20,10 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
 
   def enable_vote_plugin
     enabled = false
-    environment=Environment.default
+    environment = Environment.default
     if Noosfero::Plugin.all.include?('VotePlugin')
-      if not environment.enabled_plugins.include?(:vote)
-        environment.enable_plugin(Vote)
+      if not environment.enabled_plugins.include?('VotePlugin')
+        environment.enable_plugin(VotePlugin)
         environment.save!
       end
       enabled = true
