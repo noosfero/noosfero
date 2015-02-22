@@ -1,5 +1,5 @@
 # Refer to INSTALL.multitenancy for more information on Multitenancy support
-env1_production:
+env1_production: &DEFAULT
   adapter: postgresql
   encoding: unicode
   database: noosfero
@@ -30,4 +30,4 @@ env3_production:
     - env3.net
 
 production:
-  env1_production
+  <<: *DEFAULT

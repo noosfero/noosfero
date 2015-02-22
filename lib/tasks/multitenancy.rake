@@ -1,16 +1,16 @@
 namespace :multitenancy do
 
-  task :create do
+  task :create => :environment do
     db_envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_development$|_production$|_test$/) }
     cd Rails.root.join('config', 'environments'), :verbose => true
-    file_envs = Dir.glob "{*_development.rb,*_prodution.rb,*_test.rb}"
+    file_envs = Dir.glob "{*_development.rb,*_production.rb,*_test.rb}"
     (db_envs.map{ |e| e + '.rb' } - file_envs).each { |env| ln_s env.split('_').last, env }
   end
 
-  task :remove do
+  task :remove => :environment do
     db_envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_development$|_production$|_test$/) }
     cd Rails.root.join('config', 'environments'), :verbose => true
-    file_envs = Dir.glob "{*_development.rb,*_prodution.rb,*_test.rb}"
+    file_envs = Dir.glob "{*_development.rb,*_production.rb,*_test.rb}"
     (file_envs - db_envs.map{ |e| e + '.rb' }).each { |env| safe_unlink env }
   end
 

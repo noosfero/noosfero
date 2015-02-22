@@ -26,7 +26,7 @@ The file config/database.yml must follow a structure in order to achieve multite
 
 Each "hosted" environment must have an entry like this:
 
-    env1_production:
+    env1_production: &DEFAULT
       adapter: postgresql
       encoding: unicode
       database: noosfero
@@ -61,7 +61,7 @@ The "hosted" environments define, besides the `schema_search_path`, a list of do
 You must also tell the application which is the default environment.
 
     production:
-      env1_production
+      <<: *DEFAULT
 
 On the example above there are only three hosted environments, but it can be more than three. The schemas `env2` and `env3` must already exist in the same database of the hosting environment. As postgres user, you can create them typing:
 
