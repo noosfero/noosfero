@@ -1,0 +1,13 @@
+.oauth-provider-authorize .actions form {
+  display: inline-block;
+}
+.oauth-provider-authorize .h4 {
+  font-size: 14px;
+  color: rgb(36, 36, 36)
+}
+.oauth-provider-authorize #oauth-permissions {
+  color: rgb(92, 92, 92);
+}
+.oauth-provider .actions {
+  margin-top: 10px;
+}
