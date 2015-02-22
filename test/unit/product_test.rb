@@ -492,7 +492,7 @@ class ProductTest < ActiveSupport::TestCase
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
     assert_equal 25, prod.percentage_from_solidarity_economy.first
 
-    prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+    prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :profile_id => @profile.id)
     prod.inputs.create!(:product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
     prod.inputs.create!(:product_id => prod.id, :product_category_id => @product_category.id,
@@ -503,7 +503,7 @@ class ProductTest < ActiveSupport::TestCase
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
     assert_equal 75, prod.percentage_from_solidarity_economy.first
 
-    prod = fast_create(Product, :name => 'test product', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+    prod = fast_create(Product, :name => 'test product', :product_category_id => @product_category.id, :profile_id => @profile.id)
     prod.inputs.create!(:product_id => prod.id, :product_category_id => @product_category.id,
                   :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
     assert_equal 100, prod.percentage_from_solidarity_economy.first
