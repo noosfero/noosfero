@@ -1,4 +1,4 @@
-Rails.configuration.to_prepare do
+ActionDispatch::Reloader.to_prepare do
   Spammable.module_eval do
     def marked_as_spam
       plugins.dispatch(:marked_as_spam, self)
