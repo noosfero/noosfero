@@ -7,10 +7,10 @@ function submit_comment_form(button) {
   return true;
   <% else %>
   jQuery('#recaptcha-container').show();
-  jQuery.colorbox({ inline : true, href : '#recaptcha-container', maxWidth : '600px', maxHeight : '300px' });
+  noosfero.modal.inline('#recaptcha-container', {maxWidth :'600px', maxHeight : '300px' });
   jQuery('#confirm-captcha').unbind('click');
   jQuery('#confirm-captcha').bind('click', function() {
-    jQuery.colorbox.close();
+    noosfero.modal.close();
     button.form.recaptcha_response_field.value = jQuery('#recaptcha_response_field').val();
     button.form.recaptcha_challenge_field.value = jQuery('#recaptcha_challenge_field').val();
     button.form.confirm.value = 'true';
@@ -38,7 +38,7 @@ function submit_comment_form(button) {
     <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
     <% button_bar do %>
       <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
-      <%= button_to_function :cancel, _('Cancel'), "jQuery.colorbox.close()" %>
+      <%= button_to_function :cancel, _('Cancel'), "noosfero.modal.close()" %>
     <% end %>
   </div>
 

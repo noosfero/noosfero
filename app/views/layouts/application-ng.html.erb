@@ -18,7 +18,7 @@
     <%= yield :head %>
     <%=
       @plugins.dispatch(:head_ending).map do |content|
-        if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
+        if content.respond_to?(:call) then instance_exec(&content).to_s.html_safe else content.to_s.html_safe end
       end.join("\n")
     %>
 
@@ -32,7 +32,7 @@
 
     <%=
       @plugins.dispatch(:body_beginning).map do |content|
-        if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
+        if content.respond_to?(:call) then instance_exec(&content).to_s.html_safe else content.to_s.html_safe end
       end.join("\n")
     %>
 
