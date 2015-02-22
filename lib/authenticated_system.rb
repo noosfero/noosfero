@@ -5,22 +5,23 @@ module AuthenticatedSystem
     def logged_in?
       current_user != nil
     end
-    
+
     # Accesses the current user from the session.
     def current_user
       @current_user ||= (session[:user] && User.find_by_id(session[:user])) || nil
     end
-    
+
     # Store the given user in the session.
     def current_user=(new_user)
       if new_user.nil?
         session.delete(:user)
       else
         session[:user] = new_user.id
+        new_user.register_login
       end
       @current_user = new_user
     end
-    
+
     # Check if the user is authorized.
     #
     # Override this method in your controllers if you want to restrict access
@@ -62,7 +63,7 @@ module AuthenticatedSystem
         access_denied
       end
     end
-    
+
     # Redirect as appropriate when an access request fails.
     #
     # The default action is to redirect to the login screen.
@@ -88,15 +89,15 @@ module AuthenticatedSystem
         end
       end
       false
-    end  
-    
+    end
+
     # Store the URI of the current request in the session.
     #
     # We can return to this location by calling #redirect_back_or_default.
     def store_location(location = request.url)
       session[:return_to] = location
     end
-    
+
     # Redirect to the URI stored by the most recent store_location call or
     # to the passed default.
     def redirect_back_or_default(default)
@@ -106,7 +107,7 @@ module AuthenticatedSystem
         redirect_to(default)
       end
     end
-    
+
     # Inclusion hook to make #current_user and #logged_in?
     # available as ActionView helper methods.
     def self.included(base)
@@ -132,6 +133,6 @@ module AuthenticatedSystem
     def get_auth_data
       auth_key  = @@http_auth_headers.detect { |h| request.env.has_key?(h) }
       auth_data = request.env[auth_key].to_s.split unless auth_key.blank?
-      return auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil] 
+      return auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil]
     end
 end
