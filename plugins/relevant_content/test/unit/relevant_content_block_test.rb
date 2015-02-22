@@ -44,4 +44,19 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     assert_equal RelevantContentPlugin::RelevantContentBlock.expire_on, {:environment=>[:article], :profile=>[:article]}
   end
 
+  should 'not crash if vote plugin is not found' do
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => 'Profile')
+    block = RelevantContentPlugin::RelevantContentBlock.new(:box => box)
+
+    Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
+    # When the plugin is disabled from noosfero instance, its constant name is
+    # undefined.  To test this case, I have to manually undefine the constant
+    # if necessary.
+    Object.send(:remove_const, VotePlugin.to_s) if defined? VotePlugin
+
+    assert_nothing_raised do
+      block.content
+    end
+  end
+
 end

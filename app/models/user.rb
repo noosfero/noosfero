@@ -114,6 +114,10 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
+  def register_login
+    self.update_attribute :last_login_at, Time.now
+  end
+
   # Activates the user in the database.
   def activate
     return false unless self.person
