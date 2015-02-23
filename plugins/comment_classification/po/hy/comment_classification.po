@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 2015-02-02 21:43-0300\n"
-"PO-Revision-Date: 2009-10-26 16:20-0300\n"
-"Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2015-02-23 11:37+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-"
+"comment-classification/hy/>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: plugins/comment_classification/lib/comment_classification_plugin.rb:11
 #, fuzzy
@@ -125,7 +126,7 @@ msgstr "Տեղեկություններ ղեկավարության մասին"
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
 #: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
 msgid "Name"
-msgstr ""
+msgstr "Անվանում"
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
@@ -171,7 +172,7 @@ msgstr "Ակտիվացված է"
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
 msgid "Actions"
-msgstr ""
+msgstr "Գործողություններ"
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
 #, fuzzy
