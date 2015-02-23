@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2010-01-27 09:32-0300\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2015-02-23 11:30+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/noosfero/documentation/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -235,6 +237,8 @@ msgid ""
 "A plugin that uses the Google Custom Search as Noosfero general search "
 "engine."
 msgstr ""
+"Ein Plugin, welches Google Custom Search nutzt, um die generelle Suche in "
+"Noosfero zu realisieren."
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:5
