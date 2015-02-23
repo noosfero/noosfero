@@ -110,6 +110,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal total - mine, Article.count
   end
 
+  should 'remove images when removing profile' do
+    profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    image = profile.image
+    image.save!
+    profile.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      image.reload
+    end
+  end
+
   def test_should_avoid_reserved_identifiers
     Profile::RESERVED_IDENTIFIERS.each do |identifier|
       assert_invalid_identifier identifier
