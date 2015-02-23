@@ -22,12 +22,17 @@ class PersonNotifier
     schedule_next_notification_mail
   end
 
+  def notify_from
+    @person.last_notification || DateTime.now - @person.notification_time.hours
+  end
+
   def notify
     if @person.notification_time && @person.notification_time > 0
-      from = @person.last_notification || DateTime.now - @person.notification_time.hours
-      notifications = @person.tracked_notifications.find(:all, :conditions => ["created_at > ?", from])
+      notifications = @person.tracked_notifications.find(:all, :conditions => ["created_at > ?", notify_from])
+      tasks = Task.to(@person).without_spam.pending.where("created_at > ?", notify_from).order_by('created_at', 'asc')
+
       Noosfero.with_locale @person.environment.default_language do
-        Mailer::content_summary(@person, notifications).deliver unless notifications.empty?
+        Mailer::content_summary(@person, notifications, tasks).deliver unless notifications.empty? && tasks.empty?
       end
       @person.settings[:last_notification] = DateTime.now
       @person.save!
@@ -59,8 +64,12 @@ class PersonNotifier
     end
 
     def failure(job)
-      person = Person.find(person_id)
-      person.notifier.dispatch_notification_mail
+      begin
+        person = Person.find(person_id)
+        person.notifier.dispatch_notification_mail
+      rescue
+        Rails.logger.error "PersonNotifier::NotifyJob: Cannot recover from failure"
+      end
     end
 
   end
@@ -73,18 +82,24 @@ class PersonNotifier
       {:theme => nil}
     end
 
-    def content_summary(person, notifications)
+    def content_summary(person, notifications, tasks)
+      if person.environment
+        ActionMailer::Base.asset_host = person.environment.top_url
+        ActionMailer::Base.default_url_options[:host] = person.environment.default_hostname
+      end
+
       @current_theme = 'default'
       @profile = person
       @recipient = @profile.nickname || @profile.name
       @notifications = notifications
+      @tasks = tasks
       @environment = @profile.environment.name
       @url = @profile.environment.top_url
       mail(
         content_type: "text/html",
         from: "#{@profile.environment.name} <#{@profile.environment.noreply_email}>",
         to: @profile.email,
-        subject: _("[%s] Network Activity") % [@profile.environment.name]
+        subject: _("[%s] Notifications") % [@profile.environment.name]
       )
     end
   end

@@ -1,13 +1,12 @@
-<table>
 <tr>
-  <td>
+  <td style="width: 11%">
     <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
   </td>
   <td>
-    <p style="width:550px">
+    <p>
     <span style="font-size: 14px;"><%= link_to activity.user.short_name(20), activity.user.url %></span>
     <span style="font-size: 14px;"><%= _("has published on community %s") % link_to(activity.target.profile.short_name(20), activity.target.profile.url, :style => "color: #333; font-weight: bold; text-decoration: none;") if activity.target.profile.is_a?(Community) %></span>
-    <span style="font-size: 10px; color: #444444; float:right;"><%= time_ago_as_sentence(activity.created_at) %></span>
+    <span style="font-size: 10px; color: #929292; float:right;"><%= time_ago_as_sentence(activity.created_at) %></span>
     </p>
     <p>
     <span style="font-size: 14px;"><%= link_to(activity.params['name'], activity.params['url'], :style => "color: #333; font-weight: bold; text-decoration: none;") %></span>
@@ -24,4 +23,3 @@
     <%= render :partial => 'profile_comments', :locals => { :activity => activity } %>
   </td>
 </tr>
-</table>
