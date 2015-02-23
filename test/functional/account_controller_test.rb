@@ -818,17 +818,17 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'login with an alternative authentication defined by plugin' do
+    user = create_user
     class Plugin1 < Noosfero::Plugin
-      def alternative_authentication
-        User.new(:login => 'testuser')
-      end
     end
+    Plugin1.send(:define_method, :alternative_authentication){ user }
+
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
 
     post :login, :user => {:login => "testuser"}
 
-    assert_equal 'testuser', assigns(:current_user).login
+    assert_equal user.login, assigns(:current_user).login
     assert_response :redirect
   end
 
