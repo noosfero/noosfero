@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2015-02-23 11:36+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2017-01-23 19:59+0000\n"
+"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "solr/de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: ../lib/ext/article.rb:13
 msgid "Older than one year"
@@ -64,7 +64,7 @@ msgstr "facets|Aktiviert"
 
 #: ../lib/solr_plugin.rb:14
 msgid "Uses Solr as search engine."
-msgstr ""
+msgstr "Benutzt Solr als Suchmaschine."
 
 #: ../lib/solr_plugin/search_helper.rb:12
 #: ../lib/solr_plugin/search_helper.rb:19
