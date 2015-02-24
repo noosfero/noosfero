@@ -1,6 +1,6 @@
 require 'noosfero/translatable_content'
 
-# a base class for all text article types.  
+# a base class for all text article types.
 class TextArticle < Article
 
   xss_terminate :only => [ :name ], :on => 'validation'
@@ -26,10 +26,10 @@ class TextArticle < Article
   before_save :set_relative_path
 
   def set_relative_path
-    parsed = Hpricot(self.body.to_s)
-    parsed.search('img[@src]').map { |i| change_element_path(i, 'src') }
-    parsed.search('a[@href]').map { |i| change_element_path(i, 'href') }
-    self.body = parsed.to_s
+    parsed = Nokogiri::HTML.fragment(self.body.to_s)
+    parsed.css('img[src]').each { |i| change_element_path(i, 'src') }
+    parsed.css('a[href]').each { |i| change_element_path(i, 'href') }
+    self.body = parsed.to_html
   end
 
   def change_element_path(el, attribute)

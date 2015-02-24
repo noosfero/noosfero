@@ -9,7 +9,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   end
   attr_reader :profile
 
-  # this test can be removed when we get real tests for TinyMceArticle 
+  # this test can be removed when we get real tests for TinyMceArticle
   should 'be an article' do
     assert_subclass TextArticle, TinyMceArticle
   end
@@ -42,11 +42,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   should 'convert entities characters to UTF-8 instead of ISO-8859-1' do
     article = create(TinyMceArticle, :profile => profile, :name => 'teste ' + Time.now.to_s, :body => '<a title="inform&#225;tica">link</a>')
     assert(article.body.is_utf8?, "%s expected to be valid UTF-8 content" % article.body.inspect)
-  end
-
-  should 'fix tinymce mess with itheora comments for IE from tiny mce article body' do
-    article = create(TinyMceArticle, :profile => profile, :name => 'article', :abstract => 'abstract', :body => "the <!--–-[if IE]--> just for ie... <!--[endif]-->")
-    assert_equal "the <!–-[if IE]> just for ie... <![endif]-–>", article.body.html_safe
   end
 
   should 'remove iframe if it is not from a trusted site' do
@@ -92,12 +87,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
 
     article = create(TinyMceArticle, :profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='http://itheora.org/videos.ogg' src='http://untrusted_site.com/videos.ogg'></iframe>")
     assert_equal '', article.body
-  end
-
-  #TinymMCE convert config={"key":(.*)} in config={&quotkey&quot:(.*)}
-  should 'not replace &quot with &amp;quot; when adding an Archive.org video' do
-    article = create(TinyMceArticle, :profile => profile, :name => 'article', :abstract => 'abstract', :body => "<embed flashvars='config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}'> </embed>")
-    assert_equal "<embed flashvars=\"config={&quot;key&quot;:&quot;\#$b6eb72a0f2f1e29f3d4&quot;}\"> </embed>", article.body
   end
 
   should 'not sanitize html comments' do

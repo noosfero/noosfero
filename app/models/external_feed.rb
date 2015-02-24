@@ -14,9 +14,9 @@ class ExternalFeed < ActiveRecord::Base
 
   def add_item(title, link, date, content)
     return if content.blank?
-    doc = Hpricot(content)
-    doc.search('*').each do |p|
-      if p.instance_of? Hpricot::Elem
+    doc = Nokogiri::HTML.fragment content
+    doc.css('*').each do |p|
+      if p.instance_of? Nokogiri::XML::Element
         p.remove_attribute 'style'
         p.remove_attribute 'class'
       end
@@ -26,10 +26,10 @@ class ExternalFeed < ActiveRecord::Base
     article = TinyMceArticle.new
     article.name = title
     article.profile = blog.profile
-    article.body = content 
-    article.published_at = date 
-    article.source = link 
-    article.profile = blog.profile 
+    article.body = content
+    article.published_at = date
+    article.source = link
+    article.profile = blog.profile
     article.parent = blog
     article.author_name = self.feed_title
     unless blog.children.exists?(:slug => article.slug)
