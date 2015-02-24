@@ -2,7 +2,7 @@
   <% if !links_submenu.empty? %>
     <div class="comment-actions">
       <li class="vcard">
-        <%= link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{CGI::escapeHTML(links_submenu.to_json)}); return false", :class => 'menu-submenu-trigger comment-trigger', :url => url) %>
+        <%= popover_menu(_('Contents menu'),'',links_submenu,:class => 'comment-trigger', :url => url) %>
       </li>
     </div>
   <% end %>
