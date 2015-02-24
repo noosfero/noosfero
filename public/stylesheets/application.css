@@ -4685,6 +4685,12 @@ h1#agenda-title {
 .controller-profile_editor a.control-panel-welcome-page {
   background-image: url(../images/control-panel/welcome-page.png)
 }
+.controller-profile_editor a.control-panel-roles {
+  background-image: url(../images/control-panel/role-management.png)
+}
+.controller-profile_editor .msie6 a.control-panel-roles {
+  background-image: url(../images/control-panel/role-management.gif)
+}
 /* ==> public/stylesheets/controller_profile_members.css <== */
 .controller-profile_members .no-boxes {
   margin: 30px
