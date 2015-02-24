@@ -2,7 +2,7 @@
 
   <br/>
 
-  <%= link_to_function(_('Change image'), 'display_change_image()', :id => 'change-image-link', :class => 'button icon-photos with-text') %>
+  <%= button_to_function(:photos, _('Change image'), 'display_change_image()', :id => 'change-image-link' ) %>
 
   <script>
     function display_change_image() {

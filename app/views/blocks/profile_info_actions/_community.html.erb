@@ -5,11 +5,11 @@
   <% if logged_in? %>
     <% if profile.enable_contact? %>
       <li>
-      <%= link_to content_tag('span', _('Send an e-mail')),
-        { :profile => profile.identifier,
-          :controller => 'contact',
-          :action => 'new' },
-        {:class => 'button with-text icon-menu-mail', :title => _('Send an e-mail to the administrators')} %>
+        <%= button(:'menu-mail', _('Send an e-mail'),
+                   { :profile => profile.identifier,
+                     :controller => 'contact',
+                     :action => 'new' },
+                   { :title => _('Send an e-mail to the administrators')}) %>
       </li>
     <% end %>
 

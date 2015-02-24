@@ -3,6 +3,6 @@
   <div class="category-helper-label"><%= _('Click to select a category') %></div>
 
   <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
-    <%= update_categories_link(category.name, category.id) %>
+    <%= update_categories_link(nil,category.name, category.id) %>
   <% end %>
 <% end %>

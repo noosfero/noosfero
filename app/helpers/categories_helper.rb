@@ -25,10 +25,13 @@ module CategoriesHelper
     )
   end
 
-  def update_categories_link(body, category_id=nil, html_options={})
+  #TODO: remove this function and, in views, use existing basic buttons
+  def update_categories_link(type, body, category_id=nil, html_options={})
+    html_class = 'select-subcategory-link'
+    html_class = " icon-#{type}  btn btn-primary btn-xs" if type.present?
     link_to body,
       { :action => "update_categories", :category_id => category_id, :id => @object },
-      {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => 'select-subcategory-link'}.merge(html_options)
+      {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => html_class}.merge(html_options)
   end
 
 end

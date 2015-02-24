@@ -1,2 +1,2 @@
   <%= i.file_field( :uploaded_data, { :onchange => 'updateImg(this.value)' } ) %>
-  <%= link_to_function(_('Cancel'), "jQuery('#change-image-link').show(); jQuery('#change-image').html('')", :id => 'cancel-change-image-link', :class => 'button icon-cancel with-text', :style => 'display: none') %>
+  <%= button_to_function(:cancel,_('Cancel'),"jQuery('#change-image-link').show(); jQuery('#change-image').html('')", :id => 'cancel-change-image-link', :style => 'display: none')%>

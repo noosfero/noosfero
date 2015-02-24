@@ -4,12 +4,12 @@
   <%= hidden_field_tag "#{object_name}[#{object_name}_category_id]", @current_category.id unless multiple %>
   <%= hidden_field_tag "#{object_name}[category_ids][]", @current_category.id if multiple %>
 
-  <%= update_categories_link("", nil, :id => "cancel-category-button", :class => "button icon-back") %>
+  <%= update_categories_link(:back, "", nil, :id => "cancel-category-button") %>
   <%
     categories = [@current_category]
     categories.push(@current_category) while @current_category = @current_category.parent
   %>
-  <%= categories.compact.reverse.map{|i| update_categories_link(i.name, i.id)}.join %>
+  <%= categories.compact.reverse.map{|i| update_categories_link(nil,i.name, i.id)}.join %>
 
   <script>
     function add_category() {

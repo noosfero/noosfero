@@ -22,8 +22,6 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= link_to content_tag('span', _('Join')), profile.join_not_logged_url,
-      :class => 'button with-text icon-add',
-      :title => _('Join this community') %>
+      <%= button(:add, _('Join'), profile.join_not_logged_url, :title => _('Join this community')) %>
   <% end %>
 </div>

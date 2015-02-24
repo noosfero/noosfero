@@ -20,9 +20,7 @@
       <% button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
         <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-          <%= link_to content_tag( 'span', _('New user') ),
-              { :controller => 'account', :action => 'signup' },
-              :class => 'button with-text icon-add' %>
+          <%= button(:add, _('New user'), { :controller => 'account', :action => 'signup' }) %>
         <% end %>
       <% end %>
 
