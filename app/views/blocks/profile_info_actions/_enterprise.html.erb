@@ -1,11 +1,11 @@
 <ul>
   <%if logged_in? %>
     <%if !user.favorite_enterprises.include?(profile) %>
-      <li><%= link_to content_tag('span', _('Add as favorite')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add', :title => _('Add enterprise as favorite') %></li>
+      <li><%= button(:add, _('Add as favorite'), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :title => _('Add enterprise as favorite')) %></li>
     <% end %>
   <% end %>
   <% if profile.enable_contact? %>
-    <li> <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, {:id => 'enterprise-contact-button', :class => 'button with-text icon-menu-mail'} %> </li>
+      <li><%= button(:'menu-mail', _('Send an e-mail'), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, {:id => 'enterprise-contact-button'} ) %></li>
   <% end %>
 
   <li><%= report_abuse(profile, :button) %></li>

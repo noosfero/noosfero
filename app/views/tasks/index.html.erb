@@ -23,7 +23,7 @@
 
 <% if @tasks.empty? %>
   <p>
-    <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => 'document.location.href = "?filter_type="+this.value')%>
+    <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => "document.location.href = '?filter_type='+this.value")%>
   </p>
   <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
