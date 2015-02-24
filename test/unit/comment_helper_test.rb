@@ -137,7 +137,7 @@ class CommentHelperTest < ActiveSupport::TestCase
     plugin_action = {:link => 'plugin_action', :action_bar => true}
     @plugins.stubs(:dispatch).returns([plugin_action])
     html = comment_actions(comment)
-    assert_match /plugin_action/, Hpricot(html).search('.comments-action-bar').html
+    assert_match /plugin_action/, Nokogiri::HTML.fragment(html).css('.comments-action-bar').to_html
   end
 
   def link_to_function(content, url, options = {})
