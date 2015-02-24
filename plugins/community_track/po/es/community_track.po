@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 2015-02-02 21:43-0300\n"
-"PO-Revision-Date: 2015-02-11 19:59+0200\n"
+"PO-Revision-Date: 2015-02-24 19:06+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
 "community-track/es/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: plugins/community_track/lib/community_track_plugin.rb:8
 msgid "New kind of content for communities."
@@ -174,7 +174,7 @@ msgstr "Oculto"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
 msgid "hits"
-msgstr ""
+msgstr "aciertos"
 
 #: plugins/community_track/views/blocks/_track_list_more.html.erb:5
 #, fuzzy
