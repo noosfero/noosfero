@@ -1,9 +1,12 @@
 Given /^CommentClassificationPlugin is enabled$/ do
-  step %{I am logged in as admin}
-  step %{I am on the environment control panel}
-  step %{I follow "Plugins"}
-  step %{I check "Comment Classification"}
-  step %{I press "Save changes"}
+  steps %Q{
+    Given I am logged in as admin
+    Given I am on the environment control panel
+    Given I follow "Plugins"
+    Given I check "Comment Classification"
+    Given I press "Save changes"
+  }
+
   Environment.default.enabled_plugins.should include("CommentClassificationPlugin")
 end
 
