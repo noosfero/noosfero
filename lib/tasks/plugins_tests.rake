@@ -106,7 +106,7 @@ def run_test(name, files)
   files = Array(files)
   plugin = filename2plugin(files.first)
   if name == :cucumber || name == :selenium
-    run_cucumber task2_profile(name, plugin), files
+    run_cucumber task2profile(name, plugin), files
   else
     run_testrb files
   end
@@ -134,7 +134,11 @@ end
 
 def run_tests(name, plugins, run=:all)
   plugins = Array(plugins)
-  glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
+  if name == :cucumber || name == :selenium
+    glob =  "plugins/{#{plugins.join(',')}}/#{task2folder(name)}/**/*.#{task2ext(name)}"
+  else
+    glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
+  end
   files = Dir.glob(glob)
   if files.empty?
     puts "I: no tests to run #{name}"
