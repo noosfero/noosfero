@@ -84,6 +84,9 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   should 'not display products class in statistics-block-data block' do
+    @block.product_counter = true
+    @environment.disable('products_for_enterprises')
+    @block.save!
     get :index
 
     assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block-data'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }

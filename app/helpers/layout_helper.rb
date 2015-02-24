@@ -45,8 +45,6 @@ module LayoutHelper
     standard_stylesheets = [
       'application',
       'search',
-      'thickbox',
-      'lightbox',
       'colorbox',
       'selectordie',
       'inputosaurus',

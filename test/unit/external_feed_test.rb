@@ -18,7 +18,8 @@ class ExternalFeedTest < ActiveSupport::TestCase
   end
 
   should 'not add same item twice' do
-    e = create(:external_feed)
+    blog = create_blog
+    e = create(:external_feed, blog: blog)
     assert e.add_item('Article title', 'http://orig.link.invalid', Time.now, 'Content for external post')
     assert !e.add_item('Article title', 'http://orig.link.invalid', Time.now, 'Content for external post')
     assert_equal 1, e.blog.posts.size
@@ -52,7 +53,8 @@ class ExternalFeedTest < ActiveSupport::TestCase
 
   should 'add items to blog as posts' do
     handler = FeedHandler.new
-    e = create(:external_feed)
+    blog = create_blog
+    e = create(:external_feed, blog: blog)
     handler.process(e)
     assert_equal ["Last POST", "Second POST", "First POST"], e.blog.posts.map{|i| i.title}
   end
@@ -164,7 +166,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
       next if a.kind_of?(RssFeed)
       dd << a.body.to_s.strip.gsub(/\s+/, ' ')
     end
-    assert_equal '<img src="noosfero.png" /><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join
+    assert_equal '<img src="noosfero.png"><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join
   end
 
   should 'use feed title as author name' do

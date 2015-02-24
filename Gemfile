@@ -11,7 +11,6 @@ gem 'will_paginate',            '~> 3.0.3'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1.5'
 gem 'thin',                     '~> 1.3.1'
-gem 'hpricot',                  '~> 0.8.6'
 gem 'nokogiri',                 '~> 1.5.5'
 gem 'rake', :require => false
 gem 'rest-client',              '~> 1.6.7'
@@ -40,6 +39,9 @@ group :cucumber do
   gem 'database_cleaner',       '~> 1.2.0'
   gem 'selenium-webdriver',     '~> 2.39.0'
 end
+
+# Requires custom dependencies
+eval(File.read('config/Gemfile'), binding) rescue nil
 
 # include gemfiles from enabled plugins
 # plugins in baseplugins/ are not included on purpose. They should not have any

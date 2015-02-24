@@ -19,7 +19,7 @@
         <span style="font-size: 12px;"><%= comment.title %></span><br/>
       <% end %>
       <span style="font-size: 10px;"><%= txt2html comment.body %></span><br/>
-      <span style="font-size: 8px; color: #444444"><%= time_ago_as_sentence(comment.created_at) %></span>
+      <span style="font-size: 8px; color: #929292"><%= time_ago_as_sentence(comment.created_at) %></span>
   <br style="clear: both;" />
 
   <% unless comment.replies.blank? %>

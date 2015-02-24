@@ -6,18 +6,20 @@ class ChatControllerTest < ActionController::TestCase
     env = Environment.default
     env.enable('xmpp_chat')
     env.save!
+    #TODO Maybe someday we should have a real testing ejabberd server
+    RubyBOSH.stubs(:initialize_session).returns(['fake-jid@example.org', 'fake-sid', 'fake-rid'])
     @person = create_user('testuser').person
   end
 
   should 'cant view chat when not logged in' do
-    get :index
+    get :start_session
     assert_response 302
   end
 
   should 'can view chat when logged in' do
     login_as 'testuser'
 
-    get :index
+    get :start_session
     assert_response :success
   end
 
@@ -37,29 +39,6 @@ class ChatControllerTest < ActionController::TestCase
 
     assert_equal 'image/png', @response.content_type
     assert @response.body.index('PNG')
-  end
-
-  should 'auto connect if last presence status is blank' do
-    login_as 'testuser'
-
-    get :index
-    assert_template 'auto_connect_online'
-  end
-
-  should 'auto connect if there last presence status was chat' do
-    create_user('testuser_online', :last_chat_status => 'chat')
-    login_as 'testuser_online'
-
-    get :index
-    assert_template 'auto_connect_online'
-  end
-
-  should 'auto connect busy if last presence status was dnd' do
-    create_user('testuser_busy', :last_chat_status => 'dnd')
-    login_as 'testuser_busy'
-
-    get :index
-    assert_template 'auto_connect_busy'
   end
 
   begin
@@ -87,7 +66,7 @@ class ChatControllerTest < ActionController::TestCase
     env.disable('xmpp_chat')
     env.save!
 
-    get :index
+    get :start_session
 
     assert_response 404
     assert_template 'not_found'
@@ -114,6 +93,69 @@ class ChatControllerTest < ActionController::TestCase
     chat_status_at = @person.user.chat_status_at
     get :update_presence_status
     assert_not_equal chat_status_at, @person.user.chat_status_at
+  end
+
+  should 'toggle chat status' do
+    login_as 'testuser'
+
+    get :start_session
+    assert_nil session[:chat][:status]
+
+    get :toggle
+    assert_equal 'opened', session[:chat][:status]
+
+    get :toggle
+    assert_equal 'closed', session[:chat][:status]
+
+    get :toggle
+    assert_equal 'opened', session[:chat][:status]
+  end
+
+  should 'set tab' do
+    login_as 'testuser'
+    get :start_session
+
+    post :tab, :tab_id => 'my_tab'
+    assert_equal 'my_tab', session[:chat][:tab_id]
+  end
+
+  should 'join room' do
+    login_as 'testuser'
+    get :start_session
+
+    post :join, :room_id => 'room1'
+    assert_equivalent ['room1'], session[:chat][:rooms]
+
+    post :join, :room_id => 'room2'
+    assert_equivalent ['room1', 'room2'], session[:chat][:rooms]
+
+    post :join, :room_id => 'room1'
+    assert_equivalent ['room1', 'room2'], session[:chat][:rooms]
+  end
+
+  should 'leave room' do
+    login_as 'testuser'
+    get :start_session
+    session[:chat][:rooms] = ['room1', 'room2']
+
+    post :leave, :room_id => 'room2'
+    assert_equivalent ['room1'], session[:chat][:rooms]
+
+    post :leave, :room_id => 'room1'
+    assert_equivalent [], session[:chat][:rooms]
+
+    post :leave, :room_id => 'room1'
+    assert_equivalent [], session[:chat][:rooms]
+  end
+
+  should 'fetch chat session as json' do
+    login_as 'testuser'
+    get :start_session
+    my_chat = {:status => 'opened', :rooms => ['room1', 'room2'], :tab_id => 'room1'}
+    session[:chat] = my_chat
+
+    get :my_session
+    assert_equal @response.body, my_chat.to_json
   end
 
 end

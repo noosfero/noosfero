@@ -1,6 +1,4 @@
 require_dependency 'comment'
-require 'comment_classification_plugin.rb'
-require 'comment_classification_plugin/label.rb'
 
 class Comment
 

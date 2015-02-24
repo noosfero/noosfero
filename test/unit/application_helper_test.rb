@@ -261,7 +261,7 @@ class ApplicationHelperTest < ActionView::TestCase
     fast_create(Community, :is_template => true, :environment_id => environment.id)
     environment.community_default_template= community
     environment.save
-    
+
     assert_tag_in_string template_options(:communities, 'community'), :tag => 'input',
                                  :attributes => { :name => "community[template_id]", :value => community.id, :checked => true }
   end
@@ -273,7 +273,7 @@ class ApplicationHelperTest < ActionView::TestCase
     fast_create(Person, :is_template => true, :environment_id => environment.id)
     environment.person_default_template= person
     environment.save
-    
+
     assert_tag_in_string template_options(:people, 'profile_data'), :tag => 'input',
                                  :attributes => { :name => "profile_data[template_id]", :value => person.id, :checked => true }
   end
@@ -287,7 +287,7 @@ class ApplicationHelperTest < ActionView::TestCase
     environment.enterprise_default_template= enterprise
     environment.save
     environment.reload
-    
+
     assert_tag_in_string template_options(:enterprises, 'create_enterprise'), :tag => 'input',
                                  :attributes => { :name => "create_enterprise[template_id]", :value => enterprise.id, :checked => true }
   end
@@ -734,16 +734,16 @@ class ApplicationHelperTest < ActionView::TestCase
       <div class='macro nonEdit' data-macro='unexistent' data-macro-param='987'></div>
     "
     parsed_html = convert_macro(html, mock())
-    parsed_divs = Hpricot(parsed_html).search('div')
-    expected_divs = Hpricot("
-      <div data-macro='#{macro1_name}' class='parsed-macro #{macro1_name}'>Test1</div>
-      <div data-macro='#{macro2_name}' class='parsed-macro #{macro2_name}'>Test2</div>
+    parsed_divs = Nokogiri::HTML.fragment(parsed_html).css('div')
+    expected_divs = Nokogiri::HTML.fragment("
+      <div class='parsed-macro #{macro1_name}' data-macro='#{macro1_name}'>Test1</div>
+      <div class='parsed-macro #{macro2_name}' data-macro='#{macro2_name}'>Test2</div>
       <div data-macro='unexistent' class='failed-macro unexistent'>Unsupported macro unexistent!</div>
-    ").search('div')
+    ").css('div')
 
     # comparing div attributes between parsed and expected html
     parsed_divs.each_with_index do |div, i|
-      assert_equal expected_divs[i].attributes.to_hash, div.attributes.to_hash
+      assert_equal expected_divs[i].attributes.to_xml, div.attributes.to_xml
       assert_equal expected_divs[i].inner_text, div.inner_text
     end
   end

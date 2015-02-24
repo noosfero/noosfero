@@ -8,11 +8,7 @@ module ApplicationHelper
 
   include PermissionNameHelper
 
-  include LightboxHelper
-
-  include ThickboxHelper
-
-  include ColorboxHelper
+  include ModalHelper
 
   include BoxesHelper
 
@@ -651,8 +647,8 @@ module ApplicationHelper
       ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
       ' onblur="if(/^\s*$/.test(this.value)){this.value=\''+s+'\'} this.form.className=\'focus-out\'">'+
       '</form>'
-    else #opt == 'lightbox_link' is default
-      lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
+    else
+      modal_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
                        :controller => 'search',
                        :action => 'popup',
                        :category_path => (@category ? @category.explode_path : nil)},
@@ -1050,7 +1046,7 @@ module ApplicationHelper
       {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
     ]
     if logged_in?
-      links.push(_('New content') => colorbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+      links.push(_('New content') => modal_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => nil}, :id => 'submenu-contents') +
@@ -1398,16 +1394,16 @@ module ApplicationHelper
   end
 
   def convert_macro(html, source)
-    doc = Hpricot(html)
+    doc = Nokogiri::HTML.fragment html
     #TODO This way is more efficient but do not support macro inside of
     #     macro. You must parse them from the inside-out in order to enable
     #     that.
-    doc.search('.macro').each do |macro|
+    doc.css('.macro').each do |macro|
       macro_name = macro['data-macro']
       result = @plugins.parse_macro(macro_name, macro, source)
       macro.inner_html = result.kind_of?(Proc) ? self.instance_exec(&result) : result
     end
-    doc.html
+    doc.to_html
   end
 
   def default_folder_for_image_upload(profile)

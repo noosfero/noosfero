@@ -1,0 +1,14 @@
+<div class="oauth-provider">
+<h3><%= _('Oauh Provider') %></h3>
+
+  <div class="applications">
+    <%= link_to _('Applications'), oauth_applications_path %>
+  </div>
+  <div class="authorized-applications">
+    <%= link_to _('Authorized Applications'), oauth_authorized_applications_path %>
+  </div>
+
+  <div class="actions">
+    <%= button(:back, _('Go back'), {:controller => 'plugins', :action => 'index'}) %>
+  </div>
+</div>

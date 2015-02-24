@@ -733,6 +733,7 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
     t.string   "return_to"
+    t.datetime "last_login_at"
   end
 
   create_table "validation_infos", :force => true do |t|

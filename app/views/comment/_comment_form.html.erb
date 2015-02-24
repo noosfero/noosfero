@@ -10,7 +10,7 @@
     <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
     <% button_bar do %>
       <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
-      <%= button_to_function :cancel, _('Cancel'), "jQuery.colorbox.close()" %>
+      <%= button_to_function :cancel, _('Cancel'), "noosfero.modal.close()" %>
     <% end %>
   </div>
 
@@ -31,10 +31,10 @@ function check_captcha(button, confirm_action) {
   return true;
   <% else %>
   jQuery('#recaptcha-container').show();
-  jQuery.colorbox({ html: jQuery('#recaptcha-container').html(), maxWidth : '600px', maxHeight : '300px' });
+  noosfero.modal.inline('#recaptcha-container', {maxWidth :'600px', maxHeight : '300px' });
   jQuery('#confirm-captcha').unbind('click');
   jQuery('#confirm-captcha').bind('click', function() {
-    jQuery.colorbox.close();
+    noosfero.modal.close();
     button.form.recaptcha_response_field.value = jQuery('#recaptcha_response_field').val();
     button.form.recaptcha_challenge_field.value = jQuery('#recaptcha_challenge_field').val();
     button.form.confirm.value = 'true';
@@ -88,7 +88,7 @@ function check_captcha(button, confirm_action) {
     <% if !edition_mode %>
       <%= button :cancel, _('Cancel'), '', :id => 'cancel-comment' %>
     <% else %>
-      <%= button :cancel, _('Cancel'), '#', :onclick => "jQuery.colorbox.close();" %>
+      <%= button :cancel, _('Cancel'), '#', :onclick => "noosfero.modal.close();" %>
     <% end %>
   <% end %>
 <% end %>

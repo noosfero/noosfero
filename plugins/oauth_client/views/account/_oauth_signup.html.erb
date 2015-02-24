@@ -1,0 +1,11 @@
+<%= hidden_field_tag 'return_to', '/' %>
+
+<style>
+  #signup-password, #signup-password-confirmation, #signup-email {
+    display: none;
+  }
+</style>
+
+<div id='signup-email-readonly'>
+  <%= labelled_form_field(_('Email'), text_field(:user, :email, :class => "disabled", :readonly => true)) %>
+</div>

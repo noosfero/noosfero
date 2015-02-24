@@ -273,6 +273,7 @@ class Environment < ActiveRecord::Base
   settings_items :help_message_to_add_enterprise, :type => String, :default => ''
   settings_items :tip_message_enterprise_activation_question, :type => String, :default => ''
 
+  settings_items :currency_iso_unit, :type => String, :default => 'USD'
   settings_items :currency_unit, :type => String, :default => '$'
   settings_items :currency_separator, :type => String, :default => '.'
   settings_items :currency_delimiter, :type => String, :default => ','

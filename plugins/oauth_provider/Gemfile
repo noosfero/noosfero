@@ -1,0 +1,1 @@
+gem 'doorkeeper', '~> 1.4.0'

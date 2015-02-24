@@ -55,9 +55,10 @@ $("#usp_id_field").observe_field(1, function(){
 });
 
 function displayValidationUspIdError(error){
-  jQuery.colorbox({html: '<h2>'+error.message+'</h2>'+error.backtrace.join("<br />"),
+  noosfero.modal.html('<h2>'+error.message+'</h2>'+error.backtrace.join("<br />"), {
     height: "80%",
-    width:  "70%" });
+    width:  "70%"
+  });
 }
 
 jQuery('#usp_id_field').focus(function() { jQuery('#usp-id-balloon').fadeIn('slow'); });

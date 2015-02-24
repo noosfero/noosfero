@@ -26,7 +26,7 @@
   <%= labelled_radio_button 'Multiple Select', "fields[#{counter}][kind]", 'multiple_select', field.multiple && field.list %><br />
 
   <% button_bar do %>
-    <%= button :ok, c_('Ok'), '#', :class => 'colorbox-ok-button', :div_id => elem_id %>
+    <%= button :ok, _('Ok'), '#', :div_id => elem_id %>
   <% end %>
 </div>
 

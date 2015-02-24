@@ -1,9 +1,9 @@
 require_relative "../test_helper"
 
 class TextArticleTest < ActiveSupport::TestCase
-  
+
   # mostly dummy test. Can be removed when (if) there are real tests for this
-  # this class. 
+  # this class.
   should 'inherit from Article' do
     assert_kind_of Article, TextArticle.new
   end
@@ -44,7 +44,7 @@ class TextArticleTest < ActiveSupport::TestCase
     env = Environment.default
     article.body = "<img src=\"http://#{env.default_hostname}/test.png\" />"
     article.save!
-    assert_equal "<img src=\"/test.png\" />", article.body
+    assert_equal "<img src=\"/test.png\">", article.body
   end
 
   should 'change link to relative path' do
@@ -60,18 +60,18 @@ class TextArticleTest < ActiveSupport::TestCase
     person = create_user('testuser').person
     article = TextArticle.new(:profile => person, :name => 'test')
     env = Environment.default
-    article.body = "<img src=\"https://#{env.default_hostname}/test.png\" />"
+    article.body = "<img src=\"https://#{env.default_hostname}/test.png\">"
     article.save!
-    assert_equal "<img src=\"/test.png\" />", article.body
+    assert_equal "<img src=\"/test.png\">", article.body
   end
 
   should 'change image path to relative for domain with port' do
     person = create_user('testuser').person
     article = TextArticle.new(:profile => person, :name => 'test')
     env = Environment.default
-    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\" />"
+    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\">"
     article.save!
-    assert_equal "<img src=\"/test.png\" />", article.body
+    assert_equal "<img src=\"/test.png\">", article.body
   end
 
   should 'change image path to relative for domain with www' do
@@ -80,16 +80,16 @@ class TextArticleTest < ActiveSupport::TestCase
     env = Environment.default
     env.force_www = true
     env.save!
-    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\" />"
+    article.body = "<img src=\"http://#{env.default_hostname}:3000/test.png\">"
     article.save!
-    assert_equal "<img src=\"/test.png\" />", article.body
+    assert_equal "<img src=\"/test.png\">", article.body
   end
 
   should 'not be translatable if there is no language available on environment' do
     environment = fast_create(Environment)
     environment.languages = nil
     profile = fast_create(Person, :environment_id => environment.id)
- 
+
     text = TextArticle.new(:profile => profile)
 
     assert !text.translatable?
@@ -102,11 +102,10 @@ class TextArticleTest < ActiveSupport::TestCase
     text = fast_create(TextArticle, :profile_id => profile.id)
 
     assert !text.translatable?
- 
 
     environment.languages = ['en','pt','fr']
     environment.save
-    text.reload 
+    text.reload
     assert text.translatable?
   end
 
