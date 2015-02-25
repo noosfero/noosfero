@@ -17,15 +17,31 @@ NoosferoTasks = %w(test:noosfero_plugins)
 AllTasks = TestTasks + CucumberTasks + NoosferoTasks
 
 task :test do
-  errors = AllTasks.collect do |task|
+  data = []
+  failed = []
+  AllTasks.each do |task|
+    t0 = Time.now.to_i
     begin
       ENV['RAILS_ENV'] = 'test'
       Rake::Task[task].invoke
-      nil
+      status = 'PASS'
     rescue => e
-      task
+      failed << task
+      status = 'FAIL'
     end
-  end.compact
-  abort "Errors running #{errors.to_sentence}!" if errors.any?
+    t1 = Time.now.to_i
+    duration = t1 - t0
+    data << { :name => task, :status => status, :duration => Time.at(duration).utc.strftime("%H:%M:%S") }
+  end
+
+  puts
+  printf "%-30s %-6s %s\n", 'Task', 'Status', 'Duration'
+  printf "%-30s %-6s %s\n", '-' * 30, '-' * 6, '--------'
+  data.each do |entry|
+    printf "%-30s %-6s %s\n", entry[:name], entry[:status], entry[:duration]
+  end
+
+  puts
+  abort "Errors running #{failed.join(', ')}!" if failed.any?
 end
 
