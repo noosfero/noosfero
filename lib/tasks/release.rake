@@ -156,6 +156,8 @@ EOF
 
     sh 'git checkout debian/changelog lib/noosfero/version.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{new_version}'/\" lib/noosfero/version.rb"
+    ENV['DEBFULLNAME'] ||= `git config user.name`.strip
+    ENV['DEBEMAIL'] ||= `git config user.email`.strip
     sh "dch --newversion #{new_version} --distribution #{target} --force-distribution '#{release_message}'"
 
     sh 'git diff debian/changelog lib/noosfero/version.rb'
