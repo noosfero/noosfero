@@ -22,7 +22,7 @@ module ActsAsHavingPosts
   end
 
   def feed
-    Article.where(:parent_id => self.id).where(:type => 'RssFeed').first
+    children.where(:type => 'RssFeed').first
   end
 
   def feed=(attrs)
