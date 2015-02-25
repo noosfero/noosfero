@@ -1,4 +1,4 @@
-class Scrap::Notifier < ActionMailer::Base
+class ScrapNotifier < ActionMailer::Base
   def notification(scrap)
     sender, receiver = scrap.sender, scrap.receiver
     @recipient = receiver.name
