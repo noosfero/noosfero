@@ -241,6 +241,14 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.datetime "updated_at"
   end
 
+  create_table "chat_messages", :force => true do |t|
+    t.integer  "to_id"
+    t.integer  "from_id"
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.string   "title"
     t.text     "body"
