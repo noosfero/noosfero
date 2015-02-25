@@ -132,11 +132,11 @@ class Comment < ActiveRecord::Base
   def notify_by_mail
     if source.kind_of?(Article) && article.notify_comments?
       if !notification_emails.empty?
-        Comment::Notifier.notification(self).deliver
+        CommentNotifier.notification(self).deliver
       end
       emails = article.followers - [author_email]
       if !emails.empty?
-        Comment::Notifier.mail_to_followers(self, emails).deliver
+        CommentNotifier.mail_to_followers(self, emails).deliver
       end
     end
   end

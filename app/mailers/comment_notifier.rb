@@ -1,4 +1,4 @@
-class Comment::Notifier < ActionMailer::Base
+class CommentNotifier < ActionMailer::Base
   def notification(comment)
     profile = comment.article.profile
     @recipient = profile.nickname || profile.name

@@ -25,7 +25,7 @@ class Scrap < ActiveRecord::Base
 
   after_create do |scrap|
     scrap.root.update_attribute('updated_at', DateTime.now) unless scrap.root.nil?
-    Scrap::Notifier.notification(scrap).deliver if scrap.send_notification?
+    ScrapNotifier.notification(scrap).deliver if scrap.send_notification?
   end
 
   before_validation :strip_all_html_tags
