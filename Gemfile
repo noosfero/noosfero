@@ -18,7 +18,7 @@ gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false, :group => :development
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
-gem 'eita-jrails'
+gem 'eita-jrails', :require => false
 
 group :production do
   gem 'dalli', '~> 2.7.0'
