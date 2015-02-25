@@ -17,13 +17,14 @@ class Product < ActiveRecord::Base
     'full'
   end
 
-  belongs_to :enterprise, :foreign_key => :profile_id, :class_name => 'Profile'
   belongs_to :profile
+  # backwards compatibility
+  belongs_to :enterprise, :foreign_key => :profile_id, :class_name => 'Profile'
   alias_method :enterprise=, :profile=
   alias_method :enterprise, :profile
 
-  has_one :region, :through => :enterprise
-  validates_presence_of :enterprise
+  has_one :region, :through => :profile
+  validates_presence_of :profile
 
   belongs_to :product_category
 
@@ -54,10 +55,10 @@ class Product < ActiveRecord::Base
   after_update :save_image
 
   def lat
-    self.enterprise.lat
+    self.profile.lat
   end
   def lng
-    self.enterprise.lng
+    self.profile.lng
   end
 
   xss_terminate :only => [ :name ], :on => 'validation'
@@ -71,7 +72,7 @@ class Product < ActiveRecord::Base
   filter_iframes :description
 
   def iframe_whitelist
-    enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe
+    self.profile && self.profile.environment && self.profile.environment.trusted_sites_for_iframe
   end
 
   def name
@@ -109,16 +110,16 @@ class Product < ActiveRecord::Base
   end
 
   def url
-    enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => id)
+    self.profile.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => id)
   end
 
   def public?
-    enterprise.public?
+    self.profile.public?
   end
 
   def formatted_value(method)
     value = self[method] || self.send(method)
-    ("%.2f" % value).to_s.gsub('.', enterprise.environment.currency_separator) if value
+    ("%.2f" % value).to_s.gsub('.', self.profile.environment.currency_separator) if value
   end
 
   def price_with_discount
@@ -223,16 +224,16 @@ class Product < ActiveRecord::Base
   end
 
   def available_production_costs
-    self.enterprise.environment.production_costs + self.enterprise.production_costs
+    self.profile.environment.production_costs + self.profile.production_costs
   end
 
   include Rails.application.routes.url_helpers
   def price_composition_bar_display_url
-    url_for({:host => enterprise.default_hostname, :controller => 'manage_products', :action => 'display_price_composition_bar', :profile => enterprise.identifier, :id => self.id }.merge(Noosfero.url_options))
+    url_for({:host => self.profile.default_hostname, :controller => 'manage_products', :action => 'display_price_composition_bar', :profile => self.profile.identifier, :id => self.id }.merge(Noosfero.url_options))
   end
 
   def inputs_cost_update_url
-    url_for({:host => enterprise.default_hostname, :controller => 'manage_products', :action => 'display_inputs_cost', :profile => enterprise.identifier, :id => self.id }.merge(Noosfero.url_options))
+    url_for({:host => self.profile.default_hostname, :controller => 'manage_products', :action => 'display_inputs_cost', :profile => self.profile.identifier, :id => self.id }.merge(Noosfero.url_options))
   end
 
   def percentage_from_solidarity_economy
@@ -249,7 +250,7 @@ class Product < ActiveRecord::Base
         end
   end
 
-  delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
+  delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :profile, allow_nil: true
 
   protected
 
