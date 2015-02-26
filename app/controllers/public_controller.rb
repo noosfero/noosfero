@@ -13,7 +13,7 @@ class PublicController < ApplicationController
 
   def private_profile
     private_profile_partial_parameters
-    render :template => 'shared/access_denied.html.erb', :status => 403
+    render :template => 'profile/_private_profile', :status => 403, :formats => [:html]
   end
 
   def invisible_profile
