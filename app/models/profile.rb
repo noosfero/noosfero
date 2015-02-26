@@ -45,14 +45,8 @@ class Profile < ActiveRecord::Base
     def self.organization_member_roles(env_id)
       all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
     end
-    def self.organization_custom_roles(env_id, profile_id)
-      all_roles(env_id, profile_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
-    end
-    def self.organization_all_roles(env_id, profile_id)
-      self.organization_member_roles(env_id) + self.organization_custom_roles(env_id, profile_id)
-    end
-    def self.all_roles(env_id, profile_id=nil)
-      Role.all :conditions => { :profile_id => profile_id, :environment_id => env_id }
+    def self.all_roles(env_id)
+      Role.all :conditions => { :environment_id => env_id }
     end
     def self.method_missing(m, *args, &block)
       role = find_role(m, args[0])

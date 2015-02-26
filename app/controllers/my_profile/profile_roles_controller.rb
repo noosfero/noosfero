@@ -1,9 +1,9 @@
 class ProfileRolesController < MyProfileController
 
   protect 'manage_custom_roles', :profile
-  
+
   def index
-    @roles = Profile::Roles.organization_custom_roles(environment.id, profile.id)
+    @roles = profile.custom_roles
   end
 
   def new
@@ -38,7 +38,7 @@ class ProfileRolesController < MyProfileController
   def destroy
     @role = environment.roles.find(params[:id])
     @members = profile.members_by_role(@role)
-    @roles_list = Profile::Roles.organization_all_roles(environment.id, profile.id)
+    @roles_list = all_roles(environment, profile)
     @roles_list.delete(@role)
   end
 
@@ -67,7 +67,7 @@ class ProfileRolesController < MyProfileController
 
   def assign
     @role = environment.roles.find(params[:id])
-    @roles_list = Profile::Roles.organization_all_roles(environment.id, profile.id)
+    @roles_list = all_roles(environment, profile)
     @roles_list.delete(@role)
   end
 
@@ -94,11 +94,17 @@ class ProfileRolesController < MyProfileController
       person.define_roles(all_roles, profile)
     end
   end
+
+  def all_roles(environment, profile)
+    Profile::Roles.organization_member_roles(environment.id) + profile.custom_roles
+  end
+
   def replace_roles(members, roles, profile)
     members.each do |person|
       person.define_roles(roles, profile)
     end
   end
+
   def replace_role(members, role, new_role, profile)
     members.each do |person|
       person.remove_role(role, profile)
