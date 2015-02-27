@@ -123,7 +123,7 @@ do_restart() {
 }
 
 running(){
-  pgrep -u noosfero -f 'thin server' > /dev/null
+  main_script running
 }
 
 case "$1" in
