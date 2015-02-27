@@ -1,8 +1,11 @@
-sources_entry='deb http://download.noosfero.org/debian/wheezy-1.1 ./'
+binary_packages='deb http://download.noosfero.org/debian/wheezy-1.1 ./'
 
-if ! grep -q "$sources_entry" /etc/apt/sources.list.d/noosfero.list; then
+source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
+
+if ! grep -q "$binary_packages" /etc/apt/sources.list.d/noosfero.list; then
   sudo tee /etc/apt/sources.list.d/noosfero.list <<EOF
-$sources_entry
+$binary_packages
+$source_packages
 EOF
 
   sudo apt-key add - <<EOF
