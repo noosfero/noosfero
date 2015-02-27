@@ -1,0 +1,123 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          noosfero
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Should-Start:      postgresql
+# Should-Stop:       postgresql
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Stoa authentication daemon
+# Description:       This file should be symlinked or copied into /etc/init.d.
+### END INIT INFO
+
+# Sample init.d script for noosfero.
+#
+# This script was based on the skeleton init.d script present in a Debian
+# GNU/Linux system (sid), on Sat Feb 16 11:12:03 BRT 2008. It must be placed
+# in /etc/init.d/ (or whatever place your system uses for startup scripts),
+# and you must create a file /etc/default/noosfero defining the variable
+#
+# Author: Antonio Terceiro <terceiro@colivre.coop.br>
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Stoa authentication deamon"
+NAME=stoa-auth-daemon
+SCRIPTNAME=/etc/init.d/$NAME
+
+# default values
+NOOSFERO_DIR=/var/lib/noosfero/current
+NOOSFERO_USER=noosfero
+
+# Read configuration variable file if it is present
+if [ -r /etc/default/$NAME ]; then
+  . /etc/default/$NAME
+else
+  # for running from development setup, or from git with the script symlinked
+  script=$(readlink -f $0)
+  NOOSFERO_DIR=$(readlink -f $(dirname $script)/../../..)
+  NOOSFERO_USER=$(stat --format %U $NOOSFERO_DIR/tmp/pids)
+fi
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+. /lib/lsb/init-functions
+
+if [ -z "$NOOSFERO_DIR" ] || [ -z "$NOOSFERO_USER" ]; then
+  echo "NOOSFERO_DIR or NOOSFERO_USER not defined, noosfero not being started."
+  echo "Both variables must be defined in /etc/default/noosfero"
+  exit 0
+fi
+
+if test -x /usr/sbin/noosfero-check-dbconfig ; then
+  if ! /usr/sbin/noosfero-check-dbconfig; then
+    echo "Noosfero database access not configured, service disabled."
+    exit 0
+  fi
+fi
+
+######################
+
+THIN_PID_FILE='--pid tmp/pids/stoa-auth-server.pid'
+THIN_START_OPTIONS="--port 4000 --environment production --chdir $NOOSFERO_DIR --rackup plugins/stoa/config.ru --log log/stoa-auth-server.log --daemonize"
+
+as_noosfero_user() {
+  cmd="$@"
+  if [ "$NOOSFERO_USER" != "$USER" ]; then
+    su $NOOSFERO_USER -l -c "cd $NOOSFERO_DIR && $cmd"
+  else
+    cd $NOOSFERO_DIR
+    $cmd
+  fi
+}
+
+run_thin() {
+  action="$1"
+  shift
+  log_daemon_msg "$action $DESC" "$NAME"
+  if as_noosfero_user thin $THIN_PID_FILE $@; then
+    log_success_msg
+  else
+    log_failure_msg
+  fi
+}
+
+running() {
+  kill -0 $(cat $NOOSFERO_DIR/tmp/pids/stoa-auth-server.pid 2>/dev/null || true) 2>/dev/null
+}
+
+do_start() {
+  if ! running; then
+    run_thin "Starting" $THIN_START_OPTIONS start
+  fi
+}
+
+do_stop() {
+  if running; then
+    run_thin "Stopping" stop
+  fi
+}
+
+do_restart() {
+  if running; then
+    do_stop
+  fi
+  do_start
+}
+
+case "$1" in
+  start|stop|restart)
+    do_$1
+    ;;
+  force-reload)
+    do_restart
+    ;;
+  *)
+    echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|setup}" >&2
+    exit 3
+    ;;
+esac
