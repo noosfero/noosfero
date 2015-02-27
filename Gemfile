@@ -2,7 +2,7 @@ source "https://rubygems.org"
 gem 'rails',                    '~> 3.2.21'
 gem 'minitest',                 '~> 3.2.0'
 gem 'fast_gettext',             '~> 0.6.8'
-gem 'acts-as-taggable-on',      '~> 3.0.2'
+gem 'acts-as-taggable-on',      '~> 3.4.2'
 gem 'rails_autolink',           '~> 1.1.5'
 gem 'pg',                       '~> 0.13.2'
 gem 'rmagick',                  '~> 2.13.1'
