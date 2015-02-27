@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative "../test_helper"
 
 class ArticleTest < ActiveSupport::TestCase
@@ -766,6 +767,13 @@ class ArticleTest < ActiveSupport::TestCase
   should 'get tagged with tag' do
     a = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => 'bli')
     as = Article.tagged_with('bli')
+
+    assert_includes as, a
+  end
+
+  should 'get tagged with tag that contains special chars' do
+    a = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => 'Métodos Ágeis')
+    as = Article.tagged_with('Métodos Ágeis')
 
     assert_includes as, a
   end
