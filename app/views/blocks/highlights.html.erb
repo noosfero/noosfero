@@ -3,7 +3,7 @@
   <div class='highlights-border'>
     <div class='highlights-container'>
       <% block.featured_images.each do |img| %>
-        <a href="<%= img[:address] %>" title="<%= img[:title] %>" class="highlights-image-link">
+        <a href="<%= img[:address] %>" <%= 'target="_blank"' if img[:new_window] %> title="<%= img[:title] %>" class="highlights-image-link">
           <%= image_tag [Noosfero.root, img[:image_src]].join, alt: img[:title] %>
           <p class="highlights-label"><%= img[:title] %></p>
         </a>

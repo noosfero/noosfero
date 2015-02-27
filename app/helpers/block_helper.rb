@@ -14,6 +14,7 @@ module BlockHelper
       </td>
       <td>#{text_field_tag 'block[images][][address]', image[:address], :class => 'highlight-address', :size => 20}</td>
       <td>#{text_field_tag 'block[images][][position]', image[:position], :class => 'highlight-position', :size => 1}</td>
+      <td>#{check_box_tag 'block[images][][new_window]', '1', image[:new_window], :class => 'highlight-new_window', :size => 1}</td>
     </tr><tr class=\"image-title\" data-row-number='#{row_number}'>
       <td colspan=\"3\"><label>#{
         content_tag('span', _('Title')) +
