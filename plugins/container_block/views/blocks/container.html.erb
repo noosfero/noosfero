@@ -10,7 +10,7 @@
 <div class="clear"></div>
 
 <style>
-  <% box_decorator.select_blocks(block.blocks, { :article => @page, :request_path => request.path, :locale => locale }).each do |child| %>
+  <% box_decorator.select_blocks(block, block.blocks, { :article => @page, :request_path => request.path, :locale => locale, params: request.params, controller: controller}).each do |child| %>      
     #block-<%=block.id%> #block-<%=child.id%> { width: <%= block.child_width(child.id) %>px; }
   <% end %>
 </style>
