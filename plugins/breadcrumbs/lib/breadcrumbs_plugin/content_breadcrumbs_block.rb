@@ -2,8 +2,9 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   settings_items :show_cms_action, :type => :boolean, :default => true
   settings_items :show_profile, :type => :boolean, :default => true
+  settings_items :show_section_name, :type => :boolean, :default => true
 
-  attr_accessible :show_cms_action, :show_profile
+  attr_accessible :show_cms_action, :show_profile, :show_section_name
 
   def self.description
     _('Content Breadcrumbs')
@@ -40,7 +41,18 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
     proc do
       trail = block.trail(@page, @profile, params)
       if !trail.empty?
-        trail.map { |t| link_to(t[:name], t[:url], :class => 'item') }.join(content_tag('span', ' > ', :class => 'separator'))
+        separator = content_tag('span', ' > ', :class => 'separator')
+
+        breadcrumb = trail.map do |t|
+          link_to(t[:name], t[:url], :class => 'item')
+        end.join(separator)
+
+        if block.show_section_name
+          section_name = block.show_profile ? trail.second[:name] : trail.first[:name]
+          breadcrumb << content_tag('div', section_name, :class => 'section-name')
+        end
+
+        breadcrumb
       else
         ''
       end

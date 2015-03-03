@@ -41,4 +41,9 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert !@block.show_cms_action
   end
 
+  should 'be able save breadcrumbs block with show_section_name option' do
+    get :edit, :id => @block.id, :profile => @profile.identifier
+    post :save, :id => @block.id, :profile => @profile.identifier, :block => {:title => 'breadcrumbs', :show_cms_action => false, :show_profile => true, :show_section_name => true }
+    assert @block.show_section_name
+  end
 end
