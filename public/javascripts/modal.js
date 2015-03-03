@@ -3,19 +3,9 @@ noosfero.modal = {
   watchClass: function() {
     jQuery(function($) {
       $(document).delegate('.modal-toggle', 'click', function() {
-        $.colorbox({
-          href:       $(this).attr('href'),
-          maxWidth:   $(window).width()-50,
-          height:     $(window).height()-50,
-          open:       true,
-          close:      'Cancel',
-          class:      'modal',
-          onComplete: function(bt) {
-            var opt = {}, maxH = $(window).height()-50;
-            if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
-            $.colorbox.resize(opt);
-          }
-        });
+        var url = $(this).attr('href')
+        noosfero.modal.url(url)
+
         return false;
       });
 
@@ -24,6 +14,22 @@ noosfero.modal = {
         return false;
       });
 
+    });
+  },
+
+  url: function (url, options) {
+    $.colorbox({
+      href:       url,
+      maxWidth:   $(window).width()-50,
+      height:     $(window).height()-50,
+      open:       true,
+      close:      'Cancel',
+      class:      'modal',
+      onComplete: function(bt) {
+        var opt = {}, maxH = $(window).height()-50;
+        if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
+        $.colorbox.resize(opt);
+      }
     });
   },
 
