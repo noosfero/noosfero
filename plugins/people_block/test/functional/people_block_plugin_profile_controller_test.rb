@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require File.dirname(__FILE__) + '/../../controllers/people_block_plugin_profile_controller'
+require_relative '../test_helper'
+require_relative '../../controllers/people_block_plugin_profile_controller'
 
 
 # Re-raise errors caught by the controller.

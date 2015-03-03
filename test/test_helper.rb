@@ -154,6 +154,21 @@ class ActiveSupport::TestCase
     self.class.action_view.render(*args)
   end
 
+  def url_for args = {}
+    args
+  end
+
+  # url_for inside views (partials)
+  # from http://stackoverflow.com/a/13704257/670229
+  ActionView::TestCase::TestController.instance_eval do
+    helper Noosfero::Application.routes.url_helpers
+  end
+  ActionView::TestCase::TestController.class_eval do
+    def _routes
+      Noosfero::Application.routes
+    end
+  end
+
   private
 
   def uses_host(name)
@@ -232,10 +247,6 @@ module NoosferoTestHelper
   end
 
   def will_paginate(arg1, arg2)
-  end
-
-  def url_for(args = {})
-    args
   end
 
   def javascript_tag(any)
