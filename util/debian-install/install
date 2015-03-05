@@ -57,8 +57,6 @@ FPQAoNmiMgP6zGF9rgOEWMEiFEryayrz
 EOF
 
 cat > /etc/apt/sources.list.d/noosfero.list <<EOF
-deb http://download.noosfero.org/debian/wheezy ./
-deb-src http://download.noosfero.org/debian/wheezy ./
 deb http://download.noosfero.org/debian/wheezy-test ./
 deb-src http://download.noosfero.org/debian/wheezy-test ./
 EOF
