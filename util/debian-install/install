@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-sudo apt-get install -qy netcat-traditional
+sudo apt-get install -qy netcat-traditional shunit2
 
 # apt-cacher-ng running on the host
 # 10.0.2.2 = host ip on virtualbox/qemu
