@@ -79,7 +79,7 @@ environments_loop() {
       RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
     done
   else
-    ./script/delayed_job "$action"
+    bundle exec ./script/delayed_job "$action"
     bundle exec ./script/feed-updater "$action"
   fi
 }
