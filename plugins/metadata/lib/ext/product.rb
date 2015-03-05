@@ -3,8 +3,12 @@ require_dependency 'product'
 class Product
 
   metadata_spec namespace: :og, tags: {
-    type: MetadataPlugin.og_types[:product] || :product,
+    type: proc{ |p, plugin| plugin.context.params[:og_type] || MetadataPlugin.og_types[:product] || :product },
     url: proc{ |p, plugin| plugin.og_url_for p.url },
+    url: proc do |p, plugin|
+      url = p.url.merge! profile: p.profile.identifier, og_type: plugin.context.params[:og_type]
+      plugin.og_url_for url
+    end,
     gr_hascurrencyvalue: proc{ |p, plugin| p.price.to_f },
     gr_hascurrency: proc{ |p, plugin| p.environment.currency_unit },
     title: proc{ |p, plugin| "#{p.name} - #{p.profile.name}" if p },
