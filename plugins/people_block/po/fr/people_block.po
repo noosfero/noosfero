@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2014-12-12 14:22+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -77,3 +77,11 @@ msgstr ""
 #, fuzzy
 msgid "friends|View all"
 msgstr "Voir tout"
+
+#: plugins/people_block/views/blocks/friends.html.erb:5
+msgid "Some suggestions for you"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:10
+msgid "See all suggestions"
+msgstr ""
