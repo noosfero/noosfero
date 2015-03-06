@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: plugins/statistics/lib/statistics_block.rb:23
+#: plugins/statistics/lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr "Վիճակագրություն"
 
-#: plugins/statistics/lib/statistics_block.rb:45
+#: plugins/statistics/lib/statistics_block.rb:46
 #, fuzzy
 msgid "This block presents some statistics about your context."
 msgstr "Ձեր նախընտրած ձեռնարկությունները ցուցադրող բաժին"
@@ -48,25 +48,30 @@ msgstr "%s-ի բոլոր ձեռնարկությունները"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
 #, fuzzy
+msgid "Show product counter"
+msgstr "Ամբողջ բովանդակությունը"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#, fuzzy
 msgid "Show category counter"
 msgstr "Նոր կատեգորիա"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
 #, fuzzy
 msgid "Show tag counter"
 msgstr "Ամբողջ բովանդակությունը"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
 #, fuzzy
 msgid "Show comment counter"
 msgstr "Մեկնաբանությունների հաշվարկում"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:28
 #, fuzzy
 msgid "Show hit counter"
 msgstr "Ամբողջ բովանդակությունը"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:30
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr ""
 
@@ -81,15 +86,19 @@ msgid "enterprises"
 msgstr "Կազմակերպություն Ձեռնարկություն"
 
 #: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:16
 #, fuzzy
 msgid "communities"
 msgstr "Համայնքներ"
 
-#: plugins/statistics/views/statistics_block.html.erb:16
+#: plugins/statistics/views/statistics_block.html.erb:19
 #, fuzzy
 msgid "categories"
 msgstr "Կատեգորիաներ"
 
-#: plugins/statistics/views/statistics_block.html.erb:25
+#: plugins/statistics/views/statistics_block.html.erb:28
 msgid "hits"
 msgstr ""

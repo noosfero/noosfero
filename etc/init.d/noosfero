@@ -36,7 +36,9 @@ NOOSFERO_USER=noosfero
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
 # Load the VERBOSE setting and other rcS variables
-. /lib/init/vars.sh
+if [ -e /lib/init/vars.sh ]; then
+  . /lib/init/vars.sh
+fi
 
 if [ -z "$NOOSFERO_DIR" ] || [ -z "$NOOSFERO_USER" ]; then
   echo "NOOSFERO_DIR or NOOSFERO_USER not defined, noosfero not being started."
