@@ -1,0 +1,11 @@
+#!/bin/sh
+
+test_noosfero_running() {
+  assertTrue 'Noosfero running' 'pgrep -u noosfero -f thin'
+}
+
+test_noosfero_responds() {
+  assertTrue 'Noosfero responds' 'curl --fail http://localhost/'
+}
+
+. shunit2

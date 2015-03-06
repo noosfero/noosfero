@@ -4,19 +4,19 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-02 21:43-0300\n"
-"PO-Revision-Date: 2014-12-12 14:22+0200\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
-"fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
+"shopping-cart/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:9
 #, fuzzy
@@ -153,7 +153,7 @@ msgstr "Fonctionnalités mises à jour avec succès."
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13

@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2014-12-12 14:22+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -18,11 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/statistics/lib/statistics_block.rb:23
+#: plugins/statistics/lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr "Statistiques pour %s"
 
-#: plugins/statistics/lib/statistics_block.rb:45
+#: plugins/statistics/lib/statistics_block.rb:46
 #, fuzzy
 msgid "This block presents some statistics about your context."
 msgstr "Ce bloc présente quelques statistiques sur votre environnement."
@@ -49,25 +49,30 @@ msgstr "Les entreprises de <b>%s</b>"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
 #, fuzzy
+msgid "Show product counter"
+msgstr "Tout le contenu"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#, fuzzy
 msgid "Show category counter"
 msgstr "Nouvelle catégorie"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
 #, fuzzy
 msgid "Show tag counter"
 msgstr "Tout le contenu"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
 #, fuzzy
 msgid "Show comment counter"
 msgstr "Nombre de commentaires"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:28
 #, fuzzy
 msgid "Show hit counter"
 msgstr "Tout le contenu"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:30
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr ""
 
@@ -82,14 +87,18 @@ msgid "enterprises"
 msgstr "entreprises"
 
 #: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:16
 msgid "communities"
 msgstr "groupes"
 
-#: plugins/statistics/views/statistics_block.html.erb:16
+#: plugins/statistics/views/statistics_block.html.erb:19
 #, fuzzy
 msgid "categories"
 msgstr "Catégories"
 
-#: plugins/statistics/views/statistics_block.html.erb:25
+#: plugins/statistics/views/statistics_block.html.erb:28
 msgid "hits"
 msgstr ""

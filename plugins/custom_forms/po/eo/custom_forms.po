@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:10-0300\n"
 "PO-Revision-Date: 2014-11-05 13:05+0200\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/noosfero/"
@@ -182,6 +182,10 @@ msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
 msgid "Add a new option"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
+msgid "Ok"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10

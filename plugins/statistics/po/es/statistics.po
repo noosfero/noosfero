@@ -5,25 +5,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
-"PO-Revision-Date: 2014-11-03 15:52+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/es/>\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"PO-Revision-Date: 2015-02-24 19:06+0200\n"
+"Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
+"statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/statistics/lib/statistics_block.rb:23
+#: plugins/statistics/lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr "Estadísticas para %s"
 
-#: plugins/statistics/lib/statistics_block.rb:45
-#, fuzzy
+#: plugins/statistics/lib/statistics_block.rb:46
 msgid "This block presents some statistics about your context."
 msgstr "Este bloque presenta algunas estadísticas sobre su entorno."
 
@@ -31,66 +30,67 @@ msgstr "Este bloque presenta algunas estadísticas sobre su entorno."
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
+"Un plugin que añade un bloque donde puedes ver las estadísticas de su "
+"contexto."
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
-#, fuzzy
 msgid "Show user counter"
-msgstr "Ubicación:"
+msgstr "Mostrar contador de usuarios"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:4
-#, fuzzy
 msgid "Show community counter"
-msgstr "en la comunidad %s"
+msgstr "Mostrar contador de la comunidad"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:8
-#, fuzzy
 msgid "Show enterprise counter"
-msgstr "%s empresas encontradas"
+msgstr "Mostrar contador empresarial"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
 #, fuzzy
-msgid "Show category counter"
-msgstr "Nueva categoría"
+msgid "Show product counter"
+msgstr "Nuevo contenido"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Nuevo contenido"
+msgid "Show category counter"
+msgstr "Mostrar contador de categoría"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Contador de comentarios"
+msgid "Show tag counter"
+msgstr "Mostrar contador de etiquetas"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
-#, fuzzy
-msgid "Show hit counter"
-msgstr "Nuevo contenido"
+msgid "Show comment counter"
+msgstr "Mostrar contador de comentarios"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:30
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:28
+msgid "Show hit counter"
+msgstr "Mostrar contador de aciertos"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
-msgstr ""
+msgstr "Mostrar el contador para las comunidades con la plantilla %s"
 
 #: plugins/statistics/views/statistics_block.html.erb:7
-#, fuzzy
 msgid "users"
-msgstr "usuario"
+msgstr "usuarios"
 
 #: plugins/statistics/views/statistics_block.html.erb:10
-#, fuzzy
 msgid "enterprises"
-msgstr "Empresa"
+msgstr "empresas"
 
 #: plugins/statistics/views/statistics_block.html.erb:13
-#, fuzzy
-msgid "communities"
-msgstr "Comunidades"
+msgid "products"
+msgstr ""
 
 #: plugins/statistics/views/statistics_block.html.erb:16
 #, fuzzy
-msgid "categories"
-msgstr "Categorías"
+msgid "communities"
+msgstr "comunidades"
 
-#: plugins/statistics/views/statistics_block.html.erb:25
+#: plugins/statistics/views/statistics_block.html.erb:19
+msgid "categories"
+msgstr "categorías"
+
+#: plugins/statistics/views/statistics_block.html.erb:28
 msgid "hits"
-msgstr ""
+msgstr "aciertos"

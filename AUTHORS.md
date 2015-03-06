@@ -120,6 +120,9 @@ Diego Araujo + Rodrigo Souto + Rafael Manzo <rr.manzo@gmail.com>
 Diego + Jefferson <diegoamc90@gmail.com>
 Diego Martinez <diegoamc90@gmail.com>
 Diego + Renan <renanteruoc@gmail.com>
+DylanGuedes <djmgguedes@gmail.com>
+Eduardo Passos <eduardo@risa.localdomain.localhost>
+Eduardo Passos <eduardosteps@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
@@ -186,14 +189,17 @@ Leandro Nunes dos Santos <81665687568@serpro-1541727.(none)>
 Leandro Nunes dos Santos <leandronunes@gmail.com>
 Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>
 LinguÁgil 2010 <linguagil.bahia@gmail.com>
+Lucas Kanashiro <kanashiro.duarte@gmail.com>
 Lucas Melo <lucas@colivre.coop.br>
 Lucas Melo <lucaspradomelo@gmail.com>
 Luciano <lucianopcbr@gmail.com>
 Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
+Marcos <marcos.rpj2@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Martín Olivera <molivera@solar.org.ar>
+Maurilio Atila <cabelotaina@gmail.com>
 Michal Čihař <michal@cihar.com>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
@@ -234,6 +240,8 @@ Ronny Kursawe <kursawe.ronny@googlemail.com>
 root <root@debian.sdr.serpro>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Tallys Martins <tallysmartins@gmail.com>
+Tallys Martins <tallysmartins@yahoo.com.br>
+tallys <tallys@tallys>
 tallys <tallys@tallys.(none)>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
 Valessio Brito <contato@valessiobrito.com.br>

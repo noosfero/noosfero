@@ -11,18 +11,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:43-0300\n"
-"PO-Revision-Date: 2014-12-18 18:40-0200\n"
-"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"PO-Revision-Date: 2015-02-17 10:50+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
+"/plugin-lattes-curriculum/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 #: plugins/lattes_curriculum/lib/html_parser.rb:19
 msgid "Lattes not found. Please, make sure the informed URL is correct."
@@ -47,7 +47,7 @@ msgstr "Lattes"
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:73
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:106
 msgid " Invalid lattes url"
-msgstr "URL do Lattes inválida"
+msgstr " URL do Lattes inválida"
 
 #: plugins/lattes_curriculum/lib/academic_info.rb:10
 msgid " is invalid."

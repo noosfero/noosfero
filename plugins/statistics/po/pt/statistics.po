@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,11 +24,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/statistics/lib/statistics_block.rb:23
+#: plugins/statistics/lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr "Estatísticas para %s"
 
-#: plugins/statistics/lib/statistics_block.rb:45
+#: plugins/statistics/lib/statistics_block.rb:46
 msgid "This block presents some statistics about your context."
 msgstr "Este bloco apresenta algumas estatísticas sobre seu contexto."
 
@@ -52,22 +52,27 @@ msgid "Show enterprise counter"
 msgstr "Mostrar contador de empreendimento"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
+#, fuzzy
+msgid "Show product counter"
+msgstr "Mostrar contador de acesso"
+
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
 msgid "Show category counter"
 msgstr "Mostrar contador de categoria"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
 msgid "Show tag counter"
 msgstr "Mostrar contador de tag"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
 msgid "Show comment counter"
 msgstr "Mostrar contador de comentário"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:28
 msgid "Show hit counter"
 msgstr "Mostrar contador de acesso"
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:30
+#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr "Mostrar contador para comunidades com template %s"
 
@@ -80,13 +85,17 @@ msgid "enterprises"
 msgstr "empreendimentos"
 
 #: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:16
 msgid "communities"
 msgstr "comunidades"
 
-#: plugins/statistics/views/statistics_block.html.erb:16
+#: plugins/statistics/views/statistics_block.html.erb:19
 msgid "categories"
 msgstr "categorias"
 
-#: plugins/statistics/views/statistics_block.html.erb:25
+#: plugins/statistics/views/statistics_block.html.erb:28
 msgid "hits"
 msgstr "acessos"

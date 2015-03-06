@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:43-0300\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -82,19 +82,27 @@ msgstr "USP-Nummer/Telefonnummer"
 msgid " validation failed"
 msgstr " Validierung fehlgeschlagen"
 
-#: plugins/stoa/lib/stoa_plugin.rb:121
+#: plugins/stoa/lib/stoa_plugin.rb:121 plugins/stoa/lib/stoa_plugin.rb:125
+#: plugins/stoa/lib/ext/person.rb:6
 #, fuzzy
 msgid "USP Number"
 msgstr "USP-Nummer"
 
-#: plugins/stoa/lib/ext/person.rb:16
+#: plugins/stoa/lib/ext/profile_suggestion.rb:5
+msgid "Classroom in common"
+msgstr ""
+
+#: plugins/stoa/lib/ext/person.rb:18
 msgid "is being used by another user or is not valid"
 msgstr "wird bereits von einem anderen Nutzer eingesetzt oder ist ungültig"
 
+#: plugins/stoa/lib/stoa_plugin/auth.rb:26
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:21
 msgid "Incorrect user/password pair."
 msgstr "Falsches Paar aus Nutzername und Passwort."
 
+#: plugins/stoa/lib/stoa_plugin/auth.rb:33
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:25
-msgid "Conection requires SSL certificate and post method."
+#, fuzzy
+msgid "Conection requires post method."
 msgstr "Die Verbindung benötigt ein SSL-Zertifikat und eine POST-Methode."
