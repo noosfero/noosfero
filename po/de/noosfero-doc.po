@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2010-01-27 09:32-0300\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: \n"
+"PO-Revision-Date: 2015-02-23 11:32+0200\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/noosfero/documentation/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -173,7 +175,7 @@ msgstr ""
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:36
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 # type: Content of: <h3>
 #. type: Content of: <h3>
@@ -235,6 +237,8 @@ msgid ""
 "A plugin that uses the Google Custom Search as Noosfero general search "
 "engine."
 msgstr ""
+"Ein Plugin, welches Google Custom Search nutzt, um die generelle Suche in "
+"Noosfero zu realisieren."
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:5
@@ -283,7 +287,7 @@ msgstr ""
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/index.en.xhtml:1
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -466,7 +470,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:21
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -478,7 +482,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:23
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1392,7 +1396,7 @@ msgstr ""
 #: doc/noosfero/user/sending-messages.en.xhtml:14
 #: doc/noosfero/user/sending-scraps.en.xhtml:13
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -1446,7 +1450,7 @@ msgstr ""
 #: doc/noosfero/community/editing-appearance.en.xhtml:25
 #: doc/noosfero/user/editing-appearance.en.xhtml:23
 msgid "Edit appearance"
-msgstr ""
+msgstr "Ändere Aussehen"
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -1769,7 +1773,7 @@ msgstr ""
 #: doc/noosfero/user/editing-header-footer.en.xhtml:1
 #: doc/noosfero/user/editing-header-footer.en.xhtml:48
 msgid "Editing header and footer"
-msgstr ""
+msgstr "Kopf- und Fußbereich ändern"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2287,7 +2291,7 @@ msgstr ""
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:1
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:1
 msgid "Editing sideboxes"
-msgstr ""
+msgstr "Sidebox ändern"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2337,7 +2341,7 @@ msgstr ""
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:18
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:16
 msgid "Edit sideboxes"
-msgstr ""
+msgstr "Sideboxen ändern"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -2353,7 +2357,7 @@ msgstr ""
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:19
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:17
 msgid "Add a block"
-msgstr ""
+msgstr "Einen Block anfügen"
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -6280,7 +6284,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:12
 msgid "Comments"
-msgstr ""
+msgstr "Kommentare"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>

@@ -7,15 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2014-03-23 17:11-0300\n"
-"Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>, Freddy "
-"Martn Hernndez Facio <fmhf14@gmail.com>, Pedro Alonzo Ramrez Tovar <pedro."
-"alonzo709@gmail.com>\n"
-"Language-Team: Spanish <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2015-02-07 03:08+0200\n"
+"Last-Translator: FAMMA TV NOTICIAS MEDIOS DE CO "
+"<revistafammatvmusic.oficial@gmail.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/noosfero/documentation/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -547,8 +549,9 @@ msgstr "Y aqu en la bsqueda de productos:"
 # type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:23
+#, fuzzy
 msgid "Search"
-msgstr "Bsqueda"
+msgstr "Buscar"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1524,7 +1527,7 @@ msgstr "Editar la apariencia del panel de control del usuario"
 #: doc/noosfero/user/sending-messages.en.xhtml:14
 #: doc/noosfero/user/sending-scraps.en.xhtml:13
 msgid "Description"
-msgstr "Descripcin"
+msgstr "Descripción"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
