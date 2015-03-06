@@ -1,0 +1,11 @@
+# This Rakefile is intentionally independent from Rails to it can be used to
+# handle translations without having to load the entire Rails environment
+# (which is slow, requires a database connection and several other
+# inconveniences).
+
+$: << 'lib'
+load 'lib/tasks/gettext.rake'
+load 'lib/tasks/doc.rake'
+load 'lib/tasks/translation.rake'
+
+task :default => 'noosfero:translations:compile'

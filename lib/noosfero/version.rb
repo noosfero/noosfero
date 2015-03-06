@@ -3,6 +3,7 @@ module Noosfero
   VERSION = '1.1~rc1'
 end
 
-if File.exist?(File.join(Rails.root, '.git'))
-  Noosfero::VERSION.clear << Dir.chdir(Rails.root) { `git describe --tags`.strip }
+root = File.expand_path(File.dirname(__FILE__) + '/../..')
+if File.exist?(File.join(root, '.git'))
+  Noosfero::VERSION.clear << Dir.chdir(root) { `git describe --tags`.strip }
 end
