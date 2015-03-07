@@ -125,8 +125,8 @@ class RubyBOSH
   end
 
   def parse(_response)
-    doc = Nokogiri::HTML.fragment(_response.to_s)
-    doc.search("body").each do |body|
+    doc = Nokogiri::XML _response.to_s
+    doc.css("body").each do |body|
       @sid = body.attributes["sid"].to_s
     end
     _response
