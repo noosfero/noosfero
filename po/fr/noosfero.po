@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-07 02:00+0200\n"
+"PO-Revision-Date: 2015-03-07 15:10+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
@@ -19,42 +19,32 @@ msgstr ""
 "X-Generator: Weblate 2.3-dev\n"
 
 #: app/models/approve_comment.rb:17
-#, fuzzy
 msgid "Anonymous"
-msgstr "Sigle"
+msgstr "Anonyme"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:17
-#, fuzzy
 msgid "Article removed."
-msgstr "Corps de l'article"
+msgstr "L'article a été supprimé."
 
 #: app/models/approve_comment.rb:33
-#, fuzzy
 msgid "New comment to article"
-msgstr "Articles les plus commentés"
+msgstr "Nouveau commentaire dans l'article"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
-#, fuzzy
 msgid "%{requestor} commented on the article: %{linked_subject}."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} a commenté l'article: %{linked_subject}."
 
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:77
-#, fuzzy
 msgid "The article was removed."
-msgstr "Le texte original a été retiré."
+msgstr "L'article a été supprimé."
 
 #: app/models/approve_comment.rb:81
-#, fuzzy
 msgid "%{requestor} wants to comment the article: %{article}."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} veut commenter l'article: %{article}."
 
 #: app/models/approve_comment.rb:83
-#, fuzzy
 msgid "%{requestor} wanted to comment the article but it was removed."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} veut commenter l'article mais il est déjà supprimé."
 
 #: app/models/approve_comment.rb:89
 #, fuzzy
