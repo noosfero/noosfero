@@ -127,12 +127,14 @@ Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
 Fabio Teixeira <fabio1079@gmail.com>
+FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic.oficial@gmail.com>
 Fernanda Lopes <nanda.listas+psl@gmail.com>
 Francisco Marcelo A. Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Francisco Marcelo de Araujo Lima Junior <79350259591@serpro-1457614.(none)>
 Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Francisco Marcelo de Araújo Lima Júnior <maljunior@gmail.com>
 Gabriela Navarro <navarro1703@gmail.com>
+Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>
 Grazieno Pellegrino <grazieno@gmail.com>
 Gust <darksshades@hotmail.com>
 Hebert Douglas <hebertdougl@gmail.com>
@@ -200,10 +202,12 @@ Marcos <marcos.rpj2@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Martín Olivera <molivera@solar.org.ar>
 Maurilio Atila <cabelotaina@gmail.com>
+M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
 Nanda Lopes <nanda.listas+psl@gmail.com>
+Niemand Jedermann <predatorix@web.de>
 Parley Martins <parleypachecomartins@gmail.com>
 Paulo Meirelles + Alessandro Palmeira + João M. M. da Silva <paulo@softwarelivre.org>
 Paulo Meirelles + Alessandro Palmeira <paulo@softwarelivre.org>
@@ -244,6 +248,7 @@ Tallys Martins <tallysmartins@yahoo.com.br>
 tallys <tallys@tallys>
 tallys <tallys@tallys.(none)>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
+Tuux <tuxa@galaxie.eu.org>
 Valessio Brito <contato@valessiobrito.com.br>
 Valessio Brito <contato@valessiobrito.info>
 Valessio Brito <valessio@gmail.com>
