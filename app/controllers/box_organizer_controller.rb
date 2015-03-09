@@ -3,12 +3,11 @@ class BoxOrganizerController < ApplicationController
   before_filter :login_required
 
   def index
+    @available_blocks = available_blocks.uniq.sort_by(&:pretty_name)
   end
 
   def move_block
-    @block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
-
-    @source_box = @block.box
+    @block = params[:id] ? boxes_holder.blocks.find(params[:id].gsub(/^block-/, '')) : nil
 
     target_position = nil
 
@@ -20,8 +19,11 @@ class BoxOrganizerController < ApplicationController
     else
       (params[:target] =~ /end-of-box-([0-9]+)/)
 
-      @target_box = boxes_holder.boxes.find($1)
+      @target_box = boxes_holder.boxes.find_by_id($1)
     end
+
+    @block = new_block(params[:type], @target_box) if @block.nil?
+    @source_box = @block.box
 
     if (@source_box != @target_box)
       @block.remove_from_list
@@ -56,23 +58,6 @@ class BoxOrganizerController < ApplicationController
     @block = boxes_holder.blocks.find(params[:id])
     @block.move_higher
     redirect_to :action => 'index'
-  end
-
-  def add_block
-    type = params[:type]
-    if ! type.blank?
-      if available_blocks.map(&:name).include?(type)
-        boxes_holder.boxes.find(params[:box_id]).blocks << type.constantize.new
-        redirect_to :action => 'index'
-      else
-        raise ArgumentError.new("Type %s is not allowed. Go away." % type)
-      end
-    else
-      @center_block_types = (Box.acceptable_center_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => 1)
-      @side_block_types = (Box.acceptable_side_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => [2,3])
-      @boxes = boxes_holder.boxes.with_position
-      render :action => 'add_block', :layout => false
-    end
   end
 
   def edit
@@ -121,6 +106,27 @@ class BoxOrganizerController < ApplicationController
     redirect_to :action => 'index'
   end
 
+  def show_block_type_info
+    type = params[:type]
+    if type.blank? || !available_blocks.map(&:name).include?(type)
+      raise ArgumentError.new("Type %s is not allowed. Go away." % type)
+    end
+    @block = type.constantize.new
+    @block.box = Box.new(:owner => boxes_holder)
+    render :action => 'show_block_type_info', :layout => false
+  end
+
   protected :boxes_editor?
+
+  protected
+
+  def new_block(type, box)
+    if !available_blocks.map(&:name).include?(type)
+      raise ArgumentError.new("Type %s is not allowed. Go away." % type)
+    end
+    block = type.constantize.new
+    box.blocks << block
+    block
+  end
 
 end

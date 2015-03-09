@@ -14,7 +14,11 @@ class Theme
     end
 
     def system_themes_dir
-      Rails.root.join('public', 'designs', 'themes')
+      Rails.root.join('public', relative_themes_dir)
+    end
+
+    def relative_themes_dir
+      File.join('designs', 'themes')
     end
 
     def create(id, attributes = {})
@@ -91,6 +95,14 @@ class Theme
 
   def public=(value)
     config['public'] = value
+  end
+
+  def public_path
+    File.join('/', self.class.relative_themes_dir, self.id)
+  end
+
+  def filesystem_path
+    File.join(self.class.system_themes_dir, self.id)
   end
 
   def ==(other)
