@@ -26,7 +26,8 @@ namespace :noosfero do
       begin
         require 'redcloth'
         File.open(output ,'w') do |output_file|
-          output_file.write(RedCloth.new(File.read(input)).to_html)
+          text = File.read(input, encoding: Encoding::UTF_8)
+          output_file.write(RedCloth.new(text).to_html)
           puts "#{input} -> #{output}"
         end
       rescue Exception => e
