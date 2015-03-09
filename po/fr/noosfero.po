@@ -7,61 +7,50 @@ msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2014-12-12 14:22+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
-"fr/>\n"
+"PO-Revision-Date: 2015-03-08 20:40+0200\n"
+"Last-Translator: M for Momo <mo@rtnp.org>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: app/models/approve_comment.rb:17
-#, fuzzy
 msgid "Anonymous"
-msgstr "Sigle"
+msgstr "Anonyme"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:17
-#, fuzzy
 msgid "Article removed."
-msgstr "Corps de l'article"
+msgstr "L'article a été supprimé."
 
 #: app/models/approve_comment.rb:33
-#, fuzzy
 msgid "New comment to article"
-msgstr "Articles les plus commentés"
+msgstr "Nouveau commentaire dans l'article"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
-#, fuzzy
 msgid "%{requestor} commented on the article: %{linked_subject}."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} a commenté l'article: %{linked_subject}."
 
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:77
-#, fuzzy
 msgid "The article was removed."
-msgstr "Le texte original a été retiré."
+msgstr "L'article a été supprimé."
 
 #: app/models/approve_comment.rb:81
-#, fuzzy
 msgid "%{requestor} wants to comment the article: %{article}."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} veut commenter l'article: %{article}."
 
 #: app/models/approve_comment.rb:83
-#, fuzzy
 msgid "%{requestor} wanted to comment the article but it was removed."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "%{requestor} veut commenter l'article mais il est déjà supprimé."
 
 #: app/models/approve_comment.rb:89
-#, fuzzy
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
 msgstr ""
-"Vous devez être connecté(e) sur %{system} pour pouvoir modérer cet article."
+"Vous devez vous connecter sur %{system} pour pouvoir modérer cet article."
 
 #: app/models/approve_comment.rb:94
 msgid ""
@@ -2704,9 +2693,8 @@ msgid "Online Manual"
 msgstr ""
 
 #: app/helpers/application_helper.rb:971 app/views/home/index.html.erb:12
-#, fuzzy
 msgid "Read more"
-msgstr "Ôter/effacer"
+msgstr "En lire plus"
 
 #: app/helpers/application_helper.rb:1052
 #, fuzzy
@@ -3386,24 +3374,20 @@ msgid "Type in a search term"
 msgstr "Désactiver la recherche d'entreprises"
 
 #: app/helpers/dates_helper.rb:18
-#, fuzzy
 msgid "%{month}/%{day}/%{year}"
-msgstr "%{day} %{month} %{year}"
+msgstr "%{mois}/%{jour}/%{année}"
 
 #: app/helpers/dates_helper.rb:18 app/helpers/dates_helper.rb:30
-#, fuzzy
 msgid "%{month}/%{day}"
-msgstr "%{day} %{month} %{year}"
+msgstr "%{mois}/%{jour}"
 
 #: app/helpers/dates_helper.rb:21
-#, fuzzy
 msgid "%{month_name} %{day}, %{year}"
-msgstr "%{day} %{month} %{year}"
+msgstr "%{nom_du_mois} %{jour}, %{année}"
 
 #: app/helpers/dates_helper.rb:21
-#, fuzzy
 msgid "%{month_name} %{day}"
-msgstr "%{month} %{year}"
+msgstr "%{nom_du_mois} %{jour}"
 
 #: app/helpers/dates_helper.rb:30
 #, fuzzy

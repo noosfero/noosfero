@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-02-23 11:38+0200\n"
+"PO-Revision-Date: 2015-03-09 09:51+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
 "/plugin-custom-forms/pt/>\n"
@@ -197,7 +197,7 @@ msgstr "Adicionar uma nova opção"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
 msgid "Remove alternative"

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-05 12:09-0300\n"
-"PO-Revision-Date: 2015-02-23 11:37+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-03-07 10:49+0200\n"
+"Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
 "shopping-cart/fr/>\n"
 "Language: fr\n"
@@ -190,7 +190,7 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
 msgid "Status"
-msgstr "Statut"
+msgstr "Statuts"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 msgid "E-mail"
