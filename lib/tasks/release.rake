@@ -157,7 +157,8 @@ EOF
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{new_version}'/\" lib/noosfero/version.rb"
     ENV['DEBFULLNAME'] ||= `git config user.name`.strip
     ENV['DEBEMAIL'] ||= `git config user.email`.strip
-    sh "dch --newversion #{new_version} --distribution #{target} --force-distribution '#{release_message}'"
+    distribution = `dpkg-parsechangelog | sed '/Distribution:/!d; s/^.*:\s*//'`.strip
+    sh "dch --newversion #{new_version} --distribution #{distribution} --force-distribution '#{release_message}'"
 
     sh 'git diff debian/changelog lib/noosfero/version.rb'
     if confirm("Commit version bump to #{new_version} on #{target} distribution")
