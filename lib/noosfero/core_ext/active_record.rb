@@ -6,6 +6,22 @@ class ActiveRecord::Base
     ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
   end
 
+  # an ActionView instance for rendering views on models
+  def self.action_view
+    @action_view ||= begin
+      view_paths = ActionController::Base.view_paths
+      action_view = ActionView::Base.new view_paths
+      # for using Noosfero helpers inside render calls
+      action_view.extend ApplicationHelper
+      action_view
+    end
+  end
+
+  # default value needed for the above ActionView
+  def to_partial_path
+    self.class.name.underscore
+  end
+
   alias :meta_cache_key :cache_key
   def cache_key
     key = [Noosfero::VERSION, meta_cache_key]
