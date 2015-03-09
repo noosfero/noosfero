@@ -8,7 +8,7 @@ if [ -e /etc/default/noosfero ]; then
   . /etc/default/noosfero
 fi
 
-if [ -z "$NOOSFERO_DIR"]; then
+if [ -z "$NOOSFERO_DIR" ]; then
   this_script=$(readlink -f $0)
   NOOSFERO_DIR=$(dirname $this_script | xargs dirname)
 fi
