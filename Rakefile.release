@@ -1,0 +1,18 @@
+# This Rakefile is intentionally independent from Rails to it can be used to
+# handle release-related tasks without having to load the entire Rails
+# environment (which is slow, requires a database connection and several other
+# inconveniences).
+
+$: << 'lib'
+require 'noosfero'
+require 'noosfero/version'
+
+load 'lib/tasks/gettext.rake'
+load 'lib/tasks/doc.rake'
+load 'lib/tasks/error_messages.rake'
+load 'lib/tasks/translation.rake'
+
+load 'lib/tasks/package.rake'
+load 'lib/tasks/release.rake'
+
+task :default => 'noosfero:translations:compile'

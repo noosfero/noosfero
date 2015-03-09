@@ -1,6 +1,5 @@
 # encoding: UTF-8
 
-require 'noosfero/version'
 $version = Noosfero::VERSION
 
 namespace :noosfero do
@@ -132,13 +131,13 @@ EOF
 
     if target =~ /-test$/
       if new_version =~ /~rc\d+/
-        new_version.sub!(/\~rc([0-9]+)/) { "~rc#{$1.to_i + 1}" }
+        new_version.sub!(/\~rc([0-9]+).*/) { "~rc#{$1.to_i + 1}" }
       else
         new_version += '~rc1'
       end
     else
-      if new_version =~ /~rc\d+/
-        new_version.sub!(/~rc[0-9]+/, '')
+      if new_version =~ /~rc\d+.*/
+        new_version.sub!(/~rc[0-9]+.*/, '')
       else
         components = new_version.split('.').map(&:to_i)
         if components.size < 3
