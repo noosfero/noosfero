@@ -160,7 +160,7 @@ EOF
     distribution = `dpkg-parsechangelog | sed '/Distribution:/!d; s/^.*:\s*//'`.strip
     sh "dch --newversion #{new_version} --distribution #{distribution} --force-distribution '#{release_message}'"
 
-    sh 'git diff debian/changelog lib/noosfero/version.rb'
+    sh 'git diff --color debian/changelog lib/noosfero/version.rb'
     if confirm("Commit version bump to #{new_version} on #{target} distribution")
       sh 'git add debian/changelog lib/noosfero/version.rb'
       sh "git commit -m 'Bumping version #{new_version}'"
