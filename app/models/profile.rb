@@ -957,9 +957,17 @@ private :generate_url, :url_options
     self.save
   end
 
+  def disabled?
+    !visible
+  end
+
   def enable
     self.visible = true
     self.save
+  end
+
+  def enabled?
+    visible
   end
 
   def control_panel_settings_button
