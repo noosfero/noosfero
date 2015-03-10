@@ -29,4 +29,8 @@ class MainBlockTest < ActiveSupport::TestCase
     assert !block.visible?
   end
 
+  should 'guarantee main block is always visible to everybody' do
+    assert_equal MainBlock.new.display_user_options, {"all"=>_('All users')}
+  end
+
 end

@@ -755,4 +755,12 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  should 'guarantee main block is always visible to everybody' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    %w[logged not_logged followers].each do |option|
+    assert_no_tag :select, :attributes => {:name => 'block[display_user]'},
+     :descendant => {:tag => 'option', :attributes => {:value => option}}
+    end
+  end
+
 end
