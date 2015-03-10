@@ -40,6 +40,9 @@ ActionTrackerConfig.verbs = {
   remove_product: {
   },
 
+  favorite_enterprise: {
+  },
+
 }
 
 ActionTrackerConfig.current_user = proc do

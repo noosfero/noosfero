@@ -23,7 +23,7 @@ class Enterprise < Organization
   has_many :production_costs, :as => :owner
 
   has_many :favorite_enterprise_people
-  has_many :fans, through: :favorite_enterprise_people, source: :person
+  has_many :fans, source: :person, through: :favorite_enterprise_people
 
   def product_categories
     ProductCategory.by_enterprise(self)
