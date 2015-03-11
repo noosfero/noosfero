@@ -282,7 +282,10 @@ class Environment < ActiveRecord::Base
   settings_items :activation_blocked_text, :type => String
   settings_items :message_for_disabled_enterprise, :type => String,
                  :default => _('This enterprise needs to be enabled.')
+
   settings_items :location, :type => String
+  settings_items :country_name, :type => String
+
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
   settings_items :description, :type => String, :default => '<div style="text-align: center"><a href="http://noosfero.org/"><img src="/images/noosfero-network.png" alt="Noosfero"/></a></div>'
