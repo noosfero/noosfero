@@ -5,6 +5,7 @@ open_graph:
   types:
     article: article
     event: app_scope:event
+    forum: app_scope:discussion
     uploaded_file: app_scope:document
     image: app_scope:picture
 
