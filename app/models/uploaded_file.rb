@@ -1,5 +1,3 @@
-require 'short_filename'
-
 # Article type that handles uploaded files.
 #
 # Limitation: only file metadata are versioned. Only the latest version
@@ -13,8 +11,6 @@ class UploadedFile < Article
   end
 
   track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :parent
-
-  include ShortFilename
 
   def title
     if self.name.present? then self.name else self.filename end
