@@ -9,7 +9,7 @@ module API
     #   password (required) - user password
     #
     # Example Request:
-    #  POST /login?login=some&password=pass
+    #  POST http://localhost:3000/api/v1/login?login=adminuser&password=admin
     post "/login" do
       user ||= User.authenticate(params[:login], params[:password], environment)
 
