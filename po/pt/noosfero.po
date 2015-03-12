@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-12 15:42+0200\n"
+"PO-Revision-Date: 2015-03-12 15:51+0200\n"
 "Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -3067,11 +3067,11 @@ msgstr "Privado"
 
 #: app/helpers/article_helper.rb:100
 msgid "For all community members"
-msgstr "Para todas/os as/os integrantes da comunidade"
+msgstr "Para todos os integrantes da comunidade"
 
 #: app/helpers/article_helper.rb:100
 msgid "For all your friends"
-msgstr "Para todas/os as/os suas/seus amigas/os"
+msgstr "Para todos os seus amigos"
 
 #: app/helpers/article_helper.rb:118
 msgid "Fill in the search field to add the exception users to see this content"
@@ -4049,21 +4049,21 @@ msgstr "O nome já está sendo utilizado"
 
 #: app/controllers/admin/templates_controller.rb:47
 msgid "Community not found. The template could no be changed."
-msgstr "Comunidade não encontrada. O tema não pôde ser alterado."
+msgstr "Comunidade não encontrada. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/templates_controller.rb:51
 #: app/controllers/admin/templates_controller.rb:65
 #: app/controllers/admin/templates_controller.rb:79
 msgid "%s defined as default"
-msgstr "%s foi definido como padrão"
+msgstr "%s definido como padrão"
 
 #: app/controllers/admin/templates_controller.rb:61
 msgid "Person not found. The template could no be changed."
-msgstr "Pessoa não encontrada. O tema não pôde ser alterado."
+msgstr "Pessoa não encontrada. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/templates_controller.rb:75
 msgid "Enterprise not found. The template could no be changed."
-msgstr "Empreendimento não encontrado. O tema não pôde ser alterado."
+msgstr "Empreendimento não encontrado. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/plugins_controller.rb:12
 msgid "Plugins updated successfully."
@@ -5582,7 +5582,7 @@ msgstr "Código HTML"
 
 #: app/views/box_organizer/index.html.erb:1
 msgid "Editing sideboxes"
-msgstr "Editando blocos laterais"
+msgstr "Editar blocos laterais"
 
 #: app/views/box_organizer/index.html.erb:4
 msgid "Add a block"
@@ -5994,7 +5994,7 @@ msgstr "Desativar perfil"
 #: app/views/profile_editor/edit.html.erb:81
 #: app/views/profile_editor/edit.html.erb:83
 msgid "Are you sure you want to deactivate this profile?"
-msgstr "Tem certeza que quer desativar este perfil?"
+msgstr "Tem certeza que deseja desativar este perfil?"
 
 #: app/views/profile_editor/edit.html.erb:83
 msgid "Activate profile"
@@ -6588,7 +6588,7 @@ msgstr "Editar modelo \"%s\""
 
 #: app/views/templates/index.html.erb:25
 msgid "is the default template"
-msgstr "é o tema padrão"
+msgstr "é o modelo padrão"
 
 #: app/views/templates/index.html.erb:27
 msgid "Set as default"
@@ -6596,7 +6596,7 @@ msgstr "Definir como padrão"
 
 #: app/views/templates/index.html.erb:27
 msgid "Set %s template as default"
-msgstr "Definir o tema %s como padrão"
+msgstr "Definir o modelo %s como padrão"
 
 #: app/views/templates/index.html.erb:31
 msgid "Edit settings"
@@ -9251,7 +9251,7 @@ msgstr "Gerenciar organizações"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:7
 msgid "Find profiles"
-msgstr "Encontrar perfis"
+msgstr "Buscar perfis"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:17
 msgid "Filter by: "
@@ -9264,11 +9264,11 @@ msgstr "Desativar"
 #: app/views/admin_panel/manage_organizations_status.html.erb:44
 #: app/views/admin_panel/manage_organizations_status.html.erb:48
 msgid "Do you want to deactivate this profile ?"
-msgstr "Você quer desativar esse perfil?"
+msgstr "Você deseja desativar esse perfil?"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:46
 msgid "Do you want to activate this profile ?"
-msgstr "Você quer ativar esse perfil?"
+msgstr "Você deseja ativar esse perfil?"
 
 #: app/views/admin_panel/set_portal_folders.html.erb:1
 msgid "Select folders"
