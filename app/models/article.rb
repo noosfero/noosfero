@@ -486,15 +486,17 @@ class Article < ActiveRecord::Base
   scope :more_comments, :order => "comments_count DESC"
   scope :more_recent, :order => "created_at DESC"
 
-  def self.display_filter(user, profile)
-    return {:conditions => ['articles.published = ?', true]} if !user
+  scope :display_filter, lambda {|user, profile|
+    user.nil? ? 
+    {:conditions => ['articles.published = ?', true]} :  
     {:conditions => ["  articles.published = ? OR
                         articles.last_changed_by_id = ? OR
                         articles.profile_id = ? OR
-                        ? OR  articles.show_to_followers = ? AND ?",
+                        ? OR  articles.show_to_followers = ? AND ? ",
                         true, user.id, user.id, user.has_permission?(:view_private_content, profile),
-                        true, user.follows?(profile)]}
-  end
+                        true, user.follows?(profile)]
+    }
+  }
 
 
   def display_unpublished_article_to?(user)
