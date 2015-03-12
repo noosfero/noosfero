@@ -578,4 +578,22 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  should "redirect to 404 if profile is '~' and user is not logged in" do
+    get :index, :profile => '~'
+    assert_response :missing
+  end
+
+  should "redirect to action when profile is '~' " do
+    login_as('ze')
+    get :index, :profile => '~'
+    assert_response 302
+  end
+
+  should "substitute '~' by current user and redirect properly " do
+    login_as('ze')
+    profile = Profile.where(:identifier => 'ze').first
+    get :index, :profile => '~'
+    assert_redirected_to :controller => 'test', :action => 'index', :profile => profile.identifier
+  end
+
 end
