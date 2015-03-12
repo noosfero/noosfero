@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-12 14:43+0200\n"
+"PO-Revision-Date: 2015-03-12 15:42+0200\n"
 "Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -5494,7 +5494,7 @@ msgstr "Título personalizado para este bloco: "
 
 #: app/views/box_organizer/edit.html.erb:10
 msgid "Fixed"
-msgstr "Resolvido"
+msgstr "Fixo"
 
 #: app/views/box_organizer/edit.html.erb:17
 msgid "Display this block:"
@@ -8471,12 +8471,11 @@ msgstr "Escolha a pessoa por:"
 
 #: app/views/invite/invite_friends.html.erb:24
 msgid "Type in the person's %{search_fields}"
-msgstr ""
+msgstr "Digite os campos %{search_fields} da pessoa"
 
 #: app/views/invite/invite_friends.html.erb:28
-#, fuzzy
 msgid "Invite"
-msgstr "Convite"
+msgstr "Convidar"
 
 #: app/views/invite/invite_friends.html.erb:35
 msgid "Invite people from my e-mail contacts"
@@ -8659,29 +8658,29 @@ msgstr "Ver lista validações de empreendimentos processados"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:3
 msgid "We want to give you some suggestions to grow up your network."
-msgstr ""
+msgstr "Nós queremos fornecer a você algumas sugestões para ampliar sua rede."
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:4
 msgid "Check it out!"
-msgstr ""
+msgstr "Confira!"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:7
-#, fuzzy
 msgid "Friends suggestions:"
-msgstr "Sugestão de artigo"
+msgstr "Sugestões de amizades:"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:14
 msgid "To see the full list of friends suggestions, follow the link: %s"
 msgstr ""
+"Para ver a lista completa de sugestões de amizade, clique neste link: %s"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:18
-#, fuzzy
 msgid "Communities suggestions:"
-msgstr "Menu de comunidades"
+msgstr "Sugestões de comunidades:"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:25
 msgid "To see the full list of communities suggestions, follow the link: %s"
 msgstr ""
+"Para ver a lista completa de sugestões de comunidades, clique neste link: %s"
 
 #: app/views/user_mailer/activation_code.text.erb:3
 #: app/views/user/mailer/activation_code.html.erb:3
@@ -9226,52 +9225,50 @@ msgid "Select Portal Folders"
 msgstr "Selecionar Pastas do Portal"
 
 #: app/views/admin_panel/set_portal_community.html.erb:21
-#, fuzzy
 msgid "Define news amount on portal"
-msgstr "Definir Quantidade por Pasta"
+msgstr "Definir a quantidade de notícias no portal"
 
 #: app/views/admin_panel/_signup_welcome_screen.html.erb:2
 msgid ""
 "If you enable this feature on the \"Features\" section of the Administration "
 "Panel, this text will be shown as a welcome message to users after signup."
 msgstr ""
+"Se você ativar esta funcionalidade na seção \"Funcionalidades\" do painel de "
+"administração, este texto será exibido como uma mensagem de boas vindas ao "
+"usuário após se registrar."
 
 #: app/views/admin_panel/_signup_welcome_screen.html.erb:7
 msgid ""
 "If this content is left blank, the following page will be displayed to the "
 "user:"
 msgstr ""
+"Se este conteúdo ficar em branco, a seguinte página será exibida ao novo "
+"usuário:"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:1
-#, fuzzy
 msgid "Manage organizations"
-msgstr "Organização do perfil"
+msgstr "Gerenciar organizações"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:7
-#, fuzzy
 msgid "Find profiles"
-msgstr "Perfis aleatórios"
+msgstr "Encontrar perfis"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:17
-#, fuzzy
 msgid "Filter by: "
-msgstr "Filtro"
+msgstr "Filtrar por: "
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:44
-#, fuzzy
 msgid "Deactivate"
-msgstr "Desativar usuário"
+msgstr "Desativar"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:44
 #: app/views/admin_panel/manage_organizations_status.html.erb:48
-#, fuzzy
 msgid "Do you want to deactivate this profile ?"
-msgstr "Você quer desativar esse usuário?"
+msgstr "Você quer desativar esse perfil?"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:46
-#, fuzzy
 msgid "Do you want to activate this profile ?"
-msgstr "Você quer ativar esse usuário?"
+msgstr "Você quer ativar esse perfil?"
 
 #: app/views/admin_panel/set_portal_folders.html.erb:1
 msgid "Select folders"
@@ -9355,34 +9352,28 @@ msgid "Terms of use"
 msgstr "Termos de Uso"
 
 #: app/views/admin_panel/site_info.html.erb:16
-#, fuzzy
 msgid "Signup welcome email"
-msgstr "Texto de boas vindas no registro"
+msgstr "E-mail de boas vindas após o registro"
 
 #: app/views/admin_panel/site_info.html.erb:18
-#, fuzzy
 msgid "Signup welcome page"
-msgstr "Texto de boas vindas no registro"
+msgstr "Página de boas vindas após o registro"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:1
-#, fuzzy
 msgid "News amount on portal"
-msgstr "Quantidade de notícias por pasta"
+msgstr "Quantidade de notícias no portal"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:5
-#, fuzzy
 msgid "Number of highlighted news"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias destacadas"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:6
-#, fuzzy
 msgid "Number of portal news"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias do portal"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:7
-#, fuzzy
 msgid "Number of news by folder"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias por pasta"
 
 #: app/views/admin_panel/index.html.erb:1
 msgid "Administrator Panel"
@@ -9438,9 +9429,8 @@ msgid "Fields"
 msgstr "Campos"
 
 #: app/views/admin_panel/index.html.erb:23
-#, fuzzy
 msgid "Manage organizations status"
-msgstr "Gerenciar suas tarefas pendentes"
+msgstr "Gerenciar a situação das organizações"
 
 #: app/views/admin_panel/index.html.erb:39
 msgid "Enterprise-related settings"
