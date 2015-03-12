@@ -4019,10 +4019,6 @@ div#article-parent {
   text-align: right;
   font-style: italic;
 }
-.article-body-uploaded-file {
-  text-align: center;
-}
-
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;

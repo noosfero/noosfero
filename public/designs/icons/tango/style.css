@@ -28,6 +28,7 @@
 .icon-more      { background-image: url(Tango/16x16/actions/add.png) }
 .icon-up        { background-image: url(Tango/16x16/actions/go-up.png) }
 .icon-down      { background-image: url(Tango/16x16/actions/go-down.png) }
+.icon-download  { background-image: url(Tango/16x16/actions/bottom.png) }
 .icon-left      { background-image: url(Tango/16x16/actions/go-previous.png) }
 .icon-right     { background-image: url(Tango/16x16/actions/go-next.png) }
 .icon-up-disabled    { background-image: url(Tango/16x16/actions/go-up.png); opacity: 0.25; filter:alpha(opacity=25); }
