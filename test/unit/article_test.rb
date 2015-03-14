@@ -2018,4 +2018,23 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [a], Article.display_filter(user, p)
   end
 
+  should 'display_filter do not show person private content to non friends passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Person)
+    assert !p.is_a_friend?(user)
+    assert !user.is_admin?
+    Article.delete_all
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, nil)
+  end
+
+  should 'display_filter do not show community private content to non members passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Community)
+    assert !user.is_member_of?(p)
+    Article.delete_all
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, nil)
+  end
+
 end
