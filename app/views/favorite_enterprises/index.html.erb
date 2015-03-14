@@ -9,7 +9,7 @@
                         enterprise.identifier, :class => 'profile-link' %>
     <%# profile_image_link enterprise, :portrait, 'div' %>
     <div class="controll">
-      <%= button(:delete, _('remove'), { :action => 'remove', :id => enterprise.id },:title => _('remove')) %>
+      <%= button_without_text(:delete, _('remove'), { :action => 'remove', :id => enterprise.id },:title => _('remove')) %>
     </div><!-- end class="controll" -->
   </li>
 <% end %>
