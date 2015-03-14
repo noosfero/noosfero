@@ -19,7 +19,7 @@ module API
 #    }
         get do
           articles = select_filtered_collection_of(environment, 'articles', params)
-          articles = articles.where(Article.display_filter(current_user.person, nil)[:conditions])
+          articles = articles.display_filter(current_user.person, nil)
           present articles, :with => Entities::Article
         end
 
@@ -32,7 +32,7 @@ module API
         get ':id/children' do
           article = find_article(environment.articles, params[:id])
           articles = select_filtered_collection_of(article, 'children', params)
-          articles = articles.where(Article.display_filter(current_user.person, nil)[:conditions])
+          articles = articles.display_filter(current_user.person, nil)
           present articles, :with => Entities::Article
         end
 
@@ -49,7 +49,7 @@ module API
             get do
               community = environment.communities.find(params[:community_id])
               articles = select_filtered_collection_of(community, 'articles', params)
-              articles = articles.where(Article.display_filter(current_user.person, community)[:conditions])
+              articles = articles.display_filter(current_user.person, community)
               present articles, :with => Entities::Article
             end
 
