@@ -58,12 +58,7 @@ class MetadataPlugin::Base < Noosfero::Plugin
     end
   end
 
-  # context HELPERS
-  def og_url_for options
-    options.delete :port
-    options[:host] = self.class.config[:open_graph][:domain] rescue context.send(:environment).default_hostname
-    Noosfero::Application.routes.url_helpers.url_for options
-  end
+  include MetadataPlugin::UrlHelper
 
   def helpers
     self.context.class.helpers
