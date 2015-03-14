@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-12 15:51+0200\n"
-"Last-Translator: daniel <dtygel@eita.org.br>\n"
+"PO-Revision-Date: 2015-03-13 14:56+0200\n"
+"Last-Translator: TWS <tablettws@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -26,15 +26,15 @@ msgstr ""
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
-msgstr "Anônimo"
+msgstr "Anonimo"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:17
 msgid "Article removed."
-msgstr "Artigo removido."
+msgstr "Articolo Rimosso."
 
 #: app/models/approve_comment.rb:33
 msgid "New comment to article"
-msgstr "Novo comentário para o artigo"
+msgstr "Nuovo commento in questo articolo"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
 msgid "%{requestor} commented on the article: %{linked_subject}."

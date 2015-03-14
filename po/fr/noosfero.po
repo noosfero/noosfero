@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-08 20:40+0200\n"
-"Last-Translator: M for Momo <mo@rtnp.org>\n"
+"PO-Revision-Date: 2015-03-12 16:11+0200\n"
+"Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
 "Language: fr\n"
@@ -61,16 +61,12 @@ msgid ""
 msgstr ""
 
 #: app/models/approve_comment.rb:96
-#, fuzzy
 msgid "Your request for comment the article \"%{article}\" was approved."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "Votre demande pour commenter l'article \"% {article}\" a été approuvée."
 
 #: app/models/approve_comment.rb:101
-#, fuzzy
 msgid "Your request for commenting the article \"%{article}\" was rejected."
-msgstr ""
-"%{author} veut publier l'article «%{article}» sur le groupe %{community}"
+msgstr "Votre demande de commenter l'article \"% {article}\" a été rejetée."
 
 #: app/models/approve_comment.rb:103
 msgid ""
@@ -120,19 +116,17 @@ msgstr "Nom"
 
 #: app/models/comment.rb:6 app/models/article.rb:18 app/models/article.rb:38
 #: app/models/scrap.rb:6
-#, fuzzy
 msgid "Content"
-msgstr "Type de contenu"
+msgstr "Contenu"
 
 #: app/models/comment.rb:32
-#, fuzzy
 msgid "{fn} can only be informed for unauthenticated authors"
-msgstr "%{fn} peut seulement être renseigné pour les auteurs non authentifiés"
+msgstr "{fn} est informé uniquement pour les auteurs non authentifiés"
 
 #: app/models/comment.rb:71
 #, fuzzy
 msgid "(removed user)"
-msgstr "Pour ôter %s"
+msgstr "(supprimé par l'utilisateur)"
 
 #: app/models/comment.rb:71
 msgid "(unauthenticated user)"
@@ -173,33 +167,30 @@ msgid "100%"
 msgstr ""
 
 #: app/models/invite_member.rb:20
-#, fuzzy
 msgid "Community invitation"
-msgstr "Calculs informatisés"
+msgstr "Invitation de la communauté"
 
 #: app/models/invite_member.rb:28
-#, fuzzy
 msgid "%{requestor} invited you to join %{linked_subject}."
-msgstr "%s veut être membre de %s."
+msgstr "%{requestor} vous invite à rejoindre ce sujet % {linked_subject}."
 
 #: app/models/invite_member.rb:40
-#, fuzzy
 msgid "%{requestor} invited you to join %{community}."
-msgstr "%s veut être membre de %s."
+msgstr "%{requestor} vous invite à rejoindre la comunautée %{community}."
 
 #: app/models/invite_member.rb:45
-#, fuzzy
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
-msgstr "%s veut être membre de %s."
+msgstr ""
+"%{requestor} vous invite à rejoindre la communautée \"%{community}\" sur le "
+"système %{system}."
 
 #: app/models/invite_member.rb:57 app/models/invite_friend.rb:37
 msgid "Hello <friend>,"
 msgstr "Bonjour <contact>,"
 
 #: app/models/invite_member.rb:58
-#, fuzzy
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
-msgstr "<utilisateur> vous invite à participer à %{environment}."
+msgstr "<user> vous invite à rejoindre la « <community>» sur <environment>."
 
 #: app/models/invite_member.rb:59 app/models/invite_friend.rb:39
 msgid "To accept the invitation, please follow this link:"
@@ -214,14 +205,12 @@ msgid "This block displays some info about your networking."
 msgstr "Ce bloc affiche de l'information sur votre réseau."
 
 #: app/models/sellers_search_block.rb:6
-#, fuzzy
 msgid "Search for enterprises and products"
-msgstr "Une recherche d'entreprises par produits"
+msgstr "Recherche de produits et d'entreprises"
 
 #: app/models/sellers_search_block.rb:10
-#, fuzzy
 msgid "Products/Enterprises search"
-msgstr "Produit|Entrprise"
+msgstr "Recherche de produits ou d'entreprises"
 
 #: app/models/sellers_search_block.rb:14
 msgid "Search for sellers"
@@ -232,9 +221,8 @@ msgid "This block presents a search engine for products."
 msgstr "Ce bloc présente un moteur de recherche pour les produits."
 
 #: app/models/categories_block.rb:4
-#, fuzzy
 msgid "Generic category"
-msgstr "Catégorie générale"
+msgstr "Catégorie générique"
 
 #: app/models/categories_block.rb:5 app/helpers/categories_helper.rb:6
 #: app/views/enterprise_registration/basic_information.html.erb:25
@@ -246,23 +234,20 @@ msgid "Product"
 msgstr "Produit"
 
 #: app/models/categories_block.rb:14 app/models/categories_block.rb:18
-#, fuzzy
 msgid "Categories Menu"
-msgstr "Catégories"
+msgstr "Menu catégories"
 
 #: app/models/categories_block.rb:22
-#, fuzzy
 msgid "This block presents the categories like a web site menu."
-msgstr "Ce bloc présente l'image du profil."
+msgstr "Ce bloc présente les catégories comme un menu de site web."
 
 #: app/models/contact_list.rb:18
-#, fuzzy
 msgid ""
 "There was an error while authenticating. Did you enter correct login and "
 "password?"
 msgstr ""
-"Une erreur s'est produite lors de la recherche de votre liste de contacts. "
-"Avez-vous entré un identifiant et un mot de passe corrects ?"
+"Il y a eu une erreur lors de l'authentification. Utilisez vous un mot de "
+"passe et un login correcte ?"
 
 #: app/models/contact_list.rb:25
 #, fuzzy

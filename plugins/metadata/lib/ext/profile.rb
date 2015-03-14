@@ -5,7 +5,7 @@ class Profile
   metadata_spec namespace: :og, tags: {
     type: MetadataPlugin.og_types[:profile] || :profile,
     image: proc{ |p, plugin| "#{p.environment.top_url}#{p.image.public_filename}" if p.image },
-    title: proc{ |p, plugin| p.nickname || p.name },
+    title: proc{ |p, plugin| if p.nickname.present? then p.nickname else p.name end },
     url: proc do |p, plugin|
       #force profile identifier for custom domains and fixed host. see og_url_for
       plugin.og_url_for p.url.merge(profile: p.identifier)
