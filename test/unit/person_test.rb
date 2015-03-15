@@ -1631,4 +1631,9 @@ class PersonTest < ActiveSupport::TestCase
     assert person.can_change_homepage?
   end
 
+  should 'follow? return false when no profile is passed as parameter' do
+    person = Person.new
+    assert_equal false, person.follows?(nil)
+  end
+
 end

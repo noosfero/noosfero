@@ -2018,4 +2018,87 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [a], Article.display_filter(user, p)
   end
 
+  should 'display_filter do not show person private content to non friends passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Person)
+    assert !p.is_a_friend?(user)
+    assert !user.is_admin?
+    Article.delete_all
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, nil)
+  end
+
+  should 'display_filter do not show community private content to non members passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Community)
+    assert !user.is_member_of?(p)
+    Article.delete_all
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, nil)
+  end
+
+  should 'display_filter show community public content of private community for user members' do
+    user = create_user('someuser').person
+    p = fast_create(Community, :public_profile => false)
+    p.add_member(user)
+    assert user.is_member_of?(p)
+    user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [a], Article.display_filter(user, p)
+  end
+
+  should 'display_filter not show public content of private community for non members' do
+    user = create_user('someuser').person
+    p = fast_create(Community, :public_profile => false)
+    assert !user.is_member_of?(p)
+    user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, p)
+  end
+
+  should 'display_filter not show public content of private community for non members when user is nil' do
+    p = fast_create(Community, :public_profile => false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(nil, p)
+  end
+
+  should 'display_filter show person public content of private person profile for user friends' do
+    user = create_user('someuser').person
+    p = fast_create(Person, :public_profile => false)
+    p.add_friend(user)
+    assert p.is_a_friend?(user)
+    user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [a], Article.display_filter(user, p)
+  end
+
+  should 'display_filter not show public content of private person for non friends' do
+    user = create_user('someuser').person
+    p = fast_create(Person, :public_profile => false)
+    assert !user.is_a_friend?(p)
+    user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(user, p)
+  end
+
+  should 'display_filter not show public content of private person for non friends when user is nil' do
+    p = fast_create(Person, :public_profile => false)
+    Article.delete_all
+    a = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equal [], Article.display_filter(nil, p)
+  end
+
 end
