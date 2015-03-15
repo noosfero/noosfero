@@ -2069,6 +2069,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [], Article.display_filter(nil, p)
   end
 
+  should 'display_filter show public content for non members when profile is nil' do
+    user = create_user('someuser').person
+    p = fast_create(Community, :public_profile => true)
+    Article.delete_all
+    a1 = fast_create(Article, :published => true, :profile_id => user.id)
+    a2 = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equivalent [a1,a2], Article.display_filter(user, nil)
+  end
+
   should 'display_filter show person public content of private person profile for user friends' do
     user = create_user('someuser').person
     p = fast_create(Person, :public_profile => false)
@@ -2099,6 +2109,16 @@ class ArticleTest < ActiveSupport::TestCase
     a = fast_create(Article, :published => true, :profile_id => p.id)
     fast_create(Article, :published => false, :profile_id => p.id)
     assert_equal [], Article.display_filter(nil, p)
+  end
+
+  should 'display_filter show public content for non friends when profile is nil' do
+    user = create_user('someuser').person
+    p = fast_create(Person, :public_profile => true)
+    Article.delete_all
+    a1 = fast_create(Article, :published => true, :profile_id => user.id)
+    a2 = fast_create(Article, :published => true, :profile_id => p.id)
+    fast_create(Article, :published => false, :profile_id => p.id)
+    assert_equivalent [a1,a2], Article.display_filter(user, nil)
   end
 
 end
