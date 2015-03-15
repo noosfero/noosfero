@@ -487,8 +487,8 @@ class Article < ActiveRecord::Base
   scope :more_recent, :order => "created_at DESC"
 
   scope :display_filter, lambda {|user, profile|
-    return published if (user.nil? && profile.public?)
-    return [] if user.nil? || (!profile.public? && !user.follows?(profile))
+    return published if (user.nil? && profile && profile.public?)
+    return [] if user.nil? || profile.nil? || (!profile.public? && !user.follows?(profile))
     where(
       [
        "published = ? OR last_changed_by_id = ? OR profile_id = ? OR ? 
