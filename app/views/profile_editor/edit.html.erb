@@ -34,10 +34,13 @@
     </div>
   <% else %>
     <div>
-      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users'), 'profile_data[public_profile]', true, @profile.public_profile? %>
+      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to."), 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
     </div>
     <div>
-      <%= labelled_radio_button _('Private &mdash; show content of this group only to members'), 'profile_data[public_profile]', false, !@profile.public_profile? %>
+      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users'), 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
+    </div>
+    <div>
+      <%= labelled_radio_button _('Private &mdash; show content of this group only to members'), 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
     </div>
   <% end %>
 
@@ -86,3 +89,5 @@
     <% end %>
   <% end %>
 <% end %>
+
+<%= javascript_include_tag 'profile_editor' %>
