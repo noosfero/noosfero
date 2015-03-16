@@ -7,7 +7,7 @@ module API
     end
 
     def current_user
-      private_token = params[PRIVATE_TOKEN_PARAM].to_s
+      private_token = params[PRIVATE_TOKEN_PARAM].to_s if params
       @current_user ||= User.find_by_private_token(private_token)
       @current_user = nil if !@current_user.nil? && @current_user.private_token_expired?
       @current_user
