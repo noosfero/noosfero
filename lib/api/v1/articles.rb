@@ -13,10 +13,7 @@ module API
         #   limit            - amount of articles returned. The default value is 20
         #
         # Example Request:
-        #  GET http://localhost:3000/api/v1/articles?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
-#    desc 'Articles.', {
-#      :params => API::Entities::Article.documentation
-#    }
+        #  GET host/api/v1/articles?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
         get do
           articles = select_filtered_collection_of(environment, 'articles', params)
           articles = articles.display_filter(current_user.person, nil)
