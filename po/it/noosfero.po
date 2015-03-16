@@ -7,28 +7,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2014-10-30 14:14+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/it/>\n"
+"PO-Revision-Date: 2015-03-16 23:06+0200\n"
+"Last-Translator: TWS <tablettws@gmail.com>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0-dev\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonimo"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:17
 msgid "Article removed."
-msgstr ""
+msgstr "Articolo Rimosso."
 
 #: app/models/approve_comment.rb:33
 msgid "New comment to article"
-msgstr ""
+msgstr "Nuovo Commento nell'articolo"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
 msgid "%{requestor} commented on the article: %{linked_subject}."
@@ -36,7 +36,7 @@ msgstr ""
 
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:77
 msgid "The article was removed."
-msgstr ""
+msgstr "L'articolo è stato rimosso."
 
 #: app/models/approve_comment.rb:81
 msgid "%{requestor} wants to comment the article: %{article}."
@@ -50,6 +50,8 @@ msgstr ""
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
 msgstr ""
+"Devi connetterti su %{system} per poter approvare oppure rigettare questo "
+"commento."
 
 #: app/models/approve_comment.rb:94
 msgid ""
@@ -58,14 +60,21 @@ msgid ""
 "\n"
 "%{comment} "
 msgstr ""
+"Il tuo commento su questo articolo \"%{article}\" è stato approvato. Ecco "
+"qui il commento lasciato dall'Amministratore che ha approvato il tuo "
+"commentot:↵\n"
+"↵\n"
+"%{comment} "
 
 #: app/models/approve_comment.rb:96
 msgid "Your request for comment the article \"%{article}\" was approved."
 msgstr ""
+"La richiesta per commentare questo articolo \"%{article}\" è stata approvata."
 
 #: app/models/approve_comment.rb:101
 msgid "Your request for commenting the article \"%{article}\" was rejected."
 msgstr ""
+"La richiesta per commentare questo articolo \"%{article}\" è stata rigettata."
 
 #: app/models/approve_comment.rb:103
 msgid ""
@@ -74,6 +83,10 @@ msgid ""
 "\n"
 "%{reject_explanation}"
 msgstr ""
+"Ecco la spiegazione del rigetto lasciata dall' Amministratore che ha "
+"rigettato il tuo commento: ↵\n"
+"↵\n"
+"%{reject_explanation}"
 
 #: app/models/comment.rb:4 app/models/article.rb:171
 #: app/views/content_viewer/_comment_form.html.erb:70
@@ -91,7 +104,7 @@ msgstr ""
 #: app/views/cms/publish.html.erb:43 app/views/cms/publish.html.erb:59
 #: app/views/comment/_comment_form.html.erb:77
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: app/models/comment.rb:5 app/models/product.rb:4 app/models/category.rb:6
 #: app/models/article.rb:16 app/models/profile.rb:15
@@ -111,12 +124,12 @@ msgstr ""
 #: app/views/enterprise_validation/_details.html.erb:3
 #: app/views/contact/sender/notification.html.erb:11
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: app/models/comment.rb:6 app/models/article.rb:18 app/models/article.rb:38
 #: app/models/scrap.rb:6
 msgid "Content"
-msgstr ""
+msgstr "Contenuto"
 
 #: app/models/comment.rb:32
 msgid "{fn} can only be informed for unauthenticated authors"
@@ -124,11 +137,11 @@ msgstr ""
 
 #: app/models/comment.rb:71
 msgid "(removed user)"
-msgstr ""
+msgstr "(utente rimosso)"
 
 #: app/models/comment.rb:71
 msgid "(unauthenticated user)"
-msgstr ""
+msgstr "(utente non autenticato)"
 
 #: app/models/product.rb:5 app/models/organization.rb:108
 #: app/models/certifier.rb:7 app/views/search/_article_description.html.erb:4
@@ -137,120 +150,129 @@ msgstr ""
 #: app/views/cms/_uploaded_file.html.erb:5
 #: app/views/manage_products/show.html.erb:32
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: app/models/product.rb:104 app/helpers/display_helper.rb:42
 #: app/helpers/display_helper.rb:51
 msgid "Uncategorized product"
-msgstr ""
+msgstr "Prodotto senza categoria"
 
 #: app/models/product.rb:244
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: app/models/product.rb:245
 msgid "25%"
-msgstr ""
+msgstr "25%"
 
 #: app/models/product.rb:246
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #: app/models/product.rb:247
 msgid "75%"
-msgstr ""
+msgstr "75%"
 
 #: app/models/product.rb:248
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: app/models/invite_member.rb:20
 msgid "Community invitation"
-msgstr ""
+msgstr "Invito della Comunità"
 
 #: app/models/invite_member.rb:28
 msgid "%{requestor} invited you to join %{linked_subject}."
-msgstr ""
+msgstr "%{requestor} sei stato invitato ad entrare %{linked_subject}."
 
 #: app/models/invite_member.rb:40
 msgid "%{requestor} invited you to join %{community}."
 msgstr ""
+"%{requestor} sei stato invitato ad entrare nella comunità %{community}.."
 
 #: app/models/invite_member.rb:45
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
 msgstr ""
+"%{requestor} sei stato invitato a far parte della comunità \"%{community}\" "
+"nel sistema %{system}."
 
 #: app/models/invite_member.rb:57 app/models/invite_friend.rb:37
 msgid "Hello <friend>,"
-msgstr ""
+msgstr "Ciao <amico>,"
 
 #: app/models/invite_member.rb:58
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
 msgstr ""
+"<user> è stato invitato a far parte della comunità \"<community>\" su "
+"<environment>."
 
 #: app/models/invite_member.rb:59 app/models/invite_friend.rb:39
 msgid "To accept the invitation, please follow this link:"
-msgstr ""
+msgstr "Per accettare questo invito, segui questo link per favore:"
 
 #: app/models/my_network_block.rb:6 app/models/my_network_block.rb:10
 msgid "My network"
-msgstr ""
+msgstr "La mia Rete"
 
 #: app/models/my_network_block.rb:14
 msgid "This block displays some info about your networking."
-msgstr ""
+msgstr "Questo blocco mostra alcune informazioni riguardo la tua Rete."
 
 #: app/models/sellers_search_block.rb:6
 msgid "Search for enterprises and products"
-msgstr ""
+msgstr "Ricerca per  Prodotti e Aziende"
 
 #: app/models/sellers_search_block.rb:10
 msgid "Products/Enterprises search"
-msgstr ""
+msgstr "Ricerca Prodotti o di Aziende"
 
 #: app/models/sellers_search_block.rb:14
 msgid "Search for sellers"
-msgstr ""
+msgstr "Ricerca per Venditori"
 
 #: app/models/sellers_search_block.rb:18
 msgid "This block presents a search engine for products."
-msgstr ""
+msgstr "Questo blocco presenta un motore di ricerca per prodotti."
 
 #: app/models/categories_block.rb:4
 msgid "Generic category"
-msgstr ""
+msgstr "Categoria Generica"
 
 #: app/models/categories_block.rb:5 app/helpers/categories_helper.rb:6
 #: app/views/enterprise_registration/basic_information.html.erb:25
 msgid "Region"
-msgstr ""
+msgstr "Regione"
 
 #: app/models/categories_block.rb:6 app/views/manage_products/index.html.erb:5
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #: app/models/categories_block.rb:14 app/models/categories_block.rb:18
 msgid "Categories Menu"
-msgstr ""
+msgstr "Menu Categorie"
 
 #: app/models/categories_block.rb:22
 msgid "This block presents the categories like a web site menu."
-msgstr ""
+msgstr "Questo blocco presenta le categorie come un menu di un sito Internet."
 
 #: app/models/contact_list.rb:18
 msgid ""
 "There was an error while authenticating. Did you enter correct login and "
 "password?"
 msgstr ""
+"C'è stato un errore durante l'autenticazione. Hai utilizzato la giusta Login "
+"e Password?"
 
 #: app/models/contact_list.rb:25
 msgid ""
 "There was an error while looking for your contact list. Please, try again"
 msgstr ""
+"C'è stato un errore mentre cercavi la tua lista di contatti. Per favore, "
+"prova ancora"
 
 #: app/models/uploaded_file.rb:12
 msgid "File"
-msgstr ""
+msgstr "File (Documento)"
 
 #: app/models/uploaded_file.rb:72
 msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
@@ -258,47 +280,47 @@ msgstr ""
 
 #: app/models/uploaded_file.rb:99
 msgid "Uploaded file"
-msgstr ""
+msgstr "File Caricato"
 
 #: app/models/uploaded_file.rb:103
 msgid "Upload any kind of file you want."
-msgstr ""
+msgstr "Carica qualunque tipo di File (Documento) che vuoi."
 
 #: app/models/invite_friend.rb:12
 msgid "Friend invitation"
-msgstr ""
+msgstr "Invito di un Amico"
 
 #: app/models/invite_friend.rb:16 app/models/invite_friend.rb:28
 #: app/models/add_friend.rb:32 app/models/add_friend.rb:45
 msgid "%{requestor} wants to be your friend."
-msgstr ""
+msgstr "%{requestor} vuole essere tuo amico."
 
 #: app/models/invite_friend.rb:38
 msgid "<user> is inviting you to participate on <environment>."
-msgstr ""
+msgstr "<user> ti sta invitanto a partecipare a  <environment>."
 
 #: app/models/fans_block.rb:4
 msgid "Displays the people who like the enterprise"
-msgstr ""
+msgstr "Mostra le persone a cui piace la Società"
 
 #: app/models/fans_block.rb:8
 msgid "{#} fan"
 msgid_plural "{#} fans"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{#} Ammiratore"
+msgstr[1] "{#} Ammiratori"
 
 #: app/models/fans_block.rb:12
 msgid "This block presents the fans of an enterprise."
-msgstr ""
+msgstr "Questo blocco presenta gli ammiratori di una Società."
 
 #: app/models/fans_block.rb:18 app/models/favorite_enterprises_block.rb:19
 #: app/views/cms/_published_media_items.html.erb:7
 msgid "View all"
-msgstr ""
+msgstr "Mostra Tutto"
 
 #: app/models/slideshow_block.rb:12
 msgid "Slideshow"
-msgstr ""
+msgstr "Presentazione"
 
 #: app/models/featured_products_block.rb:20
 #: app/views/box_organizer/_featured_products_block.html.erb:1
