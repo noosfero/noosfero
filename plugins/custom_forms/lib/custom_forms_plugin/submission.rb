@@ -5,7 +5,7 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
   # validation is done manually, see below
   has_many :answers, :class_name => 'CustomFormsPlugin::Answer', :dependent => :destroy, :validate => false
 
-  attr_accessible :form, :profile
+  attr_accessible :form, :profile, :author_name, :author_email
 
   validates_presence_of :form
   validates_presence_of :author_name, :author_email, :if => lambda {|submission| submission.profile.nil?}
@@ -13,12 +13,15 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
   validates_format_of :author_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|submission| !submission.author_email.blank?})
   validate :check_answers
 
-  def self.human_attribute_name(attrib)
-    if /\d+/ =~ attrib and (f = CustomFormsPlugin::Field.find_by_id(attrib.to_i))
+  def self.human_attribute_name_with_customization(attrib, options={})
+    if /\d+/ =~ attrib and (f = CustomFormsPlugin::Field.find_by_id(attrib.to_s))
       f.name
     else
-      attrib
+      _(self.human_attribute_name_without_customization(attrib))
     end
+  end
+  class << self
+    alias_method_chain :human_attribute_name, :customization
   end
 
   before_create do |submission|
