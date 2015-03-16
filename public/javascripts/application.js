@@ -1096,3 +1096,10 @@ function apply_zoom_to_images(zoom_text) {
     });
   });
 }
+
+function add_new_file_fields() {
+  var cloned = jQuery('#uploaded_files p:last').clone();
+  cloned.find("input[type='file']").val('');
+  cloned.appendTo('#uploaded_files');
+  jQuery('body').scrollTo(cloned);
+}
