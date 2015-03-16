@@ -1128,4 +1128,11 @@ function stop_fetching(element){
   jQuery('.fetching-overlay', element).remove();
 }
 
+function add_new_file_fields() {
+  var cloned = jQuery('#uploaded_files p:last').clone();
+  cloned.find("input[type='file']").val('');
+  cloned.appendTo('#uploaded_files');
+  jQuery('body').scrollTo(cloned);
+}
+
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
