@@ -26,8 +26,12 @@ module API
     #   login                             - login
     # Example Request:
     #   POST /register?email=some@mail.com&password=pas&login=some
-    post "/register" do
-      required_attributes! [:email, :login, :password]
+    params do
+      requires :email, type: String, desc: _("Email")
+      requires :login, type: String, desc: _("Login")
+      requires :password, type: String, desc: _("Password")
+    end
+    get "/register" do
       unique_attributes! User, [:email, :login]
       attrs = attributes_for_keys [:email, :login, :password]
       attrs[:password_confirmation] = attrs[:password]
