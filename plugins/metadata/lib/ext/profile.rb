@@ -4,8 +4,12 @@ class Profile
 
   metadata_spec namespace: :og, tags: {
     type: proc{ |p, plugin| plugin.context.params[:og_type] || MetadataPlugin.og_types[:profile] || :profile },
-    image: proc{ |p, plugin| "#{p.environment.top_url}#{p.image.public_filename}" if p.image },
-    title: proc{ |p, plugin| if p.nickname.present? then p.nickname else p.name end  },
+    image: proc do |p, plugin|
+      img = "#{p.environment.top_url}#{p.image.public_filename}" if p.image
+      img ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if img.blank?
+      img
+    end,
+    title: proc{ |p, plugin| if p.nickname.present? then p.nickname else p.name end },
     url: proc{ |p, plugin| plugin.og_url_for plugin.og_profile_url(p) },
     description: proc{ |p, plugin| p.description },
 	  updated_time: proc{ |p, plugin| p.updated_at.iso8601 },

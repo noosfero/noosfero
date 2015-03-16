@@ -12,10 +12,10 @@ class Article
     end,
     title: proc{ |a, plugin| "#{a.title} - #{a.profile.name}" },
     image: proc do |a, plugin|
-      result = a.body_images_paths
-      result = "#{a.profile.environment.top_url}#{a.profile.image.public_filename}" if a.profile.image if result.blank?
-      result ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if result.blank?
-      result
+      img = a.body_images_paths
+      img = "#{a.profile.environment.top_url}#{a.profile.image.public_filename}" if a.profile.image if img.blank?
+      img ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if img.blank?
+      img
     end,
     see_also: [],
     site_name: proc{ |a, c| a.profile.name },
