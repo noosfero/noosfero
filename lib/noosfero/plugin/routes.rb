@@ -18,7 +18,7 @@ Dir.glob(Rails.root.join(plugins_root, '*', 'controllers')) do |controllers_dir|
   controllers_by_folder.each do |folder, controllers|
     controllers.each do |controller|
       controller_name = controller.gsub("#{plugin_name}_plugin_",'')
-      if %w[profile myprofile].include?(folder)
+      if %w[profile myprofile].include?(folder.to_s)
         match "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}(/:action(/:id))", :controller => controller, :profile => /#{Noosfero.identifier_format}/
       else
         match "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}(/:action(/:id))", :controller => controller

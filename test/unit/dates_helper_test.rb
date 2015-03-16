@@ -99,20 +99,20 @@ class DatesHelperTest < ActiveSupport::TestCase
 
   should 'provide an intertionalized date selector pass month names' do
     expects(:language).returns('en')
-    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => MONTHS }).returns("KKKKKKKK")
+    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => months }).returns("KKKKKKKK")
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
 
   should 'order date in english like month day year' do
     expects(:language).returns('en')
-    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => MONTHS }).returns("KKKKKKKK")
+    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => months }).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end
 
   should 'order date in other languages like day month year' do
     expects(:language).returns('pt_BR')
-    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:day, :month, :year], :use_month_names => MONTHS }).returns("KKKKKKKK")
+    expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:day, :month, :year], :use_month_names => months }).returns("KKKKKKKK")
 
     assert_equal 'KKKKKKKK', pick_date(:object, :method)
   end

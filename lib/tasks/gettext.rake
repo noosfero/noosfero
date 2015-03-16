@@ -2,6 +2,8 @@
 # Added for Ruby-GetText-Package
 #
 
+require 'pathname'
+
 makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
 task :makemo => makemo_stamp
@@ -37,14 +39,15 @@ task :symlinkmo do
   langmap = {
     'pt' => 'pt_BR',
   }
-  mkdir_p(Rails.root.join('locale'))
-  Dir.glob(Rails.root.join('po/*/')).each do |dir|
+  root = Pathname.new(File.dirname(__FILE__) + '/../..').expand_path
+  mkdir_p(root.join('locale'))
+  Dir.glob(root.join('po/*/')).each do |dir|
     lang = File.basename(dir)
     orig_lang = langmap[lang] || lang
-    mkdir_p(Rails.root.join('locale', "#{lang}", 'LC_MESSAGES'))
+    mkdir_p(root.join('locale', "#{lang}", 'LC_MESSAGES'))
     ['iso_3166'].each do |domain|
       origin = "/usr/share/locale/#{orig_lang}/LC_MESSAGES/#{domain}.mo"
-      target = Rails.root.join('locale', "#{lang}", 'LC_MESSAGES', "#{domain}.mo")
+      target = root.join('locale', "#{lang}", 'LC_MESSAGES', "#{domain}.mo")
       if !File.symlink?(target)
         ln_s origin, target
       end

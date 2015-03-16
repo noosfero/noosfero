@@ -120,16 +120,21 @@ Diego Araujo + Rodrigo Souto + Rafael Manzo <rr.manzo@gmail.com>
 Diego + Jefferson <diegoamc90@gmail.com>
 Diego Martinez <diegoamc90@gmail.com>
 Diego + Renan <renanteruoc@gmail.com>
+DylanGuedes <djmgguedes@gmail.com>
+Eduardo Passos <eduardo@risa.localdomain.localhost>
+Eduardo Passos <eduardosteps@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
 Fabio Teixeira <fabio1079@gmail.com>
+FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic.oficial@gmail.com>
 Fernanda Lopes <nanda.listas+psl@gmail.com>
 Francisco Marcelo A. Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Francisco Marcelo de Araujo Lima Junior <79350259591@serpro-1457614.(none)>
 Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Francisco Marcelo de Araújo Lima Júnior <maljunior@gmail.com>
 Gabriela Navarro <navarro1703@gmail.com>
+Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>
 Grazieno Pellegrino <grazieno@gmail.com>
 Gust <darksshades@hotmail.com>
 Hebert Douglas <hebertdougl@gmail.com>
@@ -186,18 +191,23 @@ Leandro Nunes dos Santos <81665687568@serpro-1541727.(none)>
 Leandro Nunes dos Santos <leandronunes@gmail.com>
 Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>
 LinguÁgil 2010 <linguagil.bahia@gmail.com>
+Lucas Kanashiro <kanashiro.duarte@gmail.com>
 Lucas Melo <lucas@colivre.coop.br>
 Lucas Melo <lucaspradomelo@gmail.com>
 Luciano <lucianopcbr@gmail.com>
 Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
+Marcos <marcos.rpj2@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Martín Olivera <molivera@solar.org.ar>
+Maurilio Atila <cabelotaina@gmail.com>
+M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
 Nanda Lopes <nanda.listas+psl@gmail.com>
+Niemand Jedermann <predatorix@web.de>
 Parley Martins <parleypachecomartins@gmail.com>
 Paulo Meirelles + Alessandro Palmeira + João M. M. da Silva <paulo@softwarelivre.org>
 Paulo Meirelles + Alessandro Palmeira <paulo@softwarelivre.org>
@@ -234,8 +244,11 @@ Ronny Kursawe <kursawe.ronny@googlemail.com>
 root <root@debian.sdr.serpro>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Tallys Martins <tallysmartins@gmail.com>
+Tallys Martins <tallysmartins@yahoo.com.br>
+tallys <tallys@tallys>
 tallys <tallys@tallys.(none)>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
+Tuux <tuxa@galaxie.eu.org>
 Valessio Brito <contato@valessiobrito.com.br>
 Valessio Brito <contato@valessiobrito.info>
 Valessio Brito <valessio@gmail.com>

@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -29,15 +29,15 @@ msgstr ""
 msgid "Tolerance Adjustements"
 msgstr "Toleranzeinstellung"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:35
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:50
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:34
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:48
 msgid ""
 "This content can't be edited anymore because it expired the tolerance time"
 msgstr ""
 "Der Beitrag kann nicht weiter editiert werden, da die Toleranzzeit "
 "abgelaufen ist"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:62
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:60
 msgid "The tolerance time for editing this content is over."
 msgstr "Die Toleranzzeit für das Editieren dieses Beitrags ist vorbei."
 

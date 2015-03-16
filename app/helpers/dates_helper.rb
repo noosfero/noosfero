@@ -2,13 +2,15 @@ require 'noosfero/i18n'
 
 module DatesHelper
 
-  MONTHS = I18n.t('date.month_names')
+  def months
+    I18n.t('date.month_names')
+  end
 
   def month_name(n, abbreviated = false)
     if abbreviated
       I18n.t('date.abbr_month_names')[n]
     else
-      MONTHS[n]
+      months[n]
     end
   end
 
@@ -37,7 +39,7 @@ module DatesHelper
     end
   end
 
-  # formats a datetime for displaying. 
+  # formats a datetime for displaying.
   def show_time(time)
     if time
       _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.strftime("%M") }
@@ -138,7 +140,7 @@ module DatesHelper
     else
       order = [:day, :month, :year]
     end
-    date_select(object, method, html_options.merge(options.merge(:include_blank => true, :order => order, :use_month_names => MONTHS)))
+    date_select(object, method, html_options.merge(options.merge(:include_blank => true, :order => order, :use_month_names => months)))
   end
 
 end

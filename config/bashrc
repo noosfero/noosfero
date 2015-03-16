@@ -1,2 +1,0 @@
-export PS1="[Noosfero upgrade] (\w) $ "
-eval `dircolors -b`

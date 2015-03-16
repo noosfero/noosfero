@@ -571,7 +571,7 @@ class ApplicationHelperTest < ActionView::TestCase
     env = Environment.default
     env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
     stubs(:environment).returns(env)
-    person = Person.new
+    person = Person.new identifier: 'person'
     person.stubs(:url).returns('url for person')
     person.stubs(:public_profile_url).returns('url for person')
     links = links_for_balloon(person)
@@ -582,7 +582,7 @@ class ApplicationHelperTest < ActionView::TestCase
     env = Environment.default
     env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
     stubs(:environment).returns(env)
-    community = Community.new
+    community = Community.new identifier: 'comm'
     community.stubs(:url).returns('url for community')
     community.stubs(:public_profile_url).returns('url for community')
     links = links_for_balloon(community)
@@ -593,7 +593,7 @@ class ApplicationHelperTest < ActionView::TestCase
     env = Environment.default
     env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
     stubs(:environment).returns(env)
-    enterprise = Enterprise.new
+    enterprise = Enterprise.new identifier: 'coop'
     enterprise.stubs(:url).returns('url for enterprise')
     enterprise.stubs(:public_profile_url).returns('url for enterprise')
     stubs(:catalog_path)

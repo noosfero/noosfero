@@ -145,11 +145,9 @@ class Event < Article
     ((self.end_date || self.start_date) - self.start_date).to_i
   end
 
+  alias_method :article_lead, :lead
   def lead
-    content_tag('div',
-      show_period(start_date, end_date),
-      :class => 'event-dates'
-    ) + super
+    self.class.action_view.render 'content_viewer/event_lead', event: self
   end
 
   def event?

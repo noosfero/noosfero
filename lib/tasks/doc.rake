@@ -1,3 +1,6 @@
+require 'noosfero'
+require 'pathname'
+
 namespace :noosfero do
   namespace :doc do
     def plugins_textiles
@@ -9,8 +12,9 @@ namespace :noosfero do
       end
     end
     task :unlink_plugins_textiles do
-      rm_f Dir.glob(Rails.root.join('doc/noosfero/plugins/*.textile')) -
-        [Rails.root.join('doc/noosfero/plugins/index.textile')]
+      root = Pathname.new(File.dirname(__FILE__) + '/../..').expand_path
+      rm_f Dir.glob(root.join('doc/noosfero/plugins/*.textile')) -
+        [root.join('doc/noosfero/plugins/index.textile')]
     end
     input = Dir.glob('doc/noosfero/**/*.textile') + plugins_textiles.map{|i| "doc/noosfero/plugins/#{File.basename(i)}"}
     topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }.uniq
@@ -22,7 +26,8 @@ namespace :noosfero do
       begin
         require 'redcloth'
         File.open(output ,'w') do |output_file|
-          output_file.write(RedCloth.new(File.read(input)).to_html)
+          text = File.read(input, encoding: Encoding::UTF_8)
+          output_file.write(RedCloth.new(text).to_html)
           puts "#{input} -> #{output}"
         end
       rescue Exception => e

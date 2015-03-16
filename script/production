@@ -26,11 +26,11 @@ clear_cache() {
 }
 
 do_start() {
-  rake db:migrate SCHEMA=/dev/null
+  bundle exec rake db:migrate SCHEMA=/dev/null
   clear_cache
   environments_loop start
-  whenever --write-crontab --set 'environment=production'
-  ruby -S thin -C config/thin.yml start
+  bundle exec whenever --write-crontab --set 'environment=production'
+  ruby -S bundle exec thin -C config/thin.yml start
 }
 
 do_stop() {
@@ -39,23 +39,23 @@ do_stop() {
   # back to stopping the daemons by manually reading their PID files, killing
   # them and wiping the PID files.
 
-  ruby -S thin -C config/thin.yml stop ||
+  ruby -S bundle exec thin -C config/thin.yml stop ||
     stop_via_pid_file tmp/pids/thin.*.pid
 
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
 
-  whenever --clear-crontab
+  bundle exec whenever --clear-crontab
 }
 
 do_restart() {
-  rake db:migrate SCHEMA=/dev/null
+  bundle exec rake db:migrate SCHEMA=/dev/null
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
   environments_loop start
 
   clear_cache
-  ruby -S thin -C config/thin.yml restart --onebyone
+  ruby -S bundle exec thin -C config/thin.yml restart --onebyone
 }
 
 stop_via_pid_file() {
@@ -71,16 +71,16 @@ stop_via_pid_file() {
 
 environments_loop() {
   action="$1"
-  environments=$(find ./config/environments -name *_$RAILS_ENV.rb)
+  environments=$(find ./config/environments -name "*_${RAILS_ENV}.rb")
   if [ "$environments" ]; then
     for environment in $environments; do
       env=$(basename $environment | cut -d. -f1)
-      RAILS_ENV=$env ./script/delayed_job -i $env "$action"
-      RAILS_ENV=$env ./script/feed-updater "$action" -i $env
+      RAILS_ENV=$env bundle exec ./script/delayed_job -i $env "$action"
+      RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
     done
   else
-    ./script/delayed_job "$action"
-    ./script/feed-updater "$action"
+    bundle exec ./script/delayed_job "$action"
+    bundle exec ./script/feed-updater "$action"
   fi
 }
 

@@ -1,6 +1,5 @@
 # encoding: UTF-8
 
-require 'noosfero/version'
 $version = Noosfero::VERSION
 
 namespace :noosfero do
@@ -132,13 +131,13 @@ EOF
 
     if target =~ /-test$/
       if new_version =~ /~rc\d+/
-        new_version.sub!(/\~rc([0-9]+)/) { "~rc#{$1.to_i + 1}" }
+        new_version.sub!(/\~rc([0-9]+).*/) { "~rc#{$1.to_i + 1}" }
       else
         new_version += '~rc1'
       end
     else
-      if new_version =~ /~rc\d+/
-        new_version.sub!(/~rc[0-9]+/, '')
+      if new_version =~ /~rc\d+.*/
+        new_version.sub!(/~rc[0-9]+.*/, '')
       else
         components = new_version.split('.').map(&:to_i)
         if components.size < 3
@@ -158,9 +157,10 @@ EOF
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{new_version}'/\" lib/noosfero/version.rb"
     ENV['DEBFULLNAME'] ||= `git config user.name`.strip
     ENV['DEBEMAIL'] ||= `git config user.email`.strip
-    sh "dch --newversion #{new_version} --distribution #{target} --force-distribution '#{release_message}'"
+    distribution = `dpkg-parsechangelog | sed '/Distribution:/!d; s/^.*:\s*//'`.strip
+    sh "dch --newversion #{new_version} --distribution #{distribution} --force-distribution '#{release_message}'"
 
-    sh 'git diff debian/changelog lib/noosfero/version.rb'
+    sh 'git diff --color debian/changelog lib/noosfero/version.rb'
     if confirm("Commit version bump to #{new_version} on #{target} distribution")
       sh 'git add debian/changelog lib/noosfero/version.rb'
       sh "git commit -m 'Bumping version #{new_version}'"

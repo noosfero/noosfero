@@ -85,6 +85,13 @@ module ActsAsFileSystem
       end
     end
 
+    def descendents_options
+      ["#{self.ancestry_column} LIKE ?", "%#{self.formatted_ancestry_id}%"]
+    end
+    def descendents
+      self.class.scoped :conditions => descendents_options
+    end
+
     # calculates the level of the record in the records hierarchy. Top-level
     # records have level 0; the children of the top-level records have
     # level 1; the children of records with level 1 have level 2, and so on.

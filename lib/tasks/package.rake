@@ -1,4 +1,3 @@
-
 desc "Generate source tarball"
 task :package => 'package:clobber' do
   require_dependency 'noosfero'

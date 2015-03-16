@@ -11,18 +11,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-02 21:44-0300\n"
-"PO-Revision-Date: 2014-12-18 18:40-0200\n"
-"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"Project-Id-Version: 1.0-690-gcb6e853\n"
+"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"PO-Revision-Date: 2015-03-12 14:41+0200\n"
+"Last-Translator: daniel <dtygel@eita.org.br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
+"/plugin-people-block/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: plugins/people_block/lib/friends_block.rb:8
 msgid "Clicking a friend takes you to his/her homepage"
@@ -74,3 +74,11 @@ msgstr "Filtrar por papel:"
 #: plugins/people_block/views/blocks/friends.html.erb:1
 msgid "friends|View all"
 msgstr "Ver todos"
+
+#: plugins/people_block/views/blocks/friends.html.erb:5
+msgid "Some suggestions for you"
+msgstr "Algumas sugestões para você"
+
+#: plugins/people_block/views/blocks/friends.html.erb:10
+msgid "See all suggestions"
+msgstr "Veja todas as sugestões"
