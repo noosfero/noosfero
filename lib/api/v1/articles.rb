@@ -3,6 +3,8 @@ module API
     class Articles < Grape::API
       before { authenticate! }
 
+      ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
+
       resource :articles do
 
         # Collect articles
@@ -16,7 +18,7 @@ module API
         #  GET host/api/v1/articles?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
         get do
           articles = select_filtered_collection_of(environment, 'articles', params)
-          articles = articles.display_filter(current_user.person, nil)
+          articles = articles.display_filter(current_person, nil)
           present articles, :with => Entities::Article
         end
 
@@ -29,7 +31,7 @@ module API
         get ':id/children' do
           article = find_article(environment.articles, params[:id])
           articles = select_filtered_collection_of(article, 'children', params)
-          articles = articles.display_filter(current_user.person, nil)
+          articles = articles.display_filter(current_person, nil)
           present articles, :with => Entities::Article
         end
 
@@ -46,11 +48,11 @@ module API
             get do
               community = environment.communities.find(params[:community_id])
               articles = select_filtered_collection_of(community, 'articles', params)
-              articles = articles.display_filter(current_user.person, community)
+              articles = articles.display_filter(current_person, community)
               present articles, :with => Entities::Article
             end
 
-            get '/:id' do
+            get ':id' do
               community = environment.communities.find(params[:community_id])
               article = find_article(community.articles, params[:id])
               present article, :with => Entities::Article
@@ -60,9 +62,11 @@ module API
             #  POST api/v1/communites/:community_id/articles?private_toke=234298743290432&article[name]=title&article[body]=body
             post do
               community = environment.communities.find(params[:community_id])
-              return forbidden! unless current_user.person.can_post_content?(community)
+              return forbidden! unless current_person.can_post_content?(community)
 
               klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+              return forbidden! unless ARTICLE_TYPES.include?(klass_type)
+
               article = klass_type.constantize.new(params[:article])
               article.last_changed_by = current_person
               article.created_by= current_person
