@@ -1,3 +1,9 @@
+noosfero (1.0.5) wheezy; urgency=low
+
+  * Bugfixes
+
+ -- Daniela Feitosa <danielafeitosa@colivre.coop.br>  Tue, 17 Mar 2015 16:40:03 -0300
+
 noosfero (1.0.4) wheezy; urgency=low
 
   * Maintainance release
