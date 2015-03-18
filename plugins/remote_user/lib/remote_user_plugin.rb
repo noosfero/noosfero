@@ -16,10 +16,7 @@ class RemoteUserPlugin < Noosfero::Plugin
         user_data = request.env['HTTP_REMOTE_USER_DATA']
 
         if remote_user.blank?
-          if logged_in?
-            self.current_user.forget_me
-            reset_session
-          end
+          self.current_user = nil
         else
           if user_data.blank?
             remote_user_email = remote_user + '@remote.user'

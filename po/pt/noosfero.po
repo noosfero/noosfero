@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2014-12-18 18:40-0200\n"
-"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"PO-Revision-Date: 2015-03-14 22:06+0200\n"
+"Last-Translator: daniel <dtygel@eita.org.br>\n"
+"Language-Team: Portuguese "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.0\n"
+"X-Generator: Weblate 2.3-dev\n"
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
@@ -194,10 +194,8 @@ msgstr ""
 "%{requestor} convidou você para ser integrante da comunidade %{community}."
 
 #: app/models/invite_member.rb:45
-#, fuzzy
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
-msgstr ""
-"%{requestor} convidou você para ser integrante da comunidade %{community}."
+msgstr "%{requestor} convidou você para ingressar na comunidade %{community}."
 
 #: app/models/invite_member.rb:57 app/models/invite_friend.rb:37
 msgid "Hello <friend>,"
@@ -336,13 +334,12 @@ msgid "Acronym"
 msgstr "Sigla"
 
 #: app/models/category.rb:8
-#, fuzzy
 msgid "Abbreviation"
-msgstr "Convite"
+msgstr "Abreviação"
 
 #: app/models/category.rb:9 app/models/article.rb:19
 msgid "Slug"
-msgstr ""
+msgstr "Texto curto"
 
 #: app/models/category.rb:12
 msgid "{fn} cannot be like that."
@@ -608,7 +605,6 @@ msgid "Stays on the same page the user was before signup."
 msgstr "Permanece na mesma página que o usuário estava antes do cadastro."
 
 #: app/models/environment.rb:162
-#, fuzzy
 msgid "Redirects the user to the environment welcome page."
 msgstr "Redireciona o usuário para a página inicial do ambiente."
 
@@ -769,18 +765,16 @@ msgid "{fn} of uploaded file was larger than the maximum size of 5.0 MB"
 msgstr "{fn} do arquivo enviado é maior que o máximo permitido de 5.0 MB"
 
 #: app/models/profile_suggestion.rb:35 app/models/profile_suggestion.rb:38
-#, fuzzy
 msgid "Friends in common"
-msgstr "Convite de amizade"
+msgstr "Amigas/os em comum"
 
 #: app/models/profile_suggestion.rb:36
-#, fuzzy
 msgid "Communities in common"
-msgstr "Menu de comunidades"
+msgstr "Comunidades em comum"
 
 #: app/models/profile_suggestion.rb:37 app/models/profile_suggestion.rb:39
 msgid "Tags in common"
-msgstr ""
+msgstr "Palavras-chave (tags) em comum"
 
 #: app/models/person.rb:13 app/models/link_list_block.rb:29
 #: app/views/templates/index.html.erb:5
@@ -1002,9 +996,8 @@ msgid "Raw HTML"
 msgstr "HTML puro"
 
 #: app/models/person_notifier.rb:102
-#, fuzzy
 msgid "[%s] Notifications"
-msgstr "Opções de notificação"
+msgstr "[%s] notificações"
 
 #: app/models/moderate_user_registration.rb:29
 #: app/views/account/login.html.erb:29
@@ -1169,12 +1162,10 @@ msgid "Article not selected yet."
 msgstr "Nenhum artigo selecionado ainda."
 
 #: app/models/article.rb:17
-#, fuzzy
 msgid "Abstract"
 msgstr "Resumo"
 
 #: app/models/article.rb:20
-#, fuzzy
 msgid "Filename"
 msgstr "Nome do arquivo"
 
@@ -2012,9 +2003,8 @@ msgid "CreateEnterprise|Identifier"
 msgstr "Identificador"
 
 #: app/models/license.rb:7
-#, fuzzy
 msgid "URL"
-msgstr "URL:"
+msgstr "Endereço na internet"
 
 #: app/models/enterprise_homepage.rb:4 app/models/enterprise_homepage.rb:16
 #: app/views/blocks/profile_info.html.erb:18
@@ -2234,9 +2224,8 @@ msgid "None"
 msgstr "Nenhum(a)"
 
 #: app/models/certifier.rb:8
-#, fuzzy
 msgid "Link"
-msgstr "Links"
+msgstr "Link"
 
 #: app/models/products_block.rb:19
 msgid "This block presents a list of your products."
@@ -2255,9 +2244,8 @@ msgid "Subscribe RSS Feed"
 msgstr "Assinar feed RSS"
 
 #: app/models/national_region.rb:5
-#, fuzzy
 msgid "Region Code"
-msgstr "Região"
+msgstr "Código de região"
 
 #: app/models/national_region.rb:72
 msgid "Invalid city or state name."
@@ -2791,9 +2779,8 @@ msgid "The contents in this profile is available to members only."
 msgstr "O conteúdo deste perfil está disponível apenas para os seus membros."
 
 #: app/helpers/application_helper.rb:1459
-#, fuzzy
 msgid "See all connections"
-msgstr "Buscar todo o conteúdo"
+msgstr "Ver todas as conexões"
 
 #: app/helpers/manage_products_helper.rb:156
 #: app/views/manage_products/_display_category.html.erb:3
@@ -2882,7 +2869,7 @@ msgstr "%{currency} %{production_cost} de %{currency} %{product_price}"
 
 #: app/helpers/search_helper.rb:9
 msgid "Order"
-msgstr ""
+msgstr "Ordenação"
 
 #: app/helpers/search_helper.rb:10 app/helpers/search_helper.rb:117
 msgid "Display"
@@ -3079,14 +3066,12 @@ msgid "Private"
 msgstr "Privado"
 
 #: app/helpers/article_helper.rb:100
-#, fuzzy
 msgid "For all community members"
-msgstr "Criar um modelos de comunidade"
+msgstr "Para todos os integrantes da comunidade"
 
 #: app/helpers/article_helper.rb:100
-#, fuzzy
 msgid "For all your friends"
-msgstr "Convide seus amigos"
+msgstr "Para todos os seus amigos"
 
 #: app/helpers/article_helper.rb:118
 msgid "Fill in the search field to add the exception users to see this content"
@@ -4063,25 +4048,22 @@ msgid "Name has already been taken"
 msgstr "O nome já está sendo utilizado"
 
 #: app/controllers/admin/templates_controller.rb:47
-#, fuzzy
 msgid "Community not found. The template could no be changed."
-msgstr "O modelo não pode ser salvo"
+msgstr "Comunidade não encontrada. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/templates_controller.rb:51
 #: app/controllers/admin/templates_controller.rb:65
 #: app/controllers/admin/templates_controller.rb:79
 msgid "%s defined as default"
-msgstr ""
+msgstr "%s definido como padrão"
 
 #: app/controllers/admin/templates_controller.rb:61
-#, fuzzy
 msgid "Person not found. The template could no be changed."
-msgstr "O modelo não pode ser salvo"
+msgstr "Pessoa não encontrada. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/templates_controller.rb:75
-#, fuzzy
 msgid "Enterprise not found. The template could no be changed."
-msgstr "O modelo não pode ser salvo"
+msgstr "Empreendimento não encontrado. O modelo não pôde ser alterado."
 
 #: app/controllers/admin/plugins_controller.rb:12
 msgid "Plugins updated successfully."
@@ -4173,9 +4155,8 @@ msgid "Please enter a valid email address."
 msgstr "Por favor entre um endereço de e-mail válido."
 
 #: app/controllers/public/invite_controller.rb:77
-#, fuzzy
 msgid "Please enter a valid profile."
-msgstr "Por favor entre um endereço de e-mail válido."
+msgstr "Por favor entre com um perfil válido."
 
 #: app/controllers/public/search_controller.rb:52
 msgid "Upcoming events"
@@ -4408,9 +4389,8 @@ msgid "\"%s\" configured as homepage."
 msgstr "\"%s\" configurado como página inicial."
 
 #: app/controllers/my_profile/cms_controller.rb:223
-#, fuzzy
 msgid "File(s) successfully uploaded"
-msgstr "Papéis alterado com sucesso"
+msgstr "Arquivo(s) enviado(s) com sucesso"
 
 #: app/controllers/my_profile/cms_controller.rb:239
 msgid "\"%s\" was removed."
@@ -4427,9 +4407,8 @@ msgid "Select some group to publish your article"
 msgstr "Selecione os grupos onde você quer publicar seu artigo"
 
 #: app/controllers/my_profile/cms_controller.rb:322
-#, fuzzy
 msgid "Some of your publish requests couldn't be sent."
-msgstr "Sua requisição de publicação não pode ser enviada."
+msgstr "Alguns dos seus pedidos de publicação não puderam ser enviados."
 
 #: app/controllers/my_profile/cms_controller.rb:337
 msgid "Your publish request couldn't be sent."
@@ -4455,9 +4434,8 @@ msgid "Images"
 msgstr "Imagens"
 
 #: app/controllers/my_profile/cms_controller.rb:495
-#, fuzzy
 msgid "Files"
-msgstr "File"
+msgstr "Arquivos"
 
 #: app/controllers/my_profile/tasks_controller.rb:39
 msgid "All decisions were applied successfully."
@@ -4500,33 +4478,28 @@ msgid "Could not delete profile"
 msgstr "Não foi possível remover o perfil"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:99
-#, fuzzy
 msgid "Welcome page saved successfully."
-msgstr "e-Mail desabilitado com sucesso."
+msgstr "Página de boas vindas salva com sucesso."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:102
-#, fuzzy
 msgid "Welcome page could not be saved."
-msgstr "O modelo não pode ser salvo"
+msgstr "A página de boas vindas não pôde ser salva."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
-#, fuzzy
 msgid "\"The profile '#{profile.name}' was deactivated.\""
-msgstr "O perfil foi removido."
+msgstr "\"O perfil '#{profile.name}' foi desativado.\""
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
-#, fuzzy
 msgid "Could not deactivate profile."
-msgstr "Não foi possível remover o perfil"
+msgstr "Não foi possível desativar o perfil."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
 msgid "\"The profile '#{profile.name}' was activated.\""
-msgstr ""
+msgstr "\"O perfil '#{profile.name}' foi ativado.\""
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
-#, fuzzy
 msgid "Could not activate the profile."
-msgstr "Não foi possível remover o perfil"
+msgstr "Não foi possível ativar o perfil."
 
 #: app/controllers/my_profile/profile_members_controller.rb:78
 msgid "Member succesfully unassociated"
@@ -4597,7 +4570,7 @@ msgstr "Bem-vindo ao ambiente %s"
 
 #: app/mailers/user_mailer.rb:57
 msgid "[%s] What about grow up your network?"
-msgstr ""
+msgstr "[%s] Que tal ampliar sua rede?"
 
 #: app/mailers/pending_task_notifier.rb:15
 msgid "[%s] Pending tasks"
@@ -5332,9 +5305,8 @@ msgid "Title: "
 msgstr "Título: "
 
 #: app/views/tasks/_approve_article_accept_details.html.erb:3
-#, fuzzy
 msgid "Create a link"
-msgstr "Criado em: "
+msgstr "Criar um link"
 
 #: app/views/tasks/_approve_article_accept_details.html.erb:5
 msgid "Name for publishing"
@@ -5522,7 +5494,7 @@ msgstr "Título personalizado para este bloco: "
 
 #: app/views/box_organizer/edit.html.erb:10
 msgid "Fixed"
-msgstr ""
+msgstr "Fixo"
 
 #: app/views/box_organizer/edit.html.erb:17
 msgid "Display this block:"
@@ -5610,7 +5582,7 @@ msgstr "Código HTML"
 
 #: app/views/box_organizer/index.html.erb:1
 msgid "Editing sideboxes"
-msgstr "Editando blocos laterais"
+msgstr "Editar blocos laterais"
 
 #: app/views/box_organizer/index.html.erb:4
 msgid "Add a block"
@@ -5621,15 +5593,13 @@ msgid "Limit of posts to display"
 msgstr "Limite de postagens para exibir"
 
 #: app/views/friends/suggest.html.erb:1
-#, fuzzy
 msgid "Friends suggestions for %s"
-msgstr "Configurações do perfil para %s"
+msgstr "Sugestões de amigas/os para %s"
 
 #: app/views/friends/suggest.html.erb:4
 #: app/views/friends/connections.html.erb:4
-#, fuzzy
 msgid "Go to friends list"
-msgstr "Você não tem amigos ainda."
+msgstr "Ir para a lista de amigas/os"
 
 #: app/views/friends/_profile_list.html.erb:7
 #: app/views/friends/_profile_list.html.erb:9
@@ -5681,14 +5651,12 @@ msgstr "Não"
 
 #: app/views/friends/connections.html.erb:1
 #: app/views/memberships/connections.html.erb:1
-#, fuzzy
 msgid "Connections with %s"
-msgstr "Conteúdo marcado com \"%s\""
+msgstr "Conexões com \"%s\""
 
 #: app/views/friends/remove_suggestion.html.erb:2
-#, fuzzy
 msgid "Removing suggestion for friend: %s"
-msgstr "Removendo amigo: %s"
+msgstr "Removendo sugestão para amiga/o: %s"
 
 #: app/views/friends/index.html.erb:3 app/views/profile/friends.html.erb:3
 msgid "%s's friends"
@@ -5709,14 +5677,12 @@ msgstr "Buscar pessoas"
 #: app/views/friends/index.html.erb:19
 #: app/views/invite/select_friends.html.erb:4
 #: app/views/profile/friends.html.erb:21
-#, fuzzy
 msgid "Invite people"
-msgstr "Convidar membros"
+msgstr "Convidar pessoas"
 
 #: app/views/friends/index.html.erb:31
-#, fuzzy
 msgid "Friends suggestions"
-msgstr "Sugestão de artigo"
+msgstr "Sugestões de amigas/os"
 
 #: app/views/search/search_page.html.erb:1
 #: app/views/search/communities.html.erb:1
@@ -6006,13 +5972,12 @@ msgstr ""
 "automaticamente"
 
 #: app/views/profile_editor/edit.html.erb:55
-#, fuzzy
 msgid "Suggestions"
-msgstr "Sugestões: %s"
+msgstr "Sugestões"
 
 #: app/views/profile_editor/edit.html.erb:57
 msgid "Send me relationship suggestions by email"
-msgstr ""
+msgstr "Envie-me por e-mail sugestões de novos relacionamentos"
 
 #: app/views/profile_editor/edit.html.erb:67
 msgid "Select the categories of your interest"
@@ -6023,20 +5988,17 @@ msgid "Delete profile"
 msgstr "Remover perfil"
 
 #: app/views/profile_editor/edit.html.erb:81
-#, fuzzy
 msgid "Deactivate profile"
-msgstr "Perfil privado"
+msgstr "Desativar perfil"
 
 #: app/views/profile_editor/edit.html.erb:81
 #: app/views/profile_editor/edit.html.erb:83
-#, fuzzy
 msgid "Are you sure you want to deactivate this profile?"
-msgstr "Tem certeza que quer remover este perfil?"
+msgstr "Tem certeza que deseja desativar este perfil?"
 
 #: app/views/profile_editor/edit.html.erb:83
-#, fuzzy
 msgid "Activate profile"
-msgstr "Perfil privado"
+msgstr "Ativar perfil"
 
 #: app/views/profile_editor/disable.html.erb:1
 msgid "Disabling '%s' enterprise"
@@ -6072,35 +6034,39 @@ msgstr "Sim, quero habilitar."
 #: app/views/profile_editor/welcome_page.html.erb:1
 #: app/views/profile_editor/index.html.erb:71
 #: app/views/templates/index.html.erb:32
-#, fuzzy
 msgid "Edit welcome page"
-msgstr "Texto de boas vindas no registro"
+msgstr "Editar página de boas vindas"
 
 #: app/views/profile_editor/welcome_page.html.erb:8
 msgid "Your welcome page will only be displayed if this options is selected."
 msgstr ""
+"Sua página de boas vindas será exibida apenas se esta opção estiver "
+"selecionada."
 
 #: app/views/profile_editor/welcome_page.html.erb:13
 msgid ""
 "This page will be displayed to the user after his signup with this template."
 msgstr ""
+"Esta página será exibida assim que o novo usuário se registrar com este tema."
 
 #: app/views/profile_editor/_moderation.html.erb:1
 msgid "Moderation options"
 msgstr "Opções de moderação"
 
 #: app/views/profile_editor/_moderation.html.erb:4
-#, fuzzy
 msgid "Invitation moderation:"
-msgstr "Texto do convite:"
+msgstr "Moderação de convite:"
 
 #: app/views/profile_editor/_moderation.html.erb:9
 msgid "Allow all members to send invitation (Default: only administrator)"
 msgstr ""
+"Permitir que todos os integrantes enviem convite (Padrão: apenas "
+"administrador)"
 
 #: app/views/profile_editor/_moderation.html.erb:15
 msgid "Allow members to invite only friends (Default: all users)"
 msgstr ""
+"Permitir que integrantes convidem apenas amigos (Padrão: todos os usuários)"
 
 #: app/views/profile_editor/_moderation.html.erb:22
 #: app/views/memberships/new_community.html.erb:32
@@ -6303,23 +6269,20 @@ msgid "Offline"
 msgstr "Desconectado"
 
 #: app/views/shared/logged_in/xmpp_chat.html.erb:60
-#, fuzzy
 msgid "Join room"
-msgstr "Entrar"
+msgstr "Entrar na sala de bate-papo"
 
 #: app/views/shared/logged_in/xmpp_chat.html.erb:61
-#, fuzzy
 msgid "Leave room"
-msgstr "Deixe seu comentário"
+msgstr "Sair da sala de bate-papo"
 
 #: app/views/shared/_profile_connections.html.erb:2
-#, fuzzy
 msgid "Profiles in common:"
-msgstr "Informações do perfil"
+msgstr "Perfis em comum:"
 
 #: app/views/shared/_profile_connections.html.erb:17
 msgid "Tags in common:"
-msgstr ""
+msgstr "Palavras-chave (tags) em comum:"
 
 #: app/views/shared/access_denied.html.erb:3 lib/authenticated_system.rb:79
 msgid "Access denied"
@@ -6445,27 +6408,23 @@ msgid "Admin"
 msgstr "Administrador"
 
 #: app/views/shared/_profile_suggestions_list.html.erb:6
-#, fuzzy
 msgid "You have no more suggestions :("
-msgstr "Você tem solicitações pendentes"
+msgstr "Não há nenhuma outra sugestão para você :("
 
 #: app/views/shared/_profile_suggestions_list.html.erb:19
 #: app/views/shared/_profile_suggestions_list.html.erb:26
-#, fuzzy
 msgid "Add suggestion"
-msgstr "Sugestão de artigo"
+msgstr "Adicionar sugestão"
 
 #: app/views/shared/_profile_suggestions_list.html.erb:39
 #: app/views/shared/_profile_suggestions_list.html.erb:47
-#, fuzzy
 msgid "Remove suggestion"
-msgstr "Sugestão de artigo"
+msgstr "Remover sugestão"
 
 #: app/views/shared/_profile_suggestions_list.html.erb:40
 #: app/views/shared/_profile_suggestions_list.html.erb:48
-#, fuzzy
 msgid "Are you sure you want to remove this suggestion?"
-msgstr "Tem certeza de que deseja excluir esta sugestão de artigo?"
+msgstr "Tem certeza que deseja remover esta sugestão?"
 
 #: app/views/shared/_profile_search_form.html.erb:4
 #: app/views/shared/_profile_search_form.html.erb:8
@@ -6481,14 +6440,12 @@ msgid "Search all content"
 msgstr "Buscar todo o conteúdo"
 
 #: app/views/shared/_remove_suggestion.html.erb:4
-#, fuzzy
 msgid "Are you sure you want to remove %s from your suggestions list?"
-msgstr "Tem certeza que quer remover %s da sua lista de amigos?"
+msgstr "Tem certeza que quer remover %s da sua lista de sugestões?"
 
 #: app/views/shared/_remove_suggestion.html.erb:8
-#, fuzzy
 msgid "Yes, I want to remove %s"
-msgstr "Sim, quero sair."
+msgstr "Sim, quero remover %s"
 
 #: app/views/shared/_lead_and_body.html.erb:18
 msgid "Used when a short version of your text is needed."
@@ -6622,42 +6579,36 @@ msgid "Create a new template for %s"
 msgstr "Criar um novo modelo para %s"
 
 #: app/views/templates/index.html.erb:16
-#, fuzzy
 msgid "Template"
-msgstr "Editar Modelos"
+msgstr "Tema"
 
 #: app/views/templates/index.html.erb:23
 msgid "Edit template \"%s\""
 msgstr "Editar modelo \"%s\""
 
 #: app/views/templates/index.html.erb:25
-#, fuzzy
 msgid "is the default template"
-msgstr "Usar o tema padrão"
+msgstr "é o modelo padrão"
 
 #: app/views/templates/index.html.erb:27
 msgid "Set as default"
-msgstr ""
+msgstr "Definir como padrão"
 
 #: app/views/templates/index.html.erb:27
-#, fuzzy
 msgid "Set %s template as default"
-msgstr "O novo modelo foi criado"
+msgstr "Definir o modelo %s como padrão"
 
 #: app/views/templates/index.html.erb:31
-#, fuzzy
 msgid "Edit settings"
-msgstr "Configurações de e-mail"
+msgstr "Editar configurações"
 
 #: app/views/templates/index.html.erb:33
-#, fuzzy
 msgid "Edit sideblocks"
 msgstr "Editar blocos laterais"
 
 #: app/views/templates/index.html.erb:35
-#, fuzzy
 msgid "Edit header/footer"
-msgstr "Editando cabeçalho e rodapé"
+msgstr "Editar cabeçalho/rodapé"
 
 #: app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -6723,17 +6674,19 @@ msgstr "O que fazer agora?"
 
 #: app/views/home/welcome.html.erb:20
 msgid "Access your %s and see your face on the network!"
-msgstr ""
+msgstr "Acesse seu %s e veja sua cara na rede!"
 
 #: app/views/home/welcome.html.erb:22
 msgid ""
 "You can also explore your %s to customize your profile. Here are some %s on "
 "what you can do there."
 msgstr ""
+"Você pode também explorar seu %s para customizar seu perfil. Aqui há algumas "
+"%s sobre o que você pode fazer."
 
 #: app/views/home/welcome.html.erb:24
 msgid "tips"
-msgstr ""
+msgstr "dicas"
 
 #: app/views/home/welcome.html.erb:25
 msgid "%s your Gmail, Yahoo and Hotmail contacts!"
@@ -6761,7 +6714,7 @@ msgstr "Comece a explorar e divirta-se!"
 
 #: app/views/home/welcome.html.erb:29
 msgid "What can I do as a %s?"
-msgstr ""
+msgstr "O que posso fazer como %s?"
 
 #: app/views/home/index.html.erb:2
 msgid "News"
@@ -6988,9 +6941,8 @@ msgstr "Adicionar integrantes"
 #: app/views/invite/select_friends.html.erb:6
 #: app/views/invite/invite_friends.html.erb:5
 #: app/views/profile/members.html.erb:21
-#, fuzzy
 msgid "Invite people to join"
-msgstr "Convide seus amigos para entrar em %s"
+msgstr "Convide seus amigos para entrar"
 
 #: app/views/profile_members/_index_buttons.html.erb:8
 #: app/views/profile/send_mail.html.erb:3
@@ -7106,35 +7058,30 @@ msgid "Regions"
 msgstr "Regiões"
 
 #: app/views/memberships/welcome.html.erb:1
-#, fuzzy
 msgid "Community created"
-msgstr "Comunidade"
+msgstr "Comunidade criada"
 
 #: app/views/memberships/welcome.html.erb:2
-#, fuzzy
 msgid "Your community (%s) was successfully created."
-msgstr "Seu empreendimento (%s) foi registrado com sucesso."
+msgstr "Sua comunidade (%s) foi criada com sucesso."
 
 #: app/views/memberships/welcome.html.erb:3
-#, fuzzy
 msgid "You can manage your community now."
-msgstr "Você pode gerenciar seu empreendimento agora."
+msgstr "Agora você já pode gerenciar sua comunidade."
 
 #: app/views/memberships/welcome.html.erb:5
 #: app/views/enterprise_registration/creation.html.erb:5
 msgid "What can I do with a %s?"
-msgstr ""
+msgstr "O que posso fazer com um %s?"
 
 #: app/views/memberships/suggest.html.erb:1
-#, fuzzy
 msgid "Communities suggestions for %s"
-msgstr "Configurações do perfil para %s"
+msgstr "Sugestões de comunidades para %s"
 
 #: app/views/memberships/suggest.html.erb:4
 #: app/views/memberships/connections.html.erb:4
-#, fuzzy
 msgid "Go to groups list"
-msgstr "Nenhum grupo para listar"
+msgstr "Ir para a lista de grupos"
 
 #: app/views/memberships/new_community.html.erb:1
 msgid "Creating new community"
@@ -7153,7 +7100,7 @@ msgstr ""
 
 #: app/views/memberships/remove_suggestion.html.erb:2
 msgid "Removing suggestion for community: %s"
-msgstr ""
+msgstr "Removendo sugestão para a comunidade %s"
 
 #: app/views/memberships/index.html.erb:6
 #: app/views/profile/communities.html.erb:19
@@ -7166,9 +7113,8 @@ msgid "Register a new enterprise"
 msgstr "Registrar um novo empreendimento"
 
 #: app/views/memberships/index.html.erb:19
-#, fuzzy
 msgid "See some suggestions of communities..."
-msgstr "Administrador tem que aprovar a criação de comunidades"
+msgstr "Veja algumas sugestões de comunidades..."
 
 #: app/views/memberships/index.html.erb:23
 msgid "No groups to list"
@@ -7574,9 +7520,8 @@ msgid "Drag images to add them to the text."
 msgstr "Arraste as imagens para adicioná-las ao texto."
 
 #: app/views/cms/_drag_and_drop_note.html.erb:4
-#, fuzzy
 msgid "Click on file names to add links to the text."
-msgstr "Arraste as imagens para adicioná-las ao texto."
+msgstr "Clique no nome dos arquivos para adicionar links ao texto."
 
 #: app/views/cms/upload_files.html.erb:3
 msgid "This file couldn't be saved"
@@ -7609,34 +7554,28 @@ msgid "Insert media"
 msgstr "Adicionar mídia"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:8
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Mostrar"
+msgstr "Mostrar/Ocultar"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:21
-#, fuzzy
 msgid "New folder"
-msgstr "pasta superior"
+msgstr "Nova pasta"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:26
-#, fuzzy
 msgid "Hide all uploads"
-msgstr "Ver todos os produtos"
+msgstr "Ocultar todos os envios"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:27
-#, fuzzy
 msgid "Show all uploads"
-msgstr "Ver todos os produtos"
+msgstr "Mostrar todos os envios"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:33
-#, fuzzy
 msgid "Recent media"
-msgstr "Adicionar mídia"
+msgstr "Imagens e arquivos recentes"
 
 #: app/views/cms/_link_article.html.erb:3
-#, fuzzy
 msgid "Reference"
-msgstr "Url de referência"
+msgstr "Referência"
 
 #: app/views/cms/select_article_type.html.erb:3
 msgid "Choose the type of content:"
@@ -7647,46 +7586,48 @@ msgid "This is a republication of \"%s\", by %s."
 msgstr "Esta é uma republicação de \"%s\", por %s."
 
 #: app/views/cms/publish.html.erb:3
-#, fuzzy
 msgid "Where do you want to publish this article?"
-msgstr "Selecione os grupos onde você quer publicar seu artigo"
+msgstr "Onde você deseja publicar este artigo?"
 
 #: app/views/cms/publish.html.erb:7
 msgid "There were errors with the following communities: "
 msgstr "Houve problemas com as seguintes comunidades: "
 
 #: app/views/cms/publish.html.erb:22
-#, fuzzy
 msgid "Publish this article on your profile"
-msgstr "Publicar seu artigo na comunidade portal"
+msgstr "Publicar este artigo no seu perfil"
 
 #: app/views/cms/publish.html.erb:23
 msgid ""
 "You can publish this article on your profile where your friends and "
 "followers will see."
 msgstr ""
+"Você pode publicar este artigo no seu perfil, para seus amigos e seguidores "
+"poderem ver."
 
 #: app/views/cms/publish.html.erb:37
-#, fuzzy
 msgid "Publish this article on communities you are part of"
-msgstr "Publicar seu artigo na comunidade portal"
+msgstr "Publicar este artigo em comunidades que você faz parte"
 
 #: app/views/cms/publish.html.erb:38
 msgid ""
 "You can submit this article to one or more communities you are a member of, "
 "just search for the community below."
 msgstr ""
+"Você pode enviar este artigo para uma ou mais comunidades das quais você faz "
+"parte. Basta buscar a(s) comunidade(s) abaixo."
 
 #: app/views/cms/publish.html.erb:42
-#, fuzzy
 msgid "Type in a search for your community"
-msgstr "Digite um termo de pesquisa para os usuários"
+msgstr "Digite um termo de busca para a(s) comunidade(s)"
 
 #: app/views/cms/publish.html.erb:55
 msgid ""
 "You can suggest this article to the portal community, where it can show up "
 "on the homepage."
 msgstr ""
+"Você pode sugerir este artigo para a comunidade do portal, de modo que ele "
+"apareça na página inicial."
 
 #: app/views/cms/destroy.html.erb:1
 msgid "Delete: %s"
@@ -7709,14 +7650,12 @@ msgid "Yes, I want."
 msgstr "Sim, eu quero."
 
 #: app/views/cms/_media_new_folder.html.erb:1
-#, fuzzy
 msgid "Create new folder"
-msgstr "Criar um novo papel"
+msgstr "Criar nova pasta"
 
 #: app/views/cms/_media_new_folder.html.erb:3
-#, fuzzy
 msgid "Choose parent folder:"
-msgstr "pasta superior"
+msgstr "Escolha a pasta-mãe:"
 
 #: app/views/cms/_media_new_folder.html.erb:11
 #: app/views/manage_products/_form.html.erb:6
@@ -7826,14 +7765,12 @@ msgid "You can manage your enterprise now."
 msgstr "Você pode gerenciar seu empreendimento agora."
 
 #: app/views/person_notifier/mailer/content_summary.html.erb:8
-#, fuzzy
 msgid "%s's Notifications"
-msgstr "Opções de notificação"
+msgstr "Notificações de %s"
 
 #: app/views/person_notifier/mailer/content_summary.html.erb:23
-#, fuzzy
 msgid "Network Activity"
-msgstr "[%s] Atividade da Rede"
+msgstr "Atividade da rede"
 
 #: app/views/person_notifier/mailer/_profile_comments.html.erb:6
 msgid "View all %s comments"
@@ -7859,14 +7796,12 @@ msgid "communities|View all"
 msgstr "Ver todas"
 
 #: app/views/blocks/communities.html.erb:9
-#, fuzzy
 msgid "Some suggestions for you"
-msgstr "Sugestões: %s"
+msgstr "Algumas sugestões para você"
 
 #: app/views/blocks/communities.html.erb:14
-#, fuzzy
 msgid "See all suggestions"
-msgstr "Sugestão de artigo"
+msgstr "Veja todas as sugestões"
 
 #: app/views/blocks/profile_info.html.erb:19
 #: app/views/blocks/my_network.html.erb:5
@@ -8495,14 +8430,12 @@ msgid "Do you want to remove this user?"
 msgstr "Você quer remover esse usuário?"
 
 #: app/views/invite/select_friends.html.erb:10
-#, fuzzy
 msgid "Step 2 of 2: Selecting People"
-msgstr "Passo 2 de 2: Selecionando Amigos"
+msgstr "Passo 2 de 2: Selecionando amigos"
 
 #: app/views/invite/select_friends.html.erb:15
-#, fuzzy
 msgid "Indicate which people you want to invite."
-msgstr "Indique quais amigos você quer convidar."
+msgstr "Indique quais pessoas você quer convidar."
 
 #: app/views/invite/select_friends.html.erb:23
 msgid "Enter one e-mail address per line:"
@@ -8518,34 +8451,31 @@ msgstr "Desmarcar todos"
 
 #: app/views/invite/select_friends.html.erb:36
 msgid "Invite!"
-msgstr ""
+msgstr "Convidar!"
 
 #: app/views/invite/invite_friends.html.erb:2
-#, fuzzy
 msgid "Ask for friendship"
-msgstr "%s amigos"
+msgstr "Solicite amizade"
 
 #: app/views/invite/invite_friends.html.erb:3
 msgid "You can search for user profiles and ask them to become your friends."
-msgstr ""
+msgstr "Você pode procurar pessoas e pedir que elas se tornem suas amigas."
 
 #: app/views/invite/invite_friends.html.erb:6
 msgid "You can search for user profiles and invite them to join this group."
-msgstr ""
+msgstr "Você pode procurar pessoas e convidá-las a entrar neste grupo."
 
 #: app/views/invite/invite_friends.html.erb:10
-#, fuzzy
 msgid "Choose person by:"
-msgstr "Escolha um blog:"
+msgstr "Escolha a pessoa por:"
 
 #: app/views/invite/invite_friends.html.erb:24
 msgid "Type in the person's %{search_fields}"
-msgstr ""
+msgstr "Digite os campos %{search_fields} da pessoa"
 
 #: app/views/invite/invite_friends.html.erb:28
-#, fuzzy
 msgid "Invite"
-msgstr "Convite"
+msgstr "Convidar"
 
 #: app/views/invite/invite_friends.html.erb:35
 msgid "Invite people from my e-mail contacts"
@@ -8728,29 +8658,29 @@ msgstr "Ver lista validações de empreendimentos processados"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:3
 msgid "We want to give you some suggestions to grow up your network."
-msgstr ""
+msgstr "Nós queremos fornecer a você algumas sugestões para ampliar sua rede."
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:4
 msgid "Check it out!"
-msgstr ""
+msgstr "Confira!"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:7
-#, fuzzy
 msgid "Friends suggestions:"
-msgstr "Sugestão de artigo"
+msgstr "Sugestões de amizades:"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:14
 msgid "To see the full list of friends suggestions, follow the link: %s"
 msgstr ""
+"Para ver a lista completa de sugestões de amizade, clique neste link: %s"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:18
-#, fuzzy
 msgid "Communities suggestions:"
-msgstr "Menu de comunidades"
+msgstr "Sugestões de comunidades:"
 
 #: app/views/user_mailer/profiles_suggestions_email.html.erb:25
 msgid "To see the full list of communities suggestions, follow the link: %s"
 msgstr ""
+"Para ver a lista completa de sugestões de comunidades, clique neste link: %s"
 
 #: app/views/user_mailer/activation_code.text.erb:3
 #: app/views/user/mailer/activation_code.html.erb:3
@@ -9295,52 +9225,50 @@ msgid "Select Portal Folders"
 msgstr "Selecionar Pastas do Portal"
 
 #: app/views/admin_panel/set_portal_community.html.erb:21
-#, fuzzy
 msgid "Define news amount on portal"
-msgstr "Definir Quantidade por Pasta"
+msgstr "Definir a quantidade de notícias no portal"
 
 #: app/views/admin_panel/_signup_welcome_screen.html.erb:2
 msgid ""
 "If you enable this feature on the \"Features\" section of the Administration "
 "Panel, this text will be shown as a welcome message to users after signup."
 msgstr ""
+"Se você ativar esta funcionalidade na seção \"Funcionalidades\" do painel de "
+"administração, este texto será exibido como uma mensagem de boas vindas ao "
+"usuário após se registrar."
 
 #: app/views/admin_panel/_signup_welcome_screen.html.erb:7
 msgid ""
 "If this content is left blank, the following page will be displayed to the "
 "user:"
 msgstr ""
+"Se este conteúdo ficar em branco, a seguinte página será exibida ao novo "
+"usuário:"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:1
-#, fuzzy
 msgid "Manage organizations"
-msgstr "Organização do perfil"
+msgstr "Gerenciar organizações"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:7
-#, fuzzy
 msgid "Find profiles"
-msgstr "Perfis aleatórios"
+msgstr "Buscar perfis"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:17
-#, fuzzy
 msgid "Filter by: "
-msgstr "Filtro"
+msgstr "Filtrar por: "
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:44
-#, fuzzy
 msgid "Deactivate"
-msgstr "Desativar usuário"
+msgstr "Desativar"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:44
 #: app/views/admin_panel/manage_organizations_status.html.erb:48
-#, fuzzy
 msgid "Do you want to deactivate this profile ?"
-msgstr "Você quer desativar esse usuário?"
+msgstr "Você deseja desativar esse perfil?"
 
 #: app/views/admin_panel/manage_organizations_status.html.erb:46
-#, fuzzy
 msgid "Do you want to activate this profile ?"
-msgstr "Você quer ativar esse usuário?"
+msgstr "Você deseja ativar esse perfil?"
 
 #: app/views/admin_panel/set_portal_folders.html.erb:1
 msgid "Select folders"
@@ -9424,34 +9352,28 @@ msgid "Terms of use"
 msgstr "Termos de Uso"
 
 #: app/views/admin_panel/site_info.html.erb:16
-#, fuzzy
 msgid "Signup welcome email"
-msgstr "Texto de boas vindas no registro"
+msgstr "E-mail de boas vindas após o registro"
 
 #: app/views/admin_panel/site_info.html.erb:18
-#, fuzzy
 msgid "Signup welcome page"
-msgstr "Texto de boas vindas no registro"
+msgstr "Página de boas vindas após o registro"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:1
-#, fuzzy
 msgid "News amount on portal"
-msgstr "Quantidade de notícias por pasta"
+msgstr "Quantidade de notícias no portal"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:5
-#, fuzzy
 msgid "Number of highlighted news"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias destacadas"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:6
-#, fuzzy
 msgid "Number of portal news"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias do portal"
 
 #: app/views/admin_panel/set_portal_news_amount.html.erb:7
-#, fuzzy
 msgid "Number of news by folder"
-msgstr "Número de notícias"
+msgstr "Quantidade de notícias por pasta"
 
 #: app/views/admin_panel/index.html.erb:1
 msgid "Administrator Panel"
@@ -9507,9 +9429,8 @@ msgid "Fields"
 msgstr "Campos"
 
 #: app/views/admin_panel/index.html.erb:23
-#, fuzzy
 msgid "Manage organizations status"
-msgstr "Gerenciar suas tarefas pendentes"
+msgstr "Gerenciar a situação das organizações"
 
 #: app/views/admin_panel/index.html.erb:39
 msgid "Enterprise-related settings"

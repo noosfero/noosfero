@@ -1,6 +1,7 @@
 function enableMoveContainerChildren(container, box) {
   var div = jQuery('#box-'+box+' > .block-outer > .block');
   if(!div.is('.ui-resizable')) {
+    div.removeClass('ui-draggable');
     div.resizable({
       handles: 'e, w',
       containment: '#block-'+container+' .block-inner-2',
@@ -14,6 +15,7 @@ function enableMoveContainerChildren(container, box) {
 function disableMoveContainerChildren(container, box) {
   var div = jQuery('#box-'+box+' > .block-outer > .block');
   if(div.is('.ui-resizable')) {
+    div.addClass('ui-draggable');
     div.resizable('destroy');
   }
 }

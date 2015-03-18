@@ -9,7 +9,7 @@ class CustomFormsPluginProfileController < ProfileController
       @submission = CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
       @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
     else
-      @submission = CustomFormsPlugin::Submission.new(:form => @for)
+      @submission = CustomFormsPlugin::Submission.new(:form => @form)
     end
 
     # build the answers

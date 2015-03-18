@@ -71,11 +71,11 @@ stop_via_pid_file() {
 
 environments_loop() {
   action="$1"
-  environments=$(find ./config/environments -name *_$RAILS_ENV.rb)
+  environments=$(find ./config/environments -name "*_${RAILS_ENV}.rb")
   if [ "$environments" ]; then
     for environment in $environments; do
       env=$(basename $environment | cut -d. -f1)
-      RAILS_ENV=$env ./script/delayed_job -i $env "$action"
+      RAILS_ENV=$env bundle exec ./script/delayed_job -i $env "$action"
       RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
     done
   else

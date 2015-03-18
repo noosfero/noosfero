@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-09 09:51+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-03-12 15:13+0200\n"
+"Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
 "/plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -133,11 +133,11 @@ msgstr "Gerenciar Formulários"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
 msgid "Custom form %s was successfully created."
-msgstr "\"O formulário %s foi criado com sucesso.\""
+msgstr "O formulário %s foi criado com sucesso."
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
 msgid "Custom form %s was successfully updated."
-msgstr "O formulário personalizado %s foi atualizado com sucesso"
+msgstr "O formulário personalizado %s foi atualizado com sucesso."
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
 msgid "Form could not be updated"
