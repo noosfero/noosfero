@@ -8,7 +8,7 @@ pjax = {
   themes: {},
 
   load: function() {
-    var target = jQuery('#content');
+    var target = jQuery('#wrap-1');
     var content = jQuery('#content-inner');
     var loadingTarget = jQuery('#content');
 
@@ -52,7 +52,7 @@ pjax = {
       from_state = this.current_state || this.initial_state;
 
     if (state.layout_template != from_state.layout_template) {
-      var lt_css = jQuery('head link[href^="/designs/templates"]');
+      var lt_css = jQuery('head link[href*="designs/templates"]');
       lt_css.attr('href', lt_css.attr('href').replace(/templates\/.+\/stylesheets/, 'templates/'+state.layout_template+'/stylesheets'));
     }
 
@@ -78,7 +78,7 @@ pjax = {
       return !pjax.css_loaded('/designs/themes/'+state.theme.id+'/style.css');
     });
 
-    var css = jQuery('head link[href^="/designs/themes/'+from_state.theme.id+'/style"]');
+    var css = jQuery('head link[href*="designs/themes/'+from_state.theme.id+'/style"]');
     css.attr('href', css.attr('href').replace(/themes\/.+\/style/, 'themes/'+state.theme.id+'/style'));
 
     jQuery('head link[rel="shortcut icon"]').attr('href', state.theme.favicon);
@@ -88,7 +88,7 @@ pjax = {
     jQuery('#navigation ul').html(state.theme.extra_navigation);
     jQuery('#theme-footer').html(state.theme.footer);
 
-    jQuery('head script[src^="/designs/themes/'+from_state.theme.id+'/theme.js"]').remove();
+    jQuery('head script[src*="designs/themes/'+from_state.theme.id+'/theme.js"]').remove();
     if (state.theme.js_src) {
       var script = document.createElement('script');
       script.type = 'text/javascript', script.src = state.theme.js_src;

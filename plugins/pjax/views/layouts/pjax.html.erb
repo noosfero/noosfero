@@ -1,10 +1,10 @@
 <%
-  update_js = render(:file => "#{Rails.root}/public/designs/themes/#{current_theme}/pjax_update.js.erb").to_json rescue nil
+  update_js = render(file: "#{Rails.root}/public/designs/themes/#{current_theme}/pjax_update.js.erb").to_json rescue nil
 %>
 
 <title><%= h page_title %></title>
 
-<%= render :file => "#{Rails.root}/public/designs/themes/#{current_theme}/layouts/_content.html.erb" rescue
+<%= render file: "#{Rails.root}/public/designs/themes/#{current_theme}/layouts/_content.html.erb" rescue
     render "layouts/content" %>
 
 <%= javascript_tag do %>
