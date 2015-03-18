@@ -16,11 +16,6 @@ module API
         #  GET /communities?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
         #  GET /communities?reference_id=10&limit=10&oldest
         get do
-          communities = select_filtered_collection_of(current_person, 'communities', params)
-          present communities, :with => Entities::Community
-        end
-
-        get '/all' do
           communities = select_filtered_collection_of(environment, 'communities', params)
           communities = communities.visible
           present communities, :with => Entities::Community
@@ -29,6 +24,27 @@ module API
         get ':id' do
           community = environment.communities.visible.find_by_id(params[:id])
           present community, :with => Entities::Community
+        end
+
+      end
+
+      resource :people do
+        segment '/:person_id' do
+          resource :communities do
+            get do
+              person = environment.people.find(params[:person_id])
+              communities = select_filtered_collection_of(person, 'communities', params)
+              communities = communities.visible
+              present communities, :with => Entities::Community
+            end
+
+#            get ':id' do
+#              person = environment.people.find(params[:person_id])
+#              article = find_article(person.articles, params[:id])
+#              present article, :with => Entities::Article
+#            end
+
+          end
         end
 
       end
