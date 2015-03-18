@@ -302,6 +302,17 @@ class UserTest < ActiveSupport::TestCase
     assert !user.email_activation_pending?
   end
 
+  should 'has moderate registration pending' do
+    user = create_user('cooler')
+    ModerateUserRegistration.create!(:requestor => user.person, :target => Environment.default)
+    assert user.moderate_registration_pending?
+  end
+
+  should 'not has moderate registration pending if not have a pending task' do
+    user = create_user('cooler')
+    assert !user.moderate_registration_pending?
+  end
+
   should 'be able to use [] operator to find users by login' do
     user = fast_create(User)
     assert_equal user, User[user.login]
