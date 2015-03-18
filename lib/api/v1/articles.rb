@@ -99,8 +99,6 @@ module API
               present article, :with => Entities::Article
             end
 
-            # Example Request:
-            #  POST api/v1/communites/:person_id/articles?private_toke=234298743290432&article[name]=title&article[body]=body
             post do
               person = environment.people.find(params[:person_id])
               return forbidden! unless current_person.can_post_content?(person)
@@ -112,6 +110,45 @@ module API
               article.last_changed_by = current_person
               article.created_by= current_person
               article.profile = person
+
+              if !article.save
+                render_api_errors!(article.errors.full_messages)
+              end
+              present article, :with => Entities::Article
+            end
+
+          end
+        end
+
+      end
+
+      resource :enterprises do
+        segment '/:enterprise_id' do
+          resource :articles do
+            get do
+              enterprise = environment.enterprises.find(params[:enterprise_id])
+              articles = select_filtered_collection_of(enterprise, 'articles', params)
+              articles = articles.display_filter(current_person, enterprise)
+              present articles, :with => Entities::Article
+            end
+
+            get ':id' do
+              enterprise = environment.enterprises.find(params[:enterprise_id])
+              article = find_article(enterprise.articles, params[:id])
+              present article, :with => Entities::Article
+            end
+
+            post do
+              enterprise = environment.enterprises.find(params[:enterprise_id])
+              return forbidden! unless current_person.can_post_content?(enterprise)
+
+              klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+              return forbidden! unless ARTICLE_TYPES.include?(klass_type)
+
+              article = klass_type.constantize.new(params[:article])
+              article.last_changed_by = current_person
+              article.created_by= current_person
+              article.profile = enterprise
 
               if !article.save
                 render_api_errors!(article.errors.full_messages)
