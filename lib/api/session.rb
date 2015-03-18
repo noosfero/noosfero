@@ -31,7 +31,7 @@ module API
       requires :login, type: String, desc: _("Login")
       requires :password, type: String, desc: _("Password")
     end
-    get "/register" do
+    post "/register" do
       unique_attributes! User, [:email, :login]
       attrs = attributes_for_keys [:email, :login, :password]
       attrs[:password_confirmation] = attrs[:password]
