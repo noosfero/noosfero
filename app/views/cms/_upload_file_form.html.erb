@@ -13,7 +13,7 @@
 <%= hidden_field_tag('back_to', @back_to) %>
 
 <% button_bar do %>
-  <%= add_upload_file_field(_('More files'), {:size => size}) %>
+  <%= button_to_function :add, _('More files'), "add_new_file_fields()" %>
   <% if @back_to %>
     <%= submit_button :save, _('Upload'), :cancel => @back_to %>
   <% else %>

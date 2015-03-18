@@ -77,9 +77,9 @@ class AddFriendTest < ActiveSupport::TestCase
   end
 
   should 'not add friend twice' do
-    fast_create(AddFriend, :requestor_id => person1.id, :target_id => person2.id)
+    create AddFriend, person: person1, friend: person2, status: 1
     assert_raise ActiveRecord::RecordInvalid do
-      AddFriend.create!(:person => person1, :friend => person2)
+      create AddFriend, person: person1, friend: person2, status: 1
     end
   end
 

@@ -9,12 +9,6 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
-  def add_upload_file_field(name, locals)
-    button_to_function :add, name, nil do |page|
-      page.insert_html :bottom, :uploaded_files, CGI::escapeHTML(render(:partial => 'upload_file', :locals => locals, :object => UploadedFile.new))
-    end
-  end
-
   def pagination_links(collection, options={})
     options = {:previous_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
     will_paginate(collection, options)

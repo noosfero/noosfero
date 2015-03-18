@@ -24,4 +24,10 @@ class MainBlock < Block
     ['always', 'except_home_page']
   end
 
+  def display_user_options
+    @display_user_options = {
+      'all'            => _('All users')
+    }
+  end
+
 end

@@ -2942,10 +2942,6 @@ msgstr "Karte"
 msgid "Full"
 msgstr "Vollständig"
 
-#: app/helpers/search_helper.rb:104
-msgid "Display"
-msgstr "Anzeige"
-
 #: app/helpers/search_helper.rb:118 app/helpers/users_helper.rb:16
 #: app/views/tasks/index.html.erb:26 app/views/tasks/index.html.erb:41
 #: app/views/memberships/index.html.erb:16
@@ -2999,19 +2995,6 @@ msgstr "Aktivere Unternehmen aus dem Netzwerk"
 #: app/helpers/search_helper.rb:137
 msgid "More popular enterprises from network"
 msgstr "Beliebtere Unternehmen aus dem Netzwerk"
-
-#: app/helpers/search_helper.rb:23 app/helpers/search_helper.rb:113
-#, fuzzy
-msgid "Compact"
-msgstr "Berechnung"
-
-#: app/helpers/search_helper.rb:55
-msgid ", "
-msgstr ", "
-
-#: app/helpers/search_helper.rb:56
-msgid "search in all categories"
-msgstr "In allen Kategorien suchen"
 
 #: app/helpers/boxes_helper.rb:106
 msgid "This block is invisible. Your visitors will not see it."
@@ -3388,11 +3371,6 @@ msgstr "Aktiviert um"
 #, fuzzy
 msgid "Deativated users"
 msgstr "Nutzer verwalten"
-
-#: app/helpers/users_helper.rb:16 app/views/tasks/index.html.erb:26
-#: app/views/tasks/index.html.erb:41 app/views/memberships/index.html.erb:16
-msgid "Filter"
-msgstr "Filter"
 
 #: app/helpers/forms_helper.rb:62
 msgid "Select the State"
@@ -9908,45 +9886,6 @@ msgstr ""
 "entwickelt wird und unter <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> Version 3 oder einer späteren "
 "Version lizenziert ist."
-
-#~ msgid "More recent contents from network"
-#~ msgstr "Neueste Inhalte aus dem Netzwerk"
-
-#~ msgid "More viewed contents from network"
-#~ msgstr "Meistgesehene Inhalte aus dem Netzwerk"
-
-#~ msgid "Most commented contents from network"
-#~ msgstr "Meistkommentierte Inhalte aus dem Netzwerk"
-
-#~ msgid "More recent people from network"
-#~ msgstr "Neuere Leute aus dem Netzwerk"
-
-#~ msgid "More active people from network"
-#~ msgstr "Aktivere Leute aus dem Netzwerk"
-
-#~ msgid "More popular people from network"
-#~ msgstr "Populärere Leute aus dem Netzwerk"
-
-#~ msgid "More recent communities from network"
-#~ msgstr "Neuere Gemeinschaften aus dem Netzwerk"
-
-#~ msgid "More active communities from network"
-#~ msgstr "Aktivere Gemeinschaften aus dem Netzwerk"
-
-#~ msgid "More popular communities from network"
-#~ msgstr "Populärere Gemeinschaften aus dem Netzwerk"
-
-#, fuzzy
-#~ msgid "More recent enterprises from network"
-#~ msgstr "Neueste Inhalte aus dem Netzwerk"
-
-#, fuzzy
-#~ msgid "More active enterprises from network"
-#~ msgstr "Aktivere Leute aus dem Netzwerk"
-
-#, fuzzy
-#~ msgid "More popular enterprises from network"
-#~ msgstr "Populärere Leute aus dem Netzwerk"
 
 #~ msgid "starting chat with %{name}"
 #~ msgstr "starte Chat mit  %{name}"
