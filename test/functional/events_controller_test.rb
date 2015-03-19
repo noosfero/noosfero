@@ -60,7 +60,7 @@ class EventsControllerTest < ActionController::TestCase
     post :events, :profile => community.identifier
 
     assert_response :forbidden
-    assert_template :private_profile
+    assert_template "profile/_private_profile"
   end
 
   should 'not show events page to non members of invisible community' do

@@ -41,6 +41,7 @@ Feature: edit article
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
+    And I uncheck "article_show_to_followers"
     And I press "Save"
     And I log off
     And I go to /freesoftware/my-folder
@@ -87,6 +88,7 @@ Feature: edit article
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
+    And I uncheck "article_show_to_followers"
     Then I should see "Fill in the search field to add the exception users to see this content"
 
   @selenium
