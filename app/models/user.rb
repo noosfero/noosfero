@@ -159,6 +159,7 @@ class User < ActiveRecord::Base
     @task.name = self.name
     @task.email = self.email
     @task.target = self.environment
+    @task.requestor = self.person
     @task.save
   end
 
@@ -299,6 +300,10 @@ class User < ActiveRecord::Base
     else
       return EmailActivation.exists?(:requestor_id => self.person.id, :target_id => self.environment.id, :status => Task::Status::ACTIVE)
     end
+  end
+
+  def moderate_registration_pending?
+    return ModerateUserRegistration.exists?(:requestor_id => self.person.id, :target_id => self.environment.id, :status => Task::Status::ACTIVE)
   end
 
   def data_hash(gravatar_default = nil)

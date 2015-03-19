@@ -40,6 +40,18 @@ class UserActivationJobTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not destroy user if a moderate user registration task exists' do
+    env = Environment.default
+    env.enable('skip_new_user_email_confirmation')
+    env.enable('admin_must_approve_new_users')
+    user = new_user :login => 'test3'
+    job = UserActivationJob.new(user.id)
+    assert_no_difference 'User.count' do
+      job.perform
+      process_delayed_job_queue
+    end
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
