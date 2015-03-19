@@ -2,6 +2,10 @@ require_dependency 'environment'
 
 class Environment
 
+  metadata_spec tags: {
+    description: proc{ |e, plugin| e.name },
+  }
+
   metadata_spec namespace: :og, tags: {
     type: 'website',
     title: proc{ |e, plugin| e.name },
