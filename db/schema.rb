@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(:version => 20150408231524) do
     t.integer  "spam_comments_count",  :default => 0
     t.integer  "author_id"
     t.integer  "created_by_id"
-    t.boolean  "show_to_followers",    :default => false
+    t.boolean  "show_to_followers",    :default => true
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
