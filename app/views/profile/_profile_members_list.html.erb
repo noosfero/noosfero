@@ -9,7 +9,8 @@
 </div>
 <ul class="profile-list-<%= role %>" >
   <% users.each do |u| %>
-    <%= profile_image_link(u, :thumb) %>
+    <% extra_info = u.member_since_date(profile) == Date.today ? {:value =>_('New'), :class => 'new-profile'}:'' %>
+    <%= profile_image_link(u, :thumb, 'li', extra_info) %>
   <% end %>
 </ul>
 

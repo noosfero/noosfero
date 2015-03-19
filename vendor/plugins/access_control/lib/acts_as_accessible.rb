@@ -19,9 +19,9 @@ module ActsAsAccessible
     nil
   end
 
-  def affiliate(accessor, roles)
+  def affiliate(accessor, roles, attributes = {})
     roles = Array(roles)
-    roles.map {|role| accessor.add_role(role, self)}.any?
+    roles.map {|role| accessor.add_role(role, self, attributes)}.any?
   end
 
   def disaffiliate(accessor, roles)

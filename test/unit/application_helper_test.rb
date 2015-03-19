@@ -1043,6 +1043,31 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal c.top_url, top_url
   end
 
+  should "Extra info with hash" do
+    @plugins = mock
+    @plugins.stubs(:dispatch_first).returns(false)
+    env = Environment.default
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(profile)
+    profile = fast_create(Person, :environment_id => env.id)
+    info = {:value =>_('New'), :class => 'new-profile'}
+    html = profile_image_link(profile, size=:portrait, tag='li', extra_info = info)
+    assert_tag_in_string html, :tag => 'span', :attributes => { :class => 'profile-image new-profile' }
+    assert_tag_in_string html, :tag => 'span', :attributes => { :class => 'extra_info new-profile' }, :content => 'New'
+  end
+
+  should "Extra info without hash" do
+    @plugins = mock
+    @plugins.stubs(:dispatch_first).returns(false)
+    env = Environment.default
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(profile)
+    profile = fast_create(Person, :environment_id => env.id)
+    info = 'new'
+    html = profile_image_link(profile, size=:portrait, tag='li', extra_info = info)
+    assert_tag_in_string html, :tag => 'span', :attributes => { :class => 'extra_info' }, :content => 'new'
+  end
+
   protected
   include NoosferoTestHelper
 

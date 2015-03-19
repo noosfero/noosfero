@@ -554,14 +554,25 @@ module ApplicationHelper
         trigger_class = 'enterprise-trigger'
       end
     end
-    extra_info = extra_info.nil? ? '' : content_tag( 'span', extra_info, :class => 'extra_info' )
+
+    extra_info_tag = ''
+    img_class = 'profile-image'
+
+    if extra_info.is_a? Hash
+      extra_info_tag = content_tag( 'span', extra_info[:value], :class => 'extra_info '+extra_info[:class])
+      img_class +=' '+extra_info[:class]
+    else
+      extra_info_tag = content_tag( 'span', extra_info, :class => 'extra_info' )
+    end
+
     links = links_for_balloon(profile)
     content_tag('div', content_tag(tag,
-                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ? popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "") +
+                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
+                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "") +
     link_to(
-      content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
+      content_tag( 'span', profile_image( profile, size ), :class => img_class ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
-      extra_info + profile_sex_icon( profile ),
+      extra_info_tag + profile_sex_icon( profile ),
       profile.url,
       :class => 'profile_link url',
       :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
@@ -709,7 +720,7 @@ module ApplicationHelper
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
     extend ActionView::Helpers::TagHelper
 
-    def self.output_field(text, field_html, field_id = nil, options = {})
+    def self.output_field(text, field_html, field_id = nil)
       # try to guess an id if none given
       if field_id.nil?
         field_html =~ /id=['"]([^'"]*)['"]/

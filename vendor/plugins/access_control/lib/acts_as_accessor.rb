@@ -21,9 +21,9 @@ module ActsAsAccessor
     (actual_roles - roles).each {|r| remove_role(r, resource)}
   end
 
-  def add_role(role, resource)
-    attributes = role_attributes(role, resource)
-    if RoleAssignment.where(attributes).empty?
+  def add_role(role, resource, attributes = {})
+    attributes = role_attributes(role, resource).merge attributes
+    if RoleAssignment.find(:all, :conditions => attributes).empty?
       ra = RoleAssignment.new(attributes)
       role_assignments << ra
       resource.role_assignments << ra
@@ -42,6 +42,19 @@ module ActsAsAccessor
 
   def find_roles(res)
     RoleAssignment.where(role_attributes nil, res)
+  end
+
+  def member_relation_of(profile)
+    raise TypeError, "Expected instance of 'Profile' class, but '#{profile.class.name}' was founded" unless profile.is_a? Profile
+
+    role_assignments.where(resource_id: profile.id)
+  end
+
+  def member_since_date(profile)
+    result = member_relation_of(profile).to_a
+    unless result.empty?
+      result.last.created_at ? result.last.created_at.to_date : Date.yesterday
+    end
   end
 
   protected

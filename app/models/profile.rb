@@ -738,13 +738,13 @@ private :generate_url, :url_options
   end
 
   # Adds a person as member of this Profile.
-  def add_member(person)
+  def add_member(person, attributes={})
     if self.has_members?
       if self.closed? && members.count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
-        self.affiliate(person, Profile::Roles.admin(environment.id)) if members.count == 0
-        self.affiliate(person, Profile::Roles.member(environment.id))
+        self.affiliate(person, Profile::Roles.admin(environment.id), attributes) if members.count == 0
+        self.affiliate(person, Profile::Roles.member(environment.id), attributes)
       end
       person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
       remove_from_suggestion_list person

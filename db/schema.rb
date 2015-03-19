@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921140802) do
+ActiveRecord::Schema.define(version: 20160202142247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -639,12 +639,14 @@ ActiveRecord::Schema.define(version: 20150921140802) do
   end
 
   create_table "role_assignments", force: :cascade do |t|
-    t.integer "accessor_id",   null: false
-    t.string  "accessor_type"
-    t.integer "resource_id"
-    t.string  "resource_type"
-    t.integer "role_id",       null: false
-    t.boolean "is_global"
+    t.integer  "accessor_id",   null: false
+    t.string   "accessor_type"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.integer  "role_id",       null: false
+    t.boolean  "is_global"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", force: :cascade do |t|

@@ -207,3 +207,23 @@
   height: auto;
   font-size: 12px;
 }
+.action-profile-members .profile_link{
+	position: relative;
+}
+.action-profile-members .profile_link span.new-profile:last-child{
+	position: absolute;
+	top: 3px;
+	right: 2px;
+	text-transform: uppercase;
+	color: #FFF;
+	font-size: 9px;
+	background: #66CC33;
+	padding: 2px;
+	display: block;
+	width: 35px;
+	font-weight: 700;
+}
+.action-profile-members .profile_link .fn{
+	font-style: normal;
+	color: #000;
+}
