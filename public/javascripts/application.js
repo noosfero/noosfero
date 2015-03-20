@@ -1064,7 +1064,7 @@ jQuery(document).ready(function(){
 function apply_zoom_to_images(zoom_text) {
   jQuery(function($) {
     $(window).load( function() {
-      $('#article .article-body img').each( function(index) {
+      $('#article .article-body img:not(.disable-zoom)').each( function(index) {
         var original = original_image_dimensions($(this).attr('src'));
         if ($(this).width() < original['width'] || $(this).height() < original['height']) {
           $(this).wrap('<div class="zoomable-image" />');
