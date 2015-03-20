@@ -7,7 +7,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'list all communities' do
-    community1 = fast_create(Community)
+    community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
