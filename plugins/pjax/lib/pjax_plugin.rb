@@ -1,11 +1,11 @@
 class PjaxPlugin < Noosfero::Plugin
 
   def self.plugin_name
-    _('pjax_plugin.lib.plugin.name')
+    _('Pjax plugin')
   end
 
   def self.plugin_description
-    _('pjax_plugin.lib.plugin.description')
+    _("Use pjax for page's links")
   end
 
   def stylesheet?
