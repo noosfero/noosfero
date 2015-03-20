@@ -29,8 +29,11 @@ module API
       end
 
       resource :people do
+
         segment '/:person_id' do
+
           resource :communities do
+
             get do
               person = environment.people.find(params[:person_id])
               communities = select_filtered_collection_of(person, 'communities', params)
@@ -38,13 +41,8 @@ module API
               present communities, :with => Entities::Community
             end
 
-#            get ':id' do
-#              person = environment.people.find(params[:person_id])
-#              article = find_article(person.articles, params[:id])
-#              present article, :with => Entities::Article
-#            end
-
           end
+
         end
 
       end

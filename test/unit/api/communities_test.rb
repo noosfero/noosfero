@@ -31,6 +31,25 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal [community1.id], json['communities'].map {|c| c['id']}
   end
 
+  should 'not list private communities without permission' do
+    community1 = fast_create(Community)
+    fast_create(Community, :public_profile => false)
+
+    get "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [community1.id], json['communities'].map {|c| c['id']}
+  end
+
+  should 'list private community for members' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community, :public_profile => false)
+    c1.add_member(person)
+
+    get "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [c1.id, c2.id], json['communities'].map {|c| c['id']}
+  end
+
   should 'not get invisible community' do
     community = fast_create(Community, :visible => false)
 
