@@ -1,11 +1,11 @@
 class PjaxPlugin < Noosfero::Plugin
 
   def self.plugin_name
-    I18n.t('pjax_plugin.lib.plugin.name')
+    _('pjax_plugin.lib.plugin.name')
   end
 
   def self.plugin_description
-    I18n.t('pjax_plugin.lib.plugin.description')
+    _('pjax_plugin.lib.plugin.description')
   end
 
   def stylesheet?
