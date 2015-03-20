@@ -17,7 +17,7 @@ module API
         #  GET /communities?reference_id=10&limit=10&oldest
         get do
           communities = select_filtered_collection_of(environment, 'communities', params)
-          communities = communities.visible
+          communities = communities.visible_for_person(current_person)
           present communities, :with => Entities::Community
         end
 
