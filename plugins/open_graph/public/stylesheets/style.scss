@@ -1,0 +1,66 @@
+#track-form {
+
+  .panel-heading {
+    a, a:visited {
+      color: #fff;
+      display: block;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    a.btn {
+      display: inline-block;
+      text-decoration: none;
+    }
+  }
+
+  // always use one line to fit placeholder
+  .tokenfield {
+
+    .twitter-typeahead {
+      width: 100%;
+      display: block;
+
+      .tt-input {
+        width: 100% !important;
+      }
+    }
+  }
+
+  #track-config {
+    .panel-heading {
+      padding-left: 36px;
+    }
+    span.config-check {
+      font-weight: bold;
+      margin-left: -26px;
+      margin-right: 4px;
+    }
+    span.config-check.fa-toggle-off {
+      color: #99f;
+    }
+    .activity-config, .sse-config, .community-config {
+      float:right;
+    }
+    .activity-label, .sse-label, .community-label {
+      margin-right: 90px;
+    }
+  }
+}
+
+// shown inside a popin
+.open-graph-enterprises-modal {
+  overflow: hidden;
+  
+  h1 {
+    font-size: 22px;
+  }
+  #open-graph-favorite-enterprises-how-to {
+    clear:both;
+    padding-top: 1px;
+  }
+  p {
+    text-align:justify;
+  }
+}
