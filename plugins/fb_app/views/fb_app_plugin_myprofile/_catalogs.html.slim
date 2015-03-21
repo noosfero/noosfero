@@ -1,0 +1,11 @@
+h2
+  = t'fb_app_plugin.views.myprofile.catalogs.heading'
+  = render 'catalogs_help' rescue nil
+
+- profile.fb_app_page_tabs.each do |page_tab|
+  = render 'fb_app_plugin_page_tab/config', page_tab: page_tab
+
+#new-catalog
+  = render 'fb_app_plugin_page_tab/config', page_tab: profile.fb_app_page_tabs.build(owner_profile: profile)
+
+= render file: 'shared/tiny_mce', locals: {mode: 'simple'}

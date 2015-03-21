@@ -1,0 +1,7 @@
+.fb-app-identity
+  - picture = auth.fb_user.picture
+  / fb_graph version 1 compatibility
+  - url = if picture.respond_to? :url then picture.url else picture end
+  = image_tag url
+  = auth.fb_user.name
+

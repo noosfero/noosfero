@@ -1,0 +1,14 @@
+- if @auth.connected?
+  #noosfero-identity
+    = profile_image profile
+    = profile.name
+  span#fb-connected.fa.fa-arrows-h
+  #fb-identity
+    = render 'identity', auth: @auth
+
+  = button_to_function 'close', t('fb_app_plugin.views.myprofile.disconnect'), 'fb_app.timeline.disconnect()', class:'fb-app-connection-button'
+
+- elsif @auth.not_authorized?
+  = button_to_function 'login', t('fb_app_plugin.views.myprofile.connect'), 'fb_app.timeline.connect()', size: '', option: 'primary', class:'fb-app-connection-button'
+- elsif @auth.expired?
+  = button_to_function 'login', t('fb_app_plugin.views.myprofile.reconnect'), 'fb_app.timeline.reconnect()', class:'fb-app-connection-button'

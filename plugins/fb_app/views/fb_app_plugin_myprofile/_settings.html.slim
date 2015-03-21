@@ -1,0 +1,28 @@
+h1= t'fb_app_plugin.lib.plugin.name'
+= button :back, _('Back to control panel'), controller: 'profile_editor'
+
+#fb-app-connect-status
+  = render 'intro' rescue nil if @auth.not_authorized?
+  #fb-app-auth
+    = render 'auth'
+
+- if @auth.connected? or Rails.env.development?
+  #fb-app-catalogs
+    = render 'catalogs'
+  #fb-app-timeline
+    - if profile.person?
+      h2= t'fb_app_plugin.views.myprofile.timeline.heading'
+
+      - unless FbAppPlugin.test_user? user
+        h3= t'fb_app_plugin.views.myprofile.timeline.explanation_title'
+        p= t'fb_app_plugin.views.myprofile.timeline.explanation_text'
+      - else
+        #track-form
+          = render 'track_form', context: :fb_app
+    - else
+      = t'fb_app_plugin.views.myprofile.timeline.organization_redirect',
+        type: t("fb_app_plugin.views.myprofile.timeline.organization_from_#{profile.class.name.underscore}"),
+        redirect_link: link_to(t('fb_app_plugin.views.myprofile.timeline.redirect_link'), host: FbAppPlugin.config[:app][:domain], profile: user.identifier, controller: :fb_app_plugin_myprofile)
+.clean
+
+= button :back, _('Back to control panel'), {controller: 'profile_editor'}, class: 'fb-app-final-back-button'
