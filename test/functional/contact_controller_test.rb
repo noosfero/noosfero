@@ -131,7 +131,7 @@ class ContactControllerTest < ActionController::TestCase
     post :new, :profile => community.identifier
 
     assert_response :forbidden
-    assert_template :access_denied
+    assert_template :private_profile
   end
 
   should 'not show send e-mail page to non members of invisible community' do
