@@ -202,7 +202,7 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'paginate enterprise listing' do
-    @controller.expects(:limit).returns(1)
+    @controller.expects(:limit).returns(1).at_least_once
     ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
