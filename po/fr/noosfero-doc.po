@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2015-02-23 11:33+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-03-23 19:30+0200\n"
+"Last-Translator: Jérôme Jutteau <j.jutteau@gmail.com>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/documentation/fr/>\n"
 "Language: fr\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: doc/noosfero/plugins/google_cse.en.xhtml:3
 #: doc/noosfero/plugins/google_analytics.en.xhtml:3
 msgid "Usage"
-msgstr ""
+msgstr "Utilisation"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -45,6 +45,8 @@ msgid ""
 "Create a <span class=\"caps\">HTML</span> form using RawHTMLBlock or "
 "RawHTMLArticle that invokes the {sendemail} action"
 msgstr ""
+"Créer un formulaire <span class=\"caps\">HTML</span> utilisant RawHTMLBlock "
+"ou RawHTMLArticle qui appel l'action {sendemail}"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
