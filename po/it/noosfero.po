@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-16 23:06+0200\n"
+"PO-Revision-Date: 2015-03-23 22:59+0200\n"
 "Last-Translator: TWS <tablettws@gmail.com>\n"
 "Language-Team: Italian "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/it/>\n"
@@ -6093,9 +6093,8 @@ msgid "Offline"
 msgstr ""
 
 #: app/views/shared/logged_in/xmpp_chat.html.erb:60
-#, fuzzy
 msgid "Join room"
-msgstr "Accedere"
+msgstr "Accedere alla stanza"
 
 #: app/views/shared/logged_in/xmpp_chat.html.erb:61
 msgid "Leave room"
