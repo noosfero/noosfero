@@ -13,7 +13,7 @@
       <td>
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => role %>
         <%= button_without_text :delete, _('Delete'), :action => 'destroy', :id => role %>
-        <%= button_without_text :delete, _('Assign'), :action => 'assign', :id => role %>
+        <%= button_without_text 'vertical-toggle', _('Assign'), :action => 'assign', :id => role %>
       </td>
     </tr>
   <% end %>
