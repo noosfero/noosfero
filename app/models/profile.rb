@@ -100,12 +100,12 @@ class Profile < ActiveRecord::Base
   scope :no_templates, {:conditions => {:is_template => false}}
 
   #FIXME make this test
-  named_scope :newer_than, lambda { |reference_id|
+  scope :newer_than, lambda { |reference_id|
     {:conditions => ["profiles.id > #{reference_id}"]}
   }
 
   #FIXME make this test
-  named_scope :older_than, lambda { |reference_id|
+  scope :older_than, lambda { |reference_id|
     {:conditions => ["profiles.id < #{reference_id}"]}
   }
 
