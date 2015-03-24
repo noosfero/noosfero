@@ -31,7 +31,9 @@ module API
       expose :image, :using => Image
     end
 
-    class Person < Profile;end;
+    class Person < Profile
+      root 'people', 'person'
+    end
     class Enterprise < Profile
       root 'enterprises', 'enterprise'
     end

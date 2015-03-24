@@ -17,12 +17,20 @@ module API
         #  GET /people?reference_id=10&limit=10&oldest
         get do
           people = select_filtered_collection_of(environment, 'people', params)
+          people = people.visible_for_person(current_person)
           present people, :with => Entities::Person
         end
 
         desc "Return the person information"
-        get '/:id' do
-          present environment.people.find(params[:id]), :with => Entities::Person
+        get ':id' do
+          person = environment.people.visible.find_by_id(params[:id])
+          present person, :with => Entities::Person
+        end
+
+        desc "Return the person friends"
+        get ':id/friends' do
+          friends = current_person.friends.visible
+          present friends, :with => Entities::Person
         end
 
       end
