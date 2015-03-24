@@ -32,7 +32,9 @@ module API
     end
 
     class Person < Profile;end;
-    class Enterprise < Profile;end;
+    class Enterprise < Profile
+      root 'enterprises', 'enterprise'
+    end
     class Community < Profile
       root 'communities', 'community'
       expose :description
