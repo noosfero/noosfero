@@ -14,14 +14,6 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'get community' do
-    community = fast_create(Community)
-
-    get "/api/v1/communities/#{community.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-  end
-
   should 'not list invisible communities' do
     community1 = fast_create(Community)
     fast_create(Community, :visible => false)
@@ -50,6 +42,14 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [c1.id, c2.id], json['communities'].map {|c| c['id']}
   end
 
+  should 'get community' do
+    community = fast_create(Community)
+
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+  end
+
   should 'not get invisible community' do
     community = fast_create(Community, :visible => false)
 
@@ -58,13 +58,43 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert json['community'].blank?
   end
 
-#  should 'list user communities' do
-#    community1 = fast_create(Community)
-#    fast_create(Community)
-#    community1.add_member(user.person)
-#
-#    get "/api/v1/communities?#{params.to_query}"
-#    json = JSON.parse(last_response.body)
-#    assert_equivalent [community1.id], json['communities'].map {|c| c['id']}
-#  end
+  should 'not get private communities without permission' do
+    community = fast_create(Community)
+    fast_create(Community, :public_profile => false)
+
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+  end
+
+  should 'get private community for members' do
+    community = fast_create(Community, :public_profile => false)
+    community.add_member(person)
+
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+  end
+
+  should 'list person communities' do
+    community = fast_create(Community)
+    fast_create(Community)
+    community.add_member(person)
+
+    get "/api/v1/people/#{person.id}/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [community.id], json['communities'].map {|c| c['id']}
+  end
+
+  should 'not list person communities invisible' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community, :visible => false)
+    c1.add_member(person)
+    c2.add_member(person)
+
+    get "/api/v1/people/#{person.id}/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [c1.id], json['communities'].map {|c| c['id']}
+  end
+
 end
