@@ -39,6 +39,14 @@ roles] }
     { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id)] }
   }
 
+  scope :visible_for_person, lambda { |person|
+    joins('LEFT JOIN "friendships" ON "friendships"."friend_id" = "profiles"."id"')
+    .where(
+      ['( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?)', person.id,  true, true]
+    ).uniq
+  }
+
+
   def has_permission_with_admin?(permission, resource)
     return true if resource.blank? || resource.admins.include?(self)
     return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)

@@ -145,14 +145,6 @@ class Profile < ActiveRecord::Base
   scope :public, :conditions => { :visible => true, :public_profile => true, :secret => false }
   scope :enabled, :conditions => { :enabled => true }
 
-  scope :visible_for_person, lambda { |person|
-    joins('LEFT JOIN "role_assignments" ON "role_assignments"."resource_id" = "profiles"."id" AND "role_assignments"."resource_type" = \'Profile\'')
-    .where(
-      ['( ( role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR 
-          (profiles.public_profile = ?)) AND (profiles.visible = ?)', Profile.name, person.id,  true, true]
-    ).uniq
-  }
-
   # Subclasses must override this method
   scope :more_popular
 
