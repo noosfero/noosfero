@@ -12,12 +12,25 @@ class UsersTest < ActiveSupport::TestCase
     assert_includes json["users"].map { |a| a["login"] }, user.login
   end
 
+  should 'create a user' do
+    params[:user] = {:login => 'some', :password => '123456', :password_confirmation => '123456', :email => 'some@some.com'}
+    post "/api/v1/users?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 'some', json['user']['login']
+  end
+
+  should 'return 400 status for invalid user creation' do
+    params[:user] = {:login => 'some'}
+    post "/api/v1/users?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 400, last_response.status
+  end
+
   should 'get user' do
     get "/api/v1/users/#{user.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal user.id, json['user']['id']
   end
-
 
   should 'list user permissions' do
     community = fast_create(Community)

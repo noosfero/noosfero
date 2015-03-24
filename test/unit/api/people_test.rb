@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/test_helper'
 class PeopleTest < ActiveSupport::TestCase
 
   def setup
+    Person.delete_all
     login_api
   end
-
 
   should 'list all people' do
     person1 = fast_create(Person, :public_profile => true)

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/test_helper'
 class CommunitiesTest < ActiveSupport::TestCase
 
   def setup
+    Community.delete_all
     login_api
   end
 
@@ -40,6 +41,19 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [c1.id, c2.id], json['communities'].map {|c| c['id']}
+  end
+
+  should 'create a community' do
+    params[:community] = {:name => 'some'}
+    post "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 'some', json['community']['name']
+  end
+
+  should 'return 400 status for invalid community creation' do
+    post "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 400, last_response.status
   end
 
   should 'get community' do
