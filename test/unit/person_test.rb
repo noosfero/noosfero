@@ -1524,7 +1524,6 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
-<<<<<<< HEAD
   should 'have a list of suggested people to be friend' do
     person = create_user('person').person
     suggested_friend = fast_create(Person)
