@@ -293,6 +293,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
   When %{I press "Log in"}
   And %{I go to #{username}'s control panel}
   Then %{I should be on #{username}'s control panel}
+  @current_user = username
 end
 
 Given /^"([^"]*)" is environment admin$/ do |person|
