@@ -12,7 +12,7 @@ module API
         end
 
         get ":id" do
-          present environment.users.find(params[:id]), :with => Entities::User
+          present environment.users.find_by_id(params[:id]), :with => Entities::User
         end
 
         get ":id/permissions" do
