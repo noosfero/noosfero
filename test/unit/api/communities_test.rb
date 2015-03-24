@@ -43,7 +43,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   should 'list private community for members' do
     c1 = fast_create(Community)
     c2 = fast_create(Community, :public_profile => false)
-    c1.add_member(person)
+    c2.add_member(person)
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)

@@ -150,7 +150,7 @@ class Profile < ActiveRecord::Base
     .where(
       ['( ( role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR 
           (profiles.public_profile = ?) )', Profile.name, person.id,  true]
-    )
+    ).uniq
   }
 
   # Subclasses must override this method
