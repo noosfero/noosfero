@@ -59,7 +59,7 @@ module API
             end
 
             # Example Request:
-            #  POST api/v1/communites/:community_id/articles?private_toke=234298743290432&article[name]=title&article[body]=body
+            #  POST api/v1/communites/:community_id/articles?private_token=234298743290432&article[name]=title&article[body]=body
             post do
               community = environment.communities.find(params[:community_id])
               return forbidden! unless current_person.can_post_content?(community)

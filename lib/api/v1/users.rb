@@ -11,6 +11,19 @@ module API
           present environment.users, :with => Entities::User
         end
 
+        # Example Request:
+        #  POST api/v1/users?user[login]=some_login&user[password]=some
+        post do
+          user = User.new(params[:user])
+          user.terms_of_use = environment.terms_of_use
+          user.environment = environment
+          if !user.save
+            render_api_errors!(user.errors.full_messages)
+          end
+         
+          present user, :with => Entities::User
+        end
+
         get ":id" do
           present environment.users.find_by_id(params[:id]), :with => Entities::User
         end

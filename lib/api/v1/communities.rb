@@ -21,6 +21,24 @@ module API
           present communities, :with => Entities::Community
         end
 
+
+        # Example Request:
+        #  POST api/v1/communties?private_token=234298743290432&community[name]=some_name
+        post do
+          params[:community] ||= {}
+          begin
+            community = Community.create_after_moderation(current_person, params[:community].merge({:environment => environment}))
+          rescue
+            community = Community.new(params[:community])
+          end
+
+          if !community.save
+            render_api_errors!(community.errors.full_messages)
+          end
+
+          present community, :with => Entities::Community
+        end
+
         get ':id' do
           community = environment.communities.visible.find_by_id(params[:id])
           present community, :with => Entities::Community

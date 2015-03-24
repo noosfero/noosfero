@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/test_helper'
 class EnterprisesTest < ActiveSupport::TestCase
 
   def setup
+    Enterprise.delete_all
     login_api
   end
 
