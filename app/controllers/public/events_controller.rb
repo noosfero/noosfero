@@ -5,7 +5,11 @@ class EventsController < PublicController
 
   def events
     @events = []
-    @date = build_date(params[:year], params[:month], params[:day])
+    begin
+      @date = build_date params[:year], params[:month], params[:day]
+    rescue
+      render_not_found
+    end
 
     if !params[:year] && !params[:month] && !params[:day]
       @events = profile.events.next_events_from_month(@date).paginate(:per_page => per_page, :page => params[:page])
