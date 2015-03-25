@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/test_helper'
+require File.expand_path(File.dirname(__FILE__) + "/../../../lib/noosfero/api/helpers")
 
 class APITest < ActiveSupport::TestCase
 
-  include API::APIHelpers
+  include Noosfero::API::APIHelpers
 
   should 'get the current user with valid token' do
     user = create_user('someuser')

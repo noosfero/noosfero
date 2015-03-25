@@ -1,9 +1,6 @@
 # This file is used by Rack-based servers to start the application.
 
 require ::File.expand_path('../config/environment',  __FILE__)
-run Noosfero::Application
-require "config/environment"
-
 
 #use Rails::Rack::LogTailer
 #use Rails::Rack::Static
@@ -14,6 +11,6 @@ rails_app = Rack::Builder.new do
 end
 
 run Rack::Cascade.new([
-  API::API,
+  Noosfero::API::API,
   rails_app
 ])
