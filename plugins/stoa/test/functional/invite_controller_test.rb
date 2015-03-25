@@ -57,7 +57,7 @@ class InviteControllerTest < ActionController::TestCase
     organization.add_admin(admin)
 
     login_as(admin.identifier)
-    get :search_friend, :profile => organization.identifier, :q => '1234'
+    get :search, :profile => organization.identifier, :q => '1234'
 
     assert_equal [{"id" => person.id, "name" => person.name}].to_json, @response.body
     assert_response 200
