@@ -5,7 +5,7 @@ class ActiveSupport::TestCase
   include Rack::Test::Methods
 
   def app
-    API::API
+    Noosfero::API::API
   end
 
   def login_api
