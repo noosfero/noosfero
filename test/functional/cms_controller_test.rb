@@ -699,7 +699,7 @@ class CmsControllerTest < ActionController::TestCase
     xhr :get, :update_categories, :profile => profile.identifier, :category_id => top.id
     assert_template 'shared/update_categories'
     assert_equal top, assigns(:current_category)
-    assert_equal [c1, c2], assigns(:categories)
+    assert_equivalent [c1, c2], assigns(:categories)
   end
 
   should 'record when coming from public view on edit' do
