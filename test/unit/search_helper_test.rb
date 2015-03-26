@@ -3,6 +3,9 @@ require_relative "../test_helper"
 class SearchHelperTest < ActiveSupport::TestCase
 
   include SearchHelper
+  include ActionView::Helpers::FormOptionsHelper
+  include ActionView::Helpers::FormTagHelper
+
 
   should 'return whether on a multiple search' do
     stubs(:params).returns({:action => 'index', :display => 'map'})
@@ -121,5 +124,85 @@ class SearchHelperTest < ActiveSupport::TestCase
       assert_equal asset_classes[i], asset_class(asset_names[i])
     end
   end
+
+  should 'return an empty string in assets_submenu for articles assets' do
+    @templates = {}
+    assert_equal '', assets_submenu(:articles)
+    @templates = {:articles => nil}
+    assert_equal '', assets_submenu(:articles)
+  end
+
+  should 'return an empty string in assets_submenu for people asset without template' do
+    @templates = {:people => nil}
+    assert_equal '', assets_submenu(:people)
+
+    @templates = {:people => []}
+    assert_equal '', assets_submenu(:people)
+  end
+
+  should 'return an empty string in assets_submenu for people asset with only one template' do
+    t = fast_create(Person, :is_template => true)
+    @templates = {:people => [t]}
+    assert_equal '', assets_submenu(:people)
+  end
+
+  should 'return a select of templates for people asset with more then one template' do
+    t1 = fast_create(Person, :is_template => true)
+    t2 = fast_create(Person, :is_template => true)
+    @templates = {:people => [t1,t2]}
+    SearchHelperTest.any_instance.stubs(:params).returns({})
+    assert_match /select/, assets_submenu(:people)
+    assert_match /#{t1.name}/, assets_submenu(:people)
+    assert_match /#{t2.name}/, assets_submenu(:people)
+  end
+
+  should 'return an empty string in assets_submenu for communities asset without template' do
+    @templates = {:communities => nil}
+    assert_equal '', assets_submenu(:communities)
+
+    @templates = {:communities => []}
+    assert_equal '', assets_submenu(:communities)
+  end
+
+  should 'return an empty string in assets_submenu for communities asset with only one template' do
+    t = fast_create(Community, :is_template => true)
+    @templates = {:communities => [t]}
+    assert_equal '', assets_submenu(:communities)
+  end
+
+  should 'return a select of templates for communities asset with more then one template' do
+    t1 = fast_create(Community, :is_template => true)
+    t2 = fast_create(Community, :is_template => true)
+    @templates = {:communities => [t1,t2]}
+    SearchHelperTest.any_instance.stubs(:params).returns({})
+    assert_match /select/, assets_submenu(:communities)
+    assert_match /#{t1.name}/, assets_submenu(:communities)
+    assert_match /#{t2.name}/, assets_submenu(:communities)
+  end
+
+  should 'return an empty string in assets_submenu for enterprises asset without template' do
+    @templates = {:enterprises => nil}
+    assert_equal '', assets_submenu(:enterprises)
+
+    @templates = {:enterprises => []}
+    assert_equal '', assets_submenu(:enterprises)
+  end
+
+  should 'return an empty string in assets_submenu for enterprises asset with only one template' do
+    t = fast_create(Enterprise, :is_template => true)
+    @templates = {:enterprises => [t]}
+    assert_equal '', assets_submenu(:enterprises)
+  end
+
+  should 'return a select of templates for enterprises asset with more then one template' do
+    t1 = fast_create(Enterprise, :is_template => true)
+    t2 = fast_create(Enterprise, :is_template => true)
+    @templates = {:enterprises => [t1,t2]}
+    SearchHelperTest.any_instance.stubs(:params).returns({})
+    assert_match /select/, assets_submenu(:enterprises)
+    assert_match /#{t1.name}/, assets_submenu(:enterprises)
+    assert_match /#{t2.name}/, assets_submenu(:enterprises)
+  end
+
 
 end

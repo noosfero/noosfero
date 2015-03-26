@@ -148,4 +148,11 @@ module SearchHelper
     link_to(@enabled_searches[asset], "/search/#{asset}")
   end
 
+  def assets_submenu(asset)
+    return '' if @templates[asset].blank? || @templates[asset].length == 1
+    options = @templates[asset].map {|template| [template.name, template.id]}
+    options = options_for_select([[_('Choose a template'), nil]] + options, selected: (params[:template_id]))
+    select_tag('template_id', options, :id => 'submenu')
+  end
+
 end

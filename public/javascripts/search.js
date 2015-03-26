@@ -15,8 +15,16 @@
     $('form.search_form').submit();
   });
 
+  // Filter submenu
+  $('#search-subheader select').change(function(){
+    $('form.search_form').submit();
+  });
+
   // Custom styled select
   $('#search-filters select').selectOrDie();
+
+  // Custom styled select
+  $('#search-subheader select').selectOrDie();
 
   // Form Ajax submission
   $('form.search_form').submit(function () {

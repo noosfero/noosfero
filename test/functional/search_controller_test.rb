@@ -13,14 +13,14 @@ class SearchControllerTest < ActionController::TestCase
     @request.stubs(:ssl?).returns(false)
     @response   = ActionController::TestResponse.new
 
-    @category = Category.create!(:name => 'my-category', :environment => Environment.default)
+    @environment = Environment.default
+    @category = Category.create!(:name => 'my-category', :environment => @environment)
 
-    env = Environment.default
-    domain = env.domains.first
+    domain = @environment.domains.first
     if !domain
       domain = Domain.create!(:name => "127.0.0.1")
-      env.domains = [domain]
-      env.save!
+      @environment.domains = [domain]
+      @environment.save!
     end
     domain.google_maps_key = 'ENVIRONMENT_KEY'
     domain.save!
@@ -36,6 +36,8 @@ class SearchControllerTest < ActionController::TestCase
     user.stubs(:marked_for_destruction?).returns(false)
     Person.any_instance.stubs(:user).returns(user)
   end
+
+  attr_reader :environment
 
   def create_article_with_optional_category(name, profile, category = nil)
     fast_create(Article, {:name => name, :profile_id => profile.id }, :search => true, :category => category)
@@ -649,6 +651,122 @@ class SearchControllerTest < ActionController::TestCase
     @controller.stubs(:find_suggestions).with('universe', Environment.default, 'communities').returns([st1, st2])
     get :suggestions, :term => 'UNIveRSE', :asset => 'communities'
     assert_equal [st1,st2].to_json, response.body
+  end
+
+  should 'templates variable be an hash in articles asset' do
+    get :articles
+    assert assigns(:templates).kind_of?(Hash)
+  end
+
+  should 'not load people templates in articles asset' do
+    t1 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    get :articles
+    assert_nil assigns(:templates)[:people]
+  end
+
+  should 'not load communities templates in articles asset' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    get :articles
+    assert_nil assigns(:templates)[:communities]
+  end
+
+  should 'not load enterprises templates in articles asset' do
+    t1 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    get :articles
+    assert_nil assigns(:templates)[:enterprises]
+  end
+
+  should 'templates variable be equals to people templates in people assert' do
+    t1 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    get :people
+
+    assert_equivalent [t1,t2], assigns(:templates)[:people]
+  end
+
+  should 'not load communities templates in people asset' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    get :people
+    assert_nil assigns(:templates)[:communities]
+  end
+
+  should 'not load enterprises templates in people asset' do
+    t1 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    get :people
+    assert_nil assigns(:templates)[:enterprises]
+  end
+
+  should 'templates variable be equals to communities templates in communities assert' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    get :communities
+
+    assert_equivalent [t1,t2], assigns(:templates)[:communities]
+  end
+
+  should 'not load people templates in communities asset' do
+    t1 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    get :communities
+    assert_nil assigns(:templates)[:people]
+  end
+
+  should 'not load enterprises templates in communities asset' do
+    t1 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    get :communities
+    assert_nil assigns(:templates)[:enterprises]
+  end
+
+  should 'templates variable be equals to enterprises templates in enterprises assert' do
+    t1 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    get :enterprises
+
+    assert_equivalent [t1,t2], assigns(:templates)[:enterprises]
+  end
+
+  should 'not load communities templates in enterprises asset' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    get :enterprises
+    assert_nil assigns(:templates)[:communities]
+  end
+
+  should 'not load people templates in enterprises asset' do
+    t1 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    get :enterprises
+    assert_nil assigns(:templates)[:people]
+  end
+
+  should 'list all community of on specific template' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    c1 = fast_create(Community, :template_id => t1.id, :name => 'Testing community 1', :created_at => DateTime.now - 2)
+    c2 = fast_create(Community, :template_id => t2.id, :name => 'Testing community 2', :created_at => DateTime.now - 1)
+    c3 = fast_create(Community, :template_id => t1.id, :name => 'Testing community 3')
+    c4 = fast_create(Community, :name => 'Testing community 3')
+
+    get :communities, :template_id => t1.id
+    assert_equivalent [c1,c3] , assigns(:searches)[:communities][:results]
+  end
+
+  should 'list all communities of no template is passed' do
+    t1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    t2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    c1 = create(Community, :template_id => t1.id, :name => 'Testing community 1', :created_at => DateTime.now - 2)
+    c2 = create(Community, :template_id => t2.id, :name => 'Testing community 2', :created_at => DateTime.now - 1)
+    c3 = create(Community, :template_id => t1.id, :name => 'Testing community 3')
+    c4 = create(Community, :name => 'Testing community 3')
+
+    get :communities, :template_id => nil
+    assert_equivalent [t1,t2,c1,c2,c3,c4] , assigns(:searches)[:communities][:results]
   end
 
   protected

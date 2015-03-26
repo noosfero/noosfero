@@ -1,0 +1,75 @@
+/* Default custom select styles */
+
+#search-subheader div.sod_select {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  text-align: left;
+  background: #fff;
+  z-index: 100;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: transparent;
+  max-width: 400px;
+}
+
+#search-subheader div.sod_select:focus {
+  outline: none; /* For better accessibility add a style for this in your skin */
+}
+
+#search-subheader .sod_select select {
+  display: none;
+}
+
+#search-subheader .sod_label::after {
+  font-family: Arial, 'Liberation Sans', sans-serif;
+  font-weight: bold;
+  content: '+';
+  left: 0px;
+  -webkit-transform: translate3d(0,-50%,0) rotate3d(0,0,1,0deg);;
+  transform: translate3d(0,-50%,0) rotate3d(0,0,1,0deg);;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  position: absolute;
+  top: 50%;
+  font-size: 2.1em;
+}
+
+#search-subheader .sod_select.open .sod_label::after {
+  -webkit-transform: translate3d(0,-50%,0) rotate3d(0,0,1,225deg);
+  transform: translate3d(0,-50%,0) rotate3d(0,0,1,225deg);
+}
+
+/* Changes on select or die*/
+#search-subheader .sod_select{
+  border: none;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  width: auto;
+  font-weight: normal;
+  text-transform: none;
+  font-size: 12px;
+}
+
+#search-subheader .sod_select.open{
+}
+
+#search-subheader .sod_select .sod_list{
+  border: 1px solid #ebebeb;
+  margin-left: -1px;
+  width: auto;
+}
+
+#search-subheader .sod_select:before,
+#search-subheader  .sod_select:after {
+  content: "";
+}
+
+#search-subheader .sod_select.focus {
+  box-shadow: none;
+}
