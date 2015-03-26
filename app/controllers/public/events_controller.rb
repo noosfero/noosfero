@@ -7,7 +7,7 @@ class EventsController < PublicController
     @events = []
     begin
       @date = build_date params[:year], params[:month], params[:day]
-    rescue
+    rescue ArgumentError # invalid date
       return render_not_found
     end
 
