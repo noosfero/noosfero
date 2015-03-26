@@ -52,6 +52,9 @@
       registerDocumentSize();
       // -->
     </script>
+    <div id="global-header">
+      <%= global_header %>
+    </div>
 
     <div id="accessibility_menu">
       <a href="#content" id="link_go_content"><span><%= _('Go to content') %></span></a>
@@ -112,8 +115,13 @@
     </div><!-- id="wrap" -->
 
     <div id="footer">
-      <%= theme_footer %>
-    </div><!-- id="footer" -->
+      <div id="theme-footer">
+        <%= theme_footer %>
+      </div><!-- end id="theme-footer" -->
+      <div id="global-footer">
+        <%= global_footer %>
+      </div><!-- end id="global-footer" -->
+    </div><!-- end id="footer" -->
 
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.html.erb! %>

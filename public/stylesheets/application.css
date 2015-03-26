@@ -77,19 +77,6 @@ div#errorExplanation h2 {
 #footer_content {
   clear: both;
 }
-#footer {
-  text-align: center;
-  clear: both;
-  font-size: 10px;
-  color: #777;
-}
-#footer a {
-  color: #777;
-  text-decoration: none;
-}
-#footer a:hover {
-  color: #555;
-}
 div#profile-disabled {
   border: 2px solid #944;
   text-align: center;

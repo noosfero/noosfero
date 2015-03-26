@@ -3,6 +3,7 @@ Noosfero Instructions for Theme Developers
 
 To build Noosfero themes you must to know HTML and CSS. You may also get some advantages with Ruby and Noosfero hacking knowledge because all customizable pieces of the theme's HTML structure are [erb](http://en.wikipedia.org/wiki/ERuby) files.
 
+
 Organization Basics
 -------------------
 
@@ -29,6 +30,7 @@ You can add more files like javascript and modularized CSS, but you must to refe
 
 To refer one of this files trough the web the path is `<domain>/designs/themes/<thistheme>/<somefile>`.
 
+
 theme.yml
 ---------
 
@@ -46,3 +48,13 @@ About non obvious:
 * `icon_theme` point to something inside `public/designs/icons/`.
 * `gravatar` set the default gravatar *(avatar picture)* for people without picture.
 
+
+Theme Intervention from Environment Theme
+-----------------------------------------
+
+Sometimes an environment (as instace http://cirandas.net) wants to allow profiles to set its own theme, but with some environment identification or functions, like a top bar with the social network logo and a top menu (as instace http://cirandas.net/rango-vegan).
+To make the magic happens you can add some files to the environment theme.
+All are optional:
+* `global.css` — this must be used to style all extra html added by your intervention partials. As it is a free form css file you can style anything, but this is a conflict risk.
+* `global_header.html.erb` — Will add content to `#global-header`.
+* `global_footer.html.erb` — Will add content to `#global-footer`.

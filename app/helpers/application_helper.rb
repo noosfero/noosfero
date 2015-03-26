@@ -398,19 +398,27 @@ module ApplicationHelper
       end
   end
 
-  def theme_view_file(template)
+  def theme_view_file(template, theme=nil)
     # Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
-    file = Rails.root.join('public', theme_path[1..-1], template + '.html.erb')
+    addr = theme ? "designs/themes/#{theme}" : theme_path[1..-1]
+    file = Rails.root.join('public', addr, template + '.html.erb')
     return file if File.exists?(file)
     nil
   end
 
   def theme_include(template, options = {})
-    file = theme_view_file(template)
-    options.merge!({:file => file, :use_full_path => false})
+    from_theme_include(nil, template, options)
+  end
+
+  def env_theme_include(template, options = {})
+    from_theme_include(environment.theme, template, options)
+  end
+
+  def from_theme_include(theme, template, options = {})
+    file = theme_view_file(template, theme)
     if file
-      render options
+      render options.merge(file: file, use_full_path: false)
     else
       nil
     end
@@ -444,6 +452,14 @@ module ApplicationHelper
 
   def theme_extra_navigation
     @theme_extra_navigation ||= theme_include 'navigation'
+  end
+
+  def global_header
+    @global_header ||= env_theme_include 'global_header'
+  end
+
+  def global_footer
+    @global_footer ||= env_theme_include 'global_footer'
   end
 
   def is_testing_theme
