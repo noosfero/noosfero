@@ -1,1 +1,2 @@
-jQuery('#search-content').html('<%= escape_javascript(render :partial => "search_content") %>');
+jQuery('#search-content').replaceWith('<%= escape_javascript(render "search_content") %>');
+
