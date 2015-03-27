@@ -1,3 +1,9 @@
+noosfero (1.1~rc3) wheezy; urgency=low
+
+  * Third release candidadte for Noosfero 1.1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 27 Mar 2015 14:49:56 +0000
+
 noosfero (1.1~rc2) wheezy; urgency=low
 
   * Second release candidate for Noosfero 1.1
