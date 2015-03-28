@@ -23,7 +23,7 @@ class PluginTest < ActiveSupport::TestCase
   end
 
   should 'returns empty hash for class method extra_blocks by default if no blocks are defined on plugin' do
-    
+
     class SomePlugin1 < Noosfero::Plugin
     end
 
