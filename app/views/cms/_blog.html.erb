@@ -53,7 +53,7 @@
   %>
 </div>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10)) %>
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10, :class => 'mceEditor')) %>
 
 <%= f.fields_for :image_builder, @article.image do |i| %>
   <%= file_field_or_thumbnail(_('Cover image:'), @article.image, i)%>
