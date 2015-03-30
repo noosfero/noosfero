@@ -108,8 +108,8 @@ module Noosfero
       :key    => '_noosfero_session',
     }
 
-    config.paths['db/migrate'] += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate"
-    config.i18n.load_path += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}"
+    config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
+    config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
 
     Noosfero::Plugin.setup(config)
 
