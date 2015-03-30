@@ -44,7 +44,7 @@ module DelayedAttachmentFu
         size = nil
       end
       if !self.thumbnailable? || self.thumbnails_processed || force
-        super(size)
+        super(size.to_s)
       else
         size ||= 'thumb'
         '/images/icons-app/image-loading-%s.png' % size
