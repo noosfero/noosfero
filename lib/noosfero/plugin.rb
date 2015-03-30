@@ -8,6 +8,10 @@ class Noosfero::Plugin
     self.context = context
   end
 
+  def environment
+    context.environment if self.context
+  end
+
   class << self
 
     attr_writer :should_load
@@ -35,6 +39,7 @@ class Noosfero::Plugin
       # filters must be loaded after all extensions
       klasses.each do |plugin|
         load_plugin_filters plugin
+        load_plugin_hotspots plugin
       end
     end
 
@@ -104,6 +109,23 @@ class Noosfero::Plugin
 
           filters = plugin.new.send(plugin_method)
           Noosfero::Plugin.add_controller_filters controller_class, plugin, filters
+        end
+      end
+    end
+
+    # This is a generic method to extend the hotspots list with plugins
+    # hotspots. This allows plugins to extend other plugins.
+    # To use this, the plugin must define its hotspots inside a module Hotspots.
+    # Its also needed to include Noosfero::Plugin::HotSpot module
+    # in order to dispatch plugins methods.
+    #
+    # Checkout FooPlugin for usage example.
+    def load_plugin_hotspots(plugin)
+      ActionDispatch::Reloader.to_prepare do
+        begin
+          module_name = "#{plugin.name}::Hotspots"
+          Noosfero::Plugin.send(:include, module_name.constantize)
+        rescue NameError
         end
       end
     end
