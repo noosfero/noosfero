@@ -7,7 +7,7 @@ class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
 
   attr_accessible :environment
 
-  scope :from, lambda { |environment| {:conditions => {:environment_id => environment}}}
+  scope :from_environment, lambda { |environment| {:conditions => {:environment_id => environment}}}
 
   after_initialize do |report|
     report.failed = {:people => [], :comments => []} if report.failed.blank?

@@ -25,7 +25,7 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     tasks.each {|task| task.cancel}
   end
 
-  scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
+  scope :from_profile, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
   scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
   scope :for_admissions, {:conditions => {:for_admission => true}}
 =begin
@@ -84,6 +84,6 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   end
 
   def period_range
-    errors.add(:base, _('The time range selected is invalid.')) if ending < begining 
+    errors.add(:base, _('The time range selected is invalid.')) if ending < begining
   end
 end
