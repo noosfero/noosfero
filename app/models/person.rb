@@ -282,7 +282,8 @@ roles] }
   end
 
   after_update do |person|
-    person.user.save!
+    # FIXME: causes infinite loop with rails4
+    #person.user.save!
   end
 
   def is_admin?(environment = nil)
