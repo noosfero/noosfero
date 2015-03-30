@@ -63,7 +63,8 @@ class UploadedFile < Article
   has_attachment :storage => :file_system,
     :thumbnails => { :icon => [24,24], :bigicon => [50,50], :thumb => '130x130>', :slideshow => '320x240>', :display => '640X480>' },
     :thumbnail_class => Thumbnail,
-    :max_size => self.max_size
+    :max_size => self.max_size,
+    processor: 'Rmagick'
 
   validates_attachment :size => N_("{fn} of uploaded file was larger than the maximum size of %{size}").sub('%{size}', self.max_size.to_humanreadable).fix_i18n
 
