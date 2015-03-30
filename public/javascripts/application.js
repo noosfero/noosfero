@@ -1165,3 +1165,42 @@ function add_new_file_fields() {
 }
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
+
+function getQueryParams(qs) {
+  qs = qs.split("+").join(" ");
+  var params = {},
+      tokens,
+      re = /[?&]?([^=]+)=([^&]*)/g;
+  while (tokens = re.exec(qs)) {
+      params[decodeURIComponent(tokens[1])]
+          = decodeURIComponent(tokens[2]);
+  }
+  return params;
+}
+
+var fullwidth=false;
+function toggle_fullwidth(itemId){
+  if(fullwidth){
+    jQuery(itemId).removeClass("fullwidth");
+    jQuery("#fullscreen-btn").show()
+    jQuery("#exit-fullscreen-btn").hide()
+    fullwidth = false;
+  }
+  else{
+    jQuery(itemId).addClass("fullwidth");
+    jQuery("#exit-fullscreen-btn").show()
+    jQuery("#fullscreen-btn").hide()
+    fullwidth = true;
+  }
+  jQuery(window).trigger("toggleFullwidth", fullwidth);
+}
+
+function fullscreenPageLoad(itemId){
+  jQuery(document).ready(function(){
+    var $_GET = getQueryParams(document.location.search);
+    if ($_GET['fullscreen']==1){
+      toggle_fullwidth(itemId);
+    }
+  });
+}
+

@@ -1002,6 +1002,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal file, from_theme_include('atheme', 'afile')[:file] # exists? = true
   end
 
+  should 'enable fullscreen buttons' do
+    html = fullscreen_buttons("#article")
+    assert html.include?("<script>fullscreenPageLoad('#article')</script>")
+    assert html.include?("class=\"button with-text icon-fullscreen\"")
+    assert html.include?("onClick=\"toggle_fullwidth('#article')\"")
+  end
+
   protected
   include NoosferoTestHelper
 
