@@ -212,6 +212,7 @@ module ApplicationHelper
   end
 
   def button(type, label, url, html_options = {})
+    html_options ||= {}
     the_class = 'with-text'
     if html_options.has_key?(:class)
       the_class << ' ' << html_options[:class]

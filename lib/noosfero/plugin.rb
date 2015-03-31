@@ -426,10 +426,17 @@ class Noosfero::Plugin
     []
   end
 
-  # -> Adds aditional actions to article
-  # returns = lambda block that creates html code
-  def article_toolbar_actions article
-    nil
+  # -> Adds aditional action buttons to article
+  # returns = { :title => title, :icon => icon, :url => url, :html_options => {} }
+  #   title         = name that will be displayed.
+  #   icon          = css class name (for customized icons include them in a css file).
+  #   url           = url or route to which the button will redirect.
+  #   html_options  = Html options for customization
+  #
+  # Multiple values could be passed as parameter.
+  # returns = [{:title => title, :icon => icon}, {:title => title, :icon => icon}]
+  def article_extra_toolbar_buttons(article)
+    []
   end
 
   # -> Adds adicional content to article

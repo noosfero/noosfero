@@ -1436,4 +1436,76 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     assert_no_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
   end
+
+  should 'add extra toolbar actions on article from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_extra_toolbar_buttons(article)
+        {:title => 'some_title1', :icon => 'some_icon1', :url => {}}
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+
+    Environment.default.enable_plugin(Plugin1.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title1" }}
+  end
+
+  should 'add more than one extra toolbar actions on article from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_extra_toolbar_buttons(article)
+        {:title => 'some_title1', :icon => 'some_icon1', :url => {}}
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def article_extra_toolbar_buttons(article)
+        {:title => 'some_title2', :icon => 'some_icon2', :url => {}}
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title1" }}
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title2" }}
+  end
+
+  should 'add icon attribute in extra toolbar actions on article from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_extra_toolbar_buttons(article)
+        {:title => 'some_title1', :icon => 'some_icon1', :url => {}}
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+
+    Environment.default.enable_plugin(Plugin1.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :class => /some_icon1/ }}
+  end
+
+  should 'add url attribute in extra toolbar actions on article from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_extra_toolbar_buttons(article)
+        {:title => 'some_title1', :icon => 'some_icon1', :url => '/bli'}
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+
+    Environment.default.enable_plugin(Plugin1.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/bli" }}
+  end
+
 end
