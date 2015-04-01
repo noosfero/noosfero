@@ -20,15 +20,15 @@ class Noosfero::Plugin::Manager
   # return [1,0,1,2,3]
   #
   def dispatch(event, *args)
-    flat_map{ |plugin| result_for plugin, event, *args }.compact
+    dispatch_without_flatten(event, *args).flatten
   end
 
   def fetch_plugins(event, *args)
-    map { |plugin| plugin.class if result_for plugin, event, *args }.compact.flatten
+    map { |plugin| plugin.class if plugin.send(event, *args) }.compact.flatten
   end
 
   def dispatch_without_flatten(event, *args)
-    map { |plugin| result_for plugin, event, *args }.compact
+    map { |plugin| plugin.send(event, *args) }.compact
   end
 
   alias :dispatch_scopes :dispatch_without_flatten
@@ -37,14 +37,9 @@ class Noosfero::Plugin::Manager
     Noosfero::Plugin.new.send event, *args
   end
 
-  def result_for plugin, event, *args
-    method = plugin.method event
-    method.call *args if method.owner != Noosfero::Plugin
-  end
-
   def dispatch_first(event, *args)
     each do |plugin|
-      result = result_for plugin, event, *args
+      result = plugin.send(event, *args)
       return result if result.present?
     end
     default_for event, *args
@@ -52,7 +47,7 @@ class Noosfero::Plugin::Manager
 
   def fetch_first_plugin(event, *args)
     each do |plugin|
-      result = result_for plugin, event, *args
+      result = plugin.send event, *args
       return plugin.class if result.present?
     end
     nil
@@ -60,7 +55,7 @@ class Noosfero::Plugin::Manager
 
   def pipeline(event, *args)
     each do |plugin|
-      result = result_for plugin, event, *args
+      result = plugin.send(event, *args)
       result = result.kind_of?(Array) ? result : [result]
       raise ArgumentError, "Pipeline broken by #{plugin.class.name} on #{event} with #{result.length} arguments instead of #{args.length}." if result.length != args.length
       args = result
@@ -69,7 +64,7 @@ class Noosfero::Plugin::Manager
   end
 
   def filter(property, data)
-    inject(data){ |data, plugin| data = plugin.send(property, data) }
+    inject(data) {|data, plugin| data = plugin.send(property, data)}
   end
 
   def parse_macro(macro_name, macro, source = nil)

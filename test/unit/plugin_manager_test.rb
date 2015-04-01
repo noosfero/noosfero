@@ -304,31 +304,4 @@ class PluginManagerTest < ActiveSupport::TestCase
     @manager.dispatch_first :find_by_contents, :products, environment.products, 'product'
   end
 
-  should 'not event if it is not defined by plugin' do
-    class Noosfero::Plugin
-      def never_call
-        nil
-      end
-    end
-    class Plugin1 < Noosfero::Plugin
-      def never_call
-        'defined'
-      end
-    end
-    class Plugin2 < Noosfero::Plugin
-    end
-    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
-    environment.enable_plugin(Plugin1)
-    environment.enable_plugin(Plugin2)
-    plugin1 = @manager.enabled_plugins.detect{ |p| p.is_a? Plugin1 }
-    plugin2 = @manager.enabled_plugins.detect{ |p| p.is_a? Plugin2 }
-
-    assert_equal Plugin1, Plugin1.new.method(:never_call).owner
-    assert_equal Noosfero::Plugin, Plugin2.new.method(:never_call).owner
-    # expects never can't be used as it defines the method
-    @manager.expects(:result_for).with(plugin1, :never_call).returns(Plugin1.new.never_call)
-    @manager.expects(:result_for).with(plugin2, :never_call).returns(nil)
-    @manager.dispatch :never_call
-  end
-
 end
