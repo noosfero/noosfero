@@ -291,17 +291,4 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal [7,9], manager.filter(:invalid_numbers, [1,2,3,4,5,6,7,8,9,10])
   end
 
-  should 'only call default if value is blank' do
-    class Plugin1 < Noosfero::Plugin
-      def find_by_contents asset, scope, query, paginate_options={}, options={}
-        {results: [1,2,3]}
-      end
-    end
-    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1'])
-    environment.enable_plugin(Plugin1)
-
-    Noosfero::Plugin.any_instance.expects(:find_by_contents).never
-    @manager.dispatch_first :find_by_contents, :products, environment.products, 'product'
-  end
-
 end

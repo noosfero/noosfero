@@ -33,24 +33,26 @@ class Noosfero::Plugin::Manager
 
   alias :dispatch_scopes :dispatch_without_flatten
 
-  def default_for event, *args
-    Noosfero::Plugin.new.send event, *args
-  end
-
   def dispatch_first(event, *args)
+    default = Noosfero::Plugin.new.send(event, *args)
+    result = default
     each do |plugin|
       result = plugin.send(event, *args)
-      return result if result.present?
+      break if result != default
     end
-    default_for event, *args
+    result
   end
 
   def fetch_first_plugin(event, *args)
+    default = Noosfero::Plugin.new.send(event, *args)
+    result = nil
     each do |plugin|
-      result = plugin.send event, *args
-      return plugin.class if result.present?
+      if plugin.send(event, *args) != default
+        result = plugin.class
+        break
+      end
     end
-    nil
+    result
   end
 
   def pipeline(event, *args)
