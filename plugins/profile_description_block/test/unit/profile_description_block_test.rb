@@ -1,14 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
 
 class ProfileDescriptionBlockTest < ActiveSupport::TestCase
-	def setup
-		e = Environment.default
+  def setup
+    e = Environment.default
     e.enabled_plugins = ['ProfileDescriptionPlugin']
     @person = create_user('test_user').person
     @profile = Profile.create!(:identifier => '1236',
                                :name => 'blabla',
                                :description => "")
-	end
+  end
 
   should 'describe itself' do
     assert_not_equal Block.description, ProfileDescriptionBlock.description
