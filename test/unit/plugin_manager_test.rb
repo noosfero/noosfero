@@ -178,15 +178,6 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal Plugin2, manager.fetch_first_plugin(:random_event)
   end
 
-  should 'return nil if missing method is called' do
-    class Plugin1 < Noosfero::Plugin
-    end
-    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1'])
-    environment.enable_plugin(Plugin1)
-
-    assert_equal nil, @manager.result_for(Plugin1.new, :content_remove_new)
-  end
-
   should 'parse macro' do
     class Plugin1 < Noosfero::Plugin
       def macros

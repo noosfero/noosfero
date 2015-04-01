@@ -38,8 +38,6 @@ class Noosfero::Plugin::Manager
   end
 
   def result_for plugin, event, *args
-    # check if defined to avoid crash, as there is hotspots using method_missing
-    return unless plugin.respond_to? event
     method = plugin.method event
     method.call *args if method.owner != Noosfero::Plugin
   end
