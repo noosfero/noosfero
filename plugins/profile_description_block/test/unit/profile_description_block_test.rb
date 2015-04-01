@@ -17,7 +17,7 @@ class ProfileDescriptionBlockTest < ActiveSupport::TestCase
   should "show profile description inside block" do
     new_block = ProfileDescriptionBlock.create!
     @profile.boxes.first.blocks << new_block
-    block_menssage = "Description field are empty"
+    block_menssage = "Description field is empty"
     assert (instance_eval(&Block.last.content).include?(block_menssage)),
       "description block doesn't show not found description message"
     description = "This is an test"
