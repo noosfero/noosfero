@@ -24,7 +24,7 @@ class Noosfero::Plugin::Manager
   end
 
   def fetch_plugins(event, *args)
-    flat_map{ |plugin| plugin.class if result_for plugin, event, *args }.compact
+    map { |plugin| plugin.class if result_for plugin, event, *args }.compact.flatten
   end
 
   def dispatch_without_flatten(event, *args)
@@ -60,8 +60,7 @@ class Noosfero::Plugin::Manager
 
   def pipeline(event, *args)
     each do |plugin|
-      # result_for can't be used here and default must be returned to keep args
-      result = plugin.send event, *args
+      result = result_for plugin, event, *args
       result = result.kind_of?(Array) ? result : [result]
       raise ArgumentError, "Pipeline broken by #{plugin.class.name} on #{event} with #{result.length} arguments instead of #{args.length}." if result.length != args.length
       args = result
