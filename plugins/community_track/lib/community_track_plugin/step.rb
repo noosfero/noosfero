@@ -32,7 +32,7 @@ class CommunityTrackPlugin::Step < Folder
     self.start_date ||= Date.today
     self.end_date ||= Date.today + 1.day
   end
-  
+
   def set_hidden_position
     if hidden
       decrement_positions_on_lower_items
@@ -108,7 +108,7 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def tool
-    tools.find(:first, :conditions => {:type => tool_type })
+    tools.where(type: tool_type).first
   end
 
 end

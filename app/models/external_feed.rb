@@ -5,9 +5,9 @@ class ExternalFeed < ActiveRecord::Base
   validates_presence_of :address, :if => lambda {|efeed| efeed.enabled}
   validates_uniqueness_of :blog_id
 
-  scope :enabled, :conditions => { :enabled => true }
-  scope :expired, lambda {
-    { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
+  scope :enabled, -> { where enabled: true }
+  scope :expired, -> {
+    where '(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval
   }
 
   attr_accessible :address, :enabled, :only_once

@@ -14,12 +14,12 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('{fn} is already being used by another category.').fix_i18n
   belongs_to :environment
 
-  # Finds all top level categories for a given environment. 
-  scope :top_level_for, lambda { |environment|
-    {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
+  # Finds all top level categories for a given environment.
+  scope :top_level_for, -> (environment) {
+    where 'parent_id is null and environment_id = ?', environment.id
   }
 
-  scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
+  scope :on_level, -> (parent) { where :parent_id => parent }
 
   acts_as_filesystem
 
@@ -46,10 +46,10 @@ class Category < ActiveRecord::Base
     display_color = nil if display_color.blank?
   end
 
-  scope :from_types, lambda { |types|
-    types.select{ |t| t.blank? }.empty? ?
-      { :conditions => { :type => types } } :
-      { :conditions => [ "type IN (?) OR type IS NULL", types.reject{ |t| t.blank? } ] }
+  scope :from_types, -> (types) {
+    if types.select{ |t| t.blank? }.empty? then
+      where(type: types) else
+      where("type IN (?) OR type IS NULL", types.reject{ |t| t.blank? }) end
   }
 
   def recent_people(limit = 10)
@@ -81,7 +81,7 @@ class Category < ActiveRecord::Base
   end
 
   def upcoming_events(limit = 10)
-    self.events.paginate(:conditions => [ 'start_date >= ?', Date.today ], :order => 'start_date', :page => 1, :per_page => limit)
+    self.events.where('start_date >= ?', Date.today).order('start_date').paginate(:page => 1, :per_page => limit)
   end
 
   def display_in_menu?
@@ -90,11 +90,11 @@ class Category < ActiveRecord::Base
 
   def children_for_menu
     results = []
-    pending = children.find(:all, :conditions => { :display_in_menu => true})
+    pending = children.where :display_in_menu => true
     while !pending.empty?
       cat = pending.shift
       results << cat
-      pending += cat.children.find(:all, :conditions => { :display_in_menu => true} )
+      pending += cat.children.where :display_in_menu => true
     end
 
     results
@@ -102,7 +102,7 @@ class Category < ActiveRecord::Base
 
   def is_leaf_displayable_in_menu?
     return false if self.display_in_menu == false
-    self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
+    self.children.where(:display_in_menu => true).empty?
   end
 
   def with_color

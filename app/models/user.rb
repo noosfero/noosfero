@@ -111,8 +111,8 @@ class User < ActiveRecord::Base
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)
     environment ||= Environment.default
-    u = self.first :conditions => ['(login = ? OR email = ?) AND environment_id = ? AND activated_at IS NOT NULL',
-                                   login, login, environment.id] # need to get the salt
+    u = self.where('(login = ? OR email = ?) AND environment_id = ? AND activated_at IS NOT NULL',
+                   login, login, environment.id).first # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

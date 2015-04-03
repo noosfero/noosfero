@@ -44,7 +44,7 @@ Check all the features you want to enable for your environment, uncheck all the 
   </div>
   <div class="input">
     <div class="info"><%= _('Allow these people to access this environment:') %></div>
-    <% tokenized_members = prepare_to_token_input(environment.people.find(:all, :conditions => {:id => environment.members_whitelist})) %>
+    <% tokenized_members = prepare_to_token_input(environment.people.where(id: environment.members_whitelist)) %>
     <%= token_input_field_tag('environment[members_whitelist]', 'search-members', {:action => 'search_members'}, {:focus => false, :hint_text => _('Type in a search term for a user'), :pre_populate => tokenized_members}) %>
   </div>
 <hr/>

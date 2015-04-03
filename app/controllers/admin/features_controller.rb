@@ -1,6 +1,6 @@
 class FeaturesController < AdminController
   protect 'edit_environment_features', :environment
-  
+
   def index
     @features = Environment.available_features.sort_by{|k,v|v}
   end
@@ -53,7 +53,7 @@ class FeaturesController < AdminController
 
   def search_members
     arg = params[:q].downcase
-    result = environment.people.find(:all, :conditions => ['LOWER(name) LIKE ? OR identifier LIKE ?', "%#{arg}%", "%#{arg}%"])
+    result = environment.people.where('LOWER(name) LIKE ? OR identifier LIKE ?', "%#{arg}%", "%#{arg}%")
     render :text => prepare_to_token_input(result).to_json
   end
 

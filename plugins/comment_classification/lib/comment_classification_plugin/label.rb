@@ -4,7 +4,7 @@ class CommentClassificationPlugin::Label < Noosfero::Plugin::ActiveRecord
 
   validates_presence_of :name
 
-  scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, -> { where enabled: true }
 
   attr_accessible :name, :enabled, :color
 

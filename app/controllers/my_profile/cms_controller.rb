@@ -57,16 +57,9 @@ class CmsController < MyProfileController
 
   def view
     @article = profile.articles.find(params[:id])
-    conditions = []
-    if @article.has_posts?
-      conditions = ['type != ?', 'RssFeed']
-    end
-
-    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name").paginate(
-      :conditions => conditions,
-      :per_page => per_page,
-      :page => params[:npage]
-    )
+    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name")
+    @articles = @articles.where type: 'RssFeed' if @article.has_posts?
+    @articles = @articles.paginate per_page: per_page, page: params[:npage]
   end
 
   def index
@@ -390,7 +383,7 @@ class CmsController < MyProfileController
 
   def search_article_privacy_exceptions
     arg = params[:q].downcase
-    result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
     render :text => prepare_to_token_input(result).to_json
   end
 

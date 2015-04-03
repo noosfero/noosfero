@@ -37,7 +37,7 @@ class AddBirthDateToPerson < ActiveRecord::Migration
   def self.up
     add_column :profiles, :birth_date, :date
     offset = 0
-    while p = Person.find(:first, :conditions => "type = 'Person'", :order => 'id', :offset => offset)
+    while p = Person.where("type = 'Person'").order(:id).offset(offset).first
       p.birth_date = ConvertDates.convert(p.data[:birth_date].to_s)
       p.save
       offset += 1

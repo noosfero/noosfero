@@ -8,7 +8,7 @@ class BscPluginMyprofileController < MyProfileController
   end
 
   def search_enterprise
-    render :text => environment.enterprises.find(:all, :conditions => ["type <> 'BscPlugin::Bsc' AND (LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?) AND (identifier NOT LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%", "%_template"]).
+    render :text => environment.enterprises.where("type <> 'BscPlugin::Bsc' AND (LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?) AND (identifier NOT LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%", "%_template").
       select { |enterprise| enterprise.bsc.nil? && !profile.already_requested?(enterprise)}.
       map {|enterprise| {:id => enterprise.id, :name => enterprise.name} }.
       to_json
@@ -188,7 +188,8 @@ class BscPluginMyprofileController < MyProfileController
   end
 
   def search_contract_enterprises
-    render :text => profile.enterprises.find(:all, :conditions => ["(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)", "%#{params[:enterprises]}%", "%#{params[:enterprises]}%"]).
+    render :text => profile.enterprises.
+      where("(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)", "%#{params[:enterprises]}%", "%#{params[:enterprises]}%").
       map {|enterprise| {:id => enterprise.id, :name => enterprise.short_name(60)} }.
       to_json
   end
@@ -199,7 +200,8 @@ class BscPluginMyprofileController < MyProfileController
     enterprises = enterprises.blank? ? -1 : enterprises
     added_products = (params[:added_products] || []).split(',')
     added_products = added_products.blank? ? -1 : added_products
-    render :text => Product.find(:all, :conditions => ["LOWER(name) LIKE ? AND profile_id IN (?) AND id NOT IN (?)", "%#{query}%", enterprises, added_products]).
+    render :text => Product.
+      where("LOWER(name) LIKE ? AND profile_id IN (?) AND id NOT IN (?)", "%#{query}%", enterprises, added_products).
       map {|product| { :id => product.id,
                        :name => short_text(product_display_name(product), 60),
                        :sale_id => params[:sale_id],

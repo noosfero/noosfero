@@ -73,7 +73,7 @@ class Article < ActiveRecord::Base
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
-  has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
+  has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
   has_many :categories, :through => :article_categorizations
 
   has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
@@ -125,15 +125,13 @@ class Article < ActiveRecord::Base
 
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
-  scope :in_category, lambda { |category|
-    {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
+  scope :in_category, -> (category) {
+    includes('categories_including_virtual').where('categories.id' => category.id)
   }
 
-  scope :by_range, lambda { |range| {
-    :conditions => [
-      'articles.published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
-    ]
-  }}
+  scope :by_range, -> (range) {
+    where 'articles.published_at BETWEEN :start_date AND :end_date', { start_date: range.first, end_date: range.last }
+  }
 
   URL_FORMAT = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\Z/ix
 
@@ -255,20 +253,21 @@ class Article < ActiveRecord::Base
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  scope :top_level_for, lambda { |profile|
-    {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
+  scope :top_level_for, -> {
+    where 'parent_id is null and profile_id = ?', profile.id
   }
 
-  # :public is reserved on rails 4.1, use is_public instead
-  scope :is_public,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ], :joins => [:profile]
+  scope :is_public, -> {
+    joins(:profile).
+    where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true)
+  }
 
-  scope :more_recent,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
-      ((articles.type != ?) OR articles.type is NULL)",
-      true, true, true, true, 'RssFeed'
-    ],
-    :order => 'articles.published_at desc, articles.id desc'
+  scope :more_recent, -> {
+    order('articles.published_at desc, articles.id desc')
+    .where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
+    ((articles.type != ?) OR articles.type is NULL)",
+    true, true, true, true, 'RssFeed')
+  }
 
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
@@ -276,8 +275,10 @@ class Article < ActiveRecord::Base
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  scope :more_popular, :order => 'hits DESC'
-  scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
+  scope :more_popular, -> { order 'hits DESC' }
+  scope :relevant_as_recent, -> {
+   where "(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"
+  }
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
     result = scoped({:conditions => extra_conditions}).
@@ -406,7 +407,7 @@ class Article < ActiveRecord::Base
     self.translations.map(&:language)
   end
 
-  scope :native_translations, :conditions => { :translation_of_id => nil }
+  scope :native_translations, -> { where :translation_of_id => nil }
 
   def translatable?
     false
@@ -461,7 +462,7 @@ class Article < ActiveRecord::Base
     elsif self.native_translation.language == locale
       self.native_translation
     else
-      self.native_translation.translations.first(:conditions => { :language => locale })
+      self.native_translation.translations.where(:language => locale).first
     end
   end
 
@@ -485,19 +486,19 @@ class Article < ActiveRecord::Base
     ['TextArticle', 'TextileArticle', 'TinyMceArticle']
   end
 
-  scope :published, :conditions => ['articles.published = ?', true]
-  scope :folders, lambda {|profile|{:conditions => ['articles.type IN (?)', profile.folder_types] }}
-  scope :no_folders, lambda {|profile|{:conditions => ['articles.type NOT IN (?)', profile.folder_types]}}
-  scope :galleries, :conditions => [ "articles.type IN ('Gallery')" ]
-  scope :images, :conditions => { :is_image => true }
-  scope :no_images, :conditions => { :is_image => false }
-  scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
-  scope :files, :conditions => { :type => 'UploadedFile' }
-  scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
+  scope :published, -> { where 'articles.published = ?', true }
+  scope :folders, -> (profile) { where 'articles.type IN (?)', profile.folder_types }
+  scope :no_folders, -> (profile) { where 'articles.type NOT IN (?)', profile.folder_types }
+  scope :galleries, -> { where "articles.type IN ('Gallery')" }
+  scope :images, -> { where :is_image => true }
+  scope :no_images, -> { where :is_image => false }
+  scope :text_articles, -> { where 'articles.type IN (?)', text_article_types }
+  scope :files, -> { where :type => 'UploadedFile' }
+  scope :with_types, -> (types) { where 'articles.type IN (?)', types }
 
-  scope :more_popular, :order => 'hits DESC'
-  scope :more_comments, :order => "comments_count DESC"
-  scope :more_recent, :order => "created_at DESC"
+  scope :more_popular, -> { order 'hits DESC' }
+  scope :more_comments, -> { order "comments_count DESC" }
+  scope :more_recent, -> { order "created_at DESC" }
 
   scope :display_filter, lambda {|user, profile|
     return published if (user.nil? && profile && profile.public?)
@@ -619,7 +620,7 @@ class Article < ActiveRecord::Base
   ]
 
   def self.find_by_old_path(old_path)
-    find(:first, :include => :versions, :conditions => ['article_versions.path = ?', old_path], :order => 'article_versions.id desc')
+    self.includes(:versions).where( 'article_versions.path = ?', old_path).order('article_versions.id DESC')
   end
 
   def hit

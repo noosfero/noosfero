@@ -69,7 +69,7 @@ class StatisticsBlock < Block
   end
 
   def template_counter_count(template_id)
-    owner.communities.visible.count(:conditions => {:template_id => template_id})
+    owner.communities.visible.where(template_id: template_id).count
   end
 
   def users

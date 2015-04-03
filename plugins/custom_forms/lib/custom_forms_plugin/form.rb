@@ -25,9 +25,9 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     tasks.each {|task| task.cancel}
   end
 
-  scope :from_profile, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
-  scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
-  scope :for_admissions, {:conditions => {:for_admission => true}}
+  scope :from_profile, -> (profile) { where profile_id: profile.id }
+  scope :on_memberships, -> { where on_membership: true, for_admission: false }
+  scope :for_admissions, -> { where for_admission: true }
 =begin
   scope :accessible_to lambda do |profile|
     #TODO should verify is profile is associated with the form owner

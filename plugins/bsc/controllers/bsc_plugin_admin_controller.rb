@@ -28,8 +28,9 @@ class BscPluginAdminController < AdminController
   end
 
   def search_enterprise
-    render :text => Enterprise.not_validated.find(:all, :conditions => ["type <> 'BscPlugin::Bsc' AND (name LIKE ? OR identifier LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%"]).
-      map {|enterprise| {:id => enterprise.id, :name => enterprise.name} }.
+    render :text => Enterprise.not_validated.
+      where("type <> 'BscPlugin::Bsc' AND (name LIKE ? OR identifier LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%").
+      map{ |enterprise| {:id => enterprise.id, :name => enterprise.name} }.
       to_json
   end
 

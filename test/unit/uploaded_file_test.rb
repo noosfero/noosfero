@@ -229,7 +229,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'track action when a published image is uploaded in a gallery' do
     p = fast_create(Gallery, :profile_id => @profile.id)
     f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
-    ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    ta = ActionTracker::Record.where(verb: "upload_image").last
     assert_kind_of String, ta.get_thumbnail_path[0]
     assert_equal [f.reload.view_url], ta.get_view_url
     assert_equal [p.reload.url], ta.get_parent_url
@@ -240,26 +240,26 @@ class UploadedFileTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     p = fast_create(Gallery, :profile_id => @profile.id)
     f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
-    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
   should 'not track action when has no parent' do
     f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => nil, :profile => @profile)
-    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
   should 'not track action when is not published' do
     ActionTracker::Record.delete_all
     p = fast_create(Gallery, :profile_id => @profile.id)
     f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
-    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
   should 'not track action when parent is not gallery' do
     ActionTracker::Record.delete_all
     p = fast_create(Folder, :profile_id => @profile.id)
     f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
-    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
   should 'not crash if first paragraph called' do

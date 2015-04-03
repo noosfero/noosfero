@@ -26,9 +26,9 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   validates_uniqueness_of :suggestion_id, :scope => [ :person_id ]
-  scope :of_person, :conditions => { :suggestion_type => 'Person' }
-  scope :of_community, :conditions => { :suggestion_type => 'Community' }
-  scope :enabled, :conditions => { :enabled => true }
+  scope :of_person, -> { where suggestion_type: 'Person' }
+  scope :of_community, -> { where suggestion_type: 'Community' }
+  scope :enabled, -> { where enabled: true }
 
   # {:category_type => ['category-icon', 'category-label']}
   CATEGORIES = {

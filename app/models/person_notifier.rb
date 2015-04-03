@@ -28,7 +28,7 @@ class PersonNotifier
 
   def notify
     if @person.notification_time && @person.notification_time > 0
-      notifications = @person.tracked_notifications.find(:all, :conditions => ["created_at > ?", notify_from])
+      notifications = @person.tracked_notifications.where("created_at > ?", notify_from)
       tasks = Task.to(@person).without_spam.pending.where("created_at > ?", notify_from).order_by('created_at', 'asc')
 
       Noosfero.with_locale @person.environment.default_language do

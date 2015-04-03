@@ -54,7 +54,7 @@ class AdminPanelController < AdminController
 
      if request.post?
        env = environment
-       folders = params[:folders].map{|fid| Folder.find(:first, :conditions => {:profile_id => env.portal_community, :id => fid})} if params[:folders]
+       folders = Folder.where :profile_id => env.portal_community, :id => params[:folders] if params[:folders]
        env.portal_folders = folders
        if env.save
          session[:notice] = _('Saved the portal folders')

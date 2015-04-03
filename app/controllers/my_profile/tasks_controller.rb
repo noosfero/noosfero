@@ -86,7 +86,7 @@ class TasksController < MyProfileController
   end
 
   def ticket_details
-    @ticket = Ticket.find(:first, :conditions => ['(requestor_id = ? or target_id = ?) and id = ?', profile.id, profile.id, params[:id]])
+    @ticket = Ticket.where('(requestor_id = ? or target_id = ?) and id = ?', profile.id, profile.id, params[:id]).first
   end
 
 end

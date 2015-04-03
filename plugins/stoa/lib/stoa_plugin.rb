@@ -63,7 +63,7 @@ class StoaPlugin < Noosfero::Plugin
     block = proc do
       params[:profile_data] ||= {}
       params[:profile_data][:invitation_code] = params[:invitation_code]
-      invitation = Task.pending.find(:first, :conditions => {:code => params[:invitation_code]})
+      invitation = Task.pending.where(code: params[:invitation_code]).first
       if request.post?
         if !invitation && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
           # `self` below is evaluated in the context of account_controller

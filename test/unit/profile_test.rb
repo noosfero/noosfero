@@ -448,7 +448,7 @@ class ProfileTest < ActiveSupport::TestCase
     p1 = create(Profile, :public_profile => true)
     p2 = create(Profile, :public_profile => false)
 
-    result = Profile.find(:all, :conditions => {:public_profile => true})
+    result = Profile.where(public_profile: true).all
     assert_includes result, p1
     assert_not_includes result, p2
   end

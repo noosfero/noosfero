@@ -37,7 +37,7 @@ class Domain < ActiveRecord::Base
   # "www.", but it will be removed before searching. So searching for
   # 'www.example.net' is exactly the same as searching for just 'example.net'
   def self.find_by_name(name)
-    self.find(:first, :conditions => [ 'name = ?', self.extract_domain_name(name) ])
+    self.where('name = ?', self.extract_domain_name(name)).first
   end
 
   # turns the argument (expected to be a String) into a domain name that is

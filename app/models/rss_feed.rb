@@ -69,7 +69,7 @@ class RssFeed < Article
   def fetch_articles
     if parent && parent.has_posts?
       language = self.language.blank? ? {} : { :language => self.language }
-      return parent.posts.find(:all, :conditions => { :published => true }.merge(language), :limit => self.limit, :order => 'id desc')
+      return parent.posts.where({published: true}.merge language).limit(self.limit).order('id desc')
     end
 
     articles =

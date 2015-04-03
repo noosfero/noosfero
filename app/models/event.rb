@@ -34,23 +34,20 @@ class Event < Article
     end
   end
 
-  scope :by_day, lambda { |date|
-    { :conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}],
-      :order => 'start_date ASC'
-    }
+  scope :by_day, -> (date) {
+    order('start_date ASC')
+    .where('start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date})
   }
 
-  scope :next_events_from_month, lambda { |date|
+  scope :next_events_from_month, -> (date) {
     date_temp = date.strftime("%Y-%m-%d")
-    { :conditions => ["start_date >= ?","#{date_temp}"],
-      :order => 'start_date ASC'
-    }
+    order('start_date ASC')
+    .where("start_date >= ?","#{date_temp}")
   }
 
-  scope :by_month, lambda { |date|
-    { :conditions => ["EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?",date.year,date.month],
-      :order => 'start_date ASC'
-    }
+  scope :by_month, -> (date) {
+    order('start_date ASC')
+    .where("EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?", date.year, date.month)
   }
 
   include WhiteListFilter
@@ -71,12 +68,10 @@ class Event < Article
     'event'
   end
 
-  scope :by_range, lambda { |range| {
-    :conditions => [
-      'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
-      { :start_day => range.first, :end_day => range.last }
-    ]
-  }}
+  scope :by_range, -> (range) {
+    where('start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
+      {:start_day => range.first, :end_day => range.last})
+  }
 
   def self.date_range(year, month)
     if year.nil? || month.nil?

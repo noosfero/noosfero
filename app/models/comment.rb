@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
-  scope :without_reply, :conditions => ['reply_of_id IS NULL']
+  scope :without_reply, -> { where 'reply_of_id IS NULL' }
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })

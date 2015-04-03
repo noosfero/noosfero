@@ -56,10 +56,11 @@ class Folder < Article
     profile.recent_documents(limit, ["articles.type != ? AND articles.highlighted = ? AND articles.parent_id = ?", 'Folder', highlight, id])
   end
 
-  has_many :images, :class_name => 'Article',
-                    :foreign_key => 'parent_id',
-                    :order => 'articles.type, articles.name',
-                    :conditions => ["articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types]
+  has_many :images, -> {
+    order('articles.type, articles.name').
+    where("articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types)
+  }, class_name: 'Article', foreign_key: 'parent_id'
+
 
   def accept_uploads?
     !self.has_posts? || self.gallery?

@@ -44,7 +44,7 @@ groups.each do |group|
 end
 done
 
-EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).each do |activation|
+EnterpriseActivation.where('created_at > ?', start_time).each do |activation|
   enterprise = activation.enterprise
 end
 

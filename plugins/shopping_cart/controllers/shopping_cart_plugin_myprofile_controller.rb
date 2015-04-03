@@ -28,7 +28,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
     end
 
     conditions = [condition] + condition_parameters
-    @orders = profile.orders.find(:all, :conditions => conditions)
+    @orders = profile.orders.where(conditions)
 
     @products = {}
     @orders.each do |order|

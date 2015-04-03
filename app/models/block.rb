@@ -20,7 +20,7 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
-  scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, -> { where :enabled => true }
 
   after_save do |block|
     if block.owner.kind_of?(Profile) && block.owner.is_template? && block.mirror?

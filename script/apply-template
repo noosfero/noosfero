@@ -30,7 +30,7 @@ when 'inactive-enterprise'
   excluded = [env.inactive_enterprise_template, env.enterprise_template]
   template = excluded.first
 
-  while enterprise = Enterprise.find(:first, :conditions => {:enabled => false}, :order => :id, :offset => offset)
+  while enterprise = Enterprise.where(enabled: false).order(:id).offset(offset)
     # do nothing with templates
     next if excluded.include?(enterprise)
 
@@ -42,7 +42,7 @@ when 'inactive-enterprise'
     offset = offset + 1
   end
 when 'active-enterprise'
-  active_enterprises = Enterprise.find(:all, :conditions => {:enabled => true}) - [env.enterprise_template, env.enterprise_template]
+  active_enterprises = Enterprise.where(enabled: true).all - [env.enterprise_template, env.enterprise_template]
   active_enterprises.each do |enterprise|
     old_home = enterprise.home_page
     enterprise.apply_template(env.enterprise_template)
@@ -53,7 +53,7 @@ when 'community'
   excluded = ['espaco', 'anarquismo']
   template = env.community_template
   offset = 0
-  while community = Community.find(:first, :order => :id, :offset => offset)
+  while community = Community.order(:id).offset(offset)
     if community != template && !excluded.include?(community.identifier)
       report_doing offset, community.name
       community.apply_template(template)

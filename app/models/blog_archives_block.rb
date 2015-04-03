@@ -35,7 +35,7 @@ class BlogArchivesBlock < Block
     posts.except(:order).count(:all, :group => 'EXTRACT(YEAR FROM published_at)').sort_by {|year, count| -year.to_i}.each do |year, count|
       results << content_tag('li', content_tag('strong', "#{year} (#{count})"))
       results << "<ul class='#{year}-archive'>"
-      posts.except(:order).count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
+      posts.except(:order).where('EXTRACT(YEAR FROM published_at)=?', year).group('EXTRACT(MONTH FROM published_at)').count.sort_by {|month, count| -month.to_i}.each do |month, count|
         results << content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
       end
       results << "</ul>"
