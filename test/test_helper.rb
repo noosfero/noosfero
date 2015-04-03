@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'rails/test_help'
 require 'mocha'
 
-require 'noosfero/test'
 require 'authenticated_test_helper'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
@@ -74,6 +73,21 @@ class ActiveSupport::TestCase
       end
     end
 
+  end
+
+  def self.noosfero_test parameters
+    instance_variable_set('@noosfero_test_extra_parameters', parameters)
+    def extra_parameters
+      @noosfero_test_extra_parameters
+    end
+  end
+
+  def get(path, parameters = nil, headers = nil)
+    super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters) , headers)
+  end
+
+  def post(path, parameters = nil, headers = nil)
+    super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters), headers)
   end
 
   alias :ok :assert_block
