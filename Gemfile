@@ -1,16 +1,16 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 4.1.6'
+gem 'rails',                    '~> 4.2.0'
 gem 'minitest'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.4.2'
 gem 'rails_autolink',           '~> 1.1.5'
-gem 'pg',                       '~> 0.13.2'
+gem 'pg',                       '~> 0.18.1'
 gem 'rmagick',                  '~> 2.13.1'
 gem 'RedCloth',                 '~> 4.2.9'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1.5'
 gem 'thin',                     '~> 1.3.1'
-gem 'nokogiri',                 '~> 1.5.5'
+gem 'nokogiri',                 '~> 1.6.0'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
 gem 'delayed_job'
@@ -21,7 +21,7 @@ gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
-gem 'eita-jrails', '>= 0.9.7', :require => 'jrails'
+gem 'eita-jrails', '>= 0.9.8', require: 'jrails'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
