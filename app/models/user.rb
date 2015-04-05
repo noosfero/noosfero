@@ -85,7 +85,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_one :person, :dependent => :destroy
+  # set autosave to false as we do manually when needed and Person syncs with us
+  has_one :person, dependent: :destroy, autosave: false
   belongs_to :environment
 
   attr_protected :activated_at
