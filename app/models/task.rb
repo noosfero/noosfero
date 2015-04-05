@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
   before_validation(:on => :create) do |task|
     if task.code.nil?
       task.code = Task.generate_code(task.code_length)
-      while (Task.find_by_code(task.code))
+      while Task.from_code(task.code).first
         task.code = Task.generate_code(task.code_length)
       end
     end
@@ -302,6 +302,12 @@ class Task < ActiveRecord::Base
     end
   end
 
+  # finds a task by its (generated) code. Only returns a task with the
+  # specified code AND with status = Task::Status::ACTIVE.
+  #
+  # Can be used in subclasses to find only their instances.
+  scope :from_code, -> (code) { where code: code, status: Task::Status::ACTIVE }
+
   class << self
 
     # generates a random code string consisting of length characters (or 36 by
@@ -313,14 +319,6 @@ class Task < ActiveRecord::Base
         code << chars[rand(chars.size)]
       end
       code
-    end
-
-    # finds a task by its (generated) code. Only returns a task with the
-    # specified code AND with status = Task::Status::ACTIVE.
-    #
-    # Can be used in subclasses to find only their instances.
-    def find_by_code(code)
-      self.where(code: code, status: Task::Status::ACTIVE)
     end
 
     def per_page

@@ -16,7 +16,7 @@ class AccountController < ApplicationController
   def activate
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
     if @user
-      unless @user.environment.enabled?('admin_must_approve_new_users') 
+      unless @user.environment.enabled?('admin_must_approve_new_users')
         if @user.activate
           @message = _("Your account has been activated, now you can log in!")
           check_redirection
@@ -30,7 +30,7 @@ class AccountController < ApplicationController
           @user.activation_code = nil
           @user.save!
           redirect_to :controller => :home
-        end      
+        end
       end
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
@@ -113,7 +113,7 @@ class AccountController < ApplicationController
           @user.signup!
           owner_role = Role.find_by_name('owner')
           @user.person.affiliate(@user.person, [owner_role]) if owner_role
-          invitation = Task.find_by_code(@invitation_code)
+          invitation = Task.from_code @invitation_code
           if invitation
             invitation.update_attributes!({:friend => @user.person})
             invitation.finish
@@ -205,7 +205,7 @@ class AccountController < ApplicationController
   #
   # Posts back.
   def new_password
-    @change_password = ChangePassword.find_by_code(params[:code])
+    @change_password = ChangePassword.from_code params[:code]
 
     unless @change_password
       render :action => 'invalid_change_password_code', :status => 403
@@ -398,7 +398,7 @@ class AccountController < ApplicationController
   end
 
   def load_enterprise_activation
-    @enterprise_activation ||= EnterpriseActivation.find_by_code(params[:enterprise_code])
+    @enterprise_activation ||= EnterpriseActivation.from_code params[:enterprise_code]
   end
 
   def load_enterprise

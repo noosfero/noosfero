@@ -241,7 +241,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'provide interface for entering new password' do
     change = ChangePassword.new
-    ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
+    ChangePassword.expects(:from_code).with('osidufgiashfkjsadfhkj99999').returns(change)
     person = mock
     person.stubs(:identifier).returns('joe')
     person.stubs(:name).returns('Joe')
@@ -253,7 +253,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'actually change password after entering new password' do
     change = ChangePassword.new
-    ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
+    ChangePassword.expects(:from_code).with('osidufgiashfkjsadfhkj99999').returns(change)
 
     requestor = mock
     requestor.stubs(:identifier).returns('joe')
@@ -323,7 +323,7 @@ class AccountControllerTest < ActionController::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    EnterpriseActivation.expects(:find_by_code).with('some_invalid_code').returns(nil).at_least_once
+    EnterpriseActivation.expects(:from_code).with('some_invalid_code').returns(nil).at_least_once
 
     get :activation_question, :enterprise_code => 'some_invalid_code'
 
@@ -338,7 +338,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:cnpj, '0'*14)
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -353,7 +353,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -368,7 +368,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -384,7 +384,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -400,7 +400,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -417,7 +417,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -433,7 +433,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :activation_question, :enterprise_code => '0123456789'
 
@@ -446,7 +446,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).never
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).never
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).never
 
     post :accept_terms, :enterprise_code => '0123456789', :answer => '1998'
 
@@ -462,7 +462,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     post :accept_terms, :enterprise_code => '0123456789', :answer => '1997'
 
@@ -484,7 +484,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     post :accept_terms, :enterprise_code => '0123456789', :answer => '1998'
 
@@ -503,7 +503,7 @@ class AccountControllerTest < ActionController::TestCase
 
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     get :accept_terms, :enterprise_code => '0123456789', :answer => 1998
 
@@ -517,7 +517,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).never
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).never
 
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
 
@@ -531,7 +531,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as(p.identifier)
 
     task = EnterpriseActivation.create!(:enterprise => ent)
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false
     ent.reload
@@ -547,7 +547,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as(p.identifier)
 
     task = EnterpriseActivation.create!(:enterprise => ent)
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
     ent.reload
@@ -566,7 +566,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
     task = EnterpriseActivation.create!(:enterprise => ent)
-    EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
+    EnterpriseActivation.expects(:from_code).with('0123456789').returns(task).at_least_once
 
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
 
