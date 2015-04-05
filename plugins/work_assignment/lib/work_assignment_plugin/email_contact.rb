@@ -28,9 +28,11 @@ class WorkAssignmentPlugin::EmailContact
     WorkAssignmentPlugin::EmailContact::EmailSender.notification(self).deliver
   end
 
-  class EmailSender < ActionMailer::Base
+  class EmailSender < Noosfero::Mailer
 
     def notification(email_contact)
+      self.environment = email_contact.sender.environment
+
       name = email_contact.sender.name
       email = email_contact.sender.email
       message = email_contact.message

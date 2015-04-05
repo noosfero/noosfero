@@ -1,9 +1,9 @@
 <%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
 
-<%= word_wrap(_('Welcome to %{environment}! To activate your account, follow the link: %{activation_url}') % { :environment => @environment, :activation_url => @url + url_for(:controller => :account, :action => :activate, :activation_code => @activation_code, :redirection => @redirection, :join => @join) }) %>
+<%= word_wrap(_('Welcome to %{environment}! To activate your account, follow the link: %{activation_url}') % { :environment => @environment.name, :activation_url => @url + url_for(:controller => :account, :action => :activate, :activation_code => @activation_code, :redirection => @redirection, :join => @join) }) %>
 
 <%= _("Greetings,") %>
 
 --
-<%= _('%s team.') % @environment %>
+<%= _('%s team.') % @environment.name %>
 <%= url_for @url %>

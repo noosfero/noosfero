@@ -5,7 +5,7 @@
   </head>
   <body>
     <p><%= _('This message was sent by %{sender} to %{target} on %{environment}.') %
-    {:sender => @name, :target => @target, :environment => @environment} %></p>
+    {:sender => @name, :target => @target, :environment => @environment.name} %></p>
     <%= _('Information about the user who sent this message:')%>
     <ul>
       <li><%= content_tag('b', _('Name')+': ') + @name.to_s %></li>
@@ -20,7 +20,7 @@
 
     --<br/>
     <%= _('Greetings,') %><br/>
-    <%= _('%s team.') % @environment %><br/>
+    <%= _('%s team.') % @environment.name %><br/>
     <%= @url %>
   </body>
 </html>

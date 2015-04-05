@@ -48,7 +48,8 @@ class Mailing < ActiveRecord::Base
     end
   end
 
-  class Sender < ActionMailer::Base
+  class Sender < Noosfero::Mailer
+
     def notification(mailing, recipient)
       @message = mailing.body
       @signature_message = mailing.signature_message
