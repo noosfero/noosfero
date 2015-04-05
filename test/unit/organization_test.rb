@@ -130,7 +130,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'list pending enterprise validations' do
     org = Organization.new
-    assert_kind_of ActiveRecord::Relation, org.pending_validations
+    assert org.pending_validations.empty?
   end
 
   should 'be able to find a pending validation by its code' do
@@ -148,7 +148,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'be able to find already processed validations' do
     org = Organization.new
-    assert_kind_of ActiveRecord::Relation, org.processed_validations
+    assert org.processed_validations.empty?
   end
 
   should 'be able to find an already processed validation by its code' do
@@ -188,7 +188,7 @@ class OrganizationTest < ActiveSupport::TestCase
     org.foundation_year = 20.07
     org.valid?
     assert org.errors[:foundation_year.to_s].present?
-    
+
     org.foundation_year = 2007
     org.valid?
     assert ! org.errors[:foundation_year.to_s].present?
@@ -208,7 +208,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert o.members.include?(p), "Organization should add the new member"
   end
-  
+
   should 'allow to remove members' do
     c = fast_create(Organization)
     p = create_user('myothertestuser').person

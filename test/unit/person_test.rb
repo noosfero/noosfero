@@ -1346,14 +1346,12 @@ class PersonTest < ActiveSupport::TestCase
 
     abusers = Person.abusers
 
-    assert_equal ActiveRecord::Relation, abusers.class
     assert_includes abusers, abuser1
     assert_includes abusers, abuser2
     assert_not_includes abusers, person
 
     non_abusers = Person.non_abusers
 
-    assert_equal ActiveRecord::Relation, non_abusers.class
     assert_not_includes non_abusers, abuser1
     assert_not_includes non_abusers, abuser2
     assert_includes non_abusers, person

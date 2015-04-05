@@ -53,7 +53,6 @@ class ProductCategoryTest < ActiveSupport::TestCase
 
     scope = ProductCategory.by_enterprise(enterprise)
 
-    assert_equal ActiveRecord::Relation, scope.class
     assert_equivalent [c1,c2], scope
   end
 
