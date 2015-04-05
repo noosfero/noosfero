@@ -17,19 +17,19 @@ class Person < Profile
   acts_as_accessor
 
   scope :members_of, -> (resources) {
-    resources = [resources] if !resources.kind_of?(Array)
+    resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     select('DISTINCT profiles.*').joins(:role_assignments).where([conditions])
   }
 
   scope :not_members_of, -> (resources) {
-    resources = [resources] if !resources.kind_of?(Array)
+    resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     select('DISTINCT profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions)
   }
 
   scope :by_role, -> (roles) {
-    roles = [roles] unless roles.kind_of?(Array)
+    roles = Array(roles)
     select('DISTINCT profiles.*').joins(:role_assignments).where('role_assignments.role_id IN (?)', roles)
   }
 

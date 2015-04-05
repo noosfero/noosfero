@@ -14,7 +14,7 @@ module ActsAsAccessor
   end
 
   def define_roles(roles, resource)
-    roles = [roles] unless roles.kind_of?(Array)
+    roles = Array(roles)
     actual_roles = RoleAssignment.where(role_attributes nil, resource).map(&:role)
 
     (roles - actual_roles).each {|r| add_role(r, resource) }
