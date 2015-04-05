@@ -39,7 +39,7 @@ class ProductsBlock < Block
     link_to(_('View all products'), owner.public_profile_url.merge(:controller => 'catalog', :action => 'index'))
   end
 
-  settings_items :product_ids, Array
+  settings_items :product_ids, type: Array
   def product_ids=(array)
     self.settings[:product_ids] = array
     if self.settings[:product_ids]

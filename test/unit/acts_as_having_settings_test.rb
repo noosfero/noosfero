@@ -2,11 +2,12 @@ require_relative "../test_helper"
 
 class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
-  # using Block class as a sample user of the module 
+  # using Block class as a sample user of the module
   class TestClass < Block
-    settings_items :flag, :type => :boolean
-    settings_items :flag_disabled_by_default, :type => :boolean, :default => false
-    settings_items :name, :type => :string, :default => N_('ENGLISH TEXT')
+    settings_items :flag, type: :boolean
+    settings_items :flag_disabled_by_default, type: :boolean, default: false
+    # to test that 'name' will be symbolized (see below)
+    settings_items 'name', type: :string, default: N_('ENGLISH TEXT')
     attr_accessible :flag, :name, :flag_disabled_by_default
   end
 
@@ -26,7 +27,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     assert !block.respond_to?(:limit)
     assert !block.respond_to?(:limit=)
 
-    block_class.settings_items :limit
+    block_class.settings_items :limit, type: :integer
 
     assert_respond_to block, :limit
     assert_respond_to block, :limit=
@@ -35,7 +36,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     block.limit = 10
     assert_equal 10, block.limit
 
-    assert_equal({ :limit => 10}, block.settings)
+    assert_equal({ limit: 10}, block.settings)
   end
 
   should 'properly save the settings' do
@@ -50,7 +51,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
   should 'be able to specify default values' do
     block_class = Class.new(Block)
-    block_class.settings_items :some_setting, :default => 10
+    block_class.settings_items :some_setting, default: 10
     assert_equal 10, block_class.new.some_setting
   end
 
@@ -75,10 +76,9 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     assert_equal true, obj.flag
   end
 
-  should 'symbolize keys when save' do
+  should 'have keys as symbols' do
     obj = TestClass.new
-    obj.settings.expects(:symbolize_keys!).once
-    assert obj.save
+    assert obj.settings.all?{ |k,v| k.is_a? Symbol }
   end
 
   should 'setting_changed be true if a setting passed as parameter was changed' do
@@ -101,14 +101,14 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
   end
 
   should 'setting_changed be false if a setting passed as parameter was not changed but another setting is changed' do
-    obj = TestClass.new(:name => 'some name')
+    obj = TestClass.new(name: 'some name')
     obj.save
     obj.name = 'antoher nme'
     assert !obj.setting_changed?('flag')
   end
 
   should 'setting_changed be true for all changed fields' do
-    obj = TestClass.new(:name => 'some name', :flag => false)
+    obj = TestClass.new(name: 'some name', flag: false)
     obj.save
     obj.name = 'another nme'
     obj.flag = true

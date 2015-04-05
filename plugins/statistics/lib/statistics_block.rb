@@ -8,7 +8,7 @@ class StatisticsBlock < Block
   settings_items :tag_counter, :default => true
   settings_items :comment_counter, :default => true
   settings_items :hit_counter, :default => false
-  settings_items :templates_ids_counter, Hash, :default => {}
+  settings_items :templates_ids_counter, type: Hash, default: {}
 
   attr_accessible :comment_counter, :community_counter, :user_counter, :enterprise_counter, :product_counter, :category_counter, :tag_counter, :hit_counter, :templates_ids_counter
 

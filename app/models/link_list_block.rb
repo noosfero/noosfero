@@ -41,7 +41,7 @@ class LinkListBlock < Block
     [N_('New window'), '_new'],
   ]
 
-  settings_items :links, Array, :default => []
+  settings_items :links, type: Array, :default => []
 
   before_save do |block|
     block.links = block.links.delete_if {|i| i[:name].blank? and i[:address].blank?}
