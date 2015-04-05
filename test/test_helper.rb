@@ -1,13 +1,14 @@
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require_relative "../config/environment"
 require 'rails/test_help'
 require 'mocha'
+require 'mocha/mini_test'
 
 require 'authenticated_test_helper'
-require File.dirname(__FILE__) + '/factories'
-require File.dirname(__FILE__) + '/noosfero_doc_test'
-require File.dirname(__FILE__) + '/action_tracker_test_helper'
+require_relative 'factories'
+require_relative 'noosfero_doc_test'
+require_relative 'action_tracker_test_helper'
 
 FileUtils.rm_rf(Rails.root.join('index', 'test'))
 
@@ -90,7 +91,13 @@ class ActiveSupport::TestCase
     super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters), headers)
   end
 
-  alias_method :ok, :assert
+  # deprecated on minitest
+  def assert_block message=nil
+    assert message || 'yield' do
+      yield
+    end
+  end
+  alias_method :ok, :assert_block
 
   def assert_equivalent(enum1, enum2)
     assert( ((enum1 - enum2) == []) && ((enum2 - enum1) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")

@@ -140,7 +140,7 @@ module Noosfero::Factory
   end
 
   def fast_update(obj, data)
-    obj.class.connection.execute('update %s set %s where id = %d' % [obj.class.table_name, ActiveRecord::Base.send(:sanitize_sql_for_assignment, data), obj.id])
+    obj.class.connection.execute('update %s set %s where id = %d' % [obj.class.table_name, obj.class.send(:sanitize_sql_for_assignment, data), obj.id])
   end
 
   def give_permission(user, permission, target)
