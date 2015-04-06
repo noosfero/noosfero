@@ -1,4 +1,4 @@
-class ScrapNotifier < Noosfero::Mailer
+class ScrapNotifier < ApplicationMailer
 
   def notification(scrap)
     sender, receiver = scrap.sender, scrap.receiver

@@ -1,4 +1,4 @@
-class TaskMailer < Noosfero::Mailer
+class TaskMailer < ApplicationMailer
 
   def target_notification(task, message)
     self.environment = task.environment

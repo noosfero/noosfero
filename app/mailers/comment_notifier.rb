@@ -1,4 +1,4 @@
-class CommentNotifier < Noosfero::Mailer
+class CommentNotifier < ApplicationMailer
 
   def notification(comment)
     profile = comment.article.profile

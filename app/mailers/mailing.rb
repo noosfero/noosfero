@@ -48,7 +48,7 @@ class Mailing < ActiveRecord::Base
     end
   end
 
-  class Sender < Noosfero::Mailer
+  class Sender < ApplicationMailer
 
     def notification(mailing, recipient)
       @message = mailing.body

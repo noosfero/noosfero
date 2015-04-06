@@ -1,4 +1,4 @@
-class PendingTaskNotifier < Noosfero::Mailer
+class PendingTaskNotifier < ApplicationMailer
 
   def notification(person)
     self.environment = person.environment

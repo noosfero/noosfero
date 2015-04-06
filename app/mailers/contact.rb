@@ -30,7 +30,7 @@ class Contact
     Contact::Sender.notification(self).deliver
   end
 
-  class Sender < Noosfero::Mailer
+  class Sender < ApplicationMailer
 
     def notification(contact)
       self.environment = contact.dest.environment

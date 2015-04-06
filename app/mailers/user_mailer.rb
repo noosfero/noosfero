@@ -1,4 +1,4 @@
-class UserMailer < Noosfero::Mailer
+class UserMailer < ApplicationMailer
 
   def activation_email_notify(user)
     self.environment = user.environment

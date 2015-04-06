@@ -1,5 +1,4 @@
-
-class Noosfero::Mailer < ActionMailer::Base
+class ApplicationMailer < ActionMailer::Base
 
   attr_accessor :environment
 
