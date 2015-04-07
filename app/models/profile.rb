@@ -188,7 +188,7 @@ class Profile < ActiveRecord::Base
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
   # Valid identifiers must match this format.
-  IDENTIFIER_FORMAT = /#{Noosfero.identifier_format}/
+  IDENTIFIER_FORMAT = /\A#{Noosfero.identifier_format}\Z/
 
   # These names cannot be used as identifiers for Profiles
   RESERVED_IDENTIFIERS = %w[
