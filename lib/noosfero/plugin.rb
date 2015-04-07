@@ -687,6 +687,8 @@ class Noosfero::Plugin
     # returns = string with reason of expiration
     elsif method.to_s =~ /^content_expire_(#{content_actions.join('|')})$/
       nil
+    elsif context.respond_to?(method)
+      context.send(method)
     else
       super
     end

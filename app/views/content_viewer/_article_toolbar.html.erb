@@ -46,10 +46,9 @@
       <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
     <% end %>
 
-    <% @plugins.dispatch(:article_extra_toolbar_buttons, @page).each do |plugin_button| %>
+    <% plugins_toolbar_actions_for_article(@page).each do |plugin_button| %>
       <%= button plugin_button[:icon], plugin_button[:title], plugin_button[:url], plugin_button[:html_options] %>
     <% end %>
-
 
     <%= report_abuse(profile, :link, @page) %>
 
