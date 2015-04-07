@@ -173,7 +173,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'have regions' do
     env = fast_create(Environment)
-    assert_kind_of Array, env.regions
+    assert env.regions.empty?
     assert_raise ActiveRecord::AssociationTypeMismatch do
       env.regions << 1
     end

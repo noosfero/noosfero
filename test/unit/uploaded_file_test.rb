@@ -147,7 +147,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'use name as title by default but cut down the title' do
     upload = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
     upload.valid?
-    assert_blank upload.errors[:title]
+    assert upload.errors[:title].blank?
   end
 
   should 'create thumbnails after processing jobs' do

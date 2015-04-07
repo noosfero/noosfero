@@ -36,7 +36,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   def test_has_domains
     p = Profile.new
-    assert_kind_of Array, p.domains
+    assert p.domains.empty?
   end
 
   should 'be assigned to default environment if no environment is informed' do
@@ -771,7 +771,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'nickname be able to be nil' do
     p = Profile.new()
     p.valid?
-    assert_blank p.errors[:nickname]
+    assert p.errors[:nickname].blank?
   end
 
   should 'filter html from nickname' do
@@ -1382,13 +1382,13 @@ class ProfileTest < ActiveSupport::TestCase
   should 'profile be valid when image is empty' do
     profile = build(Profile, :image_builder => {:uploaded_data => ""})
     profile.valid?
-    assert_blank profile.errors[:image]
+    assert profile.errors[:image].blank?
   end
 
   should 'profile be valid when has no image' do
     profile = Profile.new
     profile.valid?
-    assert_blank profile.errors[:image]
+    assert profile.errors[:image].blank?
   end
 
   should 'copy header and footer after create a person' do
@@ -1398,6 +1398,7 @@ class ProfileTest < ActiveSupport::TestCase
     Environment.any_instance.stubs(:person_default_template).returns(template)
 
     person = create_user_full('mytestuser').person
+    assert_equal person.environment.person_default_template, person.template
     assert_equal "footer customized", person.custom_footer
     assert_equal "header customized", person.custom_header
   end

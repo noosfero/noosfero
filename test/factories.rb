@@ -89,7 +89,7 @@ module Noosfero::Factory
       :password_confirmation => name.underscore
     }.merge(options)
     user = build(User, data)
-    user.person = build(Person, person_options)
+    user.person_data = person_options
     user.save!
     user
   end
