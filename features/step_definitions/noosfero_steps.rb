@@ -94,7 +94,7 @@ Given /^the following blocks$/ do |table|
       owner.boxes<< Box.new
       owner.boxes.first.blocks << MainBlock.new
     end
-    box_id = owner.boxes.last.id
+    box_id = owner.boxes[-2].id
     klass.constantize.create!(item.merge(:box_id => box_id))
   end
 end

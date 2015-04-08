@@ -1842,6 +1842,9 @@ a.button.disabled, input.disabled {
 #box-organizer div.box-3 {
   background-image: url(../images/blocks/3.png);
 }
+#box-organizer div.box-4 {
+  background-image: url(../images/blocks/4.png);
+}
 #box-organizer .block {
   cursor: move;
 }

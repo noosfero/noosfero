@@ -362,7 +362,7 @@ class Profile < ActiveRecord::Base
     if template
       apply_template(template, :copy_articles => false)
     else
-      3.times do
+      4.times do
         self.boxes << Box.new
       end
 

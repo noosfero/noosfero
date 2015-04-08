@@ -172,7 +172,7 @@ class Environment < ActiveRecord::Base
   acts_as_having_boxes
 
   after_create do |env|
-    3.times do
+    4.times do
       env.boxes << Box.new
     end
 
@@ -737,8 +737,8 @@ class Environment < ActiveRecord::Base
   end
 
   def is_default_template?(template)
-    is_default = template == community_default_template 
-    is_default = is_default || template == person_default_template 
+    is_default = template == community_default_template
+    is_default = is_default || template == person_default_template
     is_default = is_default || template == enterprise_default_template
     is_default
   end
