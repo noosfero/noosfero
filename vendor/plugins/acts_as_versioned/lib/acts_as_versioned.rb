@@ -264,7 +264,7 @@ module ActiveRecord #:nodoc:
         included do
           has_many :versions, self.version_association_options
 
-          #before_save :set_new_version
+          before_save :set_new_version
           after_save :save_version
           after_save :clear_old_versions
         end

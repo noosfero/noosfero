@@ -449,7 +449,7 @@ class Article < ActiveRecord::Base
 
   def rotate_translations
     unless self.translations.empty?
-      rotate = self.translations
+      rotate = self.translations.all
       root = rotate.shift
       root.update_attribute(:translation_of_id, nil)
       root.translations = rotate
@@ -620,7 +620,7 @@ class Article < ActiveRecord::Base
   ]
 
   def self.find_by_old_path(old_path)
-    self.includes(:versions).where( 'article_versions.path = ?', old_path).order('article_versions.id DESC')
+    self.includes(:versions).where('article_versions.path = ?', old_path).order('article_versions.id DESC').first
   end
 
   def hit
@@ -679,11 +679,11 @@ class Article < ActiveRecord::Base
   end
 
   def get_version(version_number = nil)
-    version_number ? versions.find(:first, :order => 'version', :offset => version_number - 1) : versions.earliest
+    if version_number then self.versions.order('version').offset(version_number - 1).first else self.versions.earliest end
   end
 
   def author_by_version(version_number = nil)
-    version_number ? profile.environment.people.find_by_id(get_version(version_number).author_id) : author
+    if version_number then profile.environment.people.where(id: get_version(version_number).author_id).first else author end
   end
 
   def author_name(version_number = nil)
