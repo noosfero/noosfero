@@ -82,16 +82,16 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_no_tag_in_string article.body, :tag => 'iframe', :attributes => { :src => "http://untrusted_site.com/videos.ogg"}
   end
 
-  should 'remove iframe if it has 2 or more src' do
+  should 'consider first src if there is 2 or more src' do
     assert_includes Environment.default.trusted_sites_for_iframe, 'itheora.org'
 
     article = create(TinyMceArticle, :profile => profile, :name => 'article', :abstract => 'abstract', :body => "<iframe src='http://itheora.org/videos.ogg' src='http://untrusted_site.com/videos.ogg'></iframe>")
-    assert_equal '', article.body
+    assert_tag_in_string article.body, :tag => 'iframe', :attributes => { :src => "http://itheora.org/videos.ogg"}
   end
 
   should 'not sanitize html comments' do
     article = TinyMceArticle.new
-    article.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
+    article.body = '<!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     article.valid?
 
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, article.body
@@ -232,7 +232,7 @@ end
       :profile => profile
     )
     assert_tag_in_string article.body, :tag => 'table',
-      :attributes => { :colspan => 2, :rowspan => 3 }
+      :attributes => { :colspan => '2', :rowspan => '3' }
   end
 
 end

@@ -935,7 +935,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.name = "<h1 Malformed >> html >< tag"
     article.valid?
 
-    assert_no_match /[<>]/, article.name
+    assert_equal '<h1>&gt; html &gt;</h1>', article.name
   end
 
   should 'return truncated title in short_title' do
@@ -1734,6 +1734,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'store first image in tracked action' do
     a = create TinyMceArticle, :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
+    assert_equal 'foo.png', a.first_image
     assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
   end
 
