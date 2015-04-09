@@ -280,12 +280,12 @@ class User < ActiveRecord::Base
   end
 
   def name
-    name = (self[:name] || login)
+    name = (@name || login)
     person.nil? ? name : (person.name || name)
   end
 
   def name= name
-    self[:name] = name
+    @name = name
   end
 
   def enable_email!
