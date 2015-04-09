@@ -181,4 +181,9 @@ class Organization < Profile
   def allow_invitation_from?(person)
     (followed_by?(person) && self.allow_members_to_invite) || person.has_permission?('invite-members', self)
   end
+
+  def is_admin?(user)
+    self.admins.where(:id => user.id).exists?
+  end
+
 end
