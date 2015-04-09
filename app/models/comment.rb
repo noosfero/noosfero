@@ -33,6 +33,8 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  acts_as_having_settings
+
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
   def comment_root
