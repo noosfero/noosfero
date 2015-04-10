@@ -1,0 +1,74 @@
+<% user = (session[:user] && User.find_by_id(session[:user])) || nil %>
+<div>
+<nav id="top-bar" class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-user-collapse">
+        <span class="sr-only"><%= _('User menu') %></span>
+        <span class="fa fa-user navbar-toggle-icon"></span>
+      </button>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-search-collapse">
+        <span class="sr-only"><%= _('Search') %></span>
+        <span class="fa fa-search navbar-toggle-icon"></span>
+      </button>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-navigation-collapse">
+        <span class="sr-only"><%= _('Navigation') %></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="<%= environment.top_url %>"><%= theme_site_title %><%= h @environment.name %></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-navigation-collapse">
+      <ul class="nav navbar-nav menu-navigation">
+        <%= theme_extra_navigation %>
+        <li class="dropdown" id="search-dropdown-menu">
+          <a href="#" class="dropdown-toggle icon-search" data-hover="dropdown" data-toggle="dropdown" title="<%= _('Search') %>"><span><%= _('Search') %></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <form action="/search" id="top-search" method="get" role="search">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                  <input name="query" title="<%=_('Search...')%>" placeholder="<%=_('Search...')%>" type="text" class="form-control input-sm"/>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-search-collapse">
+      <form action="/search" id="top-search" class="navbar-form navbar-left" method="get" role="search">
+        <div class="form-group">
+          <input name="query" title="<%=_('Search...')%>" placeholder="<%=_('Search...')%>" type="text" class="form-control"/>
+        </div>
+      </form>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-user-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user.present? %>
+          <% user = user.person %>
+          <%= usermenu_logged_in %>
+        <% else %>
+            <li>
+              <%= modal_inline_link_to('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, '#inlineLoginBox', :id => 'link_login') %>
+              <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_exec(&content) }.join("") #TODO review this
+              %>
+            </li>
+            <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+                <li>
+                <%= link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup')%>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div>
+<div id='inlineLoginBox' style='display: none;'>
+  <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
+</div>
