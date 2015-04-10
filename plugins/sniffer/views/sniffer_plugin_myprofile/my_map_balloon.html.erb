@@ -1,0 +1,10 @@
+<div class="sniffer-balloon">
+
+  <div class="balloon-header">
+    <%= render :partial => 'balloon_header', :locals => { :profile => @profile } %>
+  </div>
+
+  <div class="balloon-footer">
+    <%= link_to_function _('Close'), '', :class => "sniffer-balloon-close" %>
+  </div>
+</div>

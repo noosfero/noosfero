@@ -1,0 +1,59 @@
+<%= javascript_include_tag "/plugins/sniffer/javascripts/underscore-min.js" %>
+<%= javascript_include_tag "/plugins/sniffer/javascripts/sniffer.js" %>
+
+<div id="sniffer-product-search" class="sniffer-search-box" onmouseover="sniffer.search.showFilters(event);"
+     onmouseout="sniffer.search.hideFilters(event);">
+  <div class="legend hidden-pane">
+    <span class="suppliers">
+      <span class="icon"></span>
+      <span class="text"><%= _('Suppliers') %></span>
+      <span class="count"></span>
+    </span>
+    <span class="consumers">
+      <span class="icon"></span>
+      <span class="text"><%= _('Consumers') %></span>
+      <span class="count"></span>
+    </span>
+    <span class="both">
+      <span class="icon"></span>
+      <span class="text"><%= _('Both') %></span>
+      <span class="count"></span>
+    </span>
+  </div>
+
+  <div class="sniffer-search-field">
+    <input type="text" title="<%= _('look for products...') %>" class="sniffer-search-input"/>
+
+    <script>
+      sniffer.search.loadSearchInput({
+        sourceUrl: '<%= url_for :action => :product_category_search, :escape => false %>',
+        addUrl: '<%= url_for :controller => :sniffer_plugin_myprofile, :action => :product_category_add, :id => '_id_', :escape => false %>'
+      });
+    </script>
+  </div>
+
+
+  <div class="focus-pane hidden-pane">
+    <div id="categories-table-wrap">
+      <table id="categories-table">
+      </table>
+
+      <script id="sniffer-category-add-template" type="text/html">
+        <tr>
+          <td class="select">
+            <input type="checkbox" name="<@= category.id @>" checked onclick='sniffer.search.category.toggleFilter(this);'/>
+          </td>
+          <td class="name <@= category.interest_type @>">
+            <@= category.name @>
+          </td>
+        </tr>
+      </script>
+      <%= javascript_tag "sniffer.search.category.append(#{@categories.to_json});" %>
+    </div>
+
+    <label class="search-distance"><%=_('Maximum distance:')%>
+      <span><input placeholder="&infin;" size="5" onchange="sniffer.search.updateDistField(this)">Km</span>
+    </label>
+  </div>
+
+</div>
