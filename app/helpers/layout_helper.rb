@@ -28,7 +28,7 @@ module LayoutHelper
   end
 
   def noosfero_javascript
-    plugins_javascripts = @plugins.map { |plugin| [plugin.js_files].flatten.map { |js| plugin.class.public_path(js, true) } }.flatten
+    plugins_javascripts = @plugins.flat_map{ |plugin| plugin.js_files.map{ |js| plugin.class.public_path(js, true) } }.flatten
 
     output = ''
     output += render 'layouts/javascript'
@@ -43,7 +43,7 @@ module LayoutHelper
 
   def noosfero_stylesheets
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin|
-      plugin.class.public_path('style.css')
+      plugin.class.public_path('style.css', true)
     }
     global_css_pub = "/designs/themes/#{environment.theme}/global.css"
     global_css_at_fs = Rails.root.join 'public' + global_css_pub
@@ -54,8 +54,9 @@ module LayoutHelper
     output << stylesheet_link_tag(*icon_theme_stylesheet_path)
     output << stylesheet_link_tag(jquery_ui_theme_stylesheet_path)
     unless plugins_stylesheets.empty?
-      cacheid = "cache/plugins-#{Digest::MD5.hexdigest plugins_stylesheets.to_s}"
-      output << stylesheet_link_tag(*plugins_stylesheets, cache: cacheid)
+      # FIXME: caching does not work with asset pipeline
+      #cacheid = "cache/plugins-#{Digest::MD5.hexdigest plugins_stylesheets.to_s}"
+      output << stylesheet_link_tag(*plugins_stylesheets)
     end
     if File.exists? global_css_at_fs
       output << stylesheet_link_tag(global_css_pub)
