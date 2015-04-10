@@ -23,10 +23,6 @@ Noosfero::Application.configure do
     File.basename file
   end.compact
 
-  # fallback to assets pipeline if a precompiled asset is missed
-  config.assets.digest = true
-  config.assets.cache_store = :assets_live_compile_store
-
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
