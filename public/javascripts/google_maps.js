@@ -36,12 +36,12 @@ function mapPutMarker(lat, lng, title, icon, url_or_function) {
   return marker;
 }
 
-function mapLoad(initial_zoom) {
-  //center in Brazil
-  centerPoint = new google.maps.LatLng(-15.0, -50.1419);
+function mapLoad(initialZoom, centerPoint) {
+  if (!initialZoom) initialZoom = 4;
+  if (!centerPoint) centerPoint = new google.maps.LatLng(0, 0);
 
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: initial_zoom,
+    zoom: initialZoom,
     center: centerPoint,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
@@ -55,7 +55,6 @@ function mapLoad(initial_zoom) {
 }
 
 function mapCenter(latlng) {
-  if (!latlng)
-    map.fitBounds(mapBounds);
+  if (!latlng) map.fitBounds(mapBounds);
   map.setCenter(latlng ? latlng : mapBounds.getCenter());
 }
