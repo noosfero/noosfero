@@ -294,6 +294,7 @@ class CommentTest < ActiveSupport::TestCase
     c3 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
     c4 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     result = a.activity.comments
+    assert result.present?
     assert_equal c0, result[0]
     assert_equal [c1, c3], result[0].replies
     assert_equal [c2], result[0].replies[0].replies
