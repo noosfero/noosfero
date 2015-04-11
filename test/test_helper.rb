@@ -2,8 +2,12 @@ ENV["RAILS_ENV"] = "test"
 
 require_relative "../config/environment"
 require 'rails/test_help'
+
 require 'mocha'
 require 'mocha/mini_test'
+
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
 require 'authenticated_test_helper'
 require_relative 'factories'
@@ -145,7 +149,7 @@ class ActiveSupport::TestCase
       a = a.to_sym
       next unless options[:attributes].has_key? a
       attributes[a] = v.value
-    end
+    end if options[:attributes].present?
 
     ret = true
     ret &&= options[:attributes].blank? || attributes == options[:attributes]

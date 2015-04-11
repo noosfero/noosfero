@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 gem 'rails',                    '~> 4.2.0'
-gem 'minitest'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.4.2'
 gem 'rails_autolink',           '~> 1.1.5'
@@ -48,6 +47,8 @@ group :test do
   gem 'rspec-rails',            '~> 2.14.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
+  gem 'minitest'
+  gem 'minitest-reporters'
 end
 
 group :cucumber do
