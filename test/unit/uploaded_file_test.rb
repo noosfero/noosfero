@@ -347,13 +347,13 @@ class UploadedFileTest < ActiveSupport::TestCase
     'INVALID' => 5.megabytes,   # use default for invalid input
     '1ZYX'    => 5.megabytes,   # use default for invalid input
   }.each do |input,output|
-    test 'maximum upload size: convert %s into %s' % [input, output] do
+    should 'maximum upload size: convert %s into %s' % [input, output] do
       NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns(input)
       assert_equal output, UploadedFile.max_size
     end
   end
-  test 'max_size should always return an integer' do
-    NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns("0.5 GB")
+  should 'max_size should always return an integer' do
+    NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns("0.5 GB").at_least_once
     assert_instance_of Fixnum, UploadedFile.max_size
   end
 

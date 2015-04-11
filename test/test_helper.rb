@@ -138,6 +138,7 @@ class ActiveSupport::TestCase
   def find_tag_in_string text, options
     doc = Nokogiri::HTML.fragment text
     tag = doc.css(options[:tag]).first
+    return unless tag
     content = tag.text.strip
 
     attributes = {}; tag.attributes.each do |a, v|
@@ -146,7 +147,7 @@ class ActiveSupport::TestCase
       attributes[a] = v.value
     end
 
-    ret = tag.present?
+    ret = true
     ret &&= options[:attributes].blank? || attributes == options[:attributes]
     ret &&= options[:content].blank? || content == options[:content]
     ret

@@ -31,7 +31,8 @@ module Noosfero::Factory
     if respond_to?(target)
       send(target, attrs)
     else
-      obj = build(name, attrs)
+      obj = build name
+      attrs.each{ |a, v| obj.send "#{a}=", v }
       obj.save!
       obj
     end
