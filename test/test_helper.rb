@@ -141,20 +141,8 @@ class ActiveSupport::TestCase
 
   def find_tag_in_string text, options
     doc = Nokogiri::HTML.fragment text
-    tag = doc.css(options[:tag]).first
-    return unless tag
-    content = tag.text.strip
-
-    attributes = {}; tag.attributes.each do |a, v|
-      a = a.to_sym
-      next unless options[:attributes].has_key? a
-      attributes[a] = v.value
-    end if options[:attributes].present?
-
-    ret = true
-    ret &&= options[:attributes].blank? || attributes == options[:attributes]
-    ret &&= options[:content].blank? || content == options[:content]
-    ret
+    tag = doc.css("#{options[:tag]}#{options[:attributes].map{ |a, v| "[#{a}=\"#{v}\"]" }.join}").first
+    tag
   end
 
   def assert_tag_in_string(text, options)
