@@ -2,6 +2,7 @@ module Noosfero
   module API
     module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
+      ALLOWED_PARAMETERS = ['parent_id', 'from', 'until', 'content_type'] 
   
       def logger
         @logger ||= Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV']}_api.log"))
@@ -52,15 +53,17 @@ module Noosfero
         article = articles.find(id)
         article.display_to?(current_user.person) ? article : forbidden!
       end
-  
+
       def make_conditions_with_parameter(params = {})
+        parsed_params = parser_params(params)
         conditions = {}
-        from_date = DateTime.parse(params[:from]) if params[:from]
-        until_date = DateTime.parse(params[:until]) if params[:until]
+        from_date = DateTime.parse(parsed_params.delete('from')) if parsed_params['from']
+        until_date = DateTime.parse(parsed_params.delete('until')) if parsed_params['until']
   
-        conditions[:type] = parse_content_type(params[:content_type]) unless params[:content_type].nil?
+        conditions[:type] = parse_content_type(parsed_params.delete('content_type')) unless parsed_params['content_type'].nil?
   
         conditions[:created_at] = period(from_date, until_date) if from_date || until_date
+        conditions.merge!(parsed_params)
   
         conditions
       end
@@ -165,6 +168,10 @@ module Noosfero
       end
   
       private
+
+      def parser_params(params) 
+        params.select{|k,v| ALLOWED_PARAMETERS.include?(k)}
+      end
   
       def default_limit
         20
