@@ -1,5 +1,3 @@
-<% extend ApplicationHelper %>
-
 <h2><%= c_('Statistics') %></h2>
 <%= labelled_form_field(_('Google Analytics Profile ID'), text_field(:profile_data, :google_analytics_profile_id, :value => profile_id)) %>
 <%= link_to(_('See how to configure statistics for your profile'), '/doc/plugins/google_analytics', :target => '_blank') %>
