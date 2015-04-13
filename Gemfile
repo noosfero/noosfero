@@ -22,6 +22,9 @@ gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
 gem 'grape',                    '~> 0.8.0'
 gem 'grape-entity'
 gem 'grape-swagger'
+gem 'rack-cors'
+gem 'rack-contrib'
+
 #gem 'grape-swagger-rails'
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
