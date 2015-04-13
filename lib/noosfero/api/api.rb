@@ -1,8 +1,11 @@
 require 'grape'
+#require 'rack/contrib'
 Dir["#{Rails.root}/lib/noosfero/api/*.rb"].each {|file| require file}
 module Noosfero
   module API
     class API < Grape::API
+      use Rack::JSONP
+
       before { start_log }
       before { setup_multitenancy }
       before { detect_stuff_by_domain }
