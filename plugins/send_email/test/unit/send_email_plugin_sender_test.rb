@@ -15,12 +15,14 @@ class SendEmailPluginSenderTest < ActiveSupport::TestCase
   end
 
   should 'be able to deliver mail' do
+    @mail.expects(:params).returns({})
     response = SendEmailPlugin::Sender.send_message("http://localhost/contact", 'http//profile', @mail)
     assert_equal 'noreply@localhost', response.from.join
     assert_equal "[Noosfero] #{@mail.subject}", response.subject
   end
 
   should 'deliver mail to john@example.com' do
+    @mail.expects(:params).returns({})
     response = SendEmailPlugin::Sender.send_message("http://localhost/contact", 'http//profile', @mail)
     assert_equal ['john@example.com'], response.to
   end
