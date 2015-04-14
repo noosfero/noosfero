@@ -49,6 +49,15 @@ module Noosfero
         expose :image, :using => Image
       end
   
+      class ArticleChild < Grape::Entity
+        root 'articles', 'article'
+        expose :id, :body
+        expose :created_at, :format_with => :timestamp
+        expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
+        expose :created_by, :as => :author, :using => Profile
+        expose :profile, :using => Profile
+        expose :categories, :using => Category
+      end
   
       class Article < Grape::Entity
         root 'articles', 'article'
@@ -59,8 +68,9 @@ module Noosfero
         expose :profile, :using => Profile
         expose :categories, :using => Category
         expose :parent, :using => Article
+        expose :children, :using => ArticleChild
       end
-  
+
       class Comment < Grape::Entity
         root 'comments', 'comment'
         expose :body, :title, :id
