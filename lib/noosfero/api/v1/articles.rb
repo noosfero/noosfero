@@ -40,6 +40,31 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
             present find_article(article.children, params[:child_id]), :with => Entities::Article
           end
+
+          # Example Request:
+          #  POST api/v1/articles/:id/children?private_token=234298743290432&article[name]=title&article[body]=body
+          post ':id/children' do
+
+            parent_article = environment.articles.find(params[:id])
+            return forbidden! unless current_person.can_post_content?(parent_article.profile)
+
+            klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+            #FIXME see how to check the article types 
+            #return forbidden! unless ARTICLE_TYPES.include?(klass_type)
+
+            article = klass_type.constantize.new(params[:article])
+            article.parent = parent_article
+            article.last_changed_by = current_person
+            article.created_by= current_person
+            article.author= current_person
+            article.profile = parent_article.profile
+
+            if !article.save
+              render_api_errors!(article.errors.full_messages)
+            end
+            present article, :with => Entities::Article
+          end
+
   
         end
   
