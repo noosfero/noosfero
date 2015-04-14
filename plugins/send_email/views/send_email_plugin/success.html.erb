@@ -2,7 +2,7 @@
 
 <table class='sendemail-plugin-message-sent'>
   <tr><td class='label'><strong><%= c_('Subject') %>:</strong></td><td class='value'><em><%=h @mail.subject %></em></td></tr>
-  <tr><td class='label'><strong><%= c_('Message') %>:</strong></td><td class='value'><pre><%=h render :file => 'send_email_plugin/sender/message' %></pre></td></tr>
+  <tr><td class='label'><strong><%= c_('Message') %>:</strong></td><td class='value'><pre><%=h render :file => 'send_email_plugin/sender/send_message' %></pre></td></tr>
 </table>
 
 <p><%= button :back, c_('Back'), :back %></p>

@@ -11,7 +11,8 @@ module SendEmailPluginBaseController
       )
       @mail.subject = params[:subject] unless params[:subject].blank?
       if @mail.valid?
-        SendEmailPlugin::Sender.send_message(request.referer, @context_url, @mail).deliver
+        @referer = request.referer
+        SendEmailPlugin::Sender.send_message(@referer, @context_url, @mail).deliver
         if request.xhr?
           render :text => _('Message sent')
         else
