@@ -57,6 +57,7 @@ module Noosfero
         expose :created_by, :as => :author, :using => Profile
         expose :profile, :using => Profile
         expose :categories, :using => Category
+        expose :image, :using => Image
       end
   
       class Article < Grape::Entity
@@ -69,6 +70,7 @@ module Noosfero
         expose :categories, :using => Category
         expose :parent, :using => Article
         expose :children, :using => ArticleChild
+        expose :image, :using => Image
       end
 
       class Comment < Grape::Entity
