@@ -1715,6 +1715,18 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 'bar.png', a.first_image
   end
 
+  should 'get first image from having_image' do
+    a = fast_create(Article,
+      :body => '<p>Foo</p><p><img src="bar.png" /></p>',
+      :abstract => '<p>Lead</p><p><img src="lead.png" /></p>'
+    )
+    img = {}
+    img.expects(:present?).returns true
+    img.expects(:public_filename).returns 'pic.jpg'
+    a.expects(:image).at_least_once.returns img
+    assert_equal 'pic.jpg', a.first_image
+  end
+
   should 'not get first image from anywhere' do
     a = fast_create(Article, :body => '<p>Foo</p><p>Bar</p>')
     assert_equal '', a.first_image

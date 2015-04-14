@@ -76,7 +76,7 @@ class Blog < Folder
   end
 
   settings_items :visualization_format, :type => :string, :default => 'full'
-  validates_inclusion_of :visualization_format, :in => [ 'full', 'short' ], :if => :visualization_format
+  validates_inclusion_of :visualization_format, :in => [ 'full', 'short', 'short+pic' ], :if => :visualization_format
 
   settings_items :display_posts_in_current_language, :type => :boolean, :default => false
 

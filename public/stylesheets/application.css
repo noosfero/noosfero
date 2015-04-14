@@ -1483,6 +1483,14 @@ a.comment-picture {
 #content .title {
   margin-bottom: 2px;
 }
+.blog-post .post-pic {
+  background-position: 50% 40%;
+  background-size: cover;
+  height: 150px;
+}
+.blog-post .post-pic.empty {
+  display: none;
+}
 .metadata, .blog-post .metadata {
   display: block;
   text-align: center;
