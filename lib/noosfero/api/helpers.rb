@@ -67,15 +67,19 @@ module Noosfero
   
         conditions
       end
-  
-  
+
+      def make_order_with_parameters(params)
+        params[:order] || "created_at DESC"
+      end
+
       def select_filtered_collection_of(object, method, params)
         conditions = make_conditions_with_parameter(params)
-                 
+        order = make_order_with_parameters(params)
+
         if params[:reference_id]
-          objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).where(conditions).limit(limit).order("created_at DESC")
+          objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).where(conditions).limit(limit).order(order)
         else
-          objects = object.send(method).where(conditions).limit(limit).order("created_at DESC")
+          objects = object.send(method).where(conditions).limit(limit).order(order)
         end
         objects
       end
