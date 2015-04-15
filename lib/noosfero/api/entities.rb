@@ -68,7 +68,8 @@ module Noosfero
         expose :created_by, :as => :author, :using => Profile
         expose :profile, :using => Profile
         expose :categories, :using => Category
-        expose :parent, :using => Article
+        # FIXME: create a method that overrides expose and include conditions for return attributes
+        expose :parent, :using => Article, :if => lambda { |article, options| options[:fields].blank? || options[:fields].include?(:parent) }
         expose :children, :using => ArticleChild
         expose :image, :using => Image
       end
