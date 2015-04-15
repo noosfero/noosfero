@@ -5,10 +5,23 @@ class APITest < ActiveSupport::TestCase
 
   include Noosfero::API::APIHelpers
 
+  def setup
+    @headers = {}
+  end
+
+  attr_accessor :headers
+
   should 'get the current user with valid token' do
     user = create_user('someuser')
     user.generate_private_token!
     self.params = {:private_token => user.private_token}
+    assert_equal user, current_user
+  end
+
+  should 'get the current user with valid token in header' do
+    user = create_user('someuser')
+    user.generate_private_token!
+    headers['Private-Token'] = user.private_token
     assert_equal user, current_user
   end
 
@@ -154,4 +167,5 @@ class APITest < ActiveSupport::TestCase
   def params= value
     @params = value
   end
+
 end
