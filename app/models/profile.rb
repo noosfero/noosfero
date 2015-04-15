@@ -317,16 +317,25 @@ class Profile < ActiveRecord::Base
     @top_level_articles ||= Article.top_level_for(self)
   end
 
-  def self.is_available?(identifier, environment)
-    !(identifier =~ IDENTIFIER_FORMAT).nil? && !RESERVED_IDENTIFIERS.include?(identifier) && Profile.find(:first, :conditions => ['environment_id = ? and identifier = ?', environment.id, identifier]).nil?
+  def self.is_available?(identifier, environment, profile_id=nil)
+    return false unless identifier =~ IDENTIFIER_FORMAT &&
+      !RESERVED_IDENTIFIERS.include?(identifier) &&
+      (NOOSFERO_CONF['exclude_profile_identifier_pattern'].blank? || identifier !~ /#{NOOSFERO_CONF['exclude_profile_identifier_pattern']}/)
+    return true if environment.nil?
+
+    profiles = environment.profiles.where(:identifier => identifier)
+    profiles = profiles.where(['id != ?', profile_id]) if profile_id.present?
+    !profiles.exists?
   end
 
   validates_presence_of :identifier, :name
-  validates_format_of :identifier, :with => IDENTIFIER_FORMAT, :if => lambda { |profile| !profile.identifier.blank? }
-  validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
-  validates_uniqueness_of :identifier, :scope => :environment_id
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
   validate :valid_template
+  validate :valid_identifier
+
+  def valid_identifier
+    errors.add(:identifier, _('is not available.')) unless Profile.is_available?(identifier, environment, id)
+  end
 
   def valid_template
     if template_id.present? && template && !template.is_template
