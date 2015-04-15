@@ -35,7 +35,7 @@ class SendEmailPlugin::Mail
   end
 
   def params=(value = {})
-    [:action, :controller, :to, :message, :subject, :from, :commit].each{|k| value.delete(k)}
+    [:profile, :action, :controller, :to, :message, :subject, :from, :commit].each{|k| value.delete(k)}
     @params = value
   end
 
