@@ -1,5 +1,7 @@
 <h1><%= _('Manage fields displayed for profiles') %></h1>
 
+<%= javascript_include_tag "manage-fields.js" %>
+
 <% tabs = [] %>
 <% tabs << {:title => _("Person's fields"), :id => 'person-fields',
   :content => (render :partial => 'manage_person_fields')} %>
@@ -11,5 +13,3 @@
 <% end %>
 
 <%= render_tabs(tabs) %>
-
-<%= javascript_include_tag "manage-fields.js" %>
