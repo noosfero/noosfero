@@ -2,6 +2,7 @@ require_dependency 'forms_helper'
 require_relative 'application_helper'
 
 module FormsHelper
+
   extend ActiveSupport::Concern
   protected
 
@@ -30,8 +31,8 @@ module FormsHelper
 
       bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel]) : ''
 
-      button_size = html_options[:size] || 'xs'
-      size_class = button_size == 'default' ? '' : 'btn-'+button_size
+      button_size = html_options[:size] || 'default'
+      size_class = if button_size == 'default' then '' else 'btn-'+button_size end
       html_options.delete :size if html_options[:size]
 
       html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
@@ -47,6 +48,22 @@ module FormsHelper
       bt_submit + bt_cancel
     end
 
+    %w[select select_tag text_field_tag password_field_tag].each do |method|
+      define_method method do |*args, &block|
+        #return super(*args, &block) unless theme_responsive?
+
+        options = args.extract_options!
+        options[:class] = "#{options[:class]} form-control"
+        super(*(args << options), &block)
+      end
+    end
+    %w[select_month select_year].each do |method|
+      define_method method do |date, options={}, html_options={}|
+        html_options[:class] = "#{html_options[:class]} form-control"
+        super date, options, html_options
+      end
+    end
+
   end
 
   include ResponsiveChecks
@@ -54,7 +71,6 @@ module FormsHelper
     include ResponsiveMethods
   end
 
-  protected
 end
 
 module ApplicationHelper

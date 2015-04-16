@@ -1,13 +1,19 @@
-<div id="box-<%=boxes[2].id%>" class="row toprow">
+<% if box = boxes[2] %>
+<div id="box-<%=box.id%>" class="row toprow">
   <div class="col-lg-12 col-md-12 col-sm-12 box-container-3">
-    <%= display_topbox_content boxes[2], main_content %>
+    <%= display_topbox_content box, main_content %>
   </div>
 </div>
+<% end %>
 <div class="row boxes">
-  <div id="box-<%=boxes[0].id%>" class="col-lg-9 col-md-9 col-sm-8 col-lg-push-3 col-md-push-3 col-sm-push-4 box-container-1">
-    <%= display_box_content boxes[0], main_content %>
-  </div>
-  <div id="box-<%=boxes[1].id%>" class="col-lg-3 col-md-3 col-sm-4 col-lg-pull-9 col-md-pull-9 col-sm-pull-8 box-container-2">
-    <%= display_box_content boxes[1], main_content %>
-  </div>
+  <% if box = boxes[0] %>
+    <div id="box-<%=box.id%>" class="col-lg-9 col-md-9 col-sm-8 col-lg-push-3 col-md-push-3 col-sm-push-4 box-container-1">
+      <%= display_box_content box, main_content %>
+    </div>
+  <% end %>
+  <% if box = boxes[1] %>
+    <div id="box-<%=box.id%>" class="col-lg-3 col-md-3 col-sm-4 col-lg-pull-9 col-md-pull-9 col-sm-pull-8 box-container-2">
+      <%= display_box_content box, main_content %>
+    </div>
+  <% end %>
 </div>
