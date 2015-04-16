@@ -20,13 +20,13 @@ module Noosfero
           get do
             articles = select_filtered_collection_of(environment, 'articles', params)
             articles = articles.display_filter(current_person, nil)
-            present articles, :with => Entities::Article
+            present articles, :with => Entities::Article, :fields => params[:fields]
           end
   
           desc "Return the article id"
           get ':id' do
             article = find_article(environment.articles, params[:id])
-            present article, :with => Entities::Article
+            present article, :with => Entities::Article, :fields => params[:fields]
           end
   
           get ':id/children' do
@@ -38,7 +38,7 @@ module Noosfero
   
           get ':id/children/:child_id' do
             article = find_article(environment.articles, params[:id])
-            present find_article(article.children, params[:child_id]), :with => Entities::Article
+            present find_article(article.children, params[:child_id]), :with => Entities::Article, :fields => params[:fields]
           end
 
           # Example Request:
@@ -75,13 +75,13 @@ module Noosfero
                 community = environment.communities.find(params[:community_id])
                 articles = select_filtered_collection_of(community, 'articles', params)
                 articles = articles.display_filter(current_person, community)
-                present articles, :with => Entities::Article
+                present articles, :with => Entities::Article, :fields => params[:fields]
               end
   
               get ':id' do
                 community = environment.communities.find(params[:community_id])
                 article = find_article(community.articles, params[:id])
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
               # Example Request:
@@ -116,13 +116,13 @@ module Noosfero
                 person = environment.people.find(params[:person_id])
                 articles = select_filtered_collection_of(person, 'articles', params)
                 articles = articles.display_filter(current_person, person)
-                present articles, :with => Entities::Article
+                present articles, :with => Entities::Article, :fields => params[:fields]
               end
   
               get ':id' do
                 person = environment.people.find(params[:person_id])
                 article = find_article(person.articles, params[:id])
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
               post do
@@ -155,13 +155,13 @@ module Noosfero
                 enterprise = environment.enterprises.find(params[:enterprise_id])
                 articles = select_filtered_collection_of(enterprise, 'articles', params)
                 articles = articles.display_filter(current_person, enterprise)
-                present articles, :with => Entities::Article
+                present articles, :with => Entities::Article, :fields => params[:fields]
               end
   
               get ':id' do
                 enterprise = environment.enterprises.find(params[:enterprise_id])
                 article = find_article(enterprise.articles, params[:id])
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
               post do
