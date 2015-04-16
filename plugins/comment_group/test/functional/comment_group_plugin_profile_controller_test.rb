@@ -22,8 +22,9 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
     xhr :get, :view_comments, :profile => @profile.identifier, :article_id => article.id, :group_id => 0
     assert_template 'comment_group_plugin_profile/view_comments'
-    assert_match /comments_list_group_0/, @response.body
-    assert_match /\"comment-count-0\", \"1\"/, @response.body
+    assert_select_rjs '#comments_list_group_0'
+    assert_select_rjs :replace_html, '#comment-count-0'
+    assert_equal 1, assigns(:comments_count)
   end
 
   should 'do not show global comments' do
@@ -31,8 +32,9 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
     fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
     xhr :get, :view_comments, :profile => @profile.identifier, :article_id => article.id, :group_id => 0
     assert_template 'comment_group_plugin_profile/view_comments'
-    assert_match /comments_list_group_0/, @response.body
-    assert_match /\"comment-count-0\", \"1\"/, @response.body
+    assert_select_rjs '#comments_list_group_0'
+    assert_select_rjs :replace_html, '#comment-count-0'
+    assert_equal 1, assigns(:comments_count)
   end
 
   should 'show first page comments only' do

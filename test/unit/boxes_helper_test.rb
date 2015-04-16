@@ -3,6 +3,7 @@ require 'boxes_helper'
 
 class BoxesHelperTest < ActionView::TestCase
 
+  include ApplicationHelper
   include BoxesHelper
   include ActionView::Helpers::TagHelper
 
@@ -179,6 +180,22 @@ class BoxesHelperTest < ActionView::TestCase
 
     stubs(:display_block)
     display_box_content(box, '')
+  end
+
+  should 'display embed button when a block is embedable' do
+    box = create(Box, position: 1, owner: fast_create(Profile))
+    block = Block.create!(:box => box)
+    block.stubs(:embedable?).returns(true)
+    stubs(:url_for).returns('')
+    assert_tag_in_string block_edit_buttons(block), :tag => 'a', :attributes => {:class => 'button icon-button icon-embed '}
+  end
+
+  should 'not display embed button when a block is not embedable' do
+    box = create(Box, position: 1, owner: fast_create(Profile))
+    block = Block.create!(:box => box)
+    block.stubs(:embedable?).returns(false)
+    stubs(:url_for).returns('')
+    assert_no_tag_in_string block_edit_buttons(block), :tag => 'a', :attributes => {:class => 'button icon-button icon-embed '}
   end
 
 end

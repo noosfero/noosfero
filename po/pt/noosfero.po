@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0-690-gcb6e853\n"
 "POT-Creation-Date: 2015-03-05 12:10-0300\n"
-"PO-Revision-Date: 2015-03-17 21:44+0200\n"
-"Last-Translator: Evandro Junior <evandrojr@gmail.com>\n"
+"PO-Revision-Date: 2015-03-29 01:47+0200\n"
+"Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -7281,7 +7281,7 @@ msgstr "Seu nome"
 #: app/views/cms/_upload_file_form.html.erb:4
 #: app/views/cms/_text_editor_sidebar.html.erb:16
 msgid "Choose folder to upload files:"
-msgstr "Escolha uma pasta para incluir arquivos:"
+msgstr "O arquivo ficará na seguinte pasta:"
 
 #: app/views/cms/_upload_file_form.html.erb:16
 msgid "More files"
@@ -7535,7 +7535,7 @@ msgstr "Houve problemas com os seguintes arquivos:"
 
 #: app/views/cms/upload_files.html.erb:15
 msgid "Publish media"
-msgstr "Publicar mídia"
+msgstr "Publicar imagem ou documento"
 
 #: app/views/cms/upload_files.html.erb:17
 msgid "Select the files you want to upload (max size %s):"
@@ -7551,7 +7551,7 @@ msgstr "Enviando arquivos para %s"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:8
 msgid "Insert media"
-msgstr "Adicionar mídia"
+msgstr "Adicionar imagem ou documento"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:8
 msgid "Show/Hide"
@@ -7559,7 +7559,7 @@ msgstr "Mostrar/Ocultar"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:21
 msgid "New folder"
-msgstr "Nova pasta"
+msgstr "Criar pasta"
 
 #: app/views/cms/_text_editor_sidebar.html.erb:26
 msgid "Hide all uploads"

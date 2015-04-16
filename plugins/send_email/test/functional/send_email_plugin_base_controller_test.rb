@@ -54,6 +54,13 @@ def run_common_tests
     post :deliver, @extra_args.merge(:to => 'john@example.com', :message => 'Hi john', :subject => 'Hello john')
     assert_equal '[Colivre.net] Hello john', ActionMailer::Base.deliveries.first.subject
   end
+
+  should 'deliver mail with message from view' do
+    Environment.any_instance.stubs(:send_email_plugin_allow_to).returns('john@example.com')
+    post :deliver, @extra_args.merge(:to => 'john@example.com', :message => 'Hi john', :subject => 'Hello john')
+    assert_match /Contact from/, ActionMailer::Base.deliveries.first.body.to_s
+  end
+
 end
 
 class SendEmailPluginProfileControllerTest < ActionController::TestCase

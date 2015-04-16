@@ -40,7 +40,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     Article.delete_all
     get :index, :block_id => block.id
     json_response = ActiveSupport::JSON.decode(@response.body)
-    assert_equivalent [], json_response
+    assert_equal [], json_response
   end
 
   should 'index action returns an json with node content' do
@@ -52,7 +52,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json = {'data' => article.title}
     expected_json['attr'] = { 'node_id' => article.id, 'parent_id' => article.parent_id}
 
-    assert_equivalent [expected_json], json_response
+    assert_hash_equivalent [expected_json], json_response
   end
 
   should 'index action returns an json with node checked if the node is in the nodes list' do
@@ -67,7 +67,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json['attr'] = { 'node_id' => article.id, 'parent_id' => article.parent_id}
     expected_json['attr'].merge!({'class' => 'jstree-checked'})
 
-    assert_equivalent [expected_json], json_response
+    assert_hash_equivalent [expected_json], json_response
   end
 
   should 'index action returns an json with node undetermined if the node is in the parent nodes list' do
@@ -95,7 +95,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json['attr'] = { 'node_id' => f.id, 'parent_id' => f.parent_id}
     expected_json['state'] = 'closed'
 
-    assert_equivalent [expected_json], json_response
+    assert_hash_equivalent [expected_json], json_response
   end
 
   should 'index action returns an json with all the children nodes if some parent is in the parents list' do
@@ -118,7 +118,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json['children'] = children
     expected_json['state'] = 'closed'
 
-    assert_equivalent [expected_json], json_response
+    assert_hash_equivalent [expected_json], json_response
   end
 
   should 'index action returns an json with all the children nodes and root nodes if some parent is in the parents list and there is others root articles' do
@@ -148,7 +148,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     value['attr'] = { 'node_id' => a3.id, 'parent_id' => a3.parent_id, "class" => "jstree-checked"}
     expected_json.push(value)
 
-    assert_equivalent expected_json, json_response
+    assert_hash_equivalent expected_json, json_response
   end
 
   should 'index action returns an json without children nodes if the parent is not in the parents list' do
@@ -170,7 +170,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     value['attr'] = { 'node_id' => a3.id, 'parent_id' => a3.parent_id}
     expected_json.push(value)
 
-    assert_equivalent expected_json, json_response
+    assert_hash_equivalent expected_json, json_response
   end
 
 end

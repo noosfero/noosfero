@@ -29,6 +29,7 @@ Feature: sub_organizations_display
       And I follow "Manage sub-groups"
       And I follow "Register a new sub-enterprise"
       And I fill in "Name" with "Bart"
+      And I fill in "Address" with "bart"
       And I press "Next"
       Then I should see "Enterprise registration completed"
       And I am logged in as admin

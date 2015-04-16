@@ -157,7 +157,7 @@ pjax = {
       document._write = document.write;
       document.write = function (data) {
         if (document.readyState != 'loading')
-          content.append(data);
+          pjax.content.append(data);
         else
           document._write(data);
       };

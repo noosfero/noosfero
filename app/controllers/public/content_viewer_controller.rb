@@ -107,10 +107,12 @@ class ContentViewerController < ApplicationController
           if translation.language == locale
             @page = translation
             redirect_to :profile => @page.profile.identifier, :page => @page.explode_path
+            return true
           end
         end
       end
     end
+    false
   end
 
   def pass_without_comment_captcha?
