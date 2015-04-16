@@ -33,7 +33,7 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
             articles = select_filtered_collection_of(article, 'children', params)
             articles = articles.display_filter(current_person, nil)
-            present articles, :with => Entities::Article, :fields => [:id, :name, :abstract, :author]
+            present articles, :with => Entities::Article, :fields => params[:fields]
           end
   
           get ':id/children/:child_id' do
