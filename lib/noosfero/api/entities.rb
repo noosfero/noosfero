@@ -8,6 +8,10 @@ module Noosfero
   
       class Image < Entity
         root 'images', 'image'
+
+        expose  :url do |image, options|
+          image.public_filename
+        end
   
         expose  :icon_url do |image, options|
           image.public_filename(:icon)
