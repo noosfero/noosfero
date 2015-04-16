@@ -609,6 +609,10 @@ div#notice {
   display: none;
 }
 
+#content .link-list-block {
+  padding: 10px 0px 10px 10px;
+}
+
 #content .box-1 .link-list-block {
   margin: 0px;
 }

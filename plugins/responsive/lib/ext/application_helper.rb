@@ -1,4 +1,5 @@
 require_dependency 'application_helper'
+require_relative 'input_helper'
 
 module ApplicationHelper
 
@@ -406,11 +407,11 @@ module ApplicationHelper
       end
 
       if options[:horizontal]
-        label_html = content_tag('label', gettext(text), class: 'control-label col-sm-3 col-md-2 col-lg-2', for: field_id)
-        result = content_tag('div', label_html + content_tag('div',field_html, class: 'col-sm-9 col-md-6 col-lg-6'), class: 'form-group' )
+        label_html = content_tag :label, gettext(text), class: 'control-label col-sm-3 col-md-2 col-lg-2', for: field_id
+        result = content_tag :div, label_html + content_tag('div',field_html, class: 'col-sm-9 col-md-6 col-lg-6'), class: 'form-group'
       else
-        label_html = content_tag('label', gettext(text), class: 'control-label', for: field_id)
-        result = content_tag('div', label_html + field_html, class: 'form-group' )
+        label_html = content_tag :label, gettext(text), class: 'control-label', for: field_id
+        result = content_tag :div, label_html + field_html, class: 'form-group'
       end
 
       result

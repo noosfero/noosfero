@@ -2024,9 +2024,6 @@ a.button.disabled, input.disabled {
 .new_link_row li {
   margin-left: 7px;
 }
-#content .link-list-block {
-  padding: 10px 0px 10px 10px;
-}
 .link-list-block ul {
   padding: 0px;
   margin: 0px;
