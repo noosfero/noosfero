@@ -1,6 +1,6 @@
 require 'grape'
 #require 'rack/contrib'
-Dir["#{Rails.root}/lib/noosfero/api/*.rb"].each {|file| require file}
+Dir["#{Rails.root}/lib/noosfero/api/*.rb"].each {|file| require file unless file =~ /api\.rb/}
 module Noosfero
   module API
     class API < Grape::API
