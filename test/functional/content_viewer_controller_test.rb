@@ -780,6 +780,20 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
   end
 
+  should 'show only first paragraph with picture of posts if visualization_format is short+pic' do
+    login_as(profile.identifier)
+
+    blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short+pic')
+
+    blog.posts << TinyMceArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> <img src="pic.jpg">')
+
+    get :view_page, :profile => profile.identifier, :page => blog.path
+
+    assert_select '.blog-post .post-pic' do |el|
+      assert_match /background-image:url\(pic.jpg\)/, el.to_s
+    end
+  end
+
   should 'display link to edit blog for allowed' do
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     login_as(profile.identifier)

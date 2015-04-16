@@ -20,30 +20,36 @@ class BlogHelperTest < ActionView::TestCase
   def _(s); s; end
   def h(s); s; end
 
-  should 'list published posts with class blog-post' do
-    blog.children << published_post = create(TextileArticle, :name => 'Post', :profile => profile, :parent => blog, :published => true)
+  should 'list blog posts with identifiers and classes' do
+    blog.children << older_post = create(TextileArticle, :name => 'First post',
+                     :profile => profile, :parent => blog, :published => true)
+    blog.children << some_post = create(TextileArticle, :name => 'Some post',
+                     :profile => profile, :parent => blog, :published => true)
+    blog.children << hidden_post = create(TextileArticle, :name => 'Hidden post',
+                     :profile => profile, :parent => blog, :published => false)
+    blog.children << newer_post = create(TextileArticle, :name => 'Last post',
+                     :profile => profile, :parent => blog, :published => true)
 
-    expects(:display_post).with(anything, anything).returns('POST')
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first last odd-post-inner', :id => "post-#{published_post.id}").returns('POST')
-    expects(:content_tag).with('div', 'POST', {:class => 'odd-post'}).returns('RESULT')
+    def content_tag(tag, content_or_options_with_block = nil, options = nil, &block)
+      if block_given?
+        options = content_or_options_with_block
+        content = block.call
+      else
+        content = content_or_options_with_block
+      end
+      options ||= {}
+      "<#{tag}#{options.map{|k,v| " #{k}=\"#{[v].flatten.join(' ')}\""}.join}>#{content}</#{tag}>"
+    end
 
-    assert_equal 'RESULT', list_posts(blog.posts)
-  end
-
-  should 'list even/odd posts with a different class' do
-    blog.children << older_post = create(TextileArticle, :name => 'First post', :profile => profile, :parent => blog, :published => true)
-
-    blog.children << newer_post = create(TextileArticle, :name => 'Second post', :profile => profile, :parent => blog, :published => true)
-
-    expects(:display_post).with(anything, anything).returns('POST').times(2)
-
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-1 first odd-post-inner', :id => "post-#{newer_post.id}").returns('POST 1')
-    expects(:content_tag).with('div', "POST 1", :class => 'odd-post').returns('ODD-POST')
-
-    expects(:content_tag).with('div', "POST<br style=\"clear:both\"/>", :class => 'blog-post position-2 last even-post-inner', :id => "post-#{older_post.id}").returns('POST 2')
-    expects(:content_tag).with('div', "POST 2", :class => 'even-post').returns('EVEN-POST')
-
-    assert_equal "ODD-POST\n<hr class='sep-posts'/>\nEVEN-POST", list_posts(blog.posts)
+    html = HTML::Document.new(list_posts(blog.posts)).root
+    assert_select html, "div#post-#{newer_post.id}.blog-post.position-1.first.odd-post" +
+                        " > div.odd-post-inner.blog-post-inner > .title", 'Last post'
+    assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.not-published.even-post" +
+                        " > div.even-post-inner.blog-post-inner > .title", 'Hidden post'
+    assert_select html, "div#post-#{some_post.id}.blog-post.position-3.odd-post" +
+                        " > div.odd-post-inner.blog-post-inner > .title", 'Some post'
+    assert_select html, "div#post-#{older_post.id}.blog-post.position-4.last.even-post" +
+                        " > div.even-post-inner.blog-post-inner > .title", 'First post'
   end
 
 
