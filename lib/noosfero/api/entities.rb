@@ -55,7 +55,9 @@ module Noosfero
   
       class ArticleBase < Entity
         root 'articles', 'article'
-        expose :id, :body, :abstract
+        expose :id
+        expose :body
+        expose :abstract
         expose :created_at, :format_with => :timestamp
         expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
         expose :created_by, :as => :author, :using => Profile
