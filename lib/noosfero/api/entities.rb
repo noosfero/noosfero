@@ -53,7 +53,7 @@ module Noosfero
         expose :image, :using => Image
       end
   
-      class ArticleChild < Entity
+      class ArticleBase < Entity
         root 'articles', 'article'
         expose :id, :body, :abstract
         expose :created_at, :format_with => :timestamp
@@ -64,18 +64,10 @@ module Noosfero
         expose :image, :using => Image
       end
 
-      class Article < Entity
+      class Article < ArticleBase
         root 'articles', 'article'
-        expose :id, :body, :abstract
-        expose :created_at, :format_with => :timestamp
-        expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
-        expose :created_by, :as => :author, :using => Profile
-        expose :profile, :using => Profile
-        expose :categories, :using => Category
-        # FIXME: create a method that overrides expose and include conditions for return attributes
-        expose :parent, :using => Article
-        expose :children, :using => ArticleChild
-        expose :image, :using => Image
+        expose :parent, :using => ArticleBase
+        expose :children, :using => ArticleBase
       end
 
       class Comment < Entity
