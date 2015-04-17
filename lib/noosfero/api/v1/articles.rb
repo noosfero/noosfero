@@ -62,7 +62,7 @@ module Noosfero
             if !article.save
               render_api_errors!(article.errors.full_messages)
             end
-            present article, :with => Entities::Article
+            present article, :with => Entities::Article, :fields => params[:fields]
           end
 
   
@@ -101,7 +101,7 @@ module Noosfero
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
             end
@@ -140,7 +140,7 @@ module Noosfero
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
             end
@@ -179,7 +179,7 @@ module Noosfero
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
-                present article, :with => Entities::Article
+                present article, :with => Entities::Article, :fields => params[:fields]
               end
   
             end
