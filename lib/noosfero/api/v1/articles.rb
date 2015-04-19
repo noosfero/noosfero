@@ -37,7 +37,7 @@ module Noosfero
             articles = articles.display_filter(current_person, nil)
 
             if votes_order
-              articles = articles.joins('left join votes on articles.id=votes.voteable_id').group('articles.id').reorder('sum(votes.id) DESC')
+              articles = articles.joins(:votes).group('articles.id').reorder('sum(votes.id) DESC')
             end
 
             present articles, :with => Entities::Article, :fields => params[:fields]
