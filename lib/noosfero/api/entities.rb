@@ -64,6 +64,8 @@ module Noosfero
         expose :profile, :using => Profile
         expose :categories, :using => Category
         expose :image, :using => Image
+        expose :votes_for
+        expose :votes_against
       end
 
       class Article < ArticleBase
