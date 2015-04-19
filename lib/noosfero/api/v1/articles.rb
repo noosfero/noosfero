@@ -31,8 +31,15 @@ module Noosfero
   
           get ':id/children' do
             article = find_article(environment.articles, params[:id])
+
+            votes_order = params.delete(:order) if params[:order]=='votes_score'
             articles = select_filtered_collection_of(article, 'children', params)
             articles = articles.display_filter(current_person, nil)
+
+            if votes_order
+              articles = articles.joins('left join votes on articles.id=votes.voteable_id').group('articles.id').order('sum(votes.id) DESC')
+            end
+
             present articles, :with => Entities::Article, :fields => params[:fields]
           end
   
