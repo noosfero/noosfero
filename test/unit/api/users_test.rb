@@ -40,4 +40,10 @@ class UsersTest < ActiveSupport::TestCase
     assert_includes json["user"]["permissions"], community.identifier
   end
 
+  should 'get logged user' do
+    get "/api/v1/users/me?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal user.id, json['user']['id']
+  end
+
 end

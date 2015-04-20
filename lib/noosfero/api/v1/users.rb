@@ -24,11 +24,15 @@ module Noosfero
            
             present user, :with => Entities::User
           end
-  
+
+          get "/me" do
+            present current_user, :with => Entities::User
+          end
+
           get ":id" do
             present environment.users.find_by_id(params[:id]), :with => Entities::User
           end
-  
+
           get ":id/permissions" do
             user = environment.users.find(params[:id])
             output = {}
