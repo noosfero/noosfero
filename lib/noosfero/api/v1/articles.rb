@@ -53,7 +53,7 @@ module Noosfero
           post ':id/children' do
 
             parent_article = environment.articles.find(params[:id])
-            return forbidden! unless current_person.can_post_content?(parent_article.profile)
+            return forbidden! unless parent_article.allow_create?(current_person)
 
             klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
             #FIXME see how to check the article types 
