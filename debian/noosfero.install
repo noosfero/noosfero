@@ -25,6 +25,7 @@ etc/init.d/noosfero               etc/init.d
 etc/logrotate.d/noosfero          etc/logrotate.d
 etc/noosfero/varnish-accept-language.vcl  etc/noosfero
 etc/noosfero/varnish-noosfero.vcl         etc/noosfero
+etc/awstats-noosfero.conf         etc/noosfero
 lib                               usr/share/noosfero
 locale                            usr/share/noosfero
 plugins                           usr/share/noosfero
