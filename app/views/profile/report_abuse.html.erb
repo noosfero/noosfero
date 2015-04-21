@@ -24,7 +24,7 @@
     $('#report-abuse-submit-button').css('cursor', 'progress');
     $.ajax({
       type: 'POST',
-      url: <%= url_for({:controller => 'profile', :action => 'register_report', :profile => profile.identifier}) %>,
+      url: <%= url_for({:controller => 'profile', :action => 'register_report', :profile => profile.identifier}).to_json %>,
       data: $(form).serialize(),
       dataType: 'json',
       success: function(data, status, ajax){
