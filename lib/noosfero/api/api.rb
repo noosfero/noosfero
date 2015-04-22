@@ -10,6 +10,7 @@ module Noosfero
       before { setup_multitenancy }
       before { detect_stuff_by_domain }
       after { end_log }
+      after { set_session_cookie }
   
       version 'v1'
       prefix "api"

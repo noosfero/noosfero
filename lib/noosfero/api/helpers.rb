@@ -9,7 +9,7 @@ module Noosfero
       end
   
       def current_user
-        private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s if params
+        private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token'] || cookies['_noosfero_api_session']).to_s if params
         @current_user ||= User.find_by_private_token(private_token)
         @current_user = nil if !@current_user.nil? && @current_user.private_token_expired?
         @current_user
@@ -146,7 +146,11 @@ module Noosfero
         render_api_error!(messages.join(','), 400)
       end
       protected
-  
+
+      def set_session_cookie
+        cookies['_noosfero_api_session'] = { value: @current_user.private_token, httponly: true } if @current_user.present?
+      end
+
       def start_log
         logger.info "Started #{request.path} #{request.params.except('password')}"
       end

@@ -16,6 +16,7 @@ module Noosfero
   
         return unauthorized! unless user
         user.generate_private_token!
+        @current_user = user
         present user, :with => Entities::UserLogin
       end
   
