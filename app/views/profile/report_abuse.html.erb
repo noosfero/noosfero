@@ -9,7 +9,7 @@
   <% end %>
 
   <%= submit_button(:send, _('Report profile'), :style => 'float: left; cursor: pointer;', :id => 'report-abuse-submit-button', :onclick => "jQuery('#form-submit-loading').show()") %>
-  <%= button(:cancel, _('Cancel'), {}, :style => 'float: left; padding-top: 0px; padding-bottom: 0px;', :onclick => 'jQuery.colorbox.close(); return false;')%>
+  <%= button(:cancel, _('Cancel'), {}, :style => 'float: left; padding-top: 0px; padding-bottom: 0px;', :onclick => 'noosfero.modal.close(); return false;')%>
   <div id="form-submit-loading" class="small-loading" style="width: 16px; height: 16px; margin-top: 3px; float: left; display: none;"></div>
 <% end %>
 
@@ -30,7 +30,7 @@
       success: function(data, status, ajax){
         if ( !data.ok ) display_notice(data.error.message);
         else {
-          $.colorbox.close();
+          noosfero.modal.close();
           display_notice(data.message);
           window.location.reload();
         }
