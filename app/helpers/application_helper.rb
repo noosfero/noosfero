@@ -707,6 +707,24 @@ module ApplicationHelper
     javascript_include_tag script if script
   end
 
+  def template_path
+    if profile.nil?
+      "/designs/templates/#{environment.layout_template}"
+    else
+      "/designs/templates/#{profile.layout_template}"
+    end
+  end
+
+  def template_javascript_src
+    script = File.join template_path, '/javascripts/template.js'
+    script if File.exists? File.join(Rails.root, 'public', script)
+  end
+
+  def templete_javascript_ng
+    script = template_javascript_src
+    javascript_include_tag script if script
+  end
+
   def file_field_or_thumbnail(label, image, i)
     display_form_field label, (
       render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'),

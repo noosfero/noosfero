@@ -38,6 +38,8 @@ module LayoutHelper
     output += theme_javascript_ng.to_s
     output += javascript_tag 'render_all_jquery_ui_widgets()'
 
+    output += templete_javascript_ng.to_s
+
     output
   end
 
@@ -70,11 +72,7 @@ module LayoutHelper
   end
 
   def template_stylesheet_path
-    if profile.nil?
-      "/designs/templates/#{environment.layout_template}/stylesheets/style.css"
-    else
-      "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
-    end
+    File.join template_path, "/stylesheets/style.css"
   end
 
 
