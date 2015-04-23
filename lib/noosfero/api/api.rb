@@ -6,12 +6,18 @@ module Noosfero
     class API < Grape::API
       use Rack::JSONP
 
-      before { start_log }
+      logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+      logger.formatter = GrapeLogging::Formatters::Default.new
+      use RequestLogger, { logger: logger }
+
+      rescue_from :all do |e|
+        logger.error e
+      end
+
       before { setup_multitenancy }
       before { detect_stuff_by_domain }
-      after { end_log }
       after { set_session_cookie }
-  
+
       version 'v1'
       prefix "api"
       format :json

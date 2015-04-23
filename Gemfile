@@ -22,6 +22,7 @@ gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
 gem 'grape',                    '~> 0.11.0'
 gem 'grape-entity'
 gem 'grape-swagger'
+gem 'grape_logging'
 gem 'rack-cors'
 gem 'rack-contrib'
 
