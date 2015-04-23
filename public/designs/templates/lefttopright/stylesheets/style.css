@@ -4,26 +4,35 @@
 }
 
 .box-1 {
-  width: 59%;
-  float: right;
-  margin-right: 5px
+  width: 58%;
+  float: left;
+  margin: 1% 1% 0% 1%;
+  background-color: red;
+}
+
+
+.box-2 {
+  position: relative;
+  float: left;
+  width: 20%;
+  /*top: -165px;*/
+  /*margin-top: -17.5%;*/
+  background-color: blue;
 }
 
 .box-3 {
   position: relative;
-  float: left;
-  width: 20%;
-}
-
-.box-2 {
-  position: relative;
   float: right;
   width: 20%;
+  margin-top: 1%;
+  background-color: yellow;
 }
 
 .box-4 {
-  float: right;
-  width: 79.5%;
+  float: left;
+  width: 79%;
+  background-color: green;
+  margin-left: 21%;
 }
 
 #profile-activity ul,
