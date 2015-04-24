@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/ldap_authentication.rb'
 
 class LdapPlugin < Noosfero::Plugin
+  include Noosfero::Plugin::HotSpot
 
   def self.plugin_name
     "LdapPlugin"
@@ -8,6 +9,25 @@ class LdapPlugin < Noosfero::Plugin
 
   def self.plugin_description
     _("A plugin that add ldap support.")
+  end
+
+  module Hotspots
+    # -> Custom ldap plugin hotspot to set profile data before user creation
+    # receive the followings params:
+    # - attrs with ldap received data
+    # - login received by ldap
+    # - params from current context
+    # returns = updated person_data hash
+    def ldap_plugin_set_profile_data(attrs, login, params)
+    end
+
+    # -> Custom ldap plugin hotspot to update user object
+    # receive the followings params:
+    # - user: user object
+    # - attrs with ldap received data
+    # returns = none
+    def ldap_plugin_update_user(user, attrs)
+    end
   end
 
   def allow_user_registration
@@ -39,13 +59,15 @@ class LdapPlugin < Noosfero::Plugin
         user.name =  attrs[:fullname]
         user.password = password
         user.password_confirmation = password
-        user.person_data = context.params[:profile_data]
+        person_data = plugins.dispatch(:ldap_plugin_set_profile_data, attrs, login, context.params)
+        user.person_data = person_data.blank? ? context.params[:profile_data] : person_data
         user.activated_at = Time.now.utc
         user.activation_code = nil
 
         ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
         begin
-          user = nil unless user.save
+          user = nil unless user.save!
+          plugins.dispatch(:ldap_plugin_update_user, user, attrs)
         rescue
           #User not saved
         end
@@ -54,7 +76,6 @@ class LdapPlugin < Noosfero::Plugin
       end
 
     else
-
       return nil if !user.activated?
 
       begin
