@@ -1422,6 +1422,19 @@ class CmsControllerTest < ActionController::TestCase
     assert_select '#task_email', 0
   end
 
+  should 'display captcha when suggest an article for not logged in users' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#dynamic_recaptcha'
+  end
+
+  should 'not display captcha when suggest an article for logged in users' do
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#dynamic_recaptcha', 0
+  end
+
   should 'render TinyMce Editor on suggestion of article' do
     logout
     get :suggest_an_article, :profile => profile.identifier
