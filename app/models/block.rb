@@ -23,7 +23,7 @@ class Block < ActiveRecord::Base
   end
 
   def get_limit
-    [0,limit].max
+    [0,limit.to_i].max
   end
 
   def embed_code
