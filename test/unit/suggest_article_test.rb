@@ -225,4 +225,17 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert_match "SuggestArticle-id: #{t.id} IP: 192.168.0.1", log.read
   end
 
+  should 'not require name and email when requestor is present' do
+    t = SuggestArticle.new(:requestor => fast_create(Person))
+    t.valid?
+    assert t.errors[:email].blank?
+    assert t.errors[:name].blank?
+  end
+
+  should 'return name as sender when requestor is setted' do
+    person = fast_create(Person)
+    t = SuggestArticle.new(:requestor => person)
+    assert_equal person.name, t.sender
+  end
+
 end

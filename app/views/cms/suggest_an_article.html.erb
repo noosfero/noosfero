@@ -12,9 +12,10 @@
 
   <%= labelled_form_field(_('Source URL'), text_field(:task, 'source')) %>
 
-  <%= required labelled_form_field(_('Your name'), text_field(:task, 'name')) %>
-
-  <%= required labelled_form_field(_('Email'), text_field(:task, 'email')) %>
+  <% unless logged_in? %>
+    <%= required labelled_form_field(_('Your name'), text_field(:task, 'name')) %>
+    <%= required labelled_form_field(_('Email'), text_field(:task, 'email')) %>
+  <% end %>
 
   <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :object => :task, :abstract_method => 'article_abstract', :body_method => 'article_body'} %>
 

@@ -357,6 +357,7 @@ class CmsController < MyProfileController
       @task.ip_address = request.remote_ip
       @task.user_agent = request.user_agent
       @task.referrer = request.referrer
+      @task.requestor = current_person if logged_in?
       if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to

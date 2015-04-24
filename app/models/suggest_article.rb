@@ -1,6 +1,7 @@
 class SuggestArticle < Task
 
-  validates_presence_of :target_id, :article_name, :email, :name, :article_body
+  validates_presence_of :target_id, :article_name, :article_body
+  validates_presence_of :email, :name, :if => Proc.new { |task| task.requestor.blank? }
 
   settings_items :email, :type => String
   settings_items :name, :type => String
@@ -24,7 +25,7 @@ class SuggestArticle < Task
   include Noosfero::Plugin::HotSpot
 
   def sender
-    "#{name} (#{email})"
+    requestor ? "#{requestor.name}" : "#{name} (#{email})"
   end
 
   def perform
@@ -50,8 +51,9 @@ class SuggestArticle < Task
   end
 
   def information
-    { :message => _('%{sender} suggested the publication of the article: %{subject}.'),
-      :variables => {:sender => sender} }
+    variables = requestor.blank? ? {:requestor => sender} : {}
+    { :message => _('%{requestor} suggested the publication of the article: %{subject}.'),
+      :variables => variables }
   end
 
   def accept_details
@@ -63,8 +65,8 @@ class SuggestArticle < Task
   end
 
   def target_notification_description
-    _('%{sender} suggested the publication of the article: %{article}.') %
-    {:sender => sender, :article => article_name}
+    _('%{requestor} suggested the publication of the article: %{article}.') %
+    {:requestor => sender, :article => article_name}
   end
 
   def target_notification_message

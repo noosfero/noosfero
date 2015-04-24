@@ -305,6 +305,28 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal 'new source', TinyMceArticle.find(:first).source_name
   end
 
+  should "display name from article suggestion when requestor was not setted" do
+    Task.destroy_all
+    c = fast_create(Community)
+    c.add_admin profile
+    @controller.stubs(:profile).returns(c)
+    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    get :index
+    assert_select "#tasks_#{t.id}_task_name"
+  end
+
+  should "not display name from article suggestion when requestor was setted" do
+    Task.destroy_all
+    c = fast_create(Community)
+    c.add_admin profile
+    @controller.stubs(:profile).returns(c)
+    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :requestor => fast_create(Person), :target => c)
+
+    get :index
+    assert_select "#tasks_#{t.id}_task_name", 0
+  end
+
   should "not crash if accessing close without tasks parameter" do
     assert_nothing_raised do
       post :close
