@@ -1,20 +1,15 @@
 class SuggestArticle < Task
 
-  validates_presence_of :target_id, :article_name, :article_body
+  validates_presence_of :target_id
   validates_presence_of :email, :name, :if => Proc.new { |task| task.requestor.blank? }
+  validates_associated :article_object
 
   settings_items :email, :type => String
   settings_items :name, :type => String
-  settings_items :article_name, :type => String
-  settings_items :article_body, :type => String
-  settings_items :article_abstract, :type => String
-  settings_items :article_parent_id, :type => String
-  settings_items :source, :type => String
-  settings_items :source_name, :type => String
-  settings_items :highlighted, :type => :boolean, :default => false
   settings_items :ip_address, :type => String
   settings_items :user_agent, :type => String
   settings_items :referrer, :type => String
+  settings_items :article, :type => Hash, :default => {}
 
   after_create :schedule_spam_checking
 
@@ -28,22 +23,32 @@ class SuggestArticle < Task
     requestor ? "#{requestor.name}" : "#{name} (#{email})"
   end
 
+  def article_object
+    if @article_object.nil?
+      @article_object = article_type.new(article.merge({:profile => target}).except(:type))
+      if requestor.present?
+        @article_object.author = requestor
+      else
+        @article_object.author_name = name
+      end
+    end
+    @article_object
+  end
+
+  def article_type
+    (article[:type] || 'TinyMceArticle').constantize
+  end
+
   def perform
-    task = TinyMceArticle.new
-    task.profile = target
-    task.name = article_name
-    task.author_name = name
-    task.body = article_body
-    task.abstract = article_abstract
-    task.parent_id = article_parent_id
-    task.source = source
-    task.source_name = source_name
-    task.highlighted = highlighted
-    task.save!
+    article_object.save!
   end
 
   def title
     _("Article suggestion")
+  end
+
+  def article_name
+    article[:name]
   end
 
   def subject

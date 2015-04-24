@@ -1439,22 +1439,22 @@ class CmsControllerTest < ActionController::TestCase
     logout
     get :suggest_an_article, :profile => profile.identifier
 
-    assert_tag :tag => 'textarea', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /task\[article\]\[abstract\]/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /task\[article\]\[body\]/, :class => 'mceEditor' }
   end
 
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
     assert_difference 'SuggestArticle.count' do
-      post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
+      post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article => {:name => 'some name', :body => 'some body'}, :email => 'some@localhost.com', :name => 'some name'}
     end
   end
 
   should 'create suggest task with logged in user as the article author' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
-    post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body'}
+    post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article => {:name => 'some name', :body => 'some body'}}
     assert_equal profile, SuggestArticle.last.requestor
   end
 

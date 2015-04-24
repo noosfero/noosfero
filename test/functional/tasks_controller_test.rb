@@ -264,11 +264,11 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.add_admin profile
     @controller.stubs(:profile).returns(c)
-    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
-    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /article_body/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[abstract\]/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[body\]/, :class => 'mceEditor' }
   end
 
   should 'create TinyMceArticle article after finish approve suggested article task' do
@@ -276,7 +276,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
-    t = SuggestArticle.create!(:article_name => 'test name', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     post :close, :tasks => {t.id => { :task => {}, :decision => "finish"}}
     assert_not_nil TinyMceArticle.find(:first)
@@ -288,16 +288,13 @@ class TasksControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
     t = SuggestArticle.new
-    t.article_name = 'test name' 
-    t.article_body = 'test body'
+    t.article = {:name => 'test name', :body => 'test body', :source => 'http://test.com', :source_name => 'some source name'}
     t.name = 'some name'
-    t.source = 'http://test.com'
-    t.source_name = 'some source name'
     t.email = 'test@localhost.com'
     t.target = c
     t.save!
 
-    post :close, :tasks => {t.id => { :task => {:article_name => 'new article name', :article_body => 'new body', :source => 'http://www.noosfero.com', :source_name => 'new source', :name => 'new name'}, :decision => "finish"}}
+    post :close, :tasks => {t.id => { :task => {:article => {:name => 'new article name', :body => 'new body', :source => 'http://www.noosfero.com', :source_name => 'new source'}, :name => 'new name'}, :decision => "finish"}}
     assert_equal 'new article name', TinyMceArticle.find(:first).name
     assert_equal 'new name', TinyMceArticle.find(:first).author_name
     assert_equal 'new body', TinyMceArticle.find(:first).body
@@ -310,7 +307,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.add_admin profile
     @controller.stubs(:profile).returns(c)
-    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
     assert_select "#tasks_#{t.id}_task_name"
@@ -321,7 +318,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.add_admin profile
     @controller.stubs(:profile).returns(c)
-    t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :requestor => fast_create(Person), :target => c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body'}, :requestor => fast_create(Person), :target => c)
 
     get :index
     assert_select "#tasks_#{t.id}_task_name", 0
