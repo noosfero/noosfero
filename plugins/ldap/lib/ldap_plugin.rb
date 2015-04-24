@@ -60,7 +60,7 @@ class LdapPlugin < Noosfero::Plugin
         user.password = password
         user.password_confirmation = password
         person_data = plugins.dispatch(:ldap_plugin_set_profile_data, attrs, login, context.params)
-        user.person_data = person_data.nil? ? context.params[:profile_data] : person_data
+        user.person_data = person_data.blank? ? context.params[:profile_data] : person_data
         user.activated_at = Time.now.utc
         user.activation_code = nil
 
