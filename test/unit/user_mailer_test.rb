@@ -18,6 +18,14 @@ class UserMailerTest < ActiveSupport::TestCase
     end
   end
 
+  should 'deliver profiles suggestions email' do
+    person = create_user('some-user').person
+    ProfileSuggestion.create!(:person => person, :suggestion =>
+fast_create(Person))
+    email = UserMailer.profiles_suggestions_email(person).deliver
+    assert_match /profile\/some-user\/friends\/suggest/, email.body.to_s
+  end
+
   private
 
     def read_fixture(action)
