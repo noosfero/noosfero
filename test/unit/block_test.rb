@@ -330,4 +330,11 @@ class BlockTest < ActiveSupport::TestCase
     block.save!
     assert !block.display_to_user?(person_friend)
   end
+
+  should 'get limit as a number when limit is string' do
+    block = RecentDocumentsBlock.new
+    block.settings[:limit] = '5'
+    assert block.get_limit.is_a?(Fixnum)
+  end
+
 end
