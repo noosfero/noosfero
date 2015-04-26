@@ -18,7 +18,8 @@ class LdapPlugin < Noosfero::Plugin
     # - login received by ldap
     # - params from current context
     # returns = updated person_data hash
-    def ldap_plugin_set_profile_data(attrs, login, params)
+    def ldap_plugin_set_profile_data(attrs, params)
+      [attrs, params]
     end
 
     # -> Custom ldap plugin hotspot to update user object
@@ -55,19 +56,22 @@ class LdapPlugin < Noosfero::Plugin
 
       if attrs
         user.login = login
-        user.email = attrs[:mail]
+        user.email = get_email(attrs, login)
         user.name =  attrs[:fullname]
         user.password = password
         user.password_confirmation = password
-        person_data = plugins.dispatch(:ldap_plugin_set_profile_data, attrs, login, context.params)
-        user.person_data = person_data.blank? ? context.params[:profile_data] : person_data
+        user.person_data = plugins.pipeline(:ldap_plugin_set_profile_data, attrs, context.params).last[:profile_data]
         user.activated_at = Time.now.utc
         user.activation_code = nil
 
         ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
         begin
-          user = nil unless user.save!
-          plugins.dispatch(:ldap_plugin_update_user, user, attrs)
+          if user.save
+            user.activate
+            plugins.dispatch(:ldap_plugin_update_user, user, attrs)
+          else
+            user = nil
+          end
         rescue
           #User not saved
         end
@@ -88,6 +92,16 @@ class LdapPlugin < Noosfero::Plugin
     end
 
     user
+  end
+
+  def get_email(attrs, login)
+    return attrs[:mail] unless attrs[:mail].blank?
+
+    if attrs[:fullname]
+      return attrs[:fullname].to_slug + "@ldap.user"
+    else
+      return login.to_slug + "@ldap.user"
+    end
   end
 
   def login_extra_contents
