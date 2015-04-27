@@ -50,11 +50,11 @@ module Noosfero
 
           post ':id/children/suggest' do
             parent_article = environment.articles.find(params[:id])
-            profile = environment.profiles.find(params[:target_id])
 
             suggest_article = SuggestArticle.new
             suggest_article.article = params[:article]
-            suggest_article.target = profile
+            suggest_article.article[:parent_id] = parent_article.id
+            suggest_article.target = parent_article.profile
             suggest_article.requestor = current_person
 
             unless suggest_article.save
