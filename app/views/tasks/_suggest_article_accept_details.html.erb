@@ -10,8 +10,10 @@
   <%= labelled_form_field(_('Source'), a.text_field(:source_name)) %>
   <%= labelled_form_field(_("Source URL"), a.text_field(:source)) %>
 
-  <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article][parent_id]", task.target) %>
+  <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article][parent_id]", task.target, task.article[:parent_id]) %>
   <%= labelled_form_field(_('Highlight this article'), a.check_box(:highlighted)) %>
+
+  <%= a.hidden_field(:type) %>
 
   <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :f => a, :lead_id => task.id} %>
 <% end %>

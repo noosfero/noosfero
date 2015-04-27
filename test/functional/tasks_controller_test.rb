@@ -313,6 +313,29 @@ class TasksControllerTest < ActionController::TestCase
     assert_select "#tasks_#{t.id}_task_name"
   end
 
+  should "append hidden tag with type value from article suggestion" do
+    Task.destroy_all
+    c = fast_create(Community)
+    c.add_admin profile
+    @controller.stubs(:profile).returns(c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body', :type => 'TextArticle'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    get :index
+    assert_select "#tasks_#{t.id}_task_article_type[value=TextArticle]"
+  end
+
+  should "display parent_id selection from article suggestion with predefined value" do
+    Task.destroy_all
+    c = fast_create(Community)
+    c.add_admin profile
+    @controller.stubs(:profile).returns(c)
+    parent = fast_create(Folder, :profile_id => c.id)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body', :parent_id => parent.id}, :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    get :index
+    assert_select "#tasks_#{t.id}_task_article_parent_id option[value=#{parent.id}]"
+  end
+
   should "not display name from article suggestion when requestor was setted" do
     Task.destroy_all
     c = fast_create(Community)
