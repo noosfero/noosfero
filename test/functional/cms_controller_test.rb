@@ -1407,20 +1407,55 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'suggest_an_article'
   end
 
+  should 'display name and email when a not logged in user suggest an article' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#task_name'
+    assert_select '#task_email'
+  end
+
+  should 'do not display name and email when a logged in user suggest an article' do
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#task_name', 0
+    assert_select '#task_email', 0
+  end
+
+  should 'display captcha when suggest an article for not logged in users' do
+    logout
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#dynamic_recaptcha'
+  end
+
+  should 'not display captcha when suggest an article for logged in users' do
+    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
+
+    assert_select '#dynamic_recaptcha', 0
+  end
+
   should 'render TinyMce Editor on suggestion of article' do
     logout
     get :suggest_an_article, :profile => profile.identifier
 
-    assert_tag :tag => 'textarea', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /task\[article\]\[abstract\]/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :name => /task\[article\]\[body\]/, :class => 'mceEditor' }
   end
 
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
     assert_difference 'SuggestArticle.count' do
-      post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
+      post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article => {:name => 'some name', :body => 'some body'}, :email => 'some@localhost.com', :name => 'some name'}
     end
+  end
+
+  should 'create suggest task with logged in user as the article author' do
+    c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
+
+    post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article => {:name => 'some name', :body => 'some body'}}
+    assert_equal profile, SuggestArticle.last.requestor
   end
 
   should 'suggest an article from a profile' do

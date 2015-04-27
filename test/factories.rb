@@ -454,7 +454,7 @@ module Noosfero::Factory
   end
 
   def defaults_for_suggest_article
-    { :name => 'Sender', :email => 'sender@example.com', :article_name => 'Some title', :article_body => 'some body text', :article_abstract => 'some abstract text'}
+    { :name => 'Sender', :email => 'sender@example.com', :article => {:name => 'Some title', :body => 'some body text', :abstract => 'some abstract text'}}
   end
 
   def defaults_for_comment(params = {})

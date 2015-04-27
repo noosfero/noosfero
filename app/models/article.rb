@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
                   :allow_members_to_edit, :translation_of_id, :language,
                   :license_id, :parent_id, :display_posts_in_current_language,
                   :category_ids, :posts_per_page, :moderate_comments,
-                  :accept_comments, :feed, :published, :source,
+                  :accept_comments, :feed, :published, :source, :source_name,
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers
