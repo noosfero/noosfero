@@ -451,4 +451,26 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal ['title'], json['articles'].first.keys
   end
 
+  should 'suggest article children' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    params[:target_id] = user.person.id
+    params[:article] = {:name => "Article name", :body => "Article body"}
+    assert_difference "SuggestArticle.count" do
+      post "/api/v1/articles/#{article.id}/children/suggest?#{params.to_query}"
+    end
+    json = JSON.parse(last_response.body)
+    assert_equal 'SuggestArticle', json['type']
+  end
+
+  should 'suggest event children' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    params[:target_id] = user.person.id
+    params[:article] = {:name => "Article name", :body => "Article body", :type => "Event"}
+    assert_difference "SuggestArticle.count" do
+      post "/api/v1/articles/#{article.id}/children/suggest?#{params.to_query}"
+    end
+    json = JSON.parse(last_response.body)
+    assert_equal 'SuggestArticle', json['type']
+  end
+
 end
