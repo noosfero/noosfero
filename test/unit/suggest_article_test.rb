@@ -230,4 +230,16 @@ class SuggestArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'accept article type parameter' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => 'TextArticle'}
+    t.article_type == TextArticle
+  end
+
+  should 'fallback to tinymce when type parameter is invalid' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => 'Comment'}
+    t.article_type == TinyMceArticle
+  end
+
 end
