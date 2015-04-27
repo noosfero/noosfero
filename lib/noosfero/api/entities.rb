@@ -101,7 +101,12 @@ module Noosfero
       class UserLogin < User
         expose :private_token
       end
-  
+
+      class Task < Entity
+        expose :id
+        expose :type
+      end
+
     end
   end
 end
