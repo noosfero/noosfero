@@ -28,7 +28,7 @@ module LayoutHelper
   end
 
   def noosfero_javascript
-    plugins_javascripts = @plugins.flat_map{ |plugin| plugin.js_files.map{ |js| plugin.class.public_path(js, true) } }.flatten
+    plugins_javascripts = @plugins.flat_map{ |plugin| Array.wrap(plugin.js_files).map{ |js| plugin.class.public_path(js, true) } }.flatten
 
     output = ''
     output += render 'layouts/javascript'
