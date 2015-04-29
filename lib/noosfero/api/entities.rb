@@ -66,6 +66,7 @@ module Noosfero
         expose :image, :using => Image
         expose :votes_for
         expose :votes_against
+        expose :setting
       end
 
       class Article < ArticleBase
