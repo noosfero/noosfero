@@ -1122,6 +1122,23 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'default title', p.boxes[0].blocks.first[:title]
   end
 
+  should 'have blocks observer on template when applying template with mirror' do
+    template = fast_create(Profile)
+    template.boxes.destroy_all
+    template.boxes << Box.new
+    b = Block.new(:title => 'default title', :mirror => true)
+    template.boxes[0].blocks << b
+
+    p = create(Profile)
+    assert !b[:title].blank?
+
+    p.copy_blocks_from(template)
+
+    assert_equal 'default title', p.boxes[0].blocks.first[:title]
+    assert_equal p.boxes[0].blocks.first, template.boxes[0].blocks.first.observers.first
+
+  end
+
   TMP_THEMES_DIR = Rails.root.join('test', 'tmp', 'profile_themes')
   should 'have themes' do
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
