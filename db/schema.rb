@@ -183,10 +183,13 @@ ActiveRecord::Schema.define(:version => 20150513213939) do
     t.string   "type"
     t.text     "settings"
     t.integer  "position"
-    t.boolean  "enabled",    :default => true
+    t.boolean  "enabled",         :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "fetched_at"
+    t.boolean  "mirror",          :default => false
+    t.integer  "mirror_block_id"
+    t.integer  "observers_id"
   end
 
   add_index "blocks", ["box_id"], :name => "index_blocks_on_box_id"
