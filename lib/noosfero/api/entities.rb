@@ -67,6 +67,7 @@ module Noosfero
         expose :votes_for
         expose :votes_against
         expose :setting
+        expose :position
       end
 
       class Article < ArticleBase
