@@ -174,4 +174,70 @@ class ForumTest < ActiveSupport::TestCase
     assert_equal true, Forum.find(forum.id).agrees_with_terms?(person)
   end
 
+  should 'always allow topic creation to the person himself' do
+    person = fast_create(Person)
+    someone = fast_create(Person)
+    forum = Forum.new(:profile => person)
+
+    assert forum.can_create_topic?(person)
+    assert !forum.can_create_topic?(someone)
+  end
+
+  should 'always allow topic creation to profile admins' do
+    admin = fast_create(Person)
+    someone = fast_create(Person)
+    profile = fast_create(Profile)
+    admins = [admin]
+    profile.stubs(:admins).returns(admins)
+    forum = Forum.new(:profile => profile)
+
+    assert forum.can_create_topic?(admin)
+    assert !forum.can_create_topic?(someone)
+  end
+
+  should 'always allow topic creation to environment admins' do
+    admin = fast_create(Person)
+    someone = fast_create(Person)
+    profile = fast_create(Profile)
+    admins = [admin]
+    environment = profile.environment
+    environment.stubs(:admins).returns(admins)
+    forum = Forum.new(:profile => profile)
+
+    assert forum.can_create_topic?(admin)
+    assert !forum.can_create_topic?(someone)
+  end
+
+  should 'allow only person friends to create topics when topic_creation is related' do
+    person = fast_create(Person)
+    friend = fast_create(Person)
+    someone = fast_create(Person)
+    friends = [friend]
+    person.stubs(:friends).returns(friends)
+    forum = Forum.new(:profile => person, :topic_creation => 'related')
+
+    assert forum.can_create_topic?(friend)
+    assert !forum.can_create_topic?(someone)
+  end
+
+  should 'allow only group members to create topics when topic_creation is related' do
+    organization = fast_create(Organization)
+    member = fast_create(Person)
+    someone = fast_create(Person)
+    members = [member]
+    organization.stubs(:members).returns(members)
+    forum = Forum.new(:profile => organization, :topic_creation => 'related')
+
+    assert forum.can_create_topic?(member)
+    assert !forum.can_create_topic?(someone)
+  end
+
+  should 'allow every user to create topics when topic_creation is users' do
+    profile = fast_create(Profile)
+    user = fast_create(Person)
+    forum = Forum.new(:profile => profile, :topic_creation => 'users')
+
+    assert forum.can_create_topic?(user)
+    assert !forum.can_create_topic?(nil)
+  end
 end

@@ -6239,6 +6239,20 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 .forum-posts .pagination {
   margin-top: 20px;
 }
+
+#topic-creation-slider{
+  margin-top: 15px;
+}
+
+#topic-creation-slider .ui-slider-range {
+  background: #73D216;
+}
+
+#topic-creation-slider label {
+  left: 20px;
+  position: absolute;
+  width: 200px;
+}
 /* Task */
 
 #user a#pending-tasks-count {
