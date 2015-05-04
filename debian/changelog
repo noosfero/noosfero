@@ -1,3 +1,9 @@
+noosfero (1.1) wheezy; urgency=low
+
+  * Noosfero 1.1 final release
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Mon, 04 May 2015 18:47:35 -0300
+
 noosfero (1.1~rc4) wheezy; urgency=medium
 
   * Fourth release candidate for Noosfero 1.1
