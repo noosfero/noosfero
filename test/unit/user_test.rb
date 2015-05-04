@@ -554,6 +554,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'delay activation check with custom time' do
     NOOSFERO_CONF.stubs(:[]).with('hours_until_user_activation_check').returns(240)
+    NOOSFERO_CONF.stubs(:[]).with('exclude_profile_identifier_pattern')
     user = new_user
     job = Delayed::Job.last
     assert_match /UserActivationJob/, job.handler
