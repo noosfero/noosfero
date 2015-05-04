@@ -12,9 +12,8 @@ namespace :noosfero do
       end
     end
     task :unlink_plugins_textiles do
-      root = Pathname.new(File.dirname(__FILE__) + '/../..').expand_path
-      rm_f Dir.glob(root.join('doc/noosfero/plugins/*.textile')) -
-        [root.join('doc/noosfero/plugins/index.textile')]
+      rm_f Dir.glob('doc/noosfero/plugins/*.textile') -
+        ['doc/noosfero/plugins/index.textile']
     end
     input = Dir.glob('doc/noosfero/**/*.textile') + plugins_textiles.map{|i| "doc/noosfero/plugins/#{File.basename(i)}"}
     topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }.uniq
