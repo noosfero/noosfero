@@ -404,6 +404,7 @@ class Profile < ActiveRecord::Base
   alias_method_chain :template, :default
 
   def apply_template(template, options = {:copy_articles => true})
+    self.template = template
     copy_blocks_from(template)
     copy_articles_from(template) if options[:copy_articles]
     self.apply_type_specific_template(template)
