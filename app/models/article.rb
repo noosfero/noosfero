@@ -634,6 +634,11 @@ class Article < ActiveRecord::Base
     self.hits += 1
   end
 
+  def self.hit(articles)
+    Article.where(:id => articles.map(&:id)).update_all('hits = hits + 1')
+    articles.each { |a| a.hits += 1 }
+  end
+
   def can_display_hits?
     true
   end
