@@ -473,4 +473,14 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal 'SuggestArticle', json['type']
   end
 
+  should 'update hit attribute of article children' do
+    a1 = fast_create(Article, :profile_id => user.person.id)
+    a2 = fast_create(Article, :parent_id => a1.id, :profile_id => user.person.id)
+    a3 = fast_create(Article, :parent_id => a1.id, :profile_id => user.person.id)
+    get "/api/v1/articles/#{a1.id}/children?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [1, 1], json['articles'].map { |a| a['hits']}
+    assert_equal [0, 1, 1], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
+  end
+
 end

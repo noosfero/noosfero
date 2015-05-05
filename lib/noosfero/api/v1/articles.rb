@@ -40,6 +40,7 @@ module Noosfero
               articles = articles.joins('left join votes on articles.id=votes.voteable_id').group('articles.id').reorder('sum(coalesce(votes.vote, 0)) DESC')
             end
 
+            Article.hit(articles)
             present articles, :with => Entities::Article, :fields => params[:fields]
           end
   
