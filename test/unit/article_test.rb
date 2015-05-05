@@ -2154,4 +2154,14 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equivalent [a1,a2], Article.display_filter(nil, user)
   end
 
+  should 'update hit attribute of article array' do
+    a1 = fast_create(Article)
+    a2 = fast_create(Article)
+    a3 = fast_create(Article)
+    Article.hit([a1, a2, a3])
+    Article.hit([a2, a3])
+    assert_equal [1, 2, 2], [a1.hits, a2.hits, a3.hits]
+    assert_equal [1, 2, 2], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
+  end
+
 end
