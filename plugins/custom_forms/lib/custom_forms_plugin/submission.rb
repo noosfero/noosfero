@@ -49,6 +49,14 @@ class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
     self.answers
   end
 
+  def q_and_a
+    qa = {}
+    form.fields.each do |f|
+      self.answers.select{|a| a.field == f}.map{|answer| qa[f] = answer }
+    end
+    qa
+  end
+
   protected
 
   def check_answers

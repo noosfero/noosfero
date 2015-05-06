@@ -89,3 +89,32 @@ tr.addition-buttons {
   border: 1px solid #BBB;
   border-radius: 4px;
 }
+
+#custom-forms-plugin_submission .notify {
+  padding: 8px;
+  color: rgba(0,0,0,0.5);
+}
+
+#custom-forms-plugin_submission-view th {
+  border: none;
+  text-align: right;
+}
+#custom-forms-plugin_submission-view td {
+  padding: 5px 0;
+}
+
+#custom-forms-plugin_submission-view td img {
+  vertical-align: middle;
+}
+
+#custom-forms-plugin_submission-view td ul {
+  padding: 0;
+  margin: 0;
+}
+#custom-forms-plugin_submission-view td li {
+  list-style: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect x="3.5" y="3.5" width="10" height="10" fill="black" stroke="black" fill-opacity="0.2" opacity="0.4" ry="1"/><path d="M 4,5 8.5,13 16,0 8.5,8.5 z"/></svg>') no-repeat 0 50%;
+  padding: 0 0 0 20px;
+  margin: 0;
+}
+

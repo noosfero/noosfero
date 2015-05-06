@@ -1,10 +1,51 @@
+<div id="custom-forms-plugin_submission-view">
+
 <h1><%= @form.name %></h1>
 <p><%= @form.description %></p>
 
-<%= fields_for :submission, @submission do |f| %>
-  <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
+<% sanitizer = ActionView::Base.white_list_sanitizer %>
+
+<table>
+  <tr>
+    <th><%= _('Submission date') %></th>
+    <td><%= @submission.updated_at.strftime('%Y/%m/%d %T %Z') %><td>
+  </tr>
+  <tr>
+    <th><%= _('Author') %></th>
+    <% if author = @submission.profile %>
+      <td>
+        <%= link_to(image_tag(profile_icon(author, :portrait)), author.url) %>
+        <%= link_to(author.name, author.url) %>
+      </td>
+    <% else %>
+      <td>
+        <%=
+          img = image_tag gravatar_profile_image_url @submission.author_email, :size=>64, :d => gravatar_default
+          sanitizer.sanitize link_to(img +' '+ @submission.author_name, "mailto:#{@submission.author_email}")
+        %>
+        <span>(<%= _('Unauthenticated') %>)<span>
+      </td>
+    <% end %>
+  </tr>
+<% @submission.q_and_a.each do |field, answer| %>
+  <tr>
+    <th><%= sanitizer.sanitize field.name %></th>
+    <td><%=
+      answer = if answer.field.alternatives.blank?
+        answer.to_s.gsub("\n", '<br>')
+      else
+        content_tag :ul do
+          answer.to_text_list.map {|a| content_tag :li, a }.join("\n")
+        end
+      end
+      sanitizer.sanitize answer
+    %></td>
+  </tr>
 <% end %>
+</table>
 
 <% button_bar do %>
   <%= button :back, _('Back to submissions'), :action => 'submissions', :id => @form.id %>
 <% end %>
+
+</div><!-- end id="custom-forms-plugin_submission-view" -->
