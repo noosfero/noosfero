@@ -69,12 +69,13 @@ module CustomFormsPlugin::Helper
   end
 
   def display_custom_field(field, submission, form)
+    sanitized_name = ActionView::Base.white_list_sanitizer.sanitize field.name
     answer = submission.answers.select{|answer| answer.field == field}.first
     field_tag = send("display_#{type_for_options(field.class)}",field, answer, form)
     if field.mandatory? && submission.id.nil?
-      required(labelled_form_field(field.name, field_tag))
+      required(labelled_form_field(sanitized_name, field_tag))
     else
-      labelled_form_field(field.name, field_tag)
+      labelled_form_field(sanitized_name, field_tag)
     end
   end
 
