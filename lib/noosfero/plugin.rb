@@ -203,6 +203,7 @@ class Noosfero::Plugin
 
     # -> define grape class used to map resource api provided by the plugin
     def api_mount_points
+      []
     end
   end
 

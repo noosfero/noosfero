@@ -38,7 +38,7 @@ module Noosfero
       #finds for plugins which has api mount points classes defined (the class should extends Grape::API)
       @plugins = Noosfero::Plugin.all.map { |p| p.constantize }
       @plugins.each do |klass|
-        if klass.public_methods.include? 'api_mount_points'
+        if klass.public_methods.include? :api_mount_points
           klass.api_mount_points.each do |mount_class|
               mount mount_class if mount_class && ( mount_class < Grape::API )
           end
