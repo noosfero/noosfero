@@ -272,4 +272,8 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/embed/block/12345', :controller => 'embed', :action => 'block', :id => '12345')
   end
 
+  should 'accept ~ as placeholder for current user' do
+    assert_routing('/profile/~', :controller => 'profile', :profile => '~', :action => 'index')
+  end
+
 end
