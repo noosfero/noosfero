@@ -35,6 +35,24 @@ class BlockTest < ActiveSupport::TestCase
     assert Block.new.editable?
   end
 
+  should 'be editable if edit modes is all' do
+    block = Block.new
+    block.edit_modes = 'all'
+
+    assert block.editable?
+  end
+
+  should 'be movable by default' do
+    assert Block.new.movable?
+  end
+
+  should 'be movable if move modes is all' do
+    block = Block.new
+    block.move_modes = 'all'
+
+    assert block.movable?
+  end
+
   should 'have default titles' do
     b = Block.new
     b.expects(:default_title).returns('my title')

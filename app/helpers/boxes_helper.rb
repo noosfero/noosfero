@@ -190,7 +190,7 @@ module BoxesHelper
       else
         "before-block-#{block.id}"
       end
-    if block.nil? or modifiable?(block)
+    if block.nil? || movable?(block)
       content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover')
     else
       ""
@@ -199,14 +199,14 @@ module BoxesHelper
 
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
-    modifiable?(block) ? draggable_element("block-#{block.id}", :revert => true) : ""
+    movable?(block) ? draggable_element("block-#{block.id}", :revert => true) : ""
   end
 
   def block_edit_buttons(block)
     buttons = []
     nowhere = 'javascript: return false;'
 
-    if modifiable?(block)
+    if movable?(block)
       if block.first?
         buttons << icon_button('up-disabled', _("Can't move up anymore."), nowhere)
       else
@@ -229,15 +229,15 @@ module BoxesHelper
           buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
         end
       end
+    end
 
-      if block.editable?
-        buttons << modal_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
-      end
+    if editable?(block)
+      buttons << modal_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
+    end
 
-      if !block.main?
-        buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
-        buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
-      end
+    if movable?(block) && !block.main?
+      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
+      buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
     end
 
     if block.respond_to?(:help)
@@ -273,7 +273,11 @@ module BoxesHelper
     classes
   end
 
-  def modifiable?(block)
-    return !block.fixed || environment.admins.include?(user)
+  def movable?(block)
+    return block.movable? || user.is_admin?
+  end
+
+  def editable?(block)
+    return block.editable? || user.is_admin?
   end
 end

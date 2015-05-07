@@ -123,24 +123,24 @@ class BoxesHelperTest < ActionView::TestCase
     display_box_content(box, '')
   end
 
-  should 'not show move options on block when block is fixed' do
+  should 'not show move options on block when block has no permission to edit' do
     p = create_user_with_blocks
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
-    b.fixed = true
+    b.move_modes = "none"
     b.save!
 
     stubs(:environment).returns(p.environment)
     stubs(:user).returns(p)
 
-    assert_equal false, modifiable?(b)
+    assert_equal false, movable?(b)
   end
 
-  should 'show move options on block when block is fixed and user is admin' do
+  should 'show move options on block when block has no permission to edit and user is admin' do
     p = create_user_with_blocks
 
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
-    b.fixed = true
+    b.edit_modes = "none"
     b.save!
 
     p.environment.add_admin(p)
@@ -148,7 +148,7 @@ class BoxesHelperTest < ActionView::TestCase
     stubs(:environment).returns(p.environment)
     stubs(:user).returns(p)
 
-    assert_equal true, modifiable?(b)
+    assert_equal true, movable?(b)
   end
 
   should 'consider boxes_limit without custom_design' do
@@ -198,4 +198,16 @@ class BoxesHelperTest < ActionView::TestCase
     assert_no_tag_in_string block_edit_buttons(block), :tag => 'a', :attributes => {:class => 'button icon-button icon-embed '}
   end
 
+  should 'only show edit option on block' do
+    p = create_user_with_blocks
+
+    b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
+    b.edit_modes = "only_edit"
+    b.save!
+
+    stubs(:environment).returns(p.environment)
+    stubs(:user).returns(p)
+
+    assert_equal false, b.editable?
+  end
 end
