@@ -20,18 +20,17 @@ gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
 
-group :assets do
-  gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails'
-end
+# asset pipeline
+gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
 
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
 
 group :test do
-  gem 'rspec',                  '~> 2.10.0'
-  gem 'rspec-rails',            '~> 2.10.1'
+  gem 'rspec',                  '~> 2.14.0'
+  gem 'rspec-rails',            '~> 2.14.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
 end
 

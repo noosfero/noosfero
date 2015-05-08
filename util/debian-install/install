@@ -61,19 +61,35 @@ deb http://download.noosfero.org/debian/wheezy-test ./
 deb-src http://download.noosfero.org/debian/wheezy-test ./
 EOF
 
+sed -e 's/wheezy/&-backports/' \
+  /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
+
 export DEBIAN_FRONTEND=noninteractive
+
+# local debs
+if [ -n "$(find /vagrant -name '*.deb')" ]; then
+  apt-get install -qy apt-utils bzip2
+  (
+    rm -rf /opt/noosfero
+    mkdir /opt/noosfero
+    cp /vagrant/*.deb /opt/noosfero
+    cd /opt/noosfero
+    apt-ftparchive packages . > Packages
+    cat Packages | gzip - > Packages.gz
+    cat Packages | bzip2 - > Packages.bz2
+    apt-ftparchive release . > Release
+    echo 'deb [trusted=yes] file:///opt/noosfero ./' > /etc/apt/sources.list.d/local.list
+  )
+else
+  rm -f /etc/apt/sources.list.d/local.list
+fi
 
 apt-get update
 apt-get dist-upgrade -qy
-apt-get install -qy postgresql ruby1.8
+apt-get install -qy postgresql
 
-if dpkg --unpack /vagrant/noosfero_*.deb /vagrant/noosfero-apache_*.deb; then
-  apt-cache policy noosfero
-  apt-get install -qyf
-else
-  apt-cache policy noosfero
-  apt-get install -qy noosfero noosfero-apache
-fi
+apt-cache policy noosfero
+apt-get install -qy noosfero noosfero-apache
 
 a2dissite 000-default
 service apache2 reload

@@ -13,9 +13,11 @@ else
   local_debs = Dir.glob('*.deb')
   debs.each do |f|
     fn = File.basename(f)
-    if local_debs.include?(fn)
-      local_debs.delete(fn)
-    else
+
+    local_debs.delete(fn)
+
+    if File.stat(f) != File.stat(fn)
+      FileUtils::Verbose.rm_f(fn)
       FileUtils::Verbose.ln f, '.'
     end
   end
