@@ -20,10 +20,9 @@ gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
 
-group :assets do
-  gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails'
-end
+# asset pipeline
+gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
 
 group :production do
   gem 'dalli', '~> 2.7.0'
