@@ -15,9 +15,9 @@ class ProfileRolesControllerTest < ActionController::TestCase
     admin = create_user_with_permission('admin_user', 'manage_custom_roles', community)
     login_as :admin_user
     post :create, :profile => community.identifier, :role => {:name => "some_role", :permissions => ["edit_profile"] }
-    role = Role.last
+    role = Role.where(:name => 'some_role').first
 
-    assert_equal "some_role" , role.name
+    assert_not_nil role
     assert_equal community.id, role.profile_id
   end
 
@@ -25,14 +25,14 @@ class ProfileRolesControllerTest < ActionController::TestCase
     community = fast_create(Community)
     moderator = create_user_with_permission('profile_admin', 'edit_profile', community)
     login_as :profile_admin
-    post :create, :profile => community.identifier, :role => {:name => "admin", :permissions => ["edit_profile"] }
+    post :create, :profile => community.identifier, :role => {:name => "new_admin", :permissions => ["edit_profile"] }
 
     assert_response 403
     assert_template 'access_denied'
 
-    role = Role.last
+    role = Role.where(:name => 'new_admin')
 
-    assert_not_equal "admin" , role.name
+    assert_empty role
   end
 
 

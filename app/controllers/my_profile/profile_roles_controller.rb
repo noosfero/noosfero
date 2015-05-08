@@ -31,7 +31,7 @@ class ProfileRolesController < MyProfileController
   def assign_role_by_members
     return redirect_to "/" if params[:q].nil? or !request.xhr?
     arg = params[:q].downcase
-    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
+    result = find_by_contents(:people, environment, profile.members, params[:q])[:results]
     render :text => prepare_to_token_input(result).to_json
   end
 
