@@ -25,9 +25,10 @@ task :backup => :check_backup_support do
   dump = File.join('tmp/backup', backup_name) + '.sql'
 
   database = $config['production']['database']
-  sh "pg_dump #{database} > #{dump}"
+  host = $config['production']['host']
+  sh "pg_dump -h #{host} #{database} > #{dump}"
 
-  sh 'tar', 'caf', backup_file, dump, *dirs
+  sh 'tar', 'chaf', backup_file, dump, *dirs
   rm_f dump
 
   puts "****************************************************"
@@ -81,14 +82,15 @@ task :restore => :check_backup_support do
 
   database = $config['production']['database']
   username = $config['production']['username']
+  host = $config['production']['host']
 
   puts "WARNING: backups should be restored to an empty database, otherwise"
   puts "data from the backup may not be loaded properly."
   puts
   puts 'You can remove the existing database and create a new one with:'
   puts
-  puts "$ sudo -u postgres dropdb #{database}"
-  puts "$ sudo -u postgres createdb #{database} --owner #{username}"
+  puts "$ sudo -u postgres dropdb -h #{host} #{database}"
+  puts "$ sudo -u postgres createdb -h #{host} #{database} --owner #{username}"
   puts
   print "Are you sure you want to continue (y/N)? "
   response = $stdin.gets.strip
