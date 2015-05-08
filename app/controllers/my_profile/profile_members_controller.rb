@@ -58,6 +58,7 @@ class ProfileMembersController < MyProfileController
 
   def change_role
     @roles = Profile::Roles.organization_member_roles(environment.id)
+    @custom_roles = profile.custom_roles
     begin
       @member = profile.members.find(params[:id])
     rescue ActiveRecord::RecordNotFound

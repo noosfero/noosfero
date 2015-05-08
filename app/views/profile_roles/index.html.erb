@@ -1,0 +1,27 @@
+<h1><%= _('Manage user roles') %></h1>
+
+<table>
+  <tr>
+    <th><%= _('Role') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @roles.each do |role| %>
+    <tr>
+      <td>
+        <%= link_to role.name, :action => 'show', :id => role %>
+      </td>
+      <td>
+        <div style="text-align: center;">
+          <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => role %>
+          <%= button_without_text :delete, _('Delete'), :action => 'destroy', :id => role %>
+          <%= button_without_text 'vertical-toggle', _('Assign'), :action => 'assign', :id => role %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<% button_bar do %>
+  <%= button :add, _('Create a new role'), :action => 'new' %>
+  <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+<% end %>

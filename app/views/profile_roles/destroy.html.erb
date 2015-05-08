@@ -1,0 +1,23 @@
+<h1> <%= _("Deleting #{@role.name}") %> </h1>
+
+<% if @members.nil? || @members.empty? %>
+  <p><%= _('This role is not being currently used.')%></p>
+  <p><%= _('Are you sure you want to delete this role?') %></p>
+
+  <% button_bar do %>
+    <%= button(:remove, _('Yes, I am sure'), {:action => 'remove', :id => @role.id}, :method => :post) %>
+    <%= button(:cancel, _('No, I gave up'), {:action => 'index'}) %>
+  <% end %>
+<% else %>
+  <p><%= _('There are members currently using this role.')%></p>
+  <p><%= _('To which role do you want to change them?') %></p>
+  <%= labelled_form_for :role, :url => { :action => 'remove', :id => @role.id } do |f| %>
+    <% @roles_list.each do |role| %>
+      <%= check_box_tag("roles[]", role.id, false ,{:id => role.key}) %>
+      <%= content_tag(:label, role.name, { :for => role.key }) %><br/>
+    <% end %>
+    <% button_bar do %>
+    <%= submit_button('save',_('Delete role'), :cancel => {:action => 'index'} ) %>
+    <% end %>
+  <% end %>
+<% end %>

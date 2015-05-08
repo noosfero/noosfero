@@ -1,8 +1,8 @@
 <h3> <%= _('Changing role of %s') % @member.name %> </h3>
 
 <%= labelled_form_for :member, :url => {:action => 'update_roles'} do |f| %>
-  
-  <%= _('Roles:') %> <br>
+
+  <h4><%= _('Roles:') %></h4>
   <% @roles.each do |r| %>
     <%= labelled_check_box(r.name, 'roles[]', r.id, @associations.map(&:role).include?(r) ) %><br/>
     <ul class="role-permissions">
@@ -10,6 +10,17 @@
         <li> <%= permission_name(p) %> </li>
       <% end %>
     </ul>
+  <% end %>
+  <% unless @custom_roles.empty? %>
+    <h4><%= _('Custom Roles:') %></h4>
+    <% @custom_roles.each do |r| %>
+    <%= labelled_check_box(r.name, 'roles[]', r.id, @associations.map(&:role).include?(r) ) %><br/>
+    <ul class="role-permissions">
+      <% r.permissions.each do |p| %>
+      <li> <%= permission_name(p) %> </li>
+      <% end %>
+    </ul>
+    <% end %>
   <% end %>
   <%= hidden_field_tag 'person', @member.id %>
 
