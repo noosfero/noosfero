@@ -1,3 +1,9 @@
+noosfero (1.2~0) UNRELEASED; urgency=medium
+
+  * Temporary version in heavy development
+
+ -- Antonio Terceiro <terceiro@debian.org>  Fri, 08 May 2015 16:08:18 -0300
+
 noosfero (1.1) wheezy; urgency=low
 
   * Noosfero 1.1 final release
