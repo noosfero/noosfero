@@ -901,6 +901,8 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy set of articles from a template' do
     template = create_user('test_template').person
+    template.is_template = true
+    template.save
     template.articles.destroy_all
     a1 = fast_create(Article, :profile_id => template.id, :name => 'some xyz article')
     a2 = fast_create(Article, :profile_id => template.id, :name => 'some child article', :parent_id => a1.id)
@@ -934,6 +936,8 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy homepage from template' do
     template = create_user('test_template').person
+    template.is_template = true
+    template.save
     template.articles.destroy_all
     a1 = fast_create(Article, :profile_id => template.id, :name => 'some xyz article')
     template.home_page = a1
@@ -949,6 +953,8 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'not advertise the articles copied from templates' do
     template = create_user('test_template').person
+    template.is_template = true
+    template.save
     template.articles.destroy_all
     a = fast_create(Article, :profile_id => template.id, :name => 'some xyz article')
 
@@ -962,7 +968,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy set of boxes from profile template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -977,7 +983,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy layout template when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template.layout_template = 'leftbar'
     template.save!
 
@@ -989,7 +995,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy blocks when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -1004,7 +1010,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy articles when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template.articles.create(:name => 'template article')
     template.save!
 
@@ -1016,7 +1022,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'rename existing articles when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -1033,7 +1039,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy header when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     template[:custom_header] = '{name}'
     template.save!
 
@@ -1047,7 +1053,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy footer when applying template' do
-    template = create(Profile, :address => 'Template address', :custom_footer => '{address}')
+    template = create(Profile, :address => 'Template address', :custom_footer => '{address}', :is_template => true)
 
     p = create(Profile, :address => 'Profile address')
     p.apply_template(template)
@@ -1058,7 +1064,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'ignore failing validation when applying template' do
-    template = create(Profile, :layout_template => 'leftbar', :custom_footer => 'my custom footer', :custom_header => 'my custom header')
+    template = create(Profile, :layout_template => 'leftbar', :custom_footer => 'my custom footer', :custom_header => 'my custom header', :is_template => true)
 
     p = create(Profile)
     def p.validate
@@ -1074,7 +1080,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy homepage when applying template' do
-    template = fast_create(Profile)
+    template = fast_create(Profile, :is_template => true)
     a1 = fast_create(Article, :profile_id => template.id, :name => 'some xyz article')
     template.home_page = a1
     template.save!
@@ -1161,7 +1167,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy public/private setting from template' do
-    template = fast_create(Profile, :public_profile => false)
+    template = fast_create(Profile, :public_profile => false, :is_template => true)
     p = fast_create(Profile)
     p.apply_template(template)
     assert_equal false, p.public_profile
