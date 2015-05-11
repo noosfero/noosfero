@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/test_helper'
 require File.expand_path(File.dirname(__FILE__) + "/../../../lib/noosfero/api/helpers")
 
-class APITest < ActiveSupport::TestCase
+class APIHelpersTest < ActiveSupport::TestCase
 
   include Noosfero::API::APIHelpers
 
@@ -126,11 +126,18 @@ class APITest < ActiveSupport::TestCase
     assert_not_nil make_conditions_with_parameter(:from => '2010-10-10')[:created_at]
   end
 
+  should 'make_conditions_with_parameter return created_at parameter if from period is defined as string' do
+    assert_not_nil make_conditions_with_parameter('from' => '2010-10-10')[:created_at]
+  end
+
   should 'make_conditions_with_parameter return created_at parameter if until period is defined' do
     assert_not_nil make_conditions_with_parameter(:until => '2010-10-10')[:created_at]
   end
 
-#  should 'the beginning of the period be the first existent date if no from date is passsed as parameter' do
+  should 'make_conditions_with_parameter return created_at parameter if until period is defined as string' do
+    assert_not_nil make_conditions_with_parameter('until' => '2010-10-10')[:created_at]
+  end
+
   should 'make_conditions_with_parameter return created_at as the first existent date as parameter if only until is defined' do
     assert_equal Time.at(0).to_datetime, make_conditions_with_parameter(:until => '2010-10-10')[:created_at].min
   end

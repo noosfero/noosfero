@@ -32,10 +32,13 @@ module Noosfero
           get ':id/children' do
             article = find_article(environment.articles, params[:id])
 
+            #TODO make tests for this situation
             votes_order = params.delete(:order) if params[:order]=='votes_score'
             articles = select_filtered_collection_of(article, 'children', params)
             articles = articles.display_filter(current_person, nil)
 
+            
+            #TODO make tests for this situation
             if votes_order
               articles = articles.joins('left join votes on articles.id=votes.voteable_id').group('articles.id').reorder('sum(coalesce(votes.vote, 0)) DESC')
             end

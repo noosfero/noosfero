@@ -64,6 +64,7 @@ module Noosfero
         expose :profile, :using => Profile
         expose :categories, :using => Category
         expose :image, :using => Image
+        #TODO Apply vote stuff in core and make this test
         expose :votes_for
         expose :votes_against
         expose :setting

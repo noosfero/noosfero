@@ -2,10 +2,10 @@ module Noosfero
   module API
     module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
-      ALLOWED_PARAMETERS = ['parent_id', 'from', 'until', 'content_type'] 
+      ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type] 
 
       def current_user
-        private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token'] || cookies['_noosfero_api_session']).to_s if params
+        private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
         @current_user ||= User.find_by_private_token(private_token)
         @current_user = nil if !@current_user.nil? && @current_user.private_token_expired?
         @current_user
@@ -53,10 +53,10 @@ module Noosfero
       def make_conditions_with_parameter(params = {})
         parsed_params = parser_params(params)
         conditions = {}
-        from_date = DateTime.parse(parsed_params.delete('from')) if parsed_params['from']
-        until_date = DateTime.parse(parsed_params.delete('until')) if parsed_params['until']
+        from_date = DateTime.parse(parsed_params.delete(:from)) if parsed_params[:from]
+        until_date = DateTime.parse(parsed_params.delete(:until)) if parsed_params[:until]
   
-        conditions[:type] = parse_content_type(parsed_params.delete('content_type')) unless parsed_params['content_type'].nil?
+        conditions[:type] = parse_content_type(parsed_params.delete(:content_type)) unless parsed_params[:content_type].nil?
   
         conditions[:created_at] = period(from_date, until_date) if from_date || until_date
         conditions.merge!(parsed_params)
@@ -167,7 +167,11 @@ module Noosfero
       private
 
       def parser_params(params) 
-        params.select{|k,v| ALLOWED_PARAMETERS.include?(k)}
+        parsed_params = {}
+        params.map do |k,v| 
+          parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
+        end
+        parsed_params 
       end
   
       def default_limit
