@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/test_helper'
 
-class APITest < ActiveSupport::TestCase
+class SessionTest < ActiveSupport::TestCase
 
   def setup
     login_api
