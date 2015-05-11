@@ -22,6 +22,8 @@ class Profile < ActiveRecord::Base
     :display => %w[compact]
   }
 
+  NUMBER_OF_BOXES = 4
+
   def self.default_search_display
     'compact'
   end
@@ -362,7 +364,7 @@ class Profile < ActiveRecord::Base
     if template
       apply_template(template, :copy_articles => false)
     else
-      4.times do
+      NUMBER_OF_BOXES.times do
         self.boxes << Box.new
       end
 
