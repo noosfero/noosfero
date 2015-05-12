@@ -11,8 +11,9 @@ class ProfileRolesController < MyProfileController
   end
 
   def create
-    @role = Role.create({:name => params[:role][:name], :permissions => params[:role][:permissions], :profile_id => profile.id, :environment => environment }, :without_protection => true)
+    @role = Role.new({:name => params[:role][:name], :permissions => params[:role][:permissions], :environment => environment }, :without_protection => true)
     if @role.save
+      profile.custom_roles << @role
       redirect_to :action => 'show', :id => @role
     else
       session[:notice] = _('Failed to create role')
