@@ -20,7 +20,7 @@ class Environment < ActiveRecord::Base
   end
 
   NUMBER_OF_BOXES = 4
-  
+
   PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),
