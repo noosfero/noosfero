@@ -27,6 +27,7 @@
 *= require manage-products.js
 *= require catalog.js
 *= require autogrow.js
+*= require require_login.js
 */
 
 // scope for noosfero stuff
