@@ -593,6 +593,7 @@ ActiveRecord::Schema.define(:version => 20150408231524) do
     t.boolean "system",         :default => false
     t.text    "permissions"
     t.integer "environment_id"
+    t.integer "profile_id"
   end
 
   create_table "scraps", :force => true do |t|
