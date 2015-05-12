@@ -119,7 +119,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     assert_match(/#{task.target_notification_description}/, mail.subject)
 
     assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body.to_s
-    
+
     mail.deliver
     assert !ActionMailer::Base.deliveries.empty?
   end
@@ -135,6 +135,36 @@ class TaskMailerTest < ActiveSupport::TestCase
     assert_equal 'My name <email@example.com>', TaskMailer.generate_from(task)
   end
 
+  should 'return the email with the subdirectory defined' do
+    Noosfero.stubs(:root).returns('/subdir')
+
+    task = InviteFriend.new
+    task.expects(:code).returns('123456')
+
+    task.stubs(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
+    task.expects(:friend_email).returns('friend@exemple.com')
+    task.expects(:friend_name).returns('friend name').at_least_once
+
+    requestor = mock()
+    requestor.stubs(:name).returns('my name')
+    requestor.stubs(:public_profile_url).returns('requestor_path')
+
+    environment = mock()
+    environment.expects(:noreply_email).returns('sender@example.com')
+    environment.expects(:default_hostname).returns('example.com')
+    environment.expects(:name).returns('example').at_least_once
+
+    task.expects(:requestor).returns(requestor).at_least_once
+    task.expects(:person).returns(requestor).at_least_once
+    requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
+
+    mail = TaskMailer.invitation_notification(task)
+
+    url_to_compare = "/subdir/account/signup"
+
+    assert_match(/#{url_to_compare}/, mail.body.to_s)
+  end
 
   private
     def read_fixture(action)
