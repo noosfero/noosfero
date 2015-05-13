@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+ENV['RAILS_ENV'] ||= 'development'
 
 # This is for plugins that wants to use seeds.rb
 # Check for example on the Foo plugin
