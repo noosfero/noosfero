@@ -11,6 +11,4 @@ ENV['RAILS_ENV'] ||= 'development'
 # This is for plugins that wants to use seeds.rb
 # Check for example on the Foo plugin
 plugin_seed_dirs = Dir.glob(Rails.root.join('{baseplugins,config/plugins}', '*', 'db', 'seeds.rb'))
-plugin_seed_dirs.each do |path|
-  system "rails runner #{path}"
-end
+plugin_seed_dirs.each { |path| load path }
