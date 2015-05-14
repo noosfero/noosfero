@@ -429,12 +429,12 @@ class ManageProductsControllerTest < ActionController::TestCase
   should 'include extra content supplied by plugins on products info extras' do
     class TestProductInfoExtras1Plugin < Noosfero::Plugin
       def product_info_extras(p)
-        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>".html_safe}
       end
     end
     class TestProductInfoExtras2Plugin < Noosfero::Plugin
       def product_info_extras(p)
-        proc { "<span id='plugin2'>This is Plugin2 speaking!</span>" }
+        proc { "<span id='plugin2'>This is Plugin2 speaking!</span>".html_safe }
       end
     end
 

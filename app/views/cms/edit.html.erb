@@ -39,7 +39,7 @@
 
   <script>
     jQuery('#article_tag_list').inputosaurus({
-      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags'," %>
+      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags',".html_safe %>
       activateFinalResult : true
     })
   </script>

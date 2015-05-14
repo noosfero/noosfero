@@ -88,12 +88,12 @@ class HomeControllerTest < ActionController::TestCase
   should 'provide a link to make the user authentication' do
     class Plugin1 < Noosfero::Plugin
       def alternative_authentication_link
-        proc {"<a href='plugin1'>Plugin1 link</a>"}
+        proc {"<a href='plugin1'>Plugin1 link</a>".html_safe}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def alternative_authentication_link
-        proc {"<a href='plugin2'>Plugin2 link</a>"}
+        proc {"<a href='plugin2'>Plugin2 link</a>".html_safe}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -168,7 +168,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'plugins add class to the <html>' do
     class Plugin1 < Noosfero::Plugin
       def html_tag_classes
-        lambda { ['t1', 't2'] }
+        lambda { ['t1'.html_safe, 't2'.html_safe] }
       end
     end
 

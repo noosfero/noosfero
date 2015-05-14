@@ -20,6 +20,6 @@
   <%= pagination_links @tagged, :param_name => 'npage' %>
 
   <div>
-    <%= link_to _('See content tagged with "%s" in the entire site') % escaped_tag, :controller => 'search', :action => 'tag', :tag => @tag %>
+    <%= link_to (_('See content tagged with "%s" in the entire site') % escaped_tag).html_safe, :controller => 'search', :action => 'tag', :tag => @tag %>
   </div>
 <% end %>

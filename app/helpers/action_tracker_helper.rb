@@ -15,12 +15,12 @@ module ActionTrackerHelper
   end
 
   def join_community_description ta
-    n_('has joined 1 community:<br />%{name}', 'has joined %{num} communities:<br />%{name}', ta.get_resource_name.size) % {
+    n_('has joined 1 community:<br />%{name}'.html_safe, 'has joined %{num} communities:<br />%{name}'.html_safe, ta.get_resource_name.size) % {
       num: ta.get_resource_name.size,
       name: ta.collect_group_with_index(:resource_name) do |n,i|
-        link_to image_tag(ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png")),
+       link = link_to image_tag(ta.get_resource_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/community-icon.png")),
                 ta.get_resource_url[i], title: n
-      end.join
+      end.join.html_safe
     }
   end
 

@@ -7,7 +7,7 @@
   </span>
 <% unless @no_comments %>
   <span class="comments">
-    <%= (" - %s") % link_to_comments(@page)%>
+    <%= (" - %s").html_safe % link_to_comments(@page) %>
   </span>
 <% end %>
 

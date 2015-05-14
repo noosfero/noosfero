@@ -35,7 +35,7 @@
           <% else %>
             <div class="no-image"><%= _('No image') %></div>
           <% end %>
-          <div class="catalog-item-extras"><%= extra_content.join("\n") %></div>
+          <div class="catalog-item-extras"><%= safe_join(extra_content, "\n") %></div>
         </li>
 
         <li class="product-link"><%= link_to_product product %></li>

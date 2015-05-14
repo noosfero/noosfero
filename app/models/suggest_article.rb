@@ -65,7 +65,7 @@ class SuggestArticle < Task
 
   def information
     variables = requestor.blank? ? {:requestor => sender} : {}
-    { :message => _('%{requestor} suggested the publication of the article: %{subject}.'),
+    { :message => _('%{requestor} suggested the publication of the article: %{subject}.').html_safe,
       :variables => variables }
   end
 
@@ -78,7 +78,7 @@ class SuggestArticle < Task
   end
 
   def target_notification_description
-    _('%{requestor} suggested the publication of the article: %{article}.') %
+    _('%{requestor} suggested the publication of the article: %{article}.').html_safe %
     {:requestor => sender, :article => article_name}
   end
 

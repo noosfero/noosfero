@@ -17,11 +17,11 @@
 <h3><%= _("Select the files you want to upload (max size %s):") % UploadedFile.max_size.to_humanreadable %></h3>
 <h4><%= _('Documents, Images, Videos, Audio') %></h4>
 
-<h5><%= _('Uploading files to %s') % content_tag('code', @target) %></h5>
+<h5><%= (_('Uploading files to %s') % content_tag('code', @target)).html_safe%></h5>
 
 <%= form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
 
-  <%= @plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }.join("") %>
+  <%= safe_join(@plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }, "") %>
 
   <%= render :partial => 'upload_file_form', :locals => { :size => '45'} %>
 

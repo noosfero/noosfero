@@ -1,13 +1,17 @@
 module EventsHelper
 
   include DatesHelper
+  include ActionView::Helpers::OutputSafetyHelper
+
   def list_events(date, events)
     title = _('Events for %s') % show_date_month(date)
+    user_events = events.select { |item| item.display_to?(user) }
+    events_for_month = safe_join(user_events.map {|item| display_event_in_listing(item)}, '')
     content_tag('h2', title) +
     content_tag('div',
       (events.any? ?
-        content_tag('table', events.select { |item| item.display_to?(user) }.map {|item| display_event_in_listing(item)}.join('')) :
-        content_tag('em', _('No events for this month'), :class => 'no-events')
+        content_tag('table', events_for_month) :
+          content_tag('em', _('No events for this month'), :class => 'no-events')
       ), :id => 'agenda-items'
     )
   end

@@ -43,13 +43,13 @@ class PluginManagerTest < ActiveSupport::TestCase
 
     class Plugin1 < Noosfero::Plugin
       def random_event
-        'Plugin 1 action.'
+        'Plugin 1 action.'.html_safe
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def random_event
-        'Plugin 2 action.'
+        'Plugin 2 action.'.html_safe
       end
     end
     Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
@@ -70,19 +70,19 @@ class PluginManagerTest < ActiveSupport::TestCase
 
     class Plugin1 < Noosfero::Plugin
       def random_event
-        'Plugin 1 action.'
+        'Plugin 1 action.'.html_safe
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def random_event
-        'Plugin 2 action.'
+        'Plugin 2 action.'.html_safe
       end
     end
 
     class Plugin3 < Noosfero::Plugin
       def random_event
-        'Plugin 3 action.'
+        'Plugin 3 action.'.html_safe
       end
     end
     Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3'])

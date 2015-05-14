@@ -29,6 +29,7 @@ class ProfileEditorController < MyProfileController
         Image.transaction do
           begin
             @plugins.dispatch(:profile_editor_transaction_extras)
+            # TODO: This is unsafe! Add sanitizer
             @profile_data.update!(params[:profile_data])
             redirect_to :action => 'index', :profile => profile.identifier
           rescue Exception => ex

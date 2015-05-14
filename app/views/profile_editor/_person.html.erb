@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
+  <%= safe_join(@plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
   <div class="formfieldline">
     <%= label_tag("private_token", _("Private Token")) %>

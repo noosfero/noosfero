@@ -6,7 +6,7 @@
       <%= content_tag('li', content_tag('strong', "#{year.to_i} (#{count})")) %>
       <ul class='<%= year.to_i %>-archive'>
         <% block.blog.total_number_of_posts(:by_month, year).each do |month, count| %>
-          <%= content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", block.blog.url.merge(year: year.to_i, month: month.to_i))) %>
+          <%= content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", url_for(block.blog.url.merge(year: year.to_i, month: month.to_i)).html_safe)) %>
         <% end %>
       </ul>
     <% end %>

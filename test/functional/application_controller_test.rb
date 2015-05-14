@@ -375,7 +375,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include javascripts supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def js_files
-        ['js1.js']
+        ['js1.js'.html_safe]
       end
     end
 
@@ -384,7 +384,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     class Plugin2 < Noosfero::Plugin
       def js_files
-        ['js2.js', 'js3.js']
+        ['js2.js'.html_safe, 'js3.js'.html_safe]
       end
     end
 
@@ -409,12 +409,12 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
     class TestBodyBeginning1Plugin < Noosfero::Plugin
       def body_beginning
-        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>"}
+        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>".html_safe}
       end
     end
     class TestBodyBeginning2Plugin < Noosfero::Plugin
       def body_beginning
-        "<span id='plugin2'>This is Plugin2 speaking!</span>"
+        "<span id='plugin2'>This is Plugin2 speaking!</span>".html_safe
       end
     end
 
@@ -432,12 +432,12 @@ class ApplicationControllerTest < ActionController::TestCase
 
     class TestHeadEnding1Plugin < Noosfero::Plugin
       def head_ending
-        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>"}
+        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>".html_safe}
       end
     end
     class TestHeadEnding2Plugin < Noosfero::Plugin
       def head_ending
-        "<style>This is Plugin2 speaking!</style>"
+        "<style>This is Plugin2 speaking!</style>".html_safe
       end
     end
 

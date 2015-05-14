@@ -43,7 +43,7 @@
         <p/>
         <%= txt2html comment.body %>
       </div>
-      <%= @plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }.join("") %>
+      <%= safe_join(@plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }, "") %>
     </div>
 
     <div class="comment_reply post_comment_box closed" id="comment_reply_to_<%= comment.id %>">

@@ -3,7 +3,7 @@
     <h2><%= _('Logged in as %s') % user.identifier %></h2>
     <ul>
       <li><%= _('User since %s/%s') % [user.created_at.month, user.created_at.year] %></li>
-      <li><%= link_to _('Homepage'), user.public_profile_url %></li>
+      <li><%= link_to _('Homepage'), url_for(user.public_profile_url) %></li>
     </ul>
     <div class="user-actions">
       <%= button(:'menu-logout',  _('Logout'), :controller => 'account', :action => 'logout') %>

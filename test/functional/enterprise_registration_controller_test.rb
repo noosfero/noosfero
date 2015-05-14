@@ -191,13 +191,13 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
   should 'include hidden fields supplied by plugins on enterprise registration' do
     class Plugin1 < Noosfero::Plugin
       def enterprise_registration_hidden_fields
-        {'plugin1' => 'Plugin 1'}
+        {'plugin1' => 'Plugin 1'.html_safe}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def enterprise_registration_hidden_fields
-        {'plugin2' => 'Plugin 2'}
+        {'plugin2' => 'Plugin 2'.html_safe}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])

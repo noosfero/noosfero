@@ -1002,7 +1002,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'add extra content provided by plugins on edit' do
     class TestProfileEditPlugin < Noosfero::Plugin
       def profile_editor_extras
-        "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
+        "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>".html_safe
       end
     end
     Noosfero::Plugin.stubs(:all).returns([TestProfileEditPlugin.to_s])
@@ -1018,7 +1018,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     class TestProfileEditPlugin < Noosfero::Plugin
       def profile_editor_extras
         lambda do
-          render :text => "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
+          (render :text => "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>".html_safe).html_safe
         end
       end
     end
@@ -1043,12 +1043,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'add extra content on person info from plugins' do
     class Plugin1 < Noosfero::Plugin
       def profile_info_extra_contents
-        proc {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>".html_safe}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def profile_info_extra_contents
-        proc {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>".html_safe}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
@@ -1065,12 +1065,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'add extra content on organization info from plugins' do
     class Plugin1 < Noosfero::Plugin
       def profile_info_extra_contents
-        proc {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>".html_safe}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def profile_info_extra_contents
-        proc {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>".html_safe}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])

@@ -125,7 +125,7 @@ class ProfileControllerTest < ActionController::TestCase
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
     get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
 
-    assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
+    assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'.html_safe
   end
 
   should 'show a link to own control panel' do
@@ -512,7 +512,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'show description of orgarnization' do
     login_as(@profile.identifier)
     ent = fast_create(Enterprise)
-    ent.description = 'Enterprise\'s description'
+    ent.description = "<span>Enterprise's description</span>"
     ent.save
     get :index, :profile => ent.identifier
     assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Enterprise\'s description/
@@ -1236,13 +1236,13 @@ class ProfileControllerTest < ActionController::TestCase
   should 'display plugins tabs' do
     class Plugin1 < Noosfero::Plugin
       def profile_tabs
-        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => proc { 'Content from plugin1.' }}
+        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => proc { 'Content from plugin1.'.html_safe }}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def profile_tabs
-        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => proc { 'Content from plugin2.' }}
+        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => proc { 'Content from plugin2.'.html_safe }}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])

@@ -14,7 +14,7 @@
     <p><%= _('Numbered lists:') %></p>
     <pre># <%= _('first item') %>
 # <%= _('second item') %></pre>
-    <p><%= h(_('For code, use HTML tags <pre> and <code>, and indent the code inside them:')) %>
+    <p><%= h(_('For code, use HTML tags <pre> and <code>, and indent the code inside them:').html_safe) %>
     </p>
     <pre>
 &lt;pre&gt;
@@ -23,7 +23,7 @@
 &lt;/code&gt;
 &lt;/pre&gt;
 </pre>
-    <p><%= _('See also a more complete <a href="%s">Textile Reference</a>.') % 'http://redcloth.org/hobix.com/textile/' %></p>
+    <p><%= _('See also a more complete <a href="%s">Textile Reference</a>.').html_safe % 'http://redcloth.org/hobix.com/textile/' %></p>
   </div>
 </div>
 

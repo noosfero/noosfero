@@ -25,7 +25,7 @@ class InviteMember < Invitation
   end
 
   def information
-    {:message => _('%{requestor} invited you to join %{linked_subject}.')}
+    {:message => _('%{requestor} invited you to join %{linked_subject}.').html_safe}
   end
 
   def url
@@ -37,7 +37,7 @@ class InviteMember < Invitation
   end
 
   def target_notification_description
-    _('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}
+    (_('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}).html_safe
   end
 
   def target_notification_message

@@ -19,18 +19,18 @@ module CatalogHelper
     ancestors = category.ancestors.map { |c| link_to(c.name, {:controller => :catalog, :action => 'index', :level => c.id}) }.reverse
     current_level = content_tag('strong', category.name)
     all_items = [start] + ancestors + [current_level]
-    content_tag('div', all_items.join(' &rarr; '), :id => 'breadcrumb')
+    content_tag('div', safe_join(all_items, ' &rarr; '), :id => 'breadcrumb')
   end
 
   def category_link(category)
     count = profile.products.from_category(category).count
     name = truncate(category.name, :length => 22 - count.to_s.size)
     link = link_to(name, {:controller => 'catalog', :action => 'index', :level => category.id}, :title => category.name)
-    content_tag('div', "#{link} <span class=\"count\">#{count}</span>") if count > 0
+    content_tag('div', "#{link} <span class=\"count\">#{count}</span>".html_safe) if count > 0
   end
 
   def category_with_sub_list(category)
-    content_tag 'li', "#{category_link(category)}\n#{sub_category_list(category)}"
+    content_tag 'li', "#{category_link(category)}\n#{sub_category_list(category)}".html_safe
   end
 
   def sub_category_list(category)
@@ -39,7 +39,7 @@ module CatalogHelper
       cat_link = category_link sub_category
       sub_categories << content_tag('li', cat_link) unless cat_link.nil?
     end
-    content_tag('ul', sub_categories.join) if sub_categories.size > 0
+    content_tag('ul', sub_categories.join.html_safe) if sub_categories.size > 0
   end
 
 end

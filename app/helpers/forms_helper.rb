@@ -101,7 +101,7 @@ module FormsHelper
 
   def required_fields_message
     content_tag('p', content_tag('span',
-      _("The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."),
+      _("The <label class='pseudoformlabel'>highlighted</label> fields are mandatory.").html_safe,
       :class => 'required-field'
     ))
   end
@@ -112,10 +112,11 @@ module FormsHelper
     options_for_select = container.inject([]) do |options, element|
       text, value = option_text_and_value(element)
       selected_attribute = ' selected="selected"' if option_value_selected?(value, selected)
-      options << %(<option title="#{html_escape(text.to_s)}" value="#{html_escape(value.to_s)}"#{selected_attribute}>#{html_escape(text.to_s)}</option>)
+      opt = %(<option title="#{html_escape(text.to_s)}" value="#{html_escape(value.to_s)}"#{selected_attribute}>#{html_escape(text.to_s)}</option>)
+      options << opt.html_safe
     end
 
-    options_for_select.join("\n")
+    safe_join(options_for_select, "\n")
   end
 
   def balanced_table(items, per_row=3)
@@ -248,8 +249,8 @@ module FormsHelper
   def date_range_field(from_name, to_name, from_value, to_value, datepicker_options = {}, html_options = {})
     from_id = html_options[:from_id] || 'datepicker-from-date'
     to_id = html_options[:to_id] || 'datepicker-to-date'
-    return _('From') +' '+ date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id})) +
-    ' ' + _('until') +' '+ date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id}))
+    return (_('From') +' '+ date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id})) +
+    ' ' + _('until') +' '+ date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id}))).html_safe
   end
 
   def select_folder(label_text, field_id, collection, default_value=nil, html_options = {}, js_options = {})

@@ -729,7 +729,7 @@ class Environment < ActiveRecord::Base
     url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
     url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
     url << Noosfero.root('')
-    url
+    url.html_safe
   end
 
   def to_s

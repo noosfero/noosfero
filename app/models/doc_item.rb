@@ -17,7 +17,7 @@ class DocItem
       else
         match
       end
-    end
+    end.html_safe
   end
 
   private

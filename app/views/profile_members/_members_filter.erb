@@ -7,7 +7,7 @@
 
         <p><%= _('Roles:') %> </p>
         <% @data[:roles].each do |r| %>
-          <%= labelled_check_box(r.name, 'filters[roles][]', r.id, @filters[:roles].include?(r.id.to_s), :add_hidden => false) %><br/>
+          <%= raw labelled_check_box(r.name, 'filters[roles][]', r.id, @filters[:roles].include?(r.id.to_s), :add_hidden => false) %><br/>
         <% end %>
         <p>
           <%= submit_button(:search, _('Search')) %>

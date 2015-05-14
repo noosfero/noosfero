@@ -83,7 +83,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
         end
       end
     end
-    return content
+    return content.html_safe
   end
 
   def timeout

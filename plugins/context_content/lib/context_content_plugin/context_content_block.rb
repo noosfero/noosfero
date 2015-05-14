@@ -86,7 +86,7 @@ class ContextContentPlugin::ContextContentBlock < Block
 
   def content(args={})
     block = self
-    proc do
+    ret = proc do
       contents = block.contents(@page)
       parent_title = block.parent_title(contents)
       if !contents.blank?
@@ -95,6 +95,7 @@ class ContextContentPlugin::ContextContentBlock < Block
         ''
       end
     end
+    ret.html_safe
   end
 
   def cacheable?

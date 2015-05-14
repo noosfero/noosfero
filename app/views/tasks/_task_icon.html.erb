@@ -3,7 +3,7 @@
   if icon_info[:type] == :profile_image
     icon = profile_image(icon_info[:profile], :minor)
   elsif icon_info[:type] == :defined_image
-    icon = "<img src='#{icon_info[:src]}' alt='#{icon_info[:name]}' />"
+    icon = "<img src='#{icon_info[:src]}' alt='#{icon_info[:name]}' />".html_safe
   end
 
   if icon_info[:url]

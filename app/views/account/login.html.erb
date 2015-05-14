@@ -20,7 +20,7 @@
        </label>
      </div>
 
-     <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
+     <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
      <% button_bar do %>
        <%= submit_button( 'login', _('Log in') )%>
