@@ -339,6 +339,16 @@ class Environment < ActiveRecord::Base
     self.save!
   end
 
+  def enable_all_plugins
+    Noosfero::Plugin.available_plugin_names.each do |plugin|
+      plugin_name = plugin.to_s + "Plugin"
+      unless self.enabled_plugins.include?(plugin_name)
+        self.enabled_plugins += [plugin_name]
+      end
+    end
+    self.save!
+  end
+
   # Disables a feature identified by its name
   def disable(feature, must_save=true)
     self.settings["#{feature}_enabled".to_sym] = false
