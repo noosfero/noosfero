@@ -2,6 +2,8 @@
 
 <h1><%= _('My Forum') %></h1>
 
+<%= required_fields_message %>
+
 <%= render :file => 'shared/tiny_mce' %>
 
 <%= required f.text_field(:name, :size => '64', :maxlength => 150, :onchange => "updateUrlField(this, 'article_slug')") %>
