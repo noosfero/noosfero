@@ -871,7 +871,7 @@ module ApplicationHelper
       field_html += capture(&block)
     end
 
-    if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index')
+    if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index') || (controller.controller_name == 'home' && controller.action_name == 'index' && user.nil?)
       if profile.signup_fields.include?(name)
         result = field_html
       end

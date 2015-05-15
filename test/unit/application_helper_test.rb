@@ -360,6 +360,23 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'SIGNUP_FIELD', optional_field(enterprise, 'field', 'SIGNUP_FIELD')
   end
 
+  should 'display field on home for a not logged user' do
+    env = create(Environment, :name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:controller_name).returns('home')
+    controller.stubs(:action_name).returns('index')
+
+    stubs(:user).returns(nil)
+
+
+    person = Person.new
+    person.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', optional_field(person, 'field', 'SIGNUP_FIELD')
+  end
+
   should 'display field on community creation' do
     env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
