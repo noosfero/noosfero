@@ -30,6 +30,7 @@ gem 'locale',                   '~> 2.1'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
+gem 'slim'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -52,9 +53,6 @@ gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finder
 
 group :production do
   gem 'dalli', '~> 2.7.0'
-end
-
-group :development do
 end
 
 group :development, :test do

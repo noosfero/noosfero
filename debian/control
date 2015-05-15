@@ -80,6 +80,7 @@ Depends: adduser,
          ruby-uglifier,
          ruby-whenever,
          ruby-will-paginate (>> 3.0.5-1),
+         ruby-slim,
          tango-icon-theme,
          unicorn (>= 4.8),
          ${misc:Depends}
