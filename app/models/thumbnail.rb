@@ -12,4 +12,12 @@ class Thumbnail < ApplicationRecord
 
   postgresql_attachment_fu
 
+  protected
+
+  def sanitize_filename filename
+    # let accents and other utf8
+    # overwrite vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu.rb
+    filename
+  end
+
 end
