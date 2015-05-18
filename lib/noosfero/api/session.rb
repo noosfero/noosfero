@@ -40,6 +40,7 @@ module Noosfero
         user = User.new(attrs)
         if user.save
           user.activate
+          user.generate_private_token!
           present user, :with => Entities::UserLogin
         else
           something_wrong!
