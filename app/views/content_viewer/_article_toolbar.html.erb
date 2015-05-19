@@ -1,6 +1,7 @@
 <div<%= user && " class='logged-in'" %>>
   <div id="article-actions">
 
+    <%= fullscreen_buttons('#article') %>
 
     <% if @page.allow_edit?(user) && !remove_content_button(:edit, @page) %>
       <% content = content_tag('span', label_for_edit_article(@page)) %>

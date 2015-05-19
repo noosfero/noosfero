@@ -20,7 +20,7 @@ module TinymceHelper
       :image_advtab => true,
       :language => tinymce_language
 
-    options[:toolbar1] = "insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    options[:toolbar1] = "fullscreen | insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
     if options[:mode] == 'simple'
       options[:menubar] = false
     else
