@@ -1166,16 +1166,9 @@ function add_new_file_fields() {
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
 
-function getQueryParams(qs) {
-  qs = qs.split("+").join(" ");
-  var params = {},
-      tokens,
-      re = /[?&]?([^=]+)=([^&]*)/g;
-  while (tokens = re.exec(qs)) {
-      params[decodeURIComponent(tokens[1])]
-          = decodeURIComponent(tokens[2]);
-  }
-  return params;
+function $_GET(id){
+    var a = new RegExp(id+"=([^&#=]*)");
+    return decodeURIComponent(a.exec(window.location.search)[1]);
 }
 
 var fullwidth=false;
@@ -1197,8 +1190,8 @@ function toggle_fullwidth(itemId){
 
 function fullscreenPageLoad(itemId){
   jQuery(document).ready(function(){
-    var $_GET = getQueryParams(document.location.search);
-    if ($_GET['fullscreen']==1){
+
+    if ($_GET('fullscreen') == 1){
       toggle_fullwidth(itemId);
     }
   });
