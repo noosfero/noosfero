@@ -30,6 +30,10 @@
       <% end %>
 
       <%= modal_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new, @page) %>
+
+      <% content = content_tag('span', label_for_clone_article(@page)) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'new', :id => @page.id, :clone => true, :type => @page.class }) %>
+      <%= expirable_button @page, :clone, content, url %>
     <% end %>
 
     <% if @page.accept_uploads? && @page.allow_create?(user) %>

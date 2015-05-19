@@ -1252,9 +1252,11 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'expire article actions button if any plugins says so' do
     class Plugin1 < Noosfero::Plugin
       def content_expire_edit(content); 'This button is expired.'; end
+      def content_expire_clone(content); 'This button is expired.'; end
     end
     class Plugin2 < Noosfero::Plugin
       def content_expire_edit(content); nil; end
+      def content_expire_clone(content); nil; end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 

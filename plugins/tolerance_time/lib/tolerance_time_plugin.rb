@@ -56,9 +56,18 @@ class ToleranceTimePlugin < Noosfero::Plugin
   end
 
   def content_expire_edit(content)
-    if ToleranceTimePlugin.expired?(content)
-      _('The tolerance time for editing this content is over.')
-    end
+    content_expire_for(content, _('editing'))
   end
 
+  def content_expire_clone(content)
+    content_expire_for(content, _('cloning'))
+  end
+
+  private
+
+  def content_expire_for(content, action)
+    if ToleranceTimePlugin.expired?(content)
+      _('The tolerance time for %s this content is over.') % action
+    end
+  end
 end

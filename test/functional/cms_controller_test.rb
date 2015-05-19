@@ -1811,6 +1811,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal 'first version', assigns(:article).name
   end
 
+  should 'clone article with its content' do
+    article = profile.articles.create(:name => 'first version')
+
+    get :new, :profile => profile.identifier, :id => article.id, :clone => true, :type => 'TinyMceArticle'
+
+    assert_match article.name, @response.body
+  end
+
   should 'save article with content from older version' do
     article = profile.articles.create(:name => 'first version')
     article.name = 'second version'; article.save

@@ -931,6 +931,19 @@ module ApplicationHelper
     article_helper.cms_label_for_edit
   end
 
+  def label_for_clone_article(article)
+    translated_types = {
+      Folder => _('Folder'),
+      Blog => _('Blog'),
+      Event => _('Event'),
+      Forum => _('Forum')
+    }
+
+    translated_type = translated_types[article.class] || _('Article')
+
+    _('Clone %s') % translated_type
+  end
+
   def add_rss_feed_to_head(title, url)
     content_for :feeds do
       tag(:link, :rel => 'alternate', :type => 'application/rss+xml', :title => title, :href => url_for(url))
