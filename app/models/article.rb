@@ -498,13 +498,13 @@ class Article < ActiveRecord::Base
 
   scope :display_filter, lambda {|user, profile|
     return published if (user.nil? && profile && profile.public?)
-    return [] if user.nil? || profile.nil? || (profile && !profile.public? && !user.follows?(profile))
+    return [] if user.nil? || (profile && !profile.public? && !user.follows?(profile))
     where(
       [
        "published = ? OR last_changed_by_id = ? OR profile_id = ? OR ?
         OR  (show_to_followers = ? AND ? AND profile_id = ?)", true, user.id, user.id,
         profile.nil? ?  false : user.has_permission?(:view_private_content, profile),
-        true, user.follows?(profile), profile.id
+        true, user.follows?(profile), (profile.nil? ? nil : profile.id)
       ]
     )
   }
