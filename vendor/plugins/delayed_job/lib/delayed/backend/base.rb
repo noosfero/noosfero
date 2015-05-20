@@ -73,9 +73,8 @@ module Delayed
       ParseObjectFromYaml = /\!ruby\/\w+\:([^\s]+)/
 
       def name
-        @name ||= payload_object.respond_to?(:display_name) ?
-                    payload_object.display_name :
-                    payload_object.class.name
+        obj = payload_object
+        @name ||= obj.respond_to?(:display_name) ? obj.display_name : obj.class.name
       rescue DeserializationError
         ParseObjectFromYaml.match(handler)[1]
       end
