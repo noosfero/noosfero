@@ -1,0 +1,46 @@
+.submenu {
+	.submenu {
+		display: none;
+	}
+	> .open > a,
+	> .active > a {
+		background: inherit;
+	    border-bottom-color: darken(#2c3e50, 7%);
+	    box-shadow: 0 -1px 0 darken(#2c3e50, 7%) inset;
+	}
+	> li {
+		a {
+		    position: relative;
+		}
+		> a.dropdown-toggle > .drop-icon {
+			font-size: 10px;
+			margin-top: -5px;
+		}
+		> .submenu {
+			background-color: darken(#2c3e50, 7%);
+		
+			> li a:hover,
+			> li a.active {
+				/* background-color: #232323; */
+				color: $primary-color;
+			}
+			a {
+				border-bottom: 0 none;
+			    border-top: 0 none;
+			    padding-left: 85px;
+			
+				&:before{
+					content: "\f111";
+				    display: inline;
+				    font-family: FontAwesome;
+				    font-size: 4px;
+				    font-style: normal;
+				    font-weight: normal;
+					margin-left: -10px;
+				    margin-top: 1px;
+				    position: absolute;
+				}
+			}
+		}
+	}
+}

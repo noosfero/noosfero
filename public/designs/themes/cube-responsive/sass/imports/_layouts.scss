@@ -1,0 +1,273 @@
+html, body {
+	font-family: $font-stack;
+	-webkit-font-smoothing: antialiased;
+
+	@media (max-width: $break-xxs-max) {
+		font-size: 12px;
+	}
+}
+body {
+	color: $text-color;
+	background: url("../../img/whitey.jpg") repeat scroll 0 0 #fff;
+	background-size: 220px 220px;
+}
+h1, h2, h3, h4, h5, h6 {	
+    font-family: $heading-font-family;
+    font-weight: $font-hx-weight;
+}
+h1 {
+	clear: both;
+    color: $primary-color;
+    margin: 0 0 20px 0;
+    padding-left: 14px;
+    font-size: $font-size-h1;
+}
+h2 {
+	clear: both;
+    font-size: $font-size-h2;
+    margin-bottom: 10px;
+    padding: 10px 0 10px 30px;
+}
+h3 {
+	border-bottom: 2px solid $gray-color-light;
+	padding-left: 5px;
+	margin-bottom: 15px;
+	margin-top: 30px;
+	font-size: $font-size-h3;
+
+	> span {
+		border-bottom: 2px solid $gray-color-light;
+	    display: inline-block;
+	    padding: 0 5px 5px;
+	}
+}
+h4 {
+	font-size: $font-size-h4;
+}
+h5 {
+	font-size: $font-size-h5;
+}
+h6 {
+	font-size: $font-size-h6;
+}
+
+a {
+	color: $link-color;
+	outline: none !important;
+
+	&:hover,
+	&:focus {
+		color: $link-color-hover;
+	}
+}
+.container {
+	padding-left: 8px;
+	padding-right: 8px;
+
+	@media (max-width: $break-xs-max) {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+.row {
+    margin-left: -8px;
+    margin-right: -8px;
+
+    @media (max-width: $break-xs-max) {
+	    margin-left: -5px;
+	    margin-right: -5px;
+	}
+}
+.col-xs-1, 
+.col-sm-1, 
+.col-md-1, 
+.col-lg-1, 
+.col-xs-2, 
+.col-sm-2, 
+.col-md-2, 
+.col-lg-2, 
+.col-xs-3, 
+.col-sm-3, 
+.col-md-3, 
+.col-lg-3, 
+.col-xs-4, 
+.col-sm-4, 
+.col-md-4, 
+.col-lg-4, 
+.col-xs-5, 
+.col-sm-5, 
+.col-md-5, 
+.col-lg-5, 
+.col-xs-6, 
+.col-sm-6, 
+.col-md-6, 
+.col-lg-6, 
+.col-xs-7, 
+.col-sm-7, 
+.col-md-7, 
+.col-lg-7, 
+.col-xs-8, 
+.col-sm-8, 
+.col-md-8, 
+.col-lg-8, 
+.col-xs-9, 
+.col-sm-9, 
+.col-md-9, 
+.col-lg-9, 
+.col-xs-10, 
+.col-sm-10, 
+.col-md-10, 
+.col-lg-10, 
+.col-xs-11, 
+.col-sm-11, 
+.col-md-11, 
+.col-lg-11, 
+.col-xs-12, 
+.col-sm-12, 
+.col-md-12, 
+.col-lg-12 {
+	padding-left: 8px;
+	padding-right: 8px;
+
+	@media (max-width: $break-xs-max) {	
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+
+/* new xxs layout for extra small devices */
+@media (max-width: $break-xxs-max) {
+	h1 {
+		padding-left: 5px;
+		font-size: 1.8em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+	.hidden-xxs {
+		display: none !important;
+	}
+	tr.hidden-xxs {
+		display: table-row !important;
+	}
+	
+	th.hidden-xxs,
+	td.hidden-xxs {
+		display: table-cell !important;
+	}
+	
+	.visible-xxs {
+		display: block !important;
+	}
+	tr.visible-xxs {
+		display: none !important;
+	}
+	
+	th.visible-xxs,
+	td.visible-xxs {
+		display: none !important;
+	}
+	.breadcrumb {
+		padding-left: 6px;
+	}
+}
+
+#theme-wrapper {
+	box-shadow: 0 0 53px 0 rgba(0, 0, 0, 0.55);
+	max-width: $container-max-width;
+}
+#page-wrapper {
+	background-color: #2c3e50;
+}
+.container {
+	margin: 0;
+	max-width: $container-max-width;
+	width: 100%;
+}
+
+#content-wrapper {
+	background: $main-bg-color;
+	height: 100%;
+	margin-top: 0;
+	margin-bottom: 0;
+	position: relative;
+	min-height: 1200px;
+	padding: 15px 15px 35px 15px;
+	margin-left: 220px;
+
+	@media (max-width: $break-sm-max) {
+		margin-left: 0;
+		border-left: 0 !important;
+		border-right: 0 !important;
+	}
+	@media (max-width: $break-xs-max) {
+		padding: 10px 8px 0 8px;
+	}
+	@media (max-width: $break-xxs-max) {
+		padding: 5px 5px 0 5px;
+	}
+
+	> .row {
+		@include opacity(1);
+		/*transition: opacity 0.8s ease-in-out 0s;*/
+	}
+}
+#content-header {
+	background: lighten($main-bg-color, 4%);
+	margin: -15px -15px 20px -15px;
+	padding: 15px;
+	border-bottom: 1px solid darken($main-bg-color, 3%);
+
+	@media (max-width: $break-xs-max) {
+		margin: -15px -5px 20px -5px;
+	}
+}
+#content-header h1 {
+	margin-bottom: 0;
+	font-size: 1.8em;
+}
+.main-box {
+	background: #FFFFFF;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+    /* overflow: hidden; */
+    @include border-radius($border-radius-base);
+
+	@media (max-width: $break-xs-max) {
+		margin-bottom: 10px;
+	}
+
+	h2 {
+	    font-size: 1.3em;
+	    line-height: 29px;
+	    margin: 0;
+	    padding: 0;
+
+		@media (max-width: $break-xxs-max) {
+			margin-bottom: 5px;
+		}
+	}
+	&.no-header {
+		padding-top: 20px;
+	}
+	.main-box-header {
+	    min-height: 50px;
+	    padding: 10px 20px;
+	
+		&.with-border {
+			border-bottom: 1px solid #ecf0f1;
+		}
+	}
+	.main-box-body {
+		padding: 0 20px 20px 20px;
+	}
+}
+
+h1 small, 
+h2 small, 
+h3 small, 
+h1 .small, 
+h2 .small, 
+h3 .small {
+	padding-left: 8px;
+}

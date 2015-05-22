@@ -370,6 +370,35 @@ module ApplicationHelper
       form_for(name, { builder: NoosferoFormBuilder }.merge(options), &proc)
     end
 
+    #
+    # @todo Move this method to core application_helper.rb
+    # and make a merge request to master branch of noosfero
+    #
+    def method_missing(name, *args)
+      name = name.to_s
+
+      if name.start_with? 'theme_'
+
+        if name.include? '_not_user'
+          return include_partial name unless logged_in?
+          return
+
+        elsif name.include? '_user' and !name.include? '_not'
+          return unless logged_in?
+        end
+
+        include_partial name
+      end
+    end
+
+    private
+
+      def include_partial(name)
+        theme_value = self.instance_variable_get('@'+name) || theme_include(name.gsub('theme_',''))
+
+        self.instance_variable_set('@'+name,theme_value)
+      end
+
   # TODO: Make optional fields compliant to horizontal form
   #  def optional_field profile, name, field_html = nil, only_required = false, &block
   #  end
@@ -419,4 +448,3 @@ module ApplicationHelper
   end
 
 end
-
