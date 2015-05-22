@@ -113,14 +113,14 @@ class ProfileSuggestion < ActiveRecord::Base
     suggested_profiles = all_suggestions(person)
     return if suggested_profiles.nil?
 
-    already_suggested_profiles = person.profile_suggestions.map(&:suggestion_id).join(',')
+    already_suggested_profiles = person.suggested_profiles.map(&:suggestion_id).join(',')
     suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
     #TODO suggested_profiles = suggested_profiles.order('score DESC')
     suggested_profiles = suggested_profiles.limit(N_SUGGESTIONS)
     return if suggested_profiles.blank?
 
     suggested_profiles.each do |suggested_profile|
-      suggestion = person.profile_suggestions.find_or_initialize_by_suggestion_id(suggested_profile.id)
+      suggestion = person.suggested_profiles.find_or_initialize_by_suggestion_id(suggested_profile.id)
       RULES.each do |rule, options|
         begin
           value = suggested_profile.send("#{rule}_count").to_i
@@ -273,7 +273,7 @@ class ProfileSuggestion < ActiveRecord::Base
   end
 
   def self.generate_profile_suggestions(person, force = false)
-    return if person.profile_suggestions.enabled.count >= MIN_LIMIT && !force
+    return if person.suggested_profiles.enabled.count >= MIN_LIMIT && !force
     Delayed::Job.enqueue ProfileSuggestionsJob.new(person.id) unless ProfileSuggestionsJob.exists?(person.id)
   end
 

@@ -2139,6 +2139,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal false, ProfileSuggestion.find(suggestion.id).enabled
   end
 
+  should 'destroy related suggestion if profile is destroyed' do
+    person = fast_create(Person)
+    suggested_person = fast_create(Person)
+    suggestion = ProfileSuggestion.create(:person => person, :suggestion => suggested_person, :enabled => true)
+
+    assert_difference 'ProfileSuggestion.find_all_by_suggestion_id(suggested_person.id).count', -1 do
+      suggested_person.destroy
+    end
+  end
+
   should 'enable profile visibility' do
     profile = fast_create(Profile)
 

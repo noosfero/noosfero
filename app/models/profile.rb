@@ -1033,7 +1033,7 @@ private :generate_url, :url_options
   end
 
   def remove_from_suggestion_list(person)
-    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion = person.suggested_profiles.find_by_suggestion_id self.id
     suggestion.disable if suggestion
   end
 
