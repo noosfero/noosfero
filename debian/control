@@ -85,3 +85,14 @@ Description: free web-based platform for social networks (apache frontend)
  .
  This package contains the configuration files needed to run Noosfero with the
  Apache HTTPD server as frontend.
+
+Package: noosfero-chat
+Architecture: all
+Depends: noosfero (>= 1.2), ejabberd, odbc-postgresql, pidgin-data
+Description: free web-based platform for social networks (ejabberd based chat)
+ Noosfero is a web platform for social and solidarity economy networks with
+ blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective
+ inteligence for solidarity economy in the same system.
+ .
+ This package contains the configuration files needed to run Noosfero with the
+ Ejabberd XMPP chat server.

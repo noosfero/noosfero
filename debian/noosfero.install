@@ -17,6 +17,7 @@ debian/dbupgrade                  usr/lib/noosfero
 debian/default/noosfero           etc/default
 debian/noosfero-check-dbconfig    usr/sbin
 debian/noosfero-console           usr/sbin
+debian/noosfero-runner            usr/sbin
 debian/noosfero.yml               etc/noosfero
 debian/thin.yml                   etc/noosfero
 doc                               usr/share/noosfero
