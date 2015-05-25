@@ -8,7 +8,7 @@ module Noosfero
 
       logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
       logger.formatter = GrapeLogging::Formatters::Default.new
-      use RequestLogger, { logger: logger }
+      use GrapeLogging::Middleware::RequestLogger, { logger: logger, obfuscated_params: ['password'] }
 
       rescue_from :all do |e|
         logger.error e
