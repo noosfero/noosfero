@@ -100,7 +100,7 @@ class ChatControllerTest < ActionController::TestCase
     @request.stubs(:xhr?).returns(true)
 
     post :save_message, {:body =>'Hello!'}
-    assert ActiveSupport::JSON.decode(@response.body)['status'] == 1
+    assert_equal 3, ActiveSupport::JSON.decode(@response.body)['status']
   end
 
   should 'forbid to register a message without body' do
@@ -108,7 +108,7 @@ class ChatControllerTest < ActionController::TestCase
     @request.stubs(:xhr?).returns(true)
 
     post :save_message, {:to =>'mary'}
-    assert ActiveSupport::JSON.decode(@response.body)['status'] == 1
+    assert_equal 3, ActiveSupport::JSON.decode(@response.body)['status']
   end
 
   should 'forbid user to register a message to a stranger' do
@@ -116,7 +116,7 @@ class ChatControllerTest < ActionController::TestCase
     @request.stubs(:xhr?).returns(true)
 
     post :save_message, {:to =>'random', :body => 'Hello, stranger!'}
-    assert ActiveSupport::JSON.decode(@response.body)['status'] == 2
+    assert_equal 3, ActiveSupport::JSON.decode(@response.body)['status']
   end
 
   should 'register a message to a friend' do

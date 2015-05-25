@@ -1,2 +1,0 @@
-RewriteEngine On
-Include /usr/share/noosfero/util/chat/apache/xmpp.conf

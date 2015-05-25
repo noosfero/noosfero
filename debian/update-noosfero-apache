@@ -18,18 +18,14 @@ if test -x /usr/share/noosfero/script/apacheconf; then
   fi
 
   apache_site='/etc/apache2/sites-available/noosfero'
-  apache_site_configs='/etc/noosfero/apache.d'
   if ! test -e "$apache_site"; then
     echo "Generating apache virtual host ..."
     cd /usr/share/noosfero && su noosfero -c "RAILS_ENV=production ./script/apacheconf virtualhosts" > "$apache_site"
-    if ! test -d "$apache_site_configs"; then
-      echo "Creating noosfero site config folder ..."
-      mkdir $apache_site_configs
-    fi
   else
     pattern="Include \/etc\/noosfero\/apache\/virtualhost.conf"
-    include="Include \/etc\/noosfero\/apache.d\/*"
+    include="Include \/usr\/share\/noosfero\/util\/chat\/apache\/xmpp.conf"
     if ! cat $apache_site | grep "^ *$include" > /dev/null ; then
+      echo "Updating apache virtual host ..."
       sed -i "s/.*$pattern.*/  $include\n&/" $apache_site
     fi
   fi
