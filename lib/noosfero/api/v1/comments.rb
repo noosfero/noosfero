@@ -20,7 +20,8 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
   
             if params[:reference_id]
-              comments = article.comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
+              created_at = article.comments.find(params[:reference_id]).created_at
+              comments = article.comments.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
             else
               comments = article.comments.reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
             end

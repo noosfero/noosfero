@@ -73,7 +73,8 @@ module Noosfero
         order = make_order_with_parameters(params)
 
         if params[:reference_id]
-          objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).where(conditions).limit(limit).order(order)
+          created_at = object.send(method).find(params[:reference_id]).created_at
+          objects = object.send(method).send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at).where(conditions).limit(limit).order(order)
         else
           objects = object.send(method).where(conditions).limit(limit).order(order)
         end
