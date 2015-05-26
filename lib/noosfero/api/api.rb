@@ -45,5 +45,8 @@ module Noosfero
         end
       end
     end
+    def self.api_class
+      API
+    end
   end
 end

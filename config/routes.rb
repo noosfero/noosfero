@@ -22,6 +22,7 @@ Noosfero::Application.routes.draw do
   root :to => 'home#index', :constraints => EnvironmentDomainConstraint.new
 
   match 'site(/:action)', :controller => 'home'
+  match 'api(/:action)', :controller => 'api'
 
   match 'images(/*stuff)' => 'not_found#nothing'
   match 'stylesheets(/*stuff)' => 'not_found#nothing'
