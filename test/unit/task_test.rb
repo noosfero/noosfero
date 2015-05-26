@@ -432,6 +432,14 @@ class TaskTest < ActiveSupport::TestCase
     assert t1.ham?
   end
 
+  should 'be able to assign a responsible to a task' do
+    person = fast_create(Person)
+    task = fast_create(Task)
+    task.responsible = person
+    task.save!
+    assert_equal person, task.responsible
+  end
+
   protected
 
   def sample_user

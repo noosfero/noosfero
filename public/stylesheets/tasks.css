@@ -49,3 +49,7 @@
   text-decoration: underline;
   font-weight: bold;
 }
+
+.task_responsible {
+  text-align: right;
+}

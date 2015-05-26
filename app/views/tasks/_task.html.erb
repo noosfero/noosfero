@@ -2,6 +2,16 @@
 
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 
+  <% if profile.organization? && @responsible_candidates.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assign to:') %></span>
+      <span>
+        <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
+        <%= select_tag "tasks[#{task.id}][responsible]", options_from_collection_for_select(@responsible_candidates, :id, :name, task.responsible.present? ? task.responsible.id : nil), :include_blank => true, :onchange => "change_task_responsible(this);", 'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil, 'data-task' => task.id, 'data-url' => change_responsible_url %>
+      </span>
+    </div>
+  <% end %>
+
   <div class="task_decisions">
     <%=
         labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
