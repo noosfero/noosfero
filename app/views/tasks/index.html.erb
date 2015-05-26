@@ -21,11 +21,24 @@
   </div>
 <% end %>
 
+<%= form_tag '#', :method => 'get' do %>
+  <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+    <p>
+      <%= labelled_select(_('Type of task')+': ', :filter_type, :first, :last, @filter_type,  type_collection, {:id => 'filter-type'}) %>
+    </p>
+    <p>
+      <%= labelled_text_field(_("Text filter")+': ', :filter_text, nil, {:id => 'filter-text',:value => @filter_text}) %>
+    </p>
+    <p>
+      <%= submit_button(:search, _('Search')) %>
+    </p>
+  <% end %>
+<% end %>
+
 <% if @tasks.empty? %>
   <p>
-    <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => "document.location.href = '?filter_type='+this.value")%>
+    <em><%= _('No pending tasks for %s') % profile.name %></em>
   </p>
-  <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
   <%= form_tag :action => 'close' do%>
     <% button_bar do %>
@@ -38,14 +51,12 @@
 
     <ul class='task-list'>
       <p>
-        <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => "document.location.href = '?filter_type='+this.value") %>
-      </p>
-      <p>
       <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
       </p>
-      <% @tasks.each do |task| %>
-        <%= render :partial => 'task', :locals => { :task => task } %>
-      <% end %>
+
+      <div class="task_boxes">
+        <%= render :partial => 'task', :collection => @tasks %>
+      </div>
       <p>
       <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
       </p>

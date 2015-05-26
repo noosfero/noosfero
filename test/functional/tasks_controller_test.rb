@@ -5,7 +5,7 @@ class TasksController; def rescue_action(e) raise e end; end
 
 class TasksControllerTest < ActionController::TestCase
 
-  noosfero_test :profile => 'testuser' 
+  noosfero_test :profile => 'testuser'
 
   def setup
     @controller = TasksController.new
@@ -382,6 +382,28 @@ class TasksControllerTest < ActionController::TestCase
     assert_not_includes assigns(:tasks), t3
 
     post :index
+
+    assert_includes assigns(:tasks), t1
+    assert_includes assigns(:tasks), t2
+    assert_includes assigns(:tasks), t3
+  end
+
+  should 'filter tasks by type and data content' do
+    class CleanHouse < Task; end
+    class FeedDog < Task; end
+    Task.stubs(:per_page).returns(3)
+    requestor = fast_create(Person)
+    t1 = CleanHouse.create!(:requestor => requestor, :target => profile, :data => {:name => 'Task Test'})
+    t2 = CleanHouse.create!(:requestor => requestor, :target => profile)
+    t3 = FeedDog.create!(:requestor => requestor, :target => profile)
+
+    get :index, :filter_type => t1.type, :filter_text => 'test'
+
+    assert_includes assigns(:tasks), t1
+    assert_not_includes assigns(:tasks), t2
+    assert_not_includes assigns(:tasks), t3
+
+    get :index
 
     assert_includes assigns(:tasks), t1
     assert_includes assigns(:tasks), t2
