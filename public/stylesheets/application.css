@@ -1523,13 +1523,13 @@ a.comment-picture {
   text-align: right;
   color: gray;
 }
-#content .created-at {
+#content .publishing-info {
   color: gray;
   font-size: 12px;
   display: block;
   text-align: right;
 }
-#content .blog-post .created-at {
+#content .blog-post .publishing-info {
   text-align: left;
 }
 #content #article .pagination .prev_page {
@@ -1601,7 +1601,7 @@ div.article-body p img {
 .blog-post.not-published a {
   text-decoration: none;
 }
-#content .blog-post.not-published .created-at {
+#content .blog-post.not-published .publishing-info {
   text-align: left;
 }
 .blog-post.not-published .metadata {

@@ -160,6 +160,7 @@ Feature: events
     When I am on /search/events
     Then I should see "Colivre.net's Events"
 
+
   @selenium
   Scenario: published events should be listed in the agenda too
     Given the following community
