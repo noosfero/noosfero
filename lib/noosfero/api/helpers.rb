@@ -102,7 +102,21 @@ module Noosfero
         end
         attrs
       end
-      
+
+      def verify_recaptcha_v2(remote_ip, g_recaptcha_response, private_key, api_recaptcha_verify_uri)
+        verify_hash = {
+          "secret"    => private_key,
+          "remoteip"  => remote_ip,
+          "response"  => g_recaptcha_response
+        }
+        uri = URI(api_recaptcha_verify_uri)
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        request = Net::HTTP::Post.new(uri.path)
+        request.set_form_data(verify_hash)
+        JSON.parse(https.request(request).body)
+      end
+  
       ##########################################
       #              error helpers             #
       ##########################################
