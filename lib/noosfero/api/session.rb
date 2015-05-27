@@ -39,12 +39,16 @@ module Noosfero
         unique_attributes! User, [:email, :login]
         attrs = attributes_for_keys [:email, :login, :password]
         attrs[:password_confirmation] = attrs[:password]
-        remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env['REMOTE_ADDR'])
-        private_key = API.NOOSFERO_CONF['api_recaptcha_private_key']
-        api_recaptcha_verify_uri = API.NOOSFERO_CONF['api_recaptcha_verify_uri']
-        captcha_result = verify_recaptcha_v2(remote_ip, params['g-recaptcha-response'], private_key, api_recaptcha_verify_uri)
+
+        #Commented for stress tests
+        
+        # remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env['REMOTE_ADDR'])
+        # private_key = API.NOOSFERO_CONF['api_recaptcha_private_key']
+        # api_recaptcha_verify_uri = API.NOOSFERO_CONF['api_recaptcha_verify_uri']
+        # captcha_result = verify_recaptcha_v2(remote_ip, params['g-recaptcha-response'], private_key, api_recaptcha_verify_uri)
         user = User.new(attrs)  
-        if captcha_result["success"] and user.save! 
+#        if captcha_result["success"] and user.save 
+        if user.save 
           user.activate
           user.generate_private_token!
           present user, :with => Entities::UserLogin
