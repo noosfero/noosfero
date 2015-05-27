@@ -3910,7 +3910,6 @@ table.cms-articles .icon:hover {
 
 div.folder-description {
   padding-bottom: 15px;
-  border-bottom: 1px solid #CCCCCC;
 }
 
 .list-item h2{
@@ -3919,7 +3918,7 @@ div.folder-description {
 }
 
 .item-info{
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   line-height: 25px;
   padding:25px 20px;
 }

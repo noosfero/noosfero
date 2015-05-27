@@ -42,15 +42,15 @@ module FolderHelper
 
   def icon_for_article(article, size = 'icon')
     article = FilePresenter.for article
-    icon = article.respond_to?(:icon_name) ?
-             article.icon_name :
-             article.class.icon_name(article)
-    if (icon =~ /\//)
-      icon
+    if article.respond_to?(:sized_icon)
+      article.sized_icon(size)
     else
-      klasses = 'icon ' + [icon].flatten.map{|name| 'icon-'+name}.join(' ')
+      icon = article.respond_to?(:icon_name) ?
+              article.icon_name :
+              article.class.icon_name(article)
+      klasses = "#{size} " + [icon].flatten.map{|name| "#{size}-"+name}.join(' ')
       if article.kind_of?(UploadedFile) || article.kind_of?(FilePresenter)
-        klasses += ' icon-upload-file'
+        klasses += " #{size}-upload-file"
       end
       klasses
     end

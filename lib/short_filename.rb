@@ -9,7 +9,7 @@ module ShortFilename
   def short_filename_upper_ext(filename, limit_chars = 43)
     extname = File.extname(filename)
     display_name = shrink(File.basename(filename, extname), extname, limit_chars)
-    return display_name + " - " + extname.upcase.delete(".") if not extname.empty? else display_name
+     return extname.present? ? (display_name + ' - ' + extname.upcase.delete(".")) : display_name
   end
 
   def shrink(filename, extname, limit_chars)
