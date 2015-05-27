@@ -6,4 +6,8 @@ class ApiController < PublicController
     @api = Noosfero::API.api_class
   end
 
+  def playground
+    @api = Noosfero::API.api_class
+  end
+
 end
