@@ -9,7 +9,7 @@ module Noosfero
           path: request.path,
           params: request.params.to_hash.except('password'),
           method: request.request_method,
-          total: total_runtime,
+          total: (duration * 1000).round(2),
           db: @db_duration.round(2),
         }
       end
