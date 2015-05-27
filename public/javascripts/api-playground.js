@@ -6,11 +6,11 @@ for (var endpoint,i=0; endpoint=endpoints[i]; i++) {
 var playground = {
 
   getToken: function() {
-    return jQuery('#api-token').val();
+    return jQuery('#api-token input').val();
   },
 
   setToken: function(token) {
-    jQuery('#api-token').val(token);
+    jQuery('#api-token input').val(token);
   },
 
   getEndpoint: function() {
@@ -39,8 +39,8 @@ var playground = {
   addFormParam: function(name) {
     if (!name) name = '';
     jQuery('<div class="api-param">'+
-    '<label>name: <input name="name[]" value="'+name+'"></label> &nbsp; '+
-    '<label>value: <input name="value[]"></label>'+
+    '<label class="param-nane">name: <input name="name[]" value="'+name+'"></label>'+
+    '<label class="param-value">value: <input name="value[]"></label>'+
     '</div>').appendTo('#api-form');
   },
 
@@ -54,7 +54,7 @@ var playground = {
     if ( endpoint.path != '/api/v1/login' ) {
       data.private_token = this.getToken();
     }
-    jQuery('#api-response').empty();
+    jQuery('#api-response').empty()[0].className = 'empty';
     var url = endpoint.path;
     var pathParameters = endpoint.path.match(/:[^/]+/g);
     if ( pathParameters ) {
@@ -68,16 +68,18 @@ var playground = {
       method: endpoint.method,
       data: data,
       success: function(data, textStatus, jqXHR) {
-        jQuery('#api-response').text( JSON.stringify(data, null, '  ') );
+        jQuery('#api-response').text(
+          JSON.stringify(data, null, '  ')
+        )[0].className = 'full';
         if ( endpoint.path == '/api/v1/login' ) {
-          playground.setToken(data.private_token);
+          playground.setToken(data.private_token)
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
         jQuery('#api-response').html(
           '<h2>'+textStatus+'</h2>' +
           'Request to '+url+' fail.\n\n' + errorThrown
-        );
+        )[0].className = 'fail';
       }
     });
   }

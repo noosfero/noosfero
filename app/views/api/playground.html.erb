@@ -16,11 +16,17 @@ end.flatten.compact.sort{|a,b| a[:path]=='/api/v1/login' ? -1:1}.to_json %>;
 </script>
 
 <form id="api-form">
-  <label>Endpoint: <select name="endpoint" onchange="playground.selEndpoint()"></select></label> &nbsp;
-  <label>Token: <input id="api-token" size="32" style="font-family:monospace"></label>
+  <label id="endpoint">Endpoint:
+    <select name="endpoint" onchange="playground.selEndpoint()"></select>
+  </label>
+  <label id="api-token">Token:
+    <%= tag :input, size: 32, placeholder: _('Use the login endpoint') %>
+  </label>
 </form>
-<button onclick="playground.addFormParam()"><%=_('Add parameter')%></button>
-<button onclick="playground.run()" style="font-weight:bold">&nbsp; <%=_('Run')%> &nbsp;</button>
-<pre id="api-response"></pre>
+<div id="playground-ctrl">
+  <button onclick="playground.addFormParam()"><%=_('Add parameter')%></button>
+  <button onclick="playground.run()" style="font-weight:bold">&nbsp; <%=_('Run')%> &nbsp;</button>
+</div>
+<pre id="api-response" class="empty"></pre>
 
 <script src="/javascripts/api-playground.js"></script>
