@@ -201,6 +201,21 @@
   bottom: 132px;
 }
 
+#chat-label.opened #unread-messages,
+#unread-messages:empty {
+  display: none;
+}
+
+#unread-messages {
+  padding: 3px 5px;
+  background-color: #F57900;
+  border-radius: 5px;
+  margin-top: -10px;
+  margin-left: -30px;
+  position: absolute;
+  z-index: 1;
+}
+
 #chat .unread-messages {
   height: 32px;
   line-height: 32px;

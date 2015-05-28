@@ -245,12 +245,16 @@ ActiveRecord::Schema.define(:version => 20150513213939) do
   end
 
   create_table "chat_messages", :force => true do |t|
-    t.integer  "to_id"
     t.integer  "from_id"
-    t.string   "body"
+    t.integer  "to_id"
+    t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "chat_messages", ["created_at"], :name => "index_chat_messages_on_created_at"
+  add_index "chat_messages", ["from_id"], :name => "index_chat_messages_on_from_id"
+  add_index "chat_messages", ["to_id"], :name => "index_chat_messages_on_to_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title"
