@@ -931,6 +931,19 @@ module ApplicationHelper
     article_helper.cms_label_for_edit
   end
 
+  def label_for_clone_article(article)
+    translated_types = {
+      Folder => _('Folder'),
+      Blog => _('Blog'),
+      Event => _('Event'),
+      Forum => _('Forum')
+    }
+
+    translated_type = translated_types[article.class] || _('Article')
+
+    _('Clone %s') % translated_type
+  end
+
   def add_rss_feed_to_head(title, url)
     content_for :feeds do
       tag(:link, :rel => 'alternate', :type => 'application/rss+xml', :title => title, :href => url_for(url))
@@ -1496,6 +1509,28 @@ module ApplicationHelper
 
   def colorpicker_field(object_name, method, options = {})
     text_field(object_name, method, options.merge(:class => 'colorpicker_field'))
+  end
+
+  def fullscreen_buttons(itemId)
+    content="
+      <script>fullscreenPageLoad('#{itemId}')</script>
+    "
+    content+=content_tag('a', content_tag('span',_("Full screen")),
+    { :id=>"fullscreen-btn",
+      :onClick=>"toggle_fullwidth('#{itemId}')",
+      :class=>"button with-text icon-fullscreen",
+      :href=>"#",
+      :title=>_("Go to full screen mode")
+    })
+
+    content+=content_tag('a', content_tag('span',_("Exit full screen")),
+    { :style=>"display: none;",
+      :id=>"exit-fullscreen-btn",
+      :onClick=>"toggle_fullwidth('#{itemId}')",
+      :class=>"button with-text icon-fullscreen",
+      :href=>"#",
+      :title=>_("Exit full screen mode")
+    })
   end
 
 end

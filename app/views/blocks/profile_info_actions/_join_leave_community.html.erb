@@ -1,4 +1,4 @@
-<div class='join-leave-button'>
+<div class='join-leave-button require-login-popup'>
   <% if logged_in? %>
     <% if profile.members.include?(user) %>
       <%= button(:delete, content_tag('span', _('Leave community')), profile.leave_url,

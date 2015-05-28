@@ -27,6 +27,7 @@
 *= require manage-products.js
 *= require catalog.js
 *= require autogrow.js
+*= require require_login.js
 */
 
 // scope for noosfero stuff
@@ -1164,3 +1165,35 @@ function add_new_file_fields() {
 }
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
+
+function $_GET(id){
+    var a = new RegExp(id+"=([^&#=]*)");
+    return decodeURIComponent(a.exec(window.location.search)[1]);
+}
+
+var fullwidth=false;
+function toggle_fullwidth(itemId){
+  if(fullwidth){
+    jQuery(itemId).removeClass("fullwidth");
+    jQuery("#fullscreen-btn").show()
+    jQuery("#exit-fullscreen-btn").hide()
+    fullwidth = false;
+  }
+  else{
+    jQuery(itemId).addClass("fullwidth");
+    jQuery("#exit-fullscreen-btn").show()
+    jQuery("#fullscreen-btn").hide()
+    fullwidth = true;
+  }
+  jQuery(window).trigger("toggleFullwidth", fullwidth);
+}
+
+function fullscreenPageLoad(itemId){
+  jQuery(document).ready(function(){
+
+    if ($_GET('fullscreen') == 1){
+      toggle_fullwidth(itemId);
+    }
+  });
+}
+

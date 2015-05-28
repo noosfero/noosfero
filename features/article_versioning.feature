@@ -80,8 +80,8 @@ Feature: article versioning
 
   Scenario: deny access to specific version when disabled, private and not logged
     Given the article "Edited Article" is updated with
-      | display_versions | published |
-      | false            | false     |
+      | display_versions | published | show_to_followers |
+      | false            | false     | false             |
     And I am not logged in
     And I go to /joaosilva/edited-article?version=1
     Then I should see "Access denied"

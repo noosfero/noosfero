@@ -1,0 +1,20 @@
+<h1><%= _('Require auth to comment Settings')%></h1>
+
+<%= form_for(:settings) do |f| %>
+
+  <div class="require-type">
+    <strong>
+      <div class="hide-button">
+        <%= radio_button(:settings, :require_type, 'hide_button') %> <%= _('Hide button') %>
+      </div>
+      <div class="display-login-popup">
+        <%= radio_button(:settings, :require_type, 'display_login_popup') %> <%= _('Display login popup') %>
+      </div>
+    </strong>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>

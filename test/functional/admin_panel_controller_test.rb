@@ -17,12 +17,12 @@ class AdminPanelControllerTest < ActionController::TestCase
   should 'manage the correct environment' do
     current = fast_create(Environment, :name => 'test environment', :is_default => false)
     current.domains.create!(:name => 'example.com')
-    
+
     @request.expects(:host).returns('example.com').at_least_once
     get :index
     assert_equal current, assigns(:environment)
   end
-  
+
   should 'link to site_info editing page' do
     get :index
     assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/site_info' }
@@ -378,37 +378,5 @@ class AdminPanelControllerTest < ActionController::TestCase
 
     assert_equal body, Environment.default.signup_welcome_screen_body
     assert !Environment.default.signup_welcome_screen_body.blank?
-  end
-
-  should 'show list to deactivate organizations' do
-    enabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"enabled community")
-    disabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"disabled community")
-    user = create_user('user')
-
-    disabled_community.disable
-
-    Environment.default.add_admin user.person
-    login_as('user')
-
-    get :manage_organizations_status, :filter=>"enabled"
-    assert_match(/Organization profiles - enabled/, @response.body)
-    assert_match(/enabled community/, @response.body)
-    assert_not_match(/disabled community/, @response.body)
-  end
-
-  should 'show list to activate organizations' do
-    enabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"enabled community")
-    disabled_community = fast_create(Community, :environment_id => Environment.default, :name=>"disabled community")
-    user = create_user('user')
-
-    disabled_community.disable
-
-    Environment.default.add_admin user.person
-    login_as('user')
-
-    get :manage_organizations_status, :filter=>"disabled"
-    assert_match(/Organization profiles - disabled/, @response.body)
-    assert_not_match(/enabled community/, @response.body)
-    assert_match(/disabled community/, @response.body)
   end
 end

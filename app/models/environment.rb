@@ -29,6 +29,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
     'manage_environment_users' => N_('Manage environment users'),
+    'manage_environment_organizations' => N_('Manage environment organizations'),
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
     'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
@@ -336,6 +337,16 @@ class Environment < ActiveRecord::Base
   def enable_plugin(plugin)
     self.enabled_plugins += [plugin.to_s]
     self.enabled_plugins.uniq!
+    self.save!
+  end
+
+  def enable_all_plugins
+    Noosfero::Plugin.available_plugin_names.each do |plugin|
+      plugin_name = plugin.to_s + "Plugin"
+      unless self.enabled_plugins.include?(plugin_name)
+        self.enabled_plugins += [plugin_name]
+      end
+    end
     self.save!
   end
 

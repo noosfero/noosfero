@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+# automatically update configuration, but if package noosfero is also installed
+if test -x /usr/share/noosfero/script/odbcconf; then
+  config_file="/etc/odbc.ini"
+  if test -e "$config_file"; then
+    echo "Overwriting $config_file ..."
+  fi
+  /usr/share/noosfero/script/odbcconf > "$config_file"
+
+  echo 'Noosfero ODBC configuration updated.'
+fi

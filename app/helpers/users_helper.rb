@@ -14,7 +14,7 @@ module UsersHelper
     select_field = select_tag(:filter, options, :onchange => onchange)
     content_tag('div',
       content_tag('strong', _('Filter')) + ': ' + select_field,
-      :class => "environment-users-customize-search"
+      :class => "environment-profiles-customize-search"
     )
   end
 

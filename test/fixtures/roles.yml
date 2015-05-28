@@ -35,6 +35,7 @@ four:
    - moderate_comments
    - perform_task
    - manage_environment_users
+   - manage_environment_organizations
    - manage_environment_templates
    - manage_environment_licenses
 profile_admin:
@@ -94,6 +95,7 @@ environment_administrator:
    - manage_environment_validators
    - moderate_comments
    - manage_environment_users
+   - manage_environment_organizations
    - edit_profile
    - destroy_profile
    - manage_environment_templates

@@ -68,7 +68,7 @@ class FolderHelperTest < ActionView::TestCase
     profile.public_profile = false
     profile.save!
     profile2 = create_user('Folder Viwer').person
-    folder = fast_create(Folder, :profile_id => profile.id)
+    folder = fast_create(Folder, :profile_id => profile.id, :published => false)
     article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id})
 
     result = available_articles(folder.children, profile2)

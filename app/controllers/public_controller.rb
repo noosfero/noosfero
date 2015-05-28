@@ -3,7 +3,7 @@ class PublicController < ApplicationController
 
   def allow_access_to_page
     unless profile.display_info_to?(user)
-      if profile.visible?
+      if profile.visible? && !profile.secret
         private_profile
       else
         invisible_profile

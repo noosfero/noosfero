@@ -257,22 +257,22 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'not give access to private articles if logged off' do
-    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    profile = Community.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template "profile/_private_profile"
   end
 
   should 'not give access to private articles if logged in but not member' do
     login_as('testinguser')
-    profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
+    profile = Community.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template "profile/_private_profile"
   end
 
   should 'not give access to private articles if logged in and only member' do
@@ -1252,9 +1252,11 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'expire article actions button if any plugins says so' do
     class Plugin1 < Noosfero::Plugin
       def content_expire_edit(content); 'This button is expired.'; end
+      def content_expire_clone(content); 'This button is expired.'; end
     end
     class Plugin2 < Noosfero::Plugin
       def content_expire_edit(content); nil; end
+      def content_expire_clone(content); nil; end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
@@ -1428,7 +1430,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     article = TinyMceArticle.create(:name => 'Article to be shared with images',
                                     :body => 'This article should be shared with all social networks',
-                                    :profile => @profile,
+                                    :profile => community,
                                     :published => false,
                                     :show_to_followers => true)
     article.parent = blog

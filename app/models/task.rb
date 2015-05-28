@@ -239,6 +239,10 @@ class Task < ActiveRecord::Base
   scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
   scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
   scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
+  scope :like, lambda { |field, value| where("LOWER(#{field}) LIKE ?", "%#{value.downcase}%") if value}
+  scope :pending_all, lambda { |profile, filter_type, filter_text|
+    self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
+  }
 
   scope :to, lambda { |profile|
     environment_condition = nil

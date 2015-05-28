@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+environment = Environment.default
+person = Person.first
+password = person.user.crypted_password
+login = person.jid
+
+begin
+  RubyBOSH.initialize_session(
+    login,
+    password,
+    "http://#{environment.default_hostname}/http-bind",
+    :wait => 30,
+    :hold => 1,
+    :window => 5
+  )
+rescue Exception => e
+  puts ""
+  puts "[ERROR] XMPP/Chat setup isn't working"
+  puts "-------------------------------------"
+  puts e.to_s
+  exit 1
+else
+  puts ""
+  puts "[OK] XMPP/Chat setup is working"
+  exit 0
+end

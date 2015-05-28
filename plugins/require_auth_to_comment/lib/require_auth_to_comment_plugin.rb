@@ -21,11 +21,20 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
   end
 
   def stylesheet?
-    true
+    !display_login_popup?
+  end
+
+  def display_login_popup?
+    settings = Noosfero::Plugin::Settings.new(context.environment, self.class)
+    settings.require_type == 'display_login_popup'
+  end
+
+  def self.require_type_default_setting
+    'hide_button'
   end
 
   def js_files
-    ['hide_comment_form.js', 'jquery.livequery.min.js']
+    ['hide_comment_form.js', 'jquery.livequery.min.js'] + (display_login_popup? ? ['comment_require_login.js'] : [])
   end
 
   def body_beginning

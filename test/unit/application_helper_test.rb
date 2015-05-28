@@ -1002,6 +1002,21 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal file, from_theme_include('atheme', 'afile')[:file] # exists? = true
   end
 
+  should 'enable fullscreen buttons' do
+    html = fullscreen_buttons("#article")
+    assert html.include?("<script>fullscreenPageLoad('#article')</script>")
+    assert html.include?("class=\"button with-text icon-fullscreen\"")
+    assert html.include?("onClick=\"toggle_fullwidth('#article')\"")
+  end
+
+  should "return the related class string" do
+    assert_equal "Clone Folder", label_for_clone_article(Folder.new)
+    assert_equal "Clone Blog", label_for_clone_article(Blog.new)
+    assert_equal "Clone Event", label_for_clone_article(Event.new)
+    assert_equal "Clone Forum", label_for_clone_article(Forum.new)
+    assert_equal "Clone Article", label_for_clone_article(TinyMceArticle.new)
+  end
+
   protected
   include NoosferoTestHelper
 

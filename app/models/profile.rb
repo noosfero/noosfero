@@ -392,6 +392,9 @@ class Profile < ActiveRecord::Base
         new_block = block.class.new(:title => block[:title])
         new_block.copy_from(block)
         new_box.blocks << new_block
+        if block.mirror?
+          block.add_observer(new_block)
+        end
       end
     end
   end
@@ -957,9 +960,17 @@ private :generate_url, :url_options
     self.save
   end
 
+  def disabled?
+    !visible
+  end
+
   def enable
     self.visible = true
     self.save
+  end
+
+  def enabled?
+    visible
   end
 
   def control_panel_settings_button

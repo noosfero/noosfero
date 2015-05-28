@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150408231524) do
+ActiveRecord::Schema.define(:version => 20150513213939) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(:version => 20150408231524) do
     t.integer  "spam_comments_count",  :default => 0
     t.integer  "author_id"
     t.integer  "created_by_id"
-    t.boolean  "show_to_followers",    :default => false
+    t.boolean  "show_to_followers",    :default => true
   end
 
   add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
@@ -183,10 +183,13 @@ ActiveRecord::Schema.define(:version => 20150408231524) do
     t.string   "type"
     t.text     "settings"
     t.integer  "position"
-    t.boolean  "enabled",    :default => true
+    t.boolean  "enabled",         :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "fetched_at"
+    t.boolean  "mirror",          :default => false
+    t.integer  "mirror_block_id"
+    t.integer  "observers_id"
   end
 
   add_index "blocks", ["box_id"], :name => "index_blocks_on_box_id"

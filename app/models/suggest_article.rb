@@ -25,7 +25,7 @@ class SuggestArticle < Task
 
   def article_object
     if @article_object.nil?
-      @article_object = article_type.new(article.merge({:profile => target}).except(:type))
+      @article_object = article_type.new(article.merge(target.present? ? {:profile => target} : {}).except(:type))
       if requestor.present?
         @article_object.author = requestor
       else

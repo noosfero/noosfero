@@ -1,11 +1,12 @@
 class TasksController < MyProfileController
 
   protect 'perform_task', :profile
-  
+
   def index
-    @filter = params[:filter_type].blank? ? nil : params[:filter_type]
+    @filter_type = params[:filter_type].presence
+    @filter_text = params[:filter_text].presence
     @task_types = Task.pending_types_for(profile)
-    @tasks = Task.to(profile).without_spam.pending.of(@filter).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
+    @tasks = Task.pending_all(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
     @failed = params ? params[:failed] : {}
   end
 

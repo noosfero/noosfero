@@ -5,7 +5,7 @@ class TaskMailer < ActionMailer::Base
     @target = task.target.name
     @environment = task.environment.name
     @url = generate_environment_url(task, :controller => 'home')
-    url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.tasks_url)
+    url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.tasks_url.merge(:script_name => Noosfero.root('/')))
     @tasks_url = url_for_tasks_list
 
     mail(
@@ -56,7 +56,7 @@ class TaskMailer < ActionMailer::Base
   end
 
   def generate_environment_url(task, url = {})
-    url_for(Noosfero.url_options.merge(:host => task.environment.default_hostname).merge(url))
+    url_for(Noosfero.url_options.merge(:host => task.environment.default_hostname).merge(url).merge(:script_name => Noosfero.root('/')))
   end
 
 end

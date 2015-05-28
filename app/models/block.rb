@@ -2,7 +2,7 @@ class Block < ActiveRecord::Base
 
   attr_accessible :title, :display, :limit, :box_id, :posts_per_page,
                   :visualization_format, :language, :display_user,
-                  :box, :edit_modes, :move_modes
+                  :box, :edit_modes, :move_modes, :mirror
 
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
@@ -15,10 +15,22 @@ class Block < ActiveRecord::Base
 
   acts_as_list :scope => :box
   belongs_to :box
+  belongs_to :mirror_block, :class_name => "Block"
+  has_many :observers, :class_name => "Block", :foreign_key => "mirror_block_id"
 
   acts_as_having_settings
 
   scope :enabled, :conditions => { :enabled => true }
+
+  after_save do |block|
+    if block.owner.kind_of?(Profile) && block.owner.is_template? && block.mirror?
+      block.observers.each do |observer|
+        observer.copy_from(block)
+        observer.title = block.title
+        observer.save
+      end
+    end
+  end
 
   def embedable?
     false
@@ -267,6 +279,10 @@ class Block < ActiveRecord::Base
   def copy_from(block)
     self.settings = block.settings
     self.position = block.position
+  end
+
+  def add_observer(block)
+    self.observers << block
   end
 
   private
