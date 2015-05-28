@@ -49,6 +49,12 @@ class TasksControllerTest < ActionController::TestCase
     assert_kind_of Array, assigns(:tasks)
   end
 
+  should 'display task created_at' do
+    Task.create!(:requestor => fast_create(Person), :target => profile, :spam => false)
+    get :index
+    assert_select '.task_date'
+  end
+
   should 'list processed tasks without spam' do
     requestor = fast_create(Person)
     task_spam = create(Task, :status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)

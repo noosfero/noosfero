@@ -22,6 +22,8 @@
     %>
   </div><!-- class="task_decisions" -->
 
+  <div class="task_date"><%= show_time(task.created_at) %></div>
+
   <%= render :partial => 'task_title', :locals => {:task => task} %>
 
   <div class="task_information">
