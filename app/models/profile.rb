@@ -937,7 +937,6 @@ private :generate_url, :url_options
     image.public_filename(:icon) if image.present?
   end
 
-  #FIXME make this test
   def profile_custom_image(size = :icon)
     image_path = profile_custom_icon if size == :icon
     image_path ||= image.public_filename(size) if image.present?
