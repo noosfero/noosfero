@@ -253,10 +253,11 @@ class Noosfero::Plugin
   end
 
   # -> Adds buttons to the control panel
-  # returns = { :title => title, :icon => icon, :url => url }
-  #   title = name that will be displayed.
-  #   icon  = css class name (for customized icons include them in a css file).
-  #   url   = url or route to which the button will redirect.
+  # returns        = { :title => title, :icon => icon, :url => url }
+  #   title        = name that will be displayed.
+  #   icon         = css class name (for customized icons include them in a css file).
+  #   url          = url or route to which the button will redirect.
+  #   html_options = aditional html options.
   def control_panel_buttons
     nil
   end

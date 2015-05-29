@@ -15,7 +15,7 @@ pjax = {
     var container = '.pjax-container';
     target.addClass('pjax-container');
 
-    jQuery(document).pjax('a', container);
+    jQuery(document).pjax('a:not([data-skip-pjax])', container);
 
     jQuery(document).on('pjax:beforeSend', function(event, xhr, settings) {
       var themes = jQuery.map(pjax.themes, function(theme) { return theme.id }).join(',');
