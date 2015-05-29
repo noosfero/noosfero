@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: 1.1~rc1-4309-g8df8054\n"
 "POT-Creation-Date: 2015-05-07 12:03-0300\n"
 "PO-Revision-Date: 2015-05-07 11:11-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: daniel tygel <dtygel@eita.org.br>\n"
+"Language-Team: pt_BR <dtygel@eita.org.br>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:16
 msgid "Consumer interests updated"
-msgstr ""
+msgstr "Interesses de consumo atualizados"
 
 #: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:18
 msgid "Could not save consumer interests"
@@ -27,32 +27,32 @@ msgstr "Não foi possível salvar seu interesse"
 
 #: plugins/sniffer/lib/sniffer_plugin.rb:8
 msgid "Sniffs product suppliers and consumers near to your enterprise."
-msgstr ""
+msgstr "Busca fornecedores e consumidores de produtos próximos ao seu empreendimento."
 
 #: plugins/sniffer/lib/sniffer_plugin.rb:16
 msgid "Consumer Interests"
-msgstr ""
+msgstr "Interesses de consumo"
 
 #: plugins/sniffer/lib/sniffer_plugin.rb:17
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:8
 msgid "Opportunities Sniffer"
-msgstr ""
+msgstr "Farejador de oportunidades"
 
 #: plugins/sniffer/lib/sniffer_plugin/interests_block.rb:4
 msgid "Lists declared and inputs interests"
-msgstr ""
+msgstr "Mostra insumos e interesses de consumo"
 
 #: plugins/sniffer/lib/sniffer_plugin/interests_block.rb:8
 msgid "Lists interests"
-msgstr ""
+msgstr "Mostra interesses"
 
 #: plugins/sniffer/lib/sniffer_plugin/interests_block.rb:12
 msgid "Interests"
-msgstr ""
+msgstr "Interesses"
 
 #: plugins/sniffer/lib/sniffer_plugin/interests_block.rb:16
 msgid "This block show interests of your profile or environment"
-msgstr ""
+msgstr "Este bloco mostra seus interesses ou da rede"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:17
 msgid "Legend"
@@ -60,15 +60,15 @@ msgstr "Legenda"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:18
 msgid "your enterprise"
-msgstr "seus empreendimentos"
+msgstr "seu empreendimento"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:19
 msgid "suppliers"
-msgstr ""
+msgstr "fornecedores"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:20
 msgid "consumers"
-msgstr ""
+msgstr "consumidores"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:21
 msgid "both"
@@ -77,40 +77,40 @@ msgstr "ambos"
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:22
 #: plugins/sniffer/views/sniffer_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
-msgstr ""
+msgstr "Voltar ao painel de controle"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/my_map_balloon.html.erb:8
 #: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:39
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:12
 msgid "Can supply"
-msgstr ""
+msgstr "Fornece"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:22
 msgid "May consum"
-msgstr ""
+msgstr "Consome"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:9
 msgid "Suppliers"
-msgstr ""
+msgstr "Fornecedores"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:13
 msgid "Consumers"
-msgstr ""
+msgstr "Consumidores"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:18
 msgid "look for products..."
-msgstr ""
+msgstr "buscar por produtos..."
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:47
 msgid "Maximum distance:"
-msgstr ""
+msgstr "Distância máxima:"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/edit.html.erb:1
 msgid "Buyer interests"
-msgstr ""
+msgstr "Interesses de compra"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/edit.html.erb:4
 msgid ""
@@ -119,10 +119,13 @@ msgid ""
 "near you that offer such products. Type in some characters and choose your "
 "interests from our list."
 msgstr ""
+"Selecione aqui as categorias de produtos e serviços que você tem interesse "
+"em comprar. Com isso, empreendimentos saberão suas necessidades e poderão te fazer ofertas."
+"Digite e escolha quais são seus interesses."
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/edit.html.erb:12
 msgid "Type in a keyword"
-msgstr ""
+msgstr "Escreva uma palavra chave"
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/edit.html.erb:17
 msgid "Save"
@@ -130,15 +133,15 @@ msgstr "Salvar"
 
 #: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:12
 msgid "Edit %{inputs} and %{interests}"
-msgstr ""
+msgstr "Editar %{inputs} e %{interests}"
 
 #: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:13
 msgid "products' inputs"
-msgstr ""
+msgstr "Insumos de produtos"
 
 #: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:14
 msgid "declared interests"
-msgstr ""
+msgstr "interesses declarados"
 
 #: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:23
 msgid "%{interest} from %{profile}"
