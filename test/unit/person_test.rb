@@ -1661,4 +1661,26 @@ class PersonTest < ActiveSupport::TestCase
     assert person.can_post_content?(profile, parent)
   end
 
+  should 'fetch people there are visible for a user' do
+    person = create_user('some-person').person
+    p1 = fast_create(Person, :public_profile => true , :visible => true )
+    p1.add_friend(person)
+    p2 = fast_create(Person, :public_profile => true , :visible => true )
+    p3 = fast_create(Person, :public_profile => false, :visible => true )
+    p4 = fast_create(Person, :public_profile => false, :visible => true)
+    p4.add_friend(person)
+    person.add_friend(p4)
+    p5 = fast_create(Person, :public_profile => true , :visible => false)
+    p6 = fast_create(Person, :public_profile => false, :visible => false)
+
+    people = Person.visible_for_person(person)
+
+    assert_includes     people, p1
+    assert_includes     people, p2
+    assert_not_includes people, p3
+    assert_includes     people, p4
+    assert_not_includes people, p5
+    assert_not_includes people, p6
+  end
+
 end

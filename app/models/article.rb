@@ -708,7 +708,6 @@ class Article < ActiveRecord::Base
     person ? person.id : nil
   end
 
-  #FIXME make this test
   def author_custom_image(size = :icon)
     author ? author.profile_custom_image(size) : nil
   end

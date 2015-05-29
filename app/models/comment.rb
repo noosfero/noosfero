@@ -67,7 +67,6 @@ class Comment < ActiveRecord::Base
     author ? author.url : nil
   end
 
-  #FIXME make this test
   def author_custom_image(size = :icon)
     author ? author.profile_custom_image(size) : nil
   end

@@ -15,7 +15,7 @@ Noosfero::Application.load_tasks
   Dir.glob(pattern).sort
 end.flatten.each do |taskfile|
   load taskfile
-end 
+end
 
 # plugins' tasks
 plugins_tasks = Dir.glob("config/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort +
