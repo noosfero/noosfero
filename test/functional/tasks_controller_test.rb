@@ -466,6 +466,15 @@ class TasksControllerTest < ActionController::TestCase
     assert_select '.task_responsible', 0
   end
 
+  should 'do not display responsible assignment filter if profile is not an organization' do
+    profile = create_user('personprofile').person
+    @controller.stubs(:profile).returns(profile)
+    login_as profile.user.login
+    get :index
+
+    assert_select '.filter_responsible', 0
+  end
+
   should 'display responsible assignment if profile is an organization' do
     profile = fast_create(Community)
     person1 = create_user('person1').person
