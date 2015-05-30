@@ -6,7 +6,15 @@ module Noosfero
   module API
     class API < Grape::API
       use Rack::JSONP
-      
+
+      logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+      logger.formatter = GrapeLogging::Formatters::Default.new
+      use RequestLogger, { logger: logger }
+
+      rescue_from :all do |e|
+        logger.error e
+      end
+
       @@NOOSFERO_CONF = nil
       
       def self.NOOSFERO_CONF
