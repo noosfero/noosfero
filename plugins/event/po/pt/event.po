@@ -61,7 +61,7 @@ msgstr[1] "%d dias para começar"
 msgid "One month left to start"
 msgid_plural "%d months left to start"
 msgstr[0] "Um mês para iniciar"
-msgstr[1] "% meses para iniciar"
+msgstr[1] "%d meses para iniciar"
 
 #: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:1
 msgid "Limit of items"
