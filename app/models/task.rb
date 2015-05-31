@@ -33,6 +33,7 @@ class Task < ActiveRecord::Base
 
   belongs_to :requestor, :class_name => 'Profile', :foreign_key => :requestor_id
   belongs_to :target, :foreign_key => :target_id, :polymorphic => true
+  belongs_to :responsible, :class_name => 'Person', :foreign_key => :responsible_id
 
   validates_uniqueness_of :code, :on => :create
   validates_presence_of :code

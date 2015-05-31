@@ -29,6 +29,11 @@
     <p>
       <%= labelled_text_field(_("Text filter")+': ', :filter_text, nil, {:id => 'filter-text',:value => @filter_text}) %>
     </p>
+    <% if profile.organization? %>
+      <p>
+        <%= labelled_select(_('Assigned to')+': ', :filter_responsible, :id, :name, @filter_responsible, [OpenStruct.new(:name => _('All'), :id => nil), OpenStruct.new(:name => _('Unassigned'), :id => -1)] + @responsible_candidates, :class => 'filter_responsible') %>
+      </p>
+    <% end %>
     <p>
       <%= submit_button(:search, _('Search')) %>
     </p>

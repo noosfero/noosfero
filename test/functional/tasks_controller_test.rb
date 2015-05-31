@@ -433,4 +433,91 @@ class TasksControllerTest < ActionController::TestCase
     post :index, :page => 2
     assert_equal [t4], assigns(:tasks)
   end
+
+  should 'filter tasks by responsible' do
+    Task.stubs(:per_page).returns(3)
+    requestor = fast_create(Person)
+    responsible = fast_create(Person)
+    t1 = Task.create!(:requestor => requestor, :target => profile, :responsible => responsible)
+    t2 = Task.create!(:requestor => requestor, :target => profile, :responsible => responsible)
+    t3 = Task.create!(:requestor => requestor, :target => profile)
+
+    get :index, :filter_responsible => responsible.id
+
+    assert_includes assigns(:tasks), t1
+    assert_includes assigns(:tasks), t2
+    assert_not_includes assigns(:tasks), t3
+
+    get :index
+
+    assert_includes assigns(:tasks), t1
+    assert_includes assigns(:tasks), t2
+    assert_includes assigns(:tasks), t3
+  end
+
+  should 'do not display responsible assignment if profile is not an organization' do
+    profile = create_user('personprofile').person
+    t1 = Task.create!(:requestor => profile, :target => profile)
+    @controller.stubs(:profile).returns(profile)
+    login_as profile.user.login
+    get :index
+
+    assert_select "#task-#{t1.id}"
+    assert_select '.task_responsible', 0
+  end
+
+  should 'do not display responsible assignment filter if profile is not an organization' do
+    profile = create_user('personprofile').person
+    @controller.stubs(:profile).returns(profile)
+    login_as profile.user.login
+    get :index
+
+    assert_select '.filter_responsible', 0
+  end
+
+  should 'display responsible assignment if profile is an organization' do
+    profile = fast_create(Community)
+    person1 = create_user('person1').person
+    person2 = create_user('person2').person
+    person3 = create_user('person3').person
+    profile.add_admin(person1)
+    profile.add_admin(person2)
+    profile.add_member(person3)
+    Task.create!(:requestor => person3, :target => profile)
+    @controller.stubs(:profile).returns(profile)
+
+    login_as person1.user.login
+    get :index
+    assert_equivalent [person1, person2], assigns(:responsible_candidates)
+    assert_select '.task_responsible'
+  end
+
+  should 'change task responsible' do
+    profile = fast_create(Community)
+    @controller.stubs(:profile).returns(profile)
+    person = create_user('person1').person
+    profile.add_admin(person)
+    task = Task.create!(:requestor => person, :target => profile)
+
+    assert_equal nil, task.responsible
+    login_as person.user.login
+    post :change_responsible, :task_id => task.id, :responsible_id => person.id
+    assert_equal person, task.reload.responsible
+  end
+
+  should 'not change task responsible if old responsible is not the current' do
+    profile = fast_create(Community)
+    @controller.stubs(:profile).returns(profile)
+    person1 = create_user('person1').person
+    person2 = create_user('person2').person
+    profile.add_admin(person1)
+    task = Task.create!(:requestor => person1, :target => profile, :responsible => person1)
+
+    login_as person1.user.login
+    post :change_responsible, :task_id => task.id, :responsible_id => person2.id, :old_responsible => nil
+    assert_equal person1, task.reload.responsible
+    json_response = ActiveSupport::JSON.decode(response.body)
+    assert !json_response['success']
+  end
+
 end
