@@ -2,7 +2,7 @@
 
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 
-  <% if profile.organization? && @responsible_candidates.present? %>
+  <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
     <div class="task_responsible">
       <span class="label"><%= _('Assign to:') %></span>
       <span>
@@ -12,8 +12,16 @@
     </div>
   <% end %>
 
+  <% if @view_only && task.responsible.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assigned to:') %></span>
+      <span class="value"><%= task.responsible.name %></span>
+    </div>
+  <% end %>
+
   <div class="task_decisions">
-    <%=
+    <% unless @view_only %>
+      <%=
         labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
                               :id => "decision-finish-#{task.id}",
                               :class => 'task_accept_radio',
@@ -29,7 +37,8 @@
                               :class => 'task_skip_radio',
                               :disabled => task.skip_disabled?,
                               :task_id => "#{task.id}")
-    %>
+      %>
+    <% end %>
   </div><!-- class="task_decisions" -->
 
   <div class="task_date"><%= show_time(task.created_at) %></div>

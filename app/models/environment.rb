@@ -75,7 +75,8 @@ class Environment < ActiveRecord::Base
         'edit_profile_design',
         'manage_products',
         'manage_friends',
-        'perform_task'
+        'perform_task',
+        'view_tasks'
       ]
     )
   end
