@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150513213939) do
+ActiveRecord::Schema.define(:version => 20150525101430) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -684,12 +684,13 @@ ActiveRecord::Schema.define(:version => 20150513213939) do
     t.date     "end_date"
     t.integer  "requestor_id"
     t.integer  "target_id"
-    t.string   "code",         :limit => 40
+    t.string   "code",           :limit => 40
     t.string   "type"
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
-    t.boolean  "spam",                       :default => false
+    t.boolean  "spam",                         :default => false
+    t.integer  "responsible_id"
   end
 
   add_index "tasks", ["requestor_id"], :name => "index_tasks_on_requestor_id"
