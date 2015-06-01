@@ -107,6 +107,7 @@ module Noosfero
       end
 
       class Task < Entity
+        root 'tasks', 'task'
         expose :id
         expose :type
       end

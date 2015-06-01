@@ -50,6 +50,11 @@ module Noosfero
         article.display_to?(current_user.person) ? article : forbidden!
       end
 
+      def find_task(tasks, id)
+        task = tasks.find(id)
+        task.display_to?(current_user.person) ? task : forbidden!
+      end
+
       def make_conditions_with_parameter(params = {})
         parsed_params = parser_params(params)
         conditions = {}

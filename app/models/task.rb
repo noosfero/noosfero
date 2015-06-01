@@ -265,6 +265,19 @@ class Task < ActiveRecord::Base
 
   include Spammable
 
+  #FIXME make this test
+  def display_to?(user = nil)
+    return true if self.target == user
+    return false if !self.target.kind_of?(Environment) && self.target.person?
+
+    if self.target.kind_of?(Environment)
+      user.is_admin?(self.target)
+    else
+      self.target.members.by_role(self.target.roles.reject {|r| !r.has_permission?('perform_task')}).include?(user)
+    end
+  end
+
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do

@@ -44,6 +44,7 @@ module Noosfero
       mount V1::People
       mount V1::Enterprises
       mount V1::Categories
+      mount V1::Tasks
       mount Session
 
       # hook point which allow plugins to add Grape::API extensions to API::API
