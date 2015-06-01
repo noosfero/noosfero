@@ -8,6 +8,7 @@
   background-color: #FFF;
   box-shadow: -3px 0px 5px #888;
   transition: width 0.3s ease-in;
+  z-index: 200;
 }
 
 #chat.opened {
@@ -123,6 +124,7 @@
   -webkit-border-radius: 5px;
   background: white;
   border: 1px solid #888;
+  z-index: 10;
 }
 #buddy-list .toolbar .dialog-error p {
   margin: 0 0 5px 0;
