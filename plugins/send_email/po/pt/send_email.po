@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -28,11 +28,11 @@ msgstr ""
 msgid "To"
 msgstr "Para"
 
-#: plugins/send_email/lib/send_email_plugin/mail.rb:24
+#: plugins/send_email/lib/send_email_plugin/mail.rb:23
 msgid "'%s' isn't a valid e-mail address"
 msgstr "'%s' não é um endereço de e-mail válido"
 
-#: plugins/send_email/lib/send_email_plugin/mail.rb:31
+#: plugins/send_email/lib/send_email_plugin/mail.rb:30
 msgid "'%s' address is not allowed (see SendEmailPlugin config)"
 msgstr ""
 "%{fn} '%s' endereço não permitido (veja as configurações do SendEmailPlugin)"
@@ -49,12 +49,12 @@ msgstr "As configurações foram salvas"
 msgid "Configurations could not be saved"
 msgstr "As configurações não puderam ser salvas"
 
-#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:16
+#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:17
 #: plugins/send_email/views/send_email_plugin/success.html.erb:1
 msgid "Message sent"
 msgstr "A mensagem foi enviada"
 
-#: plugins/send_email/views/send_email_plugin/sender/message.html.erb:1
+#: plugins/send_email/views/send_email_plugin/sender/send_message.html.erb:1
 msgid "Contact from %s"
 msgstr "Contato de %s"
 

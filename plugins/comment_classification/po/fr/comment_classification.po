@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2015-03-07 12:26+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -91,8 +91,8 @@ msgid ""
 "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
 "i>."
 msgstr ""
-"<i>%{utilisateur}</i> ajout des statuts <i>%{nom_ du_statut}</i> à "
-"<i>%{creer_a}</i>."
+"<i>%{utilisateur}</i> ajout des statuts <i>%{nom_ du_statut}</i> à <i>"
+"%{creer_a}</i>."
 
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:18
 msgid "<i>Reason:</i> %s"

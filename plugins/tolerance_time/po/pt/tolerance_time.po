@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -41,8 +41,17 @@ msgstr ""
 "Este conteúdo não pode mais ser editado porque seu tempo de tolerância "
 "expirou"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:60
-msgid "The tolerance time for editing this content is over."
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:59
+msgid "editing"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:63
+msgid "cloning"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:70
+#, fuzzy
+msgid "The tolerance time for %s this content is over."
 msgstr "O tempo de tolerância para edição deste conteúdo acabou."
 
 #: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:10

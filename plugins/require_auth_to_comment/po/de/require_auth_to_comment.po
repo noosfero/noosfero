@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -22,6 +22,22 @@ msgstr ""
 #: plugins/require_auth_to_comment/lib/require_auth_to_comment_plugin.rb:12
 msgid "Requires users to authenticate in order to post comments."
 msgstr "Nutzer müssen sich anmelden, um Kommentare abgeben zu dürfen."
+
+#: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:1
+msgid "Require auth to comment Settings"
+msgstr ""
+
+#: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:8
+msgid "Hide button"
+msgstr ""
+
+#: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:11
+msgid "Display login popup"
+msgstr ""
+
+#: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:17
+msgid "Save"
+msgstr ""
 
 #: plugins/require_auth_to_comment/views/profile-editor-extras.html.erb:1
 msgid "Comments"

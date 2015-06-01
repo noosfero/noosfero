@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -80,11 +80,11 @@ msgstr "Este campo precisa ser privado"
 msgid "USP number / Username"
 msgstr "Número USP / Nome de usuário"
 
-#: plugins/stoa/lib/stoa_plugin.rb:70 plugins/stoa/lib/stoa_plugin.rb:89
+#: plugins/stoa/lib/stoa_plugin.rb:71 plugins/stoa/lib/stoa_plugin.rb:90
 msgid " validation failed"
 msgstr " validação falhou"
 
-#: plugins/stoa/lib/stoa_plugin.rb:121 plugins/stoa/lib/stoa_plugin.rb:125
+#: plugins/stoa/lib/stoa_plugin.rb:122 plugins/stoa/lib/stoa_plugin.rb:126
 #: plugins/stoa/lib/ext/person.rb:6
 msgid "USP Number"
 msgstr "Número USP"
