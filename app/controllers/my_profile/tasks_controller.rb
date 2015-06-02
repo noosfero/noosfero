@@ -49,7 +49,7 @@ class TasksController < MyProfileController
           task = profile.find_in_all_tasks(id)
           begin
             task.update_attributes(value[:task])
-            task.send(decision)
+            task.send(decision, current_person)
           rescue Exception => ex
             message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
             failed[ex.message] ? failed[ex.message] << message : failed[ex.message] = [message]
