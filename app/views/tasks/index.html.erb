@@ -46,36 +46,41 @@
   </p>
 <% else %>
   <%= form_tag :action => 'close' do%>
-    <% button_bar do %>
+    <% button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
       <%= submit_button :save, _("Apply!") %>
       <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-    <% end %>
+    <% end unless @view_only %>
 
     <ul class='task-list'>
-      <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
-      </p>
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
+        </p>
+      <% end %>
 
       <div class="task_boxes">
         <%= render :partial => 'task', :collection => @tasks %>
       </div>
-      <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
-      </p>
+
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
+        </p>
+      <% end %>
     </ul>
 
     <%= pagination_links(@tasks)%>
 
-    <% button_bar do %>
+    <% button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
       <%= submit_button :save, _("Apply!") %>
       <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-    <% end %>
+    <% end unless @view_only %>
   <% end %>
 <% end %>
 </p>
