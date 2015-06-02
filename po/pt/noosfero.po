@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-06-02 02:14+0200\n"
-"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
+"PO-Revision-Date: 2015-06-02 19:44+0200\n"
+"Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -378,9 +378,8 @@ msgid "Manage environment users"
 msgstr "Gerenciar usuários do ambiente"
 
 #: app/models/environment.rb:32
-#, fuzzy
 msgid "Manage environment organizations"
-msgstr "Gerenciar ambiente de validadores"
+msgstr "Gerenciar organizações do ambiente"
 
 #: app/models/environment.rb:33
 msgid "Manage environment templates"
@@ -697,14 +696,12 @@ msgstr ""
 "podem ser feitas."
 
 #: app/models/forum.rb:38
-#, fuzzy
 msgid "Logged users"
-msgstr "Identificado(a) como %s"
+msgstr "Usuários logados"
 
 #: app/models/forum.rb:41
-#, fuzzy
 msgid "Me"
-msgstr "Masculino"
+msgstr "Eu"
 
 #: app/models/forum.rb:42 app/models/block.rb:250
 #: app/helpers/application_helper.rb:563
@@ -712,9 +709,8 @@ msgid "Friends"
 msgstr "Amigos"
 
 #: app/models/forum.rb:45
-#, fuzzy
 msgid "Administrators"
-msgstr "Administração"
+msgstr "Administradores"
 
 #: app/models/forum.rb:46 app/models/block.rb:250
 #: app/helpers/profile_helper.rb:43 app/helpers/application_helper.rb:571
@@ -1831,14 +1827,12 @@ msgid "Article suggestion"
 msgstr "Sugestão de artigo"
 
 #: app/models/suggest_article.rb:64
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{subject}."
-msgstr "%{sender} sugeriu a publicação do artigo: %{subject}."
+msgstr "%{requestor} sugeriu a publicação do artigo: %{subject}."
 
 #: app/models/suggest_article.rb:77
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{article}."
-msgstr "%{sender} sugeriu a publicação do artigo %{article}."
+msgstr "%{requestor} sugeriu a publicação do artigo %{article}."
 
 #: app/models/rss_feed.rb:6
 msgid "RssFeed"
@@ -2221,11 +2215,11 @@ msgstr "Não logado"
 
 #: app/models/block.rb:256
 msgid "Can be modified"
-msgstr ""
+msgstr "Pode ser modificada"
 
 #: app/models/block.rb:257
 msgid "Cannot be modified"
-msgstr ""
+msgstr "Não pode ser modificada"
 
 #: app/models/block.rb:263
 msgid "Can be moved"
@@ -2563,9 +2557,8 @@ msgid "Public"
 msgstr "Público"
 
 #: app/helpers/application_helper.rb:944
-#, fuzzy
 msgid "Clone %s"
-msgstr "Clonar"
+msgstr "Clonar %s"
 
 #: app/helpers/application_helper.rb:958
 msgid "Online Manual"
@@ -2842,21 +2835,20 @@ msgid "See all connections"
 msgstr "Ver todas as conexões"
 
 #: app/helpers/application_helper.rb:1518
-#, fuzzy
 msgid "Full screen"
-msgstr "Post completo"
+msgstr "Tela cheia"
 
 #: app/helpers/application_helper.rb:1523
 msgid "Go to full screen mode"
-msgstr ""
+msgstr "Ir para o modo tela cheia"
 
 #: app/helpers/application_helper.rb:1526
 msgid "Exit full screen"
-msgstr ""
+msgstr "Sair da tela cheia"
 
 #: app/helpers/application_helper.rb:1532
 msgid "Exit full screen mode"
-msgstr ""
+msgstr "Sair do modo tela cheia"
 
 #: app/helpers/manage_products_helper.rb:156
 #: app/views/manage_products/_display_category.html.erb:3
@@ -2988,9 +2980,8 @@ msgid "search in all categories"
 msgstr "procurar em todas as categorias"
 
 #: app/helpers/search_helper.rb:158
-#, fuzzy
 msgid "Choose a template"
-msgstr "O modelo \"%s\""
+msgstr "Escolha um template"
 
 #: app/helpers/boxes_helper.rb:106
 msgid "This block is invisible. Your visitors will not see it."
@@ -4081,9 +4072,8 @@ msgid "Community fields not updated successfully."
 msgstr "Campos de comunidade não atualizados com sucesso."
 
 #: app/controllers/admin/organizations_controller.rb:7
-#, fuzzy
 msgid "Organization profiles"
-msgstr "Método de Aprovação de Organização"
+msgstr "Perfis de organizações"
 
 #: app/controllers/admin/organizations_controller.rb:9
 #: app/views/tasks/index.html.erb:7 app/views/tasks/index.html.erb:34
@@ -4093,9 +4083,8 @@ msgid "All"
 msgstr "Todos"
 
 #: app/controllers/admin/organizations_controller.rb:33
-#, fuzzy
 msgid "%s enabled"
-msgstr "%s não foi habilitado."
+msgstr "%s habilitado"
 
 #: app/controllers/admin/organizations_controller.rb:35
 #, fuzzy
@@ -4103,9 +4092,8 @@ msgid "%s could not be enabled"
 msgstr "%s não pode ser enviado"
 
 #: app/controllers/admin/organizations_controller.rb:42
-#, fuzzy
 msgid "%s disabled"
-msgstr "Desabilitado"
+msgstr "%s desabilitado"
 
 #: app/controllers/admin/organizations_controller.rb:44
 #, fuzzy
@@ -4568,9 +4556,8 @@ msgid "Files"
 msgstr "Arquivos"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:52
-#, fuzzy
 msgid "Role successfuly removed!"
-msgstr "Produto removido com sucesso"
+msgstr "Papel removido com sucesso!"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:54
 #, fuzzy
@@ -4579,7 +4566,7 @@ msgstr "Falhou em criar papel"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:85
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: app/controllers/my_profile/tasks_controller.rb:28
 #, fuzzy
