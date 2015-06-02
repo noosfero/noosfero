@@ -127,15 +127,7 @@ class Article < ActiveRecord::Base
     {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
-  #FIXME make this test
-  scope :newer_than, lambda { |reference_id|
-    {:conditions => ["articles.id > #{reference_id}"]}
-  }
-
-  #FIXME make this test
-  scope :older_than, lambda { |reference_id|
-    {:conditions => ["articles.id < #{reference_id}"]}
-  }
+  include TimeScopes
 
   scope :by_range, lambda { |range| {
     :conditions => [

@@ -1,41 +1,41 @@
 module Noosfero
   module API
     module Entities
-  
+
       Entity.format_with :timestamp do |date|
         date.strftime('%Y/%m/%d %H:%M:%S') if date
       end
-  
+
       class Image < Entity
         root 'images', 'image'
 
         expose  :url do |image, options|
           image.public_filename
         end
-  
+
         expose  :icon_url do |image, options|
           image.public_filename(:icon)
         end
-  
+
         expose  :minor_url do |image, options|
           image.public_filename(:minor)
         end
-  
+
         expose  :portrait_url do |image, options|
           image.public_filename(:portrait)
         end
-  
+
         expose  :thumb_url do |image, options|
           image.public_filename(:thumb)
         end
       end
-  
+
       class Profile < Entity
         expose :identifier, :name, :id
         expose :created_at, :format_with => :timestamp
         expose :image, :using => Image
       end
-  
+
       class Person < Profile
         root 'people', 'person'
       end
@@ -46,13 +46,13 @@ module Noosfero
         root 'communities', 'community'
         expose :description
       end
-  
+
       class Category < Entity
         root 'categories', 'category'
         expose :name, :id, :slug
         expose :image, :using => Image
       end
-  
+
       class ArticleBase < Entity
         root 'articles', 'article'
         expose :id
@@ -84,8 +84,8 @@ module Noosfero
         expose :created_at, :format_with => :timestamp
         expose :author, :using => Profile
       end
-  
-  
+
+
       class User < Entity
         root 'users', 'user'
         expose :id
@@ -95,13 +95,13 @@ module Noosfero
           output = {}
           user.person.role_assignments.map do |role_assigment|
             if role_assigment.resource.respond_to?(:identifier)
-              output[role_assigment.resource.identifier] = role_assigment.role.permissions 
+              output[role_assigment.resource.identifier] = role_assigment.role.permissions
             end
           end
           output
         end
       end
-  
+
       class UserLogin < User
         expose :private_token
       end

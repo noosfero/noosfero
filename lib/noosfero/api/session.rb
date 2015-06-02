@@ -41,14 +41,14 @@ module Noosfero
         attrs[:password_confirmation] = attrs[:password]
 
         #Commented for stress tests
-        
+
         # remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env['REMOTE_ADDR'])
         # private_key = API.NOOSFERO_CONF['api_recaptcha_private_key']
         # api_recaptcha_verify_uri = API.NOOSFERO_CONF['api_recaptcha_verify_uri']
         # captcha_result = verify_recaptcha_v2(remote_ip, params['g-recaptcha-response'], private_key, api_recaptcha_verify_uri)
-        user = User.new(attrs)  
-#        if captcha_result["success"] and user.save 
-        if user.save 
+        user = User.new(attrs)
+#        if captcha_result["success"] and user.save
+        if user.save
           user.activate
           user.generate_private_token!
           present user, :with => Entities::UserLogin

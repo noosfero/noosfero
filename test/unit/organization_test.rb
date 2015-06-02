@@ -477,4 +477,25 @@ class OrganizationTest < ActiveSupport::TestCase
     assert !c.is_admin?(moderator)
   end
 
+  should 'fetch organizations there are visible for a user' do
+    person = create_user('some-person').person
+    o1 = fast_create(Organization, :public_profile => true , :visible => true )
+    o1.add_member(person)
+    o2 = fast_create(Organization, :public_profile => true , :visible => true )
+    o3 = fast_create(Organization, :public_profile => false, :visible => true )
+    o4 = fast_create(Organization, :public_profile => false, :visible => true)
+    o4.add_member(person)
+    o5 = fast_create(Organization, :public_profile => true , :visible => false)
+    o6 = fast_create(Organization, :public_profile => false, :visible => false)
+
+    organizations = Organization.visible_for_person(person)
+
+    assert_includes     organizations, o1
+    assert_includes     organizations, o2
+    assert_not_includes organizations, o3
+    assert_includes     organizations, o4
+    assert_not_includes organizations, o5
+    assert_not_includes organizations, o6
+  end
+
 end

@@ -120,16 +120,15 @@ class User < ActiveRecord::Base
     self.update_attribute :last_login_at, Time.now
   end
 
-  #FIXME make this test
   def generate_private_token!
     self.private_token = SecureRandom.hex
     self.private_token_generated_at = DateTime.now
     save(:validate => false)
   end
 
-  #FIXME make this test
+  TOKEN_VALIDITY = 2.weeks
   def private_token_expired?
-    self.generate_private_token! if self.private_token.nil? || (self.private_token_generated_at + 2.weeks < DateTime.now)
+    self.private_token.nil? || (self.private_token_generated_at + TOKEN_VALIDITY < DateTime.now)
   end
 
   # Activates the user in the database.

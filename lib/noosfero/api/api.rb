@@ -9,21 +9,21 @@ module Noosfero
 
       logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
       logger.formatter = GrapeLogging::Formatters::Default.new
-      use RequestLogger, { logger: logger }
+      use GrapeLogging::Middleware::RequestLogger, { logger: logger }
 
       rescue_from :all do |e|
         logger.error e
       end
 
       @@NOOSFERO_CONF = nil
-      
+
       def self.NOOSFERO_CONF
-        if @@NOOSFERO_CONF 
+        if @@NOOSFERO_CONF
           @@NOOSFERO_CONF
         else
           file = Rails.root.join('config', 'noosfero.yml')
           @@NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[Rails.env] || {} : {}
-        end    
+        end
       end
 
       before { setup_multitenancy }
@@ -34,7 +34,7 @@ module Noosfero
       prefix "api"
       format :json
       content_type :txt, "text/plain"
-      
+
       helpers APIHelpers
 
       mount V1::Articles
@@ -57,6 +57,10 @@ module Noosfero
           end
         end
       end
+    end
+
+    def self.api_class
+      API
     end
   end
 end

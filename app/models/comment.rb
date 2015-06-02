@@ -20,16 +20,7 @@ class Comment < ActiveRecord::Base
 
   scope :without_reply, :conditions => ['reply_of_id IS NULL']
 
-  #FIXME make this test
-  scope :newer_than, lambda { |reference_id|
-    {:conditions => ["comments.id > #{reference_id}"]}
-  }
-
-  #FIXME make this test
-  scope :older_than, lambda { |reference_id|
-    {:conditions => ["comments.id < #{reference_id}"]}
-  }
-
+  include TimeScopes
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
