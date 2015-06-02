@@ -23,3 +23,13 @@ end
 #  end
 #  alias_method_chain :handle_failed_job, :loggin
 #end
+
+# Chain delayed job's handle_failed_job method to do exception notification
+Delayed::Worker.class_eval do
+  def handle_failed_job_with_notification job, error
+    handle_failed_job_without_notification job, error
+    ExceptionNotifier.notify_exception error, exception_recipients: NOOSFERO_CONF['exception_recipients'],
+      data: {job: job, handler: job.handler} rescue nil
+  end
+  alias_method_chain :handle_failed_job, :notification
+end
