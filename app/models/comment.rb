@@ -37,6 +37,8 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
+  acts_as_voteable
+
   def comment_root
     (reply_of && reply_of.comment_root) || self
   end

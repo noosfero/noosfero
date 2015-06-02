@@ -103,6 +103,8 @@ roles] }
 
   belongs_to :user, :dependent => :delete
 
+  acts_as_voter
+
   def can_change_homepage?
     !environment.enabled?('cant_change_homepage') || is_admin?
   end

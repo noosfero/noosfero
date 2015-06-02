@@ -96,6 +96,8 @@ class Article < ActiveRecord::Base
   belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
   before_destroy :rotate_translations
 
+  acts_as_voteable
+
   before_create do |article|
     article.published_at ||= Time.now
     if article.reference_article && !article.parent
