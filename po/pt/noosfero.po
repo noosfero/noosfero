@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-06-02 02:14+0200\n"
-"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
+"PO-Revision-Date: 2015-06-02 19:30+0200\n"
+"Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -378,9 +378,8 @@ msgid "Manage environment users"
 msgstr "Gerenciar usuários do ambiente"
 
 #: app/models/environment.rb:32
-#, fuzzy
 msgid "Manage environment organizations"
-msgstr "Gerenciar ambiente de validadores"
+msgstr "Gerenciar organizações do ambiente"
 
 #: app/models/environment.rb:33
 msgid "Manage environment templates"
@@ -697,14 +696,12 @@ msgstr ""
 "podem ser feitas."
 
 #: app/models/forum.rb:38
-#, fuzzy
 msgid "Logged users"
-msgstr "Identificado(a) como %s"
+msgstr "Usuários logados"
 
 #: app/models/forum.rb:41
-#, fuzzy
 msgid "Me"
-msgstr "Masculino"
+msgstr "Eu"
 
 #: app/models/forum.rb:42 app/models/block.rb:250
 #: app/helpers/application_helper.rb:563
@@ -712,9 +709,8 @@ msgid "Friends"
 msgstr "Amigos"
 
 #: app/models/forum.rb:45
-#, fuzzy
 msgid "Administrators"
-msgstr "Administração"
+msgstr "Administradores"
 
 #: app/models/forum.rb:46 app/models/block.rb:250
 #: app/helpers/profile_helper.rb:43 app/helpers/application_helper.rb:571
@@ -1831,14 +1827,12 @@ msgid "Article suggestion"
 msgstr "Sugestão de artigo"
 
 #: app/models/suggest_article.rb:64
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{subject}."
-msgstr "%{sender} sugeriu a publicação do artigo: %{subject}."
+msgstr "%{requestor} sugeriu a publicação do artigo: %{subject}."
 
 #: app/models/suggest_article.rb:77
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{article}."
-msgstr "%{sender} sugeriu a publicação do artigo %{article}."
+msgstr "%{requestor} sugeriu a publicação do artigo %{article}."
 
 #: app/models/rss_feed.rb:6
 msgid "RssFeed"
@@ -2221,7 +2215,7 @@ msgstr "Não logado"
 
 #: app/models/block.rb:256
 msgid "Can be modified"
-msgstr ""
+msgstr "Pode ser modificada"
 
 #: app/models/block.rb:257
 msgid "Cannot be modified"
