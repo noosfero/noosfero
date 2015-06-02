@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-06-02 19:30+0200\n"
+"PO-Revision-Date: 2015-06-02 19:44+0200\n"
 "Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -2219,7 +2219,7 @@ msgstr "Pode ser modificada"
 
 #: app/models/block.rb:257
 msgid "Cannot be modified"
-msgstr ""
+msgstr "Não pode ser modificada"
 
 #: app/models/block.rb:263
 msgid "Can be moved"
@@ -2557,9 +2557,8 @@ msgid "Public"
 msgstr "Público"
 
 #: app/helpers/application_helper.rb:944
-#, fuzzy
 msgid "Clone %s"
-msgstr "Clonar"
+msgstr "Clonar %s"
 
 #: app/helpers/application_helper.rb:958
 msgid "Online Manual"
@@ -2836,21 +2835,20 @@ msgid "See all connections"
 msgstr "Ver todas as conexões"
 
 #: app/helpers/application_helper.rb:1518
-#, fuzzy
 msgid "Full screen"
-msgstr "Post completo"
+msgstr "Tela cheia"
 
 #: app/helpers/application_helper.rb:1523
 msgid "Go to full screen mode"
-msgstr ""
+msgstr "Ir para o modo tela cheia"
 
 #: app/helpers/application_helper.rb:1526
 msgid "Exit full screen"
-msgstr ""
+msgstr "Sair da tela cheia"
 
 #: app/helpers/application_helper.rb:1532
 msgid "Exit full screen mode"
-msgstr ""
+msgstr "Sair do modo tela cheia"
 
 #: app/helpers/manage_products_helper.rb:156
 #: app/views/manage_products/_display_category.html.erb:3
@@ -2982,9 +2980,8 @@ msgid "search in all categories"
 msgstr "procurar em todas as categorias"
 
 #: app/helpers/search_helper.rb:158
-#, fuzzy
 msgid "Choose a template"
-msgstr "O modelo \"%s\""
+msgstr "Escolha um template"
 
 #: app/helpers/boxes_helper.rb:106
 msgid "This block is invisible. Your visitors will not see it."
@@ -4075,9 +4072,8 @@ msgid "Community fields not updated successfully."
 msgstr "Campos de comunidade não atualizados com sucesso."
 
 #: app/controllers/admin/organizations_controller.rb:7
-#, fuzzy
 msgid "Organization profiles"
-msgstr "Método de Aprovação de Organização"
+msgstr "Perfis de organizações"
 
 #: app/controllers/admin/organizations_controller.rb:9
 #: app/views/tasks/index.html.erb:7 app/views/tasks/index.html.erb:34
@@ -4087,9 +4083,8 @@ msgid "All"
 msgstr "Todos"
 
 #: app/controllers/admin/organizations_controller.rb:33
-#, fuzzy
 msgid "%s enabled"
-msgstr "%s não foi habilitado."
+msgstr "%s habilitado"
 
 #: app/controllers/admin/organizations_controller.rb:35
 #, fuzzy
@@ -4097,9 +4092,8 @@ msgid "%s could not be enabled"
 msgstr "%s não pode ser enviado"
 
 #: app/controllers/admin/organizations_controller.rb:42
-#, fuzzy
 msgid "%s disabled"
-msgstr "Desabilitado"
+msgstr "%s desabilitado"
 
 #: app/controllers/admin/organizations_controller.rb:44
 #, fuzzy
@@ -4562,9 +4556,8 @@ msgid "Files"
 msgstr "Arquivos"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:52
-#, fuzzy
 msgid "Role successfuly removed!"
-msgstr "Produto removido com sucesso"
+msgstr "Papel removido com sucesso!"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:54
 #, fuzzy
@@ -4573,7 +4566,7 @@ msgstr "Falhou em criar papel"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:85
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: app/controllers/my_profile/tasks_controller.rb:28
 #, fuzzy
