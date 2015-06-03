@@ -1052,6 +1052,11 @@ code input {
   margin-top: 10px;
   display: none;
 }
+
+#change-image {
+  display: table-caption;
+}
+
 .zoomable-image {
   position: relative;
   display: inline-block;

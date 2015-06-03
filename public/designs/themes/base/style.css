@@ -1064,6 +1064,11 @@ hr.pre-posts, hr.sep-posts {
 #content .main-block .created-at {
   text-align: left;
   color: #AAA;
+  font-size: 11px;
+  padding-top: 20px;
+  border-top: 1px solid #D7D7D7;
+  margin-top: 30px;
+  margin-bottom:15px;
 }
 #content .main-block .created-at a {
   color: #AAA;
@@ -1415,3 +1420,30 @@ table#recaptcha_table tr:hover td {
   color:#333;
 }
 
+/************************* Article Page *****************************/
+
+#article-header .preview {
+  font-size: 15px;
+}
+
+.article-body-img {
+  float: left;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+#content #article .article-body .article-body-img img {
+  height: auto;
+  width: auto;
+  min-height: 120px;
+  max-height: 180px;
+  max-width: 250px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#content #article .article-body .article-body-img p {
+  margin-bottom: 10px;
+  font-size: 10px;
+  min-height: 20px;
+}

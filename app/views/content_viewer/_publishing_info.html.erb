@@ -1,0 +1,29 @@
+<span class="publishing-info">
+  <span class="date">
+    <%= show_date(@page.published_at) %>
+  </span>
+  <span class="author">
+    <%= _(", by %s") % (@page.author ? link_to(@page.author_name, @page.author_url) : @page.author_name) %>
+  </span>
+<% unless @no_comments %>
+  <span class="comments">
+    <%= (" - %s") % link_to_comments(@page)%>
+  </span>
+<% end %>
+</span>
+
+<% if @page.display_hits? || @page.license.present? %>
+  <div id='article-sub-header'>
+    <% if @page.display_hits? %>
+      <div id="article-hits">
+        <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
+      </div>
+    <% end %>
+
+    <% if @page.license.present? %>
+      <div id="article-license">
+        <%= _('Licensed under %s') % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

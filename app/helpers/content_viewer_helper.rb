@@ -30,7 +30,7 @@ module ContentViewerHelper
         date_format +
         content_tag('span', _(", by %s") % (article.author ? link_to(article.author_name, article.author_url) : article.author_name), :class => 'author') +
         content_tag('span', comments, :class => 'comments'),
-        :class => 'created-at'
+        :class => 'publishing-info'
       )
     end
     title
