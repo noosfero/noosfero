@@ -628,6 +628,12 @@ class TasksControllerTest < ActionController::TestCase
 
     assert_select ".task_responsible select", 0
     assert_select ".task_responsible .value"
+  end 
+
+  should 'store the person who closes a task' do
+    t = profile.tasks.build; t.save!
+    post :close, :tasks => {t.id => {:decision => 'finish', :task => {}}}
+    assert_equal profile, t.reload.closed_by
   end
 
 end
