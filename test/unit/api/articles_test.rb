@@ -459,7 +459,7 @@ class ArticlesTest < ActiveSupport::TestCase
       post "/api/v1/articles/#{article.id}/children/suggest?#{params.to_query}"
     end
     json = JSON.parse(last_response.body)
-    assert_equal 'SuggestArticle', json['type']
+    assert_equal 'SuggestArticle', json['task']['type']
   end
 
   should 'suggest event children' do
@@ -470,7 +470,7 @@ class ArticlesTest < ActiveSupport::TestCase
       post "/api/v1/articles/#{article.id}/children/suggest?#{params.to_query}"
     end
     json = JSON.parse(last_response.body)
-    assert_equal 'SuggestArticle', json['type']
+    assert_equal 'SuggestArticle', json['task']['type']
   end
 
   should 'update hit attribute of article children' do
