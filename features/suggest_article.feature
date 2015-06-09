@@ -14,9 +14,12 @@ Feature: suggest article
 
   @selenium
   Scenario: highlight an article before approval of a suggested article
-    Given someone suggested the following article to be published
-      | target           | article_name        | article_body                    | name | email            |
-      | sample-community | A suggested article | this is an article about whales | jose | jose@example.org |
+    Given I am on Sample Community's blog
+    And I follow "Suggest an article"
+    And I fill in "Title" with "Suggestion"
+    And I fill in "Your name" with "Some Guy"
+    And I fill in "Email" with "someguy@somewhere.com"
+    And I press "Save"
     When I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Process requests"
