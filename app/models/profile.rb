@@ -84,6 +84,7 @@ class Profile < ActiveRecord::Base
     'invite_members'       => N_('Invite members'),
     'send_mail_to_members' => N_('Send e-Mail to members'),
     'manage_custom_roles'  => N_('Manage custom roles'),
+    'manage_email_templates' => N_('Manage Email Templates'),
   }
 
   acts_as_accessible
@@ -217,6 +218,8 @@ class Profile < ActiveRecord::Base
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
+
+  has_many :email_templates, :foreign_key => :owner_id
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
@@ -540,6 +543,10 @@ class Profile < ActiveRecord::Base
       articles.type is NULL)",
       true, true, 'UploadedFile', 'RssFeed', 'Blog'
     ).order('articles.published_at desc, articles.id desc')
+  end
+
+  def to_liquid
+    HashWithIndifferentAccess.new :name => name, :identifier => identifier
   end
 
   class << self

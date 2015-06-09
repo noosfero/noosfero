@@ -33,6 +33,7 @@
 *= require require_login.js
 *= require slick.js
 *= require block-store.js
+*= require email_templates.js
 */
 
 // lodash configuration

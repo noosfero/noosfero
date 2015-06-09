@@ -72,6 +72,8 @@
 
   <%= control_panel_button(_('Edit welcome page'), 'welcome-page', :action => 'welcome_page') if has_welcome_page %>
 
+  <%= control_panel_button(_('Email Templates'), 'email-templates', :controller => :profile_email_templates) if profile.organization? %>
+
   <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
     <%= control_panel_button(button[:title], button[:icon], button[:url], button[:html_options]) %>
   <% end %>

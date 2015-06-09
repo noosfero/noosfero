@@ -1,5 +1,7 @@
 class UserMailer < ApplicationMailer
 
+  include EmailTemplateHelper
+
   def activation_email_notify(user)
     self.environment = user.environment
 
@@ -25,10 +27,12 @@ class UserMailer < ApplicationMailer
     @redirection = (true if user.return_to)
     @join = (user.community_to_join if user.community_to_join)
 
-    mail(
+    mail_with_template(
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
       to: user.email,
       subject: _("[%s] Activate your account") % [user.environment.name],
+      template_params: {:environment => user.environment, :activation_code => @activation_code, :redirection => @redirection, :join => @join, :person => user.person, :url => @url},
+      email_template: user.environment.email_templates.find_by_template_type(:user_activation),
     )
   end
 

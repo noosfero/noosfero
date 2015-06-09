@@ -1527,6 +1527,29 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'members'
   end
 
+  should 'display email templates as an option to send mail' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+
+    template1 = EmailTemplate.create!(:owner => community, :name => "Template 1", :template_type => :organization_members)
+    template2 = EmailTemplate.create!(:owner => community, :name => "Template 2")
+
+    get :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_select '.template-selection'
+    assert_equal [template1], assigns(:email_templates)
+  end
+
+  should 'do not display email template selection when there is no template for organization members' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+
+    get :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_select '.template-selection'
+    assert assigns(:email_templates).empty?
+  end
+
   should 'show all fields to anonymous user' do
     viewed = create_user('person_1').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])

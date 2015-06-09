@@ -1,3 +1,5 @@
+<%= task_email_template(_('Select an acceptance email template:'), @acceptance_email_templates, task) %>
+
 <%= render :file => 'shared/tiny_mce' %>
 
 <%= labelled_form_field(_('Create a link'), f.check_box(:create_link)) %>

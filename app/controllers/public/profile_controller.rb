@@ -371,6 +371,7 @@ class ProfileController < PublicController
   def send_mail
     @mailing = profile.mailings.build(params[:mailing])
     @mailing.data = session[:members_filtered] ? {:members_filtered => session[:members_filtered]} : {}
+    @email_templates = profile.email_templates.find_all_by_template_type(:organization_members)
     if request.post?
       @mailing.locale = locale
       @mailing.person = user

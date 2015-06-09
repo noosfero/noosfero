@@ -1,0 +1,18 @@
+.template-fields .header-fields, .template-fields .available-params {
+  width: 48%;
+  display: inline-block;
+}
+.template-fields .available-params .values {
+  color: rgb(111, 111, 111);
+}
+.template-fields .available-params .reference {
+  text-align: right;
+}
+.template-fields .available-params .reference a {
+  color: rgb(32, 101, 229);
+  text-decoration: none;
+  font-size: 10px;
+}
+.email-templates table td {
+  text-align: center;
+}

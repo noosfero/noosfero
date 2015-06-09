@@ -1,0 +1,27 @@
+<div class="email-templates">
+  <h1><%= _('Email Templates') %></h1>
+
+  <table>
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('Type') %></th>
+      <th><%= _('Actions') %></th>
+    </tr>
+
+  <% @email_templates.each do |email_template| %>
+    <tr>
+      <td><%= email_template.name %></td>
+      <td><%= email_template.type_description %></td>
+      <td>
+        <%= button_without_text(:edit, _('Edit'), {:action => :edit, :id => email_template.id}) %>
+        <%= button_without_text(:remove, _('Remove'), {:action => :destroy, :id => email_template.id}, method: :delete, data: { confirm: 'Are you sure?' }) %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+
+  <%= button(:new, _('New template'), :action => :new) %>
+  <%= button(:back, _('Back'), @back_to) %>
+</div>
