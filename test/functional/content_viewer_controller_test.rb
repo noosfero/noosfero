@@ -1527,12 +1527,12 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'use context method in extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        if current_person.public?
+        if profile.public?
           {:title => 'some_title', :icon => 'some_icon', :url => '/someurl'}
         else
           {:title => 'another_title', :icon => 'another_icon', :url => '/anotherurl'}
         end
-      end
+       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
 
