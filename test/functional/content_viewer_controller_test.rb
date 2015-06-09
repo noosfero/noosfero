@@ -262,7 +262,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template "profile/_private_profile"
+    assert_template "shared/access_denied"
   end
 
   should 'not give access to private articles if logged in but not member' do

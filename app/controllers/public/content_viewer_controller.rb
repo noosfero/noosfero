@@ -127,7 +127,7 @@ class ContentViewerController < ApplicationController
     end
 
     unless @page.display_to?(user)
-      if !profile.visible? || profile.secret? || (user && user.follows?(profile))
+      if !profile.visible? || profile.secret? || (user && user.follows?(profile)) || user.blank?
         render_access_denied
       else #!profile.public?
         private_profile_partial_parameters
