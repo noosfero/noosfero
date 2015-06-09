@@ -484,7 +484,7 @@ class ApplicationControllerTest < ActionController::TestCase
     should 'change postgresql schema' do
       uses_host 'schema1.com'
       Noosfero::MultiTenancy.expects(:on?).returns(true)
-      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' })
+      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' }).at_least_once
       exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
       assert_match /SET search_path TO schema1/, exception.message
     end
