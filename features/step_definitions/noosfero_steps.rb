@@ -94,7 +94,7 @@ Given /^the following blocks$/ do |table|
       owner.boxes<< Box.new
       owner.boxes.first.blocks << MainBlock.new
     end
-    box = owner.boxes.where(:position => 3).first
+    box = owner.boxes.first
     klass.constantize.create!(item.merge(:box => box))
   end
 end
