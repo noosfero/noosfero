@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150525101430) do
+ActiveRecord::Schema.define(:version => 20150602142030) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -691,6 +691,7 @@ ActiveRecord::Schema.define(:version => 20150525101430) do
     t.integer  "image_id"
     t.boolean  "spam",                         :default => false
     t.integer  "responsible_id"
+    t.integer  "closed_by_id"
   end
 
   add_index "tasks", ["requestor_id"], :name => "index_tasks_on_requestor_id"
