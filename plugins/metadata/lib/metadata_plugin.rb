@@ -23,7 +23,7 @@ class MetadataPlugin < Noosfero::Plugin
     },
     content_viewer: {
       variable: proc do
-        if profile and profile.home_page_id == @page.id
+        if profile and @page and profile.home_page_id == @page.id
           @profile
         elsif @page.respond_to? :encapsulated_file
           @page.encapsulated_file
