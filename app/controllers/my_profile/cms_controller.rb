@@ -92,11 +92,6 @@ class CmsController < MyProfileController
 
     @article.article_privacy_exceptions = params[:q].split(/,/).map{|n| environment.people.find n.to_i} unless params[:q].nil?
 
-    unless @article.kind_of?(RssFeed)
-      @escaped_body = CGI::escapeHTML(@article.body || '')
-      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
-    end
-
     @tokenized_children = prepare_to_token_input(
                             profile.members.includes(:articles_with_access).find_all{ |m|
                               m.articles_with_access.include?(@article)
@@ -116,6 +111,11 @@ class CmsController < MyProfileController
           end
         end
       end
+    end
+
+    unless @article.kind_of?(RssFeed)
+      @escaped_body = CGI::escapeHTML(@article.body || '')
+      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
     end
   end
 
