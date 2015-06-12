@@ -1,7 +1,7 @@
 <% if article.image %>
   <% className = "article-compact-abstract-with-image" %>
   <% if article.image.thumbnails_processed? %>
-    <% image_file = article.image.thumbnails[4].public_filename %>
+    <% image_file = article.image.public_filename(:big) %>
   <% else %>
     <% image_file = "/images/icons-app/image-loading-thumb.png" %>
   <% end %>
