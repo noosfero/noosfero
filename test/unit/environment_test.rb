@@ -1703,4 +1703,32 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !e.has_license?
   end
 
+  should 'validates_inclusion_of date format' do
+    environment = fast_create(Environment)
+
+    environment.date_format = "invalid_format"
+    environment.valid?
+    assert environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "numbers_with_year"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "numbers"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "month_name_with_year"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "month_name"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "past_time"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+  end
+
 end

@@ -146,4 +146,9 @@ class DatesHelperTest < ActiveSupport::TestCase
     assert_equal Date.new(Date.today.year, Date.today.month, 1), build_date('', '')
   end
 
+  should 'show how long it has passed since a specific date' do
+    date = Time.zone.now
+    assert_equal show_date(date, false, false, true), time_ago_in_words(date)
+  end
+
 end

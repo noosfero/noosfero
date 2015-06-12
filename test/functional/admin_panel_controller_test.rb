@@ -130,6 +130,20 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
+  should 'save site article date format option' do
+    post :site_info, :environment => { :date_format => "numbers_with_year" }
+    assert_redirected_to :action => 'index'
+
+    assert_equal "numbers_with_year", Environment.default.date_format
+  end
+
+  should 'dont save site article date format option when a invalid option is passed' do
+    post :site_info, :environment => { :date_format => "invalid_format" }
+
+    assert_match "Date format is not included in the list", @response.body
+    assert_equal "month_name_with_year", Environment.default.date_format
+  end
+
   should 'set portal community' do
     e = Environment.default
     @controller.stubs(:environment).returns(e)

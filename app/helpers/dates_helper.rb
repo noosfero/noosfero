@@ -2,6 +2,7 @@ require 'noosfero/i18n'
 
 module DatesHelper
 
+  include ActionView::Helpers::DateHelper
   def months
     I18n.t('date.month_names')
   end
@@ -15,10 +16,12 @@ module DatesHelper
   end
 
   # formats a date for displaying.
-  def show_date(date, use_numbers = false, year=true)
+  def show_date(date, use_numbers = false, year = true, left_time = false)
     if date && use_numbers
       date_format = year ? _('%{month}/%{day}/%{year}') : _('%{month}/%{day}')
       date_format % { :day => date.day, :month => date.month, :year => date.year }
+    elsif date && left_time
+      date_format = time_ago_in_words(date)
     elsif date
       date_format = year ? _('%{month_name} %{day}, %{year}') : _('%{month_name} %{day}')
       date_format % { :day => date.day, :month_name => month_name(date.month), :year => date.year }
