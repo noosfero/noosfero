@@ -320,17 +320,18 @@ ActiveRecord::Schema.define(:version => 20150602142030) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme",                        :default => "default",           :null => false
+    t.string   "theme",                        :default => "default",              :null => false
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "reports_lower_bound",          :default => 0,                   :null => false
+    t.integer  "reports_lower_bound",          :default => 0,                      :null => false
     t.string   "redirection_after_login",      :default => "keep_on_same_page"
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
     t.string   "noreply_email"
     t.string   "redirection_after_signup",     :default => "keep_on_same_page"
+    t.string   "date_format",                  :default => "month_name_with_year"
   end
 
   create_table "external_feeds", :force => true do |t|
