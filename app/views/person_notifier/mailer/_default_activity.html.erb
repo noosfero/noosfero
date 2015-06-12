@@ -5,7 +5,7 @@
   <td>
     <p>
       <span style="font-size: 14px;"><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></span>
-      <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_as_sentence(activity.created_at) %></span>
+      <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_in_words(activity.created_at) %></span>
     </p>
   </td>
 </tr>

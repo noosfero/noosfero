@@ -40,7 +40,7 @@
       <%= txt2html comment.body %>
     </div>
     <div class="profile-activity-time">
-      <%= time_ago_as_sentence(comment.created_at) %>
+      <%= time_ago_in_words(comment.created_at) %>
     </div>
   </div>
 

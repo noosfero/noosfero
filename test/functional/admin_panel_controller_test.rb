@@ -140,8 +140,7 @@ class AdminPanelControllerTest < ActionController::TestCase
   should 'dont save site article date format option when a invalid option is passed' do
     post :site_info, :environment => { :date_format => "invalid_format" }
 
-    assert_match "Date format is not included in the list", @response.body
-    assert_equal "month_name_with_year", Environment.default.date_format
+    assert_not_equal "invalid_format", Environment.default.date_format
   end
 
   should 'set portal community' do

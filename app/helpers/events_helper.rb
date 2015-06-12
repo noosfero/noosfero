@@ -1,5 +1,6 @@
 module EventsHelper
 
+  include DatesHelper
   def list_events(date, events)
     title = _('Events for %s') % show_date_month(date)
     content_tag('h2', title) +

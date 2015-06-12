@@ -2,7 +2,6 @@ module BlogHelper
 
   include ArticleHelper
 
-
   def custom_options_for_article(article,tokenized_children)
     @article = article
     hidden_field_tag('article[published]', 1) +

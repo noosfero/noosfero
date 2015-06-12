@@ -12,7 +12,7 @@
           <span style="font-size: 14px">
             <%= task_information(task) %>
           </span>
-          <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_as_sentence(task.created_at) %></span>
+          <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_in_words(task.created_at) %></span>
         </div>
       </td>
     </tr>
