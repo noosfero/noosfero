@@ -21,6 +21,7 @@
 * noosfero libraries
 *= require_self
 *= require modal.js
+*= require loading-overlay.js
 * views speficics
 *= require add-and-join.js
 *= require report-abuse.js
