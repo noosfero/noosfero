@@ -23,6 +23,7 @@
 *= require_self
 *= require modal.js
 *= require loading-overlay.js
+*= require pagination.js
 * views speficics
 *= require add-and-join.js
 *= require report-abuse.js
