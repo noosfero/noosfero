@@ -1,0 +1,214 @@
+/* use with @extend, CSS clear bugfix */
+.clean {
+  clear: both;
+}
+.container-clean {
+  overflow: hidden;
+  display: inline-block; /* Necessary to trigger "hasLayout" in IE */
+  display: block; /* Sets element back to block */
+}
+
+/* layout base parameters */
+$modules: 12;
+$base: 8px;
+$wireframe: 1040px;
+
+/* heights should only use multiples of this */
+$height: $base;
+
+/* base measurements */
+$intercolumn: 2*$base;
+$module: $wireframe/$modules - $intercolumn;
+
+/* widths should only use one of these */
+$module01: 01*$module + 00*$intercolumn;
+$module02: 02*$module + 01*$intercolumn;
+$module03: 03*$module + 02*$intercolumn;
+$module04: 04*$module + 03*$intercolumn;
+$module05: 05*$module + 04*$intercolumn;
+$module06: 06*$module + 05*$intercolumn;
+$module07: 07*$module + 06*$intercolumn;
+$module08: 08*$module + 07*$intercolumn;
+$module09: 09*$module + 08*$intercolumn;
+$module09: 09*$module + 08*$intercolumn;
+$module10: 10*$module + 09*$intercolumn;
+$module11: 11*$module + 10*$intercolumn;
+$module12: 12*$module + 11*$intercolumn;
+$module01p: percentage($module01/$wireframe);
+$module02p: percentage($module02/$wireframe);
+$module03p: percentage($module03/$wireframe);
+$module04p: percentage($module04/$wireframe);
+$module05p: percentage($module05/$wireframe);
+$module06p: percentage($module06/$wireframe);
+$module07p: percentage($module07/$wireframe);
+$module08p: percentage($module08/$wireframe);
+$module09p: percentage($module09/$wireframe);
+$module10p: percentage($module10/$wireframe);
+$module11p: percentage($module11/$wireframe);
+$module12p: percentage($module12/$wireframe);
+
+/* paddings and margins should only use one of these
+   Ps. 1: disccount the borders size from padding, as borders uses padding's space.
+   Ps. 2: because of W3C's content-box default box sizing, padding sums to width size. If your
+   box doesn't have a padding, then sum $intercolumn to the width.
+ */
+$margin: $intercolumn;
+$half-margin: $margin/2;
+$padding: $intercolumn/2;
+$half-padding: $padding/2;
+$marginp: percentage($margin/$wireframe);
+$half-marginp: percentage($half-margin/$wireframe);
+$paddingp: percentage($padding/$wireframe);
+$half-paddingp: percentage($half-padding/$wireframe);
+
+$wireframe-padding: 5*$padding;
+
+/* use for borders */
+$border: 1px;
+$border-radius: 5px;
+
+/* use for text shadows */
+$shadow: 2px;
+
+/* Colors */
+
+$border-action-button: #F4A439;
+$bg-action-button: #FBCA47;
+$bg-selection-button: white;
+
+/* Fonts */
+
+/* Paragraphs Styles (use with @extend) */
+
+.pstyle-none {
+  font-size: 12px;
+}
+.pstyle-basic {
+  font-size: 16px;
+}
+.pstyle-button {
+  font-size: 16px;
+}
+.pstyle-button-small {
+  font-size: 13px;
+}
+.pstyle-title {
+  font-size: 72px;
+}
+.pstyle-h1 {
+  font-size: 34px;
+}
+.pstyle-h2 {
+  font-size: 26px;
+}
+.pstyle-h3 {
+  font-size: 21px;
+}
+.pstyle-h4 {
+  font-size: 16px;
+}
+.pstyle-h5 {
+  font-size: 13px;
+}
+.pstyle-title-section {
+  font-size: 92px;
+}
+.pstyle-field {
+  font-size: 13px;
+}
+.pstyle-menu-big-selected {
+  font-size: 21px;
+}
+.pstyle-menu-big-unselected {
+  font-size: 21px;
+}
+.pstyle-menu-medium-selected {
+  font-size: 16px;
+}
+.pstyle-menu-medium-unselected {
+  font-size: 16px;
+}
+.pstyle-menu-small-selected {
+  font-size: 13px;
+}
+.pstyle-menu-small-unselected {
+  font-size: 13px;
+}
+.pstyle-tp4 {
+  font-size: 42px;
+}
+.pstyle-tp3 {
+  font-size: 34px;
+}
+.pstyle-tp2 {
+  font-size: 26px;
+}
+.pstyle-tp1 {
+  font-size: 21px;
+}
+.pstyle-tm1 {
+  font-size: 13px;
+}
+.pstyle-tm2 {
+  font-size: 10px;
+}
+.subtitle {
+  @extend .pstyle-tm2;
+}
+
+/* Images */
+
+$profile-thumb-size: 4*$base;
+$profile-portrait-size: 10*$base;
+
+/* profile-image that can be centered and resized with aspect ratio */
+.profile-image {
+  display: inline-block;
+
+  &.thumb {
+    width: $profile-thumb-size;
+    height: $profile-thumb-size;
+  }
+  &.portrait {
+    width: $profile-portrait-size;
+    height: $profile-portrait-size;
+  }
+
+  /* do not put padding in this as background size will consider it. */
+  .inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-size: contain; /* css3 enabled */
+  }
+}
+
+/* Buttons */
+
+.action-button {
+  display: inline-block;
+  padding: $half-padding $padding;
+  height: auto;
+  width: auto;
+  //&:visited, &:active, &:hover { color: white; }
+  background: $bg-action-button;
+  border: $border solid $border-action-button;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+  line-height: 2*$height;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: none;
+  border-radius: $border-radius;
+}
+
+.selection-button {
+  @extend .action-button;
+  background: $bg-selection-button;
+}
+

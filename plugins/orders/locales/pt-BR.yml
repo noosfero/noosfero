@@ -1,0 +1,306 @@
+"pt-BR": &pt-BR
+
+  orders_plugin:
+    terms:
+      supplier:
+        singular: "fornecedor"
+        plural: "fornecedores"
+        from_article:
+          singular: "do fornecedor"
+      consumer:
+        singular: "consumidor(a)"
+        plural: "consumidores(as)"
+        from_article:
+          singular: "do(a) consumidor(a)"
+          plural: "dos(as) consumidores(as)"
+      purchase:
+        singular: "Compra"
+        plural: "Compras"
+      sale:
+        singular: "Pedido"
+        plural: "Pedidos"
+    lib:
+      plugin:
+        name: "Pedidos"
+        description: "Gestão de pedidos"
+        panel_button: "Compras e Vendas"
+        person_panel_button: "Compras realizadas"
+
+      ext:
+        profile:
+          orders_manager: "Gestor de pedidos"
+      mailer:
+        profile_subject: "[%{profile}] %{subject}"
+        order_was_confirmed: "[%{name}] Seu pedido foi confirmado"
+        order_was_cancelled: "[%{name}] Seu pedido foi cancelado"
+      date_helper:
+        a: "%A"
+        b_d_at_hh_m: "%d/%m/%y às %H:%M"
+        b_d_from_time_start_t: "%{default_format}, de %{time_start} para %{time_finish}"
+        from_start_to_finish: "de %{start} para %{finish}"
+        hh_m: "%Hh%M"
+        m_d: "%d/%m"
+        m_d_hh: "%d/%m - %Hh%M"
+        m_d_hh_m: "%d/%m - %Hh%M"
+        m_d_y_at_hh_m: "%d/%m/%Y às %H:%M"
+        m_d_y_hh_m: "%d/%m/%Y às %H:%M"
+        m_y_hh_m: "%m/%Y - %Hh%M"
+        start_day_from_start_: "%{start_day}, de %{start_time} para %{finish_time}"
+        start_day_start_datet: "%{start_day}, %{start_datetime} - %{finish_day}, %{finish_datetime}"
+        start_finish: "%{start} - %{finish}"
+        start_to_finish: "%{start} para %{finish}"
+        to: até
+      price_helper:
+        /: /
+        price_unit: "%{price}%{unit}"
+      report:
+        closed_orders: "Pedidos fechados"
+        created: criado
+        modified: modificado
+        payment_method: forma de pagamento
+        delivery_option: forma de entrega ou retirada
+
+        member_name: "Nome do(a) consumidor(a)"
+        order_code: "Código do Pedido"
+        min_stock: "estoque mín."
+        mm_dd_yy_hh_mm_am_pm: "DD/MM/YY"
+        parcelled_total: "Total parcelado"
+        price_un: preço/un
+        product_cod: "Cód. produto"
+        product_name: "nome do produto"
+        products_report: "relatório de produtos"
+        projected_stock: "estoque projetado"
+        qtt_to_be_parcelled: "qtd a ser encomendada"
+        qty_ordered: "qtd pedida"
+        selled_total: "Total vendido"
+        selled_value: "Valor vendido"
+        stock_qtt: "qtd estoque"
+        supplier: "%{terms.supplier.singular.capitalize}"
+        total_parcel_value: "Valor total usando estoque"
+        total_selled_value: "Valor total vendido"
+        total_value: "total pago"
+        un: un.
+        value: Valor
+        value_parcel: "Valor usando estoque"
+        phone: 'Telefone'
+        mail: 'Email'
+        alert_formulas: "Atenção! Se você estiver utilizando o Libreoffice (BrOffice), será necessário atualizar as fórmulas desta planilha com o comando CTRL + SHIFT + F9"
+    controllers:
+      profile:
+        consumer:
+          can_not_confirm_your_: "Não foi possível confirmar. Seu pedido está vazio"
+          login_first: "Faça login primeiro"
+          order_cancelled: "Pedido cancelado"
+          order_confirmed: "Pedido confirmado"
+          order_removed: "Pedido removido"
+          please_login_first: "Please login first"
+          you_are_not_the_owner: "Você não é o autor desse pedido"
+      myprofile:
+        admin:
+          orders_report: "Relatório de pedidos - %{date} - %{profile_identifier} - %{name}.xlsx"
+          products_report: "Relatório de produtos - %{date} - %{profile_identifier} - %{name}.xlsx"
+    models:
+      order:
+        statuses:
+          open: "Em aberto"
+          forgotten: "Não confirmado"
+          planned: "Planejado"
+          cancelled: "Cancelado"
+          confirmed: "Confirmado"
+          ordered: "Pedido"
+          accepted: "Aceito"
+          separated: "Separado"
+          delivered: "Entregue"
+          received: "Recebido"
+        statuses_verbs:
+          ordered: "Confirmar"
+          accepted: "Aceitar"
+          separated: "Separar"
+          delivered: "Entregar"
+          received: "Receber"
+        actor_data:
+          name: "Nome"
+          email: "Email"
+          contact_phone: "Telefone"
+        delivery_data:
+          name: "Nome"
+          description: "Descrição"
+          address_line1: "Endereço"
+          address_line2: "Complemento"
+          reference: "Referência"
+          district: "Bairro"
+          city: "Cidade"
+          state: "Estado"
+          postal_code: "CEP"
+          zip_code: "Código postal"
+        payment_data:
+          method: "Método"
+          change: "Troco"
+    helpers:
+      help:
+        hide: "esconder ajuda"
+        show: "mostrar ajuda"
+    views:
+      filter:
+        filter: Filtro
+        filter_it: Filtrar
+        status: "Situação"
+        code: "Código"
+        all: "Todos"
+        period: "Período"
+        delivery: 'Forma de entrega ou retirada'
+      actions:
+        all: "Todos"
+        none: "Nenhum"
+        select: "Selecionar"
+        with_selection: "com itens selecionados"
+        with_filter: "com a busca:"
+        activate: "ativar"
+        deactivate: "desativar"
+
+      public:
+        repeat:
+          heading: "Repetir pedido anterior"
+          help: "Escolha qual dos pedidos anteriores deseja realizar. Observe nos detalhes se algum produto está em falta e se há alteração nos valores."
+          date: "Data"
+          ordered_itens: "Itens pedidos"
+          checkout: "refazer pedido"
+          choose: "escolher e alterar"
+          clear_orders_session: "limpar histórico de pedidos deste computador"
+
+      consumer:
+        _total:
+          total: Total
+
+      item:
+        _edit:
+          remove_from_order: "Remover do pedido"
+          removed: 'removido'
+          submit: 'OK'
+          this_product_requires: "Este produto requer um mínimo de %{value}. O mínimo foi mantido."
+
+        _add:
+          label: 'Adiciona produto'
+          placeholder: "Digite para encontrar e adicionar produtos"
+
+        _index:
+          header: "Compra %{profile_code} - %{profile} / Venda %{consumer}"
+          empty_order: "Pedido vazio"
+          supplier: "%{terms.supplier.singular}"
+          product: "produto"
+          quantity: "qtd"
+          price_total: "valor (%{currency})"
+          status: "etapa"
+
+      message:
+        _fields:
+          message: Mensagem
+          subject: Assunto
+        new_to_admins:
+          cancel: Cancelar
+          message_to_managers_o: "Mensagem para o(a) consumidor(a) \"%{profile}\""
+          send: Enviar
+        new_to_consumer:
+          cancel: Cancelar
+          message_to_member_con: "Mensagem para o(a) consumidor(a) \"%{consumer}\""
+          send: Enviar
+        new_to_consumer_for_order:
+          cancel: Cancelar
+          include_reference_to_: "Inclua uma referência ao pedido feito"
+          message_to_member_con: "Mensagem para o(a) consumidor(a) \"%{consumer}\""
+          send: Enviar
+        new_to_supplier:
+          cancel: Cancelar
+          message_to_supplier_s: "Mensagem para o(a) fornecedor(a) \"%{supplier}\""
+          send: Enviar
+
+      order:
+        _show:
+          open: "Abrir"
+          cancel_order: "Cancelar pedido"
+          confirm_order: "Confirmar pedido"
+          confirming_this_order: "Ao confirmar este pedido, você está responsável por pagá-lo. Você quer continuar?"
+        _delivery:
+          consumer_heading: "Método de recebimento"
+          supplier_heading: "Método de entrega"
+          choose_another: "Escolha outro método:"
+        _payment:
+          heading: "Método de pagamento"
+        _actor_data:
+          consumer_heading: "Dados %{terms.consumer.from_article.singular}"
+          supplier_heading: "Dados %{terms.supplier.from_article.singular}"
+      admin:
+        reports:
+          generate: "Gerar planilhas"
+          products_spreadsheet: "Produtos"
+          orders_spreadsheet: "Pedidos"
+        index:
+          no_orders_to_show: "Nenhum pedido para visualizar."
+          code: "código"
+          last_update: "últ. atualização"
+          order_date: "data do pedido"
+          total: "total (%{currency})"
+          situation: "situação"
+          none_selected: "Nenhum pedido selecionado"
+        _edit:
+          add_product: "adicionar produto"
+          cancel: Cancelar
+          edit_on_the_order_pag: "Editar na página de pedidos"
+          empty_order: "Pedido vazio"
+          include_message: "Incluir uma mensagem"
+          message_to_actor: "Mensagem para o(a) %{actor}"
+          remove_order: "remover pedido"
+          save: Salvar
+          see_delivery: "veja entrega"
+          see_redistribution: "veja redistribuição"
+          the_collective_member: "O(a) consumidor(a) %{terms.profile.from_article.singular} receberá um email que discrimina todas as mudanças feitas em seu pedido."
+          warn_member_of_the_ch: "Avise o(a) consumidor(a) das mudanças em seu pedido"
+      mailer:
+        message_to_admins:
+          a_service_of_s: "Um serviço de %{environment}."
+          hello_managers_of_nam: "Olá gestoras/es de %{name}!"
+          the_member_member_sen: "O membro %{member} mandou uma mensagem para você"
+        message_to_consumer:
+          a_service_of_s: "Um serviço de %{environment}."
+          hello_name: "Olá %{name}!,"
+          the_collective_profile_s: "O(a) %{profile} mandou uma mensagem para você"
+        message_to_consumer_for_order:
+          a_service_of_s: "Um serviço de %{environment}."
+          hello_name: "Olá %{name}!,"
+          order: Pedido
+          quantity_unit_of_prod: "%{quantity} %{unit} do %{product}"
+          the_collective_profile_s: "O(a) %{profile} mandou uma mensagem para voce relacionado a seu %{order}"
+          the_products_in_the_o: "Os produtos no pedido"
+        message_to_supplier:
+          a_service_of_s: "Um serviço de %{environment}."
+          hello_administrators_: "Olá administradores de %{name}!"
+          the_collective_profile_s: "O(a) %{profile} mandou uma mensagem para você"
+        order_confirmation:
+          attention_to_the_foll: "Atenção às instruções de entrega a seguir:"
+          dear_name: "Olá %{name},"
+          greetings: "Saudações,"
+          order_code_of_profile: "Pedido %{code} de %{name}"
+          order_data_confirmed: "Pedido confirmado"
+          the_delivery_period_w: "O período de entrega ocorrerá em %{date}."
+          your_order_can_be_che: "Seu pedido pode ser checado ou alterado no seguinte link:"
+          your_order_made_on_co: "Seu pedido feito no coletivo de consumo %{name} em %{date} foi confirmado."
+        order_cancellation:
+          dear_name: "Olá %{name},"
+          greetings: "Saudações,"
+          your_order_made_on_co: "Seu pedido feito no coletivo de consumo %{name} em %{date} foi cancelado com sucesso."
+        _complete_order:
+          order_no_code: "Código do Pedido: %{code}"
+          price: Preço
+          price_un: preço/un
+          price_unit: "%{price}/%{unit}"
+          products_list: "Lista de produtos"
+          qtt: QTD
+          quantity_unit: "%{quantity} %{unit}"
+          supplier_product: "%{terms.supplier.singular.capitalize}/Produto"
+          total: "TOTAL:"
+
+'pt_BR':
+  <<: *pt-BR
+'pt':
+  <<: *pt-BR
+

@@ -1,0 +1,21 @@
+- orders = @orders unless defined? orders
+- wireframe_size = true if wireframe_size.nil?
+- other_actor_name = if actor_name == :supplier then :consumer else :supplier end
+
+div class="orders-admin-index sortable-table checkable #{"wireframe-size" if wireframe_size}"
+  - if orders.count == 0
+    .subtitle= t'orders_plugin.views.admin.index.no_orders_to_show'
+  - else
+    .table-header
+      span.box-field.code= t'orders_plugin.views.admin.index.code'
+      span.box-field.actor-name= t"terms.#{other_actor_name}.singular"
+      span.box-field.order-date= t'orders_plugin.views.admin.index.order_date'
+      span.box-field.last-update= t'orders_plugin.views.admin.index.last_update'
+      span.box-field.total= t'orders_plugin.views.admin.index.total', currency: environment.currency_unit
+      span.box-field.situation= t'orders_plugin.views.admin.index.situation'
+      .clean
+    .table-content
+      = render 'orders_plugin_admin/results', orders: orders, actor_name: actor_name
+
+  .clean
+

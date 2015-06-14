@@ -1,0 +1,107 @@
+@import 'base';
+
+// DEPRECATED use bootstrap instead
+
+//use with sass nested import
+
+.field-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.field {
+  clear: both;
+  @extend .container-clean;
+
+  label {
+    display: block;
+    float: left;
+    padding-top: $half-padding;
+    font-weight: bold;
+    line-height: 20px;
+  }
+  .field-box {
+    clear: both;
+    float: left;
+    width: 100%;
+  }
+  .field-help {
+    clear: both;
+    margin-bottom: $half-margin;
+    font-size: 10px;
+  }
+
+  .form-control {
+    display: inline-block;
+  }
+}
+
+.field-radio {
+  clear: both;
+  margin-bottom: $half-padding;
+
+  input {
+    float: left;
+    margin-left: 0;
+  }
+  label {
+    font-weight: normal;
+    line-height: 10px;
+    text-transform: lowercase;
+    margin-left: $half-padding;
+  }
+}
+
+form {
+  margin: 0; /* come on browsers!? */
+}
+
+label {
+
+  &.field-bellow {
+    display: block;
+    margin-bottom: $half-padding;
+    font-size: 10px;
+  }
+}
+
+select,
+input[type=text], input[type=password] {
+}
+
+select {
+  background-color: #fff;
+  padding-left: $half-padding;
+}
+
+input {
+  &.date-select,
+  &.time-select {
+    width: 94px;
+  }
+
+  &[type=text] {
+    padding: $half-padding;
+    margin: 0;
+  }
+
+  &[type=checkbox] {
+    width: 12px;
+    height: 12px;
+    margin: 0;
+  }
+}
+
+textarea {
+  height: 8*$height;
+  padding-left: $half-padding;
+  margin-bottom: 10px;
+}
+
+a.button.colorbox-close,
+#wrap-1 input[type=submit],
+input[type=submit] {
+  @extend .action-button;
+
+}
+

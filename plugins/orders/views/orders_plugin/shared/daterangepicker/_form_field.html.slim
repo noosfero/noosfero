@@ -1,0 +1,15 @@
+- range_field = form.object.date_range_attr_for start_field, end_field
+- range_id = SecureRandom.hex
+
+span.daterangepicker-field-container
+  = form.hidden_field start_field, value: start_time.iso8601, 'data-field' => 'start'
+  = form.hidden_field end_field, value: end_time.iso8601, 'data-field' => 'end'
+
+  div.input-group
+    span class="input-group-addon"
+      span.fa.fa-calendar
+    = form.text_field range_field, class: 'daterangepicker-field', id: range_id
+
+  javascript:
+    orders.daterangepicker.init('##{range_id}', #{options.to_json})
+

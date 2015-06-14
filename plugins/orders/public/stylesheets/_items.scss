@@ -1,0 +1,260 @@
+@import 'base';
+@import 'orders-variables';
+
+.order-items-container {
+  @import 'field';
+
+  &.empty {
+    border-top: $border dotted black;
+    text-align: center;
+  }
+
+  .order-total {
+    padding: $half-padding $padding;
+    @extend .container-clean;
+
+    .title, .value {
+      margin-left: $module05 - $padding; //the size of the previous colums
+      padding: 0 $padding;
+      width: $module01;
+      text-transform: uppercase;
+    }
+
+    .value {
+      clear: both;
+    }
+  }
+
+  .order-items {
+
+    .table-header {
+      @extend .container-clean;
+    }
+    //.item do overflow, so no overflow:hidden for its parents (.table-content)
+
+    &.self-supplier {
+      .box-field {
+        &.product {
+          width: $module04 - $padding;
+          max-width: $module04 - $padding;
+        }
+
+        &.quantity {
+          &, input {
+            width: $module01 - $padding;
+            max-width: $module01 - $padding;
+          }
+        }
+      }
+    }
+
+    .box-field {
+      float: left;
+      padding: $half-padding $padding;
+      padding-right: $padding - $border;
+      border-right: $border solid white;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &.supplier, &.product {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &.supplier {
+        width: $module02 - $padding;
+        max-width: $module02 - $padding;
+      }
+      &.product {
+        width: $module02 - $padding;
+        max-width: $module02 - $padding;
+      }
+
+      &.quantity {
+        &, input {
+          width: $module01;
+          max-width: $module01;
+        }
+      }
+      &.price-total {
+        width: $module01;
+        max-width: $module01;
+      }
+      &.status {
+        width: $module01 - $border; //FIXME why (- $border)?
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .table-header, .table-content {
+    border-bottom: $border solid black;
+  }
+
+  .table-header {
+    font-weight: bold;
+    font-size: 8px;
+    text-transform: uppercase;
+  }
+
+  .table-content {
+
+    .order-items-scroll {
+      max-height: 350px;
+    }
+    .item {
+
+      &.product-unavailable {
+        .product, .quantity, .price-total {
+          text-decoration: line-through;
+        }
+      }
+
+      .fields {
+        display: table;
+        @extend .container-clean;
+
+        .box-field {
+          float: none;
+          display: table-cell;
+          vertical-align: top;
+        }
+
+        .quantity-price-table {
+          padding: 0;
+
+          .quantity-price-row {
+            display: table-row;
+
+            &.overwritten {
+              .quantity, .price-total, .status {
+                text-decoration: line-through;
+                color: #999;
+              }
+            }
+
+            .price-total {
+              .outdated {
+                text-decoration: line-through;
+              }
+              .new-price {
+                font-weight: bold;
+              }
+            }
+
+            &.not_modified, &.empty {
+              display: none;
+            }
+
+            &.editable {
+              .quantity {
+                .value {
+                  display: initial;
+                }
+              }
+            }
+            .quantity {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+
+              input {
+                display: none;
+              }
+
+              .unit {
+                text-transform: lowercase;
+              }
+            }
+          }
+        }
+
+      }
+
+      &.hover,
+      &.edit {
+        background-color: $order-items-color;
+      }
+
+      &.edit {
+        // not working with scrollbars' overflow
+        //margin-left: -($half-padding + $border);
+        //padding: $half-padding;
+        //border: $border solid black;
+
+        //border-radius: $border-radius;
+        //-moz-border-radius: $border-radius;
+        //-o-border-radius: $border-radius;
+        //-webkit-border-radius: $border-radius;
+
+        //box-shadow: 0 0 3px rgba(0,0,0,.5);
+        //-moz-box-shadow: 0 0 3px rgba(0,0,0,.5);
+        //-webkit-box-shadow: 0 0 3px rgba(0,0,0,.5);
+
+        .fields {
+          .box-field {
+            border-right: none;
+            padding-right: $padding;
+          }
+
+          .quantity-price-table {
+            padding-right: 0;
+
+            .quantity-price-row {
+
+              &.not_modified, &.empty {
+                display: initial;
+              }
+
+              &.editable {
+                .quantity {
+                  text-overflow: initial;
+                  overflow: initial;
+                  white-space: initial;
+
+                  .value {
+                    display: none;
+                  }
+                }
+              }
+              .quantity {
+                .unit {
+                  display: initial;
+                }
+                input {
+                  display: initial;
+                }
+              }
+            }
+          }
+        }
+        .more {
+          display: block;
+        }
+      }
+
+      .more {
+        display: none;
+        overflow: hidden;
+        width: $order-items-width;
+
+        .actions {
+          float: left;
+
+          a {
+            color: black;
+            margin-right: 5px;
+            margin-left: 5px;
+          }
+        }
+        .price-with-unit {
+          float: right;
+          width: $module01;
+        }
+      }
+    }
+  }
+}

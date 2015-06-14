@@ -1,0 +1,20 @@
+<%
+  data = order.actor_data actor_name
+%>
+
+<% if data.present? %>
+  <div id="actor-data-box" class="order-section">
+    <h3>
+      <%= t("views.order._actor_data.#{actor_name}_heading") %>
+    </h3>
+
+    <% data.each do |key, value| %>
+      <div>
+        <strong>
+          <%= label_tag key, t("models.order.actor_data.#{key}") %>
+        </strong>
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
