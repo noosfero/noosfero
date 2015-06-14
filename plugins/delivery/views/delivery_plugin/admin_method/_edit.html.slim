@@ -1,0 +1,26 @@
+= form_for delivery_method, as: :delivery_method,
+  url: request.GET.merge(controller: delivery_context, action: delivery_method.new_record? ? :new : :edit, id: delivery_method.id),
+  html: {onsubmit: 'return delivery.method.save(this)'} do |f|
+
+  = error_messages_for :delivery_method
+
+  = labelled_field f, :delivery_type, t('delivery_plugin.models.method.delivery_type'),
+    f.select(:delivery_type, DeliveryPlugin::Method::Types.map{ |t| [t("delivery_plugin.models.method.#{t}"), t] },
+      onchange: 'delivery.method.changeType(this)', onkeyup: 'this.onchange()'),
+    help: t('delivery_plugin.models.method.delivery_type_help')
+
+  = labelled_field f, :name, t('delivery_plugin.models.method.name'), f.text_field(:name),
+    help: t('delivery_plugin.models.method.name_help')
+  = labelled_field f, :description, t('delivery_plugin.models.method.instructions'),
+    f.text_area(:description, rows: 5), help: t('delivery_plugin.models.method.instructions_help')
+
+  = labelled_field f, :fixed_cost, t('delivery_plugin.models.method.fixed_cost'),
+    input_group_addon(environment.currency_unit){ f.text_field :fixed_cost, type: :number, step: '0.01', value: number_with_precision(delivery_method.fixed_cost, precision: 2, locale: :en)}
+
+  = labelled_field f, :free_over_price, t('delivery_plugin.models.method.free_over_price'),
+    input_group_addon(environment.currency_unit){ f.text_field :free_over_price, type: :number, step: '0.01', value: number_with_precision(delivery_method.free_over_price, precision: 2, locale: :en)}
+
+  div
+    = submit_button :save, if delivery_method.new_record? then t('delivery_plugin.views.method.edit.add') else t('delivery_plugin.views.method.edit.save') end
+    = link_to_function t('delivery_plugin.views.method.edit.back'), "delivery.method.view.toggle()"
+
