@@ -1,0 +1,82 @@
+<div id="cart1" class="cart<%= '-minimized' if cart_minimized %>">
+  <% if cart_minimized %>
+    <div class="cart-applet">
+      <%= cart_applet %>
+
+      <%= link_to _('Shopping checkout'), "/plugin/shopping_cart/buy", class: 'cart-applet-checkout' %>
+      <span class="cart-applet-checkout-disabled">
+        <%= _('Basket is empty') %>
+      </span>
+    </div>
+  <% end %>
+  <div class="cart-inner">
+    <div class="cart-content">
+      <h3><%= _("Basket") %></h3>
+      <div id="cart-profile-name"></div>
+      <a href="cart:clean" onclick="cart.clean(); return false" class="cart-clean"><%=_('Clean basket')%></a>
+      <ul class="cart-items">
+      </ul>
+      <%= button 'cart',  _('Shopping checkout'), "/plugin/shopping_cart/buy", :class => 'cart-buy modal-toggle' %>
+      <div class="cart-total"><%=_('Total:')%> <b></b></div>
+    </div>
+      <a href="#" onclick="cart.toggle(); return false" class="cart-toggle">
+        <span class="str-show"><%=_('Show basket')%></span>
+        <span class="str-hide"><%=_('Hide basket')%></span>
+      </a>
+  </div>
+
+    <script id="cart-item-template" type="text/template">
+      <li id="cart-item-{{item.id}}">
+        <%= button_to_function_without_text 'remove', '', "Cart.removeItem({{item.id}}); return false", :class => 'cart-remove-item' %>
+	      <div class="picture" style="background-image:url({{item.picture}})"></div>
+	      <span class="item-name">{{item.name}}</span>
+	      <div class="item-price">
+	        <input size="1" value="{{item.quantity}}" />{{item.priceTxt}}
+	      </div>
+      </li>
+  </script>
+</div>
+
+<script type="text/javascript">
+jQuery(function($) {
+  Cart.l10n = {
+    getProblemConfirmReload: <%= (
+      _('Ups... I had a problem to load the basket list.') +
+      "\n" +
+      _('Did you want to reload this page?')
+    ).to_json %>,
+    maxNumberOfItens: <%= (
+      _('Sorry, you can\'t have more then 100 kinds of items on this basket.')
+    ).to_json %>,
+    waitLastRequest: <%= _('Oops, you must wait your last request to finish first!').to_json %>,
+    removeItem: <%= _('Are you sure you want to remove this item?').to_json %>,
+    cleanCart: <%= _('Are you sure you want to clean your basket?').to_json %>,
+    repeatOrder: <%= _('repeat order').to_json %>,
+  }
+  // boolean configuration that defines if the behaviour of the cart is "minimized" or "full"
+  Cart.minimized = <%= cart_minimized.to_json %>
+
+  $.ajax({
+    url: "/plugin/shopping_cart/get?profile_id="+<%= profile.id.to_json rescue ''.to_json %>,
+    dataType: 'json',
+    success: function(data) {
+      cart = new Cart(data);
+    },
+    cache: false,
+    error: function(ajax, status, errorThrown) {
+      // Give some time to register page unload.
+      setTimeout(function() {
+        // page unload is not our problem.
+        if (Cart.unloadingPage) {
+          log('Page unload before cart load.');
+        } else {
+          log.error('Error getting shopping cart - HTTP '+status, errorThrown);
+          if ( confirm(Cart.l10n.getProblemConfirmReload) ) {
+            document.location.reload();
+          }
+        }
+      }, 100);
+    }
+  });
+});
+</script>

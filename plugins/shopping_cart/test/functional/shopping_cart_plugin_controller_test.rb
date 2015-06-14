@@ -154,29 +154,29 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     product1 = fast_create(Product, :profile_id => profile.id, :price => 1.99)
     product2 = fast_create(Product, :profile_id => profile.id, :price => 2.23)
     @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1, product2.id => 2}})
-    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
+    assert_difference 'OrdersPlugin::Order.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
     end
 
-    order = ShoppingCartPlugin::PurchaseOrder.last
+    order = OrdersPlugin::Order.last
 
     assert_equal 1.99, order.products_list[product1.id][:price]
     assert_equal 1, order.products_list[product1.id][:quantity]
     assert_equal 2.23, order.products_list[product2.id][:price]
     assert_equal 2, order.products_list[product2.id][:quantity]
-    assert_equal ShoppingCartPlugin::PurchaseOrder::Status::OPENED, order.status
+    assert_equal 'confirmed', order.status
   end
 
   should 'register order on send request and not crash if product is not defined' do
     product1 = fast_create(Product, :profile_id => profile.id)
     @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1}})
-    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
+    assert_difference 'OrdersPlugin::Order.count', 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
     end
 
-    order = ShoppingCartPlugin::PurchaseOrder.last
+    order = OrdersPlugin::Order.last
 
     assert_equal 0, order.products_list[product1.id][:price]
   end
