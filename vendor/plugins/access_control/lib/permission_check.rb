@@ -26,7 +26,7 @@ module PermissionCheck
     end
 
     def render_access_denied(c)
-      if c.respond_to?(:render_access_denied)
+      if c.respond_to?(:render_access_denied, true)
         c.send(:render_access_denied)
       else
         c.send(:render, :template => access_denied_template_path, :status => 403)
