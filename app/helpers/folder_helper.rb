@@ -25,49 +25,32 @@ module FolderHelper
     articles.select {|article| article.display_to?(user)}
   end
 
-  def display_content_in_listing(configure={})
-    recursive = configure[:recursive] || false
-    list_type = configure[:list_type] || :folder
-    level = configure[:level] || 0
-    content = FilePresenter.for configure[:content]
+  def display_content_icon(content_item)
+    content = FilePresenter.for content_item
     content_link = if content.image?
-         link_to('&nbsp;' * (level * 4) +
-           image_tag(icon_for_article(content)) + short_filename(content.name),
+         link_to(
+           image_tag(icon_for_article(content, :bigicon)),
            content.url.merge(:view => true)
          )
        else
-         link_to('&nbsp;' * (level * 4) +
-           short_filename(content.name),
-           content.url.merge(:view => true), :class => icon_for_article(content)
+         link_to('',
+          content.url.merge(:view => true),
+          :class => icon_for_article(content, :bigicon)
          )
        end
-    result = content_tag(
-      'tr',
-      content_tag('td', content_link ) +
-      content_tag('td', show_date(content.updated_at), :class => 'last-update'),
-      :class => "#{list_type}-item"
-    )
-    if recursive
-      result + content.children.map {|item|
-        display_content_in_listing :content=>item, :recursive=>recursive,
-                                   :list_type=>list_type, :level=>level+1
-      }.join("\n")
-    else
-      result
-    end
   end
 
-  def icon_for_article(article)
+  def icon_for_article(article, size = 'icon')
     article = FilePresenter.for article
-    icon = article.respond_to?(:icon_name) ?
-             article.icon_name :
-             article.class.icon_name(article)
-    if (icon =~ /\//)
-      icon
+    if article.respond_to?(:sized_icon)
+      article.sized_icon(size)
     else
-      klasses = 'icon ' + [icon].flatten.map{|name| 'icon-'+name}.join(' ')
+      icon = article.respond_to?(:icon_name) ?
+              article.icon_name :
+              article.class.icon_name(article)
+      klasses = "#{size} " + [icon].flatten.map{|name| "#{size}-"+name}.join(' ')
       if article.kind_of?(UploadedFile) || article.kind_of?(FilePresenter)
-        klasses += ' icon-upload-file'
+        klasses += " #{size}-upload-file"
       end
       klasses
     end

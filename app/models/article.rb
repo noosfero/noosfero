@@ -28,7 +28,7 @@ class Article < ActiveRecord::Base
   def initialize(*params)
     super
 
-    if !params.blank? && params.first.has_key?(:profile)
+    if !params.blank? && params.first.has_key?(:profile) && !params.first[:profile].blank?
       profile = params.first[:profile]
       self.published = false unless profile.public?
     end
@@ -95,6 +95,8 @@ class Article < ActiveRecord::Base
   has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
   belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
   before_destroy :rotate_translations
+
+  acts_as_voteable
 
   before_create do |article|
     article.published_at ||= Time.now

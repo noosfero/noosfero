@@ -34,6 +34,7 @@ class Task < ActiveRecord::Base
   belongs_to :requestor, :class_name => 'Profile', :foreign_key => :requestor_id
   belongs_to :target, :foreign_key => :target_id, :polymorphic => true
   belongs_to :responsible, :class_name => 'Person', :foreign_key => :responsible_id
+  belongs_to :closed_by, :class_name => 'Person', :foreign_key => :closed_by_id
 
   validates_uniqueness_of :code, :on => :create
   validates_presence_of :code
@@ -77,11 +78,9 @@ class Task < ActiveRecord::Base
   # this method finished the task. It calls #perform, which must be overriden
   # by subclasses. At the end a message (as returned by #finish_message) is
   # sent to the requestor with #notify_requestor.
-  def finish
+  def finish(closed_by=nil)
     transaction do
-      self.status = Task::Status::FINISHED
-      self.end_date = Time.now
-      self.save!
+      close(Task::Status::FINISHED, closed_by)
       self.perform
       begin
         send_notification(:finished)
@@ -106,17 +105,22 @@ class Task < ActiveRecord::Base
 
   # this method cancels the task. At the end a message (as returned by
   # #cancel_message) is sent to the requestor with #notify_requestor.
-  def cancel
+  def cancel(closed_by=nil)
     transaction do
-      self.status = Task::Status::CANCELLED
-      self.end_date = Time.now
-      self.save!
+      close(Task::Status::CANCELLED, closed_by)
       begin
         send_notification(:cancelled)
       rescue NotImplementedError => ex
         Rails.logger.info ex.to_s
       end
     end
+  end
+
+  def close(status, closed_by)
+    self.status = status
+    self.end_date = Time.now
+    self.closed_by = closed_by
+    self.save!
   end
 
   # Here are the tasks customizable options.

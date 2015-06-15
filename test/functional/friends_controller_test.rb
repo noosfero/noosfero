@@ -46,7 +46,7 @@ class FriendsControllerTest < ActionController::TestCase
 
   should 'display find people button' do
     get :index, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/assets/people' }
+    assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/search/assets?asset=people' }
   end
 
   should 'not display invite friends button if any plugin tells not to' do
@@ -76,25 +76,25 @@ class FriendsControllerTest < ActionController::TestCase
   end
 
   should 'display people suggestions' do
-    profile.profile_suggestions.create(:suggestion => friend)
+    profile.suggested_profiles.create(:suggestion => friend)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :content => "+ #{friend.name}", :attributes => { :href => "/profile/#{friend.identifier}/add" }
   end
 
   should 'display button to add friend suggestion' do
-    profile.profile_suggestions.create(:suggestion => friend)
+    profile.suggested_profiles.create(:suggestion => friend)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :attributes => { :href => "/profile/#{friend.identifier}/add" }
   end
 
   should 'display button to remove people suggestion' do
-    profile.profile_suggestions.create(:suggestion => friend)
+    profile.suggested_profiles.create(:suggestion => friend)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/testuser\/friends\/remove_suggestion\/#{friend.identifier}/ }
   end
 
   should 'remove suggestion of friend' do
-    suggestion = profile.profile_suggestions.create(:suggestion => friend)
+    suggestion = profile.suggested_profiles.create(:suggestion => friend)
     post :remove_suggestion, :profile => 'testuser', :id => friend.identifier
 
     assert_response :success

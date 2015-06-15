@@ -22,7 +22,9 @@ module BlogHelper
       :param_name => 'npage',
       :previous_label => _('&laquo; Newer posts'),
       :next_label => _('Older posts &raquo;'),
-      :params => {:action=>"view_page", :page=>articles.first.parent.path.split('/'), :controller=>"content_viewer"}
+      :params => {:action=>"view_page",
+                  :page=>articles.first.parent.path.split('/'),
+                  :controller=>"content_viewer"}
     }) if articles.present? && conf[:paginate]
     content = []
     artic_len = articles.length
@@ -44,7 +46,7 @@ module BlogHelper
   end
 
   def display_post(article, format = 'full')
-    no_comments = (format == 'full') ? false : true
+    no_comments = (format == 'full' || format == 'compact' ) ? false : true
     title = article_title(article, :no_comments => no_comments)
     method = "display_#{format.split('+')[0]}_format"
     html = send(method, FilePresenter.for(article)).html_safe
@@ -55,8 +57,12 @@ module BlogHelper
       else
         '<div class="post-pic" style="background-image:url('+img+')"></div>'
       end
-    end.to_s +
-    title + html
+    end.to_s + title + html
+  end
+
+  def display_compact_format(article)
+    render :file => 'content_viewer/_display_compact_format',
+           :locals => { :article => article, :format => "compact" }
   end
 
   def display_full_format(article)

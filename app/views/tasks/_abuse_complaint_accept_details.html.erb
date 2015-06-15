@@ -2,7 +2,7 @@
 <% task.abuse_reports.each do |abuse_report| %>
   <div>
     <strong style="word-wrap: break-word; display: block; padding-right: 40px">"<%= abuse_report.reason %>"</strong> <br />
-    <i><%= _('Reported by %{reporter} %{time}.') % {:reporter => abuse_report.reporter.name, :time => time_ago_as_sentence(abuse_report.created_at) }%></i> <br />
+    <i><%= _('Reported by %{reporter} %{time}.') % {:reporter => abuse_report.reporter.name, :time => time_ago_in_words(abuse_report.created_at) }%></i> <br />
     <% if !abuse_report.content.blank? %>
       <button class="display-abuse-report-details" data-report="<%=abuse_report.id%>"><%=_('View details')%></button>
       <div style='display: none' id=<%= 'abuse-report-details-'+abuse_report.id.to_s %> class="abuse-report-details">

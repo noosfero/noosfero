@@ -71,6 +71,7 @@ class Profile < ActiveRecord::Base
     'manage_friends'       => N_('Manage friends'),
     'validate_enterprise'  => N_('Validate enterprise'),
     'perform_task'         => N_('Perform task'),
+    'view_tasks'           => N_('View tasks'),
     'moderate_comments'    => N_('Moderate comments'),
     'edit_appearance'      => N_('Edit appearance'),
     'view_private_content' => N_('View private content'),
@@ -969,17 +970,9 @@ private :generate_url, :url_options
     self.save
   end
 
-  def disabled?
-    !visible
-  end
-
   def enable
     self.visible = true
     self.save
-  end
-
-  def enabled?
-    visible
   end
 
   def control_panel_settings_button
@@ -1041,7 +1034,7 @@ private :generate_url, :url_options
   end
 
   def remove_from_suggestion_list(person)
-    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion = person.suggested_profiles.find_by_suggestion_id self.id
     suggestion.disable if suggestion
   end
 

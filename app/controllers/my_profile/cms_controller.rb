@@ -105,6 +105,11 @@ class CmsController < MyProfileController
         end
       end
     end
+
+    unless @article.kind_of?(RssFeed)
+      @escaped_body = CGI::escapeHTML(@article.body || '')
+      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
+    end
   end
 
   def new

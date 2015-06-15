@@ -142,7 +142,7 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
     p3 = create_user('testuser3').person
     p4 = create_user('testuser4').person
-    p5 = create_user('testuser4').person
+    p5 = create_user('testuser5').person
 
     p1.add_friend(p2)
     p1.add_friend(p3)
@@ -212,8 +212,8 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
 
     ProfileSuggestion.expects(:calculate_suggestions)
 
-    person.profile_suggestions.enabled.last.disable
-    person.profile_suggestions.enabled.last.destroy
+    person.suggested_profiles.enabled.last.disable
+    person.suggested_profiles.enabled.last.destroy
     process_delayed_job_queue
   end
 

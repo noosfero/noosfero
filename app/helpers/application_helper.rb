@@ -1215,35 +1215,6 @@ module ApplicationHelper
     list.sort.inject(Hash.new(0)){|h,i| h[i] += 1; h }.collect{ |x, n| [n, connector, x].join(" ") }.sort
   end
 
-  #FIXME Use time_ago_in_words instead of this method if you're using Rails 2.2+
-  def time_ago_as_sentence(from_time, include_seconds = false)
-    to_time = Time.now
-    from_time = Time.parse(from_time.to_s)
-    from_time = from_time.to_time if from_time.respond_to?(:to_time)
-    to_time = to_time.to_time if to_time.respond_to?(:to_time)
-    distance_in_minutes = (((to_time - from_time).abs)/60).round
-    distance_in_seconds = ((to_time - from_time).abs).round
-    case distance_in_minutes
-      when 0..1
-        return (distance_in_minutes == 0) ? _('less than a minute') : _('1 minute') unless include_seconds
-        case distance_in_seconds
-          when 0..4   then _('less than 5 seconds')
-          when 5..9   then _('less than 10 seconds')
-          when 10..19 then _('less than 20 seconds')
-          when 20..39 then _('half a minute')
-          when 40..59 then _('less than a minute')
-          else             _('1 minute')
-        end
-
-      when 2..44           then _('%{distance} minutes ago') % { :distance => distance_in_minutes }
-      when 45..89          then _('about 1 hour ago')
-      when 90..1439        then _('about %{distance} hours ago') % { :distance => (distance_in_minutes.to_f / 60.0).round }
-      when 1440..2879      then _('1 day ago')
-      when 2880..10079     then _('%{distance} days ago') % { :distance => (distance_in_minutes / 1440).round }
-      else                      show_time(from_time)
-    end
-  end
-
   def comment_balloon(options = {}, &block)
     wrapper = content_tag(:div, capture(&block), :class => 'comment-balloon-content')
     (1..8).to_a.reverse.each { |i| wrapper = content_tag(:div, wrapper, :class => "comment-wrapper-#{i}") }

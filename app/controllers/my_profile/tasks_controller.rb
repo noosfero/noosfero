@@ -1,6 +1,7 @@
 class TasksController < MyProfileController
 
-  protect 'perform_task', :profile
+  protect [:perform_task, :view_tasks], :profile, :only => [:index]
+  protect :perform_task, :profile, :except => [:index]
 
   def index
     @filter_type = params[:filter_type].presence
@@ -15,6 +16,8 @@ class TasksController < MyProfileController
     @failed = params ? params[:failed] : {}
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
+
+    @view_only = !current_person.has_permission?(:perform_task, profile)
   end
 
   def processed
@@ -46,7 +49,7 @@ class TasksController < MyProfileController
           task = profile.find_in_all_tasks(id)
           begin
             task.update_attributes(value[:task])
-            task.send(decision)
+            task.send(decision, current_person)
           rescue Exception => ex
             message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
             failed[ex.message] ? failed[ex.message] << message : failed[ex.message] = [message]

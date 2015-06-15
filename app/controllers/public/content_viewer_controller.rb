@@ -11,6 +11,7 @@ class ContentViewerController < ApplicationController
     path = get_path(params[:page], params[:format])
 
     @version = params[:version].to_i
+    @npage = params[:npage] || '1'
 
     if path.blank?
       @page = profile.home_page
@@ -127,7 +128,7 @@ class ContentViewerController < ApplicationController
     end
 
     unless @page.display_to?(user)
-      if !profile.visible? || profile.secret? || (user && user.follows?(profile))
+      if !profile.visible? || profile.secret? || (user && user.follows?(profile)) || user.blank?
         render_access_denied
       else #!profile.public?
         private_profile_partial_parameters

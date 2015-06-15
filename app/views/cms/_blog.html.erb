@@ -67,7 +67,8 @@
 <%= labelled_form_field(_('How to display posts:'), f.select(:visualization_format, [
   [ _('Full post'), 'full'],
   [ _('First paragraph'), 'short'],
-  [ _('First paragraph, with post picture'), 'short+pic']
+  [ _('First paragraph, with post picture'), 'short+pic'],
+  [ _("Title, Image, Lead"), 'compact']
 ])) %>
 
 <%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, Blog.posts_per_page_options)) %>

@@ -19,14 +19,14 @@ module PermissionCheck
       before_filter actions do |c|
           target = target_method.kind_of?(Symbol) ? c.send(target_method) : target_method
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
-          unless accessor && accessor.has_permission?(permission.to_s, target)
+          unless Array.wrap(permission).map {|p| accessor && accessor.has_permission?(p.to_s, target)}.any?
             c.class.render_access_denied(c) && false
           end
       end
     end
 
     def render_access_denied(c)
-      if c.respond_to?(:render_access_denied)
+      if c.respond_to?(:render_access_denied, true)
         c.send(:render_access_denied)
       else
         c.send(:render, :template => access_denied_template_path, :status => 403)

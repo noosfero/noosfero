@@ -161,7 +161,16 @@ class BlogTest < ActiveSupport::TestCase
     assert_equal 'short', p.blog.visualization_format
   end
 
-  should 'allow only full and short as visualization_format' do
+  should 'update visualization_format setting to compact' do
+    p = create_user('testuser').person
+    p.articles << build(Blog, :profile => p, :name => 'Blog test')
+    blog = p.blog
+    blog.visualization_format = 'compact'
+    assert blog.save!
+    assert_equal 'compact', p.blog.visualization_format
+  end
+
+  should 'allow only full, short or compact as visualization_format' do
     blog = build(Blog, :name => 'blog')
     blog.visualization_format = 'wrong_format'
     blog.valid?
@@ -172,6 +181,10 @@ class BlogTest < ActiveSupport::TestCase
     assert !blog.errors[:visualization_format.to_s].present?
 
     blog.visualization_format = 'full'
+    blog.valid?
+    assert !blog.errors[:visualization_format.to_s].present?
+
+    blog.visualization_format = 'compact'
     blog.valid?
     assert !blog.errors[:visualization_format.to_s].present?
   end

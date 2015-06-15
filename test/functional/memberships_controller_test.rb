@@ -331,35 +331,35 @@ class MembershipsControllerTest < ActionController::TestCase
 
   should 'display list suggestions button' do
     community = fast_create(Community)
-    profile.profile_suggestions.create(:suggestion => community)
+    profile.suggested_profiles.create(:suggestion => community)
     get :index, :profile => 'testuser'
     assert_tag :tag => 'a', :content => 'See some suggestions of communities...', :attributes => { :href => "/myprofile/testuser/memberships/suggest" }
   end
 
   should 'display communities suggestions' do
     community = fast_create(Community)
-    profile.profile_suggestions.create(:suggestion => community)
+    profile.suggested_profiles.create(:suggestion => community)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :content => "+ #{community.name}", :attributes => { :href => "/profile/#{community.identifier}/join" }
   end
 
   should 'display button to join on community suggestion' do
     community = fast_create(Community)
-    profile.profile_suggestions.create(:suggestion => community)
+    profile.suggested_profiles.create(:suggestion => community)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/join" }
   end
 
   should 'display button to remove community suggestion' do
     community = fast_create(Community)
-    profile.profile_suggestions.create(:suggestion => community)
+    profile.suggested_profiles.create(:suggestion => community)
     get :suggest, :profile => 'testuser'
     assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/testuser\/memberships\/remove_suggestion\/#{community.identifier}/ }
   end
 
   should 'remove suggestion of community' do
     community = fast_create(Community)
-    suggestion = profile.profile_suggestions.create(:suggestion => community)
+    suggestion = profile.suggested_profiles.create(:suggestion => community)
     post :remove_suggestion, :profile => 'testuser', :id => community.identifier
 
     assert_response :success

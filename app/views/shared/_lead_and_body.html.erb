@@ -19,17 +19,27 @@
 
 <div class='article-lead' id="article-lead-<%=lead_id.to_s%>">
 
+  <% abstract_options = {:style => 'width: 100%; height: 200px;', :class => editor_type} %>
   <% if f %>
-    <%= labelled_form_field(_(abstract_label), f.text_area(abstract_method, :style => 'width: 100%; height: 200px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(abstract_label), f.text_area(abstract_method, abstract_options)) %>
   <% else %>
-    <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, :style => 'width: 100%; height: 200px;', :class => editor_type)) %>
+    <% if @article.kind_of?(Article) %>
+      <%= labelled_form_field(_(abstract_label), text_area_tag("article[abstract]", @escaped_abstract, abstract_options)) %>
+    <% else %>
+      <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, abstract_options)) %>
+    <% end %>
   <% end %>
 </div>
 <div style="margin-top: 10px;">
+  <% body_options = {:style => 'width: 100%; height: 400px;', :class => editor_type} %>
   <% if f %>
-    <%= labelled_form_field(_(body_label), f.text_area(body_method, :style => 'width: 100%; height: 400px;', :class => editor_type)) %>
+    <%= labelled_form_field(_(body_label), f.text_area(body_method, body_options)) %>
   <% else %>
-    <%= labelled_form_field(_(body_label), text_area(object, body_method, :style => 'width: 100%; height: 400px;', :class => editor_type)) %>
+    <% if @article.kind_of?(Article) %>
+      <%= labelled_form_field(_(body_label), text_area_tag("article[body]", @escaped_body, body_options)) %>
+    <% else %>
+      <%= labelled_form_field(_(body_label), text_area(object, body_method, body_options)) %>
+    <% end %>
   <% end %>
 </div>
 

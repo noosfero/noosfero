@@ -28,9 +28,20 @@ class PermissionCheckTest < ActionController::TestCase
   end
 
   def test_try_render_shared_access_denied_view
-    File.expects(:exists?).with(File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.rhtml'))
-    File.expects(:exists?).with(File.join(Rails.root, 'app', 'views', 'shared', 'access_denied.rhtml'))
+    File.expects(:exists?).with(File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.html.erb'))
+    File.expects(:exists?).with(File.join(Rails.root, 'app', 'views', 'shared', 'access_denied.html.erb'))
     AccessControlTestController.access_denied_template_path
+  end
+
+  def test_allow_access_to_user_with_one_of_multiple_permissions
+    user = AccessControlTestAccessor.create!(:name => 'other_user')
+    role = Role.create!(:name => 'other_role', :permissions => ['permission1'])
+    resource = AccessControlTestResource.create!(:name => 'some_resource')
+    assert user.add_role(role, resource)
+    assert user.has_permission?('permission1', resource)
+
+    get :stuff_with_multiple_permission, :user => user.id, :resource => resource.id
+    assert_response :success
   end
 
 end

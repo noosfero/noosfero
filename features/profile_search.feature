@@ -36,7 +36,7 @@ Feature: search inside a profile
       | joaosilva | ProfileSearchBlock  |
     When I go to joaosilva's profile
     And I fill in "q" with "bees" within ".profile-search-block"
-    And I press "Search"
+    And I press "Search" within ".profile-search-block"
     Then I should see "bees and butterflies" within ".main-block"
 
   Scenario: not display unpublished articles

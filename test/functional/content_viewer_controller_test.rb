@@ -262,7 +262,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template "profile/_private_profile"
+    assert_template "shared/access_denied"
   end
 
   should 'not give access to private articles if logged in but not member' do
@@ -1527,12 +1527,12 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'use context method in extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        if current_person.public?
+        if profile.public?
           {:title => 'some_title', :icon => 'some_icon', :url => '/someurl'}
         else
           {:title => 'another_title', :icon => 'another_icon', :url => '/anotherurl'}
         end
-      end
+       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
 
@@ -1547,4 +1547,31 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/anotherurl" }}
   end
 
+  should  'show lead,image and title in compact blog visualization' do
+    community = Community.create(:name => 'test-community')
+    community.add_member(@profile)
+    community.save!
+
+    blog = community.articles.find_by_name("Blog")
+    blog.visualization_format = 'compact'
+    blog.save!
+
+    article = TinyMceArticle.create(:name => 'Article to be shared with images',
+                                    :body => 'This article should be shared with all social networks',
+                                    :profile => @profile,
+                                    :published => false,
+                                    :abstract => "teste teste teste",
+                                    :show_to_followers => true,
+                                    :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')} )
+    article.parent = blog
+    article.save!
+
+    login_as(@profile.identifier)
+
+
+    get :view_page, :profile => community.identifier, "page" => 'blog'
+
+    assert_tag :tag => 'div', :attributes => { :class => 'article-compact-image' }
+    assert_tag :tag => 'div', :attributes => { :class => 'article-compact-abstract-with-image' }
+  end
 end

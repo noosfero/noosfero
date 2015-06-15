@@ -14,7 +14,7 @@ Feature: Change appearance
     And I should not see an element ".box-4"
     And I go to joaosilva's control panel
     And I follow "Edit Appearance"
-    And I follow "Left Top and Right"
+    And I follow "Top and Side Bars"
     And I go to joaosilva's control panel
     And I follow "Edit sideboxes"
     And I should see an element ".box-4"

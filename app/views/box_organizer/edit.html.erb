@@ -25,6 +25,7 @@
       </div>
       <div class="move-modes">
         <%= labelled_form_field _('Move options:'), select_tag('block[move_modes]', options_from_collection_for_select(@block.move_block_options, :first, :last, @block.move_modes)) %>
+      </div>
     <% end %>
 
     <% if @block.owner.kind_of?(Profile) && @block.owner.is_template? %>

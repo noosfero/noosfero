@@ -8,27 +8,13 @@ class EventsHelperTest < ActiveSupport::TestCase
     user = create_user('userwithevents').person
     stubs(:user).returns(user)
 
-    expects(:show_date_month).returns('')
-    expects(:_).with('Events for %s').returns('').once
-    expects(:_).with(' to ').returns('').twice
-    expects(:_).with('Place: ').returns('').twice
-    expects(:_).with('No events for this month').returns('').never
+    event1 = Event.new(name: "Event 1", start_date: Date.today, end_date: (Date.today + 1.day), address: 'The Shire')
+    event1.profile = user
+    event1.save
 
-    event1 = mock;
-    event1.expects(:display_to?).with(anything).returns(true).once;
-    event1.expects(:start_date).returns(Date.today).once
-    event1.expects(:end_date).returns(Date.today + 1.day).twice
-    event1.expects(:name).returns('Event 1').once
-    event1.expects(:url).returns({}).once
-    event1.expects(:address).returns('The Shire').times(3)
-
-    event2 = mock;
-    event2.expects(:display_to?).with(anything).returns(true).once
-    event2.expects(:start_date).returns(Date.today).once
-    event2.expects(:end_date).returns(Date.today + 1.day).twice
-    event2.expects(:name).returns('Event 2').once
-    event2.expects(:url).returns({}).once
-    event2.expects(:address).returns('Valfenda').times(3)
+    event2 = Event.new(name: 'Event 2', start_date: Date.today, end_date: (Date.today + 1.day), address: 'Valfenda')
+    event2.profile = user
+    event2.save
 
     result = list_events(Date.today, [event1, event2])
 
