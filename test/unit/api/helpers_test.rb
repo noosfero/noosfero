@@ -161,6 +161,13 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_nil make_conditions_with_parameter[:type]
   end
 
+  should 'render not_found if endpoint is unavailable' do
+    Noosfero::API::API.stubs(:endpoint_unavailable?).returns(true)
+    self.expects(:not_found!)
+
+    filter_disabled_plugins_endpoints
+  end
+
   protected
 
   def error!(info, status)

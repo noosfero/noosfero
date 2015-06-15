@@ -127,6 +127,10 @@ module Noosfero
       #              error helpers             #
       ##########################################
 
+      def not_found!
+        render_api_error!('404 Not found', 404)
+      end
+
       def forbidden!
         render_api_error!('403 Forbidden', 403)
       end
@@ -182,6 +186,10 @@ module Noosfero
         else
           @environment = @domain.environment
         end
+      end
+
+      def filter_disabled_plugins_endpoints
+        not_found! if Noosfero::API::API.endpoint_unavailable?(self, !@environment)
       end
 
       private

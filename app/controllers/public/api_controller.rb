@@ -2,12 +2,18 @@ class ApiController < PublicController
 
   no_design_blocks
 
+  helper_method :endpoints
+
   def index
-    @api = Noosfero::API.api_class
   end
 
   def playground
-    @api = Noosfero::API.api_class
+  end
+
+  private
+
+  def endpoints
+    Noosfero::API::API.endpoints(environment)
   end
 
 end

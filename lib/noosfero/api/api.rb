@@ -28,6 +28,7 @@ module Noosfero
 
       before { setup_multitenancy }
       before { detect_stuff_by_domain }
+      before { filter_disabled_plugins_endpoints }
       after { set_session_cookie }
 
       version 'v1'
@@ -57,10 +58,26 @@ module Noosfero
           end
         end
       end
-    end
 
-    def self.api_class
-      API
+      def self.endpoint_unavailable?(endpoint, environment)
+        api_class = endpoint.options[:app] || endpoint.options[:for]
+        if api_class.present?
+          klass = api_class.name.deconstantize.constantize
+          return klass < Noosfero::Plugin && !environment.plugin_enabled?(klass)
+        end
+      end
+
+      class << self
+        def endpoints_with_plugins(environment = nil)
+          if environment.present?
+            cloned_endpoints = endpoints_without_plugins.dup
+            cloned_endpoints.delete_if { |endpoint| endpoint_unavailable?(endpoint, environment) }
+          else
+            endpoints_without_plugins
+          end
+        end
+        alias_method_chain :endpoints, :plugins
+      end
     end
   end
 end
