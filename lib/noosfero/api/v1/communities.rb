@@ -3,9 +3,9 @@ module Noosfero
     module V1
       class Communities < Grape::API
         before { authenticate! }
-     
+
         resource :communities do
-  
+
           # Collect comments from articles
           #
           # Parameters:
@@ -21,8 +21,8 @@ module Noosfero
             communities = communities.visible_for_person(current_person)
             present communities, :with => Entities::Community
           end
-  
-  
+
+
           # Example Request:
           #  POST api/v1/communties?private_token=234298743290432&community[name]=some_name
           post do
@@ -32,40 +32,40 @@ module Noosfero
             rescue
               community = Community.new(params[:community])
             end
-  
+
             if !community.save
               render_api_errors!(community.errors.full_messages)
             end
-  
+
             present community, :with => Entities::Community
           end
-  
+
           get ':id' do
             community = environment.communities.visible.find_by_id(params[:id])
             present community, :with => Entities::Community
           end
-  
+
         end
-  
+
         resource :people do
-  
+
           segment '/:person_id' do
-  
+
             resource :communities do
-  
+
               get do
                 person = environment.people.find(params[:person_id])
                 communities = select_filtered_collection_of(person, 'communities', params)
                 communities = communities.visible
                 present communities, :with => Entities::Community
               end
-  
+
             end
-  
+
           end
-  
+
         end
-  
+
       end
     end
   end

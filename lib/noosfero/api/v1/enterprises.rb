@@ -3,9 +3,9 @@ module Noosfero
     module V1
       class Enterprises < Grape::API
         before { authenticate! }
-  
+
         resource :enterprises do
-  
+
           # Collect comments from articles
           #
           # Parameters:
@@ -21,35 +21,35 @@ module Noosfero
             enterprises = enterprises.visible_for_person(current_person)
             present enterprises, :with => Entities::Enterprise
           end
-  
+
           desc "Return one enterprise by id"
           get ':id' do
             enterprise = environment.enterprises.visible.find_by_id(params[:id])
             present enterprise, :with => Entities::Enterprise
           end
-  
+
         end
-  
+
         resource :people do
-  
+
           segment '/:person_id' do
-  
+
             resource :enterprises do
-  
+
               get do
                 person = environment.people.find(params[:person_id])
                 enterprises = select_filtered_collection_of(person, 'enterprises', params)
                 enterprises = enterprises.visible
                 present enterprises, :with => Entities::Enterprise
               end
-  
+
             end
-  
+
           end
-  
+
         end
-  
-  
+
+
       end
     end
   end

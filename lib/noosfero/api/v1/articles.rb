@@ -3,11 +3,11 @@ module Noosfero
     module V1
       class Articles < Grape::API
         before { authenticate! }
-  
+
         ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
-  
+
         resource :articles do
-  
+
           # Collect articles
           #
           # Parameters:
@@ -22,13 +22,13 @@ module Noosfero
             articles = articles.display_filter(current_person, nil)
             present articles, :with => Entities::Article, :fields => params[:fields]
           end
-  
+
           desc "Return the article id"
           get ':id' do
             article = find_article(environment.articles, params[:id])
             present article, :with => Entities::Article, :fields => params[:fields]
           end
-  
+
           get ':id/children' do
             article = find_article(environment.articles, params[:id])
 
@@ -37,7 +37,7 @@ module Noosfero
             articles = select_filtered_collection_of(article, 'children', params)
             articles = articles.display_filter(current_person, nil)
 
-            
+
             #TODO make tests for this situation
             if votes_order
               articles = articles.joins('left join votes on articles.id=votes.voteable_id').group('articles.id').reorder('sum(coalesce(votes.vote, 0)) DESC')
@@ -46,7 +46,7 @@ module Noosfero
             Article.hit(articles)
             present articles, :with => Entities::Article, :fields => params[:fields]
           end
-  
+
           get ':id/children/:child_id' do
             article = find_article(environment.articles, params[:id])
             present find_article(article.children, params[:child_id]), :with => Entities::Article, :fields => params[:fields]
@@ -75,7 +75,7 @@ module Noosfero
             return forbidden! unless parent_article.allow_create?(current_person)
 
             klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
-            #FIXME see how to check the article types 
+            #FIXME see how to check the article types
             #return forbidden! unless ARTICLE_TYPES.include?(klass_type)
 
             article = klass_type.constantize.new(params[:article])
@@ -92,7 +92,7 @@ module Noosfero
           end
 
         end
-  
+
         resource :communities do
           segment '/:community_id' do
             resource :articles do
@@ -102,38 +102,38 @@ module Noosfero
                 articles = articles.display_filter(current_person, community)
                 present articles, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               get ':id' do
                 community = environment.communities.find(params[:community_id])
                 article = find_article(community.articles, params[:id])
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               # Example Request:
               #  POST api/v1/communites/:community_id/articles?private_token=234298743290432&article[name]=title&article[body]=body
               post do
                 community = environment.communities.find(params[:community_id])
                 return forbidden! unless current_person.can_post_content?(community)
-  
+
                 klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
                 return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-  
+
                 article = klass_type.constantize.new(params[:article])
                 article.last_changed_by = current_person
                 article.created_by= current_person
                 article.profile = community
-  
+
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
             end
           end
-  
+
         end
-  
+
         resource :people do
           segment '/:person_id' do
             resource :articles do
@@ -143,36 +143,36 @@ module Noosfero
                 articles = articles.display_filter(current_person, person)
                 present articles, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               get ':id' do
                 person = environment.people.find(params[:person_id])
                 article = find_article(person.articles, params[:id])
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               post do
                 person = environment.people.find(params[:person_id])
                 return forbidden! unless current_person.can_post_content?(person)
-  
+
                 klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
                 return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-  
+
                 article = klass_type.constantize.new(params[:article])
                 article.last_changed_by = current_person
                 article.created_by= current_person
                 article.profile = person
-  
+
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
             end
           end
-  
+
         end
-  
+
         resource :enterprises do
           segment '/:enterprise_id' do
             resource :articles do
@@ -182,37 +182,36 @@ module Noosfero
                 articles = articles.display_filter(current_person, enterprise)
                 present articles, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               get ':id' do
                 enterprise = environment.enterprises.find(params[:enterprise_id])
                 article = find_article(enterprise.articles, params[:id])
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
               post do
                 enterprise = environment.enterprises.find(params[:enterprise_id])
                 return forbidden! unless current_person.can_post_content?(enterprise)
-  
+
                 klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
                 return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-  
+
                 article = klass_type.constantize.new(params[:article])
                 article.last_changed_by = current_person
                 article.created_by= current_person
                 article.profile = enterprise
-  
+
                 if !article.save
                   render_api_errors!(article.errors.full_messages)
                 end
                 present article, :with => Entities::Article, :fields => params[:fields]
               end
-  
+
             end
           end
-  
+
         end
-  
-  
+
       end
     end
   end

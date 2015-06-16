@@ -3,9 +3,9 @@ module Noosfero
     module V1
       class People < Grape::API
         before { authenticate! }
-  
+
         resource :people do
-  
+
           # Collect comments from articles
           #
           # Parameters:
@@ -21,21 +21,21 @@ module Noosfero
             people = people.visible_for_person(current_person)
             present people, :with => Entities::Person
           end
-  
+
           desc "Return the person information"
           get ':id' do
             person = environment.people.visible.find_by_id(params[:id])
             present person, :with => Entities::Person
           end
-  
+
           desc "Return the person friends"
           get ':id/friends' do
             friends = current_person.friends.visible
             present friends, :with => Entities::Person
           end
-  
+
         end
-  
+
       end
     end
   end
