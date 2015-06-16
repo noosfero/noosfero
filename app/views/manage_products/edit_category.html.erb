@@ -16,7 +16,7 @@
 
     <h3><%= _('Edit category of this product:') %></h3>
 
-    <%= categories_container(selects_for_all_ancestors(@category), hierarchy_category_navigation(@category, :make_links => true)) %>
+    <%= render 'manage_products/selected_category_tree' %>
 
     <div id='categories_selection_actionbar'>
       <%= button(:back, _('Back to product'), :action => 'show', :id => @product) %>

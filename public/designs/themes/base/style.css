@@ -1401,3 +1401,17 @@ table.profile th {
 table#recaptcha_table tr:hover td {
   background-color: #fff;
 }
+
+/* product cateogories */
+#categories-container #product_category_id {
+  font-size: 18px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+#categories-container #product_category_id:focus {
+  outline: none;
+  border-color: green;
+  box-shadow: 0 0 10px green;
+  color:#333;
+}
+
