@@ -1,4 +1,6 @@
 class ShoppingCartPlugin < Noosfero::Plugin
+  include ModalHelper
+  include ActionView::Helpers::UrlHelper
 
   class << self
     def plugin_name
@@ -62,5 +64,9 @@ class ShoppingCartPlugin < Noosfero::Plugin
     end
 
     buttons
+  end
+
+  def controller
+    context
   end
 end
