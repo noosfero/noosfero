@@ -47,9 +47,19 @@ module Noosfero
         expose :description
       end
 
-      class Category < Entity
+      class CategoryBase < Entity
         root 'categories', 'category'
-        expose :name, :id, :slug
+        expose :name, :id
+      end
+
+      class Category < CategoryBase
+        root 'categories', 'category'
+        expose :slug
+        expose :full_name do |category, options|
+          category.full_name
+        end
+        expose :parent, :using => CategoryBase, if: { parent: true }
+        expose :children, :using => CategoryBase, if: { children: true }
         expose :image, :using => Image
       end
 
