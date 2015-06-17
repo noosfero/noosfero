@@ -830,7 +830,7 @@ Array.min = function(array) {
 
 function hideAndGetUrl(link) {
   document.body.style.cursor = 'wait';
-  link.hide();
+  jQuery(link).hide();
   url = jQuery(link).attr('href');
   jQuery.get(url, function( data ) {
     document.body.style.cursor = 'default';
