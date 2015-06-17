@@ -1,10 +1,10 @@
 <% if @page.belongs_to_blog? || @page.belongs_to_forum?%>
   <h1 class="title">
-  <% if no_link %>
+    <% if no_link %>
       <%= h(@page.title) %>
-  <% else %>
+    <% else %>
       <%= link_to(@page.name, @page.url) %>
-  <% end %>
+    <% end %>
   </h1>
   <%= render :partial => "publishing_info" %>
   <% unless @page.abstract.blank? %>
