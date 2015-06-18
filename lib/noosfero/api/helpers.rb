@@ -45,9 +45,39 @@ module Noosfero
         end
       end
 
+      ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
+
       def find_article(articles, id)
         article = articles.find(id)
         article.display_to?(current_user.person) ? article : forbidden!
+      end
+
+      def post_article(asset, params)
+        return forbidden! unless current_person.can_post_content?(asset)
+
+        klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+        return forbidden! unless ARTICLE_TYPES.include?(klass_type)
+
+        article = klass_type.constantize.new(params[:article])
+        article.last_changed_by = current_person
+        article.created_by= current_person
+        article.profile = asset
+
+        if !article.save
+          render_api_errors!(article.errors.full_messages)
+        end
+        present article, :with => Entities::Article, :fields => params[:fields]
+      end
+
+      def present_article(asset)
+        article = find_article(asset.articles, params[:id])
+        present article, :with => Entities::Article, :fields => params[:fields]
+      end
+
+      def present_articles(asset)
+        articles = select_filtered_collection_of(asset, 'articles', params)
+        articles = articles.display_filter(current_person, nil)
+        present articles, :with => Entities::Article, :fields => params[:fields]
       end
 
       def find_task(tasks, id)

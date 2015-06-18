@@ -18,15 +18,12 @@ module Noosfero
           # Example Request:
           #  GET host/api/v1/articles?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
           get do
-            articles = select_filtered_collection_of(environment, 'articles', params)
-            articles = articles.display_filter(current_person, nil)
-            present articles, :with => Entities::Article, :fields => params[:fields]
+            present_articles(environment)
           end
 
           desc "Return the article id"
           get ':id' do
-            article = find_article(environment.articles, params[:id])
-            present article, :with => Entities::Article, :fields => params[:fields]
+            present_article(environment)
           end
 
           get ':id/children' do
@@ -93,125 +90,31 @@ module Noosfero
 
         end
 
-        resource :communities do
-          segment '/:community_id' do
-            resource :articles do
-              get do
-                community = environment.communities.find(params[:community_id])
-                articles = select_filtered_collection_of(community, 'articles', params)
-                articles = articles.display_filter(current_person, community)
-                present articles, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              get ':id' do
-                community = environment.communities.find(params[:community_id])
-                article = find_article(community.articles, params[:id])
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              # Example Request:
-              #  POST api/v1/communites/:community_id/articles?private_token=234298743290432&article[name]=title&article[body]=body
-              post do
-                community = environment.communities.find(params[:community_id])
-                return forbidden! unless current_person.can_post_content?(community)
-
-                klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
-                return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-
-                article = klass_type.constantize.new(params[:article])
-                article.last_changed_by = current_person
-                article.created_by= current_person
-                article.profile = community
-
-                if !article.save
-                  render_api_errors!(article.errors.full_messages)
+        kinds = %w[community person enterprise]
+        kinds.each do |kind|
+          resource kind.pluralize.to_sym do
+            segment "/:#{kind}_id" do
+              resource :articles do
+                get do
+                  profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
+                  present_articles(profile)
                 end
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
 
+                get ':id' do
+                  profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
+                  present_article(profile)
+                end
+
+                # Example Request:
+                #  POST api/v1/{people,communities,enterprises}/:asset_id/articles?private_token=234298743290432&article[name]=title&article[body]=body
+                post do
+                  profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
+                  post_article(profile, params)
+                end
+              end
             end
           end
-
         end
-
-        resource :people do
-          segment '/:person_id' do
-            resource :articles do
-              get do
-                person = environment.people.find(params[:person_id])
-                articles = select_filtered_collection_of(person, 'articles', params)
-                articles = articles.display_filter(current_person, person)
-                present articles, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              get ':id' do
-                person = environment.people.find(params[:person_id])
-                article = find_article(person.articles, params[:id])
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              post do
-                person = environment.people.find(params[:person_id])
-                return forbidden! unless current_person.can_post_content?(person)
-
-                klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
-                return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-
-                article = klass_type.constantize.new(params[:article])
-                article.last_changed_by = current_person
-                article.created_by= current_person
-                article.profile = person
-
-                if !article.save
-                  render_api_errors!(article.errors.full_messages)
-                end
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
-
-            end
-          end
-
-        end
-
-        resource :enterprises do
-          segment '/:enterprise_id' do
-            resource :articles do
-              get do
-                enterprise = environment.enterprises.find(params[:enterprise_id])
-                articles = select_filtered_collection_of(enterprise, 'articles', params)
-                articles = articles.display_filter(current_person, enterprise)
-                present articles, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              get ':id' do
-                enterprise = environment.enterprises.find(params[:enterprise_id])
-                article = find_article(enterprise.articles, params[:id])
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
-
-              post do
-                enterprise = environment.enterprises.find(params[:enterprise_id])
-                return forbidden! unless current_person.can_post_content?(enterprise)
-
-                klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
-                return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-
-                article = klass_type.constantize.new(params[:article])
-                article.last_changed_by = current_person
-                article.created_by= current_person
-                article.profile = enterprise
-
-                if !article.save
-                  render_api_errors!(article.errors.full_messages)
-                end
-                present article, :with => Entities::Article, :fields => params[:fields]
-              end
-
-            end
-          end
-
-        end
-
       end
     end
   end
