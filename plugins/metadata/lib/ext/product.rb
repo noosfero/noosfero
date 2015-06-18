@@ -7,7 +7,7 @@ class Product
     url: proc{ |p, plugin| plugin.og_url_for p.url },
     gr_hascurrencyvalue: proc{ |p, plugin| p.price.to_f },
     gr_hascurrency: proc{ |p, plugin| p.environment.currency_unit },
-    title: proc{ |a, plugin| "#{p.name} - #{p.profile.name}" },
+    title: proc{ |p, plugin| "#{p.name} - #{p.profile.name}" if p },
     description: proc{ |p, plugin| ActionView::Base.full_sanitizer.sanitize p.description },
 
     image: proc{ |p, plugin| "#{p.environment.top_url}#{p.image.public_filename}" if p.image },
@@ -17,7 +17,7 @@ class Product
 
     see_also: [],
     site_name: proc{ |p, plugin| plugin.og_url_for p.profile.url },
-    updated_time: proc{ |p, plugin| p.updated_at.iso8601 },
+    updated_time: proc{ |p, plugin| p.updated_at.iso8601 if p.updated_at },
 
     'locale:locale' => proc{ |p, plugin| p.environment.default_language },
     'locale:alternate' => proc{ |p, plugin| p.environment.languages - [p.environment.default_language] if p.environment.languages },
