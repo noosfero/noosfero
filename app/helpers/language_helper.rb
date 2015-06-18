@@ -16,7 +16,7 @@ module LanguageHelper
   def language_chooser(environment=nil, options = {})
     locales = environment.nil? ? Noosfero.locales : environment.locales
     return if locales.size < 2
-    current = FastGettext.locale
+    current = language
     separator = options[:separator] || ' &mdash; '
 
     if options[:element] == 'dropdown'
