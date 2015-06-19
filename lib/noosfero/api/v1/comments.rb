@@ -38,7 +38,8 @@ module Noosfero
           #  POST api/v1/articles/12/comments?private_toke=234298743290432&body=new comment
           post ":id/comments" do
             article = find_article(environment.articles, params[:id])
-            present article.comments.create(:author => current_person, :body => params[:body]), :with => Entities::Comment
+            options  = params[:comment].merge(:author => current_person)
+            present article.comments.create(options), :with => Entities::Comment
           end
         end
 
