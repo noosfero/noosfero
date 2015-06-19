@@ -32,6 +32,7 @@ group :test do
   gem 'rspec',                  '~> 2.14.0'
   gem 'rspec-rails',            '~> 2.14.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
+  gem 'test-unit' if RUBY_VERSION >= '2.2.0'
 end
 
 group :cucumber do

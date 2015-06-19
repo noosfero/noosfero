@@ -1,0 +1,35 @@
+language: ruby
+rvm:
+# for 2.2 support we need to upgrade the pg gem
+  - 2.1.6
+
+before_install:
+# dependencies
+  - sudo apt-get update
+  - sudo apt-get -y install po4a iso-codes tango-icon-theme pidgin-data openjdk-6-jre curl wget
+  - sudo apt-get -y install libmagickwand-dev libpq-dev libreadline-dev libsqlite3-dev libxslt1-dev
+# selenium support
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+before_script:
+  - mkdir -p tmp/pids log
+  - script/noosfero-plugins disableall
+  - bundle check || bundle install
+# database
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database myapp_test;' -U postgres
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:migrate
+
+env:
+  - TASK=test:units
+  - TASK=test:functionals
+  - TASK=test:integration
+  - TASK=cucumber
+  - TASK=selenium
+  - TASK=test:noosfero_plugins
+
+script:
+  - bundle exec rake $TASK
+

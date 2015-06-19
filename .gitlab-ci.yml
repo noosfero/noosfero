@@ -1,0 +1,24 @@
+before_install:
+  - mkdir -p tmp/pids log
+  - script/noosfero-plugins disableall
+  - bundle check || bundle install
+# database
+  - cp config/database.yml.gitlab-ci config/database.yml
+  - dropdb gitlab_ci_test
+  - createdb gitlab_ci_test
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:migrate
+
+units:
+  script: 'bundle exec rake test:units'
+functionals:
+  script: 'bundle exec rake test:functionals'
+integration:
+  script: 'bundle exec rake test:integration'
+cucumber:
+  script: 'bundle exec rake cucumber'
+selenium:
+  script: 'bundle exec rake selenium'
+plugins:
+  script: 'bundle exec rake test:noosfero_plugins'
+
