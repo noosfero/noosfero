@@ -4,6 +4,8 @@ module Noosfero
       class People < Grape::API
         before { authenticate! }
 
+        desc 'API Root'
+
         resource :people do
 
           # -- A note about privacy --
@@ -26,6 +28,8 @@ module Noosfero
           # Example Request:
           #  GET /people?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
           #  GET /people?reference_id=10&limit=10&oldest
+
+          desc "Find environment's people"
           get do
             people = select_filtered_collection_of(environment, 'people', params)
             people = people.visible_for_person(current_person)
