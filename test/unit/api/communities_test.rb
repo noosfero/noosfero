@@ -7,6 +7,15 @@ class CommunitiesTest < ActiveSupport::TestCase
     login_api
   end
 
+  should 'list only communities' do
+    community = fast_create(Community)
+    enterprise = fast_create(Enterprise) # should not list this enterprise
+    get "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json['communities'].map {|c| c['id']}, enterprise.id
+    assert_includes json['communities'].map {|c| c['id']}, community.id
+  end
+
   should 'list all communities' do
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)

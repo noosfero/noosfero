@@ -16,7 +16,7 @@ class Organization < Profile
   #   visible.
   #   4) The user is not a member of the organization but the organization is
   #   visible, public and enabled.
-  scope :visible_for_person, lambda { |person|
+  def self.visible_for_person(person)
     joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = "profiles"."id"
           AND "role_assignments"."resource_type" = \'Profile\') OR (
           "role_assignments"."resource_id" = "profiles"."environment_id" AND
@@ -31,7 +31,7 @@ class Organization < Profile
       'profile_admin', 'environment_administrator', Profile.name, person.id,
       Profile.name, person.id,  true, true, true]
     ).uniq
-  }
+  end
 
   settings_items :closed, :type => :boolean, :default => false
   def closed?
