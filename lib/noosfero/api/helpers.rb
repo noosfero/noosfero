@@ -2,7 +2,7 @@ module Noosfero
   module API
     module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
-      ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type]
+      DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type]
 
       def current_user
         private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
@@ -228,7 +228,7 @@ module Noosfero
       def parser_params(params)
         parsed_params = {}
         params.map do |k,v|
-          parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
+          parsed_params[k.to_sym] = v if DEFAULT_ALLOWED_PARAMETERS.include?(k.to_sym)
         end
         parsed_params
       end
