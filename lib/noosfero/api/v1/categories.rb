@@ -11,7 +11,7 @@ module Noosfero
             include_parent = params[:include_parent] == 'true'
             include_children = params[:include_children] == 'true'
 
-            categories = type.nil? ?  environment.categories : environment.categories.find(:all, :conditions => {:type => type})
+            categories = type.nil? ?  environment.categories : environment.categories.where(:type => type)
             present categories, :with => Entities::Category, parent: include_parent, children: include_children
           end
 
