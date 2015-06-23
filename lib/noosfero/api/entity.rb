@@ -6,9 +6,7 @@ class Noosfero::API::Entity < Grape::Entity
   end
 
   def self.represent(objects, options = {})
-    if options[:is_inner_data]
-      super objects, options
-    else
+    if options[:has_exception]
       data = super objects, options.merge(is_inner_data: true)
       if objects.is_a? Exception
         data.merge ok: false, error: {
@@ -18,6 +16,8 @@ class Noosfero::API::Entity < Grape::Entity
       else
         data.merge ok: true, error: { type: 'Success', message: '' }
       end
+    else
+      super objects, options
     end
   end
 
