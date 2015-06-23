@@ -1,5 +1,6 @@
-# From http://about.travis-ci.org/docs/user/database-setup/
-test:
+test: &TEST
   adapter: postgresql
   database: gitlab_ci_test
-  username: postgres
+  username: gitlab_ci_runner
+development:
+  <<: *TEST

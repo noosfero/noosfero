@@ -1,11 +1,10 @@
-before_install:
+before_script:
   - mkdir -p tmp/pids log
   - script/noosfero-plugins disableall
   - bundle check || bundle install
 # database
   - cp config/database.yml.gitlab-ci config/database.yml
-  - dropdb gitlab_ci_test
-  - createdb gitlab_ci_test
+  - createdb gitlab_ci_test || true
   - bundle exec rake db:schema:load
   - bundle exec rake db:migrate
 
