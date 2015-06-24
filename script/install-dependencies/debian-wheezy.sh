@@ -80,4 +80,5 @@ packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debi
 run sudo apt-get -y install $packages
 sudo apt-get -y install iceweasel || sudo apt-get -y install firefox
 
+run rm -f Gemfile.lock
 run bundle --local
