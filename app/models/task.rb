@@ -329,6 +329,10 @@ class Task < ActiveRecord::Base
     Task.to(profile).pending.select('distinct type').map { |t| [t.class.name, t.title] }
   end
 
+  def self.closed_types_for(profile)
+    Task.to(profile).closed.select('distinct type').map { |t| [t.class.name, t.title] }
+  end
+
   def opened?
     status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end

@@ -57,7 +57,9 @@
     <% end %>
 
       <div class="task_boxes">
-        <%= render :partial => 'task', :collection => @tasks %>
+        <% @tasks.each do |task| %>
+          <%= render :partial => partial_for_class(task.class, nil, nil), :locals => {:task => task} %>
+        <% end %>
       </div>
 
       <% unless @view_only %>
