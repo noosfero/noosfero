@@ -10,7 +10,7 @@
 # (http://github.com/yaroslav/russian). Следующие данные -- выдержка их него, чтобы
 # была возможность минимальной локализации приложения на русский язык.
 
-ru:
+ru: &ru
   date:
     formats:
       default: "%d.%m.%Y"
@@ -300,3 +300,7 @@ ru:
       words_connector: ", "
       two_words_connector: " и "
       last_word_connector: " и "
+
+ru_RU:
+  <<: *ru
+

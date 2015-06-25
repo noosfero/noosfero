@@ -3,7 +3,7 @@
 # FIXME: This is a copy of en-US.yml. Armenian translators, please translate
 # this into Armenian.
 
-"hy":
+hy: &hy
   date:
     formats:
       default: "%Y-%m-%d"
@@ -222,3 +222,6 @@
         <<: *errors_template
       full_messages:
         format: "%{attribute} %{message}"
+
+hy-AM:
+  <<: *hy

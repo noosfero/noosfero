@@ -5,7 +5,7 @@
 # - Simone Carletti (weppos@weppos.net)
 # - Davide Guerri (d.guerri@caspur.it)
 
-it:
+it: &it
   number:
     format:
       delimiter: ","
@@ -234,3 +234,6 @@ it:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+it_IT:
+  <<: *it

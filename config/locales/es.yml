@@ -4,7 +4,7 @@
 #  - Tsutomu Kuroda - http://github.com/kuroda (t-kuroda@oiax.jp)
 # Corrected by Eloy Serra Labán: http://goo.gl/i9Kts, /nQ928, /XfKaX
 
-"es":
+es: &es
   date:
     formats:
       default: "%d/%m/%Y"
@@ -223,3 +223,6 @@
 
       full_messages:
         format: "%{attribute} %{message}"
+
+es_ES:
+  <<: *es

@@ -5,7 +5,7 @@
 #  - Bruno Michel - http://github.com/nono
 #  - Tsutomu Kuroda - http://github.com/kuroda (t-kuroda@oiax.jp)
 
-fr:
+fr: &fr
   date:
     formats:
       default: "%d/%m/%Y"
@@ -222,3 +222,7 @@ fr:
         <<: *errors_template
       full_messages:
         format: "%{attribute} %{message}"
+
+fr-FR:
+  <<: *fr
+
