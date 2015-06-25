@@ -20,4 +20,11 @@ class ActiveSupport::TestCase
   end
   attr_accessor :private_token, :user, :person, :params
 
+  private
+
+  def json_response_ids(kind)
+    json = JSON.parse(last_response.body)
+    json[kind.to_s].map {|c| c['id']}
+  end
+
 end

@@ -38,13 +38,14 @@ module Noosfero
 
           desc "Return the person information"
           get ':id' do
-            person = environment.people.visible.find_by_id(params[:id])
+            person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
             present person, :with => Entities::Person
           end
 
           desc "Return the person friends"
           get ':id/friends' do
-            friends = current_person.friends.visible
+            person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
+            friends = person.friends.visible
             present friends, :with => Entities::Person
           end
 

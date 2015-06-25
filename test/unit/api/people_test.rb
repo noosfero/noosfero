@@ -16,21 +16,17 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not list invisible people' do
-    person1 = fast_create(Person)
-    fast_create(Person, :visible => false)
+    invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person.id], json['people'].map {|c| c['id']}
+    assert_not_includes json_response_ids(:people), invisible_person.id
   end
 
   should 'not list private people without permission' do
-    person1 = fast_create(Person)
-    fast_create(Person, :public_profile => false)
+    private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person.id], json['people'].map {|c| c['id']}
+    assert_not_includes json_response_ids(:people), private_person.id
   end
 
   should 'list private person for friends' do
@@ -40,8 +36,7 @@ class PeopleTest < ActiveSupport::TestCase
     p2.add_friend(person)
 
     get "/api/v1/people?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [p1.id, p2.id, person.id], json['people'].map {|c| c['id']}
+    assert_includes json_response_ids(:people), p2.id
   end
 
   should 'get person' do
@@ -61,42 +56,44 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not get private people without permission' do
-    person = fast_create(Person)
-    fast_create(Person, :public_profile => false)
+    private_person = fast_create(Person, :public_profile => false)
 
-    get "/api/v1/people/#{person.id}?#{params.to_query}"
+    get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal person.id, json['person']['id']
+    assert json['person'].blank?
   end
 
   should 'get private person for friends' do
-    person = fast_create(Person, :public_profile => false)
-    person.add_friend(person)
+    private_person = fast_create(Person, :public_profile => false)
+    person.add_friend(private_person)
+    private_person.add_friend(person)
 
-    get "/api/v1/people/#{person.id}?#{params.to_query}"
+    get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal person.id, json['person']['id']
+    assert_equal private_person.id, json['person']['id']
   end
 
   should 'list person friends' do
-    p = fast_create(Person)
-    fast_create(Person)
-    person.add_friend(p)
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
 
-    get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [p.id], json['people'].map {|c| c['id']}
+    get "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    assert_includes json_response_ids(:people), person.id
   end
 
-  should 'not list person friends invisible' do
-    p1 = fast_create(Person)
-    p2 = fast_create(Person, :visible => false)
-    person.add_friend(p1)
-    person.add_friend(p2)
+  should 'not list person invisible friends' do
+    friend = fast_create(Person)
+    invisible_friend = fast_create(Person, :visible => false)
+    person.add_friend(friend)
+    person.add_friend(invisible_friend)
+    friend.add_friend(person)
+    invisible_friend.add_friend(person)
 
     get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [p1.id], json['people'].map {|c| c['id']}
+    friends = json_response_ids(:people)
+    assert_includes friends, friend.id
+    assert_not_includes friends, invisible_friend.id
   end
 
 end
