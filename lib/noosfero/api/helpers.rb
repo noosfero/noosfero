@@ -103,15 +103,21 @@ module Noosfero
         params[:order] || "created_at DESC"
       end
 
+      def by_reference(scope, params)
+        if params[:reference_id]
+          created_at = scope.find(params[:reference_id]).created_at
+          scope.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at)
+        else
+          scope
+        end
+      end
+
       def select_filtered_collection_of(object, method, params)
         conditions = make_conditions_with_parameter(params)
         order = make_order_with_parameters(params)
 
         objects = object.send(method)
-        if params[:reference_id]
-          created_at = objects.find(params[:reference_id]).created_at
-          objects = objects.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at)
-        end
+        objects = by_reference(objects, params)
         objects = objects.where(conditions).limit(limit).order(order)
 
         objects

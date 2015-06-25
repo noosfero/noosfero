@@ -15,18 +15,10 @@ module Noosfero
           # Example Request:
           #  GET /articles/12/comments?oldest&limit=10&reference_id=23
           get ":id/comments" do
-
-            conditions = make_conditions_with_parameter(params)
             article = find_article(environment.articles, params[:id])
+            comments = select_filtered_collection_of(article, :comments, params)
 
-            if params[:reference_id]
-              created_at = article.comments.find(params[:reference_id]).created_at
-              comments = article.comments.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at).reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
-            else
-              comments = article.comments.reorder("created_at DESC").find(:all, :conditions => conditions, :limit => limit)
-            end
             present comments, :with => Entities::Comment
-
           end
 
           get ":id/comments/:comment_id" do
