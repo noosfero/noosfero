@@ -1,0 +1,41 @@
+<div class="event-card">
+  <div class="event-image">
+    <% if event.image %>
+      <%= image_tag(event.image.public_filename(:big)) %>
+    <% end %>
+  </div>
+  <div class="about-event">
+    <% if event.start_date.present? || event.end_date.present? %>
+      <span class="event-date">
+        <%= show_period(event.start_date, event.end_date) %>
+      </span>
+    <% end %>
+    <% if event.link.present? %>
+      <span class="event-link">
+        <%= link_to event.link, event.link %>
+      </span>
+    <% end %>
+    <% if event.address.present? %>
+      <span class="event-address">
+        <span>
+          <%= event.address %>
+        </span>
+      </span>
+    <% end %>
+  </div>
+</div>
+
+<div class="event-body">
+  <% if format == 'short' %>
+    <%= display_short_format event, :comments_link => false, :read_more_link => false %>
+  <% else %>
+    <% unless event.abstract.blank? %>
+      <div class="event-lead">
+        <%= event.article_lead %>
+      </div>
+    <% end %>
+    <div class="event-content">
+      <%= event.body %>
+    </div>
+  <% end %>
+</div>

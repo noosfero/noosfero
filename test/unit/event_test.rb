@@ -109,17 +109,20 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'provide nice display format' do
-    e = build(Event, :start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :body => 'my somewhat short description')
+    event = build(Event, :start_date => Date.new(2008,1,1), :end_date => Date.new(2008,1,1), :link => 'http://www.myevent.org', :body => '<p>my somewhat short description</p>')
+    display = instance_eval(&event.to_html)
 
-    assert_tag_in_string e.to_html, :content => Regexp.new("January 1, 2008")
-    assert_tag_in_string e.to_html, :content => 'my somewhat short description'
-    assert_tag_in_string e.to_html, :tag => 'a', :attributes => { :href  => 'http://www.myevent.org' }, :content => 'http://www.myevent.org'
+    assert_tag_in_string display, :content => Regexp.new("January 1, 2008")
+    assert_tag_in_string display, :content => Regexp.new('my somewhat short description')
+    assert_tag_in_string display, :content => Regexp.new('http://www.myevent.org')
   end
 
   should 'not crash when body is blank' do
     e = Event.new
     assert_nil e.body
-    assert_no_match(/_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____/, e.to_html)
+    assert_nothing_raised  do
+      instance_eval(&e.to_html)
+    end
   end
 
   should 'add http:// to the link if not already present' do
@@ -141,10 +144,19 @@ class EventTest < ActiveSupport::TestCase
     assert_equal '', a.link
   end
 
+  should 'get the first paragraph' do
+    profile = create_user('testuser').person
+    event = create(Event, :profile => profile, :name => 'test',
+    :body => '<p>first paragraph </p><p>second paragraph </p>',
+    :link => 'www.colivre.coop.br', :start_date => Date.today)
+
+    assert_match '<p>first paragraph </p>', event.first_paragraph
+  end
+
   should 'not escape HTML in body' do
     a = build(Event, :body => '<p>a paragraph of text</p>', :link => 'www.gnu.org')
 
-    assert_match '<p>a paragraph of text</p>', a.to_html
+    assert_match '<p>a paragraph of text</p>', instance_eval(&a.to_html)
   end
 
   should 'filter HTML in body' do
@@ -324,7 +336,7 @@ class EventTest < ActiveSupport::TestCase
     environment = fast_create(Environment)
     environment.languages = nil
     profile = fast_create(Person, :environment_id => environment.id)
- 
+
     event = Event.new(:profile => profile)
 
     assert !event.translatable?
@@ -337,11 +349,11 @@ class EventTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => profile.id)
 
     assert !event.translatable?
- 
+
 
     environment.languages = ['en','pt','fr']
     environment.save
-    event.reload 
+    event.reload
     assert event.translatable?
   end
 

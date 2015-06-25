@@ -1,0 +1,8 @@
+<%= text_field_tag 'product_category_id', '', :placeholder => _('type a category for the product') %>
+
+<%= javascript_include_tag '/javascripts/product_categories.js' %>
+<%= javascript_tag do %>
+  product_categories.autocomplete.search_url = <%= url_for(:controller => :manage_products, :action => :search_categories).to_json %>
+  product_categories.autocomplete.select_url = <%= url_for(:controller => :manage_products, :action => :show_category_tree).to_json %>
+  product_categories.autocomplete.load('#product_category_id')
+<% end %>

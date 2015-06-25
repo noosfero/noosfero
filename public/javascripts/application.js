@@ -14,6 +14,7 @@
 *= require jquery.ba-bbq.min.js
 *= require jquery.tokeninput.js
 *= require jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
+*= require select-or-die/_src/selectordie
 *= require inputosaurus.js
 *= require reflection.js
 *= require rails.js
@@ -830,7 +831,7 @@ Array.min = function(array) {
 
 function hideAndGetUrl(link) {
   document.body.style.cursor = 'wait';
-  link.hide();
+  jQuery(link).hide();
   url = jQuery(link).attr('href');
   jQuery.get(url, function( data ) {
     document.body.style.cursor = 'default';
@@ -1178,7 +1179,10 @@ window.isHidden = function isHidden() { return (typeof(document.hidden) != 'unde
 
 function $_GET(id){
     var a = new RegExp(id+"=([^&#=]*)");
-    return decodeURIComponent(a.exec(window.location.search)[1]);
+    var result_of_search = a.exec(window.location.search)
+    if(result_of_search != null){
+      return decodeURIComponent(result_of_search[1]);
+    }
 }
 
 var fullwidth=false;
@@ -1206,4 +1210,3 @@ function fullscreenPageLoad(itemId){
     }
   });
 }
-

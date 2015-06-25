@@ -332,6 +332,8 @@ class User < ActiveRecord::Base
 
     {
       'login' => self.login,
+      'name' => self.person.name,
+      'email' => self.email,
       'avatar' => self.person.profile_custom_icon(gravatar_default),
       'is_admin' => self.person.is_admin?,
       'since_month' => self.person.created_at.month,

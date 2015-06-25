@@ -1061,15 +1061,18 @@ hr.pre-posts, hr.sep-posts {
   text-decoration: none;
 }
 
-#content .main-block .created-at {
+#content .main-block .publishing-info {
   text-align: left;
   color: #AAA;
+  font-size: 11px;
+  /*padding-top: 20px;*/
+  margin-bottom:15px;
 }
-#content .main-block .created-at a {
+#content .main-block .publishing-info a {
   color: #AAA;
   text-decoration: none;
 }
-#content .main-block .created-at a:hover {
+#content .main-block .publishing-info a:hover {
   color: #555;
   text-decoration: underline;
 }
@@ -1400,4 +1403,130 @@ table.profile th {
 
 table#recaptcha_table tr:hover td {
   background-color: #fff;
+}
+
+/* product cateogories */
+#categories-container #product_category_id {
+  font-size: 18px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+#categories-container #product_category_id:focus {
+  outline: none;
+  border-color: green;
+  box-shadow: 0 0 10px green;
+  color:#333;
+}
+
+/************************* Article Page *****************************/
+
+#article-header .preview {
+  font-size: 15px;
+}
+
+.article-body-img {
+  float: left;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+#content #article .article-body .article-body-img img {
+  height: auto;
+  width: auto;
+  min-height: 120px;
+  max-height: 180px;
+  max-width: 250px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#content #article .article-body .article-body-img p {
+  margin-bottom: 10px;
+  font-size: 10px;
+  min-height: 20px;
+}
+/* Noosfero Events */
+
+.event-card {
+  float: left;
+  padding-top: 25px;
+  width: 494px;
+  height: 116px;
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+}
+
+.event-image {
+  position: relative;
+  float: left;
+  padding-right: 22px;
+  max-width: 130px;
+  height: 130px;
+}
+
+#content #article .article-body img{
+  max-height: 100%;
+}
+
+.about-event {
+  position: relative;
+  float: left;
+  height: 160px;
+  width: 300px;
+  max-width: 300px;
+}
+
+.about-event > span {
+  display: block;
+  max-width: inherit;
+  margin-left: 20px;
+  padding-left: 21px;
+  line-height: 13px;
+  margin-right: 11px;
+}
+
+.about-event .event-date {
+  margin-top: 3px;
+}
+
+.about-event .event-address {
+  margin-top: 19px;
+}
+
+.about-event .event-address span {
+  display: block;
+  margin-left: 0px;
+  margin-top: 4.4px;
+  line-height: 14px;
+}
+
+.event-date {
+  background: url('/images/calendar_date_select/calendar-icon.png') no-repeat left center;
+  padding: 5px;
+}
+
+.event-link {
+  background: url('/images/globe-icon.png') no-repeat left center;
+  margin-top: 18px;
+}
+
+.event-link a {
+}
+
+.event-address {
+  background: url('/images/icone_pin.png') no-repeat left top;
+}
+
+.event-body {
+  float: left;
+}
+
+.event-body .event-lead {
+  font-size: 15px;
+}
+
+.event-body .event-content p {
+  margin-top: 20px;
+  width: 494px;
+  padding-left: 2px;
 }

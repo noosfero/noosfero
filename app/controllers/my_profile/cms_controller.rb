@@ -94,6 +94,11 @@ class CmsController < MyProfileController
     record_coming
     if request.post?
       @article.image = nil if params[:remove_image] == 'true'
+      if @article.image.present? && params[:article][:image_builder] &&
+        params[:article][:image_builder][:label]
+        @article.image.label = params[:article][:image_builder][:label]
+        @article.image.save!
+      end
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         if !continue

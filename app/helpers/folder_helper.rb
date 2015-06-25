@@ -1,8 +1,5 @@
-require 'short_filename'
-
 module FolderHelper
 
-  include ShortFilename
   include ArticleHelper
 
   def list_contents(configure={})
@@ -10,8 +7,8 @@ module FolderHelper
     configure[:list_type] ||= :folder
     if !configure[:contents].blank?
       configure[:contents] = configure[:contents].paginate(
-        :order => "updated_at DESC",
-        :per_page => 10,
+        :order => "name ASC",
+        :per_page => 30,
         :page => params[:npage]
       )
 

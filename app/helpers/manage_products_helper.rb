@@ -75,9 +75,12 @@ module ManageProductsHelper
   end
 
   def categories_container(categories_selection_html, hierarchy_html = '')
-    hidden_field_tag('selected_category_id') +
-    content_tag('div', hierarchy_html, :id => 'hierarchy_navigation') +
-    content_tag('div', categories_selection_html, :id => 'categories_container_wrapper')
+    content_tag 'div',
+      render('categories_autocomplete') +
+      hidden_field_tag('selected_category_id') +
+      content_tag('div', hierarchy_html, :id => 'hierarchy_navigation') +
+      content_tag('div', categories_selection_html, :id => 'categories_container_wrapper'),
+    :id => 'categories-container'
   end
 
   def select_for_categories(categories, level = 0)

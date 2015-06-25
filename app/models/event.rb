@@ -98,47 +98,19 @@ class Event < Article
     start_date..(end_date||start_date)
   end
 
-  # FIXME this shouldn't be needed
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::UrlHelper
-  include DatesHelper
+  def first_paragraph
+    paragraphs = Nokogiri::HTML.fragment(self.body).css('p')
+    paragraphs.empty? ? '' : paragraphs.first.to_html
+  end
 
   def to_html(options = {})
+    event = self
+    format = options[:format]
 
-    result = ''
-    html = ::Builder::XmlMarkup.new(:target => result)
-
-    html.div(:class => 'event-info' ) {
-      html.ul(:class => 'event-data' ) {
-        html.li(:class => 'event-dates' ) {
-          html.span _('When:')
-          html.text! show_period(start_date, end_date)
-        } if start_date.present? || end_date.present?
-        html.li {
-          html.span _('URL:')
-          html.a(self.link || "", 'href' => self.link || "")
-        } if self.link.present?
-        html.li {
-          html.span _('Address:')
-          html.text! self.address || ""
-        } if self.address.present?
-      }
-
-      # TODO: some good soul, please clean this ugly hack:
-      if self.body
-        html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description')
-      end
-    }
-
-    if self.body
-      if options[:format] == 'short'
-        result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', display_short_format(self))
-      else
-        result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.body)
-      end
+    proc do
+      render :file => 'content_viewer/event_page', :locals => { :event => event,
+        :format => format }
     end
-
-    result
   end
 
   def duration

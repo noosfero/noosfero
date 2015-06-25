@@ -171,6 +171,12 @@ class Organization < Profile
     ]
   end
 
+  def short_name chars = 40
+    s = self.display_name
+    s = super(chars) if s.blank?
+    s
+  end
+
   def notification_emails
     emails = [contact_email].select(&:present?) + admins.map(&:email)
     if emails.empty?

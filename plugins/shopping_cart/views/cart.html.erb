@@ -5,7 +5,7 @@
       <a href="cart:clean" onclick="Cart.clean(this); return false" class="cart-clean"><%=_('Clean basket')%></a>
       <ul class="cart-items"></ul>
       <div class="cart-total"><%=_('Total:')%> <b></b></div>
-      <a href="/plugin/shopping_cart/buy" class="cart-buy modal"><%=_('Shopping checkout')%></a>
+      <%= modal_link_to _('Shopping checkout'), { controller: 'shopping_cart_plugin', action: 'buy' }, { class: "cart-buy modal" } %>
     </div>
     <a href="#" onclick="Cart.toggle(this); return false" class="cart-toggle">
       <span class="str-show"><%=_('Show basket')%></span>

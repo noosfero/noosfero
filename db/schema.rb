@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150602142030) do
+ActiveRecord::Schema.define(:version => 20150603182105) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -376,6 +376,7 @@ ActiveRecord::Schema.define(:version => 20150602142030) do
     t.integer "width"
     t.integer "height"
     t.boolean "thumbnails_processed", :default => false
+    t.string  "label",                :default => ""
   end
 
   add_index "images", ["parent_id"], :name => "index_images_on_parent_id"
