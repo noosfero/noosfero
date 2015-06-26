@@ -1891,8 +1891,8 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'return tags found' do
-    tag = mock; tag.stubs(:name).returns('linux')
-    ActsAsTaggableOn::Tag.stubs(:find).returns([tag])
+    a = profile.articles.create(:name => 'blablabla')
+    a.tags.create! name: 'linux'
     get :search_tags, :profile => profile.identifier, :term => 'linux'
     assert_equal '[{"label":"linux","value":"linux"}]', @response.body
   end
