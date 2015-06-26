@@ -96,6 +96,8 @@ class User < ActiveRecord::Base
   has_one :person, :dependent => :destroy
   belongs_to :environment
 
+  has_many :sessions, dependent: :destroy
+
   attr_protected :activated_at
 
   # Virtual attribute for the unencrypted password
