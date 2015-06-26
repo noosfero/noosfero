@@ -97,6 +97,8 @@ class User < ActiveRecord::Base
   belongs_to :environment
 
   has_many :sessions, dependent: :destroy
+  # holds the current session, see lib/authenticated_system.rb
+  attr_accessor :session
 
   attr_protected :activated_at
 

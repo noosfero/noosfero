@@ -623,6 +623,11 @@ class AccountControllerTest < ActionController::TestCase
     end
   end
 
+  should 'fill session for new users' do
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    assert_equal assigns(:user).session, session
+  end
+
   should 'signup filling in mandatory person fields' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_difference 'User.count' do
