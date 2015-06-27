@@ -67,7 +67,8 @@ class User < ActiveRecord::Base
 
   attr_writer :person_data
   def person_data
-    @person_data || {}
+    @person_data = {} if @person_data.nil?
+    @person_data
   end
 
   def email_domain
