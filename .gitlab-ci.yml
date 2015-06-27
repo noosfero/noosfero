@@ -1,23 +1,24 @@
 before_script:
   - mkdir -p tmp/pids log
-  - script/noosfero-plugins disableall
   - bundle check || bundle install
+  - script/noosfero-plugins disableall
+  - rm -f tmp/makemo.stamp && rake makemo &>/dev/null
 # database
   - cp config/database.yml.gitlab-ci config/database.yml
   - createdb gitlab_ci_test || true
-  - bundle exec rake db:schema:load
-  - bundle exec rake db:migrate
+  - bundle exec rake db:schema:load &>/dev/null
+  - bundle exec rake db:migrate &>/dev/null
 
 units:
-  script: 'bundle exec rake test:units'
+  script: bundle exec rake test:units
 functionals:
-  script: 'bundle exec rake test:functionals'
+  script: bundle exec rake test:functionals
 integration:
-  script: 'bundle exec rake test:integration'
+  script: bundle exec rake test:integration
 cucumber:
-  script: 'bundle exec rake cucumber'
+  script: bundle exec rake cucumber
 selenium:
-  script: 'bundle exec rake selenium'
+  script: bundle exec rake selenium
 plugins:
-  script: 'bundle exec rake test:noosfero_plugins'
+  script: bundle exec rake test:noosfero_plugins
 

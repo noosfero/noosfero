@@ -6,7 +6,7 @@ rvm:
 before_install:
 # dependencies
   - sudo apt-get update
-  - sudo apt-get -y install po4a iso-codes tango-icon-theme pidgin-data openjdk-6-jre curl wget
+  - sudo apt-get -y install po4a iso-codes tango-icon-theme pidgin-data default-jre
   - sudo apt-get -y install libmagickwand-dev libpq-dev libreadline-dev libsqlite3-dev libxslt1-dev
 # selenium support
   - export DISPLAY=:99.0
@@ -14,8 +14,9 @@ before_install:
 
 before_script:
   - mkdir -p tmp/pids log
-  - script/noosfero-plugins disableall
   - bundle check || bundle install
+  - script/noosfero-plugins disableall
+  - rake makemo
 # database
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database myapp_test;' -U postgres
