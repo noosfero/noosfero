@@ -14,6 +14,7 @@ class Noosfero::API::Entity < Grape::Entity
           message: objects.message
         }
       else
+        data = data.serializable_hash if data.is_a? Noosfero::API::Entity
         data.merge ok: true, error: { type: 'Success', message: '' }
       end
     else
