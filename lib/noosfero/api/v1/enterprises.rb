@@ -5,7 +5,7 @@ module Noosfero
         before { authenticate! }
 
         resource :enterprises do
-  
+
           # Collect enterprises from environment
           #
           # Parameters:
@@ -26,7 +26,10 @@ module Noosfero
 
           desc "Return one enterprise by id"
           get ':id' do
-            enterprise = environment.enterprises.visible.find_by_id(params[:id])
+            enterprise = environment.enterprises.find_by_id(params[:id])
+            unless enterprise.nil?
+              enterprise = nil unless enterprise.display_info_to?(current_person)
+            end
             present enterprise, :with => Entities::Enterprise
           end
 

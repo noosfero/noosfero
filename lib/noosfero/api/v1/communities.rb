@@ -19,6 +19,7 @@ module Noosfero
           get do
             communities = select_filtered_collection_of(environment, 'communities', params)
             communities = communities.visible_for_person(current_person)
+            communities = communities.by_location(params) # Must be the last. May return Exception obj.
             present communities, :with => Entities::Community
           end
 
@@ -41,7 +42,10 @@ module Noosfero
           end
 
           get ':id' do
-            community = environment.communities.visible.find_by_id(params[:id])
+            community = environment.communities.find_by_id(params[:id])
+            unless community.nil?
+              community = nil unless community.display_info_to?(current_person)
+            end
             present community, :with => Entities::Community
           end
 
