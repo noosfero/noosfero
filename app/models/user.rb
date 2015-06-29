@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     alias_method_chain :human_attribute_name, :customization
   end
 
+  def self.build(user_data, person_data, environment)
+    user = User.new(user_data)
+    user.terms_of_use = environment.terms_of_use
+    user.environment = environment
+    user.person_data = person_data
+    user
+  end
+
   before_create do |user|
     if user.environment.nil?
       user.environment = Environment.default

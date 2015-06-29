@@ -91,11 +91,8 @@ class AccountController < ApplicationController
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
-      @user = User.new(params[:user])
-      @user.terms_of_use = environment.terms_of_use
-      @user.environment = environment
+      @user = User.build(params[:user], params[:profile_data], environment)
       @terms_of_use = environment.terms_of_use
-      @user.person_data = params[:profile_data]
       @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment

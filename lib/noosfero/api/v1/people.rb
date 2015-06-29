@@ -36,10 +36,32 @@ module Noosfero
             present people, :with => Entities::Person
           end
 
+          desc "Return the logged user information"
+          get "/me" do
+            present current_person, :with => Entities::Person
+          end
+
           desc "Return the person information"
           get ':id' do
             person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
             present person, :with => Entities::Person
+          end
+
+          # Example Request:
+          #  POST api/v1/people?person[login]=some_login&person[password]=some_password&person[name]=Jack
+          desc "Create person"
+          post do
+            user_data = {}
+            user_data[:login] = params[:person].delete(:login) || params[:person][:identifier]
+            user_data[:email] = params[:person].delete(:email)
+            user_data[:password] = params[:person].delete(:password)
+            user_data[:password_confirmation] = params[:person].delete(:password_confirmation)
+            user = User.build(user_data, params[:person], environment)
+            if !user.signup!
+              render_api_errors!(user.errors.full_messages)
+            end
+
+            present user.person, :with => Entities::Person
           end
 
           desc "Return the person friends"
@@ -49,8 +71,20 @@ module Noosfero
             present friends, :with => Entities::Person
           end
 
-        end
+          desc "Return the person permissions on other profiles"
+          get ":id/permissions" do
+            person = environment.people.find(params[:id])
+            return forbidden! unless current_person == person || environment.admins.include?(current_person)
 
+            output = {}
+            person.role_assignments.map do |role_assigment|
+              if role_assigment.resource.respond_to?(:identifier)
+                output[role_assigment.resource.identifier] = role_assigment.role.permissions
+              end
+            end
+            present output
+          end
+        end
       end
     end
   end

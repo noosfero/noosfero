@@ -36,8 +36,14 @@ module Noosfero
         expose :image, :using => Image
       end
 
+      class User < Entity
+        expose :id
+        expose :login
+      end
+
       class Person < Profile
         root 'people', 'person'
+        expose :user, :using => User
       end
       class Enterprise < Profile
         root 'enterprises', 'enterprise'
@@ -93,23 +99,6 @@ module Noosfero
         expose :body, :title, :id
         expose :created_at, :format_with => :timestamp
         expose :author, :using => Profile
-      end
-
-
-      class User < Entity
-        root 'users', 'user'
-        expose :id
-        expose :login
-        expose :person, :using => Profile
-        expose :permissions do |user, options|
-          output = {}
-          user.person.role_assignments.map do |role_assigment|
-            if role_assigment.resource.respond_to?(:identifier)
-              output[role_assigment.resource.identifier] = role_assigment.role.permissions
-            end
-          end
-          output
-        end
       end
 
       class UserLogin < User

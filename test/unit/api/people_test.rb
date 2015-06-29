@@ -40,9 +40,15 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'get person' do
-    person = fast_create(Person)
+    some_person = fast_create(Person)
 
-    get "/api/v1/people/#{person.id}?#{params.to_query}"
+    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal some_person.id, json['person']['id']
+  end
+
+  should 'get logged person' do
+    get "/api/v1/people/me?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal person.id, json['person']['id']
   end
@@ -96,4 +102,50 @@ class PeopleTest < ActiveSupport::TestCase
     assert_not_includes friends, invisible_friend.id
   end
 
+  should 'create a person' do
+    login = 'some'
+    params[:person] = {:login => login, :password => '123456', :password_confirmation => '123456', :email => 'some@some.com'}
+    post "/api/v1/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal login, json['person']['identifier']
+  end
+
+  should 'return 400 status for invalid person creation' do
+    params[:person] = {:login => 'some'}
+    post "/api/v1/users?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 400, last_response.status
+  end
+
+  should 'display permissions' do
+    community = fast_create(Community)
+    community.add_member(fast_create(Person))
+    community.add_member(person)
+    permissions = Profile::Roles.member(person.environment.id).permissions
+    get "/api/v1/people/#{person.id}/permissions?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal json[community.identifier], permissions
+  end
+
+  should 'display permissions if self' do
+    get "/api/v1/people/#{person.id}/permissions?#{params.to_query}"
+    assert_equal 200, last_response.status
+  end
+
+  should 'display permissions if admin' do
+    environment = person.environment
+    environment.add_admin(person)
+    some_person = fast_create(Person)
+
+    get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
+    assert_equal 200, last_response.status
+  end
+
+  should 'not display permissions if not admin or self' do
+    some_person = create_user('some-person').person
+
+    get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
+    assert_equal 403, last_response.status
+  end
 end
