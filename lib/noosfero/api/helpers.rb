@@ -45,7 +45,10 @@ module Noosfero
         end
       end
 
-      ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
+      Rails.application.eager_load!
+      ARTICLE_TYPES = ['Article'] + Article.descendants.map{|a| a.to_s}
+      TASK_TYPES = ['Task'] + Task.descendants.map{|a| a.to_s}
+      
 
       def find_article(articles, id)
         article = articles.find(id)
@@ -83,6 +86,34 @@ module Noosfero
       def find_task(tasks, id)
         task = tasks.find(id)
         task.display_to?(current_user.person) ? task : forbidden!
+      end
+
+      def post_task(asset, params)
+        return forbidden! unless current_person.has_permission?(:perform_task, asset)
+
+        klass_type= params[:content_type].nil? ? 'Task' : params[:content_type]
+        return forbidden! unless TASK_TYPES.include?(klass_type)
+
+        task = klass_type.constantize.new(params[:task])
+        task.requestor_id = current_person.id
+        task.target_id = asset.id
+        task.target_type = 'Profile'
+
+        if !task.save
+          render_api_errors!(task.errors.full_messages)
+        end
+        present task, :with => Entities::Task, :fields => params[:fields]
+      end
+
+      def present_task(asset)
+        task = find_task(asset.tasks, params[:id])
+        present task, :with => Entities::Task, :fields => params[:fields]
+      end
+
+      def present_tasks(asset)
+        tasks = select_filtered_collection_of(asset, 'tasks', params)
+        tasks = tasks.select {|t| t.display_to?(current_user.person)}
+        present tasks, :with => Entities::Task, :fields => params[:fields]
       end
 
       def make_conditions_with_parameter(params = {})
