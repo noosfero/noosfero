@@ -112,7 +112,8 @@ module Noosfero
 
       def present_tasks(asset)
         tasks = select_filtered_collection_of(asset, 'tasks', params)
-        tasks = tasks.select {|t| t.display_to?(current_user.person)}
+        tasks = tasks.select {|t| current_person.has_permission?(t.permission, asset)}
+        return forbidden! if tasks.empty? && !current_person.has_permission?(:perform_task, asset)
         present tasks, :with => Entities::Task, :fields => params[:fields]
       end
 
