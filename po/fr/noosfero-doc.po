@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2015-06-29 14:38+0200\n"
+"PO-Revision-Date: 2015-06-29 22:07+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/documentation/fr/>\n"
@@ -287,7 +287,7 @@ msgstr ""
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/index.en.xhtml:1
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
