@@ -40,7 +40,6 @@ module Noosfero
 
       mount V1::Articles
       mount V1::Comments
-      mount V1::Users
       mount V1::Communities
       mount V1::People
       mount V1::Enterprises
