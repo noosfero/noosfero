@@ -26,10 +26,7 @@ module Noosfero
 
           desc "Return one enterprise by id"
           get ':id' do
-            enterprise = environment.enterprises.find_by_id(params[:id])
-            unless enterprise.nil?
-              enterprise = nil unless enterprise.display_info_to?(current_person)
-            end
+            enterprise = environment.enterprises.visible_for_person(current_person).find_by_id(params[:id])
             present enterprise, :with => Entities::Enterprise
           end
 

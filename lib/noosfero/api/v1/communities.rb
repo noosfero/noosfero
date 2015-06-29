@@ -42,10 +42,7 @@ module Noosfero
           end
 
           get ':id' do
-            community = environment.communities.find_by_id(params[:id])
-            unless community.nil?
-              community = nil unless community.display_info_to?(current_person)
-            end
+            community = environment.communities.visible_for_person(current_person).find_by_id(params[:id])
             present community, :with => Entities::Community
           end
 
