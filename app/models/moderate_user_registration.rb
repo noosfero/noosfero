@@ -7,6 +7,8 @@ class ModerateUserRegistration < Task
 
   after_create :schedule_spam_checking
 
+  validate :target_is_environment
+
   alias :environment :target
   alias :environment= :target=
 
@@ -54,6 +56,12 @@ class ModerateUserRegistration < Task
 
   def target_notification_message
     _("User \"%{user}\" just requested to register. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.name }
+  end
+
+  def target_is_environment
+    unless environment.class == Environment
+      errors.add(:moderate_user_registration, N_('Target must be an environment.'))
+    end
   end
 
 end

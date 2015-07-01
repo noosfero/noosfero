@@ -6,6 +6,9 @@ class Invitation < Task
 
   validates_presence_of :target_id, :if => Proc.new{|invite| invite.friend_email.blank?}
 
+  validate :requestor_is_person
+  validate :target_is_person
+
   validates_presence_of :friend_email, :if => Proc.new{|invite| invite.target_id.blank?}
   validates_format_of :friend_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => Proc.new{|invite| invite.target_id.blank?}
 
@@ -34,9 +37,11 @@ class Invitation < Task
   end
 
   def not_invite_yourself
-    email = friend ? friend.user.email : friend_email
-    if person && email && person.user.email == email
-      self.errors.add(:base, _("You can't invite youself"))
+    if friend.person? && person.person?
+      email = friend ? friend.user.email : friend_email
+      if person && email && person.user.email == email
+        self.errors.add(:base, _("You can't invite youself"))
+      end
     end
   end
 
@@ -137,6 +142,18 @@ class Invitation < Task
 
   def environment
     self.requestor.environment
+  end
+
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:invitation, N_('Requestor must be a person.'))
+    end
+  end
+
+  def target_is_person
+    unless target.person?
+      errors.add(:invitation, N_('Target must be a person.'))
+    end
   end
 
 end

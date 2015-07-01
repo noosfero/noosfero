@@ -1,6 +1,10 @@
 class ApproveArticle < Task
   validates_presence_of :requestor_id, :target_id
 
+  validate :requestor_is_person
+  validate :target_is_organization
+  validate :request_is_member_of_target
+
   def article_title
     article ? article.title : _('(The original text was removed)')
   end
@@ -128,4 +132,21 @@ class ApproveArticle < Task
     message
   end
 
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:approve_article, N_('Requestor must be a person.'))
+    end
+  end
+
+  def target_is_organization
+    unless target.organization?
+      errors.add(:approve_article, N_('Target must be an organization.'))
+    end
+  end
+
+  def request_is_member_of_target
+    unless requestor.is_member_of?(target) 
+      errors.add(:approve_article, N_('Requestor must be a member of target.'))
+    end
+  end
 end

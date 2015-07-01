@@ -1,14 +1,20 @@
 class EmailActivation < Task
 
   validates_presence_of :requestor_id, :target_id
+
+  validate :requestor_is_person
+  validate :target_is_environment
+
   validate :already_requested, :on => :create
 
   alias :environment :target
   alias :person :requestor
 
   def already_requested
-    if !self.requestor.nil? && self.requestor.user.email_activation_pending?
-      self.errors.add(:base, _('You have already requested activation of your mailbox.'))
+    if self.requestor.person?
+      if !self.requestor.nil? && self.requestor.user.email_activation_pending?
+        self.errors.add(:base, _('You have already requested activation of your mailbox.'))
+      end
     end
   end
 
@@ -39,6 +45,18 @@ class EmailActivation < Task
 
   def sends_email?
     false
+  end
+
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:email_activation, N_('Requestor must be a person.'))
+    end
+  end
+
+  def target_is_environment
+    unless target.class == Environment
+      errors.add(:email_activation, N_('Target must be an environment.'))
+    end
   end
 
 end

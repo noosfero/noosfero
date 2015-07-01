@@ -2,6 +2,9 @@ class AddMember < Task
 
   validates_presence_of :requestor_id, :target_id
 
+  validate :requestor_is_person
+  validate :target_is_organization
+
   alias :person :requestor
   alias :person= :requestor=
 
@@ -53,6 +56,18 @@ class AddMember < Task
   def remove_from_suggestion_list(task)
     suggestion = task.requestor.profile_suggestions.find_by_suggestion_id task.target.id
     suggestion.disable if suggestion
+  end
+
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:add_member, N_('Requestor must be a person.'))
+    end
+  end
+
+  def target_is_organization
+    unless target.organization?
+      errors.add(:add_member, N_('Target must be an organization.'))
+    end
   end
 
 end

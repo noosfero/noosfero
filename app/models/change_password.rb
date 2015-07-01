@@ -18,6 +18,8 @@ class ChangePassword < Task
 
   validates_presence_of :requestor
 
+  validate :requestor_is_person
+
   ###################################################
   # validations for updating a ChangePassword task 
 
@@ -72,4 +74,9 @@ class ChangePassword < Task
     end
   end
 
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:change_password, N_('Requestor must be a person.'))
+    end
+  end
 end

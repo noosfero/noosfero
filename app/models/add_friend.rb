@@ -14,6 +14,9 @@ class AddFriend < Task
   alias :friend :target
   alias :friend= :target=
 
+  validate :requestor_is_person
+  validate :target_is_person
+
   after_create do |task|
     TaskMailer.invitation_notification(task).deliver unless task.friend
     remove_from_suggestion_list(task)
@@ -22,6 +25,18 @@ class AddFriend < Task
   def perform
     target.add_friend(requestor, group_for_friend)
     requestor.add_friend(target, group_for_person)
+  end
+
+  def requestor_is_person
+    unless requestor.person?
+      errors.add(:add_friend, N_('Requestor must be a person.'))
+    end
+  end
+
+  def target_is_person
+    unless target.person?
+      errors.add(:add_friend, N_('Target must be a person.'))
+    end
   end
 
   def permission
