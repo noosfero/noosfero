@@ -67,11 +67,21 @@ class Task < ActiveRecord::Base
       begin
         target_msg = task.target_notification_message
         if target_msg && task.target && !task.target.notification_emails.empty?
-          TaskMailer.target_notification(task, target_msg).deliver
+          if target_profile_accepts_notification?(task)
+            TaskMailer.target_notification(task, target_msg).deliver
+          end
         end
       rescue NotImplementedError => ex
         Rails.logger.info ex.to_s
       end
+    end
+  end
+
+  def target_profile_accepts_notification?(task)
+    if task.target.kind_of? Organization
+      return task.target.profile_admin_mail_notification
+    else
+      true
     end
   end
 

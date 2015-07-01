@@ -1213,4 +1213,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/profile_roles" }
   end
 
+  should 'save profile admin option to receive email for every task' do
+    comm = fast_create(Community)
+    assert comm.profile_admin_mail_notification
+    post :edit, :profile => comm.identifier, :profile_data => { :profile_admin_mail_notification => '0' }
+    refute comm.reload.profile_admin_mail_notification
+  end
+
 end
