@@ -83,14 +83,12 @@ module Noosfero
         present articles, :with => Entities::Article, :fields => params[:fields]
       end
 
-      def find_task(tasks, id)
-        task = tasks.find(id)
-        task.display_to?(current_user.person) ? task : forbidden!
+      def find_task(asset, id)
+        task = asset.tasks.find(id)
+        current_person.has_permission?(task.permission, asset) ? task : forbidden!
       end
 
       def post_task(asset, params)
-        return forbidden! unless current_person.has_permission?(:perform_task, asset)
-
         klass_type= params[:content_type].nil? ? 'Task' : params[:content_type]
         return forbidden! unless TASK_TYPES.include?(klass_type)
 
@@ -106,7 +104,7 @@ module Noosfero
       end
 
       def present_task(asset)
-        task = find_task(asset.tasks, params[:id])
+        task = find_task(asset, params[:id])
         present task, :with => Entities::Task, :fields => params[:fields]
       end
 
