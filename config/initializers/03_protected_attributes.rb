@@ -1,3 +1,6 @@
 class Delayed::Backend::ActiveRecord::Job
-  attr_accessible *self.column_names, :payload_object
+  # rake db:schema:load run?
+  if self.table_exists?
+    attr_accessible *self.column_names, :payload_object
+  end
 end
