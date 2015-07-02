@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-06-29 14:17+0200\n"
+"PO-Revision-Date: 2015-07-03 00:36+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/fr/>\n"
@@ -20,13 +20,12 @@ msgstr ""
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
-msgstr ""
+msgstr "Format de chaîne d'accès non valide."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:71
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:76
-#, fuzzy
 msgid "There is no profile with the provided id."
-msgstr "Il y a un problème avec les lignes suivantes : "
+msgstr "Il n'y a pas le profil avec l'ID fourni."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:81
 msgid "Invalid type format of access."
