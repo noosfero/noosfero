@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-03-07 12:26+0200\n"
-"Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
+"PO-Revision-Date: 2015-07-03 00:33+0200\n"
+"Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
 "comment-classification/fr/>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: plugins/comment_classification/lib/comment_classification_plugin.rb:11
 msgid "A plugin that allow classification of comments."
@@ -149,7 +149,7 @@ msgstr "Label"
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:10
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Activé(e)"
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
@@ -177,9 +177,8 @@ msgid "(no status registered yet)"
 msgstr "(il n'y a pas de statut enregistré pour le moment)"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:11
-#, fuzzy
 msgid "Reason enabled?"
-msgstr "%s n'était pas activé(e)"
+msgstr "Raison activée ?"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:21
 msgid "Are you sure you want to remove this status?"
