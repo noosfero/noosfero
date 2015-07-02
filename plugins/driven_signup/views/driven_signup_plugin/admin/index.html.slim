@@ -1,0 +1,11 @@
+= content_for :head do
+  = stylesheet_link_tag 'plugins/driven_signup/stylesheets/driven_signup'
+  = javascript_include_tag 'plugins/driven_signup/javascripts/driven_signup'
+
+div#driven-signup-tokens.table
+  - environment.driven_signup_auths.each do |auth|
+    = render 'auth', auth: auth
+
+  div.row id="auth-new"
+    td= link_to _('New'), {action: :new}, remote: true, class: 'btn btn-default fa-add'
+
