@@ -8,13 +8,13 @@ module Juixe
       end
 
       module ClassMethods
-        # 
+        #
         # Options:
-        #  :vote_counter  
+        #  :vote_counter
         #     Model stores the sum of votes in the  vote counter column when the value is true. This requires a column named `vote_total` in the table corresponding to `voteable` model.
-        #     You can also specify a custom vote counter column by providing a column name instead of a true/false value to this option (e.g., :vote_counter => :my_custom_counter.) 
+        #     You can also specify a custom vote counter column by providing a column name instead of a true/false value to this option (e.g., :vote_counter => :my_custom_counter.)
         #     Note: Specifying a counter will add it to that model‘s list of readonly attributes using attr_readonly.
-        # 
+        #
         def acts_as_voteable options={}
           has_many :votes, :as => :voteable, :dependent => :destroy
           include Juixe::Acts::Voteable::InstanceMethods
@@ -28,15 +28,15 @@ module Juixe
               def self.vote_counter_column           # def self.vote_counter_column
                 :"#{counter_column_name}"            #   :vote_total
               end                                    # end
-              def vote_counter_column                
-                self.class.vote_counter_column       
-              end                                    
+              def vote_counter_column
+                self.class.vote_counter_column
+              end
             EOS
-            
+
             define_method(:reload_vote_counter) {reload(:select => vote_counter_column.to_s)}
             attr_readonly counter_column_name
           end
-        end        
+        end
       end
 
       # This module contains class methods Vote class
@@ -49,13 +49,13 @@ module Juixe
 
         def update_vote_counters direction
           klass, vtbl = self.voteable.class, self.voteable
-          klass.update_counters(vtbl.id, vtbl.vote_counter_column.to_sym => (self.vote * direction) ) if self.vote_counters.any?{|c| c == klass} 
+          klass.update_counters(vtbl.id, vtbl.vote_counter_column.to_sym => (self.vote * direction) ) if self.vote_counters.any?{|c| c == klass}
         end
       end
-      
+
       # This module contains class methods
       module SingletonMethods
-        
+
         # Calculate the vote counts for all voteables of my type.
         # Options:
         #  :start_at    - Restrict the votes to those created after a certain time
@@ -63,7 +63,7 @@ module Juixe
         #  :conditions  - A piece of SQL conditions to add to the query
         #  :limit       - The maximum number of voteables to return
         #  :order       - A piece of SQL to order by. Two calculated columns `count`, and `total`
-        #                 are available for sorting apart from other columns. Defaults to `total DESC`. 
+        #                 are available for sorting apart from other columns. Defaults to `total DESC`.
         #                   Eg: :order => 'count desc'
         #                       :order => 'total desc'
         #                       :order => 'post.created_at desc'
@@ -76,7 +76,7 @@ module Juixe
         end
 
         def options_for_tally (options = {})
-            options.assert_valid_keys :start_at, :end_at, :conditions, :at_least, :at_most, :order, :limit, :at_least_total, :at_most_total 
+            options.assert_valid_keys :start_at, :end_at, :conditions, :at_least, :at_most, :order, :limit, :at_least_total, :at_most_total
 
             scope = scope(:find)
             start_at = sanitize_sql(["#{Vote.table_name}.created_at >= ?", options.delete(:start_at)]) if options[:start_at]
@@ -85,7 +85,7 @@ module Juixe
             if respond_to?(:vote_counter_column)
               # use the counter cache column if present.
               total_col       = "#{table_name}.#{vote_counter_column}"
-              at_least_total  = sanitize_sql(["#{total_col} >= ?", options.delete(:at_least_total)]) if options[:at_least_total] 
+              at_least_total  = sanitize_sql(["#{total_col} >= ?", options.delete(:at_least_total)]) if options[:at_least_total]
               at_most_total   = sanitize_sql(["#{total_col} <= ?", options.delete(:at_most_total)])  if options[:at_most_total]
             end
             conditions = [
@@ -104,7 +104,7 @@ module Juixe
             joins << scope[:joins] if scope && scope[:joins]
             at_least  = sanitize_sql(["COUNT(#{Vote.table_name}.id) >= ?", options.delete(:at_least)]) if options[:at_least]
             at_most   = sanitize_sql(["COUNT(#{Vote.table_name}.id) <= ?", options.delete(:at_most)]) if options[:at_most]
-            at_least_total = at_most_total = nil # reset the values 
+            at_least_total = at_most_total = nil # reset the values
             unless respond_to?(:vote_counter_column)
               # aggregate the votes when counter cache is absent.
               total_col       = "SUM(#{Vote.table_name}.vote)"
@@ -114,26 +114,26 @@ module Juixe
             having    = [at_least, at_most, at_least_total, at_most_total].compact.join(' AND ')
             group_by  = "#{Vote.table_name}.voteable_id HAVING COUNT(#{Vote.table_name}.id) > 0"
             group_by << " AND #{having}" unless having.blank?
-  
-            { :select     => "#{table_name}.*, COUNT(#{Vote.table_name}.id) AS count, #{total_col} AS total", 
+
+            { :select     => "#{table_name}.*, COUNT(#{Vote.table_name}.id) AS count, #{total_col} AS total",
               :joins      => joins.join(" "),
               :conditions => conditions,
               :group      => group_by
-            }.update(options)          
+            }.update(options)
         end
-        
+
       end
-      
+
       # This module contains instance methods
       module InstanceMethods
         def votes_for
-          self.votes.count(:conditions => {:vote => 1})
+          self.votes.where(vote: 1).count
         end
-        
+
         def votes_against
-          self.votes.count(:conditions => {:vote => -1})
+          self.votes.where(vote: -1).count
         end
-        
+
         # Same as voteable.votes.size
         def votes_count
           self.votes.size
@@ -142,11 +142,11 @@ module Juixe
         def votes_total
           respond_to?(:vote_counter_column) ? send(self.vote_counter_column) : self.votes.sum(:vote)
         end
-        
+
         def voters_who_voted
           self.votes.collect(&:voter)
         end
-        
+
         def voted_by?(voter, for_or_against = "all")
           options = (for_or_against == "all") ? {} : {:vote => (for_or_against ? 1 : -1)}
           self.votes.exists?({:voter_id => voter.id, :voter_type => voter.class.base_class.name}.merge(options))

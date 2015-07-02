@@ -285,11 +285,11 @@ class EventTest < ActiveSupport::TestCase
   should 'filter fields with white_list filter' do
     event = Event.new
     event.body = "<h1> Description </h1>"
-    event.address = "<strong> Address <strong>"
+    event.address = "<strong> Address </strong>"
     event.valid?
 
     assert_equal "<h1> Description </h1>", event.body
-    assert_equal "<strong> Address <strong>", event.address
+    assert_equal "<strong> Address </strong>", event.address
   end
 
   should 'not filter & on link field' do
@@ -306,8 +306,8 @@ class EventTest < ActiveSupport::TestCase
     event.address = "<strong>><< Address <strong>"
     event.valid?
 
-    assert_no_match /[<>]/, event.body
-    assert_no_match /[<>]/, event.address
+    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, event.body
+    assert_match /<strong>&gt;<\/strong>/, event.address
   end
 
   should 'not sanitize html comments' do
@@ -316,8 +316,8 @@ class EventTest < ActiveSupport::TestCase
     event.address = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     event.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.body
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.address
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, event.body
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, event.address
   end
 
   should 'be translatable' do

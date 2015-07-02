@@ -942,7 +942,7 @@ class Environment < ActiveRecord::Base
   end
 
   def highlighted_products_with_image(options = {})
-    Product.where(highlighted: true, profile_id: self.enterprises.where(select: :id)).joins(:image)
+    self.products.where(highlighted: true).joins(:image)
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

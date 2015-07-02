@@ -6,7 +6,12 @@ class CatalogHelperTest < ActiveSupport::TestCase
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
+
   include ::Rails::Dom::Testing::Assertions::SelectorAssertions
+  # see http://blog.cynthiakiser.com/blog/2014/12/26/upgrading-from-rails-4-dot-1-8-to-4-dot-2-0/
+  def document_root_element
+    @doc.root
+  end
 
   def url_for(opts)
     #{:controller => 'catalog', :action => 'index', :level => category.id}
@@ -44,7 +49,7 @@ class CatalogHelperTest < ActiveSupport::TestCase
 
     html = category_with_sub_list @products
 
-    doc = HTML::Document.new "<body>#{html}</body>"
+    @doc = doc = HTML::Document.new "<body>#{html}</body>"
     assert_select doc.root, 'div' do |divs|
       assert_select divs[0], "a[href=catalog-index-level=#{@products.id}]"
       assert_select divs[0], '.count', {:text=>'3'}

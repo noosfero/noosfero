@@ -53,19 +53,19 @@ class Category < ActiveRecord::Base
   }
 
   def recent_people(limit = 10)
-    self.people.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+    self.people.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
   end
 
   def recent_enterprises(limit = 10)
-    self.enterprises.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+    self.enterprises.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
   end
 
   def recent_communities(limit = 10)
-    self.communities.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+    self.communities.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
   end
 
   def recent_products(limit = 10)
-    self.products.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+    self.products.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
   end
 
   def recent_articles(limit = 10)
@@ -73,7 +73,7 @@ class Category < ActiveRecord::Base
   end
 
   def recent_comments(limit = 10)
-    comments.paginate(:order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
+    self.comments.reorder('created_at DESC, comments.id DESC').paginate(page: 1, per_page: limit)
   end
 
   def most_commented_articles(limit = 10)
@@ -81,7 +81,7 @@ class Category < ActiveRecord::Base
   end
 
   def upcoming_events(limit = 10)
-    self.events.where('start_date >= ?', Date.today).order('start_date').paginate(:page => 1, :per_page => limit)
+    self.events.where('start_date >= ?', Date.today).reorder('start_date').paginate(:page => 1, :per_page => limit)
   end
 
   def display_in_menu?
@@ -90,8 +90,8 @@ class Category < ActiveRecord::Base
 
   def children_for_menu
     results = []
-    pending = children.where :display_in_menu => true
-    while !pending.empty?
+    pending = children.where(display_in_menu: true).all
+    while pending.present?
       cat = pending.shift
       results << cat
       pending += cat.children.where :display_in_menu => true

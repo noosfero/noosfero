@@ -12,14 +12,14 @@ class Event < Article
   settings_items :address, :type => :string
 
   def link=(value)
-    self.setting[:link] = maybe_add_http(value)
+    self.setting[:link] = maybe_add_http(URI.escape value.to_s)
   end
 
   def link
     maybe_add_http(self.setting[:link])
   end
 
-  xss_terminate :only => [ :name, :body, :link, :address ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :name, :body, :address ], :with => 'white_list', :on => 'validation'
 
   def initialize(*args)
     super(*args)

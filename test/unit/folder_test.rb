@@ -129,7 +129,7 @@ class FolderTest < ActiveSupport::TestCase
     folder.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     folder.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, folder.body
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, folder.body
   end
 
   should 'escape malformed html tags' do
@@ -137,7 +137,7 @@ class FolderTest < ActiveSupport::TestCase
     folder.body = "<h1<< Description >>/h1>"
     folder.valid?
 
-    assert_no_match /[<>]/, folder.body
+    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, folder.body
   end
 
   should 'not have a blog as parent' do

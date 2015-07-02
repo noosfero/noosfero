@@ -6,8 +6,7 @@ module FolderHelper
     configure[:recursive] ||= false
     configure[:list_type] ||= :folder
     if !configure[:contents].blank?
-      configure[:contents] = configure[:contents].paginate(
-        :order => "name ASC",
+      configure[:contents] = configure[:contents].order('name ASC').paginate(
         :per_page => 30,
         :page => params[:npage]
       )

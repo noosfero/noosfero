@@ -1,3 +1,5 @@
+require 'pp'
+
 # third-party libraries
 require 'will_paginate'
 require 'will_paginate/array'

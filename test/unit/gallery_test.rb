@@ -130,7 +130,7 @@ class GalleryTest < ActiveSupport::TestCase
     gallery.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     gallery.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, gallery.body
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, gallery.body
   end
 
   should 'escape malformed html tags' do
@@ -138,7 +138,7 @@ class GalleryTest < ActiveSupport::TestCase
     gallery.body = "<h1<< Description >>/h1>"
     gallery.valid?
 
-    assert_no_match /[<>]/, gallery.body
+    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, gallery.body
   end
 
   should 'accept uploads' do

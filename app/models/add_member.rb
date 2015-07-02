@@ -8,7 +8,7 @@ class AddMember < Task
   alias :organization :target
   alias :organization= :target=
 
-  settings_items :roles
+  settings_items :roles, type: Array
 
   after_create do |task|
     remove_from_suggestion_list(task)

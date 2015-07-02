@@ -139,18 +139,16 @@ class ActiveSupport::TestCase
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
-  def find_tag_in_string text, options
-    doc = Nokogiri::HTML.fragment text
-    tag = doc.css("#{options[:tag]}#{options[:attributes].map{ |a, v| "[#{a}=\"#{v}\"]" }.join}").first
-    tag
-  end
-
   def assert_tag_in_string(text, options)
-    assert find_tag_in_string(text, options), "expected tag #{options.inspect}, but not found in #{text.inspect}"
+    doc = HTML::Document.new(text, false, false)
+    tag = doc.find(options)
+    assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
   end
 
   def assert_no_tag_in_string(text, options)
-    assert !find_tag_in_string(text, options), "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
+    doc = HTML::Document.new(text, false, false)
+    tag = doc.find(options)
+    assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
 
   def assert_order(reference, original)

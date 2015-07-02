@@ -8,12 +8,12 @@ module ActiveRecord
     end
     class Array < Value
       def cast_value value
-        Array(value)
+        ::Array.wrap(value)
       end
     end
     class Hash < Value
       def cast_value value
-        Hash[value]
+        ::Hash[value]
       end
     end
   end
