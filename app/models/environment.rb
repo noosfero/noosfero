@@ -168,7 +168,8 @@ class Environment < ActiveRecord::Base
       'site_homepage' => _('Redirects the user to the environment homepage.'),
       'user_profile_page' => _('Redirects the user to his profile page.'),
       'user_homepage' => _('Redirects the user to his homepage.'),
-      'user_control_panel' => _('Redirects the user to his control panel.')
+      'user_control_panel' => _('Redirects the user to his control panel.'),
+      'custom_url' => _('Specify the URL to redirect to:'),
     }
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true

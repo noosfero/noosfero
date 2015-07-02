@@ -3,7 +3,9 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
+    :redirection_after_login, :custom_url_redirection,
+    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -1023,6 +1025,7 @@ private :generate_url, :url_options
   def preferred_login_redirection
     redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
   end
+  settings_items :custom_url_redirection, type: String, default: nil
 
   def remove_from_suggestion_list(person)
     suggestion = person.suggested_profiles.find_by_suggestion_id self.id

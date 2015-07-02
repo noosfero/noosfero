@@ -1,0 +1,9 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'redirection_after_login' %>
+<% end %>
+
+<h2><%= _('Page to redirect after login') %></h2>
+<%= f.select :redirection_after_login, Environment.login_redirection_options.map{ |key,value| [value,key] }, selected: @profile.preferred_login_redirection %>
+
+<%= f.text_field :custom_url_redirection %>
+

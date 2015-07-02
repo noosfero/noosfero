@@ -44,8 +44,7 @@
   <% end %>
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
-    <h2><%= _('Page to redirect after login') %></h2>
-    <%=  select 'profile_data', 'redirection_after_login', Environment.login_redirection_options.map{|key,value|[value,key]}, { :selected => @profile.preferred_login_redirection} %>
+    <%= render 'redirection_after_login', f: f %>
   <% end %>
 
   <h2><%= _('Translations') %></h2>
