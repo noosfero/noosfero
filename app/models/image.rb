@@ -1,5 +1,7 @@
 class Image < ActiveRecord::Base
 
+  attr_accessible :uploaded_data, :label
+
   def self.max_size
     Image.attachment_options[:max_size]
   end
@@ -23,8 +25,6 @@ class Image < ActiveRecord::Base
   delay_attachment_fu_thumbnails
 
   postgresql_attachment_fu
-
-  attr_accessible :uploaded_data, :label
 
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil

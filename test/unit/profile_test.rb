@@ -457,7 +457,7 @@ class ProfileTest < ActiveSupport::TestCase
     p1 = create(Profile, :public_profile => true)
     p2 = create(Profile, :public_profile => true, :secret => true)
 
-    result = Profile.public
+    result = Profile.is_public
     assert_includes result, p1
     assert_not_includes result, p2
   end
@@ -921,6 +921,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy communities from person template' do
     template = create_user('test_template').person
+    template.is_template = true
     Environment.any_instance.stubs(:person_default_template).returns(template)
 
     c1 = fast_create(Community)
@@ -1395,6 +1396,7 @@ class ProfileTest < ActiveSupport::TestCase
     template = create_user('test_template').person
     template.custom_footer = "footer customized"
     template.custom_header = "header customized"
+    template.is_template = true
     Environment.any_instance.stubs(:person_default_template).returns(template)
 
     person = create_user_full('mytestuser').person
@@ -1450,7 +1452,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [t2], environment.profiles.templates(t2)
   end
 
-  should 'not return a template when and invalid template is specified' do
+  should 'not return a template when a non template is specified' do
     environment = Environment.default
     t1 = fast_create(Profile, :is_template => true)
     t2 = fast_create(Profile, :is_template => true)

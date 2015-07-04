@@ -38,10 +38,10 @@ class TagsBlockTest < ActiveSupport::TestCase
     box = create(Box, :owner => Environment.default)
     @block = create(TagsBlock, :box => box)
 
-    assert_match /\/tag\/first-tag" [^>]+"3 items"/,  block.content
-    assert_match /\/tag\/second-tag" [^>]+"3 items"/, block.content
-    assert_match /\/tag\/third-tag" [^>]+"one item"/, block.content
-    assert_match /\/tag\/other-tag" [^>]+"2 items"/,  block.content
+    assert_match /3 items[^>]+\/tag\/first-tag/,  block.content
+    assert_match /3 items[^>]+\/tag\/second-tag/, block.content
+    assert_match /one item[^>]+\/tag\/third-tag/, block.content
+    assert_match /2 item[^>]+\/tag\/other-tag"/,  block.content
   end
 
   should 'return (none) when no tags to display' do

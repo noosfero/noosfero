@@ -178,7 +178,7 @@ class ProductTest < ActiveSupport::TestCase
     product.valid?
 
     assert_no_match /[<>]/, product.name
-    assert_no_match /[<>]/, product.description
+    assert_match /<h1>&gt;&gt; &gt;&gt; html &gt;<\/h1>/, product.description
   end
 
   should 'use name of category when has no name yet' do

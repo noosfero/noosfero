@@ -98,7 +98,9 @@ class Profile < ActiveRecord::Base
     where((Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR "))
   }
   scope :templates, -> (template_id = nil) {
-    if template_id then where id: template_id else where is_template: true end
+    s = where is_template: true
+    s = s.where id: template_id if template_id
+    s
   }
 
   scope :with_templates, -> (templates) {

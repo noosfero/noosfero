@@ -1,3 +1,6 @@
+# FIXME needed by test/units/application_helper.rb
+require_dependency 'application_helper'
+
 class PersonNotifier
 
   def initialize(person)
@@ -76,7 +79,7 @@ class PersonNotifier
 
   class Mailer < ActionMailer::Base
 
-    add_template_helper(ApplicationHelper)
+    helper ApplicationHelper
 
     def session
       {:theme => nil}
@@ -93,7 +96,7 @@ class PersonNotifier
       @recipient = @profile.nickname || @profile.name
       @notifications = notifications
       @tasks = tasks
-      @environment = @profile.environment.name
+      @environment = @profile.environment
       @url = @profile.environment.top_url
       mail(
         content_type: "text/html",

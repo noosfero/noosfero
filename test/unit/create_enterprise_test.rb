@@ -15,18 +15,18 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
       assert task.respond_to?("#{field}=")
     end
   end
-  
+
   should 'accept only numbers as foundation year' do
     task = CreateEnterprise.new
     task.stubs(:environment).returns(Environment.default)
 
     task.foundation_year = "test"
     task.valid?
-    assert task.errors[:foundation_year.to_s].present?
+    assert task.errors[:foundation_year].present?
 
     task.foundation_year = 2006
     task.valid?
-    assert !task.errors[:foundation_year.to_s].present?
+    assert !task.errors[:foundation_year].present?
   end
 
   should 'require a requestor' do
@@ -65,7 +65,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
 
     task.valid?
     assert task.errors[:target.to_s].present?
-    
+
     region.validators << validator
 
     task.valid?
