@@ -57,7 +57,9 @@ module Noosfero
             user_data[:password] = params[:person].delete(:password)
             user_data[:password_confirmation] = params[:person].delete(:password_confirmation)
             user = User.build(user_data, params[:person], environment)
-            if !user.signup!
+            begin
+              user.signup!
+            rescue ActiveRecord::RecordInvalid
               render_api_errors!(user.errors.full_messages)
             end
 

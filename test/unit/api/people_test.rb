@@ -112,7 +112,7 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'return 400 status for invalid person creation' do
     params[:person] = {:login => 'some'}
-    post "/api/v1/users?#{params.to_query}"
+    post "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 400, last_response.status
   end
