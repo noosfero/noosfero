@@ -27,10 +27,10 @@ module Noosfero
           end
 
           # Example Request:
-          #  POST api/v1/articles/12/comments?private_toke=234298743290432&body=new comment
+          #  POST api/v1/articles/12/comments?private_token=2298743290432&body=new comment&title=New
           post ":id/comments" do
             article = find_article(environment.articles, params[:id])
-            options  = params[:comment].merge(:author => current_person)
+            options = params.select { |key,v| !['id','private_token'].include?(key) }.merge(:author => current_person)
             present article.comments.create(options), :with => Entities::Comment
           end
         end
