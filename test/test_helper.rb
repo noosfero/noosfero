@@ -139,6 +139,7 @@ class ActiveSupport::TestCase
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
+  # TODO: HTML::Document is deprecated, port to Nokogiri::HTML
   def assert_tag_in_string(text, options)
     doc = HTML::Document.new(text, false, false)
     tag = doc.find(options)

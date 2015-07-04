@@ -100,8 +100,7 @@ module ActionTracker
     end
 
     def collect_group_with_index(param)
-      i = -1
-      send("get_#{param}").collect{ |el| yield(el, i += 1) }
+      send("get_#{param}").collect.with_index{ |el, i| yield el, i }
     end
 
     protected

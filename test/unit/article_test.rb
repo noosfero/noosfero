@@ -886,7 +886,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'sanitize tags after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type='javascript'></script>")
+    tag = build(Tag, name: "TV Web w<script type='javascript'></script>")
     assert_match /[<>]/, tag.name
     article.tag_list.add(tag.name)
     article.save!
@@ -895,7 +895,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'strip HTML from tag names after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type=...")
+    tag = build(Tag, name: "TV Web w<script type=...")
     assert_match /</, tag.name
     article.tag_list.add(tag.name)
     article.save!

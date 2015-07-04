@@ -55,13 +55,13 @@ class ProfileSuggestion < ActiveRecord::Base
       :threshold => 2, :weight => 1, :connection => 'Profile'
     },
     :people_with_common_tags => {
-      :threshold => 2, :weight => 1, :connection => 'ActsAsTaggableOn::Tag'
+      :threshold => 2, :weight => 1, :connection => 'Tag'
     },
     :communities_with_common_friends => {
       :threshold => 2, :weight => 1, :connection => 'Profile'
     },
     :communities_with_common_tags => {
-      :threshold => 2, :weight => 1, :connection => 'ActsAsTaggableOn::Tag'
+      :threshold => 2, :weight => 1, :connection => 'Tag'
     }
   }
 
@@ -127,17 +127,15 @@ class ProfileSuggestion < ActiveRecord::Base
         rescue NoMethodError
           next
         end
-        connections = suggested_profile.send("#{rule}_connections")
-        if connections.present?
-          connections = connections[1..-2].split(',')
-        else
-          connections = []
-        end
-        suggestion.send("#{rule}=", value)
+
+        connections = suggested_profile.send("#{rule}_connections") || []
+        connections = connections[1..-2] if connections.present?
         connections.each do |connection_id|
           next if SuggestionConnection.where(:suggestion_id => suggestion.id, :connection_id => connection_id, :connection_type => options[:connection]).present?
           SuggestionConnection.create!(:suggestion => suggestion, :connection_id => connection_id, :connection_type => options[:connection])
         end
+
+        suggestion.send("#{rule}=", value)
         suggestion.score += value * options[:weight]
       end
       suggestion.save!

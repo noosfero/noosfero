@@ -1145,7 +1145,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.message_for_disabled_enterprise = "<h1> Disabled Enterprise /h1>"
     environment.valid?
 
-    assert_no_match /[<>]/, environment.message_for_disabled_enterprise
+    assert_match /<h1> Disabled Enterprise \/h1&gt;<\/h1>/, environment.message_for_disabled_enterprise
   end
 
   should 'not sanitize html comments' do
@@ -1153,7 +1153,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.message_for_disabled_enterprise = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     environment.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, environment.message_for_disabled_enterprise
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, environment.message_for_disabled_enterprise
   end
 
   should "not crash when set nil as terms of use" do
@@ -1386,11 +1386,12 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'always store setting keys as symbol' do
+    Environment.settings_items :string_key, type: String
     env = Environment.default
-    env.settings['string_key'] = 'new value'
+    env.string_key = 'new value'
     env.save!; env.reload
-    assert_nil env.settings['string_key']
     assert_equal env.settings[:string_key], 'new value'
+    assert_nil env.settings['string_key']
   end
 
   should 'validate reports_lower_bound' do

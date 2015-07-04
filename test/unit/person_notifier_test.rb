@@ -67,8 +67,11 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'update last notification date' do
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
-    @community.add_member(@member)
+    notify
     initial_notification = @member.last_notification
+
+    Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
+    @community.add_member(@member)
     notify
     assert @member.last_notification > initial_notification
   end
@@ -150,14 +153,14 @@ class PersonNotifierTest < ActiveSupport::TestCase
     assert job.run_at < time + (@member.notification_time+1).hours
   end
 
-  should 'display error message if fail to render a notificiation' do
+  should 'fail to render an invalid notificiation' do
     @community.add_member(@member)
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     process_delayed_job_queue
-    notify
-    sent = ActionMailer::Base.deliveries.last
-    # don't raise erros
+    assert_raise do
+      notify
+    end
   end
 
   ActionTrackerConfig.verb_names.each do |verb|
@@ -170,7 +173,13 @@ class PersonNotifierTest < ActiveSupport::TestCase
       a.created_at = @member.notifier.notify_from + 1.day
       a.target = fast_create(Forum)
       a.comments_count = 0
-      a.params = {'view_url'=> {}, 'name' => 'home', 'url' => '/', 'lead' => ''}
+      a.params = {
+        'name' => 'home', 'url' => '/', 'lead' => '',
+        'receiver_url' => '/', 'content' => 'nothing',
+        'friend_url' => '/', 'friend_profile_custom_icon' => [], 'friend_name' => ['joe'],
+        'resource_name' => ['resource'], 'resource_profile_custom_icon' => [], 'resource_url' => ['/'],
+        'view_url'=> ['/'], 'thumbnail_path' => ['1'],
+      }
       a.get_url = ''
       a.save!
       n = @member.action_tracker_notifications.build
@@ -178,9 +187,9 @@ class PersonNotifierTest < ActiveSupport::TestCase
       n.profile = @member
       n.save!
 
-      notify
-      sent = ActionMailer::Base.deliveries.last
-      # assert not raised
+      assert_nothing_raised do
+        notify
+      end
     end
   end
 

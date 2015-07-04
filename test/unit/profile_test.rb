@@ -1709,8 +1709,8 @@ class ProfileTest < ActiveSupport::TestCase
     profile.custom_footer = "<h1> Malformed <><< html ></a>< tag"
     profile.save
 
-    assert_no_match /[<>]/, profile.custom_header
-    assert_no_match /[<>]/, profile.custom_footer
+    assert_match /<h1>&gt; Malformed &gt;&gt; html &gt;<\/h1>/, profile.custom_header
+    assert_match /<h1> Malformed <\/h1>/, profile.custom_footer
   end
 
   should 'not sanitize html comments' do

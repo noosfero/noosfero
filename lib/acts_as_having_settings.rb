@@ -21,6 +21,12 @@ end
 
 module ActsAsHavingSettings
 
+  def self.type_cast value, type
+    # do not cast nil
+    return value if value.nil?
+    type.send :cast_value, value
+  end
+
   module ClassMethods
 
     def acts_as_having_settings(*args)
@@ -50,13 +56,12 @@ module ActsAsHavingSettings
       settings_items *args
     end
 
-    def settings_items(*names)
+    def settings_items *names
 
-      options = names.last.is_a?(Hash) ? names.pop : {}
-      default = if !options[:default].nil? then options[:default] else nil end
-      data_type = options[:type]
-      data_type = if data_type.present? then data_type.to_s.camelize.to_sym else :String end
-      data_type = ActiveRecord::Type.const_get(data_type).new
+      options = names.extract_options!
+      default = options[:default]
+      type = options[:type]
+      type = if type.present? then ActiveRecord::Type.const_get(type.to_s.camelize.to_sym).new else nil end
 
       names.each do |setting|
         # symbolize key
@@ -65,17 +70,15 @@ module ActsAsHavingSettings
         define_method setting do
           h = send self.class.settings_field
           val = h[setting]
-          if val.nil? then (if default.is_a? String then gettext default else default end) else val end
+          # translate default value if it is used
+          if not val.nil? then val elsif default.is_a? String then gettext default else default end
         end
+
         define_method "#{setting}=" do |value|
           h = send self.class.settings_field
-          h[setting] = self.class.acts_as_having_settings_type_cast value, data_type
+          h[setting] = if type then ActsAsHavingSettings.type_cast value, type else value end
         end
       end
-    end
-
-    def acts_as_having_settings_type_cast value, type
-      type.send :cast_value, value
     end
 
   end

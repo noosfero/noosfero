@@ -41,7 +41,7 @@ class BlogHelperTest < ActionView::TestCase
       "<#{tag}#{options.map{|k,v| " #{k}=\"#{[v].flatten.join(' ')}\""}.join}>#{content}</#{tag}>"
     end
 
-    html = HTML::Document.new(list_posts(blog.posts)).root
+    html = Nokogiri::HTML list_posts(blog.posts)
     assert_select html, "div#post-#{newer_post.id}.blog-post.position-1.first.odd-post" +
                         " > div.odd-post-inner.blog-post-inner > .title", 'Last post'
     assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.not-published.even-post" +

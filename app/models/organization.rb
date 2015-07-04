@@ -112,7 +112,7 @@ class Organization < Profile
 
   settings_items :zip_code, :city, :state, :country
 
-  validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
+  validates_numericality_of :foundation_year, only_integer: true, allow_nil: true
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.blank? })
   validates_as_cnpj :cnpj
 

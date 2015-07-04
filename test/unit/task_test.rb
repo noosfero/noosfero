@@ -131,7 +131,7 @@ class TaskTest < ActiveSupport::TestCase
 
     task.cancel
 
-    assert_nil Task.from_code(task.code)
+    assert_equal [], Task.from_code(task.code)
   end
 
   should 'be able to find active tasks' do

@@ -9,29 +9,26 @@ class TaskMailerTest < ActiveSupport::TestCase
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
 
+    @environment = Environment.default
+    @environment.noreply_email = 'noreply@example.com'
+    @environment.stubs(:default_hostname).returns('example.com')
+    @environment.name = 'example'
   end
+  attr_reader :environment
 
   should 'be able to send a "task finished" message' do
 
     task = Task.new
     task.expects(:task_finished_message).returns('the message')
     task.expects(:target_notification_description).returns('the task')
-
-    requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
-    requestor.expects(:name).returns('my name')
-
-    environment = mock()
-    environment.expects(:noreply_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:requestor).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
+    task.target = task.requestor = person = Person.new
+    person.environment = environment
+    person.name = 'my name'
+    person.stubs(:contact_email).returns('requestor@example.com')
+    person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :finished).deliver
-    assert !ActionMailer::Base.deliveries.empty?
+    assert ActionMailer::Base.deliveries.present?
   end
 
   should 'be able to send a "task cancelled" message' do
@@ -39,19 +36,11 @@ class TaskMailerTest < ActiveSupport::TestCase
     task = Task.new
     task.expects(:task_cancelled_message).returns('the message')
     task.expects(:target_notification_description).returns('the task')
-
-    requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
-    requestor.expects(:name).returns('my name')
-
-    environment = mock()
-    environment.expects(:noreply_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:requestor).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
+    task.target = task.requestor = person = Person.new
+    person.environment = environment
+    person.name = 'my name'
+    person.stubs(:contact_email).returns('requestor@example.com')
+    person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :cancelled).deliver
     assert !ActionMailer::Base.deliveries.empty?
@@ -63,19 +52,11 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task.expects(:task_created_message).returns('the message')
     task.expects(:target_notification_description).returns('the task')
-
-    requestor = mock()
-    requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
-    requestor.expects(:name).returns('my name')
-
-    environment = mock()
-    environment.expects(:noreply_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:requestor).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
+    task.target = task.requestor = person = Person.new
+    person.environment = environment
+    person.name = 'my name'
+    person.stubs(:contact_email).returns('requestor@example.com')
+    person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :created).deliver
     assert !ActionMailer::Base.deliveries.empty?
@@ -95,24 +76,14 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task = InviteFriend.new
     task.expects(:code).returns('123456')
+    task.target = task.requestor = person = Person.new
+    person.environment = environment
+    person.name = 'my name'
+    person.stubs(:public_profile_url).returns('requestor_path')
 
     task.stubs(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
     task.expects(:friend_email).returns('friend@exemple.com')
     task.expects(:friend_name).returns('friend name').at_least_once
-
-    requestor = mock()
-    requestor.stubs(:name).returns('my name')
-    requestor.stubs(:public_profile_url).returns('requestor_path')
-
-    environment = mock()
-    environment.expects(:noreply_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:requestor).returns(requestor).at_least_once
-    task.expects(:person).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.invitation_notification(task)
 
@@ -126,13 +97,9 @@ class TaskMailerTest < ActiveSupport::TestCase
 
   should 'use environment name and no-reply email' do
     task = mock
-    environment = mock
-    environment.expects(:name).returns('My name')
-    environment.expects(:noreply_email).returns('email@example.com')
-
     task.expects(:environment).returns(environment).at_least_once
 
-    assert_equal 'My name <email@example.com>', TaskMailer.generate_from(task)
+    assert_equal "#{environment.name} <#{environment.noreply_email}>", TaskMailer.generate_from(task)
   end
 
   should 'return the email with the subdirectory defined' do
@@ -140,24 +107,14 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task = InviteFriend.new
     task.expects(:code).returns('123456')
+    task.target = task.requestor = person = Person.new
+    person.environment = environment
+    person.name = 'my name'
+    person.stubs(:public_profile_url).returns('requestor_path')
 
     task.stubs(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
     task.expects(:friend_email).returns('friend@exemple.com')
     task.expects(:friend_name).returns('friend name').at_least_once
-
-    requestor = mock()
-    requestor.stubs(:name).returns('my name')
-    requestor.stubs(:public_profile_url).returns('requestor_path')
-
-    environment = mock()
-    environment.expects(:noreply_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:requestor).returns(requestor).at_least_once
-    task.expects(:person).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.invitation_notification(task)
 
