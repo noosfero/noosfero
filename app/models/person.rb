@@ -40,9 +40,14 @@ roles] }
   }
 
   scope :visible_for_person, lambda { |person|
-    joins('LEFT JOIN "friendships" ON "friendships"."friend_id" = "profiles"."id"')
+    joins('LEFT JOIN "role_assignments" ON
+          "role_assignments"."resource_id" = "profiles"."environment_id" AND
+          "role_assignments"."resource_type" = \'Environment\'')
+    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
+    .joins('LEFT JOIN "friendships" ON "friendships"."friend_id" = "profiles"."id"')
     .where(
-      ['( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?)', person.id,  true, true]
+      ['( roles.key = ? AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR (
+        ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )', 'environment_administrator', Profile.name, person.id, person.id,  true, true]
     ).uniq
   }
 
