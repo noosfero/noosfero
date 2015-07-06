@@ -270,6 +270,7 @@ daniel <dtygel@eita.org.br>
 diegoamc <diegoamc90@gmail.com>
 dtygel <dtygel@gmail.com>
 juniorsilva <juniorsilva@QonoS.localhost.localdomain>
+root <root@17edebf1ae91>
 root <root@debian.sdr.serpro>
 tallys <tallys@tallys.(none)>
 tallys <tallys@tallys>
