@@ -27,8 +27,7 @@ class CreateEnterprise < Task
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id
 
-  validate :requestor_is_person
-  validate :target_is_environment
+  validates :requestor, kind_of: {kind: Person}
 
   # checks for admins required attributes
   DATA_FIELDS.each do |attribute|
@@ -215,18 +214,6 @@ class CreateEnterprise < Task
 
   def permission
     :validate_enterprise
-  end
-
-  def requestor_is_person
-    unless requestor.person?
-      errors.add(:create_enterprise, N_('Requestor must be a person.'))
-    end
-  end
-
-  def target_is_environment
-    unless target.class == Environment
-      errors.add(:create_enterprise, N_('Target must be an environment.'))
-    end
   end
 
 end

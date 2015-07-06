@@ -4,8 +4,6 @@ class SuggestArticle < Task
   validates_presence_of :email, :name, :if => Proc.new { |task| task.requestor.blank? }
   validates_associated :article_object
 
-  validate :target_is_organization
-
   settings_items :email, :type => String
   settings_items :name, :type => String
   settings_items :ip_address, :type => String
@@ -95,9 +93,4 @@ class SuggestArticle < Task
     self.delay.marked_as_ham
   end
 
-  def target_is_organization
-    unless target.organization?
-      errors.add(:suggest_article, N_('Target must be an organization.'))
-    end
-  end
 end

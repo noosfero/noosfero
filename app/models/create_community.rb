@@ -3,8 +3,8 @@ class CreateCommunity < Task
   validates_presence_of :requestor_id, :target_id
   validates_presence_of :name
 
-  validate :requestor_is_person
-  validate :target_is_environment
+  validates :requestor, kind_of: {kind: Person}
+  validates :target, kind_of: {kind: Environment}
 
   alias :environment :target
   alias :environment= :target=
@@ -93,18 +93,6 @@ class CreateCommunity < Task
 
   def task_finished_message
     _('Your request for registering the community "%{community}" was approved. You can access %{environment} now and start using your new community.') % { :community => self.name, :environment => self.environment }
-  end
-
-  def requestor_is_person
-    unless requestor.person?
-      errors.add(:create_community, N_('Requestor must be a person.'))
-    end
-  end
-
-  def target_is_environment
-    unless target.class == Environment
-      errors.add(:create_community, N_('Target must be an environment.'))
-    end
   end
 
 end

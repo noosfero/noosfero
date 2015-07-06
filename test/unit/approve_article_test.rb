@@ -427,7 +427,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article = fast_create(Article)
     profile.domains << create(Domain, :name => 'example.org')
     assert_nothing_raised do
-      create(ApproveArticle, :article => article, :target => profile, :requestor => community)
+      create(ApproveArticle, :article => article, :target => profile, :requestor => profile)
     end
   end
 

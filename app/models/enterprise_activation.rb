@@ -8,8 +8,7 @@ class EnterpriseActivation < Task
 
   validates_presence_of :enterprise
 
-  validate :requestor_is_person
-  validate :target_is_enterprise
+  validates :target, kind_of: {kind: Enterprise}
 
   def perform
     self.enterprise.enable self.requestor
@@ -44,18 +43,6 @@ class EnterpriseActivation < Task
       _('%{requestor} wants to activate enterprise %{enterprise}.') % {:requestor => self.requestor.name, :enterprise => self.enterprise.name}
     else
       _('Pending activation of enterprise %{enterprise}.') % {:enterprise => self.enterprise.name}
-    end
-  end
-
-  def requestor_is_person
-    unless requestor.person?
-      errors.add(:enterprise_activation, N_('Requestor must be a person.'))
-    end
-  end
-
-  def target_is_enterprise
-    unless target.enterprise?
-      errors.add(:enterprise_activation, N_('Target must be an enterprise.'))
     end
   end
 

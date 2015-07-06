@@ -68,12 +68,6 @@ class TasksTest < ActiveSupport::TestCase
     assert_not_nil json["task"]["id"]
   end
 
-  should 'not create task in a community' do
-    community = fast_create(Community)
-    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}&content_type=ApproveArticle"
-    assert_equal 400, last_response.status
-  end
-
   should 'create task defining the requestor as current profile logged in' do
     community = fast_create(Community)
     community.add_member(person)
@@ -165,12 +159,6 @@ class TasksTest < ActiveSupport::TestCase
     post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_nil json["task"]["id"]
-  end
-
-  should 'not create task in a enterprise' do
-    enterprise = fast_create(Enterprise)
-    post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}&content_type=ApproveArticle"
-    assert_equal 400, last_response.status
   end
 
   should 'create task defining the target as the enterprise' do
