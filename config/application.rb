@@ -136,7 +136,7 @@ module Noosfero
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource 'api/*', :headers => :any, :methods => [:get, :post]
+        resource '/api/*', :headers => :any, :methods => [:get, :post]
       end
     end
 
