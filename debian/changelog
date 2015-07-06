@@ -6,7 +6,10 @@ noosfero (1.2~1) UNRELEASED; urgency=medium
   [ Joenio Costa ]
   * Build noosfero-chat package
 
- -- Joenio Costa <joenio@colivre.coop.br>  Mon, 18 May 2015 14:32:21 -0300
+  [ root ]
+  * Api test
+
+ -- root <root@17edebf1ae91>  Mon, 06 Jul 2015 14:39:06 +0000
 
 noosfero (1.1) wheezy; urgency=low
 
