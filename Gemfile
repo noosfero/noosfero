@@ -53,9 +53,10 @@ group :test do
 end
 
 group :cucumber do
-  gem 'cucumber-rails',         '~> 1.0.6', :require => false
   gem 'capybara',               '~> 2.1.0'
-  gem 'cucumber',               '~> 1.0.6'
+  gem 'launchy'
+  gem 'cucumber',               '~> 1.3.20'
+  gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.2.0'
   gem 'selenium-webdriver',     '~> 2.39.0'
 end

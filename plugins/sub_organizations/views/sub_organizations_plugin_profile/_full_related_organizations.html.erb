@@ -17,7 +17,7 @@
             <% elsif organization.home_page and organization.home_page.body %>
               <% body_stripped = strip_tags(organization.home_page.body) %>
             <% end %>
-            <%= excerpt(body_stripped, body_stripped.first(3), 200) if body_stripped %>
+            <%= excerpt body_stripped, body_stripped.first(3), radius: 200 if body_stripped %>
           </div>
           <div class="related-organizations-region">
             <span class="related-organizations-region-label"><%= c_("City") %></span>

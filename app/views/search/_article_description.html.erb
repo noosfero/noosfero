@@ -6,7 +6,7 @@
   <% if !article.body.blank? %>
     <% description = strip_tags(article.body.to_s) %>
     <% description.gsub!(/\s{2,}/, ' ') %>
-    <% description = excerpt(description, description.first(3), 200) %>
+    <% description = excerpt description, description.first(3), radius: 200 %>
 
     <td class="search-article-body"><%= description %></td>
   <% else %>

@@ -3,7 +3,7 @@ When /^I create a content of type "([^\"]*)" with the following data$/ do |conte
   click_link content_type
 
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+    step %{I fill in "#{name}" with "#{value}"}
   end
 
   click_button "Save"

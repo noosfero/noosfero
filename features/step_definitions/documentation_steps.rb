@@ -1,4 +1,4 @@
-require File.join(Rails.root, 'test', 'noosfero_doc_test')
+require File.join(Rails.root, 'test', 'support', 'noosfero_doc_test')
 include Noosfero::DocTest
 
 Given 'the documentation is built' do
