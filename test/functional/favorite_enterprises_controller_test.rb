@@ -19,7 +19,6 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
   should 'confirm addition of new favorite enterprise' do

@@ -475,7 +475,7 @@ class ProfileControllerTest < ActionController::TestCase
     fast_create(TextileArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
 
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/blog/ }
+    assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/#{blog.slug}/ }
   end
 
   should 'show number of published images in index' do
@@ -1179,7 +1179,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     assert_equal 20, article.comments.count
-    get :more_comments, :activity => activity.id, :comment_page => 2
+    xhr :get, :more_comments, :activity => activity.id, :comment_page => 2
     assert_response :success
     assert_template '_comment'
     assert_select_rjs :insert_html do
@@ -1204,7 +1204,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
     profile.reload
     assert_equal 20, scrap.replies.count
-    get :more_replies, :activity => scrap.id, :comment_page => 2
+    xhr :get, :more_replies, :activity => scrap.id, :comment_page => 2
     assert_response :success
     assert_template '_profile_scrap'
     assert_select_rjs :insert_html do
@@ -1386,7 +1386,7 @@ class ProfileControllerTest < ActionController::TestCase
     activity = ActionTracker::Record.last
 
     login_as(profile.identifier)
-    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+    xhr :get, :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
 
     assert_select_rjs :insert_html do
       assert_select 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
@@ -1415,7 +1415,7 @@ class ProfileControllerTest < ActionController::TestCase
     activity = ActionTracker::Record.last
 
     login_as(profile.identifier)
-    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+    xhr :get, :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
 
     assert_select_rjs :insert_html do
       assert_select 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
@@ -1671,7 +1671,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
-    assert_select '#manage-communities li > a' do |links|
+    doc = Nokogiri::HTML @response.body
+    assert_select doc, '#manage-communities li > a' do |links|
       assert_equal 2, links.length
       assert_match /community_1/, links.to_s
       assert_match /community_2/, links.to_s
@@ -1699,7 +1700,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
-    assert_select '#manage-enterprises li > a' do |links|
+    doc = Nokogiri::HTML @response.body
+    assert_select doc, '#manage-enterprises li > a' do |links|
       assert_equal 1, links.length
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s

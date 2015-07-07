@@ -4,8 +4,4 @@
   </div>
 <% end %>
 
-<% if folder.children.empty? %>
-  <em><%= _('(empty folder)') %></em>
-<% else %>
-  <%= list_contents(:contents=>folder.children) %>
-<% end %>
+<%= list_contents contents: folder.children %>

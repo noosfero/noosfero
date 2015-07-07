@@ -63,7 +63,7 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'show action moved to manage_products controller' do
-    assert_raise ActionController::RoutingError do
+    assert_raise ActionController::UrlGenerationError do
       get :show, :id => 1
     end
   end

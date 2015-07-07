@@ -58,7 +58,7 @@ class CmsController < MyProfileController
   def view
     @article = profile.articles.find(params[:id])
     @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name")
-    @articles = @articles.where type: 'RssFeed' if @article.has_posts?
+    @articles = @articles.where "type <> ?", 'RssFeed' if @article.has_posts?
     @articles = @articles.paginate per_page: per_page, page: params[:npage]
   end
 
@@ -232,7 +232,7 @@ class CmsController < MyProfileController
       else
         session[:notice] = _('File(s) successfully uploaded')
         if @back_to
-          redirect_to @back_to
+          redirect_to url_for(@back_to)
         elsif @parent
           redirect_to :action => 'view', :id => @parent.id
         else

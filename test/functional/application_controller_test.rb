@@ -278,10 +278,7 @@ class ApplicationControllerTest < ActionController::TestCase
     uses_host 'other.environment'
     get :index
     assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}
-    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'},
-                :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/adminuser' }},
-                :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/myprofile/adminuser' }},
-                :descendant => {:tag => 'a', :attributes => { :href => '/admin' }}
+    assert_tag tag: 'div', attributes: {id: 'user_menu_ul'}, descendant: {tag: 'a', attributes: { href: '/admin' }}
   end
 
   should 'not display invisible blocks' do
@@ -359,13 +356,10 @@ class ApplicationControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    ActionView::Helpers::AssetTagHelper::StylesheetIncludeTag.any_instance.stubs('asset_file_path!')
-    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
-
     get :index
 
-    assert_tag :tag => 'link', :attributes => {:href => /#{plugin1_path}/, :type => 'text/css', :rel => 'stylesheet'}
-    assert_tag :tag => 'link', :attributes => {:href => /#{plugin2_path}/, :type => 'text/css', :rel => 'stylesheet'}
+    assert_tag tag: 'link', attributes: {href: /#{plugin1_path}/, rel: 'stylesheet'}
+    assert_tag tag: 'link', attributes: {href: /#{plugin2_path}/, rel: 'stylesheet'}
   end
 
   should 'include javascripts supplied by plugins' do
@@ -395,13 +389,11 @@ class ApplicationControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
-
     get :index
 
-    assert_tag :tag => 'script', :attributes => {:src => /#{plugin1_path}/, :type => 'text/javascript'}
-    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path2}/, :type => 'text/javascript'}
-    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path3}/, :type => 'text/javascript'}
+    assert_tag tag: 'script', attributes: {src: /#{plugin1_path}/}
+    assert_tag tag: 'script', attributes: {src: /#{plugin2_path2}/}
+    assert_tag tag: 'script', attributes: {src: /#{plugin2_path3}/}
   end
 
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
@@ -461,15 +453,15 @@ class ApplicationControllerTest < ActionController::TestCase
     e.access_control_allow_origin = ['http://allowed']
     e.save!
 
-    @request.env["Origin"] = "http://allowed"
+    @request.headers["Origin"] = "http://allowed"
     get :index
     assert_response :success
 
-    @request.env["Origin"] = "http://other"
+    @request.headers["Origin"] = "http://other"
     get :index
     assert_response :success
 
-    @request.env["Origin"] = "http://other"
+    @request.headers["Origin"] = "http://other"
     e.restrict_to_access_control_origins = true
     e.save!
     get :index

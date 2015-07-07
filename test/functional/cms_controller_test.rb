@@ -537,18 +537,18 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'filter html with white_list from tiny mce article abstract' do
-    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => "<script>alert('test')</script> article", :body => 'the text of the article ...' }
-    assert_equal " article", assigns(:article).abstract
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => "<script>alert('text')</script> article", :body => 'the text of the article ...' }
+    assert_equal "alert('text') article", assigns(:article).abstract
   end
 
   should 'filter html with white_list from tiny mce article body' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "the <script>alert('text')</script> of article ..." }
-    assert_equal "the  of article ...", assigns(:article).body
+    assert_equal "the alert('text') of article ...", assigns(:article).body
   end
 
   should 'not filter html tags permitted from tiny mce article body' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'article', :abstract => 'abstract', :body => "<b>the</b> <script>alert('text')</script> <strong>of</strong> article ..." }
-    assert_equal "<b>the</b>  <strong>of</strong> article ...", assigns(:article).body
+    assert_equal "<b>the</b> alert('text') <strong>of</strong> article ...", assigns(:article).body
   end
 
   should 'sanitize tags' do

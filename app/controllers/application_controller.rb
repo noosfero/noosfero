@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
       # Check if the requested profile belongs to another domain
       if @profile && !params[:profile].blank? && params[:profile] != @profile.identifier
         @profile = @environment.profiles.find_by_identifier params[:profile]
-        redirect_to params.merge(:host => @profile.default_hostname)
+        redirect_to url_for(params.merge host: @profile.default_hostname)
       end
     end
   end
@@ -197,7 +197,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_current_user
     if params[:profile] == '~'
       if logged_in?
-        redirect_to params.merge(:profile => user.identifier)
+        redirect_to url_for(params.merge profile: user.identifier)
       else
         render_not_found
       end

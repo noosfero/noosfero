@@ -115,7 +115,7 @@ class AccountController < ApplicationController
           @user.person.affiliate(@user.person, [owner_role]) if owner_role
           invitation = Task.from_code(@invitation_code).first
           if invitation
-            invitation.update_attributes!({:friend => @user.person})
+            invitation.update_attributes! friend: @user.person
             invitation.finish
           end
 

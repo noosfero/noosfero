@@ -36,7 +36,7 @@ class ProfileController < PublicController
 
   def tag_feed
     @tag = params[:id]
-    tagged = profile.articles.paginate(:per_page => 20, :page => 1).order('published_at DESC').includes(:tags).where('tags.name LIKE ?', @tag)
+    tagged = profile.articles.paginate(:per_page => 20, :page => 1).order('published_at DESC').joins(:tags).where('tags.name LIKE ?', @tag)
     feed_writer = FeedWriter.new
     data = feed_writer.write(
       tagged,

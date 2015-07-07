@@ -907,8 +907,14 @@ module ApplicationHelper
   end
   alias :top_url :base_url
 
+  class View < ActionView::Base
+    def url_for *args
+      self.controller.url_for *args
+    end
+  end
+
   def helper_for_article(article)
-    article_helper = ActionView::Base.new
+    article_helper = View.new
     article_helper.controller = controller
     article_helper.extend ArticleHelper
     article_helper.extend Rails.application.routes.url_helpers
