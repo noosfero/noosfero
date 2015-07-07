@@ -1,8 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-# Re-raise errors caught by the controller.
-class AccountController; def rescue_action(e) raise e end; end
-
 class AccountControllerPluginTest < ActionController::TestCase
 
   def setup

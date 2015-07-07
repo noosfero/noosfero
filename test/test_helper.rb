@@ -80,21 +80,6 @@ class ActiveSupport::TestCase
 
   end
 
-  def self.noosfero_test parameters
-    instance_variable_set('@noosfero_test_extra_parameters', parameters)
-    def extra_parameters
-      @noosfero_test_extra_parameters
-    end
-  end
-
-  def get(path, parameters = nil, headers = nil)
-    super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters) , headers)
-  end
-
-  def post(path, parameters = nil, headers = nil)
-    super(path, (parameters ? self.class.extra_parameters.merge(parameters) : self.class.extra_parameters), headers)
-  end
-
   # deprecated on minitest
   def assert_block message=nil
     assert message || 'yield' do
@@ -294,6 +279,21 @@ module NoosferoTestHelper
 
   def icon_for_article(article)
     ''
+  end
+
+end
+
+class ActionController::TestCase
+
+  class_attribute :default_params
+  self.default_params = {}
+
+  def get path, parameters = nil, session = nil, flash = nil
+    super path, if parameters then self.default_params.merge parameters else self.default_params end, session, flash
+  end
+
+  def post path, parameters = nil, session = nil, flash = nil
+    super path, if parameters then self.default_params.merge parameters else self.default_params end, session, flash
   end
 
 end

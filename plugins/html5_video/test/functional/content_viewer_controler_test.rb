@@ -1,12 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require 'content_viewer_controller'
 
-class ContentViewerController
-  # Re-raise errors caught by the controller.
-  def rescue_action(e) raise e end
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-end
-
 class ContentViewerControllerTest < ActionController::TestCase
 
   all_fixtures

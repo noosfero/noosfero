@@ -1,10 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require File.dirname(__FILE__) + '/../../controllers/display_content_plugin_admin_controller'
 
-
-# Re-raise errors caught by the controller.
-class DisplayContentPluginAdminControllerController; def rescue_action(e) raise e end; end
-
 class DisplayContentPluginAdminControllerTest < ActionController::TestCase
 
   def setup

@@ -1,19 +1,16 @@
 require_relative "../test_helper"
 require 'features_controller'
 
-# Re-raise errors caught by the controller.
-class FeaturesController; def rescue_action(e) raise e end; end
-
 class FeaturesControllerTest < ActionController::TestCase
 
-  all_fixtures 
+  all_fixtures
   def setup
     @controller = FeaturesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     login_as(create_admin_user(Environment.find(2)))
   end
-  
+
   def test_listing_features
     uses_host 'anhetegua.net'
     get :index
@@ -37,7 +34,7 @@ class FeaturesControllerTest < ActionController::TestCase
     assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
     assert v.enabled?('feature2')
-    assert v.enabled?('feature2') 
+    assert v.enabled?('feature2')
     assert !v.enabled?('feature3')
   end
 

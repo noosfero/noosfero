@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'catalog_controller'
 
-# Re-raise errors caught by the controller.
-class CatalogController; def rescue_action(e) raise e end; end
-
 class CatalogControllerTest < ActionController::TestCase
   def setup
     @controller = CatalogController.new

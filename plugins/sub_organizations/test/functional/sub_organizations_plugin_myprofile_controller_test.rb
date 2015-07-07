@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../controllers/sub_organizations_plugin_myprofile_controller'
 
-# Re-raise errors caught by the controller.
-class SubOrganizationsPluginMyprofileController; def rescue_action(e) raise e end; end
-
 class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @controller = SubOrganizationsPluginMyprofileController.new
@@ -94,7 +91,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     get :index, :profile => organization.identifier
 
     assert_response 403
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'not search organizations if dont have permission' do
@@ -107,7 +104,7 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     get :search_organization, :profile => organization.identifier, :q => 'sampl'
 
     assert_response 403
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
 end

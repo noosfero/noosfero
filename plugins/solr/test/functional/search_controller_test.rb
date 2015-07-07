@@ -1,9 +1,6 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 require File.dirname(__FILE__) + '/../../lib/ext/facets_browse'
 
-# Re-raise errors caught by the controller.
-class SearchController; def rescue_action(e) raise e end; end
-
 class SearchControllerTest < ActionController::TestCase
 
   def setup

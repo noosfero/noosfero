@@ -1,12 +1,5 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-# Re-raise errors caught by the controller.
-class HomeController
-  def rescue_action(e)
-    raise e
-  end
-end
-
 class ProfileControllerTest < ActionController::TestCase
   def setup
     @env = Environment.default

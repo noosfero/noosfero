@@ -1,9 +1,6 @@
 require_relative '../test_helper'
 require_relative '../../controllers/public/community_track_plugin_public_controller'
 
-# Re-raise errors caught by the controller.
-class CommunityTrackPluginPublicController; def rescue_action(e) raise e end; end
-
 class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
 
   def setup

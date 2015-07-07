@@ -28,7 +28,7 @@ class ProfileRolesControllerTest < ActionController::TestCase
     post :create, :profile => community.identifier, :role => {:name => "new_admin", :permissions => ["edit_profile"] }
 
     assert_response 403
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     role = Role.where(:name => 'new_admin')
 

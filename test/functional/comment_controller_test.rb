@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'comment_controller'
 
-# Re-raise errors caught by the controller.
-class CommentController; def rescue_action(e) raise e end; end
-
 class CommentControllerTest < ActionController::TestCase
 
   def setup
@@ -358,7 +355,7 @@ class CommentControllerTest < ActionController::TestCase
   should "render the root comment when a reply is made" do
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
- 
+
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
 
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true'

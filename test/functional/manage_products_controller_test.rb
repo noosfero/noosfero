@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'manage_products_controller'
 
-# Re-raise errors caught by the controller.
-class ManageProductsController; def rescue_action(e) raise e end; end
-
 class ManageProductsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
@@ -23,7 +20,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     login_as :user_test
     get 'index', :profile => @enterprise.identifier
     assert :success
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should "get index" do

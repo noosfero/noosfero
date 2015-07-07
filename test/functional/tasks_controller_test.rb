@@ -1,12 +1,9 @@
 require_relative "../test_helper"
 require 'tasks_controller'
 
-class TasksController; def rescue_action(e) raise e end; end
-
 class TasksControllerTest < ActionController::TestCase
 
-  noosfero_test :profile => 'testuser'
-
+  self.default_params = {profile: 'testuser'}
   def setup
     @controller = TasksController.new
     @request    = ActionController::TestRequest.new
@@ -149,7 +146,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'create a ticket with profile requestor' do
     post :new, :profile => profile.identifier, :ticket => {:name => 'new task'}
-    
+
     assert_equal profile, assigns(:ticket).requestor
   end
 
@@ -628,7 +625,7 @@ class TasksControllerTest < ActionController::TestCase
 
     assert_select ".task_responsible select", 0
     assert_select ".task_responsible .value"
-  end 
+  end
 
   should 'store the person who closes a task' do
     t = profile.tasks.build; t.save!

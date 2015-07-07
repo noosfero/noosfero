@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'region_validators_controller'
 
-# Re-raise errors caught by the controller.
-class RegionValidatorsController; def rescue_action(e) raise e end; end
-
 class RegionValidatorsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
@@ -12,7 +9,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
     login_as('ze')
   end
-  
+
   # Replace this with your real tests.
   should 'list regions at index' do
     get :index
@@ -39,7 +36,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
 
   should 'search possible validators by name' do
     environment = fast_create(Environment, :name => "my environment")
-    give_permission('ze', 'manage_environment_validators', environment)    
+    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
@@ -84,7 +81,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     post :remove, :id => region.id, :validator_id => org.id
     assert_response :redirect
     assert_redirected_to :action => 'region', :id => region.id
-    
+
     assert !Region.find(region.id).validators.include?(org)
   end
 

@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
   def render_not_found(path = nil)
     @no_design_blocks = true
     @path ||= request.path
-    render :template => 'shared/not_found.html.erb', :status => 404, :layout => get_layout
+    render template: 'shared/not_found', status: 404, layout: get_layout
   end
   alias :render_404 :render_not_found
 
@@ -164,7 +164,7 @@ class ApplicationController < ActionController::Base
     @no_design_blocks = true
     @message = message
     @title = title
-    render :template => 'shared/access_denied.html.erb', :status => 403
+    render template: 'shared/access_denied', status: 403
   end
 
   def load_category

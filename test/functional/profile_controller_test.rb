@@ -1,17 +1,14 @@
 require_relative "../test_helper"
 require 'profile_controller'
 
-# Re-raise errors caught by the controller.
-class ProfileController; def rescue_action(e) raise e end; end
-
 class ProfileControllerTest < ActionController::TestCase
+
+  self.default_params = {profile: 'testuser'}
   def setup
     Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
-
-  noosfero_test :profile => 'testuser'
 
   should 'list friends' do
     get :friends

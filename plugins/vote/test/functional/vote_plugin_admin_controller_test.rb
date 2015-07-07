@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../controllers/vote_plugin_admin_controller'
 
-# Re-raise errors caught by the controller.
-class VotePluginAdminController; def rescue_action(e) raise e end; end
-
 class VotePluginAdminControllerTest < ActionController::TestCase
 
   def setup

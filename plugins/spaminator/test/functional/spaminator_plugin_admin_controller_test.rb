@@ -1,9 +1,6 @@
 require 'test_helper'
 require File.dirname(__FILE__) + '/../../controllers/spaminator_plugin_admin_controller'
 
-# Re-raise errors caught by the controller.
-class SpaminatorPluginAdminController; def rescue_action(e) raise e end; end
-
 class SpaminatorPluginAdminControllerTest < ActionController::TestCase
   def setup
     @controller = SpaminatorPluginAdminController.new

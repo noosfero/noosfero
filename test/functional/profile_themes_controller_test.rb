@@ -1,7 +1,4 @@
 require_relative "../test_helper"
-# require 'profile_themes_controller'
-
-class ProfileThemesController; def rescue_action(e) raise e end; end
 
 class ProfileThemesControllerTest < ActionController::TestCase
 
@@ -116,7 +113,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
   should 'create a new theme' do
     post :new, :profile => 'testinguser', :name => 'My theme'
-    
+
     ok('theme should be created') do
       profile.themes.first.id == 'my-theme'
     end
@@ -197,7 +194,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
   should 'display "add image" button' do
     theme = Theme.create('mytheme', :owner => profile)
     get :edit, :profile => 'testinguser', :id => 'mytheme'
-    
+
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/add_image/mytheme' }
   end
 

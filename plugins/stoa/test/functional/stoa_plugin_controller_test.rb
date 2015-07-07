@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../controllers/stoa_plugin_controller'
 
-# Re-raise errors caught by the controller.
-class StoaPluginController; def rescue_action(e) raise e end; end
-
 class StoaPluginControllerTest < ActionController::TestCase
 
   SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']

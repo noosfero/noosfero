@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'enterprise_validation_controller'
 
-# Re-raise errors caught by the controller.
-class EnterpriseValidationController; def rescue_action(e) raise e end; end
-
 class EnterpriseValidationControllerTest < ActionController::TestCase
 
   all_fixtures
@@ -12,7 +9,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    
+
     login_as 'ze'
     @org = Organization.create!(:identifier => 'myorg', :name => "My Org")
     give_permission('ze', 'validate_enterprise', @org)
@@ -78,7 +75,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
   should 'list validations already processed' do
     processed_validations = [CreateEnterprise.new]
     @org.expects(:processed_validations).returns(processed_validations)
-    
+
     get :list_processed, :profile => 'myorg'
 
     assert_equal processed_validations, assigns(:processed_validations)
@@ -86,7 +83,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'list_processed'
   end
-  
+
   should 'be able to display a validation that was already processed' do
     validation = CreateEnterprise.new
     @org.expects(:find_processed_validation).with('kakakaka').returns(validation)
@@ -106,7 +103,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     info = ValidationInfo.new(:validation_methodology => 'none')
     @org.expects(:validation_info).returns(info)
     post :edit_validation_info, :profile => 'myorg', :info => {:validation_methodology => 'new methodology'}
-    
+
     assert_response :redirect
     assert_redirected_to :action => 'index'
     assert_equal info, assigns(:info)
@@ -116,7 +113,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     info = ValidationInfo.new(:validation_methodology => 'none')
     @org.expects(:validation_info).returns(info)
     post :edit_validation_info, :profile => 'myorg', :info => {:validation_methodology => ''}
-    
+
     assert_response :success
     assert_equal info, assigns(:info)
   end

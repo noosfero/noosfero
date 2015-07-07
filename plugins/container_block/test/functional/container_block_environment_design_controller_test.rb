@@ -1,13 +1,5 @@
 require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class EnvironmentDesignController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e) 
-    raise e 
-  end 
-end
-
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup

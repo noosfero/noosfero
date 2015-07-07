@@ -2,9 +2,6 @@
 require_relative "../test_helper"
 require 'test_controller'
 
-# Re-raise errors caught by the controller.
-class TestController; def rescue_action(e) raise e end; end
-
 class ApplicationControllerTest < ActionController::TestCase
   all_fixtures
   def setup

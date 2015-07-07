@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'trusted_sites_controller'
 
-# Re-raise errors caught by the controller.
-class TrustedSitesController; def rescue_action(e) raise e end; end
-
 class TrustedSitesControllerTest < ActionController::TestCase
   all_fixtures
 

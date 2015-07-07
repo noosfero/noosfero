@@ -1,7 +1,5 @@
 require_relative "../test_helper"
 
-class EnvironmentThemesController; def rescue_action(e) raise e end; end
-
 class EnvironmentThemesControllerTest < ActionController::TestCase
 
   def setup

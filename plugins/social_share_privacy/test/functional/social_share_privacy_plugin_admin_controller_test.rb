@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../controllers/social_share_privacy_plugin_admin_controller'
 
-# Re-raise errors caught by the controller.
-class SocialSharePrivacyPluginAdminController; def rescue_action(e) raise e end; end
-
 class SocialSharePrivacyPluginAdminControllerTest < ActionController::TestCase
 
   def setup

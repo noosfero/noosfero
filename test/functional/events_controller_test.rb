@@ -69,7 +69,7 @@ class EventsControllerTest < ActionController::TestCase
     post :events, :profile => community.identifier
 
     assert_response :forbidden
-    assert_template :access_denied
+    assert_template 'shared/access_denied'
   end
 
   should 'show events page to members of private community' do

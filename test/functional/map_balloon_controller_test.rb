@@ -1,10 +1,6 @@
 require_relative "../test_helper"
 require 'map_balloon_controller'
 
-
-# Re-raise errors caught by the controller.
-class MapBalloonController; def rescue_action(e) raise e end; end
-
 class MapBalloonControllerTest < ActionController::TestCase
 
   def setup

@@ -1,13 +1,5 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-# Re-raise errors caught by the controller.
-class HomeController
-  #append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e)
-    raise e
-  end
-end
-
 class HomeControllerTest < ActionController::TestCase
 
   def setup

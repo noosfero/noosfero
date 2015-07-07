@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'organizations_controller'
 
-# Re-raise errors caught by the controller.
-class OrganizationsController; def rescue_action(e) raise e end; end
-
 class OrganizationsControllerTest < ActionController::TestCase
 
   def setup
@@ -11,13 +8,11 @@ class OrganizationsControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    Environment.destroy_all
-    @environment = fast_create(Environment, :is_default => true)
+    @environment = Environment.default
 
     admin_user = create_user_with_permission('adminuser', 'manage_environment_organizations', environment)
     login_as('adminuser')
   end
-
   attr_accessor :environment
 
   should 'not access without right permission' do
@@ -40,7 +35,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     get :index, :filter => 'enabled'
 
     assert_match(/enabled community/, @response.body)
-    assert_not_match(/disabled community/, @response.body)
+    assert_no_match(/disabled community/, @response.body)
   end
 
   should 'show list to activate organizations' do
@@ -50,7 +45,7 @@ class OrganizationsControllerTest < ActionController::TestCase
 
     get :index, :filter => 'disabled'
 
-    assert_not_match(/enabled community/, @response.body)
+    assert_no_match(/enabled community/, @response.body)
     assert_match(/disabled community/, @response.body)
   end
 
@@ -61,7 +56,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     get :index, :type => 'Enterprise'
 
     assert_match(/Enterprise Test/, @response.body)
-    assert_not_match(/Community Test/, @response.body)
+    assert_no_match(/Community Test/, @response.body)
   end
 
   should 'show list only of communities' do
@@ -70,7 +65,7 @@ class OrganizationsControllerTest < ActionController::TestCase
 
     get :index, :type => 'Community'
 
-    assert_not_match(/Enterprise Test/, @response.body)
+    assert_no_match(/Enterprise Test/, @response.body)
     assert_match(/Community Test/, @response.body)
   end
 

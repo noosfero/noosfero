@@ -2,9 +2,6 @@
 require_relative "../test_helper"
 require 'search_controller'
 
-# Re-raise errors caught by the controller.
-class SearchController; def rescue_action(e) raise e end; end
-
 class SearchControllerTest < ActionController::TestCase
 
   def setup
@@ -54,7 +51,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search only in specified types of content' do
     get :articles, :query => 'something not important'
-    assert_equal ['articles'], assigns(:searches).keys
+    assert_equal [:articles], assigns(:searches).keys
   end
 
   should 'render success in search' do

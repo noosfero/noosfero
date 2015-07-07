@@ -2,9 +2,6 @@
 require_relative "../test_helper"
 require 'maps_controller'
 
-# Re-raise errors caught by the controller.
-class MapsController; def rescue_action(e) raise e end; end
-
 class MapsControllerTest < ActionController::TestCase
 
   def setup
@@ -30,8 +27,8 @@ class MapsControllerTest < ActionController::TestCase
     city = 'Santo Afonso'
     state = 'Mato Grosso'
 
-    fast_create(NationalRegion, :name => 'Brasil', 
-      :national_region_code => 'BR', 
+    fast_create(NationalRegion, :name => 'Brasil',
+      :national_region_code => 'BR',
       :national_region_type_id => NationalRegionType::COUNTRY)
 
     parent_region = fast_create(NationalRegion, :name => state,
@@ -43,7 +40,7 @@ class MapsControllerTest < ActionController::TestCase
                                 :national_region_type_id => NationalRegionType::CITY,
                                 :parent_national_region_code => parent_region.national_region_code)
 
-    post :edit_location, :profile => profile.identifier, :profile_data => { 
+    post :edit_location, :profile => profile.identifier, :profile_data => {
       :address => 'new address',
       :country => 'BR',
       :city => city,

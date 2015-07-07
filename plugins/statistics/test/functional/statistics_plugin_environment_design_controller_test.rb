@@ -1,8 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-# Re-raise errors caught by the controller.
-class EnvironmentDesignController; def rescue_action(e) raise e end; end
-
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup
@@ -136,7 +133,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
     assert_tag :input, :attributes => {:id => 'block_product_counter'}
     assert_no_tag :input, :attributes => {:id => 'block_product_counter', :checked => 'checked'}
-  end  
+  end
 
   should 'not input category counter be checked by default' do
     get :edit, :id => @block.id

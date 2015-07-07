@@ -1,20 +1,16 @@
 module ActionView
   module Helpers
     module FormTagHelper
-      def form_tag_with_honeypot(url_for_options = {}, options = {}, *parameters_for_url, &block)
-        honeypot = options.delete(:honeypot)
-        html = form_tag_without_honeypot(url_for_options, options, *parameters_for_url, &block)
+      def form_tag_with_body_with_honeypot html_options = {}, content
+        honeypot = html_options.delete 'honeypot'
+        html = form_tag_with_body_without_honeypot html_options, content
         if honeypot
-          captcha = "".respond_to?(:html_safe) ? honey_pot_captcha.html_safe : honey_pot_captcha
-          if block_given?
-            html.insert(html.index('</form>'), captcha)
-          else
-            html += captcha
-          end
+          captcha = honey_pot_captcha.html_safe
+          html.insert html.index('</form>'), captcha
         end
         html
       end
-      alias_method_chain :form_tag, :honeypot
+      alias_method_chain :form_tag_with_body, :honeypot
 
     private
 

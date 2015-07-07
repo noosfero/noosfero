@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'content_viewer_controller'
 
-# Re-raise errors caught by the controller.
-class ContentViewerController; def rescue_action(e) raise e end; end
-
 class ContentViewerControllerTest < ActionController::TestCase
 
   all_fixtures
@@ -194,7 +191,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'show private content to profile moderators' do
@@ -297,7 +294,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'give access to private articles if logged in and moderator' do
