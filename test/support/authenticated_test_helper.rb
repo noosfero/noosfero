@@ -1,4 +1,5 @@
 module AuthenticatedTestHelper
+
   # Sets the current user in the session from the user fixtures.
   def login_as(user)
     @request.session[:user] = User.find_by_login(user.to_s).id
@@ -29,7 +30,7 @@ module AuthenticatedTestHelper
   end
 
   # Assert the block redirects to the login
-  # 
+  #
   #   assert_requires_login(:bob) { |c| c.get :edit, :id => 1 }
   #
   def assert_requires_login(login = nil)
@@ -61,11 +62,11 @@ class BaseLoginProxy
     def authenticated
       raise NotImplementedError
     end
-    
+
     def check
       raise NotImplementedError
     end
-    
+
     def method_missing(method, *args)
       @controller.reset!
       authenticate
@@ -79,7 +80,7 @@ class HttpLoginProxy < BaseLoginProxy
     def authenticate
       @controller.login_as @login if @login
     end
-    
+
     def check
       @controller.assert_redirected_to :controller => 'account', :action => 'login'
     end
@@ -91,7 +92,7 @@ class XmlLoginProxy < BaseLoginProxy
       @controller.accept 'application/xml'
       @controller.authorize_as @login if @login
     end
-    
+
     def check
       @controller.assert_response 401
     end

@@ -1,6 +1,6 @@
 require "#{File.dirname(__FILE__)}/../../../../test/test_helper"
 
-class SnifferMapTest < ActionController::IntegrationTest
+class SnifferMapTest < ActionDispatch::IntegrationTest
 
   fixtures :users, :profiles
 

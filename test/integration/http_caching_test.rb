@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class HttpCachingTest < ActionController::IntegrationTest
+class HttpCachingTest < ActionDispatch::IntegrationTest
 
   def setup
     create_user('joao', password: 'test', password_confirmation: 'test').activate

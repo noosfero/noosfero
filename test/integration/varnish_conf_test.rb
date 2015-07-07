@@ -1,6 +1,6 @@
-require 'test/unit'
+require 'test_helper'
 
-class VarnishConfTest < Test::Unit::TestCase
+class VarnishConfTest < ActiveSupport::TestCase
 
    def test_not_use_return_in_varnish_noosfero
     assert !system('grep "return.*pass" etc/noosfero/varnish-noosfero.vcl')

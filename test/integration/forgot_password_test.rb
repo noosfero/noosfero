@@ -1,9 +1,9 @@
 require_relative "../test_helper"
 
-class ForgotPasswordTest < ActionController::IntegrationTest
+class ForgotPasswordTest < ActionDispatch::IntegrationTest
 
   def setup
-    ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
+    ActionDispatch::Integration::Session.any_instance.stubs(:https?).returns(true)
   end
 
   def test_forgot_password_with_login

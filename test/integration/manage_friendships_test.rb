@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ManageFriendshipsTest < ActionController::IntegrationTest
+class ManageFriendshipsTest < ActionDispatch::IntegrationTest
 
   def setup
     FriendsController.any_instance.stubs(:get_layout).returns('application')

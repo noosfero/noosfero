@@ -2,9 +2,7 @@ require_relative "../test_helper"
 require 'account_controller'
 
 class AccountControllerTest < ActionController::TestCase
-  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
-  # Then, you can remove it from this and the units test.
-  include AuthenticatedTestHelper
+
   all_fixtures
 
   def teardown

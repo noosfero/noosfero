@@ -1,10 +1,11 @@
 require_relative "../test_helper"
 
-class SignupTest < ActionController::IntegrationTest
+class SignupTest < ActionDispatch::IntegrationTest
+
   all_fixtures
 
   def setup
-    ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
+    ActionDispatch::Integration::Session.any_instance.stubs(:https?).returns(true)
   end
 
   def test_signup_form_submission_must_be_blocked_for_fast_bots
