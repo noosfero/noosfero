@@ -6,6 +6,13 @@ require ::File.expand_path('../config/environment',  __FILE__)
 #use Rails::Rack::Static
 #run ActionController::Dispatcher.new
 
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '/api/*', :headers => :any, :methods => [:get, :post]
+  end
+end
+
 rails_app = Rack::Builder.new do
   run Noosfero::Application
 end
