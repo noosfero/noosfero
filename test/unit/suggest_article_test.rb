@@ -13,16 +13,9 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'have the article_name' do
     t = SuggestArticle.new
-    assert !t.errors[:article_name.to_s].present?
-    t.valid?
-    assert t.errors[:article_name.to_s].present?
-  end
-
-  should 'have the article_body' do
-    t = SuggestArticle.new
-    assert !t.errors[:article_body.to_s].present?
-    t.valid?
-    assert t.errors[:article_body.to_s].present?
+    assert !t.article_object.errors[:name].present?
+    t.article_object.valid?
+    assert t.article_object.errors[:name].present?
   end
 
   should 'have the email' do
@@ -46,19 +39,12 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert t.errors[:target_id.to_s].present?
   end
 
-  should 'have the article_abstract' do
+  should 'have the article' do
     t = SuggestArticle.new
-    assert t.respond_to?(:article_abstract)
-  end
-
-  should 'have the article_parent_id' do
-    t = SuggestArticle.new
-    assert t.respond_to?(:article_parent_id)
-  end
-
-  should 'source be defined' do
-    t = SuggestArticle.new
-    assert t.respond_to?(:source)
+    assert t.respond_to?(:article_object)
+    assert !t.errors[:article_object].present?
+    t.valid?
+    assert t.errors[:article_object].present?
   end
 
   should 'create an article on with perfom method' do
@@ -66,9 +52,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     name = 'some name'
     body = 'some body'
     abstract = 'some abstract'
-    t.article_name = name
-    t.article_body = body
-    t.article_abstract = abstract
+    t.article = {:name => name, :body => body, :abstract => abstract}
     t.target = @profile
     count = TinyMceArticle.count
     t.perform
@@ -77,8 +61,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'fill source name and URL into created article' do
     t = build(SuggestArticle, :target => @profile)
-    t.source_name = 'GNU project'
-    t.source = 'http://www.gnu.org/'
+    t.article.merge!({:source_name => 'GNU project', :source => 'http://www.gnu.org/'})
     t.perform
 
     article = TinyMceArticle.last
@@ -95,7 +78,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'highlight created article' do
     t = build(SuggestArticle, :target => @profile)
-    t.highlighted = true
+    t.article[:highlighted] = true
     t.perform
 
     article = TinyMceArticle.last(:conditions => { :name => t.article_name}) # just to be sure
@@ -132,19 +115,19 @@ class SuggestArticleTest < ActiveSupport::TestCase
   end
 
   should 'have target notification message' do
-    task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe')
+    task = build(SuggestArticle, :target => @profile, :article => {:name => 'suggested article'}, :name => 'johndoe')
 
     assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}.*[\n]*.*to approve or reject/, task.target_notification_message)
   end
 
   should 'have target notification description' do
-    task = build(SuggestArticle,:target => @profile, :article_name => 'suggested article', :name => 'johndoe')
+    task = build(SuggestArticle,:target => @profile, :article => {:name => 'suggested article'}, :name => 'johndoe')
 
     assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}/, task.target_notification_description)
   end
 
   should 'deliver target notification message' do
-    task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
+    task = build(SuggestArticle, :target => @profile, :article => {:name => 'suggested article'}, :name => 'johndoe', :email => 'johndoe@example.com')
 
     email = TaskMailer.target_notification(task, task.target_notification_message).deliver
 
@@ -160,7 +143,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'delegate spam detection to plugins' do
     Environment.default.enable_plugin(EverythingIsSpam)
 
-    t1 = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
+    t1 = build(SuggestArticle, :target => @profile, :article => {:name => 'suggested article'}, :name => 'johndoe', :email => 'johndoe@example.com')
 
     EverythingIsSpam.any_instance.expects(:check_for_spam)
 
@@ -189,7 +172,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'notify plugins of suggest_articles being marked as spam' do
     Environment.default.enable_plugin(SpamNotification)
 
-    t = SuggestArticle.create!(:target => @profile, :article_name => 'suggested article', :name => 'johndoe', :article_body => 'wanna feel my body? my body baaaby', :email => 'johndoe@example.com')
+    t = SuggestArticle.create!(:target => @profile, :article => {:name => 'suggested article', :body => 'wanna feel my body? my body baaaby'}, :name => 'johndoe', :email => 'johndoe@example.com')
 
     t.spam!
     process_delayed_job_queue
@@ -200,7 +183,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'notify plugins of suggest_articles being marked as ham' do
     Environment.default.enable_plugin(SpamNotification)
 
-    t = SuggestArticle.create!(:target => @profile, :article_name => 'suggested article', :name => 'johndoe', :article_body => 'wanna feel my body? my body baaaby', :email => 'johndoe@example.com')
+    t = SuggestArticle.create!(:target => @profile, :article => {:name => 'suggested article', :body => 'wanna feel my body? my body baaaby'}, :name => 'johndoe', :email => 'johndoe@example.com')
 
     t.ham!
     process_delayed_job_queue
@@ -219,10 +202,44 @@ class SuggestArticleTest < ActiveSupport::TestCase
   end
 
   should 'log spammer ip after marking comment as spam' do
-    t = SuggestArticle.create!(:target => @profile, :article_name => 'suggested article', :name => 'johndoe', :article_body => 'wanna feel my body? my body baaaby', :email => 'johndoe@example.com', :ip_address => '192.168.0.1')
+    t = SuggestArticle.create!(:target => @profile, :article => {:name => 'suggested article', :body => 'wanna feel my body? my body baaaby'}, :name => 'johndoe', :email => 'johndoe@example.com', :ip_address => '192.168.0.1')
     t.spam!
     log = File.open('log/test_spammers.log')
     assert_match "SuggestArticle-id: #{t.id} IP: 192.168.0.1", log.read
+  end
+
+  should 'not require name and email when requestor is present' do
+    t = SuggestArticle.new(:requestor => fast_create(Person))
+    t.valid?
+    assert t.errors[:email].blank?
+    assert t.errors[:name].blank?
+  end
+
+  should 'return name as sender when requestor is setted' do
+    person = fast_create(Person)
+    t = SuggestArticle.new(:requestor => person)
+    assert_equal person.name, t.sender
+  end
+
+  should 'create an event on perfom method' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => 'Event'}
+    t.target = @profile
+    assert_difference "Event.count" do
+      t.perform
+    end
+  end
+
+  should 'accept article type parameter' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => 'TextArticle'}
+    t.article_type == TextArticle
+  end
+
+  should 'fallback to tinymce when type parameter is invalid' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => 'Comment'}
+    t.article_type == TinyMceArticle
   end
 
 end

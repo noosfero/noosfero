@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -49,7 +49,7 @@ msgstr ""
 "%{requestor} quer associar esta organização como sub-organização de "
 "%{linked_subject}."
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:26
+#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
 msgid "multi-level paternity is not allowed."
 msgstr "paternidade multi-nível não é permitido."
 

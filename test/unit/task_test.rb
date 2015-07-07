@@ -432,6 +432,28 @@ class TaskTest < ActiveSupport::TestCase
     assert t1.ham?
   end
 
+  should 'be able to assign a responsible to a task' do
+    person = fast_create(Person)
+    task = fast_create(Task)
+    task.responsible = person
+    task.save!
+    assert_equal person, task.responsible
+  end
+
+  should 'store who finish the task' do
+    t = Task.create
+    person = fast_create(Person)
+    t.finish(person)
+    assert_equal person, t.reload.closed_by
+  end
+
+  should 'store who cancel the task' do
+    t = Task.create
+    person = fast_create(Person)
+    t.cancel(person)
+    assert_equal person, t.reload.closed_by
+  end
+
   protected
 
   def sample_user

@@ -7,9 +7,9 @@ class SendEmailPlugin::Sender < Noosfero::Plugin::MailerBase
     @params = mail.params
 
     mail(
+      content_type: 'text/plain',
       to: mail.to,
       from: mail.from,
-      body: mail.params,
       subject: "[#{mail.environment.name}] #{mail.subject}"
     )
   end

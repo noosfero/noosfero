@@ -11,8 +11,8 @@ as below:
 
     # mkdir /etc/noosfero/ssl
     # cd /etc/noosfero/ssl
-	  # openssl genrsa 1024 > noosfero.key
-    # openssl req -new -x509 -nodes -sha1 -days $[10*365] -key noosfero.key > noosfero.cert
+    # openssl genrsa 2048 > noosfero.key
+    # openssl req -new -x509 -sha256 -nodes -days $[10*365] -key noosfero.key > noosfero.cert
     # cat noosfero.key noosfero.cert > noosfero.pem
 
 ## Web server configuration

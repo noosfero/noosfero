@@ -11,6 +11,6 @@
       <li><%= button(:back, _('Send an e-mail'), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}) %></li>
     <% end %>
 
-    <li><%= report_abuse(profile, :button) %></li>
+    <%= render :partial => 'blocks/profile_info_actions/common' %>
   <% end %>
 </ul>

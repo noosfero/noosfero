@@ -112,6 +112,11 @@ class CmsController < MyProfileController
         end
       end
     end
+
+    unless @article.kind_of?(RssFeed)
+      @escaped_body = CGI::escapeHTML(@article.body || '')
+      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
+    end
   end
 
   def new
@@ -143,7 +148,14 @@ class CmsController < MyProfileController
     klass = @type.constantize
     article_data = environment.enabled?('articles_dont_accept_comments_by_default') ? { :accept_comments => false } : {}
     article_data.merge!(params[:article]) if params[:article]
-    @article = klass.new(article_data)
+    article_data.merge!(:profile => profile) if profile
+
+    @article = if params[:clone]
+      current_article = profile.articles.find(params[:id])
+      current_article.copy_without_save
+    else
+      klass.new(article_data)
+    end
 
     parent = check_parent(params[:parent_id])
     if parent
@@ -220,7 +232,7 @@ class CmsController < MyProfileController
       if @errors.any?
         render :action => 'upload_files', :parent_id => @parent_id
       else
-        session[:notice] = _('File(s) successfully uploaded') 
+        session[:notice] = _('File(s) successfully uploaded')
         if @back_to
           redirect_to @back_to
         elsif @parent
@@ -357,7 +369,8 @@ class CmsController < MyProfileController
       @task.ip_address = request.remote_ip
       @task.user_agent = request.user_agent
       @task.referrer = request.referrer
-      if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
+      @task.requestor = current_person if logged_in?
+      if (logged_in? || verify_recaptcha(:model => @task, :message => _('Please type the words correctly'))) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end

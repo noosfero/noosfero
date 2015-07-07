@@ -74,7 +74,7 @@ downloading from git
 
 Here we are cloning the noosfero repository from git. Note: you will need to install git before.
 
-    $ git clone git://gitorious.org/noosfero/noosfero.git current
+    $ git clone https://gitlab.com/noosfero/noosfero.git current
     $ cd current
     $ git checkout -b stable origin/stable
 

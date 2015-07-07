@@ -21,9 +21,7 @@ Feature: domain for profile
   Scenario: access profile control panel through profile blocks
     Given I am logged in as "joaosilva"
     When I go to joaosilva's homepage
-    And I follow "Control panel" within ".profile-info-block"
-    Then I should see "Joao Silva" within "span.control-panel-title"
-    When I follow "Control panel" within ".profile-image-block"
+    And I follow "Control panel" within ".profile-image-block"
     Then I should see "Joao Silva" within "span.control-panel-title"
 
   @selenium

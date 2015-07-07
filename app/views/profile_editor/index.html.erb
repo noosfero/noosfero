@@ -28,6 +28,8 @@
 
   <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
 
+  <%= control_panel_button(_('Manage Roles'), 'roles', :controller => 'profile_roles') %>
+
   <% unless profile.enterprise? %>
     <%= case profile.blogs.count
       when 0
@@ -71,7 +73,7 @@
   <%= control_panel_button(_('Edit welcome page'), 'welcome-page', :action => 'welcome_page') if has_welcome_page %>
 
   <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
-    <%= control_panel_button(button[:title], button[:icon], button[:url]) %>
+    <%= control_panel_button(button[:title], button[:icon], button[:url], button[:html_options]) %>
   <% end %>
 
 <% end %>

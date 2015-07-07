@@ -17,37 +17,52 @@ module BlogHelper
     _('Configure blog')
   end
 
-  def list_posts(articles, format = 'full', paginate = true)
+  def list_posts(articles, conf = { format: 'full', paginate: true })
     pagination = will_paginate(articles, {
       :param_name => 'npage',
       :previous_label => _('&laquo; Newer posts'),
       :next_label => _('Older posts &raquo;'),
-      :params => {:action=>"view_page", :page=>articles.first.parent.path.split('/'), :controller=>"content_viewer"}
-    }) if articles.present? && paginate
+      :params => {:action=>"view_page",
+                  :page=>articles.first.parent.path.split('/'),
+                  :controller=>"content_viewer"}
+    }) if articles.present? && conf[:paginate]
     content = []
     artic_len = articles.length
     articles.each_with_index{ |art,i|
-      css_add = [ 'position-'+(i+1).to_s() ]
+      css_add = [ 'blog-post', 'position-'+(i+1).to_s() ]
       position = (i%2 == 0) ? 'odd-post' : 'even-post'
       css_add << 'first' if i == 0
       css_add << 'last'  if i == (artic_len-1)
       css_add << 'not-published' if !art.published?
-      css_add << position + '-inner'
-      content << content_tag('div',
-                             content_tag('div',
-                                         display_post(art, format).html_safe + '<br style="clear:both"/>'.html_safe,
-                                         :class => 'blog-post ' + css_add.join(' '),
-                                         :id => "post-#{art.id}"), :class => position
-                            )
+      css_add << position
+      content << (content_tag 'div', id: "post-#{art.id}", class: css_add do
+        content_tag 'div', class: position + '-inner blog-post-inner' do
+          display_post(art, conf[:format]).html_safe +
+          '<br style="clear:both"/>'.html_safe
+        end
+      end)
     }
     content.join("\n<hr class='sep-posts'/>\n") + (pagination or '')
   end
 
   def display_post(article, format = 'full')
-    no_comments = (format == 'full') ? false : true
+    no_comments = (format == 'full' || format == 'compact' ) ? false : true
     title = article_title(article, :no_comments => no_comments)
-    html = send("display_#{format}_format", FilePresenter.for(article)).html_safe
-    title + html
+    method = "display_#{format.split('+')[0]}_format"
+    html = send(method, FilePresenter.for(article)).html_safe
+    if format.split('+')[1] == 'pic'
+      img = article.first_image
+      if img.blank?
+        '<div class="post-pic empty"></div>'
+      else
+        '<div class="post-pic" style="background-image:url('+img+')"></div>'
+      end
+    end.to_s + title + html
+  end
+
+  def display_compact_format(article)
+    render :file => 'content_viewer/_display_compact_format',
+           :locals => { :article => article, :format => "compact" }
   end
 
   def display_full_format(article)

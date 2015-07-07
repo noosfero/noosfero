@@ -1,0 +1,9 @@
+<%= _('Contact from %s') % @referer %>
+
+<%= word_wrap(@message || @mail.message) %>
+
+<% (@params || @mail.params).each_pair do |key, value| %>
+<%= key %>: <%= word_wrap(value) %>
+<% end %>
+---
+<%= url_for @context_url %>

@@ -1,4 +1,5 @@
 module CommentHelper
+  include DatesHelper
 
   def article_title(article, args = {})
     title = article.title

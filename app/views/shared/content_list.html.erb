@@ -1,13 +1,11 @@
-<table class="<%= list_type %>-content">
-  <tr>
-    <th><%= _('Title') %></th>
-    <th><%= _('Last update') %></th>
-  </tr>
+<ul class="<%= list_type %>-content">
   <% contents.each do |content| %>
-    <% if content.display_to?(user) %>
-      <%= display_content_in_listing :content=>content, :list_type=>list_type, :recursive=>recursive %>
-    <% end %>
+    <li class="<%= list_type %>-item">
+      <% if content.display_to?(user) %>
+        <%= render :partial => 'shared/content_item', :locals => { :content => content } %>
+      <% end %>
+    </li>
   <% end %>
-</table>
+</ul>
 
 <p><%= pagination_links contents, :param_name => 'npage', :page_links => true %></p>

@@ -360,6 +360,23 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'SIGNUP_FIELD', optional_field(enterprise, 'field', 'SIGNUP_FIELD')
   end
 
+  should 'display field on home for a not logged user' do
+    env = create(Environment, :name => 'env test')
+    stubs(:environment).returns(env)
+
+    controller = mock
+    stubs(:controller).returns(controller)
+    controller.stubs(:controller_name).returns('home')
+    controller.stubs(:action_name).returns('index')
+
+    stubs(:user).returns(nil)
+
+
+    person = Person.new
+    person.expects(:signup_fields).returns(['field'])
+    assert_equal 'SIGNUP_FIELD', optional_field(person, 'field', 'SIGNUP_FIELD')
+  end
+
   should 'display field on community creation' do
     env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
@@ -545,18 +562,6 @@ class ApplicationHelperTest < ActionView::TestCase
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile))
     assert_equal environment.theme, current_theme
-  end
-
-  should 'trunc to 15 chars the big filename' do
-    assert_equal 'AGENDA(...).mp3', short_filename('AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.mp3',15)
-  end
-
-  should 'trunc to default limit the big filename' do
-    assert_equal 'AGENDA_CULTURA_-_FESTA_DE_VAQUEIRO(...).mp3', short_filename('AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.mp3')
-  end
-
-  should 'does not trunc short filename' do
-    assert_equal 'filename.mp3', short_filename('filename.mp3')
   end
 
   should 'return nil when :show_balloon_with_profile_links_when_clicked is not enabled in environment' do
@@ -1000,6 +1005,21 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_nil from_theme_include('atheme', 'afile') # exists? = false
     File.expects(:exists?).with(file).returns(true).at_least_once
     assert_equal file, from_theme_include('atheme', 'afile')[:file] # exists? = true
+  end
+
+  should 'enable fullscreen buttons' do
+    html = fullscreen_buttons("#article")
+    assert html.include?("<script>fullscreenPageLoad('#article')</script>")
+    assert html.include?("class=\"button with-text icon-fullscreen\"")
+    assert html.include?("onClick=\"toggle_fullwidth('#article')\"")
+  end
+
+  should "return the related class string" do
+    assert_equal "Clone Folder", label_for_clone_article(Folder.new)
+    assert_equal "Clone Blog", label_for_clone_article(Blog.new)
+    assert_equal "Clone Event", label_for_clone_article(Event.new)
+    assert_equal "Clone Forum", label_for_clone_article(Forum.new)
+    assert_equal "Clone Article", label_for_clone_article(TinyMceArticle.new)
   end
 
   protected

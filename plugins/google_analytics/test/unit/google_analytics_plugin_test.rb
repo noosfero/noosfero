@@ -27,11 +27,6 @@ class GoogleAnalyticsPluginTest < ActiveSupport::TestCase
     assert_equal 'content', @plugin.head_ending
   end
 
-  should 'add extra fields to profile editor info and settings' do
-    assert_tag_in_string @plugin.profile_editor_extras,
-      :tag => 'input', :attributes => {:id => 'profile_data_google_analytics_profile_id', :value => 10}
-  end
-
   should 'extends Profile with attr google_analytics_profile_id' do
     assert_respond_to Profile.new, :google_analytics_profile_id
   end

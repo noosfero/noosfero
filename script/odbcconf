@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+config = YAML.load_file(File.dirname(__FILE__) + '/../config/database.yml')['production']
+
+
+puts "[PostgreSQLEjabberdNoosfero]"
+puts "Description      = PostgreSQL Noosfero ejabberd database"
+puts "Driver           = PostgreSQL Unicode"
+puts "Trace            = No"
+puts "TraceFile        = /tmp/psqlodbc.log"
+puts "Database         = #{config['database']}"
+puts "Servername       = #{config['host'] || 'localhost'}"
+puts "UserName         = #{config['username']}"
+puts "Password         = #{config['password']}"
+puts "Port             = #{config['port'] || '5432'}"
+puts "ReadOnly         = No"
+puts "RowVersioning    = No"
+puts "ShowSystemTables = No"
+puts "ShowOidColumn    = No"
+puts "FakeOidIndex     = No"
+puts "ConnSettings     = SET search_path TO ejabberd"

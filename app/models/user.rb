@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
       p = Person.new
 
       p.attributes = user.person_data
-      p.identifier = user.login
+      p.identifier = user.login if p.identifier.blank?
       p.user = user
       p.environment = user.environment
       p.name ||= user.name || user.login

@@ -51,18 +51,18 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   should 'show contents for next page' do
     @block.limit = 2
     folder = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article2 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article3 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article1 = fast_create(TinyMceArticle, :name => 'article 1', :parent_id => folder.id)
+    article2 = fast_create(TinyMceArticle, :name => 'article 2', :parent_id => folder.id)
+    article3 = fast_create(TinyMceArticle, :name => 'article 3', :parent_id => folder.id)
     assert_equal [article3], @block.contents(folder, 2)
   end
 
   should 'show parent contents for next page' do
     @block.limit = 2
     folder = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article2 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article3 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article1 = fast_create(TinyMceArticle, :name => 'article 1', :parent_id => folder.id)
+    article2 = fast_create(TinyMceArticle, :name => 'article 2', :parent_id => folder.id)
+    article3 = fast_create(TinyMceArticle, :name => 'article 3', :parent_id => folder.id)
     assert_equal [article3], @block.contents(article1, 2)
   end
 

@@ -22,6 +22,10 @@ Given /^Noosfero is configured to use (.+) as default$/ do |lang|
   Noosfero.default_locale = language_to_code(lang)
 end
 
+Given /^the following languages "([^"]*)" are available on environment$/ do |languages|
+  Environment.default.update_attribute(:languages, languages.split)
+end
+
 After do
   # reset everything back to normal
   Noosfero.default_locale = nil

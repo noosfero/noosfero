@@ -12,6 +12,7 @@ module ArticleHelper
     @article = article
 
     visibility_options(@article, tokenized_children) +
+    topic_creation(@article) +
     content_tag('h4', _('Options')) +
     content_tag('div',
       (article.profile.has_members? ?
@@ -55,14 +56,7 @@ module ArticleHelper
         'div',
         check_box(:article, :display_versions) +
         content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
-      ) : '') +
-
-      (article.forum? && article.profile.community? ?
-      content_tag(
-        'div',
-        check_box(:article, :allows_members_to_create_topics) +
-        content_tag('label', _('Allow members to create topics'), :for => 'article_allows_members_to_create_topics')
-        ) : '')
+      ) : '')
     )
   end
 
@@ -79,6 +73,22 @@ module ArticleHelper
       ) +
       privacity_exceptions(article, tokenized_children)
     )
+  end
+
+  def topic_creation(article)
+    return '' unless article.forum?
+
+    general_options = Forum::TopicCreation.general_options(article)
+    slider_options = {:id => 'topic-creation-slider'}
+    slider_options = general_options.keys.inject(slider_options) do |result, option|
+      result.merge!({'data-'+option => general_options[option]})
+    end
+
+    content_tag('h4', _('Topic creation')) +
+    content_tag( 'small', _('Who will be able to create new topics on this forum?')) +
+    content_tag('div', '', slider_options) +
+    hidden_field_tag('article[topic_creation]', article.topic_creation) +
+    javascript_include_tag('topic-creation-config')
   end
 
   def privacity_exceptions(article, tokenized_children)

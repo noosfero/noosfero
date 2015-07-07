@@ -1,0 +1,13 @@
+<h1> <%= _(@role.name)  %></h1>
+
+<h3> <%= _('Permissions') %> </h3>
+<ul>
+  <% @role.permissions.each do |p| %>
+    <li> <%= permission_name(p) %> </li> 
+  <% end %>
+</ul>
+
+<% button_bar do %>
+  <%= button :edit, _('Edit'), :action => 'edit', :id => @role %>
+  <%= button :back, _('Back to roles management'), :action => 'index' %>
+<% end %>

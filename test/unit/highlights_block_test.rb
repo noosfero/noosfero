@@ -109,33 +109,14 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   end
 
   should 'list images randomically' do
-    f1 = mock()
-    f1.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(1).returns(f1)
-    f2 = mock()
-    f2.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(2).returns(f2)
-    f3 = mock()
-    f3.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(3).returns(f3)
-    f4 = mock()
-    f4.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(4).returns(f4)
-    f5 = mock()
-    f5.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(5).returns(f5)
     block = HighlightsBlock.new
-    i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
-    i2 = {:image_id => 2, :address => '/address', :position => 1, :title => 'address'}
-    i3 = {:image_id => 3, :address => '/address', :position => 2, :title => 'address'}
-    i4 = {:image_id => 4, :address => '/address', :position => 5, :title => 'address'}
-    i5 = {:image_id => 5, :address => '/address', :position => 4, :title => 'address'}
-    block.images = [i1,i2,i3,i4,i5]
     block.shuffle = true
-    block.save!
-    block.reload
-    assert_equal [i1,i2,i3,i4,i5], block.images
-    assert_not_equal [i2,i3,i1,i4,i5], block.featured_images
+
+    images = []
+    block.expects(:get_images).returns(images)
+    images.expects(:shuffle).returns(images)
+
+    block.featured_images
   end
 
   [Environment, Profile].each do |klass|

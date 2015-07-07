@@ -85,7 +85,7 @@ environments_loop() {
 }
 
 do_running() {
-  pids=$(cat tmp/pids/thin.*.pid 2>/dev/null || true)
+  pids=$(sed "s/.*/& /" tmp/pids/thin.*.pid 2>/dev/null | tr -d '\n')
   # passes if any of $pids exist, fails otherwise
   kill -0 $pids > /dev/null 2>&1
 }

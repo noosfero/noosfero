@@ -57,7 +57,7 @@ jQuery(document).ready(function(){
       }
 
       var checkbox = jQuery(checkboxes[i+3]).attr("id").split("_")
-      jQuery("#" + checkbox.first() + "_" + checkbox.last()).attr("checked", allchecked)
+      jQuery("#" + checkbox[0] + "_" + checkbox[checkbox.length-1]).attr("checked", allchecked)
     }
   }
 
@@ -74,10 +74,10 @@ jQuery(document).ready(function(){
 
   jQuery("input[type='checkbox']").click(function (){
     var checkbox = jQuery(this).attr("id").split("_")
-    verify_checked(checkbox.first())
+    verify_checked(checkbox[0])
 
     if(this.checked == false) {
-      jQuery("#" + checkbox.first() + "_" + checkbox.last()).attr("checked", false)
+      jQuery("#" + checkbox[0] + "_" + checkbox[checkbox.length-1]).attr("checked", false)
     }
   })
 })

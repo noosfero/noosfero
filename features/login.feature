@@ -207,18 +207,3 @@ Feature: login
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's control panel
-
-  Scenario: join community on login
-    Given the following users
-      | login | name |
-      | mariasilva | Maria Silva |
-    And the following communities
-       | name           | identifier    | owner     |
-       | Free Software  | freesoftware  | mariasilva |
-    And I am on /freesoftware
-    When I follow "Join"
-    And I fill in the following:
-      | Username / Email | joaosilva |
-      | Password | 123456 |
-    And I press "Log in"
-    Then "Joao Silva" should be a member of "Free Software"

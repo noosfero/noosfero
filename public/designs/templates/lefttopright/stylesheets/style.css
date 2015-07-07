@@ -1,0 +1,42 @@
+#boxes {
+  display: table;
+  width: 100%;
+}
+
+.box-1 {
+  width: 58%;
+  float: left;
+  margin: 1% 1% 0% 1%;
+}
+
+
+.box-2 {
+  position: relative;
+  float: left;
+  width: 20%;
+}
+
+.box-3 {
+  position: relative;
+  float: right;
+  width: 20%;
+  margin-top: 1%;
+}
+
+.box-4 {
+  float: left;
+  width: 79%;
+  margin-left: 21%;
+}
+
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 460px;
+}
+#profile-activity ul.comment-replies,
+#profile-network ul.comment-replies,
+#profile-wall ul.comment-replies {
+  width: auto;
+}
+

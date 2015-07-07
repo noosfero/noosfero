@@ -10,12 +10,11 @@ class SendEmailPlugin::Mail
   validate :recipients_format
 
   def initialize(attributes = {:subject => 'New mail'})
-    @environment = attributes[:environment]
-    @from = attributes[:from]
-    @to = attributes[:to]
-    @subject = attributes[:subject]
-    @message = attributes[:message]
-    @params = attributes[:params]
+    if attributes
+      attributes.each do |attr,value|
+        self.send("#{attr}=", value)
+      end
+    end
   end
 
   def recipients_format
@@ -36,7 +35,7 @@ class SendEmailPlugin::Mail
   end
 
   def params=(value = {})
-    [:action, :controller, :to, :message, :subject, :from].each{|k| value.delete(k)}
+    [:profile, :action, :controller, :to, :message, :subject, :from, :commit].each{|k| value.delete(k)}
     @params = value
   end
 

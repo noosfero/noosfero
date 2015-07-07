@@ -508,11 +508,15 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'show description of person' do
+    environment = Environment.default
+    environment.custom_person_fields = {:description => { :active => true, :required => false, :signup => false }}
+    environment.save!
+    environment.reload
     login_as(@profile.identifier)
-    @profile.description = 'Person\'s description'
-    @profile.save
+    @profile.description = 'Person description'
+    @profile.save!
     get :index, :profile => @profile.identifier
-    assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person\'s description/
+    assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Person description/
   end
 
   should 'not show description of orgarnization if not filled' do

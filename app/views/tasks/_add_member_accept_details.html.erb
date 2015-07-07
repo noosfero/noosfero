@@ -1,8 +1,7 @@
 <%= content = _("Roles:")+"<br />"
-roles = Profile::Roles.organization_member_roles(task.target.environment.id)
+roles = Profile::Roles.organization_member_roles(task.target.environment.id) + profile.custom_roles
 roles.each do |role|
   content += labelled_check_box(role.name, "tasks[#{task.id}][task][roles][]", role.id, false)+"<br />"
 end
 content_tag('p', content, :class => 'member-classify-suggestion')
 %>
-

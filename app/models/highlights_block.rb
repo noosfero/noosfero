@@ -26,8 +26,16 @@ class HighlightsBlock < Block
   end
 
   def featured_images
-    block_images = images.select{|i| !i[:image_src].nil? }.sort { |x, y| x[:position] <=> y[:position] }
-    shuffle ? block_images.shuffle : block_images
+    images = get_images
+    shuffle ? images.shuffle : images
+  end
+
+  def get_images
+    images.select do |i|
+      !i[:image_src].nil?
+    end.sort do |x, y|
+      x[:position] <=> y[:position]
+    end
   end
 
   def content(args={})

@@ -41,6 +41,7 @@ Feature: edit article
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
+    And I uncheck "article_show_to_followers"
     And I press "Save"
     And I log off
     And I go to /freesoftware/my-folder
@@ -87,6 +88,7 @@ Feature: edit article
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
+    And I uncheck "article_show_to_followers"
     Then I should see "Fill in the search field to add the exception users to see this content"
 
   @selenium
@@ -250,6 +252,7 @@ Feature: edit article
   Scenario: add a translation to an article
     Given I am on joaosilva's sitemap
     And I follow "Save the whales"
+    And the following languages "en es" are available on environment
     Then I should not see "Add translation"
     And I follow "Edit"
     And I select "English" from "Language"
@@ -267,6 +270,7 @@ Feature: edit article
       | owner     | name               | language |
       | joaosilva | Article in English | en       |
     And I am on joaosilva's sitemap
+    And the following languages "en pt" are available on environment
     When I follow "Article in English"
     And I follow "Add translation"
     And I fill in "Title" with "Article in Portuguese"

@@ -68,7 +68,7 @@ class FolderHelperTest < ActionView::TestCase
     profile.public_profile = false
     profile.save!
     profile2 = create_user('Folder Viwer').person
-    folder = fast_create(Folder, :profile_id => profile.id)
+    folder = fast_create(Folder, :profile_id => profile.id, :published => false)
     article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id})
 
     result = available_articles(folder.children, profile2)
@@ -89,27 +89,14 @@ class FolderHelperTest < ActionView::TestCase
     assert_not_includes result, article
   end
 
-  should 'list subitems as HTML content' do
+  should 'display the proper content icon' do
     profile = create_user('folder-owner').person
     folder = fast_create(Folder, {:name => 'Parent Folder', :profile_id => profile.id})
     article1 = fast_create(Article, {:name => 'Article1', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
     article2 = fast_create(Article, {:name => 'Article2', :parent_id => folder.id, :profile_id => profile.id, :updated_at => DateTime.now })
-    self.stubs(:params).returns({:npage => nil})
 
-    contents = folder.children.order('updated_at DESC').paginate(:per_page => 10, :page => params[:npage])
-    expects(:user).returns(profile).at_least_once
-    expects(:list_type).returns(:folder).at_least_once
-    expects(:recursive).returns(false).at_least_once
-    expects(:pagination_links).with(anything, anything).returns('')
-    list = render 'shared/content_list', binding
-    expects(:render).with(:file => 'shared/content_list',
-      :locals => { :contents => contents, :recursive => false, :list_type => :folder }
-    ).returns(list)
-
-    result = list_contents(:contents=>contents)
-
-    assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article1/
-    assert_tag_in_string result, :tag => 'td', :descendant => { :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ } }, :content => /Article2/
+    assert_tag_in_string display_content_icon(article1), :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ }
+    assert_tag_in_string display_content_icon(article2), :tag => 'a', :attributes => { :href => /.*\/folder-owner\/my-article-[0-9]*(\?|$)/ }
   end
 
   should 'explictly advise if empty' do

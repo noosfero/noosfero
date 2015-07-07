@@ -22,6 +22,8 @@ class Profile < ActiveRecord::Base
     :display => %w[compact]
   }
 
+  NUMBER_OF_BOXES = 4
+
   def self.default_search_display
     'compact'
   end
@@ -43,7 +45,7 @@ class Profile < ActiveRecord::Base
       find_role('editor', env_id)
     end
     def self.organization_member_roles(env_id)
-      all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
+      all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? || !r.profile_id.nil?}
     end
     def self.all_roles(env_id)
       Role.all :conditions => { :environment_id => env_id }
@@ -69,12 +71,14 @@ class Profile < ActiveRecord::Base
     'manage_friends'       => N_('Manage friends'),
     'validate_enterprise'  => N_('Validate enterprise'),
     'perform_task'         => N_('Perform task'),
+    'view_tasks'           => N_('View tasks'),
     'moderate_comments'    => N_('Moderate comments'),
     'edit_appearance'      => N_('Edit appearance'),
     'view_private_content' => N_('View private content'),
     'publish_content'      => N_('Publish content'),
     'invite_members'       => N_('Invite members'),
     'send_mail_to_members' => N_('Send e-Mail to members'),
+    'manage_custom_roles'  => N_('Manage custom roles'),
   }
 
   acts_as_accessible
@@ -317,16 +321,25 @@ class Profile < ActiveRecord::Base
     @top_level_articles ||= Article.top_level_for(self)
   end
 
-  def self.is_available?(identifier, environment)
-    !(identifier =~ IDENTIFIER_FORMAT).nil? && !RESERVED_IDENTIFIERS.include?(identifier) && Profile.find(:first, :conditions => ['environment_id = ? and identifier = ?', environment.id, identifier]).nil?
+  def self.is_available?(identifier, environment, profile_id=nil)
+    return false unless identifier =~ IDENTIFIER_FORMAT &&
+      !RESERVED_IDENTIFIERS.include?(identifier) &&
+      (NOOSFERO_CONF['exclude_profile_identifier_pattern'].blank? || identifier !~ /#{NOOSFERO_CONF['exclude_profile_identifier_pattern']}/)
+    return true if environment.nil?
+
+    profiles = environment.profiles.where(:identifier => identifier)
+    profiles = profiles.where(['id != ?', profile_id]) if profile_id.present?
+    !profiles.exists?
   end
 
   validates_presence_of :identifier, :name
-  validates_format_of :identifier, :with => IDENTIFIER_FORMAT, :if => lambda { |profile| !profile.identifier.blank? }
-  validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
-  validates_uniqueness_of :identifier, :scope => :environment_id
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
   validate :valid_template
+  validate :valid_identifier
+
+  def valid_identifier
+    errors.add(:identifier, _('is not available.')) unless Profile.is_available?(identifier, environment, id)
+  end
 
   def valid_template
     if template_id.present? && template && !template.is_template
@@ -352,7 +365,7 @@ class Profile < ActiveRecord::Base
     if template
       apply_template(template, :copy_articles => false)
     else
-      3.times do
+      NUMBER_OF_BOXES.times do
         self.boxes << Box.new
       end
 
@@ -380,6 +393,9 @@ class Profile < ActiveRecord::Base
         new_block = block.class.new(:title => block[:title])
         new_block.copy_from(block)
         new_box.blocks << new_block
+        if block.mirror?
+          block.add_observer(new_block)
+        end
       end
     end
   end
@@ -395,6 +411,7 @@ class Profile < ActiveRecord::Base
   alias_method_chain :template, :default
 
   def apply_template(template, options = {:copy_articles => true})
+    self.template = template
     copy_blocks_from(template)
     copy_articles_from(template) if options[:copy_articles]
     self.apply_type_specific_template(template)
@@ -1008,7 +1025,7 @@ private :generate_url, :url_options
   end
 
   def remove_from_suggestion_list(person)
-    suggestion = person.profile_suggestions.find_by_suggestion_id self.id
+    suggestion = person.suggested_profiles.find_by_suggestion_id self.id
     suggestion.disable if suggestion
   end
 

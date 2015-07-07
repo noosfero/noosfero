@@ -1,0 +1,35 @@
+<%= javascript_include_tag('assign_role.js') %>
+
+<h1> <%= _("Assign #{@role.name}") %> </h1>
+
+
+<%= labelled_form_for :role, :url => { :action => 'define', :id => @role.id } do |f| %>
+
+  <h2>
+    <%= _("Assign role by:") %>
+  </h2>
+  <p>
+    <%= labelled_radio_button _("Members"), :assign_role_by, "members", true, :id => "assign_role_by_members", :class => "assign_role_by" %>
+    &nbsp;
+    <%= labelled_radio_button _("Roles"), :assign_role_by, "roles", false, :id => "assign_role_by_roles", :class => "assign_role_by" %>
+  </p>
+  <div class="assign_by_members">
+    <%=token_input_field_tag(:person_id, 'search-profile-members', {:action => 'assign_role_by_members'},
+    {:focus => false, :hint_text => _('Select members to assign the role')}) %>
+
+    <% button_bar do %>
+      <%= submit_button(:forward, _("Confirm")) %>
+    <% end %>
+  </div>
+  <div class="assign_by_roles" style="display: none;">
+    <h6>
+      <%= _("Replace role: ") %>
+    </h6>
+    <% @roles_list.each do |role| %>
+      <%= labelled_radio_button role.name , :selected_role, role.id , false, :class => "selected_role" %> <br>
+    <% end %>
+    <% button_bar do %>
+      <%= submit_button('save',_('Confirm'), :cancel => {:action => 'index'} ) %>
+    <% end %>
+  </div>
+<% end %>

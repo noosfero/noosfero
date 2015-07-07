@@ -484,7 +484,7 @@ class ApplicationControllerTest < ActionController::TestCase
     should 'change postgresql schema' do
       uses_host 'schema1.com'
       Noosfero::MultiTenancy.expects(:on?).returns(true)
-      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' })
+      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' }).at_least_once
       exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
       assert_match /SET search_path TO schema1/, exception.message
     end
@@ -576,6 +576,24 @@ class ApplicationControllerTest < ActionController::TestCase
     login_as create_user.login
     get :index
     assert_response :success
+  end
+
+  should "redirect to 404 if profile is '~' and user is not logged in" do
+    get :index, :profile => '~'
+    assert_response :missing
+  end
+
+  should "redirect to action when profile is '~' " do
+    login_as('ze')
+    get :index, :profile => '~'
+    assert_response 302
+  end
+
+  should "substitute '~' by current user and redirect properly " do
+    login_as('ze')
+    profile = Profile.where(:identifier => 'ze').first
+    get :index, :profile => '~'
+    assert_redirected_to :controller => 'test', :action => 'index', :profile => profile.identifier
   end
 
 end

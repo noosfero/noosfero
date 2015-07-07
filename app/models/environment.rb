@@ -3,7 +3,17 @@
 # domains.
 class Environment < ActiveRecord::Base
 
-  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login, :redirection_after_signup, :contact_email, :theme, :reports_lower_bound, :noreply_email, :signup_welcome_screen_body, :members_whitelist_enabled, :members_whitelist, :highlighted_news_amount, :portal_news_amount
+  attr_accessible :name, :is_default, :signup_welcome_text_subject,
+                  :signup_welcome_text_body, :terms_of_use,
+                  :message_for_disabled_enterprise, :news_amount_by_folder,
+                  :default_language, :languages, :description,
+                  :organization_approval_method, :enabled_plugins,
+                  :enabled_features, :redirection_after_login,
+                  :redirection_after_signup, :contact_email, :theme,
+                  :reports_lower_bound, :noreply_email,
+                  :signup_welcome_screen_body, :members_whitelist_enabled,
+                  :members_whitelist, :highlighted_news_amount,
+                  :portal_news_amount, :date_format
 
   has_many :users
 
@@ -14,10 +24,18 @@ class Environment < ActiveRecord::Base
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 
+  validates_inclusion_of :date_format,
+                         :in => [ 'numbers_with_year', 'numbers',
+                                  'month_name_with_year', 'month_name',
+                                  'past_time'],
+                         :if => :date_format
+
   def self.verify_filename(filename)
     filename += '.txt' if File.extname(filename) =~ IDENTIFY_SCRIPTS
     filename
   end
+
+  NUMBER_OF_BOXES = 4
 
   PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
@@ -27,6 +45,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
     'manage_environment_users' => N_('Manage environment users'),
+    'manage_environment_organizations' => N_('Manage environment organizations'),
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
     'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
@@ -72,7 +91,8 @@ class Environment < ActiveRecord::Base
         'edit_profile_design',
         'manage_products',
         'manage_friends',
-        'perform_task'
+        'perform_task',
+        'view_tasks'
       ]
     )
   end
@@ -172,7 +192,7 @@ class Environment < ActiveRecord::Base
   acts_as_having_boxes
 
   after_create do |env|
-    3.times do
+    NUMBER_OF_BOXES.times do
       env.boxes << Box.new
     end
 
@@ -334,6 +354,16 @@ class Environment < ActiveRecord::Base
   def enable_plugin(plugin)
     self.enabled_plugins += [plugin.to_s]
     self.enabled_plugins.uniq!
+    self.save!
+  end
+
+  def enable_all_plugins
+    Noosfero::Plugin.available_plugin_names.each do |plugin|
+      plugin_name = plugin.to_s + "Plugin"
+      unless self.enabled_plugins.include?(plugin_name)
+        self.enabled_plugins += [plugin_name]
+      end
+    end
     self.save!
   end
 
@@ -737,8 +767,8 @@ class Environment < ActiveRecord::Base
   end
 
   def is_default_template?(template)
-    is_default = template == community_default_template 
-    is_default = is_default || template == person_default_template 
+    is_default = template == community_default_template
+    is_default = is_default || template == person_default_template
     is_default = is_default || template == enterprise_default_template
     is_default
   end

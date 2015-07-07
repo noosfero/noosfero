@@ -15,7 +15,7 @@ pjax = {
     var container = '.pjax-container';
     target.addClass('pjax-container');
 
-    jQuery(document).pjax('a', container);
+    jQuery(document).pjax('a:not([data-skip-pjax])', container);
 
     jQuery(document).on('pjax:beforeSend', function(event, xhr, settings) {
       var themes = jQuery.map(pjax.themes, function(theme) { return theme.id }).join(',');
@@ -157,7 +157,7 @@ pjax = {
       document._write = document.write;
       document.write = function (data) {
         if (document.readyState != 'loading')
-          content.append(data);
+          pjax.content.append(data);
         else
           document._write(data);
       };

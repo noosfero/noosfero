@@ -57,6 +57,19 @@ class ProductCategoryTest < ActiveSupport::TestCase
     assert_equivalent [c1,c2], scope
   end
 
+  should 'provide a scope based on the environment' do
+    alt_environment = fast_create(Environment)
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
+    c2 = ProductCategory.create!(:name => 'test cat 2', :environment => alt_environment)
+    c3 = ProductCategory.create!(:name => 'test cat 3', :environment => Environment.default)
+
+    scope = ProductCategory.by_environment(alt_environment)
+
+    assert_equal ActiveRecord::Relation, scope.class
+    assert_equivalent [c2], scope
+    assert_equivalent [c1,c3], ProductCategory.by_environment(Environment.default)
+  end
+
   should 'fetch unique categories by level' do
     c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
     c11 = ProductCategory.create!(:name => 'test cat 11', :environment => Environment.default, :parent => c1)

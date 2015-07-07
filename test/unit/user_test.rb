@@ -87,6 +87,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal person_count + 1, Person.count
   end
 
+  def test_should_create_person_with_identifier_different_from_login
+    user = User.create!(:login => 'new_user', :email => 'new_user@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:identifier => "new_test"})
+
+    assert Person.exists?(['user_id = ?', user.id])
+
+    assert user.login != user.person.identifier
+  end
+
   def test_login_validation
     u = User.new
     u.valid?
@@ -355,7 +363,7 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
       'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8,
-      'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 
+      'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil,
       'amount_of_friends' => 0, 'friends_list' => {}, 'enterprises' => [],
     }
 
@@ -546,6 +554,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'delay activation check with custom time' do
     NOOSFERO_CONF.stubs(:[]).with('hours_until_user_activation_check').returns(240)
+    NOOSFERO_CONF.stubs(:[]).with('exclude_profile_identifier_pattern')
     user = new_user
     job = Delayed::Job.last
     assert_match /UserActivationJob/, job.handler

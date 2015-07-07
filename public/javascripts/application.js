@@ -27,6 +27,7 @@
 *= require manage-products.js
 *= require catalog.js
 *= require autogrow.js
+*= require require_login.js
 */
 
 // scope for noosfero stuff
@@ -829,7 +830,7 @@ Array.min = function(array) {
 
 function hideAndGetUrl(link) {
   document.body.style.cursor = 'wait';
-  link.hide();
+  jQuery(link).hide();
   url = jQuery(link).attr('href');
   jQuery.get(url, function( data ) {
     document.body.style.cursor = 'default';
@@ -1139,10 +1140,20 @@ function notifyMe(title, options) {
 
       // If the user is okay, let's create a notification
       if (permission === "granted") {
-	notification = new Notification(title, options);
+        notification = new Notification(title, options);
       }
     });
   }
+
+  setTimeout(function() {notification.close()}, 5000);
+  notification.onclick = function(){
+    notification.close();
+    // Chromium tweak
+    window.open().close();
+    window.focus();
+    this.cancel();
+  };
+
   return notification;
   // At last, if the user already denied any notification, and you
   // want to be respectful there is no need to bother them any more.
@@ -1164,3 +1175,37 @@ function add_new_file_fields() {
 }
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
+
+function $_GET(id){
+    var a = new RegExp(id+"=([^&#=]*)");
+    var result_of_search = a.exec(window.location.search)
+    if(result_of_search != null){
+      return decodeURIComponent(result_of_search[1]);
+    }
+}
+
+var fullwidth=false;
+function toggle_fullwidth(itemId){
+  if(fullwidth){
+    jQuery(itemId).removeClass("fullwidth");
+    jQuery("#fullscreen-btn").show()
+    jQuery("#exit-fullscreen-btn").hide()
+    fullwidth = false;
+  }
+  else{
+    jQuery(itemId).addClass("fullwidth");
+    jQuery("#exit-fullscreen-btn").show()
+    jQuery("#fullscreen-btn").hide()
+    fullwidth = true;
+  }
+  jQuery(window).trigger("toggleFullwidth", fullwidth);
+}
+
+function fullscreenPageLoad(itemId){
+  jQuery(document).ready(function(){
+
+    if ($_GET('fullscreen') == 1){
+      toggle_fullwidth(itemId);
+    }
+  });
+}

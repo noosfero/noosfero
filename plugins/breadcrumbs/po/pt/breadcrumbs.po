@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -28,15 +28,15 @@ msgstr ""
 msgid "A plugin that add a block to display breadcrumbs."
 msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:9
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
 msgid "Content Breadcrumbs"
 msgstr "Conteúdo de Caminho de Pão"
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:13
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:14
 msgid "This block displays breadcrumb trail."
 msgstr "Esse bloco mostra o rastro de caminho de pão."
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:56
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:68
 msgid "Upload Files"
 msgstr "Enviar Arquivos"
 
@@ -47,3 +47,8 @@ msgstr "Mostrar cms"
 #: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:3
 msgid "Show profile"
 msgstr "Mostrar perfil"
+
+#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
+#, fuzzy
+msgid "Show section name"
+msgstr "Mostrar cms"

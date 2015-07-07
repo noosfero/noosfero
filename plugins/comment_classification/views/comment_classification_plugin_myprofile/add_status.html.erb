@@ -13,7 +13,7 @@
     <ul>
     <% @comment.comment_classification_plugin_comment_status_users.each do |relation| %>
       <li>
-        <%= _("<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</i>.") % { :user => relation.profile.name, :status_name => relation.status.name, :created_at => time_ago_as_sentence(relation.created_at)} %>
+        <%= _("<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</i>.") % { :user => relation.profile.name, :status_name => relation.status.name, :created_at => time_ago_in_words(relation.created_at)} %>
         <% unless relation.reason.blank? %>
           <p><%= _("<i>Reason:</i> %s") % relation.reason %></p>
         <% end %>

@@ -21,45 +21,66 @@
   </div>
 <% end %>
 
+<%= form_tag '#', :method => 'get' do %>
+  <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+    <p>
+      <%= labelled_select(_('Type of task')+': ', :filter_type, :first, :last, @filter_type,  type_collection, {:id => 'filter-type'}) %>
+    </p>
+    <p>
+      <%= labelled_text_field(_("Text filter")+': ', :filter_text, nil, {:id => 'filter-text',:value => @filter_text}) %>
+    </p>
+    <% if profile.organization? %>
+      <p>
+        <%= labelled_select(_('Assigned to')+': ', :filter_responsible, :id, :name, @filter_responsible, [OpenStruct.new(:name => _('All'), :id => nil), OpenStruct.new(:name => _('Unassigned'), :id => -1)] + @responsible_candidates, :class => 'filter_responsible') %>
+      </p>
+    <% end %>
+    <p>
+      <%= submit_button(:search, _('Search')) %>
+    </p>
+  <% end %>
+<% end %>
+
 <% if @tasks.empty? %>
   <p>
-    <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => "document.location.href = '?filter_type='+this.value")%>
+    <em><%= _('No pending tasks for %s') % profile.name %></em>
   </p>
-  <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
   <%= form_tag :action => 'close' do%>
-    <% button_bar do %>
+    <% button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
       <%= submit_button :save, _("Apply!") %>
       <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-    <% end %>
+    <% end unless @view_only %>
 
     <ul class='task-list'>
-      <p>
-        <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => "document.location.href = '?filter_type='+this.value") %>
-      </p>
-      <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
-      </p>
-      <% @tasks.each do |task| %>
-        <%= render :partial => 'task', :locals => { :task => task } %>
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "up-set-all-tasks-to") %>
+        </p>
       <% end %>
-      <p>
-      <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
-      </p>
+
+      <div class="task_boxes">
+        <%= render :partial => 'task', :collection => @tasks %>
+      </div>
+
+      <% unless @view_only %>
+        <p>
+        <%= labelled_select(_("Set all to: "), 'set-decisions', 'first', 'last', nil, [['',""],['accept',_("Accept")],['reject',_("Reject")],['skip',_("Skip")]], :id => "down-set-all-tasks-to") %>
+        </p>
+      <% end %>
     </ul>
 
     <%= pagination_links(@tasks)%>
 
-    <% button_bar do %>
+    <% button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
       <%= submit_button :save, _("Apply!") %>
       <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-    <% end %>
+    <% end unless @view_only %>
   <% end %>
 <% end %>
 </p>

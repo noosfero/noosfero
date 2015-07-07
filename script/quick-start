@@ -114,7 +114,9 @@ else
   rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 fi
 
-run quiet rake noosfero:translations:compile
+if [ ! -d locale ]; then
+  run quiet rake noosfero:translations:compile
+fi
 
 # create needed directory
 mkdir -p tmp/pids

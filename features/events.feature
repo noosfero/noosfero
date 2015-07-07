@@ -17,7 +17,7 @@ Feature: events
     Then I should see "November 2009" within ".current-month"
 
   Scenario: go to next month in global agenda
-    Given I am on /assets/events?year=2009&month=11
+    Given I am on /search/events?year=2009&month=11
     When I follow "December"
     Then I should see "December 2009" within ".current-month"
 
@@ -27,7 +27,7 @@ Feature: events
     Then I should see "September 2009" within ".current-month"
 
   Scenario: go to previous month in global agenda
-    Given I am on /assets/events?year=2009&month=11
+    Given I am on /search/events?year=2009&month=11
     When I follow "October"
     Then I should see "October 2009" within ".current-month"
 
@@ -43,7 +43,7 @@ Feature: events
 
   Scenario: go to specific day in global agenda
     Given I am on the homepage
-    When I am on /assets/events?year=2009&month=11&day=12
+    When I am on /search/events?year=2009&month=11&day=12
     Then I should see "Events for November, 2009"
 
   Scenario: list events for specific day
@@ -88,7 +88,7 @@ Feature: events
     And the following events
       | owner      | name            | start_date |
       | josemanuel | Manuel Birthday | 2009-10-24 |
-    When I am on /assets/events?year=2009&month=10&day=24
+    When I am on /search/events?year=2009&month=10&day=24
     Then I should see "Another Conference"
     And I should see "Manuel Birthday"
 
@@ -157,7 +157,7 @@ Feature: events
     Then I should not see "New events" link
 
   Scenario: display environment name in global agenda
-    When I am on /assets/events
+    When I am on /search/events
     Then I should see "Colivre.net's Events"
 
   @selenium

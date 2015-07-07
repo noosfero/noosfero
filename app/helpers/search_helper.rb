@@ -106,6 +106,10 @@ module SearchHelper
     end
   end
 
+  def city_with_state_for_profile(p)
+    city_with_state(p.region) || [p.city, p.state].compact.reject(&:blank?).join(', ')
+  end
+
   def display_selector(asset, display, float = 'right')
     display = nil if display.blank?
     display ||= asset_class(asset).default_search_display

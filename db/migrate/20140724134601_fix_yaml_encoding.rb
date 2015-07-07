@@ -18,9 +18,8 @@ class FixYamlEncoding < ActiveRecord::Migration
   private
 
   def self.fix_encoding(model, param)
-    result = model.all
-    puts "Fixing #{result.count} rows of #{model} (#{param})"
-    result.each do |r|
+    puts "Fixing #{model.count} rows of #{model} (#{param})"
+    model.find_each do |r|
       begin
         yaml = r.send(param)
         # if deserialization failed then a string is returned

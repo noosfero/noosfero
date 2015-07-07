@@ -94,8 +94,8 @@ Given /^the following blocks$/ do |table|
       owner.boxes<< Box.new
       owner.boxes.first.blocks << MainBlock.new
     end
-    box_id = owner.boxes.last.id
-    klass.constantize.create!(item.merge(:box_id => box_id))
+    box = owner.boxes.first
+    klass.constantize.create!(item.merge(:box => box))
   end
 end
 
@@ -293,6 +293,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
   When %{I press "Log in"}
   And %{I go to #{username}'s control panel}
   Then %{I should be on #{username}'s control panel}
+  @current_user = username
 end
 
 Given /^"([^"]*)" is environment admin$/ do |person|

@@ -18,7 +18,7 @@ class ContentViewerHelperTest < ActionView::TestCase
     result = article_title(post)
     assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
   end
-  
+
   should 'display published-at for forum posts' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => forum)
@@ -110,6 +110,42 @@ class ContentViewerHelperTest < ActionView::TestCase
     File.expects(:exists?).with(anything).returns(false)
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     assert_match 'bt-bookmark.gif', addthis_image_tag
+  end
+
+  should 'show date with mm/dd/yyyy' do
+    Environment.any_instance.stubs(:date_format).returns('numbers_with_year')
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.published_at = Time.zone.local(2007, 2, 1, 15, 30, 45)
+    article.save!
+    result = show_with_right_format_date article
+    assert_match /2\/1\/2007/, result
+  end
+
+  should 'show date with mm/dd' do
+    Environment.any_instance.stubs(:date_format).returns('numbers')
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.published_at = Time.zone.local(2007, 2, 1, 15, 30, 45)
+    article.save!
+    result = show_with_right_format_date article
+    assert_match /2\/1/, result
+  end
+
+  should 'show date with month name' do
+    Environment.any_instance.stubs(:date_format).returns('month_name')
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.published_at = Time.zone.local(2007, 2, 1, 15, 30, 45)
+    article.save!
+    result = show_with_right_format_date article
+    assert_match /February 1/, result
+  end
+
+  should 'show date with month name and year' do
+    Environment.any_instance.stubs(:date_format).returns('month_name_with_year')
+    article = TextileArticle.new(:name => 'post for test', :body => 'post for test', :profile => profile)
+    article.published_at = Time.zone.local(2007, 2, 1, 15, 30, 45)
+    article.save!
+    result = show_with_right_format_date article
+    assert_match /February 1, 2007/, result
   end
 
   protected

@@ -30,4 +30,17 @@ class LayoutHelperTest < ActionView::TestCase
     assert_match /<link [^<]*href="\/designs\/themes\/my-theme\/global.css"/, css
   end
 
+  should 'append javascript files of enabled plugins in noosfero javascripts' do
+    plugin1 = Noosfero::Plugin.new
+    plugin1.expects(:js_files).returns(['plugin1.js'])
+    plugin2 = Noosfero::Plugin.new
+    plugin2.expects(:js_files).returns('plugin2.js')
+    @plugins = [plugin1, plugin2]
+    expects(:environment).returns(Environment.default).at_least_once
+    expects(:profile).returns(nil).at_least_once
+    js_tag = noosfero_javascript
+    assert_match /plugin1\.js/, js_tag
+    assert_match /plugin2\.js/, js_tag
+  end
+
 end

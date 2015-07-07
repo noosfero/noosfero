@@ -1,0 +1,61 @@
+<div id="sniffer-search-wrap">
+
+  <div id="map-wrap">
+    <div id="map"></div>
+
+    <div id="map-overlay-wrap">
+      <div id="map-overlay">
+        <div id="sniffer-title">
+          <h1> <%= _('Opportunities Sniffer') %> </h1>
+          <h5 class='sniffer-subtitle'>
+            <%= _('Up to %s km from you. %s result(s) found.') % ['<span id="sniffer-title-distance">0</span>', '<span id="sniffer-title-results">0</span>'] %>
+          </h5>
+        </div>
+
+        <%= render :partial => 'product_search_box' %>
+      </div>
+    </div>
+  </div>
+
+  <div id="legend-wrap">
+    <div id="legend">
+      <span class="reading"> <b> <%= _('Legend') %> </b> </span>
+      <img class="home" src="/plugins/sniffer/images/marker_home.png"/> <span><%= _("your enterprise") %></span>
+      <img class="suppliers" src="/plugins/sniffer/images/marker_suppliers.png"/> <span><%= _("suppliers") %></span>
+      <img class="consumers" src="/plugins/sniffer/images/marker_consumers.png"/> <span><%= _("consumers") %></span>
+      <img class="both" src="/plugins/sniffer/images/marker_both.png"/> <span><%= _("both") %></span>
+      <%= button :back, _('Back to control panel'), {:controller => 'profile_editor'}, :id => 'button-back'%>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false" %>
+<%= javascript_include_tag 'google_maps' %>
+<%= javascript_include_tag "/plugins/sniffer/javascripts/infobox.js" %>
+<%= javascript_include_tag "/plugins/sniffer/javascripts/custom_marker.js" %>
+<%= javascript_include_tag "/plugins/sniffer/javascripts/underscore-min.js" %>
+<%= javascript_include_tag "/plugins/sniffer/javascripts/sniffer.js" %>
+
+<script id="marker-template" type="text/html">
+  <div class="marker-wrap">
+    <img src="<@= icon @>" alt="<@= title @>"/>
+  </div>
+</script>
+
+<script type='text/javascript'>
+  var currentProfile = <%= filter_visible_attr_profile(profile).to_json %>;
+  sniffer.search.map.load({
+    "zoom": <%= GoogleMaps.initial_zoom.to_json %>,
+    "balloonUrl": <%= url_for(:controller => :sniffer_plugin_myprofile, :action => :map_balloon, :id => "_id_", :escape => false).to_json %>,
+    "myBalloonUrl": <%= url_for(:controller => :sniffer_plugin_myprofile, :action => :my_map_balloon, :escape => false).to_json %>,
+    "profiles": <%=
+      @profiles_data.map do |id, profile_data|
+        data = filter_visible_attr_profile(profile_data[:profile])
+        data[:consumersProducts] = filter_visible_attr_consumers_products(profile_data[:consumers_products])
+        data[:suppliersProducts] = filter_visible_attr_suppliers_products(profile_data[:suppliers_products])
+        data[:icon] = profile_data[:profile][:icon]
+        data
+      end.to_json
+    %>
+  });
+</script>

@@ -4,6 +4,10 @@ class FilePresenter::Image < FilePresenter
     f.image? ? 10 : nil
   end
 
+  def sized_icon(size)
+    public_filename size
+  end
+
   def icon_name
     public_filename :icon
   end

@@ -29,6 +29,8 @@ class Organization < Profile
 
   has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
 
+  has_many :custom_roles, :class_name => 'Role', :foreign_key => :profile_id
+
   scope :more_popular, :order => 'members_count DESC'
 
   validate :presence_of_required_fieds, :unless => :is_template

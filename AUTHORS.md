@@ -92,6 +92,7 @@ Daniel Alves + Rafael Manzo <rr.manzo@gmail.com>
 Daniela Soares Feitosa <danielafeitosa@colivre.coop.br>
 Daniel Bucher <daniel.bucher88@gmail.com>
 Daniel Cunha <daniel@colivre.coop.br>
+daniel <dtygel@eita.org.br>
 David Carlos <ddavidcarlos1392@gmail.com>
 diegoamc <diegoamc90@gmail.com>
 Diego Araújo + Alessandro Palmeira <diegoamc90@gmail.com>
@@ -120,6 +121,7 @@ Diego Araujo + Rodrigo Souto + Rafael Manzo <rr.manzo@gmail.com>
 Diego + Jefferson <diegoamc90@gmail.com>
 Diego Martinez <diegoamc90@gmail.com>
 Diego + Renan <renanteruoc@gmail.com>
+dtygel <dtygel@gmail.com>
 DylanGuedes <djmgguedes@gmail.com>
 Eduardo Passos <eduardo@risa.localdomain.localhost>
 Eduardo Passos <eduardosteps@gmail.com>
@@ -144,6 +146,7 @@ Italo Valcy <italo@dcc.ufba.br>
 Jefferson Fernandes + Diego Araujo + Rafael Manzo <jeffs.fernandes@gmail.com>
 Jefferson Fernandes + Joao M. M. da Silva <jeffs.fernandes@gmail.com>
 Jefferson Fernandes + Joao M. M. Silva <jeffs.fernandes@gmail.com>
+Jérôme Jutteau <j.jutteau@gmail.com>
 João da Silva + Eduardo Morais + Rafael Manzo <rr.manzo@gmail.com>
 João da Silva <jaodsilv@linux.ime.usp.br>
 João Marco Maciel da Silva + Rafael Manzo + Renan Teruo <jaodsilv@linux.ime.usp.br>
@@ -247,8 +250,10 @@ Tallys Martins <tallysmartins@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
 tallys <tallys@tallys>
 tallys <tallys@tallys.(none)>
+Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
 Tuux <tuxa@galaxie.eu.org>
+TWS <tablettws@gmail.com>
 Valessio Brito <contato@valessiobrito.com.br>
 Valessio Brito <contato@valessiobrito.info>
 Valessio Brito <valessio@gmail.com>

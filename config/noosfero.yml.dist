@@ -10,6 +10,7 @@ development:
   exception_recipients: [admin@example.com]
   max_upload_size: 5MB
   hours_until_user_activation_check: 72
+  exclude_profile_identifier_pattern: index(\..*)?|home(\..*)?
 
 test:
 

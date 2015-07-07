@@ -16,7 +16,7 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def homepage
-    context.url_for(url)
+    profile_homepage(context, object)
   end
 
   def birth_date
@@ -35,6 +35,16 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def communities
-    object.communities.public.map {|community| {:url => context.url_for(community.url), :name => community.name}}
+    object.communities.public.map {|community| {:url => profile_homepage(context, community), :name => community.name}}
+  end
+
+  private
+
+  def profile_homepage(context, profile)
+    if context.respond_to?(:url_for)
+      context.url_for(profile.url)
+    else
+      profile.environment.top_url + '/' + profile.identifier
+    end
   end
 end

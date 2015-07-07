@@ -1,6 +1,5 @@
 <h1><%= _('Profile settings for %s') % profile.name %></h1>
 
-<%= javascript_include_tag 'deactivate_profile' %>
 <%= error_messages_for :profile_data %>
 
 <%= labelled_form_for :profile_data, :html => { :id => 'profile-data', :multipart => true } do |f| %>

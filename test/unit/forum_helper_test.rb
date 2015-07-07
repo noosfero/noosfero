@@ -7,6 +7,7 @@ class ForumHelperTest < ActiveSupport::TestCase
   include ContentViewerHelper
   include ActionView::Helpers::AssetTagHelper
   include ApplicationHelper
+  include ActionView::Helpers::DateHelper
 
   def setup
     @environment = Environment.default
@@ -41,7 +42,7 @@ class ForumHelperTest < ActiveSupport::TestCase
     some_post = create(TextileArticle, :name => 'First post', :profile => profile, :parent => forum, :published => true, :author => author)
     assert some_post.comments.empty?
     out = last_topic_update(some_post)
-    assert_match some_post.updated_at.to_s, out
+    assert_match time_ago_in_words(some_post.updated_at), out
     assert_match /forum test author/, out
   end
 
@@ -53,10 +54,11 @@ class ForumHelperTest < ActiveSupport::TestCase
     c = Comment.last
     assert_equal 2, some_post.comments.count
     out = last_topic_update(some_post)
-    assert_match c.created_at.to_s, out
+    result = time_ago_in_words(c.created_at)
+    assert_match result, out
     assert_match 'a2', out
 
-    assert_match(/#{Regexp.escape(c.created_at.to_s)} by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
+    assert_match(/#{result} by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
   end
 
   should "return last comment author's name from unauthenticated user" do
@@ -64,18 +66,15 @@ class ForumHelperTest < ActiveSupport::TestCase
     some_post.comments << build(Comment, :name => 'John', :email => 'lenon@example.com', :title => 'test', :body => 'test')
     c = Comment.last
     out = last_topic_update(some_post)
-    assert_match "#{c.created_at.to_s} by John", out
+    result = time_ago_in_words(c.created_at)
+    assert_match "#{result} by John", out
     assert_match 'John', out
 
-    assert_match(/#{Regexp.escape(c.created_at.to_s)} by John/m, last_topic_update(some_post))
+    assert_match(/#{result} by John/m, last_topic_update(some_post))
   end
 
   protected
 
   include NoosferoTestHelper
-
-  def time_ago_as_sentence(t = Time.now)
-    t.to_s
-  end
 
 end
