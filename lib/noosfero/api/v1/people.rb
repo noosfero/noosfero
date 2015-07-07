@@ -44,6 +44,7 @@ module Noosfero
           desc "Return the person information"
           get ':id' do
             person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
+            return not_found! if person.blank?
             present person, :with => Entities::Person
           end
 
@@ -69,6 +70,7 @@ module Noosfero
           desc "Return the person friends"
           get ':id/friends' do
             person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
+            return not_found! if person.blank?
             friends = person.friends.visible
             present friends, :with => Entities::Person
           end
@@ -76,6 +78,7 @@ module Noosfero
           desc "Return the person permissions on other profiles"
           get ":id/permissions" do
             person = environment.people.find(params[:id])
+            return not_found! if person.blank?
             return forbidden! unless current_person == person || environment.admins.include?(current_person)
 
             output = {}
