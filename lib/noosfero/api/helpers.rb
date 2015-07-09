@@ -45,7 +45,6 @@ module Noosfero
         end
       end
 
-      Rails.application.eager_load!
       ARTICLE_TYPES = ['Article'] + Article.descendants.map{|a| a.to_s}
       TASK_TYPES = ['Task'] + Task.descendants.map{|a| a.to_s}
 
