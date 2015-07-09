@@ -2,7 +2,7 @@ before_script:
   - mkdir -p tmp/pids log
   - bundle check || bundle install
   - script/noosfero-plugins disableall
-  - rm -f tmp/makemo.stamp && rake makemo &>/dev/null
+  - bundle exec rake makemo &>/dev/null
 # database
   - cp config/database.yml.gitlab-ci config/database.yml
   - createdb gitlab_ci_test || true

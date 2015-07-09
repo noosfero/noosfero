@@ -2,12 +2,26 @@ language: ruby
 rvm:
 # for 2.2 support we need to upgrade the pg gem
   - 2.1.6
+cache: bundler
+
+sudo: false
+addons:
+  apt:
+    packages:
+      - po4a
+      - iso-codes
+      - tango-icon-theme
+      - pidgin-data
+      # for gem extensions
+      - libmagickwand-dev
+      - libpq-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libxslt1-dev
 
 before_install:
-# dependencies
-  - sudo apt-get update
-  - sudo apt-get -y install po4a iso-codes tango-icon-theme pidgin-data default-jre
-  - sudo apt-get -y install libmagickwand-dev libpq-dev libreadline-dev libsqlite3-dev libxslt1-dev
+# FIXME: workaround while https://github.com/travis-ci/travis-ci/issues/4210 is open
+  - rm config/initializers/default_icon_theme.rb
 # selenium support
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -16,12 +30,12 @@ before_script:
   - mkdir -p tmp/pids log
   - bundle check || bundle install
   - script/noosfero-plugins disableall
-  - rake makemo
+  - bundle exec rake makemo &>/dev/null
 # database
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database myapp_test;' -U postgres
-  - bundle exec rake db:schema:load
-  - bundle exec rake db:migrate
+  - bundle exec rake db:schema:load &>/dev/null
+  - bundle exec rake db:migrate &>/dev/null
 
 env:
   - TASK=test:units

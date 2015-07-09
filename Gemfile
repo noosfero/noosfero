@@ -18,7 +18,7 @@ gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
-gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
+gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
