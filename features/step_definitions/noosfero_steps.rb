@@ -435,20 +435,13 @@ Given /^the mailbox is empty$/ do
 end
 
 Given /^the (.+) mail (?:is|has) (.+) (.+)$/ do |position, field, value|
-  if(/^[0-9]+$/ =~ position)
-    ActionMailer::Base.deliveries[position.to_i][field].to_s == value
-  else
-    ActionMailer::Base.deliveries.send(position)[field].to_s == value
-  end
+  mail = if /^[0-9]+$/ =~ position then ActionMailer::Base.deliveries[position.to_i] else ActionMailer::Base.deliveries.send position end
+  mail and mail[field].to_s == value
 end
 
 Given /^the (.+) mail (.+) is like (.+)$/ do |position, field, regexp|
-  re = Regexp.new(regexp)
-  if(/^[0-9]+$/ =~ position)
-    re =~ ActionMailer::Base.deliveries[position.to_i][field.to_sym]
-  else
-    re =~ ActionMailer::Base.deliveries.send(position)[field.to_sym]
-  end
+  mail = if /^[0-9]+$/ =~ position then ActionMailer::Base.deliveries[position.to_i] else ActionMailer::Base.deliveries.send position end
+  mail and Regexp.new(regexp) =~ mail[field.to_sym]
 end
 
 Given /^the following environment configuration$/ do |table|

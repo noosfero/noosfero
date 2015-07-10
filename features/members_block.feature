@@ -29,6 +29,7 @@ Feature:
     And I follow "Manage my groups"
     Then I should see "Sample Community"
 
+  @selenium
   Scenario: a user can leave a community by members block's button
     Given "Maria Silva" is a member of "Sample Community"
     And I am logged in as "mariasilva"

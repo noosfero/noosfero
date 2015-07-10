@@ -20,6 +20,7 @@ Feature: edit article
     And I fill in "Title" with "My Folder"
     And I press "Save"
     And I go to joaosilva's control panel
+    And I follow "Manage Content"
     Then I should see "My Folder"
 
   @selenium

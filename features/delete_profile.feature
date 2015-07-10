@@ -13,6 +13,7 @@ Feature: delete profile
       | sample-community | Sample Community |
     And "Maria Silva" is a member of "Sample Community"
 
+  @selenium
   Scenario: deleting profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
@@ -45,6 +46,7 @@ Feature: delete profile
     When I follow "Community Info and settings"
     Then I should see "Delete profile"
 
+  @selenium
   Scenario: community admin deletes the community
     Given "Joao Silva" is admin of "Sample Community"
     And I am logged in as "joaosilva"
@@ -73,6 +75,7 @@ Feature: delete profile
     When I follow "Enterprise Info and settings"
     Then I should see "Delete profile"
 
+  @selenium
   Scenario: enterprise admin deletes the enterprise
     Given the following enterprise
       | identifier | name |
@@ -98,6 +101,7 @@ Feature: delete profile
     And I go to /myprofile/sample-enterprise/profile_editor/destroy_profile
     Then I should see "Access denied"
 
+  @selenium
   Scenario: environment admin deletes profile
     Given I am logged in as admin
     And I am on joaosilva's control panel
