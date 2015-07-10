@@ -1937,11 +1937,18 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'a person follows many articles' do
     person = create_user('article_follower').person
-  
+
     1.upto(10).map do |n|
       person.following_articles <<  fast_create(Article, :profile_id => fast_create(Person))
     end
     assert_equal 10, person.following_articles.count
+  end
+
+  should 'not save user after an update on person and user is not touched' do
+    user = create_user('testuser')
+    person = user.person
+    person.user.expects(:save!).never
+    person.save!
   end
 
 end

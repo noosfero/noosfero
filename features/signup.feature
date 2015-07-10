@@ -16,6 +16,7 @@ Feature: signup
       | Full name             | José da Silva         |
     And wait for the captcha signup time
     And I press "Create my account"
+    And there are no pending jobs
     Then I should receive an e-mail on josesilva@example.com
     When I go to login page
     And I fill in "Username" with "josesilva"

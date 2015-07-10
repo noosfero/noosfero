@@ -27,6 +27,7 @@ class SearchControllerTest < ActionController::TestCase
     # By pass user validation on person creation
     user = mock()
     user.stubs(:id).returns(1)
+    user.stubs(:changes).returns(nil)
     user.stubs(:valid?).returns(true)
     user.stubs(:email).returns('some@test.com')
     user.stubs(:save!).returns(true)
