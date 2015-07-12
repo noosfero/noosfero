@@ -246,6 +246,7 @@ class TasksControllerTest < ActionController::TestCase
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(c.environment))
     person = create_user('test_user').person
+    c.add_member(person)
     p_blog = Blog.create!(:profile => person, :name => 'Blog')
     c_blog1 = Blog.create!(:profile => c, :name => 'Blog')
     c_blog2 = Blog.new(:profile => c); c_blog2.name = 'blog2'; c_blog2.save!
