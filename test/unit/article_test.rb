@@ -913,6 +913,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'not doubly escape quotes in the name' do
     person = fast_create(Person)
     community = fast_create(Community)
+    community.add_member(profile)
     article = fast_create(Article, :name => 'article name', :profile_id => person.id)
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
