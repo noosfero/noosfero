@@ -48,8 +48,11 @@ class RemoteUserPlugin < Noosfero::Plugin
             end
           end
         end
-      rescue ActiveRecord::RecordInvalid => invalid
-        session[:notice] = _('Could not create the remote_user.')
+      rescue ::ActiveRecord::RecordInvalid
+        session[:notice] = _('Could not create the remote user.')
+        render_404
+      rescue
+        session[:notice] = _("Could not log in.")
         render_404
       end
     end

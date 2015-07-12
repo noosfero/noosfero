@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2015-03-23 19:30+0200\n"
-"Last-Translator: Jérôme Jutteau <j.jutteau@gmail.com>\n"
+"PO-Revision-Date: 2015-06-29 22:07+0200\n"
+"Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/documentation/fr/>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -287,7 +287,7 @@ msgstr ""
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/index.en.xhtml:1
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -470,7 +470,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:21
 msgid "Catalog"
-msgstr ""
+msgstr "Catalogue"
 
 # type: Content of: <p>
 #. type: Content of: <p>

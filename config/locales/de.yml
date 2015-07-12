@@ -3,7 +3,7 @@
 # contributors:
 #  - Alexander Dreher - http://github.com/alexdreher - Rails 3 update
 
-de:
+de: &de
   date:
     formats:
       default: "%d.%m.%Y"
@@ -221,3 +221,6 @@ de:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+de-DE:
+  <<: *de
