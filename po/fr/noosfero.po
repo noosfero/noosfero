@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-07-03 00:41+0200\n"
+"PO-Revision-Date: 2015-07-13 10:39+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
@@ -6788,32 +6788,28 @@ msgid "There are members currently using this role."
 msgstr ""
 
 #: app/views/profile_roles/destroy.html.erb:13
-#, fuzzy
 msgid "To which role do you want to change them?"
-msgstr "Indiquez quels contacts vous souhaitez inviter."
+msgstr "Pour quel rôle voulez-vous les changer ?"
 
 #: app/views/profile_roles/destroy.html.erb:20
-#, fuzzy
 msgid "Delete role"
-msgstr "Détruire le profil"
+msgstr "Supprimer le rôle"
 
 #: app/views/profile_roles/index.html.erb:1 app/views/role/index.html.erb:1
 msgid "Manage user roles"
 msgstr "Gérer les rôles des utilisateurs"
 
 #: app/views/profile_roles/index.html.erb:5 app/views/role/index.html.erb:5
-#, fuzzy
 msgid "Role"
-msgstr "Rôles :"
+msgstr "Rôle"
 
 #: app/views/profile_roles/index.html.erb:17
 msgid "Assign"
 msgstr ""
 
 #: app/views/comment_notifier/mail_to_followers.html.erb:1
-#, fuzzy
 msgid "Hi!"
-msgstr "Visites"
+msgstr "Bonjour !"
 
 #: app/views/comment_notifier/mail_to_followers.html.erb:3
 msgid ""
@@ -6823,9 +6819,8 @@ msgstr ""
 
 #: app/views/comment_notifier/mail_to_followers.html.erb:5
 #: app/views/comment_notifier/notification.text.erb:5
-#, fuzzy
 msgid "Title: %s"
-msgstr "Ticket : %s"
+msgstr "Titre : %s"
 
 #: app/views/comment_notifier/mail_to_followers.html.erb:7
 #: app/views/comment_notifier/notification.text.erb:7
@@ -6922,9 +6917,8 @@ msgid "Set %s template as default"
 msgstr "Définir %s comme modèle par défaut"
 
 #: app/views/templates/index.html.erb:31
-#, fuzzy
 msgid "Edit settings"
-msgstr "Paramètres de messagerie"
+msgstr "Modifier les paramètres"
 
 #: app/views/templates/index.html.erb:33
 #, fuzzy
@@ -6932,9 +6926,8 @@ msgid "Edit sideblocks"
 msgstr "Éditer les boîtes de menus"
 
 #: app/views/templates/index.html.erb:35
-#, fuzzy
 msgid "Edit header/footer"
-msgstr "Édition des en-tête et pied de page"
+msgstr "Modifier en-tête/pied de page"
 
 #: app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -6946,9 +6939,8 @@ msgid "Manual sections"
 msgstr "Paramètres de messagerie"
 
 #: app/views/home/terms.html.erb:1
-#, fuzzy
 msgid "Terms of use - %s"
-msgstr "Conditions d'utilisation"
+msgstr "Conditions d'utilisation - %s"
 
 #: app/views/home/welcome.html.erb:4
 msgid "Welcome to %s!"
@@ -6966,9 +6958,8 @@ msgid "Firstly, some tips for getting started:"
 msgstr ""
 
 #: app/views/home/welcome.html.erb:11
-#, fuzzy
 msgid "Confirm your account!"
-msgstr "Confirmer votre nouveau mot de passe"
+msgstr "Confirmer votre compte !"
 
 #: app/views/home/welcome.html.erb:12
 msgid ""
@@ -7022,9 +7013,8 @@ msgid "%s your Gmail, Yahoo and Hotmail contacts!"
 msgstr "%s vos contacts de Gmail, Yahoo et Hotmail !"
 
 #: app/views/home/welcome.html.erb:25
-#, fuzzy
 msgid "Invite and find"
-msgstr "Inviter mes contacts !"
+msgstr "Inviter et trouver"
 
 #: app/views/home/welcome.html.erb:26
 msgid ""
@@ -7047,16 +7037,14 @@ msgid "What can I do as a %s?"
 msgstr ""
 
 #: app/views/home/index.html.erb:2
-#, fuzzy
 msgid "News"
-msgstr "Nouveau %s"
+msgstr "Nouveautés"
 
 #: app/views/home/index.html.erb:45
 #: app/views/profile/_profile_activities_list.html.erb:14
 #: app/views/profile/_profile_network_activities.html.erb:6
-#, fuzzy
 msgid "View more"
-msgstr "Voir le profil"
+msgstr "Voir plus"
 
 #: app/views/features/_manage_enterprise_fields.html.erb:5
 #: app/views/features/_manage_community_fields.html.erb:5
@@ -7071,16 +7059,14 @@ msgid "Required"
 msgstr "Obligatoire"
 
 #: app/views/features/_manage_enterprise_fields.html.erb:8
-#, fuzzy
 msgid "Display on registration?"
 msgstr "Afficher à l'inscription ?"
 
 #: app/views/features/_manage_enterprise_fields.html.erb:13
 #: app/views/features/_manage_community_fields.html.erb:13
 #: app/views/features/_manage_person_fields.html.erb:13
-#, fuzzy
 msgid "Check/Uncheck All"
-msgstr "Tout décocher"
+msgstr "Tout cocher/décocher"
 
 #: app/views/features/manage_fields.html.erb:1
 msgid "Manage fields displayed for profiles"
@@ -7134,19 +7120,16 @@ msgstr ""
 "modifications."
 
 #: app/views/features/index.html.erb:15
-#, fuzzy
 msgid "Feature"
-msgstr "Quelques fonctionnalités"
+msgstr "Fonctionnalité"
 
 #: app/views/features/index.html.erb:16
-#, fuzzy
 msgid "Enabled?"
-msgstr "Activé"
+msgstr "Activé ?"
 
 #: app/views/features/index.html.erb:27
-#, fuzzy
 msgid "Configure features"
-msgstr "Quelques fonctionnalités"
+msgstr "Editer les fonctionnalités"
 
 #: app/views/features/index.html.erb:29
 msgid "Page to redirect after signup"
@@ -7174,9 +7157,8 @@ msgid "Embed unavailable."
 msgstr "Indisponible"
 
 #: app/views/chat/start_session_error.html.erb:3
-#, fuzzy
 msgid "Could not connect to chat"
-msgstr "Impossible de créer le produit"
+msgstr "Impossible de se connecter au chat"
 
 #: app/views/chat/start_session_error.html.erb:3
 msgid "try again"
@@ -7199,26 +7181,22 @@ msgid "Select theme"
 msgstr "Choisissez le thème"
 
 #: app/views/themes/_select_theme.html.erb:5
-#, fuzzy
 msgid "Use the default theme"
-msgstr "Utiliser ce thème"
+msgstr "Utiliser le thème par défaut"
 
 #: app/views/themes/_select_theme.html.erb:5
-#, fuzzy
 msgid "Are you sure you want to use the environment default theme?"
-msgstr "Êtes-vous sûr(e) de vouloir sortir ?"
+msgstr "Etes-vous sûr que vous voulez utiliser le thème par défaut ?"
 
 #: app/views/file_presenter/_image.html.erb:7
 #: app/views/file_presenter/_image.html.erb:9
-#, fuzzy
 msgid "&laquo; Previous"
-msgstr "Précédent"
+msgstr "&laquo; Précédent"
 
 #: app/views/file_presenter/_image.html.erb:13
 #: app/views/file_presenter/_image.html.erb:15
-#, fuzzy
 msgid "Next &raquo;"
-msgstr "Plus récents &raquo;"
+msgstr "Suivant &raquo;"
 
 #: app/views/file_presenter/_image.html.erb:22
 msgid "image %d of %d"
@@ -7229,18 +7207,16 @@ msgstr ""
 #: app/views/profile_members/_members_list.html.erb:2
 #: app/views/profile_members/add_member.html.erb:2
 #: app/views/profile_members/add_admin.html.erb:2
-#, fuzzy
 msgid "Current members"
-msgstr "Un membre"
+msgstr "Les membres actuels"
 
 #: app/views/profile_members/_manage_roles.html.erb:21
 msgid "Type in a search term for users"
 msgstr ""
 
 #: app/views/profile_members/_add_admins.html.erb:1
-#, fuzzy
 msgid "Add admins to %s"
-msgstr "Tous les membres"
+msgstr "Ajouter un admin à %s"
 
 #: app/views/profile_members/affiliate.html.erb:7
 #: app/views/environment_role_manager/affiliate.html.erb:7
@@ -7248,9 +7224,8 @@ msgid "Affiliate"
 msgstr "Affilié"
 
 #: app/views/profile_members/_index_buttons.html.erb:3
-#, fuzzy
 msgid "Add members"
-msgstr "Tous les membres"
+msgstr "Ajouter des membres"
 
 #: app/views/profile_members/_index_buttons.html.erb:5
 #: app/views/invite/select_friends.html.erb:6
@@ -7279,9 +7254,8 @@ msgstr ""
 "membre pour administrer cette communauté."
 
 #: app/views/profile_members/add_members.html.erb:1
-#, fuzzy
 msgid "Add members to %s"
-msgstr "Tous les membres"
+msgstr "Ajouter des membres à %s"
 
 #: app/views/profile_members/change_role.html.erb:1
 #: app/views/environment_role_manager/change_role.html.erb:1
@@ -7289,14 +7263,12 @@ msgid "Changing role of %s"
 msgstr "Changement du rôle de %s"
 
 #: app/views/profile_members/change_role.html.erb:15
-#, fuzzy
 msgid "Custom Roles:"
-msgstr "Rôles :"
+msgstr "Rôles personnalisés :"
 
 #: app/views/maps/edit_location.html.erb:15
-#, fuzzy
 msgid "Locate in the map"
-msgstr "Créer un nouveau thème"
+msgstr "Localiser sur la carte"
 
 #: app/views/maps/edit_location.html.erb:15
 msgid ""
@@ -7317,9 +7289,8 @@ msgid "Invalid address"
 msgstr "Adresse invalide"
 
 #: app/views/maps/_google_map.js.erb:137
-#, fuzzy
 msgid "Request denied"
-msgstr "Accès interdit"
+msgstr "Demande refusée"
 
 #: app/views/maps/_google_map.js.erb:139
 msgid "Over query limit"
@@ -7340,9 +7311,8 @@ msgid "New category"
 msgstr "Nouvelle catégorie"
 
 #: app/views/categories/_category.html.erb:10
-#, fuzzy
 msgid "Show"
-msgstr "Voir le diaporama"
+msgstr "Voir"
 
 #: app/views/categories/_category.html.erb:12
 msgid "Hide"
@@ -7361,14 +7331,12 @@ msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
 msgstr "Êtes-vous sûr(e) d'ôter/effacer «%s» et toutes ses sous-catégories ?"
 
 #: app/views/categories/_form.html.erb:22
-#, fuzzy
 msgid "Display in the menu"
 msgstr "Afficher dans le menu"
 
 #: app/views/categories/_form.html.erb:24
-#, fuzzy
 msgid "Pick a color"
-msgstr "Afficher la couleur"
+msgstr "Choisir la couleur"
 
 #: app/views/categories/edit.html.erb:1
 msgid "Editing %s"
@@ -7383,14 +7351,12 @@ msgid "Regions"
 msgstr "Régions"
 
 #: app/views/memberships/welcome.html.erb:1
-#, fuzzy
 msgid "Community created"
-msgstr "Groupe"
+msgstr "Communauté créée"
 
 #: app/views/memberships/welcome.html.erb:2
-#, fuzzy
 msgid "Your community (%s) was successfully created."
-msgstr "%s, votre nouveau mot de passe a bien été installé."
+msgstr "Votre communauté (%s) a été créée avec succès."
 
 #: app/views/memberships/welcome.html.erb:3
 #, fuzzy
