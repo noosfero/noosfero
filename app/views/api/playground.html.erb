@@ -12,7 +12,11 @@ endpoints.map do |endpoint|
       }
     end
   end
-end.flatten.compact.sort{|a,b| a[:path]=='/api/v1/login' ? -1:1}.to_json %>;
+end.flatten.compact.sort{|a,b|
+  a[:path]=='/api/v1/login' ? -1 :
+  b[:path]=='/api/v1/login' ?  1 :
+  a[:path] <=> b[:path]
+}.to_json %>;
 </script>
 
 <form id="api-form">
