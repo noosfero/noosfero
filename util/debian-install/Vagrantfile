@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 require 'fileutils'
-debs = `find ../../pkg/ -name '*.deb' | sort -t _ -V | tail -2`.split
+debs = `find ../../pkg/ -name '*.deb' | sort -t _ -V`.split
 if debs.empty?
   puts "W: no debs built in ../../pkg/; will either install existing local"
   puts "   ones, or the ones from the remote repository"
@@ -16,7 +16,7 @@ else
 
     local_debs.delete(fn)
 
-    if File.stat(f) != File.stat(fn)
+    if !File.exist?(fn) || File.stat(f) != File.stat(fn)
       FileUtils::Verbose.rm_f(fn)
       FileUtils::Verbose.ln f, '.'
     end
