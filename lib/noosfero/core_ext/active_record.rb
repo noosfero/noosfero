@@ -2,6 +2,11 @@ require 'active_record'
 
 class ActiveRecord::Base
 
+  # default primary key
+  def self.primary_key
+    @primary_key = 'id' if self.column_names.include? 'id'
+  end
+
   def self.postgresql?
     ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
   end
