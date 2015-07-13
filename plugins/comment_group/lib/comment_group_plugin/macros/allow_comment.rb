@@ -1,7 +1,8 @@
-#FIXME See a better way to generalize this parameter.
-ActionView::Base.sanitized_allowed_attributes += ['data-macro', 'data-macro-group_id']
+# FIXME See a better way to generalize this parameter.
+Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES.merge %w[data-macro data-macro-group_id]
 
 class CommentGroupPlugin::AllowComment < Noosfero::Plugin::Macro
+
   def self.configuration
     { :params => [],
       :skip_dialog => true,
