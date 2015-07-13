@@ -1,8 +1,5 @@
 noosfero (1.2~1) UNRELEASED; urgency=medium
 
-  [ Antonio Terceiro ]
-  * Temporary version in heavy development
-
   [ Joenio Costa ]
   * Build noosfero-chat package
 
