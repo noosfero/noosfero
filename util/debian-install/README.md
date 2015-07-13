@@ -1,3 +1,22 @@
 This directory contains the basic structure to test the installation of
 Noosfero debian packages, using a fresh Vagrant VM and packages built in
 ${NOOSFEROROOT}/pkg/.
+
+To perform a test, do
+
+```
+$ cd /path/to/noosfero
+$ rake noosfero:deb
+$ cd util/debian-install/
+$ vagrant up
+```
+
+To reset the environment in preparation for a new test, destroy the VM and
+remove any local `*.deb` files :
+
+```
+$ cd util/debian-install/
+$ vagrant halt
+$ vagrant destroy
+$ rm -f *.deb
+```

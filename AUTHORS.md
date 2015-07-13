@@ -43,11 +43,15 @@ Alessandro Palmeira + Rafael Manzo <alessandro.palmeira@gmail.com>
 analosnak <analosnak@gmail.com>
 Ana Losnak <analosnak@gmail.com>
 Andre Bernardes <andrebsguedes@gmail.com>
+André Bernardes <andrebsguedes@gmail.com>
+André Guedes <andrebsguedes@fedora.local>
+André Guedes <andrebsguedes@gmail.com>
 Antonio Terceiro + Carlos Morais <terceiro@colivre.coop.br>
 Antonio Terceiro + Paulo Meirelles <terceiro@colivre.coop.br>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Del Esposte <arthurmde@gmail.com>
 Arthur Del Esposte <arthurmde@yahoo.com.br>
+Athos Ribeiro <athoscribeiro@gmail.com>
 Aurelio A. Heckert <aurelio@colivre.coop.br>
 Braulio Bhavamitra <brauliobo@gmail.com>
 Bráulio Bhavamitra <brauliobo@gmail.com>
@@ -82,6 +86,7 @@ Carlos Morais + Diego Araújo <diegoamc90@gmail.com>
 Carlos Morais + Eduardo Morais <carlos88morais@gmail.com>
 Carlos Morais + Paulo Meirelles <carlos88morais@gmail.com>
 Carlos Morais + Pedro Leal <carlos88morais@gmail.com>
+Christophe DANIEL <papaeng@gmail.com>
 Daniel Alves + Diego Araújo <danpaulalves@gmail.com>
 Daniel Alves + Diego Araújo <diegoamc90@gmail.com>
 Daniel Alves + Diego Araújo + Guilherme Rojas <danpaulalves@gmail.com>
@@ -126,11 +131,14 @@ DylanGuedes <djmgguedes@gmail.com>
 Eduardo Passos <eduardo@risa.localdomain.localhost>
 Eduardo Passos <eduardosteps@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
+Eduardo Vital <vitaldu@gmail.com>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
+Evandro Magalhaes Leite Junior <evandro.leite@serpro.gov.br>
 Fabio Teixeira <fabio1079@gmail.com>
 FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic.oficial@gmail.com>
 Fernanda Lopes <nanda.listas+psl@gmail.com>
+Filipe Ribeiro <firibeiro77@live.com>
 Francisco Marcelo A. Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Francisco Marcelo de Araujo Lima Junior <79350259591@serpro-1457614.(none)>
 Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>
@@ -198,6 +206,7 @@ Lucas Kanashiro <kanashiro.duarte@gmail.com>
 Lucas Melo <lucas@colivre.coop.br>
 Lucas Melo <lucaspradomelo@gmail.com>
 Luciano <lucianopcbr@gmail.com>
+Luciano Prestes Cavacanti <lucianopcbr@gmail.com>
 Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
@@ -207,6 +216,7 @@ Martín Olivera <molivera@solar.org.ar>
 Maurilio Atila <cabelotaina@gmail.com>
 M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
+Michel Felipe <mfelipeof@gmail.com>
 Moises Machado <moises@colivre.coop.br>
 Naíla Alves <naila@colivre.coop.br>
 Nanda Lopes <nanda.listas+psl@gmail.com>
@@ -251,6 +261,7 @@ Tallys Martins <tallysmartins@yahoo.com.br>
 tallys <tallys@tallys>
 tallys <tallys@tallys.(none)>
 Thiago Casotti <thiago.casotti@uol.com.br>
+Thiago Ribeiro <thiagitosouza@hotmail.com>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
 Tuux <tuxa@galaxie.eu.org>
 TWS <tablettws@gmail.com>
