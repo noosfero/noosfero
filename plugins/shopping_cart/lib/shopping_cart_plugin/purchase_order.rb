@@ -1,4 +1,4 @@
-class ShoppingCartPlugin::PurchaseOrder < Noosfero::Plugin::ActiveRecord
+class ShoppingCartPlugin::PurchaseOrder < ActiveRecord::Base
 
   belongs_to :customer, :class_name => "Profile"
   belongs_to :seller, :class_name => "Profile"

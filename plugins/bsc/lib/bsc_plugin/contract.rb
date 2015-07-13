@@ -1,4 +1,5 @@
-class BscPlugin::Contract < Noosfero::Plugin::ActiveRecord
+class BscPlugin::Contract < ActiveRecord::Base
+
   validates_presence_of :bsc, :client_name
 
   has_many :sales, :class_name => 'BscPlugin::Sale'
@@ -81,4 +82,5 @@ class BscPlugin::Contract < Noosfero::Plugin::ActiveRecord
   def total_price
     sales.inject(0) {|result, sale| sale.price*sale.quantity + result}
   end
+
 end

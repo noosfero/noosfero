@@ -1,4 +1,5 @@
-class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
+class CustomFormsPlugin::Form < ActiveRecord::Base
+
   belongs_to :profile
 
   has_many :fields, :order => 'position', :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy

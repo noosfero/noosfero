@@ -1,4 +1,5 @@
-class CustomFormsPlugin::Submission < Noosfero::Plugin::ActiveRecord
+class CustomFormsPlugin::Submission < ActiveRecord::Base
+
   belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
   belongs_to :profile
 

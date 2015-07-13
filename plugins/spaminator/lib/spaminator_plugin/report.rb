@@ -1,4 +1,5 @@
-class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
+class SpaminatorPlugin::Report < ActiveRecord::Base
+
   serialize :failed, Hash
 
   belongs_to :environment
@@ -29,4 +30,5 @@ class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
     # TODO Implement some decent visualization
     inspect
   end
+
 end

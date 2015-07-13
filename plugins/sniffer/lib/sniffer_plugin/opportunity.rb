@@ -1,4 +1,4 @@
-class SnifferPlugin::Opportunity < Noosfero::Plugin::ActiveRecord
+class SnifferPlugin::Opportunity < ActiveRecord::Base
 
   set_table_name :sniffer_plugin_opportunities
 

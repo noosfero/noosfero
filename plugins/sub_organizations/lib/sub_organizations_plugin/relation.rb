@@ -1,4 +1,5 @@
-class SubOrganizationsPlugin::Relation < Noosfero::Plugin::ActiveRecord
+class SubOrganizationsPlugin::Relation < ActiveRecord::Base
+
   belongs_to :parent, :polymorphic => true
   belongs_to :child, :polymorphic => true
 

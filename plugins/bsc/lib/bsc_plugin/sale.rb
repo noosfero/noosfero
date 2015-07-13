@@ -1,4 +1,5 @@
-class BscPlugin::Sale < Noosfero::Plugin::ActiveRecord
+class BscPlugin::Sale < ActiveRecord::Base
+
   validates_presence_of :product, :contract
   validates_uniqueness_of :product_id, :scope => :contract_id
   validates_numericality_of :quantity, :only_integer => true, :greater_than_or_equal_to => 0
@@ -16,4 +17,5 @@ class BscPlugin::Sale < Noosfero::Plugin::ActiveRecord
   before_update do |contract|
     contract.updated_at ||= Time.now.utc
   end
+
 end

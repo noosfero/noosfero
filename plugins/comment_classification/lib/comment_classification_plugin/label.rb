@@ -1,4 +1,4 @@
-class CommentClassificationPlugin::Label < Noosfero::Plugin::ActiveRecord
+class CommentClassificationPlugin::Label < ActiveRecord::Base
 
   belongs_to :owner, :polymorphic => true
 
@@ -9,4 +9,5 @@ class CommentClassificationPlugin::Label < Noosfero::Plugin::ActiveRecord
   attr_accessible :name, :enabled, :color
 
   COLORS = ['red', 'green', 'yellow', 'gray', 'blue']
+
 end

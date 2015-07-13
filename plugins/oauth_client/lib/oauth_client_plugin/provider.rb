@@ -1,4 +1,4 @@
-class OauthClientPlugin::Provider < Noosfero::Plugin::ActiveRecord
+class OauthClientPlugin::Provider < ActiveRecord::Base
 
   belongs_to :environment
 

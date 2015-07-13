@@ -1,4 +1,4 @@
-class OauthClientPlugin::UserProvider < Noosfero::Plugin::ActiveRecord
+class OauthClientPlugin::UserProvider < ActiveRecord::Base
 
    belongs_to :user, :class_name => 'User'
    belongs_to :provider, :class_name => 'OauthClientPlugin::Provider'
