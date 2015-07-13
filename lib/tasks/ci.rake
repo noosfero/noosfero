@@ -44,7 +44,7 @@ namespace :ci do
     end
     puts
 
-    sh 'testrb', '-Itest', *tests unless tests.empty?
+    sh 'ruby', '-Itest', *tests unless tests.empty?
     sh 'cucumber', *features unless features.empty?
     sh 'xvfb-run', 'cucumber', '-p', 'selenium', *features unless features.empty?
 

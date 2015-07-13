@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
+require 'test_helper'
 require 'content_viewer_controller'
 
 class ContentViewerControllerTest < ActionController::TestCase

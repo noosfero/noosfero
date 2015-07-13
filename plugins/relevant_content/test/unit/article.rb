@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 require 'comment_controller'
 
 class RelevantContentBlockTest < ActiveSupport::TestCase

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/ldap_authentication.rb'
+require_relative 'ldap_authentication.rb'
 
 class LdapPlugin < Noosfero::Plugin
   include Noosfero::Plugin::HotSpot

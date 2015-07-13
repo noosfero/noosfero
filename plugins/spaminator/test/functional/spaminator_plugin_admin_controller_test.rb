@@ -1,5 +1,5 @@
 require 'test_helper'
-require File.dirname(__FILE__) + '/../../controllers/spaminator_plugin_admin_controller'
+require_relative '../../controllers/spaminator_plugin_admin_controller'
 
 class SpaminatorPluginAdminControllerTest < ActionController::TestCase
   def setup

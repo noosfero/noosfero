@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
   should 'validates presence of field' do

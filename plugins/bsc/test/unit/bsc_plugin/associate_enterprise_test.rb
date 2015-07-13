@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class BscPlugin::AssociateEnterpriseTest < ActiveSupport::TestCase
   VALID_CNPJ = '94.132.024/0001-48'

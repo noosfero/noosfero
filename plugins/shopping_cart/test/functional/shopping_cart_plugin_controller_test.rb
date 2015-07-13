@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/shopping_cart_plugin_controller'
+require 'test_helper'
+require_relative '../../controllers/shopping_cart_plugin_controller'
 
 class ShoppingCartPluginControllerTest < ActionController::TestCase
 

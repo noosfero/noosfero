@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/mark_comment_as_read_plugin_profile_controller'
+require 'test_helper'
+require_relative '../../controllers/mark_comment_as_read_plugin_profile_controller'
 
 class MarkCommentAsReadPluginProfileControllerTest < ActionController::TestCase
   def setup

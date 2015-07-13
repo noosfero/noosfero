@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require File.dirname(__FILE__) + '/../../controllers/public/comment_group_plugin_public_controller'
+require_relative '../test_helper'
+require_relative '../../controllers/public/comment_group_plugin_public_controller'
 
 class CommentGroupPluginPublicControllerTest < ActionController::TestCase
 

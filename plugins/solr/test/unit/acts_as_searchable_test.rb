@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 require "#{File.dirname(__FILE__)}/../../lib/acts_as_searchable"
 
 class ActsAsSearchableTest < ActiveSupport::TestCase

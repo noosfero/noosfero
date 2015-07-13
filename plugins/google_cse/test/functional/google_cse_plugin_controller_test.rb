@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/google_cse_plugin_controller'
+require 'test_helper'
+require_relative '../../controllers/google_cse_plugin_controller'
 
 class GoogleCsePluginControllerTest < ActionController::TestCase
 

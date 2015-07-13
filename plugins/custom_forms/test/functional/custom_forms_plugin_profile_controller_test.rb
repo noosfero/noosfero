@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/custom_forms_plugin_profile_controller'
+require 'test_helper'
+require_relative '../../controllers/custom_forms_plugin_profile_controller'
 
 class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   def setup

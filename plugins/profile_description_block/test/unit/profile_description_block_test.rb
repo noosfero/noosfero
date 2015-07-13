@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
+require 'test_helper'
 
 class ProfileDescriptionBlockTest < ActiveSupport::TestCase
   def setup
