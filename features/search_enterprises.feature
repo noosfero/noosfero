@@ -56,7 +56,7 @@ Feature: search enterprises
       | owner | name | body | homepage |
       | shop1 | Shoes home | This is the <i>homepage</i> of Shoes shop! It has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. We should probably talk about shoes. | true |
     When I search enterprises for "shoes"
-    And I choose the search filter "Full"
+    And I select "Full" from "display"
     Then I should see "This is the homepage of" within ".search-enterprise-description"
     And I should see "about sho..." within ".search-enterprise-description"
 
@@ -66,7 +66,7 @@ Feature: search enterprises
       | identifier | name | description |
       | shop4 | Clothes shop | This <b>clothes</b> shop also sells shoes! This too has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. Clothes are a really important part of our lives. |
     When I search enterprises for "clothes"
-    And I choose the search filter "Full"
+    And I select "Full" from "display"
     And I should see "This clothes shop" within ".search-enterprise-description"
     And I should see "really import..." within ".search-enterprise-description"
 

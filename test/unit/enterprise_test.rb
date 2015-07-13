@@ -188,7 +188,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     inactive_template.save!
 
     active_template = create(Enterprise, :name => 'enteprise template', :identifier => 'enterprise_template')
-    assert_equal 3, active_template.boxes.size
+    assert_equal 4, active_template.boxes.size
 
     e = Environment.default
     e.inactive_enterprise_template = inactive_template
@@ -400,7 +400,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.save!
 
     ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent')
-    assert_equal 3, ent.boxes.size
+    assert_equal 4, ent.boxes.size
   end
 
   should 'collect the highlighted products with image' do

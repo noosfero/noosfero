@@ -5,7 +5,7 @@
   <div class='profile-activity-description'>
     <p class='profile-activity-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
     <p class='profile-activity-text'><%= txt2html scrap.content %></p>
-    <p class='profile-activity-time'><%= time_ago_as_sentence(scrap.created_at) %></p>
+    <p class='profile-activity-time'><%= time_ago_in_words(scrap.created_at) %></p>
     <div class='profile-wall-actions'>
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'>

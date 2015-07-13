@@ -1,0 +1,3 @@
+<h1> <%= _("Editing #{@role.name}") %> </h1>
+
+<%= render :partial => 'form', :locals => { :mode => :edit, :role => @role, :permissions => [@role.kind] } %>

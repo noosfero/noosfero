@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:10-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2015-02-23 11:36+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -89,35 +89,35 @@ msgstr "Name"
 msgid "Closest to me"
 msgstr "In meiner Nähe"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:125
+#: plugins/solr/lib/solr_plugin/search_helper.rb:126
 msgid "Sort results by "
 msgstr "Ergebnisse sortieren nach "
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:135
+#: plugins/solr/lib/solr_plugin/search_helper.rb:136
 msgid "%s products offers found"
 msgstr "%d Produktangebote gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:136
+#: plugins/solr/lib/solr_plugin/search_helper.rb:137
 msgid "%s articles found"
 msgstr "%s Artikel gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:137
+#: plugins/solr/lib/solr_plugin/search_helper.rb:138
 msgid "%s events found"
 msgstr "%d Ereignisse gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:138
+#: plugins/solr/lib/solr_plugin/search_helper.rb:139
 msgid "%s people found"
 msgstr "%d Leute gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:139
+#: plugins/solr/lib/solr_plugin/search_helper.rb:140
 msgid "%s enterprises found"
 msgstr "%s Unternehmen gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:140
+#: plugins/solr/lib/solr_plugin/search_helper.rb:141
 msgid "%s communities found"
 msgstr "%s Communities gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:222
+#: plugins/solr/lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
 msgstr "Geben Sie eine Option an"
 

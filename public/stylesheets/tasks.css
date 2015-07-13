@@ -17,6 +17,11 @@
   font-size: 120%;
 }
 
+.task_date {
+  color: gray;
+  font-size: 12px;
+}
+
 .task_icon {
   float: left;
   margin-right: 10px;
@@ -43,4 +48,8 @@
 .task_target {
   text-decoration: underline;
   font-weight: bold;
+}
+
+.task_responsible {
+  text-align: right;
 }

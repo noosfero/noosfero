@@ -114,6 +114,108 @@
 .icon-set-admin-role          { background-image: url(mod/16x16/apps/user.png) }
 .icon-reset-admin-role        { background-image: url(../../../images/icons-app/person-icon.png) }
 .icon-clock                   { background-image: url(Tango/16x16/actions/appointment.png) }
+.icon-fullscreen              { background-image: url(Tango/16x16/actions/view-fullscreen.png) }
+
+/******************BIG ICONS************************/
+.bigicon-embed     { background-image: url(Tango/scalable/apps/utilities-terminal.svg) }
+.bigicon-edit      { background-image: url(Tango/scalable/apps/text-editor.svg) }
+.bigicon-undo      { background-image: url(Tango/scalable/actions/edit-undo.svg) }
+.bigicon-home      { background-image: url(Tango/scalable/actions/go-home.svg) }
+.bigicon-home-not  { background-image: url(mod/scalable/actions/go-home-not.svg) }
+.bigicon-new,
+.bigicon-suggest   { background-image: url(Tango/scalable/actions/filenew.svg) }
+.bigicon-close     { background-image: url(Tango/scalable/actions/gtk-cancel.svg) }
+.bigicon-newfolder { background-image: url(Tango/scalable/actions/folder-new.svg) }
+.bigicon-folder    { background-image: url(Tango/scalable/places/folder.svg) }
+.bigicon-parent-folder { background-image: url(Tango/scalable/places/folder_home.svg) }
+.bigicon-newblog   { background-image: url(mod/scalable/apps/text-editor.svg) }
+.bigicon-blog      { background-image: url(mod/scalable/apps/text-editor.svg) }
+.bigicon-save      { background-image: url(Tango/scalable/actions/filesave.svg) }
+.bigicon-send      { background-image: url(Tango/scalable/actions/stock_mail-forward.svg) }
+.bigicon-cancel    { background-image: url(Tango/scalable/actions/gtk-cancel.svg) }
+.bigicon-person    { background-image: url(Tango/scalable/apps/system-config-users.svg) }
+.bigicon-product   { background-image: url(Tango/scalable/mimetypes/package.svg) }
+.bigicon-delete    { background-image: url(Tango/scalable/places/user-trash.svg) }
+.bigicon-back      { background-image: url(Tango/scalable/actions/back.svg) }
+.bigicon-next      { background-image: url(Tango/scalable/actions/go-next.svg) }
+.bigicon-add       { background-image: url(Tango/scalable/actions/add.svg) }
+.bigicon-remove    { background-image: url(Tango/scalable/actions/gtk-remove.svg) }
+.bigicon-more      { background-image: url(Tango/scalable/actions/add.svg) }
+.bigicon-up        { background-image: url(Tango/scalable/actions/go-up.svg) }
+.bigicon-down      { background-image: url(Tango/scalable/actions/go-down.svg) }
+.bigicon-left      { background-image: url(Tango/scalable/actions/go-previous.svg) }
+.bigicon-right     { background-image: url(Tango/scalable/actions/go-next.svg) }
+.bigicon-up-disabled    { background-image: url(Tango/scalable/actions/go-up.svg); opacity: 0.25; filter:alpha(opacity=25); }
+.bigicon-down-disabled  { background-image: url(Tango/scalable/actions/go-down.svg); opacity: 0.25; filter:alpha(opacity=25); }
+.bigicon-left-disabled  { background-image: url(Tango/scalable/actions/go-previous.svg); opacity: 0.25; filter:alpha(opacity=25); }
+.bigicon-right-disabled { background-image: url(Tango/scalable/actions/go-next.svg); opacity: 0.25; filter:alpha(opacity=25); }
+.bigicon-up-red    { background-image: url(mod/scalable/actions/go-up-red.svg) }
+.bigicon-forward   { background-image: url(Tango/scalable/actions/go-next.svg) }
+.bigicon-search    { background-image: url(Tango/scalable/actions/search.svg) }
+.bigicon-ok        { background-image: url(Tango/scalable/actions/media-playback-start.svg) }
+.bigicon-login     { background-image: url(mod/scalable/actions/log-in.svg) }
+.bigicon-help      { background-image: url(Tango/scalable/apps/gnome-help.svg) }
+.bigicon-help32on  { background-image: url(Tango/scalable/apps/gnome-help.svg) }
+.bigicon-help32off { background-image: url(mod/scalable/apps/gnome-help-red.svg) }
+.bigicon-spread    { background-image: url(mod/scalable/actions/spread.svg) }
+.bigicon-todo            { background-image: url(Tango/scalable/actions/stock_paste.svg) }
+.bigicon-eyes            { background-image: url(Tango/scalable/actions/find.svg) }
+.bigicon-menu-home       { background-image: url(Tango/scalable/actions/go-home.svg) }
+.bigicon-menu-product    { background-image: url(Tango/scalable/mimetypes/package.svg) }
+.bigicon-menu-enterprise { background-image: url(Tango/scalable/actions/go-home.svg) }
+.bigicon-menu-community  { background-image: url(Tango/scalable/apps/system-config-users.svg) }
+.bigicon-menu-ctrl-panel { background-image: url(Tango/scalable/categories/preferences-desktop.svg) }
+.bigicon-menu-admin      { background-image: url(Tango/scalable/categories/preferences-system.svg) }
+.bigicon-menu-my-groups  { background-image: url(Tango/scalable/apps/system-config-users.svg) }
+.bigicon-menu-login      { background-image: url(mod/scalable/actions/log-in.svg) }
+.bigicon-menu-logout     { background-image: url(mod/scalable/actions/log-out.svg) }
+.bigicon-menu-search     { background-image: url(Tango/scalable/actions/search.svg) }
+.bigicon-menu-events     { background-image: url(Tango/scalable/mimetypes/stock_calendar.svg) }
+.bigicon-event           { background-image: url(Tango/scalable/mimetypes/stock_calendar.svg) }
+.bigicon-newevent        { background-image: url(Tango/scalable/mimetypes/stock_calendar.svg) }
+.bigicon-menu-articles   { background-image: url(Tango/scalable/apps/text-editor.svg) }
+.bigicon-menu-people     { background-image: url(mod/scalable/apps/user.svg) }
+.bigicon-menu-mail       { background-image: url(Tango/scalable/apps/email.svg) }
+.bigicon-upload-file     { background-image: url(Tango/scalable/actions/filesave.svg) }
+.bigicon-newupload-file  { background-image: url(Tango/scalable/actions/filesave.svg) }
+.bigicon-slideshow       { background-image: url(Tango/scalable/mimetypes/x-office-presentation.svg) }
+.bigicon-photos          { background-image: url(Tango/scalable/devices/camera-photo.svg) }
+.bigicon-vertical-toggle { background-image: url(Tango/scalable/actions/mail-send-receive.svg) }
+.bigicon-text-html       { background-image: url(Tango/scalable/mimetypes/text-html.svg) }
+.bigicon-text-plain      { background-image: url(Tango/scalable/mimetypes/text-x-generic.svg) }
+.bigicon-image-svg-xml   { background-image: url(Tango/scalable/mimetypes/image-x-generic.svg) }
+.bigicon-application-octet-stream { background-image: url(Tango/scalable/mimetypes/binary.svg) }
+.bigicon-application-x-gzip       { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-x-gzip.svg) }
+.bigicon-application-postscript   { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-postscript.svg) }
+.bigicon-application-pdf          { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-pdf.svg) }
+.bigicon-application-ogg          { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-ogg.svg) }
+.bigicon-video, .icon-video-mpeg  { background-image: url(Tango/scalable/mimetypes/video-x-generic.svg) }
+.bigicon-application-vnd-oasis-opendocument-text         { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-vnd.oasis.opendocument.text.svg) }
+.bigicon-application-vnd-oasis-opendocument-spreadsheet  { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-vnd.oasis.opendocument.spreadsheet.svg) }
+.bigicon-application-vnd-oasis-opendocument-presentation { background-image: url(Tango/scalable/mimetypes/gnome-mime-application-vnd.oasis.opendocument.presentation.svg) }
+.bigicon-welcome-page   { background-image: url(mod/scalable/mimetypes/welcome-page.svg) }
+.bigicon-blocks         { background-image: url(mod/scalable/mimetypes/blocks.svg) }
+.bigicon-header-footer  { background-image: url(mod/scalable/mimetypes/header-footer.svg) }
+.bigicon-appearance     { background-image: url(Tango/scalable/apps/preferences-desktop-wallpaper.svg) }
+.bigicon-media-pause  { background-image: url(Tango/scalable/actions/media-playback-pause.svg) }
+.bigicon-media-play   { background-image: url(Tango/scalable/actions/media-playback-start.svg) }
+.bigicon-media-prev   { background-image: url(Tango/scalable/actions/media-skip-backward.svg) }
+.bigicon-media-next   { background-image: url(Tango/scalable/actions/media-skip-forward.svg) }
+.bigicon-lock         { background-image: url(Tango/scalable/actions/lock.svg) }
+.bigicon-chat         { background-image: url(Tango/scalable/apps/internet-group-chat.svg); background-repeat: no-repeat }
+.bigicon-reply        { background-image: url(Tango/scalable/actions/mail-reply-sender.svg) }
+.bigicon-newforum     { background-image: url(Tango/scalable/apps/internet-group-chat.svg) }
+.bigicon-forum        { background-image: url(Tango/scalable/apps/system-users.svg) }
+.bigicon-gallery      { background-image: url(Tango/scalable/mimetypes/image-x-generic.svg) }
+.bigicon-newgallery   { background-image: url(Tango/scalable/mimetypes/image-x-generic.svg) }
+.bigicon-locale       { background-image: url(Tango/scalable/apps/preferences-desktop-locale.svg) }
+.bigicon-user-removed { background-image: url(Tango/scalable/actions/gtk-cancel.svg) }
+.bigicon-user-unknown { background-image: url(Tango/scalable/status/dialog-error.svg) }
+.bigicon-alert        { background-image: url(Tango/scalable/status/dialog-warning.svg) }
+.bigicon-clone        { background-image: url(Tango/scalable/actions/edit-copy.svg) }
+.bigicon-activate-user           { background-image: url(Tango/scalable/emblems/emblem-system.svg) }
+.bigicon-deactivate-user         { background-image: url(Tango/scalable/emblems/emblem-unreadable.svg) }
+.bigicon-clock                   { background-image: url(Tango/scalable/actions/appointment.svg) }
 
 /******************LARGE ICONS********************/
 .image-gallery-item .folder  { background-image: url(mod/96x96/places/folder.png) }

@@ -203,5 +203,5 @@ Feature: register enterprise
 
   Scenario: a user cant see button to register new enterprise if enterprise_registration disabled
     Given feature "enterprise_registration" is disabled on environment
-    When I am on /assets/enterprises
+    When I am on /search/enterprises
     Then I should not see "New enterprise" link

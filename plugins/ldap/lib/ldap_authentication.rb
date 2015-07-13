@@ -77,18 +77,20 @@ class LdapAuthentication
   end
 
   def get_user_attributes_from_ldap_entry(entry)
-    {
-     :dn => entry.dn,
-     :fullname => LdapAuthentication.get_attr(entry, self.attr_fullname),
-     :mail => LdapAuthentication.get_attr(entry, self.attr_mail),
-    }
+    attributes = entry.instance_values["myhash"]
+
+    attributes[:dn] = entry.dn
+    attributes[:fullname] = LdapAuthentication.get_attr(entry, self.attr_fullname)
+    attributes[:mail] = LdapAuthentication.get_attr(entry, self.attr_mail)
+
+    attributes
   end
 
   # Return the attributes needed for the LDAP search.  It will only
   # include the user attributes if on-the-fly registration is enabled
   def search_attributes
     if onthefly_register?
-      ['dn', self.attr_fullname, self.attr_mail]
+      nil
     else
       ['dn']
     end
@@ -111,6 +113,7 @@ class LdapAuthentication
     end
     login_filter = Net::LDAP::Filter.eq( self.attr_login, login )
     object_filter = Net::LDAP::Filter.eq( "objectClass", "*" )
+
     attrs = {}
 
     search_filter = object_filter & login_filter

@@ -484,7 +484,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'say that member user can not see private article' do
     profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile')
-    article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => false)
+    article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => false, :show_to_followers => false)
     person = create_user('test_user').person
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
 
@@ -509,15 +509,15 @@ class ArticleTest < ActiveSupport::TestCase
     assert article.display_to?(person)
   end
 
-  should 'not show article to non member if article public but profile private' do
+  should 'show article to non member if article public but profile private' do
     profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile', :public_profile => false)
     article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => true)
     person1 = create_user('test_user1').person
     profile.affiliate(person1, Profile::Roles.member(profile.environment.id))
     person2 = create_user('test_user2').person
 
-    assert !article.display_to?(nil)
-    assert !article.display_to?(person2)
+    assert article.display_to?(nil)
+    assert article.display_to?(person2)
     assert article.display_to?(person1)
   end
 
@@ -543,7 +543,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not allow friends of private person see the article' do
     person = create_user('test_user').person
-    article = create(Article, :name => 'test article', :profile => person, :published => false)
+    article = create(Article, :name => 'test article', :profile => person, :published => false, :show_to_followers => false)
     friend = create_user('test_friend').person
     person.add_friend(friend)
     person.save!
@@ -1686,7 +1686,7 @@ class ArticleTest < ActiveSupport::TestCase
     a.allow_members_to_edit = true
     assert !a.allow_edit?(nil)
   end
- 
+
   should 'allow author to edit topic' do
     community = fast_create(Community)
     admin = fast_create(Person)
@@ -1713,6 +1713,18 @@ class ArticleTest < ActiveSupport::TestCase
   should 'get first image from body' do
     a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>')
     assert_equal 'bar.png', a.first_image
+  end
+
+  should 'get first image from having_image' do
+    a = fast_create(Article,
+      :body => '<p>Foo</p><p><img src="bar.png" /></p>',
+      :abstract => '<p>Lead</p><p><img src="lead.png" /></p>'
+    )
+    img = {}
+    img.expects(:present?).returns true
+    img.expects(:public_filename).returns 'pic.jpg'
+    a.expects(:image).at_least_once.returns img
+    assert_equal 'pic.jpg', a.first_image
   end
 
   should 'not get first image from anywhere' do
@@ -1893,7 +1905,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'display_filter display only public articles if there is no user' do
-    p = fast_create(Person) 
+    p = fast_create(Person)
     Article.delete_all
     a = fast_create(Article, :published => true, :profile_id => p.id)
     fast_create(Article, :published => false, :profile_id => p.id)
@@ -1903,7 +1915,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'display_filter display public articles for users' do
     user = create_user('someuser').person
-    p = fast_create(Person) 
+    p = fast_create(Person)
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => true, :profile_id => p.id)
@@ -1914,7 +1926,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'display_filter display private article last changed by user' do
     user = create_user('someuser').person
-    p = fast_create(Person) 
+    p = fast_create(Person)
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => false, :last_changed_by_id => user.id, :profile_id => p.id)
@@ -1926,7 +1938,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'display_filter display user private article of his own profile' do
     user = create_user('someuser').person
     user.stubs(:has_permission?).with(:view_private_content, user).returns(false)
-    p = fast_create(Person) 
+    p = fast_create(Person)
     Article.delete_all
     a = fast_create(Article, :published => false, :profile_id => user.id)
     fast_create(Article, :published => false, :profile_id => p.id)
@@ -1936,7 +1948,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'display_filter show profile private content if the user has view_private_content permission' do
     user = create_user('someuser').person
-    p = fast_create(Person) 
+    p = fast_create(Person)
     Article.delete_all
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     a = fast_create(Article, :published => false, :profile_id => p.id)
@@ -1953,8 +1965,8 @@ class ArticleTest < ActiveSupport::TestCase
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => false, :show_to_followers => true, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
     assert_equal [a], Article.display_filter(user, p)
   end
 
@@ -1965,8 +1977,8 @@ class ArticleTest < ActiveSupport::TestCase
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => false, :show_to_followers => true, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
     assert_equal [a], Article.display_filter(user, p)
   end
 
@@ -2028,6 +2040,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [], Article.display_filter(user, nil)
   end
 
+  should 'display_filter show person public content to non friends passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Person)
+    assert !p.is_a_friend?(user)
+    assert !user.is_admin?
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => p.id)
+    a2 = fast_create(Article)
+    assert_equivalent [a1,a2], Article.display_filter(user, nil)
+  end
+
   should 'display_filter do not show community private content to non members passing nil as profile parameter' do
     user = create_user('someuser').person
     p = fast_create(Community)
@@ -2035,6 +2058,16 @@ class ArticleTest < ActiveSupport::TestCase
     Article.delete_all
     fast_create(Article, :published => false, :profile_id => p.id)
     assert_equal [], Article.display_filter(user, nil)
+  end
+
+  should 'display_filter show community public content to non members passing nil as profile parameter' do
+    user = create_user('someuser').person
+    p = fast_create(Community)
+    assert !user.is_member_of?(p)
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => p.id)
+    a2 = fast_create(Article)
+    assert_equivalent [a1,a2], Article.display_filter(user, nil)
   end
 
   should 'display_filter show community public content of private community for user members' do
@@ -2045,8 +2078,8 @@ class ArticleTest < ActiveSupport::TestCase
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => true, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
     assert_equal [a], Article.display_filter(user, p)
   end
 
@@ -2076,7 +2109,7 @@ class ArticleTest < ActiveSupport::TestCase
     a1 = fast_create(Article, :published => true, :profile_id => user.id)
     a2 = fast_create(Article, :published => true, :profile_id => p.id)
     fast_create(Article, :published => false, :profile_id => p.id)
-    assert_equivalent [a1,a2], Article.display_filter(user, nil)
+    assert_equivalent [a1,a2], Article.display_filter(nil, user)
   end
 
   should 'display_filter show person public content of private person profile for user friends' do
@@ -2087,8 +2120,8 @@ class ArticleTest < ActiveSupport::TestCase
     user.stubs(:has_permission?).with(:view_private_content, p).returns(false)
     Article.delete_all
     a = fast_create(Article, :published => true, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
-    fast_create(Article, :published => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
+    fast_create(Article, :published => false, :show_to_followers => false, :profile_id => p.id)
     assert_equal [a], Article.display_filter(user, p)
   end
 
@@ -2118,7 +2151,20 @@ class ArticleTest < ActiveSupport::TestCase
     a1 = fast_create(Article, :published => true, :profile_id => user.id)
     a2 = fast_create(Article, :published => true, :profile_id => p.id)
     fast_create(Article, :published => false, :profile_id => p.id)
-    assert_equivalent [a1,a2], Article.display_filter(user, nil)
+    assert_equivalent [a1,a2], Article.display_filter(nil, user)
+  end
+
+  should 'vote in a article' do
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => nil)
+    profile.vote(article, 5)
+    assert_equal 1, article.voters_who_voted.length
+    assert_equal 5, article.votes_total
+  end
+
+  should 'be able to remove a voted article' do
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => nil)
+    profile.vote(article, 5)
+    article.destroy
   end
 
 end

@@ -35,4 +35,8 @@ Noosfero::Application.configure do
   config.assets.debug = true
 
   config.consider_all_requests_local = true
+
+  # send emails to /tmp/mails
+  config.action_mailer.delivery_method = :file
+
 end

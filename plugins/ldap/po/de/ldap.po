@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:09-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/ldap/lib/ldap_plugin.rb:10
+#: plugins/ldap/lib/ldap_plugin.rb:11
 #, fuzzy
 msgid "A plugin that add ldap support."
 msgstr "Ein Plugin, welches dies und jenes tut."

@@ -71,22 +71,4 @@ class AdminPanelController < AdminController
       end
     end
   end
-
-  def manage_organizations_status
-    scope = environment.organizations
-    @filter = params[:filter] || 'any'
-    @title = "Organization profiles"
-    @title = @title+" - "+@filter if @filter != 'any'
-
-    if @filter == 'enabled'
-      scope = scope.visible
-    elsif @filter == 'disabled'
-      scope = scope.disabled
-    end
-
-    scope = scope.order('name ASC')
-
-    @q = params[:q]
-    @collection = find_by_contents(:organizations, environment, scope, @q, {:per_page => 10, :page => params[:npage]})[:results]
-  end
 end

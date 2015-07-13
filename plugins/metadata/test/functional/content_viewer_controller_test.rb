@@ -48,4 +48,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
   end
 
+  should 'render not_found page properly' do
+    assert_equal false, Article.exists?(:slug => 'non-existing-page')
+    assert_nothing_raised do
+      get :view_page, profile: profile.identifier, page: [ 'non-existing-page' ]
+      assert_response 404 # not found
+      assert_template 'not_found'
+    end
+  end
+
 end

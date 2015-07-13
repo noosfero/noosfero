@@ -62,7 +62,8 @@ Feature: approve article
     And I press "Spread this"
     And I follow "Delete"
     And I confirm the browser dialog
-    When I am logged in as "joaosilva"
+    And I follow "Logout"
+    And I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Process requests"
     And I choose "Reject"

@@ -10,8 +10,8 @@
     <% @people_suggestions.each do |person| %>
     <li><a href="<%= url_for(person.public_profile_url) %>"><%= person.name %></a></li>
     <% end %>
-  <ul>
-  <%= _("To see the full list of friends suggestions, follow the link: %s") % @people_suggestions_url %>
+  </ul>
+  <%= _("To see the full list of friends suggestions, follow the link: %s") % url_for(@people_suggestions_url) %>
 <% end %>
 
 <% unless @communities_suggestions.empty? %>
@@ -21,13 +21,15 @@
     <% @communities_suggestions.each do |community| %>
     <li><a href="<%= url_for(community.public_profile_url) %>"><%= community.name %></a></li>
     <% end %>
-  <ul>
-  <%= _("To see the full list of communities suggestions, follow the link: %s") % @communities_suggestions_url %>
+  </ul>
+  <%= _("To see the full list of communities suggestions, follow the link: %s") % url_for(@communities_suggestions_url) %>
 <% end %>
 
 
 <%= _("Greetings,") %>
 
---
-<%= _('%s team.') % @environment %>
+<p><%= _("Greetings,") %></p>
+
+--<br/>
+<%= _('%s team.') % @environment %><br/>
 <%= @url %>

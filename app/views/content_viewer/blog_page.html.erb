@@ -8,7 +8,7 @@
   </div>
 </div>
 <hr class="pre-posts"/>
-<div class="blog-posts">
+<div class="blog-posts page-<%= @npage %>">
   <% paginate = true %>
   <%=
    posts = @posts
@@ -18,6 +18,9 @@
      format = inside_block.visualization_format
      paginate = false
    end
-   (blog.empty? ? content_tag('em', _('(no posts)')) : list_posts(posts, format, paginate))
+   (blog.empty? ?
+     content_tag('em', _('(no posts)')) :
+     list_posts(posts, format: format, paginate: paginate)
+   )
   %>
 </div>

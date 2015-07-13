@@ -1,11 +1,8 @@
 jQuery(function($) {
   $('.report-abuse-action').live('click', function() {
-    if($(this).attr('href')){
-      noosfero.modal.inline($(this).attr('href'), {
-        innerHeight: '300px',
-        innerWidth: '445px'
-      });
-    }
+    if($(this).attr('href'))
+      noosfero.modal.url($(this).attr('href'));
+
     return false;
   });
 

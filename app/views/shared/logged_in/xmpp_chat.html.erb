@@ -7,13 +7,13 @@
       var $own_name = '<%= user.name %>';
       var $muc_domain = '<%= "conference.#{environment.default_hostname}" %>';
       var $bosh_service = '//<%= environment.default_hostname %>/http-bind';
-      var $user_unavailable_error = '<%= _("<strong>ooops!</strong> The message could not be sent because the user is not online") %>';
+      var $user_unavailable_error = '<%= _("The user is not online now. He/She will receive these messages as soon as he/she gets online.") %>';
       var $update_presence_status_every = <%= User.expires_chat_status_every.minutes %>;
       var $presence = '<%= current_user.last_chat_status %>';
     </script>
 
-
   <div id="chat-label">
+    <span id="unread-messages"></span>
     <span class="right-arrow">&#9654;</span>
     <span class="title"><%= _('Chat') %></span>
   </div>
@@ -98,10 +98,5 @@
           </div>
         </div>
       </div>
-
-      <div class="error-message">
-        <span class='error'>%{text}</span>
-      </div>
-
     </div>
   </div>

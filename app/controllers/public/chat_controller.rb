@@ -2,6 +2,7 @@ class ChatController < PublicController
 
   before_filter :login_required
   before_filter :check_environment_feature
+  before_filter :can_send_message, :only => :register_message
 
   def start_session
     login = user.jid
@@ -54,6 +55,16 @@ class ChatController < PublicController
     end
   end
 
+  def avatars
+    profiles = environment.profiles.where(:identifier => params[:profiles])
+    avatar_map = profiles.inject({}) do |result, profile|
+      result[profile.identifier] = profile_icon(profile, :minor)
+      result
+    end
+
+    render_json avatar_map
+  end
+
   def update_presence_status
     if request.xhr?
       current_user.update_attributes({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
@@ -62,11 +73,17 @@ class ChatController < PublicController
   end
 
   def save_message
-    to = environment.profiles.find_by_identifier(params[:to])
-    body = params[:body]
+    if request.post?
+      to = environment.profiles.where(:identifier => params[:to]).first
+      body = params[:body]
 
-    ChatMessage.create!(:to => to, :from => user, :body => body)
-    render :text => 'ok'
+      begin
+        ChatMessage.create!(:to => to, :from => user, :body => body)
+        return render_json({:status => 0})
+      rescue Exception => exception
+        return render_json({:status => 3, :message => exception.to_s, :backtrace => exception.backtrace})
+      end
+    end
   end
 
   def recent_messages
@@ -90,8 +107,9 @@ class ChatController < PublicController
   end
 
   def recent_conversations
-    conversations_order = ActiveRecord::Base.connection.execute("select profiles.identifier from profiles inner join (select distinct r.id as id, MAX(r.created_at) as created_at from (select from_id, to_id, created_at, (case when from_id=#{user.id} then to_id else from_id end) as id from chat_messages where from_id=#{user.id} or to_id=#{user.id}) as r group by id order by created_at desc, id) as t on profiles.id=t.id order by t.created_at desc").entries.map {|e| e['identifier']}
-    render :json => {:order => conversations_order.reverse, :domain => environment.default_hostname.gsub('.','-')}.to_json
+    profiles = Profile.find_by_sql("select profiles.* from profiles inner join (select distinct r.id as id, MAX(r.created_at) as created_at from (select from_id, to_id, created_at, (case when from_id=#{user.id} then to_id else from_id end) as id from chat_messages where from_id=#{user.id} or to_id=#{user.id}) as r group by id order by created_at desc, id) as t on profiles.id=t.id order by t.created_at desc")
+    jids = profiles.map(&:jid).reverse
+    render :json => jids.to_json
   end
 
   #TODO Ideally this is done through roster table on ejabberd.
@@ -108,4 +126,14 @@ class ChatController < PublicController
     end
   end
 
+  def can_send_message
+    return render_json({:status => 1, :message => 'Missing parameters!'}) if params[:from].nil? || params[:to].nil? || params[:message].nil?
+    return render_json({:status => 2, :message => 'You can not send message as another user!'}) if params[:from] != user.jid
+    # TODO Maybe register the jid in a table someday to avoid this below
+    return render_json({:status => 3, :messsage => 'You can not send messages to strangers!'}) if user.friends.where(:identifier => params[:to].split('@').first).blank?
+  end
+
+  def render_json(result)
+    render :text => result.to_json
+  end
 end

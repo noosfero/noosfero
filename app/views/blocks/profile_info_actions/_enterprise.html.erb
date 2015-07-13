@@ -8,5 +8,5 @@
       <li><%= button(:'menu-mail', _('Send an e-mail'), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, {:id => 'enterprise-contact-button'} ) %></li>
   <% end %>
 
-  <li><%= report_abuse(profile, :button) %></li>
+    <%= render :partial => 'blocks/profile_info_actions/common' %>
 </ul>

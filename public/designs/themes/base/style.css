@@ -293,22 +293,14 @@ body, th, td, input {
 
 /************************** main content *****************************/
 
-#main-content-wrapper-1, #main-content-wrapper-2,
-#main-content-wrapper-3, #main-content-wrapper-4,
-#main-content-wrapper-5, #main-content-wrapper-6,
-#main-content-wrapper-7, #main-content-wrapper-8 {
-  position: relative;
-}
+.main-content {
+  border-style: solid;
+  border-color: #babdb6;
+  border-width: 1px;
+  border-radius: 10px;
 
-#main-content-wrapper-1 { background: url(imgs/content-bg-N.png)  0%     0% repeat-x  }
-#main-content-wrapper-2 { background: url(imgs/content-bg-S.png)  0%   100% repeat-x  }
-#main-content-wrapper-3 { background: url(imgs/content-bg-L.png)  100%   0% repeat-y  }
-#main-content-wrapper-4 { background: url(imgs/content-bg-O.png)  0%     0% repeat-y  }
-#main-content-wrapper-5 { background: url(imgs/content-bg-NL.png) 100%   0% no-repeat }
-#main-content-wrapper-6 { background: url(imgs/content-bg-NO.png) 0%     0% no-repeat }
-#main-content-wrapper-7 { background: url(imgs/content-bg-SL.png) 100% 100% no-repeat }
-#main-content-wrapper-8 { background: url(imgs/content-bg-SO.png) 0%   100% no-repeat }
-#main-content-wrapper-8 {
+  box-shadow: 1px 1px 2px #888888;
+
   padding: 10px 20px;
 }
 
@@ -1413,3 +1405,17 @@ table.profile th {
 table#recaptcha_table tr:hover td {
   background-color: #fff;
 }
+
+/* product cateogories */
+#categories-container #product_category_id {
+  font-size: 18px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+#categories-container #product_category_id:focus {
+  outline: none;
+  border-color: green;
+  box-shadow: 0 0 10px green;
+  color:#333;
+}
+

@@ -4,11 +4,19 @@ class ProfileDesignController < BoxOrganizerController
 
   protect 'edit_profile_design', :profile
 
-  before_filter :protect_fixed_block, :only => [:save, :move_block]
+  before_filter :protect_uneditable_block, :only => [:save]
+  before_filter :protect_fixed_block, :only => [:move_block]
+
+  def protect_uneditable_block
+    block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
+    if !current_person.is_admin? && !block.editable?
+      render_access_denied
+    end
+  end
 
   def protect_fixed_block
     block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
-    if block.fixed && !current_person.is_admin?
+    if !current_person.is_admin? && !block.movable?
       render_access_denied
     end
   end

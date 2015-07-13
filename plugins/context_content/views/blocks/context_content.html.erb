@@ -6,7 +6,7 @@
         <%= instance_eval(&block.content_image(content)) if block.show_image %>
       </div>
       <% if block.show_name %>
-        <div class="name"><%= short_filename(content.name, 30) %></div>
+        <div class="name"><%= content.name %></div>
       <% end %>
     </a>
   </span>

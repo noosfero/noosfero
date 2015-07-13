@@ -10,6 +10,9 @@ class ProductCategory < Category
     :joins => :products,
     :conditions => ['products.profile_id = ?', enterprise.id]
   }}
+  scope :by_environment, lambda { |environment| {
+    :conditions => ['environment_id = ?', environment.id]
+  }}
   scope :unique_by_level, lambda { |level| {
     :select => "DISTINCT ON (filtered_category) split_part(path, '/', #{level}) AS filtered_category, categories.*"
   }}

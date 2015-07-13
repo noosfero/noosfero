@@ -5,7 +5,7 @@ reload_url = url_for(:controller => 'vote_plugin_profile', :profile => profile.i
 
 <span id="vote_<%= model %>_<%= target.id %>_<%= vote %>" data-reload_url=<%= reload_url %> class="vote-action action <%= action %>-action">
 
-  <%= link_to_remote content_tag(:span, count, :class=>'like-action-counter') + content_tag(:span, '', :class=>"action-icon #{action}"), :url => url, :html => {:class => "#{active ? 'like-action-active':''} #{user ? '':'disabled'}"} %>
+  <%= link_to content_tag(:span, count, :class=>'like-action-counter') + content_tag(:span, '', :class=>"action-icon #{action}"), url, :class => "#{active ? 'like-action-active':''} #{user ? '':'disabled'} require-login-popup" %>
 
   <% if !voters.blank? %>
     <span class="vote-detail">

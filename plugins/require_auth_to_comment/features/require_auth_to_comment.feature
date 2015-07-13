@@ -1,7 +1,7 @@
 Feature: require authentication to comment
 
   Background:
-    Given plugin RequireAuthToCommentPlugin is enabled on environment
+    Given plugin RequireAuthToComment is enabled on environment
     And the following users
       | login   |
       | bozo    |

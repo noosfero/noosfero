@@ -135,7 +135,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_assets_routing
-    assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => 'a/b/c')
+    assert_routing('/search/assets/a/b/c', :controller => 'search', :action => 'assets', :category_path => 'a/b/c')
   end
 
   def test_content_view_with_dot
@@ -270,6 +270,10 @@ class RoutingTest < ActionController::IntegrationTest
 
   should 'have route to get HTML code of Blocks to embed' do
     assert_routing('/embed/block/12345', :controller => 'embed', :action => 'block', :id => '12345')
+  end
+
+  should 'accept ~ as placeholder for current user' do
+    assert_routing('/profile/~', :controller => 'profile', :profile => '~', :action => 'index')
   end
 
 end

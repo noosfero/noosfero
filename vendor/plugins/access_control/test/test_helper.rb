@@ -41,12 +41,18 @@ class AccessControlTestController < ApplicationController
   include PermissionCheck
   protect 'see_index', 'global', :user,  :only => :index
   protect 'do_some_stuff', :resource, :user, :only => :other_stuff
+  protect ['permission1', 'permission2'], :resource, :user, :only => :stuff_with_multiple_permission
+
   def index
      render :text => 'test controller'
   end
 
   def other_stuff
     render :text => 'test stuff'
+  end
+
+  def stuff_with_multiple_permission
+    render :text => 'multiple permission'
   end
 
 protected

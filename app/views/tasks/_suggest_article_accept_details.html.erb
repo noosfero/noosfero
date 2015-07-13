@@ -1,12 +1,19 @@
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= labelled_form_field(_("Sent by: "), f.text_field(:name)) %>
-<p><%= label_tag(_("Email: %s") % task.email) %> </p>
-<%= required labelled_form_field(_('Title'), f.text_field(:article_name, :size => 50)) %>
-<%= labelled_form_field(_('Source'), f.text_field(:source_name)) %>
-<%= labelled_form_field(_("Source URL"), f.text_field(:source)) %>
+<% unless task.requestor %>
+  <%= labelled_form_field(_("Sent by: "), f.text_field(:name)) %>
+  <p><%= label_tag(_("Email: %s") % task.email) %> </p>
+<% end %>
 
-<%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article_parent_id]", task.target) %>
-<%= labelled_form_field(_('Highlight this article'), f.check_box(:highlighted)) %>
+<%= f.fields_for 'article', OpenStruct.new(task.article) do |a| %>
+  <%= required labelled_form_field(_('Title'), a.text_field(:name, :size => 50)) %>
+  <%= labelled_form_field(_('Source'), a.text_field(:source_name)) %>
+  <%= labelled_form_field(_("Source URL"), a.text_field(:source)) %>
 
-<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :f => f, :abstract_method => 'article_abstract', :body_method => 'article_body', :lead_id => task.id} %>
+  <%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task][article][parent_id]", task.target, task.article[:parent_id]) %>
+  <%= labelled_form_field(_('Highlight this article'), a.check_box(:highlighted)) %>
+
+  <%= a.hidden_field(:type) %>
+
+  <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :f => a, :lead_id => task.id} %>
+<% end %>

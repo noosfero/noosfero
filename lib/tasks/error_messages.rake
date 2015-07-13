@@ -4,7 +4,7 @@ targets = []
 templates.each do |template|
   target = template.gsub(/.erb$/, '')
   targets << target
-  file target => [:makemo, template] do
+  file target => [:makemo, template, :environment] do
     require 'erb'
     erb = ERB.new(File.read(template))
     File.open(target, 'w') do |file|

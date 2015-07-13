@@ -42,12 +42,14 @@ module SolrPlugin::SearchHelper
     asset_class(asset).table_name
   end
 
-  def filters(asset)
+  def filters(asset, environment)
     case asset
     when :products
       ['solr_plugin_public:true', 'enabled:true']
-    when :events
+    when :catalog, :events, :categories, :product_categories
       []
+    when :profiles, :people, :organizations, :communities, :enterprises
+      ['solr_plugin_public:true', 'environment_id:%s' % environment.id]
     else
       ['solr_plugin_public:true']
     end
@@ -88,8 +90,7 @@ module SolrPlugin::SearchHelper
         solr_options[:all_facets] = true
       end
       solr_options[:filter_queries] ||= []
-      solr_options[:filter_queries] += filters(asset)
-      solr_options[:filter_queries] << "environment_id:#{environment.id}"
+      solr_options[:filter_queries] += filters(asset, environment)
       solr_options[:filter_queries] << asset_class.facet_category_query.call(category) if category
 
       solr_options[:boost_functions] ||= []

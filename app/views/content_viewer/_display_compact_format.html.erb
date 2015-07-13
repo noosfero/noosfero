@@ -1,0 +1,21 @@
+<% if article.image %>
+  <% className = "article-compact-abstract-with-image" %>
+  <% if article.image.thumbnails_processed? %>
+    <% image_file = article.image.public_filename(:big) %>
+  <% else %>
+    <% image_file = "/images/icons-app/image-loading-thumb.png" %>
+  <% end %>
+<% else %>
+  <% className = "article-compact-abstract" %>
+<% end %>
+
+<div>
+  <% if article.image %>
+    <div class = "article-compact-image">
+      <%= image_tag(image_file) %>
+    </div>
+  <% end %>
+  <div class = <%= className %> >
+      <%= article.abstract.truncate(400) %>
+  </div>
+</div>

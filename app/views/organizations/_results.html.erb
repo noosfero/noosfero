@@ -1,0 +1,41 @@
+<div class='results'>
+  <table id='organizations-list'>
+    <colgroup>
+      <col width="60%">
+      <col width="20%">
+      <col width="20%">
+    </colgroup>
+
+    <tr>
+      <th><%= _('Profile') %></th>
+      <th><%= _('Actions') %></th>
+      <th><%= _('Type') %>
+
+      <%= select_tag(:type, options_for_select(@types_filter, @type)) %>
+      </th>
+    </tr>
+
+    <% @collection.each do |p| %>
+      <tr title="<%= p.name %>">
+        <td><%= link_to_profile p.short_name, p.identifier, :title => p.name %> </td>
+
+        <td class='actions'>
+          <div class="members-buttons-cell">
+            <% if p.visible %>
+              <%= button_without_text :'deactivate-user', _('Deactivate'), {:action => 'deactivate', :id => p.id}, :class => 'action', 'data-confirm' => _("Do you want to deactivate this organization?") %>
+            <% else %>
+              <%= button_without_text :'activate-user', _('Activate'), {:action => 'activate', :id => p.id}, :class => 'action', 'data-confirm' => _("Do you want to activate this organization?") %>
+            <% end %>
+            <%= button_without_text :'delete', _('Remove'), {:action => 'destroy', :id => p.id}, :class => 'action', 'data-method' => :post, 'data-confirm' => _("Do you want to destroy this organization?") %>
+         </div>
+        </td>
+
+        <td> <%= _("#{p.type}") %> </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div>
+    <%= pagination_links @collection, {:param_name => 'npage', :page_links => true} %>
+  </div>
+</div>

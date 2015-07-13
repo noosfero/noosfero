@@ -2,8 +2,26 @@
 
   <%= render :partial => 'task_icon', :locals => {:task => task} %>
 
+  <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assign to:') %></span>
+      <span>
+        <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
+        <%= select_tag "tasks[#{task.id}][responsible]", options_from_collection_for_select(@responsible_candidates, :id, :name, task.responsible.present? ? task.responsible.id : nil), :include_blank => true, :onchange => "change_task_responsible(this);", 'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil, 'data-task' => task.id, 'data-url' => change_responsible_url %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if @view_only && task.responsible.present? %>
+    <div class="task_responsible">
+      <span class="label"><%= _('Assigned to:') %></span>
+      <span class="value"><%= task.responsible.name %></span>
+    </div>
+  <% end %>
+
   <div class="task_decisions">
-    <%=
+    <% unless @view_only %>
+      <%=
         labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
                               :id => "decision-finish-#{task.id}",
                               :class => 'task_accept_radio',
@@ -19,8 +37,11 @@
                               :class => 'task_skip_radio',
                               :disabled => task.skip_disabled?,
                               :task_id => "#{task.id}")
-    %>
+      %>
+    <% end %>
   </div><!-- class="task_decisions" -->
+
+  <div class="task_date"><%= show_time(task.created_at) %></div>
 
   <%= render :partial => 'task_title', :locals => {:task => task} %>
 

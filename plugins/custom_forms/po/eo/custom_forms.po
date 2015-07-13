@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:10-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2014-11-05 13:05+0200\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/noosfero/"

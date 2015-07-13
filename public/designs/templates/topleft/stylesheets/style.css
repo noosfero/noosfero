@@ -20,7 +20,7 @@
 
 .box-3 {
   position: relative;
-  display: table-footer-group;
+  display: table-header-group;
   width: 100%;
 }
 

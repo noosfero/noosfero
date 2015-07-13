@@ -1,3 +1,25 @@
+noosfero (1.2~1) UNRELEASED; urgency=medium
+
+  [ Antonio Terceiro ]
+  * Temporary version in heavy development
+
+  [ Joenio Costa ]
+  * Build noosfero-chat package
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Mon, 18 May 2015 14:32:21 -0300
+
+noosfero (1.1) wheezy; urgency=low
+
+  * Noosfero 1.1 final release
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Mon, 04 May 2015 18:47:35 -0300
+
+noosfero (1.1~rc4) wheezy; urgency=medium
+
+  * Fourth release candidate for Noosfero 1.1
+
+ -- Antonio Terceiro <terceiro@debian.org>  Wed, 01 Apr 2015 12:22:36 -0300
+
 noosfero (1.1~rc2) wheezy; urgency=low
 
   * Second release candidate for Noosfero 1.1

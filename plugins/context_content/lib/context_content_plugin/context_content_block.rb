@@ -58,7 +58,7 @@ class ContextContentPlugin::ContextContentBlock < Block
   def contents(page, p=1)
     return @children unless @children.blank?
     if page
-      @children = page.children.with_types(types).paginate(:per_page => limit, :page => p)
+      @children = page.children.with_types(types).order(:name).paginate(:per_page => limit, :page => p)
       (@children.blank? && show_parent_content) ? contents(page.parent, p) : @children
     else
       nil

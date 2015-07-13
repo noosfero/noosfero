@@ -524,7 +524,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     p1= fast_create(Person, :is_template => true, :environment_id => e.id)
     p2 = fast_create(Person, :environment_id => e.id)
     p3 = fast_create(Person, :is_template => true, :environment_id => e.id)
-    assert_equivalent [p1,p3], e.person_templates    
+    assert_equivalent [p1,p3], e.person_templates
   end
 
   should 'person_templates return an empty array if there is no templates of person' do
@@ -532,7 +532,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     fast_create(Person, :environment_id => e.id)
     fast_create(Person, :environment_id => e.id)
-    assert_equivalent [], e.person_templates    
+    assert_equivalent [], e.person_templates
   end
 
   should 'person_default_template return the template defined as default' do
@@ -585,7 +585,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     c1= fast_create(Community, :is_template => true, :environment_id => e.id)
     c2 = fast_create(Community, :environment_id => e.id)
     c3 = fast_create(Community, :is_template => true, :environment_id => e.id)
-    assert_equivalent [c1,c3], e.community_templates    
+    assert_equivalent [c1,c3], e.community_templates
   end
 
   should 'community_templates return an empty array if there is no templates of community' do
@@ -646,7 +646,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     e1= fast_create(Enterprise, :is_template => true, :environment_id => env.id)
     e2 = fast_create(Enterprise, :environment_id => env.id)
     e3 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
-    assert_equivalent [e1,e3], env.enterprise_templates    
+    assert_equivalent [e1,e3], env.enterprise_templates
   end
 
   should 'enterprise_templates return an empty array if there is no templates of enterprise' do
@@ -654,7 +654,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     fast_create(Enterprise, :environment_id => env.id)
     fast_create(Enterprise, :environment_id => env.id)
-    assert_equivalent [], env.enterprise_templates    
+    assert_equivalent [], env.enterprise_templates
   end
 
   should 'enterprise_default_template return the template defined as default' do
@@ -1428,6 +1428,36 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !environment.plugin_enabled?(Plugin)
   end
 
+  should 'activate on database all available plugins' do
+    plugins_enable = ["Statistics", "Foo", "PeopleBlock"]
+    Noosfero::Plugins.stubs(:available_plugin_names).returns(plugins_enable)
+    env1 = Environment.create(:name => "Test")
+    env2 = Environment.create(:name => "Test 2")
+
+    env1.enable_all_plugins
+    env2.enable_all_plugins
+
+    plugins = ["PeopleBlockPlugin", "StatisticsPlugin", "FooPlugin"]
+    plugins.each do |plugin|
+      assert env1.enabled_plugins.include?(plugin)
+      assert env2.enabled_plugins.include?(plugin)
+    end
+  end
+
+  should 'dont activate plugins that are not available' do
+    env1 = Environment.create(:name => "Test")
+    env2 = Environment.create(:name => "Test 2")
+
+    env1.enable_all_plugins
+    env2.enable_all_plugins
+
+    plugins = ["SomePlugin", "OtherPlugin", "ThirdPlugin"]
+    plugins.each do |plugin|
+      assert_equal false, env1.enabled_plugins.include?(plugin)
+      assert_equal false, env2.enabled_plugins.include?(plugin)
+    end
+  end
+
   should 'have production costs' do
     assert_respond_to Environment.default, :production_costs
   end
@@ -1671,6 +1701,34 @@ class EnvironmentTest < ActiveSupport::TestCase
     e = fast_create(Environment)
 
     assert !e.has_license?
+  end
+
+  should 'validates_inclusion_of date format' do
+    environment = fast_create(Environment)
+
+    environment.date_format = "invalid_format"
+    environment.valid?
+    assert environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "numbers_with_year"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "numbers"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "month_name_with_year"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "month_name"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
+
+    environment.date_format = "past_time"
+    environment.valid?
+    assert !environment.errors[:date_format.to_s].present?
   end
 
 end

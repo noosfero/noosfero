@@ -1,5 +1,18 @@
-XMPP/Chat Setup
-===============
+Automatic XMPP/Chat Setup
+=========================
+
+Since Noosfero 1.2, the XMPP/Chat can be installed via `noosfero-chat` Debian
+package. So you don't need to follow the manual instructions here if you
+already have it installed on your system.
+
+But if you are going to install the `noosfero-chat` package on a system that
+already has `noosfero` older 1.2 installed then you need to check if apache's
+configuration file `/etc/apache2/sites-available/noosfero` has this line below:
+
+     Include /usr/share/noosfero/util/chat/apache/xmpp.conf
+
+Manual XMPP/Chat Setup
+======================
 
 The samples of config file to configure a XMPP/BOSH server with ejabberd,
 postgresql and apache2 can be found at util/chat directory.
@@ -8,7 +21,7 @@ This setup supposes that you are using Noosfero installed via Debian package
 in a production environment.
 
 Steps
-=====
+-----
 
 This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
@@ -144,15 +157,8 @@ You should see a page with a message like that:
 
 ## 9. Test chat session
 
-Open Noosfero console and execute:
-
->> environment = Environment.default
->> user = Person['guest']
->> password = user.user.crypted_password
->> login = user.jid
->> RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind", :wait => 30, :hold => 1, :window => 5
-
-If you have luck, should see something like that:
+Run `./script/noosfero-test-chat-session`. If you have luck, should see
+something like that:
 
 Ruby-BOSH - SEND
 <body window="5" rid="60265" xmlns="http://jabber.org/protocol/httpbind" xmlns:xmpp="urn:xmpp:xbosh" to="vagrant-debian-squeeze.vagrantup.com" wait="30" xmpp:version="1.0" hold="1"/>

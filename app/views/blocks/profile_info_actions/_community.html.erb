@@ -13,8 +13,6 @@
       </li>
     <% end %>
 
-    <li><%= report_abuse(profile, :button) %></li>
-
-    <%= render_environment_features(:profile_actions) %>
+    <%= render :partial => 'blocks/profile_info_actions/common' %>
   <% end %>
 </ul>

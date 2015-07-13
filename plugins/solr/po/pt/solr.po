@@ -11,12 +11,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0-690-gcb6e853\n"
-"POT-Creation-Date: 2015-03-05 12:10-0300\n"
+"Project-Id-Version: 1.1-166-gaf47713\n"
+"POT-Creation-Date: 2015-06-01 17:26-0300\n"
 "PO-Revision-Date: 2015-02-23 11:36+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
-"/plugin-solr/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-solr/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,35 +94,35 @@ msgstr "Nome"
 msgid "Closest to me"
 msgstr "Mais próximo de mim"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:125
+#: plugins/solr/lib/solr_plugin/search_helper.rb:126
 msgid "Sort results by "
 msgstr "Ordenar resultados por "
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:135
+#: plugins/solr/lib/solr_plugin/search_helper.rb:136
 msgid "%s products offers found"
 msgstr "%s ofertas de produtos encontrados"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:136
+#: plugins/solr/lib/solr_plugin/search_helper.rb:137
 msgid "%s articles found"
 msgstr "%s artigos encontrados"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:137
+#: plugins/solr/lib/solr_plugin/search_helper.rb:138
 msgid "%s events found"
 msgstr "%s eventos encontrados"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:138
+#: plugins/solr/lib/solr_plugin/search_helper.rb:139
 msgid "%s people found"
 msgstr "%s pessoas encontradas"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:139
+#: plugins/solr/lib/solr_plugin/search_helper.rb:140
 msgid "%s enterprises found"
 msgstr "%s empreendimentos encontrados"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:140
+#: plugins/solr/lib/solr_plugin/search_helper.rb:141
 msgid "%s communities found"
 msgstr "%s comunidades encontradas"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:222
+#: plugins/solr/lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
 msgstr "Digite uma opção"
 
