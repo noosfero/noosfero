@@ -83,6 +83,9 @@ Carlos Morais + Eduardo Morais <carlos88morais@gmail.com>
 Carlos Morais + Paulo Meirelles <carlos88morais@gmail.com>
 Carlos Morais + Pedro Leal <carlos88morais@gmail.com>
 Carlos Morais <carlos88morais@gmail.com>
+Christophe DANIEL <papaeng@gmail.com>
+Daniel Alves + Diego Araújo <danpaulalves@gmail.com>
+Daniel Alves + Diego Araújo <diegoamc90@gmail.com>
 Daniel Alves + Diego Araújo + Guilherme Rojas <danpaulalves@gmail.com>
 Daniel Alves + Diego Araújo + Guilherme Rojas <diegoamc90@gmail.com>
 Daniel Alves + Diego Araújo + Guilherme Rojas <guilhermehrojas@gmail.com>
@@ -128,6 +131,7 @@ Eduardo Vital <vitaldu@gmail.com>
 Evandro Jr <evandrojr@gmail.com>
 Evandro Junior <evandrojr@gmail.com>
 Evandro Magalhaes Leite Junior <evandro.leite@serpro.gov.br>
+Fabio Teixeira <fabio1079@gmail.com>
 FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic.oficial@gmail.com>
 Fabio Teixeira <fabio1079@gmail.com>
 Fernanda Lopes <nanda.listas+psl@gmail.com>
