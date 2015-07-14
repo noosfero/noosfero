@@ -23,9 +23,7 @@ gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 # API dependencies
 gem 'grape',                    '~> 0.11.0'
 gem 'grape-entity'
-gem 'grape-swagger'
 gem 'grape_logging'
-gem 'api-pagination',           '~> 4.1.1'
 gem 'rack-cors'
 gem 'rack-contrib'
 
