@@ -61,7 +61,7 @@ class StatisticsBlock < Block
   end
 
   def templates
-    Community.templates(environment)
+    self.environment.community_templates
   end
 
   def is_template_counter_active? template_id
