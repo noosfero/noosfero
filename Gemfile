@@ -21,7 +21,7 @@ gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 
 # API dependencies
-gem 'grape',                    '~> 0.11.0'
+gem 'grape',                    '~> 0.12'
 gem 'grape-entity'
 gem 'grape_logging'
 gem 'rack-cors'
