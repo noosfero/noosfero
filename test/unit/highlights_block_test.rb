@@ -119,6 +119,19 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.featured_images
   end
 
+  should 'return correct sub-dir address' do
+    Noosfero.stubs(:root).returns("/social")
+    f1 = mock()
+    f1.expects(:public_filename).returns('address')
+    UploadedFile.expects(:find).with(1).returns(f1)
+    block = HighlightsBlock.new
+    i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
+    block.images = [i1]
+    block.save!
+    block.reload
+    assert_equal block.images.first[:address], "/social/address"
+  end
+
   [Environment, Profile].each do |klass|
     should "choose between owner galleries when owner is #{klass.name}" do
       owner = fast_create(klass)
