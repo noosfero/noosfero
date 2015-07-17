@@ -1,5 +1,7 @@
 class TasksController < MyProfileController
 
+  include TasksHelper
+
   protect [:perform_task, :view_tasks], :profile, :only => [:index]
   protect :perform_task, :profile, :except => [:index]
 
@@ -58,12 +60,12 @@ class TasksController < MyProfileController
       end
     end
 
-    url = { :action => 'index' }
+    url = tasks_url(:action => 'index')
     if failed.blank?
       session[:notice] = _("All decisions were applied successfully.")
     else
       session[:notice] = _("Some decisions couldn't be applied.")
-      url[:failed] = failed
+      url = tasks_url(:action => 'index', :failed => failed)
     end
     redirect_to url
   end

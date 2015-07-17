@@ -497,7 +497,9 @@ end
 Given /^someone suggested the following article to be published$/ do |table|
   table.hashes.map{|item| item.dup}.each do |item|
     target = Community[item.delete('target')]
-    task = SuggestArticle.create!(:target => target, :data => item)
+    article = {:name => item.delete('name'), :body => item.delete('body')}
+    person = Profile[item.delete('person')]
+    task = SuggestArticle.create!(:target => target, :article => article, :requestor => person)
   end
 end
 

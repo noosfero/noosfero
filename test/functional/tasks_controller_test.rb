@@ -73,6 +73,17 @@ class TasksControllerTest < ActionController::TestCase
     ok('task should be finished') { t.status == Task::Status::FINISHED }
   end
 
+  should 'keep filters after close a task' do
+    t = profile.tasks.build; t.save!
+
+    post :close, :tasks => {t.id => {:decision => 'finish', :task => {}}}, :filter_type => t.type
+    assert_redirected_to :action => 'index', :filter_type => t.type
+    assert_equal @controller.params[:filter_type], t.type
+
+    t.reload
+    ok('task should be finished') { t.status == Task::Status::FINISHED }
+  end
+
   should 'be able to cancel a task' do
     t = profile.tasks.build; t.save!
 
