@@ -129,15 +129,14 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil @response.cookies["auth_token"]
   end
 
-  # "remember_me" feature is disabled; uncommend this if it is enabled again.
-  # def test_should_login_with_cookie
-  #   users(:johndoe).remember_me
-  #   @request.cookies["auth_token"] = cookie_for(:johndoe)
-  #   get :index
-  #   assert @controller.send(:logged_in?)
-  # end
+  should 'login with cookie' do
+    users(:johndoe).remember_me
+    @request.cookies["auth_token"] = cookie_for(:johndoe)
+    get :index
+    assert @controller.send(:logged_in?)
+  end
 
-  def test_should_fail_expired_cookie_login
+  should 'fail expired cookie login' do
     users(:johndoe).remember_me
     users(:johndoe).update_attribute :remember_token_expires_at, 5.minutes.ago
     @request.cookies["auth_token"] = cookie_for(:johndoe)
@@ -145,7 +144,7 @@ class AccountControllerTest < ActionController::TestCase
     assert !@controller.send(:logged_in?)
   end
 
-  def test_should_fail_cookie_login
+  should 'fail cookie login' do
     users(:johndoe).remember_me
     @request.cookies["auth_token"] = auth_token('invalid_auth_token')
     get :index

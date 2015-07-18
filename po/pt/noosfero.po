@@ -8345,6 +8345,10 @@ msgstr "Continuar"
 msgid "Log in"
 msgstr "Entrar"
 
+#: app/views/account/login.html.erb:19
+msgid "Keep me logged in"
+msgstr "Mantenha-me logado"
+
 #: app/views/account/login.html.erb:33
 #: app/views/account/login_block.html.erb:31
 msgid "I forgot my password!"
