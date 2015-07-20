@@ -19,13 +19,6 @@ addons:
       - libsqlite3-dev
       - libxslt1-dev
 
-before_install:
-# FIXME: workaround while https://github.com/travis-ci/travis-ci/issues/4210 is open
-  - rm config/initializers/default_icon_theme.rb
-# selenium support
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
 before_script:
   - mkdir -p tmp/pids log
   - bundle check || bundle install
