@@ -1,0 +1,2 @@
+class EnvironmentNotificationPlugin::WarningNotification < EnvironmentNotificationPlugin::EnvironmentNotification
+end
