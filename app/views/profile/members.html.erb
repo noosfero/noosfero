@@ -1,17 +1,48 @@
 <div class="common-profile-list-block">
 
-<h1><%= _("%s's members") % profile.name %></h1>
+<h1><%= _("Members (%d)") % @profile_members.total_entries %></h1>
+<h2 class="community-name"><%= profile.name %></h2>
 
 <% cache_timeout(profile.members_cache_key(params), 4.hours) do %>
-  <ul class='profile-list'>
-    <% @members.each do |member| %>
-      <%= profile_image_link(member) %>
-    <% end %>
-  </ul>
+  <div class="profile-members-tabs-container">
+    <% tabs = [] %>
 
-  <div id='pagination-profiles'>
-    <%= pagination_links @members, :param_name => 'npage' %>
-  </div>
+    <% div_members = content_tag :div, :class => "profile-members" do
+      render :partial => 'profile_members_list',
+                            :locals => {
+                            :users => @profile_members,
+                            :role => "members"
+                            }
+    end %>
+
+    <% members_pagination = content_tag :div, :class => "pagination-profile-members" do
+      pagination_links @profile_members, :param_name => 'npage'
+    end %>
+
+    <% tabs << {:title =>  _("%d Members") % @profile_members.size,
+                     :id => "members-tab",
+                     :content => (div_members + members_pagination)
+                     } %>
+
+    <% div_admins = content_tag :div, :class => "profile-admins" do
+      render :partial => 'profile_members_list',
+                            :locals => {
+                            :users => @profile_admins,
+                            :role => "admins"
+                            }
+    end %>
+
+    <% admins_pagination = content_tag :div, :class => "pagination-profile-admins" do
+      pagination_links @profile_admins, :param_name => 'npage'
+    end %>
+
+    <% tabs << {:title => _("%d Administrators") % @profile_admins.size,
+                            :id => "admins-tab",
+                            :content => (div_admins+admins_pagination)
+                            } %>
+
+    <%= render_tabs(tabs) %>
+  </div><!-- end of class="profile-members-tabs-container" -->
 <% end %>
 
 <% button_bar do %>
@@ -26,4 +57,8 @@
   <% end %>
 <% end %>
 
-</div><!-- fim class="common-profile-list-block" -->
+<%= hidden_field_tag "profile_url", @profile_members_url %>
+<%= hidden_field_tag "sort", "asc" %>
+</div><!-- end of class="common-profile-list-block" -->
+
+<%= javascript_include_tag "members_page.js" %>
