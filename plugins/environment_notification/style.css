@@ -1,0 +1,224 @@
+.notification-bar {
+	display: block;
+}
+
+.notification:hover {
+  opacity: 0.8;
+}
+
+#notification-manager {
+  overflow: auto;
+}
+
+.notification .notification-close {
+  background: url(public/images/close.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+}
+
+.warningnotification,
+.informationnotification,
+.successnotification,
+.dangernotification,
+.adminnotification {
+  margin-bottom: 10px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 1px solid blue;
+  font-size: 16px;
+  color: white;
+  overflow: auto;
+}
+
+.warningnotification p,
+.informationnotification p,
+.successnotification p,
+.dangernotification p,
+.adminnotification p {
+  margin: 0px;
+}
+
+.warningnotification {
+  background: #fcf8e3;
+  border: 1px solid #faebcc;
+  color: #8a6d3b;
+}
+
+.warningnotification p a{
+  font-weight: bold;
+  color: #8a6d3b;
+}
+
+
+.informationnotification {
+  background: #d9edf7;
+  border: 1px solid #bce8f1;
+  color: #31708f;
+}
+
+.informationnotification p a{
+  font-weight: bold;
+  color: #31708f;
+}
+
+.successnotification {
+  background: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
+}
+
+.successnotification p a{
+  font-weight: bold;
+  color: #3c763d;
+}
+
+.dangernotification {
+  background: #f2dede;
+  border: 1px solid #ebccd1;
+  color: #a94442;
+}
+
+.dangernotification  p a{
+  font-weight: bold;
+  color: #a94442;
+}
+
+.adminnotification {
+  background: #9a959a;
+  border: 1px solid #9a959a;
+}
+
+.adminnotification p a{
+  font-weight: bold;
+  color: white;
+}
+
+a.button.icon-deactivate {
+  background: url(public/images/hide.png) no-repeat;
+  background-position: center;
+}
+
+a.button.icon-activate {
+  background: url(public/images/show.png) no-repeat;
+  background-position: center;
+}
+
+.notification-line {
+  display: inline;
+  padding-top: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+}
+
+.notification-title-bar {
+  float: left;
+  width: 100%;
+  font-style: 14px;
+  font-weight: 700;
+  border-bottom: 2px solid black;
+  padding: 9px 0;
+}
+
+.notification-title {
+  width: 80%;
+  float: left;
+  text-align: center;
+}
+
+.notification-modal .notification-with-title {
+  margin-bottom: 0px;
+}
+
+.notification-modal .notification .notification-title {
+  width: 100%;
+  float: left;
+  font-weight: bold;
+  text-align: left;
+}
+
+.notification-modal .notification-with-title-message {
+  width: 100%;
+  float: left;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  overflow: auto;
+}
+
+.notification-modal .notification-with-title-message p{
+  padding: 0px 7px;
+}
+
+.notification-modal .notification-with-title-message p a{
+  color: black;
+  font-weight: bold;
+}
+
+
+.action-title {
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+
+.notification-action {
+  width: 18%;
+  float: left;
+  height: 30px;
+  padding-top: 9px;
+}
+
+.main-bar .button,
+.notification-action .button {
+  border-radius: 3px;
+}
+
+.notification-message {
+  width: 82%;
+  float: left;
+}
+
+.new-notification {
+  float: right;
+  width: auto;
+}
+
+.back-button {
+  float: left;
+}
+
+.main-bar {
+  display: inline;
+  width: 100%;
+}
+
+.notification-bar .notification .notification-message {
+  width: 90%;
+  float: left;
+}
+
+.notification-bar .notification .notification-close {
+  background: url(public/images/redclose.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  float: right;
+  cursor: pointer;
+}
+
+.notification-bar .notification .notification-hide {
+  background: url(public/images/greenhide.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  float: right;
+  cursor: pointer;
+}
+
+.notification-modal {
+  display: block;
+  min-width: 400px;
+  max-width: 700px;
+}
