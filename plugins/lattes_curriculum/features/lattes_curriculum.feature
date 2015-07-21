@@ -29,7 +29,7 @@ Feature: import lattes information
     And I fill in "Lattes URL" with "http://lattes.cnpq.br/2864976228727880"
     And I press "Save"
     And I go to /profile/admin_user#lattes_tab
-    Then I should see "Endereço para acessar este CV: http://lattes.cnpq.br/2864976228727880"
+    Then I should see "Lattes"
 
   Scenario: Don't show lattes informations for blank lattes urls
     Given I am on admin_user's control panel
