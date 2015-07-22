@@ -35,4 +35,8 @@ class EnterpriseHomepage < Article
     false
   end
 
+  def can_display_media_panel?
+    true
+  end
+
 end
