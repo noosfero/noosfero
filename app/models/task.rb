@@ -275,9 +275,19 @@ class Task < ActiveRecord::Base
   scope :canceled, -> { where status: Task::Status::CANCELLED }
   scope :closed, -> { where status: [Task::Status::CANCELLED, Task::Status::FINISHED] }
   scope :opened, -> { where status: [Task::Status::ACTIVE, Task::Status::HIDDEN] }
-  scope :of, -> type { where "type LIKE ?", type if type }
-  scope :order_by, -> attribute, ord { order "#{attribute} #{ord}" }
-  scope :like, -> field, value { where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%" if value }
+  scope :of, -> type { where :type => type  if type }
+  scope :order_by, -> attribute, ord {
+      if ord.downcase.include? 'desc'
+        order attribute.to_sym => :desc
+      else
+        order attribute.to_sym
+      end
+  }
+  scope :like, -> field, value {
+      if value and Task.column_names.include? field
+        where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%"
+      end
+  }
   scope :pending_all, -> profile, filter_type, filter_text {
     self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
   }
