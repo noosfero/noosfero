@@ -138,8 +138,8 @@ class FriendsBlockTest < ActionView::TestCase
 
   should 'list owner\'s friends suggestions' do
     owner = fast_create(Person)
-    suggestion1 = owner.profile_suggestions.create(:suggestion => fast_create(Person))
-    suggestion2 = owner.profile_suggestions.create(:suggestion => fast_create(Person))
+    suggestion1 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
+    suggestion2 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
 
     block = FriendsBlock.new
     block.stubs(:owner).returns(owner)

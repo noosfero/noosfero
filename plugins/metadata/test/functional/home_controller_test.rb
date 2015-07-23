@@ -12,7 +12,7 @@ class HomeControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
 
     Noosfero::Plugin.stubs(:all).returns([MetadataPlugin.name])
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([MetadataPlugin.new])
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([MetadataPlugin.new(@controller)])
   end
 
   should 'display meta tags for social media' do

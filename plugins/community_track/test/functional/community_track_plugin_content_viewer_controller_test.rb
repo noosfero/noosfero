@@ -1,12 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
-class ContentViewerController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e)
-    raise e
-  end
-end
-
+class ContentViewerController; def rescue_action(e) raise e end; end
 class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
@@ -87,32 +81,32 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render a div with block id for track list block' do
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => @profile.boxes.first)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'track_list', :id => "track_list_#{@block.id}" }
   end
 
   should 'render a div with block id for track card list block' do
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.first)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'track_list', :id => "track_list_#{@block.id}" }
   end
 
   should 'render tracks in track list block' do
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => @profile.boxes.first)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'span', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
   end
 
   should 'render tracks in track card list block' do
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.first)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => "item_card category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'track_content' } }
     assert_tag :tag => 'div', :attributes => { :class => "item_card category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'track_stats' } }
   end
 
   should 'render link to display more tracks in track list block' do
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.first)
     (@block.limit+1).times { |i| create_track("track#{i}", @profile) }
 
     get :view_page, @step.url
@@ -120,7 +114,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render link to show all tracks in track list block' do
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.last)
+    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => @profile.boxes.first)
     @block.more_another_page = true
     @block.save!
 

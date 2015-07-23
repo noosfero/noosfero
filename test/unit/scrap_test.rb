@@ -5,6 +5,7 @@ class ScrapTest < ActiveSupport::TestCase
   def setup
     Person.delete_all
     Scrap.delete_all
+    ActionTracker::Record.destroy_all
   end
 
   should "have the content" do
@@ -265,7 +266,7 @@ class ScrapTest < ActiveSupport::TestCase
   should 'the action_tracker_target be the community when the scraps has the community as receiver' do
     scrap = Scrap.new
     assert_equal scrap, scrap.action_tracker_target
-    
+
     community = fast_create(Community)
     scrap.receiver = community
     assert_equal community, scrap.action_tracker_target

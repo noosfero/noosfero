@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../../test/test_helper'
 # Re-raise errors caught by the controller.
 class AccountController; def rescue_action(e) raise e end; end
 
-class AccountControllerTest < ActionController::TestCase 
+class AccountControllerTest < ActionController::TestCase
   def setup
     @environment = Environment.default
     @environment.enabled_plugins = ['RemoteUserPlugin']
@@ -125,10 +125,18 @@ class AccountControllerTest < ActionController::TestCase
     get :index
 
     assert session[:user].blank?
-    
+
     @request.env["HTTP_REMOTE_USER"] = ""
     get :index
 
     assert session[:user].blank?
+  end
+
+  should 'not create a new user if his informations is invalid' do
+    @request.env["HTTP_REMOTE_USER"] = "*%&invalid user name&%*"
+    get :index
+
+    assert session[:user].blank?
+    assert_response 404
   end
 end

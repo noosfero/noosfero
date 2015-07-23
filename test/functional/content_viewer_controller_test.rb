@@ -124,6 +124,19 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
+  should "display image label on article image" do
+    page = TinyMceArticle.create!(
+             :profile => profile,
+             :name => 'myarticle',
+             :image_builder => {
+               :uploaded_data => fixture_file_upload('/files/tux.png', 'image/png'),
+               :label => 'test-label'
+             }
+           )
+    get :view_page, page.url
+    assert_match /test-label/, @response.body
+  end
+
   should "not display current article's tags" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
 

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-03-07 02:11+0200\n"
-"Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
+"PO-Revision-Date: 2015-07-03 00:31+0200\n"
+"Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
 "display-content/fr/>\n"
 "Language: fr\n"
@@ -16,14 +16,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: plugins/display_content/lib/display_content_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you could choose any of your content and "
 "display it."
 msgstr ""
-"Un greffon qui permet d'ajouter une zone ou vous pourrez y afficher le "
+"Un plugin qui permet d'ajouter une zone ou vous pourrez y afficher le "
 "contenue de votre choix."
 
 #: plugins/display_content/lib/display_content_block.rb:34
@@ -48,33 +48,33 @@ msgstr "Résumé"
 
 #: plugins/display_content/lib/display_content_block.rb:151
 msgid "Read more"
-msgstr "En lire plus"
+msgstr "Lire plus"
 
 #: plugins/display_content/lib/display_content_block.rb:194
 msgid "%{month}/%{day}/%{year}"
-msgstr "%{mois}/%{jour}/%{année}"
+msgstr "%{day}/%{month}/%{year}"
 
 #: plugins/display_content/lib/display_content_block.rb:194
 msgid "%{month}/%{day}"
-msgstr "%{mois}/%{jour}"
+msgstr "%{day}/%{month}"
 
 #: plugins/display_content/lib/display_content_block.rb:197
 msgid "%{month_name} %{day}, %{year}"
-msgstr "%{nom_du_mois} %{jour}, %{année}"
+msgstr "%{day} %{month_name} %{year}"
 
 #: plugins/display_content/lib/display_content_block.rb:197
 msgid "%{month_name} %{day}"
-msgstr "%{nom_du_mois} %{jour}"
+msgstr "%{day} %{month_name}"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
 "Choisissez quels attribues doivent êtres afficher et glisser/déposer pour "
-"les réorganiser:"
+"les réorganiser :"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
 msgid "Choose which content should be displayed:"
-msgstr "Choisissez le contenu à afficher:"
+msgstr "Choisissez le contenu à afficher :"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
 msgid "Choose directly"
@@ -86,7 +86,7 @@ msgstr "Choisir par type de contenu"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
 msgid "Order by:"
-msgstr "Trier par:"
+msgstr "Trier par :"
 
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
 msgid "Most recent"
@@ -98,7 +98,7 @@ msgstr "Le plus ancien"
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
 msgid "Display content types:"
-msgstr "Afficher le types de contenue:"
+msgstr "Afficher le type de contenu :"
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
 msgid "more"
@@ -106,9 +106,8 @@ msgstr "plus"
 
 #: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
 msgid "Dinamically load children of selected folders"
-msgstr ""
-"Dynamiquement charger les sous répertoires des répertoires sélectionnés"
+msgstr "charger dynamiquement les sous répertoires des répertoires sélectionnés"
 
 #: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
 msgid "Limit:"
-msgstr "Limite:"
+msgstr "Limite :"

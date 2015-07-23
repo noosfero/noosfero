@@ -24,7 +24,6 @@
   <% end %>
   <% delivery_option = @settings.delivery_options.first && @settings.delivery_options.first.first %>
   <%= items_table(@cart[:items], @profile, delivery_option) %>
-  <%= link_to_function '', "noosfero.modal.close();", :class => 'cart-box-close icon-cancel' %>
 </div>
 
 <%= javascript_include_tag '../plugins/shopping_cart/buy' %>

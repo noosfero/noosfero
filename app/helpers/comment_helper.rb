@@ -16,7 +16,7 @@ module CommentHelper
         content_tag('span', show_date(article.published_at), :class => 'date') +
         content_tag('span', [_(", by %s") % link_to(article.author_name, article.author_url)], :class => 'author') +
         content_tag('span', comments, :class => 'comments'),
-        :class => 'created-at'
+        :class => 'publishing-info'
       )
     end
     title

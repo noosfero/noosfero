@@ -23,7 +23,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => @profile.identifier, :page => ['test']
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/javascripts\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/socialshareprivacy\.js\??\d*/}
+    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/socialshareprivacy\.js\??\d*/}
     assert_tag :tag => 'div', :attributes => {:class => "social-buttons"}
   end
 
@@ -34,8 +34,8 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => @profile.identifier, :page => ['test']
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/javascripts\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/twitter\.js\??\d*/}
-    assert_tag :tag => 'script', :attributes => {:src => /\/javascripts\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/gplus\.js\??\d*/}
+    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/twitter\.js\??\d*/}
+    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/gplus\.js\??\d*/}
   end
 
   should 'add javascript with string translations if not english' do
@@ -45,12 +45,12 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => @profile.identifier, :page => ['test']
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/javascripts\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.pt\.js\??\d*/}
+    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.pt\.js\??\d*/}
 
     FastGettext.stubs(:locale).returns('en')
 
     get :view_page, :profile => @profile.identifier, :page => ['test']
 
-    assert_no_tag :tag => 'script', :attributes => {:src => /\/javascripts\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/}
+    assert_no_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/}
   end
 end

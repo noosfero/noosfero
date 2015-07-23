@@ -345,7 +345,7 @@ $.TokenList = function (input, url_or_data, options) {
     dropdown.appendTo("body");
     if (!settings.permanentDropdown)
         dropdown.appendTo("body");
-    else 
+    else
         $(input).after(dropdown.show());
 
     if (settings.permanentDropdown || settings.showAllResults) {
@@ -382,7 +382,7 @@ $.TokenList = function (input, url_or_data, options) {
     if(li_data && li_data.length) {
         $.each(li_data, function (index, value) {
             insert_token(value);
-            checkTokenLimit();
+            checkTokenLimit({init: true});
         });
     }
 
@@ -425,12 +425,12 @@ $.TokenList = function (input, url_or_data, options) {
     // Private functions
     //
 
-    function checkTokenLimit() {
+    function checkTokenLimit(options) {
         if(settings.tokenLimit !== null && token_count >= settings.tokenLimit) {
             input_box.hide();
             hide_dropdown();
             return;
-        } else {
+        } else if (options && !options.init) {
             input_box.focus();
         }
     }
@@ -618,7 +618,7 @@ $.TokenList = function (input, url_or_data, options) {
             if (!settings.showAllResults)
               dropdown.empty();
             selected_dropdown_item = null;
-        } 
+        }
         if (settings.showAllResults)
             show_dropdown_hint();
     }
@@ -728,7 +728,7 @@ $.TokenList = function (input, url_or_data, options) {
             item.addClass(settings.classes.selectedDropdownItem);
             selected_dropdown_item = item.get(0);
 
-            isBefore = item[0].offsetTop <= (dropdown[0].scrollTop + dropdown[0].scrollWidth); 
+            isBefore = item[0].offsetTop <= (dropdown[0].scrollTop + dropdown[0].scrollWidth);
             isAfter = item[0].offsetTop >= dropdown[0].scrollTop;
             visible = isBefore && isAfter;
             if (!visible) {

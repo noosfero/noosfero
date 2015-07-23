@@ -223,6 +223,20 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal profile, a.last_changed_by
   end
 
+  should 'be able to set label to article image' do
+    login_as(profile.identifier)
+    post :new, :type => TextileArticle.name, :profile => profile.identifier,
+         :article => {
+           :name => 'adding-image-label',
+           :image_builder => {
+             :uploaded_data => fixture_file_upload('/files/tux.png', 'image/png'),
+             :label => 'test-label'
+           }
+         }
+     a = Article.last
+     assert_equal a.image.label, 'test-label'
+  end
+
   should 'edit by using the correct template to display the editor depending on the mime-type' do
     a = profile.articles.build(:name => 'test document')
     a.save!
@@ -316,6 +330,20 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     end
+  end
+
+  should 'be able to edit an image label' do
+    image = fast_create(Image, :content_type => 'image/png', :filename => 'event-image.png', :label => 'test_label', :size => 1014)
+    article = fast_create(Article, :profile_id => profile.id, :name => 'test_label_article', :body => 'test_content')
+    article.image = image
+    article.save
+    assert_not_nil article
+    assert_not_nil article.image
+    assert_equal 'test_label', article.image.label
+
+    post :edit, :profile => profile.identifier, :id => article.id, :article => {:image_builder => { :label => 'test_label_modified'}}
+    article.reload
+    assert_equal 'test_label_modified', article.image.label
   end
 
    should 'be able to upload more than one file at once' do
@@ -1863,8 +1891,8 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'return tags found' do
-    tag = mock; tag.stubs(:name).returns('linux')
-    ActsAsTaggableOn::Tag.stubs(:find).returns([tag])
+    a = profile.articles.create(:name => 'blablabla')
+    a.tags.create! name: 'linux'
     get :search_tags, :profile => profile.identifier, :term => 'linux'
     assert_equal '[{"label":"linux","value":"linux"}]', @response.body
   end

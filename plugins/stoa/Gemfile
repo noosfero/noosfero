@@ -1,1 +1,5 @@
 gem 'sinatra'
+
+group :test do
+  gem 'sqlite3'
+end

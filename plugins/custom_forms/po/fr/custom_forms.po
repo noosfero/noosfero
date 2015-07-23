@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-02-23 11:38+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-07-03 00:36+0200\n"
+"Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/fr/>\n"
 "Language: fr\n"
@@ -16,17 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
-msgstr ""
+msgstr "Format de chaîne d'accès non valide."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:71
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:76
-#, fuzzy
 msgid "There is no profile with the provided id."
-msgstr "Il y a un problème avec les lignes suivantes : "
+msgstr "Il n'y a pas le profil avec l'ID fourni."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:81
 msgid "Invalid type format of access."
@@ -64,9 +63,8 @@ msgstr "%{fn} est obligatoire"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
-#, fuzzy
 msgid "Logged users"
-msgstr "Connecté en tant que %s"
+msgstr "Utilisateurs connectés"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
 #, fuzzy
@@ -213,7 +211,7 @@ msgstr "Une entreprise"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
 #, fuzzy

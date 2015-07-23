@@ -1,0 +1,6 @@
+test: &TEST
+  adapter: postgresql
+  database: gitlab_ci_test
+  username: gitlab_ci_runner
+development:
+  <<: *TEST

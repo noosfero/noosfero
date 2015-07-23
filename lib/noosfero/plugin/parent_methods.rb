@@ -11,6 +11,10 @@ class Noosfero::Plugin
       @identifier ||= (if self.parents.first.instance_of? Module then self.parents.first else self end).name.underscore
     end
 
+    def module_name
+      @name ||= (if self.parents.first != Object then self.parents.first else self end).to_s
+    end
+
     def public_name
       @public_name ||= self.identifier.gsub '_plugin', ''
     end

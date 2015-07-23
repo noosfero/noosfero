@@ -1,5 +1,4 @@
 class CommunityTrackPluginMyprofileController < MyProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
   before_filter :allow_edit_track, :only => :save_order
 

@@ -42,7 +42,7 @@ module ShoppingCartPlugin::CartHelper
       else
         delivery = Product.new(:name => delivery_option || _('Delivery'), :price => settings.delivery_options[delivery_option])
       end
-      delivery.save(false)
+      delivery.save(validate: false)
       items << [delivery.id, '']
     end
 

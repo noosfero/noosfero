@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 3.2.21'
+gem 'rails',                    '~> 3.2.22'
 gem 'minitest',                 '~> 3.2.0'
 gem 'fast_gettext',             '~> 0.6.8'
 gem 'acts-as-taggable-on',      '~> 3.4.2'
@@ -18,7 +18,7 @@ gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 2.2.1', :require => false
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
-gem 'eita-jrails', '>= 0.9.5', :require => 'jrails'
+gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
@@ -32,6 +32,7 @@ group :test do
   gem 'rspec',                  '~> 2.14.0'
   gem 'rspec-rails',            '~> 2.14.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
+  gem 'test-unit' if RUBY_VERSION >= '2.2.0'
 end
 
 group :cucumber do

@@ -759,13 +759,10 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'set custom_person_fields with its dependecies' do
     env = Environment.new
-    env.custom_person_fields = {'cell_phone' => {'required' => 'true', 'active' => '', 'signup' => ''}, 'comercial_phone'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => '', 'signup' => 'true'}}
+    data = {'cell_phone' => {'required' => 'true', 'active' => '', 'signup' => ''}, 'comercial_phone'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => '', 'signup' => 'true'}}
+    env.custom_person_fields = data
 
-    assert_equal({'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'comercial_phone'=>  {'required' => '', 'active' => 'true', 'signup' => '' }, 'description' => {'required' => '', 'active' => 'true', 'signup' => 'true'}}, env.custom_person_fields)
-  end
-
-  should 'have no custom_person_fields by default' do
-    assert_equal({}, Environment.new.custom_person_fields)
+    assert(env.custom_person_fields.merge(data) == env.custom_person_fields)
   end
 
   should 'not set in custom_person_fields if not in person.fields' do
@@ -773,7 +770,8 @@ class EnvironmentTest < ActiveSupport::TestCase
     Person.stubs(:fields).returns(['cell_phone', 'comercial_phone'])
 
     env.custom_person_fields = { 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'cell_phone' => {'required' => 'true','signup' => 'true',  'active' => 'true'}}, env.custom_person_fields)
+    expected_hash = {'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}}
+    assert(env.custom_person_fields.merge(expected_hash) == env.custom_person_fields)
     assert ! env.custom_person_fields.keys.include?('birth_date')
   end
 
@@ -782,7 +780,8 @@ class EnvironmentTest < ActiveSupport::TestCase
     Person.stubs(:fields).returns(['cell_phone', 'schooling'])
 
     env.custom_person_fields = { 'schooling' => {'required' => 'true', 'active' => 'true'}}
-    assert_equal({'schooling' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}, 'schooling_status' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_person_fields)
+    expected_hash = {'schooling' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'schooling_status' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}
+    assert(env.custom_person_fields.merge(expected_hash) == env.custom_person_fields)
     assert ! env.custom_person_fields.keys.include?('birth_date')
   end
 

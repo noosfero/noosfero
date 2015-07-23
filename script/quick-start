@@ -61,6 +61,8 @@ setup_rubygems_path() {
   fi
 }
 
+# change current directory to the noosfero's root
+cd "$(dirname $0)/../"
 
 force_install=false
 if test "$1" = '--force-install'; then

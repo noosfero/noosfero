@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./script/authors-all-commits | sort | uniq -c | sort -n
+

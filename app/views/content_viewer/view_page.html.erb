@@ -24,22 +24,6 @@
   <%= render :partial => 'article_toolbar' %>
 </div>
 
-<% if @page.display_hits? || @page.license.present? %>
-  <div id='article-sub-header'>
-    <% if @page.display_hits? %>
-      <div id="article-hits">
-        <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
-      </div>
-    <% end %>
-
-    <% if @page.license.present? %>
-      <div id="article-license">
-        <%= _('Licensed under %s') % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
 <% if NOOSFERO_CONF['addthis_enabled'] %>
   <%= render :partial => 'addthis' %>
 <% end %>
@@ -47,6 +31,12 @@
 <% cache(@page.cache_key(params, user, language)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <% options = @page.image? ? {:gallery_view => true} : {} %>
+    <% if @page.image.present? && !@page.event? %>
+      <div class="article-body-img">
+        <%= image_tag(@page.image.public_filename) %>
+        <p><%= @page.image.label%></p>
+      </div>
+    <% end %>
     <%= article_to_html(@page, options) %>
     <br style="clear:both" />
   </div> <!-- end class="article-body" -->

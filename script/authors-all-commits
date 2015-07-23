@@ -1,0 +1,6 @@
+#!/bin/sh
+
+git log --pretty=format:'Author: %aN <%aE>%n%b' --no-merges \
+  | grep -i '^\s*\(author:\|signed-off-by:\)' \
+  | sed -f script/authors-normalize.sed \
+  | sed -f script/authors.sed

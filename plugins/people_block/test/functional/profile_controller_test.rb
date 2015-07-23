@@ -17,8 +17,8 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(user.login)
     owner = user.person
 
-    suggestion1 = owner.profile_suggestions.create(:suggestion => fast_create(Person))
-    suggestion2 = owner.profile_suggestions.create(:suggestion => fast_create(Person))
+    suggestion1 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
+    suggestion2 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
 
     FriendsBlock.delete_all
     block = FriendsBlock.new
