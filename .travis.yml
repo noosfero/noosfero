@@ -2,7 +2,6 @@ language: ruby
 rvm:
 # for 2.2 support we need to upgrade the pg gem
   - 2.1.6
-cache: bundler
 
 sudo: false
 addons:
@@ -19,9 +18,20 @@ addons:
       - libsqlite3-dev
       - libxslt1-dev
 
+before_install:
+  - gem env
+
+# workaround for https://github.com/travis-ci/travis-ci/issues/4536
+before_install:
+  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.1.0
+  - gem install bundler
+cache: bundler
+
 before_script:
   - mkdir -p tmp/pids log
-  - bundle check || bundle install
+# workaround for plugins with Gemfile
+  - perl -pi -e 's/cat .+ > \$gemfile/echo "source \\"https:\/\/rubygems.org\\"" > \$gemfile && cat \$source\/Gemfile >> \$gemfile/' script/noosfero-plugins
+  - perl -pi -e 's/--local --quiet/install --jobs=3 --retry=3/' script/noosfero-plugins
   - script/noosfero-plugins disableall
   - bundle exec rake makemo &>/dev/null
 # database
