@@ -11,7 +11,7 @@ Feature: related_organizations_block
     And the following community
       | identifier | name | owner |
       | springfield | Springfield | homer |
-      | moe | Moe's | homer |
+      | moe | Moe | homer |
     And the following enterprise
       | identifier | name | owner |
       | duff | Duff | homer |
@@ -30,7 +30,7 @@ Feature: related_organizations_block
     And I follow "Add a block"
     And I choose "Related Organizations"
     And I press "Add"
-    Then I should see "Moe's" within ".related-organizations-block"
+    Then I should see "Moe" within ".related-organizations-block"
     And I should see "Duff" within ".related-organizations-block"
 
   Scenario: display only sub-communities
@@ -41,12 +41,12 @@ Feature: related_organizations_block
     And I follow "Edit" within ".related-organizations-block"
     And I select "Community" from "block_organization_type"
     And I press "Save"
-    Then I should see "Moe's" within ".related-organizations-block"
+    Then I should see "Moe" within ".related-organizations-block"
     And I should not see "Duff" within ".related-organizations-block"
 
   Scenario: display both sub types on sub-organizations page
     When I go to springfield's "children" page from "SubOrganizationsPluginProfileController" of "SubOrganizations" plugin
-    Then I should see "Moe's"
+    Then I should see "Moe"
     And I should see "Duff"
 
   Scenario: display only sub-communities on sub-organizations page
@@ -58,5 +58,5 @@ Feature: related_organizations_block
     And I select "Community" from "block_organization_type"
     And I press "Save"
     And I follow "View all" within ".related-organizations-block"
-    Then I should see "Moe's" within ".profile-list"
+    Then I should see "Moe" within ".profile-list"
     And I should not see "Duff" within ".profile-list"

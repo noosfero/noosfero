@@ -37,7 +37,7 @@ Feature: comment
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
-    Then I should see "Hey ho, let's go"
+    Then I should see "Hey ho, let"
 
   @selenium-fixme
   Scenario: redirect to right place after comment a picture

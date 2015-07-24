@@ -14,7 +14,6 @@
 *= require jquery.ba-bbq.min.js
 *= require jquery.tokeninput.js
 *= require jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
-*= require select-or-die/_src/selectordie
 *= require inputosaurus.js
 *= require reflection.js
 *= require rails.js
