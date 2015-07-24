@@ -1,6 +1,6 @@
 <span class="publishing-info">
   <span class="date">
-    <%= show_date(@page.published_at) %>
+    <%= show_time(@page.published_at) %>
   </span>
   <span class="author">
     <%= _(", by %s") % (@page.author ? link_to(@page.author_name, @page.author_url) : @page.author_name) %>
