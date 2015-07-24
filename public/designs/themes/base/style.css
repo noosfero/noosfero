@@ -1502,7 +1502,8 @@ table#recaptcha_table tr:hover td {
 
 .event-date {
   background: url('/images/calendar_date_select/calendar-icon.png') no-repeat left center;
-  padding: 5px;
+  padding: 2px;
+  padding-left: 15px;
 }
 
 .event-link {
