@@ -43,9 +43,9 @@ module DatesHelper
   end
 
   # formats a datetime for displaying.
-  def show_time(time, use_numbers = true, year = true, left_time = false)
+  def show_time(time, use_numbers = false, year = true, left_time = false)
     if time && use_numbers
-      _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.strftime("%M") }
+      _('%{month}/%{day}/%{year}, %{hour}:%{minutes}') % { :year => (year ? time.year : ''), :month => time.month, :day => time.day, :hour => time.hour, :minutes => time.strftime("%M") }
     elsif time && left_time
       date_format = time_ago_in_words(time)
     elsif time
@@ -77,8 +77,8 @@ module DatesHelper
         end
       else
         _('from %{date1} to %{date2}') % {
-          :date1 => show_date(date1, use_numbers),
-          :date2 => show_date(date2, use_numbers)
+          :date1 => show_time(date1, use_numbers),
+          :date2 => show_time(date2, use_numbers)
         }
       end
     end
