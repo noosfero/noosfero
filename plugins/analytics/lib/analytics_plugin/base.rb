@@ -22,7 +22,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
         return if @analytics_skip_page_view
         return unless profile and profile.analytics_enabled?
 
-        Scheduler::Defer.later 'analytics: register page view' do
+        Noosfero::Scheduler::Defer.later 'analytics: register page view' do
           page_view = profile.page_views.build request: request, profile_id: profile,
             request_started_at: request_started_at, request_finished_at: request_finished_at
 

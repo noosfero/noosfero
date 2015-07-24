@@ -1,8 +1,8 @@
-require_dependency 'scheduler/defer'
+require_dependency 'noosfero/scheduler/defer'
 
 if defined? Unicorn
   ObjectSpace.each_object Unicorn::HttpServer do |s|
-    s.extend Scheduler::Defer::Unicorn
+    s.extend Noosfero::Scheduler::Defer::Unicorn
   end
 end
 

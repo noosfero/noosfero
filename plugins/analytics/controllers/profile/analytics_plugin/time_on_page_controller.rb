@@ -4,7 +4,7 @@ class AnalyticsPlugin::TimeOnPageController < ProfileController
 
   def page_load
     # to avoid concurrency problems with the original deferred request, also defer this
-    Scheduler::Defer.later do
+    Noosfero::Scheduler::Defer.later do
       page_view = profile.page_views.where(request_id: params[:id]).first
       page_view.request = request
       page_view.page_load!
