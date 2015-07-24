@@ -35,7 +35,7 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def communities
-    object.communities.public.map {|community| {:url => profile_homepage(context, community), :name => community.name}}
+    object.communities.is_public.map {|community| {:url => profile_homepage(context, community), :name => community.name}}
   end
 
   private

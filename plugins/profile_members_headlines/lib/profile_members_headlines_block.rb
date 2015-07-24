@@ -26,7 +26,7 @@ class ProfileMembersHeadlinesBlock < Block
   end
 
   def authors_list
-    result = owner.members_by_role(filtered_roles).public.includes([:image,:domains,:preferred_domain,:environment]).order('updated_at DESC')
+    result = owner.members_by_role(filtered_roles).is_public.includes([:image,:domains,:preferred_domain,:environment]).order('updated_at DESC')
 
     result.all(:limit => limit * 5).select { |p| p.has_headline?
 }.slice(0..limit-1)
