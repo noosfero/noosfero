@@ -84,7 +84,7 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'fallback to current year/month in show_month' do
-    Date.expects(:today).returns(Date.new(2008,11,1)).at_least_once
+    DateTime.expects(:now).returns(DateTime.new(2008,11,1)).at_least_once
     assert_equal 'November 2008', show_month(nil, nil)
     assert_equal 'November 2008', show_month('', '')
   end

@@ -23,7 +23,7 @@ class Event < Article
 
   def initialize(*args)
     super(*args)
-    self.start_date ||= Date.today
+    self.start_date ||= DateTime.now
   end
 
   validates_presence_of :title, :start_date
@@ -35,7 +35,7 @@ class Event < Article
   end
 
   scope :by_day, lambda { |date|
-    { :conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}],
+    { :conditions => [' start_date >= :start_date AND start_date <= :end_date AND end_date IS NULL OR (start_date <= :end_date  AND end_date >= :start_date)', {:start_date => date.beginning_of_day, :end_date => date.end_of_day}],
       :order => 'start_date ASC'
     }
   }
@@ -80,7 +80,7 @@ class Event < Article
 
   def self.date_range(year, month)
     if year.nil? || month.nil?
-      today = Date.today
+      today = DateTime.now
       year = today.year
       month = today.month
     else
@@ -88,7 +88,7 @@ class Event < Article
       month = month.to_i
     end
 
-    first_day = Date.new(year, month, 1)
+    first_day = DateTime.new(year, month, 1)
     last_day = first_day + 1.month - 1.day
 
     first_day..last_day
