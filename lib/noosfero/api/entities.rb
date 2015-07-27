@@ -51,6 +51,8 @@ module Noosfero
       class Community < Profile
         root 'communities', 'community'
         expose :description
+        expose :categories
+        expose :members, :using => Person
       end
 
       class CategoryBase < Entity
@@ -86,6 +88,7 @@ module Noosfero
         expose :setting
         expose :position
         expose :hits
+        expose :path
       end
 
       class Article < ArticleBase
