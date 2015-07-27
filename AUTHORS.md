@@ -17,6 +17,7 @@ Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
 André Guedes <andrebsguedes@gmail.com>
+Andrey Aleksanyants <aaleksanyants@yahoo.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Del Esposte <arthurmde@gmail.com>
 Athos Ribeiro <athoscribeiro@gmail.com>
