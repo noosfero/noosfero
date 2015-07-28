@@ -135,6 +135,10 @@
 
 <script type="text/javascript">
 jQuery(function($) {
+  $.validator.addMethod('validEmail', function(value, element) {
+      var regex = /^([^\W_])([\w._-]+)@((?:[-_a-z0-9]+\.)+[a-z]{2,})$/i;
+      return this.optional(element) || regex.test(value);
+  }, 'Please enter a valid e-mail');
 
   $('#signup-form input[type=text], #signup-form textarea').each(function() {
     $(this).bind('blur', function() {
@@ -170,7 +174,7 @@ jQuery(function($) {
     $('#signup-balloon').fadeIn('slow');
   });
   $('#user_login').blur(function() { $('#signup-balloon').fadeOut('slow'); });
-  $('#signup-form').validate({ rules: { 'user[email]': { email: true } }, messages: { 'user[email]' : '' } });
+  $('#signup-form').validate({ rules: { 'user[email]': { email: true, validEmail: true } }, messages: { 'user[email]' : '' } });
   $('#user_email').focus(function() {
     $('#email-balloon').fadeIn('slow');
   });
