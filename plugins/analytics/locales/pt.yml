@@ -1,0 +1,10 @@
+
+pt: &pt
+  analytics_plugin:
+    lib:
+      plugin:
+        name: 'Rastreio de accesso'
+        description: 'Registra o acesso de perfis selecionados'
+
+pt-BR:
+  <<: *pt

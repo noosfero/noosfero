@@ -1,11 +1,23 @@
 #!/bin/sh
 
-test_noosfero_running() {
+test_web_backend_running() {
   assertTrue 'Noosfero running' 'pgrep -u noosfero -f thin'
+}
+
+test_delayed_job_running() {
+  assertTrue 'Delayed Job running' 'pgrep -u noosfero -f delayed_job'
+}
+
+test_feed_updater_running() {
+  assertTrue 'Feed updater running' 'pgrep -u noosfero -f feed-updater'
 }
 
 test_noosfero_responds() {
   assertTrue 'Noosfero responds' 'curl --fail http://localhost/'
+}
+
+test_noosfero_content() {
+  assertTrue 'Noosfero content' 'curl --fail http://localhost/ | grep "meta.*property=.noosfero:root"'
 }
 
 . shunit2

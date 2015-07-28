@@ -1,6 +1,8 @@
 before_script:
   - mkdir -p tmp/pids log
   - bundle check || bundle install
+# workaround for plugins with Gemfile
+  - perl -pi -e 's/--local //' script/noosfero-plugins
   - script/noosfero-plugins disableall
   - bundle exec rake makemo &>/dev/null
 # database

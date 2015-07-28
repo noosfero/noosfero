@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../test/test_helper'
+require_relative '../../../test/test_helper'
 
 def create_track(name, profile)
   track = CommunityTrackPlugin::Track.new(:abstract => 'abstract', :body => 'body', :name => name, :profile => profile)

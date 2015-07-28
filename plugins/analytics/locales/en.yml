@@ -1,0 +1,11 @@
+
+en: &en
+  analytics_plugin:
+    lib:
+      plugin:
+        name: 'Access tracking'
+        description: 'Register the access of selected profiles'
+
+en-US:
+  <<: *en
+
