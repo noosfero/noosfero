@@ -17,7 +17,6 @@ module Noosfero
         user ||= User.authenticate(params[:login], params[:password], environment)
 
         return unauthorized! unless user
-        user.generate_private_token!
         @current_user = user
         present user, :with => Entities::UserLogin
       end
