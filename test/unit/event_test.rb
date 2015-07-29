@@ -97,7 +97,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'provide nice display format' do
-    event = build(Event, :start_date => DateTime.new(2008,1,1), :end_date => DateTime.new(2008,1,1), :link => 'http://www.myevent.org', :body => '<p>my somewhat short description</p>')
+    date = Time.zone.local(2008, 1, 1, 0, 0, 0)
+    event = build(Event, :start_date => date, :end_date => date, :link => 'http://www.myevent.org', :body => '<p>my somewhat short description</p>')
     display = instance_eval(&event.to_html)
 
     assert_tag_in_string display, :content => Regexp.new("January 1, 2008")
