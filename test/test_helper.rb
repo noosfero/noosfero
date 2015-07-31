@@ -82,14 +82,6 @@ class ActiveSupport::TestCase
     assert( ((enum1 - enum2) == []) && ((enum2 - enum1) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")
   end
 
-  def assert_includes(array, element)
-    assert(array.include?(element), "<#{array.inspect}> expected to include <#{element.inspect}>")
-  end
-
-  def assert_not_includes(array, element)
-    assert(!array.include?(element), "<#{array.inspect}> expected to NOT include <#{element.inspect}>")
-  end
-
   def assert_mandatory(object, attribute, test_value = 'some random string')
     object.send("#{attribute}=", nil)
     object.valid?
