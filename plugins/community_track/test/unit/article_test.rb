@@ -18,7 +18,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'do nothing if parent is not a step' do
     folder = fast_create(Folder, :profile_id => @profile.id)
     article = Article.create!(:parent => folder, :profile => @profile, :accept_comments => false, :name => "article")
-    assert !article.accept_comments
+    refute article.accept_comments
   end
 
 end

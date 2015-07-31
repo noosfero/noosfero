@@ -150,7 +150,7 @@ class ApplicationControllerTest < ActionController::TestCase
     class DoesNotUsesBlocksTestController < ApplicationController
       no_design_blocks
     end
-    assert !DoesNotUsesBlocksTestController.new.send(:uses_design_blocks?)
+    refute DoesNotUsesBlocksTestController.new.send(:uses_design_blocks?)
   end
 
   should 'generate blocks' do

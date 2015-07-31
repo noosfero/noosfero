@@ -11,7 +11,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     vc2 = build(Environment, :name => 'Another Test Community')
     vc2.is_default = true
-    assert !vc2.valid?
+    refute vc2.valid?
     assert vc2.errors[:is_default.to_s].present?
 
     assert_equal vc, Environment.default
@@ -38,7 +38,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     v.enable('feature1', false)
     assert v.enabled?('feature1')
     v.disable('feature1', false)
-    assert !v.enabled?('feature1')
+    refute v.enabled?('feature1')
   end
 
   def test_enabled_features
@@ -50,7 +50,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def test_enabled_features_no_features_enabled
     v = fast_create(Environment)
-    assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
+    refute v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
   def test_default_enabled_features_are_enabled
@@ -66,7 +66,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert v.errors[:name.to_s].present?
     v.name = 'blablabla'
     v.valid?
-    assert !v.errors[:name.to_s].present?
+    refute v.errors[:name.to_s].present?
   end
 
   def test_terms_of_use
@@ -84,12 +84,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     v.terms_of_use = ""
     assert v.save
     v.reload
-    assert !v.has_terms_of_use?
+    refute v.has_terms_of_use?
   end
 
   def test_has_terms_of_use
     v = Environment.new
-    assert !v.has_terms_of_use?
+    refute v.has_terms_of_use?
     v.terms_of_use = 'some terms of use'
     assert v.has_terms_of_use?
   end
@@ -105,11 +105,11 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def test_has_terms_of_enterprise_use
     v = Environment.new
-    assert !v.has_terms_of_enterprise_use?
+    refute v.has_terms_of_enterprise_use?
     v.terms_of_enterprise_use = 'some terms of enterprise use'
     assert v.has_terms_of_enterprise_use?
     v.terms_of_enterprise_use = ''
-    assert !v.has_terms_of_enterprise_use?
+    refute v.has_terms_of_enterprise_use?
   end
 
   def test_should_list_top_level_categories
@@ -122,7 +122,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 2, cats.size
     assert cats.include?(cat1)
     assert cats.include?(cat2)
-    assert !cats.include?(subcat)
+    refute cats.include?(subcat)
   end
 
   def test_should_list_all_categories
@@ -157,18 +157,18 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'list displayable categories' do
     env = fast_create(Environment)
     cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 'ffa500')
-    assert ! cat1.new_record?
+    refute  cat1.new_record?
 
     # subcategories should be ignored
     subcat1 = create(Category, :environment => env, :name => 'subcategory one', :parent_id => cat1.id)
-    assert ! subcat1.new_record?
+    refute  subcat1.new_record?
 
     cat2 = create(Category, :environment => env, :name => 'category two')
-    assert !cat2.new_record?
+    refute cat2.new_record?
 
     assert_equal 1,  env.display_categories.size
     assert env.display_categories.include?(cat1)
-    assert !env.display_categories.include?(cat2)
+    refute env.display_categories.include?(cat2)
   end
 
   should 'have regions' do
@@ -192,7 +192,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     env.contact_email = 'test@example.com'
     env.valid?
-    assert !env.errors[:contact_email.to_s].present?
+    refute env.errors[:contact_email.to_s].present?
   end
 
   should 'notify contact email' do
@@ -512,10 +512,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_kind_of Person, e.person_default_template
 
     # the templates must be private
-    assert !e.enterprise_default_template.visible?
-    assert !e.inactive_enterprise_template.visible?
-    assert !e.community_default_template.visible?
-    assert !e.person_default_template.visible?
+    refute e.enterprise_default_template.visible?
+    refute e.inactive_enterprise_template.visible?
+    refute e.community_default_template.visible?
+    refute e.person_default_template.visible?
   end
 
   should 'person_templates return all templates of person' do
@@ -710,7 +710,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     p2 = fast_create(Person, :is_template => true, :environment_id => env.id)
     env.person_default_template= p2.id
-    assert !env.is_default_template?(p1)
+    refute env.is_default_template?(p1)
   end
 
   should 'is_default_template? method identify a community default template as default' do
@@ -722,7 +722,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     c2 = fast_create(Community, :is_template => true, :environment_id => env.id)
     env.community_default_template= c2.id
-    assert !env.is_default_template?(c1)
+    refute env.is_default_template?(c1)
   end
 
   should 'is_default_template? method identify a enterprise default template as default' do
@@ -734,7 +734,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     e2 = fast_create(Enterprise, :is_template => true, :environment_id => env.id)
     env.enterprise_default_template= e2.id
-    assert !env.is_default_template?(e1)
+    refute env.is_default_template?(e1)
   end
 
   should 'have a layout template' do
@@ -772,7 +772,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.custom_person_fields = { 'birth_date' => {'required' => 'true', 'active' => 'true'}, 'cell_phone' => {'required' => 'true', 'active' => 'true'}}
     expected_hash = {'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}}
     assert(env.custom_person_fields.merge(expected_hash) == env.custom_person_fields)
-    assert ! env.custom_person_fields.keys.include?('birth_date')
+    refute  env.custom_person_fields.keys.include?('birth_date')
   end
 
   should 'add schooling_status if custom_person_fields has schooling' do
@@ -782,7 +782,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.custom_person_fields = { 'schooling' => {'required' => 'true', 'active' => 'true'}}
     expected_hash = {'schooling' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'schooling_status' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}
     assert(env.custom_person_fields.merge(expected_hash) == env.custom_person_fields)
-    assert ! env.custom_person_fields.keys.include?('birth_date')
+    refute  env.custom_person_fields.keys.include?('birth_date')
   end
 
   should 'return person_fields status' do
@@ -846,7 +846,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     env.custom_enterprise_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
     assert_equal({'contact_person' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_enterprise_fields)
-    assert ! env.custom_enterprise_fields.keys.include?('contact_email')
+    refute  env.custom_enterprise_fields.keys.include?('contact_email')
   end
 
   should 'return enteprise_fields status' do
@@ -889,7 +889,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     env.custom_community_fields = { 'contact_email' => {'required' => 'true', 'active' => 'true'}, 'contact_person' => {'required' => 'true', 'active' => 'true'}}
     assert_equal({'contact_person' => {'required' => 'true', 'signup' => 'true', 'active' => 'true'}}, env.custom_community_fields)
-    assert ! env.custom_community_fields.keys.include?('contact_email')
+    refute  env.custom_community_fields.keys.include?('contact_email')
   end
 
   should 'return community_fields status' do
@@ -1165,7 +1165,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   should "terms of use not be an blank string" do
     v = fast_create(Environment)
     v.terms_of_use = '   '
-    assert !v.has_terms_of_use?
+    refute v.has_terms_of_use?
   end
 
   should 'have currency unit attribute' do
@@ -1410,7 +1410,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.reports_lower_bound = 5
     environment.valid?
-    assert !environment.errors[:reports_lower_bound.to_s].present?
+    refute environment.errors[:reports_lower_bound.to_s].present?
   end
 
   should 'be able to enable or disable a plugin with the class or class name' do
@@ -1424,7 +1424,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.disable_plugin(Plugin.to_s)
     environment.reload
-    assert !environment.plugin_enabled?(Plugin)
+    refute environment.plugin_enabled?(Plugin)
   end
 
   should 'activate on database all available plugins' do
@@ -1492,7 +1492,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     Environment.login_redirection_options.keys.each do |redirection|
       environment.redirection_after_login = redirection
       environment.save
-      assert !environment.errors[:redirection_after_login.to_s].present?
+      refute environment.errors[:redirection_after_login.to_s].present?
     end
   end
 
@@ -1513,7 +1513,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     Environment.signup_redirection_options.keys.each do |redirection|
       environment.redirection_after_signup = redirection
       environment.save
-      assert !environment.errors[:redirection_after_signup.to_s].present?
+      refute environment.errors[:redirection_after_signup.to_s].present?
     end
   end
 
@@ -1537,14 +1537,14 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'not consider signup welcome text if not defined' do
     env = Environment.default
-    assert !env.has_signup_welcome_text?
+    refute env.has_signup_welcome_text?
   end
 
   should 'not consider signup welcome text if nil' do
     env = Environment.default
 
     env.signup_welcome_text = nil
-    assert !env.has_signup_welcome_text?
+    refute env.has_signup_welcome_text?
   end
 
   should 'not consider signup welcome text if body is nil' do
@@ -1553,7 +1553,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.signup_welcome_text = {
       :subject => 'Welcome to the environment',
     }
-    assert !env.has_signup_welcome_text?
+    refute env.has_signup_welcome_text?
   end
 
   should 'consider signup welcome text if subject is nil but body is defined' do
@@ -1604,7 +1604,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.default_language = 'en'
     environment.valid?
-    assert !environment.errors[:default_language.to_s].present?
+    refute environment.errors[:default_language.to_s].present?
   end
 
   should 'define default locale or use the config default locale' do
@@ -1627,7 +1627,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.languages = ['en']
     environment.valid?
-    assert !environment.errors[:languages.to_s].present?
+    refute environment.errors[:languages.to_s].present?
   end
 
   should 'define locales or use the config locales' do
@@ -1655,14 +1655,14 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'not consider custom welcome screen text if not defined' do
     env = Environment.default
-    assert !env.has_custom_welcome_screen?
+    refute env.has_custom_welcome_screen?
   end
 
   should 'not consider custom welcome screen text if nil' do
     env = Environment.default
 
     env.signup_welcome_screen_body = nil
-    assert !env.has_custom_welcome_screen?
+    refute env.has_custom_welcome_screen?
   end
 
   should 'consider signup welcome screen if body is defined' do
@@ -1699,7 +1699,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'has_license be false if there is no license in enviroment' do
     e = fast_create(Environment)
 
-    assert !e.has_license?
+    refute e.has_license?
   end
 
   should 'validates_inclusion_of date format' do
@@ -1711,23 +1711,23 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.date_format = "numbers_with_year"
     environment.valid?
-    assert !environment.errors[:date_format.to_s].present?
+    refute environment.errors[:date_format.to_s].present?
 
     environment.date_format = "numbers"
     environment.valid?
-    assert !environment.errors[:date_format.to_s].present?
+    refute environment.errors[:date_format.to_s].present?
 
     environment.date_format = "month_name_with_year"
     environment.valid?
-    assert !environment.errors[:date_format.to_s].present?
+    refute environment.errors[:date_format.to_s].present?
 
     environment.date_format = "month_name"
     environment.valid?
-    assert !environment.errors[:date_format.to_s].present?
+    refute environment.errors[:date_format.to_s].present?
 
     environment.date_format = "past_time"
     environment.valid?
-    assert !environment.errors[:date_format.to_s].present?
+    refute environment.errors[:date_format.to_s].present?
   end
 
 end

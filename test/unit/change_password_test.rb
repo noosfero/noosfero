@@ -16,7 +16,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     change.status = Task::Status::FINISHED
     change.password = 'right'
     change.password_confirmation = 'wrong'
-    assert !change.valid?
+    refute change.valid?
     assert change.errors[:password.to_s].present?
 
 

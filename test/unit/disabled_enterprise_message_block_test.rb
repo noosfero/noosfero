@@ -19,7 +19,7 @@ class DisabledEnterpriseMessageBlockTest < ActiveSupport::TestCase
   end
 
   should 'not be editable' do
-    assert !DisabledEnterpriseMessageBlock.new.editable?
+    refute DisabledEnterpriseMessageBlock.new.editable?
   end
 
 end

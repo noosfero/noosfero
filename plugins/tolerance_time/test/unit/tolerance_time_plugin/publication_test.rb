@@ -10,8 +10,8 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
     publication.target = fast_create(Article)
     publication.valid?
 
-    assert !publication.errors[:target_id].present?
-    assert !publication.errors[:target_type].present?
+    refute publication.errors[:target_id].present?
+    refute publication.errors[:target_type].present?
   end
 
   should 'validate uniqueness of target' do
@@ -51,9 +51,9 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
     on_time_comment.save!
 
     assert expired_article.expired?
-    assert !on_time_article.expired?
+    refute on_time_article.expired?
     assert expired_comment.expired?
-    assert !on_time_comment.expired?
+    refute on_time_comment.expired?
   end
 
   should 'consider tolerance infinity if not defined' do
@@ -64,7 +64,7 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
     article_publication.save!
     ToleranceTimePlugin::Tolerance.create!(:profile => profile)
 
-    assert !article_publication.expired?
+    refute article_publication.expired?
   end
 
   should 'not crash if profile has no tolerance yet defined' do
@@ -74,6 +74,6 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
     article_publication.created_at = 1000.years.ago
     article_publication.save!
 
-    assert !article_publication.expired?
+    refute article_publication.expired?
   end
 end

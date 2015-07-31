@@ -5,7 +5,7 @@ class QualifierTest < ActiveSupport::TestCase
 
   should 'environment is mandatory' do
     qualifier = Qualifier.new(:name => 'Qualifier without environment')
-    assert !qualifier.valid?
+    refute qualifier.valid?
 
     qualifier.environment = fast_create(Environment)
     assert qualifier.valid?
@@ -25,7 +25,7 @@ class QualifierTest < ActiveSupport::TestCase
   should 'name is mandatory' do
     env_one = fast_create(Environment)
     qualifier = env_one.qualifiers.build
-    assert !qualifier.valid?
+    refute qualifier.valid?
 
     qualifier.name = 'Qualifier name'
     assert qualifier.valid?

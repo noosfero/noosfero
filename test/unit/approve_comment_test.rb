@@ -162,7 +162,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
   should 'accept_disabled be false if there is an article associated to task' do
     a = ApproveComment.new(:comment_attributes => @comment.attributes.to_json)
-    assert !a.accept_disabled?
+    refute a.accept_disabled?
   end
 
   should 'have target notification description' do

@@ -24,7 +24,7 @@ class EmailActivationTest < ActiveSupport::TestCase
 
   should 'enable user email when finish' do
     ze = create_user('zezinho', :environment_id => Environment.default.id)
-    assert !ze.enable_email
+    refute ze.enable_email
     task = fast_create(EmailActivation, :requestor_id => ze.person.id, :target_id => Environment.default.id)
     task.finish
     ze.reload
@@ -33,7 +33,7 @@ class EmailActivationTest < ActiveSupport::TestCase
 
   should 'deliver email after enabling mailbox' do
     ze = create_user('zezinho', :environment_id => Environment.default.id, :email => 'ze@example.com')
-    assert !ze.enable_email
+    refute ze.enable_email
     task = EmailActivation.create!(:requestor => ze.person, :target => Environment.default)
     task.finish
 
@@ -46,7 +46,7 @@ class EmailActivationTest < ActiveSupport::TestCase
     assert task.save!
 
     another_task = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
-    assert !another_task.save, "Should not be able to save another task"
+    refute another_task.save, "Should not be able to save another task"
   end
 
   should 'deliver activation email notification' do

@@ -167,7 +167,7 @@ class ThemeTest < ActiveSupport::TestCase
     [Theme.find(t2.id), Theme.find(t1.id)].each do |theme|
       assert Theme.approved_themes(profile).include?(theme)
     end
-    assert ! Theme.approved_themes(profile).include?(Theme.find(t3.id))
+    refute  Theme.approved_themes(profile).include?(Theme.find(t3.id))
   end
 
   should 'not list non theme files or dirs inside themes dir' do
@@ -188,7 +188,7 @@ class ThemeTest < ActiveSupport::TestCase
   end
 
   should 'not be public by default' do
-    assert ! Theme.new('test').public
+    refute  Theme.new('test').public
   end
 
   should 'not crash with nil or invalid owner_type' do

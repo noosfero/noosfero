@@ -47,7 +47,7 @@ class EventTest < ActiveSupport::TestCase
     assert e.errors[:start_date.to_s].present?
     e.start_date = Date.today
     e.valid?
-    assert !e.errors[:start_date.to_s].present?
+    refute e.errors[:start_date.to_s].present?
   end
 
   should 'have a end date' do
@@ -67,7 +67,7 @@ class EventTest < ActiveSupport::TestCase
 
     e.end_date = Date.new(2008,01,05)
     e.valid?
-    assert !e.errors[:start_date.to_s].present?
+    refute e.errors[:start_date.to_s].present?
   end
 
   should 'find by range of dates' do
@@ -223,8 +223,8 @@ class EventTest < ActiveSupport::TestCase
     assert month_events.include?(current_month_event_1)
     assert month_events.include?(current_month_event_2)
 
-    assert !month_events.include?(last_month_event)
-    assert !month_events.include?(next_month_event)
+    refute month_events.include?(last_month_event)
+    refute month_events.include?(next_month_event)
   end
 
   should 'event by month ordered by start date'do
@@ -339,7 +339,7 @@ class EventTest < ActiveSupport::TestCase
 
     event = Event.new(:profile => profile)
 
-    assert !event.translatable?
+    refute event.translatable?
   end
 
   should 'be translatable if there is languages on environment' do
@@ -348,7 +348,7 @@ class EventTest < ActiveSupport::TestCase
     profile = fast_create(Person, :environment_id => environment.id)
     event = fast_create(Event, :profile_id => profile.id)
 
-    assert !event.translatable?
+    refute event.translatable?
 
 
     environment.languages = ['en','pt','fr']

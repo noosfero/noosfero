@@ -595,7 +595,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "Message successfully sent.", assigns(:message)
     profile.reload
-    assert !profile.scraps_received.empty?
+    refute profile.scraps_received.empty?
   end
 
   should "leave a scrap on another profile" do
@@ -608,7 +608,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "Message successfully sent.", assigns(:message)
     another_person.reload
-    assert !another_person.scraps_received.empty?
+    refute another_person.scraps_received.empty?
   end
 
   should "the owner of scrap could remove it" do
@@ -729,7 +729,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not see the friends activities in the current profile' do
     p2 = create_user.person
-    assert !profile.is_a_friend?(p2)
+    refute profile.is_a_friend?(p2)
     p3 = create_user.person
     p3.add_friend(profile)
     assert p3.is_a_friend?(profile)
@@ -753,7 +753,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'see all the activities in the current profile network' do
     p1= create_user.person
     p2= create_user.person
-    assert !p1.is_a_friend?(p2)
+    refute p1.is_a_friend?(p2)
 
     p3= create_user.person
     p3.add_friend(p1)
@@ -783,7 +783,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'the network activity be visible only to profile followers' do
     p1= create_user.person
     p2= create_user.person
-    assert !p1.is_a_friend?(p2)
+    refute p1.is_a_friend?(p2)
 
     p3= create_user.person
     p3.add_friend(p1)
@@ -826,7 +826,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'the network activity be visible only to logged users' do
     p1= create_user.person
     p2= create_user.person
-    assert !p1.is_a_friend?(p2)
+    refute p1.is_a_friend?(p2)
     p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
@@ -862,7 +862,7 @@ class ProfileControllerTest < ActionController::TestCase
     p1= fast_create(Person)
     community = fast_create(Community)
     p2= fast_create(Person)
-    assert !p1.is_a_friend?(p2)
+    refute p1.is_a_friend?(p2)
     community.add_member(p1)
     community.add_member(p2)
     ActionTracker::Record.destroy_all
@@ -888,7 +888,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'the self activity not crashes with user not logged in' do
     p1= create_user.person
     p2= create_user.person
-    assert !p1.is_a_friend?(p2)
+    refute p1.is_a_friend?(p2)
     p3= create_user.person
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
@@ -1404,7 +1404,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert !/This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
+    refute /This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
   end
 
   should 'display comment in wall from non logged users after click in view all comments' do

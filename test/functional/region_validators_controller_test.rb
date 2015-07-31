@@ -26,7 +26,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
-    assert !region.new_record?
+    refute region.new_record?
 
     @controller.expects(:environment).returns(environment).at_least_once
 
@@ -42,7 +42,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     give_permission('ze', 'manage_environment_validators', environment)    
     region = Region.new(:name => 'my region')
     environment.regions << region
-    assert !region.new_record?
+    refute region.new_record?
     org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
@@ -58,7 +58,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
-    assert !region.new_record?
+    refute region.new_record?
     org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
@@ -75,7 +75,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
-    assert !region.new_record?
+    refute region.new_record?
     org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
     region.validators << org
 
@@ -85,7 +85,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to :action => 'region', :id => region.id
     
-    assert !Region.find(region.id).validators.include?(org)
+    refute Region.find(region.id).validators.include?(org)
   end
 
 end

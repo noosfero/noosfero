@@ -14,7 +14,7 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
     form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
     submission.form = form
     submission.valid?
-    assert !submission.errors.include?(:form)
+    refute submission.errors.include?(:form)
   end
 
   should 'belong to a profile' do
@@ -32,8 +32,8 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
     submission.author_name = 'Jack Sparrow'
     submission.author_email = 'jack@black-pearl.com'
     submission.valid?
-    assert !submission.errors.include?(:author_name)
-    assert !submission.errors.include?(:author_email)
+    refute submission.errors.include?(:author_name)
+    refute submission.errors.include?(:author_email)
   end
 
   should 'have answers' do

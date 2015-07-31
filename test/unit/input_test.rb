@@ -11,7 +11,7 @@ class InputTest < ActiveSupport::TestCase
 
     input.product_category = product_category
     input.valid?
-    assert !input.errors[:product_category.to_s].present?
+    refute input.errors[:product_category.to_s].present?
   end
 
   should 'require product' do
@@ -24,7 +24,7 @@ class InputTest < ActiveSupport::TestCase
 
     input.product = product
     input.valid?
-    assert !input.errors[:product.to_s].present?
+    refute input.errors[:product.to_s].present?
   end
 
   should 'store inputs ordered by position' do
@@ -64,7 +64,7 @@ class InputTest < ActiveSupport::TestCase
 
   should 'dont have price details when price related fields was not filled' do
     input = Input.new
-    assert !input.has_price_details?
+    refute input.has_price_details?
   end
 
   should 'has price details if price_per_unit filled' do
@@ -79,7 +79,7 @@ class InputTest < ActiveSupport::TestCase
 
   should 'not have price details if only unit is filled' do
     input = build(Input, :unit => Unit.new)
-    assert !input.has_price_details?
+    refute input.has_price_details?
   end
 
   should 'accept price_per_unit in american\'s or brazilian\'s currency format' do

@@ -24,12 +24,12 @@ class UserTest < ActiveSupport::TestCase
 
   should 'not activate user when created without oauth' do
     user = fast_create(User)
-    assert !user.activated?
+    refute user.activated?
   end
 
   should 'not make activation code when created with oauth' do
     user = User.create!(:email => 'testoauth@example.com', :login => 'testoauth', :oauth_providers => [provider])
-    assert !user.activation_code
+    refute user.activation_code
   end
 
   should 'make activation code when created without oauth' do

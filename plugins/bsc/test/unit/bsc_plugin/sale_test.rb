@@ -18,8 +18,8 @@ class BscPlugin::SaleTest < ActiveSupport::TestCase
     sale.product = product
     sale.contract = contract
 
-    assert !sale.errors.invalid?(product)
-    assert !sale.errors.invalid?(contract)
+    refute sale.errors.invalid?(product)
+    refute sale.errors.invalid?(contract)
   end
 
   should 'validate uniqueness of product and contract composed' do
@@ -43,7 +43,7 @@ class BscPlugin::SaleTest < ActiveSupport::TestCase
 
     sale.quantity = 3
     sale.valid?
-    assert !sale.errors.invalid?(:quantity)
+    refute sale.errors.invalid?(:quantity)
   end
 
   should 'set default price as product price if no price indicated' do

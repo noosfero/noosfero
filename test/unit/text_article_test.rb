@@ -92,7 +92,7 @@ class TextArticleTest < ActiveSupport::TestCase
 
     text = TextArticle.new(:profile => profile)
 
-    assert !text.translatable?
+    refute text.translatable?
   end
 
   should 'be translatable if there is languages on environment' do
@@ -101,7 +101,7 @@ class TextArticleTest < ActiveSupport::TestCase
     profile = fast_create(Person, :environment_id => environment.id)
     text = fast_create(TextArticle, :profile_id => profile.id)
 
-    assert !text.translatable?
+    refute text.translatable?
 
     environment.languages = ['en','pt','fr']
     environment.save

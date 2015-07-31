@@ -9,7 +9,7 @@ class SpaminatorPlugin::ReportTest < ActiveSupport::TestCase
 
     report.environment = Environment.default
     report.valid?
-    assert !report.errors.include?(:environment)
+    refute report.errors.include?(:environment)
   end
 
   should 'have scope of all reports from an environment' do

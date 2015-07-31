@@ -14,7 +14,7 @@ class BscPlugin::ContractTest < ActiveSupport::TestCase
 
     contract.bsc = BscPlugin::Bsc.new
     contract.valid?
-    assert !contract.errors.invalid?(:bsc)
+    refute contract.errors.invalid?(:bsc)
   end
 
   should 'associate contract with products through sales' do

@@ -10,7 +10,7 @@ class SearchTermOccurrenceTest < ActiveSupport::TestCase
 
   should 'have term' do
     search_term_occurrence = SearchTermOccurrence.new
-    assert !search_term_occurrence.valid?
+    refute search_term_occurrence.valid?
     assert search_term_occurrence.errors.has_key?(:search_term)
   end
 

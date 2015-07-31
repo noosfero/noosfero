@@ -25,15 +25,15 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     p.identifier = 'rightformat2007'
     p.valid?
-    assert ! p.errors[:identifier.to_s].present?
+    refute  p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat'
     p.valid?
-    assert ! p.errors[:identifier.to_s].present?
+    refute  p.errors[:identifier.to_s].present?
 
     p.identifier = 'right_format'
     p.valid?
-    assert ! p.errors[:identifier.to_s].present?
+    refute  p.errors[:identifier.to_s].present?
   end
 
   def test_has_domains
@@ -83,9 +83,9 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'create default set of blocks' do
     e = create(Enterprise, :name => 'my new community', :identifier => 'mynewcommunity')
 
-    assert !e.boxes[0].blocks.empty?, 'enterprise must have blocks in area 1'
-    assert !e.boxes[1].blocks.empty?, 'enterprise must have blocks in area 2'
-    assert !e.boxes[2].blocks.empty?, 'enterprise must have blocks in area 3'
+    refute e.boxes[0].blocks.empty?, 'enterprise must have blocks in area 1'
+    refute e.boxes[1].blocks.empty?, 'enterprise must have blocks in area 2'
+    refute e.boxes[2].blocks.empty?, 'enterprise must have blocks in area 3'
   end
 
   should 'allow to add new members if has no members' do
@@ -147,7 +147,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     ent.data[:blocked] = true
     ent.save
     ent.unblock
-    assert !Enterprise.find(ent.id).blocked?
+    refute Enterprise.find(ent.id).blocked?
   end
 
   should 'enable and make user admin' do
@@ -302,29 +302,29 @@ class EnterpriseTest < ActiveSupport::TestCase
     e = Environment.default
     e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
     enterprise = build(Enterprise, :environment => e)
-    assert ! enterprise.valid?
+    refute  enterprise.valid?
     assert enterprise.errors[:contact_phone.to_s].present?
 
     enterprise.contact_phone = '99999'
     enterprise.valid?
-    assert ! enterprise.errors[:contact_phone.to_s].present?
+    refute  enterprise.errors[:contact_phone.to_s].present?
   end
 
   should 'not require fields if enterprise is a template' do
     e = Environment.default
     e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
     enterprise = build(Enterprise, :environment => e)
-    assert ! enterprise.valid?
+    refute  enterprise.valid?
     assert enterprise.errors[:contact_phone.to_s].present?
 
     enterprise.is_template = true
     enterprise.valid?
-    assert ! enterprise.errors[:contact_phone.to_s].present?
+    refute  enterprise.errors[:contact_phone.to_s].present?
   end
 
   should 'enable contact' do
     enterprise = build(Enterprise, :enable_contact_us => false)
-    assert !enterprise.enable_contact?
+    refute enterprise.enable_contact?
     enterprise.enable_contact_us = true
     assert enterprise.enable_contact?
   end
@@ -370,7 +370,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.disable('enterprises_are_validated_when_created')
     e.save
     enterprise = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent2')
-    assert !enterprise.validated
+    refute enterprise.validated
   end
 
   should 'have inactive_template when creating enterprise and feature is enabled' do
@@ -437,11 +437,11 @@ class EnterpriseTest < ActiveSupport::TestCase
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    assert !p1.is_member_of?(e)
+    refute p1.is_member_of?(e)
     e.add_member(p1)
     assert p1.is_member_of?(e)
 
-    assert !p3.is_member_of?(e)
+    refute p3.is_member_of?(e)
     e.add_member(p3)
     assert p3.is_member_of?(e)
 
@@ -514,14 +514,14 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     member = create_user('memberuser').person
     c.add_member(member)
-    assert !c.is_admin?(member)
+    refute c.is_admin?(member)
   end
 
   should 'a moderator user not be a community admin' do
     c = fast_create(Enterprise, :name => 'my test profile', :identifier => 'mytestprofile')
     moderator = create_user('moderatoruser').person
     c.add_moderator(moderator)
-    assert !c.is_admin?(moderator)
+    refute c.is_admin?(moderator)
   end
 
 

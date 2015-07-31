@@ -11,7 +11,7 @@ class ProductCategoriesBlockTest < ActiveSupport::TestCase
     assert block.visible?
 
     block.box.environment.disable('products_for_enterprises')
-    assert !block.visible?
+    refute block.visible?
   end
 
   should 'have display option to show only on catalog' do
@@ -29,7 +29,7 @@ class ProductCategoriesBlockTest < ActiveSupport::TestCase
     block.box = box
     block.box.environment.enable('products_for_enterprises')
 
-    assert !block.visible?(:params => {:controller => 'any_other'})
+    refute block.visible?(:params => {:controller => 'any_other'})
     assert block.visible?(:params => {:controller => 'catalog'})
   end
 end

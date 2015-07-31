@@ -15,7 +15,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
             },
             :without_protection => true
           )
-    assert !WorkAssignmentPlugin.is_submission?(content)
+    refute WorkAssignmentPlugin.is_submission?(content)
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     content.parent = work_assignment
@@ -28,7 +28,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
 
   should 'be able to download submission if work_assignment published submissions' do
     submission = create_submission
-    assert !WorkAssignmentPlugin.can_download_submission?(nil, submission)
+    refute WorkAssignmentPlugin.can_download_submission?(nil, submission)
 
     work_assignment = submission.parent.parent
     work_assignment.publish_submissions = true
@@ -41,7 +41,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'be able to download submission if the user is author of it' do
     person = fast_create(Person)
     submission = create_submission
-    assert !WorkAssignmentPlugin.can_download_submission?(person, submission)
+    refute WorkAssignmentPlugin.can_download_submission?(person, submission)
 
     submission = create_submission(person)
     assert WorkAssignmentPlugin.can_download_submission?(person, submission)
@@ -50,7 +50,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'be able to download submission if the user has the view_private_content permission on the profile' do
     person = fast_create(Person)
     submission = create_submission
-    assert !WorkAssignmentPlugin.can_download_submission?(person, submission)
+    refute WorkAssignmentPlugin.can_download_submission?(person, submission)
 
     moderator = create_user_with_permission('moderator', 'view_private_content', submission.profile)
     assert WorkAssignmentPlugin.can_download_submission?(moderator, submission)

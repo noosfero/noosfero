@@ -114,7 +114,7 @@ class TaskTest < ActiveSupport::TestCase
     task1 = Task.create!
     task2 = build(Task, :code => task1.code)
 
-    assert !task2.valid?
+    refute task2.valid?
     assert task2.errors[:code.to_s].present?
   end
 
@@ -391,15 +391,15 @@ class TaskTest < ActiveSupport::TestCase
     t = Task.new
     t.spam = true
     assert t.spam?
-    assert !t.ham?
+    refute t.ham?
 
     t.spam = false
     assert t.ham?
-    assert !t.spam?
+    refute t.spam?
 
     t.spam = nil
-    assert !t.spam?
-    assert !t.ham?
+    refute t.spam?
+    refute t.ham?
   end
 
   should 'be able to select non-spam tasks' do
