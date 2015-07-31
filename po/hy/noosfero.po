@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1-166-gaf47713\n"
 "POT-Creation-Date: 2015-06-01 17:26-0300\n"
-"PO-Revision-Date: 2015-07-24 21:19+0200\n"
+"PO-Revision-Date: 2015-07-31 11:34+0200\n"
 "Last-Translator: Andrey Aleksanyants <aaleksanyants@yahoo.com>\n"
 "Language-Team: Armenian "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/hy/>\n"
@@ -708,7 +708,7 @@ msgstr "Օրացույց"
 
 #: app/models/event.rb:114
 msgid "When:"
-msgstr "Երբ"
+msgstr "Երբ՝"
 
 #: app/models/event.rb:118
 msgid "URL:"
@@ -717,7 +717,7 @@ msgstr "URL:"
 #: app/models/event.rb:122 app/helpers/enterprise_homepage_helper.rb:10
 #: app/views/cms/_event.html.erb:17
 msgid "Address:"
-msgstr "Հասցե"
+msgstr "Հասցե՝"
 
 #: app/models/forum.rb:25 app/models/forum.rb:29
 #: app/models/link_list_block.rb:31 app/helpers/application_helper.rb:939
@@ -1236,7 +1236,7 @@ msgstr ""
 
 #: app/models/article_block.rb:21
 msgid "Article not selected yet."
-msgstr "Հոդվածը դեռ ընտրված չէ:"
+msgstr "Հոդվածը դեռ ընտրված չէ։"
 
 #: app/models/article.rb:17
 #, fuzzy
@@ -1911,7 +1911,7 @@ msgstr "Տեսողական խմբագրիչ ունեցող տեքստային հ
 
 #: app/models/tiny_mce_article.rb:10
 msgid "Not accessible for visually impaired users."
-msgstr "Հասանելի չէ տեսողության խնդիրներ ունեցող մասնակիցների համար:"
+msgstr "Հասանելի չէ տեսողության հետ խնդիրներ ունեցող օգտվողների համար։"
 
 #: app/models/suggest_article.rb:51
 #, fuzzy
@@ -1947,7 +1947,7 @@ msgstr "RSS հոսք"
 
 #: app/models/rss_feed.rb:97
 msgid "Provides a news feed of your more recent articles."
-msgstr "Ձեր վերջին հոդվածները կներկայացվեն RSS հոսքի փոխանցումների միջոցով"
+msgstr "Ձեր վերջին հոդվածները RSS լրահոսի տեսքով։"
 
 #: app/models/raw_html_article.rb:4
 msgid "HTML"
@@ -2167,7 +2167,7 @@ msgstr "Ձեռնարկության գլխավոր էջ"
 
 #: app/models/enterprise_homepage.rb:12
 msgid "Display the summary of profile."
-msgstr "Ցուցադրել համառոտ պրոֆայլը"
+msgstr "Ցուցադրել հատկագրի ամփոփումը։"
 
 #: app/models/enterprise.rb:13 app/models/enterprise.rb:16
 #: app/controllers/admin/organizations_controller.rb:9
@@ -2249,11 +2249,11 @@ msgstr ""
 
 #: app/models/change_password.rb:57
 msgid "Your password change request was cancelled at %s."
-msgstr "Ձեր գաղտնաբառը փոխելու հայցը մերժված է:"
+msgstr "Ձեր գաղտնաբառը փոխելու հայցը մերժվել է %s։"
 
 #: app/models/change_password.rb:61
 msgid "Your password was changed successfully."
-msgstr "Ձեր գաղտնաբառը բարեհաջող փոխվել է:"
+msgstr "Ձեր գաղտնաբառը բարեհաջող փոխվել է։"
 
 #: app/models/change_password.rb:71
 #, fuzzy
@@ -2367,7 +2367,7 @@ msgstr "Մարդիկ և խմբեր"
 
 #: app/models/profile_list_block.rb:40
 msgid "Clicking on the people or groups will take you to their home page."
-msgstr "Մարդկանց կամ խմբերի վրա սեղմելով` կհայտնվեք նրանց գլխավոր էջի վրա"
+msgstr "Կտտացնելով անձանց կամ խմբերի վրա՝ կվերահասցեագրվեք նրանց գլխավոր էջին։"
 
 #: app/models/profile_list_block.rb:54
 #: app/views/search/_article_tags.html.erb:7
@@ -2421,15 +2421,15 @@ msgstr "Հոդված"
 
 #: app/models/ticket.rb:5
 msgid "Ticket"
-msgstr ""
+msgstr "Տոմս"
 
 #: app/models/textile_article.rb:4
 msgid "Text article with Textile markup language"
-msgstr "Տեքստային հոդված`Textile նկարագրման լեզվով"
+msgstr "Տեքստային հոդված՝ Textile ձևաչափման լեզվով"
 
 #: app/models/textile_article.rb:8
 msgid "Accessible alternative for visually impaired users."
-msgstr "Այլ տարբերակ տեսողության խնդիրներ ունեցող մասնակիցների համար:"
+msgstr "Այլ տարբերակ տեսողության խնդիրներ ունեցող մասնակիցների համար։"
 
 #: app/models/profile_info_block.rb:4
 #, fuzzy
@@ -2441,8 +2441,8 @@ msgid ""
 "Basic information about <i>%{user}</i>: how long <i>%{user}</i> is part of "
 "<i>%{env}</i> and useful links."
 msgstr ""
-"Հիմնական տեղեկություններ. որքան ժամանակ է <i>%{user}</i> <i>%{env}</i> - ի "
-"անդամ և օգտակար հղումներ:"
+"Հիմնական տեղեկություններ <i>%{user}-ի</i> վերաբերյալ՝ որքան ժամանակ է "
+"<i>%{user}-ը</i> հանդիսանում <i>%{env}-ի</i> անդամ և օգտակար հղումներ։"
 
 #: app/models/domain.rb:17
 #, fuzzy
@@ -3017,7 +3017,7 @@ msgstr "Նոր կատեգորիա"
 
 #: app/helpers/manage_products_helper.rb:164
 msgid "Price: "
-msgstr "Գին"
+msgstr "Գինը՝ "
 
 #: app/helpers/manage_products_helper.rb:173
 #, fuzzy
@@ -3494,7 +3494,7 @@ msgstr "Բոլոր նոր կազմակերպությունները պետք է �
 #: app/helpers/features_helper.rb:5
 msgid "Administrator assigns validator organizations per region."
 msgstr ""
-"Ադմինիստրատորը նշանակում է վավերացնող կազմակերպությունների ըստ տարածաշրջանի:"
+"Ադմինիստրատորը նշանակում է վավերացնող կազմակերպությունների ըստ տարածաշրջանի։"
 
 #: app/helpers/features_helper.rb:6
 msgid "All new organizations are approve by default"
@@ -3506,7 +3506,7 @@ msgid ""
 "It does not affect the language of the content created by other users."
 msgstr ""
 "Այստեղ ընտրված լեզուն վերաբերվում է համակարգի արտաքին տեսքին (կոճակներ և "
-"այլն), և չի փոխում մասնակիցների կողմից ստեղծված հոդվածների լեզուն:"
+"այլն), և չի փոխում մասնակիցների կողմից ստեղծված հոդվածների լեզուն։"
 
 #: app/helpers/assets_helper.rb:7
 msgid "Articles"
@@ -3816,7 +3816,7 @@ msgstr "Վերջինը թարմացվել է %s"
 
 #: app/helpers/tags_helper.rb:34
 msgid "No tags yet."
-msgstr "Առայժմ պիտակներ չկան:"
+msgstr "Առայժմ պիտակներ չկան։"
 
 #: app/helpers/tags_helper.rb:35
 msgid "What are tags?"
@@ -4289,7 +4289,7 @@ msgstr "Ընտրել կատեգորիա"
 
 #: app/controllers/admin/features_controller.rb:11
 msgid "Features updated successfully."
-msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
+msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են։"
 
 #: app/controllers/admin/features_controller.rb:27
 msgid "Person fields updated successfully."
@@ -4504,7 +4504,7 @@ msgstr "Սկզբնական նյութի ստեղծումը ձախողված է"
 
 #: app/controllers/my_profile_controller.rb:20
 msgid "This action is not available for \"%s\"."
-msgstr "Այս գործողության կատարումն անհնար է «%s» - ի համար:"
+msgstr "Այս գործողության կատարումն անհնար է «%s» - ի համար։"
 
 #: app/controllers/public_controller.rb:21
 msgid ""
@@ -4592,7 +4592,7 @@ msgstr "Շնորհակալություն գրանցվելու համար:"
 
 #: app/controllers/public/account_controller.rb:154
 msgid "You have been logged out."
-msgstr "Դուք համակարգից դուրս եք եկել:"
+msgstr "Դուք համակարգից ելք եք գործել։"
 
 #: app/controllers/public/account_controller.rb:165
 msgid "Your password has been changed successfully!"
@@ -4687,7 +4687,7 @@ msgstr "Հոդվածներում «%s» պիտակները"
 
 #: app/controllers/public/profile_controller.rb:88
 msgid "%s administrator still needs to accept you as member."
-msgstr "%s դուք դեռևս ադմինիստրատորի կողմից հաստատման կարիք ունեք:"
+msgstr "%s դուք դեռևս ադմինիստրատորի կողմից հաստատման կարիք ունեք։"
 
 #: app/controllers/public/profile_controller.rb:90
 #, fuzzy
@@ -6057,7 +6057,7 @@ msgstr ""
 
 #: app/views/box_organizer/edit.html.erb:6
 msgid "Custom title for this block: "
-msgstr "Հատուկ անվանում այս բաժնի համար"
+msgstr "Այս բաժնի հայեցողական անվանումը՝ "
 
 #: app/views/box_organizer/edit.html.erb:11
 #, fuzzy
@@ -6209,8 +6209,8 @@ msgid ""
 "Note that %s will still have you as a friend, unless he/she also wants to "
 "remove you from his/her friend list."
 msgstr ""
-"Հիշեք, որ դուք կլինեք %s-ի ընկերների ցուցակում այնքան ժամանակ մինչև նա "
-"չհեռացնի Ձեզ այնտեղից: "
+"Ի նկատի ունեցեք, որ դուք կլինեք %s-ի ընկերների ցուցակում այնքան ժամանակ "
+"մինչև նա չհեռացնի Ձեզ այնտեղից։"
 
 #: app/views/friends/remove.html.erb:20
 #: app/views/profile_editor/_organization.html.erb:51
@@ -7001,7 +7001,7 @@ msgstr "Բոլոր խմբերը"
 
 #: app/views/shared/user_menu.html.erb:32
 msgid "Webmail"
-msgstr "Webmail"
+msgstr "Վեբ փոստ"
 
 #: app/views/shared/user_menu.html.erb:40
 #: app/views/environment_role_manager/make_admin.html.erb:4
@@ -7901,8 +7901,8 @@ msgid ""
 "result to add them as validators for this region. "
 msgstr ""
 "Կազմակերպությունների որոնումը սկզբում կատարիր ըստ անվան, այնուհետև "
-"օգտագործիր որոնման արդյունքների կոճակները`դրանց տարածաշրջանային վավերացնող "
-"կազմակերպություններ դարձնելու համար:"
+"օգտագործիր որոնման արդյունքների կոճակները՝ դրանց տարածաշրջանային վավերացնող "
+"կազմակերպություններ դարձնելու համար։ "
 
 #: app/views/region_validators/_region.html.erb:5
 msgid "1 validator"
@@ -7982,9 +7982,9 @@ msgid ""
 msgstr ""
 "Ձեր հոդվածը համապատասխան կատեգորիաներում տեղադրելով` դուք ավելացնում եք այն "
 "մարդկանց հասանելի դարձնելու հավանականությունը: Օրինակ, երբ մարդիկ Կովկասյան "
-"երկրների մասին հոդվածներ են փնտրում և դուք Ձեր հոդվածը դասակարգել եք որպես "
-"\"Տարածաշրջան/Կովկաս\", ապա Ձեր հոդվածը գտնելու հավանականությունը բավականին "
-"բարձրանում է: "
+"երկրների մասին հոդվածներ են փնտրում և դուք Ձեր հոդվածը դասակարգել եք որպես \""
+"Տարածաշրջան/Կովկաս\", ապա Ձեր հոդվածը գտնելու հավանականությունը բավականին "
+"բարձրանում է։"
 
 #: app/views/cms/publish_on_portal_community.html.erb:2
 #: app/views/cms/publish.html.erb:54
@@ -8051,7 +8051,7 @@ msgstr "Բոլոր հոդվածները"
 
 #: app/views/cms/_rss_feed.html.erb:13
 msgid "Only articles child of the same article as the feed"
-msgstr "Միայն հոսքի պես հոդվածի ենթահոդվածները "
+msgstr "Միայն հոսքի պես հոդվածի ենթահոդվածները"
 
 #: app/views/cms/_blog.html.erb:3
 msgid "My Blog"
@@ -8893,7 +8893,7 @@ msgid ""
 "changing your password. You should receive it in a few minutes."
 msgstr ""
 "Ձեզ ուղարկվել է էլ. նամակ, որտեղ բացատրվում են գաղտնաբառը փոխելու համար "
-"անհրաժեշտ գործողությունները: Դուք այն պետք է որ ստանաք մի քանի րոպեից: "
+"անհրաժեշտ գործողությունները: Դուք այն պետք է որ ստանաք մի քանի րոպեից։"
 
 #: app/views/account/index_anonymous.html.erb:1
 msgid "Identify yourself"
@@ -9093,9 +9093,9 @@ msgid ""
 "request password change using the <a href=\"%s\">\"I forgot my password\"</"
 "a> functionality."
 msgstr ""
-"Գաղտնաբառը փոխելու համար Ձեր կողմից օգտագործվող կոդը սխալ է: Խնդրում ենք "
-"գաղտնաբառը փոխելու համար հայց ուղարկել \"Ես մոռացել եմ գաղտնաբառս\" հղման "
-"վրա սեղմելով: "
+"Գաղտնաբառը փոխելու համար Ձեր կողմից ներկայացված կոդը սխալ է։ Խնդրում ենք "
+"գաղտնաբառը փոխելու համար հայց ներկայացնել՝ օգտագործելով <a href=\"%s\">\"Ես "
+"մոռացել եմ գաղտնաբառս\"</a> հղումը։"
 
 #: app/views/profile_search/_results-list.html.erb:4
 #, fuzzy
@@ -9376,7 +9376,7 @@ msgstr "Մանրամասն"
 
 #: app/views/enterprise_validation/view_processed.html.erb:1
 msgid "Processed validation request for %s "
-msgstr "%s-ի վավերացման դիմում"
+msgstr "%s-ի վավերացման դիմում "
 
 #: app/views/enterprise_validation/_details.html.erb:27
 msgid "Foundation Year"
@@ -10220,27 +10220,27 @@ msgstr "Տարածաշրջանային վավերացնող մարմիններ"
 
 #: app/views/map_balloon/profile.html.erb:8
 msgid "E-Mail: "
-msgstr "էլ.հասցե"
+msgstr "էլ.հասցե՝ "
 
 #: app/views/map_balloon/profile.html.erb:11
 msgid "Phone(s): "
-msgstr "Հեռախոս(ներ)"
+msgstr "Հեռախոս(ներ)՝ "
 
 #: app/views/map_balloon/profile.html.erb:14
 msgid "Location: "
-msgstr "Վայր"
+msgstr "Տեղակայում՝ "
 
 #: app/views/map_balloon/profile.html.erb:17
 msgid "Address: "
-msgstr "Հասցե"
+msgstr "Հասցե՝ "
 
 #: app/views/map_balloon/profile.html.erb:20
 msgid "Products/Services: "
-msgstr "Արտադրանք/Ծառայություններ"
+msgstr "Ապրանքներ և ծառայություններ՝ "
 
 #: app/views/map_balloon/profile.html.erb:23
 msgid "Distance: "
-msgstr "Հեռավորություն"
+msgstr "Հեռավորություն՝ "
 
 #: lib/noosfero/plugin/macro.rb:50
 msgid "Unsupported macro %s!"
