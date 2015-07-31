@@ -97,10 +97,6 @@ class ActiveSupport::TestCase
     assert !object.errors[attribute.to_s].present?
   end
 
-  def assert_subclass(parent, child)
-    assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
-  end
-
   # this check only if text has html tag
   def assert_sanitized(text)
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
