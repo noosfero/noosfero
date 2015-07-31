@@ -81,7 +81,7 @@ module ApplicationHelper
       size = html_options.delete(:size) || 'xs'
       html_options[:class] = "" unless html_options[:class]
       html_options[:class] << " btn btn-#{size} btn-#{option} icon-#{type}"
-      link_to_remote(content_tag('span', label), options, html_options.merge(title: label))
+      link_to_remote('', options, html_options.merge(title: label))
     end
 
     def icon(icon_name, html_options = {})
