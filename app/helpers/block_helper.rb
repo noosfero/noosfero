@@ -19,7 +19,7 @@ module BlockHelper
         content_tag('span', _('Title')) +
         text_field_tag('block[images][][title]', image[:title], :class => 'highlight-title', :size => 45)
       }</label></td>
-      <td>#{button_without_text(:delete, _('Remove'), '#', class: 'delete-highlight', :confirm=>_('Are you sure you want to remove this highlight'))}</td>
+      <td>#{button_without_text(:delete, _('Remove'), '#', class: 'delete-highlight', data: {confirm: _('Are you sure you want to remove this highlight')})}</td>
     </tr>
     "
   end

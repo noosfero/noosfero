@@ -1,6 +1,6 @@
 module WorkAssignmentPlugin::Helper
   include CmsHelper
-  
+
   def display_submissions(work_assignment, user)
     return if work_assignment.submissions.empty?
     content_tag('table',
@@ -32,7 +32,7 @@ module WorkAssignmentPlugin::Helper
       content_tag('td', link_to_submission(submission, user)) +
       content_tag('td', time_format(submission.created_at))+
       content_tag('td', '') +
-      content_tag('td', 
+      content_tag('td',
         if submission.parent.parent.allow_post_content?(user)
           display_delete_button(submission)
         end
@@ -67,9 +67,9 @@ module WorkAssignmentPlugin::Helper
   end
 
   def display_delete_button(article)
-    expirable_button article, :delete, _('Delete'), 
+    expirable_button article, :delete, _('Delete'),
     {:controller =>'cms', :action => 'destroy', :id => article.id },
-    :method => :post, :confirm => delete_article_message(article)
+    method: :post, 'data-confirm' => delete_article_message(article)
   end
 
   def display_privacy_button(author_folder, user)

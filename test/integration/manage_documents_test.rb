@@ -83,7 +83,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     get '/myprofile/myuser/cms'
     assert_response :success
 
-    assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}" }
+    assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
     post "/myprofile/myuser/cms/destroy/#{article.id}"
 
     assert_response :redirect

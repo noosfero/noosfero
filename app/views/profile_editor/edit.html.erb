@@ -80,9 +80,9 @@
       <% if environment.admins.include?(current_person) %>
 
         <% if profile.visible? %>
-          <%= button(:remove, _('Deactivate profile'), {:action => :deactivate_profile, :id=>profile.id}, :id=>'deactivate_profile_button', :data => {:confirm=>_("Are you sure you want to deactivate this profile?")}) %>
+          <%= button(:remove, _('Deactivate profile'), {action: :deactivate_profile, id: profile.id}, id: 'deactivate_profile_button', data: {confirm: _("Are you sure you want to deactivate this profile?")}) %>
         <% else %>
-          <%= button(:add, _('Activate profile'), {:action => :activate_profile, :id=>profile.id}, :data => {:confirm=>_("Are you sure you want to deactivate this profile?")}) %>
+          <%= button(:add, _('Activate profile'), {action: :activate_profile, id: profile.id}, data: {confirm: _("Are you sure you want to deactivate this profile?")}) %>
         <% end %>
       <% end %>
     <% end %>

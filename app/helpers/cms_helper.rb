@@ -39,7 +39,7 @@ module CmsHelper
   end
 
   def display_delete_button(article)
-    expirable_button article, :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
+    expirable_button article, :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, 'data-confirm' => delete_article_message(article)
   end
 
   def expirable_button(content, action, title, url, options = {})
@@ -47,7 +47,7 @@ module CmsHelper
     if reason.present?
       options[:class] = (options[:class] || '') + ' disabled'
       options[:disabled] = 'disabled'
-      options.delete(:confirm)
+      options.delete('data-confirm')
       options.delete(:method)
       title = reason
     end

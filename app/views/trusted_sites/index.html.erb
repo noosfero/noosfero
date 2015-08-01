@@ -16,7 +16,7 @@
       </td>
       <td style='white-space: nowrap;'>
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :site => site %>
-        <%= button_without_text :remove,  _('Remove'), {:action => :destroy, :site => site}, :method => :delete, :confirm => _('Are you sure you want to remove this site from the list of trusted sites?') %>
+        <%= button_without_text :remove,  _('Remove'), {action: :destroy, site: site}, method: :delete, data: {confirm: _('Are you sure you want to remove this site from the list of trusted sites?')} %>
       </td>
     </tr>
   <% end %>

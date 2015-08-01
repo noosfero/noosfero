@@ -14,12 +14,12 @@
 
   <div id='bsc-plugin-contracts-results'>
     <div id="bsc-plugin-sorter">
-      <%= labelled_select(_('Sort by')+' ', :sorting, :first, :last, @sorting, 
+      <%= labelled_select(_('Sort by')+' ', :sorting, :first, :last, @sorting,
         [['created_at asc', _('Date(newest first)')], ['created_at desc', _('Date(oldest first)')],
          ['client_name asc', _('Client name(A-Z)')], ['client_name desc', _('Client name(Z-A)')]],
         :onchange => "jQuery('#bsc-plugin-contracts-form').submit()") %>
     </div>
-    
+
     <% if @contracts.blank? %>
       <%= content_tag('em', _('There are no contracts at all.'))%>
     <% else %>
@@ -32,14 +32,14 @@
             </td>
             <td class="links">
               <%= link_to(c_('Edit'), :action => 'edit_contract', :contract_id => contract.id)%>
-              <%= link_to(c_('Remove'), {:action => 'destroy_contract', :contract_id => contract.id}, :confirm => _('Are you sure?'))%>
+              <%= link_to c_('Remove'), {action: 'destroy_contract', contract_id: contract.id}, data: {confirm: _('Are you sure?')} %>
             </td>
           </tr>
         <% end %>
       </table>
       <%= pagination_links @contracts %>
     <% end %>
-    
+
     <% button_bar do %>
       <%= button(:back, c_('Go back'), :controller => 'profile_editor') %>
       <%= button(:new, _('Create new contract'), :action => 'new_contract')%>

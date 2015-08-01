@@ -23,7 +23,7 @@
 
   <% button_bar do %>
     <%= submit_button :save, _('Save'), :disabled => '', :class => 'disabled' %>
-    <%= button(:cancel, _('Cancel'), '#', :class => 'cancel-price-details', 'data-confirm' => _('If you leave, you will lose all unsaved information. Are you sure you want to quit?')) %>
+    <%= button :cancel, _('Cancel'), '#', class: 'cancel-price-details', data: {confirm: _('If you leave, you will lose all unsaved information. Are you sure you want to quit?')} %>
     <%= button(:add, _('New cost'), '#', :id => 'add-new-cost') %>
     <span class='loading-area'></span>
   <% end %>

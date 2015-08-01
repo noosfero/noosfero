@@ -1330,7 +1330,7 @@ class ArticleTest < ActiveSupport::TestCase
     fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
     fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
 
-    new_root = native_article.translations.first
+    new_root = native_article.translations.order(:created_at).first
     child = (native_article.translations - [new_root]).first
     native_article.destroy
 

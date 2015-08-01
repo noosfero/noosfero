@@ -930,9 +930,9 @@ class ProfileControllerTest < ActionController::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
-    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
-    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => p1.id)
-    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => p1.id)
+    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id, updated_at: Time.now)
+    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => p1.id, updated_at: Time.now+1)
+    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => p1.id, updated_at: Time.now+2)
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -941,7 +941,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => p1.identifier
-    assert_equal [s2,s3], assigns(:activities)
+    assert_equal [s3,s2], assigns(:activities)
   end
 
   should 'the activities be the received scraps in community profile' do

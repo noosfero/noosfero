@@ -22,11 +22,11 @@
         <td class='actions'>
           <div class="members-buttons-cell">
             <% if p.visible %>
-              <%= button_without_text :'deactivate-user', _('Deactivate'), {:action => 'deactivate', :id => p.id}, :class => 'action', 'data-confirm' => _("Do you want to deactivate this organization?") %>
+              <%= button_without_text :'deactivate-user', _('Deactivate'), {:action => 'deactivate', :id => p.id}, :class => 'action', data: {confirm: _("Do you want to deactivate this organization?")} %>
             <% else %>
-              <%= button_without_text :'activate-user', _('Activate'), {:action => 'activate', :id => p.id}, :class => 'action', 'data-confirm' => _("Do you want to activate this organization?") %>
+              <%= button_without_text :'activate-user', _('Activate'), {:action => 'activate', :id => p.id}, :class => 'action', data: {confirm: _("Do you want to activate this organization?")} %>
             <% end %>
-            <%= button_without_text :'delete', _('Remove'), {:action => 'destroy', :id => p.id}, :class => 'action', 'data-method' => :post, 'data-confirm' => _("Do you want to destroy this organization?") %>
+            <%= button_without_text :'delete', _('Remove'), {:action => 'destroy', :id => p.id}, :class => 'action', 'data-method' => :post, data: {confirm: _("Do you want to destroy this organization?")} %>
          </div>
         </td>
 

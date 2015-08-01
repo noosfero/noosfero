@@ -6,7 +6,7 @@
       <%= link_to_remote(_('Remove'),
                          :update => "price-detail-#{price_detail.id}",
                          :complete => "calculateValuesForBar();",
-                         :confirm => _('Are you sure that you want to remove this cost?'),
+                         data: {confirm: _('Are you sure that you want to remove this cost?')},
                          :url => { :action => 'remove_price_detail', :id => price_detail, :product => @product }) %>
   </tr>
 <% end %>
