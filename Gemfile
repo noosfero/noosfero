@@ -11,7 +11,7 @@ gem 'daemons',                  '~> 1.1.5'
 gem 'thin',                     '~> 1.3.1'
 gem 'nokogiri',                 '~> 1.6.0'
 gem 'will_paginate'
-gem 'pothoven-attachment_fu'
+gem 'pothoven-attachment_fu',   '~> 3.2.16'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake', :require => false
@@ -58,7 +58,7 @@ group :cucumber do
   gem 'cucumber',               '~> 1.3.20'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.2.0'
-  gem 'selenium-webdriver',     '~> 2.39.0'
+  gem 'selenium-webdriver'
 end
 
 # Requires custom dependencies
