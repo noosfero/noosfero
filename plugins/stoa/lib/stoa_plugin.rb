@@ -24,7 +24,7 @@ class StoaPlugin < Noosfero::Plugin
       content_tag(:small, _('Confirm your birth date. Pay attention to the format: yyyy-mm-dd.'), :id => 'usp-birth-date-balloon'), :id => 'signup-birth-date', :style => 'display: none') +
       content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))) +
       content_tag(:small, _('Confirm your CPF number.'), :id => 'usp-cpf-balloon'), :id => 'signup-cpf', :style => 'display: none') +
-      javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
+      javascript_include_tag('plugins/stoa/javascripts/jquery.observe_field', 'plugins/stoa/javascripts/signup_complement')
     }
   end
 
