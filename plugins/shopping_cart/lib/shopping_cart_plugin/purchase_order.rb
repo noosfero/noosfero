@@ -9,7 +9,7 @@ class ShoppingCartPlugin::PurchaseOrder < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
-  settings_items :products_list, :type => Array, :default => {}
+  settings_items :products_list, :type => Hash, :default => {}
   settings_items :customer_name, :type => String
   settings_items :customer_email, :type => String
   settings_items :customer_contact_phone, :type => String

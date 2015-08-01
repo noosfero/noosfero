@@ -109,7 +109,7 @@ class SnifferPluginMyprofileController < MyProfileController
     profiles = Profile.all :conditions => {:id => products.map { |p| target_profile_id(p) }}
     profiles_by_id = {}
     profiles.each do |p|
-      p[:sniffer_plugin_distance] = distance_between_profiles(@profile, p)
+      p.sniffer_plugin_distance = distance_between_profiles(@profile, p)
       profiles_by_id[p.id] ||= p
     end
     profiles_by_id

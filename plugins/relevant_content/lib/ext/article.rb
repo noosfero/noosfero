@@ -16,7 +16,7 @@ class Article
 
   def self.most_commented_relevant_content(owner, limit)
     conditions = owner.kind_of?(Environment) ? ["comments_count > 0"] : ["profile_id = ? and comments_count > 0", owner.id]
-    result = Article.relevant_content.all.order('comments_count desc').limit(limit).where(conditions)
+    result = Article.relevant_content.order('comments_count desc').limit(limit).where(conditions)
     result.paginate({:page => 1, :per_page => limit})
   end
 

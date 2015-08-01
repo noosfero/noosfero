@@ -33,7 +33,7 @@ class RecentContentBlock < Block
   end
 
   def parents
-    selected = self.holder.articles.where(type: 'Blog').first
+    self.holder.articles.where(type: 'Blog')
   end
 
   def root
