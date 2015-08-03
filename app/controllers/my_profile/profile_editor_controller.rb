@@ -5,6 +5,7 @@ class ProfileEditorController < MyProfileController
 
   before_filter :access_welcome_page, :only => [:welcome_page]
   before_filter :back_to
+  before_filter :forbid_destroy_profile, :only => [:destroy_profile]
   helper_method :has_welcome_page
 
   def index
@@ -155,4 +156,10 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def forbid_destroy_profile
+    if environment.enabled?('forbid_destroy_profile') && !current_person.is_admin?(environment)
+      session[:notice] = _('You can not destroy the profile.')
+      redirect_to_previous_location
+    end
+  end
 end

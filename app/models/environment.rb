@@ -128,6 +128,7 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
+      'forbid_destroy_profile' => _('Forbid users of removing profiles'),
 
       'products_for_enterprises' => _('Enable products for enterprises'),
       'enterprise_registration' => _('Enterprise registration'),

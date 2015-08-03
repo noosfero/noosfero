@@ -824,6 +824,38 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_template 'destroy_profile'
   end
 
+  should 'not be able to destroy profile if forbid_destroy_profile is enabled' do
+    environment = Environment.default
+    user = create_user('user').person
+    login_as('user')
+    environment.enable('forbid_destroy_profile')
+    assert_no_difference 'Profile.count' do
+      post :destroy_profile, :profile => user.identifier
+    end
+  end
+
+  should 'display destroy_profile button' do
+    environment = Environment.default
+    user = create_user_with_permission('user', 'destroy_profile')
+    login_as('user')
+    community = fast_create(Community)
+    community.add_admin(user)
+    get :edit, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+  end
+
+  should 'not display destroy_profile button' do
+    environment = Environment.default
+    environment.enable('forbid_destroy_profile')
+    environment.save!
+    user = create_user_with_permission('user', 'destroy_profile')
+    login_as('user')
+    community = fast_create(Community)
+    community.add_admin(user)
+    get :edit, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+  end
+
   should 'be able to destroy a person' do
     person = fast_create(Person)
 
