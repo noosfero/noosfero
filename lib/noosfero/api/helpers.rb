@@ -131,6 +131,15 @@ module Noosfero
         params[:order] || "created_at DESC"
       end
 
+      def make_page_number_with_parameters(params)
+        params[:page] || 1
+      end
+
+      def make_per_page_with_parameters(params)
+        params[:per_page] ||= limit
+        params[:per_page].to_i
+      end
+
       def by_reference(scope, params)
         if params[:reference_id]
           created_at = scope.find(params[:reference_id]).created_at
@@ -143,10 +152,13 @@ module Noosfero
       def select_filtered_collection_of(object, method, params)
         conditions = make_conditions_with_parameter(params)
         order = make_order_with_parameters(params)
+        page_number = make_page_number_with_parameters(params)
+        per_page = make_per_page_with_parameters(params)
 
         objects = object.send(method)
         objects = by_reference(objects, params)
-        objects = objects.where(conditions).limit(limit).order(order)
+
+        objects = objects.where(conditions).page(page_number).per_page(per_page).order(order)
 
         objects
       end
