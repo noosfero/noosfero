@@ -8,21 +8,21 @@ module ActionTracker
       base.send :user_stamp, ActionTracker::Record
       base.send :extend, ClassMethods
     end
-  
+
     module ClassMethods
 
       def track_actions_after(verb, options = {}, &block)
         track_actions_by_time(verb, :after, options, &block)
       end
-  
+
       def track_actions_before(verb, options = {}, &block)
         track_actions_by_time(verb, :before, options, &block)
       end
-  
+
       def track_actions(verb, options = {}, &block)
         track_actions_by_time(verb, ActionTrackerConfig.default_filter_time, options, &block)
       end
-  
+
       def track_actions_by_time(verb, time, options = {}, &block)
         keep_params = options.delete(:keep_params) || options.delete('keep_params') || :all
         send("#{time}_filter", options) do |x|
@@ -32,7 +32,7 @@ module ActionTracker
         send :include, InstanceMethods
       end
     end
-  
+
     module InstanceMethods
       def save_action_for_verb(verb, keep_params = :all)
         if keep_params.is_a? Array
@@ -62,7 +62,7 @@ module ActionTracker
     def self.included(base)
       base.send :extend, ClassMethods
     end
-  
+
     module ClassMethods
       def track_actions(verb, callback, options = {}, &block)
         keep_params = options.delete(:keep_params) || options.delete('keep_params') || :all
@@ -78,11 +78,11 @@ module ActionTracker
         send :include, InstanceMethods
       end
     end
-  
+
     module InstanceMethods
       def time_spent_doing(verb, conditions = {})
         time = 0
-        tracked_actions.all(:conditions => conditions.merge({ :verb => verb.to_s })).each do |t| 
+        tracked_actions.all(:conditions => conditions.merge({ :verb => verb.to_s })).each do |t|
           time += t.updated_at - t.created_at
         end
         time.to_f
@@ -124,13 +124,7 @@ module ActionTracker
 
   module ViewHelper
     def describe(ta)
-      "".tap do |result|
-        if ta.is_a?(ActionTracker::Record)
-          result << ta.description.gsub(/\{\{(.*?)\}\}/) { eval $1 }
-        else
-          result << ""
-        end
-      end
+      send "#{ta.verb}_description", ta if ta.is_a? ActionTracker::Record
     end
   end
 
