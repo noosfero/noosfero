@@ -14,24 +14,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not create user with wrong email' do
-    user = User.new(login: 'test_user', email: 'tes*te@hotmail.com',
-                    password: '123456', password_confirmation: '123456')
-    user.save
-    assert_equal user.valid?, false
-    assert !user.errors[:email].nil?
-
-    user.email = '_teste@hotmail.com'
-    user.save
-    assert_equal user.valid?, false
-    assert !user.errors[:email].nil?
-
-    user.email = 'teste$@hotmail.com'
-    user.save
-    assert_equal user.valid?, false
-    assert !user.errors[:email].nil?
-  end
-
   def test_should_require_login
     assert_no_difference 'User.count' do
       u = new_user(:login => nil)
