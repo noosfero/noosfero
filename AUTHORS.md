@@ -23,6 +23,7 @@ Arthur Del Esposte <arthurmde@gmail.com>
 Athos Ribeiro <athoscribeiro@gmail.com>
 Aurelio A. Heckert <aurelio@colivre.coop.br>
 Braulio Bhavamitra <braulio@eita.org.br>
+Brenddon Gontijo <brenddongontijo@msn.com>
 Caio Formiga <caio.formiga@gmail.com>
 Caio Salgado <caio.csalgado@gmail.com>
 Caio SBA <caio@colivre.coop.br>
