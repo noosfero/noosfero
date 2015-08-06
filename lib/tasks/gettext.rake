@@ -98,7 +98,7 @@ Dir.glob('plugins/*').each do |plugindir|
       }
     )
     plugin_pot = File.join(po_root, "#{plugin}.pot")
-    if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.'")
+    if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.$'")
       rm_f plugin_pot
     end
     sh 'find', po_root, '-type', 'd', '-empty', '-delete'
