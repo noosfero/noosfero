@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-07-31 11:34+0200\n"
 "Last-Translator: Andrey Aleksanyants <aaleksanyants@yahoo.com>\n"
 "Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/"
@@ -4865,7 +4865,7 @@ msgstr "Անհանատական էջի տվյալների բաժին"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
 #, fuzzy
-msgid "\"The profile '#{profile.name}' was deactivated.\""
+msgid "The profile '%s' was deactivated."
 msgstr "Այս անհատական էջը"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
@@ -4874,8 +4874,9 @@ msgid "Could not deactivate profile."
 msgstr "Ձեռնարկության թարմացումն անհնար է:"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-msgid "\"The profile '#{profile.name}' was activated.\""
-msgstr ""
+#, fuzzy
+msgid "The profile '%s' was activated."
+msgstr "Այս անհատական էջը"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
 #, fuzzy
@@ -5370,8 +5371,9 @@ msgid ""
 msgstr ""
 
 #: app/views/content_viewer/article_versions.html.erb:15
-msgid "\"Version #{v.version}\""
-msgstr ""
+#, fuzzy
+msgid "Version %s"
+msgstr "Թույլտվություններ"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -7017,8 +7019,9 @@ msgid "Used when a short version of your text is needed."
 msgstr ""
 
 #: app/views/shared/_content_item.html.erb:9
-msgid "\"Published at: #{show_date(content.updated_at)}\""
-msgstr ""
+#, fuzzy
+msgid "Published at: %s"
+msgstr "%s - ի բովանդակությունը հրապարակված է %s - ով"
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
 msgid "redirecting..."
@@ -7071,8 +7074,9 @@ msgid "Create role"
 msgstr "Դեր ստեղծել"
 
 #: app/views/profile_roles/edit.html.erb:1 app/views/role/edit.html.erb:1
-msgid "\"Editing #{@role.name}\""
-msgstr ""
+#: app/views/categories/edit.html.erb:1
+msgid "Editing %s"
+msgstr "Փոփոխում %s"
 
 #: app/views/profile_roles/show.html.erb:3 app/views/role/show.html.erb:3
 msgid "Permissions"
@@ -7084,7 +7088,7 @@ msgid "Back to roles management"
 msgstr "Վերադառնալ կառավարման վահանակ"
 
 #: app/views/profile_roles/assign.html.erb:3
-msgid "\"Assign #{@role.name}\""
+msgid "Assign %s"
 msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:9
@@ -7107,7 +7111,7 @@ msgstr "Դեր ստեղծել"
 
 #: app/views/profile_roles/destroy.html.erb:1
 #, fuzzy
-msgid "\"Deleting #{@role.name}\""
+msgid "Deleting %s"
 msgstr "Վերացնել անհատական էջը"
 
 #: app/views/profile_roles/destroy.html.erb:4
@@ -7705,10 +7709,6 @@ msgstr "Ցուցադրել մենյուի մեջ"
 #, fuzzy
 msgid "Pick a color"
 msgstr "Ցուցադրել գույնը"
-
-#: app/views/categories/edit.html.erb:1
-msgid "Editing %s"
-msgstr "Փոփոխում %s"
 
 #: app/views/categories/index.html.erb:10
 #, fuzzy
@@ -10323,6 +10323,10 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#, fuzzy
+#~ msgid "\"Deleting #{@role.name}\""
+#~ msgstr "Վերացնել անհատական էջը"
 
 #~ msgid "When:"
 #~ msgstr "Երբ՝"

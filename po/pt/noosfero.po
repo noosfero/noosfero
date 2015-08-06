@@ -11,12 +11,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-08-06 22:49+0200\n"
 "Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
-"Language-Team: Portuguese "
-"<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"noosfero/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4570,15 +4570,17 @@ msgid "Welcome page could not be saved."
 msgstr "A página de boas vindas não pôde ser salva."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
-msgid "\"The profile '#{profile.name}' was deactivated.\""
-msgstr "\"O perfil '#{profile.name}' foi desativado.\""
+#, fuzzy
+msgid "The profile '%s' was deactivated."
+msgstr "O perfil foi removido."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
 msgid "Could not deactivate profile."
 msgstr "Não foi possível desativar o perfil."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-msgid "\"The profile '#{profile.name}' was activated.\""
+#, fuzzy
+msgid "The profile '%s' was activated."
 msgstr "\"O perfil '#{profile.name}' foi ativado.\""
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
@@ -5051,8 +5053,9 @@ msgstr ""
 "para vê-la e, caso queira, revertê-la."
 
 #: app/views/content_viewer/article_versions.html.erb:15
-msgid "\"Version #{v.version}\""
-msgstr "\"Versão #{v.version}\""
+#, fuzzy
+msgid "Version %s"
+msgstr "Permissões"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -6648,8 +6651,9 @@ msgid "Used when a short version of your text is needed."
 msgstr "Usada quando uma versão curta do seu texto é necessária."
 
 #: app/views/shared/_content_item.html.erb:9
-msgid "\"Published at: #{show_date(content.updated_at)}\""
-msgstr ""
+#, fuzzy
+msgid "Published at: %s"
+msgstr "Publicar imagem ou documento"
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
 msgid "redirecting..."
@@ -6702,8 +6706,9 @@ msgid "Create role"
 msgstr "Criar papel"
 
 #: app/views/profile_roles/edit.html.erb:1 app/views/role/edit.html.erb:1
-msgid "\"Editing #{@role.name}\""
-msgstr "\"Editando #{@role.name}\""
+#: app/views/categories/edit.html.erb:1
+msgid "Editing %s"
+msgstr "Editando %s"
 
 #: app/views/profile_roles/show.html.erb:3 app/views/role/show.html.erb:3
 msgid "Permissions"
@@ -6714,9 +6719,8 @@ msgid "Back to roles management"
 msgstr "Voltar para a gestão de papéis"
 
 #: app/views/profile_roles/assign.html.erb:3
-#, fuzzy
-msgid "\"Assign #{@role.name}\""
-msgstr "\"Editando #{@role.name}\""
+msgid "Assign %s"
+msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:9
 msgid "Assign role by:"
@@ -6739,8 +6743,8 @@ msgstr "Criar papel"
 
 #: app/views/profile_roles/destroy.html.erb:1
 #, fuzzy
-msgid "\"Deleting #{@role.name}\""
-msgstr "\"Editando #{@role.name}\""
+msgid "Deleting %s"
+msgstr "Remover: %s"
 
 #: app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
@@ -7303,10 +7307,6 @@ msgstr "Mostrar no menu"
 #: app/views/categories/_form.html.erb:24
 msgid "Pick a color"
 msgstr "Escolha uma cor"
-
-#: app/views/categories/edit.html.erb:1
-msgid "Editing %s"
-msgstr "Editando %s"
 
 #: app/views/categories/index.html.erb:10
 msgid "Product Categories"
@@ -9834,6 +9834,23 @@ msgstr ""
 "Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, desenvolvido "
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
+
+#~ msgid "\"The profile '#{profile.name}' was deactivated.\""
+#~ msgstr "\"O perfil '#{profile.name}' foi desativado.\""
+
+#~ msgid "\"Version #{v.version}\""
+#~ msgstr "\"Versão #{v.version}\""
+
+#~ msgid "\"Editing #{@role.name}\""
+#~ msgstr "\"Editando #{@role.name}\""
+
+#, fuzzy
+#~ msgid "\"Assign #{@role.name}\""
+#~ msgstr "\"Editando #{@role.name}\""
+
+#, fuzzy
+#~ msgid "\"Deleting #{@role.name}\""
+#~ msgstr "\"Editando #{@role.name}\""
 
 #~ msgid "When:"
 #~ msgstr "Quando:"

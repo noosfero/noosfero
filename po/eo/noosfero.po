@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2014-11-05 13:05+0200\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/noosfero/"
@@ -4459,8 +4459,9 @@ msgid "Welcome page could not be saved."
 msgstr "Unu komento"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
-msgid "\"The profile '#{profile.name}' was deactivated.\""
-msgstr ""
+#, fuzzy
+msgid "The profile '%s' was deactivated."
+msgstr "La artikolo estis forigita."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
 #, fuzzy
@@ -4468,8 +4469,9 @@ msgid "Could not deactivate profile."
 msgstr "Unu komento"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-msgid "\"The profile '#{profile.name}' was activated.\""
-msgstr ""
+#, fuzzy
+msgid "The profile '%s' was activated."
+msgstr "La artikolo estis forigita."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
 #, fuzzy
@@ -4924,8 +4926,9 @@ msgid ""
 msgstr ""
 
 #: app/views/content_viewer/article_versions.html.erb:15
-msgid "\"Version #{v.version}\""
-msgstr ""
+#, fuzzy
+msgid "Version %s"
+msgstr "Unu komento"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -6472,7 +6475,7 @@ msgid "Used when a short version of your text is needed."
 msgstr ""
 
 #: app/views/shared/_content_item.html.erb:9
-msgid "\"Published at: #{show_date(content.updated_at)}\""
+msgid "Published at: %s"
 msgstr ""
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
@@ -6522,7 +6525,8 @@ msgid "Create role"
 msgstr ""
 
 #: app/views/profile_roles/edit.html.erb:1 app/views/role/edit.html.erb:1
-msgid "\"Editing #{@role.name}\""
+#: app/views/categories/edit.html.erb:1
+msgid "Editing %s"
 msgstr ""
 
 #: app/views/profile_roles/show.html.erb:3 app/views/role/show.html.erb:3
@@ -6534,7 +6538,7 @@ msgid "Back to roles management"
 msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:3
-msgid "\"Assign #{@role.name}\""
+msgid "Assign %s"
 msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:9
@@ -6554,7 +6558,7 @@ msgid "Replace role: "
 msgstr ""
 
 #: app/views/profile_roles/destroy.html.erb:1
-msgid "\"Deleting #{@role.name}\""
+msgid "Deleting %s"
 msgstr ""
 
 #: app/views/profile_roles/destroy.html.erb:4
@@ -7094,10 +7098,6 @@ msgstr ""
 
 #: app/views/categories/_form.html.erb:24
 msgid "Pick a color"
-msgstr ""
-
-#: app/views/categories/edit.html.erb:1
-msgid "Editing %s"
 msgstr ""
 
 #: app/views/categories/index.html.erb:10

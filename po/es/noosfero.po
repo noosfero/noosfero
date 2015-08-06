@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-02-07 03:08+0200\n"
 "Last-Translator: FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic."
 "oficial@gmail.com>\n"
@@ -4768,7 +4768,7 @@ msgstr "El mensaje no pudo ser enviado"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
 #, fuzzy
-msgid "\"The profile '#{profile.name}' was deactivated.\""
+msgid "The profile '%s' was deactivated."
 msgstr "El perfil fue eliminado."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
@@ -4777,8 +4777,9 @@ msgid "Could not deactivate profile."
 msgstr "El perfil no puede ser eliminado"
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-msgid "\"The profile '#{profile.name}' was activated.\""
-msgstr ""
+#, fuzzy
+msgid "The profile '%s' was activated."
+msgstr "El perfil fue eliminado."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
 #, fuzzy
@@ -5268,8 +5269,9 @@ msgid ""
 msgstr ""
 
 #: app/views/content_viewer/article_versions.html.erb:15
-msgid "\"Version #{v.version}\""
-msgstr ""
+#, fuzzy
+msgid "Version %s"
+msgstr "Permisos"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -6901,8 +6903,9 @@ msgid "Used when a short version of your text is needed."
 msgstr "Se usa cuando una versión corta de tu texto es necesaria."
 
 #: app/views/shared/_content_item.html.erb:9
-msgid "\"Published at: #{show_date(content.updated_at)}\""
-msgstr ""
+#, fuzzy
+msgid "Published at: %s"
+msgstr "Publicar mutimedia"
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
 msgid "redirecting..."
@@ -6957,8 +6960,9 @@ msgid "Create role"
 msgstr "Crear rol"
 
 #: app/views/profile_roles/edit.html.erb:1 app/views/role/edit.html.erb:1
-msgid "\"Editing #{@role.name}\""
-msgstr ""
+#: app/views/categories/edit.html.erb:1
+msgid "Editing %s"
+msgstr "Editando %s"
 
 #: app/views/profile_roles/show.html.erb:3 app/views/role/show.html.erb:3
 msgid "Permissions"
@@ -6969,7 +6973,7 @@ msgid "Back to roles management"
 msgstr "Volver a la administración de roles"
 
 #: app/views/profile_roles/assign.html.erb:3
-msgid "\"Assign #{@role.name}\""
+msgid "Assign %s"
 msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:9
@@ -6993,8 +6997,8 @@ msgstr "Crear rol"
 
 #: app/views/profile_roles/destroy.html.erb:1
 #, fuzzy
-msgid "\"Deleting #{@role.name}\""
-msgstr "Borrando perfil %s"
+msgid "Deleting %s"
+msgstr "Eliminar: %s"
 
 #: app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
@@ -7587,10 +7591,6 @@ msgstr "Mostrar en el menú"
 #, fuzzy
 msgid "Pick a color"
 msgstr "Mostrar el color"
-
-#: app/views/categories/edit.html.erb:1
-msgid "Editing %s"
-msgstr "Editando %s"
 
 #: app/views/categories/index.html.erb:10
 msgid "Product Categories"
@@ -10218,6 +10218,10 @@ msgstr ""
 "Este sitio utiliza <a href=\"http://noosfero.org/\">Noosfero</a>, "
 "desarrollado por %s y bajo la licencia <a href=\"http://www.gnu.org/licenses/"
 "agpl.html\">GNU Affero General Public License</a> versión 3 o superior."
+
+#, fuzzy
+#~ msgid "\"Deleting #{@role.name}\""
+#~ msgstr "Borrando perfil %s"
 
 #~ msgid "When:"
 #~ msgstr "Cuando:"

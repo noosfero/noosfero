@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-07-13 10:39+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -4577,15 +4577,17 @@ msgid "Welcome page could not be saved."
 msgstr "La page de bienvenue n'a pas pu être sauvegardé."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
-msgid "\"The profile '#{profile.name}' was deactivated.\""
-msgstr "\"Le profile '#{profile.name}' a été désactivé.\""
+#, fuzzy
+msgid "The profile '%s' was deactivated."
+msgstr "Le profil est supprimé."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
 msgid "Could not deactivate profile."
 msgstr "Impossible de désactiver le profil."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-msgid "\"The profile '#{profile.name}' was activated.\""
+#, fuzzy
+msgid "The profile '%s' was activated."
 msgstr "\"Le profile '#{profile.name}' a été activé.\""
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
@@ -5049,8 +5051,9 @@ msgid ""
 msgstr ""
 
 #: app/views/content_viewer/article_versions.html.erb:15
-msgid "\"Version #{v.version}\""
-msgstr ""
+#, fuzzy
+msgid "Version %s"
+msgstr "Permissions"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -6643,8 +6646,9 @@ msgid "Used when a short version of your text is needed."
 msgstr ""
 
 #: app/views/shared/_content_item.html.erb:9
-msgid "\"Published at: #{show_date(content.updated_at)}\""
-msgstr ""
+#, fuzzy
+msgid "Published at: %s"
+msgstr "Publier le média"
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
 msgid "redirecting..."
@@ -6698,8 +6702,9 @@ msgid "Create role"
 msgstr "Créer un rôle"
 
 #: app/views/profile_roles/edit.html.erb:1 app/views/role/edit.html.erb:1
-msgid "\"Editing #{@role.name}\""
-msgstr ""
+#: app/views/categories/edit.html.erb:1
+msgid "Editing %s"
+msgstr "Édition de %s"
 
 #: app/views/profile_roles/show.html.erb:3 app/views/role/show.html.erb:3
 msgid "Permissions"
@@ -6710,7 +6715,7 @@ msgid "Back to roles management"
 msgstr "Retour au management des rôles"
 
 #: app/views/profile_roles/assign.html.erb:3
-msgid "\"Assign #{@role.name}\""
+msgid "Assign %s"
 msgstr ""
 
 #: app/views/profile_roles/assign.html.erb:9
@@ -6730,8 +6735,9 @@ msgid "Replace role: "
 msgstr "Remplacer un rôle : "
 
 #: app/views/profile_roles/destroy.html.erb:1
-msgid "\"Deleting #{@role.name}\""
-msgstr "\"Supprimer #{@role.name}\""
+#, fuzzy
+msgid "Deleting %s"
+msgstr "Détruire : %s"
 
 #: app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
@@ -7295,10 +7301,6 @@ msgstr "Afficher dans le menu"
 #: app/views/categories/_form.html.erb:24
 msgid "Pick a color"
 msgstr "Choisir la couleur"
-
-#: app/views/categories/edit.html.erb:1
-msgid "Editing %s"
-msgstr "Édition de %s"
 
 #: app/views/categories/index.html.erb:10
 msgid "Product Categories"
@@ -9965,6 +9967,12 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#~ msgid "\"The profile '#{profile.name}' was deactivated.\""
+#~ msgstr "\"Le profile '#{profile.name}' a été désactivé.\""
+
+#~ msgid "\"Deleting #{@role.name}\""
+#~ msgstr "\"Supprimer #{@role.name}\""
 
 #~ msgid "When:"
 #~ msgstr "Quand : "

@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:22-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-05-07 11:11-0300\n"
 "Last-Translator: daniel tygel <dtygel@eita.org.br>\n"
 "Language-Team: pt_BR <dtygel@eita.org.br>\n"

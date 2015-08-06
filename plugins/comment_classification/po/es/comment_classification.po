@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
-"POT-Creation-Date: 2015-08-06 17:21-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-02-24 20:46+0200\n"
 "Last-Translator: Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
