@@ -82,6 +82,28 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json['articles'].map {|a| a['id']}, child.id
   end
 
+  should 'list articles with pagination' do
+    Article.destroy_all
+    article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing")
+    article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+
+    params[:page] = 1
+    params[:per_page] = 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json_page_one = JSON.parse(last_response.body)
+
+    params[:page] = 2
+    params[:per_page] = 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json_page_two = JSON.parse(last_response.body)
+
+    assert_includes json_page_one["articles"].map { |a| a["id"] }, article_two.id
+    assert_not_includes json_page_one["articles"].map { |a| a["id"] }, article_one.id
+
+    assert_includes json_page_two["articles"].map { |a| a["id"] }, article_one.id
+    assert_not_includes json_page_two["articles"].map { |a| a["id"] }, article_two.id
+  end
+
   #############################
   #     Profile Articles      #
   #############################
