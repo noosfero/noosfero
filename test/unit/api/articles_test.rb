@@ -104,6 +104,21 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json_page_two["articles"].map { |a| a["id"] }, article_two.id
   end
 
+  should 'list articles with timestamp' do
+    article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing")
+    article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+
+    article_one.updated_at = Time.now + 3.hours
+    article_one.save!
+
+    params[:timestamp] = Time.now + 1.hours
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["articles"].map { |a| a["id"] }, article_one.id
+    assert_not_includes json["articles"].map { |a| a["id"] }, article_two.id
+  end
+
   #############################
   #     Profile Articles      #
   #############################
