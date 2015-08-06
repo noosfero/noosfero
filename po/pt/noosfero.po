@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-08-06 22:48+0200\n"
-"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
+"PO-Revision-Date: 2015-08-06 22:49+0200\n"
+"Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -2217,9 +2217,8 @@ msgid "Can be moved"
 msgstr ""
 
 #: app/models/block.rb:264
-#, fuzzy
 msgid "Cannot be moved"
-msgstr "A licença não pode ser removida"
+msgstr "Não pode ser movida"
 
 #: app/models/add_member.rb:25
 msgid "New member"
@@ -3084,9 +3083,8 @@ msgid "Private"
 msgstr "Privado"
 
 #: app/helpers/article_helper.rb:87
-#, fuzzy
 msgid "Topic creation"
-msgstr "Localização"
+msgstr "Criação de tópico"
 
 #: app/helpers/article_helper.rb:88
 msgid "Who will be able to create new topics on this forum?"
@@ -4038,28 +4036,24 @@ msgid "%s enabled"
 msgstr "%s habilitado"
 
 #: app/controllers/admin/organizations_controller.rb:35
-#, fuzzy
 msgid "%s could not be enabled"
-msgstr "%s não pode ser enviado"
+msgstr "%s não pôde ser habilitado"
 
 #: app/controllers/admin/organizations_controller.rb:42
 msgid "%s disabled"
 msgstr "%s desabilitado"
 
 #: app/controllers/admin/organizations_controller.rb:44
-#, fuzzy
 msgid "%s could not be disable"
-msgstr "%s não pode ser enviado"
+msgstr "%s não pôde ser desabilitado"
 
 #: app/controllers/admin/organizations_controller.rb:52
-#, fuzzy
 msgid "%s removed"
-msgstr "remover"
+msgstr "% foi removido"
 
 #: app/controllers/admin/organizations_controller.rb:54
-#, fuzzy
 msgid "%s could not be removed"
-msgstr "A licença não pode ser removida"
+msgstr "%s não pôde ser removido"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:17
 #: app/controllers/my_profile/profile_members_controller.rb:22
@@ -4511,18 +4505,16 @@ msgid "Role successfuly removed!"
 msgstr "Papel removido com sucesso!"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:54
-#, fuzzy
 msgid "Failed to remove role!"
-msgstr "Falhou em criar papel"
+msgstr "Falha ao remover papel!"
 
 #: app/controllers/my_profile/profile_roles_controller.rb:85
 msgid "Error"
 msgstr "Erro"
 
 #: app/controllers/my_profile/tasks_controller.rb:31
-#, fuzzy
 msgid "Task already assigned!"
-msgstr "Idioma já foi usado"
+msgstr "Tarefa já atribuída!"
 
 #: app/controllers/my_profile/tasks_controller.rb:37
 #, fuzzy
