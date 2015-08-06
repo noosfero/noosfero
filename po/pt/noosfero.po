@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-06-02 19:44+0200\n"
-"Last-Translator: Arthur Del Esposte <arthurmde@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"PO-Revision-Date: 2015-08-06 22:48+0200\n"
+"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
+"Language-Team: Portuguese "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
@@ -1712,9 +1712,8 @@ msgid "Perform task"
 msgstr "Realizar tarefa"
 
 #: app/models/profile.rb:74
-#, fuzzy
 msgid "View tasks"
-msgstr "Ver os detalhes"
+msgstr "Ver tarefas"
 
 #: app/models/profile.rb:75
 msgid "Moderate comments"
@@ -1737,9 +1736,8 @@ msgid "Send e-Mail to members"
 msgstr "Enviar e-mail para os membros"
 
 #: app/models/profile.rb:81
-#, fuzzy
 msgid "Manage custom roles"
-msgstr "Gerenciar papéis de usuários"
+msgstr "Gerenciar papéis personalizados"
 
 #: app/models/profile.rb:346
 msgid "is not a template."
