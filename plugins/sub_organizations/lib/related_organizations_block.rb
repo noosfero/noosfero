@@ -24,7 +24,7 @@ class RelatedOrganizationsBlock < ProfileListBlock
   end
 
   def help
-    _("This block displays #{display_type[:title]} organizations of this organization")
+    _("This block displays %s organizations of this organization") % display_type[:title]
   end
 
   def profiles

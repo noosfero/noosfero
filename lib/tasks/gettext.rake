@@ -60,6 +60,8 @@ task :updatepo do
 
   puts 'Extracting strings from source. This may take a while ...'
 
+  # XXX this list is duplicated in test/unit/i18n_test.rb; if you change it
+  # here, please also update it there.
   files_to_translate = [
     "{app,lib}/**/*.{rb,rhtml,erb}",
     'config/initializers/*.rb',

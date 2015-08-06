@@ -12,7 +12,7 @@
       <li>
         <%= radio_button_tag 'v1', v.version, false, :onclick => 'versionInputClicked(this)' %>
         <%= radio_button_tag 'v2', v.version, false, :onclick => 'versionInputClicked(this)' %>
-        <%= link_to(_("Version #{v.version}"), @page.url.merge(:version => v.version)) %>
+        <%= link_to(_("Version %s") % v.version, @page.url.merge(:version => v.version)) %>
         <%= @page.version == v.version ? _('(current)') : '' %>
         <span class='updated-by'><%= _('by %{author}') % {:author => link_to(@page.author_name(v.version), @page.author_url(v.version))} %></span>
         <span class='updated-on'><%= show_time(v.updated_at) %></span>

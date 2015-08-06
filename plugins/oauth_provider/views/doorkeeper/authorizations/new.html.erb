@@ -6,7 +6,7 @@
 
 <main role="main">
   <p class="h4">
-  <%= _('Authorize %s to use your account?' % "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>") %>
+  <%= _('Authorize %s to use your account?') % "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" %>
   </p>
 
   <% if @pre_auth.scopes %>

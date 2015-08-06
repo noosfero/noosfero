@@ -109,7 +109,7 @@ class ProfileEditorController < MyProfileController
       profile = environment.profiles.find(params[:id])
       if profile.disable
         profile.save
-        session[:notice] = _("The profile '#{profile.name}' was deactivated.")
+        session[:notice] = _("The profile '%s' was deactivated.") % profile.name
       else
         session[:notice] = _('Could not deactivate profile.')
       end
@@ -123,7 +123,7 @@ class ProfileEditorController < MyProfileController
       profile = environment.profiles.find(params[:id])
 
       if profile.enable
-        session[:notice] = _("The profile '#{profile.name}' was activated.")
+        session[:notice] = _("The profile '%s' was activated.") % profile.name
       else
         session[:notice] = _('Could not activate the profile.')
       end
