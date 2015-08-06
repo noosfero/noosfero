@@ -113,6 +113,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login, :email, :case_sensitive => false, :scope => :environment_id
   before_save :encrypt_password
   before_save :normalize_email, if: proc{ |u| u.email.present? }
+  before_save :generate_private_token_if_not_exist
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
   validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('{fn} must be checked in order to signup.').fix_i18n
@@ -122,17 +123,31 @@ class User < ActiveRecord::Base
     environment ||= Environment.default
     u = self.first :conditions => ['(login = ? OR email = ?) AND environment_id = ? AND activated_at IS NOT NULL',
                                    login, login, environment.id] # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+    if u && u.authenticated?(password)
+      u.generate_private_token_if_not_exist
+      return u
+    end
+    return nil
   end
 
   def register_login
     self.update_attribute :last_login_at, Time.now
   end
 
-  def generate_private_token!
+  def generate_private_token
     self.private_token = SecureRandom.hex
     self.private_token_generated_at = DateTime.now
+  end
+
+  def generate_private_token!
+    self.generate_private_token
     save(:validate => false)
+  end
+
+  def generate_private_token_if_not_exist
+    unless self.private_token
+      self.generate_private_token
+    end
   end
 
   TOKEN_VALIDITY = 2.weeks
