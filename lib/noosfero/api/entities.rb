@@ -33,6 +33,7 @@ module Noosfero
       class Profile < Entity
         expose :identifier, :name, :id
         expose :created_at, :format_with => :timestamp
+        expose :updated_at, :format_with => :timestamp
         expose :image, :using => Image
       end
 
@@ -77,6 +78,7 @@ module Noosfero
         expose :body
         expose :abstract
         expose :created_at, :format_with => :timestamp
+        expose :updated_at, :format_with => :timestamp
         expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
         expose :created_by, :as => :author, :using => Profile
         expose :profile, :using => Profile
