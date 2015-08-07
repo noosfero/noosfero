@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-08-06 20:55-0300\n"
+"PO-Revision-Date: 2015-08-07 16:48+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -1399,7 +1399,7 @@ msgstr "Novo"
 #: app/views/admin_panel/site_info.html.erb:22
 #: app/views/admin_panel/set_portal_news_amount.html.erb:10
 msgid "Save"
-msgstr "Salvar"
+msgstr ""
 
 #: app/models/link_list_block.rb:10 app/views/tasks/new.html.erb:15
 #: app/views/users/send_mail.html.erb:10
@@ -4569,18 +4569,16 @@ msgid "Welcome page could not be saved."
 msgstr "A página de boas vindas não pôde ser salva."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:112
-#, fuzzy
 msgid "The profile '%s' was deactivated."
-msgstr "O perfil foi removido."
+msgstr "O perfil '%s' foi desativado."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:114
 msgid "Could not deactivate profile."
 msgstr "Não foi possível desativar o perfil."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:126
-#, fuzzy
 msgid "The profile '%s' was activated."
-msgstr "\"O perfil '#{profile.name}' foi ativado.\""
+msgstr "O perfil '%s' foi ativado."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:128
 msgid "Could not activate the profile."
@@ -5045,9 +5043,8 @@ msgstr ""
 "para vê-la e, caso queira, revertê-la."
 
 #: app/views/content_viewer/article_versions.html.erb:15
-#, fuzzy
 msgid "Version %s"
-msgstr "Permissões"
+msgstr "Versão %s"
 
 #: app/views/content_viewer/article_versions.html.erb:16
 #: app/views/profile_themes/index.html.erb:16
@@ -6636,9 +6633,8 @@ msgid "Used when a short version of your text is needed."
 msgstr "Usada quando uma versão curta do seu texto é necessária."
 
 #: app/views/shared/_content_item.html.erb:9
-#, fuzzy
 msgid "Published at: %s"
-msgstr "Publicar imagem ou documento"
+msgstr "Publicado em: %s"
 
 #: app/views/shared/_redirect_via_javascript.html.erb:2
 msgid "redirecting..."
@@ -6724,9 +6720,8 @@ msgid "Replace role: "
 msgstr "Substituir papel: "
 
 #: app/views/profile_roles/destroy.html.erb:1
-#, fuzzy
 msgid "Deleting %s"
-msgstr "Remover: %s"
+msgstr "Removendo %s"
 
 #: app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
@@ -7590,9 +7585,8 @@ msgid "First paragraph"
 msgstr "Primeiro parágrafo"
 
 #: app/views/cms/_blog.html.erb:70
-#, fuzzy
 msgid "First paragraph, with post picture"
-msgstr "Primeiro parágrafo"
+msgstr "Primeiro parágrafo, com figura"
 
 #: app/views/cms/_blog.html.erb:71
 msgid "Title, Image, Lead"
