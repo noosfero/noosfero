@@ -120,4 +120,40 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [c1.id], json['communities'].map {|c| c['id']}
   end
 
+  should 'list communities with pagination' do
+    community1 = fast_create(Community, :public_profile => true)
+    community2 = fast_create(Community)
+
+    params[:page] = 2
+    params[:per_page] = 1
+    get "/api/v1/communities?#{params.to_query}"
+    json_page_two = JSON.parse(last_response.body)
+
+    params[:page] = 1
+    params[:per_page] = 1
+    get "/api/v1/communities?#{params.to_query}"
+    json_page_one = JSON.parse(last_response.body)
+
+
+    assert_includes json_page_one["communities"].map { |a| a["id"] }, community1.id
+    assert_not_includes json_page_one["communities"].map { |a| a["id"] }, community2.id
+
+    assert_includes json_page_two["communities"].map { |a| a["id"] }, community2.id
+    assert_not_includes json_page_two["communities"].map { |a| a["id"] }, community1.id
+  end
+
+  should 'list communities with timestamp' do
+    community1 = fast_create(Community, :public_profile => true)
+    community2 = fast_create(Community)
+
+    community1.updated_at = Time.now + 3.hours
+    community1.save!
+
+    params[:timestamp] = Time.now + 1.hours
+    get "/api/v1/communities/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["communities"].map { |a| a["id"] }, community1.id
+    assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
+  end
 end
