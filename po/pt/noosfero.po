@@ -1399,7 +1399,7 @@ msgstr "Novo"
 #: app/views/admin_panel/site_info.html.erb:22
 #: app/views/admin_panel/set_portal_news_amount.html.erb:10
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: app/models/link_list_block.rb:10 app/views/tasks/new.html.erb:15
 #: app/views/users/send_mail.html.erb:10
