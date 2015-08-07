@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-08-07 16:48+0200\n"
+"PO-Revision-Date: 2015-08-07 16:56+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -2214,7 +2214,7 @@ msgstr "Não pode ser modificada"
 
 #: app/models/block.rb:263
 msgid "Can be moved"
-msgstr ""
+msgstr "Pode ser movido"
 
 #: app/models/block.rb:264
 msgid "Cannot be moved"
@@ -3088,7 +3088,7 @@ msgstr "Criação de tópico"
 
 #: app/helpers/article_helper.rb:88
 msgid "Who will be able to create new topics on this forum?"
-msgstr ""
+msgstr "Quem poderá criar novos tópicos neste fórum?"
 
 #: app/helpers/article_helper.rb:110
 msgid "For all community members"
@@ -5433,11 +5433,11 @@ msgstr "Ver os detalhes"
 
 #: app/views/tasks/_task.html.erb:7
 msgid "Assign to:"
-msgstr ""
+msgstr "Atribuir para:"
 
 #: app/views/tasks/_task.html.erb:17
 msgid "Assigned to:"
-msgstr ""
+msgstr "Atribuído para:"
 
 #: app/views/tasks/_task.html.erb:30 app/views/tasks/index.html.erb:60
 #: app/views/tasks/index.html.erb:70
@@ -5488,15 +5488,15 @@ msgstr "Tipo de tarefa"
 
 #: app/views/tasks/index.html.erb:30
 msgid "Text filter"
-msgstr ""
+msgstr "Filtro de texto"
 
 #: app/views/tasks/index.html.erb:34
 msgid "Assigned to"
-msgstr ""
+msgstr "Atribuído para"
 
 #: app/views/tasks/index.html.erb:34
 msgid "Unassigned"
-msgstr ""
+msgstr "Não-atribuído"
 
 #: app/views/tasks/index.html.erb:45
 msgid "No pending tasks for %s"
@@ -5680,7 +5680,7 @@ msgstr "Opções de movimento:"
 
 #: app/views/box_organizer/edit.html.erb:33
 msgid "Mirror"
-msgstr ""
+msgstr "Espelhar"
 
 #: app/views/box_organizer/_highlights_block.html.erb:6
 #: app/views/profile_editor/_person_form.html.erb:28
@@ -6127,6 +6127,9 @@ msgid ""
 "Secret &mdash; hide the community and all its contents for non members and "
 "other people can't join this community unless they are invited to."
 msgstr ""
+"Secreta &mdash; ocultar esta comunidade e todo o seu conteúdo para não-"
+"membros e outras pessoas não podem entrar na comunidade a não ser que sejam "
+"convidadas."
 
 #: app/views/profile_editor/edit.html.erb:39
 msgid "Public &mdash; show content of this group to all internet users"
@@ -6438,6 +6441,8 @@ msgid ""
 "The user is not online now. He/She will receive these messages as soon as he/"
 "she gets online."
 msgstr ""
+"O usuário não está online agora. Ele(a) receberá estas mensagens assim que "
+"estiver online."
 
 #: app/views/shared/logged_in/xmpp_chat.html.erb:25
 msgid "Offline"
@@ -6701,11 +6706,11 @@ msgstr "Voltar para a gestão de papéis"
 
 #: app/views/profile_roles/assign.html.erb:3
 msgid "Assign %s"
-msgstr ""
+msgstr "Atribuir %s"
 
 #: app/views/profile_roles/assign.html.erb:9
 msgid "Assign role by:"
-msgstr ""
+msgstr "Atribuir papel por:"
 
 #: app/views/profile_roles/assign.html.erb:14
 msgid "Roles"
@@ -6725,7 +6730,7 @@ msgstr "Removendo %s"
 
 #: app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
-msgstr ""
+msgstr "Este papel não está sendo usado."
 
 #: app/views/profile_roles/destroy.html.erb:5
 msgid "Are you sure you want to delete this role?"
@@ -6733,7 +6738,7 @@ msgstr "Tem certeza que quer remover este papel?"
 
 #: app/views/profile_roles/destroy.html.erb:12
 msgid "There are members currently using this role."
-msgstr ""
+msgstr "Existem membros com este papel."
 
 #: app/views/profile_roles/destroy.html.erb:13
 msgid "To which role do you want to change them?"
@@ -6753,7 +6758,7 @@ msgstr "Papel"
 
 #: app/views/profile_roles/index.html.erb:17
 msgid "Assign"
-msgstr ""
+msgstr "Atribuir"
 
 #: app/views/comment_notifier/mail_to_followers.html.erb:1
 msgid "Hi!"
@@ -7590,7 +7595,7 @@ msgstr "Primeiro parágrafo, com figura"
 
 #: app/views/cms/_blog.html.erb:71
 msgid "Title, Image, Lead"
-msgstr ""
+msgstr "Título, Imagem, Olho"
 
 #: app/views/cms/_blog.html.erb:74 app/views/cms/_forum.html.erb:15
 msgid "Posts per page:"
@@ -9538,23 +9543,23 @@ msgstr "Formato de data do artigo"
 
 #: app/views/admin_panel/_site_info.html.erb:11
 msgid "mm/dd/yyyy"
-msgstr ""
+msgstr "dd/mm/aaaa"
 
 #: app/views/admin_panel/_site_info.html.erb:12
 msgid "mm/dd"
-msgstr ""
+msgstr "dd/mm"
 
 #: app/views/admin_panel/_site_info.html.erb:13
 msgid "Month dd, yyyy"
-msgstr ""
+msgstr "dd de Mês, aaaa"
 
 #: app/views/admin_panel/_site_info.html.erb:14
 msgid "Month dd"
-msgstr ""
+msgstr "dd de Mês"
 
 #: app/views/admin_panel/_site_info.html.erb:15
 msgid "X minutes/hours/days/months/years ago"
-msgstr ""
+msgstr "X minutos/horas/dias/meses/anos atrás"
 
 #: app/views/admin_panel/_site_info.html.erb:22
 msgid "Default language"
