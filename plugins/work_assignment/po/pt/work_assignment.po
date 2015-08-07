@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-23-g29aba34\n"
 "POT-Creation-Date: 2015-08-06 18:47-0300\n"
-"PO-Revision-Date: 2015-08-07 16:46+0200\n"
+"PO-Revision-Date: 2015-08-07 16:48+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
 "/plugin-work-assignment/pt/>\n"
@@ -86,7 +86,7 @@ msgstr "Editar"
 
 #: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
 msgid "Cancel"
