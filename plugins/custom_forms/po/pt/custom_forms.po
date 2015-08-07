@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-23-g29aba34\n"
 "POT-Creation-Date: 2015-08-06 18:47-0300\n"
-"PO-Revision-Date: 2015-03-12 15:13+0200\n"
-"Last-Translator: daniel <dtygel@eita.org.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"plugin-custom-forms/pt/>\n"
+"PO-Revision-Date: 2015-08-07 16:48+0200\n"
+"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
+"/plugin-custom-forms/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
@@ -178,7 +178,7 @@ msgstr "Nome"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
 msgid "New form"
