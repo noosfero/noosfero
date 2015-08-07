@@ -121,8 +121,8 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'list communities with pagination' do
-    community1 = fast_create(Community, :public_profile => true)
-    community2 = fast_create(Community)
+    community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
+    community2 = fast_create(Community, :created_at => 2.days.ago)
 
     params[:page] = 2
     params[:per_page] = 1

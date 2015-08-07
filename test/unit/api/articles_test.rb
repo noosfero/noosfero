@@ -84,8 +84,8 @@ class ArticlesTest < ActiveSupport::TestCase
 
   should 'list articles with pagination' do
     Article.destroy_all
-    article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing")
-    article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing", :created_at => 2.days.ago)
+    article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :created_at => 1.day.ago)
 
     params[:page] = 1
     params[:per_page] = 1
