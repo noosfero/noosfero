@@ -6,14 +6,16 @@ $fa-font-path: "fonts";
 
 // noosfero icons stylesheets
 
-[class*=' icon-']:before,
-[class^='icon-']:before,
-[class*=' icon-next']:after,
-[class^='icon-next']:after {
+:not(.glyphicon) {
+  &[class*=' icon-']:before,
+  &[class^='icon-']:before,
+  &[class*=' icon-next']:after,
+  &[class^='icon-next']:after {
     line-height: 1;
     width: 1.7em;
     text-align: center;
     @include fa-icon;
+  }
 }
 
 .icon-add:before,

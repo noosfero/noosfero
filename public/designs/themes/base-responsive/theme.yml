@@ -1,0 +1,4 @@
+name: "Noosfero base theme responsive"
+layout: "application-responsive"
+icon_theme: [awesome, pidgin]
+responsive: true

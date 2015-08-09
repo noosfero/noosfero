@@ -2064,9 +2064,6 @@ a.button.disabled, input.disabled {
 .new_link_row li {
   margin-left: 7px;
 }
-#content .link-list-block {
-  padding: 10px 0px 10px 10px;
-}
 .link-list-block ul {
   padding: 0px;
   margin: 0px;
@@ -4630,7 +4627,7 @@ h1#agenda-title {
   width: 140px;
   background-repeat: no-repeat;
   background-position: 0px 50%;
-  height: 48px;
+  height: 70px;
   padding: 4px 5px 0px 55px;
   margin-bottom: 30px;
   margin-right: 10px;
