@@ -5,7 +5,6 @@ module ActionTracker
   module ControllerMethods
 
     def self.included(base)
-      base.send :user_stamp, ActionTracker::Record
       base.send :extend, ClassMethods
     end
 
@@ -42,7 +41,7 @@ module ActionTracker
         elsif keep_params.to_s == 'all'
           stored_params = params
         end
-        user = send ActionTrackerConfig.current_user_method
+        user = send ActionTrackerConfig.current_user
         tracked_action = case ActionTrackerConfig.verb_type(verb)
           when :groupable
             Record.add_or_create :verb => verb, :user => user, :params => stored_params
@@ -90,7 +89,7 @@ module ActionTracker
 
       def save_action_for_verb(verb, keep_params = :all, post_proc = Proc.new{}, custom_user = nil, custom_target = nil)
         user = self.send(custom_user) unless custom_user.blank?
-        user ||= ActionTracker::Record.current_user_from_model
+        user ||= ActionTracker::Record.current_user
         target = self.send(custom_target) unless custom_target.blank?
         return nil if user.nil?
         if keep_params.is_a? Array
@@ -115,7 +114,7 @@ module ActionTracker
         end
         tracked_action.target = target || self
         user.tracked_actions << tracked_action
-        post_proc.call tracked_action.reload
+        post_proc.call tracked_action
       end
 
     end

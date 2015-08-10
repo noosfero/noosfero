@@ -286,7 +286,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments as a thread" do
-    person = fast_create(Person)
+    person = create_user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
@@ -302,7 +302,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments when some comment on thread is spam and not display its replies" do
-    person = fast_create(Person)
+    person = create_user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)

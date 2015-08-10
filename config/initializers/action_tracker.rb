@@ -32,6 +32,8 @@ ActionTrackerConfig.verbs = {
   },
 }
 
-ActionTrackerConfig.current_user_method = :current_person
+ActionTrackerConfig.current_user = proc do
+  User.current.person rescue nil
+end
 
 ActionTrackerConfig.timeout = 24.hours

@@ -1,5 +1,20 @@
 module AuthenticatedSystem
+
   protected
+
+    # See impl. from http://stackoverflow.com/a/2513456/670229
+    def self.included? base
+      base.around_filter do
+        begin
+          User.current = current_user
+          yield
+        ensure
+          # to address the thread variable leak issues in Puma/Thin webserver
+          User.current = nil
+        end
+      end
+    end
+
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.
     def logged_in?
@@ -8,7 +23,9 @@ module AuthenticatedSystem
 
     # Accesses the current user from the session.
     def current_user
-      @current_user ||= (session[:user] && User.find_by_id(session[:user])) || nil
+      @current_user ||= begin
+        User.current = (session[:user] && User.find_by_id(session[:user])) || nil
+      end
     end
 
     # Store the given user in the session.
@@ -19,7 +36,7 @@ module AuthenticatedSystem
         session[:user] = new_user.id
         new_user.register_login
       end
-      @current_user = new_user
+      @current_user = User.current = new_user
     end
 
     # Check if the user is authorized.
