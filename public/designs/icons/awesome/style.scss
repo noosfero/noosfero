@@ -140,6 +140,9 @@ $fa-font-path: "fonts";
 .icon-down:before {
   @extend .fa-arrow-down:before;
 }
+.icon-download:before {
+  @extend .fa-download:before;
+}
 
 .icon-spread:before {
   @extend .fa-share:before;

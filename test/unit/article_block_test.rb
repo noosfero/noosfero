@@ -64,7 +64,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     end
     person.boxes.first.blocks << block
     block.save!
-    
+
     block.reload
     assert_equal [a],block.available_articles
   end
@@ -80,7 +80,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block = create(ArticleBlock, :article => a)
     env.boxes.first.blocks << block
     block.save!
-    
+
     block.reload
     assert_equal [a],block.available_articles
   end
@@ -140,7 +140,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block.article = file
     block.save!
 
-    assert_tag_in_string instance_eval(&block.content), :tag => 'a', :content => 'test.txt'
+    assert_tag_in_string instance_eval(&block.content), :tag => 'a', :content => _('Download')
   end
 
   protected
