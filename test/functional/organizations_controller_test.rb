@@ -86,7 +86,7 @@ class OrganizationsControllerTest < ActionController::TestCase
 
   should 'activate organization profile' do
     organization = fast_create(Organization, :visible => false, :environment_id => environment.id)
-    assert !organization.visible?
+    refute organization.visible?
 
     get :activate, {:id => organization.id}
     organization.reload
@@ -101,7 +101,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     get :deactivate, {:id => organization.id}
     organization.reload
 
-    assert !organization.visible
+    refute organization.visible
   end
 
   should 'destroy organization profile' do

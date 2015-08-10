@@ -23,9 +23,9 @@ class ScopeToolTest < ActiveSupport::TestCase
     assert orgs.include? ent2
     orgs = orgs.visible
     assert orgs.include? cmm1
-    assert !orgs.include?(cmm2)
+    refute orgs.include?(cmm2)
     assert orgs.include? ent1
-    assert !orgs.include?(ent2)
+    refute orgs.include?(ent2)
   end
 
 end

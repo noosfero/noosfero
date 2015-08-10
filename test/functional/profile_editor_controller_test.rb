@@ -333,7 +333,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     post :edit, :profile => org.identifier, :profile_data => { :closed => 'false' }
     org.reload
-    assert !org.closed
+    refute org.closed
   end
 
   should 'not display option to close when it is enterprise' do
@@ -477,13 +477,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not enable enterprise without confirmation' do
     ent = fast_create(Enterprise, :enabled => false)
     post :enable, :profile => ent.identifier
-    assert !assigns(:to_enable).enabled?
+    refute assigns(:to_enable).enabled?
   end
 
   should 'disable enterprise after confirmation' do
     ent = fast_create(Enterprise, :enabled => true)
     post :disable, :profile => ent.identifier, :confirmation => 1
-    assert !assigns(:to_disable).enabled?
+    refute assigns(:to_disable).enabled?
   end
 
   should 'not disable enterprise without confirmation' do
@@ -915,7 +915,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'have welcome_page only for template' do
     organization = fast_create(Organization, :is_template => false)
     @controller.stubs(:profile).returns(organization)
-    assert !@controller.send(:has_welcome_page)
+    refute @controller.send(:has_welcome_page)
 
     organization = fast_create(Organization, :is_template => true)
     @controller.stubs(:profile).returns(organization)
@@ -923,7 +923,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     person = fast_create(Person, :is_template => false)
     @controller.stubs(:profile).returns(person)
-    assert !@controller.send(:has_welcome_page)
+    refute @controller.send(:has_welcome_page)
 
     person = fast_create(Person, :is_template => true)
     @controller.stubs(:profile).returns(person)
@@ -948,7 +948,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'create welcome_page with public false by default' do
     get :welcome_page, :profile => fast_create(Person, :is_template => true).identifier
-    assert !assigns(:welcome_page).published
+    refute assigns(:welcome_page).published
   end
 
   should 'update welcome page and redirect to index' do

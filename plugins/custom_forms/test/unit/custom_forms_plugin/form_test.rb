@@ -10,8 +10,8 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form.profile = fast_create(Profile)
     form.name = 'Free Software'
     form.valid?
-    assert !form.errors.include?(:profile)
-    assert !form.errors.include?(:name)
+    refute form.errors.include?(:profile)
+    refute form.errors.include?(:name)
   end
 
   should 'have many fields including fields subclasses' do
@@ -50,7 +50,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
     form.profile = another_profile
     form.valid?
-    assert !form.errors.include?(:slug)
+    refute form.errors.include?(:slug)
   end
 
   should 'validate the difference between ending and beginning is positive' do
@@ -60,55 +60,55 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form.begining = Time.now
     form.ending = Time.now + 1.day
     assert form.valid?
-    assert !form.errors.include?(:base)
+    refute form.errors.include?(:base)
 
     form.ending = Time.now - 2.day
-    assert !form.valid?
+    refute form.valid?
     assert form.errors.include?(:base)
   end
 
   should 'define form expiration' do
     form = CustomFormsPlugin::Form.new
-    assert !form.expired?
+    refute form.expired?
 
     form.begining = Time.now + 1.day
     assert form.expired?
 
     form.begining = Time.now - 1.day
-    assert !form.expired?
+    refute form.expired?
 
     form.begining = nil
     form.ending = Time.now + 1.day
-    assert !form.expired?
+    refute form.expired?
 
     form.ending = Time.now - 1.day
     assert form.expired?
 
     form.begining = Time.now - 1.day
     form.ending = Time.now + 1.day
-    assert !form.expired?
+    refute form.expired?
   end
 
   should 'define if form will still open' do
     form = CustomFormsPlugin::Form.new
-    assert !form.will_open?
+    refute form.will_open?
 
     form.begining = Time.now + 1.day
     assert form.will_open?
 
     form.begining = Time.now - 1.day
-    assert !form.will_open?
+    refute form.will_open?
 
     form.begining = Time.now - 2.day
     form.ending = Time.now - 1.day
     assert form.expired?
-    assert !form.will_open?
+    refute form.will_open?
   end
 
   should 'validates format of access' do
     form = CustomFormsPlugin::Form.new
     form.valid?
-    assert !form.errors.include?(:access)
+    refute form.errors.include?(:access)
 
     form.access = 'bli'
     form.valid?
@@ -116,11 +116,11 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
     form.access = 'logged'
     form.valid?
-    assert !form.errors.include?(:access)
+    refute form.errors.include?(:access)
 
     form.access = 'associated'
     form.valid?
-    assert !form.errors.include?(:access)
+    refute form.errors.include?(:access)
 
     form.access = {:bli => 1}
     form.valid?
@@ -133,13 +133,13 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     p1 = fast_create(Profile)
     form.access = p1.id
     form.valid?
-    assert !form.errors.include?(:access)
+    refute form.errors.include?(:access)
 
     p2 = fast_create(Profile)
     p3 = fast_create(Profile)
     form.access = [p1,p2,p3].map(&:id)
     form.valid?
-    assert !form.errors.include?(:access)
+    refute form.errors.include?(:access)
   end
 
   should 'defines who is able to access the form' do
@@ -148,25 +148,25 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert form.accessible_to(nil)
 
     form.access = 'logged'
-    assert !form.accessible_to(nil)
+    refute form.accessible_to(nil)
     person = fast_create(Person)
     assert form.accessible_to(person)
 
     form.access = 'associated'
-    assert !form.accessible_to(person)
+    refute form.accessible_to(person)
     owner.add_member(person)
     assert form.accessible_to(person)
 
     p1 = fast_create(Profile)
     form.access = p1.id
-    assert !form.accessible_to(person)
+    refute form.accessible_to(person)
     assert form.accessible_to(p1)
 
     p2 = fast_create(Profile)
     form.access = [person.id, p1.id]
     assert form.accessible_to(person)
     assert form.accessible_to(p1)
-    assert !form.accessible_to(p2)
+    refute form.accessible_to(p2)
     form.access << p2.id
     assert form.accessible_to(p2)
 

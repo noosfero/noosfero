@@ -118,7 +118,7 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     blog = build(Blog, :profile => p, :name => 'Blog test', :external_feed_builder => {:enabled => true})
     blog.save
-    assert ! blog.valid?
+    refute  blog.valid?
   end
 
   should 'remove external feed when removing blog' do
@@ -178,15 +178,15 @@ class BlogTest < ActiveSupport::TestCase
 
     blog.visualization_format = 'short'
     blog.valid?
-    assert !blog.errors[:visualization_format.to_s].present?
+    refute blog.errors[:visualization_format.to_s].present?
 
     blog.visualization_format = 'full'
     blog.valid?
-    assert !blog.errors[:visualization_format.to_s].present?
+    refute blog.errors[:visualization_format.to_s].present?
 
     blog.visualization_format = 'compact'
     blog.valid?
-    assert !blog.errors[:visualization_format.to_s].present?
+    refute blog.errors[:visualization_format.to_s].present?
   end
 
   should 'have posts' do
@@ -195,8 +195,8 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'not display posts in current language by default' do
     blog = Blog.new
-    assert !blog.display_posts_in_current_language
-    assert !blog.display_posts_in_current_language?
+    refute blog.display_posts_in_current_language
+    refute blog.display_posts_in_current_language?
   end
 
   should 'update display posts in current language setting' do
@@ -205,8 +205,8 @@ class BlogTest < ActiveSupport::TestCase
     blog = p.blog
     blog.display_posts_in_current_language = false
     assert blog.save! && blog.reload
-    assert !blog.reload.display_posts_in_current_language
-    assert !blog.reload.display_posts_in_current_language?
+    refute blog.reload.display_posts_in_current_language
+    refute blog.reload.display_posts_in_current_language?
   end
 
   #FIXME This should be used until there is a migration to fix all blogs that
@@ -223,7 +223,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'not accept uploads' do
     folder = fast_create(Blog)
-    assert !folder.accept_uploads?
+    refute folder.accept_uploads?
   end
 
   should 'know when blog has or when has no posts' do
@@ -231,7 +231,7 @@ class BlogTest < ActiveSupport::TestCase
     blog =  Blog.create!(:profile => p, :name => 'Blog test')
     assert blog.empty?
     fast_create(TextileArticle, :parent_id => blog.id)
-    assert ! blog.empty?
+    refute  blog.empty?
   end
 
   should 'set cover image' do

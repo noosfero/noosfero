@@ -33,12 +33,12 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     Task.create!(:code => 12345678)
     person.invitation_code = 12345678
     person.valid?
-    assert !person.errors.include?(:usp_id)
+    refute person.errors.include?(:usp_id)
 
     person.invitation_code = nil
     person.is_template = true
     person.valid?
-    assert !person.errors.include?(:usp_id)
+    refute person.errors.include?(:usp_id)
   end
 
   should 'allow multiple nil usp_id' do
@@ -47,7 +47,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     person = Person.new(:invitation_code => 87654321)
     person.valid?
 
-    assert !person.errors.include?(:usp_id)
+    refute person.errors.include?(:usp_id)
   end
 
   should 'not allow person to be saved with a finished invitation that is not his own' do
@@ -68,7 +68,7 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     t.finish
 
     person.valid?
-    assert !person.errors.include?(:usp_id)
+    refute person.errors.include?(:usp_id)
   end
 
 

@@ -98,7 +98,7 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
     create_article_with_tags(person.id,  'free_software')
 
     api = StoaPlugin::PersonApi.new(person)
-    assert !api.tags.has_key?('noosfero')
+    refute api.tags.has_key?('noosfero')
   end
 
   should 'provide communities' do

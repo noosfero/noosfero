@@ -74,7 +74,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'not upload files bigger than max_size' do
     f = build(UploadedFile, :profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     f.expects(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
-    assert !f.valid?
+    refute f.valid?
   end
 
   should 'upload files smaller than max_size' do
@@ -175,7 +175,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'return false by default in thumbnails_processed' do
-    assert !UploadedFile.new.thumbnails_processed
+    refute UploadedFile.new.thumbnails_processed
   end
 
   should 'set thumbnails_processed to true' do

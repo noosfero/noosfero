@@ -10,8 +10,8 @@ class LicenseTest < ActiveSupport::TestCase
     license.name = 'GPLv3'
     license.environment = Environment.default
     license.valid?
-    assert !license.errors[:name].any?
-    assert !license.errors[:environment].any?
+    refute license.errors[:name].any?
+    refute license.errors[:environment].any?
   end
 
   should 'fill in slug before creation' do

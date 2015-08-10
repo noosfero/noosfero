@@ -116,10 +116,10 @@ class InviteFriendTest < ActiveSupport::TestCase
     p = create_user('testuser1').person
 
     task1 = InviteFriend.new(:person => p, :friend => p, :message => 'click here: <url>')
-    assert !task1.save
+    refute task1.save
 
     task2 = InviteFriend.new(:person => p, :friend_name => 'Myself', :friend_email => p.user.email, :message => 'click here: <url>')
-    assert !task2.save
+    refute task2.save
   end
 
   should 'have target notification description' do

@@ -23,7 +23,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
     assert task.errors[:requestor_id.to_s].present?
     task.requestor = person
     task.valid?
-    assert !task.errors[:requestor_id.to_s].present?
+    refute task.errors[:requestor_id.to_s].present?
   end
 
   should 'actually create a community when finishing the task and associate the task requestor as its admin' do

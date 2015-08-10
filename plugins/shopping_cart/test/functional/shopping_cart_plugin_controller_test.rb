@@ -40,8 +40,8 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   should 'not add product to cart if it does not exists' do
     assert_nothing_raised { get :add, :id => 9999 }
 
-    assert !product_in_cart?(product)
-    assert !response_ok?
+    refute product_in_cart?(product)
+    refute response_ok?
     assert_equal 3, reponse_error_code
   end
 
@@ -50,15 +50,15 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     assert cart?
 
     get :remove, :id => product.id
-    assert !cart?
+    refute cart?
   end
 
   should 'not try to remove a product if there is no cart' do
     instantiate_cart
-    assert !cart?
+    refute cart?
 
     assert_nothing_raised { get :remove, :id => 9999 }
-    assert !response_ok?
+    refute response_ok?
     assert_equal 2, reponse_error_code
   end
 
@@ -69,7 +69,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
     get :remove, :id => product.id
     assert cart?
-    assert !product_in_cart?(product)
+    refute product_in_cart?(product)
   end
 
   should 'not try to remove a product that is not in the cart' do
@@ -77,16 +77,16 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     assert cart?
     assert_nothing_raised { get :remove, :id => 9999 }
 
-    assert !response_ok?
+    refute response_ok?
     assert_equal 4, reponse_error_code
   end
 
   should 'not try to list the cart if there is no cart' do
     instantiate_cart
-    assert !cart?
+    refute cart?
 
     assert_nothing_raised { get :list  }
-    assert !response_ok?
+    refute response_ok?
     assert_equal 2, reponse_error_code
   end
 
@@ -107,10 +107,10 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   should 'not try to update quantity the quantity of a product if there is no cart' do
     instantiate_cart
-    assert !cart?
+    refute cart?
 
     assert_nothing_raised { get :update_quantity, :id => 9999, :quantity => 3 }
-    assert !response_ok?
+    refute response_ok?
     assert_equal 2, reponse_error_code
   end
 
@@ -119,7 +119,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     assert cart?
     assert_nothing_raised { get :update_quantity, :id => 9999, :quantity => 3 }
 
-    assert !response_ok?
+    refute response_ok?
     assert_equal 4, reponse_error_code
   end
 
@@ -127,11 +127,11 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     get :add, :id => product.id
 
     assert_nothing_raised { get :update_quantity, :id => product.id, :quantity => -1}
-    assert !response_ok?
+    refute response_ok?
     assert_equal 5, reponse_error_code
 
     assert_nothing_raised { get :update_quantity, :id => product.id, :quantity => 'asdf'}
-    assert !response_ok?
+    refute response_ok?
     assert_equal 5, reponse_error_code
   end
 
@@ -141,12 +141,12 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     get :add, :id => another_product.id
 
     assert_nothing_raised {  get :clean }
-    assert !cart?
+    refute cart?
   end
 
   should 'not crash if there is no cart' do
     instantiate_cart
-    assert !cart?
+    refute cart?
     assert_nothing_raised {  get :clean  }
   end
 
@@ -185,12 +185,12 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     product1 = fast_create(Product, :profile_id => profile.id)
     post :add, :id => product1.id
     post :send_request, :customer => { :name => "Manuel", :email => "manuel@ceu.com" }
-    assert !cart?, "cart expected to be empty!"
+    refute cart?, "cart expected to be empty!"
   end
 
   should 'not allow buy without any cart' do
     get :buy
-    assert !json_response[:ok]
+    refute json_response[:ok]
     assert_equal 2, json_response['error']['code']
   end
 

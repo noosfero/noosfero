@@ -19,7 +19,7 @@ class ScrapTest < ActiveSupport::TestCase
 
     s.content = 'some content'
     s.valid?
-    assert !s.errors[:content.to_s].present?
+    refute s.errors[:content.to_s].present?
   end
 
   should "have the sender" do
@@ -29,7 +29,7 @@ class ScrapTest < ActiveSupport::TestCase
 
     s.sender_id = 1
     s.valid?
-    assert !s.errors[:sender_id.to_s].present?
+    refute s.errors[:sender_id.to_s].present?
   end
 
   should "have the receiver" do
@@ -39,7 +39,7 @@ class ScrapTest < ActiveSupport::TestCase
 
     s.receiver_id = 1
     s.valid?
-    assert !s.errors[:receiver_id.to_s].present?
+    refute s.errors[:receiver_id.to_s].present?
   end
 
   should "be associated to Person as sender" do
@@ -258,7 +258,7 @@ class ScrapTest < ActiveSupport::TestCase
   should 'strip html before validate' do
     s, r = create_user.person, create_user.person
     s = build Scrap, :sender => s, :receiver => r, :content => "<p><b></b></p>"
-    assert !s.valid?
+    refute s.valid?
     s.content = "<p>Test</p>"
     assert s.valid?
   end

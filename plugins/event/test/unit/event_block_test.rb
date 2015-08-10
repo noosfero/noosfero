@@ -169,11 +169,11 @@ class EventBlockTest < ActiveSupport::TestCase
     @block.all_env_events = true
 
     # Do not list event from private profile for non logged visitor
-    assert ! @block.events.include?(ev)
+    refute  @block.events.include?(ev)
     assert_equal 4, @block.events.length
 
     # Do not list event from private profile for non unprivileged user
-    assert ! @block.events.include?(ev)
+    refute  @block.events.include?(ev)
     assert_equal 4, @block.events(@p1).length
 
     # Must to list event from private profile for a friend

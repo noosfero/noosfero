@@ -141,14 +141,14 @@ class AccountControllerTest < ActionController::TestCase
     users(:johndoe).update_attribute :remember_token_expires_at, 5.minutes.ago
     @request.cookies["auth_token"] = cookie_for(:johndoe)
     get :index
-    assert !@controller.send(:logged_in?)
+    refute @controller.send(:logged_in?)
   end
 
   should 'fail cookie login' do
     users(:johndoe).remember_me
     @request.cookies["auth_token"] = auth_token('invalid_auth_token')
     get :index
-    assert !@controller.send(:logged_in?)
+    refute @controller.send(:logged_in?)
   end
 
   def test_should_display_anonymous_user_options
@@ -186,7 +186,7 @@ class AccountControllerTest < ActionController::TestCase
     post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :success
     assert_template 'change_password'
-    assert ! User.find_by_login('ze').authenticated?('blabla')
+    refute  User.find_by_login('ze').authenticated?('blabla')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -195,8 +195,8 @@ class AccountControllerTest < ActionController::TestCase
     post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
     assert_response :success
     assert_template 'change_password'
-    assert !assigns(:current_user).authenticated?('blabla')
-    assert !assigns(:current_user).authenticated?('blibli')
+    refute assigns(:current_user).authenticated?('blabla')
+    refute assigns(:current_user).authenticated?('blibli')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -281,7 +281,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'new_password'
 
-    assert !User.find(user.id).authenticated?('onepass')
+    refute User.find(user.id).authenticated?('onepass')
   end
 
   should 'display login popup' do
@@ -535,7 +535,7 @@ class AccountControllerTest < ActionController::TestCase
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false
     ent.reload
 
-    assert !ent.enabled
+    refute ent.enabled
     assert_not_includes ent.members, p
   end
 
