@@ -8077,11 +8077,11 @@ msgstr "Enviar e-mail para os administradores"
 
 #: app/views/blocks/profile_info_actions/_enterprise.html.erb:4
 msgid "Add as favorite"
-msgstr "Adicionar favorito"
+msgstr "Favoritar"
 
 #: app/views/blocks/profile_info_actions/_enterprise.html.erb:4
 msgid "Add enterprise as favorite"
-msgstr "Editar empreendimento como favorito"
+msgstr "Adicionar empreendimento como um de seus favoritos"
 
 #: app/views/blocks/profile_info_actions/_person.html.erb:6
 #: app/views/profile/_private_profile.html.erb:13
