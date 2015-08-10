@@ -3485,9 +3485,6 @@ table.cms-articles .icon:hover {
   color: #888a85;
   font-size: smaller;
 }
-.article-types .icon-newrss-feed, #content .icon-rss-feed {
-  background-image: url(../images/icons-mime/rss-feed-16.png);
-}
 .article-types a {
   text-decoration: none;
   color: black;

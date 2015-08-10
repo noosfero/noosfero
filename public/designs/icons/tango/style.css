@@ -117,6 +117,9 @@
 .icon-reset-admin-role        { background-image: url(../../../images/icons-app/person-icon.png) }
 .icon-clock                   { background-image: url(Tango/16x16/actions/appointment.png) }
 .icon-fullscreen              { background-image: url(Tango/16x16/actions/view-fullscreen.png) }
+.icon-feed,
+.icon-newrss-feed,
+.icon-rss-feed                { background-image: url(../../../images/icons-mime/rss-feed-16.png) }
 
 /******************BIG ICONS************************/
 .bigicon-embed     { background-image: url(Tango/scalable/apps/utilities-terminal.svg) }
