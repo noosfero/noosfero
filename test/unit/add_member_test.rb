@@ -105,20 +105,20 @@ class AddMemberTest < ActiveSupport::TestCase
   should 'have target notification message' do
     task = AddMember.new(:person => person, :organization => community)
 
-    assert_match(/#{person.name} wants to be a member of this community.*[\n]*.*to accept or reject/, task.target_notification_message)
+    assert_match(/#{person.name} wants to be a member of '#{community.name}'.*[\n]*.*to accept or reject/, task.target_notification_message)
   end
 
   should 'have target notification description' do
     task = AddMember.new(:person => person, :organization => community)
 
-    assert_match(/#{task.requestor.name} wants to be a member of this community/, task.target_notification_description)
+    assert_match(/#{task.requestor.name} wants to be a member of '#{community.name}'/, task.target_notification_description)
   end
 
   should 'deliver target notification message' do
     task = AddMember.new(:person => person, :organization => community)
 
     email = TaskMailer.target_notification(task, task.target_notification_message).deliver
-    assert_match(/#{task.requestor.name} wants to be a member of this community/, email.subject)
+    assert_match(/#{task.requestor.name} wants to be a member of '#{community.name}'/, email.subject)
   end
 
 end
