@@ -14,6 +14,16 @@ Feature: accept member
     And the community "My Community" is closed
     And "Mario Souto" is admin of "My Community"
 
+  Scenario: a user should see its merbership is pending
+    Given I am logged in as "mario"
+    And the following communities
+      | owner | identifier        | name              | closed |
+      | marie | private-community | Private Community | true   |
+    And I go to private-community's homepage
+    When I follow "Join this community"
+    And I go to private-community's homepage
+    Then I should see "Your membership is waiting for approval"
+
   @selenium
   Scenario: approve a task to accept a member as admin in a closed community
     Given "Marie Curie" asked to join "My Community"
