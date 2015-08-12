@@ -38,7 +38,7 @@ class FeaturesControllerTest < ActionController::TestCase
     v = Environment.find(environments(:anhetegua_net).id)
     assert v.enabled?('feature2')
     assert v.enabled?('feature2') 
-    assert !v.enabled?('feature3')
+    refute v.enabled?('feature3')
   end
 
   def test_update_disable_all
@@ -47,9 +47,9 @@ class FeaturesControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'index'
     assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
-    assert !v.enabled?('feature1')
-    assert !v.enabled?('feature2')
-    assert !v.enabled?('feature3')
+    refute v.enabled?('feature1')
+    refute v.enabled?('feature2')
+    refute v.enabled?('feature3')
   end
 
   def test_update_no_post

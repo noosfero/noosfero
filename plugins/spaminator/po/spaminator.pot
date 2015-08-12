@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/spaminator/lib/spaminator_plugin.rb:8
+msgid "Search and destroy spams and spammers."
+msgstr ""
+
+#: plugins/spaminator/lib/spaminator_plugin/mailer.rb:8
+msgid "[%s] You must reactivate your account."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
+msgid "Spaminator reports"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
+msgid "Date"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
+msgid "Spams on comments"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:7
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:42
+msgid "Spammers"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:10
+msgid "On content"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
+msgid "From spammers"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
+msgid "Total"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
+msgid "With spam comments"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:14
+msgid "With no network"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:20
+msgid "Content of comments checked as spam / number of comments verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:21
+msgid "Comments from spammers / number of comments verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:22
+msgid "Spam comments / total number of comments"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:23
+msgid "People with more than 2 spam comments / number of people verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:24
+msgid ""
+"People who signed up more than one month ago, have no network / number of "
+"people verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:25
+msgid "Spammers / total number of people"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:1
+msgid "Spaminator settings"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:6
+msgid "Period (days) for scanning spammers"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:10
+msgid ""
+"Spaminator was never deployed. While deployed, Spaminator will periodically "
+"scan your social network for spams. Do it now!"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:12
+msgid "Spaminator is deployed."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:14
+msgid "Spaminator is withhold."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:19
+msgid "Spaminator is scanning..."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:21
+msgid "Next scan on %s days."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:25
+msgid "Scanning..."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:25
+msgid "Scan now!"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:29
+msgid "Deploy"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:29
+msgid "Schedule next scan for the period defined"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:30
+msgid "Withhold"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:30
+msgid "Cancel next scheduled scans"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:41
+msgid "Spams"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:47
+msgid "Spam comments found / number of comments verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:48
+msgid "Spammers found / number of users verified"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:52
+msgid "SEE FULL REPORTS (%s)"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:52
+msgid "No Report"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
+msgid "Hi %s!"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
+msgid ""
+"Due to the recent increase in the number of spams on %s, we decided to "
+"deactivate all inactive users on the network. It just happens that you are "
+"one of them! But there is no need to worry. Your account is completely "
+"preserved and if you want to reactivate it you just need to click on the "
+"following link and recover your password (since it was changed to a huge "
+"scramble of random characters):"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
+msgid ""
+"We are sorry that this procedure might bother you a lot, but it's necessary "
+"for the healthy of our network."
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
+msgid "We hope to see you back soon!"
+msgstr ""
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
+msgid "Best Regards,"
+msgstr ""

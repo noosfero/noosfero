@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:11
+msgid "Display headlines from members of a community"
+msgstr ""
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:15
+msgid "This block displays one post from members of a community."
+msgstr ""
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:21
+msgid "Profile members headlines"
+msgstr ""
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_plugin.rb:11
+msgid "A plugin that adds a block where you can display posts from members."
+msgstr ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "Headlines transition:"
+msgstr ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "No automatic transition"
+msgstr ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "Every 1 second"
+msgid_plural "Every %d seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:5
+msgid "Display navigation buttons"
+msgstr ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:6
+msgid "Limit of headlines"
+msgstr ""
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:8
+msgid "Choose which roles should be displayed:"
+msgstr ""
+
+#: plugins/profile_members_headlines/views/blocks/headlines.html.erb:37
+msgid "No headlines to be shown."
+msgstr ""

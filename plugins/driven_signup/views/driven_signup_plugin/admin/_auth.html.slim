@@ -1,0 +1,10 @@
+div.row
+  = form_for auth, as: :auth, remote: true, url: {action: :edit, id: auth.id},
+    html: {data: {token: auth.token}} do |f|
+
+    span.cell= f.text_field :name, placeholder: _('name this token')
+    span.cell= f.text_field :token, value: auth.token
+    span.cell= f.submit nil, class: 'btn btn-default btn-success'
+    span.cell= link_to _('Remove'), {action: :destroy, token: auth.token}, remote: true,
+      class: 'btn btn-default btn-danger', confirm: _('Are you sure you want to delete this authorization?')
+

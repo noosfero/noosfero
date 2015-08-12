@@ -25,7 +25,7 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
     settings.save!
     post :edit, :profile => profile.identifier, :settings => {:enabled => '0'}
 
-    assert !settings.enabled
+    refute settings.enabled
   end
 
   should 'be able to enable shopping cart delivery' do
@@ -41,7 +41,7 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
     settings.save!
     post :edit, :profile => profile.identifier, :settings => {:delivery => '0'}
 
-    assert !settings.delivery
+    refute settings.delivery
   end
 
   should 'be able to choose the delivery price' do

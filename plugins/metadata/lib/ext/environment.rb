@@ -7,7 +7,7 @@ class Environment
   }
 
   metadata_spec namespace: :og, tags: {
-    type: 'website',
+    type: proc{ |e, plugin| plugin.context.params[:og_type] || 'website' },
     title: proc{ |e, plugin| e.name },
     site_name: proc{ |e, plugin| e.name },
     description: proc{ |e, plugin| e.name },

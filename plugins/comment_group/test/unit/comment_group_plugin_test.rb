@@ -18,7 +18,7 @@ class CommentGroupPluginTest < ActiveSupport::TestCase
   end
 
   should 'have a js file' do
-    assert !plugin.js_files.blank?
+    refute plugin.js_files.blank?
   end
 
   should 'have stylesheet' do

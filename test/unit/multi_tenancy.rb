@@ -31,7 +31,7 @@ class MultiTenancyTest < ActiveSupport::TestCase
   def test_multitenancy_is_off_if_it_is_not_a_hosted_environment_and_there_is_no_mapping
     Noosfero::MultiTenancy.expects(:mapping).returns({})
     Noosfero::MultiTenancy.expects(:is_hosted_environment?).returns(false)
-    assert !Noosfero::MultiTenancy.on?
+    refute Noosfero::MultiTenancy.on?
   end
 
   def test_set_schema_by_host
@@ -54,7 +54,7 @@ class MultiTenancyTest < ActiveSupport::TestCase
 
   def test_if_is_not_hosted_environment
     YAML.expects(:load_file).returns(db_config)
-    assert !Noosfero::MultiTenancy.send(:is_hosted_environment?)
+    refute Noosfero::MultiTenancy.send(:is_hosted_environment?)
   end
 
   private

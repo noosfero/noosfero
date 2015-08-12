@@ -1,7 +1,7 @@
 <ul>
   <%if logged_in? %>
     <%if !user.favorite_enterprises.include?(profile) %>
-      <li><%= button(:add, _('Add as favorite'), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :title => _('Add enterprise as favorite')) %></li>
+      <li><%= button(:love, _('Add as favorite'), { profile: user.identifier, controller: 'favorite_enterprises', action: 'add', id: profile.id }, title: _('Add enterprise as favorite')) %></li>
     <% end %>
   <% end %>
   <% if profile.enable_contact? %>

@@ -8,7 +8,7 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
 
     task.form_id = 1
     task.valid?
-    assert !task.errors.include?(:form_id)
+    refute task.errors.include?(:form_id)
   end
 
   should 'create submission with answers on perform' do

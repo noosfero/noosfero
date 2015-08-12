@@ -1,0 +1,14 @@
+#driven-signup-tokens {
+
+  &.table {
+    display: table;
+
+    .row {
+      display: table-row;
+
+      .cell {
+        display: table-cell;
+      }
+    }
+  }
+}

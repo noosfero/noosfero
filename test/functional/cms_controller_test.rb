@@ -141,7 +141,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.description = 'a' * 600
     profile.save(:validate => false)
 
-    assert !profile.valid?
+    refute profile.valid?
     assert_not_equal a, profile.home_page
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
@@ -779,9 +779,9 @@ class CmsControllerTest < ActionController::TestCase
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
 
-    assert !assigns(:article).published?
+    refute assigns(:article).published?
     assert_equal 'new-private-article', folder.children[0].name
-    assert !folder.children[0].published?
+    refute folder.children[0].published?
   end
 
   should 'publish the article in the selected community if community is not moderated' do
@@ -1310,7 +1310,7 @@ class CmsControllerTest < ActionController::TestCase
 
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
       assert File.exists?(UploadedFile.find(file_1.id).public_filename(suffix))
-      assert !File.exists?(UploadedFile.find(file_2.id).public_filename(suffix))
+      refute File.exists?(UploadedFile.find(file_2.id).public_filename(suffix))
     end
     file_1.destroy
     file_2.destroy
@@ -1553,7 +1553,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :display_posts_in_current_language => false }
     profile.blog.reload
-    assert !profile.blog.display_posts_in_current_language?
+    refute profile.blog.display_posts_in_current_language?
   end
 
   should 'update to true blog display posts in current language setting' do

@@ -286,7 +286,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments as a thread" do
-    person = fast_create(Person)
+    person = create_user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
@@ -302,7 +302,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments when some comment on thread is spam and not display its replies" do
-    person = fast_create(Person)
+    person = create_user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
@@ -328,7 +328,7 @@ class CommentTest < ActiveSupport::TestCase
 
   should 'be able to reject a comment' do
     c = Comment.new
-    assert !c.rejected?
+    refute c.rejected?
 
     c.reject!
     assert c.rejected?
@@ -408,15 +408,15 @@ class CommentTest < ActiveSupport::TestCase
     c = Comment.new
     c.spam = true
     assert c.spam?
-    assert !c.ham?
+    refute c.ham?
 
     c.spam = false
     assert c.ham?
-    assert !c.spam?
+    refute c.spam?
 
     c.spam = nil
-    assert !c.spam?
-    assert !c.ham?
+    refute c.spam?
+    refute c.ham?
   end
 
   should 'be able to select non-spam comments' do
@@ -547,7 +547,7 @@ class CommentTest < ActiveSupport::TestCase
     article = Article.new
     comment = build(Comment, :article => article)
 
-    assert !comment.need_moderation?
+    refute comment.need_moderation?
   end
 
   should 'not need moderation if the comment author is the article author' do
@@ -560,7 +560,7 @@ class CommentTest < ActiveSupport::TestCase
     comment = build(Comment, :article => article)
     comment.stubs(:author).returns(author)
 
-    assert !comment.need_moderation?
+    refute comment.need_moderation?
   end
 
   should 'need moderation if article is moderated and the comment has no author' do
@@ -589,7 +589,7 @@ class CommentTest < ActiveSupport::TestCase
   should 'not be able to destroy comment without user' do
     comment = Comment.new
 
-    assert !comment.can_be_destroyed_by?(nil)
+    refute comment.can_be_destroyed_by?(nil)
   end
 
   should 'not be able to destroy comment' do
@@ -599,7 +599,7 @@ class CommentTest < ActiveSupport::TestCase
     comment = build(Comment, :article => article)
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
 
-    assert !comment.can_be_destroyed_by?(user)
+    refute comment.can_be_destroyed_by?(user)
   end
 
   should 'be able to destroy comment if is the author' do
@@ -631,7 +631,7 @@ class CommentTest < ActiveSupport::TestCase
   should 'not be able to mark comment as spam without user' do
     comment = Comment.new
 
-    assert !comment.can_be_marked_as_spam_by?(nil)
+    refute comment.can_be_marked_as_spam_by?(nil)
   end
 
   should 'not be able to mark comment as spam' do
@@ -641,7 +641,7 @@ class CommentTest < ActiveSupport::TestCase
     comment = build(Comment, :article => article)
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
 
-    assert !comment.can_be_marked_as_spam_by?(user)
+    refute comment.can_be_marked_as_spam_by?(user)
   end
 
   should 'be able to mark comment as spam if is the profile' do
@@ -666,14 +666,14 @@ class CommentTest < ActiveSupport::TestCase
   should 'not be able to update comment without user' do
     comment = Comment.new
 
-    assert !comment.can_be_updated_by?(nil)
+    refute comment.can_be_updated_by?(nil)
   end
 
   should 'not be able to update comment' do
     user = Person.new
     comment = Comment.new
 
-    assert !comment.can_be_updated_by?(user)
+    refute comment.can_be_updated_by?(user)
   end
 
   should 'be able to update comment if is the author' do
@@ -714,10 +714,10 @@ class CommentTest < ActiveSupport::TestCase
   should 'like a comment' do
     comment = create_comment
     person = create_user('voter').person
-    assert !comment.voted_by?(person, true)
+    refute comment.voted_by?(person, true)
     person.vote_for(comment)
     assert comment.voted_by?(person, true)
-    assert !comment.voted_by?(person, false)
+    refute comment.voted_by?(person, false)
   end
 
   should 'count voters for' do

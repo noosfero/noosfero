@@ -130,7 +130,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'ldap_plugin_onthefly_register return false if ldap onthefly_register variable is defined as false' do
     value = '0'
     @enviroment.ldap_plugin_onthefly_register= value
-    assert !@enviroment.ldap_plugin_onthefly_register
+    refute @enviroment.ldap_plugin_onthefly_register
   end
 
   should 'ldap_plugin_filter= define the ldap filter' do
@@ -160,7 +160,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'tls return false if ldap tls variable is defined as false' do
     value = '0'
     @enviroment.ldap_plugin_tls= value
-    assert !@enviroment.ldap_plugin_tls
+    refute @enviroment.ldap_plugin_tls
   end
 
   should 'validates presence of host' do
@@ -171,12 +171,12 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     @enviroment.ldap_plugin_host= "http://somehost.com"
     @enviroment.valid?
-    assert !@enviroment.errors.include?(:ldap_plugin_host)
+    refute @enviroment.errors.include?(:ldap_plugin_host)
   end
 
   should 'validates presence of host only if some ldap configuration is defined' do
     @enviroment.valid?
-    assert !@enviroment.errors.include?(:ldap_plugin_host)
+    refute @enviroment.errors.include?(:ldap_plugin_host)
 
     @enviroment.ldap_plugin= {:port => 3000}
     @enviroment.valid?

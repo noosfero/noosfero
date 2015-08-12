@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/community_track/lib/community_track_plugin.rb:8
+msgid "New kind of content for communities."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:13
+msgid "Step not allowed at this parent."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:47
+msgid "must be equal or after start date."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:52
+msgid "Step"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:56
+msgid "Defines a step."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
+msgid "Track Card List"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:8
+msgid "This block displays a list of most relevant tracks as cards."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+msgid "Closed"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+msgid "Join!"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
+msgid "Soon"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:11
+msgid "should not be blank."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:19
+msgid "Track"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:23
+msgid "Defines a track."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
+msgid "Track List"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
+msgid "This block displays a list of most relevant tracks."
+msgstr ""
+
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
+msgid "Select one community to proceed"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/step.html.erb:13
+#: plugins/community_track/views/content_viewer/step.html.erb:19
+msgid "Tool"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/step.html.erb:15
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
+msgid "Create %s"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/track.html.erb:9
+#: plugins/community_track/views/blocks/_track.html.erb:12
+msgid "Steps"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/track.html.erb:16
+msgid "Reorder Steps"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/track.html.erb:17
+msgid "Save Order"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/track.html.erb:35
+msgid "Hidden Steps"
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
+msgid "Tool: "
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
+msgid "View"
+msgstr ""
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
+msgid "Show more at another page"
+msgstr ""
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
+msgid "Select Categories"
+msgstr ""
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
+msgid "Select Community"
+msgstr ""
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
+msgid "New Track"
+msgstr ""
+
+#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
+msgid "Tracks"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
+msgid "Goals:"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
+msgid "Expected Results:"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
+msgid "Period"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:15
+msgid "Tool type"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:19
+msgid "Hidden Step"
+msgstr ""
+
+#: plugins/community_track/views/blocks/_track_card.html.erb:25
+msgid "hits"
+msgstr ""
+
+#: plugins/community_track/views/blocks/_track_list_more.html.erb:5
+msgid "View All"
+msgstr ""

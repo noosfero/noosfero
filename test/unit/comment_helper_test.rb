@@ -71,7 +71,7 @@ class CommentHelperTest < ActiveSupport::TestCase
   should 'do not return link for report abuse action when comment has no author' do
     comment = Comment.new
     link = link_for_report_abuse(comment)
-    assert !link
+    refute link
   end
 
   should 'return link for mark comment as spam' do

@@ -28,6 +28,7 @@
 .icon-more      { background-image: url(Tango/16x16/actions/add.png) }
 .icon-up        { background-image: url(Tango/16x16/actions/go-up.png) }
 .icon-down      { background-image: url(Tango/16x16/actions/go-down.png) }
+.icon-download  { background-image: url(Tango/16x16/actions/bottom.png) }
 .icon-left      { background-image: url(Tango/16x16/actions/go-previous.png) }
 .icon-right     { background-image: url(Tango/16x16/actions/go-next.png) }
 .icon-up-disabled    { background-image: url(Tango/16x16/actions/go-up.png); opacity: 0.25; filter:alpha(opacity=25); }
@@ -111,10 +112,14 @@
 
 .icon-activate-user           { background-image: url(Tango/16x16/emblems/emblem-system.png) }
 .icon-deactivate-user         { background-image: url(Tango/16x16/emblems/emblem-unreadable.png) }
+.icon-love                    { background-image: url(Tango/16x16/emblems/emblem-favorite.png) }
 .icon-set-admin-role          { background-image: url(mod/16x16/apps/user.png) }
 .icon-reset-admin-role        { background-image: url(../../../images/icons-app/person-icon.png) }
 .icon-clock                   { background-image: url(Tango/16x16/actions/appointment.png) }
 .icon-fullscreen              { background-image: url(Tango/16x16/actions/view-fullscreen.png) }
+.icon-feed,
+.icon-newrss-feed,
+.icon-rss-feed                { background-image: url(../../../images/icons-mime/rss-feed-16.png) }
 
 /******************BIG ICONS************************/
 .bigicon-embed     { background-image: url(Tango/scalable/apps/utilities-terminal.svg) }

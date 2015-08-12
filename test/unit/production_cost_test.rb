@@ -9,7 +9,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     p.name = 'Taxes'
     p.valid?
-    assert !p.errors[:name.to_s].present?
+    refute p.errors[:name.to_s].present?
   end
 
   should 'not validates name if it is blank' do
@@ -28,7 +28,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     p.name = 'a'*30
     p.valid?
-    assert !p.errors[:name.to_s].present?
+    refute p.errors[:name.to_s].present?
   end
 
   should 'not have duplicated name on same environment' do
@@ -58,7 +58,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     cost2.valid?
 
-    assert !cost2.errors[:name.to_s].present?
+    refute cost2.errors[:name.to_s].present?
   end
 
   should 'allow duplicated name on different enterprises' do
@@ -70,7 +70,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     cost2.valid?
 
-    assert !cost2.errors[:name.to_s].present?
+    refute cost2.errors[:name.to_s].present?
   end
 
   should 'be associated to an environment as owner' do
@@ -80,7 +80,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     p.owner = Environment.default
     p.valid?
-    assert !p.errors[:owner.to_s].present?
+    refute p.errors[:owner.to_s].present?
   end
 
   should 'be associated to an enterprise as owner' do
@@ -91,7 +91,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
     p.owner = enterprise
     p.valid?
-    assert !p.errors[:owner.to_s].present?
+    refute p.errors[:owner.to_s].present?
   end
 
   should 'create a production cost on an enterprise' do

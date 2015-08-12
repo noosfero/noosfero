@@ -27,7 +27,7 @@ class NationalRegionTest < ActiveSupport::TestCase
 
     found_regions = NationalRegion.search_city('Santo %', true)
     
-    assert !(found_regions.length != 3)
+    refute (found_regions.length != 3)
 
     found_regions.each do |region|
       assert city_names.find_index(region.city) >=  0
@@ -60,7 +60,7 @@ class NationalRegionTest < ActiveSupport::TestCase
 
     found_regions = NationalRegion.search_state('Rio %', true)
 
-    assert !(found_regions.length != 3)
+    refute (found_regions.length != 3)
 
     found_regions.each do |region|
       assert state_names.find_index(region.state) >=  0

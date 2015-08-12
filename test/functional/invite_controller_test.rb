@@ -164,7 +164,7 @@ class InviteControllerTest < ActionController::TestCase
 
     assert ContactList.exists?(contact_list.id)
     process_delayed_job_queue
-    assert !ContactList.exists?(contact_list.id)
+    refute ContactList.exists?(contact_list.id)
   end
 
   should 'destroy contact_list after invitation when import is not manual' do
@@ -173,7 +173,7 @@ class InviteControllerTest < ActionController::TestCase
 
     assert ContactList.exists?(contact_list.id)
     process_delayed_job_queue
-    assert !ContactList.exists?(contact_list.id)
+    refute ContactList.exists?(contact_list.id)
   end
 
   should 'return empty hash as invitation data if contact list was not fetched' do

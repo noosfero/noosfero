@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-02-17 10:50+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -34,6 +34,10 @@ msgstr ""
 msgid "Lattes Platform is unreachable. Please, try it later."
 msgstr ""
 "A Plataforma Lattes está inacessível. Por favor tente novamente mais tarde."
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:23
+msgid "Could not import the lattes"
+msgstr ""
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
 #: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18

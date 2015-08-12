@@ -1,5 +1,12 @@
 #!/bin/sh
 
+DISTRO=wheezy
+REPOSITORY='wheezy-test'
+
+if [ -n "$1" ]; then
+  REPOSITORY="$1"
+fi
+
 set -e
 sudo apt-get install -qy netcat-traditional shunit2
 
@@ -57,11 +64,11 @@ FPQAoNmiMgP6zGF9rgOEWMEiFEryayrz
 EOF
 
 cat > /etc/apt/sources.list.d/noosfero.list <<EOF
-deb http://download.noosfero.org/debian/wheezy-test ./
-deb-src http://download.noosfero.org/debian/wheezy-test ./
+deb http://download.noosfero.org/debian/$REPOSITORY ./
+deb-src http://download.noosfero.org/debian/$REPOSITORY ./
 EOF
 
-sed -e 's/wheezy/&-backports/' \
+sed -e "s/$DISTRO/&-backports/" \
   /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
 
 export DEBIAN_FRONTEND=noninteractive

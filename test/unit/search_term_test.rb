@@ -3,13 +3,13 @@ require 'test_helper'
 class SearchTermTest < ActiveSupport::TestCase
   should 'have term' do
     search_term = SearchTerm.new
-    assert !search_term.valid?
+    refute search_term.valid?
     assert search_term.errors.has_key?(:term)
   end
 
   should 'have context' do
     search_term = SearchTerm.new
-    assert !search_term.valid?
+    refute search_term.valid?
     assert search_term.errors.has_key?(:context)
   end
 
@@ -21,12 +21,12 @@ class SearchTermTest < ActiveSupport::TestCase
 
     search_term.asset = 'alternate_universe'
     search_term.valid?
-    assert !search_term.errors.has_key?(:term)
+    refute search_term.errors.has_key?(:term)
 
     search_term.asset = 'universe'
     search_term.context = fast_create(Profile)
     search_term.valid?
-    assert !search_term.errors.has_key?(:term)
+    refute search_term.errors.has_key?(:term)
   end
 
   should 'create a search term' do

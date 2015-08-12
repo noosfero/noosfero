@@ -27,14 +27,12 @@ module ActionTracker
     scope :recent, :conditions => ['created_at >= ?', RECENT_DELAY.days.ago]
     scope :visible, :conditions => { :visible => true }
 
-    def self.current_user_from_model
-      u = new
-      u.valid?
-      u.user
+    def self.current_user
+      ActionTrackerConfig.current_user.call
     end
 
     def self.update_or_create(params)
-      u = params[:user] || current_user_from_model
+      u = params[:user] || current_user
       return if u.nil?
       target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
       conditions = { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)
@@ -44,7 +42,7 @@ module ActionTracker
     end
 
     def self.add_or_create(params)
-      u = params[:user] || current_user_from_model
+      u = params[:user] || current_user
       return if u.nil?
       target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
       l = last :conditions => { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)

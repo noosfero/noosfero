@@ -1,0 +1,360 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
+msgid "A shopping basket feature for enterprises"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:32
+msgid "Add to basket"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:60
+msgid "Shopping basket"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
+msgid "Purchase reports"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Opened"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Canceled"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Confirmed"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Shipped"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
+msgid "Free delivery"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+msgid "Delivery"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
+msgid "Item name"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
+#: plugins/shopping_cart/views/cart.html.erb:7
+msgid "Total:"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
+msgid "[%s] Your buy request was performed successfully."
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:36
+msgid "[%s] You have a new buy request from %s."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:115
+msgid "Request sent successfully. Check your email."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:138
+msgid "Basket displayed."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:157
+msgid "Basket hidden."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:185
+msgid "Delivery option updated."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:198
+msgid "Can't join items from different enterprises."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:212
+msgid "There is no basket."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:228
+msgid "This enterprise doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:242
+msgid "The basket doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:256
+msgid "Invalid quantity."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:336
+msgid "Undefined product"
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:338
+msgid "Wrong product id"
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:9
+msgid "Option updated successfully."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:11
+msgid "Option wasn't updated successfully."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
+msgid "Name"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13
+msgid "Delivery Address"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
+msgid "Send buy request"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:2
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:2
+msgid "No results."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
+msgid "Date"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:7
+msgid "Customer"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
+msgid "Purchase value"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
+msgid "Status"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+msgid "E-mail"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:8
+msgid "Delivery option"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+msgid "Payment"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
+msgid "shopping_cart|Change"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
+msgid "Quantity"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
+msgid "Basket options"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
+msgid "Enable shopping basket"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
+msgid "Enable delivery fields on orders"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
+msgid "Option"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:24
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:32
+msgid "Remove option"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:27
+msgid "ADD NEW OPTION"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
+msgid "Order's minimum price for free delivery:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
+msgid "Leave empty to always charge the delivery."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
+msgid "Purchase Reports"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:12
+msgid "to"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:19
+msgid "Products list"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:20
+msgid "Orders list"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:4
+msgid "Basket"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:5
+msgid "Clean basket"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:8
+msgid "Shopping checkout"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:11
+msgid "Show basket"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:12
+msgid "Hide basket"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:19
+msgid "Ups... I had a problem to load the basket list."
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:21
+msgid "Did you want to reload this page?"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:24
+msgid "Sorry, you can't have more then 100 kinds of items on this basket."
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:26
+msgid "Oops, you must wait your last request to finish first!"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:27
+msgid "Are you sure you want to remove this item?"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:28
+msgid "Are you sure you want to clean your basket?"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/send_request.html.erb:1
+msgid "Request sent successfully check your email."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
+msgid "Hi %s!"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
+msgid "This is a notification e-mail about your buy request on %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
+msgid ""
+"The supplier already received your buy request and may contact you for "
+"confirmation."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+msgid "If you have any doubts, contact us at: %s"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
+msgid "Please check if your information below is correct:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
+msgid "Phone number"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+msgid "Money"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+msgid "shopping_cart|Check"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
+msgid "Here are the products you bought:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:51
+msgid "Thanks for buying with us!"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:54
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:51
+msgid "A service of %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
+msgid "This is a buy request made by %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
+msgid "Below follows the customer informations:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:45
+msgid "And here are the items bought by this customer:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
+msgid "If there are any problems with this email contact the admin of %s."
+msgstr ""

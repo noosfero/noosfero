@@ -20,12 +20,12 @@ class ActionTrackerConfig
     verbs.keys.map(&:to_s)
   end
 
-  def self.current_user_method
-    config[:current_user_method] || :current_user
+  def self.current_user
+    config[:current_user] || proc{ nil }
   end
 
-  def self.current_user_method=(method_name)
-    UserStamp.current_user_method = config[:current_user_method] = method_name
+  def self.current_user= block
+    config[:current_user] = block
   end
 
   def self.default_filter_time

@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:8
+msgid "New kind of content for organizations."
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:62
+msgid "Notification successfully sent"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:64
+msgid "Notification not sent"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
+msgid "Work Assignment"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:20
+msgid ""
+"Defines a work to be done by the members and receives their submissions "
+"about this work."
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:9
+msgid "Submission date"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:10
+msgid "Versions"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:24
+msgid "View all versions"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:70
+msgid "Delete"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:88
+msgid "Edit"
+msgstr ""
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
+msgid "Save"
+msgstr ""
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
+msgid "Cancel"
+msgstr ""
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
+msgid "Default email message:"
+msgstr ""
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
+msgid "Publish submissions"
+msgstr ""
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
+msgid "Allow users change submissions privacy?"
+msgstr ""
+
+#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:1
+msgid ""
+"If you want to notify someone about this action, fill the field below with "
+"the emails of the destinies, separated by comma."
+msgstr ""
+
+#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:3
+msgid "Send notification to: "
+msgstr ""

@@ -26,7 +26,7 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
     ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent')
     t.enterprise = ent
     t.valid?
-    assert !t.errors[:enterprise].any?, "must validate after enterprise is set"
+    refute t.errors[:enterprise].any?, "must validate after enterprise is set"
   end
 
   should 'activate enterprise when finished' do

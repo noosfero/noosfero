@@ -81,6 +81,9 @@ roles] }
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
+  has_many :favorite_enterprise_people
+  has_many :favorite_enterprises, source: :enterprise, through: :favorite_enterprise_people
+
   has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
@@ -315,8 +318,6 @@ roles] }
     ]
   end
 
-  has_and_belongs_to_many :favorite_enterprises, :class_name => 'Enterprise', :join_table => 'favorite_enteprises_people'
-
   def email_domain
     user && user.email_domain || environment.default_hostname(true)
   end
@@ -496,8 +497,8 @@ roles] }
     user.save!
   end
 
-  def activities
-    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' and action_tracker.verb != 'reply_scrap_on_self' ORDER BY updated_at DESC")
+  def exclude_verbs_on_activities
+    %w[leave_scrap_to_self add_member_in_community reply_scrap_on_self]
   end
 
   # by default, all fields are private

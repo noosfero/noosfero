@@ -21,7 +21,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
     blog = create_blog
     e = create(:external_feed, blog: blog)
     assert e.add_item('Article title', 'http://orig.link.invalid', Time.now, 'Content for external post')
-    assert !e.add_item('Article title', 'http://orig.link.invalid', Time.now, 'Content for external post')
+    refute e.add_item('Article title', 'http://orig.link.invalid', Time.now, 'Content for external post')
     assert_equal 1, e.blog.posts.size
   end
 
@@ -61,7 +61,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
 
   should 'require address if enabled' do
     e = build(ExternalFeed, :enabled => true, :address => nil)
-    assert !e.valid?
+    refute e.valid?
     assert e.errors[:address].present?
   end
 

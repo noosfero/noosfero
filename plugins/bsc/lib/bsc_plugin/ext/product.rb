@@ -12,4 +12,14 @@ class Product
   def display_supplier_on_search?
     false
   end
+
+  def action_tracker_user
+    return self.enterprise if self.enterprise.validated
+
+    if self.enterprise.bsc
+       self.enterprise.bsc
+    else
+       self.enterprise
+    end
+  end
 end

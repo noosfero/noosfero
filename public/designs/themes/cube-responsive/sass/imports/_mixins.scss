@@ -1,0 +1,63 @@
+// MIXINS
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
+@mixin box-sizing($box-model) {
+	box-sizing: $box-model;
+}
+
+@mixin abs-pos ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+	position: absolute;
+}
+
+@mixin font-size($size: 12, $base: 16) {
+	font-size: $size + px;
+	font-size: ($size / $base) * 1rem;
+}
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}  
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}  
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};      
+}
+
+@mixin transition($args...) {
+	transition: $args;
+}
+
+@mixin opacity($opacity) {
+	opacity: $opacity;
+}
+
+// PLACEHOLDERS
+%text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

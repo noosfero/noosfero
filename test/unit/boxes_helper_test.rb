@@ -106,7 +106,7 @@ class BoxesHelperTest < ActionView::TestCase
   end
 
   should 'add invisible CSS class name for invisible blocks' do
-    assert !block_css_classes(build(Block, :display => 'always')).split.any? { |item| item == 'invisible-block'}
+    refute block_css_classes(build(Block, :display => 'always')).split.any? { |item| item == 'invisible-block'}
     assert block_css_classes(build(Block, :display => 'never')).split.any? { |item| item == 'invisible-block'}
   end
 

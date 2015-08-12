@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:34
+msgid "Display your contents"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:38
+msgid ""
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:43
+msgid "Publish date"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:45
+msgid "Abstract"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:151
+msgid "Read more"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:194
+msgid "%{month}/%{day}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: plugins/display_content/lib/display_content_block.rb:197
+msgid "%{month_name} %{day}"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
+msgid "Choose which attributes should be displayed and drag to reorder them:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
+msgid "Choose which content should be displayed:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
+msgid "Choose directly"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
+msgid "Choose by Content Type"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
+msgid "Display content types:"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
+msgid "more"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""

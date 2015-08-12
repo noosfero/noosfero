@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:8
+msgid "Adds a tolerance time for editing content after its publication"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:23
+msgid "Tolerance Adjustements"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:34
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:48
+msgid ""
+"This content can't be edited anymore because it expired the tolerance time"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:59
+msgid "editing"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:63
+msgid "cloning"
+msgstr ""
+
+#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:70
+msgid "The tolerance time for %s this content is over."
+msgstr ""
+
+#: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:10
+msgid "Tolerance updated"
+msgstr ""
+
+#: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:12
+msgid "Tolerance could not be updated"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:1
+msgid "Tolerance Adjustments"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Seconds"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Minutes"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Hours"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:10
+msgid "Content edition tolerance time"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:14
+msgid "Comment edition tolerance time"
+msgstr ""
+
+#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:18
+msgid "Empty means unlimited and zero means right away."
+msgstr ""

@@ -6,7 +6,7 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     reported = fast_create(Profile)
     abuse_complaint = AbuseComplaint.new
 
-    assert !abuse_complaint.valid?
+    refute abuse_complaint.valid?
     assert abuse_complaint.errors[:reported].any?
 
     abuse_complaint.reported = reported
@@ -54,6 +54,6 @@ class AbuseComplaintTest < ActiveSupport::TestCase
 
     reported.destroy
 
-    assert !AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint still exist!"
+    refute AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint still exist!"
   end
 end

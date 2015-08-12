@@ -1,3 +1,9 @@
+noosfero.add_and_join = {
+  locales: {
+    leaveConfirmation: '',
+  },
+};
+
 jQuery(function($) {
 
   $(".add-friend").live('click', function(){
@@ -29,6 +35,8 @@ jQuery(function($) {
   })
 
   $(".leave-community").live('click', function(){
+    if (!confirm(noosfero.add_and_join.locales.leaveConfirmation))
+      return false;
     clicked = $(this);
     url = clicked.attr("href");
     loading_for_button(this);

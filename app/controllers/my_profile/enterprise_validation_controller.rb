@@ -1,7 +1,7 @@
 class EnterpriseValidationController < MyProfileController
 
   protect 'validate_enterprise', :profile
-  
+
   def index
     @pending_validations = profile.pending_validations
   end
@@ -27,7 +27,7 @@ class EnterpriseValidationController < MyProfileController
   post_only :reject
   def reject
     @pending = profile.find_pending_validation(params[:id])
-    if @pending 
+    if @pending
       @pending.reject_explanation = params[:reject_explanation]
       begin
         @pending.reject

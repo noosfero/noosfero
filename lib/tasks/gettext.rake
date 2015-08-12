@@ -60,6 +60,8 @@ task :updatepo do
 
   puts 'Extracting strings from source. This may take a while ...'
 
+  # XXX this list is duplicated in test/unit/i18n_test.rb; if you change it
+  # here, please also update it there.
   files_to_translate = [
     "{app,lib}/**/*.{rb,rhtml,erb}",
     'config/initializers/*.rb',
@@ -98,7 +100,7 @@ Dir.glob('plugins/*').each do |plugindir|
       }
     )
     plugin_pot = File.join(po_root, "#{plugin}.pot")
-    if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.'")
+    if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.$'")
       rm_f plugin_pot
     end
     sh 'find', po_root, '-type', 'd', '-empty', '-delete'
@@ -106,8 +108,25 @@ Dir.glob('plugins/*').each do |plugindir|
   end
 end
 
+def checkpo(po_files)
+  max = po_files.map(&:size).max
+  po_files.each do |po|
+    printf "%#{max}s: ", po
+    system "msgfmt --statistics --output /dev/null " + po
+  end
+end
+
+desc "checks core translation files"
 task :checkpo do
-  sh 'for po in po/*/noosfero.po; do echo -n "$po: "; msgfmt --statistics --output /dev/null $po; done'
+  checkpo(Dir.glob('po/*/noosfero.po'))
+end
+
+languages = Dir.glob('po/*').select { |d| File.directory?(d) }.map { |d| File.basename(d) }
+languages.each do |lang|
+  desc "checks #{lang} translation files"
+  task "checkpo:#{lang}" do
+    checkpo(Dir.glob("po/#{lang}/*.po") + Dir.glob("plugins/*/po/#{lang}/*.po"))
+  end
 end
 
 # vim: ft=ruby

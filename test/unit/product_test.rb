@@ -117,7 +117,7 @@ class ProductTest < ActiveSupport::TestCase
     enterprise.expects(:public_profile_url).returns({})
 
     product.expects(:id).returns(999)
-    product.expects(:enterprise).returns(enterprise)
+    product.expects(:profile).returns(enterprise)
     assert_equal({:controller => 'manage_products', :action => 'show', :id => 999}, product.url)
   end
 
@@ -130,7 +130,7 @@ class ProductTest < ActiveSupport::TestCase
     e1.public_profile = false
     e1.save!; p1.reload;
 
-    assert !p1.public?
+    refute p1.public?
   end
 
   should 'accept prices in american\'s or brazilian\'s currency format' do
@@ -267,7 +267,7 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'has basic info if filled unit, price or discount' do
     product = Product.new
-    assert !product.has_basic_info?
+    refute product.has_basic_info?
 
     product = build(Product, :unit => Unit.new)
     assert product.has_basic_info?
@@ -349,7 +349,7 @@ class ProductTest < ActiveSupport::TestCase
     product = fast_create(Product, :price => 30.0)
 
     first = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 1)
-    assert !Product.find(product.id).price_described?
+    refute Product.find(product.id).price_described?
 
     second = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1)
     assert Product.find(product.id).price_described?
@@ -375,7 +375,7 @@ class ProductTest < ActiveSupport::TestCase
     cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
     cost2 = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
     price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
-    assert !product.price_details.empty?
+    refute product.price_details.empty?
 
     product.update_price_details([{:production_cost_id => cost.id, :price => 20}, {:production_cost_id => cost2.id, :price => 30}])
     assert_equal 20, product.price_details.find_by_production_cost_id(cost.id).price

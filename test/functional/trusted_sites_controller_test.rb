@@ -40,14 +40,14 @@ class TrustedSitesControllerTest < ActionController::TestCase
     @controller.stubs(:add_trusted_site).returns(false)
     post :create, :site => 'new.site.com'
     assert_response :success # it actually failed, but was not redirected
-    assert !assigns(:environment).trusted_sites_for_iframe.include?('new.site.com'), 'Site was included in the trusted_sites!?'
+    refute assigns(:environment).trusted_sites_for_iframe.include?('new.site.com'), 'Site was included in the trusted_sites!?'
   end
 
   should 'destroy site' do
     post :create, :site => 'todel.site.com'
     delete :destroy, :site => 'todel.site.com'
     assert_redirected_to :action => :index
-    assert ! assigns(:environment).trusted_sites_for_iframe.include?('todel.site.com'), 'Site was not removed from trusted_sites'
+    refute  assigns(:environment).trusted_sites_for_iframe.include?('todel.site.com'), 'Site was not removed from trusted_sites'
   end
 
   should "get edit" do
@@ -64,7 +64,7 @@ class TrustedSitesControllerTest < ActionController::TestCase
     post :create, :site => 'toedit.site.com'
     post :update, :orig_site => 'toedit.site.com', :site => 'edited.site.com'
     assert_redirected_to :action => :edit
-    assert ! assigns(:environment).trusted_sites_for_iframe.include?('toedit.site.com'), 'Original site found. Site was not updated?'
+    refute  assigns(:environment).trusted_sites_for_iframe.include?('toedit.site.com'), 'Original site found. Site was not updated?'
     assert assigns(:environment).trusted_sites_for_iframe.include?('edited.site.com'), 'New name for site not found. Site was not updated?'
   end
 
@@ -74,6 +74,6 @@ class TrustedSitesControllerTest < ActionController::TestCase
     post :update, :orig_site => 'toedit.site.com', :site => 'edited.site.com'
     assert_response :success # it actually failed, but was not redirected
     assert assigns(:environment).trusted_sites_for_iframe.include?('toedit.site.com'), 'Original site not found. Site was updated?'
-    assert !assigns(:environment).trusted_sites_for_iframe.include?('edited.site.com'), 'New name for site found. Site was updated?'
+    refute assigns(:environment).trusted_sites_for_iframe.include?('edited.site.com'), 'New name for site found. Site was updated?'
   end
 end

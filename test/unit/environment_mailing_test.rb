@@ -20,7 +20,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
 
     mailing.source_id = environment.id
     mailing.valid?
-    assert !mailing.errors[:source_id].any?
+    refute mailing.errors[:source_id].any?
   end
 
   should 'return environment name' do
@@ -95,7 +95,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     mailing = create_mailing(environment, :person => person_1)
     process_delayed_job_queue
 
-    assert !mailing.mailing_sents.find_by_person_id(recipient.id)
+    refute mailing.mailing_sents.find_by_person_id(recipient.id)
   end
 
   def new_mailing(environment)

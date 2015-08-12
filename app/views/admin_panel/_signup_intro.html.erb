@@ -1,0 +1,5 @@
+<div class='description'>
+  <%= _('This text will be shown to the user on the top of the sign up form.') %>
+</div>
+
+<%= labelled_form_field(_('Body'), text_area(:environment, :signup_intro, :cols => 40, :style => 'width: 100%', :class => 'mceEditor')) %>

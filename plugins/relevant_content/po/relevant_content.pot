@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:3
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:7
+msgid "Relevant content"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:11
+msgid "This block lists the most popular content."
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:34
+msgid "Most read articles"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:44
+msgid "Most commented articles"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:61
+msgid "Most liked articles"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:70
+msgid "Most disliked articles"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:80
+msgid "Most voted articles"
+msgstr ""
+
+#: plugins/relevant_content/lib/relevant_content_plugin.rb:8
+#: plugins/relevant_content/test/unit/relevant_content_plugin_test.rb:18
+msgid ""
+"A plugin that lists the most accessed, most commented, most liked and most "
+"disliked contents."
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:2
+msgid "Limit of items per category"
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:3
+msgid "Display most accessed content"
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:4
+msgid "Display most commented content"
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:5
+msgid "Display most liked content"
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:6
+msgid "Display most voted content"
+msgstr ""
+
+#: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:7
+msgid "Display most disliked content"
+msgstr ""

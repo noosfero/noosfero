@@ -26,7 +26,7 @@ class MainBlockTest < ActiveSupport::TestCase
     env = Environment.new
     block = MainBlock.new(:display => 'never')
     block.stubs(:owner).returns(env)
-    assert !block.visible?
+    refute block.visible?
   end
 
   should 'guarantee main block is always visible to everybody' do
