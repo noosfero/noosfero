@@ -368,7 +368,7 @@ class CommunityTest < ActiveSupport::TestCase
     scrap = create(Scrap, defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
     activity = ActionTracker::Record.last
 
-    assert_equal [scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [scrap], community.activities.map(&:activity)
   end
 
   should 'return tracked_actions of community as activities' do
@@ -378,7 +378,7 @@ class CommunityTest < ActiveSupport::TestCase
     User.current = person.user
     assert_difference 'ActionTracker::Record.count', 1 do
       article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
-      assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
+      assert_equal [article.activity], community.activities.map(&:activity)
     end
   end
 
@@ -393,12 +393,12 @@ class CommunityTest < ActiveSupport::TestCase
     assert_not_includes community.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
   end
 
- 
+
   should 'check if a community admin user is really a community admin' do
     c = fast_create(Community, :name => 'my test profile', :identifier => 'mytestprofile')
     admin = create_user('adminuser').person
     c.add_admin(admin)
-   
+
     assert c.is_admin?(admin)
   end
 

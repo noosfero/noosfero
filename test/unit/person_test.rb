@@ -916,7 +916,7 @@ class PersonTest < ActiveSupport::TestCase
     refute p2.is_member_of?(community)
     process_delayed_job_queue
 
-    action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
+    action_tracker = create(ActionTracker::Record, user: p1, verb: 'create_article')
     action_tracker.target = community
     action_tracker.user = p4
     action_tracker.save!
@@ -1254,7 +1254,7 @@ class PersonTest < ActiveSupport::TestCase
     User.current = person.user
     article = create(TinyMceArticle, :profile => person, :name => 'An article about free software')
 
-    assert_equivalent [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equivalent [scrap,article.activity], person.activities.map { |a| a.activity }
   end
 
   should 'not return tracked_actions and scraps from others as activities' do
@@ -1273,7 +1273,7 @@ class PersonTest < ActiveSupport::TestCase
     create(TinyMceArticle, :profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
-    assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.activity }
   end
 
   should 'grant every permission over profile for its admin' do

@@ -13,6 +13,11 @@ class Scrap < ActiveRecord::Base
   has_many :replies, :class_name => 'Scrap', :foreign_key => 'scrap_id', :dependent => :destroy
   belongs_to :root, :class_name => 'Scrap', :foreign_key => 'scrap_id'
 
+  has_many :profile_activities, foreign_key: :activity_id, conditions: {profile_activities: {activity_type: 'Scrap'}}, dependent: :destroy
+
+  after_create :create_activity
+  after_update :update_activity
+
   scope :all_scraps, lambda {|profile| {:conditions => ["receiver_id = ? OR sender_id = ?", profile, profile], :limit => 30}}
 
   scope :not_replies, :conditions => {:scrap_id => nil}
@@ -23,10 +28,7 @@ class Scrap < ActiveRecord::Base
 
   track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}
 
-  after_create do |scrap|
-    scrap.root.update_attribute('updated_at', DateTime.now) unless scrap.root.nil?
-    ScrapNotifier.notification(scrap).deliver if scrap.send_notification?
-  end
+  after_create :send_notification
 
   before_validation :strip_all_html_tags
 
@@ -55,6 +57,23 @@ class Scrap < ActiveRecord::Base
 
   def send_notification?
     sender != receiver && (is_root? ? root.receiver.receives_scrap_notification? : receiver.receives_scrap_notification?)
+  end
+
+  protected
+
+  def create_activity
+    # do not scrap replies (when scrap_id is not nil)
+    return if self.scrap_id.present?
+    ProfileActivity.create! profile_id: self.receiver_id, activity: self
+  end
+
+  def update_activity
+    ProfileActivity.update_activity self
+  end
+
+  def send_notification
+    self.root.update_attribute('updated_at', DateTime.now) unless self.root.nil?
+    ScrapNotifier.notification(self).deliver if self.send_notification?
   end
 
 end

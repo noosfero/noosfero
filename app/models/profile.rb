@@ -146,6 +146,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_trackable :dependent => :destroy
 
+  has_many :profile_activities
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
@@ -976,9 +977,13 @@ private :generate_url, :url_options
     name
   end
 
-  # Override in your subclasses
+  def exclude_verbs_on_activities
+    %w[]
+  end
+
+  # Customize in subclasses
   def activities
-    []
+    self.profile_activities.includes(:activity).order('updated_at DESC')
   end
 
   def may_display_field_to? field, user = nil
