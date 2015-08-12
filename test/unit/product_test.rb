@@ -117,7 +117,7 @@ class ProductTest < ActiveSupport::TestCase
     enterprise.expects(:public_profile_url).returns({})
 
     product.expects(:id).returns(999)
-    product.expects(:enterprise).returns(enterprise)
+    product.expects(:profile).returns(enterprise)
     assert_equal({:controller => 'manage_products', :action => 'show', :id => 999}, product.url)
   end
 

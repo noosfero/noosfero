@@ -30,6 +30,16 @@ ActionTrackerConfig.verbs = {
 
   reply_scrap_on_self: {
   },
+
+  create_product: {
+  },
+
+  update_product: {
+  },
+
+  remove_product: {
+  },
+
 }
 
 ActionTrackerConfig.current_user = proc do

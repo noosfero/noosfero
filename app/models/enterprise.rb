@@ -15,7 +15,10 @@ class Enterprise < Organization
 
   N_('Enterprise')
 
-  has_many :products, :foreign_key => :profile_id, :dependent => :destroy, :order => 'name ASC'
+  acts_as_trackable after_add: proc{ |p, t| notify_activity t }
+
+  has_many :products, :foreign_key => :profile_id, :dependent => :destroy
+  has_many :product_categories, :through => :products
   has_many :inputs, :through => :products
   has_many :production_costs, :as => :owner
 
@@ -201,5 +204,10 @@ class Enterprise < Organization
   def more_recent_label
     ''
   end
+
+  def followed_by? person
+    super or self.fans.where(id: person.id).count > 0
+  end
+
 
 end
