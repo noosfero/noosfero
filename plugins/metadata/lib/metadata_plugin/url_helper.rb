@@ -7,7 +7,8 @@ module MetadataPlugin::UrlHelper
   def og_url_for options
     options.delete :port
     options[:host] = self.og_domain
-    Noosfero::Application.routes.url_helpers.url_for options
+    url = Noosfero::Application.routes.url_helpers.url_for options
+    url.html_safe
   end
 
   def og_profile_url profile

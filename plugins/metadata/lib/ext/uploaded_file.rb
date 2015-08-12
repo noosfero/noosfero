@@ -13,7 +13,7 @@ class UploadedFile
       plugin.og_url_for url
     end,
     title: proc{ |u, plugin| u.title },
-    image: proc{ |u, plugin| "#{u.environment.top_url}#{u.public_filename}" if u.image? },
+    image: proc{ |u, plugin| "#{u.environment.top_url}#{u.public_filename}".html_safe if u.image? },
     description: proc{ |u, plugin| u.abstract || u.title },
   }
 
