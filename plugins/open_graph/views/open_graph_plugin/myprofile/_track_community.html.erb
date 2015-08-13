@@ -1,0 +1,12 @@
+<div class="panel-heading open-on-enable">
+  <%= button_to_function 'menu-ctrl-panel', t('open_graph_plugin.views.track.config.activity.configure'), "",
+    class: 'community-config config-button', option: 'success', size: 'xs', 'data-target' => "#track-#{track}", 'data-toggle' => 'collapse', 'aria-controls' => 'collapseTwo' %>
+  <a href="#track-<%=track%>" onclick='open_graph.track.config.toggleEvent(this, event)', class='community-label'>
+    <%= render 'heading', f: f, track: track, context: context, klass: klass %>
+  </a>
+</div>
+
+<div id="track-<%=track%>" class="panel-body collapse">
+  <%= render 'track_objects', f: f, track: track, objects: klass.objects, klass: klass, context: context %>
+  <%= render 'track_profiles', f: f, track: track, context: context, klass: klass %>
+</div>

@@ -169,7 +169,7 @@ def test_sequence(plugins, tasks)
         failed[plugin] << task
       end
     end
-    disable_plugins(plugin)
+    disable_plugins
   end
   fail_flag = false
   failed.each do |plugin, tasks|

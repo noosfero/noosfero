@@ -2,7 +2,7 @@
 
 <ul class="events">
   <% block.events(user).map do |event| %>
-    <% days_left = ( event.start_date - Date.today ).round %>
+    <% days_left = ( (event.start_date - DateTime.now)/60/60/24 ).round %>
       <li itemscope="itemscope" itemtype="http://data-vocabulary.org/Event" class="event">
         <%= render(
               :file => 'event_plugin/event_block_item',
