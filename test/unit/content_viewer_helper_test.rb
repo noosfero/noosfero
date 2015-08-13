@@ -16,14 +16,14 @@ class ContentViewerHelperTest < ActionView::TestCase
     blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
     post = create(TextileArticle, :name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
-    assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
+    assert_tag_in_string result, :tag => 'span', :content => show_time(post.published_at)
   end
 
   should 'display published-at for forum posts' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => forum)
     result = article_title(post)
-    assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
+    assert_tag_in_string result, :tag => 'span', :content => show_time(post.published_at)
   end
 
   should 'not display published-at for non-blog and non-forum posts' do
