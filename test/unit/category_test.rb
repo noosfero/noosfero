@@ -326,7 +326,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equivalent [c1, c2], c.communities
   end
 
-  should 'have products through enteprises' do
+  should 'have products through enterprises' do
     product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
     c = @env.categories.build(:name => 'my category'); c.save!
     ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')

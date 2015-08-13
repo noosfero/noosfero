@@ -2762,7 +2762,7 @@ msgstr ""
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:14 doc/noosfero/navigation/searching-enterprises.en.xhtml:14
-msgid "Enteprises search results with example"
+msgid "Enterprises search results with example"
 msgstr ""
 
 #. type: Content of: <ol><li>
