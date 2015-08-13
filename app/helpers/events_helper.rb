@@ -30,7 +30,7 @@ module EventsHelper
         # the day itself
         date,
         # is there any events in this date?
-        events.any? {|event| event.date_range.include?(date)},
+        events.any? {|event| event.date_range.cover?(date)},
         # is this date in the current month?
         true
       ]

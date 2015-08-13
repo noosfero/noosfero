@@ -81,7 +81,7 @@ class Category < ActiveRecord::Base
   end
 
   def upcoming_events(limit = 10)
-    self.events.paginate(:conditions => [ 'start_date >= ?', Date.today ], :order => 'start_date', :page => 1, :per_page => limit)
+    self.events.paginate(:conditions => [ 'start_date >= ?', DateTime.now.beginning_of_day ], :order => 'start_date', :page => 1, :per_page => limit)
   end
 
   def display_in_menu?
