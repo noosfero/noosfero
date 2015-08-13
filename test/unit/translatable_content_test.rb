@@ -18,7 +18,7 @@ class TranslatableContentTest < ActiveSupport::TestCase
 
   should 'not be translatable if parent is a forum' do
     content.parent = Forum.new
-    assert !content.translatable?
+    refute content.translatable?
   end
 
   should 'be translatable if parent is not a forum' do

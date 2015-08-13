@@ -238,11 +238,11 @@ class BlockTest < ActiveSupport::TestCase
     block = MyBlock.new
 
     assert block.visible?({:value => 2})
-    assert !block.visible?({:value => 3})
+    refute block.visible?({:value => 3})
   end
 
   should 'not be embedable by default' do
-    assert !Block.new.embedable?
+    refute Block.new.embedable?
   end
 
   should 'generate embed code' do
@@ -276,13 +276,13 @@ class BlockTest < ActiveSupport::TestCase
   should 'do not display block to logged users for display_user = not_logged' do
     block = Block.new
     block.display_user = 'not_logged'
-    assert !block.display_to_user?(User.new)
+    refute block.display_to_user?(User.new)
   end
 
   should 'do not display block to not logged users for display_user = logged' do
     block = Block.new
     block.display_user = 'logged'
-    assert !block.display_to_user?(nil)
+    refute block.display_to_user?(nil)
   end
 
   should 'display block to not logged users for display_user = not_logged' do
@@ -294,7 +294,7 @@ class BlockTest < ActiveSupport::TestCase
   should 'not be visible if display_to_user? is false' do
     block = Block.new
     block.expects(:display_to_user?).once.returns(false)
-    assert !block.visible?({})
+    refute block.visible?({})
   end
 
   should 'accept user as parameter on cache_key without change its value' do
@@ -323,7 +323,7 @@ class BlockTest < ActiveSupport::TestCase
     block = create(Block, :box_id => box.id)
     block.display_user = 'followers'
     block.save!
-    assert !block.display_to_user?(user.person)
+    refute block.display_to_user?(user.person)
   end
 
   should 'display block to friends of person for display_user = friends' do
@@ -347,7 +347,7 @@ class BlockTest < ActiveSupport::TestCase
     block = create(Block, :box_id => box.id)
     block.display_user = 'followers'
     block.save!
-    assert !block.display_to_user?(person_friend)
+    refute block.display_to_user?(person_friend)
   end
 
   should 'get limit as a number when limit is string' do

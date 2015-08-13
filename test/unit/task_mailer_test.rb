@@ -28,7 +28,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :finished).deliver
-    assert ActionMailer::Base.deliveries.present?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task cancelled" message' do
@@ -43,7 +43,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :cancelled).deliver
-    assert !ActionMailer::Base.deliveries.empty?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task created" message' do
@@ -59,7 +59,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:public_profile_url).returns('requestor_path')
 
     task.send(:send_notification, :created).deliver
-    assert !ActionMailer::Base.deliveries.empty?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "target notification" message' do
@@ -69,7 +69,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task.expects(:target_notification_description).returns('the task')
 
     TaskMailer.target_notification(task, 'the message').deliver
-    assert !ActionMailer::Base.deliveries.empty?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "invitation notification" message' do
@@ -92,7 +92,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body.to_s
 
     mail.deliver
-    assert !ActionMailer::Base.deliveries.empty?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'use environment name and no-reply email' do

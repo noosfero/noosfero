@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
     :email => {:label => _('Email'), :weight => 5},
   }
 
+  # see http://stackoverflow.com/a/2513456/670229
+  def self.current
+    Thread.current[:current_user]
+  end
+  def self.current=(user)
+    Thread.current[:current_user] = user
+  end
+
   def self.[](login)
     self.find_by_login(login)
   end
@@ -88,6 +96,10 @@ class User < ActiveRecord::Base
   # set autosave to false as we do manually when needed and Person syncs with us
   has_one :person, dependent: :destroy, autosave: false
   belongs_to :environment
+
+  has_many :sessions, dependent: :destroy
+  # holds the current session, see lib/authenticated_system.rb
+  attr_accessor :session
 
   attr_protected :activated_at
 
@@ -242,8 +254,9 @@ class User < ActiveRecord::Base
 
   # These create and unset the fields required for remembering users between browser closes
   def remember_me
-    self.remember_token_expires_at = 2.weeks.from_now.utc
-    self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
+    self.remember_token_expires_at = 1.months.from_now.utc
+    # if the user's email/password changes this won't be valid anymore
+    self.remember_token = encrypt "#{email}-#{self.crypted_password}-#{remember_token_expires_at}"
     save(:validate => false)
   end
 

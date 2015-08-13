@@ -13,8 +13,8 @@ class ManageProductsControllerTest < ActionController::TestCase
     @environment.enable('products_for_enterprises')
     login_as :test_user
 
-    Noosfero::Plugin.stubs(:all).returns([MetadataPlugin.name])
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([MetadataPlugin.new(@controller)])
+    @environment.enabled_plugins += ['MetadataPlugin']
+    @environment.save!
   end
 
   should "not crash on new products" do

@@ -11,7 +11,7 @@ module WorkAssignmentPlugin::Helper
         content_tag('th', '') +
         content_tag('th', '')
       ).html_safe +
-      work_assignment.children.map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
+      work_assignment.children.order('name ASC').map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
     )
   end
 
@@ -24,7 +24,7 @@ module WorkAssignmentPlugin::Helper
       content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
       content_tag('td', display_privacy_button(author_folder, user))
     ).html_safe +
-    author_folder.children.map {|submission| display_submission(submission, user)}.join("\n").html_safe
+    author_folder.children.order('created_at DESC').map {|submission| display_submission(submission, user)}.join("\n").html_safe
   end
 
   def display_submission(submission, user)

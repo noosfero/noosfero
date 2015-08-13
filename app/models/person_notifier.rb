@@ -80,6 +80,7 @@ class PersonNotifier
   class Mailer < ActionMailer::Base
 
     helper ApplicationHelper
+    helper ActionTrackerHelper
 
     def session
       {:theme => nil}

@@ -11,7 +11,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
 
   # this test can be removed when we get real tests for TinyMceArticle
   should 'be an article' do
-    assert_subclass TextArticle, TinyMceArticle
+    assert_kind_of TextArticle, TinyMceArticle.new
   end
 
   should 'define description' do

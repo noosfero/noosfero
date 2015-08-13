@@ -14,17 +14,17 @@ class SendEmailPluginMailTest < ActiveSupport::TestCase
 
   should 'requires to field' do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :message => 'Hi john', :environment => @environment)
-    assert !mail.valid?
+    refute mail.valid?
   end
 
   should 'require message field' do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :to => 'john@example.com', :environment => @environment)
-    assert !mail.valid?
+    refute mail.valid?
   end
 
   should 'require environment field' do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :to => 'john@example.com', :message => 'Hi john')
-    assert !mail.valid?
+    refute mail.valid?
   end
 
   should 'have a default subject' do
@@ -34,18 +34,18 @@ class SendEmailPluginMailTest < ActiveSupport::TestCase
 
   should 'not accept invalid email address' do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :message => 'Hi john', :to => 'invalid-mail-address', :environment => @environment)
-    assert !mail.valid?
+    refute mail.valid?
   end
 
   should 'not accept email that is not in allowed address list' do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :message => 'Hi john', :to => 'unknow@example.com', :environment => @environment)
-    assert !mail.valid?
+    refute mail.valid?
   end
 
   should 'discard some keys on set params hash' do
     mail = SendEmailPlugin::Mail.new(:params => {:action => 1, :controller => 2, :to => 3, :message => 4, :subject => 5, :age => 6})
     [:params].each do |k|
-      assert !mail.params.include?(k)
+      refute mail.params.include?(k)
     end
     assert mail.params.include?(:age)
   end
@@ -57,7 +57,7 @@ class SendEmailPluginMailTest < ActiveSupport::TestCase
 
   should "invalid if just one listed in 'to' list was not allowed" do
     mail = SendEmailPlugin::Mail.new(:subject => 'Hi', :message => 'Hi john', :to => 'john@example.com,notallowed@example.com,someother@example.com', :environment => @environment)
-    assert !mail.valid?
+    refute mail.valid?
   end
 
 end

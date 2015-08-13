@@ -85,7 +85,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.stubs(:notification_emails).returns(['adm@example.com'])
 
     a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
-    assert !ActionMailer::Base.deliveries.empty?
+    refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'not notify target if group is not moderated' do
@@ -167,7 +167,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
-    assert !community.has_blog?
+    refute community.has_blog?
     assert_nil article.class.last.parent
   end
 

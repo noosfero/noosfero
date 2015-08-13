@@ -1,0 +1,1 @@
+DrivenSignupPluginAdminController = DrivenSignupPlugin::AdminController

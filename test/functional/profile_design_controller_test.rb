@@ -201,12 +201,12 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock1)
     assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock2)
     assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock3)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock5)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock6)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock7)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock8)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock9)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock5)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock6)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock7)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock8)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock9)
   end
 
   should 'a block plugin with side position add new blocks only in this position' do
@@ -240,9 +240,9 @@ class ProfileDesignControllerTest < ActionController::TestCase
     get :add_block, :profile => 'designtestuser'
     assert_response :success
 
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock1)
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock2)
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock3)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock1)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock2)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock3)
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock4)
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock5)
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
@@ -281,13 +281,13 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_response :success
 
     assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock1)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock2)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock3)
-    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock2)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock3)
+    refute @controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock5)
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
-    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
+    refute @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
 
   should 'not edit main block with never option' do
@@ -724,7 +724,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
-    assert !@controller.available_blocks.include?(CustomBlock1)
+    refute @controller.available_blocks.include?(CustomBlock1)
   end
 
   should 'clone a block' do

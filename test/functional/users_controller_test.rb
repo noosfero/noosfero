@@ -77,7 +77,7 @@ class UsersControllerTest < ActionController::TestCase
 
     post :reset_admin_role, :id => person.id, :q => ''
     person.reload
-    assert !person.is_admin?
+    refute person.is_admin?
   end
 
   should 'activate user' do

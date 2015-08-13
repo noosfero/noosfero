@@ -54,4 +54,12 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
+  should 'not expose metadata on private pages' do
+    profile.update_column :public_profile, false
+    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
+
+    get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
+    assert_no_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
+  end
+
 end

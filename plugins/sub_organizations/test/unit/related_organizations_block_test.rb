@@ -25,6 +25,6 @@ class RelatedOrganizationsBlockTest < ActiveSupport::TestCase
 
     assert @block.related_organizations.include?(child1)
     assert @block.related_organizations.include?(child2)
-    assert !@block.related_organizations.include?(org1)
+    refute @block.related_organizations.include?(org1)
   end
 end

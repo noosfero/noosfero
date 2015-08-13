@@ -6,6 +6,6 @@
     <span class="item-description">
       <%= link_to(content.name, content.url) %>
     </span>
-    <span class="item-date"><%= _("Published at: #{show_date(content.updated_at)}") %></span>
+    <span class="item-date"><%= _("Published at: %s") % show_date(content.updated_at) %></span>
   </div>
 </div>

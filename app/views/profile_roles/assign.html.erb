@@ -1,6 +1,6 @@
 <%= javascript_include_tag('assign_role.js') %>
 
-<h1> <%= _("Assign #{@role.name}") %> </h1>
+<h1> <%= _("Assign %s") % @role.name %> </h1>
 
 
 <%= labelled_form_for :role, :url => { :action => 'define', :id => @role.id } do |f| %>

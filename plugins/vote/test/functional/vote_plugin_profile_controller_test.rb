@@ -24,7 +24,7 @@ class VotePluginProfileControllerTest < ActionController::TestCase
 
   should 'not vote if value is not allowed' do
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => 4
-    assert !profile.voted_on?(comment)
+    refute profile.voted_on?(comment)
   end
 
   should 'not vote in a disallowed model' do
@@ -40,7 +40,7 @@ class VotePluginProfileControllerTest < ActionController::TestCase
   should 'unlike comment' do
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => 1
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => 1
-    assert !profile.voted_for?(comment)
+    refute profile.voted_for?(comment)
   end
 
   should 'dislike comment' do
@@ -51,7 +51,7 @@ class VotePluginProfileControllerTest < ActionController::TestCase
   should 'undislike comment' do
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => -1
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => -1
-    assert !profile.voted_against?(comment)
+    refute profile.voted_against?(comment)
   end
 
   should 'dislike a liked comment' do

@@ -49,7 +49,7 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
   should 'do not show more link in all tracks if there is no more tracks to show' do
     CommunityTrackPlugin::Track.destroy_all
     get :all_tracks, :id => @block.id
-    assert !assigns['show_more']
+    refute assigns['show_more']
     assert_no_match /track_list_more_#{@block.id}/, @response.body
   end
 

@@ -794,7 +794,7 @@ class ApplicationHelperTest < ActionView::TestCase
     article = fast_create(Article, :name => 'my article')
     response = content_id_to_str(article)
     assert_equal String, response.class
-    assert !response.empty?
+    refute response.empty?
   end
 
   should 'content_id_to_str return empty string when receiving nil' do

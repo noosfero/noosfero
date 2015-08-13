@@ -5,6 +5,7 @@ class ProfileEditorController < MyProfileController
 
   before_filter :access_welcome_page, :only => [:welcome_page]
   before_filter :back_to
+  before_filter :forbid_destroy_profile, :only => [:destroy_profile]
   helper_method :has_welcome_page
 
   def index
@@ -109,7 +110,7 @@ class ProfileEditorController < MyProfileController
       profile = environment.profiles.find(params[:id])
       if profile.disable
         profile.save
-        session[:notice] = _("The profile '#{profile.name}' was deactivated.")
+        session[:notice] = _("The profile '%s' was deactivated.") % profile.name
       else
         session[:notice] = _('Could not deactivate profile.')
       end
@@ -123,7 +124,7 @@ class ProfileEditorController < MyProfileController
       profile = environment.profiles.find(params[:id])
 
       if profile.enable
-        session[:notice] = _("The profile '#{profile.name}' was activated.")
+        session[:notice] = _("The profile '%s' was activated.") % profile.name
       else
         session[:notice] = _('Could not activate the profile.')
       end
@@ -155,4 +156,10 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def forbid_destroy_profile
+    if environment.enabled?('forbid_destroy_profile') && !current_person.is_admin?(environment)
+      session[:notice] = _('You can not destroy the profile.')
+      redirect_to_previous_location
+    end
+  end
 end

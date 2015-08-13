@@ -101,6 +101,7 @@ module Noosfero
     config.action_dispatch.session = {
       :key    => '_noosfero_session',
     }
+    config.session_store :active_record_store, key: '_noosfero_session'
 
     config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
     config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")

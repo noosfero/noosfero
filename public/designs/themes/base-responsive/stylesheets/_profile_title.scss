@@ -1,0 +1,15 @@
+
+.row.profile-title {
+  margin: 0;
+}
+#profile-title a, #profile-title a:visited {
+  font-weight: bold;
+  font-size: 200%;
+  text-decoration: none;
+  color: #2C3E50;
+}
+#profile-title a:hover {
+  text-decoration: underline;
+  color: #18BC9C;
+}
+

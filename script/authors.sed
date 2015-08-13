@@ -28,6 +28,8 @@ s/Aurélio A. Heckert/Aurelio A. Heckert/
 s/Bráulio Bhavamitra <brauliobo@gmail.com>/Braulio Bhavamitra <braulio@eita.org.br>/
 s/Braulio Bhavamitra <brauliobo@gmail.com>/Braulio Bhavamitra <braulio@eita.org.br>/
 
+s/brenddongontijo <brenddongontijo@msn.com>/Brenddon Gontijo <brenddongontijo@msn.com>/
+
 s/Carlos Andre <carlos.andre.souza@msn.com>/Carlos Andre de Souza <carlos.andre.souza@msn.com>/
 
 s/^Caio Almeida$/Caio SBA <caio@colivre.coop.br>/

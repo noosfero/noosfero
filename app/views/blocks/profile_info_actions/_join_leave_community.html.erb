@@ -1,27 +1,25 @@
 <div class='join-leave-button require-login-popup'>
   <% if logged_in? %>
-    <% if profile.members.include?(user) %>
-      <%= button(:delete, content_tag('span', _('Leave community')), profile.leave_url,
-        :class => 'leave-community',
-        :title => _("Leave community"),
-        :style => 'position: relative;') %>
-      <%= button(:add, content_tag('span', _('Join')), profile.join_url,
-        :class => 'join-community',
-        :title => _("Join community"),
-        :style => 'position: relative; display: none;') %>
+    <% if profile.already_request_membership? user %>
+      <%= _('Your membership is waiting for approval') %>
     <% else %>
-      <% unless profile.already_request_membership?(user) %>
-        <%= button(:delete, content_tag('span', _('Leave community')), profile.leave_url,
-          :class => 'leave-community',
-          :title => _("Leave community"),
-          :style => 'position: relative; display: none;') %>
-        <%= button(:add, content_tag('span', _('Join')), profile.join_url,
-          :class => 'join-community',
-          :title => _("Join community"),
-          :style => 'position: relative;') %>
+      <% if user.in? profile.members %>
+        <%= button :delete, content_tag('span', _('Leave community')), profile.leave_url,
+          class: 'leave-community',
+          style: 'position: relative;' %>
+        <%= button :add, content_tag('span', _('Join this community')), profile.join_url,
+          class: 'join-community',
+          style: 'position: relative; display: none;' %>
+      <% else %>
+        <%= button :add, _('Join this community'), profile.join_url %>
       <% end %>
     <% end %>
   <% else %>
-      <%= button(:add, _('Join'), profile.join_not_logged_url, :title => _('Join this community')) %>
+    <%= button :add, _('Join this community'), profile.join_not_logged_url %>
   <% end %>
 </div>
+
+<%= javascript_tag do %>
+  noosfero.add_and_join.locales.leaveConfirmation = <%= (_("Please confirm to leave the community '%{name}'") % {name: profile.name}).to_json %>
+<% end %>
+

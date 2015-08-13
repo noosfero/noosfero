@@ -91,7 +91,7 @@ class ProfileTest < ActiveSupport::TestCase
     p = create(Profile, :name => 'wanted')
 
     assert Profile.find_by_contents('wanted')[:results].include?(p)
-    assert ! Profile.find_by_contents('not_wanted')[:results].include?(p)
+    refute  Profile.find_by_contents('not_wanted')[:results].include?(p)
   end
 
   # This problem should be solved; talk to Bráulio if it fails

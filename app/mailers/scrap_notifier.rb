@@ -3,6 +3,8 @@ class ScrapNotifier < ApplicationMailer
   def notification(scrap)
     sender, receiver = scrap.sender, scrap.receiver
     self.environment = sender.environment
+    # for tests
+    return unless receiver.email
 
     @recipient = receiver.name
     @sender = sender.name

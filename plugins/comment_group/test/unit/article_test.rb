@@ -19,7 +19,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'do not allow a exclusion of a group comment macro if this group has comments' do
     article.body = "<div class=\"macro\" data-macro-group_id=2></div>"
     comment1 = fast_create(Comment, :group_id => 1, :source_id => article.id)
-    assert !article.save
+    refute article.save
     assert_equal ['Not empty group comment cannot be removed'], article.errors[:base]
   end
 

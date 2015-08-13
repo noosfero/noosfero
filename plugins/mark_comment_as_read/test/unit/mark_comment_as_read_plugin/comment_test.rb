@@ -9,7 +9,7 @@ class MarkCommentAsReadPlugin::CommentTest < ActiveSupport::TestCase
   end
 
   should 'mark comment as read' do
-    assert !@comment.marked_as_read?(@person)
+    refute @comment.marked_as_read?(@person)
     @comment.mark_as_read(@person)
     assert @comment.marked_as_read?(@person)
   end
@@ -25,7 +25,7 @@ class MarkCommentAsReadPlugin::CommentTest < ActiveSupport::TestCase
     @comment.mark_as_read(@person)
     assert @comment.marked_as_read?(@person)
     @comment.mark_as_not_read(@person)
-    assert !@comment.marked_as_read?(@person)
+    refute @comment.marked_as_read?(@person)
   end
 
   should 'return comments marked as read for a user' do

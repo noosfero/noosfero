@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:19
+msgid "Lattes not found. Please, make sure the informed URL is correct."
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:21
+msgid "Lattes Platform is unreachable. Please, try it later."
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:23
+msgid "Could not import the lattes"
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
+#: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18
+msgid "A plugin that imports the lattes curriculum into the users profiles"
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:40
+msgid "Lattes"
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:73
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:106
+msgid " Invalid lattes url"
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/academic_info.rb:10
+msgid " is invalid."
+msgstr ""

@@ -13,28 +13,28 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'have the article_name' do
     t = SuggestArticle.new
-    assert !t.article_object.errors[:name].present?
+    refute t.article_object.errors[:name].present?
     t.article_object.valid?
     assert t.article_object.errors[:name].present?
   end
 
   should 'have the email' do
     t = SuggestArticle.new
-    assert !t.errors[:email.to_s].present?
+    refute t.errors[:email.to_s].present?
     t.valid?
     assert t.errors[:email.to_s].present?
   end
 
   should 'have the name' do
     t = SuggestArticle.new
-    assert !t.errors[:name.to_s].present?
+    refute t.errors[:name.to_s].present?
     t.valid?
     assert t.errors[:name.to_s].present?
   end
 
   should 'have the target_id' do
     t = SuggestArticle.new
-    assert !t.errors[:target_id.to_s].present?
+    refute t.errors[:target_id.to_s].present?
     t.valid?
     assert t.errors[:target_id.to_s].present?
   end
@@ -42,7 +42,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'have the article' do
     t = SuggestArticle.new
     assert t.respond_to?(:article_object)
-    assert !t.errors[:article_object].present?
+    refute t.errors[:article_object].present?
     t.valid?
     assert t.errors[:article_object].present?
   end

@@ -3,7 +3,7 @@ require 'test_helper'
 class CustomFormsPlugin::SelectFieldTest < ActiveSupport::TestCase
   should 'have alternative' do
     select = CustomFormsPlugin::SelectField.new(:name => 'select_field001' )
-    assert !select.save
+    refute select.save
 
     select.alternatives << CustomFormsPlugin::Alternative.new(:label => 'option')
     assert select.save

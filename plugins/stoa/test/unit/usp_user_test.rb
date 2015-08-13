@@ -21,19 +21,19 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
 
   should 'check existence of usp_id' do
     assert  StoaPlugin::UspUser.exists?(123456)
-    assert !StoaPlugin::UspUser.exists?(654321)
+    refute StoaPlugin::UspUser.exists?(654321)
   end
 
   should 'check if usp_id matches with a cpf' do
     assert  StoaPlugin::UspUser.matches?(123456, :cpf, 12345678)
-    assert !StoaPlugin::UspUser.matches?(123456, :cpf, 87654321)
-    assert !StoaPlugin::UspUser.matches?(654321, :cpf, 12345678)
+    refute StoaPlugin::UspUser.matches?(123456, :cpf, 87654321)
+    refute StoaPlugin::UspUser.matches?(654321, :cpf, 12345678)
   end
 
   should 'check if usp_id matches with a birth_date' do
     assert  StoaPlugin::UspUser.matches?(123456, :birth_date, '1970-01-30')
-    assert !StoaPlugin::UspUser.matches?(123456, :birth_date, '1999-01-30')
-    assert !StoaPlugin::UspUser.matches?(654321, :birth_date, '1970-01-30')
+    refute StoaPlugin::UspUser.matches?(123456, :birth_date, '1999-01-30')
+    refute StoaPlugin::UspUser.matches?(654321, :birth_date, '1970-01-30')
   end
 
   should 'filter leading zeroes of id codes on exists and matches' do

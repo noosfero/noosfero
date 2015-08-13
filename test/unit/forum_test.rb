@@ -107,7 +107,7 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'not accept uploads' do
     folder = fast_create(Forum)
-    assert !folder.accept_uploads?
+    refute folder.accept_uploads?
   end
 
   should 'be notifiable' do
@@ -180,7 +180,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => person)
 
     assert forum.can_create_topic?(person)
-    assert !forum.can_create_topic?(someone)
+    refute forum.can_create_topic?(someone)
   end
 
   should 'always allow topic creation to profile admins' do
@@ -192,7 +192,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => profile)
 
     assert forum.can_create_topic?(admin)
-    assert !forum.can_create_topic?(someone)
+    refute forum.can_create_topic?(someone)
   end
 
   should 'always allow topic creation to environment admins' do
@@ -205,7 +205,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => profile)
 
     assert forum.can_create_topic?(admin)
-    assert !forum.can_create_topic?(someone)
+    refute forum.can_create_topic?(someone)
   end
 
   should 'allow only person friends to create topics when topic_creation is related' do
@@ -217,7 +217,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => person, :topic_creation => 'related')
 
     assert forum.can_create_topic?(friend)
-    assert !forum.can_create_topic?(someone)
+    refute forum.can_create_topic?(someone)
   end
 
   should 'allow only group members to create topics when topic_creation is related' do
@@ -229,7 +229,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => organization, :topic_creation => 'related')
 
     assert forum.can_create_topic?(member)
-    assert !forum.can_create_topic?(someone)
+    refute forum.can_create_topic?(someone)
   end
 
   should 'allow every user to create topics when topic_creation is users' do
@@ -238,6 +238,6 @@ class ForumTest < ActiveSupport::TestCase
     forum = Forum.new(:profile => profile, :topic_creation => 'users')
 
     assert forum.can_create_topic?(user)
-    assert !forum.can_create_topic?(nil)
+    refute forum.can_create_topic?(nil)
   end
 end

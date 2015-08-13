@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-03-09 09:51+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -183,25 +183,20 @@ msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:17
-#, fuzzy
-msgid "Author name"
-msgstr "Autor"
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
-#, fuzzy
-msgid "Author email"
-msgstr "Autor"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
-#, fuzzy
-msgid "New form"
-msgstr "Forma Legal"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
 msgid "Name"
 msgstr "Nombre"
+
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
+msgid "Email"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New form"
+msgstr "Forma Legal"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
 msgid "Value"
@@ -396,3 +391,11 @@ msgstr "¿Estás seguro de que deseas eliminar este elemento?"
 #, fuzzy
 msgid "Add a new form"
 msgstr "Añadir un nuevo calificador"
+
+#, fuzzy
+#~ msgid "Author name"
+#~ msgstr "Autor"
+
+#, fuzzy
+#~ msgid "Author email"
+#~ msgstr "Autor"

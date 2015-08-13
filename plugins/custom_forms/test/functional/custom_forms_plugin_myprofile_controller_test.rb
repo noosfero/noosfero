@@ -31,7 +31,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
     assert CustomFormsPlugin::Form.exists?(form.id)
     post :remove, :profile => profile.identifier, :id => form.id
-    assert !CustomFormsPlugin::Form.exists?(form.id)
+    refute CustomFormsPlugin::Form.exists?(form.id)
   end
 
   should 'create a form' do

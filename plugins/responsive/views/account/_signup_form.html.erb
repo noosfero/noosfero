@@ -1,0 +1,170 @@
+<% unless theme_responsive? %>
+  <%= render file: "#{Rails.root}/app/#{__FILE__[__FILE__.index('views/')..-1]}" %>
+<% else %>
+
+<%= javascript_include_tag "plugins/responsive/javascripts/signup_form_v3" %>
+<%= javascript_include_tag "/plugins/responsive/javascripts/sign_up_password_rate_v3" %>
+
+
+<% if @block_bot %>
+  <div class="atention" style="font-size: 150%;">
+    <strong><%=_('Are you a robot?')%></strong> <br />
+    <%=_('Please, prove that you are human by filling the captcha.')%>
+  </div>
+<% end %>
+
+<% @profile_data = @person %>
+
+<%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
+
+<%= labelled_form_for :user, :html => { :multipart => true, :id => 'signup-form', :honeypot => true }, :horizontal => true do |f| %>
+
+    <input type="hidden" id="signup_time_key" name="signup_time_key" />
+    <script type="text/javascript">
+      jQuery.ajax({
+        type: "POST",
+        url: "<%= url_for :controller=>'account', :action=>'signup_time' %>",
+        dataType: 'json',
+        success: function(data) {
+          if (data.ok) jQuery('#signup_time_key').val(data.key);
+        }
+      });
+    </script>
+
+<%= hidden_field_tag :invitation_code, @invitation_code %>
+
+  <div id="user_login_group" class="form-group has-feedback">
+        <%= label(:user, :login, _('Username'), {:class => 'control-label col-sm-3 col-md-2 col-lg-2'}) %>
+        <div class=" col-sm-9 col-md-6 col-lg-6">
+            <div class="input-group">
+            <span class="input-group-addon"><%= environment.default_hostname %>/</span>
+            <%= text_field(:user, :login,
+                           :id => 'user_login_v3',
+                           :onchange => 'this.value = convToValidUsername(this.value);',
+                           :class => 'form-control',
+                           :'data-toggle' => "tooltip",
+                           :'data-placement' => "right",
+                           :'data-trigger' => 'focus',
+                           :title => _('Choose your login name carefully! It will be your network access and you will not be able to change it later.')
+                ) %>
+              <span id="user_login_alert" class="form-control-feedback"></span>
+            </div>
+            <p id="user_login_help_message" class="help-block"><%=   _('Checking availability of login name...') %></p>
+        </div>
+  </div>
+    <!--
+        <p id='url-check' class="help-block"></p>
+        <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
+      </div>
+
+      <br style="clear: both;" />
+    </div>
+  </div>
+  -->
+
+  <div id="user_pw_group" class="form-group">
+    <%= label(:user, :password, _('Password'), {:class => 'control-label col-sm-3 col-md-2 col-lg-2'}) %>
+    <div class=" col-sm-9 col-md-6 col-lg-6">
+        <%= password_field(:user,:password, :id => 'user_pw_v3',
+                           :class => 'form-control',
+                           :'data-toggle' => "tooltip",
+                           :'data-placement' => "right",
+                           :'data-trigger' => 'focus',
+                           :title => _('Choose a password that you can remember easily. It must have at least 4 characters.')) %>
+      <span id="user_pw_alert" class="form-control-feedback"></span>
+
+      <p id="user_pw_help_message" class="help-block"></p>
+    </div>
+  </div>
+    <script type="text/javascript">
+        window.password_states = <%= {
+        :blank   => _('Blank'),
+        :short   => _('Short'),
+        :bad     => _('Bad'),
+        :good    => _('Good'),
+        :strong  => _('Strong')
+      }.to_json %>
+        window.password_confirm_msg = <%= {
+        :error   => _('Passwords do not match')
+        }.to_json %>
+    </script>
+
+  <div id="user_pw_confirm_group" class="form-group">
+    <%= label(:user, :password_confirmation, _('Password confirmation'), {:class => 'control-label col-sm-3 col-md-2 col-lg-2'}) %>
+    <div class=" col-sm-9 col-md-6 col-lg-6">
+        <%= password_field(:user, :password_confirmation,
+                            :id => 'user_pw_confirm',
+                            :class => 'form-control',
+                            :'data-toggle' => "tooltip",
+                            :'data-placement' => "right",
+                            :'data-trigger' => 'focus',
+                            :title => _('We need to be sure that you filled in your password correctly. Confirm you password.')) %>
+      <span id="user_pw_confirm_alert" class="form-control-feedback"></span>
+      <p id="user_pw_confirm_help_message" class="help-block"></p>
+
+    </div>
+  </div>
+
+    <div id="user_email_group" class="form-group">
+      <%= label(:user, :email, _('e-Mail'), {:class => 'control-label col-sm-3 col-md-2 col-lg-2'}) %>
+      <div class=" col-sm-9 col-md-6 col-lg-6">
+        <%= text_field(:user, :email,
+                           :id => 'user_email',
+                           :class => 'form-control',
+                           :'data-toggle' => "tooltip",
+                           :'data-placement' => "right",
+                           :'data-trigger' => 'focus',
+                           :title => _('This e-mail address will be used to contact you.')) %>
+        <span id="user_email_alert" class="form-control-feedback"></span>
+
+        <p id="user_email_help_message" class="help-block"></p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label(:profile_data, :name, _('Full name'), {:class => 'control-label col-sm-3 col-md-2 col-lg-2'}) %>
+      <div class=" col-sm-9 col-md-6 col-lg-6">
+        <%= text_field(:profile_data, :name,
+                       :class => 'form-control',
+                       :'data-toggle' => "tooltip",
+                       :'data-placement' => "right",
+                       :'data-trigger' => 'focus',
+                       :title => _('Tell us your name, it will be used to identify yourself.')) %>
+      </div>
+    </div>
+
+
+
+<div id="signup-form-profile">
+
+  <%= labelled_fields_for :profile_data, @person do |f| %>
+    <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
+  <% end %>
+
+  <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+
+  <%= template_options(:people, 'profile_data') %>
+
+  <% unless @terms_of_use.blank? %>
+    <div id='terms-of-use-box' class='formfieldline'>
+      <%= labelled_check_box(_('I accept the %s') % link_to(_('terms of use'), {:controller => 'home', :action => 'terms'}, :target => '_blank'), 'user[terms_accepted]') %>
+    </div>
+  <% end %>
+
+  <% if params[:enterprise_code] %>
+    <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
+    <%= hidden_field_tag :answer, params[:answer] %>
+    <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
+    <%= hidden_field_tag :new_user, true %>
+  <% end %>
+</div>
+
+<%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} if @block_bot %>
+
+<p style="text-align: center">
+  <%= submit_button('save', _('Create my account')) %>
+</p>
+
+<% end -%>
+
+<% end %>

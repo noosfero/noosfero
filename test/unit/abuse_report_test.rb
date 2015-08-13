@@ -13,7 +13,7 @@ class AbuseReportTest < ActiveSupport::TestCase
   should 'ensure presence of complaint, reporter and reported' do
     abuse_report = AbuseReport.new(:reason => 'some reason')
 
-    assert !abuse_report.valid?
+    refute abuse_report.valid?
     assert abuse_report.invalid?(:reporter)
     assert abuse_report.invalid?(:abuse_complaint)
 

@@ -17,11 +17,13 @@ Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
 André Guedes <andrebsguedes@gmail.com>
+Andrey Aleksanyants <aaleksanyants@yahoo.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Del Esposte <arthurmde@gmail.com>
 Athos Ribeiro <athoscribeiro@gmail.com>
 Aurelio A. Heckert <aurelio@colivre.coop.br>
 Braulio Bhavamitra <braulio@eita.org.br>
+Brenddon Gontijo <brenddongontijo@msn.com>
 Caio Formiga <caio.formiga@gmail.com>
 Caio Salgado <caio.csalgado@gmail.com>
 Caio SBA <caio@colivre.coop.br>

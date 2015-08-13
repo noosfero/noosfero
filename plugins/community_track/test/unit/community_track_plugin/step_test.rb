@@ -24,20 +24,20 @@ class StepTest < ActiveSupport::TestCase
   should 'set accept_comments to false on create' do
     today = Date.today
     step = CommunityTrackPlugin::Step.create(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :start_date => today, :end_date => today, :published => true)
-    assert !step.accept_comments
+    refute step.accept_comments
   end
 
   should 'do not allow step creation with a parent that is not a track' do
     today = Date.today
     blog = fast_create(Blog)
     step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => blog, :start_date => today, :end_date => today, :published => true)
-    assert !step.save
+    refute step.save
   end
 
   should 'do not allow step creation without a parent' do
     today = Date.today
     step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => nil, :start_date => today, :end_date => today, :published => true)
-    assert !step.save
+    refute step.save
   end
 
   should 'create step if end date is equal to start date' do
@@ -55,7 +55,7 @@ class StepTest < ActiveSupport::TestCase
   should 'do not create step if end date is before start date' do
     @step.start_date = Date.today
     @step.end_date = Date.today - 1.day
-    assert !@step.save
+    refute @step.save
   end
 
   should 'do not validate date period if start date is nil' do
@@ -146,7 +146,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'set position on save' do
-    assert !@step.position
+    refute @step.position
     @step.save!
     assert_equal 1, @step.position
     step2 = CommunityTrackPlugin::Step.new(:name => 'Step2', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
@@ -157,7 +157,7 @@ class StepTest < ActiveSupport::TestCase
   should 'accept comments if step is active' do
     @step.start_date = Date.today
     @step.save!
-    assert !@step.accept_comments
+    refute @step.accept_comments
     @step.toggle_activation
     @step.reload
     assert @step.accept_comments
@@ -167,10 +167,10 @@ class StepTest < ActiveSupport::TestCase
     @step.start_date = Date.today + 2.days
     @step.end_date = Date.today + 3.days
     @step.save!
-    assert !@step.published
+    refute @step.published
     @step.toggle_activation
     @step.reload
-    assert !@step.published
+    refute @step.published
   end
 
   should 'do not accept comments if step is not active anymore' do
@@ -185,7 +185,7 @@ class StepTest < ActiveSupport::TestCase
     @step.save!
     @step.toggle_activation
     @step.reload
-    assert !@step.accept_comments
+    refute @step.accept_comments
   end
 
   should 'set position to zero if step is hidden' do
@@ -228,10 +228,10 @@ class StepTest < ActiveSupport::TestCase
     @step.start_date = Date.today
     @step.hidden = true
     @step.save!
-    assert !@step.published
+    refute @step.published
     @step.toggle_activation
     @step.reload
-    assert !@step.published
+    refute @step.published
   end
 
   should 'return enabled tools for a step' do
@@ -268,9 +268,9 @@ class StepTest < ActiveSupport::TestCase
   should 'enable comments on children when step is activated' do
     @step.start_date = Date.today
     @step.save!
-    assert !@step.accept_comments
+    refute @step.accept_comments
     article = fast_create(Article, :parent_id => @step.id, :profile_id => @step.profile.id, :accept_comments => false)
-    assert !article.accept_comments
+    refute article.accept_comments
     @step.toggle_activation
     assert article.reload.accept_comments
   end
@@ -279,7 +279,7 @@ class StepTest < ActiveSupport::TestCase
     @step.start_date = Date.today
     @step.start_date = Date.today
     @step.save!
-    assert !@step.accept_comments
+    refute @step.accept_comments
     @step.toggle_activation
     article = Article.create!(:parent => @step, :profile => @step.profile, :accept_comments => false, :name => "article")
     assert article.reload.accept_comments

@@ -69,7 +69,7 @@ class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
   end
 
   should 'not be cacheable' do
-    assert !@block.cacheable?
+    refute @block.cacheable?
   end
 
 end

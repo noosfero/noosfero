@@ -22,7 +22,7 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_difference 'CustomFormsPlugin::Submission.count', 1 do
       post :show, :profile => profile.identifier, :id => form.id, :submission => {field1.id.to_s => 'Noosfero', field2.id.to_s => 'GPL'}
     end
-    assert !session[:notice].include?('not saved')
+    refute session[:notice].include?('not saved')
     assert_redirected_to :action => 'show'
   end
 

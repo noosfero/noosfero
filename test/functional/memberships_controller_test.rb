@@ -91,7 +91,7 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/new_community" }
   end
 
-  should 'display destroy link only to communities' do
+  should 'display destroy link to communities and enterprise' do
     community = Community.create!(:name => 'A community to destroy')
     enterprise = fast_create(Enterprise, :name => 'A enterprise test')
 
@@ -102,7 +102,7 @@ class MembershipsControllerTest < ActionController::TestCase
     get :index, :profile => 'testuser'
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/destroy_profile" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'not display destroy link to normal members' do

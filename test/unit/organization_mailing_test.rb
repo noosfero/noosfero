@@ -22,7 +22,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
 
     mailing.source_id = community.id
     mailing.valid?
-    assert !mailing.errors[:source_id.to_s].present?
+    refute mailing.errors[:source_id.to_s].present?
   end
 
   should 'return community name' do
@@ -115,7 +115,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
     mailing = create(OrganizationMailing, :source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
     process_delayed_job_queue
 
-    assert !mailing.mailing_sents.find_by_person_id(recipient.id)
+    refute mailing.mailing_sents.find_by_person_id(recipient.id)
   end
 
   protected

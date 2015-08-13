@@ -48,7 +48,7 @@ class SearchControllerTest < ActionController::TestCase
 		art.save!
 
     get 'articles', :query => 'article found'
-		assert !assigns(:searches)[:articles][:facets].blank?
+		refute assigns(:searches)[:articles][:facets].blank?
 		assert assigns(:searches)[:articles][:facets]['facet_fields']['solr_plugin_f_type_facet'][0][0] == 'Article'
 		assert assigns(:searches)[:articles][:facets]['facet_fields']['solr_plugin_f_profile_type_facet'][0][0] == 'Person'
 		assert assigns(:searches)[:articles][:facets]['facet_fields']['solr_plugin_f_category_facet'][0][0] == 'cat1'
@@ -66,7 +66,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get 'people', :query => 'Hildebrando'
 
-    assert !assigns(:searches)[:people][:facets].blank?
+    refute assigns(:searches)[:people][:facets].blank?
     assert assigns(:searches)[:people][:facets]['facet_fields']['solr_plugin_f_region_facet'][0][0] == city.id.to_s
 
     categories_facet = assigns(:searches)[:people][:facets]['facet_fields']['solr_plugin_f_categories_facet']
@@ -86,7 +86,7 @@ class SearchControllerTest < ActionController::TestCase
 		prod.save!
 
     get 'products', :query => 'Sound'
-		assert !assigns(:searches)[:products][:facets].blank?
+		refute assigns(:searches)[:products][:facets].blank?
 		assert assigns(:searches)[:products][:facets]['facet_fields']['solr_plugin_f_category_facet'][0][0] == @product_category.name
 		assert assigns(:searches)[:products][:facets]['facet_fields']['solr_plugin_f_region_facet'][0][0] == city.id.to_s
 		assert assigns(:searches)[:products][:facets]['facet_fields']['solr_plugin_f_qualifier_facet'][0][0] == "#{qualifier1.id} 0"

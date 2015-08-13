@@ -1,0 +1,45 @@
+<%= render :partial => 'invite/dialog_wait_loading', :locals => {:contact_list => @contact_list.id } if @import_from != 'manual' %>
+
+<% if profile.person? %>
+  <h1><%= _('Invite your friends') %></h1>
+<% else %>
+  <h1><%= _('Invite your friends to join %s') % profile.name %></h1>
+<% end %>
+
+
+<h2><%= _('Step 2 of 2: Selecting Friends') %></h2>
+
+<%= button(:back, _('Back'), { :action => 'select_address_book' }, :id => 'invitation_back_button') %>
+
+<p>
+<%= _('Indicate which friends you want to invite.') %>
+</p>
+
+<%= form_tag do %>
+  <%= hidden_field_tag(:import_from, @import_from) %>
+  <%= hidden_field_tag(:contact_list, @contact_list.id) %>
+
+  <div>
+  <%= labelled_form_field(_('Enter one e-mail address per line:'), text_area_tag(:manual_import_addresses, (@manual_import_addresses || ''), :rows => 5, :style => 'width: 98%;')) %>
+  </div>
+  <% if @import_from != 'manual' %>
+    <div>
+      <%= link_to_function _('Check all'), "jQuery('input.contact_to_invite').each(function(index,checkbox) { checkbox.checked = true; });" %>
+      <%= link_to_function _('Uncheck all'), "jQuery('input.contact_to_invite').each(function(index,checkbox) { checkbox.checked = false; });" %>
+      <div id='contacts-list'></div>
+    </div>
+  <% end -%>
+
+  <br/>
+
+  <%= link_to ('Personalize invitation mail'), nil, :onclick => "jQuery('#invitation-mail_template').show(); return false;" %>
+
+  <div id='invitation-mail_template' style='display:none'>
+    <%= h _("Now enter an invitation message. You must keep the <url> code in your invitation text. When your friends receive the invitation e-mail, <url> will be replaced by a link that they need to click to activate their account. <user> and <friend> codes will be replaced by your name and friend name, but they are optional.") %>
+    <%= labelled_form_field(_('Invitation text:'), text_area_tag(:mail_template, @mail_template, :cols => 72, :rows => 8)) %>
+  </div>
+
+  <% button_bar do %>
+    <%= submit_button(:ok, _("Invite my friends!")) %>
+  <% end %>
+<% end %>

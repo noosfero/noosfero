@@ -264,11 +264,11 @@ class SearchControllerTest < ActionController::TestCase
     get :index, :query => 'something'
 
     assert assigns(:searches).has_key?(:articles)
-    assert !assigns(:searches).has_key?(:enterprises)
-    assert !assigns(:searches).has_key?(:people)
-    assert !assigns(:searches).has_key?(:communities)
-    assert !assigns(:searches).has_key?(:products)
-    assert !assigns(:searches).has_key?(:events)
+    refute assigns(:searches).has_key?(:enterprises)
+    refute assigns(:searches).has_key?(:people)
+    refute assigns(:searches).has_key?(:communities)
+    refute assigns(:searches).has_key?(:products)
+    refute assigns(:searches).has_key?(:events)
   end
 
   should 'search all enabled assets in general search' do
@@ -285,7 +285,7 @@ class SearchControllerTest < ActionController::TestCase
     [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
       !assigns(:environment).enabled?('disable_asset_' + key.to_s)
     end.each do |asset|
-      assert !assigns(:searches)[asset][:results].empty?
+      refute assigns(:searches)[asset][:results].empty?
     end
   end
 

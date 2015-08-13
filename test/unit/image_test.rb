@@ -47,7 +47,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   should 'return false by default in thumbnails_processed' do
-    assert !Image.new.thumbnails_processed
+    refute Image.new.thumbnails_processed
   end
 
   should 'set thumbnails_processed to true' do

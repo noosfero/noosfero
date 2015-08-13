@@ -1,0 +1,40 @@
+
+"pt-BR": &pt-BR
+
+  open_graph_plugin:
+    lib:
+      plugin:
+        name: 'OpenGraph'
+        description: 'OpenGraph'
+    views:
+      track:
+        config:
+          activity:
+            configure: 'Configurar'
+            label: 'Publicar minhas atividades do cirandas no meu mural do facebook'
+            objects:
+              blog_post: 'Quando eu criar um conteúdo ou artigo'
+              event: 'Quando eu adicionar eventos'
+              forum: 'Quando eu criar novos tópicos de fórum'
+              friend: 'Quando eu fizer amizades'
+              gallery_image: 'Quando eu adicionar imagens nos meus albuns'
+              uploaded_file: 'Quando eu enviar novos documentos'
+              favorite_enterprise: 'Quando eu favoritar um empreendimento'
+          enterprise:
+            memberships: "Empreendimentos dos quais faço parte"
+            favorites: "Meus empreendimentos favoritos" 
+            see_all: 'Ver empreendimentos'
+            label: "Publicar as novidades dos meus empreendimentos favoritos e daqueles que faço parte"
+            search_placeholder: "busque o empreendimento"
+            favorites_how_to:
+              title: "Como adicionar empreendimentos favoritos"
+              body: "Para adicionar empreendimentos favoritos, basta você visitar a página do empreendimento desejado e clicar no botão %{favorite_button} que fica abaixo da logo do empreendimento, geralmente à esquerda."
+          community:
+            label: "Publicar novidades das seguintes comunidades"
+            search_placeholder: "escolha a comunidade"
+
+'pt_BR':
+  <<: *pt-BR
+'pt':
+  <<: *pt-BR
+

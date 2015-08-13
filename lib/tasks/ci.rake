@@ -37,6 +37,11 @@ namespace :ci do
           tests << t unless tests.include?(t)
         end
       end
+      if f =~ %r{^app/views/(\w*)/}
+        controller = $1
+        t = "test/functional/#{controller}_controller_test.rb"
+        tests << t if File.exists?(t) && !tests.include?(t)
+      end
     end
 
     if tests.empty? && features.empty? && changed_plugins.empty?

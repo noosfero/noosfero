@@ -3,7 +3,9 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time, :redirection_after_login, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
+    :redirection_after_login, :custom_url_redirection,
+    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -152,6 +154,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_trackable :dependent => :destroy
 
+  has_many :profile_activities
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
@@ -748,7 +751,11 @@ private :generate_url, :url_options
   include ActionView::Helpers::TextHelper
   def short_name(chars = 40)
     if self[:nickname].blank?
-      truncate self.name, :length => chars, :omission => '...'
+      if chars
+        truncate self.name, length: chars, omission: '...'
+      else
+        self.name
+      end
     else
       self[:nickname]
     end
@@ -981,9 +988,13 @@ private :generate_url, :url_options
     name
   end
 
-  # Override in your subclasses
+  def exclude_verbs_on_activities
+    %w[]
+  end
+
+  # Customize in subclasses
   def activities
-    []
+    self.profile_activities.includes(:activity).order('updated_at DESC')
   end
 
   def may_display_field_to? field, user = nil
@@ -1030,6 +1041,7 @@ private :generate_url, :url_options
   def preferred_login_redirection
     redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
   end
+  settings_items :custom_url_redirection, type: String, default: nil
 
   def remove_from_suggestion_list(person)
     suggestion = person.suggested_profiles.find_by_suggestion_id self.id

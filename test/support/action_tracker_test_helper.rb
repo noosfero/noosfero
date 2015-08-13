@@ -1,8 +1,7 @@
-class UserStampSweeper < ActionController::Caching::Sweeper
-  private
-    def current_user
-      Person.first
-    end
+class User
+  def self.current
+    Thread.current[:current_user] || User.first
+  end
 end
 
 module ActionTracker

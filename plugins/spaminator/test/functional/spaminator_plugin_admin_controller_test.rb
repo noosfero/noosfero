@@ -35,7 +35,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     get :withhold
     reload_settings
 
-    assert !settings.deployed
+    refute settings.deployed
   end
 
   should 'make spaminator scan' do
@@ -67,7 +67,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     reload_settings
 
     assert settings.scheduled_scan.nil?
-    assert !Delayed::Job.exists?(settings.scheduled_scan)
+    refute Delayed::Job.exists?(settings.scheduled_scan)
   end
 
   private

@@ -31,7 +31,7 @@ class ManageFriendshipsTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert assigns(:friends).empty?
-    assert !@person.is_a_friend?(@friend)
-    assert !@friend.is_a_friend?(@person)
+    refute @person.is_a_friend?(@friend)
+    refute @friend.is_a_friend?(@person)
   end
 end

@@ -27,6 +27,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing('/account/new_password/90dfhga7sadgd0as6saas', :controller => 'account', :action => 'new_password', :code => '90dfhga7sadgd0as6saas')
   end
 
+  should 'ignore case for profiles' do
+    assert_routing '/myprofile/ZE/cms', profile: 'ZE', controller: 'cms', action: 'index'
+  end
+
   def test_cms
     assert_routing('/myprofile/ze/cms', :profile => 'ze', :controller => 'cms', :action => 'index')
   end

@@ -29,6 +29,6 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
   should 'be disabled by default on the enterprise' do
     profile = fast_create(Enterprise)
     settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
-    assert !settings.enabled
+    refute settings.enabled
   end
 end

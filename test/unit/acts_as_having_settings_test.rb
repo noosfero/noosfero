@@ -24,8 +24,8 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     block_class = Class.new(Block)
 
     block = block_class.new
-    assert !block.respond_to?(:limit)
-    assert !block.respond_to?(:limit=)
+    refute block.respond_to?(:limit)
+    refute block.respond_to?(:limit=)
 
     block_class.settings_items :limit, type: :integer
 
@@ -89,7 +89,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
   should 'setting_changed be false if a setting passed as parameter was not changed' do
     obj = TestClass.new
-    assert !obj.setting_changed?('flag')
+    refute obj.setting_changed?('flag')
   end
 
   should 'setting_changed be false if a setting passed as parameter was changed with the same value' do
@@ -97,14 +97,14 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     obj.flag = true
     obj.save
     obj.flag = true
-    assert !obj.setting_changed?('flag')
+    refute obj.setting_changed?('flag')
   end
 
   should 'setting_changed be false if a setting passed as parameter was not changed but another setting is changed' do
     obj = TestClass.new(name: 'some name')
     obj.save
     obj.name = 'antoher nme'
-    assert !obj.setting_changed?('flag')
+    refute obj.setting_changed?('flag')
   end
 
   should 'setting_changed be true for all changed fields' do

@@ -1,0 +1,44 @@
+<div class="panel-heading enable-on-empty">
+  <%= button_to_function 'menu-ctrl-panel', t('open_graph_plugin.views.track.config.enterprise.see_all'), 'open_graph.track.config.enterprise.see_all(this)',
+    class: 'sse-config config-button', option: 'success', size: 'xs' %>
+  <a href="#" onclick='return open_graph.track.config.toggleEvent(this, event)' style='sse-label'>
+    <%= render 'heading', f: f, track: track, context: context, klass: klass %>
+  </a>
+</div>
+
+<div id="track-<%=track%>" class="panel-body collapse" style="display: none">
+  <% if user.enterprises.present? %>
+    <div id="enterprises-memberships" class="open-graph-enterprises-modal">
+      <h1>
+        <%= t('open_graph_plugin.views.track.config.enterprise.memberships') %>
+      </h1>
+      <div class="open-graph-enterprises-list">
+        <% user.enterprises.public.enabled.each do |enterprise| %>
+          <%= profile_image_link enterprise, :portrait, :div %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="favorite-enterprises" class="open-graph-enterprises-modal">
+    <h1>
+      <%= t('open_graph_plugin.views.track.config.enterprise.favorites') %>
+    </h1>
+    <% if user.favorite_enterprises.present? %>
+      <div class="open-graph-enterprises-list">
+        <% user.favorite_enterprises.public.enabled.each do |enterprise| %>
+          <%= profile_image_link enterprise, :portrait, :div %>
+        <% end %>
+      </div>
+    <% end %>
+      <div id='open-graph-favorite-enterprises-how-to'>
+        <h1>
+          <%= t('open_graph_plugin.views.track.config.enterprise.favorites_how_to.title') %>
+        </h1>
+        <p>
+          <%= t 'open_graph_plugin.views.track.config.enterprise.favorites_how_to.body', favorite_button: button_to_function(:love, _('Add as favorite'), '', :title => _('Add enterprise as favorite'), :option => 'success') %>
+        </p>
+      </div>
+  </div>
+</div>
+

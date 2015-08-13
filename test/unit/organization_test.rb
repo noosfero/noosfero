@@ -80,11 +80,11 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'validate contact_email if filled' do
     org = Organization.new
     org.valid?
-    assert !org.errors[:contact_email.to_s].present?
+    refute org.errors[:contact_email.to_s].present?
 
     org.contact_email = ''
     org.valid?
-    assert !org.errors[:contact_email.to_s].present?
+    refute org.errors[:contact_email.to_s].present?
 
 
     org.contact_email = 'invalid-email'
@@ -93,7 +93,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     org.contact_email = 'someone@somedomain.com'
     org.valid?
-    assert !org.errors[:contact_email.to_s].present?
+    refute org.errors[:contact_email.to_s].present?
   end
 
   should 'list contact_email plus admin emails as "notification emails"' do
@@ -191,7 +191,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     org.foundation_year = 2007
     org.valid?
-    assert ! org.errors[:foundation_year.to_s].present?
+    refute  org.errors[:foundation_year.to_s].present?
   end
 
   should 'has closed' do
@@ -245,7 +245,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'be closed if organization is not public' do
     organization = fast_create(Organization)
-    assert !organization.closed
+    refute organization.closed
 
     organization.public_profile = false
     organization.save!
@@ -278,11 +278,11 @@ class OrganizationTest < ActiveSupport::TestCase
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    assert !p1.is_member_of?(o)
+    refute p1.is_member_of?(o)
     o.add_member(p1)
     assert p1.is_member_of?(o)
 
-    assert !p3.is_member_of?(o)
+    refute p3.is_member_of?(o)
     o.add_member(p3)
     assert p3.is_member_of?(o)
 
@@ -380,7 +380,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     organization.cnpj = '94.132.024/0001-48'
     organization.valid?
-    assert !organization.errors[:cnpj.to_s].present?
+    refute organization.errors[:cnpj.to_s].present?
   end
 
   should 'get members by role' do
@@ -429,7 +429,7 @@ class OrganizationTest < ActiveSupport::TestCase
     assert organization.visible
 
     organization.disable
-    assert !organization.visible
+    refute organization.visible
   end
 
   should 'increase members_count on new membership' do
@@ -467,14 +467,14 @@ class OrganizationTest < ActiveSupport::TestCase
 
     member = create_user('memberuser').person
     c.add_member(member)
-    assert !c.is_admin?(member)
+    refute c.is_admin?(member)
   end
 
   should 'a moderator user not be a community admin' do
     c = fast_create(Organization, :name => 'my test profile', :identifier => 'mytestprofile')
     moderator = create_user('moderatoruser').person
     c.add_moderator(moderator)
-    assert !c.is_admin?(moderator)
+    refute c.is_admin?(moderator)
   end
 
 end

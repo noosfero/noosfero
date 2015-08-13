@@ -28,6 +28,6 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "debian-wheezy"
-  config.vm.provision :shell, path: 'install'
+  config.vm.provision :shell, path: 'install', args: [ENV['REPOSITORY']].compact
   config.vm.provision :shell, path: 'test'
 end

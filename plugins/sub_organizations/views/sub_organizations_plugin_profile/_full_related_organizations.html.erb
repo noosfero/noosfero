@@ -1,7 +1,7 @@
 <% extend SubOrganizationsPlugin::SearchHelper %>
 <div class="related-organizations-list-block">
 
-  <h1><%= _("#{profile.name}'s sub-#{organization_type.pluralize}") %></h1>
+  <h1><%= _("%s's sub-%s") % [profile.name, organization_type.pluralize] %></h1>
   <ul>
   <% organizations.each do |organization| %>
     <li class="related-organizations-item">
@@ -53,7 +53,7 @@
 
   <% button_bar(:class => "related-organizations-button-bar") do %>
     <%= button :back, c_('Go back'), { :controller => 'profile' } %>
-    <%= button :add, _("Add a new #{organization_type}"), :controller => 'sub_organizations_plugin_myprofile', :action => 'index' if logged_in? && user.has_permission?(:edit_profile, profile) && !environment.enabled?("disable_asset_#{organization_type.pluralize}") %>
+    <%= button :add, _("Add a new %s") % organization_type, :controller => 'sub_organizations_plugin_myprofile', :action => 'index' if logged_in? && user.has_permission?(:edit_profile, profile) && !environment.enabled?("disable_asset_#{organization_type.pluralize}") %>
 
     <% if !@full %>
       <%= button :more, c_('View all'), { :controller => 'sub_organizations_plugin_profile', :action => params[:action], :type => organization_type } %>

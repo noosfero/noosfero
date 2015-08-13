@@ -1,0 +1,22 @@
+<%
+  reload ||= false
+%>
+<%= javascript_tag do %>
+  open_graph.track.config.reload = <%= reload.to_json %>
+<% end %>
+
+<%= form_for profile, as: :profile_data, remote: true, url: {action: :track_config},
+  html: {id: 'track-config', onsubmit: 'return open_graph.track.config.submit()'} do |f| %>
+
+  <div class="panel-group" role="tablist" aria-multiselectable="true">
+    <% OpenGraphPlugin::TrackConfig::Types.each do |track, klass| %>
+      <div class="panel panel-primary">
+        <%= render "track_#{track}", f: f, track: track, klass: "OpenGraphPlugin::#{klass}".constantize, context: context %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  open_graph.track.config.init()
+<% end %>

@@ -99,7 +99,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     post :site_info, :environment => { :terms_of_use => content }
     assert_redirected_to :action => 'index'
 
-    assert !Environment.default.has_terms_of_use?
+    refute Environment.default.has_terms_of_use?
   end
 
   should 'save subject and body of signup welcome text' do
@@ -110,7 +110,7 @@ class AdminPanelControllerTest < ActionController::TestCase
 
     assert_equal subject, Environment.default.signup_welcome_text[:subject]
     assert_equal body, Environment.default.signup_welcome_text[:body]
-    assert !Environment.default.signup_welcome_text.blank?
+    refute Environment.default.signup_welcome_text.blank?
   end
 
   should 'not save empty string as signup welcome text' do
@@ -118,7 +118,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     post :site_info, :environment => { :signup_welcome_text_body => content }
     assert_redirected_to :action => 'index'
 
-    assert !Environment.default.has_signup_welcome_text?
+    refute Environment.default.has_signup_welcome_text?
   end
 
   should 'sanitize message for disabled enterprise with white_list' do
@@ -387,6 +387,6 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'index'
 
     assert_equal body, Environment.default.signup_welcome_screen_body
-    assert !Environment.default.signup_welcome_screen_body.blank?
+    refute Environment.default.signup_welcome_screen_body.blank?
   end
 end

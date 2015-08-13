@@ -75,16 +75,16 @@ class ActiveSupport::TestCase
   end
   alias_method :ok, :assert_block
 
+  setup :global_setup
+
+  def global_setup
+    User.current = nil
+  end
+
+  alias :ok :assert_block
+
   def assert_equivalent(enum1, enum2)
     assert( ((enum1 - enum2) == []) && ((enum2 - enum1) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")
-  end
-
-  def assert_includes(array, element)
-    assert(array.include?(element), "<#{array.inspect}> expected to include <#{element.inspect}>")
-  end
-
-  def assert_not_includes(array, element)
-    assert(!array.include?(element), "<#{array.inspect}> expected to NOT include <#{element.inspect}>")
   end
 
   def assert_mandatory(object, attribute, test_value = 'some random string')
@@ -100,10 +100,6 @@ class ActiveSupport::TestCase
     object.send("#{attribute}=", nil)
     object.valid?
     assert !object.errors[attribute.to_s].present?
-  end
-
-  def assert_subclass(parent, child)
-    assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
   end
 
   # this check only if text has html tag

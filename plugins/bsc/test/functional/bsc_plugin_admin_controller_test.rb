@@ -73,6 +73,6 @@ class BscPluginAdminControllerTest < ActionController::TestCase
 
     assert e1.validated
     assert e2.validated
-    assert !e3.validated
+    refute e3.validated
   end
 end

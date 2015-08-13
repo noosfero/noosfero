@@ -7,6 +7,8 @@ class BlogHelperTest < ActionView::TestCase
   include ActionView::Helpers::AssetTagHelper
   include ApplicationHelper
 
+  helper ApplicationHelper
+
   def setup
     stubs(:show_date).returns('')
     @environment = Environment.default
@@ -103,7 +105,7 @@ class BlogHelperTest < ActionView::TestCase
     result = display_post(file)
     assert_tag_in_string result, :tag => 'a',
                                  :attributes => { :href => file.public_filename },
-                                 :content => file.filename
+                                 :content => _('Download')
   end
 
   should 'display image if post is an image' do

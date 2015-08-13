@@ -171,7 +171,8 @@ class PersonNotifierTest < ActiveSupport::TestCase
       a.verb = verb
       a.user = @member
       a.created_at = @member.notifier.notify_from + 1.day
-      a.target = fast_create(Forum)
+      profile = create(Community)
+      a.target = create(Forum, profile: profile)
       a.comments_count = 0
       a.params = {
         'name' => 'home', 'url' => '/', 'lead' => '',
@@ -195,11 +196,11 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'exists? method in NotifyAllJob return false if there is no instance of this class created' do
     Delayed::Job.enqueue(PersonNotifier::NotifyJob.new)
-    assert !PersonNotifier::NotifyAllJob.exists?
+    refute PersonNotifier::NotifyAllJob.exists?
   end
 
   should 'exists? method in NotifyAllJob return false if there is no jobs created' do
-    assert !PersonNotifier::NotifyAllJob.exists?
+    refute PersonNotifier::NotifyAllJob.exists?
   end
 
   should 'exists? method in NotifyAllJob return true if there is at least one instance of this class' do
@@ -233,7 +234,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
     process_delayed_job_queue
     jobs = PersonNotifier::NotifyJob.find(@member.id)
-    assert !jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
+    refute jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
   end
 
   should 'render image tags for both internal and external src' do

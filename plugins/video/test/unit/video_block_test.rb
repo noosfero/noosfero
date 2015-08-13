@@ -36,19 +36,19 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "is_youtube return false when the url not contains youtube video ID" do
     block = VideoBlock.new
     block.url = "youtube.com/"
-    assert !block.is_youtube?
+    refute block.is_youtube?
   end
 
   should "is_youtube return false when the url contains empty youtube video ID" do
     block = VideoBlock.new
     block.url = "youtube.com/?v="
-    assert !block.is_youtube?
+    refute block.is_youtube?
   end
 
   should "is_youtube return false when the url contains an invalid youtube link" do
     block = VideoBlock.new
     block.url = "http://www.yt.com/?v=XXXXX"
-    assert !block.is_youtube?
+    refute block.is_youtube?
   end
 
   should "format embed video for youtube videos" do
@@ -131,19 +131,19 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "is_vimeo return false when the url not contains vimeo video ID" do
     block = VideoBlock.new
     block.url = "vimeo.com/home"
-    assert !block.is_vimeo?
+    refute block.is_vimeo?
   end
 
   should "is_vimeo return false when the url contains empty vimeo video ID" do
     block = VideoBlock.new
     block.url = "vimeo.com/"
-    assert !block.is_vimeo?
+    refute block.is_vimeo?
   end
 
   should "is_vimeo return false when the url contains an invalid vimeo link" do
     block = VideoBlock.new
     block.url = "http://www.vmsd.com/98979"
-    assert !block.is_vimeo?
+    refute block.is_vimeo?
   end
 
   should "format embed video for vimeo videos" do
@@ -205,13 +205,13 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "is_video return false if url ends without mp4, ogg, ogv, webm" do
     block = VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4r"
-    assert !block.is_video_file?
+    refute block.is_video_file?
     block.url = "http://www.vmsd.com/98979.oggr"
-    assert !block.is_video_file?
+    refute block.is_video_file?
     block.url = "http://www.vmsd.com/98979.ogvr"
-    assert !block.is_video_file?
+    refute block.is_video_file?
     block.url = "http://www.vmsd.com/98979.webmr"
-    assert !block.is_video_file?
+    refute block.is_video_file?
   end
 
   should 'display video block partial' do

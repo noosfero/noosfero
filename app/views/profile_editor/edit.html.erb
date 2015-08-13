@@ -44,8 +44,7 @@
   <% end %>
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
-    <h2><%= _('Page to redirect after login') %></h2>
-    <%=  select 'profile_data', 'redirection_after_login', Environment.login_redirection_options.map{|key,value|[value,key]}, { :selected => @profile.preferred_login_redirection} %>
+    <%= render 'redirection_after_login', f: f %>
   <% end %>
 
   <h2><%= _('Translations') %></h2>
@@ -75,14 +74,23 @@
 
   <% if user && user.has_permission?('destroy_profile', profile) %>
     <% button_bar(:id => 'delete-profile') do %>
-      <%= button(:remove, _('Delete profile'), {:action => :destroy_profile}) %>
 
-      <% if environment.admins.include?(current_person) %>
+      <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
+        <%= button(:remove, _('Delete profile'), {:action => :destroy_profile}) %>
+      <% end %>
 
+      <% if user.is_admin?(environment) %>
         <% if profile.visible? %>
-          <%= button(:remove, _('Deactivate profile'), {action: :deactivate_profile, id: profile.id}, id: 'deactivate_profile_button', data: {confirm: _("Are you sure you want to deactivate this profile?")}) %>
+          <%= button(:remove, _('Deactivate profile'),
+            {:action => :deactivate_profile, :id=>profile.id},
+            :id=>'deactivate_profile_button',
+            :data => {:confirm=>_("Are you sure you want to deactivate this profile?")})
+          %>
         <% else %>
-          <%= button(:add, _('Activate profile'), {action: :activate_profile, id: profile.id}, data: {confirm: _("Are you sure you want to deactivate this profile?")}) %>
+          <%= button(:add, _('Activate profile'),
+            {:action => :activate_profile, :id=>profile.id},
+            :data => {:confirm=>_("Are you sure you want to activate this profile?")})
+          %>
         <% end %>
       <% end %>
     <% end %>

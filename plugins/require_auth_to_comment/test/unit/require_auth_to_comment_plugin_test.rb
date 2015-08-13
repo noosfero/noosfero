@@ -19,7 +19,7 @@ class RequireAuthToCommentPluginTest < ActiveSupport::TestCase
   should 'allow comments from authenticated users' do
     plugin.context = logged_in(true)
     plugin.filter_comment(comment)
-    assert !comment.rejected?
+    refute comment.rejected?
   end
 
   should 'allow comments from unauthenticated users if allowed by profile' do
@@ -27,7 +27,7 @@ class RequireAuthToCommentPluginTest < ActiveSupport::TestCase
     plugin.context.profile.allow_unauthenticated_comments = true
 
     plugin.filter_comment(comment)
-    assert !comment.rejected?
+    refute comment.rejected?
   end
 
   should 'the default require type setting be hide_button' do
@@ -38,7 +38,7 @@ class RequireAuthToCommentPluginTest < ActiveSupport::TestCase
     context = mock();
     context.expects(:environment).returns(environment)
     plugin.expects(:context).returns(context)
-    assert !plugin.display_login_popup?
+    refute plugin.display_login_popup?
   end
 
   should 'display_login_popup? be true if require_type is defined as display_login_popup' do
@@ -51,7 +51,7 @@ class RequireAuthToCommentPluginTest < ActiveSupport::TestCase
 
   should 'not display stylesheet if login popup is active' do
     plugin.expects(:display_login_popup?).returns(true)
-    assert !plugin.stylesheet?
+    refute plugin.stylesheet?
   end
 
   should 'display stylesheet if login popup is inactive' do

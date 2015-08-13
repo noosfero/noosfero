@@ -35,7 +35,7 @@ class AccountControllerTest < ActionController::TestCase
   should 'pass if confirmation value matches' do
     #StoaPlugin::UspUser.stubs(:matches?).returns(true)
     post :signup, :profile_data => {:usp_id => '12345678'}, :confirmation_field => 'cpf', :cpf => '12345678'
-    assert !assigns(:person).errors.include?(:usp_id)
+    refute assigns(:person).errors.include?(:usp_id)
   end
 
   should 'include invitation_code param in the person\'s attributes' do

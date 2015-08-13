@@ -1,0 +1,89 @@
+//BASICS
+
+//primary colors
+$primary-color: #03a9f4;
+$primary-color-dark: #0288d1;
+
+$red-color: #e84e40;
+$red-color-dark: #dd191d;
+
+$yellow-color: #ffc107;
+$yellow-color-dark: #ffa000;
+
+$green-color: #8bc34a;
+$green-color-dark: #689f38;
+
+$purple-color: #9c27b0;
+$purple-color-dark: #7b1fa2;
+
+$gray-color: #90a4ae;
+$gray-color-dark: #607d8b;
+$gray-color-light: #b0bec5;
+
+$cyan-color: #00bcd4;
+$cyan-color-dark: #0097a7;
+
+$teal-color: #009688;
+$teal-color-dark: #00796b;
+
+//global text color
+$text-color: #212121;
+
+//global bg color
+$main-bg-color: #e7ebee;
+
+//global link color
+$link-color: $primary-color;
+$link-color-hover: $primary-color;
+
+$default-bg-hover-color: #f8f8f8;
+
+
+//TYPOGRAPHY
+
+//font families
+$font-stack: 'Open Sans', sans-serif;
+
+//headings typo
+$font-size-h1: 2em;
+$font-size-h2: 1.8em;
+$font-size-h3: 1.4em;
+$font-size-h4: 1.2em;
+$font-size-h5: 1em;
+$font-size-h6: 0.875em;
+
+$font-hx-weight: 300;
+
+$line-height-base: 1.428571429 !default;
+
+$heading-font-family: $font-stack;
+
+
+//GRID - media queries breakpoints
+$break-xxs-min: 420px;
+$break-xs-min: 768px;
+$break-sm-min: 992px;
+$break-md-min: 1200px;
+
+$break-xxs-max: ($break-xxs-min - 1);
+$break-xs-max: ($break-xs-min - 1);
+$break-sm-max: ($break-sm-min - 1);
+$break-md-max: ($break-md-min - 1);
+
+$container-max-width: 1920px;
+
+
+//BOXED LAYOUT
+$boxed-layout-max-width: 1200px;
+
+$boxed-layout-breakdown2: 1260px;
+$boxed-layout-max-width2: 1140px;
+
+$boxed-layout-breakdown3: $break-md-max;
+$boxed-layout-max-width3: 1024px;
+
+
+//OTHER
+$border-radius-base: 3px !default;
+$border-radius-large: 6px !default;
+$border-radius-small: 2px !default;

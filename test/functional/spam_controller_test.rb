@@ -40,13 +40,13 @@ class SpamControllerTest < ActionController::TestCase
   test "should remove comments" do
     post :index, :profile => @community.identifier, :remove_comment => @spam_comment.id
 
-    assert !Comment.exists?(@spam_comment.id)
+    refute Comment.exists?(@spam_comment.id)
   end
 
   test "should remove suggest articles" do
     post :index, :profile => @community.identifier, :remove_task => @spam_suggest_article.id
 
-    assert !SuggestArticle.exists?(@spam_suggest_article.id)
+    refute SuggestArticle.exists?(@spam_suggest_article.id)
   end
 
   should 'properly render spam that have replies' do

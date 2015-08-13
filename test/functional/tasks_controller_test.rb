@@ -514,7 +514,7 @@ class TasksControllerTest < ActionController::TestCase
     post :change_responsible, :task_id => task.id, :responsible_id => person2.id, :old_responsible => nil
     assert_equal person1, task.reload.responsible
     json_response = ActiveSupport::JSON.decode(response.body)
-    assert !json_response['success']
+    refute json_response['success']
   end
 
   should 'list tasks for user with only view_tasks permission' do

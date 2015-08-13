@@ -414,7 +414,7 @@ class CommentControllerTest < ActionController::TestCase
     login_as 'normaluser' # normaluser cannot remove other people's comments
     xhr :post, :mark_as_spam, :profile => profile.identifier, :id => comment.id
     comment.reload
-    assert !comment.spam?
+    refute comment.spam?
   end
 
   should "not be able to mark as spam other people's comments if not moderator or admin and return json if is an ajax request" do
@@ -431,7 +431,7 @@ class CommentControllerTest < ActionController::TestCase
     xhr :post, :mark_as_spam, :profile => profile.identifier, :id => comment.id
     assert_response :success
     comment.reload
-    assert !comment.spam?
+    refute comment.spam?
     assert_match /\{\"ok\":false\}/, @response.body
   end
 

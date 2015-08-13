@@ -7,11 +7,11 @@ class ContainerBlockPluginTest < ActiveSupport::TestCase
   end
 
   should 'has a name' do
-    assert !ContainerBlockPlugin.plugin_name.blank?
+    refute ContainerBlockPlugin.plugin_name.blank?
   end
 
   should 'has a description' do
-    assert !ContainerBlockPlugin.plugin_description.blank?
+    refute ContainerBlockPlugin.plugin_description.blank?
   end
   
   should 'add a block' do

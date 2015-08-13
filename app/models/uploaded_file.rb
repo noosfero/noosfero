@@ -164,4 +164,8 @@ class UploadedFile < Article
     true
   end
 
+  def notifiable?
+    true
+  end
+
 end

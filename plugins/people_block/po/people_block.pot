@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/people_block/lib/friends_block.rb:8
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr ""
+
+#: plugins/people_block/lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/people_block/lib/people_block_base.rb:9
+msgid "Random people"
+msgstr ""
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+msgid "{#} People"
+msgstr ""
+
+#: plugins/people_block/lib/members_block.rb:11
+msgid "Clicking a member takes you to his/her homepage"
+msgstr ""
+
+#: plugins/people_block/lib/members_block.rb:15
+msgid "members"
+msgstr ""
+
+#: plugins/people_block/lib/members_block.rb:16
+msgid "{#} %s"
+msgstr ""
+
+#: plugins/people_block/lib/members_block.rb:42
+msgid "Show join leave button"
+msgstr ""
+
+#: plugins/people_block/lib/people_block_plugin.rb:8
+msgid "A plugin that adds a people block"
+msgstr ""
+
+#: plugins/people_block/lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr ""
+
+#: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
+msgid "Filter by role:"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:1
+msgid "friends|View all"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:5
+msgid "Some suggestions for you"
+msgstr ""
+
+#: plugins/people_block/views/blocks/friends.html.erb:10
+msgid "See all suggestions"
+msgstr ""

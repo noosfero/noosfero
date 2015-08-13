@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
+msgid "Paternity request"
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:28
+msgid ""
+"%{requestor} wants to add this organization as a sub-organization of "
+"%{linked_subject}."
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
+msgid "multi-level paternity is not allowed."
+msgstr ""
+
+#: plugins/sub_organizations/lib/related_organizations_block.rb:8
+msgid "Related Organizations"
+msgstr ""
+
+#: plugins/sub_organizations/lib/related_organizations_block.rb:18
+msgid "\"{#} #{display_type[:title]} enterprise\""
+msgid_plural " \"{#} #{display_type[:title]} enterprises\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/sub_organizations/lib/related_organizations_block.rb:20
+msgid "\"{#} #{display_type[:title]} community\""
+msgid_plural " \"{#} #{display_type[:title]} communities\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/sub_organizations/lib/related_organizations_block.rb:22
+msgid "\"{#} #{display_type[:title]} organization\""
+msgid_plural " \"{#} #{display_type[:title]} organizations\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/sub_organizations/lib/related_organizations_block.rb:27
+msgid "This block displays %s organizations of this organization"
+msgstr ""
+
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
+msgid "Sub-organizations updated"
+msgstr ""
+
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
+msgid "Sub-organizations could not be updated"
+msgstr ""
+
+#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:2
+msgid "Type of organizations to be displayed"
+msgstr ""
+
+#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:3
+msgid "Both"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
+msgid "%s's sub-%s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
+msgid "There are no sub-%s yet."
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
+msgid "Add a new %s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
+msgid "Sub-groups awaiting approval:"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:14
+msgid "Create a new sub-community"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:15
+msgid "Register a new sub-enterprise"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:18
+msgid ""
+"Fill in the search field to find the groups that should be added as sub-"
+"group of this organization:"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:21
+msgid "Type in a search term for a group"
+msgstr ""

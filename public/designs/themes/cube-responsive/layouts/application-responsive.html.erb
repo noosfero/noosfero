@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>" class="<%= h html_tag_classes %>">
+  <head>
+    <title><%= h page_title %></title>
+    <%= yield(:feeds) %>
+    <!--<meta http-equiv="refresh" content="1"/>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <% unless defined? MetadataPlugin and environment.enabled_plugins.include? 'MetadataPlugin' %>
+      <meta name="description" content="<%= @environment.name %>" />
+    <% end %>
+
+    <!-- site root -->
+    <meta property="noosfero:root" content="<%= Noosfero.root %>"/>
+
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
+    <%= noosfero_javascript %>
+    <%= noosfero_stylesheets %>
+
+    <%# Add custom tags/styles/etc via content_for %>
+    <%= yield :head %>
+    <%=
+      @plugins.dispatch(:head_ending).map do |content|
+        if content.respond_to?(:call) then instance_exec(&content).to_s.html_safe else content.to_s.html_safe end
+      end.join("\n")
+    %>
+
+    <script type="text/javascript">
+      DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'" %>;
+    </script>
+
+  </head>
+  <body class="<%= h body_classes %>">
+    <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+
+    <%=
+      @plugins.dispatch(:body_beginning).map do |content|
+        if content.respond_to?(:call) then instance_exec(&content).to_s.html_safe else content.to_s.html_safe end
+      end.join("\n")
+    %>
+    <div id="global-header">
+      <%= global_header %>
+    </div>
+
+    <!-- RESPONSIVE changes !-->
+    <div id="wrap-1" class="container">
+      <div id='theme-header'>
+        <%= theme_header %>
+      </div>
+      <div id="page-wrapper" class="container">
+        <div id="wrap-2">
+          <div class="row">
+            <%= theme_sidebar_user %>
+            <div id="content-wrapper" class="<%= 'full-content' unless logged_in? %>">
+              <div id="content">
+                <%= render partial: 'layouts/menu_responsive' %>
+                <%= render 'layouts/profile_title' if profile %>
+                <%= insert_boxes yield %>
+              </div><!-- end id="content" -->
+            </div>
+          </div>
+        </div><!-- end id="wrap-2" -->
+      </div>
+    </div><!-- end id="wrap-1" -->
+
+    <%= render_environment_features(:logged_in) if logged_in? %>
+    <div id="footer">
+      <div id="theme-footer">
+        <%= theme_footer %>
+      </div><!-- end id="theme-footer" -->
+      <div id="global-footer">
+        <%= global_footer %>
+      </div><!-- end id="global-footer" -->
+    </div><!-- end id="footer" -->
+    <%= noosfero_layout_features %>
+    <%= addthis_javascript %>
+    <%=
+      @plugins.dispatch(:body_ending).map do |content|
+        if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
+      end.join("\n")
+    %>
+  </body>
+</html>

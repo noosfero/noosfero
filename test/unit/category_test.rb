@@ -17,7 +17,7 @@ class CategoryTest < ActiveSupport::TestCase
   def test_mandatory_field_name
     c = Category.new
     c.name = 'product category for testing'
-    assert !c.valid?
+    refute c.valid?
     assert c.errors[:environment_id.to_s].present?
   end
 
@@ -75,14 +75,14 @@ class CategoryTest < ActiveSupport::TestCase
     sub_cat = build(Category, :name => 'subcategory_name')
     sub_cat.stubs(:parent).returns(cat)
     sub_cat.parent = cat
-    assert !sub_cat.top_level?
+    refute sub_cat.top_level?
   end
 
   def test_leaf
     cat = build(Category, :name => 'category_name')
     sub_cat = build(Category, :name => 'subcategory_name')
     cat.stubs(:children).returns([sub_cat])
-    assert !cat.leaf?
+    refute cat.leaf?
   end
 
   def test_not_leaf
@@ -132,7 +132,7 @@ class CategoryTest < ActiveSupport::TestCase
     c1 = create(Category, :environment_id => @env.id)
     c2 = build(Category, :slug => c1.slug, :environment_id => @env.id)
 
-    assert !c2.valid?
+    refute c2.valid?
     assert c2.errors[:slug.to_s].present?
   end
 
@@ -326,7 +326,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equivalent [c1, c2], c.communities
   end
 
-  should 'have products through enteprises' do
+  should 'have products through enterprises' do
     product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
     c = @env.categories.build(:name => 'my category'); c.save!
     ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
