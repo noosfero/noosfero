@@ -1,0 +1,10 @@
+<div class="panel-heading">
+  <a href="#track-<%=track%>" data-toggle="collapse" aria-controls="collapseTwo" onclick='open_graph.track.config.toggleEvent(this, event)'>
+    <%= render 'heading', f: f, track: track, context: context, klass: klass %>
+  </a>
+</div>
+
+<div id="track-<%=track%>" class="panel-body collapse">
+  <%= render 'track_objects', f: f, track: track, objects: klass.objects, klass: klass, context: context %>
+  <%= render 'track_profiles', f: f, track: track, context: context, klass: klass %>
+</div>

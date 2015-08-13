@@ -1,0 +1,5 @@
+<span class='config-check fa'></span>
+<%= f.fields_for "#{context}_settings" do |ff| %>
+  <%= ff.hidden_field klass.track_enabled_field, value: profile.send("#{context}_settings").send(klass.track_enabled_field), class: 'track-config-toggle' %>
+<% end %>
+<%= t("open_graph_plugin.views.track.config.#{track}.label") %>
