@@ -22,11 +22,10 @@ module Noosfero
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W( #{Rails.root.join('app', 'sweepers')} )
+    config.autoload_paths += %W( #{config.root.join('app', 'sweepers')} )
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
-    config.autoload_paths += %W( #{Rails.root.join('test', 'mocks', Rails.env)} )
-
+    config.autoload_paths += %W( #{config.root.join('test', 'mocks', Rails.env)} )
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

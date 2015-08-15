@@ -77,9 +77,8 @@ class PersonNotifier
 
   end
 
-  class Mailer < ActionMailer::Base
+  class Mailer < ApplicationMailer
 
-    helper ApplicationHelper
     helper ActionTrackerHelper
 
     def session
@@ -88,8 +87,8 @@ class PersonNotifier
 
     def content_summary(person, notifications, tasks)
       if person.environment
-        ActionMailer::Base.asset_host = person.environment.top_url
-        ActionMailer::Base.default_url_options[:host] = person.environment.default_hostname
+        ApplicationMailer.asset_host = person.environment.top_url
+        ApplicationMailer.default_url_options[:host] = person.environment.default_hostname
       end
 
       @current_theme = 'default'

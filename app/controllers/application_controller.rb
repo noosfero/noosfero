@@ -65,8 +65,6 @@ class ApplicationController < ActionController::Base
   helper :language
 
   include DesignHelper
-
-  # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   include PermissionCheck
 
