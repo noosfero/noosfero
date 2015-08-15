@@ -1,0 +1,13 @@
+<h1><%= _('Site Tour Settings')%></h1>
+
+<%= form_for(:settings) do |f| %>
+
+  <%= labelled_form_field _('Tooltips (CSV format: language, group name, selector, description)'), f.text_area(:actions_csv, :style => 'width: 100%', :class => 'actions-csv') %>
+  <%= labelled_form_field _('Group Triggers (CSV format: group name, selector, event (e.g. mouseenter, click))'), f.text_area(:group_triggers_csv, :style => 'width: 100%', :class => 'groups-csv', :rows => 7) %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>
+

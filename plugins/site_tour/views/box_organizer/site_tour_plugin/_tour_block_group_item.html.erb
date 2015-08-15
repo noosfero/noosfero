@@ -1,0 +1,19 @@
+<li>
+  <ul class="item-row">
+    <li>
+      <%= text_field_tag 'block[group_triggers][][group_name]', group[:group_name], :class => 'group-name', :maxlength => 20 %>
+    </li>
+    <li>
+      <%= text_field_tag 'block[group_triggers][][selector]', group[:selector], :class => 'selector' %>
+    </li>
+    <li>
+      <%= select_tag 'block[group_triggers][][event]',
+        options_for_select(['mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'click', 'change', 'select', 'keydown', 'keyup', 'keypress', 'focus', 'blur', 'submit', 'drag', 'drop'], group[:event]),
+        :class => 'description' %>
+    </li>
+    <li>
+      <%= button_without_text(:delete, _('Delete'), "#" , :class=>"delete-tour-block-item") %>
+    </li>
+  </ul>
+</li>
+

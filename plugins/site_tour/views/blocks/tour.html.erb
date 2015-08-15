@@ -1,0 +1,11 @@
+<%= block_title(block.title) %>
+
+<% if block.display_button %>
+  <%= button :help, _('Help'), '#', :class => 'tour-button', :onclick => 'siteTourPlugin.force();' %>
+<% end %>
+
+<% edit_mode = controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?) %>
+
+<% unless edit_mode %>
+  <%= render :file => 'tour_actions', :locals => {:actions => block.actions, :group_triggers => block.group_triggers} %>
+<% end %>
