@@ -245,8 +245,8 @@ class User < ActiveRecord::Base
   def authenticated?(password)
 
     unless self.activated?
-      message = _('The user "%{login}" is not active!') % {login: self.login}
-      raise NoosferoExceptions::UserInactive.new(message, self)
+      message = _('The user "%{login}" is not activated! Please check your email to activate your user') % {login: self.login}
+      raise NoosferoExceptions::UserNotActivated.new(message, self)
     end
 
     result = (crypted_password == encrypt(password))
@@ -293,7 +293,7 @@ class User < ActiveRecord::Base
         self.errors.add(:current_password, _('does not match.'))
         raise IncorrectPassword
       end
-    rescue NoosferoExceptions::UserInactive => e
+    rescue NoosferoExceptions::UserNotActivated => e
       self.errors.add(:current_password, e.message)
       raise IncorrectPassword
     end
@@ -413,7 +413,7 @@ class User < ActiveRecord::Base
 end
 
 module NoosferoExceptions
-  class UserInactive < ActiveRecord::ActiveRecordError
+  class UserNotActivated < ActiveRecord::ActiveRecordError
     attr_reader :user
 
     def initialize(message, user = nil)

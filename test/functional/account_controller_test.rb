@@ -44,7 +44,7 @@ class AccountControllerTest < ActionController::TestCase
     user = User.create!(login: 'testuser', email: 'test@email.com', password:'test', password_confirmation:'test', activation_code: nil)
     post :login, :user => { :login => 'testuser', :password => 'test' }
 
-    assert_match 'not active', session[:notice]
+    assert_match 'not activated', session[:notice]
     assert_nil session[:user]
   end
 
@@ -759,7 +759,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
 
-    assert_match 'not active', session[:notice]
+    assert_match 'not activated', session[:notice]
     assert_nil session[:user]
   end
 
@@ -770,7 +770,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
 
-    assert_match 'not active', session[:notice]
+    assert_match 'not activated', session[:notice]
     assert_nil session[:user]
   end
 
