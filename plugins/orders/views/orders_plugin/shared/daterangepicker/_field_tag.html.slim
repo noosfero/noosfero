@@ -1,0 +1,14 @@
+- range_id = SecureRandom.hex
+
+div.daterangepicker-field-container
+  = hidden_field_tag start_field, start_time.iso8601, 'data-field' => 'start'
+  = hidden_field_tag end_field, end_time.iso8601, 'data-field' => 'end'
+
+  div.input-group
+    span class="input-group-addon"
+      span.fa.fa-calendar
+    = text_field_tag :daterangefield, '', class: 'daterangepicker-field', id: range_id
+
+  javascript:
+    orders.daterangepicker.init('##{range_id}', #{options.to_json})
+

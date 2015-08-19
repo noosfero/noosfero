@@ -1,0 +1,306 @@
+"en-US": &en-US
+
+  orders_plugin:
+    terms:
+      supplier:
+        singular: "supplier"
+        plural: "suppliers"
+        from_article:
+          singular: "from supplier"
+      consumer:
+        singular: "consumer"
+        plural: "consumers"
+        from_article:
+          singular: "from consumer"
+          plural: "from consumers"
+      purchase:
+        singular: "Purchase"
+        plural: "Purchases"
+      sale:
+        singular: "Sale"
+        plural: "Sales"
+    lib:
+      plugin:
+        name: "Orders"
+        description: "Orders' management"
+        panel_button: "Purchases and Sales"
+        person_panel_button: "Purchases made"
+
+      ext:
+        profile:
+          orders_manager: "Orders' Manager"
+      mailer:
+        order_was_confirmed: "[%{name}] Your order was confirmmed"
+        order_was_cancelled: "[%{name}] Your order was cancelled"
+      date_helper:
+        a: "%A"
+        b_d_at_hh_m: "%B %d, at %Hh%M"
+        b_d_from_time_start_t: "%{default_format}, from %{time_start} to %{time_finish}"
+        from_start_to_finish: "from %{start} to %{finish}"
+        hh_m: "%Hh%M"
+        m_d: "%m/%d"
+        m_d_hh: "%-m/%-d %Hh"
+        m_d_hh_m: "%m/%d %Hh%M"
+        m_d_y_at_hh_m: "%m/%d/%Y at %Hh%M"
+        m_d_y_hh_m: "%m/%d/%Y %Hh%M"
+        m_y_hh_m: "%m/%Y - %Hh%M"
+        start_day_from_start_: "%{start_day}, from %{start_time} to %{finish_time}"
+        start_day_start_datet: "%{start_day}, %{start_datetime} - %{finish_day}, %{finish_datetime}"
+        start_finish: "%{start} - %{finish}"
+        start_to_finish: "%{start} to %{finish}"
+        to: to
+      price_helper:
+        /: /
+        price_unit: "%{price}%{unit}"
+      report:
+        closed_orders: "Closed Orders"
+        created: created
+        modified: modified
+        payment_method: payment method
+        delivery_option: delivery or pickup option
+
+        member_name: "Consumer name"
+        min_stock: "min. stock"
+        mm_dd_yy_hh_mm_am_pm: "MM/DD/YY HH:MM AM/PM"
+        order_code: "Order code"
+        parcelled_total: "Parcelled total"
+        price_un: price/un.
+        product_cod: "product cod."
+        product_name: "product name"
+        products_report: "products report"
+        projected_stock: "projected stock"
+        qtt_to_be_parcelled: "qtt to be using stock"
+        qty_ordered: "qty ordered"
+        selled_total: "selled total"
+        selled_value: "selled value"
+        stock_qtt: "stock qtt"
+        supplier: "%{terms.supplier.singular.capitalize}"
+        total_parcel_value: "Total value using stock"
+        total_selled_value: "Total selled value"
+        total_value: "Total Value"
+        un: un.
+        value: value
+        value_parcel: "value using stock"
+        phone: 'Telephone'
+        mail: 'Email'
+        alert_formulas: "Atention! If you are using LibreOffice (BrOffice) you will need to update the formulas with the command CTRL + SHIFT + F9"
+    controllers:
+      profile:
+        consumer:
+          can_not_confirm_your_: "Can not confirm. Your order is empty"
+          login_first: "Login first"
+          order_cancelled: "Order cancelled"
+          order_confirmed: "Order confirmed"
+          order_removed: "Order removed"
+          please_login_first: "Please login first"
+          you_are_not_the_owner: "You are not the owner of this order"
+      myprofile:
+        admin:
+          orders_report: "Orders' Report - %{date} - %{profile_identifier} - %{name}.xlsx"
+          products_report: "Products' Report - %{date} - %{profile_identifier} - %{name}.xlsx"
+    models:
+      order:
+        statuses:
+          open: "Open"
+          forgotten: "Not confirmed"
+          planned: "Planned"
+          cancelled: "Cancelled"
+          confirmed: "Confirmed"
+          ordered: "Ordered"
+          accepted: "Accepted"
+          separated: "Separated"
+          delivered: "Delivered"
+          received: "Received"
+        statuses_verbs:
+          ordered: "Confirm"
+          accepted: "Accept"
+          separated: "Separate"
+          delivered: "Deliver"
+          received: "Receive"
+        actor_data:
+          name: "Name"
+          email: "Email"
+          contact_phone: "Phone"
+        delivery_data:
+          name: "Name"
+          description: "Description"
+          address_line1: "Address"
+          address_line2: "Address completion"
+          reference: "Reference"
+          district: "District"
+          city: "City"
+          state: "State"
+          postal_code: "Postal code"
+          zip_code: "ZIP code"
+        payment_data:
+          method: "Method"
+          change: "Change"
+    helpers:
+      help:
+        hide: "hide help"
+        show: "show help"
+    views:
+      filter:
+        filter: Filter
+        filter_it: Filter
+        status: "Status"
+        code: "Code"
+        all: "All"
+        period: "Period"
+        delivery: 'Delivery or pickup'
+      actions:
+        all: "All"
+        none: "None"
+        select: "Select"
+        with_selection: "with itens selected"
+        with_filter: "with search"
+        activate: "activate"
+        deactivate: "deactivate"
+
+      public:
+        repeat:
+          heading: "Repetir pedido anterior"
+          help: "Choose which of the previous orders you wish to make. Observe the details if there are products missing or with updated values."
+          date: "Date"
+          ordered_itens: "Ordered items"
+          checkout: "checkout"
+          choose: "choose and edit"
+          clear_orders_session: "clear orders' history from this computer"
+
+      consumer:
+        _total:
+          total: Total
+
+      item:
+        _edit:
+          remove_from_order: "remove from order"
+          removed: 'removed'
+          submit: 'OK'
+          this_product_requires: "This product requires a minimum of %{value}. The minimum was kept."
+
+        _add:
+          label: 'Add product'
+          placeholder: "Type to find and add products"
+
+        _index:
+          header: "Purchase %{profile.code} - %{profile} / Sale - %{consumer}"
+          empty_order: "Empty order"
+          supplier: "%{terms.supplier.singular}"
+          product: "product"
+          quantity: "qty"
+          price_total: "value (%{currency})"
+          status: "status"
+
+      message:
+        _fields:
+          message: Message
+          subject: Subject
+        new_to_admins:
+          cancel: cancel
+          message_to_managers_o: "Message to managers of \"%{profile}\""
+          send: Send
+        new_to_consumer:
+          cancel: cancel
+          message_to_member_con: "Message to consumer \"%{consumer}\""
+          send: Send
+        new_to_consumer_for_order:
+          cancel: cancel
+          include_reference_to_: "Include reference to the order made"
+          message_to_member_con: "Message to consumer \"%{consumer}\""
+          send: Send
+        new_to_supplier:
+          cancel: cancel
+          message_to_supplier_s: "Message to supplier \"%{supplier}\""
+          send: Send
+      order:
+        _show:
+          open: "Open"
+          cancel_order: "Cancel order"
+          confirm_order: "Confirm order"
+          confirming_this_order: "Confirming this order you are responsible for paying it. Do you want to continue?"
+        _delivery:
+          consumer_heading: "Receipt Method"
+          supplier_heading: "Delivery Method"
+          choose_another: "Choose another:"
+        _payment:
+          heading: "Payment method"
+        _actor_data:
+          consumer_heading: "Data %{terms.consumer.from_article.singular}"
+          supplier_heading: "Data %{terms.supplier.from_article.singular}"
+      admin:
+        reports:
+          generate_spreadsheets: "Generate spreadsheets"
+          products_spreadsheet: "Products"
+          orders_spreadsheet: "Orders"
+        index:
+          no_orders_to_show: "No orders to show."
+          code: "code"
+          consumer: "consumer"
+          last_update: "last update"
+          order_date: "orders' date"
+          total: "total (%{currency})"
+          situation: "situation"
+          none_selected: "Any order selected"
+        _edit:
+          add_product: "add product"
+          cancel: cancel
+          edit_on_the_order_pag: "edit on the order page"
+          empty_order: "Empty order"
+          include_message: "Include message"
+          message_to_actor: "message to the %{actor}"
+          remove_order: "remove order"
+          save: Save
+          see_delivery: "see delivery"
+          see_redistribution: "see redistribution"
+          the_collective_member: "The consumer %{terms.profile.from_article.singular} will receive an email that discriminates all changes made in his/her order"
+          warn_member_of_the_ch: "Warn consumer of the changes in his/her order"
+
+      mailer:
+        message_to_admins:
+          a_service_of_s: "A service of %{environment}."
+          hello_managers_of_nam: "Hello managers of %{name},"
+          the_member_member_sen: "The consumer %{member} sent a messsage to you"
+        message_to_consumer:
+          a_service_of_s: "A service of %{environment}."
+          hello_name: "Hello %{name},"
+          the_collective_profile_s: "%{profile} sent a messsage to you"
+        message_to_consumer_for_order:
+          a_service_of_s: "A service of %{environment}."
+          hello_name: "Hello %{name}!"
+          order: order
+          quantity_unit_of_prod: "%{quantity} %{unit} of %{product}"
+          the_collective_profile_s: "%{profile} sent a messsage to you regarding your %{order}"
+          the_products_in_the_o: "The products in the order"
+        message_to_supplier:
+          a_service_of_s: "A service of %{environment}."
+          hello_administrators_: "Hello administrators of %{name},"
+          the_collective_profile_s: "%{profile} sent a messsage to you"
+        order_confirmation:
+          attention_to_the_foll: "Attention to the following delivery instructions:"
+          dear_name: "Dear %{name},"
+          greetings: Greetings
+          order_code_of_profile: "Order %{code} of %{name}"
+          order_data_confirmed: "Order data confirmed:"
+          the_delivery_period_w: "The delivery period will occur %{date}."
+          your_order_can_be_che: "Your order can be checked or changed in the following link:"
+          your_order_made_on_co: "Your order made %{terms.profile.at_article.singular} %{name} in %{date} is confirmed."
+        order_cancellation:
+          dear_name: "Dear %{name},"
+          greetings: Greetings
+          your_order_made_on_co: "Your order made %{terms.profile.at_article.singular} %{name} in %{date} was successfully cancelled."
+        _complete_order:
+          order_no_code: "Order Nº: %{code}"
+          price: Price
+          price_un: Price/un
+          price_unit: "%{price}/%{unit}"
+          products_list: "Products list"
+          qtt: QTT.
+          quantity_unit: "%{quantity} %{unit}"
+          supplier_product: "%{terms.supplier.singular.capitalize}/Product"
+          total: "TOTAL:"
+
+'en_US':
+  <<: *en-US
+'en':
+  <<: *en-US
+

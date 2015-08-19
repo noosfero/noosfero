@@ -1,0 +1,1 @@
+page.remove "cycle-delivery-option-#{@delivery_option.id}"

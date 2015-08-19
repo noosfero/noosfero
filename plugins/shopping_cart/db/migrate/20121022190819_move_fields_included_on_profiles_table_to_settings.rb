@@ -1,7 +1,7 @@
 class MoveFieldsIncludedOnProfilesTableToSettings < ActiveRecord::Migration
   def self.up
     Profile.find_each do |profile|
-      settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
+      settings = profile.shopping_cart_settings
       settings.enabled = profile.shopping_cart
       settings.delivery = profile.shopping_cart_delivery
       settings.delivery_price = profile.shopping_cart_delivery_price

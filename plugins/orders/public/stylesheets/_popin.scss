@@ -1,0 +1,46 @@
+/* add class via colorbox's className parameter */
+body {
+
+  #cboxTopLeft,
+  #cboxTopCenter,
+  #cboxTopRight,
+  #cboxMiddleLeft,
+  #cboxMiddleRight,
+  #cboxBottomLeft,
+  #cboxBottomCenter,
+  #cboxBottomRight {
+    display: none;
+  }
+  #cboxOverlay {
+    background: black;
+    opacity: 0.45 !important;
+    filter: alpha(opacity=45);
+  }
+  #cboxContent {
+    margin: 10px;
+    box-shadow: 0 0 10px black;
+    -webkit-box-shadow: 0 0 10px black;
+    -moz-box-shadow: 0 0 10px black;
+  }
+}
+
+.popin {
+  padding: 0 30px;
+
+  h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding: 15px 30px;
+    background-color: #B1DFEF;
+    line-height: 20px;
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: uppercase;
+
+    a {
+      font-size: smaller;
+    }
+  }
+}

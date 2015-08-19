@@ -1,0 +1,24 @@
+div class="order-items-container #{"empty" if order.items.size == 0} #{"admin" if @admin} #{'self-supplier' if order.self_supplier?}"
+  - if @admin
+    = render 'orders_plugin_admin_item/add', order: order, actor_name: actor_name
+
+  - if order.items.size > 0
+    div class="order-items #{"self-supplier" if order.self_supplier?}"
+      .table-header
+        - unless order.self_supplier?
+          .box-field.supplier= t'views.item._index.supplier'
+        .box-field.product= t'views.item._index.product'
+        .box-field.quantity= t'views.item._index.quantity'
+        .box-field.price-total= t'views.item._index.price_total', currency: @environment.currency_unit
+        - if @admin
+          .box-field.status= t'views.item._index.status'
+      .table-content
+        .order-items-scroll
+          - order.items.each do |item|
+            = render "orders_plugin_item/edit", order: order, item: item, product: item.product, actor_name: actor_name
+    .order-total
+      .title= t'views.consumer._total.total'
+      .value= price_span order.total_price_as_currency_number actor_name
+
+  - else
+    = t'views.item._index.empty_order'

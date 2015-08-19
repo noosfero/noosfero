@@ -1,0 +1,9 @@
+.popin.consumers-coop-plugin-message
+  h1= t'views.message.new_to_admins.message_to_managers_o', profile: profile.name
+
+  = form_tag params, remote: true do
+    = render 'fields'
+
+    = submit_tag t('views.message.new_to_admins.send'), class: 'action-button'
+    |&emsp;
+    = modal_close_link t('views.message.new_to_admins.cancel')

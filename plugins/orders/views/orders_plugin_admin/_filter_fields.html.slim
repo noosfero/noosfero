@@ -1,0 +1,32 @@
+= hidden_field_tag :page, params[:page]
+
+div= render 'orders_plugin/shared/daterangepicker/init'
+
+.field.state
+  label= t'views.filter.status'
+  div= select_tag :status,
+    options_for_select([[t('views.filter.all'), ""]] + OrdersPlugin::Order::StatusText.map{ |id, name| [t(name), id] }, params[:status])
+
+.field.code
+  label= t'views.filter.code'
+  div= text_field_tag :code, params[:code]
+
+div class="field #{actor_name}"
+  label= t"terms.#{actor_name}.singular", transformation: :capitalize
+  div= select_tag "#{actor_name}_id",
+    options_for_select([[t('views.filter.all'), ""]] + actors.map{ |a| [a.name, a.id] }, params["#{actor_name}_id"])
+
+.field.delivery
+  label= t'views.filter.delivery'
+  div= select_tag :delivery_method_id,
+    options_for_select([[t('views.filter.all'), ""]] + orders_owner.delivery_methods.map{ |dm| [dm.name, dm.id] }, params[:delivery_method_id])
+
+- if defined? OrdersCyclePlugin and not orders_owner.is_a? OrdersCyclePlugin::Cycle
+  - start_time ||= params[:start_time] || Date.today.to_time rescue nil
+  - end_time ||= params[:end_time] || Date.today.to_time+1.week rescue nil
+
+  .field.period
+    label= t'views.filter.period'
+    div= render 'orders_plugin/shared/daterangepicker/field_tag', options: {format: 'l'},
+      start_field: :start_time, end_field: :end_time, start_time: start_time, end_time: end_time
+

@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 /*
 * third party libraries
+*= require lodash.js
 *= require jquery-2.1.1.min.js
 *= require jquery-migrate-1.2.1.js
 *= require jquery.cycle.all.min.js
@@ -21,6 +22,8 @@
 * noosfero libraries
 *= require_self
 *= require modal.js
+*= require loading-overlay.js
+*= require pagination.js
 * views speficics
 *= require add-and-join.js
 *= require report-abuse.js
@@ -29,6 +32,11 @@
 *= require autogrow.js
 *= require require_login.js
 */
+
+// lodash configuration
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g,
+};
 
 // scope for noosfero stuff
 noosfero = {

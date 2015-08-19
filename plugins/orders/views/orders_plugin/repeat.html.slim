@@ -1,0 +1,31 @@
+#orders-repeat.popin
+  h1
+    = t('views.public.repeat.heading')
+
+  - if @orders.size == 0
+  - else
+    .subtitle
+      = t('views.public.repeat.help')
+    .sortable-table
+      .table-header
+        span.box-field.actions
+        span.box-field.date= t'views.public.repeat.date'
+        span.box-field.items= t'views.public.repeat.ordered_itens'
+        span.box-field.value= t'views.item._index.price_total', currency: environment.currency_unit
+      .table-content
+        - @orders.each do |order|
+          .order-to-repeat.value-row id="order-#{order.id}" toggle-edit="orders_cycle.offered_product.edit();"
+            .box-view
+              span.box-field.actions
+                = edit_arrow_circle "", false, onclick: 'return false;'
+                = repeat_checkout_order_button order
+                = repeat_choose_order_button order
+              span.box-field.date= l order.created_at, format: :short
+              span.box-field.items= order.items_summary
+              span.box-field.value= order.total_price_consumer_ordered_as_currency_number
+            .box-edit style=("display: none")
+              = render 'orders_plugin_order/show_simple', order: order
+
+      - unless user
+        = button 'remove', t('views.public.repeat.clear_orders_session'),
+          {action: :clear_orders_session, profile_id: params[:profile_id]}, remote: true, class: 'clear-orders-session'

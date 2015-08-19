@@ -1,0 +1,229 @@
+@import 'base';
+@import 'orders-variables';
+
+@import 'sortable-table';
+@import 'filter';
+@import 'actions';
+@import 'popin';
+
+@import 'items';
+
+.controller-profile_editor a.control-panel-orders-purchases-sales {
+  background-image: url("/plugins/orders/images/control-panel/purchases-sales.png")
+}
+.controller-profile_editor .msie6 a.control-panel-orders-purchases-sales {
+  background-image: url("/plugins/orders/images/control-panel/purchases-sales.gif")
+}
+
+.orders-admin-index {
+  border: none;
+  margin-top: $margin;
+
+  &.sortable-table {
+
+    & > .table-header .box-field {
+      text-transform: none;
+    }
+
+    .box-field {
+      &.code {
+        width: $module01;
+      }
+      &.actor-name {
+        width: $module04;
+      }
+      &.order-date {
+        width: $module02;
+      }
+      &.last-update {
+        width: $module02;
+      }
+      &.total {
+        width: $module01 + 2*$base;
+      }
+      &.situation {
+        width: $module02;
+      }
+    }
+  }
+
+  .order {
+
+    &.value-row {
+
+      .box-edit {
+        padding-top: $padding;
+        .empty-order {
+          text-align: center;
+          margin-bottom: $padding;
+        }
+      }
+
+      &.edit {
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        margin-top: -$border;
+
+        .box-edit {
+          display: block;
+        }
+      }
+    }
+
+    &.draft, &.cancelled {
+      .box-view {
+        .box-field {
+          color: #999;
+        }
+      }
+    }
+    &.cancelled {
+      .box-view {
+        .box-field {
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+}
+
+#orders-repeat {
+  // $intercolumn is added because of popin scrollbars
+  width: $module08 + $intercolumn;
+  // enough for 5 orders, without scrollbars
+  min-height: 500px;
+
+  .sortable-table {
+    width: $module07 + $margin;
+
+    .box-field {
+      &.actions {
+        width: $module02;
+        border-left: none;
+
+        .actions-circle {
+          float: left;
+          margin-right: $half-margin;
+        }
+        .action-button {
+          text-transform: lowercase;
+          font-size: 8px;
+        }
+      }
+      &.date {
+        width: $module01;
+      }
+      &.items {
+        width: $module03;
+      }
+      &.value {
+        width: $module01;
+      }
+
+    }
+  }
+}
+
+.order-view {
+
+  &, .order-items-scroll, .order-items, .item {
+    width: $order-items-width;
+  }
+  &.admin {
+    width: $order-items-admin-width;
+
+    .order-items-scroll, .order-items, .item {
+      width: $order-items-admin-width - 2*$border;
+    }
+  }
+
+  &.admin .actions {
+    padding: 0px;
+  }
+  .actions {
+    margin-top: $margin;
+    padding: 8px;
+    @extend .container-clean;
+
+    a {
+      float: left;
+    }
+    input {
+      float: right;
+    }
+  }
+
+  .order-data {
+    background: $order-items-bg;
+    border-radius: 3px;
+    font-size: 10px;
+
+    margin: 0;
+    border: none;
+    &.admin {
+      border: $border solid black;
+    }
+
+    .order-items-scroll {
+      overflow-y: auto;
+      padding-right: $intercolumn;
+      box-sizing: content-box;
+    }
+
+    .order-header {
+      padding: $half-padding $padding;
+      border-bottom: $border solid black;
+      text-transform: uppercase;
+    }
+
+    .order-product-add {
+      .add-input {
+        // fix for typeahead's background-color: transparent
+        width: $order-items-admin-width - 2*$border;
+      }
+    }
+  }
+
+  .order-section {
+    border-top: 2*$border solid black;
+    width: auto;
+    padding: $padding;
+
+    h3 {
+      margin-top: 0 !important;
+      text-transform: uppercase;
+      font-size: 12px !important;
+    }
+    select {
+      text-size: 10px;
+    }
+    div {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.consumer-order {
+  @import 'field';
+}
+
+.orders-price-with-unit {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.clear-orders-session {
+  margin-top: 30px;
+  float: right;
+}
+
+#order-page.cycle-view {
+  // for sticky to work
+  padding-bottom: 200px;
+}
+
+.action-orders_cycle_plugin_order-edit .purechat {
+  left: 40px;
+  right: none;
+}

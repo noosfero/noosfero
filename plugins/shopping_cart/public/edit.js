@@ -1,16 +1,18 @@
-jQuery('#settings_delivery').click(function(){
-  jQuery('#delivery_settings').toggle('fast');
+$('#settings_enabled').click(function(){
+  $('#delivery-settings').toggle('fast');
 });
+$('#delivery-settings').toggle($('#settings_enabled').prop('checked'))
 
-jQuery('#add-new-option').click(function(){
-  new_option = jQuery('#empty-option').clone();
+$('#add-new-option').click(function(){
+  new_option = $('#empty-option').clone();
   new_option.removeAttr('id');
-  jQuery('#add-new-option-row').before(new_option);
+  $('#add-new-option-row').before(new_option);
   new_option.show();
   return false;
 });
 
-jQuery('.remove-option').live('click', function(){
-  jQuery(this).closest('tr').remove();
+$('.remove-option').live('click', function(){
+  $(this).closest('tr').remove();
   return false;
 });
+

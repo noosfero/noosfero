@@ -2,44 +2,13 @@ class ShoppingCartPlugin < Noosfero::Plugin
   include ModalHelper
   include ActionView::Helpers::UrlHelper
 
-  class << self
-    def plugin_name
+  def self.plugin_name
     "Shopping Basket"
-    end
-
-    def plugin_description
-      _("A shopping basket feature for enterprises")
-    end
-
-    def delivery_default_setting
-      false
-    end
-
-    def delivery_price_default_setting
-      0
-    end
-
-    def delivery_options_default_setting
-      {}
-    end
   end
 
-  def add_to_cart_button(item)
-    profile = item.profile
-    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
-    if settings.enabled && item.available
-       lambda {
-         link_to(_('Add to basket'), "add:#{item.name}",
-           :class => 'cart-add-item',
-           :onclick => "Cart.addItem(#{item.id}, this); return false"
-         )
-       }
-    end
+  def self.plugin_description
+    _("A shopping basket feature for enterprises")
   end
-
-  alias :product_info_extras :add_to_cart_button
-  alias :catalog_item_extras :add_to_cart_button
-  alias :asset_product_extras :add_to_cart_button
 
   def stylesheet?
     true
@@ -50,17 +19,16 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def body_beginning
-    expanded_template('cart.html.erb')
+    lambda do
+    	extend ShoppingCartPlugin::CartHelper
+      render 'public/cart' unless cart_minimized
+    end
   end
 
   def control_panel_buttons
-    settings = Noosfero::Plugin::Settings.new(context.profile, ShoppingCartPlugin)
     buttons = []
     if context.profile.enterprise?
       buttons << { :title => _('Shopping basket'), :icon => 'shopping-cart-icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
-    end
-    if context.profile.enterprise? && settings.enabled
-      buttons << { :title => _('Purchase reports'), :icon => 'shopping-cart-purchase-report', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'reports'} }
     end
 
     buttons
@@ -69,4 +37,31 @@ class ShoppingCartPlugin < Noosfero::Plugin
   def controller
     context
   end
+
+  def add_to_cart_button item, options = {}
+    profile = item.profile
+    return unless profile.shopping_cart_enabled and item.available
+    lambda do
+      extend ShoppingCartPlugin::CartHelper
+      add_to_cart_button item, options
+    end
+  end
+
+  alias :product_info_extras :add_to_cart_button
+  alias :catalog_item_extras :add_to_cart_button
+  alias :asset_product_extras :add_to_cart_button
+
+  # We now think that it's not a good idea to have the basket in the same time.
+  #def catalog_autocomplete_item_extras product
+  #  add_to_cart_button product, with_text: false
+  #end
+
+  def catalog_search_extras_begin
+    return unless profile.shopping_cart_enabled
+    lambda do
+      extend ShoppingCartPlugin::CartHelper
+      content_tag 'li', render('public/cart'), :class => 'catalog-cart'
+    end
+  end
+
 end

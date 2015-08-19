@@ -1,0 +1,5 @@
+.cycle-delivery-option id="cycle-delivery-option-#{option.id}" 
+  span= option.delivery_method.name
+  = link_to_remote t('delivery_plugin.views.delivery_option._show.x'),
+    { url: {controller: 'delivery_plugin/admin_options', action: :destroy, id: option.id, owner_id: owner.id, owner_type: owner.class.name} },
+    class: 'cycle-delete-delivery-option'

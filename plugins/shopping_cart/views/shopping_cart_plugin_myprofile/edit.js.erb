@@ -1,0 +1,5 @@
+<% if @success %>
+  display_notice(<%= _('Option updated successfully.').to_json %>)
+<% else %>
+  display_notice(<%= _('Option wasn\'t updated successfully.').to_json %>)
+<% end %>

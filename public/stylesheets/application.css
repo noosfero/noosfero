@@ -9,6 +9,7 @@
  * noosfero libraries
  *= require_self
  *= require iepngfix/iepngfix
+ *= require loading-overlay
  * views specifics
  *= require chat
  *= require search

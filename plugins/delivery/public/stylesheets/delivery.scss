@@ -1,0 +1,40 @@
+@import 'base';
+
+#delivery-method-edition {
+  @extend .container-clean;
+
+  .field-help {
+    font-size: 10px;
+  }
+}
+#delivery-method-list {
+}
+
+#delivery-add {
+  // to resize popin
+  overflow: hidden;
+}
+
+.delivery-method {
+  .select {
+    width: 20px;
+  }
+
+}
+
+.order-delivery-select {
+
+}
+
+#delivery-method-choose {
+  height: 235px;
+
+  #delivery-menu a {
+    text-transform: capitalize;
+  }
+}
+
+.cycle-delete-delivery-option {
+  font-weight: bold;
+}
+

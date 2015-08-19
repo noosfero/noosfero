@@ -1,0 +1,48 @@
+"en-US": &en-US
+
+  delivery_plugin:
+    lib:
+      plugin:
+        name: "Delivery"
+        description: "Management of delivery's methods and options"
+    models:
+      method:
+        pickup: 'Pickup'
+        deliver: 'Deliver'
+        delivery_type: 'Type'
+        delivery_type_help: 'Pickup: the products will be delivered in the consumption place.<br>Delivery: the products will be delivered in the address asked by the consumer.'
+        name: Name
+        name_help: Write the name of the Consumption Place or the 
+        fixed_cost: Fixed cost
+        free_over_price: Order's minimum price for free delivery
+        instructions: Description
+        instructions_help: "Write the address and other important informations about the place of this consumption place.<br> This text will be available"
+    views:
+      delivery_option: 
+        select: 
+          add: Add selected
+        _select_content: 
+          add: Add option
+          add_new: "add new"
+          are_you_sure_you_want: "Are you sure you want to remove?"
+          cancel: cancel
+          choose_a_delivery_met: "Choose a delivery method from the list"
+          edit_this: "Edit"
+          remove_method: "Remover"
+        _show: 
+          x: X
+        select: 
+          add_a_delivery_method: "Add a delivery method to the Orders' Cycle"
+      method:
+        index:
+          new: "New delivery or pickup"
+        edit: 
+          add: Add
+          back: back
+          save: Save
+
+'en_US':
+  <<: *en-US
+'en':
+  <<: *en-US
+
