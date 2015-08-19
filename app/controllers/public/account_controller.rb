@@ -46,8 +46,12 @@ class AccountController < ApplicationController
 
     self.current_user = plugins_alternative_authentication
 
-    self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
-
+    begin
+      self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+    rescue NoosferoExceptions::UserInactive => e
+      session[:notice] = e.message
+      return
+    end
     if logged_in?
       check_join_in_community(self.current_user)
 

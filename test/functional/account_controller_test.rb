@@ -40,6 +40,14 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => { :login => 'fake', :password => 'fake' }
   end
 
+  should 'fail login if a user is inactive and show a warning message' do
+    user = User.create!(login: 'testuser', email: 'test@email.com', password:'test', password_confirmation:'test', activation_code: nil)
+    post :login, :user => { :login => 'testuser', :password => 'test' }
+
+    assert_match 'not active', session[:notice]
+    assert_nil session[:user]
+  end
+
   def test_should_fail_login_and_not_redirect
     @request.env["HTTP_REFERER"] = 'bli'
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
@@ -273,8 +281,9 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'invalid_change_password_code'
   end
 
-  should 'require password confirmation correctly to enter new pasword' do
+  should 'require password confirmation correctly to enter new password' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user.activate
     change = ChangePassword.create!(:requestor => user.person)
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
@@ -749,6 +758,8 @@ class AccountControllerTest < ActionController::TestCase
     get :activate
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
+
+    assert_match 'not active', session[:notice]
     assert_nil session[:user]
   end
 
@@ -758,6 +769,8 @@ class AccountControllerTest < ActionController::TestCase
     get :activate, :activation_code => 'wrongcode'
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
+
+    assert_match 'not active', session[:notice]
     assert_nil session[:user]
   end
 
