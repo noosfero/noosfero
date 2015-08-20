@@ -1,6 +1,7 @@
 class ThemesController < ApplicationController
 
   before_filter :login_required
+  before_filter :check_user_can_edit_appearance, :only => [:index]
 
   no_design_blocks
 
@@ -37,6 +38,13 @@ class ThemesController < ApplicationController
   def set_layout_template
     target.update_layout_template(params[:id])
     redirect_to :action => 'index'
+  end
+
+  private
+
+  def check_user_can_edit_appearance
+    user_can_edit_appearance = user.is_admin?(environment) || environment.enabled?('enable_appearance')
+    redirect_to request.referer || "/" unless user_can_edit_appearance
   end
 
 end

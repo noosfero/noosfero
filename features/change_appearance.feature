@@ -6,6 +6,7 @@ Feature: Change appearance
     Given the following users
       | login     | name       |
       | joaosilva | Joao Silva |
+    And feature "enable_appearance" is enabled on environment
 
   Scenario: Change appearance from default(3 boxes) to Left Top and Right(4 boxes)
     Given I am logged in as "joaosilva"
