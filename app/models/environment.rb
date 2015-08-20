@@ -158,7 +158,9 @@ class Environment < ActiveRecord::Base
       'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login'),
       'display_my_communities_on_user_menu' => _('Display on menu the list of communities the user can manage'),
       'display_my_enterprises_on_user_menu' => _('Display on menu the list of enterprises the user can manage'),
-      'restrict_to_members' => _('Show content only to members')
+      'restrict_to_members' => _('Show content only to members'),
+
+      'enable_appearance' => _('Enable appearance editing by users'),
     }
   end
 
@@ -438,6 +440,7 @@ class Environment < ActiveRecord::Base
     show_balloon_with_profile_links_when_clicked
     show_zoom_button_on_article_images
     use_portal_community
+    enable_appearance
   )
 
   before_create :enable_default_features
