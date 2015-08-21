@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc1-2843-g999a037\n"
+"POT-Creation-Date: 2015-08-06 08:53-0300\n"
+"PO-Revision-Date: 2015-02-03 17:27-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/site_tour/lib/site_tour_plugin.rb:8
+msgid "A site tour to show users how to use the application."
+msgstr "Um plugin para apresentar aos usuários um tour da aplicação"
+
+#: plugins/site_tour/lib/site_tour_plugin/tour_block.rb:3
+msgid "Click to start tour!"
+msgstr "Clique para iniciar o tour!"
+
+#: plugins/site_tour/lib/site_tour_plugin/tour_block.rb:15
+msgid "Site Tour Block"
+msgstr "Bloco para Site Tour"
+
+#: plugins/site_tour/lib/site_tour_plugin/tour_block.rb:19
+msgid "Configure a step-by-step tour."
+msgstr "Configure o passo a passo do tour."
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block_item.html.erb:13
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block_group_item.html.erb:15
+msgid "Delete"
+msgstr "Apagar"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:4
+msgid "Display help button"
+msgstr "Mostrar o botão de ajuda"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:8
+msgid "Tooltip Actions"
+msgstr "Ações do Tooltip"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:9
+msgid ""
+"Special fields for description: {profile.name}, {profile.identifier}, "
+"{profile.url}."
+msgstr ""
+"Campos especiais para a descrição: {profile.name}, {profile.identifier}, "
+"{profile.url}"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:11
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:29
+msgid "Group Name"
+msgstr "Nome do Grupo"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:12
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:30
+msgid "Selector"
+msgstr "Seletor"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:13
+msgid "Description"
+msgstr "Descrição"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:23
+msgid "New Tooltip"
+msgstr "Novo Tooltip"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:27
+msgid "Group Triggers"
+msgstr "Gatilhos dos Grupos"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:31
+msgid "Event"
+msgstr "Evento"
+
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block.html.erb:41
+msgid "New Group Trigger"
+msgstr "Novo Gatilho de Grupo"
+
+#: plugins/site_tour/views/blocks/tour.html.erb:4
+msgid "Help"
+msgstr "Ajuda"
+
+#: plugins/site_tour/views/tour_actions.html.erb:16
+msgid "Next"
+msgstr "Próximo"
+
+#: plugins/site_tour/views/tour_actions.html.erb:17
+msgid "Back"
+msgstr "Anterior"
+
+#: plugins/site_tour/views/tour_actions.html.erb:18
+msgid "Skip"
+msgstr "Pular"
+
+#: plugins/site_tour/views/tour_actions.html.erb:19
+msgid "Finish"
+msgstr "Fim"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:1
+msgid "Site Tour Settings"
+msgstr "Configurações do Site Tour"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:5
+msgid "Tooltips (CSV format: language, group name, selector, description)"
+msgstr "Tooltips (Formato CSV: idioma, nome do grupo, seletor, descrição)"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:6
+msgid ""
+"Group Triggers (CSV format: group name, selector, event (e.g. mouseenter, "
+"click))"
+msgstr ""
+"Gatilhos dos grupos (Formato CSV: nome do grupo, seletor, evento (e.g. "
+"mouseenter, click))"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:9
+msgid "Save"
+msgstr "Salvar"

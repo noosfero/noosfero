@@ -1,0 +1,73 @@
+#edit-tour-block #tooltip-actions h3 {
+  margin-bottom: 5px;
+}
+
+#edit-tour-block .special-attributes {
+  color: rgb(157, 157, 157);
+}
+
+#edit-tour-block .list-items {
+  margin-bottom: 25px;
+}
+
+#edit-tour-block .droppable-items {
+  padding-left: 0;
+  margin-top: -12px;
+}
+
+#edit-tour-block .droppable-items li {
+  list-style-type: none;
+}
+
+#edit-tour-block .item-row {
+  line-height: 25px;
+  margin-bottom: 5px;
+  padding: 0;
+  cursor: pointer;
+  width: 97%;
+}
+
+#edit-tour-block .item-row:hover {
+  background: #ddd url(/images/drag-and-drop.png) no-repeat;
+  background-position: 98% 15px;
+}
+
+#edit-tour-block .item-row li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 5px;
+}
+
+#edit-tour-block {
+  width: 620px;
+  position: relative;
+}
+
+#edit-tour-block #new-template {
+  display: none;
+}
+
+#edit-tour-block .list-header {
+  width: 98%;
+  padding: 0 1px 10px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#edit-tour-block .list-header li {
+  list-style-type: none;
+  display: inline;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}
+
+#edit-tour-block .list-header .list-name {
+  margin-left: 20px;
+}
+#edit-tour-block .list-header .list-selector {
+  margin-left: 63px;
+}
+#edit-tour-block .list-header .list-description, #edit-tour-block .list-header .list-event {
+  margin-left: 68px;
+}

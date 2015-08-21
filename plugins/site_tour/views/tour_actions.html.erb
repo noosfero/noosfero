@@ -1,0 +1,22 @@
+<% extend SiteTourPlugin::SiteTourHelper %>
+<% js_file = defined?(:js_file) ? js_file : nil %>
+<%= javascript_include_tag(js_file) if js_file.present? %>
+
+<% if actions.present? %>
+<script>
+  jQuery( document ).ready(function( $ ) {
+    <% actions.each_with_index do |action, index| %>
+      <%= "siteTourPlugin.add('#{j action[:group_name]}', '#{j action[:selector]}', '#{j parse_tour_description(action[:description])}', #{index + 1});" %>
+    <% end %>
+
+    <% (group_triggers||[]).each do |group| %>
+      <%= "siteTourPlugin.addGroupTrigger('#{j group[:group_name]}', '#{j group[:selector]}', '#{j group[:event]}');" %>
+    <% end %>
+
+    siteTourPlugin.setOption('nextLabel', '<%= _('Next') %>');
+    siteTourPlugin.setOption('prevLabel', '<%= _('Back') %>');
+    siteTourPlugin.setOption('skipLabel', '<%= _('Skip') %>');
+    siteTourPlugin.setOption('doneLabel', '<%= _('Finish') %>');
+  });
+</script>
+<% end %>
