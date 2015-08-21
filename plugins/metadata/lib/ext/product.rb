@@ -14,8 +14,8 @@ class Product
     description: proc{ |p, plugin| ActionView::Base.full_sanitizer.sanitize p.description },
 
     image: proc do |p, plugin|
-      img = "#{p.environment.top_url}#{p.image.public_filename}" if p.image
-      img = "#{p.environment.top_url}#{p.profile.image.public_filename}" if img.blank? and p.profile.image
+      img = "#{p.environment.top_url}#{p.image.public_filename}".html_safe if p.image
+      img = "#{p.environment.top_url}#{p.profile.image.public_filename}".html_safe if img.blank? and p.profile.image
       img ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if img.blank?
       img
     end,

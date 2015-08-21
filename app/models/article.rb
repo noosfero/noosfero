@@ -743,9 +743,10 @@ class Article < ActiveRecord::Base
   end
 
   def body_images_paths
-    require 'uri'
     Nokogiri::HTML.fragment(self.body.to_s).css('img[src]').collect do |i|
-      (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, URI.escape(i['src'])).to_s : i['src']
+      src = i['src']
+      src = URI.escape src if self.new_record? # xss_terminate runs on save
+      (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, src).to_s : src
     end
   end
 

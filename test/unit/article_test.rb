@@ -1497,6 +1497,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
   end
 
+  should 'escape utf8 characters correctly' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = build TinyMceArticle, profile: @profile
+    a.body = 'Noosfero <img src="http://noosfero.com/cabeça.png" /> '
+    assert_includes a.body_images_paths, 'http://noosfero.com/cabe%C3%A7a.png'
+
+    # check if after save (that is, after xss_terminate run)
+    a.save!
+    assert_includes a.body_images_paths, 'http://noosfero.com/cabe%C3%A7a.png'
+  end
+
   should 'get absolute images paths in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     a = build TinyMceArticle, :profile => @profile
