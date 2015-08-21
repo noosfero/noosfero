@@ -46,12 +46,8 @@ class AccountController < ApplicationController
 
     self.current_user = plugins_alternative_authentication
 
-    begin
-      self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
-    rescue User::UserNotActivated => e
-      session[:notice] = e.message
-      return
-    end
+    self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+
     if logged_in?
       check_join_in_community(self.current_user)
 

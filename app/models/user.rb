@@ -120,17 +120,11 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('{fn} must be checked in order to signup.').fix_i18n
 
-  scope :has_login?, lambda { |login,email,environment_id|
-    where('login = ? OR email = ?', login, email).
-    where(environment_id: environment_id)
-  }
-
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)
     environment ||= Environment.default
-
-    u = self.has_login?(login, login, environment.id)
-    u = u.first if u.is_a?(ActiveRecord::Relation)
+    u = self.first :conditions => ['(login = ? OR email = ?) AND environment_id = ? AND activated_at IS NOT NULL',
+                                   login, login, environment.id] # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -242,23 +236,7 @@ class User < ActiveRecord::Base
     password.crypt(salt)
   end
 
-  class UserNotActivated < StandardError
-    attr_reader :user
-
-    def initialize(message, user = nil)
-      @user = user
-
-      super(message)
-    end
-  end
-
   def authenticated?(password)
-
-    unless self.activated?
-      message = _('The user "%{login}" is not activated! Please check your email to activate your user') % {login: self.login}
-      raise UserNotActivated.new(message, self)
-    end
-
     result = (crypted_password == encrypt(password))
     if (encryption_method != User.system_encryption_method) && result
       self.password_type = User.system_encryption_method.to_s
@@ -297,15 +275,9 @@ class User < ActiveRecord::Base
   #   current password.
   # * Saves the record unless it is a new one.
   def change_password!(current, new, confirmation)
-
-    begin
-      unless self.authenticated?(current)
-        self.errors.add(:current_password, _('does not match.'))
-        raise IncorrectPassword
-      end
-    rescue UserNotActivated => e
-      self.errors.add(:current_password, e.message)
-      raise UserNotActivated
+    unless self.authenticated?(current)
+      self.errors.add(:current_password, _('does not match.'))
+      raise IncorrectPassword
     end
     self.force_change_password!(new, confirmation)
   end
