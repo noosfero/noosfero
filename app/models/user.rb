@@ -242,11 +242,21 @@ class User < ActiveRecord::Base
     password.crypt(salt)
   end
 
+  class UserNotActivated < StandardError
+    attr_reader :user
+
+    def initialize(message, user = nil)
+      @user = user
+
+      super(message)
+    end
+  end
+
   def authenticated?(password)
 
     unless self.activated?
       message = _('The user "%{login}" is not activated! Please check your email to activate your user') % {login: self.login}
-      raise NoosferoExceptions::UserNotActivated.new(message, self)
+      raise UserNotActivated.new(message, self)
     end
 
     result = (crypted_password == encrypt(password))
@@ -293,9 +303,9 @@ class User < ActiveRecord::Base
         self.errors.add(:current_password, _('does not match.'))
         raise IncorrectPassword
       end
-    rescue NoosferoExceptions::UserNotActivated => e
+    rescue UserNotActivated => e
       self.errors.add(:current_password, e.message)
-      raise IncorrectPassword
+      raise UserNotActivated
     end
     self.force_change_password!(new, confirmation)
   end
@@ -410,16 +420,4 @@ class User < ActiveRecord::Base
       return if person.is_template?
       Delayed::Job.enqueue(UserActivationJob.new(self.id), {:priority => 0, :run_at => (NOOSFERO_CONF['hours_until_user_activation_check'] || 72).hours.from_now})
     end
-end
-
-module NoosferoExceptions
-  class UserNotActivated < ActiveRecord::ActiveRecordError
-    attr_reader :user
-
-    def initialize(message, user = nil)
-      @user = user
-
-      super(message)
-    end
-  end
 end

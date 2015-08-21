@@ -48,7 +48,7 @@ class AccountController < ApplicationController
 
     begin
       self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
-    rescue NoosferoExceptions::UserNotActivated => e
+    rescue User::UserNotActivated => e
       session[:notice] = e.message
       return
     end
