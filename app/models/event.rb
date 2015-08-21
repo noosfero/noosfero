@@ -134,6 +134,10 @@ class Event < Article
     true
   end
 
+  def can_display_media_panel?
+    true
+  end
+
   include Noosfero::TranslatableContent
   include MaybeAddHttp
 

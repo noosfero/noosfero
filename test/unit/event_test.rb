@@ -346,4 +346,9 @@ class EventTest < ActiveSupport::TestCase
     assert event.translatable?
   end
 
+  should 'have can_display_media_panel with default true' do
+    a = Event.new
+    assert a.can_display_media_panel?
+  end
+
 end

@@ -635,6 +635,14 @@ class Article < ActiveRecord::Base
     can_display_hits? && display_hits
   end
 
+  def display_media_panel?
+    can_display_media_panel? && environment.enabled?('media_panel')
+  end
+
+  def can_display_media_panel?
+    false
+  end
+
   def image?
     false
   end

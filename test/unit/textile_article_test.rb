@@ -174,6 +174,11 @@ class TextileArticleTest < ActiveSupport::TestCase
     assert_equal "<p>one\nparagraph</p>", build_article("one\nparagraph").to_html
   end
 
+  should 'have can_display_media_panel with default true' do
+    a = TextileArticle.new
+    assert a.can_display_media_panel?
+  end
+
   protected
 
   def build_article(input = nil, options = {})
