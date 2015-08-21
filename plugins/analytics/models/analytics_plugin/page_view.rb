@@ -25,8 +25,22 @@ class AnalyticsPlugin::PageView < ActiveRecord::Base
   before_validation :fill_referer_page_view, on: :create
   before_validation :fill_visit, on: :create
 
+  scope :latest, -> { order 'request_started_at DESC' }
+
   def request_duration
     self.request_finished_at - self.request_started_at
+  end
+
+  def initial_time
+    self.page_loaded_at || self.request_finished_at
+  end
+
+  def user_last_time_seen
+    self.initial_time + self.time_on_page
+  end
+
+  def user_on_page?
+    Time.now < self.user_last_time_seen + AnalyticsPlugin::TimeOnPageUpdateInterval
   end
 
   def page_load!
@@ -36,10 +50,9 @@ class AnalyticsPlugin::PageView < ActiveRecord::Base
 
   def increase_time_on_page!
     now = Time.now
-    initial_time = self.page_loaded_at || self.request_finished_at
-    return unless now > initial_time
+    return unless now > self.initial_time
 
-    self.time_on_page = now - initial_time
+    self.time_on_page = now - self.initial_time
     self.update_column :time_on_page, self.time_on_page
   end
 
@@ -59,7 +72,7 @@ class AnalyticsPlugin::PageView < ActiveRecord::Base
   end
 
   def fill_visit
-    self.visit = self.referer_page_view.visit if self.referer_page_view
+    self.visit = self.referer_page_view.visit if self.referer_page_view and self.referer_page_view.user_on_page?
     self.visit ||= AnalyticsPlugin::Visit.new profile: profile
   end
 

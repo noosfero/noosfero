@@ -28,8 +28,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
 
           unless profile.analytics_anonymous?
             # FIXME: use session.id in Rails 4
-            session_id = Marshal.load(Base64.decode64 request['_session_id'])['session_id'] rescue nil
-            #session_id = request.session_options[:id]
+            session_id = request.session_options[:id]
             page_view.user = user
             page_view.session_id = session_id
           end
@@ -38,6 +37,14 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
         end
       end,
     }]
+  end
+
+  def control_panel_buttons
+    {
+      title: I18n.t('analytics_plugin.lib.plugin.panel_button'),
+      icon: 'analytics-access',
+      url: {controller: 'analytics_plugin/stats', action: :index}
+    }
   end
 
 end

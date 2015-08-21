@@ -5,6 +5,13 @@ en: &en
       plugin:
         name: 'Access tracking'
         description: 'Register the access of selected profiles'
+        panel_button: 'Access tracking'
+
+    views:
+      stats:
+        user: 'User'
+        initial_time: 'Time'
+        pages: 'Pages'
 
 en-US:
   <<: *en
