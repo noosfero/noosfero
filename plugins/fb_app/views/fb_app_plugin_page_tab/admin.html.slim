@@ -1,0 +1,6 @@
+#fb-app-page-tab-admin
+  = render 'admin_intro' rescue nil
+
+  = render 'config', page_tab: @page_tab, page_id: @page_id, signed_request: @signed_request
+  = render file: 'shared/tiny_mce', locals: {mode: 'simple'}
+

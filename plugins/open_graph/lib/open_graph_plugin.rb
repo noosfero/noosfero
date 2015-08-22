@@ -17,5 +17,9 @@ module OpenGraphPlugin
     Thread.current[:open_graph_context] = value
   end
 
+  def self.debug? actor=nil
+    !Rails.env.production?
+  end
+
 end
 

@@ -1,0 +1,83 @@
+
+"en-US": &en-US
+
+  fb_app_plugin:
+    lib:
+      plugin:
+        name: 'Facebook integration'
+        description: 'Use the app for Facebook!'
+    models:
+      page_tab:
+        types:
+          own_profile: 'Catalog from this enterprise'
+          profile: 'Catalog from a single SSE enterprise'
+          other_profile: 'Catalog from other SSE enterprise'
+          profiles: 'Catalog from more than one SSE enterprise'
+          query: 'Catalog of products chosen by filter or free search'
+    views:
+      myprofile:
+        checking_auth: 'Checking authorization'
+        different_login: 'But you are logged in on facebook as:'
+        current_login: 'You are logged in on facebook as:'
+        connect: 'I want to install the app for Facebook'
+        logged_connect: 'Connect this Facebook account with my user %{profile}'
+        disconnect: 'Disconnect'
+        connect_to_another: 'Conect to another Facebook account'
+        reconnect: 'Reconnect'
+
+        timeline:
+          heading: 'Publishing in your facebook'
+          add: 'Save timeline post settings'
+          explanation_title: 'Soon!'
+          explanation_text: 'In a short time, your actions will become new posts in your Facebook timeline!'
+          organization_redirect: '%{redirect_link} to post updates %{type}, conect your personal profile to Facebook.'
+          organization_from_enterprise: 'from this enterprise'
+          organization_from_community: 'from this community'
+          redirect_link: 'Click here'
+
+        catalogs:
+          heading: 'Solidarity Economy Catalog'
+          new: 'Add new catalog'
+          catalog_title_label: 'Title'
+          catalog_subtitle_label: 'Subtitle'
+          catalog_type_chooser_label: 'Type'
+          profile_chooser_label: 'Enterprise'
+          profiles_chooser_label: 'Enterprises'
+          query_label: "Criteria for the catalog's products"
+          query_help: "Write the words separated by space, and click at the button below to save."
+          edit_button: "Edit catalog '%{catalog_title}'"
+          remove_button: "Remove catalog '%{catalog_title}'"
+          cancel_button: 'Cancel'
+          confirm_removal: "<p>Warning: To really remove a catalog, you must go to the facebook page where it is, click at '<u>add or remove tabs</u>' and then remove the tab.</p><p>After that, you can come here and remove the catalog from our settings.</p><p>Are you sure you want to remove this catalog?</p>"
+          confirm_removal_button: 'Yes, I want to delete this catalog'
+          confirm_disconnect: "<p>Warning: If you disconnect your account to this Facebook profile, all your catalogs will also be removed</p><p>And then, to really remove your catalogs (if they were created), you must go to the facebook page where it is, click at '<u>add or remove tabs</u>' and then remove the tab.</p><p>After that, you can come here and disconnect.</p><p>Are you sure you want to disconnect your account to this Facebook profile?</p>"
+          confirm_disconnect_button: 'Yes, I want to disconnect my account from this Facebook profile'
+
+        catalog:
+          see_page: 'See page on Facebook'
+
+        error:
+          empty_title: 'Please add a title to your catalog.'
+          empty_settings: 'Please choose SSE enterprises or search terms or filters for your catalog.'
+
+      page_tab:
+        edit_catalog: 'Edit catalog'
+        add: 'Add catalog to one of my pages on Facebook'
+        save: 'Save'
+        added_notice: "Congratulations: You've just published a new SSE catalog in Facebook!"
+        profile:
+          placeholder: "select an enterprise"
+        profiles:
+          placeholder: "select the enterprises"
+        query:
+          placeholder: "select the category or type the search terms"
+        back_to_catalog: 'Back to catalog'
+        footer1: ""
+        footer2: ""
+
+
+'en_US':
+  <<: *en-US
+'en':
+  <<: *en-US
+

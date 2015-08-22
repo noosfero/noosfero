@@ -1,0 +1,39 @@
+= content_for :head do
+  = javascript_include_tag 'typeahead.bundle.js'
+  = stylesheet_link_tag 'typeahead'
+  = stylesheet_link_tag 'plugins/fb_app/stylesheets/bootstrap-tokenfield.css'
+  = stylesheet_link_tag 'plugins/fb_app/stylesheets/tokenfield-typeahead.css'
+  = javascript_include_tag 'plugins/fb_app/javascripts/bootstrap-tokenfield.js'
+  = javascript_include_tag 'plugins/open_graph/javascripts/open_graph.js'
+
+- callback = '' unless defined? callback
+
+#fb-root
+#fb-app-modal-wrap style="display:none"
+  #fb-app-modal
+    #fb-app-modal-intro
+    = button_to_function 'cancel', '', "ff()", class: 'modal-button-no'
+    = button_to_function 'ok', '', "ff()", class: 'modal-button-yes'
+
+javascript:
+  // Adding locales:
+  fb_app.locales.error_empty_title = #{t('fb_app_plugin.views.myprofile.error.empty_title').to_json}
+  fb_app.locales.error_empty_settings = #{t('fb_app_plugin.views.myprofile.error.empty_settings').to_json}
+  fb_app.locales.cancel_button = #{t('fb_app_plugin.views.myprofile.catalogs.cancel_button').to_json}
+  fb_app.locales.confirm_removal = #{t('fb_app_plugin.views.myprofile.catalogs.confirm_removal').to_json}
+  fb_app.locales.confirm_removal_button = #{t('fb_app_plugin.views.myprofile.catalogs.confirm_removal_button').to_json}
+  fb_app.locales.confirm_disconnect = #{t('fb_app_plugin.views.myprofile.catalogs.confirm_disconnect').to_json}
+  fb_app.locales.confirm_disconnect_button = #{t('fb_app_plugin.views.myprofile.catalogs.confirm_disconnect_button').to_json}
+
+  // General settings:
+  fb_app.current_url = #{url_for(params).to_json};
+  fb_app.base_url = 'https://#{environment.default_hostname}/plugin/fb_app';
+
+  fb_app.page_tab.appId = #{FbAppPlugin.page_tab_app_credentials[:id].to_json},
+  fb_app.timeline.appId = #{FbAppPlugin.timeline_app_credentials[:id].to_json},
+  fb_app.page_tab.nextUrl = #{url_for(protocol: 'https', only_path: false).to_json}
+
+  fb_app.fb.prepareAsyncInit(fb_app.timeline.appId, #{callback.to_json});
+  fb_app.fb.init();
+/ must come after window.fbAsyncInit is defined
+= javascript_include_tag "https://connect.facebook.net/en_US/all.js"

@@ -1,0 +1,11 @@
+= render 'title_and_subtitle'
+
+= button :back, t('fb_app_plugin.views.page_tab.back_to_catalog'), params.except(:product_id), target: ''
+
+= render file: "#{Rails.root}/app/views/manage_products/show.html.erb"
+
+= button :back, t('fb_app_plugin.views.page_tab.back_to_catalog'), params.except(:product_id), target: ''
+
+= render 'footer'
+
+= render 'load'

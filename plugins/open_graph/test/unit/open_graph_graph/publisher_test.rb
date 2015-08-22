@@ -2,14 +2,16 @@ require "test_helper"
 
 class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
 
+  include OpenGraphPlugin::UrlHelper
+
   def setup
     @actor = create_user.person
     User.current = @actor.user
-    @stories = OpenGraphPlugin::Stories::Definitions
     @publisher = OpenGraphPlugin::Publisher.new
     OpenGraphPlugin::Stories.stubs(:publishers).returns([@publisher])
-    @publisher.stubs(:context).returns(:open_graph)
-    @publisher.stubs(:og_domain).returns('noosfero.net')
+    # for MetadataPlugin::UrlHelper#og_url_for
+    stubs(:og_domain).returns('noosfero.net')
+    OpenGraphPlugin::Activity.any_instance.stubs(:og_domain).returns('noosfero.net')
   end
 
   should "publish only tracked stuff" do
@@ -46,66 +48,70 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
 
     # active
     User.current = @actor.user
+    user = User.current.person
 
-    blog = Blog.create! profile: @actor, name: 'blog'
-    blog_post = TinyMceArticle.new profile: User.current.person, parent: blog, name: 'blah', author: User.current.person
-    @publisher.expects(:publish).with(User.current.person, @stories[:create_an_article], @publisher.send(:url_for, blog_post))
-    blog_post.save!
+    blog = Blog.create! profile: user, name: 'blog'
+    blog_post = TinyMceArticle.create! profile: user, parent: blog, name: 'blah', author: user
+    assert_last_activity user, :create_an_article, url_for(blog_post)
 
-    gallery = Gallery.create! name: 'gallery', profile: User.current.person
-    image = UploadedFile.new uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'), parent: gallery, profile: User.current.person
-    @publisher.expects(:publish).with(User.current.person, @stories[:add_an_image], @publisher.send(:url_for, image, image.url.merge(view: true)))
-    image.save!
+    gallery = Gallery.create! name: 'gallery', profile: user
+    image = UploadedFile.create! uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'), parent: gallery, profile: user
+    assert_last_activity user, :add_an_image, url_for(image, image.url.merge(view: true))
 
-    document = UploadedFile.new uploaded_data: fixture_file_upload('/files/doctest.en.xhtml', 'text/html'), profile: User.current.person
-    @publisher.expects(:publish).with(User.current.person, @stories[:add_a_document], @publisher.send(:url_for, document, document.url.merge(view: true)))
-    document.save!
+    document = UploadedFile.create! uploaded_data: fixture_file_upload('/files/doctest.en.xhtml', 'text/html'), profile: user
+    assert_last_activity user, :add_a_document, url_for(document, document.url.merge(view: true))
 
-    event = Event.new name: 'event', profile: User.current.person
-    @publisher.expects(:publish).with(User.current.person, @stories[:create_an_event], @publisher.send(:url_for, event))
-    event.save!
+    event = Event.create! name: 'event', profile: user
+    assert_last_activity user, :create_an_event, url_for(event)
 
-    forum = Forum.create! name: 'forum', profile: User.current.person
-    topic = TinyMceArticle.new profile: User.current.person, parent: forum, name: 'blah2', author: User.current.person
-    @publisher.expects(:publish).with(User.current.person, @stories[:start_a_discussion], @publisher.send(:url_for, topic, topic.url.merge(og_type: MetadataPlugin.og_types[:forum])))
-    topic.save!
+    forum = Forum.create! name: 'forum', profile: user
+    topic = TinyMceArticle.create! profile: user, parent: forum, name: 'blah2', author: user
+    assert_last_activity user, :start_a_discussion, url_for(topic, topic.url.merge(og_type: MetadataPlugin.og_types[:forum]))
 
-    @publisher.expects(:publish).with(@actor, @stories[:make_friendship_with], @publisher.send(:url_for, @other_actor)).twice
-    @publisher.expects(:publish).with(@other_actor, @stories[:make_friendship_with], @publisher.send(:url_for, @actor)).twice
-    AddFriend.create!(person: @actor, friend: @other_actor).finish
-    Friendship.remove_friendship @actor, @other_actor
+    AddFriend.create!(person: user, friend: @other_actor).finish
+    #assert_last_activity user, :make_friendship_with, url_for(@other_actor)
+    Friendship.remove_friendship user, @other_actor
     # friend verb is groupable
-    AddFriend.create!(person: @actor, friend: @other_actor).finish
+    AddFriend.create!(person: user, friend: @other_actor).finish
+    #assert_last_activity @other_actor, :make_friendship_with, url_for(user)
 
-    @publisher.expects(:publish).with(User.current.person, @stories[:favorite_a_sse_initiative], @publisher.send(:url_for, @enterprise))
-    @enterprise.fans << User.current.person
+    @enterprise.fans << user
+    assert_last_activity user, :favorite_a_sse_initiative, url_for(@enterprise)
 
     # active but published as passive
     User.current = @actor.user
+    user = User.current.person
 
-    blog_post = TinyMceArticle.new profile: @enterprise, parent: @enterprise.blog, name: 'blah', author: User.current.person
-    story = @stories[:announce_news_from_a_sse_initiative]
-    @publisher.expects(:publish).with(User.current.person, story, @publisher.send(:passive_url_for, blog_post, nil, story))
-    blog_post.save!
+    blog_post = TinyMceArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah', author: user
+    story = :announce_news_from_a_sse_initiative
+    assert_last_activity user, story, passive_url_for(blog_post, nil, OpenGraphPlugin::Stories::Definitions[story])
 
     # passive
     User.current = @other_actor.user
+    user = User.current.person
 
     # fan
-    blog_post = TinyMceArticle.new profile: @enterprise, parent: @enterprise.blog, name: 'blah2', author: User.current.person
-    story = @stories[:announce_news_from_a_sse_initiative]
-    @publisher.expects(:publish).with(@actor, story, 'http://noosfero.net/coop/blog/blah2')
-    blog_post.save!
+    blog_post = TinyMceArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah2', author: user
+    assert_last_activity user, :announce_news_from_a_sse_initiative, 'http://noosfero.net/coop/blog/blah2'
     # member
-    blog_post = TinyMceArticle.new profile: @myenterprise, parent: @myenterprise.blog, name: 'blah2', author: User.current.person
-    story = @stories[:announce_news_from_a_sse_initiative]
-    @publisher.expects(:publish).with(@actor, story, 'http://noosfero.net/mycoop/blog/blah2')
-    blog_post.save!
+    blog_post = TinyMceArticle.create! profile: @myenterprise, parent: @myenterprise.blog, name: 'blah2', author: user
+    assert_last_activity user, :announce_news_from_a_sse_initiative, 'http://noosfero.net/mycoop/blog/blah2'
 
-    blog_post = TinyMceArticle.new profile: @community, parent: @community.blog, name: 'blah', author: User.current.person
-    story = @stories[:announce_news_from_a_community]
-    @publisher.expects(:publish).with(@actor, story, 'http://noosfero.net/comm/blog/blah')
-    blog_post.save!
+    blog_post = TinyMceArticle.create! profile: @community, parent: @community.blog, name: 'blah', author: user
+    assert_last_activity user, :announce_news_from_a_community, 'http://noosfero.net/comm/blog/blah'
+  end
+
+  protected
+
+  def assert_activity activity, actor, story, object_data_url
+    assert_equal actor, activity.actor, actor
+    assert_equal story.to_s, activity.story
+    assert_equal object_data_url, activity.object_data_url
+  end
+
+  def assert_last_activity actor, story, object_data_url
+    a = OpenGraphPlugin::Activity.order('id DESC').first
+    assert_activity a, actor, story, object_data_url
   end
 
 end
