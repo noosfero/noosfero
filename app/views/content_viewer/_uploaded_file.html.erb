@@ -2,7 +2,7 @@
   <%= link_to '',
         uploaded_file.view_url,
         :class => 'image',
-        :style => 'background-image: url(%s)'% uploaded_file.public_filename(:thumb)
+        :style => 'background-image: url(%s)'% [Noosfero.root, uploaded_file.public_filename(:thumb)].join
   %>
   <span><%=h uploaded_file.title %></span>
 <% else %>
