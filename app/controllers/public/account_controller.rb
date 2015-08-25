@@ -189,6 +189,11 @@ class AccountController < ApplicationController
 
     if request.post?
       begin
+        unless verify_recaptcha
+          @change_password.errors.add(:base, _('Please type the captcha text correctly'))
+          return false
+        end
+
         requestors = fetch_requestors(params[:value])
         raise ActiveRecord::RecordNotFound if requestors.blank? || params[:value].blank?
 

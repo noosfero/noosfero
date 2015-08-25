@@ -236,6 +236,16 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'password_recovery_sent'
   end
 
+  should 'not respond to forgotten password change if captcha verification fails' do
+    create_user('test')
+    @controller.stubs(:verify_recaptcha).returns(false)
+    post :forgot_password, :value => 'test'
+    change = assigns(:change_password)
+    assert change.errors.has_key?(:base)
+    assert_response :success
+    assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation', :class => 'errorExplanation' }
+  end
+
   should 'respond to forgotten password change request with email' do
     change = ChangePassword.new
     create_user('test', :email => 'test@localhost.localdomain')
