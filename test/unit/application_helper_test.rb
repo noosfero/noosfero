@@ -1022,6 +1022,27 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Clone Article", label_for_clone_article(TinyMceArticle.new)
   end
 
+  should "return top url of environment" do
+    env = Environment.default
+    request = mock()
+    request.expects(:scheme).returns('http')
+    stubs(:request).returns(request)
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(nil)
+    assert_equal env.top_url('http'), top_url
+  end
+
+  should "return top url considering profile" do
+    env = Environment.default
+    c = fast_create(Community)
+    request = mock()
+    request.stubs(:scheme).returns('http')
+    stubs(:request).returns(request)
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(c)
+    assert_equal c.top_url, top_url
+  end
+
   protected
   include NoosferoTestHelper
 

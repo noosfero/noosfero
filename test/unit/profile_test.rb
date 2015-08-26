@@ -256,6 +256,20 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal({:host => 'micojones.net', :profile => nil, :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
   end
 
+  should 'provide environment top URL when profile has not a domain' do
+    env = Environment.default
+    profile = fast_create(Profile, :environment_id => env.id)
+    assert_equal env.top_url, profile.top_url
+  end
+
+  should 'provide top URL to profile with domain' do
+    env = Environment.default
+    profile = fast_create(Profile, :environment_id => env.id)
+    domain = fast_create(Domain, :name => 'example.net')
+    profile.domains << domain
+    assert_equal 'http://example.net', profile.top_url
+  end
+
   should 'help developers by adding a suitable port to url' do
     profile = build(Profile)
 
