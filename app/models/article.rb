@@ -8,7 +8,8 @@ class Article < ActiveRecord::Base
                   :accept_comments, :feed, :published, :source, :source_name,
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
-                  :image_builder, :show_to_followers
+                  :image_builder, :show_to_followers,
+                  :display_preview
 
   acts_as_having_image
 
@@ -632,6 +633,12 @@ class Article < ActiveRecord::Base
 
   def display_hits?
     can_display_hits? && display_hits
+  end
+
+  settings_items :display_preview, :type => :boolean, :default => false
+
+  def display_preview?
+    false
   end
 
   def image?

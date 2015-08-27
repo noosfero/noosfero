@@ -41,4 +41,8 @@ class TextArticle < Article
     end
   end
 
+  def display_preview?
+    parent && parent.kind_of?(Blog) && parent.display_preview
+  end
+
 end

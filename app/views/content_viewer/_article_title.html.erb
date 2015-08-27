@@ -7,7 +7,7 @@
     <% end %>
   </h1>
   <%= render :partial => "publishing_info" %>
-  <% unless @page.abstract.blank? %>
+  <% if @page.display_preview? %>
     <div class="preview">
       <%= @page.lead %>
     </div>

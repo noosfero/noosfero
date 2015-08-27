@@ -2180,4 +2180,8 @@ class ArticleTest < ActiveSupport::TestCase
     article.destroy
   end
 
+  should 'have display_preview' do
+    a = Article.new(:display_preview => false)
+    assert !a.display_preview?
+  end
 end

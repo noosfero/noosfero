@@ -120,4 +120,12 @@ class TextArticleTest < ActiveSupport::TestCase
     assert text.translatable?
   end
 
+  should 'display preview when configured on parent that is a blog' do
+    person = fast_create(Person)
+    post = fast_create(TextArticle, :profile_id => person.id)
+    blog = Blog.new(:display_preview => true)
+    post.parent = blog
+    assert post.display_preview?
+  end
+
 end
