@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-08-07 16:56+0200\n"
+"PO-Revision-Date: 2015-08-28 12:36-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -6176,8 +6176,8 @@ msgstr "Desativar perfil"
 
 #: app/views/profile_editor/edit.html.erb:83
 #: app/views/profile_editor/edit.html.erb:85
-msgid "Are you sure you want to deactivate this profile?"
-msgstr "Tem certeza que deseja desativar este perfil?"
+msgid "Are you sure you want to activate this profile?"
+msgstr "Tem certeza que deseja ativar este perfil?"
 
 #: app/views/profile_editor/edit.html.erb:85
 msgid "Activate profile"
