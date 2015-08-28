@@ -3,7 +3,10 @@ class SearchController < PublicController
   helper TagsHelper
   include SearchHelper
   include ActionView::Helpers::NumberHelper
+  include SanitizeParams
 
+
+  before_filter :sanitize_params
   before_filter :redirect_asset_param, :except => [:assets, :suggestions]
   before_filter :load_category, :except => :suggestions
   before_filter :load_search_assets, :except => :suggestions
@@ -134,7 +137,8 @@ class SearchController < PublicController
 
   def tag
     @tag = params[:tag]
-    @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
+    tag_str = @tag.kind_of?(Array) ? @tag.join(" ") : @tag.to_str
+    @tag_cache_key = "tag_#{CGI.escape(tag_str)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
       @searches[@asset] = {:results => environment.articles.tagged_with(@tag).paginate(paginate_options)}
     end

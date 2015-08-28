@@ -15,6 +15,12 @@ module Noosfero
 
     require 'noosfero/plugin'
 
+    config.action_view.sanitized_allowed_tags |= %w(object embed param table
+      tr th td applet comment iframe audio video source)
+    config.action_view.sanitized_allowed_attributes |= %w(align border alt
+      vspace hspace width heigth value type data style target codebase archive
+      classid code flashvars scrolling frameborder controls autoplay colspan)
+
     require 'noosfero/multi_tenancy'
     config.middleware.use Noosfero::MultiTenancy::Middleware
 
