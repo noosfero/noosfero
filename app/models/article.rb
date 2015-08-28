@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers,
-                  :author
+                  :author, :display_preview
 
   acts_as_having_image
 
@@ -640,6 +640,12 @@ class Article < ActiveRecord::Base
   end
 
   def can_display_media_panel?
+    false
+  end
+
+  settings_items :display_preview, :type => :boolean, :default => false
+
+  def display_preview?
     false
   end
 

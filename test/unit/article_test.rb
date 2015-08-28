@@ -2214,4 +2214,9 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.display_media_panel?
   end
 
+  should 'have display_preview' do
+    a = Article.new(:display_preview => false)
+    assert !a.display_preview?
+  end
+
 end

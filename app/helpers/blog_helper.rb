@@ -6,7 +6,13 @@ module BlogHelper
     @article = article
     hidden_field_tag('article[published]', 1) +
     hidden_field_tag('article[accept_comments]', 0) +
-    visibility_options(article,tokenized_children)
+    visibility_options(article,tokenized_children) +
+    content_tag('h4', _('Visualization of posts')) +
+    content_tag(
+      'div',
+      check_box(:article, :display_preview) +
+      content_tag('label', _('I want to display the preview of posts before the text'), :for => 'article_display_preview')
+    )
   end
 
   def cms_label_for_new_children
