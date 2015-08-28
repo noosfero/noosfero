@@ -27,7 +27,7 @@ class OauthClientPluginPublicController < PublicController
     if auth.enabled? && provider.enabled?
       self.current_user = person.user
     else
-      session[:notice] = _("Can't login with #{provider.name}")
+      session[:notice] = _("Can't login with %s") % provider.name
     end
 
     redirect_to :controller => :account, :action => :login
