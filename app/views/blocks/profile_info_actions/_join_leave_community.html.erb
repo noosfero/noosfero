@@ -11,7 +11,7 @@
           class: 'join-community',
           style: 'position: relative; display: none;' %>
       <% else %>
-        <%= button :add, _('Join this community'), profile.join_url %>
+        <%= button :add, _('Join this community'), profile.join_url, class: 'join-community' %>
       <% end %>
     <% end %>
   <% else %>
