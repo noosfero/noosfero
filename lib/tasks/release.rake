@@ -239,12 +239,12 @@ EOF
       end
     end
 
-    Rake::Task['noosfero:upload'].invoke
     if confirm('Upload the packages')
       puts "==> Uploading debian packages..."
       Rake::Task['noosfero:upload_packages'].invoke(target)
     else
-      puts "I: please upload the package manually!"
+      puts "I: please upload the package manually later by running"
+      puts "I: $ rake noosfero:upload_packages"
     end
 
     rm_f "tmp/pending-release"
