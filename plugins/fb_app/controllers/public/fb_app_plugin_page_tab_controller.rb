@@ -88,7 +88,7 @@ class FbAppPluginPageTabController < FbAppPluginController
   end
 
   def enterprise_search
-    scope = environment.enterprises.enabled.public
+    scope = environment.enterprises.enabled.is_public
     @query = params[:query]
     @profiles = scope.limit(10).order('name ASC').
       where(['name ILIKE ? OR name ILIKE ? OR identifier LIKE ?', "#{@query}%", "% #{@query}%", "#{@query}%"])

@@ -960,7 +960,7 @@ class Environment < ActiveRecord::Base
   end
 
   def highlighted_products_with_image(options = {})
-    self.products.where(highlighted: true).joins(:image)
+    self.products.where(highlighted: true).joins(:image).order('created_at ASC')
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

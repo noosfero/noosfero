@@ -25,9 +25,11 @@ class DrivenSignupPlugin::AccountController < PublicController
 
   protected
 
-  def default_url_options
-    # avoid rails' use_relative_controller!
-    {use_route: '/'}
+  # inherit routes from core skipping use_relative_controller!
+  def url_for options
+    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash
+    super options
   end
+  helper_method :url_for
 
 end

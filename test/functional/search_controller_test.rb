@@ -316,7 +316,7 @@ class SearchControllerTest < ActionController::TestCase
     ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
 
-    get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year
+    get :events, day: ten_days_ago.day+1.second, month: ten_days_ago.month, year: ten_days_ago.year
     assert_equal [ev1], assigns(:events)
   end
 
@@ -326,10 +326,10 @@ class SearchControllerTest < ActionController::TestCase
 
     ev1 = create_event(person, :name => 'event 1', :start_date => ten_days_ago)
     ev1.categories = [@category]
-    
+
     ev2 = create_event(person, :name => 'event 2', :start_date => ten_days_ago)
 
-    get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year, :category_path => @category.path.split('/')
+    get :events, day: ten_days_ago.day+1.second, month: ten_days_ago.month, year: ten_days_ago.year, category_path: @category.path.split('/')
 
     assert_equal [ev1], assigns(:events)
   end

@@ -1089,12 +1089,13 @@ class ArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.destroy_all
 
     community = fast_create(Community)
-    member_1 = create_user.person
+    User.current = create_user
+    member_1 = User.current.person
     community.add_member(member_1)
 
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => community.id
     first_activity = article.activity
-    assert_equal [first_activity], ActionTracker::Record.find_all_by_verb('create_article')
+    assert_equal [first_activity], ActionTracker::Record.where(verb: 'create_article')
 
     process_delayed_job_queue
     assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(first_activity.id).count

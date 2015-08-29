@@ -3,7 +3,7 @@ require 'test_helper'
 # Re-raise errors caught by the controller.
 class AccountController; def rescue_action(e) raise e end; end
 
-class AccountControllerTest < ActionController::TestCase
+class AccountControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @controller = AccountController.new
@@ -16,6 +16,8 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'use the parameters' do
+    token = '131324'
+    Environment.default.driven_signup_auths.create! token: token
     community = create Community, name: 'base', identifier: 'base1'
     subcommunity = create Community, name: 'sub', identifier: 'base11'
     subcommunity.reload
@@ -26,13 +28,10 @@ class AccountControllerTest < ActionController::TestCase
     session[:find_suborganization] = true
     session[:suborganization_members_limit] = 50
 
-    post :signup, user: {login: 'quire', password: 'quire', password_confirmation: 'quire', name: 'quire', email: 'test@example.com'}
+    post url_for(controller: 'driven_signup_plugin/account', action: :signup, token: token, signup: {login: 'quire', name: 'quire', email: 'test@example.com'})
     assert_response :redirect
-    assert_redirected_to subcommunity.url
-
-    user = Profile['quire']
-    assert user
-    assert_includes subcommunity.members, user
+    assert_redirected_to url_for(controller: '/account', action: :signup, user: {login: 'quire', email: 'test@example.com',},
+                                 profile_data: {name: 'quire'})
   end
 
   private

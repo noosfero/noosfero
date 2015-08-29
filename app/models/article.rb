@@ -789,7 +789,7 @@ class Article < ActiveRecord::Base
   end
 
   def activity
-    ActionTracker::Record.find_by_target_type_and_target_id 'Article', self.id
+    ActionTracker::Record.where(target_type: 'Article', target_id: self.id).first
   end
 
   def create_activity

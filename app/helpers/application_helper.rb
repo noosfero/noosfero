@@ -8,6 +8,8 @@ module ApplicationHelper
 
   include PermissionNameHelper
 
+  include UrlHelper
+
   include ModalHelper
 
   include BoxesHelper

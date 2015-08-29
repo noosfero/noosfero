@@ -36,7 +36,7 @@ class Event < Article
 
   scope :by_day, -> (date) {
     where('start_date >= :start_date AND start_date <= :end_date AND end_date IS NULL OR (start_date <= :end_date  AND end_date >= :start_date)',
-          {:start_date => date.beginning_of_day, :end_date => date.end_of_day}).
+          start_date: date.beginning_of_day, end_date: date.end_of_day).
     order('start_date ASC')
   }
 

@@ -13,7 +13,7 @@
         <%= t('open_graph_plugin.views.track.config.enterprise.memberships') %>
       </h1>
       <div class="open-graph-enterprises-list">
-        <% user.enterprises.public.enabled.each do |enterprise| %>
+        <% user.enterprises.is_public.enabled.each do |enterprise| %>
           <%= profile_image_link enterprise, :portrait, :div %>
         <% end %>
       </div>
@@ -26,7 +26,7 @@
     </h1>
     <% if user.favorite_enterprises.present? %>
       <div class="open-graph-enterprises-list">
-        <% user.favorite_enterprises.public.enabled.each do |enterprise| %>
+        <% user.favorite_enterprises.is_public.enabled.each do |enterprise| %>
           <%= profile_image_link enterprise, :portrait, :div %>
         <% end %>
       </div>
