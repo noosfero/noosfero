@@ -1,0 +1,38 @@
+
+table#analytics-stats.table data-toggle='table' data-striped='true' data-sortable='true' data-icons-prefix='fa'
+  thead
+    - unless profile.analytics_anonymous?
+      th= t'analytics_plugin.views.stats.user'
+    th= t'analytics_plugin.views.stats.initial_time'
+    th= t'analytics_plugin.views.stats.pages'
+
+  tbody
+    - profile.visits.each do |visit|
+      tr
+        td= link_to visit.user.name, visit.user.url
+        td
+          div data-toggle="tooltip" data-title='#{l visit.initial_time}'
+            = time_ago_in_words(visit.initial_time)
+            |&nbsp
+            = _'ago'
+        td
+          - visit.page_views.each do |page_view|
+            = link_to page_view.url, page_view.url
+            |&nbsp;
+            = "(#{distance_of_time_in_words page_view.time_on_page})"
+            |&nbsp;->&nbsp;
+
+javascript:
+  $('#analytics-stats').bootstrapTable({
+    striped: true,
+    columns: [
+      {sortable: true},
+      {sortable: true},
+      {sortable: true},
+    ],
+  })
+
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+

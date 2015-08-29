@@ -579,6 +579,14 @@ class Profile < ActiveRecord::Base
     options.merge(Noosfero.url_options)
   end
 
+  def top_url(scheme = 'http')
+    url = scheme + '://'
+    url << url_options[:host]
+    url << ':' << url_options[:port].to_s if url_options.key?(:port)
+    url << Noosfero.root('')
+    url
+  end
+
 private :generate_url, :url_options
 
   def default_hostname

@@ -28,4 +28,8 @@ class TinyMceArticle < TextArticle
     true
   end
 
+  def can_display_media_panel?
+    true
+  end
+
 end

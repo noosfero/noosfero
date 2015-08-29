@@ -38,4 +38,12 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
     }]
   end
 
+  def control_panel_buttons
+    {
+      title: I18n.t('analytics_plugin.lib.plugin.panel_button'),
+      icon: 'analytics-access',
+      url: {controller: 'analytics_plugin/stats', action: :index}
+    }
+  end
+
 end

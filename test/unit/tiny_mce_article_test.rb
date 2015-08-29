@@ -235,4 +235,9 @@ end
       :attributes => { :colspan => '2', :rowspan => '3' }
   end
 
+  should 'have can_display_media_panel with default true' do
+    a = TinyMceArticle.new
+    assert a.can_display_media_panel?
+  end
+
 end

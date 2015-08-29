@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require 'test_helper'
 
 class OauthClientPluginPublicControllerTest < ActionController::TestCase
 
@@ -21,7 +21,7 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'redirect to login when user is found' do
-    user = fast_create(User, :environment_id => environment.id)
+    user = create_user
     auth.info.stubs(:email).returns(user.email)
     auth.info.stubs(:name).returns(user.name)
     session[:provider_id] = provider.id
@@ -32,7 +32,7 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'do not login when the provider is disabled' do
-    user = fast_create(User, :environment_id => environment.id)
+    user = create_user
     auth.info.stubs(:email).returns(user.email)
     auth.info.stubs(:name).returns(user.name)
     session[:provider_id] = provider.id
@@ -44,11 +44,11 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'do not login when the provider is disabled for a user' do
-    user = fast_create(User, :environment_id => environment.id)
+    user = create_user
     auth.info.stubs(:email).returns(user.email)
     auth.info.stubs(:name).returns(user.name)
     session[:provider_id] = provider.id
-    user.oauth_user_providers.create(:user => user, :provider => provider, :enabled => false)
+    user.person.oauth_auths.create!(profile: user.person, provider: provider, enabled: false)
 
     get :callback
     assert_redirected_to :controller => :account, :action => :login
@@ -56,7 +56,7 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'save provider when an user login with it' do
-    user = fast_create(User, :environment_id => environment.id)
+    user = create_user
     auth.info.stubs(:email).returns(user.email)
     auth.info.stubs(:name).returns(user.name)
     session[:provider_id] = provider.id
@@ -66,13 +66,13 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   end
 
   should 'do not duplicate relations between an user and a provider when the same provider was used again in a login' do
-    user = fast_create(User, :environment_id => environment.id)
+    user = create_user
     auth.info.stubs(:email).returns(user.email)
     auth.info.stubs(:name).returns(user.name)
     session[:provider_id] = provider.id
 
     get :callback
-    assert_no_difference 'user.oauth_user_providers.count' do
+    assert_no_difference 'user.oauth_auths.count' do
       3.times { get :callback }
     end
   end

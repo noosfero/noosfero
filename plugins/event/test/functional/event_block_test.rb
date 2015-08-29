@@ -7,7 +7,7 @@ class HomeControllerTest < ActionController::TestCase
     @env.enable_plugin('EventPlugin')
 
     @p1  = fast_create(Person, :environment_id => @env.id)
-    @e1a = fast_create(Event, :name=>'Event p1 A', :profile_id=>@p1.id)
+    @e1a = Event.create!(:name=>'Event p1 A', :profile =>@p1)
 
     box = Box.create!(:owner => @env)
     @block = EventPlugin::EventBlock.create!(:box => box)
@@ -19,6 +19,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'see events microdata sturcture' do
     get :index
+#raise response.body.inspect
     assert_select '.event-plugin_event-block ul.events'
     assert_select ev
     assert_select ev + 'a[itemprop="url"]'
@@ -33,15 +34,15 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'see event duration' do
     @e1a.slug = 'event1a'
-    @e1a.start_date = Date.today
-    @e1a.end_date = Date.today + 1.day
+    @e1a.start_date = DateTime.now
+    @e1a.end_date = DateTime.now + 1.day
     @e1a.save!
     get :index
     assert_select ev + 'time.duration[itemprop="endDate"]', /1 day/
 
     @e1a.slug = 'event1a'
-    @e1a.start_date = Date.today
-    @e1a.end_date = Date.today + 2.day
+    @e1a.start_date = DateTime.now
+    @e1a.end_date = DateTime.now + 2.day
     @e1a.save!
     get :index
     assert_select ev + 'time.duration[itemprop="endDate"]', /2 days/
@@ -52,8 +53,8 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ev + 'time.duration[itemprop="endDate"]', false
 
     @e1a.slug = 'event1a'
-    @e1a.start_date = Date.today
-    @e1a.end_date = Date.today
+    @e1a.start_date = DateTime.now
+    @e1a.end_date = DateTime.now
     @e1a.save!
     get :index
     assert_select ev + 'time.duration[itemprop="endDate"]', false

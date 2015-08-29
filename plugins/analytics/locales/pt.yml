@@ -5,6 +5,13 @@ pt: &pt
       plugin:
         name: 'Rastreio de accesso'
         description: 'Registra o acesso de perfis selecionados'
+        panel_button: 'Rastreio de accesso'
+
+    views:
+      stats:
+        user: 'Usuário'
+        initial_time: 'Horário'
+        pages: 'Páginas'
 
 pt-BR:
   <<: *pt

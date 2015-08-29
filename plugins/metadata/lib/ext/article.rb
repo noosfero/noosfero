@@ -12,9 +12,9 @@ class Article
     end,
     title: proc{ |a, plugin| "#{a.title} - #{a.profile.name}" },
     image: proc do |a, plugin|
-      img = a.body_images_paths
-      img = "#{a.profile.environment.top_url}#{a.profile.image.public_filename}" if a.profile.image if img.blank?
-      img ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if img.blank?
+      img = a.body_images_paths.map! &:html_safe
+      img = "#{a.profile.environment.top_url}#{a.profile.image.public_filename}".html_safe if a.profile.image if img.blank?
+      img ||= MetadataPlugin.config[:open_graph][:environment_logo].html_safe rescue nil if img.blank?
       img
     end,
     see_also: [],
@@ -31,10 +31,10 @@ class Article
     card: 'summary',
     description: proc do |a, plugin|
       description = a.body.to_s || a.environment.name
-      CGI.escapeHTML(plugin.helpers.truncate(plugin.helpers.strip_tags(description), length: 200))
+      plugin.helpers.truncate plugin.helpers.strip_tags(description), length: 200
     end,
     title: proc{ |a, plugin| "#{a.title} - #{a.profile.name}" },
-    image: proc{ |a, plugin| a.body_images_paths },
+    image: proc{ |a, plugin| a.body_images_paths.map! &:html_safe },
   }
 
   metadata_spec namespace: :article, key_attr: :property, tags: {

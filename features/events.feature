@@ -223,7 +223,7 @@ Feature: events
       | owner     | name         | start_date | end_date   |
       | josesilva | WikiSym 2009 | 2009-10-25 | 2009-10-27 |
     When I am on /profile/josesilva/events/2009/10/26
-    Then I should see "October 25, 2009 to October 27, 2009"
+    Then I should see "October 25, 2009 0:00 to October 27, 2009 0:00"
 
   Scenario: show place of the event
     Given I am on /profile/josesilva/events/2009/10

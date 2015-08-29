@@ -256,6 +256,20 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal({:host => 'micojones.net', :profile => nil, :controller => 'content_viewer', :action => 'view_page', :page => []}, profile.url)
   end
 
+  should 'provide environment top URL when profile has not a domain' do
+    env = Environment.default
+    profile = fast_create(Profile, :environment_id => env.id)
+    assert_equal env.top_url, profile.top_url
+  end
+
+  should 'provide top URL to profile with domain' do
+    env = Environment.default
+    profile = fast_create(Profile, :environment_id => env.id)
+    domain = fast_create(Domain, :name => 'example.net')
+    profile.domains << domain
+    assert_equal 'http://example.net', profile.top_url
+  end
+
   should 'help developers by adding a suitable port to url' do
     profile = build(Profile)
 
@@ -1566,8 +1580,8 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list all events' do
     profile = fast_create(Profile)
-    event1 = Event.new(:name => 'Ze Birthday', :start_date => Date.today)
-    event2 = Event.new(:name => 'Mane Birthday', :start_date => Date.today >> 1)
+    event1 = Event.new(:name => 'Ze Birthday', :start_date => DateTime.now)
+    event2 = Event.new(:name => 'Mane Birthday', :start_date => DateTime.now >> 1)
     profile.events << [event1, event2]
     assert_includes profile.events, event1
     assert_includes profile.events, event2
@@ -1576,7 +1590,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events by day' do
     profile = fast_create(Profile)
 
-    today = Date.today
+    today = DateTime.now
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
     today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
     tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
@@ -1589,7 +1603,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events by month' do
     profile = fast_create(Profile)
 
-    today = Date.new(2014, 03, 2)
+    today = DateTime.new(2014, 03, 2)
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
     today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
     tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
@@ -1602,7 +1616,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events in a range' do
     profile = fast_create(Profile)
 
-    today = Date.today
+    today = DateTime.now
     event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
     event_in_day = Event.new(:name => 'Ze Birthday', :start_date => today)
 
@@ -1616,7 +1630,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'not list events out of range' do
     profile = fast_create(Profile)
 
-    today = Date.today
+    today = DateTime.now
     event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
     event_in_range2 = Event.new(:name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
     event_out_of_range = Event.new(:name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
@@ -1630,9 +1644,9 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'sort events by date' do
     profile = fast_create(Profile)
-    event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => Date.today)
-    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today - 1)
-    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today + 1)
+    event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => DateTime.now)
+    event2 = Event.new(:name => 'Debian Day', :start_date => DateTime.now - 1)
+    event3 = Event.new(:name => 'Fisl 10', :start_date => DateTime.now + 1)
     profile.events << [event1, event2, event3]
     assert_equal [event2, event1, event3], profile.events
   end

@@ -1,0 +1,44 @@
+<%= javascript_include_tag '/plugins/site_tour/edit_tour_block.js' %>
+<%= stylesheet_link_tag '/plugins/site_tour/edit_tour_block.css' %>
+
+<%= labelled_form_field check_box(:block, :display_button) + _('Display help button'), '' %>
+
+<div id='edit-tour-block'>
+  <div id="tooltip-actions" class="list-items">
+    <h3><%= _('Tooltip Actions') %></h3>
+    <div class="special-attributes"><%= _('Special fields for description: {profile.name}, {profile.identifier}, {profile.url}.') %></div>
+    <ul class='list-header'>
+      <li class='list-name'><%= _('Group Name') %></li>
+      <li class='list-selector'><%= _('Selector') %></li>
+      <li class='list-description'><%= _('Description') %></li>
+    </ul>
+    <ul id="droppable-tour-actions" class="droppable-items">
+      <% for action in @block.actions do %>
+        <%= render :partial => 'box_organizer/site_tour_plugin/tour_block_item', :locals => {:action => action} %>
+      <% end %>
+    </ul>
+    <div id="new-template">
+      <%= render :partial => 'box_organizer/site_tour_plugin/tour_block_item', :locals => {:action => {} } %>
+    </div>
+    <%= link_to_function(_('New Tooltip'), :class => 'add-item button icon-add with-text') %>
+  </div>
+
+  <div id="group-triggers" class="list-items">
+    <h3><%= _('Group Triggers') %></h3>
+    <ul class='list-header'>
+      <li class='list-name'><%= _('Group Name') %></li>
+      <li class='list-selector'><%= _('Selector') %></li>
+      <li class='list-event'><%= _('Event') %></li>
+    </ul>
+    <ul id="droppable-tour-group-triggers" class="droppable-items">
+      <% for group in @block.group_triggers do %>
+        <%= render :partial => 'box_organizer/site_tour_plugin/tour_block_group_item', :locals => {:group => group} %>
+      <% end %>
+    </ul>
+    <div id="new-template">
+      <%= render :partial => 'box_organizer/site_tour_plugin/tour_block_group_item', :locals => {:group => {} } %>
+    </div>
+    <%= link_to_function(_('New Group Trigger'), :class => 'add-item button icon-add with-text') %>
+  </div>
+
+</div>

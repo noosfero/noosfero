@@ -31,6 +31,8 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     first_page_view = @community.page_views.order(:id).first
     assert_equal @request.referer, first_page_view.referer_url
+    assert_equal @user, first_page_view.user
+    assert first_page_view.request_duration > 0 and first_page_view.request_duration < 1
 
     @request.env['HTTP_REFERER'] = first_url
     get :view_page, profile: @community.identifier, page: @community.articles.last.path.split('/')
@@ -40,9 +42,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     second_page_view = @community.page_views.order(:id).last
     assert_equal first_page_view, second_page_view.referer_page_view
 
-    assert_equal @user, second_page_view.user
-
-    assert second_page_view.request_duration > 0 and second_page_view.request_duration < 1
+    # another visit, the referer is set but should be ignored because
+    # the user didn't report to be on the page until now
+    @request.env['HTTP_REFERER'] = first_url
+    future = Time.now + 2*AnalyticsPlugin::TimeOnPageUpdateInterval
+    Time.stubs(:now).returns(future)
+    get :view_page, profile: @community.identifier, page: @community.articles.last.path.split('/')
+    assert_equal 2, @community.visits.count
   end
 
 end

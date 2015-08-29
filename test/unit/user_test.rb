@@ -123,6 +123,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_change_password
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user.activate
     assert_nothing_raised do
       user.change_password!('test', 'newpass', 'newpass')
     end
@@ -132,6 +133,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_give_correct_current_password_for_changing_password
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user.activate
     assert_raise User::IncorrectPassword do
       user.change_password!('wrong', 'newpass', 'newpass')
     end
@@ -141,6 +143,8 @@ class UserTest < ActiveSupport::TestCase
 
   should 'require matching confirmation when changing password by force' do
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
+    user.activate
+
     assert_raise ActiveRecord::RecordInvalid do
       user.force_change_password!('newpass', 'newpasswrong')
     end
@@ -153,6 +157,8 @@ class UserTest < ActiveSupport::TestCase
     assert_nothing_raised  do
       user.force_change_password!('newpass', 'newpass')
     end
+
+    user.activate
     assert user.authenticated?('newpass')
   end
 
@@ -256,6 +262,7 @@ class UserTest < ActiveSupport::TestCase
 
     # when the user logs in, her password must be reencrypted with the new
     # method
+    user.activate
     user.authenticated?('test')
 
     # and the new password must be saved back to the database
@@ -273,6 +280,7 @@ class UserTest < ActiveSupport::TestCase
     User.expects(:system_encryption_method).returns(:md5).at_least_once
 
     # but the user provided the wrong password
+    user.activate
     user.authenticated?('WRONG_PASSWORD')
 
     # and then her password is not updated
@@ -520,7 +528,9 @@ class UserTest < ActiveSupport::TestCase
 
   should 'not authenticate a not activated user' do
     user = new_user :login => 'testuser', :password => 'test123', :password_confirmation => 'test123'
-    assert_nil User.authenticate('testuser', 'test123')
+    assert_raises User::UserNotActivated do
+      User.authenticate('testuser', 'test123')
+    end
   end
 
   should 'have activation code but no activated at when created' do

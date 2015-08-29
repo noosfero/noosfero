@@ -29,8 +29,8 @@ class CommunityTrackPlugin::Step < Folder
 
   def initialize(*args)
     super(*args)
-    self.start_date ||= Date.today
-    self.end_date ||= Date.today + 1.day
+    self.start_date ||= DateTime.now
+    self.end_date ||= DateTime.now + 1.day
   end
 
   def set_hidden_position
@@ -72,20 +72,20 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def active?
-    (start_date..end_date).include?(Date.today)
+    (start_date..end_date).cover?(DateTime.now)
   end
 
   def finished?
-    Date.today > end_date
+    DateTime.now > end_date
   end
 
   def waiting?
-    Date.today < start_date
+    DateTime.now < start_date
   end
 
   def schedule_activation
     return if !changes['start_date'] && !changes['end_date']
-    if Date.today <= end_date || accept_comments
+    if DateTime.now <= end_date || accept_comments
       schedule_date = !accept_comments ? start_date : end_date + 1.day
       CommunityTrackPlugin::ActivationJob.find(id).destroy_all
       Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), :run_at => schedule_date)

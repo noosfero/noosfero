@@ -92,10 +92,10 @@ class SearchController < PublicController
 
   def events
     if params[:year].blank? && params[:year].blank? && params[:day].blank?
-      @date = Date.today
+      @date = DateTime.now
     else
-      year = (params[:year] ? params[:year].to_i : Date.today.year)
-      month = (params[:month] ? params[:month].to_i : Date.today.month)
+      year = (params[:year] ? params[:year].to_i : DateTime.now.year)
+      month = (params[:month] ? params[:month].to_i : DateTime.now.month)
       day = (params[:day] ? params[:day].to_i : 1)
       @date = build_date(year, month, day)
     end
@@ -106,9 +106,7 @@ class SearchController < PublicController
       @events = @category ?
         environment.events.by_day(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
         environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
-    end
-
-    if params[:year] || params[:month]
+    elsif params[:year] || params[:month]
       @events = @category ?
         environment.events.by_month(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
         environment.events.by_month(@date).paginate(:per_page => per_page, :page => params[:page])

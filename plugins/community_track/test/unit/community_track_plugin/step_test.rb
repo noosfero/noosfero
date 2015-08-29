@@ -9,7 +9,7 @@ class StepTest < ActiveSupport::TestCase
     @track.add_category(@category)
     @track.save!
 
-    @step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    @step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day - 1.day)
     Delayed::Job.destroy_all
   end
 
@@ -22,39 +22,39 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'set accept_comments to false on create' do
-    today = Date.today
+    today = DateTime.now
     step = CommunityTrackPlugin::Step.create(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :start_date => today, :end_date => today, :published => true)
     refute step.accept_comments
   end
 
   should 'do not allow step creation with a parent that is not a track' do
-    today = Date.today
+    today = DateTime.now
     blog = fast_create(Blog)
     step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => blog, :start_date => today, :end_date => today, :published => true)
     refute step.save
   end
 
   should 'do not allow step creation without a parent' do
-    today = Date.today
+    today = DateTime.now
     step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => nil, :start_date => today, :end_date => today, :published => true)
     refute step.save
   end
 
   should 'create step if end date is equal to start date' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now
     assert @step.save
   end
 
   should 'create step if end date is after start date' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today + 1.day
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now + 1.day
     assert @step.save
   end
 
   should 'do not create step if end date is before start date' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today - 1.day
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now - 1.day
     refute @step.save
   end
 
@@ -71,20 +71,20 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'be active if today is between start and end dates' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today + 1.day
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now + 1.day
     assert @step.active?
   end
 
   should 'be finished if today is after the end date' do
-    @step.start_date = Date.today - 2.day
-    @step.end_date = Date.today - 1.day
+    @step.start_date = DateTime.now - 2.day
+    @step.end_date = DateTime.now - 1.day
     assert @step.finished?
   end
 
   should 'be waiting if today is before the end date' do
-    @step.start_date = Date.today + 1.day
-    @step.end_date = Date.today + 2.day
+    @step.start_date = DateTime.now + 1.day
+    @step.end_date = DateTime.now + 2.day
     assert @step.waiting?
   end
 
@@ -95,17 +95,17 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'create delayed job' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now.beginning_of_day
+    @step.end_date = DateTime.now.end_of_day
     @step.accept_comments = false
     @step.schedule_activation
     assert_equal 1, Delayed::Job.count
-    assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
+    assert_equal @step.start_date, Delayed::Job.first.run_at
   end
 
   should 'do not duplicate delayed job' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now
     @step.schedule_activation
     assert_equal 1, Delayed::Job.count
     @step.schedule_activation
@@ -113,30 +113,30 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'create delayed job when a step is saved' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now.beginning_of_day
+    @step.end_date = DateTime.now.end_of_day
     @step.save!
-    assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
+    assert_equal @step.start_date, Delayed::Job.first.run_at
   end
 
   should 'create delayed job even if start date has passed' do
-    @step.start_date = Date.today - 2.days
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now - 2.days
+    @step.end_date = DateTime.now.end_of_day
     @step.accept_comments = false
     @step.schedule_activation
-    assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
+    assert_equal @step.start_date, Delayed::Job.first.run_at
   end
 
   should 'create delayed job if end date has passed' do
-    @step.start_date = Date.today - 5.days
-    @step.end_date = Date.today - 2.days
+    @step.start_date = DateTime.now - 5.days
+    @step.end_date = DateTime.now - 2.days
     @step.schedule_activation
-    assert_equal @step.end_date + 1.day, Delayed::Job.first.run_at.to_date
+    assert_equal @step.end_date + 1.day, Delayed::Job.first.run_at
   end
 
   should 'do not schedule delayed job if save but do not modify date fields' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today
+    @step.start_date = DateTime.now
+    @step.end_date = DateTime.now.end_of_day
     @step.save!
     assert_equal 1, Delayed::Job.count
     Delayed::Job.destroy_all
@@ -149,13 +149,13 @@ class StepTest < ActiveSupport::TestCase
     refute @step.position
     @step.save!
     assert_equal 1, @step.position
-    step2 = CommunityTrackPlugin::Step.new(:name => 'Step2', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    step2 = CommunityTrackPlugin::Step.new(:name => 'Step2', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
     step2.save!
     assert_equal 2, step2.position
   end
 
   should 'accept comments if step is active' do
-    @step.start_date = Date.today
+    @step.start_date = DateTime.now
     @step.save!
     refute @step.accept_comments
     @step.toggle_activation
@@ -164,8 +164,8 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'do not accept comments if step is not active' do
-    @step.start_date = Date.today + 2.days
-    @step.end_date = Date.today + 3.days
+    @step.start_date = DateTime.now + 2.days
+    @step.end_date = DateTime.now + 3.days
     @step.save!
     refute @step.published
     @step.toggle_activation
@@ -174,14 +174,14 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'do not accept comments if step is not active anymore' do
-    @step.start_date = Date.today
+    @step.end_date = DateTime.now.end_of_day
     @step.save!
     @step.toggle_activation
     @step.reload
     assert @step.accept_comments
 
-    @step.start_date = Date.today - 2.days
-    @step.end_date = Date.today - 1.day
+    @step.start_date = DateTime.now - 2.days
+    @step.end_date = DateTime.now - 1.day
     @step.save!
     @step.toggle_activation
     @step.reload
@@ -203,7 +203,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'change position to botton if a hidden step becomes visible' do
-    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
     step1.save!
     @step.hidden = true
     @step.save!
@@ -215,7 +215,7 @@ class StepTest < ActiveSupport::TestCase
 
   should 'decrement lower items positions if a step becomes hidden' do
     @step.save!
-    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
     step1.save!
     assert_equal 2, step1.position
     @step.hidden = true
@@ -225,7 +225,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'do not publish a hidden step' do
-    @step.start_date = Date.today
+    @step.start_date = DateTime.now
     @step.hidden = true
     @step.save!
     refute @step.published
@@ -266,7 +266,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'enable comments on children when step is activated' do
-    @step.start_date = Date.today
+    @step.start_date = DateTime.now
     @step.save!
     refute @step.accept_comments
     article = fast_create(Article, :parent_id => @step.id, :profile_id => @step.profile.id, :accept_comments => false)
@@ -276,8 +276,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'enable comments on children when step is active' do
-    @step.start_date = Date.today
-    @step.start_date = Date.today
+    @step.start_date = DateTime.now
     @step.save!
     refute @step.accept_comments
     @step.toggle_activation

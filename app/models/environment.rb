@@ -13,7 +13,7 @@ class Environment < ActiveRecord::Base
                   :reports_lower_bound, :noreply_email,
                   :signup_welcome_screen_body, :members_whitelist_enabled,
                   :members_whitelist, :highlighted_news_amount,
-                  :portal_news_amount, :date_format
+                  :portal_news_amount, :date_format, :signup_intro
 
   has_many :users
 

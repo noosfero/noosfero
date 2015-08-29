@@ -1,0 +1,6 @@
+- callback = '' unless defined? callback
+
+= render 'fb_app_plugin/load', callback: callback
+
+javascript:
+  fb_app.page_tab.init();
