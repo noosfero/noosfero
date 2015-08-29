@@ -1,7 +1,6 @@
 language: ruby
 rvm:
-# for 2.2 support we need to upgrade the pg gem
-  - 2.1.6
+  - 2.2.3
 
 sudo: false
 addons:
@@ -17,9 +16,6 @@ addons:
       - libreadline-dev
       - libsqlite3-dev
       - libxslt1-dev
-
-before_install:
-  - gem env
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
