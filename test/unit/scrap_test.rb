@@ -88,7 +88,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to another" do
-    p1 = create_user.person
+    User.current = create_user
+    p1 = User.current.person
     p2 = create_user.person
     s = Scrap.new
     s.sender= p1
@@ -105,7 +106,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to community" do
-    p = create_user.person
+    User.current = create_user
+    p = User.current.person
     c = fast_create(Community)
     s = Scrap.new
     s.sender= p
@@ -163,7 +165,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap_to_self action tracker verb on scrap creation of one user to itself" do
-    p = create_user.person
+    User.current = create_user
+    p = User.current.person
     s = Scrap.new
     s.sender= p
     s.receiver= p

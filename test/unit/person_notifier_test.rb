@@ -48,6 +48,8 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'display author name in delivered mail' do
     @community.add_member(@member)
+    ActionMailer::Base.deliveries.clear
+
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     process_delayed_job_queue
     notify
