@@ -22,7 +22,7 @@ class CreateEnterprise < Task
   #checks if the validation method is region to validates
   validates_presence_of :region_id, :if => lambda { |obj| obj.environment.organization_approval_method == :region }
 
-  validates_numericality_of :foundation_year, only_integer: true, allow_nil: true
+  validates_numericality_of :foundation_year, only_integer: true, if: -> o { o.foundation_year.present? }
 
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id

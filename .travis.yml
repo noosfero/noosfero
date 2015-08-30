@@ -40,7 +40,7 @@ env:
   - TASK=test:units
   - TASK=test:functionals
   - TASK=test:integration
-  - TASK=cucumber
+  - TASK=cucumber LANG=en
   - TASK=selenium
   - TASK=test:noosfero_plugins
 
