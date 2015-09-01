@@ -40,10 +40,10 @@ class OrdersPlugin::Item < ActiveRecord::Base
 
   # FIXME: don't work because of load order
   #if defined? SuppliersPlugin
-    has_many :from_products, through: :product
+    has_many :from_products, through: :product, source: :orders
     has_many :to_products, through: :product
-    has_many :sources_supplier_products, through: :product
-    has_many :supplier_products, through: :product
+    has_many :sources_supplier_products, through: :product, source: :items
+    has_many :supplier_products, through: :product, source: :enterprise
     has_many :suppliers, through: :product
   #end
   def from_product
