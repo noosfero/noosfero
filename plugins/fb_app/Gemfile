@@ -1,0 +1,10 @@
+gem 'slim'
+
+# for backwards compatibility of serialized objects
+gem 'fb_graph'
+
+gem 'fb_graph2'
+
+gem 'facebook-signed-request'
+
+

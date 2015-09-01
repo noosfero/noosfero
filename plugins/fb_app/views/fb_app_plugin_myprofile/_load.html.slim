@@ -1,0 +1,7 @@
+= render 'fb_app_plugin/load', callback: 'fb_app.fb.checkLoginStatus()'
+
+javascript:
+  fb_app.config.url_prefix = #{url_for(action: :index).to_json}
+  fb_app.config.save_auth_url = #{url_for(action: :save_auth).to_json}
+  fb_app.config.show_login_url = #{url_for(action: :show_login).to_json}
+

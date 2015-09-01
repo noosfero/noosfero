@@ -99,13 +99,6 @@ class OpenGraphPlugin::Stories
       publish_if: proc do |article, actor|
         article.published?
       end,
-      object_data_url: proc do |article, actor|
-        url = article.url
-        if og_type = MetadataPlugin::og_types[:forum]
-          url[:og_type] = og_type
-        end
-        url
-      end,
     },
 
     # these a published as passive to give focus to the enterprise

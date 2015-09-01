@@ -1,6 +1,7 @@
 module AnalyticsPlugin
 
-  TimeOnPageUpdateInterval = 2.minutes * 1000
+  TimeOnPageUpdateInterval = 2.minutes
+  TimeOnPageUpdateIntervalMs = TimeOnPageUpdateInterval * 1000
 
   extend Noosfero::Plugin::ParentMethods
 

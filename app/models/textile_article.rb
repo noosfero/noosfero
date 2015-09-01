@@ -24,6 +24,10 @@ class TextileArticle < TextArticle
     true
   end
 
+  def can_display_media_panel?
+    true
+  end
+
   protected
 
   def convert_to_html(textile)

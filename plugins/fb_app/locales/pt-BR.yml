@@ -1,0 +1,82 @@
+
+"pt-BR": &pt-BR
+
+  fb_app_plugin:
+    lib:
+      plugin:
+        name: 'App Facebook'
+        description: 'Divulgue suas ações no Facebook!'
+    models:
+      page_tab:
+        types:
+          own_profile: 'Vitrine deste empreendimento'
+          profile: 'Vitrine de um único empreendimento'
+          other_profile: 'Vitrine de outro empreendimento'
+          profiles: 'Vitrine de mais de um empreendimento'
+          query: 'Vitrine de produtos ou serviços escolhidos por busca livre'
+    views:
+      myprofile:
+        checking_auth: 'Verificando autorização de acesso'
+        different_login: 'Mas você está logado no facebook como:'
+        current_login: 'Você está logado no facebook como:'
+        connect: 'Quero instalar o App Facebook'
+        logged_connect: 'Quero conectar esta conta do Facebook com meu usuário %{profile}'
+        disconnect: 'Desconectar'
+        connect_to_another: 'Conectar a outra conta do Facebook'
+        reconnect: 'Reconectar'
+
+        timeline:
+          heading: 'Postar ações no facebook automaticamente:'
+          add: 'Salvar configuração de postagens na timeline'
+          explanation_title: 'Aguarde!'
+          explanation_text: 'Em breve, este aplicativo poderá postar automaticamente no seu face as ações que você fizer! Por exemplo: quando você postar novos conteúdos no seu blog, enviar uma imagem, etc.'
+          organization_redirect: '%{redirect_link} para postar atualizações %{type}, conecte o seu perfil pessoal ao facebook.'
+          organization_from_enterprise: 'deste empreendimento'
+          organization_from_community: 'desta comunidade'
+          redirect_link: 'Clique aqui'
+
+        catalogs:
+          heading: 'Vitrine'
+          new: 'Criar nova vitrine'
+          catalog_title_label: 'Título'
+          catalog_subtitle_label: 'Subtítulo'
+          catalog_type_chooser_label: 'Tipo'
+          profile_chooser_label: 'Empreendimento'
+          profiles_chooser_label: 'Empreendimentos'
+          query_label: "Critérios para os produtos/serviços da vitrine"
+          query_help: "Escreva as palavras separadas por espaço, e clique no botão abaixo para salvar."
+          edit_button: "Editar vitrine '%{catalog_title}'"
+          remove_button: "Remover vitrine '%{catalog_title}'"
+          cancel_button: 'Cancelar'
+          confirm_removal: "<p><b>Atenção:</b> Para realmente apagar uma vitrine, você deve primeiro ir para a página do Facebook onde está a sua vitrine e seguir este roteiro:</p><ul><li>Clique em '<i>Mais</i>' na barra da página, depois em '<i>Gerenciar guias</i>', e então em  '<i>Adicionar ou remover guias</i>'.</li><li>. Clique no X para remover.</li></ul><p>Depois disso, você pode vir aqui e pedir para remover a vitrine.</p><p>Se você já removeu lá no Facebook, tem certeza que quer remover esta vitrine?</p>"
+          confirm_removal_button: 'Sim, quero remover esta vitrine'
+          confirm_disconnect: "<p><b>Atenção:</b> Se você desconectar, vai apagar todas as vitrines. Portanto, para realmente apagar suas vitrines, você deve primeiro ir para a página do Facebook onde está a sua vitrine e seguir este roteiro:</p><ul><li>Clique em '<i>Mais</i>' na barra da página, depois em '<i>Gerenciar guias</i>', e então em  '<i>Adicionar ou remover guias</i>'.</li><li>Clique no X para remover.</li></ul><p>Depois disso, você pode vir aqui e desconectar.</p><p>Tem certeza que quer desconectar?</p>"
+          confirm_disconnect_button: 'Sim, quero desconectar'
+
+        catalog:
+          see_page: 'Ver página no facebook'
+
+        error:
+          empty_title: 'Por favor, coloque um título para a sua vitrine.'
+          empty_settings: 'Por favor, selecione os empreendimentos solidários ou os termos de busca para sua vitrine.'
+
+      page_tab:
+        edit_catalog: 'Editar vitrine'
+        add: 'Criar vitrine em uma página sua no Facebook'
+        save: 'Salvar'
+        added_notice: 'Parabéns: você acaba de publicar uma nova vitrine da Economia Solidária no Facebook!'
+        profile:
+          placeholder: "selecione um empreendimento"
+        profiles:
+          placeholder: "selecione os empreendimentos"
+        query:
+          placeholder: "escolha os produtos e serviços por palavras de busca"
+        back_to_catalog: 'Voltar à vitrine'
+        footer1: ""
+        footer2: ""
+
+'pt_BR':
+  <<: *pt-BR
+'pt':
+  <<: *pt-BR
+

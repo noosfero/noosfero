@@ -1,0 +1,238 @@
+@import 'base';
+
+body.controller-fb_app_plugin_page_tab {
+
+  /* Catalog Tab in Facebook */
+  background: #fff;
+
+  #top-bar, #theme-footer, #product-category, #product-page .button-bar {
+    display: none;
+  }
+  .navbar-static-top {
+    border-radius: 4px;
+  }
+  #wrap-1 {
+    box-shadow: none;
+  }
+  .container {
+    width: 100%;
+  }
+  #content .no-boxes {
+    padding: 0;
+    width: 100%;
+  }
+  #content-inner {
+    padding-top: 0;
+  }
+  #content h1 {
+    margin: 0;
+  }
+  #product-list {
+    margin: 0 -10px;
+  }
+  #page-tab-subtitle {
+    margin-bottom: 15px;
+    background-color: rgb(241, 255, 107);
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0px 0px 6px 6px;
+    font-style: italic;
+    padding: 10px 10px 0px;
+  }
+  #page-tab-subtitle p {
+    margin-bottom: 10px;
+  }
+  #product-owner {
+    display:block;
+    font-size: 120%;
+    font-weight: bold;
+    clear: both;
+  }
+  #product-list li.product {
+    width: 190px;
+    padding: 10px;
+  }
+  #product-list .product-big {
+    width: 160px;
+  }
+  #product-list .product-image-link {
+    height: 170px;
+  }
+  #product-list .expand-box {
+    width: 162px;
+  }
+  #theme-footer {
+    border: none;
+  }
+  #page-tab-footer {
+    font-size: 11px;
+    border-top: 3px solid rgb(241, 255, 107);
+    margin-top: 70px;
+    padding-top: 5px;
+  }
+  #page-tab-footer1 {
+    background-size: 50px;
+    padding-left: 50px;
+  }
+
+  /* End of Catalog Tab in Facebook */
+
+  #profile-title,
+  #profile-header,
+  #profile-theme-header,
+  #profile-footer,
+  #theme-header {
+    display: none;
+  }
+  .product-catalog-ctrl {
+    float: right;
+    margin-left: 3px;
+  }
+  #product-catalog-actions {
+    text-align: right;
+  }
+  #manage-fb-store-ctrl {
+    margin-bottom: 15px;
+  }
+  .modal-content {
+    #fb-app-page-tab-admin {
+      height: 400px;
+    }
+  }
+
+}
+
+body.controller-fb_app_plugin_page_tab,
+body.controller-fb_app_plugin_myprofile {
+
+  input.small-loading {
+    background: transparent url(/images/loading-small.gif) no-repeat scroll right center;
+  }
+
+  .loading {
+    background: white url(/plugins/fb_app/images/loading.gif) no-repeat center center;
+    width: 80%;
+    height: 300px;
+    margin: auto;
+  }
+}
+
+/* control panel - general */
+#fb-app-modal-wrap {
+  display: none;
+}
+#fb-app-error, #fb-app-modal {
+  padding: 70px 30px;
+  font-size: 120%;
+}
+#fb-app-error {
+  color: #E44444;
+  font-style: italic;
+}
+.controller-profile_editor a.control-panel-fb-app {
+  background-image: url(/plugins/fb_app/images/control-panel.png);
+}
+#fb-app-intro {
+  margin: 0 40px 20px 40px;
+}
+#fb-app-intro-text {
+  border:2px #666 solid;
+  padding: 10px;
+  border-radius: 8px;
+}
+#fb-app-connect-status {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin: 30px 0;
+  padding: 30px;
+}
+.fb-app-connection-button {
+  margin-top: 15px;
+}
+#fb-app-auth {
+  text-align: center;
+  min-height: 60px;
+}
+#fb-connected {
+  font-size: 36px;
+  margin: 0 30px;
+  color: #99f;
+}
+#fb-app-wrapper {
+  padding: 40px;
+  font-size: 20px;
+}
+#fb-app-wrapper h1 {
+  font-size: 39px;
+  margin-bottom: 50px;
+}
+
+/* Control panel - catalog settings */
+#page-tab-new {
+  margin-top: 30px;
+}
+#page-tab-new h3 {
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+}
+#page-tab-new h3, .edit-page-tab {
+  display: none;
+}
+.edit-page-tab {
+  background-color: #eee;
+  padding: 15px;
+  border-radius: 8px;
+}
+.edit-tab-button {
+  float: right;
+  margin-left: 10px;
+}
+#fb-app-timeline, #fb-app-catalogs {
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 10px;
+}
+#content #fb-app-catalogs h3 {
+  font-size: 120%;
+  color: inherit;
+  margin-top: 20px;
+}
+#fb-app-catalogs label {
+  margin-top: 20px;
+}
+.fb-app-submit-page-tab-options {
+  margin-top: 20px;
+}
+.fb-app-final-back-button {
+  margin-top: 70px;
+}
+.tokenfield .token {
+  height: auto !important;
+}
+
+@media (min-width: 768px) {
+  #noosfero-identity {
+    float: left;
+  }
+  #fb-connected {
+    font-size: 36px;
+    float:left;
+    margin: 0 30px;
+    color: #99f;
+  }
+  #fb-identity {
+    float: left;
+  }
+  #fb-app-timeline, #fb-app-catalogs {
+    width: 50%-$marginp;
+    float: left;
+  }
+  #fb-app-settings {
+    overflow: hidden;
+    padding-bottom: 400px;
+  }
+  #fb-app-catalogs {
+    margin-right: $marginp;
+  }
+}
+

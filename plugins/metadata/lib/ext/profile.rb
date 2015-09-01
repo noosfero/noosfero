@@ -5,8 +5,8 @@ class Profile
   metadata_spec namespace: :og, tags: {
     type: proc{ |p, plugin| plugin.context.params[:og_type] || MetadataPlugin.og_types[:profile] || :profile },
     image: proc do |p, plugin|
-      img = "#{p.environment.top_url}#{p.image.public_filename}" if p.image
-      img ||= MetadataPlugin.config[:open_graph][:environment_logo] rescue nil if img.blank?
+      img = "#{p.environment.top_url}#{p.image.public_filename}".html_safe if p.image
+      img ||= MetadataPlugin.config[:open_graph][:environment_logo].html_safe rescue nil if img.blank?
       img
     end,
     title: proc{ |p, plugin| if p.nickname.present? then p.nickname else p.name end },

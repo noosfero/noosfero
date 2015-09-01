@@ -85,6 +85,17 @@ class TextArticleTest < ActiveSupport::TestCase
     assert_equal "<img src=\"/test.png\">", article.body
   end
 
+  should 'change image path to relative for profile with own domain' do
+    person = create_user('testuser').person
+    person.domains << build(Domain)
+
+    article = TextArticle.new(:profile => person, :name => 'test')
+    env = Environment.default
+    article.body = "<img src=\"http://#{person.default_hostname}:3000/link-profile.png\">"
+    article.save!
+    assert_equal "<img src=\"/link-profile.png\">", article.body
+  end
+
   should 'not be translatable if there is no language available on environment' do
     environment = fast_create(Environment)
     environment.languages = nil
@@ -107,6 +118,14 @@ class TextArticleTest < ActiveSupport::TestCase
     environment.save
     text.reload
     assert text.translatable?
+  end
+
+  should 'display preview when configured on parent that is a blog' do
+    person = fast_create(Person)
+    post = fast_create(TextArticle, :profile_id => person.id)
+    blog = Blog.new(:display_preview => true)
+    post.parent = blog
+    assert post.display_preview?
   end
 
 end

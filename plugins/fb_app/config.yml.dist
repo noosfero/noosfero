@@ -1,0 +1,47 @@
+page_tab:
+  use_test_app: false
+timeline:
+  use_test_app: true
+
+test_users:
+  - identifier1
+  - identifier1
+
+app:
+  id: xxx
+  secret: xxx
+  domain: domainconfigured.net
+
+  open_graph:
+    namespace: app_name
+    objects:
+      blog_post: article
+      community: community
+      enterprise: sse_initiative
+      favorite_enterprise: sse_initiative
+      forum: discussion
+      event: event
+      friend: friend
+      gallery_image: picture
+      person: user
+      product: sse_product
+      uploaded_file: document
+    actions:
+      add: add 
+      comment: comment
+      create: create
+      favorite: favorite
+      like: like
+      make_friendship:  make_friendship
+      upload: upload
+      update: update
+      start: start
+      announce_creation: announce_creation
+      announce_new: announce_new
+      announce_update: announce_update
+      announce_news: announce_news
+
+test_app: 
+  test_id:  xxx
+  test_secret:  xxx
+

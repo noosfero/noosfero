@@ -1497,6 +1497,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
   end
 
+  should 'escape utf8 characters correctly' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = build TinyMceArticle, profile: @profile
+    a.body = 'Noosfero <img src="http://noosfero.com/cabeça.png" /> '
+    assert_includes a.body_images_paths, 'http://noosfero.com/cabe%C3%A7a.png'
+
+    # check if after save (that is, after xss_terminate run)
+    a.save!
+    assert_includes a.body_images_paths, 'http://noosfero.com/cabe%C3%A7a.png'
+  end
+
   should 'get absolute images paths in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     a = build TinyMceArticle, :profile => @profile
@@ -2178,6 +2189,34 @@ class ArticleTest < ActiveSupport::TestCase
     article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => nil)
     profile.vote(article, 5)
     article.destroy
+  end
+
+  should 'have can_display_media_panel with default false' do
+    a = Article.new
+    assert !a.can_display_media_panel?
+  end
+
+  should 'display media panel when allowed by the environment' do
+    a = Article.new
+    a.expects(:can_display_media_panel?).returns(true)
+    environment = mock
+    a.expects(:environment).returns(environment)
+    environment.expects(:enabled?).with('media_panel').returns(true)
+    assert a.display_media_panel?
+  end
+
+  should 'not display media panel when not allowed by the environment' do
+    a = Article.new
+    a.expects(:can_display_media_panel?).returns(true)
+    environment = mock
+    a.expects(:environment).returns(environment)
+    environment.expects(:enabled?).with('media_panel').returns(false)
+    assert !a.display_media_panel?
+  end
+
+  should 'have display_preview' do
+    a = Article.new(:display_preview => false)
+    assert !a.display_preview?
   end
 
 end
