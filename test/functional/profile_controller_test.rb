@@ -943,7 +943,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => p1.identifier
-    assert_equal [s3,s2], assigns(:activities).map(&:activity)
+    assert_equal [s3,s2], assigns(:activities).map(&:activity).select {|a| a.kind_of?(Scrap)}
   end
 
   should 'the activities be the received scraps in community profile' do

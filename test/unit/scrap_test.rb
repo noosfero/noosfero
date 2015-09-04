@@ -6,6 +6,7 @@ class ScrapTest < ActiveSupport::TestCase
     Person.destroy_all
     Scrap.destroy_all
     ActionTracker::Record.destroy_all
+    Delayed::Job.destroy_all
   end
 
   should "have the content" do
