@@ -191,6 +191,16 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag :tag => 'option', :attributes => { :value => 'it' }, :content => 'Italiano'
   end
 
+  should 'set and unset the current user' do
+    testuser = create_user 'testuser'
+    login_as 'testuser'
+    User.expects(:current=).with do |user|
+      user == testuser
+    end.at_least_once
+    User.expects(:current=).with(nil).at_least_once
+    get :index
+  end
+
   should 'display link to webmail if enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
