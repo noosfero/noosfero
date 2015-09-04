@@ -19,6 +19,7 @@ require 'rubygems'
 require 'iconv'
 require 'net/ldap'
 require 'net/ldap/dn'
+require 'magic'
 
 class LdapAuthentication
 
@@ -134,7 +135,10 @@ class LdapAuthentication
 
   def self.get_attr(entry, attr_name)
     if !attr_name.blank?
-      entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
+      val = entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
+      charset = Magic.guess_string_mime(val).match(/charset=([^\s]+)/)[1]
+      val.encode 'utf-8', charset, invalid: :replace, undef: :replace
     end
   end
+
 end
