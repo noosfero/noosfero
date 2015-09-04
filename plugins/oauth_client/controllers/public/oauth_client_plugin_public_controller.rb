@@ -4,8 +4,8 @@ class OauthClientPluginPublicController < PublicController
 
   def callback
     auth = request.env["omniauth.auth"]
-    user = environment.users.find_by_email(auth.info.email)
-    user ? login(user) : signup(auth)
+    auth_user = environment.users.where(email: auth.info.email).first
+    if auth_user then login auth_user.person else signup auth end
   end
 
   def failure
@@ -20,16 +20,14 @@ class OauthClientPluginPublicController < PublicController
 
   protected
 
-  def login(user)
+  def login person
     provider = OauthClientPlugin::Provider.find(session[:provider_id])
-    user_provider = user.oauth_user_providers.find_by_provider_id(provider.id)
-    unless user_provider
-      user_provider = user.oauth_user_providers.create(:user => user, :provider => provider, :enabled => true)
-    end
-    if user_provider.enabled? && provider.enabled?
-      session[:user] = user.id
+    auth = person.oauth_auths.where(provider_id: provider.id).first
+    auth ||= person.oauth_auths.create! profile: person, provider: provider, enabled: true
+    if auth.enabled? && provider.enabled?
+      self.current_user = person.user
     else
-      session[:notice] = _("Can't login with #{provider.name}")
+      session[:notice] = _("Can't login with %s") % provider.name
     end
 
     redirect_to :controller => :account, :action => :login

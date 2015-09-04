@@ -44,7 +44,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}, :selected_category_id => @product_category.id
       assert assigns(:product)
-      assert !assigns(:product).new_record?
+      refute assigns(:product).new_record?
     end
   end
 
@@ -86,7 +86,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     post :edit, :profile => @enterprise.identifier, :product => {:name => 'new test product'}, :id => product.id, :field => 'name'
     assert_response :success
     assert assigns(:product)
-    assert ! assigns(:product).new_record?
+    refute  assigns(:product).new_record?
     assert_equal product, Product.find_by_name('new test product')
   end
 
@@ -95,7 +95,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     post :edit, :profile => @enterprise.identifier, :product => {:description => 'A very good product!'}, :id => product.id, :field => 'info'
     assert_response :success
     assert assigns(:product)
-    assert ! assigns(:product).new_record?
+    refute  assigns(:product).new_record?
     assert_equal 'A very good product!', Product.find_by_name('test product').description
   end
 
@@ -104,7 +104,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     post :edit, :profile => @enterprise.identifier, :product => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }, :id => product.id, :field => 'image'
     assert_response :success
     assert assigns(:product)
-    assert ! assigns(:product).new_record?
+    refute  assigns(:product).new_record?
     assert_equal 'rails.png', Product.find_by_name('test product').image.filename
   end
 
@@ -129,7 +129,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       assert_response :redirect
       assert_redirected_to :action => 'index'
       assert assigns(:product)
-      assert ! Product.find_by_name('test product')
+      refute  Product.find_by_name('test product')
     end
   end
 
@@ -491,7 +491,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     resp = ActiveSupport::JSON.decode(@response.body)
     assert_nil resp['name']
     assert_nil resp['id']
-    assert !resp['ok']
+    refute resp['ok']
     assert_match /blank/, resp['error_msg']
   end
 
@@ -501,7 +501,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     resp = ActiveSupport::JSON.decode(@response.body)
     assert_nil resp['name']
     assert_nil resp['id']
-    assert !resp['ok']
+    refute resp['ok']
     assert_match /too long/, resp['error_msg']
   end
 

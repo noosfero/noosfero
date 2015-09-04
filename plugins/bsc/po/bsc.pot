@@ -1,0 +1,351 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/bsc/lib/bsc_plugin.rb:10
+msgid "Adds the Bsc feature"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:14
+msgid "Create Bsc"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:15
+msgid "Validate Enterprises"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:20
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:1
+msgid "Manage associated enterprises"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:21 plugins/bsc/lib/bsc_plugin.rb:27
+msgid "Transfer ownership"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:22
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:1
+msgid "Manage contracts"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:98
+msgid "Bsc"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:109
+#: plugins/bsc/views/shared/_fields.html.erb:53
+msgid "Contact"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
+msgid "Bsc info and settings"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
+msgid "BSC association"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
+msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
+msgid "%{enterprise} accepted your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
+msgid "%{enterprise} rejected your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
+msgid ""
+"Here is the reject explanation left by the administrator:\n"
+"\n"
+"%{reject_explanation}"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
+msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
+msgid "[%s] Bsc management transferred to you."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Opened"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Negotiating"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Executing"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Closed"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:46
+msgid "Federal"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectA"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectB"
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
+msgid "This Bsc associations were saved successfully."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:42
+msgid "This Bsc associations couldn't be saved."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:71
+msgid "Enterprise ownership transferred."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:85
+msgid "Enterprise was created in association with %s."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:117
+msgid "Contract created."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
+msgid "Contract created but some products could not be added."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
+msgid "Contract doesn't exists! Maybe it was already removed."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
+msgid "Could not edit such contract."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:170
+msgid "Contract edited."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
+msgid "Contract edited but some products could not be added."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
+msgid "Contract removed."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:185
+msgid "Contract could not be removed. Sorry! ^^"
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
+msgid "Your Bsc was created."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
+msgid "Enterprises validated."
+msgstr ""
+
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
+msgid "Enterprise validations couldn't be saved."
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
+msgid "Associations awaiting approval:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
+msgid "Type in a search term for enterprise"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
+msgid "Add new enterprise"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
+#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
+msgid "New contract"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
+msgid "Client type"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:7
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:8
+msgid "Business type"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
+msgid "Status"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
+msgid "Type in search term for enterprise"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
+msgid "Quantity"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:24
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:28
+msgid "Unit price"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
+msgid "Total"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:31
+msgid "Add new product"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:35
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:13
+msgid "Supply period"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
+msgid "Type in a search term for product"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
+#: plugins/bsc/views/shared/_fields.html.erb:5
+msgid "Basic information"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:12
+msgid "Number of producers"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:48
+msgid "Annotations"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
+msgid "Sort by"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:18
+msgid "Date(newest first)"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:18
+msgid "Date(oldest first)"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:19
+msgid "Client name(A-Z)"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:19
+msgid "Client name(Z-A)"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:24
+msgid "There are no contracts at all."
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:35
+msgid "Are you sure?"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:45
+msgid "Create new contract"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:2
+msgid "Existing enterprises:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:3
+msgid ""
+"Were found %{count} enterprises with similar names on the same city, you can "
+"decide to associate one of them or create the new enterprise confirming the "
+"informations you typed in."
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:20
+msgid "Associate"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:1
+msgid "Transfer Ownership"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:4
+msgid ""
+"This option allows you to transfer this enterprise's management to another "
+"user. This action will remove all the current administrators. Be careful "
+"when confirming this procedure."
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:8
+msgid "Current administrators:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:19
+msgid "Administrator:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:22
+msgid "Type in a search term for the new administrator"
+msgstr ""
+
+#: plugins/bsc/views/shared/_fields.html.erb:39
+msgid ""
+"You are about to change the address, and this will break external links to "
+"this bsc or to posts inside it. Do you really want to change?"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
+msgid "The management of %{bsc} was transferred to you."
+msgstr ""
+
+#: plugins/bsc/views/profile/_profile_tab.html.erb:2
+msgid "Contact phone: "
+msgstr ""
+
+#: plugins/bsc/views/profile/_profile_tab.html.erb:3
+msgid "Email: "
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+msgid "BSC registration"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
+msgid "Validate enterprises"
+msgstr ""

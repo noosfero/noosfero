@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/event/lib/event_plugin/event_block.rb:12
+msgid "Events"
+msgstr ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:16
+msgid "Show the profile events or all environment events."
+msgstr ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:65
+msgid "One month ago"
+msgid_plural "%d months ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:67
+msgid "Yesterday"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:69
+msgid "Today"
+msgstr ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:71
+msgid "Tomorrow"
+msgid_plural "%d days left to start"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/event/lib/event_plugin/event_block.rb:73
+msgid "One month left to start"
+msgid_plural "%d months left to start"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/event/lib/event_plugin.rb:4
+msgid "Event Extras"
+msgstr ""
+
+#: plugins/event/lib/event_plugin.rb:8
+msgid ""
+"Include a new block to show the environment's or profiles' events information"
+msgstr ""
+
+#: plugins/event/views/event_plugin/event_block_item.html.erb:6
+msgid "Duration: 1 day"
+msgid_plural "Duration: %s days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:1
+msgid "Limit of items"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:4
+msgid "Show all environment events"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:9
+msgid "(Don't check to show only your events)"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:11
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:14
+msgid "(Don't check to show only %s events)"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:20
+msgid "Only show future events"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:22
+msgid "Limit of days to display"
+msgstr ""
+
+#: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:24
+msgid "Only show events in this interval of days."
+msgstr ""

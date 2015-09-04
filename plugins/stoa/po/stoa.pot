@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/stoa/lib/stoa_plugin.rb:10
+msgid "Add Stoa features"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:19 plugins/stoa/lib/stoa_plugin.rb:35
+msgid "USP number"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:20
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"with a valid number if you have one."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:21
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:22
+msgid "Checking usp number..."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:38
+msgid "Birth date (yyyy-mm-dd)"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:24
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:39
+msgid "CPF"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:26
+msgid "Confirm your CPF number."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:36
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"if you have one."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:37
+msgid "This field must be private"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:47
+msgid "USP number / Username"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:71 plugins/stoa/lib/stoa_plugin.rb:90
+msgid " validation failed"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:122 plugins/stoa/lib/stoa_plugin.rb:126
+#: plugins/stoa/lib/ext/person.rb:6
+msgid "USP Number"
+msgstr ""
+
+#: plugins/stoa/lib/ext/profile_suggestion.rb:5
+msgid "Classroom in common"
+msgstr ""
+
+#: plugins/stoa/lib/ext/person.rb:18
+msgid "is being used by another user or is not valid"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin/auth.rb:26
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
+msgid "Incorrect user/password pair."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin/auth.rb:33
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+msgid "Conection requires post method."
+msgstr ""

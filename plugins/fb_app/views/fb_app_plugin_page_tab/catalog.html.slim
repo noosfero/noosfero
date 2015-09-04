@@ -1,0 +1,21 @@
+#fb-app-catalog-wrapper class=('fb-app-standalone' if @signed_request.blank?)
+
+  = render 'load'
+  = render 'title_and_subtitle'
+
+  #product-catalog
+    #product-catalog-actions
+      - if @page_tab.config_type == :profile
+        - if profile and user.present? and (user.is_admin?(environment) or user.is_admin?(profile))
+          .product-catalog-ctrl
+            = button :add, _('Add product or service'), controller: :manage_products, action: :new, profile: profile.identifier
+      = render 'configure_button'
+    = content_for :product_page do
+      = render 'catalog/results'
+    = render 'catalog/search'
+    = render 'catalog/javascripts', external: false
+
+  = render 'footer'
+
+  javascript:
+    catalog.base_url_path = #{url_for(controller: :fb_app_plugin_page_tab, action: :index, page_id: params[:page_id], signed_request: params[:signed_request]).to_json} + '&'

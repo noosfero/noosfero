@@ -18,15 +18,15 @@ class BoxTest < ActiveSupport::TestCase
   should 'list allowed blocks for center box' do
     blocks = Box.new.tap { |b| b.position = 1 }.acceptable_blocks
 
-    assert !blocks.include?('.block')
-    assert !blocks.include?('.disabled-enterprise-message-block')
-    assert !blocks.include?('.featured-products-block')
-    assert !blocks.include?('.products-block')
-    assert !blocks.include?('.profile-info-block')
-    assert !blocks.include?('.profile-list-block')
-    assert !blocks.include?('.profile-search-block')
-    assert !blocks.include?('.slideshow-block')
-    assert !blocks.include?('.location-block')
+    refute blocks.include?('.block')
+    refute blocks.include?('.disabled-enterprise-message-block')
+    refute blocks.include?('.featured-products-block')
+    refute blocks.include?('.products-block')
+    refute blocks.include?('.profile-info-block')
+    refute blocks.include?('.profile-list-block')
+    refute blocks.include?('.profile-search-block')
+    refute blocks.include?('.slideshow-block')
+    refute blocks.include?('.location-block')
 
     assert blocks.include?('.article-block')
     assert blocks.include?('.blog-archives-block')
@@ -51,9 +51,9 @@ class BoxTest < ActiveSupport::TestCase
   should 'list allowed blocks for box at position 2' do
     blocks = Box.new.tap { |b| b.position = 2 }.acceptable_blocks
 
-    assert !blocks.include?('.main-block')
-    assert !blocks.include?('.block')
-    assert !blocks.include?('.profile-list-block')
+    refute blocks.include?('.main-block')
+    refute blocks.include?('.block')
+    refute blocks.include?('.profile-list-block')
 
     assert blocks.include?('.article-block')
     assert blocks.include?('.blog-archives-block')
@@ -129,7 +129,7 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('box-test_plugin-block')
 
     blocks = build(Box, :position => 1, :owner => Community.new).acceptable_blocks
-    assert !blocks.include?('box-test_plugin-block')
+    refute blocks.include?('box-test_plugin-block')
   end
 
   should 'list only boxes with a postion greater than zero' do

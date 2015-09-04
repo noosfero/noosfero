@@ -1,0 +1,37 @@
+- form_id = if page_tab.id then "edit_tab_#{page_tab.id}" else "add_tab" end
+
+- unless page_tab.id
+  h3= t'fb_app_plugin.views.myprofile.catalogs.new'
+
+= form_for page_tab, as: :page_tab, url: {controller: :fb_app_plugin_page_tab, action: :admin},
+  html: {id: form_id, class: "edit-page-tab", onsubmit: "return fb_app.page_tab.config.save($(this))"} do |f|
+
+  = hidden_field_tag :signed_request, signed_request
+  = hidden_field_tag :page_id, page_tab.page_id
+  = f.hidden_field :profile_id, value: profile.id
+  = f.hidden_field :page_id
+
+  = f.label :title, t("fb_app_plugin.views.myprofile.catalogs.catalog_title_label")
+  = f.text_field :title, class: 'form-control'
+
+  = f.label :subtitle, t("fb_app_plugin.views.myprofile.catalogs.catalog_subtitle_label")
+  = f.text_area :subtitle, class: 'form-control mceEditor', id: "page-tab-subtitle-#{page_tab.id}"
+
+  = f.label :config_type, t("fb_app_plugin.views.myprofile.catalogs.catalog_type_chooser_label")
+  = f.select :config_type,
+    page_tab.types.map{ |type| [t("fb_app_plugin.models.page_tab.types.#{if profile.enterprise? and type == :profile then :other_profile else type end}"), type] },
+    {}, onchange: 'fb_app.page_tab.config.change_type($(this))', class: 'form-control'
+
+  - page_tab.types.each do |type|
+    div class="config-type config-type-#{type}"
+      = render "fb_app_plugin_page_tab/configure_#{type}", f: f, page_tab: page_tab
+
+  - if page_tab.new_record?
+    = submit_button :add, t('fb_app_plugin.views.page_tab.add'), onclick: 'return fb_app.page_tab.config.add($(this.form))', class: 'fb-app-submit-page-tab-options'
+  - else
+    = submit_button :save, t('fb_app_plugin.views.page_tab.save'), class: 'fb-app-submit-page-tab-options'
+
+javascript:
+  $('document').ready(function() {
+    fb_app.page_tab.config.init();
+  });

@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/context_content/lib/context_content_plugin.rb:8
+msgid "A plugin that display content based on page context."
+msgstr ""
+
+#: plugins/context_content/lib/context_content_plugin/context_content_block.rb:16
+msgid "Display context content"
+msgstr ""
+
+#: plugins/context_content/lib/context_content_plugin/context_content_block.rb:20
+msgid "This block displays content based on context."
+msgstr ""
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:3
+msgid "Show content name"
+msgstr ""
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:4
+msgid "Show content image"
+msgstr ""
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:5
+msgid "Show parent content when children is empty"
+msgstr ""
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:8
+msgid "Display content types:"
+msgstr ""
+
+#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:14
+msgid "more"
+msgstr ""

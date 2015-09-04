@@ -4,16 +4,16 @@ class ContactTest < ActiveSupport::TestCase
 
   should 'validates required fields' do
     contact = Contact.new
-    assert !contact.valid?
+    refute contact.valid?
 
     contact.subject = 'Hi'
-    assert !contact.valid?
+    refute contact.valid?
 
     contact.name = 'john'
-    assert !contact.valid?
+    refute contact.valid?
 
     contact.email = 'visitor@invalid.com'
-    assert !contact.valid?
+    refute contact.valid?
 
     contact.message = 'Hi, all'
     assert contact.valid?
@@ -40,8 +40,8 @@ class ContactTest < ActiveSupport::TestCase
   should 'not deliver message if contact is invalid' do
     ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
     c = Contact.new(:name => 'john', :subject => 'hi', :message => 'hi, all', :dest => ent)
-    assert !c.valid?
-    assert !c.deliver
+    refute c.valid?
+    refute c.deliver
   end
 
   should 'use sender name and environment noreply_email on from' do

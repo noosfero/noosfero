@@ -8,11 +8,11 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
   end
 
   should 'describe yourself' do
-    assert !ContainerBlockPlugin::ContainerBlock.description.blank?
+    refute ContainerBlockPlugin::ContainerBlock.description.blank?
   end
 
   should 'has a help' do
-    assert !@block.help.blank?
+    refute @block.help.blank?
   end
 
   should 'create a box on save' do
@@ -84,7 +84,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     @block.save!
     child = Block.create!(:box_id => @block.container_box.id)
     @block.destroy
-    assert !Block.exists?(child.id)
+    refute Block.exists?(child.id)
   end
 
   should 'destroy box when container is removed' do

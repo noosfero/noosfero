@@ -162,33 +162,42 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   ActionTrackerConfig.verb_names.each do |verb|
     should "render notification for verb #{verb}" do
-      action = mock()
-      action.stubs(:verb).returns(verb)
-      action.stubs(:user).returns(@member)
-      action.stubs(:created_at).returns(DateTime.now)
-      action.stubs(:target).returns(fast_create(Forum))
-      action.stubs(:comments_count).returns(0)
-      action.stubs(:comments).returns([])
-      action.stubs(:params).returns({'name' => 'home', 'url' => '/', 'lead' => ''})
-      action.stubs(:get_url).returns('')
+      @member.tracked_notifications = []
 
-      notifications = []
-      notifications.stubs(:find).returns([action])
-      Person.any_instance.stubs(:tracked_notifications).returns(notifications)
+      a = @member.tracked_notifications.build
+      a.verb = verb
+      a.user = @member
+      a.created_at = @member.notifier.notify_from + 1.day
+      profile = create(Community)
+      a.target = create(Forum, profile: profile)
+      a.comments_count = 0
+      a.params = {
+        'name' => 'home', 'url' => '/', 'lead' => '',
+        'receiver_url' => '/', 'content' => 'nothing',
+        'friend_url' => '/', 'friend_profile_custom_icon' => [], 'friend_name' => ['joe'],
+        'resource_name' => ['resource'], 'resource_profile_custom_icon' => [], 'resource_url' => ['/'],
+        'view_url'=> ['/'], 'thumbnail_path' => ['1'],
+      }
+      a.get_url = ''
+      a.save!
+      n = @member.action_tracker_notifications.build
+      n.action_tracker = a
+      n.profile = @member
+      n.save!
 
-      notify
-      sent = ActionMailer::Base.deliveries.last
-      assert_no_match /cannot render notification for #{verb}/, sent.body.to_s
+      assert_nothing_raised do
+        notify
+      end
     end
   end
 
   should 'exists? method in NotifyAllJob return false if there is no instance of this class created' do
     Delayed::Job.enqueue(PersonNotifier::NotifyJob.new)
-    assert !PersonNotifier::NotifyAllJob.exists?
+    refute PersonNotifier::NotifyAllJob.exists?
   end
 
   should 'exists? method in NotifyAllJob return false if there is no jobs created' do
-    assert !PersonNotifier::NotifyAllJob.exists?
+    refute PersonNotifier::NotifyAllJob.exists?
   end
 
   should 'exists? method in NotifyAllJob return true if there is at least one instance of this class' do
@@ -222,7 +231,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
     process_delayed_job_queue
     jobs = PersonNotifier::NotifyJob.find(@member.id)
-    assert !jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
+    refute jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
   end
 
   should 'render image tags for both internal and external src' do

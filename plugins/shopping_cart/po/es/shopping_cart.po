@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-02-23 11:35+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,19 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:9
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
 msgid "A shopping basket feature for enterprises"
 msgstr "Una característica de carrito de compras para tu empresa"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:30
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:32
 msgid "Add to basket"
 msgstr "Añadir al carrito"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:58
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:60
 msgid "Shopping basket"
 msgstr "Carrito de compras"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:61
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
 msgid "Purchase reports"
 msgstr "Reportes de compras"
 

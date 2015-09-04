@@ -15,7 +15,7 @@ class RssFeedTest < ActiveSupport::TestCase
       :search => 'parent_and_children',
     }
     feed.valid?
-    assert !feed.errors['body'.to_s].present?
+    refute feed.errors['body'.to_s].present?
   end
 
   should 'alias body as "settings"' do
@@ -172,11 +172,11 @@ class RssFeedTest < ActiveSupport::TestCase
 
     feed.include = 'parent_and_children'
     feed.valid?
-    assert !feed.errors[:include.to_s].present?
+    refute feed.errors[:include.to_s].present?
 
     feed.include = 'all'
     feed.valid?
-    assert !feed.errors[:include.to_s].present?
+    refute feed.errors[:include.to_s].present?
   end
 
   should 'provide proper short description' do
@@ -194,7 +194,7 @@ class RssFeedTest < ActiveSupport::TestCase
   should 'advertise is false before create' do
     profile = create_user('testuser').person
     feed = create(RssFeed, :name => 'testfeed', :profile => profile)
-    assert !feed.advertise?
+    refute feed.advertise?
   end
 
   should 'can display hits' do

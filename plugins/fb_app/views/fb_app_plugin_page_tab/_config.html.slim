@@ -1,0 +1,13 @@
+.page-tab id="page-tab-#{page_tab.id || 'new'}"
+  - if page_tab.page_id
+    h3
+      = page_tab.title
+      = button_to_function_without_text 'edit', t('fb_app_plugin.views.myprofile.catalogs.edit_button') % {catalog_title: page_tab.title},
+        "fb_app.page_tab.config.edit($(this))", class: 'edit-tab-button'
+      = button_to_function_without_text 'remove', t('fb_app_plugin.views.myprofile.catalogs.remove_button') % {catalog_title: page_tab.title},
+        "fb_app.page_tab.config.remove($(this), '#{url_for(controller: :fb_app_plugin_page_tab, action: :destroy, id: page_tab.id)}')", class: 'edit-tab-button'
+      = button_without_text 'eyes', t('fb_app_plugin.views.myprofile.catalog.see_page'), page_tab.facebook_url, target: '_blank', class: 'edit-tab-button'
+  - else
+    = button_to_function 'add', t('fb_app_plugin.views.myprofile.catalogs.new'), "$(this).toggle(); $('#page-tab-new h3, #add_tab').toggle(400)"
+
+  = render 'fb_app_plugin_page_tab/configure_form', page_tab: page_tab, signed_request: nil

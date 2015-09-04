@@ -1,0 +1,27 @@
+= f.label t("fb_app_plugin.views.myprofile.catalogs.profile_chooser_label")
+= f.text_field :profile_ids, "data-limit" => "1", "data-placeholder" => t('fb_app_plugin.views.page_tab.profile.placeholder'), onchange: 'fb_app.page_tab.config.profile.onchange($(this))'
+
+javascript:
+  $(document).ready(function() {
+    var selector = '#page-tab-#{page_tab.id || 'new'} .config-type-profile #page_tab_profile_ids'
+
+    fb_app.page_tab.config.profile.onchange($(selector))
+
+    open_graph.autocomplete.init(
+      #{url_for(controller: :fb_app_plugin_page_tab, action: :enterprise_search).to_json},
+      selector,
+      #{[page_tab.profile].compact.map{ |p| {value: p.id, label: render('open_graph_plugin/myprofile/ac_profile', profile: p), } }.to_json},
+      {tokenfield: {limit: 1}}
+    )
+
+    if (#{page_tab.profile.present?.to_json})
+      $(selector+'-tokenfield').hide()
+
+    $(selector)
+      .on('tokenfield:createdtoken', function (e) {
+        $(selector+'-tokenfield').hide();
+      })
+      .on('tokenfield:removedtoken', function (e) {
+        $(selector+'-tokenfield').show();
+      })
+  })

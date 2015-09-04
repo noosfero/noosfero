@@ -27,7 +27,7 @@ class MailingTest < ActiveSupport::TestCase
 
     mailing.source_id = Environment.default.id
     mailing.valid?
-    assert !mailing.errors[:source_id.to_s].present?
+    refute mailing.errors[:source_id.to_s].present?
   end
 
   should 'require subject' do
@@ -37,7 +37,7 @@ class MailingTest < ActiveSupport::TestCase
 
     mailing.subject = 'Hello :)'
     mailing.valid?
-    assert !mailing.errors[:subject.to_s].present?
+    refute mailing.errors[:subject.to_s].present?
   end
 
   should 'require body' do
@@ -47,7 +47,7 @@ class MailingTest < ActiveSupport::TestCase
 
     mailing.body = 'We have some news!'
     mailing.valid?
-    assert !mailing.errors[:body.to_s].present?
+    refute mailing.errors[:body.to_s].present?
   end
 
   should 'return source' do

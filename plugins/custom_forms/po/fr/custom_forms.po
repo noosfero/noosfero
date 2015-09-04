@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2015-07-03 00:36+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -179,25 +179,20 @@ msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:17
-#, fuzzy
-msgid "Author name"
-msgstr "Auteur"
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
-#, fuzzy
-msgid "Author email"
-msgstr "Auteur"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
-#, fuzzy
-msgid "New form"
-msgstr "Nouveau dossier"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
 msgid "Name"
 msgstr "Nom"
+
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
+msgid "Email"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New form"
+msgstr "Nouveau dossier"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
 msgid "Value"
@@ -402,3 +397,11 @@ msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"
 #, fuzzy
 msgid "Add a new form"
 msgstr "Une entreprise"
+
+#, fuzzy
+#~ msgid "Author name"
+#~ msgstr "Auteur"
+
+#, fuzzy
+#~ msgid "Author email"
+#~ msgstr "Auteur"

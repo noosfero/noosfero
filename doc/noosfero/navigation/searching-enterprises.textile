@@ -14,7 +14,7 @@ p. Find on top of page the term "Enterprises" and click on it:
 h2(#description). Description
 
 # Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/enterprises-search-field.en.png(Enterprises search field)!
-# Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/enterprises-search-results-with-example.en.png(Enteprises search results with example)!
+# Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/enterprises-search-results-with-example.en.png(Enterprises search results with example)!
 # Clicking on one of the search results, you will be redirected to the homepage of choosen enterprise.
 
 h3. More options

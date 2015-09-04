@@ -21,23 +21,23 @@ class DatesHelperTest < ActiveSupport::TestCase
   should 'generate period with two dates' do
     date1 = mock
     date1.stubs(:year).returns('A')
-    expects(:show_date).with(date1, anything).returns('XXX')
+    expects(:show_time).with(date1, anything).returns('XXX')
     date2 = mock
     date2.stubs(:year).returns('B')
-    expects(:show_date).with(date2, anything).returns('YYY')
+    expects(:show_time).with(date2, anything).returns('YYY')
     expects(:_).with('from %{date1} to %{date2}').returns('from %{date1} to %{date2}')
     assert_equal 'from XXX to YYY', show_period(date1, date2)
   end
 
   should 'generate period with in two diferent years' do
-    date1 = Date.new(1920, 1, 2)
-    date2 = Date.new(1992, 4, 6)
-    assert_equal 'from January 2, 1920 to April 6, 1992', show_period(date1, date2)
+    date1 = DateTime.new(1920, 1, 2)
+    date2 = DateTime.new(1992, 4, 6)
+    assert_equal 'from January 2, 1920 0:00 to April 6, 1992 0:00', show_period(date1, date2)
   end
 
   should 'generate period with in two diferent months of the same year' do
-    date1 = Date.new(2013, 2, 1)
-    date2 = Date.new(2013, 3, 1)
+    date1 = DateTime.new(2013, 2, 1)
+    date2 = DateTime.new(2013, 3, 1)
     assert_equal 'from February 1 to March 1, 2013', show_period(date1, date2)
   end
 
@@ -49,13 +49,13 @@ class DatesHelperTest < ActiveSupport::TestCase
 
   should 'generate period with two equal dates' do
     date1 = mock
-    expects(:show_date).with(date1, anything).returns('XXX')
+    expects(:show_time).with(date1, anything).returns('XXX')
     assert_equal 'XXX', show_period(date1, date1)
   end
 
   should 'generate period with one date only' do
     date1 = mock
-    expects(:show_date).with(date1, anything).returns('XXX')
+    expects(:show_time).with(date1, anything).returns('XXX')
     assert_equal 'XXX', show_period(date1)
   end
 
@@ -84,7 +84,7 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'fallback to current year/month in show_month' do
-    Date.expects(:today).returns(Date.new(2008,11,1)).at_least_once
+    DateTime.expects(:now).returns(DateTime.new(2008,11,1)).at_least_once
     assert_equal 'November 2008', show_month(nil, nil)
     assert_equal 'November 2008', show_month('', '')
   end
@@ -118,16 +118,16 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'format time' do
-    assert_equal '22 November 2008, 15:34', show_time(Time.mktime(2008, 11, 22, 15, 34, 0, 0))
+    assert_equal 'November 22, 2008 15:34', show_time(Time.mktime(2008, 11, 22, 15, 34, 0, 0))
   end
 
   should 'format time with 2 digits minutes' do
-    assert_equal '22 November 2008, 15:04', show_time(Time.mktime(2008, 11, 22, 15, 04, 0, 0))
+    assert_equal 'November 22, 2008 15:04', show_time(Time.mktime(2008, 11, 22, 15, 04, 0, 0))
   end
 
   should 'translate time' do
     time = Time.parse('25 May 2009, 12:47')
-    assert_equal '25 May 2009, 12:47', show_time(time)
+    assert_equal 'May 25, 2009 12:47', show_time(time)
   end
 
   should 'handle nil time' do

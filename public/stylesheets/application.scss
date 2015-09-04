@@ -2066,9 +2066,6 @@ a.button.disabled, input.disabled {
 .new_link_row li {
   margin-left: 7px;
 }
-#content .link-list-block {
-  padding: 10px 0px 10px 10px;
-}
 .link-list-block ul {
   padding: 0px;
   margin: 0px;
@@ -3490,9 +3487,6 @@ table.cms-articles .icon:hover {
   color: #888a85;
   font-size: smaller;
 }
-.article-types .icon-newrss-feed, #content .icon-rss-feed {
-  background-image: url(../images/icons-mime/rss-feed-16.png);
-}
 .article-types a {
   text-decoration: none;
   color: black;
@@ -4024,10 +4018,6 @@ div#article-parent {
   text-align: right;
   font-style: italic;
 }
-.article-body-uploaded-file {
-  text-align: center;
-}
-
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;
@@ -4632,7 +4622,7 @@ h1#agenda-title {
   width: 140px;
   background-repeat: no-repeat;
   background-position: 0px 50%;
-  height: 48px;
+  height: 70px;
   padding: 4px 5px 0px 55px;
   margin-bottom: 30px;
   margin-right: 10px;

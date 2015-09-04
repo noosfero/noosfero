@@ -14,14 +14,14 @@ class SearchHelperTest < ActiveSupport::TestCase
 
     stubs(:params).returns({:action => 'products', :display => 'map'})
     @results = {:products => [1,2]}
-    assert !multiple_search?
+    refute multiple_search?
   end
 
   should 'return whether on a map search' do
     stubs(:params).returns({:action => 'index', :display => 'map'})
     @results = {:articles => [1,2], :products => [1,2]}
     @query = ''
-    assert !map_search?
+    refute map_search?
 
     stubs(:params).returns({:action => 'products', :display => 'map'})
     @results = {:products => [1,2]}

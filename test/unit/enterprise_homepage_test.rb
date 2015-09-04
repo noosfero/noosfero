@@ -26,4 +26,9 @@ class EnterpriseHomepageTest < ActiveSupport::TestCase
     assert_equal false, a.can_display_hits?
   end
 
+  should 'have can_display_media_panel with default true' do
+    a = EnterpriseHomepage.new
+    assert a.can_display_media_panel?
+  end
+
 end

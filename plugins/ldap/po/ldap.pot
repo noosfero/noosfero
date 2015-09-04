@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/ldap/lib/ldap_plugin.rb:11
+msgid "A plugin that add ldap support."
+msgstr ""
+
+#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:10
+msgid "Ldap configuration updated successfully."
+msgstr ""
+
+#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:12
+msgid "Ldap configuration could not be saved."
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:1
+msgid "Ldap Management"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
+msgid "Value"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:11
+msgid "Host"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:15
+msgid "Port"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:19
+msgid "Account"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:23
+msgid "Account Password"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:27
+msgid "Base DN"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:31
+msgid "LDAP Filter"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:35
+msgid "On the fly creation"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:39
+msgid "LDAPS"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:46
+msgid "Attributes"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:53
+msgid "Fullname"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:57
+msgid "Mail"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:65
+msgid "Back to plugins administration panel"
+msgstr ""

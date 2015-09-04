@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin.rb:8
+msgid "A plugin that add a block to display breadcrumbs."
+msgstr ""
+
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
+msgid "Content Breadcrumbs"
+msgstr ""
+
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:14
+msgid "This block displays breadcrumb trail."
+msgstr ""
+
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:68
+msgid "Upload Files"
+msgstr ""
+
+#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:2
+msgid "Show cms action"
+msgstr ""
+
+#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:3
+msgid "Show profile"
+msgstr ""
+
+#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
+msgid "Show section name"
+msgstr ""

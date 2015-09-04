@@ -26,7 +26,7 @@ class RegionTest < ActiveSupport::TestCase
   should 'has no validator' do
     env = fast_create(Environment)
     region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
-    assert !region.has_validator?
+    refute region.has_validator?
   end
 
   should 'list regions with validators' do

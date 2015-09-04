@@ -48,6 +48,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
   end
 
+  should 'escape utf8 characters correctly' do
+    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/ç.png" />', profile: profile)
+
+    get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
+    assert_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/%C3%A7.png/  }
+  end
+
+
   should 'render not_found page properly' do
     assert_equal false, Article.exists?(:slug => 'non-existing-page')
     assert_nothing_raised do
@@ -55,6 +63,14 @@ class ContentViewerControllerTest < ActionController::TestCase
       assert_response 404 # not found
       assert_template 'not_found'
     end
+  end
+
+  should 'not expose metadata on private pages' do
+    profile.update_column :public_profile, false
+    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
+
+    get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
+    assert_no_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
   end
 
 end

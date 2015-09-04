@@ -28,7 +28,7 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
   should 'not allow self relation' do
     org = fast_create(Organization)
     relation = SubOrganizationsPlugin::Relation.new(:parent => org, :child => org)
-    assert !relation.valid?
+    refute relation.valid?
     assert relation.errors.include?(:child)
   end
 
@@ -60,7 +60,7 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org2)
     relation = SubOrganizationsPlugin::Relation.new(:parent => org2, :child => org1)
 
-    assert !relation.valid?
+    refute relation.valid?
     assert relation.errors.include?(:child)
   end
 
@@ -72,10 +72,10 @@ class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
     r1 = SubOrganizationsPlugin::Relation.new(:parent => org2, :child => org3)
     r2 = SubOrganizationsPlugin::Relation.new(:parent => org3, :child => org1)
 
-    assert !r1.valid?
+    refute r1.valid?
     assert r1.errors.include?(:child)
 
-    assert !r2.valid?
+    refute r2.valid?
     assert r2.errors.include?(:child)
   end
 

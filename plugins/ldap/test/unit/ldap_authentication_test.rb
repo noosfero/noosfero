@@ -96,7 +96,7 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
 
   should "onthefly_register be false as default" do
     ldap = LdapAuthentication.new
-    assert !ldap.onthefly_register
+    refute ldap.onthefly_register
   end
 
   should "create with onthefly_register passed as parameter" do
@@ -118,7 +118,7 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
 
   should "tls be false as default" do
     ldap = LdapAuthentication.new
-    assert !ldap.tls
+    refute ldap.tls
   end
 
   should "create with tls passed as parameter" do
@@ -134,7 +134,7 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
 
   should "onthefly_register? return false if onthefly_register is false" do
     ldap = LdapAuthentication.new('onthefly_register' => false)
-    assert !ldap.onthefly_register?
+    refute ldap.onthefly_register?
   end
 
   if ldap_configured?

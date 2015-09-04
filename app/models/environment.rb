@@ -13,7 +13,7 @@ class Environment < ActiveRecord::Base
                   :reports_lower_bound, :noreply_email,
                   :signup_welcome_screen_body, :members_whitelist_enabled,
                   :members_whitelist, :highlighted_news_amount,
-                  :portal_news_amount, :date_format
+                  :portal_news_amount, :date_format, :signup_intro
 
   has_many :users
 
@@ -128,6 +128,7 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
+      'forbid_destroy_profile' => _('Forbid users of removing profiles'),
 
       'products_for_enterprises' => _('Enable products for enterprises'),
       'enterprise_registration' => _('Enterprise registration'),
@@ -167,7 +168,8 @@ class Environment < ActiveRecord::Base
       'site_homepage' => _('Redirects the user to the environment homepage.'),
       'user_profile_page' => _('Redirects the user to his profile page.'),
       'user_homepage' => _('Redirects the user to his homepage.'),
-      'user_control_panel' => _('Redirects the user to his control panel.')
+      'user_control_panel' => _('Redirects the user to his control panel.'),
+      'custom_url' => _('Specify the URL to redirect to:'),
     }
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
@@ -248,6 +250,9 @@ class Environment < ActiveRecord::Base
   # store the Environment settings as YAML-serialized Hash.
   acts_as_having_settings :field => :settings
 
+  # introduce and explain to users something about the signup
+  settings_items :signup_intro, :type => String
+
   # the environment's terms of use: every user must accept them before registering.
   settings_items :terms_of_use, :type => String
 
@@ -282,7 +287,20 @@ class Environment < ActiveRecord::Base
   settings_items :activation_blocked_text, :type => String
   settings_items :message_for_disabled_enterprise, :type => String,
                  :default => _('This enterprise needs to be enabled.')
-  settings_items :location, :type => String
+
+  settings_items :contact_phone, type: String
+  settings_items :address, type: String
+  settings_items :city, type: String
+  settings_items :state, type: String
+  settings_items :country_name, type: String
+  settings_items :lat, type: Float
+  settings_items :lng, type: Float
+  settings_items :postal_code, type: String
+  settings_items :location, type: String
+
+  alias_method :zip_code=, :postal_code
+  alias_method :zip_code, :postal_code
+
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
   settings_items :description, :type => String, :default => '<div style="text-align: center"><a href="http://noosfero.org/"><img src="/images/noosfero-network.png" alt="Noosfero"/></a></div>'

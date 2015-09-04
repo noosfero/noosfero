@@ -59,6 +59,10 @@ class Organization < Profile
 
   validate :presence_of_required_fieds, :unless => :is_template
 
+  def self.notify_activity tracked_action
+    Delayed::Job.enqueue NotifyActivityToProfilesJob.new(tracked_action.id)
+  end
+
   def presence_of_required_fieds
     self.required_fields.each do |field|
       if self.send(field).blank?

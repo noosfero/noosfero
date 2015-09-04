@@ -1,4 +1,4 @@
-binary_packages='deb http://download.noosfero.org/debian/wheezy-1.2 ./'
+binary_packages='deb http://download.noosfero.org/debian/wheezy-1.3 ./'
 
 source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
 

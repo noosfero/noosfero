@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -29,5 +29,10 @@ msgid "A plugin that add remote user support."
 msgstr "Um plugin que adiciona suporte a usuário remoto."
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:52
-msgid "Could not create the remote_user."
+#, fuzzy
+msgid "Could not create the remote user."
 msgstr "Não foi possível criar o usuário remoto."
+
+#: plugins/remote_user/lib/remote_user_plugin.rb:55
+msgid "Could not log in."
+msgstr ""

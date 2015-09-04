@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/social_share_privacy/lib/social_share_privacy_plugin.rb:8
+msgid "A plugin that adds share buttons from other networks."
+msgstr ""
+
+#: plugins/social_share_privacy/controllers/social_share_privacy_plugin_admin_controller.rb:19
+msgid "Option updated successfully."
+msgstr ""
+
+#: plugins/social_share_privacy/controllers/social_share_privacy_plugin_admin_controller.rb:21
+msgid "Option wasn't updated successfully."
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:1
+msgid "Social Share Privacy Options"
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:3
+msgid "Choose the social networks you want to enable the share buttons."
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:23
+msgid "Available networks"
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:27
+msgid "Add"
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:28
+msgid "Remove"
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:34
+msgid "Selected networks"
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:38
+msgid ""
+"The same order in which you arrange the social networks here will be used "
+"for arranging the share buttons."
+msgstr ""
+
+#: plugins/social_share_privacy/views/social_share_privacy_plugin_admin/index.html.erb:42
+msgid "Save"
+msgstr ""

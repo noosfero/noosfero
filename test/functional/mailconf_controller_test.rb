@@ -95,7 +95,7 @@ class MailconfControllerTest < ActionController::TestCase
     login_as('ze')
     assert user.enable_email!
     post :disable, :profile => 'ze'
-    assert !Profile['ze'].user.enable_email
+    refute Profile['ze'].user.enable_email
   end
 
   should 'go back on save' do

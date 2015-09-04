@@ -22,7 +22,7 @@ class DomainTest < ActiveSupport::TestCase
   should 'allow domains with dot' do
     domain = build(Domain, :name => 'test.org')
     domain.valid?
-    assert !domain.errors[:name.to_s].present?
+    refute domain.errors[:name.to_s].present?
   end
 
   should 'not allow domains with upper cased letters' do
@@ -34,13 +34,13 @@ class DomainTest < ActiveSupport::TestCase
   should 'allow domains with hyphen' do
     domain = build(Domain, :name => 'test-domain.org')
     domain.valid?
-    assert !domain.errors[:name.to_s].present?
+    refute domain.errors[:name.to_s].present?
   end
 
   should 'allow domains with underscore' do
     domain = build(Domain, :name => 'test_domain.org')
     domain.valid?
-    assert !domain.errors[:name.to_s].present?
+    refute domain.errors[:name.to_s].present?
   end
 
   def test_owner
@@ -63,7 +63,7 @@ class DomainTest < ActiveSupport::TestCase
 
     d.name = 'example.net'
     d.valid?
-    assert !d.errors[:name.to_s].present?
+    refute d.errors[:name.to_s].present?
   end
 
   def test_find_by_name
@@ -71,8 +71,8 @@ class DomainTest < ActiveSupport::TestCase
     fast_create(Domain, :name => 'example.net')
     d1 = Domain.find_by_name('example.net')
     d2 =  Domain.find_by_name('www.example.net')
-    assert !d1.nil?
-    assert !d2.nil?
+    refute d1.nil?
+    refute d2.nil?
     assert d1 == d2
   end
 
@@ -81,7 +81,7 @@ class DomainTest < ActiveSupport::TestCase
     assert create(Domain, :name => 'example.net')
 
     d = build(Domain, :name => 'example.net')
-    assert !d.valid?
+    refute d.valid?
     assert d.errors[:name.to_s].present?
   end
 

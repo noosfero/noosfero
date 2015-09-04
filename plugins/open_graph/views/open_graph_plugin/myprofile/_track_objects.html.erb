@@ -1,0 +1,17 @@
+<%
+  tracks = profile.send klass.association
+%>
+
+<% objects.each do |object| %>
+  <div id="object-<%= object %>" class="tracked-object">
+    <% track_record = tracks.find{ |t| t.object_type == object } || profile.send(klass.association).build %>
+    <%= f.fields_for klass.association, track_record do |ff| %>
+      <%= ff.hidden_field :id %>
+      <%= ff.hidden_field :tracker_id %>
+      <%= ff.check_box :object_type, {onchange: 'open_graph.track.config.toggleObjectType(this)'}, object, '' %>
+      <%= ff.label :object_type, t("open_graph_plugin.views.track.config.#{track}.objects.#{object}") %>
+      <%= ff.hidden_field :_destroy %>
+    <% end %>
+  </div>
+<% end %>
+

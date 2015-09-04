@@ -76,7 +76,8 @@ class PersonNotifier
 
   class Mailer < ActionMailer::Base
 
-    add_template_helper(ApplicationHelper)
+    helper ApplicationHelper
+    helper ActionTrackerHelper
 
     def session
       {:theme => nil}

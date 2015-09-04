@@ -1,12 +1,17 @@
 open_graph:
   domain: domainregisteredonfacebook.com
   environment_logo: 'http://example.com/designs/themes/environmenttheme/images/logo.png'
+  namespace: app_scope
   types:
     article: article
-    product: facebook_app:sse_product
-    uploaded_file: facebook_app:document
-    image: facebook_app:picture
-    profile: facebook_app:profile
-    person: facebook_app:user
-    community: facebook_app:community
-    enterprise: facebook_app:sse_initiative
+    event: app_scope:event
+    forum: app_scope:discussion
+    uploaded_file: app_scope:document
+    image: app_scope:picture
+
+    product: app_scope:sse_product
+
+    profile: app_scope:profile
+    person: app_scope:user
+    community: app_scope:community
+    enterprise: app_scope:sse_initiative

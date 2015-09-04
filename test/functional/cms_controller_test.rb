@@ -141,7 +141,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.description = 'a' * 600
     profile.save(:validate => false)
 
-    assert !profile.valid?
+    refute profile.valid?
     assert_not_equal a, profile.home_page
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
@@ -560,8 +560,17 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'keep informed parent_id' do
+    fast_create(:blog, :name=>"Sample blog", :profile_id=>@profile.id)
+
+    profile.home_page = profile.blogs.find_by_name "Sample blog"
+    profile.save!
+
     get :new, :profile => @profile.identifier, :parent_id => profile.home_page.id, :type => 'TextileArticle'
-    assert_tag :tag => 'input', :attributes => { :name => 'parent_id', :value => profile.home_page.id }
+    assert_tag :tag => 'select',
+               :attributes => { :id => 'article_parent_id' },
+               :child => {
+                  :tag => "option", :attributes => {:value => profile.home_page.id, :selected => "selected"}
+               }
   end
 
   should 'list folders before others' do
@@ -779,9 +788,9 @@ class CmsControllerTest < ActionController::TestCase
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
 
-    assert !assigns(:article).published?
+    refute assigns(:article).published?
     assert_equal 'new-private-article', folder.children[0].name
-    assert !folder.children[0].published?
+    refute folder.children[0].published?
   end
 
   should 'publish the article in the selected community if community is not moderated' do
@@ -1310,7 +1319,7 @@ class CmsControllerTest < ActionController::TestCase
 
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
       assert File.exists?(UploadedFile.find(file_1.id).public_filename(suffix))
-      assert !File.exists?(UploadedFile.find(file_2.id).public_filename(suffix))
+      refute File.exists?(UploadedFile.find(file_2.id).public_filename(suffix))
     end
     file_1.destroy
     file_2.destroy
@@ -1553,7 +1562,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :display_posts_in_current_language => false }
     profile.blog.reload
-    assert !profile.blog.display_posts_in_current_language?
+    refute profile.blog.display_posts_in_current_language?
   end
 
   should 'update to true blog display posts in current language setting' do
@@ -1839,14 +1848,6 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal 'first version', assigns(:article).name
   end
 
-  should 'clone article with its content' do
-    article = profile.articles.create(:name => 'first version')
-
-    get :new, :profile => profile.identifier, :id => article.id, :clone => true, :type => 'TinyMceArticle'
-
-    assert_match article.name, @response.body
-  end
-
   should 'save article with content from older version' do
     article = profile.articles.create(:name => 'first version')
     article.name = 'second version'; article.save
@@ -1895,6 +1896,33 @@ class CmsControllerTest < ActionController::TestCase
     a.tags.create! name: 'linux'
     get :search_tags, :profile => profile.identifier, :term => 'linux'
     assert_equal '[{"label":"linux","value":"linux"}]', @response.body
+  end
+
+  should 'clone an article with its parent' do
+    login_as(profile.identifier)
+
+    f = Folder.new(:name => 'f')
+    profile.articles << f
+    f.save!
+
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :parent_id => f.id,
+               :article => { :name => 'Main Article', :body => 'some content' }
+
+    main_article = profile.articles.find_by_name('Main Article')
+    assert_not_nil main_article
+
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :parent_id => f.id,
+               :id => main_article.id, :clone => true
+
+    cloned_main_article = profile.articles.find_by_name('Main Article')
+    assert_not_nil cloned_main_article
+
+    assert_equal main_article.parent_id, cloned_main_article.parent_id
+
+    get :new, :profile => profile.identifier, :id => cloned_main_article.id,
+              :clone => true, :type => 'TinyMceArticle'
+
+    assert_match main_article.body, @response.body
   end
 
   protected

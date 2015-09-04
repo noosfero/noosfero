@@ -40,6 +40,14 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => { :login => 'fake', :password => 'fake' }
   end
 
+  should 'fail login if a user is inactive and show a warning message' do
+    user = User.create!(login: 'testuser', email: 'test@email.com', password:'test', password_confirmation:'test', activation_code: nil)
+    post :login, :user => { :login => 'testuser', :password => 'test' }
+
+    assert_match 'not activated', session[:notice]
+    assert_nil session[:user]
+  end
+
   def test_should_fail_login_and_not_redirect
     @request.env["HTTP_REFERER"] = 'bli'
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
@@ -129,27 +137,26 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil @response.cookies["auth_token"]
   end
 
-  # "remember_me" feature is disabled; uncommend this if it is enabled again.
-  # def test_should_login_with_cookie
-  #   users(:johndoe).remember_me
-  #   @request.cookies["auth_token"] = cookie_for(:johndoe)
-  #   get :index
-  #   assert @controller.send(:logged_in?)
-  # end
+  should 'login with cookie' do
+    users(:johndoe).remember_me
+    @request.cookies["auth_token"] = cookie_for(:johndoe)
+    get :index
+    assert @controller.send(:logged_in?)
+  end
 
-  def test_should_fail_expired_cookie_login
+  should 'fail expired cookie login' do
     users(:johndoe).remember_me
     users(:johndoe).update_attribute :remember_token_expires_at, 5.minutes.ago
     @request.cookies["auth_token"] = cookie_for(:johndoe)
     get :index
-    assert !@controller.send(:logged_in?)
+    refute @controller.send(:logged_in?)
   end
 
-  def test_should_fail_cookie_login
+  should 'fail cookie login' do
     users(:johndoe).remember_me
     @request.cookies["auth_token"] = auth_token('invalid_auth_token')
     get :index
-    assert !@controller.send(:logged_in?)
+    refute @controller.send(:logged_in?)
   end
 
   def test_should_display_anonymous_user_options
@@ -187,7 +194,7 @@ class AccountControllerTest < ActionController::TestCase
     post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :success
     assert_template 'change_password'
-    assert ! User.find_by_login('ze').authenticated?('blabla')
+    refute  User.find_by_login('ze').authenticated?('blabla')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -196,8 +203,8 @@ class AccountControllerTest < ActionController::TestCase
     post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
     assert_response :success
     assert_template 'change_password'
-    assert !assigns(:current_user).authenticated?('blabla')
-    assert !assigns(:current_user).authenticated?('blibli')
+    refute assigns(:current_user).authenticated?('blabla')
+    refute assigns(:current_user).authenticated?('blibli')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -274,15 +281,16 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'invalid_change_password_code'
   end
 
-  should 'require password confirmation correctly to enter new pasword' do
+  should 'require password confirmation correctly to enter new password' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user.activate
     change = ChangePassword.create!(:requestor => user.person)
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
     assert_response :success
     assert_template 'new_password'
 
-    assert !User.find(user.id).authenticated?('onepass')
+    refute User.find(user.id).authenticated?('onepass')
   end
 
   should 'display login popup' do
@@ -536,7 +544,7 @@ class AccountControllerTest < ActionController::TestCase
     post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false
     ent.reload
 
-    assert !ent.enabled
+    refute ent.enabled
     assert_not_includes ent.members, p
   end
 
@@ -622,6 +630,11 @@ class AccountControllerTest < ActionController::TestCase
       get :logout
       assert_redirected_to :action => 'index', :controller => 'home'
     end
+  end
+
+  should 'fill session for new users' do
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    assert_equal assigns(:user).session, session
   end
 
   should 'signup filling in mandatory person fields' do
@@ -745,6 +758,8 @@ class AccountControllerTest < ActionController::TestCase
     get :activate
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
+
+    assert_match 'not activated', session[:notice]
     assert_nil session[:user]
   end
 
@@ -754,6 +769,8 @@ class AccountControllerTest < ActionController::TestCase
     get :activate, :activation_code => 'wrongcode'
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
+
+    assert_match 'not activated', session[:notice]
     assert_nil session[:user]
   end
 

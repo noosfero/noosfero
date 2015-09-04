@@ -1,0 +1,6 @@
+= render 'load'
+javascript:
+  fb_app.auth.status = #{(@auth.status rescue FbAppPlugin::Auth::Status::NotAuthorized).to_json}
+
+#fb-app-settings
+  = render 'settings'

@@ -6,14 +6,16 @@ $fa-font-path: "fonts";
 
 // noosfero icons stylesheets
 
-[class*=' icon-']:before,
-[class^='icon-']:before,
-[class*=' icon-next']:after,
-[class^='icon-next']:after {
+:not(.glyphicon) {
+  &[class*=' icon-']:before,
+  &[class^='icon-']:before,
+  &[class*=' icon-next']:after,
+  &[class^='icon-next']:after {
     line-height: 1;
     width: 1.7em;
     text-align: center;
     @include fa-icon;
+  }
 }
 
 .icon-add:before,
@@ -137,6 +139,9 @@ $fa-font-path: "fonts";
 }
 .icon-down:before {
   @extend .fa-arrow-down:before;
+}
+.icon-download:before {
+  @extend .fa-download:before;
 }
 
 .icon-spread:before {
@@ -296,4 +301,8 @@ $fa-font-path: "fonts";
 
 .icon-menu-ctrl-panel:before {
   @extend .fa-sliders:before;
+}
+
+.icon-love:before {
+  @extend .fa-heart:before;
 }

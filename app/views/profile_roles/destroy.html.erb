@@ -1,4 +1,4 @@
-<h1> <%= _("Deleting #{@role.name}") %> </h1>
+<h1> <%= _("Deleting %s") % @role.name %> </h1>
 
 <% if @members.nil? || @members.empty? %>
   <p><%= _('This role is not being currently used.')%></p>

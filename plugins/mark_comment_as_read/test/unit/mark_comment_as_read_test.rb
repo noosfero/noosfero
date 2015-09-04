@@ -26,7 +26,7 @@ class MarkCommentAsReadPluginTest < ActiveSupport::TestCase
     self.stubs(:user).returns(nil)
     action = @plugin.comment_actions(@comment)
     link = self.instance_eval(&action)
-    assert !link
+    refute link
   end
 
   should 'return actions when comment is not read' do
@@ -46,7 +46,7 @@ class MarkCommentAsReadPluginTest < ActiveSupport::TestCase
     self.stubs(:user).returns(nil)
     action = @plugin.check_comment_actions(@comment)
     id = self.instance_eval(&action)
-    assert !id
+    refute id
   end
 
   should 'return id of mark as not read link when comment is read' do
@@ -70,14 +70,14 @@ class MarkCommentAsReadPluginTest < ActiveSupport::TestCase
 
   should 'do not return extra content if comment is not marked as read' do
     content = @plugin.article_extra_contents(@article)
-    assert !self.instance_eval(&content)
+    refute self.instance_eval(&content)
   end
 
   should 'do not return extra content if user is not logged in' do
     @comment.mark_as_read(@person)
     self.stubs(:user).returns(nil)
     content = @plugin.article_extra_contents(@article)
-    assert !self.instance_eval(&content)
+    refute self.instance_eval(&content)
   end
 
   def link_to_function(content, url, options = {})

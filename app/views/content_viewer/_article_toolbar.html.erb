@@ -29,10 +29,10 @@
         <%= expirable_button @page, :locale, content, url %>
       <% end %>
 
-      <%= modal_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) unless remove_content_button(:new, @page) %>
+      <%= modal_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:new, @page) %>
 
       <% content = content_tag('span', label_for_clone_article(@page)) %>
-      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'new', :id => @page.id, :clone => true, :type => @page.class }) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'new', :id => @page.id, :clone => true,  :parent_id => (@page.folder? ? @page : @page.parent), :type => @page.class}) %>
       <%= expirable_button @page, :clone, content, url %>
     <% end %>
 
@@ -62,7 +62,7 @@
     <% if @page.blog? and !@page.image.nil? %>
       <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
     <% end %>
-    <%= link_to(image_tag('/images/icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
+    <%= button_without_text(:feed, _('RSS feed'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= @plugins.dispatch(:article_header_extra_contents, @page).collect { |content| instance_exec(&content) }.join("") %>
     <%= render :partial => 'article_title', :locals => {:no_link => true} %>
     <%= article_translations(@page) %>

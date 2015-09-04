@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-166-gaf47713\n"
-"POT-Creation-Date: 2015-06-01 17:26-0300\n"
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -72,9 +72,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:27
-msgid ""
-"\"This block displays #{display_type[:title]} organizations of this "
-"organization\""
+msgid "This block displays %s organizations of this organization"
 msgstr ""
 
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
@@ -96,18 +94,17 @@ msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
-msgid "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
+msgid "%s's sub-%s"
 msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
-msgid "\"There are no sub-#{organization_type.pluralize} yet. \""
+msgid "There are no sub-%s yet."
 msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
 #: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
-#, fuzzy
-msgid "\"Add a new #{organization_type}\""
-msgstr "Eine neue Organisation registrieren"
+msgid "Add a new %s"
+msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
 msgid "Sub-groups awaiting approval:"
@@ -132,3 +129,7 @@ msgstr ""
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:21
 msgid "Type in a search term for a group"
 msgstr "Geben Sie einen Suchbegriff für eine Gruppe ein"
+
+#, fuzzy
+#~ msgid "\"Add a new #{organization_type}\""
+#~ msgstr "Eine neue Organisation registrieren"

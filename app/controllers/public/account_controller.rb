@@ -46,14 +46,20 @@ class AccountController < ApplicationController
 
     self.current_user = plugins_alternative_authentication
 
-    self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
-
+    begin
+      self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+    rescue User::UserNotActivated => e
+      session[:notice] = e.message
+      return
+    end
     if logged_in?
       check_join_in_community(self.current_user)
+
       if params[:remember_me] == "1"
         self.current_user.remember_me
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+        cookies[:auth_token] = {value: self.current_user.remember_token, expires: self.current_user.remember_token_expires_at}
       end
+
       if redirect?
         go_to_initial_page
         session[:notice] = _("Logged in successfully")
@@ -92,6 +98,7 @@ class AccountController < ApplicationController
     @invitation_code = params[:invitation_code]
     begin
       @user = User.build(params[:user], params[:profile_data], environment)
+      @user.session = session
       @terms_of_use = environment.terms_of_use
       @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
@@ -432,7 +439,7 @@ class AccountController < ApplicationController
   end
 
   def go_to_signup_initial_page
-    check_redirection_options(user, user.environment.redirection_after_signup, user.url)
+    check_redirection_options user, user.environment.redirection_after_signup, user.url, signup: true
   end
 
   def redirect_if_logged_in
@@ -452,8 +459,11 @@ class AccountController < ApplicationController
 
   protected
 
-  def check_redirection_options(user, condition, default)
-    case condition
+  def check_redirection_options user, condition, default, options={}
+    if options[:signup] and target = session.delete(:after_signup_redirect_to)
+      redirect_to target
+    else
+      case condition
       when 'keep_on_same_page'
         redirect_back_or_default(user.admin_url)
       when 'site_homepage'
@@ -466,8 +476,11 @@ class AccountController < ApplicationController
         redirect_to user.admin_url
       when 'welcome_page'
         redirect_to :controller => :home, :action => :welcome, :template_id => (user.template && user.template.id)
-    else
-      redirect_back_or_default(default)
+      when 'custom_url'
+        if (url = user.custom_url_redirection).present? then redirect_to url else redirect_back_or_default default end
+      else
+        redirect_back_or_default(default)
+      end
     end
   end
 

@@ -14,7 +14,7 @@ class CertifierTest < ActiveSupport::TestCase
 
   should 'environment is mandatory' do
     certifier = Certifier.new(:name => 'Certifier without environment')
-    assert !certifier.valid?
+    refute certifier.valid?
 
     certifier.environment = fast_create(Environment)
     assert certifier.valid?
@@ -34,7 +34,7 @@ class CertifierTest < ActiveSupport::TestCase
   should 'name is mandatory' do
     env_one = fast_create(Environment)
     certifier = env_one.certifiers.new
-    assert !certifier.valid?
+    refute certifier.valid?
 
     certifier.name = 'Certifier name'
     assert certifier.valid?

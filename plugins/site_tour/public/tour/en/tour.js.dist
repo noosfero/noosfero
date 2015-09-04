@@ -1,0 +1,6 @@
+jQuery( document ).ready(function( $ ) {
+  siteTourPlugin.add('login_button','.action-home-index #link_login', "Click to login!");
+  siteTourPlugin.add('login_button','.action-home-index .signup', "Click to signup!");
+  siteTourPlugin.add('logout_button','.action-home-index #logout', "Click to logout");
+  siteTourPlugin.add('navigation_bar','#navigation', "Click to navigate");
+});

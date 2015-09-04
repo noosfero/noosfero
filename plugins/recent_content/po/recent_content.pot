@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/recent_content/lib/recent_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can display the content of any of your "
+"blogs."
+msgstr ""
+
+#: plugins/recent_content/lib/recent_content_block.rb:17
+msgid ""
+"This block displays all articles inside the blog you choose. You can edit "
+"the block to select which of your blogs is going to be displayed in the "
+"block."
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:3
+msgid "No blogs found. Please add a blog in order to configure this block."
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:6
+msgid "Choose which blog should be displayed"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:14
+msgid "Choose how the content should be displayed"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:19
+msgid "Title only"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:20
+msgid "Title and abstract"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:21
+msgid "Full content"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:28
+msgid "Choose how many items will be displayed"
+msgstr ""
+
+#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:33
+msgid "Display blog cover image"
+msgstr ""
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:26
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:35
+msgid "Read more"
+msgstr ""
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
+msgid "View All"
+msgstr ""
+
+#: plugins/recent_content/views/blocks/recent_content_block.html.erb:43
+msgid ""
+"This is the recent content block. Please edit it to show the content you "
+"want."
+msgstr ""

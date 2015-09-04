@@ -11,7 +11,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
 
   # this test can be removed when we get real tests for TinyMceArticle
   should 'be an article' do
-    assert_subclass TextArticle, TinyMceArticle
+    assert_kind_of TextArticle, TinyMceArticle.new
   end
 
   should 'define description' do
@@ -233,6 +233,11 @@ end
     )
     assert_tag_in_string article.body, :tag => 'table',
       :attributes => { :colspan => 2, :rowspan => 3 }
+  end
+
+  should 'have can_display_media_panel with default true' do
+    a = TinyMceArticle.new
+    assert a.can_display_media_panel?
   end
 
 end

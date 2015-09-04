@@ -267,11 +267,11 @@ class SearchControllerTest < ActionController::TestCase
     get :index, :query => 'something'
 
     assert assigns(:searches).has_key?(:articles)
-    assert !assigns(:searches).has_key?(:enterprises)
-    assert !assigns(:searches).has_key?(:people)
-    assert !assigns(:searches).has_key?(:communities)
-    assert !assigns(:searches).has_key?(:products)
-    assert !assigns(:searches).has_key?(:events)
+    refute assigns(:searches).has_key?(:enterprises)
+    refute assigns(:searches).has_key?(:people)
+    refute assigns(:searches).has_key?(:communities)
+    refute assigns(:searches).has_key?(:products)
+    refute assigns(:searches).has_key?(:events)
   end
 
   should 'search all enabled assets in general search' do
@@ -288,7 +288,7 @@ class SearchControllerTest < ActionController::TestCase
     [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
       !assigns(:environment).enabled?('disable_asset_' + key.to_s)
     end.each do |asset|
-      assert !assigns(:searches)[asset][:results].empty?
+      refute assigns(:searches)[asset][:results].empty?
     end
   end
 
@@ -305,7 +305,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search for events' do
     person = create_user('teste').person
-    event = create_event(person, :name => 'an event to be found', :start_date => Date.today)
+    event = create_event(person, :name => 'an event to be found', :start_date => DateTime.now)
 
     get :events, :query => 'event to be found'
 
@@ -314,10 +314,10 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of the day' do
     person = create_user('someone').person
-    ten_days_ago = Date.today - 10.day
+    ten_days_ago = DateTime.now - 10.day
 
     ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => Date.today - 2.month)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year
     assert_equal [ev1], assigns(:events)
@@ -325,9 +325,11 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of the day with category' do
     person = create_user('someone').person
-    ten_days_ago = Date.today - 10.day
+    ten_days_ago = DateTime.now - 10.day
 
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
+    ev1 = create_event(person, :name => 'event 1', :start_date => ten_days_ago)
+    ev1.categories = [@category]
+    
     ev2 = create_event(person, :name => 'event 2', :start_date => ten_days_ago)
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year, :category_path => @category.path.split('/')
@@ -337,8 +339,8 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of today when no date specified' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => Date.today)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => Date.today - 2.month)
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => DateTime.now)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
 
     get :events
 
@@ -349,9 +351,9 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('someone').person
 
     ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],
-      :start_date => Date.today + 2.month)
+      :start_date => DateTime.now + 2.month)
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],
-      :start_date => Date.today + 2.day)
+      :start_date => DateTime.now + 2.day)
 
     get :events
 
@@ -362,8 +364,8 @@ class SearchControllerTest < ActionController::TestCase
   should 'list events for a given month' do
     person = create_user('testuser').person
 
-    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
-    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
+    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => DateTime.new(2008, 1, 25))
+    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => DateTime.new(2008, 4, 27))
 
     get :events, :year => '2008', :month => '1'
 
@@ -373,7 +375,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'see the events paginated' do
     person = create_user('testuser').person
     30.times do |i|
-      create_event(person, :name => "Event #{i}", :start_date => Date.today)
+      create_event(person, :name => "Event #{i}", :start_date => DateTime.now)
     end
     get :events
     assert_equal 20, assigns(:events).size
@@ -416,7 +418,7 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'display current year/month by default as caption of current month' do
-    Date.expects(:today).returns(Date.new(2008, 8, 1)).at_least_once
+    DateTime.expects(:now).returns(DateTime.new(2008, 8, 1)).at_least_once
 
     get :events
     assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
@@ -475,7 +477,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'show events of specific day' do
     person = create_user('anotheruser').person
-    event = create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28))
+    event = create_event(person, :name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28))
 
     get :events_by_day, :year => 2009, :month => 10, :day => 28
 
@@ -484,8 +486,8 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'ignore filter of events if category not exists' do
     person = create_user('anotheruser').person
-    create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [@category.id])
-    create_event(person, :name => 'Maria Birthday', :start_date => Date.new(2009, 10, 28))
+    create_event(person, :name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28), :category_ids => [@category.id])
+    create_event(person, :name => 'Maria Birthday', :start_date => DateTime.new(2009, 10, 28))
 
     id_of_unexistent_category = Category.last.id + 10
 
@@ -772,7 +774,7 @@ class SearchControllerTest < ActionController::TestCase
   protected
 
   def create_event(profile, options)
-    ev = build(Event, { :name => 'some event', :start_date => Date.new(2008,1,1) }.merge(options))
+    ev = build(Event, { :name => 'some event', :start_date => DateTime.new(2008,1,1) }.merge(options))
     ev.profile = profile
     ev.save!
     ev

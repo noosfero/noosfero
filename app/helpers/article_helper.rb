@@ -88,7 +88,7 @@ module ArticleHelper
     content_tag( 'small', _('Who will be able to create new topics on this forum?')) +
     content_tag('div', '', slider_options) +
     hidden_field_tag('article[topic_creation]', article.topic_creation) +
-    javascript_include_tag('topic-creation-config')
+    javascript_include_tag("#{Noosfero.root}/assets/topic-creation-config.js")
   end
 
   def privacity_exceptions(article, tokenized_children)

@@ -111,10 +111,7 @@ class CmsController < MyProfileController
       end
     end
 
-    unless @article.kind_of?(RssFeed)
-      @escaped_body = CGI::escapeHTML(@article.body || '')
-      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
-    end
+    escape_fields @article
   end
 
   def new
@@ -184,6 +181,8 @@ class CmsController < MyProfileController
         return
       end
     end
+
+    escape_fields @article
 
     render :action => 'edit'
   end
@@ -534,4 +533,10 @@ class CmsController < MyProfileController
     end
   end
 
+  def escape_fields article
+    unless article.kind_of?(RssFeed)
+      @escaped_body = CGI::escapeHTML(article.body || '')
+      @escaped_abstract = CGI::escapeHTML(article.abstract || '')
+    end
+  end
 end

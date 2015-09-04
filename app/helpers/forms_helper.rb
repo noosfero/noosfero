@@ -151,7 +151,7 @@ module FormsHelper
     datepicker_options[:close_text] ||= _('Done')
     datepicker_options[:constrain_input] ||= true
     datepicker_options[:current_text] ||= _('Today')
-    datepicker_options[:date_format] ||= 'mm/dd/yy'
+    datepicker_options[:date_format] ||= 'yy/mm/dd'
     datepicker_options[:day_names] ||= [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
     datepicker_options[:day_names_min] ||= [_('Su'), _('Mo'), _('Tu'), _('We'), _('Th'), _('Fr'), _('Sa')]
     datepicker_options[:day_names_short] ||= [_('Sun'), _('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat')]
@@ -236,7 +236,7 @@ module FormsHelper
         weekHeader: #{datepicker_options[:week_header].to_json},
         yearRange: #{datepicker_options[:year_range].to_json},
         yearSuffix: #{datepicker_options[:year_suffix].to_json}
-      })
+      }).datepicker('setDate', new Date('#{value}'))
     </script>
     ".html_safe
     result

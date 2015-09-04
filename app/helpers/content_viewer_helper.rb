@@ -51,7 +51,7 @@ module ContentViewerHelper
     elsif date_format == 'past_time'
       left_time = true
     end
-    content_tag('span', show_date(article.published_at, use_numbers , year, left_time), :class => 'date')
+    content_tag('span', show_time(article.published_at, use_numbers , year, left_time), :class => 'date')
   end
 
   def link_to_comments(article, args = {})

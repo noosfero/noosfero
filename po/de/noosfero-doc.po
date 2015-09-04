@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2015-02-23 11:32+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2015-08-14 09:48+0200\n"
+"Last-Translator: Phillip Rohmberger <rohmberger@hotmail.de>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/noosfero/documentation/de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.4-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -28,7 +28,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:2
 msgid "Allows to send e-mails through an e-mail form."
-msgstr ""
+msgstr "Ermöglicht das Senden von E-mails über ein E-mail-Formular."
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -36,7 +36,7 @@ msgstr ""
 #: doc/noosfero/plugins/google_cse.en.xhtml:3
 #: doc/noosfero/plugins/google_analytics.en.xhtml:3
 msgid "Usage"
-msgstr ""
+msgstr "Verwendung"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -52,6 +52,7 @@ msgstr ""
 msgid ""
 "Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
 msgstr ""
+"Fügt ein ``to``- und ein ``message``-Feld, mit einem ``submit`` Knopf hinzu"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>

@@ -13,7 +13,7 @@ end
 class Profile
 
   def analytics_settings attrs = {}
-    @analytics_settings ||= Noosfero::Plugin::Settings.new self, AnalyticsPlugin, attrs
+    @analytics_settings ||= Noosfero::Plugin::Settings.new self, ::AnalyticsPlugin, attrs
     attrs.each{ |a, v| @analytics_settings.send "#{a}=", v }
     @analytics_settings
   end

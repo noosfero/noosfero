@@ -33,12 +33,16 @@ class TextArticle < Article
   end
 
   def change_element_path(el, attribute)
-    fullpath = /(https?):\/\/(#{environment.default_hostname})(:\d+)?(\/.*)/.match(el[attribute])
+    fullpath = /(https?):\/\/(#{profile.default_hostname})(:\d+)?(\/.*)/.match(el[attribute])
     if fullpath
       domain = fullpath[2]
       path = fullpath[4]
-      el[attribute] = path if domain == environment.default_hostname
+      el[attribute] = path if domain == profile.default_hostname
     end
+  end
+
+  def display_preview?
+    parent && parent.kind_of?(Blog) && parent.display_preview
   end
 
 end

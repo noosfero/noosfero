@@ -794,7 +794,7 @@ class ApplicationHelperTest < ActionView::TestCase
     article = fast_create(Article, :name => 'my article')
     response = content_id_to_str(article)
     assert_equal String, response.class
-    assert !response.empty?
+    refute response.empty?
   end
 
   should 'content_id_to_str return empty string when receiving nil' do
@@ -1020,6 +1020,27 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Clone Event", label_for_clone_article(Event.new)
     assert_equal "Clone Forum", label_for_clone_article(Forum.new)
     assert_equal "Clone Article", label_for_clone_article(TinyMceArticle.new)
+  end
+
+  should "return top url of environment" do
+    env = Environment.default
+    request = mock()
+    request.expects(:scheme).returns('http')
+    stubs(:request).returns(request)
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(nil)
+    assert_equal env.top_url('http'), top_url
+  end
+
+  should "return top url considering profile" do
+    env = Environment.default
+    c = fast_create(Community)
+    request = mock()
+    request.stubs(:scheme).returns('http')
+    stubs(:request).returns(request)
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(c)
+    assert_equal c.top_url, top_url
   end
 
   protected
