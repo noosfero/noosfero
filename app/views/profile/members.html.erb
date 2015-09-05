@@ -15,13 +15,9 @@
                             }
     end %>
 
-    <% members_pagination = content_tag :div, :class => "pagination-profile-members" do
-      pagination_links @profile_members, :param_name => 'npage'
-    end %>
-
-    <% tabs << {:title =>  _("%d Members") % @profile_members.size,
+    <% tabs << {:title =>  _("%d Members") % @profile_members.total_entries,
                      :id => "members-tab",
-                     :content => (div_members + members_pagination)
+                     :content => div_members
                      } %>
 
     <% div_admins = content_tag :div, :class => "profile-admins" do
@@ -32,13 +28,9 @@
                             }
     end %>
 
-    <% admins_pagination = content_tag :div, :class => "pagination-profile-admins" do
-      pagination_links @profile_admins, :param_name => 'npage'
-    end %>
-
-    <% tabs << {:title => _("%d Administrators") % @profile_admins.size,
+    <% tabs << {:title => _("%d Administrators") % @profile_admins.total_entries,
                             :id => "admins-tab",
-                            :content => (div_admins+admins_pagination)
+                            :content => div_admins
                             } %>
 
     <%= render_tabs(tabs) %>
@@ -58,7 +50,6 @@
 <% end %>
 
 <%= hidden_field_tag "profile_url", @profile_members_url %>
-<%= hidden_field_tag "sort", "asc" %>
 </div><!-- end of class="common-profile-list-block" -->
 
 <%= javascript_include_tag "members_page.js" %>
