@@ -3,7 +3,8 @@ require_relative "../test_helper"
 class UploadedFileTest < ActiveSupport::TestCase
 
   def setup
-    @profile = create_user('testinguser').person
+    User.current = user = create_user 'testinguser'
+    @profile = user.person
   end
   attr_reader :profile
 
