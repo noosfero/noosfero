@@ -957,7 +957,8 @@ private :generate_url, :url_options
 
   def members_cache_key(params = {})
     page = params[:npage] || '1'
-    cache_key + '-members-page-' + page
+    sort = (params[:sort] ==  'desc') ? params[:sort] : 'asc'
+    cache_key + '-members-page-' + page + '-' + sort
   end
 
   def more_recent_label

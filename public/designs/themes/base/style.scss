@@ -231,6 +231,10 @@ body, th, td, input {
   border-left: 0px;
 }
 
+.menu-submenu-list>li{
+  width: 100%;
+}
+
 #navigation .menu-submenu ul{
   border: 1px solid #888a85;
   border-top: 0px;
@@ -1533,4 +1537,8 @@ table#recaptcha_table tr:hover td {
   margin-top: 20px;
   width: 494px;
   padding-left: 2px;
+}
+
+.profile-members-title-sort {
+  clear: both;
 }
