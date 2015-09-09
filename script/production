@@ -25,12 +25,31 @@ clear_cache() {
   fi
 }
 
+app_server_start() {
+  ruby -S bundle exec unicorn_rails \
+    --config-file lib/noosfero/unicorn.rb \
+    --env "$RAILS_ENV" \
+    --daemonize
+}
+
+app_server_stop() {
+  # see unicorn_rails(1)
+  kill -s QUIT $(cat tmp/pids/unicorn.pid)
+}
+
+app_server_restart() {
+  # see unicorn_rails(1) and "Signal handling" in unicorn documentation
+  kill -s USR2 $(cat tmp/pids/unicorn.pid)
+  sleep 5
+  kill -s QUIT $(cat tmp/pids/unicorn.pid.oldbin)
+}
+
 do_start() {
   bundle exec rake db:migrate SCHEMA=/dev/null
   clear_cache
   environments_loop start
   bundle exec whenever --write-crontab --set 'environment=production'
-  ruby -S bundle exec thin -C config/thin.yml start
+  app_server_start
 }
 
 do_stop() {
@@ -39,8 +58,8 @@ do_stop() {
   # back to stopping the daemons by manually reading their PID files, killing
   # them and wiping the PID files.
 
-  ruby -S bundle exec thin -C config/thin.yml stop ||
-    stop_via_pid_file tmp/pids/thin.*.pid
+  app_server_stop ||
+    stop_via_pid_file tmp/pids/unicorn.pid
 
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
@@ -52,10 +71,11 @@ do_restart() {
   bundle exec rake db:migrate SCHEMA=/dev/null
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
-  environments_loop start
 
   clear_cache
-  ruby -S bundle exec thin -C config/thin.yml restart --onebyone
+  app_server_restart
+
+  environments_loop start
 }
 
 stop_via_pid_file() {
@@ -85,7 +105,7 @@ environments_loop() {
 }
 
 do_running() {
-  pids=$(sed "s/.*/& /" tmp/pids/thin.*.pid 2>/dev/null | tr -d '\n')
+  pids=$(sed "s/.*/& /" tmp/pids/unicorn.pid 2>/dev/null | tr -d '\n')
   # passes if any of $pids exist, fails otherwise
   kill -0 $pids > /dev/null 2>&1
 }
@@ -111,6 +131,8 @@ case "$ACTION" in
     ;;
 
   *)
+    # `running` is not listed on purpose since it's not supposed to be a public
+    # API.
     echo "usage: $0 start|stop|restart|run"
     exit 1
     ;;
