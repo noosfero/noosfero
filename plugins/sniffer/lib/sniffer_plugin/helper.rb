@@ -2,13 +2,6 @@ module SnifferPlugin::Helper
 
   include Noosfero::GeoRef
 
-  def distance_between_profiles(source, target)
-    Math.sqrt(
-      (KM_LAT * ((target.lat || 0) - (source.lat || 0)))**2 +
-      (KM_LNG * ((target.lng || 0) - (source.lng || 0)))**2
-    )
-  end
-
   def filter_visible_attr_profile(profile)
     filtered_profile = {}
     visible_attributes = [:id, :name, :lat, :lng, :sniffer_plugin_distance]
