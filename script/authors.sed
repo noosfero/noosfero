@@ -161,6 +161,10 @@ s/Marcos da Silva Ramos <ms.ramos@outlook.com>/Marcos Ramos <ms.ramos@outlook.co
 s/Marcos Ramos <ms.ramos@outlook.com$/Marcos Ramos <ms.ramos@outlook.com>/
 s/Marcos <marcos.rpj2@gmail.com>/Marcos Ronaldo <marcos.rpj2@gmail.com>/
 
+s/Michel Felipe <mfelipeof@gmail.com>/Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>/
+
+s/Omar Júnior/Omar Junior/
+
 s/Parley Martins <parley@outlook.com>/Parley Martins <parleypachecomartins@gmail.com>/
 
 s/Paulo Meirelles$/Paulo Meirelles <paulo@softwarelivre.org>/
@@ -179,6 +183,8 @@ s/Pedro Leal <caio.csalgado@gmail.com>/Pedro Leal/
 s/Pedro Leal <carlos88morais@gmail.com>/Pedro Leal/
 s/Pedro Leal <diegoamc90@gmail.com>/Pedro Leal/
 s/Pedro Leal <jaodsilv@linux.ime.usp.br>/Pedro Leal/
+
+s/^pedrodelyra/Pedro de Lyra/
 
 s/Rafael Manzo$/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
 s/Rafael Manzo <alessandro.palmeira@gmail.com>/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
@@ -214,6 +220,10 @@ s/Valéssio Brito <contato@valessiobrito.com.br>/Valessio Brito <contato@valessi
 s/Valessio Brito <contato@valessiobrito.info>/Valessio Brito <contato@valessiobrito.com.br>/
 s/Valessio Brito <valessio@gmail.com>/Valessio Brito <contato@valessiobrito.com.br>/
 /Visita <visita@debian.(none)>/d
+
+s/Vítor Barbosa/Vitor Barbosa/
+s/vitormga15@gmail.com/vitornga15@gmail.com/
+
 s/vfcosta <vfcosta@gmail.com>/Victor Costa <vfcosta@gmail.com>/
 s/Victor Carvalho <victorhugodf.ac@gmail.com>/Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>/
 
