@@ -1,21 +1,6 @@
 #!/usr/bin/env ruby
 
-def mongrel_thin(config_file)
-  require 'yaml'
-  config = YAML.load_file(config_file)
-  ip = config['address'] || '127.0.0.1'
-  servers = config['servers'] || 1
-  ports = port_range = config['port']..(config['port'] + servers - 1)
-  ports.each do |port|
-    puts "BalancerMember http://#{ip}:#{port}"
-  end
-end
-
 case ARGV.first
-when 'mongrel'
-  mongrel_thin(File.dirname(__FILE__) + "/../config/mongrel_cluster.yml")
-when 'thin'
-  mongrel_thin(File.dirname(__FILE__) + "/../config/thin.yml")
 when 'virtualhosts'
   require File.dirname(__FILE__) + '/../config/environment'
   Environment.all.each do |environment|
@@ -38,6 +23,6 @@ when 'virtualhosts'
   end
   puts "# vim: ft=apache"
 else
-  puts "usage: %s mongrel|thin|virtualhosts" % $PROGRAM_NAME
+  puts "usage: %s virtualhosts" % $PROGRAM_NAME
   exit 1
 end
