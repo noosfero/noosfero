@@ -1,4 +1,4 @@
-require 'mailing_job'
+require_dependency 'mailing_job'
 
 class Mailing < ActiveRecord::Base
 
@@ -40,10 +40,8 @@ class Mailing < ActiveRecord::Base
       begin
         Mailing::Sender.notification(self, recipient.email).deliver
         self.mailing_sents.create(:person => recipient)
-      rescue Exception
-        # FIXME should not discard errors silently. An idea is to collect all
-        # errors and generate a task (notification) for the +source+
-        # (environment/organization) listing these errors.
+      rescue Exception => ex
+        Rails.logger.error("#{ex.class.to_s} - #{ex.to_s} at #{__FILE__}:#{__LINE__}")
       end
     end
   end
