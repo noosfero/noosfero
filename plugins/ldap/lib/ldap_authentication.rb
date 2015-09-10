@@ -136,7 +136,7 @@ class LdapAuthentication
   def self.get_attr(entry, attr_name)
     if !attr_name.blank?
       val = entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
-      charset = Magic.guess_string_mime(val).match(/charset=([^\s]+)/)[1]
+      charset = Magic.guess_string_mime_encoding(val)
       val.encode 'utf-8', charset, invalid: :replace, undef: :replace
     end
   end

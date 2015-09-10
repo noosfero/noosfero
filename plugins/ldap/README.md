@@ -13,6 +13,7 @@ Dependences
 See the Noosfero install file. After install Noosfero, install LDAP dependences:
 
 $ gem install net-ldap -v 0.3.1
+$ sudo apt-get install ruby-magic
 
 Enable Plugin
 -------------
