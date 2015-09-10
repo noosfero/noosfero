@@ -12,7 +12,7 @@ class TextileArticle < TextArticle
     convert_to_html(body)
   end
 
-  def lead
+  def lead(length = nil)
     if abstract.blank?
       super
     else
