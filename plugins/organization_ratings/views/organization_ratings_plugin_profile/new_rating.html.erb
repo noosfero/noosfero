@@ -1,0 +1,18 @@
+<% config = env_organization_ratings_config %>
+<% if logged_in? %>
+  <%= render :partial => "new_rating_fields" %>
+<% else %>
+  <div class="ratings-list">
+    <%= render :partial => "shared/make_report_block" %>
+  </div>
+<% end %>
+
+<div class="ratings-list">
+  <% @users_ratings.each do |user_rate| %>
+    <%= render :partial => "shared/user_rating_container", :locals => {:user_rate => user_rate} %>
+  <% end %>
+</div>
+
+<div id='pagination-profiles'>
+  <%= pagination_links @users_ratings, :param_name => 'npage' %>
+</div>

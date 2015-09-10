@@ -1,0 +1,33 @@
+<div class="user-rating-block">
+  <div class="star-profile-information">
+    <div class="star-profile-image">
+      <%= profile_image(user_rate.person, :portrait) %>
+    </div>
+
+    <div class="star-profile-name">
+      <%= user_rate.person.name %>
+    </div>
+  </div>
+
+  <div class="user-testimony-container">
+    <div class="testimony-rate-date">
+      <%= time_ago_in_words(user_rate.created_at) %>
+    </div>
+
+    <div class="star-container">
+      <% (1..5).each do |rate_number| %>
+        <% if rate_number <=  user_rate.value %>
+          <div class="small-star-positive"></div>
+        <% else %>
+          <div class="small-star-negative"></div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="user-testimony">
+      <%= user_rate.comment.nil? ? _("No comment") : user_rate.comment.body %>
+    </div>
+
+    <%= @plugins.dispatch(:organization_ratings_plugin_extra_fields_show_data, user_rate).collect { |content| instance_exec(&content) }.join("") %>
+  </div>
+</div>

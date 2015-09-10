@@ -1,0 +1,21 @@
+<div class="ratings-title">
+  <%= block_title(block.title) %>
+  <% if block.get_ratings(block.owner.id).empty? %>
+    <div class="ratings-list">
+      <%= render :partial => 'shared/make_report_block' %>
+    </div>
+  <% else %>
+    <div class="ratings-list">
+      <% block.get_ratings(block.owner.id).each_with_index do |r, index| %>
+        <% break if index >= block.limit_number_of_ratings %>
+        <%= render :partial => "shared/user_rating_container", :locals => {:user_rate => r} %>
+      <% end %>
+
+      <%= render :partial => 'shared/make_report_block' %>
+
+      <div class="see-more">
+        <%= link_to _('See more'), url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating'), :class => 'icon-arrow-right-p' %>
+      </div>
+    </div>
+  <% end %>
+</div>

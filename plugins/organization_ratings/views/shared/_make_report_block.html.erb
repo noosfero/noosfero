@@ -1,0 +1,28 @@
+<% logged_in_image = profile_image(current_user.person, :portrait) if current_user %>
+<% logged_out_image = image_tag('plugins/organization_ratings/public/images/user-not-logged.png') %>
+
+<div class="make-report-block">
+  <div class="star-profile-information">
+    <div class="star-profile-image">
+      <%= logged_in? ?  logged_in_image : logged_out_image %>
+    </div>
+
+    <div class="star-profile-name">
+      <%= logged_in? ? current_user.person.name : _('User not logged *') %>
+    </div>
+  </div>
+
+  <div class="make-report-container">
+    <div class="make-report-message">
+      <%= _('Report your experiences.') %>
+    </div>
+
+    <%= render :partial => 'shared/rating_button', :locals => { :disabled => false } %>
+
+    <% unless logged_in? %>
+      <div class="alert">
+        <%= _('* You must be logged in to submit a report.') %>
+      </div>
+    <% end %>
+  </div>
+</div>
