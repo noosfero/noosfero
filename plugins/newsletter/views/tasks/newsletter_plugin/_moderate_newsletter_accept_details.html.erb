@@ -1,0 +1,17 @@
+<% newsletter = NewsletterPlugin::Newsletter.find(task.newsletter_id) %>
+
+<h1><%= _('Check posts you want to include') %></h1>
+
+<div id='newsletter-moderation-preview'>
+  <% newsletter_content = newsletter.body.gsub(/width: 640px;/,'').sub(/#{NewsletterPlugin::Newsletter::CSS['breaking-news-wrap']}/, '') %>
+
+  <% newsletter.posts.each do |post| %>
+    <% input_name = "tasks[#{task.id}][task][post_ids][]" %>
+    <% post_check_box = hidden_field_tag(input_name, '0') +check_box_tag(input_name, post.id, true) %>
+
+    <% newsletter_content.gsub!(/<span id="#{post.id}"/, post_check_box+ '<span') %>
+    <% newsletter_content.gsub!(/<img id="#{post.id}"/, post_check_box+ '<img') %>
+  <% end %>
+
+  <%= newsletter_content %>
+</div>
