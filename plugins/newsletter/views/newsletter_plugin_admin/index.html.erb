@@ -1,0 +1,92 @@
+<h1><%= _('Newsletter settings') %></h1>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<%= error_messages_for :newsletter %>
+
+<%= form_for(:newsletter, html: { multipart: true }) do |f| %>
+  <%= labelled_form_field(
+     content_tag('h3', hidden_field_tag('newsletter[enabled]', false) +
+                  f.check_box('enabled') +
+                  _('Enable send of newsletter to members on this environment'), :id => 'newsletter-enabled-field'),
+    nil)
+  %>
+
+  <%= labelled_form_field(
+    content_tag('span', hidden_field_tag('newsletter[moderated]', false) + f.check_box('moderated') + _('Moderate newsletter each time before sending to users.')), nil)
+  %>
+
+  <h2>
+  <%= _('Content') %>
+  </h2>
+
+  <%= labelled_form_field(
+    _('Period (in days) for news compilation'), f.number_field(:periodicity, min: '0'))
+  %>
+
+  <%= labelled_form_field(
+    _('Number of posts compiled per blog (choose 0 for all posts since last newsletter)'), f.number_field(:posts_per_blog, min: '0'))
+  %>
+
+  <p><%= _('Blogs from which news will be compiled') %></p>
+  <% search_action = url_for(:action => 'search_communities') %>
+  <% selected_blogs = @blogs.map { |blog| {:id => blog.id, :name => _("%s in %s") % [blog.name, blog.profile.name]} } %>
+  <%= token_input_field_tag(
+    'newsletter[blog_ids]', 'search-communities', search_action,
+    { hint_text: _('Type in the communities\' or blogs\' names'),
+      focus: false, pre_populate: selected_blogs }) %>
+
+  <br/>
+
+  <h2>
+  <%= _('Recipients') %>
+  </h2>
+
+  <p>
+    <%= _('You can follow the link below to see which e-mails are currently being used as additional recipients for this newsletter.') %>
+  </p>
+  <p>
+  <%= link_to 'Currently set additional recipients', {action: :recipients}, target: '_blank' %>
+  </p>
+
+  <p><%= _('You can set additional e-mails to send the newsletter to in addition to all environment\'s users that already receive the newsletter by default. To do that, you need to upload a CSV file that contains a column for the person\'s or enterprise\'s name as well as a column with their e-mail.') %></p>
+
+  <%= labelled_form_field(
+    _('Additional recipients for newsletter'), file_field_tag('file[recipients]', accept: '.csv'))
+  %>
+
+  <div id='newsletter-file-options'>
+    <%= labelled_form_field(
+      content_tag('span', check_box_tag('file[headers]', 1, false, disabled: true) + _('The CSV file contains a header row')), nil)
+    %>
+
+    <%= labelled_form_field(
+      _('Number of colunm with name field'), number_field_tag('file[name]', '1', min: '1', disabled: true))
+    %>
+
+    <%= labelled_form_field(
+      _('Number of colunm with email field'), number_field_tag('file[email]', '2', min: '1', disabled: true))
+    %>
+  </div>
+
+  <h2>
+  <%= _('Layout') %>
+  </h2>
+
+  <%= f.fields_for :image_builder, @newsletter.image do |i| %>
+    <%= file_field_or_thumbnail(_('Header image (images with 640px width):'), @newsletter.image, i) %>
+  <% end %>
+
+  <%= labelled_form_field(
+    content_tag('h3', ui_icon('ui-icon-triangle-1-s') +
+                _('Newsletter footer'), :class => 'newsletter-toggle-link', :element_id => '#newsletter-footer-field'),
+    content_tag('div',
+      f.text_area(:footer, :style => 'width: 100%', :class => 'mceEditor'),
+      :id => 'newsletter-footer-field'
+    ))
+  %>
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= submit_button :save, _('Save and visualize'), :name => "visualize", :cancel => {:controller => 'plugins'}  %>
+  <% end %>
+<% end %>
