@@ -63,7 +63,7 @@ class CreateOrganizationRatingComment < Task
 
   def information
     message = _("<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this %{target_class}") %
-    {:requestor_url => url_for(self.requestor.url), :requestor => self.requestor.name, :target_class => self.target.class.name.downcase}
+    {:requestor_url => url_for(self.requestor.url), :requestor => self.requestor.name, :target_class => _(self.target.class.name)}
 
     {:message => message}
   end
@@ -88,20 +88,20 @@ class CreateOrganizationRatingComment < Task
 
   def target_notification_description
     _("%{requestor} wants to create a comment in this \"%{target}\"") %
-    {:requestor => self.requestor.name, :target => self.target.class.name.downcase }
+    {:requestor => self.requestor.name, :target => _(self.target.class.name.downcase) }
   end
 
   def target_notification_message
-    _("User \"%{user}\" just requested to create a comment in the %{target_class}
+    _("User \"%{user}\" requested to create a comment in the %{target_class}
       \"%{target_name}\".
       You have to approve or reject it through the \"Pending Validations\"
       section in your control panel.\n") %
-    { :user => self.requestor.name, :target_class => self.target.class.name.downcase, :target_name => self.target.name }
+    { :user => self.requestor.name, :target_class => _(self.target.class.name.downcase), :target_name => self.target.name }
   end
 
   def task_created_message
     _("Your request for commenting at %{target} was
-      just sent. Environment administrator will receive it and will approve or
+      just sent. The administrator will receive it and will approve or
       reject your request according to his methods and criteria.
       You will be notified as soon as environment administrator has a position
       about your request.") %
@@ -110,16 +110,16 @@ class CreateOrganizationRatingComment < Task
 
   def task_cancelled_message
     _("Your request for commenting at %{target} was
-      not approved by the environment administrator. The following explanation
+      not approved by the administrator. The following explanation
       was given: \n\n%{explanation}") %
     { :target => self.target.name,
       :explanation => self.reject_explanation }
   end
 
   def task_finished_message
-    _('Your request for commenting was approved.
+    _('Your request for commenting at %{target} was approved.
       You can access %{url} to see your comment.') %
-    { :url => ratings_url }
+    { :target => self.target.name, :url => ratings_url }
   end
 
   private

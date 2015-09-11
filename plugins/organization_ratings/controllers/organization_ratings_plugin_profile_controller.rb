@@ -12,7 +12,7 @@ class OrganizationRatingsPluginProfileController < ProfileController
       if @rating_available
         create_new_rate
       else
-        session[:notice] = _("You can not vote on this %s") % profile.class.name
+        session[:notice] = _("You can not vote on this %s") % _(profile.class.name)
       end
     end
   end

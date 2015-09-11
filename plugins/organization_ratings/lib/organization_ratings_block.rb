@@ -6,7 +6,7 @@ class OrganizationRatingsBlock < Block
   end
 
   def help
-    _('This block displays the community ratings.')
+    _('This block displays the organization ratings.')
   end
 
   def content(args = {})
