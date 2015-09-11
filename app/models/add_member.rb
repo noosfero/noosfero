@@ -2,6 +2,9 @@ class AddMember < Task
 
   validates_presence_of :requestor_id, :target_id
 
+  validates :requestor, kind_of: {kind: Person}
+  validates :target, kind_of: {kind: Organization}
+
   alias :person :requestor
   alias :person= :requestor=
 

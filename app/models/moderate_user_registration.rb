@@ -7,6 +7,8 @@ class ModerateUserRegistration < Task
 
   after_create :schedule_spam_checking
 
+  validates :target, kind_of: {kind: Environment}
+
   alias :environment :target
   alias :environment= :target=
 

@@ -1,0 +1,42 @@
+.action-api-playground {
+
+   #api-token {
+     margin-left: 10px;
+     
+     input {
+       font-family: monospace;
+     }
+   }
+
+   .api-param {
+     margin: 5px 0;
+
+     .param-value {
+       margin-left: 10px;
+     }
+   }
+
+   #playground-ctrl {
+     * {
+       vertical-align: middle;
+     }
+   }
+
+   #api-response {
+     color: #000;
+     border: 1px solid rgba(0,0,0,0.3);
+     padding: 10px 15px;
+     box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+     &.empty {
+       border: none;
+       Xbox-shadow: none;
+     }
+     &.full {
+       background: #E0E8EF;
+     }
+     &.fail {
+       background: #EDD;
+     }
+   }
+
+}

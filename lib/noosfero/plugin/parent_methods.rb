@@ -54,6 +54,11 @@ class Noosfero::Plugin
       File.exists?(File.join(root_path, 'controllers', "#{self.identifier}_admin_controller.rb"))
     end
 
+    # -> define grape class used to map resource api provided by the plugin
+    def api_mount_points
+      []
+    end
+
     def controllers
       @controllers ||= Dir.glob("#{self.root_path}/controllers/*/*").map do |controller_file|
         next unless controller_file =~ /_controller.rb$/

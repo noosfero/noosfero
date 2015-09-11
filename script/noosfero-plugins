@@ -17,7 +17,7 @@ fi
 available_plugins_dir="$NOOSFERO_DIR/plugins"
 enabled_plugins_dir="$NOOSFERO_DIR/config/plugins"
 base_plugins_dir="$NOOSFERO_DIR/baseplugins"
-available_plugins=$(find "$available_plugins_dir" -maxdepth 1 -mindepth 1 -type d -not -name 'template' -printf '%f\n' | sort)
+available_plugins=$(find -L "$available_plugins_dir" -maxdepth 1 -mindepth 1 -type d -not -name 'template' -printf '%f\n' | sort)
 enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 base_plugins=$(find -L "$base_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 

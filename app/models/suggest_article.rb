@@ -41,6 +41,7 @@ class SuggestArticle < Task
       return type if type < Article
     end
     TinyMceArticle
+    (article[:type] || 'TinyMceArticle').constantize
   end
 
   def perform
@@ -91,4 +92,5 @@ class SuggestArticle < Task
   def after_ham!
     self.delay.marked_as_ham
   end
+
 end

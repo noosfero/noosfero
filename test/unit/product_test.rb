@@ -577,4 +577,68 @@ class ProductTest < ActiveSupport::TestCase
     assert_includes products, p3
   end
 
+  should 'fetch products from organizations that are visible for a user' do
+    person = create_user('some-person').person
+    admin = create_user('some-admin').person
+    env_admin = create_user('env-admin').person
+    env = Environment.default
+
+    e1 = fast_create(Enterprise, :public_profile => true , :visible => true)
+    p1 = fast_create(Product, :profile_id => e1.id)
+    e1.affiliate(admin, Profile::Roles.admin(env.id))
+    e1.affiliate(person, Profile::Roles.member(env.id))
+
+    e2 = fast_create(Enterprise, :public_profile => true , :visible => true)
+    p2 = fast_create(Product, :profile_id => e2.id)
+    e3 = fast_create(Enterprise, :public_profile => false, :visible => true)
+    p3 = fast_create(Product, :profile_id => e3.id)
+
+    e4 = fast_create(Enterprise, :public_profile => false, :visible => true)
+    p4 = fast_create(Product, :profile_id => e4.id)
+    e4.affiliate(admin, Profile::Roles.admin(env.id))
+    e4.affiliate(person, Profile::Roles.member(env.id))
+
+    e5 = fast_create(Enterprise, :public_profile => true, :visible => false)
+    p5 = fast_create(Product, :profile_id => e5.id)
+    e5.affiliate(admin, Profile::Roles.admin(env.id))
+    e5.affiliate(person, Profile::Roles.member(env.id))
+
+    e6 = fast_create(Enterprise, :enabled => false, :visible => true)
+    p6 = fast_create(Product, :profile_id => e6.id)
+    e6.affiliate(admin, Profile::Roles.admin(env.id))
+
+    e7 = fast_create(Enterprise, :public_profile => false, :visible => false)
+    p7 = fast_create(Product, :profile_id => e7.id)
+
+    Environment.default.add_admin(env_admin)
+
+    products_person    = Product.visible_for_person(person)
+    products_admin     = Product.visible_for_person(admin)
+    products_env_admin = Product.visible_for_person(env_admin)
+
+    assert_includes     products_person,    p1
+    assert_includes     products_admin,     p1
+    assert_includes     products_env_admin, p1
+
+    assert_includes     products_person,    p2
+    assert_includes     products_env_admin, p2
+    assert_not_includes products_person,    p3
+    assert_includes     products_env_admin, p3
+
+    assert_includes     products_person,    p4
+    assert_includes     products_admin,     p4
+    assert_includes     products_env_admin, p4
+
+    assert_not_includes products_person,    p5
+    assert_includes     products_admin,     p5
+    assert_includes     products_env_admin, p5
+
+    assert_not_includes products_person,    p6
+    assert_includes     products_admin,     p6
+    assert_includes     products_env_admin, p6
+
+    assert_not_includes products_person,    p7
+    assert_includes     products_env_admin, p7
+  end
+
 end

@@ -3,6 +3,9 @@ class CreateCommunity < Task
   validates_presence_of :requestor_id, :target_id
   validates_presence_of :name
 
+  validates :requestor, kind_of: {kind: Person}
+  validates :target, kind_of: {kind: Environment}
+
   alias :environment :target
   alias :environment= :target=
 

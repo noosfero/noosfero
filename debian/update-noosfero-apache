@@ -2,20 +2,9 @@
 
 set -e
 
-# automatically update configuration, but if package noosfero is also installed
+# automatically update configuration, but only if package noosfero is also
+# installed
 if test -x /usr/share/noosfero/script/apacheconf; then
-  datadir="/etc/noosfero/apache"
-  mongrel_file="$datadir/mongrel.conf"
-  cluster_file="$datadir/cluster.conf"
-  if test -e "$cluster_file"; then
-    echo "Overwriting $cluster_file ..."
-  fi
-  /usr/share/noosfero/script/apacheconf thin > "$cluster_file"
-  if test -e "$mongrel_file"; then
-    echo "Moving existing $mongrel_file away ..."
-    mv "$mongrel_file" "$mongrel_file".bak
-    (cd $datadir && ln -sf cluster.conf mongrel.conf)
-  fi
 
   apache_site='/etc/apache2/sites-available/noosfero'
   if ! test -e "$apache_site"; then

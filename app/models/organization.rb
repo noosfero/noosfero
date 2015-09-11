@@ -8,6 +8,30 @@ class Organization < Profile
     :display => %w[compact]
   }
 
+  # An Organization is considered visible to a given person if one of the
+  # following conditions are met:
+  #   1) The user is an environment administrator.
+  #   2) The user is an administrator of the organization.
+  #   3) The user is a member of the organization and the organization is
+  #   visible.
+  #   4) The user is not a member of the organization but the organization is
+  #   visible, public and enabled.
+  def self.visible_for_person(person)
+    joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = "profiles"."id"
+          AND "role_assignments"."resource_type" = \'Profile\') OR (
+          "role_assignments"."resource_id" = "profiles"."environment_id" AND
+          "role_assignments"."resource_type" = \'Environment\' )')
+    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
+    .where(
+      ['( (roles.key = ? OR roles.key = ?) AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? )
+        OR
+        ( ( ( role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR
+            ( profiles.public_profile = ? AND profiles.enabled = ? ) ) AND
+          ( profiles.visible = ? ) )',
+      'profile_admin', 'environment_administrator', Profile.name, person.id,
+      Profile.name, person.id,  true, true, true]
+    ).uniq
+  end
 
   settings_items :closed, :type => :boolean, :default => false
   def closed?

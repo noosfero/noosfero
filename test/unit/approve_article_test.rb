@@ -9,6 +9,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     @profile = create_user('test_user').person
     @article = fast_create(TextileArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
     @community = fast_create(Community)
+    @community.add_member(@profile)
   end
   attr_reader :profile, :article, :community
 
@@ -251,6 +252,8 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'not group trackers activity of article\'s creation' do
+    other_community = fast_create(Community)
+    other_community.add_member(profile)
     ActionTracker::Record.delete_all
 
     article = fast_create(TextileArticle)
@@ -262,20 +265,20 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a.finish
 
     article = fast_create(TextileArticle)
-    other_community = fast_create(Community)
     a = create(ApproveArticle, :name => 'another bar', :article => article, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 3, ActionTracker::Record.count
   end
 
   should 'not create trackers activity when updating articles' do
+    other_community = fast_create(Community)
+    other_community.add_member(profile)
     ActionTracker::Record.delete_all
     article1 = fast_create(TextileArticle)
     a = create(ApproveArticle, :name => 'bar', :article => article1, :target => community, :requestor => profile)
     a.finish
 
     article2 = fast_create(TinyMceArticle)
-    other_community = fast_create(Community)
     a = create(ApproveArticle, :name => 'another bar', :article => article2, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 2, ActionTracker::Record.count
@@ -283,7 +286,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_no_difference 'ActionTracker::Record.count' do
       published = article1.class.last
       published.name = 'foo';published.save!
-  
+
       published = article2.class.last
       published.name = 'another foo';published.save!
     end
@@ -307,7 +310,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     person = fast_create(Person)
     person.stubs(:notification_emails).returns(['target@example.org'])
 
-    a = create(ApproveArticle, :article => article, :target => person, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => person, :requestor => person)
     a.finish
 
     approved_article = person.articles.find_by_name(article.name)
@@ -427,7 +430,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article = fast_create(Article)
     profile.domains << create(Domain, :name => 'example.org')
     assert_nothing_raised do
-      create(ApproveArticle, :article => article, :target => profile, :requestor => community)
+      create(ApproveArticle, :article => article, :target => profile, :requestor => profile)
     end
   end
 
@@ -440,4 +443,47 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_equal article, LinkArticle.last.reference_article
   end
 
+  should 'not allow non-person requestor' do
+    task = ApproveArticle.new(:requestor => Community.new)
+    task.valid?
+    assert task.invalid?(:requestor)
+  end
+
+  should 'allow only self requestors when the target is a person' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    t1 = ApproveArticle.new(:requestor => person, :target => person)
+    t2 = ApproveArticle.new(:requestor => another_person, :target => person)
+
+    assert t1.valid?
+    assert !t2.valid?
+    assert t2.invalid?(:requestor)
+  end
+
+  should 'allow only members to be requestors when target is a community' do
+    community = fast_create(Community)
+    member = fast_create(Person)
+    community.add_member(member)
+    non_member = fast_create(Person)
+
+    t1 = ApproveArticle.new(:requestor => member, :target => community)
+    t2 = ApproveArticle.new(:requestor => non_member, :target => community)
+
+    assert t1.valid?
+    assert !t2.valid?
+    assert t2.invalid?(:requestor)
+  end
+
+  should 'allow any user to be requestor whe the target is the portal community' do
+    community = fast_create(Community)
+    environment = community.environment
+    environment.portal_community = community
+    environment.save!
+    person = fast_create(Person)
+
+    task = ApproveArticle.new(:requestor => person, :target => community)
+
+    assert task.valid?
+  end
 end

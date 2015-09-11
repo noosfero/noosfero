@@ -8,7 +8,7 @@ gem 'rmagick',                  '~> 2.13.1'
 gem 'RedCloth',                 '~> 4.2.9'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1.5'
-gem 'thin',                     '~> 1.3.1'
+gem 'unicorn',                  '~> 4.8'
 gem 'nokogiri',                 '~> 1.6.0'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu',   '~> 3.2.16'
@@ -21,6 +21,13 @@ gem 'gettext',                  '~> 2.2.1', :require => false
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
+
+# API dependencies
+gem 'grape',                    '~> 0.12'
+gem 'grape-entity'
+gem 'grape_logging'
+gem 'rack-cors'
+gem 'rack-contrib'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'

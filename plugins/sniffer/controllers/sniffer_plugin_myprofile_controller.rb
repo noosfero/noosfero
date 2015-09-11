@@ -38,7 +38,7 @@ class SnifferPluginMyprofileController < MyProfileController
     response[:enterprises] = product_category.sniffer_plugin_enterprises.enabled.visible.map do |enterprise|
       profile_data = filter_visible_attr_profile(enterprise)
       profile_data[:balloonUrl] = url_for :controller => :sniffer_plugin_myprofile, :action => :map_balloon, :id => enterprise[:id], :escape => false
-      profile_data[:sniffer_plugin_distance] = distance_between_profiles(@profile, enterprise)
+      profile_data[:sniffer_plugin_distance] = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, enterprise.lat, enterprise.lng)
       profile_data[:suppliersProducts] = filter_visible_attr_suppliers_products(
         enterprise.products.sniffer_plugin_products_from_category(product_category)
       )
@@ -109,7 +109,7 @@ class SnifferPluginMyprofileController < MyProfileController
     profiles = Profile.all :conditions => {:id => products.map { |p| target_profile_id(p) }}
     profiles_by_id = {}
     profiles.each do |p|
-      p.sniffer_plugin_distance = distance_between_profiles(@profile, p)
+      p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
       profiles_by_id[p.id] ||= p
     end
     profiles_by_id

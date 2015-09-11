@@ -26,12 +26,10 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   def test_edit
-    cat = Category.new
-    env.categories.expects(:find).with('1').returns(cat)
-    get :edit, :id => '1'
+    get :edit, :id => cat1
     assert_response :success
     assert_template 'edit'
-    assert_equal cat, assigns(:category)
+    assert_equal cat1, assigns(:category)
   end
 
   def test_edit_save

@@ -20,6 +20,8 @@ class Comment < ActiveRecord::Base
 
   scope :without_reply, -> { where 'reply_of_id IS NULL' }
 
+  include TimeScopes
+
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
   validates_presence_of :email, :if => (lambda { |record| !record.name.blank? })
@@ -65,6 +67,11 @@ class Comment < ActiveRecord::Base
 
   def author_url
     author ? author.url : nil
+  end
+
+  #FIXME make this test
+  def author_custom_image(size = :icon)
+    author ? author.profile_custom_image(size) : nil
   end
 
   def url
