@@ -34,19 +34,19 @@ class Event < Article
     end
   end
 
-  scope :by_day, -> (date) {
+  scope :by_day, ->(date) {
     where('start_date >= :start_date AND start_date <= :end_date AND end_date IS NULL OR (start_date <= :end_date  AND end_date >= :start_date)',
           start_date: date.beginning_of_day, end_date: date.end_of_day).
     order('start_date ASC')
   }
 
-  scope :next_events_from_month, -> (date) {
+  scope :next_events_from_month, ->(date) {
     date_temp = date.strftime("%Y-%m-%d")
     order('start_date ASC')
     .where("start_date >= ?","#{date_temp}")
   }
 
-  scope :by_month, -> (date) {
+  scope :by_month, ->(date) {
     order('start_date ASC')
     .where("EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?", date.year, date.month)
   }
@@ -69,7 +69,7 @@ class Event < Article
     'event'
   end
 
-  scope :by_range, -> (range) {
+  scope :by_range, ->(range) {
     where('start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
       {:start_day => range.first, :end_day => range.last})
   }

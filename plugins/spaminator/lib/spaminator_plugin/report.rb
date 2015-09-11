@@ -8,7 +8,7 @@ class SpaminatorPlugin::Report < ActiveRecord::Base
 
   attr_accessible :environment
 
-  scope :from_environment, -> (environment) { where :environment_id => environment }
+  scope :from_environment, ->(environment) { where :environment_id => environment }
 
   after_initialize do |report|
     report.failed = {:people => [], :comments => []} if report.failed.blank?

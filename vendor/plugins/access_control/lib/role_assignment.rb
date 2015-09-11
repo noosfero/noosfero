@@ -9,11 +9,11 @@ class RoleAssignment < ActiveRecord::Base
   validates_presence_of :role, :accessor
 
   track_actions :join_community, :after_create, :keep_params => ["resource.name", "resource.url", "resource.profile_custom_icon"],
-    if: -> (x) { x.resource.is_a?(Community) && x.accessor.role_assignments.where(resource_id: x.resource.id, resource_type: 'Profile').count == 1 },
+    if: ->(x) { x.resource.is_a?(Community) && x.accessor.role_assignments.where(resource_id: x.resource.id, resource_type: 'Profile').count == 1 },
     :custom_user => :accessor, :custom_target => :resource
 
   track_actions :add_member_in_community, :after_create,
-    if: -> (x) { x.resource.is_a?(Community) && x.accessor.role_assignments.where(resource_id: x.resource.id, resource_type: 'Profile').count == 1 },
+    if: ->(x) { x.resource.is_a?(Community) && x.accessor.role_assignments.where(resource_id: x.resource.id, resource_type: 'Profile').count == 1 },
     :custom_user => :accessor, :custom_target => :resource
 
   def has_permission?(perm, res)

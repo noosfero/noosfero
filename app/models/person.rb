@@ -16,24 +16,24 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
-  scope :members_of, -> (resources) {
+  scope :members_of, ->(resources) {
     resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     select('DISTINCT profiles.*').joins(:role_assignments).where([conditions])
   }
 
-  scope :not_members_of, -> (resources) {
+  scope :not_members_of, ->(resources) {
     resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     select('DISTINCT profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions)
   }
 
-  scope :by_role, -> (roles) {
+  scope :by_role, ->(roles) {
     roles = Array(roles)
     select('DISTINCT profiles.*').joins(:role_assignments).where('role_assignments.role_id IN (?)', roles)
   }
 
-  scope :not_friends_of, -> (resources) {
+  scope :not_friends_of, ->(resources) {
     resources = Array(resources)
     select('DISTINCT profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id))
   }
@@ -70,7 +70,7 @@ class Person < Profile
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
-  scope :online, -> {
+  scope :online, ->{
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
   }
 
@@ -89,27 +89,27 @@ class Person < Profile
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
   has_many :suggested_profiles, class_name: 'ProfileSuggestion', foreign_key: :person_id, order: 'score DESC', dependent: :destroy
-  has_many :suggested_people, -> {
+  has_many :suggested_people, ->{
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Person', true
   }, through: :suggested_profiles, source: :suggestion
-  has_many :suggested_communities, -> {
+  has_many :suggested_communities, ->{
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Community', true
   }, through: :suggested_profiles, source: :suggestion
 
-  scope :more_popular, -> { order 'friends_count DESC' }
+  scope :more_popular, ->{ order 'friends_count DESC' }
 
-  scope :abusers, -> {
+  scope :abusers, ->{
     joins(:abuse_complaints).where('tasks.status = 3').select('DISTINCT profiles.*')
   }
-  scope :non_abusers, -> {
+  scope :non_abusers, ->{
     select("DISTINCT profiles.*").
     joins("LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'").
     where("tasks.status != 3 OR tasks.id is NULL")
   }
 
-  scope :admins, -> { joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }
-  scope :activated, -> { joins(:user).where('users.activation_code IS NULL AND users.activated_at IS NOT NULL') }
-  scope :deactivated, -> { joins(:user).where('NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)') }
+  scope :admins, ->{ joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }
+  scope :activated, ->{ joins(:user).where('users.activation_code IS NULL AND users.activated_at IS NOT NULL') }
+  scope :deactivated, ->{ joins(:user).where('NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)') }
 
   after_destroy do |person|
     Friendship.where(friend_id: person.id).each{ |friendship| friendship.destroy }

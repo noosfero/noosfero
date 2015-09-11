@@ -87,28 +87,28 @@ class Profile < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
-  scope :memberships_of, -> (person) {
+  scope :memberships_of, ->(person) {
     select('DISTINCT profiles.*').
     joins(:role_assignments).
     where('role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id)
   }
   #FIXME: these will work only if the subclass is already loaded
-  scope :enterprises, -> {
+  scope :enterprises, ->{
     where((Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR "))
   }
-  scope :communities, -> {
+  scope :communities, ->{
     where((Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR "))
   }
-  scope :templates, -> (template_id = nil) {
+  scope :templates, ->(template_id = nil) {
     s = where is_template: true
     s = s.where id: template_id if template_id
     s
   }
 
-  scope :with_templates, -> (templates) {
+  scope :with_templates, ->(templates) {
     where template_id: templates
   }
-  scope :no_templates, -> { where is_template: false }
+  scope :no_templates, ->{ where is_template: false }
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
@@ -141,10 +141,10 @@ class Profile < ActiveRecord::Base
     Profile.column_names.map{|n| [Profile.table_name, n].join('.')}.join(',')
   end
 
-  scope :visible, -> { where visible: true, secret: false }
-  scope :disabled, -> { where visible: false }
-  scope :is_public, -> { where visible: true, public_profile: true, secret: false }
-  scope :enabled, -> { where enabled: true }
+  scope :visible, ->{ where visible: true, secret: false }
+  scope :disabled, ->{ where visible: false }
+  scope :is_public, ->{ where visible: true, public_profile: true, secret: false }
+  scope :enabled, ->{ where enabled: true }
 
   # Subclasses must override this method
   scope :more_popular
@@ -245,7 +245,7 @@ class Profile < ActiveRecord::Base
     end
   end
 
-  has_many :profile_categorizations, -> { where 'categories_profiles.virtual = ?', false }
+  has_many :profile_categorizations, ->{ where 'categories_profiles.virtual = ?', false }
   has_many :categories, :through => :profile_categorizations
 
   has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'

@@ -74,7 +74,7 @@ class Article < ActiveRecord::Base
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
-  has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
+  has_many :article_categorizations, ->{ where 'articles_categories.virtual = ?', false }
   has_many :categories, :through => :article_categorizations
 
   has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
@@ -126,11 +126,11 @@ class Article < ActiveRecord::Base
 
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
-  scope :in_category, -> (category) {
+  scope :in_category, ->(category) {
     includes('categories_including_virtual').where('categories.id' => category.id)
   }
 
-  scope :by_range, -> (range) {
+  scope :by_range, ->(range) {
     where 'articles.published_at BETWEEN :start_date AND :end_date', { start_date: range.first, end_date: range.last }
   }
 
@@ -254,16 +254,16 @@ class Article < ActiveRecord::Base
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  scope :top_level_for, -> (profile) {
+  scope :top_level_for, ->(profile) {
     where 'parent_id is null and profile_id = ?', profile.id
   }
 
-  scope :is_public, -> {
+  scope :is_public, ->{
     joins(:profile).
     where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true)
   }
 
-  scope :more_recent, -> {
+  scope :more_recent, ->{
     order('articles.published_at desc, articles.id desc')
     .where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
     ((articles.type != ?) OR articles.type is NULL)",
@@ -276,8 +276,8 @@ class Article < ActiveRecord::Base
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  scope :more_popular, -> { order 'hits DESC' }
-  scope :relevant_as_recent, -> {
+  scope :more_popular, ->{ order 'hits DESC' }
+  scope :relevant_as_recent, ->{
    where "(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"
   }
 
@@ -408,7 +408,7 @@ class Article < ActiveRecord::Base
     self.translations.map(&:language)
   end
 
-  scope :native_translations, -> { where :translation_of_id => nil }
+  scope :native_translations, ->{ where :translation_of_id => nil }
 
   def translatable?
     false
@@ -487,19 +487,19 @@ class Article < ActiveRecord::Base
     ['TextArticle', 'TextileArticle', 'TinyMceArticle']
   end
 
-  scope :published, -> { where 'articles.published = ?', true }
-  scope :folders, -> (profile) { where 'articles.type IN (?)', profile.folder_types }
-  scope :no_folders, -> (profile) { where 'articles.type NOT IN (?)', profile.folder_types }
-  scope :galleries, -> { where "articles.type IN ('Gallery')" }
-  scope :images, -> { where :is_image => true }
-  scope :no_images, -> { where :is_image => false }
-  scope :text_articles, -> { where 'articles.type IN (?)', text_article_types }
-  scope :files, -> { where :type => 'UploadedFile' }
-  scope :with_types, -> (types) { where 'articles.type IN (?)', types }
+  scope :published, ->{ where 'articles.published = ?', true }
+  scope :folders, ->(profile) { where 'articles.type IN (?)', profile.folder_types }
+  scope :no_folders, ->(profile) { where 'articles.type NOT IN (?)', profile.folder_types }
+  scope :galleries, ->{ where "articles.type IN ('Gallery')" }
+  scope :images, ->{ where :is_image => true }
+  scope :no_images, ->{ where :is_image => false }
+  scope :text_articles, ->{ where 'articles.type IN (?)', text_article_types }
+  scope :files, ->{ where :type => 'UploadedFile' }
+  scope :with_types, ->(types) { where 'articles.type IN (?)', types }
 
-  scope :more_popular, -> { order 'hits DESC' }
-  scope :more_comments, -> { order "comments_count DESC" }
-  scope :more_recent, -> { order "created_at DESC" }
+  scope :more_popular, ->{ order 'hits DESC' }
+  scope :more_comments, ->{ order "comments_count DESC" }
+  scope :more_recent, ->{ order "created_at DESC" }
 
   scope :display_filter, lambda {|user, profile|
     return published if (user.nil? && profile && profile.public?)

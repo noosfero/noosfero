@@ -236,16 +236,16 @@ class Task < ActiveRecord::Base
     end
   end
 
-  scope :pending, -> { where status: Task::Status::ACTIVE }
-  scope :hidden, -> { where status: Task::Status::HIDDEN }
-  scope :finished, -> { where status: Task::Status::FINISHED }
-  scope :canceled, -> { where status: Task::Status::CANCELLED }
-  scope :closed, -> { where status: [Task::Status::CANCELLED, Task::Status::FINISHED] }
-  scope :opened, -> { where status: [Task::Status::ACTIVE, Task::Status::HIDDEN] }
-  scope :of, -> (type) { where "type LIKE ?", type if type }
-  scope :order_by, -> (attribute, ord) { order "#{attribute} #{ord}" }
-  scope :like, -> (field, value) { where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%" if value }
-  scope :pending_all, -> (profile, filter_type, filter_text) {
+  scope :pending, ->{ where status: Task::Status::ACTIVE }
+  scope :hidden, ->{ where status: Task::Status::HIDDEN }
+  scope :finished, ->{ where status: Task::Status::FINISHED }
+  scope :canceled, ->{ where status: Task::Status::CANCELLED }
+  scope :closed, ->{ where status: [Task::Status::CANCELLED, Task::Status::FINISHED] }
+  scope :opened, ->{ where status: [Task::Status::ACTIVE, Task::Status::HIDDEN] }
+  scope :of, ->(type) { where "type LIKE ?", type if type }
+  scope :order_by, ->(attribute, ord) { order "#{attribute} #{ord}" }
+  scope :like, ->(field, value) { where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%" if value }
+  scope :pending_all, ->(profile, filter_type, filter_text) {
     self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
   }
 
@@ -306,7 +306,7 @@ class Task < ActiveRecord::Base
   # specified code AND with status = Task::Status::ACTIVE.
   #
   # Can be used in subclasses to find only their instances.
-  scope :from_code, -> (code) { where code: code, status: Task::Status::ACTIVE }
+  scope :from_code, ->(code) { where code: code, status: Task::Status::ACTIVE }
 
   class << self
 

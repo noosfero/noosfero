@@ -8,8 +8,8 @@ class BscPlugin::Contract < ActiveRecord::Base
 
   belongs_to :bsc, :class_name => 'BscPlugin::Bsc'
 
-  named_scope :status, -> (status_list) { where 'status in (?)', status_list if status_list.present? }
-  named_scope :sorted_by, -> (sorter, direction) { order "#{sorter} #{direction}" }
+  named_scope :status, ->(status_list) { where 'status in (?)', status_list if status_list.present? }
+  named_scope :sorted_by, ->(sorter, direction) { order "#{sorter} #{direction}" }
 
   before_create do |contract|
     contract.created_at ||= Time.now.utc

@@ -6,14 +6,14 @@ class ProductCategory < Category
   attr_accessible :name, :parent, :environment
 
   scope :unique, :select => 'DISTINCT ON (path) categories.*'
-  scope :by_enterprise, -> (enterprise) {
+  scope :by_enterprise, ->(enterprise) {
     joins(:products).
     where('products.profile_id = ?', enterprise.id)
   }
-  scope :by_environment, -> (environment) {
+  scope :by_environment, ->(environment) {
     where 'environment_id = ?', environment.id
   }
-  scope :unique_by_level, -> (level) {
+  scope :unique_by_level, ->(level) {
     select "DISTINCT ON (filtered_category) split_part(path, '/', #{level}) AS filtered_category, categories.*"
   }
 

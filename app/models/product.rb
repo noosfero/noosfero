@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
 
   scope :more_recent, :order => "created_at DESC"
 
-  scope :from_category, -> (category) {
+  scope :from_category, ->(category) {
     joins(:product_category).where('categories.path LIKE ?', "%#{category.slug}%") if category
   }
 
