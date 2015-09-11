@@ -88,6 +88,7 @@ Mariel Zasso <noosfero-br@listas.softwarelivre.org>
 Martín Olivera <molivera@solar.org.ar>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
+Melissa Wen <melissa@colivre.coop.br>
 M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
 Michel Felipe <mfelipeof@gmail.com>
