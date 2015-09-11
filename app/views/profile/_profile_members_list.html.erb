@@ -1,0 +1,16 @@
+<div id="profile-members-sort-options">
+  <%= label_tag("sort-#{role}", _("Sort by:")) %>
+  <%= select_tag("sort-#{role}",
+    options_for_select([
+      [_("Name A-Z"), 'asc'],
+      [_("Name Z-A"), 'desc'],
+    ], :selected => params[:sort])
+  ) %>
+</div>
+<ul class="profile-list-<%= role %>" >
+  <% users.each do |u| %>
+    <%= profile_image_link(u) %>
+  <% end %>
+</ul>
+
+<%= pagination_links users, :param_name => 'npage' %>

@@ -1,0 +1,200 @@
+.star-container {
+  width: 100%;
+  height: 20px;
+}
+
+.star-negative, .star-positive {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  margin-right: 2px;
+  position: relative;
+  float: left;
+  cursor: pointer;
+}
+
+.star-negative {
+  background-image: url('public/images/star-negative.png');
+}
+
+.star-positive {
+  background-image: url('public/images/star-positive.png');
+}
+
+.small-star-negative, .small-star-positive {
+  background-repeat: no-repeat;
+  float: left;
+  height: 15px;
+  margin-right: 2px;
+  position: relative;
+  width: 15px;
+}
+
+.small-star-negative {
+  background-image: url('public/images/small-star-negative.png');
+}
+
+.small-star-positive {
+  background-image: url('public/images/small-star-positive.png');
+}
+
+.medium-star-negative, .medium-star-positive {
+  background-repeat: no-repeat;
+  float: left;
+  height: 20px;
+  margin-right: 2px;
+  position: relative;
+  width: 20px;
+}
+
+.medium-star-positive {
+  background-image: url('public/images/star-positive-medium.png');
+}
+
+.medium-star-negative {
+  background-image: url('public/images/star-negative-medium.png');
+}
+
+.star-hide {
+  display: none;
+}
+
+.organization-average-rating-container {
+  border-top: 1px dotted #D3D6DE;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.organization-average-rating-container .star-rate-text {
+  float: left;
+  margin-right: 10px;
+  padding-top: 5px;
+}
+
+.organization-average-rating-container .rating-invitation {
+  font-size: 14px;
+  float: left;
+  margin-right: 10px;
+  padding-top: 3px;
+}
+
+.organization-average-rating-container .star-container {
+  float: left;
+  width: 120px;
+}
+
+.organization-average-rating-container .rate-this-organization {
+  border-left: 1px dotted #D3D6DE;
+  float: left;
+  padding: 4px 0px 2px 10px;
+}
+
+.star-rate-data {
+  width: 100%;
+  padding-top: 20px;
+  position: relative;
+  overflow: auto;
+}
+
+.star-profile-information, .star-rate-form {
+  display: table-cell;
+  vertical-align: top;
+  width: 362px;
+}
+
+.star-profile-information {
+  width: 134px;
+}
+
+.star-rate-form {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.star-profile-image, .star-profile-name {
+  text-align: center;
+}
+
+.star-profile-name {
+  word-break: break-word;
+  margin: auto;
+  margin-top: 5px;
+  width: 66px;
+}
+
+.star-rate-data .star-rate-form .star-comment-container .formfield textarea {
+  width: 361px;
+}
+
+/************* Users ratings list ****************/
+
+.ratings-list .user-rating-block,
+.ratings-list .make-report-block {
+  border-top: 1px solid #D3D6DE;
+  margin-top: 25px;
+  padding-top: 20px;
+}
+
+.ratings-list .make-report-block {
+  padding-bottom: 25px;
+}
+
+.ratings-list .see-more{
+  border-top: 1px solid #D3D6DE;
+}
+.ratings-list .user-rating-block .user-testimony-container {
+  display: table-cell;
+  padding-left: 20px;
+}
+
+.ratings-list .make-report-block .make-report-container {
+  display: table-cell;
+}
+
+.ratings-list .user-rating-block .user-testimony-container .star-container {
+  display: table-cell;
+}
+
+.ratings-list .user-rating-block .user-testimony-container .testimony-rate-date {
+  display: table-cell;
+  max-width: 95px;
+  min-width: 95px;
+  padding-right: 160px;
+  white-space: nowrap;
+}
+
+.ratings-list .user-rating-block .user-testimony-container .user-testimony {
+  margin-top: 10px;
+  word-break: break-word;
+}
+
+.ratings-list .make-report-block .make-report-container .make-report-message {
+  font-size: 14px;
+  font-style: italic;
+  word-break: break-word;
+}
+
+.ratings-list .make-report-block .make-report-container .button-bar {
+  overflow: auto;
+  padding-top: 15px;
+}
+
+.ratings-list .user-rating-block .star-profile-information {
+  border-right: 1px dotted #D3D6DE;
+}
+
+.ratings-list .icon-arrow-right-p {
+  background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
+  display: block;
+  float: right;
+  margin-top: 20px;
+  padding-right: 15px;
+}
+
+.task_information .comment {
+  padding-left: 60px;
+}
+
+.average-rating-block {
+  height: 55px;
+}

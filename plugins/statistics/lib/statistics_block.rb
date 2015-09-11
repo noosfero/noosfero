@@ -128,11 +128,12 @@ class StatisticsBlock < Block
     end
   end
 
+  include Noosfero::Plugin::HotSpot
   def comments
     if owner.kind_of?(Environment) then
-      owner.profiles.joins(:articles).sum(:comments_count).to_i
+      owner.articles.sum(:comments_count).to_i + plugins.dispatch(:more_comments_count, owner).first.to_i
     elsif owner.kind_of?(Profile) then
-      owner.articles.sum(:comments_count)
+      owner.articles.sum(:comments_count) + plugins.dispatch(:more_comments_count, owner).first.to_i
     else
       0
     end

@@ -1,0 +1,80 @@
+<% min_rate = env_organization_ratings_config.minimum_ratings %>
+<% default_rating = env_organization_ratings_config.default_rating %>
+
+<div class="star-page-title">
+  <%= @plugins.dispatch(:organization_ratings_title).collect { |content| instance_exec(&content) }.join("") %>
+</div>
+
+<div class="star-rate-data">
+
+  <div class="star-profile-information">
+    <div class="star-profile-image">
+      <%= profile_image(current_user.person, :portrait) %>
+    </div>
+
+    <div class="star-profile-name">
+      <%= current_user.name %>
+    </div>
+  </div>
+
+  <% if @rating_available %>
+    <div class="star-rate-form">
+      <div data-rate-url=<%= url_for controller: "organization_ratings_plugin_profile", :action => "rate" %>>
+        <div class="star-rate-text">
+          <%= @plugins.dispatch(:organization_ratings_plugin_star_message).collect { |content| instance_exec(&content) }.join("") %>
+        </div>
+
+        <div class="star-container" data-min-rate="<%= min_rate %>">
+
+          <% (1..5).each do |rate_number| %>
+            <% if rate_number <= default_rating %>
+              <div class="star-positive" data-star-rate="<%= rate_number %>"></div>
+            <% else %>
+              <div class="star-negative" data-star-rate="<%= rate_number %>"></div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="star-notice star-hide">
+          <%= _("Rated as") %> <span></span> <%= _("stars") %>
+        </div>
+      </div>
+
+      <div class="star-comment-container">
+        <%= form_for :comments do |c| %>
+          <div class="formfieldline formfield type-text">
+              <%= c.label :body, _('Comment (Optional):'), :class => "formlabel" %>
+              <%= c.text_area :body %>
+          </div>
+
+          <%= @plugins.dispatch(:organization_ratings_plugin_comments_extra_fields).collect { |content| instance_exec(&content) }.join("") %>
+
+          <div class="button-bar">
+            <%= submit_button(:save, _('Save'), :cancel => {controller: 'profile', action: 'index'}) %>
+          </div>
+
+          <input type="hidden" id="selected-star-rate" name="organization_rating_value" value="<%=  @default_rate %>">
+          <input type="hidden" id="minimum_stars" name="organization_rating_min_value" value="<%= min_rate %>">
+        <% end %>
+      </div>
+
+    <% elsif env_organization_ratings_config.vote_once %>
+      <div class="star-rate-form rating-vote-once">
+        <%= _("Hi, %s! The administrators set that you can vote") % current_user.name %>
+        <strong><%= _("only once") %></strong>
+        <%= _("for this %s.") % profile.class.name.downcase %>
+        <%= render :partial => 'shared/rating_button', :locals => { :disabled => true } %>
+      </div>
+    <% else %>
+      <div class="star-rate-form rating-cooldown">
+        <%= _("Hi, %s! The administrators set the minimum time of") % current_user.name %>
+        <strong><%= _("%s hour(s)" % env_organization_ratings_config.cooldown) %></strong>
+        <%= _("between each evaluation.") %>
+
+        <%= render :partial => 'shared/rating_button', :locals => { :disabled => true } %>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>

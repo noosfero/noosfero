@@ -4775,6 +4775,11 @@ h1#agenda-title {
   background-image: url(../images/control-panel/role-management.gif)
 }
 /* ==> public/stylesheets/controller_profile_members.css <== */
+
+.profile-members-tabs-container .ui-corner-all {
+  overflow: auto;
+}
+
 .controller-profile_members .no-boxes {
   margin: 30px
 }
@@ -5430,6 +5435,7 @@ h1#agenda-title {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 92px;
 }
 #content .menu-submenu-content ul {
   margin: 0;

@@ -66,7 +66,10 @@ class ProfileController < PublicController
 
   def members
     if is_cache_expired?(profile.members_cache_key(params))
-      @members = profile.members_by_name.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage], :total_entries => profile.members.count)
+      sort = (params[:sort] == 'desc') ? params[:sort] : 'asc'
+      @profile_admins = profile.admins.includes(relations_to_include).order("name #{sort}").paginate(:per_page => members_per_page, :page => params[:npage])
+      @profile_members = profile.members.includes(relations_to_include).order("name #{sort}").paginate(:per_page => members_per_page, :page => params[:npage])
+      @profile_members_url = url_for(:controller => 'profile', :action => 'members')
     end
   end
 

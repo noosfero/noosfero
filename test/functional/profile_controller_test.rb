@@ -52,7 +52,8 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'members'
-    assert assigns(:members)
+    assert assigns(:profile_members)
+    assert assigns(:profile_admins)
   end
 
   should 'list favorite enterprises' do
@@ -940,7 +941,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => p1.identifier
-    assert_equal [s3,s2], assigns(:activities).map(&:activity)
+    assert_equal [s3,s2], assigns(:activities).map(&:activity).select {|a| a.kind_of?(Scrap)}
   end
 
   should 'the activities be the received scraps in community profile' do
@@ -1744,6 +1745,70 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'td', :content => 'Enterprises'
     assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
+  end
+
+  should 'admins from a community be present in admin users div and members div' do
+    community = fast_create(Community)
+    another_user = create_user('another_user').person
+
+    login_as(@profile.identifier)
+
+    community.add_admin(@profile)
+
+    assert community.admins.include? @profile
+    get :members, :profile => community.identifier
+
+    assert_tag :tag => 'ul', :attributes => { :class => /profile-list-admins/},
+      :descendant => { :tag => 'a', :attributes => { :title => "testuser" } }
+
+    assert_tag :tag => 'ul', :attributes => { :class => /profile-list-members/},
+      :descendant => { :tag => 'a', :attributes => { :title => "testuser" } }
+  end
+
+  should 'all members, except admins, be present in members div' do
+    community = fast_create(Community)
+    community.add_member(@profile)
+
+    another_user = create_user('another_user').person
+    community.add_member(another_user)
+
+    assert_equal false, community.admins.include?(another_user)
+
+    get :members, :profile => community.identifier
+
+    assert_tag :tag => 'ul', :attributes => { :class => /profile-list-members/},
+      :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
+
+    assert_no_tag :tag => 'ul', :attributes => { :class => /profile-list-admins/},
+    :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
+  end
+
+  should 'members be sorted by name in ascendant order' do
+    community = fast_create(Community)
+    another_user = create_user('another_user').person
+    different_user = create_user('different_user').person
+
+    community.add_member(@profile)
+    community.add_member(another_user)
+    community.add_member(different_user)
+
+    get :members, :profile => community.identifier, :sort => "asc"
+
+    assert @response.body.index("another_user") < @response.body.index("different_user")
+  end
+
+  should 'members be sorted by name in descendant order' do
+    community = fast_create(Community)
+    another_user = create_user('another_user').person
+    different_user = create_user('different_user').person
+
+    community.add_member(@profile)
+    community.add_member(another_user)
+    community.add_member(different_user)
+
+    get :members, :profile => community.identifier, :sort => "desc"
+
+    assert @response.body.index("another_user") > @response.body.index("different_user")
   end
 
 end

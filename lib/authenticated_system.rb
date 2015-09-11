@@ -2,12 +2,12 @@ module AuthenticatedSystem
 
   protected
 
-    # See impl. from http://stackoverflow.com/a/2513456/670229
     def self.included base
-      base.around_filter do
+      # See impl. from http://stackoverflow.com/a/2513456/670229
+      base.around_filter do |&block|
         begin
           User.current = current_user
-          yield
+          block.call
         ensure
           # to address the thread variable leak issues in Puma/Thin webserver
           User.current = nil
