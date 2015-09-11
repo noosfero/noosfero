@@ -194,7 +194,6 @@ class ApplicationControllerTest < ActionController::TestCase
     User.expects(:current=).with do |user|
       user == testuser
     end.at_least_once
-    User.expects(:current=).with(nil).at_least_once if RUBY_VERSION >= '2.0'
     get :index
   end
 

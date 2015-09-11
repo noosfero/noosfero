@@ -6,7 +6,8 @@ class ApproveArticleTest < ActiveSupport::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-    @profile = create_user('test_user').person
+    User.current = @user = create_user 'test_user'
+    @profile = @user.person
     @article = fast_create(TextileArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
     @community = fast_create(Community)
     @community.add_member(@profile)
