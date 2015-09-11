@@ -1,0 +1,11 @@
+<h1><%= _('Cancel newsletter subscription') %></h1>
+
+<h4>
+<%= _("I don't want to receive future newsletter emails from this network.") %>
+</h4>
+
+<%= _('Send an email to %s requesting your unsubscription or click on the button below.') % link_to(environment.contact_email, "mailto:#{environment.contact_email}?subject=#{_('Cancel newsletter subscription')}") %>
+
+<% button_bar do %>
+  <%= button :ok, _('Confirm unsubscription'), {:action => 'confirm_unsubscription'}, :method => 'post' %>
+<% end %>

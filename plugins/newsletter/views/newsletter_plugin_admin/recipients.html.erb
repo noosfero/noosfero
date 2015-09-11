@@ -1,0 +1,21 @@
+<h1><%= _('Additional recipients') %></h1>
+
+<% if @additional_recipients.present? %>
+  <table border="0" cellspacing="5" cellpadding="5">
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('E-mail') %></th>
+    </tr>
+    <% @additional_recipients.each do |recipient| %>
+      <tr>
+        <td><%= recipient[:name] %></td>
+        <td><%= recipient[:email] %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p><%= _('There are no additional recipients.') %></p>
+<% end %>
+
+<br/>
+<%= button :back, _('Back'), action: :index %>
