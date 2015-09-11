@@ -105,6 +105,8 @@ module Noosfero
     config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
     config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
 
+    config.eager_load = true
+
     Noosfero::Plugin.setup(config)
 
   end

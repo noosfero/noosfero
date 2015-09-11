@@ -9,8 +9,6 @@ Noosfero::Application.configure do
 
   config.assets.debug = false
 
-  config.eager_load = false
-
   config.active_support.deprecation = :log
 
   # Show full error reports and disable caching
