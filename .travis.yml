@@ -1,3 +1,8 @@
+notifications:
+  irc:
+    - "chat.freenode.net#noosfero"
+    - "chat.freenode.net#noosfero-br"
+
 language: ruby
 rvm:
 # for 2.2 support we need to upgrade the pg gem
