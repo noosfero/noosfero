@@ -49,11 +49,18 @@ group :production do
   gem 'dalli', '~> 2.7.0'
 end
 
+group :development do
+end
+
+group :development, :test do
+  gem 'spring'
+  gem 'spring-commands-testunit'
+end
+
 group :test do
   gem 'rspec',                  '~> 2.14.0'
   gem 'rspec-rails',            '~> 2.14.1'
   gem 'mocha',                  '~> 1.1.0', :require => false
-  gem 'spring'
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
   gem 'minitest-reporters'
