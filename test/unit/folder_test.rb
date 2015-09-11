@@ -93,6 +93,7 @@ class FolderTest < ActiveSupport::TestCase
     image = UploadedFile.create!(:profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     community = fast_create(Community)
+    community.add_member(person)
     folder = fast_create(Folder, :profile_id => community.id)
     a = create(ApproveArticle, :article => image, :target => community, :requestor => person, :article_parent => folder)
     a.finish

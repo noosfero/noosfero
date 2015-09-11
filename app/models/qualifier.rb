@@ -11,6 +11,12 @@ class Qualifier < ActiveRecord::Base
   has_many :qualifier_certifiers, :dependent => :destroy
   has_many :certifiers, :through => :qualifier_certifiers
 
+  def used_certs
+    Certifier.joins('INNER JOIN product_qualifiers' +
+                    ' ON certifiers.id = product_qualifiers.certifier_id')
+             .where(product_qualifiers: {qualifier_id: self.id})
+  end
+
   has_many :product_qualifiers, :dependent => :destroy
   has_many :products, :through => :product_qualifiers, :source => :product
 

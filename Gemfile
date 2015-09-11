@@ -20,6 +20,13 @@ gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 
+# API dependencies
+gem 'grape',                    '~> 0.12'
+gem 'grape-entity'
+gem 'grape_logging'
+gem 'rack-cors'
+gem 'rack-contrib'
+
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'

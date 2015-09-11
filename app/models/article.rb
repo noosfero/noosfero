@@ -130,6 +130,8 @@ class Article < ActiveRecord::Base
     {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
+  include TimeScopes
+
   scope :by_range, lambda { |range| {
     :conditions => [
       'articles.published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
@@ -627,6 +629,11 @@ class Article < ActiveRecord::Base
     self.hits += 1
   end
 
+  def self.hit(articles)
+    Article.where(:id => articles.map(&:id)).update_all('hits = hits + 1')
+    articles.each { |a| a.hits += 1 }
+  end
+
   def can_display_hits?
     true
   end
@@ -716,6 +723,11 @@ class Article < ActiveRecord::Base
   def author_id(version_number = nil)
     person = author_by_version(version_number)
     person ? person.id : nil
+  end
+
+  #FIXME make this test
+  def author_custom_image(size = :icon)
+    author ? author.profile_custom_image(size) : nil
   end
 
   def version_license(version_number = nil)

@@ -116,6 +116,51 @@ class Task < ActiveRecord::Base
     end
   end
 
+  class KindOfValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      environment = record.environment || Environment.default
+      klass = options[:kind]
+      group = klass.to_s.downcase.pluralize
+      id = attribute.to_s + "_id"
+      if environment.respond_to?(group)
+        attrb = value || environment.send(group).find_by_id(record.send(id))
+      else
+        attrb = value || klass.find_by_id(record.send(id))
+      end
+      if attrb.respond_to?(klass.to_s.downcase + "?")
+        unless attrb.send(klass.to_s.downcase + "?")
+          record.errors[attribute] << (options[:message] || "should be "+ klass.to_s.downcase)
+        end
+      else
+        unless attrb.class == klass
+          record.errors[attribute] << (options[:message] || "should be "+ klass.to_s.downcase)
+        end
+      end
+    end
+  end
+
+  def requestor_is_of_kind(klass, message = nil)
+    error_message = message ||= _('Task requestor must be '+klass.to_s.downcase)
+    group = klass.to_s.downcase.pluralize
+    if environment.respond_to?(group) and requestor_id
+      requestor = requestor ||= environment.send(klass.to_s.downcase.pluralize).find_by_id(requestor_id)
+    end
+    unless requestor.class == klass
+      errors.add(error_message)
+    end
+  end
+
+  def target_is_of_kind(klass, message = nil)
+    error_message = message ||= _('Task target must be '+klass.to_s.downcase)
+    group = klass.to_s.downcase.pluralize
+    if environment.respond_to?(group) and target_id
+      target = target ||= environment.send(klass.to_s.downcase.pluralize).find_by_id(target_id)
+    end
+    unless target.class == klass
+      errors.add(error_message)
+    end
+  end
+
   def close(status, closed_by)
     self.status = status
     self.end_date = Time.now
@@ -268,6 +313,19 @@ class Task < ActiveRecord::Base
   end
 
   include Spammable
+
+  #FIXME make this test
+  def display_to?(user = nil)
+    return true if self.target == user
+    return false if !self.target.kind_of?(Environment) && self.target.person?
+
+    if self.target.kind_of?(Environment)
+      user.is_admin?(self.target)
+    else
+      self.target.members.by_role(self.target.roles.reject {|r| !r.has_permission?('perform_task')}).include?(user)
+    end
+  end
+
 
   protected
 

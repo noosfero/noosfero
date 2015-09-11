@@ -264,6 +264,19 @@ module NoosferoTestHelper
     ''
   end
 
+  # make a string from ordered hash to simplify tests
+  def h2s(value)
+    case value
+      when Hash, HashWithIndifferentAccess
+        '{'+ value.stringify_keys.to_a.sort{|a,b|a[0]<=>b[0]}.map{ |k,v| k+':'+h2s(v) }.join(',') +'}'
+      when Array
+        '['+ value.map{|i|h2s(i)}.join(',') +']'
+      when NilClass
+        '<nil>'
+      else value.to_s
+    end
+  end
+
 end
 
 class ActionController::IntegrationTest

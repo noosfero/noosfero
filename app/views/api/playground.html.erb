@@ -1,0 +1,36 @@
+<h1>API Playground</h1>
+
+<script>
+var endpoints = <%=
+endpoints.map do |endpoint|
+  app = endpoint.options[:app].to_s
+  unless app.blank?
+    endpoint.routes.map do |route|
+      {
+        method: route.route_method,
+        path: route.route_path.gsub(':version', route.route_version).split('(').first
+      }
+    end
+  end
+end.flatten.compact.sort{|a,b|
+  a[:path]=='/api/v1/login' ? -1 :
+  b[:path]=='/api/v1/login' ?  1 :
+  a[:path] <=> b[:path]
+}.to_json %>;
+</script>
+
+<form id="api-form">
+  <label id="endpoint">Endpoint:
+    <select name="endpoint" onchange="playground.selEndpoint()"></select>
+  </label>
+  <label id="api-token">Token:
+    <%= tag :input, size: 32, placeholder: _('Use the login endpoint') %>
+  </label>
+</form>
+<div id="playground-ctrl">
+  <button onclick="playground.addFormParam()"><%=_('Add parameter')%></button>
+  <button onclick="playground.run()" style="font-weight:bold">&nbsp; <%=_('Run')%> &nbsp;</button>
+</div>
+<pre id="api-response" class="empty"></pre>
+
+<script src="/javascripts/api-playground.js"></script>

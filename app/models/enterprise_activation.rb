@@ -8,6 +8,8 @@ class EnterpriseActivation < Task
 
   validates_presence_of :enterprise
 
+  validates :target, kind_of: {kind: Enterprise}
+
   def perform
     self.enterprise.enable self.requestor
   end

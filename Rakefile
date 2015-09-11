@@ -15,4 +15,38 @@ Noosfero::Application.load_tasks
   Dir.glob(pattern).sort
 end.flatten.each do |taskfile|
   load taskfile
+end 
+
+# plugins' tasks
+plugins_tasks = Dir.glob("config/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort +
+  Dir.glob("config/plugins/*/vendor/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort
+plugins_tasks.each{ |ext| load ext }
+
+
+desc "Print out grape routes"
+task :grape_routes => :environment do
+  #require 'api/api.rb'
+  Noosfero::API::API.routes.each do |route|
+    puts route
+    method = route.route_method
+    path = route.route_path
+    puts "     #{method} #{path}"
+  end
+end
+
+# plugins' tasks
+plugins_tasks = Dir.glob("config/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort +
+  Dir.glob("config/plugins/*/vendor/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort
+plugins_tasks.each{ |ext| load ext }
+
+
+desc "Print out grape routes"
+task :grape_routes => :environment do
+  #require 'api/api.rb'
+  Noosfero::API::API.routes.each do |route|
+    puts route
+    method = route.route_method
+    path = route.route_path
+    puts "     #{method} #{path}"
+  end
 end

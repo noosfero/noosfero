@@ -171,7 +171,6 @@ class Noosfero::Plugin
     def all
       @all ||= available_plugins.map{ |dir| (File.basename(dir) + "_plugin").camelize }
     end
-
   end
 
   def expanded_template(file_path, locals = {})
