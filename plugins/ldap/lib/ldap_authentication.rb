@@ -136,8 +136,16 @@ class LdapAuthentication
   def self.get_attr(entry, attr_name)
     if !attr_name.blank?
       val = entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
-      charset = Magic.guess_string_mime_encoding(val)
-      val.encode 'utf-8', charset, invalid: :replace, undef: :replace
+      if val.nil?
+        Rails.logger.warn "LDAP entry #{entry.dn} has no attr #{attr_name}."
+        nil
+      elsif val == '' || val == ' '
+        Rails.logger.warn "LDAP entry #{entry.dn} has attr #{attr_name} empty."
+        ''
+      else
+        charset = Magic.guess_string_mime_encoding(val)
+        val.encode 'utf-8', charset, invalid: :replace, undef: :replace
+      end
     end
   end
 
