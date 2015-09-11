@@ -3,6 +3,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class LdapAuthenticationTest < ActiveSupport::TestCase
 
+  def pseudoEntry(data)
+    entry = data.clone
+    def entry.dn; 'testDN'; end
+    entry
+  end
+
   def setup
     @ldap_config = load_ldap_config
   end
@@ -139,9 +145,33 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
   end
 
   should 'detect and convert non utf-8 charset from ldap' do
-    entry = { 'name' => "Jos\xE9 Jo\xE3o" }
+    entry = pseudoEntry('name' => "Jos\xE9 Jo\xE3o")
     name = LdapAuthentication.get_attr entry, 'name'
     assert_equal name, 'José João'
+  end
+
+  should 'dont crash when entry key is empty string' do
+    entry = pseudoEntry('name' => "")
+    name = LdapAuthentication.get_attr entry, 'name'
+    assert_equal name, ''
+  end
+
+  should 'dont crash when entry key has only a space char' do
+    entry = pseudoEntry('name' => " ")
+    name = LdapAuthentication.get_attr entry, 'name'
+    assert_equal name, ''
+  end
+
+  should 'dont crash when entry key is nil' do
+    entry = pseudoEntry('name' => nil)
+    name = LdapAuthentication.get_attr entry, 'name'
+    assert_equal name, nil
+  end
+
+  should 'dont crash when entry key does not exists' do
+    entry = pseudoEntry({})
+    name = LdapAuthentication.get_attr entry, 'name'
+    assert_equal name, nil
   end
 
   if ldap_configured?
