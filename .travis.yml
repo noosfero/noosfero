@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 1.9.3
+  - 2.2.3
 
 sudo: false
 addons:
@@ -19,7 +19,7 @@ addons:
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
-  - export GEM_HOME=$PWD/vendor/bundle/ruby/1.9.1
+  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.1.0
   - gem install bundler
 cache: bundler
 
