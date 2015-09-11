@@ -2,17 +2,21 @@ module AuthenticatedSystem
 
   protected
 
-    # See impl. from http://stackoverflow.com/a/2513456/670229
-    def self.included? base
-      base.around_filter do
+    def self.included base
+      # See impl. from http://stackoverflow.com/a/2513456/670229
+      base.around_filter do |&block|
         begin
           User.current = current_user
-          yield
+          block.call
         ensure
           # to address the thread variable leak issues in Puma/Thin webserver
           User.current = nil
         end
       end
+
+      # Inclusion hook to make #current_user and #logged_in?
+      # available as ActionView helper methods.
+      base.send :helper_method, :current_user, :logged_in?
     end
 
     # Returns true or false if the user is logged in.
@@ -132,12 +136,6 @@ module AuthenticatedSystem
       else
         redirect_to(default)
       end
-    end
-
-    # Inclusion hook to make #current_user and #logged_in?
-    # available as ActionView helper methods.
-    def self.included(base)
-      base.send :helper_method, :current_user, :logged_in?
     end
 
     # When called with before_filter :login_from_cookie will check for an :auth_token

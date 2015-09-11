@@ -27,20 +27,13 @@ class CmsController < MyProfileController
 
   helper_method :file_types
 
-  protect_if :only => :upload_files do |c, user, profile|
-    article_id = c.params[:parent_id]
-    (!article_id.blank? && profile.articles.find(article_id).allow_create?(user)) ||
-    (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
-  end
-
-  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :publish_on_portal_community, :publish_on_communities, :search_communities_to_publish, :upload_files, :new] do |c, user, profile|
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
 
-  protect_if :only => :new do |c, user, profile|
-    article = profile.articles.find_by_id(c.params[:parent_id])
-    (!article.nil? && (article.allow_create?(user) || article.parent.allow_create?(user))) ||
-    (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
+  protect_if :only => [:new, :upload_files] do |c, user, profile|
+    parent = profile.articles.find_by_id(c.params[:parent_id])
+    user && user.can_post_content?(profile, parent)
   end
 
   protect_if :only => :destroy do |c, user, profile|
@@ -118,10 +111,7 @@ class CmsController < MyProfileController
       end
     end
 
-    unless @article.kind_of?(RssFeed)
-      @escaped_body = CGI::escapeHTML(@article.body || '')
-      @escaped_abstract = CGI::escapeHTML(@article.abstract || '')
-    end
+    escape_fields @article
   end
 
   def new
@@ -191,6 +181,8 @@ class CmsController < MyProfileController
         return
       end
     end
+
+    escape_fields @article
 
     render :action => 'edit'
   end
@@ -541,4 +533,10 @@ class CmsController < MyProfileController
     end
   end
 
+  def escape_fields article
+    unless article.kind_of?(RssFeed)
+      @escaped_body = CGI::escapeHTML(article.body || '')
+      @escaped_abstract = CGI::escapeHTML(article.abstract || '')
+    end
+  end
 end

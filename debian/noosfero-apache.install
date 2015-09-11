@@ -1,3 +1,2 @@
-debian/apache2/conf.d/noosfero-cluster.conf     etc/apache2/conf.d
 debian/apache2/virtualhost.conf                 etc/noosfero/apache
 debian/update-noosfero-apache                   usr/sbin

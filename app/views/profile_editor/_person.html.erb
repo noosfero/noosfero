@@ -18,6 +18,14 @@
 
   <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
 
+  <div class="formfieldline">
+    <%= label_tag("private_token", _("Private Token")) %>
+    <div class="formfield type-text">
+      <%= text_field_tag("a", @profile.user.private_token, :size => 30) %>
+    </div>
+  </div>
+  <%= link_to("Reset token", {:controller => :profile_editor, :action => :reset_private_token, :id => @profile.id}, :class => "button with-text") %>
+
   <%= render :partial => 'person_form', :locals => {:f => f} %>
 
   <h2><%= _('Notification options') %></h2>

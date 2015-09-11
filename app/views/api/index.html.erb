@@ -1,0 +1,20 @@
+<h1>EndPoints</h1>
+
+<div style="float: right">
+<%= s_('api-playground|Try the %s') % link_to('API Playground', '/api/playground') %>
+</div>
+
+<%= endpoints.map do |endpoint|
+  app = endpoint.options[:app].to_s
+  unless app.blank?
+    content_tag(:h2, app.split('::').last.to_s, title: app) +
+    (content_tag :ul do
+      endpoint.routes.map do |route|
+        content_tag :li do
+          content_tag(:strong, route.route_method) + ' ' +
+          route.route_path.gsub(':version', content_tag(:b, route.route_version))
+        end
+      end.join "\n"
+    end)
+  end
+end.join "\n" %>

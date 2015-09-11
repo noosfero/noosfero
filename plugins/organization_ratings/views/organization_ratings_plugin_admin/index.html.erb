@@ -1,0 +1,54 @@
+<% config = env_organization_ratings_config %>
+
+<h1><%= _("Organization Rating Management") %> </h1>
+
+<%= labelled_form_for(:organization_ratings_config, :url => {:action => 'update'}) do |f| %>
+  <%= labelled_fields_for(:organization_ratings_config, config) do |c| %>
+    <table>
+      <tr>
+        <th><%= c_('Configuration') %></th>
+        <th><%= _('Value') %></th>
+      </tr>
+      <tr>
+        <td><%= _('Default amount of stars marked on evaluations') %></td>
+        <td><%= c.select :default_rating, (config.minimum_ratings)..5 %></td>
+      </tr>
+      <tr>
+        <td><%= _('Can rate an organization only once') %></td>
+        <td><%= c.check_box :vote_once %></td>
+      </tr>
+      <tr>
+        <td><%= _('The comments are moderated') %></td>
+        <td><%= c.check_box :are_moderated %></td>
+      </tr>
+      <tr>
+        <td>
+          <%= _('Time in hours between evaluations from the same user.') %>
+          <span class="hint" title=" <%= _('To disable cooldown use zero (0) value.') %> ">(?)</span>
+        </td>
+        <% hours_options = {size: 2} %>
+        <% hours_options[:disabled] = "disabled" if config.vote_once %>
+        <td><%= c.text_field :cooldown, hours_options %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= _('Order ratings by') %></td>
+        <% order_options = [] %>
+        <% config.order_options.select{|k,v| order_options << v } %>
+        <td><%= c.select :order, order_options %></td>
+      </tr>
+      <tr>
+        <td><%= _('Ratings per page') %></td>
+        <td>
+          <%= c.select :per_page, 5..20 %>
+          </td>
+      </tr>
+    </table>
+    <div>
+      <% button_bar do %>
+        <%= submit_button('save', c_('Save changes')) %>
+        <%= button :back, _('Back'), :controller => 'plugins' %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

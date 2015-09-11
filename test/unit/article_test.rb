@@ -913,6 +913,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'not doubly escape quotes in the name' do
     person = fast_create(Person)
     community = fast_create(Community)
+    community.add_member(profile)
     article = fast_create(Article, :name => 'article name', :profile_id => person.id)
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
@@ -2176,6 +2177,16 @@ class ArticleTest < ActiveSupport::TestCase
     a2 = fast_create(Article, :published => true, :profile_id => p.id)
     fast_create(Article, :published => false, :profile_id => p.id)
     assert_equivalent [a1,a2], Article.display_filter(nil, user)
+  end
+
+  should 'update hit attribute of article array' do
+    a1 = fast_create(Article)
+    a2 = fast_create(Article)
+    a3 = fast_create(Article)
+    Article.hit([a1, a2, a3])
+    Article.hit([a2, a3])
+    assert_equal [1, 2, 2], [a1.hits, a2.hits, a3.hits]
+    assert_equal [1, 2, 2], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
   end
 
   should 'vote in a article' do

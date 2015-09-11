@@ -1,10 +1,24 @@
 class ApproveArticle < Task
   validates_presence_of :requestor_id, :target_id
 
+  validates :requestor, kind_of: {kind: Person}
+  validate :allowed_requestor
+
+  def allowed_requestor
+    if target
+      if target.person? && requestor != target
+        self.errors.add(:requestor, _('You can not post articles to other users.'))
+      end
+      if target.organization? && !target.members.include?(requestor) && target.environment.portal_community != target
+        self.errors.add(:requestor, _('Only members can post articles on communities.'))
+      end
+    end
+  end
+
   def article_title
     article ? article.title : _('(The original text was removed)')
   end
-  
+
   def article
     Article.find_by_id data[:article_id]
   end
@@ -128,4 +142,9 @@ class ApproveArticle < Task
     message
   end
 
+  def request_is_member_of_target
+    unless requestor.is_member_of?(target)
+      errors.add(:approve_article, N_('Requestor must be a member of target.'))
+    end
+  end
 end

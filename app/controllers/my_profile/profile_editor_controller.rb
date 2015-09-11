@@ -133,6 +133,13 @@ class ProfileEditorController < MyProfileController
     redirect_to_previous_location
   end
 
+  def reset_private_token
+    profile = environment.profiles.find(params[:id])
+    profile.user.generate_private_token!
+
+    redirect_to_previous_location
+  end
+
   protected
 
   def redirect_to_previous_location

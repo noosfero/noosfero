@@ -10,7 +10,7 @@ gem 'RedCloth',                 '~> 4.2.9'
 gem 'will_paginate',            '~> 3.0.3'
 gem 'ruby-feedparser',          '~> 0.7'
 gem 'daemons',                  '~> 1.1.5'
-gem 'thin',                     '~> 1.3.1'
+gem 'unicorn',                  '~> 4.8'
 gem 'nokogiri',                 '~> 1.5.5'
 gem 'rake', :require => false
 gem 'rest-client',              '~> 1.6.7'
@@ -20,6 +20,13 @@ gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
 gem 'slim'
+
+# API dependencies
+gem 'grape',                    '~> 0.12'
+gem 'grape-entity'
+gem 'grape_logging'
+gem 'rack-cors'
+gem 'rack-contrib'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'

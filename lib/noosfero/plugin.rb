@@ -171,7 +171,6 @@ class Noosfero::Plugin
     def all
       @all ||= available_plugins.map{ |dir| (File.basename(dir) + "_plugin").camelize }
     end
-
   end
 
   def expanded_template(file_path, locals = {})
@@ -238,6 +237,16 @@ class Noosfero::Plugin
   # (overwrites profile_image_link function)
   # returns = lambda block that creates html code.
   def profile_image_link(profile, size, tag, extra_info)
+    nil
+  end
+
+  # -> Customize the way comments are counted for Profiles and Environment
+  # considering more than just articles comments
+  # Used on statistic block
+  # Ex: a plugin may want that Communities receive comments themselves
+  # as evaluations
+  # returns = the number of comments to be sum on the statistics
+  def more_comments_count owner
     nil
   end
 

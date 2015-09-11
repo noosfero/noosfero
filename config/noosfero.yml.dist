@@ -11,7 +11,14 @@ development:
   max_upload_size: 5MB
   hours_until_user_activation_check: 72
   exclude_profile_identifier_pattern: index(\..*)?|home(\..*)?
+  api_recaptcha_site_key:      '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'
+  api_recaptcha_private_key:   '6LdsWAcTAAAAAB6maB_HalVyCc4asDAxPxloIMvY'
+  api_recaptcha_verify_uri:    'https://www.google.com/recaptcha/api/siteverify'  
 
 test:
 
 production:
+  api_recaptcha_site_key:      '6LcLPAcTAAAAAKsd0bxY_TArhD_A7OL19SRCW7_i'
+  api_recaptcha_private_key:   '6LcLPAcTAAAAAE36SN1M2w1I7Hn8upwXYZ_YQZ5-'
+  api_recaptcha_verify_uri:    'https://www.google.com/recaptcha/api/siteverify'
+  

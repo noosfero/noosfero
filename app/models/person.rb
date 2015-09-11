@@ -39,6 +39,19 @@ roles] }
     { :select => 'DISTINCT profiles.*', :conditions => ['"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id)] }
   }
 
+  scope :visible_for_person, lambda { |person|
+    joins('LEFT JOIN "role_assignments" ON
+          "role_assignments"."resource_id" = "profiles"."environment_id" AND
+          "role_assignments"."resource_type" = \'Environment\'')
+    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
+    .joins('LEFT JOIN "friendships" ON "friendships"."friend_id" = "profiles"."id"')
+    .where(
+      ['( roles.key = ? AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR (
+        ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )', 'environment_administrator', Profile.name, person.id, person.id,  true, true]
+    ).uniq
+  }
+
+
   def has_permission_with_admin?(permission, resource)
     return true if resource.blank? || resource.admins.include?(self)
     return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)
@@ -126,6 +139,11 @@ roles] }
 
   def can_control_activity?(activity)
     self.tracked_notifications.exists?(activity)
+  end
+
+  def can_post_content?(profile, parent=nil)
+    (!parent.nil? && (parent.allow_create?(self))) ||
+      (self.has_permission?('post_content', profile) || self.has_permission?('publish_content', profile))
   end
 
   # Sets the identifier for this person. Raises an exception when called on a

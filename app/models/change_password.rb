@@ -18,6 +18,8 @@ class ChangePassword < Task
 
   validates_presence_of :requestor
 
+  validates :requestor, kind_of: {kind: Person}
+
   ###################################################
   # validations for updating a ChangePassword task 
 

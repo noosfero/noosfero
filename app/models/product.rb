@@ -56,6 +56,25 @@ class Product < ActiveRecord::Base
     {:joins => :product_category, :conditions => ['categories.path LIKE ?', "%#{category.slug}%"]} if category
   }
 
+  scope :visible_for_person, lambda { |person|
+    joins('INNER JOIN "profiles" enterprises ON enterprises."id" = "products"."profile_id"')
+    .joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = enterprises."id"
+          AND "role_assignments"."resource_type" = \'Profile\') OR (
+          "role_assignments"."resource_id" = enterprises."environment_id" AND
+          "role_assignments"."resource_type" = \'Environment\' )')
+    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
+    .where(
+      ['( (roles.key = ? OR roles.key = ?) AND role_assignments.accessor_type = \'Profile\' AND role_assignments.accessor_id = ? )
+        OR
+        ( ( ( role_assignments.accessor_type = \'Profile\' AND
+              role_assignments.accessor_id = ? ) OR
+            ( enterprises.public_profile = ? AND enterprises.enabled = ? ) ) AND
+          ( enterprises.visible = ? ) )',
+      'profile_admin', 'environment_administrator', person.id, person.id,
+      true, true, true]
+    ).uniq
+  }
+
   after_update :save_image
 
   def lat

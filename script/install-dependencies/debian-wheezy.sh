@@ -1,4 +1,4 @@
-binary_packages='deb http://download.noosfero.org/debian/wheezy-1.2 ./'
+binary_packages='deb http://download.noosfero.org/debian/wheezy-1.3 ./'
 
 source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
 
@@ -72,8 +72,8 @@ run sudo apt-get -qy dist-upgrade
 
 run sudo apt-get -y install dctrl-tools
 
-# *sigh* need ruby-rspec from backports
-run sudo apt-get -y install -t wheezy-backports ruby-rspec
+# need these from backports
+run sudo apt-get -y install -t wheezy-backports ruby-rspec unicorn
 
 # needed to run noosfero
 packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debian/control | sed -e '/^\s*#/d; s/([^)]*)//g; s/,\s*/\n/g' | grep -v 'memcached\|debconf\|dbconfig-common\|misc:Depends\|adduser\|mail-transport-agent')

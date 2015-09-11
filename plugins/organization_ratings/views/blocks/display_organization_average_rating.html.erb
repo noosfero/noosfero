@@ -1,0 +1,25 @@
+<div class="organization-average-rating-container">
+  <% if average_rating %>
+    <div class="star-rate-text">
+      <%= _("Rating: ") %>
+    </div>
+
+    <div class="star-container">
+      <% (1..5).each do |star_number| %>
+        <% if star_number <= average_rating %>
+          <div class="medium-star-positive"></div>
+        <% else %>
+          <div class="medium-star-negative"></div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="rating-invitation">
+      <%= _("Be the first to rate!") %>
+    </div>
+  <% end %>
+
+  <div class="rate-this-organization">
+    <%= link_to _("Rate this %s" % profile.class.name), url_for(:controller => "organization_ratings_plugin_profile", :action => "new_rating", :profile=>profile_identifier) %>
+  </div>
+</div>

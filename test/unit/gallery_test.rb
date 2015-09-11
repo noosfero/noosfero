@@ -101,6 +101,7 @@ class GalleryTest < ActiveSupport::TestCase
     i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     c = fast_create(Community)
+    c.add_member(p)
     gallery = fast_create(Gallery, :profile_id => c.id)
 
     a = create(ApproveArticle, :article => i, :target => c, :requestor => p, :article_parent => gallery)

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 test_web_backend_running() {
-  assertTrue 'Noosfero running' 'pgrep -u noosfero -f thin'
+  assertTrue 'Noosfero running' 'pgrep -u noosfero -f unicorn'
 }
 
 test_delayed_job_running() {
