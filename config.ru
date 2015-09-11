@@ -2,10 +2,6 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 
-#use Rails::Rack::LogTailer
-#use Rails::Rack::Static
-#run ActionController::Dispatcher.new
-
 use Rack::Cors do
   allow do
     origins '*'
@@ -14,7 +10,13 @@ use Rack::Cors do
 end
 
 rails_app = Rack::Builder.new do
-  run Noosfero::Application
+  if ENV['RAILS_RELATIVE_URL_ROOT']
+    map ENV['RAILS_RELATIVE_URL_ROOT'] do
+      run Noosfero::Application
+    end
+  else
+    run Noosfero::Application
+  end
 end
 
 run Rack::Cascade.new([

@@ -70,7 +70,7 @@ Depends: adduser,
          ruby-whenever,
          ruby-will-paginate (>= 2.3.12-1~),
          tango-icon-theme,
-         thin,
+         unicorn (>= 4.8),
          ${misc:Depends}
 Recommends: postgresql, postgresql-client
 Description: free web-based platform for social networks
