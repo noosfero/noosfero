@@ -10,7 +10,7 @@ config/session.secret
 config/noosfero.yml
 config/mongrel_cluster.yml
 config/plugins
-config/thin.yml
+config/unicorn.rb
 config/local.rb
 index
 locale

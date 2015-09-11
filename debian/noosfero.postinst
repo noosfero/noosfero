@@ -10,23 +10,23 @@ makedir() {
 }
 
 
-# migrate mongrel configuration to thin
-mongrel_config=/etc/noosfero/mongrel_cluster.yml
+# migrate thin configuration to unicorn
+unicorn_config=/etc/noosfero/unicorn.rb
 thin_config=/etc/noosfero/thin.yml
-mongrel_orig_sha1=602c642c03f79349969c08330112a6f29d4c32aa
-if [ -r $mongrel_config ]; then
-  mongrel_sha1=$(sha1sum $mongrel_config | awk '{print $1}')
-  if [ "$mongrel_sha1" != "$mongrel_orig_sha1" ]; then
-    port=$(awk '{ if ($1 == "port:") { print($2) } }' $mongrel_config)
-    servers=$(awk '{ if ($1 == "servers:") { print($2) } }' $mongrel_config)
+thin_orig_sha1=47cee6728a7896a13f4d66544086ab88b02e89a7
+if [ -r $thin_config ]; then
+  thin_sha1=$(sha1sum $thin_config | awk '{print $1}')
+  if [ "$thin_sha1" != "$thin_orig_sha1" ]; then
+    port=$(awk '{ if ($1 == "port:") { print($2) } }' $thin_config)
+    servers=$(awk '{ if ($1 == "servers:") { print($2) } }' $thin_config)
     if test -n "$port"  && test "$port" -ne 50000  || test -n "$servers" && test "$servers" -ne 1 ; then
-      # mongrel configuration was changed; update thin configuration
+      # thin configuration was changed; update unicorn configuration
       # accordingly
-      sed -i -e "s/port: .*/port: $port/" $thin_config
-      sed -i -e "s/servers: .*/servers: $servers/" $thin_config
+      sed -i -e "s/listen.*/listen '127.0.0.1:$port'/" $unicorn_config
+      sed -i -e "s/worker_processes.*/worker_processes $servers/" $unicorn_config
     fi
   fi
-  mv $mongrel_config $mongrel_config.bak
+  mv $thin_config $thin_config.bak
 fi
 
 # create user noosfero in a portable way, while creating the log directory.

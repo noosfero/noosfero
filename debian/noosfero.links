@@ -1,7 +1,7 @@
 var/tmp/noosfero                                    usr/share/noosfero/tmp
 var/log/noosfero                                    usr/share/noosfero/log
 etc/noosfero/database.yml                           usr/share/noosfero/config/database.yml
-etc/noosfero/thin.yml                               usr/share/noosfero/config/thin.yml
+etc/noosfero/unicorn.rb                             usr/share/noosfero/config/unicorn.rb
 etc/noosfero/plugins                                usr/share/noosfero/config/plugins
 etc/noosfero/noosfero.yml                           usr/share/noosfero/config/noosfero.yml
 etc/noosfero/local.rb                               usr/share/noosfero/config/local.rb
