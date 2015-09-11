@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'test_helper'
 require 'content_viewer_controller'
 
