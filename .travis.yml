@@ -19,7 +19,7 @@ addons:
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
-  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.1.0
+  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.2.0
   - gem install bundler
 cache: bundler
 
