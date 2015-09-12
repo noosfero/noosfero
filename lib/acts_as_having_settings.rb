@@ -13,7 +13,9 @@ module ActiveRecord
     end
     class Hash < Value
       def cast_value value
-        ::Hash[value]
+        h = ::Hash[value]
+        h.symbolize_keys!
+        h
       end
     end
   end
