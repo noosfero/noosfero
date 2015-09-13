@@ -6,3 +6,7 @@ unless NOOSFERO_CONF['exception_recipients'].blank?
       :exception_recipients => NOOSFERO_CONF['exception_recipients']
     }
 end
+
+# show full backtrace
+Rails.backtrace_cleaner.remove_silencers!
+
