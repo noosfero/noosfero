@@ -426,7 +426,7 @@ class AccountController < ApplicationController
 
   def go_to_initial_page
     if params[:return_to]
-      redirect_to params[:return_to]
+      redirect_to url_for(params[:return_to])
     elsif environment.enabled?('allow_change_of_redirection_after_login')
       check_redirection_options(user, user.preferred_login_redirection, user.admin_url)
     else

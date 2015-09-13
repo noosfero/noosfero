@@ -14,7 +14,7 @@ class SearchController < PublicController
   # Backwards compatibility with old URLs
   def redirect_asset_param
     return unless params.has_key?(:asset)
-    redirect_to params.merge(:action => params.delete(:asset))
+    redirect_to url_for(params.merge action: params.delete(:asset))
   end
 
   no_design_blocks

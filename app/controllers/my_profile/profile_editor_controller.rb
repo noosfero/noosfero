@@ -80,7 +80,7 @@ class ProfileEditorController < MyProfileController
       if @profile.destroy
         session[:notice] = _('The profile was deleted.')
         if(params[:return_to])
-          redirect_to params[:return_to]
+          redirect_to url_for(params[:return_to])
         else
           redirect_to :controller => 'home'
         end
