@@ -1372,7 +1372,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, not_abuser
   end
 
-  should 'admins named_scope return persons who are admin users' do
+  should 'admins scope return persons who are admin users' do
     Person.delete_all
     e = Environment.default
     admins = []
@@ -1387,7 +1387,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent admins, Person.admins
   end
 
-  should 'activated named_scope return persons who are activated users' do
+  should 'activated scope return persons who are activated users' do
     Person.delete_all
     e = Environment.default
     activated = []
@@ -1403,7 +1403,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent activated, Person.activated
   end
 
-  should 'deactivated named_scope return persons who are deactivated users' do
+  should 'deactivated scope return persons who are deactivated users' do
     Person.delete_all
     e = Environment.default
     deactivated = []
