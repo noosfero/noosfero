@@ -5,7 +5,7 @@ class ToleranceTimePluginMyprofileController < MyProfileController
     if request.post?
       begin
         convert_params
-        @tolerance.update_attributes!(params[:tolerance])
+        @tolerance.update!(params[:tolerance])
         convert_values
         session[:notice] = _('Tolerance updated')
       rescue

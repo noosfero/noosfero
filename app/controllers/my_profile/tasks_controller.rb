@@ -48,7 +48,7 @@ class TasksController < MyProfileController
         if request.post? && VALID_DECISIONS.include?(decision) && id && decision != 'skip'
           task = profile.find_in_all_tasks(id)
           begin
-            task.update_attributes(value[:task])
+            task.update(value[:task])
             task.send(decision, current_person)
           rescue Exception => ex
             message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"

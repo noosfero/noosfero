@@ -153,7 +153,7 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user('just_another_person').person
     env.affiliate(person, role)
     refute  person.is_admin?(env)
-    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+    role.update(:permissions => ['view_environment_admin_panel'])
     person = Person.find(person.id)
     assert person.is_admin?(env)
   end
@@ -164,7 +164,7 @@ class PersonTest < ActiveSupport::TestCase
 
     # role is an admin role
     role = create(Role, :name => 'just_another_admin_role')
-    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+    role.update(:permissions => ['view_environment_admin_panel'])
 
     # user is admin of env1, but not of env2
     person = create_user('just_another_person').person

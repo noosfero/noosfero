@@ -119,7 +119,7 @@ class AccountController < ApplicationController
           @user.person.affiliate(@user.person, [owner_role]) if owner_role
           invitation = Task.from_code(@invitation_code).first
           if invitation
-            invitation.update_attributes! friend: @user.person
+            invitation.update! friend: @user.person
             invitation.finish
           end
 
@@ -218,7 +218,7 @@ class AccountController < ApplicationController
 
     if request.post?
       begin
-        @change_password.update_attributes!(params[:change_password])
+        @change_password.update!(params[:change_password])
         @change_password.finish
         render :action => 'new_password_ok'
       rescue ActiveRecord::RecordInvalid => e
@@ -487,7 +487,7 @@ class AccountController < ApplicationController
   def check_redirection
     unless params[:redirection].blank?
       session[:return_to] = @user.return_to
-      @user.update_attributes(:return_to => nil)
+      @user.update(:return_to => nil)
     end
   end
 

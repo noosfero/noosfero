@@ -136,7 +136,7 @@ class BlockTest < ActiveSupport::TestCase
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id, :owner_type => 'Profile')
     block = create(Block, :display => 'never', :box_id => box.id)
-    assert block.update_attributes!(:display => 'always')
+    assert block.update!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
   end

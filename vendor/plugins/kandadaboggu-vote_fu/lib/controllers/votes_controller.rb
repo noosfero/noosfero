@@ -1,9 +1,9 @@
 class VotesController < ApplicationController
   # First, figure out our nested scope. User or vote?
 #  before_filter :find_my_scope
-  
+
 #  before_filter :find_user
-    
+
 #  before_filter :login_required, :only => [:new, :edit, :destroy, :create, :update]
 #  before_filter :must_own_vote,  :only => [:edit, :destroy, :update]
 
@@ -70,7 +70,7 @@ class VotesController < ApplicationController
       @vote = Vote.find(params[:id])
 
       respond_to do |format|
-        if @vote.update_attributes(params[:vote])
+        if @vote.update(params[:vote])
           flash[:notice] = 'Vote was successfully updated.'
           format.html { redirect_to([@user, @vote]) }
           format.xml  { head :ok }

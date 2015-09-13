@@ -23,7 +23,7 @@ class LicensesController < AdminController
     @license = environment.licenses.find(params[:license_id])
     if request.post?
       begin
-        @license.update_attributes!(params[:license])
+        @license.update!(params[:license])
         session[:notice] = _('License updated')
         redirect_to :action => 'index'
       rescue

@@ -17,7 +17,7 @@ class OpenGraphPlugin::MyprofileController < MyProfileController
   end
 
   def track_config
-    profile.update_attributes! params[:profile_data]
+    profile.update! params[:profile_data]
     render partial: 'track_form', locals: {context: context, reload: true}
   end
 

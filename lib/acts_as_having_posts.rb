@@ -28,7 +28,7 @@ module ActsAsHavingPosts
   def feed=(attrs)
     if attrs
       if self.feed
-        self.feed.update_attributes(attrs)
+        self.feed.update(attrs)
       else
         self.feed_attrs = attrs
       end

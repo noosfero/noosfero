@@ -68,7 +68,7 @@ class FbAppPluginPageTabController < FbAppPluginController
     if request.put? and @page_id.present?
       create_page_tabs if @page_tab.nil?
 
-      @page_tab.update_attributes! params[:page_tab]
+      @page_tab.update! params[:page_tab]
 
       respond_to do |format|
         format.js{ render action: 'admin' }

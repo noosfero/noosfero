@@ -12,7 +12,7 @@ class AdminPanelController < AdminController
       if params[:environment][:languages]
         params[:environment][:languages] = params[:environment][:languages].map {|lang, value| lang if value=='true'}.compact
       end
-      if @environment.update_attributes(params[:environment])
+      if @environment.update(params[:environment])
         session[:notice] = _('Environment settings updated')
         redirect_to :action => 'index'
       end
@@ -65,7 +65,7 @@ class AdminPanelController < AdminController
 
   def set_portal_news_amount
     if request.post?
-      if @environment.update_attributes(params[:environment])
+      if @environment.update(params[:environment])
         session[:notice] = _('Saved the number of news on folders')
         redirect_to :action => 'index'
       end

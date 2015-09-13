@@ -43,7 +43,7 @@ class CategoriesController < AdminController
     begin
       @category = environment.categories.find(params[:id])
       if request.post?
-        @category.update_attributes!(params[:category])
+        @category.update!(params[:category])
         @saved = true
         session[:notice] = _("Category %s saved." % @category.name)
         redirect_to :action => 'index'

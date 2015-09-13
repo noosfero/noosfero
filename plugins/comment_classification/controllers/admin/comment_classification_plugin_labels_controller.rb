@@ -27,7 +27,7 @@ class CommentClassificationPluginLabelsController < AdminController
     @colors = CommentClassificationPlugin::Label::COLORS
     if request.post?
       begin
-        @label.update_attributes!(params[:label])
+        @label.update!(params[:label])
         session[:notice] = _('Label updated')
         redirect_to :action => :index
       rescue

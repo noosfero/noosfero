@@ -720,7 +720,7 @@ private :generate_url, :url_options
         num = num + 1
         new_name = original_article.name + ' ' + num.to_s
       end
-      original_article.update_attributes!(:name => new_name)
+      original_article.update!(:name => new_name)
     end
     article_copy = article.copy(:profile => self, :parent => parent, :advertise => false)
     if article.profile.home_page == article

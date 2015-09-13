@@ -93,7 +93,7 @@ class CmsController < MyProfileController
         @article.image.save!
       end
       @article.last_changed_by = user
-      if @article.update_attributes(params[:article])
+      if @article.update(params[:article])
         if !continue
           if @article.content_type.nil? || @article.image?
             success_redirect

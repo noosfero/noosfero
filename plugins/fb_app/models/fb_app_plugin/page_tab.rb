@@ -27,7 +27,7 @@ class FbAppPlugin::PageTab < ActiveRecord::Base
     page_ids.map do |page_id|
       page_tab = FbAppPlugin::PageTab.where(page_id: page_id).first
       page_tab ||= FbAppPlugin::PageTab.new page_id: page_id
-      page_tab.update_attributes! attrs
+      page_tab.update! attrs
       page_tab
     end
   end

@@ -46,7 +46,7 @@ when 'active-enterprise'
   active_enterprises.each do |enterprise|
     old_home = enterprise.home_page
     enterprise.apply_template(env.enterprise_template)
-    enterprise.home_page.update_attributes!(:body => old_home.body)
+    enterprise.home_page.update!(:body => old_home.body)
     enterprise.save!
   end
 when 'community'

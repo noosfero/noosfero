@@ -37,7 +37,7 @@ module ActionTracker
       target_hash = params[:target].nil? ? {} : {:target_type => params[:target].class.base_class.to_s, :target_id => params[:target].id}
       conditions = { :user_id => u.id, :user_type => u.class.base_class.to_s, :verb => params[:verb].to_s }.merge(target_hash)
       l = where(conditions).last
-      ( !l.nil? and Time.now - l.updated_at < ActionTrackerConfig.timeout ) ? l.update_attributes(params.merge({ :updated_at => Time.now })) : l = new(params)
+      ( !l.nil? and Time.now - l.updated_at < ActionTrackerConfig.timeout ) ? l.update(params.merge({ :updated_at => Time.now })) : l = new(params)
       l
     end
 
@@ -48,7 +48,7 @@ module ActionTracker
       l = where({user_id: u.id, user_type: u.class.base_class.to_s, verb: params[:verb].to_s}.merge target_hash).last
       if !l.nil? and Time.now - l.created_at < ActionTrackerConfig.timeout
         params[:params].clone.each { |key, value| params[:params][key] = l.params[key].clone.push(value) }
-        l.update_attributes params
+        l.update params
       else
         params[:params].clone.each { |key, value| params[:params][key] = [value] }
         l = new params

@@ -24,7 +24,7 @@ class SignupTest < ActionDispatch::IntegrationTest
 
   def test_should_require_acceptance_of_terms_for_signup
     env = Environment.default
-    env.update_attributes(:terms_of_use => 'You agree to not be annoying.')
+    env.update(:terms_of_use => 'You agree to not be annoying.')
     env.min_signup_delay = 0
     env.save!
 

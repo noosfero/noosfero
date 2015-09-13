@@ -10,7 +10,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
     l = LinkListBlock.new
     assert_respond_to l, :links
   end
-  
+
   should 'default value of links' do
     l = LinkListBlock.new
     assert_equal [], l.links
@@ -117,7 +117,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
     block = LinkListBlock.new(:display => 'never').tap do |b|
       b.box = box
     end
-    assert block.update_attributes!(:display => 'always')
+    assert block.update!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
   end

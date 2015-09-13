@@ -66,7 +66,7 @@ class FeaturesControllerTest < ActionController::TestCase
 
   def test_should_mark_current_organization_approval_method_in_view
     uses_host 'anhetegua.net'
-    Environment.find(environments(:anhetegua_net).id).update_attributes(:organization_approval_method => :region)
+    Environment.find(environments(:anhetegua_net).id).update(:organization_approval_method => :region)
 
     post :index
 

@@ -13,7 +13,7 @@ class CommentClassificationPluginMyprofileController < MyProfileController
     @statuses = CommentClassificationPlugin::Status.enabled
     @status = CommentClassificationPlugin::CommentStatusUser.new(:profile => user, :comment => @comment)
     if request.post? && params[:status]
-      @status.update_attributes(params[:status])
+      @status.update(params[:status])
       @status.save
     end
   end

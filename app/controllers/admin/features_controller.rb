@@ -7,7 +7,7 @@ class FeaturesController < AdminController
 
   post_only :update
   def update
-    if @environment.update_attributes(params[:environment])
+    if @environment.update(params[:environment])
       session[:notice] = _('Features updated successfully.')
       redirect_to :action => 'index'
     else

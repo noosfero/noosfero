@@ -30,7 +30,7 @@ class CreateCommunity < Task
       ! DATA_FIELDS.include?(key.to_s)
     end
 
-    community.update_attributes(community_data)
+    community.update(community_data)
     community.image = image if image
     community.environment = self.environment
     community.save!

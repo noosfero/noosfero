@@ -42,7 +42,7 @@ class VoteablesController < ApplicationController
   end
 
   # GET /users/:id/voteables/1/edit
-  def edit 
+  def edit
     @voteable ||= Voteable.find(params[:id])
   end
 
@@ -51,7 +51,7 @@ class VoteablesController < ApplicationController
   def create
     @voteable = Voteable.new(params[:voteable])
     @voteable.user = current_user
-    
+
     respond_to do |format|
       if @voteable.save
         flash[:notice] = 'Voteable was successfully saved.'
@@ -68,9 +68,9 @@ class VoteablesController < ApplicationController
   # PUT /users/:id/voteable/1.xml
   def update
     @voteable = Voteable.find(params[:id])
-    
+
     respond_to do |format|
-      if @quote.update_attributes(params[:voteable])
+      if @quote.update(params[:voteable])
         flash[:notice] = 'Voteable was successfully updated.'
         format.html { redirect_to([@user, @voteable]) }
         format.xml  { head :ok }
@@ -92,17 +92,17 @@ class VoteablesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   private
-  def find_user 
+  def find_user
     @user = User.find(params[:user_id])
   end
-    
+
   def must_own_voteable
     @voteable ||= Voteable.find(params[:id])
     @voteable.user == current_user || ownership_violation
   end
-  
+
   def ownership_violation
     respond_to do |format|
       flash[:notice] = 'You cannot edit or delete voteable that you do not own!'
@@ -111,7 +111,7 @@ class VoteablesController < ApplicationController
       end
     end
   end
-  
-  
-  
+
+
+
 end

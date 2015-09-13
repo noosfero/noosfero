@@ -129,7 +129,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
   def academic_info_transaction
     AcademicInfo.transaction do
-      context.profile.academic_info.update_attributes!(context.params[:academic_infos])
+      context.profile.academic_info.update!(context.params[:academic_infos])
     end
   end
 

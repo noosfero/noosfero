@@ -98,7 +98,7 @@ class BoxOrganizerController < ApplicationController
 
   def save
     @block = boxes_holder.blocks.find(params[:id])
-    @block.update_attributes(params[:block])
+    @block.update(params[:block])
     redirect_to :action => 'index'
   end
 

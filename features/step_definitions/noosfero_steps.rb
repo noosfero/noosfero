@@ -15,12 +15,12 @@ Given /^the following users?$/ do |table|
 end
 
 Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
-  User.find_by_login(user).person.update_attributes({:visible => (visibility == 'visible')}, :without_protection => true)
+  User.find_by_login(user).person.update({:visible => (visibility == 'visible')}, :without_protection => true)
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
   status = {'online' => 'chat', 'offline' => '', 'busy' => 'dnd'}[status]
-  User.find_by_login(user).update_attributes(:chat_status => status, :chat_status_at => DateTime.now)
+  User.find_by_login(user).update(:chat_status => status, :chat_status_at => DateTime.now)
 end
 
 Given /^the following (community|communities|enterprises?|organizations?)$/ do |kind,table|
@@ -680,7 +680,7 @@ end
 Given /^the article "([^\"]*)" is updated with$/ do |article, table|
   a = Article.find_by_name article
   row = table.hashes.first
-  a.update_attributes(row)
+  a.update(row)
 end
 
 Given /^the cache is turned (on|off)$/ do |state|

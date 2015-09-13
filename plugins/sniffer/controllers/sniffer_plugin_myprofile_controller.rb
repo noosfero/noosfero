@@ -9,7 +9,7 @@ class SnifferPluginMyprofileController < MyProfileController
   def edit
     if request.post?
       begin
-        @sniffer_profile.update_attributes(params[:sniffer_plugin_profile])
+        @sniffer_profile.update(params[:sniffer_plugin_profile])
         @sniffer_profile.enabled = true
         @sniffer_profile.save!
         session[:notice] = _('Consumer interests updated')

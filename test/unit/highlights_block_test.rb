@@ -63,7 +63,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block = HighlightsBlock.create!(:display => 'never').tap do |b|
       b.box = box
     end
-    assert block.update_attributes!(:display => 'always')
+    assert block.update!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
   end

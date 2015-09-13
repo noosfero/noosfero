@@ -140,7 +140,7 @@ class BscPluginMyprofileController < MyProfileController
       session[:notice] = _('Could not edit such contract.')
       redirect_to :action => 'manage_contracts'
     end
-    if request.post? && @contract.update_attributes(params[:contract])
+    if request.post? && @contract.update(params[:contract])
 
       # updating associated enterprises
       enterprises_ids = params[:enterprises] || ''
@@ -159,7 +159,7 @@ class BscPluginMyprofileController < MyProfileController
 
       to_keep.each do |sale_attrs|
         sale = @contract.sales.find_by_product_id(sale_attrs[:product_id])
-        sale.update_attributes!(sale_attrs)
+        sale.update!(sale_attrs)
         sales.delete(sale_attrs)
       end
 

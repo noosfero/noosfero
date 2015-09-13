@@ -123,7 +123,7 @@ class TasksControllerTest < ActionController::TestCase
 
     post :close, :tasks => {t.id => {:decision => 'finish', :task => {}}}
     t.reload
-    
+
     ok('task should be finished') { t.status == Task::Status::FINISHED }
 
     c.reload
@@ -190,7 +190,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'create article with reference_article after finish approve article task' do
     c = fast_create(Community)
-    c.update_attributes(:moderated_articles => false)
+    c.update(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
@@ -202,7 +202,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'create published article in folder after finish approve article task' do
     c = fast_create(Community)
-    c.update_attributes(:moderated_articles => false)
+    c.update(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = create(Folder, :profile => c, :name => 'test folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
@@ -215,7 +215,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'be highlighted if asked when approving a published article' do
     c = fast_create(Community)
-    c.update_attributes(:moderated_articles => false)
+    c.update(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     folder = create(Article, :profile => c, :name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
@@ -228,7 +228,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'create article of same class after choosing root folder on approve article task' do
     c = fast_create(Community)
-    c.update_attributes(:moderated_articles => false)
+    c.update(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')

@@ -144,7 +144,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!({:public_content => false}, :without_protection => true)
+    profile.update!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -153,7 +153,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display allowed articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!({:public_content => false}, :without_protection => true)
+    profile.update!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(true)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]

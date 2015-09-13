@@ -51,7 +51,7 @@ class MapsControllerTest < ActionController::TestCase
   end
 
   should 'back when update address fail' do
-    Profile.any_instance.stubs(:update_attributes!).returns(false)
+    Profile.any_instance.stubs(:update!).returns(false)
     post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
     assert_nil profile.address
     assert_template 'edit_location'
