@@ -37,7 +37,7 @@ class StoaPlugin < Noosfero::Plugin
         content_tag('div', labelled_check_box(c_('Public'), '', '', false, :disabled => true, :title => _('This field must be private'), :class => 'disabled'), :class => 'field-privacy-selector'), :class => 'field-with-privacy-selector') +
         content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))), :id => 'signup-birth-date', :style => 'display: none') +
         content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))), :id => 'signup-cpf', :style => 'display:none') +
-        javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
+        javascript_include_tag('plugins/stoa/javascripts/jquery.observe_field', 'plugins/stoa/javascripts/signup_complement')
       }
     end
   end
