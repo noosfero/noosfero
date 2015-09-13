@@ -9,6 +9,9 @@ class CreateCommunity < Task
   alias :environment :target
   alias :environment= :target=
 
+  attr_accessible :environment, :requestor, :target
+  attr_accessible :reject_explanation, :template_id
+
   acts_as_having_image
 
   DATA_FIELDS = Community.fields + ['name', 'closed']
