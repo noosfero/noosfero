@@ -14,9 +14,10 @@ class CreateCommunity < Task
 
   acts_as_having_image
 
-  DATA_FIELDS = Community.fields + ['name', 'closed']
+  DATA_FIELDS = Community.fields + ['name', 'closed', 'description']
   DATA_FIELDS.each do |field|
     settings_items field.to_sym
+    attr_accessible field.to_sym
   end
 
   def validate
