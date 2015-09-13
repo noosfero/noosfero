@@ -10,6 +10,7 @@ class CreateCommunity < Task
   alias :environment= :target=
 
   attr_accessible :environment, :requestor, :target
+  attr_accessible :reject_explanation, :template_id
 
   acts_as_having_image
 
