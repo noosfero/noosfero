@@ -28,3 +28,15 @@ end
 every 30.days do
   runner "ProfileSuggestion.generate_all_profile_suggestions"
 end
+
+# Loads "schedule.rb" files from plugins
+#
+# Allows Noosfero's plugins schedule jobs using `whenever` Ruby gem the same
+# way we do here, just create the file "config/schedule.rb" into the plugin
+# root directory and write jobs using the same syntax used here (see example in
+# the `newsletter` plugin)
+
+Dir.glob("config/plugins/*/config/schedule.rb").each do |filename|
+  filecontent = IO.read(filename)
+  instance_eval(Whenever::NumericSeconds.process_string(filecontent), filename)
+end

@@ -1,0 +1,24 @@
+.newsletter-toggle-link {
+  cursor: pointer;
+}
+#newsletter-footer-field {
+  display: none;
+}
+#newsletter-enabled-field input#settings_enabled {
+  margin-right: 6px;
+}
+
+#newsletter-moderation-preview #newsletter-public-link,
+#newsletter-moderation-preview #newsletter-unsubscribe {
+  display: none;
+}
+
+#newsletter-moderation-preview {
+  margin-left: 25px;
+}
+
+#newsletter-moderation-preview input[type=checkbox] {
+  margin-left: -27px;
+  margin-top: 16px;
+  float: left;
+}

@@ -5,7 +5,8 @@ module ActsAsHavingImage
       belongs_to :image, dependent: :destroy
       scope :with_image, -> { where "#{table_name}.image_id IS NOT NULL" }
       scope :without_image, -> { where "#{table_name}.image_id IS NULL" }
-      self.send(:include, ActsAsHavingImage)
+      attr_accessible :image_builder
+      include ActsAsHavingImage
     end
   end
 

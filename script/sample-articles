@@ -65,3 +65,22 @@ for subject in EVENT_SUBJECTS
   end
 end
 done
+
+print "Creating some posts: "
+for subject in SUBJECTS
+  rand(20).times do |i|
+    profile = profiles.sample
+    name = "%s #{subject}" % profile.name
+    article = TinyMceArticle.new(
+      :name => name,
+      :body => name,
+      :tag_list => [TAGS.sample, TAGS.sample],
+      :profile => profile,
+      :parent_id => profile.blog.id
+    )
+    save article do
+      article.add_category categories.sample
+    end
+  end
+end
+done

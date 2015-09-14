@@ -114,7 +114,7 @@ class Event < Article
   end
 
   alias_method :article_lead, :lead
-  def lead
+  def lead(length = nil)
     self.class.action_view.render 'content_viewer/event_lead', event: self
   end
 
