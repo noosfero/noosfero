@@ -262,12 +262,12 @@ class Article < ActiveRecord::Base
 
   scope :is_public, -> {
     joins(:profile).
-    where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true)
+    where("articles.advertise = ? AND articles.published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true)
   }
 
   scope :more_recent, -> {
     order('articles.published_at desc, articles.id desc')
-    .where("advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
+    .where("articles.advertise = ? AND articles.published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
     ((articles.type != ?) OR articles.type is NULL)",
     true, true, true, true, 'RssFeed')
   }
