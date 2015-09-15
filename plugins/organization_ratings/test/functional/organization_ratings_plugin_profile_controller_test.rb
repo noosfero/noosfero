@@ -29,6 +29,13 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     assert_equal "#{@community.name} successfully rated!", session[:notice]
   end
 
+  test "should redirect to profile home page" do
+    @community.home_page = @community.blog
+    @community.save
+    post :new_rating, profile: @community.identifier, :comments => {:body => "This is minor a test"}, :organization_rating_value => 3
+    assert_redirected_to @community.url
+  end
+
   test "Create community_rating without comment body" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => 2
 

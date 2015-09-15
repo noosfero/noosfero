@@ -22,9 +22,9 @@
 
   <%= control_panel_button(_('Edit sideboxes'), 'blocks', :controller => 'profile_design', :action => 'index') %>
 
-  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'profile_themes', :action => 'index') %>
+  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'profile_themes', :action => 'index') if @show_appearance_option %>
 
-  <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') if user.is_admin?(environment) || (!profile.enterprise? && !environment.enabled?('disable_header_and_footer'))  %>
+  <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') if @show_header_footer_option %>
 
   <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
 

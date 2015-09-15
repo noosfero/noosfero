@@ -53,7 +53,7 @@
             <%= submit_button(:save, _('Save'), :cancel => {controller: 'profile', action: 'index'}) %>
           </div>
 
-          <input type="hidden" id="selected-star-rate" name="organization_rating_value" value="<%=  @default_rate %>">
+          <input type="hidden" id="selected-star-rate" name="organization_rating_value" value="<%=  default_rating %>">
           <input type="hidden" id="minimum_stars" name="organization_rating_min_value" value="<%= min_rate %>">
         <% end %>
       </div>

@@ -39,44 +39,47 @@ Feature: create community
     Then I should see "Creating new community"
 
   Scenario: environment admin receive a task when a user creates a community
-    Given I am logged in as admin
+    Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is enabled on environment
-    When I create community "Community for approval"
+    Given "joaosilva" creates the community "Community for approval"
+    Given I am logged in as admin
     And I go to admin_user's control panel
-    Then I should see "admin_user wants to create community Community for approval"
+    Then I should see "Joao Silva wants to create community Community for approval"
 
   Scenario: environment admin accepts new community task
-    Given I am logged in as admin
+    Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is enabled on environment
-    When I create community "Community for approval"
+    Given "joaosilva" creates the community "Community for approval"
+    Given I am logged in as admin
     And I go to admin_user's control panel
     And I follow "Process requests"
-    And I should see "admin_user wants to create community Community for approval"
+    And I should see "Joao Silva wants to create community Community for approval"
     And I choose "Accept"
     When I press "Apply!"
-    Then I should not see "admin_user wants to create community Community for approval"
-    And I go to admin_user's control panel
+    Then I should not see "Joao Silva wants to create community Community for approval"
+    And I go to joaosilva's control panel
     And I follow "Manage my groups"
     Then I should see "Community for approval"
 
   Scenario: environment admin rejects new community task
-    Given I am logged in as admin
+    Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is enabled on environment
-    When I create community "Community for approval"
+    Given "joaosilva" creates the community "Community for approval"
+    Given I am logged in as admin
     And I go to admin_user's control panel
     And I follow "Process requests"
-    And I should see "admin_user wants to create community Community for approval"
+    And I should see "Joao Silva wants to create community Community for approval"
     And I choose "Reject"
     When I press "Apply!"
-    Then I should not see "admin_user wants to create community Community for approval"
-    And I go to admin_user's control panel
+    Then I should not see "Joao Silva wants to create community Community for approval"
+    And I go to joaosilva's control panel
     And I follow "Manage my groups"
     Then I should not see "Community for approval"
 
   Scenario: new community is listed after approval
     Given I am logged in as admin
     And feature "admin_must_approve_new_communities" is enabled on environment
-    When I create community "Community for approval"
+    Given "admin_user" creates the community "Community for approval"
     And I approve community "Community for approval"
     And I go to admin_user's control panel
     And I follow "Manage my groups"
@@ -85,8 +88,9 @@ Feature: create community
   Scenario: new community is not listed after rejection
     Given I am logged in as admin
     And feature "admin_must_approve_new_communities" is enabled on environment
-    When I create community "Community for approval"
+    Given "admin_user" creates the community "Community for approval"
     And I reject community "Community for approval"
     And I go to admin_user's control panel
     And I follow "Manage my groups"
     Then I should not see "Community for approval"
+

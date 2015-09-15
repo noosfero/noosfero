@@ -20,6 +20,6 @@
   <% end %>
 
   <div class="rate-this-organization">
-    <%= link_to _("Rate this %s" % profile.class.name), url_for(:controller => "organization_ratings_plugin_profile", :action => "new_rating", :profile=>profile_identifier) %>
+    <%= link_to _("Rate this %s") % _(profile.class.name), url_for(:controller => "organization_ratings_plugin_profile", :action => "new_rating", :profile=>profile_identifier) %>
   </div>
 </div>
