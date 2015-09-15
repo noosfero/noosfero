@@ -116,6 +116,7 @@ Renan Teruo <renanteruoc@gmail.com>
 Rodrigo Medeiros <rodrigo.mss01@gmail.com>
 Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
+root <root@17edebf1ae91>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Simião Carvalho <simiaosimis@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
