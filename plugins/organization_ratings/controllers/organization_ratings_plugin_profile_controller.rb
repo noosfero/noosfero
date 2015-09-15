@@ -49,7 +49,7 @@ class OrganizationRatingsPluginProfileController < ProfileController
       session[:notice] = _("Sorry, there were problems rating this profile.")
     end
 
-    redirect_to :controller => 'profile',  :action => 'index'
+    redirect_to profile.url
   end
 
   def create_rating_comment(rating)
