@@ -65,7 +65,7 @@ class StatisticsBlock < Block
   end
 
   def is_template_counter_active? template_id
-    self.templates_ids_counter[template_id.to_s].to_s == 'true'
+    self.templates_ids_counter[template_id.to_s.to_sym].to_s == 'true'
   end
 
   def template_counter_count(template_id)
