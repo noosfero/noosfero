@@ -14,7 +14,7 @@ class NewsletterPluginController < PublicController
 
   def confirm_unsubscription
     if request.post?
-      session[:notice] = _('You was unsubscribed from newsletter.')
+      session[:notice] = _('You were unsubscribed from newsletter.')
       @newsletter = NewsletterPlugin::Newsletter.where(environment_id: environment.id).first
       @newsletter.unsubscribe(current_user.email)
       redirect_to :controller => :home

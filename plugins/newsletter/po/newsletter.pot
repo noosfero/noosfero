@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
-msgid "You was unsubscribed from newsletter."
+msgid "You were unsubscribed from newsletter."
 msgstr ""
 
 #: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
