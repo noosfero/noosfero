@@ -38,17 +38,17 @@ class GeoRefTest < ActiveSupport::TestCase
 
   should 'get lat/lng from address' do
     Rails.cache.clear
-    Noosfero::GeoRef.stubs(:location_to_georef).with('Salvador, Bahia, BR').returns([-12, -38, :SUCCESS]) if ENV['CI']
+    Noosfero::GeoRef.stubs(:location_to_georef).with('Salvador, Bahia, BR').returns([-12, -38, :SUCCESS])
     ll = Noosfero::GeoRef.location_to_georef 'Salvador, Bahia, BR'
     assert_equal [-12, -38, :SUCCESS], round_ll(ll)
   end
 
   should 'get and cache lat/lng from address' do
     Rails.cache.clear
-    Noosfero::GeoRef.stubs(:location_to_georef).with('Curitiba, Paraná, BR').returns([-25, -49, :SUCCESS]) if ENV['CI']
+    Noosfero::GeoRef.stubs(:location_to_georef).with('Curitiba, Paraná, BR').returns([-25, -49, :SUCCESS])
     ll = Noosfero::GeoRef.location_to_georef 'Curitiba, Paraná, BR'
     assert_equal [-25, -49, :SUCCESS], round_ll(ll)
-    Noosfero::GeoRef.stubs(:location_to_georef).with('Curitiba, Paraná, BR').returns([-25, -49, :SUCCESS, :CACHE]) if ENV['CI']
+    Noosfero::GeoRef.stubs(:location_to_georef).with('Curitiba, Paraná, BR').returns([-25, -49, :SUCCESS, :CACHE])
     ll = Noosfero::GeoRef.location_to_georef 'Curitiba, Paraná, BR'
     assert_equal [-25, -49, :SUCCESS, :CACHE], round_ll(ll)
   end
@@ -57,7 +57,7 @@ class GeoRefTest < ActiveSupport::TestCase
     Rails.cache.clear
     orig_env = ENV['RAILS_ENV']
     ENV['RAILS_ENV'] = 'X' # cancel throw for test mode on process_rest_req.
-    Noosfero::GeoRef.stubs(:location_to_georef).with('Nowhere, Nocountry, XYZ').returns([0, 0, :ZERO_RESULTS]) if ENV['CI']
+    Noosfero::GeoRef.stubs(:location_to_georef).with('Nowhere, Nocountry, XYZ').returns([0, 0, :ZERO_RESULTS])
     ll = Noosfero::GeoRef.location_to_georef 'Nowhere, Nocountry, XYZ'
     ENV['RAILS_ENV'] = orig_env # restore value to do not mess with other tests.
     assert_equal [0, 0, :ZERO_RESULTS], round_ll(ll)
