@@ -1181,4 +1181,30 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :index, :profile => user.identifier
     assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Edit Header and Footer' }
   end
+
+  should 'user cant edit header and footer if environment dont permit' do
+    environment = Environment.default
+    environment.settings[:disable_header_and_footer_enabled] = true
+    environment.save!
+
+    user = create_user('user').person
+    login_as('user')
+
+    get :header_footer, :profile => user.identifier
+    assert_response :redirect
+  end
+
+  should 'admin can edit header and footer if environment dont permit' do
+    user = create_user('user').person
+
+    environment = Environment.default
+    environment.add_admin(user)
+    environment.settings[:disable_header_and_footer_enabled] = true
+    environment.save!
+
+    login_as('user')
+
+    get :header_footer, :profile => user.identifier
+    assert_response :success
+  end
 end

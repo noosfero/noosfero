@@ -1,0 +1,225 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.2-489-g47e5f18\n"
+"POT-Creation-Date: 2015-09-15 14:14-0000\n"
+"PO-Revision-Date: 2015-09-15 14:14-0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
+msgid "You were unsubscribed from newsletter."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
+msgid "Newsletter updated."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:25
+msgid "Newsletter could not be saved."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:41 plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:33
+msgid "%s in %s"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:23
+msgid "Moderate newsletter"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:35
+msgid "You have to moderate a newsletter."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:47
+msgid "A newsletter was generated and you need to review it before it is sent to users."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:51
+msgid "You need to moderate a newsletter."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:9 plugins/newsletter/lib/newsletter_plugin/newsletter.rb:10
+msgid "must be a positive number"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:55
+msgid "must be valid"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:59
+msgid "must not have duplicates"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:65
+msgid "must have only valid emails"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:114
+msgid "If you can't view this email, %s."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:114
+msgid "click here"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:118
+msgid "This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:118
+msgid "cancel your subscription here"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:122
+msgid "Read more"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:144
+msgid "Breaking news"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:164
+msgid "have unknown file type: %s"
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin.rb:8
+msgid "Periodically sends newsletter via email to network users"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:1
+msgid "Newsletter settings"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:11
+msgid "Enable send of newsletter to members on this environment"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:16
+msgid "Moderate newsletter each time before sending to users."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:20
+msgid "Content"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:24
+msgid "Period (in days) for news compilation"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:28
+msgid "Number of posts compiled per blog (choose 0 for all posts since last newsletter)"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:31
+msgid "Blogs from which news will be compiled"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:36
+msgid "Type in the communities' or blogs' names"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:42
+msgid "Recipients"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:46
+msgid "You can follow the link below to see which e-mails are currently being used as additional recipients for this newsletter."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:52
+msgid "You can set additional e-mails to send the newsletter to in addition to all environment's users that already receive the newsletter by default. To do that, you need to upload a CSV file that contains a column for the person's or enterprise's name as well as a column with their e-mail."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:55
+msgid "Additional recipients for newsletter"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:60
+msgid "The CSV file contains a header row"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:64
+msgid "Number of colunm with name field"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:68
+msgid "Number of colunm with email field"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:73
+msgid "Layout"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:77
+msgid "Header image (images with 640px width):"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:82
+msgid "Newsletter footer"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:89
+msgid "Save"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:90
+msgid "Save and visualize"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:1
+msgid "Additional recipients"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:7
+msgid "E-mail"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:17
+msgid "There are no additional recipients."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:21
+msgid "Back"
+msgstr ""
+
+#: plugins/newsletter/views/tasks/newsletter_plugin/_moderate_newsletter_accept_details.html.erb:3
+msgid "Check posts you want to include"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:1
+msgid "Mailing not found"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:3
+msgid "There is no mailing with id #%s"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:1
+msgid "Cancel newsletter subscription"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:4
+msgid "I don't want to receive future newsletter emails from this network."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:7
+msgid "Send an email to %s requesting your unsubscription or click on the button below."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:10
+msgid "Confirm unsubscription"
+msgstr ""
