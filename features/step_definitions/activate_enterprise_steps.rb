@@ -49,7 +49,7 @@ Given /^enterprise "([^\"]*)" is enabled$/ do |enterprise|
 end
 
 Given /^enterprise "([^\"]*)" should be blocked$/ do |enterprise|
-   Enterprise.find_by_name(enterprise).blocked?.should be_true
+  Enterprise.find_by_name(enterprise).blocked?.should be_true
 end
 
 Given /^enterprise "([^\"]*)" should not be blocked$/ do |enterprise|

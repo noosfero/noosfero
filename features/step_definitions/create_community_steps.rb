@@ -9,7 +9,7 @@ Given /^I create community "(.+)"$/ do |community|
 end
 
 Given /^"(.+)" creates the community "(.+)"$/ do |username, community|
-  When %{I go to #{username}'s control panel}
+  step %{I go to #{username}'s control panel}
   click_link('Manage my groups')
   click_link('Create a new community')
   fill_in("Name", :with => community)
