@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
 
+  # AuthenticatedSystem filters must come before login_from_cookie
+  include AuthenticatedSystem
   before_filter :login_from_cookie
   before_filter :login_required, :if => :private_environment?
 
@@ -65,7 +67,6 @@ class ApplicationController < ActionController::Base
   helper :language
 
   include DesignHelper
-  include AuthenticatedSystem
   include PermissionCheck
 
   before_filter :set_locale
