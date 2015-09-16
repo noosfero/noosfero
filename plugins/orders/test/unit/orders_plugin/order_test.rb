@@ -3,7 +3,7 @@ require "test_helper"
 class OrdersPlugin::OrderTest < ActiveSupport::TestCase
 
   def setup
-    @order = build(OrdersPlugin::Order)
+    @order = build(OrdersPlugin::Order, :profile => fast_create(Profile))
   end
 
   should 'report supplier products when distributing aggregate products' do
@@ -49,12 +49,12 @@ class OrdersPlugin::OrderTest < ActiveSupport::TestCase
   should 'define and validate list of statuses' do
     @order.status = 'blah'
     @order.valid?
-    assert @order.errors.invalid?('status')
+    assert @order.invalid?('status')
 
     ['draft', 'planned', 'ordered', 'cancelled'].each do |i|
       @order.status = i
       @order.valid?
-      assert !@order.errors.invalid?('status')
+      assert !@order.invalid?('status')
     end
   end
 
