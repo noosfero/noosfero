@@ -28,7 +28,7 @@
           cancel: cancel
           choose_a_delivery_met: "Choose a delivery method from the list"
           edit_this: "Edit"
-          remove_method: "Remover"
+          remove_method: "Remove"
         _show: 
           x: X
         select: 
