@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:46-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,19 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
-msgstr "Sub-grupos"
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
-msgid "Adds the ability for groups to have sub-groups."
-msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
-#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
-msgstr "Gerenciar sub-grupos"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
@@ -57,29 +44,24 @@ msgstr "paternidade multi-nível não é permitido."
 msgid "Related Organizations"
 msgstr "Organizações Relacionadas"
 
-#: plugins/sub_organizations/lib/related_organizations_block.rb:18
-msgid "\"{#} #{display_type[:title]} enterprise\""
-msgid_plural " \"{#} #{display_type[:title]} enterprises\""
-msgstr[0] "\"{#} #{display_type[:title]} empreendimento\""
-msgstr[1] "\"{#} #{display_type[:title]} empreendimentos\""
-
-#: plugins/sub_organizations/lib/related_organizations_block.rb:20
-msgid "\"{#} #{display_type[:title]} community\""
-msgid_plural " \"{#} #{display_type[:title]} communities\""
-msgstr[0] "\"{#} #{display_type[:title]} comunidade\""
-msgstr[1] "\"{#} #{display_type[:title]} comunidades\""
-
-#: plugins/sub_organizations/lib/related_organizations_block.rb:22
-msgid "\"{#} #{display_type[:title]} organization\""
-msgid_plural " \"{#} #{display_type[:title]} organizations\""
-msgstr[0] "\"{#} #{display_type[:title]} organização\""
-msgstr[1] "\"{#} #{display_type[:title]} organizações\""
-
 #: plugins/sub_organizations/lib/related_organizations_block.rb:27
 #, fuzzy
 msgid "This block displays %s organizations of this organization"
 msgstr ""
 "\"Este bloco mostra #{display_type[:title]} organizações desta organização\""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
+msgstr "Sub-grupos"
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr "Gerenciar sub-grupos"
 
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
 msgid "Sub-organizations updated"
@@ -96,20 +78,6 @@ msgstr "Tipo de organizações para serem mostradas"
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:3
 msgid "Both"
 msgstr "Ambos"
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
-msgid "%s's sub-%s"
-msgstr ""
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
-msgid "There are no sub-%s yet."
-msgstr ""
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
-msgid "Add a new %s"
-msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
 msgid "Sub-groups awaiting approval:"
@@ -134,6 +102,35 @@ msgstr ""
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:21
 msgid "Type in a search term for a group"
 msgstr "Digite um termo de pesquisa para um grupo"
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
+msgid "%s's sub-%s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
+msgid "Add a new %s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
+msgid "There are no sub-%s yet."
+msgstr ""
+
+#~ msgid "\"{#} #{display_type[:title]} enterprise\""
+#~ msgid_plural " \"{#} #{display_type[:title]} enterprises\""
+#~ msgstr[0] "\"{#} #{display_type[:title]} empreendimento\""
+#~ msgstr[1] "\"{#} #{display_type[:title]} empreendimentos\""
+
+#~ msgid "\"{#} #{display_type[:title]} community\""
+#~ msgid_plural " \"{#} #{display_type[:title]} communities\""
+#~ msgstr[0] "\"{#} #{display_type[:title]} comunidade\""
+#~ msgstr[1] "\"{#} #{display_type[:title]} comunidades\""
+
+#~ msgid "\"{#} #{display_type[:title]} organization\""
+#~ msgid_plural " \"{#} #{display_type[:title]} organizations\""
+#~ msgstr[0] "\"{#} #{display_type[:title]} organização\""
+#~ msgstr[1] "\"{#} #{display_type[:title]} organizações\""
 
 #~ msgid "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
 #~ msgstr "\"#{profile.name}'s sub-#{organization_type.pluralize}\""

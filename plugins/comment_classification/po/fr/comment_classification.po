@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-07-03 00:34+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -72,6 +72,57 @@ msgstr "Les statuts ont été supprimés"
 msgid "Status could not be removed"
 msgstr "Les statuts ne peuvent pas êtres supprimés"
 
+#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
+msgid "Editing label %s"
+msgstr "Édition du label %s"
+
+# (second try of this knid of contents)
+#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
+msgid "Add a new label"
+msgstr "Ajouter un nouveau label"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr "Nom"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
+msgid "Color"
+msgstr "Couleur"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
+msgid "Enable this label?"
+msgstr "Activer ce label ?"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
+msgid "Manage comments labels"
+msgstr "Gérer les commentaires des labels"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:5
+msgid "(no label registered yet)"
+msgstr "(pour le moment aucun label n'est enregistré)"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:9
+#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
+msgid "Label"
+msgstr "Label"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:10
+msgid "Enabled"
+msgstr "Activé(e)"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr "Actions"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
+msgid "Are you sure you want to  remove this label?"
+msgstr "Êtes-vous sûr(e) que vous voulez retirer ce label ?"
+
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
 #: plugins/comment_classification/views/comment/comment_extra.html.erb:12
@@ -109,64 +160,25 @@ msgstr "Ajouter un nouveau statut"
 msgid "Manage comment classification"
 msgstr "Manager le rangement de commentaire"
 
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
-msgid "Name"
-msgstr "Nom"
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
+msgid "Comments classification options"
+msgstr "Options de rangement des commentaires"
 
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
-msgid "Color"
-msgstr "Couleur"
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:4
+msgid "Manage Labels"
+msgstr "Gérer les labels"
 
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
-msgid "Enable this label?"
-msgstr "Activer ce label ?"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
-msgid "Editing label %s"
-msgstr "Édition du label %s"
-
-# (second try of this knid of contents)
-#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
-msgid "Add a new label"
-msgstr "Ajouter un nouveau label"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
-msgid "Manage comments labels"
-msgstr "Gérer les commentaires des labels"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:5
-msgid "(no label registered yet)"
-msgstr "(pour le moment aucun label n'est enregistré)"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:9
-#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
-msgid "Label"
-msgstr "Label"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:10
-msgid "Enabled"
-msgstr "Activé(e)"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
-msgid "Actions"
-msgstr "Actions"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
-msgid "Are you sure you want to  remove this label?"
-msgstr "Êtes-vous sûr(e) que vous voulez retirer ce label ?"
-
-#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
-msgid "Enable this status?"
-msgstr "Activer ce statut ?"
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:5
+msgid "Manage Status"
+msgstr "Gérer les statuts"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/edit.html.erb:1
 msgid "Editing status %s"
 msgstr "Édition du statut %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
+msgid "Enable this status?"
+msgstr "Activer ce statut ?"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:1
 msgid "Manage comments status"
@@ -187,15 +199,3 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce statut ?"
 #: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
 msgid "[Select ...]"
 msgstr "[Choisir...]"
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
-msgid "Comments classification options"
-msgstr "Options de rangement des commentaires"
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:4
-msgid "Manage Labels"
-msgstr "Gérer les labels"
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:5
-msgid "Manage Status"
-msgstr "Gérer les statuts"

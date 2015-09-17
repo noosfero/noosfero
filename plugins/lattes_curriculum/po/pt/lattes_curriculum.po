@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:46-0300\n"
 "PO-Revision-Date: 2015-02-17 10:50+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,6 +23,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
+
+#: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
+msgid "A plugin that imports the lattes curriculum into the users profiles"
+msgstr "Um plugins que importa o currículo Lattes no perfil dos usuários"
+
+#: plugins/lattes_curriculum/lib/academic_info.rb:10
+msgid " is invalid."
+msgstr " é inválido."
+
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:40
+msgid "Lattes"
+msgstr "Lattes"
+
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:73
+#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:106
+msgid " Invalid lattes url"
+msgstr " URL do Lattes inválida"
 
 #: plugins/lattes_curriculum/lib/html_parser.rb:19
 msgid "Lattes not found. Please, make sure the informed URL is correct."
@@ -38,21 +56,3 @@ msgstr ""
 #: plugins/lattes_curriculum/lib/html_parser.rb:23
 msgid "Could not import the lattes"
 msgstr ""
-
-#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
-#: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18
-msgid "A plugin that imports the lattes curriculum into the users profiles"
-msgstr "Um plugins que importa o currículo Lattes no perfil dos usuários"
-
-#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:40
-msgid "Lattes"
-msgstr "Lattes"
-
-#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:73
-#: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:106
-msgid " Invalid lattes url"
-msgstr " URL do Lattes inválida"
-
-#: plugins/lattes_curriculum/lib/academic_info.rb:10
-msgid " is invalid."
-msgstr " é inválido."

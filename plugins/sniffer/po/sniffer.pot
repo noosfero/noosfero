@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,22 +54,6 @@ msgstr ""
 msgid "Could not save consumer interests"
 msgstr ""
 
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:12
-msgid "Edit %{inputs} and %{interests}"
-msgstr ""
-
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:13
-msgid "products' inputs"
-msgstr ""
-
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:14
-msgid "declared interests"
-msgstr ""
-
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:23
-msgid "%{interest} from %{profile}"
-msgstr ""
-
 #: plugins/sniffer/views/sniffer_plugin_myprofile/my_map_balloon.html.erb:8
 #: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:39
 msgid "Close"
@@ -100,30 +84,6 @@ msgstr ""
 msgid "Back to control panel"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:11
-msgid "Up to %s km from you. %s result(s) found."
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:22
-msgid "Legend"
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:23
-msgid "your enterprise"
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:24
-msgid "suppliers"
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:25
-msgid "consumers"
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:26
-msgid "both"
-msgstr ""
-
 #: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:9
 msgid "Suppliers"
 msgstr ""
@@ -150,4 +110,44 @@ msgstr ""
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:22
 msgid "May consum"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:11
+msgid "Up to %s km from you. %s result(s) found."
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:22
+msgid "Legend"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:23
+msgid "your enterprise"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:24
+msgid "suppliers"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:25
+msgid "consumers"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:26
+msgid "both"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:12
+msgid "Edit %{inputs} and %{interests}"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:13
+msgid "products' inputs"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:14
+msgid "declared interests"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:23
+msgid "%{interest} from %{profile}"
 msgstr ""

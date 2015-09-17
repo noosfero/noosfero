@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:8
-msgid "New kind of content for organizations."
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:62
-msgid "Notification successfully sent"
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:64
-msgid "Notification not sent"
-msgstr ""
-
 #: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
 msgid "Work Assignment"
 msgstr ""
@@ -37,22 +25,6 @@ msgstr ""
 msgid ""
 "Defines a work to be done by the members and receives their submissions "
 "about this work."
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Message"
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
-msgstr ""
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
 msgstr ""
 
 #: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:9
@@ -75,12 +47,32 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
-msgid "Save"
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
 msgstr ""
 
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
-msgid "Cancel"
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:8
+msgid "New kind of content for organizations."
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:62
+msgid "Notification successfully sent"
+msgstr ""
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:64
+msgid "Notification not sent"
 msgstr ""
 
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
@@ -103,4 +95,12 @@ msgstr ""
 
 #: plugins/work_assignment/views/cms/_notify_text_field.html.erb:3
 msgid "Send notification to: "
+msgstr ""
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
+msgid "Save"
+msgstr ""
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
+msgid "Cancel"
 msgstr ""
