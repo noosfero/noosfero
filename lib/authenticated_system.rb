@@ -3,8 +3,10 @@ module AuthenticatedSystem
   protected
 
     def self.included base
-      # See impl. from http://stackoverflow.com/a/2513456/670229
-      base.around_filter :user_set_current if base.is_a? ActionController::Base
+      if base.is_a? ActionController::Base
+        base.around_filter :user_set_current
+        base.before_filter :login_from_cookie
+      end
 
       # Inclusion hook to make #current_user and #logged_in?
       # available as ActionView helper methods.
@@ -40,6 +42,7 @@ module AuthenticatedSystem
       @current_user = User.current = new_user
     end
 
+    # See impl. from http://stackoverflow.com/a/2513456/670229
     def user_set_current
       User.current = current_user
       yield
