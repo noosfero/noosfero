@@ -1,16 +1,25 @@
-  <%= image_tag(image.public_filename(:thumb)) %>
+<%= image_tag(image.public_filename(:thumb)) %>
 
-  <br/>
+<br/>
 
-  <%= button_to_function(:photos, _('Change image'), 'display_change_image()', :id => 'change-image-link' ) %>
+<%= button_to_function(:photos, _('Change image'), 'display_change_image()', :id => 'change-image-link' ) %>
 
-  <script>
-    function display_change_image() {
-      var content = "<%= j(render :partial => 'shared/change_image', :locals => { :i => i, :image => image }) %>";
-      jQuery('#change-image').html(content);
-      jQuery('#change-image-link').hide();
-      jQuery('#cancel-change-image-link').show();
-    }
-  </script>
+<script>
+  function display_change_image() {
+    jQuery('#change-image').show();
+    jQuery('#change-image-link').hide();
+    jQuery('#cancel-change-image-link').show();
+  }
+</script>
 
-  <div id='change-image'> </div> <br/>
+<br/>
+<div id='change-image' style='display:none'>
+  <%= render :partial => 'shared/change_image', :locals => { :i => i, :image => image } %>
+</div>
+<br/>
+
+<% if image.present? && removable %>
+  <div id='image-builder-remove-checkbox'>
+    <%= labelled_form_field(_('Remove image'), i.check_box(:remove_image, {}, true, false))%>
+  </div>
+<% end %>
