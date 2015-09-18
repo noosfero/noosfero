@@ -1,3 +1,9 @@
+noosfero (1.2.3) wheezy; urgency=low
+
+  * Bug fixes release
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Fri, 18 Sep 2015 19:25:43 -0300
+
 noosfero (1.2.2) wheezy; urgency=low
 
   * Bug fixes release
