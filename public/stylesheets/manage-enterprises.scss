@@ -1,0 +1,38 @@
+
+#manage-enterprises {
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+#manage-enterprises .ui-icon {
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+#manage-enterprises .simplemenu-submenu {
+  text-align: left;
+  left: -20px;
+  width: 200px;
+}
+#manage-enterprises .simplemenu-item {
+  padding: 5px 0;
+}
+#manage-enterprises .simplemenu-item a {
+  background-repeat: no-repeat;
+  background-position: 5px 50%;
+  padding: 1px 0px 0px 26px;
+  line-height: 15px;
+  display: block;
+}
+#manage-enterprises .simplemenu-item a span {
+  display: none;
+}
+.msie8 #manage-enterprises-link { /* IE8 hack */
+  border: 0px solid;
+}
+.msie8 #manage-enterprises .simplemenu-submenu {
+  top: 16px;
+}
+.webkit #manage-enterprises .simplemenu-submenu {
+  top: 20px;
+}

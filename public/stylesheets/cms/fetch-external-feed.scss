@@ -1,0 +1,15 @@
+.controller-cms #fetch-external-feed {
+  border: 1px solid #EEE;
+  padding: 5px;
+  margin: 5px 0;
+  width: 460px
+}
+.controller-cms #fetch-external-feed label, .controller-cms #fetch-external-feed .formfield, .controller-cms #fetch-external-feed #external-feed-options #external-feed-options-only-once label, .controller-cms #fetch-external-feed #external-feed-options #external-feed-options-only-once .formfieldline, .controller-cms #fetch-external-feed #external-feed-options #external-feed-options-only-once .formfield {
+  display: inline;
+}
+.controller-cms #fetch-external-feed .type-text input {
+  width: 400px;
+}
+.controller-cms #fetch-external-feed #external-feed-options label, .controller-cms #fetch-external-feed #external-feed-options .formfield {
+  display: block;
+}

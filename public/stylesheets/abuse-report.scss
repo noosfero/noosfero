@@ -1,0 +1,31 @@
+
+.abuse-report-details {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.display-abuse-report-details {
+  float: right;
+  margin-top: -30px;
+}
+
+#content a.report-abuse-action.disabled {
+  cursor: default;
+  text-decoration: none;
+  color: #999;
+}
+
+#content a.button.report-abuse-action.disabled:hover {
+  background-color: #eee;
+  color: #999;
+  border: solid 1px #ccc;
+}
+
+#article-actions a.button.report-abuse-action.disabled:hover {
+  border: none;
+  background-color: transparent;
+  color: #999;
+}
+

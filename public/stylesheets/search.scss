@@ -1057,3 +1057,9 @@ ul#assets-links li.selected a {
   line-height: 20px;
   font-style: oblique;
 }
+
+/* * * Sub-category stuff * * * * * * * */
+.controller-search #category-childs ul {
+  height: 150px;
+  overflow: auto;
+}

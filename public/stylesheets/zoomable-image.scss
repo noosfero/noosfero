@@ -1,0 +1,45 @@
+
+.zoomable-image {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+/* IE 8 hack to avoid max-width image bug */
+.msie8 #content #article .article-body .zoomable-image img {
+  max-width: none !important;
+}
+
+/* IE 7 hack to simulate inline-block */
+.msie7 .zoomable-image {
+  zoom: 1;
+        *display: inline;
+}
+.zoomify-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  width: 100%;
+  height: 16px;
+  text-align: left;
+  background: transparent url(../images/black-alpha-pixel.png);
+  border-bottom: 1px solid #333;
+  text-decoration: none;
+}
+.zoomable-image:hover .zoomify-image {
+  display: block;
+  text-decoration: none;
+}
+#article .zoomify-image {
+  text-decoration: none;
+  color: #fff;
+}
+.zoomify-image span {
+  font-size: 10px;
+  line-height: 16px;
+  padding-left: 16px;
+  border-bottom: 1px solid #eee;
+  display: block;
+  background: transparent url(../images/zoom.png) left center no-repeat;
+  color: #fff;
+}

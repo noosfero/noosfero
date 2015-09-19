@@ -1,0 +1,37 @@
+
+div.event-info {
+  padding: 10px;
+}
+ul.event-data {
+  margin: 0px;
+  padding: 0px;
+}
+#content .event-data li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+#content .event-data li span {
+  font-weight: bold;
+  padding-right: 0.25em;
+}
+li.event-dates span {
+  display: none;
+}
+li.event-dates {
+  padding: 5px;
+  float: right;
+  font-style: italic;
+  padding-left: 32px;
+  background: white url(../images/icons-mime/event.png) 5px 50% no-repeat;
+}
+div.event-info div.event-description {
+  margin-top: 10px;
+  padding: 5px;
+  background: white;
+}
+div#article-parent {
+  margin: 5px 0px;
+  text-align: right;
+  font-style: italic;
+}
+

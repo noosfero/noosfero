@@ -1,0 +1,260 @@
+.controller-cms .with_media_panel {
+  float: left;
+  width: 900px;
+  transition: 1s 0.5s;
+}
+
+.controller-cms .show-media-panel .with_media_panel {
+  width: 600px;
+  transition: 1s;
+}
+
+.with_media_panel .formfield input[type="checkbox"] {
+  width: auto;
+}
+
+#media-upload-form {
+  padding-bottom: 5px;
+}
+
+#media-upload-form .upload {
+  border-top: solid 1px #CCC;
+  width: 100%;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+#media-upload-form .percentage {
+  float: right;
+}
+
+#media-upload-form .progress {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+
+#media-upload-form .bar {
+  height: 10px;
+  background: #729fcf;
+  border-radius: 3px;
+}
+
+#media-upload-form .bar.error {
+  background: #ef2929;
+}
+
+#media-upload-form input#file {
+  width: 100%;
+}
+
+#media-upload-form .error-message {
+  color: #a40000;
+  font-size: 10px;
+
+}
+
+#media-upload-box .hide-and-show-uploads {
+  text-align: center;
+}
+
+#media-upload-box .upload .file-name,
+#media-upload-box .upload .percentage {
+  display: inline-block;
+}
+
+#media-upload-box .upload .file-name{
+  width: 86%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#media-upload-box .upload .percentage {
+  text-align: right;
+  width: 12%;
+}
+
+
+.text-editor-sidebar {
+  position: absolute;
+  width: 280px;
+  right: 20px;
+  top: 70px;
+  max-height: 45px;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.show-media-panel .text-editor-sidebar {
+  max-height: 1200px;
+  transition: 1s 0.5s;
+}
+
+.text-editor-sidebar-box  {
+  background: #fcfcf9;
+  border: 1px solid #d3d7cf;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.text-editor-sidebar .header {
+  margin: 0 0 10px 0;
+  padding: 10px;
+  font-weight: bold;
+  border: 1px solid #d3d7cf;
+  background-color: #eeeeec;
+  background-repeat: no-repeat;
+  background-position: 98% 10px;
+  position: relative;
+}
+
+.text-editor-sidebar .header .icon-vertical-toggle {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.text-editor-sidebar code,
+.text-editor-sidebar pre {
+  border: 1px solid #d3d7cf;
+  color: black;
+  padding: 4px;
+  background: white;
+}
+.text-editor-sidebar .icon-loading {
+  background-image: url(../images/loading-small.gif);
+}
+.text-editor-sidebar .items {
+  margin-bottom: 10px;
+}
+
+.text-editor-sidebar .image,
+.view-all-media .image {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+}
+
+.text-editor-sidebar .image {
+  width: 80px;
+  margin: 2px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.view-all-media .image {
+  width: 150px;
+  margin: 3px;
+  height: 125px;
+  line-height: 125px;
+}
+
+.view-all-images .image:hover {
+  cursor: pointer;
+  background-color: #EEE;
+}
+
+.text-editor-sidebar img,
+.view-all-media img {
+  vertical-align: middle;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.view-all-images {
+  text-align: center;
+}
+
+.text-editor-sidebar .file,
+.view-all-media .file {
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  border: none;
+  margin-bottom: 12px;
+  padding-left: 20px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.text-editor-sidebar .file,
+.view-all-media .file {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-editor-sidebar select,
+.text-editor-sidebar input {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.text-editor-sidebar .items :hover,
+.view-all-media :hover {
+  background-color: transparent;
+}
+
+.text-editor-sidebar .items .image-controls,
+.view-all-media .image-controls {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  line-height: 16px;
+}
+
+.text-editor-sidebar .items .item:hover .image-controls,
+.view-all-media .item:hover .image-controls {
+  display: block;
+}
+
+.view-all-images .item:hover .image-controls {
+  display: none;
+}
+
+.text-editor-sidebar .items .file-controls,
+.view-all-media .file-controls {
+  margin-top: 5px;
+}
+
+.text-editor-sidebar .items .image-controls .icon-zoom,
+.view-all-media .image-controls .icon-zoom  {
+  background-image: url(../images/zoom-dark.png);
+  display: block;
+  width: 0px;
+  margin-top: 4px;
+}
+
+.text-editor-sidebar .media-upload-error {
+  color: red;
+}
+.text-editor-sidebar select {
+  max-width: 355px;
+}
+
+.view-all-media {
+  max-width: 830px;
+  max-height: 600px;
+}
+
+.view-all-media a.button {
+  background-color: #EEE;
+}
+
+#published-media .section-title {
+  width: 100%;
+  height: 40px;
+}
+
+#published-media .section-title h3 {
+  float: left;
+}
+
+#published-media .section-title a.view-all {
+  float: right;
+  line-height: 40px
+}

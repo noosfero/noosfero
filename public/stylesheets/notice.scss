@@ -1,0 +1,18 @@
+/* Notice box */
+
+div#notice {
+  background-color: #000;
+  color: white;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 100000;
+  padding: 10px;
+  width: 300px;
+  min-height: 60px;
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  pointer-events: none;
+}

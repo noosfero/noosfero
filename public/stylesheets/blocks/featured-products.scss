@@ -1,0 +1,84 @@
+
+.featured-product-items {
+  width: 100%;
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+}
+.featured-product-items ul {
+  display: table-row;
+}
+.featured-product-item {
+  list-style-type: none;
+  display: table-cell !important;
+}
+.featured-product-item div {
+  margin: 0 auto;
+}
+.featured-products-list {
+  padding: 0;
+}
+.featured-product-arrow {
+  float: left;
+  width: 20px;
+  background-repeat: no-repeat;
+  height: 160px;
+  background-position: center 55px;
+}
+.featured-product-arrow span {
+  display: none;
+}
+.featured-product-prev {
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-previous.png);
+}
+.featured-product-next {
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-next.png);
+}
+.featured-products-block-container {
+  width: 92%;
+}
+.box-2 .featured-products-block-container, .box-3 .featured-products-block-container {
+  width: 78%;
+}
+.featured-products-group {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.featured-product-desc {
+  display: none;
+}
+.featured-products-block-container, .featured-products-group {
+  overflow: hidden;
+  float: left;
+  height: 160px;
+  position: relative;
+}
+.featured-products-group ul {
+  padding: 0;
+  padding-left: 4px;
+}
+.featured-products-footer {
+  clear: both;
+}
+.featured-product-info {
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+  height: 125px;
+  overflow: hidden;
+  font-size: 11px;
+  background-color: #fff;
+  opacity: 0.7;
+  border: 1px solid #333;
+  padding: 5px;
+  text-align: left;
+}
+.box-2 .featured-product-info, .box-3 .featured-product-info {
+  width: 110px;
+  margin-left: 50%;
+  left: -60px;
+}
+#content .featured-product-info h3 {
+  font-size: 11px;
+}

@@ -1,0 +1,85 @@
+#article-versions {
+  margin: 0 0 15px 0;
+  padding: 0;
+}
+
+#article-versions li {
+  list-style: none;
+  margin: 0;
+  padding: 3px 0px;
+}
+
+#article-versions input:disabled {
+  opacity: 0.3;
+}
+
+#article-versions .selected {
+  background: #ff9;
+}
+
+#article-versions-no-diff {
+  text-align: center;
+  font-style: italic;
+}
+
+#no-current-version {
+  text-align: center;
+  font-style: italic;
+  background: #faa;
+  padding: 3px;
+}
+
+.article-versions {
+  margin: 5px 0px;
+  text-align: right;
+}
+
+.action-content_viewer-versions_diff .diff {
+  text-align: justify;
+}
+
+.diff ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.diff del, .diff ins {
+  display: block;
+  text-decoration: none;
+}
+
+.diff li {
+  padding: 5px 10px;
+  margin: 0;
+  line-height: 150%;
+}
+
+.diff li.ins {
+  background: #dfd;
+}
+
+.diff li.del {
+  background: #fee;
+}
+
+.diff li.ins:hover {
+  background: #8f8;
+}
+
+.diff li.del:hover {
+  background: #f99;
+}
+
+.diff strong {
+  background: rgba(255, 255, 0, 0.2);
+}
+
+.diff li.diff-comment {
+  display: none;
+}
+
+.diff li.diff-block-info {
+  background: none repeat scroll 0 0 gray;
+}
+

@@ -1,0 +1,32 @@
+
+.products-block ul {
+  margin: 0px;
+  padding: 0px 5px 0px 0px;
+  display: table;
+  border-spacing: 5px;
+}
+#content .products-block li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  list-style-image: none;
+  font-size: 12px;
+  height: 64px;
+  display: table-row;
+}
+#content .products-block li a {
+  background-repeat: no-repeat;
+  background-position: 5px 50%;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 5px 2px 5px 60px;
+  height: 50px;
+  overflow: hidden;
+  text-decoration: none;
+}
+.msie #content .products-block li a {
+  display: block;
+}
+#content .products-block li a:hover {
+  color: #fff;
+}

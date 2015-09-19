@@ -1,0 +1,101 @@
+
+#product-qualifiers, .input-list {
+  padding: 0;
+  margin-left: 0;
+  position: relative;
+}
+.input-list-header {
+  font-weight: bold;
+  margin-top: 10px;
+}
+#content .main-block #product-inputs .input-list .input-item {
+  text-align: left;
+}
+#content .main-block #product-qualifiers .product-qualifiers-item, #content .main-block #product-inputs .input-list .input-item, #content .main-block #show_product .input-list li, #content .main-block #show_product .ui-tabs ul .tab {
+  list-style: none;
+  list-style-image: none;
+}
+#product-qualifiers-list .icon-delete span {
+  display: none;
+}
+.input-item {
+  min-height: 40px;
+  margin: 15px 0;
+  position: relative;
+  border: 1px solid transparent;
+}
+.msie .input-list .ui-state-highlight {
+  height: 40px;
+}
+.input-item .button-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 3px 0;
+}
+.input-details-form form {
+  border: 1px dashed #EFEFEF;
+  padding: 2px 0 5px 5px;
+  margin-left: -5px;
+}
+.input-form-opened {
+  border: 1px solid gray;
+}
+.input-form-closed {
+  border: 0;
+}
+.input-details-form .amount-used {
+  width: 70px;
+  margin-right: 6px;
+}
+.input-details-form .price-per-unit {
+  width: 110px;
+}
+.input-details-form table {
+  width: auto;
+}
+#product-info-form tr:hover td, .input-details-form tr:hover td {
+  background: none;
+}
+#product-info-form tr td, .input-details-form tr th, .input-details-form tr td {
+  height: auto;
+  border: none;
+  padding: 2px 0;
+}
+#product-info-form tr .formlabel, .input-details-form tr .formlabel {
+  max-width: 195px;
+}
+.input-details-form .selected-unit {
+  padding: 0 2px;
+}
+.input-informations {
+  padding: 5px 0 5px 5px;
+}
+.editing-input {
+  border: 1px dotted #BBB;
+}
+.input-name {
+  width: 240px;
+}
+.input-name, .input-details {
+  display: inline-block;
+}
+.input-details {
+  width: 190px;
+}
+.input-list-header .input-details {
+  width: auto;
+}
+.add-input-details {
+  position: absolute;
+  left: 5px;
+  top: 20px;
+}
+#content .main-block #product-inputs .input-list .remove-input, #content .main-block #product-inputs .input-list .edit-input {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.solidatiry-economy-icon {
+  vertical-align: middle;
+  padding: 0 3px;
+}
