@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
 "POT-Creation-Date: 2015-09-16 21:46-0300\n"
-"PO-Revision-Date: 2015-08-28 12:36-0300\n"
-"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"PO-Revision-Date: 2015-09-19 18:31+0200\n"
+"Last-Translator: Bráulio Bhavamitra <brauliobo@gmail.com>\n"
+"Language-Team: Portuguese "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,19 +53,16 @@ msgid "%{month_name}"
 msgstr "%{month_name}"
 
 #: app/helpers/dates_helper.rb:48
-#, fuzzy
 msgid "%{month}/%{day}/%{year}, %{hour}:%{minutes}"
-msgstr "%{day} de %{month} de %{year}, %{hour}:%{minutes}"
+msgstr "%{day}/%{month}/%{year}, %{hour}:%{minutes}"
 
 #: app/helpers/dates_helper.rb:52
-#, fuzzy
 msgid "%{month_name} %{day}, %{year} %{hour}:%{minutes}"
-msgstr "%{day} de %{month} de %{year}, %{hour}:%{minutes}"
+msgstr "%{day} de %{month_name} de %{year}, %{hour}:%{minutes}"
 
 #: app/helpers/dates_helper.rb:52
-#, fuzzy
 msgid "%{month_name} %{day} %{hour}:%{minutes}"
-msgstr "%{day} de %{month} de %{year}, %{hour}:%{minutes}"
+msgstr "%{day} de %{month_name} %{hour}:%{minutes}"
 
 #: app/helpers/dates_helper.rb:65
 msgid "from %{month} %{day1} to %{day2}, %{year}"
@@ -150,24 +147,20 @@ msgid "wrote: <br /> \"%{text}\""
 msgstr "escreveu: <br /> \"%{text}\""
 
 #: app/helpers/action_tracker_helper.rb:71
-#, fuzzy
 msgid "created the product %{title}"
-msgstr "Criar produto"
+msgstr "criou o produto %{title}"
 
 #: app/helpers/action_tracker_helper.rb:77
-#, fuzzy
 msgid "updated the product %{title}"
-msgstr "Voltar para lista de produtos"
+msgstr "atualizou o produto %{title}"
 
 #: app/helpers/action_tracker_helper.rb:83
-#, fuzzy
 msgid "removed the product %{title}"
-msgstr "Não foi possível remover o produto"
+msgstr "removeu o produto %{title}"
 
 #: app/helpers/action_tracker_helper.rb:89
-#, fuzzy
 msgid "favorited enterprise %{title}"
-msgstr "Empreendimentos favoritos de %s"
+msgstr "favoritou o empreendimento %{title}"
 
 #: app/helpers/assets_helper.rb:7
 msgid "Articles"
@@ -1900,11 +1893,11 @@ msgstr "Remover"
 
 #: app/helpers/blog_helper.rb:10
 msgid "Visualization of posts"
-msgstr ""
+msgstr "Visualização das postagens"
 
 #: app/helpers/blog_helper.rb:14
 msgid "I want to display the preview of posts before the text"
-msgstr ""
+msgstr "Eu quero mostrar uma prévia das postagens antes do texto"
 
 #: app/helpers/blog_helper.rb:19
 msgid "New post"
@@ -2388,9 +2381,8 @@ msgid "Could not activate the profile."
 msgstr "Não foi possível ativar o perfil."
 
 #: app/controllers/my_profile/profile_editor_controller.rb:171
-#, fuzzy
 msgid "You can not destroy the profile."
-msgstr "Não foi possível desativar o perfil."
+msgstr "Você não pode remover o perfil."
 
 #: app/controllers/my_profile/mailconf_controller.rb:23
 msgid ""
@@ -2965,6 +2957,8 @@ msgid ""
 "You must to provide `lat` and `lng`, or `city` and `country` to define the "
 "center of the search circle, defined by `distance`."
 msgstr ""
+"Você precisa preencher a `latitude` e `longitude`, ou `cidade` e `país` para "
+"definir o centro do círculo de busca, definida pela `distância`."
 
 #: app/models/profile.rb:388 app/models/environment.rb:1010
 msgid "is not available."
@@ -3061,6 +3055,8 @@ msgid ""
 "The user \"%{login}\" is not activated! Please check your email to activate "
 "your user"
 msgstr ""
+"O usuário \"%{login}\" não está ativado! Por favor cheque seu email para "
+"ativar o usuário"
 
 #: app/models/user.rb:339
 msgid "does not match."
@@ -3228,9 +3224,8 @@ msgid "New member"
 msgstr "Novo membro"
 
 #: app/models/add_member.rb:32 app/models/add_member.rb:49
-#, fuzzy
 msgid "%{requestor} wants to be a member of '%{organization}'."
-msgstr "%{requestor} quer ser um membro desta comunidade."
+msgstr "%{requestor} quer ser um membro de '%{organization}'."
 
 #: app/models/add_member.rb:54
 msgid ""
@@ -4029,9 +4024,8 @@ msgid "Disable contact for groups/communities"
 msgstr "Desabilitar contato para comunidades"
 
 #: app/models/environment.rb:131
-#, fuzzy
 msgid "Forbid users of removing profiles"
-msgstr "Não foi possível remover o perfil"
+msgstr "Não permitir que usuários removam perfis"
 
 #: app/models/environment.rb:133
 msgid "Enable products for enterprises"
@@ -4165,7 +4159,7 @@ msgstr "Redireciona o usuário para seu painel de controle."
 
 #: app/models/environment.rb:174
 msgid "Specify the URL to redirect to:"
-msgstr ""
+msgstr "Especifique o endereço de redirecionamento:"
 
 #: app/models/environment.rb:181
 msgid "Stays on the same page the user was before signup."
@@ -4189,11 +4183,11 @@ msgstr "tem idiomas não suportados."
 
 #: app/models/approve_article.rb:10
 msgid "You can not post articles to other users."
-msgstr ""
+msgstr "Você não pode postar conteúdos para outros usuários."
 
 #: app/models/approve_article.rb:13
 msgid "Only members can post articles on communities."
-msgstr ""
+msgstr "Apenas membros podem postar conteúdos nas comunidades."
 
 #: app/models/approve_article.rb:19
 msgid "(The original text was removed)"
@@ -5852,19 +5846,16 @@ msgstr[0] "Ver comentário"
 msgstr[1] "Ver todos os %s comentários"
 
 #: app/views/profile/members.html.erb:3
-#, fuzzy
 msgid "Members (%d)"
-msgstr "Integrantes: %s"
+msgstr "Integrantes (%d)"
 
 #: app/views/profile/members.html.erb:18
-#, fuzzy
 msgid "%d Members"
-msgstr "Integrantes"
+msgstr "%d integrantes"
 
 #: app/views/profile/members.html.erb:31
-#, fuzzy
 msgid "%d Administrators"
-msgstr "Administradores"
+msgstr "%d Administradores"
 
 #: app/views/profile/members.html.erb:44
 #: app/views/profile_members/_index_buttons.html.erb:5
@@ -5938,19 +5929,16 @@ msgid "Cancel e-mail"
 msgstr "Cancelar e-mail"
 
 #: app/views/profile/_profile_members_list.html.erb:2
-#, fuzzy
 msgid "Sort by:"
-msgstr "Enviado por: "
+msgstr "Ordenar por:"
 
 #: app/views/profile/_profile_members_list.html.erb:5
-#, fuzzy
 msgid "Name A-Z"
-msgstr "Nome"
+msgstr "Nome A-Z"
 
 #: app/views/profile/_profile_members_list.html.erb:6
-#, fuzzy
 msgid "Name Z-A"
-msgstr "Nome"
+msgstr "Nome Z-A"
 
 #: app/views/profile/index.html.erb:32
 msgid "Network"
@@ -6238,7 +6226,6 @@ msgid "All versions"
 msgstr "Todas as versões"
 
 #: app/views/content_viewer/_article_toolbar.html.erb:65
-#, fuzzy
 msgid "RSS feed"
 msgstr "Feed RSS"
 
@@ -6837,21 +6824,19 @@ msgstr "Ver todos os %s comentários"
 
 #: app/views/api/playground.html.erb:27
 msgid "Use the login endpoint"
-msgstr ""
+msgstr "Use o endpoint do login"
 
 #: app/views/api/playground.html.erb:31
-#, fuzzy
 msgid "Add parameter"
-msgstr "Adicionar integrantes"
+msgstr "Adicionar paramêtro"
 
 #: app/views/api/playground.html.erb:32
-#, fuzzy
 msgid "Run"
-msgstr "Dom"
+msgstr "Executar"
 
 #: app/views/api/index.html.erb:4
 msgid "api-playground|Try the %s"
-msgstr ""
+msgstr "api-playground|Experimente o %s"
 
 #: app/views/categories/_category.html.erb:10
 msgid "Show"
@@ -7102,7 +7087,7 @@ msgstr "pasta superior"
 
 #: app/views/cms/_event.html.erb:11
 msgid "%Y-%m-%d %H:%M"
-msgstr ""
+msgstr "%d-%m-%Y %H:%M"
 
 #: app/views/cms/_event.html.erb:14
 msgid "Event website:"
@@ -7587,9 +7572,8 @@ msgid "image %d of %d"
 msgstr "imagem %d de %d"
 
 #: app/views/file_presenter/_generic.html.erb:5
-#, fuzzy
 msgid "Download"
-msgstr "Abaixo"
+msgstr "Baixar"
 
 #: app/views/blocks/product_categories.html.erb:1
 msgid "Catalog start"
@@ -7653,9 +7637,8 @@ msgid "Send an e-mail to the administrators"
 msgstr "Enviar e-mail para os administradores"
 
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:4
-#, fuzzy
 msgid "Your membership is waiting for approval"
-msgstr "Seu comentário está esperando aprovação."
+msgstr "Sua entrada está esperando aprovação"
 
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:10
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:14
@@ -7664,9 +7647,8 @@ msgid "Join this community"
 msgstr "Entrar nesta comunidade"
 
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:23
-#, fuzzy
 msgid "Please confirm to leave the community '%{name}'"
-msgstr "entrou em 1 comunidade:<br />%{name}"
+msgstr "Por favor confirme para sair da comunidade '%{name}'"
 
 #: app/views/blocks/profile_info_actions/_enterprise.html.erb:4
 msgid "Add as favorite"
@@ -8489,9 +8471,8 @@ msgid "Personal information"
 msgstr "Informações pessoais"
 
 #: app/views/profile_editor/_person.html.erb:22
-#, fuzzy
 msgid "Private Token"
-msgstr "Perfil privado"
+msgstr "Token privado"
 
 #: app/views/profile_editor/_person.html.erb:31
 msgid "Notification options"
@@ -8683,9 +8664,8 @@ msgid "Deactivate profile"
 msgstr "Desativar perfil"
 
 #: app/views/profile_editor/edit.html.erb:87
-#, fuzzy
 msgid "Are you sure you want to deactivate this profile?"
-msgstr "Tem certeza que deseja ativar este perfil?"
+msgstr "Tem certeza que deseja desativar este perfil?"
 
 #: app/views/profile_editor/edit.html.erb:90
 msgid "Activate profile"
@@ -8925,9 +8905,8 @@ msgid "Signup welcome page"
 msgstr "Página de boas vindas após o registro"
 
 #: app/views/admin_panel/site_info.html.erb:20
-#, fuzzy
 msgid "Signup introduction text"
-msgstr "Enviar instruções"
+msgstr "Texto introdutório no registro de usuário"
 
 #: app/views/admin_panel/_site_info.html.erb:1
 msgid "Site name"
@@ -9043,10 +9022,8 @@ msgid "Validators by region"
 msgstr "Validadores por região"
 
 #: app/views/admin_panel/_signup_intro.html.erb:2
-#, fuzzy
 msgid "This text will be shown to the user on the top of the sign up form."
-msgstr ""
-"Este é o texto de boas vindas que será mostrado aos usuários após o cadastro"
+msgstr "Este texto será mostrado aos usuários antes do formulário de registro."
 
 #: app/views/admin_panel/set_portal_folders.html.erb:1
 msgid "Select folders"
@@ -9946,18 +9923,16 @@ msgid "\"(Bad request) #{attribute} not given\""
 msgstr ""
 
 #: lib/noosfero/api/helpers.rb:238
-#, fuzzy
 msgid "Something wrong happened"
-msgstr "Algo deu errado. Por favor, tente novamente"
+msgstr "Algo deu errado"
 
 #: lib/noosfero/api/helpers.rb:243
-#, fuzzy
 msgid "Unauthorized"
-msgstr "Produto não categorizado"
+msgstr "Não autorizado"
 
 #: lib/noosfero/api/helpers.rb:247
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Método não autorizado"
 
 #: public/503.html.erb:22
 msgid "System maintainance"
