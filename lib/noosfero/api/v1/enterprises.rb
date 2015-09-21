@@ -21,13 +21,13 @@ module Noosfero
             enterprises = select_filtered_collection_of(environment, 'enterprises', params)
             enterprises = enterprises.visible_for_person(current_person)
             enterprises = enterprises.by_location(params) # Must be the last. May return Exception obj.
-            present enterprises, :with => Entities::Enterprise
+            present enterprises, :with => Entities::Enterprise, :current_person => current_person
           end
 
           desc "Return one enterprise by id"
           get ':id' do
             enterprise = environment.enterprises.visible_for_person(current_person).find_by_id(params[:id])
-            present enterprise, :with => Entities::Enterprise
+            present enterprise, :with => Entities::Enterprise, :current_person => current_person
           end
 
         end
@@ -42,7 +42,7 @@ module Noosfero
                 person = environment.people.find(params[:person_id])
                 enterprises = select_filtered_collection_of(person, 'enterprises', params)
                 enterprises = enterprises.visible.by_location(params)
-                present enterprises, :with => Entities::Enterprise
+                present enterprises, :with => Entities::Enterprise, :current_person => current_person
               end
 
             end

@@ -1,6 +1,7 @@
 class MembershipsController < MyProfileController
 
   protect 'manage_memberships', :profile
+  helper CustomFieldsHelper
 
   def index
     @roles = environment.roles.select do |role|

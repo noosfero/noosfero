@@ -8,6 +8,7 @@ class ProfileEditorController < MyProfileController
   before_filter :forbid_destroy_profile, :only => [:destroy_profile]
   before_filter :check_user_can_edit_header_footer, :only => [:header_footer]
   helper_method :has_welcome_page
+  helper CustomFieldsHelper
 
   def index
     @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}

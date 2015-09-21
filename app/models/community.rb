@@ -29,7 +29,7 @@ class Community < Organization
   # places that call this method are safe from mass-assignment by setting the
   # environment key themselves.
   def self.create_after_moderation(requestor, attributes = {})
-    environment = attributes.delete(:environment)
+    environment = attributes[:environment]
     community = Community.new(attributes)
     community.environment = environment
     if community.environment.enabled?('admin_must_approve_new_communities')

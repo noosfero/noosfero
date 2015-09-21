@@ -36,6 +36,34 @@ function signup_action(name_active, name_required, name_signup) {
   update_active(name_active, name_required, name_signup)
 }
 
+function add_content(target_id, content, mask) {
+  var id = new Date().getTime();
+  var regexp = new RegExp(mask, "g");
+  content = content.replace(regexp, id);
+  $(target_id).append(content);
+  $('#' + id).hide().slideDown();
+}
+
+function remove_content(target) {
+  $(target).remove();
+}
+
+function submit_custom_field_form(selector_id, form_id, customized_type) {
+  $(selector_id).attr('disabled', true);
+  $(form_id).submit();
+}
+
+function manage_default_option(source) {
+  var th = $(source);
+  var name = th.prop('name');
+  if(th.is(':checked')){
+      $(':checkbox[name="'  + name + '"]').not($(source)).prop('checked',false);
+  }
+}
+
+function update_default_value(source, target) {
+    $(target).val(source);
+}
 
 jQuery(document).ready(function(){
   function check_fields(check, table_id, start) {

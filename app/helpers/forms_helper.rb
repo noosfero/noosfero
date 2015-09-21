@@ -186,6 +186,7 @@ module FormsHelper
     element_id = html_options[:id] || 'datepicker-date'
     value = value.strftime(format) if value.present?
     method = datepicker_options[:time] ? 'datetimepicker' : 'datepicker'
+    current_date_or_nil = value.present? ? "new Date('#{value}')" : "null"
     result = text_field_tag(name, value, html_options)
     result +=
     "
@@ -236,7 +237,7 @@ module FormsHelper
         weekHeader: #{datepicker_options[:week_header].to_json},
         yearRange: #{datepicker_options[:year_range].to_json},
         yearSuffix: #{datepicker_options[:year_suffix].to_json}
-      }).datepicker('setDate', new Date('#{value}'))
+      }).datepicker('setDate', current_date_or_nil)
     </script>
     ".html_safe
     result

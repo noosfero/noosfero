@@ -33,30 +33,31 @@ module Noosfero
           get do
             people = select_filtered_collection_of(environment, 'people', params)
             people = people.visible_for_person(current_person)
-            present people, :with => Entities::Person
+            present people, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the logged user information"
           get "/me" do
-            present current_person, :with => Entities::Person
+            present current_person, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the person information"
           get ':id' do
             person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
             return not_found! if person.blank?
-            present person, :with => Entities::Person
+            present person, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Update person information"
           post ':id' do
             return forbidden! if current_person.id.to_s != params[:id]
             current_person.update_attributes!(params[:person])
-            present current_person, :with => Entities::Person
+            present current_person, :with => Entities::Person, :current_person => current_person
           end
 
           # Example Request:
           #  POST api/v1/people?person[login]=some_login&person[password]=some_password&person[name]=Jack
+          #  for each custom field for person, add &person[field_name]=field_value to the request
           desc "Create person"
           post do
             user_data = {}
@@ -64,14 +65,21 @@ module Noosfero
             user_data[:email] = params[:person].delete(:email)
             user_data[:password] = params[:person].delete(:password)
             user_data[:password_confirmation] = params[:person].delete(:password_confirmation)
+
+            params[:person][:custom_values]={}
+            params[:person].keys.each do |key|
+              params[:person][:custom_values][key]=params[:person].delete(key) if Person.custom_fields(environment).any?{|cf| cf.name==key}
+            end
+
             user = User.build(user_data, params[:person], environment)
+
             begin
               user.signup!
             rescue ActiveRecord::RecordInvalid
               render_api_errors!(user.errors.full_messages)
             end
 
-            present user.person, :with => Entities::Person
+            present user.person, :with => Entities::Person, :current_person => user.person
           end
 
           desc "Return the person friends"
@@ -79,7 +87,7 @@ module Noosfero
             person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
             return not_found! if person.blank?
             friends = person.friends.visible
-            present friends, :with => Entities::Person
+            present friends, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the person permissions on other profiles"

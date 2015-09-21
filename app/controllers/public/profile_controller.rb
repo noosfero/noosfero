@@ -7,6 +7,7 @@ class ProfileController < PublicController
 
   helper TagsHelper
   helper ActionTrackerHelper
+  helper CustomFieldsHelper
 
   protect 'send_mail_to_members', :profile, :only => [:send_mail]
 

@@ -1,0 +1,15 @@
+<% field_id = extra.nil? ? 'EXTRAS_ID' : "#{Time.now.usec}" %>
+<% def_value = field.nil? ? '' : field.default_value%>
+<tr id='<%= "extras_#{field_id}" %>' >
+  <td>
+    <%= text_field_tag "custom_fields[#{id}][extras][#{field_id}]", (extra.nil? ? '' : extra), :onkeyup => "update_default_value($(this).val(), '#custom_fields_#{id}_extras_#{field_id}_default')" %>
+  </td>
+  <td>
+    <%= check_box_tag "custom_fields[#{id}][default_value]", extra.blank? ? '' : extra,  extra.blank? ? false : def_value == extra, :id => "custom_fields_#{id}_extras_#{field_id}_default", :onclick => "manage_default_option(this);" %>
+  </td>
+  <td>
+    <% if extra.nil? %>
+    <%= button_to_function_without_text :remove, _('Remove'), "remove_content('#extras_#{field_id}'); ", :class => 'remove-field', :title => 'Remove alternative' %>
+    <% end %>
+  </td>
+</tr>
