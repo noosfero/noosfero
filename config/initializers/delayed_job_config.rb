@@ -1,6 +1,8 @@
 require 'delayed_job'
 Delayed::Worker.backend = :active_record
 Delayed::Worker.max_attempts = 2
+Delayed::Worker.destroy_failed_jobs = false
+Delayed::Worker.logger = Logger.new(File.join(Rails.root, 'log', 'delayed_job.log'))
 
 class Delayed::Job
   def self.handler_like(handler)
