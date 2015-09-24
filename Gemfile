@@ -19,7 +19,6 @@ gem 'gettext',                  '~> 2.2.1', :require => false
 gem 'locale',                   '~> 2.0.5'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
-gem 'slim'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -48,7 +47,8 @@ group :cucumber do
   gem 'capybara',               '~> 2.1.0'
   gem 'cucumber',               '~> 1.0.6'
   gem 'database_cleaner',       '~> 1.2.0'
-  gem 'selenium-webdriver',     '~> 2.39.0'
+  gem 'selenium-webdriver',     '~> 2.47.1'
+  gem 'launchy'
 end
 
 # Requires custom dependencies
