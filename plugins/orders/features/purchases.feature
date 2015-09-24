@@ -6,6 +6,7 @@ Feature: purchases
   Background:
     Given "ShoppingCart" plugin is enabled
     And "Orders" plugin is enabled
+    And "Delivery" plugin is enabled
     And the following users
       | login | name  | email                 |
       | moe   | Moe   | moe@springfield.com   |
@@ -111,3 +112,44 @@ Feature: purchases
     When I press "Filter"
     Then I should see "Moes Tavern" within any ".actor-name"
     And I should not see "First Church of Springfield" within any ".actor-name"
+
+  @selenium
+  Scenario: products checkout
+    Given "moes-tavern" has the following delivery methods
+      | delivery_type    | name | description                  | fixed_cost   | free_over_price |
+      | deliver | Bike | My good old bike.                     | 8.00         | 10.00           |
+      | pickup  | Bar  | Come to my bar and drink it!          | 0.00         | 0.00            |
+    And I am on moes-tavern's products page
+    And I follow "Add to basket"
+    And I follow "Add to basket"
+    And I follow "Add to basket"
+    And I follow "Show basket"
+    And I follow "Shopping checkout"
+    And I fill in "Contact phone" with "123456789"
+    And I select "Bike ($8.00)" from "Option"
+    And I press "Send buy request"
+    And I go to homer's control panel
+    When I follow "Purchases made"
+    Then I should see "Moes Tavern" within any ".actor-name"
+
+
+  @selenium
+  Scenario: repeat order
+    Given "moes-tavern" has the following delivery methods
+      | delivery_type    | name | description                  | fixed_cost   | free_over_price |
+      | deliver | Bike | My good old bike.                     | 8.00         | 10.00           |
+      | pickup  | Bar  | Come to my bar and drink it!          | 0.00         | 0.00            |
+    And the following purchase from "homer" on "moes-tavern" that is "ordered"
+      | product      | quantity | price |
+      | Duff         | 3        | 3.50  |
+      | French fries | 1        | 7.00  |
+    And I am on moes-tavern's products page
+    And I follow "Add to basket"
+    And I follow "Add to basket"
+    And I follow "Show basket"
+    And I follow "Clean basket"
+    And I follow "Hide basket"
+    When I follow "checkout"
+    Then I should see "Shopping checkout"
+    And I should see "Duff"
+    And I should see "French fries"
