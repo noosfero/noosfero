@@ -47,8 +47,7 @@ group :cucumber do
   gem 'capybara',               '~> 2.1.0'
   gem 'cucumber',               '~> 1.0.6'
   gem 'database_cleaner',       '~> 1.2.0'
-  gem 'selenium-webdriver',     '~> 2.47.1'
-  gem 'launchy'
+  gem 'selenium-webdriver',     '~> 2.39.0'
 end
 
 # Requires custom dependencies
