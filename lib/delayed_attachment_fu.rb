@@ -39,14 +39,11 @@ module DelayedAttachmentFu
     end
 
     def public_filename(size=nil)
-      force = (size == :uploaded)
-      if force
-        size = nil
-      end
+      force, size = true, nil if size == :uploaded
       if !self.thumbnailable? || self.thumbnails_processed || force
-        super(size.to_s)
+        super size
       else
-        size ||= 'thumb'
+        size ||= :thumb
         '/images/icons-app/image-loading-%s.png' % size
       end
     end
