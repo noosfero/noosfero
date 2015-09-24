@@ -1,0 +1,9 @@
+<% profile.orders_cycles.has_volunteers_periods.each do |cycle| %>
+  <h2>
+    <%= cycle.name_with_code %>
+  </h2>
+
+  <% cycle.volunteers_periods.each do |period| %>
+    <%= render 'volunteering', period: period %>
+  <% end %>
+<% end %>

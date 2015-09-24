@@ -1,0 +1,1 @@
+page.remove 'cycle-product-'+@product_id.to_s

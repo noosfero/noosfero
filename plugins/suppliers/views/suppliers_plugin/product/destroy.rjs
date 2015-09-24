@@ -1,0 +1,2 @@
+page.remove 'our-product-'+@product.id.to_s
+page << "jQuery('#filter-form').submit();"

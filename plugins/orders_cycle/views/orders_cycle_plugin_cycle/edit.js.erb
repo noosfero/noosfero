@@ -1,0 +1,9 @@
+<% if params[:commit] %>
+  <% if @success and @open %>
+    window.location = <%= url_for(:action => :edit, :id => @cycle.id).to_json %>
+  <% else %>
+    noosfero.modal.html(<%= render('edit_popin', :cycle => @cycle).to_json %>)
+  <% end %>
+<% else %>
+  jQuery("#cycle-products .table").replaceWith('<%= escape_javascript render('product_lines') %>')
+<% end %>

@@ -1,0 +1,14 @@
+<div class="subtitle">
+  <%= hideable_help_text t('views.cycle._orders.header_help') %>
+</div>
+
+<% if @cycle.orders? or @cycle.passed_by? 'orders' %>
+  <% if @cycle.orders? %>
+    <% header = t('views.cycle._orders.the_orders_period_is_') %>
+  <% elsif @cycle.passed_by? 'orders' %>
+    <% header = t('views.cycle._orders.already_closed') %>
+  <% end %>
+<% end %>
+
+<%= render 'orders_cycle_plugin_cycle/cycle_sales' %>
+

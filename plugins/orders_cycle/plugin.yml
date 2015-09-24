@@ -1,0 +1,5 @@
+name: orders_cycle
+dependencies:
+  - orders
+  - suppliers
+  - volunteers

@@ -1,0 +1,14 @@
+<div id="cycle-products-for-order">
+  <div class="title">
+    <h3><%=t('views.cycle._view_products.the_products')%></h3>
+  </div>
+
+  <%= render partial: "orders_cycle_plugin_shared/filter", locals: {type: :order, cycle: cycle, order: order} %>
+
+  <div id="search-results">
+    <%= render partial: "orders_cycle_plugin_order/filter", locals: {
+      cycle: cycle, order: order,
+      products_for_order: @products,
+    } %>
+  </div>
+</div>

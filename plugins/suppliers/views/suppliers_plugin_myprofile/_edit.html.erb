@@ -1,0 +1,62 @@
+<% supplier_label = (supplier.new_record? ? "add" : supplier.id) %>
+
+<div class='box-edit'>
+
+  <div class="title">
+    <% if supplier.new_record? %>
+      <% if supplier.dummy? %>
+        <%= t('views.supplier._edit.add_supplier_managed_') %>
+      <% else %>
+        <%= t('views.supplier._edit.register_new_supplier') %>
+      <% end %>
+    <% else %>
+      <%= t('views.supplier._edit.edit_supplier') %>
+    <% end %>
+  </div>
+
+  <% if supplier.dummy? %>
+    <div class="subtitle">
+      <%= t('views.supplier._edit.registry_help') %>
+    </div>
+
+  <% end %>
+
+  <%= form_for supplier, as: :supplier, url: {action: supplier.new_record? ? :new : :edit, id: supplier.id}, remote: true,
+    html: {data: {loading: "#supplier-#{supplier_label}"}, class: 'full-registration'} do |f| %>
+
+    <%= error_messages_for :supplier %>
+
+    <div class="full-registration-check">
+      <%= check_box_tag :full_registration, '1', false,
+        onchange: "jQuery(this).parents('.supplier').find('.data').toggleClass('full-registration', this.checked)" %>
+      <%= label_tag :full_registration, t('views.supplier._edit.full_registration') %>
+    </div>
+
+    <div class="data">
+      <div class="basic-data">
+        <h3><%= t('views.supplier._edit.basic_data') %></h3>
+
+        <%= labelled_field f, :name, t('views.supplier._edit.name'), f.text_field(:name) %>
+        <%= labelled_field f, :name_abbreviation, t('views.supplier._edit.abbreviated_name'), f.text_field(:name_abbreviation) %>
+        <%= labelled_field f, :description, t('views.supplier._edit.description'), f.text_area(:description, maxlength: '550') %>
+
+      </div>
+      <div class="estrategic-info full-data">
+        <h3><%= t('views.supplier._edit.estrategic_informatio') %></h3>
+      </div>
+      <div class="full-data">
+        <h3><%= t('views.supplier._edit.registry_form') %></h3>
+      </div>
+      <div class="additional-fields full-data">
+        <h3><%= t('views.supplier._edit.additional_fields') %></h3>
+      </div>
+
+      <div class="clean"></div>
+    </div>
+
+    <%= f.submit t('views.supplier._edit.save') %>
+    <%= link_to_function t('views.supplier._edit.cancel'), '', 'toggle-edit' => '' %>
+
+  <% end %>
+</div>
+

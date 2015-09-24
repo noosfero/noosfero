@@ -1,0 +1,18 @@
+<%
+  actions = true if actions.nil? and @admin
+  timeline = true if actions.nil? and @admin
+  listing = false if listing.nil?
+%>
+
+<h2>
+  <% if cycle.new? %>
+    <div class="cycle-edit-link"><%= t('views.cycle._title.new_cycle') %></div>
+  <% else %>
+    <%= link_to "#{t('views.cycle._title.order_cycle') if not listing}#{cycle.name_with_code}", {:action => 'edit', :id => cycle.id }, :class => "cycle-edit-link" %>
+  <% end %>
+
+  <%= t('views.cycle._brief.confirmed_orders', :count => cycle.sales.ordered.count) if listing and not cycle.new? %>
+</h2>
+
+<%= render 'timeline', :cycle => cycle, :actions => actions, :listing => listing if timeline %>
+

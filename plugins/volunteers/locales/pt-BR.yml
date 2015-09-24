@@ -1,0 +1,35 @@
+# encoding: UTF-8
+
+"pt-BR": &pt-BR
+
+  volunteers_plugin:
+    lib:
+      plugin:
+        name: "Períodos de trabalhos e voluntários"
+        description: "Faz a gestão dos períodos de trabalho voluntário"
+    attributes:
+      period:
+        name: 'Nome'
+        start_date: 'Dia de início'
+        start_time: 'Horário de início'
+        end_date: 'Dia de fim'
+        end_time: 'Horário de fim'
+        minimum_assigments: 'Número mínimo requerido'
+    views:
+      index:
+        volunteer: "voluntariar"
+      myprofile:
+        volunteers_periods: "Turnos de voluntários"
+        add_period: "Adicionar turno"
+        period:
+          label: 'Turno'
+          remove: 'Remover'
+          minimum: 'tem mínimo?'
+          noo: 'Não'
+          maximum: 'tem maximo?'
+
+'pt_BR':
+  <<: *pt-BR
+'pt':
+  <<: *pt-BR
+

@@ -1,0 +1,8 @@
+<div class="order-message-title <%= order.current_status %> <%= 'ordered' if order.ordered? %>">
+  <div>
+    <%= t('views.order._status.code_status_message') % { :code => order.code, :status_message => order.status_message } %>
+  </div>
+
+  <%= link_to t('views.order._status.open_it'), {:action => :edit, :id => order.id}, :class => 'open' if order != @order %>
+
+</div>

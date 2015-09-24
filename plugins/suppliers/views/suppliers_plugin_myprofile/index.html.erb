@@ -1,0 +1,21 @@
+<div id="suppliers-page" class="admin-page">
+  <h2><%= t('views.supplier.index.suppliers') %></h2>
+
+  <div class="subtitle text-wrap">
+    <%= t('views.supplier.index.this_is_the_list_of_s') %>
+  </div>
+
+  <div class="subtitle supplier-add-link" toggle-ignore><%= link_to_function t('views.supplier.index.add_supplier'), onclick: 'suppliers.add_link();' %></div>
+
+  <%= render 'suppliers_plugin/shared/filter', type: :supplier %>
+
+  <div class="supplier-listing">
+    <div id="supplier-add" class="supplier value-row" toggle-edit='suppliers.toggle_edit();' >
+      <%= render 'suppliers_plugin_myprofile/new', supplier: @new_supplier %>
+    </div>
+
+    <div id="search-results">
+      <%= render 'suppliers_plugin_myprofile/suppliers_list', suppliers: @suppliers %>
+    </div>
+  </div>
+</div>

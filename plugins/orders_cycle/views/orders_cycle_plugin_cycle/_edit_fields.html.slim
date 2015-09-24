@@ -1,0 +1,58 @@
+= render 'orders_plugin/shared/daterangepicker/init'
+
+h3= t('views.cycle._edit_fields.general_settings')
+
+= form_for @cycle, as: :cycle , remote: true, url: {action: @cycle.new? ? :new : :edit, id: @cycle.id }, html: {data: {loading: '#cycle-fields form'}} do |f|
+
+  = labelled_field f, :name, t('views.cycle._edit_fields.name'), f.text_field(:name), class: 'cycle-field-name'
+  = labelled_field f, :description, t('views.cycle._edit_fields.description'), f.text_area(:description, class: 'mceEditor'), class: 'cycle-field-description'
+  = render file: 'shared/tiny_mce', locals: {mode: 'simple'}
+
+  .cycle-fields-block
+    = labelled_datetime_range_field f, :start, :finish, t('views.cycle._edit_fields.orders_interval'), class: 'cycle-orders-period'
+  .cycle-fields-block
+    = labelled_datetime_range_field f, :delivery_start, :delivery_finish, t('views.cycle._edit_fields.deliveries_interval'), class: 'cycle-orders-period'
+
+  .cycle-fields-block
+    #cycle-delivery.field
+      = f.label :delivery_methods, t('views.cycle._edit_fields.available_delivery_me')
+      div
+        #cycle-delivery-options.subtitle
+          = render 'delivery_plugin/admin_options/index', owner: @cycle
+        = modal_link_to t('views.cycle._edit_fields.add_method'),
+          {controller: :orders_cycle_plugin_delivery_option, action: :select, owner_id: @cycle.id, owner_type: @cycle.class.name},
+          class: 'subtitle'
+        |&nbsp;
+        = link_to_function t('views.cycle._edit_fields.add_all_methods'),
+          "$.getScript('#{url_for controller: :orders_cycle_plugin_delivery_option, action: :select_all, owner_id: @cycle.id, owner_type: @cycle.class.name}')",
+          class: 'subtitle'
+      .clean
+
+  - if profile.volunteers_settings.cycle_volunteers_enabled
+    = render 'volunteers_plugin_myprofile/edit_periods', owner: @cycle, f: f
+
+  #cycle-new-mail
+    = check_box_tag('sendmail', 'yes', false, id: 'cycle-new-mail-send')
+    = content_tag('label', t('views.cycle._edit_fields.notify_members_of_ope'), for: 'sendmail')
+    .mail-message
+      = f.label :sendmail, t('views.cycle._edit_fields.opening_message')
+      div= t('views.cycle._edit_fields.this_message_will_be_')
+      = f.text_area(:opening_message, onkeyup: 'orders_cycle.cycle.edit.openingMessage.onKeyup(this)')
+    javascript:
+      $('#cycle-new-mail-send').on('click', orders_cycle.cycle_mail_message_toggle)
+
+  - submit_text = if @cycle.new? then t('views.cycle._edit_fields.create_new_cycle') else t('views.cycle._edit_fields.save') end
+  = f.submit submit_text
+  - unless @cycle.passed_by? 'edition'
+    |&nbsp;
+    = hidden_field_tag 'open', nil
+    - text = t("views.cycle._edit_fields.#{if @cycle.new? then 'create' else 'save' end}_and_open_orders")
+    = f.submit text, onclick: "this.form.elements['open'].value = '1'"
+
+  |&nbsp;
+  = link_to t('views.cycle._edit_fields.cancel_changes'), @cycle.new? ? {action: :index} : params
+  - unless @cycle.new?
+    |&nbsp;
+    = link_to t('views.cycle._edit_fields.remove'), {action: :destroy, id: @cycle.id}, confirm: t('views.cycle._edit_fields.confirm_remove')
+
+

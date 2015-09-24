@@ -1,0 +1,30 @@
+<div id='volunteers-periods' class="field">
+
+  <%= f.label :volunteers_periods, t('volunteers_plugin.views.myprofile.volunteers_periods') %>
+  <div class=clear></div>
+
+  <div class="periods">
+    <% owner.volunteers_periods.each do |period| %>
+      <%= f.fields_for :volunteers_periods, period do |ff| %>
+        <div id="period-<%=period.id%>" class="period">
+          <%= render 'volunteers_plugin_myprofile/period', f: ff, period: period, owner: owner %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="volunteers-periods-template" style="display: none">
+    <% period = VolunteersPlugin::Period.new %>
+    <%= f.fields_for :volunteers_periods, period, child_index: '_new_' do |ff| %>
+      <div id="period-new" class="period">
+        <%= render 'volunteers_plugin_myprofile/period', f: ff, period: period, owner: owner %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to_function t('volunteers_plugin.views.myprofile.add_period'), 'volunteers.periods.add()', class: 'action-button' %>
+
+  <%= javascript_tag do %>
+    volunteers.periods.load();
+  <% end %>
+
+</div>

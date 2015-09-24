@@ -1,0 +1,15 @@
+#filter class="wireframe-size #{'with-actions' if type == :product}"
+  .title.filter-box= t'views.filter.filter'
+  - action = if type == :product then {action: :search} else {action: :index} end
+  = form_tag action, remote: true, id: 'filter-form', data: {loading: '#filter', update: '#search-results', type: "html"}, method: :get do
+    .fields.filter-box
+      - if type == :supplier
+        = render partial: 'suppliers_plugin_myprofile/filter_fields'
+      - elsif type == :product
+        = render 'suppliers_plugin/product/filter_fields'
+    .submit
+      = submit_tag t('views.filter.filter_it'), class: 'filter-submit'
+
+- if type == :product
+  = javascript_include_tag '/assets/plugins/suppliers/javascripts/table_filter'
+

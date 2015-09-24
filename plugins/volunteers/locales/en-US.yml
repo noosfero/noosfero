@@ -1,0 +1,35 @@
+# encoding: UTF-8
+
+"en-US": &en-US
+
+  volunteers_plugin:
+    lib:
+      plugin:
+        name: "Work periods and volunteers"
+        description: "Do management of periods of voluteers work"
+    models:
+      period:
+        name: 'Nome'
+        start_date: 'Start day'
+        start_time: 'Time of start'
+        end_date: 'End day'
+        end_time: 'Time of end'
+        minimum_assigments: 'Minimum number required'
+    views:
+      index:
+        volunteer: "volunteer"
+      myprofile:
+        volunteers_periods: "Volunteers' period"
+        add_period: "Add"
+        period:
+          label: 'Turno'
+          remove: 'Remove'
+          minimum: 'have minimum?'
+          maximum: 'have maximum?'
+          no: 'No'
+
+'en_US':
+  <<: *en-US
+'en':
+  <<: *en-US
+

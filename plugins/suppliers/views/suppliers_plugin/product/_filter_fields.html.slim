@@ -1,0 +1,24 @@
+= hidden_field_tag :page
+
+.field.state
+  label= t'suppliers_plugin.views.product.index.situation'
+  div= select_tag :available, options_for_select([[t('suppliers_plugin.views.product.index.in_any_state'), ""], [ t('suppliers_plugin.views.product.index.active'), 'true'], [ t('suppliers_plugin.views.product.index.inactive'), 'false']], params[:available])
+
+.field.category
+  label= t'suppliers_plugin.views.product.index.category'
+  div= select_tag :category_id, options_for_select(@product_categories.map{ |pc| [pc.name, pc.id]}.insert(0,[t('suppliers_plugin.views.product.index.all_the_categories'), ""]))
+
+.field.supplier
+  label= t'suppliers_plugin.views.product.index.supplier'
+  div= select_tag :supplier_id, options_for_select([[t('suppliers_plugin.views.product.index.all_the_suppliers'), ""]] + supplier_choices(profile.suppliers), params[:supplier_id].to_i)
+
+/ .field.qualifier
+  label= t'suppliers_plugin.views.product.index.with_the_qualifiers'
+  div= select_tag :qualifier_id, options_for_select([t('suppliers_plugin.views.product.index.anyone'), ''])
+/ .field.stock
+  label= t'suppliers_plugin.views.product.index.whose_qty_available_i'
+  div= select_tag :stock, options_for_select([t('suppliers_plugin.views.product.index.bigger_than_the_stock'), ''])
+
+.field.name
+  label= t'suppliers_plugin.views.product.index.name'
+  div= text_field_tag :name, params[:name]

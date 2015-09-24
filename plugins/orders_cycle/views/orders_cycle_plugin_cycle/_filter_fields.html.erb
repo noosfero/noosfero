@@ -1,0 +1,15 @@
+<div class="field year">
+  <label><%=t('orders_cycle_plugin.views.cycle.index.show_cycles_from_year') %></label>
+  <div>
+    <% range = @profile.orders_cycles_closed_date_range %>
+    <%= select_year @year_date, {:prompt => '', :start_year => range.first.year, :end_year => range.last.year} %>
+  </div>
+</div>
+
+<div class="field month">
+  <label><%=t('orders_cycle_plugin.views.cycle.index.and_are_from_the_mont') %></label>
+  <div>
+    <%= select_month @month_date, {:prompt => '' } %>
+  </div>
+</div>
+

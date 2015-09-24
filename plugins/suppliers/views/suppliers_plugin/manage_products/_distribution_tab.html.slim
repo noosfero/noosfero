@@ -1,0 +1,14 @@
+
+= t'suppliers_plugin.views.manage_products.distribution_tab.title'
+
+= form_for :consumers, remote: true, url: {controller: 'suppliers_plugin/product', action: :distribute_to_consumers, id: @product.id},
+  html: {data: {loading: "#product-distribution"}} do |f|
+
+  - distributed_consumers = @product.consumers.all.to_set
+  - @product.profile.orgs_consumers.each do |consumer|
+    div
+      = check_box_tag "consumers[#{consumer.id}]", '1', distributed_consumers.include?(consumer.profile)
+      = label_tag "consumers[#{consumer.id}]", consumer.name
+
+  - button_bar do
+    = submit_button :save, _('Save')

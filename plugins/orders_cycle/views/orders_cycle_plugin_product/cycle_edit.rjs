@@ -1,0 +1,2 @@
+page.replace_html "cycle-product-#{@product.id}", :partial => 'cycle_edit', :locals => {:p => @product}
+page << "toggle_edit.value_row.click();"
