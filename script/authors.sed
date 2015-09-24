@@ -210,7 +210,8 @@ s/Renan Teruo <jaodsilv@linux.ime.usp.br>/Renan Teruo <renanteruoc@gmail.com>/
 
 s/Rodrigo Souto$/Rodrigo Souto <rodrigo@colivre.coop.br>/
 
-/root <root@.*/d
+/root <root@debian.sdr.serpro/d
+/root <root@17edebf1ae91/d
 
 s/Simiao Carvalho/Simião Carvalho/
 s/simiaosims@gmail.com/simiaosimis@gmail.com/

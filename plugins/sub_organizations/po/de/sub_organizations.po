@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:46-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -18,19 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
-msgstr "Untergruppen"
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
-msgid "Adds the ability for groups to have sub-groups."
-msgstr "Fügt Gruppen die Fähigkeit hinzu, Untergruppen zu haben."
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
-#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
-msgstr "Untergruppen verwalten"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
@@ -53,27 +40,22 @@ msgstr "Die Zuordnung über mehrere Stufen ist nicht erlaubt."
 msgid "Related Organizations"
 msgstr "Beliebteste Organisationen"
 
-#: plugins/sub_organizations/lib/related_organizations_block.rb:18
-msgid "\"{#} #{display_type[:title]} enterprise\""
-msgid_plural " \"{#} #{display_type[:title]} enterprises\""
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/sub_organizations/lib/related_organizations_block.rb:20
-msgid "\"{#} #{display_type[:title]} community\""
-msgid_plural " \"{#} #{display_type[:title]} communities\""
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/sub_organizations/lib/related_organizations_block.rb:22
-msgid "\"{#} #{display_type[:title]} organization\""
-msgid_plural " \"{#} #{display_type[:title]} organizations\""
-msgstr[0] ""
-msgstr[1] ""
-
 #: plugins/sub_organizations/lib/related_organizations_block.rb:27
 msgid "This block displays %s organizations of this organization"
 msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
+msgstr "Untergruppen"
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr "Fügt Gruppen die Fähigkeit hinzu, Untergruppen zu haben."
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr "Untergruppen verwalten"
 
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
 msgid "Sub-organizations updated"
@@ -90,20 +72,6 @@ msgstr "Die Unterorganisationen konnte nicht aktualisiert werden"
 
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:3
 msgid "Both"
-msgstr ""
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
-msgid "%s's sub-%s"
-msgstr ""
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
-msgid "There are no sub-%s yet."
-msgstr ""
-
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
-#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
-msgid "Add a new %s"
 msgstr ""
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
@@ -129,6 +97,20 @@ msgstr ""
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:21
 msgid "Type in a search term for a group"
 msgstr "Geben Sie einen Suchbegriff für eine Gruppe ein"
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
+msgid "%s's sub-%s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
+msgid "Add a new %s"
+msgstr ""
+
+#: plugins/sub_organizations/views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
+msgid "There are no sub-%s yet."
+msgstr ""
 
 #, fuzzy
 #~ msgid "\"Add a new #{organization_type}\""

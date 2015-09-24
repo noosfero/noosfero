@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,10 +19,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/community_track/lib/community_track_plugin.rb:8
+#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+msgid "Soon"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
+msgid "Track Card List"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:8
 #, fuzzy
-msgid "New kind of content for communities."
-msgstr "Neue Art von Beiträgen für Organisationen."
+msgid "This block displays a list of most relevant tracks as cards."
+msgstr "Dieser Block zeigt das Unternehmen, in dem der Nutzer arbeitet."
+
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
+msgid "Track List"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
+#, fuzzy
+msgid "This block displays a list of most relevant tracks."
+msgstr "Dieser Block stellt eine Liste Ihrer Produkte dar."
 
 #: plugins/community_track/lib/community_track_plugin/step.rb:13
 #, fuzzy
@@ -41,15 +59,6 @@ msgstr ""
 msgid "Defines a step."
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
-msgid "Track Card List"
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:8
-#, fuzzy
-msgid "This block displays a list of most relevant tracks as cards."
-msgstr "Dieser Block zeigt das Unternehmen, in dem der Nutzer arbeitet."
-
 #: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
 msgid "Closed"
 msgstr "Geschlossen"
@@ -58,11 +67,6 @@ msgstr "Geschlossen"
 #, fuzzy
 msgid "Join!"
 msgstr "Betreten"
-
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
-msgid "Soon"
-msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin/track.rb:11
 #, fuzzy
@@ -77,30 +81,44 @@ msgstr ""
 msgid "Defines a track."
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
-msgid "Track List"
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
+#: plugins/community_track/lib/community_track_plugin.rb:8
 #, fuzzy
-msgid "This block displays a list of most relevant tracks."
-msgstr "Dieser Block stellt eine Liste Ihrer Produkte dar."
+msgid "New kind of content for communities."
+msgstr "Neue Art von Beiträgen für Organisationen."
 
 #: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
 #, fuzzy
 msgid "Select one community to proceed"
 msgstr "Community-Vorlage anlegen"
 
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
+msgid "Show more at another page"
+msgstr ""
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
+#, fuzzy
+msgid "Select Categories"
+msgstr "Produktkategorien"
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
+msgid "Tool: "
+msgstr ""
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
+#: plugins/community_track/views/content_viewer/step.html.erb:15
+#, fuzzy
+msgid "Create %s"
+msgstr "Bsc erstellen"
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
+#, fuzzy
+msgid "View"
+msgstr "Zeige alle"
+
 #: plugins/community_track/views/content_viewer/step.html.erb:13
 #: plugins/community_track/views/content_viewer/step.html.erb:19
 msgid "Tool"
 msgstr ""
-
-#: plugins/community_track/views/content_viewer/step.html.erb:15
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
-#, fuzzy
-msgid "Create %s"
-msgstr "Bsc erstellen"
 
 #: plugins/community_track/views/content_viewer/track.html.erb:9
 #: plugins/community_track/views/blocks/_track.html.erb:12
@@ -120,23 +138,9 @@ msgstr ""
 msgid "Hidden Steps"
 msgstr "Versteckt"
 
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
-msgid "Tool: "
+#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
+msgid "Tracks"
 msgstr ""
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
-#, fuzzy
-msgid "View"
-msgstr "Zeige alle"
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
-msgid "Show more at another page"
-msgstr ""
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
-#, fuzzy
-msgid "Select Categories"
-msgstr "Produktkategorien"
 
 #: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
 #, fuzzy
@@ -147,19 +151,6 @@ msgstr "Community"
 #, fuzzy
 msgid "New Track"
 msgstr "Neuer Vertrag"
-
-#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
-msgid "Tracks"
-msgstr ""
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
-msgid "Goals:"
-msgstr ""
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
-#, fuzzy
-msgid "Expected Results:"
-msgstr "Suchresultate"
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
 msgid "Period"
@@ -174,6 +165,15 @@ msgstr "Ordnertyp"
 #, fuzzy
 msgid "Hidden Step"
 msgstr "Versteckt"
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
+msgid "Goals:"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
+#, fuzzy
+msgid "Expected Results:"
+msgstr "Suchresultate"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
 msgid "hits"

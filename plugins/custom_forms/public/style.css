@@ -61,10 +61,12 @@
   margin-top: 10px;
 }
 
-.field-list {
+.field-list, .default-field-list {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+}
+.field-list {
   cursor: move;
 }
 

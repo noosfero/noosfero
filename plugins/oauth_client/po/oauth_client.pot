@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
-#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:32
+#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:30
 msgid "Can't login with %s"
 msgstr ""
 
@@ -37,12 +37,12 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#: plugins/oauth_client/views/account/_oauth_signup.html.erb:10
-msgid "Email"
+#: plugins/oauth_client/views/auth/_oauth_login.html.erb:3
+msgid "Login with:"
 msgstr ""
 
-#: plugins/oauth_client/views/oauth_client_plugin_admin/_noosfero_oauth2.html.erb:3
-msgid "Client Url"
+#: plugins/oauth_client/views/auth/_oauth_login.html.erb:13
+msgid "Developer Login"
 msgstr ""
 
 #: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:1
@@ -88,6 +88,10 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: plugins/oauth_client/views/oauth_client_plugin_admin/_noosfero_oauth2.html.erb:3
+msgid "Client Url"
+msgstr ""
+
 #: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:2
 msgid "Providers"
 msgstr ""
@@ -112,10 +116,6 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: plugins/oauth_client/views/auth/_oauth_login.html.erb:3
-msgid "Login with:"
-msgstr ""
-
-#: plugins/oauth_client/views/auth/_oauth_login.html.erb:13
-msgid "Developer Login"
+#: plugins/oauth_client/views/account/_oauth_signup.html.erb:10
+msgid "Email"
 msgstr ""

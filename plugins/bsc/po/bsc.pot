@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,69 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
+msgid "[%s] Bsc management transferred to you."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Opened"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Negotiating"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Executing"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Closed"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:46
+msgid "Federal"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectA"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectB"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
+msgid "Bsc info and settings"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
+msgid "BSC association"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
+msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
+msgid "%{enterprise} accepted your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
+msgid "%{enterprise} rejected your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
+msgid ""
+"Here is the reject explanation left by the administrator:\n"
+"\n"
+"%{reject_explanation}"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
+msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
+msgstr ""
 
 #: plugins/bsc/lib/bsc_plugin.rb:10
 msgid "Adds the Bsc feature"
@@ -50,69 +113,6 @@ msgstr ""
 #: plugins/bsc/lib/bsc_plugin.rb:109
 #: plugins/bsc/views/shared/_fields.html.erb:53
 msgid "Contact"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
-msgid "Bsc info and settings"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
-msgid "BSC association"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
-msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
-msgid "%{enterprise} accepted your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
-msgid "%{enterprise} rejected your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
-msgid ""
-"Here is the reject explanation left by the administrator:\n"
-"\n"
-"%{reject_explanation}"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
-msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
-msgid "[%s] Bsc management transferred to you."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Opened"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Negotiating"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Executing"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Closed"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:46
-msgid "Federal"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-msgid "ProjectA"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-msgid "ProjectB"
 msgstr ""
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
@@ -175,24 +175,6 @@ msgstr ""
 msgid "Enterprise validations couldn't be saved."
 msgstr ""
 
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
-msgid "Associations awaiting approval:"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
-#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
-msgid "Type in a search term for enterprise"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
-msgid "Add new enterprise"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
-#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
-msgid "New contract"
-msgstr ""
-
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
 msgid "Client type"
@@ -239,6 +221,24 @@ msgstr ""
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
 msgid "Type in a search term for product"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
+msgid "Associations awaiting approval:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
+msgid "Type in a search term for enterprise"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
+msgid "Add new enterprise"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
+#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
+msgid "New contract"
 msgstr ""
 
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
@@ -324,12 +324,6 @@ msgstr ""
 msgid "Type in a search term for the new administrator"
 msgstr ""
 
-#: plugins/bsc/views/shared/_fields.html.erb:39
-msgid ""
-"You are about to change the address, and this will break external links to "
-"this bsc or to posts inside it. Do you really want to change?"
-msgstr ""
-
 #: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
 msgid "The management of %{bsc} was transferred to you."
 msgstr ""
@@ -342,10 +336,16 @@ msgstr ""
 msgid "Email: "
 msgstr ""
 
-#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
-msgid "BSC registration"
+#: plugins/bsc/views/shared/_fields.html.erb:39
+msgid ""
+"You are about to change the address, and this will break external links to "
+"this bsc or to posts inside it. Do you really want to change?"
 msgstr ""
 
 #: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
 msgid "Validate enterprises"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+msgid "BSC registration"
 msgstr ""

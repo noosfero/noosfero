@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/relevant_content/test/unit/relevant_content_plugin_test.rb:18
+#: plugins/relevant_content/lib/relevant_content_plugin.rb:8
+msgid ""
+"A plugin that lists the most accessed, most commented, most liked and most "
+"disliked contents."
+msgstr ""
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:3
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:7
@@ -44,13 +51,6 @@ msgstr ""
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:80
 msgid "Most voted articles"
-msgstr ""
-
-#: plugins/relevant_content/lib/relevant_content_plugin.rb:8
-#: plugins/relevant_content/test/unit/relevant_content_plugin_test.rb:18
-msgid ""
-"A plugin that lists the most accessed, most commented, most liked and most "
-"disliked contents."
 msgstr ""
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:2

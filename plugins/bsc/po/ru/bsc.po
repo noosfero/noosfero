@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
@@ -18,6 +18,80 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.2-dev\n"
+
+#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
+msgid "[%s] Bsc management transferred to you."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Opened"
+msgstr "открыть"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Negotiating"
+msgstr "Настройки"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Executing"
+msgstr "Редактирование"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Closed"
+msgstr "Закрыть"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:46
+#, fuzzy
+msgid "Federal"
+msgstr "Основная задача"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+#, fuzzy
+msgid "ProjectA"
+msgstr "Продукт"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+#, fuzzy
+msgid "ProjectB"
+msgstr "Продукт"
+
+#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
+#, fuzzy
+msgid "Bsc info and settings"
+msgstr "Инфо профиля и настройки"
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
+#, fuzzy
+msgid "BSC association"
+msgstr "Основная информация"
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
+#, fuzzy
+msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
+msgid "%{enterprise} accepted your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
+msgid "%{enterprise} rejected your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
+msgid ""
+"Here is the reject explanation left by the administrator:\n"
+"\n"
+"%{reject_explanation}"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
+#, fuzzy
+msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
+msgstr "%s хочет быть вашим другом"
 
 #: plugins/bsc/lib/bsc_plugin.rb:10
 #, fuzzy
@@ -58,80 +132,6 @@ msgstr ""
 #: plugins/bsc/views/shared/_fields.html.erb:53
 msgid "Contact"
 msgstr "Контакт"
-
-#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
-#, fuzzy
-msgid "Bsc info and settings"
-msgstr "Инфо профиля и настройки"
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
-#, fuzzy
-msgid "BSC association"
-msgstr "Основная информация"
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
-#, fuzzy
-msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
-msgid "%{enterprise} accepted your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
-msgid "%{enterprise} rejected your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
-msgid ""
-"Here is the reject explanation left by the administrator:\n"
-"\n"
-"%{reject_explanation}"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
-#, fuzzy
-msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
-msgstr "%s хочет быть вашим другом"
-
-#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
-msgid "[%s] Bsc management transferred to you."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Opened"
-msgstr "открыть"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Negotiating"
-msgstr "Настройки"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Executing"
-msgstr "Редактирование"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Closed"
-msgstr "Закрыть"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:46
-#, fuzzy
-msgid "Federal"
-msgstr "Основная задача"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-#, fuzzy
-msgid "ProjectA"
-msgstr "Продукт"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-#, fuzzy
-msgid "ProjectB"
-msgstr "Продукт"
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
 #, fuzzy
@@ -206,27 +206,6 @@ msgstr "Утвердители компаний"
 msgid "Enterprise validations couldn't be saved."
 msgstr "Утвердители компаний"
 
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
-msgid "Associations awaiting approval:"
-msgstr ""
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
-#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
-#, fuzzy
-msgid "Type in a search term for enterprise"
-msgstr "Отключить поиск по компаниям"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
-#, fuzzy
-msgid "Add new enterprise"
-msgstr "Одна компания"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
-#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
-#, fuzzy
-msgid "New contract"
-msgstr "Весь контент"
-
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
 #, fuzzy
@@ -283,6 +262,27 @@ msgstr "Поставщик: %s"
 #, fuzzy
 msgid "Type in a search term for product"
 msgstr "Отключить поиск по компаниям"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
+msgid "Associations awaiting approval:"
+msgstr ""
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
+#, fuzzy
+msgid "Type in a search term for enterprise"
+msgstr "Отключить поиск по компаниям"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
+#, fuzzy
+msgid "Add new enterprise"
+msgstr "Одна компания"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
+#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
+#, fuzzy
+msgid "New contract"
+msgstr "Весь контент"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
 #: plugins/bsc/views/shared/_fields.html.erb:5
@@ -376,15 +376,6 @@ msgstr "Администраторы:"
 msgid "Type in a search term for the new administrator"
 msgstr ""
 
-#: plugins/bsc/views/shared/_fields.html.erb:39
-#, fuzzy
-msgid ""
-"You are about to change the address, and this will break external links to "
-"this bsc or to posts inside it. Do you really want to change?"
-msgstr ""
-"Вы собираетесь сменить адрес, это приведет к разрыву всех внешних ссылок, "
-"ведущих на вашу страницу. Вы уверены?"
-
 #: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
 msgid "The management of %{bsc} was transferred to you."
 msgstr ""
@@ -399,12 +390,21 @@ msgstr "Kontakttelefon:"
 msgid "Email: "
 msgstr "E-Mail: %s"
 
-#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+#: plugins/bsc/views/shared/_fields.html.erb:39
 #, fuzzy
-msgid "BSC registration"
-msgstr "Регистрация предприятия"
+msgid ""
+"You are about to change the address, and this will break external links to "
+"this bsc or to posts inside it. Do you really want to change?"
+msgstr ""
+"Вы собираетесь сменить адрес, это приведет к разрыву всех внешних ссылок, "
+"ведущих на вашу страницу. Вы уверены?"
 
 #: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
 #, fuzzy
 msgid "Validate enterprises"
 msgstr "Подтвердить компанию"
+
+#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+#, fuzzy
+msgid "BSC registration"
+msgstr "Регистрация предприятия"

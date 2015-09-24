@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,10 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
+#: plugins/oauth_provider/views/doorkeeper/applications/edit.html.erb:2
+msgid "Edit application"
+msgstr ""
+
 #: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:4
 msgid "Whoops! Check your form for possible errors"
 msgstr ""
@@ -59,10 +63,6 @@ msgstr ""
 #: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:35
 #: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:35
 msgid "Cancel"
-msgstr ""
-
-#: plugins/oauth_provider/views/doorkeeper/applications/edit.html.erb:2
-msgid "Edit application"
 msgstr ""
 
 #: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:2

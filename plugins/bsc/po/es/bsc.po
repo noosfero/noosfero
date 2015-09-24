@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
+"POT-Creation-Date: 2015-09-16 21:45-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -18,40 +18,37 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-#: plugins/bsc/lib/bsc_plugin.rb:10
-msgid "Adds the Bsc feature"
-msgstr "Añade la característica Bsc"
+#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
+msgid "[%s] Bsc management transferred to you."
+msgstr "[%s] administración de bsc transferida a ti"
 
-#: plugins/bsc/lib/bsc_plugin.rb:14
-msgid "Create Bsc"
-msgstr "Crear Bsc"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Opened"
+msgstr "Abierto"
 
-#: plugins/bsc/lib/bsc_plugin.rb:15
-msgid "Validate Enterprises"
-msgstr "Validar empresas"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Negotiating"
+msgstr "Negociando"
 
-#: plugins/bsc/lib/bsc_plugin.rb:20
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:1
-msgid "Manage associated enterprises"
-msgstr "Administrar empresas asociadas"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Executing"
+msgstr "Ejecutando"
 
-#: plugins/bsc/lib/bsc_plugin.rb:21 plugins/bsc/lib/bsc_plugin.rb:27
-msgid "Transfer ownership"
-msgstr "Transferir propiedad"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+msgid "Closed"
+msgstr "Cerrado"
 
-#: plugins/bsc/lib/bsc_plugin.rb:22
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:1
-msgid "Manage contracts"
-msgstr "Administrar contratos"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:46
+msgid "Federal"
+msgstr "Federal"
 
-#: plugins/bsc/lib/bsc_plugin.rb:98
-msgid "Bsc"
-msgstr "Bsc"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectA"
+msgstr "Proyecto A"
 
-#: plugins/bsc/lib/bsc_plugin.rb:109
-#: plugins/bsc/views/shared/_fields.html.erb:53
-msgid "Contact"
-msgstr "Contacto"
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+msgid "ProjectB"
+msgstr "Proyecto B"
 
 #: plugins/bsc/lib/bsc_plugin/bsc.rb:28
 msgid "Bsc info and settings"
@@ -87,37 +84,40 @@ msgstr ""
 msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
 msgstr "%{requestor} quire asociar %{bsc} como tu BSC."
 
-#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
-msgid "[%s] Bsc management transferred to you."
-msgstr "[%s] administración de bsc transferida a ti"
+#: plugins/bsc/lib/bsc_plugin.rb:10
+msgid "Adds the Bsc feature"
+msgstr "Añade la característica Bsc"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Opened"
-msgstr "Abierto"
+#: plugins/bsc/lib/bsc_plugin.rb:14
+msgid "Create Bsc"
+msgstr "Crear Bsc"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Negotiating"
-msgstr "Negociando"
+#: plugins/bsc/lib/bsc_plugin.rb:15
+msgid "Validate Enterprises"
+msgstr "Validar empresas"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Executing"
-msgstr "Ejecutando"
+#: plugins/bsc/lib/bsc_plugin.rb:20
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:1
+msgid "Manage associated enterprises"
+msgstr "Administrar empresas asociadas"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-msgid "Closed"
-msgstr "Cerrado"
+#: plugins/bsc/lib/bsc_plugin.rb:21 plugins/bsc/lib/bsc_plugin.rb:27
+msgid "Transfer ownership"
+msgstr "Transferir propiedad"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:46
-msgid "Federal"
-msgstr "Federal"
+#: plugins/bsc/lib/bsc_plugin.rb:22
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:1
+msgid "Manage contracts"
+msgstr "Administrar contratos"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-msgid "ProjectA"
-msgstr "Proyecto A"
+#: plugins/bsc/lib/bsc_plugin.rb:98
+msgid "Bsc"
+msgstr "Bsc"
 
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-msgid "ProjectB"
-msgstr "Proyecto B"
+#: plugins/bsc/lib/bsc_plugin.rb:109
+#: plugins/bsc/views/shared/_fields.html.erb:53
+msgid "Contact"
+msgstr "Contacto"
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
 msgid "This Bsc associations were saved successfully."
@@ -179,24 +179,6 @@ msgstr "Empresas validadas."
 msgid "Enterprise validations couldn't be saved."
 msgstr "Las validaciones de la empresa no pudieron guardarse."
 
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
-msgid "Associations awaiting approval:"
-msgstr "Asociaciones de espera de aprobación:"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
-#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
-msgid "Type in a search term for enterprise"
-msgstr "Ingresa un término de búsqueda para la empresa"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
-msgid "Add new enterprise"
-msgstr "Añadir nueva empresa"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
-#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
-msgid "New contract"
-msgstr "Nuevo contrato"
-
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
 msgid "Client type"
@@ -244,6 +226,24 @@ msgstr "Período de suministro"
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
 msgid "Type in a search term for product"
 msgstr "Ingresa un término de búsqueda para el producto"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
+msgid "Associations awaiting approval:"
+msgstr "Asociaciones de espera de aprobación:"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:16
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:5
+msgid "Type in a search term for enterprise"
+msgstr "Ingresa un término de búsqueda para la empresa"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
+msgid "Add new enterprise"
+msgstr "Añadir nueva empresa"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
+#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
+msgid "New contract"
+msgstr "Nuevo contrato"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
 #: plugins/bsc/views/shared/_fields.html.erb:5
@@ -334,15 +334,6 @@ msgstr "Administrador:"
 msgid "Type in a search term for the new administrator"
 msgstr "Ingresa un término de búsqueda para el nuevo administrador"
 
-#: plugins/bsc/views/shared/_fields.html.erb:39
-msgid ""
-"You are about to change the address, and this will break external links to "
-"this bsc or to posts inside it. Do you really want to change?"
-msgstr ""
-"Estás a punto de cambiar la dirección, y esto romperá los enlaces externos a "
-"este bsc o a las publicaciones su interior. ¿Estás seguro que quieres "
-"cambiarla?"
-
 #: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
 msgid "The management of %{bsc} was transferred to you."
 msgstr "La administración de %{bsc} te fue transferido."
@@ -355,10 +346,19 @@ msgstr "Teléfono de contacto: "
 msgid "Email: "
 msgstr "Correo electrónico: "
 
-#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
-msgid "BSC registration"
-msgstr "Registro de BSC"
+#: plugins/bsc/views/shared/_fields.html.erb:39
+msgid ""
+"You are about to change the address, and this will break external links to "
+"this bsc or to posts inside it. Do you really want to change?"
+msgstr ""
+"Estás a punto de cambiar la dirección, y esto romperá los enlaces externos a "
+"este bsc o a las publicaciones su interior. ¿Estás seguro que quieres "
+"cambiarla?"
 
 #: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
 msgid "Validate enterprises"
 msgstr "Validar empresas"
+
+#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+msgid "BSC registration"
+msgstr "Registro de BSC"
