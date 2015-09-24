@@ -3,7 +3,7 @@ module AuthenticatedSystem
   protected
 
     def self.included base
-      if base.is_a? ActionController::Base
+      if base < ActionController::Base
         base.around_filter :user_set_current
         base.before_filter :login_from_cookie
       end
