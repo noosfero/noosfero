@@ -5660,9 +5660,8 @@ msgid "Change image"
 msgstr "Mudar imagem"
 
 #: app/views/shared/_show_thumbnail.html.erb:23
-#, fuzzy
 msgid "Remove image"
-msgstr "Remover imagem de capa"
+msgstr "Remover imagem"
 
 #: app/views/shared/profile_actions/xmpp_chat.html.erb:1
 msgid "Open chat"
@@ -8846,7 +8845,6 @@ msgid "Last posts"
 msgstr "Últimos posts"
 
 #: app/views/search/_article_last_change.html.erb:5
-#, fuzzy
 msgid "Updated by %{name} at %{date}"
 msgstr "Atualizado por %{name} em %{date}"
 
