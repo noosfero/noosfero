@@ -8848,7 +8848,7 @@ msgstr "Últimos posts"
 #: app/views/search/_article_last_change.html.erb:5
 #, fuzzy
 msgid "Updated by %{name} at %{date}"
-msgstr "por %{name} em %{date}"
+msgstr "Atualizado por %{name} em %{date}"
 
 #: app/views/search/_article_last_change.html.erb:8
 msgid "Last update: %s."
