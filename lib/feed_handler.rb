@@ -25,7 +25,7 @@ class FeedHandler
   def parse(content)
     raise FeedHandler::ParseError, "Content is nil" if content.nil?
     begin
-      return FeedParser::Feed::new(content)
+      return FeedParser::Feed::new(content.force_encoding('utf-8'))
     rescue Exception => ex
       raise FeedHandler::ParseError, "Invalid feed format."
     end
