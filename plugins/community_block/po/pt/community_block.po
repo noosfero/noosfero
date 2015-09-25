@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,6 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: plugins/community_block/lib/community_block_plugin.rb:10
+msgid "A plugin that adds a block to show community description"
+msgstr "Um plugin que adiciona um bloco para mostrar descrição da comunidade"
+
 #: plugins/community_block/lib/community_block.rb:4
 msgid "Community block"
 msgstr "Bloco de comunidade"
@@ -31,7 +35,3 @@ msgstr "Bloco de comunidade"
 #: plugins/community_block/lib/community_block.rb:8
 msgid "Help for Community Description Block."
 msgstr "Ajuda para Bloco de Descrição de Comunidade."
-
-#: plugins/community_block/lib/community_block_plugin.rb:10
-msgid "A plugin that adds a block to show community description"
-msgstr "Um plugin que adiciona um bloco para mostrar descrição da comunidade"

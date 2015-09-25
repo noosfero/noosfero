@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-09-15 14:14-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
+msgid "You were unsubscribed from newsletter."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
+msgid "Newsletter updated."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:25
+msgid "Newsletter could not be saved."
+msgstr ""
+
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:41
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:33
+msgid "%s in %s"
+msgstr ""
 
 #: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:9
 #: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:10
@@ -86,21 +103,8 @@ msgstr ""
 msgid "Periodically sends newsletter via email to network users"
 msgstr ""
 
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
-msgid "Newsletter updated."
-msgstr ""
-
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:25
-msgid "Newsletter could not be saved."
-msgstr ""
-
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:41
-#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:33
-msgid "%s in %s"
-msgstr ""
-
-#: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
-msgid "You were unsubscribed from newsletter."
+#: plugins/newsletter/views/tasks/newsletter_plugin/_moderate_newsletter_accept_details.html.erb:3
+msgid "Check posts you want to include"
 msgstr ""
 
 #: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:1
@@ -125,24 +129,8 @@ msgstr ""
 msgid "Mailing not found"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:1
-msgid "Additional recipients"
-msgstr ""
-
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:6
-msgid "Name"
-msgstr ""
-
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:7
-msgid "E-mail"
-msgstr ""
-
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:17
-msgid "There are no additional recipients."
-msgstr ""
-
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:21
-msgid "Back"
+#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:3
+msgid "There is no mailing with id #%s"
 msgstr ""
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:1
@@ -233,6 +221,22 @@ msgstr ""
 msgid "Save and visualize"
 msgstr ""
 
-#: plugins/newsletter/views/tasks/newsletter_plugin/_moderate_newsletter_accept_details.html.erb:3
-msgid "Check posts you want to include"
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:1
+msgid "Additional recipients"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:6
+msgid "Name"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:7
+msgid "E-mail"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:17
+msgid "There are no additional recipients."
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:21
+msgid "Back"
 msgstr ""

@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-07 16:48+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,6 +23,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr "Assunto"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr "Mensagem"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr "e-Mail"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr "Nome"
 
 #: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
 msgid "Work Assignment"
@@ -56,22 +72,6 @@ msgstr "Remover"
 msgid "Edit"
 msgstr "Editar"
 
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
-msgstr "Assunto"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Message"
-msgstr "Mensagem"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
-msgstr "e-Mail"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
-msgstr "Nome"
-
 #: plugins/work_assignment/lib/work_assignment_plugin.rb:8
 msgid "New kind of content for organizations."
 msgstr "Novo tipo de conteúdo para organizações."
@@ -84,17 +84,13 @@ msgstr "Notificação enviada com sucesso"
 msgid "Notification not sent"
 msgstr "Notificação não enviada"
 
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
-msgid "Default email message:"
-msgstr "Mensagem de e-mail padrão:"
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
+msgid "Save"
+msgstr "Salvar"
 
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
-msgid "Publish submissions"
-msgstr "Publicar submissões"
-
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
-msgid "Allow users change submissions privacy?"
-msgstr "Permitir que usuários alterem o nível de privacidade de submissões?"
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: plugins/work_assignment/views/cms/_notify_text_field.html.erb:1
 msgid ""
@@ -108,10 +104,14 @@ msgstr ""
 msgid "Send notification to: "
 msgstr "Enviar notificação para: "
 
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
-msgid "Save"
-msgstr "Salvar"
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
+msgid "Default email message:"
+msgstr "Mensagem de e-mail padrão:"
 
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
-msgid "Cancel"
-msgstr "Cancelar"
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
+msgid "Publish submissions"
+msgstr "Publicar submissões"
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
+msgid "Allow users change submissions privacy?"
+msgstr "Permitir que usuários alterem o nível de privacidade de submissões?"

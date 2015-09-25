@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-23 11:34+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,6 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr "Betreff"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr "Nachricht"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr "E-Mail"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr "Name"
 
 #: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
 msgid "Work Assignment"
@@ -51,22 +67,6 @@ msgstr "Löschen"
 msgid "Edit"
 msgstr "Ändern"
 
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
-msgstr "Betreff"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Message"
-msgstr "Nachricht"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
-msgstr "E-Mail"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
-msgstr "Name"
-
 #: plugins/work_assignment/lib/work_assignment_plugin.rb:8
 msgid "New kind of content for organizations."
 msgstr "Neue Art von Beiträgen für Organisationen."
@@ -77,6 +77,24 @@ msgstr ""
 
 #: plugins/work_assignment/lib/work_assignment_plugin.rb:64
 msgid "Notification not sent"
+msgstr ""
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
+msgid "Save"
+msgstr "Speichern"
+
+#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:1
+msgid ""
+"If you want to notify someone about this action, fill the field below with "
+"the emails of the destinies, separated by comma."
+msgstr ""
+
+#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:3
+msgid "Send notification to: "
 msgstr ""
 
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
@@ -90,21 +108,3 @@ msgstr "Beiträge veröffentlichen"
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"
 msgstr ""
-
-#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:1
-msgid ""
-"If you want to notify someone about this action, fill the field below with "
-"the emails of the destinies, separated by comma."
-msgstr ""
-
-#: plugins/work_assignment/views/cms/_notify_text_field.html.erb:3
-msgid "Send notification to: "
-msgstr ""
-
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
-msgid "Save"
-msgstr "Speichern"
-
-#: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
-msgid "Cancel"
-msgstr "Abbrechen"
