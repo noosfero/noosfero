@@ -480,6 +480,7 @@ div#notice {
 #content .profile-list-block ul,
 #content .enterprises-block ul,
 #content .communities-block ul,
+#content .favorite-enterprises-block ul,
 #content .fans-block ul {
   min-width: 196px;
   width: 192px;
