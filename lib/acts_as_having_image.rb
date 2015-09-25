@@ -16,6 +16,9 @@ module ActsAsHavingImage
     else
       build_image(img)
     end unless img[:uploaded_data].blank?
+    if img[:remove_image] == 'true'
+      self.image_id = nil
+    end
   end
 
 end

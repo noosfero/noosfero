@@ -23,7 +23,8 @@ class Image < ActiveRecord::Base
 
   postgresql_attachment_fu
 
-  attr_accessible :uploaded_data, :label
+  attr_accessible :uploaded_data, :label, :remove_image
+  attr_accessor :remove_image
 
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
