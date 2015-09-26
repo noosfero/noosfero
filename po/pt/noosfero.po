@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2~rc2-15-gba5ae5b\n"
 "POT-Creation-Date: 2015-08-06 17:22-0300\n"
-"PO-Revision-Date: 2015-08-28 12:36-0300\n"
+"PO-Revision-Date: 2015-09-26 07:25-0300\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
@@ -5964,8 +5964,8 @@ msgid "cert. "
 msgstr "cert. "
 
 #: app/views/search/_article_last_change.html.erb:5
-msgid "by %{name} at %{date}"
-msgstr "por %{name} em %{date}"
+msgid "Updated by %{name} at %{date}"
+msgstr "Atualizado por %{name} em %{date}"
 
 #: app/views/search/_article_last_change.html.erb:8
 msgid "Last update: %s."
@@ -6649,6 +6649,10 @@ msgstr "redirecionando..."
 #: app/views/manage_products/_display_image.html.erb:11
 msgid "Change image"
 msgstr "Mudar imagem"
+
+#: app/views/shared/_show_thumbnail.html.erb:23
+msgid "Remove image"
+msgstr "Remover imagem"
 
 #: app/views/shared/_select_subcategories.html.erb:3
 msgid "Click to select a category"
