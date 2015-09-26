@@ -20,6 +20,6 @@
 
 <% if image.present? && removable %>
   <div id='image-builder-remove-checkbox'>
-    <%= labelled_form_field(_('Remove image'), i.check_box(:remove_image, {}, true, false))%>
+    <%= labelled_check_box(_('Remove image'), :remove_image, true, false) %>
   </div>
 <% end %>
