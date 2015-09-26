@@ -1,0 +1,77 @@
+table.actions {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.actions img {
+  width: 16px;
+  height: 16px;
+}
+
+table.actions a.icon {
+  display: block;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table.actions td:last-child {
+  text-align: center;
+}
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  font-size: 14px;
+  padding: 2px 10px;
+  height: 26px;
+}
+th {
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+tr:hover td {
+  background-color: #f0f0f0;
+}
+table.noborder th, table.noborder td {
+  border: none;
+}
+table.noborder:hover td {
+  background: none;
+}
+table.noborder:hover td.selected, td.selected {
+  background: #ff9;
+  font-style: italic;
+}
+td .button {
+  background-color: transparent;
+}
+table.profile td.field-name {
+  width: 150px;
+  text-align: left;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+
+table.profile .ui-tabs .ui-tabs-panel {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+table.profile th {
+  border-bottom: 2px solid #eeeeec;
+  padding: 10px 0px 0px 0px;
+}
+table.profile td {
+  border: none;
+  padding: 0px;
+}
+table.profile tr:hover td {
+  background: none;
+}

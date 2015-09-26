@@ -1,0 +1,62 @@
+#category_form {
+  border: 1px solid #AABB88;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: url(../images/ccc.gif); /* image ccc.gif from http://www.wannabegirl.org/translucent */
+  padding: 10px 30px 20px 30px;
+}
+#categories_container_wrapper {
+  overflow-x: scroll;
+  margin: 10px 0 15px 0;
+  padding: 5px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: url(../images/fff.gif); /* image fff.gif from http://www.wannabegirl.org/translucent */
+  border: 1px solid #CCC;
+  border-bottom: 0;
+  position: relative;
+}
+.categories_container {
+  min-height: 176px;
+  min-width: 100px;
+  display: inline-block;
+  position: relative;
+}
+.categories_container .categories_container {
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+.msie .categories_container .categories_container {
+  left: auto;
+}
+.categories_container select {
+  margin-right: 10px;
+  height: 176px;
+  font-size: 11px;
+}
+.controller-manage_products #categories_selection_actionbar input.button {
+  height: 23px !important;
+}
+#save_and_continue_wrapper {
+  position: relative;
+}
+#save_and_continue_disabled_tooltip {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  min-width: 250px;
+}
+.msie #save_and_continue_disabled_tooltip {
+  font-size: small;
+}
+#save_and_continue_wrapper #save_and_continue.disabled:hover + #save_and_continue_disabled_tooltip {
+  display: block;
+}
+#hierarchy_navigation {
+  min-height: 1.3em;
+}
+.msie #hierarchy_navigation {
+  font-size: small;
+}

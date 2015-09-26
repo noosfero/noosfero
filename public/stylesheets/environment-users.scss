@@ -1,0 +1,33 @@
+.controller-users td.actions {
+  text-align: center;
+}
+
+.controller-users .search-field #q {
+  width: 85%;
+}
+
+.controller-users .search-field input[type='submit'] {
+  float: right;
+}
+
+#environment-profiles-search form {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #E6E6E6;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.environment-profiles-results-header {
+  font-size: 0.9em;
+  padding: 6px 0px 0px 0px;
+  margin:0 0 5px 0;
+  border-bottom: 2px dotted #999;
+  text-align: right;
+}
+#environment-profiles-filter-title {
+  font-weight: bold;
+  font-size: 130%;
+  line-height: 35px;
+  float: left;
+}

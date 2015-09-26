@@ -1,0 +1,34 @@
+
+#view-category { /* none */
+}
+#category-image {
+  text-align: center;
+}
+#categiry-name {
+  margin: 0px;
+  position: relative;
+  top: -5px;
+}
+#category-ancestors {
+  padding-top: 25px;
+  font-weight: bold;
+}
+#content #category-ancestors a {
+  color: #000;
+  text-decoration: none;
+}
+#content #category-ancestors a:hover {
+  color: #07F;
+  text-decoration: underline;
+}
+#cat-no-child {
+  color: #AAA;
+}
+#cat_menu {
+  padding: 0px;
+  margin: 0px;
+}
+.msie6 #cat_menu {
+  width: 100%;
+  margin-top: -22px;
+}

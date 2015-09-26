@@ -1,0 +1,44 @@
+
+#profile-header, #profile-footer {
+  clear: both;
+  max-height: 150px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.controller-profile .button-bar {
+  padding-top: 40px;
+  clear: both;
+}
+.controller-profile #pagination-profiles .pagination span {
+  display: inline;
+}
+.no-boxes {
+  margin: 0px;
+}
+.controller-content_viewer .no-boxes, .controller-profile .no-boxes {
+  margin: 0px 200px;
+}
+.controller-profile #content .no-boxes h1, .controller-profile #content .no-boxes table th {
+  text-align: left;
+}
+.controller-profile .private-profile-message {
+  font-style: italic;
+  border: 1px solid #ddd;
+  background: #ffd;
+  padding: 10px;
+}
+.controller-profile .public-profile-description {
+  font-style: italic;
+  border: 0;
+  background: transparent;
+  color: black;
+  padding: 10px;
+}
+.controller-profile .private-profile-message, .controller-profile .private-profile-description {
+  margin: 5px 0px 5px 160px;
+}
+.controller-profile_design .article-block-edition option, .controller-environment_design .article-block-edition option {
+  width: 470px;
+  overflow-x: hidden;
+}

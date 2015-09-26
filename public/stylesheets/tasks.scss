@@ -1,0 +1,27 @@
+
+div.pending-tasks {
+  padding: 10px;
+  border: 1px solid #BFC2BC;
+  margin-bottom: 20px;
+}
+#user .logged-in #pending-tasks-count {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 3px;
+  text-decoration: none;
+  background-color: #F57900;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.controller-tasks #content .task-list {
+  margin: 0px;
+  padding: 0px;
+}
+
+.controller-tasks #content .task-list ul {
+  padding-left: 0px;
+  list-style-type: none;
+}

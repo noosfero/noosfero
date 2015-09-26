@@ -1,0 +1,22 @@
+
+#content .recent-documents-block {
+  padding: 10px 0px 10px 10px;
+  overflow: hidden;
+}
+.recent-documents-block ul {
+  margin: 0px;
+  padding: 0px 0px 0px 20px;
+}
+.recent-documents-block li {
+  margin: 0px;
+  padding: 0px;
+}
+.recent-documents-block a {
+  text-decoration: none;
+}
+.recent-documents-block .block-footer-content {
+  font-size: 10px;
+}
+.recent-documents-block .block-footer-content a:hover {
+  text-decoration: underline;
+}

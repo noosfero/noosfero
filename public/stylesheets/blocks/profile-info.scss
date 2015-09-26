@@ -1,0 +1,101 @@
+
+.profile-info-block h2 {
+  text-align: center;
+}
+.profile-info-picture {
+  position: relative;
+  float: right;
+  display: table;
+  width: 106px;
+  height: 106px;
+}
+.msie6 .profile-info-picture {
+  /* margin-right: 20px; */
+}
+.profile-info-picture-inner1 {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.profile-info-picture-inner2 {
+  position: relative;
+  left: 0px;
+  display: block;
+}
+.profile-info-block a {
+  font-size: smaller;
+}
+.profile-info-picture img {
+  border: none;
+  padding: 2px;
+}
+.profile-info-picture .sex-male, .profile-info-picture .sex-female, .profile-info-picture .sex-undef {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+.profile-info-picture .sex-male {
+  background: url(../images/icons-app/ico-male.png);
+}
+.profile-info-picture .sex-female {
+  background: url(../images/icons-app/ico-female.png);
+}
+.profile-info-picture .sex-undef {
+  background: url(../images/icons-app/ico-sex-undef.png);
+}
+.msie6 .profile-info-picture .sex-male {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-male.png', sizingMethod='scale');
+}
+.msie6 .profile-info-picture .sex-female {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-female.png', sizingMethod='scale');
+}
+.msie6 .profile-info-picture .sex-undef {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-sex-undef.png', sizingMethod='scale');
+}
+#content .profile-info-picture .sex-male span, #content .profile-info-picture .sex-female span, #content .profile-info-picture .sex-undef span {
+  display: none;
+}
+.profile-info-data {
+  width: 110px;
+  font-size: 10px;
+  text-align: right;
+  position: relative;
+  top: 20px;
+}
+.profile-info-block .adr {
+  padding-top: 5px;
+  font-size: 11px;
+  clear: both;
+  text-align: center;
+}
+.profile-info-block .adr span {
+  white-space: nowrap;
+}
+.profile-info-options {
+  clear: both;
+}
+.profile-info-options {
+  padding-top: 20px;
+  text-align: right;
+  padding-right: 20px;
+}
+.profile-info-block {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.profile-info-block ul {
+  padding: 0px;
+  margin: 0px;
+}
+#content .profile-info-block ul li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0px 0px 5px 0px;
+  padding: 2px;
+}

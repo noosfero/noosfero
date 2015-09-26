@@ -1,0 +1,114 @@
+
+#edit-link-list-block {
+  width: 620px;
+  position: relative;
+  left: -24px;
+}
+#edit-link-list-block #new-template {
+  display: none;
+}
+.link-list-header {
+  width: 98%;
+  height: 25px;
+  padding: 10px 1px 10px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.link-list-header li {
+  list-style-type: none;
+  display: inline;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}
+#dropable-link-list {
+  padding-left: 23px;
+  margin-top: -12px;
+}
+#dropable-link-list li {
+  list-style-type: none;
+}
+.link-list-row {
+  line-height: 25px;
+  margin-bottom: 5px;
+  padding: 10px 1px 10px 10px;
+  cursor: pointer;
+  width: 97%;
+}
+.link-list-row:hover {
+  background: #ddd url(../images/drag-and-drop.png) no-repeat;
+  background-position: 98% 15px;
+}
+.link-list-row li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 5px;
+}
+.link-list-row li div {
+  float: left;
+  margin-top: 4px;
+}
+.link-list-row li a {
+  line-height: 27px !important;
+  padding-right: 5px;
+}
+.link-list-icon {
+  margin-left: 14px;
+}
+.link-list-name {
+  margin-left: 40px;
+}
+.link-list-address {
+  margin-left: 90px;
+}
+.link-list-target {
+  margin-left: 77px;
+}
+.new_link_row li {
+  margin-left: 7px;
+}
+.link-list-block ul {
+  padding: 0px;
+  margin: 0px;
+}
+#content .link-list-block li {
+  padding: 2px 0px 2px 8px;
+  margin: 2px 0px 0px 0px;
+  list-style: none;
+  background: #B8CFE7;
+}
+.link-list-block a {
+  display: block;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  padding-left: 23px;
+}
+.icon-selector {
+  background: #EEE;
+  border: 1px solid #555;
+  padding: 10px;
+  width: 110px;
+  height: 132px;
+  position: absolute;
+  z-index: 100;
+}
+.icon {
+  border:1px solid #EEE;
+}
+.icon:hover {
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: #555;
+}
+.icon-selector span {
+  height:16px;
+  width:16px;
+  border:1px solid #555;
+  margin:2px;
+  display: block;
+  float: left;
+}
+.icon-selector span:hover {
+  border: 1px solid black;
+  background-color: #555;
+}

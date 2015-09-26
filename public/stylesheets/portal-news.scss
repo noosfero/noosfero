@@ -1,0 +1,52 @@
+// FIXME prefix/scope general selectors
+
+#portal-news {
+  font-size: 11px;
+}
+#portal-news a, #highlighted-news a, .news-area a {
+  text-decoration: none;
+}
+#portal-news a:hover, #highlighted-news a:hover, .news-area a:hover {
+  text-decoration: underline;
+}
+.headline img {
+  float:left;
+  margin: 5px;
+  max-width: 100%;
+  height: auto;
+}
+.news-area {
+  border: 1px solid black;
+  height: auto;
+  width: 49%;
+  margin: 3px 0px;
+  font-size: 11px;
+}
+#content .news-area h3 {
+  margin-top: 0px;
+  padding: 2px;
+  background-color: #CCC;
+  font-size: 15px;
+}
+.news-area ul {
+  padding: 5px;
+  height: 125px;
+  overflow: auto;
+}
+.news-area li {
+  list-style: none;
+  margin: 0px 2px 10px 2px;
+}
+.even {
+  float: left;
+}
+.odd {
+  float: right;
+}
+.news-symbol {
+  background-color: #CCC;
+  color: #FFF;
+}
+.post-date {
+  color: #E68A00;
+}

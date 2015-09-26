@@ -1,0 +1,14 @@
+
+.controller-friends #remove_friend .friend_picture,
+#remove_suggestion .suggestion_picture {
+  float: left;
+  margin-right: 15px;
+}
+.controller-friends #remove_friend form,
+#remove_suggestion form {
+  clear: both;
+  padding-top: 20px;
+}
+.controller-friends #pagination-friends .pagination span {
+  display: inline;
+}

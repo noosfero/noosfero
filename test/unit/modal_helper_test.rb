@@ -5,7 +5,7 @@ class ModalHelperTest < ActiveSupport::TestCase
   include ModalHelper
 
   should 'provide the needed files' do
-    assert File.exists?(Rails.root.join('public', 'stylesheets', 'colorbox.css')), 'colorbox.css expected to be in public/stylesheets, but not found'
+    assert File.exists?(Rails.root.join('public', 'stylesheets', 'vendor', 'colorbox.css')), 'colorbox.css expected to be in public/stylesheets, but not found'
     assert File.exists?(Rails.root.join('public', 'javascripts', 'jquery.colorbox-min.js')), 'jquery.colorbox-min.js expected to be in public/javascripts, but not found'
   end
 
