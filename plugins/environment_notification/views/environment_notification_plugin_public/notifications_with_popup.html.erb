@@ -1,6 +1,6 @@
 <% @notifications = EnvironmentNotificationPlugin::EnvironmentNotification.with_popup(environment, current_user, @previous_path).where("id NOT IN (?)", @hide_notifications) %>
 
-<div class="notification-modal">
+<div class="environment-notification-plugin-notification-notification-modal">
   <% @notifications.each do |notification| %>
     <% if !notification.title.blank? %>
       <div class="<%= notification.type.gsub("EnvironmentNotificationPlugin::", "").downcase %> notification notification-with-title" data-notification="<%=notification.id%>">

@@ -1,7 +1,7 @@
 <% if current_user && current_user.person.is_admin? %>
   <% active_notifications = EnvironmentNotificationPlugin::EnvironmentNotification.active(environment) %>
   <% unless active_notifications.blank? %>
-    <div class="notification-bar">
+    <div class="environment-notification-plugin-notification-bar">
       <div class="adminnotification notification">
         <div class="notification-message">
           <p>
@@ -18,7 +18,7 @@
 
 <% @notifications = EnvironmentNotificationPlugin::EnvironmentNotification.visibles(environment, current_user, controller_path).where("id NOT IN (?)", hide_notifications) %>
 
-<div class="notification-bar">
+<div class="environment-notification-plugin-notification-bar">
   <% @notifications.each do |notification| %>
     <div class="<%= notification.type.gsub("EnvironmentNotificationPlugin::", "").downcase %> notification" data-notification="<%=notification.id%>" notification-display-popup="<%=notification.display_popup?%>">
       <div class="notification-message">
