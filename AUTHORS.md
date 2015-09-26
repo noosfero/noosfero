@@ -63,6 +63,7 @@ Isaac Canan <isaac@intelletto.com.br>
 Italo Valcy <italo@dcc.ufba.br>
 Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Jérôme Jutteau <j.jutteau@gmail.com>
+Jéssica Cristina <jessica.cris1127@gmail.com>
 João Machini
 João M. M. da Silva <jaodsilv@linux.ime.usp.br>
 Joenio Costa <joenio@colivre.coop.br>
@@ -113,6 +114,7 @@ Rodrigo Medeiros <rodrigo.mss01@gmail.com>
 Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
 Samuel R. C. Vale <srcvale@holoscopio.com>
+Simião Carvalho <simiaosimis@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
 Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Kairala <thiagor.kairala@gmail.com>
@@ -123,6 +125,7 @@ TWS <tablettws@gmail.com>
 Valessio Brito <contato@valessiobrito.com.br>
 Victor Costa <vfcosta@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
+Victor Navarro <victor.matias.navarro@gmail.com>
 Vinicius Cubas Brand <viniciuscb@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
