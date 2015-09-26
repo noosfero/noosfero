@@ -5,7 +5,7 @@
 
 
     notificationBar: function() {
-      var completeMessage = $(".notification-bar").remove();
+      var completeMessage = $(".environment-notification-plugin-notification-bar").remove();
       $("#content-inner").before(completeMessage);
     },
 
@@ -80,18 +80,18 @@
 
   $(document).ready(function(){
     environment_notification_plugin.notificationBar();
-    $(".notification-close").on("click", environment_notification_plugin.closeNotification);
-    $(".notification-hide").on("click", environment_notification_plugin.hideNotification);
+    $(".environment-notification-plugin-notification-bar .notification-close").on("click", environment_notification_plugin.closeNotification);
+    $(".environment-notification-plugin-notification-bar .notification-hide").on("click", environment_notification_plugin.hideNotification);
 
     if($('.environment-notification-plugin-message').length > 0){
       environment_notification_plugin.mceRestrict();
     }
 
-    if($('.notification-bar').length > 0){
+    if($('.environment-notification-plugin-notification-bar').length > 0){
       environment_notification_plugin.hideUserNotification();
     }
 
-    if($('[notification-display-popup="true"]').length > 0){
+    if($('.environment-notification-plugin-notification-bar [notification-display-popup="true"]').length > 0){
       environment_notification_plugin.showPopup();
     }
   });
