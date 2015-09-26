@@ -9,7 +9,7 @@
 
   <%= hidden_field_tag('success_back_to', @success_back_to) %>
 
-  <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
+  <%= render_partial_for_class @article.class, f: f %>
 
   <% if environment.is_portal_community?(profile) %>
     <div>
