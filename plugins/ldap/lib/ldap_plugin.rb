@@ -36,7 +36,7 @@ class LdapPlugin < Noosfero::Plugin
   end
 
   def allow_password_recovery
-    false
+    context.environment.ldap_plugin['allow_password_recovery']
   end
 
   def alternative_authentication
