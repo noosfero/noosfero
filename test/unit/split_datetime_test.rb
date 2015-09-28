@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
+require 'test_helper'
 
 class ModelWithDate
 
@@ -21,32 +21,32 @@ class SplitDatetimeTest < ActiveSupport::TestCase
   end
 
   should 'return get splitted times' do
-    assert_equal @m.delivery_date, '2011-01-01'
-    assert_equal @m.delivery_time, '02:02'
+    assert_equal '01/01/2011', @m.delivery_date
+    assert_equal '02:02', @m.delivery_time
   end
 
   should 'return set splitted times by Date' do
     @m.delivery_date = (Time.mktime(2011, 3, 5) + 3.hours + 3.minutes + 3.seconds).to_datetime
-    assert_equal @m.delivery_date, '2011-03-05'
-    assert_equal @m.delivery_time, '02:02'
+    assert_equal '05/03/2011', @m.delivery_date
+    assert_equal '02:02', @m.delivery_time
   end
 
   should 'return set splitted times by Time' do
     @m.delivery_time = (Time.mktime(2011, 3, 5) + 3.hours + 3.minutes + 3.seconds).to_datetime
-    assert_equal @m.delivery_date, '2011-01-01'
-    assert_equal @m.delivery_time, '03:03'
+    assert_equal '01/01/2011', @m.delivery_date
+    assert_equal '03:03', @m.delivery_time
   end
 
   should 'return set splitted times by Date String' do
-    @m.delivery_date = "2011-11-11"
-    assert_equal @m.delivery_date, '2011-11-11'
-    assert_equal @m.delivery_time, '02:02'
+    @m.delivery_date = "11/11/2011"
+    assert_equal '11/11/2011', @m.delivery_date
+    assert_equal '02:02', @m.delivery_time
   end
 
   should 'return set splitted times by Time String' do
     @m.delivery_time = "15:43"
-    assert_equal @m.delivery_date, '2011-01-01'
-    assert_equal @m.delivery_time, '15:43'
+    assert_equal '01/01/2011', @m.delivery_date
+    assert_equal '15:43', @m.delivery_time
   end
 
 end

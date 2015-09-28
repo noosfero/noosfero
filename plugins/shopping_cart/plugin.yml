@@ -1,3 +1,0 @@
-name: shopping_cart
-dependencies:
-  - orders
