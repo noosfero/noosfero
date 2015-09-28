@@ -1,0 +1,24 @@
+<div class="comment-paragraph-plugin comments" id="comment-paragraph-plugin_<%= paragraph_uuid %>" data-paragraph="<%= paragraph_uuid %>">
+  <div class="comment_paragraph">
+    <%= inner_html %>
+  </div>
+  <div class="side-comments-counter-container">
+    <div class="side-comments-counter">
+      <span class='comment-count-container <%= count==0 ? 'no-comments-yet':'' %>'>
+        <span class="comment-count"><%= count %></span>
+      </span>
+    </div>
+  </div>
+
+  <% load_comments_url = url_for({:profile => profile_identifier, :controller => 'comment_paragraph_plugin_profile', :action => 'view_comments', :paragraph_uuid => paragraph_uuid, :article_id => article_id}) %>
+
+  <div class="side-comment" data-comment_paragraph_url="<%= load_comments_url %>">
+    <div class="article-comments-list">
+      <div class="loading"></div>
+    </div>
+    <div class ="article-comments-list-more"></div>
+    <div class='post_comment_box closed'>
+      <%= render :partial => 'comment/comment_form', :locals => {:comment => Comment.new, :display_link => true, :cancel_triggers_hide => true, :paragraph_uuid => paragraph_uuid}%>
+    </div>
+  </div>
+</div>
