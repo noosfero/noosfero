@@ -1,7 +1,8 @@
 require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
 require 'account_controller'
 
-class AccountController; def rescue_action(e) raise e end;
+class AccountController
+  include EnvironmentNotificationHelper
 end
 
 class AccountControllerTest < ActionController::TestCase

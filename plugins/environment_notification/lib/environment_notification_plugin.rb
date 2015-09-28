@@ -1,8 +1,5 @@
 class EnvironmentNotificationPlugin < Noosfero::Plugin
 
-  include ActionView::Helpers::JavaScriptHelper
-  include ActionView::Helpers::TagHelper
-
   def self.plugin_name
     "Environment Notifications Plugin"
   end
@@ -22,7 +19,10 @@ class EnvironmentNotificationPlugin < Noosfero::Plugin
   end
 
   def body_beginning
-    expanded_template('environment_notification_plugin_admin/show_notification.html.erb')
+    lambda do
+      extend EnvironmentNotificationHelper
+      render template: 'environment_notification_plugin_admin/show_notification'
+    end
   end
 
   def admin_panel_links
