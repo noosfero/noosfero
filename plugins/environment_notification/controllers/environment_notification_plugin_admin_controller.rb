@@ -1,5 +1,10 @@
 class EnvironmentNotificationPluginAdminController < AdminController
+
+  helper EnvironmentNotificationHelper
+  include EnvironmentNotificationHelper
+
   before_filter :admin_required, :except => [:close_notification, :hide_notification]
+
   def index
     @notifications = environment.environment_notifications.order('updated_at DESC')
   end

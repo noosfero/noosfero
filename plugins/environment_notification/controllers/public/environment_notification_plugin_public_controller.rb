@@ -1,4 +1,7 @@
 class EnvironmentNotificationPluginPublicController < PublicController
+
+  helper EnvironmentNotificationHelper
+
   def notifications_with_popup
     @hide_notifications = hide_notifications
     if params[:previous_path]
@@ -7,4 +10,5 @@ class EnvironmentNotificationPluginPublicController < PublicController
       @previous_path = nil
     end
   end
+
 end
