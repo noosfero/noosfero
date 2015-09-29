@@ -1,6 +1,8 @@
 <h1>API Playground</h1>
 
 <script>
+<% prefix = Noosfero::API::API.prefix %>
+var prefix = <%= prefix.to_json %>;
 var endpoints = <%=
 endpoints.map do |endpoint|
   app = endpoint.options[:app].to_s
@@ -13,8 +15,8 @@ endpoints.map do |endpoint|
     end
   end
 end.flatten.compact.sort{|a,b|
-  a[:path]=='/api/v1/login' ? -1 :
-  b[:path]=='/api/v1/login' ?  1 :
+  a[:path]=="#{prefix}/v1/login" ? -1 :
+  b[:path]=="#{prefix}/v1/login" ?  1 :
   a[:path] <=> b[:path]
 }.to_json %>;
 </script>
@@ -33,4 +35,4 @@ end.flatten.compact.sort{|a,b|
 </div>
 <pre id="api-response" class="empty"></pre>
 
-<script src="/javascripts/api-playground.js"></script>
+<%= javascript_include_tag 'api-playground' %>

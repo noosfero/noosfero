@@ -24,7 +24,7 @@ var playground = {
   selEndpoint: function() {
     var endpoint = this.getEndpoint();
     jQuery('#api-form .api-param').remove();
-    if ( endpoint.path == '/api/v1/login' ) {
+    if ( endpoint.path == prefix+'/v1/login' ) {
       this.addFormParam('login');
       this.addFormParam('password');
     }
@@ -51,7 +51,7 @@ var playground = {
     for (var i=1; i<rawData.length; i+=2) {
       data[ rawData[i].value ] = rawData[i+1].value;
     }
-    if ( endpoint.path != '/api/v1/login' ) {
+    if ( endpoint.path != prefix+'/v1/login' ) {
       data.private_token = this.getToken();
     }
     jQuery('#api-response').empty()[0].className = 'empty';
@@ -71,7 +71,7 @@ var playground = {
         jQuery('#api-response').text(
           JSON.stringify(data, null, '  ')
         )[0].className = 'full';
-        if ( endpoint.path == '/api/v1/login' ) {
+        if ( endpoint.path == prefix+'/v1/login' ) {
           playground.setToken(data.private_token)
         }
       },
