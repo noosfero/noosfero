@@ -253,25 +253,6 @@ class OrganizationTest < ActiveSupport::TestCase
     assert organization.closed
   end
 
-  should 'escape malformed html tags' do
-    organization = Organization.new
-    organization.acronym = "<h1 Malformed >> html >< tag"
-    organization.contact_person = "<h1 Malformed >,<<<asfdf> html >< tag"
-    organization.contact_email = "<h1<malformed@html.com>>"
-    organization.description = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    organization.legal_form = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    organization.economic_activity = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    organization.management_information = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    organization.valid?
-
-    assert_no_match /[<>]/, organization.acronym
-    assert_no_match /[<>]/, organization.contact_person
-    assert_no_match /[<>]/, organization.contact_email
-    assert_no_match /[<>]/, organization.legal_form
-    assert_no_match /[<>]/, organization.economic_activity
-    assert_no_match /[<>]/, organization.management_information
-  end
-
   should "the followed_by? be true only to members" do
     o = fast_create(Organization)
     p1 = fast_create(Person)

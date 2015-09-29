@@ -1696,34 +1696,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal "<strong> Custom Footer <strong>", profile.custom_footer
   end
 
-  should 'escape malformed html tags' do
-    profile = Profile.new
-    profile.name = "<h1 Malformed >> html >>></a>< tag"
-    profile.nickname = "<h1 Malformed <<h1>>< html >< tag"
-    profile.address = "<h1><</h2< Malformed >> html >< tag"
-    profile.contact_phone = "<h1<< Malformed ><>>> html >< tag"
-    profile.description = "<h1<a> Malformed >> html ></a>< tag"
-    profile.valid?
-
-    assert_no_match /[<>]/, profile.name
-    assert_no_match /[<>]/, profile.nickname
-    assert_no_match /[<>]/, profile.address
-    assert_no_match /[<>]/, profile.contact_phone
-    assert_no_match /[<>]/, profile.description
-    assert_no_match /[<>]/, profile.custom_header
-    assert_no_match /[<>]/, profile.custom_footer
-  end
-
-  should 'escape malformed html tags in header and footer' do
-    profile = fast_create(Profile)
-    profile.custom_header = "<h1<a>><<> Malformed >> html ></a>< tag"
-    profile.custom_footer = "<h1> Malformed <><< html ></a>< tag"
-    profile.save
-
-    assert_no_match /[<>]/, profile.custom_header
-    assert_no_match /[<>]/, profile.custom_footer
-  end
-
   should 'not sanitize html comments' do
     profile = Profile.new
     profile.custom_header = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
