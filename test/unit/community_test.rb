@@ -242,20 +242,6 @@ class CommunityTest < ActiveSupport::TestCase
     end
   end
 
-  should 'escape malformed html tags' do
-    community = Community.new
-    community.name = "<h1 Malformed >> html >< tag"
-    community.address = "<h1 Malformed >,<<<asfdf> html >< tag"
-    community.contact_phone = "<h1 Malformed<<> >> html >><>< tag"
-    community.description = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    community.valid?
-
-    assert_no_match /[<>]/, community.name
-    assert_no_match /[<>]/, community.address
-    assert_no_match /[<>]/, community.contact_phone
-    assert_no_match /[<>]/, community.description
-  end
-
   should "the followed_by method be protected and true to the community members by default" do
     c = fast_create(Community)
     p1 = fast_create(Person)

@@ -1140,14 +1140,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal "<h1> Disabled Enterprise </h1>", environment.message_for_disabled_enterprise
   end
 
-  should 'escape malformed html tags' do
-    environment = Environment.new
-    environment.message_for_disabled_enterprise = "<h1> Disabled Enterprise /h1>"
-    environment.valid?
-
-    assert_no_match /[<>]/, environment.message_for_disabled_enterprise
-  end
-
   should 'not sanitize html comments' do
     environment = Environment.new
     environment.message_for_disabled_enterprise = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
