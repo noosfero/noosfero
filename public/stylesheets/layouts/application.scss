@@ -1,0 +1,75 @@
+#accessibility_menu {
+  position: absolute;
+  left: 0px;
+  top: -20px;
+  font-height: 21px;
+  font-size: 1px;
+  text-decoration: none;
+}
+#noosfero_bar {
+  height: 22px;
+  font-size: 11px;
+  letter-spacing: -1px;
+  background: #888 url(../images/white-pixel.gif) 0px 100% repeat-x;
+}
+#navigation_bar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+}
+#navigation_bar a {
+  font-weight: bold;
+  line-height: 22px;
+  text-decoration: none;
+  color: #FFF;
+}
+#btShowHelp {
+  z-index: 100;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+#btShowHelp:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+#btShowHelp span {
+  display: none;
+}
+#menu_link_to_envhome {
+  float: left;
+}
+#cat_menu .linkSubMenu, #cat_menu ul {
+  background-color: #5380B8;
+}
+.linkSubMenu {
+  cursor: default;
+  float: left;
+  display: block;
+  margin-left: 5px;
+  position: relative;
+  left: 10px;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-image: url(../images/borda-esq-aba-azul.gif);
+  border-right: 1px solid #FFF;
+}
+.msie6 .linkSubMenu {
+  position: relative;
+  left: 100px;
+}
+.linkSubMenu span {
+  display: block;
+  line-height: 22px;
+  padding: 0px 5px;
+  background-position: 0% 100%;
+  background-repeat: repeat-x;
+  background-image: url(../images/white-pixel.gif);
+}

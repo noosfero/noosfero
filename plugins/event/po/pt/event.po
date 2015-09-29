@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:46-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-01-30 00:18-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

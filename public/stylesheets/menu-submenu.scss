@@ -1,0 +1,111 @@
+
+.menu-submenu-trigger span {
+  display: none;
+}
+.common-profile-list-block .vcard:hover .menu-submenu-trigger {
+  display: block;
+}
+.menu-submenu {
+  position: absolute;
+  bottom: 115px;
+  right: -27px;
+  z-index: 11;
+  width: 150px;
+  padding: 0;
+  text-align: left;
+}
+.comment-details .menu-submenu {
+  bottom: 0px;
+  right: -134px;
+}
+.box-2 .menu-submenu, .box-3 .menu-submenu {
+  bottom: 78px;
+  right: -44px;
+}
+.menu-submenu-footer {
+  background: transparent url(../images/balloon-footer.png) center center no-repeat;
+  height: 29px;
+  margin: 0;
+}
+.menu-submenu-header {
+  background: transparent url(../images/balloon-header.png) center center no-repeat;
+  height: 17px;
+  margin: 0;
+}
+.menu-submenu-content {
+  background: transparent url(../images/balloon-middle.png) top left repeat-y;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 92px;
+}
+#content .menu-submenu-content ul {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  min-width: 100% !important;
+}
+#content .menu-submenu-content ul a {
+  text-align: left;
+  padding-left: 12px;
+}
+.msie7 .block .menu-submenu-trigger,
+.msie7 #search-results .menu-submenu-trigger {
+  width: 20px !important;
+}
+#content .menu-submenu h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 auto;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #000;
+  width: 90%;
+}
+
+.simplemenu-item {
+  list-style: none;
+  height: 16px;
+  padding: 4px 0;
+}
+.simplemenu-item:hover {
+  background: #DDD;
+}
+.simplemenu-submenu a {
+  text-decoration: none;
+}
+.simplemenu-submenu {
+  padding: 5px;
+  position: absolute;
+  left: -5px;
+  top: 20px;
+  width: 120px;
+  margin: 0;
+  display: none;
+  z-index: 100;
+}
+.msie8 .simplemenu-submenu {
+  top: 8px;
+}
+.msie7 .simplemenu-submenu {
+  top: 23px;
+}
+.webkit .simplemenu-submenu.opened {
+  top: 6px;
+  left: -10px;
+}
+.simplemenu-trigger {
+  text-decoration: none;
+  height: 20px;
+  position: relative;
+}
+.user-status .simplemenu-trigger {
+  padding: 1px 7px 1px 18px;
+}
+.user-status .simplemenu-item a {
+  display: block;
+  height: 16px;
+  padding-left: 18px;
+}

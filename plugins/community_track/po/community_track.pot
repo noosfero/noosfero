@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-msgid "Soon"
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
+msgid "Select one community to proceed"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:11
+msgid "should not be blank."
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:19
+msgid "Track"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/track.rb:23
+msgid "Defines a track."
 msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
@@ -30,12 +41,17 @@ msgstr ""
 msgid "This block displays a list of most relevant tracks as cards."
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
-msgid "Track List"
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+msgid "Closed"
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
-msgid "This block displays a list of most relevant tracks."
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+msgid "Join!"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
+#: plugins/community_track/test/unit/community_track_plugin/step_helper_test.rb:33
+msgid "Soon"
 msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin/step.rb:13
@@ -54,32 +70,28 @@ msgstr ""
 msgid "Defines a step."
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-msgid "Closed"
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
+msgid "Track List"
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/step_helper.rb:4
-msgid "Join!"
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/track.rb:11
-msgid "should not be blank."
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/track.rb:19
-msgid "Track"
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/track.rb:23
-msgid "Defines a track."
+#: plugins/community_track/lib/community_track_plugin/track_list_block.rb:14
+msgid "This block displays a list of most relevant tracks."
 msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin.rb:8
 msgid "New kind of content for communities."
 msgstr ""
 
-#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
-msgid "Select one community to proceed"
+#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
+msgid "Tracks"
+msgstr ""
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
+msgid "Select Community"
+msgstr ""
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
+msgid "New Track"
 msgstr ""
 
 #: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
@@ -103,11 +115,6 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: plugins/community_track/views/content_viewer/step.html.erb:13
-#: plugins/community_track/views/content_viewer/step.html.erb:19
-msgid "Tool"
-msgstr ""
-
 #: plugins/community_track/views/content_viewer/track.html.erb:9
 #: plugins/community_track/views/blocks/_track.html.erb:12
 msgid "Steps"
@@ -125,16 +132,9 @@ msgstr ""
 msgid "Hidden Steps"
 msgstr ""
 
-#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
-msgid "Tracks"
-msgstr ""
-
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
-msgid "Select Community"
-msgstr ""
-
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
-msgid "New Track"
+#: plugins/community_track/views/content_viewer/step.html.erb:13
+#: plugins/community_track/views/content_viewer/step.html.erb:19
+msgid "Tool"
 msgstr ""
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7

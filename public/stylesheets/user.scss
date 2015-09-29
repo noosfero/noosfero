@@ -1,0 +1,122 @@
+
+#user form input {
+  z-index: 7;
+}
+#user_box {
+  position: absolute;
+  top: 3px;
+  right: 170px;
+  width: 200px;
+  z-index: 100;
+}
+.docSize-LT-900 #user_box {
+  right: 165px;
+  width: 160px;
+}
+#user_menu_head, #user_box a, #assets_menu a, .top_extra_menu a {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #B8CFE7;
+  display: block;
+  padding-left: 20px;
+  height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+#user_box a:hover, .top_extra_menu a:hover {
+  background: #3465A4;
+  color: #FFF;
+}
+.msie5 #user_box a, .msie5 .top_extra_menu a {
+  color: #FFF;
+  text-decoration: none;
+}
+#user_box img, #user_box a span, #assets_menu a span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 18px;
+  height: 18px;
+  display: block;
+  float: left;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+#assets_menu a#open_search span {
+  top: 1px;
+}
+/*.msie5 #user_box img,*/
+.msie5 #user_box a span, .msie5 #assets_menu a span {
+  display: none;
+}
+#user_box img, #user_box a:hover span, #assets_menu a:hover span {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+#user_box img {
+  border: none;
+  top: -2px;
+  left: -1px;
+  width: 20px;
+  height: 20px;
+}
+#user_menu {
+  border: none; /* work arround IE Bug */
+}
+#user_menu_head {
+  overflow: visible;
+  cursor: default;
+  width: 100%;
+  overflow: hidden;
+}
+#user_menu_head span {
+  position: relative;
+  top: 1px;
+  left: 1px;
+  font-weight: normal;
+}
+#user_menu_head, #user_box a#link_login {
+  margin-left: 4px;
+}
+#user_menu a#link_login:hover {
+}
+#user_box a#link_go_home {
+  line-height: 22px;
+  top: -3px;
+  overflow: visible;
+}
+.msie #link_go_home img {
+  margin-top: 3px;
+}
+#user_menu_ul {
+  position: absolute;
+  top: 21px;
+  right: 0px;
+  background: #888;
+}
+#user_menu ul {
+  width: 200px;
+  max-width: 190px;
+  height: 0px;
+  position: relative; /* work arround IE Bug */
+  overflow: hidden;
+  padding: 0px 4px 0px 5px;
+  margin: 0px;
+}
+.msie #user_menu ul {
+  height: 1px;
+}
+#user_menu li {
+  width: 100%;
+  overflow: hidden;
+}
+
+#user a#pending-tasks-count {
+  color: #FFFFFF;
+}
+

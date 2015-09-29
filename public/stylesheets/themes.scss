@@ -1,0 +1,190 @@
+
+#theme-test-panel {
+  z-index: 150;
+  position: absolute;
+  width: 300px;
+  height: 180;
+  right: 50px;
+  top: 50px;
+  background: white;
+  border: 2px solid black;
+}
+#theme-test-panel {
+  text-align: center;
+  cursor: move;
+}
+#theme-test-panel .button-bar {
+  margin: 1em;
+}
+
+.action-themes-index .button-bar {
+  padding-top: 20px;
+}
+.list-options {
+  width: 800px;
+  margin: auto;
+  clear: left;
+  padding-top: 20px;
+}
+#theme-options .list-group {
+  clear: left;
+  padding-top: 7px;
+}
+.list-opt {
+  position: relative;
+  display: block;
+  width: 200px;
+  padding: 5px 2px 4px 5px;
+  margin: 0px 35px 0px 20px;
+  float: left;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+.list-opt:hover {
+  background: #eeeeec;
+}
+.list-opt.selected {
+  background: #fcf5c0;
+}
+#theme-options .list-opt {
+  width: 240px;
+  padding: 5px 2px 5px 5px;
+  margin: 0px 5px 0px 10px;
+}
+#user-themes .list-opt {
+  width: 220px;
+  margin: 0px 15px 0px 20px;
+}
+#theme-options img {
+  border: 1px solid #BBB;
+}
+.opt-info {
+  position: absolute;
+  top: 0px;
+  left: 75px;
+  width: 130px;
+}
+#theme-options .opt-info {
+  left: 115px;
+  width: 130px;
+}
+#user-themes .opt-info {
+  top: 2px;
+}
+.list-opt big {
+  opacity: 0.5;
+}
+.list-opt .name {
+  font-size: 16px;
+}
+#user-themes .list-opt .name {
+  font-size: 18px;
+}
+#user-themes a {
+  text-decoration: none;
+}
+#user-themes a:hover {
+  text-decoration: underline;
+}
+.controller-profile_themes .template-preview-cell {
+  text-align: center;
+}
+.controller-profile_themes .theme-preview {
+  border: 1px solid #BBB;
+}
+.controller-profile_themes #css-files-list h2, .controller-profile_themes #image-files-list h2 {
+  margin-top: 0px;
+}
+.controller-profile_themes #css-files-list ul, .controller-profile_themes #image-files-list ul, .controller-profile_themes #css-code textarea {
+  height: 280px;
+}
+.controller-profile_themes #css-files-list ul, .controller-profile_themes #image-files-list ul {
+  overflow: auto;
+}
+/* header stuff */
+.controller-profile_themes #theme-name input {
+  font-size: 18px;
+  border: 1px solid black;
+  background: white;
+  padding: 2px;
+  font-weight: bold;
+}
+/* files list */
+
+.controller-profile_themes #css-files-list {
+  width: 200px;
+  float: left;
+  margin-left: 10px;
+}
+.controller-profile_themes #css-files-list ul {
+  margin: 0px;
+  padding-left: 0px;
+  background: white;
+  border: 1px solid #bbb;
+}
+.controller-profile_themes #css-files-list li {
+  list-style: none;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #bbb;
+}
+.controller-profile_themes #css-files-list li a {
+  display: block;
+  padding: 1px 5px;
+}
+.controller-profile_themes #css-files-list a:hover {
+  color: red;
+}
+/* images list */
+
+.controller-profile_themes #image-files-list {
+  width: 200px;
+  float: right;
+  margin-right: 10px;
+}
+.controller-profile_themes #image-files-list ul {
+  background: white;
+  border: 1px solid #bbb;
+}
+.controller-profile_themes #image-files-list ul, .controller-profile_themes #image-files-list li {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+.controller-profile_themes #image-files-list li {
+  border-bottom: 1px solid #bbb;
+  padding: 5px 0px;
+  text-align: center;
+}
+.controller-profile_themes #image-files-list img {
+  max-width: 98%;
+  max-height: 40px;
+}
+.controller-profile_themes .msie6 #image-files-list img {
+  width: 50%;
+  height: 40px;
+}
+.controller-profile_themes #image-files-list li span {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+/* textbox */
+
+.controller-profile_themes #css-code {
+  margin-left: 220px;
+  margin-right: 220px;
+}
+.controller-profile_themes .msie6 #css-code {
+  float: left;
+  margin-left: 20px;
+  margin-right: 240px;
+}
+.controller-profile_themes #css-code textarea {
+  width: 100%;
+}
+.controller-profile_themes .msie6 #css-code textarea {
+  width: 500px;
+}

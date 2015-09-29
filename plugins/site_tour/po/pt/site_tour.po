@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-03 17:27-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,28 +27,8 @@ msgstr "Bloco para Site Tour"
 msgid "Configure a step-by-step tour."
 msgstr "Configure o passo a passo do tour."
 
-#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:1
-msgid "Site Tour Settings"
-msgstr "Configurações do Site Tour"
-
-#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:5
-msgid "Tooltips (CSV format: language, group name, selector, description)"
-msgstr "Tooltips (Formato CSV: idioma, nome do grupo, seletor, descrição)"
-
-#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:6
-msgid ""
-"Group Triggers (CSV format: group name, selector, event (e.g. mouseenter, "
-"click))"
-msgstr ""
-"Gatilhos dos grupos (Formato CSV: nome do grupo, seletor, evento (e.g. "
-"mouseenter, click))"
-
-#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:9
-msgid "Save"
-msgstr "Salvar"
-
-#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block_group_item.html.erb:15
 #: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block_item.html.erb:13
+#: plugins/site_tour/views/box_organizer/site_tour_plugin/_tour_block_group_item.html.erb:15
 msgid "Delete"
 msgstr "Apagar"
 
@@ -113,6 +93,26 @@ msgstr "Pular"
 #: plugins/site_tour/views/tour_actions.html.erb:19
 msgid "Finish"
 msgstr "Fim"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:1
+msgid "Site Tour Settings"
+msgstr "Configurações do Site Tour"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:5
+msgid "Tooltips (CSV format: language, group name, selector, description)"
+msgstr "Tooltips (Formato CSV: idioma, nome do grupo, seletor, descrição)"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:6
+msgid ""
+"Group Triggers (CSV format: group name, selector, event (e.g. mouseenter, "
+"click))"
+msgstr ""
+"Gatilhos dos grupos (Formato CSV: nome do grupo, seletor, evento (e.g. "
+"mouseenter, click))"
+
+#: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:9
+msgid "Save"
+msgstr "Salvar"
 
 #: plugins/site_tour/views/blocks/tour.html.erb:4
 msgid "Help"

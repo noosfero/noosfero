@@ -66,7 +66,7 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
   def js_files
     %w(
       public/rate.js
-      public/comunities_rating_management.js
+      public/organization_rating_management.js
     )
   end
 

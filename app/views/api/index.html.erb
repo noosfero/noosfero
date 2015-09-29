@@ -1,7 +1,7 @@
 <h1>EndPoints</h1>
 
 <div style="float: right">
-<%= s_('api-playground|Try the %s') % link_to('API Playground', '/api/playground') %>
+  <%= s_('api-playground|Try the %s') % link_to('API Playground', {:controller => 'api', :action => 'playground'}) %>
 </div>
 
 <%= endpoints.map do |endpoint|

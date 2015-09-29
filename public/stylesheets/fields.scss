@@ -1,0 +1,109 @@
+div.fieldWithErrors {
+  display: inline;
+  background: yellow;
+}
+div.fieldWithErrors input {
+  border: 1px solid red;
+  background: #fee;
+}
+div#errorExplanation {
+  padding: 5px;
+}
+div#errorExplanation h2 {
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-right: -5px;
+  padding: 3px;
+  background: #933;
+  color: white;
+  text-align: center;
+}
+.error {
+  color: red;
+}
+
+code input {
+  font-family: monospace;
+}
+
+.formfieldline {
+  padding: 3px 0px;
+}
+.pseudoformlabel, .formlabel {
+  color: #444;
+}
+.formlabel {
+  /* font-size: 11px; */
+  display: block;
+  padding: 2px 0px;
+}
+.formfield input, .formfield textarea {
+  background: transparent url("../images/input-bg.gif") no-repeat top left;
+  border: 1px solid #999;
+  border-top: none;
+  border-left: none;
+  color: #585858;
+  font-size: 11px;
+}
+.colorpicker_field {
+  display: none;
+}
+.color_marker {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid;
+}
+.formfield input {
+  text-indent: 5px;
+  padding: 2px 0px;
+}
+.msie5 .formfield input, .msie6 .formfield input {
+  background-attachment: fixed;
+}
+.msie .formfield input {
+  padding-left: 2px;
+}
+.formfield textarea {
+  padding: 2px 0px 0px 5px;
+}
+.Blog .formfield textarea {
+  width: 99%;
+}
+.formfield.type-radio input, .formfield.type-checkbox input {
+  background: none;
+  border: none;
+}
+.formfield.type-select select {
+  max-width: 100%;
+}
+.submitline {
+  text-align: center;
+}
+.fieldgroup span {
+  display: block;
+  float: left;
+}
+.fieldgroup br {
+  clear: left;
+}
+.linesize0 span {
+  padding-right: 15px
+}
+.linesize1 span {
+  width: 99%
+}
+.linesize2 span {
+  width: 49%
+}
+.linesize3 span {
+  width: 33%
+}
+
+.required-field label.formlabel {
+  font-weight: bold;
+  color: #c00;
+}
+.required-field label.formlabel:after {
+  content: ' (*)';
+}

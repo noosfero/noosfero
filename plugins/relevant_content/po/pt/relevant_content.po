@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-17-g438e2c7\n"
-"POT-Creation-Date: 2015-09-16 21:45-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,15 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/relevant_content/test/unit/relevant_content_plugin_test.rb:18
-#: plugins/relevant_content/lib/relevant_content_plugin.rb:8
-msgid ""
-"A plugin that lists the most accessed, most commented, most liked and most "
-"disliked contents."
-msgstr ""
-"Um plugin que lista os conteúdos mais acessados, mais comentados, mais "
-"curtidos e mais rejeitados."
 
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:3
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:7
@@ -61,6 +52,15 @@ msgstr "Artigos mais rejeitados"
 #: plugins/relevant_content/lib/relevant_content_plugin/relevant_content_block.rb:80
 msgid "Most voted articles"
 msgstr "Artigos mais votados"
+
+#: plugins/relevant_content/lib/relevant_content_plugin.rb:8
+#: plugins/relevant_content/test/unit/relevant_content_plugin_test.rb:18
+msgid ""
+"A plugin that lists the most accessed, most commented, most liked and most "
+"disliked contents."
+msgstr ""
+"Um plugin que lista os conteúdos mais acessados, mais comentados, mais "
+"curtidos e mais rejeitados."
 
 #: plugins/relevant_content/views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:2
 msgid "Limit of items per category"

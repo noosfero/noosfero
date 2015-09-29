@@ -1,0 +1,21 @@
+
+.controller-templates .template-kind {
+  border-bottom: 1px solid #CCC;
+}
+
+.controller-templates .template-kind ul {
+  padding-left: 5px;
+}
+
+.controller-templates .template-kind li {
+  list-style: none;
+  padding: 3px;
+}
+
+.controller-templates .template-kind li:hover {
+  background-color: #f0f0f0;
+}
+
+.controller-templates .template-kind li a {
+  font-size: 13px;
+}

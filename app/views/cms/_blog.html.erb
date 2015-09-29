@@ -55,14 +55,12 @@
 
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10, :class => 'mceEditor')) %>
 
-<%= f.fields_for :image_builder, @article.image do |i| %>
-  <%= file_field_or_thumbnail(_('Cover image:'), @article.image, i)%>
-  <%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
-<% end %>
-
-<% unless @article.image.nil? %>
-  <%= labelled_check_box(_('Remove cover image'),'remove_image',true,false)%>
-<% end %>
+<div id="blog-image-builder">
+  <%= f.fields_for :image_builder, @article.image do |i| %>
+    <%= file_field_or_thumbnail(_('Cover image:'), @article.image, i)%>
+    <%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
+  <% end %>
+</div>
 
 <%= labelled_form_field(_('How to display posts:'), f.select(:visualization_format, [
   [ _('Full post'), 'full'],

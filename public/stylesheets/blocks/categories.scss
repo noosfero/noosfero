@@ -1,0 +1,29 @@
+.categories-block ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+.categories-block li {
+  display: block;
+  float: left;
+  width: 100%;
+}
+.categories-block ul a {
+  text-decoration: none;
+  background-color: transparent;
+  border-bottom: 1px solid #fff;
+  border-color: #fff;
+  line-height: 22px;
+}
+.categories-block div {
+  clear: both;
+}
+.categories-block p {
+  clear: both;
+}
+.categories-block li a:hover {
+  text-decoration: none;
+}
+.categories-block .ui-icon {
+  margin-top: 2px;
+}

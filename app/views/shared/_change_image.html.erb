@@ -1,3 +1,3 @@
 <%= i.file_field( :uploaded_data, { :onchange => 'updateImg(this.value)' } ) %>
 <%= labelled_form_field(_("Image Label:"), i.text_field(:label)) %>
-<%= button_to_function(:cancel,_('Cancel'),"jQuery('#change-image-link').show(); jQuery('#change-image').html('')", :id => 'cancel-change-image-link', :style => 'display: none')%>
+<%= button_to_function(:cancel,_('Cancel'),"jQuery('#change-image-link').show(); jQuery('#change-image').hide()", :id => 'cancel-change-image-link', :style => 'display: none')%>

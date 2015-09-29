@@ -1,0 +1,40 @@
+<div id="environment-notification-plugin-notification-manager">
+  <div class="notification-manager-title">
+    <h1><%= _("Environment Notifications") %></h1>
+  </div>
+  <div class="buttons-bar">
+    <div class="new-notification">
+      <%= button :new, _('New Notification'), {:action => :new}, :method => :get %>
+    </div>
+    <div class="back-button">
+      <%= button :back, _('Back to control panel'), {:controller => 'admin_panel', :action => :index}, :method => :get %>
+    </div>
+  </div>
+
+  <div class="notification-title-bar">
+    <div class="notification-title">
+      <%= _('Notifications') %>
+    </div>
+    <div class="action-title">
+      <%= _('Actions') %>
+    </div>
+  </div>
+
+  <% @notifications.each do |notification| %>
+    <div class="notification-line">
+      <div class="notification-message">
+        <%= truncate(notification.message, length: 50) %>
+      </div>
+      <div class="notification-action">
+        <% if notification.active? %>
+          <%= button_without_text :deactivate, _('Deactivate'), {:action => :change_status, :id => notification}, :method => :post, :confirm => _("Do you want to change the status of this notification?") %>
+        <% else %>
+          <%= button_without_text :activate, _('Activate'), {:action => :change_status, :id => notification}, :method => :post, :confirm => _("Do you want to change the status of this notification?") %>
+        <% end %>
+        <%= button_without_text :edit, _('Edit'), {:action => 'edit', :id => notification.id} if !remove_content_button(:edit, notification) %>
+        <%= button_without_text :delete, _('Delete'), {:action => :destroy, :id => notification}, :method => :delete, :confirm => _("Do you want to delete this notification?") %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

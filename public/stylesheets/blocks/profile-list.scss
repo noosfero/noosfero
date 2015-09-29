@@ -1,0 +1,137 @@
+
+#content .profile-list-block h3 {
+  text-align: center;
+}
+#content .common-profile-list-block ul {
+  margin: 0px auto;
+  padding: 0px;
+}
+#content .profile-list-block ul {
+  width: 200px;
+}
+#content .comment-header .comment-actions-reply {
+  float: right;
+  background-image: url(../designs/icons/tango/Tango/16x16/actions/go-jump.png);
+  height: 12px;
+}
+#content .comment-header ul {
+  float: right;
+  margin: 1px 0px 14px 0px;
+}
+#content .comment-actions .menu-submenu-header, #content .comment-actions .menu-submenu-footer, #content .comment-actions .menu-submenu h4 {
+  display: none;
+}
+#content .comment-actions .menu-submenu ul {
+  border: 1px solid #888a85;
+  background-color: #efefef;
+  padding-right: 2px;
+  height: auto;
+  display: block;
+}
+#content .common-profile-list-block li, #content .comment-actions li {
+  margin: 0px !important;
+  padding: 0px;
+  list-style: none;
+  position: relative;
+}
+.common-profile-list-block .vcard a, .comment-actions .vcard a {
+  display: block;
+  height: 112px;
+  max-height: 112px;
+  padding-top: 3px;
+  margin: 0px 2px;
+  float: left;
+  border: 2px solid transparent;
+  text-align: center;
+  overflow: hidden;
+  font-size: 11px;
+  text-decoration: none !important;
+  color: #000;
+  position: relative;
+  cursor: pointer; /* work arround bug for MSIE */
+}
+.msie6 .common-profile-list-block .vcard a {
+  border: 2px solid #FFF;
+  width: 90px;
+  height: 90px;
+}
+.msie7 .common-profile-list-block .vcard a {
+  width: 92px;
+}
+.box-2 .common-profile-list-block .vcard a.profile_link, .box-3 .common-profile-list-block .vcard a.profile_link {
+  height: 75px;
+  max-height: 75px;
+}
+.msie7 .box-2 .common-profile-list-block .vcard a, .msie7 .box-3 .common-profile-list-block .vcard a {
+  width: 58px;
+}
+.common-profile-list-block .vcard a:hover {
+  border: 2px solid #2A5896;
+  background: #B8CFE7;
+}
+.common-profile-list-block span {
+  display: block;
+  width: 92px;
+  overflow: hidden;
+}
+.box-1 .common-profile-list-block span {
+  width: 102px;
+}
+.common-profile-list-block .profile-image {
+  width: 92px;
+  display: table-cell;
+  vertical-align: middle;
+  height: 64px;
+}
+.common-profile-list-block img {
+  border: none;
+  max-width: 50px;
+  max-height: 50px;
+}
+.box-2 .common-profile-list-block span, .box-3 .common-profile-list-block span, .box-2 .common-profile-list-block .profile-image, .box-3 .common-profile-list-block .profile-image {
+  width: 58px;
+}
+.box-2 .common-profile-list-block .profile-image, .box-3 .common-profile-list-block .profile-image {
+  height: 50px;
+}
+.common-profile-list-block .locality, .common-profile-list-block .community-member-count {
+  font-size: 9px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+#content .common-profile-list-block .sex-male, #content .common-profile-list-block .sex-female, #content .common-profile-list-block .sex-undef {
+  position: absolute;
+  top: 4px;
+  right: 15px;
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+.common-profile-list-block .sex-male {
+  background: url(../images/icons-app/ico-male.png);
+}
+.common-profile-list-block .sex-female {
+  background: url(../images/icons-app/ico-female.png);
+}
+.common-profile-list-block .sex-undef {
+  background: url(../images/icons-app/ico-sex-undef.png);
+}
+.msie6 .common-profile-list-block .sex-male {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-male.png', sizingMethod='scale');
+}
+.msie6 .common-profile-list-block .sex-female {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-female.png', sizingMethod='scale');
+}
+.msie6 .common-profile-list-block .sex-undef {
+  background: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/icons-app/ico-sex-undef.png', sizingMethod='scale');
+}
+#content .common-profile-list-block .sex-male span, #content .common-profile-list-block .sex-female span, #content .common-profile-list-block .sex-undef span {
+  display: none;
+}
+.common-profile-list-block .extra_info,
+.profile-list .extra_info {
+  font-size: 9px;
+}
