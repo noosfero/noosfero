@@ -25,7 +25,7 @@ task :backup => :check_backup_support do
   dump = File.join('tmp/backup', backup_name) + '.sql'
 
   database = $config['production']['database']
-  host = $config['production']['host']
+  host = $config['production']['host'] || 'localhost'
   sh "pg_dump -h #{host} #{database} > #{dump}"
 
   sh 'tar', 'chaf', backup_file, dump, *dirs
@@ -82,7 +82,7 @@ task :restore => :check_backup_support do
 
   database = $config['production']['database']
   username = $config['production']['username']
-  host = $config['production']['host']
+  host = $config['production']['host'] || 'localhost'
 
   puts "WARNING: backups should be restored to an empty database, otherwise"
   puts "data from the backup may not be loaded properly."
