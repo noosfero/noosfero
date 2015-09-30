@@ -24,4 +24,8 @@ module BlockHelper
     "
   end
 
+  def image_source(image_src)
+    Noosfero.root.nil? ? image_src : Noosfero.root + image_src
+  end
+
 end
