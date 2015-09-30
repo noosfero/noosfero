@@ -4,7 +4,7 @@
     <div class='highlights-container'>
       <% block.featured_images.each do |img| %>
         <a href="<%= img[:address] %>" title="<%= img[:title] %>" class="highlights-image-link">
-          <%= content_tag :img, nil, :src => img[:image_src], :alt => img[:title] %>
+          <%= image_tag [Noosfero.root, img[:image_src]].join, alt: img[:title] %>
           <p class="highlights-label"><%= img[:title] %></p>
         </a>
       <% end %>
