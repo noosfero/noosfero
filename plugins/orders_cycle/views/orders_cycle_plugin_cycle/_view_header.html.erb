@@ -1,0 +1,14 @@
+<div id="cycle-others">
+  <% others = (profile.orders_cycles.on_orders - [cycle]) %>
+  <%= ( others.blank? ? t('views.cycle._view_header.see_also_all') : t('views.cycle._view_header.other_open_cycles_lis') ) % {
+    list: others.map{ |s| link_to(s.name, '') }.join(t('views.cycle._view_header., ')),
+    all: link_to(t('views.cycle._view_header.all_orders_cycles'), {controller: :orders_cycle_plugin_order, action: :index}), } %>
+</div>
+
+<div id="cycle-header">
+  <h2><%=t('views.cycle._view_header.orders_cycle_cycle') % {cycle: content_tag(:strong, cycle.name_with_code)} %></h2>
+
+  <%= render partial: 'orders_cycle_plugin_cycle/view_dates', locals: {cycle: cycle} %>
+
+  <div class="subtitle"><%= cycle.description %></div>
+</div>

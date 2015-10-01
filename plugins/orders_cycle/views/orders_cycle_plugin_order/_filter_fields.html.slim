@@ -1,0 +1,23 @@
+= hidden_field_tag :cycle_id, cycle.id
+= hidden_field_tag :order_id, order.id unless order.nil?
+
+.field.supplier
+  label= t'orders_cycle_plugin.views.order._filter_products.supplier'
+  div= select_tag :supplier_id,
+    options_for_select([[t('orders_cycle_plugin.views.order._filter_products.all_the_suppliers'), ""]] + supplier_choices(cycle.suppliers), params[:supplier_profile_id].to_i)
+
+.field.category
+  label= t'suppliers_plugin.views.product.index.category'
+  div
+    = select_tag :category_id, options_for_select(@product_categories.map{ |pc| [pc.name, pc.id]}.insert(0,[t('suppliers_plugin.views.product.index.all_the_categories'), ""]))
+
+/.field.qualifier
+  div= select_tag :qualifier_id, options_for_select([t('orders_cycle_plugin.views.order._filter_products.anyone'), ''])
+
+/.field.stock
+  div= t'orders_cycle_plugin.views.order._filter_products.whose_qty_available_i')
+  div= select_tag :stock, options_for_select([t('orders_cycle_plugin.views.order._filter_products.bigger_than_the_stock'), ''])
+
+.field.name
+  label= t'orders_cycle_plugin.views.order._filter_products.product_name'
+  div= text_field_tag :name, params[:name]

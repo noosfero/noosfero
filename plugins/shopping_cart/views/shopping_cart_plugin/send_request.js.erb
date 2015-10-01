@@ -1,0 +1,5 @@
+<% if @success %>
+  window.location.href = <%= url_for(controller: :catalog, profile: @profile.identifier).to_json %>
+<% else %>
+  display_notice(<%= "#{_ 'Error'}: #{@error}".to_json %>)
+<% end %>

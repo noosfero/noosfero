@@ -1,0 +1,3 @@
+page.replace_html "our-product-#{@product.id}", partial: 'suppliers_plugin/product/edit_line', locals: {product: @product}
+page << "toggle_edit.value_row.reload()"
+

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+
+  <body>
+    <p>
+      <%= t('orders_plugin.views.mailer.order_cancellation.dear_name') % {name: @consumer.name} %>
+    </p>
+
+    <p>
+      <%= t('orders_plugin.views.mailer.order_cancellation.your_order_made_on_co') % {
+        name: @profile.name, date: day_time(@order.updated_at)
+      } %>
+    </p>
+
+    <p>
+      --<br/>
+      <%= t('orders_plugin.views.mailer.order_cancellation.greetings') %>
+    </p>
+  </body>
+</html>
+
+

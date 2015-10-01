@@ -1,0 +1,58 @@
+@import 'base';
+
+.volunteer-to-period {
+  width: $module03;
+  margin-right: $margin;
+  float: left;
+  cursor: pointer;
+
+  background: #F8FA83;
+  text-align: left;
+
+  &:hover {
+    background: lighten(yellow, 20%);
+  }
+
+  .name {
+    background-color: #E1F5C4;
+    width: 100%;
+    line-height: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: $padding;
+    box-sizing: border-box;
+  }
+  .body {
+    padding: $padding;
+
+    .period {
+      margin-bottom: $margin;
+    }
+  }
+}
+
+#cycle-admin-page #volunteers-periods {
+  margin-bottom: $margin*2;
+
+  .body {
+    margin-bottom: $half-margin;
+  }
+  input.minimum {
+    display: block;
+  }
+  input.time-select {
+    width: 50px;
+  }
+  select.minimum {
+    float: left;
+    margin-right: 20px;
+  }
+  select.maximum {
+  }
+  a.remove {
+    clear: both;
+    display: block;
+    margin-bottom: $margin;
+  }
+}

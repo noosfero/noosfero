@@ -1,0 +1,43 @@
+- draft_order = cycle.sales.draft.for_consumer(user).first
+- include_message = ''
+- if order.nil?
+  - if draft_order
+    - order_id = draft_order.id
+    - include_message = t'orders_cycle_plugin.views.product._order_edit.opening_order_code_fo', code: draft_order.code
+  - elsif cycle.may_order? user
+    - order_id = 'new'
+    - include_message = t'orders_cycle_plugin.views.product._order_edit.opening_new_order_for'
+- else
+  - order_id = order.id
+- editable = (order.present? && order.may_edit?(user, @admin)) || order_id == 'new'
+
+- if products_for_order.empty?
+  strong= t'orders_cycle_plugin.views.product._order_search.this_search_hasn_t_re'
+- else
+  #cycle-products.sortable-table
+    .table-header
+      .box-field.category= t'orders_cycle_plugin.views.product._order_search.category'
+      .box-field.supplier= t'orders_cycle_plugin.views.product._order_search.producer'
+      .box-field.product= t'orders_cycle_plugin.views.product._order_search.product'
+      .box-field.price-with-unit= t'orders_cycle_plugin.views.product._order_search.price'
+    .table-content
+      - products_for_order.each do |offered_product|
+        - next if offered_product.supplier.nil?
+        div class=("order-cycle-product value-row #{'editable' if editable}") id="cycle-product-#{offered_product.id}" onclick="orders_cycle.order.product.click(event, #{offered_product.id.to_json});" supplier-id="#{offered_product.supplier.id}" toggle-ignore=""
+          - item = if order.blank? then nil else order.items.find{ |op| offered_product.id == op.product_id } end
+          = render 'orders_cycle_plugin_product/order_edit', editable: editable,
+            product: offered_product, order: order, cycle: cycle, item: item
+
+      = pagination_links products_for_order, params: {action: :edit, controller: :orders_cycle_plugin_order, cycle_id: cycle.id, order_id: order_id},
+        class: 'pagination infinite-scroll'
+
+javascript:
+  orders_cycle.order.load()
+  orders_cycle.order.product.include_message = '#{include_message}'
+  orders_cycle.order.product.order_id = #{order_id.to_json}
+  orders_cycle.order.product.redirect_after_include = '#{order.nil? ? 1 : ''}'
+  orders_cycle.order.product.add_url = '#{url_for controller: :orders_cycle_plugin_item, action: :new}'
+  orders_cycle.order.product.remove_url = '#{url_for controller: :orders_cycle_plugin_product, action: :remove_from_order}'
+  orders_cycle.order.product.balloon_url = '#{url_for controller: :orders_cycle_plugin_order, action: :product_balloon}'
+  orders_cycle.order.product.supplier.balloon_url = '#{url_for controller: :orders_cycle_plugin_order, action: :supplier_balloon}'
+  pagination.infiniteScroll(#{_('loading...').to_json}, {load: orders_cycle.order.product.showMore})

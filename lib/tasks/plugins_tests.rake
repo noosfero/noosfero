@@ -8,6 +8,7 @@ $broken_plugins = %w[
 
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
 @all_plugins.sort!
+
 @all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
 
 def enabled_plugins

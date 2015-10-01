@@ -1,29 +1,53 @@
-<div id='cart-request-box'>
-  <%= form_for(:customer, :url => {:action => 'send_request'},
-              :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form'}) do |f| %>
-    <div id="cart-form-main">
-      <%= labelled_form_field('* ' + _("Name"), f.text_field(:name, :class => 'required') ) %>
-      <%= labelled_form_field('* ' +  c_("Email"), f.text_field(:email, :class => 'required email') ) %>
-      <%= labelled_form_field('* ' +  c_("Contact phone"), f.text_field(:contact_phone, :class => 'required') ) %>
-      <%= labelled_form_field(_('Delivery option'), select_tag(:delivery_option, options_for_select(select_delivery_options(@settings.delivery_options, environment)), 'data-profile-identifier' => @profile.identifier)) unless !@settings.delivery || (@settings.free_delivery_price && get_total(@cart[:items]) >= @settings.free_delivery_price) %>
-      <%= labelled_form_field(_('Payment'), select_tag('customer[payment]', options_for_select([[_("Money"), :money],[_('shopping_cart|Check'), :check]]))) %>
-      <%= labelled_form_field(s_('shopping_cart|Change'), text_field_tag('customer[change]')) %>
-    </div>
-    <% if @settings.delivery %>
-      <fieldset><legend><%=_('Delivery Address')%></legend>
-        <%= labelled_form_field(c_('Address (street and number)'), f.text_field(:address)) %>
-        <%= labelled_form_field(c_('Address reference'), f.text_field(:address_reference)) %>
-        <%= labelled_form_field(c_('District'), f.text_field(:district)) %>
-        <%= labelled_form_field( c_("City"), f.text_field(:city)) %>
-        <%= labelled_form_field(c_('ZIP code'), f.text_field(:zip_code)) %>
+<div id='cart-request-box' class="row">
+  <h1>
+    <%= _('Shopping checkout') %>
+    <%= button :back, _("haven't finished yet: back to shopping"), 'javascript:history.back()', class: 'cart-go-back' %>
+  </h1>
+
+  <%= form_for :order, url: {action: :send_request},
+    html: {onsubmit: "return Cart.send_request(this)", id: 'cart-request-form'} do |f| %>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <fieldset>
+        <legend><%=_('Personal identification')%></legend>
+
+        <%= f.fields_for :consumer_data, @order.consumer do |ff| %>
+          <%= labelled_form_field('* ' + _("Name"), ff.text_field(:name, value: (user.name if user), class: 'required') ) %>
+          <%= labelled_form_field('* ' +  _("Email"), ff.text_field(:email, value: (user.email if user), class: 'required email') ) %>
+          <%= labelled_form_field('* ' +  _("Contact phone"), ff.text_field(:contact_phone, value: (user.contact_phone if user), class: 'required') ) %>
+        <% end %>
       </fieldset>
-    <% end %>
-    <div id="cart-form-actions">
+
+      <fieldset>
+        <legend><%=_("Payment's method")%></legend>
+
+        <%= f.fields_for :payment_data do |ff| %>
+          <%= labelled_form_field _('Payment'), ff.select(:method, options_for_payment) %>
+          <%= labelled_form_field(s_('shopping_cart|Change'), ff.text_field(:change)) %>
+        <% end %>
+      </fieldset>
+
+      <% if profile.delivery_methods.size > 0 %>
+        <fieldset>
+          <legend><%=_('Delivery or pickup method')%></legend>
+          <%= render 'delivery_plugin/order_select', f: f, order: @order %>
+        </fieldset>
+      <% end %>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <fieldset>
+        <legend><%=s_('Your Order')%></legend>
+        <% supplier_delivery = @order.supplier_delivery || profile.delivery_methods.first %>
+        <%= items_table @cart[:items], supplier_delivery %>
+      </fieldset>
+    </div>
+
+    <div id="cart-form-actions" class="row">
       <%= submit_button(:send, _('Send buy request')) %>
     </div>
   <% end %>
-  <% delivery_option = @settings.delivery_options.first && @settings.delivery_options.first.first %>
-  <%= items_table(@cart[:items], @profile, delivery_option) %>
 </div>
 
 <%= javascript_include_tag '../plugins/shopping_cart/buy' %>
+

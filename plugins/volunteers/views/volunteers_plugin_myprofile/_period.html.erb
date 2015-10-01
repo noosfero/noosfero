@@ -1,0 +1,21 @@
+<%= f.hidden_field :id %>
+<%= f.hidden_field :_destroy %>
+
+<% here = 'volunteers_plugin.views.myprofile.period.' %>
+
+<div class="field">
+  <%= f.text_field :name, placeholder: t('volunteers_plugin.attributes.period.name') %>
+  <div class=body>
+    <%= datetime_range_field f, :start, :end %>
+    <div class=clear></div>
+
+    <%# f.label :minimum_assigments, t(here+'minimum') %>
+    <%# f.select :minimum_assigments, options_for_select((0..10).to_a), {prompt: t(here+'noo')}, class: "minimum" %>
+
+    <%# f.label :maximum_assigments, t(here+'maximum') %>
+    <%# f.select :maximum_assigments, options_for_select((1..10).to_a), {prompt: t(here+'noo')}, class: "maximum" %>
+
+    <%= link_to_function t(here+'remove'), 'volunteers.periods.remove(this)', class: 'remove' %>
+  </div>
+</div>
+

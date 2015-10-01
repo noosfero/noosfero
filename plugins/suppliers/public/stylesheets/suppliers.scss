@@ -1,0 +1,160 @@
+@import 'base';
+@import 'popin';
+@import 'sortable-table';
+
+@import 'filter';
+@import 'actions';
+
+@import 'product';
+
+.controller-profile_editor a.control-panel-suppliers-manage-suppliers {
+  background-image: url("/plugins/suppliers/images/control-panel/manage-suppliers.png")
+}
+
+#suppliers-page {
+
+  /* should be moved to core */
+  input.small-loading {
+    background: transparent url(/images/loading-small.gif) no-repeat scroll right center;
+  }
+
+  #search-results {
+
+    > strong {
+      display: block;
+      margin-top: 3*$margin;
+      border-top: $border solid black;
+    }
+  }
+
+  .supplier {
+    border-top: $border solid black;
+    border-bottom: none;
+
+    &.supplier-inactive {
+      background-color: #faeeee;
+    }
+
+    &#supplier-add {
+      display: none;
+      &.edit {
+        display: block;
+      }
+    }
+    &:last-child {
+      border-bottom: $border solid black;
+    }
+
+    .supplier-add-link {
+      margin: 20px 0;
+    }
+
+    #create-dummy {
+      display: none; //default
+    }
+
+    .box-view {
+      padding: $padding;
+      padding-right: 0;
+      @extend .container-clean;
+
+      .supplier-type {
+        font-style: italic;
+      }
+
+      .supplier-logo {
+        float: left;
+        width: 60px;
+        min-height: 60px;
+      }
+
+      .supplier-body {
+        width: $module04;
+        float: left;
+      }
+
+      .supplier-name {
+        text-transform: uppercase;
+      }
+
+      .supplier-actions {
+        float: right;
+        width: $module03;
+        text-align: right;
+        .hidden {
+          display: none;
+        }
+      }
+    }
+
+    .box-edit {
+      display: none; //default
+      padding: $padding;
+      background-color: #FDF2A3;
+
+      form {
+        width: 640px;
+        @import 'field';
+
+        // disable them until they are ready
+        .full-registration-check,
+        .full-data {
+          display: none !important;
+        }
+
+        .data {
+
+          textarea,
+          input {
+            width: 100%;
+          }
+
+          .basic-data,
+          .full-data {
+            float: left;
+            @extend .container-clean;
+            width: 290px;
+            margin-right: $wireframe-padding;
+          }
+          .full-data {
+            &.estrategic-info {
+              float: right;
+            }
+            &.additional-fields {
+              width: 100%;
+            }
+          }
+        }
+
+        input[type=submit] {
+          margin-top: $half-margin;
+          margin-right: $half-margin;
+        }
+      }
+    }
+  }
+
+  .filter-box {
+
+    .box-field {
+
+      &, input {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+#suppliers-products-import {
+  padding:
+
+  table, th, td {
+    border: $border solid black;
+  }
+  table {
+    th {
+      font-weight: bold;
+    }
+  }
+}

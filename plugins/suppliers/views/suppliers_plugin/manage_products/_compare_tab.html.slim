@@ -1,0 +1,18 @@
+- if @product.diff.empty?
+  = t'suppliers_plugin.views.manage_products.compare_tab.no_diff'
+- else
+  = t'suppliers_plugin.views.manage_products.compare_tab.diff_count', n: @product.diff.size
+  ul
+    - @product.diff.each do |attr|
+      li= t"suppliers_plugin.models.base_product.default_attributes.#{attr}"
+
+div
+  - if @product.profile != @product.from_product.profile
+    = button nil, t('suppliers_plugin.views.manage_products.compare_tab.see_supplier', supplier: @product.from_product.profile.name),
+      {controller: :manage_products, profile: @product.from_product.profile.identifier, action: :show, id: @product.from_product.id},
+      target: '_blank'
+  - else
+    = button nil, t('suppliers_plugin.views.manage_products.compare_tab.see'),
+      {controller: :manage_products, action: :show, id: @product.from_product.id},
+      target: '_blank'
+

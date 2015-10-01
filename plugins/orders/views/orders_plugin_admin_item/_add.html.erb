@@ -1,0 +1,9 @@
+<div class="order-product-add">
+  <%= text_field_tag :add, '', placeholder: t('views.item._add.placeholder'), class: 'add-input' %>
+
+  <%= javascript_tag do %>
+    orders.item.admin_add.search_url = '<%=j url_for controller: :orders_plugin_admin_item, action: :add_search, order_id: order.id, actor_name: actor_name %>'
+    orders.item.admin_add.add_url = '<%=j url_for controller: :orders_plugin_admin_item, action: :add, order_id: order.id, actor_name: actor_name %>'
+    orders.item.admin_add.load(<%= order.id.to_json %>)
+  <% end %>
+</div>

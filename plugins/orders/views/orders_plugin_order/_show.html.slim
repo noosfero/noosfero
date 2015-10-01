@@ -1,0 +1,37 @@
+- other_actor_name = if actor_name == :supplier then :consumer else :supplier end
+
+div class="order-view #{"editable" if order.may_edit? user, @admin rescue false} #{"admin" if @admin}" id="order-#{order.id}"
+
+  = form_for order, as: :order,
+    url: {controller: (if @admin then :orders_plugin_admin else :orders_plugin_order end), action: :edit, id: order.id, actor_name: actor_name},
+    html: {onsubmit: 'return orders.order.submit(this)'} do |f|
+
+    div class="order-data #{"admin" if @admin}"
+      = yield :order_header
+      = render "orders_plugin_order/data", order: order, actor_name: actor_name, other_actor_name: other_actor_name, f: f
+
+    = yield :order_footer
+
+    .actions
+      - if @admin
+        = modal_link_to t('orders_plugin.views.admin._edit.message_to_actor') % {actor: t("terms.#{other_actor_name}.singular")},
+          {controller: :orders_plugin_message, action: "new_to_#{other_actor_name}", order_id: order.id}, class: 'action-button'
+        |&emsp;
+
+        - if order.status == 'accepted'
+          = link_to_function t('views.order._show.cancel_order'), "orders.order.reload(this, '#{url_for controller: :orders_plugin_order, action: :cancel, id: @order.id}')"
+          |&emsp;
+
+        - if next_status = order.next_status(actor_name)
+          = f.hidden_field :status, value: next_status
+          = f.submit t("models.order.statuses_verbs.#{next_status}")
+          |&emsp;
+
+      - elsif order.open?
+        div
+          = hidden_field_tag "order[status]", 'ordered'
+          = f.submit t('views.order._show.confirm_order'), confirm: t('views.order._show.confirming_this_order')
+          |&emsp;
+
+          = link_to_function t('views.order._show.cancel_order'), "orders.order.reload(this, '#{url_for controller: :orders_plugin_order, action: :cancel, id: @order.id}')"
+

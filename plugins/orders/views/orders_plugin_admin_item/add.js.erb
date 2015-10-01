@@ -1,0 +1,8 @@
+<%
+  other_actor_name = if @actor_name == :supplier then :consumer else :supplier end
+%>
+
+$('#order-row-<%=@order.id%> .box-edit').html(<%= render('orders_plugin_admin/edit', order: @order, actor_name: @actor_name).to_json %>);
+
+var item = $('#item-<%=@item.id%>');
+orders.item.edit_quantity(item);

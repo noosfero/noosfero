@@ -1,0 +1,620 @@
+@import 'base';
+@import 'orders-variables';
+
+@import 'sortable-table';
+
+.balloon-content.orders-cycle {
+  @extend .container-clean;
+  // the size is defined on .balloon .content (see above)
+
+  .left-column {
+    width: $module01;
+    margin-right: $half-margin;
+    float: left;
+  }
+  .right-column {
+    width: $module02;
+    float: right;
+  }
+
+}
+
+.cycle-view {
+
+  #cycle-others,
+  #cycle-header {
+    padding-bottom: $padding;
+    margin-bottom: $half-margin;
+    margin-left: -2*$border;
+    padding-right: 2*$border;
+  }
+  #cycle-header {
+    border-bottom: 2*$border solid #ddd;
+    margin-bottom: 0;
+
+    .subtitle,
+    #cycle-dates {
+      width: 520px;
+
+      th {
+        border-bottom: 0;
+      }
+    }
+
+    .subtitle {
+      display: block;
+      margin-top: 20px;
+      font-style: italic;
+    }
+  }
+
+  #cycle-products-for-order {
+    width: $module06 + $intercolumn;
+    float: left;
+    padding-left: 0;
+
+    .title {
+    }
+
+    .balloon {
+
+      .content {
+        width: $module03 + $intercolumn; //$intercolumn for scrollbars
+        max-height: 10*$height;
+      }
+    }
+
+    #filter {
+      margin-left: -$sortable-table-negative-area;
+
+      .title, .filter-box, .submit {
+        padding-left: $sortable-table-negative-area + $padding !important;
+      }
+
+      .filter-box {
+        padding-left: $padding;
+
+        &.fields {
+
+          .supplier {
+            padding-left: 0;
+          }
+          .name {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+
+    #cycle-products {
+
+      .table-header, .table-content {
+        margin-left: -$sortable-table-negative-area;
+      }
+      .table-header {
+        padding-left: $sortable-table-negative-area;
+      }
+
+
+      .table-content {
+        //override .product-pic from application.css
+        .product-pic {
+          max-width: 70px;
+          max-height: 70px;
+        }
+      }
+
+      .box-field {
+        &, * {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        &.category {
+          width: $module02 - 3*$base;
+        }
+        &.supplier {
+          width: $module02;
+        }
+        &.product {
+          width: $module02;
+        }
+        &.price-with-unit {
+          width: $module01;
+        }
+      }
+
+      .value-row {
+        border: none;
+
+        #product_ids_[disabled] {
+          display: none;
+        }
+
+        &.in-order {
+
+          .box-view {
+            background-color: $sortable-table-bg-yellow;
+          }
+
+        }
+      }
+    }
+  }
+
+  #order-column {
+    float: left;
+    width: $order-items-width;
+    margin-left: $margin;
+    padding: 0;
+
+    > h3 {
+      margin-bottom: 2*$margin;
+    }
+    > h3 a {
+      text-transform: none;
+      float: right;
+      margin-left: $half-margin;
+      &:before {
+        padding-right: $half-padding;
+      }
+    }
+
+    .consumer-order,
+    #order-page .in-order {
+      background-color: $sortable-table-bg-yellow;
+    }
+    .consumer-order {
+      margin-bottom: 10px;
+      width: $order-items-width;
+
+      &.unactive {
+        .order-message-title {
+          float: left;
+        }
+        .actions {
+          float: right;
+          padding: $half-padding $padding;
+        }
+        &.cancelled {
+          display: none;
+        }
+      }
+    }
+
+    #order-admin-warning {
+      background-color: #FECBCA;
+    }
+
+    #order-admin-warning {
+      margin-bottom: $margin;
+    }
+
+    .order-message {
+      padding: $padding;
+    }
+
+    .order-message-text {
+      font-size: 10px;
+      font-style: italic;
+    }
+    .order-message-actions {
+      margin-top: $half-margin;
+      font-size: 10px;
+    }
+
+    .order-message-actions a {
+      font-weight: bold;
+    }
+
+    #close-order,
+    #desist-order {
+      margin-top: 30px;
+      margin-bottom: 8px;
+    }
+
+    .quantity-entry input {
+      width: 76px;
+    }
+  }
+}
+
+#cycle-admin-page {
+  @import 'field';
+
+  a.action-button {
+    margin-top: 5px;
+  }
+  #cycle-header-warning {
+    background-color: #FECBCA;
+    padding: 8px;
+
+    #cycle-header-warning-wrap {
+      width: 70%;
+
+    }
+  }
+
+  #cycle-product-line .field {
+    width: 120px;
+  }
+
+  #cycle-products {
+    margin-top: $margin;
+
+    .header {
+      div {
+        width: 400px;
+      }
+      a {
+        line-height: 30px;
+      }
+    }
+
+    .table {
+      .small-loading {
+        background-position: 0;
+        padding-left: 20px;
+      }
+    }
+
+    .cycle-products-table {
+      margin-top: 30px;
+    }
+    .value-row.edit .price,
+    .value-row.edit .quantity-available,
+    .value-row.edit .actions {
+      visibility: hidden;
+    }
+
+    .box-edit .field {
+      float: left;
+      clear: none;
+      margin-right: 40px;
+      width: 120px;
+    }
+
+    .box-view .box-field {
+    }
+    .box-field.category {
+      width: 90px;
+    }
+    .box-field.supplier {
+      width: 120px;
+    }
+    .box-field.name {
+      width: 190px;
+    }
+    .box-field.price {
+      width: 160px;
+    }
+    .box-field.quantity-available {
+      width: 80px;
+    }
+    .quantity-available input {
+      width: 60px;
+    }
+    .box-edit input[type=text] {
+      width: 120px;
+    }
+  }
+}
+
+#cycle-closed-listing {
+  padding-left: 0;
+}
+
+#cycle-new-mail-send {
+  margin-bottom: 0;
+}
+
+#cycle-new-mail label {
+  font-weight: bold;
+}
+
+#cycle-new-mail .mail-message {
+  margin-top: 10px;
+}
+
+
+.cycle {
+
+  .h2 {
+    margin-bottom: 0;
+  }
+
+  .cycle-timeline {
+    border: 2*$border solid #CBCBCB;
+    margin-bottom: $margin;
+    @extend .container-clean;
+
+    //wireframe size
+    width: $wireframe  + 2*$wireframe-padding;
+    margin-left: -$wireframe-padding;
+    padding: 0 $wireframe-padding;
+
+    &,
+    .cycle-timeline-passed-item,
+    .cycle-timeline-current-item {
+      background: url(/plugins/orders_cycle/images/progressbar.png) left top no-repeat;
+    }
+    & {
+      background-size: $wireframe-padding $wireframe-padding*2; //height is arbitrary big to fit
+    }
+
+    .cycle-timeline-item {
+      float: left;
+      padding: $padding;
+      font-weight: bold;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+
+    .cycle-timeline-current-item {
+      background-position: 105% 0;
+    }
+    .cycle-timeline-next-item {
+      color: #BABABA;
+    }
+    .cycle-timeline-selected-item {
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+  }
+
+  .dates-brief {
+    margin-bottom: 2*$margin;
+  }
+
+  .actions-bar {
+    clear: both;
+  }
+}
+
+
+.cycle-product-line *[disabled] {
+  background-color: transparent;
+}
+
+#cycle-dates th {
+  width: 80px;
+  vertical-align: top;
+  border-bottom: 0;
+
+  .cycle-list-item {
+    border-top: 1px dotted #ccc;
+    padding: 8px;
+  }
+  .cycle-list-item:last-child {
+    border-bottom: 1px dotted #ccc;
+  }
+  .cycle-name-and-code {
+    font-weight: bold;
+  }
+}
+
+#orders-view {
+
+  h2 {
+    margin-top: 20px;
+  }
+
+  .consumer-orders {
+
+    #cycle-others {
+      border-bottom: 2px dotted #aaa;
+    }
+    #consumer-new-order {
+      font-weight: bold;
+    }
+
+    #order-place-new {
+      font-size: 10px;
+      border: $border solid #FFF0AD;
+      padding: $padding;
+      margin-bottom: 10px;
+
+      &.admin {
+        font-size: 12px;
+        border: none;
+        float: right;
+        padding: $padding 0;
+        text-transform: lower;
+      }
+    }
+
+    #years-filter {
+      margin-bottom: $margin;
+
+      a {
+        font-weight: bold;
+
+        &.current {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+
+    .order-message-title {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+
+  .cycle-with-consumer-orders {
+    padding-bottom: 10px;
+    border-top: 2px dotted #aaa;
+
+    &:last-child {
+      border-bottom: 2px dotted #aaa;
+    }
+  }
+
+  .consumer-orders {
+
+    > a {
+      float: left;
+    }
+    a {
+      text-decoration: none;
+    }
+    a div {
+      font-size: 10px;
+      color: black;
+    }
+  }
+}
+
+.order-data .order-message-title.cancelled {
+  display: block;
+}
+.order-message-title {
+  padding: $half-padding $padding;
+  font-size: 13px;
+  font-weight: bold;
+  @extend .container-clean;
+
+  div {
+    float: left;
+    background-size: 11px 30px;
+  }
+
+  a.open {
+    display: none;
+    float: right;
+    font-weight: normal;
+  }
+
+  &.open {
+    background-color: #FFF2A3;
+    div {
+      padding-left: 20px;
+      background: url(/plugins/orders_cycle/images/order-statuses.png) 0px -25px no-repeat;
+      padding-left: 24px;
+      margin-bottom: 0;
+    }
+  }
+
+  &.ordered {
+    background-color: #E1F5C4;
+    div {
+      background: url(/plugins/orders_cycle/images/order-statuses.png) left -2px no-repeat;
+      padding-left: 24px;
+    }
+  }
+
+  &.cancelled {
+  }
+
+  &.cancelled,
+  &.forgotten {
+    background-color: #FECBCA;
+  }
+}
+
+#cycles-gadget {
+  margin-bottom: 30px;
+
+  #all-cycles {
+    float: right;
+  }
+  h2 {
+    color: #036475;
+  }
+
+  td {
+    padding-right: 8px;
+    vertical-align: top;
+  }
+  td.first-column {
+    width: 300px;
+  }
+  td.second-column {
+    width: 400px;
+  }
+  td.third-column {
+    vertical-align: bottom;
+  }
+  td.third-column form {
+    float: right;
+    clear: both;
+  }
+  .cycle .happening {
+    background-color: #ffe546;
+    line-height: 20px;
+    text-transform: uppercase;
+    padding: 0 8px;
+  }
+  .cycle .info {
+    background: #DDF2C5;
+    padding: 8px;
+    padding-right: 0;
+  }
+}
+
+#cycle_opening_message {
+  margin-bottom: $intercolumn;
+  width: 420px;
+}
+
+#cycle-fields input {
+  margin-right: 7px;
+}
+.cycle-field-name input {
+  width: 195px;
+}
+.cycle-fields-block {
+  margin: 10px 0;
+}
+.cycle-field-description textarea {
+  width: 412px;
+  height: 100px;
+}
+
+.action-orders_cycle_plugin_cycle-new .cycle-edit-link,
+.action-orders_cycle_plugin_cycle-edit .cycle-edit-link {
+  height: 44px;
+  display: block;
+}
+
+#cycle-delivery-options {
+  clear: both;
+}
+#cycle-delivery label {
+  font-weight: bold;
+}
+
+.cycle-new {
+  margin-bottom: 29px;
+  display: block;
+}
+
+.cycle-delivery-option {
+  float: left;
+  display: inline-block;
+  padding: 2px 5px;
+  margin-right: 10px;
+  background-color: #E5E0EC;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.action-orders_cycle_plugin_cycle-new #colorbox, .action-orders_cycle_plugin_cycle-edit #colorbox {
+  top: 80%;
+}
+
+#cycle-orders {
+  margin-top: $margin;
+
+}
+
+.distribution-plugin-popin {
+  padding: 10px;
+}

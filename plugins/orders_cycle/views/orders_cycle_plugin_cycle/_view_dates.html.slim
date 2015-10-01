@@ -1,0 +1,13 @@
+- happening = true if !defined?(happening) or happening.nil?
+
+table#cycle-dates
+  tr class="orders-date #{"happening" if happening and cycle.orders?}"
+    th
+      strong= t'views.cycle._view_dates.orders'
+    td= datetime_period_with_day cycle.start, cycle.finish
+    - if happening and cycle.orders?
+      td.happening= t'views.cycle._view_dates.happening'
+  tr.delivery-date
+    th
+      strong= t'views.cycle._view_dates.delivery'
+    td= datetime_period_with_day cycle.delivery_start, cycle.delivery_finish

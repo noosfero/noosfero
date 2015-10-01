@@ -1,0 +1,536 @@
+pt-BR: &pt-BR
+
+  suppliers_plugin:
+    lib:
+      plugin:
+        name: "Fornecedores"
+        description: "Registro de fornecedores e produtos distribuídos"
+        distribution_tab: "Distribuição"
+        compare_tab: "Compare com o fornecedor"
+        basket_tab: "Cesta"
+      import:
+        keys:
+          # ordered by most specific
+          supplier_url: 'url.+(fornecedor|produtor)'
+          product_url: 'url.+produto'
+          supplier_price: 'pre[[:alpha:]]o.+(fornecedor|produtor)'
+          supplier_name: '(fornecedor|produtor)'
+          product_name: 'produto'
+          qualifiers: 'qualificador'
+          product_category: 'categoria'
+          price: 'pre[[:alpha:]]o'
+          unit: 'unidade'
+          composition: 'composi[[:alpha:]]{2,2}o'
+          external_id: 'external'
+          stock: 'estoque'
+
+    terms: &suppliers_terms
+      profile: &suppliers_term_profile
+        singular: "organização"
+        plural: "organizações"
+        it:
+          singular: "ela"
+          plural: "elas"
+        article:
+          singular: "a organização"
+          plural: "as organizações"
+        undefined_article:
+          singular: "uma organização"
+        by_article:
+          singular: "pela organização"
+        tO_it:
+          singular: "a ela"
+          plural: "a elas"
+        to_article:
+          singular: "a organização"
+          plural: "às organizações"
+        at_article:
+          singular: "na organização"
+        from:
+          singular: "de uma organização"
+        from_article:
+          singular: "da organização"
+        from_which_article:
+          singular: "com que a organização"
+        of:
+          singular: "de organização"
+          plural: "de organizações"
+        of_article:
+          singular: "da organização"
+          plural: "das organizações"
+        of_this:
+          singular: "desta organização"
+        of_another:
+          singular: "de outra organização"
+        with:
+          singular: "com organização"
+          plural: "com organizações"
+        with_article:
+          singular: "com a organização"
+          plural: "com as organizações"
+        your:
+          singular: "seu fornecedor"
+          plural: "seus fornecedores"
+        on_your:
+          singular: "na sua organização"
+        on_undefined_article:
+          singular: "em uma organização"
+        this:
+          singular: "esta organização"
+      consumer:
+        singular: "consumidor(a)"
+        plural: "consumidores(as)"
+        to_article:
+          singular: "ao(à) consumidor(a)"
+          plural: "aos(às) consumidores(as)"
+        from_article:
+          singular: "do(a) consumidor(a)"
+          plural: "dos(as) consumidores(as)"
+      supplier:
+        singular: "fornecedor"
+        plural: "fornecedores"
+        one: "um"
+        it:
+          singular: "ele"
+          plural: "eles"
+        to:
+          singular: "a um fornecedor"
+          plural: "a fornecedores"
+        to_it:
+          singular: "a ele"
+          plural: "a eles"
+        to_article:
+          singular: "ao fornecedor"
+          plural: "aos fornecedores"
+        undefined_article:
+          singular: "um fornecedor"
+        none:
+          singular: "nenhum fornecedor"
+        this:
+          singular: "este fornecedor"
+        from:
+          singular: "de fornecedor"
+        from_article:
+          singular: "do fornecedor"
+        from_which_article:
+          singular: "com que o fornecedor"
+        of:
+          singular: "de fornecedor"
+          plural: "de fornecedores"
+        of_article:
+          singular: "do fornecedor"
+          plural: "dos fornecedores"
+        of_this:
+          singular: "deste fornecedor"
+        of_another:
+          singular: "de outro fornecedor"
+        with:
+          singular: "com fornecedor"
+          plural: "com fornecedores"
+        with_article:
+          singular: "com o fornecedor"
+          plural: "com o fornecedores"
+        article:
+          singular: "o fornecedor"
+          plural: "os fornecedores"
+        by_article:
+          singular: "pelo fornecedor"
+        new_undefined_article:
+          singular: "um novo fornecedor"
+    controllers:
+      myprofile:
+        supplier_created: "%{terms.supplier.singular.capitalize} criado"
+      product:
+        import_in_progress: "Os produtos estão sendo importados. Aguarde um pouco e recarregue a página para visualizá-los."
+
+    models:
+      base_product:
+        default_attributes:
+          name: 'Nome'
+          description: 'Descrição'
+          price: 'Preço'
+          unit_id: 'Unidade'
+          product_category_id: 'Categoria'
+          image_id: 'Imagem'
+      distributed_product:
+        greater: " > "
+      product:
+        unit: unidade
+        units: unidades
+      profile:
+        consumer: Consumidor(a)
+
+    views:
+      filter:
+        filter: Filtro
+        filter_it: Filtrar
+      actions:
+
+      manage_products:
+        compare_tab:
+          see_supplier: 'Ver produto original na página do fornecedor "%{supplier}".'
+          see: 'Ver produto original.'
+          no_diff: 'Este produto não tem nenhuma diferença com o que está na página do fornecedor.'
+          diff_count: 'Este produto está com <b>%{n}</b> diferenças com relação ao mesmo produto na página do fornecedor:'
+        distribution_tab:
+          title: "Esse produto é distribuído para os seguintes consumidores(as):"
+          save: "Salvar"
+        basket_tab:
+          make_a_basket: 'Faça deste produto uma cesta adicionando mais um produto!'
+          search: 'encontre e adicione seus produtos'
+          component: 'Componente'
+          quantity: 'Quantidade'
+
+      control_panel:
+        suppliers: "Gerenciar fornecedores"
+        products: "Gerenciar produtos distribuídos"
+
+      myprofile:
+        margin_change:
+          ? "%"
+          : "%"
+          notice: "Ao mudar a margem padrão de comercialização, os produtos que são marcados como \"use a margem padrão\" automaticamente terão sua margem atualizada."
+          cancel: Cancelar
+          change_default_margin: "Mudar a margem padrão de comercialização"
+          confirm: Confirmar
+          apply_to_all: "Aplicar para os produtos com margens personalizadas"
+          apply_to_open_cycles: "Aplicar para os produtos nos ciclos abertos"
+          new_margin: "Nova margem"
+        index:
+          redistribution_situation: "Distribuição dos produtos"
+          name: "Nome"
+
+      product:
+        import:
+          action: "Importar planilha"
+          help: "Formate sua planilha para que tenha exatamente os campos abaixo. Depois, salve-a escolhendo o tipo de arquivo CSV (extensão .csv).<br><b>Produtos com nomes iguais tem seus dados (preço/unidade) atualizados.</b>"
+          field_supplier_name: "Nome do fornecedor"
+          field_product_name: "Nome do produto"
+          field_product_unit: "Unidade"
+          field_product_price: "Preço por unidade"
+          remove_all: 'Remover todos os atuais fornecedores cadastrados e todos os seus produtos (começar uma nova lista de produtos).'
+          confirm_remove_all: "ATENÇÃO! Essa opção removerá todos os fornecedores cadastrados e todos os seus produtos!"
+          unit_help: "Use como <b>unidade</b> uma entre (coloque o nome igual): %{units}"
+          send: "Enviar"
+        _edit:
+          distribution_setts: "Configurações de distribuição do produto"
+          margin_price: "Margem / preço"
+          default_margin: "Usar padrão"
+          stock: "Configuração de estoque"
+          default_stock: "Manter estoque"
+          current_stock: "Estoque atual"
+          distribution_state: "Estado da distribuição"
+          available: Ativa
+          are_you_sure_you_want: "Tem certeza de que deseja remover este produto?"
+          remove_product: remover
+          cancel: cancelar
+          save: salvar mudanças
+          view_on_supplier_page: "Ver produto na página %{terms.supplier.from_article.singular}"
+          product_registry: "Cadastro do produto"
+          selling_unit: "Unidade de venda"
+          same_from_purchase: "Mesma da compra"
+          unit: "Unidade"
+          unit_detail: "Especificação da unidade"
+        _edit_line:
+          active: Ativo
+          inactive: Inativo
+        _form_errors:
+          errors_found: "Erros encontrados:"
+        _price_details:
+          commercialization_act: "Comercialização ativa"
+          minimum_order: "Pedido mínimo"
+          price: Preço
+          unit: Unidade
+          unit_specification: "Especificações de unidade"
+        _search:
+          status: Estado
+          category: Categoria
+          supplier: "%{terms.supplier.singular.capitalize}"
+          product: Produto
+          margin: Margem
+          price: Preço
+          stock: Estoque
+          unit: Unidade
+          showing_pcount_produc: "Total: %{count} produtos"
+          we_don_t_have_product: "Não temos produtos a mostrar."
+        add:
+          title: "Criar produto"
+          own_product: "Criar produto próprio"
+          or_from_a_supplier: 'ou de um fornecedor gerido pelo coletivo:'
+        index:
+          active: ativa
+          add_product: "Criar produto"
+          all_the_categories: "todas as categorias"
+          all_the_suppliers: "todos %{terms.supplier.article.plural}"
+          situation: "Situação de distribuição"
+          anyone: anyone
+          bigger_than_the_stock: "maior do que o estoque"
+          change: mudar
+          default_margin_of_com: "Margem padrão de comercialização"
+          default_margin_info: "Esta margem é automaticamente aplicada em todos os produtos, mas é possível estabelecer margens específicas para certos produtos."
+          in_any_state: "Em qualquer estado"
+          inactive: inativa
+          margin: "%{margin} %"
+          no_margin_set: "Sem margem definida"
+          products: Produtos
+          supplier: "%{terms.supplier.singular.capitalize}"
+          info: "Esta é a lista de produtos %{terms.profile.from_which_article.singular} distribuí. Os produtos se dividem entre ativos e inativos."
+          the_products: "Os produtos"
+          name: "Nome"
+          whose_qty_available_i: "cuja qtd disponível é"
+          category: "Categoria"
+          with_the_qualifiers: "com os qualificadores"
+
+      supplier:
+        _new:
+          title: "Adicionar %{terms.supplier.singular} a %{profile}"
+          intro_help: "Comece a digitar o nome %{terms.supplier.from_article.singular} que deseja adicionar. Procuraremos para ver se %{terms.supplier.article.singular} já existe no %{environment}. Caso ele não exista, você poderá criar um tipo de empreendimento que ficará visível APENAS %{terms.profile.on_your.singular}, e não no %{environment} como um todo. Se %{terms.supplier.this.singular} quiser entrar realmente no %{environment}, deve enviar uma mensagem para %{contact_email} fazendo o pedido."
+          query_placeholder: "busque %{terms.supplier.undefined_article.singular}"
+          search: "Buscar"
+          none_found: "%{terms.supplier.none.singular} foi encontrado. Por favor revise o texto da busca."
+          add: "Adicionar"
+          suggest_creation: "Se você não encontrar %{terms.supplier.article.singular},  pode criar %{terms.supplier.new_undefined_article.singular} que será gerenciado %{terms.profile.by_article.singular}. Mas procure bem para evitar duplicatas!"
+          create_dummy: "Criar %{terms.supplier.singular}"
+        _edit:
+          registry_help: "O registro %{terms.supplier.from_article.singular} será administrado %{terms.profile.by_article.singular} e será privado %{terms.profile.to_it.singular}."
+          abbreviated_name: "Nome Abreviado"
+          add_supplier_managed_: "Adicionar %{terms.supplier.singular} com registro administrado %{terms.profile.by_article.singular}"
+          additional_fields: "Campos adicionais"
+          basic_data: "Informações básicas"
+          cancel: Cancelar
+          description: Descrição
+          edit_supplier: "Editar %{terms.supplier.singular}"
+          estrategic_informatio: "Informações estratégicas"
+          full_registration: "Registro completo"
+          name: Nome
+          register_new_supplier: "Registrar %{terms.supplier.new_undefined_article.singular}"
+          registry_form: "Formulário de registro"
+          save: Salvar
+        _actions:
+          all: "todos"
+          none: "nenhum"
+          select: "selecionar"
+          with_selection: "com selecionados"
+          activate: "activar"
+          deactivate: "desativar"
+        _supplier:
+          edit: "Editar"
+          cancel: "Cancelar"
+          see_page: "Ver página"
+          see_products: "Ver produtos"
+          message: "Messagem"
+          abreviated_name: "Nome Abreviado"
+          actions: Ações
+          among_them: ", entre eles"
+          any_registered_produc: "nenhum produto registrado"
+          by_removing_this_supp: "Ao remover %{terms.supplier.article.singular}, todos os produtos ficarão indisponíveis em futuros ciclos. Por favor, confirme sua opção"
+          indirect: "indireta"
+          direct: "direta"
+          active: "ativa"
+          inactive: "inativa"
+          deactivate: "desativar"
+          activate: ativar
+          edit: editar
+          contact_status: "contato <b>%{status}</b>"
+          contact: "contato"
+          qualifiers: qualificadores
+          tags: "Marcadores"
+          minidescription: "Mini descrição"
+          cycles: "Ciclos abertos"
+          register: "Ficha cadastral"
+          geolocalization: "Geolocalização"
+          strategic_info: "Informações Estratégicas"
+          register: "Ficha cadastral"
+          distribution_status: "redistribuição <b>%{status}</b>"
+          management_type: "gerência <b>%{type}</b>"
+          collective: coletivo
+          active_products: "produtos <b>%{count} ativos</b>"
+          situation: "Situação geral"
+          products:
+            zero: "nenhum produto"
+            one: "1 produto"
+            other: "%{count} produtos"
+          manage_products: "gerenciar produtos"
+          add_product: "adicionar produto"
+          registered_supplier_i: "%{terms.supplier.singular.capitalize} registrado na rede"
+          disassociate: "disassociar"
+          supplier_profile_product: "produtos registrados"
+          supplier_with_registr: "%{terms.supplier.singular.capitalize} com registro administrado %{terms.profile.by_article.singular}"
+          this_supplier_has: "Este %{terms.supplier.singular} tem"
+        _suppliers_list:
+          this_search_didn_t_re: "Esta busca não retornou %{terms.supplier.plural}."
+          any_registered: "%{terms.supplier.none.singular.capitalize} registrado."
+        index:
+          add_supplier: "Adicionar %{terms.supplier.singular}"
+          filter: Filtro
+          name: Nome
+          suppliers: "%{terms.supplier.plural.capitalize}"
+          this_is_the_list_of_s: "Esta é a lista de %{terms.supplier.plural} associados %{terms.profile.to_article.singular}. É possível associar %{terms.supplier.to.plural} existentes ou registrar %{terms.supplier.one}."
+
+  orders_cycle_plugin:
+    terms:
+      <<: *suppliers_terms
+
+  consumers_coop_plugin:
+    terms:
+      <<: *suppliers_terms
+      profile: &consumers_coop_term_profile
+        singular: "coletivo de consumo"
+        plural: "coletivos de consumo"
+        it:
+          singular: "ele"
+          plural: "eles"
+        article:
+          singular: "o coletivo de consumo"
+          plural: "os coletivos de consumo"
+        undefined_article:
+          singular: "um coletivo de consumo"
+        by_article:
+          singular: "pelo coletivo de consumo"
+        to_it:
+          singular: "a ele"
+          plural: "a eles"
+        to_article:
+          singular: "ao coletivo de consumo"
+        at_article:
+          singular: "no coletivo de consumo"
+        from:
+          singular: "de um coletivo de consumo"
+        from_article:
+          singular: "do coletivo de consumo"
+        from_which_article:
+          singular: "com que o coletivo de consumo"
+        of:
+          singular: "de coletivo de consumo"
+          plural: "de coletivos de consumo"
+        of_article:
+          singular: "do coletivo de consumo"
+          plural: "dos coletivos de consumo"
+        of_this:
+          singular: "deste coletivo de consumo"
+        of_another:
+          singular: "de outro coletivo de consumo"
+        with:
+          singular: "com coletivo de consumo"
+          plural: "com coletivos de consumo"
+        with_article:
+          singular: "com o coletivo de consumo"
+          plural: "com os coletivos de consumo"
+        on_your:
+          singular: "em seu coletivo de consumo"
+        this:
+          singular: "este coletivo de consumo"
+
+  networks_plugin:
+    terms:
+      <<: *suppliers_terms
+      profile: &networks_term_profile
+        singular: "rede"
+        plural: "redes"
+        it:
+          singular: "ela"
+          plural: "elas"
+        to_it:
+          singular: "a ela"
+          plural: "a elas"
+        article:
+          singular: "a rede"
+          plural: "as redes"
+        undefined_article:
+          singular: "uma rede"
+        to_article:
+          singular: "a rede"
+        at_article:
+          singular: "na rede"
+        from:
+          singular: "de uma rede"
+        from_article:
+          singular: "da rede"
+        from_which_article:
+          singular: "com que a rede"
+        of:
+          singular: "de rede"
+          plural: "de redes"
+        of_article:
+          singular: "da rede"
+          plural: "das redes"
+        of_this:
+          singular: "desta rede"
+        of_another:
+          singular: "de outra rede"
+        with:
+          singular: "com rede"
+          plural: "com redes"
+        with_article:
+          singular: "com a rede"
+          plural: "com a organizações"
+        this:
+          singular: "esta rede"
+        on_your:
+          singular: "na sua rede"
+      supplier:
+        singular: "empreendimento"
+        plural: "empreendimentos"
+        one: "um"
+        it:
+          singular: "ele"
+          plural: "eles"
+        to:
+          singular: "a um empreendimento"
+          plural: "a empreendimentos"
+        to_it:
+          singular: "a ele"
+          plural: "a eles"
+        to_article:
+          singular: "ao empreendimento"
+          plural: "aos empreendimentos"
+        article:
+          singular: "o empreendimento"
+          plural: "os empreendimentos"
+        by_article:
+          singular: "pelo empreendimento"
+        undefined_article:
+          singular: "um empreendimento"
+        new_undefined_article:
+          singular: "um novo empreendimento"
+        to_it:
+          singular: "a ele"
+          plural: "a eles"
+        to_article:
+          singular: "ao empreendimento"
+          plural: "aos empreendimentos"
+        none:
+          singular: "nenhum empreendimento"
+        this:
+          singular: "este empreendimento"
+        your:
+          singular: "seu empreendimento"
+          plural: "seus empreendimentos"
+        from:
+          singular: "de empreendimento"
+        from_article:
+          singular: "do empreendimento"
+        from_which_article:
+          singular: "com que o empreendimento"
+        of:
+          singular: "de empreendimento"
+          plural: "de empreendimentos"
+        of_article:
+          singular: "do empreendimento"
+          plural: "dos empreendimentos"
+        of_this:
+          singular: "deste empreendimento"
+        of_another:
+          singular: "de outro empreendimento"
+        with:
+          singular: "com empreendimento"
+          plural: "com empreendimentos"
+        with_article:
+          singular: "com o empreendimento"
+          plural: "com os empreendimentos"
+
+pt_BR:
+  <<: *pt-BR
+pt:
+  <<: *pt-BR
+

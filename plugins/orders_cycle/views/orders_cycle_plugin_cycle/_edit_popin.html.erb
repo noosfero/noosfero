@@ -1,0 +1,18 @@
+<div class="popin">
+  <h1><%= t('views.cycle._edit_popin.cycle_editing') %></h1>
+
+  <div>
+    <% if cycle.valid? %>
+      <%= t('views.cycle._edit_popin.cycle_saved') %>
+    <% else %>
+      <% cycle.errors.full_messages.each do |msg| %>
+        <div><%= msg %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= modal_close_button t('views.cycle._edit_popin.close') %>
+  </div>
+
+</div>

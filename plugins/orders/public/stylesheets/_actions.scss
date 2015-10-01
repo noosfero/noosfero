@@ -1,0 +1,25 @@
+@import 'base';
+
+$actions-bg: #D7FFB9;
+
+#actions-box {
+  background: $actions-bg;
+
+  &.wireframe-size {
+    margin-left: -($wireframe-padding);
+    margin-right: -($wireframe-padding);
+    padding: $padding ($wireframe-padding + $padding);
+  }
+
+  .labels, .buttons {
+  }
+
+  .labels {
+    font-weight: bold;
+
+    .select {
+      height: $height;
+    }
+  }
+}
+

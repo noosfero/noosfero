@@ -1,0 +1,27 @@
+<div class="properties-block price-block <%= "disabled-fields" if not product.supplier_dummy? %>">
+  <% options = {class: "small-input"}.merge((product.supplier_dummy? or not supplier_product) ? {} : {disabled: 'disabled'}) %>
+  <% if supplier_product %>
+    <% options = options.merge(onkeyup: 'suppliers.our_product.sync_referred(this)', oninput: 'this.onkeyup()') %>
+  <% else %>
+    <% options = options.merge(onkeyup: 'suppliers.our_product.pmsync(this, false)', oninput: 'this.onkeyup()') %>
+  <% end %>
+
+  <%= labelled_field f, :price, t('views.product._price_details.price'),
+    f.number_field(:price, options.merge(step: 'any', oldvalue: product.own_price)), class: 'left-column' %>
+  <%= labelled_field f, :unit_id, t('views.product._price_details.unit'),
+    f.select(:unit_id, Unit.all.map{ |u| [u.singular, u.id] }, {}, options.merge(oldvalue: product.own_unit_id)) %>
+  <%= labelled_field f, :minimum_selleable, t('views.product._price_details.minimum_order'),
+    f.number_field(:minimum_selleable, options.merge(step: 'any', oldvalue: product.own_minimum_selleable)), class: 'left-column' %>
+  <%= labelled_field f, :unit_detail, t('views.product._price_details.unit_specification'),
+    f.number_field(:unit_detail, options.merge(step: 'any', oldvalue: product.own_unit_detail)) %>
+
+  <%# put here due to css align, see distribution.js %>
+  <% if supplier_product and not product.supplier_dummy? %>
+    <div class="clean">
+      <%= check_box_tag :product_supplier_product_available, 1, false, style: 'float: left', disabled: 'disabled' %>
+      <%= f.label :available, t('views.product._price_details.commercialization_act'), class: 'line-label' %>
+    </div>
+  <% end %>
+
+  <div class="clean"></div>
+</div>

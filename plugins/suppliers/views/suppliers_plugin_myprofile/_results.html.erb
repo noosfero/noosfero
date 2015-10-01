@@ -1,0 +1,17 @@
+<% if @enterprises.empty? %>
+  <%= t('views.supplier._new.none_found') %>
+<% else %>
+  <table>
+    <% @enterprises.each do |enterprise| %>
+      <%= render 'result', :enterprise => enterprise %>
+    <% end %>
+  </table>
+
+  <div id="suggest-creation">
+    <div class="subtitle">
+      <%= t('views.supplier._new.suggest_creation') %>
+    </div>
+
+    <%= link_to_function t('views.supplier._new.create_dummy'), 'suppliers.add.create_dummy();' %>
+  </div>
+<% end %>

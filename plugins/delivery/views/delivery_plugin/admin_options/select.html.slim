@@ -1,0 +1,8 @@
+#delivery-add.popin
+  h1= t('delivery_plugin.views.delivery_option.select.add_a_delivery_method')
+
+  / flag to admin_method/show that we want to select an option from methods
+  - request.GET[:select_ids] = 'true'
+  - request.GET[:selected_ids] = @owner.delivery_methods.map(&:id).map(&:to_s)
+  = render 'delivery_plugin/admin_method/index'
+

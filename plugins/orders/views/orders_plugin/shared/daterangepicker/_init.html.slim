@@ -1,0 +1,24 @@
+= content_for :head do
+  = stylesheet_link_tag '/assets/plugins/orders/stylesheets/daterangepicker-bs3.css'
+  / in case it is not loaded for this theme
+  = stylesheet_link_tag '/assets/designs/icons/awesome/scss/font-awesome.css'
+  = javascript_include_tag '/assets/plugins/orders/javascripts/moment-with-locales.js'
+  = javascript_include_tag '/assets/plugins/orders/javascripts/daterangepicker.js'
+
+javascript:
+  moment.locale(#{I18n.locale.downcase.to_json})
+
+  orders.daterangepicker.defaultOptions = {
+    format: 'LLLL',
+    separator: #{" #{I18n.t'orders_plugin.lib.date_helper.to'} ".to_json},
+    locale: {
+      applyLabel: #{_('Apply').to_json},
+      cancelLabel: #{_('Cancel').to_json},
+      fromLabel: #{_('From').to_json},
+      toLabel: #{_('To').to_json},
+      customRangeLabel: #{_('To').to_json},
+      daysOfWeek: #{I18n.t('date.abbr_day_names').to_json},
+      monthNames: #{I18n.t('date.month_names')[1..-1].to_json},
+    },
+  }
+

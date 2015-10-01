@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <p>
+      <%= t('views.mailer.message_to_admins.hello_managers_of_nam') % {name: @profile.name} %>
+    </p>
+
+    <p><%= t('views.mailer.message_to_admins.the_member_member_sen') % {member: @member.name} %></p>
+    <p><i><%= @message %></i></p>
+
+    <p>
+      --<br/>
+    </p>
+
+    <small style="color: #888"><%= t('views.mailer.message_to_admins.a_service_of_s') % {environment: @environment.name} %></small>
+  </body>
+</html>

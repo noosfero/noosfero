@@ -1,0 +1,6 @@
+#product-ballon.balloon-content.orders-cycle
+  h3.popover-title= link_to @product.name, @product.url, target: '_blank'
+  .left-column
+    = link_to image_tag(@product.default_image(:thumb), class: 'product-pic'), @product.url, target: '_blank'
+  .right-column
+    div= @product.description

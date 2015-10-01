@@ -1,0 +1,8 @@
+
+<div class="order-header">
+  <%= t('orders_plugin.views.item._index.header') % {
+    :profile_code => order.code,
+    :profile => content_tag('strong', order.profile_data[:name]),
+    :consumer => content_tag('strong', order.consumer_data[:name]),
+  } %>
+</div>

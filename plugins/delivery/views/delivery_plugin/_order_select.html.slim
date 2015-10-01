@@ -1,0 +1,31 @@
+- methods ||= order.delivery_methods
+- edition = true if edition.nil?
+- readonly = !edition
+
+div.order-delivery-select
+
+  div.supplier-delivery-data
+    = labelled_form_field _('Option'),
+      f.select(:supplier_delivery_id, supplier_delivery_options(methods: methods), {}, disabled: readonly,
+        onchange: 'delivery.order.select.onChange(this)', onkeyup: 'delivery.order.select.onChange(this)')
+    p.instructions
+
+  div.consumer-delivery-data
+    = f.fields_for :consumer_delivery_data, order.consumer_delivery_data do |ff|
+      = labelled_form_field _('Address (street and number)'),
+        ff.text_field(:address, value: order.consumer_delivery_data[:address], readonly: readonly)
+      = labelled_form_field _('Address completion'),
+        ff.text_field(:address_line2, value: order.consumer_delivery_data[:address_line2], readonly: readonly)
+      = labelled_form_field _('Address reference'),
+        ff.text_field(:address_reference, value: order.consumer_delivery_data[:address_reference], readonly: readonly)
+      = labelled_form_field _('District'),
+        ff.text_field(:district, value: order.consumer_delivery_data[:district], readonly: readonly)
+      = labelled_form_field _('City'),
+        ff.text_field(:city, value: order.consumer_delivery_data[:city], readonly: readonly)
+      = labelled_form_field _('State'),
+        ff.text_field(:state, value: order.consumer_delivery_data[:state], readonly: readonly)
+      = labelled_form_field _('ZIP code'),
+        ff.text_field(:zip_code, value: order.consumer_delivery_data[:zip_code], readonly: readonly)
+
+  javascript:
+    delivery.order.select.onChange($('#order_supplier_delivery_id'))

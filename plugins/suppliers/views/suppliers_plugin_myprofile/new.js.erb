@@ -1,0 +1,7 @@
+<% if @supplier.valid? %>
+  window.location = '<%= url_for :action => :index %>';
+<% else %>
+  jQuery("#supplier-add").html("<%= j render(:partial => 'suppliers_plugin_myprofile/supplier', :object => @supplier) %>");
+  toggle_edit.value_row.reload();
+<% end %>
+
