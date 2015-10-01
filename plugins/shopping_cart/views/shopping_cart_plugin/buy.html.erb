@@ -39,7 +39,7 @@
       <fieldset>
         <legend><%=s_('Your Order')%></legend>
         <% supplier_delivery = @order.supplier_delivery || profile.delivery_methods.first %>
-        <%= items_table @cart[:items], @profile, supplier_delivery %>
+        <%= items_table @cart[:items], supplier_delivery %>
       </fieldset>
     </div>
 

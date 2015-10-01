@@ -59,7 +59,7 @@ module ShoppingCartPlugin::CartHelper
     @order
   end
 
-  def items_table(items, profile, delivery_method = nil, by_mail = false)
+  def items_table(items, delivery_method = nil, by_mail = false)
     # partial key needed in mailer context
     render partial: 'shopping_cart_plugin/items', locals: {order: build_order(items, delivery_method), by_mail: by_mail}
   end

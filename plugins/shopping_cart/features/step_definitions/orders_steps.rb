@@ -1,11 +1,3 @@
-Given /^"([^""]*)" has the following delivery methods$/ do |name, table|
-  enterprise = Enterprise.find_by_name(name) || Enterprise[name]
-  table.hashes.map{|item| item.dup}.each do |item|
-    delivery_method = enterprise.delivery_methods.build
-    delivery_method.update_attributes(item)
-  end
-end
-
 Given /^the following purchase from "([^""]*)" on "([^""]*)" that is "([^""]*)"$/ do |consumer_identifier, enterprise_identifier, status, table|
   consumer = Person.find_by_name(consumer_identifier) || Person[consumer_identifier]
   enterprise = Enterprise.find_by_name(enterprise_identifier) || Enterprise[enterprise_identifier]

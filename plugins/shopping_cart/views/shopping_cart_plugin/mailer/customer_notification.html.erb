@@ -18,9 +18,11 @@
       <li><b><%= c_('Email') %>: </b><%= @order.consumer_data[:email] %></li>
       <li><b><%= _('Phone number') %>: </b><%= @order.consumer_data[:contact_phone] %></li>
 
-      <li><b><%= _("Payment's method") %>: </b><%= _ OrdersPlugin::Order::PaymentMethods[@order.payment_data[:method].to_sym].call %></li>
-      <% if @order.payment_data[:method] == 'money' %>
-        <li><b><%= s_('shopping_cart|Change') %>: </b><%= @order.payment_data[:change] %></li>
+      <% if @order.payment_data[:method] %>
+        <li><b><%= _("Payment's method") %>: </b><%= _ OrdersPlugin::Order::PaymentMethods[@order.payment_data[:method].to_sym].call %></li>
+        <% if @order.payment_data[:method] == 'money' %>
+          <li><b><%= s_('shopping_cart|Change') %>: </b><%= @order.payment_data[:change] %></li>
+        <% end %>
       <% end %>
 
       <li><b><%= _('Delivery or pickup') %>:</b></li>
@@ -59,7 +61,7 @@
     </ul>
 
     <p><%=_('Here are the products you bought:')%></p>
-    <%= items_table(@items, @order.profile, @order.supplier_delivery, true) %>
+    <%= items_table(@items, @order.supplier_delivery, true) %>
     <p>
       --<br/>
       <%=_('Thanks for buying with us!')%><br/>

@@ -5,13 +5,8 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   def edit
     params[:settings] = treat_cart_options(params[:settings])
     @settings = profile.shopping_cart_settings params[:settings] || {}
-    respond_to do |format|
-      format.js do
-        if request.post?
-          @success = @settings.save!
-        end
-      end
-      format.html
+    if request.post?
+      @success = @settings.save!
     end
   end
 

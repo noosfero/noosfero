@@ -16,9 +16,11 @@
       <li><b><%= c_('Email') %>: </b><%= @order.consumer_data[:email] %></li>
       <li><b><%= _('Phone number') %>: </b><%= @order.consumer_data[:contact_phone] %></li>
 
-      <li><b><%= _('Payment') %>: </b><%= OrdersPlugin::Order::PaymentMethods[@order.payment_data[:method].to_sym].call %></li>
-      <% if @order.payment_data[:method] == 'money' %>
-        <li><b><%= s_('shopping_cart|Change') %>: </b><%= @order.payment_data[:change] %></li>
+      <% if @order.payment_data[:method] %>
+        <li><b><%= _('Payment') %>: </b><%= OrdersPlugin::Order::PaymentMethods[@order.payment_data[:method].to_sym].call %></li>
+        <% if @order.payment_data[:method] == 'money' %>
+          <li><b><%= s_('shopping_cart|Change') %>: </b><%= @order.payment_data[:change] %></li>
+        <% end %>
       <% end %>
 
       <% if !@order.consumer_delivery_data[:address].blank? || !@order.consumer_delivery_data[:city].blank? || !@order.consumer_delivery_data[:zip_code].blank? || !@order.consumer_delivery_data[:district].blank? || !@order.consumer_delivery_data[:address_reference].blank? %>
@@ -51,7 +53,7 @@
     </ul>
 
     <p><%=_('And here are the items bought by this customer:')%></p>
-    <%= items_table(@items, @order.profile, @order.supplier_delivery, true) %>
+    <%= items_table(@items, @order.supplier_delivery, true) %>
     <p>
       --<br/>
       <%=_('If there are any problems with this email contact the admin of %s.') % @environment.name %>

@@ -8,39 +8,39 @@ class ShoppingCartPluginController < OrdersPluginController
   def get
     config =
       if cart.nil?
-        { :profile_id => params[:profile_id],
-          :has_products => false,
-          :visible => false,
-          :products => []}
+        { profile_id: params[:profile_id],
+          has_products: false,
+          visible: false,
+          products: []}
       else
         {
-        	:profile_id => cart[:profile_id],
-          :profile_short_name => cart_profile.short_name,
-          :has_products => (cart[:items].keys.size > 0),
-          :visible => visible?,
-          :products => products,
+        	profile_id: cart[:profile_id],
+          profile_short_name: cart_profile.short_name,
+          has_products: (cart[:items].keys.size > 0),
+          visible: visible?,
+          products: products,
         }
       end
     config[:has_previous_orders] = if cart_profile then previous_orders.first.present? else false end
-    render :text => config.to_json
+    render text: config.to_json
   end
 
   def add
     product = find_product(params[:id])
     if product && (profile = validate_same_profile(product))
-        self.cart = { :profile_id => profile.id, :items => {} } if self.cart.nil?
+        self.cart = { profile_id: profile.id, items: {} } if self.cart.nil?
         self.cart[:items][product.id] = 0 if self.cart[:items][product.id].nil?
         self.cart[:items][product.id] += 1
-        render :text => {
-          :ok => true,
-          :error => {:code => 0},
-          :products => [{
-            :id => product.id,
-            :name => product.name,
-            :price => get_price(product, profile.environment),
-            :description => product.description,
-            :picture => product.default_image(:minor),
-            :quantity => self.cart[:items][product.id]
+        render text: {
+          ok: true,
+          error: {code: 0},
+          products: [{
+            id: product.id,
+            name: product.name,
+            price: get_price(product, profile.environment),
+            description: product.description,
+            picture: product.default_image(:minor),
+            quantity: self.cart[:items][product.id]
           }]
         }.to_json
     end
@@ -51,20 +51,20 @@ class ShoppingCartPluginController < OrdersPluginController
     if validate_cart_presence && validate_cart_has_product(id)
       self.cart[:items].delete(id)
       self.cart = nil if self.cart[:items].empty?
-      render :text => {
-        :ok => true,
-        :error => {:code => 0},
-        :product_id => id
+      render text: {
+        ok: true,
+        error: {code: 0},
+        product_id: id
       }.to_json
     end
   end
 
   def list
     if validate_cart_presence
-      render :text => {
-        :ok => true,
-        :error => {:code => 0},
-        :products => products
+      render text: {
+        ok: true,
+        error: {code: 0},
+        products: products
       }.to_json
     end
   end
@@ -75,20 +75,20 @@ class ShoppingCartPluginController < OrdersPluginController
     if validate_cart_presence && validate_cart_has_product(id) && validate_item_quantity(quantity)
       product = Product.find(id)
       self.cart[:items][product.id] = quantity
-      render :text => {
-        :ok => true,
-        :error => {:code => 0},
-        :product_id => id,
-        :quantity => quantity
+      render text: {
+        ok: true,
+        error: {code: 0},
+        product_id: id,
+        quantity: quantity
       }.to_json
     end
   end
 
   def clean
     self.cart = nil
-    render :text => {
-      :ok => true,
-      :error => {:code => 0}
+    render text: {
+      ok: true,
+      error: {code: 0}
     }.to_json
   end
 
@@ -121,7 +121,7 @@ class ShoppingCartPluginController < OrdersPluginController
     @profile = cart_profile
     @order = profile.sales.build consumer: user
 
-    @order.supplier_delivery = profile.delivery_methods.find session[:cart][:last_delivery_option_id] rescue nil
+    @order.supplier_delivery = profile.delivery_methods.where(id: session[:cart][:last_delivery_option_id]).first
     if repeat_order_id = self.cart[:repeat_order_id]
       repeat_order = cart_profile.orders.where(id: repeat_order_id).first
       @order.consumer_delivery_data = repeat_order.consumer_delivery_data if repeat_order
@@ -146,23 +146,23 @@ class ShoppingCartPluginController < OrdersPluginController
   end
 
   def visibility
-    render :text => visible?.to_json
+    render text: visible?.to_json
   end
 
   def show
     begin
       self.cart[:visibility] = true
-      render :text => {
-        :ok => true,
-        :message => _('Basket displayed.'),
-        :error => {:code => 0}
+      render text: {
+        ok: true,
+        message: _('Basket displayed.'),
+        error: {code: 0}
       }.to_json
     rescue Exception => exception
-      render :text => {
-        :ok => false,
-        :error => {
-          :code => 7,
-          :message => exception.message
+      render text: {
+        ok: false,
+        error: {
+          code: 7,
+          message: exception.message
         }
       }.to_json
     end
@@ -171,17 +171,17 @@ class ShoppingCartPluginController < OrdersPluginController
   def hide
     begin
       self.cart[:visibility] = false
-      render :text => {
-        :ok => true,
-        :message => _('Basket hidden.'),
-        :error => {:code => 0}
+      render text: {
+        ok: true,
+        message: _('Basket hidden.'),
+        error: {code: 0}
       }.to_json
     rescue Exception => exception
-      render :text => {
-        :ok => false,
-        :error => {
-          :code => 8,
-          :message => exception.message
+      render text: {
+        ok: false,
+        error: {
+          code: 8,
+          message: exception.message
         }
       }.to_json
     end
@@ -189,7 +189,7 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def update_supplier_delivery
     @profile = cart_profile
-    supplier_delivery = @profile.delivery_methods.find params[:order][:supplier_delivery_id]
+    supplier_delivery = @profile.delivery_methods.where(id: params[:order][:supplier_delivery_id]).first
     order = build_order self.cart[:items], supplier_delivery
     total_price = order.total_price
     render json: {
@@ -210,11 +210,11 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def validate_same_profile(product)
     if self.cart && self.cart[:profile_id] && product.profile_id != self.cart[:profile_id]
-      render :text => {
-        :ok => false,
-        :error => {
-          :code => 1,
-          :message => _("Your basket contains items from '%{profile_name}'. Please empty the basket or checkout before adding items from here.") % {profile_name: cart_profile.short_name}
+      render text: {
+        ok: false,
+        error: {
+          code: 1,
+          message: _("Your basket contains items from '%{profile_name}'. Please empty the basket or checkout before adding items from here.") % {profile_name: cart_profile.short_name}
         }
       }.to_json
       return nil
@@ -224,11 +224,11 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def validate_cart_presence
     if self.cart.nil?
-      render :text => {
-        :ok => false,
-        :error => {
-        :code => 2,
-        :message => _("There is no basket.")
+      render text: {
+        ok: false,
+        error: {
+        code: 2,
+        message: _("There is no basket.")
       }
       }.to_json
       return false
@@ -240,11 +240,11 @@ class ShoppingCartPluginController < OrdersPluginController
     begin
       product = Product.find(id)
     rescue ActiveRecord::RecordNotFound
-      render :text => {
-        :ok => false,
-        :error => {
-        :code => 3,
-        :message => _("This enterprise doesn't have this product.")
+      render text: {
+        ok: false,
+        error: {
+        code: 3,
+        message: _("This enterprise doesn't have this product.")
       }
       }.to_json
       return nil
@@ -254,11 +254,11 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def validate_cart_has_product(id)
     if !self.cart[:items].has_key?(id)
-      render :text => {
-        :ok => false,
-        :error => {
-        :code => 4,
-        :message => _("The basket doesn't have this product.")
+      render text: {
+        ok: false,
+        error: {
+        code: 4,
+        message: _("The basket doesn't have this product.")
       }
       }.to_json
       return false
@@ -268,11 +268,11 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def validate_item_quantity(quantity)
     if quantity.to_i < 1
-      render :text => {
-        :ok => false,
-        :error => {
-        :code => 5,
-        :message => _("Invalid quantity.")
+      render text: {
+        ok: false,
+        error: {
+        code: 5,
+        message: _("Invalid quantity.")
       }
       }.to_json
       return false
@@ -284,12 +284,12 @@ class ShoppingCartPluginController < OrdersPluginController
     products_list = {}; items.each do |id, quantity|
       product = Product.find(id)
       price = product.price || 0
-      products_list[id] = {:quantity => quantity, :price => price, :name => product.name}
+      products_list[id] = {quantity: quantity, price: price, name: product.name}
     end
 
     order = OrdersPlugin::Sale.new
     order.profile = environment.profiles.find(cart[:profile_id])
-    order.supplier_delivery = profile.delivery_methods.find params[:order][:supplier_delivery_id]
+    order.supplier_delivery = profile.delivery_methods.where(id: params[:order][:supplier_delivery_id]).first
     order.session_id = session_id unless user
     order.consumer = user
     order.source = 'shopping_cart_plugin'
@@ -330,11 +330,11 @@ class ShoppingCartPluginController < OrdersPluginController
   after_filter :save_cookie
   def save_cookie
     if @cart.nil?
-      cookies.delete(cookie_key, :path => '/plugin/shopping_cart')
+      cookies.delete(cookie_key, path: '/plugin/shopping_cart')
     else
       cookies[cookie_key] = {
-        :value => Base64.encode64(@cart.to_yaml),
-        :path => "/plugin/shopping_cart"
+        value: Base64.encode64(@cart.to_yaml),
+        path: "/plugin/shopping_cart"
       }
     end
   end
@@ -351,20 +351,20 @@ class ShoppingCartPluginController < OrdersPluginController
     self.cart[:items].collect do |id, quantity|
       product = Product.find_by_id(id)
       if product
-        { :id => product.id,
-          :name => product.name,
-          :price => get_price(product, product.profile.environment),
-          :description => product.description,
-          :picture => product.default_image(:minor),
-          :quantity => quantity
+        { id: product.id,
+          name: product.name,
+          price: get_price(product, product.profile.environment),
+          description: product.description,
+          picture: product.default_image(:minor),
+          quantity: quantity
         }
       else
-        { :id => id,
-          :name => _('Undefined product'),
-          :price => 0,
-          :description => _('Wrong product id'),
-          :picture => '',
-          :quantity => quantity
+        { id: id,
+          name: _('Undefined product'),
+          price: 0,
+          description: _('Wrong product id'),
+          picture: '',
+          quantity: quantity
         }
       end
     end
