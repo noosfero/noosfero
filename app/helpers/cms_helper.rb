@@ -9,11 +9,6 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
-  def pagination_links(collection, options={})
-    options = {:previous_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
-    will_paginate(collection, options)
-  end
-
   attr_reader :environment
 
   def options_for_article(article, tokenized_children=nil)
