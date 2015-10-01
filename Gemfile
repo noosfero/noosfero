@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 gem 'rails',                    '~> 4.2.4'
-gem 'fast_gettext',             '~> 0.6.8'
-gem 'acts-as-taggable-on',      '~> 3.4.2'
+gem 'fast_gettext',             '~> 0.9'
+gem 'acts-as-taggable-on',      '~> 3.5'
 gem 'rails_autolink',           '~> 1.1.5'
-gem 'pg',                       '~> 0.18.1'
-gem 'rmagick',                  '~> 2.13.1'
-gem 'RedCloth',                 '~> 4.2.9'
+gem 'pg',                       '~> 0.18'
+gem 'rmagick',                  '~> 2.13'
+gem 'RedCloth',                 '~> 4.2'
 gem 'ruby-feedparser',          '~> 0.7'
-gem 'daemons',                  '~> 1.1.5'
+gem 'daemons',                  '~> 1.1'
 gem 'unicorn',                  '~> 4.8'
 gem 'nokogiri',                 '~> 1.6.0'
 gem 'will_paginate'
@@ -15,10 +15,10 @@ gem 'pothoven-attachment_fu',   '~> 3.2.16'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake', :require => false
-gem 'rest-client',              '~> 1.6.7'
+gem 'rest-client',              '~> 1.6'
 gem 'exception_notification',   '~> 4.0.1'
-gem 'gettext',                  '~> 2.2.1', :require => false
-gem 'locale',                   '~> 2.0.5'
+gem 'gettext',                  '~> 3.1', :require => false
+gem 'locale',                   '~> 2.1'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 
@@ -41,10 +41,6 @@ gem 'actionpack-action_caching'
 gem 'activerecord-session_store'
 gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
-
-# FIXME list here all actual dependencies (i.e. the ones in debian/control),
-# with their GEM names (not the Debian package names)
-
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
@@ -58,8 +54,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec',                  '~> 2.14.0'
-  gem 'rspec-rails',            '~> 2.14.1'
+  gem 'rspec',                  '~> 3.3'
+  gem 'rspec-rails',            '~> 3.2'
   gem 'mocha',                  '~> 1.1.0', :require => false
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
@@ -67,11 +63,11 @@ group :test do
 end
 
 group :cucumber do
-  gem 'capybara',               '~> 2.1.0'
+  gem 'capybara',               '~> 2.2'
   gem 'launchy'
-  gem 'cucumber',               '~> 1.3.20'
+  gem 'cucumber',               '~> 2.0'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
-  gem 'database_cleaner',       '~> 1.2.0'
+  gem 'database_cleaner',       '~> 1.3'
   gem 'selenium-webdriver'
 end
 
