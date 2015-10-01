@@ -121,7 +121,8 @@ class ShoppingCartPluginController < OrdersPluginController
     @profile = cart_profile
     @order = profile.sales.build consumer: user
 
-    @order.supplier_delivery = profile.delivery_methods.where(id: session[:cart][:last_delivery_option_id]).first
+    last_delivery_option_id = session[:cart][:last_delivery_option_id] if session[:cart]
+    @order.supplier_delivery = profile.delivery_methods.where(id: last_delivery_option_id).first if last_delivery_option_id
     if repeat_order_id = self.cart[:repeat_order_id]
       repeat_order = cart_profile.orders.where(id: repeat_order_id).first
       @order.consumer_delivery_data = repeat_order.consumer_delivery_data if repeat_order
