@@ -176,22 +176,24 @@ class SearchController < PublicController
     end
   end
 
-  AVAILABLE_SEARCHES = ActiveSupport::OrderedHash[
-    :articles, _('Contents'),
-    :people, _('People'),
-    :communities, _('Communities'),
-    :enterprises, _('Enterprises'),
-    :products, _('Products and Services'),
-    :events, _('Events'),
-  ]
+  def available_searches
+    @available_searches ||= ActiveSupport::OrderedHash[
+      :articles, _('Contents'),
+      :people, _('People'),
+      :communities, _('Communities'),
+      :enterprises, _('Enterprises'),
+      :products, _('Products and Services'),
+      :events, _('Events'),
+    ]
+  end
 
   def load_search_assets
-    if AVAILABLE_SEARCHES.keys.include?(params[:action].to_sym) && environment.enabled?("disable_asset_#{params[:action]}")
+    if available_searches.keys.include?(params[:action].to_sym) && environment.enabled?("disable_asset_#{params[:action]}")
       render_not_found
       return
     end
 
-    @enabled_searches = AVAILABLE_SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{key}") }
+    @enabled_searches = available_searches.select {|key, name| environment.disabled?("disable_asset_#{key}") }
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|
@@ -203,7 +205,7 @@ class SearchController < PublicController
 
   def load_order
     @order = 'more_recent'
-    if AVAILABLE_SEARCHES.keys.include?(@asset.to_sym)
+    if available_searches.keys.include?(@asset.to_sym)
       available_orders = asset_class(@asset)::SEARCH_FILTERS[:order]
       @order = params[:order] if available_orders.include?(params[:order])
     end
