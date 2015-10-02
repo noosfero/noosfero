@@ -34,7 +34,7 @@
 #content .blog-post .publishing-info {
   text-align: left;
 }
-#content #article .pagination .prev_page {
+#content #article .pagination .previous_page {
   position: absolute;
   left: 0;
 }
@@ -42,7 +42,7 @@
   position: absolute;
   right: 0;
 }
-.msie6 #content #article .pagination .prev_page, .msie6 #content #article .pagination .next_page {
+.msie6 #content #article .pagination .previous_page, .msie6 #content #article .pagination .next_page {
   position: relative;
   display: inline;
 }
