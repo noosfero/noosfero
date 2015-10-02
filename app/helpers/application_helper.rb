@@ -1316,7 +1316,12 @@ module ApplicationHelper
       options[:class] = (options[:class] || '') + ' disabled'
       content_tag('a', '&nbsp;'+content_tag('span', content), options)
     else
-      link_to content, url, options
+      if options[:modal]
+        options.delete(:modal)
+        modal_link_to content, url, options
+      else
+        link_to content, url, options
+      end
     end
   end
 

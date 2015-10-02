@@ -35,7 +35,7 @@ module CmsHelper
   end
 
   def display_spread_button(article)
-    expirable_button article, :spread, _('Spread this'), {:action => 'publish', :id => article.id}, {:class => 'colorbox'}
+    expirable_button article, :spread, _('Spread this'), {:action => 'publish', :id => article.id}, {:class => 'colorbox', :modal => true}
   end
 
   def display_delete_button(article)
