@@ -1,6 +1,6 @@
 <div class="item image" data-item="span" title="<%= @file.name %>">
   <span>
-    <img src="<%= @file.public_filename(:uploaded) %>"/>
+    <%= image_tag(@file.public_filename(:uploaded)) %>
   </span>
   <div class="controls image-controls">
     <a class="button icon-add add-to-text" href="#"><span><%= _('Add to the text') %></span></a>
