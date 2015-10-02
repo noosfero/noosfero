@@ -1812,4 +1812,10 @@ class ProfileControllerTest < ActionController::TestCase
     assert @response.body.index("another_user") > @response.body.index("different_user")
   end
 
+  should 'redirect to login if environment is restrict to members' do
+    Environment.default.enable(:restrict_to_members)
+    get :index
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
 end
