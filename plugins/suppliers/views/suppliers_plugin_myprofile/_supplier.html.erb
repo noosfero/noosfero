@@ -1,0 +1,58 @@
+<div class='box-view'>
+  <div class='supplier-logo'>
+    <%= link_to profile_image(supplier.profile, :minor), supplier.profile.url, :target => '_blank' %>
+  </div>
+
+  <div class='supplier-body'>
+    <div class="supplier-type subtitle">
+      <%= if supplier.dummy? then t('views.supplier._supplier.supplier_with_registr') else t('views.supplier._supplier.registered_supplier_i') end %>
+    </div>
+
+    <div class="supplier-name">
+      <%= link_to supplier.name, supplier.profile.url, :class => 'supplier-name', :target => '_blank' %>
+    </div>
+    <% if supplier.name_abbreviation %>
+      <div class="subtitle"><strong><%= t('views.supplier._supplier.abreviated_name') + '  ' %></strong><%= supplier.name_abbreviation %></div>
+    <% end %>
+    <p class="subtitle"><%= supplier.description %></p>
+
+    <div class="subtitle"><strong><%= t('views.supplier._supplier.this_supplier_has') %></strong></div>
+    <div class='supplier-products-count subtitle'>
+      <% products = supplier.consumer.distributed_products.unarchived.from_supplier_id(supplier.id) %>
+      <% if products.size > 0 %>
+        <%= link_to t('views.supplier._supplier.products', count: products.size),
+          {controller: 'suppliers_plugin/product', action: :index, supplier_id: supplier.id}, target: '_blank' %>
+
+        <%= t('views.supplier._supplier.among_them') %>
+
+        <% if supplier.dummy? %>
+          <% msg = products.available.size.to_s +
+            t('views.supplier._supplier.products_are_active') %>
+        <% else %>
+          <% msg = products.size.to_s + t('views.supplier._supplier.products_distributed') %>
+        <% end %>
+        <%= link_to msg, {controller: 'suppliers_plugin/product', action: :index, supplier_id: supplier.id}, target: '_blank', class: 'supplier-distributed-products-count' %>
+      <% else %>
+        <%= t('views.supplier._supplier.any_registered_produc') %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='supplier-actions subtitle'>
+    <div><strong><%= t('views.supplier._supplier.actions') %></strong></div>
+    <div><%= link_to_function t('views.supplier._supplier.edit'), '', 'toggle-edit' => '' %></div>
+
+    <div class='deactivate <%= 'hidden' unless supplier.active %>'><%= link_to_remote t('views.supplier._supplier.deactivate'), :url => {:action => :toggle_active, :id => supplier.id} %></div>
+    <div class='activate <%= 'hidden' if supplier.active %>'><%= link_to_remote t('views.supplier._supplier.activate'), :url => {:action => :toggle_active, :id => supplier.id} %></div>
+
+    <div><%= link_to_remote t('views.supplier._supplier.disassociate'), :url => {:action => :destroy, :id => supplier.id},
+      :confirm => t('views.supplier._supplier.by_removing_this_supp'), :class => 'supplier-remove' %></div>
+
+    <div><%= link_to t('views.supplier._supplier.manage_products'), {controller: 'suppliers_plugin/product', action: :index, supplier_id: supplier.id}, target: '_blank' %></div>
+    <div><%= link_to t('views.supplier._supplier.add_product'), {controller: :manage_products, profile: supplier.profile.identifier, action: :new}, target: '_blank' %></div>
+  </div>
+</div>
+
+<%= render :partial => 'suppliers_plugin_myprofile/edit', :locals => {:supplier => supplier} %>
+
+<div class="clean"></div>

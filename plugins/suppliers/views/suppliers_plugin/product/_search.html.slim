@@ -1,0 +1,21 @@
+#result-count
+  small= t'views.product._search.showing_pcount_produc', count: @products_count
+
+#results.sortable-table.wireframe-size.checkable
+  .table-header style="#{"display: none" if @products.empty?}"
+    .box-field.status= t'views.product._search.status'
+    .box-field.category= t'views.product._search.category'
+    .box-field.supplier= t'views.product._search.supplier'
+    .box-field.product= t'views.product._search.product'
+    .box-field.margin= t'views.product._search.margin'
+    .box-field.price= t'views.product._search.price'
+    - if defined? StockPlugin
+      .box-field.stock= t'views.product._search.stock'
+    .box-field.unit= t'views.product._search.unit'
+
+  .table-content
+    - if @products.empty?
+      = t'views.product._search.we_don_t_have_product'
+    - else
+      = render 'results'
+    .clean

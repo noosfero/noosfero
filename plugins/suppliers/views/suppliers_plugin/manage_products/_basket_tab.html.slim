@@ -1,0 +1,26 @@
+= t'suppliers_plugin.views.manage_products.basket_tab.make_a_basket' if @product.from_products.size <= 1
+
+= render 'suppliers_plugin/manage_products/basket_add'
+
+table
+  thead
+    th= t'suppliers_plugin.views.manage_products.basket_tab.component'
+    th= t'suppliers_plugin.views.manage_products.basket_tab.quantity'
+    th
+
+  tbody
+    - @product.sources_from_products.each do |sp|
+      tr
+        td
+          = link_to_product sp.from_product
+          |&emsp;
+          = "(#{sp.from_product.unit.singular})" if sp.from_product.unit
+        td= sp.quantity
+        td= button_to_function :remove, _('Remove'), "suppliers.basket.remove(#{sp.from_product.id.to_json})" if @allowed_user
+
+javascript:
+  suppliers.basket.removeUrl = #{url_for(controller: 'suppliers_plugin/basket', action: :remove, id: @product.id).to_json}
+  suppliers.basket.searchUrl = #{url_for(controller: 'suppliers_plugin/basket', action: :search, id: @product.id).to_json}
+  suppliers.basket.addUrl = #{url_for(controller: 'suppliers_plugin/basket', action: :add, id: @product.id).to_json}
+  suppliers.basket.load()
+

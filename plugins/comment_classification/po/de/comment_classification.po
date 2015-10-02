@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-23 11:38+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,11 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
-
-#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
-#, fuzzy
-msgid "A plugin that allow classification of comments."
-msgstr "Ein Block, der Ihre Gruppen anzeigt"
 
 #: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:16
 #, fuzzy
@@ -86,69 +81,10 @@ msgstr "Vertrag entfernt."
 msgid "Status could not be removed"
 msgstr "Das Formular konnte nicht entfernt werden"
 
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
-#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-msgid "Status"
-msgstr "Status"
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:7
+#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
 #, fuzzy
-msgid "Reason:"
-msgstr "Grund"
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:1
-#, fuzzy
-msgid "Status for comment"
-msgstr "Spam auf Kommentaren"
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:16
-msgid ""
-"<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
-"i>."
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:18
-msgid "<i>Reason:</i> %s"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:24
-#: plugins/comment_classification/views/comment_classification_plugin_status/create.html.erb:1
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:29
-#, fuzzy
-msgid "Add a new status"
-msgstr "Neue Option hinzufügen"
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/index.html.erb:1
-#, fuzzy
-msgid "Manage comment classification"
-msgstr "Verwaltungsinformationen"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
-msgid "Name"
-msgstr "Name"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
-msgid "Color"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
-#, fuzzy
-msgid "Enable this label?"
-msgstr "Unternehmen aktivieren"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
-#, fuzzy
-msgid "Editing label %s"
-msgstr "Ändere %s"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
-#, fuzzy
-msgid "Add a new label"
-msgstr "Neues Feld hinzufügen"
+msgid "A plugin that allow classification of comments."
+msgstr "Ein Block, der Ihre Gruppen anzeigt"
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
 #, fuzzy
@@ -163,6 +99,11 @@ msgstr "(bisher kein Produkt registriert)"
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:9
 #: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
 msgid "Label"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
+msgid "Color"
 msgstr ""
 
 #: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
@@ -180,15 +121,36 @@ msgstr "Aktionen"
 msgid "Are you sure you want to  remove this label?"
 msgstr "Sind Sie sicher, dass Sie diesen Block löschen wollen?"
 
-#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
+#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
 #, fuzzy
-msgid "Enable this status?"
-msgstr "\"Kontaktieren Sie uns\" aktivieren"
+msgid "Add a new label"
+msgstr "Neues Feld hinzufügen"
 
-#: plugins/comment_classification/views/comment_classification_plugin_status/edit.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
 #, fuzzy
-msgid "Editing status %s"
+msgid "Editing label %s"
 msgstr "Ändere %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr "Name"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
+#, fuzzy
+msgid "Enable this label?"
+msgstr "Unternehmen aktivieren"
+
+#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
+msgid "[Select ...]"
+msgstr "[Auswahl...]"
+
+#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
+msgid "Status"
+msgstr "Status"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:1
 #, fuzzy
@@ -210,9 +172,22 @@ msgstr "facets|Nicht aktiviert"
 msgid "Are you sure you want to remove this status?"
 msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
 
-#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
-msgid "[Select ...]"
-msgstr "[Auswahl...]"
+#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:29
+#: plugins/comment_classification/views/comment_classification_plugin_status/create.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:24
+#, fuzzy
+msgid "Add a new status"
+msgstr "Neue Option hinzufügen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/edit.html.erb:1
+#, fuzzy
+msgid "Editing status %s"
+msgstr "Ändere %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
+#, fuzzy
+msgid "Enable this status?"
+msgstr "\"Kontaktieren Sie uns\" aktivieren"
 
 #: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
 #, fuzzy
@@ -228,3 +203,28 @@ msgstr "Felder verwalten"
 #, fuzzy
 msgid "Manage Status"
 msgstr "Kontakte verwalten"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/index.html.erb:1
+#, fuzzy
+msgid "Manage comment classification"
+msgstr "Verwaltungsinformationen"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:1
+#, fuzzy
+msgid "Status for comment"
+msgstr "Spam auf Kommentaren"
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:16
+msgid ""
+"<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
+"i>."
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:18
+msgid "<i>Reason:</i> %s"
+msgstr ""
+
+#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:7
+#, fuzzy
+msgid "Reason:"
+msgstr "Grund"

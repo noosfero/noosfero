@@ -1,0 +1,2 @@
+jQuery('#order-<%=@order.id%> .order-items-container').replaceWith('<%= j render('orders_plugin_item/index', :order => @order, :actor_name => @actor_name) %>');
+

@@ -1,0 +1,57 @@
+
+#content .block-footer-content .profiles-suggestions a.accept-suggestion {
+  padding-bottom: 3px;
+  display: block;
+  color: #333;
+  font-size: 11px
+}
+
+#content .block-footer-content .profiles-suggestions a.accept-suggestion:hover {
+  text-decoration: underline;
+}
+
+
+#content .box-1 .profiles-suggestions .profile-list a.remove-suggestion {
+  margin: -5px 7px 0 0;
+}
+
+#content .profiles-suggestions .profile-list a.remove-suggestion {
+  display: block;
+  width: 15px !important;
+  height: 15px;
+  color: #888;
+  border-radius: 10px;
+  line-height: 14px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  margin: 1px 1px 0 0;
+}
+
+#content .profiles-suggestions .profile-list a.remove-suggestion:hover {
+  display:  block;
+  width: 15px;
+  height: 15px;
+  background: #888;
+  color: #fff;
+  border-radius: 10px;
+  line-height: 14px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.more-suggestions {
+  text-align: center;
+}
+
+.profiles-suggestions .profile-list .extra_info {
+  z-index: 10;
+  display: inline-block;
+  width: 100px;
+}
+
+.suggestions-block .block-subtitle {
+  cursor: pointer;
+}
+

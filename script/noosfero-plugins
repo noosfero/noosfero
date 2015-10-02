@@ -77,6 +77,12 @@ run(){
   fi
 }
 
+_install(){
+  # export so that recursive enables for dependencies inherit this option too
+  export BUNDLE_OPTS='install'
+  _enable "$1"
+}
+
 _enable(){
   plugin="$1"
 
@@ -113,10 +119,13 @@ _enable(){
       if [ -e $source/Gemfile ]; then
         gemfile=$(mktemp --tmpdir=.)
         cat $NOOSFERO_DIR/Gemfile $source/Gemfile > $gemfile
-        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle --local --quiet; then
+        if [ -z "$BUNDLE_OPTS" ]; then BUNDLE_OPTS="--local"; fi
+        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle $BUNDLE_OPTS --quiet; then
           dependencies_ok=false
+        else
+          mv "$gemfile".lock Gemfile.lock
         fi
-        rm -f $gemfile $gemfile.lock
+        rm -f $gemfile
       fi
       if ! run $dependencies_file; then
         dependencies_ok=false
@@ -134,9 +143,11 @@ _enable(){
     elif [ "$installation_ok" = false ]; then
       echo "W: failed to install $plugin; not enabling"
       echo
+      exit 1
     elif [ "$dependencies_ok" = false ]; then
       echo "W: failed to load dependencies for $plugin; not enabling"
       echo
+      exit 2
     fi
   fi
 }
@@ -245,7 +256,7 @@ case "$command" in
     fi
     _$command
     ;;
-  enable|disable|new)
+  enable|install|disable|new)
     for plugin in $@; do
       _$command "$plugin"
     done

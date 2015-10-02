@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=utf-8") http-equiv="Content-Type"
+    = stylesheet_link_tag 'plugins/orders/style.css'
+
+  body
+    p= t'views.mailer.message_to_supplier.hello_administrators_', name: @supplier.name
+    p= t'views.mailer.message_to_supplier.the_collective_profile_s', profile: @profile.name
+
+    p
+      i= @message
+
+    - if @include_order
+      = render "orders_plugin_order/show_simple", order: @order, actor_name: :consumer
+
+    p
+      | \--
+      br/
+    small style="color: #888" = t'views.mailer.message_to_supplier.a_service_of_s', environment: @environment.name

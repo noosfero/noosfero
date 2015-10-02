@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/oauth_client/lib/oauth_client_plugin.rb:10
-msgid "Login with Oauth."
-msgstr ""
-
-#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:12
-msgid "Failed to login"
-msgstr ""
-
-#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:32
-msgid "Can't login with %s"
-msgstr ""
-
 #: plugins/oauth_client/controllers/oauth_client_plugin_admin_controller.rb:20
 msgid "Saved!"
 msgstr ""
@@ -37,17 +25,55 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#: plugins/oauth_client/views/account/_oauth_signup.html.erb:10
-msgid "Email"
+#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:12
+msgid "Failed to login"
 msgstr ""
 
-#: plugins/oauth_client/views/oauth_client_plugin_admin/_noosfero_oauth2.html.erb:3
-msgid "Client Url"
+#: plugins/oauth_client/controllers/public/oauth_client_plugin_public_controller.rb:30
+msgid "Can't login with %s"
 msgstr ""
 
-#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:1
+#: plugins/oauth_client/lib/oauth_client_plugin.rb:10
+msgid "Login with Oauth."
+msgstr ""
+
 #: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:1
+#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:1
 msgid "Oauth Client Settings"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:2
+msgid "Providers"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:3
+msgid "New"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:6
+#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:11
+msgid "Name"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:7
+#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:15
+msgid "Strategy"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:8
+msgid "Actions"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:16
+msgid "Edit"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:17
+msgid "Remove"
+msgstr ""
+
+#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:23
+msgid "Go back"
 msgstr ""
 
 #: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:2
@@ -56,16 +82,6 @@ msgstr ""
 
 #: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:7
 msgid "Enabled"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:11
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:6
-msgid "Name"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:15
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:7
-msgid "Strategy"
 msgstr ""
 
 #: plugins/oauth_client/views/oauth_client_plugin_admin/edit.html.erb:19
@@ -88,28 +104,12 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:2
-msgid "Providers"
+#: plugins/oauth_client/views/oauth_client_plugin_admin/_noosfero_oauth2.html.erb:3
+msgid "Client Url"
 msgstr ""
 
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:3
-msgid "New"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:8
-msgid "Actions"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:16
-msgid "Edit"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:17
-msgid "Remove"
-msgstr ""
-
-#: plugins/oauth_client/views/oauth_client_plugin_admin/index.html.erb:23
-msgid "Go back"
+#: plugins/oauth_client/views/account/_oauth_signup.html.erb:10
+msgid "Email"
 msgstr ""
 
 #: plugins/oauth_client/views/auth/_oauth_login.html.erb:3

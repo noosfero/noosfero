@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,83 +24,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/spaminator/lib/spaminator_plugin.rb:8
-msgid "Search and destroy spams and spammers."
-msgstr "Busca e destrói spams e spammers."
-
 #: plugins/spaminator/lib/spaminator_plugin/mailer.rb:8
 msgid "[%s] You must reactivate your account."
 msgstr "[%s] Você deve reativar a sua conta."
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
-msgid "Spaminator reports"
-msgstr "Relatórios do spaminator"
+#: plugins/spaminator/lib/spaminator_plugin.rb:8
+msgid "Search and destroy spams and spammers."
+msgstr "Busca e destrói spams e spammers."
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
-#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
-msgid "Date"
-msgstr "Data"
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
+msgid "Hi %s!"
+msgstr "Olá %s!"
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
-msgid "Spams on comments"
-msgstr "Spams nos comentários"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:7
-#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:42
-msgid "Spammers"
-msgstr "Spammers"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:10
-msgid "On content"
-msgstr "No conteúdo"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
-msgid "From spammers"
-msgstr "De spammers"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
-msgid "Total"
-msgstr "Total"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
-msgid "With spam comments"
-msgstr "Com comentários spams"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:14
-msgid "With no network"
-msgstr "Sem rede"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:20
-msgid "Content of comments checked as spam / number of comments verified"
-msgstr ""
-"Conteúdo de comentários verificados como spams / número de comentários "
-"verificados"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:21
-msgid "Comments from spammers / number of comments verified"
-msgstr "Comentários de spammers / número de comentários verificados"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:22
-msgid "Spam comments / total number of comments"
-msgstr "Comentários spams / número total de comentários"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:23
-msgid "People with more than 2 spam comments / number of people verified"
-msgstr ""
-"Pessoas com mais de 2 comentários spams / número de pessoas verificadas"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:24
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
 msgid ""
-"People who signed up more than one month ago, have no network / number of "
-"people verified"
+"Due to the recent increase in the number of spams on %s, we decided to "
+"deactivate all inactive users on the network. It just happens that you are "
+"one of them! But there is no need to worry. Your account is completely "
+"preserved and if you want to reactivate it you just need to click on the "
+"following link and recover your password (since it was changed to a huge "
+"scramble of random characters):"
 msgstr ""
-"Pessoas que se cadastraram há mais de um mês, não tem rede / número de "
-"pessoas verificadas"
+"Devido ao recente aumento no número de spams em %s nós decidimos desativar "
+"todos os usuários inativos da rede. E você é um deles! Mas não precisa se "
+"preocupar. Sua conta está completamente preservada e se quiser reativá-la "
+"você só precisa clicar no link a seguir e recuperar sua senha (já que ela "
+"foi alterada para uma mistura de caracteres aleatórios):"
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:25
-msgid "Spammers / total number of people"
-msgstr "Spammers / número total de pessoas"
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
+msgid ""
+"We are sorry that this procedure might bother you a lot, but it's necessary "
+"for the healthy of our network."
+msgstr ""
+"Lamentamos que esse procedimento possa incomodá-lo muito, mas é necessário "
+"para a saúde de nossa rede."
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
+msgid "We hope to see you back soon!"
+msgstr "Esperamos vê-lo em breve!"
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
+msgid "Best Regards,"
+msgstr "Saudações,"
 
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:1
 msgid "Spaminator settings"
@@ -158,9 +123,19 @@ msgstr "Em espera"
 msgid "Cancel next scheduled scans"
 msgstr "Cancelar as próximas buscas agendadas"
 
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
+msgid "Date"
+msgstr "Data"
+
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:41
 msgid "Spams"
 msgstr "Spams"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:42
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:7
+msgid "Spammers"
+msgstr "Spammers"
 
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:47
 msgid "Spam comments found / number of comments verified"
@@ -178,37 +153,62 @@ msgstr "VEJA OS RELATÓRIOS COMPLETOS (%s)"
 msgid "No Report"
 msgstr "Nenhum Relatório"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
-msgid "Hi %s!"
-msgstr "Olá %s!"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
+msgid "Spaminator reports"
+msgstr "Relatórios do spaminator"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
-msgid ""
-"Due to the recent increase in the number of spams on %s, we decided to "
-"deactivate all inactive users on the network. It just happens that you are "
-"one of them! But there is no need to worry. Your account is completely "
-"preserved and if you want to reactivate it you just need to click on the "
-"following link and recover your password (since it was changed to a huge "
-"scramble of random characters):"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
+msgid "Spams on comments"
+msgstr "Spams nos comentários"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:10
+msgid "On content"
+msgstr "No conteúdo"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
+msgid "From spammers"
+msgstr "De spammers"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
+msgid "Total"
+msgstr "Total"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
+msgid "With spam comments"
+msgstr "Com comentários spams"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:14
+msgid "With no network"
+msgstr "Sem rede"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:20
+msgid "Content of comments checked as spam / number of comments verified"
 msgstr ""
-"Devido ao recente aumento no número de spams em %s nós decidimos desativar "
-"todos os usuários inativos da rede. E você é um deles! Mas não precisa se "
-"preocupar. Sua conta está completamente preservada e se quiser reativá-la "
-"você só precisa clicar no link a seguir e recuperar sua senha (já que ela "
-"foi alterada para uma mistura de caracteres aleatórios):"
+"Conteúdo de comentários verificados como spams / número de comentários "
+"verificados"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
-msgid ""
-"We are sorry that this procedure might bother you a lot, but it's necessary "
-"for the healthy of our network."
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:21
+msgid "Comments from spammers / number of comments verified"
+msgstr "Comentários de spammers / número de comentários verificados"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:22
+msgid "Spam comments / total number of comments"
+msgstr "Comentários spams / número total de comentários"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:23
+msgid "People with more than 2 spam comments / number of people verified"
 msgstr ""
-"Lamentamos que esse procedimento possa incomodá-lo muito, mas é necessário "
-"para a saúde de nossa rede."
+"Pessoas com mais de 2 comentários spams / número de pessoas verificadas"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
-msgid "We hope to see you back soon!"
-msgstr "Esperamos vê-lo em breve!"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:24
+msgid ""
+"People who signed up more than one month ago, have no network / number of "
+"people verified"
+msgstr ""
+"Pessoas que se cadastraram há mais de um mês, não tem rede / número de "
+"pessoas verificadas"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
-msgid "Best Regards,"
-msgstr "Saudações,"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:25
+msgid "Spammers / total number of people"
+msgstr "Spammers / número total de pessoas"

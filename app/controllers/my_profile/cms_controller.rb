@@ -86,7 +86,6 @@ class CmsController < MyProfileController
     refuse_blocks
     record_coming
     if request.post?
-      @article.image = nil if params[:remove_image] == 'true'
       if @article.image.present? && params[:article][:image_builder] &&
         params[:article][:image_builder][:label]
         @article.image.label = params[:article][:image_builder][:label]

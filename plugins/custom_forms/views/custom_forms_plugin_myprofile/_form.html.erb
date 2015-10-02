@@ -22,6 +22,27 @@
 
 <h2><%= c_('Fields') %></h2>
 
+<ul class='default-field-list'>
+  <li>
+    <fieldset class="field-box">
+      <legend>
+        <%= _('This field will be added automatically to your form') %>
+      </legend>
+      <%= required f.label :name, c_('Name:') %>
+      <%= _('Name') %>
+    </fieldset>
+  </li>
+  <li>
+    <fieldset class="field-box">
+      <legend>
+        <%= _('This field will be added automatically to your form') %>
+      </legend>
+      <%= required f.label :name, c_('Name:') %>
+      <%= _('Email') %>
+    </fieldset>
+  </li>
+</ul>
+
 <ul class='field-list'>
   <%= f.fields_for :fields do |builder| %>
     <li>

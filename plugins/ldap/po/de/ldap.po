@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,11 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/ldap/lib/ldap_plugin.rb:11
-#, fuzzy
-msgid "A plugin that add ldap support."
-msgstr "Ein Plugin, welches dies und jenes tut."
-
 #: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:10
 #, fuzzy
 msgid "Ldap configuration updated successfully."
@@ -33,6 +28,11 @@ msgstr "Optionen erfolgreich aktualisiert."
 #, fuzzy
 msgid "Ldap configuration could not be saved."
 msgstr "Die Konfiguration konnte nicht gespeichert werden"
+
+#: plugins/ldap/lib/ldap_plugin.rb:11
+#, fuzzy
+msgid "A plugin that add ldap support."
+msgstr "Ein Plugin, welches dies und jenes tut."
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:1
 #, fuzzy

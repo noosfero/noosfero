@@ -167,6 +167,14 @@ Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^"]*)")?$/ do |regexp, se
   end
 end
 
+Then /^(?:|I )should not see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
+  if page.respond_to? :should
+    page.should have_no_css(selector, :text => text)
+  else
+    assert page.has_no_css?(selector, :text => text)
+  end
+end
+
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
     field = find_field(field)

@@ -1,0 +1,34 @@
+
+/* sitemap and agenda */
+
+.agenda-item a.icon {
+  background-image: none;
+  line-height: 150%;
+}
+
+.agenda-item:hover, .sitemap-item:hover, .sitemap-item:hover a {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.agenda-item a, a:visited{
+ font-weight: bold;
+ color: black;
+}
+
+.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
+  border: none;
+  text-decoration: none;
+}
+
+.sitemap-item a.icon {
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  padding-left: 20px;
+  display: inline-block;
+  line-height: 16px;
+}
+
+.sitemap-item img, .agenda-item img {
+  border: none;
+}

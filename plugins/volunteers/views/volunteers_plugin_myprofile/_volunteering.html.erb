@@ -1,0 +1,20 @@
+<div class="volunteer-to-period" data-toggle-url="<%= url_for action: :toggle_assign, id: period.id, owner_id: period.owner_id, owner_type: period.owner_type  %>" onclick='volunteers.assignments.toggle(this)'>
+  <div class="name">
+    <%= period.name %>
+  </div>
+  <div class=body>
+    <div class="period">
+      <%= day_time_period period.start, period.end %>
+    </div>
+    <div class="assignments">
+      <% period.assignments.each do |assig| %>
+        <div class="volunteer">
+          <%= profile_image assig.profile, :icon %>
+          <%= assig.profile.short_name %>
+        </div>
+      <% end %>
+      <%# link_to t('volunteers_plugin.views.index.volunteer'), url: '' %>
+    </div>
+  </div>
+
+</div>

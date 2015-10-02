@@ -1,0 +1,13 @@
+<% item_data = item.quantity_price_data actor_name %>
+
+<div id="item-<%=item.id%>" class="value-row item <%= 'product-unavailable' if item_data[:flags][:unavailable] %>" toggle-edit="orders.item.edit();">
+
+  <% if @quantity_consumer_ordered_less_than_minimum and @quantity_consumer_ordered_less_than_minimum == item.id %>
+    <div class=distribution-error-message>
+      <%= t('orders_plugin.views.item._edit.this_product_requires') % {:value => product.minimum_selleable_localized} %>
+    </div>
+  <% end %>
+
+  <%= render "orders_plugin_item/edit_fields", order: order, item: item, product: product, actor_name: actor_name, item_data: item_data %>
+
+</div>

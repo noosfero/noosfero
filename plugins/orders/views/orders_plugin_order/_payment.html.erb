@@ -1,0 +1,14 @@
+<% return if order.payment_data.count == 0 %>
+<div id="payment-box" class="order-section">
+  <h3><%= t("views.order._payment.heading") %></h3>
+
+  <% order.payment_data.each do |key, value| %>
+    <% next if value.empty? %>
+    <div>
+      <strong>
+        <%= label_tag key, t("models.order.payment_data.#{key}") %>
+      </strong>
+      <%= value %>
+    </div>
+  <% end %>
+</div>

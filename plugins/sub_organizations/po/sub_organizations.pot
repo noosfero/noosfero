@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
+msgid "Sub-organizations updated"
 msgstr ""
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
-msgid "Adds the ability for groups to have sub-groups."
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
+msgid "Sub-organizations could not be updated"
 msgstr ""
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
-#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
+#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
+msgid "multi-level paternity is not allowed."
 msgstr ""
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
@@ -38,10 +37,6 @@ msgstr ""
 msgid ""
 "%{requestor} wants to add this organization as a sub-organization of "
 "%{linked_subject}."
-msgstr ""
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
-msgid "multi-level paternity is not allowed."
 msgstr ""
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:8
@@ -70,12 +65,17 @@ msgstr[1] ""
 msgid "This block displays %s organizations of this organization"
 msgstr ""
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
-msgid "Sub-organizations updated"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
 msgstr ""
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
-msgid "Sub-organizations could not be updated"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr ""
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
 msgstr ""
 
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:2

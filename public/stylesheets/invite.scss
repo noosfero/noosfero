@@ -1,0 +1,24 @@
+
+.controller-invite #contacts-list {
+  overflow: auto;
+  height: 300px;
+  border: 1px solid #999;
+  margin: 5px 0px;
+}
+#loading-dialog .loading-message {
+  height: 32px;
+  width: 32px;
+  left: 209px;
+  bottom: 5px;
+  position: absolute;
+  display: block;
+  background: transparent url(../images/loading-dark.gif) center center no-repeat;
+}
+/* hide the close x on the loading screen */
+.controller-invite .ui-dialog-titlebar-close {
+  display: none;
+}
+#hotmail_username_tip {
+  color: red;
+  margin-top: 10px;
+}

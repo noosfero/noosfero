@@ -1,0 +1,79 @@
+.box-edit
+  = form_for product, as: "product_#{product.id}", remote: true, html: {data: {loading: true}},
+    url: {controller: 'suppliers_plugin/product', action: :edit, id: product ? product.id : nil} do |f|
+    .internal-table
+      .title
+        = t'views.product._edit.distribution_setts'
+
+      .row.first
+
+        - unless product.own?
+          .block.margin-price
+            .field
+              = f.label :margin_percentage, t('views.product._edit.margin_price')
+            div.checkbox data-default-toggle=""
+              label name='default_margin_percentage'
+                = f.check_box :default_margin_percentage
+                = t'views.product._edit.default_margin'
+            div data-non-defaults=""
+              span.field-secondary.with-unit
+                = input_group_addon('%'){ f.number_field :margin_percentage, class: 'product-margin-percentage', step: 'any', onkeyup: 'suppliers.our_product.pmsync(this, true);', oninput: 'this.onkeyup()' }
+
+              span.field-secondary.with-unit
+                = hidden_field_tag :base_price, product.from_product.price, class: 'product-base-price', id: 'product_base_price',
+                  value: product.from_product.price
+                = input_group_addon(environment.currency_unit){ f.number_field :price, value: product.price, step: 'any', class: 'product-price', onkeyup: 'suppliers.our_product.pmsync(this, false);', oninput: 'this.onkeyup()' }
+
+        - if defined? StockPlugin
+          .block.stock
+            .field
+              = f.label :stock, t('views.product._edit.stock')
+            div.checkbox data-default-toggle=""
+              label name='default_stored'
+                = f.check_box :default_stored
+                = t'views.product._edit.default_stock'
+            div data-non-defaults=""
+              span.field-secondary
+                = f.label :stored, t('views.product._edit.current_stock'), class: 'field-bellow'
+                = f.number_field :stored, step: 'any'
+
+        .block.available
+          .field
+            = f.label :available, t('views.product._edit.distribution_state')
+          div.checkbox
+            label name='available'
+              = f.check_box :available
+              = t'views.product._edit.available'
+
+      .row.second
+        - unless product.own?
+          .block.unit
+            .field
+              = f.label :unit_id, t('views.product._edit.selling_unit')
+            div.checkbox data-default-toggle=""
+              label name='default_unit'
+                = f.check_box :default_unit
+                = t'views.product._edit.same_from_purchase'
+            div data-non-defaults=""
+              span.field-secondary
+                = f.label :unit_id, t('views.product._edit.unit'), class: 'field-bellow'
+                = f.select :unit_id, options_for_select(@units.map{ |u| [u.name, u.id]})
+              span.field-secondary
+                = f.label :unit_detail, t('views.product._edit.unit_detail'), class: 'field-bellow'
+                = f.text_field :unit_detail
+
+    .action-button-container
+      = f.submit t('views.product._edit.save'), class: 'save action-button'
+      = link_to_function t('views.product._edit.cancel'), '', class: 'action-button cancel', 'toggle-edit' => ''
+      = link_to_remote t('views.product._edit.remove_product'), remote: true, confirm: t('views.product._edit.are_you_sure_you_want'),
+        url: {controller: 'suppliers_plugin/product', action: 'destroy', id: product.id }, class: 'action-button remove',
+        html: {data: {loading: "#our-product-#{product.id}"}}
+
+  .links
+    = link_to t('views.product._edit.product_registry'),
+      {controller: :manage_products, action: :show, id: product.id},
+      target: '_blank', class: 'action-button registry'
+
+javascript:
+  suppliers.our_product.load(#{product.id});
+

@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2-478-gee4ad04\n"
-"POT-Creation-Date: 2015-09-11 18:11-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-09-11 18:56-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
+msgid "You can not vote on this %s"
+msgstr ""
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
+msgid "%s successfully rated!"
+msgstr ""
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
+msgid "Sorry, there were problems rating this profile."
+msgstr ""
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
+msgid "Configuration updated successfully."
+msgstr ""
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
+msgid "Configuration could not be saved."
+msgstr ""
+
+#: plugins/organization_ratings/lib/average_rating_block.rb:5
+msgid "Organization Average Rating"
+msgstr ""
+
+#: plugins/organization_ratings/lib/average_rating_block.rb:9
+msgid "This block displays the organization average rating."
+msgstr ""
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:31
 msgid "Comment waiting for approval"
@@ -93,60 +121,12 @@ msgstr ""
 msgid "This block displays the organization ratings."
 msgstr ""
 
-#: plugins/organization_ratings/lib/average_rating_block.rb:5
-msgid "Organization Average Rating"
-msgstr ""
-
-#: plugins/organization_ratings/lib/average_rating_block.rb:9
-msgid "This block displays the organization average rating."
-msgstr ""
-
 #: plugins/organization_ratings/lib/organization_ratings_plugin.rb:9
 msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
 
 #: plugins/organization_ratings/lib/organization_rating.rb:10
 msgid "must be between 1 and 5"
-msgstr ""
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
-msgid "Configuration updated successfully."
-msgstr ""
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
-msgid "Configuration could not be saved."
-msgstr ""
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
-msgid "You can not vote on this %s"
-msgstr ""
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
-msgid "%s successfully rated!"
-msgstr ""
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
-msgid "Sorry, there were problems rating this profile."
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:11
-msgid "User not logged"
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:17
-msgid "Report your experiences."
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
-msgid "* You must be logged in to submit a report."
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
-msgid "Rate %s "
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:7
-msgid "Log in"
 msgstr ""
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:3
@@ -187,6 +167,26 @@ msgstr ""
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:50
 msgid "Back"
+msgstr ""
+
+#: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
+msgid "Rate %s "
+msgstr ""
+
+#: plugins/organization_ratings/views/shared/_rating_button.html.erb:7
+msgid "Log in"
+msgstr ""
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:11
+msgid "User not logged"
+msgstr ""
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:17
+msgid "Report your experiences."
+msgstr ""
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
+msgid "* You must be logged in to submit a report."
 msgstr ""
 
 #: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:2

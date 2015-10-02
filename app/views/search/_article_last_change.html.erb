@@ -2,7 +2,7 @@
 
 <div class="search-article-author-changes">
   <% if article.last_changed_by and article.last_changed_by != article.profile %>
-    <span><%= _('by %{name} at %{date}') % {:name => link_to(article.last_changed_by.name, article.last_changed_by.url),
+    <span><%= _('Updated by %{name} at %{date}') % {:name => link_to(article.last_changed_by.name, article.last_changed_by.url),
       :date => show_date(article.updated_at) } %></span>
   <% else %>
     <span><%= _('Last update: %s.') % show_date(article.updated_at) %></span>

@@ -154,11 +154,14 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
     headers ||= false
 
     if File.extname(file.original_filename) == '.csv'
-      parsed_recipients = []
-      CSV.foreach(file.path, headers: headers) do |row|
-        parsed_recipients << {name: row[name_column.to_i - 1], email: row[email_column.to_i - 1]}
+      [",", ";", "\t"].each do |sep|
+        parsed_recipients = []
+        CSV.foreach(file.path, { headers: headers, col_sep: sep }) do |row|
+          parsed_recipients << {name: row[name_column.to_i - 1], email: row[email_column.to_i - 1]}
+        end
+        self.additional_recipients = parsed_recipients
+        break if self.valid? || !self.errors.include?(:additional_recipients)
       end
-      self.additional_recipients = parsed_recipients
     else
       #FIXME find a better way to deal with errors
       self.errors.add(:additional_recipients, _("have unknown file type: %s" % file.original_filename))

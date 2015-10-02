@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-23 11:35+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,64 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
-msgid "A shopping basket feature for enterprises"
-msgstr "Una característica de carrito de compras para tu empresa"
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:9
+msgid "Option updated successfully."
+msgstr "Opción actualizada correctamente."
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:32
-msgid "Add to basket"
-msgstr "Añadir al carrito"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:60
-msgid "Shopping basket"
-msgstr "Carrito de compras"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
-msgid "Purchase reports"
-msgstr "Reportes de compras"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-msgid "Opened"
-msgstr "Abierto"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-msgid "Canceled"
-msgstr "Cancelado"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-msgid "Confirmed"
-msgstr "Confirmado"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-msgid "Shipped"
-msgstr "Transportado"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
-#, fuzzy
-msgid "Free delivery"
-msgstr "Entrega"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
-msgid "Delivery"
-msgstr "Entrega"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
-msgid "Item name"
-msgstr "Nombre de artículo"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
-#: plugins/shopping_cart/views/cart.html.erb:7
-msgid "Total:"
-msgstr "Total:"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
-msgid "[%s] Your buy request was performed successfully."
-msgstr "[%s] Tu solicitud de compra se realizó con exito."
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:36
-msgid "[%s] You have a new buy request from %s."
-msgstr "[%s] Tienes una nueva solicitud de compra de %s."
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:11
+msgid "Option wasn't updated successfully."
+msgstr "La opción no fue actualizada satisfactoriamente."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:115
 msgid "Request sent successfully. Check your email."
@@ -124,132 +73,64 @@ msgstr "Producto sin categoría"
 msgid "Wrong product id"
 msgstr "Ningún producto"
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:9
-msgid "Option updated successfully."
-msgstr "Opción actualizada correctamente."
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
+msgid "A shopping basket feature for enterprises"
+msgstr "Una característica de carrito de compras para tu empresa"
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:11
-msgid "Option wasn't updated successfully."
-msgstr "La opción no fue actualizada satisfactoriamente."
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:32
+msgid "Add to basket"
+msgstr "Añadir al carrito"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
-msgid "Name"
-msgstr "Nombre"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13
-msgid "Delivery Address"
-msgstr "Dirección de entrega"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
-msgid "Send buy request"
-msgstr "Enviar solicitud de compra"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:2
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:2
-msgid "No results."
-msgstr "Sin resultados."
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
-msgid "Date"
-msgstr "Fecha"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:7
-msgid "Customer"
-msgstr "Cliente"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
-msgid "Purchase value"
-msgstr "Valor de compra"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-msgid "Status"
-msgstr "Estado"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-msgid "E-mail"
-msgstr "Correo electrónico"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:8
-#, fuzzy
-msgid "Delivery option"
-msgstr "Precio de entrega"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-msgid "Payment"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Nivel educativo"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
-msgid "Quantity"
-msgstr "Cantidad"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
-msgid "Basket options"
-msgstr "Opciones de carrito"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
-#, fuzzy
-msgid "Enable shopping basket"
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:60
+msgid "Shopping basket"
 msgstr "Carrito de compras"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
-msgid "Enable delivery fields on orders"
-msgstr ""
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
+msgid "Purchase reports"
+msgstr "Reportes de compras"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
-msgid "Option"
-msgstr "Opción"
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Opened"
+msgstr "Abierto"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:24
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:32
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Shipped"
+msgstr "Transportado"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
+msgid "[%s] Your buy request was performed successfully."
+msgstr "[%s] Tu solicitud de compra se realizó con exito."
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:36
+msgid "[%s] You have a new buy request from %s."
+msgstr "[%s] Tienes una nueva solicitud de compra de %s."
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
 #, fuzzy
-msgid "Remove option"
-msgstr "Más opciones"
+msgid "Free delivery"
+msgstr "Entrega"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:27
-msgid "ADD NEW OPTION"
-msgstr ""
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+msgid "Delivery"
+msgstr "Entrega"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
-msgid "Order's minimum price for free delivery:"
-msgstr ""
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
+msgid "Item name"
+msgstr "Nombre de artículo"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
-msgid "Leave empty to always charge the delivery."
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
-msgid "Purchase Reports"
-msgstr "Reporte de compras"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:12
-msgid "to"
-msgstr "a"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:19
-msgid "Products list"
-msgstr "Lista de productos"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:20
-msgid "Orders list"
-msgstr "Lista de órdenes"
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
+#: plugins/shopping_cart/views/cart.html.erb:7
+msgid "Total:"
+msgstr "Total:"
 
 #: plugins/shopping_cart/views/cart.html.erb:4
 msgid "Basket"
@@ -297,6 +178,138 @@ msgstr "¿Estás seguro de que deseas eliminar este elemento?"
 msgid "Are you sure you want to clean your basket?"
 msgstr "¿Estás seguro de que deseas limpiar tu carrito de compras?"
 
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
+msgid "Basket options"
+msgstr "Opciones de carrito"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
+#, fuzzy
+msgid "Enable shopping basket"
+msgstr "Carrito de compras"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
+msgid "Enable delivery fields on orders"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
+msgid "Option"
+msgstr "Opción"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:24
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:32
+#, fuzzy
+msgid "Remove option"
+msgstr "Más opciones"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:27
+msgid "ADD NEW OPTION"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
+msgid "Order's minimum price for free delivery:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
+msgid "Leave empty to always charge the delivery."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:2
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:2
+msgid "No results."
+msgstr "Sin resultados."
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
+msgid "Date"
+msgstr "Fecha"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:7
+msgid "Customer"
+msgstr "Cliente"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
+msgid "Purchase value"
+msgstr "Valor de compra"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
+msgid "Status"
+msgstr "Estado"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
+msgid "Name"
+msgstr "Nombre"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:8
+#, fuzzy
+msgid "Delivery option"
+msgstr "Precio de entrega"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+msgid "Payment"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#, fuzzy
+msgid "shopping_cart|Change"
+msgstr "Nivel educativo"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
+msgid "Purchase Reports"
+msgstr "Reporte de compras"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:12
+msgid "to"
+msgstr "a"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:19
+msgid "Products list"
+msgstr "Lista de productos"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:20
+msgid "Orders list"
+msgstr "Lista de órdenes"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13
+msgid "Delivery Address"
+msgstr "Dirección de entrega"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
+msgid "Send buy request"
+msgstr "Enviar solicitud de compra"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+msgid "Money"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#, fuzzy
+msgid "shopping_cart|Check"
+msgstr "Nivel educativo"
+
 #: plugins/shopping_cart/views/shopping_cart_plugin/send_request.html.erb:1
 msgid "Request sent successfully check your email."
 msgstr "Solicitud enviada con éxito revisa tu correo electrónico."
@@ -332,19 +345,6 @@ msgstr "Por favor revisa si tu información debajo es correcta:"
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 msgid "Phone number"
 msgstr "Número de teléfono"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-msgid "Money"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-#, fuzzy
-msgid "shopping_cart|Check"
-msgstr "Nivel educativo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"

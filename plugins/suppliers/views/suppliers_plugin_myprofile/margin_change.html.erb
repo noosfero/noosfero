@@ -1,0 +1,24 @@
+<div id="suppliers-plugin-margin-change" class="popin">
+  <h1><%= t('views.myprofile.margin_change.change_default_margin') %></h1>
+
+  <%= form_for @profile, as: :profile_data, remote: true, url: {controller: :suppliers_plugin_myprofile, action: :margin_change} do |f| %>
+
+    <div>
+      <%= t('views.myprofile.margin_change.notice') %>
+    </div>
+
+    <%= labelled_field f, :margin_percentage, t('views.myprofile.margin_change.new_margin'),
+      f.number_field(:margin_percentage, step: 'any') + ' ' + t('views.myprofile.margin_change.%') %>
+
+    <div>
+      <%= check_box_tag :apply_to_all, 1, false, style: 'float: left'  %>
+      <%= label_tag :apply_to_all, t('views.myprofile.margin_change.apply_to_all'), class: 'line-label' %>
+    </div>
+
+    <div class="clean"></div>
+
+    <%= submit_tag t('views.myprofile.margin_change.confirm') %>
+    <%= modal_close_link t('views.myprofile.margin_change.cancel') %>
+  <% end %>
+</div>
+

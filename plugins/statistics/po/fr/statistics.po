@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-03-07 02:46+0200\n"
 "Last-Translator: Tuux <tuxa@galaxie.eu.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -32,6 +32,30 @@ msgid ""
 msgstr ""
 "Un greffon qui ajoute un bloc ou vous pouvez voir les statistiques de son "
 "contexte."
+
+#: plugins/statistics/views/statistics_block.html.erb:7
+msgid "users"
+msgstr "utilisateurs"
+
+#: plugins/statistics/views/statistics_block.html.erb:10
+msgid "enterprises"
+msgstr "entreprises"
+
+#: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr "produits"
+
+#: plugins/statistics/views/statistics_block.html.erb:16
+msgid "communities"
+msgstr "groupes"
+
+#: plugins/statistics/views/statistics_block.html.erb:19
+msgid "categories"
+msgstr "catégories"
+
+#: plugins/statistics/views/statistics_block.html.erb:28
+msgid "hits"
+msgstr "rencontres"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
 msgid "Show user counter"
@@ -68,27 +92,3 @@ msgstr "Montrer le nombre de rencontres"
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr "Montrer le nombre de communautés avec un modèle %s"
-
-#: plugins/statistics/views/statistics_block.html.erb:7
-msgid "users"
-msgstr "utilisateurs"
-
-#: plugins/statistics/views/statistics_block.html.erb:10
-msgid "enterprises"
-msgstr "entreprises"
-
-#: plugins/statistics/views/statistics_block.html.erb:13
-msgid "products"
-msgstr "produits"
-
-#: plugins/statistics/views/statistics_block.html.erb:16
-msgid "communities"
-msgstr "groupes"
-
-#: plugins/statistics/views/statistics_block.html.erb:19
-msgid "categories"
-msgstr "catégories"
-
-#: plugins/statistics/views/statistics_block.html.erb:28
-msgid "hits"
-msgstr "rencontres"

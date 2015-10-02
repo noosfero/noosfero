@@ -1,0 +1,26 @@
+<% if @cycle.passed_by? 'edition' %>
+  <%= render 'title', :title => t('views.cycle._edition.info') %>
+<% end %>
+
+<div id="cycle-fields">
+  <%= render 'edit_fields' %>
+</div>
+
+<div id='cycle-products'>
+  <div class="header">
+    <h3><%= t('views.cycle._edition.the_products') %></h3>
+
+    <div class="subtitle"><%= t('views.cycle._edition.the_following_list_of') %></div>
+    <div class="subtitle"><%= t('views.cycle._edition.it_was_automatically_') %></div>
+  </div>
+
+  <div class="table">
+    <% if @cycle.add_products_job %>
+      <%= render 'products_loading' %>
+    <% else %>
+      <%= render 'product_lines' %>
+    <% end %>
+  </div>
+
+</div>
+

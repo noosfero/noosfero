@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc1-2843-g999a037\n"
-"POT-Creation-Date: 2015-08-06 08:53-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-03 17:27-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,10 +78,6 @@ msgstr "Evento"
 msgid "New Group Trigger"
 msgstr "Novo Gatilho de Grupo"
 
-#: plugins/site_tour/views/blocks/tour.html.erb:4
-msgid "Help"
-msgstr "Ajuda"
-
 #: plugins/site_tour/views/tour_actions.html.erb:16
 msgid "Next"
 msgstr "Próximo"
@@ -117,3 +113,7 @@ msgstr ""
 #: plugins/site_tour/views/site_tour_plugin_admin/index.html.erb:9
 msgid "Save"
 msgstr "Salvar"
+
+#: plugins/site_tour/views/blocks/tour.html.erb:4
+msgid "Help"
+msgstr "Ajuda"

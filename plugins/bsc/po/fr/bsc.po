@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-12 14:22+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -18,119 +18,20 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/bsc/lib/bsc_plugin.rb:10
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
 #, fuzzy
-msgid "Adds the Bsc feature"
-msgstr "Autres fonctionnalités"
+msgid "Your Bsc was created."
+msgstr "Votre adresse e-mail %s vient d'être activée"
 
-#: plugins/bsc/lib/bsc_plugin.rb:14
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
 #, fuzzy
-msgid "Create Bsc"
-msgstr "Créer"
+msgid "Enterprises validated."
+msgstr "Validations d'entreprises"
 
-#: plugins/bsc/lib/bsc_plugin.rb:15
+#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
 #, fuzzy
-msgid "Validate Enterprises"
-msgstr "Valider l'entreprise"
-
-#: plugins/bsc/lib/bsc_plugin.rb:20
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:1
-#, fuzzy
-msgid "Manage associated enterprises"
-msgstr "Gérer les entreprises"
-
-#: plugins/bsc/lib/bsc_plugin.rb:21 plugins/bsc/lib/bsc_plugin.rb:27
-msgid "Transfer ownership"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin.rb:22
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:1
-#, fuzzy
-msgid "Manage contracts"
-msgstr "Gérer les contacts."
-
-#: plugins/bsc/lib/bsc_plugin.rb:98
-msgid "Bsc"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin.rb:109
-#: plugins/bsc/views/shared/_fields.html.erb:53
-msgid "Contact"
-msgstr "Contact "
-
-#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
-#, fuzzy
-msgid "Bsc info and settings"
-msgstr "Informations et paramètres"
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
-#, fuzzy
-msgid "BSC association"
-msgstr "Informations de contact"
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
-#, fuzzy
-msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
-msgstr "L'utilisateur «%{user}» veut activer l'adresse «%{email}»"
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
-msgid "%{enterprise} accepted your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
-msgid "%{enterprise} rejected your request to associate it with %{bsc}."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
-msgid ""
-"Here is the reject explanation left by the administrator:\n"
-"\n"
-"%{reject_explanation}"
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
-#, fuzzy
-msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
-msgstr "%s veut être votre contact."
-
-#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
-msgid "[%s] Bsc management transferred to you."
-msgstr ""
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Opened"
-msgstr "ouvrir"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Negotiating"
-msgstr "Paramètres"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Executing"
-msgstr "Édition"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#, fuzzy
-msgid "Closed"
-msgstr "Fermer"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:46
-#, fuzzy
-msgid "Federal"
-msgstr "Tâche générique"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-#, fuzzy
-msgid "ProjectA"
-msgstr "Produit"
-
-#: plugins/bsc/lib/bsc_plugin/contract.rb:59
-#, fuzzy
-msgid "ProjectB"
-msgstr "Produit"
+msgid "Enterprise validations couldn't be saved."
+msgstr "Validations d'entreprises"
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
 #, fuzzy
@@ -190,20 +91,177 @@ msgstr "Corps de l'article"
 msgid "Contract could not be removed. Sorry! ^^"
 msgstr "Bloc d'information de profil"
 
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:10
 #, fuzzy
-msgid "Your Bsc was created."
-msgstr "Votre adresse e-mail %s vient d'être activée"
+msgid "BSC association"
+msgstr "Informations de contact"
 
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:21
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:18
 #, fuzzy
-msgid "Enterprises validated."
-msgstr "Validations d'entreprises"
+msgid "%{requestor} wants to associate this enterprise with %{linked_subject}."
+msgstr "L'utilisateur «%{user}» veut activer l'adresse «%{email}»"
 
-#: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:24
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
+msgid "%{enterprise} accepted your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
+msgid "%{enterprise} rejected your request to associate it with %{bsc}."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
+msgid ""
+"Here is the reject explanation left by the administrator:\n"
+"\n"
+"%{reject_explanation}"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
 #, fuzzy
-msgid "Enterprise validations couldn't be saved."
-msgstr "Validations d'entreprises"
+msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
+msgstr "%s veut être votre contact."
+
+#: plugins/bsc/lib/bsc_plugin/mailer.rb:7
+msgid "[%s] Bsc management transferred to you."
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin/bsc.rb:28
+#, fuzzy
+msgid "Bsc info and settings"
+msgstr "Informations et paramètres"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Opened"
+msgstr "ouvrir"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Negotiating"
+msgstr "Paramètres"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Executing"
+msgstr "Édition"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:33
+#, fuzzy
+msgid "Closed"
+msgstr "Fermer"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:46
+#, fuzzy
+msgid "Federal"
+msgstr "Tâche générique"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+#, fuzzy
+msgid "ProjectA"
+msgstr "Produit"
+
+#: plugins/bsc/lib/bsc_plugin/contract.rb:59
+#, fuzzy
+msgid "ProjectB"
+msgstr "Produit"
+
+#: plugins/bsc/lib/bsc_plugin.rb:10
+#, fuzzy
+msgid "Adds the Bsc feature"
+msgstr "Autres fonctionnalités"
+
+#: plugins/bsc/lib/bsc_plugin.rb:14
+#, fuzzy
+msgid "Create Bsc"
+msgstr "Créer"
+
+#: plugins/bsc/lib/bsc_plugin.rb:15
+#, fuzzy
+msgid "Validate Enterprises"
+msgstr "Valider l'entreprise"
+
+#: plugins/bsc/lib/bsc_plugin.rb:20
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:1
+#, fuzzy
+msgid "Manage associated enterprises"
+msgstr "Gérer les entreprises"
+
+#: plugins/bsc/lib/bsc_plugin.rb:21 plugins/bsc/lib/bsc_plugin.rb:27
+msgid "Transfer ownership"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:22
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:1
+#, fuzzy
+msgid "Manage contracts"
+msgstr "Gérer les contacts."
+
+#: plugins/bsc/lib/bsc_plugin.rb:98
+msgid "Bsc"
+msgstr ""
+
+#: plugins/bsc/lib/bsc_plugin.rb:109
+#: plugins/bsc/views/shared/_fields.html.erb:53
+msgid "Contact"
+msgstr "Contact "
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
+#: plugins/bsc/views/shared/_fields.html.erb:5
+#, fuzzy
+msgid "Basic information"
+msgstr "Informations de contact"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
+#, fuzzy
+msgid "Client type"
+msgstr "Type de contenu"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:8
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:7
+#, fuzzy
+msgid "Business type"
+msgstr "Nom de fichier"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
+#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
+msgid "Status"
+msgstr "Statut"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:12
+#, fuzzy
+msgid "Number of producers"
+msgstr "Pas de produit"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:13
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:35
+#, fuzzy
+msgid "Supply period"
+msgstr "Fournisseur : %s"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
+#, fuzzy
+msgid "Quantity"
+msgstr "Qualité"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:28
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:24
+#, fuzzy
+msgid "Unit price"
+msgstr "Distance :"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
+#, fuzzy
+msgid "Total"
+msgstr "Pour : "
+
+#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:48
+#, fuzzy
+msgid "Annotations"
+msgstr "Message d'invitation :"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
 msgid "Associations awaiting approval:"
@@ -220,85 +278,6 @@ msgstr "Désactiver la recherche d'entreprises"
 #, fuzzy
 msgid "Add new enterprise"
 msgstr "Une entreprise"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
-#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
-#, fuzzy
-msgid "New contract"
-msgstr "Tout le contenu"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:6
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:7
-#, fuzzy
-msgid "Client type"
-msgstr "Type de contenu"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:7
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:8
-#, fuzzy
-msgid "Business type"
-msgstr "Nom de fichier"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:10
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:11
-#: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:5
-msgid "Status"
-msgstr "Statut"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
-#, fuzzy
-msgid "Type in search term for enterprise"
-msgstr "Désactiver la recherche d'entreprises"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:23
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:27
-#, fuzzy
-msgid "Quantity"
-msgstr "Qualité"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:24
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:28
-#, fuzzy
-msgid "Unit price"
-msgstr "Distance :"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:27
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:38
-#, fuzzy
-msgid "Total"
-msgstr "Pour : "
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:31
-#, fuzzy
-msgid "Add new product"
-msgstr "Ajouter un produit"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:35
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:13
-#, fuzzy
-msgid "Supply period"
-msgstr "Fournisseur : %s"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
-#, fuzzy
-msgid "Type in a search term for product"
-msgstr "Désactiver la recherche d'entreprises"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:5
-#: plugins/bsc/views/shared/_fields.html.erb:5
-#, fuzzy
-msgid "Basic information"
-msgstr "Informations de contact"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:12
-#, fuzzy
-msgid "Number of producers"
-msgstr "Pas de produit"
-
-#: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:48
-#, fuzzy
-msgid "Annotations"
-msgstr "Message d'invitation :"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:17
 #, fuzzy
@@ -334,6 +313,27 @@ msgstr ""
 #, fuzzy
 msgid "Create new contract"
 msgstr "Créer un nouveau groupe"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
+#, fuzzy
+msgid "Type in search term for enterprise"
+msgstr "Désactiver la recherche d'entreprises"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:31
+#, fuzzy
+msgid "Add new product"
+msgstr "Ajouter un produit"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:57
+#, fuzzy
+msgid "Type in a search term for product"
+msgstr "Désactiver la recherche d'entreprises"
+
+#: plugins/bsc/views/bsc_plugin_myprofile/new_contract.html.erb:1
+#: plugins/bsc/views/bsc_plugin_myprofile/edit_contract.html.erb:1
+#, fuzzy
+msgid "New contract"
+msgstr "Tout le contenu"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:2
 #, fuzzy
@@ -377,6 +377,10 @@ msgstr "Interface d'administration"
 msgid "Type in a search term for the new administrator"
 msgstr ""
 
+#: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
+msgid "The management of %{bsc} was transferred to you."
+msgstr ""
+
 #: plugins/bsc/views/shared/_fields.html.erb:39
 #, fuzzy
 msgid ""
@@ -387,9 +391,15 @@ msgstr ""
 "les liens extérieurs menant à la page d'accueil ou le contenu du site lui-"
 "même. Voulez-vous vraiment la modifier ?"
 
-#: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
-msgid "The management of %{bsc} was transferred to you."
-msgstr ""
+#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
+#, fuzzy
+msgid "BSC registration"
+msgstr "Enregistrement de l'enterprise : \"%s\""
+
+#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
+#, fuzzy
+msgid "Validate enterprises"
+msgstr "Valider l'entreprise"
 
 #: plugins/bsc/views/profile/_profile_tab.html.erb:2
 #, fuzzy
@@ -400,13 +410,3 @@ msgstr "Téléphone de contact :"
 #, fuzzy
 msgid "Email: "
 msgstr "Courrier électronique : %s"
-
-#: plugins/bsc/views/bsc_plugin_admin/new.html.erb:2
-#, fuzzy
-msgid "BSC registration"
-msgstr "Enregistrement de l'enterprise : \"%s\""
-
-#: plugins/bsc/views/bsc_plugin_admin/validate_enterprises.html.erb:1
-#, fuzzy
-msgid "Validate enterprises"
-msgstr "Valider l'entreprise"

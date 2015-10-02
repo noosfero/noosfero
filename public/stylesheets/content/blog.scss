@@ -1,0 +1,113 @@
+
+.blog-post a {
+  text-decoration: none;
+}
+.blog-feed-link {
+  float: right;
+}
+#content .title {
+  margin-bottom: 2px;
+}
+.blog-post .post-pic {
+  background-position: 50% 40%;
+  background-size: cover;
+  height: 150px;
+}
+.blog-post .post-pic.empty {
+  display: none;
+}
+.metadata, .blog-post .metadata {
+  display: block;
+  text-align: center;
+  font-size: small;
+}
+.metadata {
+  text-align: right;
+  color: gray;
+}
+#content .publishing-info {
+  color: gray;
+  font-size: 12px;
+  display: block;
+  text-align: right;
+}
+#content .blog-post .publishing-info {
+  text-align: left;
+}
+#content #article .pagination .previous_page {
+  position: absolute;
+  left: 0;
+}
+#content #article .pagination .next_page {
+  position: absolute;
+  right: 0;
+}
+.msie6 #content #article .pagination .previous_page, .msie6 #content #article .pagination .next_page {
+  position: relative;
+  display: inline;
+}
+#content #boxes .box-1 .article-block img,
+#content #article .article-body img,
+#content #article .article-body video,
+#content #article .article-body audio {
+  max-width: 100%;
+  height: auto;
+}
+
+div.article-body p img {
+  max-width: 100%;
+  height: auto;
+}
+
+#content .blog-post .read-more {
+  text-align: right;
+  clear: both;
+}
+#content .blog-post .read-more a {
+  margin: 0 10px;
+}
+
+#content #article .blog-posts .blog-post .article-compact-abstract{
+  position: relative;
+  float:left;
+  margin-left: 10px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+#content #article .blog-posts .blog-post .article-compact-image{
+  position:relative;
+  float:left;
+  width: 27%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#content #article .blog-posts .blog-post .article-compact-abstract-with-image{
+  position: relative;
+  float:left;
+  margin-left: 10px;
+  width: 70%;
+  word-wrap: break-word;
+}
+/* NOT PUBLISHED BLOG POSTS */
+
+.blog-post.not-published {
+  background: url(../images/hachure.png);
+  opacity: 0.25;
+  filter: alpha(opacity=25);
+  zoom: 1;
+}
+.blog-post.not-published a {
+  text-decoration: none;
+}
+#content .blog-post.not-published .publishing-info {
+  text-align: left;
+}
+.blog-post.not-published .metadata {
+  display: block;
+  text-align: center;
+  font-size: small;
+}

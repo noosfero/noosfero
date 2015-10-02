@@ -1,0 +1,263 @@
+
+.controller-profile_editor .categorie_box .button {
+  float: left;
+}
+.controller-profile_editor #content ul.categories, .controller-profile_editor #content ul.categories li {
+  list-style: none;
+}
+.controller-profile_editor .control-panel {
+  /*border: 1px solid red;*/
+  padding: 0px 15px 0px 15px;
+}
+.controller-profile_editor .control-panel a {
+  display: block;
+  float: left;
+  width: 140px;
+  background-repeat: no-repeat;
+  background-position: 0px 50%;
+  height: 70px;
+  padding: 4px 5px 0px 55px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+  text-align: left;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  /* default icon */
+  background-image: url(../images/control-panel/important.png);
+}
+.controller-profile_editor .msie6 .control-panel a {
+  background-image: url(../images/control-panel/important.gif);
+}
+.controller-profile_editor .control-panel a:hover {
+  background-color: #d2e0f0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.controller-profile_editor #delete-profile {
+  margin-top: 30px;
+}
+.controller-profile_editor a.control-panel-groups {
+  background-image: url(../images/control-panel/system-users.png)
+}
+.controller-profile_editor .msie6 a.control-panel-groups {
+  background-image: url(../images/control-panel/system-users.gif)
+}
+.controller-profile_editor a.control-panel-design-editor {
+  background-image: url(../images/control-panel/preferences-desktop-wallpaper.png)
+}
+.controller-profile_editor .msie6 a.control-panel-design-editor {
+  background-image: url(../images/control-panel/preferences-desktop-wallpaper.gif)
+}
+.controller-profile_editor a.control-panel-blog-disabled {
+  background-image: url(../images/control-panel/text-editor-disabled.png)
+}
+.controller-profile_editor .msie6 a.control-panel-blog-disabled {
+  background-image: url(../images/control-panel/text-disabled.gif)
+}
+.controller-profile_editor a.control-panel-blog {
+  background-image: url(../images/control-panel/text-editor.png)
+}
+.controller-profile_editor .msie6 a.control-panel-blog {
+  background-image: url(../images/control-panel/text-editor.gif)
+}
+.controller-profile_editor a.control-panel-change-password {
+  background-image: url(../images/control-panel/password.png)
+}
+.controller-profile_editor .msie6 a.control-panel-change-password {
+  background-image: url(../images/control-panel/password.gif)
+}
+.controller-profile_editor a.control-panel-cms {
+  background-image: url(../images/control-panel/system-file-manager.png)
+}
+.controller-profile_editor .msie6 a.control-panel-cms {
+  background-image: url(../images/control-panel/system-file-manager.gif)
+}
+.controller-profile_editor a.control-panel-favorites {
+  background-image: url(../images/control-panel/emblem-favorite.png)
+}
+.controller-profile_editor .msie6 a.control-panel-favorites {
+  background-image: url(../images/control-panel/emblem-favorite.gif)
+}
+.controller-profile_editor a.control-panel-todo {
+  background-image: url(../images/control-panel/editpaste.png)
+}
+.controller-profile_editor .msie6 a.control-panel-todo {
+  background-image: url(../images/control-panel/editpaste.gif)
+}
+.controller-profile_editor a.control-panel-blocks {
+  background-image: url(../images/control-panel/blocks.png)
+}
+.controller-profile_editor .msie6 a.control-panel-blocks {
+  background-image: url(../images/control-panel/blocks.gif)
+}
+.controller-profile_editor a.control-panel-header-and-footer {
+  background-image: url(../images/control-panel/header-footer.png)
+}
+.controller-profile_editor .msie6 a.control-panel-header-and-footer {
+  background-image: url(../images/control-panel/header-footer.gif)
+}
+.controller-profile_editor a.control-panel-friends {
+  background-image: url(../images/control-panel/contact.png)
+}
+.controller-profile_editor .msie6 a.control-panel-friends {
+  background-image: url(../images/control-panel/contact.gif)
+}
+.controller-profile_editor a.control-panel-edit-profile {
+  background-image: url(../images/control-panel/edit-profile.png)
+}
+.controller-profile_editor .msie6 a.control-panel-edit-profile {
+  background-image: url(../images/control-panel/edit-profile.gif)
+}
+.controller-profile_editor a.control-panel-edit-profile-group {
+  background-image: url(../images/control-panel/edit-profile-group.png)
+}
+.controller-profile_editor .msie6 a.control-panel-edit-profile-group {
+  background-image: url(../images/control-panel/edit-profile-group.gif)
+}
+.controller-profile_editor a.control-panel-edit-profile-enterprise {
+  background-image: url(../images/control-panel/edit-profile-enterprise.png)
+}
+.controller-profile_editor .msie6 a.control-panel-edit-profile-enterprise {
+  background-image: url(../images/control-panel/edit-profile-enterprise.gif)
+}
+.controller-profile_editor a.control-panel-members {
+  background-image: url(../images/control-panel/contact.png)
+}
+.controller-profile_editor .msie6 a.control-panel-members {
+  background-image: url(../images/control-panel/contact.gif)
+}
+.controller-profile_editor a.control-panel-products {
+  background-image: url(../images/control-panel/package.png)
+}
+.controller-profile_editor .msie6 a.control-panel-products {
+  background-image: url(../images/control-panel/package.gif)
+}
+.controller-profile_editor a.control-panel-disable {
+  background-image: url(../images/control-panel/stop.png)
+}
+.controller-profile_editor .msie6 a.control-panel-disable {
+  background-image: url(../images/control-panel/stop.gif)
+}
+.controller-profile_editor a.control-panel-validation {
+  background-image: url(../images/control-panel/application-certificate.png)
+}
+.controller-profile_editor .msie6 a.control-panel-validation {
+  background-image: url(../images/control-panel/application-certificate.gif)
+}
+.controller-profile_editor a.control-panel-mail {
+  background-image: url(../images/control-panel/email.png)
+}
+.controller-profile_editor .msie6 a.control-panel-mail {
+  background-image: url(../images/control-panel/email.gif)
+}
+.controller-profile_editor a.control-panel-edit-location {
+  background-image: url(../images/control-panel/set-geolocation.png)
+}
+.controller-profile_editor .msie6 a.control-panel-edit-location {
+  background-image: url(../images/control-panel/set-geolocation.gif)
+}
+.controller-profile_editor a.control-panel-manage-spam {
+  background-image: url(../images/control-panel/mail-mark-junk.png)
+}
+.controller-profile_editor a.control-panel-welcome-page {
+  background-image: url(../images/control-panel/welcome-page.png)
+}
+.controller-profile_editor a.control-panel-roles {
+  background-image: url(../images/control-panel/role-management.png)
+}
+.controller-profile_editor .msie6 a.control-panel-roles {
+  background-image: url(../images/control-panel/role-management.gif)
+}
+
+.controller-profile_editor #profile-data {
+  display: table;
+  width: auto;
+}
+
+.field-with-privacy-selector {
+  display: table-row;
+}
+
+.field-with-privacy-selector:hover {
+  background-color: #F0F0F0;
+}
+
+.controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
+  width: auto;
+}
+
+.field-privacy-selector {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100px;
+}
+
+#profile_change_picture {
+  clear: both;
+  margin-top: 20px;
+}
+
+#profile_change_picture_title {
+  display: table-row;
+  width: 100%;
+}
+
+#profile_change_picture_title h2,
+#profile_change_picture_title span {
+  display: table-cell;
+}
+
+#profile_change_picture_title h2 {
+  padding-top: 20px;
+  width: auto;
+}
+
+#profile_change_picture_title span {
+  width: 100px;
+  text-align: center;
+}
+
+.change-confirmation {
+  background-color: #ef2929;
+  border: 6px solid #a40000;
+  padding: 20px;
+  margin: 5px 30px 10px 30px;
+}
+.change-confirmation div {
+  text-align: right;
+  padding: 20px 10px 0px 0px;
+}
+
+.type-img input {
+  float: left;
+  margin-right: 10px;
+}
+.type-img br {
+  clear: left;
+}
+
+#blog-image-builder > .formfieldline > .formfield > .formfieldline > .formfield > .formfieldline > label,
+#blog-image-builder > .formfieldline > label,
+#blog-image-builder #change-image > .formfieldline > label,
+#blog-image-builder #image-builder-remove-checkbox > .formfieldline > label,
+#profile_change_picture label {
+  display: none;
+}
+#profile_change_picture #image-builder-remove-checkbox > .formfieldline > label {
+  display: block;
+}
+#profile_change_picture img {
+  margin-left: 10px;
+}
+
+#profile-is-template {
+  background-color: #E6E6E6;
+  border: 1px solid #CCC;
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+

@@ -1,0 +1,98 @@
+@import 'base';
+
+$filter-border-color: #d6e9bc;
+$filter-bg: #BCDC91;
+
+#filter {
+  background-color: $filter-bg;
+  padding: 0;
+  margin-top: $margin;
+  margin-bottom: $margin;
+  font-size: 9px;
+
+  &.with-actions {
+    margin-bottom: 0;
+  }
+
+  &.wireframe-size {
+    margin-left: -($wireframe-padding);
+    margin-right: -($wireframe-padding);
+
+    .title, .filter-box, .submit {
+      padding-left: $wireframe-padding + $padding;
+      padding-right: $wireframe-padding + $padding;
+    }
+  }
+
+  .title {
+    padding: $padding;
+    margin: 0; //overhide application.css
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .submit {
+    padding: $padding;
+
+    input[type=submit] {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: $half-padding $padding;
+      background-color: #4B583C;
+      color: #FFFFFF;
+      border: $border solid white;
+      border-radius: $border-radius;
+      font-size: 9px;
+      text-align: center;
+      margin: none;
+      width: auto !important;
+    }
+  }
+
+  .filter-box {
+    border-bottom: $border solid $filter-border-color;
+    @extend .container-clean;
+    @import 'field';
+
+    &.fields {
+
+      .field {
+        float: left;
+        clear: none; //overhide field partial
+        padding: $padding;
+        padding-right: $padding - $border;
+        border-right: $border solid $filter-border-color;
+
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          border-right: 0;
+        }
+
+        label {
+          font-weight: bold;
+          padding-top: 0; //overhide field partial
+        }
+        select, input {
+          width: $module02;
+
+        }
+
+        &.period {
+          > label {
+            float: none;
+          }
+
+          .daterangepicker-field-container {
+            width: $module03;
+          }
+        }
+        .name input {
+          width: $module04;
+        }
+      }
+    }
+  }
+}
+

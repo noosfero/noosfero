@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-02-17 10:50+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,20 +24,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/lattes_curriculum/lib/html_parser.rb:19
-msgid "Lattes not found. Please, make sure the informed URL is correct."
-msgstr ""
-"Lattes não encontrado. Por favor certifique-se que a URL informada está "
-"correta."
-
-#: plugins/lattes_curriculum/lib/html_parser.rb:21
-msgid "Lattes Platform is unreachable. Please, try it later."
-msgstr ""
-"A Plataforma Lattes está inacessível. Por favor tente novamente mais tarde."
-
-#: plugins/lattes_curriculum/lib/html_parser.rb:23
-msgid "Could not import the lattes"
-msgstr ""
+#: plugins/lattes_curriculum/lib/academic_info.rb:10
+msgid " is invalid."
+msgstr " é inválido."
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
 #: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18
@@ -53,6 +42,17 @@ msgstr "Lattes"
 msgid " Invalid lattes url"
 msgstr " URL do Lattes inválida"
 
-#: plugins/lattes_curriculum/lib/academic_info.rb:10
-msgid " is invalid."
-msgstr " é inválido."
+#: plugins/lattes_curriculum/lib/html_parser.rb:19
+msgid "Lattes not found. Please, make sure the informed URL is correct."
+msgstr ""
+"Lattes não encontrado. Por favor certifique-se que a URL informada está "
+"correta."
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:21
+msgid "Lattes Platform is unreachable. Please, try it later."
+msgstr ""
+"A Plataforma Lattes está inacessível. Por favor tente novamente mais tarde."
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:23
+msgid "Could not import the lattes"
+msgstr ""

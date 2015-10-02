@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,30 @@ msgstr ""
 #: plugins/statistics/lib/statistics_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:7
+msgid "users"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:10
+msgid "enterprises"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:16
+msgid "communities"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:19
+msgid "categories"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:28
+msgid "hits"
 msgstr ""
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
@@ -64,28 +88,4 @@ msgstr ""
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:7
-msgid "users"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:10
-msgid "enterprises"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:13
-msgid "products"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:16
-msgid "communities"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:19
-msgid "categories"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:28
-msgid "hits"
 msgstr ""

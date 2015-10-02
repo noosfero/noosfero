@@ -1,0 +1,35 @@
+#orders-view.orders.page
+  h2= t('views.order.index.orders_cycles')
+
+  #years-filter
+    - @years_with_cycles.each do |year|
+      = link_to year, {action: :index, year: year}, class: (@year == year ? "current" : nil)
+      |&emsp;
+
+  - if @cycles.blank?
+    div
+      = t('views.order.index.there_s_no_open_sessi')
+
+  - @cycles.each do |cycle|
+    .cycle-with-consumer-orders
+      h3
+        span= t'views.order.index.code', code: cycle.code
+        = link_to cycle.name, {action: :edit, cycle_id: cycle.id}
+
+      = render 'orders_cycle_plugin_cycle/view_dates', cycle: cycle
+
+      - if cycle.may_order? user
+        - orders = cycle.sales.not_cancelled.for_consumer @consumer
+        - if orders.count > 0
+          div
+            strong= t('views.order.index.your_orders')
+            .consumer-orders
+              - orders.each do |order|
+                a href="#{url_for action: :edit, id: order.id}"
+                  = render 'status', order: order
+              .clean
+        - if cycle.may_order? user
+          - if orders.empty?
+            = link_to t('views.order.index.place_an_order'), {action: :new, cycle_id: cycle.id}, id: 'consumer-new-order'
+          - else
+            = link_to t('views.order.index.place_another_order'), {action: :new, cycle_id: cycle.id}, id: 'consumer-new-order'

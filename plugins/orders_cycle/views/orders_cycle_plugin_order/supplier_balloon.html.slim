@@ -1,0 +1,6 @@
+#supplier-ballon.balloon-content.orders-cycle
+  h3.popover-title= link_to @supplier.abbreviation_or_name, @supplier.profile.url, target: '_blank'
+  .left-column
+    = link_to profile_image(@supplier.profile, :portrait), @supplier.profile.url, target: '_blank'
+  .right-column
+    div= @supplier.description

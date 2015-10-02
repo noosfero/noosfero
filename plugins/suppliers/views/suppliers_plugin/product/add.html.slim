@@ -1,0 +1,18 @@
+div.popin
+  h1= t'views.product.add.title'
+
+  div
+    = button :new, t('views.product.add.own_product'), {controller: :manage_products, profile: profile.identifier, action: :new},
+      target: '_blank', onclick: 'noosfero.modal.close()'
+    |&nbsp;
+    = t'views.product.add.or_from_a_supplier'
+  br
+
+  div
+    - profile.suppliers.dummy.except_self.alphabetical.each do |supplier|
+      = link_to({controller: :manage_products, profile: supplier.profile.identifier, action: :new},
+        target: '_blank', onclick: 'noosfero.modal.close()') do
+        = profile_image supplier, :icon
+        = supplier.abbreviation_or_name
+      |&emsp;
+

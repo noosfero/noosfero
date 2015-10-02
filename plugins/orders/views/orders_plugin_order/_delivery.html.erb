@@ -1,0 +1,26 @@
+<%
+  data = order.delivery_data actor_name
+  other_supplier_methods = actor_name == :supplier && order.open? && order.delivery_methods.size > 0
+  edition = order.may_edit?(user, @admin) && other_supplier_methods if edition.nil?
+  data_present = (data = order.delivery_data(actor_name)).present?
+%>
+
+<% if edition or data_present %>
+  <div class="delivery-box order-section">
+    <h3><%= _('Delivery or pickup method') %></h3>
+
+    <% if edition %>
+      <%= render 'delivery_plugin/order_select', f: f, order: order, methods: order.delivery_methods, edition: edition %>
+    <% elsif data_present %>
+      <% data.each do |key, value| %>
+        <div>
+          <strong>
+            <%= label_tag key, t("models.order.delivery_data.#{key}") %>
+          </strong>
+          <%= value %>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+<% end %>

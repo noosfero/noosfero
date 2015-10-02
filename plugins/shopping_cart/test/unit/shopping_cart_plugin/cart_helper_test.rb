@@ -41,19 +41,4 @@ class ShoppingCartPlugin::CartHelperTest < ActiveSupport::TestCase
     assert_equal "#{environment.currency_unit}13#{environment.currency_separator}70", float_to_currency_cart(value,environment)
   end
 
-  should 'return a table of items' do
-    enterprise = Enterprise.new(name: "Test Enterprise", identifier: "test-enterprise")
-    enterprise.environment = Environment.default
-    enterprise.save!
-
-    product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :name => 'test product1', :product_category_id => product_category.id, :profile_id => enterprise.id)
-    setting = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
-    setting.delivery = true
-    setting.save!
-
-    assert_match 'table id="cart-items-table"', items_table([product], enterprise)
-    assert_match '<td>test product1</td>', items_table([product], enterprise)
-  end
-
 end

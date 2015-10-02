@@ -997,4 +997,15 @@ class AccountControllerTest < ActionController::TestCase
                                 :national_region_type_id => NationalRegionType::CITY,
                                 :parent_national_region_code => parent_region.national_region_code)
   end
+
+  should 'not lock users out of login if environment is restrict to members' do
+    Environment.default.enable(:restrict_to_members)
+    get :login
+    assert_response :success
+
+    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    assert session[:user]
+    assert_response :redirect
+  end
+
 end

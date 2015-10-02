@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,6 +23,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
+
+#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:17
+#: plugins/send_email/views/send_email_plugin/success.html.erb:1
+msgid "Message sent"
+msgstr "A mensagem foi enviada"
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
+msgid "Configurations was saved"
+msgstr "As configurações foram salvas"
+
+#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
+msgid "Configurations could not be saved"
+msgstr "As configurações não puderam ser salvas"
+
+#: plugins/send_email/lib/send_email_plugin.rb:10
+msgid "A plugin that allows sending e-mails via HTML forms."
+msgstr "Um plugin que permite envio de e-mails via formulários HTML."
 
 #: plugins/send_email/lib/send_email_plugin/mail.rb:4
 msgid "To"
@@ -37,31 +54,6 @@ msgid "'%s' address is not allowed (see SendEmailPlugin config)"
 msgstr ""
 "%{fn} '%s' endereço não permitido (veja as configurações do SendEmailPlugin)"
 
-#: plugins/send_email/lib/send_email_plugin.rb:10
-msgid "A plugin that allows sending e-mails via HTML forms."
-msgstr "Um plugin que permite envio de e-mails via formulários HTML."
-
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:7
-msgid "Configurations was saved"
-msgstr "As configurações foram salvas"
-
-#: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:10
-msgid "Configurations could not be saved"
-msgstr "As configurações não puderam ser salvas"
-
-#: plugins/send_email/controllers/send_email_plugin_base_controller.rb:17
-#: plugins/send_email/views/send_email_plugin/success.html.erb:1
-msgid "Message sent"
-msgstr "A mensagem foi enviada"
-
-#: plugins/send_email/views/send_email_plugin/sender/send_message.html.erb:1
-msgid "Contact from %s"
-msgstr "Contato de %s"
-
-#: plugins/send_email/views/send_email_plugin/fail.html.erb:1
-msgid "The message could not be sent"
-msgstr "A mensagem não pode ser enviada"
-
 #: plugins/send_email/views/send_email_plugin_admin/index.html.erb:1
 msgid "SendEmailPlugin's config"
 msgstr "Configurações do SendEmailPlugin"
@@ -73,3 +65,11 @@ msgstr "Endereços de e-mail que você deseja liberar para envio"
 #: plugins/send_email/views/send_email_plugin_admin/index.html.erb:5
 msgid "(list of email addresses separated by comma)"
 msgstr "(lista de endereços de e-mail separadas por vírgula)"
+
+#: plugins/send_email/views/send_email_plugin/sender/send_message.html.erb:1
+msgid "Contact from %s"
+msgstr "Contato de %s"
+
+#: plugins/send_email/views/send_email_plugin/fail.html.erb:1
+msgid "The message could not be sent"
+msgstr "A mensagem não pode ser enviada"

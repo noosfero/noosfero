@@ -11,18 +11,75 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-07 16:48+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
-"/plugin-custom-forms/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom-forms/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
+msgid "Custom form %s was successfully created."
+msgstr "O formulário %s foi criado com sucesso."
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
+msgid "Custom form %s was successfully updated."
+msgstr "O formulário personalizado %s foi atualizado com sucesso."
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
+msgid "Form could not be updated"
+msgstr "O formulário não pode ser atualizado"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
+msgid "Form removed"
+msgstr "Formulário removido"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
+msgid "Form could not be removed"
+msgstr "O formulário não pode ser removido"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr "Submissão salva"
+
+#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
+msgid "Submission could not be saved"
+msgstr "A submissão não pode ser salva"
+
+#: plugins/custom_forms/lib/custom_forms_plugin.rb:8
+msgid "Enables the creation of forms."
+msgstr "Habilita a criação de formulários."
+
+#: plugins/custom_forms/lib/custom_forms_plugin.rb:16
+msgid "Manage Forms"
+msgstr "Gerenciar Formulários"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
+msgid "Admission survey"
+msgstr "Questionário para associação"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
+msgid "%{requestor} wants you to fill in some information before joining."
+msgstr ""
+"%{requestor} quer que você preencha algumas informações antes de se associar."
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
+msgid ""
+"Before joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr ""
+"Antes de entrar em %{requestor}, os administradores dessa organização\n"
+" querem que você preencha algumas informações adicionais."
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:22
+msgid "%{requestor} wants you to fill in some further information."
+msgstr "%{requestor} quer que você preencha algumas informações adicionais."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
@@ -61,10 +118,6 @@ msgstr ""
 msgid "%{requestor} wants to fill in some further information."
 msgstr "%{requestor} quer que preencha algumas informações adicionais."
 
-#: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:13
-msgid "is mandatory."
-msgstr "é obrigatório."
-
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
 msgid "Logged users"
@@ -102,62 +155,9 @@ msgstr "Campo de seleção"
 msgid "Hold down Ctrl to select options"
 msgstr "Segure Ctrl para selecionar as opções"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
-msgid "Admission survey"
-msgstr "Questionário para associação"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
-msgid "%{requestor} wants you to fill in some information before joining."
-msgstr ""
-"%{requestor} quer que você preencha algumas informações antes de se associar."
-
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
-msgid ""
-"Before joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
-"Antes de entrar em %{requestor}, os administradores dessa organização\n"
-" querem que você preencha algumas informações adicionais."
-
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:22
-msgid "%{requestor} wants you to fill in some further information."
-msgstr "%{requestor} quer que você preencha algumas informações adicionais."
-
-#: plugins/custom_forms/lib/custom_forms_plugin.rb:8
-msgid "Enables the creation of forms."
-msgstr "Habilita a criação de formulários."
-
-#: plugins/custom_forms/lib/custom_forms_plugin.rb:16
-msgid "Manage Forms"
-msgstr "Gerenciar Formulários"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
-msgid "Custom form %s was successfully created."
-msgstr "O formulário %s foi criado com sucesso."
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:46
-msgid "Custom form %s was successfully updated."
-msgstr "O formulário personalizado %s foi atualizado com sucesso."
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:49
-msgid "Form could not be updated"
-msgstr "O formulário não pode ser atualizado"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:59
-msgid "Form removed"
-msgstr "Formulário removido"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:61
-msgid "Form could not be removed"
-msgstr "O formulário não pode ser removido"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr "Submissão salva"
-
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
-msgid "Submission could not be saved"
-msgstr "A submissão não pode ser salva"
+#: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:13
+msgid "is mandatory."
+msgstr "é obrigatório."
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
@@ -170,39 +170,95 @@ msgid "Sorry, you can't fill this form anymore"
 msgstr "Desculpe, você não pode mais preencher esse formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:17
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:32
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
 msgid "Name"
 msgstr "Nome"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:41
 msgid "Email"
 msgstr "E-mail"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:3
+msgid "Submissions for %s"
+msgstr "Submissões para %s"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:6
+msgid "There are no submissions for this form."
+msgstr "Não há submissões para este formulário."
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:9
+msgid "Download all form responses as"
+msgstr "Baixar todas as respostas como"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
+msgid "Time"
+msgstr "Tempo"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:31
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:26
+msgid "Back to forms"
+msgstr "Voltar para os formulários"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
+msgid "Manage forms"
+msgstr "Gerenciar formulários"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr "Período"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
+msgid "Submissions"
+msgstr "Submissões"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:13
+msgid "Access"
+msgstr "Acesso"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr "Ações"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
+msgid "Pending"
+msgstr "Pendente"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:21
+msgid "Are you sure you want to remove this form?"
+msgstr "Tem certeza de que deseja remover esse formulário?"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:27
+msgid "Add a new form"
+msgstr "Adicionar um novo formulário"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:9
+msgid "Back to submissions"
+msgstr "Voltar para submissões"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/edit.html.erb:1
+msgid "Edit form"
+msgstr "Editar formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
 msgid "New form"
 msgstr "Novo formulário"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
-msgid "Value"
-msgstr "Valor"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
-msgid "Add a new option"
-msgstr "Adicionar uma nova opção"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
-msgid "Ok"
-msgstr "Ok"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
 msgid "Remove alternative"
 msgstr "Remover alternativa"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
-msgid "Default text:"
-msgstr "Texto padrão:"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
 msgid "Type:"
@@ -236,14 +292,17 @@ msgstr "Pré-selecionado"
 msgid "Add a new alternative"
 msgstr "Adicionar nova alternativa"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
+msgid "Default text:"
+msgstr "Texto padrão:"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
+msgid "Are you sure you want to remove this field?"
+msgstr "Tem certeza de que deseja remover este campo?"
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:6
 msgid "What is the time limit for this form to be filled?"
 msgstr "Qual o período limite em que esse formulário pode ser preenchido?"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:9
-msgid "Access"
-msgstr "Acesso"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:16
 msgid "Triggered on membership request as requirement for approval"
@@ -253,25 +312,22 @@ msgstr "Disparado para novos integrantes como requisito de aprovação"
 msgid "Triggered after membership"
 msgstr "Disparado depois da aprovação de um novo integrante"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:34
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:29
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:38
+msgid "This field will be added automatically to your form"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:55
 msgid "Add a new text field"
 msgstr "Adicionar novo campo de texto"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:35
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:56
 msgid "Add a new select field"
 msgstr "Adicionar novo campo de seleção"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10
-msgid "Mandatory"
-msgstr "Obrigatório"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:15
-msgid "Remove field"
-msgstr "Remover campo"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/edit.html.erb:1
-msgid "Edit form"
-msgstr "Editar formulário"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
+msgid "Are you sure you want to remove this option?"
+msgstr "Tem certeza de que deseja remover esta opção?"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:3
 msgid "Pending submissions for %s"
@@ -282,78 +338,29 @@ msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-msgid "Sort by"
-msgstr "Ordenar por"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
-msgid "Time"
-msgstr "Tempo"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:13
 msgid "User"
 msgstr "Usuário"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:31
-msgid "Back to forms"
-msgstr "Voltar para os formulários"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
+msgid "Value"
+msgstr "Valor"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:9
-msgid "Back to submissions"
-msgstr "Voltar para submissões"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
+msgid "Add a new option"
+msgstr "Adicionar uma nova opção"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
-msgid "Are you sure you want to remove this field?"
-msgstr "Tem certeza de que deseja remover este campo?"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
+msgid "Ok"
+msgstr "Ok"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
-msgid "Are you sure you want to remove this option?"
-msgstr "Tem certeza de que deseja remover esta opção?"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10
+msgid "Mandatory"
+msgstr "Obrigatório"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:3
-msgid "Submissions for %s"
-msgstr "Submissões para %s"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:6
-msgid "There are no submissions for this form."
-msgstr "Não há submissões para este formulário."
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:9
-msgid "Download all form responses as"
-msgstr "Baixar todas as respostas como"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
-msgid "Manage forms"
-msgstr "Gerenciar formulários"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr "Período"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
-msgid "Submissions"
-msgstr "Submissões"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
-msgid "Actions"
-msgstr "Ações"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
-msgid "Pending"
-msgstr "Pendente"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:21
-msgid "Are you sure you want to remove this form?"
-msgstr "Tem certeza de que deseja remover esse formulário?"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:27
-msgid "Add a new form"
-msgstr "Adicionar um novo formulário"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:15
+msgid "Remove field"
+msgstr "Remover campo"
 
 #~ msgid "Author name"
 #~ msgstr "Nome do autor"

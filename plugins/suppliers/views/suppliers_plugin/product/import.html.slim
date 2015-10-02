@@ -1,0 +1,29 @@
+#suppliers-products-import.popin
+  h1= t'views.product.import.action'
+
+  = form_tag({controller: 'suppliers_plugin/product', action: :import}, onsubmit: '$(this).ajaxSubmit(); return false') do
+    p= t'views.product.import.help'
+    table
+      thead
+        th= t'views.product.import.field_supplier_name'
+        th= t'views.product.import.field_product_name'
+        th= t'views.product.import.field_product_unit'
+        th= t'views.product.import.field_product_price'
+      tbody
+        tr
+          td
+          td
+          td
+          td
+    p= t'views.product.import.unit_help', units: environment.units.reorder('singular ASC').map(&:singular).join(' - ')
+
+    .checkbox
+      label name='remove_all_suppliers'
+        = check_box_tag :remove_all_suppliers, 'true', false, onchange: "suppliers.our_product.import.confirmRemoveAll(this, '#{j t'views.product.import.confirm_remove_all'}')"
+        = t'views.product.import.remove_all'
+
+    = file_field_tag :csv, accept: 'text/csv'
+
+    = submit_button :save, t('views.product.import.send')
+    = modal_close_button _'Cancel'
+

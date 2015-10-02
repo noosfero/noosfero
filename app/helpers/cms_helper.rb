@@ -9,11 +9,6 @@ module CmsHelper
     mime_type.gsub('/', '_').gsub('-', '')
   end
 
-  def pagination_links(collection, options={})
-    options = {:previous_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
-    will_paginate(collection, options)
-  end
-
   attr_reader :environment
 
   def options_for_article(article, tokenized_children=nil)
@@ -35,7 +30,7 @@ module CmsHelper
   end
 
   def display_spread_button(article)
-    expirable_button article, :spread, _('Spread this'), {:action => 'publish', :id => article.id}, {:class => 'colorbox'}
+    expirable_button article, :spread, _('Spread this'), {:action => 'publish', :id => article.id}, {:class => 'colorbox', :modal => true}
   end
 
   def display_delete_button(article)

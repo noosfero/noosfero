@@ -1,0 +1,10 @@
+<% unless params[:redirect] == '1' %>
+  orders_cycle.order.product.load(<%= @offered_product.id %>, true);
+
+  $('#consumer-order-<%=@order.id%>').html(<%= render('orders_cycle_plugin_order/active_order', order: @order, actor_name: @actor_name).to_json %>);
+
+  var item = $('#item-<%=@item.id%>');
+  orders.item.edit_quantity(item);
+<% else %>
+  window.location = <%= url_for(controller: :orders_cycle_plugin_order, action: :edit, id: @order.id).to_json %>
+<% end %>

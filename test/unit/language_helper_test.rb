@@ -19,8 +19,18 @@ class LanguageHelperTest < ActiveSupport::TestCase
   end
 
   should 'remove country code for TinyMCE' do
+    self.expects(:language).returns('de_DE')
+    assert_equal 'de', tinymce_language
+  end
+
+  should 'not remove country code for TinyMCE for pt_BR language' do
     self.expects(:language).returns('pt_BR')
-    assert_equal 'pt', tinymce_language
+    assert_equal 'pt_BR', tinymce_language
+  end
+
+  should 'not remove country code for TinyMCE for fr_FR language' do
+    self.expects(:language).returns('fr_FR')
+    assert_equal 'fr_FR', tinymce_language
   end
 
   should 'downcase and use dash for HTML language' do

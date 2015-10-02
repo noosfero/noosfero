@@ -1,0 +1,25 @@
+
+#content .communities-block .profile-image {
+  float: none;
+  padding-left: 0px;
+  max-width: none;
+}
+#content .communities-block .vcard .profile_link {
+  text-align: center;
+  padding-bottom: 0px;
+}
+
+#content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
+#content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
+  position: relative;
+}
+.msie7 .communities-block .common-profile-list-block .vcard .profile_link {
+  height: 75px;
+  padding-bottom: 0px;
+}
+.msie7 #content .communities-block .vcard {
+  width: 58px;
+}
+.msie7 #content .communities-block .vcard .menu-submenu-trigger {
+  height: 20px;
+}

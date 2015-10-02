@@ -33,7 +33,7 @@ module Noosfero
       after { set_session_cookie }
 
       version 'v1'
-      prefix "api"
+      prefix [ENV['RAILS_RELATIVE_URL_ROOT'], "api"].compact.join('/')
       format :json
       content_type :txt, "text/plain"
 

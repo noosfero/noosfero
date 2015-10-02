@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
@@ -31,6 +31,33 @@ msgstr "Данный блок представляет некоторую ста
 #: plugins/statistics/lib/statistics_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:7
+#, fuzzy
+msgid "users"
+msgstr "Пользователь"
+
+#: plugins/statistics/views/statistics_block.html.erb:10
+#, fuzzy
+msgid "enterprises"
+msgstr "Компании"
+
+#: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr ""
+
+#: plugins/statistics/views/statistics_block.html.erb:16
+msgid "communities"
+msgstr "Сообщества"
+
+#: plugins/statistics/views/statistics_block.html.erb:19
+#, fuzzy
+msgid "categories"
+msgstr "Категории"
+
+#: plugins/statistics/views/statistics_block.html.erb:28
+msgid "hits"
 msgstr ""
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
@@ -75,31 +102,4 @@ msgstr "Весь контент"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:7
-#, fuzzy
-msgid "users"
-msgstr "Пользователь"
-
-#: plugins/statistics/views/statistics_block.html.erb:10
-#, fuzzy
-msgid "enterprises"
-msgstr "Компании"
-
-#: plugins/statistics/views/statistics_block.html.erb:13
-msgid "products"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:16
-msgid "communities"
-msgstr "Сообщества"
-
-#: plugins/statistics/views/statistics_block.html.erb:19
-#, fuzzy
-msgid "categories"
-msgstr "Категории"
-
-#: plugins/statistics/views/statistics_block.html.erb:28
-msgid "hits"
 msgstr ""

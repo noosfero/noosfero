@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,18 +24,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
-msgstr "Sub-grupos"
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
+msgid "Sub-organizations updated"
+msgstr "Sub-organizações atualizadas"
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
-msgid "Adds the ability for groups to have sub-groups."
-msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
+msgid "Sub-organizations could not be updated"
+msgstr "As sub-organizações não puderam ser salvas"
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
-#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
-msgstr "Gerenciar sub-grupos"
+#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
+msgid "multi-level paternity is not allowed."
+msgstr "paternidade multi-nível não é permitido."
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
@@ -48,10 +47,6 @@ msgid ""
 msgstr ""
 "%{requestor} quer associar esta organização como sub-organização de "
 "%{linked_subject}."
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
-msgid "multi-level paternity is not allowed."
-msgstr "paternidade multi-nível não é permitido."
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:8
 msgid "Related Organizations"
@@ -81,13 +76,18 @@ msgid "This block displays %s organizations of this organization"
 msgstr ""
 "\"Este bloco mostra #{display_type[:title]} organizações desta organização\""
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
-msgid "Sub-organizations updated"
-msgstr "Sub-organizações atualizadas"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
+msgstr "Sub-grupos"
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
-msgid "Sub-organizations could not be updated"
-msgstr "As sub-organizações não puderam ser salvas"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr "Gerenciar sub-grupos"
 
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:2
 msgid "Type of organizations to be displayed"

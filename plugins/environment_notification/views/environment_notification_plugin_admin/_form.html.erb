@@ -1,0 +1,38 @@
+<div class="environment-notification-plugin-form">
+  <% abstract_options = {:value => @notification.message, :style => 'width: 100%; height: 200px;', :class => "environment-notification-plugin-message" } %>
+
+  <%= button :back, _('Back'), :controller => 'environment_notification_plugin_admin' %>
+
+  <%= form_for :notifications do |f| %>
+
+    <%= render :file => 'shared/tiny_mce' %>
+
+    <%= labelled_form_field(_("Optional Title:"), f.text_field(:title, value: @notification.title)) %>
+
+    <%= labelled_form_field(_("Enter your message here:"), f.text_area(:message, abstract_options)) %>
+    <small class="notification-variables-options">
+      <%= _("Obs: You can use %{name} and %{email} variables to put the user's name and email in the message.") %>
+    </small>
+
+    <%= labelled_form_field(_('Notifications Status'), select(:notifications, :active, options_for_select_with_title({"Active" => true, "Inactive" => false}, @notification.active))) %>
+
+    <%= labelled_form_field(_('Notifications Color/Type'), select(:notifications, :type, options_for_select_with_title({_("Blue - Information") => "EnvironmentNotificationPlugin::InformationNotification", _("Yellow - Warning") => "EnvironmentNotificationPlugin::WarningNotification", _("Green - Success") => "EnvironmentNotificationPlugin::SuccessNotification", _("Red - Danger") => "EnvironmentNotificationPlugin::DangerNotification"}, @notification.type))) %>
+
+    <div>
+      <%= labelled_check_box(_("Display only in the homepage"), 'notifications[display_only_in_homepage]', '1', @notification.display_only_in_homepage?) %>
+    </div>
+
+    <div>
+      <%= labelled_check_box(_("Display to not logged users too"), 'notifications[display_to_all_users]', '1', @notification.display_to_all_users?) %>
+    </div>
+
+    <div>
+      <%= labelled_check_box(_("Display popup until user close the notification"), 'notifications[display_popup]', '1', @notification.display_popup?) %>
+    </div>
+
+    <% button_bar do %>
+      <%= submit_button 'save', _('Save'), :cancel => { :action => 'index' }  %>
+    <% end %>
+
+  <% end %>
+</div>

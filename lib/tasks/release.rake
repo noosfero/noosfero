@@ -268,6 +268,15 @@ EOF
   desc "Build Debian packages (shorcut)"
   task :deb => :debian_packages
 
+  desc 'Build Debian snapshot packages (for local testing)'
+  task 'deb:snapshot' => :package do
+    target = "pkg/noosfero-#{$version}"
+    Dir.chdir target do
+      sh 'dch', '-v', $version.gsub('-', '.'), 'snapshot'
+    end
+    Rake::Task['noosfero:deb'].invoke
+  end
+
   desc 'Test Debian package'
   task 'debian:test' => :debian_packages do
     Dir.chdir 'pkg' do

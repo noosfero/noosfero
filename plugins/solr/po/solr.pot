@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,54 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: plugins/solr/lib/solr_plugin.rb:14
-msgid "Uses Solr as search engine."
-msgstr ""
-
-#: plugins/solr/lib/ext/product.rb:7
-msgid "Related products"
-msgstr ""
-
-#: plugins/solr/lib/ext/product.rb:73
-msgid " cert. "
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:13
-msgid "Published date"
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:13
-msgid "Older than one year"
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last year"
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last month"
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last week"
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last day"
-msgstr ""
-
-#: plugins/solr/lib/ext/profile.rb:14
-msgid "Situation"
-msgstr ""
-
-#: plugins/solr/lib/ext/profile.rb:103
-msgid "facets|Enabled"
-msgstr ""
-
-#: plugins/solr/lib/ext/profile.rb:103
-msgid "facets|Not enabled"
-msgstr ""
 
 #: plugins/solr/lib/solr_plugin/search_helper.rb:12
 #: plugins/solr/lib/solr_plugin/search_helper.rb:19
@@ -117,6 +69,54 @@ msgstr ""
 
 #: plugins/solr/lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
+msgstr ""
+
+#: plugins/solr/lib/solr_plugin.rb:14
+msgid "Uses Solr as search engine."
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Published date"
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Older than one year"
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last year"
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last month"
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last week"
+msgstr ""
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last day"
+msgstr ""
+
+#: plugins/solr/lib/ext/profile.rb:14
+msgid "Situation"
+msgstr ""
+
+#: plugins/solr/lib/ext/profile.rb:103
+msgid "facets|Enabled"
+msgstr ""
+
+#: plugins/solr/lib/ext/profile.rb:103
+msgid "facets|Not enabled"
+msgstr ""
+
+#: plugins/solr/lib/ext/product.rb:7
+msgid "Related products"
+msgstr ""
+
+#: plugins/solr/lib/ext/product.rb:73
+msgid " cert. "
 msgstr ""
 
 #: plugins/solr/views/search/_results_header.html.erb:7

@@ -1,0 +1,36 @@
+
+#manage-communities {
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+#manage-communities .ui-icon {
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+#manage-communities .simplemenu-submenu {
+  text-align: left;
+  left: -20px;
+  width: 200px;
+}
+#manage-communities .simplemenu-item {
+  padding: 5px 0;
+}
+#manage-communities .simplemenu-item a {
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+#manage-communities .simplemenu-item a span {
+  display: none;
+}
+.msie8 #manage-communities-link { /* IE8 hack */
+  border: 0px solid;
+}
+.msie8 #manage-communities .simplemenu-submenu {
+  top: 16px;
+}
+.webkit #manage-communities .simplemenu-submenu {
+  top: 20px;
+}
+

@@ -1,0 +1,2 @@
+jQuery('#order-row-<%=@order.id%>').replaceWith('<%= j render('orders_plugin_admin/order', :order => @order, :actor_name => @actor_name, :edit => true) %>');
+

@@ -94,6 +94,9 @@ else
   fi
 fi
 
+# Ensure database is running
+sudo service postgresql start
+
 if test -e config/database.yml && test "$force_install" = 'false'; then
   say 'Not updating existent database.yml.'
   say 'If you wish to automatic reconfigure your database connection and'

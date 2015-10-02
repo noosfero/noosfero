@@ -959,13 +959,24 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
   end
 
-  should 'remove the image of an article' do
+  should 'remove the image of a blog' do
     blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
-    post :edit, :profile => profile.identifier, :id => blog.id, :remove_image => 'true'
+    post :edit, :profile => profile.identifier, :id => blog.id, :article => {:image_builder => { :remove_image => 'true'}}
     blog.reload
 
     assert_nil blog.image
+  end
+
+  should 'remove the image of an article' do
+    image = fast_create(Image, :content_type => 'image/png', :filename => 'event-image.png', :label => 'test_label', :size => 1014)
+    article = fast_create(Article, :profile_id => profile.id, :name => 'test_label_article', :body => 'test_content')
+    article.image = image
+    article.save
+    post :edit, :profile => profile.identifier, :id => article.id, :article => {:image_builder => { :remove_image => 'true'}}
+    article.reload
+
+    assert_nil article.image
   end
 
   should 'update feed options by edit blog form' do

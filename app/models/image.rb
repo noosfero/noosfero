@@ -1,6 +1,7 @@
 class Image < ActiveRecord::Base
 
-  attr_accessible :uploaded_data, :label
+  attr_accessible :uploaded_data, :label, :remove_image
+  attr_accessor :remove_image
 
   def self.max_size
     Image.attachment_options[:max_size]
@@ -29,4 +30,5 @@ class Image < ActiveRecord::Base
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
   end
+
 end

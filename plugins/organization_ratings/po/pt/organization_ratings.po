@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1+spb4-1-g4767db4\n"
-"POT-Creation-Date: 2015-09-14 14:09-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-09-11 18:56-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
+msgid "You can not vote on this %s"
+msgstr "Você não pode votar nesta %s"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
+msgid "%s successfully rated!"
+msgstr "%s avaliada com sucesso!"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
+msgid "Sorry, there were problems rating this profile."
+msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
+msgid "Configuration updated successfully."
+msgstr "Configurações atualizadas com sucesso."
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
+msgid "Configuration could not be saved."
+msgstr "Configurações não puderam ser salvas."
+
+#: plugins/organization_ratings/lib/average_rating_block.rb:5
+msgid "Organization Average Rating"
+msgstr "Média de Avaliações da Organização"
+
+#: plugins/organization_ratings/lib/average_rating_block.rb:9
+msgid "This block displays the organization average rating."
+msgstr "Este bloco mostra a média de avaliações da organização."
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:31
 msgid "Comment waiting for approval"
@@ -39,8 +67,8 @@ msgid ""
 "<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this "
 "%{target_class}"
 msgstr ""
-"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
-"neste(a) %{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário neste"
+"(a) %{target_class}"
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
 msgid "%{requestor} wants to create a comment in this \"%{target}\""
@@ -113,14 +141,6 @@ msgstr "Avaliações da Organização"
 msgid "This block displays the organization ratings."
 msgstr "Este bloco mostra as avaliações da organização."
 
-#: plugins/organization_ratings/lib/average_rating_block.rb:5
-msgid "Organization Average Rating"
-msgstr "Média de Avaliações da Organização"
-
-#: plugins/organization_ratings/lib/average_rating_block.rb:9
-msgid "This block displays the organization average rating."
-msgstr "Este bloco mostra a média de avaliações da organização."
-
 #: plugins/organization_ratings/lib/organization_ratings_plugin.rb:9
 msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
@@ -129,46 +149,6 @@ msgstr ""
 #: plugins/organization_ratings/lib/organization_rating.rb:10
 msgid "must be between 1 and 5"
 msgstr "deve ser entre 1 e 5"
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
-msgid "Configuration updated successfully."
-msgstr "Configurações atualizadas com sucesso."
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
-msgid "Configuration could not be saved."
-msgstr "Configurações não puderam ser salvas."
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
-msgid "You can not vote on this %s"
-msgstr "Você não pode votar nesta %s"
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
-msgid "%s successfully rated!"
-msgstr "%s avaliada com sucesso!"
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
-msgid "Sorry, there were problems rating this profile."
-msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:11
-msgid "User not logged"
-msgstr "Usuário não logado"
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:17
-msgid "Report your experiences."
-msgstr "Relate suas experiências."
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
-msgid "* You must be logged in to submit a report."
-msgstr "* Você precisa estar logado para enviar um relato."
-
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
-msgid "Rate %s "
-msgstr "Avaliar %s "
-
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:7
-msgid "Log in"
-msgstr "Entrar"
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:3
 msgid "Organization Rating Settings"
@@ -209,6 +189,26 @@ msgstr "Quantidade de avaliações por página"
 #: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:50
 msgid "Back"
 msgstr "Voltar"
+
+#: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
+msgid "Rate %s "
+msgstr "Avaliar %s "
+
+#: plugins/organization_ratings/views/shared/_rating_button.html.erb:7
+msgid "Log in"
+msgstr "Entrar"
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:11
+msgid "User not logged"
+msgstr "Usuário não logado"
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:17
+msgid "Report your experiences."
+msgstr "Relate suas experiências."
+
+#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
+msgid "* You must be logged in to submit a report."
+msgstr "* Você precisa estar logado para enviar um relato."
 
 #: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:2
 msgid "Comment:"

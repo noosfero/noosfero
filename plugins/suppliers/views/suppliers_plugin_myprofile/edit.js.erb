@@ -1,0 +1,5 @@
+jQuery("#supplier-<%= @supplier.id %>").html("<%= j render(:partial => 'suppliers_plugin_myprofile/supplier', :object => @supplier) %>");
+<% unless @supplier.valid? %>
+  toggle_edit.value_row.reload();
+<% end %>
+

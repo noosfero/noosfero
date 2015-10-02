@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-07-03 00:41+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -17,25 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
-
-#: plugins/people_block/lib/friends_block.rb:8
-msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Cliquer sur une personne vous amène à sa page personnelle"
-
-#: plugins/people_block/lib/friends_block.rb:12
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] "{#} ami"
-msgstr[1] "{#} amis"
-
-#: plugins/people_block/lib/people_block_base.rb:9
-msgid "Random people"
-msgstr "Personnes au hasard"
-
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
-msgid "{#} People"
-msgstr "{#} Personne"
 
 #: plugins/people_block/lib/members_block.rb:11
 msgid "Clicking a member takes you to his/her homepage"
@@ -56,6 +37,25 @@ msgstr "Afficher le bouton quitter"
 #: plugins/people_block/lib/people_block_plugin.rb:8
 msgid "A plugin that adds a people block"
 msgstr "Un plugin qui ajoute un bloc de personnes"
+
+#: plugins/people_block/lib/friends_block.rb:8
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Cliquer sur une personne vous amène à sa page personnelle"
+
+#: plugins/people_block/lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "{#} ami"
+msgstr[1] "{#} amis"
+
+#: plugins/people_block/lib/people_block_base.rb:9
+msgid "Random people"
+msgstr "Personnes au hasard"
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+msgid "{#} People"
+msgstr "{#} Personne"
 
 #: plugins/people_block/lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"

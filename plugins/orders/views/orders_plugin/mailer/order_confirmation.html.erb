@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%= stylesheet_link_tag 'plugins/orders/style.css' %>
+  </head>
+
+  <body>
+    <p>
+      <%= t('orders_plugin.views.mailer.order_confirmation.dear_name') % {name: @consumer.name} %>
+    </p>
+
+    <p>
+      <%= t('orders_plugin.views.mailer.order_confirmation.your_order_made_on_co') % {
+        name: @profile.name, date: day_time(@order.updated_at)
+      } %>
+    </p>
+
+    <% if @order.respond_to? :cycle %>
+      <p>
+        <%= t('orders_plugin.views.mailer.order_confirmation.the_delivery_period_w') % {
+          date: datetime_period_with_from(@order.cycle.delivery_start, @order.cycle.delivery_finish)
+        } %>
+      </p>
+    <% end %>
+
+    <p><%= t('orders_plugin.views.mailer.order_confirmation.order_data_confirmed') %></p>
+
+    <%= render "orders_plugin_order/show_simple", order: @order, actor_name: :consumer %>
+
+    <p>
+      <%= t('orders_plugin.views.mailer.order_confirmation.your_order_can_be_che') %><br />
+      <%= link_to t('orders_plugin.views.mailer.order_confirmation.order_code_of_profile') % {code: @order.code, name: @profile.name },
+        {controller: :orders_cycle_plugin_order, action: :edit, profile: @profile.identifier, id: @order.id, protocol: "http"} %>
+    </p>
+
+    <p>
+      --<br/>
+      <%= t('orders_plugin.views.mailer.order_confirmation.greetings') %>
+    </p>
+  </body>
+</html>

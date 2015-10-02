@@ -1,0 +1,12 @@
+- month ||= nil
+- year ||= nil
+- owner_id ||= nil
+- wireframe_size = true if wireframe_size.nil?
+
+= render 'orders_plugin_admin/load'
+= render 'orders_plugin_admin/filter', actor_name: :supplier, actors: actors, orders_method: :sales, orders_owner: orders_owner, owner_id: owner_id, month: month, year: year, wireframe_size: wireframe_size
+= render 'orders_plugin_admin/actions', wireframe_size: wireframe_size, orders_method: :sales
+
+#sales-table
+  = render 'orders_plugin_admin/table', actor_name: :supplier, orders: orders, wireframe_size: wireframe_size
+

@@ -1,0 +1,49 @@
+#groups-list {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+}
+
+#groups-list li {
+  display: block;
+  list-style: none;
+  margin-bottom: 20px;
+  background-color: #B8CFE7;
+}
+
+#groups-list li .vcard {
+  float: right;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+#groups-list li .may-clear {
+  clear: right;
+}
+
+#groups-list li .profile-details {
+  display: block;
+  padding: 3% 0px 0px 30px;
+}
+
+#groups-list .menu-submenu {
+  bottom: 127px;
+  right: -20px;
+}
+
+#groups-list .menu-submenu li {
+  border: 0;
+  background: transparent;
+}
+
+#groups-list .button-bar {
+  clear: both;
+}
+
+#groups-list li .vcard a.profile_link.url,
+#groups-list li .vcard a.profile_link.url:hover {
+  background: transparent;
+  border: 0;
+  text-decoration: none;
+}

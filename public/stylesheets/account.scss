@@ -1,0 +1,74 @@
+
+.login-box {
+  padding: 3px 20px 8px 20px;
+}
+.login-block {
+  min-height: 100px;
+}
+.login-block .login-box {
+}
+.login-box-content {
+  margin-top: -6px;
+  border: 2px solid #729FCF;
+  background: #B8CFE7;
+  padding: 0px 20px 5px 20px;
+}
+.login-box-content .button-bar .button {
+  position: relative;
+}
+.login-box .formfieldline input {
+  width: 99%;
+}
+.login-box form {
+  margin: 0px;
+  padding: 0px 0px 10px 0px;
+}
+.msie7 .login-box form {
+  padding: 0px 10px 10px 0px;
+}
+#content .login-block h2 {
+  font-size: 20px;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+.login-box p {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+.login-box #forgot-passwd {
+  padding-bottom: 6px;
+}
+.want-to-be-an-user {
+  font-size: 13px;
+}
+#content .logged-user-info h2 {
+  font-size: 16px;
+}
+.logged-user-info ul {
+  margin-top: 5px;
+}
+.logged-user-info .user-actions {
+  padding-left: 50px;
+}
+
+.controller-account #profile-data .type-text input, .controller-account #profile-data .type-password input, .controller-account #profile-data .type-select select {
+  width: 220px
+}
+.controller-account #profile-data .type-select select.select-schooling {
+  width: 108px;
+}
+.controller-account #profile-data .select-birth-date select#profile_data_birth_date_3i {
+  width: 47px;
+}
+.controller-account .button.disabled {
+  opacity: 0.5;
+}
+.controller-account #content .icon-forward.disabled {
+  background-image: url('/designs/icons/default/go-right-disabled-HC.gif');
+}
+.controller-account .no-boxes {
+  margin-left: 200px;
+  margin-right: 200px;
+}

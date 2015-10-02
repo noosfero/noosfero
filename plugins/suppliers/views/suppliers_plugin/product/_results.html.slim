@@ -1,0 +1,8 @@
+- @products.each do |product|
+  .our-product.value-row id="our-product-#{product.id}" toggle-edit="suppliers.our_product.toggle_edit()"
+    = render "suppliers_plugin/product/edit_line", product: product
+
+= pagination_links @products
+javascript:
+  table_filter.pagination.init(#{_('loading...').to_json})
+

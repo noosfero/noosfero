@@ -4,7 +4,15 @@ module LanguageHelper
   end
 
   def tinymce_language
-    language.downcase.split('_').first
+    lang = language.downcase.split('_').first
+    case lang
+    when 'pt'
+      'pt_BR'
+    when 'fr'
+      'fr_FR'
+    else
+      lang
+    end
   end
 
   def html_language

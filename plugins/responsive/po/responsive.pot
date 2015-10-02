@@ -1,0 +1,359 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"PO-Revision-Date: 2015-09-16 21:45-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/responsive/lib/responsive_plugin.rb:8
+msgid "Responsive layout for Noosfero"
+msgstr ""
+
+#: plugins/responsive/lib/ext/chat_helper.rb:15
+msgid "Online"
+msgstr ""
+
+#: plugins/responsive/lib/ext/chat_helper.rb:16
+msgid "Busy"
+msgstr ""
+
+#: plugins/responsive/lib/ext/chat_helper.rb:17
+msgid "Sign out of chat"
+msgstr ""
+
+#: plugins/responsive/lib/ext/chat_helper.rb:19
+msgid "Chat"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:136
+msgid "Contents"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:139
+msgid "All contents"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:142
+msgid "contents|More recent"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:143
+msgid "contents|More viewed"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:144
+msgid "contents|Most commented"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:147
+msgid "New content"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:167
+msgid "People"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:170
+msgid "All people"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:173
+msgid "people|More recent"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:174
+msgid "people|More active"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:175
+msgid "people|More popular"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:178
+msgid "My friends"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:179
+msgid "Invite friends"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:199
+msgid "Communities"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:202
+msgid "All communities"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:205
+msgid "communities|More recent"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:206
+msgid "communities|More active"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:207
+msgid "communities|More popular"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:210
+msgid "My communities"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:211
+msgid "New community"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:236
+#: plugins/responsive/lib/ext/application_helper.rb:240
+msgid "Go to your homepage"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:240
+msgid "Profile"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:252
+msgid "Control panel"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:252
+msgid "Configure your personal account and content"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:254
+msgid "Offline"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:266
+msgid "Logout"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:266
+msgid "Leave the system"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:279
+msgid "See all"
+msgstr ""
+
+#: plugins/responsive/lib/ext/application_helper.rb:282
+msgid "Manage %s"
+msgstr ""
+
+#: plugins/responsive/lib/ext/forms_helper.rb:32
+msgid "Cancel"
+msgstr ""
+
+#: plugins/responsive/views/shared/_profile_search_form.html.erb:8
+#: plugins/responsive/views/shared/_profile_search_form.html.erb:15
+msgid "Find in %s's content"
+msgstr ""
+
+#: plugins/responsive/views/shared/_profile_search_form.html.erb:10
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:12
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:29
+msgid "Search"
+msgstr ""
+
+#: plugins/responsive/views/shared/_profile_search_form.html.erb:16
+msgid "General"
+msgstr ""
+
+#: plugins/responsive/views/shared/_profile_search_form.html.erb:16
+msgid "Search all content"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:11
+msgid "Are you a robot?"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:12
+msgid "Please, prove that you are human by filling the captcha."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:18
+msgid "The account could not be created"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:37
+msgid "Username"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:48
+msgid ""
+"Choose your login name carefully! It will be your network access and you "
+"will not be able to change it later."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:52
+#: plugins/responsive/views/account/_signup_form.html.erb:57
+msgid "Checking availability of login name..."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:66
+msgid "Password"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:73
+msgid ""
+"Choose a password that you can remember easily. It must have at least 4 "
+"characters."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:81
+msgid "Blank"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:82
+msgid "Short"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:83
+msgid "Bad"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:84
+msgid "Good"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:85
+msgid "Strong"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:88
+msgid "Passwords do not match"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:93
+msgid "Password confirmation"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:101
+msgid ""
+"We need to be sure that you filled in your password correctly. Confirm you "
+"password."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:109
+msgid "e-Mail"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:117
+msgid "This e-mail address will be used to contact you."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:125
+msgid "Full name"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:132
+msgid "Tell us your name, it will be used to identify yourself."
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:150
+msgid "I accept the %s"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:150
+msgid "terms of use"
+msgstr ""
+
+#: plugins/responsive/views/account/_signup_form.html.erb:165
+msgid "Create my account"
+msgstr ""
+
+#: plugins/responsive/views/layouts/_modal.html.erb:6
+msgid "Close"
+msgstr ""
+
+#: plugins/responsive/views/layouts/application-responsive.html.erb:34
+msgid "Go to the content"
+msgstr ""
+
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:8
+msgid "User menu"
+msgstr ""
+
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:16
+msgid "Navigation"
+msgstr ""
+
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:34
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:45
+msgid "Search..."
+msgstr ""
+
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:56
+msgid "Login"
+msgstr ""
+
+#: plugins/responsive/views/layouts/_menu_responsive.html.erb:62
+msgid "Sign up"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:4
+msgid "Invite your friends"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:6
+msgid "Invite your friends to join %s"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:10
+msgid "Step 2 of 2: Selecting Friends"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:12
+msgid "Back"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:15
+msgid "Indicate which friends you want to invite."
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:23
+msgid "Enter one e-mail address per line:"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:27
+msgid "Check all"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:28
+msgid "Uncheck all"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:38
+msgid ""
+"Now enter an invitation message. You must keep the <url> code in your "
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:39
+msgid "Invitation text:"
+msgstr ""
+
+#: plugins/responsive/views/invite/select_friends.html.erb:43
+msgid "Invite my friends!"
+msgstr ""
+
+#: plugins/responsive/views/manage_products/_edit_name.html.erb:16
+msgid "Save"
+msgstr ""

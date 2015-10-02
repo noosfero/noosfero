@@ -68,6 +68,31 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal other_work_assignment.publish_submissions, submission.parent.published
   end
 
+  should 'submission inherit Work Assignment "published" attribute and not be set as show_to_followers when it is not public' do
+    @organization.add_member(@person)
+    work_assignment = create_work_assignment('Work Assignment', @organization, false, nil)
+
+    assert !work_assignment.publish_submissions
+
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    submission = UploadedFile.last
+
+    assert !submission.show_to_followers?
+    assert_equal work_assignment.publish_submissions, submission.published
+    assert_equal work_assignment.publish_submissions, submission.parent.published
+
+    other_work_assignment = create_work_assignment('Other Work Assigment', @organization, true, nil)
+
+    assert_equal true, other_work_assignment.publish_submissions
+
+    post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    submission = UploadedFile.last
+
+    assert submission.show_to_followers?
+    assert_equal other_work_assignment.publish_submissions, submission.published
+    assert_equal other_work_assignment.publish_submissions, submission.parent.published
+  end
+
   private
     def create_work_assignment(name = nil, profile = nil, publish_submissions = nil, allow_visibility_edition = nil)
       @work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => name, :profile => profile, :publish_submissions => publish_submissions, :allow_visibility_edition => allow_visibility_edition)

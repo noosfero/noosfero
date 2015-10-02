@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,10 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
-
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin.rb:8
-msgid "A plugin that add a block to display breadcrumbs."
-msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
 #: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
 msgid "Content Breadcrumbs"
@@ -39,6 +35,10 @@ msgstr "Esse bloco mostra o rastro de caminho de pão."
 #: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:68
 msgid "Upload Files"
 msgstr "Enviar Arquivos"
+
+#: plugins/breadcrumbs/lib/breadcrumbs_plugin.rb:8
+msgid "A plugin that add a block to display breadcrumbs."
+msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
 #: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:2
 msgid "Show cms action"

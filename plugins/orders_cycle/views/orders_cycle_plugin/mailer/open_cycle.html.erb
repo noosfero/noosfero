@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <p>
+      <%= t('views.mailer.open_cycle.hello_member_of_name') % {:name => @profile.name} %>
+    </p>
+
+    <p><%= t('views.mailer.open_cycle.a_new_cycle_is_open_c') + @cycle.name %></p>
+    <hr />
+    <p><i><%= @cycle.description %></i></p>
+    <hr />
+    <p><%= t('views.mailer.open_cycle.the_administrator_let') %></p>
+    <p><i><%= @message %></i></p>
+
+    <p><%= link_to t('views.order.index.place_an_order'), {:controller => :orders_cycle_plugin_order, :action => :edit, :cycle_id => @cycle.id, :profile => @profile.identifier, :only_path => false, :host => @profile.hostname || @environment.default_hostname }, :id => 'consumer-new-order' %></p>
+
+    <p><%= @domain %>
+    <p>
+      --<br/>
+    </p>
+
+    <small style="color: #888"><%= @environment.name %></small>
+  </body>
+</html>
+

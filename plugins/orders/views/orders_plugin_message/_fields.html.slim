@@ -1,0 +1,3 @@
+= fields_for :email do |f|
+  = labelled_field f, :subject, t('views.message._fields.subject'), f.text_field(:subject)
+  = labelled_field f, :message, t('views.message._fields.message'), f.text_area(:message)

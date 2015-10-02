@@ -1,0 +1,9 @@
+<% if @closed_cycles.blank? %>
+  <div class="subtitle"><%= t('views.cycle._results.no_cycles_to_show') %></div>
+<% else %>
+  <% @closed_cycles.each do |cycle| %>
+    <div id="cycle-<%= cycle.id %>" class="cycle">
+      <%= render 'header', :cycle => cycle, :timeline => true, :actions => false, :listing => true %>
+    </div>
+  <% end %>
+<% end %>

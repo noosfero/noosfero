@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,83 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/spaminator/lib/spaminator_plugin.rb:8
-msgid "Search and destroy spams and spammers."
-msgstr "Suchen und zerstören Sie Spam und Spammer."
-
 #: plugins/spaminator/lib/spaminator_plugin/mailer.rb:8
 msgid "[%s] You must reactivate your account."
 msgstr "[%s] Sie müssen Ihren Zugang erneut aktivieren."
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
-msgid "Spaminator reports"
-msgstr "Spaminator-Berichte"
+#: plugins/spaminator/lib/spaminator_plugin.rb:8
+msgid "Search and destroy spams and spammers."
+msgstr "Suchen und zerstören Sie Spam und Spammer."
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
-#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
-msgid "Date"
-msgstr "Datum"
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
+msgid "Hi %s!"
+msgstr "Hallo %s!"
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
-msgid "Spams on comments"
-msgstr "Spam auf Kommentaren"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:7
-#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:42
-msgid "Spammers"
-msgstr "Spammer"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:10
-msgid "On content"
-msgstr "Auf dem Inhalt"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
-msgid "From spammers"
-msgstr "Von Spammern"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
-msgid "Total"
-msgstr "Gesamt"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
-msgid "With spam comments"
-msgstr "Mit Spam-Kommentaren"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:14
-msgid "With no network"
-msgstr "Ohne Netzwerk"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:20
-msgid "Content of comments checked as spam / number of comments verified"
-msgstr ""
-"Inhalt der Kommentare auf Spam überprüft / Zahl der nachprüfbaren Kommentare"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:21
-msgid "Comments from spammers / number of comments verified"
-msgstr "Kommentare von Spammern / Zahl der nachprüfbaren Kommentare"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:22
-msgid "Spam comments / total number of comments"
-msgstr "Spam-Kommentare / Gesamtzahl Kommentare"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:23
-msgid "People with more than 2 spam comments / number of people verified"
-msgstr ""
-"Leute mit mehr als zwei Spam-Kommentaren / Zahl der nachprüfbaren Leute"
-
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:24
-#, fuzzy
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
 msgid ""
-"People who signed up more than one month ago, have no network / number of "
-"people verified"
+"Due to the recent increase in the number of spams on %s, we decided to "
+"deactivate all inactive users on the network. It just happens that you are "
+"one of them! But there is no need to worry. Your account is completely "
+"preserved and if you want to reactivate it you just need to click on the "
+"following link and recover your password (since it was changed to a huge "
+"scramble of random characters):"
 msgstr ""
-"Leute, die vor mehr als einem Monat die Anmeldung durchgeführt und noch kein "
-"Netzwerk und keine nachprüfbaren Kommentare haben"
 
-#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:25
-msgid "Spammers / total number of people"
-msgstr "Spammers / Gesamtzahl an Leuten"
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
+msgid ""
+"We are sorry that this procedure might bother you a lot, but it's necessary "
+"for the healthy of our network."
+msgstr ""
+"Es tut uns leid, wenn Sie dieser Ablauf beeinträchtigt, aber er ist für den "
+"Gesundheitszustand des Netzwerks notwendig."
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
+msgid "We hope to see you back soon!"
+msgstr "Wir hoffen, Sie bald wieder zu sehen!"
+
+#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
+msgid "Best Regards,"
+msgstr "Mit freundlichen Grüßen,"
 
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:1
 msgid "Spaminator settings"
@@ -154,9 +114,19 @@ msgstr "Zurückhalten"
 msgid "Cancel next scheduled scans"
 msgstr "Nächste Durchsuchungen stornieren"
 
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:40
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:5
+msgid "Date"
+msgstr "Datum"
+
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:41
 msgid "Spams"
 msgstr "Spam (ungewünschte Nachrichten)"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:42
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:7
+msgid "Spammers"
+msgstr "Spammer"
 
 #: plugins/spaminator/views/spaminator_plugin_admin/index.html.erb:47
 msgid "Spam comments found / number of comments verified"
@@ -174,32 +144,62 @@ msgstr "VOLLSTÄNDIGE BERICHTE ANSEHEN (%s)"
 msgid "No Report"
 msgstr "Kein Bericht"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
-msgid "Hi %s!"
-msgstr "Hallo %s!"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:1
+msgid "Spaminator reports"
+msgstr "Spaminator-Berichte"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
-msgid ""
-"Due to the recent increase in the number of spams on %s, we decided to "
-"deactivate all inactive users on the network. It just happens that you are "
-"one of them! But there is no need to worry. Your account is completely "
-"preserved and if you want to reactivate it you just need to click on the "
-"following link and recover your password (since it was changed to a huge "
-"scramble of random characters):"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:6
+msgid "Spams on comments"
+msgstr "Spam auf Kommentaren"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:10
+msgid "On content"
+msgstr "Auf dem Inhalt"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:11
+msgid "From spammers"
+msgstr "Von Spammern"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:12
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:15
+msgid "Total"
+msgstr "Gesamt"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:13
+msgid "With spam comments"
+msgstr "Mit Spam-Kommentaren"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:14
+msgid "With no network"
+msgstr "Ohne Netzwerk"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:20
+msgid "Content of comments checked as spam / number of comments verified"
 msgstr ""
+"Inhalt der Kommentare auf Spam überprüft / Zahl der nachprüfbaren Kommentare"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
-msgid ""
-"We are sorry that this procedure might bother you a lot, but it's necessary "
-"for the healthy of our network."
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:21
+msgid "Comments from spammers / number of comments verified"
+msgstr "Kommentare von Spammern / Zahl der nachprüfbaren Kommentare"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:22
+msgid "Spam comments / total number of comments"
+msgstr "Spam-Kommentare / Gesamtzahl Kommentare"
+
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:23
+msgid "People with more than 2 spam comments / number of people verified"
 msgstr ""
-"Es tut uns leid, wenn Sie dieser Ablauf beeinträchtigt, aber er ist für den "
-"Gesundheitszustand des Netzwerks notwendig."
+"Leute mit mehr als zwei Spam-Kommentaren / Zahl der nachprüfbaren Leute"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
-msgid "We hope to see you back soon!"
-msgstr "Wir hoffen, Sie bald wieder zu sehen!"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:24
+#, fuzzy
+msgid ""
+"People who signed up more than one month ago, have no network / number of "
+"people verified"
+msgstr ""
+"Leute, die vor mehr als einem Monat die Anmeldung durchgeführt und noch kein "
+"Netzwerk und keine nachprüfbaren Kommentare haben"
 
-#: plugins/spaminator/views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
-msgid "Best Regards,"
-msgstr "Mit freundlichen Grüßen,"
+#: plugins/spaminator/views/spaminator_plugin_admin/reports.html.erb:25
+msgid "Spammers / total number of people"
+msgstr "Spammers / Gesamtzahl an Leuten"

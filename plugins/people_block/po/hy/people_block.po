@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,29 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: plugins/people_block/lib/friends_block.rb:8
-#, fuzzy
-msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
-
-#: plugins/people_block/lib/friends_block.rb:12
-#, fuzzy
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] "ընկերներ"
-msgstr[1] "ընկերներ"
-
-#: plugins/people_block/lib/people_block_base.rb:9
-#, fuzzy
-msgid "Random people"
-msgstr "Բոլոր մարդիկ"
-
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
-#, fuzzy
-msgid "{#} People"
-msgstr "Մարդիկ"
 
 #: plugins/people_block/lib/members_block.rb:11
 #, fuzzy
@@ -63,6 +40,29 @@ msgstr ""
 #, fuzzy
 msgid "A plugin that adds a people block"
 msgstr "Ձեր խմբերը ցուցադրող բաժին"
+
+#: plugins/people_block/lib/friends_block.rb:8
+#, fuzzy
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
+
+#: plugins/people_block/lib/friends_block.rb:12
+#, fuzzy
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "ընկերներ"
+msgstr[1] "ընկերներ"
+
+#: plugins/people_block/lib/people_block_base.rb:9
+#, fuzzy
+msgid "Random people"
+msgstr "Բոլոր մարդիկ"
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+#, fuzzy
+msgid "{#} People"
+msgstr "Մարդիկ"
 
 #: plugins/people_block/lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"

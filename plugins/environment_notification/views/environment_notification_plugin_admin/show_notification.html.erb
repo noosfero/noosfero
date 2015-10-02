@@ -1,0 +1,33 @@
+<% if current_user && current_user.person.is_admin? %>
+  <% active_notifications = EnvironmentNotificationPlugin::EnvironmentNotification.active(environment) %>
+  <% unless active_notifications.blank? %>
+    <div class="environment-notification-plugin-notification-bar">
+      <div class="adminnotification notification">
+        <div class="notification-message">
+          <p>
+            <%= _("There are active notifications in this environment! You can ") %>
+            <a href="/admin/plugin/environment_notification">
+              <%= _("manage all notifications here.") %>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% @notifications = EnvironmentNotificationPlugin::EnvironmentNotification.visibles(environment, current_user, controller_path).where("id NOT IN (?)", hide_notifications) %>
+
+<div class="environment-notification-plugin-notification-bar">
+  <% @notifications.each do |notification| %>
+    <div class="<%= notification.type.gsub("EnvironmentNotificationPlugin::", "").downcase %> notification" data-notification="<%=notification.id%>" notification-display-popup="<%=notification.display_popup?%>">
+      <div class="notification-message">
+        <%= EnvironmentNotificationHelper.substitute_variables(notification.message, current_user) %>
+      </div>
+      <% if logged_in? %>
+        <div class="notification-close" title="<%= _('Do not show anymore') %>"></div>
+        <div class="notification-hide" title="<%= _('Hide for now') %>"></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

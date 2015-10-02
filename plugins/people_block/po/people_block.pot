@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.1-882-g0c116ba\n"
+"POT-Creation-Date: 2015-09-25 15:42-0000\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,25 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: plugins/people_block/lib/friends_block.rb:8
-msgid "Clicking a friend takes you to his/her homepage"
-msgstr ""
-
-#: plugins/people_block/lib/friends_block.rb:12
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/people_block/lib/people_block_base.rb:9
-msgid "Random people"
-msgstr ""
-
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
-msgid "{#} People"
-msgstr ""
 
 #: plugins/people_block/lib/members_block.rb:11
 msgid "Clicking a member takes you to his/her homepage"
@@ -54,6 +35,25 @@ msgstr ""
 
 #: plugins/people_block/lib/people_block_plugin.rb:8
 msgid "A plugin that adds a people block"
+msgstr ""
+
+#: plugins/people_block/lib/friends_block.rb:8
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr ""
+
+#: plugins/people_block/lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/people_block/lib/people_block_base.rb:9
+msgid "Random people"
+msgstr ""
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+msgid "{#} People"
 msgstr ""
 
 #: plugins/people_block/lib/people_block.rb:8
