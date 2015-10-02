@@ -29,7 +29,7 @@ class NewsletterPluginNewsletterTest < ActiveSupport::TestCase
         :person => fast_create(Person))
       enabled_newsletters << newsletter.id if enabled
     end
-    assert_equal enabled_newsletters, NewsletterPlugin::Newsletter.enabled.map(&:id)
+    assert_equivalent enabled_newsletters, NewsletterPlugin::Newsletter.enabled.map(&:id)
   end
 
   should 'people of newsletters are the same environment members' do
@@ -212,6 +212,35 @@ EOS
 
     assert_equivalent ["name1@example.com", "name2@example.com", "name3@example.com"], newsletter.additional_recipients.map { |recipient| recipient[:email] }
     assert_equivalent ["Coop1", "Coop2", "Coop3"], newsletter.additional_recipients.map { |recipient| recipient[:name] }
+  end
+
+  should 'provide flexibility for CSV file when parsing additional recipients' do
+    content_semicolon = <<-EOS
+Coop1;name1@example.com
+Coop2;name2@example.com
+Coop3;name3@example.com
+EOS
+
+    content_tab = <<-EOS
+Coop1\tname1@example.com
+Coop2\tname2@example.com
+Coop3\tname3@example.com
+EOS
+    [content_semicolon, content_tab].each do |content|
+      file = Tempfile.new(['recipients', '.csv'])
+      file.write(content)
+      file.rewind
+
+      environment = fast_create Environment
+      newsletter = NewsletterPlugin::Newsletter.create!(:environment => environment, :person => fast_create(Person))
+      newsletter.import_recipients(Rack::Test::UploadedFile.new(file, 'text/csv'))
+
+      file.close
+      file.unlink
+
+      assert_equivalent ["name1@example.com", "name2@example.com", "name3@example.com"], newsletter.additional_recipients.map { |recipient| recipient[:email] }
+      assert_equivalent ["Coop1", "Coop2", "Coop3"], newsletter.additional_recipients.map { |recipient| recipient[:name] }
+    end
   end
 
   should 'retrieve blogs related to newsletter' do
