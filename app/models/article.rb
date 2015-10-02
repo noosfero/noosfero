@@ -809,7 +809,7 @@ class Article < ActiveRecord::Base
   end
 
   def first_image
-    img = ( image.present? && { 'src' => image.public_filename } ) ||
+    img = ( image.present? && { 'src' => File.join([Noosfero.root, image.public_filename].join) } ) ||
           Nokogiri::HTML.fragment(self.lead.to_s).css('img[src]').first ||
           Nokogiri::HTML.fragment(self.body.to_s).search('img').first
     img.nil? ? '' : img['src']
