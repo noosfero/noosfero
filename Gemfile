@@ -65,7 +65,7 @@ end
 group :cucumber do
   gem 'capybara',               '~> 2.2'
   gem 'launchy'
-  gem 'cucumber',               '~> 2.0'
+  gem 'cucumber'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.3'
   gem 'selenium-webdriver'
