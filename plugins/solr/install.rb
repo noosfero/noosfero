@@ -1,5 +1,4 @@
 #raise "Not ready yet. Some tests are failing."
-require 'rubygems'
 require 'rake'
 
 tasks_dir = File.join(File.dirname(__FILE__), 'vendor', 'plugins', 'acts_as_solr_reloaded', 'lib', 'tasks', '*.rake')

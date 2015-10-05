@@ -1,7 +1,6 @@
 dir = File.dirname(__FILE__)
 $:.unshift(File.join(File.expand_path(dir), "..", "..", "lib"))
 
-require 'rubygems'
 require 'test/unit'
 require 'acts_as_solr'
 require 'mocha'
