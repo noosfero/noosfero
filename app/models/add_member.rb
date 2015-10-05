@@ -29,8 +29,10 @@ class AddMember < Task
   end
 
   def information
-    {:message => _("%{requestor} wants to be a member of '%{organization}'."),
-     variables: {requestor: requestor.name, organization: organization.name}}
+    requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
+
+    {:message => _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'."),
+     variables: {requestor: requestor.name, requestor_email: requestor_email, organization: organization.name}}
   end
 
   def accept_details
@@ -46,7 +48,9 @@ class AddMember < Task
   end
 
   def target_notification_description
-    _("%{requestor} wants to be a member of '%{organization}'.") % {:requestor => requestor.name, :organization => organization.name}
+    requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
+
+    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.") % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
   end
 
   def target_notification_message
