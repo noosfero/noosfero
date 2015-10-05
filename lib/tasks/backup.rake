@@ -111,3 +111,32 @@ task :restore => :check_backup_support do
   puts "Backup restored!"
   puts "****************************************************"
 end
+
+desc 'Removes emails from database'
+task 'restore:remove_emails' => :environment do
+  connection = ActiveRecord::Base.connection
+  [
+    "UPDATE users SET email = concat('user', id, '@localhost.localdomain')",
+    "UPDATE environments SET contact_email = concat('environment', id, '@localhost.localdomain')",
+  ].each do |update|
+    puts update
+    connection.execute(update)
+  end
+
+  profiles = connection.execute("select id, data from profiles")
+  profiles.each do |profile|
+    if profile['data']
+      data = YAML.load(profile['data'])
+      if data[:contact_email] && data[:contact_email] !~ /@localhost.localdomain$/
+        data[:contact_email] = ['profile', profile['id'], '@localhost.localdomain'].join
+        sql = Environment.send(:sanitize_sql, [
+          "UPDATE profiles SET data = ? WHERE id = ?",
+          YAML.dump(data),
+          profile['id'],
+        ])
+        puts sql
+        connection.execute(sql)
+      end
+    end
+  end
+end
