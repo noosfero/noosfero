@@ -18,14 +18,15 @@ backup_dirs = [
 desc "Creates a backup of the database and uploaded files"
 task :backup => :check_backup_support do
   dirs = backup_dirs.select { |d| File.exists?(d) }
+  rails_env = ENV["RAILS_ENV"] || 'production'
 
   backup_name = Time.now.strftime('%Y-%m-%d-%R')
   backup_file = File.join('tmp/backup', backup_name) + '.tar.gz'
   mkdir_p 'tmp/backup'
   dump = File.join('tmp/backup', backup_name) + '.sql'
 
-  database = $config['production']['database']
-  host = $config['production']['host']
+  database = $config[rails_env]['database']
+  host = $config[rails_env]['host']
   host = host && "-h #{host}" || ""
   sh "pg_dump #{host} #{database} > #{dump}"
 
@@ -52,6 +53,7 @@ end
 desc "Restores a backup created previousy with \`rake backup\`"
 task :restore => :check_backup_support do
   backup = ENV["BACKUP"]
+  rails_env = ENV["RAILS_ENV"] || 'production'
   unless backup
     puts "usage: rake restore BACKUP=/path/to/backup"
     exit 1
@@ -81,9 +83,9 @@ task :restore => :check_backup_support do
   end
   dump = dumps.first
 
-  database = $config['production']['database']
-  username = $config['production']['username']
-  host = $config['production']['host']
+  database = $config[rails_env]['database']
+  username = $config[rails_env]['username']
+  host = $config[rails_env]['host']
   host = host && "-h #{host}" || ""
 
   puts "WARNING: backups should be restored to an empty database, otherwise"
@@ -102,7 +104,7 @@ task :restore => :check_backup_support do
   end
 
   sh 'tar', 'xaf', backup
-  sh "rails dbconsole production < #{dump}"
+  sh "rails dbconsole #{rails_env} < #{dump}"
   rm_f dump
 
   puts "****************************************************"
