@@ -1,1 +1,2 @@
 gem "net-ldap"
+gem "magic", ">= 0.2.8"
