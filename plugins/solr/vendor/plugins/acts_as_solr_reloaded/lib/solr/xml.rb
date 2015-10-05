@@ -16,7 +16,6 @@ end
 begin
   
   # If we can load rubygems and libxml-ruby...
-  require 'rubygems'
   require 'xml/libxml'
   raise "acts_as_solr requires libxml-ruby 0.7 or greater" unless XML::Node.public_instance_methods.collect{|x| x.to_sym}.include?(:attributes)
 
