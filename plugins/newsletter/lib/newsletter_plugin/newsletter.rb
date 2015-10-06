@@ -111,15 +111,15 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
   include DatesHelper
 
   def message_to_public_link
-    content_tag(:p, N_("If you can't view this email, %s.") % link_to(N_('click here'), '{mailing_url}'), :id => 'newsletter-public-link')
+    content_tag(:p, _("If you can't view this email, %s.") % link_to(_('click here'), '{mailing_url}'), :id => 'newsletter-public-link')
   end
 
   def message_to_unsubscribe
-    content_tag(:div, N_("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.") % link_to(N_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe')
+    content_tag(:div, _("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.") % link_to(_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe')
   end
 
   def read_more(link_address)
-    content_tag(:p, link_to(N_('Read more'), link_address, :style => CSS['read-more-link']), :style => CSS['read-more-line'])
+    content_tag(:p, link_to(_('Read more'), link_address, :style => CSS['read-more-link']), :style => CSS['read-more-line'])
   end
 
   def post_with_image(post)
@@ -141,7 +141,7 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
   end
 
   def default_subject
-    N_('Breaking news')
+    _('Breaking news')
   end
 
   def subject
