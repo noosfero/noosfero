@@ -1,6 +1,7 @@
 class EnvironmentNotificationPluginPublicController < PublicController
 
   helper EnvironmentNotificationHelper
+  include EnvironmentNotificationHelper
 
   def notifications_with_popup
     @hide_notifications = hide_notifications
