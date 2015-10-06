@@ -28,7 +28,7 @@
 
   <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
 
-  <%= control_panel_button(_('Manage Roles'), 'roles', :controller => 'profile_roles') %>
+  <%= control_panel_button(_('Manage Roles'), 'roles', :controller => 'profile_roles') if profile.organization? %>
 
   <% unless profile.enterprise? %>
     <%= case profile.blogs.count
