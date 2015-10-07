@@ -21,14 +21,4 @@ class ValidationInfoTest < ActiveSupport::TestCase
     end
   end
 
-  should 'escape malformed html tags' do
-    info = ValidationInfo.new
-    info.validation_methodology = "<h1 Malformed >> html >< tag"
-    info.restrictions = "<h1 Malformed >> html >< tag"
-    info.valid?
-
-    assert_no_match /[<>]/, info.validation_methodology
-    assert_no_match /[<>]/, info.restrictions
-  end
-
 end
