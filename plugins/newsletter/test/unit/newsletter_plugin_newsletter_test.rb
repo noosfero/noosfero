@@ -351,15 +351,30 @@ EOS
     post = fast_create(TextArticle, :parent_id => blog.id,
                 :name => 'the last news 1',
                 :profile_id => community.id,
-                :body => "<p>paragraph of news</p>")
+                :body => '<p style="text-align: left;">paragraph of news</p>')
 
     newsletter = NewsletterPlugin::Newsletter.create!(
       :environment => environment,
       :blog_ids => [blog.id],
       :person => fast_create(Person))
 
-    assert_match /<p>paragraph of news<\/p>/, post.body
-    assert_not_match /<p>paragraph of news<\/p>/, newsletter.body
+    assert_match /<p style="text-align: left;">paragraph of news<\/p>/, post.body
+    assert_not_match /<p style="text-align: left;">paragraph of news<\/p>/, newsletter.body
+  end
+
+  should 'only include text for posts in HTML generated content' do
+    environment = fast_create Environment
+    community = fast_create(Community, :environment_id => environment.id)
+    blog = fast_create(Blog, :profile_id => community.id)
+    post = fast_create(TextArticle, :profile_id => community.id, :parent_id => blog.id, :name => 'the last news', :abstract => 'A picture<img src="example.png"> is <em>worth</em> a thousand words. <hr><h1>The main goals of visualization</h1>')
+    newsletter = NewsletterPlugin::Newsletter.create!(
+      :environment => environment,
+      :blog_ids => [blog.id],
+      :person => fast_create(Person))
+
+    assert_match /A picture<img src="example.png"> is <em>worth<\/em> a thousand words. <hr><h1>The main goals of visualization<\/h1>/, post.abstract
+    # Tags for text emphasis are whitelisted
+    assert_match /A picture is <em>worth<\/em> a thousand words. The main goals of visualization/, newsletter.body
   end
 
   should 'filter posts when listing posts for newsletter' do
