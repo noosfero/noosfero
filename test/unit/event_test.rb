@@ -263,40 +263,12 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes profile.events.by_day(today), event_out_of_range
   end
 
-  should 'filter fields with full filter' do
-    event = Event.new
-    event.link = "<h1 Malformed >> html >< tag"
-    event.valid?
-
-    assert_no_match /[<>]/, event.link
-  end
-
-  should 'filter fields with white_list filter' do
-    event = Event.new
-    event.body = "<h1> Description </h1>"
-    event.address = "<strong> Address </strong>"
-    event.valid?
-
-    assert_equal "<h1> Description </h1>", event.body
-    assert_equal "<strong> Address </strong>", event.address
-  end
-
   should 'not filter & on link field' do
     event = Event.new
     event.link = 'myevent.com/?param1=value&param2=value2'
     event.valid?
 
     assert_equal "http://myevent.com/?param1=value&param2=value2", event.link
-  end
-
-  should 'escape malformed html tags' do
-    event = Event.new
-    event.body = "<h1<< Description >>/h1>"
-    event.address = "<strong>><< Address <strong>"
-    event.valid?
-
-    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, event.body
-    assert_match /<strong>&gt;<\/strong>/, event.address
   end
 
   should 'not sanitize html comments' do

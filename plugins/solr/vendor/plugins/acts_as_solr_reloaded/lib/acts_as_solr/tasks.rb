@@ -1,5 +1,4 @@
 dir = File.dirname(__FILE__)
-require 'rubygems'
 require 'rake'
 require 'net/http'
 require 'active_record'

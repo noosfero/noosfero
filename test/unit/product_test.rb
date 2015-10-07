@@ -171,16 +171,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal @product_category.name, product.name
   end
 
-  should 'escape malformed html tags' do
-    product = build(Product, :product_category => @product_category)
-    product.name = "<h1 Malformed >> html >< tag"
-    product.description = "<h1 Malformed</h1>><<<a>> >> html >< tag"
-    product.valid?
-
-    assert_no_match /[<>]/, product.name
-    assert_match /<h1>&gt;&gt; &gt;&gt; html &gt;<\/h1>/, product.description
-  end
-
   should 'use name of category when has no name yet' do
     product = Product.new
     product.product_category = @product_category

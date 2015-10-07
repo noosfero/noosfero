@@ -202,17 +202,6 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.errors[:body.to_s].present?
   end
 
-  should 'escape malformed html tags' do
-    owner = create_user('testuser').person
-    article = owner.articles.create(:name => 'test', :body => '...')
-    comment = build(Comment, :article => article, :title => '<h1 title </h1>>> sd f <<', :body => '<h1>> sdf><asd>< body </h1>', :name => '<h1 name </h1>>><<dfsf<sd', :email => 'cracker@test.org')
-    comment.valid?
-
-    assert_no_match /[<>]/, comment.title
-    assert_no_match /[<>]/, comment.body
-    assert_no_match /[<>]/, comment.name
-  end
-
   should 'use an existing image for deleted comments' do
     image = Comment.new.removed_user_image[1..-1]
     assert File.exists?(Rails.root.join('public', image)), "#{image} does not exist."
@@ -753,6 +742,18 @@ class CommentTest < ActiveSupport::TestCase
     person = create_user('voter').person
     person.vote(comment, 5)
     comment.destroy
+  end
+
+  should 'not double escape html content after validation' do
+    comment = create_comment
+    body = 'Comment with "quotes"'
+    comment.body = body
+
+    comment.valid?
+    assert_equal body, comment.body
+
+    comment.valid?
+    assert_equal body, comment.body
   end
 
   private

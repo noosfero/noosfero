@@ -1207,4 +1207,10 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :header_footer, :profile => user.identifier
     assert_response :success
   end
+
+  should 'not display button to manage roles on control panel of person' do
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/profile_roles" }
+  end
+
 end

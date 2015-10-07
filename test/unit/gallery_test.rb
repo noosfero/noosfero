@@ -134,14 +134,6 @@ class GalleryTest < ActiveSupport::TestCase
     assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, gallery.body
   end
 
-  should 'escape malformed html tags' do
-    gallery = Gallery.new
-    gallery.body = "<h1<< Description >>/h1>"
-    gallery.valid?
-
-    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, gallery.body
-  end
-
   should 'accept uploads' do
     folder = fast_create(Gallery)
     assert folder.accept_uploads?

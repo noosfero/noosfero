@@ -133,14 +133,6 @@ class FolderTest < ActiveSupport::TestCase
     assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, folder.body
   end
 
-  should 'escape malformed html tags' do
-    folder = Folder.new
-    folder.body = "<h1<< Description >>/h1>"
-    folder.valid?
-
-    assert_match /<h1>&gt;\/h1&gt;<\/h1>/, folder.body
-  end
-
   should 'not have a blog as parent' do
     folder = Folder.new
     folder.parent = Blog.new
