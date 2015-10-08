@@ -12,7 +12,9 @@ class HighlightsBlock < Block
     block.images.each do |i|
       i[:image_id] = i[:image_id].to_i
       i[:position] = i[:position].to_i
-      i[:address] = Noosfero.root + i[:address]  unless Noosfero.root.nil?
+      if !Noosfero.root.nil? and !i[:address].start_with?(Noosfero.root + '/')
+        i[:address] = Noosfero.root + i[:address]
+      end
       begin
         file = UploadedFile.find(i[:image_id])
         i[:image_src] = file.public_filename
