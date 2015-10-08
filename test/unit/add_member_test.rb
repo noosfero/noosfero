@@ -121,4 +121,21 @@ class AddMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to be a member of '#{community.name}'/, email.subject)
   end
 
+  should 'notification description with requestor email if requestor email is public' do
+    new_person = create_user('testuser').person
+    new_person.update_attributes!({:fields_privacy => {:email => 'public'}})
+
+    task = AddMember.new(:person => new_person, :organization => community)
+
+    assert_match(/\(#{task.requestor.email}\)/, task.target_notification_description)
+  end
+
+  should 'notification description without requestor email if requestor email is not public' do
+    new_person = create_user('testuser').person
+    new_person.update_attributes!({:fields_privacy => {:email => '0'}})
+
+    task = AddMember.new(:person => new_person, :organization => community)
+
+    assert_not_match(/\(#{task.requestor.email}\)/, task.target_notification_description)
+  end
 end
