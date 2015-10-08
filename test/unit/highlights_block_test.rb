@@ -132,6 +132,32 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     assert_equal block.images.first[:address], "/social/address"
   end
 
+  should 'not duplicate sub-dir address before save' do
+    Noosfero.stubs(:root).returns("/social")
+    f1 = mock()
+    f1.expects(:public_filename).returns('address')
+    UploadedFile.expects(:find).with(1).returns(f1)
+    block = HighlightsBlock.new
+    i1 = {:image_id => 1, :address => '/social/address', :position => 3, :title => 'address'}
+    block.images = [i1]
+    block.save!
+    block.reload
+    assert_equal block.images.first[:address], "/social/address"
+  end
+
+  should 'display images with subdir src' do
+    Noosfero.stubs(:root).returns("/social")
+    f1 = mock()
+    f1.expects(:public_filename).returns('/img_address')
+    UploadedFile.expects(:find).with(1).returns(f1)
+    block = HighlightsBlock.new
+    i1 = {:image_id => 1, :address => '/address'}
+    block.images = [i1]
+    block.save!
+
+    assert_tag_in_string instance_eval(& block.content), :tag => 'img', :attributes => { :src => "/social/img_address" }
+  end
+
   [Environment, Profile].each do |klass|
     should "choose between owner galleries when owner is #{klass.name}" do
       owner = fast_create(klass)
