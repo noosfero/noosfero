@@ -95,6 +95,11 @@ tr.addition-buttons {
   color: rgba(0,0,0,0.5);
 }
 
+#custom-forms-plugin_submission textarea {
+  width: 100%;
+  height: 10em;
+}
+
 #custom-forms-plugin_submission-view th {
   border: none;
   text-align: right;
