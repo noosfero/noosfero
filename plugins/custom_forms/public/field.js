@@ -40,7 +40,7 @@ var customFormsPlugin = {
     if (confirm(confirmMsg)) {
       fb = jQuery(button).closest('.field-box');
       jQuery('input.destroy-field', fb).val(1);
-      jQuery('> div', fb).slideUp({easing:'linear', complete:function(){fb.slideUp({easing:'linear', duration:250})}});
+      jQuery(fb).slideUp(600, 'linear');
     }
   },
 
