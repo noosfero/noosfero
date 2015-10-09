@@ -113,6 +113,8 @@ s/Jefferson Fernandes <diegoamc90@gmail.com>/Jefferson Fernandes <jeffs.fernande
 s/Jefferson Fernandes <jaodsilv@linux.ime.usp.br>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 s/Jefferson Fernandes <rr.manzo@gmail.com>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 
+s/Jessica Cristina/Jéssica Cristina/
+
 # no known email
 s/João Machini <diegoamc90@gmail.com>/João Machini/
 s/João Machini <digoamc90@gmail.com>/João Machini/
@@ -233,4 +235,6 @@ s/vitormga15@gmail.com/vitornga15@gmail.com/
 
 s/vfcosta <vfcosta@gmail.com>/Victor Costa <vfcosta@gmail.com>/
 s/Victor Carvalho <victorhugodf.ac@gmail.com>/Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>/
+
+s/Victor Matias Navarro/Victor Navarro/
 
