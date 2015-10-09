@@ -164,8 +164,8 @@ msgid "Blogs from which news will be compiled"
 msgstr "Blogs utilizados como fonte do boletim informativo"
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:36
-msgid "Type in the communities' or blogs' names"
-msgstr "Digite nomes de comunidades ou blogs"
+msgid "Type in the profiles' or blogs' names"
+msgstr "Digite nomes de perfis ou blogs"
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:42
 msgid "Recipients"

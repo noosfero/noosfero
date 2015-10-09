@@ -158,7 +158,7 @@ msgid "Blogs from which news will be compiled"
 msgstr ""
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:36
-msgid "Type in the communities' or blogs' names"
+msgid "Type in the profiles' or blogs' names"
 msgstr ""
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:42
