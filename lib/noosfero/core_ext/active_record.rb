@@ -2,11 +2,6 @@ require 'active_record'
 
 class ActiveRecord::Base
 
-  # default primary key
-  def self.primary_key
-    @primary_key = 'id' if self.column_names.include? 'id'
-  end
-
   def self.postgresql?
     ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
   end
@@ -68,7 +63,7 @@ class ActiveRecord::Base
 end
 
 ActiveRecord::Calculations.class_eval do
-  def count_with_distinct column_name=:id, options={}
+  def count_with_distinct column_name=nil, options={}
     distinct.count_without_distinct column_name, options
   end
   alias_method_chain :count, :distinct
