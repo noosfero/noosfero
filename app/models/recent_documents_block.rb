@@ -1,7 +1,15 @@
 class RecentDocumentsBlock < Block
 
   def self.description
-    _('Last updates')
+    _('Display the last content produced in the context where the block is available.')
+  end
+
+  def self.short_description
+    _('Show last updates')
+  end
+
+  def self.pretty_name
+    _('Recent Content')
   end
 
   def default_title

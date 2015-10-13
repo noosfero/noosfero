@@ -1,6 +1,32 @@
+<%= stylesheet_link_tag 'slick.css' %>
+<%= stylesheet_link_tag 'slick-theme.css' %>
+
 <h1><%= _('Editing sideboxes')%></h1>
 
 <% button_bar :class=>'design-menu' do %>
-  <%= modal_button('add', _('Add a block'), { :action => 'add_block' }) %>
   <%= button(:back, _('Back to control panel'), :controller => (profile.nil? ? 'admin_panel': 'profile_editor')) %>
 <% end %>
+
+<div id="block-store">
+  <input type="text" id="block-store-filter" placeholder="<%= _('Filter blocks') %>" title="<%= _('Filter blocks') %>">
+  <div id="block-types">
+    <% @available_blocks.each do |block| %>
+      <div id="block-<%= block.name.to_css_class %>" class="block-type <%= block.name.to_css_class %>" data-block-type="<%= block.name %>" data-block-name="<%= _(block.pretty_name) %>">
+        <div class="button-bar">
+          <%= modal_button 'help', _('Help on this block'),
+            {:action => 'show_block_type_info', :type => block.name},
+            :title => _('Help on this block') %>
+        </div>
+        <div>
+          <%= display_icon(block) %>
+        </div>
+        <span><%= _(block.pretty_name) %></span>
+        <%= block_draggable("block-#{block.name.to_css_class}",
+                            :cursorAt => '{bottom: 30, left: 0}') %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div id="block-store-draggables"></div>
+
+<script>initBlockStore();</script>
