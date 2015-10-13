@@ -26,7 +26,7 @@ Feature: user template
     Given I am on person's control panel
     And I follow "Edit sideboxes"
     And display ".button-bar"
-    And I follow "Edit" within ".article-block"
+    And I follow "Edit" within ".block-outer .article-block"
     And I fill in "Custom title for this block:" with "Mirror"
     And I press "Save"
     And I go to /profile/mario
@@ -37,7 +37,7 @@ Feature: user template
     Given I am on person's control panel
     And I follow "Edit sideboxes"
     And display ".button-bar"
-    And I follow "Edit" within ".raw-html-block"
+    And I follow "Edit" within ".block-outer .raw-html-block"
     And I fill in "Custom title for this block:" with "Raw HTML Block"
     And I press "Save"
     And I go to /profile/mario
@@ -48,7 +48,7 @@ Feature: user template
     Given I am on person's control panel
     And I follow "Edit sideboxes"
     And display ".button-bar"
-    And I follow "Edit" within ".article-block"
+    And I follow "Edit" within ".block-outer .article-block"
     And I select "Cannot be moved" from "Move options:"
     And I select "Cannot be modified" from "Edit options:"
     And I press "Save"
@@ -61,4 +61,4 @@ Feature: user template
     And I go to /myprofile/mario
     And I follow "Edit sideboxes"
     And display ".button-bar"
-    Then I should not see "Edit" within ".article-block"
+    Then I should not see "Edit" within ".block-outer .article-block"
