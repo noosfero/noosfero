@@ -20,18 +20,9 @@ module TinymceHelper
       :image_advtab => true,
       :language => tinymce_language
 
-    options[:toolbar1] = "fullscreen | insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-    if options[:mode] == 'simple'
-      options[:menubar] = false
-    else
-      options[:menubar] = 'edit insert view tools'
-      options[:toolbar2] = 'print preview code media | table'
-
-      options[:toolbar2] += ' | macros'
-      macros_with_buttons.each do |macro|
-        options[:toolbar2] += " #{macro.identifier}"
-      end
-    end
+    options[:toolbar1] = toolbar1(options[:mode])
+    options[:menubar] = menubar(options[:mode])
+    options[:toolbar2] = toolbar2(options[:mode])
 
     options[:macros_setup] = macros_with_buttons.map do |macro|
       <<-EOS
@@ -47,6 +38,31 @@ module TinymceHelper
     options = options.except :mode
 
     "noosfero.tinymce.init(#{options.to_json})"
+  end
+
+  def menubar mode
+    if mode =='restricted' || mode == 'simple'
+      return false
+    end
+    return 'edit insert view tools'
+  end
+
+  def toolbar1 mode
+    if mode == 'restricted'
+      return "bold italic underline | link"
+    end
+    return "fullscreen | insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+  end
+
+  def toolbar2 mode
+    if mode.blank?
+      toolbar2 = 'print preview code media | table'
+      toolbar2 += ' | macros'
+      macros_with_buttons.each do |macro|
+        toolbar2 += " #{macro.identifier}"
+      end
+      return toolbar2
+    end
   end
 
 end

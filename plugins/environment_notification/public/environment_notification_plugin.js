@@ -53,17 +53,6 @@
       }
     },
 
-    mceRestrict: function() {
-      tinyMCE.init({
-        menubar : false,
-        selector: "textarea",
-        plugins: [
-            "autolink link"
-        ],
-        toolbar: "bold italic underline | link"
-      });
-    },
-
     showPopup: function() {
       if($('.action-home-index').length > 0) {
         jQuery(function($){
@@ -82,10 +71,6 @@
     environment_notification_plugin.notificationBar();
     $(".environment-notification-plugin-notification-bar .notification-close").on("click", environment_notification_plugin.closeNotification);
     $(".environment-notification-plugin-notification-bar .notification-hide").on("click", environment_notification_plugin.hideNotification);
-
-    if($('.environment-notification-plugin-message').length > 0){
-      environment_notification_plugin.mceRestrict();
-    }
 
     if($('.environment-notification-plugin-notification-bar').length > 0){
       environment_notification_plugin.hideUserNotification();
