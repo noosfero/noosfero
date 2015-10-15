@@ -1,11 +1,12 @@
 <div class="environment-notification-plugin-form">
-  <% abstract_options = {:value => @notification.message, :style => 'width: 100%; height: 200px;', :class => "environment-notification-plugin-message" } %>
+
+  <% abstract_options = {:value => @notification.message, :style => 'width: 100%; height: 200px;', :class => 'mceEditor'} %>
 
   <%= button :back, _('Back'), :controller => 'environment_notification_plugin_admin' %>
 
   <%= form_for :notifications do |f| %>
 
-    <%= render :file => 'shared/tiny_mce' %>
+    <%= render :file => 'shared/tiny_mce', :locals => {:mode => 'restricted'} %>
 
     <%= labelled_form_field(_("Optional Title:"), f.text_field(:title, value: @notification.title)) %>
 
