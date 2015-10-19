@@ -65,4 +65,17 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 201, last_response.status
     assert_equal body, json['comment']['body']
   end
+
+  should 'comment creation define the source' do
+    amount = Comment.count
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    body = 'My comment'
+    params.merge!({:body => body})
+
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    assert_equal amount + 1, Comment.count
+    comment = Comment.last
+    assert_not_nil comment.source
+  end
+
 end

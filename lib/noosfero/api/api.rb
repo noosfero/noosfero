@@ -1,7 +1,7 @@
 require 'grape'
 #require 'rack/contrib'
-
 Dir["#{Rails.root}/lib/noosfero/api/*.rb"].each {|file| require file unless file =~ /api\.rb/}
+
 module Noosfero
   module API
     class API < Grape::API
@@ -17,7 +17,6 @@ module Noosfero
       end
 
       @@NOOSFERO_CONF = nil
-
       def self.NOOSFERO_CONF
         if @@NOOSFERO_CONF
           @@NOOSFERO_CONF
@@ -27,9 +26,11 @@ module Noosfero
         end
       end
 
+      before { set_locale  }
       before { setup_multitenancy }
       before { detect_stuff_by_domain }
       before { filter_disabled_plugins_endpoints }
+      before { init_noosfero_plugins }
       after { set_session_cookie }
 
       version 'v1'
@@ -41,11 +42,17 @@ module Noosfero
 
       mount V1::Articles
       mount V1::Comments
+      mount V1::Users
       mount V1::Communities
       mount V1::People
       mount V1::Enterprises
       mount V1::Categories
       mount V1::Tasks
+      mount V1::Tags
+      mount V1::Environments
+      mount V1::Search
+      mount V1::Contacts
+
       mount Session
 
       # hook point which allow plugins to add Grape::API extensions to API::API

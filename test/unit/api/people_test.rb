@@ -148,4 +148,21 @@ class PeopleTest < ActiveSupport::TestCase
     get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
     assert_equal 403, last_response.status
   end
+
+  should 'not update another person' do
+    person = fast_create(Person, :environment_id => environment.id)
+    post "/api/v1/people/#{person.id}?#{params.to_query}"
+    assert_equal 403, last_response.status
+  end
+
+  should 'update yourself' do
+    another_name = 'Another Name'
+    params[:person] = {}
+    params[:person][:name] = another_name
+    assert_not_equal another_name, person.name
+    post "/api/v1/people/#{person.id}?#{params.to_query}"
+    person.reload
+    assert_equal another_name, person.name
+  end
+
 end
