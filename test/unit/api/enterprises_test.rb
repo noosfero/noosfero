@@ -8,8 +8,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'list only enterprises' do
-    community = fast_create(Community) # should not list this community
-    enterprise = fast_create(Enterprise, :public_profile => true)
+    community = fast_create(Community, :environment_id => environment.id) # should not list this community
+    enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json['enterprises'].map {|c| c['id']}, enterprise.id
@@ -17,15 +17,15 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'list all enterprises' do
-    enterprise1 = fast_create(Enterprise, :public_profile => true)
-    enterprise2 = fast_create(Enterprise)
+    enterprise1 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
+    enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
   end
 
   should 'not list invisible enterprises' do
-    enterprise1 = fast_create(Enterprise)
+    enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises?#{params.to_query}"
@@ -34,8 +34,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not list private enterprises without permission' do
-    enterprise1 = fast_create(Enterprise)
-    fast_create(Enterprise, :public_profile => false)
+    enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
+    fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -43,8 +43,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'list private enterprise for members' do
-    c1 = fast_create(Enterprise)
-    c2 = fast_create(Enterprise, :public_profile => false)
+    c1 = fast_create(Enterprise, :environment_id => environment.id)
+    c2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
     c2.add_member(person)
 
     get "/api/v1/enterprises?#{params.to_query}"
@@ -53,7 +53,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'get enterprise' do
-    enterprise = fast_create(Enterprise)
+    enterprise = fast_create(Enterprise, :environment_id => environment.id)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -69,8 +69,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not get private enterprises without permission' do
-    enterprise = fast_create(Enterprise)
-    fast_create(Enterprise, :public_profile => false)
+    enterprise = fast_create(Enterprise, :environment_id => environment.id)
+    fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -87,8 +87,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'list person enterprises' do
-    enterprise = fast_create(Enterprise)
-    fast_create(Enterprise)
+    enterprise = fast_create(Enterprise, :environment_id => environment.id)
+    fast_create(Enterprise, :environment_id => environment.id)
     enterprise.add_member(person)
 
     get "/api/v1/people/#{person.id}/enterprises?#{params.to_query}"
@@ -97,8 +97,8 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not list person enterprises invisible' do
-    c1 = fast_create(Enterprise)
-    c2 = fast_create(Enterprise, :visible => false)
+    c1 = fast_create(Enterprise, :environment_id => environment.id)
+    c2 = fast_create(Enterprise, :environment_id => environment.id, :visible => false)
     c1.add_member(person)
     c2.add_member(person)
 

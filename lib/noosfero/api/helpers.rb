@@ -1,8 +1,24 @@
-module Noosfero
-  module API
-    module APIHelpers
+require 'grape'
+require_relative '../../find_by_contents'
+
+  module Noosfero;
+    module API
+      module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
-      DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type]
+      DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id]
+
+      include SanitizeParams
+      include Noosfero::Plugin::HotSpot
+      include ForgotPasswordHelper
+      include SearchTermHelper
+
+      def set_locale
+        I18n.locale = (params[:lang] || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
+      end
+
+      def init_noosfero_plugins
+        plugins
+      end
 
       def current_user
         private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
@@ -21,6 +37,22 @@ module Noosfero
 
       def environment
         @environment
+      end
+
+      include FindByContents
+
+      ####################################################################
+      #### SEARCH
+      ####################################################################
+      def multiple_search?(searches=nil)
+        ['index', 'category_index'].include?(params[:action]) || (searches && searches.size > 1)
+      end
+      ####################################################################
+
+      def logger
+        logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+        logger.formatter = GrapeLogging::Formatters::Default.new
+        logger
       end
 
       def limit
@@ -50,7 +82,7 @@ module Noosfero
 
       def find_article(articles, id)
         article = articles.find(id)
-        article.display_to?(current_user.person) ? article : forbidden!
+        article.display_to?(current_person) ? article : forbidden!
       end
 
       def post_article(asset, params)
@@ -75,10 +107,23 @@ module Noosfero
         present article, :with => Entities::Article, :fields => params[:fields]
       end
 
-      def present_articles(asset)
-        articles = select_filtered_collection_of(asset, 'articles', params)
-        articles = articles.display_filter(current_person, nil)
+      def present_articles_for_asset(asset, method = 'articles')
+        articles = find_articles(asset, method)
+        present_articles(articles)
+      end
+
+      def present_articles(articles)
         present articles, :with => Entities::Article, :fields => params[:fields]
+      end
+
+      def find_articles(asset, method = 'articles')
+        articles = select_filtered_collection_of(asset, method, params)
+        if current_person.present?
+          articles = articles.display_filter(current_person, nil)
+        else
+          articles = articles.published
+        end
+        articles
       end
 
       def find_task(asset, id)
@@ -127,8 +172,27 @@ module Noosfero
         conditions
       end
 
-      def make_order_with_parameters(params)
-        params[:order] || "created_at DESC"
+      # changing make_order_with_parameters to avoid sql injection
+      def make_order_with_parameters(object, method, params)
+        order = "created_at DESC"
+        unless params[:order].blank?
+          if params[:order].include? '\'' or params[:order].include? '"'
+            order = "created_at DESC"
+          elsif ['RANDOM()', 'RANDOM'].include? params[:order].upcase
+            order = 'RANDOM()'
+          else
+            field_name, direction = params[:order].split(' ')
+            assoc = object.class.reflect_on_association(method.to_sym)
+            if !field_name.blank? and assoc
+              if assoc.klass.attribute_names.include? field_name
+                if direction.present? and ['ASC','DESC'].include? direction.upcase
+                  order = "#{field_name} #{direction.upcase}"
+                end
+              end
+            end
+          end
+        end
+        return order
       end
 
       def make_page_number_with_parameters(params)
@@ -152,25 +216,36 @@ module Noosfero
       end
 
       def by_reference(scope, params)
-        if params[:reference_id]
-          created_at = scope.find(params[:reference_id]).created_at
-          scope.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at)
-        else
+        reference_id = params[:reference_id].to_i == 0 ? nil : params[:reference_id].to_i
+        if reference_id.nil?
           scope
+        else
+          created_at = scope.find(reference_id).created_at
+          scope.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at)
+         end
+      end
+
+      def by_categories(scope, params)
+        category_ids = params[:category_ids]
+        if category_ids.nil?
+          scope
+        else
+          scope.joins(:categories).where(:categories => {:id => category_ids})
         end
       end
 
       def select_filtered_collection_of(object, method, params)
         conditions = make_conditions_with_parameter(params)
-        order = make_order_with_parameters(params)
+        order = make_order_with_parameters(object,method,params)
         page_number = make_page_number_with_parameters(params)
         per_page = make_per_page_with_parameters(params)
         timestamp = make_timestamp_with_parameters_and_method(params, method)
 
         objects = object.send(method)
         objects = by_reference(objects, params)
+        objects = by_categories(objects, params)
 
-        objects = objects.where(conditions).where(timestamp).page(page_number).per_page(per_page).order(order)
+        objects = objects.where(conditions).where(timestamp).page(page_number).per_page(per_page).reorder(order)
 
         objects
       end
@@ -178,6 +253,7 @@ module Noosfero
       def authenticate!
         unauthorized! unless current_user
       end
+
 
       # Checks the occurrences of uniqueness of attributes, each attribute must be present in the params hash
       # or a Bad Request error is invoked.
@@ -196,20 +272,6 @@ module Noosfero
           attrs[key] = params[key] if params[key].present? or (params.has_key?(key) and params[key] == false)
         end
         attrs
-      end
-
-      def verify_recaptcha_v2(remote_ip, g_recaptcha_response, private_key, api_recaptcha_verify_uri)
-        verify_hash = {
-          "secret"    => private_key,
-          "remoteip"  => remote_ip,
-          "response"  => g_recaptcha_response
-        }
-        uri = URI(api_recaptcha_verify_uri)
-        https = Net::HTTP.new(uri.host, uri.port)
-        https.use_ssl = true
-        request = Net::HTTP::Post.new(uri.path)
-        request.set_form_data(verify_hash)
-        JSON.parse(https.request(request).body)
       end
 
       ##########################################
@@ -247,13 +309,22 @@ module Noosfero
         render_api_error!(_('Method Not Allowed'), 405)
       end
 
-      def render_api_error!(message, status)
-        error!({'message' => message, :code => status}, status)
+      # javascript_console_message is supposed to be executed as console.log()
+      def render_api_error!(user_message, status, log_message = nil, javascript_console_message = nil)
+        message_hash = {'message' => user_message, :code => status}
+        message_hash[:javascript_console_message] = javascript_console_message if javascript_console_message.present?
+        log_msg = "#{status}, User message: #{user_message}"
+        log_msg = "#{log_message}, #{log_msg}" if log_message.present?
+        log_msg = "#{log_msg}, Javascript Console Message: #{javascript_console_message}" if javascript_console_message.present?
+        logger.error log_msg unless Rails.env.test?
+        error!(message_hash, status)
       end
 
       def render_api_errors!(messages)
+        messages = messages.to_a if messages.class == ActiveModel::Errors
         render_api_error!(messages.join(','), 400)
       end
+
       protected
 
       def set_session_cookie
@@ -278,7 +349,7 @@ module Noosfero
       end
 
       def filter_disabled_plugins_endpoints
-        not_found! if Noosfero::API::API.endpoint_unavailable?(self, !@environment)
+        not_found! if Noosfero::API::API.endpoint_unavailable?(self, @environment)
       end
 
       private
@@ -305,7 +376,6 @@ module Noosfero
       def period(from_date, until_date)
         begin_period = from_date.nil? ? Time.at(0).to_datetime : from_date
         end_period = until_date.nil? ? DateTime.now : until_date
-
         begin_period..end_period
       end
 
