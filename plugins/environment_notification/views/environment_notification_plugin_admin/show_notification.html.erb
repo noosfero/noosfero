@@ -5,10 +5,8 @@
       <div class="adminnotification notification">
         <div class="notification-message">
           <p>
-            <%= _("There are active notifications in this environment! You can ") %>
-            <a href="/admin/plugin/environment_notification">
-              <%= _("manage all notifications here.") %>
-            </a>
+            <%= _("There are active notifications in this environment!") %>
+            <%= link_to _("Manage all notifications here."), EnvironmentNotificationPlugin.admin_url %>
           </p>
         </div>
       </div>
