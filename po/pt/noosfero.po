@@ -8888,7 +8888,7 @@ msgstr "Sua entrada está esperando aprovação"
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:14
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:18
 msgid "Join this community"
-msgstr "Entrar nesta comunidade"
+msgstr "Entrar na comunidade"
 
 #: app/views/blocks/profile_info_actions/_join_leave_community.html.erb:23
 msgid "Please confirm to leave the community '%{name}'"
