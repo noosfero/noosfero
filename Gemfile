@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 4.2.4'
+gem 'rails',                    '~> 4.1'
 gem 'fast_gettext',             '~> 0.9'
 gem 'acts-as-taggable-on',      '~> 3.5'
 gem 'rails_autolink',           '~> 1.1.5'
