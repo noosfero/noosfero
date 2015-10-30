@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-03-12 15:11+0200\n"
 "Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -38,30 +38,6 @@ msgid ""
 msgstr ""
 "Um plugin que adiciona um bloco onde você pode ver estatísticas do seu "
 "portal."
-
-#: plugins/statistics/views/statistics_block.html.erb:7
-msgid "users"
-msgstr "usuários"
-
-#: plugins/statistics/views/statistics_block.html.erb:10
-msgid "enterprises"
-msgstr "empreendimentos"
-
-#: plugins/statistics/views/statistics_block.html.erb:13
-msgid "products"
-msgstr "produtos"
-
-#: plugins/statistics/views/statistics_block.html.erb:16
-msgid "communities"
-msgstr "comunidades"
-
-#: plugins/statistics/views/statistics_block.html.erb:19
-msgid "categories"
-msgstr "categorias"
-
-#: plugins/statistics/views/statistics_block.html.erb:28
-msgid "hits"
-msgstr "acessos"
 
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
 msgid "Show user counter"
@@ -98,3 +74,27 @@ msgstr "Mostrar quantidade de acessos"
 #: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr "Mostrar quantidade de comunidades com tema %s"
+
+#: plugins/statistics/views/statistics_block.html.erb:7
+msgid "users"
+msgstr "usuários"
+
+#: plugins/statistics/views/statistics_block.html.erb:10
+msgid "enterprises"
+msgstr "empreendimentos"
+
+#: plugins/statistics/views/statistics_block.html.erb:13
+msgid "products"
+msgstr "produtos"
+
+#: plugins/statistics/views/statistics_block.html.erb:16
+msgid "communities"
+msgstr "comunidades"
+
+#: plugins/statistics/views/statistics_block.html.erb:19
+msgid "categories"
+msgstr "categorias"
+
+#: plugins/statistics/views/statistics_block.html.erb:28
+msgid "hits"
+msgstr "acessos"

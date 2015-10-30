@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-08-07 16:48+0200\n"
 "Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -23,6 +23,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:8
+msgid "New kind of content for organizations."
+msgstr "Novo tipo de conteúdo para organizações."
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:62
+msgid "Notification successfully sent"
+msgstr "Notificação enviada com sucesso"
+
+#: plugins/work_assignment/lib/work_assignment_plugin.rb:64
+msgid "Notification not sent"
+msgstr "Notificação não enviada"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
+msgid "Work Assignment"
+msgstr "Trabalho a ser entregue"
+
+#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:20
+msgid ""
+"Defines a work to be done by the members and receives their submissions "
+"about this work."
+msgstr ""
+"Define um trabalho a ser feito pelos membros e recebe as submissõs do "
+"trabalho."
 
 #: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
 msgid "Subject"
@@ -39,18 +63,6 @@ msgstr "e-Mail"
 #: plugins/work_assignment/lib/work_assignment_plugin/email_contact.rb:21
 msgid "Name"
 msgstr "Nome"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:16
-msgid "Work Assignment"
-msgstr "Trabalho a ser entregue"
-
-#: plugins/work_assignment/lib/work_assignment_plugin/work_assignment.rb:20
-msgid ""
-"Defines a work to be done by the members and receives their submissions "
-"about this work."
-msgstr ""
-"Define um trabalho a ser feito pelos membros e recebe as submissõs do "
-"trabalho."
 
 #: plugins/work_assignment/lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"
@@ -72,18 +84,6 @@ msgstr "Remover"
 msgid "Edit"
 msgstr "Editar"
 
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:8
-msgid "New kind of content for organizations."
-msgstr "Novo tipo de conteúdo para organizações."
-
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:62
-msgid "Notification successfully sent"
-msgstr "Notificação enviada com sucesso"
-
-#: plugins/work_assignment/lib/work_assignment_plugin.rb:64
-msgid "Notification not sent"
-msgstr "Notificação não enviada"
-
 #: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
 msgid "Save"
 msgstr "Salvar"
@@ -91,6 +91,18 @@ msgstr "Salvar"
 #: plugins/work_assignment/views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
 msgid "Cancel"
 msgstr "Cancelar"
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
+msgid "Default email message:"
+msgstr "Mensagem de e-mail padrão:"
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
+msgid "The submissions can be viewed by anyone"
+msgstr ""
+
+#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
+msgid "Allow users change submissions privacy?"
+msgstr "Permitir que usuários alterem o nível de privacidade de submissões?"
 
 #: plugins/work_assignment/views/cms/_notify_text_field.html.erb:1
 msgid ""
@@ -104,14 +116,5 @@ msgstr ""
 msgid "Send notification to: "
 msgstr "Enviar notificação para: "
 
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
-msgid "Default email message:"
-msgstr "Mensagem de e-mail padrão:"
-
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
-msgid "Publish submissions"
-msgstr "Publicar submissões"
-
-#: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
-msgid "Allow users change submissions privacy?"
-msgstr "Permitir que usuários alterem o nível de privacidade de submissões?"
+#~ msgid "Publish submissions"
+#~ msgstr "Publicar submissões"

@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/lattes_curriculum/lib/academic_info.rb:10
-msgid " is invalid."
+#: plugins/lattes_curriculum/lib/html_parser.rb:18
+msgid "Lattes not found. Please, make sure the informed URL is correct."
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:20
+msgid "Lattes Platform is unreachable. Please, try it later."
+msgstr ""
+
+#: plugins/lattes_curriculum/lib/html_parser.rb:22
+msgid "Could not import the lattes"
 msgstr ""
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
@@ -35,14 +43,6 @@ msgstr ""
 msgid " Invalid lattes url"
 msgstr ""
 
-#: plugins/lattes_curriculum/lib/html_parser.rb:19
-msgid "Lattes not found. Please, make sure the informed URL is correct."
-msgstr ""
-
-#: plugins/lattes_curriculum/lib/html_parser.rb:21
-msgid "Lattes Platform is unreachable. Please, try it later."
-msgstr ""
-
-#: plugins/lattes_curriculum/lib/html_parser.rb:23
-msgid "Could not import the lattes"
+#: plugins/lattes_curriculum/lib/academic_info.rb:10
+msgid " is invalid."
 msgstr ""

@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-03-09 09:51+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
 
 #: plugins/display_content/lib/display_content_block.rb:34
 #, fuzzy
@@ -61,20 +67,6 @@ msgstr "%{day} de %{month_name} de %{year}"
 msgid "%{month_name} %{day}"
 msgstr ""
 
-#: plugins/display_content/lib/display_content_plugin.rb:10
-msgid ""
-"A plugin that adds a block where you could choose any of your content and "
-"display it."
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
-msgid "Dinamically load children of selected folders"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
-msgid "Limit:"
-msgstr ""
-
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
@@ -113,3 +105,11 @@ msgstr "Mostrar alguno de tus contenidos"
 #, fuzzy
 msgid "more"
 msgstr "Ver más"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""

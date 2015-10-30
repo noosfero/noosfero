@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-07-03 00:31+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
+"Un plugin qui permet d'ajouter une zone ou vous pourrez y afficher le "
+"contenue de votre choix."
 
 #: plugins/display_content/lib/display_content_block.rb:34
 msgid "Display your contents"
@@ -58,23 +66,6 @@ msgstr "%{day} %{month_name} %{year}"
 msgid "%{month_name} %{day}"
 msgstr "%{day} %{month_name}"
 
-#: plugins/display_content/lib/display_content_plugin.rb:10
-msgid ""
-"A plugin that adds a block where you could choose any of your content and "
-"display it."
-msgstr ""
-"Un plugin qui permet d'ajouter une zone ou vous pourrez y afficher le "
-"contenue de votre choix."
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
-msgid "Dinamically load children of selected folders"
-msgstr ""
-"charger dynamiquement les sous répertoires des répertoires sélectionnés"
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
-msgid "Limit:"
-msgstr "Limite :"
-
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
@@ -112,3 +103,12 @@ msgstr "Afficher le type de contenu :"
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:7
 msgid "more"
 msgstr "plus"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+"charger dynamiquement les sous répertoires des répertoires sélectionnés"
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr "Limite :"

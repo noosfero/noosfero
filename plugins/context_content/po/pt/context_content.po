@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,6 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: plugins/context_content/lib/context_content_plugin.rb:8
+msgid "A plugin that display content based on page context."
+msgstr "Um plugin que mostra conteúdo baseado do contexto da página."
+
 #: plugins/context_content/lib/context_content_plugin/context_content_block.rb:16
 msgid "Display context content"
 msgstr "Mostrar conteúdo contextual"
@@ -31,10 +35,6 @@ msgstr "Mostrar conteúdo contextual"
 #: plugins/context_content/lib/context_content_plugin/context_content_block.rb:20
 msgid "This block displays content based on context."
 msgstr "Este bloco apresenta conteúdo baseado no contexto."
-
-#: plugins/context_content/lib/context_content_plugin.rb:8
-msgid "A plugin that display content based on page context."
-msgstr "Um plugin que mostra conteúdo baseado do contexto da página."
 
 #: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:3
 msgid "Show content name"

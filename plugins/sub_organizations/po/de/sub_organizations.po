@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,17 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
-msgid "Sub-organizations updated"
-msgstr "Unterorganisationen aktualisiert"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
+msgid "Sub-groups"
+msgstr "Untergruppen"
 
-#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
-msgid "Sub-organizations could not be updated"
-msgstr "Die Unterorganisationen konnte nicht aktualisiert werden"
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
+msgid "Adds the ability for groups to have sub-groups."
+msgstr "Fügt Gruppen die Fähigkeit hinzu, Untergruppen zu haben."
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
-msgid "multi-level paternity is not allowed."
-msgstr "Die Zuordnung über mehrere Stufen ist nicht erlaubt."
+#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
+#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr "Untergruppen verwalten"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
@@ -42,6 +43,10 @@ msgid ""
 msgstr ""
 "%{requestor} möchte das Unternehmen %{linked_subject} als Unterorganisation "
 "von %{linked_subject} hinzufügen."
+
+#: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:24
+msgid "multi-level paternity is not allowed."
+msgstr "Die Zuordnung über mehrere Stufen ist nicht erlaubt."
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:8
 #, fuzzy
@@ -70,18 +75,13 @@ msgstr[1] ""
 msgid "This block displays %s organizations of this organization"
 msgstr ""
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
-msgstr "Untergruppen"
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
+msgid "Sub-organizations updated"
+msgstr "Unterorganisationen aktualisiert"
 
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:18
-msgid "Adds the ability for groups to have sub-groups."
-msgstr "Fügt Gruppen die Fähigkeit hinzu, Untergruppen zu haben."
-
-#: plugins/sub_organizations/lib/sub_organizations_plugin.rb:23
-#: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
-msgstr "Untergruppen verwalten"
+#: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
+msgid "Sub-organizations could not be updated"
+msgstr "Die Unterorganisationen konnte nicht aktualisiert werden"
 
 #: plugins/sub_organizations/views/box_organizer/_related_organizations_block.html.erb:2
 #, fuzzy

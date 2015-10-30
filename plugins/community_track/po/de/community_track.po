@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,22 +19,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
+#: plugins/community_track/lib/community_track_plugin.rb:8
 #, fuzzy
-msgid "Select one community to proceed"
-msgstr "Community-Vorlage anlegen"
+msgid "New kind of content for communities."
+msgstr "Neue Art von Beiträgen für Organisationen."
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:11
+#: plugins/community_track/lib/community_track_plugin/step.rb:13
 #, fuzzy
-msgid "should not be blank."
-msgstr "%s konnte nicht hochgeladen werden"
+msgid "Step not allowed at this parent."
+msgstr "Es ist Ihnen nicht erlaubt, diese Seite anzusehen."
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:19
-msgid "Track"
+#: plugins/community_track/lib/community_track_plugin/step.rb:47
+msgid "must be equal or after start date."
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:23
-msgid "Defines a track."
+#: plugins/community_track/lib/community_track_plugin/step.rb:52
+msgid "Step"
+msgstr ""
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:56
+msgid "Defines a step."
 msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
@@ -60,21 +64,17 @@ msgstr "Betreten"
 msgid "Soon"
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:13
+#: plugins/community_track/lib/community_track_plugin/track.rb:11
 #, fuzzy
-msgid "Step not allowed at this parent."
-msgstr "Es ist Ihnen nicht erlaubt, diese Seite anzusehen."
+msgid "should not be blank."
+msgstr "%s konnte nicht hochgeladen werden"
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:47
-msgid "must be equal or after start date."
+#: plugins/community_track/lib/community_track_plugin/track.rb:19
+msgid "Track"
 msgstr ""
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:52
-msgid "Step"
-msgstr ""
-
-#: plugins/community_track/lib/community_track_plugin/step.rb:56
-msgid "Defines a step."
+#: plugins/community_track/lib/community_track_plugin/track.rb:23
+msgid "Defines a track."
 msgstr ""
 
 #: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
@@ -86,48 +86,21 @@ msgstr ""
 msgid "This block displays a list of most relevant tracks."
 msgstr "Dieser Block stellt eine Liste Ihrer Produkte dar."
 
-#: plugins/community_track/lib/community_track_plugin.rb:8
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
 #, fuzzy
-msgid "New kind of content for communities."
-msgstr "Neue Art von Beiträgen für Organisationen."
+msgid "Select one community to proceed"
+msgstr "Community-Vorlage anlegen"
 
-#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
-msgid "Tracks"
+#: plugins/community_track/views/content_viewer/step.html.erb:13
+#: plugins/community_track/views/content_viewer/step.html.erb:19
+msgid "Tool"
 msgstr ""
 
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
-#, fuzzy
-msgid "Select Community"
-msgstr "Community"
-
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
-#, fuzzy
-msgid "New Track"
-msgstr "Neuer Vertrag"
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
-msgid "Show more at another page"
-msgstr ""
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
-#, fuzzy
-msgid "Select Categories"
-msgstr "Produktkategorien"
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
-msgid "Tool: "
-msgstr ""
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
 #: plugins/community_track/views/content_viewer/step.html.erb:15
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
 #, fuzzy
 msgid "Create %s"
 msgstr "Bsc erstellen"
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
-#, fuzzy
-msgid "View"
-msgstr "Zeige alle"
 
 #: plugins/community_track/views/content_viewer/track.html.erb:9
 #: plugins/community_track/views/blocks/_track.html.erb:12
@@ -147,10 +120,46 @@ msgstr ""
 msgid "Hidden Steps"
 msgstr "Versteckt"
 
-#: plugins/community_track/views/content_viewer/step.html.erb:13
-#: plugins/community_track/views/content_viewer/step.html.erb:19
-msgid "Tool"
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
+msgid "Tool: "
 msgstr ""
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
+#, fuzzy
+msgid "View"
+msgstr "Zeige alle"
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
+msgid "Show more at another page"
+msgstr ""
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
+#, fuzzy
+msgid "Select Categories"
+msgstr "Produktkategorien"
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
+#, fuzzy
+msgid "Select Community"
+msgstr "Community"
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
+#, fuzzy
+msgid "New Track"
+msgstr "Neuer Vertrag"
+
+#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
+msgid "Tracks"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
+msgid "Goals:"
+msgstr ""
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
+#, fuzzy
+msgid "Expected Results:"
+msgstr "Suchresultate"
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
 msgid "Period"
@@ -165,15 +174,6 @@ msgstr "Ordnertyp"
 #, fuzzy
 msgid "Hidden Step"
 msgstr "Versteckt"
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
-msgid "Goals:"
-msgstr ""
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
-#, fuzzy
-msgid "Expected Results:"
-msgstr "Suchresultate"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
 msgid "hits"

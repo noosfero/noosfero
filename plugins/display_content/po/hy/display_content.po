@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: plugins/display_content/lib/display_content_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
+msgstr ""
 
 #: plugins/display_content/lib/display_content_block.rb:34
 #, fuzzy
@@ -58,20 +64,6 @@ msgstr ""
 msgid "%{month_name} %{day}"
 msgstr ""
 
-#: plugins/display_content/lib/display_content_plugin.rb:10
-msgid ""
-"A plugin that adds a block where you could choose any of your content and "
-"display it."
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
-msgid "Dinamically load children of selected folders"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
-msgid "Limit:"
-msgstr ""
-
 #: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
@@ -110,3 +102,11 @@ msgstr "Ցուցադրիր հոդվածներիցդ որևէ մեկը:"
 #, fuzzy
 msgid "more"
 msgstr "ավելին..."
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""

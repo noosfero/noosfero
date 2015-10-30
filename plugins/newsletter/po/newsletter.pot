@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-09-15 14:14-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
-msgid "You were unsubscribed from newsletter."
+#: plugins/newsletter/lib/newsletter_plugin.rb:8
+msgid "Periodically sends newsletter via email to network users"
 msgstr ""
 
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
-msgid "Newsletter updated."
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:23
+msgid "Moderate newsletter"
 msgstr ""
 
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:25
-msgid "Newsletter could not be saved."
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:35
+msgid "You have to moderate a newsletter."
 msgstr ""
 
-#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:41
-#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:33
-msgid "%s in %s"
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:47
+msgid ""
+"A newsletter was generated and you need to review it before it is sent to "
+"users."
+msgstr ""
+
+#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:51
+msgid "You need to moderate a newsletter."
 msgstr ""
 
 #: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:9
@@ -77,60 +82,49 @@ msgstr ""
 msgid "Breaking news"
 msgstr ""
 
-#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:164
+#: plugins/newsletter/lib/newsletter_plugin/newsletter.rb:167
 msgid "have unknown file type: %s"
 msgstr ""
 
-#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:23
-msgid "Moderate newsletter"
+#: plugins/newsletter/controllers/newsletter_plugin_controller.rb:17
+msgid "You were unsubscribed from newsletter."
 msgstr ""
 
-#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:35
-msgid "You have to moderate a newsletter."
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:22
+msgid "Newsletter updated."
 msgstr ""
 
-#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:47
-msgid ""
-"A newsletter was generated and you need to review it before it is sent to "
-"users."
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:25
+msgid "Newsletter could not be saved."
 msgstr ""
 
-#: plugins/newsletter/lib/newsletter_plugin/moderate_newsletter.rb:51
-msgid "You need to moderate a newsletter."
-msgstr ""
-
-#: plugins/newsletter/lib/newsletter_plugin.rb:8
-msgid "Periodically sends newsletter via email to network users"
+#: plugins/newsletter/controllers/newsletter_plugin_admin_controller.rb:41
+#: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:33
+msgid "%s in %s"
 msgstr ""
 
 #: plugins/newsletter/views/tasks/newsletter_plugin/_moderate_newsletter_accept_details.html.erb:3
 msgid "Check posts you want to include"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:1
-msgid "Cancel newsletter subscription"
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:1
+msgid "Additional recipients"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:4
-msgid "I don't want to receive future newsletter emails from this network."
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:6
+msgid "Name"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:7
-msgid ""
-"Send an email to %s requesting your unsubscription or click on the button "
-"below."
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:7
+msgid "E-mail"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:10
-msgid "Confirm unsubscription"
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:17
+msgid "There are no additional recipients."
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:1
-msgid "Mailing not found"
-msgstr ""
-
-#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:3
-msgid "There is no mailing with id #%s"
+#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:21
+msgid "Back"
 msgstr ""
 
 #: plugins/newsletter/views/newsletter_plugin_admin/index.html.erb:1
@@ -221,22 +215,28 @@ msgstr ""
 msgid "Save and visualize"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:1
-msgid "Additional recipients"
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:1
+msgid "Cancel newsletter subscription"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:6
-msgid "Name"
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:4
+msgid "I don't want to receive future newsletter emails from this network."
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:7
-msgid "E-mail"
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:7
+msgid ""
+"Send an email to %s requesting your unsubscription or click on the button "
+"below."
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:17
-msgid "There are no additional recipients."
+#: plugins/newsletter/views/newsletter_plugin/unsubscribe.html.erb:10
+msgid "Confirm unsubscription"
 msgstr ""
 
-#: plugins/newsletter/views/newsletter_plugin_admin/recipients.html.erb:21
-msgid "Back"
+#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:1
+msgid "Mailing not found"
+msgstr ""
+
+#: plugins/newsletter/views/newsletter_plugin/mailing_not_found.html.erb:3
+msgid "There is no mailing with id #%s"
 msgstr ""
