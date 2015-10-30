@@ -1,0 +1,44 @@
+<%= block_title(block.title) %>
+
+<% unless block.images.blank? %>
+  <%= link_to content_tag(:span, _('Previous')), '#', :class => 'gallery-block-prev gallery-block-arrow icon-left' %>
+  <div class="gallery-block-container">
+    <ul class="gallery-list">
+      <% block.images.in_groups_of(block.groups_of).each do |group| %>
+        <li class="gallery-group">
+          <div class="gallery-items">
+            <ul>
+            <% group.reject{ |x| x.nil? }.each_with_index do |p, i| %>
+              <li class="gallery-item">
+                <%= link_to image_tag(p.public_filename(:thumb), :alt => p.name, :title => p.name), p.view_url, :class => 'gallery-image' %>
+                <div class="gallery-image-info position-<%= i + 1 %>" style="display: none">
+                  <div class="gallery-image-text">
+                    <h3><%= p.name %></h3>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= link_to content_tag(:span, _('Next')), '#', :class => 'gallery-block-next gallery-block-arrow icon-right' %>
+  <script type="text/javascript">
+    (function($) {
+     var options = {
+       fx : 'scrollHorz',
+       timeout: 0,
+       prev: '#block-<%= block.id %> .gallery-block-prev',
+       next: '#block-<%= block.id %> .gallery-block-next',
+       speed: 2000,
+       timeout: <%= block.interval * 1000 %>
+      }
+      $('#block-<%= block.id %> .gallery-list').cycle(options);
+    })(jQuery);
+  </script>
+  <p class="gallery-block-footer"></p>
+<% else %>
+  <em><%= _('Please, edit this block and choose some gallery') %></em>
+<% end %>

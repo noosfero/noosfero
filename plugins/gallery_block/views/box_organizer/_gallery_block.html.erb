@@ -1,0 +1,17 @@
+<div id="gallery_block_plugin">
+
+  <% if @block.owner.kind_of? Environment %>
+    <%= labelled_form_field(_('Fill in with the gallery ID:'), text_field(:block, 'gallery_id')) %>
+  <% else %>
+    <%= labelled_form_field _('Choose a gallery'), select('block', 'gallery_id', @block.owner.image_galleries.map { |item|
+  [ _('%{gallery} (%{count} images)') % {:gallery => item.path, :count => item.images.reject{|image| image.folder?}.count}, item.id ]
+}) %>
+  <% end %>
+
+  <%= labelled_form_field(_('Transition speed (in seconds)'), select('block', 'speed', (1..10).to_a.collect{|i| [i, i*1000] })) %>
+
+  <%= labelled_form_field _('Image transition:'), select('block', 'interval', [[_('No automatic transition'), 0]] + [1, 2, 3, 4, 5, 10, 20, 30, 60].map {|item| [n_('Every 1 second', 'Every %d seconds', item) % item, item]}) %>
+
+  <%= labelled_form_field(_('In groups of'), select('block', 'groups_of', (1..10).to_a)) %>
+
+</div>
