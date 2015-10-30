@@ -21,6 +21,7 @@ gem 'gettext',                  '~> 3.1', :require => false
 gem 'locale',                   '~> 2.1'
 gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
+gem 'diffy',                    '~> 3.0'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
