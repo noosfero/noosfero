@@ -5,7 +5,7 @@ end
 
 root = File.expand_path(File.dirname(__FILE__) + '/../..')
 if File.exist?(File.join(root, '.git'))
-  git_version = Dir.chdir(root) { `git describe --tags`.strip.sub('-rc', '~rc') }
+  git_version = Dir.chdir(root) { `git describe --tags`.to_s.strip.sub('-rc', '~rc') }
   if git_version > Noosfero::VERSION
     Noosfero::VERSION.clear << git_version
   end
