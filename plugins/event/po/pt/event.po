@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-01-30 00:18-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,17 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: plugins/event/lib/event_plugin.rb:4
-msgid "Event Extras"
-msgstr "Extras para Eventos"
-
-#: plugins/event/lib/event_plugin.rb:8
-msgid ""
-"Include a new block to show the environment's or profiles' events information"
-msgstr ""
-"Adiciona um novo bloco para apresentar as informações de eventos do ambiente "
-"ou dos perfis"
 
 #: plugins/event/lib/event_plugin/event_block.rb:12
 msgid "Events"
@@ -63,6 +52,23 @@ msgid_plural "%d months left to start"
 msgstr[0] "Um mês para iniciar"
 msgstr[1] "%d meses para iniciar"
 
+#: plugins/event/lib/event_plugin.rb:4
+msgid "Event Extras"
+msgstr "Extras para Eventos"
+
+#: plugins/event/lib/event_plugin.rb:8
+msgid ""
+"Include a new block to show the environment's or profiles' events information"
+msgstr ""
+"Adiciona um novo bloco para apresentar as informações de eventos do ambiente "
+"ou dos perfis"
+
+#: plugins/event/views/event_plugin/event_block_item.html.erb:6
+msgid "Duration: 1 day"
+msgid_plural "Duration: %s days"
+msgstr[0] "Duração: 1 dia"
+msgstr[1] "Duração: %s dias"
+
 #: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:1
 msgid "Limit of items"
 msgstr "Limite de itens"
@@ -91,12 +97,6 @@ msgstr "Limite de dias para mostrar"
 #: plugins/event/views/profile_design/event_plugin/_event_block.html.erb:24
 msgid "Only show events in this interval of days."
 msgstr "Mostar somente os eventos nesse intervalo de dias"
-
-#: plugins/event/views/event_plugin/event_block_item.html.erb:6
-msgid "Duration: 1 day"
-msgid_plural "Duration: %s days"
-msgstr[0] "Duração: 1 dia"
-msgstr[1] "Duração: %s dias"
 
 #~ msgid "Started one day ago."
 #~ msgid_plural "Started %d days ago."

@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,21 +24,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
-msgid "Select one community to proceed"
-msgstr "Selecione uma comunidade para prosseguir"
+#: plugins/community_track/lib/community_track_plugin.rb:8
+msgid "New kind of content for communities."
+msgstr "Novo tipo de conteúdo para comunidades."
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:11
-msgid "should not be blank."
-msgstr "não deve ser nulo."
+#: plugins/community_track/lib/community_track_plugin/step.rb:13
+msgid "Step not allowed at this parent."
+msgstr "Passo não permitido nesse pai."
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:19
-msgid "Track"
-msgstr "Trilha"
+#: plugins/community_track/lib/community_track_plugin/step.rb:47
+msgid "must be equal or after start date."
+msgstr "deve ser igual ou após a data de ínicio."
 
-#: plugins/community_track/lib/community_track_plugin/track.rb:23
-msgid "Defines a track."
-msgstr "Define uma trilha."
+#: plugins/community_track/lib/community_track_plugin/step.rb:52
+msgid "Step"
+msgstr "Passo"
+
+#: plugins/community_track/lib/community_track_plugin/step.rb:56
+msgid "Defines a step."
+msgstr "Define uma etapa."
 
 #: plugins/community_track/lib/community_track_plugin/track_card_list_block.rb:4
 msgid "Track Card List"
@@ -61,21 +65,17 @@ msgstr "Entrar!"
 msgid "Soon"
 msgstr "Logo"
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:13
-msgid "Step not allowed at this parent."
-msgstr "Passo não permitido nesse pai."
+#: plugins/community_track/lib/community_track_plugin/track.rb:11
+msgid "should not be blank."
+msgstr "não deve ser nulo."
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:47
-msgid "must be equal or after start date."
-msgstr "deve ser igual ou após a data de ínicio."
+#: plugins/community_track/lib/community_track_plugin/track.rb:19
+msgid "Track"
+msgstr "Trilha"
 
-#: plugins/community_track/lib/community_track_plugin/step.rb:52
-msgid "Step"
-msgstr "Passo"
-
-#: plugins/community_track/lib/community_track_plugin/step.rb:56
-msgid "Defines a step."
-msgstr "Define uma etapa."
+#: plugins/community_track/lib/community_track_plugin/track.rb:23
+msgid "Defines a track."
+msgstr "Define uma trilha."
 
 #: plugins/community_track/lib/community_track_plugin/track_list_block.rb:10
 msgid "Track List"
@@ -85,42 +85,19 @@ msgstr "Lista de Trilhas"
 msgid "This block displays a list of most relevant tracks."
 msgstr "Este bloco apresenta a lista das trilhas mais relevantes."
 
-#: plugins/community_track/lib/community_track_plugin.rb:8
-msgid "New kind of content for communities."
-msgstr "Novo tipo de conteúdo para comunidades."
+#: plugins/community_track/controllers/public/community_track_plugin_public_controller.rb:39
+msgid "Select one community to proceed"
+msgstr "Selecione uma comunidade para prosseguir"
 
-#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
-msgid "Tracks"
-msgstr "Trilhas"
+#: plugins/community_track/views/content_viewer/step.html.erb:13
+#: plugins/community_track/views/content_viewer/step.html.erb:19
+msgid "Tool"
+msgstr "Ferramenta"
 
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
-msgid "Select Community"
-msgstr "Selecionar Comunidade"
-
-#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
-msgid "New Track"
-msgstr "Nova Trilha"
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
-msgid "Show more at another page"
-msgstr "Mostrar mais em outra página"
-
-#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
-msgid "Select Categories"
-msgstr "Selecionar Categorias"
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
-msgid "Tool: "
-msgstr "Ferramenta: "
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
 #: plugins/community_track/views/content_viewer/step.html.erb:15
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:23
 msgid "Create %s"
 msgstr "Criar %s"
-
-#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
-msgid "View"
-msgstr "Ver"
 
 #: plugins/community_track/views/content_viewer/track.html.erb:9
 #: plugins/community_track/views/blocks/_track.html.erb:12
@@ -139,10 +116,41 @@ msgstr "Salvar Ordem"
 msgid "Hidden Steps"
 msgstr "Passos Ocultos"
 
-#: plugins/community_track/views/content_viewer/step.html.erb:13
-#: plugins/community_track/views/content_viewer/step.html.erb:19
-msgid "Tool"
-msgstr "Ferramenta"
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:16
+msgid "Tool: "
+msgstr "Ferramenta: "
+
+#: plugins/community_track/views/content_viewer/_step_item.html.erb:32
+msgid "View"
+msgstr "Ver"
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:3
+msgid "Show more at another page"
+msgstr "Mostrar mais em outra página"
+
+#: plugins/community_track/views/box_organizer/community_track_plugin/_track_list_block.html.erb:4
+msgid "Select Categories"
+msgstr "Selecionar Categorias"
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:3
+msgid "Select Community"
+msgstr "Selecionar Comunidade"
+
+#: plugins/community_track/views/community_track_plugin_public/select_community.html.erb:39
+msgid "New Track"
+msgstr "Nova Trilha"
+
+#: plugins/community_track/views/community_track_plugin_public/all_tracks.html.erb:1
+msgid "Tracks"
+msgstr "Trilhas"
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
+msgid "Goals:"
+msgstr "Metas:"
+
+#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
+msgid "Expected Results:"
+msgstr "Resultados Esperados:"
 
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:7
 msgid "Period"
@@ -155,14 +163,6 @@ msgstr "Tipo de ferramenta"
 #: plugins/community_track/views/cms/community_track_plugin/_step.html.erb:19
 msgid "Hidden Step"
 msgstr "Passo Oculto"
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:13
-msgid "Goals:"
-msgstr "Metas:"
-
-#: plugins/community_track/views/cms/community_track_plugin/_track.html.erb:14
-msgid "Expected Results:"
-msgstr "Resultados Esperados:"
 
 #: plugins/community_track/views/blocks/_track_card.html.erb:25
 msgid "hits"

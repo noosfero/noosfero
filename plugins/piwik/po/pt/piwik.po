@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,6 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: plugins/piwik/lib/piwik_plugin.rb:13
+msgid "Tracking and web analytics to your Noosfero's environment"
+msgstr "Rastreamento e análise web para o seu ambiente Noosfero"
+
 #: plugins/piwik/controllers/piwik_plugin_admin_controller.rb:8
 msgid "Piwik plugin settings updated successfully."
 msgstr "As configurações do plugin Piwik foram atualizadas com sucesso."
@@ -31,10 +35,6 @@ msgstr "As configurações do plugin Piwik foram atualizadas com sucesso."
 #: plugins/piwik/controllers/piwik_plugin_admin_controller.rb:10
 msgid "Piwik plugin settings could not be saved."
 msgstr "As configurações do plugin Piwik não puderam ser gravadas."
-
-#: plugins/piwik/lib/piwik_plugin.rb:13
-msgid "Tracking and web analytics to your Noosfero's environment"
-msgstr "Rastreamento e análise web para o seu ambiente Noosfero"
 
 #: plugins/piwik/views/piwik_plugin_admin/index.html.erb:1
 msgid "Piwik plugin settings"

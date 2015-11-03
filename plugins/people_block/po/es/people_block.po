@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
+
+#: plugins/people_block/lib/friends_block.rb:8
+#, fuzzy
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Presionando en una persona te lleva a su página de inicio"
+
+#: plugins/people_block/lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "{#} amigo"
+msgstr[1] "{#} amigos"
+
+#: plugins/people_block/lib/people_block_base.rb:9
+msgid "Random people"
+msgstr "Gente aleatoria"
+
+#: plugins/people_block/lib/people_block_base.rb:17
+#: plugins/people_block/lib/people_block.rb:12
+#, fuzzy
+msgid "{#} People"
+msgstr "Personas"
 
 #: plugins/people_block/lib/members_block.rb:11
 #, fuzzy
@@ -41,27 +62,6 @@ msgstr ""
 #, fuzzy
 msgid "A plugin that adds a people block"
 msgstr "Un plugin que hace ésto y aquello."
-
-#: plugins/people_block/lib/friends_block.rb:8
-#, fuzzy
-msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Presionando en una persona te lleva a su página de inicio"
-
-#: plugins/people_block/lib/friends_block.rb:12
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] "{#} amigo"
-msgstr[1] "{#} amigos"
-
-#: plugins/people_block/lib/people_block_base.rb:9
-msgid "Random people"
-msgstr "Gente aleatoria"
-
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
-#, fuzzy
-msgid "{#} People"
-msgstr "Personas"
 
 #: plugins/people_block/lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"

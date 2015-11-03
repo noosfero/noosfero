@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
@@ -17,17 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
-#: plugins/stoa/lib/stoa_plugin/auth.rb:26
-msgid "Incorrect user/password pair."
-msgstr "Nombre de usuario o contraseña incorrecta."
-
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
-#: plugins/stoa/lib/stoa_plugin/auth.rb:33
-#, fuzzy
-msgid "Conection requires post method."
-msgstr "La conexión requiere certificación SSL y el método post."
 
 #: plugins/stoa/lib/stoa_plugin.rb:10
 msgid "Add Stoa features"
@@ -99,11 +88,22 @@ msgstr " la validación falló"
 msgid "USP Number"
 msgstr "Numero de USP"
 
+#: plugins/stoa/lib/ext/profile_suggestion.rb:5
+msgid "Classroom in common"
+msgstr ""
+
 #: plugins/stoa/lib/ext/person.rb:18
 #, fuzzy
 msgid "is being used by another user or is not valid"
 msgstr "%{fn} ya está siendo usado por otra categoría."
 
-#: plugins/stoa/lib/ext/profile_suggestion.rb:5
-msgid "Classroom in common"
-msgstr ""
+#: plugins/stoa/lib/stoa_plugin/auth.rb:26
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
+msgid "Incorrect user/password pair."
+msgstr "Nombre de usuario o contraseña incorrecta."
+
+#: plugins/stoa/lib/stoa_plugin/auth.rb:33
+#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+#, fuzzy
+msgid "Conection requires post method."
+msgstr "La conexión requiere certificación SSL y el método post."

@@ -1598,11 +1598,11 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
-  should 'not display accept comments option when creating forum post' do
+  should 'display accept comments option when creating forum post' do
     profile.articles << f = Forum.new(:name => 'Forum for test')
     get :new, :profile => profile.identifier, :type => 'TinyMceArticle', :parent_id => f.id
-    assert :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
-    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
+    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
   end
 
   should 'display accept comments option when creating an article that is not a forum post' do

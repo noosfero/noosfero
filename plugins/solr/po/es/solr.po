@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-02-23 11:35+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -17,6 +17,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
+
+#: plugins/solr/lib/solr_plugin.rb:14
+msgid "Uses Solr as search engine."
+msgstr ""
+
+#: plugins/solr/lib/ext/product.rb:7
+msgid "Related products"
+msgstr "Productos relacionados"
+
+#: plugins/solr/lib/ext/product.rb:73
+msgid " cert. "
+msgstr " cert. "
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Published date"
+msgstr "Fecha de publicación"
+
+#: plugins/solr/lib/ext/article.rb:13
+msgid "Older than one year"
+msgstr "Más de un año"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last year"
+msgstr "En el año pasado"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last month"
+msgstr "En el mes pasado"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last week"
+msgstr "En la semana pasada"
+
+#: plugins/solr/lib/ext/article.rb:14
+msgid "In the last day"
+msgstr "Ayer"
+
+#: plugins/solr/lib/ext/profile.rb:14
+msgid "Situation"
+msgstr "Situación"
+
+#: plugins/solr/lib/ext/profile.rb:103
+#, fuzzy
+msgid "facets|Enabled"
+msgstr "Habilitado"
+
+# habilitado o permitido? estaba o está?
+#: plugins/solr/lib/ext/profile.rb:103
+#, fuzzy
+msgid "facets|Not enabled"
+msgstr "No habilitado"
 
 #: plugins/solr/lib/solr_plugin/search_helper.rb:12
 #: plugins/solr/lib/solr_plugin/search_helper.rb:19
@@ -71,57 +122,6 @@ msgstr "%s comunidades encontradas"
 #: plugins/solr/lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
 msgstr "Teclee una opción"
-
-#: plugins/solr/lib/solr_plugin.rb:14
-msgid "Uses Solr as search engine."
-msgstr ""
-
-#: plugins/solr/lib/ext/article.rb:13
-msgid "Published date"
-msgstr "Fecha de publicación"
-
-#: plugins/solr/lib/ext/article.rb:13
-msgid "Older than one year"
-msgstr "Más de un año"
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last year"
-msgstr "En el año pasado"
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last month"
-msgstr "En el mes pasado"
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last week"
-msgstr "En la semana pasada"
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last day"
-msgstr "Ayer"
-
-#: plugins/solr/lib/ext/profile.rb:14
-msgid "Situation"
-msgstr "Situación"
-
-#: plugins/solr/lib/ext/profile.rb:103
-#, fuzzy
-msgid "facets|Enabled"
-msgstr "Habilitado"
-
-# habilitado o permitido? estaba o está?
-#: plugins/solr/lib/ext/profile.rb:103
-#, fuzzy
-msgid "facets|Not enabled"
-msgstr "No habilitado"
-
-#: plugins/solr/lib/ext/product.rb:7
-msgid "Related products"
-msgstr "Productos relacionados"
-
-#: plugins/solr/lib/ext/product.rb:73
-msgid " cert. "
-msgstr " cert. "
 
 #: plugins/solr/views/search/_results_header.html.erb:7
 msgid "Showing page %s of %s"

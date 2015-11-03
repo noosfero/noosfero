@@ -68,7 +68,7 @@
     <% else %>
       <div class="star-rate-form rating-cooldown">
         <%= _("Hi, %s! The administrators set the minimum time of") % current_user.name %>
-        <strong><%= _("%s hour(s)" % env_organization_ratings_config.cooldown) %></strong>
+        <strong><%= _("%d hour(s)") % env_organization_ratings_config.cooldown %></strong>
         <%= _("between each evaluation.") %>
 
         <%= render :partial => 'shared/rating_button', :locals => { :disabled => true } %>
