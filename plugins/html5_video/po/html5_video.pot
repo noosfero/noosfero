@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/html5_video/lib/html5_video_plugin.rb:10
-msgid "A plugin to enable the video suport, with auto conversion for the web."
-msgstr ""
-
 #: plugins/html5_video/lib/file_presenter/video.rb:8
 msgid "Video (%s)"
+msgstr ""
+
+#: plugins/html5_video/lib/html5_video_plugin.rb:10
+msgid "A plugin to enable the video suport, with auto conversion for the web."
 msgstr ""

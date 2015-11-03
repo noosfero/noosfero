@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-08-06 17:21-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:15
-msgid "Consumer interests updated"
-msgstr ""
-
-#: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:17
-msgid "Could not save consumer interests"
-msgstr ""
-
-#: plugins/sniffer/lib/sniffer_plugin.rb:8
-msgid "Sniffs product suppliers and consumers near to your enterprise."
-msgstr ""
-
-#: plugins/sniffer/lib/sniffer_plugin.rb:16
-msgid "Consumer Interests"
-msgstr ""
-
-#: plugins/sniffer/lib/sniffer_plugin.rb:17
-#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:9
-msgid "Opportunities Sniffer"
-msgstr ""
 
 #: plugins/sniffer/lib/sniffer_plugin/interests_block.rb:4
 msgid "Lists declared and inputs interests"
@@ -54,24 +33,41 @@ msgstr ""
 msgid "This block show interests of your profile or environment"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:9
-msgid "Suppliers"
+#: plugins/sniffer/lib/sniffer_plugin.rb:8
+msgid "Sniffs product suppliers and consumers near to your enterprise."
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:14
-msgid "Consumers"
+#: plugins/sniffer/lib/sniffer_plugin.rb:16
+msgid "Consumer Interests"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:19
-msgid "Both"
+#: plugins/sniffer/lib/sniffer_plugin.rb:17
+#: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:9
+msgid "Opportunities Sniffer"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:25
-msgid "look for products..."
+#: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:15
+msgid "Consumer interests updated"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:54
-msgid "Maximum distance:"
+#: plugins/sniffer/controllers/sniffer_plugin_myprofile_controller.rb:17
+msgid "Could not save consumer interests"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:12
+msgid "Edit %{inputs} and %{interests}"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:13
+msgid "products' inputs"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:14
+msgid "declared interests"
+msgstr ""
+
+#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:23
+msgid "%{interest} from %{profile}"
 msgstr ""
 
 #: plugins/sniffer/views/sniffer_plugin_myprofile/my_map_balloon.html.erb:8
@@ -104,14 +100,6 @@ msgstr ""
 msgid "Back to control panel"
 msgstr ""
 
-#: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:12
-msgid "Can supply"
-msgstr ""
-
-#: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:22
-msgid "May consum"
-msgstr ""
-
 #: plugins/sniffer/views/sniffer_plugin_myprofile/search.html.erb:11
 msgid "Up to %s km from you. %s result(s) found."
 msgstr ""
@@ -136,18 +124,30 @@ msgstr ""
 msgid "both"
 msgstr ""
 
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:12
-msgid "Edit %{inputs} and %{interests}"
+#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:9
+msgid "Suppliers"
 msgstr ""
 
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:13
-msgid "products' inputs"
+#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:14
+msgid "Consumers"
 msgstr ""
 
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:14
-msgid "declared interests"
+#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:19
+msgid "Both"
 msgstr ""
 
-#: plugins/sniffer/views/blocks/sniffer_plugin/interests_block.html.erb:23
-msgid "%{interest} from %{profile}"
+#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:25
+msgid "look for products..."
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/_product_search_box.html.erb:54
+msgid "Maximum distance:"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:12
+msgid "Can supply"
+msgstr ""
+
+#: plugins/sniffer/views/sniffer_plugin_myprofile/map_balloon.html.erb:22
+msgid "May consum"
 msgstr ""

@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1-882-g0c116ba\n"
-"POT-Creation-Date: 2015-09-25 15:42-0000\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:34-0300\n"
 "PO-Revision-Date: 2015-02-23 11:36+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -15,111 +15,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:9
-#, fuzzy
-msgid "Option updated successfully."
-msgstr "Возможности успешно обновлены"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:11
-#, fuzzy
-msgid "Option wasn't updated successfully."
-msgstr "Возможности успешно обновлены"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:115
-msgid "Request sent successfully. Check your email."
-msgstr ""
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:138
-#, fuzzy
-msgid "Basket displayed."
-msgstr "Не отображать"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:157
-msgid "Basket hidden."
-msgstr ""
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:185
-#, fuzzy
-msgid "Delivery option updated."
-msgstr "Уничтожить профиль"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:198
-msgid "Can't join items from different enterprises."
-msgstr ""
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:212
-#, fuzzy
-msgid "There is no basket."
-msgstr "Нет категорий"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:228
-#, fuzzy
-msgid "This enterprise doesn't have this product."
-msgstr "Компания не может быть активирована"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:242
-#, fuzzy
-msgid "The basket doesn't have this product."
-msgstr "Компания не может быть активирована"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:256
-msgid "Invalid quantity."
-msgstr ""
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:336
-#, fuzzy
-msgid "Undefined product"
-msgstr "Продукт без категории"
-
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:338
-#, fuzzy
-msgid "Wrong product id"
-msgstr "Нет продукта"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:10
 #, fuzzy
 msgid "A shopping basket feature for enterprises"
 msgstr "Отключить поиск по компаниям"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:32
-#, fuzzy
-msgid "Add to basket"
-msgstr "Добавить контакт"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:60
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:31
 #, fuzzy
 msgid "Shopping basket"
 msgstr "Учебный статус"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
-msgid "Purchase reports"
-msgstr ""
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:11
 #, fuzzy
-msgid "Opened"
-msgstr "открыть"
+msgid "Add to basket"
+msgstr "Добавить контакт"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Canceled"
-msgstr "Отменено"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Confirmed"
-msgstr "Подтвердить"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
-#, fuzzy
-msgid "Shipped"
-msgstr "Поток"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:18
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:20
 #, fuzzy
 msgid "[%s] Your buy request was performed successfully."
 msgstr "Ваш запрос на публикацию успешно отправлен"
@@ -128,224 +43,151 @@ msgstr "Ваш запрос на публикацию успешно отпра�
 msgid "[%s] You have a new buy request from %s."
 msgstr ""
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
-#, fuzzy
-msgid "Free delivery"
-msgstr "Получатель"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
-#, fuzzy
-msgid "Delivery"
-msgstr "Получатель"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
-#, fuzzy
-msgid "Item name"
-msgstr "Имя файла"
-
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
-#: plugins/shopping_cart/views/cart.html.erb:7
-#, fuzzy
-msgid "Total:"
-msgstr "Получатель:"
-
-#: plugins/shopping_cart/views/cart.html.erb:4
-msgid "Basket"
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:137
+msgid ""
+"Your order has been sent successfully! You will receive a confirmation e-"
+"mail shortly."
 msgstr ""
 
-#: plugins/shopping_cart/views/cart.html.erb:5
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:158
 #, fuzzy
-msgid "Clean basket"
-msgstr "Открыть чат"
+msgid "Basket displayed."
+msgstr "Не отображать"
 
-#: plugins/shopping_cart/views/cart.html.erb:8
-#, fuzzy
-msgid "Shopping checkout"
-msgstr "Учебный статус"
-
-#: plugins/shopping_cart/views/cart.html.erb:11
-#, fuzzy
-msgid "Show basket"
-msgstr "Учебный статус"
-
-#: plugins/shopping_cart/views/cart.html.erb:12
-#, fuzzy
-msgid "Hide basket"
-msgstr "Спрятать"
-
-#: plugins/shopping_cart/views/cart.html.erb:19
-msgid "Ups... I had a problem to load the basket list."
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:177
+msgid "Basket hidden."
 msgstr ""
 
-#: plugins/shopping_cart/views/cart.html.erb:21
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:200
 #, fuzzy
-msgid "Did you want to reload this page?"
-msgstr "Хотите присоединиться к группе?"
+msgid "Delivery option updated."
+msgstr "Уничтожить профиль"
 
-#: plugins/shopping_cart/views/cart.html.erb:24
-msgid "Sorry, you can't have more then 100 kinds of items on this basket."
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:218
+msgid ""
+"Your basket contains items from '%{profile_name}'. Please empty the basket "
+"or checkout before adding items from here."
 msgstr ""
 
-#: plugins/shopping_cart/views/cart.html.erb:26
-msgid "Oops, you must wait your last request to finish first!"
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:232
+#, fuzzy
+msgid "There is no basket."
+msgstr "Нет категорий"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:248
+#, fuzzy
+msgid "This enterprise doesn't have this product."
+msgstr "Компания не может быть активирована"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:262
+#, fuzzy
+msgid "The basket doesn't have this product."
+msgstr "Компания не может быть активирована"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:276
+msgid "Invalid quantity."
 msgstr ""
 
-#: plugins/shopping_cart/views/cart.html.erb:27
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:364
 #, fuzzy
-msgid "Are you sure you want to remove this item?"
-msgstr "Вы уверены что хотите удалить этот элемент?"
+msgid "Undefined product"
+msgstr "Продукт без категории"
 
-#: plugins/shopping_cart/views/cart.html.erb:28
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:366
 #, fuzzy
-msgid "Are you sure you want to clean your basket?"
-msgstr "Вы уверены что хотите выйти?"
+msgid "Wrong product id"
+msgstr "Нет продукта"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 #, fuzzy
 msgid "Basket options"
 msgstr "Еще опции"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
 #, fuzzy
 msgid "Enable shopping basket"
 msgstr "Учебный статус"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
-msgid "Enable delivery fields on orders"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
-msgid "Option"
-msgstr "Опции"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:24
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:32
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:13
 #, fuzzy
-msgid "Remove option"
-msgstr "Еще опции"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:27
-msgid "ADD NEW OPTION"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
-msgid "Order's minimum price for free delivery:"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
-msgid "Leave empty to always charge the delivery."
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:2
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:2
-#, fuzzy
-msgid "No results."
-msgstr "Нет завершенных задач"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
-#, fuzzy
-msgid "Date"
-msgstr "Дата"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:7
-#, fuzzy
-msgid "Customer"
-msgstr "Пользовательский заголовок"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
-msgid "Purchase value"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:13
-msgid "Status"
-msgstr "Статус"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:5
-msgid "Name"
-msgstr "Имя"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#, fuzzy
-msgid "E-mail"
-msgstr "E-Mail"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:8
-#, fuzzy
-msgid "Delivery option"
+msgid "Deliveries or pickups"
 msgstr "Уничтожить профиль"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-msgid "Payment"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/public/_cart.html.erb:6
+#: plugins/shopping_cart/views/public/_cart.html.erb:19
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:3
 #, fuzzy
-msgid "shopping_cart|Change"
+msgid "Shopping checkout"
 msgstr "Учебный статус"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
+#: plugins/shopping_cart/views/public/_cart.html.erb:8
 #, fuzzy
-msgid "Quantity"
-msgstr "Качество"
+msgid "Basket is empty"
+msgstr "Не отображать"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
-msgid "Purchase Reports"
+#: plugins/shopping_cart/views/public/_cart.html.erb:14
+msgid "Basket"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:12
+#: plugins/shopping_cart/views/public/_cart.html.erb:16
 #, fuzzy
-msgid "to"
-msgstr "Стоп"
+msgid "Clean basket"
+msgstr "Открыть чат"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:19
+#: plugins/shopping_cart/views/public/_cart.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:42
 #, fuzzy
-msgid "Products list"
-msgstr "Продукты"
+msgid "Total:"
+msgstr "Получатель:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:20
+#: plugins/shopping_cart/views/public/_cart.html.erb:23
 #, fuzzy
-msgid "Orders list"
-msgstr "Заказать составляющие"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:13
-#, fuzzy
-msgid "Delivery Address"
-msgstr "Адрес ленты"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
-#, fuzzy
-msgid "Send buy request"
-msgstr "Новый запрос"
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-msgid "Money"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
-#, fuzzy
-msgid "shopping_cart|Check"
+msgid "Show basket"
 msgstr "Учебный статус"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/send_request.html.erb:1
-msgid "Request sent successfully check your email."
+#: plugins/shopping_cart/views/public/_cart.html.erb:24
+#, fuzzy
+msgid "Hide basket"
+msgstr "Спрятать"
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:44
+msgid "Ups... I had a problem to load the basket list."
+msgstr ""
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:46
+#, fuzzy
+msgid "Did you want to reload this page?"
+msgstr "Хотите присоединиться к группе?"
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:49
+msgid "Sorry, you can't have more then 100 kinds of items on this basket."
+msgstr ""
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:51
+msgid "Oops, you must wait your last request to finish first!"
+msgstr ""
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:52
+#, fuzzy
+msgid "Are you sure you want to remove this item?"
+msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:53
+#, fuzzy
+msgid "Are you sure you want to clean your basket?"
+msgstr "Вы уверены что хотите выйти?"
+
+#: plugins/shopping_cart/views/public/_cart.html.erb:54
+msgid "repeat order"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:7
+#, fuzzy
+msgid "Item name"
+msgstr "Имя файла"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:13
+msgid "Price"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
@@ -354,22 +196,23 @@ msgid "Hi %s!"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
-msgid "This is a notification e-mail about your buy request on %s."
+msgid ""
+"This is a notification e-mail about your buy request on the enterprise %s."
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
-"The supplier already received your buy request and may contact you for "
+"The enterprise already received your buy request and will contact you for "
 "confirmation."
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 #, fuzzy
-msgid "If you have any doubts, contact us at: %s"
+msgid "If you have any doubts about your order, write to us at: %s."
 msgstr "У вас еще нет контактов"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
-msgid "Please check if your information below is correct:"
+msgid "Review below the informations of your order:"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
@@ -378,17 +221,34 @@ msgstr ""
 msgid "Phone number"
 msgstr "один участник"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
+msgid "Payment's method"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:24
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:22
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:26
+#, fuzzy
+msgid "shopping_cart|Change"
+msgstr "Учебный статус"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#, fuzzy
+msgid "Delivery or pickup"
+msgstr "Уничтожить профиль"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:63
 msgid "Here are the products you bought:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:51
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:67
 #, fuzzy
 msgid "Thanks for buying with us!"
 msgstr "Спасибо за регистрацию!"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:54
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:51
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:70
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:61
 msgid "A service of %s."
 msgstr ""
 
@@ -401,10 +261,128 @@ msgstr "Это републикация \"%s\", от %s."
 msgid "Below follows the customer informations:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:45
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:25
+msgid "Payment"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:55
 msgid "And here are the items bought by this customer:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:59
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:4
+msgid "haven't finished yet: back to shopping"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:12
+msgid "Personal identification"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:15
+msgid "Name"
+msgstr "Имя"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:16
+#, fuzzy
+msgid "Email"
+msgstr "E-Mail"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:17
+msgid "Contact phone"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:32
+#, fuzzy
+msgid "Delivery or pickup method"
+msgstr "Уничтожить профиль"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:40
+msgid "Your Order"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:47
+#, fuzzy
+msgid "Send buy request"
+msgstr "Новый запрос"
+
+#, fuzzy
+#~ msgid "Option updated successfully."
+#~ msgstr "Возможности успешно обновлены"
+
+#, fuzzy
+#~ msgid "Option wasn't updated successfully."
+#~ msgstr "Возможности успешно обновлены"
+
+#, fuzzy
+#~ msgid "Opened"
+#~ msgstr "открыть"
+
+#, fuzzy
+#~ msgid "Canceled"
+#~ msgstr "Отменено"
+
+#, fuzzy
+#~ msgid "Confirmed"
+#~ msgstr "Подтвердить"
+
+#, fuzzy
+#~ msgid "Shipped"
+#~ msgstr "Поток"
+
+#, fuzzy
+#~ msgid "Free delivery"
+#~ msgstr "Получатель"
+
+#, fuzzy
+#~ msgid "Delivery"
+#~ msgstr "Получатель"
+
+#~ msgid "Option"
+#~ msgstr "Опции"
+
+#, fuzzy
+#~ msgid "Remove option"
+#~ msgstr "Еще опции"
+
+#, fuzzy
+#~ msgid "No results."
+#~ msgstr "Нет завершенных задач"
+
+#, fuzzy
+#~ msgid "Date"
+#~ msgstr "Дата"
+
+#, fuzzy
+#~ msgid "Customer"
+#~ msgstr "Пользовательский заголовок"
+
+#~ msgid "Status"
+#~ msgstr "Статус"
+
+#, fuzzy
+#~ msgid "Quantity"
+#~ msgstr "Качество"
+
+#, fuzzy
+#~ msgid "to"
+#~ msgstr "Стоп"
+
+#, fuzzy
+#~ msgid "Products list"
+#~ msgstr "Продукты"
+
+#, fuzzy
+#~ msgid "Orders list"
+#~ msgstr "Заказать составляющие"
+
+#, fuzzy
+#~ msgid "Delivery Address"
+#~ msgstr "Адрес ленты"
+
+#, fuzzy
+#~ msgid "shopping_cart|Check"
+#~ msgstr "Учебный статус"

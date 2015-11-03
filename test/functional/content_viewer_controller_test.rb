@@ -1616,4 +1616,14 @@ class ContentViewerControllerTest < ActionController::TestCase
      page.reload
      assert_equal 1, page.hits
   end
+
+  should 'show blog image only inside blog cover' do
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+
+    assert_select '.blog-cover > img', 1
+    assert_select '.article-body-img > img', 0
+  end
+
 end
