@@ -3,7 +3,7 @@ gem 'rails',                    '~> 4.1'
 gem 'fast_gettext',             '~> 0.9'
 gem 'acts-as-taggable-on',      '~> 3.5'
 gem 'rails_autolink',           '~> 1.1.5'
-gem 'pg',                       '~> 0.18'
+gem 'pg',                       '~> 0.17'
 gem 'rmagick',                  '~> 2.13'
 gem 'RedCloth',                 '~> 4.2'
 gem 'ruby-feedparser',          '~> 0.7'
@@ -51,7 +51,6 @@ end
 
 group :development, :test do
   gem 'spring'
-  gem 'spring-commands-testunit'
 end
 
 group :test do
