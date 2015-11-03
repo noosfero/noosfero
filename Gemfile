@@ -33,7 +33,6 @@ gem 'rack-contrib'
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
-gem 'sass', '~> 3.1.19'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
