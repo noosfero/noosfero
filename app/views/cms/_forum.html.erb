@@ -10,7 +10,7 @@
 
 <%= render :partial => 'general_fields' %>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :cols => 64, :rows => 10)) %>
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :class => 'mceEditor', :cols => 64, :rows => 10)) %>
 
 <%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, Forum.posts_per_page_options)) %>
 
