@@ -8,10 +8,6 @@ class ResponsivePlugin < Noosfero::Plugin
     _("Responsive layout for Noosfero")
   end
 
-  def stylesheet?
-    true
-  end
-
   def js_files
     %w[bootstrap responsive-noosfero].map{ |j| "javascripts/#{j}" }
   end
