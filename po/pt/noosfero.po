@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2015-09-19 18:31+0200\n"
+"PO-Revision-Date: 2015-11-04 13:40-0200\n"
 "Last-Translator: Bráulio Bhavamitra <brauliobo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
@@ -2263,10 +2263,10 @@ msgid "New member"
 msgstr "Novo membro"
 
 #: app/models/add_member.rb:34 app/models/add_member.rb:53
-#, fuzzy
 msgid ""
 "%{requestor}%{requestor_email} wants to be a member of '%{organization}'."
-msgstr "%{requestor} quer ser um membro de '%{organization}'."
+msgstr ""
+"%{requestor}%{requestor_email} quer ser um membro de '%{organization}'."
 
 #: app/models/add_member.rb:58
 msgid ""
@@ -4552,9 +4552,8 @@ msgid "\"%s\" was removed."
 msgstr "\"%s\" foi removido."
 
 #: app/controllers/my_profile/cms_controller.rb:291
-#, fuzzy
 msgid "You published this content successfully"
-msgstr "Sua requisição de publicação foi enviada com sucesso"
+msgstr "Você publicou este conteúdo com sucesso"
 
 #: app/controllers/my_profile/cms_controller.rb:311
 msgid "Select some group to publish your article"
@@ -9906,11 +9905,11 @@ msgstr "Nenhuma descrição informada."
 
 #: lib/noosfero/api/helpers.rb:228
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Requisição inválida) %s não pode ser salvo(a)"
 
 #: lib/noosfero/api/helpers.rb:233
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Requisição inválida) %s não informado(a)"
 
 #: lib/noosfero/api/helpers.rb:238
 msgid "Something wrong happened"
