@@ -81,6 +81,8 @@ roles] }
     memberships.where('role_assignments.role_id = ?', role.id)
   end
 
+  has_many :comments, :foreign_key => :author_id
+
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
