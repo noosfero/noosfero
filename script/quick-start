@@ -112,6 +112,7 @@ else
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
   sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
   sudo su - postgres -c "createdb noosfero_development -O $USER" || true
+  sudo su - postgres -c "createdb noosfero_test -O $USER" || true
 
   run rake db:schema:load
   run rake db:data:minimal
