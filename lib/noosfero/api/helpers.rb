@@ -225,12 +225,12 @@ module Noosfero
       end
 
       def cant_be_saved_request!(attribute)
-        message = _("(Invalid request) #{attribute} can't be saved")
+        message = _("(Invalid request) %s can't be saved") % attribute
         render_api_error!(message, 400)
       end
 
       def bad_request!(attribute)
-        message = _("(Bad request) #{attribute} not given")
+        message = _("(Invalid request) %s not given") % attribute
         render_api_error!(message, 400)
       end
 
