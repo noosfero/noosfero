@@ -6,7 +6,7 @@ namespace :noosfero do
 
     desc 'Compiles all translations'
     task :compile do
-      sh 'find locale plugins/*/locale -name "*.po" -exec touch "{}" ";" || true'
+      sh 'find po plugins/*/po -name "*.po" -exec touch "{}" ";"'
       Rake::Task['gettext:mo:update'].invoke
       Rake::Task['noosfero:doc:translate'].invoke
     end
