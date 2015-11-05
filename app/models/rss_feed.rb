@@ -14,7 +14,7 @@ class RssFeed < Article
 
   # store setting in body
   serialize :body, Hash
-  
+
   def body
     self[:body] ||= {}
   end
@@ -87,6 +87,14 @@ class RssFeed < Article
       :description => _("%s's content published at %s") % [self.profile.name, self.profile.environment.name],
       :link => url_for(self.profile.url)
     )
+  end
+
+  def published?
+    if self.parent
+      self.parent.published?
+    else
+      self.published
+    end
   end
 
   def self.short_description
