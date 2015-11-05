@@ -89,6 +89,14 @@ class RssFeed < Article
     )
   end
 
+  def published?
+    if self.parent
+      self.parent.published?
+    else
+      self.published
+    end
+  end
+
   def self.short_description
     _('RSS Feed')
   end

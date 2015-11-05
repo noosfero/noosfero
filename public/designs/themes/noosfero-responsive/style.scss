@@ -1,7 +1,8 @@
 // bootstrap customizations, bootstrap
 // see also plugins/responsive/public/bootstrap/all.scss
+@import '../../../plugins/responsive/stylesheets/bootstrap/variables';
 @import 'bootstrap/variables';
-@import 'bootstrap-core';
+@import 'bootstrap';
 
 // say to base-responsive that we already took care of boostrap
 $bootstrap-loaded: true;

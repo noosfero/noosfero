@@ -29,9 +29,14 @@ class Article < ActiveRecord::Base
   def initialize(*params)
     super
 
-    if !params.blank? && params.first.has_key?(:profile) && !params.first[:profile].blank?
-      profile = params.first[:profile]
-      self.published = false unless profile.public?
+    if !params.blank?
+      if params.first.has_key?(:profile) && !params.first[:profile].blank?
+        profile = params.first[:profile]
+        self.published = false unless profile.public_profile
+      end
+
+      self.published = params.first["published"] if params.first.has_key?("published")
+      self.published = params.first[:published] if params.first.has_key?(:published)
     end
 
   end

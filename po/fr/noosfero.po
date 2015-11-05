@@ -4,9 +4,9 @@
 # , 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2015-11-04 12:36-0300\n"
 "PO-Revision-Date: 2015-07-13 10:39+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -1195,11 +1195,6 @@ msgstr ""
 "↵\n"
 "%{reject_explanation}"
 
-#: app/models/approve_article.rb:147
-#, fuzzy
-msgid "Requestor must be a member of target."
-msgstr "%{requestor} veut être membre de cette communauté."
-
 #: app/models/article_block.rb:6
 msgid "Display one of your contents"
 msgstr "Afficher un de vos contenus"
@@ -1353,20 +1348,11 @@ msgstr "Fini"
 msgid "Hidden"
 msgstr "Cacher"
 
-#: app/models/task.rb:143
-msgid "Task requestor must be "
-msgstr ""
-
-#: app/models/task.rb:154
-#, fuzzy
-msgid "Task target must be "
-msgstr "Tâches que j'ai demandées"
-
-#: app/models/task.rb:174
+#: app/models/task.rb:152
 msgid "Task"
 msgstr "Tâches"
 
-#: app/models/task.rb:186
+#: app/models/task.rb:164
 msgid "%{requestor} sent you a task."
 msgstr "%{requestor} vous a envoyé une tâche."
 
@@ -10103,11 +10089,11 @@ msgid "No description informed."
 msgstr "Non renseigné"
 
 #: lib/noosfero/api/helpers.rb:228
-msgid "\"(Invalid request) #{attribute} can't be saved\""
+msgid "(Invalid request) %s can't be saved"
 msgstr ""
 
 #: lib/noosfero/api/helpers.rb:233
-msgid "\"(Bad request) #{attribute} not given\""
+msgid "(Invalid request) %s not given"
 msgstr ""
 
 #: lib/noosfero/api/helpers.rb:238
@@ -10169,6 +10155,14 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Requestor must be a member of target."
+#~ msgstr "%{requestor} veut être membre de cette communauté."
+
+#, fuzzy
+#~ msgid "Task target must be "
+#~ msgstr "Tâches que j'ai demandées"
 
 #~ msgid "&laquo; Newer posts"
 #~ msgstr "&laquo; Plus récents"

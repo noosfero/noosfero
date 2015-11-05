@@ -251,7 +251,15 @@ EOF
   end
 
   desc "finishes the release"
-  task 'release:finish' => ['noosfero:upload_packages', 'noosfero:tag', 'noosfero:pushtag']
+  task 'release:finish', :target do |t, args|
+    target = args[:target]
+    unless target
+      abort "E: usage: rake noosfero:release:finish[TARGET]"
+    end
+    Rake::Task['noosfero:upload_packages'].invoke(target)
+    Rake::Task['noosfero:tag'].invoke
+    Rake::Task['noosfero:pushtag'].invoke
+  end
 
   desc 'Build Debian packages'
   task :debian_packages => :package do

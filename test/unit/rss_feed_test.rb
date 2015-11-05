@@ -262,4 +262,31 @@ class RssFeedTest < ActiveSupport::TestCase
     assert_equal [es_post], blog.feed.fetch_articles
   end
 
+  should 'a feed have the same privacy of its parent' do
+    profile = create_user('testuser').person
+    blog = create(Blog, :name => 'blog-test', :profile => profile)
+    feed = blog.feed
+
+    assert blog.published?
+    assert feed.published?
+
+    feed.published = false
+    feed.save
+
+    assert blog.published?
+    assert feed.published?
+
+    blog.published = false
+    blog.save
+    feed.reload
+
+    assert !blog.published?
+    assert !feed.published?
+
+    feed.published = true
+    feed.save
+
+    assert !blog.published?
+    assert !feed.published?
+  end
 end
