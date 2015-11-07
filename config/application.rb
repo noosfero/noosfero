@@ -75,13 +75,7 @@ module Noosfero
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
-    # Enable the asset pipeline
-    config.assets.enabled = true
-
-    # don't let rails prepend app/assets to config.assets.paths
-    # as we are doing it
-    config.paths['app/assets'] = ''
-
+    # Asset pipeline
     config.assets.paths =
       Dir.glob("app/assets/plugins/*/{,stylesheets,javascripts}") +
       Dir.glob("app/assets/{,stylesheets,javascripts}") +
