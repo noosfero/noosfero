@@ -22,17 +22,17 @@ start() {
   ./script/delayed_job start
   trap stop INT TERM EXIT
   whenever --write-crontab --set 'environment=development'
+  mkdir -p log
+  touch log/development.log
   if [ -z "$RAILS_RELATIVE_URL_ROOT" ]; then
-    unicorn_rails --config-file lib/noosfero/unicorn.rb $@
+    unicorn_rails --config-file lib/noosfero/unicorn.rb --daemonize $@
   else
-    mkdir -p log
-    touch log/development.log
     unicorn_rails \
       --path "$RAILS_RELATIVE_URL_ROOT" \
       --config-file lib/noosfero/unicorn.rb \
       --daemonize
-    tail -n 0 -f log/development.log || true
   fi
+  tail -n 0 -f log/development.log || true
 }
 
 start $@
