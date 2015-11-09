@@ -43,12 +43,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_should_reset_password
-    users(:johndoe).update_attributes(:password => 'new password', :password_confirmation => 'new password')
+    users(:johndoe).update(:password => 'new password', :password_confirmation => 'new password')
     assert_equal users(:johndoe), User.authenticate('johndoe', 'new password')
   end
 
   def test_should_not_rehash_password
-    users(:johndoe).update_attributes(:login => 'johndoe2')
+    users(:johndoe).update(:login => 'johndoe2')
     assert_equal users(:johndoe), User.authenticate('johndoe2', 'test')
   end
 
@@ -313,7 +313,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'not has email activation pending if not have environment' do
     user = create_user('cooler')
-    user.expects(:environment).returns(nil)
+    user.expects(:environment).returns(nil).at_least_once
     EmailActivation.create!(:requestor => user.person, :target => Environment.default)
     refute user.email_activation_pending?
   end
@@ -478,9 +478,9 @@ class UserTest < ActiveSupport::TestCase
 
   should 'respond name with user name attribute' do
     user = create_user('testuser')
+    user.login = 'Login User'
     user.person = nil
     user.name = 'Another User'
-    user.login = 'Login User'
     assert_equal 'Another User', user.name
   end
 

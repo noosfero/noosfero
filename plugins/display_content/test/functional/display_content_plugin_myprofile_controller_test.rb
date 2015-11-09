@@ -1,9 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require File.dirname(__FILE__) + '/../../controllers/display_content_plugin_myprofile_controller'
-
-
-# Re-raise errors caught by the controller.
-class DisplayContentPluginMyprofileControllerController; def rescue_action(e) raise e end; end
+require_relative '../test_helper'
+require_relative '../../controllers/display_content_plugin_myprofile_controller'
 
 class DisplayContentPluginMyprofileControllerTest < ActionController::TestCase
 

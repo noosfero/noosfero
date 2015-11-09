@@ -78,7 +78,7 @@ class CommentController < ApplicationController
     respond_to do |format|
       format.js do
         comment_to_render = @comment.comment_root
-        render :json => { 
+        render :json => {
             :render_target => comment_to_render.anchor,
             :html => render_to_string(:partial => 'comment', :locals => {:comment => comment_to_render, :display_link => true}),
             :msg => _('Comment successfully created.')
@@ -114,7 +114,7 @@ class CommentController < ApplicationController
   end
 
   def update
-    if @comment.update_attributes(params[:comment])
+    if @comment.update(params[:comment])
       @plugins.dispatch(:process_extra_comment_params, [@comment,params])
 
       respond_to do |format|

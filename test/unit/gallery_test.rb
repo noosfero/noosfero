@@ -131,7 +131,7 @@ class GalleryTest < ActiveSupport::TestCase
     gallery.body = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     gallery.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, gallery.body
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, gallery.body
   end
 
   should 'accept uploads' do

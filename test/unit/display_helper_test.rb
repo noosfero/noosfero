@@ -36,12 +36,12 @@ class DisplayHelperTest < ActiveSupport::TestCase
 
   should 'linkify "http://" prepended words on txt2html' do
     html = txt2html "go to http://noosfero.org"
-    assert_equal 'go to <a href="http://noosfero.org" onclick="return confirm(\'Are you sure you want to visit this web site?\')" rel="nofolow" target="_blank">noos&#x200B;fero&#x200B;.org</a>', html
+    assert_equal "go to <a href=\"http://noosfero.org\" target=\"_blank\" rel=\"nofolow\" onclick=\"return confirm('Are you sure you want to visit this web site?')\">noos&#x200B;fero&#x200B;.org</a>", html
   end
 
   should 'linkify "www." prepended words on txt2html' do
     html = txt2html "go to www.noosfero.org yeah!"
-    assert_equal 'go to <a href="http://www.noosfero.org" onclick="return confirm(\'Are you sure you want to visit this web site?\')" rel="nofolow" target="_blank">www.&#x200B;noos&#x200B;fero&#x200B;.org</a> yeah!', html
+    assert_equal "go to <a href=\"http://www.noosfero.org\" target=\"_blank\" rel=\"nofolow\" onclick=\"return confirm('Are you sure you want to visit this web site?')\">www.&#x200B;noos&#x200B;fero&#x200B;.org</a> yeah!", html
   end
 
   should 'return path to file under theme dir if theme has that file' do

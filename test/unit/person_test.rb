@@ -153,7 +153,7 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user('just_another_person').person
     env.affiliate(person, role)
     refute  person.is_admin?(env)
-    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+    role.update(:permissions => ['view_environment_admin_panel'])
     person = Person.find(person.id)
     assert person.is_admin?(env)
   end
@@ -164,7 +164,7 @@ class PersonTest < ActiveSupport::TestCase
 
     # role is an admin role
     role = create(Role, :name => 'just_another_admin_role')
-    role.update_attributes(:permissions => ['view_environment_admin_panel'])
+    role.update(:permissions => ['view_environment_admin_panel'])
 
     # user is admin of env1, but not of env2
     person = create_user('just_another_person').person
@@ -1008,9 +1008,9 @@ class PersonTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p)
-    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).get_resource_name
+    assert_equal ["Foo"], ActionTracker::Record.where(verb: 'join_community').last.get_resource_name
     c.reload.add_moderator(p.reload)
-    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).get_resource_name
+    assert_equal ["Foo"], ActionTracker::Record.where(verb: 'join_community').last.get_resource_name
   end
 
   should 'the tracker target be Community when a person joins a community' do
@@ -1018,7 +1018,7 @@ class PersonTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p)
-    assert_kind_of Community, ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).target
+    assert_kind_of Community, ActionTracker::Record.where(verb: 'join_community').last.target
   end
 
   should 'the community be notified specifically when a person joins a community' do
@@ -1026,7 +1026,7 @@ class PersonTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p)
-    assert_not_nil ActionTracker::Record.last(:conditions => {:verb => 'add_member_in_community'})
+    assert_not_nil ActionTracker::Record.where(verb: 'add_member_in_community').last
   end
 
   should 'the community specific notification created when a member joins community could not be propagated to members' do
@@ -1348,14 +1348,12 @@ class PersonTest < ActiveSupport::TestCase
 
     abusers = Person.abusers
 
-    assert_equal ActiveRecord::Relation, abusers.class
     assert_includes abusers, abuser1
     assert_includes abusers, abuser2
     assert_not_includes abusers, person
 
     non_abusers = Person.non_abusers
 
-    assert_equal ActiveRecord::Relation, non_abusers.class
     assert_not_includes non_abusers, abuser1
     assert_not_includes non_abusers, abuser2
     assert_includes non_abusers, person
@@ -1376,7 +1374,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, not_abuser
   end
 
-  should 'admins named_scope return persons who are admin users' do
+  should 'admins scope return persons who are admin users' do
     Person.delete_all
     e = Environment.default
     admins = []
@@ -1391,7 +1389,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent admins, Person.admins
   end
 
-  should 'activated named_scope return persons who are activated users' do
+  should 'activated scope return persons who are activated users' do
     Person.delete_all
     e = Environment.default
     activated = []
@@ -1407,7 +1405,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent activated, Person.activated
   end
 
-  should 'deactivated named_scope return persons who are deactivated users' do
+  should 'deactivated scope return persons who are deactivated users' do
     Person.delete_all
     e = Environment.default
     deactivated = []

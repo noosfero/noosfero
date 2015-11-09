@@ -69,7 +69,7 @@ module WorkAssignmentPlugin::Helper
   def display_delete_button(article)
     expirable_button article, :delete, _('Delete'),
     {:controller =>'cms', :action => 'destroy', :id => article.id },
-    :method => :post, :confirm => delete_article_message(article)
+    method: :post, 'data-confirm' => delete_article_message(article)
   end
 
   def display_privacy_button(author_folder, user)

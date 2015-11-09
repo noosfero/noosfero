@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
   should 'validates presence of form_id' do
@@ -35,7 +35,7 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
     form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
     task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
     task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => fast_create(Profile))
-    scope = CustomFormsPlugin::MembershipSurvey.from(profile)
+    scope = CustomFormsPlugin::MembershipSurvey.from_profile(profile)
 
     assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, task1

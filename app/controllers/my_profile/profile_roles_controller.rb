@@ -58,7 +58,7 @@ class ProfileRolesController < MyProfileController
 
   def update
     @role = environment.roles.find(params[:id])
-    if @role.update_attributes(params[:role])
+    if @role.update(params[:role])
       redirect_to :action => 'show', :id => @role
     else
       session[:notice] = _('Failed to edit role')

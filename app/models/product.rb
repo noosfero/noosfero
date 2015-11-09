@@ -52,8 +52,8 @@ class Product < ActiveRecord::Base
 
   scope :more_recent, :order => "created_at DESC"
 
-  scope :from_category, lambda { |category|
-    {:joins => :product_category, :conditions => ['categories.path LIKE ?', "%#{category.slug}%"]} if category
+  scope :from_category, -> category {
+    joins(:product_category).where('categories.path LIKE ?', "%#{category.slug}%") if category
   }
 
   scope :visible_for_person, lambda { |person|

@@ -71,7 +71,7 @@ class Enterprise < Organization
   end
 
   def highlighted_products_with_image(options = {})
-    Product.find(:all, {:conditions => {:highlighted => true}, :joins => :image}.merge(options))
+    Product.where(:highlighted => true).joins(:image)
   end
 
   def required_fields

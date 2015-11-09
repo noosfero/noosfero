@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class EnterpriseRegistrationTest < ActionController::IntegrationTest
+class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
 
   fixtures :users, :profiles, :environments
 
@@ -40,7 +40,7 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
     assert_difference 'CreateEnterprise.count' do
       post '/enterprise_registration', :create_enterprise => data.merge(:target_id => org.id)
     end
-    
+
     assert_template 'confirmation'
     assert_tag :tag => 'a', :attributes => { :href => '/' }
 
@@ -63,7 +63,7 @@ class EnterpriseRegistrationTest < ActionController::IntegrationTest
 
     post "/myprofile/myorg/enterprise_validation/approve/#{code}"
     assert_response :redirect
-    
+
     follow_redirect!
     assert_equal "/myprofile/myorg/enterprise_validation/view_processed/#{code}", path
     assert_tag :span, :attributes =>  { :class => 'validation_approved' }

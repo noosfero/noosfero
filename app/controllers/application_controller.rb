@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
 
-  before_filter :login_from_cookie
+  include AuthenticatedSystem
   before_filter :require_login_for_environment, :if => :private_environment?
 
   before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
-    return nil if request.format == :js or request.xhr?
+    return false if request.format == :js or request.xhr?
 
     theme_layout = theme_option(:layout)
     if theme_layout
@@ -69,15 +69,12 @@ class ApplicationController < ActionController::Base
   helper :language
 
   include DesignHelper
-
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
   include PermissionCheck
 
   before_filter :set_locale
   def set_locale
     FastGettext.available_locales = environment.available_locales
-    FastGettext.default_locale = environment.default_locale
+    FastGettext.default_locale = environment.default_locale || 'en'
     FastGettext.locale = (params[:lang] || session[:lang] || environment.default_locale || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
     I18n.locale = FastGettext.locale.to_s.gsub '_', '-'
     I18n.default_locale = FastGettext.default_locale.to_s.gsub '_', '-'
@@ -148,7 +145,7 @@ class ApplicationController < ActionController::Base
       # Check if the requested profile belongs to another domain
       if @profile && !params[:profile].blank? && params[:profile] != @profile.identifier
         @profile = @environment.profiles.find_by_identifier params[:profile]
-        redirect_to params.merge(:host => @profile.default_hostname)
+        redirect_to url_for(params.merge host: @profile.default_hostname)
       end
     end
   end
@@ -163,7 +160,8 @@ class ApplicationController < ActionController::Base
   def render_not_found(path = nil)
     @no_design_blocks = true
     @path ||= request.path
-    render :template => 'shared/not_found.html.erb', :status => 404, :layout => get_layout
+    # force html template even if the browser asked for a image
+    render template: 'shared/not_found', status: 404, layout: get_layout, formats: [:html]
   end
   alias :render_404 :render_not_found
 
@@ -171,7 +169,8 @@ class ApplicationController < ActionController::Base
     @no_design_blocks = true
     @message = message
     @title = title
-    render :template => 'shared/access_denied.html.erb', :status => 403
+    # force html template even if the browser asked for a image
+    render template: 'shared/access_denied', status: 403, formats: [:html]
   end
 
   def load_category
@@ -204,7 +203,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_current_user
     if params[:profile] == '~'
       if logged_in?
-        redirect_to params.merge(:profile => user.identifier)
+        redirect_to url_for(params.merge profile: user.identifier)
       else
         render_not_found
       end

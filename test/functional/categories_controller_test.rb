@@ -1,16 +1,13 @@
 require_relative "../test_helper"
 require 'categories_controller'
 
-# Re-raise errors caught by the controller.
-class CategoriesController; def rescue_action(e) raise e end; end
-
 class CategoriesControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = CategoriesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-   
+
     @env = fast_create(Environment, :name => "My test environment")
     Environment.stubs(:default).returns(env)
     assert (@cat1 = env.categories.create(:name => 'a test category'))
@@ -25,9 +22,6 @@ class CategoriesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:categories)
-    assert_kind_of Array, assigns(:product_categories)
-    assert_kind_of Array, assigns(:regions)
     assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new'}
   end
 

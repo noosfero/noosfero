@@ -1,8 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/custom_forms_plugin_myprofile_controller'
-
-# Re-raise errors caught by the controller.
-class CustomFormsPluginMyprofileController; def rescue_action(e) raise e end; end
+require 'test_helper'
+require_relative '../../controllers/custom_forms_plugin_myprofile_controller'
 
 class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup

@@ -11,7 +11,7 @@ class FeaturedProductsBlock < Block
     if block.owner.kind_of?(Environment) && block.product_ids.blank?
       total = block.owner.products.count
       offset = rand([(total - block.groups_of * 3) + 1, 1].max)
-      block.product_ids = block.owner.highlighted_products_with_image(:offset => offset, :limit => block.groups_of * 3).map(&:id)
+      block.product_ids = block.owner.highlighted_products_with_image.offset(offset).limit(block.groups_of * 3).map(&:id)
     end
     block.groups_of = block.groups_of.to_i
   end

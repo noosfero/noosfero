@@ -8,8 +8,7 @@ notifications:
 
 language: ruby
 rvm:
-# for 2.2 support we need to upgrade the pg gem
-  - 2.1.6
+  - 2.2.3
 
 sudo: false
 addons:
@@ -26,19 +25,16 @@ addons:
       - libsqlite3-dev
       - libxslt1-dev
 
-before_install:
-  - gem env
-
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
-  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.1.0
+  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.2.0
   - gem install bundler
 cache: bundler
 
 before_script:
   - mkdir -p tmp/{pids,cache} log
   - script/noosfero-plugins disableall
-  - bundle exec rake makemo &>/dev/null
+  #- bundle exec rake makemo &>/dev/null
 # database
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database myapp_test;' -U postgres
@@ -49,7 +45,7 @@ env:
   - TASK=test:units
   - TASK=test:functionals
   - TASK=test:integration
-  - TASK=cucumber
+  - TASK=cucumber LANG=en
   - TASK=selenium
   - TASK=test:noosfero_plugins BUNDLE_OPTS=install
 

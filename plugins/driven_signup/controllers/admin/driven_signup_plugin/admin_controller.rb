@@ -15,7 +15,7 @@ class DrivenSignupPlugin::AdminController < AdminController
   def edit
     @auth = environment.driven_signup_auths.where(id: params[:id]).first
     @auth ||= environment.driven_signup_auths.build
-    @auth.update_attributes params[:auth]
+    @auth.update params[:auth]
   end
 
   def destroy

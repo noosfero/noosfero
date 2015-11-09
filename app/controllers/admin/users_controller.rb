@@ -63,7 +63,7 @@ class UsersController < AdminController
     respond_to do |format|
       format.html
       format.xml do
-        users = User.find(:all, :conditions => {:environment_id => environment.id}, :include => [:person])
+        users = User.where(:environment_id => environment.id).includes(:person)
         send_data users.to_xml(
             :skip_types => true,
             :only => %w[email login created_at updated_at],

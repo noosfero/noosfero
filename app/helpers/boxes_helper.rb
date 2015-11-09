@@ -236,7 +236,7 @@ module BoxesHelper
     end
 
     if movable?(block) && !block.main?
-      buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
+      buttons << icon_button(:delete, _('Remove block'), { action: 'remove', id: block.id }, method: 'post', data: {confirm: _('Are you sure you want to remove this block?')})
       buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
     end
 

@@ -87,7 +87,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
     ArticleCategorization.add_category_to_article(c2, a)
     ArticleCategorization.add_category_to_article(c1, a)
 
-    assert ArticleCategorization.find(:first, :conditions => [ 'category_id = ? and article_id = ? and not virtual', c1.id, a.id ]), 'categorization must be promoted to not virtual'
+    assert ArticleCategorization.where('category_id = ? and article_id = ? and not virtual', c1.id, a.id).first, 'categorization must be promoted to not virtual'
   end
 
   private

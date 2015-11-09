@@ -18,9 +18,8 @@ class RecentContentBlock < Block
   end
 
   def articles_of_folder(folder, limit)
-   holder.articles.all(:conditions => {:type => VALID_CONTENT, :parent_id => folder.id},
-                :order => 'created_at DESC',
-                :limit => limit )
+   holder.articles.where(type: VALID_CONTENT, parent_id: folder.id).
+     order('created_at DESC').limit(limit)
   end
 
   def holder
@@ -34,12 +33,12 @@ class RecentContentBlock < Block
   end
 
   def parents
-    selected = self.holder.articles.all(:conditions => {:type => 'Blog'})
+    self.holder.articles.where(type: 'Blog')
   end
 
   def root
     unless self.selected_folder.nil?
-      holder.articles.where(:id => self.selected_folder).first
+      holder.articles.where(id: self.selected_folder).first
     end
   end
 

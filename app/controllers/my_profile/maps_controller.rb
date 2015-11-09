@@ -15,7 +15,7 @@ class MapsController < MyProfileController
         end
 
         Profile.transaction do
-          if profile.update_attributes!(params[:profile_data])
+          if profile.update!(params[:profile_data])
             BlockSweeper.expire_blocks profile.blocks.select{ |b| b.class == LocationBlock }
             session[:notice] = _('Address was updated successfully!')
             redirect_to :action => 'edit_location'

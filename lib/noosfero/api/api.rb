@@ -13,6 +13,7 @@ module Noosfero
 
       rescue_from :all do |e|
         logger.error e
+        error! e.message, 500
       end
 
       @@NOOSFERO_CONF = nil

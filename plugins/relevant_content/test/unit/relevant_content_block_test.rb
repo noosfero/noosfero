@@ -1,8 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
 require 'comment_controller'
-# Re-raise errors caught by the controller.
-class CommentController; def rescue_action(e) raise e end; end
 
 class RelevantContentBlockTest < ActiveSupport::TestCase
 

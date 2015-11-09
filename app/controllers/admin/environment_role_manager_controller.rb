@@ -2,7 +2,7 @@ class EnvironmentRoleManagerController < AdminController
   protect 'manage_environment_roles', :environment
 
   def index
-    @admins = Person.find(:all, :conditions => ['role_assignments.resource_type = ?', 'Environment'], :include => :role_assignments )
+    @admins = Person.where('role_assignments.resource_type = ?', 'Environment').includes(:role_assignments)
   end
 
   def change_roles

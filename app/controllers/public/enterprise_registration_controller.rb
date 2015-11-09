@@ -4,7 +4,7 @@ class EnterpriseRegistrationController < ApplicationController
   before_filter :login_required
 
   # Just go to the first step.
-  # 
+  #
   # FIXME: shouldn't this action present some sort of welcome message and point
   # to the first step explicitly?
   def index
@@ -15,7 +15,7 @@ class EnterpriseRegistrationController < ApplicationController
         @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])
       end
     elsif @validation == :admin || @validation == :none
-        @create_enterprise.target = environment
+      @create_enterprise.target = environment
     end
     @create_enterprise.requestor = user
     the_action =
@@ -40,7 +40,7 @@ class EnterpriseRegistrationController < ApplicationController
 
   protected
 
-  # Fill in the form and select your Region. 
+  # Fill in the form and select your Region.
   #
   # Posts back.
   def basic_information

@@ -1,8 +1,6 @@
+# encoding: UTF-8
 require 'test_helper'
 require 'content_viewer_controller'
-
-# Re-raise errors caught by the controller.
-class ContentViewerController; def rescue_action(e) raise e end; end
 
 class ContentViewerControllerTest < ActionController::TestCase
 

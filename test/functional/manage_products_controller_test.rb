@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'manage_products_controller'
 
-# Re-raise errors caught by the controller.
-class ManageProductsController; def rescue_action(e) raise e end; end
-
 class ManageProductsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
@@ -23,7 +20,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     login_as :user_test
     get 'index', :profile => @enterprise.identifier
     assert :success
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should "get index" do
@@ -178,8 +175,8 @@ class ManageProductsControllerTest < ActionController::TestCase
 
   should 'filter html with white list from description of product' do
     product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
-    post 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info', :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>" }
-    assert_equal "<b>descr bold</b>", assigns(:product).description
+    post 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info', :product => { :name => 'name', :description => "<b id=\"html_descr\">descr bold</b>" }
+    assert_equal "<b id=\"html_descr\">descr bold</b>", assigns(:product).description
   end
 
   should 'not let users in if environment do not let' do
@@ -343,7 +340,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'render partial certifiers for selection' do
-    get :certifiers_for_selection, :profile => @enterprise.identifier
+    xhr :get, :certifiers_for_selection, :profile => @enterprise.identifier
     assert_template '_certifiers_for_selection'
   end
 

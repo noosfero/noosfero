@@ -255,7 +255,7 @@ class RssFeedTest < ActiveSupport::TestCase
   should 'include only posts from some language' do
     profile = create_user('testuser').person
     blog = create(Blog, :name => 'blog-test', :profile => profile)
-    blog.feed.update_attributes! :language => 'es'
+    blog.feed.update! :language => 'es'
     blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
     blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
 

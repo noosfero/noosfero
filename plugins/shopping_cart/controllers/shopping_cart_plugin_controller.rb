@@ -331,11 +331,13 @@ class ShoppingCartPluginController < OrdersPluginController
   after_filter :save_cookie
   def save_cookie
     if @cart.nil?
-      cookies.delete(cookie_key, path: '/plugin/shopping_cart')
+      # cookie.delete does not work, set to empty value
+      cookies[cookie_key] = {value: '', path: '/plugin/shopping_cart', expires: Time.at(0)}
     else
       cookies[cookie_key] = {
         value: Base64.encode64(@cart.to_yaml),
-        path: "/plugin/shopping_cart"
+        path: "/plugin/shopping_cart",
+        expires: Time.at(0),
       }
     end
   end

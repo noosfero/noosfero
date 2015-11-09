@@ -65,7 +65,7 @@ class InviteMember < Invitation
   private
   def check_for_invitation_existence
     if friend
-      friend.tasks.pending.of("InviteMember").find(:all, :conditions => {:requestor_id => person.id}).select { |t| t.data[:community_id] == community_id }.blank?
+      friend.tasks.pending.of("InviteMember").where(requestor_id: person.id).select{ |t| t.data[:community_id] == community_id }.blank?
     end
   end
 

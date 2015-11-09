@@ -20,7 +20,7 @@ class Person
   end
 
   def invitation_task
-    Task.pending.find(:first, :conditions => {:code => invitation_code.to_s}) ||
-    Task.finished.find(:first, :conditions => {:code => invitation_code.to_s, :target_id => id})
+    Task.pending.where(code: invitation_code.to_s).first or
+      Task.finished.where(code: invitation_code.to_s, target_id: id).first
   end
 end

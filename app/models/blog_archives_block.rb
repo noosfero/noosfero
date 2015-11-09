@@ -15,7 +15,7 @@ class BlogArchivesBlock < Block
     _('Blog posts')
   end
 
-  settings_items :blog_id, Integer
+  settings_items :blog_id, type: Integer
 
   def blog
     blog_id && owner.blogs.exists?(blog_id) ? owner.blogs.find(blog_id) : owner.blog
@@ -33,10 +33,10 @@ class BlogArchivesBlock < Block
     results = ''
     posts = visible_posts(args[:person])
     posts.except(:order).count(:all, :group => 'EXTRACT(YEAR FROM published_at)').sort_by {|year, count| -year.to_i}.each do |year, count|
-      results << content_tag('li', content_tag('strong', "#{year} (#{count})"))
-      results << "<ul class='#{year}-archive'>"
-      posts.except(:order).count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
-        results << content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
+      results << content_tag('li', content_tag('strong', "#{year.to_i} (#{count})"))
+      results << "<ul class='#{year.to_i}-archive'>"
+      posts.except(:order).where('EXTRACT(YEAR FROM published_at)=?', year.to_i).group('EXTRACT(MONTH FROM published_at)').count.sort_by {|month, count| -month.to_i}.each do |month, count|
+        results << content_tag('li', link_to("#{month_name(month.to_i)} (#{count})", owner_blog.url.merge(year: year.to_i, month: month.to_i)))
       end
       results << "</ul>"
     end

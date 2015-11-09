@@ -24,7 +24,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'register page view correctly' do
     @request.env['HTTP_REFERER'] = 'http://google.com'
-    first_url = 'http://test.host'
+    first_url = 'http://test.host/testcomm'
     get :view_page, profile: @community.identifier, page: []
     assert_equal 1, @community.page_views.count
     assert_equal 1, @community.visits.count

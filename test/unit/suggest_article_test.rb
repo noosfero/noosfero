@@ -81,7 +81,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.article[:highlighted] = true
     t.perform
 
-    article = TinyMceArticle.last(:conditions => { :name => t.article_name}) # just to be sure
+    article = TinyMceArticle.where(name: t.article_name).last # just to be sure
     assert article.highlighted
   end
 
@@ -89,7 +89,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t = build(SuggestArticle, :target => @profile)
     t.perform
 
-    article = TinyMceArticle.last(:conditions => { :name => t.article_name})
+    article = TinyMceArticle.where(name: t.article_name).last
     assert_equal false, article.highlighted
   end
 

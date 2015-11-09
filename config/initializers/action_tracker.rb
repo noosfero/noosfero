@@ -1,4 +1,5 @@
 require 'noosfero/i18n'
+require 'action_tracker_config'
 
 # ActionTracker plugin stuff
 

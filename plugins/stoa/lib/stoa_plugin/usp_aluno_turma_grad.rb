@@ -1,7 +1,8 @@
 class StoaPlugin::UspAlunoTurmaGrad < ActiveRecord::Base
 
   establish_connection(:stoa)
-  set_table_name('alunoturma_gr')
+
+  self.table_name = :alunoturma_gr
 
   def self.exists?(usp_id)
     StoaPlugin::UspUser.find_by_codpes(usp_id.to_i)

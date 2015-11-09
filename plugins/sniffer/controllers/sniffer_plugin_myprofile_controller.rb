@@ -9,7 +9,7 @@ class SnifferPluginMyprofileController < MyProfileController
   def edit
     if request.post?
       begin
-        @sniffer_profile.update_attributes(params[:sniffer_plugin_profile])
+        @sniffer_profile.update(params[:sniffer_plugin_profile])
         @sniffer_profile.enabled = true
         @sniffer_profile.save!
         session[:notice] = _('Consumer interests updated')
@@ -109,7 +109,7 @@ class SnifferPluginMyprofileController < MyProfileController
     profiles = Profile.all :conditions => {:id => products.map { |p| target_profile_id(p) }}
     profiles_by_id = {}
     profiles.each do |p|
-      p[:sniffer_plugin_distance] = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
+      p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
       profiles_by_id[p.id] ||= p
     end
     profiles_by_id

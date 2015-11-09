@@ -1,1 +1,0 @@
-../vendor/gdata-1.1.1/lib/gdata.rb

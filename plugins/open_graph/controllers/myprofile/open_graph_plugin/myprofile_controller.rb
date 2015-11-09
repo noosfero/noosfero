@@ -4,11 +4,11 @@ class OpenGraphPlugin::MyprofileController < MyProfileController
   before_filter :set_context
 
   def enterprise_search
-    scope = environment.enterprises.enabled.public
+    scope = environment.enterprises.enabled.is_public
     profile_search scope
   end
   def community_search
-    scope = environment.communities.public
+    scope = environment.communities.is_public
     profile_search scope
   end
   def friend_search
@@ -17,7 +17,7 @@ class OpenGraphPlugin::MyprofileController < MyProfileController
   end
 
   def track_config
-    profile.update_attributes! params[:profile_data]
+    profile.update! params[:profile_data]
     render partial: 'track_form', locals: {context: context, reload: true}
   end
 
@@ -38,10 +38,13 @@ class OpenGraphPlugin::MyprofileController < MyProfileController
     OpenGraphPlugin.context = self.context
   end
 
-  def default_url_options
-    # avoid rails' use_relative_controller!
-    {use_route: '/'}
+  # inherit routes from core skipping use_relative_controller!
+  def url_for options
+    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash
+    super options
   end
+  helper_method :url_for
+
 
 end
 

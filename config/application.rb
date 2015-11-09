@@ -8,23 +8,12 @@ require 'active_support/dependencies'
 # to work for now, but we should really look at putting those plugins away.
 ActiveSupport::Deprecation.silenced = true
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require(:default, :assets, Rails.env)
 
 module Noosfero
   class Application < Rails::Application
 
     require 'noosfero/plugin'
-
-    # Adds custom attributes to the Set of allowed html attributes for the #sanitize helper
-    config.action_view.sanitized_allowed_attributes = 'align', 'border', 'alt', 'vspace', 'hspace', 'width', 'heigth', 'value', 'type', 'data', 'style', 'target', 'codebase', 'archive', 'classid', 'code', 'flashvars', 'scrolling', 'frameborder', 'controls', 'autoplay', 'colspan', 'rowspan'
-
-    # Adds custom tags to the Set of allowed html tags for the #sanitize helper
-    config.action_view.sanitized_allowed_tags = 'object', 'embed', 'param', 'table', 'tr', 'th', 'td', 'applet', 'comment', 'iframe', 'audio', 'video', 'source'
 
     config.action_controller.include_all_helpers = false
 
@@ -33,11 +22,10 @@ module Noosfero
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W( #{Rails.root.join('app', 'sweepers')} )
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += %W( #{config.root.join('app', 'sweepers')} )
+    config.autoload_paths += Dir["#{config.root}/lib"]
     config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
-    config.autoload_paths += %W( #{Rails.root.join('test', 'mocks', Rails.env)} )
-
+    config.autoload_paths += %W( #{config.root.join('test', 'mocks', Rails.env)} )
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -87,19 +75,15 @@ module Noosfero
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
-    # Enable the asset pipeline
-    config.assets.enabled = true
-
-    # don't let rails prepend app/assets to config.assets.paths
-    # as we are doing it
-    config.paths['app/assets'] = ''
-
+    # Asset pipeline
     config.assets.paths =
       Dir.glob("app/assets/plugins/*/{,stylesheets,javascripts}") +
       Dir.glob("app/assets/{,stylesheets,javascripts}") +
       # no precedence over core
       Dir.glob("app/assets/designs/{icons,themes,user_themes}/*")
 
+    # disable strong_parameters before migration from protected_attributes
+    config.action_controller.permit_all_parameters = true
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
@@ -107,29 +91,15 @@ module Noosfero
     config.sass.cache = true
     config.sass.line_comments = false
 
-    def noosfero_session_secret
-      require 'fileutils'
-      target_dir = File.join(File.dirname(__FILE__), '../tmp')
-      FileUtils.mkdir_p(target_dir)
-      file = File.join(target_dir, 'session.secret')
-      if !File.exists?(file)
-        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
-        File.open(file, 'w') do |f|
-          f.puts secret
-        end
-      end
-      File.read(file).strip
-    end
-
-    # Your secret key for verifying cookie session data integrity.
-    # If you change this key, all old sessions will become invalid!
-    # Make sure the secret is at least 30 characters and all random,
-    # no regular words or you'll be exposed to dictionary attacks.
-    config.secret_token = noosfero_session_secret
+    config.action_dispatch.session = {
+      :key    => '_noosfero_session',
+    }
     config.session_store :active_record_store, key: '_noosfero_session'
 
-    config.paths['db/migrate'] += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate"
-    config.i18n.load_path += Dir.glob "#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}"
+    config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
+    config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
+
+    config.eager_load = true
 
     Noosfero::Plugin.setup(config)
 

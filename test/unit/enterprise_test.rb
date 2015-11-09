@@ -38,7 +38,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   def test_has_domains
     p = Enterprise.new
-    assert_kind_of Array, p.domains
+    assert p.domains.empty?
   end
 
   def test_belongs_to_environment_and_has_default

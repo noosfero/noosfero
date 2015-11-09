@@ -1,2 +1,3 @@
-class FooPlugin::Bar < Noosfero::Plugin::ActiveRecord
+class FooPlugin::Bar < ActiveRecord::Base
+
 end

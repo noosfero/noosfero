@@ -4,7 +4,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
   protect 'post_content', :profile
 
   def index
-    @forms = CustomFormsPlugin::Form.from(profile)
+    @forms = CustomFormsPlugin::Form.from_profile(profile)
   end
 
   def new
@@ -94,7 +94,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def pending
     @form = CustomFormsPlugin::Form.find(params[:id])
-    @pendings = CustomFormsPlugin::AdmissionSurvey.from(@form.profile).pending.select {|task| task.form_id == @form.id}.map {|a| {:profile => a.target, :time => a.created_at} }
+    @pendings = CustomFormsPlugin::AdmissionSurvey.from_profile(@form.profile).pending.select {|task| task.form_id == @form.id}.map {|a| {:profile => a.target, :time => a.created_at} }
 
     @sort_by = params[:sort_by]
     @pendings = @pendings.sort_by { |s| s[:profile].name } if @sort_by == 'user'

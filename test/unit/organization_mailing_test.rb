@@ -57,7 +57,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
 
   should 'return url for organization on url' do
     mailing = build(OrganizationMailing, :source => community)
-    assert_equal "#{community.environment.top_url}/#{community.name.to_slug}/", mailing.url
+    assert_equal "#{community.environment.top_url}/#{community.name.to_slug}", mailing.url
   end
 
   should 'deliver mailing to each member after create' do

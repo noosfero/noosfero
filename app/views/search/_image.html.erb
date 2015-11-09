@@ -26,7 +26,7 @@
     <% end %>
   <% elsif image.is_a? Gallery %>
     <div class="search-gallery-items">
-      <% r = image.children.find(:all, :order => :updated_at, :conditions => ['type = ?', 'UploadedFile']).last(3) %>
+      <% r = image.children.order(:updated_at).where('type = ?', 'UploadedFile').last(3) %>
       <% if r.length > 0 %>
         <% r.each_index do |i| img = r[i] %>
           <%= link_to '', img.view_url, :class => "search-image-pic pic-num#{i+1}",

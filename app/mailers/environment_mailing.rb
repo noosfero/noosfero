@@ -1,7 +1,9 @@
 class EnvironmentMailing < Mailing
 
   def recipients(offset=0, limit=100)
-   source.people.all(:order => :id, :offset => offset, :limit => limit, :joins => "LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)", :conditions => { "m.person_id" => nil })
+    source.people.order(:id).offset(offset).limit(limit)
+      .joins("LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)")
+      .where("m.person_id" => nil)
   end
 
   def each_recipient

@@ -14,7 +14,7 @@ class SearchController < PublicController
   # Backwards compatibility with old URLs
   def redirect_asset_param
     return unless params.has_key?(:asset)
-    redirect_to params.merge(:action => params.delete(:asset))
+    redirect_to url_for(params.merge action: params.delete(:asset))
   end
 
   no_design_blocks
@@ -62,12 +62,12 @@ class SearchController < PublicController
   end
 
   def articles
-    @scope = @environment.articles.public
+    @scope = @environment.articles.is_public
     full_text_search
   end
 
   def contents
-    redirect_to params.merge(:action => :articles)
+    redirect_to url_for(params.merge action: :articles)
   end
 
   def people
@@ -122,7 +122,7 @@ class SearchController < PublicController
   # keep old URLs workings
   def assets
     params[:action] = params[:asset].is_a?(Array) ? :index : params.delete(:asset)
-    redirect_to params
+    redirect_to url_for(params)
   end
 
   def tags

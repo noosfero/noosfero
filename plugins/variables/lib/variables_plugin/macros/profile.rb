@@ -1,4 +1,5 @@
-ActionView::Base.sanitized_allowed_attributes += ['data-macro']
+# FIXME See a better way to generalize this parameter.
+Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES.merge %w[data-macro]
 
 class VariablesPlugin::Profile < Noosfero::Plugin::Macro
 

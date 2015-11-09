@@ -1,12 +1,9 @@
 require_relative "../test_helper"
 require 'favorite_enterprises_controller'
 
-class FavoriteEnterprisesController; def rescue_action(e) raise e end; end
-
 class FavoriteEnterprisesControllerTest < ActionController::TestCase
 
-  noosfero_test :profile => 'testuser'
-
+  self.default_params = {profile: 'testuser'}
   def setup
     @controller = FavoriteEnterprisesController.new
     @request    = ActionController::TestRequest.new
@@ -22,7 +19,6 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
   should 'confirm addition of new favorite enterprise' do
@@ -31,7 +27,7 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'add'
 
-    ok("must load the favorite enterprise being added to display") { favorite_enterprise == assigns(:favorite_enterprise) } 
+    ok("must load the favorite enterprise being added to display") { favorite_enterprise == assigns(:favorite_enterprise) }
 
   end
 

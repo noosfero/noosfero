@@ -81,7 +81,7 @@ module ActionTracker
     module InstanceMethods
       def time_spent_doing(verb, conditions = {})
         time = 0
-        tracked_actions.all(:conditions => conditions.merge({ :verb => verb.to_s })).each do |t|
+        tracked_actions.where(conditions.merge verb: verb.to_s).each do |t|
           time += t.updated_at - t.created_at
         end
         time.to_f

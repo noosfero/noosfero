@@ -5,6 +5,6 @@
   <%= hidden_field "fields[#{counter}]", :form_id, :value => @form.id %>
   <td class='actions'>
     <%= button_without_text :edit, c_('Edit'), '', :field_id => counter %>
-    <%= button_without_text :remove, c_('Remove'), '#', :class => 'remove-field', :field_id => counter,  :confirm => _('Are you sure you want to remove this field?') %>
+    <%= button_without_text :remove, c_('Remove'), '#', class: 'remove-field', field_id: counter, data: {confirm: _('Are you sure you want to remove this field?')} %>
   </td>
 </tr>

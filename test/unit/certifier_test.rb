@@ -62,7 +62,7 @@ class CertifierTest < ActiveSupport::TestCase
   should 'set qualifier as self-certified when destroyed' do
     pq = mock
     Certifier.any_instance.stubs(:product_qualifiers).returns([pq])
-    pq.expects(:update_attributes!).with(:certifier => nil)
+    pq.expects(:update!).with(:certifier => nil)
     cert = fast_create(Certifier)
     cert.destroy
   end

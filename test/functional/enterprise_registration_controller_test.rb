@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'enterprise_registration_controller'
 
-# Re-raise errors caught by the controller.
-class EnterpriseRegistrationController; def rescue_action(e) raise e end; end
-
 class EnterpriseRegistrationControllerTest < ActionController::TestCase
 
   # all_fixtures:users
@@ -159,7 +156,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :economic_activity => '<b>economic_activity</b>' }
     assert_sanitized assigns(:create_enterprise).economic_activity
   end
-  
+
   should 'filter html from management_information' do
     post :index, :create_enterprise => { 'name' => 'name', 'identifier' => 'mynew', :management_information => '<b>management_information</b>' }
     assert_sanitized assigns(:create_enterprise).management_information

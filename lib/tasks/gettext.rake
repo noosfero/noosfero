@@ -4,37 +4,21 @@
 
 require 'pathname'
 
-makemo_stamp = 'tmp/makemo.stamp'
-desc "Create mo-files for L10n"
-task :makemo => makemo_stamp
-file makemo_stamp => Dir.glob('po/*/noosfero.po') do
-  Rake::Task['symlinkmo'].invoke
-
-  require 'gettext'
-  require 'gettext/tools'
-  GetText.create_mofiles(
-    verbose: true,
-    po_root: 'po',
-    mo_root: 'locale',
-  )
-
-  Dir.glob('plugins/*').each do |plugindir|
-    GetText.create_mofiles(
-      verbose: true,
-      po_root: File.join(plugindir, 'po'),
-      mo_root: File.join(plugindir, 'locale'),
-    )
-  end
-
-  FileUtils.mkdir_p 'tmp'
-  FileUtils.touch makemo_stamp
+require 'gettext/tools/task'
+GetText::Tools::Task.define do |task|
+  task.domain = 'noosfero'
+  task.enable_po = true
+  task.po_base_directory = 'po'
+  task.mo_base_directory = 'locale'
+  task.files = [
+    "{app,lib}/**/*.{rb,rhtml,erb}",
+    'config/initializers/*.rb',
+    'public/*.html.erb',
+    'public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}',
+  ].map { |pattern| Dir.glob(pattern) }.flatten
 end
 
-task :cleanmo do
-  rm_f makemo_stamp
-end
-task :clean => 'cleanmo'
-
+task 'gettext:mo:update' => :symlinkmo
 task :symlinkmo do
   langmap = {
     'pt' => 'pt_BR',
@@ -55,57 +39,38 @@ task :symlinkmo do
   end
 end
 
-desc "Update pot/po files to match new version."
-task :updatepo do
-
-  puts 'Extracting strings from source. This may take a while ...'
-
-  # XXX this list is duplicated in test/unit/i18n_test.rb; if you change it
-  # here, please also update it there.
-  files_to_translate = [
-    "{app,lib}/**/*.{rb,rhtml,erb}",
-    'config/initializers/*.rb',
-    'public/*.html.erb',
-    'public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}',
-  ].map { |pattern| Dir.glob(pattern) }.flatten
-
-  require 'gettext'
-  require 'gettext/tools'
-  GetText.update_pofiles(
-    'noosfero',
-    files_to_translate,
-    Noosfero::VERSION,
-    {
-      po_root: 'po',
-    }
-  )
-end
-
 Dir.glob('plugins/*').each do |plugindir|
   plugin = File.basename(plugindir)
-  task :updatepo => "updatepo:plugin:#{plugin}"
+  po_root = File.join(plugindir, 'po')
+  next if Dir["#{po_root}/**/*.po"].empty?
 
-  desc "Extract strings from #{plugin} plugin"
-  task "updatepo:plugin:#{plugin}" do
-    files = Dir.glob("#{plugindir}/**/*.{rb,html.erb}")
-    po_root = File.join(plugindir, 'po')
-    require 'gettext'
-    require 'gettext/tools'
-    GetText.update_pofiles(
-      plugin,
-      files,
-      Noosfero::VERSION,
-      {
-        po_root: po_root,
-      }
-    )
-    plugin_pot = File.join(po_root, "#{plugin}.pot")
-    if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.$'")
-      rm_f plugin_pot
+  namespace "noosfero:plugin:#{plugin}" do
+    GetText::Tools::Task.define do |task|
+      task.domain = plugin
+      task.enable_po = true
+      task.po_base_directory = po_root
+      task.mo_base_directory = File.join(plugindir, 'locale')
+      task.files = Dir["#{plugindir}/**/*.{rb,html.erb}"]
     end
-    sh 'find', po_root, '-type', 'd', '-empty', '-delete'
-    puts
+
+    task "gettext:po:cleanup" do
+      plugin_pot = File.join(po_root, plugin + '.pot')
+      if File.exists?(plugin_pot) && system("LANG=C msgfmt --statistics --output /dev/null #{plugin_pot} 2>&1 | grep -q '^0 translated messages.$'")
+        rm_f plugin_pot
+      end
+      sh 'find', po_root, '-type', 'd', '-empty', '-delete'
+    end
+
+    task "gettext:po:update" do
+      Rake::Task["noosfero:plugin:#{plugin}:gettext:po:cleanup"].invoke
+    end
+    task "gettext:mo:update" do
+      Rake::Task["noosfero:plugin:#{plugin}:gettext:po:cleanup"].invoke
+    end
   end
+
+  task 'gettext:po:update' => "noosfero:plugin:#{plugin}:gettext:po:update"
+  task 'gettext:mo:update' => "noosfero:plugin:#{plugin}:gettext:mo:update"
 end
 
 def checkpo(po_files)

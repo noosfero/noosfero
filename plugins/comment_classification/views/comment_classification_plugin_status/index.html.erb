@@ -18,7 +18,7 @@
           <td><%= st.enable_reason %></td>
           <td>
             <%= button_without_text :edit, c_('Edit'), {:action => 'edit', :id => st} %>
-            <%= button_without_text :delete, c_('Remove'), {:action => 'destroy', :id => st}, :confirm => _('Are you sure you want to remove this status?') %>
+            <%= button_without_text :delete, c_('Remove'), {action: 'destroy', id: st}, data: {confirm: _('Are you sure you want to remove this status?')} %>
           </td>
         </tr>
       <% end %>

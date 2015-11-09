@@ -3,8 +3,8 @@ class SpaminatorPluginAdminController < AdminController
 
   def index
     @settings ||= Noosfero::Plugin::Settings.new(environment, SpaminatorPlugin, params[:settings])
-    @reports_count = SpaminatorPlugin::Report.from(environment).count
-    @reports = SpaminatorPlugin::Report.from(environment).order('created_at desc').limit(3)
+    @reports_count = SpaminatorPlugin::Report.from_environment(environment).count
+    @reports = SpaminatorPlugin::Report.from_environment(environment).order('created_at desc').limit(3)
     @next_run = settings.period.to_i + ((settings.last_run || Date.today).to_date - Date.today)
     if request.post?
       settings.period = nil if settings.period.blank?
@@ -40,7 +40,7 @@ class SpaminatorPluginAdminController < AdminController
   end
 
   def reports
-    @reports = SpaminatorPlugin::Report.from(environment).order('created_at desc')
+    @reports = SpaminatorPlugin::Report.from_environment(environment).order('created_at desc')
   end
 
   private

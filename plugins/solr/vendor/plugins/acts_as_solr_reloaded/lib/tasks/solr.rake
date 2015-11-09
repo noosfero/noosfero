@@ -62,7 +62,7 @@ namespace :solr do
       return
     end
 
-    require File.expand_path(File.dirname(__FILE__) + '/../../config/solr_environment')
+    require_relative '../../config/solr_environment')
 
     FileUtils.mkdir_p(SOLR_LOGS_PATH)
     FileUtils.mkdir_p(SOLR_DATA_PATH)

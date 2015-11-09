@@ -4,7 +4,7 @@ class PiwikPluginAdminController < PluginAdminController
 
   def index
     if request.post?
-      if @environment.update_attributes(params[:environment])
+      if @environment.update(params[:environment])
         session[:notice] = _('Piwik plugin settings updated successfully.')
       else
         session[:notice] = _('Piwik plugin settings could not be saved.')

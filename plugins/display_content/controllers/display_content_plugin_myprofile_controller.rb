@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/display_content_plugin_module'
+require_relative 'display_content_plugin_module'
 
 class DisplayContentPluginMyprofileController < MyProfileController
 

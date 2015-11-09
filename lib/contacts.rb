@@ -1,1 +1,0 @@
-../vendor/cardmagic-contacts-f66219e6589ccaf3ab9e3574fdd41225d0dd5073/lib/contacts.rb

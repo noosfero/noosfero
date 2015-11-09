@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'role_controller'
 
-# Re-raise errors caught by the controller.
-class RoleController; def rescue_action(e) raise e end; end
-
 class RoleControllerTest < ActionController::TestCase
   all_fixtures
 
@@ -26,13 +23,13 @@ class RoleControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'show'
     assert assigns(:role)
-    assert_equal @role.id, assigns(:role).id 
+    assert_equal @role.id, assigns(:role).id
   end
 
   def test_can_edit
     get 'edit', :id => @role.id
     assert_not_nil assigns(:role)
-    assert_equal @role.id, assigns(:role).id 
+    assert_equal @role.id, assigns(:role).id
   end
 
   def test_should_update_to_valid_parameters
@@ -42,7 +39,7 @@ class RoleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:role)
     assert_nil session[:notice]
   end
-  
+
   def test_should_not_update_to_invalid_paramters
     Role.any_instance.stubs(:valid?).returns(false)
     post 'update', :id => @role.id

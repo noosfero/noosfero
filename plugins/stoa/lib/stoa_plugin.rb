@@ -24,7 +24,7 @@ class StoaPlugin < Noosfero::Plugin
       content_tag(:small, _('Confirm your birth date. Pay attention to the format: yyyy-mm-dd.'), :id => 'usp-birth-date-balloon'), :id => 'signup-birth-date', :style => 'display: none') +
       content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))) +
       content_tag(:small, _('Confirm your CPF number.'), :id => 'usp-cpf-balloon'), :id => 'signup-cpf', :style => 'display: none') +
-      javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
+      javascript_include_tag('plugins/stoa/javascripts/jquery.observe_field', 'plugins/stoa/javascripts/signup_complement')
     }
   end
 
@@ -37,7 +37,7 @@ class StoaPlugin < Noosfero::Plugin
         content_tag('div', labelled_check_box(c_('Public'), '', '', false, :disabled => true, :title => _('This field must be private'), :class => 'disabled'), :class => 'field-privacy-selector'), :class => 'field-with-privacy-selector') +
         content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))), :id => 'signup-birth-date', :style => 'display: none') +
         content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))), :id => 'signup-cpf', :style => 'display:none') +
-        javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
+        javascript_include_tag('plugins/stoa/javascripts/jquery.observe_field', 'plugins/stoa/javascripts/signup_complement')
       }
     end
   end
@@ -63,7 +63,7 @@ class StoaPlugin < Noosfero::Plugin
     block = proc do
       params[:profile_data] ||= {}
       params[:profile_data][:invitation_code] = params[:invitation_code]
-      invitation = Task.pending.find(:first, :conditions => {:code => params[:invitation_code]})
+      invitation = Task.pending.where(code: params[:invitation_code]).first
       if request.post?
         if !invitation && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
           # `self` below is evaluated in the context of account_controller

@@ -102,8 +102,7 @@ class MacrosHelperTest < ActionView::TestCase
         {:js_files => 'macro.js' }
       end
     end
-    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
-    assert_equal "<script src=\"#{Plugin1.public_path('macro.js')}\" type=\"text/javascript\"></script>", include_macro_js_files
+    assert_equal "<script src=\"#{Plugin1.public_path('macro.js')}\"></script>", include_macro_js_files
   end
 
   should 'get macro css files' do

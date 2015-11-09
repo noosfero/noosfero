@@ -1,9 +1,7 @@
 require_dependency 'application_helper'
-require_relative 'input_helper'
 
 module ApplicationHelper
 
-  extend ActiveSupport::Concern
   protected
 
   module ResponsiveMethods
@@ -408,8 +406,11 @@ module ApplicationHelper
   end
 
   include ResponsiveChecks
-  included do
-    include ResponsiveMethods
+  if RUBY_VERSION >= '2.0.0'
+    prepend ResponsiveMethods
+  else
+    extend ActiveSupport::Concern
+    included { include ResponsiveMethods }
   end
 
   # TODO: apply theme_responsive? condition

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class RoleAssignmentsTest < ActiveSupport::TestCase
   should 'create membership_surveys on membership creation' do

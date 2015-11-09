@@ -14,11 +14,11 @@ class Comment
   end
 
   def marked_as_read?(person)
-    person && people.find(:first, :conditions => {:id => person.id})
+    person && people.where(id: person.id).first
   end
 
   def self.marked_as_read(person)
-    find(:all, :joins => [:read_comments], :conditions => {:author_id => person.id})
+    joins(:read_comments).where(author_id: person.id)
   end
 
 end

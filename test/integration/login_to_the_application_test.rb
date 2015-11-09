@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
-class LoginToTheApplicationTest < ActionController::IntegrationTest
+class LoginToTheApplicationTest < ActionDispatch::IntegrationTest
+
   fixtures :users, :environments, :profiles
 
   def test_unauthenticated_user_tries_to_access_his_control_panel

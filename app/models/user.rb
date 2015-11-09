@@ -102,7 +102,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_one :person, :dependent => :destroy
+  # set autosave to false as we do manually when needed and Person syncs with us
+  has_one :person, dependent: :destroy, autosave: false
   belongs_to :environment
 
   has_many :sessions, dependent: :destroy
@@ -356,12 +357,12 @@ class User < ActiveRecord::Base
   end
 
   def name
-    name = (self[:name] || login)
+    name = (@name || login)
     person.nil? ? name : (person.name || name)
   end
 
   def name= name
-    self[:name] = name
+    @name = name
   end
 
   def enable_email!

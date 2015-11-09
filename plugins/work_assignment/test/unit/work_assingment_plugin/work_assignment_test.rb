@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../../../test/test_helper")
+require 'test_helper'
 
 class WorkAssignmentTest < ActiveSupport::TestCase
   should 'find or create sub-folder based on author identifier' do

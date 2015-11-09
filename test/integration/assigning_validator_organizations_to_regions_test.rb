@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class AssigningValidatorOrganizationsToRegionsTest < ActionController::IntegrationTest
+class AssigningValidatorOrganizationsToRegionsTest < ActionDispatch::IntegrationTest
 
   should 'be able to properly assign organizations as validators to regions' do
     env = Environment.default
@@ -25,7 +25,7 @@ class AssigningValidatorOrganizationsToRegionsTest < ActionController::Integrati
     get "/admin/region_validators/region/#{region1.id}", :search => 'two'
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => "/admin/region_validators/add/#{region1.id}" }, :descendant => { :tag => 'input', :attributes => { :type => 'hidden', :name => 'validator_id', :value => org2.id } }
-    
+
     post "/admin/region_validators/add/#{region1.id}", :validator_id => org2.id
     assert_response :redirect
 

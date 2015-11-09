@@ -497,7 +497,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_includes Category.on_level(c3), c6
   end
 
-  should 'on level named_scope must be able to receive parent or parent_id' do
+  should 'on level scope must be able to receive parent or parent_id' do
     parent = fast_create(Category)
     category = fast_create(Category, :parent_id => parent)
 

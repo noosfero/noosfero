@@ -5,6 +5,7 @@ class ReportedImage < ActiveRecord::Base
 
   has_attachment :content_type => :image,
     :storage     => :file_system,
-    :max_size => 5.megabytes
+    :max_size => 5.megabytes,
+    processor: 'Rmagick'
 
 end

@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'profile_editor_controller'
 
-# Re-raise errors caught by the controller.
-class ProfileEditorController; def rescue_action(e) raise e end; end
-
 class ProfileEditorControllerTest < ActionController::TestCase
   all_fixtures
 
@@ -199,7 +196,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'display properly that the profile is non-public' do
-    profile.update_attributes!(:public_profile => false)
+    profile.update!(:public_profile => false)
     get :edit, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'false' }
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'true' }
@@ -230,7 +227,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'back when update community info fail' do
     org = fast_create(Community)
-    Community.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
+    Community.any_instance.expects(:update!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
 
     assert_template 'edit'
@@ -240,7 +237,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'back when update enterprise info fail' do
     org = fast_create(Enterprise)
 
-    Enterprise.any_instance.expects(:update_attributes!).raises(ActiveRecord::RecordInvalid)
+    Enterprise.any_instance.expects(:update!).raises(ActiveRecord::RecordInvalid)
     post :edit, :profile => org.identifier
     assert_template 'edit'
     assert_response :success
@@ -804,7 +801,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'show profile nickname on title' do
-    profile.update_attributes(:nickname => 'my nick')
+    profile.update(:nickname => 'my nick')
     get :index, :profile => profile.identifier
     assert_tag :tag => 'h1', :attributes => { :class => 'block-title'}, :descendant => {
       :tag => 'span', :attributes => { :class => 'control-panel-title' }, :content => 'my nick'

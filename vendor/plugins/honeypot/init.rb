@@ -1,5 +1,5 @@
 # Inpired on https://github.com/curtis/honeypot-captcha
-require File.join(File.dirname(__FILE__), 'lib', 'form_tag_helper')
+require_dependency File.join(File.dirname(__FILE__), 'lib', 'form_tag_helper')
 
 module Honeypot
   def honeypot_fields

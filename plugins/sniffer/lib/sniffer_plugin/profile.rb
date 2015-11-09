@@ -1,6 +1,6 @@
-class SnifferPlugin::Profile < Noosfero::Plugin::ActiveRecord
+class SnifferPlugin::Profile < ActiveRecord::Base
 
-  set_table_name :sniffer_plugin_profiles
+  self.table_name = :sniffer_plugin_profiles
 
   belongs_to :profile, :class_name => '::Profile'
 

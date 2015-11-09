@@ -55,7 +55,7 @@ function check_captcha(button, confirm_action) {
 <div class="post_comment_box <%= ((defined? show_form) && show_form) ? 'opened' : 'closed' %>">
 
   <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form') if display_link && @comment.reply_of_id.blank? %>
-<%= remote_form_for(:comment, @comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
+<%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
 
   <%= required_fields_message %>
 

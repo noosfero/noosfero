@@ -46,7 +46,8 @@ class Mailing < ActiveRecord::Base
     end
   end
 
-  class Sender < ActionMailer::Base
+  class Sender < ApplicationMailer
+
     def notification(mailing, recipient)
       @message = mailing.body
       @signature_message = mailing.signature_message

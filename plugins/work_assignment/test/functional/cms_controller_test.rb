@@ -1,8 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
+require 'test_helper'
 require 'cms_controller'
-
-# Re-raise errors caught by the controller.
-class CmsController; def rescue_action(e) raise e end; end
 
 class CmsControllerTest < ActionController::TestCase
 
@@ -22,7 +19,7 @@ class CmsControllerTest < ActionController::TestCase
     work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     get :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id
     assert_response :forbidden
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'allow members to upload submissions on work_assignment' do

@@ -1,7 +1,4 @@
 require_relative "../test_helper"
-# require 'profile_themes_controller'
-
-class ProfileThemesController; def rescue_action(e) raise e end; end
 
 class ProfileThemesControllerTest < ActionController::TestCase
 

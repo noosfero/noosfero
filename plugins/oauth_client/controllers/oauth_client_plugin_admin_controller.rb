@@ -16,7 +16,7 @@ class OauthClientPluginAdminController < AdminController
   def edit
     @provider = params[:id] ? environment.oauth_providers.find(params[:id]) : environment.oauth_providers.new
     if request.post?
-      if @provider.update_attributes(params['oauth_client_plugin_provider'])
+      if @provider.update(params['oauth_client_plugin_provider'])
         session[:notice] = _('Saved!')
       else
         session[:notice] = _('Error!')

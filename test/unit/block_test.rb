@@ -136,7 +136,7 @@ class BlockTest < ActiveSupport::TestCase
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id, :owner_type => 'Profile')
     block = create(Block, :display => 'never', :box_id => box.id)
-    assert block.update_attributes!(:display => 'always')
+    assert block.update!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
   end
@@ -248,7 +248,8 @@ class BlockTest < ActiveSupport::TestCase
   should 'generate embed code' do
     b = Block.new
     b.stubs(:url_for).returns('http://myblogtest.com/embed/block/1')
-    assert_equal "<iframe class=\"embed block block\" frameborder=\"0\" height=\"768\" src=\"http://myblogtest.com/embed/block/1\" width=\"1024\"></iframe>", b.embed_code.call
+    assert_equal "<iframe src=\"http://myblogtest.com/embed/block/1\" frameborder=\"0\" width=\"1024\" height=\"768\" class=\"embed block block\"></iframe>",
+      b.embed_code.call
   end
 
   should 'default value for display_user is all' do

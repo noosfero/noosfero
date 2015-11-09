@@ -1,8 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/mark_comment_as_read_plugin_profile_controller'
-
-# Re-raise errors caught by the controller.
-class MarkCommentAsReadPluginProfileController; def rescue_action(e) raise e end; end
+require 'test_helper'
+require_relative '../../controllers/mark_comment_as_read_plugin_profile_controller'
 
 class MarkCommentAsReadPluginProfileControllerTest < ActionController::TestCase
   def setup

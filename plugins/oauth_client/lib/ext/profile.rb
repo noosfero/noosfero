@@ -1,8 +1,10 @@
 require_dependency 'profile'
 
-class Profile
+Profile.descendants.each do |subclass|
+  subclass.class_eval do
 
-  has_many :oauth_auths, class_name: 'OauthClientPlugin::Auth', dependent: :destroy
-  has_many :oauth_providers, through: :oauth_auths, source: :provider
+    has_many :oauth_auths, foreign_key: :profile_id, class_name: 'OauthClientPlugin::Auth', dependent: :destroy
+    has_many :oauth_providers, through: :oauth_auths, source: :provider
 
+  end
 end

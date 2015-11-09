@@ -131,7 +131,7 @@ class TaskTest < ActiveSupport::TestCase
 
     task.cancel
 
-    assert_nil Task.find_by_code(task.code)
+    assert_equal [], Task.from_code(task.code)
   end
 
   should 'be able to find active tasks' do
@@ -139,7 +139,7 @@ class TaskTest < ActiveSupport::TestCase
     task.requestor = sample_user
     task.save!
 
-    assert_not_nil Task.find_by_code(task.code)
+    assert_not_nil Task.from_code(task.code)
   end
 
   should 'use 36-chars codes by default' do
@@ -317,7 +317,7 @@ class TaskTest < ActiveSupport::TestCase
     assert_includes Task.to(another_person), t4
   end
 
-  should 'filter tasks by type with named_scope' do
+  should 'filter tasks by type with scope' do
     class CleanHouse < Task; end
     class FeedDog < Task; end
     requestor = fast_create(Person)

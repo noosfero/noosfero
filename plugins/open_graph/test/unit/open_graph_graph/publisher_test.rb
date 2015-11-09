@@ -25,7 +25,7 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
 
     @community = @actor.environment.communities.create! name: 'comm', identifier: 'comm', closed: false
 
-    @actor.update_attributes!({
+    @actor.update!({
       open_graph_settings: {
         activity_track_enabled: "true",
         enterprise_track_enabled: "true",
@@ -43,7 +43,7 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
       open_graph_enterprise_profiles_ids: "#{@enterprise.id}",
       open_graph_community_profiles_ids: "#{@community.id}",
     })
-    @other_actor.update_attributes! open_graph_settings: { activity_track_enabled: "true", },
+    @other_actor.update! open_graph_settings: { activity_track_enabled: "true", },
       open_graph_activity_track_configs_attributes: { 0 => { tracker_id: @other_actor.id, object_type: 'friend', }, }
 
     # active

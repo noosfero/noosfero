@@ -27,8 +27,8 @@ class FeedReaderBlock < Block
   settings_items :update_errors, :type => :integer, :default => 0
   settings_items :error_message, :type => :string
 
-  scope :expired, lambda {
-    { :conditions => [ '(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
+  scope :expired, -> {
+    where '(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval
   }
 
   before_create do |block|

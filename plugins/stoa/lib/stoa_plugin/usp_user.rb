@@ -1,7 +1,7 @@
 class StoaPlugin::UspUser < ActiveRecord::Base
 
   establish_connection(:stoa)
-  set_table_name('pessoa')
+  self.table_name = 'pessoa'
 
   SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 

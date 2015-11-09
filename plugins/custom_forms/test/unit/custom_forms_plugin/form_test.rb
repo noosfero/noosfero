@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   should 'validates presence of a profile and a name' do
@@ -179,7 +179,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
     f2 = CustomFormsPlugin::Form.create!(:name => 'Open Source', :profile => profile)
     f3 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => another_profile)
-    scope = CustomFormsPlugin::Form.from(profile)
+    scope = CustomFormsPlugin::Form.from_profile(profile)
 
     assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
@@ -192,7 +192,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f1 = CustomFormsPlugin::Form.create!(:name => 'On membership 1', :profile => profile, :on_membership => true)
     f2 = CustomFormsPlugin::Form.create!(:name => 'On membership 2', :profile => profile, :on_membership => true)
     f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip', :profile => profile, :on_membership => false)
-    scope = CustomFormsPlugin::Form.from(profile).on_memberships
+    scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
@@ -223,7 +223,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1', :profile => profile, :for_admission => true)
     f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2', :profile => profile, :for_admission => true)
     f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
-    scope = CustomFormsPlugin::Form.from(profile).for_admissions
+    scope = CustomFormsPlugin::Form.from_profile(profile).for_admissions
 
     assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
@@ -235,7 +235,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     f1 = CustomFormsPlugin::Form.create!(:name => 'On membership', :profile => profile, :on_membership => true)
     f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
-    scope = CustomFormsPlugin::Form.from(profile).on_memberships
+    scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1

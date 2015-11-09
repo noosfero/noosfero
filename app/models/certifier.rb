@@ -20,7 +20,7 @@ class Certifier < ActiveRecord::Base
   validates_presence_of :name
 
   def destroy
-    product_qualifiers.each { |pq| pq.update_attributes! :certifier => nil }
+    product_qualifiers.each { |pq| pq.update! :certifier => nil }
     super
   end
 

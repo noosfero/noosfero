@@ -14,8 +14,8 @@ module ActsAsAccessor
   end
 
   def define_roles(roles, resource)
-    roles = [roles] unless roles.kind_of?(Array)
-    actual_roles = RoleAssignment.find( :all, :conditions => role_attributes(nil, resource) ).map(&:role)
+    roles = Array(roles)
+    actual_roles = RoleAssignment.where(role_attributes nil, resource).map(&:role)
 
     (roles - actual_roles).each {|r| add_role(r, resource) }
     (actual_roles - roles).each {|r| remove_role(r, resource)}
@@ -23,7 +23,7 @@ module ActsAsAccessor
 
   def add_role(role, resource)
     attributes = role_attributes(role, resource)
-    if RoleAssignment.find(:all, :conditions => attributes).empty?
+    if RoleAssignment.where(attributes).empty?
       ra = RoleAssignment.new(attributes)
       role_assignments << ra
       resource.role_assignments << ra
@@ -35,13 +35,13 @@ module ActsAsAccessor
 
   def remove_role(role, resource)
     return unless role
-    roles_destroy = RoleAssignment.find(:all, :conditions => role_attributes(role, resource))
+    roles_destroy = RoleAssignment.where(role_attributes role, resource)
     return if roles_destroy.empty?
     roles_destroy.map(&:destroy).all?
   end
 
   def find_roles(res)
-    RoleAssignment.find(:all, :conditions => role_attributes(nil, res))
+    RoleAssignment.where(role_attributes nil, res)
   end
 
   protected
@@ -55,10 +55,10 @@ module ActsAsAccessor
       resource = nil
     end
     if resource
-      attributes[:resource_id]   = resource.id 
+      attributes[:resource_id]   = resource.id
       attributes[:resource_type] = resource.class.base_class.name
     else
-      attributes[:resource_id]   = nil 
+      attributes[:resource_id]   = nil
       attributes[:resource_type] = nil
     end
     attributes

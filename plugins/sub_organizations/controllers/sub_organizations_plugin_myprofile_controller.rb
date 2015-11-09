@@ -32,11 +32,12 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
   end
 
   def search_organization
-    render :text => prepare_to_token_input(environment.organizations.find(:all, :conditions =>
-      ["(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)
+    render :text => prepare_to_token_input(
+      environment.organizations.where(
+        "(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)
         AND (identifier NOT LIKE ?) AND (id != ?)",
-        "%#{params[:q]}%", "%#{params[:q]}%", "%_template", profile.id]).
-      select { |organization|
+        "%#{params[:q]}%", "%#{params[:q]}%", "%_template", profile.id).
+      select{ |organization|
         Organization.children(organization).blank? &&
         !Organization.pending_children(profile).include?(organization)
       }).to_json

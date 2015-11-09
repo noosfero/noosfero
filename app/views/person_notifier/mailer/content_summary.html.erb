@@ -3,7 +3,7 @@
   <div style="display: table; background-color: white; margin: 26px 0;">
     <div style="padding: 25px 20px 20px 20px;text-align: left;">
       <%= link_to @url, :style => "text-decoration: none;" do %>
-        <span style="font-weight:bold;font-size: 28px;margin: 0;color: white;background-color: #AAAAAA;padding: 5px;"><%= @environment %></span>
+        <span style="font-weight:bold;font-size: 28px;margin: 0;color: white;background-color: #AAAAAA;padding: 5px;"><%= @environment.name %></span>
       <% end %>
       <span style="font-weight:bold;color: #333;font-size:19px;margin-left: 8px;"><%= _("%s's Notifications") % @profile.name %></h3>
     </div>
@@ -25,7 +25,7 @@
           <% @notifications.each do |activity| %>
               <div style="border-bottom:1px solid #e2e2e2;padding:15px 0;width:600px">
               <table style="width:100%;">
-                <%= render :partial => activity.verb, :locals => { :activity => activity } rescue "cannot render notification for #{activity.verb}" %>
+                <%= render activity.verb, activity: activity %>
               </table>
             </div>
           <% end %>
@@ -34,7 +34,7 @@
 
       <div style="color:#444444;font-size:11px;margin-bottom: 20px;">
         <p style="margin:0"><%= _("Greetings,") %></p>
-        <p style="margin:0"><%= _('%s team.') % @environment %></p>
+        <p style="margin:0"><%= _('%s team.') % @environment.name %></p>
         <p style="margin:0"><%= link_to @url, url_for(@url) %></p>
       </div>
     </div>

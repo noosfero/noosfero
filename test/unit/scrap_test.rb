@@ -89,7 +89,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to another" do
-    p1 = create_user.person
+    User.current = create_user
+    p1 = User.current.person
     p2 = create_user.person
     s = Scrap.new
     s.sender= p1
@@ -106,7 +107,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to community" do
-    p = create_user.person
+    User.current = create_user
+    p = User.current.person
     c = fast_create(Community)
     s = Scrap.new
     s.sender= p
@@ -124,7 +126,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "notify leave_scrap action tracker verb to friends and itself" do
-    p1 = create_user.person
+    User.current = create_user
+    p1 = User.current.person
     p2 = create_user.person
     p1.add_friend(p2)
     process_delayed_job_queue
@@ -142,7 +145,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "notify leave_scrap action tracker verb to members of the communities and the community itself" do
-    p = create_user.person
+    User.current = create_user
+    p = User.current.person
     c = fast_create(Community)
     c.add_member(p)
     ActionTrackerNotification.delete_all
@@ -162,7 +166,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap_to_self action tracker verb on scrap creation of one user to itself" do
-    p = create_user.person
+    User.current = create_user
+    p = User.current.person
     s = Scrap.new
     s.sender= p
     s.receiver= p
@@ -176,7 +181,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "notify leave_scrap_to_self action tracker verb to friends and itself" do
-    p1 = create_user.person
+    User.current = create_user
+    p1 = User.current.person
     p2 = create_user.person
     p1.add_friend(p2)
     ActionTrackerNotification.delete_all
@@ -291,7 +297,8 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should 'create activity with reply_scrap_on_self when top_root scrap receiver is the same as sender' do
-    s, r = create_user.person, create_user.person
+    User.current = create_user
+    s, r = User.current.person, create_user.person
     root = create(Scrap, :sender_id => s.id, :receiver_id => r.id)
     assert_difference 'ActionTracker::Record.count', 1 do
       reply = create(Scrap, :sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')

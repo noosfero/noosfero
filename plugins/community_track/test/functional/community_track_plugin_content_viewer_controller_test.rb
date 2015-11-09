@@ -1,6 +1,5 @@
 require_relative '../test_helper'
 
-class ContentViewerController; def rescue_action(e) raise e end; end
 class ContentViewerControllerTest < ActionController::TestCase
 
   def setup

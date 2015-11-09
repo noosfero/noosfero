@@ -1,12 +1,5 @@
 require 'test_helper'
 
-class ContentViewerController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e)
-    raise e
-  end
-end
-
 class ContentViewerControllerTest < ActionController::TestCase
 
   def setup

@@ -36,7 +36,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   def test_has_domains
     p = Profile.new
-    assert_kind_of Array, p.domains
+    assert p.domains.empty?
   end
 
   should 'be assigned to default environment if no environment is informed' do
@@ -462,7 +462,7 @@ class ProfileTest < ActiveSupport::TestCase
     p1 = create(Profile, :public_profile => true)
     p2 = create(Profile, :public_profile => false)
 
-    result = Profile.find(:all, :conditions => {:public_profile => true})
+    result = Profile.where(public_profile: true).all
     assert_includes result, p1
     assert_not_includes result, p2
   end
@@ -471,7 +471,7 @@ class ProfileTest < ActiveSupport::TestCase
     p1 = create(Profile, :public_profile => true)
     p2 = create(Profile, :public_profile => true, :secret => true)
 
-    result = Profile.public
+    result = Profile.is_public
     assert_includes result, p1
     assert_not_includes result, p2
   end
@@ -785,7 +785,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'nickname be able to be nil' do
     p = Profile.new()
     p.valid?
-    assert_blank p.errors[:nickname]
+    assert p.errors[:nickname].blank?
   end
 
   should 'filter html from nickname' do
@@ -935,6 +935,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy communities from person template' do
     template = create_user('test_template').person
+    template.is_template = true
     Environment.any_instance.stubs(:person_default_template).returns(template)
 
     c1 = fast_create(Community)
@@ -1396,22 +1397,24 @@ class ProfileTest < ActiveSupport::TestCase
   should 'profile be valid when image is empty' do
     profile = build(Profile, :image_builder => {:uploaded_data => ""})
     profile.valid?
-    assert_blank profile.errors[:image]
+    assert profile.errors[:image].blank?
   end
 
   should 'profile be valid when has no image' do
     profile = Profile.new
     profile.valid?
-    assert_blank profile.errors[:image]
+    assert profile.errors[:image].blank?
   end
 
   should 'copy header and footer after create a person' do
     template = create_user('test_template').person
     template.custom_footer = "footer customized"
     template.custom_header = "header customized"
+    template.is_template = true
     Environment.any_instance.stubs(:person_default_template).returns(template)
 
     person = create_user_full('mytestuser').person
+    assert_equal person.environment.person_default_template, person.template
     assert_equal "footer customized", person.custom_footer
     assert_equal "header customized", person.custom_header
   end
@@ -1463,7 +1466,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [t2], environment.profiles.templates(t2)
   end
 
-  should 'not return a template when and invalid template is specified' do
+  should 'not return a template when a non template is specified' do
     environment = Environment.default
     t1 = fast_create(Profile, :is_template => true)
     t2 = fast_create(Profile, :is_template => true)
@@ -2060,10 +2063,10 @@ class ProfileTest < ActiveSupport::TestCase
     p3 = fast_create(Profile, :public_profile => false)
     p4 = fast_create(Profile, :visible => false, :public_profile => false)
 
-    assert_includes Profile.public, p1
-    assert_not_includes Profile.public, p2
-    assert_not_includes Profile.public, p3
-    assert_not_includes Profile.public, p4
+    assert_includes Profile.is_public, p1
+    assert_not_includes Profile.is_public, p2
+    assert_not_includes Profile.is_public, p3
+    assert_not_includes Profile.is_public, p4
   end
 
   should 'folder_types search for folders in the plugins' do

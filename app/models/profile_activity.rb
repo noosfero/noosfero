@@ -25,8 +25,8 @@ class ProfileActivity < ActiveRecord::Base
   protected
 
   def copy_timestamps
-    self.created_at = self.activity.created_at
-    self.updated_at = self.activity.updated_at
+    self.created_at = self.activity.created_at if self.activity.created_at
+    self.updated_at = self.activity.updated_at if self.activity.updated_at
   end
 
 end

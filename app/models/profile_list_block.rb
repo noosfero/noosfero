@@ -16,7 +16,7 @@ class ProfileListBlock < Block
 
   def profile_list
     result = nil
-    public_profiles = profiles.public.includes([:image,:domains,:preferred_domain,:environment])
+    public_profiles = profiles.is_public.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
 result = public_profiles.all(:limit => get_limit, :order => 'profiles.updated_at DESC').sort_by{ rand }
     elsif profiles.visible.with_image.count >= get_limit
@@ -28,7 +28,7 @@ result = public_profiles.all(:limit => get_limit, :order => 'profiles.updated_at
   end
 
   def profile_count
-    profiles.public.length
+    profiles.is_public.length
   end
 
   # the title of the block. Probably will be overriden in subclasses.

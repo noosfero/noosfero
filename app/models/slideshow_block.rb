@@ -13,7 +13,7 @@ class SlideshowBlock < Block
   end
 
   def gallery
-    gallery_id ? Gallery.find(:first, :conditions => { :id => gallery_id }) : nil
+    if gallery_id then Gallery.where(id: gallery_id).first else nil end
   end
 
   def public_filename_for(image)

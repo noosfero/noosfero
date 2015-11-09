@@ -10,9 +10,9 @@ class CmsHelperTest < ActionView::TestCase
 
   should 'show default options for article' do
     result = options_for_article(build(RssFeed, :profile => Profile.new))
-    assert_match /id="article_published_true" name="article\[published\]" type="radio" value="true"/, result
-    assert_match /id="article_published_false" name="article\[published\]" type="radio" value="false"/, result
-    assert_match /id="article_accept_comments" name="article\[accept_comments\]" type="checkbox" value="1"/, result
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_true',  name:'article[published]', type: 'radio', value: 'true'}
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_false', name:'article[published]', type: 'radio', value: 'false'}
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_accept_comments', name:'article[accept_comments]', type: 'checkbox', value: '1'}
   end
 
   should 'show custom options for blog' do
@@ -63,7 +63,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
     confirm_message = CGI.escapeHTML("Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!")
-    expects(:link_to).with('Delete', {:action => 'destroy', :id => folder.id}, :method => :post, :confirm => confirm_message, :class => 'button with-text icon-delete', :title => nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
 
     result = display_delete_button(folder)
   end
@@ -74,7 +74,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My article'
     article = fast_create(TinyMceArticle, :name => name, :profile_id => profile.id)
     confirm_message = CGI.escapeHTML("Are you sure that you want to remove the item \"#{name}\"?")
-    expects(:link_to).with('Delete', {:action => 'destroy', :id => article.id}, :method => :post, :confirm => confirm_message, :class => 'button with-text icon-delete', :title => nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
 
     result = display_delete_button(article)
   end

@@ -15,7 +15,7 @@
   <div>
     <%= link_to _('Add subcategory'), :action => 'new', :parent_id => category %>
     <%= link_to _('Edit'), :action => 'edit', :id => category %>
-    <%= link_to _('Remove'), { :action => 'remove', :id => category, }, :method => 'post', :confirm => (category.children.empty? ? (_('Are you sure you want to remove "%s"?') % category.name) : (_('Are you sure you want to remove "%s" and all its subcategories?') % category.name) ) %>
+    <%= link_to _('Remove'), { action: 'remove', id: category, }, method: 'post', data: {confirm: if category.children.empty? then _('Are you sure you want to remove "%s"?') % category.name else _('Are you sure you want to remove "%s" and all its subcategories?') % category.name end} %>
   </div>
 </div>
 

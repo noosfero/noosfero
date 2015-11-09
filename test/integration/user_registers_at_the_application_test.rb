@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
+class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
   fixtures :users, :environments, :profiles
 
   def test_successfull_registration
@@ -11,7 +11,7 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     get '/account/signup'
 
     assert_response :success
-    
+
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
     assert_response :success
 
@@ -32,7 +32,7 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     get '/account/signup'
 
     assert_response :success
-    
+
     post '/account/signup', :user => { :login => 'ze', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
     assert_response :success
     assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation', :class => 'errorExplanation' }

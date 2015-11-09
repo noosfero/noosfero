@@ -8,7 +8,7 @@ class PluginsController < AdminController
   post_only :update
   def update
     params[:environment][:enabled_plugins].delete('')
-    if @environment.update_attributes(params[:environment])
+    if @environment.update(params[:environment])
       session[:notice] = _('Plugins updated successfully.')
     else
       session[:error] = _('Plugins were not updated successfully.')
