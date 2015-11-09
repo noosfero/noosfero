@@ -21,17 +21,15 @@ def disabled_plugins
   @all_plugins - enabled_plugins
 end
 
-def enable_plugins(plugins = nil)
-  if plugins == '*' || plugins.nil?
-    sh './script/noosfero-plugins', '-q', 'enableall'
-  else
-    plugins = Array(plugins)
-    sh './script/noosfero-plugins', '-q', 'enable', *plugins
-  end
+def enable_plugins(plugins)
+  plugins = Array(plugins)
+  command = ['./script/noosfero-plugins', '-q', 'enable', *plugins]
+  puts plugins.join(' ')
+  system *command
 end
 
-def disable_plugins(plugins = nil)
-  if plugins == '*' || plugins.nil?
+def disable_plugins(plugins = '*')
+  if plugins == '*'
     sh './script/noosfero-plugins', '-q', 'disableall'
   else
     plugins = Array(plugins)
