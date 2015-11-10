@@ -1,11 +1,3 @@
-t = Rake::Task[:test]
-if t.respond_to?(:clear)
-  t.clear
-else
-  t.prerequisites.clear
-  t.instance_variable_get('@actions').clear
-end
-
 desc 'Runs Seleniun acceptance tests'
 task :selenium do
   sh "xvfb-run -a cucumber -p selenium --format #{ENV['CUCUMBER_FORMAT'] || 'progress'}"
@@ -16,7 +8,7 @@ CucumberTasks = %w(cucumber selenium)
 NoosferoTasks = %w(test:noosfero_plugins)
 AllTasks = TestTasks + CucumberTasks + NoosferoTasks
 
-task :test do
+task 'ci:full' do
   data = []
   failed = []
   AllTasks.each do |task|
