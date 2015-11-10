@@ -13,7 +13,7 @@
 
 .environment-notification-plugin-notification-bar .notification .notification-close,
 .environment-notification-plugin-notification-notification-modal .notification .notification-close{
-  background: url(public/images/close.png) no-repeat;
+  background: url(images/close.png) no-repeat;
   background-position: center;
   width: 20px;
   height: 20px;
@@ -115,12 +115,12 @@
 }
 
 #environment-notification-plugin-notification-manager a.button.icon-deactivate{
-  background: url(public/images/hide.png) no-repeat;
+  background: url(images/hide.png) no-repeat;
   background-position: center;
 }
 
 #environment-notification-plugin-notification-manager a.button.icon-activate{
-  background: url(public/images/show.png) no-repeat;
+  background: url(images/show.png) no-repeat;
   background-position: center;
 }
 
@@ -221,7 +221,7 @@
 }
 
 .environment-notification-plugin-notification-bar .notification .notification-close{
-  background: url(public/images/redclose.png) no-repeat;
+  background: url(images/redclose.png) no-repeat;
   background-position: center;
   width: 20px;
   height: 20px;
@@ -230,7 +230,7 @@
 }
 
 .environment-notification-plugin-notification-bar .notification .notification-hide{
-  background: url(public/images/greenhide.png) no-repeat;
+  background: url(images/greenhide.png) no-repeat;
   background-position: center;
   width: 20px;
   height: 20px;
