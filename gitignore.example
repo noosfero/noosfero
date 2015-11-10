@@ -12,6 +12,7 @@ config/mongrel_cluster.yml
 config/plugins
 config/unicorn.rb
 config/local.rb
+config/initializers/local.rb
 index
 locale
 log
