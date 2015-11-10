@@ -54,8 +54,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec',                  '~> 3.3'
-  gem 'rspec-rails',            '~> 3.2'
+  gem 'rspec',                  '~> 3.3', require: false
+  gem 'rspec-rails',            '~> 3.2', require: false
   gem 'mocha',                  '~> 1.1.0', :require => false
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
