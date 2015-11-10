@@ -48,7 +48,6 @@ do_start() {
   bundle exec rake db:migrate SCHEMA=/dev/null
   clear_cache
   environments_loop start
-  bundle exec whenever --write-crontab --set 'environment=production'
   app_server_start
 }
 
@@ -63,8 +62,6 @@ do_stop() {
 
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
-
-  bundle exec whenever --clear-crontab
 }
 
 do_restart() {
@@ -97,10 +94,12 @@ environments_loop() {
       env=$(basename $environment | cut -d. -f1)
       RAILS_ENV=$env bundle exec ./script/delayed_job -i $env "$action"
       RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
+      ./script/whenever $action $env
     done
   else
     bundle exec ./script/delayed_job "$action"
     bundle exec ./script/feed-updater "$action"
+    ./script/whenever $action
   fi
 }
 
