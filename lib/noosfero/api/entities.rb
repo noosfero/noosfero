@@ -6,15 +6,33 @@ module Noosfero
         date.strftime('%Y/%m/%d %H:%M:%S') if date
       end
 
-      def self.can_display? profile, options, field, admin_only = false
-        current = options[:current_person]
-        admin = !current.blank? && current.is_admin?
-        owner = !current.blank? && current == profile
-        public_field = profile.public_fields.include? field.to_s
-        friend = !current.blank? && current.friends.include?(profile)
+      PERMISSIONS = {
+        :admin => 0,
+        :self  => 10,
+        :friend => 20,
+        :logged_user => 30,
+        :anonymous => 40
+      }
 
-        return true if admin
-        return !admin_only && (owner||friend||public_field)
+      def self.can_display? profile, options, field, permission = :friend
+        return true if profile.public_fields.include?(field)
+        current_person = options[:current_person]
+
+        current_permission = if current_person.present?
+          if current_person.is_admin?
+            :admin
+          elsif current_person == profile
+            :self
+          elsif current_person.friends.include?(profile)
+            :friend
+          else
+            :logged_user
+          end
+        else
+          :anonymous
+        end
+
+        PERMISSIONS[current_permission] <= PERMISSIONS[permission]
       end
 
       class Image < Entity
@@ -144,7 +162,7 @@ module Noosfero
         end
 
         expose :person, :using => Person
-        expose :permissions, :if => lambda{|user,options| Entities.can_display?(user.person, options, :permissions, true)} do |user, options|
+        expose :permissions, :if => lambda{|user,options| Entities.can_display?(user.person, options, :permissions, :self)} do |user, options|
           output = {}
           user.person.role_assignments.map do |role_assigment|
             if role_assigment.resource.respond_to?(:identifier) && !role_assigment.role.nil?
@@ -156,6 +174,7 @@ module Noosfero
       end
 
       class UserLogin < User
+        root 'users', 'user'
         expose :private_token, documentation: {type: 'String', desc: 'A valid authentication code for post/delete api actions'}
       end
 

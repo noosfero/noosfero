@@ -156,10 +156,8 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   should 'change user password and close task' do
-    user = create_user
-    user.activate
-    task = ChangePassword.create!(:requestor => user.person)
-    params = {:code => task.code, :password => 'secret', :password_confirmation => 'secret'}
+    task = ChangePassword.create!(:requestor => @person)
+    params.merge!({:code => task.code, :password => 'secret', :password_confirmation => 'secret'})
     patch "/api/v1/new_password?#{params.to_query}"
     assert_equal Task::Status::FINISHED, task.reload.status
     assert user.reload.authenticated?('secret')
