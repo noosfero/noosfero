@@ -20,6 +20,10 @@ class FeaturedProductsBlock < Block
     _('Featured Products')
   end
 
+  def self.pretty_name
+    _('Featured Products')
+  end
+
   def products
     Product.find(self.product_ids) || []
   end

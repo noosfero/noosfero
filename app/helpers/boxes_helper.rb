@@ -190,8 +190,9 @@ module BoxesHelper
       else
         "before-block-#{block.id}"
       end
-    if block.nil? || movable?(block)
-      content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover')
+    if block.nil? or movable?(block)
+      url = url_for(:action => 'move_block', :target => id)
+      content_tag('div', _('Drop Here'), :id => id, :class => 'block-target' ) + drop_receiving_element(id, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover', :activeClass => 'block-target-active', :tolerance => 'pointer', :onDrop => "function(ev, ui) { dropBlock('#{url}', '#{_('loading...')}', ev, ui);}")
     else
       ""
     end
@@ -199,7 +200,25 @@ module BoxesHelper
 
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
-    movable?(block) ? draggable_element("block-#{block.id}", :revert => true) : ""
+    return "" unless movable?(block)
+    icon = "<div><div>#{display_icon(block.class)}</div><span>#{_(block.class.pretty_name)}</span></div>"
+    block_draggable("block-#{block.id}",
+                    :helper => "function() {return cloneDraggableBlock($(this), '#{icon}')}")
+  end
+
+  def block_draggable(element_id, options={})
+    draggable_options = {
+      :revert => "'invalid'",
+      :appendTo => "'#block-store-draggables'",
+      :helper => '"clone"',
+      :revertDuration => 200,
+      :scroll => false,
+      :start => "startDragBlock",
+      :stop => "stopDragBlock",
+      :cursor => "'move'",
+      :cursorAt => '{ left: 0, top:0, right:0, bottom:0 }',
+    }.merge(options)
+    draggable_element(element_id, draggable_options)
   end
 
   def block_edit_buttons(block)

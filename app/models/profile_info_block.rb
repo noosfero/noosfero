@@ -1,7 +1,15 @@
 class ProfileInfoBlock < Block
 
   def self.description
-    _('Profile information')
+    _('Display profile image and links to access initial homepage, control panel and profile activities.')
+  end
+
+  def self.short_description
+    _('Show profile information')
+  end
+
+  def self.pretty_name
+    _('Profile Information')
   end
 
   def help

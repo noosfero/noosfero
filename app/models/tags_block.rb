@@ -8,7 +8,15 @@ class TagsBlock < Block
   settings_items :limit, :type => :integer, :default => 12
 
   def self.description
-    _('Tags')
+    _('<p>Display a tag cloud with the content produced where the block is applied.</p> <p>The user could limit the number of tags will be displayed.</p>')
+  end
+
+  def self.short_description
+    _('Display a tag cloud about current content')
+  end
+
+  def self.pretty_name
+    _('Tag Cloud')
   end
 
   def default_title

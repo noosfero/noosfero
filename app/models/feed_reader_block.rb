@@ -40,6 +40,10 @@ class FeedReaderBlock < Block
     _('Feed reader')
   end
 
+  def self.pretty_name
+    _('Feed Reader')
+  end
+
   def help
     _('This block can be used to list the latest new from any site you want. You just need to inform the address of a RSS feed.')
   end

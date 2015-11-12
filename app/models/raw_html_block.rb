@@ -4,6 +4,10 @@ class RawHTMLBlock < Block
     _('Raw HTML')
   end
 
+  def self.pretty_name
+    _('Raw HTML')
+  end
+
   settings_items :html, :type => :text
 
   attr_accessible :html

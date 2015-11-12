@@ -7,7 +7,15 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
   attr_accessible :show_cms_action, :show_profile, :show_section_name
 
   def self.description
-    _('Content Breadcrumbs')
+    _("<p>Display a breadcrumb of the current content navigation.</p><p>You could choose if the breadcrumb is going to appear in the cms editing or not.</p> <p>There is either the option of display the profile location in the breadcrumb path.</p>")
+  end
+
+  def self.short_description
+    _('Breadcrumb')
+  end
+
+  def self.pretty_name
+    _('Breadcrumbs Block')
   end
 
   def help

@@ -14,6 +14,10 @@ class CommunityTrackPlugin::TrackListBlock < Block
     _('This block displays a list of most relevant tracks.')
   end
 
+  def self.pretty_name
+    _('Track List')
+  end
+
   def track_partial
     'track'
   end
