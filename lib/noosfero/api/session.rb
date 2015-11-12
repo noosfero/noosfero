@@ -47,7 +47,7 @@ module Noosfero
         begin
           user.signup!
           user.generate_private_token! if user.activated?
-          present user, :with => Entities::UserLogin, :current_person => current_person
+          present user, :with => Entities::UserLogin, :current_person => user.person
         rescue ActiveRecord::RecordInvalid
           message = user.errors.as_json.merge((user.person.present? ? user.person.errors : {}).as_json).to_json
           render_api_error!(message, 400)
