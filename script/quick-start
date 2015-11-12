@@ -133,6 +133,9 @@ if [ ! -f .gitignore ]; then
   ln -s gitignore.example .gitignore
 fi
 
+# remove obsolete symbolic link added by old versions
+rm -f vendor/rails
+
 # you can now start the server
 say "I: Congratulations, you are ready to run Noosfero."
 say "I: To execute Noosfero in development mode, run \`./script/development\` and browse to http://localhost:3000"
