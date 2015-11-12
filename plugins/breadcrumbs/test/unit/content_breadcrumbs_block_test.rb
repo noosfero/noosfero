@@ -40,6 +40,24 @@ class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
     assert_equal links, @block.page_trail(nil, params)
   end
 
+  should 'include profile page link on path of links to reach a profile controller page' do
+    params = {:controller => 'profile', :action => 'members', :profile => @profile.identifier}
+    links = [{:name => 'Profile', :url => {:controller => 'profile', :action => 'index', :profile => @profile.identifier}}, {:name => 'Members', :url => {:controller=>'profile', :action=>'members', :profile=> @profile.identifier}}]
+    assert_equal links, @block.page_trail(nil, params)
+  end
+
+  should 'include only the profile page link on path links when profile action is index' do
+    params = {:controller => 'profile', :action => 'index', :profile => @profile.identifier}
+    links = [{:name => 'Profile', :url => {:controller => 'profile', :action => 'index', :profile => @profile.identifier}}]
+    assert_equal links, @block.page_trail(nil, params)
+  end
+
+  should 'profile page be the ancestor page of event profile page calendar' do
+    params = {:controller => 'profile', :action => 'events', :profile => @profile.identifier}
+    links = [{:name => 'Profile', :url => {:controller => 'profile', :action => 'index', :profile => @profile.identifier}}, {:name => 'Events', :url => {:controller=>'profile', :action=>'events', :profile=> @profile.identifier}}]
+    assert_equal links, @block.page_trail(nil, params)
+  end
+
   should 'include profile link on path of links to reach a page' do
     links = [{:name => @profile.name, :url => @profile.url}, {:name => @folder.name, :url => @folder.url}, {:name => @article.name, :url => @article.url}]
     assert_equal links, @block.trail(@article, @profile)
