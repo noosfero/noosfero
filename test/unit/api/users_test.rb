@@ -33,4 +33,73 @@ class UsersTest < ActiveSupport::TestCase
     assert_equal user.id, json['user']['id']
   end
 
+  should 'not show permissions to logged user' do
+    target_person = create_user('some-user').person
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json["user"].has_key?("permissions")
+  end
+
+  should 'show permissions to self' do
+    get "/api/v1/users/#{user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["user"].has_key?("permissions")
+  end
+
+  should 'not show permissions to friend' do
+    target_person = create_user('some-user').person
+
+    f = Friendship.new
+    f.friend = target_person
+    f.person = person
+    f.save!
+
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json["user"].has_key?("permissions")
+  end
+
+  should 'not show private attribute to logged user' do
+    target_person = create_user('some-user').person
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json["user"].has_key?("email")
+  end
+
+  should 'show private attr to friend' do
+    target_person = create_user('some-user').person
+    f = Friendship.new
+    f.friend = target_person
+    f.person = person
+    f.save!
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["user"].has_key?("email")
+    assert_equal target_person.email, json["user"]["email"]
+  end
+
+  should 'show public attribute to logged user' do
+    target_person = create_user('some-user').person
+    target_person.fields_privacy={:email=> 'public'}
+    target_person.save!
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["user"].has_key?("email")
+    assert_equal json["user"]["email"],target_person.email
+  end
+
+  should 'show public and private field to admin' do
+    Environment.default.add_admin(person)
+
+    target_person = create_user('some-user').person
+    target_person.fields_privacy={:email=> 'public'}
+    target_person.save!
+
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["user"].has_key?("email")
+    assert json["user"].has_key?("permissions")
+    assert json["user"].has_key?("activated")
+  end
+
 end
