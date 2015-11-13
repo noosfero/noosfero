@@ -17,6 +17,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
     @person = create_user('testuser').person
     @community = Community.create(:name => "TestCommunity")
+    @community.add_admin @person
     @enterprise = fast_create(Enterprise)
     @config = OrganizationRatingsConfig.instance
     login_as(@person.identifier)
@@ -36,13 +37,13 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     assert_redirected_to @community.url
   end
 
-  test "Create community_rating without comment body" do
+  test "create community_rating without comment body" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => 2
 
     assert_equal "#{@community.name} successfully rated!", session[:notice]
   end
 
-  test "Do not create community_rating without a rate value" do
+  test "do not create community_rating without a rate value" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => nil
 
     assert_equal "Sorry, there were problems rating this profile.", session[:notice]
@@ -76,12 +77,12 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     block = StatisticsBlock.new
     enterprise = fast_create(Enterprise)
     post :new_rating, profile: enterprise.identifier, :comments => {:body => "body board"}, :organization_rating_value => 1
+    CreateOrganizationRatingComment.last.finish
     enterprise.reload
     @environment.reload
     block.expects(:owner).at_least_once.returns(@environment)
     assert_equal 1, block.comments
   end
-
 
   test "should count organization ratings on statistic block when block owner = Profile" do
     @config.cooldown = 0
@@ -91,13 +92,15 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
     post :new_rating, profile: @community.identifier, :comments => {:body => "body board"}, :organization_rating_value => 1
     post :new_rating, profile: @community.identifier, :comments => {:body => "body surf"}, :organization_rating_value => 5
-
+    CreateOrganizationRatingComment.all.each do |s|
+      s.finish
+    end
     block.expects(:owner).at_least_once.returns(@community)
     @community.reload
     assert_equal 2, block.comments
   end
 
-  test "Display unavailable rating message for users that must wait the rating cooldown time" do
+  test "display unavailable rating message for users that must wait the rating cooldown time" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => 3
     assert_no_match(/The administrators set the minimum time of/, @response.body)
     valid_rating = OrganizationRating.last
@@ -107,5 +110,82 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     new_rating = OrganizationRating.last
 
     assert_equal valid_rating.id, new_rating.id
+  end
+
+  test "display moderation report message body to community admin" do
+    @member = create_user('member')
+    @community.add_member @member.person
+    login_as 'member'
+    @controller.stubs(:current_user).returns(@member)
+
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
+
+    login_as 'testuser'
+    @controller.stubs(:current_user).returns(@person.user)
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "display moderation report message to owner" do
+    @member = create_user('member')
+    @community.add_member @member.person
+    login_as 'member'
+    @controller.stubs(:current_user).returns(@member)
+
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "display moderation report message comment to env admin" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
+
+    @admin = create_admin_user(@environment)
+    login_as @admin
+    @controller.stubs(:current_user).returns(Profile[@admin].user)
+
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "not display moderation report message to regular user" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
+    rating_task = CreateOrganizationRatingComment.last
+    rating_task.cancel
+
+    @member = create_user('member')
+    @community.add_member @member.person
+    login_as 'member'
+    @controller.stubs(:current_user).returns(@member)
+
+    get :new_rating, profile: @community.identifier
+    assert_no_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "not display rejected comment message to not logged user" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
+    rating_task = CreateOrganizationRatingComment.last
+    rating_task.cancel
+
+    logout
+    @controller.stubs(:logged_in?).returns(false)
+
+    get :new_rating, profile: @community.identifier
+    assert_no_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/comment-rejected-msg/}
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "display report when Task accepted" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "comment accepted"}, :organization_rating_value => 3
+    rating_task = CreateOrganizationRatingComment.last
+    rating_task.finish
+
+    get :new_rating, profile: @community.identifier
+    assert_no_tag :tag => 'p', :content => /Report waiting for approva/, :attributes => {:class =>/comment-rejected-msg/}
+    assert_tag :tag => 'p', :content => /comment accepted/, :attributes => {:class =>/comment-body/}
   end
 end

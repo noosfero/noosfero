@@ -1,6 +1,20 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
-
+require 'test_helper'
 class OrganizationRatingTest < ActiveSupport::TestCase
+
+  def setup
+    @person = create_user('Mario').person
+    @person.email = "person@email.com"
+    @person.save
+    @community = fast_create(Community)
+    @adminuser = Person[create_admin_user(Environment.default)]
+    @rating = fast_create(OrganizationRating, {:value => 1,
+                                               :person_id => @person.id,
+                                               :organization_id => @community.id,
+                                               :created_at => DateTime.now,
+                                               :updated_at => DateTime.now,
+                                              })
+  end
+
   test "The value must be between 1 and 5" do
     organization_rating1 = OrganizationRating.new :value => -1
     organization_rating2 = OrganizationRating.new :value => 6
@@ -19,6 +33,57 @@ class OrganizationRatingTest < ActiveSupport::TestCase
 
     assert_equal false, organization_rating1.errors[:value].include?("must be between 1 and 5")
     assert_equal false, organization_rating2.errors[:value].include?("must be between 1 and 5")
+  end
+
+  test "false return when no active tasks for an Organization Rating" do
+    assert_not @rating.task_active?
+  end
+
+  test "true return when an active task exists for an Organization Rating" do
+    CreateOrganizationRatingComment.create!(
+                      :organization_rating_id => @rating.id,
+                      :target => @community,
+                      :requestor => @person)
+
+    assert_equal Task::Status::ACTIVE, CreateOrganizationRatingComment.last.status
+    assert @rating.task_active?
+  end
+
+  test "return false when an cancelled task exists for an Organization Rating" do
+    CreateOrganizationRatingComment.create!(
+                      :organization_rating_id => @rating.id,
+                      :target => @community,
+                      :requestor => @person)
+    CreateOrganizationRatingComment.last.cancel
+    assert_not @rating.task_active?
+  end
+
+  test "display report moderation message to community admin" do
+    moderator = create_user('moderator')
+    @community.add_admin(moderator.person)
+    @rating.stubs(:task_active?).returns(true)
+    assert @rating.display_moderation_message(@adminuser)
+  end
+
+  test "display report moderation message to owner" do
+    @rating.stubs(:task_active?).returns(true)
+    assert @rating.display_moderation_message(@person)
+  end
+
+  test "do not display report moderation message to regular user" do
+    regular_person = fast_create(Person)
+    @rating.stubs(:task_active?).returns(true)
+    assert_not @rating.display_moderation_message(regular_person)
+  end
+
+  test "do not display report moderation message to not logged user" do
+    @rating.stubs(:task_active?).returns(true)
+    assert_not @rating.display_moderation_message(nil)
+  end
+
+  test "do not display report moderation message no active task exists" do
+    @rating.stubs(:task_active?).returns(false)
+    assert_not @rating.display_moderation_message(@person)
   end
 
   test "Create task for create a rating comment" do
@@ -43,96 +108,6 @@ class OrganizationRatingTest < ActiveSupport::TestCase
 
     assert community.tasks.include?(create_organization_rating_comment)
   end
-
-    test "Check comment message when Task status = ACTIVE" do
-    person = create_user('molly').person
-    person.email = "person@email.com"
-    person.save!
-
-    community = fast_create(Community)
-    community.add_admin(person)
-
-
-    organization_rating = OrganizationRating.create!(
-        :value => 3,
-        :person => person,
-        :organization => community
-    )
-
-    create_organization_rating_comment = CreateOrganizationRatingComment.create!(
-      :requestor => person,
-      :organization_rating_id => organization_rating.id,
-      :target => community,
-      :body => "sample comment"
-    )
-    assert_equal 1, create_organization_rating_comment.status
-    message = "Comment waiting for approval"
-    comment = Comment.find_by_id(create_organization_rating_comment.organization_rating_comment_id)
-    assert_equal message, comment.body
-  end
-
-  test "Check comment message when Task status = CANCELLED" do
-    person = create_user('molly').person
-    person.email = "person@email.com"
-    person.save!
-
-    community = fast_create(Community)
-    community.add_admin(person)
-
-
-    organization_rating = OrganizationRating.create!(
-        :value => 3,
-        :person => person,
-        :organization => community
-    )
-
-    create_organization_rating_comment = CreateOrganizationRatingComment.create!(
-      :requestor => person,
-      :organization_rating_id => organization_rating.id,
-      :target => community,
-      :body => "sample comment"
-    )
-    create_organization_rating_comment.cancel
-    assert_equal 2, create_organization_rating_comment.status
-    message = "Comment rejected"
-    comment = Comment.find_by_id(create_organization_rating_comment.organization_rating_comment_id)
-    assert_equal message, comment.body
-  end
-
-  test "Check comment message when Task status = FINISHED" do
-    person = create_user('molly').person
-    person.email = "person@email.com"
-    person.save!
-
-    community = fast_create(Community)
-    community.add_admin(person)
-
-    comment = Comment.create!(source: community,
-                                                 body: "regular comment",
-                                                 author: person)
-
-    organization_rating = OrganizationRating.create!(
-        :value => 3,
-        :person => person,
-        :organization => community,
-        :comment => comment
-    )
-
-    create_organization_rating_comment = CreateOrganizationRatingComment.create!(
-          :body => comment.body,
-          :requestor => organization_rating.person,
-          :organization_rating_id => organization_rating.id,
-          :target => organization_rating.organization,
-          :body => "sample comment"
-      )
-
-    create_organization_rating_comment.finish
-    assert_equal 3, create_organization_rating_comment.status
-    message = "sample comment"
-    comment = Comment.find_by_id(create_organization_rating_comment.organization_rating_comment_id)
-    assert_equal message, comment.body
-  end
-
 
   test "Should calculate community's rating average" do
     community = fast_create Community
