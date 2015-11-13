@@ -27,6 +27,7 @@ div.pending-tasks {
 }
 
 .task_box {
+  overflow: hidden;
   position: relative;
   border: 1px solid #888;
   -moz-border-radius: 10px;

@@ -22,7 +22,11 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
       nil
     end
 
-    def organization_ratings_plugin_extra_fields_show_data user_rating
+    def organization_ratings_plugin_task_extra_fields user_rating
+      nil
+    end
+
+    def organization_ratings_plugin_container_extra_fields user_rating
       nil
     end
 

@@ -1,4 +1,19 @@
 <div class="organization-rating-comment-body">
-  <%= _("Comment:")%>
-  <%= "\"#{task.body}\""%>
+  <% rating = OrganizationRating.find(task.organization_rating_id) %>
+  <%= @plugins.dispatch(:organization_ratings_plugin_task_extra_fields, rating).collect{ |content| instance_exec(&content) }.join("") %>
+  <div class="task-comment">
+    <span><%= _("Description:")%></span>
+    <p><%= "\"#{task.body}\""%></p>
+  </div>
+
+  <span class="rating-notice"><%= _("* The rating score is not moderated.")%></span>
+  <div class="task-star-container">
+    <% (1..5).each do |star_number| %>
+      <% if star_number <= rating.value %>
+        <div class="medium-star-positive"></div>
+      <% else %>
+        <div class="medium-star-negative"></div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

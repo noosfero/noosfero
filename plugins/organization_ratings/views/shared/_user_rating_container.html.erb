@@ -25,9 +25,13 @@
     </div>
 
     <div class="user-testimony">
-      <%= user_rate.comment.nil? ? _("No comment") : user_rate.comment.body %>
+      <% if user_rate.display_moderation_message(user) %>
+        <p class="moderation-msg"><%= _("Report waiting for approval") %></p>
+      <% end %>
+      <% if user_rate.comment.present? %>
+        <p class="comment-body"> <%= user_rate.comment.body %> </p>
+      <% end %>
     </div>
-
-    <%= @plugins.dispatch(:organization_ratings_plugin_extra_fields_show_data, user_rate).collect { |content| instance_exec(&content) }.join("") %>
+    <%= @plugins.dispatch(:organization_ratings_plugin_container_extra_fields, user_rate).collect { |content| instance_exec(&content) }.join("") %>
   </div>
 </div>
