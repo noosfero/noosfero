@@ -25,15 +25,6 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_equal user, current_user
   end
 
-  should 'not get the current user with expired token' do
-    user = create_user('someuser')
-    user.generate_private_token!
-    user.private_token_generated_at = DateTime.now.prev_year
-    user.save
-    self.params = {:private_token => user.private_token}
-    assert_nil current_user
-  end
-
   should 'get the person of current user' do
     user = create_user('someuser')
     user.generate_private_token!
@@ -159,6 +150,39 @@ class APIHelpersTest < ActiveSupport::TestCase
 
   should 'make_conditions_with_parameter return no type parameter if it was not defined any content type' do
     assert_nil make_conditions_with_parameter[:type]
+  end
+
+  #test_should_make_order_with_parameters_return_order_if attribute_is_found_at_object_association
+  should 'make_order_with_parameters return order if attribute is found at object association' do
+    environment = Environment.new
+    params = {:order => "name ASC"}
+    assert_equal "name ASC", make_order_with_parameters(environment, "articles", params)
+  end
+
+  # test added to check for eventual sql injection vunerabillity
+  #test_should_make_order_with_parameters_return_default_order_if_attributes_not_exists
+  should 'make_order_with_parameters return default order if attributes not exists' do
+    environment = Environment.new
+    params = {:order => "CRAZY_FIELD ASC"} # quote used to check sql injection vunerabillity
+    assert_equal "created_at DESC", make_order_with_parameters(environment, "articles", params)
+  end
+
+  should 'make_order_with_parameters return default order if sql injection detected' do
+    environment = Environment.new
+    params = {:order => "name' ASC"} # quote used to check sql injection vunerabillity
+    assert_equal "created_at DESC", make_order_with_parameters(environment, "articles", params)
+  end
+
+  should 'make_order_with_parameters return RANDOM() if random is passed' do
+    environment = Environment.new
+    params = {:order => "random"} # quote used to check sql injection vunerabillity
+    assert_equal "RANDOM()", make_order_with_parameters(environment, "articles", params)
+  end
+
+  should 'make_order_with_parameters return RANDOM() if random function is passed' do
+    environment = Environment.new
+    params = {:order => "random()"} # quote used to check sql injection vunerabillity
+    assert_equal "RANDOM()", make_order_with_parameters(environment, "articles", params)
   end
 
   should 'render not_found if endpoint is unavailable' do

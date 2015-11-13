@@ -1,6 +1,6 @@
 require 'csv'
 
-class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
+class NewsletterPlugin::Newsletter < ActiveRecord::Base
 
   belongs_to :environment
   belongs_to :person
@@ -123,11 +123,11 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
   end
 
   def post_with_image(post)
-    content_tag(:tr,content_tag(:td,tag(:img, :src => "#{self.environment.top_url}#{post.image.public_filename(:big)}", :id => post.id),:style => CSS['post-image'])+content_tag(:td,content_tag(:span, show_date(post.published_at), :style => CSS['post-date'])+content_tag(:h3, link_to(h(post.title), post.url, :style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(190)),:style => CSS['post-lead'])+read_more(post.url), :style => CSS['post-info']))
+    content_tag(:tr,content_tag(:td,tag(:img, :src => "#{self.environment.top_url}#{post.image.public_filename(:big)}", :id => post.id),:style => CSS['post-image'])+content_tag(:td,content_tag(:span, show_date(post.published_at), :style => CSS['post-date'])+content_tag(:h3, link_to(h(post.title), post.url, :style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(190), tags: %w(strong em b i)),:style => CSS['post-lead'])+read_more(post.url), :style => CSS['post-info']))
   end
 
   def post_without_image(post)
-    content_tag(:tr, content_tag(:td,content_tag(:span, show_date(post.published_at),:style => CSS['post-date'], :id => post.id)+content_tag(:h3, link_to(h(post.title), post.url,:style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(360)),:style => CSS['post-lead'])+read_more(post.url),:colspan => 2, :style => CSS['post-info']))
+    content_tag(:tr, content_tag(:td,content_tag(:span, show_date(post.published_at),:style => CSS['post-date'], :id => post.id)+content_tag(:h3, link_to(h(post.title), post.url,:style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(360), tags: %w(strong em b i)),:style => CSS['post-lead'])+read_more(post.url),:colspan => 2, :style => CSS['post-info']))
   end
 
   def body(data = {})
@@ -175,10 +175,6 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
       :conditions => {:source_id => self.id}
     )
     last_mailing.nil? ? nil : last_mailing.created_at
-  end
-
-  def sanitize(html)
-    html.gsub(/<\/?p>/, '')
   end
 
   def has_posts_in_the_period?

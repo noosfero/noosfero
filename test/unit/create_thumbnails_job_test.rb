@@ -34,4 +34,16 @@ class CreateThumbnailsJobTest < ActiveSupport::TestCase
     end
   end
 
+  should 'expire cache of articles that use an image that just got a thumbnail' do
+    person = create_user('test_user').person
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => person)
+    article = create(Article, :name => 'test', :image_builder => {
+       :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    }, :profile_id => person.id)
+    old_cache_key = article.cache_key
+    job = CreateThumbnailsJob.new(file.class.name, file.id)
+    job.perform
+    process_delayed_job_queue
+    assert_not_equal old_cache_key, Article.find(article.id).reload.cache_key
+  end
 end

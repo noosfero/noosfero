@@ -48,6 +48,13 @@ module Noosfero
             present person, :with => Entities::Person
           end
 
+          desc "Update person information"
+          post ':id' do
+            return forbidden! if current_person.id.to_s != params[:id]
+            current_person.update_attributes!(params[:person])
+            present current_person, :with => Entities::Person
+          end
+
           # Example Request:
           #  POST api/v1/people?person[login]=some_login&person[password]=some_password&person[name]=Jack
           desc "Create person"
