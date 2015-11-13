@@ -188,7 +188,8 @@ class CommentTest < ActiveSupport::TestCase
     owner = create_user('testuser').person
     article = owner.articles.create!(:name => 'test', :body => '...')
     javascript = "<script>alert('XSS')</script>"
-    comment = create(Comment, :article => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    comment = Comment.new(:source => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    comment.valid?
     assert_no_match(/<script>/, comment.name)
   end
 
