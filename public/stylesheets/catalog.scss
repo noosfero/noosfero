@@ -37,7 +37,6 @@
   -moz-border-radius: 10px 0px 0px 10px;
   -webkit-border-radius: 10px 0px 0px 10px;
   border-radius: 10px 0px 0px 10px;
-  width: 202px;
   position: relative;
 }
 #product-list .expand-box > span {
@@ -184,7 +183,6 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   display: block;
-  width: 200px;
   height: 160px;
 }
 #product-list .ui-button {
@@ -200,7 +198,6 @@
 }
 #product-list .product-image-link {
   position: relative;
-  width: 200px;
   height: 160px;
   border: 1px solid #BFBFBF;
   position: relative; /* work arround msie bug */

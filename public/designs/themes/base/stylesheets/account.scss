@@ -1,0 +1,21 @@
+
+.controller-account #profile-data .type-text input, .controller-account #profile-data .type-password input, .controller-account #profile-data .type-select select {
+  width: 220px;
+}
+.controller-account #profile-data .type-select select.select-schooling {
+  width: 108px;
+}
+.controller-account #profile-data .select-birth-date select#profile_data_birth_date_3i {
+  width: 47px;
+}
+.controller-account .button.disabled {
+  opacity: 0.5;
+}
+.controller-account #content .icon-forward.disabled {
+  background-image: url('/designs/icons/default/go-right-disabled-HC.gif');
+}
+.controller-account .no-boxes {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+

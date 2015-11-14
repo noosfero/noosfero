@@ -1,0 +1,241 @@
+
+#signup-form {
+  color: #4A4A4A;
+  display: inline-block;
+}
+
+#signup-form small {
+   display: none;
+}
+
+#signup-form #signup-form-header {
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  margin: 60px auto 5px;
+  position: relative;
+}
+
+#signup-form input.invalid_input {
+  border: 1px solid #7f0000;
+  background: #FFF;
+  box-shadow: 0 0 7px red;
+}
+
+#signup-form input.valid_input {
+  border: 1px solid #005000;
+  background: #FFF;
+}
+
+#signup-form select,
+#signup-form textarea,
+#signup-form input {
+  padding: 7px 7% 10px 3%;
+  height: 20px;
+  width: 90%;
+  color: #6d786e;
+  font-size: 18px;
+}
+
+#signup-form #profile_data_login {
+  margin: 3px 0px 0px 5px;
+}
+
+#signup-form .filled-in,
+#signup-form .invalid,
+#signup-form input.validated,
+#signup-form .checking {
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fff;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding: 7px 7% 8px 3%;
+  color: #4A4A4A;
+  box-shadow: 0 0 7px green;
+}
+
+#signup-form input.checking {
+  box-shadow: none;
+}
+
+#signup-form select {
+  height: auto;
+  padding-right: 3px;
+  width: 365px;
+}
+
+#signup-form .select-birth-date select {
+  width: 93px;
+  margin-right: 2px;
+  margin-left: 0;
+}
+
+.webkit #signup-form select {
+  background: #fff;
+}
+
+#signup-form textarea {
+  background: #fff;
+  height: 100px;
+  padding-right: 3px;
+  width: 365px;
+}
+
+#signup-form input[type=file] {
+  font-size: 12px;
+}
+
+#signup-form input[type=radio] {
+  height: auto;
+  margin: 0px 5px 0px 3px;
+  width: auto;
+}
+
+#signup-form .fieldgroup {
+  margin: 5px 10px;
+}
+
+#signup-form #template-options li label {
+  font-size: 18px;
+}
+
+#signup-form #template-options li a {
+  color: #555753
+}
+
+#signup-form label[for=profile_data_sex_female],
+#signup-form label[for=profile_data_sex_male] {
+  color: #6d786e;
+  font-size: 20px;
+  display: inline;
+  margin-left: 8px;
+}
+
+#signup-form label[for=profile_data_country],
+#signup-form label[for=profile_data_preferred_domain_id],
+#signup-form label[for=profile_data_birth_date_2i],
+#signup-form label[for=profile_data_birth_date_3i],
+#signup-form label[for=profile_data_schooling],
+#signup-form label[for=profile_data_formation],
+#signup-form label[for=profile_data_area_of_study],
+#signup-form label[for=profile_data_image_builder_uploaded_data] {
+  display: block;
+}
+
+#signup-form .invalid {
+  border-color: #7f0000;
+  background-image: url(../images/passwords_nomatch.png);
+  box-shadow: 0 0 7px red;
+}
+
+#signup-form span.invalid {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #7f0000;
+  box-shadow: none;
+}
+
+#signup-form .checking {
+  border-color: #4A4A4A;
+  background-image: url(../images/login_checking.png);
+}
+
+#signup-form span.checking {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #4A4A4A;
+  box-shadow: none;
+}
+
+#signup-form .validated {
+  border-color: #005000;
+  background-image: url(../images/passwords_match.png);
+}
+
+#signup-form span.validated {
+  background: transparent;
+  color: #005000;
+}
+
+#signup-domain {
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+  background: #EEE;
+  border: 1px solid #CFCFCF;
+  line-height: 36px;
+  padding: 0px 7px;
+  color: #4A4A4A;
+  font-size: 20px;
+  text-transform: lowercase;
+  min-width: 190px;
+}
+
+#signup-form #signup-form-header #user_login {
+  margin: 0;
+  padding-right: 30px;
+  width: 150px;
+}
+
+#signup-login-field {
+  float: left;
+}
+
+#signup-form #signup-login {
+  display: inline-block;
+}
+
+#signup-form #signup-password,
+#signup-form #signup-password-confirmation,
+#signup-form #signup-email,
+#signup-form #signup-name,
+#signup-form #signup-login {
+  position: relative;
+}
+
+#signup-form small#signup-balloon,
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
+  display: none;
+  width: 142px;
+  height: 69px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px 45px 10px;
+  margin: 0;
+  line-height: 1.5em;
+  background: transparent url(../images/gray-balloon.png) bottom center no-repeat;
+  position: absolute;
+  z-index: 2;
+  right: -150px;
+}
+
+#signup-form small#signup-balloon {
+  top: -110px;
+}
+
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
+  top: -80px;
+}
+
+#signup-form .required-field label,
+#signup-form .formlabel {
+  color: #4A4A4A;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: left;
+}
+
+#signup-form .required-field label::after {
+  content: '';
+}
+
