@@ -59,7 +59,13 @@ module FolderHelper
     @article = article
 
     visibility_options(article,tokenized_children) +
+    content_tag('h4', _('Options')) +
     content_tag('div',
+      content_tag(
+        'div',
+        check_box(:article, :archived) +
+        content_tag('label', _('Do not allow new content on this article and its children'), :for => 'article_archived_true')
+      ) +
       hidden_field_tag('article[accept_comments]', 0)
     )
   end

@@ -36,6 +36,8 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  validate :article_archived?
+
   acts_as_having_settings
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
@@ -216,6 +218,16 @@ class Comment < ActiveRecord::Base
 
   def can_be_updated_by?(user)
     user.present? && user == author
+  end
+
+  def archived?
+    self.source && self.source.is_a?(Article) && self.source.archived?
+  end
+
+  protected
+
+  def article_archived?
+    errors.add(:article, N_('associated with this comment is archived!')) if archived?
   end
 
 end

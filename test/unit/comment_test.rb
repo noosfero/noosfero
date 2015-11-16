@@ -95,6 +95,17 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal cc + 1, ActionTracker::Record.find(activity.id).comments_count
   end
 
+  should 'try add a comment to a archived article' do
+    person = fast_create(Person)
+    article = Article.create!(:name => 'Test', :profile => person, :archived => true)
+
+    err = assert_raises ActiveRecord::RecordInvalid do
+      comment = create(Comment, :source => article, :author_id => person.id)
+    end
+
+    assert_match 'Article associated with this comment is archived', err.message
+  end
+
   should 'provide author name for authenticated authors' do
     owner = create_user('testuser').person
     assert_equal 'testuser', build(Comment, :author => owner).author_name

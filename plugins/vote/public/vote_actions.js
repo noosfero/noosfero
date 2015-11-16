@@ -16,7 +16,9 @@ function openVotersDialog(div) {
   clearTimeout(openEvent);
   var url = $(div).data('reload_url');
   hideAllVoteDetail();
-  $.post(url);
+  if(url && url != '#'){
+    $.post(url);
+  }
 }
 
 jQuery('body').live('click', function() { hideAllVoteDetail(); });

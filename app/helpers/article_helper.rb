@@ -15,6 +15,12 @@ module ArticleHelper
     topic_creation(@article) +
     content_tag('h4', _('Options')) +
     content_tag('div',
+      content_tag(
+        'div',
+        check_box(:article, :archived) +
+        content_tag('label', _('Do not allow new content on this article and its children'), :for => 'article_archived_true')
+      ) +
+
       (article.profile.has_members? ?
       content_tag(
         'div',
@@ -63,13 +69,20 @@ module ArticleHelper
     content_tag('div',
       content_tag('div',
         radio_button(:article, :published, true) +
-          content_tag('label', _('Public (visible to other people)'), :for => 'article_published_true')
+          content_tag('span', '&nbsp;', :class => 'access-public-icon') +
+          content_tag('label', _('Public'), :for => 'article_published_true') +
+          content_tag('span', _('Visible to other people'), :class => 'access-note'),
+          :class => 'access-item'
            ) +
       content_tag('div',
         radio_button(:article, :published, false) +
-          content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private")
+          content_tag('span', '&nbsp;', :class => 'access-private-icon') +
+          content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private") +
+          content_tag('span', _('Limit visibility of this article'), :class => 'access-note'),
+          :class => 'access-item'
       ) +
-      privacity_exceptions(article, tokenized_children)
+      privacity_exceptions(article, tokenized_children),
+      :class => 'access-itens'
     )
   end
 
