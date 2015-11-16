@@ -1,4 +1,3 @@
-<% user = (session[:user] && User.find_by_id(session[:user])) || nil %>
 <div>
 <nav id="top-bar" class="navbar navbar-default" role="navigation">
   <div class="container">
@@ -49,7 +48,6 @@
     <div class="collapse navbar-collapse" id="navbar-user-collapse">
       <ul class="nav navbar-nav pull-right">
         <% if user.present? %>
-          <% user = user.person %>
           <%= usermenu_logged_in %>
         <% else %>
             <li>
