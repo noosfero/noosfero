@@ -31,6 +31,7 @@ class SearchTest < ActiveSupport::TestCase
   end
 
   should 'not list articles of wrong type' do
+    Article.delete_all
     fast_create(Article, :profile_id => person.id)
     get "/api/v1/search/article?type=TinyMceArticle"
     json = JSON.parse(last_response.body)
