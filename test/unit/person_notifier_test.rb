@@ -159,7 +159,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     process_delayed_job_queue
-    assert_raise do
+    assert_raise ActionView::Template::Error do
       notify
     end
   end
