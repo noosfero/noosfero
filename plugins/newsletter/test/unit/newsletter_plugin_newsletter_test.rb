@@ -359,7 +359,7 @@ EOS
       :person => fast_create(Person))
 
     assert_match /<p style="text-align: left;">paragraph of news<\/p>/, post.body
-    assert_not_match /<p style="text-align: left;">paragraph of news<\/p>/, newsletter.body
+    assert_no_match /<p style="text-align: left;">paragraph of news<\/p>/, newsletter.body
   end
 
   should 'only include text for posts in HTML generated content' do
@@ -407,7 +407,7 @@ EOS
       :person => person)
 
     assert_match /First post/, NewsletterPlugin::Newsletter.last.body({post_ids: [post_1.id.to_s, post_3.id.to_s]})
-    assert_not_match /Second post/, NewsletterPlugin::Newsletter.last.body({post_ids: [post_1.id.to_s, post_3.id.to_s]})
+    assert_no_match /Second post/, NewsletterPlugin::Newsletter.last.body({post_ids: [post_1.id.to_s, post_3.id.to_s]})
     assert_match /Third post/, NewsletterPlugin::Newsletter.last.body({post_ids: [post_1.id.to_s, post_3.id.to_s]})
   end
 

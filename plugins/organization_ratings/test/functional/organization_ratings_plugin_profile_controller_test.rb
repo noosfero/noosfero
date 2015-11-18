@@ -99,7 +99,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
   test "Display unavailable rating message for users that must wait the rating cooldown time" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => 3
-    assert_not_match(/The administrators set the minimum time of/, @response.body)
+    assert_no_match(/The administrators set the minimum time of/, @response.body)
     valid_rating = OrganizationRating.last
 
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => 3
