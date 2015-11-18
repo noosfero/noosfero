@@ -13,9 +13,9 @@ class DisabledEnterpriseMessageBlock < Block
   end
 
   def content(args={})
-    message = self.owner.environment.message_for_disabled_enterprise || ''
+    block = self
     lambda do |_|
-       render :file => 'blocks/disabled_enterprise_message', :locals => {:message => message}
+       render :file => 'blocks/disabled_enterprise_message', :locals => { :block => block }
     end
   end
 

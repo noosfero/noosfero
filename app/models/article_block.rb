@@ -21,12 +21,7 @@ class ArticleBlock < Block
   def content(args={})
     block = self
     proc do
-      block_title(block.title) +
-      (block.article ? article_to_html(FilePresenter.for(block.article),
-          :gallery_view => false,
-          :inside_block => block,               # For Blogs and folders
-          :format => block.visualization_format # For Articles and contents
-        ).html_safe : _('Article not selected yet.'))
+      render :file => 'blocks/article', :locals => { :block => block }
     end
   end
 

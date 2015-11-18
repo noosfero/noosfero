@@ -1,3 +1,5 @@
+<% message = block.owner.environment.message_for_disabled_enterprise || '' %>
+
 <div id='enterprise-disabled'>
   <%= message %>
   <% if profile.blocked? && user && user.is_admin?(profile.environment) %>
