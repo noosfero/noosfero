@@ -417,6 +417,12 @@ class User < ActiveRecord::Base
     @is_password_required = false
   end
 
+  def resend_activation_code
+    return if self.activated?
+    update_attribute(:activation_code, make_activation_code)
+    self.deliver_activation_code
+  end
+
   protected
 
     def normalize_email
