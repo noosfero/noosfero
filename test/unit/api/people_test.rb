@@ -165,4 +165,44 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal another_name, person.name
   end
 
+  should 'display public custom fields' do
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+    some_person = create_user('some-person').person
+    some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
+    some_person.save!
+
+    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['person']['additional_data'].has_key?('Custom Blog')
+    assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
+  end
+
+  should 'not display non-public custom fields' do
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+    some_person = create_user('some-person').person
+    some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
+    some_person.save!
+
+    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['person']['additional_data'], {}
+  end
+
+  should 'display non-public custom fields to friend' do
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+    some_person = create_user('some-person').person
+    some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
+    some_person.save!
+
+    f = Friendship.new
+    f.friend = some_person
+    f.person = person
+    f.save!
+
+    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['person']['additional_data'].has_key?("Custom Blog")
+    assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
+  end
+
 end

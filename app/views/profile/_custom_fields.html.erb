@@ -1,0 +1,11 @@
+<% public_values = profile.public_values %>
+<% if !public_values.blank?%>
+  <tr> <th colspan="2"><%= _('Others') %> </th></tr>
+  <% profile.public_values.each do |cv|%>
+    <tr>
+      <td class="field-name"><%= cv.custom_field.name %></td>
+      <td><%= display_custom_field_value(cv) %></td>
+    </tr>
+  <% end%>
+<% end %>
+

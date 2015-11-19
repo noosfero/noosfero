@@ -60,9 +60,7 @@
     <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
   <% end %>
 </div>
-
+<br>
 <% end %>
 
-
-
-
+<%= render :partial => "manage_custom_fields", :locals => {:customized_type => Person} %>

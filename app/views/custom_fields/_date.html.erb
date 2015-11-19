@@ -1,0 +1,1 @@
+<%= labelled_form_field(field.name, date_field(name, profile.custom_value(field.name).to_date, '%Y-%m-%d', {:change_month => true, :change_year => true, :year_range => '-100:-5', :date_format => 'yy-mm-dd'}, {:id => field.name.parameterize.underscore}))%>

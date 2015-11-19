@@ -13,7 +13,6 @@
 <%= labelled_form_for :community, :html => { :multipart => true } do |f| %>
 
   <%= required_fields_message %>
-
   <%= required f.text_field(:name) %>
 
   <% @plugins.dispatch(:new_community_hidden_fields).each do |field| %>
@@ -23,6 +22,7 @@
   <% end %>
 
   <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
+  <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :profile => @community, :signup => true } %>
 
   <%= f.fields_for :image_builder, @community.image do |i| %>
     <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
@@ -56,7 +56,3 @@
 <% end %>
 
 </div>
-
-
-
-

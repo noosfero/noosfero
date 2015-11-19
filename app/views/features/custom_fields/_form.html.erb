@@ -1,0 +1,43 @@
+<% id = field.new_record? ? "NEW_FIELD_ID" : field.id %>
+
+<div id="<%= id %>" class="custom-field-item">
+<fieldset class="fieldbox">
+  <legend><%= format_name(field.format) %></legend>
+  <%= required labelled_form_field _('Name'), text_field_tag("custom_fields[#{id}][name]", field.name, :size => 30) %>
+    <%= button_to_function :delete, _('Remove field'), "remove_content('##{id}');" %>
+
+    <% if field.format != "list" %>
+      <%= labelled_form_field  _('Default value'), text_field_tag("custom_fields[#{id}][default_value]", field.default_value, :size => 30) %>
+    <% end %>
+    <%= hidden_field_tag "custom_fields[#{id}][customized_type]", field.customized_type.to_s %>
+    <%= hidden_field_tag "custom_fields[#{id}][format]", field.format %>
+
+    <div>
+      <%= labelled_check_box _('Active'), "custom_fields[#{id}][active]", 1, field.active, :id => "active_checkbox", :onclick  => "active_action('custom_fields[#{id}][active]','custom_fields[#{id}][required]', 'custom_fields[#{id}][signup]')" %>
+      <%= labelled_check_box _('Required'), "custom_fields[#{id}][required]", 1, field.required, :id => "required_checkbox", :onclick  => "required_action('custom_fields[#{id}][active]','custom_fields[#{id}][required]', 'custom_fields[#{id}][signup]')" %>
+      <%= labelled_check_box _('Display on creation?'), "custom_fields[#{id}][signup]", 1, field.signup, :id => "signup_checkbox",:onclick  => "signup_action('custom_fields[#{id}][active]','custom_fields[#{id}][required]', 'custom_fields[#{id}][signup]')" %>
+    </div>
+
+    <% if field.format == "list" %>
+      <table>
+        <thead>
+          <tr>
+            <th><%= _("Alternative") %></th>
+            <th><%= _("Default") %></th>
+            <th><%= _("Delete") %></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr><td colspan=3><%= button(:add, _('Add option'), 'javascript: void()', :id => "btn_opt_#{id}", :onclick => "add_content('##{id} .custom-field-extras', $('#btn_opt_#{id}').attr('value'), 'EXTRAS_ID');", :value => "#{render_extras_field(id)}") %></td></tr>
+        </tfoot>
+        <tbody class="custom-field-extras">
+          <% if !field.extras.blank?%>
+            <% field.extras.each do |extra|%>
+              <%= render_extras_field id, extra, field %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+</fieldset>
+</div>

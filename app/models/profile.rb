@@ -84,6 +84,7 @@ class Profile < ActiveRecord::Base
   }
 
   acts_as_accessible
+  acts_as_customizable
 
   include Noosfero::Plugin::HotSpot
 
