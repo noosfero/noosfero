@@ -31,6 +31,9 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
       id = params[:id] || params[:parent_id]
       links = page_trail(Article.find(id)) if id
       links << { :name => cms_action(params[:action]), :url => params } if show_cms_action
+    elsif (params[:controller] == 'profile' || params[:controller] == 'events')
+      links << { :name => _('Profile'), :url => {:controller=> 'profile', :action =>'index', :profile =>params[:profile]}}
+      links << { :name => profile_action(params[:action]), :url => params } unless params[:action] == 'index'
     end
     links
   end
@@ -74,9 +77,14 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
   protected
 
   CMS_ACTIONS = {:edit => c_('Edit'), :upload_files => _('Upload Files'), :new => c_('New')}
+  PROFILE_ACTIONS = {:members => _('Members'), :events => _('Events')}
 
   def cms_action(action)
     CMS_ACTIONS[action.to_sym] || action
+  end
+
+  def profile_action(action)
+    PROFILE_ACTIONS[action.to_sym] || action
   end
 
 end
