@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722042714) do
+ActiveRecord::Schema.define(version: 20150921140802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,34 @@ ActiveRecord::Schema.define(version: 20150722042714) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "custom_field_values", force: :cascade do |t|
+    t.string   "customized_type", default: "",    null: false
+    t.integer  "customized_id",   default: 0,     null: false
+    t.boolean  "public",          default: false, null: false
+    t.integer  "custom_field_id", default: 0,     null: false
+    t.text     "value",           default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "custom_field_values", ["customized_type", "customized_id", "custom_field_id"], name: "index_custom_field_values", unique: true, using: :btree
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.string   "name"
+    t.string   "format",          default: ""
+    t.text     "default_value",   default: ""
+    t.string   "customized_type"
+    t.text     "extras",          default: ""
+    t.boolean  "active",          default: false
+    t.boolean  "required",        default: false
+    t.boolean  "signup",          default: false
+    t.integer  "environment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "custom_fields", ["customized_type", "name", "environment_id"], name: "index_custom_field", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0
