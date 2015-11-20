@@ -8,7 +8,7 @@ if [ -n "$1" ]; then
 fi
 
 set -e
-sudo apt-get install -qy netcat-traditional shunit2
+sudo apt-get install -qy netcat-traditional shunit2 curl
 
 # apt-cacher-ng running on the host
 # 10.0.2.2 = host ip on virtualbox/qemu
@@ -68,7 +68,7 @@ deb http://download.noosfero.org/debian/$REPOSITORY ./
 deb-src http://download.noosfero.org/debian/$REPOSITORY ./
 EOF
 
-sed -e "s/$DISTRO/&-backports/" \
+sed -e "/security/d; s/$DISTRO/&-backports/" \
   /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
 
 export DEBIAN_FRONTEND=noninteractive
