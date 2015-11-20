@@ -323,4 +323,14 @@ class EventTest < ActiveSupport::TestCase
     assert a.can_display_media_panel?
   end
 
+  should 'calculate duration of events with start and end date' do
+    e = build(Event, :start_date => DateTime.new(2015, 1, 1), :end_date => DateTime.new(2015, 1, 5))
+    assert_equal 5, e.duration
+  end
+
+  should 'calculate duration of event with only start_date' do
+    e = build(Event, :start_date => DateTime.new(2015, 1, 1))
+    assert_equal 1, e.duration
+  end
+
 end
