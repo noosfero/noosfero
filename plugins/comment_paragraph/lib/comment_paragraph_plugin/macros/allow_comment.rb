@@ -1,4 +1,5 @@
-ActionView::Base.sanitized_allowed_attributes += ['data-macro', 'data-macro-paragraph_uuid']
+# FIXME See a better way to generalize this parameter.
+Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES.merge %w[data-macro data-macro-group_id]
 
 class CommentParagraphPlugin::AllowComment < Noosfero::Plugin::Macro
 
