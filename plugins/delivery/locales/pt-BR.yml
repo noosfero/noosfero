@@ -13,15 +13,21 @@
         delivery_type_help: "Retirada: os produtos serão buscados pela(o) consumidor(a), por exemplo, no empreendimento, numa feira ou num Núcleo de Consumo.<br>Entrega: os produtos serão entregues no endereço solicitado pelo(a) consumidor(a)."
         name: Nome
         name_help: "Para opção Retirada: escreva o nome do local onde os produtos deverão ser retirados pela(o) consumidor(a), por exemplo o nome do Núcleo de Consumo, da feira ou do próprio empreendimento.<br>Para a opção Entrega: escreva o nome do local, (uma cidade ou região) ou a forma de entrega (Correios, transportadora)"
-        fixed_cost: Custo
-        free_over_price: "Preço mínimo do pedido para Entrega Grátis"
+
+        costs_legend: Custos de entrega
+        fixed_cost: Custo de entrega
+        free_over_price: "Valor mínimo do pedido para Entrega Grátis"
+        distribution_legend: Custos de distribuição
+        distribution_margin_percentage: Margem de distribuição
+        distribution_margin_fixed: Margem de distribuição (valor fixo)
+
         instructions: Descrição
         instructions_help: "Escreva informações importantes sobre esta opção de Retirada ou Entrega.<br>Por exemplo, o endereço completo do Núcleo de Consumo, a abrangência da região de entrega.<br> Este texto estará disponível no \"Finalizar pedido\" e, ao confirmar a compra, o(a) consumidor(a) receberá um email com o pedido realizado e as informações deste campo."
     views:
-      delivery_option: 
-        select: 
+      delivery_option:
+        select:
           add: "Adicionar selecionados"
-        _select_content: 
+        _select_content:
           add: Adicionar opção
           add_new: "adicionar novo"
           are_you_sure_you_want: "Tem certeza de que quer remover?"
@@ -29,14 +35,14 @@
           choose_a_delivery_met: "Escolha um método de entrega da lista"
           edit_this: Editar
           remove_method: "Remover"
-        _show: 
+        _show:
           x: X
-        select: 
+        select:
           add_a_delivery_method: "Adicionar um método de entrega ao ciclo de pedidos"
       method:
         index:
           new: "Nova forma de entrega ou retirada"
-        edit: 
+        edit:
           add: Adicionar
           back: voltar
           save: Salvar

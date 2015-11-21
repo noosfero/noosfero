@@ -1,4 +1,9 @@
-"en-US": &en-US
+en-US: &en-US
+
+  number:
+    currency:
+      format:
+        xlsx_currency: "[$$-409]* #.##0,00;[RED]-[$$-409]* #.##0,00"
 
   orders_plugin:
     terms:
@@ -77,6 +82,7 @@
         supplier: "%{terms.supplier.singular.capitalize}"
         total_parcel_value: "Total value using stock"
         total_selled_value: "Total selled value"
+        total_price_without_margin: "Total price without margin"
         total_value: "Total Value"
         un: un.
         value: value
@@ -299,8 +305,8 @@
           supplier_product: "%{terms.supplier.singular.capitalize}/Product"
           total: "TOTAL:"
 
-'en_US':
+en_US:
   <<: *en-US
-'en':
+en:
   <<: *en-US
 

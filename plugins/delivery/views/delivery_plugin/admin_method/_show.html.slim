@@ -1,4 +1,4 @@
-td.name title="#{method.description}"
+td.name title="#{strip_tags method.description}"
   = method.name
 td.actions
   - if request.GET[:select_ids].present? and not method.id.to_s.in? Array(request.GET[:selected_ids])

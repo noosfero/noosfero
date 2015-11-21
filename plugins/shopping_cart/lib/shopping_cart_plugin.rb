@@ -1,6 +1,4 @@
 class ShoppingCartPlugin < Noosfero::Plugin
-  include ModalHelper
-  include ActionView::Helpers::UrlHelper
 
   def self.plugin_name
     "Shopping Basket"
@@ -32,10 +30,6 @@ class ShoppingCartPlugin < Noosfero::Plugin
     end
 
     buttons
-  end
-
-  def controller
-    context
   end
 
   def add_to_cart_button item, options = {}

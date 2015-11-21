@@ -15,7 +15,7 @@ class OrdersPluginAdminItemController < MyProfileController
     @actor_name = params[:actor_name].to_sym
     @order = if @actor_name == :consumer then @item.purchase else @item.sale end
 
-    @item.update_attributes! params[:item]
+    @item.update! params[:item]
   end
 
   def add_search

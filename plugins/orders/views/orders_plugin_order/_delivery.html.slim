@@ -1,0 +1,8 @@
+/ read as: selectable or visualizable
+- if order.delivery_methods.size > 0 or order.supplier_delivery_data.present?
+  .delivery-box.order-section
+    h3= _'Delivery or pickup method'
+
+    - edition = order.may_edit?(user, @admin) && order.delivery_methods.size > 0 if edition.nil?
+    = render 'delivery_plugin/order_select', f: f, order: order, methods: order.delivery_methods, edition: edition
+

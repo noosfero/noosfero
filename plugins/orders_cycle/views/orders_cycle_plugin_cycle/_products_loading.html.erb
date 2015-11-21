@@ -3,7 +3,7 @@
   <%= t('views.cycle._products_loading') %>
 
   <%= javascript_tag do %>
-    orders_cycle.cycle.products.load_url = <%= url_for(:action => :products_load, :id => @cycle.id).to_json %>
+    orders_cycle.cycle.products.load_url = <%= url_for(action: :products_load, id: @cycle.id).to_json %>
     orders_cycle.cycle.products.load()
   <% end %>
 </div>

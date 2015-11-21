@@ -6,7 +6,7 @@ module OrdersPlugin::FieldHelper
     help = options.delete(:help)
     content_tag :div,
       if form then form.label field, label, class: 'control-label' else label_tag field, label, class: 'control-label' end +
-      content_tag('div', help, class: 'field-help') +
+      content_tag('div', help, class: 'help-block') +
       content_tag('div', field_html, class: 'field-box') +
       content_tag('div', '', style: 'clear: both'),
       options.merge(class: options[:class].to_s + ' field form-group')

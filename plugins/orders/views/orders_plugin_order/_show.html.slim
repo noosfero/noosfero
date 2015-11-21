@@ -30,8 +30,11 @@ div class="order-view #{"editable" if order.may_edit? user, @admin rescue false}
       - elsif order.open?
         div
           = hidden_field_tag "order[status]", 'ordered'
-          = f.submit t('views.order._show.confirm_order'), confirm: t('views.order._show.confirming_this_order')
+          = f.submit t('views.order._show.confirm_order'), data: {confirm: t('views.order._show.confirming_this_order')}
           |&emsp;
 
           = link_to_function t('views.order._show.cancel_order'), "orders.order.reload(this, '#{url_for controller: :orders_plugin_order, action: :cancel, id: @order.id}')"
+
+javascript:
+  orders.setOrderMaxHeight()
 

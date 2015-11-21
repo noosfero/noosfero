@@ -1,4 +1,9 @@
-"pt-BR": &pt-BR
+pt-BR: &pt-BR
+
+  number:
+    currency:
+      format:
+        xlsx_currency: "[$R$-416]* #,##0.00;[RED]-[$R$-416]* #,##0.00"
 
   orders_plugin:
     terms:
@@ -78,6 +83,7 @@
         supplier: "%{terms.supplier.singular.capitalize}"
         total_parcel_value: "Valor total usando estoque"
         total_selled_value: "Valor total vendido"
+        total_price_without_margin: "Valor total sem a margem"
         total_value: "total pago"
         un: un.
         value: Valor
@@ -299,8 +305,8 @@
           supplier_product: "%{terms.supplier.singular.capitalize}/Produto"
           total: "TOTAL:"
 
-'pt_BR':
+pt_BR:
   <<: *pt-BR
-'pt':
+pt:
   <<: *pt-BR
 

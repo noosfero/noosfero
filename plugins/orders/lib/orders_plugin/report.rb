@@ -142,6 +142,7 @@ module OrdersPlugin::Report
       productsStart = sbs+5
       productsEnd = 0
       selled_sum = 0
+      total_price_without_margin = 0
       orders.each do |order|
 
         sheet.add_row [t('lib.report.order_code'), t('lib.report.member_name'), '', t('lib.report.phone'), '', t('lib.report.mail'), ''], style: bluecell_b_top
@@ -188,6 +189,7 @@ module OrdersPlugin::Report
           style: [default,default,default,default,default,currency,currency],
           formula_values: [nil,nil,nil,nil,nil,nil,formula_value_s]
           selled_sum += item.status_quantity * item.price rescue 0
+          total_price_without_margin += item.price_without_margins * item.status_quantity
 
           sbe += 1
           sum += formula_value
@@ -200,12 +202,11 @@ module OrdersPlugin::Report
         sbs = sbe + 2
       end
 
-      sheet.add_row [t('lib.report.selled_total'), '', "=SUM(G#{productsStart}:G#{productsEnd})"],
-        formula_values: [nil,nil, selled_sum],
-        style: [redcell,redcell,currency]
+      sheet.add_row [t('lib.report.selled_total'), '', "=SUM(G#{productsStart}:G#{productsEnd})", t('lib.report.total_price_without_margin'),"","", total_price_without_margin],
+        formula_values: [nil, nil, selled_sum, nil, nil, nil, nil],
+        style: [redcell, redcell, currency, redcell, redcell, redcell, currency]
 
-      ["A#{sbs}:B#{sbs}"].each{ |c| sheet.merge_cells c }
-
+      ["A#{sbs}:B#{sbs}", "D#{sbs}:F{sbs}"].each{ |c| sheet.merge_cells c }
 
       sheet.column_widths 15,30,30,9,8,10,11
     end # closes spreadsheet

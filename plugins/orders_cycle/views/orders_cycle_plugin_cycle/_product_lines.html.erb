@@ -1,7 +1,7 @@
 <div class="cycle-products-table sortable-table">
   <%= pagination_links @products %>
   <div id="result-count">
-    <small><%= t('views.cycle._product_lines.showing_pcount_produc') % {:pcount => @products.length, :allpcount => @cycle.products.count} %></small>
+    <small><%= t('views.cycle._product_lines.showing_pcount_produc') % {pcount: @products.length, allpcount: @cycle.products.count} %></small>
   </div>
   <div class='table-header'>
     <span class='box-field category'><%= t('views.cycle._product_lines.category') %></span>
@@ -17,7 +17,7 @@
   <div class='table-content'>
     <% @products.each do |p| %>
       <div id="cycle-product-<%=p.id%>" class='cycle-product value-row' toggle-edit="orders_cycle.offered_product.edit();">
-        <%= render 'orders_cycle_plugin_product/cycle_edit', :p => p %>
+        <%= render 'orders_cycle_plugin_product/cycle_edit', p: p %>
       </div>
     <% end %>
     <%= javascript_tag do %>

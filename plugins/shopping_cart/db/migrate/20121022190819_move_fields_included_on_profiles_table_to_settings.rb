@@ -1,6 +1,6 @@
 class MoveFieldsIncludedOnProfilesTableToSettings < ActiveRecord::Migration
   def self.up
-    Profile.find_each do |profile|
+    Enterprise.find_each do |profile|
       settings = profile.shopping_cart_settings
       settings.enabled = profile.shopping_cart
       settings.delivery = profile.shopping_cart_delivery

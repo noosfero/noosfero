@@ -12,14 +12,14 @@
 
   <% if @purchases.present? %>
     <div id='purchases' class="tab-pane">
-      <%= render 'orders_plugin_admin/purchases', actors: profile.purchases_all_suppliers,
+      <%= render 'orders_plugin_admin/purchases', actors: profile.sales_all_consumers,
         orders_owner: profile, orders: @purchases, month: @purchases_month, year: @purchases_year, wireframe_size: false %>
     </div>
   <% end %>
 
   <% if @sales.present? %>
     <div id='sales' class="tab-pane">
-      <%= render 'orders_plugin_admin/sales', actors: profile.sales_all_consumers,
+      <%= render 'orders_plugin_admin/sales', actors: profile.purchases_all_consumers,
         orders_owner: profile, orders: @sales, month: @sales_month, year: @purchases_year, wireframe_size: false %>
     </div>
   <% end %>

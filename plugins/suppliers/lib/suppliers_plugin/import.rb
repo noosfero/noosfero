@@ -123,11 +123,11 @@ class SuppliersPlugin::Import
         product ||= supplier.profile.products.build attrs
         # let update happen only on dummy suppliers
         if product.persisted? and supplier.dummy?
-          product.update_attributes! attrs
+          product.update! attrs
         elsif product.new_record?
           # create products as not available
           attrs[:available] = false if not supplier.dummy?
-          product.update_attributes! attrs
+          product.update! attrs
         end
 
         distributed_product = product.distribute_to_consumer consumer, distributed_attrs

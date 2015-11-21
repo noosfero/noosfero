@@ -1,0 +1,30 @@
+- actions = true if actions.nil? and @admin
+- listing = false if listing.nil?
+- view_status = if OrdersCyclePlugin::Cycle::Statuses.index(params[:view]) then params[:view] else cycle.status end
+- status_text = t"models.cycle.statuses.#{view_status}"
+
+.cycle-timeline
+  - OrdersCyclePlugin::Cycle::UserStatuses.each do |status|
+    - klass = "cycle-timeline-item #{timeline_class cycle, status, view_status}"
+    - name = t("models.cycle.statuses.#{status}")
+    = link_to name, params.merge(action: :edit, id: cycle.id, view: status), class: klass
+
+- if listing
+  .dates-brief
+    .date
+      span.field-title= t'views.cycle._brief.orders'
+      |&emsp;
+      span= datetime_period_short cycle.start, cycle.finish
+    .date
+      span.field-title= t'views.cycle._brief.delivery'
+      |&emsp;
+      span= datetime_period_short cycle.delivery_start, cycle.delivery_finish
+
+- if actions
+  .actions-bar
+    - if cycle.status == view_status and cycle.status != 'closing'
+      = link_to t('views.cycle._timeline.close_status') % {status: status_text},
+        {action: :step, id: cycle.id, method: :post},
+        {confirm: t('views.cycle._timeline.are_you_sure_you_want_to_close') % {status: status_text}, class: 'action-button'}
+    = render "orders_cycle_plugin_cycle/actions/#{view_status}", cycle: cycle rescue nil
+

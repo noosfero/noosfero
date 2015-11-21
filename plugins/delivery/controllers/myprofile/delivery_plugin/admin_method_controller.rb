@@ -14,7 +14,7 @@ class DeliveryPlugin::AdminMethodController < MyProfileController
 
   def edit
     @delivery_method ||= profile.delivery_methods.find_by_id params[:id]
-    if params[:delivery_method].present? and @delivery_method.update_attributes params[:delivery_method]
+    if params[:delivery_method].present? and @delivery_method.update params[:delivery_method]
       render partial: 'list'
     else
       render partial: 'edit', locals: {delivery_method: @delivery_method}

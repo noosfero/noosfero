@@ -32,7 +32,7 @@ class SuppliersPlugin::ProductController < MyProfileController
 
   def edit
     @product = profile.products.supplied.find params[:id]
-    @product.update_attributes params["product_#{@product.id}"]
+    @product.update params["product_#{@product.id}"]
   end
 
   def import
@@ -79,6 +79,7 @@ class SuppliersPlugin::ProductController < MyProfileController
 
     @supplier = SuppliersPlugin::Supplier.where(id: params[:supplier_id]).first if params[:supplier_id].present?
 
+    # FIXME: joins(:from_products) is hiding own products (except baskets)
     @scope = profile.products.unarchived.joins :from_products, :suppliers
     @scope = SuppliersPlugin::BaseProduct.search_scope @scope, params
     @products_count = @scope.supplied_for_count.count
@@ -95,9 +96,11 @@ class SuppliersPlugin::ProductController < MyProfileController
   extend HMVC::ClassMethods
   hmvc SuppliersPlugin
 
-  def default_url_options
-    # avoid rails' use_relative_controller!
-    {use_route: '/'}
+  # inherit routes from core skipping use_relative_controller!
+  def url_for options
+    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash and options[:controller] and not options[:controller].to_s.starts_with? '/'
+    super options
   end
+  helper_method :url_for
 
 end

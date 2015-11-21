@@ -6,7 +6,7 @@ div class="quantity-price-row #{status} #{status_data[:flags].keys.join ' '}"
         = t'views.item._edit.removed'
       - else
         = quantity_localized
-    - if not @simple and status_data[:flags][:editable]
+    - if not @view and status_data[:flags][:editable]
       = number_field_tag "item[quantity_#{status_data[:field]}]", status_data[:quantity], step: 'any', onkeydown: 'orders.item.quantity_keydown(this, event)'
     - unless status_data[:flags][:removed]
       |&nbsp;

@@ -139,21 +139,12 @@ orders = {
     },
   },
 
-  set_orders_container_max_height: function()
+  setOrderMaxHeight: function()
   {
     ordersH = $(window).height();
-    ordersH -= 100
     ordersH -= $('#cirandas-top-bar').outerHeight()
-    ordersH -= $('.order-status-message').outerHeight()
-    ordersH -= $('.order-message-title').outerHeight()
-    ordersH -= $('#order-column .order-items .table-header').last().outerHeight()
-    ordersH -= $('#order-column .order-total').last().outerHeight()
-    ordersH -= $('#order-column #actor-data-box').last().outerHeight()
-    ordersH -= $('#order-column .delivery-box').outerHeight()
-    ordersH -= $('#order-column .order-message-text').outerHeight()
-    ordersH -= $('#order-column .order-message-actions').outerHeight()
-    ordersH -= $('#order-column .actions').outerHeight()
-    $('.order-items-container .order-items-scroll').css('max-height', ordersH);
+    ordersH -= $('.order-view form > .actions').outerHeight(true)
+    $('.order-view .order-data').css('max-height', ordersH);
   },
 
   daterangepicker: {
@@ -180,6 +171,7 @@ orders = {
   },
 };
 
-$(document).ready(orders.set_orders_container_max_height);
-$(window).resize(orders.set_orders_container_max_height);
+$(document).ready(orders.setOrderMaxHeight);
+$(window).resize(orders.setOrderMaxHeight);
+$('#order_supplier_delivery_id').change(orders.setOrderMaxHeight);
 

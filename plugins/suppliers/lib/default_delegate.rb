@@ -15,6 +15,9 @@ module DefaultDelegate
 
     # TODO: add some documentation about the methods being added
     def default_delegate field, options = {}
+      class_attribute :default_delegate_enable unless respond_to? :default_delegate_enable
+      self.default_delegate_enable = true if self.default_delegate_enable.nil?
+
       # rake db:migrate run?
       return unless self.table_exists?
 
@@ -91,6 +94,8 @@ module DefaultDelegate
       end
 
       define_method "#{field}_with_default" do
+        return self.send own_field unless self.default_delegate_enable
+
         if self.send default_setting
           # delegated_field may return nil, so use own instead
           # this is the case with some associations (e.g. Product#product_qualifiers)
@@ -101,6 +106,8 @@ module DefaultDelegate
         end
       end
       define_method "#{field}_with_default=" do |*args|
+        return self.send "#{own_field}=", *args unless self.default_delegate_enable
+
         own = self.send "#{own_field}=", *args
         # break/set the default setting automatically, used for interfaces
         # that don't have the default setting (e.g. manage_products)

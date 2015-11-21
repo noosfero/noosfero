@@ -23,7 +23,7 @@ class OrdersPluginItemController < MyProfileController
 
     if params[:item].present? and set_quantity_consumer_ordered params[:item][:quantity_consumer_ordered]
       params[:item][:quantity_consumer_ordered] = @quantity_consumer_ordered
-      @item.update_attributes! params[:item]
+      @item.update! params[:item]
     end
   end
 

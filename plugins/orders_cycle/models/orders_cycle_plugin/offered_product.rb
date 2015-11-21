@@ -1,5 +1,8 @@
 class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
 
+  # we work use frozen attributes
+  self.default_delegate_enable = false
+
   # FIXME: WORKAROUND for https://github.com/rails/rails/issues/6663
   # OrdersCyclePlugin::Sale.find(3697).cycle.suppliers returns empty without this
   def self.finder_needs_type_condition?
@@ -19,10 +22,10 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   has_one  :sources_supplier_product,  through: :from_product,  source: :sources_from_product
   # necessary only due to the override of sources_supplier_products, as rails somehow caches the old reference
   # copied from suppliers/lib/ext/product
-  has_many :supplier_products, through: :sources_supplier_products, source: :from_product, order: 'id ASC'
-  has_one  :supplier_product,  through: :sources_supplier_product,  source: :from_product, order: 'id ASC', autosave: true
-  has_many :suppliers, through: :sources_supplier_products, uniq: true, order: 'id ASC'
-  has_one  :supplier,  through: :sources_supplier_product, order: 'id ASC'
+  has_many :supplier_products, -> { order 'id ASC' }, through: :sources_supplier_products, source: :from_product
+  has_one  :supplier_product, -> { order 'id ASC' },  through: :sources_supplier_product,  source: :from_product, autosave: true
+  has_many :suppliers, -> { distinct.order 'id ASC' }, through: :sources_supplier_products
+  has_one  :supplier, -> { order 'id ASC' }, through: :sources_supplier_product
 
   instance_exec &OrdersPlugin::Item::DefineTotals
   extend CurrencyHelper::ClassMethods
@@ -31,9 +34,7 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   # test this before use!
   #validates_presence_of :cycle
 
-  # remove on rails4
-  scope :with_price, conditions: 'products.price > 0'
-  scope :with_product_category_id, lambda { |id| { conditions: {product_category_id: id} } }
+  # override SuppliersPlugin::BaseProduct
   def self.search_scope scope, params
     scope = scope.from_supplier_id params[:supplier_id] if params[:supplier_id].present?
     scope = scope.with_available(if params[:available] == 'true' then true else false end) if params[:available].present?
@@ -50,19 +51,20 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
     op.profile = product.profile
     op.type = self.name
 
-    op.from_products << product
+    op.from_product = product
     cycle.products << op if cycle
 
     op
   end
 
   # always recalculate in case something has changed
+  # FIXME: really? it is already copied!
   def margin_percentage
-    return self['margin_percentage'] if price.nil? or buy_price.nil? or price.zero? or buy_price.zero?
+    return super if price.nil? or buy_price.nil? or price.zero? or buy_price.zero?
     ((price / buy_price) - 1) * 100
   end
   def margin_percentage= value
-    self['margin_percentage'] = value
+    super value
     self.price = self.price_with_margins buy_price
   end
 
@@ -71,22 +73,15 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   end
 
   # reimplement to don't destroy this, keeping history in cycles
-  # offered products copy attributes
+  # as offered products copy attributes.
   def dependent?
     false
-  end
-
-  # cycle products freezes properties and don't use the original
-  DEFAULT_ATTRIBUTES.each do |a|
-    define_method "default_#{a}" do
-      nil
-    end
   end
 
   FROOZEN_DEFAULT_ATTRIBUTES = DEFAULT_ATTRIBUTES
   def freeze_default_attributes from_product
     FROOZEN_DEFAULT_ATTRIBUTES.each do |attr|
-      self[attr] = from_product.send(attr) if from_product[attr] or from_product.respond_to? attr
+      self.send "#{attr}=", from_product.send(attr) if from_product[attr] or from_product.respond_to? attr
     end
   end
 

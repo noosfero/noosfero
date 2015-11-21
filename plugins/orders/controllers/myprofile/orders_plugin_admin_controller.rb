@@ -43,8 +43,8 @@ class OrdersPluginAdminController < MyProfileController
     @orders_method = if @actor_name == :supplier then :sales else :purchases end
 
     @order = profile.send(@orders_method).find params[:id]
-    return render_access_denied unless @order.verify_actor? profile, @actor_name
-    @order.update_attributes params[:order]
+    return render_access_denied unless @user_is_admin or @order.verify_actor? profile, @actor_name
+    @order.update params[:order]
 
     respond_to do |format|
       format.js{ render 'orders_plugin_admin/edit' }
