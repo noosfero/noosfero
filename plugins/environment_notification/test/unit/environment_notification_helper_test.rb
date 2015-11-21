@@ -1,4 +1,4 @@
-require_relative '../../../../test/test_helper'
+require 'test_helper'
 
 class EnvironmentNotificationHelperTest < ActiveSupport::TestCase
   def setup
@@ -23,7 +23,7 @@ class EnvironmentNotificationHelperTest < ActiveSupport::TestCase
     new_message = EnvironmentNotificationHelper.substitute_variables(message, nil)
 
     assert_equal message, new_message
-    assert_not_include new_message, "user@domain.com"
+    assert_not_includes new_message, "user@domain.com"
   end
 
    should 'substitute all name variables to the current user name' do
@@ -41,6 +41,6 @@ class EnvironmentNotificationHelperTest < ActiveSupport::TestCase
     new_message = EnvironmentNotificationHelper.substitute_variables(message, nil)
 
     assert_equal message, new_message
-    assert_not_include new_message, "UserName"
+    assert_not_includes new_message, "UserName"
   end
 end
