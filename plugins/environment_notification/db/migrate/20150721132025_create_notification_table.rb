@@ -14,9 +14,11 @@ class CreateNotificationTable < ActiveRecord::Migration
     end
 
     create_table :environment_notifications_users, id: false do |t|
-      t.belongs_to :environment_notification, index: true
-      t.belongs_to :user, index: true
+      t.belongs_to :environment_notification
+      t.belongs_to :user
     end
+    add_index :environment_notifications_users, [:environment_notification_id], name: :index_Zaem6uuw
+    add_index :environment_notifications_users, [:user_id], name: :index_ap3nohR9
   end
 
   def down
