@@ -534,7 +534,7 @@ end
 
 Then /^I should receive an e-mail on (.*)$/ do |address|
   last_mail = ActionMailer::Base.deliveries.last
-  last_mail.nil?.should be_false
+  last_mail.nil?.should be_falsey
   last_mail['to'].to_s.should == address
 end
 
@@ -545,16 +545,16 @@ end
 
 Then /^there should be an? (.+) named "([^\"]*)"$/ do |klass_name, profile_name|
   klass = klass_name.camelize.constantize
-  klass.find_by_name(profile_name).nil?.should be_false
+  klass.find_by_name(profile_name).nil?.should be_falsey
 end
 
 Then /^"([^\"]*)" profile should exist$/ do |profile_selector|
   profile = nil
   begin
     profile = Profile.find_by_name(profile_selector)
-    profile.nil?.should be_false
+    profile.nil?.should be_falsey
   rescue
-    profile.nil?.should be_false
+    profile.nil?.should be_falsey
   end
 end
 
@@ -562,9 +562,9 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
   profile = nil
   begin
     profile = Profile.find_by_name(profile_selector)
-    profile.nil?.should be_true
+    profile.nil?.should be_truthy
   rescue
-    profile.nil?.should be_true
+    profile.nil?.should be_truthy
   end
 end
 

@@ -24,12 +24,12 @@ end
 
 Then /^the "([^"]*)" button should be disabled$/ do |selector|
   field = find(selector)
-  field['disabled'].should be_true
+  field['disabled'].should be_truthy
 end
 
 Then /^the "([^"]*)" button should be enabled$/ do |selector|
   field = find(selector)
-  field['disabled'].should_not be_true
+  field['disabled'].should_not be_truthy
 end
 
 When /^I reload and wait for the page$/ do
