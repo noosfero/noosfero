@@ -25,6 +25,10 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
     def organization_ratings_plugin_extra_fields_show_data user_rating
       nil
     end
+
+    def organization_ratings_plugin_rating_created rating, params
+      nil
+    end
   end
 
   # Plugin Hotspot to display the average rating
