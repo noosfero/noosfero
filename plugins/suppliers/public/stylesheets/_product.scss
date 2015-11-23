@@ -1,0 +1,129 @@
+@import 'base';
+
+#supplier-our-products {
+
+  .sortable-table {
+
+    .box-field {
+      &.status {
+        width: $module01 - $base;
+      }
+      &.category {
+        width: $module02 - $base;
+      }
+      &.supplier {
+        width: $module02;
+      }
+      &.product {
+        width: $module04;
+      }
+      &.margin {
+        width: $module01;
+      }
+      &.price {
+        width: $module01;
+      }
+      &.stock {
+        width: $module01 - $base;
+      }
+      &.unit {
+        width: $module01 + 2*$base;
+      }
+    }
+
+    form {
+      width: $module10 + $intercolumn;
+      float: left;
+      @extend .container-clean;
+
+      .field-secondary {
+        float: left;
+        display: block;
+
+        &, input, select {
+          width: $module02 - $intercolumn;
+        }
+
+        &.with-unit {
+          @extend .container-clean;
+
+          .input-group {
+            float: left;
+            width: $module02 - 2*$intercolumn;
+            &, input, select {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .internal-table {
+
+        .row {
+          @extend .container-clean;
+
+          &.first {
+            .block {
+              //height: 12*$height;
+            }
+          }
+
+          .block {
+            float: left;
+            border-top: 2*$border solid rgba(255,255,255,0.5);
+            border-right: 2*$border solid rgba(255,255,255,0.5);
+            padding: $padding;
+            padding-top: $padding - 2*$border;
+            padding-right: $padding - 2*$border;
+            margin: 0;
+
+            &:last-child {
+              border-right: none;
+            }
+
+            &.margin-price {
+              width: $module04;
+            }
+            &.stock {
+              width: $module04;
+            }
+            &.available {
+              width: $module02;
+              color: black; //overwrite stupid application.css style
+            }
+
+            .field-secondary {
+              margin-right: $margin;
+            }
+          }
+        }
+      }
+
+      .action-button-container {
+        float: left;
+        width: $module10 - 2*$intercolumn;
+        margin-top: $half-margin;
+
+        .action-button {
+
+          &.save {
+            float: right;
+          }
+          &.remove, &.cancel {
+            margin-right: $margin;
+            float: left;
+          }
+        }
+      }
+    }
+  }
+
+  .links {
+    float: right;
+    width: $module02;
+
+    .action-button {
+      margin-bottom: $half-margin;
+    }
+  }
+}

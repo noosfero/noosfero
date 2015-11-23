@@ -27,6 +27,7 @@ Rails.configuration.to_prepare do
 
     def create_activity
       target = if self.target.is_a? Profile then self.target else self.target.profile rescue self.user end
+      return if !target
       return if self.verb.in? target.exclude_verbs_on_activities
       ProfileActivity.create! profile: target, activity: self
     end

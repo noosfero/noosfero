@@ -18,7 +18,7 @@
 
     <% if @page.allow_spread?(user) && !remove_content_button(:spread, @page) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'publish', :id => @page.id }) %>
-      <%= expirable_button @page, :spread, content_tag( 'span', _('Spread this') ), url, {:class => 'colorbox'} if url %>
+      <%= expirable_button @page, :spread, content_tag( 'span', _('Spread this') ), url, {:modal => true} if url %>
     <% end %>
 
     <% if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user))) %>

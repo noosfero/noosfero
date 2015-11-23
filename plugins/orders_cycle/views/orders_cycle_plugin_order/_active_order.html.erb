@@ -1,0 +1,35 @@
+<% content_for :order_header do %>
+  <%= render 'orders_cycle_plugin_order/status', order: @order %>
+
+  <% unless @order.open? %>
+    <div id="order-status-message" class="order-message status-<%= @order.current_status %>">
+      <div class="order-message-text">
+        <% if @order.confirmed? %>
+          <%= t('views.order._consumer_orders.your_order_is_confirm') %>
+        <% elsif @order.cancelled? %>
+          <%= t('views.order._consumer_orders.your_order_was_cancel') %>
+        <% else %>
+          <%= t('views.order._consumer_orders.your_order_wasn_t_con') %>
+        <% end %>
+      </div>
+      <div class="order-message-actions">
+        <div><%= t('views.order._consumer_orders.you_still_can') %></div>
+
+        <% if @order.cycle.orders? %>
+          <%= link_to_function t('views.order._consumer_orders.change_order'), "orders.order.reload(this, '#{url_for controller: :orders_cycle_plugin_order, action: :reopen, id: @order.id}')" %>
+          <%= t('views.order._consumer_orders.before_the_closing') %>&emsp;
+        <% end %>
+        <br>
+
+        <% unless @order.cancelled? %>
+          <%= link_to_function t('views.order._show.cancel_order'), "orders.order.reload(this, '#{url_for controller: :orders_cycle_plugin_order, action: :cancel, id: @order.id}')" %>
+          <br>
+        <% end %>
+
+        <%= modal_link_to t('views.order._consumer_orders.send_message_to_the_m'), {controller: :orders_plugin_message, action: :new_to_admins} %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render 'orders_plugin_order/show', order: @order, actor_name: :consumer %>

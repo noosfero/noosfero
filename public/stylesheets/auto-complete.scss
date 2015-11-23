@@ -1,0 +1,34 @@
+/* for fields with auto-completion */
+
+div.auto-complete {
+  display: block;
+  background: #729FCF;
+  border: 2px solid #204A87;
+  z-index: 100;
+}
+div.auto-complete ul {
+  margin: 0px;
+  padding: 0px;
+}
+#content div.auto-complete li, div.auto-complete li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  color: #204A87;
+  float: none;
+  width: auto;
+}
+div.auto-complete li.selected {
+  background: #B8CFE7;
+  color: #204A87;
+}
+
+.formfield input.ui-autocomplete-loading { background: url('/images/loading-small.gif') right center no-repeat, url("../images/input-bg.gif") no-repeat left top;  }
+
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+

@@ -39,7 +39,9 @@ class CommunityTest < ActiveSupport::TestCase
     community = create(Community, :environment => Environment.default, :name => 'my new community')
 
     assert_kind_of Blog, community.articles.find_by_path(blog.path)
+    assert community.articles.find_by_path(blog.path).published?
     assert_kind_of RssFeed, community.articles.find_by_path(blog.feed.path)
+    assert community.articles.find_by_path(blog.feed.path).published?
   end
 
   should 'have contact_person' do
@@ -240,20 +242,6 @@ class CommunityTest < ActiveSupport::TestCase
     assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
-  end
-
-  should 'escape malformed html tags' do
-    community = Community.new
-    community.name = "<h1 Malformed >> html >< tag"
-    community.address = "<h1 Malformed >,<<<asfdf> html >< tag"
-    community.contact_phone = "<h1 Malformed<<> >> html >><>< tag"
-    community.description = "<h1 Malformed /h1>>><<> html ><>h1< tag"
-    community.valid?
-
-    assert_no_match /[<>]/, community.name
-    assert_no_match /[<>]/, community.address
-    assert_no_match /[<>]/, community.contact_phone
-    assert_no_match /[<>]/, community.description
   end
 
   should "the followed_by method be protected and true to the community members by default" do

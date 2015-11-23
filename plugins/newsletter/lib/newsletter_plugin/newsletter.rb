@@ -111,23 +111,23 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
   include DatesHelper
 
   def message_to_public_link
-    content_tag(:p, N_("If you can't view this email, %s.") % link_to(N_('click here'), '{mailing_url}'), :id => 'newsletter-public-link')
+    content_tag(:p, _("If you can't view this email, %s.") % link_to(_('click here'), '{mailing_url}'), :id => 'newsletter-public-link')
   end
 
   def message_to_unsubscribe
-    content_tag(:div, N_("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.") % link_to(N_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe')
+    content_tag(:div, _("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.") % link_to(_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe')
   end
 
   def read_more(link_address)
-    content_tag(:p, link_to(N_('Read more'), link_address, :style => CSS['read-more-link']), :style => CSS['read-more-line'])
+    content_tag(:p, link_to(_('Read more'), link_address, :style => CSS['read-more-link']), :style => CSS['read-more-line'])
   end
 
   def post_with_image(post)
-    content_tag(:tr,content_tag(:td,tag(:img, :src => "#{self.environment.top_url}#{post.image.public_filename(:big)}", :id => post.id),:style => CSS['post-image'])+content_tag(:td,content_tag(:span, show_date(post.published_at), :style => CSS['post-date'])+content_tag(:h3, link_to(h(post.title), post.url, :style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(190)),:style => CSS['post-lead'])+read_more(post.url), :style => CSS['post-info']))
+    content_tag(:tr,content_tag(:td,tag(:img, :src => "#{self.environment.top_url}#{post.image.public_filename(:big)}", :id => post.id),:style => CSS['post-image'])+content_tag(:td,content_tag(:span, show_date(post.published_at), :style => CSS['post-date'])+content_tag(:h3, link_to(h(post.title), post.url, :style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(190), tags: %w(strong em b i)),:style => CSS['post-lead'])+read_more(post.url), :style => CSS['post-info']))
   end
 
   def post_without_image(post)
-    content_tag(:tr, content_tag(:td,content_tag(:span, show_date(post.published_at),:style => CSS['post-date'], :id => post.id)+content_tag(:h3, link_to(h(post.title), post.url,:style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(360)),:style => CSS['post-lead'])+read_more(post.url),:colspan => 2, :style => CSS['post-info']))
+    content_tag(:tr, content_tag(:td,content_tag(:span, show_date(post.published_at),:style => CSS['post-date'], :id => post.id)+content_tag(:h3, link_to(h(post.title), post.url,:style => CSS['post-title']))+content_tag(:p,sanitize(post.lead(360), tags: %w(strong em b i)),:style => CSS['post-lead'])+read_more(post.url),:colspan => 2, :style => CSS['post-info']))
   end
 
   def body(data = {})
@@ -141,7 +141,7 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
   end
 
   def default_subject
-    N_('Breaking news')
+    _('Breaking news')
   end
 
   def subject
@@ -154,11 +154,14 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
     headers ||= false
 
     if File.extname(file.original_filename) == '.csv'
-      parsed_recipients = []
-      CSV.foreach(file.path, headers: headers) do |row|
-        parsed_recipients << {name: row[name_column.to_i - 1], email: row[email_column.to_i - 1]}
+      [",", ";", "\t"].each do |sep|
+        parsed_recipients = []
+        CSV.foreach(file.path, { headers: headers, col_sep: sep }) do |row|
+          parsed_recipients << {name: row[name_column.to_i - 1], email: row[email_column.to_i - 1]}
+        end
+        self.additional_recipients = parsed_recipients
+        break if self.valid? || !self.errors.include?(:additional_recipients)
       end
-      self.additional_recipients = parsed_recipients
     else
       #FIXME find a better way to deal with errors
       self.errors.add(:additional_recipients, _("have unknown file type: %s" % file.original_filename))
@@ -172,10 +175,6 @@ class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
       :conditions => {:source_id => self.id}
     )
     last_mailing.nil? ? nil : last_mailing.created_at
-  end
-
-  def sanitize(html)
-    html.gsub(/<\/?p>/, '')
   end
 
   def has_posts_in_the_period?

@@ -1,0 +1,83 @@
+
+div.pending-tasks {
+  padding: 10px;
+  border: 1px solid #BFC2BC;
+  margin-bottom: 20px;
+}
+#user .logged-in #pending-tasks-count {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 3px;
+  text-decoration: none;
+  background-color: #F57900;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.controller-tasks #content .task-list {
+  margin: 0px;
+  padding: 0px;
+}
+
+.controller-tasks #content .task-list ul {
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+.task_box {
+  position: relative;
+  border: 1px solid #888;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  padding: 6px 4px 9px 4px;
+  margin-top: 5px;
+  background: #EEE;
+}
+
+.task_title {
+  margin: 0px;
+  display: block;
+  line-height: 28px;
+  font-size: 120%;
+}
+
+.task_date {
+  color: gray;
+  font-size: 12px;
+}
+
+.task_icon {
+  float: left;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.task_decisions {
+  float: right;
+  padding-right: 5px;
+}
+
+.task_information {
+  line-height: 18px;
+  padding: 2px 0px;
+  clear: right;
+}
+
+.task_information p {
+  margin: 0px;
+}
+
+.task_target {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.task_responsible {
+  text-align: right;
+}

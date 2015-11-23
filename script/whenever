@@ -1,0 +1,24 @@
+#!/bin/sh
+
+ACTION="$1"
+ENV="$2"
+if [ -z "$ENV" ]; then
+  ENV='production'
+fi
+
+do_start(){
+  bundle exec whenever --update-crontab $ENV --set "environment=$ENV"
+}
+
+do_stop(){
+  bundle exec whenever --clear-crontab $ENV
+}
+case "$ACTION" in
+  start|stop)
+    do_$ACTION
+    ;;
+  *)
+    echo "usage: $0 start|stop [environment]"
+    exit 1
+    ;;
+esac

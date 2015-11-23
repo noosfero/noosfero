@@ -1,0 +1,491 @@
+en-US: &en-US
+
+  suppliers_plugin:
+    lib:
+      plugin:
+        name: "Suppliers"
+        description: "Suppliers and its distributed products registry"
+        distribution_tab: "Distribuição"
+        compare_tab: "Compare with the supplier"
+        basket_tab: "Cesta"
+      import:
+        keys:
+          # ordered by most specific
+          supplier_url: '(supplier|producer).+url'
+          product_url: 'product.+url'
+          supplier_price: '(supplier|producer).+price'
+          supplier: '(supplier|producer)'
+          product: 'product'
+          qualifiers: 'qualifier'
+          product_category: 'category'
+          price: 'price'
+          unit: 'unit'
+          composition: 'composition'
+          external_id: 'external'
+          stock: 'stock'
+
+    terms: &suppliers_terms
+      profile: &suppliers_term_profile
+        singular: "organization"
+        plural: "organizations"
+        it:
+          singular: "it"
+          plural: "them"
+        article:
+          singular: "the organization"
+          plural: "the organizations"
+        undefined_article:
+          singular: "a organization"
+        by_article:
+          singular: "by the organization"
+        tO_it:
+          singular: "to it"
+          plural: "to them"
+        to_article:
+          singular: "to the organization"
+          plural: "to the organizations"
+        at_article:
+          singular: "at the organization"
+        from:
+          singular: "from an organization"
+        from_article:
+          singular: "from the organization"
+        from_which_article:
+          singular: "from which the organização"
+        of:
+          singular: "of organization"
+          plural: "of organizations"
+        of_article:
+          singular: "of the organization"
+          plural: "of the organizations"
+        of_this:
+          singular: "of this organization"
+        of_another:
+          singular: "of another organization"
+        this:
+          singular: "this organization"
+        with_which:
+          singular: "with which the organization"
+      consumer:
+        singular: "consumer"
+        plural: "consumers"
+        to_article:
+          singular: "to the consumer"
+          plural: "to the consumers"
+        from_article:
+          singular: "from consumer"
+          plural: "from consumers"
+      supplier:
+        singular: "supplier"
+        plural: "suppliers"
+        one: "one"
+        it:
+          singular: "it"
+          plural: "them"
+        article:
+          singular: "the supplier"
+          plural: "the suppliers"
+        undefined_article:
+          singular: "a supplier"
+        by_article:
+          singular: "by the supplier"
+        new_undefined_article:
+          singular: "a new supplier"
+        to:
+          singular: "to a supplier"
+          plural: "to suppliers"
+        tO_it:
+          singular: "to it"
+          plural: "to them"
+        to_article:
+          singular: "to the supplier"
+          plural: "to the suppliers"
+        none:
+          singular: "any supplier"
+        this:
+          singular: "this supplier"
+        from:
+          singular: "from supplier"
+        from_article:
+          singular: "from the supplier"
+        from_which_article:
+          singular: "from which the supplier"
+        of:
+          singular: "of supplier"
+          plural: "of suppliers"
+        of_article:
+          singular: "of the supplier"
+          plural: "of the suppliers"
+        of_this:
+          singular: "of this supplier"
+        of_another:
+          singular: "of another supplier"
+        your:
+          singular: "your supplier"
+          plural: "your suppliers"
+        on_your:
+          singular: "on your organization"
+        on_article:
+          singular: "on your organization"
+        on_undefined_article:
+          singular: "on an organization"
+    controllers:
+      myprofile:
+        supplier_created: "%{terms.supplier.singular.capitalize} created"
+      product:
+        import_in_progress: "The products are being imported. Wait a while and reload the page to view them."
+
+    models:
+      base_product:
+        default_attributes:
+          name: 'Name'
+          description: 'Description'
+          price: 'Price'
+          unit_id: 'Unit'
+          product_category_id: 'Category'
+          image_id: 'Image'
+      distributed_product:
+        greater: " > "
+      product:
+        unit: unit
+        units: units
+      profile:
+        consumer: Consumer
+    views:
+      filter:
+        filter: Filter
+        filter_it: Filter
+      actions:
+
+      manage_products:
+        compare_tab:
+          see_supplier: 'See original product at the page of the supplier "%{supplier}".'
+          see: 'See original product.'
+          no_diff: 'Este produto não tem nenhuma diferença com o que está na página do fornecedor".'
+          diff_count: "This product has <b>%{n}</b> differences compared to the same product on the supplier's page:"
+        distribution_tab:
+          title: "This product is distributed for the following consumers:"
+          no_consumers: "This profile isn't a suppliers of the network."
+          save: "Save"
+        basket_tab:
+          make_a_basket: 'Make this product a basket by adding another product!'
+          search: 'find and add your products'
+          component: 'Component'
+          quantity: 'Quantity'
+
+      control_panel:
+        suppliers: "Manage suppliers"
+        products: "Manage distributed products"
+      myprofile:
+        margin_change:
+          ? "%"
+          : "%"
+          notice: "By changing the default margin of commercialization, the products that are \"use the default margin\" marked will automatically have their margin updated."
+          cancel: cancel
+          change_default_margin: "Change default margin of commercialization"
+          confirm: Confirm
+          apply_to_all: "Apply to the products with custom margins"
+          apply_to_open_cycles: "Apply to the products in open cycles"
+          new_margin: "New margin"
+        index:
+          redistribution_situation: "Product distribution"
+          name: "Name"
+
+      product:
+        import:
+          action: "Import spreadsheet"
+          help: "Format you spreadsheet to have exactly the fields bellow. Then, save it choosing the CSV file type (.csv extension).<br><b>Products with equal names have their data (price/unit) updated.</b>"
+          field_supplier_name: "Supplier's name"
+          field_product_name: "Product's name"
+          field_product_unit: "Unit"
+          field_product_price: "Price per unit"
+          remove_all: 'Also remove all registered suppliers and their products (start a new list of products).'
+          confirm_remove_all: "CAUTION! This option will remove all registered suppliers and their products!"
+          unit_help: "Use as <b>unit</b> one of the following (put the name equal): %{units}"
+          send: "Send"
+        _edit:
+          distribution_setts: "Product's distribution settings"
+          margin_price: "Margin / price"
+          default_margin: "Use default"
+          stock: "Stock configuration"
+          default_stock: "Keep in stock"
+          current_stock: "Current stock"
+          distribution_state: "Distribution state"
+          available: Active
+          are_you_sure_you_want: "Are you sure you want to delete this product?"
+          remove_product: remove
+          cancel: cancel
+          save: save changes
+          view_on_supplier_page: "See product %{terms.supplier.at_article.singular}'s page"
+          product_registry: "Product's registry"
+          selling_unit: "Selling unit"
+          same_from_purchase: "Same from purchase"
+          unit: "Unit"
+          unit_detail: "Unit detail"
+        _edit_line:
+          active: Active
+          inactive: Inactive
+        _form_errors:
+          errors_found: "Errors found:"
+        _price_details:
+          commercialization_act: "Commercialization active"
+          minimum_order: "Minimum order"
+          price: Price
+          unit: Unit
+          unit_specification: "Unit specification"
+        _search:
+          status: Status
+          supplier: "%{terms.supplier.singular.capitalize}"
+          category: Category
+          product: Product
+          margin: Margin
+          price: Price
+          stock: Stock
+          unit: Unit
+          showing_pcount_produc: "Total: %{count} products"
+          we_don_t_have_product: "We don't have products to show."
+        add:
+          title: "Create product"
+          own_product: "Create own product"
+          or_from_a_supplier: 'or from a managed supplier:'
+        index:
+          active: active
+          add_product: "Create product"
+          all_the_categories: "all the categories"
+          all_the_suppliers: "all %{terms.supplier.article.plural}"
+          situation: "distribution situation"
+          anyone: anyone
+          bigger_than_the_stock: "bigger than the stock"
+          change: change
+          default_margin_of_com: "Default margin of commercialization"
+          default_margin_info: "This margin is automatically applied in all the products, but it is possible to stabilish specific margins for certain products."
+          in_any_state: "In any state"
+          inactive: inactive
+          margin: "%{margin} %"
+          no_margin_set: "no margin set"
+          products: Products
+          supplier: "%{terms.supplier.singular.capitalize}"
+          info: "This is list of all the products %{terms.profile.with_which.singular} distribute. The products are divided between active and inactive."
+          the_products: "The products"
+          name: "Nome"
+          whose_qty_available_i: "whose qty. available is"
+          category: "Category"
+          with_the_qualifiers: "with the qualifiers"
+      supplier:
+        _new:
+          title: "Add %{terms.supplier.singular} to %{profile}"
+          intro_help: "Begin to type the name %{terms.supplier.from_article.singular} that you wnat to add. We'll look if %{terms.supplier.article.singular} already exists at %{environment}. In case it doesn't exists, you'll be able to createa type of enterprise that will be visible ONLY %{terms.profile.on_your.singular}, and not at the %{environment}. If %{terms.supplier.this.singular} really wants to join the %{environment}, then it should send a message to %{contact_email} making the order."
+          query_placeholder: "find %{terms.supplier.undefined_article.singular}"
+          search: "Search"
+          none_found: "%{terms.supplier.none.singular} found. Please revise the search text."
+          add: "Add"
+          suggest_creation: "If you don't find %{terms.supplier.article.singular} you can create %{terms.supplier.new_undefined_article.singular} that will be managed %{terms.profile.by_article.singular}. But please find carefully to avoid duplicates!"
+          create_dummy: "Create %{terms.supplier.singular}"
+        _edit:
+          registry_help: "The registry %{terms.supplier.from_article.singular} will be managed by the %{terms.profile.by_article.singular} itself and will be private %{terms.profile.to_it.singular}."
+          abbreviated_name: "Abbreviated name"
+          add_supplier_managed_: "Add %{terms.supplier.singular} managed %{terms.profile.by_article.singular}"
+          additional_fields: "Additional fields"
+          basic_data: "Basic data"
+          cancel: cancel
+          description: Description
+          edit_supplier: "Edit %{terms.supplier.singular}"
+          estrategic_informatio: "Estrategic informations"
+          full_registration: "Full registration"
+          name: Name
+          register_new_supplier: "Register %{terms.supplier.new_undefined_article.singular}"
+          registry_form: "Registry form"
+          save: Save
+        _actions:
+          all: "all"
+          none: "none"
+          select: "select"
+          with_selection: "with selected"
+          activate: "activate"
+          deactivate: "deactivate"
+        _supplier:
+          edit: "Edit"
+          see_page: "See page"
+          see_products: "See products"
+          message: "Message"
+          abreviated_name: "Abreviated Name"
+          actions: Actions
+          among_them: ", among them"
+          any_registered_produc: "any registered product"
+          by_removing_this_supp: "By removing %{terms.supplier.article.singular} all its products won't be available for future cycles. Please confirm you choice"
+          deactivate: "hide %{terms.profile.from_article.singular}"
+          activate: activate
+          edit: edit
+          products_are_active: " produtos estão ativos"
+          products_distributed: " distributed products %{terms.profile.by_article.singular}"
+          products:
+            zero: "no products"
+            one: "1 product"
+            other: "%{count} products"
+          manage_products: "manage products"
+          add_product: "add product"
+          registered_supplier_i: "Registered %{terms.supplier.singular} in the network"
+          disassociate: "disassociate %{terms.profile.from_article.singular}"
+          supplier_profile_product: " registered products"
+          supplier_with_registr: "%{terms.supplier.singular.capitalize} with registry managed by the %{terms.profile.by_article.singular}"
+          this_supplier_has: "This %{terms.supplier.singular} has"
+        _suppliers_list:
+          this_search_didn_t_re: "This search didn't return %{terms.supplier.plural}."
+          any_registered: "%{terms.supplier.none.singular.capitalize} registered."
+        index:
+          add_supplier: "Add %{terms.supplier.singular}"
+          filter: Filter
+          filter_it: Filter
+          name: Name
+          suppliers: "%{terms.supplier.plural.capitalize}"
+          this_is_the_list_of_s: "This is the list of %{terms.supplier.plural} associated %{terms.profile.to_article.singular}. It is possible to associate with existent %{terms.supplier.plural} or register %{terms.supplier.one}."
+
+  orders_cycle_plugin:
+    terms:
+      <<: *suppliers_terms
+
+  consumers_coop_plugin:
+    terms:
+      <<: *suppliers_terms
+      profile: &consumers_coop_term_profile
+        singular: "consumers' coop"
+        plural: "consumers' coop"
+        it:
+          singular: "it"
+          plural: "them"
+        article:
+          singular: "the consumers' coop"
+          plural: "the consumers' coops"
+        undefined_article:
+          singular: "a consumers' coop"
+        by_article:
+          singular: "by the consumers' coop"
+        tO_it:
+          singular: "to it"
+          plural: "to them"
+        to_article:
+          singular: "to the consumers' coop"
+        at_article:
+          singular: "at the consumers' coop"
+        from:
+          singular: "from a consumers' coop"
+        from_article:
+          singular: "from the consumers' coop"
+        from_which_article:
+          singular: "from which the consumers' coop"
+        of:
+          singular: "of consumers' coop"
+          plural: "of consumers' coops"
+        of_article:
+          singular: "of the consumers' coop"
+          plural: "of the consumers' coops"
+        of_this:
+          singular: "of this consumers' coop"
+        of_another:
+          singular: "of another consumers' coop"
+        on_your:
+          singular: "on your consumers' coop"
+        this:
+          singular: "this consumers' coop"
+        with_which:
+          singular: "with which the consumers' coop"
+
+  networks_plugin:
+    terms:
+      <<: *suppliers_terms
+      profile: &networks_term_profile
+        singular: "network"
+        plural: "networks"
+        it:
+          singular: "it"
+          plural: "them"
+        article:
+          singular: "the network"
+          plural: "the networks"
+        undefined_article:
+          singular: "a network"
+        by_article:
+          singular: "by the network"
+        tO_it:
+          singular: "to it"
+          plural: "to them"
+        to_article:
+          singular: "to the network"
+        at_article:
+          singular: "at the network"
+        from:
+          singular: "from a network"
+        from_article:
+          singular: "from the network"
+        from_which_article:
+          singular: "from which the rede"
+        of:
+          singular: "of the network"
+          plural: "of the networks"
+        of_article:
+          singular: "of the network"
+          plural: "of the networks"
+        of_this:
+          singular: "of this network"
+        of_another:
+          singular: "of another network"
+        this:
+          singular: "this network"
+        on_your:
+          singular: "on your network"
+        with_which:
+          singular: "with which the network"
+      supplier:
+        singular: "enterprise"
+        plural: "enterprises"
+        one: "one"
+        it:
+          singular: "it"
+          plural: "them"
+        article:
+          singular: "the enterprise"
+          plural: "the enterprises"
+        undefined_article:
+          singular: "a enterprise"
+        by_article:
+          singular: "by the enterprise"
+        new_undefined_article:
+          singular: "a new enterprise"
+        to:
+          singular: "to a enterprise"
+          plural: "to enterprises"
+        tO_it:
+          singular: "to it"
+          plural: "to them"
+        to_article:
+          singular: "to the enterprise"
+          plural: "to the enterprises"
+        your:
+          singular: "your enterprise"
+          plural: "your enterprises"
+        from:
+          singular: "from enterprise"
+        from_article:
+          singular: "from the enterprise"
+        from_which_article:
+          singular: "from which the enterprise"
+        of:
+          singular: "of enterprise"
+          plural: "of enterprises"
+        of_article:
+          singular: "of the enterprise"
+          plural: "of the enterprises"
+        of_this:
+          singular: "of this enterprise"
+        of_another:
+          singular: "of another enterprise"
+        none:
+          singular: "any enterprise"
+        this:
+          singular: "this enterprise"
+
+en_US:
+  <<: *en-US
+en:
+  <<: *en-US
+

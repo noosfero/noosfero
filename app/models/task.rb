@@ -139,28 +139,6 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def requestor_is_of_kind(klass, message = nil)
-    error_message = message ||= _('Task requestor must be '+klass.to_s.downcase)
-    group = klass.to_s.downcase.pluralize
-    if environment.respond_to?(group) and requestor_id
-      requestor = requestor ||= environment.send(klass.to_s.downcase.pluralize).find_by_id(requestor_id)
-    end
-    unless requestor.class == klass
-      errors.add(error_message)
-    end
-  end
-
-  def target_is_of_kind(klass, message = nil)
-    error_message = message ||= _('Task target must be '+klass.to_s.downcase)
-    group = klass.to_s.downcase.pluralize
-    if environment.respond_to?(group) and target_id
-      target = target ||= environment.send(klass.to_s.downcase.pluralize).find_by_id(target_id)
-    end
-    unless target.class == klass
-      errors.add(error_message)
-    end
-  end
-
   def close(status, closed_by)
     self.status = status
     self.end_date = Time.now

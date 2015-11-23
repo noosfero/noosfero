@@ -1,0 +1,91 @@
+
+.highlights-block {
+  float: left;
+  height: 300px;
+  background: transparent;
+  text-align: center;
+}
+.highlights-block-pager {
+  border: 0;
+  display: inline;
+  padding-right: 5px;
+  float: left;
+  position: static;
+}
+.highlights-block-pager a {
+  text-decoration: none;
+  margin-left: 5px;
+}
+.highlights-block-pager a.activeSlide:visited, .highlights-block-pager a.activeSlide {
+  color: #000;
+}
+.highlights-block a, .highlights-block a:visited {
+  text-decoration: none;
+}
+.highlights-container, .highlights-image-link {
+  height: 270px !important; /* Important is neeeded for Chrome */
+  overflow: hidden;
+  text-align: center;
+}
+.highlights-image-link {
+  width: 100% !important;  /* Important is neeeded for Chrome */
+}
+.highlights-container {
+  width: 99% !important;  /* Important is neeeded for Chrome */
+  border: 1px solid #ccc;
+  background: #000;
+}
+.highlights-label {
+  border: 0;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  background: transparent url(../images/black-alpha-pixel.png);
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 4px 0;
+  left: 0;
+  text-align: left;
+}
+.msie7 .highlights-block, .msie .highlights-block .block-inner-2, .msie .highlights-block .block-inner-1, .msie7 .highlights-border, .msie7 #content #box-1 .highlights-block {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.block-config-options.HighlightsBlock-options {
+  min-width: 450px;
+}
+
+.block-config-options.HighlightsBlock-options .image-data-line select {
+  width: 150px;
+}
+
+.block-config-options.HighlightsBlock-options td {
+  text-align: center;
+}
+
+.block-config-options.HighlightsBlock-options .image-data-line td {
+  padding-top: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title {
+  white-space: nowrap;
+  border-bottom: 1px solid #CCC;
+}
+.block-config-options.HighlightsBlock-options .image-title:last-child {
+  border: none;
+}
+
+.block-config-options.HighlightsBlock-options .image-title td {
+  padding-bottom: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title span {
+  padding-right: 5px;
+}

@@ -12,5 +12,13 @@ for ip in 10.0.2.2 192.168.122.1; do
   fi
 done
 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -qy postfix
+sudo postconf virtual_alias_maps=hash:/etc/postfix/virtual
+sudo tee /etc/postfix/virtual <<EOF
+@localhost.localdomain  vagrant
+EOF
+sudo postmap /etc/postfix/virtual
+sudo service postfix reload
+
 cd /vagrant
 ./script/quick-start

@@ -1,0 +1,12 @@
+<% extend OrdersCyclePlugin::TranslationHelper %>
+
+<div id="cycles-gadget">
+  <% profile.orders_cycles.on_orders.each do |cycle| %>
+    <%= render :partial => 'orders_cycle_plugin_gadgets/cycle', :locals => {:cycle => cycle} %>
+  <% end %>
+
+  <div>
+    <%= link_to t('views.gadgets.cycles.all_cycles'), {:controller => :orders_cycle_plugin_order, :profile => profile.identifier, :action => :index}, :id => "all-cycles" %>
+    <div class='clean'></div>
+  </div>
+</div>

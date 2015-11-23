@@ -1,0 +1,2 @@
+jQuery('#consumer-order-<%=@order.id%>').html(<%= render('orders_cycle_plugin_order/active_order', order: @order, actor_name: @actor_name).to_json %>);
+

@@ -1,0 +1,32 @@
+<% cycles = @open_cycles %>
+
+<div id="cycle-listing" class='admin-page'>
+  <h2><%= t('views.cycle.index.orders_cycles') %></h2>
+
+  <%= link_to t('views.cycle.index.new_cycle'), {:action => :new}, :class => 'cycle-new' %>
+
+  <div id="cycle-open-listing">
+    <h3><%= t('views.cycle.index.open_cycles') %></h3>
+
+    <% if cycles.blank? %>
+      <div class="subtitle"><%= t('views.cycle.index.no_cycles_to_show') %></div>
+    <% else %>
+      <% cycles.each do |cycle| %>
+        <div id="cycle-<%= cycle.id %>" class="cycle cycle-list-item">
+          <%= render 'header', :cycle => cycle, :timeline => true, :actions => false, :listing => true %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="cycle-closed-listing">
+    <h3><%= t('views.cycle.index.closed_cycles') %></h3>
+
+    <%= render "orders_cycle_plugin_shared/filter", :type => :orders_cycle, :wireframe_size => true %>
+
+    <div id="search-results">
+      <%= render 'results' %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,6 @@
+- orders.each do |order|
+  = render 'orders_plugin_admin/order', order: order, actor_name: actor_name, edit: false
+
+= pagination_links orders
+javascript:
+  table_filter.pagination.init(#{_('loading...').to_json})

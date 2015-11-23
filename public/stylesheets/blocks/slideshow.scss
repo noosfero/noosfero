@@ -1,0 +1,64 @@
+
+.slideshow-block .slideshow-container {
+  margin-bottom: 10px;
+}
+.slideshow-block .slideshow-container a {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}
+.slideshow-block .slideshow-container a:hover {
+  text-decoration: none;
+}
+.slideshow-block .slideshow-container div {
+  height: 130px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.slideshow-block .with-descriptions {
+  border: 1px solid #ddd;
+}
+.slideshow-block .image-description {
+  display: block;
+  padding: 10px;
+  height: 34px;
+  overflow: hidden;
+  border-top: 1px solid #ddd;
+  background-color: white;
+  color: black;
+}
+.msie .slideshow-block .slideshow-container div {
+  cursor: pointer;
+}
+.slideshow-block {
+  text-align: center;
+}
+.slideshow-block .slideshow-block-navigation {
+  margin: 8px 0px;
+}
+.slideshow-block .slideshow-block-navigation a {
+  background-color: white;
+  background-repeat: no-repeat;
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-decoration: none;
+  font-variant: small-caps;
+  font-size: 10px;
+}
+.slideshow-block .slideshow-block-navigation a:hover {
+  text-decoration: none;
+  border-color: #999;
+}
+.slideshow-block .slideshow-block-navigation .icon-media-prev {
+  padding-left: 18px;
+  background-position: left;
+}
+.slideshow-block .slideshow-block-navigation .icon-media-next {
+  padding-right: 18px;
+  background-position: right;
+}
+.slideshow-block .slideshow-block-navigation .icon-media-pause, .slideshow-block .slideshow-block-navigation .icon-media-play {
+  background-position: 50% 50%;
+  display: inline-block;
+  width: 16px;
+}

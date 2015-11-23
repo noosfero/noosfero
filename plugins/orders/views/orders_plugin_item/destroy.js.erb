@@ -1,0 +1,3 @@
+jQuery('#order-<%=@order.id%>').replaceWith("<%= j render('orders_plugin_order/show', order: @order, actor_name: @actor_name) %>");
+
+toggle_edit.value_row.reload();

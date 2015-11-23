@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta content="text/html; charset=utf-8" http-equiv="Content-Type"
+    = stylesheet_link_tag 'plugins/orders/style.css'
+
+  body
+    p= t'views.mailer.message_to_consumer_for_order.hello_name', name: @consumer.name
+
+    - if @include_order
+      p= t'views.mailer.message_to_consumer_for_order.the_collective_profile_s',
+            profile: @profile.name,
+            order: link_to(t('views.mailer.message_to_consumer_for_order.order'), controller: :orders_plugin_order, action: :edit, id: @order.id, profile: @profile.identifier)
+
+    p
+      i= @message
+
+    - if @include_order
+      p= t'views.mailer.message_to_consumer_for_order.the_products_in_the_o'
+      = render "orders_plugin_order/show_simple", order: @order, actor_name: :consumer
+
+    p
+      | \--
+      br
+    small style="color: #888" = t'views.mailer.message_to_consumer_for_order.a_service_of_s', environment: @environment.name
+

@@ -9,7 +9,7 @@
               :locals => {
                 :event => event,
                 :block => block,
-                :time_class => days_left < 0 ? 'future' : 'past',
+                :time_class => days_left < 0 ? 'past' : 'future',
                 :time_left_str => block.human_time_left(days_left)
               }
             )

@@ -1,0 +1,69 @@
+= content_for :head do
+  / while we are not responsive
+  = stylesheet_link_tag '/assets/designs/icons/awesome/scss/font-awesome.css'
+
+h3
+  - if @admin_edit
+    = t('views.order._consumer_orders.orders_from_consumer_') % {consumer: @consumer.name}
+  - elsif @consumer and @cycle.orders?
+    = t('views.order._consumer_orders.your_orders_on_this_c')
+    - if @consumer.in? @cycle.profile.members
+      = link_to t('views.order._consumer_orders.new_order'), {action: :new, cycle_id: @cycle.id},
+        class: 'btn btn-default btn-danger fa fa-plus', onclick: "$(this).attr('disabled', '')"
+      - if not @admin_edit and @cycle.consumer_previous_orders(@consumer).present?
+        = link_to t('views.order._consumer_orders.repeat_order'), {action: :repeat, cycle_id: @cycle.id},
+          class: 'modal-toggle btn btn-default btn-danger fa fa-repeat'
+
+- if @order and @order.consumer != @consumer and @admin_edit
+  #order-admin-warning.order-message
+    .order-message-text
+      = t'views.order._consumer_orders.caution', consumer: @consumer.name
+    .order-message-actions
+      = link_to t('views.order._consumer_orders.edit_your_orders'), {action: :edit, cycle_id: @cycle.id}
+      |&emsp;
+      = link_to t('views.order._consumer_orders.administration_of_thi'), {controller: :orders_cycle_plugin_cycle, action: :edit, id: @cycle.id}
+      |&emsp;
+  #order-place-new.admin
+    = link_to t('views.order._consumer_orders.new_order'), {action: :admin_new, consumer_id: @order.consumer.id, cycle_id: @cycle.id} if @cycle.orders?
+- else
+  - if @consumer.nil?
+    - message = t'views.order._consumer_orders.to_place_an_order_you',
+      login: modal_link_to(t('views.order._consumer_orders.login'), login_url, id: 'link_login'),
+      signup: link_to(t('views.order._consumer_orders.sign_up'), controller: 'account', action: 'signup')
+  - else
+    - if @cycle.orders?
+      - if not @admin and not @consumer.in? @cycle.profile.members and @cycle.profile.community?
+        = t'views.order._consumer_orders.associate_to_order'
+        = render 'blocks/profile_info_actions/join_leave_community'
+      - elsif @consumer_orders.count == 0
+        - message = t'views.order._consumer_orders.you_haven_t_placed_an'
+    - elsif @cycle.edition?
+      - message = t'views.order._consumer_orders.this_cycle_is_not_ope'
+    - elsif @cycle.before_orders?
+      - message = t'views.order._consumer_orders.the_time_for_orders_is', start: l(@cycle.start, format: :short), finish: l(@cycle.finish, format: :short)
+    - elsif @cycle.after_orders?
+      - message = t'views.order._consumer_orders.this_cycle_is_already'
+  - if message
+    #order-place-new
+      = message
+.clean
+
+- @consumer_orders.each do |order|
+  - if @order != order and order.current_status == 'cancelled'
+    #show-cancelled-orders
+      = link_to_function t('views.order._consumer_orders.show_cancelled_orders'), "orders_cycle.toggleCancelledOrders()"
+    #hide-cancelled-orders
+      = link_to_function t('views.order._consumer_orders.hide_cancelled_orders'), "orders_cycle.toggleCancelledOrders()", style: 'display:none'
+    - break
+- @consumer_orders.each do |order|
+  - next if @order == order
+  div class=("consumer-order unactive #{order.current_status}") id="consumer-order-#{order.id}"
+    = render 'status', order: order
+    .actions
+      = link_to t('views.order._show.open'), {action: :edit, id: order.id}
+    .clean
+
+/ prints out the referenced order
+- if @order
+  .consumer-order.edit.active-order id="consumer-order-#{@order.id}"
+    = render 'orders_cycle_plugin_order/active_order'

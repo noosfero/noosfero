@@ -1,0 +1,18 @@
+<tr>
+  <td>
+    <%= profile_link_with_image enterprise, :thumb, :target => '_blank' %>
+  </td>
+  <td>
+    <div class="name">
+      <%= link_to enterprise.name, enterprise.url, :target => '_blank' %>
+    </div>
+    <div class="location">
+      <%= city_with_state enterprise.region %>
+    </div>
+  </td>
+  <td>
+    <%= link_to_remote t('views.supplier._new.add'),
+      :url => {:action => :add, :profile => profile.identifier, :id => enterprise.id},
+      :update => "search-results", :html => {:class => 'action-button', data: {loading: '#supplier-add'}} %>
+  </td>
+</tr>

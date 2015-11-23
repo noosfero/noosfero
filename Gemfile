@@ -30,6 +30,7 @@ gem 'rack-contrib'
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
+gem 'sass', '~> 3.1.19'
 
 group :production do
   gem 'dalli', '~> 2.7.0'
@@ -47,7 +48,7 @@ group :cucumber do
   gem 'capybara',               '~> 2.1.0'
   gem 'cucumber',               '~> 1.0.6'
   gem 'database_cleaner',       '~> 1.2.0'
-  gem 'selenium-webdriver',     '~> 2.39.0'
+  gem 'selenium-webdriver',     '~> 2.47.0'
 end
 
 # Requires custom dependencies

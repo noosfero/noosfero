@@ -1,0 +1,42 @@
+
+#assets_menu {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0px 0px 0px 10px;
+  border: none; /* work arround IE Bug */
+  background: transparent; /* work arround IE Bug */
+  width: 150px;
+}
+.msie6 #assets_menu {
+  right: -1px;
+}
+#assets_menu a#open_search {
+  display: block;
+  height: 21px;
+  margin-left: 5px;
+}
+#assets_menu_layout_iten {
+  position: absolute;
+  top: 21px;
+  left: 0px;
+  width: 11px;
+  height: 11px;
+  overflow: hidden;/*background: url(../images/top-bar/assets-menu-top-azul.gif);*/
+}
+#assets_menu_list {
+  padding: 0px 0px 6px 5px;
+  /*background: url(../images/top-bar/assets-menu-bg-azul.gif) 0% 100%;*/
+  background-color: #888;
+}
+#assets_menu ul {
+  margin: 0px;
+  padding: 0px;
+  position: relative; /* work arround IE Bug */
+  overflow: hidden;
+  height: 56px;
+}
+.msie #assets_menu ul {
+  height: 55px;
+}
+

@@ -39,7 +39,10 @@ class ContentViewerController < ApplicationController
     end
 
     # At this point the page will be showed
-    @page.hit unless user_is_a_bot? || already_visited?(@page)
+
+    unless user_is_a_bot? || already_visited?(@page)
+      Noosfero::Scheduler::Defer.later{ @page.hit }
+    end
 
     @page = FilePresenter.for @page
 

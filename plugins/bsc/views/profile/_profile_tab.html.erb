@@ -1,6 +1,0 @@
-<ul>
-  <%= content_tag('li', content_tag('b', _('Contact phone: ')) + profile.contact_phone) if !profile.contact_phone.blank? %>
-  <%= content_tag('li', content_tag('b', _('Email: ')) + profile.contact_email) if !profile.contact_email.blank? %>
-  <%= content_tag('li', content_tag('b', c_('Location: ')) + profile.state) if !profile.state.blank? %>
-  <%= content_tag('li', content_tag('b', c_('Address: ')) + profile.address) if !profile.address.blank? %>
-</ul>

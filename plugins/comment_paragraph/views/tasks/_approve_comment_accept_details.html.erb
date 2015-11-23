@@ -1,0 +1,17 @@
+<p>
+  <b><%= _('Title: ') %></b>
+  <%= task.comment.title %>
+</p>
+<p>
+  <%= task.comment.body %>
+</p>
+
+<% if task.comment.paragraph_uuid.present? %>
+<div>
+  <b><%= _('Paragraph: ') %></b>
+  <div>
+    <% #FIXME save paragraph content in before_save callback %>
+    <%= task.comment.source.comment_paragraph_plugin_paragraph_content(task.comment.paragraph_uuid) %>
+  </div>
+</div>
+<% end %>

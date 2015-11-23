@@ -1,0 +1,2 @@
+= render 'orders_plugin_admin/purchases', actors: @cycle.suppliers, orders_owner: @cycle, owner_id: @cycle.id,
+  orders: @cycle.purchases.default_order.paginate(per_page: 30, page: params[:page])

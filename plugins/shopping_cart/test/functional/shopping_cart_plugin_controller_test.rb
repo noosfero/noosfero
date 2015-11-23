@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/shopping_cart_plugin_controller'
+require 'test_helper'
+require_relative '../../controllers/shopping_cart_plugin_controller'
 
 # Re-raise errors caught by the controller.
 class ShoppingCartPluginController; def rescue_action(e) raise e end; end
@@ -12,7 +12,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
     @profile = fast_create(Enterprise)
     @profile.contact_email = 'enterprise@noosfero.org';@profile.save
-    @product = fast_create(Product, :profile_id => @profile.id)
+    @product = fast_create(Product, profile_id: @profile.id)
   end
   attr_reader :profile
   attr_reader :product
@@ -23,22 +23,22 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'add a new product to cart' do
-    get :add, :id => product.id
+    get :add, id: product.id
 
     assert product_in_cart?(product)
     assert_equal 1, product_quantity(product)
   end
 
   should 'grow quantity through add' do
-    get :add, :id => product.id
+    get :add, id: product.id
     assert_equal 1, product_quantity(product)
 
-    get :add, :id => product.id
+    get :add, id: product.id
     assert_equal 2, product_quantity(product)
   end
 
   should 'not add product to cart if it does not exists' do
-    assert_nothing_raised { get :add, :id => 9999 }
+    assert_nothing_raised { get :add, id: 9999 }
 
     refute product_in_cart?(product)
     refute response_ok?
@@ -46,10 +46,10 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'remove cart if the product being removed is the last one' do
-    get :add, :id => product.id
+    get :add, id: product.id
     assert cart?
 
-    get :remove, :id => product.id
+    get :remove, id: product.id
     refute cart?
   end
 
@@ -57,25 +57,25 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     instantiate_cart
     refute cart?
 
-    assert_nothing_raised { get :remove, :id => 9999 }
+    assert_nothing_raised { get :remove, id: 9999 }
     refute response_ok?
     assert_equal 2, reponse_error_code
   end
 
   should 'just remove product if there are other products on cart' do
-    another_product = fast_create(Product, :profile_id => profile.id)
-    get :add, :id => product.id
-    get :add, :id => another_product.id
+    another_product = fast_create(Product, profile_id: profile.id)
+    get :add, id: product.id
+    get :add, id: another_product.id
 
-    get :remove, :id => product.id
+    get :remove, id: product.id
     assert cart?
     refute product_in_cart?(product)
   end
 
   should 'not try to remove a product that is not in the cart' do
-    get :add, :id => product.id
+    get :add, id: product.id
     assert cart?
-    assert_nothing_raised { get :remove, :id => 9999 }
+    assert_nothing_raised { get :remove, id: 9999 }
 
     refute response_ok?
     assert_equal 4, reponse_error_code
@@ -91,17 +91,17 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'list products without errors' do
-    get :add, :id => product.id
+    get :add, id: product.id
 
     assert_nothing_raised { get :list  }
     assert response_ok?
   end
 
   should 'update the quantity of a product' do
-    get :add, :id => product.id
+    get :add, id: product.id
     assert_equal 1, product_quantity(product)
 
-    get :update_quantity, :id => product.id, :quantity => 3
+    get :update_quantity, id: product.id, quantity: 3
     assert_equal 3, product_quantity(product)
   end
 
@@ -109,36 +109,36 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     instantiate_cart
     refute cart?
 
-    assert_nothing_raised { get :update_quantity, :id => 9999, :quantity => 3 }
+    assert_nothing_raised { get :update_quantity, id: 9999, quantity: 3 }
     refute response_ok?
     assert_equal 2, reponse_error_code
   end
 
   should 'not try to update the quantity of a product that is not in the cart' do
-    get :add, :id => product.id
+    get :add, id: product.id
     assert cart?
-    assert_nothing_raised { get :update_quantity, :id => 9999, :quantity => 3 }
+    assert_nothing_raised { get :update_quantity, id: 9999, quantity: 3 }
 
     refute response_ok?
     assert_equal 4, reponse_error_code
   end
 
   should 'not update the quantity of a product with a invalid value' do
-    get :add, :id => product.id
+    get :add, id: product.id
 
-    assert_nothing_raised { get :update_quantity, :id => product.id, :quantity => -1}
+    assert_nothing_raised { get :update_quantity, id: product.id, quantity: -1}
     refute response_ok?
     assert_equal 5, reponse_error_code
 
-    assert_nothing_raised { get :update_quantity, :id => product.id, :quantity => 'asdf'}
+    assert_nothing_raised { get :update_quantity, id: product.id, quantity: 'asdf'}
     refute response_ok?
     assert_equal 5, reponse_error_code
   end
 
   should 'clean the cart' do
-    another_product = fast_create(Product, :profile_id => profile.id)
-    get :add, :id => product.id
-    get :add, :id => another_product.id
+    another_product = fast_create(Product, profile_id: profile.id)
+    get :add, id: product.id
+    get :add, id: another_product.id
 
     assert_nothing_raised {  get :clean }
     refute cart?
@@ -151,47 +151,44 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   end
 
   should 'register order on send request' do
-    product1 = fast_create(Product, :profile_id => profile.id, :price => 1.99)
-    product2 = fast_create(Product, :profile_id => profile.id, :price => 2.23)
-    @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1, product2.id => 2}})
-    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
-      post :send_request,
-        :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
+    product1 = fast_create(Product, profile_id: profile.id, price: 1.99)
+    product2 = fast_create(Product, profile_id: profile.id, price: 2.23)
+    @controller.stubs(:cart).returns({ profile_id: profile.id, items: {product1.id => 1, product2.id => 2}})
+    assert_difference 'OrdersPlugin::Order.count', 1 do
+      xhr :post, :send_request, order: {consumer_data: {name: "Manuel", email: "manuel@ceu.com"}}
     end
 
-    order = ShoppingCartPlugin::PurchaseOrder.last
+    order = OrdersPlugin::Order.last
 
     assert_equal 1.99, order.products_list[product1.id][:price]
     assert_equal 1, order.products_list[product1.id][:quantity]
     assert_equal 2.23, order.products_list[product2.id][:price]
     assert_equal 2, order.products_list[product2.id][:quantity]
-    assert_equal ShoppingCartPlugin::PurchaseOrder::Status::OPENED, order.status
+    assert_equal 'ordered', order.status
   end
 
   should 'register order on send request and not crash if product is not defined' do
-    product1 = fast_create(Product, :profile_id => profile.id)
-    @controller.stubs(:cart).returns({ :profile_id => profile.id, :items => {product1.id => 1}})
-    assert_difference 'ShoppingCartPlugin::PurchaseOrder.count', 1 do
-      post :send_request,
-        :customer => {:name => "Manuel", :email => "manuel@ceu.com"}
+    product1 = fast_create(Product, profile_id: profile.id)
+    @controller.stubs(:cart).returns({ profile_id: profile.id, items: {product1.id => 1}})
+    assert_difference 'OrdersPlugin::Order.count', 1 do
+      xhr :post, :send_request, order: {consumer_data: {name: "Manuel", email: "manuel@ceu.com"}}
     end
 
-    order = ShoppingCartPlugin::PurchaseOrder.last
+    order = OrdersPlugin::Order.last
 
     assert_equal 0, order.products_list[product1.id][:price]
   end
 
   should 'clean the cart after placing the order' do
-    product1 = fast_create(Product, :profile_id => profile.id)
-    post :add, :id => product1.id
-    post :send_request, :customer => { :name => "Manuel", :email => "manuel@ceu.com" }
+    product1 = fast_create(Product, profile_id: profile.id)
+    post :add, id: product1.id
+    xhr :post, :send_request, order: {consumer_data: {name: "Manuel", email: "manuel@ceu.com"}}
     refute cart?, "cart expected to be empty!"
   end
 
   should 'not allow buy without any cart' do
     get :buy
-    refute json_response[:ok]
-    assert_equal 2, json_response['error']['code']
+    assert_response :redirect
   end
 
   private
@@ -225,8 +222,8 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   # temporary hack...if I don't do this the session stays as an Array instead
   # of a TestSession
   def instantiate_cart
-    get :add, :id => product.id
-    get :remove, :id => product.id
+    get :add, id: product.id
+    get :remove, id: product.id
   end
 
 end

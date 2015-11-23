@@ -11,6 +11,7 @@ Developers
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Alan Freihof Tygel <alantygel@gmail.com>
 Alessandro Palmeira <alessandro.palmeira@gmail.com>
+Alexandre Torres <alexandrekry@gmail.com>
 Alex Campelo <campelo.al1@gmail.com>
 Álvaro Fernando <alvarofernandoms@gmail.com>
 Ana Losnak <analosnak@gmail.com>
@@ -63,6 +64,7 @@ Isaac Canan <isaac@intelletto.com.br>
 Italo Valcy <italo@dcc.ufba.br>
 Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Jérôme Jutteau <j.jutteau@gmail.com>
+Jéssica Cristina <jessica.cris1127@gmail.com>
 João Machini
 João M. M. da Silva <jaodsilv@linux.ime.usp.br>
 Joenio Costa <joenio@colivre.coop.br>
@@ -82,12 +84,14 @@ Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
 Luiz Matos <luizff.matos@gmail.com>
+Marcelo Júnior <maljunior@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Marcos Ronaldo <marcos.rpj2@gmail.com>
 Mariel Zasso <noosfero-br@listas.softwarelivre.org>
 Martín Olivera <molivera@solar.org.ar>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
+Melissa Wen <melissa@colivre.coop.br>
 M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
 Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
@@ -112,9 +116,10 @@ Renan Costa <renan2727@hotmail.com>
 Renan Teruo <renanteruoc@gmail.com>
 Rodrigo Medeiros <rodrigo.mss01@gmail.com>
 Rodrigo Souto <rodrigo@colivre.coop.br>
+Ronnie Simon <ronniesimonf@gmail.com>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
 Samuel R. C. Vale <srcvale@holoscopio.com>
-Simiao Carvalho <simiaosimis@gmail.com>
+Simião Carvalho <simiaosimis@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
 Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Kairala <thiagor.kairala@gmail.com>
@@ -125,6 +130,7 @@ TWS <tablettws@gmail.com>
 Valessio Brito <contato@valessiobrito.com.br>
 Victor Costa <vfcosta@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
+Victor Navarro <victor.matias.navarro@gmail.com>
 Vinicius Cubas Brand <viniciuscb@gmail.com>
 Vitor Barbosa <vitornga15@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>

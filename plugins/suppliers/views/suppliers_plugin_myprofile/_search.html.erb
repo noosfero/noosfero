@@ -1,0 +1,14 @@
+<h2> <%= t('views.supplier._new.title') % {profile: profile.name} %> </h2>
+
+<p> <%= t('views.supplier._new.intro_help') % {environment: environment.name, contact_email: environment.contact_email} %> </p>
+
+<%= form_tag({action: :search, profile: profile.identifier}, remote: true, method: :get, id: 'enterprise-search-form',
+  data: {loading: '#results'}) do %>
+
+  <%= text_field_tag 'query', nil, placeholder: t('views.supplier._new.query_placeholder'),
+    onkeyup: 'suppliers.add.search(this)', autocomplete: 'off', autofill: 'off' %>
+
+  <div id="results">
+  </div>
+
+<% end %>

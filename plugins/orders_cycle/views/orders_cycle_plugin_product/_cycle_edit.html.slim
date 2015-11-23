@@ -1,0 +1,36 @@
+.box-view
+  span.box-field.category= nil
+  span.box-field.supplier= p.supplier.abbreviation_or_name
+  span.box-field.name.box-edit-link= p.name
+  span.box-field.price= price_span p.price_as_currency_number
+  span.box-field.quantity-available= p.quantity_localized || '∞'
+  = edit_arrow "", false, onclick: 'return false;', class: "box-field cycle-product-actions"
+
+.box-edit style=("display: none")
+  = form_for p, as: :product, remote: true, url: {controller: :orders_cycle_plugin_product, action: :cycle_edit, id: p.id } do |f|
+    .cycle-product-line
+      = labelled_field f, :price, t('views.product._cycle_edit.sell_price'), f.number_field(:price, step: 'any', onkeyup: 'orders_cycle.offered_product.pmsync(this, false)', oninput: 'this.onkeyup()')
+      = labelled_field f, :margin_percentage, t('views.product._cycle_edit.margin'), f.number_field(:margin_percentage, step: 'any', onkeyup: "orders_cycle.offered_product.pmsync(this, true);", oninput: 'this.onkeyup()')
+      .clean
+
+    .cycle-product-line
+      = labelled_field f, :original_price, t('views.product._cycle_edit.default_sell_price'), f.number_field(:original_price, step: 'any', disabled: '')
+      = labelled_field f, :original_margin, t('views.product._cycle_edit.default_margin'), f.number_field(:original_margin_percentage, step: 'any', disabled: '')
+      .clean
+
+    .cycle-product-line
+      = labelled_field f, :buy_price, t('views.product._cycle_edit.buy_price'), f.number_field(:buy_price, step: 'any', disabled: '')
+      = labelled_field f, :buy_unit, t('views.product._cycle_edit.buy_unit'), text_field_tag(:buy_unit, p.buy_unit.singular, disabled: '')
+      = labelled_field f, :sell_unit, t('views.product._cycle_edit.sell_unit'), text_field_tag(:sell_unit, p.sell_unit.singular, disabled: '')
+      .clean
+
+    = f.submit t('views.product._cycle_edit.save')
+    |&emsp;
+    = link_to_function t('views.product._cycle_edit.cancel_updates'), 'toggle-edit' => ''
+    |&emsp;
+    = link_to t('views.product._cycle_edit.remove_from_cycle'), {controller: :orders_cycle_plugin_product, action: :cycle_destroy, id: p.id }, remote: true, data: {update: "#cycle-product-#{p.id}", confirm: if p.items.blank? then nil else t('views.product._cycle_edit.all_ordered_products') end}
+    |&emsp;
+    = link_to t('views.product._cycle_edit.edit_product'), {controller: :manage_products, action: :show, id: p.id}, target: '_blank'
+    |&emsp;
+  .clean
+.clean

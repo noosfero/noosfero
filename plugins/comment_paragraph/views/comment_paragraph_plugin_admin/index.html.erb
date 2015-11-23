@@ -1,0 +1,25 @@
+<div class="comment-paragraph-plugin-settings">
+  <h1><%= _("Comment Paragraph Plugin Settings") %></h1>
+
+  <%= form_for(:settings) do |f| %>
+
+    <div class="activation-mode">
+      <h4><%= _('Activation Mode') %></h4>
+      <div class="auto">
+        <%= f.radio_button(:activation_mode, 'auto') %>
+        <span class="name"><strong><%= _('Auto') %></strong></span>
+        <span class="detail"><%= _('(all text articles will be activated by default)') %></span>
+      </div>
+      <div class="manual">
+        <%= f.radio_button(:activation_mode, 'manual') %>
+        <span class="name"><strong><%= _('Manual') %></strong></span>
+        <span class="detail"><%= _('(click on "Activate Comment Paragraph" )') %></span>
+      </div>
+    </div>
+
+    <% button_bar do %>
+      <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+    <% end %>
+
+  <% end %>
+</div>

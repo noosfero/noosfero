@@ -4,7 +4,7 @@
 
 <table>
   <tr>
-    <th><%= c_('Configuration') %></th>
+    <th><%= _('LDAP Configuration') %></th>
     <th><%= _('Value') %></th>
   </tr>
   <tr>
@@ -43,7 +43,8 @@
 
 <table>
   <tr>
-    <th colspan='2'> <%= _('Attributes') %> </th>
+    <th><%= _('Attributes') %></th>
+    <th><%= _('LDAP Field') %></th>
   </tr>
   <tr>
     <td><%= c_('Login') %></td>
@@ -56,6 +57,18 @@
   <tr>
     <td><%= _('Mail') %></td>
     <td><%= text_field :environment, :ldap_plugin_attr_mail %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th><%= _('Behaviour Configuration') %></th>
+  </tr>
+  <tr>
+    <td><label>
+      <%= check_box :environment, :ldap_plugin_allow_password_recovery, {}, '1', '0' %>
+      <%= _('Allow password recovery') %>
+    </label></td>
   </tr>
 </table>
 

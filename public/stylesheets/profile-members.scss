@@ -1,0 +1,58 @@
+.profile-members-tabs-container .ui-corner-all {
+  overflow: auto;
+}
+
+.controller-profile_members .no-boxes {
+  margin: 30px
+}
+.controller-profile_members #users-list {
+  float: left;
+  padding: 10px 4px 10px 10px;
+}
+.controller-profile_members .msie6 #users-list {
+  position: relative;
+}
+.controller-profile_members #users-list a.icon-add {
+  float: right;
+}
+.controller-profile_members .msie #users-list a.icon-add {
+  display: block;
+}
+.controller-profile_members .draggable-user {
+  cursor: move;
+}
+.controller-profile_members #members-list.add-members {
+  float: right;
+  width: 30%;
+  text-align: center;
+}
+.controller-profile_members .members-buttons-cell {
+  width: 60px;
+}
+.controller-profile_members .msie .members-buttons-cell a {
+  position: relative;
+  display: block;
+  float: left;
+}
+
+.actions .members-buttons-cell {
+  width : 100px
+}
+
+.controller-profile_members .msie6 .button-bar a {
+  position: relative;
+}
+.controller-profile_members table {
+  text-align: left;
+}
+.controller-profile_members #mailing-form .formfield textarea, .controller-profile_members #mailing-form .type-text input {
+  width: 100%;
+}
+#last-admin-message {
+  background-color: #CCC;
+  color: #000;
+  font-size: 14px;
+  padding: 20px 15px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}

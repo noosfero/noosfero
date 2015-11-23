@@ -93,6 +93,7 @@ s/Francisco Marcelo A. Lima Júnior <francisco.lima-junior@serpro.gov.br>/Franci
 s/Francisco Marcelo de Araujo Lima Junior <79350259591@serpro-1457614.(none)>/Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>/
 s/Francisco Marcelo de Araújo Lima Júnior <maljunior@gmail.com>/Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>/
 
+s/navarro1703@gmail.com$/&>/
 
 s/Gustavo Cruz <darksshades@hotmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
 s/Gustavo Jaruga <darksshades@hotmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
@@ -111,6 +112,8 @@ s/Jefferson Fernandes <caio.csalgado@gmail.com>/Jefferson Fernandes <jeffs.ferna
 s/Jefferson Fernandes <diegoamc90@gmail.com>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 s/Jefferson Fernandes <jaodsilv@linux.ime.usp.br>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 s/Jefferson Fernandes <rr.manzo@gmail.com>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
+
+s/Jessica Cristina/Jéssica Cristina/
 
 # no known email
 s/João Machini <diegoamc90@gmail.com>/João Machini/
@@ -156,6 +159,7 @@ s/Lucas Melo <lucas@colivre.coop.br>/Lucas Melo <lucaspradomelo@gmail.com>/
 s/Luciano <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>/
 s/Luciano Prestes <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>/
 s/Luciano Prestes Cavacanti <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>/
+s/luciano@luciano.luciano/lucianopcbr@gmail.com/
 
 s/Marcos da Silva Ramos <ms.ramos@outlook.com>/Marcos Ramos <ms.ramos@outlook.com>/
 s/Marcos Ramos <ms.ramos@outlook.com$/Marcos Ramos <ms.ramos@outlook.com>/
@@ -208,7 +212,11 @@ s/Renan Teruo <jaodsilv@linux.ime.usp.br>/Renan Teruo <renanteruoc@gmail.com>/
 
 s/Rodrigo Souto$/Rodrigo Souto <rodrigo@colivre.coop.br>/
 
-/root <root@debian.sdr.serpro>/d
+/root <root@debian.sdr.serpro/d
+/root <root@17edebf1ae91/d
+
+s/Simiao Carvalho/Simião Carvalho/
+s/simiaosims@gmail.com/simiaosimis@gmail.com/
 
 s/Tales Martins <tales.martins@gmail.com>/Tallys Martins <tallysmartins@yahoo.com.br>/
 s/Tallys Martins <tallysmartins@gmail.com>/Tallys Martins <tallysmartins@yahoo.com.br>/
@@ -221,9 +229,12 @@ s/Valessio Brito <contato@valessiobrito.info>/Valessio Brito <contato@valessiobr
 s/Valessio Brito <valessio@gmail.com>/Valessio Brito <contato@valessiobrito.com.br>/
 /Visita <visita@debian.(none)>/d
 
+s/vitorbaraujo/Vitor Barbosa/
 s/Vítor Barbosa/Vitor Barbosa/
 s/vitormga15@gmail.com/vitornga15@gmail.com/
 
 s/vfcosta <vfcosta@gmail.com>/Victor Costa <vfcosta@gmail.com>/
 s/Victor Carvalho <victorhugodf.ac@gmail.com>/Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>/
+
+s/Victor Matias Navarro/Victor Navarro/
 

@@ -114,7 +114,7 @@ class Event < Article
   end
 
   def duration
-    (((self.end_date || self.start_date) - self.start_date).to_i/60/60/24)
+    (((self.end_date || self.start_date) - self.start_date).to_i/60/60/24) + 1
   end
 
   alias_method :article_lead, :lead

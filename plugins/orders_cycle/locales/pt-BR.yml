@@ -1,0 +1,257 @@
+pt-BR: &pt-BR
+
+  orders_cycle_plugin:
+    lib:
+      plugin:
+        name: "Ciclo de pedidos"
+        description: "Criar e administrar ciclos de pedidos"
+      ext:
+        orders_plugin:
+          order:
+            cyclecode_ordercode: "%{cyclecode}.%{ordercode}"
+      mailer:
+        order_was_changed: "[%{profile}] Seu pedido foi modificado"
+      order_block:
+        distribution_orders_c: "Ciclos de pedidos para os(as) consumidores(as)"
+        offer_cycles_for_you_: "Ciclo de oferta para os(as) consumidores(as) fazerem pedidos"
+        orders_cycles: "Ciclos de pedidos"
+    controllers:
+      myprofile:
+        message_controller:
+          message_sent: "A mensagem foi enviada"
+        product_controller:
+          product_removed_from_: "Produto removido do ciclo"
+          product_removed_succe: "Produto removido com sucesso"
+          the_product_was_not_r: "O produto não foi removido"
+        cycle_controller:
+          cycle_created: "Ciclo criado"
+          cycle_n_n: "Ciclo n.%{n}"
+          new_open_cycle: "Novo ciclo aberto"
+
+    models:
+      cycle:
+        code_name: "%{code}. %{name}"
+        delivery_period_befor: "Período de entrega antes do período de pedidos"
+        invalid_delivery_peri: "Período de entrega inválido"
+        invalid_orders_period: "Período de pedidos inválido"
+        statuses:
+          edition: Edição
+          orders: Pedidos
+          purchases: Compras
+          receipts: Recebimentos
+          separation: Separação
+          delivery: Entrega
+          closing: Fechamento
+    views:
+      gadgets:
+        _cycle:
+          happening: Acontecendo
+          orders_open_b_cycle: "Pedidos abertos: <b>%{cycle}</b>"
+          place_an_order: "place an order"
+          see_orders_cycle: "Ver ciclo de pedidos"
+        cycles:
+          all_cycles: "todos ciclos"
+      mailer:
+        open_cycle:
+          a_new_cycle_is_open_c: "Um novo ciclo de pedidos está aberto chamado "
+          hello_member_of_name: "Olá membros da comunidade %{name}!"
+          the_administrator_let: "A/O administrador(a) deixou uma mensagem sobre este ciclo"
+          the_cycle_description: "A descrição do ciclo é.."
+      order:
+        _consumer_orders:
+          caution: "<strong>Cuidado</strong>, voce está editando os pedidos de \"%{consumer}\". É preferível fazer pequenas edições pela administração do ciclo. Desta forma, a pessoa será propriamente avisada das mudanças. Nós recomendamos que esta página seja usada somente se você está fazendo o pedido para outra pessoa."
+          show_cancelled_orders: "mostrar pedidos cancelados"
+          hide_cancelled_orders: "esconder pedidos cancelados"
+          administration_of_thi: "Administração deste ciclo"
+          before_the_closing: "(antes do fechamento)"
+          change_order: "Reabrir o pedido"
+          edit_your_orders: "Edite seus pedidos"
+          login: login
+          new_order: "Novo pedido"
+          repeat_order: "Repetir pedido"
+          orders_from_another_m: "Orders from another member"
+          orders_from_consumer_: "Pedidos de \"%{consumer}\" neste ciclo"
+          send_message_to_the_m: "Enviar mensagem para gestores"
+          sign_up: registre-se
+          this_cycle_is_already: "Este ciclo já foi fechado."
+          this_cycle_is_not_ope: "Este ciclo ainda não está aberto."
+          the_time_for_orders_is: "O período de pedidos para esse ciclo é de %{start} até %{finish}"
+          to_place_an_order_you: "Para fazer um pedido você precisa estar logado e registrado %{terms.profile.at_article.singular}. Por favor faça %{login} ou %{signup}."
+          you_haven_t_placed_an: "Você ainda não fez pedidos neste ciclo."
+          you_still_can: "Você ainda pode:"
+          your_order_is_confirm: "Seu pedido está confirmado e registrado. Por favor, siga as diretrizes do método de entrega abaixo para que isso aconteça sem problemas."
+          your_order_was_cancel: "Seu pedido foi cancelado"
+          your_order_wasn_t_con: "Seu pedido não foi confirmado e o período de pedidos terminou."
+          your_orders_on_this_c: "Seus pedidos neste ciclo"
+          associate_to_order: "Associe-se para realizar pedidos"
+        _filter_products:
+          active: Ativo
+          all_the_categories: "todas as categorias"
+          all_the_suppliers: "todos %{terms.supplier.article.plural}"
+          and_being: "e que estejam"
+          anyone: anyone
+          bigger_than_the_stock: "maior do que o estoque"
+          filter: Filtro
+          in_any_state: "Em qualquer estado"
+          inactive: Inativo
+          product_name: "Nome do produto"
+          supplier: "%{terms.supplier.singular.capitalize}"
+          whose_qty_available_i: "cuja quantidade disponível é"
+        _status:
+          code_status_message: "%{code} %{status_message}"
+          open_it: abrir
+        index:
+          code: "%{code}."
+          orders_cycles: "Ciclos de pedidos"
+          place_an_order: "Faça um pedido"
+          place_another_order: "Faça um outro pedido"
+          there_s_no_open_sessi: "Nã há ciclos abertos"
+          your_orders: "Seus pedidos:"
+      product:
+        _order_edit:
+          add: Adicionar
+          cancel: Cancelar
+          change: Mudar
+          city: Cidade
+          city_state: "%{city}/%{state}"
+          include: Incluir
+          more_about_the_produc: "Mais sobre o produtor \"%{supplier}\""
+          no_description: "Sem Descrição"
+          opening_new_order_for: "Abrindo novo pedido para a inclusão do produto."
+          opening_order_code_fo: "Abrindo pedido %{code} para a inclusão do produto"
+          price_percent_price_w: "%{price} + %{percent}% = %{price_with_margin}"
+          price_s_descriptive: "descrictivo do preço"
+          product_image: "Imagem do produto"
+        _order_search:
+          order_qty: "Qtd pedida"
+          category: Categoria
+          producer: Produtor
+          price: Preço
+          product: Produto
+          this_search_hasn_t_re: "Esta busca não retornou produtos"
+        _cycle_edit:
+          all_ordered_products: "Todos pedidos deste produto serão removidos também; você deveria primeiro avisar os(as) consumidores(as) que pediram esse produto."
+          buy_price: "Preço de compra"
+          buy_unit: "Unidade de compra"
+          cancel_updates: "Cancelar atualizações"
+          default_margin: "Margem padrão"
+          default_sell_price: "Preço de venda padrão"
+          edit_product: "Editar produto"
+          margin: Margem
+          qty_in_stock: "Qtd em estoque"
+          qty_offered: "Qtd oferecida"
+          remove_from_cycle: "Remover do ciclo"
+          save: Salvar
+          sell_price: "Preço de venda:"
+          sell_unit: "Unidade de venda"
+      cycle:
+        _brief:
+          confirmed_orders:
+            zero: "(nenhum pedido confirmado)"
+            one: "(1 pedido confirmado)"
+            other: "(%{count} pedidos confirmados)"
+          code: "%{code}."
+          delivery: Entrega
+          orders: Pedidos
+        _closed:
+          cycle_already_finishe: "Ciclo já fechado"
+        _edit_fields:
+          add_method: "Adicionar método"
+          add_all_methods: "(adicionar todos)"
+          available_delivery_me: "Métodos de entrega disponíveis"
+          cancel_changes: "cancelar alterações"
+          remove: "remover"
+          confirm_remove: "Tem certeza de que quer remover este ciclo?"
+          create_new_cycle: "Criar novo ciclo de pedidos"
+          deliveries_interval: "Intervalo das Entregas"
+          description: Descrição
+          general_settings: "Configurações gerais"
+          name: Nome
+          notify_members_of_ope: "Avisar os(as) consumidores(as) da abertura de pedidos"
+          opening_message: "Mensagem de abertura"
+          orders_interval: "Intervalo dos Pedidos"
+          save: Salvar
+          save_and_open_orders: Salvar e abrir pedidos
+          create_and_open_orders: Criar e abrir pedidos
+          this_message_will_be_: "Esta mensagem será mandada por email aos(às) consumidores(as) %{terms.profile.from_article.singular}"
+        _edit_popin:
+          close: Fechar
+          cycle_editing: "Edição de ciclo"
+          cycle_saved: "Ciclo salvo"
+        _edition:
+          info: "O tempo de edição deste ciclo acabou e ele ainda está público.<br/><br/> Ainda é possível editar alguns parametros do ciclo através desta página, no entanto, esteja ciente do risco. Algumas operações têm diferentes implicações dependendo da fase em que se está. Quando assim for, você será avisado por uma janelinha de aviso das consequências das mudanças efetuadas."
+          add_product: "Adicionar produto"
+          it_was_automatically_: "Ela foi automaticamente gerada a partir dos produtos ativos e suas respectivas margens. Verifique a lista de produtos e edite-a conforme as necessidades e particularidades deste ciclo de pedidos."
+          the_following_list_of: "A seguinte lista de produtos está disponível neste ciclo."
+          the_products: "Os produtos"
+        _products_loading: "Os produtos estão sendo carregados no ciclo."
+        _orders:
+          header_help: "Nesta etapa são recebidos os pedidos %{terms.consumer.from_article.plural}, e é possível supervisioná-los se por acaso existe algum erro mais grave."
+          the_orders_period_is_: "O período de pedidos está ainda aberto, tome cuidado ao editar os pedidos abertos. Isso pode confundir os usuários."
+          already_closed: "O período de pedidos já foi fechado, Não é possível editar os pedidos originais. Na fase de redistribuição é possível editar o pedido, e também antes da entrega."
+        _purchases:
+          header_help: "Nesta etapa, com base nos pedidos recebidos, são feitas as compras de cada um %{terms.supplier.of_article.plural} para suprir a demanda de todos os pedidos."
+        _receipts:
+          header_help: "Nesta etapa são registradas os recebimentos das compras e são editadas quaisquer discrepâncias que possam existir."
+        _separation:
+          header_help: "Nesta etapa cada pedido é separado de acordo com a disponibilidade dos produtos encomendados que chegaram."
+        _delivery:
+          header_help: "Nesta etapa são registradas as entregas %{terms.consumer.to_article.plural}. Este é o momento de registrar as mudanças em relação ao que foi separado."
+        _product_lines:
+          category: Categoria
+          price: Preço
+          product: Produto
+          qty_avail: "Qtd. dispon."
+          showing_pcount_produc: "Mostrando %{pcount} produtos de %{allpcount}"
+          supplier: "%{terms.supplier.singular.capitalize}"
+        _results:
+          no_cycles_to_show: "Sem ciclos a mostrar"
+        _timeline:
+          are_you_sure_you_want_to_reopen: "Tem certeza de que deseja reabrir o ciclo de pedidos?"
+          are_you_sure_you_want_to_close: "Tem certeza de que deseja encerrar a etapa %{status}?"
+          call: Call
+          close: Fechar
+          close_status: "Encerrar %{status}"
+          finish_cycle_editing: "Abrir pedidos do ciclo"
+          reopen_orders_period: "Reabrir ciclo de pedidos"
+        _title:
+          new_cycle: "Novo ciclo"
+          order_cycle: "Ciclo de pedidos: "
+        _view_dates:
+          delivery: "Entrega: "
+          happening: Acontecendo
+          orders: "Pedidos: "
+        _view_header:
+          ? ", "
+          : ", "
+          all_orders_cycles: "Todos ciclos abertos"
+          orders_cycle_cycle: "Ciclo de pedidos: %{cycle}"
+          other_open_cycles_lis: "Outros ciclos abertos: %{list}. Veja também %{all}"
+          see_also_all: "Veja também %{all}"
+        _view_products:
+          the_products: "Os produtos"
+        add_products:
+          add_all_missing_produ: "adicionar todos produtos que faltam %{terms.profile.to_article.singular}"
+          add_product_to_cycle_: "Adicionar produto à lista de produtos distribuídos"
+          cancel: Cancelar
+          close: Fechar
+          or: ou
+          search_for_a_product_: "Busca por um produto em nossos produtos"
+          send: Enviar
+          type_in_a_name: "Escreva um nome"
+          you_already_have_all_: "Todos seus produtos distribuídos já foram adicionados"
+        index:
+          and_are_from_the_mont: "e que sejam do mês de"
+          closed_cycles: "Ciclos de pedidos fechados"
+          filter: Filtro
+          new_cycle: "Novo ciclo"
+          no_cycles_to_show: "Sem ciclos a mostrar"
+          open_cycles: "Ciclos de pedidos Abertos"
+          orders_cycles: "Ciclo de pedidos"
+          show_cycles_from_year: "Mostre os ciclos do ano"
+
+pt_BR:
+  <<: *pt-BR
+pt:
+  <<: *pt-BR
+

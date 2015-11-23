@@ -1,0 +1,15 @@
+<%= pagination_links suppliers %>
+
+<% if suppliers.empty? %>
+  <% if @is_search %>
+    <strong><%= t('views.supplier._suppliers_list.this_search_didn_t_re') %></strong>
+  <% else %>
+    <strong><%= t('views.supplier._suppliers_list.any_registered') %></strong>
+  <% end %>
+<% else %>
+  <% suppliers.each do |supplier| %>
+    <div id="supplier-<%=supplier.id%>" class="supplier value-row <%= 'supplier-inactive' unless supplier.active %>" without-hover without-click-edit toggle-edit='suppliers.toggle_edit();'>
+      <%= render :partial => 'suppliers_plugin_myprofile/supplier', :object => supplier %>
+    </div>
+  <% end %>
+<% end %>

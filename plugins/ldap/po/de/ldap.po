@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -38,6 +38,10 @@ msgstr "Die Konfiguration konnte nicht gespeichert werden"
 #, fuzzy
 msgid "Ldap Management"
 msgstr "Inhalt verwalten"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:7
+msgid "LDAP Configuration"
+msgstr ""
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
 msgid "Value"
@@ -83,17 +87,30 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:53
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:47
+#, fuzzy
+msgid "LDAP Field"
+msgstr "Filter"
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:54
 #, fuzzy
 msgid "Fullname"
 msgstr "Vollständiger Name"
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:57
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:58
 #, fuzzy
 msgid "Mail"
 msgstr "E-Mail"
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:65
+msgid "Behaviour Configuration"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:70
+msgid "Allow password recovery"
+msgstr ""
+
+#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:78
 #, fuzzy
 msgid "Back to plugins administration panel"
 msgstr "Zurück zum Adminfeld"

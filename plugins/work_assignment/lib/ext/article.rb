@@ -13,7 +13,13 @@ class Article
   end
 
   def work_assignment_change_visibility
-    if self.parent && self.parent.parent && self.parent.parent.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+    if WorkAssignmentPlugin.is_submission?(self)
+      related_work_assignment = self.parent.parent
+
+      if(!related_work_assignment.publish_submissions)
+        self.show_to_followers = false
+      end
+
       self.published = self.parent.published
     end
   end

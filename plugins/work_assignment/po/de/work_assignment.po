@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-02-23 11:34+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -92,8 +92,8 @@ msgid "Default email message:"
 msgstr ""
 
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:5
-msgid "Publish submissions"
-msgstr "Beiträge veröffentlichen"
+msgid "The submissions can be viewed by anyone"
+msgstr ""
 
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"
@@ -108,3 +108,6 @@ msgstr ""
 #: plugins/work_assignment/views/cms/_notify_text_field.html.erb:3
 msgid "Send notification to: "
 msgstr ""
+
+#~ msgid "Publish submissions"
+#~ msgstr "Beiträge veröffentlichen"

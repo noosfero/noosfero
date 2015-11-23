@@ -1,0 +1,22 @@
+#supplier-our-products
+  h2= t'views.product.index.products'
+  div
+    .subtitle= t'views.product.index.info'
+
+    h3= t'views.product.index.default_margin_of_com'
+    .subtitle= t'views.product.index.default_margin_info'
+    span#profile-margin-percentage
+      span class="#{profile.margin_percentage.blank? ? 'none' : 'set'}"
+        = (if profile.margin_percentage_localized then t'views.product.index.margin', margin: profile.margin_percentage_localized else t'views.product.index.no_margin_set' end)
+      |&nbsp;
+      = modal_link_to t('views.product.index.change'), {controller: :suppliers_plugin_myprofile, action: :margin_change}
+
+  br
+  = link_to t('views.product.index.add_product'), {controller: 'suppliers_plugin/product', action: :add}, class: 'btn btn-default btn-xs modal-toggle'
+
+  = render 'suppliers_plugin/shared/filter', type: :product
+  = render 'suppliers_plugin/product/actions'
+
+  #search-results
+    = render 'suppliers_plugin/product/search'
+

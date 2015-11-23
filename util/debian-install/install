@@ -93,7 +93,7 @@ fi
 
 apt-get update
 apt-get dist-upgrade -qy
-apt-get install -qy postgresql
+apt-get install -qy postgresql postfix
 
 apt-cache policy noosfero
 apt-get install -qy noosfero noosfero-apache

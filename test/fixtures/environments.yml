@@ -3,6 +3,7 @@ colivre_net:
   id: 1
   name: 'Colivre.net'
   contact_email: 'colivre@localhost.localdomain'
+  noreply_email: 'noreply@localhost.localdomain'
   is_default: true
   theme: 'noosfero'
 anhetegua_net:
@@ -10,3 +11,4 @@ anhetegua_net:
   name: 'Anheteguá'
   is_default: false
   contact_email: 'anhetegua@localhost.localdomain'
+  noreply_email: 'noreply@localhost.localdomain'

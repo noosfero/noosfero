@@ -484,6 +484,7 @@ div#notice {
 #content .profile-list-block ul,
 #content .enterprises-block ul,
 #content .communities-block ul,
+#content .favorite-enterprises-block ul,
 #content .fans-block ul {
   min-width: 196px;
   width: 192px;
@@ -499,15 +500,14 @@ div#notice {
   display: block;
 }
 
+.block-footer-content {
+  text-align: center;
+  padding-top: 3px;
+}
+
 .block-footer-content a.view-all {
-  position: absolute;
-  top: 2px;
-  right: 0px;
   font-size: 11px;
   color: #000;
-  text-decoration: none;
-  padding-right: 15px;
-  background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
 }
 
 #content .profile-list-block .block-title {
@@ -642,7 +642,6 @@ div#notice {
   border-radius-topright: 0px;
   border-radius-bottomright: 0px;
   background-color: #cecece;
-  width: 100%;
   border-right: 2px solid #555753;
 }
 

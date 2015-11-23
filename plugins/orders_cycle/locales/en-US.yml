@@ -1,0 +1,259 @@
+en-US: &en-US
+
+  orders_cycle_plugin:
+    lib:
+      plugin:
+        name: "Orders' Cycle"
+        description: "Create and manage orders' cycle"
+      ext:
+        orders_plugin:
+          order:
+            cyclecode_ordercode: "%{cyclecode}.%{ordercode}"
+      mailer:
+        profile_subject: "[%{profile}] %{subject}"
+        order_was_changed: "[%{profile}] Your order was modificado"
+      order_block:
+        distribution_orders_c: "Distribution orders' cycles for consumers"
+        offer_cycles_for_you_: "Offer cycles for you consumers to make orders"
+        orders_cycles: "Orders' cycles"
+    controllers:
+      myprofile:
+        message_controller:
+          message_sent: "Message sent"
+        product_controller:
+          product_removed_from_: "Product removed from cycle"
+          product_removed_succe: "Product removed successfully"
+          the_product_was_not_r: "The product was not removed"
+        cycle_controller:
+          cycle_created: "Cycle created"
+          cycle_n_n: "Cycle n.%{n}"
+          new_open_cycle: "New open cycle: "
+
+    models:
+      cycle:
+        code_name: "%{code}. %{name}"
+        delivery_period_befor: "Delivery' period before orders' period"
+        invalid_delivery_peri: "Invalid delivery' period"
+        invalid_orders_period: "Invalid orders' period"
+        statuses:
+          edition: Edition
+          orders: Orders
+          purchases: Purchases
+          receipts: Receipts
+          separation: Separation
+          delivery: Delivery
+          closing: Closing
+    views:
+      gadgets:
+        _cycle:
+          happening: Happening
+          orders_open_b_cycle: "Orders open: <b>%{cycle}</b>"
+          place_an_order: "place an order"
+          see_orders_cycle: "see orders' cycle"
+        cycles:
+          all_cycles: "all cycles"
+      mailer:
+        open_cycle:
+          a_new_cycle_is_open_c: "A new cycle is open called "
+          hello_member_of_name: "Hello consumer of %{name},"
+          the_administrator_let: "The administrator let a message about this cycle"
+          the_cycle_description: "The cycle description is.."
+      profile:
+      order:
+        _consumer_orders:
+          caution: "<strong>Caution</strong>, you are editing the orders of \"%{consumer}\". It is preferable to make small editions through the cycle's administration, this way the person will be properly warned of the updates. We recommend using this page only if you're doing the order for another person."
+          show_cancelled_orders: "show cancelled orders"
+          hide_cancelled_orders: "hide cancelled orders"
+          administration_of_thi: "Administration of this cycle"
+          before_the_closing: "(before the closing)"
+          change_order: "reopen order"
+          edit_your_orders: "Edit your orders"
+          login: login
+          new_order: "New order"
+          repeat_order: "Repetir order"
+          orders_from_another_m: "Orders from another consumer"
+          orders_from_consumer_: "Orders from \"%{consumer}\" on this cycle"
+          send_message_to_the_m: "send message to the managers"
+          sign_up: "sign up"
+          this_cycle_is_already: "This cycle is already closed."
+          this_cycle_is_not_ope: "This cycle is not open yet."
+          the_time_for_orders_is: "The orders' period for this cycle is from %{start} to %{finish}"
+          to_place_an_order_you: "To place an order you need to be logged in and registered %{terms.profile.at_article.singular}. Please %{login} or %{signup}."
+          you_haven_t_placed_an: "You haven't placed any order on this cycle yet."
+          you_still_can: "You still can:"
+          your_order_is_confirm: "Your order is confirmed and registered. Please follow the guidelines of the delivery method below, so that it happens without problems."
+          your_order_was_cancel: "Your order was cancelled."
+          your_order_wasn_t_con: "Your order wasn't confirmed and the cycle orders period already ended."
+          your_orders_on_this_c: "Your orders on this cycle"
+          associate_to_order: "Associate to make orders"
+        _filter_products:
+          active: active
+          all_the_categories: "all the categories"
+          all_the_suppliers: "all %{terms.supplier.article.plural}"
+          and_being: "and being"
+          anyone: anyone
+          bigger_than_the_stock: "bigger than the stock"
+          filter: Filter
+          in_any_state: "In any state"
+          inactive: inactive
+          product_name: "Product Name"
+          supplier: "%{terms.supplier.singular.capitalize}"
+          whose_qty_available_i: "whose qty. available is"
+        _status:
+          code_status_message: "%{code} %{status_message}"
+          open_it: "open it"
+        index:
+          code: "%{code}."
+          orders_cycles: "Orders' cycles"
+          place_an_order: "Place an order"
+          place_another_order: "Place another order"
+          there_s_no_open_sessi: "There's no open cycle"
+          your_orders: "Your orders:"
+      product:
+        _order_edit:
+          add: Add
+          cancel: cancel
+          change: Change
+          city: City
+          city_state: "%{city}/%{state}"
+          include: include
+          more_about_the_produc: "More about the producer \"%{supplier}\""
+          no_description: "No description"
+          opening_new_order_for: "Opening new order for your product inclusion"
+          opening_order_code_fo: "Opening order %{code} for your product inclusion"
+          price_percent_price_w: "%{price} + %{percent}% = %{price_with_margin}"
+          price_s_descriptive: "price's descriptive"
+          product_image: "Product Image"
+        _order_search:
+          order_qty: "Order qty"
+          category: Category
+          producer: Producer
+          price: Price
+          product: Product
+          this_search_hasn_t_re: "This search hasn't returned any product"
+        _cycle_edit:
+          all_ordered_products: "All ordered products from this product will also be removed; you should first warn consumers that ordered this products"
+          buy_price: "Buy price"
+          buy_unit: "Buy unit"
+          cancel_updates: "cancel updates"
+          default_margin: "Default margin"
+          default_sell_price: "Default sell price"
+          edit_product: "edit product"
+          margin: Margin
+          qty_in_stock: "Qty. in stock"
+          qty_offered: "Qty. offered"
+          remove_from_cycle: "remove from cycle"
+          save: Save
+          sell_price: "Sell price"
+          sell_unit: "Sell unit"
+      cycle:
+        _brief:
+          confirmed_orders:
+            zero: "(no confirmed orders)"
+            one: "(1 confirmed order)"
+            other: "(%{count} confirmed orders)"
+          code: "%{code}."
+          delivery: Delivery
+          orders: Orders
+        _closed:
+          cycle_already_finishe: "Cycle already finished"
+        _edit_fields:
+          add_method: "Add method"
+          add_all_methods: "(add all)"
+          available_delivery_me: "Available delivery methods"
+          cancel_changes: "cancel changes"
+          remove: "remove"
+          confirm_remove: "Are you sure you want to remove this cycle?"
+          create_new_cycle: "Create new cycle"
+          deliveries_interval: "Deliveries Interval"
+          description: Description
+          general_settings: "General settings"
+          name: Name
+          notify_members_of_ope: "Notify consumer of open orders"
+          opening_message: "Opening Message"
+          orders_interval: "Orders Interval"
+          save: Save
+          save_and_open_orders: Save and open orders
+          create_and_open_orders: Create and open orders
+          this_message_will_be_: "This message will be sent by mail for the consumers %{terms.profile.from_article.singular} "
+        _edit_popin:
+          close: Close
+          cycle_editing: "Cycle editing"
+          cycle_saved: "Cycle saved."
+        _edition:
+          info: 'The edition time is gone and the cycle is already public. Actually, the cycle is in a supply call period.<br/><br/> It is still possible to edit some Cycle parameters through this page, however, beware of the risk. Some operations have different implications depending on the fase you are. When needed, you will be notified by a notification window of the consequences of the changes made.'
+          add_product: "Add product"
+          it_was_automatically_: "It was automatically created from the active products. See the list below and check for needed changes."
+          the_following_list_of: "The following list of products are available in this cycle."
+          the_products: "The products"
+        _products_loading: "The products are being loaded into the cycle."
+        _orders:
+          header_help: "In this phase the orders %{terms.consumer.from_article.plural} are received, and it is possible supervise them if by chance there is some more severe error."
+          the_orders_period_is_: "The orders period is still on, take care to edit the orders already open, it may confuse the users"
+          already_closed: "The orders period was already closed, It's not possible to edit the originals orders. In the redistribution phase it is possible to edit the order, before the delivery it also possible to edit this order."
+        _purchases:
+          header_help: "In this phase, using the received orders, the purchases for each supplier are done to supply the demand of all orders."
+        _receipts:
+          header_help: "In this phase are registered the receipts of the purchases e are edited any errors that may exist."
+        _separation:
+          header_help: "In this phase each order é separated acording to the availability of the products purchased that arrived."
+        _delivery:
+          header_help: "In this phase are registered the deliveries %{terms.consumer.to_article.plural}. This is the moment to register the changes in relation to what was separated."
+        _product_lines:
+          category: Category
+          price: Price
+          product: Product
+          qty_avail: "Qty. avail."
+          showing_pcount_produc: "Showing %{pcount} products of %{allpcount}"
+          supplier: "%{terms.supplier.singular.capitalize}"
+        _results:
+          no_cycles_to_show: "No cycles to show"
+        _timeline:
+          are_you_sure_you_want_to_reopen: "Are you sure you want to reopen the orders cycle?"
+          are_you_sure_you_want_to_close: "Are you sure you want to close the orders cycle?"
+          call: Call
+          close: Close
+          close_status: "Close %{status}"
+          finish_cycle_editing: "Open orders for cycle"
+          reopen_orders_period: "Reopen orders period"
+        _title:
+          new_cycle: "New cycle"
+          order_cycle: "Order Cycle: "
+        _view_dates:
+          delivery: "Delivery: "
+          happening: Happening
+          orders: "Orders: "
+        _view_header:
+          ? ", "
+          : ", "
+          all_orders_cycles: "all orders cycles"
+          orders_cycle_cycle: "Orders' cycle: %{cycle}"
+          other_open_cycles_lis: "Other open cycles: %{list}. See also %{all}"
+          see_also_all: "See also %{all}"
+        _view_products:
+          the_products: "The products"
+        add_products:
+          add_all_missing_produ: "add all missing products %{terms.profile.to_article.singular}"
+          add_product_to_cycle_: "Add product to cycle's products"
+          cancel: cancel
+          close: close
+          or: or
+          search_for_a_product_: "Search for a product in our products"
+          send: Send
+          type_in_a_name: "Type in a name"
+          you_already_have_all_: "You already have all your distributed products added"
+        index:
+          and_are_from_the_mont: "and are from the month of"
+          closed_cycles: "Closed Cycles"
+          filter: Filter
+          new_cycle: "New cycle"
+          no_cycles_to_show: "No cycles to show"
+          open_cycles: "Open Cycles"
+          orders_cycles: "Orders' Cycles"
+          show_cycles_from_year: "Show cycles from year"
+
+en_US:
+  <<: *en-US
+en:
+  <<: *en-US
+

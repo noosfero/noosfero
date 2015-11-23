@@ -1,0 +1,403 @@
+
+#url-check {
+  margin: 0 0 -5px 0;
+  width: 100%;
+  text-align: right;
+}
+
+#url-check .suggested_usernames,
+#url-check .suggested_usernames a {
+  color: #005000;
+}
+
+#email-check,
+#fake-check,
+#password-rate,
+#password-check {
+  margin: -2px 16px -5px 13px;
+  text-align: right;
+  clear: both;
+}
+
+#email-check p,
+#fake-check p,
+#password-rate p,
+#password-check p {
+  margin: 0;
+}
+
+#password-rate {
+  font-weight:bold;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.available {
+  color: #88BD00;
+}
+
+.unavailable {
+  color: #7f0000;
+}
+
+.checking {
+  color: #4A4A4A;
+}
+
+#email-check p,
+#password-rate p,
+#password-check p,
+#url-check p {
+  margin: 0;
+  text-transform: lowercase;
+  font-size: 11px;
+  clear: both;
+}
+
+.action-account-signup #content {
+  text-align: center;
+}
+
+#signup-form {
+  color: #4A4A4A;
+  display: inline-block;
+}
+
+#signup-form small {
+   display: none;
+}
+
+#signup-form #signup-form-header {
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  margin: 60px auto 5px;
+  position: relative;
+}
+
+#signup-form input.invalid_input {
+  border: 1px solid #7f0000;
+  background: #FFF;
+  box-shadow: 0 0 7px red;
+}
+
+#signup-form input.valid_input {
+  border: 1px solid #005000;
+  background: #FFF;
+}
+
+#signup-form select,
+#signup-form textarea,
+#signup-form input {
+  padding: 7px 7% 10px 3%;
+  height: 20px;
+  width: 90%;
+  color: #6d786e;
+  font-size: 18px;
+}
+
+#signup-form #profile_data_login {
+  margin: 3px 0px 0px 5px;
+}
+
+#signup-form .filled-in,
+#signup-form .invalid,
+#signup-form input.validated,
+#signup-form .checking {
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fff;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding: 7px 7% 8px 3%;
+  color: #4A4A4A;
+  box-shadow: 0 0 7px green;
+}
+
+#signup-form input.checking {
+  box-shadow: none;
+}
+
+#signup-form select {
+  height: auto;
+  padding-right: 3px;
+  width: 365px;
+}
+
+#signup-form .select-birth-date select {
+  width: 93px;
+  margin-right: 2px;
+  margin-left: 0;
+}
+
+.webkit #signup-form select {
+  background: #fff;
+}
+
+#signup-form textarea {
+  background: #fff;
+  height: 100px;
+  padding-right: 3px;
+  width: 365px;
+}
+
+#signup-form input[type=file] {
+  font-size: 12px;
+}
+
+#signup-form input[type=radio] {
+  height: auto;
+  margin: 0px 5px 0px 3px;
+  width: auto;
+}
+
+#signup-form .fieldgroup {
+  margin: 5px 10px;
+}
+
+#signup-form #template-options li label {
+  font-size: 18px;
+}
+
+#signup-form #template-options li a {
+  color: #555753
+}
+
+#signup-form label[for=profile_data_sex_female],
+#signup-form label[for=profile_data_sex_male] {
+  color: #6d786e;
+  font-size: 20px;
+  display: inline;
+  margin-left: 8px;
+}
+
+#signup-form label[for=profile_data_country],
+#signup-form label[for=profile_data_preferred_domain_id],
+#signup-form label[for=profile_data_birth_date_2i],
+#signup-form label[for=profile_data_birth_date_3i],
+#signup-form label[for=profile_data_schooling],
+#signup-form label[for=profile_data_formation],
+#signup-form label[for=profile_data_area_of_study],
+#signup-form label[for=profile_data_image_builder_uploaded_data] {
+  display: block;
+}
+
+#signup-form .invalid {
+  border-color: #7f0000;
+  background-image: url(../images/passwords_nomatch.png);
+  box-shadow: 0 0 7px red;
+}
+
+#signup-form span.invalid {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #7f0000;
+  box-shadow: none;
+}
+
+#signup-form .checking {
+  border-color: #4A4A4A;
+  background-image: url(../images/login_checking.png);
+}
+
+#signup-form span.checking {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #4A4A4A;
+  box-shadow: none;
+}
+
+#signup-form .validated {
+  border-color: #005000;
+  background-image: url(../images/passwords_match.png);
+}
+
+#signup-form span.validated {
+  background: transparent;
+  color: #005000;
+}
+
+#signup-domain {
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+  background: #EEE;
+  border: 1px solid #CFCFCF;
+  line-height: 36px;
+  padding: 0px 7px;
+  color: #4A4A4A;
+  font-size: 20px;
+  text-transform: lowercase;
+  min-width: 190px;
+}
+
+#signup-form #signup-form-header #user_login {
+  margin: 0;
+  padding-right: 30px;
+  width: 150px;
+}
+
+#signup-login-field {
+  float: left;
+}
+
+#signup-form #signup-login {
+  display: inline-block;
+}
+
+#signup-form #signup-password,
+#signup-form #signup-password-confirmation,
+#signup-form #signup-email,
+#signup-form #signup-name,
+#signup-form #signup-login {
+  position: relative;
+}
+
+#signup-form small#signup-balloon,
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
+  display: none;
+  width: 142px;
+  height: 69px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px 45px 10px;
+  margin: 0;
+  line-height: 1.5em;
+  background: transparent url(../images/gray-balloon.png) bottom center no-repeat;
+  position: absolute;
+  z-index: 2;
+  right: -150px;
+}
+
+#signup-form small#signup-balloon {
+  top: -110px;
+}
+
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
+  top: -80px;
+}
+
+#signup-form .required-field label,
+#signup-form .formlabel {
+  color: #4A4A4A;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: left;
+}
+
+#signup-form .required-field label::after {
+  content: '';
+}
+
+.action-account-signup #wrap-1 div.fieldWithErrors {
+  background: transparent;
+}
+
+.person_image_maxsize {
+  margin: 0 18px;
+  font: 13px sans-serif;
+  color: #BABABA;
+}
+
+#terms-of-use-box {
+  margin: 20px 0 30px 40px;
+  color: #4A4A4A;
+}
+
+#terms-of-use-box input[type=checkbox] {
+  border: 1px solid #FFA514;
+  background: #FFF;
+  width: auto;
+}
+
+#signup-form #terms-of-use-box label {
+  display: inline;
+  font-size: 16px;
+}
+
+#signup-form #terms-of-use-box label a {
+  color: #FF7F2A;
+}
+
+#content #signup-form .submit {
+  border: 0;
+  padding: 8px 36px 12px;
+  background: transparent url(../images/gray-bg.png) left center repeat-x;
+  font-size: 17px;
+  color: #FFF;
+  text-align: center;
+  text-shadow: #424242 0 -1px 0;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  max-height: none;
+  height: 39px;
+}
+
+.action-account-signup .no-boxes {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.select-birth-date {
+  margin-left: 14px;
+}
+
+#thanks-for-signing {
+  font-size: 15px;
+  text-align: center;
+}
+
+#signup-form .formfieldline {
+  padding: 0;
+}
+
+#thanks-for-signing {
+  text-align: left;
+}
+
+#thanks-for-signing h3 {
+  color: #FF7F2A;
+  font-family: 'Liberation Sans', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+}
+
+#thanks-for-signing a {
+  color: #333;
+}
+
+#thanks-for-signing h4 {
+  color: #6D786E;
+  font-size: 20px;
+}
+
+#signup-form #result-short {
+  color: red;
+}
+
+#signup-form #result-bad {
+  color: #825A2C;
+}
+
+#signup-form #result-good {
+  color: #32CD32;
+}
+
+#signup-form #result-strong {
+  color: green;
+}
+

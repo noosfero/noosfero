@@ -4,46 +4,56 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   </head>
   <body>
-    <h4><%= _('Hi %s!') % @supplier.name %></h4>
+    <h4><%= _('Hi %s!') % @order.profile.name %></h4>
 
     <p>
-      <%= _('This is a buy request made by %s.') % @customer[:name] %>
+      <%= _('This is a buy request made by %s.') % @order.consumer_data[:name] %>
       <%= _('Below follows the customer informations:') %>
     </p>
 
     <ul>
-      <li><b><%= c_('Full name') %>: </b><%= @customer[:name] %></li>
-      <li><b><%= c_('Email') %>: </b><%= @customer[:email] %></li>
-      <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
-      <li><b><%= _('Payment') %>: </b><%= @customer[:payment] == 'money' ? _('Money') : _('shopping_cart|Check') %></li>
-      <% if @customer[:payment] == 'money' %>
-        <li><b><%= _('shopping_cart|Change') %>: </b><%= @customer[:change] %></li>
+      <li><b><%= c_('Full name') %>: </b><%= @order.consumer_data[:name] %></li>
+      <li><b><%= c_('Email') %>: </b><%= @order.consumer_data[:email] %></li>
+      <li><b><%= _('Phone number') %>: </b><%= @order.consumer_data[:contact_phone] %></li>
+
+      <% if @order.payment_data[:method] %>
+        <li><b><%= _('Payment') %>: </b><%= OrdersPlugin::Order::PaymentMethods[@order.payment_data[:method].to_sym].call %></li>
+        <% if @order.payment_data[:method] == 'money' %>
+          <li><b><%= s_('shopping_cart|Change') %>: </b><%= @order.payment_data[:change] %></li>
+        <% end %>
       <% end %>
-      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? || !@customer[:district].blank? || !@customer[:address_reference].blank? %>
+
+      <% if !@order.consumer_delivery_data[:address].blank? || !@order.consumer_delivery_data[:city].blank? || !@order.consumer_delivery_data[:zip_code].blank? || !@order.consumer_delivery_data[:district].blank? || !@order.consumer_delivery_data[:address_reference].blank? %>
         <li><b><%= c_('Address') %>:</b>
       <% end %>
-      <% if !@customer[:address].blank? %>
-        <%= @customer[:address] %><br \>
+      <% if !@order.consumer_delivery_data[:address].blank? %>
+        <%= @order.consumer_delivery_data[:address] %><br \>
       <% end %>
-      <% if !@customer[:district].blank? %>
-        <%= @customer[:district] %><br \>
+      <% if !@order.consumer_delivery_data[:address_line2].blank? %>
+        <%= @order.consumer_delivery_data[:address_line2] %><br \>
       <% end %>
-      <% if !@customer[:city].blank? %>
-        <%= @customer[:city] %><br \>
+      <% if !@order.consumer_delivery_data[:address_reference].blank? %>
+        <%= @order.consumer_delivery_data[:address_reference] %><br \>
       <% end %>
-      <% if !@customer[:zip_code].blank? %>
-        <%= @customer[:zip_code] %>
+      <% if !@order.consumer_delivery_data[:district].blank? %>
+        <%= @order.consumer_delivery_data[:district] %><br \>
       <% end %>
-      <% if !@customer[:address_reference].blank? %>
-        <%= @customer[:address_reference] %><br \>
+      <% if !@order.consumer_delivery_data[:city].blank? %>
+        <%= @order.consumer_delivery_data[:city] %><br \>
       <% end %>
-      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? || !@customer[:district].blank? || !@customer[:address_reference].blank? %>
+      <% if !@order.consumer_delivery_data[:state].blank? %>
+        <%= @order.consumer_delivery_data[:state] %><br \>
+      <% end %>
+      <% if !@order.consumer_delivery_data[:zip_code].blank? %>
+        <%= @order.consumer_delivery_data[:zip_code] %>
+      <% end %>
+      <% if !@order.consumer_delivery_data[:address].blank? || !@order.consumer_delivery_data[:city].blank? || !@order.consumer_delivery_data[:zip_code].blank? || !@order.consumer_delivery_data[:district].blank? || !@order.consumer_delivery_data[:address_reference].blank? %>
         </li>
       <% end %>
     </ul>
 
     <p><%=_('And here are the items bought by this customer:')%></p>
-    <%= @helper.items_table(@items, @supplier, @delivery_option, true) %>
+    <%= items_table(@items, @order.supplier_delivery, true) %>
     <p>
       --<br/>
       <%=_('If there are any problems with this email contact the admin of %s.') % @environment.name %>

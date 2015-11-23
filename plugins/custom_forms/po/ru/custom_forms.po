@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2~rc2-23-g29aba34\n"
-"POT-Creation-Date: 2015-08-06 18:47-0300\n"
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-03-09 09:51+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Select field"
 msgstr "Выбрать папки"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:101
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:102
 msgid "Hold down Ctrl to select options"
 msgstr ""
 
@@ -171,25 +171,31 @@ msgstr ""
 msgid "Submission could not be saved"
 msgstr "Блок персональной информации"
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:9
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:11
 #: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:17
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:19
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:32
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
 msgid "Name"
 msgstr "Имя"
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:18
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:20
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:41
 msgid "Email"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:31
+msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
@@ -274,12 +280,17 @@ msgstr ""
 msgid "Triggered after membership"
 msgstr "Управление членствами"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:34
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:29
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:38
+msgid "This field will be added automatically to your form"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:55
 #, fuzzy
 msgid "Add a new text field"
 msgstr "Одна компания"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:35
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:56
 #, fuzzy
 msgid "Add a new select field"
 msgstr "Одна компания"
@@ -333,7 +344,21 @@ msgstr "Пользователь"
 msgid "Back to forms"
 msgstr "Назад к %s"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:9
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:10
+#, fuzzy
+msgid "Submission date"
+msgstr "Разрешения"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:14
+#, fuzzy
+msgid "Author"
+msgstr "Автор"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:26
+msgid "Unauthenticated"
+msgstr ""
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:48
 #, fuzzy
 msgid "Back to submissions"
 msgstr "Назад к %s"
@@ -393,10 +418,6 @@ msgstr "Вы уверены что хотите удалить этот элем
 #, fuzzy
 msgid "Add a new form"
 msgstr "Одна компания"
-
-#, fuzzy
-#~ msgid "Author name"
-#~ msgstr "Автор"
 
 #, fuzzy
 #~ msgid "Author email"

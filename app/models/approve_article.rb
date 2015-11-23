@@ -142,9 +142,4 @@ class ApproveArticle < Task
     message
   end
 
-  def request_is_member_of_target
-    unless requestor.is_member_of?(target)
-      errors.add(:approve_article, N_('Requestor must be a member of target.'))
-    end
-  end
 end

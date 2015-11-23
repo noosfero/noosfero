@@ -14,15 +14,6 @@ class TextArticleTest < ActiveSupport::TestCase
     assert_includes TextArticle.find(:all), article
   end
 
-  should 'remove HTML from name' do
-    person = create_user('testuser').person
-    article = TextArticle.new(:profile => person)
-    article.name = "<h1 Malformed >> html >>></a>< tag"
-    article.valid?
-
-    assert_no_match /[<>]/, article.name
-  end
-
   should 'be translatable' do
     assert_kind_of Noosfero::TranslatableContent, TextArticle.new
   end

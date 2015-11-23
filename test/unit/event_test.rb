@@ -263,40 +263,12 @@ class EventTest < ActiveSupport::TestCase
     assert_not_includes profile.events.by_day(today), event_out_of_range
   end
 
-  should 'filter fields with full filter' do
-    event = Event.new
-    event.link = "<h1 Malformed >> html >< tag"
-    event.valid?
-
-    assert_no_match /[<>]/, event.link
-  end
-
-  should 'filter fields with white_list filter' do
-    event = Event.new
-    event.body = "<h1> Description </h1>"
-    event.address = "<strong> Address <strong>"
-    event.valid?
-
-    assert_equal "<h1> Description </h1>", event.body
-    assert_equal "<strong> Address <strong>", event.address
-  end
-
   should 'not filter & on link field' do
     event = Event.new
     event.link = 'myevent.com/?param1=value&param2=value2'
     event.valid?
 
     assert_equal "http://myevent.com/?param1=value&param2=value2", event.link
-  end
-
-  should 'escape malformed html tags' do
-    event = Event.new
-    event.body = "<h1<< Description >>/h1>"
-    event.address = "<strong>><< Address <strong>"
-    event.valid?
-
-    assert_no_match /[<>]/, event.body
-    assert_no_match /[<>]/, event.address
   end
 
   should 'not sanitize html comments' do
@@ -349,6 +321,16 @@ class EventTest < ActiveSupport::TestCase
   should 'have can_display_media_panel with default true' do
     a = Event.new
     assert a.can_display_media_panel?
+  end
+
+  should 'calculate duration of events with start and end date' do
+    e = build(Event, :start_date => DateTime.new(2015, 1, 1), :end_date => DateTime.new(2015, 1, 5))
+    assert_equal 5, e.duration
+  end
+
+  should 'calculate duration of event with only start_date' do
+    e = build(Event, :start_date => DateTime.new(2015, 1, 1))
+    assert_equal 1, e.duration
   end
 
 end

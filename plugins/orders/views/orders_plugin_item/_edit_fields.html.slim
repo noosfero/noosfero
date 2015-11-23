@@ -1,0 +1,23 @@
+.fields
+  - unless order.self_supplier?
+    .box-field.supplier title=item.supplier_name = item.supplier_name
+  .box-field.product title=item.name = item.name
+  .box-field.quantity-price-table
+    - item_data[:statuses].each do |status, status_data|
+      - next if status_data[:flags][:not_modified] and not status_data[:flags][:admin]
+      = render 'orders_plugin_item/quantity_price', item: item, order: order, status: status, data: item_data, status_data: status_data, actor_name: actor_name
+
+.more
+  .actions
+    / actionmailer doesn't have an user, rescue error
+    - if (order.may_edit? user, @admin rescue false)
+      - if @admin
+        = link_to_function t('views.item._edit.remove_from_order'), "orders.item.admin_remove(this, '#{url_for(controller: :orders_plugin_admin_item, action: :edit, id: item.id, actor_name: actor_name)}')", class: 'action-button'
+        = link_to_function t('views.item._edit.submit'), "orders.item.submit(this, '#{url_for(controller: :orders_plugin_admin_item, action: :edit, id: item.id, actor_name: actor_name)}')", class: 'submit action-button'
+      - else
+        = link_to t('views.item._edit.remove_from_order'), {controller: :orders_plugin_item, action: :destroy, id: item.id},
+          remote: true, data: {loading: "#item-#{item.id}"}
+        = link_to_function t('views.item._edit.submit'), "orders.item.submit(this, '#{url_for(controller: :orders_plugin_item, action: :edit, id: item.id)}')", class: 'submit action-button'
+  = price_with_unit_span item.price_as_currency_number, (item.product.unit rescue item.price_as_currency_number), nil, class: 'box-field' unless @simple
+
+.clean

@@ -1,0 +1,19 @@
+.box-view.with-inner
+  .box-field.select toggle-ignore="" = check_box_tag "product_ids[]", product.id
+
+  .box-view-inner
+    .box-field.status= t"views.product._edit_line.#{if product.available then :active else :inactive end}"
+    .box-field.category= product.category_name
+    .box-field.supplier= product.supplier.abbreviation_or_name
+    .box-field.product.box-edit-link= product.name
+    / own products doesn't have these fields, rescue
+    .box-field.margin= "#{product.margin_percentage_localized}%" unless product.own?
+    .box-field.price= price_span(product.price_as_currency_number || '-') unless product.own?
+    - if defined? StockPlugin
+      .box-field.stock= product.stored_localized || '∞' unless product.own?
+    .box-field.unit= product.unit.name if product.unit
+
+  = edit_arrow "#our-product-#{product.id}", false
+  .clean
+
+= render 'suppliers_plugin/product/edit', product: product

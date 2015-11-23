@@ -1,0 +1,13 @@
+<div class="field state">
+  <label><%= t('suppliers_plugin.views.myprofile.index.redistribution_situation') %></label>
+  <div>
+    <%= select_tag :active, options_for_select([[t('suppliers_plugin.views.product.index.in_any_state'), ""], [ t('suppliers_plugin.views.product.index.active'), 'true'], [ t('suppliers_plugin.views.product.index.inactive'), 'false']], params[:active]) %>
+  </div>
+</div>
+
+<div class="field name">
+  <label><%= t('suppliers_plugin.views.myprofile.index.name') %></label>
+  <div><%= text_field_tag :name, params[:name] %></div>
+</div>
+
+

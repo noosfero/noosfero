@@ -1,47 +1,17 @@
 <h1> <%= _('Basket options') %> </h1>
 
-<%= form_for(:settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
-  <%= labelled_form_field(_('Enable shopping basket'), f.check_box(:enabled)) %>
-  <%= labelled_form_field(_('Enable delivery fields on orders'), f.check_box(:delivery)) %>
-  <% display_delivery_settings = @settings.delivery ? 'auto' : 'none' %>
-  <fieldset id='delivery_settings' style="display: <%= display_delivery_settings %>"><legend><%=_('Delivery')%></legend>
-    <table>
-      <tr>
-        <th><%= _('Option') %></th>
-        <th><%= c_('Price') %></th>
-        <th>&nbsp;</th>
-      </tr>
-      <% @settings.delivery_options.each do |option, price| %>
-        <tr>
-          <td><%= text_field_tag('settings[delivery_options][options][]', option, :style => 'width: 100%') %></td>
-          <td><%= text_field_tag('settings[delivery_options][prices][]', price, :style => 'width: 100%') %></td>
-          <td><%= button_without_text(:close, _('Remove option'), '', :class => 'remove-option') %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <td><%= text_field_tag('settings[delivery_options][options][]', nil, :style => 'width: 100%') %></td>
-        <td><%= text_field_tag('settings[delivery_options][prices][]', nil, :style => 'width: 100%') %></td>
-        <td><%= button_without_text(:close, _('Remove option'), '', :class => 'remove-option') %></td>
-      </tr>
-      <tr id='add-new-option-row'>
-        <td colspan='3' style='background-color: #EEE; text-align: center'><%= link_to(_('ADD NEW OPTION'), '', :id => 'add-new-option') %></td>
-      </tr>
-      <tr id="empty-option" style='display: none'>
-        <td><%= text_field_tag('settings[delivery_options][options][]', nil, :style => 'width: 100%') %></td>
-        <td><%= text_field_tag('settings[delivery_options][prices][]', nil, :style => 'width: 100%') %></td>
-        <td><%= button_without_text(:close, _('Remove option'), '', :class => 'remove-option') %></td>
-      </tr>
-    </table>
+<%= form_for :settings, url: {action: 'edit'}, html: {onsubmit: '$(this).ajaxSubmit()'} do |f| %>
 
-    <%= labelled_form_field(_("Order's minimum price for free delivery:"), f.text_field(:free_delivery_price)) %>
-    <%= content_tag('small', _('Leave empty to always charge the delivery.')) %>
-  </fieldset>
-  <br style='clear: both'/>
-  <br style='clear: both'/>
   <div>
-    <%= submit_button(:save, c_('Save')) %>
-    <%= button :back, c_('Back to control panel'), :controller => 'profile_editor' %>
+    <%= f.check_box :enabled, onchange: 'this.form.onsubmit()' %>
+    <%= f.label :enabled, _('Enable shopping basket')  %>
   </div>
-<% end%>
+
+<% end %>
+
+<fieldset id='delivery-settings'>
+  <label><%=_('Deliveries or pickups')%></label>
+  <%= render 'delivery_plugin/admin_method/index' %>
+</fieldset>
 
 <%= javascript_include_tag '../plugins/shopping_cart/edit' %>
