@@ -43,6 +43,7 @@ class OrganizationRatingsPluginProfileController < ProfileController
     rating.value = params[:organization_rating_value] if params[:organization_rating_value]
 
     if rating.save
+      @plugins.dispatch(:organization_ratings_plugin_rating_created, rating, params)
       create_rating_comment(rating)
       session[:notice] = _("%s successfully rated!") % profile.name
     else
