@@ -15,7 +15,7 @@ module Noosfero
       }
 
       def self.can_display? profile, options, field, permission = :friend
-        return true if profile.public_fields.include?(field)
+        return true if profile.public_fields.map{|field| field.to_sym}.include?(field.to_sym)
         current_person = options[:current_person]
 
         current_permission = if current_person.present?

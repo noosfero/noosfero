@@ -13,7 +13,7 @@ module Noosfero
               context = environment
 
               profile = environment.profiles.find(params[:profile_id]) if params[:profile_id]
-              scope = profile.nil? ? environment.articles.is_public : profile.articles.is_public
+              scope = profile.nil? ? environment.articles.public : profile.articles.public
               scope = scope.where(:type => params[:type]) if params[:type] && !(params[:type] == 'Article')
               scope = scope.where(:parent_id => params[:parent_id]) if params[:parent_id].present?
               scope = scope.joins(:categories).where(:categories => {:id => params[:category_ids]}) if params[:category_ids].present?
