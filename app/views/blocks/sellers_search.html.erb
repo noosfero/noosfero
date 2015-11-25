@@ -12,7 +12,7 @@
   <div class="formfield search-from-opt">
     <%= select_city(true) %>
   </div>
-  
+
   <div class="formfield search-distance-opt">
     <%= labelled_select(_('Distance:'), 'radius', :first, :last, nil, [15, 30, 50, 100, 150, 200, 300, 400, 500, 1000].map{|n|[n, n.to_s + 'km']}) %>
   </div>
