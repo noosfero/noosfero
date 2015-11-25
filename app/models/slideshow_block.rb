@@ -35,18 +35,8 @@ class SlideshowBlock < Block
 
   def content(args={})
     block = self
-    if gallery
-      images = block_images
-      if shuffle
-        images = images.shuffle
-      end
-      proc do
-        render :file => 'blocks/slideshow', :locals => { :block => block, :images => images }
-      end
-    else
-      proc do
-        render :file => 'blocks/slideshow', :locals => { :block => block, :images => nil }
-      end
+    proc do
+      render :file => 'blocks/slideshow', :locals => { :block => block }
     end
   end
 

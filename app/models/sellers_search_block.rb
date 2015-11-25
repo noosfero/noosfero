@@ -23,9 +23,9 @@ class SellersSearchBlock < Block
   end
 
   def content(args={})
-    title = self.title
-    lambda do |object|
-      render :file => 'search/_sellers_form', :locals => { :title => title }
+    block = self
+    proc do
+      render :file => 'blocks/sellers_search', :locals => { :block => block }
     end
   end
 end

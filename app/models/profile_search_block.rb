@@ -5,9 +5,9 @@ class ProfileSearchBlock < Block
   end
 
   def content(args={})
-    title = self.title
-    lambda do |_|
-      render :file => 'blocks/profile_search', :locals => { :title => title }
+    block = self
+    proc do
+      render :file => 'blocks/profile_search', :locals => { :block => block }
     end
   end
 

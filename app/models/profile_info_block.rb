@@ -18,7 +18,7 @@ class ProfileInfoBlock < Block
 
   def content(args={})
     block = self
-    lambda do |_|
+    proc do
       render :file => 'blocks/profile_info', :locals => { :block => block }
     end
   end

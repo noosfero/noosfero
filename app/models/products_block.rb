@@ -20,19 +20,10 @@ class ProductsBlock < Block
   end
 
   def content(args={})
-    block_title(title) +
-    content_tag(
-      'ul',
-      products.map {|product|
-        content_tag('li',
-          link_to( product.name,
-                   product.url,
-                   :style => 'background-image:url(%s)' % product.default_image('minor')
-                 ),
-          :class => 'product'
-        )
-      }.join
-    )
+    block = self
+    proc do
+      render :file => 'blocks/products', :locals => { :block => block }
+    end
   end
 
   def footer

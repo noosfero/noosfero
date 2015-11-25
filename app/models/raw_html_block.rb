@@ -13,7 +13,10 @@ class RawHTMLBlock < Block
   attr_accessible :html
 
   def content(args={})
-    (title.blank? ? '' : block_title(title)).html_safe + html.to_s.html_safe
+    block = self
+    proc do
+      render :file => 'blocks/raw_html', :locals => { :block => block }
+    end
   end
 
   def has_macro?

@@ -15,9 +15,8 @@ class LocationBlock < Block
 
   def content(args={})
     block = self
-    profile = self.owner
     proc do
-      render :file => 'blocks/location', :locals => {:block => block, :profile => profile}
+      render :file => 'blocks/location', :locals => {:block => block}
     end
   end
 

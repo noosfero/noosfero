@@ -23,11 +23,9 @@ class RecentDocumentsBlock < Block
   settings_items :limit, :type => :integer, :default => 5
 
   def content(args={})
-    docs = self.docs
-    title = self.title
+    block = self
     proc do
-      block_title(title) +
-        content_tag('ul', docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
+      render :file => 'blocks/recent_documents', :locals => { :block => block }
     end
   end
 
