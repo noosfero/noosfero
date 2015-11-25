@@ -41,22 +41,9 @@ result = public_profiles.all(:limit => get_limit, :order => 'profiles.updated_at
   end
 
   def content(args={})
-    profiles = self.profile_list
-    title = self.view_title
-    nl = "\n"
-    proc do |context|
-      count=0
-      list = profiles.map {|item|
-               count+=1
-               send(:profile_image_link, item, :minor )
-             }.join("\n  ")
-      if list.empty?
-        list = content_tag 'div', _('None'), :class => 'common-profile-list-block-none'
-      else
-        list = content_tag 'ul', nl +'  '+ list + nl
-      end
-      block_title(title) + nl +
-      content_tag('div', nl + list + nl + tag('br', :style => 'clear:both'))
+    block = self
+    proc do
+      render :file => 'blocks/profile_list', :locals => { :block => block }
     end
   end
 

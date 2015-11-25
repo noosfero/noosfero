@@ -22,7 +22,6 @@ class BlogArchivesBlock < Block
   end
 
   def content(args={})
-    return nil unless self.blog
     block = self
     proc do
       render :file => 'blocks/blog_archives', :locals => { :block => block }

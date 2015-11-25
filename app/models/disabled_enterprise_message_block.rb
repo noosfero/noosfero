@@ -14,7 +14,7 @@ class DisabledEnterpriseMessageBlock < Block
 
   def content(args={})
     block = self
-    lambda do |_|
+    proc do
        render :file => 'blocks/disabled_enterprise_message', :locals => { :block => block }
     end
   end

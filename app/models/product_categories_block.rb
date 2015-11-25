@@ -14,22 +14,9 @@ class ProductCategoriesBlock < Block
   end
 
   def content(args={})
-    profile = owner
+    block = self
     proc do
-      if @categories.nil? or @categories.length == 0
-        categories = ProductCategory.on_level(nil).order(:name)
-        if @categories and @categories.length == 0
-          notice = _('There are no sub-categories for %s') % @category.name
-        end
-      else
-        categories = @categories
-      end
-      render :file => 'blocks/product_categories',
-             :locals => {
-               :profile => profile,
-               :categories => categories,
-               :notice => notice
-             }
+      render :file => 'blocks/product_categories', :locals => { :block => block }
     end
   end
 
