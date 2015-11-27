@@ -8,14 +8,7 @@ dbc_go noosfero $@
 
 #DEBHELPER#
 
-# some dirty work is needed after Noosfero is stopped
 if [ "$1" = "upgrade" ]; then
-  # delete cached files
-  rm -f /var/lib/noosfero-data/cache/*
-
-  # restart memcache
-  invoke-rc.d memcached restart
-
   # stop debconf to avoid the problem with infinite hanging, cfe
   # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295477
   db_stop
