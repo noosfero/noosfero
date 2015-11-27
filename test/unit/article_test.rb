@@ -22,6 +22,21 @@ class ArticleTest < ActiveSupport::TestCase
     refute a.errors[:profile_id.to_s].present?
   end
 
+  should 'keep unique users in list of followers' do
+    person1 = create_user('article_owner').person
+    person2 = create_user('article_follower').person
+
+    article = fast_create(Article, :profile_id => person1.id)
+
+    article.person_followers=[person2]
+    article.save
+    article.reload
+    article.person_followers=[person2]
+    article.save
+
+    assert_equal 1, article.reload.person_followers.size
+  end
+
   should 'require value for name' do
     a = Article.new
     a.valid?
@@ -1700,7 +1715,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'has a empty list of followers by default' do
     a = Article.new
-    assert_equal [], a.followers
+    assert_equal [], a.person_followers
   end
 
   should 'get first image from lead' do

@@ -39,6 +39,41 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
+  should 'follow a article identified by id' do
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
+    post "/api/v1/articles/#{article.id}/follow?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_not_equal 401, last_response.status
+    assert_equal true, json['success']
+  end
+
+  should 'return the followers count of an article' do
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
+    article.person_followers << @person
+
+    get "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal 200, last_response.status
+    assert_equal 1, json['article']['followers_count']
+  end
+
+  should 'return the followers of a article identified by id' do
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
+
+    article_follower = ArticleFollower.new
+    article_follower.article = article
+    article_follower.person = @person
+    article_follower.save!
+
+    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal 200, last_response.status
+    assert_equal 1, json['total_followers']
+  end
+
   should 'list article children' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     child1 = fast_create(Article, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing")

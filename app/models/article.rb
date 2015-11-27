@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers,
-                  :author, :display_preview, :published_at
+                  :author, :display_preview, :published_at, :person_followers
 
   acts_as_having_image
 
@@ -77,8 +77,15 @@ class Article < ActiveRecord::Base
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
   belongs_to :created_by, :class_name => 'Person', :foreign_key => 'created_by_id'
 
+<<<<<<< 6fa2f904983046ed816efe293ba9dcad19a67a4b
   has_many :comments, :class_name => 'Comment', :as => 'source', :dependent => :destroy, :order => 'created_at asc'
 
+=======
+  has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
+  has_many :article_followers, :dependent => :destroy
+  has_many :person_followers, :class_name => 'Person', :through => :article_followers, :source => :person
+  has_many :person_followers_emails, :class_name => 'User', :through => :person_followers, :source => :user, :select => :email
+>>>>>>> Add feature: Article Followers
   has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
   has_many :categories, :through => :article_categorizations
 
@@ -91,7 +98,6 @@ class Article < ActiveRecord::Base
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
-  settings_items :followers, :type => Array, :default => []
   has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
@@ -166,7 +172,6 @@ class Article < ActiveRecord::Base
       current_parent = current_parent.parent
     end
   end
-
 
   def is_trackable?
     self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
@@ -368,6 +373,10 @@ class Article < ActiveRecord::Base
     self.parent and self.parent.forum?
   end
 
+  def person_followers_email_list
+    person_followers_emails.map{|p|p.email}
+  end
+
   def info_from_last_update
     last_comment = comments.last
     if last_comment
@@ -405,6 +414,10 @@ class Article < ActiveRecord::Base
     (self.uploaded_file? and not self.image?) or
       (self.image? and view.blank?) or
       (not self.uploaded_file? and self.mime_type != 'text/html')
+  end
+
+  def is_followed_by?(user)
+    self.person_followers.include? user
   end
 
   def download_headers

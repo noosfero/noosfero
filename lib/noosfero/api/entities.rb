@@ -148,6 +148,7 @@ module Noosfero
         expose :children_count
         expose :slug, :documentation => {:type => "String", :desc => "Trimmed and parsed name of a article"}
         expose :path
+        expose :followers_count
       end
 
       class Article < ArticleBase

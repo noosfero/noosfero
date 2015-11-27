@@ -10,6 +10,24 @@
     <%= (" - %s") % link_to_comments(@page)%>
   </span>
 <% end %>
+
+<span class="followers-count">
+|
+<% if @page.event? %>
+  <% if @page.person_followers.size > 0 %>
+    <%= _("%s will attend this event.") % [ pluralize(@page.person_followers.size, _("person"))]%>
+  <% else %>
+    <%= _("No one attending this event yet.") %>
+  <% end %>
+<% else %>
+  <% if @page.person_followers.size > 0 %>
+    <%= _("%s following this article.") % [ pluralize(@page.person_followers.size, _("person"))]%>
+  <% else %>
+    <%= _("No one following this article yet.") %>
+  <% end %>
+<% end %>
+</span>
+
 </span>
 
 <% if @page.display_hits? || @page.license.present? %>

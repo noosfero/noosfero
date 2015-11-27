@@ -112,6 +112,37 @@ module Noosfero
             {:vote => vote.save}
           end
 
+          desc "Returns the total followers for the article" do
+            detail 'Get the followers of a specific article by id'
+            failure [[403, 'Forbidden']]
+            named 'ArticleFollowers'
+          end
+          get ':id/followers' do
+            article = find_article(environment.articles, params[:id])
+            total = article.person_followers.count
+            {:total_followers => total}
+          end
+
+          desc "Add a follower for the article" do
+            detail 'Add the current user identified by private token, like a follower of a article'
+            params Noosfero::API::Entities::UserLogin.documentation
+            failure [[401, 'Unauthorized']]
+            named 'ArticleFollow'
+          end
+          post ':id/follow' do
+            authenticate!
+            article = find_article(environment.articles, params[:id])
+            if article.article_followers.exists?(:person_id => current_person.id)
+              {:success => false, :already_follow => true}
+            else
+              article_follower = ArticleFollower.new
+              article_follower.article = article
+              article_follower.person = current_person
+              article_follower.save!
+              {:success => true}
+            end
+          end
+
           desc 'Return the children of a article identified by id' do
             detail 'Get all children articles of a specific article'
             params Noosfero::API::Entities::Article.documentation

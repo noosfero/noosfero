@@ -387,8 +387,24 @@ class CommentControllerTest < ActionController::TestCase
     Article.record_timestamps = true
 
     login_as @profile.identifier
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true'
+    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true'
     assert_not_equal yesterday, page.reload.updated_at
+  end
+
+  should 'follow article when commenting' do
+    page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
+    login_as @profile.identifier
+
+    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true'
+    assert_includes page.person_followers, @profile
+  end
+
+  should 'not follow article when commenting' do
+    page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
+    login_as @profile.identifier
+
+    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true'
+    assert_not_includes page.person_followers, @profile
   end
 
   should 'be able to mark comments as spam' do

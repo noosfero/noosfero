@@ -18,6 +18,19 @@ class ProfileControllerTest < ActionController::TestCase
     assert assigns(:friends)
   end
 
+  should 'remove person from article followers when unfollow' do
+    profile = create_user('testuser').person
+    follower = create_user('follower').person
+    article = profile.articles.create(:name => 'test')
+    article.person_followers = [follower]
+    article.save
+    login_as('follower')
+    article.reload
+    assert_includes Article.find(article.id).person_followers, follower
+    post :unfollow_article, :article_id => article.id
+    assert_not_includes Article.find(article.id).person_followers, follower
+  end
+
   should 'point to manage friends in user is seeing his own friends' do
     login_as('testuser')
     get :friends
@@ -1336,6 +1349,24 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => profile.identifier
 
     assert_equivalent [scrap,activity], assigns(:activities).map(&:activity)
+  end
+
+  should "follow an article" do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    login_as(@profile.identifier)
+    post :follow_article, :profile => profile.identifier, :article_id => article.id
+    assert_includes article.person_followers, @profile
+  end
+
+  should "unfollow an article" do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article.person_followers << @profile
+    article.save!
+    assert_includes article.person_followers, @profile
+
+    login_as(@profile.identifier)
+    post :unfollow_article, :profile => profile.identifier, :article_id => article.id
+    assert_not_includes article.person_followers, @profile
   end
 
   should "be logged in to leave comment on an activity" do

@@ -77,6 +77,10 @@ function check_captcha(button, confirm_action) {
   <%= labelled_form_field(_('Title'), f.text_field(:title)) %>
   <%= required labelled_form_field(_('Enter your comment'), f.text_area(:body, :rows => 5)) %>
 
+  <% if logged_in? %>
+    <%= labelled_form_field check_box(:comment, :follow_article, {}, true, false) + _('Follow this article'), '' %>
+  <% end%>
+
   <%= hidden_field_tag(:confirm, 'false') %>
   <%= hidden_field_tag(:view, params[:view])%>
   <%= f.hidden_field(:reply_of_id) %>

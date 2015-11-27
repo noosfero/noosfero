@@ -60,7 +60,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
   should "deliver mail to followers" do
     author = create_user('follower_author').person
     follower = create_user('follower').person
-    @article.followers += [follower.email]
+    @article.person_followers += [follower]
     @article.save!
     create_comment_and_notify(:source => @article, :author => author, :title => 'comment title', :body => 'comment body')
     assert_includes ActionMailer::Base.deliveries.map(&:bcc).flatten, follower.email

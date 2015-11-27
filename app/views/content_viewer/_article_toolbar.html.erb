@@ -55,6 +55,8 @@
       <%= button plugin_button[:icon], plugin_button[:title], plugin_button[:url], plugin_button[:html_options] %>
     <% end %>
 
+    <%= following_button @page, user %>
+
     <%= report_abuse(profile, :link, @page) %>
 
   </div>

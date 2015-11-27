@@ -328,34 +328,27 @@ class CommentTest < ActiveSupport::TestCase
     assert c.rejected?
   end
 
-  should 'subscribe user as follower of an article on new comment' do
+  should 'not subscribe user as follower of an article automatically on new comment' do
     owner = create_user('owner_of_article').person
     person = create_user('follower').person
     article = fast_create(Article, :profile_id => owner.id)
-    assert_not_includes article.followers, person.email
+    assert_not_includes article.person_followers, person
     create(Comment, :source => article, :author => person, :title => 'new comment', :body => 'new comment')
-    assert_includes article.reload.followers, person.email
+    assert_not_includes article.reload.person_followers, person
   end
 
-  should 'subscribe guest user as follower of an article on new comment' do
+  should 'not subscribe guest user as follower of an article on new comment' do
     article = fast_create(Article, :profile_id => create_user('article_owner').person.id)
-    assert_not_includes article.followers, 'follower@example.com'
+    old_num_followers = article.reload.person_followers.size
     create(Comment, :source => article, :name => 'follower', :email => 'follower@example.com', :title => 'new comment', :body => 'new comment')
-    assert_includes article.reload.followers, 'follower@example.com'
-  end
-
-  should 'keep unique emails in list of followers' do
-    article = fast_create(Article, :profile_id => create_user('article_owner').person.id)
-    create(Comment, :source => article, :name => 'follower one', :email => 'follower@example.com', :title => 'new comment', :body => 'new comment')
-    create(Comment, :source => article, :name => 'follower two', :email => 'follower@example.com', :title => 'another comment', :body => 'new comment')
-    assert_equal 1, article.reload.followers.select{|v| v == 'follower@example.com'}.count
+    assert_equal old_num_followers, article.reload.person_followers.size
   end
 
   should 'not subscribe owner as follower of an article on new comment' do
     owner = create_user('owner_of_article').person
     article = fast_create(Article, :profile_id => owner.id)
     create(Comment, :source => article, :author => owner, :title => 'new comment', :body => 'new comment')
-    assert_not_includes article.reload.followers, owner.email
+    assert_not_includes article.reload.person_followers, owner
   end
 
   should 'not subscribe admins as follower of an article on new comment' do
@@ -366,8 +359,13 @@ class CommentTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => owner.id)
     create(Comment, :source => article, :author => follower, :title => 'new comment', :body => 'new comment')
     create(Comment, :source => article, :author => admin, :title => 'new comment', :body => 'new comment')
-    assert_not_includes article.reload.followers, admin.email
-    assert_includes article.followers, follower.email
+
+    article.person_followers += [follower]
+    article.save!
+    article.reload
+
+    assert_not_includes article.reload.person_followers, admin
+    assert_includes article.reload.person_followers, follower
   end
 
   should 'update article activity when add a comment' do

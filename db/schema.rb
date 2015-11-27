@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(version: 20160202142247) do
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], name: "index_action_tracker_notif_on_prof_id_act_tracker_id", unique: true, using: :btree
   add_index "action_tracker_notifications", ["profile_id"], name: "index_action_tracker_notifications_on_profile_id", using: :btree
 
+  create_table "article_followers", force: :cascade do |t|
+    t.integer  "person_id",  null: false
+    t.integer  "article_id", null: false
+    t.datetime "since"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "article_followers", ["article_id"], name: "index_article_followers_on_article_id", using: :btree
+  add_index "article_followers", ["person_id", "article_id"], name: "index_article_followers_on_person_id_and_article_id", unique: true, using: :btree
+  add_index "article_followers", ["person_id"], name: "index_article_followers_on_person_id", using: :btree
+
   create_table "article_privacy_exceptions", id: false, force: :cascade do |t|
     t.integer "article_id"
     t.integer "person_id"
@@ -101,6 +113,7 @@ ActiveRecord::Schema.define(version: 20160202142247) do
     t.integer  "spam_comments_count",  default: 0
     t.integer  "author_id"
     t.integer  "created_by_id"
+    t.integer  "followers_count"
   end
 
   add_index "article_versions", ["article_id"], name: "index_article_versions_on_article_id", using: :btree
@@ -154,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160202142247) do
     t.integer  "author_id"
     t.integer  "created_by_id"
     t.boolean  "show_to_followers",    default: true
+    t.integer  "followers_count",      default: 0
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
