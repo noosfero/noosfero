@@ -7,35 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2015-09-17 08:39-0300\n"
-"Last-Translator: Ronnie Simon <ronniesimonf@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/es/>\n"
+"PO-Revision-Date: 2015-11-29 18:45+0000\n"
+"Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 
 #: app/models/approve_comment.rb:17
-#, fuzzy
 msgid "Anonymous"
-msgstr "Siglas"
+msgstr "Anónimo"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:31
 msgid "Article removed."
 msgstr "Artículo eliminado."
 
 #: app/models/approve_comment.rb:33
-#, fuzzy
 msgid "New comment to article"
-msgstr "Artículos más comentados"
+msgstr "Nuevo comentario para el artículo / entrada"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
-#, fuzzy
 msgid "%{requestor} commented on the article: %{linked_subject}."
-msgstr "%{requestor} quiere publicar el artículo: %{linked_subject}."
+msgstr "%{requestor} quiere comentar el artículo: %{linked_subject}."
 
 # borrado, exterminado, destruido?
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:91
@@ -43,17 +40,14 @@ msgid "The article was removed."
 msgstr "El artículo fue eliminado."
 
 #: app/models/approve_comment.rb:81
-#, fuzzy
 msgid "%{requestor} wants to comment the article: %{article}."
-msgstr "% {} Solicitante quiere comentar el artículo:% {article}"
+msgstr "% {requestor} quiere comentar el artículo:% {articule}"
 
 #: app/models/approve_comment.rb:83
-#, fuzzy
 msgid "%{requestor} wanted to comment the article but it was removed."
-msgstr "%} Solicitante{} quiso publicar un articulo pero fue eliminado.%"
+msgstr "% {requestor} quiso comentar un articulo pero fue eliminado."
 
 #: app/models/approve_comment.rb:89
-#, fuzzy
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
 msgstr ""
@@ -72,14 +66,12 @@ msgstr ""
 "%{commentasio} "
 
 #: app/models/approve_comment.rb:96
-#, fuzzy
 msgid "Your request for comment the article \"%{article}\" was approved."
-msgstr "Tu solicitud para publicar el artículo \"%article}\" fue aprobada."
+msgstr "Tu solicitud para comentar el artículo \"%{article}\" fue aprobada."
 
 #: app/models/approve_comment.rb:101
-#, fuzzy
 msgid "Your request for commenting the article \"%{article}\" was rejected."
-msgstr "La solicitud para publicar tu artículo \"{articulo}\" fue rechazado."
+msgstr "La solicitud para comentar tu artículo \"%{article}\" fue rechazado."
 
 #: app/models/approve_comment.rb:103
 msgid ""
@@ -195,7 +187,6 @@ msgid "%{requestor} invited you to join %{community}."
 msgstr "%{requestor} te invitó a unirte a %{community}."
 
 #: app/models/invite_member.rb:45
-#, fuzzy
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
 msgstr "%{requestor} te invitó a unirte a %{community}."
 
@@ -224,9 +215,8 @@ msgid "Search for enterprises and products"
 msgstr "Buscar por empresa y productos"
 
 #: app/models/sellers_search_block.rb:10
-#, fuzzy
 msgid "Products/Enterprises search"
-msgstr "Productos/Búsqueda de empresas"
+msgstr "Búsqueda de productos/empresas"
 
 #: app/models/sellers_search_block.rb:14
 msgid "Search for sellers"
@@ -277,9 +267,8 @@ msgid "File"
 msgstr "Archivo"
 
 #: app/models/uploaded_file.rb:68
-#, fuzzy
 msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
-msgstr "%{fn} del archivo subido fue más grande que el tamaño máximo de 5.0 MB"
+msgstr "%{fn} del archivo subido es más grande que el tamaño máximo de %{size}"
 
 #: app/models/uploaded_file.rb:95
 msgid "Uploaded file"
@@ -336,23 +325,20 @@ msgid "Acronym"
 msgstr "Siglas"
 
 #: app/models/category.rb:8
-#, fuzzy
 msgid "Abbreviation"
-msgstr "Invitación"
+msgstr "Abreviatura"
 
 #: app/models/category.rb:9 app/models/article.rb:20
 msgid "Slug"
 msgstr ""
 
 #: app/models/category.rb:12
-#, fuzzy
 msgid "{fn} cannot be like that."
 msgstr "%{fn} no puede ser de esta forma."
 
 #: app/models/category.rb:14
-#, fuzzy
 msgid "{fn} is already being used by another category."
-msgstr "%{fn} ya está siendo usado por otra categoría."
+msgstr "{fn} ya está siendo usado por otra categoría."
 
 #: app/models/environment.rb:41
 msgid "View environment admin panel"
@@ -383,24 +369,20 @@ msgid "Manage environment users"
 msgstr "Administrar usuarios del entorno"
 
 #: app/models/environment.rb:48
-#, fuzzy
 msgid "Manage environment organizations"
-msgstr "Administrar validadores del entorno"
+msgstr "Administrar organizaciones medioambientales"
 
 #: app/models/environment.rb:49
-#, fuzzy
 msgid "Manage environment templates"
 msgstr "Administrar plantillas de medio ambiente"
 
 #: app/models/environment.rb:50
-#, fuzzy
 msgid "Manage environment licenses"
 msgstr "Gestionar licencias de medio ambiente"
 
 #: app/models/environment.rb:51
-#, fuzzy
 msgid "Manage environment trusted sites"
-msgstr "Administrar sitios de ambiente de confianza"
+msgstr "Administrar sitios medioambientales de confianza"
 
 #: app/models/environment.rb:52 app/models/profile.rb:78
 #: app/views/templates/index.html.erb:34
@@ -472,7 +454,6 @@ msgid "Disable the categories menu"
 msgstr "Desactivar el menú de categorías"
 
 #: app/models/environment.rb:128
-#, fuzzy
 msgid "Disable state/city select for contact form"
 msgstr ""
 "Desactivar la selección estatal/municipal para el formulario de contacto"
@@ -486,12 +467,10 @@ msgid "Disable contact for groups/communities"
 msgstr "Deshabilitar contacto con grupos"
 
 #: app/models/environment.rb:131
-#, fuzzy
 msgid "Forbid users of removing profiles"
-msgstr "El perfil no puede ser eliminado"
+msgstr "Impedir a usuarios eliminar el perfil"
 
 #: app/models/environment.rb:133
-#, fuzzy
 msgid "Enable products for enterprises"
 msgstr "Desactivar los productos para empresas"
 
@@ -559,9 +538,8 @@ msgid "Admin must approve creation of communities"
 msgstr "Un administrador debe aprobar las nuevas comunidades"
 
 #: app/models/environment.rb:151
-#, fuzzy
 msgid "Admin must approve registration of new users"
-msgstr "Un administrador debe aprobar las nuevas comunidades"
+msgstr "El administrador debe aprobar el registro de nuevos usuarios"
 
 #: app/models/environment.rb:152
 msgid "Show a balloon with profile links when a profile image is clicked"
@@ -584,9 +562,8 @@ msgid "Skip e-mail confirmation for new users"
 msgstr "Omitir confirmación de correo electrónico para nuevos usuarios"
 
 #: app/models/environment.rb:157
-#, fuzzy
 msgid "Send welcome e-mail to new users"
-msgstr "Enviar correo electrónico a los usuarios"
+msgstr "Enviar correo electrónico de bienvenida a los usuarios"
 
 #: app/models/environment.rb:158
 msgid "Allow users to set the page to redirect after login"
@@ -597,24 +574,24 @@ msgstr ""
 #: app/models/environment.rb:159
 msgid "Display on menu the list of communities the user can manage"
 msgstr ""
+"Desplegar en menú la lista de Comunidades que el usuario puede gestionar"
 
 #: app/models/environment.rb:160
 msgid "Display on menu the list of enterprises the user can manage"
 msgstr ""
+"Desplegar en el menú la lista de empresas que el usuario puede gestionar"
 
 #: app/models/environment.rb:161
-#, fuzzy
 msgid "Show content only to members"
-msgstr "Nuevo contenido"
+msgstr "Enseñar contenido sólo a usuarios"
 
 #: app/models/environment.rb:163
-#, fuzzy
 msgid "Enable appearance editing by users"
-msgstr "Desactivar la edición de encabezado y pie de página para los usuarios"
+msgstr "Desactivar la edición de apariencia para los usuarios"
 
 #: app/models/environment.rb:169
 msgid "Stays on the same page the user was before login."
-msgstr ""
+msgstr "Permanecer en la misma página en la que el usuario se identificó."
 
 #: app/models/environment.rb:170 app/models/environment.rb:182
 msgid "Redirects the user to the environment homepage."
@@ -10358,9 +10335,8 @@ msgid "Method Not Allowed"
 msgstr ""
 
 #: lib/file_presenter.rb:65
-#, fuzzy
 msgid "File (%s)"
-msgstr "Precio (%s)"
+msgstr "Archivo (%s)"
 
 #: lib/feed_writer.rb:12
 msgid "Feed"
