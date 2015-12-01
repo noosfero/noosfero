@@ -87,11 +87,11 @@ class Event < Article
     first_day = DateTime.new(year, month, 1)
     last_day = first_day + 1.month - 1.day
 
-    first_day..last_day
+    first_day.to_date..last_day.to_date
   end
 
   def date_range
-    start_date..(end_date||start_date)
+    start_date.to_date..(end_date||start_date).to_date
   end
 
   def first_paragraph

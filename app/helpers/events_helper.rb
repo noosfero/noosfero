@@ -24,6 +24,7 @@ module EventsHelper
   end
 
   def populate_calendar(selected_date, events)
+    selected_date = selected_date.to_date
     events = events.reject{ |event| !event.display_to? user }
     calendar = Event.date_range(selected_date.year, selected_date.month).map do |date|
       [

@@ -28,7 +28,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, true, true]
+    assert_includes calendar, [date.to_date, true, true]
   end
 
   should 'hide private events from guests' do
@@ -37,7 +37,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id, :published => false)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, false, true]
+    assert_includes calendar, [date.to_date, false, true]
   end
 
   should 'hide events from invisible profiles from guests' do
@@ -46,7 +46,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, false, true]
+    assert_includes calendar, [date.to_date, false, true]
   end
 
   should 'hide events from private profiles from guests' do
@@ -55,7 +55,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, false, true]
+    assert_includes calendar, [date.to_date, false, true]
   end
 
   should 'show private events to owner' do
@@ -64,7 +64,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id, :published => false)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, true, true]
+    assert_includes calendar, [date.to_date, true, true]
   end
 
   should 'show events from invisible profiles to owner' do
@@ -73,7 +73,7 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, true, true]
+    assert_includes calendar, [date.to_date, true, true]
   end
 
   should 'show events from private profiles to owner' do
@@ -82,7 +82,16 @@ class EventsHelperTest < ActiveSupport::TestCase
     event = fast_create(Event, :profile_id => user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
-    assert_includes calendar, [date, true, true]
+    assert_includes calendar, [date.to_date, true, true]
+  end
+
+  should 'populate calendar for dates with timezone' do
+    user = create_user('userwithevents').person
+    stubs(:user).returns(user)
+    event = fast_create(Event, :profile_id => user.id, :start_date => ActiveSupport::TimeZone.new('Brasilia').now)
+    date = event.start_date
+    calendar = populate_calendar(date, Environment.default.events)
+    assert_includes calendar, [date.to_date, true, true]
   end
 
   protected
