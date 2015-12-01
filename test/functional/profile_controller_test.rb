@@ -873,11 +873,11 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
-  should 'the network activity be paginated on communities' do
+  should 'paginate the network activity listing on communities' do
     community = fast_create(Community)
     40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     get :index, :profile => community.identifier
-    assert_equal 15, assigns(:network_activities).size
+    assert_equal 15, assigns(:network_activities).to_a.size
   end
 
   should 'the self activity not crashes with user not logged in' do
