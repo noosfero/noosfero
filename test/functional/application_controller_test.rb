@@ -486,8 +486,11 @@ class ApplicationControllerTest < ActionController::TestCase
       Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' }).at_least_once
       exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
 
-      # we have switched to a new database schema, and whatever table we need don't exist in it
-      assert_match /PG::UndefinedTable/, exception.message
+      # we have switched to a new database schema; depending on the PostgreSQL
+      # version, we will receive either an error message because the schema
+      # does not exist, or an error saying that whatever table we need can't be
+      # found.
+      assert_match /(SET search_path TO schema1|PG::UndefinedTable)/, exception.message
     end
 
     should 'not change postgresql schema if multitenancy is off' do
