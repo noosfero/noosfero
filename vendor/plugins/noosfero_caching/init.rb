@@ -27,7 +27,6 @@ module NoosferoHttpCaching
   end
 
   def noosfero_session_check
-    return unless params[:controller] == 'account'
     headers["X-Noosfero-Auth"] = (session[:user] != nil).to_s
   end
 
