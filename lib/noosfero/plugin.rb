@@ -190,7 +190,7 @@ class Noosfero::Plugin
       type = type.map do |x|
         x.is_a?(String) ? x.capitalize.constantize : x
       end
-      raise "This is not a valid type" if !type.empty? && ![Person, Community, Enterprise, Environment].detect{|m| type.include?(m)}
+      raise "This is not a valid type" if !type.empty? && (type.any?{|t| !(t < Profile) && t != Environment })
 
       position = options[:position]
       position = position.is_a?(Array) ? position : [position].compact
