@@ -25,7 +25,7 @@
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Stoa authentication deamon"
-NAME=stoa-auth-daemon
+NAME=stoa-auth-server
 SCRIPTNAME=/etc/init.d/$NAME
 
 # default values
@@ -33,8 +33,8 @@ NOOSFERO_DIR=/var/lib/noosfero/current
 NOOSFERO_USER=noosfero
 
 # Read configuration variable file if it is present
-if [ -r /etc/default/$NAME ]; then
-  . /etc/default/$NAME
+if [ -r /etc/default/noosfero ]; then
+  . /etc/default/noosfero
 else
   # for running from development setup, or from git with the script symlinked
   script=$(readlink -f $0)
