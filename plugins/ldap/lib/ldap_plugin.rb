@@ -55,7 +55,7 @@ class LdapPlugin < Noosfero::Plugin
       end
 
       if attrs
-        user.login = login
+        user.login = get_login(attrs, ldap.attr_login, login)
         user.email = get_email(attrs, login)
         user.name =  attrs[:fullname]
         user.password = password
@@ -92,6 +92,11 @@ class LdapPlugin < Noosfero::Plugin
     end
 
     user
+  end
+
+  def get_login(attrs, attr_login, login)
+    user_login = Array.wrap(attrs[attr_login.split.first.to_sym])
+    user_login.empty? ? login : user_login.first
   end
 
   def get_email(attrs, login)
