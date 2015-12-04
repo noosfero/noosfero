@@ -44,51 +44,37 @@ class LdapPlugin < Noosfero::Plugin
     password = context.params[:user][:password]
     ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
 
-    user = User.find_or_initialize_by_login(login)
+    # try to authenticate
+    begin
+      attrs = ldap.authenticate(login, password)
+    rescue Net::LDAP::LdapError => e
+      puts "LDAP is not configured correctly"
+    end
+    return nil if attrs.nil?
 
-    if user.new_record?
-      # user is not yet registered, try to authenticate
-      begin
-        attrs = ldap.authenticate(login, password)
-      rescue Net::LDAP::LdapError => e
-        puts "LDAP is not configured correctly"
-      end
+    user_login = get_login(attrs, ldap.attr_login, login)
+    user = User.find_or_initialize_by_login(user_login)
+    return nil if !user.new_record? && !user.activated?
 
-      if attrs
-        user.login = get_login(attrs, ldap.attr_login, login)
-        user.email = get_email(attrs, login)
-        user.name =  attrs[:fullname]
-        user.password = password
-        user.password_confirmation = password
-        user.person_data = plugins.pipeline(:ldap_plugin_set_profile_data, attrs, context.params).last[:profile_data]
-        user.activated_at = Time.now.utc
-        user.activation_code = nil
+    user.login = user_login
+    user.email = get_email(attrs, login)
+    user.name =  attrs[:fullname]
+    user.password = password
+    user.password_confirmation = password
+    user.person_data = plugins.pipeline(:ldap_plugin_set_profile_data, attrs, context.params).last[:profile_data]
+    user.activated_at = Time.now.utc
+    user.activation_code = nil
 
-        ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
-        begin
-          if user.save
-            user.activate
-            plugins.dispatch(:ldap_plugin_update_user, user, attrs)
-          else
-            user = nil
-          end
-        rescue
-          #User not saved
-        end
+    ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
+    begin
+      if user.save
+        user.activate
+        plugins.dispatch(:ldap_plugin_update_user, user, attrs)
       else
         user = nil
       end
-
-    else
-      return nil if !user.activated?
-
-      begin
-        # user is defined as nil if ldap authentication failed
-        user = nil if ldap.authenticate(login, password).nil?
-      rescue Net::LDAP::LdapError => e
-        user = nil
-        puts "LDAP is not configured correctly"
-      end
+    rescue
+      #User not saved
     end
 
     user
