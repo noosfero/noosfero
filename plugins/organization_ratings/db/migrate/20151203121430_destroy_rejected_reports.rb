@@ -5,7 +5,7 @@ class DestroyRejectedReports < ActiveRecord::Migration
       settings = YAML.load(task['data'])
       comments << settings[:organization_rating_comment_id]
     end
-    execute("DELETE FROM comments WHERE id IN (#{comments.join(',')})")
+    execute("DELETE FROM comments WHERE id IN (#{comments.join(',')})") if comments.present?
   end
 
   def down
