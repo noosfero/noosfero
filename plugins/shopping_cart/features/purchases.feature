@@ -61,7 +61,7 @@ Feature: purchases
     And I follow "Purchases made"
     And I should see "Accepted" within any ".situation"
     And I should see "Delivered" within any ".situation"
-    And I select "Delivered" from "Status"
+    And I select "Delivered" from "status"
     When I press "Filter"
     Then I should not see "Accepted" within any ".situation"
     And I should see "Delivered" within any ".situation"
@@ -78,7 +78,7 @@ Feature: purchases
     And I follow "Purchases made"
     And I should see "1" within any ".code"
     And I should see "2" within any ".code"
-    And I fill in "Code" with "2"
+    And I fill in "code" with "2"
     When I press "Filter"
     Then I should not see "1" within any ".code"
     Then I should see "2" within any ".code"
@@ -108,7 +108,7 @@ Feature: purchases
     And I follow "Purchases made"
     And I should see "Moes Tavern" within any ".actor-name"
     And I should see "First Church of Springfield" within any ".actor-name"
-    And I select "Moes Tavern" from "Supplier"
+    And I select "Moes Tavern" from "supplier"
     When I press "Filter"
     Then I should see "Moes Tavern" within any ".actor-name"
     And I should not see "First Church of Springfield" within any ".actor-name"
@@ -132,8 +132,8 @@ Feature: purchases
     When I follow "Purchases made"
     Then I should see "Moes Tavern" within any ".actor-name"
 
-
-  @selenium
+  # FIXME: repeat only appear on the new catalog
+  @selenium-fixme
   Scenario: repeat order
     Given "moes-tavern" has the following delivery methods
       | delivery_type    | name | description                  | fixed_cost   | free_over_price |
@@ -147,7 +147,6 @@ Feature: purchases
     And I follow "Add to basket"
     And I follow "Add to basket"
     And I follow "Show basket"
-    And I follow "Clean basket"
     And I follow "Hide basket"
     When I follow "checkout"
     Then I should see "Shopping checkout"

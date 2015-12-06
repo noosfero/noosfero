@@ -334,12 +334,11 @@ class ShoppingCartPluginController < OrdersPluginController
   def save_cookie
     if @cart.nil?
       # cookie.delete does not work, set to empty value
-      cookies[cookie_key] = {value: '', path: '/plugin/shopping_cart', expires: Time.at(0)}
+      cookies.permanent[cookie_key] = {value: '', path: '/plugin/shopping_cart'}
     else
-      cookies[cookie_key] = {
+      cookies.permanent[cookie_key] = {
         value: Base64.encode64(@cart.to_yaml),
         path: "/plugin/shopping_cart",
-        expires: Time.at(0),
       }
     end
   end

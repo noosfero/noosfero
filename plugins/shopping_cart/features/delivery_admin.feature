@@ -37,7 +37,7 @@ Feature: delivery administration
     And I select "Deliver" from "Type"
     And I fill in "Name" with "Bike"
     And I fill in "Fixed cost" with "8.00"
-    And I fill in "Order's minimum price for free delivery" with "35.50"
+    And I fill in "delivery_method_free_over_price" with "35.50"
     When I press "Add"
     Then I should see "Bike" within ".delivery-method"
 
