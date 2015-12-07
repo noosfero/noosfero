@@ -44,6 +44,23 @@ class ProductCategoryTest < ActiveSupport::TestCase
     p1 = Product.new(:name => 'product1', :product_category => c1)
     p1.profile = enterprise
     p1.save!
+    p3 = Product.new(:name => 'product3', :product_category => c2)
+    p3.profile = enterprise
+    p3.save!
+
+    scope = ProductCategory.by_enterprise(enterprise)
+
+    assert_equivalent [c1,c2], scope
+  end
+
+  should 'provide a scope based on the enterprise returning distinct elements' do
+    enterprise = fast_create(Enterprise)
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
+    c2 = ProductCategory.create!(:name => 'test cat 2', :environment => Environment.default)
+    c3 = ProductCategory.create!(:name => 'test cat 3', :environment => Environment.default)
+    p1 = Product.new(:name => 'product1', :product_category => c1)
+    p1.profile = enterprise
+    p1.save!
     p2 = Product.new(:name => 'product2', :product_category => c1)
     p2.profile = enterprise
     p2.save!
