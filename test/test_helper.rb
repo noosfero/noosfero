@@ -87,7 +87,7 @@ class ActiveSupport::TestCase
   alias :ok :assert_block
 
   def assert_equivalent(enum1, enum2)
-    assert( ((enum1 - enum2) == []) && ((enum2 - enum1) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")
+    assert( (enum1.length == enum2.length) && ((enum1 - enum2) == []) && ((enum2 - enum1) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")
   end
 
   def assert_mandatory(object, attribute, test_value = 'some random string')
