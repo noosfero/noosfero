@@ -1,15 +1,8 @@
+image: noosfero/ci
+
 before_script:
-  - mkdir -p tmp/{pids,cache} log
-  - bundle check || bundle install
-# workaround for plugins with Gemfile
-  - perl -pi -e 's/--local //' script/noosfero-plugins
-  - script/noosfero-plugins disableall
-  - bundle exec rake makemo &>/dev/null
-# database
-  - cp config/database.yml.gitlab-ci config/database.yml
-  - createdb gitlab_ci_test || true
-  - bundle exec rake db:schema:load &>/dev/null
-  - bundle exec rake db:migrate &>/dev/null
+  - mkdir -p locale # makes quick-start skip compiling translations
+  - ./script/silent-quick-start
 
 units:
   script: bundle exec rake test:units
