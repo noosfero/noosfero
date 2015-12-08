@@ -7,7 +7,7 @@ class ProductCategory < Category
 
   scope :unique, :select => 'DISTINCT ON (path) categories.*'
   scope :by_enterprise, -> enterprise {
-    distinct.joins(:products).
+    joins(:products).
     where('products.profile_id = ?', enterprise.id)
   }
   scope :by_environment, -> environment {
