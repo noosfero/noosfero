@@ -1,16 +1,9 @@
 #!/bin/sh
 
 set -e
-sudo apt-get install netcat-traditional
 
-# apt-cacher-ng running on the host
-# 10.0.2.2 = host ip on virtualbox/qemu
-# 192.168..122.1 = host ip on default libvirt bridge
-for ip in 10.0.2.2 192.168.122.1; do
-  if nc -z -w 1 $ip 3142; then
-    echo "Acquire::http::Proxy \"http://$ip:3142\";" | sudo tee /etc/apt/apt.conf.d/01proxy
-  fi
-done
+cd /vagrant
+./script/set-apt-proxy
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -qy postfix
 sudo postconf virtual_alias_maps=hash:/etc/postfix/virtual
@@ -20,5 +13,4 @@ EOF
 sudo postmap /etc/postfix/virtual
 sudo service postfix reload
 
-cd /vagrant
 ./script/quick-start
