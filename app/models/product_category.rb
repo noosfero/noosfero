@@ -13,9 +13,6 @@ class ProductCategory < Category
   scope :by_environment, -> environment {
     where 'environment_id = ?', environment.id
   }
-  scope :unique_by_level, -> level {
-    select "DISTINCT ON (filtered_category) split_part(path, '/', #{level}) AS filtered_category, categories.*"
-  }
 
   def all_products
     Product.where(product_category_id: (all_children << self).map(&:id))
