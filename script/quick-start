@@ -96,6 +96,9 @@ fi
 
 # Ensure database is running
 sudo service postgresql start
+while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
+  sleep 5s
+done
 
 if test -e config/database.yml && test "$force_install" = 'false'; then
   say 'Not updating existent database.yml.'
