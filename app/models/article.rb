@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
                   :author, :display_preview, :published_at, :person_followers
 
   acts_as_having_image
+  include Noosfero::Plugin::HotSpot
 
   SEARCHABLE_FIELDS = {
     :name => {:label => _('Name'), :weight => 10},

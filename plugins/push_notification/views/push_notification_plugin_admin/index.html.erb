@@ -1,0 +1,14 @@
+<h1><%= t("push_notification_plugin.lib.plugin.settings")%></h1>
+
+<%= form_for(:server_settings, :url => {:action => 'update'}) do |f| %>
+
+  <%= labelled_form_field t('push_notification_plugin.controllers.admin.server_api_key'), f.text_field(:server_api_key, :size => "80") %>
+
+  <h3><%= t('push_notification_plugin.lib.plugin.enabled_notifications')%></h3>
+  <%= render partial: "notification_events_form", locals:{f: f, settings: @settings} %>
+
+  <% button_bar do %>
+    <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins'}) %>
+  <% end %>
+
+<% end %>

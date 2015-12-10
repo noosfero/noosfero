@@ -31,6 +31,8 @@ class Task < ActiveRecord::Base
     end
   end
 
+  include Noosfero::Plugin::HotSpot
+
   belongs_to :requestor, :class_name => 'Profile', :foreign_key => :requestor_id
   belongs_to :target, :foreign_key => :target_id, :polymorphic => true
   belongs_to :responsible, :class_name => 'Person', :foreign_key => :responsible_id
@@ -253,6 +255,7 @@ class Task < ActiveRecord::Base
   end
 
   def environment
+    return target if target.kind_of?(Environment)
     self.target.environment unless self.target.nil?
   end
 

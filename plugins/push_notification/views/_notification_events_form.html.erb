@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th><%= t("push_notification_plugin.controllers.myprofile.event") %> </th>
+    <th><%= t("push_notification_plugin.controllers.myprofile.enabled") %> </th>
+  </tr>
+
+  <% settings.each do |event, checked|%>
+    <tr>
+      <td><%= t("push_notification_plugin.events.#{event}") %></td>
+      <td>
+        <%= hidden_field_tag "settings[#{event}]", "0" %>
+        <%= check_box_tag "settings[#{event}]", "1", (checked == "1" || checked == true) %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

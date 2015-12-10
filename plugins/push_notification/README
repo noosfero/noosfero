@@ -1,0 +1,140 @@
+README - GCM - Google Cloud Message Plugin
+==========================================
+
+This plugin enables push notifications for mobile platforms
+using Google Cloud Message infrastructure.
+
+INSTALL
+=======
+
+Enable Plugin
+-------------
+
+You need to enable GCM Plugin on your Noosfero:
+
+cd <your_noosfero_dir>
+./script/noosfero-plugins install gcm
+./script/noosfero-plugins enable gcm
+
+Activation and Plugin Configuration
+-----------------------------------
+
+As a Noosfero administrator user, go to administrator panel:
+
+- Click on "Enable/disable plugins" option
+- Click on "Google Cloud Message Plugin" check-box
+- Click on "Configurations" just below the previous step
+- *Fill in the form with your server API key registered for GCM
+- Select from the check-boxes the notifications you want GCM plugin to send.
+
+*API key can be obtained creating a project in the GCM console, needed when preparing the application to use push notification.
+Link below:
+
+- https://console.developers.google.com/start
+
+More information can be found in the following links:
+- https://developers.google.com/cloud-messaging/gcm
+- https://developers.google.com/cloud-messaging/server
+- https://developers.google.com/cloud-messaging/registration
+- https://developers.google.com/instance-id/
+
+After that, the mobile application need to take care of device registration to GCM and send the device token
+to GCM plugin through noosfero API. There are endpoints to add, see and remove device tokens.
+
+- post request to /api/v1/push_notification_plugin/device_tokens with "tokens" parameter like token1,token2,token3
+will register the tokens token1, token2 and token3 to the api current logged user, defined by noosfero's private token
+also passed as parameter
+
+- get request to /api/v1/push_notification_plugin/device_tokens
+will return a list with all the tokens for the current user logged in the api
+
+- delete request to /api/v1/push_notification_plugin/device_tokens with "tokens" parameter like token1,token2
+will remove token1 and token2 from the list of tokens for the logged user
+
+- get request to /api/v1/possible_notifications
+will return a list with all possible notifications available for user to activate/deactivate
+
+- get request to /api/v1/notification_settings
+will return the notification settings for the logged user
+
+- post request to /api/v1/notification_settings
+will activate/deactivate each notification passed as parameter. For instance, when receiving "new comment" as a parameter with value 1,
+the notifications for "new comment" will be activated for the logged user
+
+- get request to /api/v1/active_notifications
+will return a list with all active notifications for the logged user
+
+- get request to /api/v1/inactive_notifications
+will return a list with all inactive notifications for the logged user
+
+In any endpoint, there is an option to pass target_id so you can add, see and delete tokens of other users.
+However, only the admin has permission to do so. Normal users can pass target_id option with it's own id,
+but the behavior is the same as passing no parameter.
+
+As a noosfero user, you can change what notifications you want to receive through web interface as well. In your profile control panel,
+go to "Notification" and activate/deactivate notifications from there.
+
+
+Add Users to be notificated from another plugin
+------------------------------------------------
+
+As a noosfero plugin developer, you can have your plugin to add users to be notified in some notifications implemented here.
+The way to do it is following the steps:
+
+  1 - Create a class with a callback for the specific notification you want to add users to. For instance, add users to the
+new comment notification creating a class with a method named** "push_notification_new_comment_additional_users". This method needs to
+return an Array with the list of users to be notified. Don't worry, no user will be notified twice.
+  2 - Subscribe the class calling the method PushNotificationPlugin::subscribe(environment,notification,klass). For a class CommentCallBack,
+call "PushNotificationPlugin::subscribe(<environment>, "new_comment", CommentCallBack)", with the environment object instead of
+<environment>.
+
+- Unsubscribe at any time calling PushNotificationPlugin::unsubscribe(environment, notification, klass)
+- Check the list of subscribers for any notification calling PushNotificationPlugin::subscribers(environment,notification)
+
+**The method will always be called "push_notification_" + <notification_name> + "additional_users". The class name does not matter, but it's
+important to use the full class name, with namespace, so there is no future problem with the callback. The method need to be a class method,
+not an instance method.
+
+Some details about the subscription methods:
+  - subscribe:
+    -> return null if the klass passed do not implement the method for the notification passed
+    -> return null if the notification is not implemented in PushNotificationPlugin
+    -> return true/false otherwise with the return of the save method
+  - unsubscribe:
+    -> return null if the notification is not implemented in PushNotificationPlugin
+    -> return true if the klass was sucessfully subscribed
+    -> return false if the klass was not subscribed or the unsubscription fails by any means
+  - subscribers:
+    -> return null if the notification is not implemented in PushNotificationPlugin
+    -> return empty array if there is no subscribers for that notification in that environment
+    -> return an array with all the subscribers otherwise
+
+Translate Plugin
+------------------
+
+To translate the strings used in the plugin, create a copy of the file "en-US.yml" with your locale and
+translate the strings in there for each key. These files are stored in the folder "locales".
+
+Get Involved
+============
+
+If you find any bug and/or want to collaborate, please send an e-mail to marcos.rpj2@gmail.com
+
+LICENSE
+=======
+
+Copyright (c) The Author developers.
+
+See Noosfero license.
+
+
+AUTHORS
+=======
+
+Marcos Ronaldo Pereira Junior (marcos.rpj2 at gmail.com)
+Marcos da Silva Ramos (msramos at outlook.com)
+
+ACKNOWLEDGMENTS
+===============
+
+The authors have been supported by SNJ (Secretaria Nacional da Juventude)
