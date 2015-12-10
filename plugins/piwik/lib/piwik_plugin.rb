@@ -17,7 +17,9 @@ class PiwikPlugin < Noosfero::Plugin
     domain = context.environment.piwik_domain
     site_id = context.environment.piwik_site_id
     unless domain.blank? || site_id.blank?
-      expanded_template('tracking-code.rhtml',{:domain => domain, :site_id => site_id})
+      piwik_url = "#{domain}/#{context.environment.piwik_path}"
+      piwik_url = "#{piwik_url}/" unless piwik_url.end_with?('/')
+      expanded_template('tracking-code.rhtml', {:site_id => site_id, :piwik_url => piwik_url})
     end
   end
 

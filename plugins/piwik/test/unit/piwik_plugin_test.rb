@@ -39,4 +39,19 @@ class PiwikPluginTest < ActiveSupport::TestCase
     assert_respond_to Environment.new, :piwik_site_id
   end
 
+  should 'set default path to piwik' do
+    @environment.piwik_domain = 'piwik.domain.example.com'
+    @environment.piwik_site_id = 5
+    @plugin.expects(:expanded_template).with('tracking-code.rhtml', {:site_id => @environment.piwik_site_id, :piwik_url => "piwik.domain.example.com/piwik/"})
+    @plugin.body_ending
+  end
+
+  should 'allow empty path in piwik url' do
+    @environment.piwik_domain = 'piwik.domain.example.com'
+    @environment.piwik_path = ''
+    @environment.piwik_site_id = 5
+    @plugin.expects(:expanded_template).with('tracking-code.rhtml', {:site_id => @environment.piwik_site_id, :piwik_url => "piwik.domain.example.com/"})
+    @plugin.body_ending
+  end
+
 end
