@@ -18,3 +18,33 @@
 #buddy-list #environment-logo {
   background-color: #BBB;
 }
+
+/* Members list*/
+.profile-members-tabs-container .ui-corner-all{
+  padding-bottom: 10px;
+}
+
+#content #members-tab ul.profile-list-members,
+#content #admins-tab ul.profile-list-admins{
+  margin: 10px auto;
+}
+
+.common-profile-list-block .profile-image{
+  height: auto;
+}
+
+.common-profile-list-block .profile-image img{
+  max-height: 80px;
+  max-width: 80px;
+}
+
+.box-1 .common-profile-list-block span{
+  width: 84px;
+}
+
+.box-1 .common-profile-list-block span.fn {
+  margin-top: 5px;
+  height: 25px;
+  width: 80px;
+}
+

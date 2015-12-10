@@ -9,7 +9,7 @@
 </div>
 <ul class="profile-list-<%= role %>" >
   <% users.each do |u| %>
-    <%= profile_image_link(u) %>
+    <%= profile_image_link(u, :thumb) %>
   <% end %>
 </ul>
 
