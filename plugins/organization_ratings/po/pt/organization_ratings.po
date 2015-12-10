@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3.1-45-g8f4a00d\n"
-"POT-Creation-Date: 2015-12-07 20:09-0000\n"
+"Project-Id-Version: 1.3.1-46-g281442e\n"
+"POT-Creation-Date: 2015-12-10 18:27-0000\n"
 "PO-Revision-Date: 2015-09-11 18:56-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,8 +97,10 @@ msgid ""
 "      about your request."
 msgstr ""
 "Seu pedido para comentar em %{target} foi enviado. \n"
-"O administrador irá recebê-lo e aprovar ou rejeitar seu pedido de acordo com seus métodos e critérios.\n"
-"Você será notificado assim que o administrador tenha uma posição sobre seu pedido."
+"O administrador irá recebê-lo e aprovar ou rejeitar seu pedido de acordo com "
+"seus métodos e critérios.\n"
+"Você será notificado assim que o administrador tenha uma posição sobre seu "
+"pedido."
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
 msgid ""
