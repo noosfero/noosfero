@@ -1,5 +1,7 @@
 class MapsController < MyProfileController
 
+  skip_before_filter :verify_authenticity_token, only: [:google_map]
+
   protect 'edit_profile', :profile
 
   def edit_location
