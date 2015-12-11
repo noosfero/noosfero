@@ -3,7 +3,12 @@ namespace :ci do
   desc 'Continuous integration smoke test'
   task :smoke do
 
-    current_branch = `git rev-parse --abbrev-ref HEAD`.strip
+    current_branch = `git rev-parse --abbrev-ref HEAD`
+    if current_branch
+      current_branch.strip!
+    else
+      fail 'Could not determine current branch. Is git installed?'
+    end
     from = ENV['PREV_HEAD'] || "origin/#{current_branch}"
     if !system("git show-ref --verify --quiet refs/remotes/#{from}")
       from = 'origin/master'
@@ -46,6 +51,7 @@ namespace :ci do
 
     if tests.empty? && features.empty? && changed_plugins.empty?
       puts "Could not figure out specific changes to be tested in isolation!"
+      puts "Assuming it's all good"
     end
     puts
 
