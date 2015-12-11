@@ -7,8 +7,7 @@ before_script:
 
 stages:
   - smoke-tests
-  - not-so-slow-tests
-  - slow-tests
+  - all-tests
 
 smoke:
   script: bundle exec rake ci:smoke
@@ -16,24 +15,24 @@ smoke:
 
 units:
   script: bundle exec rake test:units
-  stage: not-so-slow-tests
+  stage: all-tests
 
 functionals:
   script: bundle exec rake test:functionals
-  stage: not-so-slow-tests
+  stage: all-tests
 
 integration:
   script: bundle exec rake test:integration
-  stage: not-so-slow-tests
+  stage: all-tests
 
 cucumber:
   script: bundle exec rake cucumber
-  stage: slow-tests
+  stage: all-tests
 
 selenium:
   script: bundle exec rake selenium
-  stage: slow-tests
+  stage: all-tests
 
 plugins:
   script: bundle exec rake test:noosfero_plugins
-  stage: slow-tests
+  stage: all-tests
