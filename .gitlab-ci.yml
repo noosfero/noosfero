@@ -4,16 +4,35 @@ before_script:
   - mkdir -p locale # makes quick-start skip compiling translations
   - ./script/silent-quick-start
 
+stages:
+  - smoke-tests
+  - not-so-slow-tests
+  - slow-tests
+
+smoke:
+  script: bundle exec rake ci:smoke
+  stage: smoke-tests
+
 units:
   script: bundle exec rake test:units
+  stage: not-so-slow-tests
+
 functionals:
   script: bundle exec rake test:functionals
+  stage: not-so-slow-tests
+
 integration:
   script: bundle exec rake test:integration
+  stage: not-so-slow-tests
+
 cucumber:
   script: bundle exec rake cucumber
+  stage: slow-tests
+
 selenium:
   script: bundle exec rake selenium
+  stage: slow-tests
+
 plugins:
   script: bundle exec rake test:noosfero_plugins
-
+  stage: slow-tests
