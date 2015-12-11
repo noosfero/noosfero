@@ -2,6 +2,7 @@ image: noosfero/ci
 
 before_script:
   - mkdir -p locale # makes quick-start skip compiling translations
+  - ./script/set-apt-proxy
   - ./script/silent-quick-start
 
 stages:
