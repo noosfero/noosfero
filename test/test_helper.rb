@@ -87,9 +87,11 @@ class ActiveSupport::TestCase
   alias :ok :assert_block
 
   def assert_equivalent(enum1, enum2)
-    enum1 = enum1.group_by{|e|e}.values
-    enum2 = enum2.group_by{|e|e}.values
-    assert( (enum1.length == enum2.length) && ((enum1 - enum2) == []), "<#{enum1.inspect}> expected to be equivalent to <#{enum2.inspect}>")
+    norm1 = enum1.to_a
+    norm2 = enum2.to_a
+    assert_equal [], norm1 - norm2
+    assert_equal [], norm2 - norm1
+    assert_equal norm1.size, enum2.size, "Size mismatch: #{enum1.inspect} vs #{enum2.inspect}"
   end
 
   def assert_mandatory(object, attribute, test_value = 'some random string')
