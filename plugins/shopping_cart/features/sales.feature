@@ -98,7 +98,7 @@ Feature: sales
     And I follow "Purchases and Sales"
     And I should see "Homer" within any ".actor-name"
     And I should see "Reverend Lovejoy" within any ".actor-name"
-    And I select "Homer" from "consumer"
+    And I select "Homer" from "consumer_id"
     When I press "Filter"
     Then I should see "Homer" within any ".actor-name"
     And I should not see "Reverend Lovejoy" within any ".actor-name"

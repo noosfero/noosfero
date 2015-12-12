@@ -108,7 +108,7 @@ Feature: purchases
     And I follow "Purchases made"
     And I should see "Moes Tavern" within any ".actor-name"
     And I should see "First Church of Springfield" within any ".actor-name"
-    And I select "Moes Tavern" from "supplier"
+    And I select "Moes Tavern" from "supplier_id"
     When I press "Filter"
     Then I should see "Moes Tavern" within any ".actor-name"
     And I should not see "First Church of Springfield" within any ".actor-name"
@@ -125,7 +125,7 @@ Feature: purchases
     And I follow "Add to basket"
     And I follow "Show basket"
     And I follow "Shopping checkout"
-    And I fill in "Contact phone" with "123456789"
+    And I fill in "order_consumer_data_contact_phone" with "123456789"
     And I select "Bike ($8.00)" from "Option"
     And I press "Send buy request"
     And I go to homer's control panel

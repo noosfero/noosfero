@@ -12,10 +12,7 @@ subclass.class_eval do
   has_many :ordered_items, -> { order 'name ASC' }, through: :orders, source: :items
 
   has_many :sales_consumers, through: :sales, source: :consumer
-  has_many :purchases_consumers, through: :sales, source: :consumer
-
-  has_many :sales_profiles, through: :sales, source: :profile
-  has_many :purchases_profiles, through: :sales, source: :profile
+  has_many :purchases_suppliers, through: :purchases, source: :profile
 
 end
 end
@@ -30,12 +27,12 @@ class Profile
 
   def sales_all_consumers
     consumers = self.sales_consumers.order 'name ASC'
-    consumers.concat self.suppliers.except_self.order('name ASC') if self.respond_to? :suppliers
+    consumers.concat self.consumers.except_self.order('name ASC') if self.respond_to? :consumers
     consumers.uniq
   end
-  def purchases_all_consumers
-    consumers = self.purchases_consumers.order 'name ASC'
-    consumers.concat self.consumers.except_self.order('name ASC') if self.respond_to? :consumers
+  def purchases_all_suppliers
+    consumers = self.purchases_suppliers.order 'name ASC'
+    consumers.concat self.suppliers.except_self.order('name ASC') if self.respond_to? :suppliers
     consumers.uniq
   end
 
