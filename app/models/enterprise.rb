@@ -25,10 +25,6 @@ class Enterprise < Organization
   has_many :favorite_enterprise_people
   has_many :fans, source: :person, through: :favorite_enterprise_people
 
-  def product_categories
-    ProductCategory.by_enterprise(self)
-  end
-
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description
