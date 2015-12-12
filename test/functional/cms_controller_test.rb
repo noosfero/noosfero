@@ -528,7 +528,7 @@ class CmsControllerTest < ActionController::TestCase
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id, c3.id ] }
 
     saved = profile.articles.find_by_name('adding-categories-test')
-    assert_equal [c1, c3], saved.categories
+    assert_equal [c1, c3], saved.categories.all
   end
 
   should 'filter html with white_list from tiny mce article name' do
