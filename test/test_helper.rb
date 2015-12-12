@@ -89,9 +89,9 @@ class ActiveSupport::TestCase
   def assert_equivalent(enum1, enum2)
     norm1 = enum1.to_a
     norm2 = enum2.to_a
+    assert_equal norm1.size, norm2.size, "Size mismatch: #{enum1.inspect} vs #{enum2.inspect}"
     assert_equal [], norm1 - norm2
     assert_equal [], norm2 - norm1
-    assert_equal norm1.size, enum2.size, "Size mismatch: #{enum1.inspect} vs #{enum2.inspect}"
   end
 
   def assert_mandatory(object, attribute, test_value = 'some random string')
