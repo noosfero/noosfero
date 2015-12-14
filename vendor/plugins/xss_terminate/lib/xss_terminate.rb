@@ -1,4 +1,6 @@
 module XssTerminate
+  ALLOWED_CORE_ATTRIBUTES = %w(name href cite class title src xml:lang height datetime alt abbr width)
+  ALLOWED_CUSTOM_ATTRIBUTES = %w(data-macro)
 
   def self.sanitize_by_default=(value)
     @@sanitize_by_default = value
@@ -38,21 +40,29 @@ module XssTerminate
 
   module InstanceMethods
 
+    def sanitize_allowed_attributes
+      ALLOWED_CORE_ATTRIBUTES | ALLOWED_CUSTOM_ATTRIBUTES
+    end
+
+    def sanitize_custom_options
+      {:attributes => sanitize_allowed_attributes}
+    end
+
     def sanitize_field(sanitizer, field, serialized = false)
       field = field.to_sym
       if serialized
         puts field
         self[field].each_key { |key|
           key = key.to_sym
-          self[field][key] = sanitizer.sanitize(self[field][key])
+          self[field][key] = sanitizer.sanitize(self[field][key], sanitize_custom_options)
         }
       else
         if self[field]
-          self[field] = sanitizer.sanitize(self[field])
+          self[field] = sanitizer.sanitize(self[field], sanitize_custom_options)
         else
           value = self.send("#{field}")
           return unless value
-          value = sanitizer.sanitize(value)
+          value = sanitizer.sanitize(value, sanitize_custom_options)
           self.send("#{field}=", value)
         end
       end
