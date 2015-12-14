@@ -12,7 +12,7 @@
     <span style="font-size: 14px;"><%= link_to(activity.params['name'], activity.params['url'], :style => "color: #333; font-weight: bold; text-decoration: none;") %></span>
     <br/>
     <span title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-new<%= activity.target.class.icon_name %>'></span>
-    <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(truncate(activity.params['lead'], :length => 1000, :ommision => '...')).gsub(/(\xC2\xA0|\s)+/, ' ').gsub(/^\s+/, '') unless activity.params['lead'].blank? %>
+    <%= image_tag(activity.params['first_image'], :style => 'max-width:100%;') unless activity.params['first_image'].blank? %><%= strip_tags(truncate(activity.params['lead'], :length => 1000, :ommision => '...')).gsub(/(\xC2\xA0|\s)+/, ' ').gsub(/^\s+/, '') unless activity.params['lead'].blank? %>
     </p>
     <p><%= content_tag(:p, link_to(_('See complete forum'), activity.get_url), :class => 'see-forum') if activity.target.is_a?(Forum) %></p>
   </td>
