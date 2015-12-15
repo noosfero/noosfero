@@ -17,7 +17,3 @@ end.flatten.each do |taskfile|
   load taskfile
 end 
 
-# plugins' tasks
-plugins_tasks = Dir.glob("config/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort +
-  Dir.glob("config/plugins/*/vendor/plugins/*/{tasks,lib/tasks,rails/tasks}/**/*.rake").sort
-plugins_tasks.each{ |ext| load ext }
