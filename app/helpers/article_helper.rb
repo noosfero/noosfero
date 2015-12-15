@@ -105,7 +105,7 @@ module ArticleHelper
   end
 
   def add_option_to_followers(article, tokenized_children)
-    label_message = article.profile.organization? ? _('For all community members') : _('For all your friends')
+    label_message = _("Allow %s to view this content") % (article.profile.organization? ? _('all community members') : _('all your friends'))
 
     check_box(
       :article,
@@ -123,7 +123,7 @@ module ArticleHelper
         'div',
         content_tag(
           'label',
-          _('Fill in the search field to add the exception users to see this content'),
+          _('Allow only community members entered below to view this content'),
           :id => "text-input-search-exception-users"
         ) +
         token_input_field_tag(
@@ -132,7 +132,7 @@ module ArticleHelper
           {:action => 'search_article_privacy_exceptions'},
           {
             :focus => false,
-            :hint_text => _('Type in a search term for a user'),
+            :hint_text => _('Type in a name of a community member'),
             :pre_populate => tokenized_children
           }
         )
