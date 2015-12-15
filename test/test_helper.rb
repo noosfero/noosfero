@@ -87,8 +87,8 @@ class ActiveSupport::TestCase
   alias :ok :assert_block
 
   def assert_equivalent(enum1, enum2)
-    norm1 = enum1.to_a
-    norm2 = enum2.to_a
+    norm1 = enum1.group_by{|e|e}.values
+    norm2 = enum2.group_by{|e|e}.values
     assert_equal norm1.size, norm2.size, "Size mismatch: #{enum1.inspect} vs #{enum2.inspect}"
     assert_equal [], norm1 - norm2
     assert_equal [], norm2 - norm1
