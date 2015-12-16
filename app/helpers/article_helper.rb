@@ -105,7 +105,7 @@ module ArticleHelper
   end
 
   def add_option_to_followers(article, tokenized_children)
-    label_message = _("Allow %s to view this content") % (article.profile.organization? ? _('all community members') : _('all your friends'))
+    label_message = article.profile.organization? ? _('Allow all community members to view this content') : _('Allow all your friends to view this content')
 
     check_box(
       :article,
