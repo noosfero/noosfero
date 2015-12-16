@@ -4,7 +4,7 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] ||= "cucumber"
 
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'cucumber/rails'

@@ -157,7 +157,7 @@ class Noosfero::Plugin
       unless @available_plugins
         path = File.join(Rails.root, '{baseplugins,config/plugins}', '*')
         @available_plugins = Dir.glob(path).select{ |i| File.directory?(i) }
-        if Rails.env.test? && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+        if (Rails.env.test? || Rails.env.cucumber?) && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
           @available_plugins << File.join(Rails.root, 'plugins', 'foo')
         end
       end
