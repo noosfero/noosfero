@@ -170,11 +170,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  TOKEN_VALIDITY = 2.weeks
-  def private_token_expired?
-    self.private_token.nil? || (self.private_token_generated_at + TOKEN_VALIDITY < DateTime.now)
-  end
-
   # Activates the user in the database.
   def activate
     return false unless self.person

@@ -733,17 +733,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.private_token, 'token'
   end
 
-  should 'check for private token validity' do
-    user = User.new
-    assert user.private_token_expired?
-
-    user.generate_private_token!
-    assert !user.private_token_expired?
-
-    user.private_token_generated_at = DateTime.now - (User::TOKEN_VALIDITY + 1.minute)
-    assert user.private_token_expired?
-  end
-
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
