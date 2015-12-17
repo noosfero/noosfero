@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3.1-46-g281442e\n"
-"POT-Creation-Date: 2015-12-10 18:27-0000\n"
+"Project-Id-Version: 1.3.1-53-g4c56c68\n"
+"POT-Creation-Date: 2015-12-17 16:59-0000\n"
 "PO-Revision-Date: 2015-09-11 18:56-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr "Descrição:"
 
 #: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
 msgid "* The rating score is not moderated."
-msgstr "Os comentários são moderados"
+msgstr "* A avaliação através de estrelas não são mderadas"
 
 #: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
 msgid "Rate %s "
@@ -174,7 +174,7 @@ msgstr "Veja mais"
 
 #: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:4
 msgid "Rating: "
-msgstr "Avaliação:"
+msgstr "Avaliação: "
 
 #: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:18
 msgid "Be the first to rate!"
