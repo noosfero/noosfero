@@ -99,9 +99,9 @@ msgid ""
 "      about your request."
 msgstr ""
 "Seu pedido para comentar em %{target} foi\n"
-"      enviado. O administrador irá recebê-lo e aprovarou\n"
+"      enviado. O administrador irá recebê-lo e aprovar ou\n"
 " rejeitar seu pedido de acordo com seus métodos e critérios.\n"
-"      Você será notificado assim que o administrador tenha umaposição\n"
+"      Você será notificado assim que o administrador tenha uma posição\n"
 "      sobre seu pedido."
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:112
@@ -220,7 +220,7 @@ msgstr "Veja mais"
 
 #: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:4
 msgid "Rating: "
-msgstr "Avaliação:"
+msgstr "Avaliação: "
 
 #: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:18
 msgid "Be the first to rate!"
