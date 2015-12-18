@@ -142,7 +142,7 @@ msgstr "Descrição:"
 
 #: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
 msgid "* The rating score is not moderated."
-msgstr "* A avaliação através de estrelas não são mderadas"
+msgstr "* A avaliação através de estrelas não são moderadas."
 
 #: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
 msgid "Rate %s "
