@@ -503,32 +503,6 @@ module ApplicationHelper
     sex
   end
 
-  def profile_cat_icons( profile )
-    if profile.class == Enterprise
-      icons = profile.product_categories.unique_by_level(2).limit(3).map do |c|
-        filtered_category = c.filtered_category.blank? ? c.path.split('/').last : c.filtered_category
-        category_title = filtered_category.split(/[-_\s,.;'"]+/).map(&:capitalize).join(' ')
-        category_name = category_title.gsub(' ', '_' )
-        category_icon = "/images/icons-cat/#{category_name}.png"
-        if ! File.exists?(Rails.root.join('public', category_icon))
-          category_icon = '/images/icons-cat/undefined.png'
-        end
-        content_tag('span',
-          content_tag( 'span', category_title ),
-          :title => category_title,
-          :class => 'product-cat-icon cat_icon_' + category_name,
-          :style => "background-image:url(#{category_icon})"
-        )
-      end.join("\n").html_safe
-      content_tag('div',
-        content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-        :class => 'product-category-icons'
-      )
-    else
-      ''
-    end
-  end
-
   def links_for_balloon(profile)
     if environment.enabled?(:show_balloon_with_profile_links_when_clicked)
       if profile.kind_of?(Person)
@@ -587,7 +561,7 @@ module ApplicationHelper
     link_to(
       content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
-      extra_info + profile_sex_icon( profile ) + profile_cat_icons( profile ),
+      extra_info + profile_sex_icon( profile ),
       profile.url,
       :class => 'profile_link url',
       :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
