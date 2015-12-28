@@ -111,7 +111,8 @@ def run_test(name, files)
 end
 
 def run_minitest files
-  sh 'ruby', '-Itest', *files
+  files = files.map{|f| File.join(Rails.root, f)}
+  sh 'ruby', '-Itest', '-e ARGV.each{|f| require f}', *files
 end
 
 def run_cucumber(profile, files)
