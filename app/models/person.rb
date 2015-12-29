@@ -19,23 +19,23 @@ class Person < Profile
   scope :members_of, -> resources {
     resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    select('DISTINCT profiles.*').joins(:role_assignments).where([conditions])
+    distinct.select('profiles.*').joins(:role_assignments).where([conditions])
   }
 
   scope :not_members_of, -> resources {
     resources = Array(resources)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    select('DISTINCT profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions)
+    distinct.select('profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "role_assignments" ON "role_assignments"."accessor_id" = "profiles"."id" AND "role_assignments"."accessor_type" = (\'Profile\') WHERE "profiles"."type" IN (\'Person\') AND (%s))' % conditions)
   }
 
   scope :by_role, -> roles {
     roles = Array(roles)
-    select('DISTINCT profiles.*').joins(:role_assignments).where('role_assignments.role_id IN (?)', roles)
+    distinct.select('profiles.*').joins(:role_assignments).where('role_assignments.role_id IN (?)', roles)
   }
 
   scope :not_friends_of, -> resources {
     resources = Array(resources)
-    select('DISTINCT profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id))
+    distinct.select('profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id))
   }
 
   scope :visible_for_person, lambda { |person|
@@ -117,10 +117,10 @@ class Person < Profile
   scope :more_popular, -> { order 'friends_count DESC' }
 
   scope :abusers, -> {
-    joins(:abuse_complaints).where('tasks.status = 3').select('DISTINCT profiles.*')
+    joins(:abuse_complaints).where('tasks.status = 3').distinct.select('profiles.*')
   }
   scope :non_abusers, -> {
-    select("DISTINCT profiles.*").
+    distinct.select("profiles.*").
     joins("LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'").
     where("tasks.status != 3 OR tasks.id is NULL")
   }
@@ -128,6 +128,11 @@ class Person < Profile
   scope :admins, -> { joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }
   scope :activated, -> { joins(:user).where('users.activation_code IS NULL AND users.activated_at IS NOT NULL') }
   scope :deactivated, -> { joins(:user).where('NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)') }
+
+  scope :with_role, -> role_id {
+    distinct.joins(:role_assignments).
+    where("role_assignments.role_id = #{role_id}")
+  }
 
   after_destroy do |person|
     Friendship.where(friend_id: person.id).each{ |friendship| friendship.destroy }

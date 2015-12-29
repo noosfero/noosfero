@@ -280,6 +280,21 @@ class MembersBlockTest < ActionView::TestCase
     assert_includes block.roles, Profile::Roles.moderator(owner.environment.id)
   end
 
+  should 'count number of profiles by role' do
+    owner = fast_create(Community)
+    profile1 = fast_create(Person, {:public_profile => true})
+    profile2 = fast_create(Person, {:public_profile => true})
+
+    owner.add_member profile2
+    owner.add_moderator profile1
+
+    block = MembersBlock.new
+    block.visible_role = Profile::Roles.moderator(owner.environment.id).key
+    block.expects(:owner).returns(owner).at_least_once
+
+    assert_equivalent [profile1], block.profile_list
+  end
+
   protected
   include NoosferoTestHelper
 

@@ -1838,4 +1838,92 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent [c1,c3], p1.comments
   end
 
+  should 'get people of one community by moderator role' do
+    community = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+
+    community.add_member p1
+    community.add_moderator p2
+
+    assert_equivalent [p2], Person.with_role(Profile::Roles.moderator(community.environment.id).id)
+  end
+
+  should 'get people of one community by admin role' do
+    community = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+
+    community.add_admin p1
+    community.add_member p2
+
+    assert_equivalent [p1], Person.with_role(Profile::Roles.admin(community.environment.id).id)
+  end
+
+  should 'get people with admin role of any community' do
+    c1 = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    c1.add_admin p1
+    c1.add_member p2
+
+    c2 = fast_create(Community)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    c2.add_admin p4
+    c2.add_member p3
+
+    assert_equivalent [p1, p4], Person.with_role(Profile::Roles.admin(c1.environment.id).id)
+  end
+
+  should 'get distinct people with moderator role of any community' do
+    c1 = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    c1.add_member p1
+    c1.add_moderator p2
+
+    c2 = fast_create(Community)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    c2.add_member p4
+    c2.add_moderator p3
+    c2.add_moderator p2
+
+    assert_equivalent [p2, p3], Person.with_role(Profile::Roles.moderator(c1.environment.id).id)
+  end
+
+  should 'count members of a community collected by moderator' do
+    c1 = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    c1.add_member p1
+    c1.add_moderator p2
+    c1.add_member p3
+
+    assert_equal 1, c1.members.with_role(Profile::Roles.moderator(c1.environment.id).id).count
+  end
+
+  should 'count people of any community collected by moderator' do
+    c1 = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    c1.add_member p1
+    c1.add_moderator p2
+
+    c2 = fast_create(Community)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    c2.add_member p4
+    c2.add_moderator p3
+    c2.add_moderator p2
+
+    assert_equal 2, Person.with_role(Profile::Roles.moderator(c1.environment.id).id).count
+  end
+
+
 end

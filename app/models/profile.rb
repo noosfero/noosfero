@@ -89,7 +89,7 @@ class Profile < ActiveRecord::Base
   include Noosfero::Plugin::HotSpot
 
   scope :memberships_of, -> person {
-    select('DISTINCT profiles.*').
+    distinct.select('profiles.*').
     joins(:role_assignments).
     where('role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id)
   }
