@@ -42,6 +42,7 @@ gem 'rack-contrib'
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
+gem 'sprockets-rails', '~> 2.3'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
