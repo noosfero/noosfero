@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-03-09 09:51+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2016-01-04 15:22+0000\n"
+"Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 #, fuzzy
@@ -66,9 +66,8 @@ msgstr "%{fn} es obligatorio"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
-#, fuzzy
 msgid "Logged users"
-msgstr "Autenticado como %s"
+msgstr "Usuarios registrados"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
 #, fuzzy
@@ -193,7 +192,7 @@ msgstr "Nombre"
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:20
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:41
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:31
 msgid "Your e-mail will be visible to this form's owners."
