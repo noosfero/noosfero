@@ -27,9 +27,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   should 'render context content block view' do
     @page = fast_create(Folder)
     article = fast_create(TinyMceArticle, :parent_id => @page.id)
-    expects(:block_title).with(@block.title).returns('').once
-    expects(:content_tag).returns('').once
-    expects(:render).with(:file => 'blocks/context_content', :locals => {:block => @block, :contents => [article]})
+    expects(:render).with(:file => 'blocks/context_content', :locals => {:block => @block, :contents => [article], :parent_title => @page.name})
     instance_eval(&@block.content)
   end
 
@@ -37,6 +35,16 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     folder = fast_create(Folder)
     article = fast_create(TinyMceArticle, :parent_id => folder.id)
     assert_equal [article], @block.contents(folder)
+  end
+
+  should 'return parent name of the contents' do
+    folder = fast_create(Folder, :name => " New Folder")
+    article = fast_create(TinyMceArticle, :parent_id => folder.id)
+    assert_equal folder.name, @block.parent_title([article])
+  end
+
+  should 'return no parent name if there is no content' do
+    assert_nil @block.parent_title([])
   end
 
   should 'limit number of children to display' do
