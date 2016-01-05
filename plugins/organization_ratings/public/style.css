@@ -122,6 +122,10 @@
   width: 66px;
 }
 
+.star-profile-name a:link {
+  text-decoration: none;
+}
+
 .star-rate-data .star-rate-form .star-comment-container .formfield textarea {
   width: 361px;
 }

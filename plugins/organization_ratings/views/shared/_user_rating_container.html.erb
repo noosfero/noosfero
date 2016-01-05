@@ -1,11 +1,11 @@
 <div class="user-rating-block">
   <div class="star-profile-information">
     <div class="star-profile-image">
-      <%= profile_image(user_rate.person, :portrait) %>
+      <%= link_to profile_image(user_rate.person, :portrait), user_rate.person.url %>
     </div>
 
     <div class="star-profile-name">
-      <%= user_rate.person.name %>
+      <%= link_to user_rate.person.name,  user_rate.person.url %>
     </div>
   </div>
 
