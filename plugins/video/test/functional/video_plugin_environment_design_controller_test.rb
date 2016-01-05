@@ -18,9 +18,9 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     @environment.enabled_plugins = ['VideoPlugin']
     @environment.save!
 
-    VideoBlock.delete_all
+    VideoPlugin::VideoBlock.delete_all
 
-    @block = VideoBlock.new
+    @block = VideoPlugin::VideoBlock.new
     @block.box = @environment.boxes.first
     @block.save!
   end

@@ -15,11 +15,11 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @environment.enabled_plugins = ['VideoPlugin']
     @environment.save!
 
-    VideoBlock.delete_all
+    VideoPlugin::VideoBlock.delete_all
     @box1 = Box.create!(:owner => @profile)
     @profile.boxes = [@box1]
 
-    @block = VideoBlock.new
+    @block = VideoPlugin::VideoBlock.new
     @block.box = @box1
     @block.save!
 

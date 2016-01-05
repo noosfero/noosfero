@@ -1,0 +1,14 @@
+<div>
+<%if @page.video_provider=='youtube' %>
+  <iframe class="video-block-center" width='<%="#{@page.fitted_width}px"%>' height='<%="#{@page.fitted_height}px"%>' src='<%= "#{@page.format_embed_video_url_for_youtube}" %>' frameborder="0" allowfullscreen></iframe>
+<% elsif  @page.video_provider=='vimeo' %>
+  <iframe class="video-block-center" width='<%="#{@page.fitted_width}px"%>' height='<%="#{@page.fitted_height}px"%>' src='<%= "#{@page.format_embed_video_url_for_vimeo}" %>' frameborder="0" allowfullscreen></iframe>
+<% elsif  @page.video_provider=='file' %>
+  <video class="video-block-center" controls preload="auto" height="353" width="499" type='<%= @page.video_format %>'>
+    <source src=<%= "#{@page.video_url}" %>>
+  </video>
+<% end %>
+<br style="clear:both" />
+</div>
+<% _("Description:") %>
+<%= @page.body %>

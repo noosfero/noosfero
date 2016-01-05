@@ -49,9 +49,10 @@ See Noosfero license.
 AUTHORS
 =======
 
- Leandro Nunes dos Santos (leandronunes at gmail.com)
+ Leandro Nunes dos Santos (leandronunes at gmail.com) (Video Block)
+ Evandro Magalhães Leite Júnior (evandrojr at gmail.com) (Video Gallery & Video Content)
 
 ACKNOWLEDGMENTS
 ===============
 
-The author have been supported by Serpro
+The authors have been supported by Serpro

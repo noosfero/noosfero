@@ -1,0 +1,40 @@
+<div>
+ <%
+  first_video = contents[0]
+  first_video_arr = Array.new
+  first_video_arr.push(first_video)
+  other_videos = contents - first_video_arr %>
+  <% if first_video.display_to?(user) %>
+    <div class="video-gallery-table-big">
+      <div class="video-gallery-left-column-big">
+          <%= link_to first_video.view_url do %>
+            <img  width="320" height="320" src='<%= first_video.video_thumbnail_url %>' class="disable-zoom"/>
+          <% end  %>
+      </div>
+      <div class="video-gallery-right-column-big">
+        <div class="video-title-big"><%= first_video.title %></div>
+        <div class="video-author-big">
+          <%= _("by")  %> <%= first_video.author_name %> <%= _("updated at") %>  <%= time_ago_in_words(first_video.updated_at)  %>
+        </div>
+      </div>
+    </div>
+  <% end  %>
+  <% other_videos.each do |content| %>
+    <% if content.display_to?(user) %>
+      <div class="video-gallery-thumbnail">
+        <div class="video-gallery-top-box">
+          <%= link_to content.view_url do %>
+            <img  width="<%= content.thumbnail_fitted_width %>" height="<%= content.thumbnail_fitted_height %>" src='<%= content.video_thumbnail_url %>' class="disable-zoom"/>
+          <% end  %>
+        </div>
+        <div class="video-gallery-botton-box">
+            <div class="video-author">
+              <%= _("by")  %> <%= content.author_name %> <%= _("updated at") %>  <%= time_ago_in_words(content.updated_at)  %>
+            </div>
+            <div class="video-title"><%= content.title %></div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<p><%= pagination_links contents, :param_name => 'npage', :page_links => true %></p>
+</div>

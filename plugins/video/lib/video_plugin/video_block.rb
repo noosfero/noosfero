@@ -1,7 +1,7 @@
-class VideoBlock < Block
+class VideoPlugin::VideoBlock < Block
 
   attr_accessible :url, :width, :height
-  
+
   settings_items :url, :type => :string, :default => ""
   settings_items :width, :type => :integer, :default => 400
   settings_items :height, :type => :integer, :default => 315
@@ -9,11 +9,11 @@ class VideoBlock < Block
   YOUTUBE_ID_FORMAT = '\w-'
 
   def is_youtube?
-    url.match(/.*(youtube.com.*v=[#{YOUTUBE_ID_FORMAT}]+|youtu.be\/[#{YOUTUBE_ID_FORMAT}]+).*/) ? true : false
+    VideoPlugin::Video.is_youtube?(url)
   end
 
   def is_vimeo?
-    url.match(/^(http[s]?:\/\/)?(www.)?(vimeo.com|player.vimeo.com\/video)\/[[:digit:]]+/) ? true : false
+    VideoPlugin::Video.is_vimeo?(url)
   end
 
   def is_video_file?
@@ -21,11 +21,11 @@ class VideoBlock < Block
   end
 
   def format_embed_video_url_for_youtube
-    "//www.youtube-nocookie.com/embed/#{extract_youtube_id}?rel=0&wmode=transparent" if is_youtube?
+    VideoPlugin::Video.format_embed_video_url_for_youtube(url)
   end
 
   def format_embed_video_url_for_vimeo
-    "//player.vimeo.com/video/#{extract_vimeo_id}" if is_vimeo?
+    VideoPlugin::Video.format_embed_video_url_for_vimeo(url)
   end
 
   def self.description
@@ -47,16 +47,11 @@ class VideoBlock < Block
   private
 
   def extract_youtube_id
-    return nil unless is_youtube?
-    youtube_match = url.match("v=([#{YOUTUBE_ID_FORMAT}]*)")
-    youtube_match ||= url.match("youtu.be\/([#{YOUTUBE_ID_FORMAT}]*)")
-    youtube_match[1] unless youtube_match.nil?
+    VideoPlugin::Video.extract_youtube_id(url)
   end
 
   def extract_vimeo_id
-    return nil unless is_vimeo?
-    vimeo_match = url.match('([[:digit:]]*)$')
-    vimeo_match[1] unless vimeo_match.nil?
+    VideoPlugin::Video.extract_vimeo_id(url)
   end
 
 end

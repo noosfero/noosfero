@@ -1,0 +1,66 @@
+.video-gallery-thumbnail {
+  position: relative;
+  display: inline-block;
+  width: 95px;
+  height: 115px;
+  margin: 1em;
+  border: solid #F0F0F0 1px;
+  vertical-align: top;
+  text-align: left;
+  overflow: hidden;
+  padding-top: 7px;
+  margin-botton: 10px;
+  text-overflow: ellipsis;
+}
+
+.video-gallery-top-box{
+  height: 73px;
+}
+
+.video-duration{
+  position: absolute;
+  bottom: 0px;
+  background-color: black;
+  font-size: 1em;
+  text-color: white;
+}
+
+.video-title{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-author{
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-gallery-thumbnail:hover div{
+  display: inline-block;
+}
+
+.video-gallery-table-big{
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-gallery-left-column-big{
+  width: 350px;
+  float: left;
+}
+
+.video-gallery-right-column-big{
+  margin-left: 370px;
+}
+
+.video-title-big{
+  font-size: 2em;
+}
+
+.video-block-center{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
