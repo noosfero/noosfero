@@ -28,3 +28,9 @@ Feature: rate_community
   Scenario: display rate button inside communities ratings block
     Given I am on mycommunity's homepage
     Then I should see "Rate Community" within ".make-report-block"
+
+  Scenario: redirect to profile page
+    Given I am on mycommunity's homepage
+    When I follow "Rate this Community"
+    Then I should see "Joao Silva" within ".star-profile-name"
+    And I should see Joao Silva's profile image

@@ -9,11 +9,11 @@
 
   <div class="star-profile-information">
     <div class="star-profile-image">
-      <%= profile_image(current_user.person, :portrait) %>
+      <%= link_to profile_image(current_user.person, :portrait), current_user.person.url %>
     </div>
 
     <div class="star-profile-name">
-      <%= current_user.name %>
+      <%= link_to current_user.person.name,  current_user.person.url %>
     </div>
   </div>
 
