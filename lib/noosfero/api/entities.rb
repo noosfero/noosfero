@@ -119,7 +119,7 @@ module Noosfero
         root 'communities', 'community'
         expose :description
         expose :admins do |community, options|
-          community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id}}
+          community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
         end
         expose :categories, :using => Category
         expose :members, :using => Person
