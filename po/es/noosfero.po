@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-01-04 22:43+0000\n"
+"PO-Revision-Date: 2016-01-06 17:27+0000\n"
 "Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -1784,11 +1784,12 @@ msgid ""
 "You must to provide `lat` and `lng`, or `city` and `country` to define the "
 "center of the search circle, defined by `distance`."
 msgstr ""
+"Debes introducir latitud y longitud o ciudad para concretar el centro de la "
+"búsqueda definida por distancia."
 
 #: app/models/profile.rb:393
-#, fuzzy
 msgid "is not a template."
-msgstr "Editar plantillas"
+msgstr "no es una plantilla."
 
 #: app/models/profile.rb:744
 msgid "%s can't have members"
@@ -1853,7 +1854,6 @@ msgid "Community Info and settings"
 msgstr "Información de la comunidad y ajustes"
 
 #: app/models/tiny_mce_article.rb:6
-#, fuzzy
 msgid "Text article with visual editor"
 msgstr "Artículo de texto con editor visual"
 
@@ -1866,14 +1866,12 @@ msgid "Article suggestion"
 msgstr "Sugerencia de artículos"
 
 #: app/models/suggest_article.rb:65
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{subject}."
-msgstr "%{author} sugirió la publicación de el artículo: %{subject}."
+msgstr "%{requestor} sugirió la publicación del artículo: %{subject}."
 
 #: app/models/suggest_article.rb:78
-#, fuzzy
 msgid "%{requestor} suggested the publication of the article: %{article}."
-msgstr "%{sender} sugirió la publicación del artículo: %{article}."
+msgstr "%{requestor} sugirió la publicación del artículo: %{article}."
 
 #: app/models/rss_feed.rb:6
 msgid "RssFeed"
@@ -1900,38 +1898,33 @@ msgid "HTML"
 msgstr "HTML"
 
 #: app/models/raw_html_article.rb:8
-#, fuzzy
 msgid "Raw HTML text article"
-msgstr "Artículo de HTML plano."
+msgstr "Artículo de HTML plano"
 
 #: app/models/raw_html_article.rb:12
-#, fuzzy
 msgid "Allows HTML without filter (only for admins)."
-msgstr "Permite HTML sin filtro (solamente para administradores)"
+msgstr "Permite HTML sin filtro (solamente para administradores)."
 
 #: app/models/product_categories_block.rb:4
-#, fuzzy
 msgid "Product category menu"
-msgstr "Categoría de producto"
+msgstr "Menú de categoría de producto"
 
 #: app/models/product_categories_block.rb:9
-#, fuzzy
 msgid "Catalog"
-msgstr "Estado del chat"
+msgstr "Catálogo"
 
 #: app/models/product_categories_block.rb:13
 msgid "Helps to filter the products catalog."
-msgstr ""
+msgstr "Ayuda a filtrar el catálogo de productos."
 
 #: app/models/product_categories_block.rb:22
-#, fuzzy
 msgid "There are no sub-categories for %s"
-msgstr "No existe tal página: %s"
+msgstr "No existe subcategoria para  %s"
 
 #: app/models/product_categories_block.rb:36
 #, fuzzy
 msgid "Only on the catalog"
-msgstr "Solamente en la página de inicio"
+msgstr "Solamente en el catálogo"
 
 #: app/models/favorite_enterprises_block.rb:4
 #: app/models/favorite_enterprises_block.rb:12
@@ -1986,16 +1979,15 @@ msgstr "Teléfono de contacto"
 #: app/models/create_enterprise.rb:47
 #, fuzzy
 msgid "{fn} is not a validator for the chosen region"
-msgstr "%{fn} no es un validador para la región escogida"
+msgstr "{fn} no es un validador para la región escogida"
 
 #: app/models/create_enterprise.rb:54
-#, fuzzy
 msgid ""
 "{fn} is already being as identifier by another enterprise, organization or "
 "person."
 msgstr ""
-"%{fn} está siendo utilizado como identificador por otra empresa, "
-"organización o persona."
+"{fn} está siendo utilizado como identificador por otra empresa, organización "
+"o persona."
 
 #: app/models/create_enterprise.rb:166 app/models/create_enterprise.rb:212
 msgid "%{requestor} wants to create enterprise %{subject}."
@@ -2094,9 +2086,8 @@ msgid "CreateEnterprise|Identifier"
 msgstr "Crear empresa|Identificador"
 
 #: app/models/license.rb:7
-#, fuzzy
 msgid "URL"
-msgstr "URL:"
+msgstr "URL"
 
 #: app/models/enterprise_homepage.rb:4 app/models/enterprise_homepage.rb:16
 #: app/views/blocks/profile_info.html.erb:18
@@ -2107,9 +2098,8 @@ msgid "Homepage"
 msgstr "Inicio"
 
 #: app/models/enterprise_homepage.rb:8
-#, fuzzy
 msgid "Enterprise homepage"
-msgstr "Página de inicio de la empresa."
+msgstr "Página de inicio de la empresa"
 
 #: app/models/enterprise_homepage.rb:12
 msgid "Display the summary of profile."
@@ -2200,7 +2190,6 @@ msgid "Your password was changed successfully."
 msgstr "Tu contraseña fue cambiada correctamente."
 
 #: app/models/change_password.rb:73
-#, fuzzy
 msgid ""
 "In order to change your password, please visit the following address:\n"
 "\n"
@@ -2211,7 +2200,9 @@ msgid ""
 msgstr ""
 "Para cambiar tu contraseña, por favor visita la siguiente dirección :\n"
 "\n"
-"%s"
+"%s\n"
+"\n"
+"Si no has solicitado cambiar la contraseña omite este mail."
 
 #: app/models/feed_reader_block.rb:40
 msgid "Feed reader"
