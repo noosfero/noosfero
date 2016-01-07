@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3.1-46-g281442e\n"
-"POT-Creation-Date: 2015-12-10 18:27-0000\n"
+"Project-Id-Version: 1.3.1-61-g25bc299\n"
+"POT-Creation-Date: 2016-01-07 12:45-0000\n"
 "PO-Revision-Date: 2015-11-04 13:40-0200\n"
 "Last-Translator: Bráulio Bhavamitra <brauliobo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -298,7 +298,7 @@ msgstr "e-Mail"
 msgid "{fn} must be checked in order to signup."
 msgstr "{fn} deve ser verificado para efetivar inscrição."
 
-#: app/models/user.rb:294
+#: app/models/user.rb:289
 msgid ""
 "The user \"%{login}\" is not activated! Please check your email to activate "
 "your user"
@@ -306,7 +306,7 @@ msgstr ""
 "O usuário \"%{login}\" não está ativado! Por favor cheque seu email para "
 "ativar o usuário"
 
-#: app/models/user.rb:339
+#: app/models/user.rb:334
 msgid "does not match."
 msgstr "não corresponde."
 
@@ -929,7 +929,7 @@ msgstr "(Nenhum ícone)"
 msgid "Edit"
 msgstr "Editar"
 
-#: app/models/link_list_block.rb:8
+#: app/models/link_list_block.rb:8 app/views/templates/index.html.erb:13
 msgid "New"
 msgstr "Novo"
 
@@ -3252,22 +3252,20 @@ msgid "Who will be able to create new topics on this forum?"
 msgstr "Quem poderá criar novos tópicos neste fórum?"
 
 #: app/helpers/article_helper.rb:108
-msgid "For all community members"
-msgstr "Para todos os integrantes da comunidade"
+msgid "Allow all community members to view this content"
+msgstr "Permitir que todos os membros da comunidade vejam este conteúdo"
 
 #: app/helpers/article_helper.rb:108
-msgid "For all your friends"
-msgstr "Para todos os seus amigos"
+msgid "Allow all your friends to view this content"
+msgstr "Permitir que todos seus amigos vejam este conteúdo"
 
 #: app/helpers/article_helper.rb:126
-msgid "Fill in the search field to add the exception users to see this content"
-msgstr ""
-"Preencha o campo de busca para adicionar os usuários que poderão ver esse "
-"conteúdo"
+msgid "Allow only community members entered below to view this content"
+msgstr "Permitir que somente membros da comunidade vejam este conteúdo"
 
-#: app/helpers/article_helper.rb:135 app/views/features/index.html.erb:48
-msgid "Type in a search term for a user"
-msgstr "Digite um termo de pesquisa para um usuário"
+#: app/helpers/article_helper.rb:135
+msgid "Type in a name of a community member"
+msgstr "Digite um nome de um membro da comunidade"
 
 #: app/helpers/content_viewer_helper.rb:9
 msgid "no comments yet"
@@ -4908,6 +4906,10 @@ msgstr "Habilitar lista de integrantes permitidos"
 #: app/views/features/index.html.erb:46
 msgid "Allow these people to access this environment:"
 msgstr "Permitir que outras pessoas acessem este ambiente:"
+
+#: app/views/features/index.html.erb:48
+msgid "Type in a search term for a user"
+msgstr "Digite um termo de pesquisa para um usuário"
 
 #: app/views/features/_manage_community_fields.html.erb:8
 msgid "Display on creation?"
@@ -7123,10 +7125,6 @@ msgstr "Editar Modelos"
 #: app/views/templates/index.html.erb:3
 msgid "Manage the templates used on creation of profiles"
 msgstr "Gerenciar os modelos usados na criação de perfis"
-
-#: app/views/templates/index.html.erb:13
-msgid "New..."
-msgstr "Novo..."
 
 #: app/views/templates/index.html.erb:13
 msgid "Create a new template for %s"
@@ -9907,36 +9905,34 @@ msgid "Unsupported macro %s!"
 msgstr "Macro %s não suportada!"
 
 #: lib/noosfero/api/session.rb:58
-#, fuzzy
 msgid "Activation token"
-msgstr "Ativar"
+msgstr "Ativar token"
 
 #: lib/noosfero/api/session.rb:89
 msgid "Token is invalid"
-msgstr ""
+msgstr "Token é inválido"
 
 #: lib/noosfero/api/session.rb:109
-#, fuzzy
 msgid "Forgot password code"
 msgstr "Esqueceu sua senha?"
 
-#: lib/noosfero/api/helpers.rb:290
+#: lib/noosfero/api/helpers.rb:289
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Requisição inválida) %s não pode ser salvo(a)"
 
-#: lib/noosfero/api/helpers.rb:295
+#: lib/noosfero/api/helpers.rb:294
 msgid "(Invalid request) %s not given"
 msgstr "(Requisição inválida) %s não informado(a)"
 
-#: lib/noosfero/api/helpers.rb:300
+#: lib/noosfero/api/helpers.rb:299
 msgid "Something wrong happened"
 msgstr "Algo deu errado"
 
-#: lib/noosfero/api/helpers.rb:305
+#: lib/noosfero/api/helpers.rb:304
 msgid "Unauthorized"
 msgstr "Não autorizado"
 
-#: lib/noosfero/api/helpers.rb:309
+#: lib/noosfero/api/helpers.rb:308
 msgid "Method Not Allowed"
 msgstr "Método não autorizado"
 
@@ -9988,11 +9984,24 @@ msgstr ""
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
 
-#, fuzzy
+#~ msgid "For all community members"
+#~ msgstr "Para todos os integrantes da comunidade"
+
+#~ msgid "For all your friends"
+#~ msgstr "Para todos os seus amigos"
+
+#~ msgid ""
+#~ "Fill in the search field to add the exception users to see this content"
+#~ msgstr ""
+#~ "Preencha o campo de busca para adicionar os usuários que poderão ver esse "
+#~ "conteúdo"
+
+#~ msgid "New..."
+#~ msgstr "Novo..."
+
 #~ msgid "Requestor must be a member of target."
 #~ msgstr "%{requestor} quer ser um membro desta comunidade."
 
-#, fuzzy
 #~ msgid "Task target must be "
 #~ msgstr "Tarefas que eu solicitei"
 
@@ -10017,11 +10026,9 @@ msgstr ""
 #~ msgid "\"Editing #{@role.name}\""
 #~ msgstr "\"Editando #{@role.name}\""
 
-#, fuzzy
 #~ msgid "\"Assign #{@role.name}\""
 #~ msgstr "\"Editando #{@role.name}\""
 
-#, fuzzy
 #~ msgid "\"Deleting #{@role.name}\""
 #~ msgstr "\"Editando #{@role.name}\""
 
@@ -10130,9 +10137,6 @@ msgstr ""
 
 #~ msgid "%s - Friends online (<span id='friends-online'>%d</span>)"
 #~ msgstr "%s - Amigos conectados (<span id='friends-online'>%d</span>)"
-
-#~ msgid "None of your friends is online at the moment"
-#~ msgstr "Nenhum dos seus amigos está online no momento"
 
 #~ msgid "Friends in chat (<span class='amount_of_friends'>%{amount}</span>)"
 #~ msgstr "Amigos no chat (<span class='amount_of_friends'>(%{amount})</span>)"

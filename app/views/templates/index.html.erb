@@ -10,7 +10,7 @@
 <% list_of_templates.each do |title, templates, kind|%>
   <div class='template-kind'>
     <h2><%= title %></h2>
-    <%= button :add, _('New...'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s") % title.downcase %>
+    <%= button :add, _('New'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s") % title.downcase %>
     <table class='actions'>
       <tr>
         <th><%= _('Template') %></th>
