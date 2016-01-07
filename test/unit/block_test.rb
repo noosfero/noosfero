@@ -303,6 +303,11 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal block.cache_key('en'), block.cache_key('en', person)
   end
 
+  should 'use language in cache key' do
+    block = Block.new
+    assert_not_equal block.cache_key('en'), block.cache_key('pt')
+  end
+
   should 'display block to members of community for display_user = members' do
     community = fast_create(Community)
     user = create_user('testinguser')

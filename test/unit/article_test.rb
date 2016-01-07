@@ -759,6 +759,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-version-2/,a.cache_key(:version => 2))
   end
 
+ should 'use language in cache key' do
+   a = Article.new
+   assert_not_equal a.cache_key({}, nil, ''), a.cache_key({}, nil, 'pt')
+ end
+
   should 'not be highlighted by default' do
     a = Article.new
     refute a.highlighted
