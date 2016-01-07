@@ -29,15 +29,6 @@ Feature:
     And I follow "Manage my groups"
     Then I should see "Sample Community"
 
-  Scenario: a user can leave a community by members block's button
-    Given "Maria Silva" is a member of "Sample Community"
-    And I am logged in as "mariasilva"
-    When I go to sample-community's homepage
-    And I follow "Leave community" within ".members-block"
-    And I go to mariasilva's control panel
-    And I follow "Manage my groups"
-    Then I should not see "Sample Community"
-
   Scenario: a not logged in user can log in by members block's button
     Given I am not logged in
     When I go to sample-community's homepage
