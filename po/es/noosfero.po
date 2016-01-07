@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-01-06 17:27+0000\n"
+"PO-Revision-Date: 2016-01-07 11:31+0000\n"
 "Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -2246,40 +2246,38 @@ msgid "Don't display"
 msgstr "No mostrar"
 
 #: app/models/block.rb:248
-#, fuzzy
 msgid "Logged"
-msgstr "Autenticado como %s"
+msgstr "Autentificado"
 
 #: app/models/block.rb:249
 msgid "Not logged"
-msgstr ""
+msgstr "No autentificado"
 
 #: app/models/block.rb:256
 msgid "Can be modified"
-msgstr ""
+msgstr "Puede ser modificado"
 
 #: app/models/block.rb:257
 msgid "Cannot be modified"
-msgstr ""
+msgstr "No puede ser modificado"
 
 #: app/models/block.rb:263
 msgid "Can be moved"
-msgstr ""
+msgstr "Puede moverse"
 
 #: app/models/block.rb:264
-#, fuzzy
 msgid "Cannot be moved"
-msgstr "%s no pudo ser actualizado"
+msgstr "No puede moverse"
 
 #: app/models/add_member.rb:28
 msgid "New member"
 msgstr "Nuevo miembro"
 
 #: app/models/add_member.rb:34 app/models/add_member.rb:53
-#, fuzzy
 msgid ""
 "%{requestor}%{requestor_email} wants to be a member of '%{organization}'."
-msgstr "%{requestor} quiere ser miembro de esta comunidad."
+msgstr ""
+"%{requestor}%{recuestor_mail} quiere ser miembro de esta '%{organization}'."
 
 #: app/models/add_member.rb:58
 msgid ""
@@ -2314,9 +2312,8 @@ msgid "None"
 msgstr "Ninguno"
 
 #: app/models/certifier.rb:8
-#, fuzzy
 msgid "Link"
-msgstr "Enlaces"
+msgstr "Enlace"
 
 #: app/models/products_block.rb:19
 msgid "This block presents a list of your products."
@@ -2335,9 +2332,8 @@ msgid "Subscribe RSS Feed"
 msgstr "Suscribirse a noticias RSS"
 
 #: app/models/national_region.rb:5
-#, fuzzy
 msgid "Region Code"
-msgstr "Región"
+msgstr "Código postal"
 
 #: app/models/national_region.rb:72
 msgid "Invalid city or state name."
@@ -2376,18 +2372,16 @@ msgstr ""
 "es parte de <i>%{env}</i> y enlaces útiles."
 
 #: app/models/domain.rb:17
-#, fuzzy
 msgid ""
 "{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 "
 "to 9), \"_\" and \"-\", separated by dots."
 msgstr ""
-"%{fn} debe estar compuesto solo por letras minúsculas (a - z), números (0 - "
-"9), \"_\" y \"-\", separados por puntos."
+"{fn} debe estar compuesto solo por letras minúsculas (a - z), números (0 - 9)"
+", \"_\" y \"-\", separados por puntos."
 
 #: app/models/domain.rb:26
-#, fuzzy
 msgid "{fn} must not start with www."
-msgstr "%{fn} no debe empezar con www."
+msgstr "{fn} no debe empezar con www."
 
 #: app/models/disabled_enterprise_message_block.rb:4
 msgid "\"Disabled enterprise\" message"
@@ -2428,9 +2422,8 @@ msgid "Are you sure you want to visit this web site?"
 msgstr "¿Esta seguro de querer visitar este sitio?"
 
 #: app/helpers/catalog_helper.rb:18
-#, fuzzy
 msgid "Start"
-msgstr "Fecha de inicio"
+msgstr "inicio"
 
 #: app/helpers/categories_helper.rb:4
 msgid "General Category"
@@ -10303,7 +10296,7 @@ msgstr "Producto sin categoría"
 
 #: lib/noosfero/api/helpers.rb:247
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Método no permitido"
 
 #: lib/file_presenter.rb:65
 msgid "File (%s)"
