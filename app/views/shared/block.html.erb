@@ -1,7 +1,7 @@
 <% if block.cacheable? && use_cache %>
   <% cache_timeout(block.cache_key(language, user), block.timeout) do %>
-    <%= display_block_content(block, user, main_content) %>
+    <%= display_block_content(block, main_content) %>
   <% end %>
 <% else %>
-  <%= display_block_content(block, user, main_content) %>
+  <%= display_block_content(block, main_content) %>
 <% end %>

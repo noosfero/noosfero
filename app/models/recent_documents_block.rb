@@ -22,13 +22,6 @@ class RecentDocumentsBlock < Block
 
   settings_items :limit, :type => :integer, :default => 5
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/recent_documents', :locals => { :block => block }
-    end
-  end
-
   def footer
     return nil unless self.owner.is_a?(Profile)
 

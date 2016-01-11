@@ -59,13 +59,6 @@ class LinkListBlock < Block
     _('Link list')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/link_list', :locals => { :block => block }
-    end
-  end
-
   def expand_address(address)
     add = if owner.respond_to?(:identifier)
       address.gsub('{profile}', owner.identifier)

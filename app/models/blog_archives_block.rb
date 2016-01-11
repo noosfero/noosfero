@@ -21,13 +21,6 @@ class BlogArchivesBlock < Block
     blog_id && owner.blogs.exists?(blog_id) ? owner.blogs.find(blog_id) : owner.blog
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/blog_archives', :locals => { :block => block }
-    end
-  end
-
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
   end

@@ -32,7 +32,7 @@ class CommunitiesBlock < ProfileListBlock
     suggestions = self.suggestions
     return '' unless owner.kind_of?(Profile) || owner.kind_of?(Environment)
     proc do
-      render :file => 'blocks/communities', :locals => { :owner => owner, :suggestions => suggestions }
+      render :file => 'blocks/communities_footer', :locals => { :owner => owner, :suggestions => suggestions }
     end
   end
 

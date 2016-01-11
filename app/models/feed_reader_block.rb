@@ -75,7 +75,4 @@ class FeedReaderBlock < Block
     self.save!
   end
 
-  def content(args={})
-  end
-
 end

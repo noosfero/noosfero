@@ -32,11 +32,4 @@ class FeaturedProductsBlock < Block
     self.owner.highlighted_products_with_image
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/featured_products', :locals => { :block => block }
-    end
-  end
-
 end

@@ -13,13 +13,6 @@ class ProductCategoriesBlock < Block
     _('Helps to filter the products catalog.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/product_categories', :locals => { :block => block }
-    end
-  end
-
   DISPLAY_OPTIONS = DISPLAY_OPTIONS.merge('catalog_only' => _('Only on the catalog'))
 
   def display

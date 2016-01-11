@@ -19,13 +19,6 @@ class ProductsBlock < Block
     _('This block presents a list of your products.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/products', :locals => { :block => block }
-    end
-  end
-
   def footer
     link_to(_('View all products'), owner.public_profile_url.merge(:controller => 'catalog', :action => 'index'))
   end

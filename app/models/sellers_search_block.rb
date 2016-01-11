@@ -22,10 +22,4 @@ class SellersSearchBlock < Block
     _('This block presents a search engine for products.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/sellers_search', :locals => { :block => block }
-    end
-  end
 end

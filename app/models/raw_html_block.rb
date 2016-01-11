@@ -12,13 +12,6 @@ class RawHTMLBlock < Block
 
   attr_accessible :html
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/raw_html', :locals => { :block => block }
-    end
-  end
-
   def has_macro?
     true
   end

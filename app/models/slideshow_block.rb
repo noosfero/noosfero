@@ -33,13 +33,6 @@ class SlideshowBlock < Block
     gallery.images.reject {|item| item.folder?}
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/slideshow', :locals => { :block => block }
-    end
-  end
-
   def folder_choices
     owner.image_galleries
   end

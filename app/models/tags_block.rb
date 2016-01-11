@@ -28,13 +28,6 @@ class TagsBlock < Block
        Try to add some tags to some articles and you'l see your tag cloud growing.")
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/tags', :locals => { :block => block }
-    end
-  end
-
   def footer
     if owner.class == Environment
       proc do
