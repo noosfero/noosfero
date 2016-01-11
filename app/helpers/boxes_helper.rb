@@ -88,8 +88,13 @@ module BoxesHelper
   end
 
   def render_block_content(block)
-    # TODO: se nao existe retornar nil
-    render :file => "blocks/#{block.name.underscore.gsub('_block', '')}", :locals => { :block => block }
+    template_name = block.class.name.underscore.gsub('_block', '')
+    template_filename = "#{template_name}.html.erb"
+    if File.exists? Rails.root.join('app', 'views', 'blocks', template_filename)
+      render :file => "blocks/#{template_name}", :locals => { :block => block }
+    else
+      nil
+    end
   end
 
   def display_block_content(block, main_content = nil)
