@@ -25,10 +25,13 @@ class TagsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, TagsBlock.new.default_title
   end
 
+  include BoxesHelper
+
   should 'generate links to tags' do
-    assert_match /profile\/testinguser\/tags\/first-tag/,  block.content
-    assert_match /profile\/testinguser\/tags\/second-tag/, block.content
-    assert_match /profile\/testinguser\/tags\/third-tag/,  block.content
+    content = render_block_content(block)
+    assert_match /profile\/testinguser\/tags\/first-tag/,  content
+    assert_match /profile\/testinguser\/tags\/second-tag/, content
+    assert_match /profile\/testinguser\/tags\/third-tag/,  content
   end
 
   should 'generate links to tags on a environment page' do
@@ -38,24 +41,25 @@ class TagsBlockTest < ActiveSupport::TestCase
     box = create(Box, :owner => Environment.default)
     @block = create(TagsBlock, :box => box)
 
-    assert_match /3 items[^>]+\/tag\/first-tag/,  block.content
-    assert_match /3 items[^>]+\/tag\/second-tag/, block.content
-    assert_match /one item[^>]+\/tag\/third-tag/, block.content
-    assert_match /2 item[^>]+\/tag\/other-tag"/,  block.content
+    content = render_block_content(block)
+    assert_match /3 items[^>]+\/tag\/first-tag/,  content
+    assert_match /3 items[^>]+\/tag\/second-tag/, content
+    assert_match /one item[^>]+\/tag\/third-tag/, content
+    assert_match /2 item[^>]+\/tag\/other-tag"/,  content
   end
 
   should 'return (none) when no tags to display' do
     block.owner.expects(:article_tags).returns([])
-    assert_equal '', block.content
+    assert_equal '', render_block_content(block)
   end
 
   should 'generate links when profile has own hostname' do
     @user.domains << Domain.new(:name => 'testuser.net'); @user.save!
-    assert_match /profile\/testinguser\/tags\/first-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/first-tag/, render_block_content(block)
   end
 
   should 'order tags alphabetically' do
-    assert /\/first-tag".*\/second-tag".*\/third-tag"/m =~  block.content
+    assert /\/first-tag".*\/second-tag".*\/third-tag"/m =~ render_block_content(block)
   end
 
   should 'return the max value in the range between zero and limit' do

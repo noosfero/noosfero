@@ -80,11 +80,13 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     assert_equal 'always', block.display
   end
 
+  include BoxesHelper
+
   should 'display highlights block' do
     block = HighlightsBlock.new
     self.expects(:render).with(:file => 'blocks/highlights', :locals => { :block => block})
 
-    instance_eval(& block.content)
+    render_block_content(block)
   end
 
   should 'not list non existent image' do
@@ -167,7 +169,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.images = [i1]
     block.save!
 
-    assert_tag_in_string instance_eval(& block.content), :tag => 'img', :attributes => { :src => "/social/img_address" }
+    assert_tag_in_string render_block_content(block), :tag => 'img', :attributes => { :src => "/social/img_address" }
   end
 
   [Environment, Profile].each do |klass|
