@@ -95,7 +95,7 @@ module Noosfero
       development_url_options
     when 'cucumber'
       if Capybara.current_driver == :selenium
-        { :host => Capybara.current_session.driver.rack_server.host, :port => Capybara.current_session.driver.rack_server.port }
+        { :host => Capybara.current_session.server.host, :port => Capybara.current_session.server.port }
       end
     end || { }
   end
