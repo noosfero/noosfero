@@ -38,6 +38,14 @@ class Block < ApplicationRecord
     end
   end
 
+  after_destroy do |block|
+    if block.owner.kind_of?(Profile) && block.owner.is_template? && block.mirror?
+      block.observers.each do |observer|
+        observer.destroy
+      end
+    end
+  end
+
   def embedable?
     false
   end
