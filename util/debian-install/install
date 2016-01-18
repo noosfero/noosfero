@@ -1,7 +1,7 @@
 #!/bin/sh
 
-DISTRO=wheezy
-REPOSITORY='wheezy-test'
+DISTRO=jessie
+REPOSITORY='jessie-test'
 
 if [ -n "$1" ]; then
   REPOSITORY="$1"
