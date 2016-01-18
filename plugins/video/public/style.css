@@ -64,3 +64,8 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+form.video-plugin_video .type-text input,
+form.video-plugin_video .type-textarea textarea {
+  width: 100%;
+}

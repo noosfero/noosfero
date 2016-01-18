@@ -1738,7 +1738,7 @@ class CmsControllerTest < ActionController::TestCase
     [Blog, TinyMceArticle, Forum].each do |klass|
       a = fast_create(klass, :profile_id => profile.id)
       get :edit, :profile => profile.identifier, :id => a.id
-      assert_tag :tag => 'form', :attributes => {:class => klass.to_s}
+      assert_tag :tag => 'form', :attributes => {:class => "#{a.type} #{a.type.to_css_class}"}
     end
   end
 
