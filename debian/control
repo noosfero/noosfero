@@ -33,6 +33,7 @@ Vcs-Browser: http://git.colivre.coop.br/?p=noosfero.git
 Package: noosfero
 Architecture: all
 Depends: adduser,
+         bundler (>= 1.10),
          dbconfig-common,
          debconf,
          exim4 | mail-transport-agent,
