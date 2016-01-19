@@ -1,8 +1,9 @@
-noosfero (1.4~rc0) UNRELEASED; urgency=low
+noosfero (1.4~rc1) jessie-test; urgency=low
 
   * Noosfero 1.4 RC 0
+  * Noosfero 1.4 RC1
 
- -- Antonio Terceiro <terceiro@debian.org>  Mon, 18 Jan 2016 10:59:57 -0200
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Tue, 19 Jan 2016 16:30:01 -0200
 
 noosfero (1.3) wheezy-test; urgency=low
 
