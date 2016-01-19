@@ -99,4 +99,11 @@ languages.each do |lang|
   end
 end
 
+task :makemo => 'tmp/makemo.stamp'
+file 'tmp/makemo.stamp' do |t|
+  sh 'find po plugins/*/po -name "*.po" -exec touch "{}" ";"'
+  Rake::Task['gettext:mo:update'].invoke
+  touch t.name
+end
+
 # vim: ft=ruby
