@@ -124,7 +124,7 @@ EOF
     source = Dir['pkg/noosfero-*.tar.gz'].first
     sh "gpg --detach-sign #{source}"
     sh "sha256sum #{source} > #{source}.sha256sum"
-    sh "scp #{source}* download.noosfero.org:repos/source/"
+    sh "rsync -avp #{source}* download.noosfero.org:repos/source/"
     sh "dput --unchecked noosfero-#{target} #{Dir['pkg/*.changes'].first}"
   end
 
