@@ -28,8 +28,8 @@ $ rm -f pkg/
 $ cd utils/debian-install/
 $ vagrant destroy
 $ rm -f *.deb
-$ REPOSITORY=wheezy vagrant up              # install current stable version
+$ REPOSITORY=jessie vagrant up              # install current stable version
 $ cd ../../
 $ make noosfero:deb                         # build current packages
-$ REPOSITORY=wheezy-next vagrant provision  # upgrade
+$ REPOSITORY=jessie-next vagrant provision  # upgrade
 ```

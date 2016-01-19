@@ -267,7 +267,6 @@ EOF
 
     # base pre-config
     mkdir "#{target}/tmp"
-    ln_s '../../../vendor/rails', "#{target}/vendor/rails"
     cp "#{target}/config/database.yml.sqlite3", "#{target}/config/database.yml"
 
     sh "cd #{target} && dpkg-buildpackage -us -uc -b"

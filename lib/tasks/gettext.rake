@@ -16,6 +16,11 @@ GetText::Tools::Task.define do |task|
     'public/*.html.erb',
     'public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}',
   ].map { |pattern| Dir.glob(pattern) }.flatten
+
+  # installed, no po/ available
+  if !File.directory?(task.po_base_directory)
+    task.locales = Dir.chdir(task.mo_base_directory) { Dir.glob('*') }
+  end
 end
 
 task 'gettext:mo:update' => :symlinkmo

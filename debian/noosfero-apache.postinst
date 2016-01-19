@@ -17,7 +17,7 @@ if which update-noosfero-apache >/dev/null; then
   update-noosfero-apache
 
   if [ "$enable_apache_site" = 'true' ]; then
-    a2ensite noosfero
+    a2ensite noosfero.conf
     invoke-rc.d apache2 reload
   fi
 fi
