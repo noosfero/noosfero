@@ -1,6 +1,9 @@
 require 'test_helper'
 require_relative '../../controllers/sub_organizations_plugin_profile_controller'
 
+# Re-raise errors caught by the controller.
+class SubOrganizationsPluginProfileController; def rescue_action(e) raise e end; end
+
 class SubOrganizationsPluginProfileControllerTest < ActionController::TestCase
 
   def setup

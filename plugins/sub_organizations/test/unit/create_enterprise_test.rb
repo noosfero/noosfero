@@ -8,4 +8,3 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
   end
 
 end
-

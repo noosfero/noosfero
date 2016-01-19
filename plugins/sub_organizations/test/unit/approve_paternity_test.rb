@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SubOrganizationsPlugin::ApprovePaternityTest < ActiveSupport::TestCase
+class ApprovePaternityTest < ActiveSupport::TestCase
 
   def setup
     @requestor = create_user('some-user').person
