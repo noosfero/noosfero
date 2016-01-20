@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SubOrganizationsPlugin::RelationTest < ActiveSupport::TestCase
+class RelationTest < ActiveSupport::TestCase
 
   should 'validates presence of child and parent' do
     org = fast_create(Organization)
