@@ -2190,6 +2190,14 @@ class ArticleTest < ActiveSupport::TestCase
     article.destroy
   end
 
+  should 'be able to vote in an article without a user' do
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => nil)
+    assert_difference 'article.votes_for', 2 do
+      Vote.create!(:voteable => article, :vote => 1)
+      Vote.create!(:voteable => article, :vote => 1)
+    end
+  end
+
   should 'have can_display_media_panel with default false' do
     a = Article.new
     assert !a.can_display_media_panel?
