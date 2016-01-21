@@ -106,4 +106,10 @@ file 'tmp/makemo.stamp' do |t|
   touch t.name
 end
 
+task :updatepo => 'gettext:po:update' do
+  Dir.glob('**/*.po').each do |po|
+    sh "cp #{po} #{po}.tmp && msguniq -o #{po} #{po}.tmp && rm -f #{po}.tmp"
+  end
+end
+
 # vim: ft=ruby
