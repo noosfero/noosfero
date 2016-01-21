@@ -68,8 +68,8 @@ msgid ""
 "<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this "
 "%{target_class}"
 msgstr ""
-"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário neste"
-"(a) %{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
+"neste(a) %{target_class}"
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
 msgid "%{requestor} wants to create a comment in this \"%{target}\""

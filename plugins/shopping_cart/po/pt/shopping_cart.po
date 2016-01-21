@@ -201,7 +201,6 @@ msgstr "Tem certeza que quer limpar seu cesto?"
 msgid "repeat order"
 msgstr "repetir pedido"
 
-
 #: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:7
 msgid "Item name"
 msgstr "Nome do item"
@@ -216,8 +215,11 @@ msgid "Hi %s!"
 msgstr "Olá %s!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
-msgid "This is a notification e-mail about your buy request on the enterprise %s."
-msgstr "Esse é um email de notificação sobre o seu pedido de compra no empreendimento %s."
+msgid ""
+"This is a notification e-mail about your buy request on the enterprise %s."
+msgstr ""
+"Esse é um email de notificação sobre o seu pedido de compra no "
+"empreendimento %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
@@ -225,9 +227,7 @@ msgid ""
 "confirmation."
 msgstr ""
 "O empreendimento já recebeu o seu pedido de compra e entrará em contato para "
-"confirmação."
-
-"confirmação."
+"confirmação.confirmação."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "If you have any doubts about your order, write to us at: %s."
@@ -337,6 +337,7 @@ msgstr "Qtde"
 #: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb
 msgid "Unit price"
 msgstr "Preço unitário"
+
 #~ msgid "Can't join items from different enterprises."
 #~ msgstr "Não é possível juntar itens de empreendimentos diferentes."
 

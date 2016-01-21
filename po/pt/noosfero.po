@@ -2140,8 +2140,8 @@ msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
 msgstr ""
-"Você precisa entrar no %{system} para poder aceitar %{requestor} como seu"
-"(sua) amigo(a)."
+"Você precisa entrar no %{system} para poder aceitar %{requestor} como "
+"seu(sua) amigo(a)."
 
 #: app/models/add_friend.rb:44
 msgid "New friend"
