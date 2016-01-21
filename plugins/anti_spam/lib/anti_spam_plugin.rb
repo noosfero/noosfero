@@ -9,7 +9,7 @@ class AntiSpamPlugin < Noosfero::Plugin
   end
 
   def self.host_default_setting
-    'api.antispam.typepad.com'
+    'rest.akismet.com'
   end
 
   def check_for_spam(object)
