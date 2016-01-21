@@ -11,8 +11,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3.1-61-g25bc299\n"
-"POT-Creation-Date: 2016-01-07 12:45-0000\n"
+"Project-Id-Version: 1.3.1-64-g92ff843\n"
+"POT-Creation-Date: 2016-01-21 17:42-0000\n"
 "PO-Revision-Date: 2015-11-04 13:40-0200\n"
 "Last-Translator: Bráulio Bhavamitra <brauliobo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -1057,7 +1057,7 @@ msgstr "Acima Vermelho"
 #: app/views/cms/_text_editor_sidebar.html.erb:34
 #: app/views/shared/_profile_search_form.html.erb:7
 #: app/views/search/_sellers_form.html.erb:21
-#: app/views/search/_search_form.html.erb:19
+#: app/views/search/_search_form.html.erb:18
 msgid "Search"
 msgstr "Busca"
 
@@ -2078,8 +2078,8 @@ msgstr "Este bloco apresenta as categorias como um menu."
 
 #: app/models/communities_block.rb:6
 #: app/controllers/public/search_controller.rb:54
-#: app/controllers/public/search_controller.rb:183
-#: app/controllers/public/search_controller.rb:259
+#: app/controllers/public/search_controller.rb:185
+#: app/controllers/public/search_controller.rb:261
 #: app/helpers/assets_helper.rb:11 app/helpers/application_helper.rb:564
 #: app/helpers/application_helper.rb:1128
 msgid "Communities"
@@ -2331,8 +2331,8 @@ msgstr "Este block apresenta os empreendimentos onde este usuário trabalha."
 
 #: app/models/enterprises_block.rb:12
 #: app/controllers/public/search_controller.rb:51
-#: app/controllers/public/search_controller.rb:184
-#: app/controllers/public/search_controller.rb:257
+#: app/controllers/public/search_controller.rb:186
+#: app/controllers/public/search_controller.rb:259
 #: app/helpers/assets_helper.rb:10 app/views/search/_sellers_form.html.erb:7
 msgid "Enterprises"
 msgstr "Empreendimentos"
@@ -2624,8 +2624,8 @@ msgid "Could not create the e-mail"
 msgstr "Não foi possível criar o e-mail"
 
 #: app/controllers/public/search_controller.rb:50
-#: app/controllers/public/search_controller.rb:182
-#: app/controllers/public/search_controller.rb:258
+#: app/controllers/public/search_controller.rb:184
+#: app/controllers/public/search_controller.rb:260
 #: app/helpers/assets_helper.rb:8 app/helpers/application_helper.rb:1112
 msgid "People"
 msgstr "Pessoas"
@@ -2635,18 +2635,26 @@ msgid "Upcoming events"
 msgstr "Próximos eventos"
 
 #: app/controllers/public/search_controller.rb:55
-#: app/controllers/public/search_controller.rb:181
-#: app/controllers/public/search_controller.rb:256
+#: app/controllers/public/search_controller.rb:183
+#: app/controllers/public/search_controller.rb:258
 #: app/helpers/application_helper.rb:1096
 msgid "Contents"
 msgstr "Conteúdos"
 
-#: app/controllers/public/search_controller.rb:185
-#: app/controllers/public/search_controller.rb:260
+#: app/controllers/public/search_controller.rb:74
+msgid "People Search"
+msgstr "Buscar Pessoas"
+
+#: app/controllers/public/search_controller.rb:90
+msgid "Communities Search"
+msgstr "Buscar Comunidades"
+
+#: app/controllers/public/search_controller.rb:187
+#: app/controllers/public/search_controller.rb:262
 msgid "Products and Services"
 msgstr "Produtos e Serviços"
 
-#: app/controllers/public/search_controller.rb:186
+#: app/controllers/public/search_controller.rb:188
 #: app/helpers/assets_helper.rb:12 app/views/search/events.html.erb:1
 #: public/designs/themes/base/navigation.html.erb:10
 #: public/designs/themes/noosfero/navigation.html.erb:10
@@ -8608,14 +8616,6 @@ msgstr "ver todos (%d)"
 msgid "by %{author} on \"%{article}\""
 msgstr "por %{author} em \"%{article}\""
 
-#: app/views/search/search_page.html.erb:1
-#: app/views/search/communities.html.erb:1
-#: app/views/search/articles.html.erb:1
-#: app/views/search/enterprises.html.erb:1
-#: app/views/search/products.html.erb:1 app/views/search/people.html.erb:1
-msgid "Type words about the %s you're looking for"
-msgstr "Digite palavras sobre o(a) %s que você está procurando"
-
 #: app/views/search/_full_product.html.erb:13
 msgid "from"
 msgstr "de"
@@ -9983,6 +9983,9 @@ msgstr ""
 "Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, desenvolvido "
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
+
+#~ msgid "Type words about the %s you're looking for"
+#~ msgstr "Digite palavras sobre o(a) %s que você está procurando"
 
 #~ msgid "For all community members"
 #~ msgstr "Para todos os integrantes da comunidade"
