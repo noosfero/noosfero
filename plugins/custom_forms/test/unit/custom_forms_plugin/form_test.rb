@@ -181,7 +181,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f3 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => another_profile)
     scope = CustomFormsPlugin::Form.from_profile(profile)
 
-    assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
     assert_includes scope, f2
     assert_not_includes scope, f3
@@ -194,7 +193,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip', :profile => profile, :on_membership => false)
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
-    assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
     assert_includes scope, f2
     assert_not_includes scope, f3
@@ -225,7 +223,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
     scope = CustomFormsPlugin::Form.from_profile(profile).for_admissions
 
-    assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
     assert_includes scope, f2
     assert_not_includes scope, f3
@@ -237,7 +234,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
-    assert_equal ActiveRecord::Relation, scope.class
     assert_includes scope, f1
     assert_not_includes scope, f2
   end
