@@ -5,5 +5,5 @@ end
 
 Then /^The tinymce "(.+)" should contain "(.+)"$/ do |item, content|
   item_value = page.evaluate_script("tinyMCE.activeEditor.getParam('#{item}');")
-  assert_include item_value.to_s, content
+  expect(item_value.to_s).to have_content(content)
 end
