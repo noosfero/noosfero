@@ -15,7 +15,7 @@ Background:
   Scenario: deactive user
     Given I follow "Deactivate user" within "tr[title='Joao Silva']"
     When I confirm the browser dialog
-    Then the "tr[title='Joao Silva'] td.actions a.icon-activate-user" button should be enabled
+    Then the field "tr[title='Joao Silva'] td.actions a.icon-activate-user" should be enabled
 
   @selenium
   Scenario: activate user
@@ -23,7 +23,7 @@ Background:
     And I confirm the browser dialog
     And I follow "Activate user" within "tr[title='Paulo Santos']"
     When I confirm the browser dialog
-    Then the "tr[title='Paulo Santos'] td.actions a.icon-deactivate-user" button should be enabled
+    Then the field "tr[title='Paulo Santos'] td.actions a.icon-deactivate-user" should be enabled
 
   @selenium
   Scenario: remove user
@@ -36,7 +36,7 @@ Background:
   Scenario: admin user
     Given I follow "Set admin role" within "tr[title='Joao Silva']"
     When I confirm the browser dialog
-    Then the "tr[title='Joao Silva'] td.actions a.icon-reset-admin-role" button should be enabled
+    Then the field "tr[title='Joao Silva'] td.actions a.icon-reset-admin-role" should be enabled
 
   @selenium
   Scenario: unadmin user
@@ -44,4 +44,4 @@ Background:
     And I confirm the browser dialog
     And I follow "Reset admin role" within "tr[title='Paulo Santos']"
     When I confirm the browser dialog
-    Then the "tr[title='Paulo Santos'] td.actions a.icon-set-admin-role" button should be enabled
+    Then the field "tr[title='Paulo Santos'] td.actions a.icon-set-admin-role" should be enabled
