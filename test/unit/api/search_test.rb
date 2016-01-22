@@ -23,6 +23,16 @@ class SearchTest < ActiveSupport::TestCase
     assert_not_empty json['articles']
   end
 
+  should 'list only articles that has children' do
+    article = fast_create(Article, :profile_id => person.id)
+    parent = create(Article, :profile_id => person.id, :name => 'parent article')
+    child = create(Article, :profile_id => person.id, :parent_id => parent.id, :name => 'child article')
+
+    get "/api/v1/search/article?has_children=true"
+    json = JSON.parse(last_response.body)
+    assert_equal parent.id, json['articles'].first['id']
+  end
+
   should 'invalid search string articles' do
     fast_create(Article, :profile_id => person.id, :name => 'some article')
     get "/api/v1/search/article?query=test"

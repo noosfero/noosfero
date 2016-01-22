@@ -52,6 +52,9 @@ module Noosfero
       mount V1::Environments
       mount V1::Search
       mount V1::Contacts
+      mount V1::Boxes
+      mount V1::Profiles
+      mount V1::Activities
 
       mount Session
 
