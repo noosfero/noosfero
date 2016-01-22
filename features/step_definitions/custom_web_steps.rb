@@ -22,14 +22,14 @@ When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
   page.should have_xpath("//a[@href='#{href}']")
 end
 
-Then /^the "([^"]*)" button should be disabled$/ do |selector|
-  field = find(selector)
-  field['disabled'].should be_truthy
-end
+Then /^the field "([^"]*)" should be (enabled|disabled)$/ do |selector, status|
+  field = page.find(:css, selector)
 
-Then /^the "([^"]*)" button should be enabled$/ do |selector|
-  field = find(selector)
-  field['disabled'].should_not be_truthy
+  if status == 'enabled'
+    field.disabled?.should_not be_truthy
+  else
+    field.disabled?.should be_truthy
+  end
 end
 
 When /^I reload and wait for the page$/ do

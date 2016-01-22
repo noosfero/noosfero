@@ -14,11 +14,11 @@
 }
 
 .star-negative {
-  background-image: url('public/images/star-negative.png');
+  background-image: url('images/star-negative.png');
 }
 
 .star-positive {
-  background-image: url('public/images/star-positive.png');
+  background-image: url('images/star-positive.png');
 }
 
 .small-star-negative, .small-star-positive {
@@ -31,11 +31,11 @@
 }
 
 .small-star-negative {
-  background-image: url('public/images/small-star-negative.png');
+  background-image: url('images/small-star-negative.png');
 }
 
 .small-star-positive {
-  background-image: url('public/images/small-star-positive.png');
+  background-image: url('images/small-star-positive.png');
 }
 
 .medium-star-negative, .medium-star-positive {
@@ -48,11 +48,11 @@
 }
 
 .medium-star-positive {
-  background-image: url('public/images/star-positive-medium.png');
+  background-image: url('images/star-positive-medium.png');
 }
 
 .medium-star-negative {
-  background-image: url('public/images/star-negative-medium.png');
+  background-image: url('images/star-negative-medium.png');
 }
 
 .star-hide {
