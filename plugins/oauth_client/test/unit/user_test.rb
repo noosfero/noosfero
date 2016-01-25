@@ -11,6 +11,11 @@ class UserTest < ActiveSupport::TestCase
     User.create!(:email => 'testoauth@example.com', :login => 'testoauth', :oauth_providers => [provider])
   end
 
+  should 'associate the oauth provider with the created user' do
+    user = User.create!(:email => 'testoauth@example.com', :login => 'testoauth', :oauth_providers => [provider])
+    assert_equal user.oauth_providers.reload, [provider]
+  end
+
   should 'password is required if there is a oauth provider' do
     user = User.new(:email => 'testoauth@example.com', :login => 'testoauth')
     user.save
