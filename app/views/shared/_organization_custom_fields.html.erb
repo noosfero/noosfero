@@ -30,6 +30,4 @@
   <%= optional_field(profile, 'foundation_year', f.text_field(:foundation_year)) %>
 <% end %>
 
-<%= render :partial => 'shared/custom_fields', :locals => {:f => f, :profile => profile, :signup => true} %>
-
 <%= javascript_include_tag('city_state_validation') %>
