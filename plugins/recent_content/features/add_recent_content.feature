@@ -73,11 +73,10 @@ Background:
     And I press "Save"
     Then I should see "Quinto post do joao silva" within ".block.recent-content-block"
 
-  # the step for attaching a file on the input only works with capybara 1.1.2, but it requires rails 1.9.3
-  @selenium-fixme
   Scenario: the user should see the blog cover image if configured and the image is available
     Given I go to joaosilva's control panel
     And I follow "Configure blog"
+    And I follow "Edit" within "tr[title='JSilva blog']"
     And I attach the file "public/images/rails.png" to "Uploaded data"
     And I press "Save"
     When I go to joaosilva's control panel
