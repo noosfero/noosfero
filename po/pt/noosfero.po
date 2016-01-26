@@ -3104,7 +3104,7 @@ msgstr "Responsável pela tarefa atualizado com sucesso!"
 
 #: app/controllers/my_profile/tasks_controller.rb:63
 msgid "All decisions were applied successfully."
-msgstr "Todos as decisões foram aplicadas com sucesso."
+msgstr "Todas as decisões foram aplicadas com sucesso."
 
 #: app/controllers/my_profile/tasks_controller.rb:65
 msgid "Some decisions couldn't be applied."
@@ -7848,7 +7848,7 @@ msgstr "pasta superior"
 
 #: app/views/cms/why_categorize.html.erb:1 app/views/cms/edit.html.erb:27
 msgid "Why categorize?"
-msgstr "Porque categorizar?"
+msgstr "Por que categorizar?"
 
 #: app/views/cms/why_categorize.html.erb:4
 msgid ""

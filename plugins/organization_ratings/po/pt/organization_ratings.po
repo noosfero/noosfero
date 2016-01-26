@@ -30,7 +30,7 @@ msgstr "Você não pode votar nesta %s"
 
 #: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:48
 msgid "%s successfully rated!"
-msgstr "%s avaliada com sucesso!"
+msgstr "%s avaliado(a) com sucesso!"
 
 #: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:50
 msgid "Sorry, there were problems rating this profile."
