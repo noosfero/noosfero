@@ -754,13 +754,6 @@ Given /^there are no pending jobs$/ do
   end
 end
 
-When /^I confirm the "(.*)" dialog$/ do |confirmation|
-  a = page.driver.browser.switch_to.alert
-  a.accept
-  # FIXME: a.text is returning nil
-  #assert_equal confirmation, a.text
-end
-
 Given /^the field (.*) is public for all users$/ do |field|
   Person.all.each do |person|
     person.fields_privacy = Hash.new if person.fields_privacy.nil?

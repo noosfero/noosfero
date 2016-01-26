@@ -43,6 +43,7 @@ end
 
 When /^I confirm the browser dialog$/ do
   page.driver.browser.switch_to.alert.accept
+  sleep 1 # FIXME Don't know why, but this is necessary...  :/
 end
 
 When /^I type in "([^\"]*)" into autocomplete list "([^\"]*)" and I choose "([^\"]*)"$/ do |term, input, result|
