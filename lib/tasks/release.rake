@@ -184,6 +184,7 @@ EOF
     {
       dput: :dput,
       dch: :devscripts,
+      git: :git,
     }.each do |program, package|
       if ! system("which #{program} >/dev/null 2>&1")
         puts "Program #{program} missing, install the package #{package}"
