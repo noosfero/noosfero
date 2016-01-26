@@ -90,7 +90,7 @@ Feature: edit article
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
     And I uncheck "article_show_to_followers"
-    Then I should see "Fill in the search field to add the exception users to see this content"
+    Then I should see "Allow only community members entered below to view this content"
 
   @selenium
   Scenario: allowed user should see the content of a folder
