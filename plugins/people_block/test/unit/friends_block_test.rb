@@ -136,7 +136,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     block.expects(:owner).returns(owner).at_least_once
     ActionView::Base.any_instance.expects(:profile_image_link).with(friend1, :minor).returns(friend1.name)
     ActionView::Base.any_instance.expects(:profile_image_link).with(friend2, :minor).returns(friend2.name)
-    ActionView::Base.any_instance.expects(:block_title).with(anything).returns('')
+    ActionView::Base.any_instance.expects(:block_title).with(anything, anything).returns('')
 
     content = render_block_content(block)
 

@@ -1,4 +1,4 @@
-<%= block_title(block.title) %>
+<%= block_title(block.title, block.subtitle) %>
 
 <% unless block.images.blank? %>
   <%= link_to content_tag(:span, _('Previous')), '#', :class => 'gallery-block-prev gallery-block-arrow icon-left' %>

@@ -1,4 +1,4 @@
-<%= block_title(block.title) %>
+<%= block_title(block.title, block.subtitle) %>
 <% if block.article %>
   <%=
     h(article_to_html(FilePresenter.for(block.article),

@@ -1,4 +1,4 @@
-<%= block_title(block.title) %>
+<%= block_title(block.title, block.subtitle) %>
 
 <% if block.display_button %>
   <%= button :help, _('Help'), '#', :class => 'tour-button', :onclick => 'siteTourPlugin.force();' %>

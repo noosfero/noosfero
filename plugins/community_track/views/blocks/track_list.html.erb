@@ -1,4 +1,4 @@
-<%= block_title(block.title) %>
+<%= block_title(block.title, block.subtitle) %>
 
 <div class="track_list" id="track_list_<%= block.id %>">
   <%= render :partial => "blocks/#{block.track_partial}", :collection => block.tracks, :locals => {:block => block} %>

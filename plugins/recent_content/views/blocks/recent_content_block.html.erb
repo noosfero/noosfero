@@ -2,7 +2,7 @@
   <div id="recent-content-block">
     <% children = block.articles_of_folder(root, block.total_items)%>
     <div class="recent-content">
-      <%= block_title(block.title.blank? ? c_("Recent content") : block.title ) %>
+      <%= block_title(block.title.blank? ? c_("Recent content") : block.title, block.subtitle ) %>
       <% if block.show_blog_picture and !root.image.nil? %>
         <div class="recent-content-cover">
           <%= image_tag(root.image.public_filename(:big)) %>

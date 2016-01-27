@@ -1,9 +1,15 @@
 module BlockHelper
 
-  def block_title(title)
-    tag_class = 'block-title'
+  def block_title(title, subtitle=nil)
+    block_header = block_heading title
+    block_header += block_heading(subtitle, 'h4') if subtitle
+    content_tag 'div', block_header, :class => 'block-header'
+  end
+
+  def block_heading(title, heading='h3')
+    tag_class = 'block-' + (heading == 'h3' ? 'title' : 'subtitle')
     tag_class += ' empty' if title.empty?
-    content_tag 'h3', content_tag('span', h(title)), :class => tag_class
+    content_tag heading, content_tag('span', h(title)), :class => tag_class
   end
 
   def highlights_block_config_image_fields(block, image={}, row_number=nil)

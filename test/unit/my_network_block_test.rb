@@ -42,7 +42,7 @@ class MyNetworkBlockViewTest < ActionView::TestCase
   attr_reader :owner, :block
 
   should 'display my-profile' do
-    ActionView::Base.any_instance.stubs(:block_title).with(anything).returns(true)
+    ActionView::Base.any_instance.stubs(:block_title).with(anything, anything).returns(true)
     ActionView::Base.any_instance.stubs(:user).with(anything).returns(owner)
     ActionView::Base.any_instance.stubs(:render_profile_actions)
     assert_match "#{Environment.default.top_url}/profile/testuser", render_block_content(block)

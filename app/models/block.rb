@@ -1,6 +1,6 @@
 class Block < ActiveRecord::Base
 
-  attr_accessible :title, :display, :limit, :box_id, :posts_per_page,
+  attr_accessible :title, :subtitle, :display, :limit, :box_id, :posts_per_page,
                   :visualization_format, :language, :display_user,
                   :box, :edit_modes, :move_modes, :mirror
 

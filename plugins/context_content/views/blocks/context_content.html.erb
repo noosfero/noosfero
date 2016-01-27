@@ -1,7 +1,7 @@
 <% if block.use_parent_title %>
-  <%= block_title(parent_title) %>
+  <%= block_title(parent_title, block.subtitle) %>
 <% else %>
-  <%= block_title(block.title) %>
+  <%= block_title(block.title, block.subtitle) %>
 <% end %>
 
 <div class='contents' id='<%="context_content_#{block.id}"%>'>
