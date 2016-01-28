@@ -57,4 +57,24 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     end
   end
 
+  should 'check most voted articles from profile with relevant content block' do
+    community = fast_create(Community)
+    article = fast_create(Article, {:name=>'2 votes', :profile_id => community.id})
+    2.times{
+      person = fast_create(Person)
+      person.vote_for(article)
+    }
+    article = fast_create(Article, {:name=>'10 votes', :profile_id => community.id})
+    10.times{
+        person = fast_create(Person)
+        person.vote_for(article)
+    }
+
+    Box.create!(owner: community)
+    community.boxes[0].blocks << RelevantContentPlugin::RelevantContentBlock.new
+
+    data = Article.most_voted(community, 5)
+    assert_equal false, data.empty?
+  end
+
 end
