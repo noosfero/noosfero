@@ -61,12 +61,26 @@ else
   sudo rm -f /etc/apt/sources.list.d/local.list
 fi
 
+retry() {
+  local times="$1"
+  shift
+  local i=0
+  local rc=0
+  while [ $i -lt "$times" ]; do
+    echo '$' "$@"
+    "$@" && rc=0 || rc=$?
+    i=$(($i + 1))
+    if [ $rc -eq 0 ]; then return 0; fi
+  done
+  return $rc
+}
+
 # update system, at most every 6h (internal between Debian mirror pushes)
 timestamp=/tmp/.noosfero.apt-get.update
 now=$(date +%s)
 if [ ! -f $timestamp ] || [ $(($now - $(stat --format=%Y $timestamp))) -gt 21600 ]; then
-  run sudo apt-get update
-  run sudo apt-get -qy dist-upgrade
+  run retry 3 sudo apt-get update
+  run retry 3 sudo apt-get -qy dist-upgrade
   touch $timestamp
 fi
 
