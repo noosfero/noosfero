@@ -11,6 +11,7 @@ Developers
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Alan Freihof Tygel <alantygel@gmail.com>
 Alessandro Palmeira <alessandro.palmeira@gmail.com>
+Alexandre Barbosa <alexandreab@live.com>
 Alexandre Torres <alexandrekry@gmail.com>
 Alex Campelo <campelo.al1@gmail.com>
 Álvaro Fernando <alvarofernandoms@gmail.com>
@@ -120,6 +121,7 @@ Raquel <rcordioli@gmail.com>
 Renan Costa <renan2727@hotmail.com>
 Renan Teruo <renanteruoc@gmail.com>
 Rodrigo Medeiros <rodrigo.mss01@gmail.com>
+Rodrigo Siqueira <siqueira@kuniri.org>
 Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronnie Simon <ronniesimonf@gmail.com>
 Ronny Kursawe <kursawe.ronny@googlemail.com>

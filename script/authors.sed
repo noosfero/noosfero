@@ -168,6 +168,7 @@ s/macartur.sc@gmail.com$/macartur.sc@gmail.com>/
 
 s/Marcos da Silva Ramos <ms.ramos@outlook.com>/Marcos Ramos <ms.ramos@outlook.com>/
 s/Marcos Ramos <ms.ramos@outlook.com$/Marcos Ramos <ms.ramos@outlook.com>/
+s/msramos@outlook.com/ms.ramos@outlook.com/
 s/Marcos <marcos.rpj2@gmail.com>/Marcos Ronaldo <marcos.rpj2@gmail.com>/
 
 s/melissa@colivre.coop.br/melissa.srw@gmail.com/
