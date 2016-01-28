@@ -16,12 +16,12 @@ Feature: sub_organizations_display
    And the following enterprise
       | identifier | name   |  owner | description        | city           | state      |
       | school     | School | nelson | School description | Terra do Nunca | Billy Jean |
+   And the following blocks
+      | owner | type |
+      | springfield | RelatedOrganizationsBlock |
    And I am logged in as "nelson"
    And I go to springfield's control panel
    When I follow "Edit sideboxes"
-   And I follow "Add a block"
-   And I choose "Related Organizations"
-   And I press "Add"
 
     @selenium
     Scenario: Display the sub organization block when there is a sub enterprise and communitys
@@ -76,6 +76,6 @@ Feature: sub_organizations_display
       And I should see "Terra do Nunca, Billy Jean" within ".related-organizations-region-name"
 
     Scenario: Display message when display full block are empty
-      Given I follow "View all" within ".related-organizations-block"
+      Given I follow "View all" within ".block.related-organizations-block"
       Then I should see "There are no sub-communities yet."
       And I should see "There are no sub-enterprises yet."
