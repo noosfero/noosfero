@@ -107,6 +107,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do 
   with_scope(selector) do
     attach_file(field, path)
   end
+  sleep 1
 end
 
 Then /^(?:|I )should see JSON:$/ do |expected_json|
