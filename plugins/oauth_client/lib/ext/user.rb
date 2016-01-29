@@ -9,6 +9,7 @@ class User
   after_create :store_oauth_providers
 
   def initialize_with_oauth_client(attributes = {}, options = {})
+    attributes ||= {}
     @oauth_providers = attributes.delete(:oauth_providers) || []
     initialize_without_oauth_client(attributes, options)
   end
