@@ -2,36 +2,38 @@
 // This file is automatically included by javascript_include_tag :defaults
 /*
 * third party libraries
-*= require lodash.js
-*= require jquery-2.1.1.min.js
-*= require jquery-migrate-1.2.1.js
-*= require jquery.cycle.all.min.js
-*= require jquery.colorbox-min.js
-*= require jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js
-*= require jquery.scrollTo.js
-*= require jquery.form.js
-*= require jquery-validation/jquery.validate.js
-*= require jquery.cookie.js
-*= require jquery.ba-bbq.min.js
-*= require jquery.tokeninput.js
-*= require jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
-*= require inputosaurus.js
-*= require reflection.js
-*= require rails.js
-*= require jrails.js
+*= require vendor/lodash.js
+*= require vendor/jquery-2.1.1.min.js
+*= require vendor/jquery-migrate-1.2.1.js
+*= require vendor/jquery.cycle.all.min.js
+*= require vendor/jquery.colorbox-min.js
+*= require vendor/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js
+*= require vendor/jquery.scrollTo.js
+*= require vendor/jquery.form.js
+*= require vendor/jquery-validation/jquery.validate.js
+*= require vendor/jquery.cookie.js
+*= require vendor/jquery.ba-bbq.min.js
+*= require vendor/jquery.tokeninput.js
+*= require vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
+*= require vendor/inputosaurus.js
+*= require vendor/reflection.js
+*= require vendor/rails.js
+*= require vendor/jrails.js
+*= require vendor/slick.js
+*= require vendor/autogrow.js
+*
 * noosfero libraries
 *= require_self
 *= require modal.js
 *= require loading-overlay.js
 *= require pagination.js
+*
 * views speficics
 *= require add-and-join.js
 *= require followers.js
 *= require manage-followers.js
 *= require report-abuse.js
-*= require autogrow.js
 *= require require_login.js
-*= require slick.js
 *= require block-store.js
 *= require email_templates.js
 */

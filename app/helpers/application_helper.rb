@@ -984,8 +984,8 @@ module ApplicationHelper
   end
 
   def add_zoom_to_images
-    stylesheet_link_tag('jquery.fancybox') +
-    javascript_include_tag('jquery.fancybox.pack') +
+    stylesheet_link_tag('vendor/jquery.fancybox') +
+    javascript_include_tag('vendor/jquery.fancybox.pack') +
     javascript_tag("apply_zoom_to_images(#{_('Zoom in').to_json})")
   end
 
