@@ -90,7 +90,7 @@ module Customizable
       custom_values.each_pair do |key, value|
         custom_field = environment.custom_fields.detect{|cf|cf.name==key}
         next if custom_field.blank?
-        custom_field_value = self.custom_field_values.detect{|cv| cv.custom_field.name==key}
+        custom_field_value = self.custom_field_values(true).detect{|cv| cv.custom_field.name==key}
 
         if custom_field_value.nil?
           custom_field_value = CustomFieldValue.new
