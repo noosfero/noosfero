@@ -131,12 +131,11 @@ class ApplicationController < ActionController::Base
     @domain = Domain.find_by_name(request.host)
     if @domain.nil?
       @environment = Environment.default
-      if @environment.nil? && Rails.env.development?
-        # This should only happen in development ...
+      # Avoid crashes on test and development setups
+      if @environment.nil? && !Rails.env.production?
         @environment = Environment.new
         @environment.name = "Noosfero"
         @environment.is_default = true
-        @environment.save!
       end
     else
       @environment = @domain.environment
