@@ -276,6 +276,10 @@ Then /^display "([^\"]*)"$/ do |element|
   evaluate_script("jQuery('#{element}').show() && false;")
 end
 
+Then /^I fill in tinyMCE "(.*?)" with "(.*?)"$/ do |field, content|
+  execute_script("$(tinymce.editors['#{field}'].setContent('#{content}'))")
+end
+
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
   should have_selector("div.#{klass}")
 end

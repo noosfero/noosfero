@@ -79,7 +79,7 @@ Feature: forum
        | joaosilva | Forum One |
     And I go to /joaosilva/forum-one
     When I follow "Configure forum"
-    And I fill in "Description" with "My description"
+    And I fill in tinyMCE "article_body" with "My description"
     And I check "Has terms of use:"
     And I press "Save"
     Then I should see "Forum One"
@@ -95,7 +95,7 @@ Feature: forum
        | mariasilva | Maria Silva |
     And I go to /joaosilva/forum-one
     When I follow "Configure forum"
-    And I fill in "Description" with "My description"
+    And I fill in tinyMCE "article_body" with "My description"
     And I check "Has terms of use:"
     And I press "Save"
     When I follow "New discussion topic"
@@ -118,7 +118,7 @@ Feature: forum
        | mariasilva | Maria Silva |
     And I go to /joaosilva/forum-one
     When I follow "Configure forum"
-    And I fill in "Description" with "My description"
+    And I fill in tinyMCE "article_body" with "My description"
     And I check "Has terms of use:"
     And I press "Save"
     When I follow "Logout"
@@ -135,7 +135,7 @@ Feature: forum
        | joaosilva | Forum One |
     And I go to /joaosilva/forum-one
     When I follow "Configure forum"
-    And I fill in "Description" with "My description"
+    And I fill in tinyMCE "article_body" with "My description"
     And I check "Has terms of use:"
     And I press "Save"
     When I follow "Logout"
