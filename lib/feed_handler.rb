@@ -108,7 +108,7 @@ class FeedHandler
   end
 
   def enough_time_since_last_failure(container)
-    container.fetched_at < (Time.now - FeedHandler.disabled_period)
+    container.fetched_at.nil? || container.fetched_at < (Time.now - FeedHandler.disabled_period)
   end
 
 end
