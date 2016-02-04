@@ -277,7 +277,18 @@ Then /^display "([^\"]*)"$/ do |element|
 end
 
 Then /^I fill in tinyMCE "(.*?)" with "(.*?)"$/ do |field, content|
-  execute_script("$(tinymce.editors['#{field}'].setContent('#{content}'))")
+  n = 0
+  begin
+    execute_script("tinymce.editors['#{field}'].setContent('#{content}')")
+  rescue Selenium::WebDriver::Error::JavascriptError
+    n += 1
+    if n < 5
+      sleep 1
+      retry
+    else
+      raise
+    end
+  end
 end
 
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
