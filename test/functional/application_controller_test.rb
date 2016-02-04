@@ -478,30 +478,6 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
-
-    should 'change postgresql schema' do
-      uses_host 'schema1.com'
-      Noosfero::MultiTenancy.expects(:on?).returns(true)
-      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' }).at_least_once
-      exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
-
-      # we have switched to a new database schema; depending on the PostgreSQL
-      # version, we will receive either an error message because the schema
-      # does not exist, or an error saying that whatever table we need can't be
-      # found.
-      assert_match /(SET search_path TO schema1|PG::UndefinedTable)/, exception.message
-    end
-
-    should 'not change postgresql schema if multitenancy is off' do
-      uses_host 'schema1.com'
-      Noosfero::MultiTenancy.stubs(:on?).returns(false)
-      Noosfero::MultiTenancy.stubs(:mapping).returns({ 'schema1.com' => 'schema1' })
-      assert_nothing_raised(ActiveRecord::StatementInvalid) { get :index }
-    end
-
-  end
-
   should 'register search_term occurrence on find_by_contents' do
     controller = ApplicationController.new
     controller.stubs(:environment).returns(Environment.default)

@@ -3,7 +3,6 @@ require 'noosfero/multi_tenancy'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
@@ -103,10 +102,6 @@ class ApplicationController < ActionController::Base
 
   def verified_request?
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
-  end
-
-  def setup_multitenancy
-    Noosfero::MultiTenancy.setup!(request.host)
   end
 
   def boxes_editor?
