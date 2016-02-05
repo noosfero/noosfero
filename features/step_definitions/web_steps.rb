@@ -43,14 +43,29 @@ When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
       click_link(link, :match => :prefer_exact)
     rescue Selenium::WebDriver::Error::UnknownError => selenium_error
       if selenium_error.message.start_with? 'Element is not clickable at point'
-        href = find_link(link)[:href]
+        link = find_link(link)
+        href = link[:href]
+        onclick = link[:onClick]
 
         warn "#{selenium_error.message}\n\n"\
-             "Trying to overcome this by redirecting you to the link's href:\n"\
-             "\t'#{href}'\n\n"\
-             "Good luck and be careful that this may produce hidden links to work on tests!\n"
+             "Trying to overcome this by:\n"
 
-        visit href
+        onclick_return = true
+
+        unless onclick.nil?
+          warn "\t* Running onClick JS:\n"\
+               "\t\t'#{onclick}'\n"
+          onclick_return = page.execute_script onclick
+        end
+
+        if onclick_return
+          warn "\t* Redirecting you to the link's href:\n"\
+               "\t\t'#{href}'\n"
+
+          visit href
+        end
+
+        warn "\nGood luck and be careful that this may produce hidden links to work on tests!\n"
       else
         raise selenium_error
       end
