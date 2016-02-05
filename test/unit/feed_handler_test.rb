@@ -132,6 +132,14 @@ class FeedHandlerTest < ActiveSupport::TestCase
 
       assert container.enabled, 'must reenable container after <disabled_period> (%s)' % container_class
     end
+
+    should "handle a feed that was never fetched successfully (#{container_class})" do
+      container = create(container_class)
+      container.update_errors = FeedHandler.max_errors + 1
+      container.fetched_at = nil
+      handler.expects(:actually_process_container).with(container)
+      handler.process(container)
+    end
   end
 
   should 'not crash even when finish fetch fails' do
