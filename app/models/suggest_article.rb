@@ -23,6 +23,10 @@ class SuggestArticle < Task
     requestor ? "#{requestor.name}" : "#{name} (#{email})"
   end
 
+  def author_name
+    sender
+  end
+
   def article_object
     if @article_object.nil?
       @article_object = article_type.new(article.merge(target.present? ? {:profile => target} : {}).except(:type))
@@ -41,7 +45,6 @@ class SuggestArticle < Task
       return type if type < Article
     end
     TinyMceArticle
-    (article[:type] || 'TinyMceArticle').constantize
   end
 
   def perform
