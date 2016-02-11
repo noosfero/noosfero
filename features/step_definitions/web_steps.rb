@@ -315,3 +315,8 @@ When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
     find("a", :text => /\A#{link}\z/).click
   end
 end
+
+When /^(?:|I )wait ([^ ]+) seconds?(?:| .+)$/ do |seconds|
+  sleep seconds.to_f
+end
+

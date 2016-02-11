@@ -62,7 +62,7 @@ Feature: delivery administration
     Then I should see "Bike"
     And I follow "Remove" within ".delivery-method"
     When I confirm the browser dialog
-    Then I should see "Bike"
+    Then I should not see "Bike"
 
   @selenium
   Scenario: edit delivery

@@ -121,11 +121,14 @@ Feature: purchases
       | pickup  | Bar  | Come to my bar and drink it!          | 0.00         | 0.00            |
     And I am on moes-tavern's products page
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
     And I follow "Show basket"
+    And I wait 1 second for animations
     And I follow "Shopping checkout"
-    And I fill in "order_consumer_data_contact_phone" with "123456789"
+    And I fill in "Contact phone" with "123456789"
     And I select "Bike ($8.00)" from "Option"
     And I press "Send buy request"
     And I go to homer's control panel
