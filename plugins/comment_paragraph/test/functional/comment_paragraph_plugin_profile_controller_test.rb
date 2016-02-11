@@ -10,6 +10,9 @@ class CommentParagraphPluginProfileControllerTest < ActionController::TestCase
     @profile = create_user('testuser').person
     @article = profile.articles.build(:name => 'test')
     @article.save!
+    @environment = Environment.default
+    @environment.enabled_plugins = ['CommentParagraphPlugin']
+    @environment.save!
   end
   attr_reader :article, :profile
 
@@ -37,6 +40,14 @@ class CommentParagraphPluginProfileControllerTest < ActionController::TestCase
     assert_match /b comment/, @response.body
     assert_match /c comment/, @response.body
     assert_match /d comment/, @response.body
+  end
+
+  should 'load the comment form for a paragraph' do
+    login_as('testuser')
+    comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :paragraph_uuid => 0)
+    xhr :get, :comment_form, :profile => @profile.identifier, :article_id => article.id, :paragraph_uuid => 0
+    assert_select ".page-comment-form"
+    assert_select "#comment_paragraph_uuid[value=?]", '0'
   end
 
 end
