@@ -80,6 +80,12 @@ jQuery(document).ready(function($) {
         container.find('.display-comment-form').show();
       }
     });
+    var formDiv = container.find('.side-comment .post_comment_box');
+    if(formDiv.find('.page-comment-form').length==0) {
+      $.ajax(formDiv.data('comment_paragraph_form_url')).done(function(data) {
+        formDiv.append(data);
+      });
+    }
   });
 
 

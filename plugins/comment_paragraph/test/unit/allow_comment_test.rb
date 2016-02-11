@@ -46,4 +46,13 @@ class AllowCommentTest < ActiveSupport::TestCase
     assert_equal 'inner', instance_eval(&content)
   end
 
+  should 'preload comment counts when parsing content' do
+    3.times { fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id) }
+    content = macro.parse({:paragraph_uuid => comment.paragraph_uuid}, article.body, article)
+    paragraph_comments_counts = macro.instance_variable_get(:@paragraph_comments_counts)
+    assert_equivalent ['1', '2'], paragraph_comments_counts.keys
+    assert_equal 1, paragraph_comments_counts['1']
+    assert_equal 3, paragraph_comments_counts['2']
+  end
+
 end
