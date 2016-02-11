@@ -33,7 +33,7 @@ class Community < Organization
     community = Community.new(attributes)
     community.environment = environment
     if community.environment.enabled?('admin_must_approve_new_communities')
-      CreateCommunity.create!(attributes.merge(:requestor => requestor, :environment => environment))
+      CreateCommunity.create!(attributes.merge(:requestor => requestor, :environment => environment).except(:custom_values))
     else
       community.save!
       community.add_admin(requestor)

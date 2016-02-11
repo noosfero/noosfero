@@ -18,12 +18,14 @@ class MembershipsController < MyProfileController
 
   def new_community
     @community = Community.new(params[:community])
+    custom_values = params[:profile_data][:custom_values] if (params[:profile_data] && params[:profile_data][:custom_values])
+    @community.custom_values = custom_values
     @community.environment = environment
     @back_to = params[:back_to] || url_for(:action => 'index')
     if request.post? && @community.valid?
       begin
         # Community was created
-        @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment}))
+        @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment, :custom_values => custom_values}))
         @community.reload
         redirect_to :action => 'welcome', :community_id => @community.id, :back_to => @back_to
       rescue ActiveRecord::RecordNotFound
