@@ -329,6 +329,19 @@ class TasksControllerTest < ActionController::TestCase
     assert_select "#tasks_#{t.id}_task_name"
   end
 
+  should "not crash when article suggestion task fails" do
+    TinyMceArticle.destroy_all
+    c = fast_create(Community)
+    c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
+    @controller.stubs(:profile).returns(c)
+    t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
+
+    SuggestArticle.any_instance.stubs(:perform).raises('erro')
+    assert_nothing_raised do
+      post :close, :tasks => {t.id => { :task => {}, :decision => "finish"}}
+    end
+  end
+
   should "append hidden tag with type value from article suggestion" do
     Task.destroy_all
     c = fast_create(Community)

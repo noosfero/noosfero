@@ -242,4 +242,9 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.article_type == TinyMceArticle
   end
 
+  should 'fallback to tinymce when type parameter is blank' do
+    t = SuggestArticle.new
+    t.article = {:name => 'name', :body => 'body', :type => ''}
+    t.article_type == TinyMceArticle
+  end
 end
