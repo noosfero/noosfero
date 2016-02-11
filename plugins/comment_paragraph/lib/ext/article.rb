@@ -36,7 +36,7 @@ class Article
     if body && (body_changed? || setting_changed?(:comment_paragraph_plugin_activate))
       updated = body_changed? ? body_change[1] : body
       doc =  Nokogiri::HTML(updated)
-      doc.css('li, body > div, body > span, body > p').each do |paragraph|
+      (doc.css('li') + doc.css('body > div, body > span, body > p')).each do |paragraph|
         next if paragraph.css('[data-macro="comment_paragraph_plugin/allow_comment"]').present? || paragraph.content.blank?
 
         commentable = Nokogiri::XML::Node.new("span", doc)
