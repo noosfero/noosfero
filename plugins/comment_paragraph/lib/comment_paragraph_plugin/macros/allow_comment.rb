@@ -10,7 +10,8 @@ class CommentParagraphPlugin::AllowComment < Noosfero::Plugin::Macro
   def parse(params, inner_html, source)
     paragraph_uuid = params[:paragraph_uuid]
     article = source
-    count = article.paragraph_comments.without_spam.in_paragraph(paragraph_uuid).count
+    @paragraph_comments_counts ||= article.paragraph_comments.without_spam.group(:paragraph_uuid).reorder(:paragraph_uuid).count
+    count = @paragraph_comments_counts.fetch(paragraph_uuid, 0)
 
     proc {
       if controller.kind_of?(ContentViewerController) && article.comment_paragraph_plugin_activated?
