@@ -209,8 +209,15 @@ class APIHelpersTest < ActiveSupport::TestCase
 
   should 'fallback to array when fields parameter is not a json when calling present partial' do
     model = mock
-    params[:fields] = 'name'
+    params[:fields] = ['name']
     expects(:present).with(model, {:only => ['name']})
+    present_partial(model, {})
+  end
+
+  should 'fallback to comma separated string when fields parameter is not an array when calling present partial' do
+    model = mock
+    params[:fields] = 'name,description'
+    expects(:present).with(model, {:only => ['name', 'description']})
     present_partial(model, {})
   end
 
