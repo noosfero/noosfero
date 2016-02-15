@@ -166,6 +166,12 @@ table.cms-articles .icon:hover {
   white-space: nowrap;
 }
 
+.controller-cms td.article-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .controller-cms .article-controls {
   white-space: nowrap;
 }
