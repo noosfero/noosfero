@@ -1241,7 +1241,7 @@ module ApplicationHelper
   end
 
   def cache_timeout(key, timeout, &block)
-    cache(key, { :expires_in => timeout }, &block)
+    cache(key, { :expires_in => timeout, :skip_digest => true }, &block)
   end
 
   def is_cache_expired?(key)

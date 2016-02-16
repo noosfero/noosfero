@@ -81,4 +81,8 @@ class EventPlugin::EventBlock < Block
     content_tag(:span, date.year.to_s, :class => 'year')
   end
 
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
+
 end
