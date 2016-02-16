@@ -2,4 +2,4 @@ name: "Noosfero responsive some Bootstrap styling"
 layout: "application-responsive"
 icon_theme: [awesome, pidgin]
 responsive: true
-
+public: false

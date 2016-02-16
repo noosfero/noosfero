@@ -71,6 +71,7 @@ class SearchController < PublicController
   end
 
   def people
+    @titles[:people] = _("People Search")
     @scope = visible_profiles(Person)
     full_text_search
   end
@@ -86,6 +87,7 @@ class SearchController < PublicController
   end
 
   def communities
+    @titles[:community] = _("Communities Search")
     @scope = visible_profiles(Community)
     full_text_search
   end

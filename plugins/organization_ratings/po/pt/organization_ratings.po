@@ -18,6 +18,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.5-dev\n"
 
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
+msgid "Configuration updated successfully."
+msgstr "Configurações atualizadas com sucesso."
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
+msgid "Configuration could not be saved."
+msgstr "Configurações não puderam ser salvas."
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
+msgid "You can not vote on this %s"
+msgstr "Você não pode votar nesta %s"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:48
+msgid "%s successfully rated!"
+msgstr "%s avaliado(a) com sucesso!"
+
+#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:50
+msgid "Sorry, there were problems rating this profile."
+msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
+
 #: plugins/organization_ratings/lib/organization_ratings_plugin.rb:9
 msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
@@ -39,46 +59,25 @@ msgstr "Avaliações da Organização"
 msgid "This block displays the organization ratings."
 msgstr "Este bloco mostra as avaliações da organização."
 
-#: plugins/organization_ratings/lib/average_rating_block.rb:5
-msgid "Organization Average Rating"
-msgstr "Média de Avaliações da Organização"
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:37
+msgid "New Report"
+msgstr "Novo Relato"
 
-#: plugins/organization_ratings/lib/average_rating_block.rb:9
-msgid "This block displays the organization average rating."
-msgstr "Este bloco mostra a média de avaliações da organização."
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:31
-msgid "Comment waiting for approval"
-msgstr "Comentario aguardando aprovação"
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:48
-msgid "Comment rejected"
-msgstr "Comentário rejeitado"
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:52
-#: plugins/organization_ratings/views/shared/_user_rating_container.html.erb:28
-msgid "No comment"
-msgstr "Sem comentário"
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:61
-msgid "New Comment"
-msgstr "Novo Comentário"
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:65
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:41
 msgid ""
-"<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this "
+"<a href=%{requestor_url}>%{requestor}</a> wants to leave a report about this "
 "%{target_class}"
 msgstr ""
 "<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
 "neste(a) %{target_class}"
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
-msgid "%{requestor} wants to create a comment in this \"%{target}\""
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:66
+msgid "%{requestor} wants to leave a report about this \"%{target}\""
 msgstr "%{requestor} deseja criar um comentário neste(a) \"%{target}\""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:95
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:71
 msgid ""
-"User \"%{user}\" requested to create a comment in the %{target_class}\n"
+"User \"%{user}\" just made a report at %{target_class}\n"
 "      \"%{target_name}\".\n"
 "      You have to approve or reject it through the \"Pending Validations\"\n"
 "      section in your control panel.\n"
@@ -90,24 +89,24 @@ msgstr ""
 "Pendentes\"\n"
 "      no seu painel de controle.\n"
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:103
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:81
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      just sent. The administrator will receive it and will approve or\n"
 "      reject your request according to his methods and criteria.\n"
 "      You will be notified as soon as environment administrator has a "
 "position\n"
 "      about your request."
 msgstr ""
-"Seu pedido para comentar em %{target} foi\n"
-"      enviado. O administrador irá recebê-lo e aprovar ou\n"
-" rejeitar seu pedido de acordo com seus métodos e critérios.\n"
-"      Você será notificado assim que o administrador tenha uma posição\n"
-"      sobre seu pedido."
+"Seu pedido para comentar em %{target} foi enviado. \n"
+"O administrador irá recebê-lo e aprovar ou rejeitar seu pedido de acordo com "
+"seus métodos e critérios.\n"
+"Você será notificado assim que o administrador tenha uma posição sobre seu "
+"pedido."
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:112
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      not approved by the administrator. The following explanation\n"
 "      was given: \n"
 "\n"
@@ -119,9 +118,9 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:120
+#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:99
 msgid ""
-"Your request for commenting at %{target} was approved.\n"
+"Your report at %{target_class} \"%{target}\" was approved.\n"
 "      You can access %{url} to see your comment."
 msgstr ""
 "Seu pedido para comentar em %{target} foi aprovado.\n"
@@ -131,29 +130,17 @@ msgstr ""
 msgid "must be between 1 and 5"
 msgstr "deve ser entre 1 e 5"
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
-msgid "Configuration updated successfully."
-msgstr "Configurações atualizadas com sucesso."
+#: plugins/organization_ratings/lib/average_rating_block.rb:5
+msgid "Organization Average Rating"
+msgstr "Média de Avaliações da Organização"
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
-msgid "Configuration could not be saved."
-msgstr "Configurações não puderam ser salvas."
+#: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:5
+msgid "Description:"
+msgstr "Descrição:"
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
-msgid "You can not vote on this %s"
-msgstr "Você não pode votar nesta %s"
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
-msgid "%s successfully rated!"
-msgstr "%s avaliado(a) com sucesso!"
-
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
-msgid "Sorry, there were problems rating this profile."
-msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
-
-#: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:2
-msgid "Comment:"
-msgstr "Comentário:"
+#: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
+msgid "* The rating score is not moderated."
+msgstr "* A avaliação através de estrelas não são moderadas."
 
 #: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
 msgid "Rate %s "
@@ -174,6 +161,66 @@ msgstr "Relate suas experiências."
 #: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
 msgid "* You must be logged in to submit a report."
 msgstr "* Você precisa estar logado para enviar um relato."
+
+#: plugins/organization_ratings/views/shared/_user_rating_container.html.erb:29
+msgid "Report waiting for approval"
+msgstr "Comentario aguardando aprovação"
+
+#: plugins/organization_ratings/views/blocks/organization_ratings_block.html.erb:17
+msgid "See more"
+msgstr "Veja mais"
+
+#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:4
+msgid "Rating: "
+msgstr "Avaliação: "
+
+#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:18
+msgid "Be the first to rate!"
+msgstr "Seja o primeiro a avaliar!"
+
+#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:23
+msgid "Rate this %s"
+msgstr "Avalie esta %s"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:38
+msgid "Rated as"
+msgstr "Avaliado em"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:38
+msgid "stars"
+msgstr "estrelas"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:45
+msgid "Comment (Optional):"
+msgstr "Comentário (Opcional):"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:52
+msgid "Save"
+msgstr "Salvar"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:62
+msgid "Hi, %s! The administrators set that you can vote"
+msgstr "Olá, %s! Os administradores configuraram que você pode votar apenas"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:63
+msgid "only once"
+msgstr "uma vez"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:64
+msgid "for this %s."
+msgstr "para esta %s."
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:69
+msgid "Hi, %s! The administrators set the minimum time of"
+msgstr "Olá, %s! Os administradores configuraram o tempo mínimo de "
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:70
+msgid "%d hour(s)"
+msgstr "%d hora(s)"
+
+#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:71
+msgid "between each evaluation."
+msgstr "entre cada avaliação."
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:3
 msgid "Organization Rating Settings"
@@ -215,61 +262,17 @@ msgstr "Quantidade de avaliações por página"
 msgid "Back"
 msgstr "Voltar"
 
-#: plugins/organization_ratings/views/blocks/organization_ratings_block.html.erb:17
-msgid "See more"
-msgstr "Veja mais"
+#~ msgid "Comment rejected"
+#~ msgstr "Comentário rejeitado"
 
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:4
-msgid "Rating: "
-msgstr "Avaliação: "
+#~ msgid "No comment"
+#~ msgstr "Sem comentário"
 
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:18
-msgid "Be the first to rate!"
-msgstr "Seja o primeiro a avaliar!"
+#~ msgid "New Comment"
+#~ msgstr "Novo Comentário"
 
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:23
-msgid "Rate this %s"
-msgstr "Avalie esta %s"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:39
-msgid "Rated as"
-msgstr "Avaliado em"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:39
-msgid "stars"
-msgstr "estrelas"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:46
-msgid "Comment (Optional):"
-msgstr "Comentário (Opcional):"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:53
-msgid "Save"
-msgstr "Salvar"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:63
-msgid "Hi, %s! The administrators set that you can vote"
-msgstr "Olá, %s! Os administradores configuraram que você pode votar apenas"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:64
-msgid "only once"
-msgstr "uma vez"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:65
-msgid "for this %s."
-msgstr "para esta %s."
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:70
-msgid "Hi, %s! The administrators set the minimum time of"
-msgstr "Olá, %s! Os administradores configuraram o tempo mínimo de "
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:71
-msgid "%d hour(s)"
-msgstr "%d hora(s)"
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:72
-msgid "between each evaluation."
-msgstr "entre cada avaliação."
+#~ msgid "Comment:"
+#~ msgstr "Comentário:"
 
 #~ msgid "community"
 #~ msgstr "comunidade"

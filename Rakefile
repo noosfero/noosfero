@@ -16,4 +16,3 @@ Noosfero::Application.load_tasks
 end.flatten.each do |taskfile|
   load taskfile
 end 
-

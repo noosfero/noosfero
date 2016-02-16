@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"Project-Id-Version: 1.3.1-46-g281442e\n"
+"POT-Creation-Date: 2015-12-10 18:27-0000\n"
 "PO-Revision-Date: 2015-09-14 12:12-0000\n"
 "Last-Translator: FULL NAME <arthurmde@gmail.com>\n"
 "Language-Team: Portuguese\n"
@@ -15,14 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: plugins/environment_notification/lib/environment_notification_plugin.rb:8
-msgid "A plugin for environment notifications."
-msgstr "Plugin para notificações do ambiente"
-
-#: plugins/environment_notification/lib/environment_notification_plugin.rb:29
-msgid "Notification Manager"
-msgstr "Gerenciador de Notificações"
 
 #: plugins/environment_notification/controllers/environment_notification_plugin_admin_controller.rb:19
 msgid "Notification successfully created"
@@ -56,6 +48,14 @@ msgstr "O status da notificação foi modificado"
 msgid "Could not change the status of the notification."
 msgstr "Não foi possível alterar o status da notificação"
 
+#: plugins/environment_notification/lib/environment_notification_plugin.rb:8
+msgid "A plugin for environment notifications."
+msgstr "Plugin para notificações do ambiente"
+
+#: plugins/environment_notification/lib/environment_notification_plugin.rb:29
+msgid "Notification Manager"
+msgstr "Gerenciador de Notificações"
+
 #: plugins/environment_notification/views/environment_notification_plugin_admin/show_notification.html.erb:8
 msgid "There are active notifications in this environment!"
 msgstr "Existem notificações ativas neste ambiente!"
@@ -72,19 +72,19 @@ msgstr "Não mostrar mais"
 msgid "Hide for now"
 msgstr "Ocultar momentaneamente"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:4
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:5
 msgid "Back"
 msgstr "Voltar"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:10
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:11
 msgid "Optional Title:"
 msgstr "Título Opcional:"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:12
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:13
 msgid "Enter your message here:"
 msgstr "Entre com a sua mensagem aqui:"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:14
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:15
 msgid ""
 "Obs: You can use %{name} and %{email} variables to put the user's name and "
 "email in the message."
@@ -92,43 +92,43 @@ msgstr ""
 "Obs: Você pode usar as variáveis %{name} e %{email} para inserir o nome e "
 "email do usuário logado na mensagem."
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:17
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:18
 msgid "Notifications Status"
 msgstr "Status da Notificação"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:19
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:20
 msgid "Notifications Color/Type"
 msgstr "Cor/Tipo de Notificação"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:19
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:20
 msgid "Blue - Information"
 msgstr "Azul - Informação"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:19
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:20
 msgid "Yellow - Warning"
 msgstr "Amarelo - Atenção"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:19
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:20
 msgid "Green - Success"
 msgstr "Verde - Sucesso"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:19
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:20
 msgid "Red - Danger"
 msgstr "Vermelho - Perigo"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:22
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:23
 msgid "Display only in the homepage"
 msgstr "Apresentar apenas na página inicial"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:26
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:27
 msgid "Display to not logged users too"
 msgstr "Apresentar notificação para usuários não logados também"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:30
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:31
 msgid "Display popup until user close the notification"
 msgstr "Apresentar Popup da notificação até que o usuário a feche"
 
-#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:34
+#: plugins/environment_notification/views/environment_notification_plugin_admin/_form.html.erb:35
 msgid "Save"
 msgstr "Salvar"
 
