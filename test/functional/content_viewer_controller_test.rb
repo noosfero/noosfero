@@ -329,6 +329,27 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :content => /list my comment/
   end
 
+  should 'order comments according to comments ordering option' do
+    article = fast_create(Article, :profile_id => profile.id)
+    for n in 1..24
+      article.comments.create!(:author => profile, :title => "some title #{n}", :body => "some body #{n}")
+    end
+
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+
+    for i in 1..12
+      assert_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i}" }
+      assert_no_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i + 12}" }
+    end
+
+    xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'newest'
+
+    for i in 1..12
+      assert_no_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i}" }
+      assert_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i + 12}" }
+    end
+  end
+
   should 'redirect to new article path under an old path' do
     p = create_user('test_user').person
     a = p.articles.create(:name => 'old-name')
@@ -1364,7 +1385,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 15, article.comments.count
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_order=oldest&amp;comment_page=2", :rel => 'next' }
   end
 
   should 'not escape acceptable HTML in list of blog posts' do

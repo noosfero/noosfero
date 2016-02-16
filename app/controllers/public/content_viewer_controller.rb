@@ -64,11 +64,7 @@ class ContentViewerController < ApplicationController
     process_comments(params)
 
     if request.xhr? and params[:comment_order]
-      if @comment_order == 'newest'
-        @comments = @comments.reverse
-      end
-
-      return render :partial => 'comment/comment', :collection => @comments
+      return render :partial => 'comment/comments_with_pagination'
     end
 
     if params[:slideshow]
@@ -272,8 +268,12 @@ class ContentViewerController < ApplicationController
     @comments = @page.comments.without_spam
     @comments = @plugins.filter(:unavailable_comments, @comments)
     @comments_count = @comments.count
-    @comments = @comments.without_reply.paginate(:per_page => per_page, :page => params[:comment_page] )
     @comment_order = params[:comment_order].nil? ? 'oldest' : params[:comment_order]
+    @comments = @comments.without_reply
+    if @comment_order == 'newest'
+      @comments = @comments.reverse
+    end
+    @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
   end
 
   private
