@@ -13,12 +13,11 @@ div class="order-items-container #{"empty" if order.items.size == 0} #{"admin" i
         - if @admin
           .box-field.status= t'views.item._index.status'
       .table-content
-        .order-items-scroll
-          - order.items.each do |item|
-            = render "orders_plugin_item/edit", order: order, item: item, product: item.product, actor_name: actor_name
+        - order.items.each do |item|
+          = render "orders_plugin_item/edit", order: order, item: item, product: item.product, actor_name: actor_name
     .order-total
       .title= t'views.consumer._total.total'
-      .value= price_span order.total_price_as_currency_number actor_name
+      .value= price_span order.total_price_as_currency_number actor_name, @admin
 
   - else
     = t'views.item._index.empty_order'

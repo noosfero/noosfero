@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 class StatisticsBlockTest < ActiveSupport::TestCase
 
   ['user_counter', 'tag_counter', 'comment_counter'].map do |counter|

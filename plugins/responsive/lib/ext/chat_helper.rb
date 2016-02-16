@@ -1,9 +1,7 @@
 require_dependency 'chat_helper'
-require_relative 'application_helper'
 
 module ChatHelper
 
-  extend ActiveSupport::Concern
   protected
 
   module ResponsiveMethods
@@ -25,17 +23,12 @@ module ChatHelper
   end
 
   include ResponsiveChecks
-  included do
-    include ResponsiveMethods
+  if RUBY_VERSION >= '2.0.0'
+    prepend ResponsiveMethods
+  else
+    extend ActiveSupport::Concern
+    included { include ResponsiveMethods }
   end
-
-  protected
-
-end
-
-module ApplicationHelper
-
-  include ChatHelper::ResponsiveMethods
 
 end
 

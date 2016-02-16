@@ -277,8 +277,8 @@ class EventTest < ActiveSupport::TestCase
     event.address = '<p><!-- <asdf> << aasdfa >>> --> <h1> Wellformed html code </h1>'
     event.valid?
 
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.body
-    assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, event.address
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, event.body
+    assert_match  /<p><!-- .* --> <\/p><h1> Wellformed html code <\/h1>/, event.address
   end
 
   should 'be translatable' do

@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require 'html2haml'
+require 'haml2slim'
+
+def run cmd
+  puts cmd
+  system cmd
+end
+
+def convert erb
+  run <<-CMD
+    html2haml --erb #{erb} | haml2slim | sed 's/ *\\\\$//g' > $(echo #{erb} | sed 's/erb/slim/') && rm #{erb}
+  CMD
+end
+
+erb = ARGV[0]
+if erb and not erb.empty?
+  if File.file? erb
+    convert erb
+  else
+    STDERR.puts "file '#{erb}' not found"
+  end
+else
+  GLOB_ALL = '**/*.erb'
+  GLOB_HTML = '**/*.html.erb'
+  GLOB = GLOB_HTML
+
+  Dir.glob(GLOB).each do |erb|
+    if File.file? erb
+      convert erb
+    elsif File.symlink? erb
+      run <<-CMD
+      mv #{erb} $(echo #{erb} | sed 's/erb/slim/')
+      CMD
+    end
+  end
+end

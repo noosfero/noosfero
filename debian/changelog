@@ -1,8 +1,21 @@
-noosfero (1.3.1) wheezy-test; urgency=low
+noosfero (1.4~rc3) jessie-test; urgency=medium
 
-  * Bugfix release
+  * Noosfero 1.4 RC3
 
- -- Antonio Terceiro <terceiro@colivre.coop.br>  Fri, 20 Nov 2015 15:59:38 -0300
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Thu, 28 Jan 2016 16:58:32 -0200
+
+noosfero (1.4~rc2) jessie-test; urgency=medium
+
+  * Noosfero 1.4 RC2
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Tue, 26 Jan 2016 17:03:34 -0200
+
+noosfero (1.4~rc1) jessie-test; urgency=low
+
+  * Noosfero 1.4 RC 0
+  * Noosfero 1.4 RC1
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Tue, 19 Jan 2016 16:30:01 -0200
 
 noosfero (1.3) wheezy-test; urgency=low
 

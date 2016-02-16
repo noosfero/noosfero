@@ -8,7 +8,7 @@ module CommunityTrackPlugin::TrackHelper
 
   def track_card_lead(track)
     lead_stripped = strip_tags(track.lead)
-    excerpt(lead_stripped, lead_stripped.first(3), track.image ? 180 : 300)
+    excerpt lead_stripped, lead_stripped.first(3), radius: if track.image then 180 else 300 end
   end
 
   def track_color_style(track)

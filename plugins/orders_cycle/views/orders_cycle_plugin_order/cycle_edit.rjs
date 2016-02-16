@@ -1,3 +1,3 @@
-page.replace_html "order-#{@order.id}", :partial => 'cycle_edit', :locals => {:order => @order}
-page.replace_html "cycle-products-sums", :partial => 'orders_cycle_plugin_cycle/orders_suppliers', :locals => {:cycle => @order.cycle}
+page.replace_html "order-#{@order.id}", partial: 'cycle_edit', locals: {order: @order}
+page.replace_html "cycle-products-sums", partial: 'orders_cycle_plugin_cycle/orders_suppliers', locals: {cycle: @order.cycle}
 page << "toggle_edit.value_row.reload();"

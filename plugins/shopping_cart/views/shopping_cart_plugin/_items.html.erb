@@ -3,45 +3,51 @@
   style="<%= 'border-collapse: collapse' if by_mail %>">
 
   <tr>
-    <th>
-      <%= _('Item name') %>
+    <th class='cart-table-item' <%= "align='center'" if by_mail %>>
+      <%= _('Item') %>
     </th>
-    <th>
-      <%= if by_mail then '&nbsp;#&nbsp;' else '#' end %>
+    <th class='cart-table-quantity' <%= "align='center'" if by_mail %>>
+      <%= if by_mail then '&nbsp;'+_('Qtty')+'&nbsp;' else _('Qtty') end %>
     </th>
-    <th>
-      <%= _('Price') + " (#{@environment.currency_unit})" %>
+    <th class='cart-table-price' <%= "align='center'" if by_mail %>>
+      <%= _('Unit price') + " (#{@environment.currency_unit})" %>
+    </th>
+    <th class='cart-table-price' <%= "align='center'" if by_mail %>>
+      <%= _('Total') + " (#{@environment.currency_unit})" %>
     </th>
   </tr>
 
   <% order.items.each do |item| %>
     <tr>
-      <td>
+      <td class='cart-table-item' <%= "align='left'" if by_mail %>>
         <%= item.name %>
       </td>
-      <td class='cart-table-quantity' align="<%= 'center' if by_mail %>">
-        <%= item.quantity_consumer_ordered %>
+      <td class='cart-table-quantity' <%= "align='center'" if by_mail %>>
+        <%= "%03d" % item.quantity_consumer_ordered %>
       </td>
-      <td class='cart-table-price' align="<%= 'right' if by_mail %>">
+      <td class='cart-table-price' <%= "align='right'" if by_mail %>>
+        <%= get_price item.product, @environment, 1, unit: '' %>
+      </td>
+      <td class='cart-table-price' <%= "align='right'" if by_mail %>>
         <%= get_price item.product, @environment, item.quantity_consumer_ordered, unit: '' %>
       </td>
 
     </tr>
   <% end %>
 
-  <tr>
-    <td colspan=2 id='delivery-name'>
+  <tr class='delivery-costs'>
+    <td colspan=3 id='delivery-name'>
       <%= order.supplier_delivery.name if order.supplier_delivery %>
     </td>
-    <td id='delivery-price' class="cart-table-price">
+    <td id='delivery-price' class="cart-table-price" <%= "align='right'" if by_mail %>>
       <%= float_to_currency_cart order.supplier_delivery.cost(order.total_price), @environment, unit: '' if order.supplier_delivery %>
     </td>
   </tr>
 
-  <th colspan=2 class="cart-table-total-label">
+  <th colspan=3 class="cart-table-total-label" <%= "align='right'" if by_mail %>>
     <%= _('Total:') %>
   </th>
-  <th class="cart-table-total-value">
+  <th class="cart-table-total-value" <%= "align='right'" if by_mail %>>
     <%= float_to_currency_cart order.total, @environment %>
   </th>
 </table>

@@ -11,7 +11,7 @@
     <tr class="search-forum-items">
       <td class="search-field-label"><%= _("Last topics") %></td>
 
-      <% r = forum.children.find(:all, :order => :updated_at, :conditions => ['type != ?', 'RssFeed']).last(3) %>
+      <% r = forum.children.order(:updated_at).where('type != ?', 'RssFeed').last(3) %>
       <td class="<%= "search-field-none" if r.empty? %>">
         <% r.each do |a| %>
           <%= link_to a.title, a.view_url, :class => 'search-forum-sample-item '+icon_for_article(a) %>

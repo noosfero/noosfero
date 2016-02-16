@@ -2,7 +2,8 @@
   <%= labelled_form_field c_('Limit of items'), text_field(:block, :limit, :size => 3) %>
   <%= labelled_form_field check_box(:block, :show_name) + _('Show content name'), '' %>
   <%= labelled_form_field check_box(:block, :show_image) + _('Show content image'), '' %>
-  <%= labelled_form_field check_box(:block, :show_parent_content) + _('Show parent content when children is empty'), '' %>
+  <%= labelled_form_field check_box(:block, :use_parent_title) + _('Use the name of the source folder as block title'), '' %>
+  <%= labelled_form_field check_box(:block, :show_parent_content) + _('Show block on all existing pages in the source folder'), '' %>
 
   <br/>
   <%= label :block, :types, _('Display content types:'), :class => 'formlabel' %>

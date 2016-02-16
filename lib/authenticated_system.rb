@@ -3,20 +3,14 @@ module AuthenticatedSystem
   protected
 
     def self.included base
-      # See impl. from http://stackoverflow.com/a/2513456/670229
-      base.around_filter do |&block|
-        begin
-          User.current = current_user
-          block.call
-        ensure
-          # to address the thread variable leak issues in Puma/Thin webserver
-          User.current = nil
-        end
+      if base < ActionController::Base
+        base.around_filter :user_set_current
+        base.before_filter :login_from_cookie
       end
 
       # Inclusion hook to make #current_user and #logged_in?
       # available as ActionView helper methods.
-      base.send :helper_method, :current_user, :logged_in?
+      base.helper_method :current_user, :logged_in?
     end
 
     # Returns true or false if the user is logged in.
@@ -46,6 +40,15 @@ module AuthenticatedSystem
         new_user.register_login
       end
       @current_user = User.current = new_user
+    end
+
+    # See impl. from http://stackoverflow.com/a/2513456/670229
+    def user_set_current
+      User.current = current_user
+      yield
+    ensure
+      # to address the thread variable leak issues in Puma/Thin webserver
+      User.current = nil
     end
 
     # Check if the user is authorized.

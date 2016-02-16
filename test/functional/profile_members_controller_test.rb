@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'profile_members_controller'
 
-# Re-raise errors caught by the controller.
-class ProfileMembersController; def rescue_action(e) raise e end; end
-
 class ProfileMembersControllerTest < ActionController::TestCase
   def setup
     super
@@ -20,7 +17,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     get 'index', :profile => 'test_enterprise'
 
     assert_response 403
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'access index' do

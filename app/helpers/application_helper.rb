@@ -8,6 +8,10 @@ module ApplicationHelper
 
   include PermissionNameHelper
 
+  include UrlHelper
+
+  include PartialsHelper
+
   include ModalHelper
 
   include BoxesHelper
@@ -281,36 +285,6 @@ module ApplicationHelper
     concat(content_tag('div', capture(&block).to_s + tag('br', :style => 'clear: left;'), options))
   end
 
-
-  def partial_for_class_in_view_path(klass, view_path, prefix = nil, suffix = nil)
-    return nil if klass.nil?
-    name = [prefix, klass.name.underscore, suffix].compact.map(&:to_s).join('_')
-
-    search_name = String.new(name)
-    if search_name.include?("/")
-      search_name.gsub!(/(\/)([^\/]*)$/,'\1_\2')
-      name = File.join(params[:controller], name) if defined?(params) && params[:controller]
-    else
-      search_name = "_" + search_name
-    end
-
-    path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + '.html.erb') : File.join(view_path, search_name + '.html.erb')
-    return name if File.exists?(File.join(path))
-
-    partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
-  end
-
-  def partial_for_class(klass, prefix=nil, suffix=nil)
-    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
-    name = klass.name.underscore
-    controller.view_paths.each do |view_path|
-      partial = partial_for_class_in_view_path(klass, view_path, prefix, suffix)
-      return partial if partial
-    end
-
-    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
-  end
-
   def render_profile_actions klass
     name = klass.to_s.underscore
     begin
@@ -529,32 +503,6 @@ module ApplicationHelper
     sex
   end
 
-  def profile_cat_icons( profile )
-    if profile.class == Enterprise
-      icons = profile.product_categories.unique_by_level(2).limit(3).map do |c|
-        filtered_category = c.filtered_category.blank? ? c.path.split('/').last : c.filtered_category
-        category_title = filtered_category.split(/[-_\s,.;'"]+/).map(&:capitalize).join(' ')
-        category_name = category_title.gsub(' ', '_' )
-        category_icon = "/images/icons-cat/#{category_name}.png"
-        if ! File.exists?(Rails.root.join('public', category_icon))
-          category_icon = '/images/icons-cat/undefined.png'
-        end
-        content_tag('span',
-          content_tag( 'span', category_title ),
-          :title => category_title,
-          :class => 'product-cat-icon cat_icon_' + category_name,
-          :style => "background-image:url(#{category_icon})"
-        )
-      end.join("\n").html_safe
-      content_tag('div',
-        content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-        :class => 'product-category-icons'
-      )
-    else
-      ''
-    end
-  end
-
   def links_for_balloon(profile)
     if environment.enabled?(:show_balloon_with_profile_links_when_clicked)
       if profile.kind_of?(Person)
@@ -613,7 +561,7 @@ module ApplicationHelper
     link_to(
       content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
-      extra_info + profile_sex_icon( profile ) + profile_cat_icons( profile ),
+      extra_info + profile_sex_icon( profile ),
       profile.url,
       :class => 'profile_link url',
       :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
@@ -907,8 +855,14 @@ module ApplicationHelper
   end
   alias :top_url :base_url
 
+  class View < ActionView::Base
+    def url_for *args
+      self.controller.url_for *args
+    end
+  end
+
   def helper_for_article(article)
-    article_helper = ActionView::Base.new
+    article_helper = View.new
     article_helper.controller = controller
     article_helper.extend ArticleHelper
     article_helper.extend Rails.application.routes.url_helpers

@@ -94,20 +94,17 @@ Feature: uploads items on media panel
 
   @selenium
   Scenario: select type when create new folder
-    When I follow "Show/Hide"
-      And I follow "New folder"
-      And I choose "Folder" within "#new-folder-dialog"
-      And I fill in "Name" with "Main new folder" within "#new-folder-dialog"
-      And I press "Create"
+    Given I follow "Show/Hide"
+    And I follow "New folder"
+    And I choose "Folder" within "#new-folder-dialog"
+    And I fill in "Name" with "Main new folder" within "#new-folder-dialog"
+    When I press "Create"
     Then I should see "joaosilva/Gallery/Main new folder" within "#parent_id"
-    When I follow "New folder"
-      And I choose "Gallery" within "#new-folder-dialog"
-      And I fill in "Name" with "Gallery new folder" within "#new-folder-dialog"
-      And I press "Create"
-      And I go to joaosilva's cms
-      And I follow "Gallery"
-    Then I should see "Folder" within "tr[title='Main new folder'] td.article-mime"
-      And I should see "Gallery" within "tr[title='Gallery new folder'] td.article-mime"
+    Given I follow "New folder"
+    And I choose "Gallery" within "#new-folder-dialog"
+    And I fill in "Name" with "Gallery new folder" within "#new-folder-dialog"
+    When I press "Create"
+    Then I should see "joaosilva/Gallery/Gallery new folder" within "#parent_id"
 
   @selenium
   Scenario: hide and show upload list

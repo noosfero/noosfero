@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../lib/related_organizations_block'
+require 'test_helper'
+require_relative '../../lib/related_organizations_block'
 
 class RelatedOrganizationsBlockTest < ActiveSupport::TestCase
 

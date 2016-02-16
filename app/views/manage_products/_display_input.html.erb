@@ -5,7 +5,7 @@
         <% if input.has_price_details? %>
           <%= edit_button(:edit, _('Edit'), {:action => 'edit_input', :id => input}, :class => 'edit-input', :id => "edit-input-#{input.id}") %>
         <% end %>
-        <%= edit_button(:remove, _('Remove'), {:action => 'remove_input', :id => input}, 'data-confirm' => _('Are you sure that you want to remove this input or raw material?'), :class => 'remove-input', :id => "remove-input-#{input.id}") %>
+        <%= edit_button(:remove, _('Remove'), {action: 'remove_input', id: input}, data: {confirm: _('Are you sure that you want to remove this input or raw material?')}, class: 'remove-input', id: "remove-input-#{input.id}") %>
       <% end %>
       <% if input.has_price_details? %>
         <%= display_unit(input) %>

@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'admin_panel_controller'
 
-# Re-raise errors caught by the controller.
-class AdminPanelController; def rescue_action(e) raise e end; end
-
 class AdminPanelControllerTest < ActionController::TestCase
 
   all_fixtures
@@ -127,7 +124,7 @@ class AdminPanelControllerTest < ActionController::TestCase
   should 'sanitize message for disabled enterprise with white_list' do
     post :site_info, :environment => { :message_for_disabled_enterprise => "This <strong>is</strong> <script>alert('alow')</script>my new environment" }
     assert_redirected_to :action => 'index'
-    assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
+    assert_equal "This <strong>is</strong> alert('alow')my new environment", Environment.default.message_for_disabled_enterprise
   end
 
   should 'save site article date format option' do

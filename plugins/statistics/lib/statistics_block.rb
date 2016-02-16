@@ -8,7 +8,7 @@ class StatisticsBlock < Block
   settings_items :tag_counter, :default => true
   settings_items :comment_counter, :default => true
   settings_items :hit_counter, :default => false
-  settings_items :templates_ids_counter, Hash, :default => {}
+  settings_items :templates_ids_counter, type: Hash, default: {}
 
   attr_accessible :comment_counter, :community_counter, :user_counter, :enterprise_counter, :product_counter, :category_counter, :tag_counter, :hit_counter, :templates_ids_counter
 
@@ -65,11 +65,11 @@ class StatisticsBlock < Block
   end
 
   def is_template_counter_active? template_id
-    self.templates_ids_counter[template_id.to_s].to_s == 'true'
+    self.templates_ids_counter[template_id.to_s.to_sym].to_s == 'true'
   end
 
   def template_counter_count(template_id)
-    owner.communities.visible.count(:conditions => {:template_id => template_id})
+    owner.communities.visible.where(template_id: template_id).count
   end
 
   def users

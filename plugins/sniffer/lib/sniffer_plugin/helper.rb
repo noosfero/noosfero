@@ -5,7 +5,7 @@ module SnifferPlugin::Helper
   def filter_visible_attr_profile(profile)
     filtered_profile = {}
     visible_attributes = [:id, :name, :lat, :lng, :sniffer_plugin_distance]
-    visible_attributes.each{ |a| filtered_profile[a] = profile[a] || 0 }
+    visible_attributes.each{ |a| filtered_profile[a] = profile.send(a) || 0 }
     filtered_profile
   end
 

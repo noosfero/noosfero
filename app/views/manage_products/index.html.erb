@@ -16,7 +16,7 @@
       <td><strong><%= link_to product.name, :action => 'show', :id => product %></strong></td>
       <td><%= product.price %></td>
       <td>
-        <%= button :delete, _('Remove'), {:action => 'destroy', :id => product}, :confirm => _('Are you sure you want to remove this product?') %>
+        <%= button :delete, _('Remove'), {action: 'destroy', id: product}, data: {confirm: _('Are you sure you want to remove this product?')} %>
       </td>
     </tr>
   <% end %>

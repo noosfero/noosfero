@@ -11,14 +11,14 @@
   </div>
 
   <% load_comments_url = url_for({:profile => profile_identifier, :controller => 'comment_paragraph_plugin_profile', :action => 'view_comments', :paragraph_uuid => paragraph_uuid, :article_id => article_id}) %>
+  <% load_comment_form_url = url_for({:profile => profile_identifier, :controller => 'comment_paragraph_plugin_profile', :action => 'comment_form', :paragraph_uuid => paragraph_uuid, :article_id => article_id}) %>
 
   <div class="side-comment" data-comment_paragraph_url="<%= load_comments_url %>">
     <div class="article-comments-list">
       <div class="loading"></div>
     </div>
     <div class ="article-comments-list-more"></div>
-    <div class='post_comment_box closed'>
-      <%= render :partial => 'comment/comment_form', :locals => {:comment => Comment.new, :display_link => true, :cancel_triggers_hide => true, :paragraph_uuid => paragraph_uuid}%>
+    <div class='post_comment_box closed' data-comment_paragraph_form_url="<%= load_comment_form_url %>">
     </div>
   </div>
 </div>

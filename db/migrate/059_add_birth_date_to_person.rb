@@ -30,14 +30,14 @@ class AddBirthDateToPerson < ActiveRecord::Migration
   end
 
   class Person < ActiveRecord::Base
-    set_table_name 'profiles'
+    self.table_name = 'profiles'
     serialize :data, Hash
   end
 
   def self.up
     add_column :profiles, :birth_date, :date
     offset = 0
-    while p = Person.find(:first, :conditions => "type = 'Person'", :order => 'id', :offset => offset)
+    while p = Person.where("type = 'Person'").order(:id).offset(offset).first
       p.birth_date = ConvertDates.convert(p.data[:birth_date].to_s)
       p.save
       offset += 1

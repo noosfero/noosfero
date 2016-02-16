@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
   before_validation(:on => :create) do |task|
     if task.code.nil?
       task.code = Task.generate_code(task.code_length)
-      while (Task.find_by_code(task.code))
+      while Task.from_code(task.code).first
         task.code = Task.generate_code(task.code_length)
       end
     end
@@ -259,27 +259,28 @@ class Task < ActiveRecord::Base
     end
   end
 
-  scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
-  scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
-  scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
-  scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
-  scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
-  scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
-  scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
-  scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
-  scope :like, lambda { |field, value| where("LOWER(#{field}) LIKE ?", "%#{value.downcase}%") if value}
-  scope :pending_all, lambda { |profile, filter_type, filter_text|
+  scope :pending, -> { where status: Task::Status::ACTIVE }
+  scope :hidden, -> { where status: Task::Status::HIDDEN }
+  scope :finished, -> { where status: Task::Status::FINISHED }
+  scope :canceled, -> { where status: Task::Status::CANCELLED }
+  scope :closed, -> { where status: [Task::Status::CANCELLED, Task::Status::FINISHED] }
+  scope :opened, -> { where status: [Task::Status::ACTIVE, Task::Status::HIDDEN] }
+  scope :of, -> type { where "type LIKE ?", type if type }
+  scope :order_by, -> attribute, ord { order "#{attribute} #{ord}" }
+  scope :like, -> field, value { where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%" if value }
+  scope :pending_all, -> profile, filter_type, filter_text {
     self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
   }
 
   scope :to, lambda { |profile|
     environment_condition = nil
     if profile.person?
-      envs_ids = Environment.find(:all).select{ |env| profile.is_admin?(env) }.map { |env| "target_id = #{env.id}"}.join(' OR ')
+      envs_ids = Environment.all.select{ |env| profile.is_admin?(env) }.map{ |env| "target_id = #{env.id}"}.join(' OR ')
       environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
     end
     profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
-    { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
+
+    where [environment_condition, profile_condition].compact.join(' OR ')
   }
 
   def self.pending_types_for(profile)
@@ -337,6 +338,12 @@ class Task < ActiveRecord::Base
     end
   end
 
+  # finds a task by its (generated) code. Only returns a task with the
+  # specified code AND with status = Task::Status::ACTIVE.
+  #
+  # Can be used in subclasses to find only their instances.
+  scope :from_code, -> code { where code: code, status: Task::Status::ACTIVE }
+
   class << self
 
     # generates a random code string consisting of length characters (or 36 by
@@ -348,14 +355,6 @@ class Task < ActiveRecord::Base
         code << chars[rand(chars.size)]
       end
       code
-    end
-
-    # finds a task by its (generated) code. Only returns a task with the
-    # specified code AND with status = Task::Status::ACTIVE.
-    #
-    # Can be used in subclasses to find only their instances.
-    def find_by_code(code)
-      self.find(:first, :conditions => { :code => code, :status => Task::Status::ACTIVE })
     end
 
     def per_page

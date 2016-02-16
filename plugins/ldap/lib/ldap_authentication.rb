@@ -15,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-require 'iconv'
 require 'net/ldap'
 require 'net/ldap/dn'
 require 'magic'
@@ -111,7 +110,14 @@ class LdapAuthentication
     else
       ldap_con = initialize_ldap_con(self.account, self.account_password)
     end
-    login_filter = Net::LDAP::Filter.eq( self.attr_login, login )
+    login_filter = nil
+    (self.attr_login || []).split.each do |attr|
+      if(login_filter.nil?)
+        login_filter = Net::LDAP::Filter.eq( attr, login )
+      else
+        login_filter = login_filter | Net::LDAP::Filter.eq( attr, login )
+      end
+    end
     object_filter = Net::LDAP::Filter.eq( "objectClass", "*" )
 
     attrs = {}

@@ -43,7 +43,9 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
 
   protected
 
-  delegate :logged_in?, :to => :context
+  def logged_in?
+    context.send(:logged_in?)
+  end
 
   def allowed_by_profile
     context.profile && context.profile.allow_unauthenticated_comments

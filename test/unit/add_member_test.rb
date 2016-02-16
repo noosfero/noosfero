@@ -136,6 +136,6 @@ class AddMemberTest < ActiveSupport::TestCase
 
     task = AddMember.new(:person => new_person, :organization => community)
 
-    assert_not_match(/\(#{task.requestor.email}\)/, task.target_notification_description)
+    assert_no_match(/\(#{task.requestor.email}\)/, task.target_notification_description)
   end
 end

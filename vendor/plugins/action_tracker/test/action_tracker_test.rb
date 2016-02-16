@@ -23,12 +23,12 @@ ActiveRecord::Schema.define do
 end
 
 class SomeModel < ActiveRecord::Base
-  set_table_name :some_table
+  self.table_name = :some_table
   acts_as_trackable
 end
 
 class OtherModel < ActiveRecord::Base
-  set_table_name :other_table
+  self.table_name = :other_table
   acts_as_trackable
 end
 

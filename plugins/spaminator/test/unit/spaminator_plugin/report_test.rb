@@ -19,9 +19,8 @@ class SpaminatorPlugin::ReportTest < ActiveSupport::TestCase
     r3 = SpaminatorPlugin::Report.create(:environment => environment)
     r4 = SpaminatorPlugin::Report.create(:environment => fast_create(Environment))
 
-    reports = SpaminatorPlugin::Report.from(environment)
+    reports = SpaminatorPlugin::Report.from_environment(environment)
 
-    assert_equal ActiveRecord::Relation, reports.class
     assert_includes reports, r1
     assert_includes reports, r2
     assert_includes reports, r3

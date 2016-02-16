@@ -25,7 +25,7 @@ class CommentClassificationPluginStatusController < AdminController
     @status = CommentClassificationPlugin::Status.find(params[:id])
     if request.post?
       begin
-        @status.update_attributes!(params[:status])
+        @status.update!(params[:status])
         session[:notice] = _('Status updated')
         redirect_to :action => :index
       rescue

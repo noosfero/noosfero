@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'enterprise_validation_controller'
 
-# Re-raise errors caught by the controller.
-class EnterpriseValidationController; def rescue_action(e) raise e end; end
-
 class EnterpriseValidationControllerTest < ActionController::TestCase
 
   all_fixtures

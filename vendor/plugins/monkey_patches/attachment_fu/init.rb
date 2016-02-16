@@ -1,6 +1,8 @@
 # Monkey patch to rewrite attachment_fu's logic where no image with parent can
 # be thumbnailable.
 
+require_dependency 'technoweenie/attachment_fu'
+
 Technoweenie::AttachmentFu::InstanceMethods.module_eval do
   def thumbnailable?
     image? && !is_thumbnail?

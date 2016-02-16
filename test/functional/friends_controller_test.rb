@@ -1,12 +1,9 @@
 require_relative "../test_helper"
 require 'friends_controller'
 
-class FriendsController; def rescue_action(e) raise e end; end
-
 class FriendsControllerTest < ActionController::TestCase
 
-  noosfero_test :profile => 'testuser'
-
+  self.default_params = {profile: 'testuser'}
   def setup
     @controller = FriendsController.new
     @request    = ActionController::TestRequest.new

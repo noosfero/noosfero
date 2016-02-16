@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class RoutingTest < ActionController::IntegrationTest
+class RoutingTest < ActionDispatch::IntegrationTest
 
   def setup
     Domain.clear_cache

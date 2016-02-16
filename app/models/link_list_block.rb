@@ -41,7 +41,7 @@ class LinkListBlock < Block
     [N_('New window'), '_new'],
   ]
 
-  settings_items :links, Array, :default => []
+  settings_items :links, type: Array, :default => []
 
   before_save do |block|
     block.links = block.links.delete_if {|i| i[:name].blank? and i[:address].blank?}
@@ -53,6 +53,10 @@ class LinkListBlock < Block
 
   def help
     _('This block can be used to create a menu of links. You can add, remove and update the links as you wish.')
+  end
+
+  def self.pretty_name
+    _('Link list')
   end
 
   def content(args={})

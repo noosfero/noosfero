@@ -1,1 +1,1 @@
-gem 'rakismet'
+gem 'rakismet', '~> 1.5.0'

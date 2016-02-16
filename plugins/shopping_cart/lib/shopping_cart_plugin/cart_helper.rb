@@ -61,7 +61,8 @@ module ShoppingCartPlugin::CartHelper
 
   def items_table(items, delivery_method = nil, by_mail = false)
     # partial key needed in mailer context
-    render partial: 'shopping_cart_plugin/items', locals: {order: build_order(items, delivery_method), by_mail: by_mail}
+    order = @order || build_order(items, delivery_method)
+    render partial: 'shopping_cart_plugin/items', locals: {order: order, by_mail: by_mail}
   end
 
   def float_to_currency_cart value, environment, _options = {}

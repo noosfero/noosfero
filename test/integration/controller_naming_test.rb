@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ControllerNamingTest < ActionController::IntegrationTest
+class ControllerNamingTest < ActionDispatch::IntegrationTest
 
   should 'not have controllers with same name in different folders' do
     controllers = Dir.glob(Rails.root.join("app", "controllers", "**", "*_controller.rb")).map { |item| item.split(/\//).last }

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
   should 'validate presence of target' do

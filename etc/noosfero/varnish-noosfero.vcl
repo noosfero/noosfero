@@ -1,5 +1,7 @@
+vcl 4.0;
+
 sub vcl_recv {
-  if (req.request == "GET" || req.request == "HEAD") {
+  if (req.method == "GET" || req.method == "HEAD") {
     if (req.http.Cookie) {
       # We only care about the "_noosfero_.*" cookies, used by Noosfero
       if (req.http.Cookie !~ "_noosfero_.*" ) {
@@ -17,10 +19,10 @@ sub vcl_deliver {
   }
 }
 
-sub vcl_error {
-    set obj.http.Content-Type = "text/html; charset=utf-8";
+sub vcl_backend_error {
+    set beresp.http.Content-Type = "text/html; charset=utf-8";
 
-    synthetic {"
+    synthetic({"
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -52,7 +54,7 @@ sub vcl_error {
   <div id='wrap'>
     <div id='header'>
       <div id='logo'>&nbsp;</div>
-      <div id='details'><b>"} + obj.status + "</b> - " + obj.response + {"</div>
+      <div id='details'><b>"} + beresp.status + "</b> - " + beresp.reason + {"</div>
     </div>
 
     <div id='de' style='display: none' class='message'>
@@ -145,6 +147,6 @@ sub vcl_error {
   </div>
 </body>
 </html>
-     "};
+     "});
     return(deliver);
 }

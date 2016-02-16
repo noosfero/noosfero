@@ -27,8 +27,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
             request_started_at: request_started_at, request_finished_at: request_finished_at
 
           unless profile.analytics_anonymous?
-            # FIXME: use session.id in Rails 4
-            session_id = request.session_options[:id]
+            session_id = session.id
             page_view.user = user
             page_view.session_id = session_id
           end

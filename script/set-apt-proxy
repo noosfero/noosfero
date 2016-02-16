@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+sudo apt-get install -qy netcat-traditional
+
+# apt-cacher-ng running on the host
+# 10.0.2.2 = host ip on virtualbox/qemu
+# 192.168..122.1 = host ip on default libvirt bridge
+# 172.17.42.1 = host ip on default docker bridge
+for ip in 10.0.2.2 192.168.122.1 172.17.42.1; do
+  if nc -z -w 1 $ip 3142; then
+    echo "Acquire::http::Proxy \"http://$ip:3142\";" | sudo tee /etc/apt/apt.conf.d/01proxy
+  fi
+done

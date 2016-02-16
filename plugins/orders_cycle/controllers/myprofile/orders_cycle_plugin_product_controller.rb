@@ -25,7 +25,7 @@ class OrdersCyclePluginProductController < SuppliersPlugin::ProductController
   def cycle_edit
     @product = OrdersCyclePlugin::OfferedProduct.find params[:id]
     if request.xhr?
-      @product.update_attributes! params[:product]
+      @product.update! params[:product]
       respond_to do |format|
         format.js
       end

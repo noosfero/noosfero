@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 
 class PersonNotifierTest < ActiveSupport::TestCase
+
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
@@ -19,7 +20,6 @@ class PersonNotifierTest < ActiveSupport::TestCase
     @community.add_member(@admin)
     @article = fast_create(TextileArticle, :name => 'Article test', :profile_id => @community.id, :notify_comments => false)
     Delayed::Job.delete_all
-    notify
     ActionMailer::Base.deliveries = []
   end
 
@@ -48,6 +48,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'display author name in delivered mail' do
     @community.add_member(@member)
+    User.current = @admin.user
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     process_delayed_job_queue
     notify
@@ -67,8 +68,11 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'update last notification date' do
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
-    @community.add_member(@member)
+    notify
     initial_notification = @member.last_notification
+
+    Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
+    @community.add_member(@member)
     notify
     assert @member.last_notification > initial_notification
   end
@@ -150,15 +154,30 @@ class PersonNotifierTest < ActiveSupport::TestCase
     assert job.run_at < time + (@member.notification_time+1).hours
   end
 
-  should 'display error message if fail to render a notificiation' do
+  should 'fail to render an invalid notificiation' do
     @community.add_member(@member)
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     process_delayed_job_queue
-    notify
-    sent = ActionMailer::Base.deliveries.last
-    assert_match /cannot render notification for some_invalid_verb/, sent.body.to_s
+    assert_raise ActionView::Template::Error do
+      notify
+    end
   end
+
+  Targets = {
+    create_article: -> { create Forum, profile: @profile },
+    new_friendship: -> { create Friendship, person: @member, friend: @member },
+    join_community: -> { @member },
+    add_member_in_community: -> { create_user.person },
+    upload_image: -> { create Forum, profile: @profile },
+    leave_scrap: -> { create Scrap, sender: @member, receiver: @profile },
+    leave_scrap_to_self: -> { create Scrap, sender: @member, receiver: @profile },
+    reply_scrap_on_self: -> { create Scrap, sender: @member, receiver: @profile },
+    create_product: -> { create Product, profile: @profile, product_category: create(ProductCategory, environment: Environment.default) },
+    update_product: -> { create Product, profile: @profile, product_category: create(ProductCategory, environment: Environment.default) },
+    remove_product: -> { create Product, profile: @profile, product_category: create(ProductCategory, environment: Environment.default) },
+    favorite_enterprise: -> { create FavoriteEnterprisePerson, enterprise: create(Enterprise), person: @member },
+  }
 
   ActionTrackerConfig.verb_names.each do |verb|
     should "render notification for verb #{verb}" do
@@ -168,14 +187,15 @@ class PersonNotifierTest < ActiveSupport::TestCase
       a.verb = verb
       a.user = @member
       a.created_at = @member.notifier.notify_from + 1.day
-      profile = create(Community)
-      a.target = create(Forum, profile: profile)
+      @profile = create(Community)
+      a.target = instance_exec &Targets[verb.to_sym]
       a.comments_count = 0
       a.params = {
         'name' => 'home', 'url' => '/', 'lead' => '',
         'receiver_url' => '/', 'content' => 'nothing',
         'friend_url' => '/', 'friend_profile_custom_icon' => [], 'friend_name' => ['joe'],
         'resource_name' => ['resource'], 'resource_profile_custom_icon' => [], 'resource_url' => ['/'],
+        'enterprise_name' => 'coop', 'enterprise_url' => '/coop',
         'view_url'=> ['/'], 'thumbnail_path' => ['1'],
       }
       a.get_url = ''

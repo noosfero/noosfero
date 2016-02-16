@@ -14,7 +14,7 @@ class NewsletterPluginNewsletters < ActiveRecord::Migration
       t.boolean :moderated
       t.text :unsubscribers
     end
-    add_index :newsletter_plugin_newsletters, :environment_id, :uniq => true
+    add_index :newsletter_plugin_newsletters, :environment_id, :unique => true
   end
 
   def down

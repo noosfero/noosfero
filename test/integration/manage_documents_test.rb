@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ManageDocumentsTest < ActionController::IntegrationTest
+class ManageDocumentsTest < ActionDispatch::IntegrationTest
 
   all_fixtures
 
@@ -78,18 +78,18 @@ class ManageDocumentsTest < ActionController::IntegrationTest
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
     get '/myprofile/myuser'
     assert_response :success
-    
+
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms' }
     get '/myprofile/myuser/cms'
     assert_response :success
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
+    assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
     post "/myprofile/myuser/cms/destroy/#{article.id}"
 
     assert_response :redirect
     follow_redirect!
     assert_equal "/myuser", path
-  
+
     # the article was actually deleted
     assert_raise ActiveRecord::RecordNotFound do
       Article.find(article.id)

@@ -14,6 +14,7 @@ class AntiSpamPlugin::Wrapper < SimpleDelegator
   end
 
   def self.inherited(child)
+    child.rakismet_attrs
     wrappers << child
   end
 end

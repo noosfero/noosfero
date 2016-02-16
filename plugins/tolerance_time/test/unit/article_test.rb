@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
+require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
   should 'create a publication after publishing the article' do

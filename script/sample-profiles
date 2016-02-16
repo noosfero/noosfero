@@ -104,7 +104,7 @@ save guest
 done
 
 print "Activating users: "
-User.all(:conditions => ["login NOT LIKE '%%_template'"]).each do |user|
+User.where("login NOT LIKE '%%_template'").each do |user|
   user.activate
   print '.'
 end

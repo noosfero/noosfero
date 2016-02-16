@@ -1,3 +1,5 @@
+s/ABNER SILVA DE OLIVEIRA/Ábner Silva de Oliveira/
+
 s/Alessandro Palmeira$/Alessandro Palmeira <alessandro.palmeira@gmail.com>/
 s/Alessandro Palmeira <caio.csalgado@gmail.com>/Alessandro Palmeira <alessandro.palmeira@gmail.com>/
 s/Alessandro Palmeira <diegoamc90@gmail.com>/Alessandro Palmeira <alessandro.palmeira@gmail.com>/
@@ -161,9 +163,15 @@ s/Luciano Prestes <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <lucianopcb
 s/Luciano Prestes Cavacanti <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>/
 s/luciano@luciano.luciano/lucianopcbr@gmail.com/
 
+s/Macartur Sousa/Macartur de Sousa/
+s/macartur.sc@gmail.com$/macartur.sc@gmail.com>/
+
 s/Marcos da Silva Ramos <ms.ramos@outlook.com>/Marcos Ramos <ms.ramos@outlook.com>/
 s/Marcos Ramos <ms.ramos@outlook.com$/Marcos Ramos <ms.ramos@outlook.com>/
+s/msramos@outlook.com/ms.ramos@outlook.com/
 s/Marcos <marcos.rpj2@gmail.com>/Marcos Ronaldo <marcos.rpj2@gmail.com>/
+
+s/melissa@colivre.coop.br/melissa.srw@gmail.com/
 
 s/Michel Felipe <mfelipeof@gmail.com>/Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>/
 
@@ -237,4 +245,6 @@ s/vfcosta <vfcosta@gmail.com>/Victor Costa <vfcosta@gmail.com>/
 s/Victor Carvalho <victorhugodf.ac@gmail.com>/Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>/
 
 s/Victor Matias Navarro/Victor Navarro/
+
+s/Vinicius Cubas Brand/Vinicius Brand/
 

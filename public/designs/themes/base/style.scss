@@ -1,3 +1,17 @@
+@import 'stylesheets/layouts';
+
+@import 'stylesheets/signup';
+@import 'stylesheets/account';
+@import 'stylesheets/cms';
+@import 'stylesheets/catalog';
+@import 'stylesheets/profile-editor';
+@import 'stylesheets/profile';
+
+@import 'stylesheets/content';
+
+@import 'stylesheets/events';
+@import 'stylesheets/product';
+
 /* ==> button.css <== */
 
 .button {
@@ -1540,3 +1554,4 @@ table#recaptcha_table tr:hover td {
 .profile-members-title-sort {
   clear: both;
 }
+

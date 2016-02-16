@@ -1,17 +1,14 @@
 require_relative "../test_helper"
 require 'profile_controller'
 
-# Re-raise errors caught by the controller.
-class ProfileController; def rescue_action(e) raise e end; end
-
 class ProfileControllerTest < ActionController::TestCase
+
+  self.default_params = {profile: 'testuser'}
   def setup
     Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
-
-  noosfero_test :profile => 'testuser'
 
   should 'list friends' do
     get :friends
@@ -479,7 +476,7 @@ class ProfileControllerTest < ActionController::TestCase
     fast_create(TextileArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
 
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/blog/ }
+    assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/#{blog.slug}/ }
   end
 
   should 'show number of published images in index' do
@@ -811,13 +808,11 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'the network activity be paginated' do
-    p1= fast_create(Person)
-    40.times{fast_create(ActionTrackerNotification, :action_tracker_id => fast_create(ActionTracker::Record), :profile_id => p1.id)}
+    User.current = user = create_user
+    p1 = user.person
+    40.times{fast_create(ActionTrackerNotification, action_tracker_id: create(ActionTracker::Record, verb: :leave_scrap, user: p1, params: {content: 'blah'}), profile_id: p1.id)}
 
     @controller.stubs(:logged_in?).returns(true)
-    user = mock()
-    user.stubs(:person).returns(p1)
-    user.stubs(:login).returns('some')
     @controller.stubs(:current_user).returns(user)
     get :index, :profile => p1.identifier
     assert_equal 15, assigns(:network_activities).size
@@ -878,11 +873,11 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
-  should 'the network activity be paginated on communities' do
+  should 'paginate the network activity listing on communities' do
     community = fast_create(Community)
     40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     get :index, :profile => community.identifier
-    assert_equal 15, assigns(:network_activities).size
+    assert_equal 15, assigns(:network_activities).to_a.size
   end
 
   should 'the self activity not crashes with user not logged in' do
@@ -933,9 +928,9 @@ class ProfileControllerTest < ActionController::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
-    s1 = create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
-    s2 = create(Scrap, :sender_id => p2.id, :receiver_id => p1.id)
-    s3 = create(Scrap, :sender_id => p3.id, :receiver_id => p1.id)
+    s1 = create(Scrap, :sender_id => p1.id, :receiver_id => p2.id, updated_at: Time.now)
+    s2 = create(Scrap, :sender_id => p2.id, :receiver_id => p1.id, updated_at: Time.now+1)
+    s3 = create(Scrap, :sender_id => p3.id, :receiver_id => p1.id, updated_at: Time.now+2)
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -968,7 +963,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'the activities be paginated in people profiles' do
     p1= fast_create(Person)
-    40.times{create(Scrap, :receiver_id => p1.id, :created_at => Time.now)}
+    40.times{create(Scrap, sender: p1, receiver: p1, created_at: Time.now)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -984,7 +979,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'the activities be paginated in community profiles' do
     p1= fast_create(Person)
     c = fast_create(Community)
-    40.times{create(Scrap, :receiver_id => c.id)}
+    40.times{create(Scrap, sender: p1, receiver: c)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -1136,7 +1131,7 @@ class ProfileControllerTest < ActionController::TestCase
     ActionTracker::Record.destroy_all
     40.times{ create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
-    assert_equal 40, profile.activities.count
+    assert_equal 40, profile.activities.size
     get :view_more_activities, :profile => profile.identifier, :page => 2
     assert_response :success
     assert_template '_profile_activities_list'
@@ -1182,7 +1177,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     assert_equal 20, article.comments.count
-    get :more_comments, :activity => activity.id, :comment_page => 2
+    xhr :get, :more_comments, :activity => activity.id, :comment_page => 2
     assert_response :success
     assert_template '_comment'
     assert_select_rjs :insert_html do
@@ -1207,7 +1202,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
     profile.reload
     assert_equal 20, scrap.replies.count
-    get :more_replies, :activity => scrap.id, :comment_page => 2
+    xhr :get, :more_replies, :activity => scrap.id, :comment_page => 2
     assert_response :success
     assert_template '_profile_scrap'
     assert_select_rjs :insert_html do
@@ -1389,7 +1384,7 @@ class ProfileControllerTest < ActionController::TestCase
     activity = ActionTracker::Record.last
 
     login_as(profile.identifier)
-    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+    xhr :get, :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
 
     assert_select_rjs :insert_html do
       assert_select 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
@@ -1418,7 +1413,7 @@ class ProfileControllerTest < ActionController::TestCase
     activity = ActionTracker::Record.last
 
     login_as(profile.identifier)
-    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+    xhr :get, :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
 
     assert_select_rjs :insert_html do
       assert_select 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
@@ -1674,7 +1669,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
-    assert_select '#manage-communities li > a' do |links|
+    doc = Nokogiri::HTML @response.body
+    assert_select doc, '#manage-communities li > a' do |links|
       assert_equal 2, links.length
       assert_match /community_1/, links.to_s
       assert_match /community_2/, links.to_s
@@ -1702,7 +1698,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
-    assert_select '#manage-enterprises li > a' do |links|
+    doc = Nokogiri::HTML @response.body
+    assert_select doc, '#manage-enterprises li > a' do |links|
       assert_equal 1, links.length
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s

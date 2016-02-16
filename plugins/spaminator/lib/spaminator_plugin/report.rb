@@ -1,4 +1,5 @@
-class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
+class SpaminatorPlugin::Report < ActiveRecord::Base
+
   serialize :failed, Hash
 
   belongs_to :environment
@@ -7,7 +8,7 @@ class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
 
   attr_accessible :environment
 
-  scope :from, lambda { |environment| {:conditions => {:environment_id => environment}}}
+  scope :from_environment, -> environment { where :environment_id => environment }
 
   after_initialize do |report|
     report.failed = {:people => [], :comments => []} if report.failed.blank?
@@ -29,4 +30,5 @@ class SpaminatorPlugin::Report < Noosfero::Plugin::ActiveRecord
     # TODO Implement some decent visualization
     inspect
   end
+
 end

@@ -7,7 +7,7 @@ module RoleAssignmentTrigger
           person = ra.accessor
           ok = !profile.nil? && !person.nil? && profile.environment.present?
           if ok && profile.environment.plugin_enabled?(CustomFormsPlugin) && !person.is_member_of?(profile)
-            CustomFormsPlugin::Form.from(profile).on_memberships.each do |form|
+            CustomFormsPlugin::Form.from_profile(profile).on_memberships.each do |form|
               CustomFormsPlugin::MembershipSurvey.create!(:requestor => profile, :target => person, :form_id => form.id)
             end
           end
@@ -21,7 +21,7 @@ module RoleAssignmentTrigger
           person = ra.accessor
           ok = !profile.nil? && !person.nil? && profile.environment.present?
           if ok && profile.environment.plugin_enabled?(CustomFormsPlugin) && !person.is_member_of?(profile)
-            CustomFormsPlugin::Form.from(profile).for_admissions.each do |form|
+            CustomFormsPlugin::Form.from_profile(profile).for_admissions.each do |form|
               admission_task_pending = person.tasks.pending.select {|task| task.kind_of?(CustomFormsPlugin::AdmissionSurvey) && task.form_id == form.id }.present?
               admission_task_finished = person.tasks.finished.select {|task| task.kind_of?(CustomFormsPlugin::AdmissionSurvey) && task.form_id == form.id }.present?
 
@@ -39,11 +39,11 @@ module RoleAssignmentTrigger
           person = ra.accessor
           ok = !profile.nil? && !person.nil? && profile.environment.present?
           if ok && profile.environment.plugin_enabled?(CustomFormsPlugin) && !person.is_member_of?(profile)
-            CustomFormsPlugin::Form.from(profile).on_memberships.each do |form|
+            CustomFormsPlugin::Form.from_profile(profile).on_memberships.each do |form|
               task = person.tasks.pending.select {|task| task.kind_of?(CustomFormsPlugin::MembershipSurvey) && task.form_id == form.id}.first
               task.cancel if task
             end
-            CustomFormsPlugin::Form.from(profile).for_admissions.each do |form|
+            CustomFormsPlugin::Form.from_profile(profile).for_admissions.each do |form|
               task = person.tasks.pending.select {|task| task.kind_of?(CustomFormsPlugin::MembershipSurvey) && task.form_id == form.id}.first
               task.cancel if task
             end

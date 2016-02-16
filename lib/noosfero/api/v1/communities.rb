@@ -20,14 +20,21 @@ module Noosfero
             communities = select_filtered_collection_of(environment, 'communities', params)
             communities = communities.visible_for_person(current_person)
             communities = communities.by_location(params) # Must be the last. May return Exception obj.
-            present communities, :with => Entities::Community
+            present communities, :with => Entities::Community, :current_person => current_person
           end
 
 
           # Example Request:
           #  POST api/v1/communties?private_token=234298743290432&community[name]=some_name
+          #  for each custom field for community, add &community[field_name]=field_value to the request
           post do
             params[:community] ||= {}
+
+            params[:community][:custom_values]={}
+            params[:community].keys.each do |key|
+              params[:community][:custom_values][key]=params[:community].delete(key) if Community.custom_fields(environment).any?{|cf| cf.name==key}
+            end
+
             begin
               community = Community.create_after_moderation(current_person, params[:community].merge({:environment => environment}))
             rescue
@@ -38,12 +45,12 @@ module Noosfero
               render_api_errors!(community.errors.full_messages)
             end
 
-            present community, :with => Entities::Community
+            present community, :with => Entities::Community, :current_person => current_person
           end
 
           get ':id' do
             community = environment.communities.visible_for_person(current_person).find_by_id(params[:id])
-            present community, :with => Entities::Community
+            present community, :with => Entities::Community, :current_person => current_person
           end
 
         end
@@ -58,7 +65,7 @@ module Noosfero
                 person = environment.people.find(params[:person_id])
                 communities = select_filtered_collection_of(person, 'communities', params)
                 communities = communities.visible
-                present communities, :with => Entities::Community
+                present communities, :with => Entities::Community, :current_person => current_person
               end
 
             end

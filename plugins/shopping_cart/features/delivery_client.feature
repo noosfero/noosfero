@@ -35,7 +35,8 @@ Feature: delivery client
     Given I follow "Add to basket"
     And I follow "Add to basket"
     And I should see "Show basket"
-    And I follow "Show basket"
+    And I follow "Show "
+    And I wait 1 second for animations
     And I follow "Shopping checkout"
     And I fill in "Contact phone" with "123456789"
     When I select "Bike ($8.00)" from "Option"
@@ -50,6 +51,7 @@ Feature: delivery client
     And I follow "Add to basket"
     And I should see "Show basket"
     And I follow "Show basket"
+    And I wait 1 second for animations
     And I follow "Shopping checkout"
     And I fill in "Contact phone" with "123456789"
     When I select "Bar" from "Option"
@@ -68,6 +70,7 @@ Feature: delivery client
     And I follow "Add to basket"
     And I should see "Show basket"
     And I follow "Show basket"
+    And I wait 1 second for animations
     And I follow "Shopping checkout"
     And I fill in "Contact phone" with "123456789"
     When I select "Bike ($8.00)" from "Option"

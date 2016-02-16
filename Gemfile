@@ -1,24 +1,36 @@
 source "https://rubygems.org"
-gem 'rails',                    '~> 3.2.22'
-gem 'minitest',                 '~> 3.2.0'
-gem 'fast_gettext',             '~> 0.6.8'
-gem 'acts-as-taggable-on',      '~> 3.4.2'
+
+platform :ruby do
+  gem 'pg',                     '~> 0.17'
+  gem 'rmagick',                '~> 2.13'
+end
+platform :jruby do
+  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'rmagick4j'
+end
+
+gem 'rails',                    '~> 4.2.4'
+gem 'fast_gettext',             '~> 0.9'
+gem 'acts-as-taggable-on',      '~> 3.5'
 gem 'rails_autolink',           '~> 1.1.5'
-gem 'pg',                       '~> 0.13.2'
-gem 'rmagick',                  '~> 2.13.1'
-gem 'RedCloth',                 '~> 4.2.9'
-gem 'will_paginate',            '~> 3.0.3'
+gem 'RedCloth',                 '~> 4.2'
 gem 'ruby-feedparser',          '~> 0.7'
-gem 'daemons',                  '~> 1.1.5'
+gem 'daemons',                  '~> 1.1'
 gem 'unicorn',                  '~> 4.8'
-gem 'nokogiri',                 '~> 1.5.5'
+gem 'nokogiri',                 '~> 1.6.0'
+gem 'will_paginate',            '~> 3.0.7'
+gem 'pothoven-attachment_fu',   '~> 3.2.16'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 gem 'rake', :require => false
-gem 'rest-client',              '~> 1.6.7'
+gem 'rest-client',              '~> 1.6'
 gem 'exception_notification',   '~> 4.0.1'
-gem 'gettext',                  '~> 2.2.1', :require => false
-gem 'locale',                   '~> 2.0.5'
+gem 'gettext',                  '~> 3.1', :require => false
+gem 'locale',                   '~> 2.1'
 gem 'whenever', :require => false
-gem 'eita-jrails', '~> 0.9.5', require: 'jrails'
+gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
+gem 'diffy',                    '~> 3.0'
+gem 'slim'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -30,29 +42,52 @@ gem 'rack-contrib'
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
-gem 'sass', '~> 3.1.19'
+gem 'sprockets-rails', '~> 2.1'
+
+# gems to enable rails3 behaviour
+gem 'protected_attributes'
+gem 'rails-observers'
+gem 'actionpack-page_caching'
+gem 'actionpack-action_caching'
+gem 'activerecord-session_store'
+gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
 
+group :development, :test do
+  gem 'spring'
+end
+
 group :test do
-  gem 'rspec',                  '~> 2.14.0'
-  gem 'rspec-rails',            '~> 2.14.1'
+  gem 'rspec',                  '~> 3.3', require: false
+  gem 'rspec-rails',            '~> 3.2', require: false
   gem 'mocha',                  '~> 1.1.0', :require => false
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
+  gem 'minitest'
+  gem 'minitest-reporters'
 end
 
 group :cucumber do
-  gem 'cucumber-rails',         '~> 1.0.6', :require => false
-  gem 'capybara',               '~> 2.1.0'
-  gem 'cucumber',               '~> 1.0.6'
-  gem 'database_cleaner',       '~> 1.2.0'
-  gem 'selenium-webdriver',     '~> 2.47.0'
+  gem 'capybara',               '~> 2.2'
+  gem 'launchy'
+  gem 'cucumber'
+  gem 'cucumber-rails',         '~> 1.4.2', :require => false
+  gem 'database_cleaner',       '~> 1.3'
+  gem 'selenium-webdriver',     '>= 2.50'
 end
 
 # Requires custom dependencies
 eval(File.read('config/Gemfile'), binding) rescue nil
+
+vendor = Dir.glob('vendor/{,plugins/}*') - ['vendor/plugins']
+vendor.each do |dir|
+  plugin = File.basename dir
+  version = if Dir.glob("#{dir}/*.gemspec").length > 0 then '> 0.0.0' else '0.0.0' end
+
+  gem plugin, version, path: dir
+end
 
 # include gemfiles from enabled plugins
 # plugins in baseplugins/ are not included on purpose. They should not have any

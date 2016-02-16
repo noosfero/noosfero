@@ -8,6 +8,7 @@ class ProfileEditorController < MyProfileController
   before_filter :forbid_destroy_profile, :only => [:destroy_profile]
   before_filter :check_user_can_edit_header_footer, :only => [:header_footer]
   helper_method :has_welcome_page
+  helper CustomFieldsHelper
 
   def index
     @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}
@@ -27,7 +28,7 @@ class ProfileEditorController < MyProfileController
         Image.transaction do
           begin
             @plugins.dispatch(:profile_editor_transaction_extras)
-            @profile_data.update_attributes!(params[:profile_data])
+            @profile_data.update!(params[:profile_data])
             redirect_to :action => 'index', :profile => profile.identifier
           rescue Exception => ex
             profile.identifier = params[:profile] if profile.identifier.blank?
@@ -83,7 +84,7 @@ class ProfileEditorController < MyProfileController
       if @profile.destroy
         session[:notice] = _('The profile was deleted.')
         if(params[:return_to])
-          redirect_to params[:return_to]
+          redirect_to url_for(params[:return_to])
         else
           redirect_to :controller => 'home'
         end
@@ -97,7 +98,7 @@ class ProfileEditorController < MyProfileController
     @welcome_page = profile.welcome_page || TinyMceArticle.new(:name => 'Welcome Page', :profile => profile, :published => false)
     if request.post?
       begin
-        @welcome_page.update_attributes!(params[:welcome_page])
+        @welcome_page.update!(params[:welcome_page])
         profile.welcome_page = @welcome_page
         profile.save!
         session[:notice] = _('Welcome page saved successfully.')

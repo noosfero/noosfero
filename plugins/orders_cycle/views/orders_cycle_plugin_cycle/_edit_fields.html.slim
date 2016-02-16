@@ -53,6 +53,5 @@ h3= t('views.cycle._edit_fields.general_settings')
   = link_to t('views.cycle._edit_fields.cancel_changes'), @cycle.new? ? {action: :index} : params
   - unless @cycle.new?
     |&nbsp;
-    = link_to t('views.cycle._edit_fields.remove'), {action: :destroy, id: @cycle.id}, confirm: t('views.cycle._edit_fields.confirm_remove')
-
+    = link_to t('views.cycle._edit_fields.remove'), {action: :destroy, id: @cycle.id}, data: {confirm: t('views.cycle._edit_fields.confirm_remove')}
 

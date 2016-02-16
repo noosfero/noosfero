@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../../test/test_helper'
+require 'test_helper'
 
 class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
   should 'set slug before validation based on name' do

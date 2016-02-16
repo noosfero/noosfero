@@ -8,7 +8,13 @@ class DeliveryPlugin::AdminOptionsController < DeliveryPlugin::AdminMethodContro
   before_filter :load_owner
 
   def select
+  end
 
+  def select_all
+    missing_methods = profile.delivery_methods - @owner.delivery_methods
+    missing_methods.each do |dm|
+      DeliveryPlugin::Option.create! owner_id: @owner.id, owner_type: @owner.class.name, delivery_method: dm
+    end
   end
 
   def new

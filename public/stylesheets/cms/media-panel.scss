@@ -1,11 +1,8 @@
 .controller-cms .with_media_panel {
-  float: left;
-  width: 900px;
   transition: 1s 0.5s;
 }
 
 .controller-cms .show-media-panel .with_media_panel {
-  width: 540px;
   transition: 1s;
 }
 
@@ -72,17 +69,6 @@
 #media-upload-box .upload .percentage {
   text-align: right;
   width: 12%;
-}
-
-
-.text-editor-sidebar {
-  position: absolute;
-  width: 340px;
-  right: 20px;
-  top: 70px;
-  max-height: 45px;
-  overflow: hidden;
-  transition: 1s;
 }
 
 .show-media-panel .text-editor-sidebar {

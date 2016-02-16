@@ -1,6 +1,6 @@
 require 'csv'
 
-class NewsletterPlugin::Newsletter < Noosfero::Plugin::ActiveRecord
+class NewsletterPlugin::Newsletter < ActiveRecord::Base
 
   belongs_to :environment
   belongs_to :person

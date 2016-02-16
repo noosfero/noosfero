@@ -4,8 +4,6 @@ class OrdersPlugin::Mailer < Noosfero::Plugin::MailerBase
 
   helper ApplicationHelper
   helper OrdersPlugin::DisplayHelper
-  helper OrdersPlugin::DateHelper
-  helper OrdersPlugin::TranslationHelper
 
   attr_accessor :environment
   attr_accessor :profile
@@ -81,5 +79,11 @@ class OrdersPlugin::Mailer < Noosfero::Plugin::MailerBase
       profile.admins.map{ |p| p.contact_email }
     end
   end
+
+  # for order/show_simple form
+  def protect_against_forgery?
+    false
+  end
+  helper_method :protect_against_forgery?
 
 end

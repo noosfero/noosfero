@@ -6,7 +6,7 @@ class CatalogHelperTest < ActiveSupport::TestCase
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
-  include ActionDispatch::Assertions::SelectorAssertions
+  include ::Rails::Dom::Testing::Assertions::SelectorAssertions
 
   def url_for(opts)
     #{:controller => 'catalog', :action => 'index', :level => category.id}
@@ -44,8 +44,8 @@ class CatalogHelperTest < ActiveSupport::TestCase
 
     html = category_with_sub_list @products
 
-    doc = HTML::Document.new "<body>#{html}</body>"
-    assert_select doc.root, 'div' do |divs|
+    doc = Nokogiri::HTML "<body>#{html}</body>"
+    assert_select doc, 'div' do |divs|
       assert_select divs[0], "a[href=catalog-index-level=#{@products.id}]"
       assert_select divs[0], '.count', {:text=>'3'}
       assert_select divs[1], "a[href=catalog-index-level=#{@food.id}]"

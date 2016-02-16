@@ -1,19 +1,30 @@
 require_dependency 'profile'
+require_dependency 'community'
 
-class Profile
+([Profile] + Profile.descendants).each do |subclass|
+subclass.class_eval do
 
-  has_many :orders_cycles, class_name: 'OrdersCyclePlugin::Cycle', dependent: :destroy, order: 'created_at DESC',
-    conditions: ["orders_cycle_plugin_cycles.status <> 'new'"]
-  has_many :orders_cycles_without_order, class_name: 'OrdersCyclePlugin::Cycle',
-    conditions: ["orders_cycle_plugin_cycles.status <> 'new'"]
+  has_many :orders_cycles, -> {
+    order('created_at DESC').
+    where "orders_cycle_plugin_cycles.status <> 'new'"
+  }, foreign_key: :profile_id, class_name: 'OrdersCyclePlugin::Cycle', dependent: :destroy
+
+  has_many :orders_cycles_without_order, -> {
+    where "orders_cycle_plugin_cycles.status <> 'new'"
+  }, foreign_key: :profile_id, class_name: 'OrdersCyclePlugin::Cycle'
 
   has_many :orders_cycles_sales, through: :orders_cycles, source: :sales
   has_many :orders_cycles_purchases, through: :orders_cycles, source: :purchases
 
-  has_many :offered_products, class_name: 'OrdersCyclePlugin::OfferedProduct', order: 'products.name ASC'
+  has_many :offered_products, -> { reorder 'products.name ASC' }, class_name: 'OrdersCyclePlugin::OfferedProduct'
+
+end
+end
+
+class Profile
 
   def orders_cycles_closed_date_range
-    list = self.orders_cycles.closing.all order: 'start ASC'
+    list = self.orders_cycles.closing.order('start ASC').all
     return DateTime.now..DateTime.now if list.blank?
     list.first.start.to_date..list.last.finish.to_date
   end

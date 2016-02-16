@@ -1,7 +1,7 @@
 <%
   # compute layout values
   ev_days_tag = ''
-  if event.duration > 0
+  if event.duration > 1
     ev_days_tag = content_tag('time',
       n_('Duration: 1 day', 'Duration: %s days', event.duration) % "<b>#{event.duration}</b>",
       :itemprop => 'endDate',

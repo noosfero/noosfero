@@ -1,8 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/ldap_plugin_admin_controller'
-
-# Re-raise errors caught by the controller.
-class LdapPluginAdminController; def rescue_action(e) raise e end; end
+require 'test_helper'
+require_relative '../../controllers/ldap_plugin_admin_controller'
 
 class LdapPluginAdminControllerTest < ActionController::TestCase
 

@@ -77,6 +77,7 @@ Feature: register enterprise
     Then I should see "Contact person can't be blank"
     Then I should see "Contact email can't be blank"
 
+  @selenium
   Scenario: a user register an enterprise successfully through the admin
             validator method and the admin accepts
     Given organization_approval_method is "admin" on environment
@@ -133,8 +134,9 @@ Feature: register enterprise
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"
 
-    Scenario: a user register an enterprise successfully through the region
-              validator method and the validator accepts
+  @selenium
+  Scenario: a user register an enterprise successfully through the region
+            validator method and the validator accepts
     Given organization_approval_method is "region" on environment
     And I follow "Manage my groups"
     And the following enterprise

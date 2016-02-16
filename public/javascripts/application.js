@@ -31,6 +31,8 @@
 *= require catalog.js
 *= require autogrow.js
 *= require require_login.js
+*= require slick.js
+*= require block-store.js
 */
 
 // lodash configuration
@@ -577,7 +579,7 @@ jQuery(function($) {
   $.ajaxSetup({
     cache: false,
     headers: {
-      'X-CSRF-Token': $.cookie("_noosfero_.XSRF-TOKEN")
+      'X-XSRF-TOKEN': $.cookie("_noosfero_.XSRF-TOKEN")
     }
   });
 

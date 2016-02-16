@@ -73,7 +73,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'update counter cache in article activity' do
-    owner = create_user('testuser').person
+    User.current = user = create_user 'testuser'
+    owner = user.person
     article = create(TextileArticle, :profile_id => owner.id)
 
     action = article.activity
@@ -187,7 +188,8 @@ class CommentTest < ActiveSupport::TestCase
     owner = create_user('testuser').person
     article = owner.articles.create!(:name => 'test', :body => '...')
     javascript = "<script>alert('XSS')</script>"
-    comment = create(Comment, :article => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    comment = Comment.new(:source => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    comment.valid?
     assert_no_match(/<script>/, comment.name)
   end
 
@@ -275,7 +277,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments as a thread" do
-    person = create_user.person
+    User.current = user = create_user
+    person = user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
@@ -283,6 +286,7 @@ class CommentTest < ActiveSupport::TestCase
     c3 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
     c4 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     result = a.activity.comments
+    assert result.present?
     assert_equal c0, result[0]
     assert_equal [c1, c3], result[0].replies
     assert_equal [c2], result[0].replies[0].replies
@@ -291,7 +295,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should "return activities comments when some comment on thread is spam and not display its replies" do
-    person = create_user.person
+    User.current = user = create_user
+    person = user.person
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
@@ -369,7 +374,8 @@ class CommentTest < ActiveSupport::TestCase
     now = Time.now
     Time.stubs(:now).returns(now)
 
-    profile = create_user('testuser').person
+    User.current = user = create_user 'testuser'
+    profile = user.person
     article = create(TinyMceArticle, :profile => profile)
 
     ActionTracker::Record.record_timestamps = false
@@ -383,7 +389,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'create a new activity when add a comment and the activity was removed' do
-    profile = create_user('testuser').person
+    User.current = user = create_user 'testuser'
+    profile = user.person
     article = create(TinyMceArticle, :profile => profile)
     article.activity.destroy
 

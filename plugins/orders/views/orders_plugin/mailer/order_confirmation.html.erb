@@ -28,10 +28,11 @@
 
     <%= render "orders_plugin_order/show_simple", order: @order, actor_name: :consumer %>
 
+
     <p>
       <%= t('orders_plugin.views.mailer.order_confirmation.your_order_can_be_che') %><br />
       <%= link_to t('orders_plugin.views.mailer.order_confirmation.order_code_of_profile') % {code: @order.code, name: @profile.name },
-        {controller: :orders_cycle_plugin_order, action: :edit, profile: @profile.identifier, id: @order.id, protocol: "http"} %>
+        {controller: :orders_plugin_order, action: :edit, profile: @profile.identifier, id: @order.id, protocol: "http"} %>
     </p>
 
     <p>

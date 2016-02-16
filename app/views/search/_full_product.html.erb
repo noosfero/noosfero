@@ -49,7 +49,7 @@
     <div class="search-product-description">
       <% if product.description %>
         <% desc_stripped = strip_tags(product.description) %>
-        <span class="search-field-label"><%= _('Description') %>  </span><%= excerpt(desc_stripped, desc_stripped.first(3), 300) %>
+        <span class="search-field-label"><%= _('Description') %>  </span><%= excerpt desc_stripped, desc_stripped.first(3), radius: 300 %>
       <% end %>
     </div>
   </div>

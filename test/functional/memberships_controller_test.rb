@@ -1,10 +1,6 @@
 require_relative "../test_helper"
 require 'memberships_controller'
 
-
-# Re-raise errors caught by the controller.
-class MembershipsController; def rescue_action(e) raise e end; end
-
 class MembershipsControllerTest < ActionController::TestCase
 
   include ApplicationHelper
@@ -37,6 +33,17 @@ class MembershipsControllerTest < ActionController::TestCase
       assert_response :redirect
 
       assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
+    end
+  end
+
+  should 'be able to create a new community with custom field' do
+    assert_difference 'Community.count' do
+      assert_difference 'CustomFieldValue.count' do
+        CustomField.create!(:name => "zombies", :format=>"String", :default_value => "awrrr", :customized_type=>"Community", :active => true, :required => true, :signup => true, :environment => Environment.default)
+        post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, "profile_data"=>{"custom_values"=>{"zombies"=>{"value"=>"BRAINSSS"}}}
+        assert_response :redirect
+        assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
+      end
     end
   end
 

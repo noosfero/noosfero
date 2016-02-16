@@ -1,9 +1,7 @@
 require_dependency 'boxes_helper'
-require_relative 'application_helper'
 
 module BoxesHelper
 
-  extend ActiveSupport::Concern
   protected
 
   module ResponsiveMethods
@@ -45,35 +43,31 @@ module BoxesHelper
       return main_content unless boxes.present?
       render partial: "templates/boxes_#{template}", locals: {boxes: boxes, main_content: main_content}, use_cache: use_cache?
     end
-  end
 
-  def display_topbox_content(box, main_content)
-    context = {article: @page, request_path: request.path, locale: locale, params: request.params, controller: controller}
-    box_decorator.select_blocks(box, box.blocks.includes(:box), context).map do |item|
-      if item.class.name == 'LinkListBlock' and request.params[:controller] != 'profile_design'
-        render_linklist_navbar(item)
-      else
-        display_block item, main_content
-      end
-    end.join("\n") + box_decorator.block_target(box)
-  end
+    def display_topbox_content(box, main_content)
+      context = {article: @page, request_path: request.path, locale: locale, params: request.params, controller: controller}
+      box_decorator.select_blocks(box, box.blocks.includes(:box), context).map do |item|
+        if item.class.name == 'LinkListBlock' and request.params[:controller] != 'profile_design'
+          render_linklist_navbar(item)
+        else
+          display_block item, main_content
+        end
+      end.join("\n") + box_decorator.block_target(box)
+    end
 
-  def render_linklist_navbar link_list
-    list = link_list.links.select{ |i| i[:name].present? and i[:address].present? }
-    render file: 'blocks/link_list_navbar', locals: {block: link_list, links: list}
+    def render_linklist_navbar link_list
+      list = link_list.links.select{ |i| i[:name].present? and i[:address].present? }
+      render file: 'blocks/link_list_navbar', locals: {block: link_list, links: list}
+    end
   end
 
   include ResponsiveChecks
-  extend ActiveSupport::Concern
-  included do
-    include ResponsiveMethods
+  if RUBY_VERSION >= '2.0.0'
+    prepend ResponsiveMethods
+  else
+    extend ActiveSupport::Concern
+    included { include ResponsiveMethods }
   end
-
-end
-
-module ApplicationHelper
-
-  include BoxesHelper::ResponsiveMethods
 
 end
 

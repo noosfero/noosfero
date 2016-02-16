@@ -1,6 +1,7 @@
 class ProfileRolesController < MyProfileController
 
   protect 'manage_custom_roles', :profile
+  before_filter :ensure_organization
 
   def index
     @roles = profile.custom_roles
@@ -58,7 +59,7 @@ class ProfileRolesController < MyProfileController
 
   def update
     @role = environment.roles.find(params[:id])
-    if @role.update_attributes(params[:role])
+    if @role.update(params[:role])
       redirect_to :action => 'show', :id => @role
     else
       session[:notice] = _('Failed to edit role')
@@ -111,6 +112,10 @@ class ProfileRolesController < MyProfileController
       person.remove_role(role, profile)
       person.add_role(new_role, profile)
     end
+  end
+
+  def ensure_organization
+    render_not_found unless profile.organization?
   end
 
 end

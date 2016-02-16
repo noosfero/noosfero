@@ -96,6 +96,9 @@ fi
 
 # Ensure database is running
 sudo service postgresql start
+while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
+  sleep 5s
+done
 
 if test -e config/database.yml && test "$force_install" = 'false'; then
   say 'Not updating existent database.yml.'
@@ -112,6 +115,7 @@ else
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
   sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
   sudo su - postgres -c "createdb noosfero_development -O $USER" || true
+  sudo su - postgres -c "createdb noosfero_test -O $USER" || true
 
   run rake db:schema:load
   run rake db:data:minimal
@@ -131,6 +135,9 @@ mkdir -p tmp/cache
 if [ ! -f .gitignore ]; then
   ln -s gitignore.example .gitignore
 fi
+
+# remove obsolete symbolic link added by old versions
+rm -f vendor/rails
 
 # you can now start the server
 say "I: Congratulations, you are ready to run Noosfero."

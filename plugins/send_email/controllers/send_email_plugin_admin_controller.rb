@@ -3,7 +3,7 @@ class SendEmailPluginAdminController < PluginsController
   def index
     @environment = environment
     if request.post?
-      if environment.update_attributes(params[:environment])
+      if environment.update(params[:environment])
         session[:notice] = _('Configurations was saved')
         redirect_to :controller => 'plugins'
       else

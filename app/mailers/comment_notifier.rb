@@ -1,6 +1,8 @@
-class CommentNotifier < ActionMailer::Base
+class CommentNotifier < ApplicationMailer
+
   def notification(comment)
     profile = comment.article.profile
+    self.environment = profile.environment
     @recipient = profile.nickname || profile.name
     @sender = comment.author_name
     @sender_link = comment.author_link
@@ -8,7 +10,6 @@ class CommentNotifier < ActionMailer::Base
     @comment_url = comment.url
     @comment_title = comment.title
     @comment_body = comment.body
-    @environment = profile.environment.name
     @url = profile.environment.top_url
 
     mail(
@@ -20,6 +21,8 @@ class CommentNotifier < ActionMailer::Base
 
   def mail_to_followers(comment, emails)
     profile = comment.article.profile
+    self.environment = profile.environment
+
     @recipient = profile.nickname || profile.name
     @sender = comment.author_name
     @sender_link = comment.author_link
@@ -28,7 +31,6 @@ class CommentNotifier < ActionMailer::Base
     @unsubscribe_url = comment.article.view_url.merge({:unfollow => true})
     @comment_title = comment.title
     @comment_body = comment.body
-    @environment = profile.environment.name
     @url = profile.environment.top_url
 
     mail(

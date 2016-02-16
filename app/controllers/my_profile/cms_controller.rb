@@ -6,7 +6,7 @@ class CmsController < MyProfileController
 
   def search_tags
     arg = params[:term].downcase
-    result = ActsAsTaggableOn::Tag.where('name ILIKE ?', "%#{arg}%").limit(10)
+    result = Tag.where('name ILIKE ?', "%#{arg}%").limit(10)
     render :text => prepare_to_token_input_by_label(result).to_json, :content_type => 'application/json'
   end
 
@@ -50,16 +50,9 @@ class CmsController < MyProfileController
 
   def view
     @article = profile.articles.find(params[:id])
-    conditions = []
-    if @article.has_posts?
-      conditions = ['type != ?', 'RssFeed']
-    end
-
-    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name").paginate(
-      :conditions => conditions,
-      :per_page => per_page,
-      :page => params[:npage]
-    )
+    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name")
+    @articles = @articles.where "type <> ?", 'RssFeed' if @article.has_posts?
+    @articles = @articles.paginate per_page: per_page, page: params[:npage]
   end
 
   def index
@@ -99,7 +92,7 @@ class CmsController < MyProfileController
         @article.image.save!
       end
       @article.last_changed_by = user
-      if @article.update_attributes(params[:article])
+      if @article.update(params[:article])
         if !continue
           if @article.content_type.nil? || @article.image?
             success_redirect
@@ -230,7 +223,7 @@ class CmsController < MyProfileController
       else
         session[:notice] = _('File(s) successfully uploaded')
         if @back_to
-          redirect_to @back_to
+          redirect_to url_for(@back_to)
         elsif @parent
           redirect_to :action => 'view', :id => @parent.id
         else
@@ -381,7 +374,7 @@ class CmsController < MyProfileController
 
   def search_article_privacy_exceptions
     arg = params[:q].downcase
-    result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
     render :text => prepare_to_token_input(result).to_json
   end
 

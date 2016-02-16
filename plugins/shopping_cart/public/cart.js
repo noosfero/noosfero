@@ -63,12 +63,6 @@ function Cart(config) {
       var input = $("input", li)[0];
       input.lastValue = input.value;
       input.productId = item.id;
-      input.ajustSize = function() {
-        var len = this.value.toString().length;
-        if(len > 2) len--;
-        this.style.width = len+"em";
-      };
-      input.ajustSize();
       input.onchange = function() {
         me.updateQuantity(this, this.productId, this.value);
       };

@@ -27,24 +27,21 @@ Background:
   And I am logged in as "joaosilva"
     Given I go to joaosilva's control panel
     And I follow "Edit sideboxes"
-    And I follow "Add a block"
-    And I choose "Recent content"
-    And I press "Add"
 
   Scenario: the block is being displayed
     Then I should see "This is the recent content block. Please edit it to show the content you want."
 
   Scenario: a user should be redirected to the post page when the link is clicked
-    When I follow "Edit" within ".recent-content-block"
+    When I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title only" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "3"
     And I press "Save"
-    And I follow "post #4" within ".recent-content-block"
+    And I follow "post #4" within ".block.recent-content-block"
     Then I should be on /joaosilva/jsilva-blog/post-4
 
   Scenario: a user should be redirected to the blog page when the "view all" is clicked
-    When I follow "Edit" within ".recent-content-block"
+    When I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title only" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "2"
@@ -53,39 +50,38 @@ Background:
     Then I should be on /joaosilva/jsilva-blog
 
   Scenario: a user should see only titles if the block was configured for it
-    When I follow "Edit" within ".recent-content-block"
+    When I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title only" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "3"
     And I press "Save"
-    Then I should see "post #6" within ".recent-content-block"
+    Then I should see "post #6" within ".block.recent-content-block"
 
   Scenario: a user should see titles and abstract if the block was configured for it
-    When I follow "Edit" within ".recent-content-block"
+    When I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title and abstract" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "6"
     And I press "Save"
-    Then I should see "Resumo 5" within ".recent-content-block"
+    Then I should see "Resumo 5" within ".block.recent-content-block"
 
   Scenario: a user should see full content if the block was configured for it
-    When I follow "Edit" within ".recent-content-block"
+    When I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Full content" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "6"
     And I press "Save"
-    Then I should see "Quinto post do joao silva" within ".recent-content-block"
+    Then I should see "Quinto post do joao silva" within ".block.recent-content-block"
 
-  # the step for attaching a file on the input only works with capybara 1.1.2, but it requires rails 1.9.3
-  @selenium-fixme
   Scenario: the user should see the blog cover image if configured and the image is available
     Given I go to joaosilva's control panel
     And I follow "Configure blog"
+    And I follow "Edit" within "tr[title='JSilva blog']"
     And I attach the file "public/images/rails.png" to "Uploaded data"
     And I press "Save"
     When I go to joaosilva's control panel
     And I follow "Edit sideboxes"
-    And I follow "Edit" within ".recent-content-block"
+    And I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title only" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "3"

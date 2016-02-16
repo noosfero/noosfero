@@ -9,10 +9,10 @@
 @import 'items';
 
 .controller-profile_editor a.control-panel-orders-purchases-sales {
-  background-image: url("/plugins/orders/images/control-panel/purchases-sales.png")
+  background-image: url("/plugins/orders/images/control-panel/purchases-sales.png");
 }
 .controller-profile_editor .msie6 a.control-panel-orders-purchases-sales {
-  background-image: url("/plugins/orders/images/control-panel/purchases-sales.gif")
+  background-image: url("/plugins/orders/images/control-panel/purchases-sales.gif");
 }
 
 .orders-admin-index {
@@ -125,14 +125,13 @@
 }
 
 .order-view {
-
-  &, .order-items-scroll, .order-items, .item {
+  &, .order-items, .item {
     width: $order-items-width;
   }
   &.admin {
     width: $order-items-admin-width;
 
-    .order-items-scroll, .order-items, .item {
+    .order-items, .item {
       width: $order-items-admin-width - 2*$border;
     }
   }
@@ -160,14 +159,12 @@
 
     margin: 0;
     border: none;
+
+    overflow: hidden;
+    overflow-y: auto;
+
     &.admin {
       border: $border solid black;
-    }
-
-    .order-items-scroll {
-      overflow-y: auto;
-      padding-right: $intercolumn;
-      box-sizing: content-box;
     }
 
     .order-header {
@@ -223,7 +220,10 @@
   padding-bottom: 200px;
 }
 
-.action-orders_cycle_plugin_order-edit .purechat {
-  left: 40px;
-  right: none;
+.controller-orders_cycle_plugin_order,
+.controller-consumers_coop_plugin_order {
+  .purechat {
+    left: 40px;
+    right: none;
+  }
 }

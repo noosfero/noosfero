@@ -39,7 +39,37 @@ end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    click_link(link, :match => :prefer_exact)
+    begin
+      click_link(link, :match => :prefer_exact)
+    rescue Selenium::WebDriver::Error::UnknownError => selenium_error
+      if selenium_error.message.start_with? 'Element is not clickable at point'
+        link = find_link(link)
+        href = link[:href]
+        onclick = link[:onClick]
+
+        warn "#{selenium_error.message}\n\n"\
+             "Trying to overcome this by:\n"
+
+        onclick_return = true
+
+        unless onclick.nil?
+          warn "\t* Running onClick JS:\n"\
+               "\t\t'#{onclick}'\n"
+          onclick_return = page.execute_script onclick
+        end
+
+        if onclick_return
+          warn "\t* Redirecting you to the link's href:\n"\
+               "\t\t'#{href}'\n"
+
+          visit href
+        end
+
+        warn "\nGood luck and be careful that this may produce hidden links to work on tests!\n"
+      else
+        raise selenium_error
+      end
+    end
   end
 end
 
@@ -53,6 +83,10 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"(?: within "([^"]*)")?$/ do |value,
   with_scope(selector) do
     fill_in(field, :with => value)
   end
+end
+
+When /^(?:|I )move the cursor over "([^"]*)"/ do |selector|
+  find(selector).hover if Capybara.default_driver == :selenium
 end
 
 # Use this to fill in an entire form with data from a table. Example:
@@ -69,7 +103,7 @@ end
 When /^(?:|I )fill in the following(?: within "([^"]*)")?:$/ do |selector, fields|
   with_scope(selector) do
     fields.rows_hash.each do |name, value|
-      When %{I fill in "#{name}" with "#{value}"}
+      step %{I fill in "#{name}" with "#{value}"}
     end
   end
 end
@@ -103,6 +137,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do 
   with_scope(selector) do
     attach_file(field, path)
   end
+  sleep 1
 end
 
 Then /^(?:|I )should see JSON:$/ do |expected_json|
@@ -114,11 +149,7 @@ end
 
 Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
-    if page.respond_to? :should
-      page.should have_content(text)
-    else
-      assert page.has_content?(text)
-    end
+    expect(page).to have_content(text)
   end
 end
 
@@ -199,7 +230,7 @@ Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should be checked$/ do |labe
   with_scope(selector) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
-      field_checked.should be_true
+      field_checked.should be_truthy
     else
       assert field_checked
     end
@@ -210,7 +241,7 @@ Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should not be checked$/ do |
   with_scope(selector) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
-      field_checked.should be_false
+      field_checked.should be_falsey
     else
       assert !field_checked
     end
@@ -260,6 +291,21 @@ Then /^display "([^\"]*)"$/ do |element|
   evaluate_script("jQuery('#{element}').show() && false;")
 end
 
+Then /^I fill in tinyMCE "(.*?)" with "(.*?)"$/ do |field, content|
+  n = 0
+  begin
+    execute_script("tinymce.editors['#{field}'].setContent('#{content}')")
+  rescue Selenium::WebDriver::Error::JavascriptError
+    n += 1
+    if n < 5
+      sleep 1
+      retry
+    else
+      raise
+    end
+  end
+end
+
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
   should have_selector("div.#{klass}")
 end
@@ -269,3 +315,8 @@ When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
     find("a", :text => /\A#{link}\z/).click
   end
 end
+
+When /^(?:|I )wait ([^ ]+) seconds?(?:| .+)$/ do |seconds|
+  sleep seconds.to_f
+end
+

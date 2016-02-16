@@ -10,10 +10,7 @@ Feature: Create tinyMCE article
 
   @selenium
   Scenario: mce complete  mode should show on message creation
-    Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
-    And I follow "Text article with visual editor"
+    Given I am on /myprofile/joaosilva/cms/new?type=TinyMceArticle
     Then The tinymce "toolbar1" should be "fullscreen | insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
     And The tinymce "menubar" should be "edit insert view tools"
     And The tinymce "toolbar2" should contain "print preview code media | table"

@@ -20,7 +20,7 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
-  scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, -> { where :enabled => true }
 
   after_save do |block|
     if block.owner.kind_of?(Profile) && block.owner.is_template? && block.mirror?
@@ -139,6 +139,36 @@ class Block < ActiveRecord::Base
   # type.
   def self.description
     '(dummy)'
+  end
+
+  def self.short_description
+    self.pretty_name
+  end
+
+  def self.icon
+    "/images/icon_block.png"
+  end
+
+  def self.icon_path
+    basename = self.name.split('::').last.underscore
+    File.join('images', 'blocks', basename, 'icon.png')
+  end
+
+  def self.pretty_name
+    self.name.split('::').last.gsub('Block','')
+  end
+
+  def self.default_icon_path
+    '/images/icon_block.png'
+  end
+
+  def self.preview_path
+    base_name = self.name.split('::').last.underscore
+    File.join('blocks', base_name,'previews')
+  end
+
+  def self.default_preview_path
+    "/images/block_preview.png"
   end
 
   # Returns the content to be used for this block.

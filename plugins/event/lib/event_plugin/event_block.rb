@@ -27,7 +27,7 @@ class EventPlugin::EventBlock < Block
 
   def events(user = nil)
     events = events_source.events.order('start_date')
-    events = user.nil? ? events.public : events.display_filter(user,nil)
+    events = user.nil? ? events.is_public : events.display_filter(user,nil)
 
     if future_only
       events = events.where('start_date >= ?', DateTime.now.beginning_of_day)

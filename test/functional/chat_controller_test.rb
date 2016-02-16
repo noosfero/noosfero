@@ -73,14 +73,14 @@ class ChatControllerTest < ActionController::TestCase
   end
 
   should 'not update presence status from non-ajax requests' do
-    @person.user.expects(:update_attributes).never
+    @person.user.expects(:update).never
     @controller.stubs(:current_user).returns(@person.user)
     get :update_presence_status
     assert_template nil
   end
 
   should 'update presence status from ajax requests' do
-    @person.user.expects(:update_attributes).once
+    @person.user.expects(:update).once
     @controller.stubs(:current_user).returns(@person.user)
     @request.stubs(:xhr?).returns(true)
     get :update_presence_status

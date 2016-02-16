@@ -1,9 +1,6 @@
 require 'test_helper'
 require_relative '../../controllers/shopping_cart_plugin_controller'
 
-# Re-raise errors caught by the controller.
-class ShoppingCartPluginController; def rescue_action(e) raise e end; end
-
 class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   def setup
@@ -18,8 +15,12 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   attr_reader :product
 
   should 'force cookie expiration with explicit path for an empty cart' do
-    get :get
-    assert @response.headers['Set-Cookie'] =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-1970/
+    get :get, id: product.id
+    assert @response.headers['Set-Cookie'] =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart/
+
+    get :add, id: product.id
+    get :remove, id: product.id
+    assert @response.headers['Set-Cookie'] =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart/
   end
 
   should 'add a new product to cart' do

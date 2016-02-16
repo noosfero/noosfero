@@ -45,6 +45,6 @@ class NewsletterPluginModerateNewsletterTest < ActiveSupport::TestCase
     task.finish
     assert_match /First post/, NewsletterPlugin::NewsletterMailing.last.body
     assert_match /Second post/, NewsletterPlugin::NewsletterMailing.last.body
-    assert_not_match /Third post/, NewsletterPlugin::NewsletterMailing.last.body
+    assert_no_match /Third post/, NewsletterPlugin::NewsletterMailing.last.body
   end
 end

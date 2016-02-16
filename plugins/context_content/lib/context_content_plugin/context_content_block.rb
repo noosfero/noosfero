@@ -2,11 +2,12 @@ class ContextContentPlugin::ContextContentBlock < Block
 
   settings_items :show_name, :type => :boolean, :default => true
   settings_items :show_image, :type => :boolean, :default => true
+  settings_items :use_parent_title, :type => :boolean, :default => false
   settings_items :show_parent_content, :type => :boolean, :default => true
   settings_items :types, :type => Array, :default => ['UploadedFile']
   settings_items :limit, :type => :integer, :default => 6
 
-  attr_accessible :show_image, :show_name, :show_parent_content, :types
+  attr_accessible :show_image, :show_name, :use_parent_title, :show_parent_content, :types
 
   alias :profile :owner
 
@@ -65,6 +66,11 @@ class ContextContentPlugin::ContextContentBlock < Block
     end
   end
 
+  def parent_title(contents)
+    return nil if contents.blank?
+    contents.first.parent.name
+  end
+
   def footer
     block = self
     proc do
@@ -82,9 +88,9 @@ class ContextContentPlugin::ContextContentBlock < Block
     block = self
     proc do
       contents = block.contents(@page)
+      parent_title = block.parent_title(contents)
       if !contents.blank?
-        block_title(block.title) + content_tag('div',
-            render(:file => 'blocks/context_content', :locals => {:block => block, :contents => contents}), :class => 'contents', :id => "context_content_#{block.id}")
+        render(:file => 'blocks/context_content', :locals => {:block => block, :contents => contents, :parent_title => parent_title})
       else
         ''
       end

@@ -1,0 +1,21 @@
+- other_actor_name = if actor_name == :supplier then :consumer else :supplier end
+- edit = true if edit.nil?
+
+div class="order value-row #{order.status}" data-id=order.id id="order-row-#{order.id}" onclick="orders.admin.load_edit(this, '#{url_for action: :edit, id: order.id, actor_name: actor_name}')" toggle-edit="orders.admin.toggle_edit();"
+
+  .box-view.with-inner
+    .box-field.select toggle-ignore="" = check_box_tag "order_ids[]", order.id
+    .box-view-inner
+      span.box-field.code= order.code
+      span.box-field.actor-name= order.send("#{other_actor_name}_data")[:name]
+      span.box-field.order-date= datetime_full order.created_at
+      span.box-field.last-update= datetime_full order.updated_at
+      span.box-field.total= order.total_price_as_currency_number actor_name
+      span.box-field.situation= order_situation order
+    = edit_arrow "#order-row-#{order.id}", true, class: 'actions'
+    .clean
+
+  div class="box-edit #{'loading' if not edit}"
+    = render 'orders_plugin_admin/edit', order: order, actor_name: actor_name, other_actor_name: other_actor_name if edit
+
+  .clean

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
+require 'test_helper'
 
 class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'verify if a content is a work_assignment submission' do

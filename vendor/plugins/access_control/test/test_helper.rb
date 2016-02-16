@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environment")
- 
+
 require 'test/unit'
 require 'mocha'
 
@@ -11,12 +11,12 @@ require 'rails/test_help'
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
 load(File.dirname(__FILE__) + '/schema.rb')
 # change the table names for the tests to not touch
-Role.set_table_name 'access_control_test_roles'
-RoleAssignment.set_table_name 'access_control_test_role_assignments'
+Role.table_name = 'access_control_test_roles'
+RoleAssignment.table_name = 'access_control_test_role_assignments'
 
 # accessor example class to access some resources
 class AccessControlTestAccessor < ActiveRecord::Base
-  set_table_name 'access_control_test_accessors'
+  self.table_name = 'access_control_test_accessors'
   acts_as_accessor
   attr_accessible :name
   def cache_keys(arg)
@@ -29,8 +29,8 @@ end
 
 # resource example class to be accessed by some accessor
 class AccessControlTestResource < ActiveRecord::Base
-  set_table_name 'access_control_test_resources'
-  acts_as_accessible  
+  self.table_name = 'access_control_test_resources'
+  acts_as_accessible
   PERMISSIONS[self.class.name] = {'bla' => N_('Bla')}
 
   attr_accessible :name

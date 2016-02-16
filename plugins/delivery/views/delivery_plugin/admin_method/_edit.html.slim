@@ -12,15 +12,27 @@
   = labelled_field f, :name, t('delivery_plugin.models.method.name'), f.text_field(:name),
     help: t('delivery_plugin.models.method.name_help')
   = labelled_field f, :description, t('delivery_plugin.models.method.instructions'),
-    f.text_area(:description, rows: 5), help: t('delivery_plugin.models.method.instructions_help')
+    f.text_area(:description, rows: 5, class: 'mceEditor'), help: t('delivery_plugin.models.method.instructions_help')
 
-  = labelled_field f, :fixed_cost, t('delivery_plugin.models.method.fixed_cost'),
-    input_group_addon(environment.currency_unit){ f.text_field :fixed_cost, type: :number, step: '0.01', value: number_with_precision(delivery_method.fixed_cost, precision: 2, locale: :en)}
+  fieldset
+    legend= t'delivery_plugin.models.method.costs_legend'
+    = labelled_field f, :fixed_cost, t('delivery_plugin.models.method.fixed_cost'),
+      input_group_addon(environment.currency_unit){ f.text_field :fixed_cost, type: :number, step: 'any', value: number_with_precision(delivery_method.fixed_cost, precision: 2, locale: :en)}
 
-  = labelled_field f, :free_over_price, t('delivery_plugin.models.method.free_over_price'),
-    input_group_addon(environment.currency_unit){ f.text_field :free_over_price, type: :number, step: '0.01', value: number_with_precision(delivery_method.free_over_price, precision: 2, locale: :en)}
+    = labelled_field f, :free_over_price, t('delivery_plugin.models.method.free_over_price'),
+      input_group_addon(environment.currency_unit){ f.text_field :free_over_price, type: :number, step: 'any', value: number_with_precision(delivery_method.free_over_price, precision: 2, locale: :en)}
+
+  fieldset
+    legend= t'delivery_plugin.models.method.distribution_legend'
+    = labelled_field f, :distribution_margin_percentage, t('delivery_plugin.models.method.distribution_margin_percentage'),
+      input_group_addon('%'){ f.text_field :distribution_margin_percentage, type: :number, step: 'any', value: number_with_precision(delivery_method.distribution_margin_percentage, precision: 2, locale: :en)}
+
+    = labelled_field f, :distribution_margin_fixed, t('delivery_plugin.models.method.distribution_margin_fixed'),
+      input_group_addon(environment.currency_unit){ f.text_field :distribution_margin_fixed, type: :number, step: 'any', value: number_with_precision(delivery_method.distribution_margin_fixed, precision: 2, locale: :en)}
 
   div
     = submit_button :save, if delivery_method.new_record? then t('delivery_plugin.views.method.edit.add') else t('delivery_plugin.views.method.edit.save') end
     = link_to_function t('delivery_plugin.views.method.edit.back'), "delivery.method.view.toggle()"
+
+= render file: 'shared/tiny_mce', locals: {mode: 'simple'}
 

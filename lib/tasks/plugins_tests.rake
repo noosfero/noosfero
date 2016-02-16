@@ -21,17 +21,15 @@ def disabled_plugins
   @all_plugins - enabled_plugins
 end
 
-def enable_plugins(plugins = nil)
-  if plugins == '*' || plugins.nil?
-    sh './script/noosfero-plugins', '-q', 'enableall'
-  else
-    plugins = Array(plugins)
-    sh './script/noosfero-plugins', '-q', 'enable', *plugins
-  end
+def enable_plugins(plugins)
+  plugins = Array(plugins)
+  command = ['./script/noosfero-plugins', '-q', 'enable', *plugins]
+  puts plugins.join(' ')
+  system *command
 end
 
-def disable_plugins(plugins = nil)
-  if plugins == '*' || plugins.nil?
+def disable_plugins(plugins = '*')
+  if plugins == '*'
     sh './script/noosfero-plugins', '-q', 'disableall'
   else
     plugins = Array(plugins)
@@ -108,16 +106,17 @@ def run_test(name, files)
   if name == :cucumber || name == :selenium
     run_cucumber task2profile(name, plugin), files
   else
-    run_testrb files
+    run_minitest files
   end
 end
 
-def run_testrb(files)
-  sh 'testrb', '-I.:test', *files
+def run_minitest files
+  files = files.map{|f| File.join(Rails.root, f)}
+  sh 'ruby', '-Itest', '-e ARGV.each{|f| require f}', *files
 end
 
 def run_cucumber(profile, files)
-  sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
+  sh 'xvfb-run', '-a', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
 end
 
 def custom_run(name, files, run=:all)

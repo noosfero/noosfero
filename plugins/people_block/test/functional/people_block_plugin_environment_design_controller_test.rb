@@ -1,7 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
-
-# Re-raise errors caught by the controller.
-class EnvironmentDesignController; def rescue_action(e) raise e end; end
+require_relative '../test_helper'
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 

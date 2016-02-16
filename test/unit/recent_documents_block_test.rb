@@ -84,7 +84,7 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to update display setting' do
-    assert @block.update_attributes!(:display => 'always')
+    assert @block.update!(:display => 'always')
     @block.reload
     assert_equal 'always', @block.display
   end

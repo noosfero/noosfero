@@ -1,0 +1,6 @@
+= render "orders_plugin_item/index", order: order, actor_name: actor_name, f: f
+
+= render 'orders_plugin_order/actor_data', order: order, f: f, actor_name: other_actor_name if @admin
+= render 'orders_plugin_order/delivery', order: order, f: f, actor_name: actor_name
+= render 'orders_plugin_order/payment', order: order
+

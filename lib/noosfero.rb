@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'fast_gettext'
 module Noosfero
 
   def self.root(default = nil)
@@ -51,6 +50,20 @@ module Noosfero
       yield
       FastGettext.set_locale(orig_locale)
     end
+
+    def session_secret
+      require 'fileutils'
+      target_dir = File.join(File.dirname(__FILE__), '../tmp')
+      FileUtils.mkdir_p(target_dir)
+      file = File.join(target_dir, 'session.secret')
+      if !File.exists?(file)
+        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
+        File.open(file, 'w') do |f|
+          f.puts secret
+        end
+      end
+      File.read(file).strip
+    end
   end
 
   def self.identifier_format
@@ -82,7 +95,7 @@ module Noosfero
       development_url_options
     when 'cucumber'
       if Capybara.current_driver == :selenium
-        { :host => Capybara.current_session.driver.rack_server.host, :port => Capybara.current_session.driver.rack_server.port }
+        { :host => Capybara.current_session.server.host, :port => Capybara.current_session.server.port }
       end
     end || { }
   end

@@ -16,13 +16,13 @@ def edit_visibility
       end
       folder.save!
       redirect_to @back_to
-    end    
+    end
   end
  end
 
   def search_article_privacy_exceptions
     arg = params[:q].downcase
-    result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
     render :text => prepare_to_token_input(result).to_json
   end
 

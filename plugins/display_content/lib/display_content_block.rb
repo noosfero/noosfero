@@ -114,7 +114,7 @@ class DisplayContentBlock < Block
   def articles_of_parent(parent = nil)
     return [] if self.holder.nil?
     types = VALID_CONTENT + plugins.dispatch(:content_types).map(&:name)
-    holder.articles.find(:all, :conditions => {:type => types, :parent_id => (parent.nil? ? nil : parent)})
+    holder.articles.where(type: types, parent_id: if parent.nil? then nil else parent end)
   end
 
   def content(args={})

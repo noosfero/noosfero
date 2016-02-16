@@ -40,7 +40,7 @@ class RssFeed < Article
 
   # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes
-  validates_format_of :limit, :with => /^\d+$/, :if => :limit
+  validates_format_of :limit, :with => /\d+/, :if => :limit
 
   # determinates what to include in the feed. Possible values are +:all+
   # (include everything from the profile) and :parent_and_children (include
@@ -69,7 +69,7 @@ class RssFeed < Article
   def fetch_articles
     if parent && parent.has_posts?
       language = self.language.blank? ? {} : { :language => self.language }
-      return parent.posts.find(:all, :conditions => { :published => true }.merge(language), :limit => self.limit, :order => 'id desc')
+      return parent.posts.where({published: true}.merge language).limit(self.limit).order('id desc')
     end
 
     articles =

@@ -1,8 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
 
 require 'comment_controller'
-# Re-raise errors caught by the controller.
-class CommentController; def rescue_action(e) raise e end; end
 
 class RelevantContentBlockTest < ActiveSupport::TestCase
 
@@ -57,6 +55,26 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     assert_nothing_raised do
       block.content
     end
+  end
+
+  should 'check most voted articles from profile with relevant content block' do
+    community = fast_create(Community)
+    article = fast_create(Article, {:name=>'2 votes', :profile_id => community.id})
+    2.times{
+      person = fast_create(Person)
+      person.vote_for(article)
+    }
+    article = fast_create(Article, {:name=>'10 votes', :profile_id => community.id})
+    10.times{
+        person = fast_create(Person)
+        person.vote_for(article)
+    }
+
+    Box.create!(owner: community)
+    community.boxes[0].blocks << RelevantContentPlugin::RelevantContentBlock.new
+
+    data = Article.most_voted(community, 5)
+    assert_equal false, data.empty?
   end
 
 end

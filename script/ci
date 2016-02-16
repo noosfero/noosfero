@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+tasks = %w[
+  test:units
+  test:functionals
+  test:integration
+  cucumber
+  selenium
+  test:noosfero_plugins
+]
+
+data = []
+failed = []
+tasks.each do |task|
+
+  puts task
+  puts task.gsub(/./, '*')
+  puts
+
+  t0 = Time.now.to_i
+  if system('rake', task)
+    status = 'PASS'
+  else
+    failed << task
+    status = 'FAIL'
+  end
+  t1 = Time.now.to_i
+  duration = t1 - t0
+  data << { :name => task, :status => status, :duration => Time.at(duration).utc.strftime("%H:%M:%S") }
+end
+
+puts
+puts
+printf "%-30s %-6s %s\n", '-' * 30, '-' * 6, '--------'
+printf "%-30s %-6s %s\n", 'Task', 'Status', 'Duration'
+printf "%-30s %-6s %s\n", '-' * 30, '-' * 6, '--------'
+data.each do |entry|
+  printf "%-30s %-6s %s\n", entry[:name], entry[:status], entry[:duration]
+end
+printf "%-30s %-6s %s\n", '-' * 30, '-' * 6, '--------'
+
+puts
+abort "Errors running #{failed.join(', ')}!" if failed.any?

@@ -1,19 +1,17 @@
 require_relative "../test_helper"
 require 'features_controller'
 
-# Re-raise errors caught by the controller.
-class FeaturesController; def rescue_action(e) raise e end; end
-
 class FeaturesControllerTest < ActionController::TestCase
 
-  all_fixtures 
+  all_fixtures
   def setup
     @controller = FeaturesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+
     login_as(create_admin_user(Environment.find(2)))
   end
-  
+
   def test_listing_features
     uses_host 'anhetegua.net'
     get :index
@@ -37,7 +35,7 @@ class FeaturesControllerTest < ActionController::TestCase
     assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
     assert v.enabled?('feature2')
-    assert v.enabled?('feature2') 
+    assert v.enabled?('feature2')
     refute v.enabled?('feature3')
   end
 
@@ -69,7 +67,7 @@ class FeaturesControllerTest < ActionController::TestCase
 
   def test_should_mark_current_organization_approval_method_in_view
     uses_host 'anhetegua.net'
-    Environment.find(environments(:anhetegua_net).id).update_attributes(:organization_approval_method => :region)
+    Environment.find(environments(:anhetegua_net).id).update(:organization_approval_method => :region)
 
     post :index
 
@@ -160,6 +158,53 @@ class FeaturesControllerTest < ActionController::TestCase
     xhr :get, :search_members, :q => person.identifier
     json_response = ActiveSupport::JSON.decode(@response.body)
     assert_includes json_response, {"id"=>person.id, "name"=>person.name}
+  end
+
+  should 'create custom field' do
+    uses_host 'anhetegua.net'
+    assert_nil Environment.find(2).custom_fields.find_by_name('foo')
+    post :manage_custom_fields, :customized_type => 'Person', :custom_fields => {
+      Time.now.to_i => {
+        :name => 'foo',
+        :default_value => 'foobar',
+        :format => 'string',
+        :customized_type => 'Person',
+        :active => true,
+        :required => true,
+        :signup => true
+      }
+    }
+    assert_redirected_to :action => 'manage_fields'
+    assert_not_nil Environment.find(2).custom_fields.find_by_name('foo')
+  end
+
+  should 'update custom field' do
+    uses_host 'anhetegua.net'
+
+    field = CustomField.create! :name => 'foo', :default_value => 'foobar', :format => 'string', :extras => '', :customized_type => 'Enterprise', :active => true, :required => true, :signup => true, :environment => Environment.find(2)
+    post :manage_custom_fields, :customized_type => 'Enterprise', :custom_fields => {
+      field.id => {
+        :name => 'foo bar',
+        :default_value => 'foobar',
+        :active => true,
+        :required => true,
+        :signup => true
+      }
+    }
+    field.reload
+    assert_redirected_to :action => 'manage_fields'
+    assert_equal 'foo bar', field.name
+  end
+
+  should 'destroy custom field' do
+    uses_host 'anhetegua.net'
+
+    field = CustomField.create! :name => 'foo', :default_value => 'foobar', :format => 'string', :extras => '', :customized_type => 'Enterprise', :active => true, :required => true, :signup => true, :environment => Environment.find(2)
+
+    post :manage_custom_fields, :customized_type => 'Enterprise'
+
+    assert_redirected_to :action => 'manage_fields'
+    assert_nil Environment.find(2).custom_fields.find_by_name('foo')
   end
 
 end

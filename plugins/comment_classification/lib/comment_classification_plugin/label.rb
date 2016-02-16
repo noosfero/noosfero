@@ -1,12 +1,13 @@
-class CommentClassificationPlugin::Label < Noosfero::Plugin::ActiveRecord
+class CommentClassificationPlugin::Label < ActiveRecord::Base
 
   belongs_to :owner, :polymorphic => true
 
   validates_presence_of :name
 
-  scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, -> { where enabled: true }
 
   attr_accessible :name, :enabled, :color
 
   COLORS = ['red', 'green', 'yellow', 'gray', 'blue']
+
 end

@@ -44,25 +44,21 @@ module XssTerminate
       ALLOWED_CORE_ATTRIBUTES | ALLOWED_CUSTOM_ATTRIBUTES
     end
 
-    def sanitize_custom_options
-      {:attributes => sanitize_allowed_attributes}
-    end
-
     def sanitize_field(sanitizer, field, serialized = false)
       field = field.to_sym
       if serialized
         puts field
         self[field].each_key { |key|
           key = key.to_sym
-          self[field][key] = sanitizer.sanitize(self[field][key], sanitize_custom_options)
+          self[field][key] = sanitizer.sanitize(self[field][key], scrubber: Rails::Html::PermitScrubber.new, encode_special_chars: false, attributes: sanitize_allowed_attributes)
         }
       else
         if self[field]
-          self[field] = sanitizer.sanitize(self[field], sanitize_custom_options)
+          self[field] = sanitizer.sanitize(self[field], scrubber: Rails::Html::PermitScrubber.new, encode_special_chars: false, attributes: sanitize_allowed_attributes)
         else
           value = self.send("#{field}")
           return unless value
-          value = sanitizer.sanitize(value, sanitize_custom_options)
+          value = sanitizer.sanitize(value, scrubber: Rails::Html::PermitScrubber.new, encode_special_chars: false, attributes: sanitize_allowed_attributes)
           self.send("#{field}=", value)
         end
       end
@@ -79,7 +75,7 @@ module XssTerminate
     end
 
     def sanitize_fields_with_full
-      sanitizer = ActionView::Base.full_sanitizer
+      sanitizer = Rails::Html::FullSanitizer.new
       columns, columns_serialized = sanitize_columns(:full)
       columns.each do |column|
         sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column))
@@ -87,7 +83,7 @@ module XssTerminate
     end
 
     def sanitize_fields_with_white_list
-      sanitizer = ActionView::Base.white_list_sanitizer
+      sanitizer = Rails::Html::WhiteListSanitizer.new
       columns, columns_serialized = sanitize_columns(:white_list)
       columns.each do |column|
         sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column))

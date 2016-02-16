@@ -149,7 +149,7 @@ class Noosfero::Plugin
 
     def load_plugin_extensions(dir)
       ActionDispatch::Reloader.to_prepare do
-        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each{ |file| require_dependency file }
       end
     end
 
@@ -157,7 +157,7 @@ class Noosfero::Plugin
       unless @available_plugins
         path = File.join(Rails.root, '{baseplugins,config/plugins}', '*')
         @available_plugins = Dir.glob(path).select{ |i| File.directory?(i) }
-        if Rails.env.test? && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+        if (Rails.env.test? || Rails.env.cucumber?) && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
           @available_plugins << File.join(Rails.root, 'plugins', 'foo')
         end
       end
@@ -171,6 +171,10 @@ class Noosfero::Plugin
     def all
       @all ||= available_plugins.map{ |dir| (File.basename(dir) + "_plugin").camelize }
     end
+  end
+
+  def has_block?(block)
+    self.class.extra_blocks.keys.include?(block)
   end
 
   def expanded_template(file_path, locals = {})
@@ -722,6 +726,4 @@ end
 
 require 'noosfero/plugin/hot_spot'
 require 'noosfero/plugin/manager'
-require 'noosfero/plugin/active_record'
-require 'noosfero/plugin/mailer_base'
 require 'noosfero/plugin/settings'

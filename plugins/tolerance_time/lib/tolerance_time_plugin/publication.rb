@@ -1,4 +1,5 @@
-class ToleranceTimePlugin::Publication < Noosfero::Plugin::ActiveRecord
+class ToleranceTimePlugin::Publication < ActiveRecord::Base
+
   belongs_to :target, :polymorphic => true
   validates_presence_of :target_id, :target_type
   validates_uniqueness_of :target_id, :scope => :target_type

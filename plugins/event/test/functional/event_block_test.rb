@@ -1,13 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-
-
-# Re-raise errors caught by the controller.
-class HomeController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e)
-    raise e
-  end
-end
+require 'test_helper'
 
 class HomeControllerTest < ActionController::TestCase
 
@@ -47,14 +38,14 @@ class HomeControllerTest < ActionController::TestCase
     @e1a.end_date = DateTime.now + 1.day
     @e1a.save!
     get :index
-    assert_select ev + 'time.duration[itemprop="endDate"]', /1 day/
+    assert_select ev + 'time.duration[itemprop="endDate"]', /2 days/
 
     @e1a.slug = 'event1a'
     @e1a.start_date = DateTime.now
     @e1a.end_date = DateTime.now + 2.day
     @e1a.save!
     get :index
-    assert_select ev + 'time.duration[itemprop="endDate"]', /2 days/
+    assert_select ev + 'time.duration[itemprop="endDate"]', /3 days/
   end
 
   should 'not see event duration for one day events' do

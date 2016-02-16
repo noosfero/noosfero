@@ -8,7 +8,7 @@ class ApproveComment < Task
   def comment
     unless @comment || self.comment_attributes.nil?
       @comment = Comment.new
-      @comment.assign_attributes(ActiveSupport::JSON.decode(self.comment_attributes), :without_protection => true)
+      @comment.assign_attributes(ActiveSupport::JSON.decode(self.comment_attributes.to_s), :without_protection => true)
     end
     @comment
   end

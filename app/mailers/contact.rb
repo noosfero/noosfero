@@ -30,14 +30,16 @@ class Contact
     Contact::Sender.notification(self).deliver
   end
 
-  class Sender < ActionMailer::Base
+  class Sender < ApplicationMailer
+
     def notification(contact)
+      self.environment = contact.dest.environment
+
       @name = contact.name
       @email = contact.email
       @city = contact.city
       @state = contact.state
       @message = contact.message
-      @environment = contact.dest.environment.name
       @url = url_for(:host => contact.dest.environment.default_hostname, :controller => 'home')
       @target = contact.dest.name
 

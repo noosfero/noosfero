@@ -759,6 +759,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-version-2/,a.cache_key(:version => 2))
   end
 
+ should 'use language in cache key' do
+   a = Article.new
+   assert_not_equal a.cache_key({}, nil, ''), a.cache_key({}, nil, 'pt')
+ end
+
   should 'not be highlighted by default' do
     a = Article.new
     refute a.highlighted
@@ -886,7 +891,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'sanitize tags after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type='javascript'></script>")
+    tag = build(Tag, name: "TV Web w<script type='javascript'></script>")
     assert_match /[<>]/, tag.name
     article.tag_list.add(tag.name)
     article.save!
@@ -895,7 +900,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'strip HTML from tag names after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type=...")
+    tag = build(Tag, name: "TV Web w<script type=...")
     assert_match /</, tag.name
     article.tag_list.add(tag.name)
     article.save!
@@ -1082,12 +1087,13 @@ class ArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.destroy_all
 
     community = fast_create(Community)
-    member_1 = create_user.person
+    User.current = create_user
+    member_1 = User.current.person
     community.add_member(member_1)
 
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => community.id
     first_activity = article.activity
-    assert_equal [first_activity], ActionTracker::Record.find_all_by_verb('create_article')
+    assert_equal [first_activity], ActionTracker::Record.where(verb: 'create_article')
 
     process_delayed_job_queue
     assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(first_activity.id).count
@@ -1323,7 +1329,7 @@ class ArticleTest < ActiveSupport::TestCase
     fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
     fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
 
-    new_root = native_article.translations.first
+    new_root = native_article.translations.order(:created_at).first
     child = (native_article.translations - [new_root]).first
     native_article.destroy
 
@@ -1650,7 +1656,7 @@ class ArticleTest < ActiveSupport::TestCase
     art4 = create(Article, :name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
     art5 = create(Article, :name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
 
-    articles = Article.public
+    articles = Article.is_public
     assert_includes articles, art1
     assert_not_includes articles, art2
     assert_not_includes articles, art3
@@ -1738,6 +1744,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'store first image in tracked action' do
     a = create TinyMceArticle, :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
+    assert_equal 'foo.png', a.first_image
     assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
   end
 

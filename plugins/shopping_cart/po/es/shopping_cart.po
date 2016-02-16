@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:34-0300\n"
-"PO-Revision-Date: 2015-02-23 11:35+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2016-01-04 15:24+0000\n"
+"Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
 "shopping-cart/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.5-dev\n"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:10
 msgid "A shopping basket feature for enterprises"
@@ -275,13 +275,12 @@ msgid "Name"
 msgstr "Nombre"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:16
-#, fuzzy
 msgid "Email"
 msgstr "Correo electrónico"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:17
 msgid "Contact phone"
-msgstr ""
+msgstr "Teléfono de contacto"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:32
 #, fuzzy

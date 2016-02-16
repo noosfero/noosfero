@@ -1,8 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../../../app/controllers/my_profile/profile_editor_controller'
-
-# Re-raise errors caught by the controller.
-class ProfileEditorController; def rescue_action(e) raise e end; end
+require 'test_helper'
+require_relative '../../../../app/controllers/my_profile/profile_editor_controller'
 
 class StoaPluginProfileEditorControllerTest < ActionController::TestCase
 

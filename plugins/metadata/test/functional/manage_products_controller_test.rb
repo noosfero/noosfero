@@ -1,9 +1,6 @@
 require 'test_helper'
 require 'home_controller'
 
-# Re-raise errors caught by the controller.
-class ManageProductsController; def rescue_action(e) raise e end; end
-
 class ManageProductsControllerTest < ActionController::TestCase
 
   def setup

@@ -17,10 +17,14 @@ class Environment < ActiveRecord::Base
 
   has_many :users
 
-  self.partial_updates = false
+  # allow roles use
+  def self.dangerous_attribute_method? name
+    false
+  end
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
   has_many :search_terms, :as => :context
+  has_many :custom_fields, :dependent => :destroy
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 
@@ -108,7 +112,7 @@ class Environment < ActiveRecord::Base
   def admins
     admin_role = Environment::Roles.admin(self)
     return [] if admin_role.blank?
-    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', admin_role.id])
+    Person.members_of(self).where 'role_assignments.role_id = ?', admin_role.id
   end
 
   # returns the available features for a Environment, in the form of a
@@ -223,9 +227,11 @@ class Environment < ActiveRecord::Base
   has_many :licenses
 
   has_many :categories
-  has_many :display_categories, :class_name => 'Category', :conditions => 'display_color is not null and parent_id is null', :order => 'display_color'
+  has_many :display_categories, -> {
+    order('display_color').where('display_color is not null and parent_id is null')
+  }, class_name: 'Category'
 
-  has_many :product_categories, :conditions => { :type => 'ProductCategory'}
+  has_many :product_categories, -> { where type: 'ProductCategory'}
   has_many :regions
   has_many :states
   has_many :cities
@@ -690,7 +696,7 @@ class Environment < ActiveRecord::Base
 
   # the default Environment.
   def self.default
-    self.find(:first, :conditions => [ 'is_default = ?', true ] )
+    self.where('is_default = ?', true).first
   end
 
   # returns an array with the top level categories for this environment.
@@ -871,7 +877,7 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_folders
-    (settings[:portal_folders] || []).map{|fid| portal_community.articles.find(:first, :conditions => { :id => fid }) }.compact
+    (settings[:portal_folders] || []).map{|fid| portal_community.articles.where(id: fid).first }.compact
   end
 
   def portal_folders=(folders)
@@ -958,7 +964,7 @@ class Environment < ActiveRecord::Base
   end
 
   def highlighted_products_with_image(options = {})
-    Product.find(:all, {:conditions => {:highlighted => true, :profile_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
+    self.products.where(highlighted: true).joins(:image).order('created_at ASC')
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

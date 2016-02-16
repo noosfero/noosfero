@@ -37,7 +37,7 @@
                 { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
                   :class => 'remove-suggestion',
                   :title => _('Remove suggestion'),
-                  :confirm => _('Are you sure you want to remove this suggestion?'),
+                  data: {confirm: _('Are you sure you want to remove this suggestion?')},
                   :remote => true
                 %>
           <% elsif collection == :communities_suggestions %>
@@ -45,7 +45,7 @@
                   { :controller => 'memberships', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
                     :class => 'remove-suggestion',
                     :title => _('Remove suggestion'),
-                    :confirm => _('Are you sure you want to remove this suggestion?'),
+                    data: {confirm: _('Are you sure you want to remove this suggestion?')},
                     :remote => true
                   %>
           <% end %>

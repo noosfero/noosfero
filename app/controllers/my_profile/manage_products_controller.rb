@@ -69,7 +69,7 @@ class ManageProductsController < ApplicationController
     field = params[:field]
     if request.post?
       begin
-        @product.update_attributes!(params[:product])
+        @product.update!(params[:product])
         render :partial => "display_#{field}", :locals => {:product => @product}
       rescue Exception => e
         render :partial => "edit_#{field}", :locals => {:product => @product, :errors => true}
@@ -86,7 +86,7 @@ class ManageProductsController < ApplicationController
     @edit = true
     @level = @category.level
     if request.post?
-      if @product.update_attributes({:product_category_id => params[:selected_category_id]}, :without_protection => true)
+      if @product.update({:product_category_id => params[:selected_category_id]}, :without_protection => true)
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
@@ -115,7 +115,7 @@ class ManageProductsController < ApplicationController
     @categories = ProductCategory.top_level_for(environment)
     @level = 0
     if request.post?
-      if @input.update_attributes(:product_category_id => params[:selected_category_id])
+      if @input.update(:product_category_id => params[:selected_category_id])
         @inputs = @product.inputs
         render :partial => 'display_inputs'
       else
@@ -172,7 +172,7 @@ class ManageProductsController < ApplicationController
       @input = @profile.inputs.find_by_id(params[:id])
       if @input
         if request.post?
-          if @input.update_attributes(params[:input])
+          if @input.update(params[:input])
             render :partial => 'display_input', :locals => {:input => @input}
           else
             render :partial => 'edit_input'

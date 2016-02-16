@@ -119,7 +119,8 @@ class ShoppingCartPluginController < OrdersPluginController
     @settings = cart_profile.shopping_cart_settings
     @cart = cart
     @profile = cart_profile
-    @order = profile.sales.build consumer: user
+    supplier_delivery = profile.delivery_methods.first
+    @order = build_order self.cart[:items], supplier_delivery
 
     last_delivery_option_id = session[:cart][:last_delivery_option_id] if session[:cart]
     @order.supplier_delivery = profile.delivery_methods.where(id: last_delivery_option_id).first if last_delivery_option_id
@@ -192,7 +193,8 @@ class ShoppingCartPluginController < OrdersPluginController
     @profile = cart_profile
     supplier_delivery = @profile.delivery_methods.where(id: params[:order][:supplier_delivery_id]).first
     order = build_order self.cart[:items], supplier_delivery
-    total_price = order.total_price
+    order.supplier_delivery = supplier_delivery
+    total_price = order.total
     render json: {
       ok: true,
       delivery_price: float_to_currency_cart(supplier_delivery.cost(total_price), environment, unit: ''),
@@ -331,11 +333,12 @@ class ShoppingCartPluginController < OrdersPluginController
   after_filter :save_cookie
   def save_cookie
     if @cart.nil?
-      cookies.delete(cookie_key, path: '/plugin/shopping_cart')
+      # cookie.delete does not work, set to empty value
+      cookies.permanent[cookie_key] = {value: '', path: '/plugin/shopping_cart'}
     else
-      cookies[cookie_key] = {
+      cookies.permanent[cookie_key] = {
         value: Base64.encode64(@cart.to_yaml),
-        path: "/plugin/shopping_cart"
+        path: "/plugin/shopping_cart",
       }
     end
   end

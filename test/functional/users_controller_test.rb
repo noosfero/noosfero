@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'users_controller'
 
-# Re-raise errors caught by the controller.
-class UsersController; def rescue_action(e) raise e end; end
-
 class UsersControllerTest < ActionController::TestCase
 
   def setup
@@ -11,14 +8,11 @@ class UsersControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    Environment.destroy_all
-    @environment = fast_create(Environment, :is_default => true)
- 
+    @environment = Environment.default
 
     admin_user = create_user_with_permission('adminuser', 'manage_environment_users', environment)
     login_as('adminuser')
   end
-
   attr_accessor :environment
 
   should 'not access without right permission' do
@@ -69,7 +63,6 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'set admin role' do
     person = create_user.person
-    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
     assert_equal false, person.is_admin?
     post :set_admin_role, :id => person.id, :q => ''
     person.reload
@@ -78,7 +71,6 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'reset admin role' do
     person = create_user.person
-    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
 
     environment.add_admin(person)
     assert person.is_admin?

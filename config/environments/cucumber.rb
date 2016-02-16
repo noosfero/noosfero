@@ -7,10 +7,9 @@ Noosfero::Application.configure do
   # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
   config.cache_classes = true
 
-  config.active_support.deprecation = :log
+  config.assets.debug = false
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  config.active_support.deprecation = :log
 
   # Show full error reports and disable caching
   config.action_controller.perform_caching             = false
@@ -23,7 +22,4 @@ Noosfero::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.2' unless File.directory?(Rails.root.join('vendor/plugins/cucumber-rails'))
-  config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(Rails.root.join('vendor/plugins/database_cleaner'))
-  config.gem 'capybara',         :lib => false, :version => '>=0.3.5' unless File.directory?(Rails.root.join('vendor/plugins/capybara'))
 end

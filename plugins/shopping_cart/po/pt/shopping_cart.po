@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:34-0300\n"
-"PO-Revision-Date: 2015-09-29 20:23-0300\n"
+"PO-Revision-Date: 2015-11-15 18:17-0300\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-shopping-cart/pt/>\n"
@@ -31,6 +31,48 @@ msgstr "Funcionalidade de cesto de compras para empreendimentos"
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:31
 msgid "Shopping basket"
 msgstr "Cesto de compras"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:63
+msgid "Purchase reports"
+msgstr "Relatórios de compras"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Opened"
+msgstr "Aberto"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:40
+msgid "Shipped"
+msgstr "Enviado"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
+msgid "Free delivery"
+msgstr "Frete grátis"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+msgid "Delivery"
+msgstr "Entrega"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+msgid "Delivery or pickup"
+msgstr "Forma de retirada ou entrega"
+
+#: plugins/delivery/views/delivery_plugin/_order_select.html.slim
+msgid "Instructions"
+msgstr "Instruções"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
+msgid "Item"
+msgstr "Item"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
+#: plugins/shopping_cart/views/cart.html.erb:7
+msgid "Total:"
+msgstr "Total:"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:11
 msgid "Add to basket"
@@ -112,9 +154,8 @@ msgid "Shopping checkout"
 msgstr "Finalizar pedido"
 
 #: plugins/shopping_cart/views/public/_cart.html.erb:8
-#, fuzzy
 msgid "Basket is empty"
-msgstr "Cesto exibido."
+msgstr "Cesto vazio."
 
 #: plugins/shopping_cart/views/public/_cart.html.erb:14
 msgid "Basket"
@@ -123,11 +164,6 @@ msgstr "Cesto"
 #: plugins/shopping_cart/views/public/_cart.html.erb:16
 msgid "Clean basket"
 msgstr "Limpar cesto"
-
-#: plugins/shopping_cart/views/public/_cart.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:42
-msgid "Total:"
-msgstr "Total:"
 
 #: plugins/shopping_cart/views/public/_cart.html.erb:23
 msgid "Show basket"
@@ -163,7 +199,7 @@ msgstr "Tem certeza que quer limpar seu cesto?"
 
 #: plugins/shopping_cart/views/public/_cart.html.erb:54
 msgid "repeat order"
-msgstr ""
+msgstr "repetir pedido"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb:7
 msgid "Item name"
@@ -179,39 +215,38 @@ msgid "Hi %s!"
 msgstr "Olá %s!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
-#, fuzzy
 msgid ""
 "This is a notification e-mail about your buy request on the enterprise %s."
-msgstr "Esse é um email de notificação sobre o seu pedido de compra em %s."
+msgstr ""
+"Esse é um email de notificação sobre o seu pedido de compra no "
+"empreendimento %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
-#, fuzzy
 msgid ""
 "The enterprise already received your buy request and will contact you for "
 "confirmation."
 msgstr ""
-"O fornecedor já recebeu o seu pedido de compra e deve te contactar para "
-"confirmação."
+"O empreendimento já recebeu o seu pedido de compra e entrará em contato para "
+"confirmação.confirmação."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
-#, fuzzy
 msgid "If you have any doubts about your order, write to us at: %s."
-msgstr "Se você tem alguma dúvida, nos contacte em: %s"
+msgstr "Se você tem alguma dúvida sobre o seu pedido, nos escreva: %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
 msgid "Review below the informations of your order:"
-msgstr ""
+msgstr "Abaixo, revise as informações do seu pedido:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 msgid "Phone number"
 msgstr ""
 
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:22
-#, fuzzy
 msgid "Payment's method"
-msgstr "Pagamento"
+msgstr "Forma de pagamento"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:24
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:22
@@ -219,31 +254,30 @@ msgstr "Pagamento"
 msgid "shopping_cart|Change"
 msgstr "Troco para"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
-msgid "Delivery or pickup"
-msgstr "Forma de retirada ou entrega"
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_products_list.html.erb:7
+msgid "Quantity"
+msgstr "Quantidade"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:63
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
-msgstr ""
+msgstr "Aqui estão os produtos que você pediu:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:67
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:51
 msgid "Thanks for buying with us!"
-msgstr ""
+msgstr "Obrigado por comprar conosco!"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:70
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:61
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:54
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:51
 msgid "A service of %s."
-msgstr ""
+msgstr "Um serviço de %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
-#, fuzzy
 msgid "This is a buy request made by %s."
-msgstr "[%s] Você tem um novo pedido de compra de %s."
+msgstr "Esse é um pedido de compra feito por %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
 msgid "Below follows the customer informations:"
-msgstr ""
+msgstr "Abaixo seguem as informações do consumidor:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:25
@@ -251,20 +285,18 @@ msgid "Payment"
 msgstr "Pagamento"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:55
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:45
 msgid "And here are the items bought by this customer:"
-msgstr ""
+msgstr "E aqui estão os itens pedidos por esse consumidor:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:59
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
+"Se houver algum problema com esse email contacte o administrador de %s."
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:4
-msgid "haven't finished yet: back to shopping"
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:12
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
 msgid "Personal identification"
-msgstr ""
+msgstr "Identificação pessoal"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:15
 msgid "Name"
@@ -290,35 +322,21 @@ msgstr "Seu Pedido"
 msgid "Send buy request"
 msgstr "Enviar pedido de compra"
 
-#~ msgid "Purchase reports"
-#~ msgstr "Relatórios de compras"
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:15
+msgid "Address completion"
+msgstr "Complemento (p.ex. apto)"
 
-#~ msgid "Opened"
-#~ msgstr "Aberto"
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb
+msgid "haven't finished yet: back to shopping"
+msgstr "ainda não concluí: voltar às compras"
 
-#~ msgid "Canceled"
-#~ msgstr "Cancelado"
+#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb
+msgid "Qtty"
+msgstr "Qtde"
 
-#~ msgid "Confirmed"
-#~ msgstr "Confirmado"
-
-#~ msgid "Shipped"
-#~ msgstr "Enviado"
-
-#~ msgid "Free delivery"
-#~ msgstr "Frete grátis"
-
-#~ msgid "Delivery"
-#~ msgstr "Entrega"
-
-#~ msgid "Instructions"
-#~ msgstr "Instruções"
-
-#~ msgid "Option wasn't updated successfully."
-#~ msgstr "Opção não foi atualizada com sucesso."
-
-#~ msgid "Request sent successfully. Check your email."
-#~ msgstr "Requisição enviada com sucesso. Cheque seu email."
+#: plugins/shopping_cart/views/shopping_cart_plugin/_items.html.erb
+msgid "Unit price"
+msgstr "Preço unitário"
 
 #~ msgid "Can't join items from different enterprises."
 #~ msgstr "Não é possível juntar itens de empreendimentos diferentes."

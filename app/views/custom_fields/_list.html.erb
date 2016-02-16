@@ -1,0 +1,2 @@
+<%= label_tag field.name, nil, class: 'formlabel'%>
+<%= select_tag name, options_for_select(field.extras.map{|v| [v,v]}, profile.custom_value(field.name)), {:prompt => _('[Select ...]') } %>

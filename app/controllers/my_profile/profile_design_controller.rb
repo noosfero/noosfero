@@ -15,8 +15,9 @@ class ProfileDesignController < BoxOrganizerController
   end
 
   def protect_fixed_block
+    return if params[:id].blank?
     block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
-    if !current_person.is_admin? && !block.movable?
+    if block.present? && !current_person.is_admin? && !block.movable?
       render_access_denied
     end
   end

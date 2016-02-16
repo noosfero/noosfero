@@ -1,0 +1,12 @@
+- actor_name ||= :consumer
+- other_actor_name = if actor_name == :supplier then :consumer else :supplier end
+- @view = true
+
+.order-view id="order-#{order.id}"
+  = form_for order, as: :order, url: '', html: {onsubmit: 'return false'} do |f|
+    .order-data
+      = render "orders_plugin_item/index", order: order, actor_name: actor_name
+      = render 'orders_plugin_order/delivery', order: order, actor_name: actor_name, edition: false, f: f
+
+javascript:
+  orders.setOrderMaxHeight()

@@ -5,13 +5,11 @@ module FolderHelper
   def list_contents(configure={})
     configure[:recursive] ||= false
     configure[:list_type] ||= :folder
-    if !configure[:contents].blank?
-      configure[:contents] = configure[:contents].paginate(
-        :order => "name ASC",
-        :per_page => 30,
-        :page => params[:npage]
-      )
-
+    contents = configure[:contents]
+    contents = contents.order('name ASC') unless contents.is_a? Array
+    contents = contents.paginate per_page: 30, page: params[:npage]
+    configure[:contents] = contents
+    if contents.present?
       render :file => 'shared/content_list', :locals => configure
     else
       content_tag('em', _('(empty folder)'))

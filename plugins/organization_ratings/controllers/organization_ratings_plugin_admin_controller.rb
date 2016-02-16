@@ -8,7 +8,7 @@ class OrganizationRatingsPluginAdminController < PluginAdminController
   end
 
   def update
-    if env_organization_ratings_config.update_attributes(params[:organization_ratings_config])
+    if env_organization_ratings_config.update(params[:organization_ratings_config])
       session[:notice] = _('Configuration updated successfully.')
     else
       session[:notice] = _('Configuration could not be saved.')

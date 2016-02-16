@@ -3,9 +3,6 @@
 require_relative "../test_helper"
 require 'edit_template_controller'
 
-# Re-raise errors caught by the controller.
-class EditTemplateController; def rescue_action(e) raise e end; end
-
 class EditTemplateControllerTest < ActionController::TestCase
   all_fixtures
   def setup

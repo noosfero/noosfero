@@ -16,21 +16,21 @@ class SuppliersPlugin::Supplier < ActiveRecord::Base
 
   scope :alphabetical, -> { order 'name ASC' }
 
-  scope :active, conditions: {active: true}
+  scope :active, -> { where active: true }
   scope :dummy, -> { joins(:profile).where profiles: {visible: false} }
 
-  scope :of_profile, lambda { |p| { conditions: {profile_id: p.id} } }
-  scope :of_profile_id, lambda { |id| { conditions: {profile_id: id} } }
-  scope :of_consumer, lambda { |c| { conditions: {consumer_id: c.id} } }
-  scope :of_consumer_id, lambda { |id| { conditions: {consumer_id: id} } }
+  scope :of_profile, -> (p) { where profile_id: p.id }
+  scope :of_profile_id, -> (id) { where profile_id: id }
+  scope :of_consumer, -> (c) { where consumer_id: c.id }
+  scope :of_consumer_id, -> (id) { where consumer_id: id }
 
-  scope :from_supplier_id, lambda { |supplier_id| { conditions: ['suppliers_plugin_suppliers.id = ?', supplier_id] } }
+  scope :from_supplier_id, -> (supplier_id) { where 'suppliers_plugin_suppliers.id = ?', supplier_id }
 
-  scope :with_name, lambda { |name| if name then {conditions: ["LOWER(suppliers_plugin_suppliers.name) LIKE ?","%#{name.downcase}%"]} else {} end }
-  scope :by_active, lambda { |active| if active then {conditions: {active: active}} else {} end }
+  scope :with_name, -> (name) { where "suppliers_plugin_suppliers.name ILIKE ?", "%#{name.downcase}%" if name }
+  scope :by_active, -> (active) { where active: active if active }
 
-  scope :except_people, { conditions: ['profiles.type <> ?', Person.name], joins: [:consumer] }
-  scope :except_self, { conditions: 'profile_id <> consumer_id' }
+  scope :except_people, -> { joins(:consumer).where 'profiles.type <> ?', Person.name }
+  scope :except_self, -> { where 'profile_id <> consumer_id' }
 
   after_create :add_admins, if: :dummy?
   after_create :save_profile, if: :dummy?

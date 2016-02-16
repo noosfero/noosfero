@@ -1,8 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + "/../../../../test/test_helper")
+require 'test_helper'
 require 'work_assignment_plugin_myprofile_controller'
-
-# Re-raise errors caught by the controller.
-class WorkAssignmentPluginMyprofileController; def rescue_action(e) raise e end; end
 
 class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
 
@@ -40,9 +37,9 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal false, submission.parent.published
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id, :article => { :published => true }
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     submission.reload
     assert_equal false, submission.published
@@ -56,9 +53,9 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal true, @person.is_admin?
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id, :article => { :published => true }
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     submission.reload
     assert_equal false, submission.published
@@ -120,10 +117,10 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal(submission.author, @person)
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id, :article => { :published => true }
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     submission.reload
     assert_equal false, submission.parent.published
@@ -174,10 +171,10 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal false, (@person.is_member_of? submission.profile)
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id, :article => { :published => true }
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
 
     submission.reload
     assert_equal false, submission.parent.published

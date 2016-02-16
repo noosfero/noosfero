@@ -11,6 +11,7 @@ Developers
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Alan Freihof Tygel <alantygel@gmail.com>
 Alessandro Palmeira <alessandro.palmeira@gmail.com>
+Alexandre Barbosa <alexandreab@live.com>
 Alexandre Torres <alexandrekry@gmail.com>
 Alex Campelo <campelo.al1@gmail.com>
 Álvaro Fernando <alvarofernandoms@gmail.com>
@@ -31,6 +32,7 @@ Caio SBA <caio@colivre.coop.br>
 Caio Tiago Oliveira <caiotiago@colivre.coop.br>
 Carlos Andre de Souza <carlos.andre.souza@msn.com>
 Carlos Morais <carlos88morais@gmail.com>
+Carlos Purificacao <carloseugenio@gmail.com>
 Christophe DANIEL <papaeng@gmail.com>
 Daniela Feitosa <alessandro.palmeira@gmail.com>
 Daniel Alves <danpaulalves@gmail.com>
@@ -52,10 +54,12 @@ Fernanda Lopes <nanda.listas+psl@gmail.com>
 Filipe Ribeiro <firibeiro77@live.com>
 Francisco Marcelo de Araújo Lima Júnior <francisco.lima-junior@serpro.gov.br>
 Gabriela Navarro <navarro1703@gmail.com>
+Gabriel Silva <gabriel93.silva@gmail.com>
 Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>
 Grazieno Pellegrino <grazieno@gmail.com>
 Guilherme C. Muniz <guilherme.cmuniz@gmail.com>
 Guilherme Rojas <guilhermehrojas@gmail.com>
+Gustavo Coelho <gust.rod.coelho@gmail.com>
 Gustavo Jaruga <darksshades@gmail.com>
 Hebert Douglas <hebertdougl@gmail.com>
 Hugo Melo <hugo@riseup.net>
@@ -84,14 +88,16 @@ Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
 Luiz Matos <luizff.matos@gmail.com>
+Macartur de Sousa <macartur.sc@gmail.com>
 Marcelo Júnior <maljunior@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Marcos Ronaldo <marcos.rpj2@gmail.com>
+María Vecino <mariavecino@ecoalternative.net>
 Mariel Zasso <noosfero-br@listas.softwarelivre.org>
 Martín Olivera <molivera@solar.org.ar>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
-Melissa Wen <melissa@colivre.coop.br>
+Melissa Wen <melissa.srw@gmail.com>
 M for Momo <mo@rtnp.org>
 Michal Čihař <michal@cihar.com>
 Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
@@ -115,6 +121,7 @@ Raquel <rcordioli@gmail.com>
 Renan Costa <renan2727@hotmail.com>
 Renan Teruo <renanteruoc@gmail.com>
 Rodrigo Medeiros <rodrigo.mss01@gmail.com>
+Rodrigo Siqueira <siqueira@kuniri.org>
 Rodrigo Souto <rodrigo@colivre.coop.br>
 Ronnie Simon <ronniesimonf@gmail.com>
 Ronny Kursawe <kursawe.ronny@googlemail.com>
@@ -131,7 +138,7 @@ Valessio Brito <contato@valessiobrito.com.br>
 Victor Costa <vfcosta@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
 Victor Navarro <victor.matias.navarro@gmail.com>
-Vinicius Cubas Brand <viniciuscb@gmail.com>
+Vinicius Brand <viniciuscb@gmail.com>
 Vitor Barbosa <vitornga15@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>

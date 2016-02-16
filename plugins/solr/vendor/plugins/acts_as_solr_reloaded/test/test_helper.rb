@@ -28,8 +28,8 @@ MongoMapper.database = "acts_as_solr_reloaded-test"
 RAILS_ENV = 'test' unless defined? RAILS_ENV
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path(File.dirname(__FILE__) + '/../config/solr_environment')
-require File.expand_path(File.dirname(__FILE__) + '/../lib/acts_as_solr')
+require_relative '../config/solr_environment')
+require_relative '../lib/acts_as_solr')
 
 ActiveRecord::Base.logger = Logger.new('/dev/null')
 

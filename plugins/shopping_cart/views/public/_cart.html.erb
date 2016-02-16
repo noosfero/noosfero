@@ -16,7 +16,7 @@
       <a href="cart:clean" onclick="cart.clean(); return false" class="cart-clean"><%=_('Clean basket')%></a>
       <ul class="cart-items">
       </ul>
-      <%= button 'cart',  _('Shopping checkout'), "/plugin/shopping_cart/buy", :class => 'cart-buy modal-toggle' %>
+      <%= button 'cart',  _('Shopping checkout'), "/plugin/shopping_cart/buy", class: 'cart-buy' %>
       <div class="cart-total"><%=_('Total:')%> <b></b></div>
     </div>
       <a href="#" onclick="cart.toggle(); return false" class="cart-toggle">
@@ -31,7 +31,7 @@
 	      <div class="picture" style="background-image:url({{item.picture}})"></div>
 	      <span class="item-name">{{item.name}}</span>
 	      <div class="item-price">
-	        <input size="1" value="{{item.quantity}}" />{{item.priceTxt}}
+	        <input value="{{item.quantity}}" />{{item.priceTxt}}
 	      </div>
       </li>
   </script>

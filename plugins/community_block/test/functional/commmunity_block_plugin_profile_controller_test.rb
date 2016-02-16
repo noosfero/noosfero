@@ -1,12 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
-
-# Re-raise errors caught by the controller.
-class ProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e)
-    raise e
-  end
-end
+require_relative '../test_helper'
 
 class ProfileControllerTest < ActionController::TestCase
 

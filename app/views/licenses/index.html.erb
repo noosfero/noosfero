@@ -11,7 +11,7 @@
       <td title="<%= license.url %>"><%= license.url.present? ? link_to(truncate(license.url, :length => 60), license.url, :target => '_blank') : '' %></td>
       <td style='white-space: nowrap;'>
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :license_id => license.id %>
-        <%= button_without_text :remove, _('Remove'), {:action => 'remove', :license_id => license.id}, :method => 'post', :confirm => _('Are you sure you want to remove this license?') %></td>
+        <%= button_without_text :remove, _('Remove'), {action: 'remove', license_id: license.id}, method: 'post', data: {confirm: _('Are you sure you want to remove this license?')} %></td>
     </tr>
   <% end %>
 </table>

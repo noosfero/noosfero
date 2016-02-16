@@ -1,0 +1,4 @@
+- if cycle.status == 'closing'
+  = link_to t('views.cycle._timeline.reopen_orders_period'), {action: :step_back, id: cycle.id, method: :post},
+    id: 'cycle-open-cycle', class: 'action-button', data: {confirm: t('views.cycle._timeline.are_you_sure_you_want_to_reopen')}
+

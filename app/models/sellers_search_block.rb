@@ -10,6 +10,10 @@ class SellersSearchBlock < Block
     _('Products/Enterprises search')
   end
 
+  def self.pretty_name
+    _('Sellers Search')
+  end
+
   def default_title
     _('Search for sellers')
   end

@@ -5,7 +5,7 @@ class CustomFormsPlugin::MembershipSurvey < Task
 
   include CustomFormsPlugin::Helper
 
-  scope :from, lambda {|profile| {:conditions => {:requestor_id => profile.id}}}
+  scope :from_profile, -> profile { where requestor_id: profile.id }
 
   def perform
     form = CustomFormsPlugin::Form.find(form_id)

@@ -14,7 +14,7 @@ class Domain < ActiveRecord::Base
 
   # <tt>name</tt> must be sequences of alphanumeric characters (a to z,
   # 0 to 9), plus '_' or '-', separated by dots. Letters must be lowercase.
-  validates_format_of :name, :with => /^([a-z0-9_-]+\.)+[a-z0-9_-]+$/, :message => N_('{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 to 9), "_" and "-", separated by dots.').fix_i18n
+  validates_format_of :name, with: /\A([a-z0-9_-]+\.)+[a-z0-9_-]+\z/, message: N_('{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 to 9), "_" and "-", separated by dots.').fix_i18n
 
   # checks validations that could not be expressed using Rails' predefined
   # validations. In particular:
@@ -37,7 +37,7 @@ class Domain < ActiveRecord::Base
   # "www.", but it will be removed before searching. So searching for
   # 'www.example.net' is exactly the same as searching for just 'example.net'
   def self.find_by_name(name)
-    self.find(:first, :conditions => [ 'name = ?', self.extract_domain_name(name) ])
+    self.where('name = ?', self.extract_domain_name(name)).first
   end
 
   # turns the argument (expected to be a String) into a domain name that is

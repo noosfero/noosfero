@@ -23,7 +23,7 @@ C{
 #include <string.h>
 
 #define DEFAULT_LANGUAGE "en"
-#define SUPPORTED_LANGUAGES ":de:eo:es:fr:hy:it:pt:ru:"
+#define SUPPORTED_LANGUAGES ":en:cs:de:eo:es:fr:hy:it:pt:ru:"
 
 #define vcl_string char
 #define LANG_LIST_SIZE 16
@@ -162,20 +162,21 @@ void select_language(const vcl_string *incoming_header, char *lang) {
 }
 
 /* Reads req.http.Accept-Language and writes X-Varnish-Accept-Language */
-void vcl_rewrite_accept_language(const struct sess *sp) {
+void vcl_rewrite_accept_language(const struct vrt_ctx *ctx) {
     vcl_string *in_hdr;
     vcl_string lang[LANG_MAXLEN];
+    const struct gethdr_s hdr = { HDR_REQ, "\020Accept-Language:" };
+    const struct gethdr_s hdrUpd = { HDR_REQ, "\032X-Varnish-Accept-Language:"};
 
     /* Get Accept-Language header from client */
-    in_hdr = VRT_GetHdr(sp, HDR_REQ, "\020Accept-Language:");
+    in_hdr = VRT_GetHdr(ctx, &hdr);
 
     /* Normalize and filter out by list of supported languages */
     memset(lang, 0, sizeof(lang));
     select_language(in_hdr, lang);
 
     /* By default, use a different header name: don't mess with backend logic */
-    VRT_SetHdr(sp, HDR_REQ, "\032X-Varnish-Accept-Language:", lang, vrt_magic_string_end);
-
+    VRT_SetHdr(ctx, &hdrUpd, lang, vrt_magic_string_end);
     return;
 }
 
@@ -188,15 +189,14 @@ void vcl_rewrite_accept_language(const struct sess *sp) {
 
 sub vcl_recv {
   C{
-    vcl_rewrite_accept_language(sp);
+    vcl_rewrite_accept_language(ctx);
   }C
 }
 
-sub vcl_fetch {
+sub vcl_backend_response {
   if (beresp.http.Vary) {
     set beresp.http.Vary = beresp.http.Vary + ", X-Varnish-Accept-Language";
   } else {
     set beresp.http.Vary = "X-Varnish-Accept-Language";
   }
 }
-

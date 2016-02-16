@@ -17,8 +17,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     change.password = 'right'
     change.password_confirmation = 'wrong'
     refute change.valid?
-    assert change.errors[:password.to_s].present?
-
+    assert change.errors[:password_confirmation].present?
 
     change.password_confirmation = 'right'
     assert change.valid?

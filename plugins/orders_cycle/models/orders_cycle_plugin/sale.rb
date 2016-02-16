@@ -24,10 +24,6 @@ class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
     super and self.cycle.orders?
   end
 
-  def supplier_delivery
-    super || (self.cycle.delivery_methods.first rescue nil)
-  end
-
   def change_purchases
     return unless self.status_was.present?
     if self.ordered_at_was.nil? and self.ordered_at.present?

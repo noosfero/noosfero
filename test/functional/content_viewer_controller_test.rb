@@ -1,9 +1,6 @@
 require_relative "../test_helper"
 require 'content_viewer_controller'
 
-# Re-raise errors caught by the controller.
-class ContentViewerController; def rescue_action(e) raise e end; end
-
 class ContentViewerControllerTest < ActionController::TestCase
 
   all_fixtures
@@ -147,7 +144,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!({:public_content => false}, :without_protection => true)
+    profile.update!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -156,7 +153,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display allowed articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!({:public_content => false}, :without_protection => true)
+    profile.update!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(true)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -194,7 +191,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'show private content to profile moderators' do
@@ -297,7 +294,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied'
+    assert_template 'shared/access_denied'
   end
 
   should 'give access to private articles if logged in and moderator' do
@@ -1163,10 +1160,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'add an zero width space every 4 caracters of comment urls' do
     url = 'www.an.url.to.be.splited.com'
-    a = @profile.articles.build(:name => 'test')
-    a.save!
-    c = a.comments.create!(:author => @profile, :title => 'An url', :body => url, :source => a)
-    get :view_page, :profile => @profile.identifier, :page => [ 'test' ]
+    a = fast_create(TextileArticle, :profile_id => @profile.id, :language => 'en')
+    c = a.comments.create!(:author => @profile, :title => 'An url', :body => url)
+    get :view_page, :profile => @profile.identifier, :page => a.path
     assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
   end
 

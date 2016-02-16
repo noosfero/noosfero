@@ -53,7 +53,7 @@ class FeedHandler
   def process(container)
     begin
       container.class.transaction do
-        if container.update_errors > FeedHandler.max_errors && container.fetched_at < (Time.now - FeedHandler.disabled_period)
+        if failed_too_many_times(container) && enough_time_since_last_failure(container)
           container.enabled = true
           container.update_errors = 0
           container.save
@@ -101,6 +101,14 @@ class FeedHandler
 
   def valid_url?(url)
     url =~ URI.regexp('http') || url =~ URI.regexp('https')
+  end
+
+  def failed_too_many_times(container)
+    container.update_errors > FeedHandler.max_errors
+  end
+
+  def enough_time_since_last_failure(container)
+    container.fetched_at.nil? || container.fetched_at < (Time.now - FeedHandler.disabled_period)
   end
 
 end

@@ -124,14 +124,14 @@ class StepTest < ActiveSupport::TestCase
     @step.end_date = DateTime.now.end_of_day
     @step.accept_comments = false
     @step.schedule_activation
-    assert_equal @step.start_date, Delayed::Job.first.run_at
+    assert_in_delta @step.start_date, Delayed::Job.first.run_at
   end
 
   should 'create delayed job if end date has passed' do
     @step.start_date = DateTime.now - 5.days
     @step.end_date = DateTime.now - 2.days
     @step.schedule_activation
-    assert_equal @step.end_date + 1.day, Delayed::Job.first.run_at
+    assert_in_delta @step.end_date + 1.day, Delayed::Job.first.run_at
   end
 
   should 'do not schedule delayed job if save but do not modify date fields' do

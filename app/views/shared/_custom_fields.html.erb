@@ -1,0 +1,25 @@
+<% if signup ||= false %>
+  <% fields = profile.class.signup_custom_fields environment%>
+<% else %>
+  <% fields = profile.class.active_custom_fields environment%>
+<% end %>
+<% editing_profile ||= false %>
+<% fields.each do |field| %>
+  <% rendered = render(:partial => "custom_fields/#{field.format}", :locals => {:field => field, :profile => profile, :name => "profile_data[custom_values[#{field.name}[value]]]"})%>
+  <div class="<%= 'field-with-privacy-selector' if editing_profile %>">
+
+  <% if field.required%>
+    <%= required rendered%>
+  <% else %>
+    <%= rendered %>
+  <% end %>
+
+  <% if editing_profile %>
+    <div class="field-privacy-selector">
+      <%= labelled_check_box(_('Public'),"profile_data[custom_values[#{field.name}[public]]]", "true", profile.is_public(field.name))%>
+    </div>
+  <% end %>
+
+  </div>
+<% end %>
+

@@ -3,7 +3,15 @@ class ArticleBlock < Block
   attr_accessible :article_id
 
   def self.description
-    _('Display one of your contents')
+    _('Display one of your contents.')
+  end
+
+  def self.short_description
+    _('Show one article')
+  end
+
+  def self.pretty_name
+    _('Article')
   end
 
   def help

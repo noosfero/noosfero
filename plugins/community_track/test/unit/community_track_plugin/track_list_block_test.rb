@@ -31,7 +31,7 @@ class TrackListBlockTest < ActiveSupport::TestCase
 
   should 'list of articles be limited by block configuration' do
     (@block.limit + 1).times { |i| create_track("track#{i}", profile) }
-    assert_equal @block.limit, @block.tracks.size
+    assert_equal @block.limit, @block.tracks.to_a.size
   end
 
   should 'return more link if has more tracks to show' do

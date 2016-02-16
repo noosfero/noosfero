@@ -8,6 +8,10 @@ class CommunityTrackPlugin::TrackCardListBlock < CommunityTrackPlugin::TrackList
     _('This block displays a list of most relevant tracks as cards.')
   end
 
+  def self.pretty_name
+    _('Track Card List')
+  end
+
   def track_partial
     'track_card'
   end
