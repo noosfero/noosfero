@@ -107,7 +107,7 @@ file 'tmp/makemo.stamp' do |t|
 end
 
 task :updatepo => 'gettext:po:update' do
-  Dir.glob('**/*.po').each do |po|
+  Dir.glob('{po,plugins}/**/*.po').each do |po|
     sh "cp #{po} #{po}.tmp && msguniq -o #{po} #{po}.tmp && rm -f #{po}.tmp"
   end
 end
