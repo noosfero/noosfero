@@ -103,4 +103,12 @@ class ProfileRolesControllerTest < ActionController::TestCase
     assert_not_includes community.members_by_role(role), moderator
     assert_not_includes community.members_by_role(moderator_role), moderator
   end
+
+  should 'avoid access with person profile' do
+    person = create_user('sample_user').person
+    login_as person.identifier
+    get :index , :profile => person.identifier
+
+    assert_response 404
+  end
 end
