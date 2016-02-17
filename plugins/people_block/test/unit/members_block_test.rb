@@ -240,6 +240,10 @@ class MembersBlockTest < ActionView::TestCase
 
     assert_includes profiles, profile1
     assert_not_includes profiles, profile2
+
+    profile_list = block.profile_list
+    assert_includes profile_list, profile1
+    assert_not_includes profile_list, profile2
   end
 
   should 'list only profiles with member role' do
@@ -261,6 +265,10 @@ class MembersBlockTest < ActionView::TestCase
 
     assert_not_includes profiles, profile1
     assert_includes profiles, profile2
+
+    profile_list = block.profile_list
+    assert_not_includes profile_list, profile1
+    assert_includes profile_list, profile2
   end
 
   should 'list available roles' do
