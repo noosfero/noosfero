@@ -101,11 +101,9 @@ class BlogHelperTest < ActionView::TestCase
 
   should 'display link to file if post is an uploaded_file' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
-
     result = display_post(file)
-    assert_tag_in_string result, :tag => 'a',
-                                 :attributes => { :href => file.public_filename },
-                                 :content => _('Download')
+
+    assert_tag_in_string result, :tag => 'a', :content => _('Download')
   end
 
   should 'display image if post is an image' do

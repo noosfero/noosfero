@@ -357,4 +357,25 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_instance_of Fixnum, UploadedFile.max_size
   end
 
+  should 'add file to dbm if it becomes private' do
+    require 'sdbm'
+    public_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true)
+    private_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :published => false)
+
+    dbm = SDBM.open(UploadedFile::DBM_PRIVATE_FILE)
+    assert !dbm.has_key?(public_file.public_filename)
+    assert dbm.has_key?(private_file.public_filename)
+    dbm.close
+
+    public_file.published = false
+    public_file.save!
+    private_file.published = true
+    private_file.save!
+
+    dbm = SDBM.open(UploadedFile::DBM_PRIVATE_FILE)
+    assert dbm.has_key?(public_file.public_filename)
+    assert !dbm.has_key?(private_file.public_filename)
+    dbm.close
+  end
+
 end

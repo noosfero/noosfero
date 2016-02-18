@@ -2241,4 +2241,15 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.display_preview?
   end
 
+  should 'return full_path' do
+    p1 = fast_create(Profile)
+    p2 = fast_create(Profile)
+    p2.domains << Domain.create!(:name => 'p2.domain')
+    a1 = fast_create(Article, :profile_id => p1.id)
+    a2 = fast_create(Article, :profile_id => p2.id)
+
+    assert_equal "/#{p1.identifier}/#{a1.path}", a1.full_path
+    assert_equal "/#{a2.path}", a2.full_path
+  end
+
 end

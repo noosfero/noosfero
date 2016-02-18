@@ -52,8 +52,8 @@ class FilePresenter
     nil
   end
 
-  def download?(view=nil)
-    false
+  def download? view = nil
+    view.blank?
   end
 
   def short_description

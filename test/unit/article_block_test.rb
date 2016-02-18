@@ -140,6 +140,8 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block.article = file
     block.save!
 
+    UploadedFile.any_instance.stubs(:url).returns('myhost.mydomain/path/to/file')
+
     assert_tag_in_string instance_eval(&block.content), :tag => 'a', :content => _('Download')
   end
 
