@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-01-21 16:56+0000\n"
-"Last-Translator: Dylan Guedes <djmgguedes@gmail.com>\n"
+"PO-Revision-Date: 2016-02-18 14:44+0000\n"
+"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/pt/>\n"
 "Language: pt\n"
@@ -9258,7 +9258,7 @@ msgstr "Fãs de %s"
 
 #: app/views/profile/_create_article.html.erb:12
 msgid "See more"
-msgstr "Ver mais"
+msgstr "Veja mais"
 
 #: app/views/profile/index.html.erb:32
 msgid "Network"
