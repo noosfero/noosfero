@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2016-01-21 15:50+0000\n"
-"Last-Translator: Dylan Guedes <djmgguedes@gmail.com>\n"
+"PO-Revision-Date: 2016-02-18 14:44+0000\n"
+"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
 "/plugin-organization-ratings/pt/>\n"
 "Language: pt\n"
@@ -261,7 +261,7 @@ msgstr "para esta %s."
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:70
 msgid "Hi, %s! The administrators set the minimum time of"
-msgstr "Olá, %s! Os administradores configuraram o tempo mínimo de "
+msgstr "Olá, %s! Os administradores configuraram o tempo mínimo de"
 
 #: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:71
 msgid "%d hour(s)"
