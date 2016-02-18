@@ -68,6 +68,8 @@ if [ ! -z "$RET" ]; then
   export NOOSFERO_DOMAIN="$RET"
 fi
 
+/etc/init.d/noosfero setup
+
 # dbconfig-common magic
 . /usr/share/dbconfig-common/dpkg/postinst
 dbc_go noosfero $@
