@@ -1,3 +1,9 @@
+noosfero (1.4) jessie-test; urgency=medium
+
+  * Noosfero 1.4
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Thu, 18 Feb 2016 16:20:23 -0200
+
 noosfero (1.4~rc3) jessie-test; urgency=medium
 
   * Noosfero 1.4 RC3
