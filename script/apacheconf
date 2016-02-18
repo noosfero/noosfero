@@ -17,7 +17,6 @@ when 'virtualhosts'
       puts "  #{server_directive} #{domain.name}"
       server_directive = 'ServerAlias'
     end
-    puts "  Include /usr/share/noosfero/util/chat/apache/xmpp.conf"
     puts "  Include /etc/noosfero/apache/virtualhost.conf"
     puts "</VirtualHost>"
   end
