@@ -1619,6 +1619,50 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
   end
 
+  should 'logged in user NOT be able to create topic on forum when topic creation is set to Me' do
+    u = create_user('linux')
+    login_as :linux
+    profile.articles << f = Forum.new(:name => 'Forum for test',
+                                      :topic_creation => 'self',
+                                      :body => 'Forum Body')
+
+    post :new, :profile => profile.identifier, :type => 'TinyMceArticle',
+               :article => {:name => 'New Topic by linux', :body => 'Article Body',
+                            :parent_id => f.id}
+
+    assert_template :access_denied
+    assert_not_equal 'New Topic by linux', Article.last.name
+  end
+
+  should 'logged in user NOT be able to create topic on forum when topic creation is set to Friends/Members' do
+    u = create_user('linux')
+    login_as :linux
+    profile.articles << f = Forum.new(:name => 'Forum for test',
+                                      :topic_creation => 'related',
+                                      :body => 'Forum Body')
+
+    post :new, :profile => profile.identifier, :type => 'TinyMceArticle',
+               :article => {:name => 'New Topic by linux', :body => 'Article Body',
+                            :parent_id => f.id}
+
+    assert_template :access_denied
+    assert_not_equal 'New Topic by linux', Article.last.name
+  end
+
+  should 'logged in user be able to create topic on forum when topic creation is set to Logged in users' do
+    u = create_user('linux')
+    login_as :linux
+    profile.articles << f = Forum.new(:name => 'Forum for test',
+                                      :topic_creation => 'users',
+                                      :body => 'Forum Body')
+
+    post :new, :profile => profile.identifier, :type => 'TinyMceArticle',
+               :article => {:name => 'New Topic by linux', :body => 'Article Body',
+                            :parent_id => f.id}
+
+    assert_equal 'New Topic by linux', Article.last.name
+  end
+
   should 'display accept comments option when editing forum post with a different label' do
     profile.articles << f = Forum.new(:name => 'Forum for test')
     profile.articles << a = TinyMceArticle.new(:name => 'Forum post for test', :parent => f)
