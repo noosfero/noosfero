@@ -21,6 +21,7 @@ class NoosferoTest < ActiveSupport::TestCase
   should 'support setting default locale' do
     Noosfero.default_locale = 'pt_BR'
     assert_equal 'pt_BR', Noosfero.default_locale
+    Noosfero.default_locale = nil
   end
 
   should 'identifier format' do
