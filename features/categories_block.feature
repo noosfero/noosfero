@@ -44,6 +44,7 @@ Feature: categories_block
     And I follow "Edit" within ".block-outer .categories-block"
     And I check "Product"
     And I press "Save"
+    And I go to /
     Then I should see "Food"
     And I should see "Book"
     And "Vegetarian" should not be visible within "span#category-name"
@@ -62,6 +63,7 @@ Feature: categories_block
     And I follow "Edit" within ".block-outer .categories-block"
     And I check "Product"
     And I press "Save"
+    And I go to /
     Then I should see "Book"
     And "Literature" should not be visible within "span#category-name"
     When I follow "block_2_category_2"
