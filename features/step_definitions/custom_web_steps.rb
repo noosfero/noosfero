@@ -1,13 +1,9 @@
 Then /^"([^"]*)" should not be visible within "([^"]*)"$/ do |text, selector|
-  if page.has_content?(text)
-    page.should have_no_css(selector, :text => text, :visible => false)
-  end
+  page.should have_no_css selector, text: text, visible: false
 end
 
 Then /^"([^"]*)" should be visible within "([^"]*)"$/ do |text, selector|
-  if page.has_content?(text)
-    page.should have_css(selector, :text => text, :visible => false)
-  end
+  page.should have_css selector, text: text, visible: false
 end
 
 Then /^I should see "([^"]*)" link$/ do |text|

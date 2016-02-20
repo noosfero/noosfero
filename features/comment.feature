@@ -96,4 +96,4 @@ Feature: comment
   Scenario: hide post a comment button when clicked
     Given I am on /booking/article-to-comment
     And I follow "Post a comment"
-    Then "Post a comment" should not be visible within "#article"
+    Then "Post comment" should not be visible within "#article"

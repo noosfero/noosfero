@@ -45,7 +45,7 @@ Feature: manage categories
     And I should see "Steak"
     When I follow "Hide"
     Then I should not see "Vegetarian"
-    And "Steak" should not be visible within "div"
+    And I should not see "Steak"
 
   @selenium
   Scenario: the show link is available just for categories with category tree
