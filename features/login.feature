@@ -109,7 +109,7 @@ Feature: login
     And I am not logged in
     And the environment is configured to redirect to profile homepage after login
     And I go to the homepage
-    And I follow "Login"
+    When I go to login page
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
