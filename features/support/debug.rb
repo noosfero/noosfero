@@ -21,3 +21,8 @@ Before do |scenario|
     puts "Can't find debugger or pry to debug"
   end
 end
+
+Then /^I open pry$/ do
+  require'pry';binding.pry
+end
+
