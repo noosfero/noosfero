@@ -15,6 +15,7 @@ class AccountControllerTest < ActionController::TestCase
     t.date     "dtanas"
   end
   ActiveRecord::Base.establish_connection(:test)
+  StoaPlugin::UspUser.reset_column_information
 
   def setup
     @controller = AccountController.new
