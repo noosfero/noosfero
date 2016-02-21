@@ -1,4 +1,4 @@
-class AbuseReport < ActiveRecord::Base
+class AbuseReport < ApplicationRecord
 
   attr_accessible :content, :reason
 

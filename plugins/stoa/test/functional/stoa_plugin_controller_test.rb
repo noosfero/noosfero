@@ -9,7 +9,7 @@ class StoaPluginControllerTest < ActionController::TestCase
     @controller = StoaPluginController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => ':memory:', :verbosity => 'quiet'}
+    ApplicationRecord.configurations['stoa'] = {:adapter => 'sqlite3', :database => ':memory:', :verbosity => 'quiet'}
     env = Environment.default
     env.enable_plugin(StoaPlugin.name)
     env.enable('skip_new_user_email_confirmation')

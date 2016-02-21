@@ -69,4 +69,5 @@ module SplitDatetime
 end
 
 Class.extend SplitDatetime::SplitMethods
-ActiveRecord::Base.extend SplitDatetime::SplitMethods
+ApplicationRecord.extend SplitDatetime::SplitMethods
+

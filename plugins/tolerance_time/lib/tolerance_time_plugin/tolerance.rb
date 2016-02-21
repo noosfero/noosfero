@@ -1,4 +1,4 @@
-class ToleranceTimePlugin::Tolerance < ActiveRecord::Base
+class ToleranceTimePlugin::Tolerance < ApplicationRecord
 
   belongs_to :profile
   validates_presence_of :profile_id

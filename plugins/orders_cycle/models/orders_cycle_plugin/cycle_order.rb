@@ -1,4 +1,4 @@
-class OrdersCyclePlugin::CycleOrder < ActiveRecord::Base
+class OrdersCyclePlugin::CycleOrder < ApplicationRecord
 
   belongs_to :cycle, class_name: 'OrdersCyclePlugin::Cycle'
   belongs_to :sale, class_name: 'OrdersCyclePlugin::Sale', foreign_key: :sale_id, dependent: :destroy

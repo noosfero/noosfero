@@ -1,4 +1,4 @@
-class Unit < ActiveRecord::Base
+class Unit < ApplicationRecord
 
   acts_as_list scope: -> unit { where environment_id: unit.environment_id }
 

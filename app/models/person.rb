@@ -336,7 +336,7 @@ class Person < Profile
     environment ||= self.environment
     role_assignments.includes([:role, :resource]).select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
-        ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
+        ApplicationRecord::PERMISSIONS['Environment'].keys.include?(p)
       end
     end
   end

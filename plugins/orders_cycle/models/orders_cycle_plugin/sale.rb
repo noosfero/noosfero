@@ -34,7 +34,7 @@ class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
   end
 
   def add_purchases_items
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       self.items.each do |item|
         next unless supplier_product = item.product.supplier_product
         next unless supplier = supplier_product.profile
@@ -54,7 +54,7 @@ class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
   end
 
   def remove_purchases_items
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       self.items.each do |item|
         next unless supplier_product = item.product.supplier_product
         next unless purchase = supplier_product.orders_cycles_purchases.for_cycle(self.cycle).first

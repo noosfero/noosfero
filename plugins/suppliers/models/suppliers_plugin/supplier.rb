@@ -1,4 +1,4 @@
-class SuppliersPlugin::Supplier < ActiveRecord::Base
+class SuppliersPlugin::Supplier < ApplicationRecord
 
   attr_accessor :distribute_products_on_create, :dont_destroy_dummy, :identifier_from_name
 

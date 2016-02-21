@@ -1,4 +1,4 @@
-class SearchTerm < ActiveRecord::Base
+class SearchTerm < ApplicationRecord
   validates_presence_of :term, :context
   validates_uniqueness_of :term, :scope => [:context_id, :context_type, :asset]
 
@@ -25,7 +25,7 @@ class SearchTerm < ActiveRecord::Base
   # Therefore the score is 97. Them we sum every score to get the total score
   # for a search term.
   def self.occurrences_scores
-    Hash[*ActiveRecord::Base.connection.execute(
+    Hash[*ApplicationRecord.connection.execute(
       joins(:occurrences).
       select("search_terms.id, sum(#{SearchTermOccurrence::EXPIRATION_TIME.to_i} - extract(epoch from (now() - search_term_occurrences.created_at))) as value").
       where("search_term_occurrences.created_at > ?", DateTime.now - SearchTermOccurrence::EXPIRATION_TIME).

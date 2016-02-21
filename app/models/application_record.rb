@@ -1,9 +1,9 @@
-require 'active_record'
+class ApplicationRecord < ActiveRecord::Base
 
-class ActiveRecord::Base
+  self.abstract_class = true
 
   def self.postgresql?
-    ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+    self.connection.adapter_name == 'PostgreSQL'
   end
 
   # an ActionView instance for rendering views on models
@@ -25,7 +25,7 @@ class ActiveRecord::Base
   alias :meta_cache_key :cache_key
   def cache_key
     key = [Noosfero::VERSION, meta_cache_key]
-    key.unshift(ActiveRecord::Base.connection.schema_search_path) if ActiveRecord::Base.postgresql?
+    key.unshift(ApplicationRecord.connection.schema_search_path) if ApplicationRecord.postgresql?
     key.join('/')
   end
 
@@ -62,13 +62,3 @@ class ActiveRecord::Base
 
 end
 
-ActiveRecord::Calculations.class_eval do
-  def count_with_distinct column_name=self.primary_key
-    if column_name
-      distinct.count_without_distinct column_name
-    else
-      count_without_distinct
-    end
-  end
-  alias_method_chain :count, :distinct
-end

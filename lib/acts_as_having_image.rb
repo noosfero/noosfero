@@ -23,4 +23,5 @@ module ActsAsHavingImage
 
 end
 
-ActiveRecord::Base.extend(ActsAsHavingImage::ClassMethods)
+ApplicationRecord.extend ActsAsHavingImage::ClassMethods
+

@@ -1,4 +1,4 @@
-class CustomFormsPlugin::Answer < ActiveRecord::Base
+class CustomFormsPlugin::Answer < ApplicationRecord
   self.table_name = :custom_forms_plugin_answers
   belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
   belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission'

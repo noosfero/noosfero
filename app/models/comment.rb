@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
 
   SEARCHABLE_FIELDS = {
     :title => {:label => _('Title'), :weight => 10},

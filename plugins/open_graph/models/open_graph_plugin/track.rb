@@ -1,4 +1,4 @@
-class OpenGraphPlugin::Track < ActiveRecord::Base
+class OpenGraphPlugin::Track < ApplicationRecord
 
   class_attribute :context
   self.context = :open_graph

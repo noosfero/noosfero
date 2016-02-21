@@ -7,11 +7,11 @@ GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
 before_fork do |server, worker|
-  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  ApplicationRecord.connection.disconnect! if defined?(ApplicationRecord)
 end
 
 after_fork do |server, worker|
-  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+  ApplicationRecord.establish_connection if defined?(ApplicationRecord)
 end
 
 # load local configuration file, if it exists

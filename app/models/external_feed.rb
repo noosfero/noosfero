@@ -1,4 +1,4 @@
-class ExternalFeed < ActiveRecord::Base
+class ExternalFeed < ApplicationRecord
 
   belongs_to :blog
   validates_presence_of :blog_id

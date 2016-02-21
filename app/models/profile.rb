@@ -1,7 +1,7 @@
 # A Profile is the representation and web-presence of an individual or an
 # organization. Every Profile is attached to its Environment of origin,
 # which by default is the one returned by Environment:default.
-class Profile < ActiveRecord::Base
+class Profile < ApplicationRecord
 
   attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
     :redirection_after_login, :custom_url_redirection,

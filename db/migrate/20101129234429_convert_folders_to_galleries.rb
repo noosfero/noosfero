@@ -10,7 +10,7 @@ class ConvertFoldersToGalleries < ActiveRecord::Migration
     select_all("select id, setting from articles where type = 'Gallery'").each do |folder|
       settings = YAML.load(folder['setting'] || {}.to_yaml)
       settings[:view_as] = 'image_gallery'
-      assignments = ActiveRecord::Base.sanitize_sql_for_assignment(:setting => settings.to_yaml)
+      assignments = ApplicationRecord.sanitize_sql_for_assignment(:setting => settings.to_yaml)
       update("update articles set %s, type = 'Folder' where id = %d" % [assignments, folder['id']])
     end
   end

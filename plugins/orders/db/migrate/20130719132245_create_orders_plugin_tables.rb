@@ -1,7 +1,7 @@
 class CreateOrdersPluginTables < ActiveRecord::Migration
   def self.up
     # check if distribution plugin already moved tables
-    return if ActiveRecord::Base.connection.table_exists? :orders_plugin_orders
+    return if ApplicationRecord.connection.table_exists? :orders_plugin_orders
 
     create_table :orders_plugin_orders do |t|
       t.integer  :profile_id

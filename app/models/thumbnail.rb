@@ -1,4 +1,4 @@
-class Thumbnail < ActiveRecord::Base
+class Thumbnail < ApplicationRecord
 
   attr_accessible :uploaded_data
   # mass assigned by attachment_fu

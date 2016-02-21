@@ -1,4 +1,4 @@
-class StoaPlugin::UspAlunoTurmaGrad < ActiveRecord::Base
+class StoaPlugin::UspAlunoTurmaGrad < ApplicationRecord
 
   establish_connection(:stoa)
 

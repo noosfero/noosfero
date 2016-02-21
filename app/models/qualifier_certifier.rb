@@ -1,4 +1,4 @@
-class QualifierCertifier < ActiveRecord::Base
+class QualifierCertifier < ApplicationRecord
   belongs_to :qualifier
   belongs_to :certifier
 

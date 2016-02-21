@@ -1,4 +1,4 @@
-class PriceDetail < ActiveRecord::Base
+class PriceDetail < ApplicationRecord
 
   attr_accessible :price, :production_cost_id
 

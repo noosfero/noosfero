@@ -1,4 +1,4 @@
-class VolunteersPlugin::Period < ActiveRecord::Base
+class VolunteersPlugin::Period < ApplicationRecord
 
   attr_accessible :name
   attr_accessible :start, :end

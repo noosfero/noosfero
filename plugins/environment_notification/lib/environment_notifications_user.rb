@@ -1,4 +1,4 @@
-class EnvironmentNotificationsUser < ActiveRecord::Base
+class EnvironmentNotificationsUser < ApplicationRecord
   self.table_name = "environment_notifications_users"
 
   belongs_to :user

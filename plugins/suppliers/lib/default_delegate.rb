@@ -126,4 +126,4 @@ module DefaultDelegate
 
 end
 
-ActiveRecord::Base.extend DefaultDelegate::ClassMethods
+ApplicationRecord.extend DefaultDelegate::ClassMethods

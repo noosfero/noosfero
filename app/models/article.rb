@@ -1,5 +1,5 @@
 
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
 
   include SanitizeHelper
 

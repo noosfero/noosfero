@@ -1,4 +1,4 @@
-class ProfileActivity < ActiveRecord::Base
+class ProfileActivity < ApplicationRecord
 
   self.record_timestamps = false
 

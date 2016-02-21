@@ -1,7 +1,7 @@
 class CreateDeliveryPluginTables < ActiveRecord::Migration
   def self.up
     # check if distribution plugin already moved tables
-    return if ActiveRecord::Base.connection.table_exists? :delivery_plugin_methods
+    return if ApplicationRecord.connection.table_exists? :delivery_plugin_methods
 
     create_table :delivery_plugin_methods do |t|
       t.integer  :profile_id

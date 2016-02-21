@@ -1,4 +1,4 @@
-class OrganizationRating < ActiveRecord::Base
+class OrganizationRating < ApplicationRecord
   belongs_to :person
   belongs_to :organization
   belongs_to :comment

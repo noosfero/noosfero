@@ -1,7 +1,7 @@
 OrdersPlugin.send :remove_const, :Item if defined? OrdersPlugin::Item
 OrdersPlugin.send :remove_const, :Order if defined? OrdersPlugin::Order
 
-class ShoppingCartPlugin::PurchaseOrder < ActiveRecord::Base
+class ShoppingCartPlugin::PurchaseOrder < ApplicationRecord
   acts_as_having_settings field: :data
 
   module Status
@@ -16,10 +16,10 @@ class Profile
   has_many :orders, class_name: 'OrdersPlugin::Order'
 end
 
-class OrdersPlugin::Item < ActiveRecord::Base
+class OrdersPlugin::Item < ApplicationRecord
   belongs_to :order, class_name: 'OrdersPlugin::Order'
 end
-class OrdersPlugin::Order < ActiveRecord::Base
+class OrdersPlugin::Order < ApplicationRecord
   has_many :items, class_name: 'OrdersPlugin::Item', foreign_key: :order_id
 
   extend CodeNumbering::ClassMethods

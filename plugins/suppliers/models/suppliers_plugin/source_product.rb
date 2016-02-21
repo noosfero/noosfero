@@ -1,4 +1,4 @@
-class SuppliersPlugin::SourceProduct < ActiveRecord::Base
+class SuppliersPlugin::SourceProduct < ApplicationRecord
 
   attr_accessible :from_product, :to_product, :quantity
 

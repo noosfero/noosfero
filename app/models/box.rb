@@ -1,4 +1,4 @@
-class Box < ActiveRecord::Base
+class Box < ApplicationRecord
 
   acts_as_list scope: -> box { where owner_id: box.owner_id, owner_type: box.owner_type }
 

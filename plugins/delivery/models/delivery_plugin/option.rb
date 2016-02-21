@@ -1,4 +1,4 @@
-class DeliveryPlugin::Option < ActiveRecord::Base
+class DeliveryPlugin::Option < ApplicationRecord
 
   belongs_to :delivery_method, :class_name => 'DeliveryPlugin::Method'
   belongs_to :owner, :polymorphic => true

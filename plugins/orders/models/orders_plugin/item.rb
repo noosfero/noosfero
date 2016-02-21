@@ -1,4 +1,4 @@
-class OrdersPlugin::Item < ActiveRecord::Base
+class OrdersPlugin::Item < ApplicationRecord
 
   attr_accessible :order, :sale, :purchase,
     :product, :product_id,

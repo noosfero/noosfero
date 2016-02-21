@@ -1,4 +1,5 @@
-class CustomField < ActiveRecord::Base
+class CustomField < ApplicationRecord
+
   attr_accessible :name, :default_value, :format, :extras, :customized_type, :active, :required, :signup, :environment, :moderation_task
   serialize :customized_type
   serialize :extras

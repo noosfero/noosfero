@@ -1,7 +1,7 @@
 # A Environment is like a website to be hosted in the platform. It may
 # contain multiple Profile's and can be identified by several different
 # domains.
-class Environment < ActiveRecord::Base
+class Environment < ApplicationRecord
 
   attr_accessible :name, :is_default, :signup_welcome_text_subject,
                   :signup_welcome_text_body, :terms_of_use,

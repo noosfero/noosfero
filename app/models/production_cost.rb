@@ -1,4 +1,4 @@
-class ProductionCost < ActiveRecord::Base
+class ProductionCost < ApplicationRecord
 
   attr_accessible :name, :owner
 

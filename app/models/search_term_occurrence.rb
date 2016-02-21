@@ -1,4 +1,4 @@
-class SearchTermOccurrence < ActiveRecord::Base
+class SearchTermOccurrence < ApplicationRecord
 
   belongs_to :search_term
   validates_presence_of :search_term
