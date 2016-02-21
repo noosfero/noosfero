@@ -32,7 +32,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
       ArticleCategorization.add_category_to_article(c2, a)
     end
 
-    assert_equal 2, ArticleCategorization.find_all_by_article_id(a.id).size
+    assert_equal 2, ArticleCategorization.where(article_id: a.id).count
   end
 
   should 'not duplicate entry for category that is parent of two others' do

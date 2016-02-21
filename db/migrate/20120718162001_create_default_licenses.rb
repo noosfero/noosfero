@@ -14,14 +14,14 @@ class CreateDefaultLicenses < ActiveRecord::Migration
 
   def self.down
     licenses = []
-    licenses += License.find(:all, :conditions => {:name => 'CC (by)'})
-    licenses += License.find(:all, :conditions => {:name => 'CC (by-nd)'})
-    licenses += License.find(:all, :conditions => {:name => 'CC (by-sa)'})
-    licenses += License.find(:all, :conditions => {:name => 'CC (by-nc)'})
-    licenses += License.find(:all, :conditions => {:name => 'CC (by-nc-nd)'})
-    licenses += License.find(:all, :conditions => {:name => 'CC (by-nc-sa)'})
-    licenses += License.find(:all, :conditions => {:name => 'Free Art'})
-    licenses += License.find(:all, :conditions => {:name => 'GNU FDL'})
+    licenses += License.where name: 'CC (by)'
+    licenses += License.where name: 'CC (by-nd)'
+    licenses += License.where name: 'CC (by-sa)'
+    licenses += License.where name: 'CC (by-nc)'
+    licenses += License.where name: 'CC (by-nc-nd)'
+    licenses += License.where name: 'CC (by-nc-sa)'
+    licenses += License.where name: 'Free Art'
+    licenses += License.where name: 'GNU FDL'
     licenses.compact.map(&:destroy)
   end
 end

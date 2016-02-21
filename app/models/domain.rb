@@ -36,8 +36,8 @@ class Domain < ActiveRecord::Base
   # finds a domain by its name. The argument <tt>name</tt> can start with
   # "www.", but it will be removed before searching. So searching for
   # 'www.example.net' is exactly the same as searching for just 'example.net'
-  def self.find_by_name(name)
-    self.where('name = ?', self.extract_domain_name(name)).first
+  def self.by_name(name)
+    self.find_by(name: self.extract_domain_name(name))
   end
 
   # turns the argument (expected to be a String) into a domain name that is
@@ -82,7 +82,7 @@ class Domain < ActiveRecord::Base
     Noosfero::MultiTenancy.setup!(domainname)
     @hosting[domainname] ||=
       begin
-        domain = Domain.find_by_name(domainname)
+        domain = Domain.by_name(domainname)
         !domain.nil? && (domain.owner_type == 'Profile')
       end
   end

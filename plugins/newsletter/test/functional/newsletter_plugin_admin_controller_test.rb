@@ -46,7 +46,7 @@ class NewsletterPluginAdminControllerTest < ActionController::TestCase
     post :index,
       :newsletter => { :enabled => 'true' }
 
-    newsletter = NewsletterPlugin::Newsletter.find_by_environment_id(@environment.id)
+    newsletter = NewsletterPlugin::Newsletter.find_by environment_id: @environment.id
 
     assert newsletter.enabled
   end
@@ -56,7 +56,7 @@ class NewsletterPluginAdminControllerTest < ActionController::TestCase
     post :index,
       :newsletter => { :periodicity => '10' }
 
-    newsletter = NewsletterPlugin::Newsletter.find_by_environment_id(@environment.id)
+    newsletter = NewsletterPlugin::Newsletter.find_by environment_id: @environment.id
 
     assert_equal 10, newsletter.periodicity
   end

@@ -28,7 +28,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :product_category
 
-  has_many :inputs, :dependent => :destroy, :order => 'position'
+  has_many :inputs, -> { order 'position' }, dependent: :destroy
   has_many :price_details, :dependent => :destroy
   has_many :production_costs, :through => :price_details
 
@@ -50,7 +50,7 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, :allow_nil => true
   validates_numericality_of :discount, :allow_nil => true
 
-  scope :more_recent, :order => "created_at DESC"
+  scope :more_recent, -> { order 'created_at DESC' }
 
   scope :from_category, -> category {
     joins(:product_category).where('categories.path LIKE ?', "%#{category.slug}%") if category
@@ -74,6 +74,8 @@ class Product < ActiveRecord::Base
       true, true, true]
     ).uniq
   }
+
+  scope :recent, -> limit=nil { order('id DESC').limit(limit) }
 
   after_update :save_image
 
@@ -126,10 +128,6 @@ class Product < ActiveRecord::Base
 
   def category_name
     product_category ? product_category.name : _('Uncategorized product')
-  end
-
-  def self.recent(limit = nil)
-    self.find(:all, :order => 'id desc', :limit => limit)
   end
 
   def url

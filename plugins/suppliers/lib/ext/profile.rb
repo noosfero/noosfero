@@ -24,10 +24,14 @@ subclass.class_eval do
   has_many :from_products, through: :products
   has_many :to_products, through: :products
 
-  has_many :suppliers, class_name: 'SuppliersPlugin::Supplier', foreign_key: :consumer_id, dependent: :destroy,
-    include: [{profile: [:domains], consumer: [:domains]}], order: 'name ASC'
-  has_many :consumers, class_name: 'SuppliersPlugin::Consumer', foreign_key: :profile_id, dependent: :destroy,
-    include: [{profile: [:domains], consumer: [:domains]}], order: 'name ASC'
+  has_many :suppliers, -> {
+    includes(profile: [:domains], consumer: [:domains])
+      .order('name ASC')
+  }, class_name: 'SuppliersPlugin::Supplier', foreign_key: :consumer_id, dependent: :destroy
+  has_many :consumers, -> {
+    includes(profile: [:domains], consumer: [:domains])
+      .order('name ASC')
+  }, class_name: 'SuppliersPlugin::Consumer', foreign_key: :profile_id, dependent: :destroy
 
 end
 end

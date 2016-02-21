@@ -23,7 +23,7 @@ module ActsAsAccessor
 
   def add_role(role, resource, attributes = {})
     attributes = role_attributes(role, resource).merge attributes
-    if RoleAssignment.find(:all, :conditions => attributes).empty?
+    if RoleAssignment.find_by(attributes).nil?
       ra = RoleAssignment.new(attributes)
       role_assignments << ra
       resource.role_assignments << ra

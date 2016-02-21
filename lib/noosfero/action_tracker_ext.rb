@@ -9,7 +9,9 @@ Rails.configuration.to_prepare do
       end
     end
 
-    has_many :profile_activities, foreign_key: :activity_id, conditions: {profile_activities: {activity_type: 'ActionTracker::Record'}}, dependent: :destroy
+    has_many :profile_activities, -> {
+      where profile_activities: {activity_type: 'ActionTracker::Record'}
+    }, foreign_key: :activity_id, dependent: :destroy
 
     after_create :create_activity
     after_update :update_activity

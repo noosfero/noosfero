@@ -52,7 +52,6 @@ gem 'protected_attributes'
 gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
-gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
 group :production do
   gem 'dalli', '~> 2.7.0'

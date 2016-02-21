@@ -21,7 +21,7 @@ class MembersBlock < PeopleBlockBase
   end
 
   def role
-    visible_role && !visible_role.empty? ? Role.find_by_key_and_environment_id(visible_role, owner.environment) : nil
+    visible_role && !visible_role.empty? ? Role.find_by(key: visible_role, environment_id: owner.environment.id) : nil
   end
 
   def roles

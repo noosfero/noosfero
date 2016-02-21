@@ -77,7 +77,7 @@ class Community < Organization
   end
 
   def each_member(offset=0)
-    while member = self.members.first(:order => :id, :offset => offset)
+    while member = self.members.order(:id).offset(offset).first
       yield member
       offset = offset + 1
     end

@@ -120,7 +120,8 @@ class ProfileSuggestion < ActiveRecord::Base
     return if suggested_profiles.blank?
 
     suggested_profiles.each do |suggested_profile|
-      suggestion = person.suggested_profiles.find_or_initialize_by_suggestion_id(suggested_profile.id)
+      suggestion   = person.suggested_profiles.find_by suggestion_id: suggested_profile.id
+      suggestion ||= person.suggested_profiles.build({suggestion_id: suggested_profile.id}, without_protection: true)
       RULES.each do |rule, options|
         begin
           value = suggested_profile.send("#{rule}_count").to_i

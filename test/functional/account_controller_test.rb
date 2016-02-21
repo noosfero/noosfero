@@ -198,7 +198,7 @@ class AccountControllerTest < ActionController::TestCase
     post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
     assert_response :success
     assert_template 'change_password'
-    refute  User.find_by_login('ze').authenticated?('blabla')
+    refute  User.find_by(login: 'ze').authenticated?('blabla')
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
@@ -454,7 +454,7 @@ class AccountControllerTest < ActionController::TestCase
 
     ent.reload
 
-    assert_nil User.find_by_login('test_user')
+    assert_nil User.find_by(login: 'test_user')
     assert ent.blocked?
     assert_template 'blocked'
   end
@@ -637,7 +637,7 @@ class AccountControllerTest < ActionController::TestCase
     env.enable('skip_new_user_email_confirmation')
     env.save!
     new_user(:login => 'activated_user')
-    user = User.find_by_login('activated_user')
+    user = User.find_by(login: 'activated_user')
     assert user.activated?
   end
 
@@ -702,14 +702,14 @@ class AccountControllerTest < ActionController::TestCase
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
-    e = User.find_by_login('ze').environment
+    e = User.find_by(login: 'ze').environment
     e.enable_plugin(Plugin1.name)
     e.enable_plugin(Plugin2.name)
 
     login_as 'ze'
 
     xhr :get, :user_data
-    assert_equal User.find_by_login('ze').data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
+    assert_equal User.find_by(login: 'ze').data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
   end
 
   should 'activate user when activation code is present and correct' do

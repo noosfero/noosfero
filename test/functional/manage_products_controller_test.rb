@@ -84,7 +84,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
-    assert_equal product, Product.find_by_name('new test product')
+    assert_equal product, Product.find_by(name: 'new test product')
   end
 
   should "edit product description" do
@@ -93,7 +93,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
-    assert_equal 'A very good product!', Product.find_by_name('test product').description
+    assert_equal 'A very good product!', Product.find_by(name: 'test product').description
   end
 
   should "edit product image" do
@@ -102,7 +102,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
-    assert_equal 'rails.png', Product.find_by_name('test product').image.filename
+    assert_equal 'rails.png', Product.find_by(name: 'test product').image.filename
   end
 
   should "not edit to invalid parameters" do
@@ -126,7 +126,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       assert_response :redirect
       assert_redirected_to :action => 'index'
       assert assigns(:product)
-      refute  Product.find_by_name('test product')
+      refute  Product.find_by(name: 'test product')
     end
   end
 
@@ -138,7 +138,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       assert_response :redirect
       assert_redirected_to :controller => "manage_products", :profile => @enterprise.identifier, :action => 'show', :id => product.id
       assert assigns(:product)
-      assert Product.find_by_name('test product')
+      assert Product.find_by(name: 'test product')
     end
   end
 

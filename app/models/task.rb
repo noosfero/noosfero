@@ -137,9 +137,9 @@ class Task < ActiveRecord::Base
       group = klass.to_s.downcase.pluralize
       id = attribute.to_s + "_id"
       if environment.respond_to?(group)
-        attrb = value || environment.send(group).find_by_id(record.send(id))
+        attrb = value || environment.send(group).find_by(id: record.send(id))
       else
-        attrb = value || klass.find_by_id(record.send(id))
+        attrb = value || klass.find_by(id: record.send(id))
       end
       if attrb.respond_to?(klass.to_s.downcase + "?")
         unless attrb.send(klass.to_s.downcase + "?")

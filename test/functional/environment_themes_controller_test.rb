@@ -12,7 +12,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     @env = Environment.default
     login = create_admin_user(@env)
     login_as(login)
-    @profile = User.find_by_login(login).person
+    @profile = User.find_by(login: login).person
   end
 
   def teardown

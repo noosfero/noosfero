@@ -1,6 +1,6 @@
 class Forum < Folder
 
-  acts_as_having_posts :order => 'updated_at DESC'
+  acts_as_having_posts -> { reorder 'updated_at DESC' }
   include PostsLimit
 
   attr_accessible :has_terms_of_use, :terms_of_use, :topic_creation
@@ -12,7 +12,7 @@ class Forum < Folder
 
   before_save do |forum|
     if forum.has_terms_of_use
-      last_editor = forum.profile.environment.people.find_by_id(forum.last_changed_by_id)
+      last_editor = forum.profile.environment.people.find_by(id: forum.last_changed_by_id)
       if last_editor && !forum.users_with_agreement.exists?(last_editor)
         forum.users_with_agreement << last_editor
       end
@@ -34,14 +34,14 @@ class Forum < Folder
   end
 
   module TopicCreation
-    BASE = ActiveSupport::OrderedHash.new
+    BASE = {}
     BASE['users'] = _('Logged users')
 
-    PERSON = ActiveSupport::OrderedHash.new
+    PERSON = {}
     PERSON['self'] = _('Me')
     PERSON['related'] = _('Friends')
 
-    GROUP = ActiveSupport::OrderedHash.new
+    GROUP = {}
     GROUP['self'] = _('Administrators')
     GROUP['related'] = _('Members')
 

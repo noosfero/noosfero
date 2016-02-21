@@ -29,11 +29,11 @@ class PeopleBlockBase < Block
     result = nil
     visible_profiles = profiles.visible.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
-      result = visible_profiles.all(:limit => limit, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = visible_profiles.limit(limit).order('profiles.updated_at DESC').sort_by{ rand }
     elsif profiles.visible.with_image.count >= limit
-      result = visible_profiles.with_image.all(:limit => limit * 5, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = visible_profiles.with_image.limit(limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     else
-      result = visible_profiles.with_image.sort_by{ rand } + visible_profiles.without_image.all(:limit => limit * 5, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = visible_profiles.with_image.sort_by{ rand } + visible_profiles.without_image.limit(limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     end
     result.slice(0..limit-1)
   end

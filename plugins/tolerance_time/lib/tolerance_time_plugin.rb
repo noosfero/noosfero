@@ -12,7 +12,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
     return false if content.kind_of?(Comment) && !content.article.kind_of?(Article)
 
     expirable = content.kind_of?(Comment) || (!content.folder? && content.published?)
-    publication = ToleranceTimePlugin::Publication.find_by_target(content)
+    publication = ToleranceTimePlugin::Publication.find_by target: content
     publication = ToleranceTimePlugin::Publication.create!(:target => content) if expirable && publication.nil?
     person_article = content.kind_of?(Article) && content.profile.kind_of?(Person)
 

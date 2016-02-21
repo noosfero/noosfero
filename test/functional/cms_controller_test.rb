@@ -200,7 +200,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
 
-    a = profile.articles.find_by_path('changed-by-me')
+    a = profile.articles.find_by(path: 'changed-by-me')
     assert_not_nil a
     assert_equal profile, a.last_changed_by
   end
@@ -308,14 +308,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
-    assert_not_nil profile.articles.find_by_path('test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test.txt')
     assigns(:article).destroy
   end
 
   should 'be able to update an uploaded file' do
     post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
 
-    file = profile.articles.find_by_path('test.txt')
+    file = profile.articles.find_by(path: 'test.txt')
     assert_equal 'test.txt', file.name
 
     post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test_another.txt', 'text/plain')}
@@ -347,8 +347,8 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'UploadedFile.count', 2 do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
     end
-    assert_not_nil profile.articles.find_by_path('test.txt')
-    assert_not_nil profile.articles.find_by_path('rails.png')
+    assert_not_nil profile.articles.find_by(path: 'test.txt')
+    assert_not_nil profile.articles.find_by(path: 'rails.png')
   end
 
   should 'upload to rigth folder' do
@@ -364,7 +364,7 @@ class CmsControllerTest < ActionController::TestCase
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
 
-    uf = profile.articles.find_by_name('test.txt')
+    uf = profile.articles.find_by(name: 'test.txt')
     assert_equal profile, uf.author
   end
 
@@ -385,14 +385,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
     end
-    assert_not_nil profile.articles.find_by_path('test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test.txt')
   end
 
   should 'not crash when parent_id is blank' do
     assert_nothing_raised do
       post :upload_files, :profile => profile.identifier, :parent_id => '', :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
     end
-    assert_not_nil profile.articles.find_by_path('test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test.txt')
   end
 
   should 'redirect to cms after uploading files' do
@@ -512,7 +512,7 @@ class CmsControllerTest < ActionController::TestCase
     # post is in c1 and c3
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id] }
 
-    saved = profile.articles.find_by_name('adding-categories-test')
+    saved = profile.articles.find_by(name: 'adding-categories-test')
     assert_includes saved.categories, c1
     assert_not_includes saved.categories, c2
     assert_includes saved.categories, c3
@@ -527,7 +527,7 @@ class CmsControllerTest < ActionController::TestCase
     # post is in c1, c3 and c3
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id, c3.id ] }
 
-    saved = profile.articles.find_by_name('adding-categories-test')
+    saved = profile.articles.find_by(name: 'adding-categories-test')
     assert_equal [c1, c3], saved.categories.all
   end
 
@@ -559,7 +559,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'keep informed parent_id' do
     fast_create(:blog, :name=>"Sample blog", :profile_id=>@profile.id)
 
-    profile.home_page = profile.blogs.find_by_name "Sample blog"
+    profile.home_page = profile.blogs.find_by name: "Sample blog"
     profile.save!
 
     get :new, :profile => @profile.identifier, :parent_id => profile.home_page.id, :type => 'TextileArticle'
@@ -608,20 +608,20 @@ class CmsControllerTest < ActionController::TestCase
   should 'redirect to article after creating top-level article' do
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :article => { :name => 'top-level-article' }
 
-    assert_redirected_to @profile.articles.find_by_name('top-level-article').url
+    assert_redirected_to @profile.articles.find_by(name: 'top-level-article').url
   end
 
   should 'redirect to article after creating article inside a folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => f.id, :article => { :name => 'article-inside-folder' }
 
-    assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
+    assert_redirected_to @profile.articles.find_by(name: 'article-inside-folder').url
   end
 
   should 'redirect back to article after editing top-level article' do
     f = Folder.new(:name => 'top-level-article'); profile.articles << f; f.save!
     post :edit, :profile => profile.identifier, :id => f.id
-    assert_redirected_to @profile.articles.find_by_name('top-level-article').url
+    assert_redirected_to @profile.articles.find_by(name: 'top-level-article').url
   end
 
   should 'redirect back to article after editing article inside a folder' do
@@ -629,7 +629,7 @@ class CmsControllerTest < ActionController::TestCase
     a = create(TextileArticle, :parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
 
     post :edit, :profile => profile.identifier, :id => a.id
-    assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
+    assert_redirected_to @profile.articles.find_by(name: 'article-inside-folder').url
   end
 
   should 'point back to index when cancelling creation of top-level article' do
@@ -696,14 +696,14 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to add image with alignment' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
-    saved = TinyMceArticle.find_by_name('image-alignment')
+    saved = TinyMceArticle.find_by(name: 'image-alignment')
     assert_match /<img.*src="#".*>/, saved.body
     assert_match /<img.*align="right".*>/, saved.body
   end
 
   should 'be able to add image with alignment when textile' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
-    saved = TextileArticle.find_by_name('image-alignment')
+    saved = TextileArticle.find_by(name: 'image-alignment')
     assert_match /align="right"/, saved.body
   end
 
@@ -770,7 +770,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'go to public view after creating article coming from there' do
     post :new, :profile => 'testinguser', :type => 'TextileArticle', :back_to => 'public_view', :article => { :name => 'new-article-from-public-view' }
     assert_response :redirect
-    assert_redirected_to @profile.articles.find_by_name('new-article-from-public-view').url
+    assert_redirected_to @profile.articles.find_by(name: 'new-article-from-public-view').url
   end
 
   should 'keep the back_to hint in unsuccessfull saves' do
@@ -1034,14 +1034,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'Blog.count' do
       post :new, :type => Blog.name, :profile => profile.identifier, :article => { :name => 'my-blog' }, :back_to => 'control_panel'
     end
-    assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
+    assert_redirected_to @profile.articles.find_by(name: 'my-blog').view_url
   end
 
   should 'back to blog after config blog' do
     profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
     post :edit, :profile => profile.identifier, :id => profile.blog.id
 
-    assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
+    assert_redirected_to @profile.articles.find_by(name: 'my-blog').view_url
   end
 
   should 'back to control panel if cancel create blog' do
@@ -1068,7 +1068,7 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = FilePresenter.for profile.articles.find_by_name('rails.png')
+    file = FilePresenter.for profile.articles.find_by(name: 'rails.png')
     assert File.exists?(file.icon_name)
     file.destroy
   end
@@ -1079,7 +1079,7 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = FilePresenter.for profile.articles.find_by_name('rails.png')
+    file = FilePresenter.for profile.articles.find_by(name: 'rails.png')
     assert File.exists?(file.icon_name)
     file.destroy
   end
@@ -1320,8 +1320,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'create thumbnails for images with delayed_job' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
-    file_1 = profile.articles.find_by_path('rails.png')
-    file_2 = profile.articles.find_by_path('test.txt')
+    file_1 = profile.articles.find_by(path: 'rails.png')
+    file_2 = profile.articles.find_by(path: 'test.txt')
 
     process_delayed_job_queue
 
@@ -1413,7 +1413,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'Forum.count' do
       post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
     end
-    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+    assert_redirected_to @profile.articles.find_by(name: 'my-forum').view_url
   end
 
   should 'back to forum after config forum' do
@@ -1421,7 +1421,7 @@ class CmsControllerTest < ActionController::TestCase
       post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
     end
       post :edit, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my forum' }, :id => profile.forum.id
-    assert_redirected_to @profile.articles.find_by_name('my forum').view_url
+    assert_redirected_to @profile.articles.find_by(name: 'my forum').view_url
   end
 
   should 'back to control panel if cancel create forum' do
@@ -1829,7 +1829,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'Sample Article', :body => 'content ...' }
 
-    a = profile.articles.find_by_path('sample-article')
+    a = profile.articles.find_by(path: 'sample-article')
     assert_not_nil a
     assert_equal profile, a.author
   end
@@ -1913,7 +1913,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }
 
-    a = profile.articles.find_by_path('changed-by-me')
+    a = profile.articles.find_by(path: 'changed-by-me')
     assert_not_nil a
     assert_equal profile, a.created_by
   end
@@ -1960,13 +1960,13 @@ class CmsControllerTest < ActionController::TestCase
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :parent_id => f.id,
                :article => { :name => 'Main Article', :body => 'some content' }
 
-    main_article = profile.articles.find_by_name('Main Article')
+    main_article = profile.articles.find_by(name: 'Main Article')
     assert_not_nil main_article
 
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :parent_id => f.id,
                :id => main_article.id, :clone => true
 
-    cloned_main_article = profile.articles.find_by_name('Main Article')
+    cloned_main_article = profile.articles.find_by(name: 'Main Article')
     assert_not_nil cloned_main_article
 
     assert_equal main_article.parent_id, cloned_main_article.parent_id

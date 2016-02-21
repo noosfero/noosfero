@@ -26,7 +26,7 @@ class NewsletterPluginAdminController < PluginAdminController
       end
     end
 
-    @blogs = Blog.includes(:profile).find_all_by_id(@newsletter.blog_ids)
+    @blogs = Blog.includes(:profile).where id: @newsletter.blog_ids
   end
 
   #TODO: Make this query faster

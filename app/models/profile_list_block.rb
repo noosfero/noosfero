@@ -18,11 +18,11 @@ class ProfileListBlock < Block
     result = nil
     public_profiles = profiles.is_public.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
-result = public_profiles.all(:limit => get_limit, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = public_profiles.limit(get_limit).order('profiles.updated_at DESC').sort_by{ rand }
     elsif profiles.visible.with_image.count >= get_limit
-      result = public_profiles.with_image.all(:limit => get_limit * 5, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = public_profiles.with_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     else
-      result = public_profiles.with_image.sort_by{ rand } + public_profiles.without_image.all(:limit => get_limit * 5, :order => 'profiles.updated_at DESC').sort_by{ rand }
+      result = public_profiles.with_image.sort_by{ rand } + public_profiles.without_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     end
     result.slice(0..get_limit-1)
   end

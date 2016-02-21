@@ -73,7 +73,7 @@ module WorkAssignmentPlugin::Helper
   end
 
   def display_privacy_button(author_folder, user)
-    folder = environment.articles.find_by_id(author_folder.id)
+    folder = environment.articles.find_by id: author_folder.id
     work_assignment = folder.parent
     @back_to = url_for(work_assignment.url)
 

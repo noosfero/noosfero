@@ -7,7 +7,7 @@ class EnvironmentRoleManagerController < AdminController
 
   def change_roles
     @admin = Person.find(params[:id])
-    @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
+    @roles = Role.all.select{ |r| r.has_kind?(:environment) }
   end
 
   def update_roles
@@ -22,7 +22,7 @@ class EnvironmentRoleManagerController < AdminController
   end
 
   def change_role
-    @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
+    @roles = Role.all.select{ |r| r.has_kind?(:environment) }
     @admin = Person.find(params[:id])
     @associations = @admin.find_roles(environment)
   end
@@ -34,7 +34,7 @@ class EnvironmentRoleManagerController < AdminController
       redirect_to :action => 'index'
     else
       @admin = Person.find(params[:person])
-      @roles = Role.find(:all).select{ |r| r.has_kind?(:environment) }
+      @roles = Role.all.select{ |r| r.has_kind?(:environment) }
       render :action => 'affiliate'
     end
   end
@@ -60,7 +60,7 @@ class EnvironmentRoleManagerController < AdminController
   end
 
   def make_admin
-    @people = Person.find(:all)
-    @roles = Role.find(:all).select{|r|r.has_kind?(:environment)}
+    @people = Person.all
+    @roles = Role.all.select{|r|r.has_kind?(:environment)}
   end
 end

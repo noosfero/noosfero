@@ -2,7 +2,7 @@ require_dependency 'article'
 
 class Article
 
-  scope :video_gallery, :conditions => ["articles.type = 'VideoPlugin::VideoGallery'"]
+  scope :video_gallery, -> { where "articles.type = 'VideoPlugin::VideoGallery'" }
 
   #FIXME This should be done via hotspot
   def self.folder_types_with_video
@@ -16,10 +16,9 @@ class Article
 
   def self.owner_video_galleries(owner)
     conditions = owner.kind_of?(Environment) ?  [] : ["profile_id = ?", owner.id]
-    result = Article.video_gallery.find(
-      :all,
-      :order => 'created_at desc',
-      :conditions => conditions)
+    result = Article.video_gallery
+      .order('created_at desc')
+      .where(conditions)
   end
 
 end

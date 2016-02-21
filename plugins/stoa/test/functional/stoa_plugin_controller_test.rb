@@ -157,7 +157,7 @@ class StoaPluginControllerTest < ActionController::TestCase
     usp_id = '12345678'
     user = mock
     user.stubs(:cpf).returns('12345678')
-    StoaPlugin::UspUser.stubs(:find_by_codpes).with(usp_id).returns(user)
+    StoaPlugin::UspUser.stubs(:find_by).with(codpes: usp_id).returns(user)
     get :check_cpf, :usp_id => usp_id
     assert json_response['exists']
   end
@@ -166,12 +166,12 @@ class StoaPluginControllerTest < ActionController::TestCase
     usp_id_with_cpf = '12345678'
     user_with_cpf = mock
     user_with_cpf.stubs(:cpf).returns('12345678')
-    StoaPlugin::UspUser.stubs(:find_by_codpes).with(usp_id_with_cpf).returns(user_with_cpf)
+    StoaPlugin::UspUser.stubs(:find_by).with(codpes: usp_id_with_cpf).returns(user_with_cpf)
     get :check_cpf, :usp_id => usp_id_with_cpf
     usp_id_without_cpf = '87654321'
     user_without_cpf = mock
     user_with_cpf.stubs(:cpf).returns(nil)
-    StoaPlugin::UspUser.stubs(:find_by_codpes).with(usp_id_without_cpf).returns(user_without_cpf)
+    StoaPlugin::UspUser.stubs(:find_by).with(codpes: usp_id_without_cpf).returns(user_without_cpf)
     get :check_cpf, :usp_id => usp_id_without_cpf
     refute json_response['exists']
   end

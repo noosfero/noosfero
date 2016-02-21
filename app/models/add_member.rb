@@ -59,7 +59,7 @@ class AddMember < Task
   end
 
   def remove_from_suggestion_list(task)
-    suggestion = task.requestor.profile_suggestions.find_by_suggestion_id task.target.id
+    suggestion = task.requestor.profile_suggestions.find_by suggestion_id: task.target.id
     suggestion.disable if suggestion
   end
 

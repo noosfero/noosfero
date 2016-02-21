@@ -32,7 +32,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
             },
             :without_protection => true
           )
-    submission = UploadedFile.find_by_filename("test.txt")
+    submission = UploadedFile.find_by filename: 'test.txt'
     assert_equal false, submission.published
     assert_equal false, submission.parent.published
 
@@ -78,7 +78,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
             :without_protection => true
           )
     logout
-    submission = UploadedFile.find_by_filename("test.txt")
+    submission = UploadedFile.find_by filename: 'test.txt'
     assert_equal false, submission.parent.published
     assert_equal false, submission.published
 
@@ -113,7 +113,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
     login_as :other_user
 
     @organization.add_member(other_person)
-    submission = UploadedFile.find_by_filename("test.txt")
+    submission = UploadedFile.find_by filename: 'test.txt'
     assert_equal(submission.author, @person)
 
     post :edit_visibility, :profile => @organization.identifier, :article_id => parent.id
@@ -143,7 +143,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
             },
             :without_protection => true
           )
-    submission = UploadedFile.find_by_filename("test.txt")
+    submission = UploadedFile.find_by filename: 'test.txt'
     assert_equal false, submission.article_privacy_exceptions.include?(other_person)
     post :edit_visibility, :profile => @organization.identifier, :article_id  => parent.id, :article => { :published => false }, :q => other_person.id
     submission.reload
@@ -166,7 +166,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
             :without_protection => true
           )
     @organization.remove_member(@person)
-    submission = UploadedFile.find_by_filename("test.txt")
+    submission = UploadedFile.find_by filename: 'test.txt'
 
     assert_equal false, (@person.is_member_of? submission.profile)
 

@@ -61,7 +61,7 @@ class Environment < ActiveRecord::Base
 
   module Roles
     def self.admin(env_id)
-      Role.find_by_key_and_environment_id('environment_administrator', env_id)
+      Role.find_by(key: 'environment_administrator', environment_id: env_id)
     end
   end
 
@@ -248,7 +248,7 @@ class Environment < ActiveRecord::Base
 
   acts_as_accessible
 
-  has_many :units, :order => 'position'
+  has_many :units, -> { order 'position' }
   has_many :production_costs, :as => :owner
 
   def superior_intances
@@ -714,7 +714,7 @@ class Environment < ActiveRecord::Base
   def default_hostname(email_hostname = false)
     domain = 'localhost'
     unless self.domains(true).empty?
-      domain = (self.domains.find_by_is_default(true) || self.domains.find(:first, :order => 'id')).name
+      domain = (self.domains.find_by(is_default: true) || self.domains.order(:id).first).name
       domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
     domain
@@ -808,7 +808,7 @@ class Environment < ActiveRecord::Base
   end
 
   def community_default_template
-    template = Community.find_by_id settings[:community_template_id]
+    template = Community.find_by id: settings[:community_template_id]
     template if template && template.is_template?
   end
 
@@ -821,7 +821,7 @@ class Environment < ActiveRecord::Base
   end
 
   def person_default_template
-    template = Person.find_by_id settings[:person_template_id]
+    template = Person.find_by id: settings[:person_template_id]
     template if template && template.is_template?
   end
 
@@ -834,7 +834,7 @@ class Environment < ActiveRecord::Base
   end
 
   def enterprise_default_template
-    template = Enterprise.find_by_id settings[:enterprise_template_id]
+    template = Enterprise.find_by id: settings[:enterprise_template_id]
     template if template && template.is_template?
   end
 
@@ -843,7 +843,7 @@ class Environment < ActiveRecord::Base
   end
 
   def inactive_enterprise_template
-    template = Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template = Enterprise.find_by id: settings[:inactive_enterprise_template_id]
     template if template && template.is_template
   end
 

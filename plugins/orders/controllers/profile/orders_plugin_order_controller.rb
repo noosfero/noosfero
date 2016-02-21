@@ -19,7 +19,7 @@ class OrdersPluginOrderController < ProfileController
   protected
 
   def load_order
-    @order = hmvc_orders_context::Sale.find_by_id params[:id]
+    @order = hmvc_orders_context::Sale.find_by id: params[:id]
     render_access_denied if @order.present? and (not @user_is_admin or not @order.may_view? user)
   end
 

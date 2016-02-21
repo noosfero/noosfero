@@ -10,11 +10,11 @@ When /^I create a content of type "([^\"]*)" with the following data$/ do |conte
 end
 
 And /^I add to "([^\"]*)" the following exception "([^\"]*)"$/ do |article_name, user_exception|
-  article = Article.find_by_name(article_name)
+  article = Article.find_by(name: article_name)
   community = article.profile
   raise "The article profile is not a community." unless community.class == Community
 
-  my_user = community.members.find_by_name(user_exception)
+  my_user = community.members.find_by(name: user_exception)
   raise "Could not find #{user_exception} in #{community.name} community." if my_user.nil?
 
   article.article_privacy_exceptions << my_user

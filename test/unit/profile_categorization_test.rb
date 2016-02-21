@@ -9,7 +9,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
     person.save!
     assert_includes person.categories, cat
     assert_includes cat.people, person
-    assert_equal [cat.id], person.category_ids 
+    assert_equal [cat.id], person.category_ids
   end
 
   should 'create instances for the entire hierarchy' do
@@ -24,7 +24,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
       ProfileCategorization.add_category_to_profile(c2, p)
     end
 
-    assert_equal 2, ProfileCategorization.find_all_by_profile_id(p.id).size
+    assert_equal 2, ProfileCategorization.where(profile_id: p.id).count
   end
 
   should 'not duplicate entry for category that is parent of two others' do

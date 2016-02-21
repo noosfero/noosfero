@@ -11,7 +11,7 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
 
   attr_accessible :environment, :enabled, :periodicity, :subject, :posts_per_blog, :footer, :blog_ids, :additional_recipients, :person, :person_id, :moderated
 
-  scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, -> { where enabled: true }
 
   # These methods are used by NewsletterMailing
   def people
@@ -19,10 +19,9 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
     if list.empty?
       environment.people
     else
-      environment.people.all(
-        :joins => "LEFT OUTER JOIN users ON (users.id = profiles.user_id)",
-        :conditions => "users.email NOT IN (#{list})"
-      )
+      environment.people
+        .joins('LEFT OUTER JOIN users ON (users.id = profiles.user_id)')
+        .where("users.email NOT IN (#{list})")
     end
   end
 
@@ -51,7 +50,7 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
 
   validates_each :blog_ids do |record, attr, value|
     if record.environment
-      unless value.delete_if(&:zero?).select { |id| !Blog.find_by_id(id) || Blog.find(id).environment != record.environment }.empty?
+      unless value.delete_if(&:zero?).select { |id| !Blog.find_by(id: id) || Blog.find(id).environment != record.environment }.empty?
         record.errors.add(attr, _('must be valid'))
       end
     end
@@ -82,9 +81,9 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
   def posts(data = {})
     limit = self.posts_per_blog.zero? ? nil : self.posts_per_blog
     posts = if self.last_send_at.nil?
-      self.blogs.map{|blog| blog.posts.all(:limit => limit)}.flatten
+      self.blogs.flat_map{ |blog| blog.posts.limit limit }
     else
-      self.blogs.map{|blog| blog.posts.where("published_at >= :last_send_at", {last_send_at: self.last_send_at}).all(:limit => limit)}.flatten
+      self.blogs.flat_map{ |blog| blog.posts.where("published_at >= :last_send_at", {last_send_at: self.last_send_at}).limit limit }
     end
     data[:post_ids].nil? ? posts : posts.select{|post| data[:post_ids].include?(post.id.to_s)}
   end
@@ -171,9 +170,7 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
   acts_as_having_image
 
   def last_send_at
-    last_mailing = NewsletterPlugin::NewsletterMailing.last(
-      :conditions => {:source_id => self.id}
-    )
+    last_mailing = NewsletterPlugin::NewsletterMailing.where(source_id: self.id).last
     last_mailing.nil? ? nil : last_mailing.created_at
   end
 

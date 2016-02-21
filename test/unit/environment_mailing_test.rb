@@ -86,7 +86,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     mailing = create_mailing(environment, :person => person_1)
     process_delayed_job_queue
 
-    assert mailing.mailing_sents.find_by_person_id(person_1.id)
+    assert mailing.mailing_sents.find_by(person_id: person_1.id)
   end
 
   should 'return false if did not sent mailing to a recipient' do
@@ -95,7 +95,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     mailing = create_mailing(environment, :person => person_1)
     process_delayed_job_queue
 
-    refute mailing.mailing_sents.find_by_person_id(recipient.id)
+    refute mailing.mailing_sents.find_by(person_id: recipient.id)
   end
 
   def new_mailing(environment)

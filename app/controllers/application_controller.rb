@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
     # Sets text domain based on request host for custom internationalization
     FastGettext.text_domain = Domain.custom_locale(request.host)
 
-    @domain = Domain.find_by_name(request.host)
+    @domain = Domain.by_name(request.host)
     if @domain.nil?
       @environment = Environment.default
       # Avoid crashes on test and development setups
@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
 
       # Check if the requested profile belongs to another domain
       if @profile && !params[:profile].blank? && params[:profile] != @profile.identifier
-        @profile = @environment.profiles.find_by_identifier params[:profile]
+        @profile = @environment.profiles.find_by(identifier: params[:profile])
         redirect_to url_for(params.merge host: @profile.default_hostname)
       end
     end
@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
   def load_category
     unless params[:category_path].blank?
       path = params[:category_path]
-      @category = environment.categories.find_by_path(path)
+      @category = environment.categories.find_by(path: path)
       if @category.nil?
         render_not_found(path)
       end

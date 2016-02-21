@@ -1,6 +1,6 @@
 class CreateTemplates < ActiveRecord::Migration
   def self.up
-    Environment.find(:all).each do |env|
+    Environment.find_each do |env|
       if env.person_template.nil? && env.community_template.nil? && env.enterprise_template.nil?
         env.create_templates
       end

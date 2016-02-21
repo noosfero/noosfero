@@ -1444,7 +1444,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     community.add_member(@profile)
     community.save!
 
-    blog = community.articles.find_by_name("Blog")
+    blog = community.articles.find_by(name: "Blog")
 
     article = TinyMceArticle.create(:name => 'Article to be shared with images',
                                     :body => 'This article should be shared with all social networks',
@@ -1570,7 +1570,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     community.add_member(@profile)
     community.save!
 
-    blog = community.articles.find_by_name("Blog")
+    blog = community.articles.find_by(name: "Blog")
     blog.visualization_format = 'compact'
     blog.save!
 

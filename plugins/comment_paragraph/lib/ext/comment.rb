@@ -2,14 +2,13 @@ require_dependency 'comment'
 
 class Comment
 
-  scope :without_paragraph, :conditions => {:paragraph_uuid => nil }
+  scope :without_paragraph, -> { where paragraph_uuid: nil }
 
   settings_items :comment_paragraph_selected_area, :type => :string
   settings_items :comment_paragraph_selected_content, :type => :string
 
-  scope :in_paragraph, proc { |paragraph_uuid| {
-      :conditions => ['paragraph_uuid = ?', paragraph_uuid]
-    }
+  scope :in_paragraph, -> paragraph_uuid {
+    where 'paragraph_uuid = ?', paragraph_uuid
   }
 
   attr_accessible :paragraph_uuid, :comment_paragraph_selected_area, :id, :comment_paragraph_selected_content

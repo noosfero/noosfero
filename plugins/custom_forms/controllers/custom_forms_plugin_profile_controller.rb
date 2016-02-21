@@ -6,7 +6,7 @@ class CustomFormsPluginProfileController < ProfileController
 
     @form = CustomFormsPlugin::Form.find(params[:id])
     if user
-      @submission = CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
+      @submission = CustomFormsPlugin::Submission.find_by form_id: @form.id, profile_id: user.id
       @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
     else
       @submission = CustomFormsPlugin::Submission.new(:form => @form)
@@ -17,7 +17,7 @@ class CustomFormsPluginProfileController < ProfileController
 
     if request.post?
       begin
-        raise 'Submission already present!' if user.present? && CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
+        raise 'Submission already present!' if user.present? && CustomFormsPlugin::Submission.find_by(form_id: @form.id, profile_id: user.id)
         raise 'Form expired!' if @form.expired?
 
         if !user

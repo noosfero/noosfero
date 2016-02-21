@@ -112,7 +112,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
     member = Person['user_one']
     mailing = create(OrganizationMailing, :source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
     process_delayed_job_queue
-    assert mailing.mailing_sents.find_by_person_id(member.id)
+    assert mailing.mailing_sents.find_by(person_id: member.id)
   end
 
   should 'return false if did not sent mailing to a recipient' do
@@ -120,7 +120,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
     mailing = create(OrganizationMailing, :source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
     process_delayed_job_queue
 
-    refute mailing.mailing_sents.find_by_person_id(recipient.id)
+    refute mailing.mailing_sents.find_by(person_id: recipient.id)
   end
 
   protected

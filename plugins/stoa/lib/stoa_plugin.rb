@@ -50,7 +50,7 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def alternative_authentication
-    person = Person.find_by_usp_id(context.params[:usp_id_login])
+    person = Person.find_by usp_id: context.params[:usp_id_login]
     if person
       user = User.authenticate(person.user.login, context.params[:password])
     else

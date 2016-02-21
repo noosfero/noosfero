@@ -73,7 +73,7 @@ module Noosfero
       # Example Request:
       #   PATCH /activate?activation_code=28259abd12cc6a64ef9399cf3286cb998b96aeaf
       patch "/activate" do
-        user = User.find_by_activation_code(params[:activation_code])
+        user = User.find_by activation_code: params[:activation_code]
         if user
           unless user.environment.enabled?('admin_must_approve_new_users')
             if user.activate
@@ -141,7 +141,7 @@ module Noosfero
       # Example Request:
       #   PATCH /new_password?code=xxxx&password=secret&password_confirmation=secret
       patch "/new_password" do
-        change_password = ChangePassword.find_by_code(params[:code])
+        change_password = ChangePassword.find_by code: params[:code]
         not_found! if change_password.nil?
 
         if change_password.update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])

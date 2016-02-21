@@ -8,7 +8,7 @@ class RoleControllerTest < ActionController::TestCase
     @controller = RoleController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @role = Role.find(:first)
+    @role = Role.first
     login_as(:ze)
   end
 

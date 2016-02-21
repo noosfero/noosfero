@@ -3,11 +3,11 @@ require 'test_helper'
 class ArticleTest < ActiveSupport::TestCase
   should 'create a publication after publishing the article' do
     article = fast_create(Article, :published => false, :profile_id => fast_create(Profile).id)
-    assert_nil ToleranceTimePlugin::Publication.find_by_target(article)
+    assert_nil ToleranceTimePlugin::Publication.find_by target: article
 
     article.published = true
     article.save!
-    assert_not_nil ToleranceTimePlugin::Publication.find_by_target(article)
+    assert_not_nil ToleranceTimePlugin::Publication.find_by target: article
   end
 
   should 'destroy publication if the article is destroyed' do

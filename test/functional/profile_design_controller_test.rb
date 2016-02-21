@@ -30,37 +30,29 @@ class ProfileDesignControllerTest < ActionController::TestCase
     ###### BOX 1
     @b1 = ArticleBlock.new
     @box1.blocks << @b1
-    @b1.save!
 
     @b2 = Block.new
     @box1.blocks << @b2
-    @b2.save!
 
     ###### BOX 2
     @b3 = Block.new
     @box2.blocks << @b3
-    @b3.save!
 
     @b4 = MainBlock.new
     @box2.blocks << @b4
-    @b4.save!
 
     @b5 = Block.new
     @box2.blocks << @b5
-    @b5.save!
 
     @b6 = Block.new
     @box2.blocks << @b6
-    @b6.save!
 
     ###### BOX 3
     @b7 = Block.new
     @box3.blocks << @b7
-    @b7.save!
 
     @b8 = Block.new
     @box3.blocks << @b8
-    @b8.save!
 
     @request.env['HTTP_REFERER'] = '/editor'
 
@@ -424,7 +416,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'be able to save FeedReaderBlock configurations' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
     holder.blocks(true)
-    block = @box1.blocks.last
+    block = @box1.blocks.find_by(type: FeedReaderBlock)
 
     post :save, :profile => 'designtestuser', :id => block.id, :block => {:address => 'new feed address', :limit => '20'}
 

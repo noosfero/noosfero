@@ -26,7 +26,7 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
   should 'be able to find publication by target' do
     article = fast_create(Article)
     publication = ToleranceTimePlugin::Publication.create!(:target => article)
-    assert_equal publication, ToleranceTimePlugin::Publication.find_by_target(article)
+    assert_equal publication, ToleranceTimePlugin::Publication.find_by(target: article)
   end
 
   should 'avaliate if the publication is expired' do

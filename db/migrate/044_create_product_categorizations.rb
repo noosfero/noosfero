@@ -1,6 +1,6 @@
 class CreateProductCategorizations < ActiveRecord::Migration
   def self.up
-    
+
     create_table :product_categorizations do |t|
       t.integer :category_id
       t.integer :product_id
@@ -11,7 +11,7 @@ class CreateProductCategorizations < ActiveRecord::Migration
 
     total = Product.count.to_f
     percent = 0
-    Product.find(:all).each_with_index do |p,i|
+    Product.find_each_with_index do |p,i|
       if p.product_category
         ProductCategorization.add_category_to_product(p.product_category, p)
       end

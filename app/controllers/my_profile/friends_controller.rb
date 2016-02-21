@@ -22,7 +22,7 @@ class FriendsController < MyProfileController
   end
 
   def remove_suggestion
-    @person = profile.suggested_people.find_by_identifier(params[:id])
+    @person = profile.suggested_people.find_by(identifier: params[:id])
     redirect_to :action => 'suggest' unless @person
     if @person && request.post?
       profile.remove_suggestion(@person)
@@ -32,7 +32,7 @@ class FriendsController < MyProfileController
   end
 
   def connections
-    @suggestion = profile.suggested_profiles.of_person.enabled.find_by_suggestion_id(params[:id])
+    @suggestion = profile.suggested_profiles.of_person.enabled.find_by(suggestion_id: params[:id])
     if @suggestion
       @tags = @suggestion.tag_connections
       @profiles = @suggestion.profile_connections

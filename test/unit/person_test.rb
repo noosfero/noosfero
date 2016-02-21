@@ -180,10 +180,10 @@ class PersonTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:default_set_of_articles).returns([blog])
     person = create(User).person
 
-    assert_kind_of Blog, person.articles.find_by_path(blog.path)
-    assert person.articles.find_by_path(blog.path).published?
-    assert_kind_of RssFeed, person.articles.find_by_path(blog.feed.path)
-    assert person.articles.find_by_path(blog.feed.path).published?
+    assert_kind_of Blog, person.articles.find_by(path: blog.path)
+    assert person.articles.find_by(path: blog.path).published?
+    assert_kind_of RssFeed, person.articles.find_by(path: blog.feed.path)
+    assert person.articles.find_by(path: blog.feed.path).published?
   end
 
   should 'create a default set of blocks' do
@@ -831,9 +831,9 @@ class PersonTest < ActiveSupport::TestCase
   should "destroy scrap if sender was removed" do
     person = fast_create(Person)
     scrap = fast_create(Scrap, :sender_id => person.id)
-    assert_not_nil Scrap.find_by_id(scrap.id)
+    assert_not_nil Scrap.find_by(id: scrap.id)
     person.destroy
-    assert_nil Scrap.find_by_id(scrap.id)
+    assert_nil Scrap.find_by(id: scrap.id)
   end
 
   should "the tracked action be notified to person friends and herself" do
@@ -1123,7 +1123,7 @@ class PersonTest < ActiveSupport::TestCase
     organization.add_admin(person)
 
     assert person.is_last_admin_leaving?(organization, [])
-    refute person.is_last_admin_leaving?(organization, [Role.find_by_key('profile_admin')])
+    refute person.is_last_admin_leaving?(organization, [Role.find_by(key: 'profile_admin')])
   end
 
   should 'return unique members of a community' do
@@ -1467,13 +1467,13 @@ class PersonTest < ActiveSupport::TestCase
   should 'merge memberships of plugins to original memberships' do
     class Plugin1 < Noosfero::Plugin
       def person_memberships(person)
-        Profile.memberships_of(Person.find_by_identifier('person1'))
+        Profile.memberships_of(Person.find_by(identifier: 'person1'))
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def person_memberships(person)
-        Profile.memberships_of(Person.find_by_identifier('person2'))
+        Profile.memberships_of(Person.find_by(identifier: 'person2'))
       end
     end
     Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])

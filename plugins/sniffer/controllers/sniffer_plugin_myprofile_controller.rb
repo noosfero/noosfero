@@ -94,7 +94,7 @@ class SnifferPluginMyprofileController < MyProfileController
   protected
 
   def fetch_profiles(products)
-    profiles = Profile.all conditions: {id: products.map { |p| target_profile_id(p) }}
+    profiles = Profile.where id: products.map{ |p| target_profile_id p }
     profiles_by_id = {}
     profiles.each do |p|
       p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
@@ -113,9 +113,9 @@ class SnifferPluginMyprofileController < MyProfileController
 
     id_profiles = fetch_profiles(data)
 
-    products = Product.all conditions: {id: grab_id.call('id')}, include: [:enterprise, :product_category]
+    products = Product.where(id: grab_id.call('id')).includes(:enterprise, :product_category)
     products.each{ |p| id_products[p.id] ||= p }
-    knowledges = Article.all conditions: {id: grab_id.call('knowledge_id')}
+    knowledges = Article.where(id: grab_id.call('knowledge_id'))
     knowledges.each{ |k| id_knowledges[k.id] ||= k}
 
     data.each do |attributes|

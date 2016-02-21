@@ -68,8 +68,8 @@ class Product
 
   def self.solr_plugin_f_qualifier_proc(ids)
     array = ids.split
-    qualifier = Qualifier.find_by_id array[0]
-    certifier = Certifier.find_by_id array[1]
+    qualifier = Qualifier.find_by id: array[0]
+    certifier = Certifier.find_by id: array[1]
     certifier ? [qualifier.name, _(' cert. ') + certifier.name] : qualifier.name
   end
 

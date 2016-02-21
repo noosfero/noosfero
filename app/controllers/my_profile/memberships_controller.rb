@@ -5,7 +5,7 @@ class MembershipsController < MyProfileController
 
   def index
     @roles = environment.roles.select do |role|
-      ra = profile.role_assignments.find_by_role_id(role.id)
+      ra = profile.role_assignments.find_by(role_id: role.id)
       ra.present? && ra.resource_type == 'Profile'
     end
     @filter = params[:filter_type].to_i
@@ -47,7 +47,7 @@ class MembershipsController < MyProfileController
   end
 
   def remove_suggestion
-    @community = profile.suggested_communities.find_by_identifier(params[:id])
+    @community = profile.suggested_communities.find_by(identifier: params[:id])
     custom_per_page = params[:per_page] || per_page
     redirect_to :action => 'suggest' unless @community
     if @community && request.post?
@@ -58,7 +58,7 @@ class MembershipsController < MyProfileController
   end
 
   def connections
-    @suggestion = profile.suggested_profiles.of_community.enabled.find_by_suggestion_id(params[:id])
+    @suggestion = profile.suggested_profiles.of_community.enabled.find_by(suggestion_id: params[:id])
     if @suggestion
       @tags = @suggestion.tag_connections
       @profiles = @suggestion.profile_connections

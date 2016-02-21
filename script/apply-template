@@ -65,7 +65,7 @@ when 'community'
 when 'person'
   template = env.person_template
   offset = 0
-  while person = Person.find(:first, :order => :id, :offset => offset)
+  while person = Person.order(:id).offset(offset).first
     if person != template
       report_doing offset, person.identifier
       person.apply_template(template)

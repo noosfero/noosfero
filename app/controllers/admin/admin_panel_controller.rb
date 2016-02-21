@@ -34,7 +34,7 @@ class AdminPanelController < AdminController
     env = environment
     @portal_community = env.portal_community || Community.new
     if request.post?
-      portal_community = env.communities.find_by_identifier(params[:portal_community_identifier])
+      portal_community = env.communities.where(identifier: params[:portal_community_identifier]).first
       if portal_community
         if (env.portal_community != portal_community)
           env.portal_community = portal_community

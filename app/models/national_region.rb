@@ -27,12 +27,13 @@ class NationalRegion < ActiveRecord::Base
                    :type => NationalRegionType::CITY,
                    :state => state}];
 
-    region = NationalRegion.find(find_return,
-                                  :select => "national_regions.name as city, nr.name as state, national_regions.national_region_code",
-                                  :conditions => conditions,
-                                  :joins => "LEFT JOIN national_regions as nr ON  national_regions.parent_national_region_code = nr.national_region_code",
-                                  :limit => 10
-                                  )
+    region = NationalRegion
+      .select('national_regions.name as city, nr.name as state, national_regions.national_region_code')
+      .where(conditions)
+      .joins('LEFT JOIN national_regions as nr ON  national_regions.parent_national_region_code = nr.national_region_code')
+      .limit(10)
+    region = region.send find_return
+
     return region
   end
 
@@ -50,19 +51,19 @@ class NationalRegion < ActiveRecord::Base
                   {:name => state_name,
                    :type => NationalRegionType::STATE}];
 
-    region = NationalRegion.find(find_return,
-                                  :select => "national_regions.name as state, national_regions.national_region_code",
-                                  :conditions => conditions,
-                                  :limit => 10
-                                  )
+    region = NationalRegion
+      .select('national_regions.name as state, national_regions.national_region_code')
+      .where(conditions)
+      .limit(10)
+    region = region.send find_return
+
     return region
    end
 
   def self.validate!(city, state, country)
 
-    country_region = NationalRegion.find_by_national_region_code(country,
-                                                :conditions => ["national_region_type_id = :type",
-                                                               {:type => NationalRegionType::COUNTRY}])
+    country_region = NationalRegion
+      .find_by(national_region_code: country, national_region_type_id: NationalRegionType::COUNTRY)
 
     if(country_region)
 

@@ -98,8 +98,9 @@ class Blog < Folder
       when :by_year
         posts.published.native_translations
           .except(:order)
-          .count(:all, :group => 'EXTRACT(YEAR FROM published_at)')
-          .sort_by {|year, count| -year.to_i}
+          .group('EXTRACT(YEAR FROM published_at)')
+          .count
+          .sort_by{ |year, count| -year.to_i }
       when :by_month
         posts.published.native_translations
           .except(:order)

@@ -7,15 +7,17 @@ class SnifferPlugin::Opportunity < ActiveRecord::Base
   belongs_to :opportunity, polymorphic: true
 
   # for has_many :through
-  belongs_to :product_category, class_name: 'ProductCategory', foreign_key: :opportunity_id,
-    conditions: ['sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory']
+  belongs_to :product_category, -> {
+    where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
+  }, class_name: 'ProductCategory', foreign_key: :opportunity_id
+
   # getter
   def product_category
     opportunity_type == 'ProductCategory' ? opportunity : nil
   end
 
-  scope :product_categories, {
-    conditions: ['sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory']
+  scope :product_categories, -> {
+    where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
   }
 
   if defined? SolrPlugin

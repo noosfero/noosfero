@@ -4,9 +4,10 @@ class Profile
 
   attr_accessor :sniffer_plugin_distance
 
-  has_many :sniffer_opportunities, :class_name => 'SnifferPlugin::Opportunity', :dependent => :destroy
-  has_many :sniffer_interested_product_categories, :through => :sniffer_opportunities, :source => :product_category, :class_name => 'ProductCategory',
-    :conditions => ['sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory']
+  has_many :sniffer_opportunities, class_name: 'SnifferPlugin::Opportunity', dependent: :destroy
+  has_many :sniffer_interested_product_categories, -> {
+    where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
+  }, through: :sniffer_opportunities, source: :product_category, class_name: 'ProductCategory'
 
   attr_accessor :sniffer_interested_product_category_string_ids
   descendants.each do |k|
@@ -31,11 +32,11 @@ class Profile
   def sniffer_suppliers_products
     products = []
 
-    products += Product.sniffer_plugin_suppliers_products self if self.enterprise?
-    products += Product.sniffer_plugin_interests_suppliers_products self
+    products.concat Product.sniffer_plugin_suppliers_products self if self.enterprise?
+    products.concat Product.sniffer_plugin_interests_suppliers_products self
     if defined?(CmsLearningPlugin)
-      products += Product.sniffer_plugin_knowledge_suppliers_inputs self
-      products += Product.sniffer_plugin_knowledge_suppliers_interests self
+      products.concat Product.sniffer_plugin_knowledge_suppliers_inputs self
+      products.concat Product.sniffer_plugin_knowledge_suppliers_interests self
     end
 
     products
@@ -44,11 +45,11 @@ class Profile
   def sniffer_consumers_products
     products = []
 
-    products += Product.sniffer_plugin_consumers_products self if self.enterprise?
-    products += Product.sniffer_plugin_interests_consumers_products self
+    products.concat Product.sniffer_plugin_consumers_products self if self.enterprise?
+    products.concat Product.sniffer_plugin_interests_consumers_products self
     if defined?(CmsLearningPlugin)
-      products += Product.sniffer_plugin_knowledge_consumers_inputs self
-      products += Product.sniffer_plugin_knowledge_consumers_interests self
+      products.concat Product.sniffer_plugin_knowledge_consumers_inputs self
+      products.concat Product.sniffer_plugin_knowledge_consumers_interests self
     end
 
     products

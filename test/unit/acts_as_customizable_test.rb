@@ -8,7 +8,7 @@ class ActsAsCustomizableTest < ActiveSupport::TestCase
     assert_difference 'CustomFieldValue.count' do
       person.custom_values = { "Blog" => { "value" => "www.blog.org", "public" => "0"} }
       person.save!
-      assert_equal 'www.blog.org', CustomFieldValue.find(:last, :conditions => {:customized_id => person.id}).value
+      assert_equal 'www.blog.org', CustomFieldValue.where(customized_id: person.id).last.value
     end
   end
 

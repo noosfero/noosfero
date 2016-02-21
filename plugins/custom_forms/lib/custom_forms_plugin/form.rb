@@ -2,7 +2,7 @@ class CustomFormsPlugin::Form < ActiveRecord::Base
 
   belongs_to :profile
 
-  has_many :fields, :order => 'position', :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy
+  has_many :fields, -> { order 'position' }, class_name: 'CustomFormsPlugin::Field', dependent: :destroy
   accepts_nested_attributes_for :fields, :allow_destroy => true
 
   has_many :submissions, :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy

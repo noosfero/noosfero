@@ -10,14 +10,14 @@ class Article
       if article.published
         ToleranceTimePlugin::Publication.create!(:target => article)
       else
-        publication = ToleranceTimePlugin::Publication.find_by_target(article)
+        publication = ToleranceTimePlugin::Publication.find_by target: article
         publication.destroy if publication.present?
       end
     end
   end
 
   before_destroy do |article|
-    publication = ToleranceTimePlugin::Publication.find_by_target(article)
+    publication = ToleranceTimePlugin::Publication.find_by target: article
     publication.destroy if publication.present?
   end
 end

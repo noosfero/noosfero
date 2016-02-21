@@ -56,7 +56,7 @@ class OauthClientPlugin < Noosfero::Plugin
         strategy = env['omniauth.strategy']
 
         Noosfero::MultiTenancy.setup!(request.host)
-        domain = Domain.find_by_name(request.host)
+        domain = Domain.by_name(request.host)
         environment = domain.environment rescue Environment.default
 
         provider_id = request.params['id']

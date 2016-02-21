@@ -20,7 +20,7 @@ class ApproveArticle < Task
   end
 
   def article
-    Article.find_by_id data[:article_id]
+    Article.find_by id: data[:article_id]
   end
 
   def article= value
@@ -39,7 +39,7 @@ class ApproveArticle < Task
   settings_items :create_link, :type => :boolean, :default => false
 
   def article_parent
-    Article.find_by_id article_parent_id.to_i
+    Article.find_by id: article_parent_id.to_i
   end
 
   def article_parent= value

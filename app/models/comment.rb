@@ -92,7 +92,7 @@ class Comment < ActiveRecord::Base
   end
 
   def self.recent(limit = nil)
-    self.find(:all, :order => 'created_at desc, id desc', :limit => limit)
+    self.order('created_at desc, id desc').limit(limit).all
   end
 
   def notification_emails

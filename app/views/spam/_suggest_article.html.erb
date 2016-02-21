@@ -9,7 +9,7 @@
       <li><strong><%=_('Email')%></strong>: <%=task.email%> </li>
       <li><strong><%=_('Source')%></strong>: <%=task.article_object.source_name%> </li>
       <li><strong><%=_('Source URL')%></strong>: <%=task.article_object.source%> </li>
-      <li><strong><%=_('Folder')%></strong>: <%=(a = Article.find_by_id(task.article_object.parent_id))?a.name : '<em>' + s_('Folder|none') + '</em>'%> </li>
+      <li><strong><%=_('Folder')%></strong>: <%=if (a = Article.find_by(id: task.article_object.parent_id)) then a.name else '<em>' + s_('Folder|none') + '</em>' end%> </li>
       <li><strong><%=_('Lead')%></strong>: <%=task.article_object.abstract.blank? ? '<em>' + s_('Abstract|empty') + '</em>' : task.article_object.abstract%> </li>
       <li><strong><%=_('Body')%></strong>:
       <div class='suggest-article-body'>

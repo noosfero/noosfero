@@ -44,7 +44,7 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
     assert_template 'confirmation'
     assert_tag :tag => 'a', :attributes => { :href => '/' }
 
-    code = CreateEnterprise.find(:first, :order => 'id desc').code
+    code = CreateEnterprise.order('id DESC').first.code
 
     post '/account/logout'
 

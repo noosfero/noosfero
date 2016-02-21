@@ -24,7 +24,7 @@ class EnvironmentNotificationPlugin::EnvironmentNotification < ActiveRecord::Bas
     end
   end
 
-  scope :active, lambda{|environment| { :conditions => { :environment_id => environment.id, :active => true } } }
+  scope :active, -> environment { where environment_id: environment.id, active: true }
 
   def self.visibles(environment, user, controller_path)
     notifications = EnvironmentNotificationPlugin::EnvironmentNotification.active(environment).order('updated_at DESC')

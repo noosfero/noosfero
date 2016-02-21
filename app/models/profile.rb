@@ -62,7 +62,7 @@ class Profile < ActiveRecord::Base
     end
     private
     def self.find_role(name, env_id)
-      ::Role.find_by_key_and_environment_id("profile_#{name}", env_id)
+      ::Role.find_by key: "profile_#{name}", environment_id: env_id
     end
   end
 
@@ -114,6 +114,9 @@ class Profile < ActiveRecord::Base
     where template_id: templates
   }
   scope :no_templates, -> { where is_template: false }
+
+  scope :recent, -> limit=nil { order('id DESC').limit(limit) }
+
 
   # Returns a scoped object to select profiles in a given location or in a radius
   # distance from the given location center.
@@ -178,14 +181,6 @@ class Profile < ActiveRecord::Base
     members(field).where("LOWER(#{field}) LIKE ?", "%#{value.downcase}%") if value
   end
 
-  class << self
-    def count_with_distinct(*args)
-      options = args.last || {}
-      count_without_distinct(:id, {:distinct => true}.merge(options))
-    end
-    alias_method_chain :count, :distinct
-  end
-
   def members_by_role(roles)
     Person.members_of(self).by_role(roles)
   end
@@ -203,18 +198,17 @@ class Profile < ActiveRecord::Base
   scope :is_public, -> { where visible: true, public_profile: true, secret: false }
   scope :enabled, -> { where enabled: true }
 
-  # Subclasses must override this method
-  scope :more_popular
-
-  scope :more_active,  :order => 'activities_count DESC'
-  scope :more_recent, :order => "created_at DESC"
+  # subclass specific
+  scope :more_popular, -> { }
+  scope :more_active, -> { order 'activities_count DESC' }
+  scope :more_recent, -> { order "created_at DESC" }
 
   acts_as_trackable :dependent => :destroy
 
   has_many :profile_activities
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
-  has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
-  has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
+  has_many :tracked_notifications, -> { order 'updated_at DESC' }, through: :action_tracker_notifications, source: :action_tracker
+  has_many :scraps_received, -> { order 'updated_at DESC' }, class_name: 'Scrap', foreign_key: :receiver_id, dependent: :destroy
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
@@ -295,7 +289,7 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
-  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'start_date'
+  has_many :events, -> { order 'start_date' }, source: 'articles', class_name: 'Event'
 
   def find_in_all_tasks(task_id)
     begin
@@ -559,7 +553,7 @@ class Profile < ActiveRecord::Base
     #  person = Profile['username']
     #  org = Profile.['orgname']
     def [](identifier)
-      self.find_by_identifier(identifier)
+      self.find_by identifier: identifier
     end
 
   end
@@ -738,11 +732,11 @@ private :generate_url, :url_options
 
   def copy_article_tree(article, parent=nil)
     return if !copy_article?(article)
-    original_article = self.articles.find_by_name(article.name)
+    original_article = self.articles.find_by name: article.name
     if original_article
       num = 2
       new_name = original_article.name + ' ' + num.to_s
-      while self.articles.find_by_name(new_name)
+      while self.articles.find_by name: new_name
         num = num + 1
         new_name = original_article.name + ' ' + num.to_s
       end
@@ -797,10 +791,6 @@ private :generate_url, :url_options
     else
       raise _("%s can't has moderators") % self.class.name
     end
-  end
-
-  def self.recent(limit = nil)
-    self.find(:all, :order => 'id desc', :limit => limit)
   end
 
   # returns +true+ if the given +user+ can see profile information about this
@@ -896,7 +886,7 @@ private :generate_url, :url_options
   has_many :blogs, :source => 'articles', :class_name => 'Blog'
 
   def blog
-    self.has_blog? ? self.blogs.first(:order => 'id') : nil
+    self.has_blog? ? self.blogs.order(:id).first : nil
   end
 
   def has_blog?
@@ -906,7 +896,7 @@ private :generate_url, :url_options
   has_many :forums, :source => 'articles', :class_name => 'Forum'
 
   def forum
-    self.has_forum? ? self.forums.first(:order => 'id') : nil
+    self.has_forum? ? self.forums.order(:id).first : nil
   end
 
   def has_forum?
@@ -1134,7 +1124,7 @@ private :generate_url, :url_options
   settings_items :custom_url_redirection, type: String, default: nil
 
   def remove_from_suggestion_list(person)
-    suggestion = person.suggested_profiles.find_by_suggestion_id self.id
+    suggestion = person.suggested_profiles.find_by suggestion_id: self.id
     suggestion.disable if suggestion
   end
 

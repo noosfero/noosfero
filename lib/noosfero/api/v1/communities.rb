@@ -49,7 +49,7 @@ module Noosfero
           end
 
           get ':id' do
-            community = environment.communities.visible_for_person(current_person).find_by_id(params[:id])
+            community = environment.communities.visible_for_person(current_person).find_by id: params[:id]
             present community, :with => Entities::Community, :current_person => current_person
           end
 

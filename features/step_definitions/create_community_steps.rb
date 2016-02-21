@@ -33,7 +33,7 @@ Given /^I reject community "(.+)"$/ do |community|
 end
 
 Then /^I should see "([^\"]*)"'s creation date$/ do |community|
-  com = Community.find_by_name community
+  com = Community.find_by name: community
   text = "Created at: #{show_date(com.created_at)}"
   has_content?(text)
 end

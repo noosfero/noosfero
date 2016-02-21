@@ -2,7 +2,7 @@ class RoleController < AdminController
   protect 'manage_environment_roles', :environment
 
   def index
-    @roles = environment.roles.find(:all, :conditions => {:profile_id => nil})
+    @roles = environment.roles.where profile_id: nil
   end
 
   def new

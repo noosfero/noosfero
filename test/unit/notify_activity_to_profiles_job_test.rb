@@ -19,7 +19,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 1, ActionTrackerNotification.count
     [community].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
   end
@@ -41,7 +41,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 3, ActionTrackerNotification.count
     [person, p1, p2].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
   end
@@ -61,7 +61,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 4, ActionTrackerNotification.count
     [person, community, m1, m2].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
   end
@@ -83,7 +83,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 6, ActionTrackerNotification.count
     [person, community, p1, p2, m1, m2].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
   end
@@ -105,11 +105,11 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 1, ActionTrackerNotification.count
     [person,  p1, p2, m1, m2].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert notification.nil?
     end
 
-    notification = ActionTrackerNotification.find_by_profile_id private_community.id
+    notification = ActionTrackerNotification.find_by profile_id: private_community.id
     assert_equal action_tracker, notification.action_tracker
   end
 
@@ -130,7 +130,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     assert_equal 5, ActionTrackerNotification.count
     [person, p1, p2, m1, m2].each do |profile|
-      notification = ActionTrackerNotification.find_by_profile_id profile.id
+      notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
   end

@@ -50,15 +50,15 @@ module FormsHelper
   end
 
   def select_city( simple=false )
-    states = State.find(:all, :order => 'name')
-    
+    states = State.order(:name).all
+
     state_id = 'state-' + FormsHelper.next_id_number
     city_id = 'city-' + FormsHelper.next_id_number
 
     if states.length < 1
       return
     end
-    
+
     if simple
       states = [State.new(:name => _('Select the State'))] + states
       cities = [City.new(:name => _('Select the City'))]
@@ -82,7 +82,7 @@ module FormsHelper
       states = [State.new(:name => '---')] + states
       cities = [City.new(:name => '---')]
 
-      html = 
+      html =
       content_tag( 'div',
                    labelled_select( _('State:'), 'state', :id, :name, nil, states, :id => state_id ),
                    :class => 'select_state_for_origin' ) +
@@ -90,7 +90,7 @@ module FormsHelper
                    labelled_select( _('City:'), 'city', :id, :name, nil, cities, :id => city_id ),
                    :class => 'select_city_for_origin' )
     end
-    
+
     html +
     observe_field( state_id, :update => city_id, :function => "new Ajax.Updater(#{city_id.inspect}, #{url_for(:controller => 'search', :action => 'cities').inspect}, {asynchronous:true, evalScripts:true, parameters:'state_id=' + value}); $(#{city_id.inspect}).innerHTML = '<option>#{_('Loading...')}</option>'", :with => 'state_id')
   end

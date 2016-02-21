@@ -69,8 +69,8 @@ class DomainTest < ActiveSupport::TestCase
   def test_find_by_name
     Domain.delete_all
     fast_create(Domain, :name => 'example.net')
-    d1 = Domain.find_by_name('example.net')
-    d2 =  Domain.find_by_name('www.example.net')
+    d1 = Domain.by_name('example.net')
+    d2 =  Domain.by_name('www.example.net')
     refute d1.nil?
     refute d2.nil?
     assert d1 == d2
@@ -87,21 +87,21 @@ class DomainTest < ActiveSupport::TestCase
 
   def test_environment
     # domain directly linked to Environment
-    domain = Domain.find_by_name('colivre.net')
+    domain = Domain.by_name('colivre.net')
     assert_kind_of Environment, domain.owner
     assert_kind_of Environment, domain.environment
 
     # domain linked to Profile
-    domain = Domain.find_by_name('johndoe.net')
+    domain = Domain.by_name('johndoe.net')
     assert_kind_of Profile, domain.owner
     assert_kind_of Environment, domain.environment
   end
 
   def test_profile
     # domain linked to profile
-    assert_not_nil Domain.find_by_name('johndoe.net').profile
+    assert_not_nil Domain.by_name('johndoe.net').profile
     # domain linked to Environment
-    assert_nil Domain.find_by_name('colivre.net').profile
+    assert_nil Domain.by_name('colivre.net').profile
   end
 
   def test_hosted_domain

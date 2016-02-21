@@ -16,15 +16,15 @@ class OauthProviderPlugin < Noosfero::Plugin
     orm :active_record
 
     resource_owner_authenticator do
-      domain = Domain.find_by_name(request.host)
+      domain = Domain.by_name(request.host)
       environment = domain ? domain.environment : Environment.default
-      environment.users.find_by_id(session[:user]) || redirect_to('/account/login')
+      environment.users.find_by(id: session[:user]) || redirect_to('/account/login')
     end
 
     admin_authenticator do
-      domain = Domain.find_by_name(request.host)
+      domain = Domain.by_name(request.host)
       environment = domain ? domain.environment : Environment.default
-      user = environment.users.find_by_id(session[:user])
+      user = environment.users.find_by id: session[:user]
       unless user && user.person.is_admin?(environment)
         redirect_to('/account/login')
       end

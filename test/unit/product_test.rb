@@ -368,7 +368,7 @@ class ProductTest < ActiveSupport::TestCase
     refute product.price_details.empty?
 
     product.update_price_details([{:production_cost_id => cost.id, :price => 20}, {:production_cost_id => cost2.id, :price => 30}])
-    assert_equal 20, product.price_details.find_by_production_cost_id(cost.id).price
+    assert_equal 20, product.price_details.find_by(production_cost_id: cost.id).price
     assert_equal 2, Product.find(product.id).price_details.size
   end
 

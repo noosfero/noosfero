@@ -7,7 +7,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_difference 'ToleranceTimePlugin::Publication.count', 1 do
       comment.save!
     end
-    assert_not_nil ToleranceTimePlugin::Publication.find_by_target(comment)
+    assert_not_nil ToleranceTimePlugin::Publication.find_by target: comment
   end
 
   should 'destroy publication if the comment is destroyed' do

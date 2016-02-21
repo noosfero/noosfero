@@ -18,7 +18,7 @@ class ContentViewerController < ApplicationController
       @page = profile.home_page
       return if redirected_to_profile_index
     else
-      @page = profile.articles.find_by_path(path)
+      @page = profile.articles.find_by path: path
       return if redirected_page_from_old_path(path)
     end
 
@@ -76,13 +76,13 @@ class ContentViewerController < ApplicationController
 
   def versions_diff
     path = params[:page]
-    @page = profile.articles.find_by_path(path)
-    @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
+    @page = profile.articles.find_by path: path
+    @v1, @v2 = @page.versions.find_by(version: params[:v1]), @page.versions.find_by(version: params[:v2])
   end
 
   def article_versions
     path = params[:page]
-    @page = profile.articles.find_by_path(path)
+    @page = profile.articles.find_by path: path
     return unless allow_access_to_page(path)
 
     render_access_denied unless @page.display_versions?
@@ -169,7 +169,7 @@ class ContentViewerController < ApplicationController
 
   def redirected_page_from_old_path(path)
     unless @page
-      page_from_old_path = profile.articles.find_by_old_path(path)
+      page_from_old_path = profile.articles.find_by_old_path path
       if page_from_old_path
         redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
         return true
@@ -190,7 +190,7 @@ class ContentViewerController < ApplicationController
   end
 
   def rendered_versioned_article
-    @versioned_article = @page.versions.find_by_version(@version)
+    @versioned_article = @page.versions.find_by version: @version
     if @versioned_article && @page.versions.latest.version != @versioned_article.version
       render :template => 'content_viewer/versioned_article.html.erb'
       return true

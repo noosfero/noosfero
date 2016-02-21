@@ -1,5 +1,5 @@
 Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
-  identifier = Community.find_by_name(community).identifier
+  identifier = Community.find_by(name: community).identifier
   visit("/myprofile/#{identifier}/profile_members")
   first(:link, "Invite people to join").click
   choose("Email")

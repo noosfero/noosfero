@@ -72,7 +72,7 @@ module Juixe
         #  :at_least_total    - Item must have at least X votes total
         #  :at_most_total     - Item may not have more than X votes total
         def tally(options = {})
-          find(:all, options_for_tally({:order =>"total DESC" }.merge(options)))
+          order("total DESC").all options_for_tally(options)
         end
 
         def options_for_tally (options = {})

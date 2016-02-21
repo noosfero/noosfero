@@ -120,7 +120,7 @@ module ActsAsFileSystem
 
     def top_ancestor
       if has_ancestry? and !ancestry.nil?
-        self.class.base_class.find_by_id self.top_ancestor_id
+        self.class.base_class.find_by id: self.top_ancestor_id
       else
         self.hierarchy.first
       end

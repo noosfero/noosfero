@@ -318,7 +318,7 @@ module ApplicationHelper
     if File.exists?(Rails.root.join('public', theme_path, 'favicon.ico'))
       '/designs/themes/' + profile.theme + '/favicon.ico'
     else
-      favicon = profile.articles.find_by_path('favicon.ico')
+      favicon = profile.articles.find_by path: 'favicon.ico'
       if favicon
         favicon.public_filename
       else
@@ -1154,8 +1154,8 @@ module ApplicationHelper
   end
 
   def default_folder_for_image_upload(profile)
-    default_folder = profile.folders.find_by_type('Gallery')
-    default_folder = profile.folders.find_by_type('Folder') if default_folder.nil?
+    default_folder = profile.folders.find_by type: 'Gallery'
+    default_folder = profile.folders.find_by type: 'Folder' if default_folder.nil?
     default_folder
   end
 

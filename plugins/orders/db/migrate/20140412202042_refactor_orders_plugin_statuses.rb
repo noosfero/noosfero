@@ -38,7 +38,7 @@ class RefactorOrdersPluginStatuses < ActiveRecord::Migration
     add_column :orders_plugin_orders, :received_at, :datetime
 
     OrdersPlugin::Order.record_timestamps = false
-    OrdersPlugin::Order.update_all ["status = 'ordered'"], ["status = 'confirmed'"]
+    OrdersPlugin::Order.where(status: 'confirmed').update_all status: 'ordered'
     OrdersPlugin::Order.find_each do |order|
       order.ordered_at = order.updated_at if order.status == 'ordered'
       order.save run_callbacks: false
