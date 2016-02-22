@@ -17,6 +17,7 @@ Feature: Use a secret community
     And I check "Secret"
     And I press "Save"
     And I follow "Logout"
+    And I go to /account/login
 
   @selenium
   Scenario: Hide privacity options when secret is checked
