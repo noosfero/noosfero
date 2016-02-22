@@ -24,11 +24,10 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference 'Article.count' do
-      post '/myprofile/myuser/cms/new', :type => 'TinyMceArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
+      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TinyMceArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
     end
 
-    assert_response :redirect
-    follow_redirect!
+    assert_response :success
     a = Article.find_by_path('my-article')
     assert_equal "/myuser/#{a.slug}", path
   end
@@ -55,14 +54,13 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
 
     assert_no_difference 'Article.count' do
-      post "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
+      post_via_redirect "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
     end
 
     article.reload
     assert_equal 'this is the body of the article', article.body
 
-    assert_response :redirect
-    follow_redirect!
+    assert_response :success
     a = Article.find_by_path('my-article')
     assert_equal "/myuser/#{a.slug}", path
   end
@@ -84,10 +82,9 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
-    post "/myprofile/myuser/cms/destroy/#{article.id}"
+    post_via_redirect "/myprofile/myuser/cms/destroy/#{article.id}"
 
-    assert_response :redirect
-    follow_redirect!
+    assert_response :success
     assert_equal "/myuser", path
 
     # the article was actually deleted
