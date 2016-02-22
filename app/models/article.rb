@@ -77,15 +77,12 @@ class Article < ActiveRecord::Base
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
   belongs_to :created_by, :class_name => 'Person', :foreign_key => 'created_by_id'
 
-<<<<<<< 6fa2f904983046ed816efe293ba9dcad19a67a4b
   has_many :comments, :class_name => 'Comment', :as => 'source', :dependent => :destroy, :order => 'created_at asc'
 
-=======
-  has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
   has_many :article_followers, :dependent => :destroy
   has_many :person_followers, :class_name => 'Person', :through => :article_followers, :source => :person
   has_many :person_followers_emails, :class_name => 'User', :through => :person_followers, :source => :user, :select => :email
->>>>>>> Add feature: Article Followers
+
   has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
   has_many :categories, :through => :article_categorizations
 
