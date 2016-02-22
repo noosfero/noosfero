@@ -51,12 +51,10 @@ ActiveRecord::Schema.define(version: 20160202142247) do
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], name: "index_action_tracker_notif_on_prof_id_act_tracker_id", unique: true, using: :btree
   add_index "action_tracker_notifications", ["profile_id"], name: "index_action_tracker_notifications_on_profile_id", using: :btree
 
-  create_table "article_followers", force: :cascade do |t|
-    t.integer  "person_id",  null: false
-    t.integer  "article_id", null: false
+  create_table "article_followers", id: false, force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "article_id"
     t.datetime "since"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "article_followers", ["article_id"], name: "index_article_followers_on_article_id", using: :btree
@@ -113,7 +111,6 @@ ActiveRecord::Schema.define(version: 20160202142247) do
     t.integer  "spam_comments_count",  default: 0
     t.integer  "author_id"
     t.integer  "created_by_id"
-    t.integer  "followers_count"
   end
 
   add_index "article_versions", ["article_id"], name: "index_article_versions_on_article_id", using: :btree
@@ -752,7 +749,7 @@ ActiveRecord::Schema.define(version: 20160202142247) do
   create_table "tasks", force: :cascade do |t|
     t.text     "data"
     t.integer  "status"
-    t.date     "end_date"
+    t.datetime "end_date"
     t.integer  "requestor_id"
     t.integer  "target_id"
     t.string   "code",           limit: 40
