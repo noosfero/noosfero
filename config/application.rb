@@ -15,6 +15,9 @@ module Noosfero
 
     require 'noosfero/plugin'
 
+    require 'noosfero/multi_tenancy'
+    config.middleware.use Noosfero::MultiTenancy::Middleware
+
     config.action_controller.include_all_helpers = false
 
     # Settings in config/environments/* take precedence over those specified here.

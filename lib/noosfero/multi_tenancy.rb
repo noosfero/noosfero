@@ -22,6 +22,18 @@ module Noosfero
       end
     end
 
+    class Middleware
+      def initialize(app)
+        @app = app
+      end
+
+      def call(env)
+        request = Rack::Request.new(env)
+        Noosfero::MultiTenancy.setup!(request.host)
+        @app.call(env)
+      end
+    end
+
     private
 
     def self.load_map
