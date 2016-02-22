@@ -23,7 +23,7 @@ start() {
   trap stop INT TERM EXIT
   whenever --write-crontab --set 'environment=development'
   mkdir -p log
-  touch log/development.log
+  touch log/development.log log/development_api.log
   if [ -z "$RAILS_RELATIVE_URL_ROOT" ]; then
     unicorn_rails --config-file lib/noosfero/unicorn.rb --daemonize $@
   else
@@ -32,7 +32,7 @@ start() {
       --config-file lib/noosfero/unicorn.rb \
       --daemonize
   fi
-  tail -n 0 -f log/development.log || true
+  tail -n 0 -f log/development.log log/development_api.log || true
 }
 
 start $@
