@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20160202142247) do
     t.integer  "person_id"
     t.integer  "article_id"
     t.datetime "since"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "article_followers", ["article_id"], name: "index_article_followers_on_article_id", using: :btree
