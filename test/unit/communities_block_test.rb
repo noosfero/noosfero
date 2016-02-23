@@ -33,7 +33,7 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(profile).at_least_once
 
-    self.expects(:render).with(:file => 'blocks/communities', :locals => { :owner => profile, :suggestions => block.suggestions })
+    self.expects(:render).with(:file => 'blocks/communities_footer', :locals => { :owner => profile, :suggestions => block.suggestions })
     instance_eval(&block.footer)
   end
 
@@ -42,7 +42,7 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(env).at_least_once
 
-    self.expects(:render).with(:file => 'blocks/communities', :locals => { :owner => env, :suggestions => block.suggestions })
+    self.expects(:render).with(:file => 'blocks/communities_footer', :locals => { :owner => env, :suggestions => block.suggestions })
     instance_eval(&block.footer)
   end
 
