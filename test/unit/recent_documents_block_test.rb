@@ -35,17 +35,6 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert_equivalent block.docs, articles
   end
 
-  should 'link to documents' do
-    articles.each do |a|
-      expects(:link_to).with(a.title, a.url)
-    end
-    stubs(:block_title).returns("")
-    stubs(:content_tag).returns("")
-    stubs(:li).returns("")
-
-    instance_eval(&block.content)
-  end
-
   should 'respect the maximum number of items as configured' do
     block.limit = 3
 
@@ -98,5 +87,43 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     block = RecentDocumentsBlock.new
     block.limit = -5
     assert_equal 0, block.get_limit
+  end
+end
+
+require 'boxes_helper'
+
+class RecentDocumentsBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    @articles = []
+    @profile = create_user('testinguser').person
+    @profile.articles.destroy_all
+    ['first', 'second', 'third', 'fourth', 'fifth'].each do |name|
+      article = @profile.articles.create!(:name => name)
+      @articles << article
+    end
+
+    box = Box.new
+    box.owner = profile
+    box.save!
+
+
+    @block = RecentDocumentsBlock.new
+    @block.box_id = box.id
+    @block.save!
+
+  end
+  attr_reader :block, :profile, :articles
+
+  should 'link to documents' do
+    articles.each do |a|
+      ActionView::Base.any_instance.expects(:link_to).with(a.title, a.url)
+    end
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:content_tag).returns("")
+    ActionView::Base.any_instance.stubs(:li).returns("")
+
+    render_block_content(block)
   end
 end
