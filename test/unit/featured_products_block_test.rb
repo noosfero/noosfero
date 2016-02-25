@@ -1,6 +1,8 @@
 require_relative "../test_helper"
+require 'boxes_helper'
 
 class FeaturedProductsBlockTest < ActiveSupport::TestCase
+  include BoxesHelper
 
   def setup
     @profile = fast_create(Profile)
@@ -108,7 +110,7 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block = FeaturedProductsBlock.new
 
     self.expects(:render).with(:file => 'blocks/featured_products', :locals => { :block => block})
-    instance_eval(& block.content)
+    render_block_content(block)
   end
 
   should "return just highlighted products with image for selection" do
