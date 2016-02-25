@@ -10,10 +10,9 @@ function send_order(order, url) {
   });
 }
 
-
 jQuery(document).ready(function(){
   jQuery("#comment_order").change(function(){
-    var url = jQuery("#page_url").val();
+    var url = window.location.href;
     send_order(this.value, url);
   });
 });

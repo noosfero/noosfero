@@ -1,0 +1,4 @@
+<% if @comments.present? %>
+  <%= render :partial => 'comment/comment', :collection => @comments %>
+  <%= pagination_links @comments, :param_name => 'comment_page', :params => { :comment_order => @comment_order } %>
+<% end %>
