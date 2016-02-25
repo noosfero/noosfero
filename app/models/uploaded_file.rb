@@ -2,12 +2,28 @@
 #
 # Limitation: only file metadata are versioned. Only the latest version
 # of the file itself is kept. (FIXME?)
+
+require 'sdbm'
+
 class UploadedFile < Article
 
   attr_accessible :uploaded_data, :title
 
   def self.type_name
     _('File')
+  end
+
+  DBM_PRIVATE_FILE = 'cache/private_files'
+  after_save do |uploaded_file|
+    if uploaded_file.published_changed?
+      dbm = SDBM.open(DBM_PRIVATE_FILE)
+      if uploaded_file.published
+        dbm.delete(uploaded_file.public_filename)
+      else
+        dbm.store(uploaded_file.public_filename, uploaded_file.full_path)
+      end
+      dbm.close
+    end
   end
 
   track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :parent
@@ -106,10 +122,13 @@ class UploadedFile < Article
     self.name ||= self.filename
   end
 
-  def download_headers
-    {
-      'Content-Disposition' => "attachment; filename=\"#{self.filename}\"",
-    }
+  def download_disposition
+    case content_type
+    when 'application/pdf'
+      'inline'
+    else
+      'attachment'
+    end
   end
 
   def data

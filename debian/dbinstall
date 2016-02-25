@@ -5,8 +5,6 @@ set -e
 # dbconfig-common uses "pgsql", but we want "postgresql"
 sed -i -e 's/adapter: pgsql/adapter: postgresql/' /etc/noosfero/database.yml
 
-/etc/init.d/noosfero setup
-
 cd /usr/share/noosfero && su noosfero -c "rake db:schema:load RAILS_ENV=production"
 cd /usr/share/noosfero && su noosfero -c "rake db:migrate RAILS_ENV=production SCHEMA=/dev/null"
 cd /usr/share/noosfero && su noosfero -c "rake db:data:minimal RAILS_ENV=production"

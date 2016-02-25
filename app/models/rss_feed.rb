@@ -65,6 +65,10 @@ class RssFeed < Article
     'text/xml'
   end
 
+  def download?(view = nil)
+    true
+  end
+
   include Rails.application.routes.url_helpers
   def fetch_articles
     if parent && parent.has_posts?

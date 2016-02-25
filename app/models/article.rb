@@ -383,6 +383,10 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def full_path
+    profile.hostname.blank? ? "/#{profile.identifier}/#{path}" : "/#{path}"
+  end
+
   def url
     @url ||= self.profile.url.merge(:page => path.split('/'))
   end
@@ -408,17 +412,19 @@ class Article < ActiveRecord::Base
   end
 
   def download? view = nil
-    (self.uploaded_file? and not self.image?) or
-      (self.image? and view.blank?) or
-      (not self.uploaded_file? and self.mime_type != 'text/html')
+    false
   end
 
   def is_followed_by?(user)
     self.person_followers.include? user
   end
 
+  def download_disposition
+    'inline'
+  end
+
   def download_headers
-    {}
+    { :filename => filename, :type => mime_type, :disposition => download_disposition}
   end
 
   def alternate_languages

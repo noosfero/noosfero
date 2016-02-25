@@ -51,27 +51,26 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  should 'produce a download-link when article is a uploaded file' do
+  should 'produce a download-link when view page is true' do
     profile = create_user('someone').person
     html = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/500.html', 'text/html'), :profile => profile
     html.save!
 
-    get :view_page, :profile => 'someone', :page => [ '500.html' ]
+    get :view_page, :profile => 'someone', :page => [ '500.html' ], :view => true
 
     assert_response :success
-    assert_match /#{html.public_filename}/, @response.body
+    assert_select "a[href=#{html.full_path}]"
   end
 
-  should 'download file when article is image' do
+  should 'download file when view page is blank' do
     profile = create_user('someone').person
     image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
     image.save!
 
     get :view_page, :profile => 'someone', :page => [ 'rails.png' ]
 
-    assert_response :success
-    assert_not_nil assigns(:page).data
-    assert_match /image\/png/, @response.headers['Content-Type']
+    assert_response :redirect
+    assert_redirected_to image.public_filename
   end
 
   should 'display image on a page when article is image and has a view param' do

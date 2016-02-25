@@ -205,8 +205,6 @@ class ContentViewerController < ApplicationController
 
   def rendered_file_download(view = nil)
     if @page.download? view
-      headers['Content-Type'] = @page.mime_type
-      headers.merge! @page.download_headers
       data = @page.data
 
       # TODO test the condition
@@ -214,7 +212,12 @@ class ContentViewerController < ApplicationController
         raise "No data for file"
       end
 
-      render :text => data, :layout => false
+      if @page.published && @page.uploaded_file?
+        redirect_to @page.public_filename
+      else
+        send_data data, @page.download_headers
+      end
+
       return true
     end
 

@@ -86,6 +86,13 @@ do_setup() {
     chmod 750 /var/tmp/noosfero
   fi
 
+  # Noosfero cache directory
+  if [ ! -d /var/cache/noosfero ]; then
+    mkdir /var/cache/noosfero
+    chown $NOOSFERO_USER:root /var/cache/noosfero
+    chmod 755 /var/cache/noosfero
+  fi
+
   # symlink the directories into Noosfero directory
   if [ ! -e $NOOSFERO_DIR/tmp ]; then
     ln -s /var/tmp/noosfero $NOOSFERO_DIR/tmp
@@ -95,6 +102,9 @@ do_setup() {
   fi
   if [ ! -e $NOOSFERO_DIR/log ]; then
     ln -s /var/log/noosfero $NOOSFERO_DIR/log
+  fi
+  if [ ! -e $NOOSFERO_DIR/cache ]; then
+    ln -s /var/cache/noosfero $NOOSFERO_DIR/cache
   fi
 }
 

@@ -17,13 +17,13 @@ if test -x /usr/share/noosfero/script/apacheconf; then
   if ! test -e "$apache_site"; then
     echo "Generating apache virtual host ..."
     cd /usr/share/noosfero && su noosfero -c "RAILS_ENV=production ./script/apacheconf virtualhosts" > "$apache_site"
-  else
-    pattern="Include \/etc\/noosfero\/apache\/virtualhost.conf"
-    include="Include \/usr\/share\/noosfero\/util\/chat\/apache\/xmpp.conf"
-    if ! cat $apache_site | grep "^ *$include" > /dev/null ; then
-      echo "Updating apache virtual host ..."
-      sed -i "s/.*$pattern.*/  $include\n&/" $apache_site
-    fi
+  fi
+
+  # remove old way to include chat config
+  pattern="Include \/usr\/share\/noosfero\/util\/chat\/apache\/xmpp.conf"
+  if cat $apache_site | grep "^ *$pattern" > /dev/null ; then
+    echo "Removing obsolete chat configuration ..."
+    sed -i "/.*$pattern.*/d" $apache_site
   fi
 
   echo 'Noosfero Apache configuration updated.'

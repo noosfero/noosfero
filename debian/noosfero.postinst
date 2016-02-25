@@ -68,9 +68,16 @@ if [ ! -z "$RET" ]; then
   export NOOSFERO_DOMAIN="$RET"
 fi
 
+/etc/init.d/noosfero setup
+
 # dbconfig-common magic
 . /usr/share/dbconfig-common/dpkg/postinst
 dbc_go noosfero $@
+
+if [ ! -f /usr/share/noosfero/cache/private_files.pag ] && [ $1 = "configure" ] && [ -n  $2 ]; then
+  echo "Creating private files dbm map..."
+  cd /usr/share/noosfero && su noosfero -c "rake cache:private_files RAILS_ENV=production"
+fi
 
 # stop debconf to avoid the problem with infinite hanging, cfe
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295477
