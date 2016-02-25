@@ -20,21 +20,6 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.description, ProductsBlock.description
   end
 
-  should "list owner products" do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-
-    block.expects(:products).returns(enterprise.products)
-
-    content = block.content
-
-    assert_tag_in_string content, :content => 'Products'
-
-    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product one/ }
-    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product two/ }
-  end
-
   should 'point to all products in footer' do
     enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
     create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
@@ -134,13 +119,46 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
   end
 
+
+end
+
+require 'boxes_helper'
+require 'block_helper'
+
+class ProductsBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  ActionView::Base.send :include, BlockHelper
+
+  def setup
+    @block = ProductsBlock.new
+    @product_category = fast_create(ProductCategory, :name => 'Products')
+  end
+  attr_reader :block
+
+  should "list owner products" do
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+
+    block.expects(:products).returns(enterprise.products)
+
+    content = render_block_content(block)
+
+    assert_tag_in_string content, :content => 'Products'
+
+    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product one/ }
+    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product two/ }
+  end
+
   should 'display the default minor image if thumbnails were not processed' do
     enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
     create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
 
     block.expects(:products).returns(enterprise.products)
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
 
-    content = block.content
+    content = render_block_content(block)
 
     assert_tag_in_string content, :tag => 'a', :attributes => { :style => /image-loading-minor.png/ }
   end
@@ -151,9 +169,9 @@ class ProductsBlockTest < ActiveSupport::TestCase
 
     process_delayed_job_queue
     block.expects(:products).returns(enterprise.products.reload)
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
 
-    content = block.content
+    content = render_block_content(block)
     assert_tag_in_string content, :tag => 'a', :attributes => { :style => /rails_minor.png/ }
   end
-
 end
