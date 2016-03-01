@@ -1497,7 +1497,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     @request.session[:members_filtered] = [Profile.last.id+1]
     post :send_mail, :profile => community.identifier, :mailing => {:subject => 'RUN!!', :body => 'Run to the hills!!'}
-    assert_equivalent community.members, OrganizationMailing.last.recipients
+    assert_empty OrganizationMailing.last.recipients
   end
 
   should 'save mailing' do

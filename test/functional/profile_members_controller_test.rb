@@ -196,7 +196,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
+    assert_tag :tag => 'input', :attributes => {:value => 'Send e-mail to members'}
   end
 
   should 'not display send email to members if doesn\'t have the permission' do

@@ -49,6 +49,9 @@ class Profile < ActiveRecord::Base
     def self.organization_member_roles(env_id)
       all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? || !r.profile_id.nil?}
     end
+    def self.organization_custom_roles(env_id, profile_id)
+      all_roles(env_id).where('profile_id = ?', profile_id)
+    end
     def self.all_roles(env_id)
       Role.where(environment_id: env_id)
     end

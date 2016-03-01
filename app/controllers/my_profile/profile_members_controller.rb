@@ -10,8 +10,18 @@ class ProfileMembersController < MyProfileController
 
     @data[:members] = profile.members_by(field,@filters[:name]).by_role(@filters[:roles])
     session[:members_filtered] = @data[:members].map{|m|m.id} if request.post?
-    @data[:roles] = Profile::Roles.organization_member_roles(environment.id)
+    @data[:roles] = Profile::Roles.organization_member_roles(environment.id) | Profile::Roles.organization_custom_roles(environment.id, profile.id)
 
+  end
+
+  def send_mail
+    session[:members_filtered] = params[:members_filtered].select{|value| value!="0"}
+    if session[:members_filtered].present?
+      redirect_to :controller => :profile, :action => :send_mail
+    else
+      session[:notice] = _("Select at least one member.")
+      redirect_to :action => :index
+    end
   end
 
   def update_roles

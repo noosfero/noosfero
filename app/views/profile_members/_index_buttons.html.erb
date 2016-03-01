@@ -5,7 +5,7 @@
     <%= button :person, _('Invite people to join'), :controller => 'invite', :action => 'invite_friends' %>
   <% end %>
   <% if profile.community? and user.has_permission?(:send_mail_to_members, profile) %>
-    <%= button :send, _('Send e-mail to members'), :controller => 'profile', :action => 'send_mail' %>
+    <%= submit_button(:send, _('Send e-mail to members')) %>
   <% end %>
   <% @plugins.dispatch(:manage_members_extra_buttons).each do |plugin_button| %>
     <%= button plugin_button[:icon], plugin_button[:title], plugin_button[:url] %>
