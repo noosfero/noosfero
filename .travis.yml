@@ -32,7 +32,7 @@ before_install:
 cache: bundler
 
 before_script:
-  - mkdir -p tmp/{pids,cache} log
+  - mkdir -p tmp/{pids,cache} log cache
   - script/noosfero-plugins disableall
   #- bundle exec rake makemo &>/dev/null
 # database
