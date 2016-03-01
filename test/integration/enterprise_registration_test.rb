@@ -61,10 +61,9 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_tag :form, :attributes => { :action => "/myprofile/myorg/enterprise_validation/approve/#{code}" }
 
-    post "/myprofile/myorg/enterprise_validation/approve/#{code}"
-    assert_response :redirect
+    post_via_redirect "/myprofile/myorg/enterprise_validation/approve/#{code}"
+    assert_response :success
 
-    follow_redirect!
     assert_equal "/myprofile/myorg/enterprise_validation/view_processed/#{code}", path
     assert_tag :span, :attributes =>  { :class => 'validation_approved' }
   end
