@@ -1,16 +1,22 @@
-<% collection = @collection == :profile_admins ? profile.admins : profile.members_by_name %>
+<% members = @data ? @data[:members] : profile.members_by('name') %>
+<% collection = @collection == :profile_admins ? profile.admins : members %>
 <% title = @title ? @title : _('Current members') %>
 <% remove_action = @remove_action ? @remove_action : {:action => 'unassociate'} %>
+<%= javascript_include_tag params[:controller] %>
 
 <h3><%= title %></h3>
 
 <table>
+  <col width="1">
   <tr>
+    <th><%= check_box_tag 'checkbox-all', 1, false, :onClick => "toggle(this)"  %></th>
     <th><%= _('Member') %></th>
     <th><%= _('Actions') %></th>
   </tr>
+
   <% collection.each do |m| %>
     <tr title="<%= m.name %>">
+      <td><%= labelled_check_box('', 'members_filtered[]', m.id.to_s, false, :id => 'checkbox-'+m.identifier) %></td>
       <td><%= link_to_profile m.short_name, m.identifier, :title => m.name %> </td>
       <td>
         <div class="members-buttons-cell">
@@ -26,3 +32,8 @@
     </tr>
   <% end %>
 </table>
+<% if collection.empty? %>
+  <p>
+    <em><%= _('No members found to: %s') % profile.name %></em>
+  </p>
+<% end %>

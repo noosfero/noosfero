@@ -16,10 +16,13 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
-  scope :members_of, -> resources {
+  scope :members_of, lambda { |resources, field = ''|
     resources = Array(resources)
+    joins = [:role_assignments]
+    joins << :user if User.attribute_names.include? field
+
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    distinct.select('profiles.*').joins(:role_assignments).where([conditions])
+    select('DISTINCT profiles.*').joins(joins).where([conditions])
   }
 
   scope :not_members_of, -> resources {
@@ -48,6 +51,14 @@ class Person < Profile
       ['( roles.key = ? AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR (
         ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )', 'environment_administrator', Profile.name, person.id, person.id,  true, true]
     ).uniq
+    }
+  scope :by_role, lambda { |roles|
+
+    roles = [roles] unless roles.kind_of?(Array)
+
+    if roles.length > 0
+      {:select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.role_id IN (?)', roles] }
+    end
   }
 
 

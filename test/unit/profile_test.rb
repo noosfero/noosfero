@@ -1816,6 +1816,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [person], community.members
   end
 
+  should 'return a list members by email of a community' do
+    someone = create_user('Someone', email:'someone@test.com.br')
+    someperson = create_user('Someperson',email:'someperson@test.com.br')
+
+    community = fast_create(Community)
+    community.add_member(someone.person)
+    community.add_member(someperson.person)
+
+    result = community.members_like 'email', '@test.com.br'
+
+    assert_includes result, someone.person
+    assert_includes result, someperson.person
+
+  end
+
   should 'count unique members of a community' do
     person = fast_create(Person)
     community = fast_create(Community)

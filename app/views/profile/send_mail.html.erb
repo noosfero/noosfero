@@ -4,6 +4,9 @@
 
 <%= error_messages_for :mailing %>
 
+  <% to = @mailing.data[:members_filtered].present? ? @mailing.recipients.map{|r| r.name}.join(', ') : _('All members')%>
+  <%= labelled_form_field(_('To:'), text_area(:data, 'members_filtered', :value => to, :rows => 4, :disabled => 'disabled', :class => 'send-mail-recipients'))  %>
+
 <%= form_for :mailing, :url => {:action => 'send_mail'}, :html => {:id => 'mailing-form'} do |f| %>
 
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>

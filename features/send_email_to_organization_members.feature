@@ -31,7 +31,8 @@ Feature: send emails to organization members
   Scenario: Send e-mail to members
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
-    And I follow "Send e-mail to members"
+    And I check "checkbox-manoel"
+    And I press "Send e-mail to members"
     And I fill in "Subject" with "Hello, member!"
     And I fill in "Body" with "We have some news"
     When I press "Send"
@@ -40,7 +41,8 @@ Feature: send emails to organization members
   Scenario: Not send e-mail to members if subject is blank
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
-    And I follow "Send e-mail to members"
+    And I check "checkbox-manoel"
+    And I press "Send e-mail to members"
     And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on /profile/sample-community/send_mail
@@ -48,7 +50,8 @@ Feature: send emails to organization members
   Scenario: Not send e-mail to members if body is blank
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
-    And I follow "Send e-mail to members"
+    And I check "checkbox-manoel"
+    And I press "Send e-mail to members"
     And I fill in "Subject" with "Hello, user!"
     When I press "Send"
     Then I should be on /profile/sample-community/send_mail
@@ -56,7 +59,8 @@ Feature: send emails to organization members
   Scenario: Cancel creation of mailing
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
-    And I follow "Send e-mail to members"
+    And I check "checkbox-manoel"
+    And I press "Send e-mail to members"
     When I follow "Cancel e-mail"
     Then I should be on Sample Community's members management
 
