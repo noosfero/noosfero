@@ -87,7 +87,8 @@ require 'block_helper'
 class ArticleBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
-  ActionView::Base.send :include, ApplicationHelper
+  ActionView::Base.send :include, ArticleHelper
+  ActionView::Base.send :include, ButtonsHelper
   ActionView::Base.send :include, BlockHelper
 
   should "take article's content" do
@@ -157,6 +158,5 @@ class ArticleBlockViewTest < ActionView::TestCase
 
     UploadedFile.any_instance.stubs(:url).returns('myhost.mydomain/path/to/file')
     assert_tag_in_string render_block_content(block), :tag => 'a', :content => _('Download')
-
   end
 end
