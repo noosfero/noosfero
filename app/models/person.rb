@@ -22,7 +22,7 @@ class Person < Profile
     joins << :user if User.attribute_names.include? field
 
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
-    select('DISTINCT profiles.*').joins(joins).where([conditions])
+    distinct.select('profiles.*').joins(joins).where([conditions])
   }
 
   scope :not_members_of, -> resources {
@@ -52,15 +52,6 @@ class Person < Profile
         ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )', 'environment_administrator', Profile.name, person.id, person.id,  true, true]
     ).uniq
     }
-  scope :by_role, lambda { |roles|
-
-    roles = [roles] unless roles.kind_of?(Array)
-
-    if roles.length > 0
-      {:select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.role_id IN (?)', roles] }
-    end
-  }
-
 
   def has_permission_with_admin?(permission, resource)
     return true if resource.blank? || resource.admins.include?(self)

@@ -3,14 +3,15 @@ class ProfileMembersController < MyProfileController
 
   def index
     @filters = params[:filters] || {:roles => []}
-    @filters[:roles] = [] unless @filters[:roles]
+    all_roles = Profile::Roles.organization_member_roles(environment.id) | Profile::Roles.organization_custom_roles(environment.id, profile.id)
+    @filters[:roles] = all_roles unless @filters[:roles].present?
     @data = {}
     field = 'name'
     field = 'email' if @filters[:name] =~ /\@/
 
     @data[:members] = profile.members_by(field,@filters[:name]).by_role(@filters[:roles])
     session[:members_filtered] = @data[:members].map{|m|m.id} if request.post?
-    @data[:roles] = Profile::Roles.organization_member_roles(environment.id) | Profile::Roles.organization_custom_roles(environment.id, profile.id)
+    @data[:roles] = all_roles
 
   end
 
