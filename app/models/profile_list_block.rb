@@ -40,13 +40,6 @@ result = public_profiles.all(:limit => get_limit, :order => 'profiles.updated_at
     _('Clicking on the people or groups will take you to their home page.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/profile_list', :locals => { :block => block }
-    end
-  end
-
   def view_title
     title.gsub('{#}', profile_count.to_s)
   end
