@@ -707,6 +707,10 @@ class Noosfero::Plugin
     # returns = string with reason of expiration
     elsif method.to_s =~ /^content_expire_(#{content_actions.join('|')})$/
       nil
+    # -> Generic hotspots for models callbacks
+    # Example: article_after_create_callback
+    elsif method.to_s =~ /^(.+)_#{Noosfero::Plugin::HotSpot::CALLBACK_HOTSPOTS.join('|')}_callback$/
+      nil
     elsif context.respond_to?(method)
       context.send(method)
     else
