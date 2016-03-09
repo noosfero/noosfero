@@ -2252,4 +2252,22 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal "/#{a2.path}", a2.full_path
   end
 
+  should "increment followers count when a person follow an article" do
+    a = fast_create(Article)
+    p = fast_create(Person)
+    assert_difference "a.reload.followers_count" do
+      a.person_followers << p
+    end 
+  end
+    
+  should "decrement followers count when a person unfollow an article" do
+    p = fast_create(Person)
+    a = fast_create(Article, :profile_id => p)
+    a.person_followers << p
+    assert_difference "a.reload.followers_count", -1 do
+      a.person_followers.destroy_all
+    end
+  end
+
+
 end
