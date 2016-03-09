@@ -22,21 +22,6 @@ class ArticleTest < ActiveSupport::TestCase
     refute a.errors[:profile_id.to_s].present?
   end
 
-  should 'keep unique users in list of followers' do
-    person1 = create_user('article_owner').person
-    person2 = create_user('article_follower').person
-
-    article = fast_create(Article, :profile_id => person1.id)
-
-    article.person_followers=[person2]
-    article.save
-    article.reload
-    article.person_followers=[person2]
-    article.save
-
-    assert_equal 1, article.reload.person_followers.size
-  end
-
   should 'require value for name' do
     a = Article.new
     a.valid?
@@ -1713,11 +1698,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert post.allow_edit?(author)
   end
 
-  should 'has a empty list of followers by default' do
-    a = Article.new
-    assert_equal [], a.person_followers
-  end
-
   should 'get first image from lead' do
     a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>',
                              :abstract => '<p>Lead</p><p><img src="leadbar.png" />Bar<img src="leadfoo.png" /></p>')
@@ -2267,6 +2247,45 @@ class ArticleTest < ActiveSupport::TestCase
     assert_difference "a.reload.followers_count", -1 do
       a.person_followers.destroy_all
     end
+  end
+
+  should 'the owner not in followers list' do
+    person1 = create_user('article_owner').person
+    person2 = create_user('article_follower').person
+
+    article = fast_create(Article, :profile_id => person1.id)
+
+    article.person_followers=[person2]
+    article.save
+    article.reload
+    article.person_followers=[person2]
+    article.save
+
+    assert_equal [person2], article.reload.person_followers
+  end
+
+  should 'has a empty list of followers by default' do
+    a = Article.new
+    assert_equal [], a.person_followers
+  end
+
+  should 'a follower not be duplicated' do
+    follower = create_user('article_follower').person
+
+    article = fast_create(Article, :profile_id => fast_create(Person))
+
+    article.person_followers<< follower
+    assert_raises (ActiveRecord::RecordNotUnique) { article.person_followers<< follower }
+  end
+
+  should 'an article be follower by many users' do
+    article = fast_create(Article, :profile_id => fast_create(Person))
+
+    1.upto(10).map do |n|
+      article.person_followers<< fast_create(Person)
+    end
+    article.save
+    assert_equal 10, article.reload.person_followers.count
   end
 
 
