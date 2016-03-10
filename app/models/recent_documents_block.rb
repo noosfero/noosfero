@@ -22,15 +22,6 @@ class RecentDocumentsBlock < Block
 
   settings_items :limit, :type => :integer, :default => 5
 
-  def footer
-    return nil unless self.owner.is_a?(Profile)
-
-    profile = self.owner
-    proc do
-      link_to _('All content'), :profile => profile.identifier, :controller => 'profile', :action => 'sitemap'
-    end
-  end
-
   def docs
     self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.get_limit, {}, false)
   end

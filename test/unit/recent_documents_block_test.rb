@@ -57,21 +57,6 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert block.limit > 0
   end
 
-  should 'display a link to sitemap with title "All content"' do
-    expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
-    expects(:_).with('All content').returns('All content')
-
-    instance_eval(&(block.footer))
-  end
-
-  should 'not display link to sitemap when owner is environment' do
-    block = RecentDocumentsBlock.new
-    box = mock
-    block.expects(:box).returns(box).at_least_once
-    box.expects(:owner).returns(Environment.new).at_least_once
-    assert_equal nil, block.footer
-  end
-
   should 'be able to update display setting' do
     assert @block.update!(:display => 'always')
     @block.reload
@@ -125,5 +110,20 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:li).returns("")
 
     render_block_content(block)
+  end
+
+  should 'display a link to sitemap with title "All content"' do
+    ActionView::Base.any_instance.expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
+    ActionView::Base.any_instance.expects(:_).with('All content').returns('All content')
+
+    render_block_footer(block)
+  end
+
+  should 'not display link to sitemap when owner is environment' do
+    block = RecentDocumentsBlock.new
+    box = mock
+    block.expects(:box).returns(box).at_least_once
+    box.expects(:owner).returns(Environment.new).at_least_once
+    assert_equal '', render_block_footer(block)
   end
 end
