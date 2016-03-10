@@ -110,7 +110,7 @@ module BoxesHelper
   def display_block_content(block, main_content = nil)
     content = block.main? ? wrap_main_content(main_content) : render_block_content(block)
     result = extract_block_content(content)
-    footer_content = extract_block_content(block.respond_to?(:footer) ? block.footer : render_block_footer(block)) # FIXME: this ternary conditional should be removed after all block footer methods get refatored into helpers and views
+    footer_content = extract_block_content(render_block_footer(block))
     unless footer_content.blank?
       footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
     end

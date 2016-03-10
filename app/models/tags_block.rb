@@ -28,21 +28,6 @@ class TagsBlock < Block
        Try to add some tags to some articles and you'l see your tag cloud growing.")
   end
 
-  def footer
-    if owner.class == Environment
-      proc do
-        link_to s_('tags|View all'),
-          :controller => 'search', :action => 'tags'
-      end
-    else
-      owner_id = owner.identifier
-      proc do
-        link_to s_('tags|View all'),
-          :profile => owner_id, :controller => 'profile', :action => 'tags'
-      end
-    end
-  end
-
   def timeout
     15.minutes
   end
