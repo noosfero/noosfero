@@ -35,17 +35,6 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal 'Feed Reader', feed.title
   end
 
-  should 'notice when content not fetched yet' do
-    assert_equal'Feed content was not loaded yet', feed.footer
-  end
-
-  should 'display last fetched date' do
-    now = Time.new(2014,1,1)
-    feed.feed_items = ['one', 'two']
-    feed.fetched_at = now
-    assert_equal "Updated: #{show_date(now)}", feed.footer
-  end
-
   should 'clear feed title and items' do
     feed.feed_items = %w[ last-post second-post first-post ]
     feed.feed_title = 'Feed Test'
@@ -169,11 +158,14 @@ end
 
 require 'boxes_helper'
 require 'block_helper'
+require 'dates_helper'
 
 class FeedReaderBlockViewTest < ActionView::TestCase
   include BoxesHelper
+  include DatesHelper
 
   ActionView::Base.send :include, BlockHelper
+  ActionView::Base.send :include, DatesHelper
 
   def setup
     @feed = create(:feed_reader_block)
@@ -216,4 +208,14 @@ class FeedReaderBlockViewTest < ActionView::TestCase
     assert_no_tag_in_string render_block_content(feed), :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
   end
 
+  should 'notice when content not fetched yet' do
+    assert_equal "  Feed content was not loaded yet\n", render_block_footer(feed)
+  end
+
+  should 'display last fetched date' do
+    now = Time.new(2014,1,1)
+    feed.feed_items = ['one', 'two']
+    feed.fetched_at = now
+    assert_equal "  Updated: #{show_date(now)}\n", render_block_footer(feed)
+  end
 end
