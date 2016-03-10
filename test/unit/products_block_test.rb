@@ -20,18 +20,6 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.description, ProductsBlock.description
   end
 
-  should 'point to all products in footer' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-
-    block.stubs(:owner).returns(enterprise)
-
-    footer = block.footer
-
-    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
-  end
-
   should 'list 4 random products by default' do
     enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
     create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
@@ -105,21 +93,6 @@ class ProductsBlockTest < ActiveSupport::TestCase
       assert_equivalent [p1, p2, p3, p4], block.products
     end
   end
-
-  should 'generate footer when enterprise has own hostname' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.domains << Domain.new(:name => 'sometest.com'); enterprise.save!
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-
-    block.stubs(:owner).returns(enterprise)
-
-    footer = block.footer
-
-    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
-  end
-
-
 end
 
 require 'boxes_helper'
@@ -173,5 +146,30 @@ class ProductsBlockViewTest < ActionView::TestCase
 
     content = render_block_content(block)
     assert_tag_in_string content, :tag => 'a', :attributes => { :style => /rails_minor.png/ }
+  end
+
+  should 'point to all products in footer' do
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+
+    block.stubs(:owner).returns(enterprise)
+
+    footer = render_block_footer(block)
+
+    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
+  end
+
+  should 'generate footer when enterprise has own hostname' do
+    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
+    enterprise.domains << Domain.new(:name => 'sometest.com'); enterprise.save!
+    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
+    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+
+    block.stubs(:owner).returns(enterprise)
+
+    footer = render_block_footer(block)
+
+    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /\/catalog\/testenterprise$/ }, :content => 'View all products'
   end
 end
