@@ -24,6 +24,9 @@ addons:
       - libreadline-dev
       - libsqlite3-dev
       - libxslt1-dev
+  artifacts:
+    paths:
+      - $(ls tmp/artifact* | tr "\n" ":")
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
