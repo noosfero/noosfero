@@ -57,7 +57,8 @@ namespace :ci do
 
     sh 'ruby', '-Itest', *tests unless tests.empty?
     sh 'cucumber', *features unless features.empty?
-    sh 'xvfb-run', '-a', 'cucumber', '-p', 'selenium', *features unless features.empty?
+    sh 'xvfb-run', '-a', '--server-args="-screen 0, 1280x1024x24"',
+      'cucumber', '-p', 'selenium', *features unless features.empty?
 
     changed_plugins.each do |plugin|
       if $broken_plugins.include?(plugin)
