@@ -7,6 +7,11 @@ class CommunityTrackPlugin::Track < Folder
 
   attr_accessible :goals, :expected_results
 
+  def comments_count
+    @comments_count = sum_children_comments self unless @comments_count
+    @comments_count
+  end
+
   def validate_categories
     errors.add(:categories, _('should not be blank.')) if categories.empty? && pending_categorizations.blank?
   end
@@ -49,8 +54,13 @@ class CommunityTrackPlugin::Track < Folder
     false
   end
 
-  def comments_count
-    steps_unsorted.joins(:children).sum('children_articles.comments_count')
+  def sum_children_comments node
+    result = 0
+    node.children.each do |c|
+      result += c.comments_count
+      result += sum_children_comments c
+    end
+    result
   end
 
   def css_class_name

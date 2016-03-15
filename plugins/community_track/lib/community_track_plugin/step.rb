@@ -60,7 +60,7 @@ class CommunityTrackPlugin::Step < Folder
     accept_comments
   end
 
-  def self.enabled_tools
+  def enabled_tools
     [TinyMceArticle, Forum]
   end
 

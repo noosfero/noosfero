@@ -1,5 +1,10 @@
 <div id='edit-track-list-block'>
   <%= labelled_form_field c_('Limit of items'), text_field(:block, :limit, :size => 3) %>
+
+  <%= labelled_form_field c_('Order'),
+    select(:block, :order,
+           options_for_select(CommunityTrackPlugin::TrackListBlock.order_options, :selected => @block.order)) %>
+
   <%= labelled_form_field check_box(:block, :more_another_page) + _('Show more at another page'), '' %>
   <%= select_categories(:block, _('Select Categories')) %>
 <br/>

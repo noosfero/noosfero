@@ -11,8 +11,10 @@
                      { :size => 14 })
   )) %>
 
-  <%= labelled_form_field(_('Tool type'), select(:article, :tool_type, CommunityTrackPlugin::Step.enabled_tools.map {|t| [t.short_description, t.name]} )) %>
+  <%= labelled_form_field(_('Tool type'), select(:article, :tool_type, @article.enabled_tools.map {|t| [t.short_description, t.name]} )) %>
   <%= hidden_field_tag('success_back_to', url_for(@article.parent.view_url)) %>
+  <%= hidden_field_tag('parent_id', @article.parent_id) %>
+
 </div>
 
 <%= labelled_form_field check_box(:article, :hidden) + _('Hidden Step'), '' %>

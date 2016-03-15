@@ -711,4 +711,17 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
   end
 
+  should 'update selected categories in blocks' do
+    env = Environment.default
+    c1 = env.categories.build(:name => "Test category 1"); c1.save!
+
+    block = profile.blocks.last
+
+    Block.any_instance.expects(:accept_category?).at_least_once.returns true
+
+    xhr :get, :update_categories, :profile => profile.identifier, :id => block.id, :category_id => c1.id
+
+    assert_equal assigns(:current_category), c1
+  end
+
 end

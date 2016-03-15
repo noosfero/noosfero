@@ -3,6 +3,9 @@ require_relative '../test_helper'
 class CmsControllerTest < ActionController::TestCase
 
   def setup
+    @environment = Environment.default
+    @environment.enabled_plugins = ['CommunityTrackPlugin']
+    @environment.save!
     @profile = fast_create(Community)
     @track = create_track('track', @profile)
     @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
@@ -34,6 +37,17 @@ class CmsControllerTest < ActionController::TestCase
     post :edit, :id => @step.id, :profile => @profile.identifier, :article => {:name => 'changed'}
     @step.reload
     assert_equal 'changed', @step.name
+  end
+
+  should 'have parent_id present in form' do
+    get :new, :parent_id => @track.id, :profile => @profile.identifier, :type => CommunityTrackPlugin::Step
+    assert_tag :tag => 'input', :attributes => { :name => 'parent_id' }
+  end
+
+  should 'be able to create an step with a parent' do
+    amount_of_steps = CommunityTrackPlugin::Step.count
+    post :new, :parent_id => @track.id, :profile => @profile.identifier, :type => CommunityTrackPlugin::Step, :article => {:name => 'some', :body => 'some'}
+    assert_equal amount_of_steps + 1, CommunityTrackPlugin::Step.count
   end
 
 end
