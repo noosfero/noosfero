@@ -108,9 +108,20 @@ module BoxesHelper
   end
 
   def display_block_content(block, main_content = nil)
-    content = block.main? ? wrap_main_content(main_content) : render_block_content(block)
+    # FIXME: these conditionals should be removed after all block footer from plugins methods get refactored into helpers and views. They are a failsafe until all of them are done.
+    content = nil
+    if block.main?
+      content = wrap_main_content(main_content)
+    else
+      if(block.method(:content).owner != Block)
+        content = block.content()
+      else
+        content = render_block_content(block)
+      end
+    end
     result = extract_block_content(content)
-    footer_content = extract_block_content(render_block_footer(block))
+    # FIXME: this ternary conditional should be removed after all block footer from plugins methods get refactored into helpers and views
+    footer_content = extract_block_content(block.method(:footer).owner != Block ? block.footer : render_block_footer(block))
     unless footer_content.blank?
       footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
     end
