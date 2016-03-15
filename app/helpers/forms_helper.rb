@@ -137,7 +137,7 @@ module FormsHelper
     content_tag('table',rows.join("\n"))
   end
 
-  def date_field(name, value, format = '%Y-%m-%d', datepicker_options = {}, html_options = {})
+  def date_field(name, value, datepicker_options = {}, html_options = {})
     datepicker_options[:disabled] ||= false
     datepicker_options[:alt_field] ||= ''
     datepicker_options[:alt_format] ||= ''
@@ -152,7 +152,7 @@ module FormsHelper
     datepicker_options[:close_text] ||= _('Done')
     datepicker_options[:constrain_input] ||= true
     datepicker_options[:current_text] ||= _('Today')
-    datepicker_options[:date_format] ||= 'yy/mm/dd'
+    datepicker_options[:date_format] ||= 'yy-mm-dd'
     datepicker_options[:day_names] ||= [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
     datepicker_options[:day_names_min] ||= [_('Su'), _('Mo'), _('Tu'), _('We'), _('Th'), _('Fr'), _('Sa')]
     datepicker_options[:day_names_short] ||= [_('Sun'), _('Mon'), _('Tue'), _('Wed'), _('Thu'), _('Fri'), _('Sat')]
@@ -184,10 +184,11 @@ module FormsHelper
     datepicker_options[:year_range] ||= 'c-10:c+10'
     datepicker_options[:year_suffix] ||= ''
 
+    date_format = datepicker_options[:time] ? "%Y-%m-%d %H:%M" : "%Y-%m-%d"
+    value = value.strftime(date_format) if value.present?
+
     element_id = html_options[:id] || 'datepicker-date'
-    value = value.strftime(format) if value.present?
     method = datepicker_options[:time] ? 'datetimepicker' : 'datepicker'
-    current_date_or_nil = value.present? ? "new Date('#{value}')" : "null"
     result = text_field_tag(name, value, html_options)
     result +=
     "
@@ -238,17 +239,17 @@ module FormsHelper
         weekHeader: #{datepicker_options[:week_header].to_json},
         yearRange: #{datepicker_options[:year_range].to_json},
         yearSuffix: #{datepicker_options[:year_suffix].to_json}
-      }).datepicker('setDate', current_date_or_nil)
+      }).datepicker()
     </script>
     ".html_safe
     result
   end
 
-  def date_range_field(from_name, to_name, from_value, to_value, format = '%Y-%m-%d', datepicker_options = {}, html_options = {})
+  def date_range_field(from_name, to_name, from_value, to_value, datepicker_options = {}, html_options = {})
     from_id = html_options[:from_id] || 'datepicker-from-date'
     to_id = html_options[:to_id] || 'datepicker-to-date'
-    return _('From') +' '+ date_field(from_name, from_value, format, datepicker_options, html_options.merge({:id => from_id})) +
-    ' ' + _('until') +' '+ date_field(to_name, to_value, format, datepicker_options, html_options.merge({:id => to_id}))
+    return _('From') +' '+ date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id})) +
+    ' ' + _('until') +' '+ date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id}))
   end
 
   def select_folder(label_text, field_id, collection, default_value=nil, html_options = {}, js_options = {})
