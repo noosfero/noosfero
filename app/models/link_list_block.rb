@@ -59,20 +59,6 @@ class LinkListBlock < Block
     _('Link list')
   end
 
-  def content(args={})
-    block_title(title) +
-    content_tag('ul',
-      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}.join
-    )
-  end
-
-  def link_html(link)
-    klass = 'icon-' + link[:icon] if link[:icon]
-    sanitize_link(
-      link_to(link[:name], expand_address(link[:address]), :target => link[:target], :class => klass, :title => link[:title])
-    )
-  end
-
   def expand_address(address)
     add = if owner.respond_to?(:identifier)
       address.gsub('{profile}', owner.identifier)
@@ -98,8 +84,6 @@ class LinkListBlock < Block
       "<span title=\"#{i[1]}\" class=\"icon-#{i[0]}\" onclick=\"changeIcon(this, '#{i[0]}')\"></span>".html_safe
     end
   end
-
-  private
 
   def sanitize_link(text)
     sanitizer = HTML::WhiteListSanitizer.new

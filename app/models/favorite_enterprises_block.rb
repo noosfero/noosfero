@@ -12,14 +12,6 @@ class FavoriteEnterprisesBlock < ProfileListBlock
     _('Favorite Enterprises')
   end
 
-  def footer
-    owner = self.owner
-    return '' unless owner.kind_of?(Person)
-    proc do
-      link_to _('enterprises|View all'), {:profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'}, :class => 'view-all'
-    end
-  end
-
   def profiles
     owner.favorite_enterprises
   end

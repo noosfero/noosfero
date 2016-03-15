@@ -1,0 +1,5 @@
+<% if block.fetched_at.nil? or block.feed_items.empty? %>
+  <%= _('Feed content was not loaded yet') %>
+<% else %>
+  <%= _("Updated: %s") % show_date(block.fetched_at) %>
+<% end %>

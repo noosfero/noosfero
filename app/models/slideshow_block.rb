@@ -33,23 +33,6 @@ class SlideshowBlock < Block
     gallery.images.reject {|item| item.folder?}
   end
 
-  def content(args={})
-    block = self
-    if gallery
-      images = block_images
-      if shuffle
-        images = images.shuffle
-      end
-      proc do
-        render :file => 'blocks/slideshow', :locals => { :block => block, :images => images }
-      end
-    else
-      proc do
-        render :file => 'blocks/slideshow', :locals => { :block => block, :images => nil }
-      end
-    end
-  end
-
   def folder_choices
     owner.image_galleries
   end

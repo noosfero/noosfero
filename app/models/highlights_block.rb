@@ -43,13 +43,6 @@ class HighlightsBlock < Block
     end
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/highlights', :locals => { :block => block }
-    end
-  end
-
   def folder_choices
     owner.image_galleries
   end

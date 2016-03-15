@@ -26,19 +26,6 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert feed.editable?
   end
 
-  should 'display feed posts from content' do
-    feed.feed_items = []
-    %w[ last-post second-post first-post ].each do |i|
-      feed.feed_items << {:title => i, :link => "http://localhost/#{i}"}
-    end
-    feed.feed_title = 'Feed for unit tests'
-    feed_content = feed.content
-    assert_tag_in_string feed_content, :tag => 'h3', :content => 'Feed for unit tests'
-    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/last-post' }, :content => 'last-post'
-    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/second-post' }, :content => 'second-post'
-    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
-  end
-
   should 'display channel title as title by default' do
     feed.feed_title = 'Feed for unit tests'
     assert_equal 'Feed for unit tests', feed.title
@@ -46,17 +33,6 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
 
   should 'display default title when hasnt feed_content' do
     assert_equal 'Feed Reader', feed.title
-  end
-
-  should 'notice when content not fetched yet' do
-    assert_equal'Feed content was not loaded yet', feed.footer
-  end
-
-  should 'display last fetched date' do
-    now = Time.new(2014,1,1)
-    feed.feed_items = ['one', 'two']
-    feed.fetched_at = now
-    assert_equal "Updated: #{show_date(now)}", feed.footer
   end
 
   should 'clear feed title and items' do
@@ -90,24 +66,8 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal %w[ last-post second-post first-post ], feed.feed_items.map{|i|i[:title]}
   end
 
-  should 'display only limit posts' do
-    feed.limit = 1; feed.save!
-    %w[ first-post second-post ].each do |i|
-      feed.add_item(i, "http://localhost/#{i}", Date.today, "some contet for #{i}")
-    end
-
-    assert_tag_in_string feed.formatted_feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/second-post' }, :content => 'second-post'
-    assert_no_tag_in_string feed.formatted_feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
-  end
-
   should 'have empty error message by default' do
     assert FeedReaderBlock.new.error_message.blank?, 'new feed reader block expected to have empty error message'
-  end
-
-  should "display error message as content when it's the case" do
-    msg = "there was a problem"
-    feed.error_message = msg
-    assert_match(msg, feed.content)
   end
 
   should 'expire after a period' do
@@ -194,4 +154,68 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal true, reader.enabled
   end
 
+end
+
+require 'boxes_helper'
+require 'block_helper'
+require 'dates_helper'
+
+class FeedReaderBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+  include DatesHelper
+
+  ActionView::Base.send :include, BlockHelper
+  ActionView::Base.send :include, DatesHelper
+
+  def setup
+    @feed = create(:feed_reader_block)
+  end
+  attr_reader :feed
+
+  should "display error message as content when it's the case" do
+    msg = "there was a problem"
+    feed.error_message = msg
+
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+
+    assert_match(msg, render_block_content(feed))
+  end
+
+  should 'display feed posts from content' do
+    feed.feed_items = []
+    %w[ last-post second-post first-post ].each do |i|
+      feed.feed_items << {:title => i, :link => "http://localhost/#{i}"}
+    end
+    feed.feed_title = 'Feed for unit tests'
+
+    feed_content = render_block_content(feed)
+
+    assert_tag_in_string feed_content, :tag => 'h3', :content => 'Feed for unit tests'
+    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/last-post' }, :content => 'last-post'
+    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/second-post' }, :content => 'second-post'
+    assert_tag_in_string feed_content, :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
+  end
+
+  should 'display only limit posts' do
+    feed.limit = 1; feed.save!
+    %w[ first-post second-post ].each do |i|
+      feed.add_item(i, "http://localhost/#{i}", Date.today, "some contet for #{i}")
+    end
+
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+
+    assert_tag_in_string render_block_content(feed), :tag => 'a', :attributes => { :href => 'http://localhost/second-post' }, :content => 'second-post'
+    assert_no_tag_in_string render_block_content(feed), :tag => 'a', :attributes => { :href => 'http://localhost/first-post' }, :content => 'first-post'
+  end
+
+  should 'notice when content not fetched yet' do
+    assert_equal "  Feed content was not loaded yet\n", render_block_footer(feed)
+  end
+
+  should 'display last fetched date' do
+    now = Time.new(2014,1,1)
+    feed.feed_items = ['one', 'two']
+    feed.fetched_at = now
+    assert_equal "  Updated: #{show_date(now)}\n", render_block_footer(feed)
+  end
 end

@@ -1,0 +1,9 @@
+<%= block_title(block.title) %>
+
+<ul>
+  <% block.products.each do |product| %>
+    <li class='product'>
+      <%= link_to(product.name, product.url, :style => 'background-image:url(%s)' % product.default_image('minor')) %>
+    </li>
+  <% end %>
+</ul>

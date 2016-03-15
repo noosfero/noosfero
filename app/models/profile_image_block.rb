@@ -12,17 +12,6 @@ class ProfileImageBlock < Block
     _('This block presents the profile image')
   end
 
-  def content(args={})
-    block = self
-    s = show_name
-    lambda do |object|
-      render(
-        :file => 'blocks/profile_image',
-        :locals => { :block => block, :show_name => s }
-      )
-    end
-  end
-
   def cacheable?
     false
   end

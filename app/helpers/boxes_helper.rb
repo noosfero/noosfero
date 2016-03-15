@@ -87,10 +87,30 @@ module BoxesHelper
     box_decorator == DontMoveBlocks
   end
 
-  def display_block_content(block, person, main_content = nil)
-    content = block.main? ? wrap_main_content(main_content) : block.content({:person => person})
+  def render_block_content(block)
+    template_name = block.class.name.underscore.gsub('_block', '')
+    template_filename = "#{template_name}.html.erb"
+    if File.exists? Rails.root.join('app', 'views', 'blocks', template_filename)
+      render :file => "blocks/#{template_name}", :locals => { :block => block }
+    else
+      nil
+    end
+  end
+
+  def render_block_footer(block)
+    template_name = block.class.name.underscore.gsub('_block', '')
+    template_filename = "#{template_name}.html.erb"
+    if File.exists? Rails.root.join('app', 'views', 'blocks', 'footers', template_filename)
+      render :file => "blocks/footers/#{template_name}", :locals => { :block => block }
+    else
+      nil
+    end
+  end
+
+  def display_block_content(block, main_content = nil)
+    content = block.main? ? wrap_main_content(main_content) : render_block_content(block)
     result = extract_block_content(content)
-    footer_content = extract_block_content(block.footer)
+    footer_content = extract_block_content(render_block_footer(block))
     unless footer_content.blank?
       footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
     end

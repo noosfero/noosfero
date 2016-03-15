@@ -12,14 +12,6 @@ class FansBlock < ProfileListBlock
     _('This block presents the fans of an enterprise.')
   end
 
-  def footer
-    profile = self.owner
-    proc do
-      link_to _('View all'), :profile => profile.identifier, :controller =>
-      'profile', :action => 'fans'
-    end
-  end
-
   def profiles
     owner.fans
   end

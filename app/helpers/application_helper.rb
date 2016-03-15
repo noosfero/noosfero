@@ -48,6 +48,8 @@ module ApplicationHelper
 
   include PluginsHelper
 
+  include ButtonsHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -207,52 +209,6 @@ module ApplicationHelper
     result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with-text')
 
     result
-  end
-
-  def button(type, label, url, html_options = {})
-    html_options ||= {}
-    the_class = 'with-text'
-    if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
-    end
-    button_without_text type, label, url, html_options.merge(:class => the_class)
-  end
-
-  def button_without_text(type, label, url, html_options = {})
-    the_class = "button icon-#{type}"
-    if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
-    end
-    the_title = html_options[:title] || label
-    if html_options[:disabled]
-      content_tag('a', '&nbsp;'+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
-    else
-      link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
-    end
-  end
-
-  def button_to_function(type, label, js_code, html_options = {}, &block)
-    html_options[:class] = "button with-text" unless html_options[:class]
-    html_options[:class] << " icon-#{type}"
-    link_to_function(label, js_code, html_options, &block)
-  end
-
-  def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_function(content_tag('span', label), js_code, html_options, &block)
-  end
-
-  def button_to_remote(type, label, options, html_options = {})
-    html_options[:class] = "button with-text" unless html_options[:class]
-    html_options[:class] << " icon-#{type}"
-    link_to_remote(label, options, html_options)
-  end
-
-  def button_to_remote_without_text(type, label, options, html_options = {})
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_remote(content_tag('span', label), options, html_options.merge(:title => label))
   end
 
   def icon(icon_name, html_options = {})
@@ -934,13 +890,6 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*args) }
   end
 
-  def article_to_html(article, options = {})
-    options.merge!(:page => params[:npage])
-    content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_exec(&content).html_safe : content.html_safe
-    filter_html(content, article)
-  end
-
   # Please, use link_to by default!
   # This method was created to work around to inexplicable
   # chain of problems when display_short_format was called
@@ -1363,16 +1312,6 @@ module ApplicationHelper
       @message = _('The contents in this profile is available to members only.')
     end
     @no_design_blocks = true
-  end
-
-  def filter_html(html, source)
-    if @plugins && source && source.has_macro?
-      html = convert_macro(html, source) unless @plugins.enabled_macros.blank?
-      #TODO This parse should be done through the macro infra, but since there
-      #     are old things that do not support it we are keeping this hot spot.
-      html = @plugins.pipeline(:parse_content, html, source).first
-    end
-    html && html.html_safe
   end
 
   def convert_macro(html, source)

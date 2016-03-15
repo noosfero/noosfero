@@ -266,4 +266,23 @@ class BlogTest < ActiveSupport::TestCase
 
     assert_equal blog.image(true).filename, 'noosfero-network.png'
   end
+
+  should 'count total number of posts by year' do
+    p = create_user('testuser').person
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
+    create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
+    create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
+    create(TextileArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('10-05-2012'))
+    assert_equal [[2012.0, 1], [2010.0, 2]], blog.total_number_of_posts(:by_year)
+  end
+
+  should 'count total number of posts by month' do
+    p = create_user('testuser').person
+    blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
+    create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
+    create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
+    create(TextileArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('11-10-2010'))
+    assert_equal [[10.0, 1], [8.0, 2]], blog.total_number_of_posts(:by_month, 2010)
+  end
+
 end

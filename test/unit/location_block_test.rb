@@ -18,7 +18,7 @@ class LocationBlockTest < ActiveSupport::TestCase
   end
 
   should 'display no localization map without lat' do
-    assert_tag_in_string extract_block_content(block.content), :tag => 'i'
+    assert_tag_in_string extract_block_content(render_block_content(block)), :tag => 'i'
   end
 
   should 'be editable' do
@@ -31,7 +31,7 @@ class LocationBlockTest < ActiveSupport::TestCase
 
   should 'use google maps api v3 with ssl' do
     @block.owner.lat = '-12.34'; @block.owner.save!
-    content = extract_block_content(@block.content)
+    content = extract_block_content(render_block_content(@block))
 
     assert_match 'https://maps.google.com/maps/api/staticmap', content
     assert_no_match /key=/, content
