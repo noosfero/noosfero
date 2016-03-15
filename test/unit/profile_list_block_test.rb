@@ -20,6 +20,8 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     assert_equal 20, block.limit
   end
 
+  include BoxesHelper
+
   should 'list people' do
     env = fast_create(Environment)
 
@@ -30,15 +32,16 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     block = ProfileListBlock.new
     block.stubs(:owner).returns(env)
 
-    self.expects(:profile_image_link).with(person1, :minor).once
-    self.expects(:profile_image_link).with(person2, :minor).once
-    self.expects(:profile_image_link).with(person3, :minor).once
+    ApplicationHelper.class_eval do
+      def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
+        "<#{profile.name}>"
+      end
+    end
 
-    self.stubs(:tag).returns('<div></div>')
-    self.expects(:content_tag).returns('<div></div>').at_least_once
-    self.expects(:block_title).returns('block title').at_least_once
-
-    assert_kind_of String, instance_eval(&block.content)
+    content = render_block_content(block)
+    assert_match '<testperson1>', content
+    assert_match '<testperson2>', content
+    assert_match '<testperson3>', content
   end
 
   should 'list private profiles' do

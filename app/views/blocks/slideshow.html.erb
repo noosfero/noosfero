@@ -1,4 +1,14 @@
+<%
+  if block.gallery
+    images = block.block_images
+    if block.shuffle
+      images = images.shuffle
+    end
+  end
+%>
+
 <%= block_title(block.title) %>
+
 <% if images %>
   <% description = images.any? { |img| !img.abstract.blank? } %>
   <div class='slideshow-border<%= (description ? ' with-descriptions' : '')%>'>

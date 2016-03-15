@@ -1,0 +1,7 @@
+<%= block_title(block.title) %>
+
+<ul>
+  <% block.docs.map do |item| %>
+    <%= content_tag('li', link_to(h(item.title), item.url)) %>
+  <% end %>
+</ul>

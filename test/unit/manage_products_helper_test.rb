@@ -5,6 +5,7 @@ class ManageProductsHelperTest < ActionView::TestCase
 
   include ManageProductsHelper
   include ContentViewerHelper
+  include ArticleHelper
   include ActionView::Helpers::AssetTagHelper
   include ApplicationHelper
 

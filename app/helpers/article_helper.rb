@@ -181,4 +181,21 @@ module ArticleHelper
     end
   end
 
+  def filter_html(html, source)
+    if @plugins && source && source.has_macro?
+      html = convert_macro(html, source) unless @plugins.enabled_macros.blank?
+      #TODO This parse should be done through the macro infra, but since there
+      #     are old things that do not support it we are keeping this hot spot.
+      html = @plugins.pipeline(:parse_content, html, source).first
+    end
+    html && html.html_safe
+  end
+
+  def article_to_html(article, options = {})
+    options.merge!(:page => params[:npage])
+    content = article.to_html(options)
+    content = content.kind_of?(Proc) ? self.instance_exec(&content).html_safe : content.html_safe
+    filter_html(content, article)
+  end
+
 end

@@ -1,9 +1,19 @@
-<%= link_to _('Catalog start'), profile.catalog_url, :class=>'catalog-home-link' %>
+<%
+  if @categories.nil? or @categories.length == 0
+    categories = ProductCategory.on_level(nil).order(:name)
+  else
+    categories = @categories
+  end
+%>
+
+<%= link_to _('Catalog start'), block.owner.catalog_url, :class=>'catalog-home-link' %>
 <ul class="catalog-categories-list">
   <% categories.each do |category| %>
     <%= category_with_sub_list(category) %>
   <% end %>
 </ul>
-<% if notice %>
-  <div class="catalog-categories-notice"><%= notice %></div>
+<% if @categories and @categories.length == 0 %>
+  <div class="catalog-categories-notice">
+    <%= _('There are no sub-categories for %s') % @category.name %>
+  </div>
 <% end %>

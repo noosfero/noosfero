@@ -1,0 +1,25 @@
+<%= block_title(block.title) %>
+
+<%
+  is_env = block.owner.class == Environment
+  tags = is_env ? block.owner.tag_counts : block.owner.article_tags
+  if block.limit
+    tags_tmp = tags.sort_by{ |k,v| -v }[0..(block.limit-1)]
+    tags = {}
+    tags_tmp.map{ |k,v| tags[k] = v }
+  end
+%>
+
+<% unless tags.empty? %>
+  <div class='tag_cloud'>
+    <% if is_env %>
+      <%= tag_cloud(tags, :tag,
+                    {:host => block.owner.default_hostname, :controller=>'search', :action => 'tag'},
+                    :max_size => 16, :min_size => 9) %>
+    <% else %>
+      <%= tag_cloud(tags, :id,
+                    block.owner.public_profile_url.merge(:controller => 'profile', :action => 'content_tagged'),
+                    :max_size => 16, :min_size => 9) %>
+  <% end %>
+  </div>
+<% end %>

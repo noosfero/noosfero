@@ -30,13 +30,6 @@ class CategoriesBlock < Block
     Category.top_level_for(self.owner).from_types(self.category_types)
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/categories', :locals => { :block => block }
-    end
-  end
-
   def self.expire_on
       { :profile => [], :environment => [:category] }
   end

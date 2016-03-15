@@ -1,0 +1,11 @@
+<%= block_title(block.title) %>
+
+<%=
+    if block.error_message.blank?
+      "<ul>\n".html_safe +
+      block.feed_items[0..(block.limit-1)].map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n").html_safe +
+      "</ul>".html_safe
+    else
+      "<p>#{block.error_message}</p>".html_safe
+    end
+%>

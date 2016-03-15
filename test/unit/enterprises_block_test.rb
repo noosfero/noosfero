@@ -27,32 +27,6 @@ class EnterprisesBlockTest < ActiveSupport::TestCase
     assert_same list, block.profiles
   end
 
-  should 'link to all enterprises for profile' do
-    profile = Profile.new
-    profile.expects(:identifier).returns('theprofile')
-    block = EnterprisesBlock.new
-    block.expects(:owner).returns(profile)
-
-    expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
-
-    instance_eval(&block.footer)
-  end
-
-  should 'link to all enterprises for environment' do
-    env = Environment.default
-    block = EnterprisesBlock.new
-    block.expects(:owner).returns(env)
-
-    expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises')
-    instance_eval(&block.footer)
-  end
-
-  should 'give empty footer for unsupported owner type' do
-    block = EnterprisesBlock.new
-    block.expects(:owner).returns(1)
-    assert_equal '', block.footer
-  end
-
   should 'count number of owner enterprises' do
     user = create_user('testuser').person
 
@@ -70,4 +44,36 @@ class EnterprisesBlockTest < ActiveSupport::TestCase
     assert_equal 2, block.profile_count
   end
 
+end
+
+require 'boxes_helper'
+
+class EnterprisesBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  should 'link to all enterprises for profile' do
+    profile = Profile.new
+    profile.identifier = 'theprofile'
+    block = EnterprisesBlock.new
+    block.expects(:owner).twice.returns(profile)
+
+    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
+
+    render_block_footer(block)
+  end
+
+  should 'link to all enterprises for environment' do
+    env = Environment.default
+    block = EnterprisesBlock.new
+    block.expects(:owner).twice.returns(env)
+
+    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises')
+    render_block_footer(block)
+  end
+
+  should 'give empty footer for unsupported owner type' do
+    block = EnterprisesBlock.new
+    block.expects(:owner).twice.returns(1)
+    assert_equal '', render_block_footer(block)
+  end
 end

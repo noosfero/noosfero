@@ -17,9 +17,11 @@ class RawHTMLBlockTest < ActiveSupport::TestCase
     assert_equal html, block.html
   end
 
+  include BoxesHelper
+
   should 'return html as content' do
     block = RawHTMLBlock.new(:html => "HTML")
-    assert_match(/HTML$/, block.content)
+    assert_match /HTML$/, render_block_content(block)
   end
 
   should 'not be editable for users without permission' do

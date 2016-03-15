@@ -27,15 +27,6 @@ class CommunitiesBlock < ProfileListBlock
     owner.profile_suggestions.of_community.enabled.limit(3).includes(:suggestion)
   end
 
-  def footer
-    owner = self.owner
-    suggestions = self.suggestions
-    return '' unless owner.kind_of?(Profile) || owner.kind_of?(Environment)
-    proc do
-      render :file => 'blocks/communities', :locals => { :owner => owner, :suggestions => suggestions }
-    end
-  end
-
   def profiles
     owner.communities
   end
