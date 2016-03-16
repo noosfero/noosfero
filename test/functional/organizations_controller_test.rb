@@ -79,6 +79,36 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_match(/Community Test/, @response.body)
   end
 
+  should 'show custom organization type filter through hotspot' do
+    fast_create(Community, :environment_id => Environment.default, :name=>"Community Test")
+
+    class GreatPlugin < Noosfero::Plugin
+      def organization_types_filter_options
+        [['TotallyDifferentName','GreatPlugin::GreatOrganization']]
+      end
+    end
+
+    class GreatPlugin::GreatOrganization < Organization
+    end
+
+    Noosfero::Plugin.stubs(:all).returns(['OrganizationsControllerTest::GreatPlugin'])
+    environment.enable_plugin(GreatPlugin)
+
+    GreatPlugin::GreatOrganization.create!(:name => 'Great', :identifier=>'great')
+
+    get :index, :type => 'any'
+
+    assert_tag :option, :attributes => {:value=> 'GreatPlugin::GreatOrganization'}, :content => 'TotallyDifferentName'
+
+    assert_match(/Great/, @response.body)
+    assert_match(/Community Test/, @response.body)
+
+    get :index, :type => 'GreatPlugin::GreatOrganization'
+
+    assert_match(/Great/, @response.body)
+    assert_no_match(/Community Test/, @response.body)
+  end
+
   should 'activate organization profile' do
     organization = fast_create(Organization, :visible => false, :environment_id => environment.id)
     refute organization.visible?

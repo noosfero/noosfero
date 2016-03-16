@@ -7,7 +7,11 @@ class OrganizationsController < AdminController
     @title = _('Organization profiles')
     @type = params[:type] || "any"
     @types_filter = [[_('All'), 'any'], [_('Community'), 'Community'], [_('Enterprise'), 'Enterprise']]
-    @types_filter = @types_filter | @plugins.dispatch(:organization_types_filter_options)
+    @plugins.dispatch_without_flatten(:organization_types_filter_options).each do |plugin_response|
+      @types_filter = @types_filter | plugin_response
+    end
+    @types_hash = {}
+    @types_filter.each{|list| @types_hash[list.last] = list.first}
 
     scope = @plugins.dispatch_first(:filter_manage_organization_scope, @type)
     if scope.blank?
