@@ -1932,7 +1932,7 @@ class PersonTest < ActiveSupport::TestCase
     community.add_member person
 
     assert !person.member_relation_of(community).empty?, "Person '#{person.identifier}' is not a member of Community '#{community.identifier}'"
-    assert person.member_since_date(community) == Date.today,"Person '#{person.identifier}' is not added like a member of Community '#{community.identifier}' today"
+    assert_equal Date.current, person.member_since_date(community), "Person '#{person.identifier}' is not added like a member of Community '#{community.identifier}' today"
   end
 
   should 'a person follows many articles' do
