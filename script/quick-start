@@ -130,7 +130,7 @@ fi
 # create needed directory
 mkdir -p tmp/pids
 mkdir -p tmp/cache
-mkdir cache
+mkdir -p cache
 
 # use default gitignore rules
 if [ ! -f .gitignore ]; then
