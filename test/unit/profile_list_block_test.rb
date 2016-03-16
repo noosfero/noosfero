@@ -22,6 +22,28 @@ class ProfileListBlockTest < ActiveSupport::TestCase
 
   include BoxesHelper
 
+  should 'list people' do
+    env = fast_create(Environment)
+
+    person1 = create_user('testperson1', :environment => env).person
+    person2 = create_user('testperson2', :environment => env).person
+    person3 = create_user('testperson3', :environment => env).person
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+
+    ApplicationHelper.class_eval do
+      def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
+        "<#{profile.name}>"
+      end
+    end
+
+    content = render_block_content(block)
+    assert_match '<testperson1>', content
+    assert_match '<testperson2>', content
+    assert_match '<testperson3>', content
+  end
+
   should 'list private profiles' do
     env = fast_create(Environment)
     env.boxes << Box.new
