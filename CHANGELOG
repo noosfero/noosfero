@@ -1,0 +1,12 @@
+If you made any significant change to the code that you consider worth being
+reminded on the Release Notes, also include a correspondent entry here. If you
+are not sure in which release your code will be released, include it on the
+latest release and leave it to the commiter or RM responsible for it.
+
+v 1.5.0 (unreleased)
+  - Allow groups to disable admin email notificationo
+  - Add option to HighlightsBlock to open link in a new tab
+  - Move blocks html generation from models to helpers
+
+v 1.4.0
+  - Migration from Rails 3 to Rails 4!
