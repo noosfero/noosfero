@@ -1,4 +1,4 @@
-binary_packages='deb http://download.noosfero.org/debian/jessie ./'
+binary_packages='deb http://download.noosfero.org/debian/jessie-test ./'
 
 source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
 
@@ -10,7 +10,7 @@ EOF
 
   sudo apt-key add - <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v1.4.9 (GNU/Linux)
+Version: GnuPG v1.4.12 (GNU/Linux)
 
 mQGiBE1HCIURBADw6SnRbc1qCHdTV9wD0rxSMIWevzUX+bnDgvV455yudqtVFUhX
 2QYvtlwclllbLWKzRdiM7GsBi+2DyWli4B17xl86A5RBQNdc1v1vWZG3QwURxd4E
