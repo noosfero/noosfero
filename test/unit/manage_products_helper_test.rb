@@ -44,7 +44,7 @@ class ManageProductsHelperTest < ActionView::TestCase
   end
 
   should 'display link to edit product when user has permission' do
-    user = mock
+    user = User.new(:email => 'display-link@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
@@ -58,7 +58,7 @@ class ManageProductsHelperTest < ActionView::TestCase
   end
 
   should 'not display link to edit product category when user does not have permission' do
-    user = mock
+    user = User.new(:email => 'not-display-link@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(false)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
@@ -69,7 +69,7 @@ class ManageProductsHelperTest < ActionView::TestCase
   end
 
   should 'display link to edit product category when user has permission' do
-    user = mock
+    user = User.new(:email => 'display-link@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
@@ -83,7 +83,7 @@ class ManageProductsHelperTest < ActionView::TestCase
   end
 
   should 'not display ui_button to edit product when user does not have permission' do
-    user = mock
+    user = User.new(:email => 'not-display-uibutton@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(false)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
@@ -94,7 +94,7 @@ class ManageProductsHelperTest < ActionView::TestCase
   end
 
   should 'display ui_button_to_remote to edit product when user has permission' do
-    user = mock
+    user = User.new(:email => 'display-uibuttontoremote@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
@@ -109,7 +109,7 @@ class ManageProductsHelperTest < ActionView::TestCase
 
 
   should 'display ui_button to edit product when user has permission' do
-    user = mock
+    user = User.new(:email => 'display-uibutton@email.invalid.com')
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
