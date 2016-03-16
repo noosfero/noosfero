@@ -19,12 +19,17 @@ class DisabledEnterpriseMessageBlockTest < ActiveSupport::TestCase
     block = enterprise.boxes.first.blocks.first
 
     ApplicationHelper.class_eval do
+      alias_method :original_profile, :profile
      def profile
        return Enterprise['disabled-enterprise']
      end
     end
 
     assert_match 'This message is for disabled enterprises', render_block_content(block)
+
+    ApplicationHelper.class_eval do
+      alias_method :profile, :original_profile
+    end
   end
 
   should 'not be editable' do
