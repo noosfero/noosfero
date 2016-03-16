@@ -33,6 +33,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     block.stubs(:owner).returns(env)
 
     ApplicationHelper.class_eval do
+      alias_method :original_profile_image_link, :profile_image_link
       def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
         "<#{profile.name}>"
       end
@@ -42,6 +43,9 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     assert_match '<testperson1>', content
     assert_match '<testperson2>', content
     assert_match '<testperson3>', content
+    ApplicationHelper.class_eval do
+      alias_method :profile_image_link, :original_profile_image_link
+    end
   end
 
   should 'list private profiles' do
