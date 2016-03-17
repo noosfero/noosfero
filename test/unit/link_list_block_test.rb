@@ -134,4 +134,9 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_match /title="mytitle"/, render_block_content(l)
   end
 
+  should 'display default message to brand new blocks with no links' do
+    l = LinkListBlock.new
+    assert_match /Please, edit this block to add links/, render_block_content(l)
+  end
+
 end
