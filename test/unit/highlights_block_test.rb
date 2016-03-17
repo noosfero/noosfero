@@ -84,7 +84,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
 
   should 'display highlights block' do
     block = HighlightsBlock.new
-    self.expects(:render).with(:file => 'blocks/highlights', :locals => { :block => block})
+    self.expects(:render).with(template: 'blocks/highlights', locals: {block: block})
 
     render_block_content(block)
   end

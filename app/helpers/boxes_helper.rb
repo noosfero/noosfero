@@ -87,41 +87,38 @@ module BoxesHelper
     box_decorator == DontMoveBlocks
   end
 
-  def render_block_content(block)
-    template_name = block.class.name.underscore.gsub('_block', '')
-    template_filename = "#{template_name}.html.erb"
-    if File.exists? Rails.root.join('app', 'views', 'blocks', template_filename)
-      render :file => "blocks/#{template_name}", :locals => { :block => block }
-    else
-      nil
+  def render_block block, prefix = nil, klass = block.class
+    template_name = klass.name.underscore.sub '_block', ''
+    begin
+      render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
+    rescue ActionView::MissingTemplate
+      return if klass.superclass === Block
+      render_block block, prefix, klass.superclass
     end
   end
 
-  def render_block_footer(block)
-    template_name = block.class.name.underscore.gsub('_block', '')
-    template_filename = "#{template_name}.html.erb"
-    if File.exists? Rails.root.join('app', 'views', 'blocks', 'footers', template_filename)
-      render :file => "blocks/footers/#{template_name}", :locals => { :block => block }
-    else
-      nil
-    end
+  def render_block_content block
+    # FIXME: this conditional should be removed after all
+    # block footer from plugins methods get refactored into helpers and views.
+    # They are a failsafe until all of them are done.
+    return block.content if block.method(:content).owner != Block
+    render_block block
+  end
+
+  def render_block_footer block
+    return block.footer if block.method(:footer).owner != Block
+    render_block block, 'footers/'
   end
 
   def display_block_content(block, main_content = nil)
-    # FIXME: these conditionals should be removed after all block footer from plugins methods get refactored into helpers and views. They are a failsafe until all of them are done.
     content = nil
     if block.main?
       content = wrap_main_content(main_content)
     else
-      if(block.method(:content).owner != Block)
-        content = block.content()
-      else
-        content = render_block_content(block)
-      end
+      content = render_block_content block
     end
     result = extract_block_content(content)
-    # FIXME: this ternary conditional should be removed after all block footer from plugins methods get refactored into helpers and views
-    footer_content = extract_block_content(block.method(:footer).owner != Block ? block.footer : render_block_footer(block))
+    footer_content = extract_block_content(render_block_footer block)
     unless footer_content.blank?
       footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
     end

@@ -19,7 +19,7 @@ class ProfileInfoBlockTest < ActiveSupport::TestCase
   include BoxesHelper
 
   should 'display profile information' do
-    self.expects(:render).with(:file => 'blocks/profile_info', :locals => { :block => block })
+    self.expects(:render).with(template: 'blocks/profile_info', locals: { block: block })
     render_block_content(block)
   end
 

@@ -18,14 +18,14 @@ class ProfileSearchBlockTest < ActiveSupport::TestCase
     block = ProfileSearchBlock.new
     block.stubs(:owner).returns(person)
 
-    self.expects(:render).with(:file => 'blocks/profile_search', :locals => { :block => block })
+    self.expects(:render).with(template: 'blocks/profile_search', locals: { block: block })
     render_block_content(block)
   end
 
   should 'provide view_title' do
     person = fast_create(Person)
     person.boxes << Box.new
-    block = ProfileSearchBlock.new(:title => 'Title from block')
+    block = ProfileSearchBlock.new(title: 'Title from block')
     person.boxes.first.blocks << block
     block.save!
     assert_equal 'Title from block', block.view_title

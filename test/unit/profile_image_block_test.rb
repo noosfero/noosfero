@@ -11,7 +11,7 @@ class ProfileImageBlockTest < ActiveSupport::TestCase
   should 'display profile image' do
     block = ProfileImageBlock.new
 
-    self.expects(:render).with(:file => 'blocks/profile_image', :locals => { :block => block })
+    self.expects(:render).with(template: 'blocks/profile_image', locals: { block: block })
     render_block_content(block)
   end
 

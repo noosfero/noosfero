@@ -109,7 +109,7 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
   should 'display feature products block' do
     block = FeaturedProductsBlock.new
 
-    self.expects(:render).with(:file => 'blocks/featured_products', :locals => { :block => block})
+    self.expects(:render).with(template: 'blocks/featured_products', locals: {block: block})
     render_block_content(block)
   end
 
