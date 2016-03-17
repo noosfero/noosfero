@@ -54,7 +54,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
             },
             2 => {
               :name => 'Color',
-              :select_field_type => 'radio',
+              :show_as => 'radio',
               :type => 'CustomFormsPlugin::SelectField',
               :alternatives_attributes => {
                 1 => {:label => 'Red'},
@@ -82,7 +82,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
     assert_equal 'Color', f2.name
     assert_equal f2.alternatives.map(&:label).sort, ['Red', 'Blue', 'Black'].sort
-    assert_equal f2.select_field_type, 'radio'
+    assert_equal f2.show_as, 'radio'
     assert f2.kind_of?(CustomFormsPlugin::SelectField)
   end
 

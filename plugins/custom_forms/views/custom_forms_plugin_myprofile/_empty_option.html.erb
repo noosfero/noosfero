@@ -1,8 +1,0 @@
-<tr id=<%= "empty-option-#{counter}" %> option_id=<%= option_counter %> style="display: none;">
-  <td><%= text_field_tag("fields[#{counter}][choices][#{option_counter}][name]") %></td>
-  <td><%= text_field_tag("fields[#{counter}][choices][#{option_counter}][value]") %></td>
-  <td class='actions'>
-    <%= button_without_text :remove, c_('Remove'), '#', class: 'remove-option', field_id: counter, option_id: option_counter, data: {confirm: _('Are you sure you want to remove this option?')} %>
-  </td>
-</tr>
-

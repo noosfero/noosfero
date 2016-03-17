@@ -1,14 +1,14 @@
 <%= render :layout => 'field', :locals => { :f => f } do %>
   <div class="field-select-type">
     <%= _('Type:') %>
-    <%= f.radio_button(:select_field_type, 'radio') %>
-    <%= f.label(:select_field_type, _('Radio'), :value => 'radio') %>
-    <%= f.radio_button(:select_field_type, 'check_box') %>
-    <%= f.label(:select_field_type, _('Checkbox'), :value => 'check_box') %>
-    <%= f.radio_button(:select_field_type, 'select') %>
-    <%= f.label(:select_field_type, _('Drop down'), :value => 'select') %>
-    <%= f.radio_button(:select_field_type, 'multiple_select') %>
-    <%= f.label(:select_field_type, _('Multiple Select'), :value => 'multiple_select') %>
+    <%= f.radio_button(:show_as, 'radio') %>
+    <%= f.label(:show_as, _('Radio'), :value => 'radio') %>
+    <%= f.radio_button(:show_as, 'check_box') %>
+    <%= f.label(:show_as, _('Checkbox'), :value => 'check_box') %>
+    <%= f.radio_button(:show_as, 'select') %>
+    <%= f.label(:show_as, _('Drop down'), :value => 'select') %>
+    <%= f.radio_button(:show_as, 'multiple_select') %>
+    <%= f.label(:show_as, _('Multiple Select'), :value => 'multiple_select') %>
   </div>
 
   <table>
