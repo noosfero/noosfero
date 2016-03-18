@@ -16,7 +16,7 @@
         <%= _('The following parameters may be used in subject and body:') %>
       </div>
       <div class="values">
-        {{profile.name}}, {{profile.identifier}}, {{environment.name}}
+        <%= @template_params_allowed %>
       </div>
     </div>
     <%= render :file => 'shared/tiny_mce' %>

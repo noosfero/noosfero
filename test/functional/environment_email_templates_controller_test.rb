@@ -52,8 +52,8 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
 
   test "should get parsed template" do
     environment = Environment.default
-    @email_template.subject = '{{environment.name}}'
-    @email_template.body = '{{environment.name}}'
+    @email_template.subject = '{{environment_name}}'
+    @email_template.body = '{{environment_name}}'
     @email_template.save!
     get :show_parsed, id: @email_template
     assert_response :success

@@ -15,16 +15,17 @@ class EmailTemplatesController < ApplicationController
 
   def show_parsed
     @email_template = owner.email_templates.find(params[:id])
-    template_params = {:profile => owner, :environment => environment}
     render json: {:parsed_body => @email_template.parsed_body(template_params), :parsed_subject => @email_template.parsed_subject(template_params)}
   end
 
   def new
     @email_template = owner.email_templates.build(:owner => owner)
+    @template_params_allowed = template_params_allowed template_params.keys
   end
 
   def edit
     @email_template = owner.email_templates.find(params[:id])
+    @template_params_allowed = template_params_allowed template_params.keys
   end
 
   def create
@@ -59,4 +60,17 @@ class EmailTemplatesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def template_params
+    {:profile_name => current_user.name, :environment_name => environment.name }
+  end
+
+  def template_params_allowed params
+      result = ""
+      params.each{ |param| result <<  "{{ #{param} }} " } if params
+      result
+  end
+
 end

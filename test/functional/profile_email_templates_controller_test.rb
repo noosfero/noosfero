@@ -4,8 +4,8 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
 
   setup do
     @profile = fast_create(Community)
-    @email_template = EmailTemplate.create!(:name => 'template', :owner => @profile)
     @person = create_user_with_permission('templatemanager', 'manage_email_templates', @profile)
+    @email_template = EmailTemplate.create!(:name => 'template', :owner => @profile)
     login_as(@person.user.login)
   end
 
@@ -55,14 +55,14 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
 
   test "should get parsed template" do
     environment = Environment.default
-    @email_template.subject = '{{profile.name}} - {{profile.identifier}}'
-    @email_template.body = '{{profile.name}} - {{profile.identifier}} - {{environment.name}}'
+    @email_template.subject = '{{profile_name}} - {{environment_name}}'
+    @email_template.body = '{{profile_name}} - {{environment_name}}'
     @email_template.save!
     get :show_parsed, id: @email_template, :profile => profile.identifier
     assert_response :success
     json_response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal "#{profile.name} - #{profile.identifier}", json_response['parsed_subject']
-    assert_equal "#{profile.name} - #{profile.identifier} - #{environment.name}", json_response['parsed_body']
+    assert_equal "#{@person.name} - #{environment.name}", json_response['parsed_subject']
+    assert_equal "#{@person.name} - #{environment.name}", json_response['parsed_body']
   end
 
 end
