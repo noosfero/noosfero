@@ -1,0 +1,2 @@
+class AdminNotificationsPlugin::InformationNotification < AdminNotificationsPlugin::Notification
+end
