@@ -182,6 +182,31 @@ class TaskTest < ActiveSupport::TestCase
     task.save!
   end
 
+  should 'not send notification to target if notification is disabled in profile' do
+    task = Task.new
+    target = fast_create(Organization)
+    target.stubs(:notification_emails).returns(['adm@example.com'])
+    target.stubs(:profile_admin_mail_notification).returns(false)
+    task.target = target
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
+    TaskMailer.expects(:target_notification).never
+    task.save!
+  end
+
+  should 'send notification to target if notification is enabled in profile' do
+    task = Task.new
+    target = fast_create(Organization)
+    target.stubs(:notification_emails).returns(['adm@example.com'])
+    target.stubs(:profile_admin_mail_notification).returns(true)
+    task.target = target
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
+
+    mailer = mock
+    mailer.expects(:deliver).once
+    TaskMailer.expects(:target_notification).returns(mailer).once
+    task.save!
+  end
+
   should 'be able to list pending tasks' do
     Task.delete_all
     t1 = Task.create!

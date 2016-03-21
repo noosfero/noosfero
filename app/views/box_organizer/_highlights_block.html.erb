@@ -3,7 +3,7 @@
 <strong><%= _('Highlights') %></strong>
 
 <table class="noborder"><tbody id="highlights-data-table">
-  <tr><th><%= _('Image') %></th><th><%= _('Address') %></th><th><%= _('Position') %></th></tr>
+  <tr><th><%= _('Image') %></th><th><%= _('Address') %></th><th><%= _('Position') %></th><th><%= _('New Window') %></th></tr>
   <% @block.images.each_with_index do |image, index| %>
     <%= highlights_block_config_image_fields @block, image, index %>
   <% end %>

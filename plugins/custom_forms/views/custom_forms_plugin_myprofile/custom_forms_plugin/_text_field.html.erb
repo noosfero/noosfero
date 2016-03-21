@@ -1,6 +1,15 @@
 <%= render :layout => 'field', :locals => { :f => f } do %>
+  <div class="field-select-type">
+    <%= _('Type:') %>
+    <%= f.radio_button(:show_as, 'text') %>
+    <%= f.label(:show_as, _('One-line text'), :value => 'text') %>
+    <%= f.radio_button(:show_as, 'textarea') %>
+    <%= f.label(:show_as, _('Multiline text'), :value => 'textarea') %>
+  </div>
+
   <div class="field-text-default">
     <%= f.label(:default_value, _('Default text:')) %>
     <%= f.text_field(:default_value) %>
+    <small><%= _('Maximum of 255 characters') %></small>
   </div>
 <% end %>

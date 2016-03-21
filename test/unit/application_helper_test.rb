@@ -80,12 +80,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal '', show_date(nil)
   end
 
-
-  should 'append with-text class and keep existing classes' do
-    expects(:button_without_text).with('type', 'label', 'url', { :class => 'with-text class1'})
-    button('type', 'label', 'url', { :class => 'class1' })
-  end
-
   should 'generate correct link to category' do
     cat = mock
     cat.expects(:path).returns('my-category/my-subcatagory')

@@ -2,6 +2,8 @@ require_relative "../test_helper"
 
 class LinkListBlockTest < ActiveSupport::TestCase
 
+  include BoxesHelper
+
   should 'default describe' do
     assert_not_equal Block.description, LinkListBlock.description
   end
@@ -23,7 +25,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'list links' do
     l = LinkListBlock.new(:links => [{:name => 'products', :address => '/cat/products'}])
-    assert_match /products/, l.content
+    assert_match /products/, render_block_content(l)
   end
 
   should 'remove links with blank fields' do
@@ -36,7 +38,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
     profile = Profile.new(:identifier => 'test_profile')
     l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/{profile}/address'}])
     l.stubs(:owner).returns(profile)
-    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/test_profile/address'}
+    assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => {:href => '/test_profile/address'}
   end
 
   should 'replace {portal} with environment portal identifier' do
@@ -49,7 +51,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
     stubs(:environment).returns(env)
     l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/{portal}/address'}])
     l.stubs(:owner).returns(env)
-    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/portal-community/address'}
+    assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => {:href => '/portal-community/address'}
   end
 
   should 'not change address if no {portal} there' do
@@ -62,19 +64,19 @@ class LinkListBlockTest < ActiveSupport::TestCase
     stubs(:environment).returns(env)
     l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/address'}])
     l.stubs(:owner).returns(env)
-    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/address'}
+    assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => {:href => '/address'}
   end
 
   should 'handle /prefix if not already added' do
     Noosfero.stubs(:root).returns('/prefix')
     l = LinkListBlock.new(:links => [{:name => "foo", :address => '/bar'}] )
-    assert_tag_in_string l.content, :tag => 'a', :attributes => { :href => '/prefix/bar' }
+    assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => { :href => '/prefix/bar' }
   end
 
   should 'not add /prefix if already there' do
     Noosfero.stubs(:root).returns('/prefix')
     l = LinkListBlock.new(:links => [{:name => "foo", :address => '/prefix/bar'}] )
-    assert_tag_in_string l.content, :tag => 'a', :attributes => { :href => '/prefix/bar' }
+    assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => { :href => '/prefix/bar' }
   end
 
   should 'display options for icons' do
@@ -85,29 +87,29 @@ class LinkListBlockTest < ActiveSupport::TestCase
   end
 
   should 'link with icon' do
-    l = LinkListBlock.new
-    assert_match /class="icon-save"/, l.link_html({:icon => 'save', :name => 'test', :address => 'test.com'})
+    l = LinkListBlock.new(:links => [{:icon => 'save', :name => 'test', :address => 'test.com'}])
+    assert_match /a class="icon-[^"]+"/, render_block_content(l)
   end
 
   should 'no class without icon' do
-    l = LinkListBlock.new
-    assert_no_match /class="/, l.link_html({:icon => nil, :name => 'test', :address => 'test.com'})
+    l = LinkListBlock.new(:links => [{:icon => nil, :name => 'test', :address => 'test.com'}])
+    assert_no_match /a class="icon-[^"]+"/, render_block_content(l)
   end
 
   should 'not add link to javascript' do
     l = LinkListBlock.new(:links => [{:name => 'link', :address => "javascript:alert('Message test')"}])
-    assert_no_match /href="javascript/, l.link_html(l.links.first)
+    assert_no_match /href="javascript/, render_block_content(l)
   end
 
   should 'not add link to onclick' do
     l = LinkListBlock.new(:links => [{:name => 'link', :address => "#\" onclick=\"alert(123456)"}])
-    assert_no_tag_in_string l.link_html(l.links.first), :attributes => { :onclick => /.*/ }
+    assert_no_tag_in_string render_block_content(l), :attributes => { :onclick => /.*/ }
   end
 
   should 'add protocol in front of incomplete external links' do
     {'/local/link' => '/local/link', 'http://example.org' => 'http://example.org', 'example.org' => '//example.org'}.each do |input, output|
       l = LinkListBlock.new(:links => [{:name => 'categ', :address => input}])
-      assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => output}
+      assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => {:href => output}
     end
   end
 
@@ -128,7 +130,13 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'link with title' do
     l = LinkListBlock.new
-    assert_match /title="mytitle"/, l.link_html({:name => 'mylink', :address => '/myaddress', :title => 'mytitle'})
+    l = LinkListBlock.new(:links => [{:name => 'mylink', :address => '/myaddress', :title => 'mytitle'}])
+    assert_match /title="mytitle"/, render_block_content(l)
+  end
+
+  should 'display default message to brand new blocks with no links' do
+    l = LinkListBlock.new
+    assert_match /Please, edit this block to add links/, render_block_content(l)
   end
 
 end

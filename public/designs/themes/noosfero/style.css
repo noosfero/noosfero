@@ -48,3 +48,9 @@
   width: 80px;
 }
 
+.action-profile-send_mail .send-mail-recipients {
+  color: #888888;
+  padding: 10px;
+  width: 475px;
+  line-height: 15px;
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202142247) do
+ActiveRecord::Schema.define(version: 20160309122141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160202142247) do
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], name: "index_action_tracker_notif_on_prof_id_act_tracker_id", unique: true, using: :btree
   add_index "action_tracker_notifications", ["profile_id"], name: "index_action_tracker_notifications_on_profile_id", using: :btree
 
-  create_table "article_followers", id: false, force: :cascade do |t|
+  create_table "article_followers", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "article_id"
     t.datetime "since"
@@ -471,6 +471,7 @@ ActiveRecord::Schema.define(version: 20160202142247) do
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "data"
   end
 
   create_table "national_region_types", force: :cascade do |t|

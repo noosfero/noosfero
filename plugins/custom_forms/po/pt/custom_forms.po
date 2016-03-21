@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-08-07 16:48+0200\n"
-"Last-Translator: Antonio Terceiro <terceiro@softwarelivre.org>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"plugin-custom-forms/pt/>\n"
+"PO-Revision-Date: 2016-03-14 15:58+0000\n"
+"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
+"/plugin-custom-forms/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 2.5\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
@@ -184,7 +184,7 @@ msgstr "E-mail"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:31
 msgid "Your e-mail will be visible to this form's owners."
-msgstr ""
+msgstr "Seu e-mail ficará visível para o dono deste formulário."
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
 msgid "New form"
@@ -220,11 +220,11 @@ msgstr "Radio"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Caixa de seleção"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
 msgid "Drop down"
-msgstr "Drop down"
+msgstr "Lista suspensa"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
 msgid "Multiple Select"
@@ -262,7 +262,7 @@ msgstr "Disparado depois da aprovação de um novo integrante"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:29
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:38
 msgid "This field will be added automatically to your form"
-msgstr ""
+msgstr "Esse campo será adicionado automaticamente no seu formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:55
 msgid "Add a new text field"
@@ -315,18 +315,16 @@ msgid "Back to forms"
 msgstr "Voltar para os formulários"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:10
-#, fuzzy
 msgid "Submission date"
-msgstr "Submissão salva"
+msgstr "Data da submissão"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:14
-#, fuzzy
 msgid "Author"
-msgstr "Nome do autor"
+msgstr "Autor"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:26
 msgid "Unauthenticated"
-msgstr ""
+msgstr "Não autenticado"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:48
 msgid "Back to submissions"

@@ -19,26 +19,6 @@ class ProductsBlock < Block
     _('This block presents a list of your products.')
   end
 
-  def content(args={})
-    block_title(title) +
-    content_tag(
-      'ul',
-      products.map {|product|
-        content_tag('li',
-          link_to( product.name,
-                   product.url,
-                   :style => 'background-image:url(%s)' % product.default_image('minor')
-                 ),
-          :class => 'product'
-        )
-      }.join
-    )
-  end
-
-  def footer
-    link_to(_('View all products'), owner.public_profile_url.merge(:controller => 'catalog', :action => 'index'))
-  end
-
   settings_items :product_ids, type: Array
   def product_ids=(array)
     self.settings[:product_ids] = array

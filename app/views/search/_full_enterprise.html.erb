@@ -5,7 +5,7 @@
         @order == 'more_recent' ? enterprise.send(@order + '_label') + show_date(enterprise.created_at) : enterprise.send(@order + '_label') %>
     </div>
     <div class="search-enterprise-item-column-right">
-      <%= link_to_homepage(enterprise.name, enterprise.identifier, :class => "search-result-title") %>
+      <%= link_to_homepage enterprise.name, enterprise, class: "search-result-title" %>
       <div class="search-enterprise-description">
         <% if enterprise.description %>
           <% body_stripped = strip_tags(enterprise.description) %>

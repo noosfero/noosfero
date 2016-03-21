@@ -17,8 +17,8 @@
                 :parent_id, profile, default_folder, {}, {},
                 "type='Folder' or type='Gallery'"
           ) %>
+          <%= button(:newfolder, _('New folder'), '#', :id => 'new-folder-button') %>
         </div>
-        <%= button(:newfolder, _('New folder'), '#', :id => 'new-folder-button') %>
         <p><%= file_field_tag('file', :multiple => true) %></p>
       <% end %>
     </div>
@@ -31,7 +31,7 @@
   <div id='published-media' class='text-editor-sidebar-box' data-url='<%= url_for({:controller => 'cms', :action => 'published_media_items', :profile => profile.identifier}) %>'>
     <%= select_profile_folder(nil, :parent_id, profile, 'recent-media', {}, {},
         "type='Folder' or type='Gallery'", {:root_label => _('Recent media')}) %>
-    <%= labelled_form_field _('Search'), text_field_tag('q') %>
+    <%= labelled_form_field _('Search among your uploaded files'), text_field_tag('q', '', placeholder: _('Write words about the file you are looking for')) %>
     <%= render :partial => 'drag_and_drop_note' %>
     <div class='items'>
       <%= render :partial => 'published_media_items' %>

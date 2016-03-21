@@ -3,7 +3,8 @@ require_relative "../test_helper"
 class CommunityTest < ActiveSupport::TestCase
 
   def setup
-    @person = fast_create(Person)
+    @user = User.current = create_user
+    @person = @user.person
   end
 
   attr_reader :person
@@ -287,8 +288,8 @@ class CommunityTest < ActiveSupport::TestCase
 
   should "update the action of article creation when an community's article is commented" do
     ActionTrackerNotification.delete_all
-    p1 = Person.first
     community = fast_create(Community)
+    p1 = person
     p2 = create_user.person
     p3 = create_user.person
     community.add_member(p3)

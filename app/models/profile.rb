@@ -5,7 +5,7 @@ class Profile < ActiveRecord::Base
 
   attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
     :redirection_after_login, :custom_url_redirection,
-    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret
+    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -48,6 +48,9 @@ class Profile < ActiveRecord::Base
     end
     def self.organization_member_roles(env_id)
       all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? || !r.profile_id.nil?}
+    end
+    def self.organization_custom_roles(env_id, profile_id)
+      all_roles(env_id).where('profile_id = ?', profile_id)
     end
     def self.all_roles(env_id)
       Role.where(environment_id: env_id)
@@ -155,15 +158,23 @@ class Profile < ActiveRecord::Base
 
   include TimeScopes
 
-  def members
+  def members(by_field = '')
     scopes = plugins.dispatch_scopes(:organization_members, self)
-    scopes << Person.members_of(self)
+    scopes << Person.members_of(self,by_field)
     return scopes.first if scopes.size == 1
     ScopeTool.union *scopes
   end
 
-  def members_by_name
-    members.order('profiles.name')
+  def members_by(field,value = nil)
+    if value and !value.blank?
+      members_like(field,value).order('profiles.name')
+    else
+      members.order('profiles.name')
+    end
+  end
+
+  def members_like(field,value)
+    members(field).where("LOWER(#{field}) LIKE ?", "%#{value.downcase}%") if value
   end
 
   class << self
@@ -234,6 +245,7 @@ class Profile < ActiveRecord::Base
   settings_items :description
   settings_items :fields_privacy, :type => :hash, :default => {}
   settings_items :email_suggestions, :type => :boolean, :default => false
+  settings_items :profile_admin_mail_notification, :type => :boolean, :default => true
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
@@ -1100,6 +1112,10 @@ private :generate_url, :url_options
     else
       (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
     end
+  end
+
+  def can_view_field? current_person, field
+    display_private_info_to?(current_person) || (public_fields.include?(field) && public?)
   end
 
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true

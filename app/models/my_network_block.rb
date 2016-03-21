@@ -14,16 +14,6 @@ class MyNetworkBlock < Block
     _('This block displays some info about your networking.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/my_network', :locals => {
-        :title => block.title,
-        :owner => block.owner
-      }
-    end
-  end
-
   def cacheable?
     false
   end

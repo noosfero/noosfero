@@ -12,22 +12,6 @@ class EnterprisesBlock < ProfileListBlock
     _('Enterprises')
   end
 
-  def footer
-    owner = self.owner
-    case owner
-    when Profile
-      proc do
-        link_to s_('enterprises|View all'), :profile => owner.identifier, :controller => 'profile', :action => 'enterprises'
-      end
-    when Environment
-      proc do
-        link_to s_('enterprises|View all'), :controller => 'search', :action => 'assets', :asset => 'enterprises'
-      end
-    else
-      ''
-    end
-  end
-
   def profiles
     owner.enterprises
   end

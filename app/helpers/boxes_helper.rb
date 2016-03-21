@@ -87,10 +87,38 @@ module BoxesHelper
     box_decorator == DontMoveBlocks
   end
 
-  def display_block_content(block, person, main_content = nil)
-    content = block.main? ? wrap_main_content(main_content) : block.content({:person => person})
+  def render_block block, prefix = nil, klass = block.class
+    template_name = klass.name.underscore.sub '_block', ''
+    begin
+      render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
+    rescue ActionView::MissingTemplate
+      return if klass.superclass === Block
+      render_block block, prefix, klass.superclass
+    end
+  end
+
+  def render_block_content block
+    # FIXME: this conditional should be removed after all
+    # block footer from plugins methods get refactored into helpers and views.
+    # They are a failsafe until all of them are done.
+    return block.content if block.method(:content).owner != Block
+    render_block block
+  end
+
+  def render_block_footer block
+    return block.footer if block.method(:footer).owner != Block
+    render_block block, 'footers/'
+  end
+
+  def display_block_content(block, main_content = nil)
+    content = nil
+    if block.main?
+      content = wrap_main_content(main_content)
+    else
+      content = render_block_content block
+    end
     result = extract_block_content(content)
-    footer_content = extract_block_content(block.footer)
+    footer_content = extract_block_content(render_block_footer block)
     unless footer_content.blank?
       footer_content = content_tag('div', footer_content, :class => 'block-footer-content' )
     end

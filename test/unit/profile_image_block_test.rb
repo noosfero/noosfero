@@ -1,6 +1,8 @@
 require_relative "../test_helper"
+require 'boxes_helper'
 
 class ProfileImageBlockTest < ActiveSupport::TestCase
+  include BoxesHelper
 
   should 'provide description' do
     assert_not_equal Block.description, ProfileImageBlock.description
@@ -9,8 +11,8 @@ class ProfileImageBlockTest < ActiveSupport::TestCase
   should 'display profile image' do
     block = ProfileImageBlock.new
 
-    self.expects(:render).with(:file => 'blocks/profile_image', :locals => { :block => block, :show_name => false})
-    instance_eval(& block.content)
+    self.expects(:render).with(template: 'blocks/profile_image', locals: { block: block })
+    render_block_content(block)
   end
 
   should 'be editable' do

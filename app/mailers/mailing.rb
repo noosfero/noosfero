@@ -2,7 +2,10 @@ require_dependency 'mailing_job'
 
 class Mailing < ActiveRecord::Base
 
-  attr_accessible :subject, :body
+  acts_as_having_settings :field => :data
+
+  attr_accessible :subject, :body, :data
+
   validates_presence_of :source_id, :subject, :body
   belongs_to :source, :foreign_key => :source_id, :polymorphic => true
   belongs_to :person

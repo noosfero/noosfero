@@ -15,6 +15,8 @@ class HighlightsBlock < Block
       if !Noosfero.root.nil? and !i[:address].start_with?(Noosfero.root + '/')
         i[:address] = Noosfero.root + i[:address]
       end
+      i[:new_window] = i[:new_window] == '1' ? true : false
+
       begin
         file = UploadedFile.find(i[:image_id])
         i[:image_src] = file.public_filename
@@ -38,13 +40,6 @@ class HighlightsBlock < Block
       !i[:image_src].nil?
     end.sort do |x, y|
       x[:position] <=> y[:position]
-    end
-  end
-
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/highlights', :locals => { :block => block }
     end
   end
 

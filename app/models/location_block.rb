@@ -13,12 +13,4 @@ class LocationBlock < Block
     _('Shows where the profile is on the material world.')
   end
 
-  def content(args={})
-    block = self
-    profile = self.owner
-    proc do
-      render :file => 'blocks/location', :locals => {:block => block, :profile => profile}
-    end
-  end
-
 end

@@ -1,0 +1,17 @@
+<%= block_title(block.view_title) %>
+
+<%
+  list = block.profile_list.map do |item|
+    profile_image_link(item, :minor)
+  end.join("\n ")
+%>
+
+<div>
+  <% if list.empty? %>
+    <div class='common-profile-list-block-none'><%= _('None') %></div>
+  <% else %>
+    <ul><%= list %></ul>
+  <% end %>
+</div>
+ 
+<br style='clear:both'/>

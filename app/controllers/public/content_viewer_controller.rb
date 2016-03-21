@@ -239,8 +239,12 @@ class ContentViewerController < ApplicationController
 
   def get_posts(year = nil, month = nil)
     if year && month
-      filter_date = DateTime.parse("#{year}-#{month}-01")
-      return @page.posts.by_range(filter_date..filter_date.at_end_of_month)
+      begin
+        filter_date = DateTime.parse("#{year}-#{month}-01")
+        return @page.posts.by_range(filter_date..filter_date.at_end_of_month)
+      rescue ArgumentError
+        return @page.posts
+      end
     else
       return @page.posts
     end

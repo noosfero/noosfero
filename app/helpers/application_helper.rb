@@ -48,6 +48,8 @@ module ApplicationHelper
 
   include PluginsHelper
 
+  include ButtonsHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -148,14 +150,8 @@ module ApplicationHelper
     link_to text, profile_path(:profile => profile) , options
   end
 
-  def link_to_homepage(text, profile = nil, options = {})
-    p = if profile
-          Profile[profile]
-        else
-          user
-        end
-
-    link_to text, p.url, options
+  def link_to_homepage(text, profile, options = {})
+    link_to text, profile.url, options
   end
 
   def link_if_permitted(link, permission = nil, target = nil)
@@ -213,52 +209,6 @@ module ApplicationHelper
     result << button_to_function('close', hide_label, hide(id) + hide(hide_button_id) + show(show_button_id), :id => hide_button_id, :class => 'hide-button with-text')
 
     result
-  end
-
-  def button(type, label, url, html_options = {})
-    html_options ||= {}
-    the_class = 'with-text'
-    if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
-    end
-    button_without_text type, label, url, html_options.merge(:class => the_class)
-  end
-
-  def button_without_text(type, label, url, html_options = {})
-    the_class = "button icon-#{type}"
-    if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
-    end
-    the_title = html_options[:title] || label
-    if html_options[:disabled]
-      content_tag('a', '&nbsp;'+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
-    else
-      link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
-    end
-  end
-
-  def button_to_function(type, label, js_code, html_options = {}, &block)
-    html_options[:class] = "button with-text" unless html_options[:class]
-    html_options[:class] << " icon-#{type}"
-    link_to_function(label, js_code, html_options, &block)
-  end
-
-  def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_function(content_tag('span', label), js_code, html_options, &block)
-  end
-
-  def button_to_remote(type, label, options, html_options = {})
-    html_options[:class] = "button with-text" unless html_options[:class]
-    html_options[:class] << " icon-#{type}"
-    link_to_remote(label, options, html_options)
-  end
-
-  def button_to_remote_without_text(type, label, options, html_options = {})
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_remote(content_tag('span', label), options, html_options.merge(:title => label))
   end
 
   def icon(icon_name, html_options = {})
@@ -940,13 +890,6 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*args) }
   end
 
-  def article_to_html(article, options = {})
-    options.merge!(:page => params[:npage])
-    content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_exec(&content).html_safe : content.html_safe
-    filter_html(content, article)
-  end
-
   # Please, use link_to by default!
   # This method was created to work around to inexplicable
   # chain of problems when display_short_format was called
@@ -1049,10 +992,11 @@ module ApplicationHelper
   end
 
   def search_contents_menu
+    host = environment.default_hostname
     links = [
-      {s_('contents|More recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
-      {s_('contents|More viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
-      {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
+      {s_('contents|More recent') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_recent'})}},
+      {s_('contents|More viewed') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_popular'})}},
+      {s_('contents|Most commented') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_comments'})}}
     ]
     if logged_in?
       links.push(_('New content') => modal_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
@@ -1064,10 +1008,11 @@ module ApplicationHelper
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
+    host = environment.default_hostname
      links = [
-       {s_('people|More recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
-       {s_('people|More active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
-       {s_('people|More popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
+       {s_('people|More recent') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_recent'})}},
+       {s_('people|More active') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_active'})}},
+       {s_('people|More popular') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
@@ -1080,10 +1025,11 @@ module ApplicationHelper
   alias :browse_people_menu :search_people_menu
 
   def search_communities_menu
+    host = environment.default_hostname
      links = [
-       {s_('communities|More recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
-       {s_('communities|More active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
-       {s_('communities|More popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
+       {s_('communities|More recent') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_recent'})}},
+       {s_('communities|More active') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_active'})}},
+       {s_('communities|More popular') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
@@ -1366,16 +1312,6 @@ module ApplicationHelper
       @message = _('The contents in this profile is available to members only.')
     end
     @no_design_blocks = true
-  end
-
-  def filter_html(html, source)
-    if @plugins && source && source.has_macro?
-      html = convert_macro(html, source) unless @plugins.enabled_macros.blank?
-      #TODO This parse should be done through the macro infra, but since there
-      #     are old things that do not support it we are keeping this hot spot.
-      html = @plugins.pipeline(:parse_content, html, source).first
-    end
-    html && html.html_safe
   end
 
   def convert_macro(html, source)

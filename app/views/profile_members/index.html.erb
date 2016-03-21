@@ -1,9 +1,12 @@
 <h1><%= h profile.short_name(50) %></h1>
 
-<%= render :partial => 'index_buttons' %>
+<%= render :partial => 'members_filter' %>
 
-<div id="members-list">
-  <%= render :partial => 'members_list' %>
-</div>
+<%= form_tag 'profile_members/send_mail', :method => 'post' do %>
+  <div id="members-list">
+    <%= render :partial => 'members_list' %>
+  </div>
 
-<%= render :partial => 'index_buttons' %>
+  <%= render :partial => 'index_buttons' %>
+
+<% end %>

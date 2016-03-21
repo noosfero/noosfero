@@ -1,6 +1,8 @@
 require_relative "../test_helper"
+require 'boxes_helper'
 
 class SlideshowBlockTest < ActiveSupport::TestCase
+  include BoxesHelper
 
   def setup
     @profile = fast_create(Profile)
@@ -30,7 +32,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
 
     block = SlideshowBlock.new
     block.stubs(:gallery).returns(gallery)
-    block.content
+    render_block_content(block)
   end
 
   should 'list in random order' do
@@ -42,7 +44,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     block.stubs(:block_images).returns(images)
     images.expects(:shuffle).once.returns(shuffled)
 
-    block.content
+    render_block_content(block)
   end
 
   should 'not shuffle by default' do

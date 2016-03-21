@@ -31,6 +31,31 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
+  should 'access index and filter members by name and roles' do
+
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
+    roles = {
+     :admin => Profile::Roles.admin(Environment.default),
+     :member => Profile::Roles.member(Environment.default)
+    }
+
+    member = create_user('test_member', :email => 'testmember@test.com.br').person
+    member.add_role(roles[:member], ent)
+
+    admin = create_user('test_admin').person
+    admin.add_role roles[:admin], ent
+
+    user = create_user_with_permission('test_user', 'manage_memberships', ent)
+    login_as :test_user
+
+    post :index, :profile => 'test_enterprise' , :filters => {:name => 'testmember@test.com.br', :roles => [roles[:member].id]}
+
+    assert_response :success
+    assert_template 'index'
+
+    assert_includes assigns(:data)[:members], member
+  end
+
   should 'show form to change role' do
     ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role = Profile::Roles.member(Environment.default)
@@ -171,7 +196,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
+    assert_tag :tag => 'input', :attributes => {:value => 'Send e-mail to members'}
   end
 
   should 'not display send email to members if doesn\'t have the permission' do

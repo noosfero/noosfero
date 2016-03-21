@@ -17,11 +17,13 @@ class CategoriesBlockTest < ActiveSupport::TestCase
     assert_not_nil category_block.help
   end
 
+  include BoxesHelper
+
   should 'display category block' do
     block = CategoriesBlock.new
 
-    self.expects(:render).with(:file => 'blocks/categories', :locals => { :block => block})
-    instance_eval(& block.content)
+    self.expects(:render).with(template: 'blocks/categories', locals: {block: block})
+    render_block_content(block)
   end
 
   should 'be editable' do

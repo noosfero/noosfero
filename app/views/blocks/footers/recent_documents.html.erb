@@ -1,0 +1,3 @@
+<% if block.owner.is_a?(Profile) %>
+  <%= link_to _('All content'), :profile => block.owner.identifier, :controller => 'profile', :action => 'sitemap' %>
+<% end %>

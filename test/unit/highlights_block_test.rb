@@ -54,7 +54,19 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   should 'remove images with blank fields' do
     h = HighlightsBlock.new(:images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => '', :position => '', :title => ''}])
     h.save!
-    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :image_src => nil}], h.images
+    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => nil}], h.images
+  end
+
+  should 'replace 1 and 0 by true and false in new_window attribute' do
+    image1 = {:image_id => 1, :address => '/address-1', :position => 1, :title => 'address-1', :new_window => '0'}
+    image2 = {:image_id => 2, :address => '/address-2', :position => 2, :title => 'address-2', :new_window => '1'}
+    h = HighlightsBlock.new(:images => [image1, image2])
+    h.save!
+    image1[:new_window] = false
+    image1[:image_src] = nil
+    image2[:new_window] = true
+    image2[:image_src] = nil
+    assert_equivalent [image1, image2], h.images
   end
 
   should 'be able to update display setting' do
@@ -68,11 +80,13 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     assert_equal 'always', block.display
   end
 
+  include BoxesHelper
+
   should 'display highlights block' do
     block = HighlightsBlock.new
-    self.expects(:render).with(:file => 'blocks/highlights', :locals => { :block => block})
+    self.expects(:render).with(template: 'blocks/highlights', locals: {block: block})
 
-    instance_eval(& block.content)
+    render_block_content(block)
   end
 
   should 'not list non existent image' do
@@ -84,7 +98,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.save!
     block.reload
     assert_equal 2, block.images.count
-    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :image_src => 'address'}], block.featured_images
+    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => 'address'}], block.featured_images
   end
 
   should 'list images in order' do
@@ -155,7 +169,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.images = [i1]
     block.save!
 
-    assert_tag_in_string instance_eval(& block.content), :tag => 'img', :attributes => { :src => "/social/img_address" }
+    assert_tag_in_string render_block_content(block), :tag => 'img', :attributes => { :src => "/social/img_address" }
   end
 
   [Environment, Profile].each do |klass|

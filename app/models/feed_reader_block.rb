@@ -52,24 +52,6 @@ class FeedReaderBlock < Block
     self.feed_title.nil? ? _('Feed Reader') : self.feed_title
   end
 
-  def formatted_feed_content
-    if error_message.blank?
-      "<ul>\n".html_safe +
-      self.feed_items[0..(limit-1)].map{ |item| "<li><a href='#{item[:link]}'>#{item[:title]}</a></li>" }.join("\n").html_safe +
-      "</ul>".html_safe
-    else
-      "<p>#{error_message}</p>".html_safe
-    end
-  end
-
-  def footer
-    if self.fetched_at.nil? or self.feed_items.empty?
-      _('Feed content was not loaded yet')
-    else
-      _("Updated: %s") % show_date(self.fetched_at)
-    end
-  end
-
   def add_item(title, link, date, content)
     self.feed_items.unshift( {:title => title, :link => link})
   end
@@ -83,10 +65,6 @@ class FeedReaderBlock < Block
   def finish_fetch
     self.fetched_at = Time.now
     self.save!
-  end
-
-  def content(args={})
-    block_title(title) + formatted_feed_content
   end
 
 end

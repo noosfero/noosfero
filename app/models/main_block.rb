@@ -8,10 +8,6 @@ class MainBlock < Block
     _('This block presents the main content of your pages.')
   end
 
-  def content(args={})
-    nil
-  end
-
   def main?
     true
   end

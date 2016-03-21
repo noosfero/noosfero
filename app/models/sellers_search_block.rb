@@ -22,10 +22,4 @@ class SellersSearchBlock < Block
     _('This block presents a search engine for products.')
   end
 
-  def content(args={})
-    title = self.title
-    lambda do |object|
-      render :file => 'search/_sellers_form', :locals => { :title => title }
-    end
-  end
 end

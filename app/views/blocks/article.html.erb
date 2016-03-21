@@ -1,0 +1,12 @@
+<%= block_title(block.title) %>
+<% if block.article %>
+  <%=
+    h(article_to_html(FilePresenter.for(block.article),
+        :gallery_view => false,
+        :inside_block => block,               # For Blogs and folders
+        :format => block.visualization_format # For Articles and contents
+    ))
+  %>
+<% else %>
+  <%= _('Article not selected yet.') %>
+<% end %>

@@ -29,11 +29,11 @@
   %>
 
   <p><%= _('Blogs from which news will be compiled') %></p>
-  <% search_action = url_for(:action => 'search_communities') %>
+  <% search_action = url_for(:action => 'search_profiles') %>
   <% selected_blogs = @blogs.map { |blog| {:id => blog.id, :name => _("%s in %s") % [blog.name, blog.profile.name]} } %>
   <%= token_input_field_tag(
-    'newsletter[blog_ids]', 'search-communities', search_action,
-    { hint_text: _('Type in the communities\' or blogs\' names'),
+    'newsletter[blog_ids]', 'search-profiles', search_action,
+    { hint_text: _('Type in the profiles\' or blogs\' names'),
       focus: false, pre_populate: selected_blogs }) %>
 
   <br/>

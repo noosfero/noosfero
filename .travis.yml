@@ -24,6 +24,9 @@ addons:
       - libreadline-dev
       - libsqlite3-dev
       - libxslt1-dev
+  artifacts:
+    paths:
+      - $(ls tmp/artifact* | tr "\n" ":")
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
@@ -32,7 +35,7 @@ before_install:
 cache: bundler
 
 before_script:
-  - mkdir -p tmp/{pids,cache} log
+  - mkdir -p tmp/{pids,cache} log cache
   - script/noosfero-plugins disableall
   #- bundle exec rake makemo &>/dev/null
 # database

@@ -19,14 +19,6 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, MyNetworkBlock.new.default_title
   end
 
-  should 'display my-profile' do
-    self.expects(:render).with(:file => 'blocks/my_network', :locals => {
-        :title => 'My network',
-        :owner => owner
-    })
-    instance_eval(&block.content)
-  end
-
   should 'be able to update display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
@@ -36,4 +28,23 @@ class MyNetworkBlockTest < ActiveSupport::TestCase
     assert_equal 'always', block.display
   end
 
+end
+
+class MyNetworkBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    @block = MyNetworkBlock.new
+    @owner = Person.new(:identifier => 'testuser')
+    @block.stubs(:owner).returns(@owner)
+    owner.stubs(:environment).returns(Environment.default)
+  end
+  attr_reader :owner, :block
+
+  should 'display my-profile' do
+    ActionView::Base.any_instance.stubs(:block_title).with(anything).returns(true)
+    ActionView::Base.any_instance.stubs(:user).with(anything).returns(owner)
+    ActionView::Base.any_instance.stubs(:render_profile_actions)
+    assert_match "#{Environment.default.top_url}/profile/testuser", render_block_content(block)
+  end
 end

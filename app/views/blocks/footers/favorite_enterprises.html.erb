@@ -1,0 +1,3 @@
+<% if block.owner.is_a?(Person) %>
+  <%= link_to _('enterprises|View all'), {:profile => block.owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'}, :class => 'view-all' %>
+<% end %>

@@ -13,17 +13,15 @@ class EnableDisableFeaturesTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'input', :attributes => { :name => 'environment[enabled_features][]', :value => 'feature2' }
     assert_tag :tag => 'input', :attributes => { :name => 'environment[enabled_features][]', :value => 'feature3' }
 
-    post '/admin/features/update'
-    assert_response :redirect
+    post_via_redirect '/admin/features/update'
+    assert_response :success
 
-    follow_redirect!
     assert_response :success
     assert_equal '/admin/features', path
 
-    post '/admin/features/update', :environments => { :enabled_features => [ 'feature1' ], :organization_approval_method => 'region' }
-    assert_response :redirect
+    post_via_redirect '/admin/features/update', :environments => { :enabled_features => [ 'feature1' ], :organization_approval_method => 'region' }
+    assert_response :success
 
-    follow_redirect!
     assert_equal '/admin/features', path
 
   end
