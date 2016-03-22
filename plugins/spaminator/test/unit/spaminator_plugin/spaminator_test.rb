@@ -96,7 +96,8 @@ class SpaminatorPlugin::SpaminatorTest < ActiveSupport::TestCase
   end
 
   should 'process person by network' do
-    person = create_user('spammer').person
+    user   = User.current = create_user 'spammer'
+    person = user.person
     person.created_at = Time.now - 2.months
     person.save!
     c1 = fast_create(Community)
