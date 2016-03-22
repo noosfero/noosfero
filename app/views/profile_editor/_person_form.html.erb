@@ -16,7 +16,7 @@
 <%= optional_field(@person, 'jabber_id', f.text_field(:jabber_id, :rel => _('Jabber'))) %>
 <%= optional_field(@person, 'personal_website', f.text_field(:personal_website, :rel => _('Personal website'))) %>
 <%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
-<%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), date_field('profile_data[birth_date]', @profile_data. birth_date, '%Y-%m-%d', {:change_month => true, :change_year => true, :year_range => '-100:-5', :date_format => 'yy-mm-dd'}, {:id => 'profile_data_birth_date'}))) %>
+<%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), date_field('profile_data[birth_date]', @profile_data. birth_date, {:change_month => true, :change_year => true, :year_range => '-100:-5', :date_format => 'yy-mm-dd'}, {:id => 'profile_data_birth_date'}))) %>
 <%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>
 <%= optional_field(@person, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
 <%= optional_field(@person, 'state', f.text_field(:state, :id => 'state_field', :rel => _('State'))) %>
