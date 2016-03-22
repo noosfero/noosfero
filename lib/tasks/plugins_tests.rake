@@ -241,8 +241,10 @@ def plugins_status_report(failed)
 
   @all_plugins.each do |plugin|
     if $broken_plugins.include?(plugin)
+      status = "BROKEN"
+    elsif failed[plugin].nil?
       status = "SKIP"
-    elsif !failed[plugin] || failed[plugin].empty?
+    elsif failed[plugin].empty?
       status = "PASS"
     else
       status = "FAIL: #{failed[plugin].join(', ')}"
