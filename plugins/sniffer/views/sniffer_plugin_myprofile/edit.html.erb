@@ -4,18 +4,21 @@
 <%= _('Select here products and services categories that you have an interest on buying. Then you can go to the Opportunity Sniffer and check out enterprises near you that offer such products. Type in some characters and choose your interests from our list.') %>
 </p>
 
-<%= form_for(@sniffer_profile, :url => {:action => 'edit'}, :method => 'post') do |f| %>
+<%= form_for(@profile, as: :profile_data, url: {action: 'edit'}, method: 'post') do |f| %>
 
   <div id='sniffer-plugin-product-select'>
-    <% current_categories = @sniffer_profile.product_categories.collect{ |i| {:id => i.id, :name => i.name} } %>
+    <% current_categories = @profile.sniffer_interested_product_categories.map{ |i| {id: i.id, name: i.name} } %>
 
-    <%= token_input_field_tag('sniffer_plugin_profile[product_category_string_ids]', 'sniffer_product_category_string_ids', { :action => 'product_category_search' }, {search_delay: 150, pre_populate: current_categories, prevent_duplicates: true, hint_text: _('Type in a keyword') }) %>
+    <%= token_input_field_tag('profile_data[sniffer_interested_product_category_string_ids]',
+                              'sniffer_interested_product_category_string_ids',
+                              { action: 'product_category_search' },
+                              {search_delay: 150, pre_populate: current_categories, prevent_duplicates: true, hint_text: _('Type in a keyword') }) %>
 
   </div>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>
-    <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+    <%= button :back, _('Back to control panel'), controller: 'profile_editor' %>
   <% end %>
 <% end %>
 

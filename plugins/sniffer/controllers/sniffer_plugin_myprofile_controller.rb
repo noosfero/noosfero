@@ -1,20 +1,13 @@
 class SnifferPluginMyprofileController < MyProfileController
 
-  before_filter :fetch_sniffer_profile, :only => [:edit, :search]
-
   include SnifferPlugin::Helper
   helper SnifferPlugin::Helper
   helper CmsHelper
 
   def edit
     if request.post?
-      begin
-        @sniffer_profile.update(params[:sniffer_plugin_profile])
-        @sniffer_profile.enabled = true
-        @sniffer_profile.save!
+      if @profile.update params[:profile_data]
         session[:notice] = _('Consumer interests updated')
-      rescue Exception => exception
-        flash[:error] = _('Could not save consumer interests')
       end
     end
   end
@@ -22,22 +15,21 @@ class SnifferPluginMyprofileController < MyProfileController
   def product_category_search
     query = params[:q] || params[:term]
 
-    scope = ProductCategory.by_environment(environment)
-    @categories = find_by_contents(:product_categories, @profile, scope, query, {:per_page => 10, :page => 1})[:results]
+    @categories = find_by_contents(:categories, @profile, environment.product_categories, query, {per_page: 10, page: 1})[:results]
 
     autocomplete = params.has_key?(:term)
-    render :json => @categories.map { |i| autocomplete ? {:value => i.id, :label => i.name} : {:id => i.id, :name => i.name} }
+    render json: @categories.map { |i| autocomplete ? {value: i.id, label: i.name} : {id: i.id, name: i.name} }
   end
 
   def product_category_add
     product_category = environment.categories.find params[:id]
-    response = { :productCategory => {
+    response = { productCategory: {
         :id   => product_category.id
       }
     }
     response[:enterprises] = product_category.sniffer_plugin_enterprises.enabled.visible.map do |enterprise|
       profile_data = filter_visible_attr_profile(enterprise)
-      profile_data[:balloonUrl] = url_for :controller => :sniffer_plugin_myprofile, :action => :map_balloon, :id => enterprise[:id], :escape => false
+      profile_data[:balloonUrl] = url_for controller: :sniffer_plugin_myprofile, action: :map_balloon, id: enterprise[:id], escape: false
       profile_data[:sniffer_plugin_distance] = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, enterprise.lat, enterprise.lng)
       profile_data[:suppliersProducts] = filter_visible_attr_suppliers_products(
         enterprise.products.sniffer_plugin_products_from_category(product_category)
@@ -45,14 +37,14 @@ class SnifferPluginMyprofileController < MyProfileController
       profile_data[:consumersProducts] = []
       profile_data
     end
-    render :text => response.to_json
+    render text: response.to_json
   end
 
   def search
     @no_design_blocks = true
 
-    suppliers_products = @sniffer_profile.suppliers_products
-    consumers_products = @sniffer_profile.consumers_products
+    suppliers_products = @profile.sniffer_suppliers_products
+    consumers_products = @profile.sniffer_consumers_products
 
     profiles_of_interest = fetch_profiles(suppliers_products + consumers_products)
 
@@ -67,13 +59,13 @@ class SnifferPluginMyprofileController < MyProfileController
     @profiles_data = {}
     suppliers.each do |id, products|
       @profiles_data[id] = {
-        :profile => profiles_of_interest[id],
-        :suppliers_products => products,
-        :consumers_products => []
+        profile: profiles_of_interest[id],
+        suppliers_products: products,
+        consumers_products: []
       }
     end
     consumers.each do |id, products|
-      @profiles_data[id] ||= { :profile => profiles_of_interest[id] }
+      @profiles_data[id] ||= { profile: profiles_of_interest[id] }
       @profiles_data[id][:suppliers_products] ||= []
       @profiles_data[id][:consumers_products] = products
     end
@@ -91,22 +83,18 @@ class SnifferPluginMyprofileController < MyProfileController
     @suppliers = build_products(suppliers_products).values.first
     @consumers = build_products(consumers_products).values.first
 
-    render :layout => false
+    render layout: false
   end
 
   def my_map_balloon
     @categories = @profile.categories
-    render :layout => false
+    render layout: false
   end
 
   protected
 
-  def fetch_sniffer_profile
-    @sniffer_profile = SnifferPlugin::Profile.find_or_create profile
-  end
-
   def fetch_profiles(products)
-    profiles = Profile.all :conditions => {:id => products.map { |p| target_profile_id(p) }}
+    profiles = Profile.all conditions: {id: products.map { |p| target_profile_id(p) }}
     profiles_by_id = {}
     profiles.each do |p|
       p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
@@ -125,9 +113,9 @@ class SnifferPluginMyprofileController < MyProfileController
 
     id_profiles = fetch_profiles(data)
 
-    products = Product.all :conditions => {:id => grab_id.call('id')}, :include => [:enterprise, :product_category]
+    products = Product.all conditions: {id: grab_id.call('id')}, include: [:enterprise, :product_category]
     products.each{ |p| id_products[p.id] ||= p }
-    knowledges = Article.all :conditions => {:id => grab_id.call('knowledge_id')}
+    knowledges = Article.all conditions: {id: grab_id.call('knowledge_id')}
     knowledges.each{ |k| id_knowledges[k.id] ||= k}
 
     data.each do |attributes|
@@ -135,9 +123,9 @@ class SnifferPluginMyprofileController < MyProfileController
 
       results[profile.id] ||= []
       results[profile.id] << {
-        :partial => attributes['view'],
-        :product => id_products[attributes['id'].to_i],
-        :knowledge => id_knowledges[attributes['knowledge_id'].to_i]
+        partial: attributes['view'],
+        product: id_products[attributes['id'].to_i],
+        knowledge: id_knowledges[attributes['knowledge_id'].to_i]
       }
     end
     results
