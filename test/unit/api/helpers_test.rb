@@ -25,6 +25,15 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_equal user, current_user
   end
 
+  should 'get the current user even with expired token' do
+    user = create_user('someuser')
+    user.generate_private_token!
+    user.private_token_generated_at = DateTime.now.prev_year
+    user.save
+    self.params = {:private_token => user.private_token}
+    assert_equal user, current_user
+  end
+
   should 'get the person of current user' do
     user = create_user('someuser')
     user.generate_private_token!
@@ -190,6 +199,33 @@ class APIHelpersTest < ActiveSupport::TestCase
     self.expects(:not_found!)
 
     filter_disabled_plugins_endpoints
+  end
+
+  should 'not touch in options when no fields parameter is passed' do
+    model = mock
+    expects(:present).with(model, {})
+    present_partial(model, {})
+  end
+
+  should 'fallback to array when fields parameter is not a json when calling present partial' do
+    model = mock
+    params[:fields] = ['name']
+    expects(:present).with(model, {:only => ['name']})
+    present_partial(model, {})
+  end
+
+  should 'fallback to comma separated string when fields parameter is not an array when calling present partial' do
+    model = mock
+    params[:fields] = 'name,description'
+    expects(:present).with(model, {:only => ['name', 'description']})
+    present_partial(model, {})
+  end
+
+  should 'accept json as fields parameter when calling present partial' do
+    model = mock
+    params[:fields] = {only: [:name, {user: [:login]}]}.to_json
+    expects(:present).with(model, {:only => ['name', {'user' => ['login']}]})
+    present_partial(model, {})
   end
 
   protected

@@ -20,13 +20,13 @@ module Noosfero
           get do
             tasks = select_filtered_collection_of(environment, 'tasks', params)
             tasks = tasks.select {|t| current_person.has_permission?(t.permission, environment)}
-            present tasks, :with => Entities::Task, :fields => params[:fields]
+            present_partial tasks, :with => Entities::Task
           end
 
           desc "Return the task id"
           get ':id' do
             task = find_task(environment, params[:id])
-            present task, :with => Entities::Task, :fields => params[:fields]
+            present_partial task, :with => Entities::Task
           end
         end
 

@@ -5,8 +5,11 @@ module Noosfero
 
         ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
 
+        MAX_PER_PAGE = 50
+
         resource :articles do
 
+          paginate max_per_page: MAX_PER_PAGE
           # Collect articles
           #
           # Parameters:
@@ -49,7 +52,7 @@ module Noosfero
             article = environment.articles.find(params[:id])
             return forbidden! unless article.allow_edit?(current_person)
             article.update_attributes!(params[:article])
-            present article, :with => Entities::Article, :fields => params[:fields]
+            present_partial article, :with => Entities::Article
           end
 
           desc 'Report a abuse and/or violent content in a article by id' do
@@ -93,7 +96,7 @@ module Noosfero
           end
            #FIXME refactor this method
           get 'voted_by_me' do
-            present_articles(current_person.votes.collect(&:voteable))
+            present_articles(current_person.votes.where(:voteable_type => 'Article').collect(&:voteable))
           end
 
           desc 'Perform a vote on a article by id' do
@@ -108,8 +111,12 @@ module Noosfero
             # FIXME verify allowed values
             render_api_error!('Vote value not allowed', 400) unless [-1, 1].include?(value)
             article = find_article(environment.articles, params[:id])
-            vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
-            {:vote => vote.save}
+            begin
+              vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
+              {:vote => vote.save!}
+            rescue ActiveRecord::RecordInvalid => e
+              render_api_error!(e.message, 400)
+            end
           end
 
           desc "Returns the total followers for the article" do
@@ -121,6 +128,11 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
             total = article.person_followers.count
             {:total_followers => total}
+          end
+
+          desc "Return the articles followed by me"
+          get 'followed_by_me' do
+            present_articles_for_asset(current_person, 'following_articles')
           end
 
           desc "Add a follower for the article" do
@@ -150,6 +162,7 @@ module Noosfero
             named 'ArticleChildren'
           end
 
+          paginate per_page: MAX_PER_PAGE, max_per_page: MAX_PER_PAGE
           get ':id/children' do
             article = find_article(environment.articles, params[:id])
 
@@ -177,7 +190,7 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
             child = find_article(article.children, params[:child_id])
             child.hit
-            present child, :with => Entities::Article, :fields => params[:fields]
+            present_partial child, :with => Entities::Article
           end
 
           desc 'Suggest a article to another profile' do
@@ -200,7 +213,7 @@ module Noosfero
             unless suggest_article.save
               render_api_errors!(suggest_article.article_object.errors.full_messages)
             end
-            present suggest_article, :with => Entities::Task, :fields => params[:fields]
+            present_partial suggest_article, :with => Entities::Task
           end
 
           # Example Request:
@@ -231,12 +244,21 @@ module Noosfero
             if !article.save
               render_api_errors!(article.errors.full_messages)
             end
-            present article, :with => Entities::Article, :fields => params[:fields]
+            present_partial article, :with => Entities::Article
           end
 
         end
 
-        kinds = %w[community person enterprise]
+        resource :profiles do
+          get ':id/home_page' do
+            profiles = environment.profiles
+            profiles = profiles.visible_for_person(current_person)
+            profile = profiles.find_by_id(params[:id])
+            present_partial profile.home_page, :with => Entities::Article
+          end
+        end
+
+        kinds = %w[profile community person enterprise]
         kinds.each do |kind|
           resource kind.pluralize.to_sym do
             segment "/:#{kind}_id" do
@@ -258,7 +280,7 @@ module Noosfero
                       article = forbidden!
                     end
 
-                    present article, :with => Entities::Article, :fields => params[:fields]
+                    present_partial article, :with => Entities::Article
                   else
 
                     present_articles_for_asset(profile)

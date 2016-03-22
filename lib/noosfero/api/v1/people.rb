@@ -4,9 +4,12 @@ module Noosfero
       class People < Grape::API
         before { authenticate! }
 
+        MAX_PER_PAGE = 50
+
         desc 'API Root'
 
         resource :people do
+          paginate max_per_page: MAX_PER_PAGE
 
           # -- A note about privacy --
           # We wold find people by location, but we must test if the related
@@ -33,12 +36,12 @@ module Noosfero
           get do
             people = select_filtered_collection_of(environment, 'people', params)
             people = people.visible_for_person(current_person)
-            present people, :with => Entities::Person, :current_person => current_person
+            present_partial people, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the logged user information"
           get "/me" do
-            present current_person, :with => Entities::Person, :current_person => current_person
+            present_partial current_person, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the person information"
@@ -103,6 +106,19 @@ module Noosfero
               end
             end
             present output
+          end
+        end
+
+        resource :profiles do
+          segment '/:profile_id' do
+            resource :members do
+              paginate max_per_page: MAX_PER_PAGE
+              get do
+                profile = environment.profiles.find_by_id(params[:profile_id])
+                members = select_filtered_collection_of(profile, 'members', params)
+                present members, :with => Entities::Person, :current_person => current_person
+              end
+            end
           end
         end
       end

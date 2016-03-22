@@ -182,4 +182,14 @@ class SessionTest < ActiveSupport::TestCase
     assert_equal 404, last_response.status
   end
 
+  should 'not return private token when the registered user is inactive' do
+    params = {:login => "newuserapi", :password => "newuserapi", :password_confirmation => "newuserapi", :email => "newuserapi@email.com" }
+    post "/api/v1/register?#{params.to_query}"
+    assert_equal 201, last_response.status
+    json = JSON.parse(last_response.body)
+    assert !User['newuserapi'].activated?
+    assert !json['user']['activated']
+    assert !json['user']['private_token'].present?
+  end
+
 end

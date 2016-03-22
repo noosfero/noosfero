@@ -5,7 +5,7 @@ require_relative '../../find_by_contents'
     module API
       module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
-      DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id]
+      DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id, :identifier]
 
       include SanitizeParams
       include Noosfero::Plugin::HotSpot
@@ -36,6 +36,22 @@ require_relative '../../find_by_contents'
 
       def environment
         @environment
+      end
+
+      def present_partial(model, options)
+        if(params[:fields].present?)
+          begin
+            fields = JSON.parse(params[:fields])
+            if fields.present?
+              options.merge!(fields.symbolize_keys.slice(:only, :except))
+            end
+          rescue
+            fields = params[:fields]
+            fields = fields.split(',') if fields.kind_of?(String)
+            options[:only] = Array.wrap(fields)
+          end
+        end
+        present model, options
       end
 
       include FindByContents
@@ -87,7 +103,7 @@ require_relative '../../find_by_contents'
       def post_article(asset, params)
         return forbidden! unless current_person.can_post_content?(asset)
 
-        klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+        klass_type= params[:content_type].nil? ? TinyMceArticle.name : params[:content_type]
         return forbidden! unless ARTICLE_TYPES.include?(klass_type)
 
         article = klass_type.constantize.new(params[:article])
@@ -98,12 +114,12 @@ require_relative '../../find_by_contents'
         if !article.save
           render_api_errors!(article.errors.full_messages)
         end
-        present article, :with => Entities::Article, :fields => params[:fields]
+        present_partial article, :with => Entities::Article
       end
 
       def present_article(asset)
         article = find_article(asset.articles, params[:id])
-        present article, :with => Entities::Article, :fields => params[:fields]
+        present_partial article, :with => Entities::Article
       end
 
       def present_articles_for_asset(asset, method = 'articles')
@@ -112,7 +128,7 @@ require_relative '../../find_by_contents'
       end
 
       def present_articles(articles)
-        present articles, :with => Entities::Article, :fields => params[:fields]
+        present_partial paginate(articles), :with => Entities::Article
       end
 
       def find_articles(asset, method = 'articles')
@@ -142,19 +158,19 @@ require_relative '../../find_by_contents'
         if !task.save
           render_api_errors!(task.errors.full_messages)
         end
-        present task, :with => Entities::Task, :fields => params[:fields]
+        present_partial task, :with => Entities::Task
       end
 
       def present_task(asset)
         task = find_task(asset, params[:id])
-        present task, :with => Entities::Task, :fields => params[:fields]
+        present_partial task, :with => Entities::Task
       end
 
       def present_tasks(asset)
         tasks = select_filtered_collection_of(asset, 'tasks', params)
         tasks = tasks.select {|t| current_person.has_permission?(t.permission, asset)}
         return forbidden! if tasks.empty? && !current_person.has_permission?(:perform_task, asset)
-        present tasks, :with => Entities::Task, :fields => params[:fields]
+        present_partial tasks, :with => Entities::Task
       end
 
       def make_conditions_with_parameter(params = {})
@@ -194,15 +210,6 @@ require_relative '../../find_by_contents'
         return order
       end
 
-      def make_page_number_with_parameters(params)
-        params[:page] || 1
-      end
-
-      def make_per_page_with_parameters(params)
-        params[:per_page] ||= limit
-        params[:per_page].to_i
-      end
-
       def make_timestamp_with_parameters_and_method(params, method)
         timestamp = nil
         if params[:timestamp]
@@ -236,17 +243,17 @@ require_relative '../../find_by_contents'
       def select_filtered_collection_of(object, method, params)
         conditions = make_conditions_with_parameter(params)
         order = make_order_with_parameters(object,method,params)
-        page_number = make_page_number_with_parameters(params)
-        per_page = make_per_page_with_parameters(params)
         timestamp = make_timestamp_with_parameters_and_method(params, method)
 
         objects = object.send(method)
         objects = by_reference(objects, params)
         objects = by_categories(objects, params)
 
-        objects = objects.where(conditions).where(timestamp).page(page_number).per_page(per_page).reorder(order)
+        objects = objects.where(conditions).where(timestamp).reorder(order)
 
-        objects
+        params[:page] ||= 1
+        params[:per_page] ||= limit
+        paginate(objects)
       end
 
       def authenticate!
