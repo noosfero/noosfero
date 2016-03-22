@@ -42,6 +42,7 @@ class PeopleBlockBase < Block
     profiles.visible.count
   end
 
+=begin
   def content(args={})
     profiles = self.profile_list
     title = self.view_title
@@ -84,7 +85,7 @@ class PeopleBlockBase < Block
       block_title(title) + content_tag('div', list + tag('br', :style => 'clear:both'))
     end
   end
-
+=end
   def expand_address(address)
     if address !~ /^[a-z]+:\/\// && address !~ /^\//
       'http://' + address

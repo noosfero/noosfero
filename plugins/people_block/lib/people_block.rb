@@ -18,7 +18,7 @@ class PeopleBlock < PeopleBlockBase
 
   def footer
     proc do
-      render :file => 'blocks/people'
+      render :file => 'blocks/footers/people'
     end
   end
 

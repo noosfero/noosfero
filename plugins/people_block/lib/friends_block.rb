@@ -24,7 +24,7 @@ class FriendsBlock < PeopleBlockBase
     profile = self.owner
     suggestions = self.suggestions
     proc do
-      render :file => 'blocks/friends', :locals => { :profile => profile, :suggestions => suggestions }
+      render :file => 'blocks/footers/friends', :locals => { :profile => profile, :suggestions => suggestions }
     end
   end
 

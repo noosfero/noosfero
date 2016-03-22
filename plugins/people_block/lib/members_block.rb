@@ -25,7 +25,7 @@ class MembersBlock < PeopleBlockBase
     role_key = visible_role
     s = show_join_leave_button
     proc do
-      render :file => 'blocks/members', :locals => { :profile => profile, :show_join_leave_button => s, :role_key => role_key}
+      render :file => 'blocks/footers/members', :locals => { :profile => profile, :show_join_leave_button => s, :role_key => role_key}
     end
   end
 
