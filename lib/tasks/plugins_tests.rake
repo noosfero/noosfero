@@ -215,7 +215,15 @@ namespace :test do
 
   desc "Run all tests for all plugins"
   task :noosfero_plugins do
-    test_sequence(@all_plugins - $broken_plugins, @all_tasks) do |failed|
+    plugins    = @all_plugins - $broken_plugins
+    if slice   = ENV['SLICE']
+      slice    = slice.split('/').map &:to_i
+      selected = slice[0]-1
+      size     = (plugins.size / slice[1].to_f).ceil
+      plugins  = plugins.each_slice(size).to_a[selected]
+    end
+
+    test_sequence plugins, @all_tasks do |failed|
       plugins_status_report(failed)
     end
   end
