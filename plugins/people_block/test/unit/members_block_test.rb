@@ -119,57 +119,6 @@ class MembersBlockTest < ActionView::TestCase
     assert_equal 1, block.profile_count
   end
 
-  should 'provide link to members page without a visible_role selected' do
-    profile = create_user('mytestuser').person
-    block = MembersBlock.new
-    block.box = profile.boxes.first
-    block.save!
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/mytestuser/members#members-tab]"
-    end
-  end
-
-  should 'provide link to members page when visible_role is profile_member' do
-    profile = create_user('mytestuser').person
-    block = MembersBlock.new
-    block.box = profile.boxes.first
-    block.visible_role = 'profile_member'
-    block.save!
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#members-tab]'
-    end
-  end
-
-  should 'provide link to members page when visible_role is profile_moderator' do
-    profile = create_user('mytestuser').person
-    block = MembersBlock.new
-    block.box = profile.boxes.first
-    block.visible_role = 'profile_moderator'
-    block.save!
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#members-tab]'
-    end
-  end
-
-  should 'provide link to admins page when visible_role is profile_admin' do
-    profile = create_user('mytestuser').person
-    block = MembersBlock.new
-    block.box = profile.boxes.first
-    block.visible_role = 'profile_admin'
-    block.save!
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#admins-tab]'
-    end
-  end
-
   should 'provide a role to be displayed (and default to nil)' do
     env = fast_create(Environment)
     env.boxes << Box.new
@@ -305,5 +254,56 @@ class MembersBlockViewTest < ActionView::TestCase
 
     assert_match(/#{person1.name}/, content)
     assert_match(/#{person2.name}/, content)
+  end
+
+  should 'provide link to members page without a visible_role selected' do
+    profile = create_user('mytestuser').person
+    block = MembersBlock.new
+    block.box = profile.boxes.first
+    block.save!
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select "[href=/profile/mytestuser/members#members-tab]"
+    end
+  end
+
+  should 'provide link to members page when visible_role is profile_member' do
+    profile = create_user('mytestuser').person
+    block = MembersBlock.new
+    block.box = profile.boxes.first
+    block.visible_role = 'profile_member'
+    block.save!
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestuser/members#members-tab]'
+    end
+  end
+
+  should 'provide link to members page when visible_role is profile_moderator' do
+    profile = create_user('mytestuser').person
+    block = MembersBlock.new
+    block.box = profile.boxes.first
+    block.visible_role = 'profile_moderator'
+    block.save!
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestuser/members#members-tab]'
+    end
+  end
+
+  should 'provide link to admins page when visible_role is profile_admin' do
+    profile = create_user('mytestuser').person
+    block = MembersBlock.new
+    block.box = profile.boxes.first
+    block.visible_role = 'profile_admin'
+    block.save!
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/profile/mytestuser/members#admins-tab]'
+    end
   end
 end

@@ -15,11 +15,4 @@ class PeopleBlock < PeopleBlockBase
   def profiles
     owner.people
   end
-
-  def footer
-    proc do
-      render :file => 'blocks/footers/people'
-    end
-  end
-
 end

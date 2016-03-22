@@ -85,17 +85,6 @@ class PeopleBlockTest < ActionView::TestCase
   end
 
 
-  should 'link to "all people"' do
-    env = fast_create(Environment)
-    block = PeopleBlock.new
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/search/people]'
-    end
-  end
-
-
   should 'count number of public and private people' do
     owner = fast_create(Environment)
     private_p = fast_create(Person, :public_profile => false, :environment_id => owner.id)
@@ -145,5 +134,15 @@ class PeopleBlockViewTest < ActionView::TestCase
 
     assert_match(/#{person1.name}/, content)
     assert_match(/#{person2.name}/, content)
+  end
+
+  should 'link to "all people"' do
+    env = fast_create(Environment)
+    block = PeopleBlock.new
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/search/people]'
+    end
   end
 end

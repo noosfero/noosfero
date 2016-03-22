@@ -60,19 +60,6 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equal 20, block.limit
   end
 
-  should 'link to "all friends"' do
-    person1 = create_user('mytestperson').person
-
-    block = FriendsBlock.new
-    block.stubs(:suggestions).returns([])
-    block.expects(:owner).returns(person1).at_least_once
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestperson/friends]'
-    end
-  end
-
   should 'count number of owner friends' do
     owner = fast_create(Person)
     friend1 = fast_create(Person)
@@ -155,5 +142,15 @@ class FriendsBlockViewTest < ActionView::TestCase
 
     assert_match(/#{friend1.name}/, content)
     assert_match(/#{friend2.name}/, content)
+  end
+
+  should 'link to "all friends"' do
+    person1 = create_user('mytestperson').person
+
+    block = FriendsBlock.new
+    block.stubs(:suggestions).returns([])
+    block.expects(:owner).returns(person1).at_least_once
+
+    assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: '/profile/mytestperson/friends' }
   end
 end
