@@ -7,6 +7,8 @@ module ActionTracker
     belongs_to :user, :polymorphic => true
     belongs_to :target, :polymorphic => true
 
+    alias :profile :user
+
     serialize :params, Hash
 
     before_validation :stringify_verb

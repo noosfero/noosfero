@@ -75,7 +75,8 @@ class Noosfero::Plugin::Manager
   end
 
   def enabled_plugins
-    @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|
+    environment_enabled_plugins = environment.present? ? environment.enabled_plugins : []
+    @enabled_plugins ||= (Noosfero::Plugin.all & environment_enabled_plugins).map do |plugin|
       Noosfero::Plugin.load_plugin_identifier(plugin).new context
     end
   end
