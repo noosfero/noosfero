@@ -115,7 +115,15 @@ class Comment < ActiveRecord::Base
   end
 
   delegate :environment, :to => :profile
-  delegate :profile, :to => :source, :allow_nil => true
+
+  def environment
+    profile && profile.respond_to?(:environment) ? profile.environment : nil
+  end
+
+  def profile
+    return unless source
+    source.kind_of?(Profile) ? source : source.profile
+  end
 
   include Noosfero::Plugin::HotSpot
 
