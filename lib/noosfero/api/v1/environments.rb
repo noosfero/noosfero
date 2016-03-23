@@ -9,7 +9,21 @@ module Noosfero
           get '/signup_person_fields' do
             present environment.signup_person_fields
           end
-  
+
+          # Returns the given environment
+          get ':id' do
+            id = params[:id]
+            if (id == "default")
+              present Environment.default
+            else
+              if (id == "context")
+                present Environment.find_by_name(request.host)
+              else
+                present Environment.find(params[:id])
+              end
+            end
+          end
+
         end
   
       end
