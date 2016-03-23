@@ -33,4 +33,17 @@ class SearchTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal contextEnv.id, json['id']
   end  
+
+  should 'return environment boxes' do
+    default = Environment.default
+    default.boxes << Box.new
+    default.boxes[0].blocks << Block.new
+    default.save!
+    assert !default.boxes.empty?
+    get "/api/v1/environments/#{default.id}/boxes"
+    json = JSON.parse(last_response.body)
+    assert_equal "boxes", json.first[0]
+    assert_not_equal [], json.first[1]
+  end
+
 end
