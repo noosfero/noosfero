@@ -1,0 +1,6 @@
+<% anchor = block.visible_role == "profile_admin" ? "admins-tab" : "members-tab" %>
+<%= link_to c_('View all'), {:profile => block.owner.identifier, :controller => 'profile', :action => 'members', :anchor =>anchor }, :class => 'view-all' %>
+
+<% if block.show_join_leave_button %>
+  <%= render :partial => 'blocks/profile_info_actions/join_leave_community' %>
+<% end %>

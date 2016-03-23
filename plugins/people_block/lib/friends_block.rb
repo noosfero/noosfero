@@ -20,14 +20,6 @@ class FriendsBlock < PeopleBlockBase
     owner.suggested_profiles.of_person.enabled.limit(3).includes(:suggestion)
   end
 
-  def footer
-    profile = self.owner
-    suggestions = self.suggestions
-    proc do
-      render :file => 'blocks/friends', :locals => { :profile => profile, :suggestions => suggestions }
-    end
-  end
-
   def self.expire_on
     { :profile => [:profile] }
   end

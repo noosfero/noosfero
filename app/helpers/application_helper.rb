@@ -50,6 +50,10 @@ module ApplicationHelper
 
   include ButtonsHelper
 
+  include ProfileImageHelper
+
+  include ThemeLoaderHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -281,48 +285,6 @@ module ApplicationHelper
     end
   end
 
-  def theme_path
-    if session[:theme]
-      '/user_themes/' + current_theme
-    else
-      '/designs/themes/' + current_theme
-    end
-  end
-
-  def current_theme
-    @current_theme ||=
-      begin
-        if session[:theme]
-          session[:theme]
-        else
-          # utility for developers: set the theme to 'random' in development mode and
-          # you will get a different theme every request. This is interesting for
-          # testing
-          if Rails.env.development? && environment.theme == 'random'
-            @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
-            @random_theme
-          elsif Rails.env.development? && respond_to?(:params) && params[:theme] && File.exists?(Rails.root.join('public/designs/themes', params[:theme]))
-            params[:theme]
-          else
-            if profile && !profile.theme.nil?
-              profile.theme
-            elsif environment
-              environment.theme
-            else
-              if logger
-                logger.warn("No environment found. This is weird.")
-                logger.warn("Request environment: %s" % request.env.inspect)
-                logger.warn("Request parameters: %s" % params.inspect)
-              end
-
-              # could not determine the theme, so return the default one
-              'default'
-            end
-          end
-        end
-      end
-  end
-
   def theme_view_file(template, theme=nil)
     # Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
@@ -395,151 +357,12 @@ module ApplicationHelper
     Theme.find(current_theme).owner.identifier
   end
 
-  # generates a image tag for the profile.
-  #
-  # If the profile has no image set yet, then a default image is used.
-  def profile_image(profile, size=:portrait, opt={})
-    return '' if profile.nil?
-    opt[:alt]   ||= profile.name()
-    opt[:title] ||= ''
-    opt[:class] ||= ''
-    opt[:class] += ( profile.class == Person ? ' photo' : ' logo' )
-    image_tag(profile_icon(profile, size), opt )
-  end
-
-  def profile_icon( profile, size=:portrait, return_mimetype=false )
-    filename, mimetype = '', 'image/png'
-    if profile.image
-      filename = profile.image.public_filename( size )
-      mimetype = profile.image.content_type
-    else
-      icon =
-        if profile.organization?
-          if profile.kind_of?(Community)
-            '/images/icons-app/community-'+ size.to_s() +'.png'
-          else
-            '/images/icons-app/enterprise-'+ size.to_s() +'.png'
-          end
-        else
-          pixels = Image.attachment_options[:thumbnails][size].split('x').first
-          gravatar_profile_image_url(
-            profile.email,
-            :size => pixels,
-            :d => gravatar_default
-          )
-        end
-      filename = default_or_themed_icon(icon)
-    end
-    return_mimetype ? [filename, mimetype] : filename
-  end
-
-  def default_or_themed_icon(icon)
-    if File.exists?(Rails.root.join('public', theme_path, icon))
-      theme_path + icon
-    else
-      icon
-    end
-  end
-
-  def profile_sex_icon( profile )
-    return '' unless profile.is_a?(Person)
-    return '' unless !environment.enabled?('disable_gender_icon')
-    sex = ( profile.sex ? profile.sex.to_s() : 'undef' )
-    title = ( sex == 'undef' ? _('non registered gender') : ( sex == 'male' ? _('Male') : _('Female') ) )
-    sex = content_tag 'span',
-                      content_tag( 'span', sex ),
-                      :class => 'sex-'+sex,
-                      :title => title
-    sex
-  end
-
-  def links_for_balloon(profile)
-    if environment.enabled?(:show_balloon_with_profile_links_when_clicked)
-      if profile.kind_of?(Person)
-        [
-          {_('Wall') => {:href => url_for(profile.public_profile_url)}},
-          {_('Friends') => {:href => url_for(:controller => :profile, :action => :friends, :profile => profile.identifier)}},
-          {_('Communities') => {:href => url_for(:controller => :profile, :action => :communities, :profile => profile.identifier)}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
-          {_('Add') => {:href => url_for(profile.add_url), :class => 'add-friend', :style => 'display: none'}}
-        ]
-      elsif profile.kind_of?(Community)
-        [
-          {_('Wall') => {:href => url_for(profile.public_profile_url)}},
-          {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
-          {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
-          {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
-          {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
-        ]
-      elsif profile.kind_of?(Enterprise)
-        [
-          {_('Products') => {:href => catalog_path(profile.identifier)}},
-          {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
-          {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
-          {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
-        ]
-      else
-        []
-      end
-    end
-  end
-
-  # displays a link to the profile homepage with its image (as generated by
-  # #profile_image) and its name below it.
-  def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
-    if content = @plugins.dispatch_first(:profile_image_link, profile, size, tag, extra_info)
-      return instance_exec(&content)
-    end
-    name = profile.short_name
-    if profile.person?
-      url = url_for(profile.check_friendship_url)
-      trigger_class = 'person-trigger'
-    else
-      city = ''
-      url = url_for(profile.check_membership_url)
-      if profile.community?
-        trigger_class = 'community-trigger'
-      elsif profile.enterprise?
-        trigger_class = 'enterprise-trigger'
-      end
-    end
-
-    extra_info_tag = ''
-    img_class = 'profile-image'
-
-    if extra_info.is_a? Hash
-      extra_info_tag = content_tag( 'span', extra_info[:value], :class => 'extra_info '+extra_info[:class])
-      img_class +=' '+extra_info[:class]
-    else
-      extra_info_tag = content_tag( 'span', extra_info, :class => 'extra_info' )
-    end
-
-    links = links_for_balloon(profile)
-    content_tag('div', content_tag(tag,
-                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
-                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "") +
-    link_to(
-      content_tag( 'span', profile_image( profile, size ), :class => img_class ) +
-      content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
-      extra_info_tag + profile_sex_icon( profile ),
-      profile.url,
-      :class => 'profile_link url',
-      :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
-      :title => profile.name ),
-      :class => 'vcard'), :class => 'common-profile-list-block')
-  end
-
   def popover_menu(title,menu_title,links,html_options={})
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " menu-submenu-trigger"
     html_options[:onclick] = "toggleSubmenu(this, '#{menu_title}', #{CGI::escapeHTML(links.to_json)}); return false"
 
     link_to(content_tag(:span, title), '#', html_options)
-  end
-
-  def gravatar_default
-    (respond_to?(:theme_option) && theme_option.present? && theme_option['gravatar']) || NOOSFERO_CONF['gravatar'] || 'mm'
   end
 
   attr_reader :environment

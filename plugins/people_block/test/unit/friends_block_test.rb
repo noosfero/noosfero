@@ -60,39 +60,6 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equal 20, block.limit
   end
 
-  should 'list friends from person' do
-    owner = fast_create(Person)
-    friend1 = fast_create(Person)
-    friend2 = fast_create(Person)
-    owner.add_friend(friend1)
-    owner.add_friend(friend2)
-
-    block = FriendsBlock.new
-
-    block.expects(:owner).returns(owner).at_least_once
-    expects(:profile_image_link).with(friend1, :minor).returns(friend1.name)
-    expects(:profile_image_link).with(friend2, :minor).returns(friend2.name)
-    expects(:block_title).with(anything).returns('')
-
-    content = instance_eval(&block.content)
-
-    assert_match(/#{friend1.name}/, content)
-    assert_match(/#{friend2.name}/, content)
-  end
-
-  should 'link to "all friends"' do
-    person1 = create_user('mytestperson').person
-
-    block = FriendsBlock.new
-    block.stubs(:suggestions).returns([])
-    block.expects(:owner).returns(person1).at_least_once
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestperson/friends]'
-    end
-  end
-
   should 'count number of owner friends' do
     owner = fast_create(Person)
     friend1 = fast_create(Person)
@@ -150,4 +117,40 @@ class FriendsBlockTest < ActionView::TestCase
   protected
   include NoosferoTestHelper
 
+end
+
+require 'boxes_helper'
+
+class FriendsBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  should 'list friends from person' do
+    owner = fast_create(Person)
+    friend1 = fast_create(Person)
+    friend2 = fast_create(Person)
+    owner.add_friend(friend1)
+    owner.add_friend(friend2)
+
+    block = FriendsBlock.new
+
+    block.expects(:owner).returns(owner).at_least_once
+    ActionView::Base.any_instance.expects(:profile_image_link).with(friend1, :minor).returns(friend1.name)
+    ActionView::Base.any_instance.expects(:profile_image_link).with(friend2, :minor).returns(friend2.name)
+    ActionView::Base.any_instance.expects(:block_title).with(anything).returns('')
+
+    content = render_block_content(block)
+
+    assert_match(/#{friend1.name}/, content)
+    assert_match(/#{friend2.name}/, content)
+  end
+
+  should 'link to "all friends"' do
+    person1 = create_user('mytestperson').person
+
+    block = FriendsBlock.new
+    block.stubs(:suggestions).returns([])
+    block.expects(:owner).returns(person1).at_least_once
+
+    assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: '/profile/mytestperson/friends' }
+  end
 end

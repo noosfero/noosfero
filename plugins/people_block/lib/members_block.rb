@@ -20,15 +20,6 @@ class MembersBlock < PeopleBlockBase
     role ? owner.members.with_role(role.id) : owner.members
   end
 
-  def footer
-    profile = self.owner
-    role_key = visible_role
-    s = show_join_leave_button
-    proc do
-      render :file => 'blocks/members', :locals => { :profile => profile, :show_join_leave_button => s, :role_key => role_key}
-    end
-  end
-
   def role
     visible_role && !visible_role.empty? ? Role.find_by_key_and_environment_id(visible_role, owner.environment) : nil
   end

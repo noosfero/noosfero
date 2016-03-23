@@ -1,0 +1,28 @@
+<% extend PeopleBlockHelper %>
+
+<%= block_title(block.view_title) %>
+
+<div>
+  <% unless block.profiles.count == 0 %>
+    <ul>
+      <%= profiles_images_list(block.profiles) %>
+
+      <% unless block.name.blank? || block.address.blank? %>
+        <div class="common-profile-list-block">
+          <li class="vcard">
+            <div class="banner-div">
+              <%= link_to(
+                    content_tag('span', block.name, :class => 'banner-span' ),
+                    set_address_protocol(block.address),
+                    title: block.name
+                  ) %>
+            </div>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="common-profile-list-block-none"><%= c_('None') %></div>
+  <% end %>
+  <br style="clear:both" />
+</div>

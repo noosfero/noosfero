@@ -85,36 +85,6 @@ class PeopleBlockTest < ActionView::TestCase
   end
 
 
-  should 'list people from environment' do
-    owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id)
-    person2 = fast_create(Person, :environment_id => owner.id)
-
-    block = PeopleBlock.new
-
-    block.expects(:owner).returns(owner).at_least_once
-    expects(:profile_image_link).with(person1, :minor).returns(person1.name)
-    expects(:profile_image_link).with(person2, :minor).returns(person2.name)
-    expects(:block_title).with(anything).returns('')
-
-    content = instance_exec(&block.content)
-
-    assert_match(/#{person1.name}/, content)
-    assert_match(/#{person2.name}/, content)
-  end
-
-
-  should 'link to "all people"' do
-    env = fast_create(Environment)
-    block = PeopleBlock.new
-
-    instance_eval(&block.footer)
-    assert_select 'a.view-all' do |elements|
-      assert_select '[href=/search/people]'
-    end
-  end
-
-
   should 'count number of public and private people' do
     owner = fast_create(Environment)
     private_p = fast_create(Person, :public_profile => false, :environment_id => owner.id)
@@ -141,4 +111,38 @@ class PeopleBlockTest < ActionView::TestCase
   protected
   include NoosferoTestHelper
 
+end
+
+require 'boxes_helper'
+
+class PeopleBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  should 'list people from environment' do
+    owner = fast_create(Environment)
+    person1 = fast_create(Person, :environment_id => owner.id)
+    person2 = fast_create(Person, :environment_id => owner.id)
+
+    block = PeopleBlock.new
+
+    block.expects(:owner).returns(owner).at_least_once
+    ActionView::Base.any_instance.expects(:profile_image_link).with(person1, :minor).returns(person1.name)
+    ActionView::Base.any_instance.expects(:profile_image_link).with(person2, :minor).returns(person2.name)
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+
+    content = render_block_content(block)
+
+    assert_match(/#{person1.name}/, content)
+    assert_match(/#{person2.name}/, content)
+  end
+
+  should 'link to "all people"' do
+    env = fast_create(Environment)
+    block = PeopleBlock.new
+
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select '[href=/search/people]'
+    end
+  end
 end
