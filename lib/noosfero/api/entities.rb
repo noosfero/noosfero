@@ -174,6 +174,7 @@ module Noosfero
         expose :followers_count
         expose :votes_count
         expose :comments_count
+        expose :type
       end
 
       class Article < ArticleBase
