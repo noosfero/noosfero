@@ -33,6 +33,14 @@ Facebook
 
 [Create Facebook application](https://developers.facebook.com/docs/facebook-login/v2.1)
 
+Callback
+========
+
+This is the callback path that you need to use in your app configuration:
+
+/plugin/oauth_client/public/callback
+
+
 Varnish Settings
 ================
 If varnish has been used in your stack, you've to bypass the cache for signup page and prevent cookies to be removed when calling the oauth_client plugin callback. E.g.:

@@ -1,7 +1,7 @@
 <h1><%= _('Oauth Client Settings') %></h1>
 <h3><%= _('Edit Provider') %></h3>
 
-<%= form_for @provider, :url => {:action => 'edit'}, :method => 'post' do |f| %>
+<%= form_for @provider, :url => {:action => 'edit', :id => @provider.id}, :method => 'post' do |f| %>
 
   <div class="enabled">
     <%= labelled_form_field f.check_box(:enabled) + _('Enabled'), '' %>
