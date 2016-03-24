@@ -182,6 +182,10 @@ class Task < ActiveRecord::Base
     false
   end
 
+  def custom_fields_moderate
+    false
+  end
+
   def icon
     {:type => :defined_image, :src => "/images/icons-app/user-minor.png", :name => requestor.name, :url => requestor.url}
   end

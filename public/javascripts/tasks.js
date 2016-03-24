@@ -5,6 +5,7 @@
     $('#on-accept-information-' + task_id).show('fast');
     $('#on-reject-information-' + task_id).hide('fast');
     $('#on-skip-information-'   + task_id).hide('fast');
+    $('#custom-field-information-' + task_id).show('fast');
   })
 
   $("input.task_reject_radio").click(function(){
@@ -12,6 +13,7 @@
     $('#on-accept-information-' + task_id).hide('fast');
     $('#on-reject-information-' + task_id).show('fast');
     $('#on-skip-information-'   + task_id).hide('fast');
+    $('#custom-field-information-' + task_id).show('fast');
   })
 
   $("input.task_skip_radio").click(function(){
@@ -19,6 +21,7 @@
     $('#on-accept-information-' + task_id).hide('fast');
     $('#on-reject-information-' + task_id).hide('fast');
     $('#on-skip-information-'   + task_id).show('fast');
+    $('#custom-field-information-' + task_id).hide('fast');
   })
 
   // There is probably an elegant way to do this...

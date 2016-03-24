@@ -22,6 +22,10 @@ class ModerateUserRegistration < Task
     "#{name} (#{email})"
   end
 
+  def custom_fields_moderate
+    true
+  end
+
   def perform
     user=environment.users.find_by_id(user_id)
     user.activate

@@ -1,0 +1,10 @@
+<% if task.custom_values.present? %>
+  <% task.custom_values.each_pair do |name, value| %>
+    <% custom_field = CustomField.where(:name =>name, :environment => task.environment).first%>
+    <% if custom_field.moderation_task %>
+      <div class="field-name">
+        <%= name +": " + display_value_for_custom_field(custom_field, value['value']) %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -4,6 +4,7 @@ class TasksController < MyProfileController
 
   protect [:perform_task, :view_tasks], :profile, :only => [:index]
   protect :perform_task, :profile, :except => [:index]
+  helper CustomFieldsHelper
 
   def index
     @filter_type = params[:filter_type].presence
