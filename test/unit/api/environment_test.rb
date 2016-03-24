@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class SearchTest < ActiveSupport::TestCase
+class EnvironmentTest < ActiveSupport::TestCase
 
   def setup
     @person = create_user('testing').person
