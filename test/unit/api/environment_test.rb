@@ -8,42 +8,43 @@ class SearchTest < ActiveSupport::TestCase
   attr_reader :person
 
   should 'return the default environment' do
-    default = Environment.default
+    environment = Environment.default
     get "/api/v1/environment/default"
     json = JSON.parse(last_response.body)
-    assert_equal default.id, json['id']
+    assert_equal environment.id, json['id']
   end
 
   should 'return created environment' do
-    other = fast_create(Environment)
-    default = Environment.default
-    assert_not_equal other.id, default.id
-    get "/api/v1/environment/#{other.id}"
+    environment = fast_create(Environment)
+    default_env = Environment.default
+    assert_not_equal environment.id, default_env.id
+    get "/api/v1/environment/#{environment.id}"
     json = JSON.parse(last_response.body)
-    assert_equal other.id, json['id']
+    assert_equal environment.id, json['id']
   end
 
   should 'return context environment' do
-    contextEnv = fast_create(Environment)
-    contextEnv.name = "example.org"
-    contextEnv.save
-    default = Environment.default
-    assert_not_equal contextEnv.id, default.id
+    context_env = fast_create(Environment)
+    context_env.name = "example.org"
+    context_env.save
+    default_env = Environment.default
+    assert_not_equal context_env.id, default_env.id
     get "/api/v1/environment/context"
     json = JSON.parse(last_response.body)
-    assert_equal contextEnv.id, json['id']
+    assert_equal context_env.id, json['id']
   end  
 
   should 'return environment boxes' do
-    default = Environment.default
-    default.boxes << Box.new
-    default.boxes[0].blocks << Block.new
-    default.save!
-    assert !default.boxes.empty?
-    get "/api/v1/environments/#{default.id}/boxes"
+    environment = Environment.default
+    environment.boxes << Box.new
+    box = environment.boxes.last
+    environment.boxes[0].blocks << Block.new
+    environment.save!
+    assert !environment.boxes.empty?
+    get "/api/v1/environments/#{environment.id}/boxes"
     json = JSON.parse(last_response.body)
     assert_equal "boxes", json.first[0]
-    assert_not_equal [], json.first[1]
+    assert_equal box.id, json['boxes'].first['id']
   end
 
 end
