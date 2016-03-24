@@ -17,9 +17,27 @@ module Noosfero
                 end
               end
             end
-
           end
 
+        end
+
+        resource :environments do
+          [ '/default', '/context', ':environment_id' ].each do |route|
+            segment route do
+              resource :boxes do
+                get do
+                  if (route.match(/default/))
+                    env = Environment.default
+                  elsif (route.match(/context/))
+                    env = environment
+                  else
+                    env = Environment.find(params[:environment_id])
+                  end
+                  present env.boxes, :with => Entities::Box
+                end
+              end
+            end
+          end
         end
       end
 
