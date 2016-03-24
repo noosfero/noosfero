@@ -20,3 +20,38 @@ class GalleryBlockTest < ActiveSupport::TestCase
   end
 
 end
+
+require 'boxes_helper'
+
+class GalleryBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    @community = fast_create(Community)
+  end
+
+  should 'display the default message for empty gallery' do
+    block = GalleryBlock.new
+    block.stubs(:owner).returns(@community)
+
+    ActionView::Base.any_instance.expects(:block_title).returns("")
+
+    content = render_block_content(block)
+
+    assert_match /#{_('Please, edit this block and choose some gallery')}/, content
+  end
+
+  should "display the gallery's content" do
+    gallery = fast_create(Gallery, :profile_id => @community.id)
+    image = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => @community)
+    block = create(GalleryBlock, :gallery_id => gallery.id)
+    block.stubs(:owner).returns(@community)
+
+    ActionView::Base.any_instance.expects(:block_title).returns("")
+
+    content = render_block_content(block)
+
+    assert_tag_in_string content, tag: 'img', attributes: {src: image.public_filename(:thumb)}
+    assert_tag_in_string content, tag: 'span', content: _('Next')
+  end
+end
