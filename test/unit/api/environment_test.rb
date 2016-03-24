@@ -35,17 +35,4 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal context_env.id, json['id']
   end  
 
-  should 'return environment boxes' do
-    environment = Environment.default
-    environment.boxes << Box.new
-    box = environment.boxes.last
-    environment.boxes[0].blocks << Block.new
-    environment.save!
-    assert !environment.boxes.empty?
-    get "/api/v1/environments/#{environment.id}/boxes"
-    json = JSON.parse(last_response.body)
-    assert_equal "boxes", json.first[0]
-    assert_equal box.id, json['boxes'].first['id']
-  end
-
 end
