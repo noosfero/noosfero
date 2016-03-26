@@ -66,13 +66,6 @@ class ContainerBlockPlugin::ContainerBlock < Block
     children_settings[child_id][:width] if children_settings[child_id]
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/container', :locals => {:block => block}
-    end
-  end
-
   def copy_from_with_container(block)
     copy_from_without_container(block)
     children_settings = block.children_settings
