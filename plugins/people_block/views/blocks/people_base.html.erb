@@ -3,9 +3,9 @@
 <%= block_title(block.view_title) %>
 
 <div>
-  <% unless block.profiles.count == 0 %>
+  <% unless block.profile_count == 0 %>
     <ul>
-      <%= profiles_images_list(block.profiles) %>
+      <%= profiles_images_list(block.profile_list) %>
 
       <% unless block.name.blank? || block.address.blank? %>
         <div class="common-profile-list-block">

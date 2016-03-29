@@ -153,4 +153,59 @@ class FriendsBlockViewTest < ActionView::TestCase
 
     assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: '/profile/mytestperson/friends' }
   end
+
+  FACTOR = 1.8
+
+  # Testing blog page display. It should not present a linear increase in time
+  # needed to display a blog page with the increase in number of posts.
+  #
+  # GOOD          BAD
+  #
+  # ^             ^     /
+  # |             |    /
+  # |   _____     |   /
+  # |  /          |  /
+  # | /           | /
+  # |/            |/
+  # +--------->   +--------->
+  # 0  50  100    0  50  100
+  #
+  should 'not have a linear increase in time to display friends block' do
+    owner = fast_create(Person)
+    owner.boxes<< Box.new
+    block = FriendsBlock.create!(:box => owner.boxes.first)
+
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+
+    # no people
+    block.reload
+    time0 = (Benchmark.measure { 10.times { render_block_content(block) } })
+
+    # first 50
+    1.upto(50).map do |n|
+      p = create_user("user #{n}").person
+      owner.add_friend(p)
+    end
+    block.reload
+    time1 = (Benchmark.measure { 10.times { render_block_content(block) } })
+
+    # another 50
+    1.upto(50).map do |n|
+      p = create_user("user #{n}").person
+      owner.add_friend(p)
+    end
+    block.reload
+    time2 = (Benchmark.measure { 10.times { render_block_content(block) } })
+
+    # should not scale linearly, i.e. the inclination of the first segment must
+    # be a lot higher than the one of the segment segment. To compensate for
+    # small variations due to hardware and/or execution environment, we are
+    # satisfied if the the inclination of the first segment is at least twice
+    # the inclination of the second segment.
+    a1 = (time1.total - time0.total)/50.0
+    a2 = (time2.total - time1.total)/50.0
+    assert a1 > a2*FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{FACTOR}"
+  end
+
 end
