@@ -88,7 +88,7 @@ module BoxesHelper
   end
 
   def render_block block, prefix = nil, klass = block.class
-    template_name = klass.name.underscore.sub '_block', ''
+    template_name = klass.name.demodulize.underscore.sub '_block', ''
     begin
       render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
     rescue ActionView::MissingTemplate
