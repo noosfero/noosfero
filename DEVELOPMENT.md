@@ -11,6 +11,22 @@
   Noosfero version and/or the maintainance work of an existing Noosfero stable
   branch. See MAINTAINANCE.md for details on the maintaince policy.
 
+## Current Commiters
+
+* Antonio Terceiro (@terceiro)
+* Bráulio Bhavamitra (@brauliobo)
+* Daniela Feitosa (@danielafeitosa)
+* Joenio Costa (@joenio)
+* Larissa Reis (@larissa)
+* Leandro Nunes (@leandronunes)
+* Marcos Ronaldo (@marcosronaldo)
+* Rodrigo Souto (@diguliu)
+* Victor Costa (@vfcosta)
+
+## Current Release Manager
+
+* Rodrigo Souto (@diguliu)
+
 ## Development process
 
 * Every new feature or non-trivial bugfix should be reviewed by at least one
