@@ -114,7 +114,12 @@ module ProfileImageHelper
     end
 
     extra_info_tag = ''
-    img_class = 'profile-image'
+
+    if profile.secret?
+      img_class = 'profile-image secret-profile'
+    else
+      img_class = 'profile-image'
+    end
 
     if extra_info.is_a? Hash
       extra_info_tag = content_tag( 'span', extra_info[:value], :class => 'extra_info '+extra_info[:class])

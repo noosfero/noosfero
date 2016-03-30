@@ -135,4 +135,16 @@ class ProfileImageHelperTest < ActionView::TestCase
     NOOSFERO_CONF.stubs(:[]).with('gravatar').returns('nicevatar')
     assert_equal gravatar_default, 'nicevatar'
   end
+
+  should "secret-profile css applied in the secret profile image" do
+    @plugins = mock
+    @plugins.stubs(:dispatch_first).returns(false)
+    env = Environment.default
+    stubs(:environment).returns(env)
+    stubs(:profile).returns(profile)
+    profile = fast_create(Community, :environment_id => env.id, :secret => true)
+    info = {:value =>_('New'), :class => 'new-profile'}
+    html = profile_image_link(profile, size=:portrait, tag='li', extra_info = info)
+    assert_tag_in_string html, :tag => 'span', :attributes => { :class => 'profile-image secret-profile new-profile' }
+  end
 end

@@ -83,6 +83,12 @@
   vertical-align: middle;
   height: 64px;
 }
+.common-profile-list-block .secret-profile {
+  background: url(../images/hachure.png);
+  opacity: 0.25;
+  filter: alpha(opacity=5);
+  zoom: 1;
+}
 .common-profile-list-block img {
   border: none;
   max-width: 50px;
