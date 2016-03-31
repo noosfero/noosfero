@@ -1,4 +1,4 @@
-require_dependency 'product'
+require_dependency 'products_plugin/product'
 
 # FIXME: The lines bellow should be on the core
 class Product

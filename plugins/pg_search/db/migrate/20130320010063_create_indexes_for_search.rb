@@ -1,5 +1,5 @@
 class CreateIndexesForSearch < ActiveRecord::Migration
-  SEARCHABLES = %w[ article comment qualifier national_region certifier profile license scrap category ]
+  SEARCHABLES = %w[ article comment national_region profile license scrap category ]
   KLASSES = SEARCHABLES.map {|searchable| searchable.camelize.constantize }
   def self.up
     KLASSES.each do |klass|
