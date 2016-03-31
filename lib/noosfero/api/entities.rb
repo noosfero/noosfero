@@ -183,11 +183,16 @@ module Noosfero
         expose :children, :using => ArticleBase
       end
 
-      class Comment < Entity
-        root 'comments', 'comment'
+      class CommentBase < Entity
         expose :body, :title, :id
         expose :created_at, :format_with => :timestamp
         expose :author, :using => Profile
+        expose :reply_of, :using => CommentBase
+      end
+
+      class Comment < CommentBase
+        root 'comments', 'comment'
+        expose :children, as: :replies, :using => Comment
       end
 
       class User < Entity
