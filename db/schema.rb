@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309122141) do
+ActiveRecord::Schema.define(version: 20160324132518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 20160309122141) do
     t.integer  "environment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "moderation_task", default: false
   end
 
   add_index "custom_fields", ["customized_type", "name", "environment_id"], name: "index_custom_field", unique: true, using: :btree

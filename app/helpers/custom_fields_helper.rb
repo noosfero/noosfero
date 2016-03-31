@@ -37,8 +37,15 @@ module CustomFieldsHelper
   end
 
   def display_custom_field_value(custom_field_value)
-    value = profile.custom_value(custom_field_value.custom_field.name)
-    case custom_field_value.custom_field.format
+    value_for_format custom_field_value.custom_field.format, custom_field_value.value
+  end
+
+  def display_value_for_custom_field(custom_field, value)
+    value_for_format custom_field.format, value
+  end
+
+  def value_for_format format, value
+    case format
     when 'text', 'list', 'numeric', 'date', 'string'
       value
     when 'checkbox'
@@ -47,6 +54,7 @@ module CustomFieldsHelper
       url = value[/\Ahttps?:\/\//i] ? value : "http://#{value}"
       link_to(value, url, :target => '_blank')
     end
+
   end
 
   private

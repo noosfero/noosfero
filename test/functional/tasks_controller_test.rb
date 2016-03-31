@@ -670,4 +670,38 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal profile, t.reload.closed_by
   end
 
+  should 'list custom field details in moderation user tasks when moderation_tasks is true' do
+    person_custom_field = CustomField.create(:name => "great_field", :format=>"string", :default_value => "value for person", :customized_type=>"Person", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)
+    p1 = create_user("great_person").person
+    p1.custom_values = {"great_field" => "new_value!"}
+    p1.save!
+    p1.reload
+    admin = create_user("admin").person
+    Environment.default.add_admin(admin)
+    @controller.stubs(:profile).returns(admin)
+    login_as "admin"
+
+    ModerateUserRegistration.create!(:requestor => p1, :name => "great_person", :email => "alo@alo.alo", :target => Environment.default)
+
+    get :index
+
+    assert_tag :tag=> 'div', :attributes => { :class => 'field-name' }, :content => /great_field: new_value!/
+  end
+
+  should 'list custom field details in moderation of community creation tasks when moderation_tasks is true' do
+    community_custom_field = CustomField.create(:name => "great_field", :format=>"string", :default_value => "value for community", :customized_type=>"Community", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)
+    p1 = create_user("great_person").person
+    p1.save!
+    admin = create_user("admin").person
+    Environment.default.add_admin(admin)
+    @controller.stubs(:profile).returns(admin)
+    login_as "admin"
+
+    CreateCommunity.create!(:requestor => p1, :name => "great_community", :target => Environment.default, :custom_values => {"great_field" => {"value" => "new value for community!"}})
+
+    get :index
+
+    assert_tag :tag=> 'div', :attributes => { :class => 'field-name' }, :content => /great_field: new value for community!/
+  end
+
 end
