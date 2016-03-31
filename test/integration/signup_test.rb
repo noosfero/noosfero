@@ -45,7 +45,7 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_redirected_to controller: 'home', action: 'welcome'
 
     assert_equal count + 1, User.count
-    assert_equal mail_count + 1, ActionMailer::Base.deliveries.count
+    assert_includes Delayed::Job.all.map{|d|d.name}, 'UserMailer::Job'
 
   end
 

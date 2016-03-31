@@ -445,7 +445,7 @@ class User < ActiveRecord::Base
 
     def deliver_activation_code
       return if person.is_template?
-      UserMailer.activation_code(self).deliver unless self.activation_code.blank?
+      Delayed::Job.enqueue(UserMailer::Job.new(self, :activation_code)) unless self.activation_code.blank?
     end
 
     def delay_activation_check
