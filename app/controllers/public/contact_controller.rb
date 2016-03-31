@@ -6,8 +6,8 @@ class ContactController < PublicController
   def new
     @contact = build_contact
     if request.post? && params[:confirm] == 'true'
-      @contact.city = (!params[:city].blank? && City.exists?(params[:city])) ? City.find(params[:city]).name : nil
-      @contact.state = (!params[:state].blank? && State.exists?(params[:state])) ? State.find(params[:state]).name : nil
+      @contact.city = (!params[:city].blank? && City.exists?(:id => params[:city])) ? City.find(params[:city]).name : nil
+      @contact.state = (!params[:state].blank? && State.exists?(:id => params[:state])) ? State.find(params[:state]).name : nil
       if @contact.deliver
         session[:notice] = _('Contact successfully sent')
         redirect_to :action => 'new'
