@@ -28,17 +28,13 @@ class Article < ActiveRecord::Base
 
   def initialize(*params)
     super
-
-    if !params.blank?
-      if params.first.has_key?(:profile) && !params.first[:profile].blank?
-        profile = params.first[:profile]
-        self.published = false unless profile.public_profile
+    if params.present? && params.first.present?
+      if params.first.symbolize_keys.has_key?(:published)
+        self.published = params.first.symbolize_keys[:published]
+      elsif params.first[:profile].present? && !params.first[:profile].public_profile
+        self.published = false
       end
-
-      self.published = params.first["published"] if params.first.has_key?("published")
-      self.published = params.first[:published] if params.first.has_key?(:published)
     end
-
   end
 
   def self.default_search_display
