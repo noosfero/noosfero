@@ -35,8 +35,6 @@ class Category < ApplicationRecord
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'
   has_many :communities, :through => :profile_categorizations, :source => :profile, :class_name => 'Community'
 
-  has_many :products, :through => :enterprises
-
   acts_as_having_image
 
   before_save :normalize_display_color
@@ -62,10 +60,6 @@ class Category < ApplicationRecord
 
   def recent_communities(limit = 10)
     self.communities.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
-  end
-
-  def recent_products(limit = 10)
-    self.products.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
   end
 
   def recent_articles(limit = 10)

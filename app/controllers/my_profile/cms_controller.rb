@@ -409,9 +409,6 @@ class CmsController < MyProfileController
     ]
     articles += special_article_types if params && params[:cms]
     parent_id = params ? params[:parent_id] : nil
-    if profile.enterprise?
-      articles << EnterpriseHomepage
-    end
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
     end

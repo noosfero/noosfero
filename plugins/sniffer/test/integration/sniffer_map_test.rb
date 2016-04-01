@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class SnifferMapTest < ActionDispatch::IntegrationTest
 
@@ -22,7 +22,7 @@ class SnifferMapTest < ActionDispatch::IntegrationTest
     end
     # Create 2 products to each enterprise with its own category:
     8.times do |i| n = (i+=1).to_s
-      @c[i] = fast_create(ProductCategory, :name => 'Category'+n)
+      @c[i] = create(ProductCategory, :name => 'Category'+n)
       @p[i] = fast_create(Product,
         :product_category_id => @c[i].id, :profile_id => @e[(i+1)/2].id
       )

@@ -653,10 +653,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes profile.categories_including_virtual(true), pcat
   end
 
-  should 'not accept product category as category' do
-    refute Profile.new.accept_category?(ProductCategory.new)
-  end
-
   should 'not accept region as a category' do
     refute Profile.new.accept_category?(Region.new)
   end

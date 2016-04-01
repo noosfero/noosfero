@@ -812,7 +812,7 @@ private :generate_url, :url_options
   end
 
   def accept_category?(cat)
-    forbidden = [ ProductCategory, Region ]
+    forbidden = [ Region ]
     !forbidden.include?(cat.class)
   end
 

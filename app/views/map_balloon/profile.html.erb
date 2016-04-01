@@ -17,7 +17,7 @@
           <strong><%= _('Address: ') + @profile.address %></strong><br/>
         <% end %>
         <% if @profile.respond_to?(:products) and !@profile.products.blank? %>
-          <strong><%= _('Products/Services: ') + @profile.products.map{|i| link_to(i.name, :controller => 'manage_products', :profile => @profile.identifier, :action => 'show', :id => i.id)}.join(', ') %></strong><br/>
+          <strong><%= _('Products/Services: ') + @profile.products.map{|i| link_to(i.name, controller: 'products_plugin/page', profile: @profile.identifier, action: 'show', id: i.id)}.join(', ') %></strong><br/>
         <% end %>
         <% if @profile.respond_to?(:distance) and !@profile.distance.nil? %>
           <strong><%= _('Distance: ') + "%.2f%" % @profile.distance %></strong><br/>

@@ -10,5 +10,7 @@ module ProductsPlugin
     has_many :orders_cycles_sales, through: :orders_cycles_items, source: :sale
     has_many :orders_cycles_purchases, through: :orders_cycles_items, source: :purchase
 
+    scope :in_cycle, -> { where type: 'OrdersCyclePlugin::OfferedProduct' }
+
   end
 end

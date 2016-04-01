@@ -459,10 +459,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes categories_including_virtual, c3
   end
 
-  should 'not accept Product category as category' do
-    refute Article.new.accept_category?(ProductCategory.new)
-  end
-
   should 'accept published attribute' do
     assert_respond_to Article.new, :published
     assert_respond_to Article.new, :published=

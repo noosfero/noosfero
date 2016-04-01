@@ -7,7 +7,7 @@ class Profile
   has_many :sniffer_opportunities, class_name: 'SnifferPlugin::Opportunity', dependent: :destroy
   has_many :sniffer_interested_product_categories, -> {
     where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
-  }, through: :sniffer_opportunities, source: :product_category, class_name: 'ProductCategory'
+  }, through: :sniffer_opportunities, source: :product_category
 
   attr_accessor :sniffer_interested_product_category_string_ids
   descendants.each do |k|
@@ -22,7 +22,7 @@ class Profile
     self.sniffer_interested_product_categories = []
     r = environment.product_categories.find ids
     self.sniffer_interested_product_categories = ids.collect{ |id| r.detect {|x| x.id == id.to_i} }
-    self.sniffer_opportunities.where(:opportunity_id => ids).each{|o| o.opportunity_type = 'ProductCategory'; o.save! }
+    self.sniffer_opportunities.where(opportunity_id: ids).each{|o| o.opportunity_type = 'ProductCategory'; o.save! }
   end
 
   def sniffer_categories

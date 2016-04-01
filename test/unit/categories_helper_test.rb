@@ -12,7 +12,7 @@ class CategoriesHelperTest < ActiveSupport::TestCase
 
   should 'generate list of category types for selection' do
     expects(:params).returns({'fieldname' => 'fieldvalue'})
-    expects(:options_for_select).with([['General Category', 'Category'],[ 'Product Category', 'ProductCategory'],[ 'Region', 'Region' ]], 'fieldvalue').returns('OPTIONS')
+    expects(:options_for_select).with([['General Category', 'Category'], [ 'Region', 'Region' ]], 'fieldvalue').returns('OPTIONS')
     expects(:select_tag).with('type', 'OPTIONS').returns('TAG')
     expects(:labelled_form_field).with(anything, 'TAG').returns('RESULT')
 

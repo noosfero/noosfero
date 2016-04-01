@@ -17,9 +17,10 @@
         <div class="search-results-innerbox search-results-type-<%= name.to_s.singularize %> <%= 'common-profile-list-block' if SearchHelper::COMMON_PROFILE_LIST_BLOCK.include?(name) %>">
           <ul>
             <% search[:results].each do |hit| %>
-              <% partial = partial_for_class(hit.class, display) %>
-              <% variable_name = partial.gsub("#{display}_", '').to_sym %>
-              <%= render :partial => partial, :locals => {variable_name => hit} %>
+              <%= render_for_class hit.class do |klass| %>
+                <% name = klass.name.underscore %>
+                <%= render partial_name_for(name, display), name.split('/').last.to_sym => hit %>
+              <% end %>
             <% end %>
           </ul>
         </div>

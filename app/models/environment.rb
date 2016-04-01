@@ -128,7 +128,6 @@ class Environment < ApplicationRecord
       'disable_asset_enterprises' => _('Disable search for enterprises'),
       'disable_asset_people' => _('Disable search for people'),
       'disable_asset_communities' => _('Disable search for communities'),
-      'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
       'disable_categories' => _('Disable categories'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
@@ -139,7 +138,6 @@ class Environment < ApplicationRecord
       'disable_contact_community' => _('Disable contact for groups/communities'),
       'forbid_destroy_profile' => _('Forbid users of removing profiles'),
 
-      'products_for_enterprises' => _('Enable products for enterprises'),
       'enterprise_registration' => _('Enterprise registration'),
       'enterprise_activation' => _('Enable activation of enterprises'),
       'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
@@ -226,7 +224,6 @@ class Environment < ApplicationRecord
 
   has_many :organizations
   has_many :enterprises
-  has_many :products, :through => :enterprises
   has_many :people
   has_many :communities
   has_many :licenses
@@ -236,22 +233,15 @@ class Environment < ApplicationRecord
     order('display_color').where('display_color is not null and parent_id is null')
   }, class_name: 'Category'
 
-  has_many :product_categories, -> { where type: 'ProductCategory'}
   has_many :regions
   has_many :states
   has_many :cities
 
   has_many :roles, :dependent => :destroy
 
-  has_many :qualifiers
-  has_many :certifiers
-
   has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
 
   acts_as_accessible
-
-  has_many :units, -> { order 'position' }
-  has_many :production_costs, :as => :owner
 
   def superior_intances
     [self, nil]
@@ -441,9 +431,7 @@ class Environment < ApplicationRecord
   end
 
   DEFAULT_FEATURES = %w(
-    disable_asset_products
     disable_gender_icon
-    products_for_enterprises
     disable_select_city_for_contact
     enterprise_registration
     media_panel
@@ -966,10 +954,6 @@ class Environment < ApplicationRecord
       license.environment = self
       license.save!
     end
-  end
-
-  def highlighted_products_with_image(options = {})
-    self.products.where(highlighted: true).joins(:image).order('created_at ASC')
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

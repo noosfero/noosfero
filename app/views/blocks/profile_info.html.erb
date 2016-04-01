@@ -16,9 +16,6 @@
 <ul class="profile-info-data">
   <li><%= link_to _('Homepage'), block.owner.url, :class => 'url' %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
-  <% if block.owner.enterprise? && block.owner.environment.enabled?('products_for_enterprises') %>
-    <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) %></li>
-  <% end %>
   <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
     <li><%= link_to _('Control panel'), block.owner.admin_url %></li>
   <% end %>

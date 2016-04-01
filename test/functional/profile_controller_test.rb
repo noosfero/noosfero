@@ -5,7 +5,6 @@ class ProfileControllerTest < ActionController::TestCase
 
   self.default_params = {profile: 'testuser'}
   def setup
-    Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -229,29 +228,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert @profile.is_a_friend?(friend)
     get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
-  end
-
-  should 'display "Products" link for enterprise' do
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    product = fast_create(Product, :profile_id => ent.id)
-
-    get :index, :profile => 'my-test-enterprise'
-    assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
-  end
-
-  should 'not display "Products" link for enterprise if environment do not let' do
-    env = Environment.default
-    env.disable('products_for_enterprises')
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
-
-    get :index, :profile => 'my-test-enterprise'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
-  end
-
-
-  should 'not display "Products" link for people' do
-    get :index, :profile => 'ze'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
   end
 
   should 'list top level articles in sitemap' do

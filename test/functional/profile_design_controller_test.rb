@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'profile_design_controller'
+require_relative '../test_helper'
 
 class ProfileDesignControllerTest < ActionController::TestCase
 
@@ -7,8 +6,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
-  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock, ProductCategoriesBlock]
-  ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FansBlock]
 
   attr_reader :holder
   def setup
@@ -60,8 +58,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     @controller.stubs(:boxes_holder).returns(holder)
     login_as 'designtestuser'
-
-    @product_category = fast_create(ProductCategory)
   end
   attr_reader :profile
 
@@ -309,50 +305,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  should 'be able to edit ProductsBlock' do
-    block = ProductsBlock.new
-
-    enterprise = fast_create(Enterprise, :name => "test", :identifier => 'testenterprise')
-    enterprise.boxes << Box.new
-    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    enterprise.boxes.first.blocks << block
-    enterprise.add_admin(holder)
-
-    enterprise.blocks(true)
-    @controller.stubs(:boxes_holder).returns(enterprise)
-    login_as('designtestuser')
-
-    get :edit, :profile => 'testenterprise', :id => block.id
-
-    assert_response :success
-    assert_tag :tag => 'input', :attributes => { :name => "block[product_ids][]", :value => p1.id.to_s }
-    assert_tag :tag => 'input', :attributes => { :name => "block[product_ids][]", :value => p2.id.to_s }
-  end
-
-  should 'be able to save ProductsBlock' do
-    block = ProductsBlock.new
-
-    enterprise = fast_create(Enterprise, :name => "test", :identifier => 'testenterprise')
-    enterprise.boxes << Box.new
-    p1 = enterprise.products.create!(:name => 'product one', :product_category => @product_category)
-    p2 = enterprise.products.create!(:name => 'product two', :product_category => @product_category)
-    enterprise.boxes.first.blocks << block
-    enterprise.add_admin(holder)
-
-    enterprise.blocks(true)
-    @controller.stubs(:boxes_holder).returns(enterprise)
-    login_as('designtestuser')
-
-    post :save, :profile => 'testenterprise', :id => block.id, :block => { :product_ids => [p1.id.to_s, p2.id.to_s ] }
-
-    assert_response :redirect
-
-    block.reload
-    assert_equal [p1.id, p2.id], block.product_ids
-
-  end
-
   should 'display back to control panel button' do
     get :index, :profile => 'designtestuser'
     assert_tag :tag => 'a', :content => 'Back to control panel'
@@ -362,19 +314,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @controller.stubs(:available_blocks).returns([TagsBlock, ArticleBlock])
     get :index, :profile => 'designtestuser'
     assert_equal assigns(:available_blocks), [ArticleBlock, TagsBlock]
-  end
-
-  should 'not allow products block if environment do not let' do
-    env = Environment.default
-    env.disable('products_for_enterprises')
-    env.save!
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
-    person = create_user_with_permission('test_user', 'edit_profile_design', ent)
-    login_as(person.user.login)
-
-    get :index, :profile => 'test_ent'
-
-    assert_no_tag :tag => 'div', :attributes => { 'data-block-type' => 'ProductsBlock' }
   end
 
   should 'create back link to profile control panel' do
@@ -484,28 +423,10 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(true)
-    environment.stubs(:enabled?).with('products_for_enterprises').returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS
-  end
-
-  should 'the enterprise with products for enterprise enable blocks are all available' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(false)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(true)
-    profile.stubs(:has_blog?).returns(false)
-    profile.stubs(:is_admin?).with(anything).returns(false)
-    environment = mock
-    profile.stubs(:environment).returns(environment)
-    environment.stubs(:enabled?).returns(true)
-    @controller.stubs(:profile).returns(profile)
-    @controller.stubs(:user).returns(profile)
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
-    assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE
   end
 
   should 'allow admins to add RawHTMLBlock' do

@@ -6,7 +6,7 @@
     <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
     <%= labelled_form_field(_('Custom subtitle for this block: '), text_field(:block, :subtitle)) %>
 
-    <%= render :partial => partial_for_class(@block.class) %>
+    <%= render_partial_for_class @block.class %>
 
     <div class="display">
       <%= labelled_form_field _('Display this block:'),
