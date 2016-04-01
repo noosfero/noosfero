@@ -541,6 +541,16 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
 
+  should "only admin can view invisible people" do
+    # assuming that all filters behave the same!
+    p1 = fast_create(Person, :visible => false)
+    admin = create_user('admin').person;
+    Environment.default.add_admin admin
+    login_as("admin")
+    get :people, :order => 'more_recent'
+    assert_includes assigns(:searches)[:people][:results], p1
+  end
+
   should "only include visible people in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Person, :visible => false)
