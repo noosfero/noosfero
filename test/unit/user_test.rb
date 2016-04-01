@@ -737,6 +737,28 @@ class UserTest < ActiveSupport::TestCase
     assert user.private_token, 'token'
   end
 
+  should 'deliver e-mail with activation code when resend was requested and user was not activated' do
+    user = new_user :email => 'pending@activation.com'
+    activation_code = user.activation_code
+    Delayed::Job.destroy_all
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      user.resend_activation_code
+      process_delayed_job_queue
+    end
+    assert_not_equal activation_code, user.reload.activation_code
+    assert_equal 'pending@activation.com', ActionMailer::Base.deliveries.last['to'].to_s
+  end
+
+  should 'not deliver e-mail with activation code when resend was requested and user was activated' do
+    user = new_user :email => 'pending@activation.com'
+    user.activate
+    Delayed::Job.destroy_all
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      user.resend_activation_code
+      process_delayed_job_queue
+    end
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
