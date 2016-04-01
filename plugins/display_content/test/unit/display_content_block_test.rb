@@ -711,4 +711,59 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert a1_index.nil?
   end
 
+  should 'show only articles with current locale translation' do
+    FastGettext.stubs(:locale).returns('pt')
+    profile = create_user('testuser').person
+    Article.delete_all
+
+    en_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
+    en_article2 = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article 2', :language => 'en')
+
+    pt_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'pt_article', :language => 'pt')
+
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'title', :checked => true}]
+    block.content_with_translations = true
+    block.limit_to_show = 2
+
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_nil instance_eval(&block.content).index(en_article.name)
+    assert_nil instance_eval(&block.content).index(en_article2.name)
+    assert instance_eval(&block.content).index(pt_article.name).present?
+
+    FastGettext.stubs(:locale).returns('en')
+
+    assert instance_eval(&block.content).index(en_article.name).present?
+    assert instance_eval(&block.content).index(en_article2.name).present?
+    assert_nil instance_eval(&block.content).index(pt_article.name)
+  end
+
+  should 'replace article with its translation' do
+    FastGettext.stubs(:locale).returns('pt')
+    profile = create_user('testuser').person
+    Article.delete_all
+
+    en_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
+    pt_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'pt_article', :language => 'pt', :translation_of_id => en_article)
+
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'title', :checked => true}]
+    block.content_with_translations = true
+    block.limit_to_show = 2
+
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_nil instance_eval(&block.content).index(en_article.name)
+    assert instance_eval(&block.content).index(pt_article.name).present?
+
+    FastGettext.stubs(:locale).returns('en')
+
+    assert instance_eval(&block.content).index(en_article.name).present?
+    assert_nil instance_eval(&block.content).index(pt_article.name)
+  end
 end

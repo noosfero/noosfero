@@ -28,5 +28,8 @@
 <h3> <%= _('Order by:')%> </h3>
 <%= labelled_radio_button(_("Most recent"), "block[order_by_recent]", true, @block.order_by_recent)%>
 <%= labelled_radio_button(_("Most oldest"), "block[order_by_recent]", false, !@block.order_by_recent)%>
-</div>
 
+<h3> <%= _('Translations:')%> </h3>
+<%= labelled_check_box(_('List only translated content'), 'block[content_with_translations]', true) %>
+
+</div>
