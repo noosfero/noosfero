@@ -35,11 +35,11 @@ class PeopleTest < ActiveSupport::TestCase
     assert_not_includes json_response_ids(:people), invisible_person.id
   end
 
-  should 'not list private people without permission' do
+  should 'list private people' do
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids(:people), private_person.id
   end
 
   should 'list private person for friends' do

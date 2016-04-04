@@ -17,6 +17,8 @@ class Organization < Profile
   #   4) The user is not a member of the organization but the organization is
   #   visible, public and enabled.
   def self.visible_for_person(person)
+    # Visitor if person.nil?
+    person.nil? ? person_id = nil : person_id = person.id
     joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = "profiles"."id"
           AND "role_assignments"."resource_type" = \'Profile\') OR (
           "role_assignments"."resource_id" = "profiles"."environment_id" AND
@@ -28,8 +30,8 @@ class Organization < Profile
         ( ( ( role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR
             ( profiles.public_profile = ? AND profiles.enabled = ? ) ) AND
           ( profiles.visible = ? ) )',
-      'profile_admin', 'environment_administrator', Profile.name, person.id,
-      Profile.name, person.id,  true, true, true]
+      'profile_admin', 'environment_administrator', Profile.name, person_id,
+      Profile.name, person_id,  true, true, true]
     ).uniq
   end
 

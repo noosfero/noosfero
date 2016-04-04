@@ -1951,4 +1951,17 @@ class PersonTest < ActiveSupport::TestCase
     person.save!
   end
 
+  should 'fetch people there are visible for a visitor' do
+    person = nil
+    p1 = fast_create(Person, :public_profile => true , :visible => true)
+    p2 = fast_create(Person, :public_profile => false, :visible => true)
+    p3 = fast_create(Person, :public_profile => true , :visible => false)
+    p4 = fast_create(Person, :public_profile => false, :visible => false)
+    people_visible_by_visitor = Person.visible_for_person(person)
+    assert_includes     people_visible_by_visitor, p1
+    assert_not_includes people_visible_by_visitor, p2
+    assert_not_includes people_visible_by_visitor, p3
+    assert_not_includes people_visible_by_visitor, p4
+  end
+
 end

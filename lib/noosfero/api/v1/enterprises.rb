@@ -19,7 +19,7 @@ module Noosfero
           #  GET /enterprises?reference_id=10&limit=10&oldest
           get do
             enterprises = select_filtered_collection_of(environment, 'enterprises', params)
-            enterprises = enterprises.visible_for_person(current_person)
+            enterprises = enterprises.visible
             enterprises = enterprises.by_location(params) # Must be the last. May return Exception obj.
             present enterprises, :with => Entities::Enterprise, :current_person => current_person
           end

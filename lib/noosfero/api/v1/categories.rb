@@ -2,7 +2,6 @@ module Noosfero
   module API
     module V1
       class Categories < Grape::API
-        before { authenticate! }
 
         resource :categories do
 

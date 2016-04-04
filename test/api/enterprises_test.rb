@@ -33,13 +33,13 @@ class EnterprisesTest < ActiveSupport::TestCase
     assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
   end
 
-  should 'not list private enterprises without permission' do
+  should 'list private enterprises' do
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
-    fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
+    assert_equal [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
   end
 
   should 'list private enterprise for members' do

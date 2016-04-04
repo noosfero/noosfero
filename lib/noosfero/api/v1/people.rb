@@ -35,7 +35,7 @@ module Noosfero
           desc "Find environment's people"
           get do
             people = select_filtered_collection_of(environment, 'people', params)
-            people = people.visible_for_person(current_person)
+            people = people.visible
             present_partial people, :with => Entities::Person, :current_person => current_person
           end
 

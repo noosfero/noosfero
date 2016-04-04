@@ -24,6 +24,12 @@ class ActiveSupport::TestCase
 
     @params = {:private_token => @private_token}
   end
+
+  def visitor_setup
+    @environment = Environment.default
+    @params = {}
+  end
+
   attr_accessor :private_token, :user, :person, :params, :environment
 
   private

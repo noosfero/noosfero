@@ -2,11 +2,8 @@ require_relative 'test_helper'
 
 class CommentsTest < ActiveSupport::TestCase
 
-  def setup
-    login_api
-  end
-
   should 'not list comments if user has no permission to view the source article' do
+    login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
     assert !article.published?
@@ -16,6 +13,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'not return comment if user has no permission to view the source article' do
+    login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
     comment = article.comments.create!(:body => "another comment", :author => user.person)
@@ -26,6 +24,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'not comment an article if user has no permission to view it' do
+    login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
     assert !article.published?
@@ -35,6 +34,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'return comments of an article' do
+    login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     article.comments.create!(:body => "some comment", :author => user.person)
     article.comments.create!(:body => "another comment", :author => user.person)
@@ -46,6 +46,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'return comment of an article' do
+    login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     comment = article.comments.create!(:body => "another comment", :author => user.person)
 
@@ -56,6 +57,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'comment an article' do
+    login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     body = 'My comment'
     params.merge!({:body => body})
@@ -76,6 +78,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'comment creation define the source' do
+    login_api
     amount = Comment.count
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     body = 'My comment'
@@ -137,4 +140,53 @@ class CommentsTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
   end
+
+  should 'not visitor list comments if has no permission to view the source article' do
+    visitor_setup
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    assert !article.published?
+  
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    assert_equal 403, last_response.status
+  end
+  
+  should 'visitor return comments of an article' do
+    visitor_setup
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    article.comments.create!(:body => "some comment", :author => person)
+    article.comments.create!(:body => "another comment", :author => person)
+  
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 2, json["comments"].length
+  end
+  
+  should 'visitor return comment of an article' do
+    visitor_setup
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    comment = article.comments.create!(:body => "another comment", :author => person)
+  
+    get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal comment.id, json['comment']['id']
+  end
+  
+  should 'not visitor comment an article (at least so far...)' do
+    visitor_setup
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    body = 'My comment'
+    name = "John Doe"
+    email = "JohnDoe@gmail.com"
+    params.merge!({:body => body, name: name, email: email})
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
 end

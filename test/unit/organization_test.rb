@@ -437,7 +437,7 @@ class OrganizationTest < ActiveSupport::TestCase
     c = fast_create(Organization, :name => 'my test profile', :identifier => 'mytestprofile')
     admin = create_user('adminuser').person
     c.add_admin(admin)
-   
+
     assert c.is_admin?(admin)
   end
 
@@ -511,6 +511,20 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert_not_includes person_orgs,    o7
     assert_includes     env_admin_orgs, o7
+  end
+
+  should 'fetch organizations there are visible for a visitor' do
+    visitor = nil
+    Organization.destroy_all
+    o1 = fast_create(Organization, :public_profile => true , :visible => true )
+    o2 = fast_create(Organization, :public_profile => false, :visible => true )
+    o3 = fast_create(Organization, :public_profile => true , :visible => false)
+    o4 = fast_create(Organization, :public_profile => false, :visible => false)
+    person_orgs    = Organization.visible_for_person(visitor)
+    assert_includes       person_orgs,    o1
+    assert_not_includes   person_orgs,    o2
+    assert_not_includes   person_orgs,    o3
+    assert_not_includes   person_orgs,    o4
   end
 
 end
