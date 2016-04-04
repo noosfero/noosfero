@@ -78,4 +78,14 @@ class CommentsTest < ActiveSupport::TestCase
     assert_not_nil comment.source
   end
 
+  should 'paginate comments' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    5.times { article.comments.create!(:body => "some comment", :author => user.person) }
+    params[:per_page] = 3
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 3, json["comments"].length
+  end
 end

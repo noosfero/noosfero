@@ -2,9 +2,12 @@ module Noosfero
   module API
     module V1
       class Comments < Grape::API
+        MAX_PER_PAGE = 20
+
         before { authenticate! }
 
         resource :articles do
+          paginate max_per_page: MAX_PER_PAGE
           # Collect comments from articles
           #
           # Parameters:
