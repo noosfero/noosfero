@@ -4,7 +4,6 @@ class CommentsTest < ActiveSupport::TestCase
 
   def setup
     @local_person = fast_create(Person)
-    anonymous_setup
   end
   attr_reader :local_person
 
@@ -82,16 +81,16 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'logged user comment creation define the source' do
-    login_api
-    amount = Comment.count
-    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
-    body = 'My comment'
-    params.merge!({:body => body})
+      login_api
+      amount = Comment.count
+      article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+      body = 'My comment'
+      params.merge!({:body => body})
 
-    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
-    assert_equal amount + 1, Comment.count
-    comment = Comment.last
-    assert_not_nil comment.source
+      post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+      assert_equal amount + 1, Comment.count
+      comment = Comment.last
+      assert_not_nil comment.source
   end
 
   should 'call plugin hotspot to filter unavailable comments' do
@@ -124,26 +123,26 @@ class CommentsTest < ActiveSupport::TestCase
   should 'not, anonymous list comments if has no permission to view the source article' do
     article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing", :published => false)
     assert !article.published?
-  
+
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     assert_equal 403, last_response.status
   end
-  
+
   should 'anonymous return comments of an article' do
     article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     article.comments.create!(:body => "some comment", :author => local_person)
     article.comments.create!(:body => "another comment", :author => local_person)
-  
+
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
     assert_equal 2, json["comments"].length
   end
-  
+
   should 'anonymous return comment of an article' do
     article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     comment = article.comments.create!(:body => "another comment", :author => local_person)
-  
+
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status

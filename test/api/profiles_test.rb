@@ -117,7 +117,6 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'display public custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
     some_profile = fast_create(Profile)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
@@ -130,7 +129,6 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'not display private custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
     some_profile = fast_create(Profile)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }

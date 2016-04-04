@@ -61,7 +61,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'annoymous not list invisible people' do
-    anonymous_setup
     invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
@@ -105,14 +104,12 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous get person' do
-    anonymous_setup
     some_person = fast_create(Person)
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal some_person.id, json['person']['id']
   end
-
 
   should 'people endpoint filter by fields parameter for logged user' do
     login_api
@@ -156,7 +153,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous not get invisible person' do
-    anonymous_setup
     person = fast_create(Person, :visible => false)
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"

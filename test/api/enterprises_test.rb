@@ -64,14 +64,14 @@ class EnterprisesTest < ActiveSupport::TestCase
     assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
   end
 
-  should 'not, logger user list invisible enterprises' do
+  should 'not, logged user list invisible enterprises' do
     login_api
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
+    assert_equal [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
   end
 
   should 'anonymous list private enterprises' do

@@ -42,8 +42,6 @@ class Person < Profile
   }
 
   scope :visible_for_person, lambda { |person|
-    # Visitor if person.nil?
-    person_id = person.nil? ? nil : person.id
     joins('LEFT JOIN "role_assignments" ON
           "role_assignments"."resource_id" = "profiles"."environment_id" AND
           "role_assignments"."resource_type" = \'Environment\'')
@@ -52,7 +50,7 @@ class Person < Profile
     .where(
       ['( roles.key = ? AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR (
         ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )',
-         'environment_administrator', Profile.name, person_id, person_id,  true, true]
+         'environment_administrator', Profile.name, person.id, person.id,  true, true]
     ).uniq
   }
 

@@ -147,7 +147,6 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities?#{params.to_query}"
     json_page_one = JSON.parse(last_response.body)
 
-
     assert_includes json_page_one["communities"].map { |a| a["id"] }, community1.id
     assert_not_includes json_page_one["communities"].map { |a| a["id"] }, community2.id
 
@@ -172,7 +171,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list only communities' do
-    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     enterprise = fast_create(Enterprise, :environment_id => environment.id) # should not list this enterprise
     get "/api/v1/communities?#{params.to_query}"
@@ -182,7 +180,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all communities' do
-    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id, :public_profile => true)
     community2 = fast_create(Community, :environment_id => environment.id)
     get "/api/v1/communities?#{params.to_query}"
@@ -191,7 +188,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous list invisible communities' do
-    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :visible => false)
 
@@ -201,7 +197,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list private communities' do
-    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id)
     community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
 
@@ -211,7 +206,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous create a community' do
-    anonymous_setup
     params[:community] = {:name => 'some'}
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -219,7 +213,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous get community' do
-    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
@@ -227,7 +220,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous get invisible community' do
-    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
@@ -235,7 +227,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous get private communities' do
-    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :public_profile => false)
     get "/api/v1/communities/#{community.id}"
@@ -244,7 +235,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list communities with pagination' do
-    anonymous_setup
     community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
     community2 = fast_create(Community, :created_at => 2.days.ago)
 
@@ -266,7 +256,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list communities with timestamp' do
-    anonymous_setup
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)
 
@@ -282,7 +271,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'display public custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
     some_community = fast_create(Community)
     some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
@@ -295,7 +283,6 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'not display private custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
     some_community = fast_create(Community)
     some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
@@ -305,6 +292,5 @@ class CommunitiesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     refute json['community']['additional_data'].has_key?('Rating')
   end
-
 
 end
