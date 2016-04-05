@@ -1,3 +1,9 @@
+noosfero (1.5-rc1) jessie-test; urgency=medium
+
+  * Stable 1.5 Release Candidate 1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 05 Apr 2016 18:45:23 +0000
+
 noosfero (1.4) jessie-test; urgency=medium
 
   * Noosfero 1.4
