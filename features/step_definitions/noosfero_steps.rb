@@ -55,6 +55,14 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   end
 end
 
+Given /^the following federated networks$/ do |table|
+  environment = Environment.default
+  table.hashes.each do |row|
+    federated_network = FederatedNetwork.create!(row, :without_protection => true)
+    environment.federated_networks << federated_network
+  end
+end
+
 Given /^"([^\"]*)" is associated with "([^\"]*)"$/ do |enterprise, bsc|
   enterprise = Enterprise.find_by(name: enterprise) || Enterprise[enterprise]
   bsc = BscPlugin::Bsc.find_by(name: bsc) || BscPlugin::Bsc[bsc]

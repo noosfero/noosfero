@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324132518) do
+ActiveRecord::Schema.define(version: 20160406145351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -370,6 +370,11 @@ ActiveRecord::Schema.define(version: 20160324132518) do
     t.datetime "updated_at"
   end
 
+  create_table "environment_federated_networks", force: :cascade do |t|
+    t.integer "environment_id"
+    t.integer "federated_network_id"
+  end
+
   create_table "environments", force: :cascade do |t|
     t.string   "name"
     t.string   "contact_email"
@@ -419,6 +424,14 @@ ActiveRecord::Schema.define(version: 20160324132518) do
   add_index "favorite_enterprise_people", ["enterprise_id"], name: "index_favorite_enterprise_people_on_enterprise_id", using: :btree
   add_index "favorite_enterprise_people", ["person_id", "enterprise_id"], name: "index_favorite_enterprise_people_on_person_id_and_enterprise_id", using: :btree
   add_index "favorite_enterprise_people", ["person_id"], name: "index_favorite_enterprise_people_on_person_id", using: :btree
+
+  create_table "federated_networks", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "identifier"
+    t.string "screenshot"
+    t.string "thumbnail"
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "person_id"

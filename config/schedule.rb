@@ -25,6 +25,11 @@ every 1.day do
   runner "SearchTerm.calculate_scores"
 end
 
+every 1.day do
+  rake 'federated_network:update'
+end
+
+
 every 30.days do
   runner "ProfileSuggestion.generate_all_profile_suggestions"
 end

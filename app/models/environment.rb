@@ -13,7 +13,8 @@ class Environment < ActiveRecord::Base
                   :reports_lower_bound, :noreply_email,
                   :signup_welcome_screen_body, :members_whitelist_enabled,
                   :members_whitelist, :highlighted_news_amount,
-                  :portal_news_amount, :date_format, :signup_intro
+                  :portal_news_amount, :date_format, :signup_intro,
+                  :federated_network_ids
 
   has_many :users
 
@@ -21,6 +22,9 @@ class Environment < ActiveRecord::Base
   def self.dangerous_attribute_method? name
     false
   end
+
+  has_many :environment_federated_networks, :dependent => :destroy
+  has_many :federated_networks,  :through => :environment_federated_networks
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
   has_many :search_terms, :as => :context
