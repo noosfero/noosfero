@@ -62,24 +62,8 @@ class CommunityTrackPlugin::TrackListBlock < Block
     tracks
   end
 
-  def content(args={})
-    block = self
-    proc do
-      instance_eval(&block.set_seed(true))
-      render :file => 'blocks/track_list', :locals => {:block => block}
-    end
-  end
-
   def has_page?(page, per_page=limit)
     return (page-1) * per_page < count_tracks
-  end
-
-  def footer
-    block = self
-    return nil if !has_page?(2)
-    proc do
-      render :partial => 'blocks/track_list_more', :locals => {:block => block, :page => 2, :per_page => block.limit}
-    end
   end
 
   def self.expire_on

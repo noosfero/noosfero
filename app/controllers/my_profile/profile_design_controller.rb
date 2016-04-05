@@ -6,6 +6,7 @@ class ProfileDesignController < BoxOrganizerController
 
   before_filter :protect_uneditable_block, :only => [:save]
   before_filter :protect_fixed_block, :only => [:move_block]
+  include CategoriesHelper
 
   def protect_uneditable_block
     block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
@@ -69,12 +70,7 @@ class ProfileDesignController < BoxOrganizerController
 
   def update_categories
     @object = params[:id] ? @profile.blocks.find(params[:id]) : Block.new
-    @categories = @toplevel_categories = environment.top_level_categories
-    if params[:category_id]
-      @current_category = Category.find(params[:category_id])
-      @categories = @current_category.children
-    end
-    render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => 'block' }
+    render_categories 'block'
   end
 
 end

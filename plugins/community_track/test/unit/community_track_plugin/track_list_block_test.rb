@@ -34,16 +34,6 @@ class TrackListBlockTest < ActiveSupport::TestCase
     assert_equal @block.limit, @block.tracks.to_a.size
   end
 
-  should 'return more link if has more tracks to show' do
-    @block.limit.times { |i| create_track("track#{i}", profile) }
-    assert @block.footer
-  end
-
-  should 'do not return more link if there is no more tracks to show' do
-    (@block.limit-1).times { |i| create_track("track#{i}", profile) }
-    refute @block.footer
-  end
-
   should 'count all tracks' do
     @block.owner.articles.destroy_all
     tracks_to_insert = @block.limit + 1

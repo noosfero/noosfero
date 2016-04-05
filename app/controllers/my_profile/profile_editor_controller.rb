@@ -9,6 +9,7 @@ class ProfileEditorController < MyProfileController
   before_filter :check_user_can_edit_header_footer, :only => [:header_footer]
   helper_method :has_welcome_page
   helper CustomFieldsHelper
+  include CategoriesHelper
 
   def index
     @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}
@@ -60,12 +61,7 @@ class ProfileEditorController < MyProfileController
 
   def update_categories
     @object = profile
-    @categories = @toplevel_categories = environment.top_level_categories
-    if params[:category_id]
-      @current_category = Category.find(params[:category_id])
-      @categories = @current_category.children
-    end
-    render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => 'profile_data' }
+    render_categories 'profile_data'
   end
 
   def header_footer

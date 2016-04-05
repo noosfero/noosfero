@@ -3,6 +3,7 @@ class CmsController < MyProfileController
   protect 'edit_profile', :profile, :only => [:set_home_page]
 
   include ArticleHelper
+  include CategoriesHelper
 
   def search_tags
     arg = params[:term].downcase
@@ -256,12 +257,7 @@ class CmsController < MyProfileController
 
   def update_categories
     @object = params[:id] ? @profile.articles.find(params[:id]) : Article.new
-    @categories = @toplevel_categories = environment.top_level_categories
-    if params[:category_id]
-      @current_category = Category.find(params[:category_id])
-      @categories = @current_category.children
-    end
-    render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => 'article' }
+    render_categories 'article'
   end
 
   def search_communities_to_publish
