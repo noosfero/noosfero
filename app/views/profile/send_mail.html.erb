@@ -6,6 +6,11 @@
 
   <% to = @mailing.data[:members_filtered].present? ? @mailing.recipients.map{|r| r.name}.join(', ') : _('All members')%>
   <%= labelled_form_field(_('To:'), text_area(:data, 'members_filtered', :value => to, :rows => 4, :disabled => 'disabled', :class => 'send-mail-recipients'))  %>
+<div class="template-selection">
+  <% if @email_templates.present? %>
+    <%= labelled_form_field(_('Select a template:'), select_tag(:template, options_from_collection_for_select(@email_templates, :id, :name), :include_blank => true, 'data-url' => url_for(:controller => 'email_templates', :action => 'show_parsed'))) %>
+  </div>
+<% end %>
 
 <%= form_for :mailing, :url => {:action => 'send_mail'}, :html => {:id => 'mailing-form'} do |f| %>
 

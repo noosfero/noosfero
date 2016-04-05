@@ -840,6 +840,10 @@ class Article < ActiveRecord::Base
     true
   end
 
+  def to_liquid
+    HashWithIndifferentAccess.new :name => name, :abstract => abstract, :body => body, :id => id, :parent_id => parent_id, :author => author
+  end
+
   private
 
   def sanitize_tag_list

@@ -71,4 +71,10 @@ class ChangePasswordTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
   end
 
+  should 'set email template when it exists' do
+    template = EmailTemplate.create!(:template_type => :user_change_password, :name => 'template1', :owner => Environment.default)
+    task = ChangePassword.create!(:requestor => person)
+    assert_equal template.id, task.email_template_id
+  end
+
 end

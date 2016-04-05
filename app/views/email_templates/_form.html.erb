@@ -1,0 +1,31 @@
+<%= form_for(@email_template, :url => {:action => @email_template.persisted? ? :update : :create, :id => @email_template.id}) do |f| %>
+
+  <%= error_messages_for :email_template if @email_template.errors.any? %>
+
+  <div class="template-fields">
+    <div class="header-fields">
+      <%= labelled_form_field(_('Template Name:'), f.text_field(:name)) %>
+      <%= labelled_form_field(_('Template Type:'), f.select(:template_type, @email_template.available_types.map {|k,v| [v[:description], k]}, :include_blank => true)) %>
+      <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
+    </div>
+    <div class="available-params">
+      <div class="reference">
+        <a target="_blank" href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers"><%= _('Template language reference') %></a>
+      </div>
+      <div class="label">
+        <%= _('The following parameters may be used in subject and body:') %>
+      </div>
+      <div class="values">
+        <%= @template_params_allowed %>
+      </div>
+    </div>
+    <%= render :file => 'shared/tiny_mce' %>
+    <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
+  </div>
+
+  <div class="actions">
+    <%= submit_button(:save, _('Save')) %>
+    <%= button(:back, _('Back'), :action => :index) %>
+  </div>
+
+<% end %>
