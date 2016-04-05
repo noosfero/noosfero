@@ -67,7 +67,7 @@ module Noosfero
   end
 
   def self.identifier_format
-    '[a-z0-9][a-z0-9~.]*([_\-][a-z0-9~.]+)*'
+    '[a-z0-9][a-z0-9~.*]*([_\-][a-z0-9~.*]+)*'
   end
 
   # All valid identifiers, plus ~ meaning "the current user". See
