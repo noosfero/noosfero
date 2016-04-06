@@ -6,9 +6,10 @@ notifications:
     template:
       - "%{repository_slug} %{branch} %{commit} %{commit_subject} - %{result} %{build_url}"
 
+dist: trusty
 language: ruby
 rvm:
-  - 2.2
+  - 2.3.0
 
 sudo: false
 addons:
@@ -29,7 +30,7 @@ addons:
 
 # workaround for https://github.com/travis-ci/travis-ci/issues/4536
 before_install:
-  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.2.0
+  - export GEM_HOME=$PWD/vendor/bundle/ruby/2.3.0
   - gem install bundler
 cache: bundler
 
