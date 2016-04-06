@@ -8,7 +8,7 @@ notifications:
 
 language: ruby
 rvm:
-  - 2.2.3
+  - 2.2.4
 
 sudo: false
 addons:
@@ -22,7 +22,6 @@ addons:
       - libmagickwand-dev
       - libpq-dev
       - libreadline-dev
-      - libsqlite3-dev
       - libxslt1-dev
   artifacts:
     paths:
