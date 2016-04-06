@@ -1,0 +1,41 @@
+pt-BR: &pt-BR
+
+  push_notification_plugin:
+    events:
+      add_friend: "Nova Amizade"
+      new_comment: "Novo Comentário"
+      add_member: "Novo Membro"
+      suggest_article: "Artigo Sugerido"
+      new_article: "Novo Artigo"
+      approve_article: "Aprovar Artigo"
+      add_friend_result: "Resultado de Solicitação de Amizade"
+      add_member_result: "Resultado de Solicitação de participação de comunidade"
+      approve_article_result: "Resultado de Aprovação de Artigo"
+      suggest_article_result: "Resultado de Sugestão de Artigo"
+
+    lib:
+      plugin:
+        name: "Notificações Push"
+        description: "Envie notificações para dispositivos móveis usando o Google Cloud Message"
+        panel_button: "Notificações"
+        settings: "Configuração das Notificações Push"
+        notifications: "Notificações"
+        enabled_notifications: "Notificações Habilitadas"
+        device: "Dispositivo"
+        actions: "Ações"
+
+    controllers:
+      myprofile:
+        my_devices: "Meus Dispositivos"
+        no_devices: "Nenhum dispositivo conectado à sua conta."
+        delete_device: "Apagar Dispositivo"
+        event: "Evento"
+        enabled: "Ativo?"
+
+      admin:
+        server_api_key: "Chave da API do Servidor"
+
+pt_BR:
+  <<: *pt-BR
+pt:
+  <<: *pt-BR

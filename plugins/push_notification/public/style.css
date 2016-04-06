@@ -1,0 +1,8 @@
+.controller-profile_editor a.control-panel-push-notifications {
+  background-image: url("/plugins/push_notification/images/control-panel/push-notification-settings.png");
+}
+
+.controller-profile_editor .msie6 a.control-panel-push-notifications {
+  background-image: url("/plugins/push_notification/images/control-panel/push-notification-settings.jpg");
+}
+

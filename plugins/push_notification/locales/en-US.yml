@@ -1,0 +1,41 @@
+en-US: &en-US
+
+  push_notification_plugin:
+    events:
+      add_friend: "Add Friend"
+      new_comment: "New Comment"
+      add_member: "New Member"
+      suggest_article: "Suggest Article"
+      new_article: "New Article"
+      approve_article: "Approve Article"
+      add_friend_result: "Friendship Request Result"
+      add_member_result: "Membership Request Result"
+      approve_article_result: "Article approval Result"
+      suggest_article_result: "Article suggestion Result"
+
+    lib:
+      plugin:
+        name: "Push Notifications"
+        description: "Send push notifications to mobile devices using Google Cloud Message"
+        panel_button: "Notifications"
+        settings: "Push Notification Settings"
+        notifications: "Notifications"
+        enabled_notifications: "Enabled Notifications"
+        device: "Device"
+        actions: "Actions"
+
+    controllers:
+      myprofile:
+        my_devices: "My Devices"
+        no_devices: "No device connected to your account"
+        delete_device: "Delete Device"
+        event: "Event"
+        enabled: "Enabled?"
+
+      admin:
+        server_api_key: "Server API key"
+
+en_US:
+  <<: *en-US
+en:
+  <<: *en-US
