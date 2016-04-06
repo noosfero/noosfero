@@ -18,7 +18,7 @@ class Organization < Profile
   #   visible, public and enabled.
   def self.visible_for_person(person)
     # Visitor if person.nil?
-    person.nil? ? person_id = nil : person_id = person.id
+    person_id = person.nil? ? nil : person.id
     joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = "profiles"."id"
           AND "role_assignments"."resource_type" = \'Profile\') OR (
           "role_assignments"."resource_id" = "profiles"."environment_id" AND
