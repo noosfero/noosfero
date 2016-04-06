@@ -15,11 +15,16 @@ module Noosfero
 
     require 'noosfero/plugin'
 
-    config.action_view.sanitized_allowed_tags |= %w(object embed param table
-      tr th td applet comment iframe audio video source)
-    config.action_view.sanitized_allowed_attributes |= %w(align border alt
-      vspace hspace width heigth value type data style target codebase archive
+    ALLOWED_TAGS = %w( object embed param table tr th td applet comment iframe audio video source
+    strong em b i p code pre tt samp kbd var sub sup dfn cite big small address hr br div span h1
+    h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins)
+
+    ALLOWED_ATTRIBUTES = %w(name href cite class title src xml:lang height datetime alt abbr width
+      vspace hspace heigth value type data style target codebase archive data-macro align border
       classid code flashvars scrolling frameborder controls autoplay colspan)
+
+    config.action_view.sanitized_allowed_tags = ALLOWED_TAGS
+    config.action_view.sanitized_allowed_attributes = ALLOWED_ATTRIBUTES
 
     require 'noosfero/multi_tenancy'
     config.middleware.use Noosfero::MultiTenancy::Middleware
