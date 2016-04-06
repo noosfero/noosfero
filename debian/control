@@ -22,7 +22,6 @@ Build-Depends: cucumber,
                ruby-rspec (>= 3),
                ruby-rspec-rails (>= 3),
                ruby-selenium-webdriver,
-               ruby-sqlite3,
                ruby-will-paginate (>> 3.0.5-1),
                tango-icon-theme,
                xvfb
