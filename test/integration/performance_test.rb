@@ -5,22 +5,6 @@ class PerformanceTest < ActionDispatch::IntegrationTest
 
   all_fixtures
 
-  FACTOR = 1.8
-
-  # Testing blog page display. It should not present a linear increase in time
-  # needed to display a blog page with the increase in number of posts.
-  #
-  # GOOD          BAD
-  #
-  # ^             ^     /
-  # |             |    /
-  # |   _____     |   /
-  # |  /          |  /
-  # | /           | /
-  # |/            |/
-  # +--------->   +--------->
-  # 0  50  100    0  50  100
-  #
   should 'not have a linear increase in time to display a blog page' do
     person = create_profile('clueless')
 
@@ -50,7 +34,7 @@ class PerformanceTest < ActionDispatch::IntegrationTest
     # the inclination of the second segment.
     a1 = (time1.total - time0.total)/50.0
     a2 = (time2.total - time1.total)/50.0
-    assert a1 > a2*FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{FACTOR}"
+    assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
   end
   protected
 

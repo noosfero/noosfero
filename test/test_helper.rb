@@ -19,6 +19,7 @@ require_relative 'support/controller_test_case'
 require_relative 'support/authenticated_test_helper'
 require_relative 'support/action_tracker_test_helper'
 require_relative 'support/noosfero_doc_test'
+require_relative 'support/performance_helper'
 require_relative 'support/noosfero_test_helper'
 
 FileUtils.rm_rf(Rails.root.join('index', 'test'))
@@ -59,6 +60,8 @@ class ActiveSupport::TestCase
   include Noosfero::Factory
 
   include AuthenticatedTestHelper
+
+  include PerformanceHelper
 
   extend Test::Should
 
