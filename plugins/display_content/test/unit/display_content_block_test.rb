@@ -719,7 +719,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     en_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
     en_article2 = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article 2', :language => 'en')
 
-    pt_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'pt_article', :language => 'pt')
+    pt_article = fast_create TextileArticle, profile_id: profile.id, name: 'pt_article', language: 'pt', translation_of_id: en_article.id
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -736,8 +736,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     FastGettext.stubs(:locale).returns('en')
 
-    assert instance_eval(&block.content).index(en_article.name).present?
-    assert instance_eval(&block.content).index(en_article2.name).present?
+    assert instance_eval(&block.content).index(en_article.name)
+    assert instance_eval(&block.content).index(en_article2.name)
     assert_nil instance_eval(&block.content).index(pt_article.name)
   end
 
