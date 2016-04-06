@@ -217,10 +217,9 @@ namespace :test do
   task :noosfero_plugins do
     plugins    = @all_plugins - $broken_plugins
     if slice   = ENV['SLICE']
-      slice    = slice.split('/').map &:to_i
-      selected = slice[0]-1
-      size     = (plugins.size / slice[1].to_f).ceil
-      plugins  = plugins.each_slice(size).to_a[selected]
+      sel,size = slice.split '/'
+      size     = (plugins.size / size.to_f).ceil
+      plugins  = plugins.each_slice(size).to_a[sel.to_i - 1]
     end
 
     test_sequence plugins, @all_tasks do |failed|

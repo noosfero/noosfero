@@ -3,10 +3,18 @@
   default_options  = "--format progress --strict --tags ~@selenium --tags ~@selenium-fixme --tags ~@fixme --exclude features/support/selenium.rb #{base_requires}"
   default_options << ' --color' if $stdout.isatty
   selenium_options = "--strict --tags @selenium #{base_requires}"
+
+  core_features = Dir.glob "features/**/*.feature"
+  if slice = ENV['SLICE']
+    sel,size      = slice.split '/'
+    size          = (core_features.size / size.to_f).ceil
+    core_features = core_features.each_slice(size).to_a[sel.to_i - 1]
+  end
+  core_features = core_features.join ' '
 %>
 
-default: <%= default_options %>
-selenium: <%= selenium_options %>
+default:  <%= default_options  %> <%= core_features %>
+selenium: <%= selenium_options %> <%= core_features %>
 
 <%
   enabled_plugins = Dir.glob(File.join('config', 'plugins', '*')).map do |path|
