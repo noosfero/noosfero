@@ -1,4 +1,5 @@
 class TextileArticle < TextArticle
+  include SanitizeHelper
 
   def self.short_description
     _('Text article with Textile markup language')
@@ -31,10 +32,9 @@ class TextileArticle < TextArticle
   protected
 
   def convert_to_html(textile)
-    @@sanitizer ||= HTML::WhiteListSanitizer.new
     converter = RedCloth.new(textile|| '')
     converter.hard_breaks = false
-    @@sanitizer.sanitize(converter.to_html)
+    sanitize_html(converter.to_html, :white_list)
   end
 
 end

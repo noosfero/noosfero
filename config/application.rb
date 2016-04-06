@@ -15,13 +15,17 @@ module Noosfero
 
     require 'noosfero/plugin'
 
-    ALLOWED_TAGS = %w( object embed param table tr th td applet comment iframe audio video source
+    # The plugin xss_terminator(located in vendor/plugins/xss_terminator) and the helper
+    # SanitizeHelper(located in app/helpers/sanitize_helper.rb) use
+    # ALLOWED_TAGS and ALLOWED_ATTRIBUTES to make a sanitize with html.
+
+    ALLOWED_TAGS = %w(object embed param table tr th td applet comment iframe audio video source
     strong em b i p code pre tt samp kbd var sub sup dfn cite big small address hr br div span h1
-    h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins)
+    h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins a)
 
     ALLOWED_ATTRIBUTES = %w(name href cite class title src xml:lang height datetime alt abbr width
       vspace hspace heigth value type data style target codebase archive data-macro align border
-      classid code flashvars scrolling frameborder controls autoplay colspan)
+      classid code flashvars scrolling frameborder controls autoplay colspan id rowspan)
 
     config.action_view.sanitized_allowed_tags = ALLOWED_TAGS
     config.action_view.sanitized_allowed_attributes = ALLOWED_ATTRIBUTES

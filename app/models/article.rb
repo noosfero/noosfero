@@ -1,6 +1,8 @@
 
 class Article < ActiveRecord::Base
 
+  include SanitizeHelper
+
   attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent,
                   :allow_members_to_edit, :translation_of_id, :language,
                   :license_id, :parent_id, :display_posts_in_current_language,
@@ -54,6 +56,7 @@ class Article < ActiveRecord::Base
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
+  # sanitize_tag_list is used with SanitizeHelper
   before_save :sanitize_tag_list
 
   before_create do |article|
@@ -868,11 +871,6 @@ class Article < ActiveRecord::Base
 
   def strip_tag_name(tag_name)
     tag_name.gsub(/[<>]/, '')
-  end
-
-  def sanitize_html(text)
-    sanitizer = HTML::FullSanitizer.new
-    sanitizer.sanitize(text)
   end
 
   def parent_archived?
