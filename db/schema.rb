@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 20160324132518) do
     t.boolean  "mirror",          default: false
     t.integer  "mirror_block_id"
     t.integer  "observers_id"
+    t.string   "subtitle",        default: ""
   end
 
   add_index "blocks", ["box_id"], name: "index_blocks_on_box_id", using: :btree

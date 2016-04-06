@@ -25,7 +25,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
 
   def content(args={})
 
-    content = block_title(title)
+    content = block_title(title, subtitle)
 
     if self.show_most_read
       docs = Article.most_accessed(owner, self.limit)

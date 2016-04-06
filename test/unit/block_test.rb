@@ -31,6 +31,10 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal '', Block.new.default_title
   end
 
+  should 'provide an empty default subtitle' do
+    assert_equal '', Block.new.subtitle
+  end
+
   should 'be editable by default' do
     assert Block.new.editable?
   end

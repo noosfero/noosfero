@@ -108,7 +108,9 @@ class ArticleBlockViewTest < ActionView::TestCase
     block.expects(:title).returns('')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3 class=\"block-title empty\"><span></span></h3>\n  Article content\n", render_block_content(block)
+    assert_tag_in_string render_block_content(block),
+         :tag => 'h3', :attributes => {:class => 'block-title empty'},
+         :descendant => { :tag => 'span' }
   end
 
   should "display title if defined" do
@@ -118,7 +120,9 @@ class ArticleBlockViewTest < ActionView::TestCase
     block.expects(:title).returns('Article title')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3 class=\"block-title\"><span>Article title</span></h3>\n  Article content\n", render_block_content(block)
+    assert_tag_in_string render_block_content(block),
+          :tag => 'h3', :attributes => {:class => 'block-title'},
+          :descendant => { :tag => 'span', :content => 'Article title' }
   end
 
   should 'display image if article is an image' do

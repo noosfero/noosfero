@@ -1,5 +1,5 @@
 <div class="ratings-title">
-  <%= block_title(block.title) %>
+  <%= block_title(block.title, block.subtitle) %>
   <% if block.get_ratings(block.owner.id).empty? %>
     <div class="ratings-list">
       <%= render :partial => 'shared/make_report_block' %>

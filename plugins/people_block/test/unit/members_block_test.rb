@@ -248,7 +248,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.expects(:owner).returns(owner).at_least_once
     ActionView::Base.any_instance.expects(:profile_image_link).with(person1, :minor).returns(person1.name)
     ActionView::Base.any_instance.expects(:profile_image_link).with(person2, :minor).returns(person2.name)
-    ActionView::Base.any_instance.expects(:block_title).with(anything).returns('')
+    ActionView::Base.any_instance.expects(:block_title).with(anything, anything).returns('')
 
     content = render_block_content(block)
 

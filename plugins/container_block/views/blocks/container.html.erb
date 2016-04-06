@@ -1,7 +1,7 @@
 <% edit_mode = controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?) %>
 <% box_decorator = edit_mode ? self : BoxesHelper::DontMoveBlocks %>
 
-<%= block_title(block.title) %>
+<%= block_title(block.title, block.subtitle) %>
 
 <div class="box" id="box-<%= block.container_box.id %>">
   <%= display_box_content(block.container_box, nil) %>

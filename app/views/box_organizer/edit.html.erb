@@ -4,6 +4,7 @@
   <%= form_tag(:action => 'save', :id => @block.id) do %>
 
     <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
+    <%= labelled_form_field(_('Custom subtitle for this block: '), text_field(:block, :subtitle)) %>
 
     <%= render :partial => partial_for_class(@block.class) %>
 
