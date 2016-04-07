@@ -386,4 +386,15 @@ class PeopleTest < ActiveSupport::TestCase
       assert_not_nil json['person'][attribute]
     end
   end
+
+  should 'update person image' do
+    login_api
+    base64_image = create_base64_image
+    params.merge!({person: {image_builder: base64_image}})
+    assert_nil person.image
+    post "/api/v1/people/#{person.id}?#{params.to_query}"
+    person.reload
+    assert_not_nil person.image
+    assert_equal person.image.filename, base64_image[:filename]
+  end
 end

@@ -55,11 +55,10 @@ module Noosfero
           post ':id' do
             authenticate!
             return forbidden! if current_person.id.to_s != params[:id]
-            current_person.update_attributes!(params[:person])
+            current_person.update_attributes!(asset_with_image(params[:person]))
             present current_person, :with => Entities::Person, :current_person => current_person
           end
-
-          # Example Request:
+          
           #  POST api/v1/people?person[login]=some_login&person[password]=some_password&person[name]=Jack
           #  for each custom field for person, add &person[field_name]=field_value to the request
           desc "Create person"
@@ -76,7 +75,7 @@ module Noosfero
               params[:person][:custom_values][key]=params[:person].delete(key) if Person.custom_fields(environment).any?{|cf| cf.name==key}
             end
 
-            user = User.build(user_data, params[:person], environment)
+            user = User.build(user_data, asset_with_image(params[:person]), environment)
 
             begin
               user.signup!

@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require "base64"
 require 'noosfero/api/helpers'
 
 class APIHelpersTest < ActiveSupport::TestCase
@@ -236,6 +237,24 @@ class APIHelpersTest < ActiveSupport::TestCase
     params[:fields] = {only: [:name, {user: [:login]}]}.to_json
     expects(:present).with(model, {:only => ['name', {'user' => ['login']}]})
     present_partial(model, {})
+  end
+
+  should 'create a :uploaded_data hash, expected by image_builder ' do
+    base64_image = create_base64_image
+    uploadedfile = base64_to_uploadedfile base64_image
+    assert uploadedfile.has_key? :uploaded_data
+    assert_equal uploadedfile[:uploaded_data].original_filename, base64_image[:filename]
+    assert_equal uploadedfile[:uploaded_data].content_type, base64_image[:type]
+    assert uploadedfile[:uploaded_data].tempfile
+  end
+
+  should 'return a params copy with a UploadedFile object' do
+    base64_image = create_base64_image
+    params = {}
+    params.merge!({image_builder: base64_image})
+    asset_params = asset_with_image params
+    assert !asset_params[:image_builder][:uploaded_data].nil?
+    assert asset_params[:image_builder][:uploaded_data].is_a? ActionDispatch::Http::UploadedFile
   end
 
   protected
