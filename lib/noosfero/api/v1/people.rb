@@ -46,7 +46,7 @@ module Noosfero
 
           desc "Return the person information"
           get ':id' do
-            person = environment.people.visible_for_person(current_person).find_by id: params[:id]
+            person = environment.people.visible.find_by(id: params[:id])
             return not_found! if person.blank?
             present person, :with => Entities::Person, :current_person => current_person
           end
@@ -87,7 +87,11 @@ module Noosfero
 
           desc "Return the person friends"
           get ':id/friends' do
+<<<<<<< HEAD
             person = environment.people.visible_for_person(current_person).find_by id: params[:id]
+=======
+            person = environment.people.visible.find_by_id(params[:id])
+>>>>>>> get list visible communities, enterprises & people
             return not_found! if person.blank?
             friends = person.friends.visible
             present friends, :with => Entities::Person, :current_person => current_person

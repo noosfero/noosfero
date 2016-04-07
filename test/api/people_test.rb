@@ -96,12 +96,12 @@ class PeopleTest < ActiveSupport::TestCase
     assert json['person'].blank?
   end
 
-  should 'not get private people without permission' do
+  should 'get private people' do
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person'].blank?
+    assert_equal json['person']['id'], private_person.id
   end
 
   should 'get private person for friends' do
