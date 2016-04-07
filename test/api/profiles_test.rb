@@ -6,7 +6,7 @@ class ProfilesTest < ActiveSupport::TestCase
     Profile.delete_all
   end
 
-  should 'list all profiles' do
+  should 'logged user list all profiles' do
     login_api
     person1 = fast_create(Person)
     person2 = fast_create(Person)
@@ -16,7 +16,7 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equivalent [person.id, person1.id, person2.id, community.id], json.map {|p| p['id']}
   end
 
-  should 'get person from profile id' do
+  should 'logged user get person from profile id' do
     login_api
     some_person = fast_create(Person)
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
@@ -24,7 +24,7 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal some_person.id, json['id']
   end
 
-  should 'get community from profile id' do
+  should 'logged user get community from profile id' do
     login_api
     community = fast_create(Community)
     get "/api/v1/profiles/#{community.id}?#{params.to_query}"

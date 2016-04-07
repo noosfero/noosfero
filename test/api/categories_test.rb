@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class CategoriesTest < ActiveSupport::TestCase
 
 
-  should 'list categories' do
+  should 'logged user list categories' do
     login_api
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/?#{params.to_query}"
@@ -11,7 +11,7 @@ class CategoriesTest < ActiveSupport::TestCase
     assert_includes json["categories"].map { |c| c["name"] }, category.name
   end
 
-  should 'get category by id' do
+  should 'logged user get category by id' do
     login_api
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
@@ -19,7 +19,7 @@ class CategoriesTest < ActiveSupport::TestCase
     assert_equal category.name, json["category"]["name"]
   end
 
-  should 'list parent and children when get category by id' do
+  should 'logged user list parent and children when get category by id' do
     login_api
     parent = fast_create(Category, :environment_id => environment.id)
     child_1 = fast_create(Category, :environment_id => environment.id)
@@ -37,7 +37,7 @@ class CategoriesTest < ActiveSupport::TestCase
     assert_equivalent [child_1.id, child_2.id], json['category']['children'].map { |c| c['id'] }
   end
 
-  should 'include parent in categories list if params is true' do
+  should 'logged user include parent in categories list if params is true' do
     login_api
     parent_1 = fast_create(Category, :environment_id => environment.id) # parent_1 has no parent category
     child_1 = fast_create(Category, :environment_id => environment.id)
@@ -60,7 +60,7 @@ class CategoriesTest < ActiveSupport::TestCase
       json["categories"].map { |c| c['parent'] && c['parent']['id'] }
   end
 
-  should 'include children in categories list if params is true' do
+  should 'logged user include children in categories list if params is true' do
     login_api
     category = fast_create(Category, :environment_id => environment.id)
     child_1 = fast_create(Category, :environment_id => environment.id)
@@ -88,7 +88,7 @@ class CategoriesTest < ActiveSupport::TestCase
   expose_attributes = %w(id name full_name image display_color)
 
   expose_attributes.each do |attr|
-    should "expose category #{attr} attribute by default" do
+    should "logged user expose category #{attr} attribute by default" do
       login_api
       category = fast_create(Category, :environment_id => environment.id)
       get "/api/v1/categories/?#{params.to_query}"

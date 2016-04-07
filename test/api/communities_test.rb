@@ -6,7 +6,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     Community.delete_all
   end
 
-  should 'list only communities' do
+  should 'logged user list only communities' do
     login_api
     community = fast_create(Community, :environment_id => environment.id)
     enterprise = fast_create(Enterprise, :environment_id => environment.id) # should not list this enterprise
@@ -16,7 +16,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_includes json['communities'].map {|c| c['id']}, community.id
   end
 
-  should 'list all communities' do
+  should 'logged user list all communities' do
     login_api
     community1 = fast_create(Community, :environment_id => environment.id, :public_profile => true)
     community2 = fast_create(Community, :environment_id => environment.id)
@@ -25,7 +25,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'not list invisible communities' do
+  should 'logged user not list invisible communities' do
     login_api
     community1 = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :visible => false)
@@ -35,7 +35,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal [community1.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'list private communities' do
+  should 'logged user list private communities' do
       login_api
       community1 = fast_create(Community, :environment_id => environment.id)
       community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
@@ -45,7 +45,7 @@ class CommunitiesTest < ActiveSupport::TestCase
       assert_equal [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'list private community for members' do
+  should 'logged user list private community for members' do
     login_api
     c1 = fast_create(Community, :environment_id => environment.id)
     c2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
@@ -56,7 +56,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [c1.id, c2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'create a community' do
+  should 'logged user create a community' do
     login_api
     params[:community] = {:name => 'some'}
     post "/api/v1/communities?#{params.to_query}"
@@ -64,14 +64,14 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal 'some', json['community']['name']
   end
 
-  should 'return 400 status for invalid community creation' do
+  should 'logged user return 400 status for invalid community creation' do
     login_api
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 400, last_response.status
   end
 
-  should 'get community' do
+  should 'logged user get community' do
     login_api
     community = fast_create(Community, :environment_id => environment.id)
 
@@ -80,7 +80,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'not get invisible community' do
+  should 'logged user not get invisible community' do
     login_api
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
 
@@ -89,7 +89,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert json['community'].blank?
   end
 
-  should 'not get private communities without permission' do
+  should 'logged user not get private communities without permission' do
     login_api
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :public_profile => false)
@@ -99,7 +99,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'get private community for members' do
+  should 'logged user get private community for members' do
     login_api
     community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
     community.add_member(person)
@@ -109,7 +109,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'list person communities' do
+  should 'logged user list person communities' do
     login_api
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id)
@@ -120,7 +120,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'not list person communities invisible' do
+  should 'logged user not list person communities invisible' do
     login_api
     c1 = fast_create(Community, :environment_id => environment.id)
     c2 = fast_create(Community, :environment_id => environment.id, :visible => false)
@@ -132,7 +132,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [c1.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'list communities with pagination' do
+  should 'logged user list communities with pagination' do
     login_api
     community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
     community2 = fast_create(Community, :created_at => 2.days.ago)
@@ -155,7 +155,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_includes json_page_two["communities"].map { |a| a["id"] }, community1.id
   end
 
-  should 'list communities with timestamp' do
+  should 'logged user list communities with timestamp' do
     login_api
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)

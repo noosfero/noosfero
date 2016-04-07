@@ -2,7 +2,7 @@ require_relative 'test_helper'
 
 class CommentsTest < ActiveSupport::TestCase
 
-  should 'not list comments if user has no permission to view the source article' do
+  should 'logged user not list comments if user has no permission to view the source article' do
     login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
@@ -12,7 +12,7 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
-  should 'not return comment if user has no permission to view the source article' do
+  should 'logged user not return comment if user has no permission to view the source article' do
     login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
@@ -23,7 +23,7 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
-  should 'not comment an article if user has no permission to view it' do
+  should 'logged user not comment an article if user has no permission to view it' do
     login_api
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
@@ -33,7 +33,7 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
-  should 'return comments of an article' do
+  should 'logged user return comments of an article' do
     login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     article.comments.create!(:body => "some comment", :author => user.person)
@@ -45,7 +45,7 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 2, json["comments"].length
   end
 
-  should 'return comment of an article' do
+  should 'logged user return comment of an article' do
     login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     comment = article.comments.create!(:body => "another comment", :author => user.person)
@@ -56,7 +56,7 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal comment.id, json['comment']['id']
   end
 
-  should 'comment an article' do
+  should 'logged user comment an article' do
     login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     body = 'My comment'
@@ -111,6 +111,19 @@ class CommentsTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
     assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
+  end
+
+  should 'logged user comment creation define the source' do
+      login_api
+      amount = Comment.count
+      article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+      body = 'My comment'
+      params.merge!({:body => body})
+
+      post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+      assert_equal amount + 1, Comment.count
+      comment = Comment.last
+      assert_not_nil comment.source
   end
 
   should 'call plugin hotspot to filter unavailable comments' do
