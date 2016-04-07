@@ -1,7 +1,7 @@
 <div id='profile-wall-reply-<%= scrap.id%>' style='display:none'>
   <div id='profile-wall-reply-form-<%= scrap.id%>' style='display:none'>
     <p class='profile-wall-reply'>
-      <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :html => { :class => 'profile-wall-reply-form'} do %>
+      <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :html => { :class => 'profile-wall-reply-form', 'data-update' => 'profile_activities'} do %>
         <%= expandable_text_area :scrap,
                                  :content,
                                  "reply_content_#{scrap.id}",

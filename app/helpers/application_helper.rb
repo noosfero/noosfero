@@ -940,7 +940,8 @@ module ApplicationHelper
   end
 
   def expandable_text_area(object_name, method, text_area_id, options = {})
-    text_area(object_name, method, { :id => text_area_id, :onkeyup => "grow_text_area('#{text_area_id}')" }.merge(options))
+    options[:class] = (options[:class] || '') +  ' autogrow'
+    text_area(object_name, method, { :id => text_area_id }.merge(options))
   end
 
   def pluralize_without_count(count, singular, plural = nil)
