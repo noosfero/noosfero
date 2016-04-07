@@ -31,6 +31,7 @@ gem 'whenever', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
 gem 'slim'
+gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -51,7 +52,6 @@ gem 'protected_attributes'
 gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
-gem 'activerecord-session_store'
 gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
 group :production do
