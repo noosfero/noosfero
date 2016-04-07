@@ -25,7 +25,7 @@ class ActiveSupport::TestCase
     @params = {:private_token => @private_token}
   end
 
-  def visitor_setup
+  def anonymous_setup
     @environment = Environment.default
     @params = {}
   end

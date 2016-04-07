@@ -97,26 +97,24 @@ class CategoriesTest < ActiveSupport::TestCase
     end
   end
 
-  ############## Visitors' tests #######################################################################33
-
-  should 'visitor list categories' do
-    visitor_setup
+  should 'anonymous list categories' do
+    anonymous_setup
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json["categories"].map { |c| c["name"] }, category.name
   end
 
-  should 'visitor get category by id' do
-    visitor_setup
+  should 'anonymous get category by id' do
+    anonymous_setup
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal category.name, json["category"]["name"]
   end
 
-  should 'visitor list parent and children when get category by id' do
-    visitor_setup
+  should 'anonymous list parent and children when get category by id' do
+    anonymous_setup
     parent = fast_create(Category, :environment_id => environment.id)
     child_1 = fast_create(Category, :environment_id => environment.id)
     child_2 = fast_create(Category, :environment_id => environment.id)
@@ -133,8 +131,8 @@ class CategoriesTest < ActiveSupport::TestCase
     assert_equivalent [child_1.id, child_2.id], json['category']['children'].map { |c| c['id'] }
   end
 
-  should 'visitor include parent in categories list if params is true' do
-    visitor_setup
+  should 'anonymous include parent in categories list if params is true' do
+    anonymous_setup
     parent_1 = fast_create(Category, :environment_id => environment.id) # parent_1 has no parent category
     child_1 = fast_create(Category, :environment_id => environment.id)
     child_2 = fast_create(Category, :environment_id => environment.id)
@@ -156,8 +154,8 @@ class CategoriesTest < ActiveSupport::TestCase
       json["categories"].map { |c| c['parent'] && c['parent']['id'] }
   end
 
-  should 'visitor include children in categories list if params is true' do
-    visitor_setup
+  should 'anonymous include children in categories list if params is true' do
+    anonymous_setup
     category = fast_create(Category, :environment_id => environment.id)
     child_1 = fast_create(Category, :environment_id => environment.id)
     child_2 = fast_create(Category, :environment_id => environment.id)
@@ -182,8 +180,8 @@ class CategoriesTest < ActiveSupport::TestCase
   end
 
   expose_attributes.each do |attr|
-    should "visitor expose category #{attr} attribute by default" do
-      visitor_setup
+    should "anonymous expose category #{attr} attribute by default" do
+      anonymous_setup
       category = fast_create(Category, :environment_id => environment.id)
       get "/api/v1/categories/?#{params.to_query}"
       json = JSON.parse(last_response.body)
@@ -191,6 +189,6 @@ class CategoriesTest < ActiveSupport::TestCase
     end
   end
 
-  ################################# End visitors' test ####################################################################################
+
 
 end

@@ -171,10 +171,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
   end
 
-  ################### Visitor's tests ######################################3
-
-  should 'visitor list only communities' do
-    visitor_setup
+  should 'anonymous list only communities' do
+    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     enterprise = fast_create(Enterprise, :environment_id => environment.id) # should not list this enterprise
     get "/api/v1/communities?#{params.to_query}"
@@ -183,8 +181,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_includes json['communities'].map {|c| c['id']}, community.id
   end
 
-  should 'visitor list all communities' do
-    visitor_setup
+  should 'anonymous list all communities' do
+    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id, :public_profile => true)
     community2 = fast_create(Community, :environment_id => environment.id)
     get "/api/v1/communities?#{params.to_query}"
@@ -192,8 +190,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'not visitor list invisible communities' do
-    visitor_setup
+  should 'not anonymous list invisible communities' do
+    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :visible => false)
 
@@ -202,8 +200,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal [community1.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'visitor list private communities' do
-    visitor_setup
+  should 'anonymous list private communities' do
+    anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id)
     community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
 
@@ -214,32 +212,32 @@ class CommunitiesTest < ActiveSupport::TestCase
 
 
 
-  should 'not visitor create a community' do
-    visitor_setup
+  should 'not anonymous create a community' do
+    anonymous_setup
     params[:community] = {:name => 'some'}
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 401, last_response.status
   end
 
-  should 'visitor get community' do
-    visitor_setup
+  should 'anonymous get community' do
+    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
     assert_equal community.id, json['community']['id']
   end
 
-  should 'not visitor get invisible community' do
-    visitor_setup
+  should 'not anonymous get invisible community' do
+    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
     assert json['community'].blank?
   end
 
-  should 'visitor not get private communities' do
-    visitor_setup
+  should 'anonymous not get private communities' do
+    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :public_profile => false)
     get "/api/v1/communities/#{community.id}"
@@ -247,8 +245,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'visitor list communities with pagination' do
-    visitor_setup
+  should 'anonymous list communities with pagination' do
+    anonymous_setup
     community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
     community2 = fast_create(Community, :created_at => 2.days.ago)
 
@@ -269,8 +267,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_includes json_page_two["communities"].map { |a| a["id"] }, community1.id
   end
 
-  should 'visitor list communities with timestamp' do
-    visitor_setup
+  should 'anonymous list communities with timestamp' do
+    anonymous_setup
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)
 
@@ -284,7 +282,5 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_includes json["communities"].map { |a| a["id"] }, community1.id
     assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
   end
-
-  ###################End Visitor's tests ######################################3
 
 end

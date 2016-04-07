@@ -80,7 +80,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
   end
 
-  should 'visitor list all profiles' do
+  should 'anonymous list all profiles' do
     person1 = fast_create(Person)
     person2 = fast_create(Person)
     community = fast_create(Community)
@@ -89,14 +89,14 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equivalent [person1.id, person2.id, community.id], json.map {|p| p['id']}
   end
 
-  should 'visitor get person from profile id' do
+  should 'anonymous get person from profile id' do
     some_person = fast_create(Person)
     get "/api/v1/profiles/#{some_person.id}"
     json = JSON.parse(last_response.body)
     assert_equal some_person.id, json['id']
   end
 
-  should 'visitor get community from profile id' do
+  should 'anonymous get community from profile id' do
     community = fast_create(Community)
     get "/api/v1/profiles/#{community.id}"
     json = JSON.parse(last_response.body)
