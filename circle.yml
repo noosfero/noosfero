@@ -1,0 +1,50 @@
+machine:
+  timezone:
+    America/Bahia
+  ruby:
+    version: 2.3.0
+  services:
+    - postgresql
+
+dependencies:
+  pre:
+    - sudo apt-get install po4a iso-codes tango-icon-theme pidgin-data libpq-dev libreadline-dev libxslt1-dev
+    - mkdir -p tmp/{pids,cache} log cache
+
+database:
+  override:
+    - script/noosfero-plugins disableall
+    - cp config/database.yml.circleci config/database.yml
+    - bundle exec rake db:create
+    - bundle exec rake db:schema:load
+    - bundle exec rake db:migrate
+
+test:
+  override:
+    - ? |
+        set -x -e
+        case $CIRCLE_NODE_INDEX in
+        0)
+          bundle exec rake test:api
+          bundle exec rake test:functionals
+          SLICE=1/4 bundle exec rake selenium
+          SLICE=1/4 BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
+          ;;
+        1)
+          bundle exec rake test:integration
+          SLICE=2/4 bundle exec rake selenium
+          SLICE=2/4 BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
+          ;;
+        2)
+          bundle exec rake test:units
+          SLICE=3/4 bundle exec rake selenium
+          SLICE=3/4 BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
+          ;;
+        3)
+          bundle exec rake cucumber
+          SLICE=4/4 bundle exec rake selenium
+          SLICE=4/4 BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
+          ;;
+        esac
+      :
+          parallel: true
