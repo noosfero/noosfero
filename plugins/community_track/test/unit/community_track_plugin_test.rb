@@ -7,6 +7,7 @@ class CommunityTrackPluginTest < ActiveSupport::TestCase
     @profile = fast_create(Community)
     @params = {}
     @context = mock
+    @context.stubs(:kind_of?).returns(CmsController)
     @context.stubs(:profile).returns(@profile)
     @context.stubs(:params).returns(@params)
     @plugin.stubs(:context).returns(@context)

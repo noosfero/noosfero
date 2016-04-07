@@ -97,4 +97,19 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:id => 'errorExplanation'}
   end
 
+  should 'do not repeat tracks when paging a block with random order' do
+    @track.destroy
+    @block.order = 'random'
+    @block.save!
+
+    per_page = 4
+    (per_page*3).times {|i| create_track("track_#{i}", @community) }
+
+    tracks = 3.times.map do |i|
+      xhr :get, :view_tracks, :id => @block.id, :page => i+1, :per_page => per_page
+      assigns[:tracks].all
+    end.flatten
+    assert_equal tracks.count, tracks.uniq.count
+  end
+
 end

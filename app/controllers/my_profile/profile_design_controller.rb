@@ -6,6 +6,7 @@ class ProfileDesignController < BoxOrganizerController
 
   before_filter :protect_uneditable_block, :only => [:save]
   before_filter :protect_fixed_block, :only => [:move_block]
+  include CategoriesHelper
 
   def protect_uneditable_block
     block = boxes_holder.blocks.find(params[:id].gsub(/^block-/, ''))
@@ -65,6 +66,11 @@ class ProfileDesignController < BoxOrganizerController
     end
 
     blocks
+  end
+
+  def update_categories
+    @object = params[:id] ? @profile.blocks.find(params[:id]) : Block.new
+    render_categories 'block'
   end
 
 end

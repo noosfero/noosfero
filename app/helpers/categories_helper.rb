@@ -34,4 +34,15 @@ module CategoriesHelper
       {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => html_class}.merge(html_options)
   end
 
+  def render_categories object_name
+    @toplevel_categories = environment.top_level_categories
+    if params[:category_id]
+      @current_category = Category.find(params[:category_id])
+      @categories = @current_category.children
+    else
+      @categories = @toplevel_categories
+    end
+    render :template => 'shared/update_categories', :locals => { :category => @current_category, :object_name => object_name }
+  end
+
 end

@@ -9,7 +9,7 @@ class TrackListBlockTest < ActiveSupport::TestCase
     @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
   end
 
-  attr_reader :profile
+  attr_reader :profile, :track
 
   should 'describe yourself' do
     assert CommunityTrackPlugin::TrackListBlock.description
@@ -32,16 +32,6 @@ class TrackListBlockTest < ActiveSupport::TestCase
   should 'list of articles be limited by block configuration' do
     (@block.limit + 1).times { |i| create_track("track#{i}", profile) }
     assert_equal @block.limit, @block.tracks.to_a.size
-  end
-
-  should 'return more link if has more tracks to show' do
-    @block.limit.times { |i| create_track("track#{i}", profile) }
-    assert @block.footer
-  end
-
-  should 'do not return more link if there is no more tracks to show' do
-    (@block.limit-1).times { |i| create_track("track#{i}", profile) }
-    refute @block.footer
   end
 
   should 'count all tracks' do
@@ -109,6 +99,22 @@ class TrackListBlockTest < ActiveSupport::TestCase
   should 'return nothing if track list block has no categories' do
     @block.category_ids = []
     assert_equivalent [], @block.categories
+  end
+
+  should 'list tracks in hits order by default' do
+    track2 = create_track("track2", profile)
+    track.update_attribute(:hits, 2)
+    track2.update_attribute(:hits, 1)
+    assert_equal [track, track2], @block.tracks
+  end
+
+  should 'list tracks in newer order' do
+    @block.order = 'newer'
+    @block.save!
+    track2 = create_track("track2", profile)
+    track2.update_attribute(:created_at, Date.today)
+    track.update_attribute(:created_at, Date.today - 1.day)
+    assert_equal [track2, track], @block.tracks
   end
 
 end

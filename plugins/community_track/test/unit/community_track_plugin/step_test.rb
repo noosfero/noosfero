@@ -235,8 +235,8 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'return enabled tools for a step' do
-    assert_includes CommunityTrackPlugin::Step.enabled_tools, TinyMceArticle
-    assert_includes CommunityTrackPlugin::Step.enabled_tools, Forum
+    assert_includes @step.enabled_tools, TinyMceArticle
+    assert_includes @step.enabled_tools, Forum
   end
 
   should 'return class for selected tool' do
