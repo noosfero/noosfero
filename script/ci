@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 tasks = %w[
+  test:api
   test:units
   test:functionals
   test:integration

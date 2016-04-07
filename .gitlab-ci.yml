@@ -14,6 +14,10 @@ stages:
 #  script: bundle exec rake ci:smoke
 #  stage: smoke-tests
 
+api:
+  script: bundle exec rake test:api
+  stage: all-tests
+
 units:
   script: bundle exec rake test:units
   stage: all-tests

@@ -44,6 +44,7 @@ before_script:
   - bundle exec rake db:migrate &>/dev/null
 
 env:
+  - TASK=test:api
   - TASK=test:units
   - TASK=test:functionals
   - TASK=test:integration
