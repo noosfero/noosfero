@@ -6,11 +6,15 @@ notifications:
     template:
       - "%{repository_slug} %{branch} %{commit} %{commit_subject} - %{result} %{build_url}"
 
+# trusty constainers take more time to start
 #dist: trusty
+
 language: ruby
 rvm:
   - 2.2
   # ruby 2.3 works but isn't stable on travis
+
+cache: bundler
 
 addons:
   apt:
@@ -32,7 +36,6 @@ addons:
 before_install:
   - export GEM_HOME=$PWD/vendor/bundle/ruby/2.2.0
   - gem install bundler
-cache: bundler
 
 before_script:
   - mkdir -p tmp/{pids,cache} log cache
