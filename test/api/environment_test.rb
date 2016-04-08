@@ -2,6 +2,10 @@ require_relative 'test_helper'
 
 class EnvironmentTest < ActiveSupport::TestCase
 
+  def setup
+    create_and_activate_user
+  end
+
   should 'return the default environment' do
     environment = Environment.default
     get "/api/v1/environment/default"
@@ -62,6 +66,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     get "/api/v1/environment/context"
     json = JSON.parse(last_response.body)
     assert_equal context_env.id, json['id']
-  end  
+  end
 
 end

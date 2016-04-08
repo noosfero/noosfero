@@ -2,7 +2,11 @@ require_relative 'test_helper'
 
 class CategoriesTest < ActiveSupport::TestCase
 
-  should 'list categories to logged user' do
+  def setup
+    create_and_activate_user
+  end
+
+  should 'logged user list categories' do
     login_api
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/?#{params.to_query}"

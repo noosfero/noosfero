@@ -372,7 +372,7 @@ class Person < Profile
     ['%s@%s' % [self.identifier, self.email_domain] ]
   end
 
-  def display_info_to?(user)
+  def display_private_info_to?(user)
     if friends.include?(user)
       true
     else

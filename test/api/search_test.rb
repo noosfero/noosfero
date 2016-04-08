@@ -3,9 +3,8 @@ require_relative 'test_helper'
 class SearchTest < ActiveSupport::TestCase
 
   def setup
-    @person = create_user('testing').person
+    create_and_activate_user
   end
-  attr_reader :person
 
   should 'not list unpublished articles' do
     Article.delete_all

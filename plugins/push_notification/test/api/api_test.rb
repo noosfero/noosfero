@@ -3,6 +3,7 @@ require_relative '../../../../test/api/test_helper'
 class PushNotificationApiTest < ActiveSupport::TestCase
 
   def setup
+    create_and_activate_user
     login_api
     environment = Environment.default
     environment.enable_plugin(PushNotificationPlugin)

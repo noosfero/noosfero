@@ -4,6 +4,7 @@ require_relative '../../../../test/api/test_helper'
 class APITest <  ActiveSupport::TestCase
 
   def setup
+    create_and_activate_user
     login_api
     environment.enable_plugin(CommentParagraphPlugin)
   end

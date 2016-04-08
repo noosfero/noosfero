@@ -3,6 +3,7 @@ require_relative 'test_helper'
 class ArticlesTest < ActiveSupport::TestCase
 
   def setup
+    create_and_activate_user
     login_api
   end
 
@@ -199,7 +200,6 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => @person.id, :name => "Some thing", :archived => true)
     @params[:value] = 1
     post "/api/v1/articles/#{article.id}/vote?#{params.to_query}"
-    puts JSON.parse(last_response.body)
     assert_equal 400, last_response.status
   end
 

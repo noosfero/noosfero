@@ -3,8 +3,8 @@ require_relative 'test_helper'
 class TasksTest < ActiveSupport::TestCase
 
   def setup
+    create_and_activate_user
     login_api
-    @person = user.person
     @community = fast_create(Community)
     @environment = Environment.default
   end
