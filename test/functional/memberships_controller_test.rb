@@ -32,7 +32,7 @@ class MembershipsControllerTest < ActionController::TestCase
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
 
-      assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
+      assert Community.find_by(identifier: 'my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
     end
   end
 
@@ -42,7 +42,7 @@ class MembershipsControllerTest < ActionController::TestCase
         CustomField.create!(:name => "zombies", :format=>"String", :default_value => "awrrr", :customized_type=>"Community", :active => true, :required => true, :signup => true, :environment => Environment.default)
         post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, "profile_data"=>{"custom_values"=>{"zombies"=>{"value"=>"BRAINSSS"}}}
         assert_response :redirect
-        assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
+        assert Community.find_by(identifier: 'my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
       end
     end
   end
@@ -94,7 +94,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
   should 'current user is added as admin after create new community' do
     post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
-    assert_equal Profile::Roles.admin(profile.environment.id), profile.find_roles(Community.find_by_identifier('my-shiny-new-community')).first.role
+    assert_equal Profile::Roles.admin(profile.environment.id), profile.find_roles(Community.find_by(identifier: 'my-shiny-new-community')).first.role
   end
 
   should 'display button to create community' do

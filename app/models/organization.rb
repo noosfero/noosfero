@@ -55,7 +55,7 @@ class Organization < Profile
 
   has_many :custom_roles, :class_name => 'Role', :foreign_key => :profile_id
 
-  scope :more_popular, :order => 'members_count DESC'
+  scope :more_popular, -> { order 'members_count DESC' }
 
   validate :presence_of_required_fieds, :unless => :is_template
 

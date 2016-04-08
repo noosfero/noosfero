@@ -359,16 +359,16 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'have admin role' do
-    Role.expects(:find_by_key_and_environment_id).with('environment_administrator', Environment.default.id).returns(Role.new)
+    Role.expects(:find_by).with(key: 'environment_administrator', environment_id: Environment.default.id).returns(Role.new)
     assert_kind_of Role, Environment::Roles.admin(Environment.default.id)
   end
 
   should 'create environment and profile default roles' do
     env = Environment.default
-    assert_equal 'Environment', env.roles.find_by_key('environment_administrator').kind
-    assert_equal 'Profile', env.roles.find_by_key('profile_admin').kind
-    assert_equal 'Profile', env.roles.find_by_key('profile_member').kind
-    assert_equal 'Profile', env.roles.find_by_key('profile_moderator').kind
+    assert_equal 'Environment', env.roles.find_by(key: 'environment_administrator').kind
+    assert_equal 'Profile', env.roles.find_by(key: 'profile_admin').kind
+    assert_equal 'Profile', env.roles.find_by(key: 'profile_member').kind
+    assert_equal 'Profile', env.roles.find_by(key: 'profile_moderator').kind
   end
 
   should 'be able to add admins easily' do

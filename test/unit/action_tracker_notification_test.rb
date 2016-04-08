@@ -81,8 +81,8 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
     friend = fast_create(Person)
     person.add_friend(friend)
     process_delayed_job_queue
-    activity = ActionTracker::Record.find_last_by_verb 'new_friendship'
-    notification = ActionTrackerNotification.find_by_action_tracker_id activity.id
+    activity = ActionTracker::Record.where(verb: 'new_friendship').last
+    notification = ActionTrackerNotification.find_by action_tracker_id: activity.id
 
     comment = create(Comment, :source => activity, :author => person)
     assert_equal activity.comments, notification.comments

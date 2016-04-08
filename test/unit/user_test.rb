@@ -164,9 +164,9 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_create_person_when_creating_user
     count = Person.count
-    refute Person.find_by_identifier('lalala')
+    refute Person.find_by(identifier: 'lalala')
     new_user(:login => 'lalala', :email => 'lalala@example.com')
-    assert Person.find_by_identifier('lalala')
+    assert Person.find_by(identifier: 'lalala')
   end
 
   should 'set the same environment for user and person objects' do
@@ -178,9 +178,9 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_destroy_person_when_destroying_user
     user = new_user(:login => 'lalala', :email => 'lalala@example.com')
-    assert Person.find_by_identifier('lalala')
+    assert Person.find_by(identifier: 'lalala')
     user.destroy
-    refute Person.find_by_identifier('lalala')
+    refute Person.find_by(identifier: 'lalala')
   end
 
   def test_should_encrypt_password_with_salted_sha1

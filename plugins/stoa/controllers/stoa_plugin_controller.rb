@@ -28,7 +28,7 @@ class StoaPluginController < PublicController
 
   def check_usp_id
     begin
-      render :text => { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) && Person.find_by_usp_id(params[:usp_id]).nil? }.to_json
+      render :text => { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) && Person.find_by(usp_id: params[:usp_id]).nil? }.to_json
     rescue Exception => exception
       render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end
@@ -36,7 +36,7 @@ class StoaPluginController < PublicController
 
   def check_cpf
     begin
-      render :text => { :exists => StoaPlugin::UspUser.find_by_codpes(params[:usp_id]).cpf.present? }.to_json
+      render :text => { :exists => StoaPlugin::UspUser.find_by(codpes: params[:usp_id]).cpf.present? }.to_json
     rescue Exception => exception
       render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end

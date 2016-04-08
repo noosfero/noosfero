@@ -9,7 +9,7 @@ class ShoppingCartPlugin::LineItem
   end
 
   def product
-    @product ||= Product.find_by_id(product_id)
+    @product ||= Product.find_by id: product_id
   end
 
   def name

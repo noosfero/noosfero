@@ -245,7 +245,7 @@ class OrdersCyclePlugin::Cycle < ActiveRecord::Base
   end
 
   def add_products_job
-    @add_products_job ||= Delayed::Job.find_by_id self.data[:add_products_job_id]
+    @add_products_job ||= Delayed::Job.find_by id: self.data[:add_products_job_id]
   end
 
   protected

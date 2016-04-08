@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def self.[](login)
-    self.find_by_login(login)
+    self.find_by login: login
   end
 
   # FIXME ugly workaround

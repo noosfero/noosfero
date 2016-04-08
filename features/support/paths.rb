@@ -15,7 +15,7 @@ module NavigationHelpers
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    #     user_profile_path(User.find_by(login: $1))
 
     when /^\//
       page_name
@@ -24,19 +24,19 @@ module NavigationHelpers
       '/site/welcome'
 
     when /article "([^"]+)"\s*$/
-      url_for(Article.find_by_name($1).url.merge({:only_path => true}))
+      url_for(Article.find_by(name: $1).url.merge({:only_path => true}))
 
     when /category "([^"]+)"/
-      '/cat/%s' % Category.find_by_name($1).slug
+      '/cat/%s' % Category.find_by(name: $1).slug
 
     when /edit "(.+)" by (.+)/
-      article_id = Person[$2].articles.find_by_slug($1.to_slug).id
+      article_id = Person[$2].articles.find_by(slug: $1.to_slug).id
       "/myprofile/#{$2}/cms/edit/#{article_id}"
 
     when /edit (.*Block) of (.+)/
       owner = Profile[$2]
       klass = $1.constantize
-      block = klass.find(:all).select{|i| i.owner == owner}.first
+      block = klass.all.select{|i| i.owner == owner}.first
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
@@ -85,18 +85,18 @@ module NavigationHelpers
       '/myprofile/%s/cms' % profile_identifier($1)
 
     when /^"(.+)" edit page/
-      article = Article.find_by_name($1)
+      article = Article.find_by name: $1
       '/myprofile/%s/cms/edit/%s' % [article.profile.identifier, article.id]
 
     when /^(.+)'s members management/
-      '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
+      '/myprofile/%s/profile_members' % Profile.find_by(name: $1).identifier
 
     when /^(.+)'s new product page/
       '/myprofile/%s/manage_products/new' % profile_identifier($1)
 
     when /^(.+)'s page of product (.*)$/
-      enterprise = Profile.find_by_name($1)
-      product = enterprise.products.find_by_name($2)
+      enterprise = Profile.find_by(name: $1)
+      product = enterprise.products.find_by(name: $2)
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
     when /^(.*)'s products page$/
@@ -138,7 +138,7 @@ module NavigationHelpers
   end
 
   def profile_identifier(field)
-    profile = Profile.find_by_name(field) || Profile.find_by_identifier(field)
+    profile = Profile.find_by(name: field) || Profile.find_by(identifier: field)
     profile.identifier
   end
 end

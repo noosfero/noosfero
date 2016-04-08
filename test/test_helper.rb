@@ -181,7 +181,7 @@ class ActiveSupport::TestCase
   end
 
   def process_delayed_job_queue
-    silence_stream(STDOUT) do
+    silence_stream STDOUT do
       Delayed::Worker.new.work_off
     end
   end

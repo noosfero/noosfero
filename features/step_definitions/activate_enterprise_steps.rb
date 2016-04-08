@@ -1,15 +1,15 @@
 Given /^I fill in "([^\"]*)" with code of "([^\"]*)"$/ do |field, enterprise|
-  enterprise = Enterprise.find_by_name(enterprise)
+  enterprise = Enterprise.find_by(name: enterprise)
   value = EnterpriseActivation.all.select { |task| task.enterprise == enterprise}.first.code
   fill_in(field, :with => value)
 end
 
 Given /^enterprise "([^\"]*)" should be enabled$/ do |enterprise|
-  Enterprise.find_by_name(enterprise).enabled?.should be_truthy
+  Enterprise.find_by(name: enterprise).enabled?.should be_truthy
 end
 
 Given /^"([^\"]*)" is the active enterprise template$/ do |enterprise|
-  template = Enterprise.find_by_name(enterprise)
+  template = Enterprise.find_by(name: enterprise)
   template.boxes.destroy_all
   template.boxes << Box.new
   template.layout_template = 'leftbar'
@@ -24,8 +24,8 @@ Given /^"([^\"]*)" is the active enterprise template$/ do |enterprise|
 end
 
 Given /^"([^\"]*)" has "([^\"]*)" as template$/ do |ent, templ|
-  template = Enterprise.find_by_name(templ)
-  enterprise = Enterprise.find_by_name(ent)
+  template = Enterprise.find_by(name: templ)
+  enterprise = Enterprise.find_by(name: ent)
   (template.boxes.size == enterprise.boxes.size).should be_truthy
   (template.layout_template == enterprise.layout_template).should be_truthy
   (template.theme == enterprise.theme).should be_truthy
@@ -34,8 +34,8 @@ Given /^"([^\"]*)" has "([^\"]*)" as template$/ do |ent, templ|
 end
 
 Given /^"([^\"]*)" doesnt have "([^\"]*)" as template$/ do |ent, templ|
-  template = Enterprise.find_by_name(templ)
-  enterprise = Enterprise.find_by_name(ent)
+  template = Enterprise.find_by(name: templ)
+  enterprise = Enterprise.find_by(name: ent)
   (template.boxes.size == enterprise.boxes.size).should be_falsey
   (template.layout_template == enterprise.layout_template).should be_falsey
   (template.theme == enterprise.theme).should be_falsey
@@ -44,16 +44,16 @@ Given /^"([^\"]*)" doesnt have "([^\"]*)" as template$/ do |ent, templ|
 end
 
 Given /^enterprise "([^\"]*)" is enabled$/ do |enterprise|
-  Enterprise.find_by_name(enterprise).update_attribute(:enabled,true)
-  Enterprise.find_by_name(enterprise).enabled?.should be_truthy
+  Enterprise.find_by(name: enterprise).update_attribute(:enabled,true)
+  Enterprise.find_by(name: enterprise).enabled?.should be_truthy
 end
 
 Given /^enterprise "([^\"]*)" should be blocked$/ do |enterprise|
-  Enterprise.find_by_name(enterprise).blocked?.should be_truthy
+  Enterprise.find_by(name: enterprise).blocked?.should be_truthy
 end
 
 Given /^enterprise "([^\"]*)" should not be blocked$/ do |enterprise|
-  Enterprise.find_by_name(enterprise).blocked?.should_not be_truthy
+  Enterprise.find_by(name: enterprise).blocked?.should_not be_truthy
 end
 
 Given /^enterprise template must be replaced after enable$/ do

@@ -1,13 +1,17 @@
 class Unit < ActiveRecord::Base
 
+  acts_as_list scope: -> unit { where environment_id: unit.environment_id }
+
   attr_accessible :name, :singular, :plural, :environment
 
   validates_presence_of :singular
   validates_presence_of :plural
 
   belongs_to :environment
+
   validates_presence_of :environment_id
-  acts_as_list :scope => :environment
+  validates_presence_of :singular
+  validates_presence_of :plural
 
   def name
     self.singular

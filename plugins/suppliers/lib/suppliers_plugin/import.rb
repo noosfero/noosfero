@@ -22,7 +22,7 @@ class SuppliersPlugin::Import
   end
 
   def self.products consumer, csv
-    default_product_category = consumer.environment.product_categories.find_by_name 'Produtos'
+    default_product_category = consumer.environment.product_categories.find_by name: 'Produtos'
 
     detection = CharlockHolmes::EncodingDetector.detect csv
     csv = CharlockHolmes::Converter.convert csv, detection[:encoding], 'UTF-8'

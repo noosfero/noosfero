@@ -28,7 +28,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-    a = Article.find_by_path('my-article')
+    a = Article.find_by(path: 'my-article')
     assert_equal "/myuser/#{a.slug}", path
   end
 
@@ -61,7 +61,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_equal 'this is the body of the article', article.body
 
     assert_response :success
-    a = Article.find_by_path('my-article')
+    a = Article.find_by path: 'my-article'
     assert_equal "/myuser/#{a.slug}", path
   end
 

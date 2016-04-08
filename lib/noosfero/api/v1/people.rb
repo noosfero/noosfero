@@ -46,7 +46,7 @@ module Noosfero
 
           desc "Return the person information"
           get ':id' do
-            person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
+            person = environment.people.visible_for_person(current_person).find_by id: params[:id]
             return not_found! if person.blank?
             present person, :with => Entities::Person, :current_person => current_person
           end
@@ -87,7 +87,7 @@ module Noosfero
 
           desc "Return the person friends"
           get ':id/friends' do
-            person = environment.people.visible_for_person(current_person).find_by_id(params[:id])
+            person = environment.people.visible_for_person(current_person).find_by id: params[:id]
             return not_found! if person.blank?
             friends = person.friends.visible
             present friends, :with => Entities::Person, :current_person => current_person
@@ -114,7 +114,7 @@ module Noosfero
             resource :members do
               paginate max_per_page: MAX_PER_PAGE
               get do
-                profile = environment.profiles.find_by_id(params[:profile_id])
+                profile = environment.profiles.find_by id: params[:profile_id]
                 members = select_filtered_collection_of(profile, 'members', params)
                 present members, :with => Entities::Person, :current_person => current_person
               end

@@ -57,7 +57,7 @@ class AddFriend < Task
   end
 
   def remove_from_suggestion_list(task)
-    suggestion = task.requestor.suggested_profiles.find_by_suggestion_id task.target.id
+    suggestion = task.requestor.suggested_profiles.find_by suggestion_id: task.target.id
     suggestion.disable if suggestion
   end
 end

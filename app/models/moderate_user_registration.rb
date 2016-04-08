@@ -27,7 +27,7 @@ class ModerateUserRegistration < Task
   end
 
   def perform
-    user=environment.users.find_by_id(user_id)
+    user=environment.users.find_by(id: user_id)
     user.activate
   end
 

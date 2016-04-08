@@ -66,7 +66,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         }
     end
 
-    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    form = CustomFormsPlugin::Form.find_by(name: 'My Form')
     assert_equal 'logged', form.access
     assert_equal begining, form.begining.strftime(format)
     assert_equal ending, form.ending.strftime(format)
@@ -110,7 +110,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :fields_attributes => fields
       }
     end
-    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    form = CustomFormsPlugin::Form.find_by(name: 'My Form')
     assert_equal num_fields, form.fields.count
     lst = 10
     form.fields.each do |f|
@@ -147,7 +147,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :fields_attributes => fields
       }
     end
-    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    form = CustomFormsPlugin::Form.find_by(name: 'My Form')
     assert_equal 2, form.fields.count
     assert form.fields.first.name == "1"
     assert form.fields.last.name == "0"

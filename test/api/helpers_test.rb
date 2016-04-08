@@ -45,7 +45,7 @@ class APIHelpersTest < ActiveSupport::TestCase
 #  should 'set current_user to nil after logout' do
 #    user = create_user('someuser')
 #    user.stubs(:private_token_expired?).returns(false)
-#    User.stubs(:find_by_private_token).returns(user)
+#    User.stubs(:find_by(private_token).returns: user)
 #    assert_not_nil current_user
 #    assert false
 #    logout
@@ -103,7 +103,8 @@ class APIHelpersTest < ActiveSupport::TestCase
     fast_create(Article, :profile_id => user.person.id)
 
     user.generate_private_token!
-    User.expects(:find_by_private_token).returns(user)
+    self.params = {private_token: user.private_token}
+    User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal a, find_article(user.person.articles, a.id)
   end
 
@@ -114,7 +115,8 @@ class APIHelpersTest < ActiveSupport::TestCase
     fast_create(Article, :profile_id => p.id)
 
     user.generate_private_token!
-    User.expects(:find_by_private_token).returns(user)
+    self.params = {private_token: user.private_token}
+    User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal 403, find_article(p.articles, a.id).last
   end
 

@@ -36,8 +36,8 @@ class CommentClassificationPlugin < Noosfero::Plugin
     comment = Comment.find args[0]
     label_id = args[1][:comment_label_id]
     if label_id.blank?
-      if !CommentClassificationPlugin::CommentLabelUser.find_by_comment_id(comment.id).nil?
-        CommentClassificationPlugin::CommentLabelUser.find_by_comment_id(comment.id).destroy
+      if !CommentClassificationPlugin::CommentLabelUser.find_by(comment_id: comment.id).nil?
+        CommentClassificationPlugin::CommentLabelUser.find_by(comment_id: comment.id).destroy
       end
     else
       label = CommentClassificationPlugin::Label.find label_id

@@ -58,7 +58,7 @@ class Test::Unit::TestCase
     table_names.each do |table_name|
       clear_from_solr(table_name)
       klass = instance_eval table_name.to_s.capitalize.singularize
-      klass.find(:all).each{|content| content.solr_save}
+      klass.all.each{|content| content.solr_save}
     end
 
     clear_from_solr(:novels)

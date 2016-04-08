@@ -301,7 +301,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
-    approved_article = community.articles.find_by_name(article.name)
+    approved_article = community.articles.find_by(name: article.name)
 
     assert_equal approved_article, ActionTracker::Record.last.target
   end
@@ -314,7 +314,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => article, :target => person, :requestor => person)
     a.finish
 
-    approved_article = person.articles.find_by_name(article.name)
+    approved_article = person.articles.find_by(name: article.name)
 
     assert_equal approved_article, ActionTracker::Record.last.target
   end

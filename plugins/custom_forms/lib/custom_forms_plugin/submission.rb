@@ -15,7 +15,7 @@ class CustomFormsPlugin::Submission < ActiveRecord::Base
   validate :check_answers
 
   def self.human_attribute_name_with_customization(attrib, options={})
-    if /\d+/ =~ attrib and (f = CustomFormsPlugin::Field.find_by_id(attrib.to_s))
+    if /\d+/ =~ attrib and (f = CustomFormsPlugin::Field.find_by(id: attrib.to_s))
       f.name
     else
       _(self.human_attribute_name_without_customization(attrib))

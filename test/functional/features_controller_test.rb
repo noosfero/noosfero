@@ -162,7 +162,7 @@ class FeaturesControllerTest < ActionController::TestCase
 
   should 'create custom field' do
     uses_host 'anhetegua.net'
-    assert_nil Environment.find(2).custom_fields.find_by_name('foo')
+    assert_nil Environment.find(2).custom_fields.find_by(name: 'foo')
     post :manage_custom_fields, :customized_type => 'Person', :custom_fields => {
       Time.now.to_i => {
         :name => 'foo',
@@ -175,7 +175,7 @@ class FeaturesControllerTest < ActionController::TestCase
       }
     }
     assert_redirected_to :action => 'manage_fields'
-    assert_not_nil Environment.find(2).custom_fields.find_by_name('foo')
+    assert_not_nil Environment.find(2).custom_fields.find_by(name: 'foo')
   end
 
   should 'update custom field' do
@@ -204,7 +204,7 @@ class FeaturesControllerTest < ActionController::TestCase
     post :manage_custom_fields, :customized_type => 'Enterprise'
 
     assert_redirected_to :action => 'manage_fields'
-    assert_nil Environment.find(2).custom_fields.find_by_name('foo')
+    assert_nil Environment.find(2).custom_fields.find_by(name: 'foo')
   end
 
 end

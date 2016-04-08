@@ -23,7 +23,7 @@ class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
     env.min_signup_delay = 0
     env.save!
 
-    assert User.find_by_login('ze') # just to make sure that 'ze' already exists
+    assert User.find_by(login: 'ze') # just to make sure that 'ze' already exists
 
     get '/'
     assert_can_login

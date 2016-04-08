@@ -2,7 +2,10 @@ require_dependency 'article'
 
 class Article
 
-  has_many :paragraph_comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc', :conditions => [ 'paragraph_uuid IS NOT NULL']
+  has_many :paragraph_comments, -> {
+    order('created_at ASC')
+      .where('paragraph_uuid IS NOT NULL')
+  }, class_name: 'Comment', foreign_key: 'source_id', dependent: :destroy
 
   before_save :comment_paragraph_plugin_parse_html
 

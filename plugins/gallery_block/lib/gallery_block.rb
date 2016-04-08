@@ -18,12 +18,12 @@ class GalleryBlock < Block
 
   def gallery
     if self.owner.kind_of? Environment
-      article = owner.articles.find_by_id(self.gallery_id)
+      article = owner.articles.find_by id: self.gallery_id
       if article && article.gallery?
         article
       end
     else
-      owner.image_galleries.find_by_id(self.gallery_id)
+      owner.image_galleries.find_by id: self.gallery_id
     end
   end
 

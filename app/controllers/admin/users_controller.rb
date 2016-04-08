@@ -48,7 +48,7 @@ class UsersController < AdminController
 
   def destroy_user
     if request.post?
-      person = environment.people.find_by_id(params[:id])
+      person = environment.people.find_by id: params[:id]
       if person && person.destroy
         session[:notice] = _('The profile was deleted.')
       else

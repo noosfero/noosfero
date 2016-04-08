@@ -7,7 +7,7 @@ before_filter :protect_if, :only => [:edit_visibility]
 
 def edit_visibility
   unless params[:article_id].blank?
-    folder = profile.environment.articles.find_by_id(params[:article_id])
+    folder = profile.environment.articles.find_by id: params[:article_id]
     @back_to = url_for(folder.parent.url)
     unless params[:article].blank?
       folder.published = params[:article][:published]
@@ -29,7 +29,7 @@ def edit_visibility
   protected
 
   def protect_if
-    article = environment.articles.find_by_id(params[:article_id])
+    article = environment.articles.find_by id: params[:article_id]
     render_access_denied unless (user && !article.nil? && (user.is_member_of? article.profile) &&
     article.parent.allow_visibility_edition && article.folder? &&
     (article.author == user || user.has_permission?('view_private_content', profile)))

@@ -1,6 +1,6 @@
 class StripHtmlFromTagNames < ActiveRecord::Migration
   def self.up
-    Tag.all(:conditions => "name LIKE '%<%' OR name LIKE '%>%'").each do |tag|
+    Tag.where("name LIKE '%<%' OR name LIKE '%>%'").find_each do |tag|
       tag.name = tag.name.gsub(/[<>]/, '')
       tag.save
     end

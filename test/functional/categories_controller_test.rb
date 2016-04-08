@@ -152,7 +152,7 @@ class CategoriesControllerTest < ActionController::TestCase
   should 'use parent\'s type to determine subcategory\'s type' do
     parent = create(ProductCategory, :name => 'Sample category', :environment => Environment.default)
     post :new, :parent_id => parent.id, :parent_type => parent.class.name, :category => {:name => 'Subcategory'}
-    sub = ProductCategory.find_by_name('Subcategory')
+    sub = ProductCategory.find_by(name: 'Subcategory')
     assert_equal parent.class, sub.class
   end
 

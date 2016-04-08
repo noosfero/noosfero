@@ -24,15 +24,15 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     assert_equal Task::Status::HIDDEN, abuse_complaint.status
 
     reported.environment.stubs(:reports_lower_bound).returns(2)
-    r1 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+    r1 = AbuseReport.new(:reason => 'some reason').tap do |a|
       a.reporter = p1
       a.abuse_complaint = abuse_complaint
     end.save
-    r2 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+    r2 = AbuseReport.new(:reason => 'some reason').tap do |a|
       a.reporter = p2
       a.abuse_complaint = abuse_complaint
     end.save
-    r3 = AbuseReport.new(:reason => 'some reason').tap do |a| 
+    r3 = AbuseReport.new(:reason => 'some reason').tap do |a|
       a.reporter = p3
       a.abuse_complaint = abuse_complaint
     end.save
@@ -50,10 +50,10 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     reported_id = reported.id
     abuse_complaint = AbuseComplaint.create!(:reported => reported)
 
-    assert AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint was not created!"
+    assert AbuseComplaint.find_by(requestor_id: reported_id), "AbuseComplaint was not created!"
 
     reported.destroy
 
-    refute AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint still exist!"
+    refute AbuseComplaint.find_by(requestor_id: reported_id), "AbuseComplaint still exist!"
   end
 end

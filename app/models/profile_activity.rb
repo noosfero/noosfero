@@ -9,8 +9,12 @@ class ProfileActivity < ActiveRecord::Base
   belongs_to :activity, polymorphic: true
 
   # non polymorphic versions
-  belongs_to :scrap, foreign_key: :activity_id, class_name: 'Scrap', conditions: {profile_activities: {activity_type: 'Scrap'}}
-  belongs_to :action_tracker, foreign_key: :activity_id, class_name: 'ActionTracker::Record', conditions: {profile_activities: {activity_type: 'ActionTracker::Record'}}
+  belongs_to :scrap, -> {
+    where profile_activities: {activity_type: 'Scrap'}
+  }, foreign_key: :activity_id, class_name: 'Scrap'
+  belongs_to :action_tracker, -> {
+    where profile_activities: {activity_type: 'ActionTracker::Record'}
+  }, foreign_key: :activity_id, class_name: 'ActionTracker::Record'
 
   before_validation :copy_timestamps
 

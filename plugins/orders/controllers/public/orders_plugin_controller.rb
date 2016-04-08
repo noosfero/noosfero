@@ -14,7 +14,7 @@ class OrdersPluginController < PublicController
 
   def clear_orders_session
     return if user
-    previous_orders.update_all ['session_id = ?', nil]
+    previous_orders.update_all session_id: nil
   end
 
   protected

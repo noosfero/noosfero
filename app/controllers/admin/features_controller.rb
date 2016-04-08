@@ -60,7 +60,7 @@ class FeaturesController < AdminController
     CustomField.destroy(custom_fields_to_destroy)
 
     custom_field_list.each_pair do |id, custom_field|
-      field = CustomField.find_by_id(id)
+      field = CustomField.find_by(id: id)
       if not field.blank?
         params_to_update = custom_field.except(:format, :extras, :customized_type,:environment)
         field.update_attributes(params_to_update)

@@ -56,7 +56,7 @@ class NewsletterPluginNewsletterTest < ActiveSupport::TestCase
       :periodicity => '3',
       :person => fast_create(Person))
 
-    assert_equal 3, NewsletterPlugin::Newsletter.find_by_environment_id(environment.id).periodicity
+    assert_equal 3, NewsletterPlugin::Newsletter.find_by(environment_id: environment.id).periodicity
   end
 
   should 'save period as number only' do

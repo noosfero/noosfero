@@ -18,7 +18,7 @@ class OrdersCyclePluginProductController < SuppliersPlugin::ProductController
     @offered_product = OrdersCyclePlugin::OfferedProduct.find params[:id]
     @order = OrdersCyclePlugin::Sale.find params[:order_id]
     raise 'Order confirmed or cycle is closed for orders' unless @order.open?
-    @item = @order.items.find_by_product_id @offered_product.id
+    @item = @order.items.find_by product_id: @offered_product.id
     @item.destroy rescue render nothing: true
   end
 

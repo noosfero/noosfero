@@ -109,7 +109,8 @@ class Person < Profile
   has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
-  has_many :suggested_profiles, class_name: 'ProfileSuggestion', foreign_key: :person_id, order: 'score DESC', dependent: :destroy
+  has_many :suggested_profiles, -> { order 'score DESC' },
+    class_name: 'ProfileSuggestion', foreign_key: :person_id, dependent: :destroy
   has_many :suggested_people, -> {
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Person', true
   }, through: :suggested_profiles, source: :suggestion
@@ -392,7 +393,7 @@ class Person < Profile
 
 
   def self.with_pending_tasks
-    Person.find(:all).select{ |person| !person.tasks.pending.empty? or person.has_organization_pending_tasks? }
+    Person.all.select{ |person| !person.tasks.pending.empty? or person.has_organization_pending_tasks? }
   end
 
   def has_organization_pending_tasks?
@@ -486,7 +487,7 @@ class Person < Profile
   end
 
   def each_friend(offset=0)
-    while friend = self.friends.first(:order => :id, :offset => offset)
+    while friend = self.friends.order(:id).offset(offset).first
       yield friend
       offset = offset + 1
     end
@@ -568,7 +569,7 @@ class Person < Profile
   end
 
   def remove_suggestion(profile)
-    suggestion = suggested_profiles.find_by_suggestion_id profile.id
+    suggestion = suggested_profiles.find_by suggestion_id: profile.id
     suggestion.disable if suggestion
   end
 

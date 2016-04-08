@@ -167,7 +167,7 @@ class SearchController < PublicController
       render_not_found if params[:action] == 'category_index'
     else
       path = params[:category_path]
-      @category = environment.categories.find_by_path(path)
+      @category = environment.categories.find_by path: path
       if @category.nil?
         render_not_found(path)
       else
@@ -177,14 +177,14 @@ class SearchController < PublicController
   end
 
   def available_searches
-    @available_searches ||= ActiveSupport::OrderedHash[
-      :articles, _('Contents'),
-      :people, _('People'),
-      :communities, _('Communities'),
-      :enterprises, _('Enterprises'),
-      :products, _('Products and Services'),
-      :events, _('Events'),
-    ]
+    @available_searches ||= {
+      articles:    _('Contents'),
+      people:      _('People'),
+      communities: _('Communities'),
+      enterprises: _('Enterprises'),
+      products:    _('Products and Services'),
+      events:      _('Events'),
+    }
   end
 
   def load_search_assets
@@ -256,13 +256,13 @@ class SearchController < PublicController
   end
 
   def available_assets
-    assets = ActiveSupport::OrderedHash[
-      :articles, _('Contents'),
-      :enterprises, _('Enterprises'),
-      :people, _('People'),
-      :communities, _('Communities'),
-      :products, _('Products and Services'),
-    ]
+    assets = {
+      articles:    _('Contents'),
+      enterprises: _('Enterprises'),
+      people:      _('People'),
+      communities: _('Communities'),
+      products:    _('Products and Services'),
+    }
   end
 
 end

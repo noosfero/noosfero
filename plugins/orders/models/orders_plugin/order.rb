@@ -68,7 +68,7 @@ class OrdersPlugin::Order < ActiveRecord::Base
     where cond
   end
 
-  scope :latest, order: 'created_at DESC'
+  scope :latest, -> { order 'created_at DESC' }
 
   scope :draft,     -> { where status: 'draft' }
   scope :planned,   -> { where status: 'planned' }

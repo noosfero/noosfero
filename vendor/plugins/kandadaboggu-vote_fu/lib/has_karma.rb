@@ -27,42 +27,34 @@ module PeteOnRails
           end
         end
       end
-      
+
       # This module contains class methods
       module SingletonMethods
-        
+
         ## Not yet implemented. Don't use it!
         # Find the most popular users
         def find_most_karmic
-          find(:all)
+          all
         end
-                      
+
       end
-      
+
       # This module contains instance methods
       module InstanceMethods
         def karma(options = {})
-          #FIXME cannot have 2 models imapcting the karma simultaneously
-          # count the total number of votes on all of the voteable objects that are related to this object
-          #2009-01-30 GuillaumeNM The following line is not SQLite3 compatible, because boolean are stored as 'f' or 't', not '1', or '0'
-          #self.karma_voteable.sum(:vote, options_for_karma(options))
-          #self.karma_voteable.find(:all, options_for_karma(options)).length
           karma_value = 0
           self.class.karmatic_objects.each do |object|
-            karma_value += object.find(:all, options_for_karma(object, options)).length
+            karma_value += object
+              .where("u.id = ? AND vote = ?" , self[:id] , true)
+              .joins("inner join votes v on #{object.table_name}.id = v.voteable_id")
+              .joins("inner join #{self.class.table_name} u on u.id = #{object.name.tableize}.#{self.class.name.foreign_key}")
+              .length
           end
           return karma_value
         end
-        
-        def options_for_karma (object, options = {})
-            #GuillaumeNM : 2009-01-30 Adding condition for SQLite3
-            conditions = ["u.id = ? AND vote = ?" , self[:id] , true]
-            joins = ["inner join votes v on #{object.table_name}.id = v.voteable_id", "inner join #{self.class.table_name} u on u.id = #{object.name.tableize}.#{self.class.name.foreign_key}"]
-            { :joins => joins.join(" "), :conditions => conditions }.update(options)          
-        end
-        
+
       end
-      
+
     end
   end
 end

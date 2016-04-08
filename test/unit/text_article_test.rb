@@ -11,7 +11,7 @@ class TextArticleTest < ActiveSupport::TestCase
   should 'found TextileArticle by TextArticle class' do
     person = create_user('testuser').person
     article = fast_create(TextileArticle, :name => 'textile article test', :profile_id => person.id)
-    assert_includes TextArticle.find(:all), article
+    assert_includes TextArticle.all, article
   end
 
   should 'be translatable' do

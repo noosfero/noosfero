@@ -17,7 +17,7 @@ module Noosfero
           end
 
           get ":id" do
-            user = environment.users.find_by_id(params[:id])
+            user = environment.users.find_by id: params[:id]
             unless user.person.display_info_to? current_person
               unauthorized!
             end

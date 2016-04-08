@@ -5,7 +5,7 @@ class ProductCategory < Category
 
   attr_accessible :name, :parent, :environment
 
-  scope :unique, :select => 'DISTINCT ON (path) categories.*'
+  scope :unique, -> { select 'DISTINCT ON (path) categories.*' }
   scope :by_enterprise, -> enterprise {
     distinct.joins(:products).
     where('products.profile_id = ?', enterprise.id)

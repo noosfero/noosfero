@@ -6,7 +6,7 @@ class Comment
   end
 
   before_destroy do |comment|
-    publication = ToleranceTimePlugin::Publication.find_by_target(comment)
+    publication = ToleranceTimePlugin::Publication.find_by target: comment
     publication.destroy if publication.present?
   end
 end

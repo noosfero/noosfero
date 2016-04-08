@@ -7,7 +7,7 @@ class ProfileRolesControllerTest < ActionController::TestCase
     @controller = ProfileRolesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @role = Role.find(:first)
+    @role = Role.first
   end
 
   should 'create a custom role' do
@@ -55,7 +55,7 @@ class ProfileRolesControllerTest < ActionController::TestCase
     login_as :admin_user
     role = Role.create!({:name => 'delete_article', :key => 'profile_delete_article', :profile_id => community.id, :environment => Environment.default}, :without_protection => true)
     admin.add_role(role, community)
-    moderator_role = Role.find_by_name("moderator")
+    moderator_role = Role.find_by(name: "moderator")
 
     assert_not_includes community.members_by_role(moderator_role), admin
 
@@ -87,7 +87,7 @@ class ProfileRolesControllerTest < ActionController::TestCase
     moderator = create_user_with_permission('profile_admin', 'edit_profile', community)
     login_as :admin_user
     role = Role.create!({:name => 'delete_article', :key => 'profile_delete_article', :profile_id => community.id, :environment => Environment.default}, :without_protection => true)
-    moderator_role = Role.find_by_name("moderator")
+    moderator_role = Role.find_by(name: "moderator")
     admin.add_role(moderator_role, community)
 
     assert_not_includes community.members_by_role(role), admin

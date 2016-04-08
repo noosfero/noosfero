@@ -1,8 +1,12 @@
 module ActsAsHavingPosts
 
   module ClassMethods
-    def  acts_as_having_posts(options = {})
-      has_many :posts, { :class_name => 'Article', :foreign_key => 'parent_id', :source => :children, :conditions => [ 'articles.type != ?', 'RssFeed' ], :order => 'published_at DESC, id DESC' }.merge(options)
+    def acts_as_having_posts(scope = nil)
+      has_many :posts, -> {
+        s = order('published_at DESC, id DESC').where('articles.type != ?', 'RssFeed')
+        s = s.instance_exec(&scope) if scope
+        s
+      }, class_name: 'Article', foreign_key: 'parent_id', source: :children
 
       attr_accessor :feed_attrs
 

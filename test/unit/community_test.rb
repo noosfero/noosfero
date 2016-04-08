@@ -39,10 +39,10 @@ class CommunityTest < ActiveSupport::TestCase
     Community.any_instance.stubs(:default_set_of_articles).returns([blog])
     community = create(Community, :environment => Environment.default, :name => 'my new community')
 
-    assert_kind_of Blog, community.articles.find_by_path(blog.path)
-    assert community.articles.find_by_path(blog.path).published?
-    assert_kind_of RssFeed, community.articles.find_by_path(blog.feed.path)
-    assert community.articles.find_by_path(blog.feed.path).published?
+    assert_kind_of Blog, community.articles.find_by(path: blog.path)
+    assert community.articles.find_by(path: blog.path).published?
+    assert_kind_of RssFeed, community.articles.find_by(path: blog.feed.path)
+    assert community.articles.find_by(path: blog.feed.path).published?
   end
 
   should 'have contact_person' do

@@ -2,7 +2,7 @@
 
 <%= labelled_form_for 'article', :html => { :multipart => true, :class => @type } do |f| %>
 
-  <% @article = environment.articles.find_by_id((params[:article_id]))%>
+  <% @article = environment.articles.find_by id: params[:article_id] %>
 
   <% @tokenized_children = params[:tokenized_children]%>
 

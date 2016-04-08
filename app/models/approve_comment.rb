@@ -18,7 +18,7 @@ class ApproveComment < Task
   end
 
   def article
-    Article.find_by_id comment.source_id unless self.comment.nil?
+    Article.find_by id: comment.source_id unless self.comment.nil?
   end
 
   def article_name

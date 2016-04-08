@@ -8,13 +8,13 @@ class StoaPlugin::Auth < Sinatra::Base
   post '/' do
     headers['Content-Type'] = 'application/json'
     if params[:login].blank?
-      person = Person.find_by_usp_id(params[:usp_id])
+      person = Person.find_by usp_id: params[:usp_id]
       login = person ? person.user.login : nil
     else
       login = params[:login]
     end
 
-    domain = Domain.find_by_name(request.host)
+    domain = Domain.by_name(request.host)
     environment = domain && domain.environment
     environment ||= Environment.default
 

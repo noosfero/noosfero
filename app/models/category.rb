@@ -90,7 +90,7 @@ class Category < ActiveRecord::Base
 
   def children_for_menu
     results = []
-    pending = children.where(display_in_menu: true).all
+    pending = children.where(display_in_menu: true).to_a
     while pending.present?
       cat = pending.shift
       results << cat

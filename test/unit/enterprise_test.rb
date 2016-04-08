@@ -76,8 +76,8 @@ class EnterpriseTest < ActiveSupport::TestCase
     Enterprise.any_instance.expects(:default_set_of_articles).returns([blog])
     enterprise = create(Enterprise, :name => 'my test enterprise', :identifier => 'myenterprise')
 
-    assert_kind_of Blog, enterprise.articles.find_by_path(blog.path)
-    assert_kind_of RssFeed, enterprise.articles.find_by_path(blog.feed.path)
+    assert_kind_of Blog, enterprise.articles.find_by(path: blog.path)
+    assert_kind_of RssFeed, enterprise.articles.find_by(path: blog.feed.path)
   end
 
   should 'create default set of blocks' do
@@ -206,13 +206,13 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'create EnterpriseActivation task when creating with enabled = false' do
     EnterpriseActivation.delete_all
     ent = create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
-    assert_equal [ent], EnterpriseActivation.find(:all).map(&:enterprise)
+    assert_equal [ent], EnterpriseActivation.all.map(&:enterprise)
   end
 
   should 'create EnterpriseActivation with 7-characters codes' do
     EnterpriseActivation.delete_all
     create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => false)
-    assert_equal 7, EnterpriseActivation.find(:first).code.size
+    assert_equal 7, EnterpriseActivation.first.code.size
   end
 
   should 'not create activation task when enabled = true' do

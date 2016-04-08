@@ -98,7 +98,7 @@ class FolderTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => image, :target => community, :requestor => person, :article_parent => folder)
     a.finish
 
-    assert_includes folder.images(true), community.articles.find_by_name('rails.png')
+    assert_includes folder.images(true), community.articles.find_by(name: 'rails.png')
   end
 
   should 'not let pass javascript in the name' do

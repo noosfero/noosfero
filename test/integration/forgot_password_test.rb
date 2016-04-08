@@ -25,7 +25,7 @@ class ForgotPasswordTest < ActionDispatch::IntegrationTest
     assert_template 'password_recovery_sent'
 
     assert_equal 1, ChangePassword.count
-    code = ChangePassword.find(:first).code
+    code = ChangePassword.first.code
 
     get "/account/new_password/#{code}"
     assert_response :success
@@ -58,7 +58,7 @@ class ForgotPasswordTest < ActionDispatch::IntegrationTest
     assert_template 'password_recovery_sent'
 
     assert_equal 1, ChangePassword.count
-    code = ChangePassword.find(:first).code
+    code = ChangePassword.first.code
 
     get "/account/new_password/#{code}"
     assert_response :success

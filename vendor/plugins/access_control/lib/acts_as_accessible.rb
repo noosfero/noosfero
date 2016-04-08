@@ -32,7 +32,7 @@ module ActsAsAccessible
   end
 
   def roles
-    Role.find_all_by_environment_id(environment.id).select do |r|
+    Role.where(environment_id: environment.id).select do |r|
       r.permissions.any?{ |p| PERMISSIONS[self.class.base_class.name].include?(p) }
     end
   end

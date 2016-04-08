@@ -60,7 +60,7 @@ class ProfileMembersController < MyProfileController
       redirect_to :action => 'index'
     else
       @member = Person.find(params[:person])
-      @roles = environment.roles.find(:all).select{ |r| r.has_kind?('Profile') }
+      @roles = environment.roles.all.select{ |r| r.has_kind?('Profile') }
       render :action => 'affiliate'
     end
   end
@@ -120,7 +120,7 @@ class ProfileMembersController < MyProfileController
     @collection = :profile_admins
 
     if profile.community?
-      member = profile.members.find_by_identifier(params[:id])
+      member = profile.members.find_by(identifier: params[:id])
       profile.add_admin(member)
     end
     render :layout => false
@@ -131,7 +131,7 @@ class ProfileMembersController < MyProfileController
     @collection = :profile_admins
 
     if profile.community?
-      member = profile.members.find_by_identifier(params[:id])
+      member = profile.members.find_by(identifier: params[:id])
       profile.remove_admin(member)
     end
     render :layout => false

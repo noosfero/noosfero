@@ -6,7 +6,7 @@ end
 Given /^the following categories as facets$/ do |table|
   ids = []
   table.hashes.each do |item|
-    cat = Category.find_by_name(item[:name])
+    cat = Category.find_by name: item[:name]
     if cat.nil?
       cat = Category.create!(:environment_id => Environment.default.id, :name => item[:name])
     end

@@ -250,7 +250,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     u = create_user('member_wannabe').person
     post :add_member, :profile => ent.identifier, :id => u.id
 
-    assert_equivalent Profile::Roles.all_roles(ent.environment).compact, u.role_assignments.find_all_by_resource_id(ent.id).map(&:role).compact
+    assert_equivalent Profile::Roles.all_roles(ent.environment).compact, u.role_assignments.where(resource_id: ent.id).map(&:role).compact
   end
 
   should 'not add member to community' do

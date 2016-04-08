@@ -22,7 +22,7 @@ require_relative '../../find_by_contents'
 
       def current_user
         private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
-        @current_user ||= User.find_by_private_token(private_token)
+        @current_user ||= User.find_by private_token: private_token
         @current_user
       end
 
@@ -268,7 +268,7 @@ require_relative '../../find_by_contents'
       #   keys (unique) - A hash consisting of keys that must be unique
       def unique_attributes!(obj, keys)
         keys.each do |key|
-          cant_be_saved_request!(key) if obj.send("find_by_#{key.to_s}", params[key])
+          cant_be_saved_request!(key) if obj.find_by(key.to_s => params[key])
         end
       end
 
@@ -342,7 +342,7 @@ require_relative '../../find_by_contents'
       end
 
       def detect_stuff_by_domain
-        @domain = Domain.find_by_name(request.host)
+        @domain = Domain.by_name(request.host)
         if @domain.nil?
           @environment = Environment.default
           if @environment.nil? && Rails.env.development?

@@ -8,7 +8,7 @@ class ChangeCategoryDisplayColorToString < ActiveRecord::Migration
     end
 
     COLORS.each_with_index do |color, i|
-      Category.update_all({:display_color_tmp => color}, {:display_color => i+1})
+      Category.where(display_color: i+1).update_all display_color_tmp: color
     end
 
     change_table :categories do |t|
@@ -25,7 +25,7 @@ class ChangeCategoryDisplayColorToString < ActiveRecord::Migration
     end
 
     COLORS.each_with_index do |color, i|
-      Category.update_all({:display_color_tmp => i+1}, {:display_color => color})
+      Category.where(display_color: color).update_all display_color_tmp: i+1
     end
 
     change_table :categories do |t|

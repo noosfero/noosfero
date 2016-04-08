@@ -73,7 +73,8 @@ module ActionTracker
       end
 
       def acts_as_trackable(options = {})
-        has_many :tracked_actions, { :class_name => "ActionTracker::Record", :order => "updated_at DESC", :foreign_key => :user_id, :dependent => :destroy }.merge(options)
+        has_many :tracked_actions, -> { order 'updated_at DESC' },
+          {class_name: "ActionTracker::Record", foreign_key: :user_id, dependent: :destroy }.merge(options)
         send :include, InstanceMethods
       end
     end

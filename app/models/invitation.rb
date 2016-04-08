@@ -67,7 +67,7 @@ class Invitation < Task
       end
 
       begin
-        user = find_by_profile_id ? Person.find_by_id(contact_to_invite).user : User.find_by_email(friend_email)
+        user = find_by_profile_id ? Person.find_by(id: contact_to_invite).user : User.find_by(email: friend_email)
       rescue
         user = nil
       end

@@ -597,7 +597,7 @@ class ArticleTest < ActiveSupport::TestCase
     a.name = 'new-name'
     a.save!
 
-    page = Article.find_by_old_path(old_path)
+    page = Article.find_by_old_path old_path
 
     assert_equal a.path, page.path
   end
@@ -610,7 +610,7 @@ class ArticleTest < ActiveSupport::TestCase
     a1.save!
     a2 = p.articles.create!(:name => 'old-name')
 
-    page = Article.find_by_old_path(old_path)
+    page = Article.find_by_old_path old_path
 
     assert_equal a2.path, page.path
   end
@@ -625,7 +625,7 @@ class ArticleTest < ActiveSupport::TestCase
     a2.name = 'other-new-name'
     a2.save!
 
-    page = Article.find_by_old_path(old_path)
+    page = Article.find_by_old_path old_path
 
     assert_equal a2.path, page.path
   end
@@ -639,7 +639,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     p2 = create_user('another_user').person
 
-    page = p2.articles.find_by_old_path(old_path)
+    page = p2.articles.find_by_old_path old_path
 
     assert_nil page
   end
@@ -799,7 +799,7 @@ class ArticleTest < ActiveSupport::TestCase
     # also ignore parent with id = 0
     assert_equal [c], a.categories_including_virtual
 
-    a = profile.articles.find_by_name 'a test article'
+    a = profile.articles.find_by name: 'a test article'
     assert_equal [c], a.categories
   end
 
@@ -917,7 +917,7 @@ class ArticleTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
-    published = community.articles.find_by_name('article name')
+    published = community.articles.find_by(name: 'article name')
     published.name = 'title with "quotes"'
     published.save
     assert_equal 'title with "quotes"', published.name
@@ -988,8 +988,8 @@ class ArticleTest < ActiveSupport::TestCase
     activity = article.activity
 
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
-    assert_equivalent [p1,p2,community], ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).map(&:profile)
+    assert_equal 3, ActionTrackerNotification.where(action_tracker_id: activity.id).count
+    assert_equivalent [p1,p2,community], ActionTrackerNotification.where(action_tracker_id: activity.id).map(&:profile)
   end
 
   should 'destroy activity when a published article is removed' do
@@ -1090,17 +1090,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [first_activity], ActionTracker::Record.where(verb: 'create_article')
 
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(first_activity.id).count
+    assert_equal 2, ActionTrackerNotification.where(action_tracker_id: first_activity.id).count
 
     member_2 = fast_create(Person)
     community.add_member(member_2)
 
     article2 = create TinyMceArticle, :name => 'Tracked Article 2', :profile_id => community.id
     second_activity = article2.activity
-    assert_equivalent [first_activity, second_activity], ActionTracker::Record.find_all_by_verb('create_article')
+    assert_equivalent [first_activity, second_activity], ActionTracker::Record.where(verb: 'create_article')
 
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(second_activity.id).count
+    assert_equal 3, ActionTrackerNotification.where(action_tracker_id: second_activity.id).count
   end
 
   should 'create notifications to friends when creating an article' do
@@ -1122,16 +1122,16 @@ class ArticleTest < ActiveSupport::TestCase
 
     User.current = profile.user
     article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => profile.id
-    assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
+    assert_equal 1, ActionTracker::Record.where(verb: 'create_article').count
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(article.activity.id).count
+    assert_equal 2, ActionTrackerNotification.where(action_tracker_id: article.activity.id).count
 
     f2 = fast_create(Person)
     profile.add_friend(f2)
     article2 = create TinyMceArticle, :name => 'Tracked Article 2', :profile_id => profile.id
-    assert_equal 2, ActionTracker::Record.find_all_by_verb('create_article').count
+    assert_equal 2, ActionTracker::Record.where(verb: 'create_article').count
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(article2.activity.id).count
+    assert_equal 3, ActionTrackerNotification.where(action_tracker_id: article2.activity.id).count
   end
 
   should 'destroy activity and notifications of friends when destroying an article' do
@@ -1145,7 +1145,7 @@ class ArticleTest < ActiveSupport::TestCase
     activity = article.activity
 
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+    assert_equal 2, ActionTrackerNotification.where(action_tracker_id: activity.id).count
 
     assert_difference 'ActionTrackerNotification.count', -2 do
       article.destroy
@@ -1168,7 +1168,7 @@ class ArticleTest < ActiveSupport::TestCase
     activity = article.activity
 
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+    assert_equal 3, ActionTrackerNotification.where(action_tracker_id: activity.id).count
 
     assert_difference 'ActionTrackerNotification.count', -3 do
       article.destroy
@@ -2237,9 +2237,9 @@ class ArticleTest < ActiveSupport::TestCase
     p = fast_create(Person)
     assert_difference "a.reload.followers_count" do
       a.person_followers << p
-    end 
+    end
   end
-    
+
   should "decrement followers count when a person unfollow an article" do
     p = fast_create(Person)
     a = fast_create(Article, :profile_id => p)

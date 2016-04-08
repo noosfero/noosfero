@@ -7,17 +7,15 @@ class SuppliersPlugin::BaseProduct < Product
 
   accepts_nested_attributes_for :supplier_product
 
-  default_scope include: [
-    # from_products is required for products.available
-    :from_products,
-    # FIXME: move use cases to a scope called 'includes_for_links'
-    {
-      suppliers: [{ profile: [:domains, {environment: :domains}] }]
-    },
-    {
-      profile: [:domains, {environment: :domains}]
-    }
-  ]
+  default_scope -> {
+    includes(
+      # from_products is required for products.available
+      :from_products,
+      # FIXME: move use cases to a scope called 'includes_for_links'
+      {suppliers: [{ profile: [:domains, {environment: :domains}] }]},
+      {profile: [:domains, {environment: :domains}]}
+    )
+  }
 
   # if abstract_class is true then it will trigger https://github.com/rails/rails/issues/20871
   #self.abstract_class = true

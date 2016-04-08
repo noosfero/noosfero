@@ -1,8 +1,5 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
-require(
-  File.expand_path(File.dirname(__FILE__)) +
-  '/../../controllers/environment_notification_plugin_admin_controller'
-)
+require 'test_helper'
+require_relative '../../controllers/environment_notification_plugin_admin_controller'
 
 class EnvironmentNotificationPluginAdminController; def rescue_action(e) raise e end;
 end
@@ -94,7 +91,7 @@ class EnvironmentNotificationPluginAdminControllerTest < ActionController::TestC
                       :type => "EnvironmentNotificationPlugin::DangerNotification"
                     )
     delete :destroy, :id => @notification.id
-    assert_nil EnvironmentNotificationPlugin::EnvironmentNotification.find_by_id(@notification.id)
+    assert_nil EnvironmentNotificationPlugin::EnvironmentNotification.find_by(id: @notification.id)
   end
 
   should 'an user not to be able to destroy a notification' do
@@ -107,7 +104,7 @@ class EnvironmentNotificationPluginAdminControllerTest < ActionController::TestC
      delete :destroy, :id => @notification.id
 
      assert_redirected_to :root
-     assert_not_nil EnvironmentNotificationPlugin::EnvironmentNotification.find_by_id(@notification.id)
+     assert_not_nil EnvironmentNotificationPlugin::EnvironmentNotification.find_by(id: @notification.id)
   end
 
   should 'an admin be able to change Notification status' do

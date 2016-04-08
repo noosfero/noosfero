@@ -44,7 +44,7 @@ class ChatController < PublicController
   end
 
   def avatar
-    profile = environment.profiles.find_by_identifier(params[:id])
+    profile = environment.profiles.find_by(identifier: params[:id])
     filename, mimetype = profile_icon(profile, :minor, true)
     if filename =~ /^(https?:)?\/\//
       redirect_to filename
@@ -87,7 +87,7 @@ class ChatController < PublicController
   end
 
   def recent_messages
-    other = environment.profiles.find_by_identifier(params[:identifier])
+    other = environment.profiles.find_by(identifier: params[:identifier])
     if other.kind_of?(Organization)
       messages = ChatMessage.where('to_id=:other', :other => other.id)
     else

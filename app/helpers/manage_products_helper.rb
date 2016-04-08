@@ -222,7 +222,7 @@ module ManageProductsHelper
   end
   def select_certifiers(qualifier, product = nil)
     if qualifier
-      selected = product ? product.product_qualifiers.find_by_qualifier_id(qualifier.id).certifier_id : nil
+      selected = product ? product.product_qualifiers.find_by(qualifier_id: qualifier.id).certifier_id : nil
       select_tag("product[qualifiers_list][#{qualifier.id}]", options_for_select(certifiers_for_select(qualifier), selected))
     else
       select_tag("product[qualifiers_list][nil]")

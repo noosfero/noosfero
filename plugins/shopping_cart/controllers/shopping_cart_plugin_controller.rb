@@ -353,7 +353,7 @@ class ShoppingCartPluginController < OrdersPluginController
 
   def products
     self.cart[:items].collect do |id, quantity|
-      product = Product.find_by_id(id)
+      product = Product.find_by id: id
       if product
         { id: product.id,
           name: product.name,

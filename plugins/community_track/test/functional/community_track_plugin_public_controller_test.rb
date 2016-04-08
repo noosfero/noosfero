@@ -105,10 +105,10 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
     per_page = 4
     (per_page*3).times {|i| create_track("track_#{i}", @community) }
 
-    tracks = 3.times.map do |i|
+    tracks = 3.times.flat_map do |i|
       xhr :get, :view_tracks, :id => @block.id, :page => i+1, :per_page => per_page
       assigns[:tracks].all
-    end.flatten
+    end
     assert_equal tracks.count, tracks.uniq.count
   end
 

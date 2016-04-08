@@ -26,7 +26,7 @@ class EnvironmentNotificationPluginAdminController < AdminController
 
   def destroy
     if request.delete?
-      notification = environment.environment_notifications.find_by_id(params[:id])
+      notification = environment.environment_notifications.find_by id: params[:id]
       if notification && notification.destroy
         session[:notice] = _('The notification was deleted.')
       else
@@ -37,7 +37,7 @@ class EnvironmentNotificationPluginAdminController < AdminController
   end
 
   def edit
-    @notification = environment.environment_notifications.find_by_id(params[:id])
+    @notification = environment.environment_notifications.find_by id: params[:id]
     if request.post?
       if @notification.update_attributes(params[:notifications])
         session[:notice] = _('The notification was edited.')
@@ -49,7 +49,7 @@ class EnvironmentNotificationPluginAdminController < AdminController
   end
 
   def change_status
-    @notification = environment.environment_notifications.find_by_id(params[:id])
+    @notification = environment.environment_notifications.find_by id: params[:id]
 
     @notification.active = !@notification.active
 
@@ -66,7 +66,7 @@ class EnvironmentNotificationPluginAdminController < AdminController
     result = false
 
     if logged_in?
-      @notification = environment.environment_notifications.find_by_id(params[:notification_id])
+      @notification = environment.environment_notifications.find_by id: params[:notification_id]
 
       if @notification
         @notification.users << current_user
@@ -81,7 +81,7 @@ class EnvironmentNotificationPluginAdminController < AdminController
     result = false
 
     if logged_in?
-      @notification = environment.environment_notifications.find_by_id(params[:notification_id])
+      @notification = environment.environment_notifications.find_by id: params[:notification_id]
 
       if @notification
         current_notificaions = []

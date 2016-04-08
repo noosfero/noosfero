@@ -16,10 +16,9 @@ class BoxOrganizerController < ApplicationController
       target_position = block_before.position
 
       @target_box = block_before.box
-    else
-      (params[:target] =~ /end-of-box-([0-9]+)/)
+    elsif params[:target] =~ /end-of-box-([0-9]+)/
 
-      @target_box = boxes_holder.boxes.find_by_id($1)
+      @target_box = boxes_holder.boxes.find_by id: $1
     end
 
     @block = new_block(params[:type], @target_box) if @block.nil?
@@ -35,8 +34,8 @@ class BoxOrganizerController < ApplicationController
       @block.insert_at(@target_box.blocks.size + 1)
       @block.move_to_bottom
     else
-      # insert the block in the given position
-      @block.insert_at(@block.position && @block.position < target_position ? target_position - 1 : target_position)
+      new_position = if @block.position and @block.position < target_position then target_position - 1 else target_position end
+      @block.insert_at new_position
     end
 
     @block.save!
