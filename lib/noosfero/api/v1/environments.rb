@@ -11,13 +11,15 @@ module Noosfero
           end
 
           get ':id' do
+            resultEnvironment = nil
             if (params[:id] == "default")
-              present Environment.default
+              resultEnvironment = Environment.default
             elsif (params[:id] == "context")
-              present environment
+              resultEnvironment = environment
             else
-              present Environment.find(params[:id])
+              resultEnvironment = Environment.find(params[:id])
             end
+            present resultEnvironment, :with => Entities::Environment
           end
 
         end
