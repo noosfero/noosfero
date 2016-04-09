@@ -19,15 +19,8 @@ cache: bundler
 addons:
   apt:
     packages:
-      - po4a
-      - iso-codes
       - tango-icon-theme
       - pidgin-data
-      # for gem extensions
-      - libmagickwand-dev
-      - libpq-dev
-      - libreadline-dev
-      - libxslt1-dev
   artifacts:
     paths:
       - $(ls tmp/artifact* | tr "\n" ":")
