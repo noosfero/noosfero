@@ -13,7 +13,9 @@ class Environment < ActiveRecord::Base
                   :reports_lower_bound, :noreply_email,
                   :signup_welcome_screen_body, :members_whitelist_enabled,
                   :members_whitelist, :highlighted_news_amount,
-                  :portal_news_amount, :date_format, :signup_intro
+                  :portal_news_amount, :date_format, :signup_intro,
+                  :enable_feed_proxy, :http_feed_proxy, :https_feed_proxy,
+                  :disable_feed_ssl
 
   has_many :users
 

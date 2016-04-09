@@ -1723,4 +1723,42 @@ class EnvironmentTest < ActiveSupport::TestCase
     refute environment.errors[:date_format.to_s].present?
   end
 
+  should 'respond to enable_feed_proxy' do
+    assert_respond_to Environment.new, :enable_feed_proxy
+  end
+
+  should 'set enable_feed_proxy on environment' do
+    e = fast_create(Environment, :name => 'Enterprise test')
+    e.enable_feed_proxy = true
+    e.save
+    assert_equal true, e.enable_feed_proxy
+  end
+
+  should 'not enable feed proxy when enable by default' do
+    assert_equal false, Environment.new.enable_feed_proxy
+  end
+
+  should 'respond to disable_feed_ssl' do
+    assert_respond_to Environment.new, :disable_feed_ssl
+  end
+
+  should 'set disable_feed_ssl on environment' do
+    e = fast_create(Environment, :name => 'Enterprise test')
+    e.disable_feed_ssl = true
+    e.save
+    assert_equal true, e.disable_feed_ssl
+  end
+
+  should 'not disable feed ssl when enable by default' do
+    assert_equal false, Environment.new.disable_feed_ssl
+  end
+
+  should 'respond to http_feed_proxy' do
+    assert_respond_to Environment.new, :http_feed_proxy
+  end
+
+  should 'respond to https_feed_proxy' do
+    assert_respond_to Environment.new, :https_feed_proxy
+  end
+
 end

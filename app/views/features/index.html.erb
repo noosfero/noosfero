@@ -49,6 +49,25 @@ Check all the features you want to enable for your environment, uncheck all the 
   </div>
 <hr/>
 
+<h3><%= _('Feed') %></h3>
+  <div class="option">
+    <%= check_box :environment, :enable_feed_proxy %>
+    <label><%= _('Enable feed proxy') %></label>
+  </div>
+  <div class="input">
+    <div class="info"><%= _('HTTP feed proxy address:') %></div>
+    <%= text_field :environment, :http_feed_proxy %>
+  </div>
+  <div class="input">
+    <div class="info"><%= _('HTTPS feed proxy address:') %></div>
+    <%= text_field :environment, :https_feed_proxy %>
+  </div>
+  <div class="option">
+    <%= check_box :environment, :disable_feed_ssl %>
+    <label><%= _('Disable feed SSL') %></label>
+  </div>
+<hr/>
+
 <div>
   <% button_bar do %>
     <%= submit_button('save', _('Save changes')) %>

@@ -42,13 +42,21 @@ class FeedHandler
           if !valid_url?(address)
             raise InvalidUrl.new("\"%s\" is not a valid URL" % address)
           end
+
           header = {"User-Agent" => "Noosfero/#{Noosfero::VERSION}"}
-          if address.starts_with?("https://")
-            header.merge!(:proxy => ENV['FEED_HTTPS_PROXY']) if ENV['FEED_HTTPS_PROXY']
-          else
-            header.merge!(:proxy => ENV['FEED_HTTP_PROXY']) if ENV['FEED_HTTP_PROXY']
+
+          environment = Environment.default
+
+          if environment.enable_feed_proxy
+            if address.starts_with?("https://")
+              header.merge!(:proxy => environment.https_feed_proxy) if environment.https_feed_proxy
+            else
+              header.merge!(:proxy => environment.http_feed_proxy) if environment.http_feed_proxy
+            end
           end
-          header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if ENV['SSL_VERIFY_NONE']
+
+          header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if environment.disable_feed_ssl
+
           open(address, header, &block)
         end
       return content
