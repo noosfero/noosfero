@@ -118,4 +118,14 @@ class CommentsTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
   end
+
+  should 'do not return comments marked as spam' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    c1 = fast_create(Comment, source_id: article.id, body: "comment 1", spam: true)
+    c2 = fast_create(Comment, source_id: article.id, body: "comment 2")
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
+  end
 end

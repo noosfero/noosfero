@@ -68,4 +68,16 @@ class APITest <  ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal({"1"=>1, ""=>1, "2"=>2}, json)
   end
+
+  should 'filter comments marked as spam' do
+    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    comment1 = fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
+    comment2 = fast_create(Comment, :paragraph_uuid => nil, :source_id => article.id, spam: true)
+    comment3 = fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id, spam: true)
+    params[:paragraph_uuid] = '1'
+    get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/comments?#{params.to_query}"
+
+    json = JSON.parse(last_response.body)
+    assert_equivalent [comment1.id], json['comments'].map {|c| c['id']}
+  end
 end
