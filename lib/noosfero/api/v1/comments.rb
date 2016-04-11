@@ -21,7 +21,8 @@ module Noosfero
             article = find_article(environment.articles, params[:id])
             comments = select_filtered_collection_of(article, :comments, params)
             comments = comments.without_reply if(params[:without_reply].present?)
-            present comments, :with => Entities::Comment, :current_person => current_person
+            comments = plugins.filter(:unavailable_comments, comments)
+            present paginate(comments), :with => Entities::Comment, :current_person => current_person
           end
 
           get ":id/comments/:comment_id" do
