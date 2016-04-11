@@ -4,10 +4,10 @@ class PeopleTest < ActiveSupport::TestCase
 
   def setup
     Person.delete_all
-    login_api
   end
 
   should 'list all people' do
+    login_api
     person1 = fast_create(Person, :public_profile => true)
     person2 = fast_create(Person)
     get "/api/v1/people?#{params.to_query}"
@@ -16,6 +16,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'list all members of a community' do
+    login_api
     person1 = fast_create(Person)
     person2 = fast_create(Person)
     community = fast_create(Community)
@@ -29,6 +30,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not list invisible people' do
+    login_api
     invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
@@ -36,6 +38,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'list private people' do
+    login_api
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
@@ -43,6 +46,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'list private person for friends' do
+    login_api
     p1 = fast_create(Person)
     p2 = fast_create(Person, :public_profile => false)
     person.add_friend(p2)
@@ -53,6 +57,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'get person' do
+    login_api
     some_person = fast_create(Person)
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
@@ -61,6 +66,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'people endpoint filter by fields parameter' do
+    login_api
     get "/api/v1/people?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
     expected = {'people' => [{'name' => person.name}]}
@@ -68,6 +74,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'people endpoint filter by fields parameter with hierarchy' do
+    login_api
     fields = URI.encode({only: [:name, {user: [:login]}]}.to_json.to_str)
     get "/api/v1/people?#{params.to_query}&fields=#{fields}"
     json = JSON.parse(last_response.body)
@@ -76,12 +83,14 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'get logged person' do
+    login_api
     get "/api/v1/people/me?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal person.id, json['person']['id']
   end
 
   should 'me endpoint filter by fields parameter' do
+    login_api
     get "/api/v1/people/me?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
     expected = {'person' => {'name' => person.name}}
@@ -89,6 +98,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not get invisible person' do
+    login_api
     person = fast_create(Person, :visible => false)
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
@@ -97,6 +107,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'get private people' do
+    login_api
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
@@ -105,6 +116,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'get private person for friends' do
+    login_api
     private_person = fast_create(Person, :public_profile => false)
     person.add_friend(private_person)
     private_person.add_friend(person)
@@ -115,6 +127,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'list person friends' do
+    login_api
     friend = fast_create(Person)
     person.add_friend(friend)
     friend.add_friend(person)
@@ -123,6 +136,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not list person invisible friends' do
+    login_api
     friend = fast_create(Person)
     invisible_friend = fast_create(Person, :visible => false)
     person.add_friend(friend)
@@ -137,6 +151,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'create a person' do
+    login_api
     login = 'some'
     params[:person] = {:login => login, :password => '123456', :password_confirmation => '123456', :email => 'some@some.com'}
     post "/api/v1/people?#{params.to_query}"
@@ -145,6 +160,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'return 400 status for invalid person creation' do
+    login_api
     params[:person] = {:login => 'some'}
     post "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -152,6 +168,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'display permissions' do
+    login_api
     community = fast_create(Community)
     community.add_member(fast_create(Person))
     community.add_member(person)
@@ -163,11 +180,13 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'display permissions if self' do
+    login_api
     get "/api/v1/people/#{person.id}/permissions?#{params.to_query}"
     assert_equal 200, last_response.status
   end
 
   should 'display permissions if admin' do
+    login_api
     environment = person.environment
     environment.add_admin(person)
     some_person = fast_create(Person)
@@ -177,6 +196,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not display permissions if not admin or self' do
+    login_api
     some_person = create_user('some-person').person
 
     get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
@@ -184,12 +204,14 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not update another person' do
+    login_api
     person = fast_create(Person, :environment_id => environment.id)
     post "/api/v1/people/#{person.id}?#{params.to_query}"
     assert_equal 403, last_response.status
   end
 
   should 'update yourself' do
+    login_api
     another_name = 'Another Name'
     params[:person] = {}
     params[:person][:name] = another_name
@@ -200,6 +222,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'display public custom fields' do
+    login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
     some_person = create_user('some-person').person
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
@@ -212,6 +235,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'not display non-public custom fields' do
+    login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
     some_person = create_user('some-person').person
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
@@ -223,6 +247,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'display non-public custom fields to friend' do
+    login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
     some_person = create_user('some-person').person
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
@@ -243,12 +268,14 @@ class PeopleTest < ActiveSupport::TestCase
 
   PERSON_ATTRIBUTES.map do |attribute|
     define_method "test_should_not_expose_#{attribute}_attribute_in_person_enpoint_if_field_parameter_does_not_contain_the_attribute" do
+      login_api
       get "/api/v1/people/me?#{params.to_query}&fields=name"
       json = JSON.parse(last_response.body)
       assert_nil json['person'][attribute]
     end
 
     define_method "test_should_expose_#{attribute}_attribute_in_person_enpoints_if_field_parameter_is_passed" do
+      login_api
       get "/api/v1/people/me?#{params.to_query}&fields=#{attribute}"
       json = JSON.parse(last_response.body)
       assert_not_nil json['person'][attribute]
