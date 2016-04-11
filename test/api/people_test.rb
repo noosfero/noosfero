@@ -118,7 +118,6 @@ class PeopleTest < ActiveSupport::TestCase
     friend = fast_create(Person)
     person.add_friend(friend)
     friend.add_friend(person)
-
     get "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
     assert_includes json_response_ids(:people), person.id
   end
