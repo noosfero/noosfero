@@ -10,5 +10,16 @@ class CommentParagraphPlugin::API < Grape::API
       comments = comments.without_reply if(params[:without_reply].present?)
       present paginate(comments), :with => Noosfero::API::Entities::Comment, :current_person => current_person
     end
+
+    {activate: true, deactivate: false}.each do |method, value|
+      post ":id/comment_paragraph_plugin/#{method}" do
+        authenticate!
+        article = find_article(environment.articles, params[:id])
+        return forbidden! unless article.comment_paragraph_plugin_enabled? && article.allow_edit?(current_person)
+        article.comment_paragraph_plugin_activate = value
+        article.save!
+        present_partial article, :with => Noosfero::API::Entities::Article
+      end
+    end
   end
 end
