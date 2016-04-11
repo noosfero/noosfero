@@ -21,5 +21,11 @@ class CommentParagraphPlugin::API < Grape::API
         present_partial article, :with => Noosfero::API::Entities::Article
       end
     end
+
+    get ':id/comment_paragraph_plugin/comments/count' do
+      article = find_article(environment.articles, params[:id])
+      comments = select_filtered_collection_of(article, :comments, params)
+      comments.group(:paragraph_uuid).count
+    end
   end
 end

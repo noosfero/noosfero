@@ -56,4 +56,16 @@ class APITest <  ActiveSupport::TestCase
       assert_equal 403, last_response.status
     end
   end
+
+  should 'return comment counts grouped by paragraph' do
+    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
+    fast_create(Comment, :paragraph_uuid => nil, :source_id => article.id)
+    fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id)
+    fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id)
+    get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/comments/count?#{params.to_query}"
+
+    json = JSON.parse(last_response.body)
+    assert_equal({"1"=>1, ""=>1, "2"=>2}, json)
+  end
 end
