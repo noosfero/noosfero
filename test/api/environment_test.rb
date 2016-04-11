@@ -23,6 +23,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_nil json['settings']
   end
 
+  should 'return the default environment description' do
+    environment = Environment.default
+    get "/api/v1/environment/default"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.description, json['description']
+  end
+
   should 'return created environment' do
     environment = fast_create(Environment)
     default_env = Environment.default
