@@ -30,12 +30,4 @@ class GalleryBlock < Block
   def images
     gallery ? gallery.images : []
   end
-
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'gallery_block', :locals => { :block => block }
-    end
-  end
-
 end
