@@ -177,9 +177,9 @@ class DisplayContentBlock < Block
 
           content_sections += read_more_section if !read_more_section.blank?
 #raise sections.inspect
-          content_tag('li', content_sections)
+          content_tag('li', content_sections.html_safe)
         end
-      }.join(" "))
+      }.join(" ").html_safe)
     end
   end
 

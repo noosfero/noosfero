@@ -5,12 +5,12 @@ module ActionTrackerHelper
   end
 
   def new_friendship_description ta
-    n_('has made 1 new friend:<br />%{name}', 'has made %{num} new friends:<br />%{name}', ta.get_friend_name.size) % {
+    n_('has made 1 new friend:<br />%{name}', 'has made %{num} new friends:<br />%{name}', ta.get_friend_name.size).html_safe % {
       num: ta.get_friend_name.size,
-      name: ta.collect_group_with_index(:friend_name) do |n,i|
+      name: safe_join(ta.collect_group_with_index(:friend_name) do |n,i|
         link_to image_tag(ta.get_friend_profile_custom_icon[i] || default_or_themed_icon("/images/icons-app/person-icon.png")),
                 ta.get_friend_url[i], title: n
-      end.join
+      end)
     }
   end
 

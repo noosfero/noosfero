@@ -46,8 +46,8 @@
   var currentProfile = <%= filter_visible_attr_profile(profile).to_json %>;
   sniffer.search.map.load({
     "zoom": <%= GoogleMaps.initial_zoom.to_json %>,
-    "balloonUrl": <%= url_for(:controller => :sniffer_plugin_myprofile, :action => :map_balloon, :id => "_id_", :escape => false).to_json %>,
-    "myBalloonUrl": <%= url_for(:controller => :sniffer_plugin_myprofile, :action => :my_map_balloon, :escape => false).to_json %>,
+    "balloonUrl": <%= raw url_for(:controller => :sniffer_plugin_myprofile, :action => :map_balloon, :id => "_id_", :escape => false).to_json %>,
+    "myBalloonUrl": <%= raw url_for(:controller => :sniffer_plugin_myprofile, :action => :my_map_balloon, :escape => false).to_json %>,
     "profiles": <%=
       @profiles_data.map do |id, profile_data|
         data = filter_visible_attr_profile(profile_data[:profile])
@@ -55,7 +55,7 @@
         data[:suppliersProducts] = filter_visible_attr_suppliers_products(profile_data[:suppliers_products])
         data[:icon] = profile_data[:profile][:icon]
         data
-      end.to_json
+      end.to_json.html_safe
     %>
   });
 </script>

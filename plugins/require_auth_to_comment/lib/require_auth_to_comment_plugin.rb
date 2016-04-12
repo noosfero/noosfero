@@ -17,7 +17,7 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
   end
 
   def profile_editor_extras
-    expanded_template('profile-editor-extras.html.erb')
+    expanded_template('profile-editor-extras.html.erb').html_safe
   end
 
   def stylesheet?

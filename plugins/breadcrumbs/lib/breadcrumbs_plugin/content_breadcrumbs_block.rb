@@ -63,12 +63,12 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
           breadcrumb << content_tag('div', section_name, :class => 'section-name')
         end
 
-        breadcrumb
+        breadcrumb.html_safe
       else
         ''
       end
     end)
-    ret.html_safe
+    ret
   end
 
   def cacheable?
