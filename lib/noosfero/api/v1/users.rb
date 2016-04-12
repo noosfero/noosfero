@@ -2,7 +2,6 @@ module Noosfero
   module API
     module V1
       class Users < Grape::API
-        before { authenticate! }
 
         resource :users do
 
@@ -13,6 +12,7 @@ module Noosfero
           end
 
           get "/me" do
+            authenticate!
             present current_user, :with => Entities::User, :current_person => current_person
           end
 
@@ -25,6 +25,7 @@ module Noosfero
           end
 
           get ":id/permissions" do
+            authenticate!
             user = environment.users.find(params[:id])
             output = {}
             user.person.role_assignments.map do |role_assigment|

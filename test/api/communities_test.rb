@@ -283,4 +283,30 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
   end
 
+  should 'display public custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_community = fast_create(Community)
+    some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
+    some_community.save!
+
+    get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['community']['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['community']['additional_data']['Rating']
+  end
+
+  should 'not display private custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_community = fast_create(Community)
+    some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    some_community.save!
+
+    get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json['community']['additional_data'].has_key?('Rating')
+  end
+
+
 end

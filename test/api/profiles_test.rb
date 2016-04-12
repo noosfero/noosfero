@@ -103,4 +103,30 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal community.id, json['id']
   end
 
+  should 'display public custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
+    some_profile = fast_create(Profile)
+    some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
+    some_profile.save!
+
+    get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
+  end
+
+  should 'not display private custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
+    some_profile = fast_create(Profile)
+    some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    some_profile.save!
+
+    get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json.has_key?('Rating')
+  end
+
+
 end

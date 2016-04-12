@@ -3,23 +3,22 @@ require_relative 'test_helper'
 
 class UsersTest < ActiveSupport::TestCase
 
-  def setup
+  should 'logger user list users' do
     login_api
-  end
-
-  should 'list users' do
     get "/api/v1/users/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json["users"].map { |a| a["login"] }, user.login
   end
 
-  should 'get user' do
+  should 'logger user get user info' do
+    login_api
     get "/api/v1/users/#{user.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal user.id, json['user']['id']
   end
 
-  should 'list user permissions' do
+  should 'logger user list user permissions' do
+    login_api
     community = fast_create(Community)
     community.add_admin(person)
     get "/api/v1/users/#{user.id}/?#{params.to_query}"
@@ -28,25 +27,29 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'get logged user' do
+    login_api
     get "/api/v1/users/me?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal user.id, json['user']['id']
   end
 
   should 'not show permissions to logged user' do
+    login_api
     target_person = create_user('some-user').person
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json["user"].has_key?("permissions")
   end
 
-  should 'show permissions to self' do
+  should 'logger user show permissions to self' do
+    login_api
     get "/api/v1/users/#{user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json["user"].has_key?("permissions")
   end
 
   should 'not show permissions to friend' do
+    login_api
     target_person = create_user('some-user').person
 
     f = Friendship.new
@@ -60,6 +63,7 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'not show private attribute to logged user' do
+    login_api
     target_person = create_user('some-user').person
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -67,6 +71,7 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'show private attr to friend' do
+    login_api
     target_person = create_user('some-user').person
     f = Friendship.new
     f.friend = target_person
@@ -79,6 +84,7 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'show public attribute to logged user' do
+    login_api
     target_person = create_user('some-user').person
     target_person.fields_privacy={:email=> 'public'}
     target_person.save!
@@ -89,6 +95,7 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'show public and private field to admin' do
+    login_api
     Environment.default.add_admin(person)
 
     target_person = create_user('some-user').person
@@ -100,6 +107,28 @@ class UsersTest < ActiveSupport::TestCase
     assert json["user"].has_key?("email")
     assert json["user"].has_key?("permissions")
     assert json["user"].has_key?("activated")
+  end
+
+  should 'show public fields to anonymous' do
+    anonymous_setup
+    target_person = create_user('some-user').person
+    target_person.fields_privacy={:email=> 'public'}
+    target_person.save!
+
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["user"].has_key?("email")
+  end
+
+  should 'hide private fields to anonymous' do
+    anonymous_setup
+    target_person = create_user('some-user').person
+    target_person.save!
+
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json["user"].has_key?("permissions")
+    refute json["user"].has_key?("activated")
   end
 
 end

@@ -2,7 +2,6 @@ module Noosfero
   module API
     module V1
       class Enterprises < Grape::API
-        before { authenticate! }
 
         resource :enterprises do
 

@@ -107,4 +107,29 @@ class EnterprisesTest < ActiveSupport::TestCase
     assert_equivalent [c1.id], json['enterprises'].map {|c| c['id']}
   end
 
+  should 'display public custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Enterprise", :active => true, :environment => Environment.default)
+    some_enterprise = fast_create(Enterprise)
+    some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
+    some_enterprise.save!
+
+    get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['enterprise']['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['enterprise']['additional_data']['Rating']
+  end
+
+  should 'not display public custom fields to anonymous' do
+    anonymous_setup
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Enterprise", :active => true, :environment => Environment.default)
+    some_enterprise = fast_create(Enterprise)
+    some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    some_enterprise.save!
+
+    get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json['enterprise']['additional_data'].has_key?('Rating')
+  end
+
 end

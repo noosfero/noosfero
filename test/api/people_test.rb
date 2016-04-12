@@ -348,6 +348,17 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal json['person']['additional_data'], {}
   end
 
+  should 'hide private fields to anonymous' do
+    anonymous_setup
+    target_person = create_user('some-user').person
+    target_person.save!
+
+    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    refute json["user"].has_key?("permissions")
+    refute json["user"].has_key?("activated")
+  end
+
   should 'display non-public custom fields to friend' do
     login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
