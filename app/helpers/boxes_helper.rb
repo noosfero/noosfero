@@ -99,15 +99,10 @@ module BoxesHelper
   end
 
   def render_block_content block
-    # FIXME: this conditional should be removed after all
-    # block footer from plugins methods get refactored into helpers and views.
-    # They are a failsafe until all of them are done.
-    return block.content if block.method(:content).owner != Block
     render_block block
   end
 
   def render_block_footer block
-    return block.footer if block.method(:footer).owner != Block
     render_block block, 'footers/'
   end
 
