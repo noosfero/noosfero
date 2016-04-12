@@ -1,8 +1,13 @@
 <div class = 'profile-description-block'>
-<div class =  "block-title">
-  <%= block.title %>
-</div>
-<div class = "profile-description-block-title">
-   <%= description %>
-</div>
+  <div class =  "block-title">
+    <%= block.title %>
+  </div>
+
+  <div class = "profile-description-block-title">
+    <% if block.owner.description.blank? %>
+      Description field is empty or not enabled on enviroment
+    <% else %>
+     <%= block.owner.description %>
+    <% end %>
+  </div>
 </div>
