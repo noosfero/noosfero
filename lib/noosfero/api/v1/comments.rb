@@ -2,9 +2,12 @@ module Noosfero
   module API
     module V1
       class Comments < Grape::API
+        MAX_PER_PAGE = 20
+
         before { authenticate! }
 
         resource :articles do
+          paginate max_per_page: MAX_PER_PAGE
           # Collect comments from articles
           #
           # Parameters:
@@ -17,7 +20,7 @@ module Noosfero
           get ":id/comments" do
             article = find_article(environment.articles, params[:id])
             comments = select_filtered_collection_of(article, :comments, params)
-
+            comments = comments.without_reply if(params[:without_reply].present?)
             present comments, :with => Entities::Comment, :current_person => current_person
           end
 
