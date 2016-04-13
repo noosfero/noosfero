@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :allow_cross_domain_access
 
   include AuthenticatedSystem
+
   before_filter :require_login_for_environment, :if => :private_environment?
 
   before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
@@ -120,7 +121,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user
-    current_user.person if logged_in?
+    if logged_in?
+      current_user.person || current_user.external_person
+    end
   end
 
   alias :current_person :user

@@ -25,7 +25,20 @@ module AuthenticatedSystem
     # Accesses the current user from the session.
     def current_user user_id = session[:user]
       @current_user ||= begin
-        user = User.find_by id: user_id if user_id
+        user = nil
+        if session[:external]
+          user = User.new #FIXME: User needs to have at least email
+          external_person = ExternalPerson.where(id: session[:external]).last
+          if external_person
+            user.external_person_id = external_person.id
+            user.email = external_person.email
+          else
+            session[:external] = nil
+          end
+        else
+          id = session[:user]
+          user = User.where(id: id).first if id
+        end
         user.session = session if user
         User.current = user
         user
@@ -37,9 +50,13 @@ module AuthenticatedSystem
       if new_user.nil?
         session.delete(:user)
       else
-        session[:user] = new_user.id
+        if new_user.id
+          session[:user] = new_user.id
+        else
+          session[:external] = new_user.external_person_id
+        end
         new_user.session = session
-        new_user.register_login
+        new_user.register_login if new_user.id
       end
       @current_user = User.current = new_user
     end

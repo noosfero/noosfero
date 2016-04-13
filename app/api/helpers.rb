@@ -10,6 +10,9 @@ module Api
     include Noosfero::Plugin::HotSpot
     include ForgotPasswordHelper
     include SearchTermHelper
+    include ProfileImageHelper
+    include Noosfero::Gravatar
+    include ThemeLoaderHelper
 
     def set_locale
       I18n.locale = (params[:lang] || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')

@@ -5,11 +5,11 @@
 
   <div class="star-profile-information">
     <div class="star-profile-image">
-      <%= link_to profile_image(current_user.person, :portrait), current_user.person.url %>
+      <%= link_to profile_image(current_person, :portrait), current_person.url %>
     </div>
 
     <div class="star-profile-name">
-      <%= link_to current_user.person.name,  current_user.person.url %>
+      <%= link_to current_person.name,  current_person.url %>
     </div>
   </div>
 
@@ -55,14 +55,14 @@
     </div>
   <% elsif env_organization_ratings_config.vote_once %>
     <div class="star-rate-form rating-vote-once">
-      <%= _("Hi, %s! The administrators set that you can vote") % current_user.name %>
+      <%= _("Hi, %s! The administrators set that you can vote") % current_person.name %>
       <strong><%= _("only once") %></strong>
       <%= _("for this %s.") % profile.class.name.downcase %>
       <%= render :partial => 'shared/rating_button', :locals => { :disabled => true } %>
     </div>
   <% else %>
     <div class="star-rate-form rating-cooldown">
-      <%= _("Hi, %s! The administrators set the minimum time of") % current_user.name %>
+      <%= _("Hi, %s! The administrators set the minimum time of") % current_person.name %>
       <strong><%= _("%d hour(s)") % env_organization_ratings_config.cooldown %></strong>
       <%= _("between each evaluation.") %>
 

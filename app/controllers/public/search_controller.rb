@@ -247,7 +247,7 @@ class SearchController < PublicController
   def visible_profiles(klass, *extra_relations)
     relations = [:image, :domains, :environment, :preferred_domain]
     relations += extra_relations
-    if current_user && current_user.person.is_admin?
+    if current_user && current_person.is_admin?
       @environment.send(klass.name.underscore.pluralize).includes(relations)
     else
       @environment.send(klass.name.underscore.pluralize).visible.includes(relations)

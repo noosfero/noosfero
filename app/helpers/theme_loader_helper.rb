@@ -2,7 +2,7 @@ module ThemeLoaderHelper
   def current_theme
     @current_theme ||=
       begin
-        if session[:user_theme]
+        if !(defined?(session)).nil? && session[:user_theme]
           session[:user_theme]
         else
           # utility for developers: set the theme to 'random' in development mode and
@@ -14,7 +14,7 @@ module ThemeLoaderHelper
           elsif Rails.env.development? && respond_to?(:params) && params[:user_theme] && File.exists?(Rails.root.join('public/designs/themes', params[:user_theme]))
             params[:user_theme]
           else
-            if profile && !profile.theme.nil?
+            if defined?(profile) && profile && !profile.theme.nil?
               profile.theme
             elsif environment
               environment.theme
@@ -34,7 +34,7 @@ module ThemeLoaderHelper
   end
 
   def theme_path
-    if session[:user_theme]
+    if !(defined?(session)).nil? && session[:user_theme]
       '/user_themes/' + current_theme
     elsif session[:theme]
       '/designs/themes/' + session[:theme]

@@ -2,7 +2,7 @@ class AbuseReport < ApplicationRecord
 
   attr_accessible :content, :reason
 
-  belongs_to :reporter, :class_name => 'Person'
+  belongs_to :reporter, :polymorphic => true
   belongs_to :abuse_complaint
   has_many :reported_images, :dependent => :destroy
 

@@ -27,7 +27,7 @@ module NoosferoHttpCaching
   end
 
   def noosfero_session_check
-    headers["X-Noosfero-Auth"] = (session[:user] != nil).to_s
+    headers["X-Noosfero-Auth"] = (session[:user] != nil || session[:external] != nil).to_s
   end
 
   class Middleware

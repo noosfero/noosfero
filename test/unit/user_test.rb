@@ -759,6 +759,14 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  should 'get person or external person' do
+    user = create_user('new_user')
+    assert_kind_of Person, user.person
+    user.external_person_id = ExternalPerson.create!(identifier: 'new_user', name: 'New User', email: 'newuser@usermail.com', source: 'federated.noosfero.com', created_at: Date.today).id
+    assert_kind_of ExternalPerson, user.person
+    assert_kind_of Person, user.person_without_external
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

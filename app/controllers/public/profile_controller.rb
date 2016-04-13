@@ -176,7 +176,7 @@ class ProfileController < PublicController
   end
 
   def unblock
-    if current_user.person.is_admin?(profile.environment)
+    if current_person.is_admin?(profile.environment)
       profile.unblock
       session[:notice] = _("You have unblocked %s successfully. ") % profile.name
       redirect_to :controller => 'profile', :action => 'index'
@@ -187,7 +187,7 @@ class ProfileController < PublicController
   end
 
   def leave_scrap
-    sender = params[:sender_id].nil? ? current_user.person : Person.find(params[:sender_id])
+    sender = params[:sender_id].nil? ? current_person : Person.find(params[:sender_id])
     receiver = params[:receiver_id].nil? ? @profile : Person.find(params[:receiver_id])
     @scrap = Scrap.new(params[:scrap])
     @scrap.sender= sender
@@ -270,7 +270,7 @@ class ProfileController < PublicController
 
   def remove_scrap
     begin
-      scrap = current_user.person.scraps(params[:scrap_id])
+      scrap = current_person.scraps(params[:scrap_id])
       scrap.destroy
       finish_successful_removal 'Scrap successfully removed.'
     rescue
@@ -395,6 +395,17 @@ class ProfileController < PublicController
     end
   end
 
+  def icon
+    size = params[:size] || :portrait
+    image, mime = profile_icon(profile, size.to_sym, true)
+    
+    unless image.match(/^\/\/www\.gravatar\.com/).nil?
+      redirect_to 'https:' + image
+    else
+      @file = File.join(Rails.root, 'public', image)
+      send_file @file, type: mime, disposition: 'inline'
+    end
+  end
 
   protected
 

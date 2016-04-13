@@ -38,7 +38,7 @@ class OrganizationRatingsPluginProfileController < ProfileController
 
   def create_new_rate
     @rating = OrganizationRating.new(params[:organization_rating])
-    @rating.person = current_user.person
+    @rating.person = current_person
     @rating.organization = profile
     @rating.value = params[:organization_rating_value] if params[:organization_rating_value]
 

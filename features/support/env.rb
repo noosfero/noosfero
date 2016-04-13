@@ -8,6 +8,7 @@ ENV["RAILS_ENV"] ||= "cucumber"
 
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'cucumber/rails'
+require 'cucumber/rspec/doubles'
 
 Capybara.ignore_hidden_elements = true
 

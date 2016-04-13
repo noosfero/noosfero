@@ -487,7 +487,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'edit comment from a page' do
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id, :author_type => 'Person')
 
     get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert_tag :tag => 'textarea', :attributes => {:id => 'comment_body'}, :content => /Original comment/
@@ -522,7 +522,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'be able to update a comment' do
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
-    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile)
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile, :author_type => 'Person')
 
     xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert ActiveSupport::JSON.decode(@response.body)["ok"], "attribute ok expected to be true"
