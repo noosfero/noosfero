@@ -5073,6 +5073,10 @@ msgid_plural "Viewed %{num} times"
 msgstr[0] ""
 msgstr[1] ""
 
+#: app/views/content_viewer/_publishing_info.html.erb:19
+msgid "(Not countable anymore)"
+msgstr ""
+
 #: app/views/content_viewer/versions_diff.html.erb:5
 msgid "Changes on \"%s\""
 msgstr ""

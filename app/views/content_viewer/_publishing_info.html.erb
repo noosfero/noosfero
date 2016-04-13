@@ -34,7 +34,7 @@
   <div id='article-sub-header'>
     <% if @page.display_hits? %>
       <div id="article-hits">
-        <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
+        <%= n_('Viewed one time %{desc}', 'Viewed %{num} times %{desc}', @page.hits) % { :num => @page.hits, :desc => @page.archived? ? '<b>'+_('(Not countable anymore)')+'</b>' : '' } %>
       </div>
     <% end %>
 

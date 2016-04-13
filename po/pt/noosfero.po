@@ -5231,10 +5231,14 @@ msgid "Reply"
 msgstr "Responder"
 
 #: app/views/content_viewer/_publishing_info.html.erb:19
-msgid "Viewed one time"
-msgid_plural "Viewed %{num} times"
+msgid "Viewed one time %{desc}"
+msgid_plural "Viewed %{num} times %{desc}"
 msgstr[0] "Visualizado uma vez"
 msgstr[1] "Visualizado %{num} vezes"
+
+#: app/views/content_viewer/_publishing_info.html.erb:19
+msgid "(Not countable anymore)"
+msgstr "(Não mais contabilizado)"
 
 #: app/views/content_viewer/versions_diff.html.erb:5
 msgid "Changes on \"%s\""

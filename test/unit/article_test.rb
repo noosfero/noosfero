@@ -2168,8 +2168,19 @@ class ArticleTest < ActiveSupport::TestCase
     a3 = fast_create(Article)
     Article.hit([a1, a2, a3])
     Article.hit([a2, a3])
+
     assert_equal [1, 2, 2], [a1.hits, a2.hits, a3.hits]
     assert_equal [1, 2, 2], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
+  end
+
+  should 'not update hit attribute of archiveds articles' do
+    a1 = fast_create(Article)
+    a2 = fast_create(Article, :archived => true)
+    a3 = fast_create(Article, :archived => true)
+    Article.hit([a1, a2, a3])
+
+    assert_equal [1, 0, 0], [a1.hits, a2.hits, a3.hits]
+    assert_equal [1, 0, 0], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
   end
 
   should 'vote in a article' do
@@ -2288,5 +2299,25 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 10, article.reload.person_followers.count
   end
 
+  should 'check if a article is archived' do
+    folder = Folder.create!(:name => 'Parent Archived', :profile => profile)
+    a1 = Article.create!(:name => 'Test', :profile => profile, :parent_id => folder.id, :archived => false)
+    a2 = Article.create!(:name => 'Test 2', :profile => profile, :archived => true)
+    folder.update_attributes(:archived => true)
+    a1.reload
+
+    assert a1.archived?
+    assert a2.archived?
+  end
+
+  should 'try add a child article to a archived folder' do
+    folder = Folder.create!(:name => 'Parent Archived', :profile => profile, :archived => true)
+
+    err = assert_raises ActiveRecord::RecordInvalid do
+      a1 = Article.create!(:name => 'Test', :profile => profile, :parent_id => folder.id, :archived => false)
+    end
+
+    assert_match 'Parent folder is archived', err.message
+  end
 
 end

@@ -1,0 +1,67 @@
+//Variables
+$icons-size: 24px;
+$warning-color: #e75e40;
+$description-color: #666;
+$access-types: public, private;
+
+.text-warning {
+  text-align: center;
+  color: $warning-color;
+  font: {
+    size: 15px;
+    weight: bold;
+  }
+
+  p i.icon {
+    display: inline-block;
+    font-size: inherit;
+    text-rendering: auto;
+    background: url('images/icons-app/warning-icon.png');
+    vertical-align: middle;
+    margin-top: -5px;
+    width: $icons-size;
+    height: $icons-size;
+    border: none;
+  }
+}
+
+#edit-article-options {
+
+  .access-itens .access-item {
+    input,label {
+      cursor: pointer;
+    }
+  }
+
+  .access-item {
+    margin: 15px 0;
+    label {
+      font: {
+        size: 13px;
+        weight: bold;
+      }
+    }
+  }
+
+  @each $access_type in $access-types {
+    .access-#{$access_type}-icon, .access-#{$access_type}-icon {
+      display: inline-block;
+      margin-right: 5px;
+      width: $icons-size;
+      height: $icons-size;
+      vertical-align: middle;
+      background-image: url('images/icons-app/article-#{$access_type}-icon.png');
+    }
+  }
+
+  .access-note {
+    display: block;
+    margin: 0;
+    color: $description-color;
+    margin-left: 50px;
+    font: {
+      size: 12px;
+      weight: normal;
+    }
+  }
+}

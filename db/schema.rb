@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160324132518) do
     t.integer  "created_by_id"
     t.boolean  "show_to_followers",    default: true
     t.integer  "followers_count",      default: 0
+    t.boolean  "archived",             default: false
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree

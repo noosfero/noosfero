@@ -32,6 +32,18 @@ class VotePluginProfileControllerTest < ActionController::TestCase
     assert profile.votes.empty?
   end
 
+  should 'not vote if a target is archived' do
+    article = Article.create!(:profile => profile, :name => 'Archived article', :archived => false)
+    comment = Comment.create!(:body => 'Comment test', :source => article, :author => profile)
+    xhr :post, :vote, :profile => profile.identifier, :id => article.id, :model => 'article', :vote => 1
+    assert !profile.votes.empty?
+
+    article.update_attributes(:archived => true)
+    xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => 1
+
+    assert !profile.voted_for?(comment)
+  end
+
   should 'like comment' do
     xhr :post, :vote, :profile => profile.identifier, :id => comment.id, :model => 'comment', :vote => 1
     assert profile.voted_for?(comment)

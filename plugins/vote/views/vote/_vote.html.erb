@@ -1,9 +1,14 @@
 <%
-url = url_for(:controller => 'vote_plugin_profile', :profile => profile.identifier, :action => :vote, :id => target.id, :model => model, :vote => vote)
-reload_url = url_for(:controller => 'vote_plugin_profile', :profile => profile.identifier, :action => :reload_vote, :id => target.id, :model => model, :vote => vote)
+if disable_vote
+  url = reload_url = '#'
+  class_action = 'disabled'
+else
+  url = url_for(:controller => 'vote_plugin_profile', :profile => profile.identifier, :action => :vote, :id => target.id, :model => model, :vote => vote)
+  reload_url = url_for(:controller => 'vote_plugin_profile', :profile => profile.identifier, :action => :reload_vote, :id => target.id, :model => model, :vote => vote)
+end
 %>
 
-<span id="vote_<%= model %>_<%= target.id %>_<%= vote %>" data-reload_url=<%= reload_url %> class="vote-action action <%= action %>-action">
+<span id="vote_<%= model %>_<%= target.id %>_<%= vote %>" data-reload_url=<%= reload_url %> class="vote-action action <%= action %>-action <%= class_action %>">
 
   <%= link_to content_tag(:span, count, :class=>'like-action-counter') + content_tag(:span, '', :class=>"action-icon #{action}"), url, :class => "#{active ? 'like-action-active':''} #{user ? '':'disabled'} require-login-popup" %>
 

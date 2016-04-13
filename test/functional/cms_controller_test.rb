@@ -694,6 +694,34 @@ class CmsControllerTest < ActionController::TestCase
     end
   end
 
+  should "marks a article like archived" do
+    article = create(Article, :profile => profile, :name => 'test', :published => true, :archived => false)
+
+    post :edit, :profile => profile.identifier, :id => article.id, :article => {:archived => true}
+    get :edit, :profile => profile.identifier, :id => article.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[archived]', :id => 'article_archived', :checked => 'checked' }
+
+  end
+
+  should "try add children into archived folders" do
+    folder = create(Folder, :profile => profile, :name => 'test', :published => true, :archived => false)
+    article_child = create(Article, :profile => profile, :name => 'test child', :parent_id => folder.id, :published => true, :archived => false)
+
+    get :edit, :profile => profile.identifier, :id => folder.id
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[archived]', :id => 'article_archived' }
+
+    post :edit, :profile => profile.identifier, :id => folder.id, :article => {:archived => true}
+
+    get :edit, :profile => profile.identifier, :id => article_child.id
+    assert_tag :tag => 'div', :attributes => { :class => 'text-warning'}
+
+    err = assert_raises ActiveRecord::RecordInvalid do
+      another_article_child = create(Article, :profile => profile, :name => 'other test child', :parent_id => folder.id, :published => true, :archived => false)
+    end
+    assert_match 'Parent folder is archived', err.message
+
+  end
+
   should 'be able to add image with alignment' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
     saved = TinyMceArticle.find_by(name: 'image-alignment')

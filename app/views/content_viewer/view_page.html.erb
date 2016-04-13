@@ -85,7 +85,7 @@
       <% end %>
     </ul>
 
-    <% if @page.accept_comments? %>
+    <% if !@page.archived? && @page.accept_comments? %>
       <div id='page-comment-form' class='page-comment-form'><%= render :partial => 'comment/comment_form', :locals =>{:url => {:controller => :comment, :action => :create}, :display_link => true, :cancel_triggers_hide => true}%></div>
     <% end %>
   </div><!-- end class="comments" -->
