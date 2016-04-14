@@ -66,7 +66,7 @@ module CommentHelper
 
   def link_for_edit(comment)
     if comment.can_be_updated_by?(user)
-      {:link => expirable_comment_link(comment, :edit, _('Edit'), url_for(:profile => profile.identifier, :controller => :comment, :action => :edit, :id => comment.id),:class => 'modal')}
+      {:link => expirable_comment_link(comment, :edit, _('Edit'), url_for(:profile => profile.identifier, :controller => :comment, :action => :edit, :id => comment.id), :modal => true)}
     end
   end
 
