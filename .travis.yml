@@ -6,15 +6,19 @@ notifications:
     template:
       - "%{repository_slug} %{branch} %{commit} %{commit_subject} - %{result} %{build_url}"
 
-# trusty constainers take more time to start
-#dist: trusty
+# Ensure Container-based environment, as others can have some random failures
+# specially with different Firefox versions and selenium tests.
+# E.g. https://travis-ci.org/noosfero/noosfero/jobs/122918772#L1308
+#
+# Also container-based environments have the fatest boot times and
+# are the only one with cache available for public projects.
+# See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
+sudo: false
+cache: bundler
 
 language: ruby
 rvm:
-  - 2.2
-  # ruby 2.3 works but isn't stable on travis
-
-cache: bundler
+  - 2.3.0
 
 addons:
   apt:
