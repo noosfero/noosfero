@@ -154,8 +154,8 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
   end
 
-  should 'not visitor list comments if has no permission to view the source article' do
-    visitor_setup
+  should 'not, anonymous list comments if has no permission to view the source article' do
+    anonymous_setup
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
     assert !article.published?
@@ -188,9 +188,9 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 200, last_response.status
     assert_equal comment.id, json['comment']['id']
   end
-  
-  should 'not visitor comment an article (at least so far...)' do
-    visitor_setup
+
+  should 'not, anonymous comment an article (at least so far...)' do
+    anonymous_setup
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
     body = 'My comment'
@@ -200,6 +200,31 @@ class CommentsTest < ActiveSupport::TestCase
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 401, last_response.status
+  end
+
+  should 'paginate comments' do
+    login_api
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    5.times { article.comments.create!(:body => "some comment", :author => user.person) }
+    params[:per_page] = 3
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 3, json["comments"].length
+  end
+
+  should 'return only root comments' do
+    login_api
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    comment1 = article.comments.create!(:body => "some comment", :author => user.person)
+    comment2 = article.comments.create!(:body => "another comment", :author => user.person, :reply_of_id => comment1.id)
+    params[:without_reply] = true
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
   end
 
 end

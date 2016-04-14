@@ -25,7 +25,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'logged user not list invisible communities' do
+  should 'not, logged user list invisible communities' do
     login_api
     community1 = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :visible => false)
@@ -80,7 +80,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'logged user not get invisible community' do
+  should 'not, logged user get invisible community' do
     login_api
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
 
@@ -89,7 +89,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert json['community'].blank?
   end
 
-  should 'logged user not get private communities without permission' do
+  should 'not, logged user get private communities without permission' do
     login_api
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :public_profile => false)
@@ -120,7 +120,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'logged user not list person communities invisible' do
+  should 'not, logged user list person communities invisible' do
     login_api
     c1 = fast_create(Community, :environment_id => environment.id)
     c2 = fast_create(Community, :environment_id => environment.id, :visible => false)
@@ -190,7 +190,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-  should 'not anonymous list invisible communities' do
+  should 'not, anonymous list invisible communities' do
     anonymous_setup
     community1 = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :visible => false)
@@ -210,9 +210,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
-
-
-  should 'not anonymous create a community' do
+  should 'not, anonymous create a community' do
     anonymous_setup
     params[:community] = {:name => 'some'}
     post "/api/v1/communities?#{params.to_query}"
@@ -228,7 +226,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal community.id, json['community']['id']
   end
 
-  should 'not anonymous get invisible community' do
+  should 'not, anonymous get invisible community' do
     anonymous_setup
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
     get "/api/v1/communities/#{community.id}"
@@ -236,7 +234,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert json['community'].blank?
   end
 
-  should 'anonymous not get private communities' do
+  should 'not, anonymous get private communities' do
     anonymous_setup
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id, :public_profile => false)
