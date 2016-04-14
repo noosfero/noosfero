@@ -1,0 +1,36 @@
+<h1> Search </h1>
+
+<%= form_tag controller: "elasticsearch_plugin", action: "search" do %>
+    <%= label_tag(:q, _("Search")) %>
+    <%= text_field_tag(:q, @query) %>
+
+    <%= submit_tag _("Send") %>
+
+    <%= check_box_tag 'model[communities]', 1, @checkbox[:communities] %>
+    <%= label_tag('communities', _("communities")) %>
+
+    <%= check_box_tag 'model[people]', 1, @checkbox[:people] %>
+    <%= label_tag('people', _("people")) %>
+
+    <%= check_box_tag 'model[articles]', 1, @checkbox[:articles] %>
+    <%= label_tag('articles', _("articles")) %>
+
+    <%= check_box_tag 'filter[articles][gallery]', :type, @checkbox[:gallery] %>
+    <%= label_tag('gallery', _("gallery")) %>
+<% end %>
+
+<% for result in @results %>
+    <% if result.is_a? Article %>
+        <%= render partial: "article_display", :locals => {:article => result} %>
+        <br>
+    <% end %>
+
+    <% if result.is_a? Person  %>
+        <%= render partial: "person_display", :locals => {:person => result} %>
+        <br>
+    <% end %>
+    <% if result.is_a? Community  %>
+        <%= render partial: "community_display", :locals => {:community => result} %>
+        <br>
+    <% end %>
+<% end %>

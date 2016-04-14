@@ -1,0 +1,2 @@
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails' 
