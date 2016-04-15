@@ -163,6 +163,10 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_nil make_conditions_with_parameter[:type]
   end
 
+  should 'make_conditions_with_parameter return archived parameter if archived was defined' do
+    assert_not_nil make_conditions_with_parameter('archived' => true)[:archived]
+  end
+
   #test_should_make_order_with_parameters_return_order_if attribute_is_found_at_object_association
   should 'make_order_with_parameters return order if attribute is found at object association' do
     environment = Environment.new

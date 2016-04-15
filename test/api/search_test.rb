@@ -147,4 +147,13 @@ class SearchTest < ActiveSupport::TestCase
     assert_includes ids, json['articles'].last["id"]
   end
 
+  should 'list only articles that was archived' do
+    article1 = fast_create(Article, :profile_id => person.id)
+    article2 = fast_create(Article, :profile_id => person.id, archived: true)
+
+    get "/api/v1/search/article?archived=true"
+    json = JSON.parse(last_response.body)
+    assert_equal [article2.id], json['articles'].map {|a| a['id']}
+  end
+
 end

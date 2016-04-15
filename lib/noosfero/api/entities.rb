@@ -174,13 +174,16 @@ module Noosfero
         expose :followers_count
         expose :votes_count
         expose :comments_count
+        expose :archived, :documentation => {:type => "Boolean", :desc => "Defines if a article is readonly"}
         expose :type
       end
 
       class Article < ArticleBase
         root 'articles', 'article'
         expose :parent, :using => ArticleBase
-        expose :children, :using => ArticleBase
+        expose :children, :using => ArticleBase do |article, options|
+          article.children.limit(Noosfero::API::V1::Articles::MAX_PER_PAGE)
+        end
       end
 
       class CommentBase < Entity

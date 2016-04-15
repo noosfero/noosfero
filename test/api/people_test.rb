@@ -240,7 +240,7 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
   end
 
-  PERSON_ATTRIBUTES = %w(vote_count comments_count articles_count)
+  PERSON_ATTRIBUTES = %w(vote_count comments_count articles_count following_articles_count)
 
   PERSON_ATTRIBUTES.map do |attribute|
     define_method "test_should_not_expose_#{attribute}_attribute_in_person_enpoint_if_field_parameter_does_not_contain_the_attribute" do
