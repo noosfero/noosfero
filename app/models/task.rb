@@ -324,6 +324,7 @@ class Task < ActiveRecord::Base
     where [environment_condition, profile_condition].compact.join(' OR ')
   }
 
+
   def self.pending_types_for(profile)
     Task.to(profile).pending.select('distinct type').map { |t| [t.class.name, t.title] }
   end
