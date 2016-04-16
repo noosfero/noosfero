@@ -1,11 +1,11 @@
-<% unless root.nil? %>
+<% unless block.root.nil? %>
   <div id="recent-content-block">
-    <% children = block.articles_of_folder(root, block.total_items)%>
+    <% children = block.articles_of_folder(block.root, block.total_items)%>
     <div class="recent-content">
       <%= block_title(block.title.blank? ? c_("Recent content") : block.title, block.subtitle ) %>
-      <% if block.show_blog_picture and !root.image.nil? %>
+      <% if block.show_blog_picture and !block.root.image.nil? %>
         <div class="recent-content-cover">
-          <%= image_tag(root.image.public_filename(:big)) %>
+          <%= image_tag(block.root.image.public_filename(:big)) %>
         </div>
       <% end %>
     </div>

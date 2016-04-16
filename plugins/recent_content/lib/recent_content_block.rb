@@ -44,13 +44,6 @@ class RecentContentBlock < Block
 
   include DatesHelper
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/recent_content_block', :locals => {:root => block.root, :block => block}
-    end
-  end
-
   def mode?(attr)
     attr == self.presentation_mode
   end
