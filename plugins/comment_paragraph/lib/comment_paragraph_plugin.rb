@@ -55,6 +55,10 @@ class CommentParagraphPlugin < Noosfero::Plugin
 
   end
 
+  def self.api_mount_points
+    [CommentParagraphPlugin::API]
+  end
+
 end
 
 require_dependency 'comment_paragraph_plugin/macros/allow_comment'

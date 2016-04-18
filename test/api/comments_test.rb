@@ -100,4 +100,32 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 200, last_response.status
     assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
   end
+
+  should 'call plugin hotspot to filter unavailable comments' do
+    class Plugin1 < Noosfero::Plugin
+      def unavailable_comments(scope)
+        scope.where(:user_agent => 'Jack')
+      end
+    end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+    Environment.default.enable_plugin(Plugin1)
+
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    c1 = fast_create(Comment, source_id: article.id, body: "comment 1")
+    c2 = fast_create(Comment, source_id: article.id, body: "comment 2", :user_agent => 'Jack')
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
+  end
+
+  should 'do not return comments marked as spam' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    c1 = fast_create(Comment, source_id: article.id, body: "comment 1", spam: true)
+    c2 = fast_create(Comment, source_id: article.id, body: "comment 2")
+
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
+  end
 end
