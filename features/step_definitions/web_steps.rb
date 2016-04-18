@@ -204,7 +204,7 @@ Then /^the "([^"]*)" field(?: within "([^"]*)")? should not contain "([^"]*)"$/ 
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should be checked$/ do |label, selector|
+Then /^the "([^"]*)" (?:checkbox|radio button)(?: within "([^"]*)")? should be checked$/ do |label, selector|
   with_scope(selector) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
@@ -215,7 +215,7 @@ Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should be checked$/ do |labe
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should not be checked$/ do |label, selector|
+Then /^the "([^"]*)" (?:checkbox|radio button)(?: within "([^"]*)")? should not be checked$/ do |label, selector|
   with_scope(selector) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
