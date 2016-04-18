@@ -19,6 +19,19 @@ module Noosfero
             profile = profiles.find_by id: params[:id]
             present profile, :with => Entities::Profile, :current_person => current_person
           end
+
+          delete ':id' do
+            profiles = environment.profiles
+            profile = profiles.find_by id: params[:id]
+
+            not_found! if profile.blank?
+
+            if current_person.has_permission?(:destroy_profile, profile)
+              profile.destroy
+            else
+              forbidden!
+            end
+          end
         end
       end
     end
