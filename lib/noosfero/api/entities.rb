@@ -148,6 +148,18 @@ module Noosfero
         expose :members, :using => Person
       end
 
+      class CommentBase < Entity
+        expose :body, :title, :id
+        expose :created_at, :format_with => :timestamp
+        expose :author, :using => Profile
+        expose :reply_of, :using => CommentBase
+      end
+
+      class Comment < CommentBase
+        root 'comments', 'comment'
+        expose :children, as: :replies, :using => Comment
+      end
+
       class ArticleBase < Entity
         root 'articles', 'article'
         expose :id
@@ -175,24 +187,13 @@ module Noosfero
         expose :votes_count
         expose :comments_count
         expose :type
+        expose :comments, using: CommentBase, :if => lambda{|obj,opt| opt[:params] && ['1','true',true].include?(opt[:params][:show_comments])}
       end
 
       class Article < ArticleBase
         root 'articles', 'article'
         expose :parent, :using => ArticleBase
         expose :children, :using => ArticleBase
-      end
-
-      class CommentBase < Entity
-        expose :body, :title, :id
-        expose :created_at, :format_with => :timestamp
-        expose :author, :using => Profile
-        expose :reply_of, :using => CommentBase
-      end
-
-      class Comment < CommentBase
-        root 'comments', 'comment'
-        expose :children, as: :replies, :using => Comment
       end
 
       class User < Entity

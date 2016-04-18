@@ -664,4 +664,20 @@ class ArticlesTest < ActiveSupport::TestCase
       assert_not_nil json['article'][attribute]
     end
   end
+
+  should 'only show article comments when show_comments is present' do
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    article.comments.create!(:body => "another comment", :author => person)
+
+    get "/api/v1/articles/#{article.id}/?#{params.merge(:show_comments => '1').to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["article"].keys, "comments"
+    assert_equal json["article"]["comments"].first["body"], "another comment"
+
+    get "/api/v1/articles/#{article.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json["article"].keys, "comments"
+  end
+
 end
