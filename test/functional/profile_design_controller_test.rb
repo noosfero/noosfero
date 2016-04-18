@@ -716,4 +716,9 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_equal assigns(:current_category), c1
   end
 
+  should 'not fail when a profile has a tag block' do
+    a = create(Article, :name => 'my article', :profile_id => holder.id, :tag_list => 'tag')
+    @box1.blocks << TagsBlock.new
+    get :index, :profile => 'designtestuser'
+  end
 end
