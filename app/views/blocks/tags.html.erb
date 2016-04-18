@@ -1,4 +1,5 @@
-<%= block_title(block.title) %>
+<% extend TagsHelper %>
+<%= block_title(block.title, block.subtitle) %>
 
 <%
   is_env = block.owner.class == Environment
