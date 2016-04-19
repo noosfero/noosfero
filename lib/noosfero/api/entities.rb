@@ -233,6 +233,7 @@ module Noosfero
         expose :name
         expose :id
         expose :description
+        expose :settings, if: lambda { |instance, options| options[:is_admin] }
       end
 
       class Tag < Entity

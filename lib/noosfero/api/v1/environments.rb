@@ -19,7 +19,8 @@ module Noosfero
             else
               resultEnvironment = Environment.find(params[:id])
             end
-            present resultEnvironment, :with => Entities::Environment
+            is_admin = is_admin?(resultEnvironment)
+            present resultEnvironment, :with => Entities::Environment, :is_admin => is_admin?(resultEnvironment)
           end
 
         end

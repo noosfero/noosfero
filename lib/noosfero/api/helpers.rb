@@ -30,6 +30,11 @@ require_relative '../../find_by_contents'
         current_user.person unless current_user.nil?
       end
 
+      def is_admin?(environment)
+        return false unless current_user
+        return current_person.is_admin?(environment)
+      end
+
       def logout
         @current_user = nil
       end
