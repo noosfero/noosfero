@@ -31,7 +31,7 @@ class FeedHandler
     end
   end
 
-  def fetch(address)
+  def fetch(address, header = {})
     begin
       content = ""
       block = lambda { |s| content = s.read }
@@ -42,27 +42,24 @@ class FeedHandler
           if !valid_url?(address)
             raise InvalidUrl.new("\"%s\" is not a valid URL" % address)
           end
-
-          header = {"User-Agent" => "Noosfero/#{Noosfero::VERSION}"}
-
-          environment = Environment.default
-
-          if environment.enable_feed_proxy
-            if address.starts_with?("https://")
-              header.merge!(:proxy => environment.https_feed_proxy) if environment.https_feed_proxy
-            else
-              header.merge!(:proxy => environment.http_feed_proxy) if environment.http_feed_proxy
-            end
-          end
-
-          header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if environment.disable_feed_ssl
-
+          header.merge!("User-Agent" => "Noosfero/#{Noosfero::VERSION}")
           open(address, header, &block)
         end
       return content
     rescue Exception => ex
       raise FeedHandler::FetchError, ex.message
     end
+  end
+
+  def fetch_through_proxy(address, environment)
+    header = {}
+    if address.starts_with?("https://")
+      header.merge!(:proxy => environment.https_feed_proxy) if environment.https_feed_proxy
+    else
+      header.merge!(:proxy => environment.http_feed_proxy) if environment.http_feed_proxy
+    end
+    header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if environment.disable_feed_ssl
+    fetch(address, header)
   end
 
   def process(container)
@@ -105,7 +102,11 @@ class FeedHandler
 
   def actually_process_container(container)
     container.clear
-    content = fetch(container.address)
+    if container.environment.enable_feed_proxy
+      content = fetch_through_proxy(container.address, container.environment)
+    else
+      content = fetch(container.address)
+    end
     container.fetched_at = Time.now
     parsed_feed = parse(content)
     container.feed_title = parsed_feed.title
