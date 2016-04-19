@@ -29,16 +29,16 @@ msgid "Requires users to authenticate in order to post comments."
 msgstr "Exige que os usuários se autentiquem antes de postar coentários."
 
 #: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:1
-msgid "Require auth to comment Settings"
-msgstr ""
+msgid "Require auth to comment plugin Settings"
+msgstr "Configurações do plugin require auth to comment"
 
 #: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:8
 msgid "Hide button"
-msgstr ""
+msgstr "Esconder botão"
 
 #: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:11
 msgid "Display login popup"
-msgstr ""
+msgstr "Mostrar popup de login"
 
 #: plugins/require_auth_to_comment/views/require_auth_to_comment_plugin_admin/index.html.erb:17
 msgid "Save"
