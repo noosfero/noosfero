@@ -1,23 +1,26 @@
 <% extend ContextContentBlockHelper %>
 
-<% if block.use_parent_title %>
-  <%= block_title(parent_title, block.subtitle) %>
-<% else %>
-  <%= block_title(block.title, block.subtitle) %>
-<% end %>
-
-<div class='contents' id='<%="context_content_#{block.id}"%>'>
-  <% contents.each do |content| %>
-    <% content = FilePresenter.for(content) %>
-    <span class="item">
-      <a href="<%= url_for(content.view_url) %>">
-        <div class="image">
-          <%= content_image(content) if block.show_image %>
-        </div>
-        <% if block.show_name %>
-          <div class="name"><%= content.name %></div>
-        <% end %>
-      </a>
-    </span>
+<% contents = block.contents(@page)
+   unless contents.blank? %>
+  <% if block.use_parent_title %>
+    <%= block_title(block.parent_title(contents), block.subtitle) %>
+  <% else %>
+    <%= block_title(block.title, block.subtitle) %>
   <% end %>
-</div>
+
+  <div class='contents' id='<%="context_content_#{block.id}"%>'>
+    <% contents.each do |content| %>
+      <% content = FilePresenter.for(content) %>
+      <span class="item">
+        <a href="<%= url_for(content.view_url) %>">
+          <div class="image">
+            <%= content_image(content) if block.show_image %>
+          </div>
+          <% if block.show_name %>
+            <div class="name"><%= content.name %></div>
+          <% end %>
+        </a>
+      </span>
+    <% end %>
+  </div>
+<% end %>

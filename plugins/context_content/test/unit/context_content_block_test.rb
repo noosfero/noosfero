@@ -20,17 +20,6 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.contents(nil)
   end
 
-  should 'render nothing if it has no content to show' do
-    assert_equal '', instance_eval(&@block.content)
-  end
-
-  should 'render context content block view' do
-    @page = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => @page.id)
-    expects(:render).with(:file => 'blocks/context_content', :locals => {:block => @block, :contents => [article], :parent_title => @page.name})
-    instance_eval(&@block.content)
-  end
-
   should 'return children of page' do
     folder = fast_create(Folder)
     article = fast_create(TinyMceArticle, :parent_id => folder.id)
@@ -165,4 +154,34 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     refute @block.cacheable?
   end
 
+end
+
+require 'boxes_helper'
+
+class ContextContentBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    @block = ContextContentPlugin::ContextContentBlock.create!
+    @block.types = ['TinyMceArticle']
+  end
+
+  should 'render nothing if it has no content to show' do
+    assert_equal "\n", render_block_content(@block)
+  end
+
+  should 'render context content block view' do
+    @page = fast_create(Folder)
+    article = fast_create(TinyMceArticle, :parent_id => @page.id)
+    contents = [article]
+    @block.use_parent_title = true
+
+    article.expects(:view_url).returns('http://test.noosfero.plugins')
+    @block.expects(:contents).with(@page).returns(contents)
+    @block.expects(:parent_title).with(contents).returns(@page.name)
+    ActionView::Base.any_instance.expects(:block_title).returns(@page.name, @block.subtitle)
+
+    render_block_content(@block)
+  end
 end

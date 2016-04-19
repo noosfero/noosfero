@@ -58,33 +58,6 @@ class ContextContentPlugin::ContextContentBlock < Block
     contents.first.parent.name
   end
 
-  def footer
-    block = self
-    proc do
-      contents = block.contents(@page)
-      if contents
-        content_tag('div',
-          render(:partial => 'blocks/more', :locals => {:block => block, :contents => contents, :article_id => @page.id}), :id => "context_content_more_#{block.id}", :class => "more_button")
-      else
-        ''
-      end
-    end
-  end
-
-  def content(args={})
-    block = self
-    ret = proc do
-      contents = block.contents(@page)
-      parent_title = block.parent_title(contents)
-      if contents.present?
-        render(:file => 'blocks/context_content', :locals => {:block => block, :contents => contents, :parent_title => parent_title})
-      else
-        ''
-      end
-    end
-    ret
-  end
-
   def cacheable?
     false
   end
