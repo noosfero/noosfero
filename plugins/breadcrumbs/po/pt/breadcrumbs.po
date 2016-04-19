@@ -49,6 +49,5 @@ msgid "Show profile"
 msgstr "Mostrar perfil"
 
 #: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
-#, fuzzy
 msgid "Show section name"
-msgstr "Mostrar cms"
+msgstr "Mostrar nome da seção"
