@@ -118,22 +118,20 @@ msgstr "Digite um termo de pesquisa para um grupo"
 #: ../views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
 msgid "%s's sub-%s"
-msgstr ""
+msgstr "%s's sub-%s"
 
 #: ../views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
 msgid "Add a new %s"
-msgstr ""
+msgstr "Adicionar uma nova %s"
 
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "There are no sub-%s yet."
-msgstr ""
+msgstr "Não existem sub-%s ainda."
 
 #: plugins/sub_organizations/lib/related_organizations_block.rb:27
-#, fuzzy
 msgid "This block displays %s organizations of this organization"
-msgstr ""
-"\"Este bloco mostra #{display_type[:title]} organizações desta organização\""
+msgstr "Este bloco mostra %s organizações desta organização"
 
 #~ msgid "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
 #~ msgstr "\"#{profile.name}'s sub-#{organization_type.pluralize}\""
