@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
@@ -19,8 +18,8 @@ msgstr ""
 
 #: plugins/pjax/lib/pjax_plugin.rb:4
 msgid "Pjax plugin"
-msgstr ""
+msgstr "Plugin Pjax"
 
 #: plugins/pjax/lib/pjax_plugin.rb:8
 msgid "Use pjax for page's links"
-msgstr ""
+msgstr "Utilize pjax para links de páginas"
