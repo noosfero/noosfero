@@ -76,7 +76,7 @@ msgstr "Consumidores"
 
 #: ../views/sniffer_plugin_myprofile/_product_search_box.html.erb:19
 msgid "Both"
-msgstr ""
+msgstr "Ambos"
 
 #: ../views/sniffer_plugin_myprofile/_product_search_box.html.erb:25
 msgid "look for products..."
@@ -129,7 +129,7 @@ msgstr "Fechar"
 
 #: ../views/sniffer_plugin_myprofile/search.html.erb:11
 msgid "Up to %s km from you. %s result(s) found."
-msgstr ""
+msgstr "Acima de %s km de você. %s resultado(s) encontrado(s)."
 
 #: ../views/sniffer_plugin_myprofile/search.html.erb:22
 msgid "Legend"
