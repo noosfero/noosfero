@@ -42,7 +42,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
       get "/api/v1/communities?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal [community1.id, community2.id], json['communities'].map {|c| c['id']}
+      assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
   should 'logged user list private community for members' do
@@ -207,7 +207,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
   end
 
   should 'not, anonymous create a community' do
