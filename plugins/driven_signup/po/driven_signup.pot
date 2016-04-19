@@ -19,8 +19,8 @@ msgstr ""
 
 #: plugins/driven_signup/lib/driven_signup_plugin.rb:6
 msgid "Driven signup"
-msgstr ""
+msgstr "Registro dirigido"
 
 #: plugins/driven_signup/lib/driven_signup_plugin.rb:10
 msgid "Allow external websites to manage the signup"
-msgstr ""
+msgstr "Permitir que sites externos gerenciem o registro"
