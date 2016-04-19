@@ -43,19 +43,6 @@ class ContextContentPlugin::ContextContentBlock < Block
     settings[:types] = new_types.reject(&:blank?)
   end
 
-  def content_image(content)
-    block = self
-    proc do
-      if content.image?
-        image_tag(content.public_filename(:thumb))
-      else
-        extra_class = content.uploaded_file? ? "extension-#{content.extension}" : ''
-        klasses = [content.icon_name].flatten.map{|name| 'icon-'+name}.join(' ')
-        content_tag 'div', '', :class => "context-icon #{klasses} #{extra_class}"
-      end
-    end
-  end
-
   def contents(page, p=1)
     return @children unless @children.blank?
     if page

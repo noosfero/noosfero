@@ -1,3 +1,5 @@
+<% extend ContextContentBlockHelper %>
+
 <% if block.use_parent_title %>
   <%= block_title(parent_title, block.subtitle) %>
 <% else %>
@@ -10,7 +12,7 @@
     <span class="item">
       <a href="<%= url_for(content.view_url) %>">
         <div class="image">
-          <%= instance_eval(&block.content_image(content)) if block.show_image %>
+          <%= content_image(content) if block.show_image %>
         </div>
         <% if block.show_name %>
           <div class="name"><%= content.name %></div>
