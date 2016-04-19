@@ -48,32 +48,33 @@ msgstr "Este bloco mostra a média de avaliações da organização."
 
 #: ../lib/create_organization_rating_comment.rb:37
 msgid "New Report"
-msgstr ""
+msgstr "Novo Relato"
 
 #: ../lib/create_organization_rating_comment.rb:41
-#, fuzzy
 msgid ""
 "<a href=%{requestor_url}>%{requestor}</a> wants to leave a report about this "
 "%{target_class}"
 msgstr ""
-"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
-"neste(a) %{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> deseja criar um relato sobre isto "
+"%{target_class}"
 
 #: ../lib/create_organization_rating_comment.rb:66
-#, fuzzy
 msgid "%{requestor} wants to leave a report about this \"%{target}\""
-msgstr "%{requestor} deseja criar um comentário neste(a) \"%{target}\""
+msgstr "%{requestor} deseja criar um relato sobre isto \"%{target}\""
 
 #: ../lib/create_organization_rating_comment.rb:71
 msgid ""
-"User \"%{user}\" just made a report at %{target_class}\n"
+"The user \"%{user}\" just made a report at %{target_class}\n"
 "      \"%{target_name}\".\n"
 "      You have to approve or reject it through the \"Pending Validations\"\n"
 "      section in your control panel.\n"
 msgstr ""
+"O usuário \"%{user}\" acabou de fazer um relato em %{target_class}\n"
+"      \"%{target_name}\".\n"
+"      Você precisa aprová-lo ou rejeitá-lo na seção \"Validações Pendentes\"\n"
+"      no seu painel de controle.\n"
 
 #: ../lib/create_organization_rating_comment.rb:81
-#, fuzzy
 msgid ""
 "Your report at %{target_class} \"%{target}\" was\n"
 "      just sent. The administrator will receive it and will approve or\n"
@@ -82,14 +83,13 @@ msgid ""
 "position\n"
 "      about your request."
 msgstr ""
-"Seu pedido para comentar em %{target} foi\n"
-"      enviado. O administrador irá recebê-lo e aprovar ou\n"
+"Seu relato em %{target_class} \"%{target}\" acabou de ser\n"
+"      enviado. O administrador irá recebê-lo e irá aprovar ou\n"
 " rejeitar seu pedido de acordo com seus métodos e critérios.\n"
 "      Você será notificado assim que o administrador tenha uma posição\n"
 "      sobre seu pedido."
 
 #: ../lib/create_organization_rating_comment.rb:90
-#, fuzzy
 msgid ""
 "Your report at %{target_class} \"%{target}\" was\n"
 "      not approved by the administrator. The following explanation\n"
@@ -98,18 +98,18 @@ msgid ""
 "%{explanation}"
 msgstr ""
 "Seu pedido para comentar em %{target} não\n"
+"Seu relato em %{target_class} \"%{target}\" não\n"
 "      foi aprovado pelo administrador. A seguinte explicação\n"
 "      foi dada: \n"
 "\n"
 "%{explanation}"
 
 #: ../lib/create_organization_rating_comment.rb:99
-#, fuzzy
 msgid ""
 "Your report at %{target_class} \"%{target}\" was approved.\n"
 "      You can access %{url} to see your comment."
 msgstr ""
-"Seu pedido para comentar em %{target} foi aprovado.\n"
+"Seu relato em %{target_class} \"%{target}\" foi aprovado.\n"
 "\tVocê pode acessar %{url} para ver seu comentário."
 
 #: ../lib/organization_rating.rb:10
@@ -254,17 +254,16 @@ msgid "Log in"
 msgstr "Entrar"
 
 #: ../views/shared/_user_rating_container.html.erb:29
-#, fuzzy
 msgid "Report waiting for approval"
-msgstr "Comentario aguardando aprovação"
+msgstr "Relato aguardando aprovação"
 
 #: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:5
 msgid "Description:"
-msgstr ""
+msgstr "Descrição:"
 
 #: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
 msgid "* The rating score is not moderated."
-msgstr ""
+msgstr "* A pontuação de classificação não é moderada."
 
 #: plugins/organization_ratings/lib/create_organization_rating_comment.rb:31
 #~ msgid "Comment waiting for approval"

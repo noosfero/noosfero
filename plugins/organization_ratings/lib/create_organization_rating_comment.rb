@@ -68,7 +68,7 @@ class CreateOrganizationRatingComment < Task
   end
 
   def target_notification_message
-    _("User \"%{user}\" just made a report at %{target_class}
+    _("The user \"%{user}\" just made a report at %{target_class}
       \"%{target_name}\".
       You have to approve or reject it through the \"Pending Validations\"
       section in your control panel.\n") %
