@@ -30,8 +30,8 @@ msgstr "Rastreamento e análise web para pessoas e comunidades"
 
 #: plugins/google_analytics/views/profile-editor-extras.html.erb:2
 msgid "Google Analytics Profile ID"
-msgstr ""
+msgstr "Identificador do Perfil do Google Analytics"
 
 #: plugins/google_analytics/views/profile-editor-extras.html.erb:3
 msgid "See how to configure statistics for your profile"
-msgstr ""
+msgstr "Veja como configurar estatísticas para o seu perfil"
