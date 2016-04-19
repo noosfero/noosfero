@@ -97,7 +97,6 @@ msgid "Mail"
 msgstr "Mail"
 
 #: plugins/ldap/views/ldap_plugin_admin/index.html.erb:65
-#, fuzzy
 msgid "Behaviour Configuration"
 msgstr "Configuração de comportamento"
 
