@@ -2,10 +2,15 @@ require_relative 'test_helper'
 
 class CommentsTest < ActiveSupport::TestCase
 
+  def setup
+    @local_person = fast_create(Person)
+    anonymous_setup
+  end
+  attr_reader :local_person
+
   should 'logged user not list comments if user has no permission to view the source article' do
     login_api
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing", :published => false)
     assert !article.published?
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
@@ -14,9 +19,8 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user not return comment if user has no permission to view the source article' do
     login_api
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
-    comment = article.comments.create!(:body => "another comment", :author => user.person)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing", :published => false)
+    comment = article.comments.create!(:body => "another comment", :author => local_person)
     assert !article.published?
 
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
@@ -25,8 +29,7 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user not comment an article if user has no permission to view it' do
     login_api
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing", :published => false)
     assert !article.published?
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
@@ -35,9 +38,9 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user return comments of an article' do
     login_api
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    article.comments.create!(:body => "some comment", :author => user.person)
-    article.comments.create!(:body => "another comment", :author => user.person)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    article.comments.create!(:body => "some comment", :author => local_person)
+    article.comments.create!(:body => "another comment", :author => local_person)
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -47,8 +50,8 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user return comment of an article' do
     login_api
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    comment = article.comments.create!(:body => "another comment", :author => user.person)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    comment = article.comments.create!(:body => "another comment", :author => local_person)
 
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -58,7 +61,7 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user comment an article' do
     login_api
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     body = 'My comment'
     params.merge!({:body => body})
 
@@ -77,46 +80,10 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 400, last_response.status
   end
 
-  should 'comment creation define the source' do
-    login_api
-    amount = Comment.count
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    body = 'My comment'
-    params.merge!({:body => body})
-
-    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
-    assert_equal amount + 1, Comment.count
-    comment = Comment.last
-    assert_not_nil comment.source
-  end
-
-  should 'paginate comments' do
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    5.times { article.comments.create!(:body => "some comment", :author => user.person) }
-    params[:per_page] = 3
-
-    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 200, last_response.status
-    assert_equal 3, json["comments"].length
-  end
-
-  should 'return only root comments' do
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    comment1 = article.comments.create!(:body => "some comment", :author => user.person)
-    comment2 = article.comments.create!(:body => "another comment", :author => user.person, :reply_of_id => comment1.id)
-    params[:without_reply] = true
-
-    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 200, last_response.status
-    assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
-  end
-
   should 'logged user comment creation define the source' do
       login_api
       amount = Comment.count
-      article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+      article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
       body = 'My comment'
       params.merge!({:body => body})
 
@@ -135,7 +102,7 @@ class CommentsTest < ActiveSupport::TestCase
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1)
 
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     c1 = fast_create(Comment, source_id: article.id, body: "comment 1")
     c2 = fast_create(Comment, source_id: article.id, body: "comment 2", :user_agent => 'Jack')
 
@@ -144,32 +111,27 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
   end
 
-  should 'do not return comments marked as spam' do
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+  should 'anonymous do not return comments marked as spam' do
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     c1 = fast_create(Comment, source_id: article.id, body: "comment 1", spam: true)
     c2 = fast_create(Comment, source_id: article.id, body: "comment 2")
-
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
   end
 
   should 'not, anonymous list comments if has no permission to view the source article' do
-    anonymous_setup
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing", :published => false)
     assert !article.published?
   
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     assert_equal 403, last_response.status
   end
   
-  should 'visitor return comments of an article' do
-    visitor_setup
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
-    article.comments.create!(:body => "some comment", :author => person)
-    article.comments.create!(:body => "another comment", :author => person)
+  should 'anonymous return comments of an article' do
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    article.comments.create!(:body => "some comment", :author => local_person)
+    article.comments.create!(:body => "another comment", :author => local_person)
   
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -177,11 +139,9 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 2, json["comments"].length
   end
   
-  should 'visitor return comment of an article' do
-    visitor_setup
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
-    comment = article.comments.create!(:body => "another comment", :author => person)
+  should 'anonymous return comment of an article' do
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    comment = article.comments.create!(:body => "another comment", :author => local_person)
   
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -190,9 +150,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous comment an article (at least so far...)' do
-    anonymous_setup
-    person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
     body = 'My comment'
     name = "John Doe"
     email = "JohnDoe@gmail.com"
@@ -202,10 +160,10 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 401, last_response.status
   end
 
-  should 'paginate comments' do
+  should 'logged user paginate comments' do
     login_api
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    5.times { article.comments.create!(:body => "some comment", :author => user.person) }
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    5.times { article.comments.create!(:body => "some comment", :author => local_person) }
     params[:per_page] = 3
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
@@ -214,11 +172,11 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 3, json["comments"].length
   end
 
-  should 'return only root comments' do
+  should 'logged user return only root comments' do
     login_api
-    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-    comment1 = article.comments.create!(:body => "some comment", :author => user.person)
-    comment2 = article.comments.create!(:body => "another comment", :author => user.person, :reply_of_id => comment1.id)
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    comment1 = article.comments.create!(:body => "some comment", :author => local_person)
+    comment2 = article.comments.create!(:body => "another comment", :author => local_person, :reply_of_id => comment1.id)
     params[:without_reply] = true
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
