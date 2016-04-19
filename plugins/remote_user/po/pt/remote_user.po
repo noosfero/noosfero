@@ -29,10 +29,9 @@ msgid "A plugin that add remote user support."
 msgstr "Um plugin que adiciona suporte a usuário remoto."
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:52
-#, fuzzy
 msgid "Could not create the remote user."
 msgstr "Não foi possível criar o usuário remoto."
 
 #: plugins/remote_user/lib/remote_user_plugin.rb:55
 msgid "Could not log in."
-msgstr ""
+msgstr "Não foi possível logar."
