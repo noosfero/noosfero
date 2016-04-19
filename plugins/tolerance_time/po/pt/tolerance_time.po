@@ -81,11 +81,9 @@ msgid "Comment edition tolerance time"
 msgstr "Tempo de tolerância para edição de comentários"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:10
-#, fuzzy
 msgid "Content edition tolerance time"
 msgstr "Tempo de tolerância para edição de conteúdo"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:18
-#, fuzzy
 msgid "Empty means unlimited and zero means right away."
 msgstr "Campo vazio significa ilimitado e zero significa imediatamente."
