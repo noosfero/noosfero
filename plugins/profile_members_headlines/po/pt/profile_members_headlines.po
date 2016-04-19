@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:11
+msgid "Display headlines from members of a community"
+msgstr "Mostrar manchetes para os membros de uma comunidade"
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:15
+msgid "This block displays one post from members of a community."
+msgstr "Este bloco mostra um post de membros da comunidade"
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_block.rb:21
+msgid "Profile members headlines"
+msgstr "Manchetes dos perfis dos membros"
+
+#: plugins/profile_members_headlines/lib/profile_members_headlines_plugin.rb:11
+msgid "A plugin that adds a block where you can display posts from members."
+msgstr "Um plugin que adiciona um bloco onde você pode mostrar os posts de membros."
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "Headlines transition:"
+msgstr "Transições de manchetes:"
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "No automatic transition"
+msgstr "Sem transição automática"
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:3
+msgid "Every 1 second"
+msgid_plural "Every %d seconds"
+msgstr[0] "Cada 1 segundo"
+msgstr[1] "Cada %d segundos"
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:5
+msgid "Display navigation buttons"
+msgstr "Mostrar botões de navegação"
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:6
+msgid "Limit of headlines"
+msgstr "Limite de manchetes"
+
+#: plugins/profile_members_headlines/views/box_organizer/_profile_members_headlines_block.html.erb:8
+msgid "Choose which roles should be displayed:"
+msgstr "Escolha quais funções devem ser exibidas:"
+
+#: plugins/profile_members_headlines/views/blocks/headlines.html.erb:37
+msgid "No headlines to be shown."
+msgstr "Não há notícias para ser mostrada."
