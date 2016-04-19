@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: plugins/oauth_provider/lib/oauth_provider_plugin.rb:8
+msgid "Oauth Provider."
+msgstr "Provedore Oauth."
+
+#: plugins/oauth_provider/lib/oauth_provider_plugin.rb:52
+msgid "Access your public data"
+msgstr "Acessar seus dados públicos"
+
+#: plugins/oauth_provider/views/oauth_provider_plugin_admin/index.html.erb:2
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:3
+msgid "Oauh Provider"
+msgstr "Provedor Oauth"
+
+#: plugins/oauth_provider/views/oauth_provider_plugin_admin/index.html.erb:5
+msgid "Applications"
+msgstr "Aplicações"
+
+#: plugins/oauth_provider/views/oauth_provider_plugin_admin/index.html.erb:8
+msgid "Authorized Applications"
+msgstr "Aplicações Autorizadas"
+
+#: plugins/oauth_provider/views/oauth_provider_plugin_admin/index.html.erb:12
+#: plugins/oauth_provider/views/doorkeeper/authorized_applications/index.html.erb:29
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:29
+msgid "Go back"
+msgstr "Voltar"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:4
+msgid "Whoops! Check your form for possible errors"
+msgstr "Oops! Verifique seu formulário para possíveis erros"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:22
+msgid "Use one line per URI"
+msgstr "Utilize uma linha por URI"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:34
+msgid "Submit"
+msgstr "Submeter"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/_form.html.erb:35
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:35
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/edit.html.erb:2
+msgid "Edit application"
+msgstr "Editar aplicação"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:2
+msgid "Application: %s"
+msgstr "Aplicação: %s"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:7
+msgid "Application Id:"
+msgstr "Id da Aplicação:"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:11
+msgid "Secret:"
+msgstr "Senha:"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:15
+msgid "Callback urls:"
+msgstr "Urls de callback:"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:31
+msgid "Actions"
+msgstr "Ações"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/show.html.erb:34
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:22
+msgid "Edit"
+msgstr "Editar"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:6
+msgid "New Application"
+msgstr "Nova Aplicação"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:11
+msgid "Name"
+msgstr "Nome"
+
+#: plugins/oauth_provider/views/doorkeeper/applications/index.html.erb:12
+msgid "Callback URL"
+msgstr "URL de callback"
+
+#: plugins/oauth_provider/views/doorkeeper/authorizations/new.html.erb:4
+msgid "Authorize required"
+msgstr "Autorização necessária"
+
+#: plugins/oauth_provider/views/doorkeeper/authorizations/new.html.erb:9
+msgid "Authorize %s to use your account?"
+msgstr "Autorizar %s a usar sua conta?"
+
+#: plugins/oauth_provider/views/doorkeeper/authorizations/new.html.erb:14
+msgid "This application will be able to:"
+msgstr "Esta aplicação será capaz de:"
+
+#: plugins/oauth_provider/views/doorkeeper/authorizations/new.html.erb:31
+msgid "Authorize"
+msgstr "Autorizar"
+
+#: plugins/oauth_provider/views/doorkeeper/authorizations/new.html.erb:39
+msgid "Deny"
+msgstr "Negar"
