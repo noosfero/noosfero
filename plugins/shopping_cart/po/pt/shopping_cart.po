@@ -164,9 +164,8 @@ msgid "Unit price"
 msgstr "Preço unitário"
 
 #: ../views/shopping_cart_plugin/_items.html.erb:16
-#, fuzzy
 msgid "Total"
-msgstr "Total:"
+msgstr "Total"
 
 #: ../views/shopping_cart_plugin/buy.html.erb:3
 #: ../views/shopping_cart_plugin/buy.html.erb:46
@@ -191,7 +190,7 @@ msgstr "E-mail"
 
 #: ../views/shopping_cart_plugin/buy.html.erb:23
 msgid "Contact phone"
-msgstr ""
+msgstr "Telefone de contato"
 
 #: ../views/shopping_cart_plugin/buy.html.erb:28
 #: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
@@ -248,7 +247,7 @@ msgstr "Abaixo, revise as informações do seu pedido:"
 #: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
 #: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 msgid "Phone number"
-msgstr ""
+msgstr "Número de telefone"
 
 #: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
 msgid "Delivery or pickup"
