@@ -15,7 +15,7 @@ msgstr ""
 
 #: ../lib/ext/profile.rb:53
 msgid "Manage orders"
-msgstr ""
+msgstr "Genrenciar pedidos"
 
 #: ../models/orders_plugin/order.rb:13
 msgid "Money"
@@ -39,4 +39,4 @@ msgstr "Boleto bancário"
 
 #: ../views/orders_plugin_order/_delivery.html.erb:10
 msgid "Delivery or pickup method"
-msgstr ""
+msgstr "Método de entrega ou retirada"
