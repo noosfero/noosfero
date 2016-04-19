@@ -15,7 +15,7 @@ module Noosfero
       post "/login" do
         begin
           user ||= User.authenticate(params[:login], params[:password], environment)
-        rescue NoosferoExceptions::UserNotActivated => e
+        rescue User::UserNotActivated => e
           render_api_error!(e.message, 401)
         end
 

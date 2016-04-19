@@ -20,6 +20,13 @@ class SessionTest < ActiveSupport::TestCase
     assert_equal 401, last_response.status
   end
 
+  should 'return 401 when login with an user that was not activated' do
+    user.deactivate
+    params = {:login => "testapi", :password => "testapi"}
+    post "/api/v1/login?#{params.to_query}"
+    assert_equal 401, last_response.status
+  end
+
   should 'register a user' do
     Environment.default.enable('skip_new_user_email_confirmation')
     params = {:login => "newuserapi", :password => "newuserapi", :password_confirmation => "newuserapi", :email => "newuserapi@email.com" }
