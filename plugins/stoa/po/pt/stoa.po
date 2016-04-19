@@ -38,7 +38,7 @@ msgstr "está sendo usado por outro usuário ou não é válido"
 
 #: ../lib/ext/profile_suggestion.rb:5
 msgid "Classroom in common"
-msgstr ""
+msgstr "Sala de aula em comum"
 
 #: ../lib/stoa_plugin.rb:10
 msgid "Add Stoa features"
@@ -102,6 +102,5 @@ msgstr " validação falhou"
 
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:25
 #: plugins/stoa/lib/stoa_plugin/auth.rb:33
-#, fuzzy
 msgid "Conection requires post method."
-msgstr "A conexão exige um certificado SSL e a utilização do método 'post'."
+msgstr "A conexão exige método post."
