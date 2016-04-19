@@ -108,30 +108,21 @@ class TasksController < MyProfileController
 
   protected
 
-  def filter_by_closed_date(filter, tasks)
-    filter[:closed_from] = Date.parse(filter[:closed_from]) unless filter[:closed_from].blank?
-    filter[:closed_until] = Date.parse(filter[:closed_until]) unless filter[:closed_until].blank?
-
-    tasks = tasks.where('tasks.end_date >= ?', filter[:closed_from].beginning_of_day) unless filter[:closed_from].blank?
-    tasks = tasks.where('tasks.end_date <= ?', filter[:closed_until].end_of_day) unless filter[:closed_until].blank?
-    tasks
-  end
-
-  def filter_by_creation_date(filter, tasks)
-    filter[:created_from] = Date.parse(filter[:created_from]) unless filter[:created_from].blank?
-    filter[:created_until] = Date.parse(filter[:created_until]) unless filter[:created_until].blank?
-
-    tasks = tasks.where('tasks.created_at >= ?', filter[:created_from].beginning_of_day) unless filter[:created_from].blank?
-    tasks = tasks.where('tasks.created_at <= ?', filter[:created_until].end_of_day) unless filter[:created_until].blank?
-    tasks
-  end
-
   def filter_tasks(filter, tasks)
     tasks = tasks.eager_load(:requestor, :closed_by)
     tasks = tasks.of(filter[:type].presence)
     tasks = tasks.where(:status => filter[:status]) unless filter[:status].blank?
-    tasks = filter_by_creation_date(filter, tasks)
-    tasks = filter_by_closed_date(filter, tasks)
+
+    filter[:created_from] = Date.parse(filter[:created_from]) unless filter[:created_from].blank?
+    filter[:created_until] = Date.parse(filter[:created_until]) unless filter[:created_until].blank?
+    filter[:closed_from] = Date.parse(filter[:closed_from]) unless filter[:closed_from].blank?
+    filter[:closed_until] = Date.parse(filter[:closed_until]) unless filter[:closed_until].blank?
+
+    tasks = tasks.from_creation_date filter[:created_from] unless filter[:created_from].blank?
+    tasks = tasks.until_creation_date filter[:created_until] unless filter[:created_until].blank?
+
+    tasks = tasks.from_closed_date filter[:closed_from] unless filter[:closed_from].blank?
+    tasks = tasks.until_closed_date filter[:closed_until] unless filter[:closed_until].blank?
 
     tasks = tasks.where('profiles.name LIKE ?', filter[:requestor]) unless filter[:requestor].blank?
     tasks = tasks.where('closed_bies_tasks.name LIKE ?', filter[:closed_by]) unless filter[:closed_by].blank?
