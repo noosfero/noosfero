@@ -37,7 +37,7 @@ msgstr ""
 
 #: plugins/lattes_curriculum/lib/html_parser.rb:22
 msgid "Could not import the lattes"
-msgstr ""
+msgstr "O Lattes não pôde ser importado"
 
 #: plugins/lattes_curriculum/lib/lattes_curriculum_plugin.rb:8
 #: plugins/lattes_curriculum/test/unit/lattes_curriculum_test.rb:18
