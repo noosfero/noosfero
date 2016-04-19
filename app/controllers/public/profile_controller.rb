@@ -86,8 +86,17 @@ class ProfileController < PublicController
     @articles = profile.top_level_articles.includes([:profile, :parent])
   end
 
+  def join_modal
+      profile.add_member(user)
+      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name
+      redirect_to :action => :index
+  end
+
   def join
     if !user.memberships.include?(profile)
+      return if profile.community? && profile.requires_email &&
+                current_person && !current_person.public_fields.include?("email")
+
       profile.add_member(user)
       if !profile.members.include?(user)
         render :text => {:message => _('%s administrator still needs to accept you as member.') % profile.name}.to_json

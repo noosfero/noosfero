@@ -7,15 +7,12 @@
         <%= button :delete, content_tag('span', _('Leave community')), profile.leave_url,
           class: 'leave-community',
           style: 'position: relative;' %>
-        <%= button :add, content_tag('span', _('Join this community')), profile.join_url,
-          class: 'join-community',
-          style: 'position: relative; display: none;' %>
       <% else %>
-        <%= button :add, _('Join this community'), profile.join_url, class: 'join-community' %>
+        <%= join_community_button(true) %>
       <% end %>
     <% end %>
   <% else %>
-    <%= button :add, _('Join this community'), profile.join_not_logged_url %>
+    <%= join_community_button(false) %>
   <% end %>
 </div>
 

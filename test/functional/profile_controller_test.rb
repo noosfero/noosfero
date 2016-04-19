@@ -3,6 +3,8 @@ require 'profile_controller'
 
 class ProfileControllerTest < ActionController::TestCase
 
+  include MembershipsHelper
+
   self.default_params = {profile: 'testuser'}
   def setup
     @profile = create_user('testuser').person
@@ -382,6 +384,61 @@ class ProfileControllerTest < ActionController::TestCase
     get :join, :profile => community.identifier
 
     assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'show regular join button for person with public email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    Person.any_instance.stubs(:public_fields).returns(["email"])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show join modal for person with private email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    Person.any_instance.stubs(:public_fields).returns([])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show regular join button for community without email visibility requirement' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
+    Person.any_instance.stubs(:public_fields).returns([])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show regular join button for community without email visibility requirement and person with public email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
+    Person.any_instance.stubs(:public_fields).returns(['email'])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'render join modal for community with email visibility requirement and person with private email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    login_as @profile.identifier
+    post :join, :profile => community.identifier
+    assert_template "join"
+  end
+
+  should 'create add member task from join-community modal' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    admin = create_user('community-admin').person
+    community.add_admin(admin)
+
+    login_as @profile.identifier
+    assert_difference 'AddMember.count' do
+      post :join_modal, :profile => community.identifier
+    end
+    assert_redirected_to :action => 'index'
   end
 
   should 'actually leave profile' do

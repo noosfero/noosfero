@@ -29,13 +29,15 @@ class AddMember < Task
   end
 
   def information
-    requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
-
-    {:message => _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'."),
-     variables: {requestor: requestor.name, requestor_email: requestor_email, organization: organization.name}}
+    {:message => _("%{requestor} wants to be a member of '%{target}'."),
+     variables: {requestor: requestor.name, target: target.name}}
   end
 
   def accept_details
+    true
+  end
+
+  def footer
     true
   end
 

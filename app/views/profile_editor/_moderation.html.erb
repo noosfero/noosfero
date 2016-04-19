@@ -9,7 +9,6 @@
       <%= _('Send administrator Email for every task') %>
     </div>
   </div>
-
   <div style='margin-bottom: 1em'>
     <h4><%= _('Invitation moderation:')%></h4>
   </div>
@@ -35,6 +34,12 @@
     <%= radio_button 'profile_data', 'closed', 'true', :style => 'float: left' %>
     <div style='margin-left: 30px'>
       <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).').html_safe %>
+    </div>
+    <div id = "requires_email_option" style="margin-left: 30px; margin-top: 10px; margin-bottom: 15px;<%=" display: none;" unless profile.closed?  %>">
+      <%= check_box(:profile_data, :requires_email, :style => 'float: left') %>
+      <div style='margin-left: 30px'>
+        <%= _('New members must allow email visibility to the profile admin') %>
+      </div>
     </div>
   </div>
   <div>
