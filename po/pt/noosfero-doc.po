@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.5\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
 "PO-Revision-Date: 2015-02-23 11:33+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
@@ -3739,9 +3739,9 @@ msgstr ""
 "controle uma caixa com a lista de solicitações pendentes. Para aceitar ou "
 "ignorar, você deve clicar no botão &#8220;Processar solicitações&#8221;"
 
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><div><img>
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/accepting-members.en.xhtml:18
@@ -7713,9 +7713,9 @@ msgstr ""
 "ícone com formato de lixeira ao lado da foto da pessoa que você deseja "
 "remover."
 
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><div><img>
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:17
@@ -7779,9 +7779,9 @@ msgstr ""
 "caixa com a lista de solicitações pendentes. Para aceitar ou ignorar, você "
 "deve clicar no botão &#8220;Processar solicitações&#8221;."
 
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><div><img>
-# #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  noosfero-doc.po (1.5)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/accepting-friends.en.xhtml:16

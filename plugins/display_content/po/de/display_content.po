@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -19,10 +19,74 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/display_content/lib/display_content_plugin.rb:10
+#: ../lib/display_content_block.rb:46
+msgid "Abstract"
+msgstr "Zusammenfassung"
+
+#: ../lib/display_content_block.rb:158
+msgid "Read more"
+msgstr "Mehr lesen"
+
+#: ../lib/display_content_block.rb:201
+msgid "%{month}/%{day}"
+msgstr "%{day}.%{month}."
+
+#: ../lib/display_content_block.rb:201
+msgid "%{month}/%{day}/%{year}"
+msgstr "%{day}.%{month}.%{year}"
+
+#: ../lib/display_content_block.rb:204
+msgid "%{month_name} %{day}"
+msgstr ""
+
+#: ../lib/display_content_block.rb:204
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: ../lib/display_content_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you could choose any of your content and "
 "display it."
+msgstr ""
+
+#: ../views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: ../views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:5
+msgid "Choose which attributes should be displayed and drag to reorder them:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:21
+msgid "Choose which content should be displayed:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:23
+msgid "Choose directly"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:32
+msgid "Translations:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:33
+msgid "List only translated content"
 msgstr ""
 
 #: plugins/display_content/lib/display_content_block.rb:34
@@ -44,59 +108,6 @@ msgstr ""
 msgid "Publish date"
 msgstr "Veröffentlichungsdatum"
 
-#: plugins/display_content/lib/display_content_block.rb:45
-msgid "Abstract"
-msgstr "Zusammenfassung"
-
-#: plugins/display_content/lib/display_content_block.rb:151
-msgid "Read more"
-msgstr "Mehr lesen"
-
-#: plugins/display_content/lib/display_content_block.rb:194
-msgid "%{month}/%{day}/%{year}"
-msgstr "%{day}.%{month}.%{year}"
-
-#: plugins/display_content/lib/display_content_block.rb:194
-msgid "%{month}/%{day}"
-msgstr "%{day}.%{month}."
-
-#: plugins/display_content/lib/display_content_block.rb:197
-msgid "%{month_name} %{day}, %{year}"
-msgstr ""
-
-#: plugins/display_content/lib/display_content_block.rb:197
-msgid "%{month_name} %{day}"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
-msgid "Choose which attributes should be displayed and drag to reorder them:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
-msgid "Choose which content should be displayed:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
-msgid "Choose directly"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
-#, fuzzy
-msgid "Choose by Content Type"
-msgstr "Typ des Inhaltes"
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
-msgid "Order by:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
-msgid "Most recent"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
-msgid "Most oldest"
-msgstr ""
-
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
 #, fuzzy
 msgid "Display content types:"
@@ -107,10 +118,7 @@ msgstr "Zeige einen Ihrer Inhalte an"
 msgid "more"
 msgstr "Mehr zeigen"
 
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
-msgid "Dinamically load children of selected folders"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
-msgid "Limit:"
-msgstr ""
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
+#, fuzzy
+msgid "Choose by Content Type"
+msgstr "Typ des Inhaltes"

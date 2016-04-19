@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,122 +18,150 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
+#: ../controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/form.rb:68
 msgid "Invalid string format of access."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/form.rb:71
-#: plugins/custom_forms/lib/custom_forms_plugin/form.rb:76
+#: ../lib/custom_forms_plugin/form.rb:72 ../lib/custom_forms_plugin/form.rb:77
 msgid "There is no profile with the provided id."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/form.rb:81
+#: ../lib/custom_forms_plugin/form.rb:82
 msgid "Invalid type format of access."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/form.rb:87
+#: ../lib/custom_forms_plugin/form.rb:88
 msgid "The time range selected is invalid."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:20
-#, fuzzy
-msgid "Membership survey"
-msgstr "Անդամներ: %s"
+#: ../lib/custom_forms_plugin/helper.rb:24
+msgid "Always"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:32
-#, fuzzy
-msgid "%{requestor} wants you to fill in some information."
-msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+#: ../lib/custom_forms_plugin/helper.rb:28
+msgid "Until %s"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:44
+#: ../lib/custom_forms_plugin/helper.rb:61
+msgid "Text field"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/helper.rb:106
+msgid "Hold down Ctrl to select options"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/membership_survey.rb:44
 msgid ""
 "After joining %{requestor}, the administrators of this organization\n"
 "      wants you to fill in some further information."
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:49
-#, fuzzy
-msgid "%{requestor} wants to fill in some further information."
-msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:5
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:31
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:6
+#: ../views/custom_forms_plugin_profile/show.html.erb:19
+msgid "Name"
+msgstr "Անվանում"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:13
-#, fuzzy
-msgid "is mandatory."
-msgstr "Պատմություն"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
-#, fuzzy
-msgid "Logged users"
-msgstr "Մուտք որպես %s"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
-#, fuzzy
-msgid "Custom"
-msgstr "մասնակից"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:24
-msgid "Always"
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:6
+msgid "What is the time limit for this form to be filled?"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:28
-msgid "Until %s"
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:15
+msgid "Triggered on membership request as requirement for approval"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:30
-#, fuzzy
-msgid "From %s until %s"
-msgstr "%-ից մինչև %"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:55
-#, fuzzy
-msgid "Select"
-msgstr "Որոնել..."
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:61
-msgid "Text field"
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:28
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:37
+msgid "This field will be added automatically to your form"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:62
-#, fuzzy
-msgid "Select field"
-msgstr "Նոր թղթապանակ"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:102
-msgid "Hold down Ctrl to select options"
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:40
+#: ../views/custom_forms_plugin_profile/show.html.erb:20
+msgid "Email"
 msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
-#, fuzzy
-msgid "Admission survey"
-msgstr "Անդամներ: %s"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
+msgid "Radio"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
-#, fuzzy
-msgid "%{requestor} wants you to fill in some information before joining."
-msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
+msgid "Checkbox"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
-#, fuzzy
-msgid ""
-"Before joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
+msgid "Drop down"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:22
-#, fuzzy
-msgid "%{requestor} wants you to fill in some further information."
-msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
+msgid "Multiple Select"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin.rb:8
-#, fuzzy
-msgid "Enables the creation of forms."
-msgstr "Ակտիվացնել «%s» ձեռնարկությունը"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
+msgid "Alternative"
+msgstr ""
 
-#: plugins/custom_forms/lib/custom_forms_plugin.rb:16
-#, fuzzy
-msgid "Manage Forms"
-msgstr "Կառավարել"
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
+msgid "One-line text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
+msgid "Multiline text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
+msgid "Maximum of 255 characters"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr "Գործողություններ"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+msgid "User"
+msgstr "Օգտվող"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:18
+msgid "Time"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
+msgid "Unauthenticated"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:48
+msgid "Back to submissions"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+msgid "Download all form responses as"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/show.html.erb:9
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
+msgid "Sorry, you can't fill this form yet"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/show.html.erb:11
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
+msgid "Sorry, you can't fill this form anymore"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
+msgid "Your e-mail will be visible to this form's owners."
+msgstr ""
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:26
 #, fuzzy
@@ -160,138 +188,88 @@ msgstr "Բուն հոդված"
 msgid "Form could not be removed"
 msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
 
-#: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr ""
-
 #: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
 #, fuzzy
 msgid "Submission could not be saved"
 msgstr "Անհանատական էջի տվյալների բաժին"
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:9
-#: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
-msgid "Sorry, you can't fill this form yet"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:11
-#: plugins/custom_forms/views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
-msgid "Sorry, you can't fill this form anymore"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:19
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:5
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:5
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:32
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:6
-msgid "Name"
-msgstr "Անվանում"
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:20
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:41
-msgid "Email"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:31
-msgid "Your e-mail will be visible to this form's owners."
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
+#: plugins/custom_forms/lib/custom_forms_plugin.rb:8
 #, fuzzy
-msgid "New form"
+msgid "Enables the creation of forms."
+msgstr "Ակտիվացնել «%s» ձեռնարկությունը"
+
+#: plugins/custom_forms/lib/custom_forms_plugin.rb:16
+#, fuzzy
+msgid "Manage Forms"
+msgstr "Կառավարել"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
+#, fuzzy
+msgid "Admission survey"
+msgstr "Անդամներ: %s"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
+#, fuzzy
+msgid "%{requestor} wants you to fill in some information before joining."
+msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
+#, fuzzy
+msgid ""
+"Before joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:22
+#, fuzzy
+msgid "%{requestor} wants you to fill in some further information."
+msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:13
+#, fuzzy
+msgid "is mandatory."
+msgstr "Պատմություն"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:47
+#, fuzzy
+msgid "Logged users"
+msgstr "Մուտք որպես %s"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:19
+#, fuzzy
+msgid "Custom"
+msgstr "մասնակից"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:30
+#, fuzzy
+msgid "From %s until %s"
+msgstr "%-ից մինչև %"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:55
+#, fuzzy
+msgid "Select"
+msgstr "Որոնել..."
+
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:62
+#, fuzzy
+msgid "Select field"
 msgstr "Նոր թղթապանակ"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
-msgid "Value"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:20
 #, fuzzy
-msgid "Add a new option"
-msgstr "Մեկ ձեռնարկություն"
+msgid "Membership survey"
+msgstr "Անդամներ: %s"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:29
-msgid "Ok"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:32
 #, fuzzy
-msgid "Remove alternative"
-msgstr "Հեռացնել անդամին"
+msgid "%{requestor} wants you to fill in some information."
+msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
+#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:49
 #, fuzzy
-msgid "Default text:"
-msgstr "Լեզուներ"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
-#, fuzzy
-msgid "Type:"
-msgstr "Տեսակ"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
-msgid "Radio"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
-msgid "Checkbox"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
-msgid "Drop down"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
-msgid "Multiple Select"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
-msgid "Alternative"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:18
-#, fuzzy
-msgid "Preselected"
-msgstr "Մերժված է"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:25
-#, fuzzy
-msgid "Add a new alternative"
-msgstr "Մեկ ձեռնարկություն"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:6
-msgid "What is the time limit for this form to be filled?"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:9
-#, fuzzy
-msgid "Access"
-msgstr "Ընդունել"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:16
-msgid "Triggered on membership request as requirement for approval"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:18
-#, fuzzy
-msgid "Triggered after membership"
-msgstr "Կառավարել անդամակցությունները"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:29
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:38
-msgid "This field will be added automatically to your form"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:55
-#, fuzzy
-msgid "Add a new text field"
-msgstr "Մեկ ձեռնարկություն"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:56
-#, fuzzy
-msgid "Add a new select field"
-msgstr "Մեկ ձեռնարկություն"
+msgid "%{requestor} wants to fill in some further information."
+msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10
 #, fuzzy
@@ -303,10 +281,86 @@ msgstr "Կառավարել մեկնաբանությունները"
 msgid "Remove field"
 msgstr "Հեռացնել բաժինը"
 
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:13
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:9
+#, fuzzy
+msgid "Access"
+msgstr "Ընդունել"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:18
+#, fuzzy
+msgid "Triggered after membership"
+msgstr "Կառավարել անդամակցությունները"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:55
+#, fuzzy
+msgid "Add a new text field"
+msgstr "Մեկ ձեռնարկություն"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:56
+#, fuzzy
+msgid "Add a new select field"
+msgstr "Մեկ ձեռնարկություն"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
+#, fuzzy
+msgid "Remove alternative"
+msgstr "Հեռացնել անդամին"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
+#, fuzzy
+msgid "Type:"
+msgstr "Տեսակ"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:18
+#, fuzzy
+msgid "Preselected"
+msgstr "Մերժված է"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:25
+#, fuzzy
+msgid "Add a new alternative"
+msgstr "Մեկ ձեռնարկություն"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
+#, fuzzy
+msgid "Default text:"
+msgstr "Լեզուներ"
+
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/edit.html.erb:1
 #, fuzzy
 msgid "Edit form"
 msgstr "Փոփոխել"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
+#, fuzzy
+msgid "Manage forms"
+msgstr "Կառավարել ընկերներին"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
+#, fuzzy
+msgid "Submissions"
+msgstr "Թույլտվություններ"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
+#, fuzzy
+msgid "Pending"
+msgstr "Սպասող առաջադրանքներ"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:21
+#, fuzzy
+msgid "Are you sure you want to remove this form?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:27
+#, fuzzy
+msgid "Add a new form"
+msgstr "Մեկ ձեռնարկություն"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New form"
+msgstr "Նոր թղթապանակ"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:3
 #, fuzzy
@@ -324,18 +378,6 @@ msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
 msgid "Sort by"
 msgstr "Մեկ համայնք"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:14
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:18
-msgid "Time"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:13
-msgid "User"
-msgstr "Օգտվող"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:26
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:31
 #, fuzzy
@@ -352,24 +394,6 @@ msgstr "Թույլտվություններ"
 msgid "Author"
 msgstr "Հեղինակ"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:26
-msgid "Unauthenticated"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:48
-msgid "Back to submissions"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
-#, fuzzy
-msgid "Are you sure you want to remove this field?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
-#, fuzzy
-msgid "Are you sure you want to remove this option?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:3
 #, fuzzy
 msgid "Submissions for %s"
@@ -380,43 +404,20 @@ msgstr "Վիճակագրություն"
 msgid "There are no submissions for this form."
 msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:9
-msgid "Download all form responses as"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:17
 #, fuzzy
-msgid "Manage forms"
-msgstr "Կառավարել ընկերներին"
+#~ msgid "Add a new option"
+#~ msgstr "Մեկ ձեռնարկություն"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
 #, fuzzy
-msgid "Submissions"
-msgstr "Թույլտվություններ"
+#~ msgid "Are you sure you want to remove this field?"
+#~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:10
-msgid "Actions"
-msgstr "Գործողություններ"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
 #, fuzzy
-msgid "Pending"
-msgstr "Սպասող առաջադրանքներ"
+#~ msgid "Are you sure you want to remove this option?"
+#~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:21
-#, fuzzy
-msgid "Are you sure you want to remove this form?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:27
-#, fuzzy
-msgid "Add a new form"
-msgstr "Մեկ ձեռնարկություն"
-
-#, fuzzy
 #~ msgid "Author email"
 #~ msgstr "Հեղինակ"

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2015-03-12 14:41+0200\n"
 "Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,61 +24,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/people_block/lib/friends_block.rb:8
+#: ../lib/friends_block.rb:8
 msgid "Clicking a friend takes you to his/her homepage"
 msgstr "Clicando em um amigo você será enviado a página inicial dele"
 
-#: plugins/people_block/lib/friends_block.rb:12
+#: ../lib/friends_block.rb:12
 msgid "{#} friend"
 msgid_plural "{#} friends"
 msgstr[0] "{#} amigo"
 msgstr[1] "{#} amigos"
 
-#: plugins/people_block/lib/people_block_base.rb:9
-msgid "Random people"
-msgstr "Pessoas aleatórias"
-
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
-msgid "{#} People"
-msgstr "{#} Pessoas"
-
-#: plugins/people_block/lib/members_block.rb:11
+#: ../lib/members_block.rb:11
 msgid "Clicking a member takes you to his/her homepage"
 msgstr "Clicando em um membro você irá para a página dele"
 
-#: plugins/people_block/lib/members_block.rb:15
+#: ../lib/members_block.rb:15
 msgid "members"
 msgstr "integrantes"
 
-#: plugins/people_block/lib/members_block.rb:16
+#: ../lib/members_block.rb:16
 msgid "{#} %s"
 msgstr "{#} %s"
 
-#: plugins/people_block/lib/members_block.rb:42
+#: ../lib/members_block.rb:33
 msgid "Show join leave button"
 msgstr "Mostrar botão entrar/sair"
 
-#: plugins/people_block/lib/people_block_plugin.rb:8
-msgid "A plugin that adds a people block"
-msgstr "Um plugin que adiciona um bloco de pessoas"
-
-#: plugins/people_block/lib/people_block.rb:8
+#: ../lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"
 msgstr "Clicando em uma pessoa você irá para a página dela"
 
-#: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
-msgid "Filter by role:"
-msgstr "Filtrar por papel:"
+#: ../lib/people_block.rb:12 ../lib/people_block_base.rb:17
+msgid "{#} People"
+msgstr "{#} Pessoas"
 
-#: plugins/people_block/views/blocks/friends.html.erb:1
+#: ../lib/people_block_base.rb:9
+msgid "Random people"
+msgstr "Pessoas aleatórias"
+
+#: ../lib/people_block_plugin.rb:8
+msgid "A plugin that adds a people block"
+msgstr "Um plugin que adiciona um bloco de pessoas"
+
+#: ../views/blocks/footers/friends.html.erb:1
 msgid "friends|View all"
 msgstr "Ver todos"
 
-#: plugins/people_block/views/blocks/friends.html.erb:5
+#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr "Algumas sugestões para você"
 
-#: plugins/people_block/views/blocks/friends.html.erb:10
+#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr "Veja todas as sugestões"
+
+#: ../views/box_organizer/_people_block_base.html.erb:6
+msgid "Filter by role:"
+msgstr "Filtrar por papel:"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,69 +19,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:8
+#: ../controllers/tolerance_time_plugin_myprofile_controller.rb:10
+msgid "Tolerance updated"
+msgstr "Toleranz aktualisiert"
+
+#: ../controllers/tolerance_time_plugin_myprofile_controller.rb:12
+msgid "Tolerance could not be updated"
+msgstr "Die Tolernaz konnte nicht aktualisiert werden"
+
+#: ../lib/tolerance_time_plugin.rb:8
 msgid "Adds a tolerance time for editing content after its publication"
 msgstr ""
 "Fügt eine Toleranzzeit hinzu, während derer der Beitrag nach dessen "
 "Veröffentlichung editiert werden darf"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:23
+#: ../lib/tolerance_time_plugin.rb:23
 msgid "Tolerance Adjustements"
 msgstr "Toleranzeinstellung"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:34
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:48
+#: ../lib/tolerance_time_plugin.rb:34 ../lib/tolerance_time_plugin.rb:48
 msgid ""
 "This content can't be edited anymore because it expired the tolerance time"
 msgstr ""
 "Der Beitrag kann nicht weiter editiert werden, da die Toleranzzeit "
 "abgelaufen ist"
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:59
+#: ../lib/tolerance_time_plugin.rb:59
 msgid "editing"
 msgstr ""
 
-#: plugins/tolerance_time/lib/tolerance_time_plugin.rb:63
+#: ../lib/tolerance_time_plugin.rb:63
 msgid "cloning"
 msgstr ""
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:1
+msgid "Tolerance Adjustments"
+msgstr "Toleranzanpassungen"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Hours"
+msgstr "Stunden"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Minutes"
+msgstr "Minuten"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
+msgid "Seconds"
+msgstr "Sekunden"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:10
+msgid "Content edition tolerance time"
+msgstr "Toleranzzeit zur Beitragseditierung"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:14
+msgid "Comment edition tolerance time"
+msgstr "Toleranzzeit zur Kommentareditierung"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:18
+msgid "Empty means unlimited and zero means right away."
+msgstr "Leer heißt unbegrenzt und Null heißt direkt im Anschluss."
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:70
 #, fuzzy
 msgid "The tolerance time for %s this content is over."
 msgstr "Die Toleranzzeit für das Editieren dieses Beitrags ist vorbei."
-
-#: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:10
-msgid "Tolerance updated"
-msgstr "Toleranz aktualisiert"
-
-#: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:12
-msgid "Tolerance could not be updated"
-msgstr "Die Tolernaz konnte nicht aktualisiert werden"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:1
-msgid "Tolerance Adjustments"
-msgstr "Toleranzanpassungen"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
-msgid "Seconds"
-msgstr "Sekunden"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
-msgid "Minutes"
-msgstr "Minuten"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
-msgid "Hours"
-msgstr "Stunden"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:10
-msgid "Content edition tolerance time"
-msgstr "Toleranzzeit zur Beitragseditierung"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:14
-msgid "Comment edition tolerance time"
-msgstr "Toleranzzeit zur Kommentareditierung"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:18
-msgid "Empty means unlimited and zero means right away."
-msgstr "Leer heißt unbegrenzt und Null heißt direkt im Anschluss."

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -24,19 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/video/lib/video_block.rb:32
-msgid "Display a Video"
-msgstr "Mostrar um Vídeo"
-
-#: plugins/video/lib/video_block.rb:36
-msgid ""
-"This block presents a video from youtube, vimeo and some video formats (mp4, "
-"ogg, ogv and webm)"
-msgstr ""
-"Esse bloco apresenta um vídeo do youtube, vimeo e alguns formatos de video "
-"(mp4, ogg, ogv e webm)"
-
-#: plugins/video/lib/video_plugin.rb:10
+#: ../lib/video_plugin.rb:8
 msgid ""
 "A plugin that adds a block where you can add videos from youtube, vimeo and "
 "html5."
@@ -44,6 +32,89 @@ msgstr ""
 "Um plugin que adiciona um bloco onde você pode adicionar vídeos do youtube, "
 "vimeo e html5."
 
-#: plugins/video/views/video_block.html.erb:18
+#: ../lib/video_plugin.rb:41
+msgid "New Video"
+msgstr ""
+
+#: ../lib/video_plugin/video.rb:24 ../test/unit/video_test.rb:12
+msgid "Video"
+msgstr ""
+
+#: ../lib/video_plugin/video.rb:32 ../test/unit/video_test.rb:20
+msgid "Embedded Video"
+msgstr ""
+
+#: ../lib/video_plugin/video.rb:36 ../test/unit/video_test.rb:24
+#, fuzzy
+msgid "Display embedded videos."
+msgstr "Mostrar um Vídeo"
+
+#: ../lib/video_plugin/video_block.rb:32
+msgid "Display a Video"
+msgstr "Mostrar um Vídeo"
+
+#: ../lib/video_plugin/video_block.rb:36
+msgid ""
+"This block presents a video from youtube, vimeo and some video formats (mp4, "
+"ogg, ogv and webm)"
+msgstr ""
+"Esse bloco apresenta um vídeo do youtube, vimeo e alguns formatos de video "
+"(mp4, ogg, ogv e webm)"
+
+#: ../lib/video_plugin/video_gallery.rb:4
+#: ../lib/video_plugin/video_gallery.rb:28 ../test/unit/video_galery_test.rb:5
+#: ../test/unit/video_galery_test.rb:9
+msgid "Video Gallery"
+msgstr ""
+
+#: ../lib/video_plugin/video_gallery.rb:32
+#: ../test/unit/video_galery_test.rb:13
+msgid "A gallery of link to videos that are hosted elsewhere."
+msgstr ""
+
+#: ../lib/video_plugin/video_gallery_block.rb:10
+#: ../test/unit/video_galery_block_test.rb:5
+#, fuzzy
+msgid "Display a Video Gallery"
+msgstr "Mostrar um Vídeo"
+
+#: ../lib/video_plugin/video_gallery_block.rb:14
+#: ../test/unit/video_galery_block_test.rb:9
+msgid "This block presents a video gallery"
+msgstr ""
+
+#: ../lib/video_plugin/video_gallery_helper.rb:13
+msgid "(empty folder)"
+msgstr ""
+
+#: ../views/box_organizer/video_plugin/_video_gallery_block.html.erb:2
+msgid "Video gallery"
+msgstr ""
+
+#: ../views/cms/video_plugin/_video.html.erb:5
+msgid "URL of the video"
+msgstr ""
+
+#: ../views/cms/video_plugin/_video.html.erb:6
+#: ../views/cms/video_plugin/_video_gallery.html.erb:6
+#: ../views/content_viewer/video_plugin/_video.html.erb:13
+msgid "Description:"
+msgstr ""
+
+#: ../views/content_viewer/video_plugin/_video_gallery.html.erb:11
+msgid "(empty video gallery)"
+msgstr ""
+
+#: ../views/shared/video_list.html.erb:17
+#: ../views/shared/video_list.html.erb:32
+msgid "by"
+msgstr ""
+
+#: ../views/shared/video_list.html.erb:17
+#: ../views/shared/video_list.html.erb:32
+msgid "updated at"
+msgstr ""
+
+#: ../views/video_block.html.erb:18
 msgid "Register a valid url (Vimeo, Youtube, video files)"
 msgstr "Registre uma url válida (Vimeo, Youtube, arquivo de vídeo)"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:34-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -18,10 +18,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
-#, fuzzy
-msgid "A plugin that allow classification of comments."
-msgstr "Ձեր խմբերը ցուցադրող բաժին"
+#: ../views/comment/comment_extra.html.erb:12
+#: ../views/comment_classification_plugin_myprofile/_status_form.html.erb:6
+#: ../views/comment_classification_plugin_status/index.html.erb:9
+msgid "Status"
+msgstr "Կարգավիճակ"
+
+#: ../views/comment/comments_labels_select.html.erb:3
+#: ../views/comment_classification_plugin_labels/index.html.erb:9
+msgid "Label"
+msgstr ""
+
+#: ../views/comment/comments_labels_select.html.erb:3
+msgid "[Select ...]"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:6
+#: ../views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr "Անվանում"
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:7
+#: ../views/comment_classification_plugin_labels/index.html.erb:10
+msgid "Color"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:11
+#: ../views/comment_classification_plugin_status/index.html.erb:10
+msgid "Enabled"
+msgstr "Ակտիվացված է"
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:12
+#: ../views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr "Գործողություններ"
+
+#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:16
+msgid ""
+"<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
+"i>."
+msgstr ""
+
+#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:18
+msgid "<i>Reason:</i> %s"
+msgstr ""
 
 #: plugins/comment_classification/controllers/admin/comment_classification_plugin_labels_controller.rb:16
 #, fuzzy
@@ -85,11 +125,56 @@ msgstr "Բուն հոդված"
 msgid "Status could not be removed"
 msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
 
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:9
-#: plugins/comment_classification/views/comment/comment_extra.html.erb:12
-msgid "Status"
-msgstr "Կարգավիճակ"
+#: plugins/comment_classification/lib/comment_classification_plugin.rb:11
+#, fuzzy
+msgid "A plugin that allow classification of comments."
+msgstr "Ձեր խմբերը ցուցադրող բաժին"
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
+#, fuzzy
+msgid "Comments classification options"
+msgstr "Կառավարման հատկություններ"
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:4
+#, fuzzy
+msgid "Manage Labels"
+msgstr "Կառավարել անդամներին"
+
+#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:5
+#, fuzzy
+msgid "Manage Status"
+msgstr "Կառավարել բովանդակությունը:"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
+#, fuzzy
+msgid "Enable this label?"
+msgstr "Ակտիվացնել ձեռնարկությունը"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
+#, fuzzy
+msgid "Add a new label"
+msgstr "Մեկ ձեռնարկություն"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
+#, fuzzy
+msgid "Editing label %s"
+msgstr "Փոփոխում %s"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
+#, fuzzy
+msgid "Manage comments labels"
+msgstr "Կառավարել ընկերներին"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:5
+#, fuzzy
+msgid "(no label registered yet)"
+msgstr "սեռը գրանցված չէ"
+
+#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
+#, fuzzy
+msgid "Are you sure you want to  remove this label?"
+msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
 
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/_status_form.html.erb:7
 #, fuzzy
@@ -100,16 +185,6 @@ msgstr "Տարածաշրջան"
 #, fuzzy
 msgid "Status for comment"
 msgstr "Մեկ մեկնաբանություն"
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:16
-msgid ""
-"<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
-"i>."
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:18
-msgid "<i>Reason:</i> %s"
-msgstr ""
 
 #: plugins/comment_classification/views/comment_classification_plugin_myprofile/add_status.html.erb:24
 #: plugins/comment_classification/views/comment_classification_plugin_status/create.html.erb:1
@@ -122,62 +197,6 @@ msgstr "Մեկ ձեռնարկություն"
 #, fuzzy
 msgid "Manage comment classification"
 msgstr "Տեղեկություններ ղեկավարության մասին"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:6
-#: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:6
-msgid "Name"
-msgstr "Անվանում"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:7
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:10
-msgid "Color"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/_form.html.erb:8
-#, fuzzy
-msgid "Enable this label?"
-msgstr "Ակտիվացնել ձեռնարկությունը"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/edit.html.erb:1
-#, fuzzy
-msgid "Editing label %s"
-msgstr "Փոփոխում %s"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/create.html.erb:1
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:29
-#, fuzzy
-msgid "Add a new label"
-msgstr "Մեկ ձեռնարկություն"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:1
-#, fuzzy
-msgid "Manage comments labels"
-msgstr "Կառավարել ընկերներին"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:5
-#, fuzzy
-msgid "(no label registered yet)"
-msgstr "սեռը գրանցված չէ"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:9
-#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
-msgid "Label"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:11
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:10
-msgid "Enabled"
-msgstr "Ակտիվացված է"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:12
-#: plugins/comment_classification/views/comment_classification_plugin_status/index.html.erb:12
-msgid "Actions"
-msgstr "Գործողություններ"
-
-#: plugins/comment_classification/views/comment_classification_plugin_labels/index.html.erb:21
-#, fuzzy
-msgid "Are you sure you want to  remove this label?"
-msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
 
 #: plugins/comment_classification/views/comment_classification_plugin_status/_form.html.erb:7
 #, fuzzy
@@ -208,22 +227,3 @@ msgstr "%s ակտիվացված չէ:"
 #, fuzzy
 msgid "Are you sure you want to remove this status?"
 msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
-
-#: plugins/comment_classification/views/comment/comments_labels_select.html.erb:3
-msgid "[Select ...]"
-msgstr ""
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:1
-#, fuzzy
-msgid "Comments classification options"
-msgstr "Կառավարման հատկություններ"
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:4
-#, fuzzy
-msgid "Manage Labels"
-msgstr "Կառավարել անդամներին"
-
-#: plugins/comment_classification/views/comment_classification_plugin_admin/index.html.erb:5
-#, fuzzy
-msgid "Manage Status"
-msgstr "Կառավարել բովանդակությունը:"

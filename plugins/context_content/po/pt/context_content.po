@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2016-01-05 12:32+0000\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
@@ -60,6 +60,5 @@ msgstr "Mostrar tipos de conteúdos:"
 msgid "more"
 msgstr "mais"
 
-#: plugins/context_content/views/box_organizer/context_content_plugin/_context_content_block.html.erb:5
 #~ msgid "Show parent content when children is empty"
 #~ msgstr "Mostrar conteúdo do pai quando os filhos estão vazios"

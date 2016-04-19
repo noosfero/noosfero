@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
@@ -19,26 +19,44 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/people_block/lib/friends_block.rb:8
-#, fuzzy
-msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
-
-#: plugins/people_block/lib/friends_block.rb:12
+#: ../lib/friends_block.rb:12
 msgid "{#} friend"
 msgid_plural "{#} friends"
 msgstr[0] "Друг"
 msgstr[1] "{#} Друзья"
 
-#: plugins/people_block/lib/people_block_base.rb:9
+#: ../lib/members_block.rb:33
+msgid "Show join leave button"
+msgstr ""
+
+#: ../lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
+
+#: ../lib/people_block_base.rb:9
 msgid "Random people"
 msgstr "Случайные лица"
 
-#: plugins/people_block/lib/people_block_base.rb:17
-#: plugins/people_block/lib/people_block.rb:12
+#: ../views/blocks/footers/friends.html.erb:1
+msgid "friends|View all"
+msgstr "друзья|Просмотреть все"
+
+#: ../views/blocks/footers/friends.html.erb:5
+msgid "Some suggestions for you"
+msgstr ""
+
+#: ../views/blocks/footers/friends.html.erb:10
+msgid "See all suggestions"
+msgstr ""
+
+#: ../views/box_organizer/_people_block_base.html.erb:6
+msgid "Filter by role:"
+msgstr ""
+
+#: plugins/people_block/lib/friends_block.rb:8
 #, fuzzy
-msgid "{#} People"
-msgstr "Пользователи"
+msgid "Clicking a friend takes you to his/her homepage"
+msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
 
 #: plugins/people_block/lib/members_block.rb:11
 #, fuzzy
@@ -55,31 +73,13 @@ msgstr "Участники"
 msgid "{#} %s"
 msgstr "{#} группы"
 
-#: plugins/people_block/lib/members_block.rb:42
-msgid "Show join leave button"
-msgstr ""
+#: plugins/people_block/lib/people_block.rb:12
+#: plugins/people_block/lib/people_block_base.rb:17
+#, fuzzy
+msgid "{#} People"
+msgstr "Пользователи"
 
 #: plugins/people_block/lib/people_block_plugin.rb:8
 #, fuzzy
 msgid "A plugin that adds a people block"
 msgstr "Блок, отображающий группы"
-
-#: plugins/people_block/lib/people_block.rb:8
-msgid "Clicking a person takes you to his/her homepage"
-msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
-
-#: plugins/people_block/views/box_organizer/_people_block_base.html.erb:6
-msgid "Filter by role:"
-msgstr ""
-
-#: plugins/people_block/views/blocks/friends.html.erb:1
-msgid "friends|View all"
-msgstr "друзья|Просмотреть все"
-
-#: plugins/people_block/views/blocks/friends.html.erb:5
-msgid "Some suggestions for you"
-msgstr ""
-
-#: plugins/people_block/views/blocks/friends.html.erb:10
-msgid "See all suggestions"
-msgstr ""

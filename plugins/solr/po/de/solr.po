@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2015-02-23 11:36+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
@@ -19,112 +19,112 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/solr/lib/solr_plugin.rb:14
-msgid "Uses Solr as search engine."
-msgstr ""
-
-#: plugins/solr/lib/ext/product.rb:7
-msgid "Related products"
-msgstr "Verwandte Produkte"
-
-#: plugins/solr/lib/ext/product.rb:73
-msgid " cert. "
-msgstr " Zertifizierung. "
-
-#: plugins/solr/lib/ext/article.rb:13
+#: ../lib/ext/article.rb:13
 msgid "Published date"
 msgstr "Veröffentlichungsdatum"
 
-#: plugins/solr/lib/ext/article.rb:13
+#: ../lib/ext/article.rb:13
 msgid "Older than one year"
 msgstr "Älter als ein Jahr"
 
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last year"
-msgstr "Im letzten Jahr"
-
-#: plugins/solr/lib/ext/article.rb:14
-msgid "In the last month"
-msgstr "Im letzten Monat"
-
-#: plugins/solr/lib/ext/article.rb:14
+#: ../lib/ext/article.rb:14
 msgid "In the last week"
 msgstr "In der letzten Woche"
 
-#: plugins/solr/lib/ext/article.rb:14
+#: ../lib/ext/article.rb:14
+msgid "In the last year"
+msgstr "Im letzten Jahr"
+
+#: ../lib/ext/article.rb:14
 msgid "In the last day"
 msgstr "Gestern"
 
-#: plugins/solr/lib/ext/profile.rb:14
+#: ../lib/ext/article.rb:14
+msgid "In the last month"
+msgstr "Im letzten Monat"
+
+#: ../lib/ext/product.rb:7
+msgid "Related products"
+msgstr "Verwandte Produkte"
+
+#: ../lib/ext/product.rb:73
+msgid " cert. "
+msgstr " Zertifizierung. "
+
+#: ../lib/ext/profile.rb:14
 msgid "Situation"
 msgstr "Situation"
 
-#: plugins/solr/lib/ext/profile.rb:103
-msgid "facets|Enabled"
-msgstr "facets|Aktiviert"
-
-#: plugins/solr/lib/ext/profile.rb:103
+#: ../lib/ext/profile.rb:103
 msgid "facets|Not enabled"
 msgstr "facets|Nicht aktiviert"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:12
-#: plugins/solr/lib/solr_plugin/search_helper.rb:19
-#: plugins/solr/lib/solr_plugin/search_helper.rb:22
-#: plugins/solr/lib/solr_plugin/search_helper.rb:26
-#: plugins/solr/lib/solr_plugin/search_helper.rb:29
-#: plugins/solr/lib/solr_plugin/search_helper.rb:32
+#: ../lib/ext/profile.rb:103
+msgid "facets|Enabled"
+msgstr "facets|Aktiviert"
+
+#: ../lib/solr_plugin.rb:14
+msgid "Uses Solr as search engine."
+msgstr ""
+
+#: ../lib/solr_plugin/search_helper.rb:12
+#: ../lib/solr_plugin/search_helper.rb:19
+#: ../lib/solr_plugin/search_helper.rb:22
+#: ../lib/solr_plugin/search_helper.rb:26
+#: ../lib/solr_plugin/search_helper.rb:29
+#: ../lib/solr_plugin/search_helper.rb:32
 msgid "Relevance"
 msgstr "Relevanz"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:14
-#: plugins/solr/lib/solr_plugin/search_helper.rb:20
-#: plugins/solr/lib/solr_plugin/search_helper.rb:23
-#: plugins/solr/lib/solr_plugin/search_helper.rb:27
-#: plugins/solr/lib/solr_plugin/search_helper.rb:30
-#: plugins/solr/lib/solr_plugin/search_helper.rb:33
+#: ../lib/solr_plugin/search_helper.rb:14
+#: ../lib/solr_plugin/search_helper.rb:20
+#: ../lib/solr_plugin/search_helper.rb:23
+#: ../lib/solr_plugin/search_helper.rb:27
+#: ../lib/solr_plugin/search_helper.rb:30
+#: ../lib/solr_plugin/search_helper.rb:33
 msgid "Name"
 msgstr "Name"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:15
+#: ../lib/solr_plugin/search_helper.rb:15
 msgid "Closest to me"
 msgstr "In meiner Nähe"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:126
+#: ../lib/solr_plugin/search_helper.rb:126
 msgid "Sort results by "
 msgstr "Ergebnisse sortieren nach "
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:136
+#: ../lib/solr_plugin/search_helper.rb:136
 msgid "%s products offers found"
 msgstr "%d Produktangebote gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:137
+#: ../lib/solr_plugin/search_helper.rb:137
 msgid "%s articles found"
 msgstr "%s Artikel gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:138
+#: ../lib/solr_plugin/search_helper.rb:138
 msgid "%s events found"
 msgstr "%d Ereignisse gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:139
+#: ../lib/solr_plugin/search_helper.rb:139
 msgid "%s people found"
 msgstr "%d Leute gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:140
+#: ../lib/solr_plugin/search_helper.rb:140
 msgid "%s enterprises found"
 msgstr "%s Unternehmen gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:141
+#: ../lib/solr_plugin/search_helper.rb:141
 msgid "%s communities found"
 msgstr "%s Communities gefunden"
 
-#: plugins/solr/lib/solr_plugin/search_helper.rb:223
+#: ../lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
 msgstr "Geben Sie eine Option an"
 
-#: plugins/solr/views/search/_results_header.html.erb:7
-msgid "Showing page %s of %s"
-msgstr "Zeige Seite %s von %s"
-
-#: plugins/solr/views/search/_facets_menu.html.erb:32
+#: ../views/search/_facets_menu.html.erb:32
 msgid "No filter available"
 msgstr "Kein Filter verfügbar"
+
+#: ../views/search/_results_header.html.erb:7
+msgid "Showing page %s of %s"
+msgstr "Zeige Seite %s von %s"

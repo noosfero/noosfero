@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
@@ -19,15 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: plugins/stoa/lib/stoa_plugin.rb:10
+#: ../controllers/stoa_plugin_controller.rb:21 ../lib/stoa_plugin/auth.rb:26
+msgid "Incorrect user/password pair."
+msgstr "Falsches Paar aus Nutzername und Passwort."
+
+#: ../lib/ext/person.rb:18
+msgid "is being used by another user or is not valid"
+msgstr "wird bereits von einem anderen Nutzer eingesetzt oder ist ungültig"
+
+#: ../lib/ext/profile_suggestion.rb:5
+msgid "Classroom in common"
+msgstr ""
+
+#: ../lib/stoa_plugin.rb:10
 msgid "Add Stoa features"
 msgstr "Fügt die Stoa-Funktion hinzu"
 
-#: plugins/stoa/lib/stoa_plugin.rb:19 plugins/stoa/lib/stoa_plugin.rb:35
+#: ../lib/stoa_plugin.rb:19 ../lib/stoa_plugin.rb:35
 msgid "USP number"
 msgstr "USP-Nummer"
 
-#: plugins/stoa/lib/stoa_plugin.rb:20
+#: ../lib/stoa_plugin.rb:20
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "with a valid number if you have one."
@@ -35,34 +47,34 @@ msgstr ""
 "Die USP-Nummer gibt Ihnen spezielle Kräfte im Netzwerk. Vergessen Sie nicht, "
 "sie als gültige Nummer anzugeben, sofern Sie eine haben."
 
-#: plugins/stoa/lib/stoa_plugin.rb:21
+#: ../lib/stoa_plugin.rb:21
 msgid "Either this usp number is being used by another user or is not valid"
 msgstr ""
 "Die USP-Nummer wird entweder bereits von einem anderen Nutzer belegt oder "
 "ist ungültig"
 
-#: plugins/stoa/lib/stoa_plugin.rb:22
+#: ../lib/stoa_plugin.rb:22
 msgid "Checking usp number..."
 msgstr "Überprüfe USP-Nummer..."
 
-#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:38
+#: ../lib/stoa_plugin.rb:23 ../lib/stoa_plugin.rb:38
 msgid "Birth date (yyyy-mm-dd)"
 msgstr "Geburtstag (jjjj-mm-tt)"
 
-#: plugins/stoa/lib/stoa_plugin.rb:24
+#: ../lib/stoa_plugin.rb:24
 msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
 msgstr ""
 "Bestätigen Sie Ihr Geburtsdatum. Folgen Sie dabei diesem Format: jjjj-mm-tt"
 
-#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:39
+#: ../lib/stoa_plugin.rb:25 ../lib/stoa_plugin.rb:39
 msgid "CPF"
 msgstr "CPF"
 
-#: plugins/stoa/lib/stoa_plugin.rb:26
+#: ../lib/stoa_plugin.rb:26
 msgid "Confirm your CPF number."
 msgstr "Bestätigen Sie Ihre CPF-Nummer."
 
-#: plugins/stoa/lib/stoa_plugin.rb:36
+#: ../lib/stoa_plugin.rb:36
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
@@ -70,39 +82,26 @@ msgstr ""
 "Die USP-Nummer gibt Ihnen spezielle Kräfte im Netzwerk. Vergessen Sie nicht, "
 "sie als gültige Nummer anzugeben, sofern Sie eine haben."
 
-#: plugins/stoa/lib/stoa_plugin.rb:37
+#: ../lib/stoa_plugin.rb:37
 msgid "This field must be private"
 msgstr "Dieses Feld muss privat sein"
 
-#: plugins/stoa/lib/stoa_plugin.rb:47
+#: ../lib/stoa_plugin.rb:47
 msgid "USP number / Username"
 msgstr "USP-Nummer/Telefonnummer"
 
-#: plugins/stoa/lib/stoa_plugin.rb:71 plugins/stoa/lib/stoa_plugin.rb:90
+#: ../lib/stoa_plugin.rb:71 ../lib/stoa_plugin.rb:90
 msgid " validation failed"
 msgstr " Validierung fehlgeschlagen"
 
-#: plugins/stoa/lib/stoa_plugin.rb:122 plugins/stoa/lib/stoa_plugin.rb:126
-#: plugins/stoa/lib/ext/person.rb:6
-#, fuzzy
-msgid "USP Number"
-msgstr "USP-Nummer"
-
-#: plugins/stoa/lib/ext/profile_suggestion.rb:5
-msgid "Classroom in common"
-msgstr ""
-
-#: plugins/stoa/lib/ext/person.rb:18
-msgid "is being used by another user or is not valid"
-msgstr "wird bereits von einem anderen Nutzer eingesetzt oder ist ungültig"
-
-#: plugins/stoa/lib/stoa_plugin/auth.rb:26
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
-msgid "Incorrect user/password pair."
-msgstr "Falsches Paar aus Nutzername und Passwort."
-
-#: plugins/stoa/lib/stoa_plugin/auth.rb:33
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+#: plugins/stoa/lib/stoa_plugin/auth.rb:33
 #, fuzzy
 msgid "Conection requires post method."
 msgstr "Die Verbindung benötigt ein SSL-Zertifikat und eine POST-Methode."
+
+#: plugins/stoa/lib/ext/person.rb:6 plugins/stoa/lib/stoa_plugin.rb:122
+#: plugins/stoa/lib/stoa_plugin.rb:126
+#, fuzzy
+msgid "USP Number"
+msgstr "USP-Nummer"

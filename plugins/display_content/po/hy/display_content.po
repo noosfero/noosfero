@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
+"POT-Creation-Date: 2016-04-19 15:00+0000\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,76 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: plugins/display_content/lib/display_content_plugin.rb:10
+#: ../lib/display_content_block.rb:39
+msgid ""
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
+msgstr ""
+
+#: ../lib/display_content_block.rb:46
+msgid "Abstract"
+msgstr "Համառոտ ակնարկ"
+
+#: ../lib/display_content_block.rb:201
+msgid "%{month}/%{day}"
+msgstr ""
+
+#: ../lib/display_content_block.rb:201
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: ../lib/display_content_block.rb:204
+msgid "%{month_name} %{day}"
+msgstr ""
+
+#: ../lib/display_content_block.rb:204
+msgid "%{month_name} %{day}, %{year}"
+msgstr ""
+
+#: ../lib/display_content_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you could choose any of your content and "
 "display it."
+msgstr ""
+
+#: ../views/box_organizer/_choose_directly.html.erb:5
+msgid "Dinamically load children of selected folders"
+msgstr ""
+
+#: ../views/box_organizer/_choose_directly.html.erb:9
+msgid "Limit:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:5
+msgid "Choose which attributes should be displayed and drag to reorder them:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:21
+msgid "Choose which content should be displayed:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:23
+msgid "Choose directly"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:28
+msgid "Order by:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:29
+msgid "Most recent"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:30
+msgid "Most oldest"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:32
+msgid "Translations:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:33
+msgid "List only translated content"
 msgstr ""
 
 #: plugins/display_content/lib/display_content_block.rb:34
@@ -28,70 +94,15 @@ msgstr ""
 msgid "Display your contents"
 msgstr "Ցուցադրիր հոդվածներիցդ որևէ մեկը:"
 
-#: plugins/display_content/lib/display_content_block.rb:38
-msgid ""
-"This block displays articles chosen by you. You can edit the block to select "
-"which of your articles is going to be displayed in the block."
-msgstr ""
-
 #: plugins/display_content/lib/display_content_block.rb:43
 #, fuzzy
 msgid "Publish date"
 msgstr "Հրատարակված"
 
-#: plugins/display_content/lib/display_content_block.rb:45
-msgid "Abstract"
-msgstr "Համառոտ ակնարկ"
-
 #: plugins/display_content/lib/display_content_block.rb:151
 #, fuzzy
 msgid "Read more"
 msgstr "ավելին..."
-
-#: plugins/display_content/lib/display_content_block.rb:194
-msgid "%{month}/%{day}/%{year}"
-msgstr ""
-
-#: plugins/display_content/lib/display_content_block.rb:194
-msgid "%{month}/%{day}"
-msgstr ""
-
-#: plugins/display_content/lib/display_content_block.rb:197
-msgid "%{month_name} %{day}, %{year}"
-msgstr ""
-
-#: plugins/display_content/lib/display_content_block.rb:197
-msgid "%{month_name} %{day}"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:5
-msgid "Choose which attributes should be displayed and drag to reorder them:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:21
-msgid "Choose which content should be displayed:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:23
-msgid "Choose directly"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
-#, fuzzy
-msgid "Choose by Content Type"
-msgstr "Բովանդակության տեսակ"
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:28
-msgid "Order by:"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:29
-msgid "Most recent"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:30
-msgid "Most oldest"
-msgstr ""
 
 #: plugins/display_content/views/box_organizer/_choose_by_content_type.html.erb:1
 #, fuzzy
@@ -103,10 +114,7 @@ msgstr "Ցուցադրիր հոդվածներիցդ որևէ մեկը:"
 msgid "more"
 msgstr "ավելին..."
 
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:5
-msgid "Dinamically load children of selected folders"
-msgstr ""
-
-#: plugins/display_content/views/box_organizer/_choose_directly.html.erb:9
-msgid "Limit:"
-msgstr ""
+#: plugins/display_content/views/box_organizer/_display_content_block.html.erb:24
+#, fuzzy
+msgid "Choose by Content Type"
+msgstr "Բովանդակության տեսակ"

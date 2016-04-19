@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.5\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
 "PO-Revision-Date: 2015-06-29 22:07+0200\n"
 "Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
