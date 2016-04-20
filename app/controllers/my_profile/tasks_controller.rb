@@ -26,7 +26,11 @@ class TasksController < MyProfileController
   end
 
   def processed
-    @tasks = Task.to(profile).without_spam.closed.sort_by(&:created_at)
+    @tasks = Task.to(profile).without_spam.closed.order('tasks.created_at DESC')
+    @filter = params[:filter] || {}
+    @tasks = filter_tasks(@filter, @tasks)
+    @tasks = @tasks.paginate(:per_page => Task.per_page, :page => params[:page])
+    @task_types = Task.closed_types_for(profile)
   end
 
   def change_responsible
@@ -100,6 +104,30 @@ class TasksController < MyProfileController
     result = Task.pending_all(profile,filter_type, filter_text)
 
     render :json => result.map { |task| {:label => task.data[:name], :value => task.data[:name]} }
+  end
+
+  protected
+
+  def filter_tasks(filter, tasks)
+    tasks = tasks.eager_load(:requestor, :closed_by)
+    tasks = tasks.of(filter[:type].presence)
+    tasks = tasks.where(:status => filter[:status]) unless filter[:status].blank?
+
+    filter[:created_from] = Date.parse(filter[:created_from]) unless filter[:created_from].blank?
+    filter[:created_until] = Date.parse(filter[:created_until]) unless filter[:created_until].blank?
+    filter[:closed_from] = Date.parse(filter[:closed_from]) unless filter[:closed_from].blank?
+    filter[:closed_until] = Date.parse(filter[:closed_until]) unless filter[:closed_until].blank?
+
+    tasks = tasks.from_creation_date filter[:created_from] unless filter[:created_from].blank?
+    tasks = tasks.until_creation_date filter[:created_until] unless filter[:created_until].blank?
+
+    tasks = tasks.from_closed_date filter[:closed_from] unless filter[:closed_from].blank?
+    tasks = tasks.until_closed_date filter[:closed_until] unless filter[:closed_until].blank?
+
+    tasks = tasks.where('profiles.name LIKE ?', filter[:requestor]) unless filter[:requestor].blank?
+    tasks = tasks.where('closed_bies_tasks.name LIKE ?', filter[:closed_by]) unless filter[:closed_by].blank?
+    tasks = tasks.where('tasks.data LIKE ?', "%#{filter[:text]}%") unless filter[:text].blank?
+    tasks
   end
 
 end

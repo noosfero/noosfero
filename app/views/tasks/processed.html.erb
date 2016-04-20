@@ -1,24 +1,55 @@
+<%= stylesheet_link_tag 'tasks' %>
+
+<div class="task-processed">
 <h1><%= _("%s's processed tasks") % profile.name %></h1>
+
+<div class="task-processed-filter">
+<%
+  type_collection = [[nil, _('All')]] + @task_types
+  type_collection.map!{|first,last| [last,first]}
+%>
+  <%= form_tag '#', :method => 'get' do %>
+    <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+      <div>
+        <%= labelled_form_field(_('Type of task')+': ', select_tag('filter[type]', options_for_select(type_collection, @filter[:type]), {:id => 'filter-type'})) %>
+        <%= labelled_form_field(_('Status')+': ', select_tag('filter[status]', options_for_select([[_('Any'), nil], [_(Task::Status.names[Task::Status::CANCELLED]), 2], [_(Task::Status.names[Task::Status::FINISHED]), 3] ], @filter[:status]))) %>
+      </div>
+
+      <div>
+        <%= labelled_form_field(_('Text Filter:'), text_field_tag('filter[text]', @filter[:text])) %>
+      </div>
+
+      <div>
+        <%= labelled_form_field(_('Requestor:'), text_field_tag('filter[requestor]', @filter[:requestor])) %>
+        <%= labelled_form_field(_('Closed by:'), text_field_tag('filter[closed_by]', @filter[:closed_by])) %>
+      </div>
+      <%= labelled_form_field(_('Creation date'), date_range_field('filter[created_from]', 'filter[created_until]', @filter[:created_from], @filter[:created_until], { :change_month => true, :change_year => true, :date_format => 'yy-mm-dd' }, { :size => 14, :from_id => 'filter_created_from', :to_id => 'filter_created_until' })) %>
+      <%= labelled_form_field(_('Processed date'), date_range_field('filter[closed_from]', 'filter[closed_until]', @filter[:closed_from], @filter[:closed_until], { :change_month => true, :change_year => true, :date_format => 'yy-mm-dd' }, { :size => 14, :from_id => 'filter_closed_from', :to_id => 'filter_closed_until' })) %>
+
+      <div class="actions">
+        <%= submit_button(:search, _('Search')) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
 <p>
 <% if @tasks.empty? %>
   <em><%= _('No processed tasks.') %></em>
 <% else %>
-  <ul>
+  <ul class="task-list">
     <% @tasks.each do |item| %>
-      <li>
-        <strong><%= task_information(item) %></strong> <br/>
-        <small>
-          <%= _('Created:')   +' '+ show_date(item.created_at) %>
-          &nbsp; &#151; &nbsp;
-          <%= _('Processed:') +' '+ show_date(item.end_date) %>
-        </small>
+      <li class="task status-<%= item.status%>">
+        <%= render :partial => partial_for_class(item.class, nil, 'processed'), :locals => {:task => item} %>
       </li>
     <% end %>
   </ul>
+  <%= pagination_links(@tasks)%>
 <% end %>
 </p>
 
 <% button_bar do %>
   <%= button(:back, _('Back'), :action => 'index') %>
 <% end %>
+
+</div>

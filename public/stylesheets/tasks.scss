@@ -82,3 +82,47 @@ div.pending-tasks {
 .task_responsible {
   text-align: right;
 }
+
+.task-processed li {
+  background-color: rgb(240, 240, 240);
+  border-radius: 8px;
+  margin: 10px 0;
+  list-style-type: none;
+  padding: 12px;
+}
+
+.task-processed .task.status-3 {
+  background-color: rgb(205, 252, 218);
+}
+
+.task-processed .task.status-2 {
+  background-color: rgb(255, 203, 203);
+}
+
+.task-processed ul {
+  padding: 0;
+}
+
+.task-processed .task-list .task .title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  color: rgb(44, 44, 44);
+}
+
+.task-processed .task .status {
+  float: right;
+  color: rgb(156, 156, 156);
+  font-weight: bold;
+}
+
+.task-processed .task .dates {
+  font-size: 11px;
+}
+
+.task-processed .task .closed-by {
+  font-size: 11px;
+}
+
+.task-processed .task .label {
+  font-weight: bold
+}
