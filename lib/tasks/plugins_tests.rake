@@ -25,7 +25,7 @@ def enable_plugins(plugins)
   plugins = Array(plugins)
   command = ['./script/noosfero-plugins', '-q', 'enable', *plugins]
   puts plugins.join(' ')
-  system *command
+  Bundler.clean_system *command
 end
 
 def disable_plugins(plugins = '*')
