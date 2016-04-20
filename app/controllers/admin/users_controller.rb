@@ -45,7 +45,6 @@ class UsersController < AdminController
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
-
   def destroy_user
     if request.post?
       person = environment.people.find_by id: params[:id]
@@ -57,7 +56,6 @@ class UsersController < AdminController
     end
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
-
 
   def download
     respond_to do |format|
@@ -87,8 +85,11 @@ class UsersController < AdminController
   end
 
   def send_mail
-    @mailing = environment.mailings.build(params[:mailing])
     if request.post?
+      @mailing = environment.mailings.build(params[:mailing])
+      @mailing.recipients_roles = []
+      @mailing.recipients_roles << "profile_admin" if params[:recipients][:profile_admins].include?("true")
+      @mailing.recipients_roles << "environment_administrator" if params[:recipients][:env_admins].include?("true")
       @mailing.locale = locale
       @mailing.person = user
       if @mailing.save
