@@ -79,7 +79,7 @@ run(){
 
 _install(){
   # export so that recursive enables for dependencies inherit this option too
-  export BUNDLE_OPTS='install'
+  export NOOSFERO_BUNDLE_OPTS='install'
   _enable "$1"
 }
 
@@ -119,8 +119,8 @@ _enable(){
       if [ -e $source/Gemfile ]; then
         gemfile=$(mktemp --tmpdir=.)
         cat $NOOSFERO_DIR/Gemfile $source/Gemfile > $gemfile
-        if [ -z "$BUNDLE_OPTS" ]; then BUNDLE_OPTS="--local"; fi
-        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle $BUNDLE_OPTS --quiet; then
+        if [ -z "$NOOSFERO_BUNDLE_OPTS" ]; then NOOSFERO_BUNDLE_OPTS="--local"; fi
+        if ! RUBYOPT='' BUNDLE_GEMFILE="$gemfile" bundle $NOOSFERO_BUNDLE_OPTS --quiet; then
           dependencies_ok=false
         else
           mv "$gemfile".lock Gemfile.lock
