@@ -1,4 +1,5 @@
-class ProfileSuggestion < ActiveRecord::Base
+class ProfileSuggestion < ApplicationRecord
+
   belongs_to :person
   belongs_to :suggestion, :class_name => 'Profile', :foreign_key => :suggestion_id
 

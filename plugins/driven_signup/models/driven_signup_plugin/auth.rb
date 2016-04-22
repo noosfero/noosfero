@@ -1,4 +1,4 @@
-class DrivenSignupPlugin::Auth < ActiveRecord::Base
+class DrivenSignupPlugin::Auth < ApplicationRecord
 
   attr_accessible :name, :token
 

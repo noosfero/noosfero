@@ -12,12 +12,12 @@ module Noosfero
     def self.db_by_host=(host)
       if host != @db_by_host
         @db_by_host = host
-        ActiveRecord::Base.connection.schema_search_path = self.mapping[host]
+        ApplicationRecord.connection.schema_search_path = self.mapping[host]
       end
     end
 
     def self.setup!(host)
-      if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
+      if Noosfero::MultiTenancy.on? and ApplicationRecord.postgresql?
         Noosfero::MultiTenancy.db_by_host = host
       end
     end

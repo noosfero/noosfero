@@ -1,4 +1,4 @@
-class Qualifier < ActiveRecord::Base
+class Qualifier < ApplicationRecord
 
   attr_accessible :name, :environment
 

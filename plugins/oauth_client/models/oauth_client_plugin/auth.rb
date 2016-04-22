@@ -1,4 +1,4 @@
-class OauthClientPlugin::Auth < ActiveRecord::Base
+class OauthClientPlugin::Auth < ApplicationRecord
 
   attr_accessible :profile, :provider, :enabled,
     :access_token, :expires_in

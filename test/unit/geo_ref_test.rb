@@ -22,7 +22,7 @@ class GeoRefTest < ActiveSupport::TestCase
     @acme = Enterprise.create! environment: env, identifier: 'acme', name: 'ACME',
         city: 'Salvador', state: 'Bahia', country: 'BR', lat: -12.9, lng: -38.5
     def sql_dist_to(ll)
-      ActiveRecord::Base.connection.execute(
+      ApplicationRecord.connection.execute(
         "SELECT #{Noosfero::GeoRef.sql_dist ll[0], ll[1]} as dist" +
         " FROM profiles WHERE id = #{@acme.id};"
       ).first['dist'].to_f.round

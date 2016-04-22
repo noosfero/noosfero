@@ -1,4 +1,4 @@
-class ActionTrackerNotification < ActiveRecord::Base
+class ActionTrackerNotification < ApplicationRecord
 
   belongs_to :profile
   belongs_to :action_tracker, :class_name => 'ActionTracker::Record', :foreign_key => 'action_tracker_id'

@@ -1,4 +1,4 @@
-class ProductQualifier < ActiveRecord::Base
+class ProductQualifier < ApplicationRecord
 
   attr_accessible :qualifier, :product, :certifier
 

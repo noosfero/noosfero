@@ -1,4 +1,4 @@
-class Input < ActiveRecord::Base
+class Input < ApplicationRecord
 
   attr_accessible :product, :product_id, :product_category, :product_category_id,
     :amount_used, :unit_id, :price_per_unit, :relevant_to_price, :is_from_solidarity_economy

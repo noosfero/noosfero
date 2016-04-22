@@ -29,12 +29,12 @@ class MultiTenancyTest < ActionDispatch::IntegrationTest
     user = create_user
     session_obj = create(Session, user_id: user.id, session_id: 'some_id', data: {})
     person_identifier = user.person.identifier
-    
+
     Noosfero::MultiTenancy.setup!('schema1.com')
     host! 'schema2.com'
     cookies[:_noosfero_session] = session_obj.session_id
     assert_nothing_raised { get "/myprofile/#{person_identifier}" }
-    assert_equal 'public', ActiveRecord::Base.connection.schema_search_path
+    assert_equal 'public', ApplicationRecord.connection.schema_search_path
   end
 
 end

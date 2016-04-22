@@ -1,4 +1,4 @@
-class SuppliersPlugin::Supplier < ActiveRecord::Base
+class SuppliersPlugin::Supplier < ApplicationRecord
 end
 
 class AddActiveToSuppliersPluginSupplier < ActiveRecord::Migration

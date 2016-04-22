@@ -1,4 +1,4 @@
-class AnalyticsPlugin::Visit < ActiveRecord::Base
+class AnalyticsPlugin::Visit < ApplicationRecord
 
   attr_accessible *self.column_names
   attr_accessible :profile

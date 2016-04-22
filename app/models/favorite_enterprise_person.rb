@@ -1,4 +1,4 @@
-class FavoriteEnterprisePerson < ActiveRecord::Base
+class FavoriteEnterprisePerson < ApplicationRecord
 
   attr_accessible :person, :enterprise
 

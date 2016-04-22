@@ -1,4 +1,4 @@
-class OrganizationRatingsConfig < ActiveRecord::Base
+class OrganizationRatingsConfig < ApplicationRecord
 
   belongs_to :environment
 

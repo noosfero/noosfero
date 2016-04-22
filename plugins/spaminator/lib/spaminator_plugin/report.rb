@@ -1,4 +1,4 @@
-class SpaminatorPlugin::Report < ActiveRecord::Base
+class SpaminatorPlugin::Report < ApplicationRecord
 
   serialize :failed, Hash
 

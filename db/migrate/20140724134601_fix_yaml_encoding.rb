@@ -1,6 +1,6 @@
 class FixYamlEncoding < ActiveRecord::Migration
   def self.up
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       fix_encoding(Environment, 'settings')
       fix_encoding(Profile, 'data')
       fix_encoding(Product, 'data')

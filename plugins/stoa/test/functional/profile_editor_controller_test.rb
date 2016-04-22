@@ -13,7 +13,7 @@ class StoaPluginProfileEditorControllerTest < ActionController::TestCase
     login_as(@person.identifier)
     Environment.default.enable_plugin(StoaPlugin.name)
     db = Tempfile.new('stoa-test')
-    ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => db.path}
+    ApplicationRecord.configurations['stoa'] = {:adapter => 'sqlite3', :database => db.path}
   end
 
   attr_accessor :person

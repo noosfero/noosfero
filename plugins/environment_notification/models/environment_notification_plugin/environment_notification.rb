@@ -1,4 +1,4 @@
-class EnvironmentNotificationPlugin::EnvironmentNotification < ActiveRecord::Base
+class EnvironmentNotificationPlugin::EnvironmentNotification < ApplicationRecord
 
   self.table_name = "environment_notifications"
 

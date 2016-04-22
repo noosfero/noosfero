@@ -1,4 +1,4 @@
-class CommentClassificationPlugin::Label < ActiveRecord::Base
+class CommentClassificationPlugin::Label < ApplicationRecord
 
   belongs_to :owner, :polymorphic => true
 

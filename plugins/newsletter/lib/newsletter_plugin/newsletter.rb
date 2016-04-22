@@ -1,6 +1,6 @@
 require 'csv'
 
-class NewsletterPlugin::Newsletter < ActiveRecord::Base
+class NewsletterPlugin::Newsletter < ApplicationRecord
 
   belongs_to :environment
   belongs_to :person

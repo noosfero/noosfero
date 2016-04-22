@@ -122,4 +122,4 @@ module Customizable
   end
 end
 
-ActiveRecord::Base.send(:include, Customizable)
+ApplicationRecord.send :include, Customizable

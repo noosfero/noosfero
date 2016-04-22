@@ -80,7 +80,7 @@ class RoleControllerTest < ActionController::TestCase
     role = Role.create!(:name => 'environment_role', :key => 'environment_role', :environment => Environment.default)
     get :edit, :id => role.id
     ['Environment', 'Profile'].each do |key|
-      ActiveRecord::Base::PERMISSIONS[key].each do |permission, value|
+      ApplicationRecord::PERMISSIONS[key].each do |permission, value|
         assert_select ".permissions.#{key.downcase} input##{permission}"
       end
     end
@@ -89,7 +89,7 @@ class RoleControllerTest < ActionController::TestCase
   should 'display permissions only for profile when editing a profile role' do
     role = Role.create!(:name => 'profile_role', :key => 'profile_role', :environment => Environment.default)
     get :edit, :id => role.id
-    ActiveRecord::Base::PERMISSIONS['Profile'].each do |permission, value|
+    ApplicationRecord::PERMISSIONS['Profile'].each do |permission, value|
       assert_select "input##{permission}"
     end
     assert_select ".permissions.environment", false

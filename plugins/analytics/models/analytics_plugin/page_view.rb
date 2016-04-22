@@ -1,4 +1,4 @@
-class AnalyticsPlugin::PageView < ActiveRecord::Base
+class AnalyticsPlugin::PageView < ApplicationRecord
 
   serialize :data
 

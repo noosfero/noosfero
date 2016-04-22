@@ -1,4 +1,4 @@
-class Certifier < ActiveRecord::Base
+class Certifier < ApplicationRecord
 
   attr_accessible :name, :environment
 

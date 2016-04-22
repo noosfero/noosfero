@@ -1,4 +1,4 @@
-class EmailTemplate < ActiveRecord::Base
+class EmailTemplate < ApplicationRecord
 
   belongs_to :owner, :polymorphic => true
 

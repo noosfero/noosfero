@@ -1,4 +1,4 @@
-class AcademicInfo < ActiveRecord::Base
+class AcademicInfo < ApplicationRecord
 
   belongs_to :person
 

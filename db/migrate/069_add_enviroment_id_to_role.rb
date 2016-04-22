@@ -1,9 +1,9 @@
-class Role < ActiveRecord::Base; end
-class RoleWithEnvironment < ActiveRecord::Base
+class Role < ApplicationRecord
+class RoleWithEnvironment < ApplicationRecord
   self.table_name = 'roles'
   belongs_to :environment
 end
-class RoleAssignment < ActiveRecord::Base
+class RoleAssignment < ApplicationRecord
   belongs_to :accessor, :polymorphic => true
   belongs_to :resource, :polymorphic => true
 end

@@ -1,4 +1,4 @@
-class SubOrganizationsPlugin::ApprovePaternityRelation < ActiveRecord::Base
+class SubOrganizationsPlugin::ApprovePaternityRelation < ApplicationRecord
 
   belongs_to :task
   belongs_to :parent, :polymorphic => true

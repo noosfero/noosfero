@@ -1,4 +1,4 @@
-class VolunteersPlugin::Assignment < ActiveRecord::Base
+class VolunteersPlugin::Assignment < ApplicationRecord
 
   attr_accessible :profile_id
 

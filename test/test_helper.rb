@@ -187,14 +187,14 @@ class ActiveSupport::TestCase
   end
 
   def uses_postgresql(schema_name = 'test_schema')
-    adapter = ActiveRecord::Base.connection.class
+    adapter = ApplicationRecord.connection.class
     adapter.any_instance.stubs(:adapter_name).returns('PostgreSQL')
     adapter.any_instance.stubs(:schema_search_path).returns(schema_name)
     Noosfero::MultiTenancy.stubs(:on?).returns(true)
   end
 
   def uses_sqlite
-    adapter = ActiveRecord::Base.connection.class
+    adapter = ApplicationRecord.connection.class
     adapter.any_instance.stubs(:adapter_name).returns('SQLite')
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
   end

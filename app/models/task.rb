@@ -9,7 +9,7 @@
 # This class has a +data+ field of type <tt>text</tt>, where you can store any
 # type of data (as serialized Ruby objects) you need for your subclass (which
 # will need to declare <ttserialize</tt> itself).
-class Task < ActiveRecord::Base
+class Task < ApplicationRecord
 
   acts_as_having_settings :field => :data
 

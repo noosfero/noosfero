@@ -1,4 +1,4 @@
-class PushNotificationPlugin::NotificationSettings < ActiveRecord::Base
+class PushNotificationPlugin::NotificationSettings < ApplicationRecord
 
   NOTIFICATIONS= {
     "add_friend" => 0x1,

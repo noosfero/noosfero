@@ -1,4 +1,4 @@
-class OrdersCyclePlugin::Cycle < ActiveRecord::Base
+class OrdersCyclePlugin::Cycle < ApplicationRecord
 
   attr_accessible :profile, :status, :name, :description, :opening_message
 
@@ -233,7 +233,7 @@ class OrdersCyclePlugin::Cycle < ActiveRecord::Base
 
   def add_products
     return if self.products.count > 0
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       self.profile.products.supplied.unarchived.available.find_each batch_size: 20 do |product|
         self.add_product product
       end

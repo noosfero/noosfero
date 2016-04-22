@@ -1,4 +1,4 @@
-class StoaPlugin::UspUser < ActiveRecord::Base
+class StoaPlugin::UspUser < ApplicationRecord
 
   establish_connection(:stoa)
   self.table_name = 'pessoa'

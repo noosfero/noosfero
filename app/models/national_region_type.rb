@@ -1,4 +1,4 @@
-class NationalRegionType < ActiveRecord::Base
+class NationalRegionType < ApplicationRecord
   COUNTRY = 1
   STATE   = 2
   CITY    = 3

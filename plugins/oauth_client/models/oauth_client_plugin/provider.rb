@@ -1,4 +1,4 @@
-class OauthClientPlugin::Provider < ActiveRecord::Base
+class OauthClientPlugin::Provider < ApplicationRecord
 
   belongs_to :environment
 

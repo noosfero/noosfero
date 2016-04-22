@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
 
   attr_accessible :name, :parent_id, :display_color, :display_in_menu, :image_builder, :environment, :parent
 

@@ -1,4 +1,4 @@
-class ValidationInfo < ActiveRecord::Base
+class ValidationInfo < ApplicationRecord
 
   attr_accessible :validation_methodology, :restrictions, :organization
 

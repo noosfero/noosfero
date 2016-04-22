@@ -1,4 +1,4 @@
-class SubOrganizationsPlugin::Relation < ActiveRecord::Base
+class SubOrganizationsPlugin::Relation < ApplicationRecord
 
   belongs_to :parent, :polymorphic => true
   belongs_to :child, :polymorphic => true

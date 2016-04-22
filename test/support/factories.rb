@@ -5,9 +5,9 @@ module Noosfero::Factory
     attrs[:slug] = attrs[:name].to_slug if attrs[:name].present? && attrs[:slug].blank? && defaults[:slug].present?
     data = defaults_for(name.to_s.gsub('::','')).merge(attrs)
     klass = name.to_s.camelize.constantize
-    if klass.superclass != ActiveRecord::Base
-      data[:type] = klass.to_s
-    end
+
+    data[:type] = klass.to_s if klass.column_names.include? 'type'
+
     if options[:timestamps]
       fast_insert_with_timestamps(klass, data)
     else
@@ -129,7 +129,7 @@ module Noosfero::Factory
 
   def fast_insert(klass, data)
     names = data.keys
-    values = names.map {|k| ActiveRecord::Base.send(:sanitize_sql_array, ['?', data[k]]) }
+    values = names.map {|k| ApplicationRecord.send(:sanitize_sql_array, ['?', data[k]]) }
     sql = 'insert into %s(%s) values (%s)' % [klass.table_name, names.join(','), values.join(',')]
     klass.connection.execute(sql)
     klass.order(:id).last

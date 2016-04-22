@@ -1,4 +1,4 @@
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
 
   attr_accessible :uploaded_data, :label, :remove_image
   attr_accessor :remove_image

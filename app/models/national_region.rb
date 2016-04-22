@@ -1,4 +1,4 @@
-class NationalRegion < ActiveRecord::Base
+class NationalRegion < ApplicationRecord
 
   SEARCHABLE_FIELDS = {
     :name => {:label => _('Name'), :weight => 1},

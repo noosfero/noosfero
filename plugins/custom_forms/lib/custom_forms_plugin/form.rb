@@ -1,4 +1,4 @@
-class CustomFormsPlugin::Form < ActiveRecord::Base
+class CustomFormsPlugin::Form < ApplicationRecord
 
   belongs_to :profile
 

@@ -6,15 +6,15 @@ class AccountControllerTest < ActionController::TestCase
   SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   @db = Tempfile.new('stoa-test')
-  configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
-  ActiveRecord::Base.establish_connection(:stoa)
+  configs = ApplicationRecord.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
+  ApplicationRecord.establish_connection(:stoa)
   ActiveRecord::Schema.verbose = false
   ActiveRecord::Schema.create_table "pessoa" do |t|
     t.integer  "codpes"
     t.text     "numcpf"
     t.date     "dtanas"
   end
-  ActiveRecord::Base.establish_connection(:test)
+  ApplicationRecord.establish_connection(:test)
   StoaPlugin::UspUser.reset_column_information
 
   def setup

@@ -15,7 +15,7 @@ class RenameImagesPathOnTrackedActions < ActiveRecord::Migration
       end
       params[param_name] = paths
 
-      execute(ActiveRecord::Base.sanitize_sql(["UPDATE action_tracker SET params = ? WHERE id  = ?", params.to_yaml, tracker['id']]))
+      execute(ApplicationRecord.sanitize_sql(["UPDATE action_tracker SET params = ? WHERE id  = ?", params.to_yaml, tracker['id']]))
     end
   end
 

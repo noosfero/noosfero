@@ -71,6 +71,6 @@ end
 
 ActiveSupport.run_load_hooks :metadata_plugin, MetadataPlugin
 ActiveSupport.on_load :active_record do
-  ActiveRecord::Base.extend MetadataPlugin::Specs::ClassMethods
+  ApplicationRecord.extend MetadataPlugin::Specs::ClassMethods
 end
 

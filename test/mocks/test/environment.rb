@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) +  "/../../../app/models/environment")
 
-class Environment < ActiveRecord::Base
+class Environment < ApplicationRecord
   def self.available_features
     {
     'feature1' => 'Enable Feature 1',

@@ -1,4 +1,4 @@
-class OrdersCyclePlugin::CycleProduct < ActiveRecord::Base
+class OrdersCyclePlugin::CycleProduct < ApplicationRecord
 
   self.table_name = :orders_cycle_plugin_cycle_products
 

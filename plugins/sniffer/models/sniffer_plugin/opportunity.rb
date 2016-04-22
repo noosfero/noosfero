@@ -1,4 +1,4 @@
-class SnifferPlugin::Opportunity < ActiveRecord::Base
+class SnifferPlugin::Opportunity < ApplicationRecord
 
   self.table_name = :sniffer_plugin_opportunities
 
