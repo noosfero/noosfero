@@ -1,4 +1,4 @@
-require_relative '../../../../test/unit/api/test_helper'
+require_relative '../../../../test/api/test_helper'
 
 class PushNotificationApiTest < ActiveSupport::TestCase
 
