@@ -9,7 +9,8 @@
     first_text = articles[articles.find_index{|a| a.kind_of? TextArticle}||-1]
     selected = @block.article || first_text
   %>
-  <%= select_tag(
+  <%= 
+    select_tag(
     'block[article_id]',
     options_for_select_with_title(articles.map {|item| [item.path, item.id]}, selected.id),
     :onchange => 'this.changedTo(this.value)'

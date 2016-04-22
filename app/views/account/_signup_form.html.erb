@@ -107,7 +107,7 @@
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>
 
-  <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+  <%= safe_join(@plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }, "") %>
 
   <%= template_options(:people, 'profile_data') %>
 

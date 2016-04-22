@@ -14,7 +14,7 @@
     </div>
     <div id='product-extra-content'>
       <% extra_content = @plugins.dispatch(:product_info_extras, @product).collect { |content| instance_exec(&content) } %>
-      <%= extra_content.join("\n") %>
+      <%= safe_join(extra_content, "\n") %>
     </div>
     <div id='product-info'>
       <%= render :partial => 'manage_products/display_info' %>

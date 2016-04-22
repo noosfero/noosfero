@@ -53,18 +53,19 @@ module DisplayHelper
   end
 
   def txt2html(txt)
-    txt.strip.
+    ret = txt.strip.
       gsub( /\s*\n\s*\n\s*/, "\r<p/>\r" ).
       gsub( /\s*\n\s*/, "\n<br/>\n" ).
       gsub( /\r/, "\n" ).
       gsub( /(^|\s)(www\.[^\s]+|https?:\/\/[^\s]+)/ ) do
         pre_char, href = $1, $2
         href = 'http://'+href  if ! href.match /^https?:/
-        content = href.gsub(/^https?:\/\//, '').scan(/.{1,4}/).join('&#x200B;')
+        content = safe_join(href.gsub(/^https?:\/\//, '').scan(/.{1,4}/), '&#x200B;'.html_safe)
         pre_char +
         content_tag(:a, content, :href => href, :target => '_blank',
-                    :rel => 'nofolow', :onclick => "return confirm('%s')" %
+                    :rel => 'nofolow', :onclick => "return confirm('%s')".html_safe %
                       _('Are you sure you want to visit this web site?'))
       end
+      ret.html_safe
   end
 end

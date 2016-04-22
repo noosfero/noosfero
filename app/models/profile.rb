@@ -646,7 +646,7 @@ class Profile < ApplicationRecord
     url << url_options[:host]
     url << ':' << url_options[:port].to_s if url_options.key?(:port)
     url << Noosfero.root('')
-    url
+    url.html_safe
   end
 
 private :generate_url, :url_options

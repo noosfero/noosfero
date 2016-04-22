@@ -5,7 +5,7 @@
 <p>
 <%=  _('Here you can enable or disable several features of your environment. Each feature represents some funcionality that your environment can use if you enable it.
 
-Check all the features you want to enable for your environment, uncheck all the ones you don\'t want, and use the <em>"Save changes" button</em> to confirm your changes.') %>
+Check all the features you want to enable for your environment, uncheck all the ones you don\'t want, and use the <em>"Save changes" button</em> to confirm your changes.').html_safe %>
 </p>
 
 <%= labelled_form_for(:environment, :url => {:action => 'update'}) do |f| %>

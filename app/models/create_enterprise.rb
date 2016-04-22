@@ -163,7 +163,7 @@ class CreateEnterprise < Task
   end
 
   def information
-    {:message => _('%{requestor} wants to create enterprise %{subject}.')}
+    {:message => _('%{requestor} wants to create enterprise %{subject}.').html_safe}
   end
 
   def reject_details

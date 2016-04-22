@@ -35,7 +35,7 @@
 <div id="article-formitem">
   <%= labelled_form_field( _('Address'),
         content_tag('code',
-          url_for(@article.url).gsub(/#{@article.slug}$/, '') +
+          url_for(@article.url).gsub(/#{@article.slug}$/, '').html_safe +
           text_field(:article, :slug, :onchange => "warn_value_change()", :size => 25)
         ) +
         content_tag('div',

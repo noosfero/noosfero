@@ -41,12 +41,12 @@ module BlogHelper
       css_add << position
       content << (content_tag 'div', id: "post-#{art.id}", class: css_add do
         content_tag 'div', class: position + '-inner blog-post-inner' do
-          display_post(art, conf[:format]).html_safe +
-          '<br style="clear:both"/>'.html_safe
+          display_post(art, conf[:format])  +
+          '<br style="clear:both"/>'
         end
-      end)
+      end).html_safe
     }
-    content.join("\n<hr class='sep-posts'/>\n") + (pagination or '')
+    safe_join(content, "\n<hr class='sep-posts'/>\n") + (pagination or '').html_safe
   end
 
   def display_post(article, format = 'full')
@@ -61,7 +61,8 @@ module BlogHelper
       else
         '<div class="post-pic" style="background-image:url('+img+')"></div>'
       end
-    end.to_s + title + html
+    end.to_s.html_safe +
+    title.html_safe + html
   end
 
   def display_compact_format(article)

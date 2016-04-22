@@ -15,7 +15,7 @@
             <%= show_date(headline.published_at) %>
           </div>
           <div class='tags'>
-            <%= headline.tags.map { |t| link_to(t, :controller => 'profile', :profile => member.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
+            <%= safe_join(headline.tags.map { |t| link_to(t, :controller => 'profile', :profile => member.identifier, :action => 'tags', :id => t.name ) }, "\n") %>
           </div>
         </div>
       </div>

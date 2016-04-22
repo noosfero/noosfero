@@ -26,7 +26,7 @@
         <% content = _('Add translation') %>
         <% parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)) %>
         <% url = profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => parent_id, :type => @page.type, :article => { :translation_of_id => @page.native_translation.id })%>
-        <%= expirable_button @page, :locale, content, url %>
+        <%= expirable_button @page, :locale, content, url_for(url).html_safe %>
       <% end %>
 
       <% if !@page.archived? %>
@@ -67,7 +67,7 @@
       <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
     <% end %>
     <%= button_without_text(:feed, _('RSS feed'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
-    <%= @plugins.dispatch(:article_header_extra_contents, @page).collect { |content| instance_exec(&content) }.join("") %>
+    <%= safe_join(@plugins.dispatch(:article_header_extra_contents, @page).collect { |content| instance_exec(&content) }) %>
     <% if @page.archived? %>
       <%= render :partial => 'cms/archived_warning', :locals => {:article => @page} %>
     <% end %>

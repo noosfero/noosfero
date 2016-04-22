@@ -1,5 +1,5 @@
 <% extra_content = @plugins.dispatch(:asset_product_extras, product).collect { |content| instance_exec(&content) } %>
-<% extra_properties = @plugins.dispatch(:asset_product_properties, product)%>
+<% extra_properties = @plugins.dispatch(:asset_product_properties, product) %>
 
 <li class="search-product-item <%= 'highlighted' if product.highlighted? %>">
 
@@ -77,9 +77,9 @@
 
   <div style="clear: both"></div>
 
-  <%= extra_content.join('\n') %>
+  <%= safe_join(extra_content, '\n') %>
   <% extra_properties.each do |property| %>
-    <div><%= property[:name] + ': ' + instance_exec(&property[:content]) %></div>
+    <div><%= ''.html_safe + property[:name] + ': ' + instance_exec(&property[:content]) %></div>
   <% end %>
 
 </li>

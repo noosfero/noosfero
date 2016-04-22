@@ -49,7 +49,7 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   def content(args={})
     block = self
-    proc do
+    ret = (proc do
       trail = block.trail(@page, @profile, params)
       if !trail.empty?
         separator = content_tag('span', ' > ', :class => 'separator')
@@ -63,11 +63,12 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
           breadcrumb << content_tag('div', section_name, :class => 'section-name')
         end
 
-        breadcrumb
+        breadcrumb.html_safe
       else
         ''
       end
-    end
+    end)
+    ret
   end
 
   def cacheable?

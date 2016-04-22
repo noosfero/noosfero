@@ -44,7 +44,7 @@ module BoxesHelper
 
   def display_boxes(holder, main_content)
     boxes = holder.boxes.with_position.first(boxes_limit(holder))
-    content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
+    content = safe_join(boxes.reverse.map { |item| display_box(item, main_content) }, "\n")
     content = main_content if (content.blank?)
 
     content_tag('div', content, :class => 'boxes', :id => 'boxes' )
@@ -54,7 +54,7 @@ module BoxesHelper
     if holder.respond_to?(element)
       content_tag('div', holder.send(element), options)
     else
-      ''
+      ''.html_safe
     end
   end
 
@@ -70,9 +70,10 @@ module BoxesHelper
 
   def display_box_content(box, main_content)
     context = { :article => @page, :request_path => request.path, :locale => locale, :params => request.params, :user => user, :controller => controller }
-    box_decorator.select_blocks(box, box.blocks.includes(:box), context).map do |item|
+    blocks = box_decorator.select_blocks(box, box.blocks.includes(:box), context).map do |item|
       display_block item, main_content
-    end.join("\n") + box_decorator.block_target(box)
+    end
+    safe_join(blocks, "\n") + box_decorator.block_target(box)
   end
 
   def select_blocks box, arr, context
@@ -136,17 +137,18 @@ module BoxesHelper
 
     result = filter_html(result, block)
 
-    content_tag('div',
-      box_decorator.block_target(block.box, block) +
-        content_tag('div',
-         content_tag('div',
-           content_tag('div',
-             result + footer_content + box_decorator.block_edit_buttons(block),
-             :class => 'block-inner-2'),
-           :class => 'block-inner-1'),
-       options),
-    :class => 'block-outer') +
-    box_decorator.block_handle(block)
+    join_result = safe_join([result, footer_content, box_decorator.block_edit_buttons(block)])
+    content_tag_inner_1 = content_tag('div', join_result, :class => 'block-inner-2')
+
+    content_tag_inner_2 = content_tag('div', content_tag_inner_1, :class => 'block-inner-1')
+    content_tag_inner_3 = content_tag('div', content_tag_inner_2, options)
+    content_tag_inner_4 = box_decorator.block_target(block.box, block) + content_tag_inner_3
+    c = content_tag('div', content_tag_inner_4, :class => 'block-outer')
+    box_decorator_result = box_decorator.block_handle(block)
+    result_final = safe_join([c, box_decorator_result], "")
+
+
+    return result_final
   end
 
   def wrap_main_content(content)
@@ -156,17 +158,17 @@ module BoxesHelper
   def extract_block_content(content)
     case content
     when Hash
-      content_tag('iframe', '', :src => url_for(content))
+      content_tag('iframe', ''.html_safe, :src => url_for(content))
     when String
       if content.split("\n").size == 1 and content =~ /^https?:\/\//
-        content_tag('iframe', '', :src => content)
+        content_tag('iframe', ''.html_safe, :src => content)
       else
         content
       end
     when Proc
       self.instance_eval(&content)
     when NilClass
-      ''
+      ''.html_safe
     else
       raise "Unsupported content for block (#{content.class})"
     end
@@ -175,14 +177,14 @@ module BoxesHelper
   module DontMoveBlocks
     # does nothing
     def self.block_target(box, block = nil)
-      ''
+      ''.html_safe
     end
     # does nothing
     def self.block_handle(block)
-      ''
+      ''.html_safe
     end
     def self.block_edit_buttons(block)
-      ''
+      ''.html_safe
     end
     def self.select_blocks box, arr, context
       arr = arr.select{ |block| block.visible? context }
@@ -229,9 +231,9 @@ module BoxesHelper
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
     return "" unless movable?(block)
-    icon = "<div><div>#{display_icon(block.class)}</div><span>#{_(block.class.pretty_name)}</span></div>"
+    icon = "<div><div>#{display_icon(block.class)}</div><span>#{_(block.class.pretty_name)}</span></div>".html_safe
     block_draggable("block-#{block.id}",
-                    :helper => "function() {return cloneDraggableBlock($(this), '#{icon}')}")
+                    :helper => "function() {return cloneDraggableBlock($(this), '#{icon}')}".html_safe)
   end
 
   def block_draggable(element_id, options={})
@@ -302,7 +304,7 @@ module BoxesHelper
       buttons << modal_inline_icon(:embed, _('Embed code'), {}, "#embed-code-box-#{block.id}") << html
     end
 
-    content_tag('div', buttons.join("\n") + tag('br', :style => 'clear: left'), :class => 'button-bar')
+    content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar')
   end
 
   def current_blocks

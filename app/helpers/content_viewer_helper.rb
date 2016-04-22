@@ -7,7 +7,8 @@ module ContentViewerHelper
   def display_number_of_comments(n)
     base_str = "<span class='comment-count hide'>#{n}</span>"
     amount_str = n == 0 ? _('no comments yet') : (n == 1 ? _('One comment') : _('%s comments') % n)
-    base_str + "<span class='comment-count-write-out'>#{amount_str}</span>"
+    base_str += "<span class='comment-count-write-out'>#{amount_str}</span>"
+    base_str.html_safe
   end
 
   def number_of_comments(article)
@@ -19,11 +20,11 @@ module ContentViewerHelper
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog? || article.belongs_to_forum?
       unless args[:no_link]
-        title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
+        title = content_tag('h1', link_to(article.name, url_for(article.url)), :class => 'title')
       end
       comments = ''
       unless args[:no_comments] || !article.accept_comments
-        comments = (" - %s") % link_to_comments(article)
+        comments = (" - %s").html_safe % link_to_comments(article)
       end
       date_format = show_with_right_format_date article
       title << content_tag('span',

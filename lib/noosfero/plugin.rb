@@ -611,7 +611,7 @@ class Noosfero::Plugin
   end
 
   # -> Perform extra transactions related to profile in profile editor
-  # returns = true in success or raise and exception if it could not update the data
+  # returns = true in success or raise an exception if it could not update the data
   def profile_editor_transaction_extras
     nil
   end

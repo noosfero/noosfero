@@ -108,7 +108,7 @@ class CmsController < MyProfileController
   end
 
   def new
-    # FIXME this method should share some logic wirh edit !!!
+    # FIXME this method should share some logic with edit !!!
 
     @success_back_to = params[:success_back_to]
     # user must choose an article type first
@@ -365,7 +365,7 @@ class CmsController < MyProfileController
   def search
     query = params[:q]
     results = find_by_contents(:uploaded_files, profile, profile.files.published, query)[:results]
-    render :text => article_list_to_json(results), :content_type => 'application/json'
+    render :text => article_list_to_json(results).html_safe, :content_type => 'application/json'
   end
 
   def search_article_privacy_exceptions

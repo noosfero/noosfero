@@ -131,7 +131,7 @@ module ProfileImageHelper
     links = links_for_balloon(profile)
     content_tag('div', content_tag(tag,
                                    (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
-                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "") +
+                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "").html_safe +
     link_to(
       content_tag( 'span', profile_image( profile, size ), :class => img_class ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
@@ -139,7 +139,7 @@ module ProfileImageHelper
       profile.url,
       :class => 'profile_link url',
       :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
-      :title => profile.name ),
+      :title => profile.name ).html_safe,
       :class => 'vcard'), :class => 'common-profile-list-block')
   end
 end

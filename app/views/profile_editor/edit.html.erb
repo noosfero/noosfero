@@ -26,20 +26,20 @@
 
   <% if profile.person? %>
     <div>
-      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users'), 'profile_data[public_profile]', true, @profile.public_profile? %>
+      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
     </div>
     <div>
-      <%= labelled_radio_button _('Private &mdash; show my contents only to friends'), 'profile_data[public_profile]', false, !@profile.public_profile? %>
+      <%= labelled_radio_button _('Private &mdash; show my contents only to friends').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile? %>
     </div>
   <% else %>
     <div>
-      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to."), 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
+      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to.").html_safe, 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
     </div>
     <div>
-      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users'), 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
+      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
     </div>
     <div>
-      <%= labelled_radio_button _('Private &mdash; show content of this group only to members'), 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
+      <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
     </div>
   <% end %>
 
@@ -60,9 +60,9 @@
   )%>
 
   <%=
-    @plugins.dispatch(:profile_editor_extras).map do |content|
+    safe_join(@plugins.dispatch(:profile_editor_extras).map do |content|
       content.kind_of?(Proc) ? self.instance_exec(&content) : content
-    end.join("\n")
+    end, "\n")
   %>
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>

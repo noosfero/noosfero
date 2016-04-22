@@ -22,7 +22,7 @@ class TestController < ApplicationController
   end
 
   def help_textile_with_string
-    render :inline => '<%= help_textile "*my_bold_help_message*" %>'
+    render :inline => '<%= help_textile "*my_bold_help_message*".html_safe %>'
   end
 
   def help_textile_with_block

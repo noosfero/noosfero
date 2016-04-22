@@ -5,7 +5,7 @@
 <% else %>
   <% unless profile.description.blank? %>
     <div class='public-profile-description'>
-      <%= profile.description %>
+      <%= raw profile.description %>
     </div>
   <% end %>
   <div id='public-profile-search'>

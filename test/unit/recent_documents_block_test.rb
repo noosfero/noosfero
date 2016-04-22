@@ -2,6 +2,8 @@ require_relative "../test_helper"
 
 class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
+  include ActionView::Helpers::OutputSafetyHelper
+
   def setup
     @articles = []
     @profile = create_user('testinguser').person
