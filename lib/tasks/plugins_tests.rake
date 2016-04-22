@@ -9,7 +9,7 @@ $broken_plugins = %w[
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
 @all_plugins.sort!
 
-@all_tasks = [:units, :functionals, :integration, :cucumber, :selenium]
+@all_tasks = [:units, :api, :functionals, :integration, :cucumber, :selenium]
 
 def enabled_plugins
   Dir.glob('{baseplugins,config/plugins}/*').map { |f| File.basename(f) } - ['README']
@@ -87,6 +87,8 @@ def task2folder(task)
   result = case task.to_sym
   when :units
     :unit
+  when :api
+    :api
   when :functionals
     :functional
   when :integration
