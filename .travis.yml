@@ -40,21 +40,36 @@ before_script:
   - bundle exec rake db:migrate &>/dev/null
 
 env:
-  - TASK=test:api
-  - TASK=test:units
-  - TASK=test:functionals
-  - TASK=test:integration
-  - SLICE=1/2 TASK=cucumber LANG=en
-  - SLICE=2/2 TASK=cucumber LANG=en
-  - SLICE=1/4 TASK=selenium
-  - SLICE=2/4 TASK=selenium
-  - SLICE=3/4 TASK=selenium
-  - SLICE=4/4 TASK=selenium
-  - SLICE=1/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  - SLICE=2/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  - SLICE=3/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  - SLICE=4/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  - SLICE=5/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  global:
+    - LANG=en
+  matrix:
+    - TASK=test:api
+    - TASK=test:units
+    - TASK=test:functionals
+    - TASK=test:integration
+    - SLICE=1/2 TASK=cucumber
+    - SLICE=2/2 TASK=cucumber
+    - SLICE=1/4 TASK=selenium
+    - SLICE=2/4 TASK=selenium
+    - SLICE=3/4 TASK=selenium
+    - SLICE=4/4 TASK=selenium
+    - SLICE=1/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+    - SLICE=2/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+    - SLICE=3/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+    - SLICE=4/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+    - SLICE=5/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+    # chrome hanging on travis
+    #- SLICE=1/4 TASK=selenium SELENIUM_DRIVER=chrome
+    #- SLICE=2/4 TASK=selenium SELENIUM_DRIVER=chrome
+    #- SLICE=3/4 TASK=selenium SELENIUM_DRIVER=chrome
+    #- SLICE=4/4 TASK=selenium SELENIUM_DRIVER=chrome
+
+matrix:
+  allow_failures:
+    - env: SLICE=1/4 TASK=selenium SELENIUM_DRIVER=chrome
+    - env: SLICE=2/4 TASK=selenium SELENIUM_DRIVER=chrome
+    - env: SLICE=3/4 TASK=selenium SELENIUM_DRIVER=chrome
+    - env: SLICE=4/4 TASK=selenium SELENIUM_DRIVER=chrome
 
 script:
   - bundle exec rake $TASK
