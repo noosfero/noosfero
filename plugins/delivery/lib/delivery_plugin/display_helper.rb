@@ -15,7 +15,7 @@ module DeliveryPlugin::DisplayHelper
       content_tag :option, text, value: method.id,
         data: {label: method.name, type: method.delivery_type, instructions: CGI::escapeHTML(method.description.to_s)},
         selected: if method.id == selected then 'selected' else nil end
-    end.join
+    end.safe_join
   end
 
   def consumer_delivery_field_value order, field
