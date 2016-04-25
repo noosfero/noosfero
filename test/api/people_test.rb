@@ -68,7 +68,7 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'people endpoint filter by fields parameter with hierarchy' do
-    fields = URI.encode({only: [:name, {user: [:login]}]}.to_json)
+    fields = URI.encode({only: [:name, {user: [:login]}]}.to_json.to_str)
     get "/api/v1/people?#{params.to_query}&fields=#{fields}"
     json = JSON.parse(last_response.body)
     expected = {'people' => [{'name' => person.name, 'user' => {'login' => 'testapi'}}]}
