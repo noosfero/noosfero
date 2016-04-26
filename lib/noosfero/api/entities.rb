@@ -231,6 +231,9 @@ module Noosfero
 
       class Environment < Entity
         expose :name
+        expose :id
+        expose :description
+        expose :settings, if: lambda { |instance, options| options[:is_admin] }
       end
 
       class Tag < Entity
