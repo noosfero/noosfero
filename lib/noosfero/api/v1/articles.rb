@@ -230,7 +230,7 @@ module Noosfero
             parent_article = environment.articles.find(params[:id])
             return forbidden! unless parent_article.allow_create?(current_person)
 
-            klass_type= params[:content_type].nil? ? 'TinyMceArticle' : params[:content_type]
+            klass_type = params[:content_type] || params[:article].delete(:type) || 'TinyMceArticle'
             #FIXME see how to check the article types
             #return forbidden! unless ARTICLE_TYPES.include?(klass_type)
 

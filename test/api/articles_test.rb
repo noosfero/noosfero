@@ -408,6 +408,18 @@ class ArticlesTest < ActiveSupport::TestCase
       assert_kind_of TextArticle, Article.last
     end
 
+    should "#{kind} create article with type passed as parameter" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      Person.any_instance.stubs(:can_post_content?).with(profile).returns(true)
+
+      Article.delete_all
+      params[:article] = {:name => "Title", :type => 'TextArticle'}
+      post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+
+      assert_kind_of TextArticle, Article.last
+    end
+
     should "#{kind}: create article of TinyMceArticle type if no content type is passed as parameter" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       Person.any_instance.stubs(:can_post_content?).with(profile).returns(true)
