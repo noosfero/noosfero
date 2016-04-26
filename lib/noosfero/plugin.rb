@@ -682,6 +682,10 @@ class Noosfero::Plugin
     {}
   end
 
+  def api_custom_login request
+    nil
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of

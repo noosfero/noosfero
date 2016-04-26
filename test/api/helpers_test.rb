@@ -41,15 +41,24 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_equal user.person, current_person
   end
 
-#  #FIXME see how to make this test. Get the current_user variable
-#  should 'set current_user to nil after logout' do
-#    user = create_user('someuser')
-#    user.stubs(:private_token_expired?).returns(false)
-#    User.stubs(:find_by(private_token).returns: user)
-#    assert_not_nil current_user
-#    assert false
-#    logout
-#  end
+  should 'get the current user from plugins' do
+
+    class CoolPlugin < Noosfero::Plugin
+      def api_custom_login request
+        user = User.create!(:login => 'zombie', :password => 'zombie', :password_confirmation => 'zombie', :email => 'zombie@brains.org', :environment => environment)
+        user.activate
+        user
+      end
+    end
+
+    Noosfero::Plugin.stubs(:all).returns([CoolPlugin.name])
+    Environment.default.enable_plugin(CoolPlugin)
+
+    get "/api/v1/people/me"
+
+    json = JSON.parse(last_response.body)
+    assert_equal "zombie", json['person']['name']
+  end
 
   should 'limit be defined as the params limit value' do
     local_limit = 30
