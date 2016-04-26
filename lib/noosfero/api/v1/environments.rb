@@ -11,16 +11,15 @@ module Noosfero
           end
 
           get ':id' do
-            resultEnvironment = nil
+            local_environment = nil
             if (params[:id] == "default")
-              resultEnvironment = Environment.default
+              local_environment = Environment.default
             elsif (params[:id] == "context")
-              resultEnvironment = environment
+              local_environment = environment
             else
-              resultEnvironment = Environment.find(params[:id])
+              local_environment = Environment.find(params[:id])
             end
-            is_admin = is_admin?(resultEnvironment)
-            present_partial resultEnvironment, :with => Entities::Environment, :is_admin => is_admin?(resultEnvironment)
+            present_partial local_environment, :with => Entities::Environment, :is_admin => is_admin?(local_environment)
           end
 
         end
