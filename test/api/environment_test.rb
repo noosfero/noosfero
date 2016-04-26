@@ -2,11 +2,6 @@ require_relative 'test_helper'
 
 class EnvironmentTest < ActiveSupport::TestCase
 
-  def setup
-    @person = create_user('testing').person
-  end
-  attr_reader :person
-
   should 'return the default environment' do
     environment = Environment.default
     get "/api/v1/environment/default"
@@ -22,20 +17,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_nil json['settings']
   end
 
-  def login_admin
-    # Create and activate the admin user
-    admin_user = new_admin_user(Environment.default, true)
-    params = {:login => "adminuser", :password => "adminuser"}
-    post "/api/v1/login?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    private_token = json['user']["private_token"]
-    assert_equal admin_user.private_token, private_token
-    @params = {:private_token => private_token}
-  end
-
   should 'return the default environment settings for admin' do
-    login_admin
+    login_api
     environment = Environment.default
+    environment.add_admin(person)
     get "/api/v1/environment/default?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal environment.id, json['id']
