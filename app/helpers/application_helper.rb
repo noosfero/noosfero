@@ -1055,13 +1055,11 @@ module ApplicationHelper
   end
 
   def delete_article_message(article)
-    CGI.escapeHTML(
-      if article.folder?
-        _("Are you sure that you want to remove the folder \"%s\"? Note that all the items inside it will also be removed!") % article.name
-      else
-        _("Are you sure that you want to remove the item \"%s\"?") % article.name
-      end
-    )
+    if article.folder?
+      _("Are you sure that you want to remove the folder \"%s\"? Note that all the items inside it will also be removed!") % article.name
+    else
+      _("Are you sure that you want to remove the item \"%s\"?") % article.name
+    end
   end
 
   def expirable_link_to(expired, content, url, options = {})

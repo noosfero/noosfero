@@ -69,14 +69,14 @@ module ArticleHelper
     content_tag('div',
       content_tag('div',
         radio_button(:article, :published, true) +
-          content_tag('span', '&nbsp;', :class => 'access-public-icon') +
+          content_tag('span', '&nbsp;'.html_safe, :class => 'access-public-icon') +
           content_tag('label', _('Public'), :for => 'article_published_true') +
           content_tag('span', _('Visible to other people'), :class => 'access-note'),
           :class => 'access-item'
            ) +
       content_tag('div',
         radio_button(:article, :published, false) +
-          content_tag('span', '&nbsp;', :class => 'access-private-icon') +
+          content_tag('span', '&nbsp;'.html_safe, :class => 'access-private-icon') +
           content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private") +
           content_tag('span', _('Limit visibility of this article'), :class => 'access-note'),
           :class => 'access-item'

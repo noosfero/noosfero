@@ -34,7 +34,7 @@ module BoxesHelper
 
   def display_boxes_editor(holder)
     with_box_decorator self do
-      content_tag('div', display_boxes(holder, '&lt;' + _('Main content') + '&gt;'), :id => 'box-organizer')
+      content_tag('div', display_boxes(holder, '<' + _('Main content') + '>'), :id => 'box-organizer')
     end
   end
 
@@ -52,7 +52,7 @@ module BoxesHelper
 
   def maybe_display_custom_element(holder, element, options = {})
     if holder.respond_to?(element)
-      content_tag('div', holder.send(element), options)
+      content_tag('div', holder.send(element).to_s.html_safe, options)
     else
       ''.html_safe
     end
@@ -64,7 +64,7 @@ module BoxesHelper
 
   def display_updated_box(box)
     with_box_decorator self do
-      display_box_content(box, '&lt;' + _('Main content') + '&gt;')
+      display_box_content(box, '<' + _('Main content') + '>')
     end
   end
 
