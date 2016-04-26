@@ -112,6 +112,8 @@ module Noosfero
         expose :image, :using => Image
         expose :region, :using => Region
         expose :type
+        expose :custom_header
+        expose :custom_footer
       end
 
       class UserBasic < Entity
