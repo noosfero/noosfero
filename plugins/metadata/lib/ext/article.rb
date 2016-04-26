@@ -23,14 +23,14 @@ class Article
     'locale:locale' => proc{ |a, c| a.language || a.environment.default_language },
     'locale:alternate' => proc{ |a, c| a.alternate_languages },
 
-    description: proc{ |a, plugin| ActionView::Base.full_sanitizer.sanitize a.body },
+    description: proc{ |a, plugin| ActionView::Base.full_sanitizer.sanitize a.lead },
     rich_attachment: "",
   }
 
   metadata_spec namespace: :twitter, key_attr: :name, tags: {
     card: 'summary',
     description: proc do |a, plugin|
-      description = a.body.to_s || a.environment.name
+      description = a.lead.to_s || a.environment.name
       plugin.helpers.truncate plugin.helpers.strip_tags(description), length: 200
     end,
     title: proc{ |a, plugin| "#{a.title} - #{a.profile.name}" },
