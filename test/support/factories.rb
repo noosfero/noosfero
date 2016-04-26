@@ -64,17 +64,11 @@ module Noosfero::Factory
   end
 
   ###### old stuff to be rearranged
-  def create_admin_user(env, activate = false)
-    admin_user = new_admin_user(env, activate)
-    admin_user.login
-  end
-
-  def new_admin_user(env, activate = true)
+  def create_admin_user(env)
     admin_user = User.find_by(login: 'adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org', :password => 'adminuser', :password_confirmation => 'adminuser', :environment => env)
     admin_role = Role.find_by(name: 'admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_trusted_sites', 'manage_environment_validators', 'manage_environment_users', 'manage_environment_organizations', 'manage_environment_templates', 'manage_environment_licenses', 'edit_appearance'])
     create(RoleAssignment, :accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
-    admin_user.activate if activate
-    admin_user
+    admin_user.login
   end
 
   def create_environment(domainname)
