@@ -73,3 +73,73 @@ class RecentContentBlockTest < ActiveSupport::TestCase
   end
 
 end
+
+require 'boxes_helper'
+
+class RecentContentBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  should 'show the alert when the block has no root' do
+    block = RecentContentBlock.new
+
+    block.expects(:root).returns(nil)
+
+    content = render_block_content(block)
+
+    assert_match /#{_('This is the recent content block. Please edit it to show the content you want.')}/, content
+  end
+
+  should 'show the title and the child titles when the block has a root and is set to title only mode' do
+    profile = create_user('testuser').person
+
+    root = fast_create(Blog, :name => 'test-blog', :profile_id => profile.id)
+
+    block = RecentContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.selected_folder = root.id
+    block.presentation_mode = 'title_only'
+
+    ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
+    ActionView::Base.any_instance.expects(:profile).returns(profile)
+
+    content = render_block_content(block)
+
+    assert_match /Block Title/, content
+  end
+
+  should 'show the title and the child titles and abstracts when the block has a root and is set to title and abstract mode' do
+    profile = create_user('testuser').person
+
+    root = fast_create(Blog, :name => 'test-blog', :profile_id => profile.id)
+
+    block = RecentContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.selected_folder = root.id
+    block.presentation_mode = 'title_and_abstract'
+
+    ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
+    ActionView::Base.any_instance.expects(:profile).returns(profile)
+
+    content = render_block_content(block)
+
+    assert_match /Block Title/, content
+  end
+
+  should 'show the title and the child full content when the block has a root and has no mode set' do
+    profile = create_user('testuser').person
+
+    root = fast_create(Blog, :name => 'test-blog', :profile_id => profile.id)
+
+    block = RecentContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.selected_folder = root.id
+    block.presentation_mode = ''
+
+    ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
+    ActionView::Base.any_instance.expects(:profile).returns(profile)
+
+    content = render_block_content(block)
+
+    assert_match /Block Title/, content
+  end
+end
