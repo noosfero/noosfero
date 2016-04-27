@@ -195,6 +195,32 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal 400, last_response.status
   end
 
+  should 'not perform a vote in a archived article' do
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing", :archived => true)
+    @params[:value] = 1
+    post "/api/v1/articles/#{article.id}/vote?#{params.to_query}"
+    puts JSON.parse(last_response.body)
+    assert_equal 400, last_response.status
+  end
+
+  should 'not update hit attribute of a specific child if a article is archived' do
+    folder = fast_create(Folder, :profile_id => user.person.id, :archived => true)
+    article = fast_create(Article, :parent_id => folder.id, :profile_id => user.person.id)
+    get "/api/v1/articles/#{folder.id}/children/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 0, json['article']['hits']
+  end
+
+  should 'find archived articles' do
+    article1 = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    article2 = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :archived => true)
+    params[:archived] = true
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json["articles"].map { |a| a["id"] }, article1.id
+    assert_includes json["articles"].map { |a| a["id"] }, article2.id
+  end
+
   should "update body of article created by me" do
     new_value = "Another body"
     params[:article] = {:body => new_value}
@@ -653,7 +679,7 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal json['articles'].count, 2
   end
 
-  ARTICLE_ATTRIBUTES = %w(votes_count comments_count)
+  ARTICLE_ATTRIBUTES = %w(followers_count votes_count comments_count)
 
   ARTICLE_ATTRIBUTES.map do |attribute|
 

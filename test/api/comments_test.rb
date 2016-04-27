@@ -66,6 +66,15 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal body, json['comment']['body']
   end
 
+  should 'not comment an archived article' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :archived => true)
+    body = 'My comment'
+    params.merge!({:body => body})
+
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    assert_equal 400, last_response.status
+  end
+
   should 'comment creation define the source' do
     amount = Comment.count
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
