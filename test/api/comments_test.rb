@@ -71,7 +71,8 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal body, json['comment']['body']
   end
 
-  should 'not comment an archived article' do
+  should 'logged user not comment an archived article' do
+    login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :archived => true)
     body = 'My comment'
     params.merge!({:body => body})
@@ -81,16 +82,16 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'logged user comment creation define the source' do
-      login_api
-      amount = Comment.count
-      article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
-      body = 'My comment'
-      params.merge!({:body => body})
+    login_api
+    amount = Comment.count
+    article = fast_create(Article, :profile_id => local_person.id, :name => "Some thing")
+    body = 'My comment'
+    params.merge!({:body => body})
 
-      post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
-      assert_equal amount + 1, Comment.count
-      comment = Comment.last
-      assert_not_nil comment.source
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    assert_equal amount + 1, Comment.count
+    comment = Comment.last
+    assert_not_nil comment.source
   end
 
   should 'call plugin hotspot to filter unavailable comments' do
