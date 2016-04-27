@@ -20,6 +20,7 @@ module Noosfero
           end
 
           delete ':id' do
+            authenticate!
             profiles = environment.profiles
             profile = profiles.find_by id: params[:id]
 

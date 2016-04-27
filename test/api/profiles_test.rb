@@ -35,6 +35,7 @@ class ProfilesTest < ActiveSupport::TestCase
   group_kinds = %w(community enterprise)
   group_kinds.each do |kind|
     should "delete #{kind} from profile id with permission" do
+      login_api
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       give_permission(@person, 'destroy_profile', profile)
       assert_not_nil Profile.find_by_id profile.id
@@ -46,6 +47,7 @@ class ProfilesTest < ActiveSupport::TestCase
     end
 
     should "not delete #{kind} from profile id without permission" do
+      login_api
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       assert_not_nil Profile.find_by_id profile.id
 
@@ -57,12 +59,14 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'person delete itself' do
+    login_api
     delete "/api/v1/profiles/#{@person.id}?#{params.to_query}"
     assert_equal 200, last_response.status
     assert_nil Profile.find_by_id @person.id
   end
 
   should 'only admin delete other people' do
+    login_api
     profile = fast_create(Person, :environment_id => environment.id)
     assert_not_nil Profile.find_by_id profile.id
 
@@ -78,6 +82,15 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal 200, last_response.status
     assert_nil Profile.find_by_id profile.id
 
+  end
+
+  should 'anonymous user access delete action' do
+    anonymous_setup
+    profile = fast_create(Person, :environment_id => environment.id)
+
+    delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+    assert_equal 401, last_response.status
+    assert_not_nil Profile.find_by_id profile.id
   end
 
   should 'anonymous list all profiles' do
