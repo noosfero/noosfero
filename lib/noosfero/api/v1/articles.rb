@@ -226,27 +226,10 @@ module Noosfero
             named 'ArticleAddChild'
           end
           post ':id/children' do
-            authenticate!
             parent_article = environment.articles.find(params[:id])
-            return forbidden! unless parent_article.allow_create?(current_person)
-
-            klass_type = params[:content_type] || params[:article].delete(:type) || 'TinyMceArticle'
-            #FIXME see how to check the article types
-            #return forbidden! unless ARTICLE_TYPES.include?(klass_type)
-
-            article = klass_type.constantize.new(params[:article])
-            article.parent = parent_article
-            article.last_changed_by = current_person
-            article.created_by= current_person
-            article.author= current_person
-            article.profile = parent_article.profile
-
-            if !article.save
-              render_api_errors!(article.errors.full_messages)
-            end
-            present_partial article, :with => Entities::Article
+            params[:article][:parent_id] = parent_article.id
+            post_article(parent_article.profile, params)
           end
-
         end
 
         resource :profiles do
