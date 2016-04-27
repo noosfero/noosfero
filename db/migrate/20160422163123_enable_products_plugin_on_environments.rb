@@ -20,7 +20,8 @@ class EnableProductsPluginOnEnvironments < ActiveRecord::Migration
 
     Bundler.clean_system 'script/noosfero-plugins enable products'
     environments.each do |e|
-      next unless e.products.count > 0
+      products = e.products.where('profiles.visible = true')
+      next unless products.count > 0
       e.enabled_plugins << 'ProductsPlugin'
       e.save!
     end
