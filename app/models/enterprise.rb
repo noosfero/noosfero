@@ -1,8 +1,7 @@
-# An enterprise is a kind of organization. According to the system concept,
-# only enterprises can offer products and services.
 class Enterprise < Organization
 
-  attr_accessible :business_name, :address_reference, :district, :tag_list, :organization_website, :historic_and_current_context, :activities_short_description, :products_per_catalog_page
+  attr_accessible :business_name, :address_reference, :district, :tag_list,
+    :organization_website, :historic_and_current_context, :activities_short_description
 
   SEARCH_FILTERS = {
     :order => %w[more_recent more_popular more_active],
@@ -17,21 +16,12 @@ class Enterprise < Organization
 
   acts_as_trackable after_add: proc{ |p, t| notify_activity t }
 
-  has_many :products, :foreign_key => :profile_id, :dependent => :destroy
-  has_many :product_categories, :through => :products
-  has_many :inputs, :through => :products
-  has_many :production_costs, :as => :owner
-
   has_many :favorite_enterprise_people
   has_many :fans, source: :person, through: :favorite_enterprise_people
 
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description
-
-  settings_items :products_per_catalog_page, :type => :integer, :default => 6
-  alias_method :products_per_catalog_page_before_type_cast, :products_per_catalog_page
-  validates_numericality_of :products_per_catalog_page, :allow_nil => true, :greater_than => 0
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -64,10 +54,6 @@ class Enterprise < Organization
 
   def active_fields
     environment ? environment.active_enterprise_fields : []
-  end
-
-  def highlighted_products_with_image(options = {})
-    Product.where(:highlighted => true).joins(:image)
   end
 
   def required_fields
@@ -136,19 +122,14 @@ class Enterprise < Organization
     links = [
       {:name => _("Enterprises's profile"), :address => '/profile/{profile}', :icon => 'ok'},
       {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
-      {:name => _('Products'), :address => '/catalog/{profile}', :icon => 'new'},
     ]
     blocks = [
       [MainBlock.new],
       [ ProfileImageBlock.new,
         LinkListBlock.new(:links => links),
-        ProductCategoriesBlock.new
       ],
       [LocationBlock.new]
     ]
-    if environment.enabled?('products_for_enterprises')
-      blocks[2].unshift ProductsBlock.new
-    end
     blocks
   end
 
@@ -189,14 +170,6 @@ class Enterprise < Organization
     {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
   end
 
-  def create_product?
-    true
-  end
-
-  def catalog_url
-    { :profile => identifier, :controller => 'catalog'}
-  end
-
   def more_recent_label
     ''
   end
@@ -204,6 +177,5 @@ class Enterprise < Organization
   def followed_by? person
     super or self.fans.where(id: person.id).count > 0
   end
-
 
 end

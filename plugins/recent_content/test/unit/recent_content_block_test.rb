@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 class RecentContentBlockTest < ActiveSupport::TestCase
 
-  INVALID_KIND_OF_ARTICLE = [EnterpriseHomepage, RssFeed, UploadedFile, Gallery, Folder, Blog, Forum]
+  INVALID_KIND_OF_ARTICLE = [RssFeed, UploadedFile, Gallery, Folder, Blog, Forum]
   VALID_KIND_OF_ARTICLE = [RawHTMLArticle, TextArticle, TextileArticle, TinyMceArticle]
 
   should 'describe itself' do

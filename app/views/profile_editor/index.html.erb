@@ -47,8 +47,6 @@
 
   <%= control_panel_button(_('Manage Members'), 'members', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
 
-  <%= control_panel_button(_('Manage Products/Services'), 'products', :controller => 'manage_products') if profile.enterprise? && environment.enabled?('products_for_enterprises') %>
-
   <% if !environment.enabled?('disable_asset_enterprises') %>
     <% if profile.is_validation_entity? %>
       <%= control_panel_button(_('Enterprise Validation'), 'validation', :controller => 'enterprise_validation') %>

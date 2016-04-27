@@ -604,7 +604,7 @@ class Article < ApplicationRecord
   end
 
   def accept_category?(cat)
-    !cat.is_a?(ProductCategory)
+    true
   end
 
   def public?

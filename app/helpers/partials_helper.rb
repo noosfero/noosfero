@@ -29,14 +29,49 @@ module PartialsHelper
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
   end
 
-  def render_partial_for_class klass, *args
+
+  def partial_for_class(klass, prefix=nil, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
+    name = klass.name.underscore
+    controller.view_paths.each do |view_path|
+      partial = partial_for_class_in_view_path(klass, view_path, prefix, suffix)
+      return partial if partial
+    end
+
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
+  end
+
+  ##
+  # Calculate partial name with prefix and suffix
+  # Togheter with render_partial_for_class,
+  # it should replace #partial_for_class_in_view_path in the future
+  #
+  def partial_name_for underscore, prefix = nil, suffix = nil
+    parts = underscore.split '/'
+    if prefix or suffix
+      partial = [prefix, parts.last, suffix].compact.map(&:to_s).join '_'
+    else
+      partial = parts.last
+    end
+    if parts.size > 1
+      "#{params[:controller]}/#{parts.first}/#{partial}"
+    else
+      partial
+    end
+  end
+
+  def render_for_class klass, *args, &block
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' unless klass
     begin
-      partial = klass.name.underscore
-      partial = "#{params[:controller]}/#{partial}" if params[:controller] and partial.index '/'
-      return render partial, *args
+      capture klass, &block
     rescue ActionView::MissingTemplate
-      return render_partial_for_class klass.superclass, *args
+      render_for_class klass.superclass, *args, &block
+    end
+  end
+
+  def render_partial_for_class klass, *args
+    render_for_class klass do |klass|
+      render partial_name_for(klass.name.underscore), *args
     end
   end
 

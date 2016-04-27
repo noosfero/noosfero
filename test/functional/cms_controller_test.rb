@@ -741,18 +741,6 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :input, :attributes => { :id => 'article_link' }
   end
 
-  should 'not make enterprise homepage available to person' do
-    @controller.stubs(:profile).returns(profile)
-    @controller.stubs(:user).returns(profile)
-    assert_not_includes available_article_types, EnterpriseHomepage
-  end
-
-  should 'make enterprise homepage available to enterprises' do
-    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
-    @controller.stubs(:user).returns(profile)
-    assert_includes available_article_types, EnterpriseHomepage
-  end
-
   should 'update categories' do
     env = Environment.default
     top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')

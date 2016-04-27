@@ -10,18 +10,22 @@ Dir.glob(Rails.root.join(plugins_root, '*', 'controllers')) do |controllers_dir|
   controllers_by_folder = prefixes_by_folder.keys.inject({}) do |hash, folder|
     path = "#{controllers_dir}/#{folder}/"
     hash[folder] = Dir.glob("#{path}{*.rb,#{plugin_name}_plugin/*.rb}").map do |filename|
-      filename.gsub(path, '').gsub(/_controller.rb$/, '')
+      filename.gsub(path, '').gsub /[_\/]controller.rb$/, ''
     end
     hash
   end
 
   controllers_by_folder.each do |folder, controllers|
     controllers.each do |controller|
-      controller_name = controller.gsub("#{plugin_name}_plugin_",'')
+      controller_name = controller.gsub /#{plugin_name}_plugin[_\/]?/, ''
+      controller_path = if controller_name.present? then "/#{controller_name}" else '' end
+      as = controller.tr '/','_'
       if %w[profile myprofile].include?(folder.to_s)
-        match "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}(/:action(/:id))", controller: controller, profile: /#{Noosfero.identifier_format}/i, via: :all
+        match "#{prefixes_by_folder[folder]}/#{plugin_name}#{controller_path}(/:action(/:id))",
+          controller: controller, profile: /#{Noosfero.identifier_format}/i, via: :all, as: as
       else
-        match "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}(/:action(/:id))", controller: controller, via: :all
+        match "#{prefixes_by_folder[folder]}/#{plugin_name}#{controller_path}(/:action(/:id))",
+          controller: controller, via: :all
       end
     end
   end

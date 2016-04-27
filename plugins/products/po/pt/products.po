@@ -1,0 +1,637 @@
+
+#: app/models/product.rb:128 app/helpers/display_helper.rb:42
+#: app/helpers/display_helper.rb:51
+msgid "Uncategorized product"
+msgstr "Produto não categorizado"
+
+#: app/models/product.rb:268
+msgid "0%"
+msgstr "0%"
+
+#: app/models/product.rb:269
+msgid "25%"
+msgstr "25%"
+
+#: app/models/product.rb:270
+msgid "50%"
+msgstr "50%"
+
+#: app/models/product.rb:271
+msgid "75%"
+msgstr "75%"
+
+#: app/models/product.rb:272
+msgid "100%"
+msgstr "100%"
+
+#: app/models/sellers_search_block.rb:6
+msgid "Search for enterprises and products"
+msgstr "Busca por empreeendimentos e produtos"
+
+#: app/models/sellers_search_block.rb:10
+msgid "Products/Enterprises search"
+msgstr "Busca de Produtos/Serviços"
+
+#: app/models/sellers_search_block.rb:14
+msgid "Search for sellers"
+msgstr "Buscar por vendedores"
+
+#: app/views/search/_full_product.html.erb:13
+msgid "from"
+msgstr "de"
+
+#: app/views/search/_full_product.html.erb:18
+msgid "/"
+msgstr "/"
+
+#: app/views/search/_full_product.html.erb:24
+msgid "Percentage of inputs from solidarity economy"
+msgstr "Porcentagem de insumos da economia solidária"
+
+#: app/views/search/_full_product.html.erb:35
+msgid "Open Price"
+msgstr "Preço aberto"
+
+#: app/views/search/_full_product.html.erb:40
+msgid "Not available"
+msgstr "Indisponível"
+
+#: app/views/search/_full_product.html.erb:47
+msgid "Supplier"
+msgstr "Fornecedor"
+
+#: app/views/search/_full_product.html.erb:65
+msgid "Qualifiers"
+msgstr "Qualificadores"
+
+#: app/views/search/_full_product.html.erb:68
+#: app/views/search/_full_product.html.erb:71
+#: app/views/shared/product/_qualifiers.html.erb:3
+#: app/views/shared/product/_qualifiers.html.erb:6
+msgid ";"
+msgstr ";"
+
+#: app/views/search/_full_product.html.erb:71
+#: app/views/shared/product/_qualifiers.html.erb:6
+msgid "cert. "
+msgstr "cert. "
+
+#: app/views/profile_editor/_organization.html.erb:70
+msgid "Products/Services catalog"
+msgstr "Catálogo de Produtos/Serviços"
+
+#: app/views/profile_editor/_organization.html.erb:71
+msgid "Number of products/services displayed per page on catalog"
+msgstr "Número de produtos/serviços mostrados por página no catálogo"
+
+#: app/views/categories/index.html.erb:10
+msgid "Product Categories"
+msgstr "Categorias de produto"
+
+#: app/views/blocks/product_categories.html.erb:1
+msgid "Catalog start"
+msgstr "Início do catálogo"
+
+#: app/views/blocks/featured_products.html.erb:18
+msgid "See More"
+msgstr "Veja mais"
+
+#: app/views/blocks/featured_products.html.erb:54
+msgid "Please, edit this block and choose some products"
+msgstr "Por favor, edite este bloco e selecione alguns produtos"
+
+#: app/views/manage_products/new.html.erb:1
+#: app/views/manage_products/index.html.erb:28
+msgid "New product or service"
+msgstr "Novo produto ou serviço"
+
+#: app/views/manage_products/new.html.erb:11
+msgid "Select the category of the new product or service"
+msgstr "Selecione a categoria de seu novo produto ou serviço"
+
+#: app/views/manage_products/new.html.erb:16
+#: app/views/manage_products/show.html.erb:72
+msgid "Back to the product listing"
+msgstr "Voltar para lista de produtos"
+
+#: app/views/manage_products/new.html.erb:21
+#: app/views/manage_products/edit_category.html.erb:27
+#: app/views/manage_products/_add_input.html.erb:17
+msgid ""
+"This category does not allow registration of products, select a more "
+"specific category"
+msgstr ""
+"Esta categoria não aceita registro de produtos, selecione uma categoria mais "
+"específica"
+
+#: app/views/manage_products/_display_price_details.html.erb:6
+msgid "Inputs:"
+msgstr "Insumos:"
+
+#: app/views/manage_products/edit_category.html.erb:17
+msgid "Edit category of this product:"
+msgstr "Editar categoria deste produto:"
+
+#: app/views/manage_products/edit_category.html.erb:22
+msgid "Back to product"
+msgstr "Voltar para o produto"
+
+#: app/views/manage_products/_edit_price_details.html.erb:9
+msgid "Are you sure that you want to remove this cost?"
+msgstr "Tem certeza que quer excluir este custo?"
+
+#: app/views/manage_products/_form.html.erb:7
+msgid "Price:"
+msgstr "Preço:"
+
+#: app/views/manage_products/_form.html.erb:9
+msgid "Highlight this product"
+msgstr "Destacar este produto"
+
+#: app/views/manage_products/_form.html.erb:15
+msgid "Create product"
+msgstr "Criar produto"
+
+#: app/views/manage_products/_price_composition_bar.html.erb:20
+msgid ""
+"The production cost of your product is not described yet. If you want to "
+"display the price composition, please add all the costs"
+msgstr ""
+"O custo de produção do seu produto ainda não está descrito. Se desejar "
+"exibir a composição do preço, por favor adicione todos os custos"
+
+#: app/views/manage_products/_price_composition_bar.html.erb:20
+msgid ""
+"The production cost of your product is fully described and will be displayed "
+"on your product's page"
+msgstr ""
+"O custo de produção do seu produto está totalmente descrito e será exibido "
+"na página do seu produto"
+
+#: app/views/manage_products/_price_composition_bar.html.erb:20
+msgid "Congratulations! Now the price is open to the public"
+msgstr "Parabéns! Agora o preço está aberto para o público"
+
+#: app/views/manage_products/_edit_input.html.erb:13
+msgid "Price %s (%s)"
+msgstr "Preço %s (%s)"
+
+#: app/views/manage_products/_edit_input.html.erb:17
+msgid "This input or raw material inpact on the final price of the product?"
+msgstr "Este produto ou matéria-prima inpacta no preço final do produto?"
+
+#: app/views/manage_products/_edit_input.html.erb:26
+msgid "Is it from solidarity economy?"
+msgstr "É da economia solidária?"
+
+#: app/views/manage_products/_edit_input.html.erb:36
+msgid "Save changes of this input or raw material"
+msgstr "Salvar mudanças deste insumo ou matéria-prima"
+
+#: app/views/manage_products/_edit_input.html.erb:37
+msgid "Cancel changes of this input or raw material"
+msgstr "Cancelar mudanças deste insumo ou matéria-prima"
+
+#: app/views/manage_products/_price_details_button.html.erb:2
+msgid "Describe here the cost of production"
+msgstr "Descreva aqui o custo de produção"
+
+#: app/views/manage_products/_price_details_button.html.erb:7
+msgid "Describe details about how the price was defined"
+msgstr "Descreva detalhes sobre como o preço foi definido"
+
+#: app/views/manage_products/edit.html.erb:1
+msgid "Editing"
+msgstr "Editando"
+
+#: app/views/manage_products/_edit_info.html.erb:13
+msgid "Price (%s)"
+msgstr "Preço (%s)"
+
+#: app/views/manage_products/_edit_info.html.erb:17
+msgid "Discount (%s)"
+msgstr "Desconto (%s)"
+
+#: app/views/manage_products/_edit_info.html.erb:18
+msgid "If your product is on sale, fill this field with the discount value"
+msgstr ""
+"Se o seu produto está à venda, preencha este campo com o valor de desconto"
+
+#: app/views/manage_products/_edit_info.html.erb:21
+msgid "Available"
+msgstr "Disponível"
+
+#: app/views/manage_products/_edit_info.html.erb:25
+msgid "Highlight this product?"
+msgstr "Destacar este produto?"
+
+#: app/views/manage_products/_edit_info.html.erb:33
+msgid "Qualifier"
+msgstr "Qualificador"
+
+#: app/views/manage_products/_edit_info.html.erb:34
+msgid "Certifier"
+msgstr "Certificador"
+
+#: app/views/manage_products/_edit_info.html.erb:49
+msgid "Add new qualifier"
+msgstr "Adicionar novo qualificador"
+
+#: app/views/manage_products/_display_info.html.erb:7
+msgid "Edit basic information"
+msgstr "Editar informações básicas"
+
+#: app/views/manage_products/_display_info.html.erb:7
+msgid ""
+"Click here to edit price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
+msgstr ""
+"Clique aqui para adicionar preço, desconto e qualificadores/certificadores "
+"para deixar seu produto mais atrativo e detalhado para os consumidores"
+
+#: app/views/manage_products/_display_info.html.erb:9
+msgid "Add price and other basic information"
+msgstr "Adicionar preço e outras informações básicas"
+
+#: app/views/manage_products/_display_info.html.erb:10
+msgid ""
+"Click here to add price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
+msgstr ""
+"Clique aqui para adicionar preço, desconto e qualificadores/certificadores "
+"para deixar seu produto mais atrativo e detalhado para os consumidores"
+
+#: app/views/manage_products/_display_name.html.erb:3
+msgid "Edit name and unit"
+msgstr "Editar nome e unidade"
+
+#: app/views/manage_products/_display_name.html.erb:3
+msgid "Click here to edit the name of your product and the unit"
+msgstr "Clique aqui para editar o nome do seu produto e a unidade"
+
+#: app/views/manage_products/show.html.erb:35
+msgid "Inputs and raw material"
+msgstr "Insumos e matéria-prima"
+
+#: app/views/manage_products/show.html.erb:38
+msgid "Price composition"
+msgstr "Composição de preço"
+
+#: app/views/manage_products/show.html.erb:73
+msgid "Remove product or service"
+msgstr "Remover produto ou serviço"
+
+#: app/views/manage_products/_display_inputs.html.erb:6
+msgid "Add the inputs or raw material used by this product"
+msgstr "Adicionar insumos ou matéria-prima utilizados por este produto"
+
+#: app/views/manage_products/_display_inputs.html.erb:11
+msgid ""
+"Add inputs or raw materials used by this product and give more transparency "
+"to consumers about your enterprise"
+msgstr ""
+"Adicione insumos ou matéria-prima usado por este produto e dê mais "
+"transparência aos consumidores sobre seu empreendimento"
+
+#: app/views/manage_products/_display_inputs.html.erb:15
+msgid "Add new input or raw material"
+msgstr "Adicionar novo insumo ou matéria-prima"
+
+#: app/views/manage_products/_display_inputs.html.erb:15
+msgid ""
+"Add new input or raw material used by this product and give more "
+"transparency to consumers about your enterprise"
+msgstr ""
+"Adicione novo insumo ou matéria-prime usado por este produto e dê mais "
+"transparência aos consumidores sobre seu empreendimento"
+
+#: app/views/manage_products/_display_inputs.html.erb:16
+msgid "Drag the input with the mouse to change the order"
+msgstr "Mova o insumo com o mouse para alterar a ordem"
+
+#: app/views/manage_products/_display_inputs.html.erb:25
+msgid "Order inputs"
+msgstr "Ordenar insumos"
+
+#: app/views/manage_products/_add_input.html.erb:8
+msgid "Choose an input or raw material to this product:"
+msgstr "Selecione um insumo ou matéria-prima para este produto:"
+
+#: app/views/manage_products/_manage_product_details.html.erb:9
+msgid "Inputs"
+msgstr "Insumos"
+
+#: app/views/manage_products/_manage_product_details.html.erb:14
+msgid "This value is composed by the total value of registered inputs"
+msgstr "Este valor é composto pelo valor total de insumos registrados"
+
+#: app/views/manage_products/_manage_product_details.html.erb:26
+msgid ""
+"If you leave, you will lose all unsaved information. Are you sure you want "
+"to quit?"
+msgstr ""
+"Se você sair, perderá todas as informações não salvas. Tem certeza que "
+"deseja sair?"
+
+#: app/views/manage_products/_manage_product_details.html.erb:27
+msgid "New cost"
+msgstr "Novo custo"
+
+#: app/views/manage_products/_display_description.html.erb:4
+msgid "Edit description"
+msgstr "Editar descrição"
+
+#: app/views/manage_products/_display_description.html.erb:4
+msgid ""
+"Edit the description of your product and give consumers more information "
+"about what you are advertising"
+msgstr ""
+"Edite a descrição do seu produto e dê aos consumidores mais informações "
+"sobre o que você está anunciando"
+
+#: app/views/manage_products/_display_description.html.erb:9
+msgid "Add some description to your product"
+msgstr "Adicione alguma descrição ao seu produto"
+
+#: app/views/manage_products/_display_description.html.erb:12
+msgid ""
+"Add a description to your product and give consumers more information about "
+"what you are advertising"
+msgstr ""
+"Adicione ao seu produto uma descrição para dar aos consumidores mais "
+"informações sobre o que você está anunciando"
+
+#: app/views/manage_products/_display_input.html.erb:8
+msgid "Are you sure that you want to remove this input or raw material?"
+msgstr "Tem certeza que quer excluir este insumo ou matéria-prima?"
+
+#: app/views/manage_products/_display_input.html.erb:13
+msgid "Click here to add price and the amount used"
+msgstr "Clique aqui para adicionar preço e a quantidade"
+
+#: app/views/manage_products/_categories_autocomplete.html.erb:1
+msgid "type a category for the product"
+msgstr "digite uma categoria para o produto"
+
+#: app/views/manage_products/index.html.erb:1
+msgid "Listing products and services"
+msgstr "Listando produtos e serviços"
+
+#: app/views/manage_products/index.html.erb:6
+msgid "Price"
+msgstr "Preço"
+
+#: app/views/manage_products/index.html.erb:11
+msgid "(no product registered yet)"
+msgstr "(nenhum produto registrado ainda)"
+
+#: app/views/manage_products/index.html.erb:19
+msgid "Are you sure you want to remove this product?"
+msgstr "Tem certeza que quer excluir este produto?"
+
+#: app/views/map_balloon/profile.html.erb:20
+msgid "Products/Services: "
+msgstr "Produtos/Serviços: "
+
+#: app/models/categories_block.rb:6 app/views/manage_products/index.html.erb:5
+msgid "Product"
+msgstr "Produto"
+
+#: app/models/featured_products_block.rb:20
+#: app/views/box_organizer/_featured_products_block.html.erb:1
+msgid "Featured Products"
+msgstr "Produtos em destaque"
+
+#: app/models/profile.rb:72
+msgid "Manage products"
+msgstr "Gerenciar produtos"
+
+#: app/models/product_categories_block.rb:4
+msgid "Product category menu"
+msgstr "Menu de categorias de produto"
+
+#: app/models/product_categories_block.rb:9
+msgid "Catalog"
+msgstr "Catálogo"
+
+#: app/models/product_categories_block.rb:13
+msgid "Helps to filter the products catalog."
+msgstr "Ajuda a filtrar os produtos do catálogo."
+
+#: app/models/product_categories_block.rb:22
+msgid "There are no sub-categories for %s"
+msgstr "Não há subcategorias para %s"
+
+#: app/models/product_categories_block.rb:36
+msgid "Only on the catalog"
+msgstr "Apenas no catálogo"
+
+#: app/models/enterprise.rb:143 app/models/products_block.rb:11
+#: app/models/products_block.rb:15 app/helpers/application_helper.rb:579
+#: app/helpers/assets_helper.rb:9
+#: app/controllers/public/search_controller.rb:52
+msgid "Products"
+msgstr "Produtos"
+
+#: app/models/products_block.rb:19
+msgid "This block presents a list of your products."
+msgstr "Este bloco apresenta a lista de seus produtos."
+
+#: app/models/products_block.rb:39
+msgid "View all products"
+msgstr "Ver todos os produtos"
+
+#: app/helpers/display_helper.rb:4 app/helpers/display_helper.rb:20
+msgid "No product"
+msgstr "Sem produto"
+
+#: app/helpers/categories_helper.rb:5
+msgid "Product Category"
+msgstr "Categoria do Produto"
+
+#: app/helpers/profile_helper.rb:131 app/views/catalog/index.html.erb:11
+#: app/views/blocks/profile_info.html.erb:21
+msgid "Products/Services"
+msgstr "Produtos/Serviços"
+
+#: app/helpers/application_helper.rb:550
+msgid "Principal Product Categories"
+msgstr "Categorias do Produto Principal"
+
+#: app/helpers/manage_products_helper.rb:159
+#: app/views/manage_products/_display_category.html.erb:3
+msgid "Change category"
+msgstr "Alterar categoria"
+
+#: app/helpers/manage_products_helper.rb:167
+msgid "Price: "
+msgstr "Preço: "
+
+#: app/helpers/manage_products_helper.rb:176
+msgid "Product not available!"
+msgstr "Produto não disponível!"
+
+#: app/helpers/manage_products_helper.rb:186
+msgid "List price: "
+msgstr "De: "
+
+#: app/helpers/manage_products_helper.rb:187
+msgid "On sale: "
+msgstr "Por: "
+
+#: app/helpers/manage_products_helper.rb:198
+msgid "certified by %s"
+msgstr "certificado por %s"
+
+#: app/helpers/manage_products_helper.rb:200
+msgid "(Self declared)"
+msgstr "(Auto declarado)"
+
+#: app/helpers/manage_products_helper.rb:208
+#: app/helpers/manage_products_helper.rb:272
+msgid "Select..."
+msgstr "Selecione..."
+
+#: app/helpers/manage_products_helper.rb:211
+msgid "Self declared"
+msgstr "Auto declarado"
+
+#: app/helpers/manage_products_helper.rb:233
+msgid "Delete qualifier"
+msgstr "Remover qualificador"
+
+#: app/helpers/manage_products_helper.rb:237
+msgid "Select the unit"
+msgstr "Selecione a unidade"
+
+#: app/helpers/manage_products_helper.rb:242
+msgid "Product from solidarity economy"
+msgstr "Produto da economia solidária"
+
+#: app/helpers/manage_products_helper.rb:255
+msgid "Amount used in this product or service"
+msgstr "Quantidade utilizada neste produto ou serviço"
+
+#: app/helpers/manage_products_helper.rb:257
+msgid "Amount used by %s of this product or service"
+msgstr "Quantidade utilizada por %s deste produto ou serviço"
+
+#: app/helpers/manage_products_helper.rb:264
+msgid "1 %{singular_unit}"
+msgid_plural "%{num} %{plural_unit}"
+msgstr[0] "1 %{singular_unit}"
+msgstr[1] "%{num} %{plural_unit}"
+
+#: app/helpers/manage_products_helper.rb:269
+msgid "Insert the name of the new cost:"
+msgstr "Insira o nome do novo custo:"
+
+#: app/helpers/manage_products_helper.rb:270
+msgid "Something went wrong. Please, try again"
+msgstr "Algo deu errado. Por favor, tente novamente"
+
+#: app/helpers/manage_products_helper.rb:273
+msgid "Other cost"
+msgstr "Outro custo"
+
+#: app/helpers/manage_products_helper.rb:283
+msgid "%{currency} %{production_cost} of %{currency} %{product_price}"
+msgstr "%{currency} %{production_cost} de %{currency} %{product_price}"
+
+#: app/helpers/action_tracker_helper.rb:71
+msgid "created the product %{title}"
+msgstr "criou o produto %{title}"
+
+#: app/helpers/action_tracker_helper.rb:77
+msgid "updated the product %{title}"
+msgstr "atualizou o produto %{title}"
+
+#: app/helpers/action_tracker_helper.rb:83
+msgid "removed the product %{title}"
+msgstr "removeu o produto %{title}"
+
+#: app/controllers/public/search_controller.rb:185
+#: app/controllers/public/search_controller.rb:260
+msgid "Products and Services"
+msgstr "Produtos e Serviços"
+
+#: app/controllers/my_profile/manage_products_controller.rb:58
+msgid "Product succesfully created"
+msgstr "Produto criado com sucesso"
+
+#: app/controllers/my_profile/manage_products_controller.rb:162
+msgid "Product succesfully removed"
+msgstr "Produto removido com sucesso"
+
+#: app/controllers/my_profile/manage_products_controller.rb:165
+msgid "Could not remove the product"
+msgstr "Não foi possível remover o produto"
+
+#: app/controllers/my_profile/manage_products_controller.rb:184
+msgid "The input was not found"
+msgstr "O insumo não foi encontrado"
+
+#: app/views/catalog/index.html.erb:28
+msgid "Highlighted product"
+msgstr "Produto destacado"
+
+#: app/views/catalog/index.html.erb:119
+msgid "product unavailable"
+msgstr "produto indisponível"
+
+#: app/views/catalog/index.html.erb:46
+msgid "from "
+msgstr "de "
+
+#: app/views/catalog/index.html.erb:47
+msgid "by "
+msgstr "por "
+
+#: app/views/catalog/index.html.erb:53
+msgid " / "
+msgstr " / "
+
+#: app/views/catalog/index.html.erb:53
+msgid "unit"
+msgstr "unidade"
+
+#: app/views/catalog/index.html.erb:71
+msgid "price composition"
+msgstr "composição de preço"
+
+#: app/views/catalog/index.html.erb:94
+msgid "inputs and raw materials"
+msgstr "Insumos e matéria-prima"
+
+#: app/views/catalog/index.html.erb:100
+msgid "%{amount_used} %{unit} of"
+msgstr "%{amount_used} %{unit} de"
+
+#: app/views/catalog/index.html.erb:111
+msgid "qualifiers"
+msgstr "qualificadores"
+
+#: app/views/box_organizer/_products_block.html.erb:5
+msgid "Select the products that must be shown."
+msgstr "Escolha os produtos que serão exibidos."
+
+#: app/views/box_organizer/_featured_products_block.html.erb:3
+msgid "Choose some products"
+msgstr "Selecione alguns produtos"
+
+#: app/views/box_organizer/_featured_products_block.html.erb:5
+msgid "Reflect products"
+msgstr "Refletir produtos"
+
+#: app/views/box_organizer/_featured_products_block.html.erb:6
+msgid "Transition speed (in seconds)"
+msgstr "Velocidade da transição (em segundos)"
+
+#: app/views/box_organizer/_featured_products_block.html.erb:7
+msgid "In groups of"
+msgstr "Em grupos de"
+
+#: app/helpers/catalog_helper.rb:18
+msgid "Start"
+msgstr "Início"
+

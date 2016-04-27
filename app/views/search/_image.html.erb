@@ -36,17 +36,6 @@
         <div class="search-no-image"><span><%= _('No image') %></span></div>
       <% end %>
     </div>
-  <% elsif image.is_a? Product %>
-    <% if image.image %>
-    <div class="zoomable-image">
-      <%= link_to '', product_path(image), :class => "search-image-pic",
-          :style => 'background-image: url(%s)'% image.default_image(:thumb) %>
-      <%= link_to content_tag(:span, _('Zoom in')), image.image.public_filename,
-          :class => 'zoomify-image' %>
-    </div>
-    <% else %>
-      <div class="search-no-image"><span><%= _('No image') %></span></div>
-    <% end %>
   <% else %>
     <div class="search-content-type-icon icon-content-<%=image.class.to_s.underscore.dasherize%>"></div>
   <% end %>

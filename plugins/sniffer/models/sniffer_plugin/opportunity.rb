@@ -9,8 +9,7 @@ class SnifferPlugin::Opportunity < ApplicationRecord
   # for has_many :through
   belongs_to :product_category, -> {
     where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
-  }, class_name: 'ProductCategory', foreign_key: :opportunity_id
-
+  }, class_name: '::ProductsPlugin::ProductCategory', foreign_key: :opportunity_id
   # getter
   def product_category
     opportunity_type == 'ProductCategory' ? opportunity : nil

@@ -41,7 +41,6 @@ class Box < ApplicationRecord
       ProfileImageBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      SellersSearchBlock,
       TagsBlock ]
   end
 
@@ -54,21 +53,17 @@ class Box < ApplicationRecord
       EnterprisesBlock,
       FansBlock,
       FavoriteEnterprisesBlock,
-      FeaturedProductsBlock,
       FeedReaderBlock,
       HighlightsBlock,
       LinkListBlock,
       LocationBlock,
       LoginBlock,
       MyNetworkBlock,
-      ProductsBlock,
-      ProductCategoriesBlock,
       ProfileImageBlock,
       ProfileInfoBlock,
       ProfileSearchBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      SellersSearchBlock,
       SlideshowBlock,
       TagsBlock
     ]

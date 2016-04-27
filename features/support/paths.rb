@@ -99,9 +99,6 @@ module NavigationHelpers
       product = enterprise.products.find_by(name: $2)
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
-    when /^(.*)'s products page$/
-      '/catalog/%s' % $1
-
     when /^chat$/
       '/chat'
 

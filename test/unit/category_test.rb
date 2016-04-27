@@ -4,7 +4,7 @@ require_relative "../test_helper"
 class CategoryTest < ActiveSupport::TestCase
 
   def setup
-    @env = fast_create(Environment)
+    @env = Environment.default
   end
 
   def test_mandatory_field_name
@@ -16,7 +16,7 @@ class CategoryTest < ActiveSupport::TestCase
 
   def test_mandatory_field_name
     c = Category.new
-    c.name = 'product category for testing'
+    c.name = 'category for testing'
     refute c.valid?
     assert c.errors[:environment_id.to_s].present?
   end
@@ -184,7 +184,6 @@ class CategoryTest < ActiveSupport::TestCase
     assert c.recent_people.respond_to? 'total_entries'
     assert c.recent_enterprises.respond_to? 'total_entries'
     assert c.recent_communities.respond_to? 'total_entries'
-    assert c.recent_products.respond_to? 'total_entries'
     assert c.recent_articles.respond_to? 'total_entries'
     assert c.recent_comments.respond_to? 'total_entries'
     assert c.most_commented_articles.respond_to? 'total_entries'
@@ -221,18 +220,6 @@ class CategoryTest < ActiveSupport::TestCase
     c2.add_category c
 
     assert_equal [c2, c1], c.recent_communities
-  end
-
-  should 'list recent products' do
-    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
-    c = @env.categories.build(:name => 'my category'); c.save!
-    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent1.add_category c
-    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
-    ent2.add_category c
-    prod1 = ent1.products.create!(:name => 'test_prod1', :product_category => product_category)
-    prod2 = ent2.products.create!(:name => 'test_prod2', :product_category => product_category)
-    assert_equal [prod2, prod1], c.recent_products
   end
 
   should 'list recent articles' do
@@ -326,19 +313,6 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equivalent [c1, c2], c.communities
   end
 
-  should 'have products through enterprises' do
-    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
-    c = @env.categories.build(:name => 'my category'); c.save!
-    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
-    ent1.add_category c
-    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
-    ent2.add_category c
-    prod1 = ent1.products.create!(:name => 'test_prod1', :product_category => product_category)
-    prod2 = ent2.products.create!(:name => 'test_prod2', :product_category => product_category)
-    assert_includes c.products, prod1
-    assert_includes c.products, prod2
-  end
-
   should 'not have person through communities' do
     c = @env.categories.build(:name => 'my category'); c.save!
     com = fast_create(Community, :identifier => 'community_1', :name => 'Community one')
@@ -401,28 +375,20 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal 2, c.children.size
   end
 
-  should 'accept_products is true by default' do
-    assert Category.new.accept_products?
-  end
-
   should 'get categories by type including nil' do
     category = create(Category, :name => 'test category', :environment => Environment.default)
     region = create(Region, :name => 'test region', :environment => Environment.default)
-    product = create(ProductCategory, :name => 'test product', :environment => Environment.default)
-    result = Category.from_types(['ProductCategory', '']).all
-    assert_equal 2, result.size
-    assert result.include?(product)
+    result = Category.from_types(['City', '']).all
+    assert_equal 1, result.size
     assert result.include?(category)
   end
 
   should 'get categories by type and not nil' do
     category = create(Category, :name => 'test category', :environment => Environment.default)
     region = create(Region, :name => 'test region', :environment => Environment.default)
-    product = create(ProductCategory, :name => 'test product', :environment => Environment.default)
-    result = Category.from_types(['Region', 'ProductCategory']).all
-    assert_equal 2, result.size
+    result = Category.from_types(['Region', 'City']).all
+    assert_equal 1, result.size
     assert result.include?(region)
-    assert result.include?(product)
   end
 
   should 'define a leaf to be displayed in menu' do
@@ -440,15 +406,15 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'filter top_level categories by type' do
-    toplevel_productcategory = fast_create(ProductCategory)
-    leaf_productcategory = fast_create(ProductCategory, :parent_id => toplevel_productcategory.id)
+    toplevel_productcategory = fast_create(Region)
+    leaf_productcategory = fast_create(Region, :parent_id => toplevel_productcategory.id)
 
     toplevel_category = fast_create(Category)
     leaf_category = fast_create(Category, :parent_id => toplevel_category.id)
 
-    assert_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_productcategory
-    assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), leaf_productcategory
-    assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_category
+    assert_includes Category.top_level_for(Environment.default).from_types(['Region']), toplevel_productcategory
+    assert_not_includes Category.top_level_for(Environment.default).from_types(['Region']), leaf_productcategory
+    assert_not_includes Category.top_level_for(Environment.default).from_types(['Region']), toplevel_category
   end
 
   should 'paginate upcoming events' do

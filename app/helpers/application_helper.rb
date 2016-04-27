@@ -44,8 +44,6 @@ module ApplicationHelper
 
   include TokenHelper
 
-  include CatalogHelper
-
   include PluginsHelper
 
   include ButtonsHelper
@@ -787,7 +785,7 @@ module ApplicationHelper
     return "" if categories.blank?
     content_tag(:ul) do
       categories.map do |category|
-        category_path = category.kind_of?(ProductCategory) ? {:controller => 'search', :action => 'assets', :asset => 'products', :product_category => category.id} : { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
+        category_path = { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
         if category.display_in_menu?
           content_tag(:li) do
             if !category.is_leaf_displayable_in_menu?
