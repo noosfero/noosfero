@@ -2,7 +2,6 @@ module Noosfero
   module API
     module V1
       class People < Grape::API
-        before { authenticate! }
 
         MAX_PER_PAGE = 50
 
@@ -35,24 +34,26 @@ module Noosfero
           desc "Find environment's people"
           get do
             people = select_filtered_collection_of(environment, 'people', params)
-            people = people.visible_for_person(current_person)
+            people = people.visible
             present_partial people, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the logged user information"
           get "/me" do
+            authenticate!
             present_partial current_person, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Return the person information"
           get ':id' do
-            person = environment.people.visible_for_person(current_person).find_by id: params[:id]
+            person = environment.people.visible.find_by(id: params[:id])
             return not_found! if person.blank?
             present person, :with => Entities::Person, :current_person => current_person
           end
 
           desc "Update person information"
           post ':id' do
+            authenticate!
             return forbidden! if current_person.id.to_s != params[:id]
             current_person.update_attributes!(params[:person])
             present current_person, :with => Entities::Person, :current_person => current_person
@@ -63,6 +64,7 @@ module Noosfero
           #  for each custom field for person, add &person[field_name]=field_value to the request
           desc "Create person"
           post do
+            authenticate!
             user_data = {}
             user_data[:login] = params[:person].delete(:login) || params[:person][:identifier]
             user_data[:email] = params[:person].delete(:email)
@@ -87,7 +89,7 @@ module Noosfero
 
           desc "Return the person friends"
           get ':id/friends' do
-            person = environment.people.visible_for_person(current_person).find_by id: params[:id]
+            person = environment.people.visible.find_by(id: params[:id])
             return not_found! if person.blank?
             friends = person.friends.visible
             present friends, :with => Entities::Person, :current_person => current_person
@@ -95,6 +97,7 @@ module Noosfero
 
           desc "Return the person permissions on other profiles"
           get ":id/permissions" do
+            authenticate!
             person = environment.people.find(params[:id])
             return not_found! if person.blank?
             return forbidden! unless current_person == person || environment.admins.include?(current_person)
