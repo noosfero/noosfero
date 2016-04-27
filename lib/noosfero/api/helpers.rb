@@ -124,7 +124,7 @@ require_relative '../../find_by_contents'
 
       def present_article(asset)
         article = find_article(asset.articles, params[:id])
-        present_partial article, :with => Entities::Article
+        present_partial article, :with => Entities::Article, :params => params
       end
 
       def present_articles_for_asset(asset, method = 'articles')
@@ -133,7 +133,7 @@ require_relative '../../find_by_contents'
       end
 
       def present_articles(articles)
-        present_partial paginate(articles), :with => Entities::Article
+        present_partial paginate(articles), :with => Entities::Article, :params => params
       end
 
       def find_articles(asset, method = 'articles')
