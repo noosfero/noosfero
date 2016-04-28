@@ -5,14 +5,12 @@ Dir["#{Rails.root}/lib/noosfero/api/*.rb"].each {|file| require file unless file
 module Noosfero
   module API
 
-    class Federation < Grape::API
+    class NoosferoFederation < Grape::API
+      before { detect_stuff_by_domain }
       format :json
-      content_type :txt, "text/plain"
-
-      #REMOVE ME - testing routes only
-      get "/me" do
-        present_partial current_person, :with => Entities::Person, :current_person => current_person
-      end
+      content_type :json, "application/jrd+json"
+      prefix ".well-known"
+      mount Federation::Webfinger
     end
 
     class BaseAPI < Grape::API
@@ -70,7 +68,7 @@ module Noosfero
       end
 
       mount Noosfero::API::BaseAPI
-      mount Noosfero::API::Federation
+      mount Noosfero::API::NoosferoFederation
 
       # hook point which allow plugins to add Grape::API extensions to API::API
       #finds for plugins which has api mount points classes defined (the class should extends Grape::API)
