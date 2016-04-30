@@ -1,3 +1,5 @@
+<% average_rating = OrganizationRating.average_rating block.owner.id %>
+
 <div class="organization-average-rating-container">
   <% if average_rating %>
     <div class="star-rate-text">
@@ -20,6 +22,6 @@
   <% end %>
 
   <div class="rate-this-organization">
-    <%= link_to _("Rate this %s") % _(profile.class.name), url_for(:controller => "organization_ratings_plugin_profile", :action => "new_rating", :profile=>profile_identifier) %>
+    <%= link_to _("Rate this %s") % _(block.owner.class.name), url_for(:controller => "organization_ratings_plugin_profile", :action => "new_rating", :profile => block.owner.identifier) %>
   </div>
 </div>
