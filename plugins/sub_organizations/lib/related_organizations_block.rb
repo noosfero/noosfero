@@ -39,16 +39,6 @@ class RelatedOrganizationsBlock < ProfileListBlock
     end
   end
 
-  def footer
-    profile = self.owner
-    type = self.organization_type
-    params = {:profile => profile.identifier, :controller => 'sub_organizations_plugin_profile', :action => display_type[:action]}
-    params[:type] = type if type == 'enterprise' || type == 'community'
-    proc do
-      link_to c_('View all'), params.merge(params)
-    end
-  end
-
   def related_organizations
     profile = self.owner
     organizations = Organization.parents(profile)
