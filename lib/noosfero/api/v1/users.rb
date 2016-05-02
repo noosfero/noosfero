@@ -18,10 +18,11 @@ module Noosfero
 
           get ":id" do
             user = environment.users.find_by id: params[:id]
-            unless user.person.display_info_to? current_person
-              unauthorized!
+            if user
+              present user, :with => Entities::User, :current_person => current_person
+            else
+              not_found!
             end
-            present user, :with => Entities::User, :current_person => current_person
           end
 
           get ":id/permissions" do

@@ -16,7 +16,12 @@ module Noosfero
             profiles = environment.profiles
             profiles = profiles.visible
             profile = profiles.find_by id: params[:id]
-            present profile, :with => Entities::Profile, :current_person => current_person
+
+            if profile
+              present profile, :with => Entities::Profile, :current_person => current_person
+            else
+              not_found!
+            end
           end
 
           delete ':id' do

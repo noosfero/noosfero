@@ -6,28 +6,26 @@ class APIHelpersTest < ActiveSupport::TestCase
   include Noosfero::API::APIHelpers
 
   def setup
+    create_and_activate_user
     @headers = {}
   end
 
   attr_accessor :headers
 
   should 'get the current user with valid token' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     self.params = {:private_token => user.private_token}
     assert_equal user, current_user
   end
 
   should 'get the current user with valid token in header' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     headers['Private-Token'] = user.private_token
     assert_equal user, current_user
   end
 
   should 'get the current user even with expired token' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     user.private_token_generated_at = DateTime.now.prev_year
     user.save
     self.params = {:private_token => user.private_token}
@@ -35,8 +33,7 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'get the person of current user' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     self.params = {:private_token => user.private_token}
     assert_equal user.person, current_person
   end
@@ -106,24 +103,22 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'find_article return article by id in list passed for user with permission' do
-    user = create_user('someuser')
+    login_api
     a = fast_create(Article, :profile_id => user.person.id)
     fast_create(Article, :profile_id => user.person.id)
     fast_create(Article, :profile_id => user.person.id)
 
-    user.generate_private_token!
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal a, find_article(user.person.articles, a.id)
   end
 
   should 'find_article return forbidden when a user try to access an article without permission' do
-    user = create_user('someuser')
+    login_api
     p = fast_create(Profile)
     a = fast_create(Article, :published => false, :profile_id => p.id)
     fast_create(Article, :profile_id => p.id)
 
-    user.generate_private_token!
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal 403, find_article(p.articles, a.id).last

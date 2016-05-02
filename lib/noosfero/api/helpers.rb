@@ -266,6 +266,13 @@ require_relative '../../find_by_contents'
         unauthorized! unless current_user
       end
 
+      def profiles_for_person(profiles, person)
+        if person
+          profiles.listed_for_person(person)
+        else
+          profiles.visible
+        end
+      end
 
       # Checks the occurrences of uniqueness of attributes, each attribute must be present in the params hash
       # or a Bad Request error is invoked.

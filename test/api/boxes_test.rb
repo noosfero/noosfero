@@ -3,8 +3,7 @@ require_relative 'test_helper'
 class BoxesTest < ActiveSupport::TestCase
 
   def setup
-    @controller = AccountController.new
-    @request = ActionController::TestRequest.new
+    create_and_activate_user
     login_api
 #    @request = ActionController::TestRequest.new
   end

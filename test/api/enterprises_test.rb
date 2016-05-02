@@ -4,6 +4,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   def setup
     Enterprise.delete_all
+    create_and_activate_user
   end
 
   should 'logger user list only enterprises' do
@@ -17,7 +18,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list only enterprises' do
-    anonymous_setup
     community = fast_create(Community, :environment_id => environment.id) # should not list this community
     enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
     get "/api/v1/enterprises?#{params.to_query}"
@@ -27,7 +27,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all enterprises' do
-    anonymous_setup
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
@@ -55,7 +54,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous list invisible enterprises' do
-    anonymous_setup
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     fast_create(Enterprise, :visible => false)
 
@@ -64,7 +62,7 @@ class EnterprisesTest < ActiveSupport::TestCase
     assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
   end
 
-  should 'not, logger user list invisible enterprises' do
+  should 'not, logged user list invisible enterprises' do
     login_api
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     fast_create(Enterprise, :visible => false)
@@ -75,7 +73,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list private enterprises' do
-    anonymous_setup
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
 
@@ -106,7 +103,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous get enterprise' do
-    anonymous_setup
     enterprise = fast_create(Enterprise, :environment_id => environment.id)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
@@ -133,7 +129,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous get invisible enterprise' do
-    anonymous_setup
     enterprise = fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
@@ -152,7 +147,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not, anonymous get private enterprises' do
-    anonymous_setup
     enterprise = fast_create(Enterprise, :environment_id => environment.id)
     fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
 
@@ -195,7 +189,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'display public custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Enterprise", :active => true, :environment => Environment.default)
     some_enterprise = fast_create(Enterprise)
     some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
@@ -208,7 +201,6 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'not display public custom fields to anonymous' do
-    anonymous_setup
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Enterprise", :active => true, :environment => Environment.default)
     some_enterprise = fast_create(Enterprise)
     some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }

@@ -3,7 +3,8 @@ require_relative 'test_helper'
 class PeopleTest < ActiveSupport::TestCase
 
   def setup
-    Person.delete_all
+    Person.destroy_all
+    create_and_activate_user
   end
 
   should 'logged user list all people' do
@@ -16,12 +17,11 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all people' do
-    anonymous_setup
     person1 = fast_create(Person, :public_profile => true)
     person2 = fast_create(Person)
     get "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person2.id], json['people'].map {|c| c['id']}
+    assert_equivalent [person.id, person1.id, person2.id], json['people'].map {|c| c['id']}
   end
 
   should 'logged user list all members of a community' do
@@ -39,7 +39,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all members of a community' do
-    anonymous_setup
     person1 = fast_create(Person)
     person2 = fast_create(Person)
     community = fast_create(Community)
@@ -61,7 +60,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'annoymous not list invisible people' do
-    anonymous_setup
     invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
@@ -77,7 +75,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list private people' do
-    anonymous_setup
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
@@ -105,14 +102,12 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous get person' do
-    anonymous_setup
     some_person = fast_create(Person)
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal some_person.id, json['person']['id']
   end
-
 
   should 'people endpoint filter by fields parameter for logged user' do
     login_api
@@ -156,7 +151,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous not get invisible person' do
-    anonymous_setup
     person = fast_create(Person, :visible => false)
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
@@ -174,7 +168,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous get private people' do
-    anonymous_setup
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
@@ -203,7 +196,6 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list person friends' do
-    anonymous_setup
     person = fast_create(Person)
     friend = fast_create(Person)
     person.add_friend(friend)
@@ -274,7 +266,7 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'not display permissions if not admin or self' do
     login_api
-    some_person = create_user('some-person').person
+    some_person = fast_create(Person)
 
     get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
     assert_equal 403, last_response.status
@@ -300,8 +292,11 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'logged user display public custom fields' do
     login_api
-    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
-    some_person = create_user('some-person').person
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+    some_person.user.activate
+    some_person.reload
+
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
     some_person.save!
 
@@ -313,10 +308,11 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'logged user not display non-public custom fields' do
     login_api
-    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
-    some_person = create_user('some-person').person
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
     some_person.save!
+    some_person.user.activate
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -324,36 +320,31 @@ class PeopleTest < ActiveSupport::TestCase
   end
 
   should 'display public custom fields to anonymous' do
-    anonymous_setup
-    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
-    some_person = create_user('some-person').person
-    some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
-    some_person.save!
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    person.reload
+    person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
+    person.save!
 
-    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['person']['additional_data'].has_key?('Custom Blog')
     assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
   end
 
   should 'not display non-public custom fields to anonymous' do
-    anonymous_setup
-    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
-    some_person = create_user('some-person').person
-    some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
-    some_person.save!
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
+    person.save!
 
-    get "/api/v1/people/#{some_person.id}?#{params.to_query}"
+    get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal json['person']['additional_data'], {}
   end
 
   should 'hide private fields to anonymous' do
-    anonymous_setup
-    target_person = create_user('some-user').person
-    target_person.save!
+    target_user = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment)
 
-    get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
+    get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json["user"].has_key?("permissions")
     refute json["user"].has_key?("activated")
@@ -361,15 +352,16 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'display non-public custom fields to friend' do
     login_api
-    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
-    some_person = create_user('some-person').person
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+    some_person.user.activate
+    some_person.reload
+
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
     some_person.save!
 
-    f = Friendship.new
-    f.friend = some_person
-    f.person = person
-    f.save!
+    some_person.add_friend(person)
+    person.add_friend(some_person)
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
