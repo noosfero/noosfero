@@ -108,7 +108,7 @@ require_relative '../../find_by_contents'
       def post_article(asset, params)
         return forbidden! unless current_person.can_post_content?(asset)
 
-        klass_type= params[:content_type].nil? ? TinyMceArticle.name : params[:content_type]
+        klass_type = params[:content_type] || params[:article].delete(:type) || TinyMceArticle.name
         return forbidden! unless ARTICLE_TYPES.include?(klass_type)
 
         article = klass_type.constantize.new(params[:article])

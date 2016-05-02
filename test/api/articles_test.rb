@@ -408,6 +408,18 @@ class ArticlesTest < ActiveSupport::TestCase
       assert_kind_of TextArticle, Article.last
     end
 
+    should "#{kind} create article with type passed as parameter" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      Person.any_instance.stubs(:can_post_content?).with(profile).returns(true)
+
+      Article.delete_all
+      params[:article] = {:name => "Title", :type => 'TextArticle'}
+      post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+
+      assert_kind_of TextArticle, Article.last
+    end
+
     should "#{kind}: create article of TinyMceArticle type if no content type is passed as parameter" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       Person.any_instance.stubs(:can_post_content?).with(profile).returns(true)
@@ -550,6 +562,23 @@ class ArticlesTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal ['title'], json['articles'].first.keys
+  end
+
+  should "create article child" do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    params[:article] = {:name => "Title"}
+    post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal article.id, json["article"]["parent"]["id"]
+  end
+
+  should "do not create article child if user has no permission to post content" do
+    profile = fast_create(Profile, :environment_id => environment.id)
+    article = fast_create(Article, :profile_id => profile.id, :name => "Some thing")
+    give_permission(user.person, 'invite_members', profile)
+    params[:article] = {:name => "Title"}
+    post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
+    assert_equal 403, last_response.status
   end
 
   should 'suggest article children' do
