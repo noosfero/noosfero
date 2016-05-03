@@ -36,14 +36,6 @@ class VideoPlugin::VideoBlock < Block
     _('This block presents a video from youtube, vimeo and some video formats (mp4, ogg, ogv and webm)')
   end
 
-  def content(args={})
-    block = self
-
-    proc do
-      render :file => 'video_block', :locals => { :block => block }
-    end
-  end
-
   private
 
   def extract_youtube_id

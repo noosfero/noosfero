@@ -208,12 +208,4 @@ class VideoBlockTest < ActiveSupport::TestCase
     refute block.is_video_file?
   end
 
-  should 'display video block partial' do
-    block = VideoPlugin::VideoBlock.new
-    self.expects(:render).with(:file => 'video_block', :locals => {
-        :block => block
-    })
-    instance_eval(& block.content)
-  end
-
 end
