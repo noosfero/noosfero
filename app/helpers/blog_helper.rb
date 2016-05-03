@@ -42,11 +42,11 @@ module BlogHelper
       content << (content_tag 'div', id: "post-#{art.id}", class: css_add do
         content_tag 'div', class: position + '-inner blog-post-inner' do
           display_post(art, conf[:format])  +
-          '<br style="clear:both"/>'
+          '<br style="clear:both"/>'.html_safe
         end
       end).html_safe
     }
-    safe_join(content, "\n<hr class='sep-posts'/>\n") + (pagination or '').html_safe
+    safe_join(content, "\n<hr class='sep-posts'/>\n".html_safe) + (pagination or '').html_safe
   end
 
   def display_post(article, format = 'full')
