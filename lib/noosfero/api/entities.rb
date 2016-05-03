@@ -196,6 +196,7 @@ module Noosfero
         expose :archived, :documentation => {:type => "Boolean", :desc => "Defines if a article is readonly"}
         expose :type
         expose :comments, using: CommentBase, :if => lambda{|obj,opt| opt[:params] && ['1','true',true].include?(opt[:params][:show_comments])}
+        expose :published
       end
 
       class Article < ArticleBase
