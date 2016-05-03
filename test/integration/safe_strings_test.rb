@@ -84,4 +84,12 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     }
   end
 
+  should 'not escape task information on manage profile' do
+    create_user('marley', :password => 'test', :password_confirmation => 'test').activate
+    person = Person['marley']
+    task = create(Task, :requestor => person, :target => person)
+    login 'marley', 'test'
+    get "/myprofile/marley"
+    assert_select ".pending-tasks ul li a"
+  end
 end
