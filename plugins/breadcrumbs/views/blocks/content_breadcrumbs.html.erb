@@ -1,0 +1,9 @@
+<% extend BreadcrumbsPluginHelper %>
+
+<% links = trail(block, @page, @profile, params).flatten %>
+<% unless links.empty? %>
+  <%= render :partial => 'blocks/link', :collection => links, :as => 'link', :spacer_template => 'blocks/separator' %>
+  <% if block.show_section_name %>
+    <%= content_tag('div', (block.show_profile ? links.second[:name] : links.first[:name]), :class => 'section-name') %>
+  <% end %>
+<% end %>

@@ -22,70 +22,8 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
     _('This block displays breadcrumb trail.')
   end
 
-  def page_trail(page, params={})
-    links = []
-    if page
-      links = page.ancestors.reverse.map { |p| { :name => p.title, :url => p.url } }
-      links << { :name => page.title, :url => page.url }
-    elsif params[:controller] == 'cms'
-      id = params[:id] || params[:parent_id]
-      links = page_trail(Article.find(id)) if id
-      links << { :name => cms_action(params[:action]), :url => params } if show_cms_action
-    elsif (params[:controller] == 'profile' || params[:controller] == 'events')
-      links << { :name => _('Profile'), :url => {:controller=> 'profile', :action =>'index', :profile =>params[:profile]}}
-      links << { :name => profile_action(params[:action]), :url => params } unless params[:action] == 'index'
-    end
-    links
-  end
-
-  def trail(page, profile=nil, params={})
-    links = page_trail(page, params)
-    if profile && !links.empty? && show_profile
-      [ {:name => profile.name, :url => profile.url} ] + links
-    else
-      links
-    end
-  end
-
-  def content(args={})
-    block = self
-    ret = (proc do
-      trail = block.trail(@page, @profile, params)
-      if !trail.empty?
-        separator = content_tag('span', ' > ', :class => 'separator')
-
-        breadcrumb = trail.map do |t|
-          link_to(t[:name], t[:url], :class => 'item')
-        end.join(separator)
-
-        if block.show_section_name
-          section_name = block.show_profile ? trail.second[:name] : trail.first[:name]
-          breadcrumb << content_tag('div', section_name, :class => 'section-name')
-        end
-
-        breadcrumb.html_safe
-      else
-        ''
-      end
-    end)
-    ret
-  end
-
   def cacheable?
     false
-  end
-
-  protected
-
-  CMS_ACTIONS = {:edit => c_('Edit'), :upload_files => _('Upload Files'), :new => c_('New')}
-  PROFILE_ACTIONS = {:members => _('Members'), :events => _('Events')}
-
-  def cms_action(action)
-    CMS_ACTIONS[action.to_sym] || action
-  end
-
-  def profile_action(action)
-    PROFILE_ACTIONS[action.to_sym] || action
   end
 
 end
