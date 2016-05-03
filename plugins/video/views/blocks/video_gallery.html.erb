@@ -1,0 +1,18 @@
+<% extend VideoPlugin::VideoGalleryHelper %>
+
+<% if block.video_gallery_id.present?
+  video_gallery = VideoPlugin::VideoGallery.find(block.video_gallery_id) %>
+
+  <% unless video_gallery.body.blank? %>
+    <div>
+      <%= video_gallery.body %>
+    </div>
+    <hr/>
+  <% end %>
+
+  <% if video_gallery.children.empty? %>
+    <em><%= _('(empty video gallery)') %></em>
+  <% else %>
+    <%= list_videos(:contents=>video_gallery.children) %>
+  <% end %>
+<% end %>
