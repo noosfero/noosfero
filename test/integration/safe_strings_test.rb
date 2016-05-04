@@ -92,4 +92,12 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get "/myprofile/marley"
     assert_select ".pending-tasks ul li a"
   end
+
+  should 'not escape author link in publishing info of article' do
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    person = Person['jimi']
+    article = fast_create(Article, author_id: person.id, profile_id: person.id)
+    get url_for(article.view_url)
+    assert_select ".publishing-info .author a"
+  end
 end
