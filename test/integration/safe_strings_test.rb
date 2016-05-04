@@ -100,4 +100,21 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get url_for(article.view_url)
     assert_select ".publishing-info .author a"
   end
+
+  should 'not escape tinymce macros when create article' do
+    class Plugin1 < Noosfero::Plugin
+    end
+    class Plugin1::Macro < Noosfero::Plugin::Macro
+      def self.configuration
+        {params: {}}
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SafeStringsTest::Plugin1.new])
+
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    person = Person['jimi']
+    login 'jimi', 'test'
+    get "/myprofile/jimi/cms/new?type=TinyMceArticle"
+    assert_no_match /title: &quot;Safestringstest::plugin1::macro&quot/, response.body
+  end
 end
