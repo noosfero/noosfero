@@ -735,4 +735,13 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json["article"].keys, "comments"
   end
 
+  should 'not list private child when get the parent article' do
+    person = fast_create(Person, :environment_id => environment.id)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
+    get "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json['article']['children'].map {|a| a['id']}, child.id
+  end
+
 end
