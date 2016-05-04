@@ -8,11 +8,11 @@
           class: 'leave-community',
           style: 'position: relative;' %>
       <% else %>
-        <%= join_community_button(true) %>
+        <%= join_community_button({:logged => true}) %>
       <% end %>
     <% end %>
   <% else %>
-    <%= join_community_button(false) %>
+    <%= join_community_button %>
   <% end %>
 </div>
 

@@ -94,8 +94,7 @@ class ProfileController < PublicController
 
   def join
     if !user.memberships.include?(profile)
-      return if profile.community? && profile.requires_email &&
-                current_person && !current_person.public_fields.include?("email")
+      return if profile.community? && show_confirmation_modal?(profile)
 
       profile.add_member(user)
       if !profile.members.include?(user)
