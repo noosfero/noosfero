@@ -77,4 +77,11 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     assert_equal false, data.empty?
   end
 
+  should 'not escape html in block content' do
+    fast_create(Article, profile_id: profile.id, hits: 10)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile')
+    block = RelevantContentPlugin::RelevantContentBlock.new(:box => box)
+    Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
+    assert_tag_in_string block.content, tag: 'span', attributes: { class: 'title mread' }
+  end
 end

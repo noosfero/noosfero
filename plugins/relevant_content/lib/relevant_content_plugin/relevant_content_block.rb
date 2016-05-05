@@ -29,22 +29,12 @@ class RelevantContentPlugin::RelevantContentBlock < Block
 
     if self.show_most_read
       docs = Article.most_accessed(owner, self.limit)
-      if !docs.blank?
-        subcontent = ""
-        subcontent += content_tag(:span, _("Most read articles"), :class=>"title mread") + "\n"
-        subcontent += content_tag(:ul, docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-        content += content_tag(:div, subcontent, :class=>"block mread") + "\n"
-      end
+      content += subcontent(docs, _("Most read articles"), "mread") unless docs.blank?
     end
 
     if self.show_most_commented
       docs = Article.most_commented_relevant_content(owner, self.limit)
-      if !docs.blank?
-        subcontent = ""
-        subcontent += content_tag(:span, _("Most commented articles"), :class=>"title mcommented") + "\n"
-        subcontent += content_tag(:ul, docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-        content += content_tag(:div, subcontent, :class=>"block mcommented") + "\n"
-      end
+      content += subcontent(docs, _("Most commented articles"), "mcommented") unless docs.blank?
     end
 
     if owner.kind_of?(Environment)
@@ -56,31 +46,16 @@ class RelevantContentPlugin::RelevantContentBlock < Block
     if env.plugin_enabled?('VotePlugin')
       if self.show_most_liked
         docs = Article.more_positive_votes(owner, self.limit)
-        if !docs.blank?
-          subcontent = ""
-          subcontent += content_tag(:span, _("Most liked articles"), :class=>"title mliked") + "\n"
-          subcontent += content_tag(:ul, docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-          content += content_tag(:div, subcontent, :class=>"block mliked") + "\n"
-        end
+        content += subcontent(docs, _("Most liked articles"), "mliked") unless docs.blank?
       end
       if self.show_most_disliked
         docs = Article.more_negative_votes(owner, self.limit)
-        if !docs.blank?
-          subcontent = ""
-          subcontent += content_tag(:span, _("Most disliked articles"), :class=>"title mdisliked") + "\n"
-          subcontent += content_tag(:ul, docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-          content += content_tag(:div, subcontent, :class=>"block mdisliked") + "\n"
-        end
+        content += subcontent(docs, _("Most disliked articles"), "mdisliked") unless docs.blank?
       end
 
       if self.show_most_voted
         docs = Article.most_voted(owner, self.limit)
-        if !docs.blank?
-          subcontent = ""
-          subcontent += content_tag(:span, _("Most voted articles"), :class=>"title mvoted") + "\n"
-          subcontent += content_tag(:ul, docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-          content += content_tag(:div, subcontent, :class=>"block mvoted") + "\n"
-        end
+        content += subcontent(docs, _("Most voted articles"), "mvoted") unless docs.blank?
       end
     end
     return content.html_safe
@@ -92,6 +67,16 @@ class RelevantContentPlugin::RelevantContentBlock < Block
 
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
+  end
+
+  protected
+
+  def subcontent(docs, title, html_class)
+    subcontent = safe_join([
+      content_tag(:span, title, class: "title #{html_class}"),
+      content_tag(:ul, safe_join(docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}, "\n"))
+    ], "\n")
+    content_tag(:div, subcontent, :class=>"block #{html_class}")
   end
 
 end
