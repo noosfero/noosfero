@@ -21,9 +21,9 @@ module BreadcrumbsPluginHelper
   def trail(block, page, profile=nil, params={})
     links = []
     if page
-      links << page_trail(page)
+      links += page_trail(page)
     elsif params[:controller] == 'cms' && (id = params[:id] || params[:parent_id])
-      links << page_trail(Article.find(id))
+      links += page_trail(Article.find(id))
       if block.show_cms_action
         links << { :name => action(params[:action]), :url => params }
       end
