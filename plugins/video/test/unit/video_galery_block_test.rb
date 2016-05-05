@@ -21,7 +21,7 @@ class VideoGalleryBlockViewTest < ActionView::TestCase
 
     content = render_block_content(block)
 
-    assert_equal content, "\n"
+    assert_equal content, ""
   end
 
   should 'render nothing with an empty gallery message when there are no children' do
@@ -51,7 +51,7 @@ class VideoGalleryBlockViewTest < ActionView::TestCase
 
     content = render_block_content(block)
 
-    assert_tag_in_string content, tag: 'div', content: "\n      #{body}\n    "
+    assert_match body, content
     assert_tag_in_string content, tag: 'em', content: _('(empty video gallery)')
   end
 end
