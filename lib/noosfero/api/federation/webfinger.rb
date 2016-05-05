@@ -1,3 +1,4 @@
+require 'active_support/inflector'
 module Noosfero
   module API
     module Federation
@@ -27,12 +28,29 @@ def valid_domain?
   end
 end
 
+def valid_uri?(url)
+  uri = URI.parse(url)
+  uri.kind_of?(URI::HTTP)
+  rescue URI::BadURIError
+    false
+  rescue URI::InvalidURIError
+    false
+end
+
+def entity_exists?(uri)
+  possible_entity = uri.split('/')
+  possible_entity.map! {|entity| "#{entity}s"}
+  ( ActiveRecord::Base.connection.tables & possible_entity )
+  rescue ActiveRecord::RecordNotFound
+    false
+end
+
 def generate_jrd
+  result = {}
   if valid_domain? && request_acct?
-    result = {}
     result = acct_hash
-  else
-    "This Domain this not exist in this envinronment"
+  elsif valid_uri?(params[:resource])
+    result = uri_hash
   end
 end
 
@@ -45,4 +63,15 @@ def acct_hash
   acct[:subject] = params[:resource]
   acct[:properties] = Person.find_by_identifier(extract_person_identifier)
   acct
+end
+
+def uri_hash
+  uri = {}
+  uri[:subject] = params[:resource]
+  entity = entity_exists?(params[:resource])
+  noosfero_entity = ActiveSupport::Inflector.classify(entity)
+  id = params[:resource].split('/').last.to_i
+  uri[:properties] = entity.first.classify.constantize.find(id)
+  puts uri.inspect
+  uri
 end
