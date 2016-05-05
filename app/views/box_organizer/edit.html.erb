@@ -1,5 +1,5 @@
 <div class="block-config-options <%= @block.class.name %>-options">
-  <h2 class="title"><%= _(@block.class.description) %></h2>
+  <h2 class="title"><%= _(@block.class.description).html_safe %></h2>
 
   <%= form_tag(:action => 'save', :id => @block.id) do %>
 
