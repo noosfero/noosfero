@@ -1,7 +1,5 @@
 <div class="comment-paragraph-plugin comments" id="comment-paragraph-plugin_<%= paragraph_uuid %>" data-paragraph="<%= paragraph_uuid %>">
-  <div class="comment_paragraph">
-    <%= inner_html %>
-  </div>
+  <div class="comment_paragraph"><%= inner_html.html_safe %></div>
   <div class="side-comments-counter-container">
     <div class="side-comments-counter">
       <span class='comment-count-container <%= count==0 ? 'no-comments-yet':'' %>'>

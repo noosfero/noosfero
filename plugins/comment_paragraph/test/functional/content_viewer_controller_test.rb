@@ -26,4 +26,12 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag 'div', :attributes => {:class => 'comment_paragraph'}
   end
 
+  should 'parse article body with correct html escape' do
+    comment1 = fast_create(Comment, :paragraph_uuid => 0, :source_id => page.id)
+    @page.body='<p><strong>inner text</strong></p>'
+    @page.save
+    get :view_page, @page.url
+    assert_tag 'div', :content => 'inner text', :attributes => {:class => 'comment_paragraph'}
+  end
+
 end
