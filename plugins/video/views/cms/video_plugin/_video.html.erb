@@ -1,8 +1,8 @@
 <%= required_fields_message %>
 
 <div>
-<%= required f.text_field('name', :size => '64', :maxlength => 150) %>
-<%= required labelled_form_field _('URL of the video'), text_field(:article, :video_url, :size => 80) %>
+<%= required f.text_field('name') %>
+<%= required labelled_form_field _('URL of the video'), text_field(:article, :video_url) %>
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>
 <%= render :partial => 'general_fields' %>
 <%= render :partial => 'translatable' %>
