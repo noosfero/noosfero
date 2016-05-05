@@ -155,4 +155,12 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
     assert_select '.block-config-options .other-block'
   end
+
+  should 'not escape edit settings in highlight block' do
+    login user.login, 'test'
+    block = HighlightsBlock.new
+    person.boxes.first.blocks << block
+    get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
+    assert_select '.block-config-options .image-data-line'
+  end
 end

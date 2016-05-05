@@ -28,7 +28,7 @@ module BlockHelper
       }</label></td>
       <td>#{button_without_text(:delete, _('Remove'), '#', class: 'delete-highlight', data: {confirm: _('Are you sure you want to remove this highlight')})}</td>
     </tr>
-    "
+    ".html_safe
   end
 
 end
