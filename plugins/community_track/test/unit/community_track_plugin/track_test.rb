@@ -61,6 +61,13 @@ class TrackTest < ActiveSupport::TestCase
     assert_equal 'top category', @track.category_name
   end
 
+  should 'return name of the top category when has no subcategory' do
+    top = create(Category, :name => 'top category', :environment => Environment.default)
+    @track.categories.delete_all
+    @track.add_category(top, true)
+    assert_equal 'top category', @track.category_name
+  end
+
   should 'return empty for category name if it has no category' do
     @track.categories.delete_all
     assert_equal '', @track.category_name
