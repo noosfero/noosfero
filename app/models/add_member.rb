@@ -29,13 +29,15 @@ class AddMember < Task
   end
 
   def information
-    requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
-
-    {:message => _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'."),
-     variables: {requestor: requestor.name, requestor_email: requestor_email, organization: organization.name}}
+    {:message => _("%{requestor} wants to be a member of '%{target}'."),
+     variables: {requestor: requestor.name, target: target.name}}
   end
 
   def accept_details
+    true
+  end
+
+  def footer
     true
   end
 
@@ -63,4 +65,15 @@ class AddMember < Task
     suggestion.disable if suggestion
   end
 
+  def task_finished_message
+    _("You have been accepted at \"%{target}\" with the profile \"%{requestor}\"") %
+      {:target => self.target.name,
+       :requestor => self.requestor.name}
+  end
+
+  def task_cancelled_message
+    _("Your request to enter community \"%{target} with the profile \"%{requestor}\" was not accepted. Please contact any profile admin from %{url} for more information.") %
+    {:target => self.target.name, :url => self.target.url,
+     :requestor => self.requestor.name}
+  end
 end

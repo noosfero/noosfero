@@ -18,9 +18,11 @@ jQuery(function($) {
   })
 
   $(".join-community").live('click', function(){
+    $('#cboxClose').remove();
     clicked = $(this);
     url = clicked.attr("href");
-    loading_for_button(this);
+    if (!clicked.hasClass('modal-toggle'))
+      loading_for_button(this);
     $.post(url, function(data){
       clicked.fadeOut(function(){
         clicked.css("display","none");

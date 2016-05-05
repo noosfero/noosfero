@@ -1,16 +1,16 @@
-<h1><%= _('Joining %s') % profile.name %></h1>
+<div class="join-community-confirmation">
 
-<p>
-<%= _('Are you sure you want to join %s?') % profile.name %>
-</p>
+  <h1><%= _('To join %s, you must:') % profile.name %></h1>
 
-<%= form_tag do %>
-  <%= hidden_field_tag('back_to', @back_to) %>
-  <%= hidden_field_tag(:confirmation, 1) %>
-  <%= submit_button(:ok, _("Yes, I want to join.") % profile.name) %>
-  <% if logged_in? && request.xhr? %>
-    <%= modal_close_button _("No, I don't want") %>
-  <% else %>
-    <%= button(:cancel, _("No, I don't want."), profile.url) %>
+  <p>
+  <%= _("Authorize the visibility of your email address to the community administrator.") %>
+  </p>
+
+  <%= form_tag url_for({:action => :join_modal, :controller => :profile}) do %>
+    <%= hidden_field_tag('back_to', @back_to) %>
+    <%= submit_button(:ok, _("Authorize")) %>
+    <%= modal_close_button _("Cancel") %>
   <% end %>
-<% end %>
+
+</div>
+

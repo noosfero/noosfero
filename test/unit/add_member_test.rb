@@ -3,7 +3,8 @@ require_relative "../test_helper"
 class AddMemberTest < ActiveSupport::TestCase
 
   def setup
-    @person = fast_create(Person)
+    @user = fast_create(User)
+    @person = fast_create(Person,:user_id => @user.id)
     @community = fast_create(Community)
   end
   attr_reader :person, :community
@@ -61,6 +62,16 @@ class AddMemberTest < ActiveSupport::TestCase
     TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddMember.create!(:person => person, :organization => community)
+  end
+
+  should 'send e-mails to requestor' do
+    community.update_attribute(:closed, true)
+    community.stubs(:notification_emails).returns(["adm@example.com"])
+
+    task = AddMember.create!(:person => person, :organization => community)
+    assert_difference "ActionMailer::Base.deliveries.size" do
+      task.finish
+    end
   end
 
   should 'has permission to manage members' do

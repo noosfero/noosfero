@@ -1555,3 +1555,21 @@ table#recaptcha_table tr:hover td {
   clear: both;
 }
 
+
+/*************************** join community confirmation ********************************/
+
+.join-community-confirmation h1 {
+	font-variant: small-caps;
+	font-size: 20px;
+	color: #555753;
+	text-align: left;
+}
+
+.join-community-confirmation {
+	padding: 5px 20px 0px 20px;
+}
+
+.join-community-confirmation input.button.with-text {
+	padding-right: 4px;
+}
+
