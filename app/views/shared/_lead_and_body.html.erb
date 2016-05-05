@@ -23,11 +23,7 @@
   <% if f %>
     <%= labelled_form_field(_(abstract_label), f.text_area(abstract_method, abstract_options)) %>
   <% else %>
-    <% if @article.kind_of?(Article) %>
-      <%= labelled_form_field(_(abstract_label), text_area_tag("article[abstract]", @escaped_abstract, abstract_options)) %>
-    <% else %>
-      <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, abstract_options)) %>
-    <% end %>
+    <%= labelled_form_field(_(abstract_label), text_area(object, abstract_method, abstract_options)) %>
   <% end %>
 </div>
 <div style="margin-top: 10px;">
@@ -35,11 +31,7 @@
   <% if f %>
     <%= labelled_form_field(_(body_label), f.text_area(body_method, body_options)) %>
   <% else %>
-    <% if @article.kind_of?(Article) %>
-      <%= labelled_form_field(_(body_label), text_area_tag("article[body]", @escaped_body, body_options)) %>
-    <% else %>
-      <%= labelled_form_field(_(body_label), text_area(object, body_method, body_options)) %>
-    <% end %>
+    <%= labelled_form_field(_(body_label), text_area(object, body_method, body_options)) %>
   <% end %>
 </div>
 
