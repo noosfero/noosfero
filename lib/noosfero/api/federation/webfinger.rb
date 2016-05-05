@@ -12,9 +12,13 @@ module Noosfero
   end
 end
 
-def extract_person_identifier
-  person = params[:resource].split("@")[0].split(":")[1]
-  person
+def generate_jrd
+  result = {}
+  if valid_domain? && request_acct?
+    result = acct_hash
+  elsif valid_domain? && valid_uri?(params[:resource])
+    result = uri_hash
+  end
 end
 
 def valid_domain?
@@ -25,32 +29,6 @@ def valid_domain?
   else
   #please validate domain with http
     false
-  end
-end
-
-def valid_uri?(url)
-  uri = URI.parse(url)
-  uri.kind_of?(URI::HTTP)
-  rescue URI::BadURIError
-    false
-  rescue URI::InvalidURIError
-    false
-end
-
-def entity_exists?(uri)
-  possible_entity = uri.split('/')
-  possible_entity.map! {|entity| "#{entity}s"}
-  ( ActiveRecord::Base.connection.tables & possible_entity )
-  rescue ActiveRecord::RecordNotFound
-    false
-end
-
-def generate_jrd
-  result = {}
-  if valid_domain? && request_acct?
-    result = acct_hash
-  elsif valid_uri?(params[:resource])
-    result = uri_hash
   end
 end
 
@@ -65,13 +43,34 @@ def acct_hash
   acct
 end
 
+def extract_person_identifier
+  person = params[:resource].split("@")[0].split(":")[1]
+end
+
+def valid_uri?(url)
+  uri = URI.parse(url)
+  uri.kind_of?(URI::HTTP)
+  rescue URI::BadURIError
+    "URI is valid, bad usage is not"
+  rescue URI::InvalidURIError
+    "invalid URI"
+end
+
 def uri_hash
   uri = {}
   uri[:subject] = params[:resource]
   entity = entity_exists?(params[:resource])
-  noosfero_entity = ActiveSupport::Inflector.classify(entity)
   id = params[:resource].split('/').last.to_i
-  uri[:properties] = entity.first.classify.constantize.find(id)
+  uri[:properties] = entity.classify.constantize.find(id)
   puts uri.inspect
   uri
 end
+
+def entity_exists?(uri)
+  possible_entity = uri.split('/')
+  possible_entity.map! {|entity| "#{entity}s"}
+  ( ActiveRecord::Base.connection.tables & possible_entity ).first
+  rescue ActiveRecord::RecordNotFound
+    false
+end
+
