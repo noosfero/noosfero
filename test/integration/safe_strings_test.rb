@@ -117,4 +117,22 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get "/myprofile/jimi/cms/new?type=TinyMceArticle"
     assert_no_match /title: &quot;Safestringstest::plugin1::macro&quot/, response.body
   end
+
+  should 'not escape short_description of articles in activities' do
+    user = create_user('marley', :password => 'test', :password_confirmation => 'test')
+    user.activate
+    profile = user.person
+    login 'marley', 'test'
+
+    expected_content = 'something'
+    html_content = "<p>#{expected_content}</p>"
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software', :body => html_content)
+    ActionTracker::Record.destroy_all
+    activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    get "/profile/marley"
+    assert_tag 'li', :attributes => {:id => "profile-activity-item-#{activity.id}"}, :descendant => {
+      :tag => 'div', :content => "\n    " + expected_content, :attributes => {:class => 'profile-activity-lead'}
+    }
+  end
+
 end
