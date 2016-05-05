@@ -1,0 +1,7 @@
+**This plugin is deprecated. Please use "admin_notifications" plugin instead.**
+
+If you already were using this plugin, migrating* it will switch automatically to the new plugin.
+If you want to start using this plugin from scratch, activate and use the new one instead.
+
+*NOTE: running Noosfero in production mode already runs
+  the migrations and therefore switch plugins automatically.

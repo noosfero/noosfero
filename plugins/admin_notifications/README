@@ -1,0 +1,7 @@
+This plugin is the new version of "environment_notification" plugin.
+
+New features added:
+  - Create a notification for an organization;
+    - Only profile admin can create notifications;
+    - Organization notifications can be seen by members from any of the organization pages;
+    - home_page option set the notification to be seen only at organization homepage;

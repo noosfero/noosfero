@@ -1,0 +1,22 @@
+<% @notifications = AdminNotificationsPlugin::Notification.with_popup(environment, current_user, @previous_path).where("id NOT IN (?)", @hide_notifications) %>
+
+<div class="notification-plugin-notification-modal">
+  <% @notifications.each do |notification| %>
+    <% if !notification.title.blank? %>
+      <div class="<%= notification.type.gsub("AdminNotificationsPlugin::", "").downcase %> notification notification-with-title" data-notification="<%=notification.id%>">
+        <div class="notification-title">
+          <%= notification.title %>
+        </div>
+      </div>
+      <div class="notification-message notification-with-title-message">
+        <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user) %>
+      </div>
+    <% else %>
+      <div class="<%= notification.type.gsub("AdminNotificationsPlugin::", "").downcase %> notification notification-without-title" data-notification="<%=notification.id%>">
+        <div class="notification-message">
+          <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
