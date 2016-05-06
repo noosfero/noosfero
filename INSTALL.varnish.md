@@ -19,7 +19,6 @@ Install the RPAF apache module (or skip this step if not using apache):
 
 3a) Edit `/etc/apache2/ports.conf`, and:
 
-  * change `NameVirtualHost *:80` to `NameVirtualHost *:8080`
   * change `Listen 80` to `Listen 127.0.0.1:8080`
 
 3b) Edit `/etc/apache2/sites-enabled/*`, and change `<VirtualHost *:80>` to `<VirtualHost *:8080>`
@@ -30,6 +29,7 @@ Install the RPAF apache module (or skip this step if not using apache):
 
    * change the line that says `START=no` to say `START=yes`
    * change `-a :6081` to `-a :80`
+   * add parameter `-p vcc_allow_inline_c=on` on `DAEMON_OPTS`
 
 4b) Edit `/etc/varnish/default.vcl` and add the following lines at the end:
 
