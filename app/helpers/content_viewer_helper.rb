@@ -29,7 +29,7 @@ module ContentViewerHelper
       date_format = show_with_right_format_date article
       title << content_tag('span',
         date_format +
-        content_tag('span', _(", by %s") % (article.author ? link_to(article.author_name, article.author_url) : article.author_name), :class => 'author') +
+        content_tag('span', _(", by %s").html_safe % (article.author ? link_to(article.author_name, article.author_url) : article.author_name), :class => 'author') +
         content_tag('span', comments, :class => 'comments'),
         :class => 'publishing-info'
       )
