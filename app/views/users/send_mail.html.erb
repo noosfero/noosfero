@@ -3,10 +3,19 @@
 <%= error_messages_for :mailing %>
 
 <%= render :file => 'shared/tiny_mce' %>
-
 <%= form_for :mailing do |f| %>
+  <div class="recipients">
+    <%= label_tag(_("Recipients: "), nil, { class: "formlabel" }) %>
+    <%= labelled_radio_button(_('All Users'), :send_to, "all", true, { id: "send_to_all" }) %></br>
+    <%= labelled_radio_button(_('Only Admins'), :send_to, "admins" , false, { id: "send_to_admins" }) %><br>
+    <div class="recipients-checkboxes">
+      <%= labelled_check_box(_('Environment Admins'), 'recipients[env_admins]', true, false, { disabled: true, id: "env_admins" }) %>
+      <%= labelled_check_box(_('Profile Admins'), 'recipients[profile_admins]', true, false, { disabled: true, id: "profile_admins" }) %>
+    </div>
+  </div>
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
   <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
   <%= submit_button(:send, _('Send')) %>
   <%= button :cancel, _('Cancel e-mail'), :controller => 'users' %>
 <% end %>
+<%= javascript_include_tag "send_email.js" %>
