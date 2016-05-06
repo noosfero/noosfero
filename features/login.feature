@@ -14,6 +14,7 @@ Feature: login
     And I am not logged in
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -33,6 +34,7 @@ Feature: login
       | mariasilva | my home page | true |
     And I go to mariasilva's homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -68,6 +70,7 @@ Feature: login
       | mariasilva | my home page | true |
     And I go to mariasilva's homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -81,6 +84,7 @@ Feature: login
     And the environment is configured to redirect to site homepage after login
     And I go to joaosilva's homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -94,6 +98,7 @@ Feature: login
     And the environment is configured to redirect to user profile page after login
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -123,6 +128,7 @@ Feature: login
     And the environment is configured to redirect to profile control panel after login
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -143,6 +149,7 @@ Feature: login
       | mariasilva | my home page | true |
     And I go to mariasilva's homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -157,6 +164,7 @@ Feature: login
     And the profile joaosilva is configured to redirect to site homepage after login
     And I go to joaosilva's homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -171,6 +179,7 @@ Feature: login
     And the profile joaosilva is configured to redirect to user profile page after login
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -188,6 +197,7 @@ Feature: login
     And the profile joaosilva is configured to redirect to profile homepage after login
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
@@ -202,6 +212,7 @@ Feature: login
     And the profile joaosilva is configured to redirect to profile control panel after login
     And I go to the homepage
     And I follow "Login"
+    And I wait 0.5 second for popin animation
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
