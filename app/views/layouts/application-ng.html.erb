@@ -82,7 +82,7 @@
       </div><!-- end id="global-footer" -->
     </div><!-- end id="footer" -->
     <%= noosfero_layout_features %>
-    <%= addthis_javascript %>
+    <%= addthis_javascript.html_safe %>
     <%=
       str = (@plugins.dispatch(:body_ending).map do |content|
               if content.respond_to?(:call) then 
