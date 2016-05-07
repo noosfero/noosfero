@@ -149,12 +149,4 @@ class StatisticsBlock < Block
     end
   end
 
-  def content(args={})
-    block = self
-
-    proc do
-      render :file => 'statistics_block', :locals => { :block => block }
-    end
-  end
-
 end
