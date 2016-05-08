@@ -1487,6 +1487,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
   end
 
+  should 'always put article image first in images paths list in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = create(TinyMceArticle, :name => 'test', :image_builder => {
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    }, :profile_id => @profile.id)
+    a.save!
+    a.body = 'Noosfero <img src="http://noosfero.com/test.png" /> test <img src="http://test.com/noosfero.png" />'
+    a.image.stubs(:public_filename).returns('/files/rails.png')
+    assert_equal 'http://noosfero.org/files/rails.png', a.body_images_paths[0]
+  end
+
   should 'escape utf8 characters correctly' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     a = build TinyMceArticle, profile: @profile
