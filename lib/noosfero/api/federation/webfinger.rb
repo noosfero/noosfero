@@ -27,8 +27,8 @@ def valid_domain?
     domain  = params[:resource].split("@")[1]
     environment.domains.map(&:name).include? domain
   else
-  #please validate domain with http
-    false
+    domain  = params[:resource].split("/")[2]
+    environment.domains.map(&:name).include? domain
   end
 end
 
@@ -44,16 +44,16 @@ def acct_hash
 end
 
 def extract_person_identifier
-  person = params[:resource].split("@")[0].split(":")[1]
+  params[:resource].split("@")[0].split(":")[1]
 end
 
 def valid_uri?(url)
   uri = URI.parse(url)
   uri.kind_of?(URI::HTTP)
-  rescue URI::BadURIError
-    "URI is valid, bad usage is not"
-  rescue URI::InvalidURIError
-    "invalid URI"
+  rescue URI::BadURIError => ex
+    Rails.logger.error "Bad URI Error: #{ex}"
+  rescue URI::InvalidURIError => ex
+    Rails.logger.error "Invalid URI Error: #{ex}"
 end
 
 def uri_hash
@@ -62,7 +62,6 @@ def uri_hash
   entity = entity_exists?(params[:resource])
   id = params[:resource].split('/').last.to_i
   uri[:properties] = entity.classify.constantize.find(id)
-  puts uri.inspect
   uri
 end
 
@@ -70,7 +69,6 @@ def entity_exists?(uri)
   possible_entity = uri.split('/')
   possible_entity.map! {|entity| "#{entity}s"}
   ( ActiveRecord::Base.connection.tables & possible_entity ).first
-  rescue ActiveRecord::RecordNotFound
-    false
+  rescue ActiveRecord::RecordNotFound => ex
+    Rails.logger.error "Entity not found on records: #{ex}"
 end
-
