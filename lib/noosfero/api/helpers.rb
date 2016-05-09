@@ -98,8 +98,6 @@ require_relative '../../find_by_contents'
         end
       end
 
-      ARTICLE_TYPES = ['Article'] + Article.descendants.map{|a| a.to_s}
-
       def find_article(articles, id)
         article = articles.find(id)
         article.display_to?(current_person) ? article : forbidden!
@@ -109,7 +107,7 @@ require_relative '../../find_by_contents'
         return forbidden! unless current_person.can_post_content?(asset)
 
         klass_type = params[:content_type] || params[:article].delete(:type) || TinyMceArticle.name
-        return forbidden! unless ARTICLE_TYPES.include?(klass_type)
+        return forbidden! unless klass_type.constantize <= Article
 
         article = klass_type.constantize.new(params[:article])
         article.last_changed_by = current_person
