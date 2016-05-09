@@ -9,7 +9,8 @@ module ObserversTestHelper
   end
 
   def create_add_member_task
-    person = fast_create(Person)
+    user = fast_create(User)
+    person = fast_create(Person, :user_id => user.id)
     community = fast_create(Community)
     return AddMember.create!(:requestor => person, :target => community)
   end
