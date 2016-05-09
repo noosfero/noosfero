@@ -99,7 +99,6 @@ require_relative '../../find_by_contents'
       end
 
       ARTICLE_TYPES = ['Article'] + Article.descendants.map{|a| a.to_s}
-      TASK_TYPES = ['Task'] + Task.descendants.map{|a| a.to_s}
 
       def find_article(articles, id)
         article = articles.find(id)
@@ -154,7 +153,7 @@ require_relative '../../find_by_contents'
 
       def post_task(asset, params)
         klass_type= params[:content_type].nil? ? 'Task' : params[:content_type]
-        return forbidden! unless TASK_TYPES.include?(klass_type)
+        return forbidden! unless klass_type.constantize <= Task
 
         task = klass_type.constantize.new(params[:task])
         task.requestor_id = current_person.id
