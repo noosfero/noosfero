@@ -2,6 +2,14 @@ require_relative "../test_helper"
 
 class SafeStringsTest < ActionDispatch::IntegrationTest
 
+  def setup
+    @user = create_user('safestring', :password => 'test', :password_confirmation => 'test')
+    @user.activate
+    @person = user.person
+  end
+
+  attr_accessor :user, :person
+
   should 'not escape link to admins on profile page' do
     person = fast_create Person
     community = fast_create Community
@@ -135,4 +143,24 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     }
   end
 
+  should 'not escape block title when edit a block' do
+    class OtherBlock < Block
+      def self.description
+        _("<p class='other-block'>Other Block</p>")
+      end
+    end
+    login user.login, 'test'
+    block = OtherBlock.new
+    person.boxes.first.blocks << block
+    get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
+    assert_select '.block-config-options .other-block'
+  end
+
+  should 'not escape edit settings in highlight block' do
+    login user.login, 'test'
+    block = HighlightsBlock.new
+    person.boxes.first.blocks << block
+    get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
+    assert_select '.block-config-options .image-data-line'
+  end
 end
