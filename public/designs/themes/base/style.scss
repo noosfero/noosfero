@@ -653,8 +653,7 @@ div#notice {
 }
 
 #content .link-list-block li a.link-this-page {
-  border-radius-topright: 0px;
-  border-radius-bottomright: 0px;
+  border-radius: 4px 0 0 4px;
   background-color: #cecece;
   border-right: 2px solid #555753;
 }
