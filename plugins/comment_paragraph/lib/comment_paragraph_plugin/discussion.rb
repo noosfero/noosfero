@@ -23,4 +23,8 @@ class CommentParagraphPlugin::Discussion < Event
     environment.plugin_enabled?(CommentParagraphPlugin)
   end
 
+  def comment_paragraph_plugin_activation_mode
+    "auto"
+  end
+
 end

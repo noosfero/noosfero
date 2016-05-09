@@ -15,6 +15,7 @@ class DiscussionTest < ActiveSupport::TestCase
     discussion = CommentParagraphPlugin::Discussion.new(profile: profile, name: "discussion", start_date: Time.now, end_date: Time.now + 1.day)
     discussion.body = '<ul><li class="custom_class">item1</li><li>item2</li></ul>'
     discussion.save!
+    assert discussion.comment_paragraph_plugin_activate
     assert_mark_paragraph discussion.body, 'li', 'item1'
     assert_mark_paragraph discussion.body, 'li', 'item2'
   end
