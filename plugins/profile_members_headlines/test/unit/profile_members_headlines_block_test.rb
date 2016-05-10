@@ -1,8 +1,10 @@
 require 'test_helper'
+require 'boxes_helper'
 
 class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
 
   include Noosfero::Plugin::HotSpot
+  include BoxesHelper
 
   def setup
     @environment = fast_create(Environment)
@@ -32,8 +34,8 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block = ProfileMembersHeadlinesBlock.create
     block.stubs(:owner).returns(community)
 
-    self.expects(:render).with(:file => 'blocks/headlines', :locals => { :block => block, :members => []}).returns('file-without-authors-and-headlines')
-    assert_equal 'file-without-authors-and-headlines', instance_eval(&block.content)
+    self.expects(:render).with(:template => 'blocks/profile_members_headlines', :locals => { :block => block }).returns('file-without-authors-and-headlines')
+    assert_equal 'file-without-authors-and-headlines', render_block_content(block)
   end
 
   should 'display headlines file' do
@@ -41,8 +43,8 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block.stubs(:owner).returns(community)
     blog = fast_create(Blog, :profile_id => member1.id)
     post = fast_create(TinyMceArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
-    self.expects(:render).with(:file => 'blocks/headlines', :locals => { :block => block, :members => []}).returns('file-with-authors-and-headlines')
-    assert_equal 'file-with-authors-and-headlines', instance_eval(&block.content)
+    self.expects(:render).with(:template => 'blocks/profile_members_headlines', :locals => { :block => block }).returns('file-with-authors-and-headlines')
+    assert_equal 'file-with-authors-and-headlines', render_block_content(block)
   end
 
   should 'select only authors with articles and selected roles to display' do
