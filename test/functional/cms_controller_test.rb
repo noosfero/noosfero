@@ -1993,6 +1993,39 @@ class CmsControllerTest < ActionController::TestCase
     assert_match main_article.body, @response.body
   end
 
+  should 'set no_design_blocks as false when create a new document without type' do
+    get :new, profile: profile.identifier
+    assert !assigns(:no_design_blocks)
+  end
+
+  should 'set no_design_blocks as false when create a new document with invalid type' do
+    assert_raise RuntimeError do
+      get :new, profile: profile.identifier, type: 'InvalidType'
+      assert !assigns(:no_design_blocks)
+    end
+  end
+
+  [TextileArticle, Event, TinyMceArticle].each do |klass|
+    should "set no_design_blocks as true when create #{klass.name}" do
+      get :new, profile: profile.identifier, type: klass.name
+      assert assigns(:no_design_blocks)
+    end
+  end
+
+  should "set no_design_blocks as false when edit Article" do
+    article = fast_create(Article, profile_id: profile.id)
+    get :edit, profile: profile.identifier, id: article.id
+    assert !assigns(:no_design_blocks)
+  end
+
+  [TextileArticle, Event, TinyMceArticle].each do |klass|
+    should "set no_design_blocks as true when edit #{klass.name}" do
+      article = fast_create(klass, profile_id: profile.id)
+      get :edit, profile: profile.identifier, id: article.id
+      assert assigns(:no_design_blocks)
+    end
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

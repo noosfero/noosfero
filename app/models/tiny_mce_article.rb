@@ -32,4 +32,8 @@ class TinyMceArticle < TextArticle
     true
   end
 
+  def self.can_display_blocks?
+    false
+  end
+
 end

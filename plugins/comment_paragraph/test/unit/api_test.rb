@@ -81,4 +81,13 @@ class APITest <  ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equivalent [comment1.id], json['comments'].map {|c| c['id']}
   end
+
+  should "create discussion article" do
+    article = fast_create(Article, :profile_id => person.id)
+    params[:article] = {name: "Title", type: "CommentParagraphPlugin::Discussion"}
+    post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "CommentParagraphPlugin::Discussion", json["article"]["type"]
+    assert json["article"]["setting"]["comment_paragraph_plugin_activate"]
+  end
 end

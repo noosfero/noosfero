@@ -12,7 +12,7 @@ class Article
   settings_items :comment_paragraph_plugin_activate, :type => :boolean, :default => false
 
   def comment_paragraph_plugin_enabled?
-    environment.plugin_enabled?(CommentParagraphPlugin) && self.kind_of?(TextArticle)
+    environment.plugin_enabled?(CommentParagraphPlugin) && (self.kind_of?(TextArticle) || self.kind_of?(CommentParagraphPlugin::Discussion))
   end
 
   def comment_paragraph_plugin_activated?
@@ -55,7 +55,11 @@ class Article
 
   def comment_paragraph_plugin_set_initial_value
     self.comment_paragraph_plugin_activate = comment_paragraph_plugin_enabled? &&
-      comment_paragraph_plugin_settings.activation_mode == 'auto'
+      comment_paragraph_plugin_activation_mode == 'auto'
+  end
+
+  def comment_paragraph_plugin_activation_mode
+    comment_paragraph_plugin_settings.activation_mode
   end
 
   def comment_paragraph_plugin_settings

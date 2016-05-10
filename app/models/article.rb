@@ -864,6 +864,10 @@ class Article < ApplicationRecord
     HashWithIndifferentAccess.new :name => name, :abstract => abstract, :body => body, :id => id, :parent_id => parent_id, :author => author
   end
 
+  def self.can_display_blocks?
+    true
+  end
+
   private
 
   def sanitize_tag_list

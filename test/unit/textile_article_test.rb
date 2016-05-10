@@ -178,6 +178,10 @@ class TextileArticleTest < ActiveSupport::TestCase
     assert a.can_display_media_panel?
   end
 
+  should 'have can_display_blocks with default false' do
+    assert !TextileArticle.can_display_blocks?
+  end
+
   protected
 
   def build_article(input = nil, options = {})
