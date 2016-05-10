@@ -5,7 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @article = fast_create(TextArticle, :profile_id => profile.id)
+    @article = fast_create(TinyMceArticle, :profile_id => profile.id)
     @environment = Environment.default
     @environment.enable_plugin(CommentParagraphPlugin)
   end
