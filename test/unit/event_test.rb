@@ -333,4 +333,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 1, e.duration
   end
 
+  should 'have can_display_blocks with default false' do
+    assert !Event.can_display_blocks?
+  end
 end

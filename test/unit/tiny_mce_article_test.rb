@@ -237,4 +237,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert a.can_display_media_panel?
   end
 
+  should 'have can_display_blocks with default false' do
+    assert !TinyMceArticle.can_display_blocks?
+  end
 end

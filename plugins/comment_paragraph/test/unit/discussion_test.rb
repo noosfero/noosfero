@@ -29,4 +29,8 @@ class DiscussionTest < ActiveSupport::TestCase
     discussion = CommentParagraphPlugin::Discussion.create!(profile: profile, name: "discussion", start_date: Time.now + 1.day, end_date: Time.now + 2.days)
     assert !discussion.accept_comments?
   end
+
+  should 'have can_display_blocks with default false' do
+    assert !CommentParagraphPlugin::Discussion.can_display_blocks?
+  end
 end

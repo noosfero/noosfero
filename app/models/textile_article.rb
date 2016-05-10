@@ -29,6 +29,10 @@ class TextileArticle < TextArticle
     true
   end
 
+  def self.can_display_blocks?
+    false
+  end
+
   protected
 
   def convert_to_html(textile)

@@ -2327,4 +2327,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match 'Parent folder is archived', err.message
   end
 
+  should 'have can_display_blocks with default true' do
+    assert Article.can_display_blocks?
+  end
 end
