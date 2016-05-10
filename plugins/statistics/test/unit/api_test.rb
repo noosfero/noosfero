@@ -19,10 +19,12 @@ class ApiTest < ActiveSupport::TestCase
       block = StatisticsBlock.create!(:box_id => box.id)
       block.send("#{counter_attr}=", true)
       block.save
+      StatisticsBlock.any_instance.stubs(counter_method).returns(20)
       get "/api/v1/profiles/#{person.id}/boxes?#{params.to_query}"
-  
       json = JSON.parse(last_response.body)
-      assert_not_nil json["boxes"].first['blocks'].first[counter_method.to_s]
+      statistics = json['boxes'].first['blocks'].first['statistics']
+      statistic_for_method = statistics.select {|statistic| statistic if statistic['name'].eql? counter_method.to_s }
+      assert_equal statistic_for_method.first['quantity'], 20
     end
 
     define_method "test_should_not_return_#{counter_method}_attribute_in_statistics_block_if_#{counter_attr} is false" do
@@ -31,10 +33,12 @@ class ApiTest < ActiveSupport::TestCase
       block = StatisticsBlock.create!(:box_id => box.id)
       block.send("#{counter_attr}=", false)
       block.save
+      StatisticsBlock.any_instance.stubs(counter_method).returns(20)
       get "/api/v1/profiles/#{person.id}/boxes?#{params.to_query}"
-  
       json = JSON.parse(last_response.body)
-      assert_nil json["boxes"].first['blocks'].first[counter_method]
+      statistics = json['boxes'].first['blocks'].first['statistics']
+      statistic_for_method = statistics.select {|statistic| statistic if statistic['name'].eql? counter_method.to_s }
+      assert_nil statistic_for_method.first["quantity"]
     end
   end
 
