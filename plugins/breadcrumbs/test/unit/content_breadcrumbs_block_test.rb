@@ -45,6 +45,6 @@ class ContentBreadcrumbsBlockViewTest < ActionView::TestCase
 
   should 'render nothing if there is no links to show' do
     @page = nil
-    assert_equal "\n", render_block_content(@block)
+    assert_equal '', render_block_content(@block)
   end
 end
