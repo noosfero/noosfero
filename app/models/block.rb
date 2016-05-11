@@ -314,6 +314,14 @@ class Block < ApplicationRecord
     self.observers << block
   end
 
+  def api_content
+    nil
+  end
+
+  def display_api_content_by_default?
+    false
+  end
+
   private
 
   def home_page_path

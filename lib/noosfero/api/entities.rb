@@ -88,6 +88,7 @@ module Noosfero
         root 'blocks', 'block'
         expose :id, :type, :settings, :position, :enabled
         expose :mirror, :mirror_block_id, :title
+        expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? }
       end
 
       class Box < Entity

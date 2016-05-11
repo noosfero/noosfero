@@ -9,7 +9,7 @@ module Noosfero
             if block.owner.kind_of?(Profile)
               return forbidden! unless block.owner.display_info_to?(current_person)
             end
-            present block, :with => Entities::Block
+            present block, :with => Entities::Block, display_api_content: true
           end
         end
       end

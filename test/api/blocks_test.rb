@@ -62,4 +62,25 @@ class BlocksTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal block.id, json["block"]["id"]
   end
+
+  should 'display api content by default' do
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)
+    block = fast_create(Block, box_id: box.id)
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json["block"].key?('api_content')
+  end
+
+  should 'display api content of a specific block' do
+    class SomeBlock < Block
+      def api_content
+        {some_content: { name: 'test'} }
+      end
+    end
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)
+    block = fast_create(SomeBlock, box_id: box.id)
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "test", json["block"]["api_content"]["some_content"]["name"]
+  end
 end
