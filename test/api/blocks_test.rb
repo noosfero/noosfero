@@ -83,4 +83,15 @@ class BlocksTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal "test", json["block"]["api_content"]["some_content"]["name"]
   end
+
+  should 'display api content of raw html block' do
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)
+    block = fast_create(RawHTMLBlock, box_id: box.id)
+    block.html = '<div>test</div>'
+    block.save!
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "<div>test</div>", json["block"]["api_content"]["html"]
+  end
+
 end
