@@ -31,6 +31,10 @@ class ActiveSupport::TestCase
     @params[:private_token] = @private_token
   end
 
+  def logout_api
+    @params.delete(:private_token)
+  end
+
   attr_accessor :private_token, :user, :person, :params, :environment
 
   private
