@@ -142,4 +142,18 @@ class RecentContentBlockViewTest < ActionView::TestCase
 
     assert_match /Block Title/, content
   end
+
+  should 'return articles in api_content' do
+    profile = create_user('testuser').person
+
+    root = fast_create(Blog, name: 'test-blog', profile_id: profile.id)
+    article = fast_create(TextArticle, parent_id: root.id, profile_id: profile.id)
+
+    block = RecentContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.selected_folder = root.id
+    block.presentation_mode = ''
+    assert_equal [article.id], block.api_content['articles'].map {|a| a[:id]}
+  end
+
 end
