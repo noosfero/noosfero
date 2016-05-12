@@ -38,4 +38,13 @@ class BoxesTest < ActiveSupport::TestCase
     assert_equal box.id, json["boxes"].first["id"]
   end
 
+  should 'not display block api_content by default' do
+    Environment.delete_all
+    environment = fast_create(Environment, :is_default => true)
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
+    block = fast_create(Block, box_id: box.id)
+    get "/api/v1/environments/default/boxes?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert !json["boxes"].first["blocks"].first.key?('api_content')
+  end
 end

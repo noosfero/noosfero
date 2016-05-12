@@ -365,4 +365,64 @@ class BlockTest < ActiveSupport::TestCase
     assert block.get_limit.is_a?(Fixnum)
   end
 
+  should 'return true at visible_to_user? when block is visible' do
+    block = Block.new
+    person = create_user('person_one').person
+    assert block.visible_to_user?(person)
+  end
+
+  should 'return false at visible_to_user? when block is not visible and user is nil' do
+    block = Block.new
+    person = create_user('person_one').person
+    block.stubs(:owner).returns(person)
+    block.expects(:visible?).returns(false)
+    assert !block.visible_to_user?(nil)
+  end
+
+  should 'return false at visible_to_user? when block is not visible and user does not has permission' do
+    block = Block.new
+    person = create_user('person_one').person
+    community = fast_create(Community)
+    block.stubs(:owner).returns(community)
+    block.expects(:visible?).returns(false)
+    assert !block.visible_to_user?(person)
+  end
+
+  should 'return true at visible_to_user? when block is not visible and user has permission' do
+    block = Block.new
+    person = create_user('person_one').person
+    community = fast_create(Community)
+    give_permission(person, 'edit_profile_design', community)
+    block.stubs(:owner).returns(community)
+    block.expects(:visible?).returns(false)
+    assert block.visible_to_user?(person)
+  end
+
+  should 'return false at visible_to_user? when block is not visible and user does not has permission in environment' do
+    block = Block.new
+    environment = Environment.default
+    person = create_user('person_one').person
+    block.stubs(:owner).returns(environment)
+    block.expects(:visible?).returns(false)
+    assert !block.visible_to_user?(person)
+  end
+
+  should 'return true at visible_to_user? when block is not visible and user has permission in environment' do
+    block = Block.new
+    environment = Environment.default
+    person = create_user('person_one').person
+    give_permission(person, 'edit_environment_design', environment)
+    block.stubs(:owner).returns(environment)
+    block.expects(:visible?).returns(false)
+    assert block.visible_to_user?(person)
+  end
+
+  should 'return false at visible_to_user? when block is not visible to user' do
+    block = Block.new
+    person = create_user('person_one').person
+    block.stubs(:owner).returns(person)
+    block.expects(:visible?).returns(true)
+    block.expects(:display_to_user?).returns(false)
+    assert !block.visible_to_user?(nil)
+  end
 end

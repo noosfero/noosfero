@@ -128,4 +128,12 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
     box.expects(:owner).returns(Environment.new).at_least_once
     assert_equal '', render_block_footer(block)
   end
+
+  should 'return articles in api_content' do
+    profile = fast_create(Profile)
+    article = fast_create(TextArticle, profile_id: profile.id)
+    block = RecentDocumentsBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_equal [article.id], block.api_content['articles'].map {|a| a[:id]}
+  end
 end
