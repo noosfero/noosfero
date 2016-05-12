@@ -6,6 +6,7 @@ module Noosfero
   module API
 
     class NoosferoFederation < Grape::API
+      helpers APIHelpers
       before { detect_stuff_by_domain }
       format :json
       content_type :json, "application/jrd+json"
