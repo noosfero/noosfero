@@ -29,4 +29,12 @@ class RecentDocumentsBlock < Block
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
   end
+
+  def api_content
+    Noosfero::API::Entities::ArticleBase.represent(docs).as_json
+  end
+
+  def display_api_content_by_default?
+    false
+  end
 end
