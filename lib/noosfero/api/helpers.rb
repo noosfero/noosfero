@@ -1,9 +1,11 @@
 require 'grape'
+require 'base64'
+require 'tempfile'
 require_relative '../../find_by_contents'
 
-  module Noosfero;
-    module API
-      module APIHelpers
+module Noosfero;
+  module API
+    module APIHelpers
       PRIVATE_TOKEN_PARAM = :private_token
       DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id, :identifier, :archived]
 
@@ -231,7 +233,7 @@ require_relative '../../find_by_contents'
         else
           created_at = scope.find(reference_id).created_at
           scope.send("#{params.key?(:oldest) ? 'older_than' : 'younger_than'}", created_at)
-         end
+        end
       end
 
       def by_categories(scope, params)
@@ -368,6 +370,30 @@ require_relative '../../find_by_contents'
         not_found! if Noosfero::API::API.endpoint_unavailable?(self, @environment)
       end
 
+      def asset_with_image params
+        if params.has_key? :image_builder
+          asset_api_params = params
+          asset_api_params[:image_builder] = base64_to_uploadedfile(asset_api_params[:image_builder])
+          return asset_api_params
+        end
+          params
+      end
+
+      def base64_to_uploadedfile(base64_image)
+        tempfile = base64_to_tempfile base64_image
+        converted_image = base64_image
+        converted_image[:tempfile] = tempfile
+        return {uploaded_data: ActionDispatch::Http::UploadedFile.new(converted_image)}
+      end
+
+      def base64_to_tempfile base64_image
+        base64_img_str = base64_image[:tempfile]
+        decoded_base64_str = Base64.decode64(base64_img_str)
+        tempfile = Tempfile.new(base64_image[:filename])
+        tempfile.write(decoded_base64_str.encode("ascii-8bit").force_encoding("utf-8"))
+        tempfile.rewind
+        tempfile
+      end
       private
 
       def parser_params(params)
@@ -394,7 +420,6 @@ require_relative '../../find_by_contents'
         end_period = until_date.nil? ? DateTime.now : until_date
         begin_period..end_period
       end
-
     end
   end
 end
