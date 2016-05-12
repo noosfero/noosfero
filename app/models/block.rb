@@ -76,6 +76,17 @@ class Block < ApplicationRecord
     true
   end
 
+  def visible_to_user?(user)
+    visible = self.display_to_user?(user)
+    if self.owner.kind_of?(Profile)
+      visible &= self.owner.display_info_to?(user)
+      visible &= (self.visible? || user && user.has_permission?(:edit_profile_design, self.owner))
+    elsif self.owner.kind_of?(Environment)
+      visible &= (self.visible? || user && user.has_permission?(:edit_environment_design, self.owner))
+    end
+    visible
+  end
+
   def display_to_user?(user)
     display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged') || (user && display_user == 'followers' && user.follows?(owner))
   end

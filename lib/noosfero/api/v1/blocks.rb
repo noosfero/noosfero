@@ -6,9 +6,7 @@ module Noosfero
         resource :blocks do
           get ':id' do
             block = Block.find(params["id"])
-            if block.owner.kind_of?(Profile)
-              return forbidden! unless block.owner.display_info_to?(current_person)
-            end
+            return forbidden! unless block.visible_to_user?(current_person)
             present block, :with => Entities::Block, display_api_content: true
           end
         end
