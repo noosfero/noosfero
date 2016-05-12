@@ -97,15 +97,6 @@ class EventBlockTest < ActiveSupport::TestCase
     assert_match /Today/, @block.human_time_left(0)
   end
 
-  should 'write formatable data in html' do
-    html = '<span class="week-day">Tue</span>'+
-           '<span class="month">Sep</span>'+
-           '<span class="day">27</span>'+
-           '<span class="year">1983</span>'
-
-    assert_equal html, @block.date_to_html(Date.new 1983, 9, 27)
-  end
-
   should 'show unlimited time distance events' do
     @block.box.owner = @env
     @block.all_env_events = true

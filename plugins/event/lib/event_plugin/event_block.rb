@@ -1,6 +1,4 @@
 class EventPlugin::EventBlock < Block
-  include DatesHelper
-
   attr_accessible :all_env_events, :limit, :future_only, :date_distance_limit
 
   settings_items :all_env_events, :type => :boolean, :default => false
@@ -72,13 +70,6 @@ class EventPlugin::EventBlock < Block
     else
       n_('One month left to start', '%d months left to start', months_left) % months_left
     end
-  end
-
-  def date_to_html(date)
-    content_tag(:span, show_day_of_week(date, true), :class => 'week-day') +
-    content_tag(:span, month_name(date.month, true), :class => 'month') +
-    content_tag(:span, date.day.to_s, :class => 'day') +
-    content_tag(:span, date.year.to_s, :class => 'year')
   end
 
   def self.expire_on
