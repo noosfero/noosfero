@@ -47,16 +47,6 @@ class EventPlugin::EventBlock < Block
     event_list
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render(
-        :file => 'blocks/event',
-        :locals => { :block => block }
-      )
-    end
-  end
-
   def human_time_left(days_left)
     months_left = (days_left/30.0).round
     if days_left <= -60
