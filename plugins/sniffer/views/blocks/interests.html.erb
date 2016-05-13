@@ -2,14 +2,14 @@
 
 <% if block.owner.is_a?(Profile) %>
   <ul>
-    <% interests.each do |interest| %>
+    <% block.interests.each do |interest| %>
       <li><%= interest.product_category.name %></li>
     <% end %>
   </ul>
 
   <div>
     <% if logged_in? and (current_user.person.is_admin?(environment) or profile.admins.include?(current_user.person)) %>
-      <%= _('Edit %{inputs} and %{interests}') % {
+      <%= _('Edit %{inputs} and %{block.interests}') % {
         :inputs => link_to(_("products' inputs"), :controller => :manage_products, :action => :index),
         :interests => link_to(_('declared interests'), :controller => :sniffer_plugin_myprofile, :action => :edit),
       } %>
@@ -17,7 +17,7 @@
   </div>
 <% else %>
   <ul>
-    <% interests.each do |interest| %>
+    <% block.interests.each do |interest| %>
       <li>
         <% profile = interest.is_a?(SnifferPlugin::Opportunity) ? interest.profile : interest.product.enterprise %>
         <%= _('%{interest} from %{profile}') % {
