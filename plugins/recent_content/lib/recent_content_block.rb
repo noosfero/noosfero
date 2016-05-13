@@ -33,7 +33,7 @@ class RecentContentBlock < Block
   end
 
   def parents
-    self.holder.articles.where(type: 'Blog')
+    self.holder.nil? ? [] : self.holder.articles.where(type: 'Blog')
   end
 
   def root
