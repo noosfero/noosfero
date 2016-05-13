@@ -1,4 +1,4 @@
-class AdminNotificationsPlugin::NotificationsUser < ActiveRecord::Base
+class AdminNotificationsPlugin::NotificationsUser < ApplicationRecord
   self.table_name = "admin_notifications_plugin_notifications_users"
 
   belongs_to :user

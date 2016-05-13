@@ -1,4 +1,4 @@
-class AdminNotificationsPlugin::Notification < ActiveRecord::Base
+class AdminNotificationsPlugin::Notification < ApplicationRecord
 
   self.table_name = "admin_notifications_plugin_notifications"
 
