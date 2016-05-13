@@ -22,7 +22,7 @@
   <% @notifications.each do |notification| %>
     <div class="<%= notification.type.gsub("AdminNotificationsPlugin::", "").downcase %> notification" data-notification="<%=notification.id%>" notification-display-popup="<%=notification.display_popup?%>">
       <div class="notification-message">
-        <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user) %>
+        <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user).html_safe %>
       </div>
       <% if logged_in? %>
         <div class="notification-close" title="<%= _('Do not show anymore') %>"></div>
