@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
 <% else %>
-  <%= _('Portal identifier: %s') % link_to(@portal_community.identifier, @portal_community.url) %>
+  <%= _('Portal identifier: %s').html_safe % link_to(@portal_community.identifier, @portal_community.url) %>
 
   <% button_bar do %>
     <%if @portal_community.environment.enabled?('use_portal_community') %>
