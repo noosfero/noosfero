@@ -1,7 +1,7 @@
 <h1>API Playground</h1>
 
 <script>
-<% prefix = Noosfero::API::API.prefix %>
+<% prefix = Api::App.prefix %>
 var prefix = <%= prefix.to_json %>;
 var endpoints = <%=
 endpoints.map do |endpoint|

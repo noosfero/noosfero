@@ -39,6 +39,7 @@ module Noosfero
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << config.root.join('lib')
+    config.autoload_paths << config.root.join('app')
     config.autoload_paths << config.root.join('app/jobs')
     config.autoload_paths << config.root.join('app/sweepers')
     config.autoload_paths.concat Dir["#{config.root}/app/controllers/**/"]

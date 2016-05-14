@@ -56,7 +56,7 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
   def self.api_mount_points
-    [CommentParagraphPlugin::API]
+    [CommentParagraphPlugin::Api]
   end
 
   def content_types

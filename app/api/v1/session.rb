@@ -1,7 +1,7 @@
 require "uri"
 
-module Noosfero
-  module API
+module Api
+  module V1
     class Session < Grape::API
 
       # Login to get token

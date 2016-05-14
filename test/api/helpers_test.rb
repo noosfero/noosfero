@@ -1,10 +1,9 @@
 require_relative 'test_helper'
-require "base64"
-require 'noosfero/api/helpers'
+require 'base64'
 
-class APIHelpersTest < ActiveSupport::TestCase
+class Api::HelpersTest < ActiveSupport::TestCase
 
-  include Noosfero::API::APIHelpers
+  include Api::Helpers
 
   def setup
     create_and_activate_user
@@ -206,7 +205,7 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'render not_found if endpoint is unavailable' do
-    Noosfero::API::API.stubs(:endpoint_unavailable?).returns(true)
+    Api::App.stubs(:endpoint_unavailable?).returns(true)
     self.expects(:not_found!)
 
     filter_disabled_plugins_endpoints
