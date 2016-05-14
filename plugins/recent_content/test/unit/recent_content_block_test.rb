@@ -100,7 +100,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = 'title_only'
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
@@ -118,7 +118,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = 'title_and_abstract'
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
@@ -136,7 +136,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = ''
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
