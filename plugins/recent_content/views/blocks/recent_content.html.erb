@@ -36,7 +36,9 @@
       <% end %>
       </div>
     <% end %>
-    <%= link_to _('View All'), :profile => profile.identifier, :controller => 'content_viewer', :action => 'view_page', :page => block.root.path %>
+    <% if profile %>
+      <%= link_to _('View All'), :profile => profile.identifier, :controller => 'content_viewer', :action => 'view_page', :page => block.root.path %>
+    <% end %>
   </div>
 <% else %>
   <span class="alert-block">
