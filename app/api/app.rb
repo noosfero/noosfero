@@ -11,7 +11,7 @@ module Api
     rescue_from :all do |e|
       logger.error e
       error! e.message, 500
-    end
+    end unless Rails.env.test?
 
     @@NOOSFERO_CONF = nil
     def self.NOOSFERO_CONF
