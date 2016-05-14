@@ -17,6 +17,7 @@ module Noosfero
     end
 
     def self.setup!(host)
+      return unless Noosfero::MultiTenancy.on?
       Noosfero::MultiTenancy.db_by_host = host
     end
 

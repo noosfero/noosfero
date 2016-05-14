@@ -1,7 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
 
-  self.abstract_class = true
-
+  self.abstract_class       = true
+  self.store_full_sti_class = true
 
   # an ActionView instance for rendering views on models
   def self.action_view

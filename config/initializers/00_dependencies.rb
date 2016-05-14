@@ -12,6 +12,9 @@ vendor.each do |dir|
   require init_rb if File.file? init_rb
 end
 
+# extensions
+require 'extensions'
+
 # locally-developed modules
 require 'acts_as_filesystem'
 require 'acts_as_having_settings'

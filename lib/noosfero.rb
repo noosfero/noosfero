@@ -1,4 +1,5 @@
-# encoding: utf-8
+require_relative 'noosfero/version'
+require_relative 'noosfero/constants'
 
 module Noosfero
 
@@ -106,6 +107,3 @@ module Noosfero
 
 end
 
-require 'noosfero/version'
-require 'noosfero/constants'
-require 'noosfero/core_ext'
