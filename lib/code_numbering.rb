@@ -55,4 +55,4 @@ module CodeNumbering
   end
 end
 
-ApplicationRecord.extend CodeNumbering::ClassMethods
+ActiveRecord::Base.extend CodeNumbering::ClassMethods
