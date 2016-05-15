@@ -61,7 +61,7 @@ module Api
     @plugins.each do |klass|
       if klass.public_methods.include? :api_mount_points
         klass.api_mount_points.each do |mount_class|
-            mount mount_class if mount_class && ( mount_class < Grape::API )
+          mount mount_class if mount_class && ( mount_class < Grape::API )
         end
       end
     end

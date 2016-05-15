@@ -1,4 +1,7 @@
-class CommentParagraphPlugin::Api < Grape::API
+# Can't be called Api as will result in:
+# warning: toplevel constant Api referenced by CommentParagraphPlugin::Api
+# To fix this CommentParagraphPlugin should be a module
+class CommentParagraphPlugin::API < Grape::API
   MAX_PER_PAGE = 20
 
   resource :articles do
