@@ -5,24 +5,16 @@ class ElasticsearchPluginController < ApplicationController
     @results = []
     @query = params[:q]
     @checkbox = {}
-    terms = get_terms(params)
-    puts "=" * 80, terms, "=" * 80
+
     if params[:model].present?
       params[:model].keys.each do |model|
         @checkbox[model.to_sym] = true
         klass = model.classify.constantize
         query = get_query params[:q], klass
-        @results += klass.__elasticsearch__.search(query).records.to_a
+        @results |= klass.__elasticsearch__.search(query).records.to_a
       end
     end
 
-    if params[:filter].present?
-      params[:filter].keys.each do |model|
-        params[:filter][model].keys.each do |filter|
-          @checkbox[filter.to_sym] = true
-        end
-      end
-    end
   end
 
   private
