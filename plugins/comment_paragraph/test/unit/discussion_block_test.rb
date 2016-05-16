@@ -188,4 +188,17 @@ class DiscussionBlockViewTest < ActionView::TestCase
     assert_equivalent [a2.id, a1.id], b.api_content['articles'].map {|a| a[:id]}
   end
 
+  should 'sort discussions by start_date, end_date and created_at' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.save
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
+    assert_equal [a1.id, a2.id, a3.id, a4.id], b.discussions.map(&:id)
+  end
+
 end
