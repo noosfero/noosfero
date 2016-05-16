@@ -3,7 +3,7 @@
 
 <h1><%= _('Editing sideboxes')%></h1>
 
-<% button_bar :class=>'design-menu' do %>
+<%= button_bar :class=>'design-menu' do %>
   <%= button(:back, _('Back to control panel'), :controller => (profile.nil? ? 'admin_panel': 'profile_editor')) %>
 <% end %>
 

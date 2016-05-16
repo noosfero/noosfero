@@ -4,6 +4,6 @@
 
 <%= render :partial => 'shared/template_welcome_page', :locals => {:template => @community.template, :header => _("What can I do with a %s?")} %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :back, _('Back'), @back_to %>
 <% end %>

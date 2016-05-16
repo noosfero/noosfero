@@ -4,14 +4,14 @@
   <%= form_tag do %>
     <%= labelled_form_field(_('Portal identifier'), text_field_tag('portal_community_identifier', @portal_community.identifier, :size => 40) ) %>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button 'save', _('Save'), :cancel => { :action => 'index' }  %>
     <% end %>
   <% end %>
 <% else %>
   <%= _('Portal identifier: %s').html_safe % link_to(@portal_community.identifier, @portal_community.url) %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%if @portal_community.environment.enabled?('use_portal_community') %>
       <%= button 'cancel', _('Disable'), {:action => 'manage_portal_community', :activate => 0} %>
     <% else %>

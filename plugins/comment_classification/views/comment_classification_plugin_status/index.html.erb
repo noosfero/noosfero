@@ -25,7 +25,7 @@
     </table>
   <% end %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= button(:add, _('Add a new status'), :action => 'create')%>
     <%= button :back, c_('Back to admin panel'), :controller => 'admin_panel' %>
   <% end %>

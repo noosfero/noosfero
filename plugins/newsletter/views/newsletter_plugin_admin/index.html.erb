@@ -85,7 +85,7 @@
       :id => 'newsletter-footer-field'
     ))
   %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= submit_button :save, _('Save and visualize'), :name => "visualize", :cancel => {:controller => 'plugins'}  %>
   <% end %>

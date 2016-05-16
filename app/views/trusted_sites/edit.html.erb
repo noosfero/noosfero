@@ -5,7 +5,7 @@
   <%= text_field_tag :site, @site %>
   <%= hidden_field_tag :orig_site, @site %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', _('Save changes'), :cancel => {:action => 'index'} ) %>
   <% end %>
 <% end %>

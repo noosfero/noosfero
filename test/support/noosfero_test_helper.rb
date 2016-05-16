@@ -1,13 +1,8 @@
+##
+# DEPRECATED ActionView::TestCase already provide all needed
+#
 module NoosferoTestHelper
 
-  def link_to(content, url, options = {})
-    "<a href='#{url.inspect}'>#{content}</a>"
-  end
-
-  def content_tag(tag, content, options = {})
-    tag_attr = options.blank? ? '' : ' ' + options.collect{ |o| "#{o[0]}=\"#{o[1]}\"" }.join(' ')
-    "<#{tag}#{tag_attr}>#{content}</#{tag}>"
-  end
 
   def submit_tag(content, options = {})
     content
@@ -15,11 +10,6 @@ module NoosferoTestHelper
 
   def remote_function(options = {})
     ''
-  end
-
-  def tag(tag, args = {})
-    attrs = args.map{|k,v| "#{k}='#{v}'"}.join(' ')
-    "<#{tag} #{attrs} />"
   end
 
   def options_from_collection_for_select(collection, value_method, content_method)

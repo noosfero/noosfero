@@ -5,7 +5,7 @@
       <%= item.name %>
       <%= form_tag :action => 'add', :id => @region do %>
         <%= hidden_field_tag :validator_id, item.id %>
-        <% button_bar do %>
+        <%= button_bar do %>
           <%= submit_button('add', _('Add')) %>
         <% end %>
       <% end %>

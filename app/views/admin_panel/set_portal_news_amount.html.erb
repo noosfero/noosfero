@@ -6,7 +6,7 @@
   <%= labelled_form_field _('Number of portal news'), select(:environment, :portal_news_amount, (0..10).to_a) %>
   <%= labelled_form_field _('Number of news by folder'), select(:environment, :news_amount_by_folder, (1..10).to_a) %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, _('Save')) %>
     <%= button(:cancel, _('Cancel'), :action => 'index') %>
   <% end %>

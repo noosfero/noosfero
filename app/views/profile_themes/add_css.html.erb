@@ -3,7 +3,7 @@
 <%= form_tag do %>
   <%= labelled_form_field(_('File name'), text_field_tag('css')) %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:add, _('Add')) %>
     <%= modal_close_button _('Cancel') %>
   <% end %>

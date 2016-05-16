@@ -7,7 +7,7 @@
   <h3><%= t('push_notification_plugin.lib.plugin.enabled_notifications')%></h3>
   <%= render partial: "notification_events_form", locals:{f: f, settings: @settings} %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins'}) %>
   <% end %>
 

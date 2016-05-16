@@ -20,7 +20,7 @@
   <% tabs << {:title => _('Signup introduction text'), :id => 'signup-intro',
     :content => (render :partial => 'signup_intro', :locals => {:f => f})} %>
   <%= render_tabs(tabs) %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, _('Save'), :cancel => {:action => 'index'}) %>
   <% end %>
 <% end %>

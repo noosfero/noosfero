@@ -13,7 +13,7 @@
     <%= labelled_form_field _('Limit of voters to display:'), f.text_field(:voters_limit, :size => 3) %>
   </strong>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
   <% end %>
 

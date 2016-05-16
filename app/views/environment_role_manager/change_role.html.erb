@@ -7,7 +7,7 @@
   <% end %>
   <%= hidden_field_tag 'person', @admin.id %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', _('Save changes'), :cancel => {:action => 'index'})  %>
   <% end %>
 <% end %>

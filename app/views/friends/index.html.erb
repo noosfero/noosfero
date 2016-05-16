@@ -12,7 +12,7 @@
     </p>
   <% end %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
     <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>

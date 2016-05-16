@@ -24,7 +24,7 @@
       { :hint_text => _('Type in the person\'s %{search_fields}') % {:search_fields => @search_fields},
         :focus => false }) %>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button('save', _('Invite'))%>
       <%= button('cancel', _('Cancel'), profile.url)%>
     <% end %>

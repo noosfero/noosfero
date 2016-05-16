@@ -30,7 +30,7 @@
       <%= button(:cancel, _('Withhold'), {:action => 'withhold'}, :title => _('Cancel next scheduled scans')) if @settings.deployed %>
     <% end %>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
     <% end %>
   </div>

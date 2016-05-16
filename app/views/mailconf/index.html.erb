@@ -6,7 +6,7 @@
 
   <p><%= _('You already request activation of your mailbox. Please wait until an administrator approves your request.') %></p>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
   <% end %>
 
@@ -21,10 +21,10 @@
     <h2><%= _('Configuration') %></h2>
     <ul>
       <li>
-      <%= link_to _('Mail configuration for POP and IMAP'), 'http://www.ynternet.org/move/infos-technique-pour-utiliser-multypass-pop3-smtp-imap-ftp-quotas...' %>  
+      <%= link_to _('Mail configuration for POP and IMAP'), 'http://www.ynternet.org/move/infos-technique-pour-utiliser-multypass-pop3-smtp-imap-ftp-quotas...' %>
       </li>
     </ul>
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
     <% end %>
 
@@ -33,7 +33,7 @@
     <h2><%= _("Enable e-Mail account below:") %></h2>
     <ul><%= safe_join(profile.email_addresses.map{|i| content_tag('li', i)}, "\n") %></ul>
     <blockquote><%= _("You'll be able to access a webmail from your user menu.") %></blockquote>
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= button(:ok, _('Enable e-Mail'), { :action => 'enable' }, :method => 'post') %>
       <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
     <% end %>

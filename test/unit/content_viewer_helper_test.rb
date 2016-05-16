@@ -3,6 +3,8 @@ require_relative "../test_helper"
 class ContentViewerHelperTest < ActionView::TestCase
 
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::TextHelper
+
   include ContentViewerHelper
   include DatesHelper
   include ApplicationHelper
@@ -146,13 +148,6 @@ class ContentViewerHelperTest < ActionView::TestCase
     article.save!
     result = show_with_right_format_date article
     assert_match /February 1, 2007/, result
-  end
-
-  protected
-  include NoosferoTestHelper
-  include ActionView::Helpers::TextHelper
-  def url_for(args = {})
-    ['http:/', args[:host], args[:profile], args[:page]].join('/')
   end
 
 end

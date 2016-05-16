@@ -16,7 +16,7 @@
   </div>
   <% end %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', (mode == :edit) ? _('Save changes') : _('Create role'), :cancel => {:action => 'index'} ) %>
   <% end %>
 <% end %>

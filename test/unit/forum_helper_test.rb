@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ForumHelperTest < ActiveSupport::TestCase
+class ForumHelperTest < ActionView::TestCase
 
   include BlogHelper
   include ForumHelper
@@ -58,7 +58,7 @@ class ForumHelperTest < ActiveSupport::TestCase
     assert_match result, out
     assert_match 'a2', out
 
-    assert_match(/#{result} by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
+    assert_match(/#{result} by <a href="[^"]+">a2<\/a>/, last_topic_update(some_post))
   end
 
   should "return last comment author's name from unauthenticated user" do

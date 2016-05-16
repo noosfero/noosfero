@@ -12,7 +12,7 @@
     <% end %>
   </strong>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Yes, I want.') %>
     <%= button :cancel, _("No, I don't want."), @article.url %>
   <% end %>

@@ -1,4 +1,17 @@
 module ButtonsHelper
+
+  def button_bar(options = {}, &block)
+    options[:class] ||= ''
+    options[:class] << ' button-bar'
+
+    content_tag :div, options do
+      [
+        capture(&block).to_s,
+        tag(:br, style: 'clear: left;'),
+      ].safe_join
+    end
+  end
+
   def button(type, label, url, html_options = {})
     html_options ||= {}
     the_class = 'with-text'

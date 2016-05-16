@@ -7,7 +7,7 @@
   <%= labelled_form_field(f.check_box(:enabled) + _('Enable this status?'),'') %>
   <%#= labelled_form_field(f.check_box(:enable_reason) + _('This status allows reason?'),'') %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', c_('Save'), :cancel => {:action => 'index'}  ) %>
   <% end %>
 <% end %>

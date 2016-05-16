@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 
-class EnterpriseHomepageHelperTest < ActiveSupport::TestCase
+class EnterpriseHomepageHelperTest < ActionView::TestCase
 
   include ProductsPlugin::EnterpriseHomepageHelper
 
@@ -56,8 +56,5 @@ class EnterpriseHomepageHelperTest < ActiveSupport::TestCase
     assert_no_match /Distance:/, result
     assert_no_match /100.34/, result
   end
-
-  protected
-  include NoosferoTestHelper
 
 end

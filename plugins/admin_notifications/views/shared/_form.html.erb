@@ -31,7 +31,7 @@
       <%= labelled_check_box(_("Display popup until user close the notification"), 'notifications[display_popup]', '1', @notification.display_popup?) %>
     </div>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button 'save', _('Save'), :cancel => { :action => 'index' }  %>
     <% end %>
 

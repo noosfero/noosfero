@@ -233,13 +233,6 @@ module ApplicationHelper
     link_to(content_tag('span', text), url, html_options.merge(:class => the_class, :title => text))
   end
 
-  def button_bar(options = {}, &block)
-    options[:class].nil? ?
-      options[:class]='button-bar' :
-      options[:class]+=' button-bar'
-    concat(content_tag('div', capture(&block).to_s + tag('br', :style => 'clear: left;'), options))
-  end
-
   def render_profile_actions klass
     name = klass.to_s.underscore
     begin

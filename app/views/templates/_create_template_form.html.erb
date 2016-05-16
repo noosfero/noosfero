@@ -11,7 +11,7 @@
 <%= form_tag do %>
   <%= labelled_text_field(_('Name')+': ', :name)%>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', _('Save'))%>
     <%= button('cancel', _('Cancel'), {:action => 'index'})%>
   <% end %>

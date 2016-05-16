@@ -15,7 +15,7 @@
       <li><%= link_to_remote(css, :url => { :action => 'css_editor', :id => @theme.id, :css => css }, :update => { :success => 'css-code' }) %></li>
     <% end %>
   </ul>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= modal_button :add, _('New CSS'), :action => 'add_css', :id => @theme.id %>
   <% end %>
 </div>
@@ -27,7 +27,7 @@
       <li><%= image_tag("/user_themes/#{@theme.id}/images/#{image}") %></li>
     <% end %>
   </ul>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= modal_button :add, _('Add image'), :action => 'add_image', :id =>  @theme.id %>
   <% end %>
 </div>

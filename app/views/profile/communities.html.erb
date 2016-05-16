@@ -14,7 +14,7 @@
   </div>
 <% end %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <%= button :add, _('Create a new community'),
       :controller => 'memberships', :action => 'new_community' if logged_in? && user == profile %>

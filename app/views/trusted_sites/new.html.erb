@@ -4,7 +4,7 @@
 
   <%= text_field_tag :site, @site %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('save', _('Add trusted site'), :cancel => {:action => 'index'} ) %>
   <% end %>
 <% end %>
