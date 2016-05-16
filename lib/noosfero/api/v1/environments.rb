@@ -10,11 +10,6 @@ module Noosfero
             present environment.signup_person_fields
           end
 
-          desc 'Return the tag counts for this environment'
-          get '/tags' do
-            present environment.tag_counts
-          end
-
           get ':id' do
             local_environment = nil
             if (params[:id] == "default")

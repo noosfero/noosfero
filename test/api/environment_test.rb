@@ -67,16 +67,4 @@ class EnvironmentTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal context_env.id, json['id']
   end
-
-  should 'return number of tags' do
-    person = fast_create(Person)
-    person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
-    person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
-    person.articles.create!(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag')
-
-    get '/api/v1/environment/tags'
-    json = JSON.parse(last_response.body)
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, json)
-  end
-
 end
