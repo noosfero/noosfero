@@ -21,7 +21,18 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def discussions
-    holder.articles.where(type: VALID_CONTENT).order('created_at DESC').limit(self.total_items)
+    current_time = Time.now
+    discussions = holder.articles.where(type: VALID_CONTENT).order('created_at DESC').limit(self.total_items)
+    case discussion_status
+    when STATUS_NOT_OPENED
+      discussions = discussions.where("start_date > ?", current_time)
+    when STATUS_AVAILABLE
+      discussions = discussions.where("start_date is null or start_date <= ?", current_time)
+      discussions = discussions.where("end_date is null or end_date >= ?", current_time)
+    when STATUS_CLOSED
+      discussions = discussions.where("end_date < ?", current_time)
+    end
+    discussions
   end
 
   def holder

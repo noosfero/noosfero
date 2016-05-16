@@ -104,7 +104,8 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now )
     a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 1.day)
     a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 2.day, :end_date => DateTime.now - 1.day)
-    assert_equivalent [a2,a3], b.discussions
+    a5 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :end_date => DateTime.now + 1.day)
+    assert_equivalent [a2, a3, a5], b.discussions
   end
 
   should 'return only closed discussions if discussion status is closed' do
