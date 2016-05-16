@@ -67,5 +67,4 @@ class EnvironmentTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal context_env.id, json['id']
   end
-
 end
