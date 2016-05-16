@@ -20,6 +20,6 @@ rails_app = Rack::Builder.new do
 end
 
 run Rack::Cascade.new([
-  Noosfero::API::API,
+  Api::App,
   rails_app
 ])

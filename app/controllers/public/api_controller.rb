@@ -13,7 +13,7 @@ class ApiController < PublicController
   private
 
   def endpoints
-    Noosfero::API::API.endpoints(environment)
+    Api::App.endpoints(environment)
   end
 
 end
