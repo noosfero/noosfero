@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-31 15:02-0300\n"
-"PO-Revision-Date: 2016-03-31 15:02-0300\n"
+"POT-Creation-Date: 2016-05-16 14:48-0300\n"
+"PO-Revision-Date: 2016-05-16 14:48-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,47 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../lib/notification_plugin.rb:8
+#: ../lib/admin_notifications_plugin.rb:8
 msgid "A plugin for notifications."
 msgstr ""
 
-#: ../lib/notification_plugin.rb:29
+#: ../lib/admin_notifications_plugin.rb:29
 msgid "Notification Manager"
 msgstr ""
 
-#: ../lib/notification_plugin.rb:35
+#: ../lib/admin_notifications_plugin.rb:35
 msgid "Manage Notifications"
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:14
+#: ../lib/admin_notifications_plugin/notification_manager.rb:14
 msgid "Notification successfully created"
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:17
+#: ../lib/admin_notifications_plugin/notification_manager.rb:17
 msgid "Notification couldn't be created"
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:26
+#: ../lib/admin_notifications_plugin/notification_manager.rb:26
 msgid "The notification was deleted."
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:28
+#: ../lib/admin_notifications_plugin/notification_manager.rb:28
 msgid "Could not remove the notification"
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:38
+#: ../lib/admin_notifications_plugin/notification_manager.rb:38
 msgid "The notification was edited."
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:40
+#: ../lib/admin_notifications_plugin/notification_manager.rb:40
 msgid "Could not edit the notification."
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:52
+#: ../lib/admin_notifications_plugin/notification_manager.rb:52
 msgid "The status of the notification was changed."
 msgstr ""
 
-#: ../lib/notification_plugin/notification_manager.rb:54
+#: ../lib/admin_notifications_plugin/notification_manager.rb:54
 msgid "Could not change the status of the notification."
 msgstr ""
 
