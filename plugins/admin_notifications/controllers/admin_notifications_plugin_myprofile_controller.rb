@@ -10,7 +10,7 @@ class AdminNotificationsPluginMyprofileController < MyProfileController
   end
 
   def admin_required
-    redirect_to :root unless target.is_admin?(current_person)
+    redirect_to :root unless (current_person.is_admin? || target.is_admin?(current_person))
   end
 
 end
