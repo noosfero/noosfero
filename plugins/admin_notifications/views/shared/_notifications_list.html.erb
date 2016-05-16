@@ -23,7 +23,7 @@
   <% @notifications.each do |notification| %>
     <div class="notification-line">
       <div class="notification-message">
-        <%= truncate(notification.message, length: 50) %>
+        <%= truncate(notification.message.html_safe, length: 50) %>
       </div>
       <div class="notification-action">
         <% if notification.active? %>

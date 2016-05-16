@@ -33,7 +33,7 @@ class RecentContentBlock < Block
   end
 
   def parents
-    self.holder.articles.where(type: 'Blog')
+    self.holder.nil? ? [] : self.holder.articles.where(type: 'Blog')
   end
 
   def root
@@ -50,7 +50,7 @@ class RecentContentBlock < Block
 
   def api_content
     children = self.articles_of_folder(self.root, self.total_items)
-    Noosfero::API::Entities::ArticleBase.represent(children).as_json
+    Api::Entities::ArticleBase.represent(children).as_json
   end
 
   def display_api_content_by_default?

@@ -1,10 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
 
-  self.abstract_class = true
-
-  def self.postgresql?
-    self.connection.adapter_name == 'PostgreSQL'
-  end
+  self.abstract_class       = true
+  self.store_full_sti_class = true
 
   # an ActionView instance for rendering views on models
   def self.action_view
@@ -25,7 +22,7 @@ class ApplicationRecord < ActiveRecord::Base
   alias :meta_cache_key :cache_key
   def cache_key
     key = [Noosfero::VERSION, meta_cache_key]
-    key.unshift(ApplicationRecord.connection.schema_search_path) if ApplicationRecord.postgresql?
+    key.unshift ApplicationRecord.connection.schema_search_path
     key.join('/')
   end
 

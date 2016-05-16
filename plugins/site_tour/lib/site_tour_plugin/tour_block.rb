@@ -19,11 +19,4 @@ class SiteTourPlugin::TourBlock < Block
     _('Configure a step-by-step tour.')
   end
 
-  def content(args={})
-    block = self
-    proc do
-      render :file => 'blocks/tour', :locals => {:block => block}
-    end
-  end
-
 end

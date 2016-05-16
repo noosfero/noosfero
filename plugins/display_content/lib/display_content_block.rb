@@ -156,12 +156,12 @@ class DisplayContentBlock < Block
             when 'title'
               content_sections += (block.display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
             when 'abstract'
-              content_sections += (block.display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
+              content_sections += (block.display_section?(section) ? (content_tag('div', item.abstract.html_safe , :class => 'lead')) : '' )
               if block.display_section?(section)
                 read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
               end
             when 'body'
-              content_sections += (block.display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
+              content_sections += (block.display_section?(section) ? (content_tag('div', item.body.html_safe ,:class => 'body')) : '' )
             when 'image'
               image_section = image_tag item.image.public_filename if item.image
               if !image_section.blank?

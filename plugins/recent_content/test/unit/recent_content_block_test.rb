@@ -100,7 +100,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = 'title_only'
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
@@ -118,7 +118,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = 'title_and_abstract'
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
@@ -136,7 +136,7 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.presentation_mode = ''
 
     ActionView::Base.any_instance.expects(:block_title).returns("Block Title")
-    ActionView::Base.any_instance.expects(:profile).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).returns(profile)
 
     content = render_block_content(block)
 
@@ -154,6 +154,17 @@ class RecentContentBlockViewTest < ActionView::TestCase
     block.selected_folder = root.id
     block.presentation_mode = ''
     assert_equal [article.id], block.api_content['articles'].map {|a| a[:id]}
+  end
+
+  should 'parents return an empty array for environment without portal community' do
+    environment = fast_create(Environment)
+    block = RecentContentBlock.new
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(environment)
+
+    assert_nil environment.portal_community
+    assert_equal [], block.parents
   end
 
 end

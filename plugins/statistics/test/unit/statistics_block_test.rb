@@ -1,4 +1,5 @@
 require_relative '../test_helper'
+
 class StatisticsBlockTest < ActiveSupport::TestCase
 
   ['user_counter', 'tag_counter', 'comment_counter'].map do |counter|
@@ -140,6 +141,8 @@ class StatisticsBlockTest < ActiveSupport::TestCase
   end
 
   should 'return the amount of visible environment products' do
+    return unless defined? ProductsPlugin
+
     b = StatisticsBlock.new
     e = fast_create(Environment)
 
@@ -160,6 +163,8 @@ class StatisticsBlockTest < ActiveSupport::TestCase
   end
 
   should 'return the amount of visible enterprise products' do
+    return unless defined? ProductsPlugin
+
     b = StatisticsBlock.new
 
     e = fast_create(Enterprise)

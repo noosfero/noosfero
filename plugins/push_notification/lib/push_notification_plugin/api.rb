@@ -1,9 +1,9 @@
-require File.dirname(__FILE__) + '/../../../../../lib/noosfero/api/helpers'
+require_dependency 'api/helpers'
 require_relative 'api_entities'
 
-class PushNotificationPlugin::API < Grape::API
+class PushNotificationPlugin::Api < Grape::API
 
-  include Noosfero::API::APIHelpers
+  include Api::Helpers
 
   resource :push_notification_plugin do
 

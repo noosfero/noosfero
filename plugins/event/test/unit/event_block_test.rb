@@ -77,35 +77,6 @@ class EventBlockTest < ActiveSupport::TestCase
     assert_equal 2, @block.events.length
   end
 
-  should 'say human left time for an event' do
-    assert_match /Tomorrow/, @block.human_time_left(1)
-    assert_match /5 days left/, @block.human_time_left(5)
-    assert_match /30 days left/, @block.human_time_left(30)
-    assert_match /2 months left/, @block.human_time_left(60)
-    assert_match /3 months left/, @block.human_time_left(85)
-  end
-
-  should 'say human past time for an event' do
-    assert_match /Yesterday/, @block.human_time_left(-1)
-    assert_match /5 days ago/, @block.human_time_left(-5)
-    assert_match /30 days ago/, @block.human_time_left(-30)
-    assert_match /2 months ago/, @block.human_time_left(-60)
-    assert_match /3 months ago/, @block.human_time_left(-85)
-  end
-
-  should 'say human present time for an event' do
-    assert_match /Today/, @block.human_time_left(0)
-  end
-
-  should 'write formatable data in html' do
-    html = '<span class="week-day">Tue</span>'+
-           '<span class="month">Sep</span>'+
-           '<span class="day">27</span>'+
-           '<span class="year">1983</span>'
-
-    assert_equal html, @block.date_to_html(Date.new 1983, 9, 27)
-  end
-
   should 'show unlimited time distance events' do
     @block.box.owner = @env
     @block.all_env_events = true

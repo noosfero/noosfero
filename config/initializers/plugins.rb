@@ -5,3 +5,4 @@ require 'noosfero/plugin/mailer_base'
 require 'noosfero/plugin/settings'
 require 'noosfero/plugin/spammable'
 Noosfero::Plugin.initialize!
+

@@ -52,5 +52,5 @@ module DelayedAttachmentFu
   end
 end
 
-ApplicationRecord.extend DelayedAttachmentFu::ClassMethods
+ActiveRecord::Base.extend DelayedAttachmentFu::ClassMethods
 

@@ -87,5 +87,5 @@ module ActsAsHavingSettings
 
 end
 
-ApplicationRecord.extend ActsAsHavingSettings::ClassMethods
+ActiveRecord::Base.extend ActsAsHavingSettings::ClassMethods
 

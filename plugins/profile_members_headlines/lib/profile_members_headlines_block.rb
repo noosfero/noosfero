@@ -35,12 +35,4 @@ class ProfileMembersHeadlinesBlock < Block
     result.select{ |p| p.has_headline? }.slice(0..limit-1)
   end
 
-  def content(args={})
-    block = self
-    members = authors_list
-    proc do
-      render :file => 'blocks/headlines', :locals => { :block => block, :members => members }
-    end
-  end
-
 end

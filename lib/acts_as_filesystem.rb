@@ -33,7 +33,7 @@ module ActsAsFileSystem
   module ClassMethods
 
     def build_ancestry(parent_id = nil, ancestry = '')
-      ApplicationRecord.transaction do
+      ActiveRecord::Base.transaction do
         self.base_class.where(parent_id: parent_id).each do |node|
           node.update_column :ancestry, ancestry
 
@@ -263,5 +263,5 @@ module ActsAsFileSystem
   end
 end
 
-ApplicationRecord.extend ActsAsFileSystem::ActsMethods
+ActiveRecord::Base.extend ActsAsFileSystem::ActsMethods
 

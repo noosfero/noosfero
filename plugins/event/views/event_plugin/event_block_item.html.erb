@@ -1,4 +1,6 @@
 <%
+  extend EventPlugin::EventBlockHelper
+
   # compute layout values
   ev_days_tag = ''
   if event.duration > 1
@@ -18,7 +20,7 @@
 <%=
   link_to(safe_join([
       content_tag('time',
-        block.date_to_html(event.start_date),
+        date_to_html(event.start_date),
         :itemprop => 'startDate',
         :datetime => show_date(event.start_date),
         :class => 'date ' + img_class, :style => bg,
