@@ -174,4 +174,18 @@ class DiscussionBlockViewTest < ActionView::TestCase
 
     assert_match /discussion-full/, content
   end
+
+  should 'return discussions in api_content' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.save
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    fast_create(Event, :profile_id => community.id)
+    fast_create(TinyMceArticle, :profile_id => community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    assert_equivalent [a2.id, a1.id], b.api_content['articles'].map {|a| a[:id]}
+  end
+
 end

@@ -49,4 +49,11 @@ class CommentParagraphPlugin::DiscussionBlock < Block
     attr == self.presentation_mode
   end
 
+  def api_content
+    Api::Entities::ArticleBase.represent(self.discussions).as_json
+  end
+
+  def display_api_content_by_default?
+    false
+  end
 end
