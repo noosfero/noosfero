@@ -2,6 +2,8 @@
   <%= hidden_field_tag 'block[links][][icon]', icon %>
   <span class='icon-<%= icon %>' style='display:block; width:16px; height:16px;'></span>
   <div class="icon-selector" style='display:none;'>
-     <%= @block.icons_options.join %>
+    <% @block.icons.map do |i| %>
+      <%= content_tag('span', '', :title => i[1], :class => "icon-#{i[0]}", :onclick => "changeIcon(this, '#{i[0]}')") %>
+    <% end %>
   </div>
 </div>

@@ -163,4 +163,16 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
     assert_select '.block-config-options .image-data-line'
   end
+
+  should 'not escape icons options editing link_list block' do
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    profile = Person['jimi']
+    login 'jimi', 'test'
+    profile.blocks.each(&:destroy)
+    profile.boxes.first.blocks << LinkListBlock.new
+    block = profile.boxes.first.blocks.first
+    get "/myprofile/#{profile.identifier}/profile_design/edit/#{block.id}"
+    assert_select '.icon-selector .icon-edit'
+  end
+
 end
