@@ -132,7 +132,7 @@ msgid "Do you want to delete this notification?"
 msgstr "Você quer remover essa notificação?"
 
 msgid "There are active notifications in this environment!"
-msgstr "Não existem notificações ativas neste ambiente!"
+msgstr "Existem notificações ativas neste ambiente!"
 
 msgid "Manage all notifications here."
 msgstr "Gerencie todas as notificações aqui."
