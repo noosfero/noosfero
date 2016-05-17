@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class BlocksTest < ActionDispatch::IntegrationTest
+class ProfileBlocksTest < ActionDispatch::IntegrationTest
 
   def blog_on_article_block_bootstrap
     profile = fast_create(Profile)
