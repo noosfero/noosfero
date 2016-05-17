@@ -20,7 +20,7 @@
     <%= labelled_form_field(_('Notifications Color/Type'), select(:notifications, :type, options_for_select_with_title({_("Blue - Information") => "AdminNotificationsPlugin::InformationNotification", _("Yellow - Warning") => "AdminNotificationsPlugin::WarningNotification", _("Green - Success") => "AdminNotificationsPlugin::SuccessNotification", _("Red - Danger") => "AdminNotificationsPlugin::DangerNotification"}, @notification.type))) %>
 
     <div>
-      <%= labelled_check_box(_("Display only in the homepage"), 'notifications[display_only_in_homepage]', '1', @notification.display_only_in_homepage?) %>
+      <%= labelled_check_box(profile.present? ? _("Display only in the profile homepage") : _("Display only in the homepage") , 'notifications[display_only_in_homepage]', '1', @notification.display_only_in_homepage?) %>
     </div>
 
     <div>
