@@ -1,0 +1,6 @@
+- unless docs.blank?
+  div class="block #{html_class}"
+    span class="title #{html_class}"
+      = title
+    ul
+      = render partial: 'blocks/doc', collection: docs
