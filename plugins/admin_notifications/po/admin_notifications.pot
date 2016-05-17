@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-16 14:48-0300\n"
-"PO-Revision-Date: 2016-05-16 14:48-0300\n"
+"POT-Creation-Date: 2016-05-17 15:38-0300\n"
+"PO-Revision-Date: 2016-05-17 15:38-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -110,6 +110,10 @@ msgstr ""
 
 #: ../views/shared/_form.html.erb:20
 msgid "Red - Danger"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:23
+msgid "Display only in the profile homepage"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:23

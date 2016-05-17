@@ -89,6 +89,9 @@ msgstr "Verde - Sucesso"
 msgid "Red - Danger"
 msgstr "Vermelho - Perigo"
 
+msgid "Display only in the profile homepage"
+msgstr "Apresentar apenas na página inicial do perfil"
+
 msgid "Display only in the homepage"
 msgstr "Apresentar apenas na página inicial"
 
