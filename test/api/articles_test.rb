@@ -7,6 +7,15 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
+  should 'remove article' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    post "/api/v1/articles/#{article.id}/remove?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_not_equal 401, last_response.status
+    assert_equal true, json['success']
+  end  
+
   should 'list articles' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/?#{params.to_query}"
