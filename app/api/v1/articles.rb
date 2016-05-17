@@ -54,7 +54,7 @@ module Api
           present_partial article, :with => Entities::Article
         end
 
-        post ':id/remove' do
+        delete ':id' do
           article = environment.articles.find(params[:id])
           return forbidden! unless article.allow_delete?(current_person)
           begin

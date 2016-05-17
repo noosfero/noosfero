@@ -11,14 +11,14 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     article = Article.find(article.id)
     assert_not_nil article
-    post "/api/v1/articles/#{article.id}/remove?#{params.to_query}"
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
     assert_not_equal 401, last_response.status
     assert_equal true, json['success']
 
     assert !Article.exists?(article.id)
-  end  
+  end
 
   should 'list articles' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
