@@ -10,20 +10,27 @@ Download: https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-5
 INSTALL
 =======
 
-Install dependencies
+Install elasticsearch and openjdk-7-jdk.
 
-Install elasticsearch package and start service.
-By default, the service runs on port 9200
+    $ cd plugins/elasticsearch
+    $ rake install
 
-Install gems listed in plugin Gemfile. If this step fail, just copy the gems to core Gemfile
-and run the command 'bundle install'
+After install start the service, by default, the service runs on port 9200.
+
+Install gems listed in plugin Gemfile.
+
+    $ cd plugins/elasticsearch
+    $ bundle install
+
+If this step fail, just copy the gems to core Gemfile and run the command
+'bundle install'.
 
 Enable plugin
 -------------
 
 Execute the command to enable Elasticsearch Plugin at your noosfero:
 
-./script/noosfero-plugins enable elasticsearch
+    $ ./script/noosfero-plugins enable elasticsearch
 
 Active plugin
 -------------

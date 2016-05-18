@@ -1,0 +1,18 @@
+#!/usr/bin/env rake
+
+require 'open-uri'
+
+desc "download elasticsearch"
+task :download do
+  unless File.exists? '/tmp/elasticsearch.deb'
+    puts "downloading elasticsearch Debian package..."
+    download = open('https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.5.deb')
+    IO.copy_stream(download, '/tmp/elasticsearch.deb')
+  end
+end
+
+desc "install elasticsearch"
+task :install => :download do
+  sh 'sudo apt-get install openjdk-7-jdk'
+  sh 'sudo dpkg -i /tmp/elasticsearch.deb || sudo apt-get install -f'
+end
