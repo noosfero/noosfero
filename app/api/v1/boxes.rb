@@ -12,6 +12,7 @@ module Api
             resource :boxes do
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
+                return forbidden! unless profile.display_info_to?(current_person)
                 present profile.boxes, :with => Entities::Box
               end
             end
