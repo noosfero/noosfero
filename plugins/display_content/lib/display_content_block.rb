@@ -142,53 +142,6 @@ class DisplayContentBlock < Block
     documents
   end
 
-  def content(args={})
-    block = self
-
-    items = self.docs
-
-    proc do
-      block.block_title(block.title, block.subtitle) +
-        content_tag('ul', items.map {|item|
-        if !item.folder? && item.class != RssFeed
-          content_sections = ''
-          read_more_section = ''
-          tags_section = ''
-
-          block.sections.select { |section|
-            case section[:value]
-            when 'publish_date'
-              content_sections += (block.display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
-            when 'title'
-              content_sections += (block.display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
-            when 'abstract'
-              content_sections += (block.display_section?(section) ? (content_tag('div', item.abstract.html_safe , :class => 'lead')) : '' )
-              if block.display_section?(section)
-                read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
-              end
-            when 'body'
-              content_sections += (block.display_section?(section) ? (content_tag('div', item.body.html_safe ,:class => 'body')) : '' )
-            when 'image'
-              image_section = image_tag item.image.public_filename if item.image
-              if !image_section.blank?
-                content_sections += (block.display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
-              end
-            when 'tags'
-              if !item.tags.empty?
-                tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
-                content_sections += (block.display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
-              end
-            end
-          }
-
-          content_sections += read_more_section if !read_more_section.blank?
-#raise sections.inspect
-          content_tag('li', content_sections.html_safe)
-        end
-      }.join(" ").html_safe)
-    end
-  end
-
   def url_params
     params = {:block_id => self.id}
     if self.owner.is_a?(Profile)

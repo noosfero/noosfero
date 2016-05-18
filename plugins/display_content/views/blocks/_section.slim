@@ -1,0 +1,22 @@
+- if block.display_section?(section)
+  - case section[:value]
+  - when 'publish_date'
+    div class='published-at'
+      = show_date(item.published_at, false)
+  - when 'title'
+    div class='title'
+      = link_to(h(item.title), item.url)
+  - when 'abstract'
+    div class='lead'
+      = item.abstract
+  - when 'body'
+    div class='body'
+      = item.body
+  - when 'image'
+    - unless item.image || item.image.public_filename
+      div class='image'
+        = link_to(image_tag(item.image.public_filename), item.url)
+  - when 'tags'
+    - unless item.tags.empty?
+      div class='tags'
+        = render partial: 'blocks/tag', collection: item.tags
