@@ -47,4 +47,35 @@ class BoxesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert !json["boxes"].first["blocks"].first.key?('api_content')
   end
+
+  should 'get blocks from boxes' do
+    Environment.delete_all
+    environment = fast_create(Environment, :is_default => true)
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
+    block = fast_create(Block, box_id: box.id)
+    get "/api/v1/environments/default/boxes?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
+  end
+
+  should 'not list a block for not logged users' do
+    logout_api
+    profile = fast_create(Profile)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    block.display = 'never'
+    block.save!
+    get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [], json["boxes"].first["blocks"].map {|b| b['id']}
+  end
+
+  should 'not list boxes for user without permission' do
+    profile = fast_create(Profile, public_profile: false)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+  end
 end

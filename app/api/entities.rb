@@ -93,7 +93,9 @@ module Api
     class Box < Entity
       root 'boxes', 'box'
       expose :id, :position
-      expose :blocks, :using => Block
+      expose :blocks, :using => Block do |box, options|
+        box.blocks.select {|block| block.visible_to_user?(options[:current_person]) }
+      end
     end
 
     class Profile < Entity
