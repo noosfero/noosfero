@@ -289,11 +289,8 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.string   "user_agent"
     t.string   "referrer"
     t.text     "settings"
-    t.integer  "paragraph_id"
-    t.string   "paragraph_uuid"
   end
 
-  add_index "comments", ["paragraph_uuid"], name: "index_comments_on_paragraph_uuid", using: :btree
   add_index "comments", ["source_id", "spam"], name: "index_comments_on_source_id_and_spam", using: :btree
 
   create_table "contact_lists", force: :cascade do |t|
