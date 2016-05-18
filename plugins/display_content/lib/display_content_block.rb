@@ -118,32 +118,38 @@ class DisplayContentBlock < Block
     holder.articles.where(type: types, parent_id: if parent.nil? then nil else parent end)
   end
 
-  def content(args={})
-    block = self
-
+  def docs
     order_string = "published_at"
     order_string += " DESC" if order_by_recent
 
     limit_final = [limit_to_show, 0].max
 
-    docs = owner.articles.order(order_string)
+    documents = owner.articles.order(order_string)
       .where(articles: {type: self.types})
       .includes(:profile, :image, :tags)
     if nodes.present?
       nodes_conditions  = 'articles.id IN(:nodes)'
       nodes_conditions << ' OR articles.parent_id IN(:nodes) ' if display_folder_children
-      docs = docs.where nodes_conditions, nodes: nodes
+      documents = documents.where nodes_conditions, nodes: nodes
     end
-    docs = docs.limit limit_final if display_folder_children
+    documents = documents.limit limit_final if display_folder_children
 
     if content_with_translations
-      docs = docs.native_translations
-      docs.replace docs.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
+      documents = documents.native_translations
+      documents.replace documents.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
     end
+
+    documents
+  end
+
+  def content(args={})
+    block = self
+
+    items = self.docs
 
     proc do
       block.block_title(block.title, block.subtitle) +
-        content_tag('ul', docs.map {|item|
+        content_tag('ul', items.map {|item|
         if !item.folder? && item.class != RssFeed
           content_sections = ''
           read_more_section = ''
