@@ -1,0 +1,4 @@
+= block.block_title(block.title, block.subtitle)
+
+ul
+  = render partial: 'blocks/document', collection: block.docs, as: :item, locals: { block: block }
