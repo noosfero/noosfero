@@ -70,6 +70,16 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal body, json['comment']['body']
   end
 
+  should 'not create comment when an article does not accept comments' do
+    login_api
+    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", accept_comments: false)
+    body = 'My comment'
+    params.merge!({:body => body})
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+  end
+
   should 'logged user not comment an archived article' do
     login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :archived => true)
