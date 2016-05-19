@@ -93,6 +93,7 @@ class StatisticsBlock < Block
   end
 
   def products
+    return [] unless environment.plugin_enabled?('ProductsPlugin')
     if owner.kind_of?(Environment)
       owner.products.where("profiles.enabled = true and profiles.visible = true").count
     elsif owner.kind_of?(Enterprise)
