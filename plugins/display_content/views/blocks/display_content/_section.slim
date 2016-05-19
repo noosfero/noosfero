@@ -8,10 +8,10 @@
       = link_to(h(item.title), item.url)
   - when 'abstract'
     div class='lead'
-      = item.abstract
+      = (item.abstract || '').html_safe
   - when 'body'
     div class='body'
-      = item.body
+      = (item.body || '').html_safe
   - when 'image'
     - unless item.image || item.image.public_filename
       div class='image'

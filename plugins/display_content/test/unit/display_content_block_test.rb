@@ -774,4 +774,63 @@ class DisplayContentBlockViewTest < ActionView::TestCase
     assert render_block_content(block).index(en_article.name).present?
     assert_nil render_block_content(block).index(pt_article.name)
   end
+
+  should 'not escape abstract html of articles' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, abstract: "<p class='test-article-abstract'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_tag_in_string  render_block_content(block), tag: 'p', attributes: { class: 'test-article-abstract' }
+  end
+
+  should 'not raise if abstract of article is nil' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_nil a1.abstract
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
+  should 'not escape body html of articles' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, body: "<p class='test-article-body'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'body', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_tag_in_string  render_block_content(block), tag: 'p', attributes: { class: 'test-article-body' }
+  end
+
+  should 'not raise if body of article is nil' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_nil a1.body
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
 end
