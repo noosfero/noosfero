@@ -42,6 +42,19 @@ module Api
           end
           present comment, :with => Entities::Comment, :current_person => current_person
         end
+
+        delete ":id/comments/:comment_id" do
+          article = find_article(environment.articles, params[:id])
+          comment = article.comments.find_by_id(params[:comment_id])
+          return not_found! if comment.nil?
+          return forbidden! unless comment.can_be_destroyed_by?(current_person)
+          begin
+            comment.destroy
+            present comment, with: Entities::Comment, :current_person => current_person
+          rescue => e
+            render_api_error!(e.message, 500)
+          end
+        end
       end
 
     end
