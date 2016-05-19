@@ -1,4 +1,0 @@
-li
-  - unless item.folder? || item.class == RssFeed
-    = render partial: 'blocks/section', collection: block.sections, locals: { block: block, item: item }
-    = render partial: 'blocks/read_more', locals: { item: item, abstract_section: block.sections.bsearch { |section| section[:value] == 'abstract' }, block: block }
