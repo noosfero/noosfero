@@ -981,6 +981,7 @@ module ApplicationHelper
     values = {}
     values.merge!(task.information[:variables]) if task.information[:variables]
     values.merge!({:requestor => link_to(task.requestor.name, task.requestor.url)}) if task.requestor
+    values.merge!({:target => link_to(task.target.name, task.target.url)}) if (task.target && task.target.respond_to?(:url))
     values.merge!({:subject => content_tag('span', task.subject, :class=>'task_target')}) if task.subject
     values.merge!({:linked_subject => link_to(content_tag('span', task.linked_subject[:text], :class => 'task_target'), task.linked_subject[:url])}) if task.linked_subject
     (task.information[:message] % values).html_safe

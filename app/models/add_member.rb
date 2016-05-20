@@ -37,6 +37,10 @@ class AddMember < Task
     true
   end
 
+  def reject_details
+    true
+  end
+
   def footer
     true
   end
@@ -72,8 +76,9 @@ class AddMember < Task
   end
 
   def task_cancelled_message
-    _("Your request to enter community \"%{target} with the profile \"%{requestor}\" was not accepted. Please contact any profile admin from %{url} for more information.") %
-    {:target => self.target.name, :url => self.target.url,
-     :requestor => self.requestor.name}
+    _("Your request to enter community \"%{target}\" with the profile \"%{requestor}\" was not accepted. Please contact any profile admin from %{target} for more information. The following explanation was given: \n\n\"%{explanation}\"") %
+    {:target => self.target.name,
+     :requestor => self.requestor.name,
+     :explanation => self.reject_explanation}
   end
 end
