@@ -593,8 +593,8 @@ module ApplicationHelper
     end
 
     if block
-      field_html ||= ''
-      field_html += capture(&block)
+      field_html ||= ''.html_safe
+      field_html   = [field_html, capture(&block)].safe_join
     end
 
     if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index') || (controller.controller_name == 'home' && controller.action_name == 'index' && user.nil?)
@@ -603,16 +603,14 @@ module ApplicationHelper
       end
     else
       if profile.active_fields.include?(name)
-        result = content_tag('div', field_html + profile_field_privacy_selector(profile, name), :class => 'field-with-privacy-selector')
+        result = content_tag :div, class: 'field-with-privacy-selector' do
+          [field_html, profile_field_privacy_selector(profile, name)].safe_join
+        end
       end
     end
 
     if is_required
       result = required(result)
-    end
-
-    if block
-      concat(result)
     end
 
     result
