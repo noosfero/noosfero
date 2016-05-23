@@ -234,4 +234,7 @@ class Organization < Profile
     self.admins.where(:id => user.id).exists?
   end
 
+  def display_private_info_to?(user)
+    (public_profile && visible && !secret) || super
+  end
 end

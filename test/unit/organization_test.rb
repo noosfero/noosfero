@@ -567,4 +567,24 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_not_includes person_orgs,    o7
     assert_includes     env_admin_orgs, o7
   end
+
+  should 'return true at display_private_info_to? when profile is public and user is nil' do
+    organization = fast_create(Organization, public_profile: true)
+    assert organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is public and secret' do
+    organization = fast_create(Organization, public_profile: true, secret: true)
+    assert !organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is public and not visible' do
+    organization = fast_create(Organization, public_profile: true, visible: false)
+    assert !organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is private and user is nil' do
+    organization = fast_create(Organization, public_profile: false)
+    assert !organization.display_private_info_to?(nil)
+  end
 end

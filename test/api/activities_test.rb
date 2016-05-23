@@ -27,8 +27,8 @@ class ActivitiesTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
-  should 'not get community activities if not member' do
-    community = fast_create(Community)
+  should 'not get community activities if not member and community is private' do
+    community = fast_create(Community, public_profile: false)
     other_person = fast_create(Person)
     community.add_member(other_person) # so there is an activity in community
 
@@ -66,6 +66,15 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{other_person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent other_person.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+  end
+
+  should 'get activities for non logged user in a public community' do
+    community = fast_create(Community)
+    create_activity(community)
+    community.add_member(person)
+    get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent community.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
   end
 
   def create_activity(target)
