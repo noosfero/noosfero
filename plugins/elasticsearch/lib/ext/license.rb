@@ -1,9 +1,10 @@
 require_dependency 'license.rb'
+require_relative '../elasticsearch_indexed_model'
 
 class License
-  def self.control_fields
-    %w()
-  end
+  include ElasticsearchIndexedModel
 
-  require_relative '../elasticsearch_helper'
+  def self.control_fields
+    []
+  end
 end

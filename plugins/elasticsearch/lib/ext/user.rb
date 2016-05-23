@@ -1,9 +1,10 @@
 require_dependency 'user'
+require_relative '../elasticsearch_indexed_model'
 
 class User
-  def self.control_fields
-      %w()
-  end
+  include ElasticsearchIndexedModel
 
-  require_relative '../elasticsearch_helper'
+  def self.control_fields
+    []
+  end
 end
