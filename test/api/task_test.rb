@@ -183,6 +183,29 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal person, Task.last.target
   end
 
+  task_actions=%w[finish cancel]
+  task_actions_state={"finish"=>"FINISHED","cancel"=>"CANCELLED"}
+  task_actions.each do |action|
+    should "person be able to #{action} his own task" do
+      login_api
+      person1 = fast_create(Person)
+      task = create(Task, :requestor => person1, :target => person)
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal person.reload.id, task.reload.closed_by_id
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+    end
+
+    should "person not be able to #{action} other person's task" do
+      login_api
+      user = fast_create(User)
+      person1 = fast_create(Person, :user_id => user)
+      task = create(Task, :requestor => person, :target => person1)
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_nil task.reload.closed_by_id
+      assert_equal Task::Status::ACTIVE, task.status
+    end
+  end
+
  #############################
  #      Enterprise Tasks     #
  #############################

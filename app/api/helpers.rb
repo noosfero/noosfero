@@ -144,7 +144,8 @@ module Api
     end
 
     def find_task(asset, id)
-      task = asset.tasks.find(id)
+      task = asset.tasks.find_by(id: id)
+      not_found! if task.blank?
       current_person.has_permission?(task.permission, asset) ? task : forbidden!
     end
 
