@@ -4,6 +4,7 @@ class OrganizationRatingsConfig < ApplicationRecord
 
   attr_accessible :cooldown, :default_rating, :order, :per_page
   attr_accessible :vote_once, :are_moderated, :environment_id
+  attr_accessible :ratings_on_initial_page
 
   ORDER_OPTIONS = {recent: _('More Recent'), best: _('Best Ratings')}
 
