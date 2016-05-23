@@ -8,7 +8,4 @@ class ElasticsearchPlugin < Noosfero::Plugin
     _("This plugin is used to communicate a elasticsearch to privide a search.")
   end
 
-  # load all models to provide searchable fields
-  require_relative "load_models"
-
 end
