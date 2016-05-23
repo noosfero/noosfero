@@ -750,6 +750,10 @@ class Environment < ApplicationRecord
     end
   end
 
+  def theme_ids
+    settings[:themes] || []
+  end
+
   def themes=(values)
     settings[:themes] = values
   end

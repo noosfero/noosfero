@@ -466,7 +466,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'use theme passed via param when in development mode' do
     stubs(:environment).returns(build(Environment, :theme => 'environment-theme'))
     Rails.env.stubs(:development?).returns(true)
-    self.stubs(:params).returns({:theme => 'skyblue'})
+    self.stubs(:params).returns({:user_theme => 'skyblue'})
     assert_equal 'skyblue', current_theme
   end
 

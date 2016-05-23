@@ -457,6 +457,22 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal ['new-theme', 'other-theme'], Environment.default.themes.map(&:id)
   end
 
+  should 'return the theme ids' do
+    env = Environment.default
+    t1 = 'theme_1'
+    t2 = 'theme_2'
+    Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
+    env.themes = [t1, t2]
+    env.save!
+    assert_equivalent  [t1, t2], Environment.default.theme_ids
+  end
+  should 'theme_ids be an empty array if there is no settings themes defined' do
+    env = Environment.default
+    env.settings[:themes] = nil
+    env.save!
+    assert Environment.default.theme_ids.empty?
+  end
+
   should 'create templates' do
     e = create(Environment, :name => 'test_env')
     e.reload

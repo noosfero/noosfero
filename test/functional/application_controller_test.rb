@@ -224,7 +224,7 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'display theme test panel when testing theme' do
-    @request.session[:theme] = 'my-test-theme'
+    @request.session[:user_theme] = 'my-test-theme'
     theme = mock
     profile = mock
     theme.expects(:owner).returns(profile).at_least_once
@@ -574,6 +574,38 @@ class ApplicationControllerTest < ActionController::TestCase
     profile = Profile.where(:identifier => 'ze').first
     get :index, :profile => '~'
     assert_redirected_to :controller => 'test', :action => 'index', :profile => profile.identifier
+  end
+
+  should 'set session theme if a params theme is passed as parameter' do
+    current_theme = 'my-test-theme'
+    environment = Environment.default
+    Theme.stubs(:system_themes).returns([Theme.new(current_theme)])
+    environment.themes = [current_theme]
+    environment.save!
+    assert_nil @request.session[:theme]
+    get :index, :theme => current_theme
+    assert_equal current_theme, @request.session[:theme]
+  end
+
+  should 'set session theme only in environment available themes' do
+    environment = Environment.default
+    assert_nil @request.session[:theme]
+    environment.stubs(:theme_ids).returns(['another_theme'])
+    get :index, :theme => 'my-test-theme'
+    assert_nil @request.session[:theme]
+  end
+
+  should 'unset session theme if not environment available themes is defined' do
+    environment = Environment.default
+    current_theme = 'my-test-theme'
+    Theme.stubs(:system_themes).returns([Theme.new(current_theme)])
+    environment.themes = [current_theme]
+    environment.save!
+    get :index, :theme => current_theme
+    assert_equal current_theme, @request.session[:theme]
+
+    get :index, :theme => 'another_theme'
+    assert_nil @request.session[:theme]
   end
 
 end

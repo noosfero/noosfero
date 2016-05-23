@@ -101,14 +101,14 @@ class ContentViewerHelperTest < ActionView::TestCase
   end
 
   should 'theme provides addthis custom icon' do
-    stubs(:session).returns({:theme => 'base'})
+    stubs(:session).returns({:user_theme => 'base'})
     File.expects(:exists?).with(anything).returns(true)
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     assert_match 'addthis.gif', addthis_image_tag
   end
 
   should 'use default addthis icon if theme has no addthis.gif image' do
-    stubs(:session).returns({:theme => 'base'})
+    stubs(:session).returns({:user_theme => 'base'})
     File.expects(:exists?).with(anything).returns(false)
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     assert_match 'bt-bookmark.gif', addthis_image_tag

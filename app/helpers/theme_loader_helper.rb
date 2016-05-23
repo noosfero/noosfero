@@ -2,8 +2,8 @@ module ThemeLoaderHelper
   def current_theme
     @current_theme ||=
       begin
-        if session[:theme]
-          session[:theme]
+        if session[:user_theme]
+          session[:user_theme]
         else
           # utility for developers: set the theme to 'random' in development mode and
           # you will get a different theme every request. This is interesting for
@@ -11,8 +11,8 @@ module ThemeLoaderHelper
           if Rails.env.development? && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif Rails.env.development? && respond_to?(:params) && params[:theme] && File.exists?(Rails.root.join('public/designs/themes', params[:theme]))
-            params[:theme]
+          elsif Rails.env.development? && respond_to?(:params) && params[:user_theme] && File.exists?(Rails.root.join('public/designs/themes', params[:user_theme]))
+            params[:user_theme]
           else
             if profile && !profile.theme.nil?
               profile.theme
@@ -34,8 +34,10 @@ module ThemeLoaderHelper
   end
 
   def theme_path
-    if session[:theme]
+    if session[:user_theme]
       '/user_themes/' + current_theme
+    elsif session[:theme]
+      '/designs/themes/' + session[:theme]
     else
       '/designs/themes/' + current_theme
     end
