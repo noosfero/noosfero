@@ -82,7 +82,7 @@ class PersonNotifier
     helper ActionTrackerHelper
 
     def session
-      {:theme => nil}
+      {:user_theme => nil}
     end
 
     def content_summary(person, notifications, tasks)

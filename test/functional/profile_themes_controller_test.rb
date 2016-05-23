@@ -231,7 +231,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     theme = Theme.create('theme-under-test', :owner => profile)
     post :start_test, :profile => 'testinguser', :id => 'theme-under-test'
 
-    assert_equal 'theme-under-test', session[:theme]
+    assert_equal 'theme-under-test', session[:user_theme]
     assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser', :action => 'view_page'
   end
 
@@ -239,7 +239,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     theme = Theme.create('theme-under-test', :owner => profile)
     post :stop_test, :profile => 'testinguser', :id => 'theme-under-test'
 
-    assert_nil session[:theme]
+    assert_nil session[:user_theme]
     assert_redirected_to :action => 'index'
   end
 

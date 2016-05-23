@@ -344,7 +344,7 @@ module ApplicationHelper
   end
 
   def is_testing_theme
-    !controller.session[:theme].nil?
+    !controller.session[:user_theme].nil?
   end
 
   def theme_owner
