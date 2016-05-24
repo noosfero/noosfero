@@ -34,6 +34,17 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_includes json["articles"].map { |a| a["id"] }, article.id
   end
 
+  should 'list all text articles' do
+    profile = Community.create(identifier: 'my-community', name: 'name-my-community')
+    a1 = fast_create(TextArticle, :profile_id => profile.id)
+    a2 = fast_create(TextileArticle, :profile_id => profile.id)
+    a3 = fast_create(TinyMceArticle, :profile_id => profile.id)
+    params['content_type']='TextArticle'
+    get "api/v1/communities/#{profile.id}/articles?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 3, json['articles'].count
+  end
+
   should 'get profile homepage' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     person.home_page=article
@@ -123,6 +134,17 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equivalent [child1.id, child2.id], json["articles"].map { |a| a["id"] }
   end
+
+  should 'list all text articles of children' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    child1 = fast_create(TextArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 1")
+    child2 = fast_create(TextileArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 2")
+    child3 = fast_create(TinyMceArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 3")
+    get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [child1.id, child2.id, child3.id], json["articles"].map { |a| a["id"] }
+  end
+
 
   should 'list public article children for not logged in access' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
