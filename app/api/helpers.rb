@@ -407,9 +407,11 @@ module Api
 
     def parse_content_type(content_type)
       return nil if content_type.blank?
-      content_type.split(',').map do |content_type|
-        content_type.camelcase
+      content_types = content_type.split(',').map do |content_type|
+        content_type = content_type.camelcase
+        content_type == 'TextArticle' ? Article.text_article_types : content_type
       end
+      content_types.flatten.uniq
     end
 
     def period(from_date, until_date)

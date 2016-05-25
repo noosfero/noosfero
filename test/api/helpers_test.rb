@@ -99,7 +99,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
   end
 
   should 'parse_content_type return all content types as an array' do
-    assert_equivalent ['TextArticle','TinyMceArticle'], parse_content_type("TextArticle,TinyMceArticle")
+    assert_equivalent ['TextileArticle','TinyMceArticle'], parse_content_type("TextileArticle,TinyMceArticle")
   end
 
   should 'find_article return article by id in list passed for user with permission' do
