@@ -9,7 +9,7 @@ class Community < Organization
     _('Community')
   end
 
-  N_('Community')
+  N_('community')
   N_('Language')
 
   settings_items :language
