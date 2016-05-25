@@ -121,7 +121,7 @@ module Api
 
     def present_article(asset)
       article = find_article(asset.articles, params[:id])
-      present_partial article, :with => Entities::Article, :params => params
+      present_partial article, with: Entities::Article, params: params, current_person: current_person
     end
 
     def present_articles_for_asset(asset, method = 'articles')
@@ -130,7 +130,7 @@ module Api
     end
 
     def present_articles(articles)
-      present_partial paginate(articles), :with => Entities::Article, :params => params
+      present_partial paginate(articles), :with => Entities::Article, :params => params, current_person: current_person
     end
 
     def find_articles(asset, method = 'articles')
