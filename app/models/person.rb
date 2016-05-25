@@ -13,6 +13,8 @@ class Person < Profile
     _('Person')
   end
 
+  N_('person')
+
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
