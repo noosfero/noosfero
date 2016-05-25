@@ -7,7 +7,7 @@
   <% else %>
     <div class="ratings-list">
       <% block.get_ratings(block.owner.id).each_with_index do |r, index| %>
-        <% break if index >= block.limit_number_of_ratings %>
+        <% break if index >= block.ratings_on_initial_page %>
         <%= render :partial => "shared/user_rating_container", :locals => {:user_rate => r} %>
       <% end %>
 
