@@ -857,7 +857,7 @@ module ApplicationHelper
   alias :browse_communities_menu :search_communities_menu
 
   def pagination_links(collection, options={})
-    options = {:previous_label => content_tag(:span, '&laquo; ', :class => 'previous-arrow') + _('Previous'), :next_label => _('Next') + content_tag(:span, ' &raquo;', :class => 'next-arrow'), :inner_window => 1, :outer_window => 0 }.merge(options)
+    options = {:previous_label => content_tag(:span, '&laquo; '.html_safe, :class => 'previous-arrow') + _('Previous'), :next_label => _('Next') + content_tag(:span, ' &raquo;'.html_safe, :class => 'next-arrow'), :inner_window => 1, :outer_window => 0 }.merge(options)
     will_paginate(collection, options)
   end
 
