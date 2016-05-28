@@ -309,9 +309,9 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
   end
 
-  should 'found TextileArticle in articles' do
+  should 'found TextArticle in articles' do
     person = create_user('teste').person
-    art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
+    art = TextArticle.create!(:name => 'an text_article article to be found', :profile => person)
 
     get 'articles', :query => 'article to be found'
 

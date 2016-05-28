@@ -91,7 +91,7 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
   should "have comments through article action_tracker" do
     user = User.current = create_user
     person = user.person
-    article = create(TextileArticle, :profile_id => person.id)
+    article = create(TextArticle, :profile_id => person.id)
     process_delayed_job_queue
     notification = ActionTrackerNotification.last
 

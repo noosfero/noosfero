@@ -109,10 +109,6 @@ module ApplicationHelper
       content = capture(&block)
     end
 
-    if options[:type] == :textile
-      content = RedCloth.new(content).to_html
-    end
-
     options[:class] = '' if ! options[:class]
     options[:class] += ' button icon-help' # with-text
 
@@ -128,13 +124,6 @@ module ApplicationHelper
     end
 
     text
-  end
-
-  # alias for <tt>help(content, :textile)</tt>. You can pass a block in the
-  # same way you would do if you called <tt>help</tt> directly.
-  def help_textile(content = nil, link_name = nil, options = {}, &block)
-    options[:type] = :textile
-    help(content, link_name, options, &block)
   end
 
   # TODO: do something more useful here
@@ -1241,6 +1230,17 @@ module ApplicationHelper
       :title=>_("Exit full screen mode")
     })
     content.html_safe
+  end
+
+  def current_editor_is?(editor)
+    editor.blank? ? false : current_editor == editor
+  end
+
+  def current_editor(mode = '')
+    editor = @article.editor || Article::Editor::TINY_MCE unless @article.nil?
+    editor ||= (current_person.nil? || current_person.editor.nil?) ? Article::Editor::TINY_MCE : current_person.editor
+    editor += '_' + mode unless mode.blank?
+    editor
   end
 
 end

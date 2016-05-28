@@ -6,7 +6,7 @@ class MarkCommentAsReadPluginProfileControllerTest < ActionController::TestCase
     @controller = MarkCommentAsReadPluginProfileController.new
 
     @profile = create_user('profile').person
-    @article = TinyMceArticle.create!(:profile => @profile, :name => 'An article')
+    @article = TextArticle.create!(:profile => @profile, :name => 'An article')
     @comment = Comment.new(:source => @article, :author => @profile, :body => 'test')
     @comment.save!
     login_as(@profile.identifier)

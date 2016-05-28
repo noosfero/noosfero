@@ -2,8 +2,6 @@
 
 <%= error_messages_for :environment %>
 
-<%= render :file => 'shared/tiny_mce' %>
-
 <%= labelled_form_for :environment do |f| %>
   <% tabs = [] %>
   <% tabs << {:title => _('Site info'), :id => 'site-info',

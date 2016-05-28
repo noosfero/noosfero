@@ -5,7 +5,7 @@ class CloneArticleTest < ActiveSupport::TestCase
   should 'cloned article have its source attributes' do
     community = fast_create(Community)
     folder = fast_create(Folder, :profile_id => community.id)
-    article = fast_create(TinyMceArticle, :profile_id => community.id)
+    article = fast_create(TextArticle, :profile_id => community.id)
     article.parent_id = folder.id
     article.save!
 

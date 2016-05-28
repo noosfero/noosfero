@@ -25,8 +25,7 @@
 
   <%= required f.text_field(:subject) %>
 
-  <%= render :file => 'shared/tiny_mce' %>
-  <%= required f.text_area(:message, :class => 'mceEditor') %>
+  <%= required f.text_area(:message, :class => current_editor) %>
 
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 

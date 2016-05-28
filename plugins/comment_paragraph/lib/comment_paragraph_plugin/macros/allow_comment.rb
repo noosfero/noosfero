@@ -1,5 +1,5 @@
 class Application < Rails::Application
-  config.action_view.sanitized_allowed_attributes << 'data-macro-paragraph_uuid'
+  config.action_view.sanitized_allowed_attributes << 'data-macro-paragraph_uuid' unless config.action_view.sanitized_allowed_attributes.include?('data-macro-paragraph_uuid')
 end
 
 class CommentParagraphPlugin::AllowComment < Noosfero::Plugin::Macro

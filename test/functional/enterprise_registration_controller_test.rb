@@ -58,7 +58,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     region = fast_create(Region, {})
 
     template = Enterprise.create!(:name => 'Enterprise Template', :identifier => 'enterprise-template', :is_template => true)
-    welcome_page = TinyMceArticle.create!(:name => 'Welcome Page', :profile => template, :body => 'This is the welcome page of enterprise template.', :published => true)
+    welcome_page = TextArticle.create!(:name => 'Welcome Page', :profile => template, :body => 'This is the welcome page of enterprise template.', :published => true)
     template.welcome_page = welcome_page
     template.save!
 

@@ -17,14 +17,14 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
 
     get '/myprofile/myuser/cms/new'
     assert_response :success
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms/new?type=TinyMceArticle' }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/myuser/cms/new?type=TextArticle' }
 
-    get '/myprofile/myuser/cms/new?type=TinyMceArticle'
+    get '/myprofile/myuser/cms/new?type=TextArticle'
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference 'Article.count' do
-      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TinyMceArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
+      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TextArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
     end
 
     assert_response :success
@@ -96,7 +96,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
   protected
 
   def create_article(profile, options)
-    a = TinyMceArticle.new(options)
+    a = TextArticle.new(options)
     a.profile = profile
     a.save!
     a

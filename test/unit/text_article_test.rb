@@ -8,12 +8,6 @@ class TextArticleTest < ActiveSupport::TestCase
     assert_kind_of Article, TextArticle.new
   end
 
-  should 'found TextileArticle by TextArticle class' do
-    person = create_user('testuser').person
-    article = fast_create(TextileArticle, :name => 'textile article test', :profile_id => person.id)
-    assert_includes TextArticle.all, article
-  end
-
   should 'be translatable' do
     assert_kind_of TranslatableContent, TextArticle.new
   end
@@ -117,6 +111,24 @@ class TextArticleTest < ActiveSupport::TestCase
     blog = Blog.new(:display_preview => true)
     post.parent = blog
     assert post.display_preview?
+  end
+
+  should 'provide HTML version for textile editor' do
+    profile = create_user('testinguser').person
+    a = fast_create(TextArticle, :body => '*my text*', :profile_id => profile.id, :editor => Article::Editor::TEXTILE)
+    assert_equal '<p><strong>my text</strong></p>', a.to_html
+  end
+
+  should 'provide HTML version for body lead textile editor' do
+    profile = create_user('testinguser').person
+    a = fast_create(TextArticle, :body => '*my text*', :profile_id => profile.id, :editor => Article::Editor::TEXTILE)
+    assert_equal '<p><strong>my text</strong></p>', a.lead
+  end
+
+  should 'provide HTML version for abstract lead textile editor' do
+    profile = create_user('testinguser').person
+    a = fast_create(TextArticle, :abstract => '*my text*', :profile_id => profile.id, :editor => Article::Editor::TEXTILE)
+    assert_equal '<p><strong>my text</strong></p>', a.lead
   end
 
 end

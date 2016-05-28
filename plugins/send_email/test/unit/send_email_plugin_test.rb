@@ -29,8 +29,7 @@ class SendEmailPluginTest < ActiveSupport::TestCase
   should 'expand macro used on form on profile context' do
     profile = fast_create(Community)
     @plugin.context.stubs(:profile).returns(profile)
-    article = RawHTMLArticle.create!(:name => 'Raw HTML', :body => "<form action='{sendemail}'></form>", :profile => profile)
-
+    article = TextArticle.create!(:name => 'Text HTML', :body => "<form action='{sendemail}'></form>", :profile => profile, :editor => Article::Editor::RAW_HTML)
     assert_match /profile\/#{profile.identifier}\/plugin\/send_email\/deliver/, @plugin.parse_content(article.to_html, nil).first
   end
 

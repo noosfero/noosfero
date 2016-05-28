@@ -21,7 +21,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'add meta tags with article info' do
-    a = TinyMceArticle.create(name: 'Article to be shared', body: '<p>This article should be shared with all social networks</p>', profile: profile)
+    a = TextArticle.create(name: 'Article to be shared', body: '<p>This article should be shared with all social networks</p>', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
 
@@ -37,7 +37,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'add meta tags with article images' do
-    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
+    a = TextArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
     assert_tag tag: 'meta', attributes: { name: 'twitter:image', content: /\/images\/x.png/ }
@@ -45,7 +45,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'escape utf8 characters correctly' do
-    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/ç.png" />', profile: profile)
+    a = TextArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/ç.png" />', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
     assert_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/%C3%A7.png/  }
@@ -63,7 +63,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not expose metadata on private pages' do
     profile.update_column :public_profile, false
-    a = TinyMceArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
+    a = TextArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
     assert_no_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }

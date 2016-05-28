@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 
     $.getJSON($(this).data('url'), {id: $(this).val()}, function(data) {
       $('#mailing-form #mailing_subject').val(data.parsed_subject);
-      $('#mailing-form .mceEditor').val(data.parsed_body);
+      $('#mailing-form .body').val(data.parsed_body);
     });
   });
 });

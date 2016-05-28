@@ -54,9 +54,9 @@ class SuggestArticleTest < ActiveSupport::TestCase
     abstract = 'some abstract'
     t.article = {:name => name, :body => body, :abstract => abstract}
     t.target = @profile
-    count = TinyMceArticle.count
+    count = TextArticle.count
     t.perform
-    assert_equal count + 1, TinyMceArticle.count
+    assert_equal count + 1, TextArticle.count
   end
 
   should 'fill source name and URL into created article' do
@@ -64,7 +64,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.article.merge!({:source_name => 'GNU project', :source => 'http://www.gnu.org/'})
     t.perform
 
-    article = TinyMceArticle.last
+    article = TextArticle.last
     assert_equal 'GNU project', article.source_name
     assert_equal 'http://www.gnu.org/', article.source
   end
@@ -81,7 +81,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.article[:highlighted] = true
     t.perform
 
-    article = TinyMceArticle.where(name: t.article_name).last # just to be sure
+    article = TextArticle.where(name: t.article_name).last # just to be sure
     assert article.highlighted
   end
 
@@ -89,7 +89,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t = build(SuggestArticle, :target => @profile)
     t.perform
 
-    article = TinyMceArticle.where(name: t.article_name).last
+    article = TextArticle.where(name: t.article_name).last
     assert_equal false, article.highlighted
   end
 
@@ -110,7 +110,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.name = 'some name'
     t.perform
 
-    article = TinyMceArticle.last
+    article = TextArticle.last
     assert_equal 'some name', article.author_name
   end
 
@@ -239,12 +239,12 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'fallback to tinymce when type parameter is invalid' do
     t = SuggestArticle.new
     t.article = {:name => 'name', :body => 'body', :type => 'Comment'}
-    t.article_type == TinyMceArticle
+    t.article_type == TextArticle
   end
 
   should 'fallback to tinymce when type parameter is blank' do
     t = SuggestArticle.new
     t.article = {:name => 'name', :body => 'body', :type => ''}
-    t.article_type == TinyMceArticle
+    t.article_type == TextArticle
   end
 end

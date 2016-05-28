@@ -145,25 +145,25 @@ class CommunityTest < ActiveSupport::TestCase
     c = fast_create(Community, :name => 'test_com')
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id)
     u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
-    t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
+    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id)
+    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
 
     assert_equal [t_in_f, t], c.news(2)
   end
 
   should 'not return highlighted news when not asked' do
     c = fast_create(Community, :name => 'test_com')
-    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
+    highlighted_t = fast_create(TextArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id)
 
     assert_equal [t].map(&:slug), c.news(2).map(&:slug)
   end
 
   should 'return highlighted news when asked' do
     c = fast_create(Community, :name => 'test_com')
-    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id)
+    highlighted_t = fast_create(TextArticle, :name => 'high news', :profile_id => c.id, :highlighted => true)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id)
 
     assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
   end
@@ -293,7 +293,7 @@ class CommunityTest < ActiveSupport::TestCase
     p2 = create_user.person
     p3 = create_user.person
     community.add_member(p3)
-    article = create(TextileArticle, :profile_id => community.id)
+    article = create(TextArticle, :profile_id => community.id)
     time = article.activity.updated_at + 1.day
     Time.stubs(:now).returns(time)
     create(Comment, :source_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
@@ -366,7 +366,7 @@ class CommunityTest < ActiveSupport::TestCase
 
     User.current = person.user
     assert_difference 'ActionTracker::Record.count', 1 do
-      article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
+      article = create(TextArticle, :profile => community, :name => 'An article about free software')
       assert_equal [article.activity], community.activities.map(&:activity)
     end
   end
@@ -377,7 +377,7 @@ class CommunityTest < ActiveSupport::TestCase
     community2 = fast_create(Community)
 
     User.current = person.user
-    article = create(TinyMceArticle, :profile => community2, :name => 'Another article about free software')
+    article = create(TextArticle, :profile => community2, :name => 'Another article about free software')
 
     assert_not_includes community.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
   end

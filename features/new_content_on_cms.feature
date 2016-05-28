@@ -15,8 +15,7 @@ Feature: create content on cms
 
   Scenario: list all content types
     Given I follow "New content"
-    Then I should see "Text article with visual editor"
-     And I should see "Text article with Textile markup"
+    Then I should see "Text article"
      And I should see "Folder"
      And I should see "Blog"
      And I should see "Uploaded file"
@@ -29,22 +28,6 @@ Feature: create content on cms
     And I press "Save"
     And I go to joaosilva's cms
     Then I should see "My Folder"
-
-  Scenario: create a tiny_mce article
-    Given I follow "New content"
-    When I follow "Text article with visual editor"
-    And I fill in "Title" with "My tiny_mce article"
-    And I press "Save"
-    And I go to joaosilva's cms
-    Then I should see "My tiny_mce article"
-
-  Scenario: create a textile article
-    Given I follow "New content"
-    When I follow "Text article with Textile markup"
-    And I fill in "Title" with "My textile article"
-    And I press "Save"
-    And I go to joaosilva's cms
-    Then I should see "My textile article"
 
   Scenario: create a Blog
     Given I follow "New content"

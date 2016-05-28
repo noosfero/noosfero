@@ -1,7 +1,5 @@
 <h1><%= _('Newsletter settings') %></h1>
 
-<%= render :file => 'shared/tiny_mce' %>
-
 <%= error_messages_for :newsletter %>
 
 <%= form_for(:newsletter, html: { multipart: true }) do |f| %>
@@ -81,7 +79,7 @@
     content_tag('h3', ui_icon('ui-icon-triangle-1-s') +
                 _('Newsletter footer'), :class => 'newsletter-toggle-link', :element_id => '#newsletter-footer-field'),
     content_tag('div',
-      f.text_area(:footer, :style => 'width: 100%', :class => 'mceEditor'),
+      f.text_area(:footer, :style => 'width: 100%', :class => current_editor),
       :id => 'newsletter-footer-field'
     ))
   %>

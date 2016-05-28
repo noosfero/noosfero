@@ -155,7 +155,7 @@ Feature: edit article
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    When I follow "Text article with Textile markup language"
+    When I follow "Text article"
     Then I should see "Tag list"
     When I fill in "Title" with "Article with tags"
     And I fill in "Tag list" with "aurium, bug"
@@ -168,7 +168,7 @@ Feature: edit article
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
     When I follow "New content"
-    When I follow "Text article with visual editor"
+    When I follow "Text article"
     And I fill in "Title" with "My Article"
     And I press "Save"
     Then I should see "My Article"
@@ -203,8 +203,8 @@ Feature: edit article
     And I press "Save"
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
-    And I should see "Text article with visual editor"
-    And I follow "Text article with visual editor"
+    And I should see "Text article"
+    And I follow "Text article"
     And I fill in "Title" with "My Article"
     And I press "Save"
     Then I should see "My Article"
@@ -222,12 +222,11 @@ Feature: edit article
     And I press "Save"
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
-    And I should see "Text article with visual editor"
-    And I follow "Text article with visual editor"
+    And I should see "Text article"
+    And I follow "Text article"
     And I follow "Cancel" within ".no-boxes"
     Then I should be on /joaosilva/my-folder
 
-  @selenium
   Scenario: save and continue
     Given I am on /joaosilva/save-the-whales
     And I follow "Edit"
@@ -240,8 +239,8 @@ Feature: edit article
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
     And I follow "New content"
-    And I should see "Text article with visual editor"
-    And I follow "Text article with visual editor"
+    And I should see "Text article"
+    And I follow "Text article"
     And I fill in "Title" with "My new article"
     And I fill in "Text" with "text for the new article"
     And I press "Save and continue"
@@ -287,7 +286,7 @@ Feature: edit article
     Given I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    When I follow "Text article with visual editor"
+    When I follow "Text article"
     And I fill in "Title" with "My time testing Article"
     And I fill in "Publish date" with "1980-11-15 20:37"
     And I press "Save"

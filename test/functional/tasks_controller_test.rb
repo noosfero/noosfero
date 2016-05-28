@@ -325,23 +325,23 @@ class TasksControllerTest < ActionController::TestCase
     t = SuggestArticle.create!(:article => {:name => 'test name', :abstract => 'test abstract', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
-    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[abstract\]/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[body\]/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[abstract\]/, :class => Article::Editor::TINY_MCE }
+    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /tasks\[#{t.id}\]\[task\]\[article\]\[body\]/, :class => Article::Editor::TINY_MCE }
   end
 
-  should 'create TinyMceArticle article after finish approve suggested article task' do
-    TinyMceArticle.destroy_all
+  should 'create TextArticle article after finish approve suggested article task' do
+    TextArticle.destroy_all
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
     t = SuggestArticle.create!(:article => {:name => 'test name', :body => 'test body'}, :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     post :close, :tasks => {t.id => { :task => {}, :decision => "finish"}}
-    assert_not_nil TinyMceArticle.first
+    assert_not_nil TextArticle.first
   end
 
   should "change the article's attributes on suggested article task approval" do
-    TinyMceArticle.destroy_all
+    TextArticle.destroy_all
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
@@ -353,11 +353,11 @@ class TasksControllerTest < ActionController::TestCase
     t.save!
 
     post :close, :tasks => {t.id => { :task => {:article => {:name => 'new article name', :body => 'new body', :source => 'http://www.noosfero.com', :source_name => 'new source'}, :name => 'new name'}, :decision => "finish"}}
-    assert_equal 'new article name', TinyMceArticle.first.name
-    assert_equal 'new name', TinyMceArticle.first.author_name
-    assert_equal 'new body', TinyMceArticle.first.body
-    assert_equal 'http://www.noosfero.com', TinyMceArticle.first.source
-    assert_equal 'new source', TinyMceArticle.first.source_name
+    assert_equal 'new article name', TextArticle.first.name
+    assert_equal 'new name', TextArticle.first.author_name
+    assert_equal 'new body', TextArticle.first.body
+    assert_equal 'http://www.noosfero.com', TextArticle.first.source
+    assert_equal 'new source', TextArticle.first.source_name
   end
 
   should "display name from article suggestion when requestor was not setted" do
@@ -372,7 +372,7 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   should "not crash when article suggestion task fails" do
-    TinyMceArticle.destroy_all
+    TextArticle.destroy_all
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)

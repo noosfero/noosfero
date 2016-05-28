@@ -28,9 +28,9 @@ class NewsletterPluginModerateNewsletterTest < ActiveSupport::TestCase
   should 'set posts for mailing body on perform' do
     person = create_user('john').person
     blog = fast_create(Blog, profile_id: person.id)
-    post_1 = fast_create(TextileArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_2 = fast_create(TextileArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_3 = fast_create(TextileArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_1 = fast_create(TextArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_2 = fast_create(TextArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_3 = fast_create(TextArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
 
     newsletter = NewsletterPlugin::Newsletter.create!(:environment => person.environment, :person => person, :enabled => true)
     newsletter.blog_ids = [blog.id]

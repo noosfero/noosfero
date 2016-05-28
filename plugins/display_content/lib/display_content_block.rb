@@ -24,7 +24,7 @@ class DisplayContentBlock < Block
                               {:value => 'title', :checked => true},
                               {:value => 'abstract', :checked => true}]
   settings_items :display_folder_children, :type => :boolean, :default => true
-  settings_items :types, :type => Array, :default => ['TextileArticle', 'TinyMceArticle', 'RawHTMLArticle']
+	  settings_items :types, :type => Array, :default => ['TextArticle']
   settings_items :order_by_recent, :type => :boolean, :default => :true
   settings_items :content_with_translations, :type => :boolean, :default => :true
   settings_items :limit_to_show, :type => :integer, :default => 6
@@ -61,7 +61,7 @@ class DisplayContentBlock < Block
   end
 
   def available_content_types
-    @available_content_types ||= [TinyMceArticle, RawHTMLArticle, TextileArticle, UploadedFile, Event, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    @available_content_types ||= [TextArticle, UploadedFile, Event, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
     checked_types = types.map {|t| t.constantize}
     checked_types + (@available_content_types - checked_types)
   end
@@ -108,7 +108,7 @@ class DisplayContentBlock < Block
     @parent_nodes ||= self.holder.articles.where(:id => nodes).map { |article| get_parent(article) }.compact.flatten
   end
 
-  VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']
+  VALID_CONTENT = ['TextArticle', 'Folder', 'Blog', 'Forum']
 
   include Noosfero::Plugin::HotSpot
 

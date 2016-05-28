@@ -21,15 +21,15 @@ class ProfileSearchControllerTest < ActionController::TestCase
   end
 
   should 'search for articles' do
-    article = TextileArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
+    article = TextArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
 
     get 'index', :profile => person.identifier, :q => 'article to test'
     assert_includes assigns(:results), article
   end
 
   should 'not display articles from another profile' do
-    article = TextileArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
-    article2 = TextileArticle.create(:name => 'Another article', :body => 'Article from someone else', :profile => fast_create(Person))
+    article = TextArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
+    article2 = TextArticle.create(:name => 'Another article', :body => 'Article from someone else', :profile => fast_create(Person))
 
     get 'index', :profile => person.identifier, :q => 'article'
     assert_includes assigns(:results), article
@@ -49,7 +49,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
   should 'paginate results listing' do
     (1..11).each do |i|
-      TextileArticle.create!(:name => "Article #{i}", :profile => person, :language => 'en')
+      TextArticle.create!(:name => "Article #{i}", :profile => person, :language => 'en')
     end
 
     get 'index', :profile => person.identifier, :q => 'Article'
@@ -59,20 +59,20 @@ class ProfileSearchControllerTest < ActionController::TestCase
   end
 
   should 'display abstract if given' do
-    article1 = TextileArticle.create(:name => 'Article 1', :abstract => 'Abstract to test', :body => 'Article to test profile search', :profile => person)
-    article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+    article1 = TextArticle.create(:name => 'Article 1', :abstract => 'Abstract to test', :body => '<p>Article to test profile search</p>', :profile => person)
+    article2 = TextArticle.create(:name => 'Article 2', :body => '<p>Another article to test profile search</p>', :profile => person)
 
     get 'index', :profile => person.identifier, :q => 'article to test'
 
     assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.abstract, :attributes => { :class => /article-details/ }}
-    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.body, :attributes => { :class => /article-details/ }}
+    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
 
-    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article2.body, :attributes => { :class => /article-details/ }}
+    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
   end
 
   should 'display nothing if search is blank' do
-    article1 = TextileArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
-    article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+    article1 = TextArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
+    article2 = TextArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
 
     get 'index', :profile => person.identifier, :q => ''
 
@@ -80,19 +80,19 @@ class ProfileSearchControllerTest < ActionController::TestCase
   end
 
   should 'not display private articles' do
-    article1 = TextileArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person, :published => false)
-    article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+    article1 = TextArticle.create(:name => 'Article 1', :body => '<p>Article to test profile search</p>', :profile => person, :published => false)
+    article2 = TextArticle.create(:name => 'Article 2', :body => '<p>Another article to test profile search</p>', :profile => person)
 
     get 'index', :profile => person.identifier, :q => 'article to test'
 
-    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.body, :attributes => { :class => /article-details/ }}
+    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
 
-    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article2.body, :attributes => { :class => /article-details/ }}
+    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
   end
 
   should 'display number of results found' do
-    article1 = TextileArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
-    article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+    article1 = TextArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
+    article2 = TextArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
 
     get 'index', :profile => person.identifier, :q => 'article to test'
 

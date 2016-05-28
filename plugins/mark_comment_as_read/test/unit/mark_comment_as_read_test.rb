@@ -5,7 +5,7 @@ class MarkCommentAsReadPluginTest < ActionView::TestCase
   def setup
     @plugin = MarkCommentAsReadPlugin.new
     @person = create_user('user').person
-    @article = TinyMceArticle.create!(:profile => @person, :name => 'An article')
+    @article = TextArticle.create!(:profile => @person, :name => 'An article')
     @comment = Comment.create!(:source => @article, :author => @person, :body => 'test')
     self.stubs(:user).returns(@person)
     self.stubs(:profile).returns(@person)

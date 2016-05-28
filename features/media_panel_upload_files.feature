@@ -8,7 +8,7 @@ Feature: uploads items on media panel
       | joaosilva | Joao Silva |
     And feature "media_panel" is enabled on environment
     And I am logged in as "joaosilva"
-    And I am on /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    And I am on /myprofile/joaosilva/cms/new?type=TextArticle
 
   Scenario: see media panel collapsed
     Then I should see "Insert media"
@@ -123,7 +123,7 @@ Feature: uploads items on media panel
     Given the following files
       | owner     | file          | mime       |
       | joaosilva | other-pic.jpg | image/jpeg |
-    When I go to /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "Recent media" from "parent_id" within "#published-media"
     Then I should see div with title "other-pic.jpg" within ".items"
@@ -148,7 +148,7 @@ Feature: uploads items on media panel
       | owner      | file          | mime       | parent        |
       | joaosilva  | rails.png     | image/png  | other-gallery |
       | joaosilva  | other-pic.jpg | image/jpeg | gallery       |
-    When I go to /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "joaosilva/Gallery" from "parent_id" within "#published-media"
     Then I should see div with title "other-pic.jpg" within ".items"
@@ -165,7 +165,7 @@ Feature: uploads items on media panel
     And the following files
       | owner      | file          | mime       | parent        |
       | joaosilva  | other-pic.jpg | image/jpeg | gallery       |
-    When I go to /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "joaosilva/Gallery" from "parent_id" within "#published-media"
       And I select "joaosilva/Gallery" from "parent_id" within "#media-upload-form"
@@ -187,7 +187,7 @@ Feature: uploads items on media panel
     And the following files
       | owner      | file          | mime       | parent        |
       | joaosilva  | rails.png     | image/png  | other-gallery |
-    When I go to /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "Recent media" from "parent_id" within "#published-media"
       And I fill in "Search" with "rails" within "#published-media"
@@ -227,7 +227,7 @@ Feature: uploads items on media panel
       | joaosilva  | other-pic.jpg | image/jpeg | my-gallery    |
       | joaosilva  | rails.png     | image/png  | gallery       |
       | joaosilva  | other-pic.jpg | image/jpeg | gallery       |
-    When I go to /myprofile/joaosilva/cms/new?type=TinyMceArticle
+    When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I should not see "View all"
       And I attach the file "public/503.jpg" to "file"

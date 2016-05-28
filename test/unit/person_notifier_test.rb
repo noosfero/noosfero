@@ -18,7 +18,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     @member.save!
     @community = fast_create(Community)
     @community.add_member(@admin)
-    @article = fast_create(TextileArticle, :name => 'Article test', :profile_id => @community.id, :notify_comments => false)
+    @article = fast_create(TextArticle, :name => 'Article test', :profile_id => @community.id, :notify_comments => false)
     Delayed::Job.delete_all
     ActionMailer::Base.deliveries = []
   end

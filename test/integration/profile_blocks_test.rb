@@ -5,8 +5,8 @@ class ProfileBlocksTest < ActionDispatch::IntegrationTest
   def blog_on_article_block_bootstrap
     profile = fast_create(Profile)
     blog = fast_create(Blog, :name => 'Blog', :profile_id => profile.id)
-    fast_create(TinyMceArticle, :name => "First Post", :profile_id => profile.id, :parent_id => blog.id, :body => '<p> Wasserstoffbombe </p>')
-    fast_create(TinyMceArticle, :name => "A Post", :profile_id => profile.id, :parent_id => blog.id, :body => '<p>Lorem ipsum dolor sit amet</p> <p>Second paragraph</p>')
+    fast_create(TextArticle, :name => "First Post", :profile_id => profile.id, :parent_id => blog.id, :body => '<p> Wasserstoffbombe </p>')
+    fast_create(TextArticle, :name => "A Post", :profile_id => profile.id, :parent_id => blog.id, :body => '<p>Lorem ipsum dolor sit amet</p> <p>Second paragraph</p>')
     block = ArticleBlock.new
     block.article = blog
     profile.boxes << Box.new

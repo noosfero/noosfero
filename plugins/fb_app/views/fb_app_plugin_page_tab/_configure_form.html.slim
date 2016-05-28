@@ -15,7 +15,7 @@
   = f.text_field :title, class: 'form-control'
 
   = f.label :subtitle, t("fb_app_plugin.views.myprofile.catalogs.catalog_subtitle_label")
-  = f.text_area :subtitle, class: 'form-control mceEditor', id: "page-tab-subtitle-#{page_tab.id}"
+  = f.text_area :subtitle, class: 'form-control ' + current_editor, id: "page-tab-subtitle-#{page_tab.id}"
 
   = f.label :config_type, t("fb_app_plugin.views.myprofile.catalogs.catalog_type_chooser_label")
   = f.select :config_type,

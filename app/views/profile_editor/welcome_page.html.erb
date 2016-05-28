@@ -8,7 +8,7 @@
     <%= _('Your welcome page will only be displayed if this options is selected.') %>
   </div>
 
-  <%= f.text_area(:body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor') %>
+  <%= f.text_area(:body, :cols => 40, :style => 'width: 100%', :class => current_editor) %>
   <div class='explanation'>
     <%= _('This page will be displayed to the user after his signup with this template.') %>
   </div>
@@ -17,5 +17,3 @@
     <%= submit_button('save',  _('Save'), :cancel => @back_to) %>
   <% end %>
 <% end %>
-
-<%= render :file => 'shared/tiny_mce' %>

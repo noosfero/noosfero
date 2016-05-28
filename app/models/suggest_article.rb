@@ -44,7 +44,7 @@ class SuggestArticle < Task
       type = article[:type].constantize
       return type if type < Article
     end
-    TinyMceArticle
+    TextArticle
   end
 
   def perform

@@ -1261,7 +1261,7 @@ class PersonTest < ActiveSupport::TestCase
     User.current = another_person.user
     scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     User.current = person.user
-    article = create(TinyMceArticle, :profile => person, :name => 'An article about free software')
+    article = create(TextArticle, :profile => person, :name => 'An article about free software')
 
     assert_equivalent [scrap,article.activity], person.activities.map { |a| a.activity }
   end
@@ -1275,11 +1275,11 @@ class PersonTest < ActiveSupport::TestCase
     another_person_scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
     User.current = another_person.user
-    create(TinyMceArticle, :profile => another_person, :name => 'An article about free software from another person')
+    create(TextArticle, :profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
     User.current = person.user
-    create(TinyMceArticle, :profile => person, :name => 'An article about free software')
+    create(TextArticle, :profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.activity }

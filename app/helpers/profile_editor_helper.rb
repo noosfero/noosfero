@@ -158,4 +158,8 @@ module ProfileEditorHelper
     end
   end
 
+  def select_editor(title, object, method, options)
+    labelled_form_field(title, select(object, method,[[_('TinyMCE'), Article::Editor::TINY_MCE], [_('Textile'), Article::Editor::TEXTILE], [_('Raw HTML'), Article::Editor::RAW_HTML]]))
+  end
+
 end

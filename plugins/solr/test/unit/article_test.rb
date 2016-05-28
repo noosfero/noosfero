@@ -82,7 +82,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'index comments body together with article' do
     TestSolr.enable
     owner = create_user('testuser').person
-    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    art = fast_create(TextArticle, :profile_id => owner.id, :name => 'ytest')
     c1 = Comment.create!(:title => 'test comment', :body => 'anything', :author => owner, :source => art)
 
     assert_includes Article.find_by_contents('anything')[:results], art

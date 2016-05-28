@@ -29,9 +29,9 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
 
  should 'list most commented articles' do
     Article.delete_all
-    a1 = create(TextileArticle, :name => "art 1", :profile_id => profile.id)
-    a2 = create(TextileArticle, :name => "art 2", :profile_id => profile.id)
-    a3 = create(TextileArticle, :name => "art 3", :profile_id => profile.id)
+    a1 = create(TextArticle, :name => "art 1", :profile_id => profile.id)
+    a2 = create(TextArticle, :name => "art 2", :profile_id => profile.id)
+    a3 = create(TextArticle, :name => "art 3", :profile_id => profile.id)
 
     2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => a2).save! }
     4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => a3).save! }

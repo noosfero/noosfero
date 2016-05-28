@@ -8,7 +8,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     ActionMailer::Base.deliveries = []
     User.current = @user = create_user 'test_user'
     @profile = @user.person
-    @article = fast_create(TextileArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
+    @article = fast_create(TextArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
     @community = fast_create(Community)
     @community.add_member(@profile)
   end
@@ -257,15 +257,15 @@ class ApproveArticleTest < ActiveSupport::TestCase
     other_community.add_member(profile)
     ActionTracker::Record.delete_all
 
-    article = fast_create(TextileArticle)
+    article = fast_create(TextArticle)
     a = create(ApproveArticle, :name => 'bar', :article => article, :target => community, :requestor => profile)
     a.finish
 
-    article = fast_create(TextileArticle)
+    article = fast_create(TextArticle)
     a = create(ApproveArticle, :name => 'another bar', :article => article, :target => community, :requestor => profile)
     a.finish
 
-    article = fast_create(TextileArticle)
+    article = fast_create(TextArticle)
     a = create(ApproveArticle, :name => 'another bar', :article => article, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 3, ActionTracker::Record.count
@@ -275,11 +275,11 @@ class ApproveArticleTest < ActiveSupport::TestCase
     other_community = fast_create(Community)
     other_community.add_member(profile)
     ActionTracker::Record.delete_all
-    article1 = fast_create(TextileArticle)
+    article1 = fast_create(TextArticle)
     a = create(ApproveArticle, :name => 'bar', :article => article1, :target => community, :requestor => profile)
     a.finish
 
-    article2 = fast_create(TinyMceArticle)
+    article2 = fast_create(TextArticle)
     a = create(ApproveArticle, :name => 'another bar', :article => article2, :target => other_community, :requestor => profile)
     a.finish
     assert_equal 2, ActionTracker::Record.count

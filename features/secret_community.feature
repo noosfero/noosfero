@@ -52,7 +52,7 @@ Feature: Use a secret community
     And I go to mycommunity's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    And I follow "Text article with visual editor"
+    And I follow "Text article"
     And I fill in "Title" with "My public article"
     And I choose "Public"
     And I press "Save and continue"

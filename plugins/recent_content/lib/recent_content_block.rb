@@ -7,7 +7,7 @@ class RecentContentBlock < Block
 
   attr_accessible :presentation_mode, :total_items, :show_blog_picture, :selected_folder
 
-  VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle']
+  VALID_CONTENT = ['TextArticle']
 
   def self.description
     c_('Recent content')

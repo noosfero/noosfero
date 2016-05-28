@@ -414,7 +414,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise)
 
     User.current = person.user
-    article = create(TinyMceArticle, :profile => enterprise, :name => 'An article about free software')
+    article = create(TextArticle, :profile => enterprise, :name => 'An article about free software')
 
     assert_equal [article.activity], enterprise.activities.map(&:activity)
   end
@@ -425,7 +425,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     enterprise2 = fast_create(Enterprise)
 
     User.current = person.user
-    article = create(TinyMceArticle, :profile => enterprise2, :name => 'Another article about free software')
+    article = create(TextArticle, :profile => enterprise2, :name => 'Another article about free software')
 
     assert_not_includes enterprise.activities.map(&:activity), article.activity
   end

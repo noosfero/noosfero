@@ -12,7 +12,7 @@
   = labelled_field f, :name, t('delivery_plugin.models.method.name'), f.text_field(:name),
     help: t('delivery_plugin.models.method.name_help')
   = labelled_field f, :description, t('delivery_plugin.models.method.instructions'),
-    f.text_area(:description, rows: 5, class: 'mceEditor'), help: t('delivery_plugin.models.method.instructions_help')
+    f.text_area(:description, rows: 5, class: current_editor('simple')), help: t('delivery_plugin.models.method.instructions_help')
 
   fieldset
     legend= t'delivery_plugin.models.method.costs_legend'
@@ -33,6 +33,4 @@
   div
     = submit_button :save, if delivery_method.new_record? then t('delivery_plugin.views.method.edit.add') else t('delivery_plugin.views.method.edit.save') end
     = link_to_function t('delivery_plugin.views.method.edit.back'), "delivery.method.view.toggle()"
-
-= render file: 'shared/tiny_mce', locals: {mode: 'simple'}
 

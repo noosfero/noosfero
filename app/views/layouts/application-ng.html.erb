@@ -35,6 +35,9 @@
       noosfero.profile = <%= (@profile.identifier if @profile).to_json.html_safe %>
     </script>
 
+    <% if current_editor_is?(Article::Editor::TINY_MCE) %>
+      <%= render :file => 'shared/tiny_mce' %>
+    <% end %>
   </head>
   <body class="<%= h body_classes %>">
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
