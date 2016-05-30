@@ -21,4 +21,14 @@ class CommentHandlerTest < ActiveSupport::TestCase
     handler.perform
   end
 
+  should 'save locale from creation context and not change current locale' do
+    FastGettext.stubs(:locale).returns("pt")
+    handler = CommentHandler.new(5, :whatever_method)
+
+    FastGettext.stubs(:locale).returns("en")
+    assert_equal "pt", handler.locale
+
+    handler.perform
+    assert_equal "en", FastGettext.locale
+  end
 end
