@@ -46,7 +46,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
   test "do not create community_rating without a rate value" do
     post :new_rating, profile: @community.identifier, :comments => {:body => ""}, :organization_rating_value => nil
 
-    assert_match "value: can't be blank", session[:notice]
+    assert_tag :tag => 'div', :attributes => {:class => /errorExplanation/}, :content => /Value can't be blank/
   end
 
   test "do not create two ratings on Community when vote once config is true" do

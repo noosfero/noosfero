@@ -1130,7 +1130,7 @@ module ApplicationHelper
     content_tag(:div, :class => 'errorExplanation', :id => 'errorExplanation') do
       content_tag(:h2, _('Errors while saving')) +
       content_tag(:ul) do
-        safe_join(errors.map { |err| content_tag(:li, err) })
+        safe_join(errors.map { |err| content_tag(:li, err.html_safe) })
       end
     end
   end
