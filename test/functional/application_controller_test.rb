@@ -506,6 +506,21 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
+  should 'override user when current is an admin' do
+    user        = create_user
+    other_user  = create_user
+    environment = Environment.default
+    login_as user.login
+    @controller.stubs(:environment).returns(environment)
+
+    get :index, override_user: other_user.id
+    assert_equal user, assigns(:current_user)
+
+    environment.add_admin user.person
+    get :index, override_user: other_user.id
+    assert_equal other_user, assigns(:current_user)
+  end
+
   should 'do not allow member not included in whitelist to access an restricted environment' do
     user = create_user
     e = Environment.default

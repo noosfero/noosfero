@@ -2,15 +2,18 @@ module AuthenticatedSystem
 
   protected
 
-    def self.included base
-      if base < ActionController::Base
-        base.around_filter :user_set_current
-        base.before_filter :login_from_cookie
+    extend ActiveSupport::Concern
+
+    included do
+      if self < ActionController::Base
+        around_filter :user_set_current
+        before_filter :override_user
+        before_filter :login_from_cookie
       end
 
       # Inclusion hook to make #current_user and #logged_in?
       # available as ActionView helper methods.
-      base.helper_method :current_user, :logged_in?
+      helper_method :current_user, :logged_in?
     end
 
     # Returns true or false if the user is logged in.
@@ -20,10 +23,9 @@ module AuthenticatedSystem
     end
 
     # Accesses the current user from the session.
-    def current_user
+    def current_user user_id = session[:user]
       @current_user ||= begin
-        id = session[:user]
-        user = User.where(id: id).first if id
+        user = User.find_by id: user_id if user_id
         user.session = session if user
         User.current = user
         user
@@ -139,6 +141,13 @@ module AuthenticatedSystem
       else
         redirect_to(default)
       end
+    end
+
+    def override_user
+      return if params[:override_user].blank?
+      return unless logged_in? and user.is_admin? environment
+      @current_user = nil
+      current_user params[:override_user]
     end
 
     # When called with before_filter :login_from_cookie will check for an :auth_token
