@@ -47,7 +47,7 @@ class OrganizationRatingsPluginProfileController < ProfileController
       create_rating_comment(rating)
       session[:notice] = _("%s successfully rated!") % profile.name
     else
-      session[:notice] = _("Sorry, there were problems rating this profile.")
+      session[:notice] = rating.errors.messages.map{|field, message|"#{_(field.to_s)}: #{_(message.first)}"}.to_s
     end
 
     redirect_to profile.url
