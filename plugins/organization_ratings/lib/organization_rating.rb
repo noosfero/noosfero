@@ -13,25 +13,26 @@ class OrganizationRating < ApplicationRecord
   validates :organization_id, :person_id,
             :presence => true
 
-  def display_moderation_message person
-    if person.present?
-      task_active? && (person.is_admin? || person == self.person ||
+  def display_full_info_to? person
+      (person.is_admin? || person == self.person ||
       self.organization.is_admin?(person))
-    end
   end
 
-  def task_active?
-    tasks = CreateOrganizationRatingComment.where(:target_id => self.organization.id,
-                                                  :status => Task::Status::ACTIVE)
-    tasks.detect {|t| t.organization_rating_id == self.id}.present?
+  def task_status
+    tasks = CreateOrganizationRatingComment.where(:target_id => self.organization.id, :requestor_id => self.person.id)
+    task = tasks.detect{ |t| t.organization_rating_id == self.id }
+    task.status if task.present?
   end
 
-  def self.average_rating organization_id
-    average = OrganizationRating.where(organization_id: organization_id).average(:value)
+  def self.statistics_for_profile organization
+    ratings = OrganizationRating.where(organization_id: organization)
+    average = ratings.average(:value)
+    total = ratings.size
 
     if average
-      (average - average.truncate) >= 0.5 ? average.ceil : average.floor
+      average = (average - average.truncate) >= 0.5 ? average.ceil : average.floor
     end
+    { average: average, total: total }
   end
 
 end

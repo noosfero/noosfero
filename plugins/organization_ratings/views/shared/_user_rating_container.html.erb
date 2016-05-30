@@ -1,3 +1,4 @@
+<% extend RatingsHelper %>
 <div class="user-rating-block">
   <div class="star-profile-information">
     <div class="star-profile-image">
@@ -25,9 +26,7 @@
     </div>
 
     <div class="user-testimony">
-      <% if user_rate.display_moderation_message(user) %>
-        <p class="moderation-msg"><%= _("Report waiting for approval") %></p>
-      <% end %>
+      <%= status_message_for(user, user_rate) %>
       <% if user_rate.comment.present? %>
         <p class="comment-body"> <%= user_rate.comment.body %> </p>
       <% end %>

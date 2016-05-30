@@ -188,4 +188,24 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     assert_no_tag :tag => 'p', :content => /Report waiting for approva/, :attributes => {:class =>/comment-rejected-msg/}
     assert_tag :tag => 'p', :content => /comment accepted/, :attributes => {:class =>/comment-body/}
   end
+
+  test "should display ratings count in average block" do
+    average_block = AverageRatingBlock.new
+    average_block.box = @community.boxes.find_by_position(1)
+    average_block.save!
+
+    OrganizationRating.stubs(:statistics_for_profile).returns({:average => 5, :total => 42})
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'a', :content => /\(42\)/
+  end
+
+  test "should display maximum ratings count in average block" do
+    average_block = AverageRatingBlock.new
+    average_block.box = @community.boxes.find_by_position(1)
+    average_block.save!
+
+    OrganizationRating.stubs(:statistics_for_profile).returns({:average => 5, :total => 999000})
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'a', :content => /\(10000\+\)/
+  end
 end
