@@ -1,6 +1,8 @@
 class ElasticsearchPluginController < ApplicationController
   no_design_blocks
 
+  SEARCHABLE_MODELS = {communities: true, articles: true, people: true}
+
   def index
     search()
     render :action => 'search'
@@ -12,11 +14,15 @@ class ElasticsearchPluginController < ApplicationController
     @checkbox = {}
 
     if params[:model].present?
-      params[:model].keys.each do |model|
+        params[:model].keys.each do |model|
         @checkbox[model.to_sym] = true
-        klass = model.classify.constantize
-        query = get_query params[:q], klass
-        @results |= klass.__elasticsearch__.search(query).records.to_a
+        results model
+      end
+    else
+      unless params[:q].blank?
+        SEARCHABLE_MODELS.keys.each do |model|
+          results model
+        end
       end
     end
 
@@ -28,25 +34,35 @@ class ElasticsearchPluginController < ApplicationController
     query = {}
     unless text.blank?
 
-       fields = klass.indexable_fields.map do |key, value|
+       fields = klass::SEARCHABLE_FIELDS.map do |key, value|
          if value[:weight]
-           "#{k}^#{v[:weight]}"
+           "#{key}^#{value[:weight]}"
          else
-           "#{k}"
+           "#{key}"
          end
        end
 
        query = {
-           query: {
-               multi_match: {
-                   query: text,
-                   fields: fields,
-                   operator: "and"
-               }
-             },
-             filter: {
-               term: {visible: "true"}
+         query: {
+           match_all: {
+           }
+         },
+         filter: {
+           regexp: {
+             name: {
+               value: ".*" + text + ".*" }
+           }
+         },
+         suggest: {
+           autocomplete: {
+             text: text,
+             term: {
+               field: "name",
+               suggest_mode: "always"
              }
+           }
+         }
+
        }
     end
     query
@@ -64,4 +80,11 @@ class ElasticsearchPluginController < ApplicationController
     end
     terms
   end
+
+  def results model
+    klass = model.to_s.classify.constantize
+    query = get_query params[:q], klass
+    @results |= klass.__elasticsearch__.search(query).records.to_a
+  end
+
 end
