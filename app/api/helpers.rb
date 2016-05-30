@@ -415,7 +415,7 @@ module Api
         content_type == 'TextArticle' ? Article.text_article_types : content_type
       end
       content_types.flatten.uniq
-    end
+   end
 
     def period(from_date, until_date)
       begin_period = from_date.nil? ? Time.at(0).to_datetime : from_date

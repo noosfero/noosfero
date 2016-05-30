@@ -1,28 +1,17 @@
 require_dependency 'api/helpers'
 
 module Api
-  class App < Grape::API
+  class NoosferoFederation < Grape::API
     use Rack::JSONP
+    helpers Helpers
+    before { detect_stuff_by_domain }
+    format :json
+    content_type :json, "application/jrd+json"
+    prefix [ENV['RAILS_RELATIVE_URL_ROOT'], ".well-known"].compact.join('/')
+    mount Federation::Webfinger
+  end
 
-    logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
-    logger.formatter = GrapeLogging::Formatters::Default.new
-    #use GrapeLogging::Middleware::RequestLogger, { logger: logger }
-
-    rescue_from :all do |e|
-      logger.error e
-      error! e.message, 500
-    end unless Rails.env.test?
-
-    @@NOOSFERO_CONF = nil
-    def self.NOOSFERO_CONF
-      if @@NOOSFERO_CONF
-        @@NOOSFERO_CONF
-      else
-        file = Rails.root.join('config', 'noosfero.yml')
-        @@NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[Rails.env] || {} : {}
-      end
-    end
-
+  class BaseApi < Grape::API
     before { set_locale  }
     before { setup_multitenancy }
     before { detect_stuff_by_domain }
@@ -54,7 +43,31 @@ module Api
     mount V1::Blocks
     mount V1::Profiles
     mount V1::Activities
+  end
 
+  class App < Grape::API
+    use Rack::JSONP
+
+    logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+    logger.formatter = GrapeLogging::Formatters::Default.new
+    #use GrapeLogging::Middleware::RequestLogger, { logger: logger }
+
+    rescue_from :all do |e|
+      logger.error e
+      error! e.message, 500
+    end unless Rails.env.test?
+
+    @@NOOSFERO_CONF = nil
+    def self.NOOSFERO_CONF
+      if @@NOOSFERO_CONF
+        @@NOOSFERO_CONF
+      else
+        file = Rails.root.join('config', 'noosfero.yml')
+        @@NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[Rails.env] || {} : {}
+      end
+    end
+    mount BaseApi
+    mount NoosferoFederation
     # hook point which allow plugins to add Grape::API extensions to Api::App
     #finds for plugins which has api mount points classes defined (the class should extends Grape::API)
     @plugins = Noosfero::Plugin.all.map { |p| p.constantize }

@@ -1,12 +1,9 @@
-require 'active_support/inflector'
-module Noosfero
-  module API
-    module Federation
-      class Webfinger < Grape::API
-        get 'webfinger' do
-          result = generate_jrd
-          present result, with: Grape::Presenters::Presenter
-        end
+module Api
+  module Federation
+    class Webfinger < Grape::API
+      get 'webfinger' do
+        result = generate_jrd
+        present result, with: Grape::Presenters::Presenter
       end
     end
   end

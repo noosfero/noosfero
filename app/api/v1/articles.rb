@@ -62,9 +62,9 @@ module Api
             { :success => true }
           rescue Exception => exception
             render_api_error!(_('The article couldn\'t be removed due to some problem. Please contact the administrator.'), 400)
-          end          
+          end
         end
-
+       
         desc 'Report a abuse and/or violent content in a article by id' do
           detail 'Submit a abuse (in general, a content violation) report about a specific article'
           params Entities::Article.documentation
