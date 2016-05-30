@@ -37,20 +37,17 @@ class OrganizationRatingsPluginProfileController < ProfileController
   end
 
   def create_new_rate
-    rating = OrganizationRating.new(params[:organization_rating])
-    rating.person = current_user.person
-    rating.organization = profile
-    rating.value = params[:organization_rating_value] if params[:organization_rating_value]
+    @rating = OrganizationRating.new(params[:organization_rating])
+    @rating.person = current_user.person
+    @rating.organization = profile
+    @rating.value = params[:organization_rating_value] if params[:organization_rating_value]
 
-    if rating.save
-      @plugins.dispatch(:organization_ratings_plugin_rating_created, rating, params)
-      create_rating_comment(rating)
+    if @rating.save
+      @plugins.dispatch(:organization_ratings_plugin_rating_created, @rating, params)
+      create_rating_comment(@rating)
       session[:notice] = _("%s successfully rated!") % profile.name
-    else
-      session[:notice] = rating.errors.messages.map{|field, message|"#{_(field.to_s)}: #{_(message.first)}"}.to_s
+      redirect_to profile.url
     end
-
-    redirect_to profile.url
   end
 
   def create_rating_comment(rating)
