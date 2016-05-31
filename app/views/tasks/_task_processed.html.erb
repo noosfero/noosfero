@@ -1,0 +1,23 @@
+<div class="title">
+  <%= task_information(task) %>
+</div>
+<div class="status">
+  <%= _(Task::Status.names[task.status]) %>
+</div>
+<div class="dates">
+  <span class="created">
+    <span class="label"><%= _('Created:') %></span>
+    <span class="value"><%= show_date(task.created_at) %></span>
+  </span>
+  &nbsp; &#151; &nbsp;
+  <span class="processed">
+    <span class="label"><%= _('Processed:') %></span>
+    <span class="value"><%= show_date(task.end_date) %></span>
+  </span>
+</div>
+<% if task.closed_by.present? %>
+  <div class="closed-by">
+    <span class="label"><%= _('Closed by:') %></span>
+    <span class="value"><%= link_to(task.closed_by.name, task.closed_by.url) %></span>
+  </div>
+<% end %>

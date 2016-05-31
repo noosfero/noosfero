@@ -20,17 +20,6 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.contents(nil)
   end
 
-  should 'render nothing if it has no content to show' do
-    assert_equal '', instance_eval(&@block.content)
-  end
-
-  should 'render context content block view' do
-    @page = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => @page.id)
-    expects(:render).with(:file => 'blocks/context_content', :locals => {:block => @block, :contents => [article], :parent_title => @page.name})
-    instance_eval(&@block.content)
-  end
-
   should 'return children of page' do
     folder = fast_create(Folder)
     article = fast_create(TinyMceArticle, :parent_id => folder.id)
@@ -134,47 +123,6 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], @block.available_content_types
   end
 
-  should 'display thumbnail for image content' do
-    content = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    content = FilePresenter.for(content)
-    expects(:image_tag).once
-    instance_eval(&@block.content_image(content))
-  end
-
-  should 'display div as content image for content that is not a image' do
-    content = fast_create(Folder)
-    content = FilePresenter.for(content)
-    expects(:content_tag).once
-    instance_eval(&@block.content_image(content))
-  end
-
-  should 'display div with extension class for uploaded file that is not a image' do
-    content = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    content = FilePresenter.for(content)
-    expects(:content_tag).with('div', '', :class => "context-icon icon-text icon-text-plain extension-txt").once
-    instance_eval(&@block.content_image(content))
-  end
-
-  should 'do not display pagination links if page is nil' do
-    @page = nil
-    assert_equal '', instance_eval(&@block.footer)
-  end
-
-  should 'do not display pagination links if it has until one page' do
-    assert_equal '', instance_eval(&@block.footer)
-  end
-
-  should 'display pagination links if it has more than one page' do
-    @block.limit = 2
-    @page = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :parent_id => @page.id)
-    article2 = fast_create(TinyMceArticle, :parent_id => @page.id)
-    article3 = fast_create(TinyMceArticle, :parent_id => @page.id)
-    expects(:content_tag).once
-    expects(:render).with(has_entry(:partial => 'blocks/more'))
-    instance_eval(&@block.footer)
-  end
-
   should 'return box owner on profile method call' do
     profile = fast_create(Community)
     box = Box.create!(:owner => profile)
@@ -186,4 +134,61 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     refute @block.cacheable?
   end
 
+end
+
+require 'boxes_helper'
+
+class ContextContentBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
+    @block = ContextContentPlugin::ContextContentBlock.create!
+    @block.types = ['TinyMceArticle']
+  end
+
+  should 'render nothing if it has no content to show' do
+    assert_equal "\n", render_block_content(@block)
+  end
+
+  should 'render context content block view' do
+    @page = fast_create(Folder)
+    article = fast_create(TinyMceArticle, :parent_id => @page.id)
+    contents = [article]
+    @block.use_parent_title = true
+
+    article.expects(:view_url).returns('http://test.noosfero.plugins')
+    @block.expects(:contents).with(@page).returns(contents)
+    @block.expects(:parent_title).with(contents).returns(@page.name)
+    ActionView::Base.any_instance.expects(:block_title).with(@page.name, @block.subtitle).returns("")
+
+    render_block_content(@block)
+  end
+
+  should 'do not display pagination links if page is nil' do
+    @page = nil
+
+    assert_equal "\n", render_block_content(@block)
+  end
+
+  should 'do not display pagination links if it has until one page' do
+    assert_equal "\n", render_block_content(@block)
+  end
+
+  should 'display pagination links if it has more than one page' do
+    @block.limit = 2
+    @page = fast_create(Folder)
+    article1 = fast_create(TinyMceArticle, :parent_id => @page.id)
+    article2 = fast_create(TinyMceArticle, :parent_id => @page.id)
+    article3 = fast_create(TinyMceArticle, :parent_id => @page.id)
+    contents = [article1, article2, article3]
+    contents.each do |article|
+      article.expects(:view_url).returns('http://test.noosfero.plugins')
+    end
+
+    ActionView::Base.any_instance.expects(:block_title).returns("")
+    @block.expects(:contents).with(@page).returns(contents)
+
+    render_block_content(@block)
+  end
 end

@@ -1,0 +1,14 @@
+= block_title(block.title, block.subtitle)
+
+- if block.show_most_read
+  = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_accessed(block.owner, block.limit), title:  _("Most read articles"), html_class: 'mread'}
+- if block.show_most_commented
+  = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_commented_relevant_content(block.owner, block.limit), title: _("Most commented articles"), html_class: 'mcommented'}
+
+- if block.env.plugin_enabled?('VotePlugin')
+  - if block.show_most_liked
+    = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.more_positive_votes(block.owner, block.limit), title: _("Most liked articles"), html_class: 'mliked'}
+  - if block.show_most_disliked
+    = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.more_negative_votes(block.owner, block.limit), title: _("Most disliked articles"), html_class: 'mdisliked'}
+  - if block.show_most_voted
+    = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_voted(block.owner, block.limit), title: _("Most voted articles"), html_class: 'mvoted'}

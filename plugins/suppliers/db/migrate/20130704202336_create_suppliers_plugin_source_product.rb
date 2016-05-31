@@ -1,7 +1,7 @@
 class CreateSuppliersPluginSourceProduct < ActiveRecord::Migration
   def self.up
     # check if distribution plugin already moved the table
-    return if ActiveRecord::Base.connection.table_exists? "suppliers_plugin_source_products"
+    return if ApplicationRecord.connection.table_exists? "suppliers_plugin_source_products"
 
     create_table :suppliers_plugin_source_products do |t|
       t.integer  "from_product_id"

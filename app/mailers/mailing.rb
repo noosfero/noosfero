@@ -1,6 +1,6 @@
 require_dependency 'mailing_job'
 
-class Mailing < ActiveRecord::Base
+class Mailing < ApplicationRecord
 
   acts_as_having_settings :field => :data
 

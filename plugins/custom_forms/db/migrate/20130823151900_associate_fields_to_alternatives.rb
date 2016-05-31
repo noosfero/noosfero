@@ -1,5 +1,5 @@
 class AssociateFieldsToAlternatives < ActiveRecord::Migration
-  class CustomFormsPlugin::Field < ActiveRecord::Base
+  class CustomFormsPlugin::Field < ApplicationRecord
     self.table_name = :custom_forms_plugin_fields
     has_many :alternatives, :class_name => 'CustomFormsPlugin::Alternative'
     serialize :choices, Hash

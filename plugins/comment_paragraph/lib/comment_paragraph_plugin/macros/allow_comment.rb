@@ -1,5 +1,6 @@
-# FIXME See a better way to generalize this parameter.
-Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES.merge %w[data-macro data-macro-group_id]
+class Application < Rails::Application
+  config.action_view.sanitized_allowed_attributes << 'data-macro-paragraph_uuid'
+end
 
 class CommentParagraphPlugin::AllowComment < Noosfero::Plugin::Macro
 

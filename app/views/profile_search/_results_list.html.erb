@@ -1,7 +1,7 @@
 <div id='search-content'>
   <% if @results %>
     <div class='results-found-message'>
-      <%= _("%s results found") % @results.total_entries %>
+      <%= n_("%s result found", "%s results found", @results.total_entries) % @results.total_entries %>
     </div>
 
     <ul class='results-list'>

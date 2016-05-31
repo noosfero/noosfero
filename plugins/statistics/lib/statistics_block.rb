@@ -93,6 +93,7 @@ class StatisticsBlock < Block
   end
 
   def products
+    return [] unless environment.plugin_enabled?('ProductsPlugin')
     if owner.kind_of?(Environment)
       owner.products.where("profiles.enabled = true and profiles.visible = true").count
     elsif owner.kind_of?(Enterprise)
@@ -146,14 +147,6 @@ class StatisticsBlock < Block
       owner.articles.sum(:hits)
     else
       0
-    end
-  end
-
-  def content(args={})
-    block = self
-
-    proc do
-      render :file => 'statistics_block', :locals => { :block => block }
     end
   end
 

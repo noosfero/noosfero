@@ -29,7 +29,7 @@ class AddBirthDateToPerson < ActiveRecord::Migration
     end
   end
 
-  class Person < ActiveRecord::Base
+  class Person < ApplicationRecord
     self.table_name = 'profiles'
     serialize :data, Hash
   end

@@ -1,0 +1,7 @@
+<% if (task.organization.requires_email || task.requestor.may_display_field_to?("email")) %>
+  <div>
+    Email:
+    <span id="task_email"> <%=task.requestor.email %> </span>
+  </div>
+<% end %>
+

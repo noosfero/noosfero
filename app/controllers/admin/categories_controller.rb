@@ -7,7 +7,6 @@ class CategoriesController < AdminController
   def index
     @categories = environment.categories.where("parent_id is null AND type is null")
     @regions = environment.regions.where(:parent_id => nil)
-    @product_categories = environment.product_categories.where(:parent_id => nil)
   end
 
   def get_children

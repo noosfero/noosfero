@@ -1,4 +1,4 @@
-class DeliveryPlugin::Method < ActiveRecord::Base
+class DeliveryPlugin::Method < ApplicationRecord
 
   Types = ['pickup', 'deliver']
 

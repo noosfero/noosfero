@@ -1,4 +1,4 @@
-class ArticleCategorization < ActiveRecord::Base
+class ArticleCategorization < ApplicationRecord
   self.table_name = :articles_categories
 
   belongs_to :article

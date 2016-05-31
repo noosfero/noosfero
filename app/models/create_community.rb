@@ -60,9 +60,9 @@ class CreateCommunity < Task
 
   def information
     if description.blank?
-      { :message => _('%{requestor} wants to create community %{subject} with no description.') }
+      { :message => _('%{requestor} wants to create community %{subject} with no description.').html_safe }
     else
-      { :message => _('%{requestor} wants to create community %{subject} with this description:<p><em>%{description}</em></p>'),
+      { :message => _('%{requestor} wants to create community %{subject} with this description:<p><em>%{description}</em></p>').html_safe,
         :variables => {:description => description} }
     end
   end

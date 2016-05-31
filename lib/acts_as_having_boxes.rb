@@ -35,4 +35,4 @@ module ActsAsHavingBoxes
 
 end
 
-ActiveRecord::Base.extend(ActsAsHavingBoxes::ClassMethods)
+ActiveRecord::Base.extend ActsAsHavingBoxes::ClassMethods

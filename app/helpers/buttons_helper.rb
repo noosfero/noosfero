@@ -1,4 +1,17 @@
 module ButtonsHelper
+
+  def button_bar(options = {}, &block)
+    options[:class] ||= ''
+    options[:class] << ' button-bar'
+
+    content_tag :div, options do
+      [
+        capture(&block).to_s,
+        tag(:br, style: 'clear: left;'),
+      ].safe_join
+    end
+  end
+
   def button(type, label, url, html_options = {})
     html_options ||= {}
     the_class = 'with-text'
@@ -15,9 +28,9 @@ module ButtonsHelper
     end
     the_title = html_options[:title] || label
     if html_options[:disabled]
-      content_tag('a', '&nbsp;'+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
+      content_tag('a', '&nbsp;'.html_safe+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
     else
-      link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
+      link_to('&nbsp;'.html_safe+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
     end
   end
 

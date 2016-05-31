@@ -158,10 +158,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing('/ze~withtilde', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze~withtilde')
   end
 
-  def test_catalog_routing
-    assert_routing('/catalog/colivre', :controller => 'catalog', :action => 'index', :profile => 'colivre')
-  end
-
   def test_hosted_domain_routing
     user = create_user('testuser').person
     domain = Domain.new(:name => 'example.com').tap { |d| d.owner = user; d.save! }

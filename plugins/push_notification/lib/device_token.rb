@@ -1,4 +1,4 @@
-class PushNotificationPlugin::DeviceToken < ActiveRecord::Base
+class PushNotificationPlugin::DeviceToken < ApplicationRecord
   belongs_to :user
   attr_accessible :token, :device_name, :user
 

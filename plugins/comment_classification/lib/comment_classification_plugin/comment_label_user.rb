@@ -1,4 +1,4 @@
-class CommentClassificationPlugin::CommentLabelUser < ActiveRecord::Base
+class CommentClassificationPlugin::CommentLabelUser < ApplicationRecord
   self.table_name = :comment_classification_plugin_comment_label_user
 
   belongs_to :profile

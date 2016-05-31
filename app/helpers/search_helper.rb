@@ -124,10 +124,10 @@ module SearchHelper
   def filters(asset)
     return if !asset
     klass = asset_class(asset)
-    content_tag('div', klass::SEARCH_FILTERS.map do |name, options|
+    content_tag('div', safe_join(klass::SEARCH_FILTERS.map do |name, options|
       default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
       select_filter(name, options, default)
-    end.join("\n"), :id => 'search-filters')
+    end, "\n"), :id => 'search-filters')
   end
 
   def assets_menu(selected)
@@ -137,11 +137,11 @@ module SearchHelper
     #     menu.
     assets.delete(:events)
     content_tag('ul',
-      assets.map do |asset|
+      safe_join(assets.map do |asset|
         options = {}
         options.merge!(:class => 'selected') if selected.to_s == asset.to_s
         content_tag('li', asset_link(asset), options)
-      end.join("\n"),
+      end, "\n"),
     :id => 'assets-menu')
   end
 

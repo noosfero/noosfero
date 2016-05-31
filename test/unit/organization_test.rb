@@ -437,7 +437,7 @@ class OrganizationTest < ActiveSupport::TestCase
     c = fast_create(Organization, :name => 'my test profile', :identifier => 'mytestprofile')
     admin = create_user('adminuser').person
     c.add_admin(admin)
-   
+
     assert c.is_admin?(admin)
   end
 
@@ -458,7 +458,7 @@ class OrganizationTest < ActiveSupport::TestCase
     refute c.is_admin?(moderator)
   end
 
-  should 'fetch organizations there are visible for a user' do
+  should 'fetch organizations that are visible for users' do
     person = create_user('some-person').person
     admin = create_user('some-admin').person
     env_admin = create_user('env-admin').person
@@ -513,4 +513,78 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_includes     env_admin_orgs, o7
   end
 
+  should 'fetch organizations that are listed for users' do
+    person = create_user('some-person').person
+    admin = create_user('some-admin').person
+    env_admin = create_user('env-admin').person
+
+    o1 = fast_create(Organization, :public_profile => true , :visible => true )
+    o1.add_admin(admin)
+    o1.add_member(person)
+
+    o2 = fast_create(Organization, :public_profile => true , :visible => true )
+    o3 = fast_create(Organization, :public_profile => false, :visible => true )
+
+    o4 = fast_create(Organization, :public_profile => false, :visible => true)
+    o4.add_admin(admin)
+    o4.add_member(person)
+
+    o5 = fast_create(Organization, :public_profile => true , :visible => false)
+    o5.add_admin(admin)
+    o5.add_member(person)
+
+    o6 = fast_create(Enterprise, :enabled => false, :visible => true)
+    o6.add_admin(admin)
+
+    o7 = fast_create(Organization, :public_profile => false, :visible => false)
+
+    Environment.default.add_admin(env_admin)
+
+    person_orgs    = Organization.listed_for_person(person)
+    admin_orgs     = Organization.listed_for_person(admin)
+    env_admin_orgs = Organization.listed_for_person(env_admin)
+
+    assert_includes     person_orgs,    o1
+    assert_includes     admin_orgs,     o1
+    assert_includes     env_admin_orgs, o1
+
+    assert_includes     person_orgs,    o2
+    assert_includes     env_admin_orgs, o2
+    assert_includes     person_orgs,    o3
+    assert_includes     env_admin_orgs, o3
+
+    assert_includes     person_orgs,    o4
+    assert_includes     admin_orgs,     o4
+    assert_includes     env_admin_orgs, o4
+
+    assert_not_includes person_orgs,    o5
+    assert_includes     admin_orgs,     o5
+    assert_includes     env_admin_orgs, o5
+
+    assert_not_includes person_orgs,    o6
+    assert_includes     admin_orgs,     o6
+
+    assert_not_includes person_orgs,    o7
+    assert_includes     env_admin_orgs, o7
+  end
+
+  should 'return true at display_private_info_to? when profile is public and user is nil' do
+    organization = fast_create(Organization, public_profile: true)
+    assert organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is public and secret' do
+    organization = fast_create(Organization, public_profile: true, secret: true)
+    assert !organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is public and not visible' do
+    organization = fast_create(Organization, public_profile: true, visible: false)
+    assert !organization.display_private_info_to?(nil)
+  end
+
+  should 'return false at display_private_info_to? when profile is private and user is nil' do
+    organization = fast_create(Organization, public_profile: false)
+    assert !organization.display_private_info_to?(nil)
+  end
 end

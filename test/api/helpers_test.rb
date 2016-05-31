@@ -1,33 +1,31 @@
 require_relative 'test_helper'
-require 'noosfero/api/helpers'
+require 'base64'
 
-class APIHelpersTest < ActiveSupport::TestCase
+class Api::HelpersTest < ActiveSupport::TestCase
 
-  include Noosfero::API::APIHelpers
+  include Api::Helpers
 
   def setup
+    create_and_activate_user
     @headers = {}
   end
 
   attr_accessor :headers
 
   should 'get the current user with valid token' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     self.params = {:private_token => user.private_token}
     assert_equal user, current_user
   end
 
   should 'get the current user with valid token in header' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     headers['Private-Token'] = user.private_token
     assert_equal user, current_user
   end
 
   should 'get the current user even with expired token' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     user.private_token_generated_at = DateTime.now.prev_year
     user.save
     self.params = {:private_token => user.private_token}
@@ -35,21 +33,29 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'get the person of current user' do
-    user = create_user('someuser')
-    user.generate_private_token!
+    login_api
     self.params = {:private_token => user.private_token}
     assert_equal user.person, current_person
   end
 
-#  #FIXME see how to make this test. Get the current_user variable
-#  should 'set current_user to nil after logout' do
-#    user = create_user('someuser')
-#    user.stubs(:private_token_expired?).returns(false)
-#    User.stubs(:find_by(private_token).returns: user)
-#    assert_not_nil current_user
-#    assert false
-#    logout
-#  end
+  should 'get the current user from plugins' do
+
+    class CoolPlugin < Noosfero::Plugin
+      def api_custom_login request
+        user = User.create!(:login => 'zombie', :password => 'zombie', :password_confirmation => 'zombie', :email => 'zombie@brains.org', :environment => environment)
+        user.activate
+        user
+      end
+    end
+
+    Noosfero::Plugin.stubs(:all).returns([CoolPlugin.name])
+    Environment.default.enable_plugin(CoolPlugin)
+
+    get "/api/v1/people/me"
+
+    json = JSON.parse(last_response.body)
+    assert_equal "zombie", json['person']['name']
+  end
 
   should 'limit be defined as the params limit value' do
     local_limit = 30
@@ -93,28 +99,26 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'parse_content_type return all content types as an array' do
-    assert_equivalent ['TextArticle','TinyMceArticle'], parse_content_type("TextArticle,TinyMceArticle")
+    assert_equivalent ['TextileArticle','TinyMceArticle'], parse_content_type("TextileArticle,TinyMceArticle")
   end
 
   should 'find_article return article by id in list passed for user with permission' do
-    user = create_user('someuser')
+    login_api
     a = fast_create(Article, :profile_id => user.person.id)
     fast_create(Article, :profile_id => user.person.id)
     fast_create(Article, :profile_id => user.person.id)
 
-    user.generate_private_token!
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal a, find_article(user.person.articles, a.id)
   end
 
   should 'find_article return forbidden when a user try to access an article without permission' do
-    user = create_user('someuser')
+    login_api
     p = fast_create(Profile)
     a = fast_create(Article, :published => false, :profile_id => p.id)
     fast_create(Article, :profile_id => p.id)
 
-    user.generate_private_token!
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
     assert_equal 403, find_article(p.articles, a.id).last
@@ -163,6 +167,10 @@ class APIHelpersTest < ActiveSupport::TestCase
     assert_nil make_conditions_with_parameter[:type]
   end
 
+  should 'make_conditions_with_parameter return archived parameter if archived was defined' do
+    assert_not_nil make_conditions_with_parameter('archived' => true)[:archived]
+  end
+
   #test_should_make_order_with_parameters_return_order_if attribute_is_found_at_object_association
   should 'make_order_with_parameters return order if attribute is found at object association' do
     environment = Environment.new
@@ -197,7 +205,7 @@ class APIHelpersTest < ActiveSupport::TestCase
   end
 
   should 'render not_found if endpoint is unavailable' do
-    Noosfero::API::API.stubs(:endpoint_unavailable?).returns(true)
+    Api::App.stubs(:endpoint_unavailable?).returns(true)
     self.expects(:not_found!)
 
     filter_disabled_plugins_endpoints
@@ -228,6 +236,24 @@ class APIHelpersTest < ActiveSupport::TestCase
     params[:fields] = {only: [:name, {user: [:login]}]}.to_json
     expects(:present).with(model, {:only => ['name', {'user' => ['login']}]})
     present_partial(model, {})
+  end
+
+  should 'create a :uploaded_data hash, expected by image_builder ' do
+    base64_image = create_base64_image
+    uploadedfile = base64_to_uploadedfile base64_image
+    assert uploadedfile.has_key? :uploaded_data
+    assert_equal uploadedfile[:uploaded_data].original_filename, base64_image[:filename]
+    assert_equal uploadedfile[:uploaded_data].content_type, base64_image[:type]
+    assert uploadedfile[:uploaded_data].tempfile
+  end
+
+  should 'return a params copy with a UploadedFile object' do
+    base64_image = create_base64_image
+    params = {}
+    params.merge!({image_builder: base64_image})
+    asset_params = asset_with_image params
+    assert !asset_params[:image_builder][:uploaded_data].nil?
+    assert asset_params[:image_builder][:uploaded_data].is_a? ActionDispatch::Http::UploadedFile
   end
 
   protected

@@ -6,11 +6,11 @@
 <script>
   jQuery( document ).ready(function( $ ) {
     <% actions.each_with_index do |action, index| %>
-      <%= "siteTourPlugin.add('#{j action[:group_name]}', '#{j action[:selector]}', '#{j parse_tour_description(action[:description])}', #{index + 1});" %>
+      <%= raw "siteTourPlugin.add('#{j action[:group_name]}', '#{j action[:selector]}', '#{j parse_tour_description(action[:description])}', #{index + 1});" %>
     <% end %>
 
     <% (group_triggers||[]).each do |group| %>
-      <%= "siteTourPlugin.addGroupTrigger('#{j group[:group_name]}', '#{j group[:selector]}', '#{j group[:event]}');" %>
+      <%= "siteTourPlugin.addGroupTrigger('#{j group[:group_name]}', '#{j group[:selector]}', '#{j group[:event]}');".html_safe %>
     <% end %>
 
     siteTourPlugin.setOption('nextLabel', '<%= _('Next') %>');

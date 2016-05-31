@@ -3,12 +3,12 @@
 
 <%= form_tag do %>
 
-  <%= [
+  <%= safe_join([
         radio_button_tag(:import_from, "manual", @import_from == "manual", :onclick => 'hide_invite_friend_login_password()') + content_tag('label', _('Manually (empty field)'), :for => "import_from_manual"),
         radio_button_tag(:import_from, "gmail", @import_from == "gmail", :onclick => 'show_invite_friend_login_password(this.value)') + content_tag('label', 'Gmail', :for => 'import_from_gmail'),
         radio_button_tag(:import_from, "yahoo", @import_from == "yahoo", :onclick => 'show_invite_friend_login_password(this.value)') + content_tag('label', 'Yahoo', :for => "import_from_yahoo"),
         radio_button_tag(:import_from, "hotmail", @import_from == "hotmail", :onclick => 'show_invite_friend_login_password(this.value)') + content_tag('label', 'Hotmail', :for => "import_from_hotmail")
-      ].join("\n<br/>\n") %>
+      ], "\n<br/>\n".html_safe) %>
 
   <script type="text/javascript">
     function hide_invite_friend_login_password() {
@@ -34,7 +34,7 @@
     <%= labelled_form_field(_("Password") + ":", password_field_tag(:password)) %>
   </div>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:forward, _("Next")) %>
   <% end %>
   <p><%= _("We won't store your password or contact anyone without your permission.") %></p>

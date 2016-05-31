@@ -9,7 +9,7 @@
 # This class has a +data+ field of type <tt>text</tt>, where you can store any
 # type of data (as serialized Ruby objects) you need for your subclass (which
 # will need to declare <ttserialize</tt> itself).
-class Task < ActiveRecord::Base
+class Task < ApplicationRecord
 
   acts_as_having_settings :field => :data
 
@@ -190,6 +190,10 @@ class Task < ActiveRecord::Base
     false
   end
 
+  def footer
+    false
+  end
+
   def icon
     {:type => :defined_image, :src => "/images/icons-app/user-minor.png", :name => requestor.name, :url => requestor.url}
   end
@@ -324,9 +328,28 @@ class Task < ActiveRecord::Base
     where [environment_condition, profile_condition].compact.join(' OR ')
   }
 
+  scope :from_closed_date, -> closed_from {
+    where('tasks.end_date >= ?', closed_from.beginning_of_day) unless closed_from.blank?
+  }
+
+  scope :until_closed_date, -> closed_until {
+    where('tasks.end_date <= ?', closed_until.end_of_day) unless closed_until.blank?
+  }
+
+  scope :from_creation_date, -> created_from {
+    where('tasks.created_at >= ?', created_from.beginning_of_day) unless created_from.blank?
+  }
+
+  scope :until_creation_date, -> created_until {
+    where('tasks.created_at <= ?', created_until.end_of_day) unless created_until.blank?
+  }
 
   def self.pending_types_for(profile)
     Task.to(profile).pending.select('distinct type').map { |t| [t.class.name, t.title] }
+  end
+
+  def self.closed_types_for(profile)
+    Task.to(profile).closed.select('distinct type').map { |t| [t.class.name, t.title] }
   end
 
   def opened?

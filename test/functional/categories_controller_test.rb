@@ -44,12 +44,6 @@ class CategoriesControllerTest < ActionController::TestCase
     get :new
   end
 
-  def test_new_product_category
-    cat = ProductCategory.new
-    ProductCategory.expects(:new).returns(cat)
-    get :new, :type => 'ProductCategory'
-  end
-
   def test_new_save
     assert_difference 'Category.count' do
       post :new, :category => { :name => 'a new category' }
@@ -137,22 +131,20 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :name => "category[display_color]" }
   end
 
-  should 'not list regions and product categories' do
+  should 'not list regions' do
     Environment.default.categories.destroy_all
     c = create(Category, :name => 'Regular category', :environment => Environment.default)
-    p = create(ProductCategory, :name => 'Product category', :environment => Environment.default)
     r = create(Region, :name => 'Some region', :environment => Environment.default)
 
     get :index
     assert_equal [c], assigns(:categories)
-    assert_equal [p], assigns(:product_categories)
     assert_equal [r], assigns(:regions)
   end
 
   should 'use parent\'s type to determine subcategory\'s type' do
-    parent = create(ProductCategory, :name => 'Sample category', :environment => Environment.default)
+    parent = create(Region, name: 'Sample category', environment: Environment.default)
     post :new, :parent_id => parent.id, :parent_type => parent.class.name, :category => {:name => 'Subcategory'}
-    sub = ProductCategory.find_by(name: 'Subcategory')
+    sub = Region.find_by_name('Subcategory')
     assert_equal parent.class, sub.class
   end
 

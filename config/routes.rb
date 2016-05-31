@@ -56,15 +56,19 @@ Noosfero::Application.routes.draw do
   # search
   match 'search(/:action(/*category_path))', controller: 'search', via: :all
 
+  ##
+  # Keep products URL compatibility
+  get 'catalog/:profile', to: redirect{ |params, request| "/profile/#{request.params[:profile]}/plugin/products/catalog" }
+  get 'myprofile/:profile/manage_products(/:action(/:id))', to: (redirect do |params, request|
+    "/profile/#{request.params[:profile]}/plugin/products/page/#{request.params[:action]}/#{request.params[:id]}"
+  end)
+
   # events
   match 'profile/:profile/events_by_day', controller: 'events', action: 'events_by_day', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events_by_month', controller: 'events', action: 'events_by_month', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events/:year/:month/:day', controller: 'events', action: 'events', year: /\d*/, month: /\d*/, day: /\d*/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events/:year/:month', controller: 'events', action: 'events', year: /\d*/, month: /\d*/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events', controller: 'events', action: 'events', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
-
-  # catalog
-  match 'catalog/:profile', controller: 'catalog', action: 'index', profile: /#{Noosfero.identifier_format_in_url}/i, as: :catalog, via: :all
 
   # invite
   match 'profile/:profile/invite/friends', controller: 'invite', action: 'invite_friends', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
@@ -94,6 +98,7 @@ Noosfero::Application.routes.draw do
 
   # chat
   match 'chat(/:action(/:id))', controller: 'chat', via: :all
+
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )

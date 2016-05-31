@@ -4,16 +4,15 @@ module InputHelper
   protected
 
   def input_group_addon addon, options = {}, &block
-    content_tag :div,
-      content_tag(:span, addon, class: 'input-group-addon') + yield,
-    class: 'input-group'
+    content_tag :div, class: 'input-group' do
+      [
+        content_tag(:span, addon, class: 'input-group-addon'),
+        capture(&block),
+      ].safe_join
+    end
   end
 
 end
 
-module ApplicationHelper
-
-  include InputHelper
-
-end
+ApplicationHelper.include InputHelper
 

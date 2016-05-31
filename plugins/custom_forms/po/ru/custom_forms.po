@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-03-09 09:51+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2016-04-22 22:31+0000\n"
+"Last-Translator: Iryna Pruitt <jdpruitt2807@prodigy.net>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.6-dev\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
 msgid "Invalid string format of access."
-msgstr ""
+msgstr "Недействительный формат строки доступа."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:71
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:76
@@ -31,11 +31,11 @@ msgstr "Со следующими файлами возникли проблем
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:81
 msgid "Invalid type format of access."
-msgstr ""
+msgstr "Недействительный тип формата доступа."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:87
 msgid "The time range selected is invalid."
-msgstr ""
+msgstr "Диапазон времени выбран неверно."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:20
 #, fuzzy
@@ -76,11 +76,11 @@ msgstr "Пользовательский заголовок"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:24
 msgid "Always"
-msgstr ""
+msgstr "Всегда"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:28
 msgid "Until %s"
-msgstr ""
+msgstr "До %"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:30
 #, fuzzy
@@ -94,16 +94,15 @@ msgstr "Выбрать..."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:61
 msgid "Text field"
-msgstr ""
+msgstr "Поле текста"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:62
-#, fuzzy
 msgid "Select field"
-msgstr "Выбрать папки"
+msgstr "Выбрать поле"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:102
 msgid "Hold down Ctrl to select options"
-msgstr ""
+msgstr "Держать нажатой клавишу Ctrl для выбора опций"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
 #, fuzzy
@@ -111,9 +110,8 @@ msgid "Admission survey"
 msgstr "Участники: %s"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
-#, fuzzy
 msgid "%{requestor} wants you to fill in some information before joining."
-msgstr "%s хочет быть вашим другом"
+msgstr "%s хочет чтоб вы внесли информацию, прежде чем присоединиться."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
 #, fuzzy

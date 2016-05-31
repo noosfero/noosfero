@@ -51,7 +51,7 @@
     <%= pagination_links(organizations, {:param_name => 'npage', :page_links => true})  %>
   </div>
 
-  <% button_bar(:class => "related-organizations-button-bar") do %>
+  <%= button_bar(:class => "related-organizations-button-bar") do %>
     <%= button :back, c_('Go back'), { :controller => 'profile' } %>
     <%= button :add, _("Add a new %s") % organization_type, :controller => 'sub_organizations_plugin_myprofile', :action => 'index' if logged_in? && user.has_permission?(:edit_profile, profile) && !environment.enabled?("disable_asset_#{organization_type.pluralize}") %>
 

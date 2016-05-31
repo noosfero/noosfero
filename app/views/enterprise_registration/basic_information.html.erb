@@ -8,7 +8,7 @@
     <%= _('There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions.') %>
   </div>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= button :back, _('Go back'), { :profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile" }%>
   <% end %>
 <% else %>
@@ -36,7 +36,7 @@
 
     <%= template_options(:enterprises, 'create_enterprise')%>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
     <% end %>
   <% end %>

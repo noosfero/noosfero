@@ -1,4 +1,4 @@
-class Box < ActiveRecord::Base
+class Box < ApplicationRecord
 
   acts_as_list scope: -> box { where owner_id: box.owner_id, owner_type: box.owner_type }
 
@@ -41,7 +41,6 @@ class Box < ActiveRecord::Base
       ProfileImageBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      SellersSearchBlock,
       TagsBlock ]
   end
 
@@ -54,21 +53,17 @@ class Box < ActiveRecord::Base
       EnterprisesBlock,
       FansBlock,
       FavoriteEnterprisesBlock,
-      FeaturedProductsBlock,
       FeedReaderBlock,
       HighlightsBlock,
       LinkListBlock,
       LocationBlock,
       LoginBlock,
       MyNetworkBlock,
-      ProductsBlock,
-      ProductCategoriesBlock,
       ProfileImageBlock,
       ProfileInfoBlock,
       ProfileSearchBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      SellersSearchBlock,
       SlideshowBlock,
       TagsBlock
     ]

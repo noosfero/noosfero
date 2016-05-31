@@ -17,7 +17,7 @@ module PerformanceHelper
   # On the travis/gitlab CI this can vary with servers' IO load, so
   # we soften to avoid failures
   #
-  NON_LINEAR_FACTOR = unless ENV['CI'] then 1.8 else 1.0 end
+  NON_LINEAR_FACTOR = unless ENV['CI'] then 1.8 else 0 end
 
 end
 

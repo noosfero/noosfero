@@ -1,5 +1,5 @@
 
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
 
   include SanitizeHelper
 
@@ -28,6 +28,8 @@ class Article < ActiveRecord::Base
     :order => %w[more_recent more_popular more_comments],
     :display => %w[full]
   }
+
+  N_('article')
 
   def initialize(*params)
     super
@@ -604,7 +606,7 @@ class Article < ActiveRecord::Base
   end
 
   def accept_category?(cat)
-    !cat.is_a?(ProductCategory)
+    true
   end
 
   def public?
@@ -806,11 +808,13 @@ class Article < ActiveRecord::Base
   end
 
   def body_images_paths
-    Nokogiri::HTML.fragment(self.body.to_s).css('img[src]').collect do |i|
+    paths = Nokogiri::HTML.fragment(self.body.to_s).css('img[src]').collect do |i|
       src = i['src']
       src = URI.escape src if self.new_record? # xss_terminate runs on save
       (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, src).to_s : src
     end
+    paths.unshift(URI.join(self.profile.environment.top_url, self.image.public_filename).to_s) if self.image.present?
+    paths
   end
 
   def more_comments_label
@@ -860,6 +864,10 @@ class Article < ActiveRecord::Base
 
   def to_liquid
     HashWithIndifferentAccess.new :name => name, :abstract => abstract, :body => body, :id => id, :parent_id => parent_id, :author => author
+  end
+
+  def self.can_display_blocks?
+    true
   end
 
   private

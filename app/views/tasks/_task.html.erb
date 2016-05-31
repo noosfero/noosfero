@@ -70,4 +70,10 @@
     <% end %>
   <% end %>
 
+  <% if task.footer %>
+    <div id="task-footer-<%=task.id%>">
+      <%= render :partial => partial_for_class(task.class, nil, :footer), :locals => {:task => task} %>
+    </div>
+  <% end %>
+
 </div><!-- class="task_box" -->

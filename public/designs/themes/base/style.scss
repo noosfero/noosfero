@@ -653,8 +653,7 @@ div#notice {
 }
 
 #content .link-list-block li a.link-this-page {
-  border-radius-topright: 0px;
-  border-radius-bottomright: 0px;
+  border-radius: 4px 0 0 4px;
   background-color: #cecece;
   border-right: 2px solid #555753;
 }
@@ -1553,5 +1552,23 @@ table#recaptcha_table tr:hover td {
 
 .profile-members-title-sort {
   clear: both;
+}
+
+
+/*************************** join community confirmation ********************************/
+
+.join-community-confirmation h1 {
+	font-variant: small-caps;
+	font-size: 20px;
+	color: #555753;
+	text-align: left;
+}
+
+.join-community-confirmation {
+	padding: 5px 20px 0px 20px;
+}
+
+.join-community-confirmation input.button.with-text {
+	padding-right: 4px;
 }
 

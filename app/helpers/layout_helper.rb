@@ -40,7 +40,8 @@ module LayoutHelper
 
     output += templete_javascript_ng.to_s
 
-    output
+    # This output should be safe!
+    output.html_safe
   end
 
   def noosfero_stylesheets
@@ -64,7 +65,9 @@ module LayoutHelper
       output << stylesheet_link_tag(global_css_pub)
     end
     output << stylesheet_link_tag(theme_stylesheet_path)
-    output.join "\n"
+
+    # This output should be safe!
+    output.join("\n").html_safe
   end
 
   def noosfero_layout_features
@@ -94,9 +97,7 @@ module LayoutHelper
   end
 
   def addthis_javascript
-    if NOOSFERO_CONF['addthis_enabled']
-      '<script src="https://s7.addthis.com/js/152/addthis_widget.js"></script>'
-    end
+    NOOSFERO_CONF['addthis_enabled'] ? '<script src="https://s7.addthis.com/js/152/addthis_widget.js"></script>' : ''
   end
 
 end

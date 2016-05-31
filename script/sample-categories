@@ -15,10 +15,6 @@ def new_state(parent, name)
   save State.new(:name => name, :parent_id => parent ? parent.id : nil, :environment => $environment)
 end
 
-def new_productcategory(parent, name)
-  save ProductCategory.new(:name => name, :environment => $environment, :parent => parent)
-end
-
 print "Creating categories: "
 tematicas = new_category(nil, 'Temáticas', 1)
 new_category(tematicas, 'Formação')
@@ -93,25 +89,3 @@ rs = new_state(sul, 'Rio Grande do Sul')
 sc = new_state(sul, 'Santa Catarina')
 done
 
-print "Creating product categories: "
-produtos = new_productcategory(nil, 'Produtos')
-alimentacao = new_productcategory(produtos, 'Alimentação')
-vegetais = new_productcategory(alimentacao, 'Vegetais')
-feijao = new_productcategory(vegetais, 'Feijão')
-arroz = new_productcategory(vegetais, 'Arroz')
-batata = new_productcategory(vegetais, 'Batata')
-carnes = new_productcategory(alimentacao, 'Carnes')
-boi = new_productcategory(carnes, 'Boi')
-frango = new_productcategory(carnes, 'Frango')
-vestuario = new_productcategory(produtos, 'Vestuário')
-camisetas = new_productcategory(vestuario, 'Camisetas')
-calcas = new_productcategory(vestuario, 'Calças')
-software_livre = new_productcategory(produtos, 'Software Livre')
-desenv = new_productcategory(software_livre, 'Desenvolvimento')
-capacitacao = new_productcategory(software_livre, 'Capacitação')
-admin_de_sistemas = new_productcategory(software_livre, 'Administração de sistemas')
-arte_digital = new_productcategory(software_livre, 'Arte Digital')
-arte_vetorial = new_productcategory(arte_digital, 'Arte Digital com Vetores')
-animacao = new_productcategory(arte_digital, 'Animação Digital')
-animacao_com_blender = new_productcategory(animacao, 'Animação Digital com Blender 3D')
-done

@@ -5,7 +5,7 @@
   <%= form_tag(@page.view_url.merge({:only_path => true}), {:method => 'post', :class => 'comment_form'}) do %>
     <%= hidden_field_tag(:unfollow, 'commit') %>
     <%= labelled_form_field(_('Enter your e-Mail'), text_field_tag(:email, nil, {:size => 40})) %>
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= submit_button(:ok, _('Cancel notifications for e-mail above') ) %>
     <% end %>
   <% end %>

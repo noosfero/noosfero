@@ -19,7 +19,7 @@
 
 <%= form_tag({}, { :method => 'get' }) do %>
   <%= text_field_tag :search, nil, :id => 'search_validator' %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('search', _('Search')) %>
   <% end %>
 <% end %>

@@ -1,10 +1,26 @@
-#From: https://github.com/coletivoEITA/noosfero-ecosol/blob/57908cde4fe65dfe22298a8a7f6db5dba1e7cc75/config/initializers/html_safe.rb
+##
+# Object based copy of http://apidock.com/rails/ActionView/Helpers/OutputSafetyHelper/safe_join
+# array.safe_join instead of safe_join(array)
+#
+class Array
+  def safe_join sep=nil
+    sep = ERB::Util.unwrapped_html_escape sep
 
-# Disable Rails html autoescaping. This is due to noosfero using too much helpers/models to output html.
-# It it would change too much code and make it hard to maintain.
-# FIXME THIS IS SO WRONG
-class Object
-  def html_safe?
-    true
+    self.flatten.map!{ |i| ERB::Util.unwrapped_html_escape i }.join(sep).html_safe
   end
+end
+
+##
+# Just use .to_json instead of .to_json.html_safe
+# as escape_html_entities_in_json is default on rails.
+# http://stackoverflow.com/a/31774454/670229
+#
+ActiveSupport::JSON::Encoding.escape_html_entities_in_json = true
+ActiveSupport::JSON.class_eval do
+  module EncodeWithHtmlSafe
+    def encode *args
+      super.html_safe
+    end
+  end
+  singleton_class.prepend EncodeWithHtmlSafe
 end

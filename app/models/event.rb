@@ -134,6 +134,10 @@ class Event < Article
     true
   end
 
+  def self.can_display_blocks?
+    false
+  end
+
   include Noosfero::TranslatableContent
   include MaybeAddHttp
 

@@ -1,6 +1,6 @@
 require 'csv'
 
-class NewsletterPlugin::Newsletter < ActiveRecord::Base
+class NewsletterPlugin::Newsletter < ApplicationRecord
 
   belongs_to :environment
   belongs_to :person
@@ -110,11 +110,11 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
   include DatesHelper
 
   def message_to_public_link
-    content_tag(:p, _("If you can't view this email, %s.") % link_to(_('click here'), '{mailing_url}'), :id => 'newsletter-public-link')
+    content_tag(:p, (_("If you can't view this email, %s.") % link_to(_('click here'), '{mailing_url}')).html_safe, :id => 'newsletter-public-link').html_safe
   end
 
   def message_to_unsubscribe
-    content_tag(:div, _("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.") % link_to(_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe')
+    content_tag(:div, _("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.").html_safe % link_to(_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe').html_safe
   end
 
   def read_more(link_address)
@@ -130,13 +130,13 @@ class NewsletterPlugin::Newsletter < ActiveRecord::Base
   end
 
   def body(data = {})
-    content_tag(:div, content_tag(:div, message_to_public_link, :style => CSS['newsletter-public-link'])+content_tag(:table,(self.image.nil? ? '' : content_tag(:tr, content_tag(:th, tag(:img, :src => "#{self.environment.top_url}#{self.image.public_filename}", :style => CSS['header-image']),:colspan => 2),:style => CSS['newsletter-header']))+self.posts(data).map do |post|
+    content_tag(:div, content_tag(:div, message_to_public_link, :style => CSS['newsletter-public-link']).html_safe+content_tag(:table,(self.image.nil? ? '' : content_tag(:tr, content_tag(:th, tag(:img, :src => "#{self.environment.top_url}#{self.image.public_filename}", :style => CSS['header-image']),:colspan => 2),:style => CSS['newsletter-header'])).html_safe+self.posts(data).map do |post|
         if post.image
           post_with_image(post)
         else
           post_without_image(post)
         end
-      end.join()+content_tag(:tr, content_tag(:td, self.footer, :colspan => 2)),:style => CSS['breakingnews'])+content_tag(:div,message_to_unsubscribe, :style => CSS['newsletter-unsubscribe']),:style => CSS['breakingnews-wrap'])
+      end.join().html_safe+content_tag(:tr, content_tag(:td, self.footer, :colspan => 2)),:style => CSS['breakingnews']).html_safe+content_tag(:div,message_to_unsubscribe, :style => CSS['newsletter-unsubscribe']),:style => CSS['breakingnews-wrap']).html_safe
   end
 
   def default_subject

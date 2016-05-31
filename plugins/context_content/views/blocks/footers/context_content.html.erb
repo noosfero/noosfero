@@ -1,0 +1,9 @@
+<% contents = block.contents(@page)
+   unless contents.blank? %>
+    <div id="context_content_more_<%= block.id %>" class="more_button">
+      <% if contents.total_pages > 1 %>
+        <%= link_to_remote(nil, :url => {:profile => block.owner.identifier, :id => block.id, :controller => 'context_content_plugin_profile', :action => 'view_content', :page => contents.previous_page, :article_id => @page.id }, :html => {:class => "button icon-button icon-left #{contents.previous_page ? '':'disabled'}".strip}, :condition => "#{!contents.previous_page.nil?}", :success => "jQuery('#context_content_#{block.id}').effect('slide', {direction: 'left'});" )%>
+        <%= link_to_remote(nil, :url => {:profile => block.owner.identifier, :id => block.id, :controller => 'context_content_plugin_profile', :action => 'view_content', :page => contents.next_page, :article_id => @page.id }, :html => {:class => "button icon-button icon-right #{contents.next_page ? '':'disabled'}".strip}, :condition => "#{!contents.next_page.nil?}", :success => "jQuery('#context_content_#{block.id}').effect('slide', {direction: 'right'});" )%>
+      <% end %>
+    </div>
+<% end %>

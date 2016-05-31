@@ -1,14 +1,6 @@
 require_dependency 'profile'
 require_dependency 'community'
 
-# FIXME: should be on the core
-([Profile] + Profile.descendants).each do |subclass|
-subclass.class_eval do
-
-  has_many :products, foreign_key: :profile_id
-
-end
-end
 class Profile
   def create_product?
     true

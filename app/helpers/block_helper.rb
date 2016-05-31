@@ -3,13 +3,13 @@ module BlockHelper
   def block_title(title, subtitle=nil)
     block_header = block_heading title
     block_header += block_heading(subtitle, 'h4') if subtitle
-    content_tag 'div', block_header, :class => 'block-header'
+    content_tag('div', block_header, :class => 'block-header').html_safe
   end
 
   def block_heading(title, heading='h3')
     tag_class = 'block-' + (heading == 'h3' ? 'title' : 'subtitle')
     tag_class += ' empty' if title.empty?
-    content_tag heading, content_tag('span', h(title)), :class => tag_class
+    content_tag heading, content_tag('span', h(title)), :class => tag_class.html_safe
   end
 
   def highlights_block_config_image_fields(block, image={}, row_number=nil)
@@ -28,7 +28,7 @@ module BlockHelper
       }</label></td>
       <td>#{button_without_text(:delete, _('Remove'), '#', class: 'delete-highlight', data: {confirm: _('Are you sure you want to remove this highlight')})}</td>
     </tr>
-    "
+    ".html_safe
   end
 
 end

@@ -1,8 +1,8 @@
 <h2>
-  <%= _('Tagged with "%s"') % content_tag('code', @tag) %>
+  <%= _('Tagged with "%s"').html_safe % content_tag('code', @tag) %>
 </h2>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button('back', _('Back to tag cloud'), :action => 'tags') %>
 <% end %>
 

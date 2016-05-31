@@ -1,9 +1,9 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class ProductCategoryTest < ActiveSupport::TestCase
 
   def setup
-    @category = fast_create(ProductCategory, :name => 'Category 1')
+    @category = create ProductCategory, :name => 'Category 1'
   end
 
   should 'provide all enterprises that have products with a product category' do
@@ -11,7 +11,7 @@ class ProductCategoryTest < ActiveSupport::TestCase
     e2 = fast_create(Enterprise, :identifier => 'ent2' )
     e3 = fast_create(Enterprise, :identifier => 'ent3' )
 
-    c2 = fast_create(ProductCategory, :name => 'Category 2')
+    c2 = create(ProductCategory, :name => 'Category 2')
 
     # Enteprise 1 and Enteprise 2 have one category 1 products
     fast_create(Product, :product_category_id => @category.id, :profile_id => e1.id )

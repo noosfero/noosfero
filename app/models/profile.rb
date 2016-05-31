@@ -1,7 +1,7 @@
 # A Profile is the representation and web-presence of an individual or an
 # organization. Every Profile is attached to its Environment of origin,
 # which by default is the one returned by Environment:default.
-class Profile < ActiveRecord::Base
+class Profile < ApplicationRecord
 
   attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
     :redirection_after_login, :custom_url_redirection,
@@ -646,7 +646,7 @@ class Profile < ActiveRecord::Base
     url << url_options[:host]
     url << ':' << url_options[:port].to_s if url_options.key?(:port)
     url << Noosfero.root('')
-    url
+    url.html_safe
   end
 
 private :generate_url, :url_options
@@ -812,7 +812,7 @@ private :generate_url, :url_options
   end
 
   def accept_category?(cat)
-    forbidden = [ ProductCategory, Region ]
+    forbidden = [ Region ]
     !forbidden.include?(cat.class)
   end
 
@@ -1091,6 +1091,11 @@ private :generate_url, :url_options
   # field => privacy (e.g.: "address" => "public")
   def fields_privacy
     self.data[:fields_privacy]
+  end
+
+  # abstract
+  def active_fields
+    []
   end
 
   def public_fields

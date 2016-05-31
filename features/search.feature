@@ -3,9 +3,6 @@ Feature: search
   I want to search
   In order to find stuff
 
-  Background:
-    Given feature "disable_asset_products" is disabled on environment
-
   Scenario: show empty results in all enabled assets
     Given I go to the search page
     And I fill in "search-input" with "Anything"
@@ -18,8 +15,6 @@ Feature: search
     And I should see "None" within ".search-results-enterprises"
     And I should see "Contents" within ".search-results-articles"
     And I should see "None" within ".search-results-articles"
-    And I should see "Products" within ".search-results-products"
-    And I should see "None" within ".search-results-products"
     And I should see "Events" within ".search-results-events"
     And I should see "None" within ".search-results-events"
 
@@ -92,23 +87,6 @@ Feature: search
     Then I should see "whales and dolphins" within "div.search-results-articles"
     And I should not see "bees and butterflies"
 
-  Scenario: simple search for product
-    Given the following enterprises
-      | identifier  | name    |
-      | colivre-ent | Colivre |
-    And the following product_categories
-      | name        |
-      | Development |
-    And the following products
-      | owner       | category    | name                        |
-      | colivre-ent | development | social networks consultancy |
-      | colivre-ent | development | wikis consultancy           |
-    When I go to the search page
-    And I fill in "search-input" with "wikis"
-    And I press "Search"
-    Then I should see "wikis consultancy" within "div.search-results-products"
-    And I should not see "social networks consultancy"
-
   Scenario: simple search for event
     Given the following communities
       | identifier | name |
@@ -130,15 +108,8 @@ Feature: search
     And the following communities
       | identifier     | name           |
       | noosfero-users | Noosfero users |
-    And the following product_categories
-      | name        |
-      | Development |
-    And the following products
-      | owner       | name              | category    |
-      | colivre_dev | Noosfero platform | Development |
     When I go to the search page
     And I fill in "search-input" with "noosfero"
     And I press "Search"
     Then I should see "Colivre - Noosfero dev." within "div.search-results-enterprises"
     And I should see "Noosfero users" within "div.search-results-communities"
-    And I should see "Noosfero platform" within "div.search-results-products"

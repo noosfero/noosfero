@@ -149,7 +149,7 @@ class Noosfero::Plugin
 
     def load_plugin_extensions(dir)
       ActionDispatch::Reloader.to_prepare do
-        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each{ |file| require_dependency file }
+        Dir[File.join(dir, 'lib', 'ext', '**', '*.rb')].each{ |file| require_dependency file }
       end
     end
 
@@ -611,7 +611,7 @@ class Noosfero::Plugin
   end
 
   # -> Perform extra transactions related to profile in profile editor
-  # returns = true in success or raise and exception if it could not update the data
+  # returns = true in success or raise an exception if it could not update the data
   def profile_editor_transaction_extras
     nil
   end
@@ -680,6 +680,10 @@ class Noosfero::Plugin
   #   OBS: The default value is a empty hash.
   def self.extra_blocks
     {}
+  end
+
+  def api_custom_login request
+    nil
   end
 
   def method_missing(method, *args, &block)

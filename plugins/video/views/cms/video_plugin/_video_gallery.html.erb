@@ -1,6 +1,6 @@
 <%= required_fields_message %>
 
-<%= required f.text_field('name', :size => '64', :maxlength => 150) %>
+<%= required f.text_field('name', :maxlength => 150) %>
 <%= render :partial => 'general_fields' %>
 
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>

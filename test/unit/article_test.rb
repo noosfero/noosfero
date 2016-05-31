@@ -459,10 +459,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes categories_including_virtual, c3
   end
 
-  should 'not accept Product category as category' do
-    refute Article.new.accept_category?(ProductCategory.new)
-  end
-
   should 'accept published attribute' do
     assert_respond_to Article.new, :published
     assert_respond_to Article.new, :published=
@@ -1487,6 +1483,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
   end
 
+  should 'always put article image first in images paths list in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = create(TinyMceArticle, :name => 'test', :image_builder => {
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    }, :profile_id => @profile.id)
+    a.save!
+    a.body = 'Noosfero <img src="http://noosfero.com/test.png" /> test <img src="http://test.com/noosfero.png" />'
+    a.image.stubs(:public_filename).returns('/files/rails.png')
+    assert_equal 'http://noosfero.org/files/rails.png', a.body_images_paths[0]
+  end
+
   should 'escape utf8 characters correctly' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     a = build TinyMceArticle, profile: @profile
@@ -2320,4 +2327,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match 'Parent folder is archived', err.message
   end
 
+  should 'have can_display_blocks with default true' do
+    assert Article.can_display_blocks?
+  end
 end

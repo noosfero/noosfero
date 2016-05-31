@@ -1,4 +1,4 @@
-<%= render :partial => 'search_form', :locals => { :hint => _("Type words about the %s you're looking for") % @asset.to_s.singularize } %>
+<%= render :partial => 'search_form', :locals => { :hint => _("Type words about the %s you're looking for") % _(@asset.to_s.singularize) } %>
 <%= render :partial => 'search_content' %>
 
 <div style="clear: both"></div>

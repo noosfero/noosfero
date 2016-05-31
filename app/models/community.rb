@@ -2,16 +2,20 @@ class Community < Organization
 
   attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id, :resource_type
   attr_accessible :address_reference, :district, :tag_list, :language, :description
+  attr_accessible :requires_email
   after_destroy :check_invite_member_for_destroy
 
   def self.type_name
     _('Community')
   end
 
-  N_('Community')
+  N_('community')
   N_('Language')
 
   settings_items :language
+  settings_items :requires_email, :type => :boolean
+
+  alias_method :requires_email?, :requires_email
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state

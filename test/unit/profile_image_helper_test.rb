@@ -70,7 +70,7 @@ class ProfileImageHelperTest < ActionView::TestCase
     enterprise.stubs(:public_profile_url).returns('url for enterprise')
     stubs(:catalog_path)
     links = links_for_balloon(enterprise)
-    assert_equal ['Products', 'Members', 'Agenda', 'Send an e-mail'], links.map{|i| i.keys.first}
+    assert_equal ['Members', 'Agenda', 'Send an e-mail'], links.map{|i| i.keys.first}
   end
 
   should 'not return mime type of profile icon if not requested' do

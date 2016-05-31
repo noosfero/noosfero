@@ -6,5 +6,4 @@ id = ARGV.first || ''
 system('./script/sample-categories', id)
 system('./script/sample-profiles', id)
 system('./script/sample-enterprises', id)
-system('./script/sample-products', id)
 system('./script/sample-articles', id)

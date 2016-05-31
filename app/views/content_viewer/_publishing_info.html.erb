@@ -3,11 +3,11 @@
     <%= show_time(@page.published_at) %>
   </span>
   <span class="author">
-    <%= _(", by %s") % (@page.author ? link_to(@page.author_name, @page.author_url) : @page.author_name) %>
+    <%= _(", by %s").html_safe % (@page.author ? link_to(@page.author_name, @page.author_url) : @page.author_name) %>
   </span>
 <% unless @no_comments %>
   <span class="comments">
-    <%= (" - %s") % link_to_comments(@page)%>
+    <%= (" - %s").html_safe % link_to_comments(@page) %>
   </span>
 <% end %>
 

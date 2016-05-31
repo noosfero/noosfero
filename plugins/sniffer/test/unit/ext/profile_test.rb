@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 class ProfileTest < ActiveSupport::TestCase
 
@@ -27,10 +27,10 @@ class ProfileTest < ActiveSupport::TestCase
     e2 = fast_create(Enterprise, :identifier => 'ent2' )
     e3 = fast_create(Enterprise, :identifier => 'ent3' )
     # Categories:
-    c1 = fast_create(ProductCategory, :name => 'Category 1')
-    c2 = fast_create(ProductCategory, :name => 'Category 2')
-    c3 = fast_create(ProductCategory, :name => 'Category 3')
-    c4 = fast_create(ProductCategory, :name => 'Category 4') # not used by products
+    c1 = create(ProductCategory, :name => 'Category 1')
+    c2 = create(ProductCategory, :name => 'Category 2')
+    c3 = create(ProductCategory, :name => 'Category 3')
+    c4 = create(ProductCategory, :name => 'Category 4') # not used by products
     # Products (for enterprise 1):
     p1 = fast_create(Product, :product_category_id => c1.id, :profile_id => e1.id )
     p2 = fast_create(Product, :product_category_id => c2.id, :profile_id => e1.id )
@@ -71,8 +71,8 @@ class ProfileTest < ActiveSupport::TestCase
     e1 = fast_create(Enterprise, :identifier => 'ent1' )
     e2 = fast_create(Enterprise, :identifier => 'ent2' )
     # Categories:
-    c1 = fast_create(ProductCategory, :name => 'Category 1')
-    c2 = fast_create(ProductCategory, :name => 'Category 2')
+    c1 = create(ProductCategory, :name => 'Category 1')
+    c2 = create(ProductCategory, :name => 'Category 2')
     # Products (for enterprise 1):
     p1 = fast_create(Product, :product_category_id => c1.id, :profile_id => e1.id )
 

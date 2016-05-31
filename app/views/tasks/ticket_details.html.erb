@@ -14,6 +14,6 @@
   <p><%= _('Closing statement: %s') % @ticket.closing_statment %></p>
 <% end %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :back, _('Back'), :action => 'index' %>
 <% end %>

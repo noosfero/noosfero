@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406145351) do
+ActiveRecord::Schema.define(version: 20160422163123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -395,6 +395,10 @@ ActiveRecord::Schema.define(version: 20160406145351) do
     t.string   "noreply_email"
     t.string   "redirection_after_signup",     default: "keep_on_same_page"
     t.string   "date_format",                  default: "month_name_with_year"
+    t.boolean  "enable_feed_proxy",            default: false
+    t.string   "http_feed_proxy"
+    t.string   "https_feed_proxy"
+    t.boolean  "disable_feed_ssl",             default: false
   end
 
   create_table "external_feeds", force: :cascade do |t|

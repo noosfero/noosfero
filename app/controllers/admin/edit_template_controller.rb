@@ -1,7 +1,7 @@
 class EditTemplateController < AdminController
-  
+
   protect 'edit_environment_design', :environment
-  
+
   #FIXME
   #design_editor :holder => 'environment', :autosave => true, :block_types => :block_types
 
@@ -9,7 +9,6 @@ class EditTemplateController < AdminController
     %w[
        FavoriteLinks
        ListBlock
-       SellersSearchBlock
      ]
   end
 

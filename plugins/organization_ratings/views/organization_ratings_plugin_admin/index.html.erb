@@ -43,9 +43,15 @@
           <%= c.select :per_page, 5..20 %>
           </td>
       </tr>
+      <tr>
+        <td><%= _('Ratings amount on initial page') %></td>
+        <td>
+          <%= c.select :ratings_on_initial_page, 1..10 %>
+          </td>
+      </tr>
     </table>
     <div>
-      <% button_bar do %>
+      <%= button_bar do %>
         <%= submit_button('save', c_('Save changes')) %>
         <%= button :back, _('Back'), :controller => 'plugins' %>
       <% end %>

@@ -36,7 +36,7 @@ class MultiTenancyTest < ActiveSupport::TestCase
 
   def test_set_schema_by_host
     Noosfero::MultiTenancy.expects(:mapping).returns({ 'host' => 'schema' })
-    adapter = ActiveRecord::Base.connection.class
+    adapter = ApplicationRecord.connection.class
     adapter.any_instance.expects(:schema_search_path=).with('schema').returns(true)
     assert Noosfero::MultiTenancy.db_by_host = 'host'
   end

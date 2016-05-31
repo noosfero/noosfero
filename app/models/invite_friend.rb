@@ -13,7 +13,7 @@ class InviteFriend < Invitation
   end
 
   def information
-    {:message => _('%{requestor} wants to be your friend.')}
+    {:message => _('%{requestor} wants to be your friend.').html_safe}
   end
 
   def accept_details
@@ -25,7 +25,7 @@ class InviteFriend < Invitation
   end
 
   def target_notification_description
-    _('%{requestor} wants to be your friend.') % {:requestor => requestor.name}
+    (_('%{requestor} wants to be your friend.') % {:requestor => requestor.name}).html_safe
   end
 
   def permission

@@ -1,4 +1,5 @@
-class ChatMessage < ActiveRecord::Base
+class ChatMessage < ApplicationRecord
+
   attr_accessible :body, :from, :to
 
   belongs_to :to, :class_name => 'Profile'

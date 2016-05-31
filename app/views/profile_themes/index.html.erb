@@ -40,7 +40,7 @@
 
 <br style="clear:both" />
 
-<% button_bar do %>
+<%= button_bar do %>
   <% if environment.enabled?('user_themes')  %>
     <%= modal_button :add, _('New theme ...'), :action => 'new' %>
   <% end %>

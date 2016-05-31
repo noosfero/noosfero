@@ -281,3 +281,16 @@ Feature: edit article
     And I press "Save"
     Then I should not see "Language must be choosen"
     And I should be on /joaosilva/article-in-portuguese
+
+  @selenium
+  Scenario: create an article with time
+    Given I am on joaosilva's control panel
+    And I follow "Manage Content"
+    And I follow "New content"
+    When I follow "Text article with visual editor"
+    And I fill in "Title" with "My time testing Article"
+    And I fill in "Publish date" with "1980-11-15 20:37"
+    And I press "Save"
+    And I go to /joaosilva/my-time-testing-article
+    Then I should see "November 15, 1980 20:37"
+

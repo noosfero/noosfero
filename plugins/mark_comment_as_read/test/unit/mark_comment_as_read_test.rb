@@ -1,9 +1,6 @@
 require 'test_helper'
 
-class MarkCommentAsReadPluginTest < ActiveSupport::TestCase
-
-  include ActionView::Helpers::TagHelper
-  include NoosferoTestHelper
+class MarkCommentAsReadPluginTest < ActionView::TestCase
 
   def setup
     @plugin = MarkCommentAsReadPlugin.new

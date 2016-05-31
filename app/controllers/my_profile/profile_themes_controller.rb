@@ -63,12 +63,12 @@ class ProfileThemesController < ThemesController
   end
 
   def start_test
-    session[:theme] = params[:id]
+    session[:user_theme] = params[:id]
     redirect_to :controller => 'content_viewer', :profile => profile.identifier, :action => 'view_page'
   end
 
   def stop_test
-    session[:theme] = nil
+    session[:user_theme] = nil
     redirect_to :action => 'index'
   end
 

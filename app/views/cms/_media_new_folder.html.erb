@@ -9,7 +9,7 @@
   <%= labelled_radio_button _('Folder'), :folder_type, 'Folder', false %>
 
   <%= labelled_form_field _('Name:'), text_field_tag(:new_folder, nil, 'data-url' => url_for({:action => 'new', :profile => profile.identifier})) %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:newfolder, _('Create')) %>
   <% end %>
 <% end %>

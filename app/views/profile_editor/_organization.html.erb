@@ -4,7 +4,7 @@
 
   <%= required f.text_field(:name) %>
 
-  <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
+  <%= safe_join(@plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
@@ -41,7 +41,7 @@
     <div id="profile-identifier-formitem">
       <%= required labelled_form_field( _('Address'),
             content_tag('code',
-              url_for(profile.url).gsub(/#{profile.identifier}$/, '') +
+              url_for(profile.url).gsub(/#{profile.identifier}$/, '').html_safe +
               text_field(:profile_data, :identifier, :onchange => "warn_value_change()", :size => 25)
             ) +
             content_tag('div',
@@ -66,8 +66,3 @@
 <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 
 <%= render :partial => 'moderation', :locals => { :profile => @profile } %>
-
-<% if profile.enterprise? && profile.environment.enabled?('products_for_enterprises') %>
-  <h2><%=_('Products/Services catalog')%></h2>
-  <%= labelled_form_field(_('Number of products/services displayed per page on catalog'), text_field(:profile_data, :products_per_catalog_page, :size => 3)) %>
-<% end %>

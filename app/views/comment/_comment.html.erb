@@ -38,12 +38,12 @@
       <div class="comment-created-at">
         <%= show_time(comment.created_at) %>
       </div>
-      <h4><%= comment.title.blank? && '&nbsp;' || comment.title %></h4>
+      <h4><%= comment.title.blank? && '&nbsp;'.html_safe || comment.title %></h4>
       <div class="comment-text">
         <p/>
         <%= txt2html comment.body %>
       </div>
-      <%= @plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }.join("") %>
+      <%= safe_join(@plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }, "") %>
     </div>
 
     <div class="comment_reply post_comment_box closed" id="comment_reply_to_<%= comment.id %>">

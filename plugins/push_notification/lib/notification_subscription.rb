@@ -1,4 +1,5 @@
-class PushNotificationPlugin::NotificationSubscription < ActiveRecord::Base
+class PushNotificationPlugin::NotificationSubscription < ApplicationRecord
+
   belongs_to :environment
   attr_accessible :subscribers, :notification, :environment
 

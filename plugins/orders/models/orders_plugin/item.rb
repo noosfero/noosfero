@@ -1,4 +1,4 @@
-class OrdersPlugin::Item < ActiveRecord::Base
+class OrdersPlugin::Item < ApplicationRecord
 
   attr_accessible :order, :sale, :purchase,
     :product, :product_id,
@@ -39,7 +39,7 @@ class OrdersPlugin::Item < ActiveRecord::Base
   belongs_to :sale, class_name: '::OrdersPlugin::Sale', foreign_key: :order_id, touch: true
   belongs_to :purchase, class_name: '::OrdersPlugin::Purchase', foreign_key: :order_id, touch: true
 
-  belongs_to :product
+  belongs_to :product, class_name: '::ProductsPlugin::Product'
   has_one :supplier, through: :product
 
   has_one :profile, through: :order

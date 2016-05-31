@@ -82,6 +82,49 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     assert_equal [person_1], mailing.recipients(0, 1)
   end
 
+  should 'return all environment admins when recipients_roles is set to environment_administrator' do
+    environment.add_admin person_1
+
+    mailing = create_mailing(environment, :locale => 'pt', :person => person_1)
+    mailing.recipients_roles = ["environment_administrator"]
+    mailing.save
+
+    assert_equivalent(environment.admins, mailing.recipients)
+  end
+
+  should 'return all people with role profile_admin when recipients_roles is set to profile_admin' do
+    environment.add_admin person_1
+
+    mailing = create_mailing(environment, :locale => 'pt', :person => person_1)
+    mailing.recipients_roles = ["profile_admin"]
+    mailing.save
+    role = Role.find_by(key: 'profile_admin', environment_id: environment)
+    profile_admins = Person.by_role(role).where(environment_id: environment)
+
+    assert_equivalent(profile_admins, mailing.recipients)
+  end
+
+  should 'return all people when recipients_roles is not set' do
+    environment.add_admin person_1
+
+    mailing = create_mailing(environment, :locale => 'pt', :person => person_1)
+    mailing.save
+
+    assert_equivalent(environment.people, mailing.recipients)
+  end
+
+  should 'return profile_admins and environment admins when both roles are set as recipients' do
+    environment.add_admin person_1
+
+    mailing = create_mailing(environment, :locale => 'pt', :person => person_1)
+    mailing.recipients_roles = ["profile_admin", "environment_administrator"]
+    mailing.save
+    role = Role.find_by(key: 'profile_admin', environment_id: environment)
+    profile_admins = Person.by_role(role).where(environment_id: environment)
+
+    assert_equivalent(profile_admins+environment.admins, mailing.recipients)
+  end
+
   should 'return true if already sent mailing to a recipient' do
     mailing = create_mailing(environment, :person => person_1)
     process_delayed_job_queue

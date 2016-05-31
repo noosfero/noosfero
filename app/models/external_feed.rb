@@ -1,4 +1,4 @@
-class ExternalFeed < ActiveRecord::Base
+class ExternalFeed < ApplicationRecord
 
   belongs_to :blog
   validates_presence_of :blog_id
@@ -11,6 +11,8 @@ class ExternalFeed < ActiveRecord::Base
   }
 
   attr_accessible :address, :enabled, :only_once
+
+  delegate :environment, :to => :blog, :allow_nil => true
 
   def add_item(title, link, date, content)
     return if content.blank?

@@ -1,4 +1,4 @@
-class CommentClassificationPlugin::Status < ActiveRecord::Base
+class CommentClassificationPlugin::Status < ApplicationRecord
 
   belongs_to :owner, :polymorphic => true
 

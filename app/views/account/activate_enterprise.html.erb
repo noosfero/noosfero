@@ -14,7 +14,7 @@
 <div id="enterprise-activation-create-user-form" style="display: none">
   <h3><%= _('Personal signup form') %></h3>
   <%= render :partial => 'signup_form', :locals => { :hidden_atention => true } %>
-  <p><%= message = _('<b>Warning</b>: this form is for your personal information, not of your enterprise. So you will have a personal account that can manage your enterprise.') %></p>
+  <p><%= message = _('<b>Warning</b>: this form is for your personal information, not of your enterprise. So you will have a personal account that can manage your enterprise.').html_safe %></p>
 </div>
 
 <div id="enterprise-activation-login-form" style="display: none">

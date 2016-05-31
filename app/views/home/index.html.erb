@@ -7,7 +7,7 @@
           <div class='highlighted-news-item post-<%= index + 1 %>-inner'>
             <h2><%= link_to(h(highlighted.title), highlighted.url, :class => 'post-title') %></h2>
             <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span>
-            <div class='headline'><%= highlighted.lead %></div>
+            <div class='headline'><%= raw highlighted.lead %></div>
             <p class='highlighted-news-read-more'>
               <%= link_to(_('Read more'), highlighted.url) %>
             </p>
@@ -49,7 +49,7 @@
     <% end %>
   <% end %>
 <% else %>
-  <%= environment.description %>
+  <%= environment.description.html_safe %>
 <% end %>
 
 <% if environment.enabled?('search_in_home') %>

@@ -61,6 +61,8 @@ module ProfileImageHelper
     image_tag(profile_icon(profile, size), opt )
   end
 
+  include MembershipsHelper
+
   def links_for_balloon(profile)
     if environment.enabled?(:show_balloon_with_profile_links_when_clicked)
       if profile.kind_of?(Person)
@@ -76,13 +78,12 @@ module ProfileImageHelper
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
-          {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
+          {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community'+ (show_confirmation_modal?(profile) ? ' modal-toggle' : '') , :style => 'display: none'}},
           {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)
         [
-          {_('Products') => {:href => catalog_path(profile.identifier)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
@@ -131,7 +132,7 @@ module ProfileImageHelper
     links = links_for_balloon(profile)
     content_tag('div', content_tag(tag,
                                    (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
-                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "") +
+                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "").html_safe +
     link_to(
       content_tag( 'span', profile_image( profile, size ), :class => img_class ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
@@ -139,7 +140,7 @@ module ProfileImageHelper
       profile.url,
       :class => 'profile_link url',
       :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
-      :title => profile.name ),
+      :title => profile.name ).html_safe,
       :class => 'vcard'), :class => 'common-profile-list-block')
   end
 end

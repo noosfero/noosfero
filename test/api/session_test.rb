@@ -3,6 +3,7 @@ require_relative 'test_helper'
 class SessionTest < ActiveSupport::TestCase
 
   def setup
+    create_and_activate_user
     login_api
   end
 
@@ -15,6 +16,13 @@ class SessionTest < ActiveSupport::TestCase
 
   should 'return 401 when login fails' do
     user.destroy
+    params = {:login => "testapi", :password => "testapi"}
+    post "/api/v1/login?#{params.to_query}"
+    assert_equal 401, last_response.status
+  end
+
+  should 'return 401 when login with an user that was not activated' do
+    user.deactivate
     params = {:login => "testapi", :password => "testapi"}
     post "/api/v1/login?#{params.to_query}"
     assert_equal 401, last_response.status
@@ -140,10 +148,9 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   should 'create task to change password by user login' do
-    user = create_user
     params = {:value => user.login}
     assert_difference 'ChangePassword.count' do
-      post "/api/v1/forgot_password?#{params.to_query}"
+        post "/api/v1/forgot_password?#{params.to_query}"
     end
   end
 
@@ -166,8 +173,6 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   should 'do not change user password when password confirmation is wrong' do
-    user = create_user
-    user.activate
     task = ChangePassword.create!(:requestor => user.person)
     params = {:code => task.code, :password => 'secret', :password_confirmation => 's3cret'}
     patch "/api/v1/new_password?#{params.to_query}"
@@ -193,8 +198,8 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   should 'resend activation code for an inactive user' do
-    user = create_user
-    params = {:value => user.login}
+    another_user = User.create!(:login => "userlogin", :password => 'testapi', :password_confirmation => 'testapi', :email => 'test2@test.org', :environment => @environment)
+    params = {:value => another_user.login}
     Delayed::Job.destroy_all
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post "/api/v1/resend_activation_code?#{params.to_query}"
@@ -202,13 +207,11 @@ class SessionTest < ActiveSupport::TestCase
     end
     json = JSON.parse(last_response.body)
     refute json['users'].first['private_token']
-    assert_equal user.email, ActionMailer::Base.deliveries.last['to'].to_s
+    assert_equal another_user.email, ActionMailer::Base.deliveries.last['to'].to_s
   end
 
    should 'not resend activation code for an active user' do
-     user = create_user
      params = {:value => user.login}
-     user.activate
      Delayed::Job.destroy_all
      assert_no_difference 'ActionMailer::Base.deliveries.size' do
        post "/api/v1/resend_activation_code?#{params.to_query}"

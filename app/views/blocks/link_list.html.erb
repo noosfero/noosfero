@@ -8,7 +8,7 @@
       <%= block.sanitize_link(link_to(link[:name], block.expand_address(link[:address]),
                 :target => link[:target],
                 :class => (link[:icon] ? "icon-#{link[:icon]}" : ''),
-                :title => link[:title])) %>
+                :title => link[:title])).html_safe %>
     </li>
   <% end %>
 </ul>

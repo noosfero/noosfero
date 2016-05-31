@@ -53,7 +53,7 @@ class LdapPlugin < Noosfero::Plugin
     return nil if attrs.nil?
 
     user_login = get_login(attrs, ldap.attr_login, login)
-    user = User.find_or_initialize_by_login(user_login)
+    user = User.find_or_initialize_by(login: user_login)
     return nil if !user.new_record? && !user.activated?
 
     user.login = user_login

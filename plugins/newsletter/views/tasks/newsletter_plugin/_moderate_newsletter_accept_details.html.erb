@@ -9,9 +9,9 @@
     <% input_name = "tasks[#{task.id}][task][post_ids][]" %>
     <% post_check_box = hidden_field_tag(input_name, '0') +check_box_tag(input_name, post.id, true) %>
 
-    <% newsletter_content.gsub!(/<span([^>]*?) id="#{post.id}"/, post_check_box + '<span\\1')%>
-    <% newsletter_content.gsub!(/<img([^>]*?) id="#{post.id}"/, post_check_box + '<img\\1') %>
+    <% newsletter_content.gsub!(/<span([^>]*?) id="#{post.id}"/, post_check_box + '<span\\1'.html_safe) %>
+    <% newsletter_content.gsub!(/<img([^>]*?) id="#{post.id}"/, post_check_box + '<img\\1'.html_safe) %>
   <% end %>
 
-  <%= newsletter_content %>
+  <%= newsletter_content.html_safe %>
 </div>

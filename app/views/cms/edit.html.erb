@@ -4,7 +4,7 @@
   <%= render :partial => 'archived_warning', :locals => {:article => @article} %>
 <% end %>
 <div class='<%= (@article.display_media_panel? ? 'with_media_panel' : 'no_media_panel') %>'>
-<%= labelled_form_for 'article', :html => { :multipart => true, :class => @type } do |f| %>
+<%= labelled_form_for 'article', :html => { :multipart => true, :class => "#{@type} #{@type.to_css_class}" } do |f| %>
 
   <%= hidden_field_tag("type", @type) if @type %>
 
@@ -21,7 +21,7 @@
     </div>
   <% end %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= submit_button :save, _('Save and continue'), :name => "continue" %>
   <% end %>
@@ -39,7 +39,7 @@
 
   <script>
     jQuery('#article_tag_list').inputosaurus({
-      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags'," %>
+      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags',".html_safe %>
       activateFinalResult : true
     })
   </script>
@@ -48,7 +48,7 @@
     <%= options_for_article(@article, @tokenized_children) %>
   </div>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
 
     <% if @back_to %>

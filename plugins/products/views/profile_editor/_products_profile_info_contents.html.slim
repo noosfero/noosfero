@@ -1,0 +1,3 @@
+- if profile.enterprise?
+  h2= _('Products/Services catalog')
+  = labelled_form_field(_('Number of products/services displayed per page on catalog'), text_field(:profile_data, :products_per_catalog_page, size: 3))

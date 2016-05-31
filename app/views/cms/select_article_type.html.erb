@@ -5,7 +5,7 @@
 <ul class="article-types">
   <% for type in @article_types %>
     <% action = type[:class].name == 'UploadedFile' ? {:action => 'upload_files'} : {:action => 'new', :type => type[:class].name} %>
-    <%= content_tag('a', :href => url_for(action.merge(:parent_id => @parent_id, :back_to => @back_to))) do %>
+    <%= content_tag('a', :href => url_for(action.merge(:parent_id => @parent_id, :back_to => @back_to)).html_safe) do %>
       <li class="<%= icon_for_new_article(type[:class]) %>" onmouseover="javascript: jQuery(this).addClass('mouseover')" onmouseout="jQuery(this).removeClass('mouseover')">
         <strong><%= type[:short_description] %></strong>
         <div class='description'><%= type[:description] %></div>

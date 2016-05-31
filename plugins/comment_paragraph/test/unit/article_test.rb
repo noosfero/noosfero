@@ -5,7 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @article = fast_create(TextArticle, :profile_id => profile.id)
+    @article = fast_create(TinyMceArticle, :profile_id => profile.id)
     @environment = Environment.default
     @environment.enable_plugin(CommentParagraphPlugin)
   end
@@ -170,4 +170,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal nil, article.comment_paragraph_plugin_paragraph_content(1)
   end
 
+  should 'be enabled if plugin is enabled and article is a kind of Discussion' do
+    assert fast_create(CommentParagraphPlugin::Discussion, profile_id: profile.id).comment_paragraph_plugin_enabled?
+  end
 end

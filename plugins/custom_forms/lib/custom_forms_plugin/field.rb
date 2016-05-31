@@ -1,4 +1,4 @@
-class CustomFormsPlugin::Field < ActiveRecord::Base
+class CustomFormsPlugin::Field < ApplicationRecord
   self.table_name = :custom_forms_plugin_fields
 
   validates_presence_of :name

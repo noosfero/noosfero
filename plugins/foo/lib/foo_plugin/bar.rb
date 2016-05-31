@@ -1,3 +1,3 @@
-class FooPlugin::Bar < ActiveRecord::Base
+class FooPlugin::Bar < ApplicationRecord
 
 end

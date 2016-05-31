@@ -1,7 +1,7 @@
 <ul class="profile-list">
   <% profiles.each do |profile| %>
     <li>
-    <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
+    <%= link_to_profile profile_image(profile) + tag('br') + profile.short_name,
                         profile.identifier, :class => 'profile-link' %>
     <div class="controll">
       <%= button_without_text :remove, content_tag('span',_('remove')),

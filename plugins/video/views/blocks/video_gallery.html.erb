@@ -1,0 +1,6 @@
+<% if block.video_gallery_id.present?
+  video_gallery = VideoPlugin::VideoGallery.find(block.video_gallery_id) %>
+
+  <%= render :partial => 'shared/video_gallery', :locals => {:video_gallery => video_gallery} %>
+
+<% end %>

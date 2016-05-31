@@ -15,9 +15,9 @@
 
       <%= f.password_field :password %>
 
-      <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+      <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_eval(&content) }, "") %>
 
-      <% button_bar do %>
+      <%= button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
         <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
           <%= button(:add, _('New user'), { :controller => 'account', :action => 'signup' }) %>

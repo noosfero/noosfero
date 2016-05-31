@@ -1,0 +1,250 @@
+.notification-plugin-notification-bar{
+	display: block;
+}
+
+.notification-plugin-notification-bar .notification:hover,
+.notification-plugin-notification-modal .notification:hover{
+  opacity: 0.8;
+}
+
+#notification-plugin-notification-manager{
+  overflow: auto;
+}
+
+.notification-plugin-notification-bar .notification .notification-close,
+.notification-plugin-notification-modal .notification .notification-close{
+  background: url(images/close.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+}
+
+.notification-plugin-notification-bar .warningnotification,
+.notification-plugin-notification-bar .informationnotification,
+.notification-plugin-notification-bar .successnotification,
+.notification-plugin-notification-bar .dangernotification,
+.notification-plugin-notification-bar .adminnotification,
+.notification-plugin-notification-modal .warningnotification,
+.notification-plugin-notification-modal .informationnotification,
+.notification-plugin-notification-modal .successnotification,
+.notification-plugin-notification-modal .dangernotification{
+  margin-bottom: 10px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 1px solid blue;
+  font-size: 16px;
+  color: white;
+  overflow: auto;
+}
+
+.notification-plugin-notification-bar .warningnotification p,
+.notification-plugin-notification-bar .informationnotification p,
+.notification-plugin-notification-bar .successnotification p,
+.notification-plugin-notification-bar .dangernotification p,
+.notification-plugin-notification-bar .adminnotification p,
+.notification-plugin-notification-modal .warningnotification p,
+.notification-plugin-notification-modal .informationnotification p,
+.notification-plugin-notification-modal .successnotification p,
+.notification-plugin-notification-modal .dangernotification p{
+  margin: 0px;
+}
+
+.notification-plugin-notification-bar .warningnotification,
+.notification-plugin-notification-modal .warningnotification{
+  background: #fcf8e3;
+  border: 1px solid #faebcc;
+  color: #8a6d3b;
+}
+
+.notification-plugin-notification-bar .warningnotification p a,
+.notification-plugin-notification-modal .warningnotification p a{
+  font-weight: bold;
+  color: #8a6d3b;
+}
+
+
+.notification-plugin-notification-bar .informationnotification,
+.notification-plugin-notification-modal .informationnotification{
+  background: #d9edf7;
+  border: 1px solid #bce8f1;
+  color: #31708f;
+}
+
+.notification-plugin-notification-bar .informationnotification p a,
+.notification-plugin-notification-modal .informationnotification p a{
+  font-weight: bold;
+  color: #31708f;
+}
+
+.notification-plugin-notification-bar .successnotification,
+.notification-plugin-notification-modal .successnotification{
+  background: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
+}
+
+.notification-plugin-notification-bar .successnotification p a
+.notification-plugin-notification-modal .successnotification p a{
+  font-weight: bold;
+  color: #3c763d;
+}
+
+.notification-plugin-notification-bar .dangernotification,
+.notification-plugin-notification-modal .dangernotification{
+  background: #f2dede;
+  border: 1px solid #ebccd1;
+  color: #a94442;
+}
+
+.notification-plugin-notification-bar .dangernotification  p a,
+.notification-plugin-notification-modal .dangernotification  p a{
+  font-weight: bold;
+  color: #a94442;
+}
+
+.notification-plugin-notification-bar .adminnotification,
+.notification-plugin-notification-modal .adminnotification{
+  background: #9a959a;
+  border: 1px solid #9a959a;
+}
+
+.notification-plugin-notification-bar .adminnotification p a,
+.notification-plugin-notification-modal .adminnotification p a{
+  font-weight: bold;
+  color: white;
+}
+
+#notification-plugin-notification-manager a.button.icon-deactivate{
+  background: url(images/hide.png) no-repeat;
+  background-position: center;
+}
+
+#notification-plugin-notification-manager a.button.icon-activate{
+  background: url(images/show.png) no-repeat;
+  background-position: center;
+}
+
+#notification-plugin-notification-manager .notification-line{
+  display: inline;
+  padding-top: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+}
+
+#notification-plugin-notification-manager .notification-title-bar{
+  float: left;
+  width: 100%;
+  font-style: 14px;
+  font-weight: 700;
+  border-bottom: 2px solid black;
+  padding: 9px 0;
+}
+
+#notification-plugin-notification-manager .notification-title{
+  width: 80%;
+  float: left;
+  text-align: center;
+}
+
+.notification-plugin-notification-modal .notification-with-title{
+  margin-bottom: 0px;
+}
+
+.notification-plugin-notification-modal .notification .notification-title{
+  width: 100%;
+  float: left;
+  font-weight: bold;
+  text-align: left;
+}
+
+.notification-plugin-notification-modal .notification-with-title-message{
+  width: 100%;
+  float: left;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  overflow: auto;
+}
+
+.notification-plugin-notification-modal .notification-with-title-message p{
+  padding: 0px 7px;
+}
+
+.notification-plugin-notification-modal .notification-with-title-message p a{
+  color: black;
+  font-weight: bold;
+}
+
+
+#notification-plugin-notification-manager .action-title{
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+
+#notification-plugin-notification-manager .notification-action{
+  width: 18%;
+  float: left;
+  height: 30px;
+  padding-top: 9px;
+}
+
+#notification-plugin-notification-manager .main-bar .button,
+#notification-plugin-notification-manager .notification-action .button{
+  border-radius: 3px;
+}
+
+#notification-plugin-notification-manager .notification-message{
+  width: 82%;
+  float: left;
+}
+
+#notification-plugin-notification-manager .new-notification{
+  float: right;
+  width: auto;
+}
+
+#notification-plugin-notification-manager .back-button{
+  float: left;
+}
+
+#notification-plugin-notification-manager .main-bar{
+  display: inline;
+  width: 100%;
+}
+
+.notification-plugin-notification-bar .notification .notification-message,
+.notification-plugin-notification-modal .notification .notification-message{
+  width: 90%;
+  float: left;
+}
+
+.notification-plugin-notification-bar .notification .notification-close{
+  background: url(images/redclose.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  float: right;
+  cursor: pointer;
+}
+
+.notification-plugin-notification-bar .notification .notification-hide{
+  background: url(images/greenhide.png) no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  float: right;
+  cursor: pointer;
+}
+
+.notification-plugin-notification-modal{
+  display: block;
+  min-width: 400px;
+  max-width: 700px;
+}
+
+.notification-plugin-form .notification-variables-options{
+  font-style: italic;
+  color: red;
+}

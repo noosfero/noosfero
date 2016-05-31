@@ -9,7 +9,7 @@
     categories = [@current_category]
     categories.push(@current_category) while @current_category = @current_category.parent
   %>
-  <%= categories.compact.reverse.map{|i| update_categories_link(nil,i.name, i.id)}.join %>
+  <%= categories.compact.reverse.map{|i| update_categories_link(nil,i.name, i.id)}.join.html_safe %>
 
   <script>
     function add_category() {

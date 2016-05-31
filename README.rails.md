@@ -99,7 +99,7 @@ Description of contents
   Holds controllers that should be named like weblog_controller.rb for automated URL mapping. All controllers should descend from `ActionController::Base`.
 
 * `app/models`
-  Holds models that should be named like post.rb. Most models will descend from `ActiveRecord::Base`.
+  Holds models that should be named like post.rb. Most models will descend from `ApplicationRecord`.
   
 * `app/views`
   Holds the template files for the view that should be named like `weblog/index.rhtml` for the `WeblogController#index` action. All views use eRuby syntax. This directory can also be used to keep stylesheets, images, and so on that can be symlinked to public.

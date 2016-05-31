@@ -20,9 +20,9 @@
        </label>
      </div>
 
-     <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }.join("") %>
+     <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
-     <% button_bar do %>
+     <%= button_bar do %>
        <%= submit_button( 'login', _('Log in') )%>
        <% if is_popin %>
          <%= modal_close_button(_('Cancel')) %>
@@ -31,7 +31,7 @@
 
 <% end %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
     <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
   <% end %>

@@ -1,4 +1,3 @@
-
 class MetadataPlugin::Base < Noosfero::Plugin
 
   def self.plugin_name
@@ -55,7 +54,7 @@ class MetadataPlugin::Base < Noosfero::Plugin
           end
         end
       end
-      r.join
+      safe_join(r)
     end
   end
 

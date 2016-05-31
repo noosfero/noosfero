@@ -13,7 +13,7 @@ class EventsControllerTest < ActionController::TestCase
 
     get :events, :profile => profile.identifier
 
-    today = DateTime.now.strftime("%B %d, %Y")
+    today = DateTime.now.strftime("%B %d, %Y").html_safe
     assert_tag :tag => 'div', :attributes => {:id => "agenda-items"},
       :descendant => {:tag => 'h3', :content => "Events for #{today}"},
       :descendant => {:tag => 'tr', :content => "Joao Birthday"},

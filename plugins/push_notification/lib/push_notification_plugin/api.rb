@@ -1,9 +1,11 @@
-require File.dirname(__FILE__) + '/../../../../../lib/noosfero/api/helpers'
 require_relative 'api_entities'
 
+# Can't be called Api as will result in:
+# warning: toplevel constant Api referenced by PushNotificationPlugin::Api
+# To fix this PushNotificationPlugin should be a module
 class PushNotificationPlugin::API < Grape::API
 
-  include Noosfero::API::APIHelpers
+  include Api::Helpers
 
   resource :push_notification_plugin do
 

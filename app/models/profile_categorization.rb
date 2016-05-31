@@ -1,4 +1,4 @@
-class ProfileCategorization < ActiveRecord::Base
+class ProfileCategorization < ApplicationRecord
   self.table_name = :categories_profiles
   belongs_to :profile
   belongs_to :category

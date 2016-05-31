@@ -6,32 +6,9 @@ class SearchHelperTest < ActiveSupport::TestCase
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::FormTagHelper
 
-
-  should 'return whether on a multiple search' do
-    stubs(:params).returns({:action => 'index', :display => 'map'})
-    @results = {:articles => [1,2], :products => [1,2]}
-    assert multiple_search?
-
-    stubs(:params).returns({:action => 'products', :display => 'map'})
-    @results = {:products => [1,2]}
-    refute multiple_search?
-  end
-
-  should 'return whether on a map search' do
-    stubs(:params).returns({:action => 'index', :display => 'map'})
-    @results = {:articles => [1,2], :products => [1,2]}
-    @query = ''
-    refute map_search?
-
-    stubs(:params).returns({:action => 'products', :display => 'map'})
-    @results = {:products => [1,2]}
-    @query = 'test'
-    assert map_search?
-  end
-
   should 'display search page title' do
     title = 'page_title'
-    assert_equal search_page_title(title), '<h1>page_title</h1>' 
+    assert_equal search_page_title(title), '<h1>page_title</h1>'
   end
 
   should 'display search page title with category name' do
@@ -61,10 +38,10 @@ class SearchHelperTest < ActiveSupport::TestCase
   should 'display results with map' do
     stubs(:params).returns({:display => 'map'})
     @query = 'test'
-    @searches = {:products => {:results => [1,2]}}
+    @searches = {:enterprises => {:results => [1,2]}}
     expects('render').with({:partial => 'google_maps'}).returns('render_return')
     expects('content_tag').with('div', 'render_return', :class => 'map-or-list-search-results map')
-    display_results(@searches, :products)
+    display_results(@searches, :enterprises)
   end
 
   should 'return full city name with state' do
@@ -116,10 +93,10 @@ class SearchHelperTest < ActiveSupport::TestCase
     city.stubs(:name).returns('Feliz Deserto')
 	assert_equal 'Feliz Deserto', city_with_state(city)
   end
-    
+
   should 'return asset class from string' do
-    asset_names = ['products', 'events', 'articles', 'enterprises', 'people', 'communities']
-    asset_classes = [Product, Event, Article, Enterprise, Person, Community]
+    asset_names = ['events', 'articles', 'enterprises', 'people', 'communities']
+    asset_classes = [Event, Article, Enterprise, Person, Community]
     asset_names.each_index do |i|
       assert_equal asset_classes[i], asset_class(asset_names[i])
     end

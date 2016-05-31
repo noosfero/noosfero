@@ -14,4 +14,5 @@ module ActiveRecordExtension
     end
   end
 end
-ActiveRecord::Base.send(:include, ActiveRecordExtension)
+
+ApplicationRecord.send :include, ActiveRecordExtension

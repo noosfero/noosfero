@@ -84,7 +84,7 @@ module ProfileHelper
       entries.map do |entry|
         content = self.send("treat_#{field}", entry)
         unless content.blank?
-          content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content))
+          content_tag('tr', content_tag('td', title(field, entry), :class => 'field-name') + content_tag('td', content.to_s.html_safe))
         end
       end.join("\n")
     end

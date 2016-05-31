@@ -528,7 +528,7 @@ class CmsControllerTest < ActionController::TestCase
     post :new, :type => TextileArticle.name, :profile => profile.identifier, :article => { :name => 'adding-categories-test', :category_ids => [ c1.id, c3.id, c3.id ] }
 
     saved = profile.articles.find_by(name: 'adding-categories-test')
-    assert_equal [c1, c3], saved.categories.all
+    assert_equivalent [c1, c3], saved.categories.all
   end
 
   should 'filter html with white_list from tiny mce article name' do
@@ -739,18 +739,6 @@ class CmsControllerTest < ActionController::TestCase
     get :new, :type => 'Event', :profile => profile.identifier
     assert_response :success
     assert_tag :input, :attributes => { :id => 'article_link' }
-  end
-
-  should 'not make enterprise homepage available to person' do
-    @controller.stubs(:profile).returns(profile)
-    @controller.stubs(:user).returns(profile)
-    assert_not_includes available_article_types, EnterpriseHomepage
-  end
-
-  should 'make enterprise homepage available to enterprises' do
-    @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
-    @controller.stubs(:user).returns(profile)
-    assert_includes available_article_types, EnterpriseHomepage
   end
 
   should 'update categories' do
@@ -1750,7 +1738,7 @@ class CmsControllerTest < ActionController::TestCase
     [Blog, TinyMceArticle, Forum].each do |klass|
       a = fast_create(klass, :profile_id => profile.id)
       get :edit, :profile => profile.identifier, :id => a.id
-      assert_tag :tag => 'form', :attributes => {:class => klass.to_s}
+      assert_tag :tag => 'form', :attributes => {:class => "#{a.type} #{a.type.to_css_class}"}
     end
   end
 
@@ -2003,6 +1991,39 @@ class CmsControllerTest < ActionController::TestCase
               :clone => true, :type => 'TinyMceArticle'
 
     assert_match main_article.body, @response.body
+  end
+
+  should 'set no_design_blocks as false when create a new document without type' do
+    get :new, profile: profile.identifier
+    assert !assigns(:no_design_blocks)
+  end
+
+  should 'set no_design_blocks as false when create a new document with invalid type' do
+    assert_raise RuntimeError do
+      get :new, profile: profile.identifier, type: 'InvalidType'
+      assert !assigns(:no_design_blocks)
+    end
+  end
+
+  [TextileArticle, Event, TinyMceArticle].each do |klass|
+    should "set no_design_blocks as true when create #{klass.name}" do
+      get :new, profile: profile.identifier, type: klass.name
+      assert assigns(:no_design_blocks)
+    end
+  end
+
+  should "set no_design_blocks as false when edit Article" do
+    article = fast_create(Article, profile_id: profile.id)
+    get :edit, profile: profile.identifier, id: article.id
+    assert !assigns(:no_design_blocks)
+  end
+
+  [TextileArticle, Event, TinyMceArticle].each do |klass|
+    should "set no_design_blocks as true when edit #{klass.name}" do
+      article = fast_create(klass, profile_id: profile.id)
+      get :edit, profile: profile.identifier, id: article.id
+      assert assigns(:no_design_blocks)
+    end
   end
 
   protected

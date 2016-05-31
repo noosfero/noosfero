@@ -70,3 +70,4 @@ end
 
 Class.extend SplitDatetime::SplitMethods
 ActiveRecord::Base.extend SplitDatetime::SplitMethods
+

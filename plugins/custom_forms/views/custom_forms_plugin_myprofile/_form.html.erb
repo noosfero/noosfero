@@ -55,7 +55,7 @@
   <%= button(:add, _('Add a new select field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{CGI::escapeHTML(html_for_field(f, :fields, CustomFormsPlugin::SelectField).to_json)}); return false")%>
 </div>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= submit_button :save, c_('Save'), :cancel => {:action => 'index'}%>
 <% end %>
 

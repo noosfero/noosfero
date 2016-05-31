@@ -45,15 +45,8 @@ class ProfileDesignController < BoxOrganizerController
     if profile.enterprise?
       blocks << DisabledEnterpriseMessageBlock
       blocks << HighlightsBlock
-      blocks << ProductCategoriesBlock
-      blocks << FeaturedProductsBlock
       blocks << FansBlock
       blocks += plugins.dispatch(:extra_blocks, :type => Enterprise)
-    end
-
-    # product block exclusive for enterprises in environments that permits it
-    if profile.enterprise? && profile.environment.enabled?('products_for_enterprises')
-      blocks << ProductsBlock
     end
 
     # block exclusive to profiles that have blog

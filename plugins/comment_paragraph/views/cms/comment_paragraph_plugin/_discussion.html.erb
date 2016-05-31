@@ -1,0 +1,13 @@
+<%= required_fields_message %>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<div>
+  <%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
+
+  <%= render :partial => 'text_fields' %>
+  <%= render :partial => 'general_fields' %>
+  <%= render :partial => 'translatable' %>
+  <%= date_range_field('article[start_date]', 'article[end_date]', @article.start_date, @article.end_date, {:time => true}, {:id => 'article_start_date'} ) %>
+  <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true} %>
+</div>

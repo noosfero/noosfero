@@ -21,10 +21,17 @@ echo " [database = $noosfero_database]"
 echo 'Creating ejabberd schema ...'
 . /etc/default/noosfero
 noosfero_user="$NOOSFERO_USER"
-su - postgres -c "psql -c 'GRANT CREATE ON DATABASE $noosfero_database TO $noosfero_user;' > /dev/null"
+
+if dpkg -s postgresql &> /dev/null ; then
+  su - postgres -c "psql -c 'GRANT CREATE ON DATABASE $noosfero_database TO $noosfero_user;' > /dev/null"
+else
+  echo "[W]: No postgres installed. You're probably using noosfero's database in another machine. Make sure user $noosfero_user has CREATE permissions on $noosfero_database database by running:"
+  echo " => GRANT CREATE ON DATABASE $noosfero_database TO $noosfero_user;"
+fi
+
 su - $noosfero_user -c 'rails dbconsole production < /usr/share/noosfero/util/chat/postgresql/ejabberd.sql > /dev/null'
 
-if which update-noosfero-odbc > /dev/null ; then
+if which update-noosfero-odbc &> /dev/null ; then
   update-noosfero-odbc
 fi
 

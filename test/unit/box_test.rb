@@ -44,7 +44,6 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.profile-image-block')
     assert blocks.include?('.raw-html-block')
     assert blocks.include?('.recent-documents-block')
-    assert blocks.include?('.sellers-search-block')
     assert blocks.include?('.tags-block')
   end
 
@@ -63,20 +62,17 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.enterprises-block')
     assert blocks.include?('.fans-block')
     assert blocks.include?('.favorite-enterprises-block')
-    assert blocks.include?('.featured-products-block')
     assert blocks.include?('.feed-reader-block')
     assert blocks.include?('.highlights-block')
     assert blocks.include?('.link-list-block')
     assert blocks.include?('.location-block')
     assert blocks.include?('.login-block')
     assert blocks.include?('.my-network-block')
-    assert blocks.include?('.products-block')
     assert blocks.include?('.profile-image-block')
     assert blocks.include?('.profile-info-block')
     assert blocks.include?('.profile-search-block')
     assert blocks.include?('.raw-html-block')
     assert blocks.include?('.recent-documents-block')
-    assert blocks.include?('.sellers-search-block')
     assert blocks.include?('.slideshow-block')
     assert blocks.include?('.tags-block')
   end

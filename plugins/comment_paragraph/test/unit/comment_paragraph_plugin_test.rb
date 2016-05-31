@@ -69,7 +69,7 @@ class CommentParagraphPluginTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => profile.id)
     article.expects(:comment_paragraph_plugin_enabled?).returns(true)
     article.expects(:allow_edit?).with(user).returns(true)
-    article.expects(:comment_paragraph_plugin_activated?).returns(false)
+    article.expects(:comment_paragraph_plugin_activated?).at_least_once.returns(false)
 
     assert_equal 'Activate Comments', plugin.article_extra_toolbar_buttons(article)[:title]
   end
@@ -79,9 +79,17 @@ class CommentParagraphPluginTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => profile.id)
     article.expects(:comment_paragraph_plugin_enabled?).returns(true)
     article.expects(:allow_edit?).with(user).returns(true)
-    article.expects(:comment_paragraph_plugin_activated?).returns(true)
+    article.expects(:comment_paragraph_plugin_activated?).at_least_once.returns(true)
 
     assert_equal 'Deactivate Comments', plugin.article_extra_toolbar_buttons(article)[:title]
   end
 
+  should 'not display button to toggle comment paragraph if article is a discussion' do
+    profile = fast_create(Profile)
+    article = fast_create(CommentParagraphPlugin::Discussion, :profile_id => profile.id)
+    article.expects(:comment_paragraph_plugin_enabled?).returns(true)
+    article.expects(:allow_edit?).with(user).returns(true)
+
+    assert_equal [], plugin.article_extra_toolbar_buttons(article)
+  end
 end

@@ -1,6 +1,6 @@
 class CreateProfileActivity < ActiveRecord::Migration
   def up
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       create_table :profile_activities do |t|
         t.integer :profile_id
         t.integer :activity_id

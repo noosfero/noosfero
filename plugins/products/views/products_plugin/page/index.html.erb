@@ -1,0 +1,30 @@
+<h2> <%=_('Listing products and services') %> </h2>
+
+<table>
+  <tr>
+    <th><%= _('Product') %></th>
+    <th><%= _('Price') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% if @products.empty? %>
+    <tr>
+      <td colspan='3' style='text-align: center; padding: 10px'><em><%= _('(no product registered yet)') %></em></td>
+    </tr>
+  <% end %>
+  <% @products.each do |product| %>
+    <tr>
+      <td><strong><%= link_to product.name, :action => 'show', :id => product %></strong></td>
+      <td><%= product.price %></td>
+      <td>
+        <%= button :delete, _('Remove'), {action: 'destroy', id: product}, data: {confirm: _('Are you sure you want to remove this product?')} %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= pagination_links @products %>
+
+<%= button_bar do %>
+  <%= button :add, _('New product or service'), :action => 'new' if @profile.create_product? %>
+  <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
+<% end %>

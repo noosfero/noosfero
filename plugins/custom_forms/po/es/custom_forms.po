@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2016-01-04 15:22+0000\n"
-"Last-Translator: María Vecino <mariavecino@ecoalternative.net>\n"
+"PO-Revision-Date: 2016-05-09 16:11+0000\n"
+"Last-Translator: daniel <dtygel@eita.org.br>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/es/>\n"
 "Language: es\n"
@@ -16,18 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5-dev\n"
+"X-Generator: Weblate 2.7-dev\n"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:67
-#, fuzzy
 msgid "Invalid string format of access."
-msgstr "Nombre nombre de ciudad o estado inválido."
+msgstr "Formato de texto inválido."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:71
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:76
-#, fuzzy
 msgid "There is no profile with the provided id."
-msgstr "Hubo problemas con los siguientes archivos:"
+msgstr "No hay perfil con este id."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:81
 #, fuzzy

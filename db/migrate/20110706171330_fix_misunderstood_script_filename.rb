@@ -2,7 +2,7 @@
 # from the migration fall on a loop and breaks the migration. Both them are
 # related to alias_method_chain, probably there is a problem with this kind of
 # alias on the migration level.
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   def sanitize_tag_list
   end
 end

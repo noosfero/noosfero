@@ -1,7 +1,7 @@
 class CreateSuppliersPluginTables < ActiveRecord::Migration
   def self.up
     # check if distribution plugin already moved the table
-    return if ActiveRecord::Base.connection.table_exists? :suppliers_plugin_suppliers
+    return if ApplicationRecord.connection.table_exists? :suppliers_plugin_suppliers
 
     create_table :suppliers_plugin_suppliers do |t|
       t.integer  :profile_id

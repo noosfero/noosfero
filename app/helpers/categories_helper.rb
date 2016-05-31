@@ -2,7 +2,6 @@ module CategoriesHelper
 
   TYPES = [
     [ _('General Category'), Category.to_s ],
-    [ _('Product Category'), ProductCategory.to_s ],
     [ _('Region'), Region.to_s ],
   ]
 
@@ -20,7 +19,7 @@ module CategoriesHelper
   def selected_category_link(cat)
     js_remove = "jQuery('#selected-category-#{cat.id}').remove();"
     content_tag('div', button_to_function_without_text(:remove, _('Remove'), js_remove) +
-      link_to_function(cat.full_name(' &rarr; '), js_remove, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link'),
+      link_to_function(cat.full_name(' &rarr; ').html_safe, js_remove, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link'),
       :class => 'selected-category'
     )
   end

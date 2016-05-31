@@ -12,9 +12,9 @@ class MoveDataSerializedHashToSettingFieldForArticles < ActiveRecord::Migration
       end
       if body.kind_of?(Hash)
         settings = article.setting.merge(body)
-        body = ActiveRecord::Base.sanitize_sql_for_assignment(:body => settings[:description])
+        body = ApplicationRecord.sanitize_sql_for_assignment(:body => settings[:description])
         update("UPDATE articles set %s WHERE id = %d" % [body, article.id])
-        setting = ActiveRecord::Base.sanitize_sql_for_assignment(:setting => settings.to_yaml)
+        setting = ApplicationRecord.sanitize_sql_for_assignment(:setting => settings.to_yaml)
         update("UPDATE articles set %s WHERE id = %d" % [setting, article.id])
       end
     end

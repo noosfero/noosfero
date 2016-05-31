@@ -40,4 +40,11 @@ class RawHTMLBlockTest < ActiveSupport::TestCase
     assert block.editable?(user)
   end
 
+  should 'not raise if there is no html defined' do
+    block = RawHTMLBlock.new(:html => nil)
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
 end

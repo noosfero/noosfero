@@ -6,7 +6,7 @@ class AccountControllerTest < ActionController::TestCase
   SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
   @db = Tempfile.new('stoa-test')
-  configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
+  ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
   ActiveRecord::Base.establish_connection(:stoa)
   ActiveRecord::Schema.verbose = false
   ActiveRecord::Schema.create_table "pessoa" do |t|

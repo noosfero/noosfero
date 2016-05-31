@@ -3,9 +3,10 @@ require 'profile_controller'
 
 class ProfileControllerTest < ActionController::TestCase
 
+  include MembershipsHelper
+
   self.default_params = {profile: 'testuser'}
   def setup
-    Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -125,7 +126,7 @@ class ProfileControllerTest < ActionController::TestCase
     @profile.articles.create!(:name => 'testarticle', :tag_list => 'tag1')
     get :content_tagged, :profile => @profile.identifier, :id => 'tag1'
 
-    assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'
+    assert_tag :tag => 'a', :attributes => { :href => '/tag/tag1' }, :content => 'See content tagged with "tag1" in the entire site'.html_safe
   end
 
   should 'show a link to own control panel' do
@@ -229,29 +230,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert @profile.is_a_friend?(friend)
     get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
-  end
-
-  should 'display "Products" link for enterprise' do
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    product = fast_create(Product, :profile_id => ent.id)
-
-    get :index, :profile => 'my-test-enterprise'
-    assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
-  end
-
-  should 'not display "Products" link for enterprise if environment do not let' do
-    env = Environment.default
-    env.disable('products_for_enterprises')
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
-
-    get :index, :profile => 'my-test-enterprise'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
-  end
-
-
-  should 'not display "Products" link for people' do
-    get :index, :profile => 'ze'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
   end
 
   should 'list top level articles in sitemap' do
@@ -408,6 +386,61 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
+  should 'show regular join button for person with public email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    Person.any_instance.stubs(:public_fields).returns(["email"])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show join modal for person with private email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    Person.any_instance.stubs(:public_fields).returns([])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show regular join button for community without email visibility requirement' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
+    Person.any_instance.stubs(:public_fields).returns([])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'show regular join button for community without email visibility requirement and person with public email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
+    Person.any_instance.stubs(:public_fields).returns(['email'])
+    login_as(@profile.identifier)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+  end
+
+  should 'render join modal for community with email visibility requirement and person with private email' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    login_as @profile.identifier
+    post :join, :profile => community.identifier
+    assert_template "join"
+  end
+
+  should 'create add member task from join-community modal' do
+    community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
+    admin = create_user('community-admin').person
+    community.add_admin(admin)
+
+    login_as @profile.identifier
+    assert_difference 'AddMember.count' do
+      post :join_modal, :profile => community.identifier
+    end
+    assert_redirected_to :action => 'index'
+  end
+
   should 'actually leave profile' do
     community = fast_create(Community)
     admin = fast_create(Person)
@@ -512,7 +545,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'show description of orgarnization' do
     login_as(@profile.identifier)
     ent = fast_create(Enterprise)
-    ent.description = 'Enterprise\'s description'
+    ent.description = "<span>Enterprise's description</span>"
     ent.save
     get :index, :profile => ent.identifier
     assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }, :content => /Enterprise\'s description/
@@ -1236,13 +1269,13 @@ class ProfileControllerTest < ActionController::TestCase
   should 'display plugins tabs' do
     class Plugin1 < Noosfero::Plugin
       def profile_tabs
-        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => proc { 'Content from plugin1.' }}
+        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => proc { 'Content from plugin1.'.html_safe }}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def profile_tabs
-        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => proc { 'Content from plugin2.' }}
+        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => proc { 'Content from plugin2.'.html_safe }}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])

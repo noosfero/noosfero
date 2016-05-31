@@ -1631,4 +1631,22 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_select '.article-body-img > img', 0
   end
 
+  should 'render follow article button in another domain' do
+    d = Domain.new
+    d.name = "theresourcebasedeconomy.com"
+    d.save!
+    profile = fast_create(Community)
+    profile.domains << d
+
+    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
+    page.save!
+
+    login_as(create_user.login)
+    ActionController::TestRequest.any_instance.expects(:host).returns('theresourcebasedeconomy.com').at_least_once
+    get :view_page, :page => 'myarticle'
+
+    assert_equal profile, assigns(:profile)
+    assert_tag tag: 'a', attributes: {'title' => 'Follow'}
+  end
+
 end

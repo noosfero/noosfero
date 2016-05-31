@@ -1,19 +1,20 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 require 'active_support/dependencies'
 
-# FIXME this silences the warnings about Rails 2.3-style plugins under
-# vendor/plugins, which are deprecated. Hiding those warnings makes it easier
-# to work for now, but we should really look at putting those plugins away.
+# Silence Rails 5 deprecation warnings
 ActiveSupport::Deprecation.silenced = true
 
 Bundler.require(:default, :assets, Rails.env)
+$: << File.expand_path('../lib', File.dirname(__FILE__))
+
+require_dependency 'noosfero'
+require_dependency 'noosfero/plugin'
+require_dependency 'noosfero/multi_tenancy'
 
 module Noosfero
   class Application < Rails::Application
-
-    require 'noosfero/plugin'
 
     # The plugin xss_terminator(located in vendor/plugins/xss_terminator) and the helper
     # SanitizeHelper(located in app/helpers/sanitize_helper.rb) use
@@ -30,9 +31,6 @@ module Noosfero
     config.action_view.sanitized_allowed_tags = ALLOWED_TAGS
     config.action_view.sanitized_allowed_attributes = ALLOWED_ATTRIBUTES
 
-    require 'noosfero/multi_tenancy'
-    config.middleware.use Noosfero::MultiTenancy::Middleware
-
     config.action_controller.include_all_helpers = false
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -40,10 +38,11 @@ module Noosfero
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W( #{config.root.join('app', 'sweepers')} )
-    config.autoload_paths += Dir["#{config.root}/lib"]
-    config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
-    config.autoload_paths += %W( #{config.root.join('test', 'mocks', Rails.env)} )
+    config.autoload_paths << config.root.join('lib')
+    config.autoload_paths << config.root.join('app')
+    config.autoload_paths << config.root.join('app/sweepers')
+    config.autoload_paths.concat Dir["#{config.root}/app/controllers/**/"]
+    config.autoload_paths << config.root.join('test', 'mocks', Rails.env)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -119,7 +118,8 @@ module Noosfero
 
     config.eager_load = true
 
-    Noosfero::Plugin.setup(config)
+    config.middleware.use Noosfero::MultiTenancy::Middleware
 
+    Noosfero::Plugin.setup(config)
   end
 end

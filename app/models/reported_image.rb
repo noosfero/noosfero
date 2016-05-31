@@ -1,4 +1,4 @@
-class ReportedImage < ActiveRecord::Base
+class ReportedImage < ApplicationRecord
   belongs_to :abuse_report
 
   validates_presence_of :abuse_report

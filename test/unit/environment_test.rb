@@ -138,22 +138,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert cats.include?(subcat)
   end
 
-  def test_should_list_all_product_categories
-    env = fast_create(Environment)
-    create(Category, :name => 'first category', :environment_id => env.id)
-    cat = create(Category, :name => 'second category', :environment_id => env.id)
-    create(Category, :name => 'child category', :environment_id => env.id, :parent_id => cat.id)
-    cat1 = create(ProductCategory, :name => 'first product category', :environment_id => env.id)
-    cat2 = create(ProductCategory, :name => 'second product category', :environment_id => env.id)
-    subcat = create(ProductCategory, :name => 'child product category', :environment_id => env.id, :parent_id => cat2.id)
-
-    cats = env.product_categories
-    assert_equal 3, cats.size
-    assert cats.include?(cat1)
-    assert cats.include?(cat2)
-    assert cats.include?(subcat)
-  end
-
   should 'list displayable categories' do
     env = fast_create(Environment)
     cat1 = create(Category, :environment => env, :name => 'category one', :display_color => 'ffa500')
@@ -389,34 +373,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_not_includes Environment.default.admins, user
   end
 
-  should 'have products through enterprises' do
-    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
-    env = Environment.default
-    e1 = fast_create(Enterprise)
-    p1 = e1.products.create!(:name => 'test_prod1', :product_category => product_category)
-
-    assert_includes env.products, p1
-  end
-
-  should 'collect the highlighted products with image through enterprises' do
-    env = Environment.default
-    e1 = fast_create(Enterprise)
-    category = fast_create(ProductCategory)
-    p1 = create(Product, :enterprise => e1, :name => 'test_prod1', :product_category_id => category.id)
-    products = []
-    3.times {|n|
-      products.push(create(Product, :name => "product #{n}", :profile_id => e1.id,
-        :product_category_id => category.id, :highlighted => true,
-        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
-      ))
-    }
-    create(Product, :name => "product 4", :profile_id => e1.id, :product_category_id => category.id, :highlighted => true)
-    create(Product, :name => "product 5", :profile_id => e1.id, :product_category_id => category.id, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
-    assert_equal products, env.highlighted_products_with_image
-  end
-
   should 'not have person through communities' do
     env = Environment.default
     com = fast_create(Community)
@@ -499,6 +455,22 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.add_themes(['new-theme', 'other-theme'])
     env.save
     assert_equal ['new-theme', 'other-theme'], Environment.default.themes.map(&:id)
+  end
+
+  should 'return the theme ids' do
+    env = Environment.default
+    t1 = 'theme_1'
+    t2 = 'theme_2'
+    Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
+    env.themes = [t1, t2]
+    env.save!
+    assert_equivalent  [t1, t2], Environment.default.theme_ids
+  end
+  should 'theme_ids be an empty array if there is no settings themes defined' do
+    env = Environment.default
+    env.settings[:themes] = nil
+    env.save!
+    assert Environment.default.theme_ids.empty?
   end
 
   should 'create templates' do
@@ -1319,14 +1291,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_not_includes env.enabled_features.keys, 'feature3'
   end
 
-  should 'has a list of units ordered by position' do
-    litre = create(Unit, :singular => 'Litre', :plural => 'Litres', :environment => Environment.default)
-    meter = create(Unit, :singular => 'Meter', :plural => 'Meters', :environment => Environment.default)
-    kilo  = create(Unit, :singular => 'Kilo',  :plural => 'Kilo',   :environment => Environment.default)
-    litre.move_to_bottom
-    assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
-  end
-
   should 'not include port in default hostname' do
     env = Environment.new
     Noosfero.stubs(:url_options).returns({ :port => 9999 })
@@ -1448,10 +1412,6 @@ class EnvironmentTest < ActiveSupport::TestCase
       assert_equal false, env1.enabled_plugins.include?(plugin)
       assert_equal false, env2.enabled_plugins.include?(plugin)
     end
-  end
-
-  should 'have production costs' do
-    assert_respond_to Environment.default, :production_costs
   end
 
   should 'be able to have many licenses' do
@@ -1721,6 +1681,44 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.date_format = "past_time"
     environment.valid?
     refute environment.errors[:date_format.to_s].present?
+  end
+
+  should 'respond to enable_feed_proxy' do
+    assert_respond_to Environment.new, :enable_feed_proxy
+  end
+
+  should 'set enable_feed_proxy on environment' do
+    e = fast_create(Environment, :name => 'Enterprise test')
+    e.enable_feed_proxy = true
+    e.save
+    assert_equal true, e.enable_feed_proxy
+  end
+
+  should 'not enable feed proxy when enable by default' do
+    assert_equal false, Environment.new.enable_feed_proxy
+  end
+
+  should 'respond to disable_feed_ssl' do
+    assert_respond_to Environment.new, :disable_feed_ssl
+  end
+
+  should 'set disable_feed_ssl on environment' do
+    e = fast_create(Environment, :name => 'Enterprise test')
+    e.disable_feed_ssl = true
+    e.save
+    assert_equal true, e.disable_feed_ssl
+  end
+
+  should 'not disable feed ssl when enable by default' do
+    assert_equal false, Environment.new.disable_feed_ssl
+  end
+
+  should 'respond to http_feed_proxy' do
+    assert_respond_to Environment.new, :http_feed_proxy
+  end
+
+  should 'respond to https_feed_proxy' do
+    assert_respond_to Environment.new, :https_feed_proxy
   end
 
 end

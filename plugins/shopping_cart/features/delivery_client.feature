@@ -64,10 +64,15 @@ Feature: delivery client
   Scenario: gets free delivery due to free over price
     Given I follow "Add to basket"
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I follow "Add to basket"
+    And I wait 0.2 seconds to finish the request
     And I should see "Show basket"
     And I follow "Show basket"
     And I wait 1 second for animations

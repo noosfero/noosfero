@@ -43,7 +43,7 @@ class FriendsControllerTest < ActionController::TestCase
 
   should 'display find people button' do
     get :index, :profile => 'testuser'
-    assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/search/assets?asset=people' }
+    assert_tag :tag => 'a', :content => 'Find people', :attributes => { :href => '/search/assets?asset=people'.html_safe }
   end
 
   should 'not display invite friends button if any plugin tells not to' do

@@ -2,7 +2,7 @@ class CreateOrdersCyclePluginTables < ActiveRecord::Migration
 
   def change
     # check if distribution plugin already moved the table
-    return if ActiveRecord::Base.connection.table_exists? :orders_cycle_plugin_cycles
+    return if ApplicationRecord.connection.table_exists? :orders_cycle_plugin_cycles
 
     create_table :orders_cycle_plugin_cycle_orders do |t|
       t.integer  :cycle_id

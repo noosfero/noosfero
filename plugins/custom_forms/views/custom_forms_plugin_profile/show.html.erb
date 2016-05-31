@@ -6,9 +6,9 @@
 <% if @submission.id.nil? %>
   <% if @form.expired? %>
     <% if @form.will_open? %>
-      <h2><%= _('Sorry, you can\'t fill this form yet') %></h2>
+      <h2><%= _('Sorry, you can\'t fill this form yet').html_safe %></h2>
     <% else %>
-      <h2><%= _('Sorry, you can\'t fill this form anymore') %></h2>
+      <h2><%= _('Sorry, you can\'t fill this form anymore').html_safe %></h2>
     <% end %>
   <% end %>
 
@@ -22,7 +22,7 @@
 
     <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
 
-    <% button_bar do %>
+    <%= button_bar do %>
       <% if @form.expired? %>
         <%= submit_button :save, c_('Save'), :disabled => '', :class => 'disabled', :cancel => {:controller => :profile, :profile => profile.identifier} %>
       <% else %>

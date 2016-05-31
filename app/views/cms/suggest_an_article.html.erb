@@ -23,7 +23,7 @@
 
   <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) unless logged_in? %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= button :cancel, _('Cancel'), @back_to %>
   <% end %>

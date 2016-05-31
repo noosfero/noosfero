@@ -2,11 +2,11 @@ require_relative '../test_helper'
 require "#{File.dirname(__FILE__)}/../../lib/acts_as_faceted"
 
 
-class TestModel < ActiveRecord::Base
+class TestModel < ApplicationRecord
   def self.f_type_proc(klass)
-    klass.constantize 
+    klass.constantize
     h = {
-      'UploadedFile' => "Uploaded File", 
+      'UploadedFile' => "Uploaded File",
       'TextArticle' => "Text",
       'Folder' => "Folder",
       'Event' => "Event",
@@ -92,7 +92,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
     assert_equivalent [["[* TO NOW-1YEARS/DAY]", "Older than one year", 10], ["[NOW-1YEARS TO NOW/DAY]", "Last year", 19]], r
   end
 
-  should 'return facet hash in map_facets_for' do 
+  should 'return facet hash in map_facets_for' do
     r = TestModel.map_facets_for(Environment.default)
     assert r.count, 2
 
@@ -147,7 +147,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
     facets = TestModel.map_facets_for(Environment.default)
     facet = facets.select{ |f| f[:id] == 'f_type' }.first
     facet_data = TestModel.map_facet_results facet, @facet_params, @facets, @all_facets, {}
-    sorted = TestModel.facet_result_sort(facet, facet_data, :alphabetically) 
+    sorted = TestModel.facet_result_sort(facet, facet_data, :alphabetically)
     assert_equal sorted,
       [["Folder", "Folder", 3], ["Gallery", "Gallery", 1], ["TextArticle", 'Text', 15], ["UploadedFile", "Uploaded File", 6]]
   end
@@ -156,7 +156,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
     facets = TestModel.map_facets_for(Environment.default)
     facet = facets.select{ |f| f[:id] == 'f_type' }.first
     facet_data = TestModel.map_facet_results facet, @facet_params, @facets, @all_facets, {}
-    sorted = TestModel.facet_result_sort(facet, facet_data, :count) 
+    sorted = TestModel.facet_result_sort(facet, facet_data, :count)
     assert_equal sorted,
       [["TextArticle", "Text", 15], ["UploadedFile", "Uploaded File", 6], ["Folder", "Folder", 3], ["Gallery", "Gallery", 1]]
   end

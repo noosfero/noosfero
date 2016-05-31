@@ -224,7 +224,7 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'display theme test panel when testing theme' do
-    @request.session[:theme] = 'my-test-theme'
+    @request.session[:user_theme] = 'my-test-theme'
     theme = mock
     profile = mock
     theme.expects(:owner).returns(profile).at_least_once
@@ -375,7 +375,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include javascripts supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def js_files
-        ['js1.js']
+        ['js1.js'.html_safe]
       end
     end
 
@@ -384,7 +384,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     class Plugin2 < Noosfero::Plugin
       def js_files
-        ['js2.js', 'js3.js']
+        ['js2.js'.html_safe, 'js3.js'.html_safe]
       end
     end
 
@@ -409,12 +409,12 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
     class TestBodyBeginning1Plugin < Noosfero::Plugin
       def body_beginning
-        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>"}
+        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>".html_safe}
       end
     end
     class TestBodyBeginning2Plugin < Noosfero::Plugin
       def body_beginning
-        "<span id='plugin2'>This is Plugin2 speaking!</span>"
+        "<span id='plugin2'>This is Plugin2 speaking!</span>".html_safe
       end
     end
 
@@ -432,12 +432,12 @@ class ApplicationControllerTest < ActionController::TestCase
 
     class TestHeadEnding1Plugin < Noosfero::Plugin
       def head_ending
-        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>"}
+        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>".html_safe}
       end
     end
     class TestHeadEnding2Plugin < Noosfero::Plugin
       def head_ending
-        "<style>This is Plugin2 speaking!</style>"
+        "<style>This is Plugin2 speaking!</style>".html_safe
       end
     end
 
@@ -504,6 +504,21 @@ class ApplicationControllerTest < ActionController::TestCase
     Environment.default.enable(:restrict_to_members)
     get :index
     assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'override user when current is an admin' do
+    user        = create_user
+    other_user  = create_user
+    environment = Environment.default
+    login_as user.login
+    @controller.stubs(:environment).returns(environment)
+
+    get :index, override_user: other_user.id
+    assert_equal user, assigns(:current_user)
+
+    environment.add_admin user.person
+    get :index, override_user: other_user.id
+    assert_equal other_user, assigns(:current_user)
   end
 
   should 'do not allow member not included in whitelist to access an restricted environment' do
@@ -574,6 +589,38 @@ class ApplicationControllerTest < ActionController::TestCase
     profile = Profile.where(:identifier => 'ze').first
     get :index, :profile => '~'
     assert_redirected_to :controller => 'test', :action => 'index', :profile => profile.identifier
+  end
+
+  should 'set session theme if a params theme is passed as parameter' do
+    current_theme = 'my-test-theme'
+    environment = Environment.default
+    Theme.stubs(:system_themes).returns([Theme.new(current_theme)])
+    environment.themes = [current_theme]
+    environment.save!
+    assert_nil @request.session[:theme]
+    get :index, :theme => current_theme
+    assert_equal current_theme, @request.session[:theme]
+  end
+
+  should 'set session theme only in environment available themes' do
+    environment = Environment.default
+    assert_nil @request.session[:theme]
+    environment.stubs(:theme_ids).returns(['another_theme'])
+    get :index, :theme => 'my-test-theme'
+    assert_nil @request.session[:theme]
+  end
+
+  should 'unset session theme if not environment available themes is defined' do
+    environment = Environment.default
+    current_theme = 'my-test-theme'
+    Theme.stubs(:system_themes).returns([Theme.new(current_theme)])
+    environment.themes = [current_theme]
+    environment.save!
+    get :index, :theme => current_theme
+    assert_equal current_theme, @request.session[:theme]
+
+    get :index, :theme => 'another_theme'
+    assert_nil @request.session[:theme]
   end
 
 end

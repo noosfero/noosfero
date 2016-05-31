@@ -86,7 +86,7 @@ class ApproveArticle < Task
 
   def information
     if article
-      {:message => _('%{requestor} wants to publish the article: %{linked_subject}.')}
+      {:message => _('%{requestor} wants to publish the article: %{linked_subject}.').html_safe}
     else
       {:message => _("The article was removed.")}
     end

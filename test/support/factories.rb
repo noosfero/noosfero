@@ -5,9 +5,9 @@ module Noosfero::Factory
     attrs[:slug] = attrs[:name].to_slug if attrs[:name].present? && attrs[:slug].blank? && defaults[:slug].present?
     data = defaults_for(name.to_s.gsub('::','')).merge(attrs)
     klass = name.to_s.camelize.constantize
-    if klass.superclass != ActiveRecord::Base
-      data[:type] = klass.to_s
-    end
+
+    data[:type] = klass.to_s if klass.column_names.include? 'type'
+
     if options[:timestamps]
       fast_insert_with_timestamps(klass, data)
     else
@@ -52,9 +52,7 @@ module Noosfero::Factory
  end
 
   def defaults_for(name)
-    send('defaults_for_' + name.to_s.underscore)
-  rescue
-    {}
+    send "defaults_for_#{name.to_s.underscore.tr '/', '_'}" rescue {}
   end
 
   def self.num_seq
@@ -129,7 +127,7 @@ module Noosfero::Factory
 
   def fast_insert(klass, data)
     names = data.keys
-    values = names.map {|k| ActiveRecord::Base.send(:sanitize_sql_array, ['?', data[k]]) }
+    values = names.map {|k| ApplicationRecord.send(:sanitize_sql_array, ['?', data[k]]) }
     sql = 'insert into %s(%s) values (%s)' % [klass.table_name, names.join(','), values.join(',')]
     klass.connection.execute(sql)
     klass.order(:id).last
@@ -316,7 +314,6 @@ module Noosfero::Factory
   end
 
   alias :defaults_for_region :defaults_for_category
-  alias :defaults_for_product_category :defaults_for_category
 
   ###############################################
   # Box
@@ -348,43 +345,11 @@ module Noosfero::Factory
   alias :defaults_for_email_activation :defaults_for_task
 
   ###############################################
-  # Product
-  ###############################################
-
-  def defaults_for_product
-    { :name => 'Product ' + factory_num_seq.to_s }
-  end
-
-  ###############################################
-  # Input
-  ###############################################
-
-  def defaults_for_input
-    { }
-  end
-
-  ###############################################
   # Contact
   ###############################################
 
   def defaults_for_contact
     { :subject => 'hello there', :message => 'here I come to SPAM you' }
-  end
-
-  ###############################################
-  # Qualifier
-  ###############################################
-
-  def defaults_for_qualifier
-    { :name => 'Qualifier ' + factory_num_seq.to_s, :environment_id => 1 }
-  end
-
-  ###############################################
-  # Certifier
-  ###############################################
-
-  def defaults_for_certifier
-    defaults_for_qualifier.merge({ :name => 'Certifier ' + factory_num_seq.to_s })
   end
 
   ###############################################
@@ -461,22 +426,6 @@ module Noosfero::Factory
   def defaults_for_comment(params = {})
     name = "comment_#{rand(1000)}"
     { :title => name, :body => "my own comment", :source_id => 1, :source_type => 'Article' }.merge(params)
-  end
-
-  ###############################################
-  # Unit
-  ###############################################
-
-  def defaults_for_unit
-    { :singular => 'Litre', :plural => 'Litres', :environment_id => 1 }
-  end
-
-  ###############################################
-  # Production Cost
-  ###############################################
-
-  def defaults_for_production_cost
-    { :name => 'Production cost ' + factory_num_seq.to_s }
   end
 
   ###############################################

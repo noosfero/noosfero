@@ -43,19 +43,6 @@ class ContextContentPlugin::ContextContentBlock < Block
     settings[:types] = new_types.reject(&:blank?)
   end
 
-  def content_image(content)
-    block = self
-    proc do
-      if content.image?
-        image_tag(content.public_filename(:thumb))
-      else
-        extra_class = content.uploaded_file? ? "extension-#{content.extension}" : ''
-        klasses = [content.icon_name].flatten.map{|name| 'icon-'+name}.join(' ')
-        content_tag 'div', '', :class => "context-icon #{klasses} #{extra_class}"
-      end
-    end
-  end
-
   def contents(page, p=1)
     return @children unless @children.blank?
     if page
@@ -69,32 +56,6 @@ class ContextContentPlugin::ContextContentBlock < Block
   def parent_title(contents)
     return nil if contents.blank?
     contents.first.parent.name
-  end
-
-  def footer
-    block = self
-    proc do
-      contents = block.contents(@page)
-      if contents
-        content_tag('div',
-          render(:partial => 'blocks/more', :locals => {:block => block, :contents => contents, :article_id => @page.id}), :id => "context_content_more_#{block.id}", :class => "more_button")
-      else
-        ''
-      end
-    end
-  end
-
-  def content(args={})
-    block = self
-    proc do
-      contents = block.contents(@page)
-      parent_title = block.parent_title(contents)
-      if !contents.blank?
-        render(:file => 'blocks/context_content', :locals => {:block => block, :contents => contents, :parent_title => parent_title})
-      else
-        ''
-      end
-    end
   end
 
   def cacheable?

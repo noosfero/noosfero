@@ -2,6 +2,8 @@ require_relative "../test_helper"
 
 class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
+  include ActionView::Helpers::OutputSafetyHelper
+
   def setup
     @articles = []
     @profile = create_user('testinguser').person
@@ -125,5 +127,13 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
     block.expects(:box).returns(box).at_least_once
     box.expects(:owner).returns(Environment.new).at_least_once
     assert_equal '', render_block_footer(block)
+  end
+
+  should 'return articles in api_content' do
+    profile = fast_create(Profile)
+    article = fast_create(TextArticle, profile_id: profile.id)
+    block = RecentDocumentsBlock.new
+    block.stubs(:owner).returns(profile)
+    assert_equal [article.id], block.api_content['articles'].map {|a| a[:id]}
   end
 end

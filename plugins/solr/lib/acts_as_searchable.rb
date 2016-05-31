@@ -35,7 +35,7 @@ module ActsAsSearchable
     module FindByContents
 
       def schema_name
-        (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? ActiveRecord::Base.connection.schema_search_path : ''
+        (Noosfero::MultiTenancy.on? and ApplicationRecord.postgresql?) ? ApplicationRecord.connection.schema_search_path : ''
       end
 
       def find_by_contents(query, pg_options = {}, options = {}, db_options = {})
@@ -84,4 +84,5 @@ module ActsAsSearchable
   end
 end
 
-ActiveRecord::Base.send(:extend, ActsAsSearchable::ClassMethods)
+ApplicationRecord.extend ActsAsSearchable::ClassMethods
+

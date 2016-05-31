@@ -87,4 +87,5 @@ module ActsAsHavingSettings
 
 end
 
-ActiveRecord::Base.send(:extend, ActsAsHavingSettings::ClassMethods)
+ActiveRecord::Base.extend ActsAsHavingSettings::ClassMethods
+

@@ -1,4 +1,4 @@
-class ContactList < ActiveRecord::Base
+class ContactList < ApplicationRecord
 
   serialize :list, Array
 

@@ -1,4 +1,4 @@
-class Scrap < ActiveRecord::Base
+class Scrap < ApplicationRecord
 
   include SanitizeHelper
 
