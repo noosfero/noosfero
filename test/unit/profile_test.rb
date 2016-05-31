@@ -2204,4 +2204,24 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes profiles, p3
     assert_not_includes profiles, p4
   end
+  
+  ['post_content', 'edit_profile', 'destroy_profile'].each do |permission|
+    should "return true in #{permission} when user has this permission" do
+      profile = fast_create(Profile)
+      person = fast_create(Person)
+      give_permission(person, permission, profile)
+      assert profile.send("allow_#{permission.gsub(/_profile/,'')}?", person)
+    end
+
+    should "return false in #{permission} when user doesn't have this permission" do
+      profile = fast_create(Profile)
+      person = fast_create(Person)
+      assert !profile.send("allow_#{permission.gsub(/_profile/,'')}?", person)
+    end
+
+    should "return false in #{permission} when user is nil" do
+      profile = fast_create(Profile)
+      assert !profile.send("allow_#{permission.gsub(/_profile/,'')}?", nil)
+    end
+  end
 end

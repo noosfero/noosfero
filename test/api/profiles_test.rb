@@ -191,4 +191,13 @@ class ProfilesTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{profile.id}?#{params.to_query}"
     assert_equal 403, last_response.status
   end
+
+  should 'list profile permissions when get an article' do
+    login_api
+    profile = fast_create(Profile)
+    give_permission(person, 'post_content', profile)
+    get "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["permissions"], 'allow_post_content'
+  end
 end
