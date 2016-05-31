@@ -1,3 +1,5 @@
+require 'rails/commands/server'
+
 module Api
   module Federation
     class Webfinger < Grape::API
@@ -38,9 +40,29 @@ def request_acct?
 end
 
 def acct_hash
-  acct = {}
+  rails = Rails::Server.new
+  acct = Hash.new{|hash, key| hash[key] =
+                  Hash.new{|hash, key| hash[key] = Array.new}}
+
+  person = Person.find_by_identifier(extract_person_identifier)
+  url = rails.options[:Host] + ':' + rails.options[:Port].to_s + '/'
+
   acct[:subject] = params[:resource]
-  acct[:properties] = Person.find_by_identifier(extract_person_identifier)
+  acct[:alias] = url + person.identifier
+  acct[:properties][:identifier] = person.identifier
+  acct[:properties][:created_at] = person.created_at
+  for blog in person.blogs do
+    acct[:links][:rel] <<  url + 'rel/' + blog.path
+    acct[:links][:href] << url + person.identifier + '/' + blog.path
+  end
+
+  for galleries in person.articles.galleries do
+    acct[:links][:rel] <<  url + 'rel/' + galleries.path
+    acct[:links][:href] << url + person.identifier + '/' + galleries.path
+  end
+
+  acct[:titles][:name] =  person.name
+
   if acct[:properties].nil?
     Rails.logger.error 'Person not found'
     not_found!
