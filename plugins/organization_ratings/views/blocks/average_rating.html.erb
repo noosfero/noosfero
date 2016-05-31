@@ -1,19 +1,28 @@
-<% average_rating = OrganizationRating.average_rating block.owner.id %>
+<% statistics = OrganizationRating.statistics_for_profile block.owner %>
 
 <div class="organization-average-rating-container">
-  <% if average_rating %>
+  <% if statistics[:average] %>
     <div class="star-rate-text">
       <%= _("Rating: ") %>
     </div>
 
     <div class="star-container">
       <% (1..5).each do |star_number| %>
-        <% if star_number <= average_rating %>
+        <% if star_number <= statistics[:average] %>
           <div class="medium-star-positive"></div>
         <% else %>
           <div class="medium-star-negative"></div>
         <% end %>
       <% end %>
+      <div class="total-ratings">
+        <%= link_to url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating', :anchor => 'ratings-list') do %>
+          <% if(statistics[:total] > 10000) %>
+            <%= "(10000+)" %>
+          <% else %>
+            <%= "(#{statistics[:total]})" %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   <% else %>
     <div class="rating-invitation">
