@@ -4,7 +4,8 @@ class WebfingerTest < ActiveSupport::TestCase
   def setup
     Domain.create(name: 'example.com')
     Environment.default.domains << Domain.last
-    login_api
+    User.create(login: 'ze', email: 'ze@localdomain.localdomain', 
+                password: 'zeze', password_confirmation: 'zeze')
   end
 
   should 'return correct user via webfinger url' do
@@ -22,7 +23,6 @@ class WebfingerTest < ActiveSupport::TestCase
 
   should 'return correct article via webfinger url' do
     a = fast_create(Article, name: 'my article', profile_id: 1)
-    a.save
     get ".well-known/webfinger?resource=http://example.com/article/id/#{a.id}"
     webfinger =  JSON.parse(last_response.body)
     assert_equal 200, last_response.status
