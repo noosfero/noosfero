@@ -35,55 +35,36 @@ class OrganizationRatingTest < ActiveSupport::TestCase
     assert_equal false, organization_rating2.errors[:value].include?("must be between 1 and 5")
   end
 
-  test "false return when no active tasks for an Organization Rating" do
-    assert_not @rating.task_active?
-  end
-
-  test "true return when an active task exists for an Organization Rating" do
+  test "return rating task status" do
     CreateOrganizationRatingComment.create!(
                       :organization_rating_id => @rating.id,
                       :target => @community,
                       :requestor => @person)
 
-    assert_equal Task::Status::ACTIVE, CreateOrganizationRatingComment.last.status
-    assert @rating.task_active?
+    assert_equal Task::Status::ACTIVE, @rating.task_status
   end
 
-  test "return false when an cancelled task exists for an Organization Rating" do
+  test "return rating task status when task is cancelled" do
     CreateOrganizationRatingComment.create!(
                       :organization_rating_id => @rating.id,
                       :target => @community,
                       :requestor => @person)
     CreateOrganizationRatingComment.last.cancel
-    assert_not @rating.task_active?
+    assert_equal Task::Status::CANCELLED, @rating.task_status
   end
 
-  test "display report moderation message to community admin" do
-    moderator = create_user('moderator')
-    @community.add_admin(moderator.person)
-    @rating.stubs(:task_active?).returns(true)
-    assert @rating.display_moderation_message(@adminuser)
+  test "should display full info to admin" do
+    @person.stubs(:is_admin?).returns(true)
+    assert @rating.display_full_info_to?(@person)
   end
 
-  test "display report moderation message to owner" do
-    @rating.stubs(:task_active?).returns(true)
-    assert @rating.display_moderation_message(@person)
+  test "should display full info to owner" do
+    assert @rating.display_full_info_to?(@person)
   end
 
-  test "do not display report moderation message to regular user" do
+  test "should not display full info to regular user" do
     regular_person = fast_create(Person)
-    @rating.stubs(:task_active?).returns(true)
-    assert_not @rating.display_moderation_message(regular_person)
-  end
-
-  test "do not display report moderation message to not logged user" do
-    @rating.stubs(:task_active?).returns(true)
-    assert_not @rating.display_moderation_message(nil)
-  end
-
-  test "do not display report moderation message no active task exists" do
-    @rating.stubs(:task_active?).returns(false)
-    assert_not @rating.display_moderation_message(@person)
+    assert_not @rating.display_full_info_to?(regular_person)
   end
 
   test "Create task for create a rating comment" do
@@ -109,7 +90,7 @@ class OrganizationRatingTest < ActiveSupport::TestCase
     assert community.tasks.include?(create_organization_rating_comment)
   end
 
-  test "Should calculate community's rating average" do
+  test "Should calculate community's rating statistics" do
     community = fast_create Community
     p1 = fast_create Person, :name=>"Person 1"
     p2 = fast_create Person, :name=>"Person 2"
@@ -119,11 +100,13 @@ class OrganizationRatingTest < ActiveSupport::TestCase
     OrganizationRating.create! :value => 3, :organization => community, :person => p2
     OrganizationRating.create! :value => 5, :organization => community, :person => p3
 
-    assert_equal 3, OrganizationRating.average_rating(community)
+    assert_equal 3, OrganizationRating.statistics_for_profile(community)[:average]
+    assert_equal 3, OrganizationRating.statistics_for_profile(community)[:total]
 
     p4 = fast_create Person, :name=>"Person 4"
     OrganizationRating.create! :value => 4, :organization => community, :person => p4
 
-    assert_equal 4, OrganizationRating.average_rating(community)
+    assert_equal 4, OrganizationRating.statistics_for_profile(community)[:average]
+    assert_equal 4, OrganizationRating.statistics_for_profile(community)[:total]
   end
 end

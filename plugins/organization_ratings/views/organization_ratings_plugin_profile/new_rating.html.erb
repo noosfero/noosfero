@@ -9,7 +9,7 @@
   </div>
 <% end %>
 
-<div class="ratings-list">
+<div class="ratings-list" id="ratings-list">
   <% @users_ratings.each do |user_rate| %>
     <%= render :partial => "shared/user_rating_container", :locals => {:user_rate => user_rate} %>
   <% end %>

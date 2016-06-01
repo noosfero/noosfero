@@ -786,4 +786,12 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json['article']['children'].map {|a| a['id']}, child.id
   end
 
+  should 'list article permissions when get an article' do
+    community = fast_create(Community)
+    give_permission(person, 'post_content', community)
+    article = fast_create(Article, :profile_id => community.id)
+    get "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["article"]["permissions"], 'allow_post_content'
+  end
 end

@@ -273,7 +273,7 @@ module Api
                     article = forbidden!
                   end
 
-                  present_partial article, :with => Entities::Article
+                  present_partial article, :with => Entities::Article, current_person: current_person
                 else
 
                   present_articles_for_asset(profile)

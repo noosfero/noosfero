@@ -14,7 +14,7 @@
       <%= render :partial => 'shared/make_report_block' %>
 
       <div class="see-more">
-        <%= link_to _('See more'), url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating'), :class => 'icon-arrow-right-p' %>
+        <%= link_to _('See more'), url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating', :anchor => 'ratings-list'), :class => 'icon-arrow-right-p' %>
       </div>
     </div>
   <% end %>

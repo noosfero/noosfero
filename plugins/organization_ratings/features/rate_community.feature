@@ -19,7 +19,7 @@ Feature: rate_community
     And I am logged in as "joaosilva"
 
   @selenium
-  Scenario: display rate button inside average block
+  Scenario: display rate button and total ratings inside average block
     Given I am on mycommunity's homepage
     Then I should see "Rate this Community" within ".average-rating-block"
     And I should see "Be the first to rate" within ".average-rating-block"
@@ -34,3 +34,9 @@ Feature: rate_community
     When I follow "Rate this Community"
     Then I should see "Joao Silva" within ".star-profile-name"
     And I should see Joao Silva's profile image
+
+  Scenario: display total ratings inside average block
+    Given I am on mycommunity's homepage
+    When I follow "Rate this Community"
+    Then I follow "Save"
+    Then I should see "(1)" within ".total-ratings"
