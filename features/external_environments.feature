@@ -5,8 +5,8 @@ Feature: external environments
   Background:
     Given I am logged in as admin
     Given the following external environments
-      | id | name | url      |
-      | 1  | Test | test.org |
+      | id | name | url      | identifier |
+      | 1  | Test | test.org | test       |
 
   Scenario: admin user could access the external environments
     Given I follow "Administration"
