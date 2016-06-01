@@ -370,9 +370,9 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.datetime "updated_at"
   end
 
-  create_table "environment_federated_networks", force: :cascade do |t|
+  create_table "environment_external_environments", force: :cascade do |t|
     t.integer "environment_id"
-    t.integer "federated_network_id"
+    t.integer "external_environment_id"
   end
 
   create_table "environments", force: :cascade do |t|
@@ -429,7 +429,7 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "favorite_enterprise_people", ["person_id", "enterprise_id"], name: "index_favorite_enterprise_people_on_person_id_and_enterprise_id", using: :btree
   add_index "favorite_enterprise_people", ["person_id"], name: "index_favorite_enterprise_people_on_person_id", using: :btree
 
-  create_table "federated_networks", force: :cascade do |t|
+  create_table "external_environments", force: :cascade do |t|
     t.string "name"
     t.string "url"
     t.string "identifier"

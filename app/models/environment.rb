@@ -15,7 +15,7 @@ class Environment < ApplicationRecord
                   :members_whitelist, :highlighted_news_amount,
                   :portal_news_amount, :date_format, :signup_intro,
                   :enable_feed_proxy, :http_feed_proxy, :https_feed_proxy,
-                  :disable_feed_ssl, :federated_network_ids
+                  :disable_feed_ssl, :external_environment_ids
 
   has_many :users
 
@@ -24,8 +24,8 @@ class Environment < ApplicationRecord
     false
   end
 
-  has_many :environment_federated_networks, :dependent => :destroy
-  has_many :federated_networks,  :through => :environment_federated_networks
+  has_many :environment_external_environments, :dependent => :destroy
+  has_many :external_environments,  :through => :environment_external_environments
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
   has_many :search_terms, :as => :context

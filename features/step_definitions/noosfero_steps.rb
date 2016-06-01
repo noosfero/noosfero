@@ -55,11 +55,11 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   end
 end
 
-Given /^the following federated networks$/ do |table|
+Given /^the following external environments$/ do |table|
   environment = Environment.default
   table.hashes.each do |row|
-    federated_network = FederatedNetwork.create!(row, :without_protection => true)
-    environment.federated_networks << federated_network
+    external_environment = ExternalEnvironment.create!(row, :without_protection => true)
+    environment.external_environments << external_environment
   end
 end
 

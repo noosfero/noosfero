@@ -1,6 +1,6 @@
-class CreateFederatedNetwork < ActiveRecord::Migration
+class CreateExternalEnvironment < ActiveRecord::Migration
   def change
-    create_table :federated_networks do |t|
+    create_table :external_environments do |t|
       t.string :name
       t.string :url
       t.string :identifier

@@ -26,7 +26,7 @@ every 1.day do
 end
 
 every 1.day do
-  rake 'federated_network:update'
+  rake 'external_environment:update'
 end
 
 

@@ -1,0 +1,28 @@
+<h1><%= _('Manage external environments') %></h1>
+
+<% if not @environments.empty? %>
+  <p>
+    <%= _('Select which external environments you want to enable in your environment') %>
+  </p>
+
+  <%= labelled_form_for(:environment, :url => {:action => 'save_environments'})  do |f| %>
+    <div style='vertical_align: top'>
+      <%= collection_check_boxes(:environment, :external_environment_ids, ExternalEnvironment.all, :id, :name) do |box| %>
+        <div class='external-environment-thumbnail'>
+          <% if box.object.thumbnail.present? %>
+            <%= image_tag box.object.thumbnail %>
+          <% end %>
+          <h5><%= box.label { box.check_box + box.text }%></h5>
+        </div>
+      <% end %>
+    </div>
+    <div class='external-environment-button'>
+      <%= button_bar do %>
+        <%= submit_button('save', _('Save changes')) %>
+        <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p> <%= _('No external environments available') %> </p>
+<% end %>
