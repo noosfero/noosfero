@@ -1,4 +1,7 @@
 <% config = env_organization_ratings_config %>
+<div class="star-page-title">
+  <%= @plugins.dispatch(:organization_ratings_title).collect { |content| instance_exec(&content) }.join("") %>
+</div>
 <% if logged_in? %>
   <%= render :partial => "new_rating_fields" %>
 <% else %>
