@@ -1,10 +1,6 @@
 <% min_rate = env_organization_ratings_config.minimum_ratings %>
 <% default_rating = env_organization_ratings_config.default_rating %>
 
-<div class="star-page-title">
-  <%= @plugins.dispatch(:organization_ratings_title).collect { |content| instance_exec(&content) }.join("") %>
-</div>
-
 <div class="star-rate-data">
 
   <div class="star-profile-information">

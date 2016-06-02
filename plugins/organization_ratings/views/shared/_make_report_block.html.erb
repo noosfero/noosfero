@@ -1,6 +1,6 @@
 <% logged_in_image = link_to profile_image(current_user.person, :portrait), current_user.person.url if current_user %>
 <% logged_in_name = link_to current_user.person.name,  current_user.person.url if current_user %>
-<% logged_out_image = image_tag('plugins/organization_ratings/public/images/user-not-logged.png') %>
+<% logged_out_image = image_tag('plugins/organization_ratings/images/user-not-logged.png') %>
 
 <div class="make-report-block">
   <div class="star-profile-information">
