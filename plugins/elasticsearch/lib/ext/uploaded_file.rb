@@ -1,7 +1,7 @@
-require_dependency 'gallery'
+require_dependency 'uploaded_file'
 require_relative '../elasticsearch_indexed_model'
 
-class Gallery
+class UploadedFile
   include ElasticsearchIndexedModel
 
   def self.control_fields
