@@ -656,6 +656,23 @@ class DisplayContentBlockViewTest < ActionView::TestCase
     assert_match /#{a.published_at}/, render_block_content(block)
   end
 
+  should 'show image if defined by user' do
+    profile = create_user('testuser').person
+    a = create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    a.save!
+
+    process_delayed_job_queue
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:value => 'image', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_tag_in_string render_block_content(block), :tag => 'div', :attributes => {:class => 'image'}
+  end
+
   should 'show articles in recent order' do
     profile = create_user('testuser').person
     Article.delete_all
