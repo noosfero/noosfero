@@ -122,4 +122,13 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 201, last_response.status
     assert_equal 'block content', json['block']['api_content']['html']
   end
+
+  should 'list block permissions when get a block' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    give_permission(person, 'edit_profile_design', profile)
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["block"]["permissions"], 'allow_edit'
+  end
 end
