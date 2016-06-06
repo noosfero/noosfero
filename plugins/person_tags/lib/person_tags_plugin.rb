@@ -15,4 +15,8 @@ class PersonTagsPlugin < Noosfero::Plugin
   def profile_editor_extras
     expanded_template('profile-editor-extras.html.erb').html_safe
   end
+
+  def self.api_mount_points
+    [PersonTagsPlugin::API]
+  end
 end
