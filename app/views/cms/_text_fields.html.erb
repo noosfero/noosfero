@@ -1,1 +1,1 @@
-<%= labelled_form_field(_('Publish date'), date_field('article[published_at]', @article.published_at || DateTime.current, {:max_date => '+0d', :date_format => 'yy-mm-dd'}, {:id => "article_published_at"})) %>
+<%= labelled_form_field(_('Publish date'), date_field('article[published_at]', @article.published_at || DateTime.current, {:max_date => '+0d', :time => true}, {:id => "article_published_at"})) %>

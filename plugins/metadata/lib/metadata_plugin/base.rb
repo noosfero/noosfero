@@ -1,4 +1,3 @@
-
 class MetadataPlugin::Base < Noosfero::Plugin
 
   def self.plugin_name
@@ -71,6 +70,6 @@ end
 
 ActiveSupport.run_load_hooks :metadata_plugin, MetadataPlugin
 ActiveSupport.on_load :active_record do
-  ApplicationRecord.extend MetadataPlugin::Specs::ClassMethods
+  ActiveRecord::Base.extend MetadataPlugin::Specs::ClassMethods
 end
 

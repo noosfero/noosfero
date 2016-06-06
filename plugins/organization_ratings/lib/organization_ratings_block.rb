@@ -13,6 +13,10 @@ class OrganizationRatingsBlock < Block
     env_organization_ratings_config.per_page
   end
 
+  def ratings_on_initial_page
+    env_organization_ratings_config.ratings_on_initial_page
+  end
+
   def cacheable?
     false
   end

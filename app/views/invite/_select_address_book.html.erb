@@ -34,7 +34,7 @@
     <%= labelled_form_field(_("Password") + ":", password_field_tag(:password)) %>
   </div>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:forward, _("Next")) %>
   <% end %>
   <p><%= _("We won't store your password or contact anyone without your permission.") %></p>

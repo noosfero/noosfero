@@ -146,4 +146,49 @@ class ProfilesTest < ActiveSupport::TestCase
     refute json.has_key?('Rating')
   end
 
+  [Community, Enterprise].each do |klass|
+    should "update #{klass.name}" do
+      login_api
+      profile = fast_create(klass)
+      profile.add_admin(person)
+      params[:profile] = {}
+      params[:profile][:custom_header] = "Another Header"
+      post "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+      assert_equal "Another Header", profile.reload.custom_header
+    end
+
+    should "not update a #{klass.name} if user does not have permission" do
+      login_api
+      profile = fast_create(klass)
+      params[:profile] = {}
+      params[:profile][:custom_header] = "Another Header"
+      post "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+      assert_equal 403, last_response.status
+    end
+
+    should "not update a #{klass.name} if user is not logged in" do
+      profile = fast_create(klass)
+      params[:profile] = {}
+      params[:profile][:custom_header] = "Another Header"
+      post "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+      assert_equal 401, last_response.status
+    end
+  end
+
+  should 'update person' do
+    login_api
+    params[:profile] = {}
+    params[:profile][:custom_header] = "Another Header"
+    post "/api/v1/profiles/#{person.id}?#{params.to_query}"
+    assert_equal "Another Header", person.reload.custom_header
+  end
+
+  should 'not update person information if user does not have permission' do
+    login_api
+    profile = fast_create(Person)
+    params[:profile] = {}
+    params[:profile][:custom_header] = "Another Header"
+    post "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+    assert_equal 403, last_response.status
+  end
 end

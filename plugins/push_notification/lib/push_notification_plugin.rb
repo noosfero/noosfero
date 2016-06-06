@@ -39,7 +39,7 @@ class PushNotificationPlugin < Noosfero::Plugin
   end
 
   def self.api_mount_points
-    [PushNotificationPlugin::Api]
+    [PushNotificationPlugin::API]
   end
 
   def self.plugin_description

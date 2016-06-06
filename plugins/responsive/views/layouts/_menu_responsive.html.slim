@@ -1,0 +1,54 @@
+div
+  nav#top-bar.navbar.navbar-default.navbar-static-top role="navigation"
+    .container
+      /! Brand and toggle get grouped for better mobile display
+      .navbar-header
+        button.navbar-toggle data-target="#navbar-user-collapse" data-toggle="collapse" type="button"
+          span.sr-only= _('User menu')
+          span.fa.fa-user.navbar-toggle-icon
+
+        button.navbar-toggle data-target="#navbar-search-collapse" data-toggle="collapse" type="button"
+          span.sr-only= _('Search')
+          span.fa.fa-search.navbar-toggle-icon
+
+        button.navbar-toggle data-target="#navbar-navigation-collapse" data-toggle="collapse" type="button"
+          span.sr-only= _('Navigation')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand href="#{environment.top_url}"
+          = theme_site_title
+          span#navbar-brand-site-title
+            = h @environment.name
+
+      /! Collect the nav links, forms, and other content for toggling
+      #navbar-navigation-collapse.collapse.navbar-collapse
+        ul.nav.navbar-nav.menu-navigation
+          = theme_extra_navigation
+          li#search-dropdown-menu.dropdown
+            a.dropdown-toggle.icon-search data-hover="dropdown" data-toggle="dropdown" href="#" title="#{_('Search')}"
+              span= _('Search')
+            ul.dropdown-menu role="menu"
+              li
+                form#top-search action="/search" method="get" role="search"
+                  .form-group.col-lg-12.col-md-12.col-sm-12
+                    input.form-control.input-sm name="query" placeholder="#{_('Search...')}" title="#{_('Search...')}" type="text" /
+
+      #navbar-search-collapse.collapse.navbar-collapse
+        form#top-search.navbar-form.navbar-left action="/search" method="get" role="search"
+          .form-group
+            input.form-control name="query" placeholder="#{_('Search...')}" title="#{_('Search...')}" type="text" /
+
+      #navbar-user-collapse.collapse.navbar-collapse
+        ul.nav.navbar-nav.pull-right
+          - if user.present?
+            = render 'layouts/usermenu_logged_in'
+          - else
+            li
+              = modal_inline_link_to "<i class='icon-menu-login'></i><strong>#{_('Login')}</strong>".html_safe, login_url, '#inlineLoginBox', id: 'link_login'
+              = @plugins.dispatch(:alternative_authentication_link).collect{ |content| instance_exec(&content) }.safe_join
+            - unless @plugins.dispatch(:allow_user_registration).include? false
+              li= link_to content_tag(:strong, _('Sign up')), controller: :account, action: :signup
+
+#inlineLoginBox style="display: none;"
+  = render file: 'account/login', locals: {is_thickbox: true}

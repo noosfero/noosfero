@@ -23,12 +23,7 @@ module ChatHelper
   end
 
   include ResponsiveChecks
-  if RUBY_VERSION >= '2.0.0'
-    prepend ResponsiveMethods
-  else
-    extend ActiveSupport::Concern
-    included { include ResponsiveMethods }
-  end
+  prepend ResponsiveMethods
 
 end
 

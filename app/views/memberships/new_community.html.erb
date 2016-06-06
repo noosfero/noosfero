@@ -48,7 +48,7 @@
 
   <%= hidden_field_tag('back_to', @back_to) %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, _('Create')) %>
     <%= button(:cancel, _('Cancel'), @back_to ) %>
   <% end %>

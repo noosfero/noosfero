@@ -59,6 +59,12 @@ class CommentParagraphPlugin < Noosfero::Plugin
     [CommentParagraphPlugin::API]
   end
 
+  def self.extra_blocks
+    {
+      CommentParagraphPlugin::DiscussionBlock => {:position => ['1','2','3'] }
+    }
+  end
+
   def content_types
     [CommentParagraphPlugin::Discussion]
   end

@@ -54,7 +54,7 @@
 
   <%= hidden_field_tag 'info-bar-update-url', @product.price_composition_bar_display_url, class: 'bar-update-url' %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= cancel_edit_product_link(@product, 'info') %>
   <% end %>

@@ -149,4 +149,11 @@ class AddMemberTest < ActiveSupport::TestCase
 
     assert_no_match(/\(#{task.requestor.email}\)/, task.target_notification_description)
   end
+
+  should 'have cancel notification message with explanation' do
+    explanation_message = 'some explanation'
+    task = AddMember.new(:person => person, :organization => community,
+                         :reject_explanation => explanation_message)
+    assert_match(/#{explanation_message}/, task.task_cancelled_message)
+  end
 end

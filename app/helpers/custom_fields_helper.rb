@@ -61,6 +61,6 @@ module CustomFieldsHelper
 
   def form_for_format(customized_type, format)
     field = CustomField.new(:format => format, :customized_type => customized_type, :environment => environment)
-    CGI::escapeHTML((render(:partial => 'features/custom_fields/form', :locals => {:field => field})))
+    CGI::escapeHTML((render(:partial => 'features/custom_fields/form', :locals => {:field => field}))).html_safe
   end
 end

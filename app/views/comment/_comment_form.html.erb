@@ -8,7 +8,7 @@
   <div id="recaptcha-container" style="display: none">
     <h3><%= _('Please type the two words below') %></h3>
     <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
       <%= button_to_function :cancel, _('Cancel'), "noosfero.modal.close()" %>
     <% end %>
@@ -87,7 +87,7 @@ function check_captcha(button, confirm_action) {
 
   <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('add', _('Post comment'), :onclick => "if(check_captcha(this)) { save_comment(this) } else { check_captcha(this, save_comment)};return false;") %>
     <% if !edition_mode %>
       <%= button :cancel, _('Cancel'), '', :id => 'cancel-comment' %>

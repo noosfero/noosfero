@@ -12,7 +12,7 @@ class Enterprise < Organization
     _('Enterprise')
   end
 
-  N_('Enterprise')
+  N_('enterprise')
 
   acts_as_trackable after_add: proc{ |p, t| notify_activity t }
 

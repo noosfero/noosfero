@@ -7,11 +7,42 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
+  should 'remove article' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_not_equal 401, last_response.status
+    assert_equal true, json['success']
+
+    assert !Article.exists?(article.id)
+  end
+
+  should 'not remove article without permission' do
+    otherPerson = fast_create(Person, :name => "Other Person")
+    article = fast_create(Article, :profile_id => otherPerson.id, :name => "Some thing")
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+    assert Article.exists?(article.id)
+  end
+
   should 'list articles' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json["articles"].map { |a| a["id"] }, article.id
+  end
+
+  should 'list all text articles' do
+    profile = Community.create(identifier: 'my-community', name: 'name-my-community')
+    a1 = fast_create(TextArticle, :profile_id => profile.id)
+    a2 = fast_create(TextileArticle, :profile_id => profile.id)
+    a3 = fast_create(TinyMceArticle, :profile_id => profile.id)
+    params['content_type']='TextArticle'
+    get "api/v1/communities/#{profile.id}/articles?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 3, json['articles'].count
   end
 
   should 'get profile homepage' do
@@ -103,6 +134,17 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equivalent [child1.id, child2.id], json["articles"].map { |a| a["id"] }
   end
+
+  should 'list all text articles of children' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    child1 = fast_create(TextArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 1")
+    child2 = fast_create(TextileArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 2")
+    child3 = fast_create(TinyMceArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 3")
+    get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [child1.id, child2.id, child3.id], json["articles"].map { |a| a["id"] }
+  end
+
 
   should 'list public article children for not logged in access' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
@@ -744,4 +786,12 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json['article']['children'].map {|a| a['id']}, child.id
   end
 
+  should 'list article permissions when get an article' do
+    community = fast_create(Community)
+    give_permission(person, 'post_content', community)
+    article = fast_create(Article, :profile_id => community.id)
+    get "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["article"]["permissions"], 'allow_post_content'
+  end
 end

@@ -16,7 +16,7 @@
   <p><%= @page.terms_of_use %></p>
 
   <%= form_tag @page.url.merge(:terms_accepted => true) do %>
-    <% button_bar do %>
+    <%= button_bar do %>
       <% if user %>
         <%= submit_button :save, _("Accept")  %>
       <% else %>

@@ -10,5 +10,5 @@
       = check_box_tag "consumers[#{consumer.id}]", '1', distributed_consumers.include?(consumer.profile)
       = label_tag "consumers[#{consumer.id}]", consumer.name
 
-  - button_bar do
+  = button_bar do
     = submit_button :save, _('Save')

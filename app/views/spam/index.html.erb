@@ -6,7 +6,7 @@
 
 <%= _('There are no spams to review.') if no_tabs %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
 <% end %>
 
@@ -20,7 +20,7 @@
 <%= render_tabs(tabs) %>
 
 <% unless no_tabs %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
   <% end %>
 <% end %>

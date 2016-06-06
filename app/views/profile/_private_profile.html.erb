@@ -5,7 +5,7 @@
 <div class='private-profile-message'><%= @message %></div>
 <div class='private-profile-description'><%= profile.description %></div>
 
-<% button_bar do %>
+<%= button_bar do %>
   <% if @action == :join && logged_in? %>
     <%= join_community_button({:logged => true}) %>
   <% end %>

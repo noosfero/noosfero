@@ -7,14 +7,14 @@
   <% else %>
     <div class="ratings-list">
       <% block.get_ratings(block.owner.id).each_with_index do |r, index| %>
-        <% break if index >= block.limit_number_of_ratings %>
+        <% break if index >= block.ratings_on_initial_page %>
         <%= render :partial => "shared/user_rating_container", :locals => {:user_rate => r} %>
       <% end %>
 
       <%= render :partial => 'shared/make_report_block' %>
 
       <div class="see-more">
-        <%= link_to _('See more'), url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating'), :class => 'icon-arrow-right-p' %>
+        <%= link_to _('See more'), url_for(:controller => 'organization_ratings_plugin_profile', :action => 'new_rating', :anchor => 'ratings-list'), :class => 'icon-arrow-right-p' %>
       </div>
     </div>
   <% end %>

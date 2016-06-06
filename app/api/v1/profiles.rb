@@ -22,6 +22,15 @@ module Api
             not_found!
           end
         end
+        
+        desc "Update profile information"
+        post ':id' do
+          authenticate!
+          profile = environment.profiles.find_by(id: params[:id])
+          return forbidden! unless current_person.has_permission?(:edit_profile, profile)
+          profile.update_attributes!(params[:profile])
+          present profile, :with => Entities::Profile, :current_person => current_person
+        end
 
         delete ':id' do
           authenticate!

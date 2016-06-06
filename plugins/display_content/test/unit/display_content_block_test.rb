@@ -347,53 +347,6 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
   end
 
-  should 'list links for all articles title defined in nodes' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-
-    block = DisplayContentBlock.new
-    block.sections = [{:value => 'title', :checked => true}]
-    block.nodes = [a1.id, a2.id]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /.*<a.*>#{a1.title}<\/a>/, instance_eval(&block.content)
-    assert_match /.*<a.*>#{a2.title}<\/a>/, instance_eval(&block.content)
-  end
-
-  should 'list content for all articles lead defined in nodes' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
-    a2 = fast_create(TinyMceArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
-
-    block = DisplayContentBlock.new
-    block.sections = [{:value => 'abstract', :checked => true}]
-    block.nodes = [a1.id, a2.id]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /<div class="lead">#{a1.lead}<\/div>/, instance_eval(&block.content)
-    assert_match /<div class="lead">#{a2.lead}<\/div>/, instance_eval(&block.content)
-  end
-
-  should 'not crash when referenced article is removed' do
-    profile = create_user('testuser').person
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
-
-    block = DisplayContentBlock.new
-    block.nodes = [a1.id]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    Article.delete_all
-    assert_match /<ul><\/ul>/, instance_eval(&block.content)
-  end
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
@@ -418,48 +371,6 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     params = {:block_id => block.id}
     params[:controller] = "display_content_plugin_admin"
     assert_equal params, block.url_params
-  end
-
-  should 'show title if defined by user' do
-    profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-
-    block = DisplayContentBlock.new
-    block.nodes = [a.id]
-    block.sections = [{:value => 'title', :checked => true}]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /.*<a.*>#{a.title}<\/a>/, instance_eval(&block.content)
-  end
-
-  should 'show abstract if defined by user' do
-    profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
-
-    block = DisplayContentBlock.new
-    block.nodes = [a.id]
-    block.sections = [{:value => 'abstract', :checked => true}]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /#{a.abstract}/, instance_eval(&block.content)
-  end
-
-  should 'show body if defined by user' do
-    profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
-
-    block = DisplayContentBlock.new
-    block.nodes = [a.id]
-    block.sections = [{:value => 'body', :checked => true}]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /#{a.body}/, instance_eval(&block.content)
   end
 
   should 'display_attribute be true for title by default' do
@@ -487,20 +398,6 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
 
     assert block.display_section?({:value => 'publish_date', :checked => true})
-  end
-
-  should 'show publishd date if defined by user' do
-    profile = create_user('testuser').person
-    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
-
-    block = DisplayContentBlock.new
-    block.nodes = [a.id]
-    block.sections = [{:value => 'publish_date', :checked => true}]
-    box = mock()
-    block.stubs(:box).returns(box)
-    box.stubs(:owner).returns(profile)
-
-    assert_match /#{a.published_at}/, instance_eval(&block.content)
   end
 
   should 'do not save children if a folder is checked' do
@@ -648,6 +545,117 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [], block.parent_nodes
   end
 
+end
+
+require 'boxes_helper'
+
+class DisplayContentBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  should 'list links for all articles title defined in nodes' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
+
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'title', :checked => true}]
+    block.nodes = [a1.id, a2.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /.*<a.*>#{a1.title}<\/a>/, render_block_content(block)
+    assert_match /.*<a.*>#{a2.title}<\/a>/, render_block_content(block)
+  end
+
+  should 'list content for all articles lead defined in nodes' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    a1 = fast_create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
+    a2 = fast_create(TinyMceArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
+
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}]
+    block.nodes = [a1.id, a2.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /<div class="lead">#{a1.lead}<\/div>/, render_block_content(block)
+    assert_match /<div class="lead">#{a2.lead}<\/div>/, render_block_content(block)
+  end
+
+  should 'not crash when referenced article is removed' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+
+    block = DisplayContentBlock.new
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    Article.delete_all
+    assert_match /<ul><\/ul>/, render_block_content(block)
+  end
+
+  should 'show title if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:value => 'title', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /.*<a.*>#{a.title}<\/a>/, render_block_content(block)
+  end
+
+  should 'show abstract if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:value => 'abstract', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /#{a.abstract}/, render_block_content(block)
+  end
+
+  should 'show body if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:value => 'body', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /#{a.body}/, render_block_content(block)
+  end
+
+  should 'show publishd date if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:value => 'publish_date', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /#{a.published_at}/, render_block_content(block)
+  end
+
   should 'show articles in recent order' do
     profile = create_user('testuser').person
     Article.delete_all
@@ -663,8 +671,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block.order_by_recent = true
 
-    a1_index = instance_eval(&block.content).index(a1.name)
-    a2_index = instance_eval(&block.content).index(a2.name)
+    a1_index = render_block_content(block).index(a1.name)
+    a2_index = render_block_content(block).index(a2.name)
 
     assert a2_index < a1_index
   end
@@ -684,8 +692,8 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block.order_by_recent = false
 
-    a1_index = instance_eval(&block.content).index(a1.name)
-    a2_index = instance_eval(&block.content).index(a2.name)
+    a1_index = render_block_content(block).index(a1.name)
+    a2_index = render_block_content(block).index(a2.name)
 
     assert a1_index < a2_index
   end
@@ -706,7 +714,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.order_by_recent = true
     block.limit_to_show = 1
 
-    a1_index = instance_eval(&block.content).index(a1.name)
+    a1_index = render_block_content(block).index(a1.name)
 
     assert a1_index.nil?
   end
@@ -730,15 +738,15 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_nil instance_eval(&block.content).index(en_article.name)
-    assert_nil instance_eval(&block.content).index(en_article2.name)
-    assert instance_eval(&block.content).index(pt_article.name).present?
+    assert_nil render_block_content(block).index(en_article.name)
+    assert_nil render_block_content(block).index(en_article2.name)
+    assert render_block_content(block).index(pt_article.name).present?
 
     FastGettext.stubs(:locale).returns('en')
 
-    assert instance_eval(&block.content).index(en_article.name)
-    assert instance_eval(&block.content).index(en_article2.name)
-    assert_nil instance_eval(&block.content).index(pt_article.name)
+    assert render_block_content(block).index(en_article.name)
+    assert render_block_content(block).index(en_article2.name)
+    assert_nil render_block_content(block).index(pt_article.name)
   end
 
   should 'replace article with its translation' do
@@ -758,12 +766,71 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
 
-    assert_nil instance_eval(&block.content).index(en_article.name)
-    assert instance_eval(&block.content).index(pt_article.name).present?
+    assert_nil render_block_content(block).index(en_article.name)
+    assert render_block_content(block).index(pt_article.name).present?
 
     FastGettext.stubs(:locale).returns('en')
 
-    assert instance_eval(&block.content).index(en_article.name).present?
-    assert_nil instance_eval(&block.content).index(pt_article.name)
+    assert render_block_content(block).index(en_article.name).present?
+    assert_nil render_block_content(block).index(pt_article.name)
   end
+
+  should 'not escape abstract html of articles' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, abstract: "<p class='test-article-abstract'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_tag_in_string  render_block_content(block), tag: 'p', attributes: { class: 'test-article-abstract' }
+  end
+
+  should 'not raise if abstract of article is nil' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_nil a1.abstract
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
+  should 'not escape body html of articles' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, body: "<p class='test-article-body'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'body', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_tag_in_string  render_block_content(block), tag: 'p', attributes: { class: 'test-article-body' }
+  end
+
+  should 'not raise if body of article is nil' do
+    profile = create_user('testuser').person
+    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    
+    block = DisplayContentBlock.new
+    block.sections = [{:value => 'abstract', :checked => true}] 
+    block.nodes = [a1.id]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+    assert_nil a1.body
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
 end

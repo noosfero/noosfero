@@ -1,0 +1,28 @@
+<%=
+labelled_form_field(_('Choose which blog should be displayed'),
+  select_tag(
+      'block[discussion_status]',
+      options_for_select([[_('Not Opened Discussions'), CommentParagraphPlugin::DiscussionBlock::STATUS_NOT_OPENED],[_('Available Discussions'), CommentParagraphPlugin::DiscussionBlock::STATUS_AVAILABLE], [_('Closed Discussions'), CommentParagraphPlugin::DiscussionBlock::STATUS_CLOSED]], @block.discussion_status)
+  )
+)
+%>
+<%=
+labelled_form_field(_('Choose how the content should be displayed'),
+  select_tag(
+      'block[presentation_mode]',
+      options_for_select(
+         {
+            _("Title only") => "title_only",
+            _("Title and abstract") => "title_and_abstract",
+            _("Full content") => "full_content"
+         },
+          @block.presentation_mode
+      )
+  )
+)
+%>
+<%= labelled_form_field(_('Choose how many items will be displayed'),
+      text_field_tag('block[total_items]',
+        @block.total_items, :size => 3, :maxlength => 5)
+    )
+%>

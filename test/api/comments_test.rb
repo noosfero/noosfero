@@ -70,6 +70,16 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal body, json['comment']['body']
   end
 
+  should 'not create comment when an article does not accept comments' do
+    login_api
+    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", accept_comments: false)
+    body = 'My comment'
+    params.merge!({:body => body})
+    post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+  end
+
   should 'logged user not comment an archived article' do
     login_api
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :archived => true)
@@ -186,4 +196,53 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
   end
 
+  should 'delete comment successfully' do
+    login_api
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal comment.id, json['comment']['id']
+    assert_not_includes article.comments, comment
+  end
+
+  should 'not delete a comment when user is not logged' do
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+    assert_includes article.comments, comment
+  end
+
+  should 'not delete a comment when user does not have permission' do
+    login_api
+    article = fast_create(Article, profile_id: @local_person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: @local_person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+    assert_includes article.comments, comment
+  end
+
+  should 'return not found when delete a inexistent comment' do
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/0?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 404, last_response.status
+    assert_includes article.comments, comment
+  end
+
+  should 'return error when failed to delete comment' do
+    login_api
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    Comment.any_instance.expects(:destroy).raises(StandardError)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 500, last_response.status
+    assert_includes article.comments, comment
+  end
 end

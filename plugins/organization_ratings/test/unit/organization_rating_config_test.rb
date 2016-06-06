@@ -29,15 +29,29 @@ class OrganizationRatingConfigTest < ActiveSupport::TestCase
     assert_equal "must be greater than or equal to 0", @organization_ratings_config.errors[:cooldown].first
   end
 
-  # test "communities ratings per page validation" do
-  #   environment = Environment.new :communities_ratings_per_page => 4
-  #   environment.valid?
+  test "communities ratings per page validation" do
+    @organization_ratings_config.per_page = 4
 
-  #   assert_equal "must be greater than or equal to 5", environment.errors[:communities_ratings_per_page].first
+    refute @organization_ratings_config.valid?
 
-  #   environment.communities_ratings_per_page = 21
-  #   environment.valid?
+    assert_equal "must be greater than or equal to 5", @organization_ratings_config.errors[:per_page].first
 
-  #   assert_equal "must be less than or equal to 20", environment.errors[:communities_ratings_per_page].first
-  # end
+    @organization_ratings_config.per_page = 21
+    refute @organization_ratings_config.valid?
+
+    assert_equal "must be less than or equal to 20", @organization_ratings_config.errors[:per_page].first
+  end
+
+  should "ratings block use initial_page config" do
+    @organization_ratings_config.ratings_on_initial_page = 4
+    @organization_ratings_config.save!
+    block = OrganizationRatingsBlock.new
+    assert_equal block.ratings_on_initial_page, 4
+  end
+
+  should "ratings block show 3 ratings on initial page by default" do
+    @organization_ratings_config.save!
+    block = OrganizationRatingsBlock.new
+    assert_equal block.ratings_on_initial_page, 3
+  end
 end

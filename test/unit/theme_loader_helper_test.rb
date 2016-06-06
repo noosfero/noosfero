@@ -20,7 +20,7 @@ class ThemeLoaderHelperTest < ActionView::TestCase
   end
 
   should 'override theme with testing theme from session' do
-    stubs(:session).returns(:theme => 'theme-under-test')
+    stubs(:session).returns(:user_theme => 'theme-under-test')
     assert_equal 'theme-under-test', current_theme
   end
 
@@ -30,7 +30,17 @@ class ThemeLoaderHelperTest < ActionView::TestCase
   end
 
   should 'point to user theme path when testing theme' do
-    stubs(:session).returns({:theme => 'theme-under-test'})
+    stubs(:session).returns({:user_theme => 'theme-under-test'})
     assert_equal '/user_themes/theme-under-test', theme_path
   end
+
+  should 'point to session theme is defined' do
+    session = mock
+    stubs(:session).returns(session)
+    my_session_theme = 'session_theme'
+    session.stubs(:[]).with(:user_theme).returns(nil)
+    session.stubs(:[]).with(:theme).returns(my_session_theme)
+    assert_equal '/designs/themes/' + my_session_theme, theme_path
+  end
+
 end

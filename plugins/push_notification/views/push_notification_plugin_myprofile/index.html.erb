@@ -18,7 +18,7 @@
 <%= form_for(:settings, :url => {:controller => "push_notification_plugin_myprofile", :action => "update_settings"}) do |f| %>
   <h1><%= t('push_notification_plugin.lib.plugin.enabled_notifications') %></h1>
   <%= render partial: "notification_events_form", locals: {f: f, settings: @settings} %>
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:save, _('Save')) %>
     <%= button(:back, _('Back to control panel'), :controller => (profile.nil? ? 'admin_panel': 'profile_editor')) %>
   <% end %>

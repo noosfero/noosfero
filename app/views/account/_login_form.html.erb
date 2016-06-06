@@ -11,7 +11,7 @@
   <%= hidden_field_tag :terms_accepted, params[:terms_accepted] %>
 <% end %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
   <%= modal_close_button _('Cancel') if request.xhr? %>
 <% end %>

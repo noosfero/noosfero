@@ -1,4 +1,4 @@
-<% button_bar do %>
+<%= button_bar do %>
   <% if logged_in? %>
     <%= button(:new,_("Rate %s ") % _(profile.class.name),
               {:controller => "organization_ratings_plugin_profile",

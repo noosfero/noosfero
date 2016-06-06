@@ -22,9 +22,8 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'collect the highlighted products with image' do
-    env = Environment.default
     e1 = fast_create(Enterprise)
-    p1 = create(Product, name: 'test_prod1', product_category_id: @product_category.id, enterprise: e1)
+    create(Product, name: 'test_prod1', product_category_id: @product_category.id, enterprise: e1)
     products = []
     3.times {|n|
       products.push(create(Product, name: "product #{n}", profile_id: e1.id,
@@ -36,7 +35,8 @@ class ProfileTest < ActiveSupport::TestCase
     create(Product, name: "product 5", profile_id: e1.id, product_category_id: @product_category.id, image_builder: {
       uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
     })
-    assert_equal products, e1.highlighted_products_with_image
+
+    assert_equivalent products, e1.highlighted_products_with_image
   end
 
   should 'have many inputs through products' do

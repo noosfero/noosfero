@@ -23,10 +23,6 @@ class BlockTest < ActiveSupport::TestCase
     assert_nil Block.new.owner
   end
 
-  should 'provide no footer by default' do
-    assert_nil Block.new.footer
-  end
-
   should 'provide an empty default title' do
     assert_equal '', Block.new.default_title
   end

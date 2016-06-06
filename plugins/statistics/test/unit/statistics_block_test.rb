@@ -145,6 +145,7 @@ class StatisticsBlockTest < ActiveSupport::TestCase
 
     b = StatisticsBlock.new
     e = fast_create(Environment)
+    e.enable_plugin('ProductsPlugin')
 
     e1 = fast_create(Enterprise, :visible => true, :enabled => true, :environment_id => e.id)
     e2 = fast_create(Enterprise, :visible => true, :enabled => false, :environment_id => e.id)
@@ -168,6 +169,8 @@ class StatisticsBlockTest < ActiveSupport::TestCase
     b = StatisticsBlock.new
 
     e = fast_create(Enterprise)
+    environment = e.environment
+    environment.enable_plugin('ProductsPlugin')
 
     fast_create(Product, :profile_id => e.id)
     fast_create(Product, :profile_id => e.id)

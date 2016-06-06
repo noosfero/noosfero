@@ -54,6 +54,17 @@ module Api
           present_partial article, :with => Entities::Article
         end
 
+        delete ':id' do
+          article = environment.articles.find(params[:id])
+          return forbidden! unless article.allow_delete?(current_person)
+          begin
+            article.destroy
+            { :success => true }
+          rescue Exception => exception
+            render_api_error!(_('The article couldn\'t be removed due to some problem. Please contact the administrator.'), 400)
+          end          
+        end
+
         desc 'Report a abuse and/or violent content in a article by id' do
           detail 'Submit a abuse (in general, a content violation) report about a specific article'
           params Entities::Article.documentation
@@ -262,7 +273,7 @@ module Api
                     article = forbidden!
                   end
 
-                  present_partial article, :with => Entities::Article
+                  present_partial article, :with => Entities::Article, current_person: current_person
                 else
 
                   present_articles_for_asset(profile)

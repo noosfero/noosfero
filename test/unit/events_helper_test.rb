@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class EventsHelperTest < ActiveSupport::TestCase
+class EventsHelperTest < ActionView::TestCase
 
   include EventsHelper
 

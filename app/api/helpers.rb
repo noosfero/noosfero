@@ -121,7 +121,7 @@ module Api
 
     def present_article(asset)
       article = find_article(asset.articles, params[:id])
-      present_partial article, :with => Entities::Article, :params => params
+      present_partial article, with: Entities::Article, params: params, current_person: current_person
     end
 
     def present_articles_for_asset(asset, method = 'articles')
@@ -130,7 +130,7 @@ module Api
     end
 
     def present_articles(articles)
-      present_partial paginate(articles), :with => Entities::Article, :params => params
+      present_partial paginate(articles), :with => Entities::Article, :params => params, current_person: current_person
     end
 
     def find_articles(asset, method = 'articles')
@@ -407,9 +407,11 @@ module Api
 
     def parse_content_type(content_type)
       return nil if content_type.blank?
-      content_type.split(',').map do |content_type|
-        content_type.camelcase
+      content_types = content_type.split(',').map do |content_type|
+        content_type = content_type.camelcase
+        content_type == 'TextArticle' ? Article.text_article_types : content_type
       end
+      content_types.flatten.uniq
     end
 
     def period(from_date, until_date)

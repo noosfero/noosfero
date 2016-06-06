@@ -45,7 +45,7 @@
   </div>
 
   <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
-    <% button_bar(:style => 'float: right; margin-top: 0px;') do %>
+    <%= button_bar(:style => 'float: right; margin-top: 0px;') do %>
       <%= link_to_function(_('Remove'), 'remove_item_wall(this, \'%s\', \'%s\', \'%s\'); return false ;' % [".article-comment", url_for(:profile => params[:profile], :action => :remove_comment, :comment_id => comment.id, :view => params[:view]), _('Are you sure you want to remove this comment and all its replies?')], :class => 'button icon-button icon-delete') %>
     <% end %>
   <% end %>

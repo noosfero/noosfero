@@ -79,13 +79,6 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_tag_in_string render_block_content(l), :tag => 'a', :attributes => { :href => '/prefix/bar' }
   end
 
-  should 'display options for icons' do
-    l = LinkListBlock.new
-    l.icons_options.each do |option|
-      assert_match(/<span title=\".+\" class=\"icon-.+\" onclick=\"changeIcon\(this, '.+'\)\"><\/span>/, option)
-    end
-  end
-
   should 'link with icon' do
     l = LinkListBlock.new(:links => [{:icon => 'save', :name => 'test', :address => 'test.com'}])
     assert_match /a class="icon-[^"]+"/, render_block_content(l)

@@ -13,6 +13,13 @@ class ApplicationController < ActionController::Base
   before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
   before_filter :redirect_to_current_user
 
+  before_filter :set_session_theme
+  def set_session_theme
+    if params[:theme]
+      session[:theme] = environment.theme_ids.include?(params[:theme]) ? params[:theme] : nil
+    end
+  end
+
   def require_login_for_environment
     login_required
   end

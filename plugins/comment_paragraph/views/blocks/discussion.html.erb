@@ -1,0 +1,33 @@
+<div id="discussion-block">
+  <% children = block.discussions %>
+  <div class="discussion">
+    <%= block_title(block.title.blank? ? c_("Discussions") : block.title, block.subtitle ) %>
+  </div>
+  <% if block.mode?('title_only') %>
+    <div class="discussion-title">
+      <ul>
+        <% children.each do |item| %>
+          <li> <%= link_to(h(item.title), item.url)%></li>
+        <% end %>
+      </ul>
+    </div>
+  <% elsif block.mode?('title_and_abstract') %>
+    <div class="discussion-abstract">
+      <% children.each do |item| %>
+        <h2><%= link_to(item.title,item.url, :class => 'post-title')%></h2>
+        <span class="post-date"><%= show_date(item.published_at, true)%></span>
+        <div class="headline"><%=item.lead%></div>
+        <p class="highlighted-news-read-more"><%= link_to(_('Read more'), item.url) %></p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="discussion-full">
+     <% children.each do |item| %>
+        <h2><%= link_to(item.title,item.url, :class => 'post-title')%></h2>
+        <span class="post-date"><%= show_date(item.published_at, true)%></span>
+        <div class="headline"><%=item.body.html_safe %></div>
+        <p class="highlighted-news-read-more"><%= link_to(_('Read more'), item.url) %></p>
+    <% end %>
+    </div>
+  <% end %>
+</div>

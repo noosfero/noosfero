@@ -29,6 +29,8 @@ class Article < ApplicationRecord
     :display => %w[full]
   }
 
+  N_('article')
+
   def initialize(*params)
     super
     if params.present? && params.first.present?

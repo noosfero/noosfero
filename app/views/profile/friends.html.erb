@@ -14,7 +14,7 @@
   </div>
 <% end %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' } %>
   <% if user == profile %>
     <%= button :edit, _('Manage my friends'), :controller => 'friends', :action => 'index', :profile => profile.identifier %>

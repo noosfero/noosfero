@@ -12,7 +12,7 @@
     <%= visibility_options(@article, @tokenized_children) %>
   </div>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= button :cancel, _('Cancel'), @back_to %>
   <% end %>

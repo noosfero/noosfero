@@ -93,7 +93,9 @@ module Api
     class Box < Entity
       root 'boxes', 'box'
       expose :id, :position
-      expose :blocks, :using => Block
+      expose :blocks, :using => Block do |box, options|
+        box.blocks.select {|block| block.visible_to_user?(options[:current_person]) }
+      end
     end
 
     class Profile < Entity
@@ -200,11 +202,20 @@ module Api
       expose :accept_comments?, as: :accept_comments
     end
 
+    def self.permissions_for_entity(entity, current_person, *method_names)
+      method_names.map { |method| entity.send(method, current_person) ? method.to_s.gsub(/\?/,'') : nil }.compact
+    end
+
     class Article < ArticleBase
       root 'articles', 'article'
       expose :parent, :using => ArticleBase
       expose :children, :using => ArticleBase do |article, options|
         article.children.published.limit(V1::Articles::MAX_PER_PAGE)
+      end
+      expose :permissions do |article, options|
+        Entities.permissions_for_entity(article, options[:current_person],
+          :allow_edit?, :allow_post_content?, :allow_delete?, :allow_create?,
+          :allow_publish_content?)
       end
     end
 

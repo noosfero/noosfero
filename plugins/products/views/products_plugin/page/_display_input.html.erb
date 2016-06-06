@@ -1,7 +1,7 @@
   <div class='input-informations input-form-closed'>
     <div class='input-name'> <%= input.name %> <%= input_icon(input) %> </div>
     <div class='input-details'>
-      <% button_bar do %>
+      <%= button_bar do %>
         <% if input.has_price_details? %>
           <%= edit_button(:edit, _('Edit'), {:action => 'edit_input', :id => input}, :class => 'edit-input', :id => "edit-input-#{input.id}") %>
         <% end %>

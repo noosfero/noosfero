@@ -36,7 +36,7 @@ function submit_comment_form(button) {
   <div id="recaptcha-container" style="display: none">
     <h3><%= _('Please type the two words below') %></h3>
     <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
-    <% button_bar do %>
+    <%= button_bar do %>
       <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
       <%= button_to_function :cancel, _('Cancel'), "noosfero.modal.close()" %>
     <% end %>
@@ -73,7 +73,7 @@ function submit_comment_form(button) {
   <%= hidden_field_tag(:confirm, 'false') %>
   <%= hidden_field_tag(:view, params[:view])%>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button('add', _('Post comment'), :onclick => "submit_comment_form(this); return false") %>
     <% if cancel_triggers_hide %>
       <%= button :cancel, _('Cancel'), '', :id => 'cancel-comment' %>

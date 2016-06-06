@@ -32,7 +32,7 @@
 
   <%= render :partial => 'invite/personalize_invitation_mail', :locals => {:mail_template => @mail_template } %>
 
-  <% button_bar do %>
+  <%= button_bar do %>
     <%= submit_button(:ok, _("Invite!")) %>
   <% end %>
 <% end %>

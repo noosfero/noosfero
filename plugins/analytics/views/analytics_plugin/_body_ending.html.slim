@@ -1,5 +1,5 @@
 javascript:
-  analytics.timeOnPage.baseUrl = #{url_for(controller: 'analytics_plugin/time_on_page').to_json}
+  analytics.timeOnPage.baseUrl = #{url_for(profile: profile.identifier, controller: 'analytics_plugin/time_on_page').to_json}
   analytics.timeOnPage.updateInterval = #{AnalyticsPlugin::TimeOnPageUpdateIntervalMs.to_json}
   analytics.requestId = #{request.env['action_dispatch.request_id'].to_json}
   analytics.init()

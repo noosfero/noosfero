@@ -42,20 +42,6 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     assert_equal RelevantContentPlugin::RelevantContentBlock.expire_on, {:environment=>[:article], :profile=>[:article]}
   end
 
-  should 'not crash if vote plugin is not found' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => 'Profile')
-    block = RelevantContentPlugin::RelevantContentBlock.new(:box => box)
-
-    Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
-    # When the plugin is disabled from noosfero instance, its constant name is
-    # undefined.  To test this case, I have to manually undefine the constant
-    # if necessary.
-    Object.send(:remove_const, VotePlugin.to_s) if defined? VotePlugin
-
-    assert_nothing_raised do
-      block.content
-    end
-  end
 
   should 'check most voted articles from profile with relevant content block' do
     community = fast_create(Community)
@@ -77,11 +63,41 @@ class RelevantContentBlockTest < ActiveSupport::TestCase
     assert_equal false, data.empty?
   end
 
-  should 'not escape html in block content' do
-    fast_create(Article, profile_id: profile.id, hits: 10)
-    box = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile')
+end
+
+require 'boxes_helper'
+
+class RelevantContentBlockViewTest < ActionView::TestCase
+  include BoxesHelper
+
+  def setup
+    @profile = create_user('testinguser').person
+  end
+
+  should 'not crash if vote plugin is not found' do
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => 'Profile')
     block = RelevantContentPlugin::RelevantContentBlock.new(:box => box)
+
     Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
-    assert_tag_in_string block.content, tag: 'span', attributes: { class: 'title mread' }
+    ActionView::Base.any_instance.expects(:block_title).returns("")
+    # When the plugin is disabled from noosfero instance, its constant name is
+    # undefined.  To test this case, I have to manually undefine the constant
+    # if necessary.
+    Object.send(:remove_const, VotePlugin.to_s) if defined? VotePlugin
+
+    assert_nothing_raised do
+      render_block_content(block)
+    end
+  end
+
+  should 'not escape html in block content' do
+    fast_create(Article, profile_id: @profile.id, hits: 10)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => 'Profile')
+    block = RelevantContentPlugin::RelevantContentBlock.new(:box => box)
+
+    Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
+    ActionView::Base.any_instance.expects(:block_title).returns("")
+
+    assert_tag_in_string render_block_content(block), tag: 'span', attributes: { class: 'title mread' }
   end
 end

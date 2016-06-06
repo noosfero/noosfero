@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tfoot>
-          <tr><td colspan=3><%= button(:add, _('Add option'), 'javascript: void()', :id => "btn_opt_#{id}", :onclick => "add_content('##{id} .custom-field-extras', $('#btn_opt_#{id}').attr('value'), 'EXTRAS_ID');", :value => "#{render_extras_field(id)}") %></td></tr>
+          <tr><td colspan=3><%= button(:add, _('Add option'), 'javascript: void()', :id => "btn_opt_#{id}", :onclick => "add_content('##{id} .custom-field-extras', $('#btn_opt_#{id}').attr('value'), 'EXTRAS_ID');", :value => "#{render_extras_field(id)}".html_safe) %></td></tr>
         </tfoot>
         <tbody class="custom-field-extras">
           <% if !field.extras.blank?%>

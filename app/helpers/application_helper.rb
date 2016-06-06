@@ -233,13 +233,6 @@ module ApplicationHelper
     link_to(content_tag('span', text), url, html_options.merge(:class => the_class, :title => text))
   end
 
-  def button_bar(options = {}, &block)
-    options[:class].nil? ?
-      options[:class]='button-bar' :
-      options[:class]+=' button-bar'
-    concat(content_tag('div', capture(&block).to_s + tag('br', :style => 'clear: left;'), options))
-  end
-
   def render_profile_actions klass
     name = klass.to_s.underscore
     begin
@@ -351,7 +344,7 @@ module ApplicationHelper
   end
 
   def is_testing_theme
-    !controller.session[:theme].nil?
+    !controller.session[:user_theme].nil?
   end
 
   def theme_owner
@@ -600,8 +593,8 @@ module ApplicationHelper
     end
 
     if block
-      field_html ||= ''
-      field_html += capture(&block)
+      field_html ||= ''.html_safe
+      field_html   = [field_html, capture(&block)].safe_join
     end
 
     if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index') || (controller.controller_name == 'home' && controller.action_name == 'index' && user.nil?)
@@ -610,16 +603,14 @@ module ApplicationHelper
       end
     else
       if profile.active_fields.include?(name)
-        result = content_tag('div', field_html + profile_field_privacy_selector(profile, name), :class => 'field-with-privacy-selector')
+        result = content_tag :div, class: 'field-with-privacy-selector' do
+          [field_html, profile_field_privacy_selector(profile, name)].safe_join
+        end
       end
     end
 
     if is_required
       result = required(result)
-    end
-
-    if block
-      concat(result)
     end
 
     result
@@ -866,7 +857,7 @@ module ApplicationHelper
   alias :browse_communities_menu :search_communities_menu
 
   def pagination_links(collection, options={})
-    options = {:previous_label => content_tag(:span, '&laquo; ', :class => 'previous-arrow') + _('Previous'), :next_label => _('Next') + content_tag(:span, ' &raquo;', :class => 'next-arrow'), :inner_window => 1, :outer_window => 0 }.merge(options)
+    options = {:previous_label => content_tag(:span, '&laquo; '.html_safe, :class => 'previous-arrow') + _('Previous'), :next_label => _('Next') + content_tag(:span, ' &raquo;'.html_safe, :class => 'next-arrow'), :inner_window => 1, :outer_window => 0 }.merge(options)
     will_paginate(collection, options)
   end
 
@@ -988,6 +979,7 @@ module ApplicationHelper
     values = {}
     values.merge!(task.information[:variables]) if task.information[:variables]
     values.merge!({:requestor => link_to(task.requestor.name, task.requestor.url)}) if task.requestor
+    values.merge!({:target => link_to(task.target.name, task.target.url)}) if (task.target && task.target.respond_to?(:url))
     values.merge!({:subject => content_tag('span', task.subject, :class=>'task_target')}) if task.subject
     values.merge!({:linked_subject => link_to(content_tag('span', task.linked_subject[:text], :class => 'task_target'), task.linked_subject[:url])}) if task.linked_subject
     (task.information[:message] % values).html_safe
@@ -1138,7 +1130,7 @@ module ApplicationHelper
     content_tag(:div, :class => 'errorExplanation', :id => 'errorExplanation') do
       content_tag(:h2, _('Errors while saving')) +
       content_tag(:ul) do
-        safe_join(errors.map { |err| content_tag(:li, err) })
+        safe_join(errors.map { |err| content_tag(:li, err.html_safe) })
       end
     end
   end

@@ -466,7 +466,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'use theme passed via param when in development mode' do
     stubs(:environment).returns(build(Environment, :theme => 'environment-theme'))
     Rails.env.stubs(:development?).returns(true)
-    self.stubs(:params).returns({:theme => 'skyblue'})
+    self.stubs(:params).returns({:user_theme => 'skyblue'})
     assert_equal 'skyblue', current_theme
   end
 
@@ -682,29 +682,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_nil default_folder_for_image_upload(profile)
   end
 
-  should 'envelop a html with button-bar div' do
-    result = button_bar { '<b>foo</b>' }
-    assert_equal '<div class="button-bar"><b>foo</b>'+
-                 '<br style=\'clear: left;\' /></div>', result
-  end
-
-  should 'add more classes to button-bar envelope' do
-    result = button_bar :class=>'test' do
-      '<b>foo</b>'
-    end
-    assert_equal '<div class="test button-bar"><b>foo</b>'+
-                 '<br style=\'clear: left;\' /></div>', result
-  end
-
-  should 'add more attributes to button-bar envelope' do
-    result = button_bar :id=>'bt1' do
-      '<b>foo</b>'
-    end
-    assert_tag_in_string result, :tag =>'div', :attributes => {:class => 'button-bar', :id => 'bt1'}
-    assert_tag_in_string result, :tag =>'b', :content => 'foo', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
-    assert_tag_in_string result, :tag =>'br', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
-  end
-
   should 'not filter html if source does not have macros' do
     class Plugin1 < Noosfero::Plugin
     end
@@ -871,7 +848,7 @@ class ApplicationHelperTest < ActionView::TestCase
     html = fullscreen_buttons("#article")
     assert html.include?("<script>fullscreenPageLoad('#article')</script>")
     assert html.include?("class=\"button with-text icon-fullscreen\"")
-    assert html.include?("onClick=\"toggle_fullwidth('#article')\"")
+    assert html.include?("onClick=\"toggle_fullwidth(&#39;#article&#39;)\"")
   end
 
   should "return the related class string" do

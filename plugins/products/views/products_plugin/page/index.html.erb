@@ -24,7 +24,7 @@
 
 <%= pagination_links @products %>
 
-<% button_bar do %>
+<%= button_bar do %>
   <%= button :add, _('New product or service'), :action => 'new' if @profile.create_product? %>
   <%= button :back,  _('Back'), { :controller => 'profile_editor', :profile => @profile.identifier, :action => 'index' } %>
 <% end %>

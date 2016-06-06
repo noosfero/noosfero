@@ -3,6 +3,8 @@ require_relative "../test_helper"
 class ContentViewerHelperTest < ActionView::TestCase
 
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::TextHelper
+
   include ContentViewerHelper
   include DatesHelper
   include ApplicationHelper
@@ -99,14 +101,14 @@ class ContentViewerHelperTest < ActionView::TestCase
   end
 
   should 'theme provides addthis custom icon' do
-    stubs(:session).returns({:theme => 'base'})
+    stubs(:session).returns({:user_theme => 'base'})
     File.expects(:exists?).with(anything).returns(true)
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     assert_match 'addthis.gif', addthis_image_tag
   end
 
   should 'use default addthis icon if theme has no addthis.gif image' do
-    stubs(:session).returns({:theme => 'base'})
+    stubs(:session).returns({:user_theme => 'base'})
     File.expects(:exists?).with(anything).returns(false)
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     assert_match 'bt-bookmark.gif', addthis_image_tag
@@ -146,13 +148,6 @@ class ContentViewerHelperTest < ActionView::TestCase
     article.save!
     result = show_with_right_format_date article
     assert_match /February 1, 2007/, result
-  end
-
-  protected
-  include NoosferoTestHelper
-  include ActionView::Helpers::TextHelper
-  def url_for(args = {})
-    ['http:/', args[:host], args[:profile], args[:page]].join('/')
   end
 
 end
