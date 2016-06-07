@@ -723,11 +723,11 @@ module ApplicationHelper
   def display_short_format(article, options={})
     options[:comments_link] ||= true
     options[:read_more_link] ||= true
+    lead_links = (options[:comments_link] ? link_to_comments(article) : '') + (options[:read_more_link] ? reference_to_article( _('Read more'), article) : '')
     html = content_tag('div',
              article.lead +
              content_tag('div',
-               (options[:comments_link] ? link_to_comments(article) : '') +
-               (options[:read_more_link] ? reference_to_article( _('Read more'), article) : ''),
+               lead_links.html_safe,
                :class => 'read-more'
              ),
              :class => 'short-post'
