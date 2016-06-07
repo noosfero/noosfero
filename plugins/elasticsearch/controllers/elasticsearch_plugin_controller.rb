@@ -33,7 +33,7 @@ class ElasticsearchPluginController < ApplicationController
   def get_query text, klass
     query = {}
     unless text.blank?
-
+       text = text.downcase
        fields = klass::SEARCHABLE_FIELDS.map do |key, value|
          if value[:weight]
            "#{key}^#{value[:weight]}"
