@@ -1,2 +1,12 @@
-
-Person: <%= person.name %>
+<div class="person-item">
+  <div class="left-side">
+    <%= profile_image person %>
+  </div>
+  <div class="right-side">
+    <%= person.created_at.strftime("%d %B %Y at %H:%M") %> - <%= person.name %> <span class="model-label"><%= _("PERSON") %></span>
+    <div class="body">
+      <h2><%= person.name %></h2>
+      <p><%= person.description %></p>
+    </div>
+  </div>
+</div>

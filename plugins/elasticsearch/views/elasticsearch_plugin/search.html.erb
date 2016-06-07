@@ -1,34 +1,52 @@
-<h1> Search </h1>
+<div class="wrapper">
 
-<%= form_tag controller: "elasticsearch_plugin", action: "search" do %>
-    <%= label_tag(:q, _("Search")) %>
-    <%= text_field_tag(:q, @query) %>
+  <div class="sidebar">
+    <div class="results-count">
+      <%= @results.total %> <%= _(" results by") %> :
+    </div>
+    <ul>
+      <% for type,value in @searchable_types %>
+        <li class="select-search-type <%= "active" if type == @selected_type %>">
+          <%= link_to  value[:label], "?selected_type=#{type}&q=#{@query}&selected_filter_field=#{@selected_filter_field}"%>
+        </li>
+      <% end %>
+    </ul>
 
-    <%= submit_tag _("Send") %>
+    <div class="search-filter">
+      <h3><%= _("Filter by") %></h3>
+      <ul>
+        <% for type in @search_filter_types.values %>
+          <li><a href="#"><%= type[:label] %></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
-    <%= check_box_tag 'model[communities]', 1, @checkbox[:communities] %>
-    <%= label_tag('communities', _("communities")) %>
+  <div class="search_form">
+      <div class="search_field">
+        <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
+            <%= hidden_field_tag  "selected_type", @selected_type %>
+            <%= hidden_field_tag  "selected_filter_field", @selected_filter_field  %>
+            <%= text_field_tag :q, @query %>
+            <%= submit_tag _("Send") %>
+        <% end %>
+      </div>
 
-    <%= check_box_tag 'model[people]', 1, @checkbox[:people] %>
-    <%= label_tag('people', _("people")) %>
-
-    <%= check_box_tag 'model[articles]', 1, @checkbox[:articles] %>
-    <%= label_tag('articles', _("articles")) %>
-
-<% end %>
-
-<% for result in @results %>
-    <% if result.is_a? Article %>
-        <%= render partial: "article_display", :locals => {:article => result} %>
-        <br>
-    <% end %>
-
-    <% if result.is_a? Person  %>
-        <%= render partial: "person_display", :locals => {:person => result} %>
-        <br>
-    <% end %>
-    <% if result.is_a? Community  %>
-        <%= render partial: "community_display", :locals => {:community => result} %>
-        <br>
-    <% end %>
-<% end %>
+    <div class="results">
+      <% for result in @results.to_a %>
+        <% for klass in @searchable_types.keys %>
+          <% next if klass.to_s.include? "all" %>
+          <% if result.is_a? klass.to_s.classify.constantize %>
+            <div class="search-item">
+              <%= render partial: "#{klass}_display", :locals => { klass => result} %>
+            </div>
+            <% break %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class="search_paginate">
+        <%= pagination_links @results %>
+      </div>
+    </div>
+  </div>
+</div>

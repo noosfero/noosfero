@@ -8,4 +8,7 @@ class ElasticsearchPlugin < Noosfero::Plugin
     _("This plugin is used to communicate a elasticsearch to privide a search.")
   end
 
+  def stylesheet?
+    true
+  end
 end

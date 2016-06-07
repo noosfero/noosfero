@@ -1,0 +1,78 @@
+.controller-elasticsearch_plugin .wrapper {
+  display: flex;
+}
+
+.controller-elasticsearch_plugin .sidebar {
+  width: 150px;
+}
+
+.controller-elasticsearch_plugin .search_form {
+  flex: 1;
+}
+
+.controller-elasticsearch_plugin .search_form .search_field {
+  margin-top: 5px;
+}
+.controller-elasticsearch_plugin .search_form .search_field #q {
+  width: 500px;
+}
+
+.controller-elasticsearch_plugin .results-count {
+  margin-top: 7px;
+  margin-right: 15px;
+  text-align: right;
+}
+
+.controller-elasticsearch_plugin ul {
+  list-style: none;
+  list-style-position: inside;
+  padding-left: 0px;
+}
+
+.controller-elasticsearch_plugin .select-search-type {
+  padding: 10px;
+  margin: 10px;
+  font-weight: 900;
+  font-family: arial;
+  border: 1px solid #ddd;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.controller-elasticsearch_plugin .select-search-type.active {
+  padding: 10px;
+  background: #ccc;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: 900;
+  font-family: arial;
+}
+
+.controller-elasticsearch_plugin .select-search-type a {
+  text-decoration: none;
+  color: black;
+}
+
+.controller-elasticsearch_plugin .search-item .model-label {
+  background: #ddd;
+  color: black;
+  font-weight: 900;
+  padding: 3px;
+}
+
+.controller-elasticsearch_plugin .search-item {
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.controller-elasticsearch_plugin .search-item .person-item {
+  display: flex;
+}
+
+.controller-elasticsearch_plugin .right-side {
+  flex: 2;
+}
+
+.controller-elasticsearch_plugin .left-side {
+  margin-left: 25px;
+  width: 100px;
+}

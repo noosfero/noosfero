@@ -1,7 +1,16 @@
 class ElasticsearchPluginController < ApplicationController
   no_design_blocks
 
-  SEARCHABLE_MODELS = {communities: true, articles: true, people: true}
+  SEARCHABLE_TYPES = { :all       => { label: _("All Results")},
+                       :community => { label: _("Communities")},
+                       :event     => { label: _("Events")},
+                       :person    => { label: _("People")}
+                     }
+
+  SEARCH_FILTERS   = { :lexical => { label: _("Alphabetical Order")},
+                       :recent => { label: _("More Recent Order")},
+                       :access => { label: _("More accessed")}
+                     }
 
   def index
     search()
@@ -9,39 +18,37 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def search
-    @results = []
+    define_searchable_types
+    define_search_fields_types
+
+    process_results
+  end
+
+  def process_results
     @query = params[:q]
-    @checkbox = {}
 
-    if params[:model].present?
-        params[:model].keys.each do |model|
-        @checkbox[model.to_sym] = true
-        results model
-      end
+    if @selected_type == :all
+      @results = search_from_all_models
     else
-      unless params[:q].blank?
-        SEARCHABLE_MODELS.keys.each do |model|
-          results model
-        end
-      end
+      @results = search_from_model @selected_type
     end
-
   end
 
   private
 
-  def get_query text, klass
+  def fields_from_model
+    klass::SEARCHABLE_FIELDS.map do |key, value|
+      if value[:weight]
+        "#{key}^#{value[:weight]}"
+      else
+        "#{key}"
+      end
+    end
+  end
+
+  def get_query text, klass=nil
     query = {}
     unless text.blank?
-       text = text.downcase
-       fields = klass::SEARCHABLE_FIELDS.map do |key, value|
-         if value[:weight]
-           "#{key}^#{value[:weight]}"
-         else
-           "#{key}"
-         end
-       end
-
        query = {
          query: {
            match_all: {
@@ -68,23 +75,37 @@ class ElasticsearchPluginController < ApplicationController
     query
   end
 
-  def get_terms params
-    terms = {}
-    return terms unless params[:filter].present?
-    params[:filter].keys.each do |model|
-      terms[model] = {}
-      params[:filter][model].keys.each do |filter|
-        @checkbox[filter.to_sym] = true
-        terms[model][params[:filter][model.to_sym][filter]] = filter
-      end
-    end
-    terms
+
+  def search_from_all_models
+    models = []
+    query = get_query params[:q]
+
+    SEARCHABLE_TYPES.keys.each {| model | models.append( model.to_s.classify.constantize) if model != :all }
+    Elasticsearch::Model.search(query, models, size: default_per_page).page(params[:page]).records
   end
 
-  def results model
-    klass = model.to_s.classify.constantize
-    query = get_query params[:q], klass
-    @results |= klass.__elasticsearch__.search(query).records.to_a
+  def search_from_model model
+    begin
+      klass = model.to_s.classify.constantize
+      query = get_query params[:q], klass
+      klass.search(query, size: default_per_page).page(params[:page]).records
+    rescue
+      []
+    end
+  end
+
+  def define_searchable_types
+    @searchable_types = SEARCHABLE_TYPES
+    @selected_type = params[:selected_type].nil? ? :all : params[:selected_type].to_sym
+  end
+
+  def define_search_fields_types
+    @search_filter_types = SEARCH_FILTERS
+    @selected_filter_field = params[:selected_filter_field].nil? ? SEARCH_FILTERS.keys.first : params[:selected_filter_field].to_sym
+  end
+
+  def default_per_page
+    10
   end
 
 end
