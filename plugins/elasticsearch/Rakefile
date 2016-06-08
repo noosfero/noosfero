@@ -16,3 +16,18 @@ task :install => :download do
   sh 'sudo apt-get install openjdk-7-jdk'
   sh 'sudo dpkg -i /tmp/elasticsearch.deb || sudo apt-get install -f'
 end
+
+desc "start elasticsearch"
+task :start do
+  if not system 'sudo systemctl start elasticsearch > /dev/null'
+    Rake::Task['install'].invoke
+  end
+  sh 'sudo systemctl start elasticsearch'
+  sh 'sudo systemctl enable elasticsearch'
+end
+
+desc "stop elasticsearch"
+task :stop do
+  sh 'sudo systemctl stop elasticsearch'
+  sh 'sudo systemctl disable elasticsearch'
+end
