@@ -121,6 +121,10 @@ module Api
       expose :type
       expose :custom_header
       expose :custom_footer
+      expose :permissions do |profile, options|
+        Entities.permissions_for_entity(profile, options[:current_person],
+        :allow_post_content?, :allow_edit?, :allow_destroy?)
+      end
     end
 
     class UserBasic < Entity

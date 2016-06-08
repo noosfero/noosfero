@@ -27,7 +27,7 @@ module Api
         post ':id' do
           authenticate!
           profile = environment.profiles.find_by(id: params[:id])
-          return forbidden! unless current_person.has_permission?(:edit_profile, profile)
+          return forbidden! unless profile.allow_edit?(current_person)
           profile.update_attributes!(params[:profile])
           present profile, :with => Entities::Profile, :current_person => current_person
         end
@@ -39,7 +39,7 @@ module Api
 
           not_found! if profile.blank?
 
-          if current_person.has_permission?(:destroy_profile, profile)
+          if profile.allow_destroy?(current_person)
             profile.destroy
           else
             forbidden!

@@ -567,7 +567,7 @@ class Article < ApplicationRecord
 
   def allow_post_content?(user = nil)
     return true if allow_edit_topic?(user)
-    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == author))
+    user && (profile.allow_post_content?(user) || allow_publish_content?(user) && (user == author))
   end
 
   def allow_publish_content?(user = nil)
