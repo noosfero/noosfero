@@ -42,7 +42,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
     {
       title: I18n.t('analytics_plugin.lib.plugin.panel_button'),
       icon: 'analytics-access',
-      url: {controller: 'analytics_plugin/stats', action: :index}
+      url: {controller: 'analytics_plugin/stats', profile: profile.identifier, action: :index}
     }
   end
 

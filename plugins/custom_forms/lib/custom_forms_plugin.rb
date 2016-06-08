@@ -13,7 +13,7 @@ class CustomFormsPlugin < Noosfero::Plugin
   end
 
   def control_panel_buttons
-    {:title => _('Manage Forms'), :icon => 'custom-forms', :url => {:controller => 'custom_forms_plugin_myprofile'}}
+    {title: _('Manage Forms'), icon: 'custom-forms', url: {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile'}}
   end
 
 end

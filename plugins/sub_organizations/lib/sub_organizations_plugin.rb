@@ -20,7 +20,7 @@ class SubOrganizationsPlugin < Noosfero::Plugin
 
   def control_panel_buttons
     if context.profile.organization? && Organization.parents(context.profile).blank?
-      { :title => _('Manage sub-groups'), :icon => 'groups', :url => {:controller => 'sub_organizations_plugin_myprofile'} }
+      { title: _('Manage sub-groups'), icon: 'groups', url: {profile: profile.identifier, controller: :sub_organizations_plugin_myprofile} }
     end
   end
 
