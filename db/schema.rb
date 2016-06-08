@@ -375,8 +375,8 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.integer "external_environment_id"
   end
 
-  add_index "environment_external_environments", ["environment_id"], name: "index_environment_external_environments_on_environment_id", using: :btree
-  add_index "environment_external_environments", ["external_environment_id"], name: "index_environment_external_environments_on_external_environment_id", using: :btree
+  add_index "environment_external_environments", ["environment_id"], name: "index_external_environments_on_environment_id", using: :btree
+  add_index "environment_external_environments", ["external_environment_id"], name: "index_external_environments_on_external_environment_id", using: :btree
 
   create_table "environments", force: :cascade do |t|
     t.string   "name"
