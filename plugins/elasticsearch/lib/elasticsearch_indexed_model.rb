@@ -2,10 +2,11 @@ module ElasticsearchIndexedModel
 
   def self.included base
     base.send :include, Elasticsearch::Model
+    base.extend ClassMethods
     base.class_eval do
       settings index: { number_of_shards: 1 } do
         mappings dynamic: 'false' do
-          base::SEARCHABLE_FIELDS.each do |field, value|
+          base.indexable_fields.each do |field, value|
             indexes field
             print '.'
           end
@@ -20,8 +21,7 @@ module ElasticsearchIndexedModel
           }
       end
     end
-    base.extend ClassMethods
-    base.send :import
+   base.send :import
   end
 
   module ClassMethods
