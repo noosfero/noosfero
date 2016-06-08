@@ -36,7 +36,7 @@
     <%=
       @plugins.dispatch(:body_beginning).map do |content|
         if content.respond_to?(:call) then instance_exec(&content).to_s.html_safe else content.to_s.html_safe end
-      end.join("\n")
+      end.safe_join
     %>
     <div id="global-header">
       <%= global_header %>
