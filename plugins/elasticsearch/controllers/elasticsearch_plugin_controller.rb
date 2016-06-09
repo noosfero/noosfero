@@ -18,6 +18,8 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def search
+    puts "="*80
+    puts params.inspect
     define_searchable_types
     define_search_fields_types
 
@@ -25,7 +27,7 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def process_results
-    @query = params[:q]
+    @query = params[:query]
 
     if @selected_type == :all
       @results = search_from_all_models
@@ -79,7 +81,7 @@ class ElasticsearchPluginController < ApplicationController
 
   def search_from_all_models
     models = []
-    query = get_query params[:q]
+    query = get_query params[:query]
 
     SEARCHABLE_TYPES.keys.each {| model | models.append( model.to_s.classify.constantize) if model != :all }
     Elasticsearch::Model.search(query, models, size: default_per_page).page(params[:page]).records
@@ -88,7 +90,7 @@ class ElasticsearchPluginController < ApplicationController
   def search_from_model model
     begin
       klass = model.to_s.classify.constantize
-      query = get_query params[:q], klass
+      query = get_query params[:query], klass
       klass.search(query, size: default_per_page).page(params[:page]).records
     rescue
       []

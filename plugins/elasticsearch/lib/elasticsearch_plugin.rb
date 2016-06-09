@@ -1,5 +1,8 @@
 class ElasticsearchPlugin < Noosfero::Plugin
 
+  # append_view_path File.join(File.dirname(__FILE__) + '/../views/elasticsearch_plugin')
+
+
   def self.plugin_name
     "ElasticsearchPlugin"
   end
@@ -10,5 +13,15 @@ class ElasticsearchPlugin < Noosfero::Plugin
 
   def stylesheet?
     true
+  end
+
+  def search_controller_filters
+   block = proc do
+     redirect_to controller: 'elasticsearch_plugin', action: 'search', params: params
+   end
+
+    [{ :type => 'before_filter',
+      :method_name => 'redirect_search_to_elastic',
+      :block => block }]
   end
 end
