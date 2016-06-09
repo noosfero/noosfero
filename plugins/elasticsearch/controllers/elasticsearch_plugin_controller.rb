@@ -49,6 +49,7 @@ class ElasticsearchPluginController < ApplicationController
   def get_query text, klass=nil
     query = {}
     unless text.blank?
+       text = text.downcase
        query = {
          query: {
            match_all: {
