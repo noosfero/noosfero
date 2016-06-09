@@ -1,0 +1,30 @@
+<h1><%= _('Manage circles') %></h1>
+
+<table>
+  <tr>
+    <th><%= _('Circle name') %></th>
+    <th><%= _('Profile type') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @circles.each do |circle| %>
+    <tr>
+      <td>
+        <%= circle.name %>
+      </td>
+      <td>
+        <%= _(circle.profile_type) %>
+      </td>
+      <td>
+        <div style="text-align: center;">
+          <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => circle %>
+          <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => circle }, { "data-method" => "POST" } %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= button_bar do %>
+  <%= button :add, _('Create a new circle'), :action => 'new' %>
+  <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+<% end %>

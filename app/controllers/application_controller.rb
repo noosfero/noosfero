@@ -115,6 +115,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def accept_only_post
+    return render_not_found if !request.post?
+  end
+
   def verified_request?
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end

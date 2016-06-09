@@ -23,6 +23,7 @@
 }
 .controller-favorite_enterprises .profile-list a.profile-link,
 .controller-friends .profile-list a.profile-link,
+.controller-followers .profile-list a.profile-link,
 .list-profile-connections .profile-list a.profile-link,
 .profiles-suggestions .profile-list a.profile-link {
   text-decoration: none;
@@ -32,11 +33,13 @@
 }
 .controller-favorite_enterprises .profile-list a.profile-link:hover,
 .controller-friends .profile-list a.profile-link:hover,
+.controller-followers .profile-list a.profile-link:hover,
 .profiles-suggestions .profile-list a.profile-link:hover {
   color: #FFF;
 }
 .controller-favorite_enterprises .profile-list .profile_link span,
 .controller-friends .profile-list .profile_link span,
+.controller-followers .profile-list .profile_link span,
 .box-1 .profiles-suggestions .profile-list .profile_link span {
   width: 80px;
   display: block;
@@ -44,12 +47,14 @@
 }
 .controller-favorite_enterprises .profile-list,
 .controller-friends .profile-list,
+.controller-followers .profile-list,
 .profiles-suggestions .profile-list {
   position: relative;
 }
 
 .controller-favorite_enterprises .profile-list .controll,
 .controller-friends .profile-list .controll,
+.controller-followers .profile-list .controll,
 .profiles-suggestions .profile-list .controll {
   position: absolute;
   top: 7px;
@@ -57,17 +62,20 @@
 }
 .controller-favorite_enterprises .profile-list .controll a,
 .controller-friends .profile-list .controll a,
+.controller-followers .profile-list .controll a,
 .profiles-suggestions .profile-list .controll a {
   display: block;
   margin-bottom: 2px;
 }
 .controller-favorite_enterprises .msie6 .profile-list .controll a,
 .controller-friends .msie6 .profile-list .controll a,
+.controller-folloed_people .msie6 .profile-list .controll a,
 .profiles-suggestions .msie6 .profile-list .controll a {
   width: 0px;
 }
 .controller-favorite_enterprises .button-bar,
 .controller-friends .button-bar,
+.controller-followers .button-bar,
 .profiles-suggestions .button-bar {
   clear: both;
   padding-top: 20px;
@@ -208,22 +216,35 @@
   font-size: 12px;
 }
 .action-profile-members .profile_link{
-	position: relative;
+  position: relative;
 }
 .action-profile-members .profile_link span.new-profile:last-child{
-	position: absolute;
-	top: 3px;
-	right: 2px;
-	text-transform: uppercase;
-	color: #FFF;
-	font-size: 9px;
-	background: #66CC33;
-	padding: 2px;
-	display: block;
-	width: 35px;
-	font-weight: 700;
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  text-transform: uppercase;
+  color: #FFF;
+  font-size: 9px;
+  background: #66CC33;
+  padding: 2px;
+  display: block;
+  width: 35px;
+  font-weight: 700;
 }
 .action-profile-members .profile_link .fn{
-	font-style: normal;
-	color: #000;
+  font-style: normal;
+  color: #000;
+}
+.category-name {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-style: italic;
+  color: #888a85;
+  text-align: center;
+}
+.set-category-modal {
+  width: 250px;
+}
+.set-category-modal #actions-container {
+  margin-top: 20px
 }

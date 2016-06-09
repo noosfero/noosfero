@@ -128,9 +128,9 @@ class ContentViewerController < ApplicationController
     end
 
     unless @page.display_to?(user)
-      if !profile.visible? || profile.secret? || (user && user.follows?(profile)) || user.blank?
+      if !profile.visible? || profile.secret? || (user && profile.in_social_circle?(user)) || user.blank?
         render_access_denied
-      else #!profile.public?
+      else
         private_profile_partial_parameters
         render :template => 'profile/_private_profile', :status => 403, :formats => [:html]
       end

@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
 
   attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
     :redirection_after_login, :custom_url_redirection,
-    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification
+    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :allow_followers
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -206,6 +206,23 @@ class Profile < ApplicationRecord
   scope :more_active, -> { order 'activities_count DESC' }
   scope :more_recent, -> { order "created_at DESC" }
 
+  scope :followed_by, -> person{
+    distinct.select('profiles.*').
+    joins('left join profiles_circles ON profiles_circles.profile_id = profiles.id').
+    joins('left join circles ON circles.id = profiles_circles.circle_id').
+    where('circles.person_id = ?', person.id)
+  }
+
+  scope :in_circle, -> circle{
+    distinct.select('profiles.*').
+    joins('left join profiles_circles ON profiles_circles.profile_id = profiles.id').
+    joins('left join circles ON circles.id = profiles_circles.circle_id').
+    where('circles.id = ?', circle.id)
+  }
+
+  settings_items :allow_followers, :type => :boolean, :default => true
+  alias_method :allow_followers?, :allow_followers
+
   acts_as_trackable :dependent => :destroy
 
   has_many :profile_activities
@@ -217,6 +234,9 @@ class Profile < ApplicationRecord
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
   has_many :email_templates, :foreign_key => :owner_id
+
+  has_many :profile_followers
+  has_many :followers, :class_name => 'Person', :through => :profile_followers, :source => :person
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
@@ -769,6 +789,7 @@ private :generate_url, :url_options
       else
         self.affiliate(person, Profile::Roles.admin(environment.id), attributes) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id), attributes)
+        person.follow(self, Circle.find_or_create_by(:person => person, :name =>_('memberships'), :profile_type => 'Community'))
       end
       person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
       remove_from_suggestion_list person
@@ -1112,7 +1133,11 @@ private :generate_url, :url_options
   end
 
   def followed_by?(person)
-    person.is_member_of?(self)
+    (person == self) || (person.in? self.followers)
+  end
+
+  def in_social_circle?(person)
+    (person == self) || (person.is_member_of?(self))
   end
 
   def display_private_info_to?(user)
@@ -1152,5 +1177,9 @@ private :generate_url, :url_options
 
   def allow_destroy?(person = nil)
     person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
+  end
+
+  def in_circle?(circle, follower)
+    ProfileFollower.with_follower(follower).with_circle(circle).with_profile(self).present?
   end
 end

@@ -7,6 +7,10 @@ class FavoriteEnterprisePerson < ApplicationRecord
   belongs_to :enterprise
   belongs_to :person
 
+  after_create do |favorite|
+    favorite.person.follow(favorite.enterprise, Circle.find_or_create_by(:person => favorite.person, :name =>_('favorites'), :profile_type => 'Enterprise'))
+  end
+
   protected
 
   def is_trackable?

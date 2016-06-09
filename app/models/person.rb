@@ -8,7 +8,6 @@ class Person < Profile
     :display => %w[compact]
   }
 
-
   def self.type_name
     _('Person')
   end
@@ -93,6 +92,7 @@ class Person < Profile
   has_many :following_articles, :class_name => 'Article', :through => :article_followers, :source => :article
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
+  has_many :circles
 
   scope :online, -> {
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
@@ -198,6 +198,33 @@ class Person < Profile
       friendship.group = group
       friendship.save
     end
+  end
+
+  def follow (profile, circles)
+    circles = [circles] unless circles.is_a?(Array)
+    circles.each do |new_circle|
+      ProfileFollower.create(profile: profile, circle: new_circle)
+    end
+  end
+
+  def update_profile_circles (profile, new_circles)
+    profile_circles = ProfileFollower.with_profile(profile).with_follower(self).map(&:circle)
+    circles_to_add = new_circles - profile_circles
+    circles_to_remove = profile_circles - new_circles
+    circles_to_add.each do |new_circle|
+      ProfileFollower.create(profile: profile, circle: new_circle)
+    end
+
+    ProfileFollower.where('circle_id IN (?) AND profile_id = ?',
+                          circles_to_remove.map(&:id), profile.id).destroy_all
+  end
+
+  def unfollow(profile)
+    ProfileFollower.with_follower(self).with_profile(profile).destroy_all
+  end
+
+  def remove_profile_from_circle(profile, circle)
+    ProfileFollower.with_profile(profile).with_circle(circle).destroy_all
   end
 
   def already_request_friendship?(person)
@@ -580,9 +607,12 @@ class Person < Profile
     person.has_permission?(:manage_friends, self)
   end
 
-  protected
-
-  def followed_by?(profile)
-    self == profile || self.is_a_friend?(profile)
+  def followed_profiles
+    Profile.followed_by self
   end
+
+  def in_social_circle?(person)
+    self.is_a_friend?(person) || super
+  end
+
 end

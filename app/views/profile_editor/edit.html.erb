@@ -23,9 +23,11 @@
   </div>
 
   <h2><%= _('Privacy options') %></h2>
-
+  <div>
+    <%= labelled_check_box _("Allow other users to follow me"), 'profile_data[allow_followers]', true, @profile.allow_followers?, :class => "person-can-be-followed" %>
+  </div>
   <% if profile.person? %>
-    <div>
+    <div id="profile_allow_follows">
       <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
     </div>
     <div>

@@ -178,6 +178,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     update_product: -> { create Product, profile: @profile, product_category: create(ProductCategory, environment: Environment.default) },
     remove_product: -> { create Product, profile: @profile, product_category: create(ProductCategory, environment: Environment.default) },
     favorite_enterprise: -> { create FavoriteEnterprisePerson, enterprise: create(Enterprise), person: @member },
+    new_follower: -> { @member }
   }
 
   ActionTrackerConfig.verb_names.each do |verb|
@@ -197,6 +198,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
         'friend_url' => '/', 'friend_profile_custom_icon' => [], 'friend_name' => ['joe'],
         'resource_name' => ['resource'], 'resource_profile_custom_icon' => [], 'resource_url' => ['/'],
         'enterprise_name' => 'coop', 'enterprise_url' => '/coop',
+        'follower_url' => '/', 'follower_profile_custom_icon' => [], 'follower_name' => ['joe'],
         'view_url'=> ['/'], 'thumbnail_path' => ['1'],
       }
       a.get_url = ''

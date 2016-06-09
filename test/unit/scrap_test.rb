@@ -125,11 +125,11 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal c, ta.target
   end
 
-  should "notify leave_scrap action tracker verb to friends and itself" do
+  should "notify leave_scrap action tracker verb to followers and itself" do
     User.current = create_user
     p1 = User.current.person
     p2 = create_user.person
-    p1.add_friend(p2)
+    p2.add_friend(p1)
     process_delayed_job_queue
     s = Scrap.new
     s.sender= p1
@@ -180,11 +180,11 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal p, ta.user
   end
 
-  should "notify leave_scrap_to_self action tracker verb to friends and itself" do
+  should "notify leave_scrap_to_self action tracker verb to followers and itself" do
     User.current = create_user
     p1 = User.current.person
     p2 = create_user.person
-    p1.add_friend(p2)
+    p2.add_friend(p1)
     ActionTrackerNotification.delete_all
     Delayed::Job.delete_all
     s = Scrap.new

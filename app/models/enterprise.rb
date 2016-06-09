@@ -174,8 +174,4 @@ class Enterprise < Organization
     ''
   end
 
-  def followed_by? person
-    super or self.fans.where(id: person.id).count > 0
-  end
-
 end
