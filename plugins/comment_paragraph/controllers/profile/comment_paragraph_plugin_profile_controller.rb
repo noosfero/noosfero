@@ -21,4 +21,16 @@ class CommentParagraphPluginProfileController < CommentController
     }
   end
 
+  include CommentParagraphPlugin::CommentsReport
+
+  def export_comments
+    article_id = params[:id]
+    article = profile.articles.find(article_id)
+    result = export_comments_csv(article)
+    filename = "comments_for_article#{article_id}_#{DateTime.now.to_i}.csv"
+    send_data result,
+      :type => 'text/csv; charset=UTF-8; header=present',
+      :disposition => "attachment; filename=#{filename}"
+  end
+
 end

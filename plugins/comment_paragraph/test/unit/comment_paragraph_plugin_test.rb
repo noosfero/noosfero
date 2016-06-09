@@ -71,7 +71,7 @@ class CommentParagraphPluginTest < ActiveSupport::TestCase
     article.expects(:allow_edit?).with(user).returns(true)
     article.expects(:comment_paragraph_plugin_activated?).at_least_once.returns(false)
 
-    assert_equal 'Activate Comments', plugin.article_extra_toolbar_buttons(article)[:title]
+    assert_equal 'Activate Comments', plugin.article_extra_toolbar_buttons(article).first[:title]
   end
 
   should 'display Deactivate Comments title if comment paragraph plugin is deactivated' do
@@ -81,7 +81,17 @@ class CommentParagraphPluginTest < ActiveSupport::TestCase
     article.expects(:allow_edit?).with(user).returns(true)
     article.expects(:comment_paragraph_plugin_activated?).at_least_once.returns(true)
 
-    assert_equal 'Deactivate Comments', plugin.article_extra_toolbar_buttons(article)[:title]
+    assert_equal 'Deactivate Comments', plugin.article_extra_toolbar_buttons(article).first[:title]
+  end
+
+  should 'display export comments button when comment paragraph plugin is activated' do
+    profile = fast_create(Profile)
+    article = fast_create(Article, :profile_id => profile.id)
+    article.expects(:comment_paragraph_plugin_enabled?).returns(true)
+    article.expects(:allow_edit?).with(user).returns(true)
+    article.expects(:comment_paragraph_plugin_activated?).at_least_once.returns(true)
+
+    assert_includes plugin.article_extra_toolbar_buttons(article).map {|b| b[:title]}, 'Export Comments'
   end
 
   should 'not display button to toggle comment paragraph if article is a discussion' do
