@@ -7,10 +7,10 @@ class PersonTagsPluginTest < ActiveSupport::TestCase
     @environment.enable_plugin(PersonTagsPlugin)
   end
 
-  should 'have interests' do
+  should 'have tags' do
     person = create_user('person').person
-    assert_equal [], person.interests
-    person.interest_list.add('linux')
-    assert_equal ['linux'], person.interest_list
+    assert_equal [], person.tags
+    person.tag_list.add('linux')
+    assert_equal ['linux'], person.tag_list
   end
 end

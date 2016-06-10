@@ -1,8 +1,8 @@
 <h2><%= _('Select your fields of interest') %></h2>
-<%= text_field_tag('profile_data[interest_list]', context.profile.interest_list.join(','), size: 64) %>
+<%= text_field_tag('profile_data[tag_list]', context.profile.tag_list.join(','), size: 64) %>
 <br />
 <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
 <script>
-  jQuery('#profile_data_interest_list').inputosaurus();
+  jQuery('#profile_data_tag_list').inputosaurus();
 </script>

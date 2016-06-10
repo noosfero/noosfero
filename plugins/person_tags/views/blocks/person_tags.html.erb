@@ -1,0 +1,14 @@
+<%= block_title(block.view_title, block.subtitle) %>
+
+<div class="person-tags-block">
+  <% unless block.tags.size == 0 %>
+    <ul>
+      <% block.tags.each do |tag| %>
+        <li><%= tag %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="person-tags-block-none"><%= c_('None') %></div>
+  <% end %>
+  <br style="clear:both" />
+</div>
