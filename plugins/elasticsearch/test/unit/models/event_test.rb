@@ -1,15 +1,10 @@
-require "#{File.dirname(__FILE__)}/../test_helper"
+require "#{File.dirname(__FILE__)}/../../test_helper"
 
 class EventTest < ActiveSupport::TestCase
   def setup
-    start_cluster
     @environment = Environment.default
     @environment.enable_plugin(ElasticsearchPlugin)
     @profile = create_user('testing').person
-  end
-
-  def teardown
-    stop_cluster
   end
 
   should 'index custom fields for Event model' do
