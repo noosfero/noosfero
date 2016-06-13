@@ -1,8 +1,5 @@
 class ElasticsearchPlugin < Noosfero::Plugin
 
-  # append_view_path File.join(File.dirname(__FILE__) + '/../views/elasticsearch_plugin')
-
-
   def self.plugin_name
     "ElasticsearchPlugin"
   end

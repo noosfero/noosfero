@@ -18,8 +18,6 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def search
-    puts "="*80
-    puts params.inspect
     define_searchable_types
     define_search_fields_types
 
