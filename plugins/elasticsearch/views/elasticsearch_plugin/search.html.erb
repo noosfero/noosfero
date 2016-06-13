@@ -7,7 +7,7 @@
     <ul>
       <% for type,value in @searchable_types %>
         <li class="select-search-type <%= "active" if type == @selected_type %>">
-          <%= link_to  value[:label], "?selected_type=#{type}&q=#{@query}&selected_filter_field=#{@selected_filter_field}"%>
+          <%= link_to  value[:label], "?selected_type=#{type}&query=#{@query}&selected_filter_field=#{@selected_filter_field}"%>
         </li>
       <% end %>
     </ul>
@@ -27,7 +27,7 @@
         <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
             <%= hidden_field_tag  "selected_type", @selected_type %>
             <%= hidden_field_tag  "selected_filter_field", @selected_filter_field  %>
-            <%= text_field_tag :q, @query %>
+            <%= text_field_tag :query, @query %>
             <%= submit_tag _("Send") %>
         <% end %>
       </div>

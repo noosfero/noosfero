@@ -13,7 +13,8 @@
 .controller-elasticsearch_plugin .search_form .search_field {
   margin-top: 5px;
 }
-.controller-elasticsearch_plugin .search_form .search_field #q {
+
+.controller-elasticsearch_plugin .search_form .search_field input[type='text'] {
   width: 500px;
 }
 
