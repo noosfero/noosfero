@@ -7,7 +7,8 @@ module ElasticsearchIndexedModel
       settings index: { number_of_shards: 1 } do
         mappings dynamic: 'false' do
           base.indexable_fields.each do |field, value|
-            indexes field
+            value = {} if value.nil?
+            indexes field, type: value[:type].presence
             print '.'
           end
         end
@@ -26,7 +27,7 @@ module ElasticsearchIndexedModel
 
   module ClassMethods
     def indexable_fields
-      self::SEARCHABLE_FIELDS.keys + self.control_fields
+      self::SEARCHABLE_FIELDS.update self.control_fields
     end
   end
 

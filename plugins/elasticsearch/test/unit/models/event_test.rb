@@ -1,16 +1,26 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class EventTest < ActiveSupport::TestCase
+class EventTest < ElasticsearchTestHelper
+
+  def indexed_models
+    [Event]
+  end
+
   def setup
-    @environment = Environment.default
-    @environment.enable_plugin(ElasticsearchPlugin)
-    @profile = create_user('testing').person
+    super
   end
 
-  should 'index custom fields for Event model' do
-    event_cluster = Event.__elasticsearch__.client.cluster
-
-    assert_not_nil Event.mappings.to_hash[:event][:properties][:advertise]
-    assert_not_nil Event.mappings.to_hash[:event][:properties][:published]
+  should 'index searchable fields for Event model' do
+    Event::SEARCHABLE_FIELDS.each do |key, value|
+      assert_includes indexed_fields(Event), key
+    end
   end
+
+  should 'index control fields for Event model' do
+    Event::control_fields.each do |key, value|
+      assert_includes indexed_fields(Event), key
+      assert_includes indexed_fields(Event)[key][:type], value[:type] || 'string'
+    end
+  end
+
 end

@@ -24,6 +24,7 @@ task :start do
   end
   sh 'sudo systemctl start elasticsearch'
   sh 'sudo systemctl enable elasticsearch'
+  sleep 100 # this sleep gives time to the service to be ready.
 end
 
 desc "stop elasticsearch"

@@ -3,10 +3,10 @@ require_relative '../elasticsearch_indexed_model'
 
 class TextArticle
   def self.control_fields
-    [
-      :advertise,
-      :published,
-    ]
+    {
+      :advertise => nil,
+      :published => nil,
+    }
   end
   include ElasticsearchIndexedModel
 end

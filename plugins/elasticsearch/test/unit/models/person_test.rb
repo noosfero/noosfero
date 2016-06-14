@@ -1,19 +1,26 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class PersonTest < ActiveSupport::TestCase
-  def setup
-    @environment = Environment.default
-    @environment.enable_plugin(ElasticsearchPlugin)
-    @profile = create_user('testing').person
+class PersonTest < ElasticsearchTestHelper
+
+  def indexed_models
+    [Person]
   end
 
-  should 'index custom fields for Event model' do
-    person_cluster = Person.__elasticsearch__.client.cluster
+  def setup
+    super
+  end
 
-    assert_not_nil Person.mappings.to_hash[:person][:properties][:name]
-    assert_not_nil Person.mappings.to_hash[:person][:properties][:identifier]
-    assert_not_nil Person.mappings.to_hash[:person][:properties][:nickname]
-    assert_not_nil Person.mappings.to_hash[:person][:properties][:visible]
+  should 'index searchable fields for Person model' do
+    Person::SEARCHABLE_FIELDS.each do |key, value|
+      assert_includes indexed_fields(Person), key
+    end
+  end
+
+  should 'index control fields for Person model' do
+    Person::control_fields.each do |key, value|
+      assert_includes indexed_fields(Person), key
+      assert_includes indexed_fields(Person)[key][:type], value[:type] || 'string'
+    end
   end
 
 end
