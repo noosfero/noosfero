@@ -88,6 +88,9 @@ module Api
       expose :id, :type, :settings, :position, :enabled
       expose :mirror, :mirror_block_id, :title
       expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? }
+      expose :permissions do |block, options|
+        Entities.permissions_for_entity(block, options[:current_person], :allow_edit?)
+      end
     end
 
     class Box < Entity
