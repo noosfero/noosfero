@@ -1,4 +1,4 @@
-class PersonTagsBlock < Block
+class PersonTagsPlugin::InterestsBlock < Block
   def view_title
     self.default_title 
   end

@@ -22,7 +22,7 @@ class PersonTagsPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      PersonTagsBlock => { type: Person }
+      PersonTagsPlugin::InterestsBlock => { type: Person }
     }
   end
 
