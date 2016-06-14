@@ -309,6 +309,16 @@ class Block < ApplicationRecord
     false
   end
 
+  def allow_edit?(person)
+    return false if person.nil? || (!person.is_admin? && !editable?(person))
+    if self.owner.kind_of?(Profile)
+      return person.has_permission?(:edit_profile_design, owner)
+    elsif self.owner.kind_of?(Environment)
+      return person.has_permission?(:edit_environment_design, owner)
+    end
+    false
+  end
+
   private
 
   def home_page_path
