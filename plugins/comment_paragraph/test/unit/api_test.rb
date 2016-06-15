@@ -90,4 +90,18 @@ class APITest <  ActiveSupport::TestCase
     assert_equal "CommentParagraphPlugin::Discussion", json["article"]["type"]
     assert json["article"]["setting"]["comment_paragraph_plugin_activate"]
   end
+
+  should 'export comments' do
+    login_api
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+    comment1 = fast_create(Comment, :created_at => Time.now - 1.days, :source_id => article, :title => 'a comment', :body => 'a comment', :paragraph_uuid => nil)
+    comment2 = fast_create(Comment, :created_at => Time.now - 2.days, :source_id => article, :title => 'b comment', :body => 'b comment', :paragraph_uuid => nil)
+    get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/export?#{params.to_query}"
+    assert_equal 200, last_response.status
+    assert_equal 'text/csv; charset=UTF-8; header=present', last_response.content_type
+    lines = last_response.body.split("\n")
+    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email"', lines.first
+    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\"", lines.second
+  end
+
 end
