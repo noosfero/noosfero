@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-06-15 13:11+0000\n"
+"PO-Revision-Date: 2016-06-15 13:24+0000\n"
 "Last-Translator: Becca Cook <b.cook28@gmail.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -7508,22 +7508,21 @@ msgstr "Administrar campos mostrados para perfiles"
 #: app/views/features/manage_fields.html.erb:6
 #, fuzzy
 msgid "Person's fields"
-msgstr "Manejar los campos de personas"
+msgstr "Los campos de personas"
 
 #: app/views/features/manage_fields.html.erb:8
 #, fuzzy
 msgid "Community's fields"
-msgstr "Perfil de la comunidad"
+msgstr "Campos de la comunidad"
 
 #: app/views/features/manage_fields.html.erb:11
 #, fuzzy
 msgid "Enterprise's fields"
-msgstr "Perfil de empresas"
+msgstr "Campos de empresas"
 
 #: app/views/file_presenter/_generic.html.erb:5
-#, fuzzy
 msgid "Download"
-msgstr "Abajo"
+msgstr "Descargar"
 
 #: app/views/file_presenter/_image.html.erb:7
 #: app/views/file_presenter/_image.html.erb:9
@@ -7552,9 +7551,8 @@ msgstr "Contenido etiquetado con \"%s\""
 
 #: app/views/friends/connections.html.erb:4
 #: app/views/friends/suggest.html.erb:4
-#, fuzzy
 msgid "Go to friends list"
-msgstr "No tienes nuevos amigos aun."
+msgstr "Ir a la lista de amigos"
 
 #: app/views/friends/index.html.erb:3 app/views/profile/friends.html.erb:3
 msgid "%s's friends"
@@ -7577,12 +7575,11 @@ msgstr "Encontrar gente"
 #: app/views/profile/friends.html.erb:21
 #, fuzzy
 msgid "Invite people"
-msgstr "Invitar miembros"
+msgstr "Invitar gente"
 
 #: app/views/friends/index.html.erb:31
-#, fuzzy
 msgid "Friends suggestions"
-msgstr "Sugerencia de artículos"
+msgstr "Sugerencias de amigos"
 
 #: app/views/friends/remove.html.erb:3
 msgid "Removing friend: %s"
@@ -7601,14 +7598,12 @@ msgstr ""
 "también quiera eliminarte de su lista de amigos."
 
 #: app/views/friends/remove_suggestion.html.erb:2
-#, fuzzy
 msgid "Removing suggestion for friend: %s"
-msgstr "Eliminando amigo: %s"
+msgstr "Eliminando sugerencia de amigo: %s"
 
 #: app/views/friends/suggest.html.erb:1
-#, fuzzy
 msgid "Friends suggestions for %s"
-msgstr "Ajustes de perfil para %s"
+msgstr "Sugerencias de amigos para %s"
 
 #: app/views/home/index.html.erb:2
 msgid "News"
@@ -7661,15 +7656,18 @@ msgid "user"
 msgstr "usuario"
 
 #: app/views/home/welcome.html.erb:15
+#, fuzzy
 msgid "Wait for admin approvement!"
-msgstr ""
+msgstr "¡Espera que la admin lo apruebe!"
 
 #: app/views/home/welcome.html.erb:16
+#, fuzzy
 msgid "The administrators will evaluate your signup request for approvement."
 msgstr ""
+"Los administradores van a evaluar tu solicitud de inscripción para "
+"aprobación."
 
 #: app/views/home/welcome.html.erb:17
-#, fuzzy
 msgid "You won't appear as %s until your account is approved."
 msgstr "No aparecerás como %s hasta que tu cuenta sea confirmada."
 
@@ -7678,14 +7676,18 @@ msgid "What to do next?"
 msgstr "¿Qué hacer después?"
 
 #: app/views/home/welcome.html.erb:20
+#, fuzzy
 msgid "Access your %s and see your face on the network!"
-msgstr ""
+msgstr "¡Acceder tu %s y ver tu cara en la red!"
 
 #: app/views/home/welcome.html.erb:22
+#, fuzzy
 msgid ""
 "You can also explore your %s to customize your profile. Here are some %s on "
 "what you can do there."
 msgstr ""
+"También puedes explorar tu %s para personalizar tu perfil. Aquí están "
+"algunos %s de qué puedes hacer allí."
 
 #: app/views/home/welcome.html.erb:23
 #: app/views/profile_editor/index.html.erb:6
@@ -7694,7 +7696,7 @@ msgstr "Panel de control"
 
 #: app/views/home/welcome.html.erb:24
 msgid "tips"
-msgstr ""
+msgstr "consejos"
 
 #: app/views/home/welcome.html.erb:25
 msgid "Invite and find"
@@ -7721,7 +7723,7 @@ msgstr "¡Comienza explorando y diviértete!"
 
 #: app/views/home/welcome.html.erb:29
 msgid "What can I do as a %s?"
-msgstr ""
+msgstr "¿Qué puedo hacer como un %s?"
 
 #: app/views/invite/_dialog_wait_loading.html.erb:8
 msgid "Please, wait..."
@@ -7792,7 +7794,7 @@ msgstr ""
 #: app/views/invite/invite_friends.html.erb:2
 #, fuzzy
 msgid "Ask for friendship"
-msgstr "%s amigos"
+msgstr "Pedir la amistad"
 
 #: app/views/invite/invite_friends.html.erb:3
 msgid "You can search for user profiles and ask them to become your friends."
