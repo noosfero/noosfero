@@ -4,6 +4,10 @@ class ElasticsearchPlugin < Noosfero::Plugin
     "ElasticsearchPlugin"
   end
 
+  def self.api_mount_points
+    [ElasticsearchPlugin::API]
+  end
+
   def self.plugin_description
     _("This plugin is used to communicate a elasticsearch to privide a search.")
   end
