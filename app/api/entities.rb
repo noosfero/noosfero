@@ -97,7 +97,7 @@ module Api
       root 'boxes', 'box'
       expose :id, :position
       expose :blocks, :using => Block do |box, options|
-        box.blocks.select {|block| block.visible_to_user?(options[:current_person]) }
+        box.blocks.select {|block| block.visible_to_user?(options[:current_person]) || block.allow_edit?(options[:current_person]) }
       end
     end
 
