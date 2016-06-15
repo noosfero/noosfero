@@ -1,6 +1,8 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class PersonTest < ElasticsearchTestHelper
+class PersonTest < ActionController::TestCase
+
+  include ElasticsearchTestHelper
 
   def indexed_models
     [Person]

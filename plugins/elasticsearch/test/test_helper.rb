@@ -1,10 +1,15 @@
 require 'test_helper'
+require_relative '../../../test/api/test_helper.rb'
 
-class ElasticsearchTestHelper < ActionController::TestCase
+module ElasticsearchTestHelper
 
   def setup
     setup_environment
+    create_instances
     import_instancies
+  end
+
+  def create_instances
   end
 
   def teardown
@@ -16,9 +21,10 @@ class ElasticsearchTestHelper < ActionController::TestCase
   def import_instancies
     indexed_models.each {|model|
       model.__elasticsearch__.create_index!
+      sleep 2
       model.import
+      sleep 1
     }
-    sleep 2
   end
 
   def setup_environment
@@ -31,7 +37,7 @@ class ElasticsearchTestHelper < ActionController::TestCase
   end
 
   def indexed_fields model
-    model.mappings.to_hash[model.name.downcase.to_sym][:properties]
+    model.mappings.to_hash[model.name.underscore.to_sym][:properties]
   end
 
 end

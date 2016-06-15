@@ -1,6 +1,8 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class EventTest < ElasticsearchTestHelper
+class EventTest < ActionController::TestCase
+
+  include ElasticsearchTestHelper
 
   def indexed_models
     [Event]

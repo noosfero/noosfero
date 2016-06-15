@@ -1,18 +1,11 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class ElasticsearchPluginControllerTest < ElasticsearchTestHelper
+class ElasticsearchPluginControllerTest < ActionController::TestCase
+
+  include ElasticsearchTestHelper
 
   def indexed_models
     [Community, Person]
-  end
-
-  def setup
-    create_instances
-    super
-  end
-
-  def teardown
-    super
   end
 
   def create_instances

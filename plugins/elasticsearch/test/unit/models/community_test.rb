@@ -1,6 +1,8 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
 
-class CommunityTest < ElasticsearchTestHelper
+class CommunityTest < ActionController::TestCase
+
+  include ElasticsearchTestHelper
 
   def indexed_models
     [Community]
