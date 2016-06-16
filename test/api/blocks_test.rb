@@ -53,6 +53,16 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
+  should 'get an invisible profile block for an user with permission' do
+    profile = fast_create(Profile, public_profile: false)
+    profile.add_admin(person)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal block.id, json["block"]["id"]
+  end
+
   should 'get a block for an user with permission in a private profile' do
     profile = fast_create(Profile, public_profile: false)
     profile.add_admin(person)

@@ -81,6 +81,18 @@ class BoxesTest < ActiveSupport::TestCase
     assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
   end
 
+  should 'list a block with not logged in display_user for an admin user' do
+    profile = fast_create(Profile)
+    profile.add_admin(person)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    block.display_user = 'not_logged'
+    block.save!
+    get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
+  end
+
   should 'not list boxes for user without permission' do
     profile = fast_create(Profile, public_profile: false)
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
