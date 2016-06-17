@@ -102,6 +102,7 @@ class APITest <  ActiveSupport::TestCase
     lines = last_response.body.split("\n")
     assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email"', lines.first
     assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\"", lines.second
+    assert_match /#{article.slug}/, last_response.original_headers["Content-Disposition"]
   end
 
 end

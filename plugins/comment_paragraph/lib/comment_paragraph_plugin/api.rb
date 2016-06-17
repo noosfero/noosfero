@@ -40,7 +40,7 @@ class CommentParagraphPlugin::API < Grape::API
     get ":id/comment_paragraph_plugin/export" do
       article = find_article(environment.articles, params[:id])
       result = export_comments_csv(article)
-      filename = "comments_for_article#{article.id}_#{DateTime.now.to_i}.csv"
+      filename = "#{article.slug}_#{DateTime.now.strftime("%Y%m%d%H%M")}.csv"
       content_type 'text/csv; charset=UTF-8; header=present'
       env['api.format'] = :binary # there's no formatter for :binary, data will be returned "as is"
       header 'Content-Disposition', "attachment; filename*=UTF-8''#{CGI.escape(filename)}"
