@@ -50,13 +50,13 @@ class WorkAssignmentPlugin::EmailContact
       mail(options)
     end
 
-    def build_mail_message(email_contact, uploaded_files)
+    def self.build_mail_message(email_contact, uploaded_files)
       message = ""
       if uploaded_files && uploaded_files.first && uploaded_files.first.parent && uploaded_files.first.parent.parent
         article = uploaded_files.first.parent.parent
         message = article.default_email + "<br>"
         uploaded_files.each do |file|
-          url = url_for(file.url)
+          url = Rails.application.routes.url_helpers.url_for(file.url)
           message += "<br><a href='#{url}'>#{url}</a>"
         end
       end
