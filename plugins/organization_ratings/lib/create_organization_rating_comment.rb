@@ -14,6 +14,12 @@ class CreateOrganizationRatingComment < Task
     settings_items field.to_sym
   end
 
+  scope :with_rating, -> (user_rating){
+    CreateOrganizationRatingComment.find_each do |task|
+      return task if(task.organization_rating_id == user_rating.id)
+    end
+  }
+
   def perform
     if (self.body && !self.body.blank?)
       comment = Comment.create!(:source => self.target, :body => self.body, :author => self.requestor)

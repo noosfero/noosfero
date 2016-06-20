@@ -148,6 +148,39 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
     get :new_rating, profile: @community.identifier
     assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "display rejected comment to env admin" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "rejected comment"}, :organization_rating_value => 3
+
+    @admin = create_admin_user(@environment)
+    login_as @admin
+    @controller.stubs(:current_user).returns(Profile[@admin].user)
+
+    CreateOrganizationRatingComment.last.cancel
+
+    get :new_rating, profile: @community.identifier
+    assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}, :content => /rejected comment/
+  end
+
+  test "not display rejected comment to regular user" do
+    p1 = create_user('regularUser').person
+    @community.add_member p1
+    login_as(p1.identifier)
+    @controller.stubs(:logged_in?).returns(true)
+    @controller.stubs(:current_user).returns(p1.user)
+
+    post :new_rating, profile: @community.identifier, :comments => {:body => "rejected comment"}, :organization_rating_value => 3
+    CreateOrganizationRatingComment.last.cancel
+    get :new_rating, profile: @community.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+  end
+
+  test "not display rejected comment to community admin" do
+    post :new_rating, profile: @community.identifier, :comments => {:body => "rejected comment"}, :organization_rating_value => 3
+    CreateOrganizationRatingComment.last.cancel
+    get :new_rating, profile: @community.identifier
     assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
