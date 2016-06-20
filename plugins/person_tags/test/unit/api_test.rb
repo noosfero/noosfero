@@ -10,7 +10,7 @@ class APITest <  ActiveSupport::TestCase
 
   should 'return tags for a person' do
     person = create_user('person').person
-    person.interest_list.add('linux')
+    person.tag_list.add('linux')
     person.save!
     person.reload
     get "/api/v1/people/#{person.id}/tags?#{params.to_query}"

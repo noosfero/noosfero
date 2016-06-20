@@ -19,4 +19,18 @@ class PersonTagsPlugin < Noosfero::Plugin
   def self.api_mount_points
     [PersonTagsPlugin::API]
   end
+
+  def self.extra_blocks
+    {
+      PersonTagsPlugin::InterestsBlock => { type: Person }
+    }
+  end
+
+  def self.has_admin_url?
+    false
+  end
+
+  def stylesheet?
+    true
+  end
 end
