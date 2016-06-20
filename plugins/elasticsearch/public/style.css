@@ -3,11 +3,17 @@
 }
 
 .controller-elasticsearch_plugin .sidebar {
-  width: 150px;
+  width: 175px;
+}
+
+.controller-elasticsearch_plugin .sidebar ul {
+  margin-top: 0px;
 }
 
 .controller-elasticsearch_plugin .search_form {
+  margin-top: 5px;
   flex: 1;
+  margin-left: 15px;
 }
 
 .controller-elasticsearch_plugin .search_form .search_field {
@@ -21,7 +27,6 @@
 .controller-elasticsearch_plugin .results-count {
   margin-top: 7px;
   margin-right: 15px;
-  text-align: right;
 }
 
 .controller-elasticsearch_plugin ul {
@@ -30,7 +35,19 @@
   padding-left: 0px;
 }
 
+.controller-elasticsearch_plugin #content h3.box-title {
+  background: #ccc;
+  color: black;
+  padding: 10px;
+  border: 1px solid #948b8b;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 0px;
+}
+
+.controller-elasticsearch_plugin .search-filter ul li,
 .controller-elasticsearch_plugin .select-search-type {
+  text-decoration: none;
   padding: 10px;
   margin: 10px;
   font-weight: 900;
@@ -39,18 +56,28 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.controller-elasticsearch_plugin .search-filter ul li a {
+  text-decoration: none;
+  color: black;
+}
+
 .controller-elasticsearch_plugin .select-search-type.active {
   padding: 10px;
-  background: #ccc;
+  background: black;
   margin-left: 10px;
   margin-right: 10px;
   font-weight: 900;
-  font-family: arial;
+  border: 1px solid #000;
 }
 
 .controller-elasticsearch_plugin .select-search-type a {
   text-decoration: none;
   color: black;
+}
+
+.controller-elasticsearch_plugin .select-search-type.active a {
+  color: white;
 }
 
 .controller-elasticsearch_plugin .search-item .model-label {
@@ -61,8 +88,10 @@
 }
 
 .controller-elasticsearch_plugin .search-item {
-  margin-bottom: 25px;
-  margin-top: 25px;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding-left: 0px;
 }
 
 .controller-elasticsearch_plugin .search-item .person-item {
@@ -74,6 +103,17 @@
 }
 
 .controller-elasticsearch_plugin .left-side {
-  margin-left: 25px;
-  width: 100px;
+  width: 80px;
 }
+
+.controller-elasticsearch_plugin .search-item .body {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 600px;
+}
+
+.controller-elasticsearch_plugin .search-item .body h2 a {
+  color: #888a85;
+  text-decoration: none;
+}
+

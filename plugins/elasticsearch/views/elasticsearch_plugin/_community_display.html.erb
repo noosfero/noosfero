@@ -1,7 +1,7 @@
 <div class="community-header">
-  <%= community.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label">COMUNIDADE</span>
+  <%= community.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label"><%= _("Community") %></span>
 </div>
 <div class="body">
-  <h2><%= community.name %></h2>
+  <h2><%= link_to community.name, community.url %></h2>
   <p><%= community.description %></p>
 </div>

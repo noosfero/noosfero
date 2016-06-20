@@ -1,8 +1,8 @@
 <div class="event-header">
-  <%= event.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label">EVENT</span>
+  <%= event.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label"><%= _("Event") %></span>
 </div>
 
 <div class="body">
-   <h2><%= event.name %></h2>
+   <h2><%= link_to event.name, event.url %></h2>
    <p><%= event.body %></p>
 </div>

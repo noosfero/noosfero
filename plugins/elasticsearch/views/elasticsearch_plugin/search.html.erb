@@ -1,9 +1,7 @@
 <div class="wrapper">
 
   <div class="sidebar">
-    <div class="results-count">
-      <%= @results.total %> <%= _(" results by") %> :
-    </div>
+    <h3 class="box-title"><%= _("Results") %></h3>
     <ul>
       <% for type,value in @searchable_types %>
         <li class="select-search-type <%= "active" if type == @selected_type %>">
@@ -13,7 +11,7 @@
     </ul>
 
     <div class="search-filter">
-      <h3><%= _("Filter by") %></h3>
+      <h3 class="box-title"><%= _("Sort by") %></h3>
       <ul>
         <% for type in @search_filter_types.values %>
           <li><a href="#"><%= type[:label] %></a></li>
@@ -23,14 +21,26 @@
   </div>
 
   <div class="search_form">
-      <div class="search_field">
-        <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
-            <%= hidden_field_tag  "selected_type", @selected_type %>
-            <%= hidden_field_tag  "selected_filter_field", @selected_filter_field  %>
-            <%= text_field_tag :query, @query %>
-            <%= submit_tag _("Send") %>
-        <% end %>
-      </div>
+    <div class="search_field">
+      <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
+        <%= hidden_field_tag  "selected_type", @selected_type %>
+        <%= hidden_field_tag  "selected_filter_field", @selected_filter_field  %>
+        <%= text_field_tag :query, @query %>
+        <%= submit_tag _("Send") %>
+      <% end %>
+    </div>
+    <div class="results-count">
+      <% if not @query.blank? %>
+        <p>
+          <strong><%= @results.total %></strong><%= _(" results for ") %><%= @query %>
+      </p>
+      <% else %>
+        <p>
+        <strong><%= @results.total %></strong><%= _(" total results") %>
+        </p>
+      <% end %>
+    </div>
+
 
     <div class="results">
       <% for result in @results.to_a %>
