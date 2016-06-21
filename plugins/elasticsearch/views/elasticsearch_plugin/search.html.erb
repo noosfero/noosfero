@@ -5,7 +5,7 @@
     <ul>
       <% for type,value in @searchable_types %>
         <li class="select-search-type <%= "active" if type == @selected_type %>">
-          <%= link_to  value[:label], "?selected_type=#{type}&query=#{@query}&selected_filter_field=#{@selected_filter_field}"%>
+          <%= link_to  value[:label], "?selected_type=#{type}&query=#{@query}&filter=#{@selected_filter}"%>
         </li>
       <% end %>
     </ul>
@@ -13,8 +13,10 @@
     <div class="search-filter">
       <h3 class="box-title"><%= _("Sort by") %></h3>
       <ul>
-        <% for type in @search_filter_types.values %>
-          <li><a href="#"><%= type[:label] %></a></li>
+        <% for type, value in @filter_types %>
+          <li class="select-search-type <%= "active" if type == @selected_filter %>">
+            <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}" %>
+          </li>
         <% end %>
       </ul>
     </div>
@@ -24,21 +26,22 @@
     <div class="search_field">
       <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
         <%= hidden_field_tag  "selected_type", @selected_type %>
-        <%= hidden_field_tag  "selected_filter_field", @selected_filter_field  %>
+        <% if @selected_filter %>
+          <%= hidden_field_tag  "filter", @selected_filter %>
+        <% end %>
         <%= text_field_tag :query, @query %>
         <%= submit_tag _("Send") %>
       <% end %>
     </div>
     <div class="results-count">
-      <% if not @query.blank? %>
-        <p>
-          <strong><%= @results.total %></strong><%= _(" results for ") %><%= @query %>
+      <p>
+        <strong><%= @hits %></strong>
+        <% if not @query.blank? %>
+          <%= _(" results for ") %><%= @query %>
+        <% else %>
+          <%= _(" total results") %>
+        <% end %>
       </p>
-      <% else %>
-        <p>
-        <strong><%= @results.total %></strong><%= _(" total results") %>
-        </p>
-      <% end %>
     </div>
 
 
@@ -55,7 +58,7 @@
         <% end %>
       <% end %>
       <div class="search_paginate">
-        <%= pagination_links @results %>
+        <%= pagination_links @results if @results.count > 0 %>
       </div>
     </div>
   </div>

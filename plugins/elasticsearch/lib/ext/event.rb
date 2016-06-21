@@ -6,6 +6,7 @@ class Event
     {
       :advertise => {},
       :published => {},
+      :created_at => {type: 'date'}
     }
   end
   include ElasticsearchIndexedModel

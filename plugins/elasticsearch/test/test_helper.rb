@@ -20,7 +20,7 @@ module ElasticsearchTestHelper
       model.__elasticsearch__.create_index! force: true
       model.import
     }
-    sleep 1
+    sleep 2
   end
 
   def setup_environment

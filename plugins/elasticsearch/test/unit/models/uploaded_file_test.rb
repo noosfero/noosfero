@@ -8,10 +8,6 @@ class UploadedFileTest < ActionController::TestCase
     [UploadedFile]
   end
 
-  def setup
-    super
-  end
-
   should 'index searchable fields for UploadedFile model' do
     UploadedFile::SEARCHABLE_FIELDS.each do |key, value|
       assert_includes indexed_fields(UploadedFile), key

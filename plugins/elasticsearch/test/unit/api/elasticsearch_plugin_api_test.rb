@@ -9,8 +9,8 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
   end
 
   def create_instances
-    7.times.each {|index| create_user "person_#{index}"}
-    4.times.each {|index| fast_create Community, name: "community_#{index}", created_at: Date.new }
+    7.times.each {|index| create_user "person #{index}"}
+    4.times.each {|index| fast_create Community, name: "community #{index}" }
   end
 
   should 'show all types avaliable in /search/types endpoint' do
@@ -28,14 +28,14 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
   end
 
   should 'respond with query in downcase' do
-    get "/api/v1/search?query=person_"
+    get "/api/v1/search?query=person"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
     assert_equal 7, json["results"].count
   end
 
-  should 'respond with query in upcase' do
-    get "/api/v1/search?query=PERSON_"
+  should 'respond with query in uppercase' do
+    get "/api/v1/search?query=PERSON"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
     assert_equal 7, json["results"].count
@@ -47,5 +47,4 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
     assert_equal 200, last_response.status
     assert_equal 4, json["results"].count
   end
-
 end

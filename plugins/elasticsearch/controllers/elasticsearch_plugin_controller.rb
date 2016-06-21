@@ -18,6 +18,7 @@ class ElasticsearchPluginController < ApplicationController
   def define_results
     @query = params[:query]
     @results = process_results
+    @hits = @results.total
   end
 
   def define_searchable_types
@@ -26,13 +27,8 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def define_search_fields_types
-    @search_filter_types = ElasticsearchHelper::search_filters
-    @selected_filter_field = (params[:selected_filter_field] || ElasticsearchHelper::search_filters.keys.first).to_sym
+    @filter_types = ElasticsearchHelper::filters
+    @selected_filter = (params[:filter] || :relevance).to_sym
   end
 
-  private
-
-#  def permit_params
-#    params.require(:per_page, :query)
-#  end
 end

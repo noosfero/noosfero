@@ -8,10 +8,6 @@ class TextArticleTest < ActionController::TestCase
     [TextArticle]
   end
 
-  def setup
-    super
-  end
-
   should 'index searchable fields for TextArticle model' do
     TextArticle::SEARCHABLE_FIELDS.each do |key, value|
       assert_includes indexed_fields(TextArticle), key

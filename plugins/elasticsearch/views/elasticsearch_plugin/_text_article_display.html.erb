@@ -1,5 +1,5 @@
 <div class="text_article-header">
-  <%= text_article.created_at.strftime("%d %B %Y at %H:%M") %> - <%= text_article.setting[:author_name] %> - <span class="model-label"><%= _("Community") %></span>
+  <%= text_article.created_at.strftime("%d %B %Y at %H:%M") %> - <%= "#{text_article.author.name} -" if text_article.author %> <span class="model-label"><%= _("Article") %></span>
 </div>
 <div class="body">
   <h2><%= link_to text_article.name, text_article.url %></h2>

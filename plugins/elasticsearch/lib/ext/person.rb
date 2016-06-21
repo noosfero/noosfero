@@ -6,6 +6,7 @@ class Person
     {
       :visible => {type: 'boolean'},
       :public_profile => {type: 'boolean'},
+      :created_at => {type: 'date'}
     }
   end
   include ElasticsearchIndexedModel

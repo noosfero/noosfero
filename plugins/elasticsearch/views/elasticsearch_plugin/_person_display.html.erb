@@ -3,7 +3,7 @@
     <%= profile_image person %>
   </div>
   <div class="right-side">
-    <%= person.created_at.strftime("%d %B %Y at %H:%M") %> - <%= person.name %> <span class="model-label"><%= _("Person") %></span>
+    <%= person.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label"><%= _("Person") %></span>
     <div class="body">
       <h2><%= link_to person.name, person.url %></h2>
       <p><%= person.description %></p>

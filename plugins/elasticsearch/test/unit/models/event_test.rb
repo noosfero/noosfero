@@ -8,10 +8,6 @@ class EventTest < ActionController::TestCase
     [Event]
   end
 
-  def setup
-    super
-  end
-
   should 'index searchable fields for Event model' do
     Event::SEARCHABLE_FIELDS.each do |key, value|
       assert_includes indexed_fields(Event), key

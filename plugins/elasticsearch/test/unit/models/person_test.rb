@@ -8,10 +8,6 @@ class PersonTest < ActionController::TestCase
     [Person]
   end
 
-  def setup
-    super
-  end
-
   should 'index searchable fields for Person model' do
     Person::SEARCHABLE_FIELDS.each do |key, value|
       assert_includes indexed_fields(Person), key
@@ -24,5 +20,4 @@ class PersonTest < ActionController::TestCase
       assert_includes indexed_fields(Person)[key][:type], value[:type] || 'string'
     end
   end
-
 end

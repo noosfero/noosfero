@@ -15,13 +15,13 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
 
   def create_people
     5.times do | index |
-      create_user "person_#{index}"
+      create_user "person #{index}"
     end
   end
 
   def create_communities
     6.times do | index |
-      fast_create Community, name: "community_#{index}", created_at: Date.new
+      fast_create Community, name: "community #{index}", created_at: Date.new
     end
   end
 
@@ -30,8 +30,8 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:searchable_types)
     assert_not_nil assigns(:selected_type)
-    assert_not_nil assigns(:search_filter_types)
-    assert_not_nil assigns(:selected_filter_field)
+    assert_not_nil assigns(:filter_types)
+    assert_not_nil assigns(:selected_filter)
   end
 
   should 'return 10 results if selected_type is nil and query is nil' do
@@ -54,31 +54,31 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   should 'return results filtered by query' do
-    get :index, { 'query' => "person_"}
+    get :index, { 'query' => "person"}
     assert_response :success
     assert_select ".search-item", 5
     assert_template partial: '_person_display'
   end
 
-  should 'return results filtered by query with uppercase' do
-    get :index, {'query' => "PERSON_1"}
-    assert_response :success
-    assert_select ".search-item", 1
-    assert_template partial: '_person_display'
-  end
+ should 'return results filtered by query with uppercase' do
+   get :index, {'query' => "PERSON 1"}
+   assert_response :success
+   assert_template partial: '_person_display'
+   assert_tag(tag: "div", attributes: { class: "person-item" } , descendant: { tag: "a", child: "person 1"} )
+ end
 
-  should 'return results filtered by query with downcase' do
-    get :index, {'query' => "person_1"}
-    assert_response :success
-    assert_select ".search-item", 1
-  end
+ should 'return results filtered by query with downcase' do
+   get :index, {'query' => "person 1"}
+   assert_response :success
+   assert_tag(tag: "div", attributes: { class: "person-item" } , descendant: { tag: "a", child: "person 1"} )
+ end
 
   should 'return new person indexed' do
     get :index, { "selected_type" => :community}
     assert_response :success
     assert_select ".search-item", 6
 
-    fast_create Community, name: "community_#{7}", created_at: Date.new
+    fast_create Community, name: "community #{7}", created_at: Date.new
     Community.import
     sleep 2
 
@@ -108,7 +108,7 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   should 'pass params to elastic search controller' do
-    get 'index', { query: 'community_' }
+    get 'index', { query: 'community' }
     assert_not_nil assigns(:results)
     assert_template partial: '_community_display'
   end

@@ -8,10 +8,6 @@ class CommunityTest < ActionController::TestCase
     [Community]
   end
 
-  def setup
-    super
-  end
-
   should 'index searchable fields for Community model' do
     Community::SEARCHABLE_FIELDS.each do |key, value|
       assert_includes indexed_fields(Community), key
