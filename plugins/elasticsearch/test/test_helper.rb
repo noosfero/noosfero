@@ -13,18 +13,14 @@ module ElasticsearchTestHelper
   end
 
   def teardown
-    indexed_models.each {|model|
-      model.__elasticsearch__.client.indices.delete index: model.index_name
-    }
   end
 
   def import_instancies
     indexed_models.each {|model|
-      model.__elasticsearch__.create_index!
-      sleep 2
+      model.__elasticsearch__.create_index! force: true
       model.import
-      sleep 1
     }
+    sleep 1
   end
 
   def setup_environment

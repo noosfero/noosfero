@@ -20,7 +20,7 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   def create_communities
-    10.times do | index |
+    6.times do | index |
       fast_create Community, name: "community_#{index}", created_at: Date.new
     end
   end
@@ -47,10 +47,10 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   should 'return results filtered by selected_type' do
-    get :index, { 'selected_type' => :person}
+    get :index, { 'selected_type' => :community}
     assert_response :success
-    assert_select ".search-item", 5
-    assert_template partial: '_person_display'
+    assert_select ".search-item", 6
+    assert_template partial: '_community_display'
   end
 
   should 'return results filtered by query' do
@@ -74,31 +74,30 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   should 'return new person indexed' do
-    get :index, { "selected_type" => :person}
-    assert_response :success
-    assert_select ".search-item", 5
-
-    object = create_user "New Person"
-    Person.import
-    sleep 1
-
-    get :index, { "selected_type" => :person}
+    get :index, { "selected_type" => :community}
     assert_response :success
     assert_select ".search-item", 6
+
+    fast_create Community, name: "community_#{7}", created_at: Date.new
+    Community.import
+    sleep 2
+
+    get :index, { "selected_type" => :community}
+    assert_response :success
+    assert_select ".search-item", 7
   end
 
   should 'not return person deleted' do
-    get :index, { "selected_type" => :person}
+    get :index, { "selected_type" => :community}
+    assert_response :success
+    assert_select ".search-item", 6
+
+    Community.first.delete
+    Community.import
+
+    get :index, { "selected_type" => :community}
     assert_response :success
     assert_select ".search-item", 5
-
-    Person.first.delete
-    Person.import
-    sleep 1
-
-    get :index, { "selected_type" => :person}
-    assert_response :success
-    assert_select ".search-item", 4
   end
 
   should 'redirect to elasticsearch plugin when request are send to core' do

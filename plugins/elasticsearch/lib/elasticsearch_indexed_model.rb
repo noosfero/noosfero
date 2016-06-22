@@ -2,6 +2,7 @@ module ElasticsearchIndexedModel
 
   def self.included base
     base.send :include, Elasticsearch::Model
+    base.send :index_name, "#{Rails.env}_#{base.index_name}"
     base.extend ClassMethods
     base.class_eval do
       settings index: { number_of_shards: 1 } do
@@ -12,6 +13,7 @@ module ElasticsearchIndexedModel
             print '.'
           end
         end
+
         base.__elasticsearch__.client.indices.delete \
           index: base.index_name rescue nil
         base.__elasticsearch__.client.indices.create \
