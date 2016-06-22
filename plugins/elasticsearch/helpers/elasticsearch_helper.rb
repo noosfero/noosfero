@@ -2,10 +2,12 @@ module ElasticsearchHelper
 
   def self.searchable_types
     {
-     :all       => { label: _("All Results")},
-     :community => { label: _("Communities")},
-     :event     => { label: _("Events")},
-     :person    => { label: _("People")}
+     :all              => { label: _("All Results")},
+     :text_article     => { label: _("Articles")},
+     :uploaded_file    => { label: _("Files")},
+     :community        => { label: _("Communities")},
+     :event            => { label: _("Events")},
+     :person           => { label: _("People")}
     }
   end
 

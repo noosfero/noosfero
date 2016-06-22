@@ -1,0 +1,7 @@
+<div class="uploaded_file-header">
+  <%= uploaded_file.created_at.strftime("%d %B %Y at %H:%M") %> - <%=uploaded_file.setting[:author_name]%> - <span class="model-label"><%= _("Files") %></span>
+</div>
+<div class="body">
+  <h2><%= link_to uploaded_file.name, uploaded_file.url %></h2>
+  <p> <strong><%= _("Type of file")%> </strong>: <%= uploaded_file.content_type %> </p>
+</div>

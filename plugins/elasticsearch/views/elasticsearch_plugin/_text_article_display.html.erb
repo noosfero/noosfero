@@ -1,0 +1,7 @@
+<div class="text_article-header">
+  <%= text_article.created_at.strftime("%d %B %Y at %H:%M") %> - <%= text_article.setting[:author_name] %> - <span class="model-label"><%= _("Community") %></span>
+</div>
+<div class="body">
+  <h2><%= link_to text_article.name, text_article.url %></h2>
+  <p> <strong> <%= _("Abstract") %></strong>:<%= text_article.abstract %></p>
+</div>
