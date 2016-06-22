@@ -30,7 +30,7 @@ Enable plugin
 
 Execute the command to enable Elasticsearch Plugin at your noosfero:
 
-    $ ./script/noosfero-plugins enable elasticsearch
+   ``sh $ ./script/noosfero-plugins enable elasticsearch ``
 
 Active plugin
 -------------
@@ -45,4 +45,14 @@ DEVELOPMENT
 
 To run  tests for Elasticsearch:
 
-Use command 'rspec'
+- All elasticsearch Tests:
+
+```
+$ rake test:noosfero_plugins:elasticsearch:units
+```
+
+- One Test:
+
+```
+$ rake test:units TEST=plugins/elasticsearch/test/unit/controllers/elasticsearch_plugin_controller_test.rb
+```
