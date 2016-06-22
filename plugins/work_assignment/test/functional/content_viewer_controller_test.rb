@@ -35,6 +35,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  should 'display users submissions' do
+    folder = work_assignment.find_or_create_author_folder(@person)
+    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => folder)
+    get :view_page, :profile => @organization.identifier, :page => work_assignment.path
+    assert_response :success
+    assert_match /rails.png/, @response.body
+  end
+
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)
