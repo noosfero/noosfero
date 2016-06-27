@@ -18,11 +18,11 @@ module ExternalUser
   module ClassMethods
     def webfinger_lookup(login, domain, environment)
       if login && domain && environment.has_federated_network?(domain)
-        # Ask if network at <domain> has user with login <login>
-        # FIXME: Make an actual request to the federated network, which should return nil if not found
-        {
-          login: login
-        }
+        url = URI.parse('https://'+ domain +'/.well-known/webfinger?resource=acct:'+
+                         login+'@'+Environment.default.federated_networks.find_by_url(domain))
+        req = Net::HTTP::Get.new(url.to_s)
+        res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+        JSON.parse(res.body)
       else
         nil
       end
@@ -75,11 +75,10 @@ module ExternalUser
           u = User.new
           u.email = user['user']['email']
           u.login = login
-          # FIXME: Instead of the struct below, we should use the "webfinger" object returned by the webfinger_lookup method
-          webfinger = OpenStruct.new(
-                        identifier: user['user']['person']['identifier'],
-                        name: user['user']['person']['name'],
-                        created_at: user['user']['person']['created_at'],
+           webfinger = OpenStruct.new(
+                        identifier: webfinger['properties']['identifier'],
+                        name: webfinger['titles']['name'],
+                        created_at: webfinger['properties']['created_at'],
                         domain: domain,
                         email: user['user']['email']
                       )
