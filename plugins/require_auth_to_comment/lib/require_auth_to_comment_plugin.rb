@@ -38,7 +38,7 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
   end
 
   def body_beginning
-    "<meta name='profile.allow_unauthenticated_comments'/>" if allowed_by_profile
+    tag :meta, name: 'profile.allow_unauthenticated_comments' if allowed_by_profile
   end
 
   protected

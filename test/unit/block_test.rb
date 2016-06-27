@@ -421,4 +421,60 @@ class BlockTest < ActiveSupport::TestCase
     block.expects(:display_to_user?).returns(false)
     assert !block.visible_to_user?(nil)
   end
+
+  should 'not allow block edition when user has not the permission for profile design' do
+    block = Block.new
+    profile = fast_create(Profile)
+    block.stubs(:owner).returns(profile)
+    person = create_user('person_one').person
+    assert !block.allow_edit?(person)
+  end
+
+  should 'allow block edition when user has permission to edit profile design' do
+    block = Block.new
+    profile = fast_create(Profile)
+    block.stubs(:owner).returns(profile)
+    person = create_user('person_one').person
+    give_permission(person, 'edit_profile_design', profile)
+    assert block.allow_edit?(person)
+  end
+
+  should 'not allow block edition when user is nil' do
+    block = Block.new
+    assert !block.allow_edit?(nil)
+  end
+
+  should 'not allow block edition when block is not editable' do
+    block = Block.new
+    person = create_user('person_one').person
+    block.expects(:editable?).returns(false)
+    assert !block.allow_edit?(person)
+  end
+
+  should 'allow block edition when block is not editable but user is admin' do
+    block = Block.new
+    profile = fast_create(Profile)
+    block.stubs(:owner).returns(profile)
+    person = create_user('person_one').person
+    Environment.default.add_admin(person)
+    block.stubs(:editable?).returns(false)
+    assert block.allow_edit?(person)
+  end
+
+  should 'not allow block edition when user has not the permission for environment design' do
+    block = Block.new
+    environment = Environment.default
+    block.stubs(:owner).returns(environment)
+    person = create_user('person_one').person
+    assert !block.allow_edit?(person)
+  end
+
+  should 'allow block edition when user has the permission for environment design' do
+    block = Block.new
+    environment = Environment.default
+    block.stubs(:owner).returns(environment)
+    person = create_user('person_one').person
+    give_permission(person, 'edit_environment_design', environment)
+    assert block.allow_edit?(person)
+  end
 end

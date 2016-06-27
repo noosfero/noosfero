@@ -13,6 +13,10 @@ class Noosfero::Plugin
     context.environment if self.context
   end
 
+  def profile
+    context.send :profile if self.context
+  end
+
   class << self
 
     include Noosfero::Plugin::ParentMethods

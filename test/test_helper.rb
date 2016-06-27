@@ -8,7 +8,7 @@ require 'rails/test_help'
 
 require 'mocha'
 require 'mocha/mini_test'
-
+require "minitest/spec"
 require "minitest/reporters"
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
@@ -52,18 +52,12 @@ class ActiveSupport::TestCase
   # then set this back to true.
   self.use_instantiated_fixtures  = false
 
-  # Add more helper methods to be used by all tests here...
-
-  # for fixture_file_upload
-  include ActionDispatch::TestProcess
-
-  include Noosfero::Factory
-
-  include AuthenticatedTestHelper
-
-  include PerformanceHelper
-
   extend Test::Should
+
+  include ActionDispatch::TestProcess
+  include Noosfero::Factory
+  include AuthenticatedTestHelper
+  include PerformanceHelper
 
   fixtures :environments, :roles
 

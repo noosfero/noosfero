@@ -1137,4 +1137,15 @@ private :generate_url, :url_options
     false
   end
 
+  def allow_post_content?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('post_content', self)
+  end
+
+  def allow_edit?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('edit_profile', self)
+  end
+
+  def allow_destroy?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
+  end
 end

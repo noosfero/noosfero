@@ -175,4 +175,15 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     assert_select '.icon-selector .icon-edit'
   end
 
+  should 'not escape read more link to article on display short format' do
+    profile = fast_create Profile
+    blog = fast_create Blog, :name => 'Blog', :profile_id => profile.id
+    fast_create(TinyMceArticle, :name => "Post Test", :profile_id => profile.id, :parent_id => blog.id, :accept_comments => false, :body => '<p>Lorem ipsum dolor sit amet</p>')
+    blog.update_attribute(:visualization_format, 'short')
+
+    get "/#{profile.identifier}/blog"
+    assert_tag :tag => 'div', :attributes => {:class => 'read-more'}, :child => {:tag => 'a', :content => 'Read more'}
+  end
+
+
 end

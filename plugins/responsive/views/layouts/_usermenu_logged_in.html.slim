@@ -5,8 +5,8 @@ li.dropdown
     = image_tag user.profile_custom_icon(gravatar_default), class: 'menu-user-gravatar'
     = content_tag :strong, user.identifier
     - if pending_tasks_count
-      span class='badge' onclick="document.location='#{url_for(user.tasks_url)}'" title="#{_("Manage your pending tasks")}"
-        count
+      span class='badge' onclick="document.location='#{url_for user.tasks_url}'" title="#{_("Manage your pending tasks")}"
+        = pending_tasks_count
 
   ul class='dropdown-menu' role='menu'
     li
