@@ -700,14 +700,14 @@ Given /^the following external users?$/ do |table|
     Net::HTTP.stub(:post_form).and_return(response)
   end
 end
-    
-Then /^I should be federated logged in as "([^@]+)@(.+)"$/ do |username, domain|
+
+Then /^I should be externally logged in as "([^@]+)@(.+)"$/ do |username, domain|
   visit '/'
   url = 'http://' + domain + '/' + username
   page.should have_xpath("//a[@href=\"#{url}\"]")
 end
 
-Then /^I should not be federated logged in as "([^@]+)@(.+)"$/ do |username, domain|
+Then /^I should not be externally logged in as "([^@]+)@(.+)"$/ do |username, domain|
   visit '/'
   url = 'http://' + domain + '/' + username
   page.should_not have_xpath("//a[@href=\"#{url}\"]")

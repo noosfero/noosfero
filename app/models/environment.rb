@@ -1010,7 +1010,7 @@ class Environment < ApplicationRecord
   end
 
   def has_federated_network?(domain)
-    self.federated_networks.map(&:url).any? { |url| /http[s]?:\/\/#{domain}\/?/ =~ url }
+    self.external_environments.map(&:url).any? { |url| /http[s]?:\/\/#{domain}\/?/ =~ url }
   end
 
   private

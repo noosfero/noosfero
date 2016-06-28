@@ -19,7 +19,7 @@ module ExternalUser
     def webfinger_lookup(login, domain, environment)
       if login && domain && environment.has_federated_network?(domain)
         url = URI.parse('https://'+ domain +'/.well-known/webfinger?resource=acct:'+
-                         login+'@'+Environment.default.federated_networks.find_by_url(domain))
+                         login+'@'+Environment.default.external_environments.find_by_url(domain))
         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
         JSON.parse(res.body)

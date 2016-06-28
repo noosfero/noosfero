@@ -1,4 +1,4 @@
-Feature: federated login
+Feature: external login
   As a user
   I want to login using an account from a federated network
   In order to view pages logged in
@@ -20,7 +20,7 @@ Feature: federated login
       | Password         | 123456                           |
     When I press "Log in"
     Then I should be on the homepage
-    And I should be federated logged in as "joaosilva@federated.noosfero.org"
+    And I should be externally logged in as "joaosilva@federated.noosfero.org"
 
   @selenium
   Scenario: not login from portal homepage
@@ -36,7 +36,7 @@ Feature: federated login
       | Password         | 123456                           |
     When I press "Log in"
     Then I should be on /account/login
-    And I should not be federated logged in as "joaosilva@federated.noosfero.org"
+    And I should not be externally logged in as "joaosilva@federated.noosfero.org"
 
   @selenium
   Scenario: not login if network is not whitelisted
@@ -52,4 +52,4 @@ Feature: federated login
       | Password         | 123456                           |
     When I press "Log in"
     Then I should be on /account/login
-    And I should not be federated logged in as "joaosilva@federated.noosfero.org"
+    And I should not be externally logged in as "joaosilva@federated.noosfero.org"
