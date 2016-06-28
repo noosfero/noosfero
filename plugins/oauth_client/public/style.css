@@ -16,3 +16,7 @@
 .oauth-login .provider .developer {
   display: none;
 }
+
+.remember-enable-email.hidden {
+  display: none;
+}

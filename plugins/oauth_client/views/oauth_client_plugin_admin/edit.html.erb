@@ -15,6 +15,10 @@
     <%= labelled_form_field _('Strategy'), f.select(:strategy, OauthClientPlugin::PROVIDERS) %>
   </div>
 
+  <div class="remember-enable-email hidden">
+    <span class="error"><%=_('To use this provider you need to request the user email in your app')%></span>
+  </div>
+
   <div class="client-id">
     <%= labelled_form_field _('Client Id'), f.text_field(:client_id) %>
   </div>

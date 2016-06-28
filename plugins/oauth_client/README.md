@@ -33,6 +33,20 @@ Facebook
 
 [Create Facebook application](https://developers.facebook.com/docs/facebook-login/v2.1)
 
+Github
+--------
+
+[Create Github application](https://github.com/settings/developers)
+
+Twitter
+--------
+
+- Specially on twitter you need to request user's email address, see more
+in https://dev.twitter.com/rest/reference/get/account/verify_credentials
+
+[Create Twitter application](https://apps.twitter.com/)
+
+
 Callback
 ========
 
