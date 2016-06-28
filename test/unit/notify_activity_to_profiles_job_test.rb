@@ -52,6 +52,27 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     end
   end
 
+  should 'notify only marked people on marked scraps' do
+    profile = create_user('scrap-creator').person
+    c1 = Circle.create!(:name => 'Family', :person => profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    not_marked = create_user('jack').person
+    not_marked.add_friend(p1)
+    not_marked.add_friend(p2)
+    not_marked.add_friend(profile)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p2, :circle => c1)
+    ProfileFollower.create!(:profile => not_marked, :circle => c1)
+
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => profile.id, :receiver_id => profile.id, :marked_people => [p1,p2])
+    process_delayed_job_queue
+
+    assert p1.tracked_notifications.where(:target => scrap).present?
+    assert p2.tracked_notifications.where(:target => scrap).present?
+    assert not_marked.tracked_notifications.where(:target => scrap).blank?
+  end
+
   should 'not notify the communities members' do
     person = fast_create(Person)
     community  = fast_create(Community)

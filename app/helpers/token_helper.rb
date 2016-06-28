@@ -5,10 +5,11 @@ module TokenHelper
   end
 
   def token_input_field_tag(name, element_id, search_action, options = {}, text_field_options = {}, html_options = {})
-    options[:min_chars] ||= 3
+    options[:min_chars] ||= 2
     options[:hint_text] ||= _("Type in a search term")
     options[:no_results_text] ||= _("No results")
     options[:searching_text] ||= _("Searching...")
+    options[:placeholder] ||= 'null'
     options[:search_delay] ||= 1000
     options[:prevent_duplicates] ||=  true
     options[:backspace_delete_item] ||= false
@@ -20,6 +21,9 @@ module TokenHelper
     options[:on_delete] ||= 'null'
     options[:on_ready] ||= 'null'
     options[:query_param] ||= 'q'
+    options[:theme] ||= 'null'
+    options[:results_formatter] ||= 'null'
+    options[:token_formatter] ||= 'null'
 
     result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
     result += javascript_tag("jQuery('##{element_id}')
@@ -29,6 +33,7 @@ module TokenHelper
         hintText: #{options[:hint_text].to_json},
         noResultsText: #{options[:no_results_text].to_json},
         searchingText: #{options[:searching_text].to_json},
+        placeholder: #{options[:placeholder].to_json},
         searchDelay: #{options[:search_delay].to_json},
         preventDuplicates: #{options[:prevent_duplicates].to_json},
         backspaceDeleteItem: #{options[:backspace_delete_item].to_json},
@@ -39,6 +44,9 @@ module TokenHelper
         onAdd: #{options[:on_add]},
         onDelete: #{options[:on_delete]},
         onReady: #{options[:on_ready]},
+        theme: #{options[:theme] == 'null' ? options[:theme] : options[:theme].to_json},
+        resultsFormater: #{options[:results_formatter]},
+        tokenFormater: #{options[:token_formatter]},
       });
     ")
     result += javascript_tag("jQuery('##{element_id}').focus();") if options[:focus]

@@ -19,8 +19,13 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
     # Notify the user
     ActionTrackerNotification.create(:profile_id => tracked_action.user.id, :action_tracker_id => tracked_action.id)
 
-    # Notify all followers
-    ActionTrackerNotification.connection.execute("INSERT INTO action_tracker_notifications(profile_id, action_tracker_id) SELECT DISTINCT c.person_id, #{tracked_action.id} FROM profiles_circles AS p JOIN circles as c ON c.id = p.circle_id WHERE p.profile_id = #{tracked_action.user.id} AND (c.person_id NOT IN (SELECT atn.profile_id FROM action_tracker_notifications AS atn WHERE atn.action_tracker_id = #{tracked_action.id}))")
+    if target.is_a?(Scrap) && target.marked_people.present?
+      # Notify only marked people
+      ActionTrackerNotification.connection.execute("INSERT INTO action_tracker_notifications(profile_id, action_tracker_id) SELECT DISTINCT profiles.id, #{tracked_action.id} FROM profiles WHERE profiles.id IN (#{target.marked_people.map(&:id).join(',')})")
+    else
+      # Notify all followers
+      ActionTrackerNotification.connection.execute("INSERT INTO action_tracker_notifications(profile_id, action_tracker_id) SELECT DISTINCT c.person_id, #{tracked_action.id} FROM profiles_circles AS p JOIN circles as c ON c.id = p.circle_id WHERE p.profile_id = #{tracked_action.user.id} AND (c.person_id NOT IN (SELECT atn.profile_id FROM action_tracker_notifications AS atn WHERE atn.action_tracker_id = #{tracked_action.id}))")
+    end
 
     if tracked_action.user.is_a? Organization
       ActionTrackerNotification.connection.execute "insert into action_tracker_notifications(profile_id, action_tracker_id) " +
