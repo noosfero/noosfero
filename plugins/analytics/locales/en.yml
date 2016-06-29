@@ -9,10 +9,14 @@ en: &en
 
     views:
       stats:
+        enable: "Enable tracking on the profile '%{profile}'"
+        anonymous: "Don't associate users' login"
+        config_save: "Configuration saved"
         user: 'User'
         initial_time: 'Time'
+        ip: 'IP'
         pages: 'Pages'
 
-en-US:
+en_US:
   <<: *en
 

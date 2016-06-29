@@ -7,7 +7,10 @@ class AnalyticsPlugin::TimeOnPageController < ProfileController
     Noosfero::Scheduler::Defer.later do
       page_view = profile.page_views.where(request_id: params[:id]).first
       page_view.request = request
-      page_view.page_load!
+      AnalyticsPlugin::PageView.transaction do
+        page_view.page_load! Time.at(params[:time].to_i)
+        page_view.update_column :title, params[:title] if params[:title].present?
+      end
     end
 
     render nothing: true
