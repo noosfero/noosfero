@@ -1,0 +1,16 @@
+<%= block_title(block.view_title, block.subtitle) %>
+
+<div class="recent-activities-block">
+  <% unless block.activities.size == 0 %>
+    <ul>
+      <% block.activities.each do |activity| %>
+        <li>
+          <p><%= describe(activity).html_safe %></p>
+          <time datetime="<%= activity.created_at %>"><%= time_ago_in_words(activity.created_at) %></time>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="recent-activities-block-none"><%= c_('None') %></div>
+  <% end %>
+</div>
