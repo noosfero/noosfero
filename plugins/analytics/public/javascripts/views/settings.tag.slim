@@ -1,0 +1,33 @@
+analytics-settings
+  .checkbox
+    label name='enabled'
+      input type='checkbox' name='enabled' value='1' checked='{settings.enabled}' onchange='{toggleEnabled}'
+      |{anl.t('views.stats.enable', {profile: noosfero.profile})}
+
+  .checkbox if='{settings.enabled}'
+    label name='anonymous'
+      input type='checkbox' name='anonymous' value='1' checked='{settings.anonymous}' onchange='{toggleAnonymous}'
+      |{anl.t('views.stats.anonymous')}
+
+  javascript:
+    this.anl = window.analytics
+    this.settings = opts.settings
+    this.updateUrl = Routes.analytics_plugin_stats_path({profile: noosfero.profile, action: 'edit'})
+
+    toggleEnabled (e) {
+      this.settings.enabled = !this.settings.enabled
+      this.update()
+      this.save(e)
+    }
+    toggleAnonymous (e) {
+      this.settings.anonymous = !this.settings.anonymous
+      this.save(e)
+    }
+
+    save (e) {
+      var self = this
+      $.post(this.updateUrl, {analytics_settings: this.settings}, function() {
+        display_notice(self.anl.t('views.stats.config_save'))
+      })
+    }
+

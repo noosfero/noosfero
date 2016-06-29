@@ -9,9 +9,14 @@ pt: &pt
 
     views:
       stats:
+        enable: "Ativar rastreio no perfil '%{profile}'"
+        anonymous: "Não associar login de usuários"
+        config_save: "Configuração salva"
         user: 'Usuário'
         initial_time: 'Horário'
+        ip: 'IP'
         pages: 'Páginas'
 
-pt-BR:
+pt_BR:
   <<: *pt
+
