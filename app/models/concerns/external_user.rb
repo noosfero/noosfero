@@ -18,10 +18,13 @@ module ExternalUser
   module ClassMethods
     def webfinger_lookup(login, domain, environment)
       if login && domain && environment.has_federated_network?(domain)
-        url = URI.parse('https://'+ domain +'/.well-known/webfinger?resource=acct:'+
+        external_environment = environment.external_environments.find_by_url(domain)
+        scheme = "http#{external_environment.uses_ssl? ? 's' : ''}"
+        url = URI.parse(scheme+"://"+ domain +'/.well-known/webfinger?resource=acct:'+
                          login+'@'+domain)
+        http = build_request(url)
         req = Net::HTTP::Get.new(url.to_s)
-        res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+        res = http.request(req)
         JSON.parse(res.body)
       else
         nil
@@ -48,7 +51,9 @@ module ExternalUser
       result = nil
       response = nil
       redirections_allowed = 3
-      location = 'http://' + domain + '/api/v1/login'
+      external_environment = ExternalEnvironment.find_by_url(domain)
+      scheme = "http#{external_environment.uses_ssl? ? 's' : ''}"
+      location = scheme + '://' + domain + '/api/v1/login'
       request_params = CGI.unescape({ login: login, password: password }.to_query)
       begin
         while redirections_allowed > 0 && (response.blank? || response.code == '301')

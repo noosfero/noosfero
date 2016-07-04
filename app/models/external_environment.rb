@@ -6,4 +6,9 @@ class ExternalEnvironment < ActiveRecord::Base
 
   has_many :environment_external_environments, dependent: :destroy
   has_many :environments, through: :environment_external_environments
+
+  def uses_ssl?
+    url.starts_with? 'https'
+  end
+
 end
