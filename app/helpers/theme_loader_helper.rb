@@ -2,7 +2,7 @@ module ThemeLoaderHelper
   def current_theme
     @current_theme ||=
       begin
-        if !(defined?(session)).nil? && session[:user_theme]
+        if defined?(session).present? && session[:user_theme]
           session[:user_theme]
         else
           # utility for developers: set the theme to 'random' in development mode and
@@ -34,9 +34,9 @@ module ThemeLoaderHelper
   end
 
   def theme_path
-    if !(defined?(session)).nil? && session[:user_theme]
+    if defined?(session).present? && session[:user_theme]
       '/user_themes/' + current_theme
-    elsif session[:theme]
+    elsif defined?(session).present? && session[:theme]
       '/designs/themes/' + session[:theme]
     else
       '/designs/themes/' + current_theme

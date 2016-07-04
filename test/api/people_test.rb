@@ -376,7 +376,7 @@ class PeopleTest < ActiveSupport::TestCase
     get "/api/v1/people/#{profile.id}/icon?#{params.to_query}"
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
-    assert_match /^https?:\/\/.*portrait\.png$/, json['icon']
+    assert_match(/^https?:\/\/.*portrait\.png$/, json['icon'])
   end
 
   should 'return icon in provided size if there is a profile image' do
@@ -386,7 +386,7 @@ class PeopleTest < ActiveSupport::TestCase
     get "/api/v1/people/#{profile.id}/icon?#{params.to_query}&size=big"
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
-    assert_match /^https?:\/\/.*big\.png$/, json['icon']
+    assert_match(/^https?:\/\/.*big\.png$/, json['icon'])
   end
 
   should 'return icon from gravatar without size if there is no profile image' do
@@ -395,7 +395,7 @@ class PeopleTest < ActiveSupport::TestCase
     get "/api/v1/people/#{profile.id}/icon?#{params.to_query}"
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
-    assert_match /^https:\/\/www\.gravatar\.com.*size=64/, json['icon']
+    assert_match(/^https:\/\/www\.gravatar\.com.*size=64/, json['icon'])
   end
 
   should 'return icon from gravatar with size if there is no profile image' do
@@ -404,7 +404,7 @@ class PeopleTest < ActiveSupport::TestCase
     get "/api/v1/people/#{profile.id}/icon?#{params.to_query}&size=big"
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
-    assert_match /^https:\/\/www\.gravatar\.com.*size=150/, json['icon']
+    assert_match(/^https:\/\/www\.gravatar\.com.*size=150/, json['icon'])
   end
 
   PERSON_ATTRIBUTES = %w(vote_count comments_count articles_count following_articles_count)

@@ -27,8 +27,8 @@ module AuthenticatedSystem
       @current_user ||= begin
         user = nil
         if session[:external]
-          user = User.new #FIXME: User needs to have at least email
-          external_person = ExternalPerson.where(id: session[:external]).last
+          user = User.new
+          external_person = ExternalPerson.find_by(id: session[:external])
           if external_person
             user.external_person_id = external_person.id
             user.email = external_person.email
@@ -36,8 +36,7 @@ module AuthenticatedSystem
             session[:external] = nil
           end
         else
-          id = session[:user]
-          user = User.where(id: id).first if id
+          user = User.find_by(id: user_id) if user_id
         end
         user.session = session if user
         User.current = user

@@ -1935,7 +1935,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'return portrait icon if size is not provided and there is a profile image' do
     img = Image.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
     profile = fast_create(Person, image_id: img.id)
-    
+
     get :icon, profile: profile.identifier, size: nil
     assert_response :success
     assert_equal 'image/png', @response.header['Content-Type']
@@ -1945,7 +1945,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'return icon in provided size if there is a profile image' do
     img = Image.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
     profile = fast_create(Person, image_id: img.id)
-    
+
     get :icon, profile: profile.identifier, size: :big
     assert_response :success
     assert_equal 'image/png', @response.header['Content-Type']
@@ -1954,14 +1954,14 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'return icon from gravatar without size if there is no profile image' do
     profile = fast_create(Person)
-    
+
     get :icon, profile: profile.identifier
     assert_redirected_to /^https:\/\/www\.gravatar\.com\/.*/
   end
 
   should 'return icon from gravatar with size if there is no profile image' do
     profile = fast_create(Person)
-    
+
     get :icon, profile: profile.identifier, size: :thumb
     assert_redirected_to /^https:\/\/www\.gravatar\.com\/.*/
   end

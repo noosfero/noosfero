@@ -4,7 +4,7 @@ class WebfingerTest < ActiveSupport::TestCase
   def setup
     Domain.create(name: 'example.com')
     Environment.default.domains << Domain.last
-    User.create(login: 'ze', email: 'ze@localdomain.localdomain', 
+    User.create(login: 'ze', email: 'ze@localdomain.localdomain',
                 password: 'zeze', password_confirmation: 'zeze')
   end
 

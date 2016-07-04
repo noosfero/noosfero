@@ -86,7 +86,7 @@ Noosfero::Application.routes.draw do
 
   # comments
   match 'profile/:profile/comment/:action/:id', controller: 'comment', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
-  
+
   # icon
   match 'profile/:profile/icon(/:size)', controller: 'profile', action: 'icon', size: /(big|minor|thumb|portrait|icon)/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :get
 

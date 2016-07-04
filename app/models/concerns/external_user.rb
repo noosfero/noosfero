@@ -19,7 +19,7 @@ module ExternalUser
     def webfinger_lookup(login, domain, environment)
       if login && domain && environment.has_federated_network?(domain)
         url = URI.parse('https://'+ domain +'/.well-known/webfinger?resource=acct:'+
-                         login+'@'+Environment.default.external_environments.find_by_url(domain))
+                         login+'@'+domain)
         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
         JSON.parse(res.body)
@@ -67,26 +67,29 @@ module ExternalUser
 
     # Authenticates a user from an external social network
     def external_authenticate(username, password, environment)
-      login, domain = username.split('@')
-      webfinger = User.webfinger_lookup(login, domain, environment)
-      if webfinger
-        user = User.external_login(login, password, domain)
-        if user
-          u = User.new
-          u.email = user['user']['email']
-          u.login = login
-           webfinger = OpenStruct.new(
-                        identifier: webfinger['properties']['identifier'],
-                        name: webfinger['titles']['name'],
-                        created_at: webfinger['properties']['created_at'],
-                        domain: domain,
-                        email: user['user']['email']
-                      )
-          u.external_person_id = ExternalPerson.get_or_create(webfinger).id
-          return u
+      if username && username.include?('@')
+        login, domain = username.split('@')
+        webfinger = User.webfinger_lookup(login, domain, environment)
+        if webfinger
+          user = User.external_login(login, password, domain)
+          if user
+            u = User.new
+            u.email = user['user']['email']
+            u.login = login
+             webfinger = OpenStruct.new(
+                          identifier: webfinger['properties']['identifier'],
+                          name: webfinger['titles']['name'],
+                          created_at: webfinger['properties']['created_at'],
+                          domain: domain,
+                          email: user['user']['email']
+                        )
+            u.external_person_id = ExternalPerson.get_or_create(webfinger).id
+            return u
+          end
         end
       end
       nil
     end
+
   end
 end

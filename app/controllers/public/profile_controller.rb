@@ -398,7 +398,7 @@ class ProfileController < PublicController
   def icon
     size = params[:size] || :portrait
     image, mime = profile_icon(profile, size.to_sym, true)
-    
+
     unless image.match(/^\/\/www\.gravatar\.com/).nil?
       redirect_to 'https:' + image
     else

@@ -6,7 +6,7 @@ Feature: external login
   @selenium
   Scenario: login from portal homepage
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
-    And the following federated networks
+    And the following external environments
       | identifier | name | url                           |
       | test       | Test | http://federated.noosfero.org |
     And the following external users
@@ -25,7 +25,7 @@ Feature: external login
   @selenium
   Scenario: not login from portal homepage
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
-    And the following federated networks
+    And the following external environments
       | identifier | name | url                           |
       | test       | Test | http://federated.noosfero.org |
     And I am not logged in
