@@ -43,10 +43,11 @@ class NoosferoTest < ActiveSupport::TestCase
   end
 
   should 'change locale temporarily' do
-    Noosfero.with_locale('pt') do
+    current_locale = FastGettext.locale
+    Noosfero.with_locale(current_locale == 'pt' ? 'en' : 'pt' ) do
       assert_equal 'pt', FastGettext.locale
     end
-    assert_equal 'en', FastGettext.locale
+    assert_equal current_locale, FastGettext.locale
   end
 
   should "use default hostname of default environment as hostname of Noosfero instance" do
