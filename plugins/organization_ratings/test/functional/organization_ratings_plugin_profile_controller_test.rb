@@ -173,6 +173,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
     logout
     @controller.stubs(:logged_in?).returns(false)
+    @controller.stubs(:current_user).returns(nil)
 
     get :new_rating, profile: @community.identifier
     assert_no_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/comment-rejected-msg/}

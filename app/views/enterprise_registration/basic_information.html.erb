@@ -9,7 +9,7 @@
   </div>
 
   <%= button_bar do %>
-    <%= button :back, _('Go back'), { :profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile" }%>
+    <%= button :back, _('Go back'), { :profile => current_person.identifier, :action=>"enterprises", :controller=>"profile" }%>
   <% end %>
 <% else %>
   <div class='atention'>
@@ -37,7 +37,7 @@
     <%= template_options(:enterprises, 'create_enterprise')%>
 
     <%= button_bar do %>
-      <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
+      <%= submit_button('next', _('Next'), :cancel => {:profile => current_person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
     <% end %>
   <% end %>
 <% end %>

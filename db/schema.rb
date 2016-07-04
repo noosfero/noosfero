@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.text     "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "reporter_type"
   end
 
   create_table "action_tracker", force: :cascade do |t|
@@ -289,6 +290,7 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.string   "user_agent"
     t.string   "referrer"
     t.text     "settings"
+    t.string   "author_type"
   end
 
   add_index "comments", ["source_id", "spam"], name: "index_comments_on_source_id_and_spam", using: :btree
@@ -404,6 +406,14 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.boolean  "disable_feed_ssl",             default: false
   end
 
+  create_table "external_environments", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "identifier"
+    t.string "screenshot"
+    t.string "thumbnail"
+  end
+
   create_table "external_feeds", force: :cascade do |t|
     t.string   "feed_title"
     t.datetime "fetched_at"
@@ -421,6 +431,17 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "external_feeds", ["enabled"], name: "index_external_feeds_on_enabled", using: :btree
   add_index "external_feeds", ["fetched_at"], name: "index_external_feeds_on_fetched_at", using: :btree
 
+  create_table "external_people", force: :cascade do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "source"
+    t.string   "email"
+    t.integer  "environment_id"
+    t.boolean  "visible",        default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "favorite_enterprise_people", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "enterprise_id"
@@ -431,14 +452,6 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "favorite_enterprise_people", ["enterprise_id"], name: "index_favorite_enterprise_people_on_enterprise_id", using: :btree
   add_index "favorite_enterprise_people", ["person_id", "enterprise_id"], name: "index_favorite_enterprise_people_on_person_id_and_enterprise_id", using: :btree
   add_index "favorite_enterprise_people", ["person_id"], name: "index_favorite_enterprise_people_on_person_id", using: :btree
-
-  create_table "external_environments", force: :cascade do |t|
-    t.string "name"
-    t.string "url"
-    t.string "identifier"
-    t.string "screenshot"
-    t.string "thumbnail"
-  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "person_id"
@@ -797,6 +810,7 @@ ActiveRecord::Schema.define(version: 20160422163123) do
     t.boolean  "spam",                      default: false
     t.integer  "responsible_id"
     t.integer  "closed_by_id"
+    t.string   "reported_type"
   end
 
   add_index "tasks", ["requestor_id"], name: "index_tasks_on_requestor_id", using: :btree

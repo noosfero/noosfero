@@ -1,5 +1,6 @@
 <div id="user">
   <% user = (session[:user] && User.find_by(id: session[:user])) || nil %>
+  <% user ||= (session[:external] && User.new(:external_person_id => session[:external])) || nil %>
   <% if user.present? %>
     <% user = user.person %>
     <span class='logged-in'>

@@ -369,6 +369,44 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
   end
 
+  should 'return portrait icon if size is not provided and there is a profile image' do
+    img = Image.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
+    profile = fast_create(Person, image_id: img.id)
+
+    get "/api/v1/people/#{profile.id}/icon?#{params.to_query}"
+    assert_equal 200, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_match(/^https?:\/\/.*portrait\.png$/, json['icon'])
+  end
+
+  should 'return icon in provided size if there is a profile image' do
+    img = Image.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
+    profile = fast_create(Person, image_id: img.id)
+
+    get "/api/v1/people/#{profile.id}/icon?#{params.to_query}&size=big"
+    assert_equal 200, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_match(/^https?:\/\/.*big\.png$/, json['icon'])
+  end
+
+  should 'return icon from gravatar without size if there is no profile image' do
+    profile = create_user('test-user').person
+
+    get "/api/v1/people/#{profile.id}/icon?#{params.to_query}"
+    assert_equal 200, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_match(/^https:\/\/www\.gravatar\.com.*size=64/, json['icon'])
+  end
+
+  should 'return icon from gravatar with size if there is no profile image' do
+    profile = create_user('test-user').person
+
+    get "/api/v1/people/#{profile.id}/icon?#{params.to_query}&size=big"
+    assert_equal 200, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_match(/^https:\/\/www\.gravatar\.com.*size=150/, json['icon'])
+  end
+
   PERSON_ATTRIBUTES = %w(vote_count comments_count articles_count following_articles_count)
 
   PERSON_ATTRIBUTES.map do |attribute|

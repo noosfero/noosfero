@@ -1,6 +1,16 @@
 require_dependency 'api/helpers'
 
 module Api
+  class NoosferoFederation < Grape::API
+    use Rack::JSONP
+    helpers Helpers
+    before { detect_stuff_by_domain }
+    format :json
+    content_type :json, "application/jrd+json"
+    prefix [ENV['RAILS_RELATIVE_URL_ROOT'], ".well-known"].compact.join('/')
+    mount Federation::Webfinger
+  end
+
   class App < Grape::API
     use Rack::JSONP
 
@@ -22,6 +32,8 @@ module Api
         @@NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[Rails.env] || {} : {}
       end
     end
+
+    mount NoosferoFederation
 
     before { set_locale  }
     before { setup_multitenancy }

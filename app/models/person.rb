@@ -1,6 +1,8 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  include Human
+
   attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles
 
   SEARCH_FILTERS = {
@@ -88,7 +90,6 @@ class Person < Profile
     memberships.where('role_assignments.role_id = ?', role.id)
   end
 
-  has_many :comments, :foreign_key => :author_id
   has_many :article_followers, :dependent => :destroy
   has_many :following_articles, :class_name => 'Article', :through => :article_followers, :source => :article
   has_many :friendships, :dependent => :destroy
@@ -99,8 +100,6 @@ class Person < Profile
   }
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
-
-  has_many :abuse_reports, :foreign_key => 'reporter_id', :dependent => :destroy
 
   has_many :mailings
 
@@ -122,15 +121,6 @@ class Person < Profile
   }, through: :suggested_profiles, source: :suggestion
 
   scope :more_popular, -> { order 'friends_count DESC' }
-
-  scope :abusers, -> {
-    joins(:abuse_complaints).where('tasks.status = 3').distinct.select('profiles.*')
-  }
-  scope :non_abusers, -> {
-    distinct.select("profiles.*").
-    joins("LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'").
-    where("tasks.status != 3 OR tasks.id is NULL")
-  }
 
   scope :admins, -> { joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }
   scope :activated, -> { joins(:user).where('users.activation_code IS NULL AND users.activated_at IS NOT NULL') }
@@ -174,15 +164,6 @@ class Person < Profile
       (self.has_permission?('post_content', profile) || self.has_permission?('publish_content', profile))
   end
 
-  # Sets the identifier for this person. Raises an exception when called on a
-  # existing person (since peoples' identifiers cannot be changed)
-  def identifier=(value)
-    unless self.new_record?
-      raise ArgumentError.new(_('An existing person cannot be renamed.'))
-    end
-    self[:identifier] = value
-  end
-
   def suggested_friend_groups
     (friend_groups.compact + [ _('friends'), _('work'), _('school'), _('family') ]).map {|i| i if !i.empty?}.compact.uniq
   end
@@ -192,7 +173,7 @@ class Person < Profile
   end
 
   def add_friend(friend, group = nil)
-    unless self.is_a_friend?(friend)
+    unless self.is_a_friend?(friend) || friend.is_a?(ExternalPerson)
       friendship = self.friendships.build
       friendship.friend = friend
       friendship.group = group
@@ -517,21 +498,6 @@ class Person < Profile
     leave_hash.to_json
   end
 
-  def already_reported?(profile)
-    abuse_reports.any? { |report| report.abuse_complaint.reported == profile && report.abuse_complaint.opened? }
-  end
-
-  def register_report(abuse_report, profile)
-    AbuseComplaint.create!(:reported => profile, :target => profile.environment) if !profile.opened_abuse_complaint
-    abuse_report.abuse_complaint = profile.opened_abuse_complaint
-    abuse_report.reporter = self
-    abuse_report.save!
-  end
-
-  def abuser?
-    AbuseComplaint.finished.where(:requestor_id => self).count > 0
-  end
-
   def control_panel_settings_button
     {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
@@ -578,6 +544,34 @@ class Person < Profile
 
   def allow_invitation_from?(person)
     person.has_permission?(:manage_friends, self)
+  end
+
+  def data_hash(gravatar_default = nil)
+    friends_list = {}
+    enterprises = self.enterprises.map { |e| { 'name' => e.short_name, 'identifier' => e.identifier } }
+    self.friends.online.map do |person|
+      friends_list[person.identifier] = {
+        'avatar' => person.profile_custom_icon(gravatar_default),
+        'name' => person.short_name,
+        'jid' => person.full_jid,
+        'status' => person.user.chat_status,
+      }
+    end
+
+    {
+      'login' => self.identifier,
+      'name' => self.name,
+      'email' => self.email,
+      'avatar' => self.profile_custom_icon(gravatar_default),
+      'is_admin' => self.is_admin?,
+      'since_month' => self.created_at.month,
+      'since_year' => self.created_at.year,
+      'email_domain' => self.user.enable_email ? self.user.email_domain : nil,
+      'friends_list' => friends_list,
+      'enterprises' => enterprises,
+      'amount_of_friends' => friends_list.count,
+      'chat_enabled' => self.environment.enabled?('xmpp_chat')
+    }
   end
 
   protected

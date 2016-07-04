@@ -108,6 +108,23 @@ module Api
           end
           present output
         end
+
+        desc "Return the person profile picture (you can optionally pass a 'size' parameter)"
+        get ":id/icon" do
+          person = environment.people.find(params[:id])
+
+          size = params[:size] || :portrait
+          image = profile_icon(person, size.to_sym)
+          output = {}
+
+          unless image.match(/^\/\/www\.gravatar\.com/).nil?
+            output[:icon] = 'https:' + image
+          else
+            output[:icon] = request.url.gsub(/\/api\/.*/, '') + image
+          end
+
+          present output
+        end
       end
 
       resource :profiles do

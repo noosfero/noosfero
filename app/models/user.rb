@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   attr_accessible :login, :email, :password, :password_confirmation, :activated_at
 
+  include ExternalUser
+
   N_('Password')
   N_('Password confirmation')
   N_('Terms accepted')
@@ -105,6 +107,8 @@ class User < ApplicationRecord
   has_one :person, dependent: :destroy, autosave: false
   belongs_to :environment
 
+  alias_method_chain :person, :external
+
   has_many :sessions, dependent: :destroy
   # holds the current session, see lib/authenticated_system.rb
   attr_accessor :session
@@ -146,7 +150,8 @@ class User < ApplicationRecord
       u.generate_private_token_if_not_exist
       return u
     end
-    return nil
+
+    return User.external_authenticate(login, password, environment)
   end
 
   def register_login
@@ -380,31 +385,7 @@ class User < ApplicationRecord
   end
 
   def data_hash(gravatar_default = nil)
-    friends_list = {}
-    enterprises = person.enterprises.map { |e| { 'name' => e.short_name, 'identifier' => e.identifier } }
-    self.person.friends.online.map do |person|
-      friends_list[person.identifier] = {
-        'avatar' => person.profile_custom_icon(gravatar_default),
-        'name' => person.short_name,
-        'jid' => person.full_jid,
-        'status' => person.user.chat_status,
-      }
-    end
-
-    {
-      'login' => self.login,
-      'name' => self.person.name,
-      'email' => self.email,
-      'avatar' => self.person.profile_custom_icon(gravatar_default),
-      'is_admin' => self.person.is_admin?,
-      'since_month' => self.person.created_at.month,
-      'since_year' => self.person.created_at.year,
-      'email_domain' => self.enable_email ? self.email_domain : nil,
-      'friends_list' => friends_list,
-      'enterprises' => enterprises,
-      'amount_of_friends' => friends_list.count,
-      'chat_enabled' => person.environment.enabled?('xmpp_chat')
-    }
+    self.person.data_hash(gravatar_default)
   end
 
   def self.expires_chat_status_every

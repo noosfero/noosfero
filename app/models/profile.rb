@@ -3,9 +3,10 @@
 # which by default is the one returned by Environment:default.
 class Profile < ApplicationRecord
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
-    :redirection_after_login, :custom_url_redirection,
-    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification
+  include ProfileEntity
+
+  attr_accessible :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
+    :custom_url_redirection, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :redirection_after_login
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -115,8 +116,6 @@ class Profile < ApplicationRecord
   }
   scope :no_templates, -> { where is_template: false }
 
-  scope :recent, -> limit=nil { order('id DESC').limit(limit) }
-
 
   # Returns a scoped object to select profiles in a given location or in a radius
   # distance from the given location center.
@@ -224,8 +223,6 @@ class Profile < ApplicationRecord
     welcome_page && welcome_page.published ? welcome_page.body : nil
   end
 
-  has_many :search_terms, :as => :context
-
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
@@ -278,7 +275,6 @@ class Profile < ApplicationRecord
 
   has_many :domains, :as => :owner
   belongs_to :preferred_domain, :class_name => 'Domain', :foreign_key => 'preferred_domain_id'
-  belongs_to :environment
 
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
@@ -304,8 +300,6 @@ class Profile < ApplicationRecord
 
   has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
   has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
-
-  has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
 
   has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
 
@@ -401,7 +395,6 @@ class Profile < ApplicationRecord
     self.all
   end
 
-  validates_presence_of :identifier, :name
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
   validate :valid_template
   validate :valid_identifier
@@ -414,14 +407,6 @@ class Profile < ApplicationRecord
     if template_id.present? && template && !template.is_template
       errors.add(:template, _('is not a template.'))
     end
-  end
-
-  before_create :set_default_environment
-  def set_default_environment
-    if self.environment.nil?
-      self.environment = Environment.default
-    end
-    true
   end
 
   # registar callback for creating boxes after the object is created.
@@ -496,9 +481,6 @@ class Profile < ApplicationRecord
     self.save(:validate => false)
   end
 
-  def apply_type_specific_template(template)
-  end
-
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'
   xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
 
@@ -539,10 +521,6 @@ class Profile < ApplicationRecord
     ).order('articles.published_at desc, articles.id desc')
   end
 
-  def to_liquid
-    HashWithIndifferentAccess.new :name => name, :identifier => identifier
-  end
-
   class << self
 
     # finds a profile by its identifier. This method is a shortcut to
@@ -560,23 +538,6 @@ class Profile < ApplicationRecord
 
   def superior_instance
     environment
-  end
-
-  # returns +false+
-  def person?
-    self.kind_of?(Person)
-  end
-
-  def enterprise?
-    self.kind_of?(Enterprise)
-  end
-
-  def organization?
-    self.kind_of?(Organization)
-  end
-
-  def community?
-    self.kind_of?(Community)
   end
 
   # returns false.
@@ -683,13 +644,6 @@ private :generate_url, :url_options
     self.articles.tagged_with(tag)
   end
 
-  # Tells whether a specified profile has members or nor.
-  #
-  # On this class, returns <tt>false</tt> by default.
-  def has_members?
-    false
-  end
-
   after_create :insert_default_article_set
   def insert_default_article_set
     if template
@@ -702,23 +656,6 @@ private :generate_url, :url_options
       end
       self.save!
     end
-  end
-
-  # Override this method in subclasses of Profile to create a default article
-  # set upon creation. Note that this method will be called *only* if there is
-  # no template for the type of profile (i.e. if the template was removed or in
-  # the creation of the template itself).
-  #
-  # This method must return an array of pre-populated articles, which will be
-  # associated to the profile before being saved. Example:
-  #
-  #   def default_set_of_articles
-  #     [Blog.new(:name => 'Blog'), Gallery.new(:name => 'Gallery')]
-  #   end
-  #
-  # By default, this method returns an empty array.
-  def default_set_of_articles
-    []
   end
 
   def copy_articles_from other
@@ -814,19 +751,6 @@ private :generate_url, :url_options
   def accept_category?(cat)
     forbidden = [ Region ]
     !forbidden.include?(cat.class)
-  end
-
-  include ActionView::Helpers::TextHelper
-  def short_name(chars = 40)
-    if self[:nickname].blank?
-      if chars
-        truncate self.name, length: chars, omission: '...'
-      else
-        self.name
-      end
-    else
-      self[:nickname]
-    end
   end
 
   def custom_header
@@ -934,14 +858,6 @@ private :generate_url, :url_options
     articles.galleries
   end
 
-  def blocks_to_expire_cache
-    []
-  end
-
-  def cache_keys(params = {})
-    []
-  end
-
   validate :image_valid
 
   def image_valid
@@ -976,16 +892,6 @@ private :generate_url, :url_options
 
   def update_layout_template(template)
     self.update_attribute(:layout_template, template)
-  end
-
-  def members_cache_key(params = {})
-    page = params[:npage] || '1'
-    sort = (params[:sort] ==  'desc') ? params[:sort] : 'asc'
-    cache_key + '-members-page-' + page + '-' + sort
-  end
-
-  def more_recent_label
-    _("Since: ")
   end
 
   def recent_actions
@@ -1042,32 +948,6 @@ private :generate_url, :url_options
     end
   end
 
-  def opened_abuse_complaint
-    abuse_complaints.opened.first
-  end
-
-  def disable
-    self.visible = false
-    self.save
-  end
-
-  def enable
-    self.visible = true
-    self.save
-  end
-
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
-  end
-
-  def self.identification
-    name
-  end
-
-  def exclude_verbs_on_activities
-    %w[]
-  end
-
   # Customize in subclasses
   def activities
     self.profile_activities.includes(:activity).order('updated_at DESC')
@@ -1102,10 +982,6 @@ private :generate_url, :url_options
     self.active_fields
   end
 
-  def control_panel_settings_button
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
-  end
-
   def followed_by?(person)
     person.is_member_of?(self)
   end
@@ -1133,19 +1009,4 @@ private :generate_url, :url_options
     suggestion.disable if suggestion
   end
 
-  def allow_invitation_from(person)
-    false
-  end
-
-  def allow_post_content?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('post_content', self)
-  end
-
-  def allow_edit?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('edit_profile', self)
-  end
-
-  def allow_destroy?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
-  end
 end

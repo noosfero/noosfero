@@ -276,4 +276,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing('/profile/~', :controller => 'profile', :profile => '~', :action => 'index')
   end
 
+  should 'have route to profile icon without size' do
+    assert_routing('/profile/ze/icon', controller: 'profile', profile: 'ze', action: 'icon')
+  end
+
+  should 'have route to profile icon with supported size' do
+    assert_routing('/profile/ze/icon/big', controller: 'profile', profile: 'ze', action: 'icon', size: 'big')
+  end
 end

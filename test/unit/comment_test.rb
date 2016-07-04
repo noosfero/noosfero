@@ -23,16 +23,13 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'record authenticated author' do
+  should 'record authenticated author polymorphically' do
     c = Comment.new
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      c.author = 1
-    end
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      c.author = Profile
-    end
     assert_nothing_raised do
       c.author = Person.new
+    end
+    assert_nothing_raised do
+      c.author = ExternalPerson.new
     end
   end
 

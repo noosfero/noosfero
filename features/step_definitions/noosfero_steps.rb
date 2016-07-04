@@ -679,3 +679,36 @@ Given /^the field (.*) is public for all users$/ do |field|
     person.save!
   end
 end
+
+Given /^the following external users?$/ do |table|
+  table.hashes.each do |item|
+    person_data = item.dup
+    username, domain = person_data['login'].split('@')
+    response = OpenStruct.new(
+      code: '200',
+      body: {
+        user: {
+          email: username + '@ema.il',
+          person: {
+            identifier: username,
+            name: username,
+            created_at: Time.now,
+          }
+        }
+      }.to_json
+    )
+    Net::HTTP.stub(:post_form).and_return(response)
+  end
+end
+
+Then /^I should be externally logged in as "([^@]+)@(.+)"$/ do |username, domain|
+  visit '/'
+  url = 'http://' + domain + '/' + username
+  page.should have_xpath("//a[@href=\"#{url}\"]")
+end
+
+Then /^I should not be externally logged in as "([^@]+)@(.+)"$/ do |username, domain|
+  visit '/'
+  url = 'http://' + domain + '/' + username
+  page.should_not have_xpath("//a[@href=\"#{url}\"]")
+end

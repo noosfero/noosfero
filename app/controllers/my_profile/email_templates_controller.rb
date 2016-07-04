@@ -64,7 +64,7 @@ class EmailTemplatesController < ApplicationController
   private
 
   def template_params
-    {:profile_name => current_user.name, :environment_name => environment.name }
+    {:profile_name => current_person.name, :environment_name => environment.name }
   end
 
   def template_params_allowed params

@@ -1009,6 +1009,10 @@ class Environment < ApplicationRecord
     HashWithIndifferentAccess.new :name => name
   end
 
+  def has_federated_network?(domain)
+    self.external_environments.map(&:url).any? { |url| /http[s]?:\/\/#{domain}\/?/ =~ url }
+  end
+
   private
 
   def default_language_available
