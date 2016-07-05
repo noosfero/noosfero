@@ -56,7 +56,7 @@ class AddMember < Task
   def target_notification_description
     requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
 
-    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.") % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
+    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.").html_safe % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
   end
 
   def target_notification_message
