@@ -20,7 +20,7 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
   end
 
   def help
-    _('This block lists your latest activities.')
+    _('This block lists your latest activities. By default, any user that goes to your profile will be able to see all activities. Configure the "Display to users" option if you don\'t want that.')
   end
 
   def default_title
@@ -33,5 +33,13 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
 
   def display_api_content_by_default?
     false
+  end
+
+  def timeout
+    4.hours
+  end
+
+  def self.expire_on
+    { profile: [:article] }
   end
 end
