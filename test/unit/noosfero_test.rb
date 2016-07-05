@@ -44,8 +44,9 @@ class NoosferoTest < ActiveSupport::TestCase
 
   should 'change locale temporarily' do
     current_locale = FastGettext.locale
-    Noosfero.with_locale(current_locale == 'pt' ? 'en' : 'pt' ) do
-      assert_equal 'pt', FastGettext.locale
+    another_locale = current_locale == 'pt' ? 'en' : 'pt'
+    Noosfero.with_locale(another_locale) do
+      assert_equal another_locale, FastGettext.locale
     end
     assert_equal current_locale, FastGettext.locale
   end
