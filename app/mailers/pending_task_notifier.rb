@@ -12,8 +12,8 @@ class PendingTaskNotifier < ApplicationMailer
 
     mail(
       to: person.email,
-      from: "#{person.environment.name} <#{person.environment.noreply_email}>",
-      subject: _("[%s] Pending tasks") % person.environment.name
+      from: "#{person.environment.name} <#{person.environment.noreply_email}>".html_safe,
+      subject: _("[%s] Pending tasks").html_safe % person.environment.name
     )
   end
 

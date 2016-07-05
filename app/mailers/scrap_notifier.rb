@@ -14,8 +14,8 @@ class ScrapNotifier < ApplicationMailer
     @url = sender.environment.top_url
     mail(
       to: receiver.email,
-      from: "#{sender.environment.name} <#{sender.environment.noreply_email}>",
-      subject: _("[%s] You received a scrap!") % [sender.environment.name]
+      from: "#{sender.environment.name} <#{sender.environment.noreply_email}>".html_safe,
+      subject: _("[%s] You received a scrap!").html_safe % [sender.environment.name]
     )
   end
 end

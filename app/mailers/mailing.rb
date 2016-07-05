@@ -23,11 +23,11 @@ class Mailing < ApplicationRecord
   end
 
   def generate_from
-    "#{source.name} <#{if source.is_a? Environment then source.noreply_email else source.contact_email end}>"
+    "#{source.name} <#{if source.is_a? Environment then source.noreply_email else source.contact_email end}>".html_safe
   end
 
   def generate_subject
-    '[%s] %s' % [source.name, subject]
+    '[%s] %s'.html_safe % [source.name, subject]
   end
 
   def signature_message
