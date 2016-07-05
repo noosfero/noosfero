@@ -1,6 +1,6 @@
-<%= _('Hello %s,') % @name  %>
+<%= _('Hello %s,').html_safe % @name  %>
 
-<%= _('Your email %s was just activated.') % [@email] %>
+<%= _('Your email %s was just activated.').html_safe % [@email] %>
 
 <%= _('You can access your e-mail from anywhere, using the following address:') %>
 <%= @webmail %>
@@ -8,5 +8,5 @@
 <%= _('Greetings,') %>
 
 --
-<%= _('%s team.') % @environment.name %>
+<%= _('%s team.').html_safe % @environment.name %>
 <%= @url %>

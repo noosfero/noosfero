@@ -205,7 +205,7 @@ class AccountController < ApplicationController
         if params[:value].blank?
           @change_password.errors[:base] << _('Can not recover user password with blank value.')
         else
-          @change_password.errors[:base] << _('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]]
+          @change_password.errors[:base] << _('Could not find any user with %s equal to "%s".').html_safe % [fields_label, params[:value]]
         end
       rescue ActiveRecord::RecordInvalid
         @change_password.errors[:base] << _('Could not perform password recovery for the user.')

@@ -1,10 +1,10 @@
 <%= profile_image suggestion, :thumb, :class => 'suggestion_picture' %>
 
 <p>
-<%= _('Are you sure you want to remove %s from your suggestions list?') % suggestion.name %>
+<%= _('Are you sure you want to remove %s from your suggestions list?').html_safe % suggestion.name %>
 </p>
 
 <%= form_tag do %>
-  <%= submit_button(:ok, _("Yes, I want to remove %s") % suggestion.name) %>
+  <%= submit_button(:ok, _("Yes, I want to remove %s").html_safe % suggestion.name) %>
   <%= button(:cancel, _("No"), :action => 'suggest') %>
 <% end %>

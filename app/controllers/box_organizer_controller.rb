@@ -109,7 +109,7 @@ class BoxOrganizerController < ApplicationController
   def show_block_type_info
     type = params[:type]
     if type.blank? || !available_blocks.map(&:name).include?(type)
-      raise ArgumentError.new("Type %s is not allowed. Go away." % type)
+      raise ArgumentError.new("Type %s is not allowed. Go away.".html_safe % type)
     end
     @block = type.constantize.new
     @block.box = Box.new(:owner => boxes_holder)
@@ -122,7 +122,7 @@ class BoxOrganizerController < ApplicationController
 
   def new_block(type, box)
     if !available_blocks.map(&:name).include?(type)
-      raise ArgumentError.new("Type %s is not allowed. Go away." % type)
+      raise ArgumentError.new("Type %s is not allowed. Go away.".html_safe % type)
     end
     block = type.constantize.new
     box.blocks << block

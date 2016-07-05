@@ -1,4 +1,4 @@
-<h1><%= _('Profile settings for %s') % profile.name %></h1>
+<h1><%= _('Profile settings for %s').html_safe % profile.name %></h1>
 
 <%= error_messages_for :profile_data %>
 
@@ -18,7 +18,7 @@
   </div>
   <div id="profile_change_picture">
     <%= f.fields_for :image_builder, @profile.image do |i| %>
-      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
+      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
     <% end %>
   </div>
 

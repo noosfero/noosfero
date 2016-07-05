@@ -42,8 +42,8 @@ class ProfileController < PublicController
     feed_writer = FeedWriter.new
     data = feed_writer.write(
       tagged,
-      :title => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
-      :description => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
+      :title => _("%s's contents tagged with \"%s\"").html_safe % [profile.name, @tag],
+      :description => _("%s's contents tagged with \"%s\"").html_safe % [profile.name, @tag],
       :link => url_for(profile.url)
     )
     render :text => data, :content_type => "text/xml"
@@ -88,7 +88,7 @@ class ProfileController < PublicController
 
   def join_modal
       profile.add_member(user)
-      session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name
+      session[:notice] = _('%s administrator still needs to accept you as member.').html_safe % profile.name
       redirect_to :action => :index
   end
 
@@ -98,12 +98,12 @@ class ProfileController < PublicController
 
       profile.add_member(user)
       if !profile.members.include?(user)
-        render :text => {:message => _('%s administrator still needs to accept you as member.') % profile.name}.to_json
+        render :text => {:message => _('%s administrator still needs to accept you as member.').html_safe % profile.name}.to_json
       else
-        render :text => {:message => _('You just became a member of %s.') % profile.name}.to_json
+        render :text => {:message => _('You just became a member of %s.').html_safe % profile.name}.to_json
       end
     else
-      render :text => {:message => _('You are already a member of %s.') % profile.name}.to_json
+      render :text => {:message => _('You are already a member of %s.').html_safe % profile.name}.to_json
     end
   end
 
@@ -125,7 +125,7 @@ class ProfileController < PublicController
         render :text => current_person.leave(profile, params[:reload])
       end
     else
-      render :text => {:message => _('You are not a member of %s.') % profile.name}.to_json
+      render :text => {:message => _('You are not a member of %s.').html_safe % profile.name}.to_json
     end
   end
 
@@ -145,9 +145,9 @@ class ProfileController < PublicController
     # FIXME this shouldn't be in Person model?
     if !user.memberships.include?(profile)
       AddFriend.create!(:person => user, :friend => profile)
-      render :text => _('%s still needs to accept being your friend.') % profile.name
+      render :text => _('%s still needs to accept being your friend.').html_safe % profile.name
     else
-      render :text => _('You are already a friend of %s.') % profile.name
+      render :text => _('You are already a friend of %s.').html_safe % profile.name
     end
   end
 
@@ -178,7 +178,7 @@ class ProfileController < PublicController
   def unblock
     if current_user.person.is_admin?(profile.environment)
       profile.unblock
-      session[:notice] = _("You have unblocked %s successfully. ") % profile.name
+      session[:notice] = _("You have unblocked %s successfully. ").html_safe % profile.name
       redirect_to :controller => 'profile', :action => 'index'
     else
       message = _('You are not allowed to unblock enterprises in this environment.')

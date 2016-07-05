@@ -302,12 +302,12 @@ module Api
     end
 
     def cant_be_saved_request!(attribute)
-      message = _("(Invalid request) %s can't be saved") % attribute
+      message = _("(Invalid request) %s can't be saved").html_safe % attribute
       render_api_error!(message, 400)
     end
 
     def bad_request!(attribute)
-      message = _("(Invalid request) %s not given") % attribute
+      message = _("(Invalid request) %s not given").html_safe % attribute
       render_api_error!(message, 400)
     end
 
