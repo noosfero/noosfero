@@ -36,6 +36,22 @@ class RecentActivitiesBlockTest < ActiveSupport::TestCase
 
     assert_equal [a2].map(&:id), block.activities.map(&:id)
   end
+
+  should 'return only action tracker records as activities' do
+    profile = create_user('testuser').person
+    friend = create_user('friend').person
+    scrap = create(Scrap, defaults_for_scrap(sender: friend, receiver: profile))
+    a1 = fast_create(ActionTracker::Record, user_id: profile.id, created_at: Time.now, updated_at: Time.now)
+    a2 = fast_create(ActionTracker::Record, user_id: profile.id, created_at: Time.now, updated_at: Time.now)
+    ProfileActivity.create! profile_id: profile.id, activity: a1
+    ProfileActivity.create! profile_id: profile.id, activity: a2
+
+    block = RecentActivitiesPlugin::ActivitiesBlock.new
+    block.stubs(:owner).returns(profile)
+
+    assert_equal [a2, a1, scrap], block.owner.activities.map(&:activity)
+    assert_equal [a2, a1], block.activities
+  end
 end
 
 require 'boxes_helper'

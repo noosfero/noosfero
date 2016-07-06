@@ -7,7 +7,8 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
   end
 
   def activities
-    list = self.limit.nil? ? owner.activities : owner.activities.limit(self.get_limit)
+    activities = owner.activities.where(activity_type: ActionTracker::Record.to_s)
+    list = self.limit.nil? ? activities : activities.limit(self.get_limit)
     list.map(&:activity)
   end
 
