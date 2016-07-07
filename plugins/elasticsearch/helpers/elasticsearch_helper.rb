@@ -63,31 +63,42 @@ module ElasticsearchHelper
     end
   end
 
-  def query_method expression="", fields=[]
-    query_exp = {}
-    if expression.blank?
-    else
-      query_exp = {
-        query: {
-          query_string: {
-            query: "*"+expression.downcase.split.join('* *')+"*",
-            fields: fields,
-            tie_breaker: 0.4,
-            minimum_should_match: "100%"
-          },
+  def query_string expression="", models=[]
+    return { match_all: {}  } if not expression
+
+    {
+      query_string: {
+        query: "*"+expression.downcase.split.join('* *')+"*",
+        fields: fields_from_models(models),
+        tie_breaker: 0.4,
+        minimum_should_match: "100%"
+      }
+    }
+  end
+
+
+  def query_method expression="", models=[]
+    {
+      query: {
+        filtered: {
+          query: query_string(expression,models),
+          filter: {
+            bool: {
+              should: models.map {|model| model.filter(environment: @environment.id)}
+            }
+          }
         }
       }
-    end
-    query_exp
+    }
   end
 
   def get_query text="", options={}
     klass = options[:klass]
     sort_by = options[:sort_by]
 
-    fields = klass.nil? ? (fields_from_models searchable_models) : (fields_from_models [klass])
+    models = (klass.nil?) ? searchable_models : [klass]
 
-    query = query_method(text, fields)
+    query = query_method(text, models)
     query[:sort] = sort_by if sort_by
     query
   end

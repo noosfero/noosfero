@@ -6,12 +6,23 @@ require_dependency 'text_article'
 require_relative '../elasticsearch_indexed_model'
 
 class TextArticle
-  def self.control_fields
+
+  def self.profile_hash
     {
-      :advertise => {},
-      :published => {},
-      :created_at => {type: 'date'}
+      :id             => { type: :integer  },
+      :visible        => { type: :boolean },
+      :public_profile => { type: :boolean }
     }
   end
+
+
+  def self.control_fields
+    {
+      :advertise => { type: :boolean },
+      :published => { type: 'boolean'},
+      :profile   => { type: :nested , hash: self.profile_hash }
+    }
+  end
+
   include ElasticsearchIndexedModel
 end

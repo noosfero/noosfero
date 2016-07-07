@@ -2,10 +2,23 @@ require_dependency 'community'
 require_relative '../elasticsearch_indexed_model'
 
 class Community
+
   def self.control_fields
     {
-      :created_at => {type: 'date'}
+      :secret         => { type: :boolean },
+      :visible        => { type: :boolean },
     }
   end
+
+  # community visible
+  def self.should_and
+    [
+      {term: { :secret => false }},
+      {term: { :visible => true }}
+    ]
+  end
+
+
   include ElasticsearchIndexedModel
+
 end
