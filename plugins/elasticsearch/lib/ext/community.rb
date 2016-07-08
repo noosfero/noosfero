@@ -1,24 +1,25 @@
 require_dependency 'community'
-require_relative '../elasticsearch_indexed_model'
+require_relative '../../helpers/searchable_model_helper'
 
 class Community
 
   def self.control_fields
     {
-      :secret         => { type: :boolean },
-      :visible        => { type: :boolean },
+      :secret           => { type: :boolean },
+      :visible          => { type: :boolean },
     }
   end
 
-  # community visible
-  def self.should_and
+  def self.should
     [
-      {term: { :secret => false }},
-      {term: { :visible => true }}
+      { and:
+        [
+          {term: { :secret => false }},
+          {term: { :visible => true }}
+        ]
+      }
     ]
   end
 
-
-  include ElasticsearchIndexedModel
-
+  include SearchableModelHelper
 end

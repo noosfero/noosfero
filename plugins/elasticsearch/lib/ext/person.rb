@@ -1,13 +1,26 @@
 require_dependency 'person'
-require_relative '../elasticsearch_indexed_model'
+
+require_relative '../../helpers/searchable_model_helper'
 
 class Person
+
   def self.control_fields
     {
       :visible        => {type: 'boolean'},
-      :public_profile => {type: 'boolean'},
-      :created_at     => {type: 'date'}
+      :secret         => { type: :boolean },
     }
   end
-  include ElasticsearchIndexedModel
+
+  def self.should
+    [
+      { and:
+        [
+          {term: { :secret => false }},
+          {term: { :visible => true }}
+        ]
+      }
+    ]
+  end
+
+  include SearchableModelHelper
 end

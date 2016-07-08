@@ -84,7 +84,7 @@ module ElasticsearchHelper
           query: query_string(expression,models),
           filter: {
             bool: {
-              should: models.map {|model| model.filter(environment: @environment.id)}
+              should: models.map {|model| model.filter(environment: @environment.id) }
             }
           }
         }

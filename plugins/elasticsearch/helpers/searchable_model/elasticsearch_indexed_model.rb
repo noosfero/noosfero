@@ -1,4 +1,4 @@
-require_relative 'nested_environment'
+require_relative '../nested_helper/environment'
 
 module ElasticsearchIndexedModel
 
@@ -66,38 +66,12 @@ module ElasticsearchIndexedModel
 
     def indexed_fields
       fields = {
-                :environment    => {type: :nested, hash: NestedEnvironment.environment_hash },
+                :environment    => {type: :nested, hash: NestedEnvironment::environment_hash },
                 :created_at     => {type: :date }
       }
       fields.update(self::SEARCHABLE_FIELDS)
       fields.update(self.control_fields)
       fields
-    end
-
-    def environment_filter environment=1
-      {
-        query: {
-          nested: {
-            path: "environment",
-            query: {
-              bool: {
-                must: { term: { "environment.id" => environment } },
-              }
-            }
-          }
-        }
-      }
-    end
-
-    def filter options={}
-      environment = options[:environment].presence
-
-      filter = {}
-      filter[:indices] = {:index => self.index_name, :no_match_filter => "none" }
-      filter[:indices][:filter] = { :bool => {}  }
-      filter[:indices][:filter][:bool][:must] = [ environment_filter(environment) ]
-      filter[:indices][:filter][:bool][:should] = [ { :and => self.should_and } ] if self.respond_to? :should_and
-      filter
     end
 
   end
