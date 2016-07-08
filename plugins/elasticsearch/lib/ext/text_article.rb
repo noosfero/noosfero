@@ -10,9 +10,11 @@ class TextArticle
 
   def self.control_fields
     {
-      :advertise => { type: :boolean },
-      :published => { type: 'boolean'},
-      :profile   => { type: :nested , hash: NestedProfile.hash }
+      :advertise      => { type: :boolean },
+      :published      => { type: 'boolean'},
+      :comments_count => { type: :integer },
+      :hits           => { type: :integer },
+      :profile        => { type: :nested , hash: NestedProfile.hash }
     }
   end
 
@@ -30,6 +32,22 @@ class TextArticle
     [
       NestedProfile::filter
     ]
+  end
+
+  def self.especific_sort
+    {
+      :more_popular   => { label: _("More Viewed") },
+      :more_comments  => { label: _("More Commented") }
+    }
+  end
+
+  def self.get_sort_by  sort_by
+    case sort_by
+      when "more_popular"
+        { :hits => {order: :desc} }
+      when "more_comments"
+        { :comments_count => {order: :desc}}
+    end
   end
 
   include SearchableModelHelper

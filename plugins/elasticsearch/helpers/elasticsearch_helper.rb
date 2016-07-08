@@ -11,8 +11,8 @@ module ElasticsearchHelper
     }
   end
 
-  def filters
-    filters = {
+  def sort_types
+    sorts = {
      :relevance      => { label: _("Relevance")},
      :lexical        => { label: _("Alphabetical")},
      :more_recent    => { label: _("More Recent")},
@@ -20,11 +20,11 @@ module ElasticsearchHelper
 
     selected_type = params[:selected_type] ||  nil
 
-    if selected_type
+    if selected_type and selected_type.to_sym != :all
       klass = selected_type.to_s.classify.constantize
-      filters.update klass.especific_filter if klass.respond_to? :especific_filter
+      sorts.update klass.especific_sort if klass.respond_to? :especific_sort
     end
-    filters
+    sorts
   end
 
   def process_results

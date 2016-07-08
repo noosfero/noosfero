@@ -26,18 +26,18 @@
     <div class="sidebar">
       <ul class="search-options">
         <% for type,value in @searchable_types %>
-        <li class="select-search-type <%= "active" if type == @selected_type %>">
-          <%= link_to  value[:label], "?selected_type=#{type}&query=#{@query}&filter=#{@selected_filter}"%>
-        </li>
+          <li class="select-search-type <%= "active" if type == @selected_type %>">
+            <%= link_to  value[:label], "?selected_type=#{type}&query=#{@query}&filter=#{@selected_sort}"%>
+          </li>
         <% end %>
       </ul>
       <div class="search-filter">
         <h3 class="box-title"><%= _("Sort by") %></h3>
         <ul>
-          <% for type, value in @filter_types %>
-          <li class="select-search-type <%= "active" if type == @selected_filter %>">
-            <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}" %>
-          </li>
+          <% for type, value in @sort_types %>
+            <li class="select-search-type <%= "active" if type == @selected_sort %>">
+              <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}" %>
+            </li>
           <% end %>
         </ul>
       </div>

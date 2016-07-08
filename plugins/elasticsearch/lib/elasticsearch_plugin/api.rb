@@ -18,8 +18,8 @@ class ElasticsearchPlugin::API < Grape::API
       present types, with: Grape::Presenters::Presenter
     end
 
-    get 'filters' do
-      present filters, with: Grape::Presenters::Presenter
+    get 'sort_types' do
+      present sort_types, with: Grape::Presenters::Presenter
     end
 
   end

@@ -23,7 +23,7 @@ class Community
     ]
   end
 
-  def self.especific_filter
+  def self.especific_sort
     {
       :more_active  => { label: _("More Active") },
       :more_popular => { label: _("More Popular") }

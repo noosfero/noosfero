@@ -11,7 +11,7 @@ class ElasticsearchPluginController < ApplicationController
 
   def search
     define_searchable_types
-    define_search_fields_types
+    define_sort_types
     define_results
   end
 
@@ -26,9 +26,9 @@ class ElasticsearchPluginController < ApplicationController
     @selected_type = (params[:selected_type]|| :all ).to_sym
   end
 
-  def define_search_fields_types
-    @filter_types = filters
-    @selected_filter = (params[:filter] || :relevance).to_sym
+  def define_sort_types
+    @sort_types = sort_types
+    @selected_sort = (params[:filter] || :relevance).to_sym
   end
 
 end
