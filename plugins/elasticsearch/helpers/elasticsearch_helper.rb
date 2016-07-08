@@ -66,11 +66,7 @@ module ElasticsearchHelper
   end
 
   def searchable_models
-    begin
-      ElasticsearchHelper::searchable_types.except(:all).keys.map { | model | model.to_s.classify.constantize }
-    rescue
-      []
-    end
+      searchable_types.except(:all).keys.map { | model | model.to_s.classify.constantize }
   end
 
   def query_string expression="", models=[]
