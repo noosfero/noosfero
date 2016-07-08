@@ -5,7 +5,7 @@
     <ul>
       <% block.activities.each do |activity| %>
         <li>
-        <p><%= link_to activity.user.name, activity.user.url %> <%= describe(activity).html_safe %></p>
+          <p><%= link_to activity.user.name, activity.user.url %> <%= describe(activity).html_safe %></p>
           <time datetime="<%= activity.created_at %>"><%= time_ago_in_words(activity.created_at) %></time>
         </li>
       <% end %>
