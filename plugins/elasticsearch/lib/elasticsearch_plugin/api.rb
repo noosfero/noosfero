@@ -14,8 +14,12 @@ class ElasticsearchPlugin::API < Grape::API
     end
 
     get 'types' do
-      types = {types: ElasticsearchHelper::searchable_types.stringify_keys.keys}
+      types = {types: searchable_types.stringify_keys.keys }
       present types, with: Grape::Presenters::Presenter
+    end
+
+    get 'filters' do
+      present filters, with: Grape::Presenters::Presenter
     end
 
   end

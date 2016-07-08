@@ -22,12 +22,12 @@ class ElasticsearchPluginController < ApplicationController
   end
 
   def define_searchable_types
-    @searchable_types = ElasticsearchHelper::searchable_types
+    @searchable_types = searchable_types
     @selected_type = (params[:selected_type]|| :all ).to_sym
   end
 
   def define_search_fields_types
-    @filter_types = ElasticsearchHelper::filters
+    @filter_types = filters
     @selected_filter = (params[:filter] || :relevance).to_sym
   end
 

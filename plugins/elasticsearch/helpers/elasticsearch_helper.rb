@@ -1,6 +1,6 @@
 module ElasticsearchHelper
 
-  def self.searchable_types
+  def searchable_types
     {
      :all              => { label: _("All Results")},
      :text_article     => { label: _("Articles")},
@@ -11,12 +11,20 @@ module ElasticsearchHelper
     }
   end
 
-  def self.filters
-    {
+  def filters
+    filters = {
      :relevance      => { label: _("Relevance")},
      :lexical        => { label: _("Alphabetical")},
      :more_recent    => { label: _("More Recent")},
     }
+
+    selected_type = params[:selected_type] ||  nil
+
+    if selected_type
+      klass = selected_type.to_s.classify.constantize
+      filters.update klass.especific_filter if klass.respond_to? :especific_filter
+    end
+    filters
   end
 
   def process_results
@@ -35,7 +43,7 @@ module ElasticsearchHelper
     begin
       klass = model.to_s.classify.constantize
 
-      query = get_query params[:query], klass: klass, sort_by: get_sort_by(params[:filter])
+      query = get_query params[:query], klass: klass, sort_by: get_sort_by(params[:filter],klass)
       klass.search(query, size: default_per_page(params[:per_page])).page(params[:page]).records
     rescue
       []
@@ -46,12 +54,14 @@ module ElasticsearchHelper
     per_page ||= 10
   end
 
-  def get_sort_by sort_by
+  def get_sort_by sort_by, klass=nil
     case sort_by
       when "lexical"
         { "name.raw" => {"order" => "asc" }}
       when "more_recent"
         { "created_at" => {"order" => "desc"}}
+      else
+        ( klass and klass.respond_to?(:get_sort_by) ) ? klass.get_sort_by(sort_by) : nil
     end
   end
 

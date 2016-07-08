@@ -4,6 +4,7 @@ require_relative '../../helpers/searchable_model_helper'
 require_relative '../../helpers/nested_helper/profile'
 
 class Event
+  #TODO: o filtro é feito de forma diferente do artigo
 
   def self.control_fields
     {
