@@ -18,7 +18,8 @@
   color: #ccc;
 }
 
-.recent-activities-block img {
+.recent-activities-block img,
+.recent-activities-block .upimg {
   padding: 1px;
   border: 1px solid #ccc;
   margin: 3px 3px 0 0;
@@ -26,4 +27,11 @@
 
 .recent-activities-block p:first-letter {
   text-transform: capitalize
+}
+
+.recent-activities-block .upimg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-size: cover;
 }
