@@ -3,7 +3,7 @@
 }
 
 .controller-elasticsearch_plugin .sidebar {
-  width: 270px;
+  min-width: 240px;
 }
 
 .controller-elasticsearch_plugin .search_form {
@@ -38,7 +38,7 @@
 }
 
 .controller-elasticsearch_plugin .results {
-  flex: 2;
+  flex: 1;
   margin-top: 20px;
   border-radius: 5px;
   border: 1px solid #eee;
@@ -124,15 +124,13 @@
   margin: 15px;
 }
 
-.controller-elasticsearch_plugin .search-item .person-item {
-  display: flex;
-}
-
 .controller-elasticsearch_plugin .right-side {
-  flex: 2;
+  float: left;
+  width: calc(100% - 80px);
 }
 
 .controller-elasticsearch_plugin .left-side {
+  float: left;
   width: 80px;
 }
 
