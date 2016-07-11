@@ -1,8 +1,10 @@
 require "#{File.dirname(__FILE__)}/../../test_helper"
+require_relative '../../../helpers/elasticsearch_helper'
 
 class ElasticsearchPluginApiTest < ActiveSupport::TestCase
 
   include ElasticsearchTestHelper
+  include ElasticsearchHelper
 
   def indexed_models
     [Community, Person]
@@ -17,7 +19,7 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
     get "/api/v1/search/types"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal ElasticsearchHelper::searchable_types.stringify_keys.keys, json["types"]
+    assert_equal searchable_types.stringify_keys.keys, json["types"]
   end
 
   should 'respond with endpoint /search with more than 10 results' do

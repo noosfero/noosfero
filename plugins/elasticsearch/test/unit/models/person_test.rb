@@ -17,7 +17,7 @@ class PersonTest < ActionController::TestCase
   should 'index control fields for Person model' do
     Person::control_fields.each do |key, value|
       assert_includes indexed_fields(Person), key
-      assert_includes indexed_fields(Person)[key][:type], value[:type] || 'string'
+      assert_equal indexed_fields(Person)[key][:type], value[:type] || 'string'
     end
   end
 end

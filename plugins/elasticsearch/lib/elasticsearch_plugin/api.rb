@@ -10,7 +10,7 @@ class ElasticsearchPlugin::API < Grape::API
       target = process_results
       present target,
               :with => Elasticsearch::Entities::Result,
-              :types => ElasticsearchHelper.searchable_types.except(:all).keys.map { |key| key.to_s.classify }
+              :types => searchable_types.except(:all).keys.map { |key| key.to_s.classify }
     end
 
     get 'types' do

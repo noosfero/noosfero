@@ -71,7 +71,6 @@ module ElasticsearchHelper
 
   def query_string expression="", models=[]
     return { match_all: {}  } if not expression
-
     {
       query_string: {
         query: "*"+expression.downcase.split.join('* *')+"*",

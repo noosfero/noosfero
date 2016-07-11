@@ -9,14 +9,14 @@ class ElasticsearchPluginEntitiesTest < ActiveSupport::TestCase
   end
 
   def create_instances
-    user = create_user "sample person"
+    user = create_user "sample person", environment_id: 1
 
-    fast_create Community, name: "sample community", created_at: 10.days.ago,updated_at: 5.days.ago
-    fast_create UploadedFile, name: "sample uploadedfile", created_at: 3.days.ago, updated_at: 1.days.ago, author_id: user.person.id, abstract: "sample abstract"
-    fast_create Event, name: "sample event", created_at: 20.days.ago, updated_at: 5.days.ago, author_id: user.person.id, abstract: "sample abstract"
+    fast_create Community, name: "sample community", created_at: 10.days.ago,updated_at: 5.days.ago, environment_id: 1
 
-    fast_create RawHTMLArticle, name: "sample raw html article", created_at: 15.days.ago ,updated_at: 5.days.ago, author_id: user.person.id
-    fast_create TinyMceArticle, name: "sample tiny mce article", created_at: 5.days.ago, updated_at: 5.days.ago, author_id: user.person.id
+    fast_create UploadedFile, name: "sample uploadedfile", created_at: 3.days.ago, updated_at: 1.days.ago, author_id: user.person.id, abstract: "sample abstract", profile_id: user.person.id
+    fast_create Event, name: "sample event", created_at: 20.days.ago, updated_at: 5.days.ago, author_id: user.person.id, abstract: "sample abstract", profile_id: user.person.id
+    fast_create RawHTMLArticle, name: "sample raw html article", created_at: 15.days.ago ,updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
+    fast_create TinyMceArticle, name: "sample tiny mce article", created_at: 5.days.ago, updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
   end
 
   should 'show attributes from person' do
@@ -35,6 +35,7 @@ class ElasticsearchPluginEntitiesTest < ActiveSupport::TestCase
     assert_equal expected_person.updated_at.strftime("%Y/%m/%d %H:%M:%S"), json['results'][0]['updated_at']
   end
 
+
   should 'show attributes from community' do
     params = {:selected_type => "community" }
     get "/api/v1/search?#{params.to_query}"
@@ -43,6 +44,7 @@ class ElasticsearchPluginEntitiesTest < ActiveSupport::TestCase
     expected_community = Community.find_by name: "sample community"
 
     assert_equal 200, last_response.status
+
     assert_equal expected_community.id, json['results'][0]['id']
     assert_equal expected_community.name, json['results'][0]['name']
     assert_equal expected_community.type, json['results'][0]['type']

@@ -17,7 +17,7 @@ class UploadedFileTest < ActionController::TestCase
   should 'index control fields for UploadedFile model' do
     UploadedFile::control_fields.each do |key, value|
       assert_includes indexed_fields(UploadedFile), key
-      assert_includes indexed_fields(UploadedFile)[key][:type], value[:type].presence || 'string'
+      assert_equal indexed_fields(UploadedFile)[key][:type], value[:type].presence || 'string'
     end
   end
 

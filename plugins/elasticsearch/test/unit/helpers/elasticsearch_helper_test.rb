@@ -32,17 +32,6 @@ class ElasticsearchHelperTest < ActiveSupport::TestCase
     assert_equivalent indexed_models, searchable_models
   end
 
-  should 'return query_string if expression is valid' do
-
-    query= "my_query"
-    fields = ['name','login']
-    result = query_method(query,fields)
-
-    assert_includes result[:query][:query_string][:query], query
-    assert_equivalent result[:query][:query_string][:fields], fields
-  end
-
-
   should 'return fields from models using weight' do
     class StubClass
       SEARCHABLE_FIELDS = {:name  => {:weight => 10},

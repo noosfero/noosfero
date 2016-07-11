@@ -17,7 +17,7 @@ class TextArticleTest < ActionController::TestCase
   should 'index control fields for TextArticle model' do
     TextArticle::control_fields.each do |key, value|
       assert_includes indexed_fields(TextArticle), key
-      assert_includes indexed_fields(TextArticle)[key][:type], value[:type] || 'string'
+      assert_equal indexed_fields(TextArticle)[key][:type], value[:type] || 'string'
     end
   end
 

@@ -66,6 +66,7 @@ module ElasticsearchIndexedModel
 
     def indexed_fields
       fields = {
+                :id           => {type: :integer },
                 :environment  => {type: :nested, hash: NestedEnvironment::environment_hash },
                 :category_ids => {type: :integer },
                 :created_at   => {type: :date }
@@ -83,7 +84,6 @@ module ElasticsearchIndexedModel
 
         self.class.indexed_fields.each do |field, value|
           type = value[:type].presence
-
           if type == :nested
             attrs[field] = {}
             value[:hash].each do |hash_field, hash_value|

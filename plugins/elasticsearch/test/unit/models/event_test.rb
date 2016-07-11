@@ -17,7 +17,7 @@ class EventTest < ActionController::TestCase
   should 'index control fields for Event model' do
     Event::control_fields.each do |key, value|
       assert_includes indexed_fields(Event), key
-      assert_includes indexed_fields(Event)[key][:type], value[:type] || 'string'
+      assert_equal indexed_fields(Event)[key][:type], value[:type] || 'string'
     end
   end
 
