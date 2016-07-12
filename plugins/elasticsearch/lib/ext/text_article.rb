@@ -11,7 +11,7 @@ class TextArticle
   def self.control_fields
     {
       :advertise      => { type: :boolean },
-      :published      => { type: 'boolean'},
+      :published      => { type: :boolean },
       :comments_count => { type: :integer },
       :hits           => { type: :integer },
       :profile        => { type: :nested , hash: NestedProfile.hash }

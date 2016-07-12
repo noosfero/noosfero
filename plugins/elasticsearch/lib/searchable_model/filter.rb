@@ -32,6 +32,15 @@ module Filter
 
       result_filter
     end
+
+    def filter_category selected_categories
+      {
+        query: {
+          terms: { category_ids: selected_categories }
+        }
+      }
+    end
+
   end
 
   module InstanceMethods

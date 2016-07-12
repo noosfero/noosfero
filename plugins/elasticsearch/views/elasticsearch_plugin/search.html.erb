@@ -27,7 +27,7 @@
       <ul class="search-options">
         <% for type,value in @searchable_types %>
           <li class="select-search-type <%= "active" if type == @selected_type %>">
-            <%= link_to value[:label], "?selected_type=#{type}&query=#{@query}"%>
+            <%= link_to value[:label], "?selected_type=#{type}&query=#{@query}&categories=#{@selected_categories.join(',')}"%>
           </li>
         <% end %>
       </ul>
@@ -36,10 +36,15 @@
         <ul>
           <% for type, value in @sort_types %>
             <li class="select-search-type <%= "active" if type == @selected_sort %>">
-              <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}" %>
+              <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}&categories=#{@selected_categories.join(',')}" %>
             </li>
           <% end %>
         </ul>
+      </div>
+
+      <div class="categories">
+        <h3 class="box-title"><%= _("Categories") %></h3>
+        <%= render_categories(@categories, @selected_categories) %>
       </div>
     </div>
 
@@ -59,5 +64,6 @@
         <%= pagination_links @results if @results.count > 0 %>
       </div>
     </div>
+
   </div>
 </div>

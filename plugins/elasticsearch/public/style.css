@@ -50,6 +50,7 @@
   font-size: 18px;
 }
 
+.controller-elasticsearch_plugin #content-inner .categories,
 .controller-elasticsearch_plugin #content-inner .search-filter,
 .controller-elasticsearch_plugin #content-inner ul.search-options {
   background: #fff;
@@ -145,3 +146,19 @@
   text-decoration: none;
 }
 
+.controller-elasticsearch_plugin #content-inner .categories .category-ident {
+  margin-left: 10px;
+}
+
+.controller-elasticsearch_plugin #content-inner .categories .box-title {
+  margin-bottom: 20px;
+}
+
+.controller-elasticsearch_plugin #content-inner .categories ul li {
+  padding: 5px;
+  font-size: 15px;
+}
+
+.controller-elasticsearch_plugin #content-inner .categories li input {
+  margin-right: 5px;
+}

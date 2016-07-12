@@ -16,6 +16,10 @@ class ElasticsearchPlugin < Noosfero::Plugin
     true
   end
 
+  def js_files
+    ['categories'].map{ |j| "javascripts/#{j}" }
+  end
+
   def search_controller_filters
     block = proc do
 
