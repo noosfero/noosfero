@@ -46,6 +46,11 @@ class VideoTest < ActiveSupport::TestCase
     assert_equal thumbnail_fitted_height, @video.thumbnail_fitted_height
   end
 
+  should "have dimensions of default thumbnail" do
+    assert @video.video_thumbnail_height.present? && @video.video_thumbnail_height > 0
+    assert @video.video_thumbnail_width.present? && @video.video_thumbnail_width > 0
+  end
+
   should "show a no_browser_support_message" do
     assert_equal @video.no_browser_support_message, '<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>'
   end
