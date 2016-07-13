@@ -66,8 +66,7 @@ module ElasticsearchIndexedModel
 
     def indexed_fields
       fields = {
-                :id           => {type: :integer },
-                :environment  => {type: :nested, hash: NestedEnvironment::environment_hash },
+                :environment  => {type: :nested, hash: NestedEnvironment::hash },
                 :category_ids => {type: :integer },
                 :created_at   => {type: :date }
       }

@@ -1,7 +1,7 @@
 require_dependency 'uploaded_file'
 
-require_relative '../../helpers/searchable_model_helper'
-require_relative '../../helpers/nested_helper/profile'
+require_relative '../searchable_model_helper'
+require_relative '../nested_helper/profile'
 
 class UploadedFile
   def self.control_fields

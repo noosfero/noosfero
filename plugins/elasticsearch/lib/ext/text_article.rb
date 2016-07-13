@@ -3,8 +3,8 @@ require_dependency 'raw_html_article'
 require_dependency 'tiny_mce_article'
 require_dependency 'text_article'
 
-require_relative '../../helpers/searchable_model_helper'
-require_relative '../../helpers/nested_helper/profile'
+require_relative '../searchable_model_helper'
+require_relative '../nested_helper/profile'
 
 class TextArticle
 

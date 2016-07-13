@@ -1,5 +1,5 @@
-require "#{File.dirname(__FILE__)}/../../test_helper"
-require_relative '../../../helpers/elasticsearch_helper'
+require "#{File.dirname(__FILE__)}/../test_helper"
+require_relative '../../helpers/elasticsearch_helper'
 
 class ElasticsearchPluginApiTest < ActiveSupport::TestCase
 

@@ -1,5 +1,5 @@
 require_dependency 'community'
-require_relative '../../helpers/searchable_model_helper'
+require_relative '../searchable_model_helper'
 
 class Community
 

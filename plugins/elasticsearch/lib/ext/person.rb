@@ -1,6 +1,6 @@
 require_dependency 'person'
 
-require_relative '../../helpers/searchable_model_helper'
+require_relative '../searchable_model_helper'
 
 class Person
 

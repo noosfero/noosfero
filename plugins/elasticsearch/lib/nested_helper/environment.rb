@@ -1,13 +1,13 @@
 module NestedEnvironment
 
-  def self.environment_hash
+  def self.hash
     {
       :id         => { type: :integer },
       :is_default => {type: :boolean }
     }
   end
 
-  def self.environment_filter environment=1
+  def self.filter environment=1
     {
       query: {
         nested: {

@@ -22,7 +22,7 @@ module Filter
     def filter_bool environment
       result_filter = {}
 
-      result_filter[:must] = [ NestedEnvironment::environment_filter(environment) ]
+      result_filter[:must] = [ NestedEnvironment::filter(environment) ]
 
       self.nested_filter.each {|filter| result_filter[:must].append(filter)}  if self.respond_to? :nested_filter
       self.must.each          {|filter| result_filter[:must].append(filter) } if self.respond_to? :must
@@ -32,7 +32,6 @@ module Filter
 
       result_filter
     end
-
 
   end
 
