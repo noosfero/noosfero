@@ -124,6 +124,7 @@ module Api
       expose :type
       expose :custom_header
       expose :custom_footer
+      expose :layout_template
       expose :permissions do |profile, options|
         Entities.permissions_for_entity(profile, options[:current_person],
         :allow_post_content?, :allow_edit?, :allow_destroy?)
@@ -264,6 +265,7 @@ module Api
       expose :name
       expose :id
       expose :description
+      expose :layout_template
       expose :settings, if: lambda { |instance, options| options[:is_admin] }
     end
 
