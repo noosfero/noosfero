@@ -397,4 +397,62 @@ class PeopleTest < ActiveSupport::TestCase
     assert_not_nil person.image
     assert_equal person.image.filename, base64_image[:filename]
   end
+
+  should 'add logged person as member of a profile' do
+    login_api
+    profile = fast_create(Community)
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['pending'], false
+    assert person.is_member_of?(profile)
+  end
+
+  should 'create task when add logged person as member of a moderated profile' do
+    login_api
+    profile = fast_create(Community, public_profile: false)
+    profile.add_member(create_user.person)
+    profile.closed = true
+    profile.save!
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['pending'], true
+    assert !person.is_member_of?(profile)
+  end
+
+  should 'remove logged person as member of a profile' do
+    login_api
+    profile = fast_create(Community)
+    profile.add_member(person)
+    delete "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal person.identifier, json['person']['identifier']
+    assert !person.is_member_of?(profile)
+  end
+
+  should 'forbid access to add members for non logged user' do
+    profile = fast_create(Community)
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    assert_equal 401, last_response.status
+  end
+
+  should 'forbid access to remove members for non logged user' do
+    profile = fast_create(Community)
+    delete "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    assert_equal 401, last_response.status
+  end
+
+  should 'forbid to add person as member when the profile does not allow' do
+    login_api
+    profile = fast_create(Person)
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    assert_equal 403, last_response.status
+  end
+
+  should 'forbid to add person as member when the profile is secret' do
+    login_api
+    profile = fast_create(Community, secret: true)
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    assert !person.is_member_of?(profile)
+    assert_equal 403, last_response.status
+  end
 end

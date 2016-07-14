@@ -119,6 +119,20 @@ module Api
               members = select_filtered_collection_of(profile, 'members', params)
               present members, :with => Entities::Person, :current_person => current_person
             end
+
+            post do
+              authenticate!
+              profile = environment.profiles.find_by id: params[:profile_id]
+              profile.add_member(current_person) rescue forbidden!
+              {pending: !current_person.is_member_of?(profile)}
+            end
+
+            delete do
+              authenticate!
+              profile = environment.profiles.find_by id: params[:profile_id]
+              profile.remove_member(current_person)
+              present current_person, :with => Entities::Person, :current_person => current_person
+            end
           end
         end
       end
