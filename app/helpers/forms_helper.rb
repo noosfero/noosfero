@@ -128,14 +128,14 @@ module FormsHelper
       counter += 1
       row << item
       if counter % per_row == 0
-        rows << content_tag('tr', row.join("\n"))
+        rows << content_tag('tr', row.join("\n").html_safe)
         counter = 0
         row = []
       end
     end
-    rows << content_tag('tr', row.join("\n"))
+    rows << content_tag('tr', row.join("\n").html_safe)
 
-    content_tag('table',rows.join("\n"))
+    content_tag('table',rows.join("\n").html_safe)
   end
 
   def date_field(name, value, datepicker_options = {}, html_options = {})
