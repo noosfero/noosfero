@@ -266,6 +266,8 @@ module Api
       expose :id
       expose :description
       expose :layout_template
+      expose :signup_intro
+      expose :terms_of_use
       expose :settings, if: lambda { |instance, options| options[:is_admin] }
     end
 
