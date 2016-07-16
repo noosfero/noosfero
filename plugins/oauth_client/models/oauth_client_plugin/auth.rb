@@ -10,6 +10,7 @@ class OauthClientPlugin::Auth < ApplicationRecord
   validates_presence_of :provider
   validates_uniqueness_of :profile_id, scope: :provider_id
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
   def expires_in

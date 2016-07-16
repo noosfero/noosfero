@@ -88,6 +88,8 @@ class Profile < ApplicationRecord
   }
 
   acts_as_accessible
+
+  include Customizable
   acts_as_customizable
 
   include Noosfero::Plugin::HotSpot
@@ -185,6 +187,7 @@ class Profile < ApplicationRecord
     Person.members_of(self).by_role(roles)
   end
 
+  extend ActsAsHavingBoxes::ClassMethods
   acts_as_having_boxes
 
   acts_as_taggable
@@ -231,7 +234,8 @@ class Profile < ApplicationRecord
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
-  acts_as_having_settings :field => :data
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :data
 
   def settings
     data
@@ -285,6 +289,7 @@ class Profile < ApplicationRecord
 
   has_many :files, :class_name => 'UploadedFile'
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
   has_many :tasks, :dependent => :destroy, :as => 'target'

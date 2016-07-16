@@ -4,7 +4,10 @@ class OauthClientPlugin::Provider < ApplicationRecord
 
   validates_presence_of :name, :strategy
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
+
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :options
 
   settings_items :site, type: String
@@ -15,7 +18,5 @@ class OauthClientPlugin::Provider < ApplicationRecord
     :client_id, :client_secret, :client_options
 
   scope :enabled, -> { where enabled: true }
-
-  acts_as_having_image
 
 end

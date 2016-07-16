@@ -13,7 +13,9 @@ class Article < ApplicationRecord
                   :image_builder, :show_to_followers, :archived,
                   :author, :display_preview, :published_at, :person_followers
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
+
   include Noosfero::Plugin::HotSpot
 
   SEARCHABLE_FIELDS = {
@@ -91,7 +93,8 @@ class Article < ApplicationRecord
   has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
   has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
 
-  acts_as_having_settings :field => :setting
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :setting
 
   settings_items :display_hits, :type => :boolean, :default => true
   settings_items :author_name, :type => :string, :default => ""
@@ -242,6 +245,7 @@ class Article < ApplicationRecord
   acts_as_taggable
   N_('Tag list')
 
+  extend ActsAsFilesystem::ActsMethods
   acts_as_filesystem
 
   acts_as_versioned

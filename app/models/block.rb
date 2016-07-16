@@ -17,6 +17,7 @@ class Block < ApplicationRecord
   belongs_to :mirror_block, :class_name => "Block"
   has_many :observers, :class_name => "Block", :foreign_key => "mirror_block_id"
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings
 
   scope :enabled, -> { where :enabled => true }

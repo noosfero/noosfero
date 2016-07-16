@@ -4,7 +4,7 @@ class TranslatableContentTest < ActiveSupport::TestCase
 
   class Content
     attr_accessor :parent, :profile
-    include Noosfero::TranslatableContent
+    include TranslatableContent
   end
 
   def setup

@@ -10,7 +10,8 @@ class Folder < Article
     errors.add(:parent, "A folder should not belong to a blog.") if parent && parent.blog?
   end
 
-  acts_as_having_settings :field => :setting
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :setting
 
   xss_terminate :only => [ :name, :body ], :with => 'white_list', :on => 'validation'
 

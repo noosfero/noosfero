@@ -8,6 +8,7 @@ class AnalyticsPlugin::PageView < ApplicationRecord
   attr_accessor :request
   attr_accessible :request
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :options
 
   belongs_to :profile, validate: true

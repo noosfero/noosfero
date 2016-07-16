@@ -2,7 +2,8 @@ require_dependency 'mailing_job'
 
 class Mailing < ApplicationRecord
 
-  acts_as_having_settings :field => :data
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :data
 
   attr_accessible :subject, :body, :data
 

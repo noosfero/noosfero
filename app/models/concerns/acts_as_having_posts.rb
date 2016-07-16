@@ -47,5 +47,3 @@ module ActsAsHavingPosts
 
 end
 
-ActiveRecord::Base.extend ActsAsHavingPosts::ClassMethods
-

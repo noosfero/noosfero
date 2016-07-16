@@ -200,6 +200,7 @@ class Environment < ApplicationRecord
   # Relationships and applied behaviour
   # #################################################
 
+  extend ActsAsHavingBoxes::ClassMethods
   acts_as_having_boxes
 
   after_create do |env|
@@ -251,7 +252,8 @@ class Environment < ApplicationRecord
   # #################################################
 
   # store the Environment settings as YAML-serialized Hash.
-  acts_as_having_settings :field => :settings
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :settings
 
   # introduce and explain to users something about the signup
   settings_items :signup_intro, :type => String

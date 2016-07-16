@@ -1,4 +1,4 @@
-module ActsAsFileSystem
+module ActsAsFilesystem
 
   module ActsMethods
 
@@ -262,6 +262,4 @@ module ActsAsFileSystem
     end
   end
 end
-
-ActiveRecord::Base.extend ActsAsFileSystem::ActsMethods
 

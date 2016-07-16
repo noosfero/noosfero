@@ -1,4 +1,3 @@
-require 'noosfero/translatable_content'
 require 'application_helper'
 require 'net/http'
 

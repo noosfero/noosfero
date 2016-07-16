@@ -15,7 +15,7 @@ class TextArticleTest < ActiveSupport::TestCase
   end
 
   should 'be translatable' do
-    assert_kind_of Noosfero::TranslatableContent, TextArticle.new
+    assert_kind_of TranslatableContent, TextArticle.new
   end
 
   should 'return article icon name' do

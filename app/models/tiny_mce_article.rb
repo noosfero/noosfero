@@ -1,5 +1,3 @@
-require 'white_list_filter'
-
 class TinyMceArticle < TextArticle
 
   def self.short_description
