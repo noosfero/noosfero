@@ -25,6 +25,5 @@ require 'acts_as_customizable'
 require 'route_if'
 require 'maybe_add_http'
 require 'set_profile_region_from_city_state'
-require 'needs_profile'
 require 'white_list_filter'
 

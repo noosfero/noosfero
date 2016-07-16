@@ -1,9 +1,8 @@
 require_relative "../test_helper"
-require 'boxes_helper'
 
-class DesignHelperTest < ActionView::TestCase
+class CustomDesignTest < ActionView::TestCase
 
-  include DesignHelper
+  include CustomDesign
   include ActionView::Helpers::TagHelper
 
   def setup
