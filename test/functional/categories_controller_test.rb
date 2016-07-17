@@ -5,8 +5,6 @@ class CategoriesControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = CategoriesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @env = fast_create(Environment, :name => "My test environment")
     Environment.stubs(:default).returns(env)

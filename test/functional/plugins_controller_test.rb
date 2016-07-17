@@ -6,8 +6,7 @@ class PluginsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = PluginsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @environment = Environment.default
     login_as(create_admin_user(@environment))
   end

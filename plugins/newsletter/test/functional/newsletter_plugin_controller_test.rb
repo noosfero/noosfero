@@ -4,8 +4,7 @@ class NewsletterPluginControllerTest < ActionController::TestCase
 
   def setup
     @controller = NewsletterPluginController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     environment = fast_create(Environment)
     environment.enable_plugin(NewsletterPlugin)
     @controller.stubs(:environment).returns(environment)

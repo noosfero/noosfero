@@ -5,8 +5,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileEditorController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @profile = create_user('default_user').person
     login_as(@profile.identifier)
     Environment.default.enable_plugin(GoogleAnalyticsPlugin.name)

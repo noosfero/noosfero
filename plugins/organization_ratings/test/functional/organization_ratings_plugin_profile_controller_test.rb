@@ -8,8 +8,6 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
 
   def setup
     @controller = OrganizationRatingsPluginProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @environment.enabled_plugins = ['OrganizationRatingsPlugin']

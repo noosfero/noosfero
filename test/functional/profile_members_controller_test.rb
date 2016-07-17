@@ -5,8 +5,6 @@ class ProfileMembersControllerTest < ActionController::TestCase
   def setup
     super
     @controller = ProfileMembersController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   should 'not access index if dont have permission' do

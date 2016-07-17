@@ -6,8 +6,6 @@ class MapsControllerTest < ActionController::TestCase
 
   def setup
     @controller = MapsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('test_profile').person
     login_as(@profile.identifier)

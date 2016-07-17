@@ -7,8 +7,6 @@ class TasksControllerTest < ActionController::TestCase
 
   def setup
     @controller = TasksController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
     @controller.stubs(:profile).returns(profile)

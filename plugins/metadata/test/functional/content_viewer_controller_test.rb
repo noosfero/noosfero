@@ -6,8 +6,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
     @controller = ContentViewerController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('testinguser').person
     @environment = @profile.environment

@@ -54,12 +54,11 @@ ActionController::Routing::Routes.draw { |map| map.resources :things, :collectio
 class ActionTrackerTest < ActiveSupport::TestCase
 
   def setup
+    @controller = ThingsController.new
+
     ActionTrackerConfig.current_user = proc{ SomeModel.first || SomeModel.create! }
     ActionTracker::Record.delete_all
     ActionTrackerConfig.verbs = { :some_verb => { :description => "Did something" } }
-    @request = ActionController::TestRequest.new
-    @response = ActionController::TestResponse.new
-    @controller = ThingsController.new
   end
 
   def test_index

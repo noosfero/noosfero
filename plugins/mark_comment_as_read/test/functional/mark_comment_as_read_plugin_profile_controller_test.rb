@@ -4,8 +4,7 @@ require_relative '../../controllers/mark_comment_as_read_plugin_profile_controll
 class MarkCommentAsReadPluginProfileControllerTest < ActionController::TestCase
   def setup
     @controller = MarkCommentAsReadPluginProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @profile = create_user('profile').person
     @article = TinyMceArticle.create!(:profile => @profile, :name => 'An article')
     @comment = Comment.new(:source => @article, :author => @profile, :body => 'test')

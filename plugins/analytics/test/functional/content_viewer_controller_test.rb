@@ -5,8 +5,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
     @controller = ContentViewerController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @environment.enabled_plugins += ['AnalyticsPlugin']

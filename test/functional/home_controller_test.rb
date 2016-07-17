@@ -10,8 +10,6 @@ class HomeControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = HomeController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   should 'not display news from portal if disabled in environment' do

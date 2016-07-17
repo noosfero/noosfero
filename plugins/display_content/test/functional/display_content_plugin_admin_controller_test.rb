@@ -5,8 +5,6 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
 
   def setup
     @controller = DisplayContentPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     user_login = create_admin_user(@environment)

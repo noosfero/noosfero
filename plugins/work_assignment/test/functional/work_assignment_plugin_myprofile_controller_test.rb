@@ -5,8 +5,7 @@ class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
 
   def setup
     @controller = WorkAssignmentPluginMyprofileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @person = create_user('test_user').person
     login_as :test_user
     e = Environment.default

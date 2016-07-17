@@ -7,8 +7,6 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
 
   def setup
     @controller = EnterpriseValidationController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     login_as 'ze'
     @user = Profile['ze']

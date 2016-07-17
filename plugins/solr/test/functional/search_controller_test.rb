@@ -4,14 +4,12 @@ require_relative '../../lib/ext/facets_browse'
 class SearchControllerTest < ActionController::TestCase
 
   def setup
+    @controller = SearchController.new
+
     TestSolr.enable
     p1 = File.join(RAILS_ROOT, 'app', 'views')
     p2 = File.join(File.dirname(__FILE__) + '/../../views')
     SearchController.append_view_path([p1,p2])
-    @controller = SearchController.new
-    @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(false)
-    @response   = ActionController::TestResponse.new
 
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
 

@@ -4,8 +4,6 @@ class PermissionCheckTest < ActionController::TestCase
 
   def setup
     @controller = AccessControlTestController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   def test_access_denied

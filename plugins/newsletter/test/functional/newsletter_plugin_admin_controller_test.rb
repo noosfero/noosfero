@@ -4,8 +4,6 @@ class NewsletterPluginAdminControllerTest < ActionController::TestCase
 
   def setup
     @controller = NewsletterPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @admin = create_user('admin_newsletter').person
     @environment = @admin.environment

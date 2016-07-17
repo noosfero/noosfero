@@ -6,8 +6,7 @@ class RoleControllerTest < ActionController::TestCase
 
   def setup
     @controller = RoleController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @role = Role.first
     login_as(:ze)
   end

@@ -6,8 +6,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileEditorController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @profile = create_user('default_user').person
     Environment.default.affiliate(@profile, [Environment::Roles.admin(Environment.default.id)] + Profile::Roles.all_roles(Environment.default.id))
     login_as('default_user')
@@ -643,9 +642,10 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     profile.domains << Domain.new(:name => 'myowndomain.net')
     profile.environment.domains << Domain.new(:name => 'myenv.net')
-    ActionController::TestRequest.any_instance.stubs(:host).returns(profile.hostname)
 
+    @request.env['HTTP_HOST'] = profile.hostname
     get :edit, :profile => profile.identifier
+
     assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }, :descendant => { :tag => "option", :content => 'myowndomain.net' }
     assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }, :descendant => { :tag => "option", :content => 'myenv.net' }
 
@@ -659,9 +659,10 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     profile.domains << Domain.new(:name => 'myowndomain.net')
     profile.environment.domains << Domain.new(:name => 'myenv.net')
-    ActionController::TestRequest.any_instance.stubs(:host).returns(profile.hostname)
 
+    @request.env['HTTP_HOST'] = profile.hostname
     get :edit, :profile => profile.identifier
+
     assert_tag :tag => "select", :attributes => { :name => 'profile_data[preferred_domain_id]'}, :descendant => { :tag => 'option', :content => '&lt;Select domain&gt;', :attributes => { :value => '' } }
 
     post :edit, :profile => profile.identifier, :profile_data => { :preferred_domain_id => '' }
@@ -1112,8 +1113,10 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not redirect if the profile_hostname is the same as environment hostname' do
     Person.any_instance.stubs(:hostname).returns('hostname.org')
     Environment.any_instance.stubs(:default_hostname).returns('hostname.org')
-    ActionController::TestRequest.any_instance.stubs(:host).returns('hostname.org')
+
+    @request.env['HTTP_HOST'] = 'hostname.org'
     get :index, :profile => profile.identifier
+
     assert_response :success
   end
 

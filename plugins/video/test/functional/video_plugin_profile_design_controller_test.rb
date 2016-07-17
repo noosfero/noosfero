@@ -4,8 +4,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     user = create_user('testinguser')
     login_as(user.login)

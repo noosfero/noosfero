@@ -5,8 +5,6 @@ class HomeControllerTest < ActionController::TestCase
 
   def setup
     @controller = HomeController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @environment.enabled_plugins += ['MetadataPlugin']

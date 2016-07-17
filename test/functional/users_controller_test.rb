@@ -5,8 +5,6 @@ class UsersControllerTest < ActionController::TestCase
 
   def setup
     @controller = UsersController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
 

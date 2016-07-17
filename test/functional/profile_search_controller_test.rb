@@ -4,8 +4,6 @@ require 'profile_search_controller'
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup
     @controller = ProfileSearchController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @person = fast_create(Person)
   end
