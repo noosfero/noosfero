@@ -19,8 +19,8 @@ class CreateProfileFollowersTable < ActiveRecord::Migration
 
     #insert one category for each friend group a person has
     execute("INSERT INTO circles(name, person_id, profile_type) SELECT DISTINCT (CASE WHEN (f.group IS NULL OR f.group = '') THEN 'friendships' ELSE f.group END), f.person_id, 'Person' FROM friendships as f")
-    #insert 'memberships' category if a person is in a community as a member, moderator or profile admin
-    execute("INSERT INTO circles(name, person_id, profile_type) SELECT DISTINCT 'memberships', ra.accessor_id, 'Community'  FROM role_assignments as ra JOIN roles ON ra.role_id = roles.id WHERE roles.name IN ('Member','Moderator','Profile Administrator')")
+    #insert 'memberships' category if a person is in a community as any role
+    execute("INSERT INTO circles(name, person_id, profile_type) SELECT DISTINCT 'memberships', ra.accessor_id, 'Community'  FROM role_assignments as ra JOIN profiles ON ra.resource_id = profiles.id WHERE ra.resource_type = 'Profile' AND profiles.type = 'Community'")
     #insert 'favorites' category if a person has any favorited enterprise
     execute("INSERT INTO circles(name, person_id, profile_type) SELECT DISTINCT 'favorites', person_id, 'Enterprise' FROM favorite_enterprise_people")
 
@@ -28,8 +28,8 @@ class CreateProfileFollowersTable < ActiveRecord::Migration
     execute("INSERT INTO profiles_circles(profile_id, circle_id) SELECT DISTINCT f.friend_id, c.id FROM friendships as f JOIN circles as c ON f.person_id = c.person_id WHERE c.name = f.group OR c.name = 'friendships'")
     #insert a follower entry for each favorited enterprise, with the category 'favorites'
     execute("INSERT INTO profiles_circles(profile_id, circle_id) SELECT DISTINCT f.enterprise_id, c.id FROM favorite_enterprise_people AS f JOIN circles as c ON f.person_id = c.person_id WHERE c.name = 'favorites' ")
-    #insert a follower entry for each community a person participates as a member, moderator or admininstrator
-    execute("INSERT INTO profiles_circles(profile_id, circle_id) SELECT DISTINCT ra.resource_id, c.id FROM role_assignments as ra JOIN roles ON ra.role_id = roles.id JOIN circles as c ON ra.accessor_id = c.person_id WHERE roles.name IN ('Member','Moderator','Profile Administrator') AND c.name = 'memberships'")
+    #insert a follower entry for each community a person participates with any role
+    execute("INSERT INTO profiles_circles(profile_id, circle_id) SELECT DISTINCT ra.resource_id, c.id FROM role_assignments as ra JOIN profiles ON ra.accessor_id = profiles.id JOIN circles as c ON ra.accessor_id = c.person_id WHERE ra.resource_type = 'Profile' AND profiles.type = 'Community' AND c.name = 'memberships'")
   end
 
   def down
