@@ -271,4 +271,15 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal enterprise, Task.last.target
   end
 
+  should 'list all pending tasks for the current person' do
+    task1 = create(Task, :requestor => person, :target => person)
+    task2 = create(Task, :requestor => person, :target => person)
+    task3 = create(Task, :requestor => person, :target => person)
+    params[:per_page] = 2
+    params[:all_pending] = true
+    get "/api/v1/tasks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [task3.id, task2.id], json["tasks"].map {|t| t["id"]}
+  end
+
 end

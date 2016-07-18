@@ -1958,6 +1958,7 @@ class PersonTest < ActiveSupport::TestCase
     person.save!
   end
 
+<<<<<<< HEAD
   should 'update profile circles for a person' do
     person = create_user('testuser').person
     community = fast_create(Community)
@@ -2004,5 +2005,22 @@ class PersonTest < ActiveSupport::TestCase
     person.follow(community, [circle, circle2])
     person.remove_profile_from_circle(community, circle)
     assert_equivalent [circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
+  end
+
+  should 'return all pending task for a person' do
+    person = create_user('testuser').person
+    community1 = fast_create(Community)
+    community1.add_admin(person)
+    community2 = fast_create(Community)
+    task1 = Task.new
+    task2 = Task.new
+    task3 = Task.new
+    task4 = Task.new
+    person.tasks << task1
+    community1.tasks << task2
+    community2.tasks << task3
+    person.environment.tasks << task4
+    person.environment.add_admin(person)
+    assert_equivalent [task4, task2, task1], person.all_pending_tasks
   end
 end
