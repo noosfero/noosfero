@@ -3,7 +3,7 @@ class CirclesController < MyProfileController
   before_action :accept_only_post, :only => [:create, :update, :destroy]
 
   def index
-    @circles = current_person.circles
+    @circles = profile.circles
   end
 
   def new
@@ -11,7 +11,7 @@ class CirclesController < MyProfileController
   end
 
   def create
-    @circle = Circle.new(params[:circle].merge({ :person => current_person }))
+    @circle = Circle.new(params[:circle].merge({ :person => profile }))
     if @circle.save
       redirect_to :action => 'index'
     else
@@ -21,7 +21,7 @@ class CirclesController < MyProfileController
 
   def xhr_create
     if request.xhr?
-      circle = Circle.new(params[:circle].merge({:person => current_person }))
+      circle = Circle.new(params[:circle].merge({:person => profile }))
       if circle.save
         render :partial => "circle_checkbox", :locals => { :circle => circle },
                :status => 201

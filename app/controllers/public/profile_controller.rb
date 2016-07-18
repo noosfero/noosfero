@@ -184,8 +184,10 @@ class ProfileController < PublicController
   end
 
   def unfollow
-    if current_person.follows?(profile)
-       current_person.unfollow(profile)
+    follower = params[:follower_id].present? ? Person.find_by(id: params[:follower_id]) : current_person
+
+    if follower && follower.follows?(profile)
+      follower.unfollow(profile)
     end
     redirect_url = params["redirect_to"] ? params["redirect_to"] : profile.url
     redirect_to redirect_url
