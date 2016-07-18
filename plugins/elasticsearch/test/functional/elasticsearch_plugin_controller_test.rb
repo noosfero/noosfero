@@ -24,11 +24,18 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
   end
 
   def create_visible_models
+    categories = []
     5.times do | index |
+      categories[index] = fast_create Category, name: "Category#{index}", id: index+1
       create_user "person #{index}"
     end
+
     6.times do | index |
-      fast_create Community, name: "community #{index}", created_at: Date.new
+      community = fast_create Community, name: "community #{index}", created_at: Date.new
+      if categories[index]
+        community.categories.push categories[index]
+        community.save
+      end
     end
   end
 
@@ -45,7 +52,6 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
     create_private_article(TextArticle,public_person: User.first.person, private_person: invisible_user.person)
     create_private_article(UploadedFile,public_person: User.first.person, private_person: invisible_user.person)
     create_private_article(Event,public_person: User.first.person, private_person: invisible_user.person)
-
   end
 
   def create_private_article model,options = {}
@@ -142,7 +148,6 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
     assert_redirected_to controller: 'elasticsearch_plugin', action: 'search', params: params
   end
 
-
   should 'filter community by default environment' do
     get :index, { "selected_type" => :community}
     assert_response :success
@@ -171,6 +176,15 @@ class ElasticsearchPluginControllerTest < ActionController::TestCase
     get :index, { :selected_type => "event" }
     assert_response :success
     assert_select ".search-item", 0
+  end
+
+  should 'filter by selected categories' do
+    get :index, { "categories" => "1,2,3" }
+    assert_response :success
+    assert_select ".search-item", 3
+    get :index, { "categories" => "5" }
+    assert_response :success
+    assert_select ".search-item", 1
   end
 
 end

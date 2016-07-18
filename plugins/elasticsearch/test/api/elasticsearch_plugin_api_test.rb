@@ -57,8 +57,13 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
   end
 
   def create_instances
+    5.times.each {|index| fast_create Category, name: "category#{index}", id: index+1 }
     7.times.each {|index| create_user "person #{index}"}
-    4.times.each {|index| fast_create Community, name: "community #{index}" }
+    4.times.each do |index|
+      community = fast_create Community, name: "community #{index}"
+      community.categories.push Category.find(index+1)
+      community.save
+    end
   end
 
   should 'show all types avaliable in /search/types endpoint' do
@@ -108,6 +113,13 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
     assert_equal 7, json["results"].count
+  end
+
+  should 'respond with only the correct categories' do
+    get "/api/v1/search?categories=1,2,3"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 3, json["results"].count
   end
 
 end
