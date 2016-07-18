@@ -9,7 +9,11 @@ class Friendship < ApplicationRecord
   after_create do |friendship|
     Friendship.update_cache_counter(:friends_count, friendship.person, 1)
     Friendship.update_cache_counter(:friends_count, friendship.friend, 1)
-    friendship.person.follow(friendship.friend, Circle.find_or_create_by(:person => friendship.person, :name => (friendship.group.blank? ? 'friendships': friendship.group), :profile_type => 'Person'))
+
+    circles = friendship.group.blank? ? ['friendships'] : friendship.group.split(',').map(&:strip)
+    circles.each do |circle|
+      friendship.person.follow(friendship.friend, Circle.find_or_create_by(:person => friendship.person, :name => circle, :profile_type => 'Person'))
+    end
   end
 
   after_destroy do |friendship|
