@@ -250,7 +250,7 @@ class Profile < ApplicationRecord
   has_many :email_templates, :foreign_key => :owner_id
 
   has_many :profile_followers
-  has_many :followers, :class_name => 'Person', :through => :profile_followers, :source => :person
+  has_many :followers, -> { uniq }, :class_name => 'Person', :through => :profile_followers, :source => :person
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
