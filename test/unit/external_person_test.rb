@@ -31,7 +31,9 @@ class ExternalPersonTest < ActiveSupport::TestCase
 
   should 'not be a member of any communities' do
     community = fast_create(Community)
-    refute community.add_member(@external_person)
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      community.add_member(@external_person)
+    end
     assert_equivalent [], @external_person.memberships
   end
 

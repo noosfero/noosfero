@@ -122,6 +122,10 @@ class ExternalPerson < ActiveRecord::Base
     "#{jid(options)}/#{self.name}"
   end
 
+  def name
+    "#{self[:name]}@#{self.source}"
+  end
+
   class ExternalPerson::Image
     def initialize(path)
       @path = path
@@ -198,7 +202,10 @@ class ExternalPerson < ActiveRecord::Base
      relationships_cache_key: '', is_member_of?: false, follows?: false,
      each_friend: nil, is_last_admin?: false, is_last_admin_leaving?: false,
      leave: nil, last_notification: nil, notification_time: 0, notifier: nil,
-     remove_suggestion: nil, allow_invitation_from?: false
+     remove_suggestion: nil, allow_invitation_from?: false,
+     tracked_actions: ActionTracker::Record.none, follow: [],
+     update_profile_circles: ProfileFollower.none, unfollow: ProfileFollower.none,
+     remove_profile_from_circle: ProfileFollower.none, followed_profiles: Profile.none
     }
 
     derivated_methods = generate_derivated_methods(methods_and_responses)
@@ -255,7 +262,8 @@ class ExternalPerson < ActiveRecord::Base
      {}, followed_by?: false, display_private_info_to?: true, can_view_field?:
      true, remove_from_suggestion_list: nil, layout_template: 'default',
      is_admin?: false, add_friend: false, follows?: false, is_a_friend?: false,
-     already_request_friendship?: false
+     already_request_friendship?: false, allow_followers: false,
+     in_social_circle: false, in_circle: false
     }
 
     derivated_methods = generate_derivated_methods(methods_and_responses)

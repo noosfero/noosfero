@@ -154,7 +154,7 @@ class AccountController < ApplicationController
 
   # action to perform logout from the application
   def logout
-    if logged_in?
+    if logged_in? && self.current_user.id.present?
       self.current_user.forget_me
     end
     reset_session

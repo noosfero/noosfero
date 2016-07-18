@@ -1,4 +1,22 @@
 <h1><%= _('Oauth Client Settings') %></h1>
+
+<%= labelled_form_for @config, url: { action: "update_configs" } do |f| %>
+  <table>
+    <tr>
+      <%= hidden_field_tag "oauth_client_config[allow_external_login]", false %>
+      <td><%= _('Allow external login') %></td>
+      <td><%= check_box_tag "oauth_client_config[allow_external_login]", true, @config.allow_external_login %></td>
+    </tr>
+  </table>
+
+  <div>
+    <%= button_bar do %>
+      <%= submit_button('save', _('Save changes')) %>
+      <%= button :back, _('Back to plugins panel'), :controller => 'plugins', :action => 'index' %>
+    <% end %>
+  </div>
+<% end %>
+
 <h3><%= _('Providers') %></h3>
 <%= button :add, _('New'), {:action => 'new'} %>
 <table>

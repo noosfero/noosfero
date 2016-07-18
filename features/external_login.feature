@@ -7,8 +7,8 @@ Feature: external login
   Scenario: login from portal homepage
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
     And the following external environments
-      | identifier | name | url                           |
-      | test       | Test | http://federated.noosfero.org |
+      | identifier | name | url                            |
+      | test       | Test | http://federated.noosfero.org/ |
     And the following external users
       | login                            |
       | joaosilva@federated.noosfero.org |
@@ -26,8 +26,8 @@ Feature: external login
   Scenario: not login from portal homepage
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
     And the following external environments
-      | identifier | name | url                           |
-      | test       | Test | http://federated.noosfero.org |
+      | identifier | name | url                            |
+      | test       | Test | http://federated.noosfero.org/ |
     And I am not logged in
     And I go to the homepage
     And I follow "Login"

@@ -90,6 +90,7 @@ class OauthClientPlugin < Noosfero::Plugin
   def account_controller_filters
     {
       :type => 'before_filter', :method_name => 'signup',
+      :options => { :only => 'signup' },
       :block => proc {
         auth = session[:oauth_data]
 
@@ -104,7 +105,7 @@ class OauthClientPlugin < Noosfero::Plugin
   end
 
   def js_files
-  ["script.js"]
+  ["script.js", "provider.js"]
   end
 
 end
