@@ -5,6 +5,7 @@ class ProfileController < PublicController
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
   before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail, :follow, :unfollow]
   before_filter :allow_followers?, :only => [:follow, :unfollow]
+  before_filter :accept_only_post, :only => [:follow, :unfollow]
 
   helper TagsHelper
   helper ActionTrackerHelper
@@ -161,20 +162,16 @@ class ProfileController < PublicController
   end
 
   def follow
-    if request.post?
-      if profile.followed_by?(current_person)
-        render :text => _("You are already following %s.") % profile.name, :status => 400
-      else
-        selected_circles = params[:circles].map{|circle_name, circle_id| Circle.find_by(:id => circle_id)}.select{|c|not c.nil?}
-        if selected_circles.present?
-          current_person.follow(profile, selected_circles)
-          render :text => _("You are now following %s") % profile.name, :status => 200
-        else
-          render :text => _("Select at least one circle to follow %s.") % profile.name, :status => 400
-        end
-      end
+    if profile.followed_by?(current_person)
+      render :text => _("You are already following %s.") % profile.name, :status => 400
     else
-      render_not_found
+      selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
+      if selected_circles.present?
+        current_person.follow(profile, selected_circles)
+        render :text => _("You are now following %s") % profile.name, :status => 200
+      else
+        render :text => _("Select at least one circle to follow %s.") % profile.name, :status => 400
+      end
     end
   end
 

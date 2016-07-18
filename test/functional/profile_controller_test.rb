@@ -2006,7 +2006,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "not unfollow user if not logged" do
     person = fast_create(Person)
-    get :unfollow, :profile => person.identifier
+    post :unfollow, :profile => person.identifier
 
     assert_redirected_to :controller => 'account', :action => 'login'
   end
@@ -2020,7 +2020,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_not_nil follower
 
-    get :unfollow, :profile => person.identifier
+    post :unfollow, :profile => person.identifier
     follower = ProfileFollower.find_by(:profile_id => person.id, :circle_id => circle.id)
     assert_nil follower
   end
@@ -2030,7 +2030,7 @@ class ProfileControllerTest < ActionController::TestCase
     person = fast_create(Person)
 
     assert_no_difference 'ProfileFollower.count' do
-      get :unfollow, :profile => person.identifier
+      post :unfollow, :profile => person.identifier
     end
   end
 
@@ -2041,7 +2041,7 @@ class ProfileControllerTest < ActionController::TestCase
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
     fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle.id)
 
-    get :unfollow, :profile => person.identifier, :redirect_to => "/some/url"
+    post :unfollow, :profile => person.identifier, :redirect_to => "/some/url"
     assert_redirected_to "/some/url"
   end
 
