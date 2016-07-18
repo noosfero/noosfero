@@ -187,6 +187,20 @@ class Profile < ApplicationRecord
     Person.members_of(self).by_role(roles)
   end
 
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :data
+
+  def settings
+    data
+  end
+
+  settings_items :redirect_l10n, :type => :boolean, :default => false
+  settings_items :public_content, :type => :boolean, :default => true
+  settings_items :description
+  settings_items :fields_privacy, :type => :hash, :default => {}
+  settings_items :email_suggestions, :type => :boolean, :default => false
+  settings_items :profile_admin_mail_notification, :type => :boolean, :default => true
+
   extend ActsAsHavingBoxes::ClassMethods
   acts_as_having_boxes
 
@@ -253,20 +267,6 @@ class Profile < ApplicationRecord
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
-
-  extend ActsAsHavingSettings::ClassMethods
-  acts_as_having_settings field: :data
-
-  def settings
-    data
-  end
-
-  settings_items :redirect_l10n, :type => :boolean, :default => false
-  settings_items :public_content, :type => :boolean, :default => true
-  settings_items :description
-  settings_items :fields_privacy, :type => :hash, :default => {}
-  settings_items :email_suggestions, :type => :boolean, :default => false
-  settings_items :profile_admin_mail_notification, :type => :boolean, :default => true
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
