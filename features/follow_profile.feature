@@ -110,6 +110,5 @@ Feature: follow profile
     And I am logged in as "johnsnow"
     When I go to nightswatch's homepage
     When I follow "Unfollow"
-    And I wait 1 second
     Then "johnsnow" should not be a follower of "nightswatch"
 
