@@ -74,17 +74,13 @@ class CirclesControllerTest < ActionController::TestCase
     assert_response 404
   end
 
-  should 'destroy an existing circle and update related profiles' do
+  should 'destroy an existing circle and remove related profiles' do
     circle = Circle.create!(:name => "circle", :person => @person, :profile_type => 'Person')
-    follower = fast_create(ProfileFollower, :profile_id => fast_create(Person).id,
-                           :circle_id => circle.id)
+    fast_create(ProfileFollower, :profile_id => fast_create(Person).id, :circle_id => circle.id)
 
-    assert_difference "@person.circles.count", -1 do
+    assert_difference ["@person.circles.count", 'ProfileFollower.count'], -1 do
       post :destroy, :profile => @person.identifier, :id => circle.id
     end
-
-    follower.reload
-    assert_nil follower.circle
   end
 
   should 'not destroy an existing circle if action is not post' do
