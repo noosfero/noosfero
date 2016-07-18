@@ -877,5 +877,5 @@ ActiveRecord::Schema.define(version: 20160608123748) do
   add_index "votes", ["voteable_id", "voteable_type"], name: "fk_voteables", using: :btree
   add_index "votes", ["voter_id", "voter_type"], name: "fk_voters", using: :btree
 
-  add_foreign_key "profiles_circles", "circles", on_delete: :nullify
+  add_foreign_key "profiles_circles", "circles", on_delete: :cascade
 end

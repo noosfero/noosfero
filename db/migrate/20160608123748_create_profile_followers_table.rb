@@ -12,7 +12,7 @@ class CreateProfileFollowersTable < ActiveRecord::Migration
       t.column :profile_type, :string, :null => false
     end
 
-    add_foreign_key :profiles_circles, :circles, :on_delete => :nullify
+    add_foreign_key :profiles_circles, :circles, :on_delete => :cascade
 
     add_index :profiles_circles, [:profile_id, :circle_id], :name => "profiles_circles_composite_key_index", :unique => true
     add_index :circles, [:person_id, :name], :name => "circles_composite_key_index", :unique => true
