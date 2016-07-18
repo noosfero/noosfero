@@ -37,15 +37,15 @@ class TextArticle
   def self.especific_sort
     {
       :more_popular   => { label: _("More Viewed") },
-      :more_comments  => { label: _("More Commented") }
+      :more_comments  => { label: _("Most Commented") }
     }
   end
 
-  def self.get_sort_by  sort_by
+  def self.get_sort_by  sort_by=""
     case sort_by
-      when "more_popular"
+      when :more_popular
         { :hits => {order: :desc} }
-      when "more_comments"
+      when :more_comments
         { :comments_count => {order: :desc}}
     end
   end

@@ -35,15 +35,20 @@ module ElasticsearchHelper
   private
 
   def search_from_all_models
-    query = get_query params[:query], sort_by: get_sort_by(params[:filter])
-    Elasticsearch::Model.search(query,searchable_models, size: default_per_page(params[:per_page])).page(params[:page]).records
+    begin
+      filter = (params[:filter] || "" ).to_sym
+      query = get_query params[:query], sort_by: get_sort_by(filter)
+      Elasticsearch::Model.search(query,searchable_models, size: default_per_page(params[:per_page])).page(params[:page]).records
+    rescue
+      []
+    end
   end
 
   def search_from_model model
     begin
       klass = model.to_s.classify.constantize
-
-      query = get_query params[:query], klass: klass, sort_by: get_sort_by(params[:filter],klass)
+      filter = (params[:filter] || "" ).to_sym
+      query = get_query params[:query], klass: klass, sort_by: get_sort_by(filter,klass)
       klass.search(query, size: default_per_page(params[:per_page])).page(params[:page]).records
     rescue
       []
@@ -56,9 +61,9 @@ module ElasticsearchHelper
 
   def get_sort_by sort_by, klass=nil
     case sort_by
-      when "lexical"
+      when :lexical
         { "name.raw" => {"order" => "asc" }}
-      when "more_recent"
+      when :more_recent
         { "created_at" => {"order" => "desc"}}
       else
         ( klass and klass.respond_to?(:get_sort_by) ) ? klass.get_sort_by(sort_by) : nil
@@ -105,6 +110,7 @@ module ElasticsearchHelper
 
     query = query_method(text, models)
     query[:sort] = sort_by if sort_by
+
     query
   end
 

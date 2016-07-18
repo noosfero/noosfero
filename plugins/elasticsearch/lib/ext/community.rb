@@ -30,12 +30,12 @@ class Community
     }
   end
 
-  def self.get_sort_by  sort_by
+  def self.get_sort_by  sort_by=""
     case sort_by
-      when "more_active"
+      when :more_active
         { :activities_count => {order: :desc}}
-      when "more_popular"
-        { :members_count => {order: :desc} }
+      when :more_popular
+        { :members_count => {order: :desc}}
     end
   end
 

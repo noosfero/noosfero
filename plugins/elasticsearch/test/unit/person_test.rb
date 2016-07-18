@@ -20,4 +20,26 @@ class PersonTest < ActionController::TestCase
       assert_equal indexed_fields(Person)[key][:type], value[:type] || 'string'
     end
   end
+
+  should 'respond with should method to return public person' do
+    assert Person.respond_to? :should
+  end
+
+  should 'respond with especific sort' do
+    assert Person.respond_to? :especific_sort
+  end
+
+  should 'respond with get_sort_by to order especific sort' do
+    assert Person.respond_to? :get_sort_by
+  end
+
+  should 'return hash to sort by more_active' do
+    more_active_hash = {:activities_count => {order: :desc}}
+    assert_equal more_active_hash, Person.get_sort_by(:more_active)
+  end
+
+  should 'return hash to sort by more_popular' do
+    more_popular_hash = {:friends_count => {order: :desc}}
+    assert_equal more_popular_hash, Person.get_sort_by(:more_popular)
+  end
 end

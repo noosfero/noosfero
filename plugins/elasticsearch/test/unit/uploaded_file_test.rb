@@ -21,4 +21,16 @@ class UploadedFileTest < ActionController::TestCase
     end
   end
 
+  should 'respond with should method to return public text_article' do
+    assert TextArticle.respond_to? :should
+  end
+
+  should 'respond with nested_filter' do
+    assert TextArticle.respond_to? :nested_filter
+  end
+
+  should 'have NestedProfile_filter in nested_filter' do
+    assert TextArticle.nested_filter.include? NestedProfile.filter
+  end
+
 end

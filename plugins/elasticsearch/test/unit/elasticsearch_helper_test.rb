@@ -72,4 +72,9 @@ class ElasticsearchHelperTest < ActiveSupport::TestCase
     assert_equal ["Joana Abreu", "Joao Abreu"], result.map(&:name)
   end
 
+  should 'have sort in get_query return if has the option sort_by ' do
+    self.params= {}
+    assert get_query("", sort_by: :more_popular).keys.include?(:sort)
+  end
+
 end

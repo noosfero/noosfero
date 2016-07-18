@@ -32,7 +32,6 @@ module Filter
 
       result_filter
     end
-
   end
 
   module InstanceMethods
