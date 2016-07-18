@@ -163,7 +163,7 @@ class ProfileController < PublicController
   def follow
     if request.post?
       if profile.followed_by?(current_person)
-          render :text => _("You are already following %s.") % profile.name, :status => 400
+        render :text => _("You are already following %s.") % profile.name, :status => 400
       else
         selected_circles = params[:circles].map{|circle_name, circle_id| Circle.find_by(:id => circle_id)}.select{|c|not c.nil?}
         if selected_circles.present?
@@ -179,8 +179,8 @@ class ProfileController < PublicController
   end
 
   def find_profile_circles
-      circles = Circle.where(:person => current_person, :profile_type => profile.class.name)
-      render :partial => 'blocks/profile_info_actions/circles', :locals => { :circles => circles, :profile_types => Circle.profile_types.to_a }
+    circles = Circle.where(:person => current_person, :profile_type => profile.class.name)
+    render :partial => 'blocks/profile_info_actions/circles', :locals => { :circles => circles, :profile_types => Circle.profile_types.to_a }
   end
 
   def unfollow

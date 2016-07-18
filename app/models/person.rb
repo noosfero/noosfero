@@ -200,14 +200,14 @@ class Person < Profile
     end
   end
 
-  def follow (profile, circles)
+  def follow(profile, circles)
     circles = [circles] unless circles.is_a?(Array)
     circles.each do |new_circle|
       ProfileFollower.create(profile: profile, circle: new_circle)
     end
   end
 
-  def update_profile_circles (profile, new_circles)
+  def update_profile_circles(profile, new_circles)
     profile_circles = ProfileFollower.with_profile(profile).with_follower(self).map(&:circle)
     circles_to_add = new_circles - profile_circles
     circles_to_remove = profile_circles - new_circles

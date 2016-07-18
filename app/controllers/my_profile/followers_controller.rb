@@ -24,7 +24,7 @@ class FollowersController < MyProfileController
   def update_category
     followed_profile = Profile.find_by(:id => params["followed_profile_id"])
 
-    selected_circles = params[:circles].map{|circle_name, circle_id| Circle.find_by(:id => circle_id)}.select{|c|not c.nil?}
+    selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
 
     if followed_profile
       current_person.update_profile_circles(followed_profile, selected_circles)

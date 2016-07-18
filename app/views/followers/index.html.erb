@@ -1,6 +1,6 @@
 <div id="manage_followed people">
 
-<h1><%= _("%s following") % profile.name %></h1>
+<h1><%= _("%s is following") % profile.name %></h1>
 
 <% cache_timeout(profile.manage_friends_cache_key(params), 4.hours) do %>
   <% if @followed_people.empty? %>
