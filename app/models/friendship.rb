@@ -20,8 +20,11 @@ class Friendship < ApplicationRecord
     Friendship.update_cache_counter(:friends_count, friendship.person, -1)
     Friendship.update_cache_counter(:friends_count, friendship.friend, -1)
 
-    circle = Circle.find_by(:person => friendship.person, :name => (friendship.group.blank? ? 'friendships': friendship.group) )
-    friendship.person.remove_profile_from_circle(friendship.friend, circle) if circle
+    groups = friendship.group.blank? ? ['friendships'] : friendship.group.split(',').map(&:strip)
+    groups.each do |group|
+      circle = Circle.find_by(:person => friendship.person, :name => group )
+      friendship.person.remove_profile_from_circle(friendship.friend, circle) if circle
+    end
   end
 
   def self.remove_friendship(person1, person2)
