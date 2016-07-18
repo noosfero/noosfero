@@ -3,7 +3,9 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
-  before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail]
+  before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail, :follow, :unfollow]
+  before_filter :allow_followers?, :only => [:follow, :unfollow]
+  before_filter :accept_only_post, :only => [:follow, :unfollow]
 
   helper TagsHelper
   helper ActionTrackerHelper
@@ -63,6 +65,14 @@ class ProfileController < PublicController
     if is_cache_expired?(profile.friends_cache_key(params))
       @friends = profile.friends.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.friends.count)
     end
+  end
+
+  def following
+    @followed_people = profile.followed_profiles.paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.followed_profiles.count)
+  end
+
+  def followed
+    @followed_by = profile.followers.paginate(:per_page => per_page, :page => params[:npage], :total_entries => profile.followers.count)
   end
 
   def members
@@ -149,6 +159,35 @@ class ProfileController < PublicController
     else
       render :text => _('You are already a friend of %s.').html_safe % profile.name
     end
+  end
+
+  def follow
+    if profile.followed_by?(current_person)
+      render :text => _("You are already following %s.") % profile.name, :status => 400
+    else
+      selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
+      if selected_circles.present?
+        current_person.follow(profile, selected_circles)
+        render :text => _("You are now following %s") % profile.name, :status => 200
+      else
+        render :text => _("Select at least one circle to follow %s.") % profile.name, :status => 400
+      end
+    end
+  end
+
+  def find_profile_circles
+    circles = Circle.where(:person => current_person, :profile_type => profile.class.name)
+    render :partial => 'blocks/profile_info_actions/circles', :locals => { :circles => circles, :profile_types => Circle.profile_types.to_a }
+  end
+
+  def unfollow
+    follower = params[:follower_id].present? ? Person.find_by(id: params[:follower_id]) : current_person
+
+    if follower && follower.follows?(profile)
+      follower.unfollow(profile)
+    end
+    redirect_url = params["redirect_to"] ? params["redirect_to"] : profile.url
+    redirect_to redirect_url
   end
 
   def check_friendship
@@ -435,6 +474,10 @@ class ProfileController < PublicController
 
   def relations_to_include
     [:image, :domains, :preferred_domain, :environment]
+  end
+
+  def allow_followers?
+    render_not_found unless profile.allow_followers?
   end
 
 end

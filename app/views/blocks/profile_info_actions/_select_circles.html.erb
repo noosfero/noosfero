@@ -1,0 +1,22 @@
+<div class="circles" id='circles-list'>
+  <p><%= _("Select the circles for %s") % followed_profile.name %></p>
+  <div id="circles-checkboxes">
+    <% circles.each do |circle| %>
+      <div class="circle">
+        <%= labelled_check_box circle.name, "circles[#{circle.name}]", circle.id, followed_profile.in_circle?(circle, follower) %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= button(:add, _('New Circle'), '#', :id => "new-circle") %>
+
+  <div id="new-circle-form" style="display: none;">
+    <%= labelled_text_field _('Circle name') , 'circle[name]', "",:id => 'text-field-name-new-circle'%>
+    <%= hidden_field_tag('circle[profile_type]', followed_profile.class.name) %>
+
+    <%= button_bar do %>
+      <%= button(:save, _('Create'), {:profile => follower.identifier, :controller => 'circles', :action => 'xhr_create'}, :id => "new-circle-submit") %>
+      <%= button(:cancel, _('Cancel'), '#', :id => "new-circle-cancel") %>
+    <% end %>
+  </div>
+</div>

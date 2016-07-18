@@ -728,7 +728,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [s4], p2.scraps_received.not_replies
   end
 
-  should "the followed_by method be protected and true to the person friends and herself by default" do
+  should "the followed_by method return true to the person friends and herself by default" do
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
@@ -740,9 +740,9 @@ class PersonTest < ActiveSupport::TestCase
     assert p1.is_a_friend?(p4)
 
     assert_equal true, p1.send(:followed_by?,p1)
-    assert_equal true, p1.send(:followed_by?,p2)
-    assert_equal true, p1.send(:followed_by?,p4)
-    assert_equal false, p1.send(:followed_by?,p3)
+    assert_equal true, p2.send(:followed_by?,p1)
+    assert_equal true, p4.send(:followed_by?,p1)
+    assert_equal false, p3.send(:followed_by?,p1)
   end
 
   should "the person follows her friends and herself by default" do
@@ -757,9 +757,9 @@ class PersonTest < ActiveSupport::TestCase
     assert p4.is_a_friend?(p1)
 
     assert_equal true, p1.follows?(p1)
-    assert_equal true, p1.follows?(p2)
-    assert_equal true, p1.follows?(p4)
-    assert_equal false, p1.follows?(p3)
+    assert_equal true, p2.follows?(p1)
+    assert_equal true, p4.follows?(p1)
+    assert_equal false, p3.follows?(p1)
   end
 
   should "a person member of a community follows the community" do
@@ -836,18 +836,21 @@ class PersonTest < ActiveSupport::TestCase
     assert_nil Scrap.find_by(id: scrap.id)
   end
 
-  should "the tracked action be notified to person friends and herself" do
+  should "the tracked action be notified to person followers and herself" do
     Person.destroy_all
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
 
-    p1.add_friend(p2)
-    assert p1.is_a_friend?(p2)
-    refute p1.is_a_friend?(p3)
-    p1.add_friend(p4)
-    assert p1.is_a_friend?(p4)
+    circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+    circle4 = Circle.create!(:person=> p4, :name => "Zombies", :profile_type => 'Person')
+
+    p2.follow(p1, circle2)
+    assert p2.follows?(p1)
+    refute p3.follows?(p1)
+    p4.follow(p1, circle4)
+    assert p4.follows?(p1)
 
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
     ActionTrackerNotification.delete_all
@@ -880,17 +883,19 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
-  should "the tracked action notify friends with one delayed job process" do
+  should "the tracked action notify followers with one delayed job process" do
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
 
-    p1.add_friend(p2)
-    assert p1.is_a_friend?(p2)
-    refute p1.is_a_friend?(p3)
-    p1.add_friend(p4)
-    assert p1.is_a_friend?(p4)
+    circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+    circle4 = Circle.create!(:person=> p4, :name => "Zombies", :profile_type => 'Person')
+    p2.follow(p1, circle2)
+    assert p2.follows?(p1)
+    refute p3.follows?(p1)
+    p4.follow(p1, circle4)
+    assert p4.follows?(p1)
 
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
@@ -1035,11 +1040,13 @@ class PersonTest < ActiveSupport::TestCase
     p2 = create_user('p2').person
     p3 = create_user('p3').person
     c = fast_create(Community, :name => "Foo")
+
     c.add_member(p1)
     process_delayed_job_queue
     c.add_member(p3)
     process_delayed_job_queue
-    assert_equal 4, ActionTracker::Record.count
+
+    assert_equal 5, ActionTracker::Record.count
     assert_equal 5, ActionTrackerNotification.count
     has_add_member_notification = false
     ActionTrackerNotification.all.map do |notification|
@@ -1951,4 +1958,51 @@ class PersonTest < ActiveSupport::TestCase
     person.save!
   end
 
+  should 'update profile circles for a person' do
+    person = create_user('testuser').person
+    community = fast_create(Community)
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> person, :name => "Dota", :profile_type => 'Community')
+    circle3 = Circle.create!(:person=> person, :name => "Quadrado", :profile_type => 'Community')
+    person.follow(community, [circle, circle2])
+    person.update_profile_circles(community, [circle2, circle3])
+    assert_equivalent [circle2, circle3], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
+  end
+
+  should 'a person follow a profile' do
+    person = create_user('testuser').person
+    community = fast_create(Community)
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Community')
+    person.follow(community, circle)
+    assert_includes person.followed_profiles, community
+  end
+
+  should 'a person follow a profile with more than one circle' do
+    person = create_user('testuser').person
+    community = fast_create(Community)
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> person, :name => "Dota", :profile_type => 'Community')
+    person.follow(community, [circle, circle2])
+    assert_includes person.followed_profiles, community
+    assert_equivalent [circle, circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
+  end
+
+  should 'a person unfollow a profile' do
+    person = create_user('testuser').person
+    community = fast_create(Community)
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Community')
+    person.follow(community, circle)
+    person.unfollow(community)
+    assert_not_includes person.followed_profiles, community
+  end
+
+  should 'a person remove a profile from a circle' do
+    person = create_user('testuser').person
+    community = fast_create(Community)
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> person, :name => "Dota", :profile_type => 'Community')
+    person.follow(community, [circle, circle2])
+    person.remove_profile_from_circle(community, circle)
+    assert_equivalent [circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
+  end
 end

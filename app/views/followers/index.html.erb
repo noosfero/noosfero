@@ -1,0 +1,27 @@
+<div id="manage_followed people">
+
+<h1><%= _("%s is following") % profile.name %></h1>
+
+<% cache_timeout(profile.manage_friends_cache_key(params), 4.hours) do %>
+  <% if @followed_people.empty? %>
+    <p>
+      <em>
+        <%= _("You don't follow anybody yet.") %>
+      </em>
+    </p>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
+  <% end %>
+
+  <%= labelled_select(_('Profile type')+': ', :filter_profile_type, :last, :first, @active_filter, @profile_types, :id => "profile-type-filter") %>
+
+  <%= render :partial => 'profile_list', :locals => { :profiles => @followed_people } %>
+
+  <br style="clear:both" />
+  <%= pagination_links @followed_people, :param_name => 'npage' %>
+<% end %>
+
+</div>

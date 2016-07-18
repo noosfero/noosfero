@@ -11,7 +11,7 @@ module ProfileHelper
   PERSON_CATEGORIES[:location] = [:address, :address_reference, :zip_code, :city, :state, :district, :country, :nationality]
   PERSON_CATEGORIES[:work] = [:organization, :organization_website, :professional_activity]
   PERSON_CATEGORIES[:study] = [:schooling, :formation, :area_of_study]
-  PERSON_CATEGORIES[:network] = [:friends, :communities, :enterprises]
+  PERSON_CATEGORIES[:network] = [:friends, :followers, :followed_profiles, :communities, :enterprises]
   PERSON_CATEGORIES.merge!(COMMON_CATEGORIES)
 
   ORGANIZATION_CATEGORIES = {}
@@ -42,7 +42,8 @@ module ProfileHelper
     :created_at => _('Profile created at'),
     :members_count => _('Members'),
     :privacy_setting => _('Privacy setting'),
-    :article_tags => _('Tags')
+    :article_tags => _('Tags'),
+    :followed_profiles => _('Following')
   }
 
   EXCEPTION = {
@@ -142,6 +143,14 @@ module ProfileHelper
 
   def treat_image_galleries(gallery)
     link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url)
+  end
+
+  def treat_followers(followers)
+    link_to(profile.followers.count, {:action=>"followed", :controller=>"profile", :profile=>"#{profile.identifier}"})
+  end
+
+  def treat_followed_profiles(followed_profiles)
+    link_to(profile.followed_profiles.count, {:action=>"following", :controller=>"profile", :profile=>"#{profile.identifier}"})
   end
 
   def treat_events(events)

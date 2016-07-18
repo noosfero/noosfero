@@ -72,6 +72,11 @@
 
   <%= control_panel_button(_('Email Templates'), 'email-templates', :controller => :profile_email_templates) if profile.organization? %>
 
+  <% if profile.person? %>
+    <%= control_panel_button(_('Manage followed profiles'), 'edit-profile', :controller => :followers) %>
+    <%= control_panel_button(_('Manage circles'), 'edit-profile-group', :controller => :circles) %>
+  <% end %>
+
   <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
     <%= control_panel_button(button[:title], button[:icon], button[:url], button[:html_options]) %>
   <% end %>

@@ -1,0 +1,14 @@
+<div class="circles" id='circles-list'>
+  <%= form_for :circles, :url => {:controller => 'followers', :action => 'update_category'}, :html => {:id => "follow-circles-form"}  do |f|%>
+    <%= render partial: "blocks/profile_info_actions/select_circles", :locals => {:circles => circles, :followed_profile => followed_profile, :follower => profile }  %>
+
+    <%= hidden_field_tag('followed_profile_id', followed_profile.id) %>
+
+    <div id="circle-actions">
+      <div id="actions-container">
+        <%= submit_button('save', _('Save')) %>
+        <%= modal_close_button  _("Cancel") %>
+      </div>
+    </div>
+  <% end %>
+</div>

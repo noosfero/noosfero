@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422163123) do
+ActiveRecord::Schema.define(version: 20160608123748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,14 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "chat_messages", ["created_at"], name: "index_chat_messages_on_created_at", using: :btree
   add_index "chat_messages", ["from_id"], name: "index_chat_messages_on_from_id", using: :btree
   add_index "chat_messages", ["to_id"], name: "index_chat_messages_on_to_id", using: :btree
+
+  create_table "circles", force: :cascade do |t|
+    t.string  "name"
+    t.integer "person_id"
+    t.string  "profile_type", null: false
+  end
+
+  add_index "circles", ["person_id", "name"], name: "circles_composite_key_index", unique: true, using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title"
@@ -639,6 +647,15 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "profiles", ["user_id", "type"], name: "index_profiles_on_user_id_and_type", using: :btree
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "profiles_circles", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "circle_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles_circles", ["profile_id", "circle_id"], name: "profiles_circles_composite_key_index", unique: true, using: :btree
+
   create_table "qualifier_certifiers", force: :cascade do |t|
     t.integer "qualifier_id"
     t.integer "certifier_id"
@@ -860,4 +877,5 @@ ActiveRecord::Schema.define(version: 20160422163123) do
   add_index "votes", ["voteable_id", "voteable_type"], name: "fk_voteables", using: :btree
   add_index "votes", ["voter_id", "voter_type"], name: "fk_voters", using: :btree
 
+  add_foreign_key "profiles_circles", "circles", on_delete: :nullify
 end

@@ -771,12 +771,15 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal 15, assigns(:activities).size
   end
 
-  should 'not see the friends activities in the current profile' do
+  should 'not see the followers activities in the current profile' do
+    circle = Circle.create!(:person=> profile, :name => "Zombies", :profile_type => 'Person')
+
     p2 = create_user.person
-    refute profile.is_a_friend?(p2)
+    refute profile.follows?(p2)
     p3 = create_user.person
-    p3.add_friend(profile)
-    assert p3.is_a_friend?(profile)
+    profile.follow(p3, circle)
+    assert profile.follows?(p3)
+
     ActionTracker::Record.destroy_all
 
     scrap1 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
@@ -964,7 +967,11 @@ class ProfileControllerTest < ActionController::TestCase
   should 'have activities defined if logged in and is following profile' do
     login_as(profile.identifier)
     p1= fast_create(Person)
-    p1.add_friend(profile)
+
+    circle = Circle.create!(:person=> profile, :name => "Zombies", :profile_type => 'Person')
+
+    profile.follow(p1, circle)
+
     ActionTracker::Record.destroy_all
     get :index, :profile => p1.identifier
     assert_equal [], assigns(:activities)
@@ -1930,6 +1937,112 @@ class ProfileControllerTest < ActionController::TestCase
     Environment.default.enable(:restrict_to_members)
     get :index
     assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'not follow a user without defining a circle' do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+    assert_no_difference 'ProfileFollower.count' do
+      post :follow, :profile => person.identifier, :circles => {}
+    end
+  end
+
+  should "not follow user if not logged" do
+    person = fast_create(Person)
+    get :follow, :profile => person.identifier
+
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'follow a user with a circle' do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+
+    assert_difference 'ProfileFollower.count' do
+      post :follow, :profile => person.identifier, :circles => {"Zombies" => circle.id}
+    end
+  end
+
+  should 'follow a user with more than one circle' do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+    circle2 = Circle.create!(:person=> @profile, :name => "Brainsss", :profile_type => 'Person')
+
+    assert_difference 'ProfileFollower.count', 2 do
+      post :follow, :profile => person.identifier, :circles => {"Zombies" => circle.id, "Brainsss"=> circle2.id}
+    end
+  end
+
+  should 'not follow a user with no circle selected' do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+    circle2 = Circle.create!(:person=> @profile, :name => "Brainsss", :profile_type => 'Person')
+
+    assert_no_difference 'ProfileFollower.count' do
+      post :follow, :profile => person.identifier, :circles => {"Zombies" => "0", "Brainsss" => "0"}
+    end
+
+    assert_match /Select at least one circle to follow/, response.body
+  end
+
+  should 'not follow if current_person already follows the person' do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle.id)
+
+    assert_no_difference 'ProfileFollower.count' do
+      post :follow, :profile => person.identifier, :follow => { :circles => {"Zombies" => circle.id} }
+    end
+    assert_response 400
+  end
+
+  should "not unfollow user if not logged" do
+    person = fast_create(Person)
+    post :unfollow, :profile => person.identifier
+
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "unfollow a followed person" do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+    follower = fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle.id)
+
+    assert_not_nil follower
+
+    post :unfollow, :profile => person.identifier
+    follower = ProfileFollower.find_by(:profile_id => person.id, :circle_id => circle.id)
+    assert_nil follower
+  end
+
+  should "not unfollow a not followed person" do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    assert_no_difference 'ProfileFollower.count' do
+      post :unfollow, :profile => person.identifier
+    end
+  end
+
+  should "redirect to page after unfollow" do
+    login_as(@profile.identifier)
+    person = fast_create(Person)
+
+    circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle.id)
+
+    post :unfollow, :profile => person.identifier, :redirect_to => "/some/url"
+    assert_redirected_to "/some/url"
   end
 
 end
