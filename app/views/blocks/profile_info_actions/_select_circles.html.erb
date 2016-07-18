@@ -8,9 +8,7 @@
     <% end %>
   </div>
 
-  <a href="#" id="new-circle">
-    <span><%= _("New Circle") %></span>
-  </a>
+  <%= button(:add, _('New Circle'), '#', :id => "new-circle") %>
 
   <div id="new-circle-form" style="display: none;">
     <%= labelled_text_field _('Circle name') , 'circle[name]', "",:id => 'text-field-name-new-circle'%>
