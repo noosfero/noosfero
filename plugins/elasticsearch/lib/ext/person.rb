@@ -24,10 +24,10 @@ class Person
     ]
   end
 
-  def self.especific_sort
+  def self.specific_sort
     {
-      :more_active  => { label: _("More Active") },
-      :more_popular => { label: _("More Popular") }
+      :more_active  => _("More active"),
+      :more_popular => _("More popular")
     }
   end
 

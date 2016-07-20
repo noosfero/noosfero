@@ -2,27 +2,27 @@ module ElasticsearchHelper
 
   def searchable_types
     {
-     :all              => { label: _("All Results")},
-     :text_article     => { label: _("Articles")},
-     :uploaded_file    => { label: _("Files")},
-     :community        => { label: _("Communities")},
-     :event            => { label: _("Events")},
-     :person           => { label: _("People")}
+     :all              =>  _("All results"),
+     :text_article     =>  _("Articles"),
+     :uploaded_file    =>  _("Files"),
+     :community        =>  _("Communities"),
+     :event            =>  _("Events"),
+     :person           =>  _("People")
     }
   end
 
   def sort_types
     sorts = {
-     :relevance      => { label: _("Relevance")},
-     :lexical        => { label: _("Alphabetical")},
-     :more_recent    => { label: _("More Recent")},
+     :relevance      => _("Relevance"),
+     :lexical        => _("Alphabetical"),
+     :more_recent    => _("More recent")
     }
 
-    selected_type = params[:selected_type] ||  nil
+    selected_type = (params[:selected_type] || nil)
 
     if selected_type and selected_type.to_sym != :all
       klass = selected_type.to_s.classify.constantize
-      sorts.update klass.especific_sort if klass.respond_to? :especific_sort
+      sorts.update klass.specific_sort if klass.respond_to? :specific_sort
     end
     sorts
   end
@@ -36,7 +36,7 @@ module ElasticsearchHelper
 
   def search_from_all_models
     begin
-      filter = (params[:filter] || "" ).to_sym
+      filter = (params[:filter] || "").to_sym
       query = get_query params[:query], sort_by: get_sort_by(filter), categories: params[:categories]
       Elasticsearch::Model.search(query,searchable_models, size: default_per_page(params[:per_page])).page(params[:page]).records
     rescue
@@ -44,10 +44,10 @@ module ElasticsearchHelper
     end
   end
 
-  def search_from_model model
+  def search_from_model(model)
     begin
       klass = model.to_s.classify.constantize
-      filter = (params[:filter] || "" ).to_sym
+      filter = (params[:filter] || "").to_sym
       query = get_query params[:query], klass: klass, sort_by: get_sort_by(filter ,klass), categories: params[:categories]
       klass.search(query, size: default_per_page(params[:per_page])).page(params[:page]).records
     rescue
@@ -55,26 +55,26 @@ module ElasticsearchHelper
     end
   end
 
-  def default_per_page per_page=nil
-    per_page ||= 10
+  def default_per_page(per_page=nil)
+    per_page || 10
   end
 
-  def get_sort_by sort_by, klass=nil
+  def get_sort_by(sort_by, klass=nil)
     case sort_by
       when :lexical
-        { "name.raw" => {"order" => "asc" }}
+        {"name.raw" => {"order" => "asc"}}
       when :more_recent
-        { "created_at" => {"order" => "desc"}}
+        {"created_at" => {"order" => "desc"}}
       else
-        ( klass and klass.respond_to?(:get_sort_by) ) ? klass.get_sort_by(sort_by) : nil
+        (klass and klass.respond_to?(:get_sort_by)) ? klass.get_sort_by(sort_by) : nil
     end
   end
 
   def searchable_models
-      searchable_types.except(:all).keys.map { | model | model.to_s.classify.constantize }
+    searchable_types.except(:all).keys.map {|model| model.to_s.classify.constantize}
   end
 
-  def query_string expression="", models=[]
+  def query_string(expression="", models=[])
     return { match_all: {}  } if not expression
     {
       query_string: {
@@ -87,8 +87,10 @@ module ElasticsearchHelper
   end
 
 
-  def query_method expression="", models=[], categories=[]
+  def query_method(expression="", models=[], categories=[])
     query = {}
+    current_user ||= nil
+
     query[:query] = {
       filtered: {
         query: query_string(expression, models),
@@ -99,7 +101,7 @@ module ElasticsearchHelper
     }
 
     query[:query][:filtered][:filter][:bool] = {
-      should: models.map {|model| model.filter(environment: @environment.id) }
+      should: models.map {|model| model.filter(environment: @environment.id, user: current_user )}
     }
 
     unless categories.blank?
@@ -109,7 +111,7 @@ module ElasticsearchHelper
     query
   end
 
-  def get_query text="", options={}
+  def get_query(text="", options={})
     klass = options[:klass]
     sort_by = options[:sort_by]
     categories = (options[:categories] || "").split(",")
@@ -123,7 +125,7 @@ module ElasticsearchHelper
     query
   end
 
-  def fields_from_models klasses
+  def fields_from_models(klasses)
     fields = Set.new
     klasses.each do |klass|
       klass::SEARCHABLE_FIELDS.map do |key, value|

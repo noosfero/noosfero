@@ -1,5 +1,5 @@
 <div class="event-header">
-  <%= event.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label"><%= _("Event") %></span>
+  <%= show_time(event.created_at) %> - <span class="model-label"><%= model_label.singularize %></span>
 </div>
 
 <div class="body">

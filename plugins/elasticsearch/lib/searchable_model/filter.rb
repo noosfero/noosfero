@@ -10,19 +10,23 @@ module Filter
   module ClassMethods
 
     def filter options={}
-      environment = options[:environment].presence
 
       result_filter = {}
       result_filter[:indices] = {:index => self.index_name, :no_match_filter => "none" }
-      result_filter[:indices][:filter] = { :bool => self.filter_bool(environment)  }
+      result_filter[:indices][:filter] = { :bool => self.filter_bool(options)  }
 
       result_filter
     end
 
-    def filter_bool environment
+    def filter_bool options={}
+      environment = options[:environment].presence
+      user = options[:user].presence
+
       result_filter = {}
 
       result_filter[:must] = [ NestedEnvironment::filter(environment) ]
+
+      return result_filter if user and user.person.is_admin?
 
       self.nested_filter.each {|filter| result_filter[:must].append(filter)}  if self.respond_to? :nested_filter
       self.must.each          {|filter| result_filter[:must].append(filter) } if self.respond_to? :must

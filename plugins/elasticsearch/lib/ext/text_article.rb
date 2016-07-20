@@ -34,10 +34,10 @@ class TextArticle
     ]
   end
 
-  def self.especific_sort
+  def self.specific_sort
     {
-      :more_popular   => { label: _("More Viewed") },
-      :more_comments  => { label: _("Most Commented") }
+      :more_popular   => _("More viewed"),
+      :more_comments  => _("Most commented")
     }
   end
 

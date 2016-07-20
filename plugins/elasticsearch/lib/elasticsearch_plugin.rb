@@ -9,7 +9,7 @@ class ElasticsearchPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    _("This plugin is used to communicate a elasticsearch to privide a search.")
+    _("This plugin is used to communicate with elasticsearch engine.")
   end
 
   def stylesheet?
@@ -17,7 +17,7 @@ class ElasticsearchPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['categories'].map{ |j| "javascripts/#{j}" }
+    ['categories', 'jstree.min'].map{ |file_name| "javascripts/#{file_name}" }
   end
 
   def search_controller_filters

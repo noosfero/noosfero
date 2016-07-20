@@ -1,5 +1,5 @@
 <div class="community-header">
-  <%= community.created_at.strftime("%d %B %Y at %H:%M") %> - <span class="model-label"><%= _("Community") %></span>
+  <%= show_time(community.created_at) %> - <span class="model-label"><%= model_label.singularize %></span>
 </div>
 <div class="body">
   <h2><%= link_to community.name, community.url %></h2>

@@ -1,9 +1,12 @@
+@import "themes/default/style.min.css";
+
 .controller-elasticsearch_plugin .results-wrapper {
   display: flex;
 }
 
 .controller-elasticsearch_plugin .sidebar {
-  min-width: 240px;
+  min-width: 250px;
+  max-width: 250px;
 }
 
 .controller-elasticsearch_plugin .search_form {
@@ -52,7 +55,7 @@
 
 .controller-elasticsearch_plugin #content-inner .categories,
 .controller-elasticsearch_plugin #content-inner .search-filter,
-.controller-elasticsearch_plugin #content-inner .search-options ul {
+.controller-elasticsearch_plugin #content-inner .search-options{
   background: #fff;
   overflow: hidden;
   border-radius: 5px;
@@ -60,7 +63,20 @@
   border: 1px solid #eee;
 }
 
-.controller-elasticsearch_plugin #content-inner ul {
+.controller-elasticsearch_plugin #content-inner #jstree-categories {
+  overflow-x: auto;
+}
+
+.controller-elasticsearch_plugin #content-inner #jstree-categories .jstree-node {
+  padding: 3px 0;
+}
+
+.controller-elasticsearch_plugin #content-inner #jstree-categories .jstree-wholerow-clicked {
+  background: #fff;
+}
+
+.controller-elasticsearch_plugin #content-inner .search-filter ul,
+.controller-elasticsearch_plugin #content-inner .search-options ul {
   background: #FFF;
   list-style: none;
   list-style-position: inside;
@@ -86,11 +102,13 @@
   border-bottom: 1px solid #E1E1E1;
 }
 
-.controller-elasticsearch_plugin #content-inner ul li:last-child {
+.controller-elasticsearch_plugin #content-inner .search-filter ul li:last-child ,
+.controller-elasticsearch_plugin #content-inner .search-options ul li:last-child {
   border-bottom: none;
 }
 
-.controller-elasticsearch_plugin #content-inner ul li a {
+.controller-elasticsearch_plugin #content-inner .search-filter ul li a ,
+.controller-elasticsearch_plugin #content-inner .search-options ul li a {
   text-decoration: none;
   display: block;
   padding: 13px;
@@ -144,21 +162,4 @@
 .controller-elasticsearch_plugin .search-item .body h2 a {
   color: #888a85;
   text-decoration: none;
-}
-
-.controller-elasticsearch_plugin #content-inner .categories .category-ident {
-  margin-left: 10px;
-}
-
-.controller-elasticsearch_plugin #content-inner .categories .box-title {
-  margin-bottom: 20px;
-}
-
-.controller-elasticsearch_plugin #content-inner .categories ul li {
-  padding: 5px;
-  font-size: 15px;
-}
-
-.controller-elasticsearch_plugin #content-inner .categories li input {
-  margin-right: 5px;
 }

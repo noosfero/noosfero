@@ -25,11 +25,11 @@ class PersonTest < ActionController::TestCase
     assert Person.respond_to? :should
   end
 
-  should 'respond with especific sort' do
-    assert Person.respond_to? :especific_sort
+  should 'respond with specific sort' do
+    assert Person.respond_to? :specific_sort
   end
 
-  should 'respond with get_sort_by to order especific sort' do
+  should 'respond with get_sort_by to order specific sort' do
     assert Person.respond_to? :get_sort_by
   end
 

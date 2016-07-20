@@ -21,9 +21,7 @@
 
       <div class="categories">
         <h3 class="box-title"><%= _("Categories") %></h3>
-        <div id="categories-list">
-          <%= render_categories(@categories, @selected_categories) %>
-        </div>
+        <div id="jstree-categories"></div>
       </div>
     </div>
 
@@ -33,3 +31,5 @@
 
   </div>
 </div>
+
+<%= render :partial => 'jstree_categories', :formats => [:js] %>

@@ -2,10 +2,6 @@
 
 require 'open-uri'
 
-def elasticsearch_development
-  return ENV["ELASTICSEARCH_DEVELOPMENT"].nil?
-end
-
 desc "download elasticsearch"
 task :download do
   unless File.exists? '/tmp/elasticsearch.deb'
@@ -27,18 +23,14 @@ task :start do
     Rake::Task['install'].invoke
   end
   puts "Enable Elasticsearch service"
-  if elasticsearch_development
-    sh 'sudo systemctl start elasticsearch >> /dev/null 2>&1'
-    sh 'sudo systemctl enable elasticsearch  >> /dev/null 2>&1'
-    sleep 10
-  end
+  sh 'sudo systemctl start elasticsearch >> /dev/null 2>&1'
+  sh 'sudo systemctl enable elasticsearch  >> /dev/null 2>&1'
+  sleep 10
 end
 
 desc "stop elasticsearch"
 task :stop do
   puts "Disable elasticsearch service"
-  if elasticsearch_development
-    sh 'sudo systemctl stop elasticsearch >> /dev/null 2>&1'
-    sh 'sudo systemctl disable elasticsearch >> /dev/null 2>&1'
-  end
+  sh 'sudo systemctl stop elasticsearch >> /dev/null 2>&1'
+  sh 'sudo systemctl disable elasticsearch >> /dev/null 2>&1'
 end

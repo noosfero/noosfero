@@ -1,32 +1,15 @@
 var main = function() {
-  var categories = []
-  var categoryParam = "";
-  var url = window.location.href;
-  var indexOfCategories;
-
-  $(".categories ul li input[checked]").map(function(idx, element) {
-    categories.push(element.value);
-  });
-
-  $('.categories ul li input[type=checkbox]').on('click', function(){
+  $(document).on('click', '.jstree-anchor',function(e,data){
+    var url = window.location.href;
     var dataParams = {};
+    var categories = $("#jstree-categories").jstree("get_checked",null,true);
+    var params;
 
-    url = url.replace(/.*\?/, "");
-    var params = url.split('&');
-    console.log("Dataparams: ", params);
-    params.map(function(param) {
-      var item = param.split('=');
-      dataParams[item[0]] = item[1];
-    });
-
-    var idx = categories.indexOf(this.value);
-    if (idx == -1) {
-      categories.push(this.value);
-    } else {
-      categories.splice(idx, 1);
-    }
-
-    dataParams['categories'] = categories.join(",")
+    dataParams['selected_type'] = $('#selected_type').val();
+    dataParams['filter'] = $('#filter').val();
+    dataParams['query'] = $('#query').val();
+    dataParams['page'] = 1;
+    dataParams['categories'] = categories.join(",");
 
     $.ajax({
       method: "GET",
