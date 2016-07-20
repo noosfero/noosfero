@@ -52,7 +52,7 @@
 
 .controller-elasticsearch_plugin #content-inner .categories,
 .controller-elasticsearch_plugin #content-inner .search-filter,
-.controller-elasticsearch_plugin #content-inner ul.search-options {
+.controller-elasticsearch_plugin #content-inner .search-options ul {
   background: #fff;
   overflow: hidden;
   border-radius: 5px;

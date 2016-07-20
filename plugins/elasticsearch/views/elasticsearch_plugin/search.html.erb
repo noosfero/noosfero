@@ -1,68 +1,34 @@
 <div class="wrapper">
   <div class="search_form">
     <div class="search_field">
-      <%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
-        <%= hidden_field_tag  "selected_type", @selected_type %>
-        <% if @selected_filter %>
-          <%= hidden_field_tag  "filter", @selected_filter %>
-        <% end %>
-        <%= text_field_tag :query, @query %>
-        <%= submit_tag _("Send") %>
-      <% end %>
+      <%= render :partial => "search_field" %>
     </div>
     <div class="results-count">
-      <p>
-        <strong><%= @hits %></strong>
-        <% if not @query.blank? %>
-          <%= _(" results for ") %><%= @query %>
-        <% else %>
-          <%= _(" total results") %>
-        <% end %>
-      </p>
+      <%= render :partial => "results_count" %>
     </div>
   </div>
 
   <div class="results-wrapper">
     <div class="sidebar">
-      <ul class="search-options">
-        <% for type,value in @searchable_types %>
-          <li class="select-search-type <%= "active" if type == @selected_type %>">
-            <%= link_to value[:label], "?selected_type=#{type}&query=#{@query}&categories=#{@selected_categories.join(',')}"%>
-          </li>
-        <% end %>
-      </ul>
+
+      <div class="search-options">
+        <%= render :partial => "search_option.html.erb" %>
+      </div>
+
       <div class="search-filter">
-        <h3 class="box-title"><%= _("Sort by") %></h3>
-        <ul>
-          <% for type, value in @sort_types %>
-            <li class="select-search-type <%= "active" if type == @selected_sort %>">
-              <%= link_to value[:label], "?selected_type=#{@selected_type}&query=#{@query}&filter=#{type}&categories=#{@selected_categories.join(',')}" %>
-            </li>
-          <% end %>
-        </ul>
+        <%= render :partial => "search_filter.html.erb" %>
       </div>
 
       <div class="categories">
         <h3 class="box-title"><%= _("Categories") %></h3>
-        <%= render_categories(@categories, @selected_categories) %>
+        <div id="categories-list">
+          <%= render_categories(@categories, @selected_categories) %>
+        </div>
       </div>
     </div>
 
     <div class="results">
-      <% for result in @results.to_a %>
-        <% for klass in @searchable_types.keys %>
-          <% next if klass.to_s.include? "all" %>
-          <% if result.is_a? klass.to_s.classify.constantize %>
-            <div class="search-item">
-              <%= render partial: "#{klass}_display", :locals => { klass => result} %>
-            </div>
-            <% break %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <div class="search_paginate">
-        <%= pagination_links @results if @results.count > 0 %>
-      </div>
+      <%= render :partial => 'search_collection' %>
     </div>
 
   </div>

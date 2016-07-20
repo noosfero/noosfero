@@ -1,0 +1,15 @@
+<% for result in @results.to_a %>
+  <% for klass in @searchable_types.keys %>
+    <% next if klass.to_s.include? "all" %>
+    <% if result.is_a? klass.to_s.classify.constantize %>
+      <div class="search-item">
+        <%= render partial: "#{klass}_display", :locals => { klass => result} %>
+      </div>
+      <% break %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="search_paginate">
+  <%= pagination_links @results if @results.count > 0 %>
+</div>

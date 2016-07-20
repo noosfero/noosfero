@@ -7,8 +7,7 @@ class ElasticsearchPluginController < ApplicationController
   helper ElasticsearchPluginHelper
 
   def index
-    search()
-    render :action => 'search'
+    search
   end
 
   def search
@@ -16,6 +15,11 @@ class ElasticsearchPluginController < ApplicationController
     define_sort_types
     define_categories
     define_results
+    respond_to do |format|
+      format.html { render :action => 'search' }
+      format.js
+      params["format"] = ""
+    end
   end
 
   def define_results

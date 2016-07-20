@@ -122,4 +122,16 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
     assert_equal 3, json["results"].count
   end
 
+  should 'respond with only categories from given model' do
+    get "/api/v1/search?selected_type=community&categories=1,2,3"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 3, json["results"].count
+
+    get "/api/v1/search?selected_type=person&categories=1,2"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal 0, json["results"].count
+  end
+
 end
