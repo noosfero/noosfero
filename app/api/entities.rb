@@ -266,6 +266,7 @@ module Api
       expose :requestor, using: Profile
       expose :status
       expose :created_at
+      expose :data
       expose :target do |task, options|
         type_map = {Profile => ::Profile, Environment => ::Environment}.find {|h| task.target.kind_of?(h.last)}
         type_map.first.represent(task.target) unless type_map.nil?
