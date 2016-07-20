@@ -19,12 +19,30 @@ class TasksTest < ActiveSupport::TestCase
     assert_includes json["tasks"].map { |a| a["id"] }, task.id
   end
 
+  should 'not list tasks of environment for unlogged users' do
+    logout_api
+    environment.add_admin(person)
+    task = create(Task, :requestor => person, :target => environment)
+    get "/api/v1/tasks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
   should 'return environment task by id' do
     environment.add_admin(person)
     task = create(Task, :requestor => person, :target => environment)
     get "/api/v1/tasks/#{task.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal task.id, json["task"]["id"]
+  end
+
+  should 'not return environment task by id for unlogged users' do
+    logout_api
+    environment.add_admin(person)
+    task = create(Task, :requestor => person, :target => environment)
+    get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
   end
 
   should 'not return environmet task if user has no permission to view it' do
@@ -51,6 +69,19 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal task.id, json["task"]["id"]
   end
 
+  should 'not return task by community for unlogged users' do
+    logout_api
+    community = fast_create(Community)
+    community.add_admin(person)
+
+    task = create(Task, :requestor => person, :target => community)
+    assert person.is_member_of?(community)
+
+    get "/api/v1/communities/#{community.id}/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
   should 'not return task by community if user has no permission to view it' do
     community = fast_create(Community)
     task = create(Task, :requestor => person, :target => community)
@@ -66,6 +97,15 @@ class TasksTest < ActiveSupport::TestCase
     post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_nil json["task"]["id"]
+  end
+
+  should 'not create task in a community for unlogged users' do
+    logout_api
+    community = fast_create(Community)
+    give_permission(person, 'perform_task', community)
+    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
   end
 
   should 'create task defining the requestor as current profile logged in' do
@@ -99,6 +139,14 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal task.id, json["task"]["id"]
   end
 
+  should 'not return task by person for unlogged users' do
+    logout_api
+    task = create(Task, :requestor => person, :target => person)
+    get "/api/v1/people/#{person.id}/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
   should 'not return task by person if user has no permission to view it' do
     some_person = fast_create(Person)
     task = create(Task, :requestor => person, :target => some_person)
@@ -111,6 +159,13 @@ class TasksTest < ActiveSupport::TestCase
     post "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_nil json["task"]["id"]
+  end
+
+  should 'not create task in person for unlogged users' do
+    logout_api
+    post "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
   end
 
   should 'create task for another person' do
@@ -144,6 +199,19 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal task.id, json["task"]["id"]
   end
 
+  should 'not return task by enterprise for unlogged users' do
+    logout_api
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(person)
+
+    task = create(Task, :requestor => person, :target => enterprise)
+    assert person.is_member_of?(enterprise)
+
+    get "/api/v1/enterprises/#{enterprise.id}/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
   should 'not return task by enterprise if user has no permission to view it' do
     enterprise = fast_create(Enterprise)
     task = create(Task, :requestor => person, :target => enterprise)
@@ -161,6 +229,15 @@ class TasksTest < ActiveSupport::TestCase
     assert_not_nil json["task"]["id"]
   end
 
+  should 'not create task in a enterprise for unlogged users' do
+    logout_api
+    enterprise = fast_create(Enterprise)
+    give_permission(person, 'perform_task', enterprise)
+    post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 401, last_response.status
+  end
+
   should 'create task defining the target as the enterprise' do
     enterprise = fast_create(Enterprise)
     enterprise.add_member(person)
@@ -170,4 +247,5 @@ class TasksTest < ActiveSupport::TestCase
 
     assert_equal enterprise, Task.last.target
   end
+
 end
