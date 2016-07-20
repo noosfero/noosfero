@@ -1958,7 +1958,6 @@ class PersonTest < ActiveSupport::TestCase
     person.save!
   end
 
-<<<<<<< HEAD
   should 'update profile circles for a person' do
     person = create_user('testuser').person
     community = fast_create(Community)
@@ -2023,4 +2022,5 @@ class PersonTest < ActiveSupport::TestCase
     person.environment.add_admin(person)
     assert_equivalent [task4, task2, task1], person.all_pending_tasks
   end
+
 end
