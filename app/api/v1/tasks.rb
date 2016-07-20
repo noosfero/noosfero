@@ -1,9 +1,7 @@
 module Api
   module V1
     class Tasks < Grape::API
-#      before { authenticate! }
-
-#      ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
+      before { authenticate! }
 
       resource :tasks do
 
