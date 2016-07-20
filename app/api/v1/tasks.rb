@@ -15,9 +15,7 @@ module Api
         # Example Request:
         #  GET host/api/v1/tasks?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
         get do
-          tasks = select_filtered_collection_of(environment, 'tasks', params)
-          tasks = tasks.select {|t| current_person.has_permission?(t.permission, environment)}
-          present_partial tasks, :with => Entities::Task
+          present_tasks(environment)
         end
 
         desc "Return the task id"
