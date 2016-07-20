@@ -111,6 +111,10 @@ module Api
           hash[value.custom_field.name]=value.value
         end
 
+        profile.public_fields.each do |field|
+          hash[field] = profile.send(field.to_sym)
+        end
+
         private_values = profile.custom_field_values - profile.public_values
         private_values.each do |value|
           if Entities.can_display_profile_field?(profile,options)

@@ -123,6 +123,24 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal community.id, json['id']
   end
 
+  should 'display profile public fields to anonymous' do
+    some_person = create_user('test', { :email => "lappis@unb.br" }).person
+    Person.any_instance.stubs(:public_fields).returns(["email"])
+
+    get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['additional_data'].has_key?('email')
+    assert_equal "lappis@unb.br", json['additional_data']['email']
+  end
+
+  should 'not display private fields to anonymous' do
+    some_person = create_user('test', { :email => "lappis@unb.br" }).person
+
+    get "/api/v1/profiles/#{some_person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert !json['additional_data'].has_key?('email')
+  end
+
   should 'display public custom fields to anonymous' do
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
     some_profile = fast_create(Profile)
