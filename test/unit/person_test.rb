@@ -2005,4 +2005,5 @@ class PersonTest < ActiveSupport::TestCase
     person.remove_profile_from_circle(community, circle)
     assert_equivalent [circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
   end
+
 end
