@@ -440,12 +440,6 @@ class Person < Profile
     organization.tasks.pending.select{|task| self.has_permission?(task.permission, organization)}
   end
 
-  def all_pending_tasks
-    [self.memberships, environment].flatten.map do |target|
-      target.tasks.pending.select{|task| self.has_permission?(task.permission, target)}
-    end.flatten + tasks.pending
-  end
-
   def build_contact(profile, params = {})
     Contact.new(params.merge(:name => name, :email => email, :sender => self, :dest => profile))
   end

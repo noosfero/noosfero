@@ -11,7 +11,7 @@ class TasksTest < ActiveSupport::TestCase
 
   attr_accessor :person, :community, :environment
 
-  should 'list tasks of environment' do
+  should 'list environment tasks for admin user' do
     environment.add_admin(person)
     task = create(Task, :requestor => person, :target => environment)
     get "/api/v1/tasks?#{params.to_query}"
@@ -53,134 +53,108 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal 403, last_response.status
   end
 
- #############################
- #     Community Tasks    #
- #############################
+  should 'find the current user task even it is finished' do
+    t3 = create(Task, :requestor => person, :target => person)
+    t4 = create(Task, :requestor => person, :target => person, :status => Task::Status::FINISHED)
 
-  should 'return task by community' do
+    get "/api/v1/tasks/#{t4.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal t4.id, json["task"]["id"]
+  end
+
+  should 'find the current user task even it is for community' do
     community = fast_create(Community)
     community.add_admin(person)
+    t2 = create(Task, :requestor => person, :target => community)
 
-    task = create(Task, :requestor => person, :target => community)
-    assert person.is_member_of?(community)
+    t3 = create(Task, :requestor => person, :target => person)
 
-    get "/api/v1/communities/#{community.id}/tasks/#{task.id}?#{params.to_query}"
+    get "/api/v1/tasks/#{t2.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal task.id, json["task"]["id"]
+    assert_equal t2.id, json["task"]["id"]
   end
 
-  should 'not return task by community for unlogged users' do
-    logout_api
+  should 'find the current user task even it is for environment' do
+    environment.add_admin(person)
+    t1 = create(Task, :requestor => person, :target => environment)
+
+    t3 = create(Task, :requestor => person, :target => person)
+
+    get "/api/v1/tasks/#{t1.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal t1.id, json["task"]["id"]
+  end
+
+
+  should 'list all tasks of user' do
+    environment.add_admin(person)
+    t1 = create(Task, :requestor => person, :target => environment)
+
     community = fast_create(Community)
     community.add_admin(person)
+    t2 = create(Task, :requestor => person, :target => community)
 
-    task = create(Task, :requestor => person, :target => community)
-    assert person.is_member_of?(community)
+    t3 = create(Task, :requestor => person, :target => person)
+    t4 = create(Task, :requestor => person, :target => person, :status => Task::Status::FINISHED)
 
-    get "/api/v1/communities/#{community.id}/tasks/#{task.id}?#{params.to_query}"
+    get "/api/v1/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
+    assert_equivalent [t1.id, t2.id, t3.id, t4.id], json["tasks"].map { |a| a["id"] }
   end
 
-  should 'not return task by community if user has no permission to view it' do
+  should 'list all pending tasks of user' do
+    environment.add_admin(person)
+    t1 = create(Task, :requestor => person, :target => environment, :status => Task::Status::ACTIVE)
+
     community = fast_create(Community)
-    task = create(Task, :requestor => person, :target => community)
-    assert !person.is_member_of?(community)
+    community.add_admin(person)
+    t2 = create(Task, :requestor => person, :target => community, :status => Task::Status::ACTIVE)
 
-    get "/api/v1/communities/#{community.id}/tasks/#{task.id}?#{params.to_query}"
-    assert_equal 403, last_response.status
-  end
+    t3 = create(Task, :requestor => person, :target => person, :status => Task::Status::ACTIVE)
+    t4 = create(Task, :requestor => person, :target => person, :status => Task::Status::FINISHED)
 
-  should 'create task in a community' do
-    community = fast_create(Community)
-    give_permission(person, 'perform_task', community)
-    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
+    get "/api/v1/tasks?#{params.merge(:status => Task::Status::ACTIVE).to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_nil json["task"]["id"]
+    assert_equivalent [t1.id, t2.id, t3.id], json["tasks"].map { |a| a["id"] }
   end
 
-  should 'not create task in a community for unlogged users' do
-    logout_api
-    community = fast_create(Community)
-    give_permission(person, 'perform_task', community)
-    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
+
+  should 'list tasks with pagination' do
+    Task.destroy_all
+    t1 = create(Task, :requestor => person, :target => person)
+    t2 = create(Task, :requestor => person, :target => person)
+
+    params[:page] = 1
+    params[:per_page] = 1
+    get "/api/v1/tasks/?#{params.to_query}"
+    json_page_one = JSON.parse(last_response.body)
+
+    params[:page] = 2
+    params[:per_page] = 1
+    get "/api/v1/tasks/?#{params.to_query}"
+    json_page_two = JSON.parse(last_response.body)
+
+    assert_includes json_page_one["tasks"].map { |a| a["id"] }, t2.id
+    assert_not_includes json_page_one["tasks"].map { |a| a["id"] }, t1.id
+
+    assert_includes json_page_two["tasks"].map { |a| a["id"] }, t1.id
+    assert_not_includes json_page_two["tasks"].map { |a| a["id"] }, t2.id
   end
 
-  should 'create task defining the requestor as current profile logged in' do
-    community = fast_create(Community)
-    community.add_member(person)
+  should 'list tasks with timestamp' do
+    t1 = create(Task, :requestor => person, :target => person)
+    t2 = create(Task, :requestor => person, :target => person, :created_at => Time.zone.now)
 
-    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
+    t1.created_at = Time.zone.now + 3.hours
+    t1.save!
 
-    assert_equal person, Task.last.requestor
-  end
 
-  should 'create task defining the target as the community' do
-    community = fast_create(Community)
-    community.add_member(person)
-
-    post "/api/v1/communities/#{community.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_equal community, Task.last.target
-  end
-
- #############################
- #        Person Tasks       #
- #############################
-
-  should 'return task by person' do
-    task = create(Task, :requestor => person, :target => person)
-    get "/api/v1/people/#{person.id}/tasks/#{task.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal task.id, json["task"]["id"]
-  end
-
-  should 'not return task by person for unlogged users' do
-    logout_api
-    task = create(Task, :requestor => person, :target => person)
-    get "/api/v1/people/#{person.id}/tasks/#{task.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
-  end
-
-  should 'not return task by person if user has no permission to view it' do
-    some_person = fast_create(Person)
-    task = create(Task, :requestor => person, :target => some_person)
-
-    get "/api/v1/people/#{some_person.id}/tasks/#{task.id}?#{params.to_query}"
-    assert_equal 403, last_response.status
-  end
-
-  should 'create task for person' do
-    post "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_not_nil json["task"]["id"]
-  end
-
-  should 'not create task in person for unlogged users' do
-    logout_api
-    post "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
-  end
-
-  should 'create task for another person' do
-    some_person = fast_create(Person)
-    post "/api/v1/people/#{some_person.id}/tasks?#{params.to_query}"
+    params[:timestamp] = Time.zone.now + 1.hours
+    get "/api/v1/tasks/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_equal some_person, Task.last.target
-  end
-
-  should 'create task defining the target as a person' do
-    post "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_equal person, Task.last.target
+    assert_includes json["tasks"].map { |a| a["id"] }, t1.id
+    assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
   end
 
   task_actions=%w[finish cancel]
@@ -206,80 +180,120 @@ class TasksTest < ActiveSupport::TestCase
     end
   end
 
- #############################
- #      Enterprise Tasks     #
- #############################
+  #################################################
+  #     Person, Community and Enterprise Tasks    #
+  #################################################
 
-  should 'return task by enterprise' do
-    enterprise = fast_create(Enterprise)
-    enterprise.add_admin(person)
+  [Person, Community, Enterprise].map do |profile_class|
+    define_method "test_should_return_task_by_#{profile_class.name.underscore}" do
+      target = profile_class == Person ? person : fast_create(profile_class)
+      target.add_admin(person) if target.respond_to?('add_admin')
 
-    task = create(Task, :requestor => person, :target => enterprise)
-    assert person.is_member_of?(enterprise)
+      task = create(Task, :requestor => person, :target => target)
+      get "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks/#{task.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal task.id, json["task"]["id"]
+    end
 
-    get "/api/v1/enterprises/#{enterprise.id}/tasks/#{task.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal task.id, json["task"]["id"]
+    define_method "test_should_not_return_task_ by#{profile_class.name.underscore}_for_unlogged_users" do
+      logout_api
+      target = profile_class == Person ? person : fast_create(profile_class)
+      target.add_admin(person) if target.respond_to?('add_admin')
+
+      task = create(Task, :requestor => person, :target => target)
+      get "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks/#{task.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal 401, last_response.status
+    end
+
+    define_method "test_should_not_return_task_by_#{profile_class.name.underscore}_if_user_has_no_permission_to_view_it" do
+      target = fast_create(profile_class)
+      task = create(Task, :requestor => person, :target => target)
+  
+      get "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks/#{task.id}?#{params.to_query}"
+      assert_equal 403, last_response.status
+    end
+
+    define_method "test_should_create_task_for_#{profile_class.name.underscore}" do
+      target = profile_class == Person ? person : fast_create(profile_class)
+      Person.any_instance.expects(:has_permission?).with(:perform_task, target).returns(true)
+
+      post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_not_nil json["task"]["id"]
+    end
+
+    define_method "test_should_not_create_task_for_#{profile_class.name.underscore}_person_has_no_permission" do
+      target = fast_create(profile_class)
+
+      post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal 403, last_response.status
+    end
+
+    define_method "test_should_not_create_task_in_#{profile_class.name.underscore}_for_unlogged_users" do
+      logout_api
+      target = profile_class == Person ? person : fast_create(profile_class)
+      Person.any_instance.stubs(:has_permission?).with(:perform_task, target).returns(true)
+
+      post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
+
+      json = JSON.parse(last_response.body)
+      assert_equal 401, last_response.status
+    end
+
+    define_method "test_should_create_task_defining_the_target_as_a_#{profile_class.name.underscore}" do
+      target = profile_class == Person ? person : fast_create(profile_class)
+      Person.any_instance.stubs(:has_permission?).with(:perform_task, target).returns(true)
+
+      post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+  
+      assert_equal target, Task.last.target
+    end
+
+    define_method "test_should_create_task_on_#{profile_class.name.underscore}_defining_the_requestor_as_current_profile_logged_in" do
+      target = profile_class == Person ? person : fast_create(profile_class)
+      Person.any_instance.stubs(:has_permission?).with(:perform_task, target).returns(true)
+  
+      post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+  
+      assert_equal person, Task.last.requestor
+    end
   end
 
-  should 'not return task by enterprise for unlogged users' do
-    logout_api
-    enterprise = fast_create(Enterprise)
-    enterprise.add_admin(person)
+  should 'list all tasks of user in people context' do
+    environment.add_admin(person)
+    t1 = create(Task, :requestor => person, :target => environment)
 
-    task = create(Task, :requestor => person, :target => enterprise)
-    assert person.is_member_of?(enterprise)
+    community = fast_create(Community)
+    community.add_admin(person)
+    t2 = create(Task, :requestor => person, :target => community)
 
-    get "/api/v1/enterprises/#{enterprise.id}/tasks/#{task.id}?#{params.to_query}"
+    t3 = create(Task, :requestor => person, :target => person)
+
+    get "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
+    assert_equivalent [t1.id, t2.id, t3.id], json["tasks"].map { |a| a["id"] }
   end
 
-  should 'not return task by enterprise if user has no permission to view it' do
-    enterprise = fast_create(Enterprise)
-    task = create(Task, :requestor => person, :target => enterprise)
-    assert !person.is_member_of?(enterprise)
+  should 'list all pending tasks of user in people context' do
+    environment.add_admin(person)
+    t1 = create(Task, :requestor => person, :target => environment)
+    t2 = create(Task, :requestor => person, :target => environment, :status => Task::Status::FINISHED )
 
-    get "/api/v1/enterprises/#{enterprise.id}/tasks/#{task.id}?#{params.to_query}"
-    assert_equal 403, last_response.status
-  end
+    community = fast_create(Community)
+    community.add_admin(person)
+    t3 = create(Task, :requestor => person, :target => community)
+    t4 = create(Task, :requestor => person, :target => community, :status => Task::Status::FINISHED)
 
-  should 'create task in a enterprise' do
-    enterprise = fast_create(Enterprise)
-    give_permission(person, 'perform_task', enterprise)
-    post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}"
+    t5 = create(Task, :requestor => person, :target => person)
+    t6 = create(Task, :requestor => person, :target => person, :status => Task::Status::FINISHED)
+
+    get "/api/v1/people/#{person.id}/tasks?#{params.merge(:status => Task::Status::ACTIVE).to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_nil json["task"]["id"]
-  end
-
-  should 'not create task in a enterprise for unlogged users' do
-    logout_api
-    enterprise = fast_create(Enterprise)
-    give_permission(person, 'perform_task', enterprise)
-    post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal 401, last_response.status
-  end
-
-  should 'create task defining the target as the enterprise' do
-    enterprise = fast_create(Enterprise)
-    enterprise.add_member(person)
-
-    post "/api/v1/enterprises/#{enterprise.id}/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_equal enterprise, Task.last.target
-  end
-
-  should 'list all pending tasks for the current person' do
-    task1 = create(Task, :requestor => person, :target => person)
-    task2 = create(Task, :requestor => person, :target => person)
-    task3 = create(Task, :requestor => person, :target => person)
-    params[:per_page] = 2
-    params[:all_pending] = true
-    get "/api/v1/tasks?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal [task3.id, task2.id], json["tasks"].map {|t| t["id"]}
+    assert_equivalent [t1.id, t3.id, t5.id], json["tasks"].map { |a| a["id"] }
   end
 
 end

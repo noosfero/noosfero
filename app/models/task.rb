@@ -314,7 +314,7 @@ class Task < ApplicationRecord
         where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%"
       end
   }
-  scope :pending_all, -> profile, filter_type, filter_text {
+  scope :pending_all_by_filter, -> profile, filter_type, filter_text {
     self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
   }
 
@@ -323,10 +323,17 @@ class Task < ApplicationRecord
     if profile.person?
       envs_ids = Environment.all.select{ |env| profile.is_admin?(env) }.map{ |env| "target_id = #{env.id}"}.join(' OR ')
       environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
+
+      organizations = profile.memberships.all.select do |organization| 
+        profile.has_permission?(:perform_task, organization) 
+      end
+      organization_ids = organizations.map{ |organization| "target_id = #{organization.id}"}.join(' OR ')
+
+      organization_conditions = organization_ids.blank? ? nil : "(target_type = 'Profile' AND (#{organization_ids}))"
     end
     profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
 
-    where [environment_condition, profile_condition].compact.join(' OR ')
+    where [environment_condition, organization_conditions, profile_condition].compact.join(' OR ')
   }
 
   scope :from_closed_date, -> closed_from {

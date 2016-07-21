@@ -8,7 +8,7 @@ module Api
       resource :tasks do
 
         paginate max_per_page: MAX_PER_PAGE
-        # Collect tasks
+        # Collect all tasks that current person has permission
         #
         # Parameters:
         #   from             - date where the search will begin. If nothing is passed the default date will be the date of the first article created
@@ -18,19 +18,13 @@ module Api
         # Example Request:
         #  GET host/api/v1/tasks?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
         get do
-          if params[:all_pending].present?
-            tasks = current_person.all_pending_tasks
-          else
-            tasks = select_filtered_collection_of(environment, 'tasks', params)
-            tasks = tasks.select {|t| current_person.has_permission?(t.permission, environment)}
-          end
-          present_partial paginate(tasks), :with => Entities::Task
+          tasks = Task.to(current_person)
+          present_tasks_for_asset(current_person, tasks)
         end
 
         desc "Return the task id"
         get ':id' do
-          task = find_task(environment, params[:id])
-          present_partial task, :with => Entities::Task
+          present_task(current_person, Task.to(current_person))
         end
 
         %w[finish cancel].each do |action|
@@ -51,7 +45,8 @@ module Api
             resource :tasks do
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
-                present_tasks(profile)
+                tasks = Task.to(profile)
+                present_tasks_for_asset(profile, tasks)
               end
 
               get ':id' do
