@@ -267,6 +267,10 @@ module Api
       expose :status
       expose :created_at
       expose :data
+      expose :accept_details
+      expose :reject_details
+      expose :accept_disabled?, as: :accept_disabled
+      expose :reject_disabled?, as: :reject_disabled
       expose :target do |task, options|
         type_map = {Profile => ::Profile, Environment => ::Environment}.find {|h| task.target.kind_of?(h.last)}
         type_map.first.represent(task.target) unless type_map.nil?
