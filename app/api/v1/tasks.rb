@@ -30,8 +30,7 @@ module Api
         %w[finish cancel].each do |action|
           desc "#{action.capitalize} a task"
           put ":id/#{action}" do
-            authenticate!
-            task = find_task(current_person, params[:id])
+            task = find_task(current_person, Task.to(current_person), params[:id])
             task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
             present_partial task, :with => Entities::Task
           end

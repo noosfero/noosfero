@@ -50,7 +50,7 @@ class TasksTest < ActiveSupport::TestCase
     task = create(Task, :requestor => person, :target => environment)
 
     get "/api/v1/tasks/#{task.id}?#{params.to_query}"
-    assert_equal 403, last_response.status
+    assert_equal 404, last_response.status
   end
 
   should 'find the current user task even it is finished' do
@@ -161,7 +161,6 @@ class TasksTest < ActiveSupport::TestCase
   task_actions_state={"finish"=>"FINISHED","cancel"=>"CANCELLED"}
   task_actions.each do |action|
     should "person be able to #{action} his own task" do
-      login_api
       person1 = fast_create(Person)
       task = create(Task, :requestor => person1, :target => person)
       put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
@@ -169,8 +168,35 @@ class TasksTest < ActiveSupport::TestCase
       assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
     end
 
+    should "person be able to #{action} environment task if it's admin user" do
+      environment = Environment.default
+      environment.add_admin(person)
+      task = create(Task, :requestor => person, :target => environment)
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal person.reload.id, task.reload.closed_by_id
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+    end
+
+    should "person be able to #{action} community task if it has permission on it" do
+      community = fast_create(Community)
+      community.add_member(person)
+      give_permission(person, 'perform_task', community)
+      task = create(Task, :requestor => person, :target => community)
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal person.reload.id, task.reload.closed_by_id
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+    end
+
+    should "person not be able to #{action} community task if it has no permission on it" do
+      community = fast_create(Community)
+      community.add_member(person)
+      task = create(Task, :requestor => person, :target => community)
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal person.reload.id, task.reload.closed_by_id
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+    end
+
     should "person not be able to #{action} other person's task" do
-      login_api
       user = fast_create(User)
       person1 = fast_create(Person, :user_id => user)
       task = create(Task, :requestor => person, :target => person1)
