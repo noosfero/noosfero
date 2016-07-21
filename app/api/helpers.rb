@@ -211,7 +211,7 @@ module Api
         else
           field_name, direction = params[:order].split(' ')
           assoc_class = extract_associated_classname(method_or_relation)
-          if !field_name.blank? and assoc
+          if !field_name.blank? and assoc_class
             if assoc_class.attribute_names.include? field_name
               if direction.present? and ['ASC','DESC'].include? direction.upcase
                 order = "#{field_name} #{direction.upcase}"
