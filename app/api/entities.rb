@@ -298,5 +298,12 @@ module Api
         type_map.first.represent(activity.target) unless type_map.nil?
       end
     end
+
+    class Role < Entity
+      root 'roles', 'role'
+      expose :id
+      expose :name
+      expose :key
+    end
   end
 end
