@@ -16,8 +16,13 @@ class TolesTest < ActiveSupport::TestCase
     role1 = Role.create!(key: 'profile_administrator', name: 'admin', environment: environment)
     role2 = Role.new(key: 'profile_moderator', name: 'moderator', environment: environment)
     profile.custom_roles << role2
-    get "/api/v1/organizations/#{profile.id}/roles?#{params.to_query}"
+    get "/api/v1/profiles/#{profile.id}/roles?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [role1.id, role2.id], json['roles'].map {|r| r['id']}
+  end
+
+  should 'return forbidden status when profile is not an organization' do
+    get "/api/v1/profiles/#{person.id}/roles?#{params.to_query}"
+    assert_equal 403, last_response.status
   end
 end
