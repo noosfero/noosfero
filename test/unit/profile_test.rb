@@ -1892,12 +1892,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes Profile.communities, child
   end
 
-  should 'get organization roles' do
+  should 'get organization member roles' do
     env = fast_create(Environment)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
     create Role, :name => 'test', :key => 'profile_test', :environment_id => env.id + 1
     Profile::Roles.expects(:all_roles).returns(roles)
     assert_equal roles[2..3], Profile::Roles.organization_member_roles(env.id)
+  end
+
+  should 'get organization roles' do
+    env = fast_create(Environment)
+    env.roles.delete_all
+    profile = fast_create(Organization)
+    roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
+    roles << create(Role, name: 'test', key: 'something_else', environment_id: env.id, profile_id: profile.id)
+    assert_equal roles[2..4], Profile::Roles.organization_roles(env.id, profile.id)
   end
 
   should 'get all roles' do
