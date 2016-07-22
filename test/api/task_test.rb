@@ -204,6 +204,24 @@ class TasksTest < ActiveSupport::TestCase
       assert_nil task.reload.closed_by_id
       assert_equal Task::Status::ACTIVE, task.status
     end
+
+    should "person be able to #{action} a task with parameters" do
+      person1 = fast_create(Person)
+      task = create(Task, :requestor => person1, :target => person)
+      params[:task] = {reject_explanation: "reject explanation"}
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+      assert_equal "reject explanation", task.reload.reject_explanation
+    end
+
+    should "not update a forbidden parameter when #{action} a task" do
+      person1 = fast_create(Person)
+      person2 = fast_create(Person)
+      task = create(Task, :requestor => person1, :target => person)
+      params[:task] = { requestor: {id: person2.id} }
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal 500, last_response.status
+    end
   end
 
   #################################################
