@@ -2,7 +2,7 @@ require "test_helper"
 
 class CmsControllerTest < ActionController::TestCase
 
-  should 'list communities from base profile' do
+  should 'list communities available to spread' do
     env = Environment.default
     env.enable_plugin(PgSearchPlugin)
     profile = create_user('profile').person
