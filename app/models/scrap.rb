@@ -36,6 +36,9 @@ class Scrap < ApplicationRecord
 
   before_validation :strip_all_html_tags
 
+  alias :user :sender
+  alias :target :receiver
+
   def top_root
     scrap = self
     scrap = Scrap.find(scrap.scrap_id) while scrap.scrap_id
