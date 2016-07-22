@@ -5,8 +5,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
     @controller = ContentViewerController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @environment.enabled_plugins += ['AnalyticsPlugin']
@@ -37,7 +35,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = first_url
     get :view_page, profile: @community.identifier, page: @community.articles.last.path.split('/')
     assert_equal 2, @community.page_views.count
-    assert_equal 2, @community.visits.count
+    assert_equal 1, @community.visits.count
 
     second_page_view = @community.page_views.order(:id).last
     assert_equal first_page_view, second_page_view.referer_page_view
@@ -48,7 +46,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     future = Time.now + 2*AnalyticsPlugin::TimeOnPageUpdateInterval
     Time.stubs(:now).returns(future)
     get :view_page, profile: @community.identifier, page: @community.articles.last.path.split('/')
-    assert_equal 3, @community.visits.count
+    assert_equal 2, @community.visits.count
   end
 
 end

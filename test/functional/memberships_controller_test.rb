@@ -7,8 +7,6 @@ class MembershipsControllerTest < ActionController::TestCase
 
   def setup
     @controller = MembershipsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person
     login_as('testuser')

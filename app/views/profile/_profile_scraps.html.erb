@@ -23,7 +23,7 @@
   <% if scrap.replies.count > 0 %>
     <div id="profile-wall-activities-comments-more-<%= activity.id %>" class="profile-wall-activities-comments">
       <div class='view-all-comments icon-chat'>
-        <%= link_to(n_('View comment', "View all %s comments", scrap.replies.count) % scrap.replies.count, :profile => profile.identifier, :controller => 'profile', :action => 'more_replies', :activity => activity, :comment_page => (1)) %>
+        <%= link_to(n_('View comment', "View all %s comments".html_safe, scrap.replies.count) % scrap.replies.count, :profile => profile.identifier, :controller => 'profile', :action => 'more_replies', :activity => activity, :comment_page => (1)) %>
       </div>
     </div>
   <% end %>

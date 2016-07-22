@@ -5,8 +5,6 @@ class MapBalloonControllerTest < ActionController::TestCase
 
   def setup
     @controller = MapBalloonController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('test_profile').person
     login_as(@profile.identifier)

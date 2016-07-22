@@ -880,7 +880,7 @@ module ApplicationHelper
         link_to_all = link_to(content_tag('strong', _('See all')), :controller => 'memberships', :profile => user.identifier)
       end
       link = list.map do |element|
-        link_to(content_tag('strong', _('<span>Manage</span> %s') % element.short_name(25)), element.admin_url, :class => "icon-menu-"+element.class.identification.underscore, :title => _('Manage %s') % element.short_name)
+        link_to(content_tag('strong', _('<span>Manage</span> %s').html_safe % element.short_name(25)), element.admin_url, :class => "icon-menu-"+element.class.identification.underscore, :title => _('Manage %s').html_safe % element.short_name)
       end
       if link_to_all
         link << link_to_all
@@ -921,7 +921,7 @@ module ApplicationHelper
     logout_link = link_to(logout_icon.html_safe, { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
     join_result = safe_join(
       [welcome_span.html_safe, render_environment_features(:usermenu).html_safe, admin_link.html_safe,
-        manage_enterprises.html_safe, manage_communities.html_safe, ctrl_panel_link.html_safe,
+        manage_enterprises, manage_communities, ctrl_panel_link.html_safe,
         pending_tasks_count.html_safe, logout_link.html_safe], "")
     join_result
   end

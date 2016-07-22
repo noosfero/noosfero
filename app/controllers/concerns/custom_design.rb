@@ -1,4 +1,4 @@
-module DesignHelper
+module CustomDesign
 
   extend ActiveSupport::Concern
 

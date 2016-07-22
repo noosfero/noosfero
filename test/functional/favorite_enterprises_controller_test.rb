@@ -6,8 +6,6 @@ class FavoriteEnterprisesControllerTest < ActionController::TestCase
   self.default_params = {profile: 'testuser'}
   def setup
     @controller = FavoriteEnterprisesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
     self.favorite_enterprise = fast_create(Enterprise, :name => 'the_enterprise', :identifier => 'the_enterprise')

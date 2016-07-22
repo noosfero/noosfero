@@ -8,8 +8,6 @@ class ContactControllerTest < ActionController::TestCase
 
   def setup
     @controller = ContactController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('contact_test_user').person
     @enterprise = fast_create(Enterprise, :identifier => 'contact_test_enterprise', :name => 'Test contact enteprise')

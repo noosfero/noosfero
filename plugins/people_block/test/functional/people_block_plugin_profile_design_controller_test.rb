@@ -4,8 +4,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([PeopleBlockPlugin.new])
   end
 

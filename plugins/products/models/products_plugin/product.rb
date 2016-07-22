@@ -45,6 +45,7 @@ class ProductsPlugin::Product < ApplicationRecord
   has_many :qualifiers, through: :product_qualifiers
   has_many :certifiers, through: :product_qualifiers
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
   track_actions :create_product, :after_create, keep_params: [:name, :url ], if: Proc.new { |a| a.is_trackable? }, custom_user: :action_tracker_user
@@ -129,6 +130,7 @@ class ProductsPlugin::Product < ApplicationRecord
     image ? image.public_filename(size) : '/images/icons-app/product-default-pic-%s.png' % size
   end
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
   def save_image

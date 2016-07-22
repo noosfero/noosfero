@@ -22,6 +22,7 @@ class AddMember < Task
       self.roles = [Profile::Roles.member(organization.environment.id).id]
     end
     target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
+    person.follow(organization, Circle.find_or_create_by(:person => person, :name =>_('memberships'), :profile_type => 'Community'))
   end
 
   def title
@@ -56,7 +57,7 @@ class AddMember < Task
   def target_notification_description
     requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
 
-    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.") % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
+    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.").html_safe % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
   end
 
   def target_notification_message

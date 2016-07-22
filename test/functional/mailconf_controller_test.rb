@@ -4,8 +4,7 @@ class MailconfControllerTest < ActionController::TestCase
 
   def setup
     @controller = MailconfController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     User.destroy_all
     @user = create_user('ze')
 

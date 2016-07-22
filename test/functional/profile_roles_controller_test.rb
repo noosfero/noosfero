@@ -5,8 +5,7 @@ class ProfileRolesControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileRolesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @role = Role.first
   end
 

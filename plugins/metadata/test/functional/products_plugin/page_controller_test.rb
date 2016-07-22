@@ -6,8 +6,6 @@ if defined? ProductsPlugin
 
       def setup
         @controller = PageController.new
-        @request    = ActionController::TestRequest.new
-        @response   = ActionController::TestResponse.new
         @enterprise = fast_create(Enterprise, name: 'test', identifier: 'test_ent')
         @user = create_user_with_permission('test_user', 'manage_products', @enterprise)
         login_as :test_user

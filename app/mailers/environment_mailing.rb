@@ -30,7 +30,7 @@ class EnvironmentMailing < Mailing
   end
 
   def signature_message
-    _('Sent by %s.') % source.name
+    _('Sent by %s.').html_safe % source.name
   end
 
   def url

@@ -111,6 +111,10 @@ module Api
           hash[value.custom_field.name]=value.value
         end
 
+        profile.public_fields.each do |field|
+          hash[field] = profile.send(field.to_sym)
+        end
+
         private_values = profile.custom_field_values - profile.public_values
         private_values.each do |value|
           if Entities.can_display_profile_field?(profile,options)
@@ -124,6 +128,7 @@ module Api
       expose :type
       expose :custom_header
       expose :custom_footer
+      expose :layout_template
       expose :permissions do |profile, options|
         Entities.permissions_for_entity(profile, options[:current_person],
         :allow_post_content?, :allow_edit?, :allow_destroy?)
@@ -258,12 +263,28 @@ module Api
       root 'tasks', 'task'
       expose :id
       expose :type
+      expose :requestor, using: Profile
+      expose :status
+      expose :created_at
+      expose :data
+      expose :accept_details
+      expose :reject_details
+      expose :accept_disabled?, as: :accept_disabled
+      expose :reject_disabled?, as: :reject_disabled
+      expose :target do |task, options|
+        type_map = {Profile => ::Profile, Environment => ::Environment}.find {|h| task.target.kind_of?(h.last)}
+        type_map.first.represent(task.target) unless type_map.nil?
+      end
     end
 
     class Environment < Entity
       expose :name
       expose :id
       expose :description
+      expose :layout_template
+      expose :signup_intro
+      expose :terms_of_use
+      expose :top_url, as: :host
       expose :settings, if: lambda { |instance, options| options[:is_admin] }
     end
 

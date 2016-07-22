@@ -7,8 +7,7 @@ class StoaPluginProfileEditorControllerTest < ActionController::TestCase
 
   def setup
     @controller = ProfileEditorController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @person = User.create(:login => 'test_user', :email => 'test_user@example.com', :password => 'test', :password_confirmation => 'test').person
     login_as(@person.identifier)
     Environment.default.enable_plugin(StoaPlugin.name)

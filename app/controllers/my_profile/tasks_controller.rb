@@ -14,7 +14,7 @@ class TasksController < MyProfileController
     @filter_text = params[:filter_text].presence
     @filter_responsible = params[:filter_responsible]
     @task_types = Task.pending_types_for(profile)
-    @tasks = Task.pending_all(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
+    @tasks = Task.pending_all_by_filter(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
     @tasks = @tasks.where(:responsible_id => @filter_responsible.to_i != -1 ? @filter_responsible : nil) if @filter_responsible.present?
     @tasks = @tasks.paginate(:per_page => Task.per_page, :page => params[:page])
     @failed = params ? params[:failed] : {}
@@ -101,7 +101,7 @@ class TasksController < MyProfileController
   def search_tasks
     filter_type = params[:filter_type].presence
     filter_text = params[:filter_text].presence
-    result = Task.pending_all(profile,filter_type, filter_text)
+    result = Task.pending_all_by_filter(profile,filter_type, filter_text)
 
     render :json => result.map { |task| {:label => task.data[:name], :value => task.data[:name]} }
   end

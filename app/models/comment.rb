@@ -38,6 +38,7 @@ class Comment < ApplicationRecord
 
   validate :article_archived?
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'

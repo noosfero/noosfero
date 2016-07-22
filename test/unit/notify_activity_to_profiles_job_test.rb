@@ -24,15 +24,21 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     end
   end
 
-  should 'notify just the users and his friends tracking user actions' do
+  should 'notify just the users and his followers tracking user actions' do
     person = fast_create(Person)
     community  = fast_create(Community)
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Profile', :verb => 'create_article')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     p1, p2, m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p1.id)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p2.id)
-    fast_create(Friendship, :person_id => p1.id, :friend_id => m1.id)
+
+    circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
+    circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+    circle = Circle.create!(:person=> person, :name => "Zombies", :profile_type => 'Person')
+
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle1.id)
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle2.id)
+    fast_create(ProfileFollower, :profile_id => m1.id, :circle_id => circle.id)
+
     fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
@@ -66,23 +72,24 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     end
   end
 
-  should 'notify users its friends, the community and its members' do
+  should 'notify users its followers, the community and its members' do
     person = fast_create(Person)
     community  = fast_create(Community)
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Profile', :target_id => community.id, :verb => 'create_article')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     p1, p2, m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p1.id)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p2.id)
+
+    circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle1.id)
+
     fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => community.id)
     fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
     job.perform
     process_delayed_job_queue
-
-    assert_equal 6, ActionTrackerNotification.count
-    [person, community, p1, p2, m1, m2].each do |profile|
+    assert_equal 5, ActionTrackerNotification.count
+    [person, community, p1, m1, m2].each do |profile|
       notification = ActionTrackerNotification.find_by profile_id: profile.id
       assert_equal action_tracker, notification.action_tracker
     end
@@ -119,8 +126,13 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Profile', :target_id => community.id, :verb => 'join_community')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     p1, p2, m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p1.id)
-    fast_create(Friendship, :person_id => person.id, :friend_id => p2.id)
+
+    circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
+    circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle1.id)
+    fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle2.id)
+
     fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => community.id)
     fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
     ActionTrackerNotification.delete_all

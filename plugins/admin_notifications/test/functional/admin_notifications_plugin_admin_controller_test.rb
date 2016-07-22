@@ -4,8 +4,6 @@ require_relative '../../controllers/admin_notifications_plugin_admin_controller'
 class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
   def setup
     @controller = AdminNotificationsPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     @person = create_user('person').person
 
     @environment = Environment.default

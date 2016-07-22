@@ -39,3 +39,12 @@
   width: 470px;
   overflow-x: hidden;
 }
+
+#circles-checkboxes {
+  text-align: left;
+  margin-left: 15%;
+}
+
+#circles-checkboxes .circle:last-child {
+  margin-bottom: 10px;
+}

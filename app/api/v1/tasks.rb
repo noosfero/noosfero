@@ -1,13 +1,14 @@
 module Api
   module V1
     class Tasks < Grape::API
-#      before { authenticate! }
+      before { authenticate! }
 
-#      ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
+      MAX_PER_PAGE = 50
 
       resource :tasks do
 
-        # Collect tasks
+        paginate max_per_page: MAX_PER_PAGE
+        # Collect all tasks that current person has permission
         #
         # Parameters:
         #   from             - date where the search will begin. If nothing is passed the default date will be the date of the first article created
@@ -17,15 +18,22 @@ module Api
         # Example Request:
         #  GET host/api/v1/tasks?from=2013-04-04-14:41:43&until=2015-04-04-14:41:43&limit=10&private_token=e96fff37c2238fdab074d1dcea8e6317
         get do
-          tasks = select_filtered_collection_of(environment, 'tasks', params)
-          tasks = tasks.select {|t| current_person.has_permission?(t.permission, environment)}
-          present_partial tasks, :with => Entities::Task
+          tasks = Task.to(current_person)
+          present_tasks_for_asset(current_person, tasks)
         end
 
         desc "Return the task id"
         get ':id' do
-          task = find_task(environment, params[:id])
-          present_partial task, :with => Entities::Task
+          present_task(current_person, Task.to(current_person))
+        end
+
+        %w[finish cancel].each do |action|
+          desc "#{action.capitalize} a task"
+          put ":id/#{action}" do
+            task = find_task(current_person, Task.to(current_person), params[:id])
+            task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
+            present_partial task, :with => Entities::Task
+          end
         end
       end
 
@@ -36,7 +44,8 @@ module Api
             resource :tasks do
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
-                present_tasks(profile)
+                tasks = Task.to(profile)
+                present_tasks_for_asset(profile, tasks)
               end
 
               get ':id' do

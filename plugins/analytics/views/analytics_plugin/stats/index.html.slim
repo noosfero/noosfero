@@ -1,5 +1,12 @@
-- content_for :head
-  = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table-all.min.js'
-  = stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.css'
+= render 'shared/bootstrap_table'
 
-= render 'table'
+= button :back, _('Back to control panel'), controller: 'profile_editor'
+
+= js_translations_include plugin: :analytics
+= javascript_include_tag 'plugins/analytics/javascripts/views/settings'
+analytics-settings data-opts="#{CGI.escapeHTML({settings: {enabled: profile.analytics_settings.enabled, anonymous: profile.analytics_settings.anonymous}}.to_json)}" data-riot=''
+/ needs html_safe to work
+/= riot_component :analytics_settings, settings: {enabled: profile.analytics_settings.enabled, anonymous: profile.analytics_settings.anonymous}
+
+= render 'table', visits: profile.users_visits.limit(50)
+

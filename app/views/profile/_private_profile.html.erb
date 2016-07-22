@@ -13,5 +13,5 @@
     <%= button(:add, content_tag('span', _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
   <% end %>
   <%= button :back, _('Go back'), :back %>
-  <%= button :home, _("Go to %s home page") % environment.name, :controller => 'home' %>
+  <%= button :home, _("Go to %s home page").html_safe % environment.name, :controller => 'home' %>
 <% end %>

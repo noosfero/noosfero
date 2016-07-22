@@ -8,8 +8,7 @@ class SubOrganizationsPluginProfileControllerTest < ActionController::TestCase
 
   def setup
     @controller = SubOrganizationsPluginProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @organization = Organization.create!(:name => 'My Organization', :identifier => 'my-organization')
     @person = create_user('person').person
     @organization.add_admin(@person)

@@ -14,7 +14,7 @@ class TaskMailer < ApplicationMailer
     mail(
       to: task.target.notification_emails.compact,
       from: self.class.generate_from(task),
-      subject: "[%s] %s" % [task.environment.name, task.target_notification_description]
+      subject: "[%s] %s".html_safe % [task.environment.name, task.target_notification_description]
     )
   end
 
@@ -27,7 +27,7 @@ class TaskMailer < ApplicationMailer
     mail(
       to: task.friend_email,
       from: self.class.generate_from(task),
-      subject: '[%s] %s' % [ task.requestor.environment.name, task.target_notification_description ]
+      subject: '[%s] %s'.html_safe % [ task.requestor.environment.name, task.target_notification_description ]
     )
   end
 
@@ -43,7 +43,7 @@ class TaskMailer < ApplicationMailer
     mail_with_template(
       to: task.requestor.notification_emails,
       from: self.class.generate_from(task),
-      subject: '[%s] %s' % [task.requestor.environment.name, task.target_notification_description],
+      subject: '[%s] %s'.html_safe % [task.requestor.environment.name, task.target_notification_description],
       email_template: task.email_template,
       template_params: {:environment => task.requestor.environment, :task => task, :message => @message, :url => @url, :requestor => task.requestor}
     )

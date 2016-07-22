@@ -4,8 +4,7 @@ require_relative '../../controllers/custom_forms_plugin_profile_controller'
 class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   def setup
     @controller = CustomFormsPluginProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @profile = create_user('profile').person
     login_as(@profile.identifier)
     environment = Environment.default

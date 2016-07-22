@@ -11,8 +11,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
   attr_reader :holder
   def setup
     @controller = ProfileDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = @holder = create_user('designtestuser').person
     holder.save!

@@ -8,8 +8,7 @@ class OpenGraphPlugin::MyprofileControllerTest < ActionController::TestCase
 
   def setup
     @controller = OpenGraphPlugin::MyprofileController.new
-    @request = ActionController::TestRequest.new
-    @response = ActionController::TestResponse.new
+
     @actor = create_user.person
   end
 

@@ -1,2 +1,11 @@
 <li><%= report_abuse(profile, :button) %></li>
+<% if logged_in? && (user != profile) && profile.allow_followers? %>
+  <li>
+    <% follow = user.follows?(profile) %>
+    <%= button(:unfollow, content_tag('span', _('Unfollow')), {:profile => profile.identifier, :controller => 'profile', :action => 'unfollow'}, :method => :post, :id => 'action-unfollow', :title => _("Unfollow"), :style => follow ? "" : "display: none;") %>
+    <%= button(:ok, content_tag('span', _('Follow')), {:profile => profile.identifier, :controller => 'profile', :action => 'find_profile_circles'}, :id => 'action-follow', :title => _("Follow"), :style => follow ? "display: none;" : "") %>
+    <div id="circles-container" style="display: none;">
+    </div>
+  </li>
+<% end %>
 <%= render_environment_features(:profile_actions) %>

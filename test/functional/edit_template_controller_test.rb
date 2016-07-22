@@ -7,8 +7,7 @@ class EditTemplateControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = EditTemplateController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     login_as 'ze'
   end
 

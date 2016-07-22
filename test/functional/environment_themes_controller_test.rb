@@ -4,8 +4,6 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
   def setup
     @controller = EnvironmentThemesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
 

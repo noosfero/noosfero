@@ -1,4 +1,3 @@
-require 'noosfero/translatable_content'
 require 'application_helper'
 require 'net/http'
 
@@ -12,8 +11,8 @@ class VideoPlugin::Video < Article
   settings_items :video_format,      :type => :string
   settings_items :video_id,          :type => :string
   settings_items :video_thumbnail_url,    :type => :string, :default => '/plugins/video/images/video_generic_thumbnail.jpg'
-  settings_items :video_thumbnail_width,  :type=> :integer
-  settings_items :video_thumbnail_height, :type=> :integer
+  settings_items :video_thumbnail_width,  :type=> :integer, :default => 239
+  settings_items :video_thumbnail_height, :type=> :integer, :default => 210
   settings_items :video_duration, :type=> :integer, :default => 0
 
   attr_accessible :video_url
@@ -35,14 +34,14 @@ class VideoPlugin::Video < Article
   def self.description
     _('Display embedded videos.')
   end
-  
+
   def is_youtube?
     VideoPlugin::Video.is_youtube?(self.video_url)
   end
 
   def is_vimeo?
     VideoPlugin::Video.is_vimeo?(self.video_url)
-  end  
+  end
 
   include ActionView::Helpers::TagHelper
   def to_html(options={})

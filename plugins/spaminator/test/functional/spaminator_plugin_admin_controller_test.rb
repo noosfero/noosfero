@@ -4,8 +4,7 @@ require_relative '../../controllers/spaminator_plugin_admin_controller'
 class SpaminatorPluginAdminControllerTest < ActionController::TestCase
   def setup
     @controller = SpaminatorPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @environment = Environment.default
     @settings = Noosfero::Plugin::Settings.new(@environment, SpaminatorPlugin)
     login_as(create_admin_user(@environment))

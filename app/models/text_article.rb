@@ -1,5 +1,3 @@
-require 'noosfero/translatable_content'
-
 # a base class for all text article types.
 class TextArticle < Article
 
@@ -9,7 +7,7 @@ class TextArticle < Article
     _('Article')
   end
 
-  include Noosfero::TranslatableContent
+  include TranslatableContent
 
   def self.icon_name(article = nil)
     if article && !article.parent.nil? && article.parent.kind_of?(Blog)

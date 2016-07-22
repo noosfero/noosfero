@@ -4,7 +4,7 @@ require 'tempfile'
 module Api
   module Helpers
     PRIVATE_TOKEN_PARAM = :private_token
-    DEFAULT_ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id, :identifier, :archived]
+    ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id, :identifier, :archived, :status]
 
     include SanitizeParams
     include Noosfero::Plugin::HotSpot
@@ -127,8 +127,8 @@ module Api
       present_partial article, with: Entities::Article, params: params, current_person: current_person
     end
 
-    def present_articles_for_asset(asset, method = 'articles')
-      articles = find_articles(asset, method)
+    def present_articles_for_asset(asset, method_or_relation = 'articles')
+      articles = find_articles(asset, method_or_relation)
       present_articles(articles)
     end
 
@@ -136,8 +136,8 @@ module Api
       present_partial paginate(articles), :with => Entities::Article, :params => params, current_person: current_person
     end
 
-    def find_articles(asset, method = 'articles')
-      articles = select_filtered_collection_of(asset, method, params)
+    def find_articles(asset, method_or_relation = 'articles')
+      articles = select_filtered_collection_of(asset, method_or_relation, params)
       if current_person.present?
         articles = articles.display_filter(current_person, nil)
       else
@@ -146,14 +146,17 @@ module Api
       articles
     end
 
-    def find_task(asset, id)
-      task = asset.tasks.find(id)
+    def find_task(asset, method_or_relation, id)
+      task = is_a_relation?(method_or_relation) ? method_or_relation : asset.send(method_or_relation)
+      task = task.find_by_id(id)
+      not_found! if task.blank?
       current_person.has_permission?(task.permission, asset) ? task : forbidden!
     end
 
     def post_task(asset, params)
       klass_type= params[:content_type].nil? ? 'Task' : params[:content_type]
       return forbidden! unless klass_type.constantize <= Task
+      return forbidden! if !current_person.has_permission?(:perform_task, asset)
 
       task = klass_type.constantize.new(params[:task])
       task.requestor_id = current_person.id
@@ -166,15 +169,24 @@ module Api
       present_partial task, :with => Entities::Task
     end
 
-    def present_task(asset)
-      task = find_task(asset, params[:id])
+    def find_tasks(asset, method_or_relation = 'tasks')
+      return forbidden! if !current_person.has_permission?(:perform_task, asset)
+      tasks = select_filtered_collection_of(asset, method_or_relation, params)
+      tasks = tasks.select {|t| current_person.has_permission?(t.permission, asset)}
+      tasks
+    end
+
+    def present_task(asset, method_or_relation = 'tasks')
+      task = find_task(asset, method_or_relation, params[:id])
       present_partial task, :with => Entities::Task
     end
 
-    def present_tasks(asset)
-      tasks = select_filtered_collection_of(asset, 'tasks', params)
-      tasks = tasks.select {|t| current_person.has_permission?(t.permission, asset)}
-      return forbidden! if tasks.empty? && !current_person.has_permission?(:perform_task, asset)
+    def present_tasks_for_asset(asset, method_or_relation = 'tasks')
+      tasks = find_tasks(asset, method_or_relation)
+      present_tasks(tasks)
+    end
+
+    def present_tasks(tasks)
       present_partial tasks, :with => Entities::Task
     end
 
@@ -183,7 +195,6 @@ module Api
       conditions = {}
       from_date = DateTime.parse(parsed_params.delete(:from)) if parsed_params[:from]
       until_date = DateTime.parse(parsed_params.delete(:until)) if parsed_params[:until]
-
       conditions[:type] = parse_content_type(parsed_params.delete(:content_type)) unless parsed_params[:content_type].nil?
 
       conditions[:created_at] = period(from_date, until_date) if from_date || until_date
@@ -193,7 +204,7 @@ module Api
     end
 
     # changing make_order_with_parameters to avoid sql injection
-    def make_order_with_parameters(object, method, params)
+    def make_order_with_parameters(object, method_or_relation, params)
       order = "created_at DESC"
       unless params[:order].blank?
         if params[:order].include? '\'' or params[:order].include? '"'
@@ -202,9 +213,9 @@ module Api
           order = 'RANDOM()'
         else
           field_name, direction = params[:order].split(' ')
-          assoc = object.class.reflect_on_association(method.to_sym)
-          if !field_name.blank? and assoc
-            if assoc.klass.attribute_names.include? field_name
+          assoc_class = extract_associated_classname(method_or_relation)
+          if !field_name.blank? and assoc_class
+            if assoc_class.attribute_names.include? field_name
               if direction.present? and ['ASC','DESC'].include? direction.upcase
                 order = "#{field_name} #{direction.upcase}"
               end
@@ -215,12 +226,14 @@ module Api
       return order
     end
 
-    def make_timestamp_with_parameters_and_method(params, method)
+    def make_timestamp_with_parameters_and_method(params, method_or_relation)
       timestamp = nil
       if params[:timestamp]
         datetime = DateTime.parse(params[:timestamp])
-        table_name = method.to_s.singularize.camelize.constantize.table_name
-        timestamp = "#{table_name}.updated_at >= '#{datetime}'"
+        table_name = extract_associated_tablename(method_or_relation)
+        assoc_class = extract_associated_classname(method_or_relation)
+        date_atrr = assoc_class.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'
+        timestamp = "#{table_name}.#{date_atrr} >= '#{datetime}'"
       end
 
       timestamp
@@ -245,12 +258,12 @@ module Api
       end
     end
 
-    def select_filtered_collection_of(object, method, params)
+    def select_filtered_collection_of(object, method_or_relation, params)
       conditions = make_conditions_with_parameter(params)
-      order = make_order_with_parameters(object,method,params)
-      timestamp = make_timestamp_with_parameters_and_method(params, method)
+      order = make_order_with_parameters(object,method_or_relation,params)
+      timestamp = make_timestamp_with_parameters_and_method(params, method_or_relation)
 
-      objects = object.send(method)
+      objects = is_a_relation?(method_or_relation) ? method_or_relation : object.send(method_or_relation)
       objects = by_reference(objects, params)
       objects = by_categories(objects, params)
 
@@ -305,12 +318,12 @@ module Api
     end
 
     def cant_be_saved_request!(attribute)
-      message = _("(Invalid request) %s can't be saved") % attribute
+      message = _("(Invalid request) %s can't be saved").html_safe % attribute
       render_api_error!(message, 400)
     end
 
     def bad_request!(attribute)
-      message = _("(Invalid request) %s not given") % attribute
+      message = _("(Invalid request) %s not given").html_safe % attribute
       render_api_error!(message, 400)
     end
 
@@ -396,10 +409,27 @@ module Api
     end
     private
 
+    def extract_associated_tablename(method_or_relation)
+      extract_associated_classname(method_or_relation).table_name
+    end
+
+    def extract_associated_classname(method_or_relation)
+      if is_a_relation?(method_or_relation)
+        method_or_relation.blank? ? '' : method_or_relation.first.class
+      else
+        method_or_relation.to_s.singularize.camelize.constantize
+      end
+    end
+
+    def is_a_relation?(method_or_relation)
+      method_or_relation.kind_of?(ActiveRecord::Relation)
+    end
+  
+
     def parser_params(params)
       parsed_params = {}
       params.map do |k,v|
-        parsed_params[k.to_sym] = v if DEFAULT_ALLOWED_PARAMETERS.include?(k.to_sym)
+        parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
       end
       parsed_params
     end

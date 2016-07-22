@@ -2,7 +2,9 @@ class Blog < Folder
 
   attr_accessible :visualization_format
 
+  extend ActsAsHavingPosts::ClassMethods
   acts_as_having_posts
+
   include PostsLimit
 
   #FIXME This should be used until there is a migration to fix all blogs that

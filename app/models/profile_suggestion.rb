@@ -17,7 +17,8 @@ class ProfileSuggestion < ApplicationRecord
     self.class.generate_profile_suggestions(profile_suggestion.person)
   end
 
-  acts_as_having_settings :field => :categories
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :categories
 
   validate :must_be_a_valid_category, :on => :create
   def must_be_a_valid_category

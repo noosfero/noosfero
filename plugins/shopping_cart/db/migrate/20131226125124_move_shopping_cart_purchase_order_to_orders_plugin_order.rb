@@ -2,6 +2,7 @@ OrdersPlugin.send :remove_const, :Item if defined? OrdersPlugin::Item
 OrdersPlugin.send :remove_const, :Order if defined? OrdersPlugin::Order
 
 class ShoppingCartPlugin::PurchaseOrder < ApplicationRecord
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
   module Status

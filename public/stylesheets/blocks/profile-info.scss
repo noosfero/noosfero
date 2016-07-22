@@ -99,3 +99,44 @@
   margin: 0px 0px 5px 0px;
   padding: 2px;
 }
+#circles-container {
+  background-color: #eee;
+  padding: 5px;
+  display: flex;
+}
+#circles-container p {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+#circle-actions {
+  margin-top: 15px;
+}
+#new-category-field-actions-block {
+  float: left;
+  width: 80%;
+  margin-bottom: 10px;
+}
+#new-circle-form {
+  margin-top: 10px;
+}
+#new-circle-form input {
+  width: 90px;
+}
+#new-circle-form select {
+  margin-top: 2px;
+  width: 95px;
+}
+#new-circle-form label {
+  font-size: 10px;
+  margin-right: 5px;
+}
+#new-circle-form .button-bar {
+  padding-top: 0px;
+}
+#new-circle-form .button {
+  width: 60px;
+}
+#new-circle-form .button-bar .button {
+  width: 40px;
+  font-size: 10px;
+}

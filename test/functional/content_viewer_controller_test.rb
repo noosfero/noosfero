@@ -7,8 +7,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
     @controller = ContentViewerController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('testinguser').person
     @environment = @profile.environment
@@ -220,8 +218,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile.domains << Domain.create!(:name => 'micojones.net')
     profile.save!
 
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.micojones.net').at_least_once
-
+    @request.env['HTTP_HOST'] = 'www.micojones.net'
     get :view_page, :page => []
 
     assert_equal profile, assigns(:profile)

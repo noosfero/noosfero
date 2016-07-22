@@ -1,0 +1,17 @@
+<ul class="profile-list">
+  <% profiles.each do |followed_profile| %>
+    <li>
+    <%= link_to_profile profile_image(followed_profile) + tag('br') + followed_profile.short_name,
+                        followed_profile.identifier, :class => 'profile-link' %>
+    <div class="controll">
+      <%= button_without_text :remove, content_tag('span',_('unfollow')),
+        { :controller => "profile", :profile => followed_profile.identifier, :follower_id => profile.id,
+          :action => 'unfollow', :redirect_to => url_for({:controller => "followers", :profile => profile.identifier}) },
+          :method => :post, :title => _('remove') %>
+      <%= modal_icon_button :edit, _('change category'),
+             url_for(:controller => 'followers', :action => 'set_category_modal',
+                     :followed_profile_id => followed_profile.id) %>
+    </div><!-- end class="controll" -->
+    </li>
+  <% end %>
+</ul>

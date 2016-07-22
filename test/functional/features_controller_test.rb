@@ -6,8 +6,6 @@ class FeaturesControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = FeaturesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     login_as(create_admin_user(Environment.find(2)))
   end

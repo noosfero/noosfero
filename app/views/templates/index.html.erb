@@ -10,7 +10,7 @@
 <% list_of_templates.each do |title, templates, kind|%>
   <div class='template-kind'>
     <h2><%= title %></h2>
-    <%= button :add, _('New...'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s") % title.downcase %>
+    <%= button :add, _('New...'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s").html_safe % title.downcase %>
     <table class='actions'>
       <tr>
         <th><%= _('Template') %></th>
@@ -20,11 +20,11 @@
         <tr>
           <td>
             <%#= image_tag "icons-app/#{kind}-icon.png" %>
-            <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier}, :title => _('Edit template "%s"') % template.name ) %>
+            <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier}, :title => _('Edit template "%s"').html_safe % template.name ) %>
             <% if environment.is_default_template?(template) %>
               <%= _('is the default template') %>
             <% else %>
-              <%= link_to(_('Set as default'), {:action => "set_#{kind}_as_default", :template_id => template.id}, :title => _('Set %s template as default') % template.name ) %>
+              <%= link_to(_('Set as default'), {:action => "set_#{kind}_as_default", :template_id => template.id}, :title => _('Set %s template as default').html_safe % template.name ) %>
             <% end %>
           </td>
           <td>

@@ -5,8 +5,6 @@ class DisplayContentPluginMyprofileControllerTest < ActionController::TestCase
 
   def setup
     @controller = DisplayContentPluginMyprofileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     user = create_user('testinguser')
     login_as(user.login)

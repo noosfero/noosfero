@@ -4,8 +4,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup
     @controller = EnvironmentDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     Environment.delete_all
     User.delete_all

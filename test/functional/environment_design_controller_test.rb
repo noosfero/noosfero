@@ -7,8 +7,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup
     @controller = EnvironmentDesignController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
   end
 

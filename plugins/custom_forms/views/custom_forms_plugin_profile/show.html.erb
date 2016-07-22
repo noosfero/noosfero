@@ -1,7 +1,7 @@
 <div id="custom-forms-plugin_submission">
 
 <h1><%= @form.name %></h1>
-<p><%= @form.description %></p>
+<p><%= (@form.description || "").html_safe %></p>
 
 <% if @submission.id.nil? %>
   <% if @form.expired? %>

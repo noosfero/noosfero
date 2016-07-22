@@ -6,8 +6,6 @@ class FriendsControllerTest < ActionController::TestCase
   self.default_params = {profile: 'testuser'}
   def setup
     @controller = FriendsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
     self.friend = create_user('thefriend').person

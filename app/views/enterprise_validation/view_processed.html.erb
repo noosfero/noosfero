@@ -1,4 +1,4 @@
-<h2><%= _('Processed validation request for %s ') % @processed.name %> (<%= status(@processed) %>)</h2>
+<h2><%= _('Processed validation request for %s ').html_safe % @processed.name %> (<%= status(@processed) %>)</h2>
 
 <%= link_to _('Back'), :action => 'index' %>
 

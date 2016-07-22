@@ -1,0 +1,7 @@
+<div class="common-profile-list-block">
+
+<h1><%= _("%s is following") % profile.name %></h1>
+
+<%= render :partial => 'follow', :locals => {:follow => @followed_people} %>
+
+</div>

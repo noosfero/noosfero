@@ -5,7 +5,6 @@ class BoxesTest < ActiveSupport::TestCase
   def setup
     create_and_activate_user
     login_api
-#    @request = ActionController::TestRequest.new
   end
 
   kinds= %w[Profile Community Person Enterprise Environment]

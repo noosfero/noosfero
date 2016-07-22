@@ -2,7 +2,8 @@ require_dependency 'mailing_job'
 
 class Mailing < ApplicationRecord
 
-  acts_as_having_settings :field => :data
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :data
 
   attr_accessible :subject, :body, :data
 
@@ -23,11 +24,11 @@ class Mailing < ApplicationRecord
   end
 
   def generate_from
-    "#{source.name} <#{if source.is_a? Environment then source.noreply_email else source.contact_email end}>"
+    "#{source.name} <#{if source.is_a? Environment then source.noreply_email else source.contact_email end}>".html_safe
   end
 
   def generate_subject
-    '[%s] %s' % [source.name, subject]
+    '[%s] %s'.html_safe % [source.name, subject]
   end
 
   def signature_message

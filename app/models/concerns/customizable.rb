@@ -122,4 +122,3 @@ module Customizable
   end
 end
 
-ActiveRecord::Base.include Customizable

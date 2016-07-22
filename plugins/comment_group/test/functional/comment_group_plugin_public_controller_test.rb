@@ -5,8 +5,6 @@ class CommentGroupPluginPublicControllerTest < ActionController::TestCase
 
   def setup
     @controller = CommentGroupPluginPublicController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person
     @article = profile.articles.build(:name => 'test')

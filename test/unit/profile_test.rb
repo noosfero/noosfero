@@ -2224,4 +2224,12 @@ class ProfileTest < ActiveSupport::TestCase
       assert !profile.send("allow_#{permission.gsub(/_profile/,'')}?", nil)
     end
   end
+
+  should 'not allow to add members in secret profiles' do
+    c = fast_create(Community, secret: true)
+    p = create_user('mytestuser').person
+    assert_raise RuntimeError do
+      c.add_member(p)
+    end
+  end
 end

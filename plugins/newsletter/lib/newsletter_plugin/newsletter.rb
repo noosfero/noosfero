@@ -167,6 +167,7 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
     end
   end
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
   def last_send_at

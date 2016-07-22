@@ -4,15 +4,15 @@
   current_index = images.index(image.encapsulated_file)
   total_of_images = images.count
   link_to_previous = if current_index >= 1
-   link_to(_('&laquo; Previous'), images[current_index - 1].view_url, :class => 'previous')
+   link_to(_('&laquo; Previous').html_safe, images[current_index - 1].view_url, :class => 'previous')
   else
-    content_tag('span', _('&laquo; Previous'), :class => 'previous')
+    content_tag('span', _('&laquo; Previous').html_safe, :class => 'previous')
   end
 
   link_to_next = if current_index < total_of_images - 1
-    link_to(_('Next &raquo;'), images[current_index + 1].view_url, :class => 'next')
+    link_to(_('Next &raquo;').html_safe, images[current_index + 1].view_url, :class => 'next')
   else
-    content_tag('span', _('Next &raquo;'), :class => 'next')
+    content_tag('span', _('Next &raquo;').html_safe, :class => 'next')
   end
 %>
 

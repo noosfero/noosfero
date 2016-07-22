@@ -1,0 +1,29 @@
+.recent-activities-block ul {
+  padding: 0;
+}
+
+.recent-activities-block li {
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.recent-activities-block time,
+.recent-activities-block p {
+  margin: 10px 0;
+}
+
+.recent-activities-block time {
+  display: block;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.recent-activities-block img {
+  padding: 1px;
+  border: 1px solid #ccc;
+  margin: 3px 3px 0 0;
+}
+
+.recent-activities-block p:first-letter {
+  text-transform: capitalize
+}

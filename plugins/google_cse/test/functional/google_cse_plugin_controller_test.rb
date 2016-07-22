@@ -5,8 +5,6 @@ class GoogleCsePluginControllerTest < ActionController::TestCase
 
   def setup
     @controller = GoogleCsePluginController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   should 'get results page' do

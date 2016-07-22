@@ -15,6 +15,20 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_to_current_user
 
   before_filter :set_session_theme
+
+  # FIXME: only include necessary methods
+  include ApplicationHelper
+
+  # concerns
+  include PermissionCheck
+  include CustomDesign
+  include NeedsProfile
+
+  # implementations
+  include FindByContents
+  include Noosfero::Plugin::HotSpot
+  include SearchTermHelper
+
   def set_session_theme
     if params[:theme]
       session[:theme] = environment.theme_ids.include?(params[:theme]) ? params[:theme] : nil
@@ -49,7 +63,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  include ApplicationHelper
   layout :get_layout
   def get_layout
     return false if request.format == :js or request.xhr?
@@ -75,9 +88,6 @@ class ApplicationController < ActionController::Base
   helper :document
   helper :language
 
-  include DesignHelper
-  include PermissionCheck
-
   before_filter :set_locale
   def set_locale
     FastGettext.available_locales = environment.available_locales
@@ -89,8 +99,6 @@ class ApplicationController < ActionController::Base
       session[:lang] = params[:lang]
     end
   end
-
-  include NeedsProfile
 
   attr_reader :environment
 
@@ -107,6 +115,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_person, :current_person
 
   protected
+
+  def accept_only_post
+    return render_not_found if !request.post?
+  end
 
   def verified_request?
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
@@ -154,8 +166,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  include Noosfero::Plugin::HotSpot
-
   # FIXME this filter just loads @plugins to children controllers and helpers
   def init_noosfero_plugins
     plugins
@@ -186,9 +196,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
-  include SearchTermHelper
-  include FindByContents
 
   def find_suggestions(query, context, asset, options={})
     plugins.dispatch_first(:find_suggestions, query, context, asset, options)

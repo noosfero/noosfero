@@ -7,8 +7,6 @@ require(
 class AdminNotificationsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @controller = AdminNotificationsPluginMyprofileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     @person = create_user('person').person
     @community = fast_create(Community)
 

@@ -1,4 +1,3 @@
-require 'noosfero/translatable_content'
 require 'builder'
 
 class Event < Article
@@ -138,7 +137,7 @@ class Event < Article
     false
   end
 
-  include Noosfero::TranslatableContent
+  include TranslatableContent
   include MaybeAddHttp
 
 end

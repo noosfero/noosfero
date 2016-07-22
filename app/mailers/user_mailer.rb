@@ -13,8 +13,8 @@ class UserMailer < ApplicationMailer
 
     mail(
       to: user_email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>",
-      subject: _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
+      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      subject: _("[%{environment}] Welcome to %{environment} mail!").html_safe % { :environment => user.environment.name }
     )
   end
 
@@ -30,7 +30,7 @@ class UserMailer < ApplicationMailer
     mail_with_template(
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
       to: user.email,
-      subject: _("[%s] Activate your account") % [user.environment.name],
+      subject: _("[%s] Activate your account").html_safe % [user.environment.name],
       template_params: {:environment => user.environment, :activation_code => @activation_code, :redirection => @redirection, :join => @join, :person => user.person, :url => @url},
       email_template: user.environment.email_templates.find_by_template_type(:user_activation),
     )
@@ -44,8 +44,8 @@ class UserMailer < ApplicationMailer
     mail(
       content_type: 'text/html',
       to: user.email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>",
-      subject: email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject,
+      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      subject: email_subject.blank? ? _("Welcome to environment %s").html_safe % [user.environment.name] : email_subject,
       body: @body
     )
   end
@@ -63,8 +63,8 @@ class UserMailer < ApplicationMailer
     mail(
       content_type: 'text/html',
       to: user.email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>",
-      subject: _("[%s] What about grow up your network?") % user.environment.name
+      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      subject: _("[%s] What about grow up your network?").html_safe % user.environment.name
     )
   end
 

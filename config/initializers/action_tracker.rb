@@ -12,6 +12,10 @@ ActionTrackerConfig.verbs = {
     type: :groupable
   },
 
+  new_follower: {
+    type: :groupable
+  },
+
   join_community: {
     type: :groupable
   },

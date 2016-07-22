@@ -13,8 +13,6 @@ class MyProfileControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = MyProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   def test_should_allow_person

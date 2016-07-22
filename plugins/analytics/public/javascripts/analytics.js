@@ -1,4 +1,9 @@
 analytics = {
+
+  t: function (key, options) {
+    return I18n.t(key, $.extend(options, {scope: 'analytics_plugin'}))
+  },
+
   requestId: '',
 
   timeOnPage: {
@@ -27,7 +32,7 @@ analytics = {
 
   pageLoad: function() {
     $.ajax(analytics.timeOnPage.baseUrl+'/page_load', {
-      type: 'POST', data: {id: analytics.requestId},
+      type: 'POST', data: {id: analytics.requestId, title: document.title, time: Math.floor(Date.now()/1000)},
       success: function(data) {
       },
     });

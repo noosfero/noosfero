@@ -2,6 +2,8 @@ require 'test_helper'
 
 class AccountControllerTest < ActionController::TestCase
   def setup
+    @controller = AccountController.new
+
     @environment = Environment.default
     @environment.enabled_plugins = ['RemoteUserPlugin']
     @environment.save
@@ -9,10 +11,6 @@ class AccountControllerTest < ActionController::TestCase
     @another_environment = Environment.new(name: "AnotherEnvironment")
     @another_environment.enabled_plugins = ['RemoteUserPlugin']
     @another_environment.save
-
-    @controller = AccountController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   should 'not authenticate user if there is no remote user' do

@@ -44,7 +44,7 @@ class CategoriesController < AdminController
       if request.post?
         @category.update!(params[:category])
         @saved = true
-        session[:notice] = _("Category %s saved." % @category.name)
+        session[:notice] = _("Category %s saved." % @category.name).html_safe
         redirect_to :action => 'index'
       end
     rescue Exception => e

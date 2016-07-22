@@ -7,7 +7,7 @@ export DEBIAN_INTERFACE=noninteractive
 
 run sudo apt-get install -qy dctrl-tools
 
-packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debian/control | sed -e 's/([^)]*)//g; s/,\s*/\n/g' | grep -v 'rake\|ruby\|thin\|debhelper\|cucumber\|rail\|memcached\|debconf\|dbconfig-common\|misc:Depends\|adduser\|mail-transport-agent')
+packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debian/control | sed -e 's/([^)]*)//g; s/,\s*/\n/g' | grep -v 'rake\|ruby\|thin\|debhelper\|cucumber\|rail\|memcached\|debconf\|dbconfig-common\|misc:Depends\|adduser\|mail-transport-agent\|bundler\|unicorn')
 
 run sudo apt-get install -qy ruby1.9.1-full build-essential libxml2-dev libxslt-dev libpq-dev libmagickcore-dev libmagickwand-dev $packages
 

@@ -5,8 +5,7 @@ class InviteControllerTest < ActionController::TestCase
 
   def setup
     @controller = InviteController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     environment = Environment.default
     environment.enabled_plugins = ['StoaPlugin']
     environment.save!

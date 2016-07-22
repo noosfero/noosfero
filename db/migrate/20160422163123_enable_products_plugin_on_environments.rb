@@ -7,6 +7,7 @@ class Environment < ApplicationRecord
   has_many :profiles
   has_many :products, through: :profiles
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :settings
   settings_items :enabled_plugins, type: Array
 end

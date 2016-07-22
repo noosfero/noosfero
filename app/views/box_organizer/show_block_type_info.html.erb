@@ -15,7 +15,7 @@
   <div id="block-info-description">
     <h2><%= _('Description') %></h2>
     <p><%= @block.class.description %></p>
-    <p><%= @block.help if @block.class.method_defined?(:help) %></p>
+    <p><%= @block.help.html_safe if @block.class.method_defined?(:help) %></p>
   </div>
 
 </div>

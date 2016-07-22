@@ -1,0 +1,14 @@
+<%= error_messages_for :circle %>
+
+<%= labelled_form_for :circle, :url => (mode == :edit) ? {:action => 'update', :id => circle} : {:action => 'create'} do |f| %>
+
+  <%= required_fields_message %>
+
+  <%= required f.text_field(:name) %>
+
+  <%= required labelled_form_field _("Profile type"), f.select(:profile_type, Circle.profile_types.to_a) %>
+
+  <%= button_bar do %>
+    <%= submit_button('save', (mode == :edit) ? _('Save changes') : _('Create circle'), :cancel => {:action => 'index'} ) %>
+  <% end %>
+<% end %>

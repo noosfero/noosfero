@@ -4,8 +4,6 @@ class AccountControllerPluginTest < ActionController::TestCase
 
   def setup
     @controller = AccountController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @environment.enabled_plugins = ['LdapPlugin']

@@ -4,10 +4,9 @@ require 'test_controller'
 
 class ApplicationControllerTest < ActionController::TestCase
   all_fixtures
+
   def setup
     @controller = TestController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
   end
 
   def test_detection_of_environment_by_host
@@ -50,7 +49,7 @@ class ApplicationControllerTest < ActionController::TestCase
     current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
 
-    @request.expects(:host).returns('example.com').at_least_once
+    @request.env['HTTP_HOST'] = 'example.com'
     get :index
 
     assert_equal current, assigns(:environment)

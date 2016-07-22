@@ -9,6 +9,7 @@ class FbAppPlugin::PageTab < ApplicationRecord
 
   belongs_to :owner_profile, foreign_key: :profile_id, class_name: 'Profile'
 
+  extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :config
 
   ConfigTypes = [:profile, :profiles, :query]

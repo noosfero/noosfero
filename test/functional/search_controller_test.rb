@@ -4,9 +4,6 @@ class SearchControllerTest < ActionController::TestCase
 
   def setup
     @controller = SearchController.new
-    @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(false)
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
     @category = Category.create!(:name => 'my-category', :environment => @environment)

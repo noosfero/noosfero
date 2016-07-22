@@ -5,10 +5,16 @@ class AnalyticsPlugin::Visit < ApplicationRecord
 
   belongs_to :profile
   has_many :page_views, class_name: 'AnalyticsPlugin::PageView', dependent: :destroy
+  has_many :users_page_views, -> { loaded_users }, class_name: 'AnalyticsPlugin::PageView', dependent: :destroy
 
-  default_scope -> { joins(:page_views).includes :page_views }
+  scope :latest, -> { order 'updated_at DESC' }
 
-  scope :latest, -> { order 'analytics_plugin_page_views.request_started_at DESC' }
+  scope :with_users_page_views, -> {
+    eager_load(:users_page_views).where.not analytics_plugin_page_views: {visit_id: nil}
+  }
+  scope :without_page_views, -> {
+    eager_load(:page_views).where analytics_plugin_page_views: {visit_id: nil}
+  }
 
   def first_page_view
     self.page_views.first

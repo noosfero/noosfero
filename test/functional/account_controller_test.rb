@@ -11,8 +11,7 @@ class AccountControllerTest < ActionController::TestCase
 
   def setup
     @controller = AccountController.new
-    @request = ActionController::TestRequest.new
-    @response = ActionController::TestResponse.new
+
     disable_signup_bot_check
   end
 

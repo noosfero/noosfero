@@ -6,7 +6,7 @@ class Profile < ApplicationRecord
   include ProfileEntity
 
   attr_accessible :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
-    :custom_url_redirection, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :redirection_after_login
+    :custom_url_redirection, :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :redirection_after_login, :allow_followers
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -89,6 +89,8 @@ class Profile < ApplicationRecord
   }
 
   acts_as_accessible
+
+  include Customizable
   acts_as_customizable
 
   include Noosfero::Plugin::HotSpot
@@ -184,6 +186,21 @@ class Profile < ApplicationRecord
     Person.members_of(self).by_role(roles)
   end
 
+  extend ActsAsHavingSettings::ClassMethods
+  acts_as_having_settings field: :data
+
+  def settings
+    data
+  end
+
+  settings_items :redirect_l10n, :type => :boolean, :default => false
+  settings_items :public_content, :type => :boolean, :default => true
+  settings_items :description
+  settings_items :fields_privacy, :type => :hash, :default => {}
+  settings_items :email_suggestions, :type => :boolean, :default => false
+  settings_items :profile_admin_mail_notification, :type => :boolean, :default => true
+
+  extend ActsAsHavingBoxes::ClassMethods
   acts_as_having_boxes
 
   acts_as_taggable
@@ -202,6 +219,23 @@ class Profile < ApplicationRecord
   scope :more_active, -> { order 'activities_count DESC' }
   scope :more_recent, -> { order "created_at DESC" }
 
+  scope :followed_by, -> person{
+    distinct.select('profiles.*').
+    joins('left join profiles_circles ON profiles_circles.profile_id = profiles.id').
+    joins('left join circles ON circles.id = profiles_circles.circle_id').
+    where('circles.person_id = ?', person.id)
+  }
+
+  scope :in_circle, -> circle{
+    distinct.select('profiles.*').
+    joins('left join profiles_circles ON profiles_circles.profile_id = profiles.id').
+    joins('left join circles ON circles.id = profiles_circles.circle_id').
+    where('circles.id = ?', circle.id)
+  }
+
+  settings_items :allow_followers, :type => :boolean, :default => true
+  alias_method :allow_followers?, :allow_followers
+
   acts_as_trackable :dependent => :destroy
 
   has_many :profile_activities
@@ -213,6 +247,9 @@ class Profile < ApplicationRecord
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
   has_many :email_templates, :foreign_key => :owner_id
+
+  has_many :profile_followers
+  has_many :followers, -> { uniq }, :class_name => 'Person', :through => :profile_followers, :source => :person
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
@@ -227,19 +264,6 @@ class Profile < ApplicationRecord
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
-
-  acts_as_having_settings :field => :data
-
-  def settings
-    data
-  end
-
-  settings_items :redirect_l10n, :type => :boolean, :default => false
-  settings_items :public_content, :type => :boolean, :default => true
-  settings_items :description
-  settings_items :fields_privacy, :type => :hash, :default => {}
-  settings_items :email_suggestions, :type => :boolean, :default => false
-  settings_items :profile_admin_mail_notification, :type => :boolean, :default => true
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
@@ -281,6 +305,7 @@ class Profile < ApplicationRecord
 
   has_many :files, :class_name => 'UploadedFile'
 
+  extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
@@ -695,12 +720,13 @@ private :generate_url, :url_options
 
   # Adds a person as member of this Profile.
   def add_member(person, attributes={})
-    if self.has_members?
+    if self.has_members? && !self.secret
       if self.closed? && members.count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
         self.affiliate(person, Profile::Roles.admin(environment.id), attributes) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id), attributes)
+        person.follow(self, Circle.find_or_create_by(:person => person, :name =>_('memberships'), :profile_type => 'Community'))
       end
       person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
       remove_from_suggestion_list person
@@ -983,7 +1009,11 @@ private :generate_url, :url_options
   end
 
   def followed_by?(person)
-    person.is_member_of?(self)
+    (person == self) || (person.in? self.followers)
+  end
+
+  def in_social_circle?(person)
+    (person == self) || (person.is_member_of?(self))
   end
 
   def display_private_info_to?(user)
@@ -1009,4 +1039,23 @@ private :generate_url, :url_options
     suggestion.disable if suggestion
   end
 
+  def allow_invitation_from(person)
+    false
+  end
+
+  def allow_post_content?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('post_content', self)
+  end
+
+  def allow_edit?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('edit_profile', self)
+  end
+
+  def allow_destroy?(person = nil)
+    person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
+  end
+
+  def in_circle?(circle, follower)
+    ProfileFollower.with_follower(follower).with_circle(circle).with_profile(self).present?
+  end
 end

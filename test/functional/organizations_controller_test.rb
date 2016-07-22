@@ -5,8 +5,6 @@ class OrganizationsControllerTest < ActionController::TestCase
 
   def setup
     @controller = OrganizationsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
 
     @environment = Environment.default
 

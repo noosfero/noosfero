@@ -1,7 +1,7 @@
 module ActsAsHavingBoxes
 
   module ClassMethods
-    def  acts_as_having_boxes
+    def acts_as_having_boxes
       has_many :boxes, -> { order :position }, as: :owner, dependent: :destroy
       self.send(:include, ActsAsHavingBoxes)
     end
@@ -35,4 +35,3 @@ module ActsAsHavingBoxes
 
 end
 
-ActiveRecord::Base.extend ActsAsHavingBoxes::ClassMethods

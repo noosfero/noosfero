@@ -5,8 +5,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = RegionValidatorsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     login_as('ze')
   end
 

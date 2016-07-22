@@ -5,8 +5,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   def setup
     @controller = ShoppingCartPluginController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+
     @profile = fast_create(Enterprise)
     @profile.contact_email = 'enterprise@noosfero.org';@profile.save
     @product = fast_create(Product, profile_id: @profile.id)
