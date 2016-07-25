@@ -4,9 +4,37 @@
   <% unless block.activities.size == 0 %>
     <ul>
       <% block.activities.each do |activity| %>
-        <li>
+        <li class="recent-activity-<%= activity.label %>">
+          <p class="recent-activity-date">
+          <% if activity.label === 'events' %>
+          <%= 
+            _('Event on <b>%s</b> at %s - %s').html_safe %
+              [
+                l(activity.target.start_date, format: :medium),
+                activity.target.start_date.strftime("%H:%M"),
+                link_to(activity.user.name, activity.user.url)
+              ]
+          %>
+          <% else %>  
+          <%= 
+            _('On <b>%s</b> at %s - %s').html_safe %
+              [
+                l(activity.created_at, format: :medium),
+                activity.created_at.strftime("%H:%M"),
+                link_to(activity.user.name, activity.user.url)
+              ]
+          %>
+          <% end %>
+          <span class="recent-activity-label"><%= activity.label %></span>
+          </p>
+
+          <% if activity.label === 'events' %>
+          <%= image_tag(activity.params['first_image']) %>
+          <p class="lead"><b><%= activity.params['name'] %></b><br /><%= strip_tags(activity.params['lead']) %></p>
+          <br style="clear: both;" />
+          <% else %>
           <p><%= describe(activity).html_safe %></p>
-          <time datetime="<%= activity.created_at %>"><%= time_ago_in_words(activity.created_at) %></time>
+          <% end %>
         </li>
       <% end %>
     </ul>
