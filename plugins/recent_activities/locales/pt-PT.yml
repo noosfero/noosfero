@@ -1,0 +1,4 @@
+"pt-PT": &pt-PT
+  time:
+    formats:
+      medium: "%d de %B de %Y"

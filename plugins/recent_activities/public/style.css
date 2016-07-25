@@ -18,7 +18,8 @@
   color: #ccc;
 }
 
-.recent-activities-block img {
+.recent-activities-block img,
+.recent-activities-block .upimg {
   padding: 1px;
   border: 1px solid #ccc;
   margin: 3px 3px 0 0;
@@ -26,4 +27,46 @@
 
 .recent-activities-block p:first-letter {
   text-transform: capitalize
+}
+
+.recent-activities-block .upimg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.recent-activities-block .recent-activity-date,
+.recent-activities-block .recent-activity-date a,
+.recent-activities-block .recent-activity-date a:visited {
+  color: #888a85;
+}
+
+.recent-activities-block .recent-activity-label {
+  padding: 2px;
+  text-transform: capitalize;
+  background: #333;
+  color: #fff;
+  margin-left: 5px;
+  display: inline-block;
+  font-size: 11px;
+}
+
+.recent-activities-block .recent-activity-event {
+  display: table-row;
+}
+
+.recent-activities-block .recent-activity-events img {
+  width: 32px;
+  height: 32px;
+  float: left;
+}
+
+.recent-activities-block .recent-activity-events .lead {
+  width: 148px;
+  margin-left: 2px;
+  margin-top: 2px;
+  float: left;
+  display: block;
+  text-align: justify;
 }
