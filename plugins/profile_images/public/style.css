@@ -1,0 +1,28 @@
+.profile-images-block ul {
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+.profile-images-block li {
+  list-style: none;
+}
+
+.profile-images-block a {
+  display: block;
+  width: 53px;
+  height: 53px;
+  float: left;
+  padding: 1px;
+  border: 1px solid #ccc;
+  margin: 3px;
+  background-size: cover;
+}
+
+.profile-images-block a:hover {
+  border: 1px solid #000;
+}
+
+.profile-images-block a span {
+  display: none;
+}
