@@ -296,6 +296,8 @@ module Api
     class Activity < Entity
       root 'activities', 'activity'
       expose :id, :created_at, :updated_at
+      expose :user, :using => Profile
+
       expose :target do |activity, opts|
         type_map = {Profile => ::Profile, ArticleBase => ::Article}.find {|h| activity.target.kind_of?(h.last)}
         type_map.first.represent(activity.target) unless type_map.nil?
@@ -303,12 +305,9 @@ module Api
       expose :params, :if => lambda { |activity, options| activity.kind_of?(ActionTracker::Record)}
       expose :content, :if => lambda { |activity, options| activity.kind_of?(Scrap)}
       expose :verb do |activity, options| 
-        activity.kind_of?(Scrap) ? 'scrap' : activity.verb
+        activity.kind_of?(Scrap) ? 'leave_scrap' : activity.verb
       end
 
-      expose :user, :using => Profile# do |activity, opts|
-#        activity.kind_of?(Scrap) ? activity.sender : activity.user
-#      end
     end
 
     class Role < Entity
