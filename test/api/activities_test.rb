@@ -131,9 +131,62 @@ class ActivitiesTest < ActiveSupport::TestCase
     assert_nil json["activities"].last['content']
   end
 
+  should 'list activities with pagination' do
+    ActionTracker::Record.destroy_all
+    a1 = create_activity(:target => person)
+    a2 = create_activity(:target => person)
+
+    params[:page] = 1
+    params[:per_page] = 1
+    get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
+    json_page_one = JSON.parse(last_response.body)
+
+    params[:page] = 2
+    params[:per_page] = 1
+    get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
+    json_page_two = JSON.parse(last_response.body)
+
+    assert_includes json_page_one["activities"].map { |a| a["id"] }, a2.id
+    assert_not_includes json_page_one["activities"].map { |a| a["id"] }, a1.id
+
+    assert_includes json_page_two["activities"].map { |a| a["id"] }, a1.id
+    assert_not_includes json_page_two["activities"].map { |a| a["id"] }, a2.id
+  end
+
+  should 'list only 20 elements by page if no limit param is passed' do
+    ActionTracker::Record.destroy_all
+    1.upto(25).map do
+      create_activity(:target => person)
+    end
+    get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json["activities"].length
+  end
+
+  should 'list activities with timestamp' do
+    ActionTracker::Record.destroy_all
+    a1 = create_activity(:target => person)
+    a2 = create_activity(:target => person)
+    a2.updated_at = Time.zone.now
+    a2.save
+
+    a1.updated_at = Time.zone.now + 3.hours
+    a1.save!
+
+
+    params[:timestamp] = Time.zone.now + 1.hours
+    get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["activities"].map { |a| a["id"] }, a1.id
+    assert_not_includes json["activities"].map { |a| a["id"] }, a2.id
+  end
+
+
+
   def create_activity(params = {})
     params[:verb] ||= 'create_article'
-    ActionTracker::Record.create! :verb => params[:verb], :user => person, :target => params[:target]
+    ActionTracker::Record.create!(params.merge(:user => person))
   end
 
 end
