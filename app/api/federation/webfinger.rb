@@ -40,9 +40,8 @@ def request_acct?
 end
 
 def acct_hash
-  rails = Rails::Server.new
   acct = Hash.new{|hash, key| hash[key] = Hash.new{|hash, key| hash[key] = Array.new}}
-  url = rails.options[:Host] + ':' + rails.options[:Port].to_s + '/'
+  url = request.host + '/'
   person = Person.find_by_identifier(extract_person_identifier)
 
   if person.nil?
