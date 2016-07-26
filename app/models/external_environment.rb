@@ -11,4 +11,8 @@ class ExternalEnvironment < ActiveRecord::Base
     url.starts_with? 'https'
   end
 
+  def self.find_by_domain(domain)
+    where(url: ['http://' + domain + '/', 'https://' + domain + '/']).first
+  end
+
 end

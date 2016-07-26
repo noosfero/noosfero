@@ -18,7 +18,7 @@ module ExternalUser
   module ClassMethods
     def webfinger_lookup(login, domain, environment)
       if login && domain && environment.has_federated_network?(domain)
-        external_environment = environment.external_environments.find_by_url(domain)
+        external_environment = environment.external_environments.find_by_domain(domain)
         scheme = "http#{external_environment.uses_ssl? ? 's' : ''}"
         url = URI.parse(scheme+"://"+ domain +'/.well-known/webfinger?resource=acct:'+
                          login+'@'+domain)
@@ -51,7 +51,7 @@ module ExternalUser
       result = nil
       response = nil
       redirections_allowed = 3
-      external_environment = ExternalEnvironment.find_by_url(domain)
+      external_environment = ExternalEnvironment.find_by_domain(domain)
       scheme = "http#{external_environment.uses_ssl? ? 's' : ''}"
       location = scheme + '://' + domain + '/api/v1/login'
       request_params = CGI.unescape({ login: login, password: password }.to_query)
