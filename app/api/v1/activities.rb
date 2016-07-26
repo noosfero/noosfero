@@ -5,13 +5,8 @@ module Api
       resource :profiles do
 
         get ':id/activities' do
-          profile = Profile.find_by id: params[:id]
-
-          not_found! if profile.blank? || profile.secret || !profile.visible
-          forbidden! if !profile.display_private_info_to?(current_person)
-
-          activities = profile.activities.map(&:activity)
-          present activities, :with => Entities::Activity, :current_person => current_person
+          profile = environment.profiles.find_by id: params[:id]
+          present_activities_for_asset(profile)
         end
       end
     end

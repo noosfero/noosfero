@@ -295,12 +295,19 @@ module Api
 
     class Activity < Entity
       root 'activities', 'activity'
-      expose :id, :params, :verb, :created_at, :updated_at, :comments_count, :visible
+      expose :id, :created_at, :updated_at
       expose :user, :using => Profile
+
       expose :target do |activity, opts|
         type_map = {Profile => ::Profile, ArticleBase => ::Article}.find {|h| activity.target.kind_of?(h.last)}
         type_map.first.represent(activity.target) unless type_map.nil?
       end
+      expose :params, :if => lambda { |activity, options| activity.kind_of?(ActionTracker::Record)}
+      expose :content, :if => lambda { |activity, options| activity.kind_of?(Scrap)}
+      expose :verb do |activity, options| 
+        activity.kind_of?(Scrap) ? 'leave_scrap' : activity.verb
+      end
+
     end
 
     class Role < Entity

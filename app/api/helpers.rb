@@ -187,6 +187,28 @@ module Api
       present_partial tasks, :with => Entities::Task
     end
 
+    ###########################
+    #        Activities       #
+    ###########################
+    def find_activities(asset, method_or_relation = 'activities')
+
+      not_found! if asset.blank? || asset.secret || !asset.visible
+      forbidden! if !asset.display_private_info_to?(current_person)
+
+      activities = select_filtered_collection_of(asset, method_or_relation, params)
+      activities = activities.map(&:activity)
+      activities
+    end
+
+    def present_activities_for_asset(asset, method_or_relation = 'activities')
+      tasks = find_activities(asset, method_or_relation)
+      present_activities(tasks)
+    end
+
+    def present_activities(activities)
+      present_partial activities, :with => Entities::Activity, :current_person => current_person
+    end
+
     def make_conditions_with_parameter(params = {})
       parsed_params = parser_params(params)
       conditions = {}
@@ -210,7 +232,7 @@ module Api
           order = 'RANDOM()'
         else
           field_name, direction = params[:order].split(' ')
-          assoc_class = extract_associated_classname(method_or_relation)
+          assoc_class = extract_associated_classname(object, method_or_relation)
           if !field_name.blank? and assoc_class
             if assoc_class.attribute_names.include? field_name
               if direction.present? and ['ASC','DESC'].include? direction.upcase
@@ -223,12 +245,12 @@ module Api
       return order
     end
 
-    def make_timestamp_with_parameters_and_method(params, method_or_relation)
+    def make_timestamp_with_parameters_and_method(object, method_or_relation, params)
       timestamp = nil
       if params[:timestamp]
         datetime = DateTime.parse(params[:timestamp])
-        table_name = extract_associated_tablename(method_or_relation)
-        assoc_class = extract_associated_classname(method_or_relation)
+        table_name = extract_associated_tablename(object, method_or_relation)
+        assoc_class = extract_associated_classname(object, method_or_relation)
         date_atrr = assoc_class.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'
         timestamp = "#{table_name}.#{date_atrr} >= '#{datetime}'"
       end
@@ -258,7 +280,7 @@ module Api
     def select_filtered_collection_of(object, method_or_relation, params)
       conditions = make_conditions_with_parameter(params)
       order = make_order_with_parameters(object,method_or_relation,params)
-      timestamp = make_timestamp_with_parameters_and_method(params, method_or_relation)
+      timestamp = make_timestamp_with_parameters_and_method(object, method_or_relation, params)
 
       objects = is_a_relation?(method_or_relation) ? method_or_relation : object.send(method_or_relation)
       objects = by_reference(objects, params)
@@ -406,15 +428,15 @@ module Api
     end
     private
 
-    def extract_associated_tablename(method_or_relation)
-      extract_associated_classname(method_or_relation).table_name
+    def extract_associated_tablename(object, method_or_relation)
+      extract_associated_classname(object, method_or_relation).table_name
     end
 
-    def extract_associated_classname(method_or_relation)
+    def extract_associated_classname(object, method_or_relation)
       if is_a_relation?(method_or_relation)
         method_or_relation.blank? ? '' : method_or_relation.first.class
       else
-        method_or_relation.to_s.singularize.camelize.constantize
+        object.send(method_or_relation).table_name.singularize.camelize.constantize
       end
     end
 
