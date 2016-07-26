@@ -164,10 +164,10 @@ class CommunitiesTest < ActiveSupport::TestCase
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)
 
-    community1.updated_at = Time.now + 3.hours
+    community1.updated_at = Time.now.in_time_zone + 3.hours
     community1.save!
 
-    params[:timestamp] = Time.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/communities/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -299,10 +299,10 @@ class CommunitiesTest < ActiveSupport::TestCase
     community1 = fast_create(Community, :public_profile => true)
     community2 = fast_create(Community)
 
-    community1.updated_at = Time.now + 3.hours
+    community1.updated_at = Time.now.in_time_zone + 3.hours
     community1.save!
 
-    params[:timestamp] = Time.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/communities/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 

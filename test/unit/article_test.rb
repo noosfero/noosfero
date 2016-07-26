@@ -226,7 +226,7 @@ class ArticleTest < ActiveSupport::TestCase
     p = create_user('usr1').person
     Article.destroy_all
 
-    now = Time.now
+    now = Time.now.in_time_zone
 
     first  = create(Article, :name => 'first',  :published => true, :created_at => now, :published_at => now, :profile_id => p.id)
     second = create(Article, :name => 'second', :published => true, :updated_at => now, :published_at => now + 1.second, :profile_id => p.id)
@@ -728,7 +728,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'fill published_at with current date if not set' do
-    now = Time.now
+    now = Time.now.in_time_zone
     Time.stubs(:now).returns(now)
     a = create(Article, :name => 'Published at', :profile_id => profile.id)
     assert_equal now, a.published_at
@@ -1410,7 +1410,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'retrieve latest info from topic when has no comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now, :author_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now.in_time_zone, :author_id => profile.id)
     assert_equal post.updated_at, post.info_from_last_update[:date]
     assert_equal profile.name, post.info_from_last_update[:author_name]
     assert_equal profile.url, post.info_from_last_update[:author_url]
@@ -1418,7 +1418,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'retrieve latest info from comment when has comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now.in_time_zone)
     post.comments << build(Comment, :name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
     assert_equal post.comments.last.created_at, post.info_from_last_update[:date]
     assert_equal "Guest", post.info_from_last_update[:author_name]

@@ -61,7 +61,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     @community.add_member(@member)
     ActionTracker::Record.delete_all
     comment = Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article )
-    @member.last_notification = DateTime.now + 1.day
+    @member.last_notification = DateTime.now.in_time_zone + 1.day
     assert_no_difference 'ActionMailer::Base.deliveries.count' do
       notify
     end
@@ -88,7 +88,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'schedule next mail at notification time' do
     @member.notification_time = 12
-    time = Time.now
+    time = Time.now.in_time_zone
     @member.notifier.schedule_next_notification_mail
     job = Delayed::Job.handler_like(PersonNotifier::NotifyJob.name).last
     assert job.run_at >= time + @member.notification_time.hours
@@ -140,7 +140,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'reschedule with changed notification time' do
-    time = Time.now
+    time = Time.now.in_time_zone
     assert_difference 'job_count(PersonNotifier::NotifyJob)', 1 do
       @member.notification_time = 2
       @member.save!

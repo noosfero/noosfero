@@ -143,13 +143,13 @@ class TasksTest < ActiveSupport::TestCase
 
   should 'list tasks with timestamp' do
     t1 = create(Task, :requestor => person, :target => person)
-    t2 = create(Task, :requestor => person, :target => person, :created_at => Time.zone.now)
+    t2 = create(Task, :requestor => person, :target => person, :created_at => Time.now.in_time_zone)
 
-    t1.created_at = Time.zone.now + 3.hours
+    t1.created_at = Time.now.in_time_zone + 3.hours
     t1.save!
 
 
-    params[:timestamp] = Time.zone.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/tasks/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 

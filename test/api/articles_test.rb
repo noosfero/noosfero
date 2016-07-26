@@ -335,10 +335,10 @@ class ArticlesTest < ActiveSupport::TestCase
     article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing")
     article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
 
-    article_one.updated_at = Time.now + 3.hours
+    article_one.updated_at = Time.now.in_time_zone + 3.hours
     article_one.save!
 
-    params[:timestamp] = Time.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 

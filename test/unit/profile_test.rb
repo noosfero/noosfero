@@ -1576,8 +1576,8 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list all events' do
     profile = fast_create(Profile)
-    event1 = Event.new(:name => 'Ze Birthday', :start_date => DateTime.now)
-    event2 = Event.new(:name => 'Mane Birthday', :start_date => DateTime.now >> 1)
+    event1 = Event.new(:name => 'Ze Birthday', :start_date => DateTime.now.in_time_zone)
+    event2 = Event.new(:name => 'Mane Birthday', :start_date => DateTime.now.in_time_zone >> 1)
     profile.events << [event1, event2]
     assert_includes profile.events, event1
     assert_includes profile.events, event2
@@ -1586,7 +1586,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events by day' do
     profile = fast_create(Profile)
 
-    today = DateTime.now
+    today = DateTime.now.in_time_zone
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
     today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
     tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
@@ -1612,7 +1612,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events in a range' do
     profile = fast_create(Profile)
 
-    today = DateTime.now
+    today = DateTime.now.in_time_zone
     event_in_range = Event.new(:name => 'Noosfero Conference', :start_date => today - 2.day, :end_date => today + 2.day)
     event_in_day = Event.new(:name => 'Ze Birthday', :start_date => today)
 
@@ -1626,7 +1626,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'not list events out of range' do
     profile = fast_create(Profile)
 
-    today = DateTime.now
+    today = DateTime.now.in_time_zone
     event_in_range1 = Event.new(:name => 'Foswiki Conference', :start_date => today - 2.day, :end_date => today + 2.day)
     event_in_range2 = Event.new(:name => 'Debian Conference', :start_date => today - 2.day, :end_date => today + 3.day)
     event_out_of_range = Event.new(:name => 'Ze Birthday', :start_date => today - 5.day, :end_date => today - 3.day)
@@ -1640,9 +1640,9 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'sort events by date' do
     profile = fast_create(Profile)
-    event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => DateTime.now)
-    event2 = Event.new(:name => 'Debian Day', :start_date => DateTime.now - 1)
-    event3 = Event.new(:name => 'Fisl 10', :start_date => DateTime.now + 1)
+    event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => DateTime.now.in_time_zone)
+    event2 = Event.new(:name => 'Debian Day', :start_date => DateTime.now.in_time_zone - 1)
+    event3 = Event.new(:name => 'Fisl 10', :start_date => DateTime.now.in_time_zone + 1)
     profile.events << [event1, event2, event3]
     assert_equal [event2, event1, event3], profile.events
   end
@@ -1708,7 +1708,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'find more recent profile' do
     Profile.delete_all
     p1 = fast_create(Profile, :created_at => 4.days.ago)
-    p2 = fast_create(Profile, :created_at => Time.now)
+    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone)
     p3 = fast_create(Profile, :created_at => 2.days.ago)
     assert_equal [p2,p3,p1] , Profile.more_recent
 
@@ -1739,19 +1739,19 @@ class ProfileTest < ActiveSupport::TestCase
 
   should "return one activity on label if the profile has one action" do
     p = fast_create(Profile)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now.in_time_zone)
     assert_equal 1, p.recent_actions.count
     assert_equal "one activity", p.more_active_label
   end
 
   should "return number of activities on label if the profile has more than one action" do
     p = fast_create(Profile)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now.in_time_zone)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now.in_time_zone)
     assert_equal 2, p.recent_actions.count
     assert_equal "2 activities", p.more_active_label
 
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now.in_time_zone)
     assert_equal 3, p.recent_actions.count
     assert_equal "3 activities", p.more_active_label
   end
@@ -2187,10 +2187,10 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'fetch profiles older than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now)
-    p2 = fast_create(Profile, :created_at => Time.now - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now - 3.days)
+    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
+    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
 
     profiles = Profile.older_than(p2.created_at)
 
@@ -2201,10 +2201,10 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'fetch profiles younger than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now)
-    p2 = fast_create(Profile, :created_at => Time.now - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now - 3.days)
+    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
+    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
 
     profiles = Profile.younger_than(p3.created_at)
 

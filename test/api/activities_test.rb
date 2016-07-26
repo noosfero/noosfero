@@ -167,14 +167,14 @@ class ActivitiesTest < ActiveSupport::TestCase
     ActionTracker::Record.destroy_all
     a1 = create_activity(:target => person)
     a2 = create_activity(:target => person)
-    a2.updated_at = Time.zone.now
+    a2.updated_at = Time.now.in_time_zone
     a2.save
 
-    a1.updated_at = Time.zone.now + 3.hours
+    a1.updated_at = Time.now.in_time_zone + 3.hours
     a1.save!
 
 
-    params[:timestamp] = Time.zone.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
