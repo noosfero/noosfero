@@ -1,21 +1,20 @@
 <div class="oauth-provider-authorize">
-
 <header class="page-header" role="banner">
   <h1><%= _('Authorize required') %></h1>
 </header>
 
 <main role="main">
   <p class="h4">
-  <%= _('Authorize %s to use your account?') % "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" %>
+    <%= _('Authorize %s to use your account?') % "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" %>
   </p>
 
-  <% if @pre_auth.scopes %>
+  <% if @pre_auth.scopes.count > 0 %>
     <div id="oauth-permissions">
       <p><%= _('This application will be able to:') %></p>
 
       <ul class="text-info">
         <% @pre_auth.scopes.each do |scope| %>
-          <li><%= OauthProviderPlugin::SCOPE_TRANSLATION[scope] %></li>
+          <li><%= t scope, scope: [:doorkeeper, :scopes] %></li>
         <% end %>
       </ul>
     </div>
@@ -28,7 +27,7 @@
       <%= hidden_field_tag :state, @pre_auth.state %>
       <%= hidden_field_tag :response_type, @pre_auth.response_type %>
       <%= hidden_field_tag :scope, @pre_auth.scope %>
-      <%= submit_button :ok, _("Authorize") %>
+      <%= submit_tag _('Authorize'), class: "btn btn-success btn-lg btn-block" %>
     <% end %>
     <%= form_tag oauth_authorization_path, method: :delete do %>
       <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
@@ -36,7 +35,7 @@
       <%= hidden_field_tag :state, @pre_auth.state %>
       <%= hidden_field_tag :response_type, @pre_auth.response_type %>
       <%= hidden_field_tag :scope, @pre_auth.scope %>
-      <%= submit_button :cancel, _("Deny") %>
+      <%= submit_tag _('Deny'), class: "btn btn-danger btn-lg btn-block" %>
     <% end %>
   </div>
 </main>

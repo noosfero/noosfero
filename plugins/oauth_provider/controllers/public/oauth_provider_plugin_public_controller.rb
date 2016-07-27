@@ -1,6 +1,6 @@
 class OauthProviderPluginPublicController < PublicController
 
-  doorkeeper_for :me
+  before_action :doorkeeper_authorize!
 
   def me
     user = environment.users.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
