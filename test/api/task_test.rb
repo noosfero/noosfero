@@ -157,6 +157,22 @@ class TasksTest < ActiveSupport::TestCase
     assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
   end
 
+  should 'list tasks with timestamp considering timezone' do
+    t1 = create(Task, :requestor => person, :target => person)
+    t2 = create(Task, :requestor => person, :target => person, :created_at => ActiveSupport::TimeZone.new('Brasilia').now)
+
+    t1.created_at = ActiveSupport::TimeZone.new('Brasilia').now + 3.hours
+    t1.save!
+
+
+    params[:timestamp] = ActiveSupport::TimeZone.new('Brasilia').now + 1.hours
+    get "/api/v1/tasks/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["tasks"].map { |a| a["id"] }, t1.id
+    assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
+  end
+
   task_actions=%w[finish cancel]
   task_actions_state={"finish"=>"FINISHED","cancel"=>"CANCELLED"}
   task_actions.each do |action|

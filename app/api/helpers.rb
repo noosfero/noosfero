@@ -248,7 +248,7 @@ module Api
     def make_timestamp_with_parameters_and_method(object, method_or_relation, params)
       timestamp = nil
       if params[:timestamp]
-        datetime = DateTime.parse(params[:timestamp])
+        datetime = DateTime.parse(params[:timestamp]).utc
         table_name = extract_associated_tablename(object, method_or_relation)
         assoc_class = extract_associated_classname(object, method_or_relation)
         date_atrr = assoc_class.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'

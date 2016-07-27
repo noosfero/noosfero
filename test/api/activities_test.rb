@@ -182,7 +182,24 @@ class ActivitiesTest < ActiveSupport::TestCase
     assert_not_includes json["activities"].map { |a| a["id"] }, a2.id
   end
 
+  should 'list activities with timestamp considering timezone' do
+    ActionTracker::Record.destroy_all
+    a1 = create_activity(:target => person)
+    a2 = create_activity(:target => person)
+    a2.updated_at = ActiveSupport::TimeZone.new('Brasilia').now
+    a2.save
 
+    a1.updated_at = ActiveSupport::TimeZone.new('Brasilia').now + 3.hours
+    a1.save!
+
+
+    params[:timestamp] = ActiveSupport::TimeZone.new('Brasilia').now + 1.hours
+    get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["activities"].map { |a| a["id"] }, a1.id
+    assert_not_includes json["activities"].map { |a| a["id"] }, a2.id
+  end
 
   def create_activity(params = {})
     params[:verb] ||= 'create_article'
