@@ -2089,6 +2089,8 @@ class ProfileControllerTest < ActionController::TestCase
     ProfileFollower.create!(:profile => p3, :circle => c1)
 
     entries = "Circle_#{c1.id},Person_#{p1.id},Person_#{p2.id}"
+    @controller.stubs(:profile).returns(@profile)
+    @controller.stubs(:user).returns(@profile)
     marked_people = @controller.send(:treat_followed_entries, entries)
 
     assert_equivalent [p1,p2,p3], marked_people
