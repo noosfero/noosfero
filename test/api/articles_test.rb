@@ -390,6 +390,17 @@ class ArticlesTest < ActiveSupport::TestCase
       assert_equal article.id, json["article"]["id"]
     end
 
+    should "return an empty array if theres id no article in path of #{kind}" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
+      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
+
+      params[:path] = 'no-path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_nil json["article"]
+    end
+
     should "not return article by #{kind} and path if user has no permission to view it" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
