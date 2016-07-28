@@ -141,14 +141,13 @@ module Api
       # Example Request:
       #   PATCH /new_password?code=xxxx&password=secret&password_confirmation=secret
       patch "/new_password" do
-        change_password = ChangePassword.find_by code: params[:code]
-        not_found! if change_password.nil?
-
-        if change_password.update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
+        begin
+          change_password = ChangePassword.find_by! code: params[:code]
+          change_password.update_attributes!(:password => params[:password], :password_confirmation => params[:password_confirmation])
           change_password.finish
           present change_password.requestor.user, :with => Entities::UserLogin, :current_person => current_person
-        else
-          something_wrong!
+        rescue Exception => ex
+          render_api_error!(ex.message, 400)
         end
       end
 
