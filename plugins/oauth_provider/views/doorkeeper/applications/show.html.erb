@@ -5,12 +5,13 @@
 <div class="row">
   <div class="col-md-8">
     <h4><%= _('Application Id:') %></h4>
-
     <p><code id="application_id"><%= @application.uid %></code></p>
 
     <h4><%= _('Secret:') %></h4>
-
     <p><code id="secret"><%= @application.secret %></code></p>
+
+    <h4><%= _('Scopes') %>:</h4>
+    <p><code id="scopes"><%= @application.scopes %></code></p>
 
     <h4><%= _('Callback urls:') %></h4>
 
@@ -21,6 +22,7 @@
             <code><%= uri %></code>
           </td>
           <td>
+            <%= link_to _('Authorize'), oauth_authorization_path(client_id: @application.uid, redirect_uri: uri, response_type: 'code'), class: 'btn btn-success', target: '_blank' %>
           </td>
         </tr>
       <% end %>

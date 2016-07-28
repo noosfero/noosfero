@@ -72,6 +72,7 @@ class OauthClientPlugin < Noosfero::Plugin
         strategy.options.merge! consumer_key: provider.client_id, consumer_secret: provider.client_secret
         strategy.options.merge! client_id: provider.client_id, client_secret: provider.client_secret
         strategy.options.merge! options
+        strategy.options.merge! provider.options
 
         request.session[:provider_id] = provider_id
       }
