@@ -212,6 +212,9 @@ class Comment < ApplicationRecord
     user == author || user == profile || user.has_permission?(:moderate_comments, profile)
   end
 
+  # method used by the API
+  alias_method :allow_destroy?, :can_be_destroyed_by?
+
   def can_be_marked_as_spam_by?(user)
     return if user.nil?
     user == profile || user.has_permission?(:moderate_comments, profile)

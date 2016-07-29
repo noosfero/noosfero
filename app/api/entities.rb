@@ -174,6 +174,10 @@ module Api
       expose :created_at, :format_with => :timestamp
       expose :author, :using => Profile
       expose :reply_of, :using => CommentBase
+      expose :permissions do |comment, options|
+        Entities.permissions_for_entity(comment, options[:current_person],
+        :allow_destroy?)
+      end
     end
 
     class Comment < CommentBase

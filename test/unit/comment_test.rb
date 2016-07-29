@@ -597,6 +597,12 @@ class CommentTest < ActiveSupport::TestCase
     refute comment.can_be_destroyed_by?(nil)
   end
 
+  should 'anonymous has no allow_destroy? permission' do
+    comment = Comment.new
+
+    refute comment.allow_destroy?(nil)
+  end
+
   should 'not be able to destroy comment' do
     user = Person.new
     profile = Profile.new
