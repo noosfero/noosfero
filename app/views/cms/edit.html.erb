@@ -34,7 +34,7 @@
 
   <br />
 
-  <%= f.text_field('tag_list', :size => 64) %>
+  <%= f.text_field 'tag_list', size: 64, value: @article.tag_list.join(',') %>
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
   <script>
