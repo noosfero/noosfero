@@ -6,7 +6,7 @@ module EmailTemplateHelper
       params[:subject] = params[:email_template].parsed_subject(params[:template_params])
       params[:content_type] = "text/html"
     end
-    mail(params.except(:email_template))
+    mail(params.except(:email_template, :template_params))
   end
 
 end
