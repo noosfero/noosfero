@@ -521,8 +521,6 @@ class ProfileController < PublicController
         owner = item.user
       end
       !environment.admins.include?(user) &&
-      #TODO Consider this if allowing to mark people on organization's wall
-      #!profile.admins.include?(user) &&
       owner != user &&
       target.is_a?(Scrap) &&
       target.marked_people.present? &&
