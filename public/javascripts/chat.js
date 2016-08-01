@@ -271,27 +271,35 @@ jQuery(function($) {
       var contacts_to_insert = {};
       var groups_to_insert = [];
 
-      $(iq).find('item').each(function () {
-        var jid = $(this).attr('jid');
-        profiles.push(getIdentifier(jid));
-        var name = $(this).attr('name') || jid;
-        var jid_id = Jabber.jid_to_id(jid);
-        contacts_to_insert[jid] = name;
-      });
+      //FIXME User ejabberd roster when the username length limit bug is solved.
+      // $(iq).find('item').each(function () {
+      //   var jid = $(this).attr('jid');
+      //   profiles.push(getIdentifier(jid));
+      //   var name = $(this).attr('name') || jid;
+      //   var jid_id = Jabber.jid_to_id(jid);
+      //   contacts_to_insert[jid] = name;
+      // });
 
-      //TODO Add groups through roster too...
       $.ajax({
-        url: '/chat/roster_groups',
-        dataType: 'json',
+        url: '/chat/rosters',
+        dataType: 'json,'
         success: function(data){
-          $(data).each(function(index, room){
+          $(data.friends).each(function(index, friend){
+            var jid = friend.jid;
+            profiles.push(getIdentifier(jid));
+            var name = friend.name;
+            var jid_id = Jabber.jid_to_id(jid);
+            contacts_to_insert[jid] = name;
+          });
+
+          $(data.rooms).each(function(index, room){
             profiles.push(getIdentifier(room.jid));
             var jid_id = Jabber.jid_to_id(room.jid);
             Jabber.jids[jid_id] = {jid: room.jid, name: room.name, type: 'groupchat'};
             //FIXME This must check on session if the user is inside the room...
             groups_to_insert.push(room.jid);
-
           });
+
           $.getJSON('/chat/avatars', {profiles: profiles}, function(data) {
             for(identifier in data)
               Jabber.avatars[identifier] = data[identifier];
@@ -319,7 +327,6 @@ jQuery(function($) {
           console.log(data);
         },
       });
-
     },
 
     // NOTE: cause Noosfero store's rosters in database based on friendship relation between people
