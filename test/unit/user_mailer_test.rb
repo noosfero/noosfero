@@ -44,6 +44,16 @@ fast_create(Person))
     assert_equal 'activation template body', mail.body.to_s
   end
 
+  should 'not leak template params into activation email' do
+    EmailTemplate.create!(:template_type => :user_activation, :name => 'template1', :subject => 'activation template subject', :body => 'activation template body', :owner => Environment.default)
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      u = create_user('some-user')
+      UserMailer.activation_code(u).deliver
+    end
+    mail = ActionMailer::Base.deliveries.last
+    assert_nil mail['template-params']
+  end
+
   private
 
     def read_fixture(action)
