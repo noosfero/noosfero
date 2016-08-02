@@ -120,6 +120,15 @@ class ChatController < PublicController
     render :text => rosters.to_json
   end
 
+  def availabilities
+    availabilities = user.friends.map do |friend|
+      status = friend.user.chat_status
+      status = 'offline' if status.blank?
+      {:jid => friend.jid, :status => status}
+    end
+    render :text => availabilities.to_json
+  end
+
   protected
 
   def check_environment_feature
