@@ -300,7 +300,7 @@ jQuery(function($) {
             groups_to_insert.push(room.jid);
           });
 
-          $.getJSON('/chat/avatars', {profiles: profiles}, function(data) {
+          $.post('/chat/avatars', {profiles: profiles}, function(data) {
             for(identifier in data)
               Jabber.avatars[identifier] = data[identifier];
 
@@ -322,7 +322,7 @@ jQuery(function($) {
             Jabber.send_availability_status(Jabber.presence_status);
             load_defaults();
             updateAvailabilities();
-          });
+          }, 'json');
         },
         error: function(data, textStatus, jqXHR){
           console.log(data);
