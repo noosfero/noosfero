@@ -403,12 +403,12 @@ module Api
     end
 
     def asset_with_image params
-      if params.has_key? :image_builder
+      if !params.nil? && params.has_key?(:image_builder)
         asset_api_params = params
         asset_api_params[:image_builder] = base64_to_uploadedfile(asset_api_params[:image_builder])
         return asset_api_params
       end
-        params
+      params
     end
 
     def base64_to_uploadedfile(base64_image)
