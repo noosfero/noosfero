@@ -40,7 +40,7 @@ var emoticons = {
          }
       },
       "::bigSmile": {
-         "image": "smile-big.png",
+         "image": "excited.png",
          "emotes": {
             ":D": "",
             "=D": "",
@@ -48,7 +48,7 @@ var emoticons = {
          }
       },
       "::shock": {
-         "image": "shock.png",
+         "image": "shocked.png",
          "emotes": {
             ":O":  "",
             ":0":  "",
