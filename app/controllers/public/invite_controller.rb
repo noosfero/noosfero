@@ -82,6 +82,8 @@ class InviteController < PublicController
     scope = profile.invite_friends_only ? user.friends : environment.people
     scope = scope.not_members_of(profile) if profile.organization?
     scope = scope.not_friends_of(profile) if profile.person?
+    scope = scope.distinct(false).group("profiles.id")
+
     results = find_by_contents(:people, environment, scope, params['q'], {:page => 1}, {:joins => :user})[:results]
     render :text => prepare_to_token_input(results).to_json
   end
