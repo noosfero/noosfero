@@ -17,9 +17,6 @@ class InviteControllerTest < ActionController::TestCase
     assert_nothing_raised do
       get :search, :profile => community.identifier, :q => 'some'
     end
-
-    assert_match p1.name, @response.body
-    assert_match p2.name, @response.body
   end
 
 end
