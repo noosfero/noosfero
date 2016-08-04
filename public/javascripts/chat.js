@@ -147,22 +147,18 @@ jQuery(function($) {
         if(offset_container.length == 0)
           offset_container = $('<div class="chat-offset-container-'+offset+'"></div>').prependTo(history);
 
-        if (offset_container.find('.message:last').attr('data-who') == who) {
-          offset_container.find('.message:last .content').append('<p>' + body + '</p>');
+        if (time==undefined) {
+          time = new Date().toISOString();
         }
-        else {
-          if (time==undefined) {
-            time = new Date().toISOString();
-          }
-          var message_html = Jabber.template('.message')
-          .replace('%{message}', body)
-          .replace(/%{who}/g, who)
-          .replace('%{time}', time)
-          .replace('%{name}', name)
-          .replace('%{avatar}', getAvatar(identifier));
-          offset_container.append(message_html);
-          $(".message span.time").timeago();
-        }
+        var message_html = Jabber.template('.message')
+        .replace('%{message}', body)
+        .replace(/%{who}/g, who)
+        .replace('%{time}', time)
+        .replace('%{name}', name)
+        .replace('%{avatar}', getAvatar(identifier));
+        offset_container.append(message_html);
+        $(".message span.time").timeago();
+
         if(offset == 0) history.scrollTo({top:'100%', left:'0%'});
         else history.scrollTo(offset_container.height());
         if (who != "self") {
