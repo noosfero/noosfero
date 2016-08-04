@@ -7,7 +7,7 @@
     </ul>
   </div>
   <div>
-    <%= step.body %>
+    <%= step.body.html_safe %>
   </div>
   <% if step.allow_create?(user) && !step.tool && step.tool_class %>
     <h3><%= _("Tool") %></h3>

@@ -10,7 +10,7 @@
         <%= status_description(step_item) %>
       </div>
       <div class="name"><span class="tool_icon button with-text icon-new icon-new<%= step_item.tool_class.icon_name if step_item.tool_class %>"></span>  <%= step_item.name %></div>
-      <div class="lead"><%= step_item.body %></div>
+      <div class="lead"><%= step_item.body.html_safe %></div>
       <div class="tools">
         <% if step_item.tool %>
           <%= _('Tool: ') %>

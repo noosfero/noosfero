@@ -3,7 +3,7 @@
 <%= form_tag({:controller => 'community_track_plugin_myprofile', :action => 'save_order', :track => track}) do %>
 <div id="track">
   <div>
-    <%= track.body %>
+    <%= track.body.html_safe %>
   </div>
 
   <h3><%= _("Steps") %></h3>
