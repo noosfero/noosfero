@@ -408,6 +408,24 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
   end
 
+  should 'limit task list' do
+    user2 = create_user('usertwo').person
+    6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_select '.pending-tasks > ul > li', 5
+  end
+
+  should 'display task count in task list' do
+    user2 = create_user('usertwo').person
+    6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_select '.pending-tasks h2' do |elements|
+      assert_match /6/, elements.first.content
+    end
+  end
+
   should 'show favorite enterprises button for person' do
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => 'Favorite Enterprises'
