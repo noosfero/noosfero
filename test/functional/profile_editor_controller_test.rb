@@ -391,8 +391,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
     user2 = create_user('usertwo').person
     AddFriend.create!(:person => user1, :friend => user2)
     @controller.stubs(:user).returns(user2)
-    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
-    user2.expects(:has_permission?).with(:manage_friends, anything).returns(true)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
     assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
@@ -400,11 +398,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not show task if user has no permission' do
     user1 = profile
+    community = fast_create(Community)
     user2 = create_user('usertwo').person
-    task = AddFriend.create!(:person => user1, :friend => user2)
+    task = AddMember.create!(person: user1, organization: community)
     @controller.stubs(:user).returns(user2)
-    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
-    user2.expects(:has_permission?).with(:manage_friends, anything).returns(false)
+    give_permission(user2, 'invite_members', community)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
     assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
