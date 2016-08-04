@@ -4,7 +4,7 @@
     <ul class="profile-list">
       <% profiles.each do |profile| %>
         <li>
-        <%= link_to_profile profile_image(profile) + '<br/>' + profile.short_name,
+        <%= link_to_profile profile_image(profile) + '<br/>'.html_safe + profile.short_name,
                             profile.identifier, :class => 'profile-link' %>
         </li>
       <% end %>
