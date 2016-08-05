@@ -46,9 +46,11 @@ module Api
     def present_partial(model, options)
       if(params[:fields].present?)
         begin
-          fields = JSON.parse(params[:fields])
+          fields = JSON.parse((params.to_hash[:fields] || params.to_hash['fields']).to_json)
           if fields.present?
-            options.merge!(fields.symbolize_keys.slice(:only, :except))
+            fields = fields.symbolize_keys
+            options.merge!(:only => fields[:only]) if fields[:only].present?
+            options.merge!(:except => fields[:except]) if fields[:except].present?
           end
         rescue
           fields = params[:fields]

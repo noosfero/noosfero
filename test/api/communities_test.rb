@@ -100,7 +100,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal community.id, json['community']['id']
-    assert_nil json['community']['members']
+    assert_nil json['community']['admins']
   end
 
   should 'get private community to logged member' do
@@ -108,6 +108,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
     community.add_member(person)
 
+    params[:optional_fields] = ['members']
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal community.id, json['community']['id']
@@ -331,6 +332,53 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json['community']['additional_data'].has_key?('Rating')
+  end
+
+  should 'not display members value by default' do
+    login_api
+    community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
+    community.add_member(person)
+
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+    assert_nil json['community']['members']
+  end
+
+  should 'display members values if optional field parameter is passed' do
+    community = fast_create(Community, :environment_id => environment.id)
+
+    get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => [:members]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+    assert_not_nil json['community']['members']
+  end
+
+  should 'display members values if optional_fields has members value as string in array' do
+    community = fast_create(Community, :environment_id => environment.id)
+
+    get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => ['members']}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+    assert_not_nil json['community']['members']
+  end
+
+  should 'display members values if optional_fields has members value in array' do
+    community = fast_create(Community, :environment_id => environment.id)
+
+    get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => ['members', 'another']}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+    assert_not_nil json['community']['members']
+  end
+
+  should 'display members values if optional_fields has members value as string' do
+    community = fast_create(Community, :environment_id => environment.id)
+
+    get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => 'members'}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['community']['id']
+    assert_not_nil json['community']['members']
   end
 
 end

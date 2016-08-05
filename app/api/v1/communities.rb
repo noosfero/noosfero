@@ -18,7 +18,7 @@ module Api
           communities = select_filtered_collection_of(environment, 'communities', params)
           communities = profiles_for_person(communities, current_person)
           communities = communities.by_location(params) # Must be the last. May return Exception obj
-          present communities, :with => Entities::Community, :current_person => current_person
+          present communities, :with => Entities::Community, :current_person => current_person, :params => params
         end
 
 
@@ -49,7 +49,7 @@ module Api
 
         get ':id' do
           community = profiles_for_person(environment.communities, current_person).find_by_id(params[:id])
-          present community, :with => Entities::Community, :current_person => current_person
+          present community, :with => Entities::Community, :current_person => current_person, :params => params
         end
 
       end
