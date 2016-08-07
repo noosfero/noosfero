@@ -6,4 +6,6 @@ Dir[tasks_dir].each do |file|
   load file
 end
 
-Rake.application['start'].invoke
+unless ENV['TRAVIS']
+  Rake.application['start'].invoke
+end
