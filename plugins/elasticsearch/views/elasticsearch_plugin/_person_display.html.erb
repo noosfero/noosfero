@@ -1,0 +1,14 @@
+<div class="person-item">
+  <div class="left-side">
+    <%= profile_image person %>
+  </div>
+  <div class="right-side">
+    <%= show_time(person.created_at) %> - <span class="model-label"><%= model_label.singularize %></span>
+    <div class="body">
+      <h2><%= link_to person.name, person.url %></h2>
+      <p><%= person.description %></p>
+    </div>
+  </div>
+  <div style="clear: both">
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="text_article-header">
+  <%= show_time(text_article.created_at) %> - <%= "#{text_article.author.name} -" if text_article.author %> <span class="model-label"><%= model_label.singularize %></span>
+</div>
+<div class="body">
+  <h2><%= link_to text_article.name, text_article.url %></h2>
+  <p> <strong> <%= _("Abstract") %></strong>: <%= text_article.abstract %></p>
+</div>

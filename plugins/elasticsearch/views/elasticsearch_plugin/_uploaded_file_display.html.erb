@@ -1,0 +1,7 @@
+<div class="uploaded_file-header">
+  <%= show_time(uploaded_file.created_at) %> - <%= "#{uploaded_file.author.name} -" if uploaded_file.author %><span class="model-label"><%= model_label.singularize %></span>
+</div>
+<div class="body">
+  <h2><%= link_to uploaded_file.name, uploaded_file.url %></h2>
+  <p> <strong><%= _("Type of file")%> </strong>: <%= uploaded_file.content_type %> </p>
+</div>

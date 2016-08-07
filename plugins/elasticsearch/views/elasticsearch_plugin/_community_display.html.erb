@@ -1,0 +1,7 @@
+<div class="community-header">
+  <%= show_time(community.created_at) %> - <span class="model-label"><%= model_label.singularize %></span>
+</div>
+<div class="body">
+  <h2><%= link_to community.name, community.url %></h2>
+  <p><%= community.description %></p>
+</div>

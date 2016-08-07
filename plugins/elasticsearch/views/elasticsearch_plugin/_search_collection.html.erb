@@ -1,0 +1,14 @@
+<% for result in @results.to_a %>
+  <% for klass, model_label in @searchable_types.except(:all) %>
+    <% if result.is_a? klass.to_s.classify.constantize %>
+      <div class="search-item">
+        <%= render partial: "#{klass}_display", :locals => { klass => result, :model_label => model_label} %>
+      </div>
+      <% break %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="search_paginate">
+  <%= pagination_links @results if @results.count > 0 %>
+</div>

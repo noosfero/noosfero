@@ -1,0 +1,8 @@
+<p>
+  <strong><%= @hits %></strong>
+  <% if not @query.blank? %>
+    <%= _(" results for ") %><%= @query %>
+  <% else %>
+    <%= _(" total results") %>
+  <% end %>
+</p>
