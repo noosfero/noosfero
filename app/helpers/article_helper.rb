@@ -160,6 +160,10 @@ module ArticleHelper
     array.map { |object| {:label => object.name, :value => object.name} }
   end
 
+  def prepare_to_token_input_by_class(array)
+    array.map { |object| {:id => "#{object.class.name}_#{object.id || object.name}", :name => "#{object.name} (#{_(object.class.name)})", :class => object.class.name}}
+  end
+
   def cms_label_for_new_children
     _('New article')
   end

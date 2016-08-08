@@ -19,6 +19,11 @@ class ProfileController < PublicController
       @network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) if @network_activities.empty?
       @activities = @profile.activities.paginate(:per_page => 15, :page => params[:page])
     end
+
+    # TODO Find a way to filter these through sql
+    @network_activities = filter_private_scraps(@network_activities)
+    @activities = filter_private_scraps(@activities)
+
     @tags = profile.article_tags
     allow_access_to_page
   end
@@ -231,6 +236,7 @@ class ProfileController < PublicController
     @scrap = Scrap.new(params[:scrap])
     @scrap.sender= sender
     @scrap.receiver= receiver
+    @scrap.marked_people = treat_followed_entries(params[:filter_followed])
     @tab_action = params[:tab_action]
     @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
     activities = @profile.activities.paginate(:per_page => 15, :page => params[:page]) if params[:not_load_scraps].nil?
@@ -251,6 +257,14 @@ class ProfileController < PublicController
       network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page])
       render :partial => 'profile_network_activities', :locals => {:network_activities => network_activities}
     end
+  end
+
+  def search_followed
+    result = []
+    circles = find_by_contents(:circles, user, user.circles.where(:profile_type => 'Person'), params[:q])[:results]
+    followed = find_by_contents(:followed, user, Profile.followed_by(user), params[:q])[:results]
+    result = circles + followed
+    render :text => prepare_to_token_input_by_class(result).to_json
   end
 
   def view_more_activities
@@ -434,7 +448,6 @@ class ProfileController < PublicController
     end
   end
 
-
   protected
 
   def check_access_to_profile
@@ -480,4 +493,39 @@ class ProfileController < PublicController
     render_not_found unless profile.allow_followers?
   end
 
+  def treat_followed_entries(entries)
+    return [] if entries.blank? || profile != user
+
+    followed = []
+    entries.split(',').map do |entry|
+      klass, identifier = entry.split('_')
+      case klass
+      when 'Person'
+        followed << Person.find(identifier)
+      when 'Circle'
+        circle = Circle.find(identifier)
+        followed += Profile.in_circle(circle)
+      end
+    end
+    followed.uniq
+  end
+
+  def filter_private_scraps(activities)
+    activities = Array(activities)
+    activities.delete_if do |item|
+      if item.kind_of?(ProfileActivity)
+        target = item.activity
+        owner = profile
+      else
+        target = item.target
+        owner = item.user
+      end
+      !environment.admins.include?(user) &&
+      owner != user &&
+      target.is_a?(Scrap) &&
+      target.marked_people.present? &&
+      !target.marked_people.include?(user)
+    end
+    activities
+  end
 end
