@@ -76,7 +76,7 @@ group :cucumber do
   gem 'cucumber'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.3'
-  gem 'selenium-webdriver',     '>= 2.50'
+  gem 'selenium-webdriver',     '>= 2.53'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
 
