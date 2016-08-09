@@ -38,6 +38,13 @@ module Api
       PERMISSIONS[current_permission] <= PERMISSIONS[permission]
     end
 
+    def self.expose_optional_field?(field, options = {})
+      return false if options[:params].nil? 
+      optional_fields = options[:params][:optional_fields] || []
+      optional_fields.include?(field.to_s)
+    end
+
+
     class Image < Entity
       root 'images', 'image'
 
@@ -166,7 +173,8 @@ module Api
         community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
       end
       expose :categories, :using => Category
-      expose :members, :using => Person , :if => lambda{ |community, options| community.display_info_to? options[:current_person] }
+      expose :members_count
+      expose :members, :if => lambda {|community, options| Entities.expose_optional_field?(:members, options)}
     end
 
     class CommentBase < Entity
@@ -213,7 +221,7 @@ module Api
       expose :comments_count
       expose :archived, :documentation => {:type => "Boolean", :desc => "Defines if a article is readonly"}
       expose :type
-      expose :comments, using: CommentBase, :if => lambda{|obj,opt| opt[:params] && ['1','true',true].include?(opt[:params][:show_comments])}
+      expose :comments, using: CommentBase, :if => lambda{|comment,options| Entities.expose_optional_field?(:comments, options)}
       expose :published
       expose :accept_comments?, as: :accept_comments
     end

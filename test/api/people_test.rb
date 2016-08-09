@@ -119,8 +119,8 @@ class PeopleTest < ActiveSupport::TestCase
 
   should 'people endpoint filter by fields parameter with hierarchy for logged user' do
     login_api
-    fields = URI.encode({only: [:name, {user: [:login]}]}.to_json.to_str)
-    get "/api/v1/people?#{params.to_query}&fields=#{fields}"
+    params[:fields] = {only: [:name, {user: [:login]}]}
+    get "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
     expected = {'people' => [{'name' => person.name, 'user' => {'login' => 'testapi'}}]}
     assert_equal expected, json

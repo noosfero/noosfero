@@ -233,7 +233,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
 
   should 'accept json as fields parameter when calling present partial' do
     model = mock
-    params[:fields] = {only: [:name, {user: [:login]}]}.to_json
+    params[:fields] = {only: [:name, {user: [:login]}]}
     expects(:present).with(model, {:only => ['name', {'user' => ['login']}]})
     present_partial(model, {})
   end
