@@ -1,4 +1,10 @@
 class Circle < ApplicationRecord
+  SEARCHABLE_FIELDS = {
+    :name => {:label => _('Name'), :weight => 1}
+  }
+
+  _('Circle')
+
   has_many :profile_followers
   belongs_to :person
 

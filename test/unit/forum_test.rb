@@ -78,7 +78,7 @@ class ForumTest < ActiveSupport::TestCase
     forum = fast_create(Forum, :profile_id => p.id, :name => 'Forum test')
     newer = create(TextileArticle, :name => 'Post 2', :parent => forum, :profile => p)
     older = create(TextileArticle, :name => 'Post 1', :parent => forum, :profile => p)
-    older.updated_at = Time.now - 1.month
+    older.updated_at = Time.now.in_time_zone - 1.month
     older.stubs(:record_timestamps).returns(false)
     older.save!
     assert_equal [newer, older], forum.posts

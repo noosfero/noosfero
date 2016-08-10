@@ -27,7 +27,7 @@ gem 'rest-client',              '~> 1.6'
 gem 'exception_notification',   '~> 4.0.1'
 gem 'gettext',                  '~> 3.1', :require => false
 gem 'locale',                   '~> 2.1'
-gem 'whenever', :require => false
+gem 'whenever',                 '~> 0.9.4', :require => false
 gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
 gem 'slim'
@@ -76,7 +76,7 @@ group :cucumber do
   gem 'cucumber'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.3'
-  gem 'selenium-webdriver',     '>= 2.50'
+  gem 'selenium-webdriver',     '>= 2.53'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
 

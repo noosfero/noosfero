@@ -1,0 +1,14 @@
+<%= block_title(block.view_title, block.subtitle) %>
+
+<div class="profile-images-block">
+  <% unless block.images.size == 0 %>
+    <ul>
+      <% block.images.each do |image| %>
+        <li><%= link_to content_tag(:span, image.title), image.view_url, style: "background-image: url(#{image.public_filename(:thumb)})" %></li>
+      <% end %>
+    </ul>
+    <br style="clear: both;" />
+  <% else %>
+    <div class="profile-images-block-none"><%= c_('None') %></div>
+  <% end %>
+</div>

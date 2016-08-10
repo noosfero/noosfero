@@ -5,10 +5,10 @@ require_relative "../test_helper"
 
 class TimeScopesTest < ActiveSupport::TestCase
   should 'fetch profiles older than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now)
-    p2 = fast_create(Profile, :created_at => Time.now - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now - 3.days)
+    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
+    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
 
     profiles = Profile.older_than(p2.created_at)
 
@@ -19,10 +19,10 @@ class TimeScopesTest < ActiveSupport::TestCase
   end
 
   should 'fetch profiles younger than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now)
-    p2 = fast_create(Profile, :created_at => Time.now - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now - 3.days)
+    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
+    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
 
     profiles = Profile.younger_than(p3.created_at)
 

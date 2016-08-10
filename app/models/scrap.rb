@@ -2,7 +2,7 @@ class Scrap < ApplicationRecord
 
   include SanitizeHelper
 
-  attr_accessible :content, :sender_id, :receiver_id, :scrap_id
+  attr_accessible :content, :sender_id, :receiver_id, :scrap_id, :marked_people
 
   SEARCHABLE_FIELDS = {
     :content => {:label => _('Content'), :weight => 1},
@@ -18,6 +18,8 @@ class Scrap < ApplicationRecord
   has_many :profile_activities, -> {
     where profile_activities: {activity_type: 'Scrap'}
   }, foreign_key: :activity_id, dependent: :destroy
+
+  has_and_belongs_to_many :marked_people, :join_table => :private_scraps, :class_name => 'Person'
 
   after_create :create_activity
   after_update :update_activity
@@ -35,6 +37,9 @@ class Scrap < ApplicationRecord
   after_create :send_notification
 
   before_validation :strip_all_html_tags
+
+  alias :user :sender
+  alias :target :receiver
 
   def top_root
     scrap = self

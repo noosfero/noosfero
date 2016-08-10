@@ -5,7 +5,7 @@
     <div class="lead">
       <h3><%= link_to track.name, track.url %></h3>
       <div class="content">
-        <%= track.lead %>
+        <%= track.lead.html_safe %>
       </div>
     </div>
     <div class="steps">

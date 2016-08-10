@@ -31,7 +31,7 @@
         <p class="comment-body"> <%= user_rate.comment.body %> </p>
       <% elsif user && user.is_admin? %>
         <% rating_task = CreateOrganizationRatingComment.with_rating(user_rate) %>
-        <p class="comment-body"> <%= rating_task.body %> </p>
+        <p class="comment-body"> <%= rating_task.body if rating_task.respond_to?(:body) %> </p>
       <% end %>
     </div>
     <%= @plugins.dispatch(:organization_ratings_plugin_container_extra_fields, user_rate).collect { |content| instance_exec(&content) }.join("") %>

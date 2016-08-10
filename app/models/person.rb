@@ -120,6 +120,8 @@ class Person < Profile
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Community', true
   }, through: :suggested_profiles, source: :suggestion
 
+  has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, :class_name => 'Scrap'
+
   scope :more_popular, -> { order 'friends_count DESC' }
 
   scope :admins, -> { joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }

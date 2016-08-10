@@ -269,7 +269,7 @@ module Api
 
                 if params[:path].present?
                   article = profile.articles.find_by path: params[:path]
-                  if !article || !article.display_to?(current_person)
+                  if article && !article.display_to?(current_person)
                     article = forbidden!
                   end
 

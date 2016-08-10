@@ -1,0 +1,11 @@
+<%= form_tag '/plugin/elasticsearch/search', method: :get  do %>
+
+  <%= hidden_field_tag("selected_type", @selected_type) if @selected_type %>
+
+  <%= hidden_field_tag("filter", @selected_sort) if @selected_sort %>
+
+  <%= hidden_field_tag("categories", @selected_categories.join(",")) if @selected_categories %>
+  <%= text_field_tag :query, @query %>
+
+  <%= submit_tag _("Send") %>
+<% end %>

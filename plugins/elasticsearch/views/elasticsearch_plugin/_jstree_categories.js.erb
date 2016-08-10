@@ -1,0 +1,16 @@
+<script>
+  $("#jstree-categories").jstree({
+    'core' : {
+      'data' : <%= categories_data(@categories).to_json %>,
+      "themes": { "icons" : false }
+    },
+    'checkbox': {
+        three_state: true,
+        cascade: 'up'
+    },
+    'plugins': ["wholerow","checkbox"]
+  });
+  $("#jstree-categories").on("loaded.jstree", function(){
+    $("#jstree-categories").jstree().select_node(<%= @selected_categories.to_json %>)
+  });
+</script>

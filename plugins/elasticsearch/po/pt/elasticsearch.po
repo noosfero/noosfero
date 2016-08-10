@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2016-07-25 15:12+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "All results"
+msgstr "Todos os resultados"
+
+msgid "Articles"
+msgstr "Artigos"
+
+msgid "Files"
+msgstr "Arquivos"
+
+msgid "Communities"
+msgstr "Comunidades"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "People"
+msgstr "Pessoas"
+
+msgid "Relevance"
+msgstr "Relevância"
+
+msgid "Alphabetical"
+msgstr "Alfabético"
+
+msgid "More recent"
+msgstr "Mais recentes"
+
+msgid "This plugin is used to communicate with elasticsearch engine."
+msgstr "Este plugin é utilizado na comunicação com a engine elasticsearch."
+
+msgid "More active"
+msgstr "Mais ativos"
+
+msgid "More popular"
+msgstr "Mais populares"
+
+msgid "More viewed"
+msgstr "Mais vistos"
+
+msgid "Most commented"
+msgstr "Mais comentados"
+
+msgid " results for "
+msgstr " resultados para "
+
+msgid " total results"
+msgstr " resultados"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Abstract"
+msgstr "Resumo"
+
+msgid "Type of file"
+msgstr "Tipo de arquivo"
+
+msgid "Categories"
+msgstr "Categorias"

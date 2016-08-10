@@ -391,8 +391,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
     user2 = create_user('usertwo').person
     AddFriend.create!(:person => user1, :friend => user2)
     @controller.stubs(:user).returns(user2)
-    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
-    user2.expects(:has_permission?).with(:manage_friends, anything).returns(true)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
     assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
@@ -400,14 +398,32 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not show task if user has no permission' do
     user1 = profile
+    community = fast_create(Community)
     user2 = create_user('usertwo').person
-    task = AddFriend.create!(:person => user1, :friend => user2)
+    task = AddMember.create!(person: user1, organization: community)
     @controller.stubs(:user).returns(user2)
-    user2.stubs(:has_permission?).with('edit_profile', anything).returns(true)
-    user2.expects(:has_permission?).with(:manage_friends, anything).returns(false)
+    give_permission(user2, 'invite_members', community)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
     assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
+  end
+
+  should 'limit task list' do
+    user2 = create_user('usertwo').person
+    6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_select '.pending-tasks > ul > li', 5
+  end
+
+  should 'display task count in task list' do
+    user2 = create_user('usertwo').person
+    6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
+    login_as('usertwo')
+    get :index, :profile => 'usertwo'
+    assert_select '.pending-tasks h2' do |elements|
+      assert_match /6/, elements.first.content
+    end
   end
 
   should 'show favorite enterprises button for person' do

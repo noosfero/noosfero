@@ -3,7 +3,8 @@
   padding-left: 0;
   clear: both;
 }
-#profile-activity li, #profile-network li, #profile-wall li {
+
+.profile-activities li {
   display: block;
   padding: 3px 0px;
   margin-bottom: 3px;
@@ -367,6 +368,9 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 .profile-wall-message {
   margin: 0;
 }
+.limited-text-area {
+  margin-bottom: 15px;
+}
 .limited-text-area p {
   margin: 0;
   font-size: 11px;
@@ -378,7 +382,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   margin-bottom: 10px;
 }
 #leave_scrap_content_limit, #leave_scrap_content_left {
-  float: left;
+  float: right;
+  margin-right: 2px;
 }
 #leave_scrap {
   float: left;
@@ -391,6 +396,9 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 #leave_scrap .loading textarea {
   background: url('/images/loading-small.gif') 50% 50% no-repeat;
+}
+#leave_scrap .submit {
+  margin-top: 5px;
 }
 .profile-send-reply {
   color: #aaa;
@@ -598,7 +606,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #profile-wall #leave_scrap textarea {
-  width: 442px;
   height: 100px
 }
 .profile-wall-scrap-replies {

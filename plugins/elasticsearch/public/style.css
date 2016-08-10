@@ -1,0 +1,165 @@
+@import "themes/default/style.min.css";
+
+.controller-elasticsearch_plugin .results-wrapper {
+  display: flex;
+}
+
+.controller-elasticsearch_plugin .sidebar {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.controller-elasticsearch_plugin .search_form {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.controller-elasticsearch_plugin .search_form .search_field {
+  margin-top: 5px;
+}
+
+.controller-elasticsearch_plugin .search_form .search_field input[type='text'] {
+  width: 500px;
+  font-size: 15px;
+  height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+}
+.controller-elasticsearch_plugin .search_form .search_field input[type='submit'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  padding: 0 15px;
+  line-height: 35px;
+  height: 35px;
+}
+.controller-elasticsearch_plugin .search_form .search_field input[type='submit']:hover {
+  cursor: pointer;
+  background: #ccc;
+}
+
+.controller-elasticsearch_plugin .results {
+  flex: 1;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.controller-elasticsearch_plugin .results-count {
+  margin: 15px;
+  font-size: 18px;
+}
+
+.controller-elasticsearch_plugin #content-inner .categories,
+.controller-elasticsearch_plugin #content-inner .search-filter,
+.controller-elasticsearch_plugin #content-inner .search-options{
+  background: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 20px 20px 0 0;
+  border: 1px solid #eee;
+}
+
+.controller-elasticsearch_plugin #content-inner #jstree-categories {
+  overflow-x: auto;
+}
+
+.controller-elasticsearch_plugin #content-inner #jstree-categories .jstree-node {
+  padding: 3px 0;
+}
+
+.controller-elasticsearch_plugin #content-inner #jstree-categories .jstree-wholerow-clicked {
+  background: #fff;
+}
+
+.controller-elasticsearch_plugin #content-inner .search-filter ul,
+.controller-elasticsearch_plugin #content-inner .search-options ul {
+  background: #FFF;
+  list-style: none;
+  list-style-position: inside;
+  padding-left: 0px;
+  margin: 0;
+}
+
+.controller-elasticsearch_plugin #content h3.box-title {
+  background: #000;
+  color: white;
+  padding: 15px 10px;
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.17em;
+}
+
+.controller-elasticsearch_plugin .search-filter ul li,
+.controller-elasticsearch_plugin .select-search-type {
+  text-decoration: none;
+  font-weight: 900;
+  font-family: arial;
+  border-bottom: 1px solid #E1E1E1;
+}
+
+.controller-elasticsearch_plugin #content-inner .search-filter ul li:last-child ,
+.controller-elasticsearch_plugin #content-inner .search-options ul li:last-child {
+  border-bottom: none;
+}
+
+.controller-elasticsearch_plugin #content-inner .search-filter ul li a ,
+.controller-elasticsearch_plugin #content-inner .search-options ul li a {
+  text-decoration: none;
+  display: block;
+  padding: 13px;
+  color: black;
+}
+
+.controller-elasticsearch_plugin .select-search-type.active {
+  background: #CCC;
+  font-weight: 900;
+  border-bottom: none;
+}
+
+.controller-elasticsearch_plugin .select-search-type a {
+  text-decoration: none;
+  color: black;
+}
+
+.controller-elasticsearch_plugin .select-search-type.active a {
+  color: white;
+}
+
+.controller-elasticsearch_plugin .search-item .model-label {
+  background: #ddd;
+  color: black;
+  font-weight: 900;
+  padding: 3px;
+}
+
+.controller-elasticsearch_plugin .search-item {
+  padding: 10px;
+  margin-bottom: 15px;
+  margin: 15px;
+}
+
+.controller-elasticsearch_plugin .right-side {
+  float: left;
+  width: calc(100% - 80px);
+}
+
+.controller-elasticsearch_plugin .left-side {
+  float: left;
+  width: 80px;
+}
+
+.controller-elasticsearch_plugin .search-item .body {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 600px;
+}
+
+.controller-elasticsearch_plugin .search-item .body h2 a {
+  color: #888a85;
+  text-decoration: none;
+}

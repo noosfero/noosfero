@@ -245,4 +245,34 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal 500, last_response.status
     assert_includes article.comments, comment
   end
+
+  should 'list allow_destroy permission when get your own comment' do
+    login_api
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
+    article.comments.create!(:body => "some comment", :author => @person)
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_includes json["comments"][0]["permissions"], 'allow_destroy'
+  end
+
+  should 'anonymous not allowed to destroy comments' do
+    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
+    article.comments.create!(:body => "some comment", :author => @person)
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_not_includes json["comments"][0]["permissions"], 'allow_destroy'
+  end
+
+  should 'unprivileged user not be allowed to destroy other people comments' do
+    article = fast_create(Article, profile_id: @local_person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: @local_person)
+    login_api
+    get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_not_includes json["comments"][0]["permissions"], 'allow_destroy'
+  end
+
 end

@@ -7,6 +7,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   self.default_params = {profile: 'testuser'}
   def setup
+    @controller = ProfileController.new
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -759,7 +760,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(profile.identifier)
     get :index, :profile => p1.identifier
-    assert_nil assigns(:activities)
+    assert assigns(:activities).blank?
   end
 
   should 'see the activities_items paginated' do
@@ -954,14 +955,14 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not have activities defined if not logged in' do
     p1= fast_create(Person)
     get :index, :profile => p1.identifier
-    assert_nil assigns(:actvities)
+    assert assigns(:actvities).blank?
   end
 
   should 'not have activities defined if logged in but is not following profile' do
     login_as(profile.identifier)
     p1= fast_create(Person)
     get :index, :profile => p1.identifier
-    assert_nil assigns(:activities)
+    assert assigns(:activities).blank?
   end
 
   should 'have activities defined if logged in and is following profile' do
@@ -2077,6 +2078,220 @@ class ProfileControllerTest < ActionController::TestCase
 
     post :unfollow, :profile => person.identifier, :redirect_to => "/some/url"
     assert_redirected_to "/some/url"
+  end
+
+  should "search followed people or circles" do
+    login_as(@profile.identifier)
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    c2 = Circle.create!(:name => 'Work', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    p3 = create_user('mary').person
+    ProfileFollower.create!(:profile => p1, :circle => c2)
+    ProfileFollower.create!(:profile => p2, :circle => c1)
+    ProfileFollower.create!(:profile => p3, :circle => c1)
+
+    get :search_followed, :q => 'mily'
+    assert_equal 'Family (Circle)', json_response[0]['name']
+    assert_equal 'Circle', json_response[0]['class']
+    assert_equal "Circle_#{c1.id}", json_response[0]['id']
+    assert_equal 'emily (Person)', json_response[1]['name']
+    assert_equal 'Person', json_response[1]['class']
+    assert_equal "Person_#{p1.id}", json_response[1]['id']
+
+    get :search_followed, :q => 'wo'
+    assert_equal 'Work (Circle)', json_response[0]['name']
+    assert_equal 'Circle', json_response[0]['class']
+    assert_equal "Circle_#{c2.id}", json_response[0]['id']
+    assert_equal 'wollie (Person)', json_response[1]['name']
+    assert_equal 'Person', json_response[1]['class']
+    assert_equal "Person_#{p2.id}", json_response[1]['id']
+
+    get :search_followed, :q => 'mar'
+    assert_equal 'mary (Person)', json_response[0]['name']
+    assert_equal 'Person', json_response[0]['class']
+    assert_equal "Person_#{p3.id}", json_response[0]['id']
+  end
+
+  should 'treat followed entries' do
+    login_as(@profile.identifier)
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    p3 = create_user('mary').person
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p3, :circle => c1)
+
+    entries = "Circle_#{c1.id},Person_#{p1.id},Person_#{p2.id}"
+    @controller.stubs(:profile).returns(@profile)
+    @controller.stubs(:user).returns(@profile)
+    marked_people = @controller.send(:treat_followed_entries, entries)
+
+    assert_equivalent [p1,p2,p3], marked_people
+  end
+
+  should 'return empty followed entries if the user is not on his wall' do
+    login_as(@profile.identifier)
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    p3 = create_user('mary').person
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p3, :circle => c1)
+
+    entries = "Circle_#{c1.id},Person_#{p1.id},Person_#{p2.id}"
+    @controller.stubs(:profile).returns(@profile)
+    @controller.stubs(:user).returns(p1)
+    marked_people = @controller.send(:treat_followed_entries, entries)
+
+    assert_empty marked_people
+  end
+
+  should 'leave private scrap' do
+    login_as(@profile.identifier)
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p2, :circle => c1)
+
+    content = 'Remember my birthday!'
+
+    post :leave_scrap, :profile => @profile.identifier, :scrap => {:content => content}, :filter_followed => "Person_#{p1.id},Person_#{p2.id}"
+
+    scrap = Scrap.last
+    assert_equal content, scrap.content
+    assert_equivalent [p1,p2], scrap.marked_people
+  end
+
+  should 'list private scraps on wall for marked people' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    p1.add_friend(@profile)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    scrap_activity = ProfileActivity.where(:activity => scrap).first
+    login_as(p1.identifier)
+
+    get :index, :profile => @profile.identifier
+
+    assert assigns(:activities).include?(scrap_activity)
+  end
+
+  should 'not list private scraps on wall for not marked people' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    not_marked = create_user('jack').person
+    not_marked.add_friend(@profile)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p2, :circle => c1)
+    ProfileFollower.create!(:profile => not_marked, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1,p2])
+    scrap_activity = ProfileActivity.where(:activity => scrap).first
+    login_as(not_marked.identifier)
+
+    get :index, :profile => @profile.identifier
+
+    assert !assigns(:activities).include?(scrap_activity)
+  end
+
+  should 'list private scraps on wall for creator' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    scrap_activity = ProfileActivity.where(:activity => scrap).first
+    login_as(@profile.identifier)
+
+    get :index, :profile => @profile.identifier
+
+    assert assigns(:activities).include?(scrap_activity)
+  end
+
+  should 'list private scraps on wall for environment administrator' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    admin = create_user('env-admin').person
+    env = @profile.environment
+    env.add_admin(admin)
+    admin.add_friend(@profile)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    scrap_activity = ProfileActivity.where(:activity => scrap).first
+    login_as(admin.identifier)
+
+    get :index, :profile => @profile.identifier
+
+    assert assigns(:activities).include?(scrap_activity)
+  end
+
+  should 'list private scraps on network for marked people' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p2 = create_user('wollie').person
+    p2.add_friend(p1)
+    p1.add_friend(p2)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => p2, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1,p2])
+    process_delayed_job_queue
+    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
+    login_as(p2.identifier)
+
+    get :index, :profile => p1.identifier
+
+    assert assigns(:network_activities).include?(scrap_activity)
+  end
+
+  should 'not list private scraps on network for not marked people' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    not_marked = create_user('jack').person
+    not_marked.add_friend(p1)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    ProfileFollower.create!(:profile => not_marked, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    process_delayed_job_queue
+    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
+    login_as(not_marked.identifier)
+
+    get :index, :profile => p1.identifier
+
+    assert !assigns(:network_activities).include?(scrap_activity)
+  end
+
+  should 'list private scraps on network for creator' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    p1.add_friend(@profile)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    process_delayed_job_queue
+    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
+    login_as(@profile.identifier)
+
+    get :index, :profile => p1.identifier
+
+    assert assigns(:network_activities).include?(scrap_activity)
+  end
+
+  should 'list private scraps on network for environment admin' do
+    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
+    p1 = create_user('emily').person
+    admin = create_user('env-admin').person
+    env = @profile.environment
+    env.add_admin(admin)
+    admin.add_friend(p1)
+    ProfileFollower.create!(:profile => p1, :circle => c1)
+    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
+    process_delayed_job_queue
+    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
+    login_as(admin.identifier)
+
+    get :index, :profile => p1.identifier
+
+    assert assigns(:network_activities).include?(scrap_activity)
   end
 
 end

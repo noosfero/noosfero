@@ -143,13 +143,29 @@ class TasksTest < ActiveSupport::TestCase
 
   should 'list tasks with timestamp' do
     t1 = create(Task, :requestor => person, :target => person)
-    t2 = create(Task, :requestor => person, :target => person, :created_at => Time.zone.now)
+    t2 = create(Task, :requestor => person, :target => person, :created_at => Time.now.in_time_zone)
 
-    t1.created_at = Time.zone.now + 3.hours
+    t1.created_at = Time.now.in_time_zone + 3.hours
     t1.save!
 
 
-    params[:timestamp] = Time.zone.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
+    get "/api/v1/tasks/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_includes json["tasks"].map { |a| a["id"] }, t1.id
+    assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
+  end
+
+  should 'list tasks with timestamp considering timezone' do
+    t1 = create(Task, :requestor => person, :target => person)
+    t2 = create(Task, :requestor => person, :target => person, :created_at => ActiveSupport::TimeZone.new('Brasilia').now)
+
+    t1.created_at = ActiveSupport::TimeZone.new('Brasilia').now + 3.hours
+    t1.save!
+
+
+    params[:timestamp] = ActiveSupport::TimeZone.new('Brasilia').now + 1.hours
     get "/api/v1/tasks/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -203,6 +219,24 @@ class TasksTest < ActiveSupport::TestCase
       put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
       assert_nil task.reload.closed_by_id
       assert_equal Task::Status::ACTIVE, task.status
+    end
+
+    should "person be able to #{action} a task with parameters" do
+      person1 = fast_create(Person)
+      task = create(Task, :requestor => person1, :target => person)
+      params[:task] = {reject_explanation: "reject explanation"}
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal "Task::Status::#{task_actions_state[action]}".constantize, task.reload.status
+      assert_equal "reject explanation", task.reload.reject_explanation
+    end
+
+    should "not update a forbidden parameter when #{action} a task" do
+      person1 = fast_create(Person)
+      person2 = fast_create(Person)
+      task = create(Task, :requestor => person1, :target => person)
+      params[:task] = { requestor: {id: person2.id} }
+      put "/api/v1/tasks/#{task.id}/#{action}?#{params.to_query}"
+      assert_equal 500, last_response.status
     end
   end
 

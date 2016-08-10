@@ -335,10 +335,10 @@ class ArticlesTest < ActiveSupport::TestCase
     article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing")
     article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
 
-    article_one.updated_at = Time.now + 3.hours
+    article_one.updated_at = Time.now.in_time_zone + 3.hours
     article_one.save!
 
-    params[:timestamp] = Time.now + 1.hours
+    params[:timestamp] = Time.now.in_time_zone + 1.hours
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -388,6 +388,17 @@ class ArticlesTest < ActiveSupport::TestCase
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
       assert_equal article.id, json["article"]["id"]
+    end
+
+    should "return an empty array if theres id no article in path of #{kind}" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
+      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
+
+      params[:path] = 'no-path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_nil json["article"]
     end
 
     should "not return article by #{kind} and path if user has no permission to view it" do
@@ -762,12 +773,12 @@ class ArticlesTest < ActiveSupport::TestCase
     end
   end
 
-  should 'only show article comments when show_comments is present' do
+  should 'only show article comments when optional_fields comments is present' do
     person = fast_create(Person)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
     article.comments.create!(:body => "another comment", :author => person)
 
-    get "/api/v1/articles/#{article.id}/?#{params.merge(:show_comments => '1').to_query}"
+    get "/api/v1/articles/#{article.id}/?#{params.merge(:optional_fields => [:comments]).to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json["article"].keys, "comments"
     assert_equal json["article"]["comments"].first["body"], "another comment"
@@ -794,4 +805,24 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_includes json["article"]["permissions"], 'allow_post_content'
   end
+
+  should 'return only article fields defined in parameter' do
+    Article.destroy_all
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    params[:fields] = {:only => ['id', 'title']}
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent ['id', 'title'], json["articles"].first.keys
+  end
+
+  should 'return all article fields except the ones defined in parameter' do
+    Article.destroy_all
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    params[:fields] = {:except => ['id', 'title']}
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json["articles"].first.keys, 'id'
+    assert_not_includes json["articles"].first.keys, 'title'
+  end
+
 end

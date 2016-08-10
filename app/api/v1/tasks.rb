@@ -31,8 +31,13 @@ module Api
           desc "#{action.capitalize} a task"
           put ":id/#{action}" do
             task = find_task(current_person, Task.to(current_person), params[:id])
-            task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
-            present_partial task, :with => Entities::Task
+            begin
+              task.update(params[:task])
+              task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
+              present_partial task, :with => Entities::Task
+            rescue Exception => ex
+              render_api_error!(ex.message, 500)
+            end
           end
         end
       end

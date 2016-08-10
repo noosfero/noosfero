@@ -36,4 +36,17 @@ class ProfileDescriptionBlockViewTest < ActionView::TestCase
     assert (render_block_content(Block.last).include?(description)),
       "Description block doesn't show profile description"
   end
+
+  should 'return profile description in api_content when description is present' do
+    block = ProfileDescriptionBlock.new
+    @person.stubs(:description).returns("This is my description")
+    block.stubs(:owner).returns(@person)
+    assert_equal "This is my description", block.api_content['description']
+  end
+
+  should 'return default message in api_content when description is not present' do
+    block = ProfileDescriptionBlock.new
+    block.stubs(:owner).returns(@person)
+    assert_equal "Description field is empty or not enabled on enviroment", block.api_content['description']
+  end
 end

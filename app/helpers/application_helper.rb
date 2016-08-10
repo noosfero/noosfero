@@ -1183,10 +1183,10 @@ module ApplicationHelper
     end
 
     controller_target = suggestion.suggestion_type == 'Person' ? :friends : :memberships
-    profiles << link_to("<big> +#{suggestion.profile_connections.count - 4}</big>", :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 4
+    profiles << link_to("<big> +#{suggestion.profile_connections.count - 4}</big>".html_safe, :controller => controller_target, :action => :connections, :id => suggestion.suggestion_id) if suggestion.profile_connections.count > 4
 
     if profiles.present?
-      content_tag(:div, profiles.join , :class => 'profile-connections')
+      content_tag(:div, profiles.safe_join , :class => 'profile-connections')
     else
       ''
     end

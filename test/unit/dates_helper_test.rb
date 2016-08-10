@@ -147,7 +147,7 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'show how long it has passed since a specific date' do
-    date = Time.zone.now
+    date = Time.now.in_time_zone
     assert_equal show_date(date, false, false, true), time_ago_in_words(date)
   end
 

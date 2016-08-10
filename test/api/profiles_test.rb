@@ -218,4 +218,18 @@ class ProfilesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_includes json["permissions"], 'allow_post_content'
   end
+
+  should 'update profile image' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    base64_image = create_base64_image
+    params.merge!({profile: {image_builder: base64_image}})
+    assert_nil person.image
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    community.reload
+    assert_not_nil community.image
+    assert_equal community.image.filename, base64_image[:filename]
+  end
+
 end

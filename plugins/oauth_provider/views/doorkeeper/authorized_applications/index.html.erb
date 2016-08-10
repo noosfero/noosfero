@@ -1,14 +1,14 @@
 <div class="oauth-provider">
 <header class="page-header">
-  <h1>Your authorized applications</h1>
+  <h1><%= _('Your authorized applications') %></h1>
 </header>
 
 <main role="main">
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Application</th>
-      <th>Created At</th>
+      <th><%= _('Application') %></th>
+      <th><%= _('Created at') %></th>
       <th></th>
       <th></th>
     </tr>
@@ -24,7 +24,6 @@
     </tbody>
   </table>
 </main>
-
 <div class="actions">
   <%= button(:back, _('Go back'), :back) %>
 </div>

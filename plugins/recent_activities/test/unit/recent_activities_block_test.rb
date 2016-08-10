@@ -68,6 +68,31 @@ class RecentActivitiesBlockViewTest < ActionView::TestCase
     block = RecentActivitiesPlugin::ActivitiesBlock.new
     block.stubs(:owner).returns(profile)
 
+    api_activity = block.api_content['activities'].last
     assert_equal [a.id], block.api_content['activities'].map{ |a| a[:id] }
+    assert_not_nil api_activity[:label]
+    assert_nil api_activity[:start_date]
+  end
+
+  should 'return event information in api_content' do
+    person = fast_create(Person)
+    event = build(Event, { name: 'Event', start_date: DateTime.new(2020, 1, 1) })
+    event.profile = person
+    event.save!
+    activity = create_activity(person, event)
+
+    block = RecentActivitiesPlugin::ActivitiesBlock.new
+    block.stubs(:owner).returns(person)
+
+    api_activity = block.api_content['activities'].last
+    assert_not_nil api_activity[:start_date]
+  end
+
+  protected
+
+  def create_activity(person, target)
+    activity = ActionTracker::Record.create! verb: :leave_scrap, user: person, target: target
+    ProfileActivity.create! profile_id: target.id, activity: activity
+    activity.reload
   end
 end

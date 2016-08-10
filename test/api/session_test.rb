@@ -178,13 +178,19 @@ class SessionTest < ActiveSupport::TestCase
     patch "/api/v1/new_password?#{params.to_query}"
     assert_equal Task::Status::ACTIVE, task.reload.status
     assert !user.reload.authenticated?('secret')
+    json = JSON.parse(last_response.body)
+    assert_match /doesn't match/, json['message']
+
     assert_equal 400, last_response.status
   end
 
   should 'render not found when provide a wrong code on password change' do
     params = {:code => "wrongcode", :password => 'secret', :password_confirmation => 'secret'}
     patch "/api/v1/new_password?#{params.to_query}"
-    assert_equal 404, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_match /Couldn't find/, json['message']
+
+    assert_equal 400, last_response.status
   end
 
   should 'not return private token when the registered user is inactive' do

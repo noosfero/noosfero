@@ -86,9 +86,9 @@
     <%=
       str = (@plugins.dispatch(:body_ending).map do |content|
               if content.respond_to?(:call) then 
-                instance_exec(&content)
+                instance_exec(&content).html_safe
               else 
-                content
+                content.html_safe
               end
             end)
       safe_join(str, "\n")

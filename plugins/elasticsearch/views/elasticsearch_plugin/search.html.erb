@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <div class="search_form">
+    <div class="search_field">
+      <%= render :partial => "search_field" %>
+    </div>
+    <div class="results-count">
+      <%= render :partial => "results_count" %>
+    </div>
+  </div>
+
+  <div class="results-wrapper">
+    <div class="sidebar">
+
+      <div class="search-options">
+        <%= render :partial => "search_option.html.erb" %>
+      </div>
+
+      <div class="search-filter">
+        <%= render :partial => "search_filter.html.erb" %>
+      </div>
+
+      <div class="categories">
+        <h3 class="box-title"><%= _("Categories") %></h3>
+        <div id="jstree-categories"></div>
+      </div>
+    </div>
+
+    <div class="results">
+      <%= render :partial => 'search_collection' %>
+    </div>
+
+  </div>
+</div>
+
+<%= render :partial => 'jstree_categories', :formats => [:js] %>
