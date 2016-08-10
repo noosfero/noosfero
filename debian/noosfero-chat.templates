@@ -1,0 +1,19 @@
+Template: noosfero-chat/environment
+Type: string
+Description: Choose the environment in which the chat will be installed
+ Noosfero Chat currently does not support multitenancy environments. If your
+ system is using a multitenancy setup with multiple environments, you will need
+ to fill below the environment in which you want the chat installed
+ uses. For example, if your environment is 'social_production', you should
+ enter below 'social'.
+ .
+ If you are not using a multitenancy setup, you may leave this option blank, in
+ which case the used environment will be 'production'.
+
+Template: noosfero-chat/admin
+Type: string
+Description: Choose the admin of the chat
+ Enter the user identifier to define the user that will have administrator
+ privileges on the chat.
+ .
+ If you leave this option blank the user defined will be 'admin'.
