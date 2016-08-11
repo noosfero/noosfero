@@ -2006,4 +2006,37 @@ class PersonTest < ActiveSupport::TestCase
     assert_equivalent [circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
   end
 
+  should 'list available editors for a regular person' do
+    person = Person.new
+    person.expects(:is_admin?).returns(false)
+    assert_equivalent [Article::Editor::TINY_MCE, Article::Editor::TEXTILE], person.available_editors.keys
+  end
+
+  should 'list available editors for an admin' do
+    person = Person.new
+    person.expects(:is_admin?).returns(true)
+    assert_equivalent [Article::Editor::TINY_MCE, Article::Editor::TEXTILE, Article::Editor::RAW_HTML], person.available_editors.keys
+  end
+
+  should 'not save a person with an inexistent editor' do
+    person = create_user('testuser').person
+    person.editor = "bli"
+    assert !person.save
+    assert person.errors['editor'].present?
+  end
+
+  should 'not allow a regular person to change to raw_html editor' do
+    person = create_user('testuser').person
+    person.editor = Article::Editor::RAW_HTML
+    assert !person.save
+    assert person.errors['editor'].present?
+  end
+
+  should 'allow admin to change to raw_html editor' do
+    person = create_user('testuser').person
+    person.environment.add_admin(person)
+    person.editor = Article::Editor::RAW_HTML
+    assert person.save
+  end
+
 end

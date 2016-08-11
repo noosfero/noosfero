@@ -341,6 +341,8 @@ class Person < Profile
 
   validates_associated :user
 
+  validates :editor, inclusion: { in: lambda { |p| p.available_editors } }
+
   def email
     self.user.nil? ? nil : self.user.email
   end
@@ -619,6 +621,15 @@ class Person < Profile
 
   def in_social_circle?(person)
     self.is_a_friend?(person) || super
+  end
+
+  def available_editors
+    available_editors = {
+      Article::Editor::TINY_MCE => _('TinyMCE'),
+      Article::Editor::TEXTILE => _('Textile')
+    }
+    available_editors.merge!({Article::Editor::RAW_HTML => _('Raw HTML')}) if self.is_admin?
+    available_editors
   end
 
 end
