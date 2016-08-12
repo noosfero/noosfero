@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-06-15 13:24+0000\n"
-"Last-Translator: Becca Cook <b.cook28@gmail.com>\n"
+"PO-Revision-Date: 2016-08-12 12:01+0000\n"
+"Last-Translator: Alipio muñiz <alipio@ecoalternative.net>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.7-dev\n"
+"X-Generator: Weblate 2.8-dev\n"
 
 # Entorno o ambiente?
 #: app/controllers/admin/admin_panel_controller.rb:16
@@ -41,11 +41,11 @@ msgstr "Guardado el número de noticias en las carpetas"
 
 #: app/controllers/admin/categories_controller.rb:48
 msgid "Category %s saved."
-msgstr "En la categoría %s."
+msgstr "Guardado en la categoría %s."
 
 #: app/controllers/admin/categories_controller.rb:52
 msgid "Could not save category."
-msgstr "Selecciona una categoría:"
+msgstr "No se pudo salvar la categoría:"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:17
 #: app/controllers/my_profile/profile_members_controller.rb:22
@@ -85,19 +85,19 @@ msgstr "Los campos de la persona no se actualizaron correctamente."
 
 #: app/controllers/admin/features_controller.rb:37
 msgid "Enterprise fields updated successfully."
-msgstr "Campo empresa actualizado correctamente."
+msgstr "Campos de entidad actualizados correctamente."
 
 #: app/controllers/admin/features_controller.rb:39
 msgid "Enterprise fields not updated successfully."
-msgstr "El campo empresa no se actualizo correctamente."
+msgstr "Losdatos de la entidad no se actualizaron correctamente."
 
 #: app/controllers/admin/features_controller.rb:47
 msgid "Community fields updated successfully."
-msgstr "Campo comunidad actualizado correctamente."
+msgstr "Los datos de la entidad seactualizaron correctamente."
 
 #: app/controllers/admin/features_controller.rb:49
 msgid "Community fields not updated successfully."
-msgstr "El campo comunidad no se actualizo correctamente."
+msgstr "Los datos de la entidad no se actualizaron correctamente."
 
 #: app/controllers/admin/licenses_controller.rb:14
 msgid "License created"
