@@ -888,17 +888,17 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     ActionTracker::Record.delete_all
     get :index, :profile => p1.identifier
-    assert_equal [], assigns(:network_activities)
+    assert assigns(:network_activities).blank?
     assert_response :success
     assert_template 'index'
 
     get :index, :profile => p2.identifier
-    assert_equal [], assigns(:network_activities)
+    assert assigns(:network_activities).blank?
     assert_response :success
     assert_template 'index'
 
     get :index, :profile => p3.identifier
-    assert_equal [], assigns(:network_activities)
+    assert assigns(:network_activities).blank?
     assert_response :success
     assert_template 'index'
   end
@@ -1186,14 +1186,14 @@ class ProfileControllerTest < ActionController::TestCase
     40.times{ create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
     assert_equal 40, profile.activities.size
-    get :view_more_activities, :profile => profile.identifier, :page => 2
+    get :view_more_activities, :profile => profile.identifier, :page => 2, :kind => 'wall', :offsets => {:wall => 0, :network => 0}
     assert_response :success
     assert_template '_profile_activities_list'
-    assert_equal 10, assigns(:activities).size
+    assert_equal ProfileController::ACTIVITIES_PER_PAGE, assigns(:activities).size
   end
 
   should "be logged in to access the view_more_activities action" do
-    get :view_more_activities, :profile => profile.identifier
+    get :view_more_activities, :profile => profile.identifier, :kind => 'wall', :offsets => {:wall => 0, :network => 0}
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
@@ -1201,14 +1201,14 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     assert_equal 40, profile.tracked_notifications.count
-    get :view_more_network_activities, :profile => profile.identifier, :page => 2
+    get :view_more_activities, :profile => profile.identifier, :page => 2, :kind => 'network', :offsets => {:wall => 0, :network => 0}
     assert_response :success
     assert_template '_profile_network_activities'
-    assert_equal 10, assigns(:activities).size
+    assert_equal ProfileController::ACTIVITIES_PER_PAGE, assigns(:activities).size
   end
 
   should "be logged in to access the view_more_network_activities action" do
-    get :view_more_network_activities, :profile => profile.identifier
+    get :view_more_activities, :profile => profile.identifier, :kind => 'network', :offsets => {:wall => 0, :network => 0}
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
@@ -2258,6 +2258,49 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => p1.identifier
 
     assert assigns(:network_activities).include?(scrap_activity)
+  end
+
+  should 'not filter any activity if the user is an environment admin' do
+    admin = create_user('env-admin').person
+    env = @profile.environment
+    env.add_admin(admin)
+    activities = mock
+    activities.expects(:delete_if).never
+    @controller.stubs(:user).returns(admin)
+    @controller.stubs(:environment).returns(env)
+    @controller.send(:filter_activities, activities, :wall)
+  end
+
+  should 'not call hidden_for? if the user is involved in the activity' do
+    user = create_user('involved-user').person
+    env = @profile.environment
+    activity = mock
+    activities = [activity]
+    activity.stubs(:involved?).with(user).returns(true)
+    activity.expects(:hidden_for?).never
+    @controller.stubs(:user).returns(user)
+    @controller.stubs(:environment).returns(env)
+    result = @controller.send(:filter_activities, activities, :wall)
+    assert_includes result, activity
+  end
+
+  should 'remove activities that should be hidden for the user' do
+    user = create_user('sample-user').person
+    env = @profile.environment
+    a1 = mock
+    a2 = mock
+    a3 = mock
+    activities = [a1, a2, a3]
+    a1.stubs(:involved?).with(user).returns(false)
+    a2.stubs(:involved?).with(user).returns(false)
+    a3.stubs(:involved?).with(user).returns(false)
+    a1.stubs(:hidden_for?).with(user).returns(false)
+    a2.stubs(:hidden_for?).with(user).returns(true)
+    a3.stubs(:hidden_for?).with(user).returns(false)
+    @controller.stubs(:user).returns(user)
+    @controller.stubs(:environment).returns(env)
+    result = @controller.send(:filter_activities, activities, :wall)
+    assert_equivalent [a1,a3], result
   end
 
 end

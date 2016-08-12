@@ -1,55 +1,10 @@
-# All file presenters must extends `FilePresenter` not only to ensure the
-# same interface, but also to make `FilePresenter.for(file)` to work.
-class FilePresenter
-
-  # Will return a encapsulated `UploadedFile` or the same object if no
-  # one accepts it. That behave allow to give any model to this class,
-  # like a Article and have no trouble with that.
-  def self.for(f)
-    #FIXME This check after the || is redundant but increases the blog_page
-    #      speed considerably.
-    return f if f.is_a?(FilePresenter ) || (!f.kind_of?(UploadedFile) && !f.kind_of?(Image))
-    klass = FilePresenter.subclasses.sort_by {|class_instance|
-      class_instance.accepts?(f) || 0
-    }.last
-    klass.accepts?(f) ? klass.new(f) : f
-  end
-
+class FilePresenter < Presenter
   def self.base_class
     Article
   end
 
-  def initialize(f)
-    @file = f
-  end
-
-  # Allows to use the original `UploadedFile` reference.
-  def encapsulated_file
-    @file
-  end
-
-  def id
-    @file.id
-  end
-
-  def reload
-    @file.reload
-    self
-  end
-
-  def kind_of?(klass)
-    @file.kind_of?(klass)
-  end
-
-  # This method must be overridden in subclasses.
-  #
-  # If the class accepts the file, return a number that represents the
-  # priority the class should be given to handle that file. Higher numbers
-  # mean higher priority.
-  #
-  # If the class does not accept the file, return false.
-  def self.accepts?(f)
-    nil
+  def self.available?(instance)
+    instance.kind_of?(UploadedFile) && !instance.kind_of?(Image)
   end
 
   def download? view = nil
@@ -72,7 +27,7 @@ class FilePresenter
   #     [super, 'myclass'].flatten
   #   end
   def css_class_list
-    [ @file.css_class_list,
+    [ encapsulated_instance.css_class_list,
       'file-' + self.class.to_s.split(/:+/).map(&:underscore)[1..-1].join('-'),
       'content-type_' + self.content_type.split('/')[0],
       'content-type_' + self.content_type.gsub(/[^a-z0-9]/i,'-')
@@ -113,15 +68,9 @@ class FilePresenter
              :object => file
     end
   end
-
-  # That makes the presenter to works like any other `UploadedFile` instance.
-  def method_missing(m, *args)
-    @file.send(m, *args)
-  end
 end
 
-# Preload FilePresenters to allow `FilePresenter.for()` to work
-Dir.glob(File.join('app', 'presenters', '*.rb')) do |file|
+Dir.glob(File.join('app', 'presenters', 'file', '*.rb')) do |file|
   load file
 end
 

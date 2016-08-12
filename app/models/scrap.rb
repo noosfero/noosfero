@@ -67,6 +67,10 @@ class Scrap < ApplicationRecord
     sender != receiver && (is_root? ? root.receiver.receives_scrap_notification? : receiver.receives_scrap_notification?)
   end
 
+  def display_to?(user = nil)
+    marked_people.blank? || marked_people.include?(user)
+  end
+
   protected
 
   def create_activity

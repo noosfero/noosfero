@@ -190,8 +190,12 @@ class UploadedFile < Article
     true
   end
 
+  def image?
+    mime_type =~ /^image\//
+  end
+
   def notifiable?
-    true
+    !image?
   end
 
 end

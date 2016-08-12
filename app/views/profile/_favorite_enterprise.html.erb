@@ -3,7 +3,7 @@
 </div>
 <div class='profile-activity-description'>
   <p class='profile-activity-text'>
-    <%= link_to activity.user.short_name(nil), activity.user.url %> <%= describe activity %>
+    <%= link_to activity.user.short_name(nil), activity.user.url %> <%= describe(activity).html_safe %>
   </p>
   <p class='profile-activity-time'><%= time_ago_in_words activity.created_at %></p>
 
