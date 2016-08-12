@@ -107,7 +107,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
   should 'scrap activity return leave_scrap verb' do
     ActionTracker::Record.destroy_all
-    create(TinyMceArticle, :name => 'Tracked Article 1', :profile_id => person.id)
+    create(TextArticle, :name => 'Tracked Article 1', :profile_id => person.id)
     create(Scrap, :sender_id => person.id, :receiver_id => person.id)
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)

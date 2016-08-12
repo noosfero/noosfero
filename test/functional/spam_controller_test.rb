@@ -7,7 +7,7 @@ class SpamControllerTest < ActionController::TestCase
 
     @community = fast_create(Community, :name => 'testcommunity')
     @community.add_admin(@profile)
-    @article = fast_create(TextileArticle, :profile_id => @community.id)
+    @article = fast_create(TextArticle, :profile_id => @community.id)
     @spam_comment = fast_create(Comment, :source_id => @article.id, :spam => true, :name => 'foo', :email => 'foo@example.com')
 
     @spam_suggest_article = SuggestArticle.create!(:name => 'spammer', :article => {:name => 'Spam article', :body => "Something you don't need"}, :email => 'spammer@shady.place', :target => @community, :spam => true)

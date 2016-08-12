@@ -47,14 +47,14 @@ class HomeControllerTest < ActionController::TestCase
     env = Environment.default
     env.enable('use_portal_community')
     c = fast_create(Community)
-    a1 = TextileArticle.create!(:name => "Article 1",
+    a1 = TextArticle.create!(:name => "Article 1",
                                 :profile => c,
                                 :abstract => "This is the article1 lead.",
-                                :body => "This is the article1 body.",
+                                :body => "<p>This is the article1 body.</p>",
                                 :highlighted => true)
-    a2 = TextileArticle.create!(:name => "Article 2",
+    a2 = TextArticle.create!(:name => "Article 2",
                                 :profile => c,
-                                :body => "This is the article2 body.",
+                                :body => "<p>This is the article2 body.</p>",
                                 :highlighted => true)
     env.portal_community = c
     env.save!
@@ -62,8 +62,8 @@ class HomeControllerTest < ActionController::TestCase
 
     get :index
     assert_tag :attributes => { :class => 'headline' }, :content => a1.abstract
-    assert_no_tag :attributes => { :class => 'headline' }, :content => a1.body
-    assert_tag :attributes => { :class => 'headline' }, :content => a2.body
+    assert_no_tag :attributes => { :class => 'headline' }, :content => 'This is the article1 body.'
+    assert_tag :attributes => { :class => 'headline' }, :content => 'This is the article2 body.'
   end
 
   should 'display block in index page if it\'s configured to display on homepage and its an environment block' do
@@ -128,7 +128,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'display template welcome page' do
     template = create_user('template').person
     template.is_template = true
-    welcome_page = TinyMceArticle.create!(:name => 'Welcome page', :profile => template, :published => true, :body => 'Template welcome page')
+    welcome_page = TextArticle.create!(:name => 'Welcome page', :profile => template, :published => true, :body => 'Template welcome page')
     template.welcome_page = welcome_page
     template.save!
     get :welcome, :template_id => template.id
@@ -138,7 +138,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display template welcome page if it is not published' do
     template = create_user('template').person
     template.is_template = true
-    welcome_page = TinyMceArticle.create!(:name => 'Welcome page', :profile => template, :published => false, :body => 'Template welcome page')
+    welcome_page = TextArticle.create!(:name => 'Welcome page', :profile => template, :published => false, :body => 'Template welcome page')
     template.welcome_page = welcome_page
     template.save!
     get :welcome, :template_id => template.id

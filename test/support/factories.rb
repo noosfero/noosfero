@@ -118,7 +118,7 @@ module Noosfero::Factory
     }.merge(options)
     user = fast_insert_with_timestamps(User, data)
     person = fast_insert_with_timestamps(Person, { :type => 'Person', :identifier => name, :name => name, :user_id => user.id, :environment_id => environment_id }.merge(person_options))
-    homepage = fast_insert_with_timestamps(TextileArticle, { :type => 'TextileArticle', :name => 'homepage', :slug => 'homepage', :path => 'homepage', :profile_id => person.id })
+    homepage = fast_insert_with_timestamps(TextArticle, { :type => 'TextArticle', :name => 'homepage', :slug => 'homepage', :path => 'homepage', :profile_id => person.id })
     fast_update(person, {:home_page_id => homepage.id})
     box = fast_insert(Box, { :owner_type => "Profile", :owner_id => person.id, :position => 1})
     block = fast_insert(Block, { :box_id => box.id, :type => 'MainBlock', :position => 0})

@@ -1261,7 +1261,7 @@ class PersonTest < ActiveSupport::TestCase
     User.current = another_person.user
     scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     User.current = person.user
-    article = create(TinyMceArticle, :profile => person, :name => 'An article about free software')
+    article = create(TextArticle, :profile => person, :name => 'An article about free software')
 
     assert_equivalent [scrap,article.activity], person.activities.map { |a| a.activity }
   end
@@ -1275,11 +1275,11 @@ class PersonTest < ActiveSupport::TestCase
     another_person_scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
     User.current = another_person.user
-    create(TinyMceArticle, :profile => another_person, :name => 'An article about free software from another person')
+    create(TextArticle, :profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
     User.current = person.user
-    create(TinyMceArticle, :profile => person, :name => 'An article about free software')
+    create(TextArticle, :profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.activity }
@@ -2004,6 +2004,39 @@ class PersonTest < ActiveSupport::TestCase
     person.follow(community, [circle, circle2])
     person.remove_profile_from_circle(community, circle)
     assert_equivalent [circle2], ProfileFollower.with_profile(community).with_follower(person).map(&:circle)
+  end
+
+  should 'list available editors for a regular person' do
+    person = Person.new
+    person.expects(:is_admin?).returns(false)
+    assert_equivalent [Article::Editor::TINY_MCE, Article::Editor::TEXTILE], person.available_editors.keys
+  end
+
+  should 'list available editors for an admin' do
+    person = Person.new
+    person.expects(:is_admin?).returns(true)
+    assert_equivalent [Article::Editor::TINY_MCE, Article::Editor::TEXTILE, Article::Editor::RAW_HTML], person.available_editors.keys
+  end
+
+  should 'not save a person with an inexistent editor' do
+    person = create_user('testuser').person
+    person.editor = "bli"
+    assert !person.save
+    assert person.errors['editor'].present?
+  end
+
+  should 'not allow a regular person to change to raw_html editor' do
+    person = create_user('testuser').person
+    person.editor = Article::Editor::RAW_HTML
+    assert !person.save
+    assert person.errors['editor'].present?
+  end
+
+  should 'allow admin to change to raw_html editor' do
+    person = create_user('testuser').person
+    person.environment.add_admin(person)
+    person.editor = Article::Editor::RAW_HTML
+    assert person.save
   end
 
 end

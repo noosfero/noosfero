@@ -18,7 +18,8 @@ module TinymceHelper
         insertdatetime media nonbreaking save table contextmenu directionality
         emoticons template paste textcolor colorpicker textpattern],
       :image_advtab => true,
-      :language => tinymce_language
+      :language => tinymce_language,
+      :selector => '.' + current_editor(options[:mode])
 
     options[:toolbar1] = toolbar1(options[:mode])
     options[:menubar] = menubar(options[:mode])

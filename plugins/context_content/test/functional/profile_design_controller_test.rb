@@ -13,7 +13,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     box = Box.create!(:owner => @profile)
     @block = ContextContentPlugin::ContextContentBlock.new(:box_id => box.id)
-    @block.types = ['TinyMceArticle']
+    @block.types = ['TextArticle']
     @block.limit = 1
     @block.save!
 
@@ -38,11 +38,11 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @block.show_parent_content = false
     @block.save!
     get :edit, :id => @block.id, :profile => @profile.identifier
-    post :save, :id => @block.id, :block => {:title => 'context', :show_image => '0', :show_name => '0', :show_parent_content => '0', :types => ['TinyMceArticle', '', nil, 'Folder'] }, :profile => @profile.identifier
+    post :save, :id => @block.id, :block => {:title => 'context', :show_image => '0', :show_name => '0', :show_parent_content => '0', :types => ['TextArticle', '', nil, 'Folder'] }, :profile => @profile.identifier
     @block.reload
     assert_equal 'context', @block.title
     refute @block.show_image && !@block.show_name && !@block.show_parent_content
-    assert_equal ['TinyMceArticle', 'Folder'], @block.types
+    assert_equal ['TextArticle', 'Folder'], @block.types
   end
 
 end

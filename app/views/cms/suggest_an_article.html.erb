@@ -2,8 +2,6 @@
 
 <%= required_fields_message %>
 
-<%= render :file => 'shared/tiny_mce' %>
-
 <%= labelled_form_for 'task' do |f| %>
 
   <%= required labelled_form_field(_('Title'), text_field('task[article]', 'name', :size => 50)) %>
@@ -17,7 +15,7 @@
     <%= required labelled_form_field(_('Email'), text_field(:task, 'email')) %>
   <% end %>
 
-  <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :object => 'task[article]'} %>
+  <%= render :partial => 'shared/lead_and_body', :locals => {:object => 'task[article]'} %>
 
   <%= hidden_field_tag('back_to', @back_to) %>
 

@@ -42,16 +42,16 @@ class SearchTest < ActiveSupport::TestCase
   should 'not list articles of wrong type' do
     Article.delete_all
     fast_create(Article, :profile_id => person.id)
-    get "/api/v1/search/article?type=TinyMceArticle"
+    get "/api/v1/search/article?type=TextArticle"
     json = JSON.parse(last_response.body)
     assert_empty json['articles']
   end
 
   should 'list articles of one type' do
     fast_create(Article, :profile_id => person.id)
-    article = fast_create(TinyMceArticle, :profile_id => person.id)
+    article = fast_create(TextArticle, :profile_id => person.id)
 
-    get "/api/v1/search/article?type=TinyMceArticle"
+    get "/api/v1/search/article?type=TextArticle"
     json = JSON.parse(last_response.body)
     assert_equal article.id, json['articles'].first['id']
   end
@@ -59,8 +59,8 @@ class SearchTest < ActiveSupport::TestCase
   should 'list articles of one type and query string' do
     fast_create(Article, :profile_id => person.id, :name => 'some article')
     fast_create(Article, :profile_id => person.id, :name => 'Some thing')
-    article = fast_create(TinyMceArticle, :profile_id => person.id, :name => 'Some thing')
-    get "/api/v1/search/article?type=TinyMceArticle&query=thing"
+    article = fast_create(TextArticle, :profile_id => person.id, :name => 'Some thing')
+    get "/api/v1/search/article?type=TextArticle&query=thing"
     json = JSON.parse(last_response.body)
     assert_equal 1, json['articles'].count
     assert_equal article.id, json['articles'].first['id']

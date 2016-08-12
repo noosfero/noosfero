@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class TextileArticleTest < ActiveSupport::TestCase
+class TextArticleTest < ActiveSupport::TestCase
 
   def setup
     @user = User.current = create_user 'testing'
@@ -8,20 +8,12 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
   attr_reader :profile
 
-  should 'provide a proper short description' do
-    assert_kind_of String, TextileArticle.short_description
-  end
-
-  should 'provide a proper description' do
-    assert_kind_of String, TextileArticle.description
-  end
-
   should 'convert Textile to HTML' do
-    assert_equal '<p><strong>my text</strong></p>', build(TextileArticle, body: '*my text*').to_html
+    assert_equal '<p><strong>my text</strong></p>', build(TextArticle, body: '*my text*', :editor => Article::Editor::TEXTILE).to_html
   end
 
   should 'accept empty body' do
-    a = TextileArticle.new
+    a = TextArticle.new
     a.expects(:body).returns(nil)
     assert_nothing_raised do
       assert_equal '', a.to_html
@@ -29,27 +21,27 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should 'notifiable be true' do
-    a = fast_create(TextileArticle)
+    a = fast_create(TextArticle)
     assert a.notifiable?
   end
 
   should 'notify activity on create' do
     ActionTracker::Record.delete_all
-    create TextileArticle, name: 'test', profile_id: profile.id, published: true
+    create TextArticle, name: 'test', profile_id: profile.id, published: true
     assert_equal 1, ActionTracker::Record.count
   end
 
   should 'not group trackers activity of article\'s creation' do
     assert_difference 'ActionTracker::Record.count', 3 do
-      create TextileArticle, name: 'bar', profile_id: profile.id, published: true
-      create TextileArticle, name: 'another bar', profile_id: profile.id, published: true
-      create TextileArticle, name: 'another bar 2', profile_id: profile.id, published: true
+      create TextArticle, name: 'bar', profile_id: profile.id, published: true
+      create TextArticle, name: 'another bar', profile_id: profile.id, published: true
+      create TextArticle, name: 'another bar 2', profile_id: profile.id, published: true
     end
   end
 
   should 'not update activity on update of an article' do
     ActionTracker::Record.delete_all
-    article = create(TextileArticle, profile_id: profile.id)
+    article = create(TextArticle, profile_id: profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
     assert_no_difference 'ActionTracker::Record.count' do
@@ -61,8 +53,8 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
-    a1 = create TextileArticle, name: 'bar', profile_id: profile.id, published: true
-    a2 = create TextileArticle, name: 'another bar', profile_id: profile.id, published: true
+    a1 = create TextArticle, name: 'bar', profile_id: profile.id, published: true
+    a2 = create TextArticle, name: 'another bar', profile_id: profile.id, published: true
     assert_no_difference 'ActionTracker::Record.count' do
       a1.name = 'foo';a1.save!
       a2.name = 'another foo';a2.save!
@@ -71,7 +63,7 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'remove activity after destroying article' do
     ActionTracker::Record.delete_all
-    a = create TextileArticle, name: 'bar', profile_id: profile.id, published: true
+    a = create TextArticle, name: 'bar', profile_id: profile.id, published: true
     assert_difference 'ActionTracker::Record.count', -1 do
       a.destroy
     end
@@ -79,8 +71,8 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'remove activity after article is destroyed' do
     ActionTracker::Record.delete_all
-    a1 = create TextileArticle, name: 'bar', profile_id: profile.id, published: true
-    a2 = create TextileArticle, name: 'another bar', profile_id: profile.id, published: true
+    a1 = create TextArticle, name: 'bar', profile_id: profile.id, published: true
+    a2 = create TextArticle, name: 'another bar', profile_id: profile.id, published: true
     assert_equal 2, ActionTracker::Record.count
     assert_difference 'ActionTracker::Record.count', -2 do
       a1.destroy
@@ -94,20 +86,20 @@ class TextileArticleTest < ActiveSupport::TestCase
     p1 = Person.first
     community.add_member(p1)
     assert p1.is_member_of?(community)
-    article = create TextileArticle, name: 'test', profile_id: community.id
+    article = create TextArticle, name: 'test', profile_id: community.id
     assert_equal article, ActionTracker::Record.last.target
   end
 
   should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = Person.first
-    article = create TextileArticle, name: 'test', profile_id: person.id
+    article = create TextArticle, name: 'test', profile_id: person.id
     assert_equal article, ActionTracker::Record.last.target
   end
 
   should 'not notify activity if the article is not advertise' do
     ActionTracker::Record.delete_all
-    a = create TextileArticle, name: 'bar', profile_id: profile.id, published: true, advertise: false
+    a = create TextArticle, name: 'bar', profile_id: profile.id, published: true, advertise: false
     assert_equal true, a.published?
     assert_equal true, a.notifiable?
     assert_equal false, a.image?
@@ -116,11 +108,11 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should "have defined the is_trackable method defined" do
-    assert TextileArticle.method_defined?(:is_trackable?)
+    assert TextArticle.method_defined?(:is_trackable?)
   end
 
   should "the common trackable conditions return the correct value" do
-    a =  build(TextileArticle, profile: profile)
+    a =  build(TextArticle, profile: profile)
     a.published = a.advertise = true
     assert_equal true, a.published?
     assert_equal true, a.notifiable?
@@ -174,18 +166,18 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should 'have can_display_media_panel with default true' do
-    a = TextileArticle.new
+    a = TextArticle.new
     assert a.can_display_media_panel?
   end
 
   should 'have can_display_blocks with default false' do
-    assert !TextileArticle.can_display_blocks?
+    assert !TextArticle.can_display_blocks?
   end
 
   protected
 
   def build_article(input = nil, options = {})
-    article = build(TextileArticle, {body: input}.merge(options))
+    article = build(TextArticle, {body: input, :editor => Article::Editor::TEXTILE}.merge(options))
     article.valid? # trigger the xss terminate thingy
     article
   end

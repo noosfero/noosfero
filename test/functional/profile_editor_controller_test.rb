@@ -534,8 +534,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'render TinyMce Editor for header and footer' do
     get :header_footer, :profile => profile.identifier
-    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_header', :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_footer', :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_header', :class => Article::Editor::TINY_MCE }
+    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_footer', :class => Article::Editor::TINY_MCE }
   end
 
   should 'save footer and header' do
@@ -966,7 +966,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     person_template = create_user('person_template').person
     person_template.is_template = true
 
-    welcome_page = fast_create(TinyMceArticle, :body => 'Initial welcome page')
+    welcome_page = fast_create(TextArticle, :body => 'Initial welcome page')
     person_template.welcome_page = welcome_page
     person_template.save!
     welcome_page.profile = person_template

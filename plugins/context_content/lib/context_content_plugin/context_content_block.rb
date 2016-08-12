@@ -22,7 +22,7 @@ class ContextContentPlugin::ContextContentBlock < Block
   end
 
   def available_content_types
-    @available_content_types ||= [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    @available_content_types ||= [UploadedFile, Event, TextArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
     checked_types = types.map {|t| t.constantize}
     checked_types + (@available_content_types - checked_types)
   end

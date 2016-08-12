@@ -2,7 +2,6 @@
 
 <%= error_messages_for :mailing %>
 
-<%= render :file => 'shared/tiny_mce' %>
 <%= form_for :mailing do |f| %>
   <div class="recipients">
     <%= label_tag(_("Recipients: "), nil, { class: "formlabel" }) %>
@@ -14,7 +13,7 @@
     </div>
   </div>
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
-  <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
+  <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => current_editor)) %>
   <%= submit_button(:send, _('Send')) %>
   <%= button :cancel, _('Cancel e-mail'), :controller => 'users' %>
 <% end %>

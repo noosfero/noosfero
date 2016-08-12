@@ -121,10 +121,6 @@ class Event < Article
     true
   end
 
-  def tiny_mce?
-    true
-  end
-
   def notifiable?
     true
   end

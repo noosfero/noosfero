@@ -7,6 +7,7 @@ class TinymceHelperTest < ActiveSupport::TestCase
   def setup
     expects(:top_url).returns('/')
     expects(:tinymce_language).returns('en')
+    expects(:current_editor).returns(Article::Editor::TINY_MCE)
     @plugins = mock
     @plugins.expects(:dispatch).returns([]).at_least_once
     @environment = Environment.default

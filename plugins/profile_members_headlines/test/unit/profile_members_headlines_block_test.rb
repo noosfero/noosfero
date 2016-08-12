@@ -42,7 +42,7 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block = ProfileMembersHeadlinesBlock.create
     block.stubs(:owner).returns(community)
     blog = fast_create(Blog, :profile_id => member1.id)
-    post = fast_create(TinyMceArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
+    post = fast_create(TextArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
     self.expects(:render).with(:template => 'blocks/profile_members_headlines', :locals => { :block => block }).returns('file-with-authors-and-headlines')
     assert_equal 'file-with-authors-and-headlines', render_block_content(block)
   end
@@ -53,7 +53,7 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block = ProfileMembersHeadlinesBlock.new(:limit => 1, :filtered_roles => [role.id])
     block.expects(:owner).returns(community)
     blog = fast_create(Blog, :profile_id => member1.id)
-    post = fast_create(TinyMceArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
+    post = fast_create(TextArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
     assert_equal [member1], block.authors_list
   end
 
@@ -62,7 +62,7 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block.expects(:owner).returns(community)
     private_author = fast_create(Person, :public_profile => false)
     blog = fast_create(Blog, :profile_id => private_author.id)
-    post = fast_create(TinyMceArticle, :name => 'headlines', :profile_id => private_author.id, :parent_id => blog.id)
+    post = fast_create(TextArticle, :name => 'headlines', :profile_id => private_author.id, :parent_id => blog.id)
     assert_equal [], block.authors_list
   end
 
@@ -76,7 +76,7 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block.stubs(:owner).returns(community)
     community.members.each do |member|
       blog = fast_create(Blog, :profile_id => member.id)
-      post = fast_create(TinyMceArticle, :name => 'headlines', :profile_id => member.id, :parent_id => blog.id)
+      post = fast_create(TextArticle, :name => 'headlines', :profile_id => member.id, :parent_id => blog.id)
     end
     assert_equal [author], block.authors_list
   end

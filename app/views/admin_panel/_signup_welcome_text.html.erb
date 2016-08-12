@@ -4,4 +4,4 @@
 </div>
 
 <%= labelled_form_field(_('Subject'), text_field(:environment, :signup_welcome_text_subject, :style => 'width:100%')) %>
-<%= labelled_form_field(_('Body'), text_area(:environment, :signup_welcome_text_body, :cols => 40, :style => 'width: 100%', :class => 'mceEditor')) %>
+<%= labelled_form_field(_('Body'), text_area(:environment, :signup_welcome_text_body, :cols => 40, :style => 'width: 100%', :class => current_editor)) %>

@@ -615,7 +615,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'reference to article' do
     c = fast_create(Community)
-    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    a = fast_create(TextArticle, :profile_id => c.id)
     assert_equal(
       "<a href=\"/#{c.identifier}/#{a.slug}\">x</a>",
       reference_to_article('x', a) )
@@ -623,7 +623,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'reference to article, with anchor' do
     c = fast_create(Community)
-    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    a = fast_create(TextArticle, :profile_id => c.id)
     assert_equal(
       "<a href=\"/#{c.identifier}/#{a.slug}#place\">x</a>",
       reference_to_article('x', a, 'place') )
@@ -632,7 +632,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'reference to article, in a blog' do
     c = fast_create(Community)
     b = fast_create(Blog, :profile_id => c.id)
-    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a = fast_create(TextArticle, :profile_id => c.id, :parent_id => b.id)
     a.save! # needed to link to the parent blog
     assert_equal(
       "<a href=\"/#{c.identifier}/#{b.slug}/#{a.slug}\">x</a>",
@@ -643,7 +643,7 @@ class ApplicationHelperTest < ActionView::TestCase
     c = fast_create(Community)
     c.domains << build(Domain, :name=>'domain.xyz')
     b = fast_create(Blog, :profile_id => c.id)
-    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a = fast_create(TextArticle, :profile_id => c.id, :parent_id => b.id)
     a.save!
     assert_equal(
       "<a href=\"http://domain.xyz/#{b.slug}/#{a.slug}\">x</a>",
@@ -856,7 +856,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Clone Blog", label_for_clone_article(Blog.new)
     assert_equal "Clone Event", label_for_clone_article(Event.new)
     assert_equal "Clone Forum", label_for_clone_article(Forum.new)
-    assert_equal "Clone Article", label_for_clone_article(TinyMceArticle.new)
+    assert_equal "Clone Article", label_for_clone_article(TextArticle.new)
   end
 
   should "return top url of environment" do
@@ -880,6 +880,86 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal c.top_url, top_url
   end
 
+  should "current editor return the editor defined in article" do
+    person = fast_create(Person)
+    @article = fast_create(Article)
+    @article.editor = Article::Editor::TEXTILE
+    @article.save
+    stubs(:current_person).returns(person)
+    assert_equal Article::Editor::TEXTILE, current_editor
+  end
+
+  should "current editor be tiny mce if an article is present and no editor is defined" do
+    person = fast_create(Person)
+    @article = fast_create(Article)
+    @article.editor = nil
+    @article.save
+    stubs(:current_person).returns(person)
+    assert_equal Article::Editor::TINY_MCE, current_editor
+  end
+
+  should "current editor be the person editor if there is no article" do
+    person = fast_create(Person)
+    request = mock()
+    stubs(:current_person).returns(person)
+    person.stubs(:editor).returns(Article::Editor::TEXTILE)
+    assert_equal Article::Editor::TEXTILE, current_editor
+  end
+
+
+  should "current editor be tiny mce if there is no article and no person editor is defined" do
+    person = fast_create(Person)
+    stubs(:current_person).returns(person)
+    person.stubs(:editor).returns(nil)
+    assert_equal Article::Editor::TINY_MCE, current_editor
+  end
+
+  should "current editor return the editor defined in article even if there is a person editor defined" do
+    person = fast_create(Person)
+    @article = fast_create(Article)
+    @article.editor = Article::Editor::TEXTILE
+    @article.save
+    stubs(:current_person).returns(person)
+    person.stubs(:editor).returns(Article::Editor::TINY_MCE)
+    assert_equal Article::Editor::TEXTILE, current_editor
+  end
+
+  should "current editor be tiny mce if an article is present and no editor is defined  even if there is a person editor defined" do
+    person = fast_create(Person)
+    @article = fast_create(Article)
+    @article.editor = nil
+    @article.save
+    stubs(:current_person).returns(person)
+    person.stubs(:editor).returns(Article::Editor::TINY_MCE)
+    assert_equal Article::Editor::TINY_MCE, current_editor
+  end
+
+  should "current editor concat the mode passed as parameter" do
+    person = fast_create(Person)
+    @article = fast_create(Article)
+    @article.editor = Article::Editor::TEXTILE
+    @article.save
+    stubs(:current_person).returns(person)
+    mode = 'something'
+    assert_equal Article::Editor::TEXTILE + '_' + mode, current_editor(mode)
+  end
+  should "current_editor_is? be true if the test editor is equal to defined one" do
+    stubs(:current_editor).returns(Article::Editor::TEXTILE)
+    assert current_editor_is?(Article::Editor::TEXTILE)
+  end
+
+  should "current_editor_is? be false if the test editor is different to defined one" do
+    stubs(:current_editor).returns(Article::Editor::TINY_MCE)
+    refute current_editor_is?(Article::Editor::TEXTILE)
+  end
+
+  should "current_editor_is? be false if the test editor is nil" do
+    stubs(:current_editor).returns(Article::Editor::TEXTILE)
+    refute current_editor_is?(nil)
+    stubs(:current_editor).returns(Article::Editor::TINY_MCE)
+    refute current_editor_is?(nil)
+  end
+
   protected
   include NoosferoTestHelper
 
@@ -892,3 +972,4 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
 end
+

@@ -101,7 +101,7 @@ end
 
 Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded files|rss feeds)$/ do |content, table|
   klass = {
-    'articles' => TextileArticle,
+    'articles' => TextArticle,
     'events' => Event,
     'blogs' => Blog,
     'folders' => Folder,
@@ -178,7 +178,7 @@ Given /^the following articles? with images?$/ do |table|
     img_tag = "<img "
     img.each { |attr, value| img_tag += "#{attr}=\"#{value}\" " }
     img_tag += "/>"
-    article = TinyMceArticle.new(:profile => owner, :name => item[:name], :body => img_tag)
+    article = TextArticle.new(:profile => owner, :name => item[:name], :body => img_tag)
     if item[:parent]
       article.parent = Article.find_by slug: item[:parent]
     end

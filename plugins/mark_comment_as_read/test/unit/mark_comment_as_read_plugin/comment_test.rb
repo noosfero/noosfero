@@ -4,7 +4,7 @@ class MarkCommentAsReadPlugin::CommentTest < ActiveSupport::TestCase
 
   def setup
     @person = create_user('user').person
-    @article = TinyMceArticle.create!(:profile => @person, :name => 'An article')
+    @article = TextArticle.create!(:profile => @person, :name => 'An article')
     @comment = Comment.create!(:title => 'title', :body => 'body', :author => @person, :source => @article)
   end
 

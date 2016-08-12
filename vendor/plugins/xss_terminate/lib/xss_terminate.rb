@@ -27,11 +27,15 @@ module XssTerminate
           before_save filter_with
       end
       class_attribute "xss_terminate_#{options[:with]}_options".to_sym
+
+      
       self.send("xss_terminate_#{options[:with]}_options=".to_sym, {
         :except => (options[:except] || []),
+        :if => (options[:if] || true),
         :only => (options[:only] || options[:sanitize] || [])
-      })
+      }) if 
       include XssTerminate::InstanceMethods
+
     end
 
   end
@@ -72,6 +76,9 @@ module XssTerminate
       unless except.empty?
         only.delete_if{ |i| except.include?( i.to_sym ) }
       end
+      if_condition = eval "xss_terminate_#{with}_options[:if]"
+      only = [] if !if_condition.nil? && if_condition.respond_to?(:call) && !if_condition.call(self)
+
       return only, columns_serialized
     end
 

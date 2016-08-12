@@ -10,7 +10,7 @@ class NewsletterPluginSafeStringsTest < ActionDispatch::IntegrationTest
     environment.add_admin(person)
 
     blog = fast_create(Blog, :profile_id => person.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post = fast_create(TextArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
     newsletter = NewsletterPlugin::Newsletter.create!(:environment => environment, :person => person, :enabled => true)
     newsletter.blog_ids = [blog.id]
     newsletter.save!

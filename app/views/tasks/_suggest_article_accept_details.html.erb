@@ -1,5 +1,3 @@
-<%= render :file => 'shared/tiny_mce' %>
-
 <% unless task.requestor %>
   <%= labelled_form_field(_("Sent by: "), f.text_field(:name)) %>
   <p><%= label_tag(_("Email: %s") % task.email) %> </p>
@@ -14,5 +12,5 @@
   <%= labelled_form_field(_('Highlight this article'), a.check_box(:highlighted)) %>
 
   <%= a.hidden_field(:type) %>
-  <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :f => a, :lead_id => task.id} %>
+  <%= render :partial => 'shared/lead_and_body', :locals => {:f => a, :lead_id => task.id} %>
 <% end %>

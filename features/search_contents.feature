@@ -22,7 +22,6 @@ Feature: search contents
     Then I should see "whales and dolphins" within ".search-text-article-item"
     And I should see "whales and dolphins" within ".only-one-result-box"
     And I should not see "bees and butterflies"
-    And The page should contain ".icon-content-textile-article"
     When I follow "whales and dolphins"
     Then I should be on article "whales and dolphins"
 

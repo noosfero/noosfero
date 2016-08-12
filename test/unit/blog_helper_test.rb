@@ -23,13 +23,13 @@ class BlogHelperTest < ActionView::TestCase
   def h(s); s; end
 
   should 'list blog posts with identifiers and classes' do
-    blog.children << older_post = create(TextileArticle, :name => 'First post',
+    blog.children << older_post = create(TextArticle, :name => 'First post',
                      :profile => profile, :parent => blog, :published => true)
-    blog.children << some_post = create(TextileArticle, :name => 'Some post',
+    blog.children << some_post = create(TextArticle, :name => 'Some post',
                      :profile => profile, :parent => blog, :published => true)
-    blog.children << hidden_post = create(TextileArticle, :name => 'Hidden post',
+    blog.children << hidden_post = create(TextArticle, :name => 'Hidden post',
                      :profile => profile, :parent => blog, :published => false)
-    blog.children << newer_post = create(TextileArticle, :name => 'Last post',
+    blog.children << newer_post = create(TextArticle, :name => 'Last post',
                      :profile => profile, :parent => blog, :published => true)
 
     def content_tag(tag, content_or_options_with_block = nil, options = nil, &block)
@@ -57,7 +57,7 @@ class BlogHelperTest < ActionView::TestCase
 
 
   should 'display post' do
-    blog.children << article = create(TextileArticle, :name => 'Second post', :profile => profile, :parent => blog, :published => true)
+    blog.children << article = create(TextArticle, :name => 'Second post', :profile => profile, :parent => blog, :published => true)
     expects(:article_title).with(article, anything).returns('TITLE')
     expects(:content_tag).with('p', article.to_html).returns(' TO_HTML')
     self.stubs(:params).returns({:npage => nil})

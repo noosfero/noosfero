@@ -61,7 +61,7 @@ class ForumTest < ActiveSupport::TestCase
   should 'has posts' do
     p = create_user('testuser').person
     p.articles << forum = build(Forum, :profile => p, :name => 'Forum test', :body => 'Forum test')
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
+    post = fast_create(TextArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
     forum.children << post
     assert_includes forum.posts, post
   end
@@ -76,8 +76,8 @@ class ForumTest < ActiveSupport::TestCase
   should 'list posts ordered by updated at' do
     p = create_user('testuser').person
     forum = fast_create(Forum, :profile_id => p.id, :name => 'Forum test')
-    newer = create(TextileArticle, :name => 'Post 2', :parent => forum, :profile => p)
-    older = create(TextileArticle, :name => 'Post 1', :parent => forum, :profile => p)
+    newer = create(TextArticle, :name => 'Post 2', :parent => forum, :profile => p)
+    older = create(TextArticle, :name => 'Post 1', :parent => forum, :profile => p)
     older.updated_at = Time.now.in_time_zone - 1.month
     older.stubs(:record_timestamps).returns(false)
     older.save!

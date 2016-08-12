@@ -71,9 +71,9 @@ class GalleryTest < ActiveSupport::TestCase
     gallery = fast_create(Gallery, :profile_id => c.id)
     f = fast_create(Gallery, :name => 'gallery', :profile_id => c.id, :parent_id => gallery.id)
     u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
-    older_t = fast_create(TinyMceArticle, :name => 'old news', :profile_id => c.id, :parent_id => gallery.id)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
-    t_in_f = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
+    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :parent_id => gallery.id)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
+    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
 
     assert_equal [t], gallery.news(1)
   end
@@ -81,8 +81,8 @@ class GalleryTest < ActiveSupport::TestCase
   should 'not return highlighted news when not asked' do
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
-    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true, :parent_id => gallery.id)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
+    highlighted_t = fast_create(TextArticle, :name => 'high news', :profile_id => c.id, :highlighted => true, :parent_id => gallery.id)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
 
     assert_equal [t].map(&:slug), gallery.news(2).map(&:slug)
   end
@@ -90,8 +90,8 @@ class GalleryTest < ActiveSupport::TestCase
   should 'return highlighted news when asked' do
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
-    highlighted_t = fast_create(TinyMceArticle, :name => 'high news', :profile_id => c.id, :highlighted => true, :parent_id => gallery.id)
-    t = fast_create(TinyMceArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
+    highlighted_t = fast_create(TextArticle, :name => 'high news', :profile_id => c.id, :highlighted => true, :parent_id => gallery.id)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
 
     assert_equal [highlighted_t].map(&:slug), gallery.news(2, true).map(&:slug)
   end

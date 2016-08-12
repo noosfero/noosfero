@@ -1,5 +1,3 @@
-<%= render :file => 'shared/tiny_mce' %>
-
 <h1><%= _('Editing header and footer') %></h1>
 
 <%= form_tag do %>
@@ -21,9 +19,9 @@
       </div>
     <% end %>
     <h2><%= _('Content for header ') %></h2>
-    <%= text_area_tag(:custom_header, @header, :style => 'width: 100%; height: 150px;', :class => 'mceEditor') %>
+    <%= text_area_tag(:custom_header, @header, :style => 'width: 100%; height: 150px;', :class => current_editor) %>
     <h2><%= _('Content for footer') %></h2>
-    <%= text_area_tag(:custom_footer, @footer, :style => 'width: 100%; height: 150px;', :class => 'mceEditor') %>
+    <%= text_area_tag(:custom_footer, @footer, :style => 'width: 100%; height: 150px;', :class => current_editor) %>
     <%= button_bar do %>
       <%= submit_button(:save, _('Save')) %>
       <%= button(:cancel, _('Cancel'), :action => 'index') %>

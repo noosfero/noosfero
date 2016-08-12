@@ -1,5 +1,4 @@
 <% self.extend(CustomFormsPlugin::Helper) %>
-<%= render :file => 'shared/tiny_mce', :locals => {:mode => 'simple'} %>
 
 <%= error_messages_for :form %>
 <%= required labelled_form_field _('Name'), f.text_field(:name) %>
@@ -17,7 +16,7 @@
   <%= labelled_check_box _('Triggered after membership'), 'form[on_membership]', '1', @form.on_membership %>
   </p>
 <% end %>
-<%= labelled_form_field c_('Description'), f.text_area(:description, :style => 'width: 100%', :class => 'mceEditor') %>
+<%= labelled_form_field c_('Description'), f.text_area(:description, :style => 'width: 100%', :class => current_editor('simple')) %>
 
 <h2><%= c_('Fields') %></h2>
 

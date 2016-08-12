@@ -381,9 +381,9 @@ EOS
     person = fast_create(Person)
     blog = fast_create(Blog, profile_id: person.id)
 
-    post_1 = fast_create(TextileArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_2 = fast_create(TextileArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_3 = fast_create(TextileArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_1 = fast_create(TextArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_2 = fast_create(TextArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_3 = fast_create(TextArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
 
     newsletter = NewsletterPlugin::Newsletter.create!(
       :environment => person.environment,
@@ -397,9 +397,9 @@ EOS
     person = fast_create(Person)
     blog = fast_create(Blog, profile_id: person.id)
 
-    post_1 = fast_create(TextileArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_2 = fast_create(TextileArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
-    post_3 = fast_create(TextileArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_1 = fast_create(TextArticle, :name => 'First post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_2 = fast_create(TextArticle, :name => 'Second post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
+    post_3 = fast_create(TextArticle, :name => 'Third post', :profile_id => person.id, :parent_id => blog.id, :body => 'Test')
 
     newsletter = NewsletterPlugin::Newsletter.create!(
       :environment => person.environment,

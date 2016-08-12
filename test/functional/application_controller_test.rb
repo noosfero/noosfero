@@ -97,38 +97,6 @@ class ApplicationControllerTest < ActionController::TestCase
     })
   end
 
-  def test_should_generate_help_box_expanding_textile_markup_when_passing_string
-    get :help_textile_with_string
-    assert_tag({
-      :tag => 'div',
-      :attributes => { :class => 'help_box'},
-      :descendant => {
-        :tag => 'div',
-        :attributes => { :class => 'help_message', :style => /display:\s+none/},
-        :descendant => {
-          :tag => 'strong',
-          :content => /my_bold_help_message/
-        }
-      }
-    })
-  end
-
-  def test_should_generate_help_box_expanding_textile_markup_when_passing_block
-    get :help_textile_with_block
-    assert_tag({
-      :tag => 'div',
-      :attributes => { :class => 'help_box'},
-      :descendant => {
-        :tag => 'div',
-        :attributes => { :class => 'help_message', :style => /display:\s+none/},
-        :descendant => {
-          :tag => 'strong',
-          :content => /my_bold_help_message/
-        }
-      }
-    })
-  end
-
   def test_shouldnt_generate_help_box_markup_when_no_block_is_passed
     get :help_without_block
     assert_no_tag({

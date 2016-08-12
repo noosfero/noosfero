@@ -5,8 +5,7 @@ h3= t('views.cycle._edit_fields.general_settings')
 = form_for @cycle, as: :cycle , remote: true, url: {action: @cycle.new? ? :new : :edit, id: @cycle.id }, html: {data: {loading: '#cycle-fields form'}} do |f|
 
   = labelled_field f, :name, t('views.cycle._edit_fields.name'), f.text_field(:name), class: 'cycle-field-name'
-  = labelled_field f, :description, t('views.cycle._edit_fields.description'), f.text_area(:description, class: 'mceEditor'), class: 'cycle-field-description'
-  = render file: 'shared/tiny_mce', locals: {mode: 'simple'}
+  = labelled_field f, :description, t('views.cycle._edit_fields.description'), f.text_area(:description, class: current_editor('simple')), class: 'cycle-field-description'
 
   .cycle-fields-block
     = labelled_datetime_range_field f, :start, :finish, t('views.cycle._edit_fields.orders_interval'), class: 'cycle-orders-period'

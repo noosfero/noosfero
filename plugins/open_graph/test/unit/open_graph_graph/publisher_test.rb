@@ -51,7 +51,7 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
     user = User.current.person
 
     blog = Blog.create! profile: user, name: 'blog'
-    blog_post = TinyMceArticle.create! profile: user, parent: blog, name: 'blah', author: user
+    blog_post = TextArticle.create! profile: user, parent: blog, name: 'blah', author: user
     assert_last_activity user, :create_an_article, url_for(blog_post)
 
     gallery = Gallery.create! name: 'gallery', profile: user
@@ -65,7 +65,7 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
     assert_last_activity user, :create_an_event, url_for(event)
 
     forum = Forum.create! name: 'forum', profile: user
-    topic = TinyMceArticle.create! profile: user, parent: forum, name: 'blah2', author: user
+    topic = TextArticle.create! profile: user, parent: forum, name: 'blah2', author: user
     assert_last_activity user, :start_a_discussion, url_for(topic, topic.url.merge(og_type: MetadataPlugin.og_types[:forum]))
 
     AddFriend.create!(person: user, friend: @other_actor).finish
@@ -82,7 +82,7 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
     User.current = @actor.user
     user = User.current.person
 
-    blog_post = TinyMceArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah', author: user
+    blog_post = TextArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah', author: user
     story = :announce_news_from_a_sse_initiative
     assert_last_activity user, story, passive_url_for(blog_post, nil, OpenGraphPlugin::Stories::Definitions[story])
 
@@ -91,13 +91,13 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
     user = User.current.person
 
     # fan
-    blog_post = TinyMceArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah2', author: user
+    blog_post = TextArticle.create! profile: @enterprise, parent: @enterprise.blog, name: 'blah2', author: user
     assert_last_activity user, :announce_news_from_a_sse_initiative, 'http://noosfero.net/coop/blog/blah2'
     # member
-    blog_post = TinyMceArticle.create! profile: @myenterprise, parent: @myenterprise.blog, name: 'blah2', author: user
+    blog_post = TextArticle.create! profile: @myenterprise, parent: @myenterprise.blog, name: 'blah2', author: user
     assert_last_activity user, :announce_news_from_a_sse_initiative, 'http://noosfero.net/mycoop/blog/blah2'
 
-    blog_post = TinyMceArticle.create! profile: @community, parent: @community.blog, name: 'blah', author: user
+    blog_post = TextArticle.create! profile: @community, parent: @community.blog, name: 'blah', author: user
     assert_last_activity user, :announce_news_from_a_community, 'http://noosfero.net/comm/blog/blah'
   end
 

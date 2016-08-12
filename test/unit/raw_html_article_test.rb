@@ -7,7 +7,8 @@ class RawHTMLArticleTest < ActiveSupport::TestCase
   end
 
   should 'not filter HTML' do
-    article = RawHTMLArticle.create!(
+    article = TextArticle.create!(
+      :editor => Article::Editor::RAW_HTML,
       :name => 'Raw HTML',
       :body => '<strong>HTML!</strong><form action="#"></form>',
       :profile => @profile

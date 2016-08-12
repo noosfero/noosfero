@@ -107,7 +107,7 @@ module Api
     def post_article(asset, params)
       return forbidden! unless current_person.can_post_content?(asset)
 
-      klass_type = params[:content_type] || params[:article].delete(:type) || TinyMceArticle.name
+      klass_type = params[:content_type] || params[:article].delete(:type) || TextArticle.name
       return forbidden! unless klass_type.constantize <= Article
 
       article = klass_type.constantize.new(params[:article])
@@ -461,11 +461,9 @@ module Api
 
     def parse_content_type(content_type)
       return nil if content_type.blank?
-      content_types = content_type.split(',').map do |content_type|
-        content_type = content_type.camelcase
-        content_type == 'TextArticle' ? Article.text_article_types : content_type
+      content_type.split(',').map do |content_type|
+        content_type.camelcase
       end
-      content_types.flatten.uniq
     end
 
     def period(from_date, until_date)

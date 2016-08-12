@@ -2,8 +2,6 @@
 
 <h1><%= _('My Blog') %></h1>
 
-<%= render :file => 'shared/tiny_mce' %>
-
 <%= required f.text_field(:name, :size => '64', :maxlength => 150, :onchange => "updateUrlField(this, 'article_slug')") %>
 
 <%= render :partial => 'general_fields' %>
@@ -53,7 +51,7 @@
   %>
 </div>
 
-<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10, :class => 'mceEditor')) %>
+<%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10, :class => current_editor)) %>
 
 <div id="blog-image-builder">
   <%= f.fields_for :image_builder, @article.image do |i| %>
