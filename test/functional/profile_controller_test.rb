@@ -518,9 +518,9 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show number of published posts in index' do
     profile.articles << blog = create(Blog, :name => 'Blog', :profile_id => profile.id)
-    fast_create(TextileArticle, :name => 'Published post', :parent_id => profile.blog.id, :profile_id => profile.id)
-    fast_create(TextileArticle, :name => 'Other published post', :parent_id => profile.blog.id, :profile_id => profile.id)
-    fast_create(TextileArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
+    fast_create(TextArticle, :name => 'Published post', :parent_id => profile.blog.id, :profile_id => profile.id)
+    fast_create(TextArticle, :name => 'Other published post', :parent_id => profile.blog.id, :profile_id => profile.id)
+    fast_create(TextArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
 
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/#{blog.slug}/ }
@@ -604,8 +604,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'reverse the order of posts in tag feed' do
-    create(TextileArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
-    create(TextileArticle, :name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
+    create(TextArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+    create(TextArticle, :name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
 
     get :tag_feed, :profile => profile.identifier, :id => 'tag1'
     assert_match(/Second.*First/, @response.body)
@@ -613,11 +613,11 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display the most recent posts in tag feed' do
     start = Time.now - 30.days
-    first = create(TextileArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => start)
+    first = create(TextArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => start)
     20.times do |i|
-      create(TextileArticle, :name => 'Post #' + i.to_s, :profile => profile, :tag_list => 'tag1', :published_at => start + i.days)
+      create(TextArticle, :name => 'Post #' + i.to_s, :profile => profile, :tag_list => 'tag1', :published_at => start + i.days)
     end
-    last = create(TextileArticle, :name => 'Last post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+    last = create(TextArticle, :name => 'Last post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
 
     get :tag_feed, :profile => profile.identifier, :id => 'tag1'
     assert_no_match(/First post/, @response.body) # First post is older than other 20 posts already
@@ -755,7 +755,7 @@ class ProfileControllerTest < ActionController::TestCase
     scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p1))
 
     User.current = p1.user
-    create(TinyMceArticle, :profile => p1, :name => 'An article about free software')
+    create(TextArticle, :profile => p1, :name => 'An article about free software')
     a1 = ActionTracker::Record.last
 
     login_as(profile.identifier)
@@ -787,10 +787,10 @@ class ProfileControllerTest < ActionController::TestCase
     scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => profile))
 
     User.current = p3.user
-    article1 = TinyMceArticle.create!(:profile => p3, :name => 'An article about free software')
+    article1 = TextArticle.create!(:profile => p3, :name => 'An article about free software')
 
     User.current = p2.user
-    article2 = TinyMceArticle.create!(:profile => p2, :name => 'Another article about free software')
+    article2 = TextArticle.create!(:profile => p2, :name => 'Another article about free software')
 
     login_as(profile.identifier)
     get :index, :profile => p3.identifier
@@ -1181,7 +1181,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "view more activities paginated" do
     login_as(profile.identifier)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     40.times{ create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
@@ -1214,7 +1214,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "not index display activities comments" do
     login_as(profile.identifier)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
@@ -1225,7 +1225,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "view more comments paginated" do
     login_as(profile.identifier)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
@@ -1341,7 +1341,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'register abuse report with content' do
     reported = fast_create(Profile)
-    content = fast_create(RawHTMLArticle, :profile_id => reported.id)
+    content = fast_create(TextArticle, :profile_id => reported.id)
     login_as(profile.identifier)
     @controller.stubs(:verify_recaptcha).returns(true)
 
@@ -1368,7 +1368,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     User.current = profile.user
     ActionTracker::Record.destroy_all
-    TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    TextArticle.create!(:profile => profile, :name => 'An article about free software')
 
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
@@ -1383,7 +1383,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     User.current = profile.user
     ActionTracker::Record.destroy_all
-    TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    TextArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
 
     login_as(profile.identifier)
@@ -1393,14 +1393,14 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should "follow an article" do
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     login_as(@profile.identifier)
     post :follow_article, :profile => profile.identifier, :article_id => article.id
     assert_includes article.person_followers, @profile
   end
 
   should "unfollow an article" do
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     article.person_followers << @profile
     article.save!
     assert_includes article.person_followers, @profile
@@ -1411,7 +1411,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should "be logged in to leave comment on an activity" do
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
 
@@ -1422,7 +1422,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "leave a comment in own activity" do
     login_as(profile.identifier)
-    TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    TextArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
 
@@ -1436,7 +1436,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "leave a comment on another profile's activity" do
     login_as(profile.identifier)
     another_person = fast_create(Person)
-    TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software')
+    TextArticle.create!(:profile => another_person, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
     assert_equal 0, count
@@ -1448,7 +1448,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display comment in wall if user was removed after click in view all comments' do
     User.current = profile.user
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     to_be_removed = create_user('removed_user').person
     comment = create(Comment, :author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
     to_be_removed.destroy
@@ -1465,7 +1465,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display spam comments in wall' do
     User.current = profile.user
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
     comment = create(Comment, :author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
     comment.spam!
     login_as(profile.identifier)
@@ -1476,7 +1476,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display comment in wall from non logged users after click in view all comments' do
     User.current = profile.user
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     comment = create(Comment, :name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
 
     login_as(profile.identifier)

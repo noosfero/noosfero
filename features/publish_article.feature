@@ -60,11 +60,10 @@ Feature: publish article
     And I am on mariasilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    And I should see "Text article with Textile markup language"
-    And I follow "Text article with Textile markup language"
+    And I should see "Text article"
+    And I follow "Text article"
     And I fill in the following:
       | Title | Sample Article |
-      | Text | this is Maria's first published article |
     And I press "Save"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"

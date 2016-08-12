@@ -60,8 +60,8 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
 #    block.stubs(:blog).returns(blog)
 #    block.stubs(:owner).returns(profile)
 #
-#    public_post = fast_create(TextileArticle, :profile_id => profile.id, :parent_id => blog.id, :published => true, :published_at => Time.mktime(2012, 'jan'))
-#    private_post = fast_create(TextileArticle, :profile_id => profile.id, :parent_id => blog.id, :published => false, :published_at => Time.mktime(2012, 'jan'))
+#    public_post = fast_create(TextArticle, :profile_id => profile.id, :parent_id => blog.id, :published => true, :published_at => Time.mktime(2012, 'jan'))
+#    private_post = fast_create(TextArticle, :profile_id => profile.id, :parent_id => blog.id, :published => false, :published_at => Time.mktime(2012, 'jan'))
 #
 #    assert_match /January \(1\)/, block.content({:person => person})
 #    assert_match /January \(1\)/, block.content()
@@ -84,7 +84,7 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
     date = DateTime.parse('2008-01-10')
     blog = profile.blog
     for i in 1..10 do
-      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
+      post = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
@@ -98,7 +98,7 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
     date = DateTime.parse('2008-01-10')
     blog = profile.blog
     for i in 1..10 do
-      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
+      post = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       assert post.update_attribute(:published_at, date)
     end
     block = BlogArchivesBlock.new
@@ -120,7 +120,7 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
   should 'order list of amount posts' do
     blog = profile.blog
     for i in 1..10 do
-      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
+      post = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id, :parent_id => blog.id)
       post.update_attribute(:published_at, DateTime.parse("2008-#{i}-01"))
     end
     block = BlogArchivesBlock.new
@@ -146,7 +146,7 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
   should 'order years' do
     blog = profile.blog
     for year in 2005..2009
-      post = create(TextileArticle, :name => "post #{year}", :profile => profile, :parent => blog, :published_at => Date.new(year, 1, 1))
+      post = create(TextArticle, :name => "post #{year}", :profile => profile, :parent => blog, :published_at => Date.new(year, 1, 1))
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
@@ -158,7 +158,7 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
   should 'order months from later to former' do
     blog = profile.blog
     for month in 1..3
-      post = create(TextileArticle, :name => "post #{month}", :profile => profile, :parent => blog, :published_at => Date.new(2009, month, 1))
+      post = create(TextArticle, :name => "post #{month}", :profile => profile, :parent => blog, :published_at => Date.new(2009, month, 1))
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
@@ -182,8 +182,8 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
     profile.articles << Blog.new(:name => 'Blog Two', :profile => profile)
     (blog_one, blog_two) = profile.blogs
     for month in 1..3
-      create(TextileArticle, :name => "blog one - post #{month}", :profile_id => profile.id, :parent_id => blog_one.id)
-      create(TextileArticle, :name => "blog two - post #{month}", :profile_id => profile.id, :parent_id => blog_two.id)
+      create(TextArticle, :name => "blog one - post #{month}", :profile_id => profile.id, :parent_id => blog_one.id)
+      create(TextArticle, :name => "blog two - post #{month}", :profile_id => profile.id, :parent_id => blog_two.id)
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
@@ -197,10 +197,10 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
     date = DateTime.parse('2008-01-10')
     blog = profile.blog
     2.times do |i|
-      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+      post = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id,
                          :parent_id => blog.id, :language => 'en')
       post.update_attribute(:published_at, date)
-      translation = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+      translation = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id,
                   :parent_id => blog.id, :language => 'en', :translation_of_id => post.id)
       translation.update_attribute(:published_at, date)
     end
@@ -215,10 +215,10 @@ class BlogArchivesBlockViewTest < ActionView::TestCase
     date = DateTime.parse('2008-01-10')
     blog = profile.blog
     2.times do |i|
-      post = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+      post = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id,
                          :parent_id => blog.id, :language => 'en')
       post.update_attribute(:published_at, date)
-      translation = fast_create(TextileArticle, :name => "post #{i} test", :profile_id => profile.id,
+      translation = fast_create(TextArticle, :name => "post #{i} test", :profile_id => profile.id,
                   :parent_id => blog.id, :language => 'en', :translation_of_id => post.id)
       translation.update_attribute(:published_at, date)
     end

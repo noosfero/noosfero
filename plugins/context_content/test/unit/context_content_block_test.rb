@@ -5,7 +5,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   def setup
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     @block = ContextContentPlugin::ContextContentBlock.create!
-    @block.types = ['TinyMceArticle']
+    @block.types = ['TextArticle']
   end
 
   should 'describe itself' do
@@ -22,13 +22,13 @@ class ContextContentBlockTest < ActiveSupport::TestCase
 
   should 'return children of page' do
     folder = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article = fast_create(TextArticle, :parent_id => folder.id)
     assert_equal [article], @block.contents(folder)
   end
 
   should 'return parent name of the contents' do
     folder = fast_create(Folder, :name => " New Folder")
-    article = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article = fast_create(TextArticle, :parent_id => folder.id)
     assert_equal folder.name, @block.parent_title([article])
   end
 
@@ -39,40 +39,40 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   should 'limit number of children to display' do
     @block.limit = 2
     folder = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article2 = fast_create(TinyMceArticle, :parent_id => folder.id)
-    article3 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article1 = fast_create(TextArticle, :parent_id => folder.id)
+    article2 = fast_create(TextArticle, :parent_id => folder.id)
+    article3 = fast_create(TextArticle, :parent_id => folder.id)
     assert_equal 2, @block.contents(folder).length
   end
 
   should 'show contents for next page' do
     @block.limit = 2
     folder = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :name => 'article 1', :parent_id => folder.id)
-    article2 = fast_create(TinyMceArticle, :name => 'article 2', :parent_id => folder.id)
-    article3 = fast_create(TinyMceArticle, :name => 'article 3', :parent_id => folder.id)
+    article1 = fast_create(TextArticle, :name => 'article 1', :parent_id => folder.id)
+    article2 = fast_create(TextArticle, :name => 'article 2', :parent_id => folder.id)
+    article3 = fast_create(TextArticle, :name => 'article 3', :parent_id => folder.id)
     assert_equal [article3], @block.contents(folder, 2)
   end
 
   should 'show parent contents for next page' do
     @block.limit = 2
     folder = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :name => 'article 1', :parent_id => folder.id)
-    article2 = fast_create(TinyMceArticle, :name => 'article 2', :parent_id => folder.id)
-    article3 = fast_create(TinyMceArticle, :name => 'article 3', :parent_id => folder.id)
+    article1 = fast_create(TextArticle, :name => 'article 1', :parent_id => folder.id)
+    article2 = fast_create(TextArticle, :name => 'article 2', :parent_id => folder.id)
+    article3 = fast_create(TextArticle, :name => 'article 3', :parent_id => folder.id)
     assert_equal [article3], @block.contents(article1, 2)
   end
 
   should 'return parent children if page has no children' do
     folder = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article = fast_create(TextArticle, :parent_id => folder.id)
     assert_equal [article], @block.contents(article)
   end
 
   should 'do not return parent children if show_parent_content is false' do
     @block.show_parent_content = false
     folder = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article = fast_create(TextArticle, :parent_id => folder.id)
     assert_equal [], @block.contents(article)
   end
 
@@ -82,13 +82,13 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   end
 
   should 'return available content types with checked types first' do
-    @block.types = ['TinyMceArticle', 'Folder']
-    assert_equal [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], @block.available_content_types
+    @block.types = ['TextArticle', 'Folder']
+    assert_equal [TextArticle, Folder, UploadedFile, Event, Blog, Forum, Gallery, RssFeed], @block.available_content_types
   end
 
   should 'return available content types' do
     @block.types = []
-    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], @block.available_content_types
+    assert_equal [UploadedFile, Event, TextArticle, Folder, Blog, Forum, Gallery, RssFeed], @block.available_content_types
   end
 
   should 'return first 2 content types' do
@@ -120,7 +120,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
     @block.types = []
-    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], @block.available_content_types
+    assert_equal [UploadedFile, Event, TextArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], @block.available_content_types
   end
 
   should 'return box owner on profile method call' do
@@ -144,7 +144,7 @@ class ContextContentBlockViewTest < ActionView::TestCase
   def setup
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     @block = ContextContentPlugin::ContextContentBlock.create!
-    @block.types = ['TinyMceArticle']
+    @block.types = ['TextArticle']
   end
 
   should 'render nothing if it has no content to show' do
@@ -153,7 +153,7 @@ class ContextContentBlockViewTest < ActionView::TestCase
 
   should 'render context content block view' do
     @page = fast_create(Folder)
-    article = fast_create(TinyMceArticle, :parent_id => @page.id)
+    article = fast_create(TextArticle, :parent_id => @page.id)
     contents = [article]
     @block.use_parent_title = true
 
@@ -178,9 +178,9 @@ class ContextContentBlockViewTest < ActionView::TestCase
   should 'display pagination links if it has more than one page' do
     @block.limit = 2
     @page = fast_create(Folder)
-    article1 = fast_create(TinyMceArticle, :parent_id => @page.id)
-    article2 = fast_create(TinyMceArticle, :parent_id => @page.id)
-    article3 = fast_create(TinyMceArticle, :parent_id => @page.id)
+    article1 = fast_create(TextArticle, :parent_id => @page.id)
+    article2 = fast_create(TextArticle, :parent_id => @page.id)
+    article3 = fast_create(TextArticle, :parent_id => @page.id)
     contents = [article1, article2, article3]
     contents.each do |article|
       article.expects(:view_url).returns('http://test.noosfero.plugins')

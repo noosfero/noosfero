@@ -21,8 +21,8 @@ class LayoutHelperTest < ActionView::TestCase
     @plugins = []
     expects(:profile).returns(nil).at_least_once
     expects(:environment).returns(env).at_least_once
+    expects(:theme_option).with(:jquery_theme).returns(nil)
     expects(:theme_option).with(:icon_theme).returns(['my-icons']).at_least_once
-    expects(:jquery_theme).returns('jquery-nice').at_least_once
     global_css = Rails.root.join "public/designs/themes/#{env.theme}/global.css"
     File.stubs(:exists?).returns(false)
     File.expects(:exists?).with(global_css).returns(true).at_least_once

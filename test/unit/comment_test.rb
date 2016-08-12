@@ -65,7 +65,7 @@ class CommentTest < ActiveSupport::TestCase
 
   should 'update counter cache in article' do
     owner = create_user('testuser').person
-    art = create(TextileArticle, :profile_id => owner.id)
+    art = create(TextArticle, :profile_id => owner.id)
     cc = art.comments_count
 
     comment = create(Comment, :source => art, :author_id => owner.id)
@@ -75,7 +75,7 @@ class CommentTest < ActiveSupport::TestCase
   should 'update counter cache in article activity' do
     User.current = user = create_user 'testuser'
     owner = user.person
-    article = create(TextileArticle, :profile_id => owner.id)
+    article = create(TextArticle, :profile_id => owner.id)
 
     action = article.activity
     cc = action.comments_count
@@ -290,7 +290,7 @@ class CommentTest < ActiveSupport::TestCase
   should "return activities comments as a thread" do
     User.current = user = create_user
     person = user.person
-    a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
+    a = TextArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
     c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
     c2 = Comment.create!(:reply_of_id => c1.id, :source => a, :body => 'bla', :author => person)
@@ -308,7 +308,7 @@ class CommentTest < ActiveSupport::TestCase
   should "return activities comments when some comment on thread is spam and not display its replies" do
     User.current = user = create_user
     person = user.person
-    a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
+    a = TextArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
     c2 = Comment.create(:source => a, :body => 'c2', :author => person)
@@ -385,7 +385,7 @@ class CommentTest < ActiveSupport::TestCase
 
     User.current = user = create_user 'testuser'
     profile = user.person
-    article = create(TinyMceArticle, :profile => profile)
+    article = create(TextArticle, :profile => profile)
 
     ActionTracker::Record.record_timestamps = false
     article.activity.update_attribute(:updated_at, Time.now - 1.day)
@@ -400,7 +400,7 @@ class CommentTest < ActiveSupport::TestCase
   should 'create a new activity when add a comment and the activity was removed' do
     User.current = user = create_user 'testuser'
     profile = user.person
-    article = create(TinyMceArticle, :profile => profile)
+    article = create(TextArticle, :profile => profile)
     article.activity.destroy
 
     assert_nil article.activity
@@ -776,7 +776,7 @@ class CommentTest < ActiveSupport::TestCase
 
   def create_comment(args = {})
     owner = create_user('testuser').person
-    article = create(TextileArticle, :profile_id => owner.id)
+    article = create(TextArticle, :profile_id => owner.id)
     create(Comment, { :name => 'foo', :email => 'foo@example.com', :source => article }.merge(args))
   end
 

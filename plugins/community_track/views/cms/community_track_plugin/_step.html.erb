@@ -1,7 +1,5 @@
 <%= required_fields_message %>
 
-<%= render :file => 'shared/tiny_mce' %>
-
 <div>
   <%= required f.text_field('name', :size => '64', :maxlength => 150) %>
   <%= labelled_form_field(_('Period'), (
@@ -19,4 +17,4 @@
 
 <%= labelled_form_field check_box(:article, :hidden) + _('Hidden Step'), '' %>
 
-<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :body_label => 'Description:'} %>
+<%= render :partial => 'shared/lead_and_body', :locals => {:body_label => 'Description:'} %>

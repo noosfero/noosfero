@@ -49,7 +49,7 @@ class PerformanceTest < ActionDispatch::IntegrationTest
     blog = profile.blog
     n.times do |i|
       postnumber += 1
-      TinyMceArticle.create!(:profile => profile, :parent => blog, :name => "post number #{postnumber}")
+      TextArticle.create!(:profile => profile, :parent => blog, :name => "post number #{postnumber}")
     end
   end
 

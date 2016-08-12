@@ -31,7 +31,7 @@ class CmsHelperTest < ActionView::TestCase
 
   should 'display link to article if article is not folder' do
     profile = fast_create(Profile)
-    article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id)
+    article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
     expects(:link_to).with('My article', article.url, :class => icon_for_article(article))
 
     result = link_to_article(article)
@@ -51,7 +51,7 @@ class CmsHelperTest < ActionView::TestCase
   should 'display spread button' do
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
-    article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id)
+    article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
     expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'modal-toggle button with-text icon-spread', :title => nil)
 
     result = display_spread_button(article)
@@ -72,7 +72,7 @@ class CmsHelperTest < ActionView::TestCase
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Profile)
     name = 'My article'
-    article = fast_create(TinyMceArticle, :name => name, :profile_id => profile.id)
+    article = fast_create(TextArticle, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
     expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
 

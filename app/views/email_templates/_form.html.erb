@@ -19,8 +19,7 @@
         <%= @template_params_allowed %>
       </div>
     </div>
-    <%= render :file => 'shared/tiny_mce' %>
-    <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
+    <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => current_editor)) %>
   </div>
 
   <div class="actions">

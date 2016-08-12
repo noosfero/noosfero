@@ -2,7 +2,7 @@ require_relative '../test_helper'
 class DisplayContentBlockTest < ActiveSupport::TestCase
 
   INVALID_KIND_OF_ARTICLE = [Event, RssFeed, UploadedFile, Gallery]
-  VALID_KIND_OF_ARTICLE = [RawHTMLArticle, TextArticle, TextileArticle, TinyMceArticle, Folder, Blog, Forum]
+  VALID_KIND_OF_ARTICLE = [TextArticle, Folder, Blog, Forum]
 
   should 'describe itself' do
     assert_not_equal Block.description, DisplayContentBlock.description
@@ -39,9 +39,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'nodes be the article ids in hash of checked nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id)
 
     checked_articles= {a1.id => true, a2.id => true, a3.id => false}
     block = DisplayContentBlock.new
@@ -54,9 +54,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'nodes be save in database' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id)
 
     checked_articles= {a1.id => true, a2.id => true, a3.id => false}
     block = DisplayContentBlock.new
@@ -71,10 +71,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'be able to update nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id)
+    a4 = fast_create(TextArticle, :name => 'test article 4', :profile_id => profile.id)
 
     checked_articles= {a1.id => true, a2.id => true, a3.id => false}
     block = DisplayContentBlock.new
@@ -95,13 +95,13 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should "save selected folders and articles" do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
     f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
     f2 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id, :parent_id => f1.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f2.id)
-    a5 = fast_create(TextileArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => f2.id)
+    a4 = fast_create(TextArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f2.id)
+    a5 = fast_create(TextArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => f2.id)
 
     checked_articles= {a1.id => true, a2.id => true, f1.id => false}
 
@@ -115,13 +115,13 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should "save selected articles and blogs" do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
     b1 = fast_create(Blog, :name => 'test blog 1', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => b1.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => b1.id)
     b2 = fast_create(Blog, :name => 'test blog 2', :profile_id => profile.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => b2.id)
-    a5 = fast_create(TextileArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => b2.id)
+    a4 = fast_create(TextArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => b2.id)
+    a5 = fast_create(TextArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => b2.id)
 
     checked_articles= {a1.id => true, a2.id => true, b1.id => false, b2.id => true}
 
@@ -132,36 +132,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equivalent [a1.id, a2.id, b1.id, b2.id], block.nodes
   end
 
-  should 'TextileArticle be saved as node' do
+  should 'TextArticle be saved as node' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-
-    checked_articles= {a1.id => true}
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-    assert_equal [], [a1.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id]
-  end
-
-  should 'TinyMceArticle be saved as node' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id)
-
-    checked_articles= {a1.id => true}
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-    assert_equal [], [a1.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id]
-  end
-
-  should 'RawHTMLArticle be saved as node' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(RawHTMLArticle, :name => 'test article 1', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
 
     checked_articles= {a1.id => true}
     block = DisplayContentBlock.new
@@ -230,9 +204,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should "return all root articles from profile" do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
 
     block = DisplayContentBlock.new
     block.nodes= [a1.id, a2.id, a3.id]
@@ -247,9 +221,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should "return all children of an articles's profile" do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
 
     block = DisplayContentBlock.new
     box = mock()
@@ -264,9 +238,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = fast_create(Community, :name => 'my test community', :identifier => 'mytestcommunity')
     environment = Environment.default
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
 
     block = DisplayContentBlock.new
     box = mock()
@@ -283,9 +257,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = fast_create(Community, :name => 'my test community', :identifier => 'mytestcommunity')
     environment = Environment.default
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => a2.id)
 
     block = DisplayContentBlock.new
     box = mock()
@@ -404,9 +378,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     Article.delete_all
     f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
 
     checked_articles= {f1.id => true, a1.id => true, a2.id => true, a3.id => false}
     block = DisplayContentBlock.new
@@ -420,9 +394,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     Article.delete_all
     f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
+    a3 = fast_create(TextArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
 
     checked_articles= {f1.id => true, a1.id => true, a2.id => true, a3.id => false}
     block = DisplayContentBlock.new
@@ -472,37 +446,37 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
   should 'return available content types with checked types first' do
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     block = DisplayContentBlock.create!
-    block.types = ['TinyMceArticle']
+    block.types = ['TextArticle']
 
-    block.types = ['TinyMceArticle', 'Folder']
-    assert_equivalent [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], block.available_content_types
+    block.types = ['TextArticle', 'Folder']
+    assert_equivalent [TextArticle, Folder, UploadedFile, Event, Blog, Forum, Gallery, RssFeed], block.available_content_types
   end
 
   should 'return available content types' do
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     block = DisplayContentBlock.create!
-    block.types = ['TinyMceArticle']
+    block.types = ['TextArticle']
     block.types = []
-    assert_equivalent [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
+    assert_equivalent [UploadedFile, Event, TextArticle, Folder, Blog, Forum, Gallery, RssFeed], block.available_content_types
   end
 
   should 'return first 2 content types' do
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     block = DisplayContentBlock.create!
-    block.types = ['TinyMceArticle']
+    block.types = ['TextArticle']
     assert_equal 2, block.first_content_types.length
   end
 
   should 'return all but first 2 content types' do
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     block = DisplayContentBlock.create!
-    block.types = ['TinyMceArticle']
+    block.types = ['TextArticle']
     assert_equal block.available_content_types.length - 2, block.more_content_types.length
   end
 
   should 'return 2 as default value for first_types_count' do
     block = DisplayContentBlock.create!
-    block.types = ['TinyMceArticle']
+    block.types = ['TextArticle']
     assert_equal 2, block.first_types_count
   end
 
@@ -527,14 +501,14 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
     block.types = []
-    assert_equivalent [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
+    assert_equivalent [UploadedFile, Event, TextArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], block.available_content_types
   end
 
   should 'do not fail if a selected article was removed' do
     profile = create_user('testuser').person
     Article.delete_all
     f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
 
     checked_articles= {a1.id => true}
 
@@ -547,16 +521,16 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
 end
 
-require 'boxes_helper'
-
 class DisplayContentBlockViewTest < ActionView::TestCase
   include BoxesHelper
+  include DatesHelper
+  helper :dates
 
   should 'list links for all articles title defined in nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -572,8 +546,8 @@ class DisplayContentBlockViewTest < ActionView::TestCase
   should 'list content for all articles lead defined in nodes' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
-    a2 = fast_create(TinyMceArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'abstract', :checked => true}]
@@ -602,7 +576,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'show title if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -616,7 +590,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'show abstract if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -630,7 +604,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'show body if defined by user' do
     profile = create_user('testuser').person
-    a = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
@@ -642,7 +616,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
     assert_match /#{a.body}/, render_block_content(block)
   end
 
-  should 'show publishd date if defined by user' do
+  should 'show published date if defined by user' do
     profile = create_user('testuser').person
     a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
 
@@ -658,7 +632,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'show image if defined by user' do
     profile = create_user('testuser').person
-    a = create(TinyMceArticle, :name => 'test article 1', :profile_id => profile.id, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    a = create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     a.save!
 
     process_delayed_job_queue
@@ -676,8 +650,8 @@ class DisplayContentBlockViewTest < ActionView::TestCase
   should 'show articles in recent order' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -697,8 +671,8 @@ class DisplayContentBlockViewTest < ActionView::TestCase
   should 'show articles in oldest order' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -718,8 +692,8 @@ class DisplayContentBlockViewTest < ActionView::TestCase
   should 'show articles in recent order with limit option' do
     profile = create_user('testuser').person
     Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
+    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :published_at => DateTime.current)
+    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :published_at => (DateTime.current + 1))
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -741,10 +715,10 @@ class DisplayContentBlockViewTest < ActionView::TestCase
     profile = create_user('testuser').person
     Article.delete_all
 
-    en_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
-    en_article2 = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article 2', :language => 'en')
+    en_article = fast_create(TextArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
+    en_article2 = fast_create(TextArticle, :profile_id => profile.id, :name => 'en_article 2', :language => 'en')
 
-    pt_article = fast_create TextileArticle, profile_id: profile.id, name: 'pt_article', language: 'pt', translation_of_id: en_article.id
+    pt_article = fast_create TextArticle, profile_id: profile.id, name: 'pt_article', language: 'pt', translation_of_id: en_article.id
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -771,8 +745,8 @@ class DisplayContentBlockViewTest < ActionView::TestCase
     profile = create_user('testuser').person
     Article.delete_all
 
-    en_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
-    pt_article = fast_create(TextileArticle, :profile_id => profile.id, :name => 'pt_article', :language => 'pt', :translation_of_id => en_article)
+    en_article = fast_create(TextArticle, :profile_id => profile.id, :name => 'en_article', :language => 'en')
+    pt_article = fast_create(TextArticle, :profile_id => profile.id, :name => 'pt_article', :language => 'pt', :translation_of_id => en_article)
 
     block = DisplayContentBlock.new
     block.sections = [{:value => 'title', :checked => true}]
@@ -794,7 +768,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'not escape abstract html of articles' do
     profile = create_user('testuser').person
-    a1 = fast_create(TextileArticle, abstract: "<p class='test-article-abstract'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    a1 = fast_create(TextArticle, abstract: "<p class='test-article-abstract'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
     
     block = DisplayContentBlock.new
     block.sections = [{:value => 'abstract', :checked => true}] 
@@ -807,7 +781,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'not raise if abstract of article is nil' do
     profile = create_user('testuser').person
-    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    a1 = fast_create(TextArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
     
     block = DisplayContentBlock.new
     block.sections = [{:value => 'abstract', :checked => true}] 
@@ -823,7 +797,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'not escape body html of articles' do
     profile = create_user('testuser').person
-    a1 = fast_create(TextileArticle, body: "<p class='test-article-body'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    a1 = fast_create(TextArticle, body: "<p class='test-article-body'>Test</p>", name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
     
     block = DisplayContentBlock.new
     block.sections = [{:value => 'body', :checked => true}] 
@@ -836,7 +810,7 @@ class DisplayContentBlockViewTest < ActionView::TestCase
 
   should 'not raise if body of article is nil' do
     profile = create_user('testuser').person
-    a1 = fast_create(TextileArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
+    a1 = fast_create(TextArticle, name: 'test article 1', profile_id: profile.id, published_at: DateTime.current)
     
     block = DisplayContentBlock.new
     block.sections = [{:value => 'abstract', :checked => true}] 

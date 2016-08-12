@@ -151,6 +151,7 @@ class CmsController < MyProfileController
 
     @article.profile = profile
     @article.author = user
+    @article.editor = current_person.editor
     @article.last_changed_by = user
     @article.created_by = user
 
@@ -399,17 +400,13 @@ class CmsController < MyProfileController
 
   def available_article_types
     articles = [
-      TinyMceArticle,
-      TextileArticle,
+      TextArticle,
       Event
     ]
     articles += special_article_types if params && params[:cms]
     parent_id = params ? params[:parent_id] : nil
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
-    end
-    if user.is_admin?(profile.environment)
-      articles << RawHTMLArticle
     end
     articles
   end

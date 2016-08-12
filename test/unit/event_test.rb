@@ -285,10 +285,6 @@ class EventTest < ActiveSupport::TestCase
     assert_kind_of TranslatableContent, Event.new
   end
 
-  should 'tiny mce editor is enabled' do
-    assert Event.new.tiny_mce?
-  end
-
   should 'be notifiable' do
     assert Event.new.notifiable?
   end

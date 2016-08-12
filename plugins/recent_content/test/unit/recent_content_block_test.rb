@@ -2,7 +2,7 @@ require_relative '../test_helper'
 class RecentContentBlockTest < ActiveSupport::TestCase
 
   INVALID_KIND_OF_ARTICLE = [RssFeed, UploadedFile, Gallery, Folder, Blog, Forum]
-  VALID_KIND_OF_ARTICLE = [RawHTMLArticle, TextArticle, TextileArticle, TinyMceArticle]
+  VALID_KIND_OF_ARTICLE = [TextArticle]
 
   should 'describe itself' do
     assert_not_equal Block.description, RecentContentBlock.description
@@ -61,9 +61,9 @@ class RecentContentBlockTest < ActiveSupport::TestCase
 
     root = fast_create(Blog, :name => 'test-blog', :profile_id => profile.id)
 
-    a1 = fast_create(TextileArticle, :name => 'article #1', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now - 2.days)
-    a2 = fast_create(TextileArticle, :name => 'article #2', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now - 1.days)
-    a3 = fast_create(TextileArticle, :name => 'article #3', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now)
+    a1 = fast_create(TextArticle, :name => 'article #1', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now - 2.days)
+    a2 = fast_create(TextArticle, :name => 'article #2', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now - 1.days)
+    a3 = fast_create(TextArticle, :name => 'article #3', :profile_id => profile.id, :parent_id => root.id, :created_at => Time.now)
 
     block = RecentContentBlock.new
     block.stubs(:holder).returns(profile)

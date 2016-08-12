@@ -4,7 +4,7 @@ Allows to send e-mails through an e-mail form.
 
 h2. Usage
 
-* Create a HTML form using RawHTMLBlock or RawHTMLArticle that invokes the {sendemail} action
+* Create a HTML form using RawHTMLBlock that invokes the {sendemail} action
 * Add a "to" and "message" field and a submit button
 * Make sure to fill in allowed 'to' addresses in plugin settings
 

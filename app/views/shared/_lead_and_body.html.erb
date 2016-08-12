@@ -3,7 +3,7 @@
 <% abstract_method ||= :abstract %>
 <% body_label ||= 'Text' %>
 <% body_method ||= :body %>
-<% editor_type = defined?(tiny_mce) && tiny_mce ? 'mceEditor' : '' %>
+<% editor_type = current_editor %>
 <% lead_id ||= 0%>
 <% f ||= false%>
 

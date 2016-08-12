@@ -158,4 +158,8 @@ module ProfileEditorHelper
     end
   end
 
+  def select_editor(title, object, method, options)
+    labelled_form_field(title, select(object, method, current_person.available_editors.map { |k,v| [v, k] }))
+  end
+
 end

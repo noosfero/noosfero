@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705162914) do
+ActiveRecord::Schema.define(version: 20160809123835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(version: 20160705162914) do
     t.boolean  "show_to_followers",    default: true
     t.integer  "followers_count",      default: 0
     t.boolean  "archived",             default: false
+    t.string   "editor",               default: "tiny_mce", null: false
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
@@ -631,15 +632,16 @@ ActiveRecord::Schema.define(version: 20160705162914) do
     t.boolean  "is_template",                        default: false
     t.integer  "template_id"
     t.string   "redirection_after_login"
-    t.integer  "friends_count",                      default: 0,     null: false
-    t.integer  "members_count",                      default: 0,     null: false
-    t.integer  "activities_count",                   default: 0,     null: false
+    t.integer  "friends_count",                      default: 0,          null: false
+    t.integer  "members_count",                      default: 0,          null: false
+    t.integer  "activities_count",                   default: 0,          null: false
     t.string   "personal_website"
     t.string   "jabber_id"
     t.integer  "welcome_page_id"
     t.boolean  "allow_members_to_invite",            default: true
     t.boolean  "invite_friends_only",                default: false
     t.boolean  "secret",                             default: false
+    t.string   "editor",                             default: "tiny_mce", null: false
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree

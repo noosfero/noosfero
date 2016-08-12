@@ -72,13 +72,7 @@ class Article
   end
 
   def solr_plugin_f_type
-    #join common types
-    case self.class.name
-    when 'TinyMceArticle', 'TextileArticle'
-      TextArticle.name
-    else
-      self.class.name
-    end
+    self.class.name
   end
 
   def solr_plugin_f_profile_type
@@ -111,8 +105,6 @@ class Article
   # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
   UploadedFile
   TextArticle
-  TinyMceArticle
-  TextileArticle
   Folder
   EnterpriseHomepage
   Gallery

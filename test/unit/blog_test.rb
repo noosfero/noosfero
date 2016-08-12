@@ -66,7 +66,7 @@ class BlogTest < ActiveSupport::TestCase
   should 'has posts' do
     p = create_user('testuser').person
     blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => blog.id)
+    post = fast_create(TextArticle, :name => 'First post', :profile_id => p.id, :parent_id => blog.id)
     blog.children << post
     assert_includes blog.posts, post
   end
@@ -81,8 +81,8 @@ class BlogTest < ActiveSupport::TestCase
   should 'list posts ordered by published at' do
     p = create_user('testuser').person
     blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
-    newer = create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p)
-    older = create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => Time.now - 1.month)
+    newer = create(TextArticle, :name => 'Post 2', :parent => blog, :profile => p)
+    older = create(TextArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => Time.now - 1.month)
     assert_equal [newer, older], blog.posts
   end
 
@@ -215,7 +215,7 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     blog =  Blog.create!(:profile => p, :name => 'Blog test')
     folder = fast_create(Folder, :parent_id => blog.id)
-    article = fast_create(TextileArticle, :parent_id => blog.id)
+    article = fast_create(TextArticle, :parent_id => blog.id)
 
     assert_not_includes blog.posts, folder
     assert_includes blog.posts, article
@@ -230,7 +230,7 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     blog =  Blog.create!(:profile => p, :name => 'Blog test')
     assert blog.empty?
-    fast_create(TextileArticle, :parent_id => blog.id)
+    fast_create(TextArticle, :parent_id => blog.id)
     refute  blog.empty?
   end
 
@@ -270,18 +270,18 @@ class BlogTest < ActiveSupport::TestCase
   should 'count total number of posts by year' do
     p = create_user('testuser').person
     blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
-    create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
-    create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
-    create(TextileArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('10-05-2012'))
+    create(TextArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
+    create(TextArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
+    create(TextArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('10-05-2012'))
     assert_equal [[2012.0, 1], [2010.0, 2]], blog.total_number_of_posts(:by_year)
   end
 
   should 'count total number of posts by month' do
     p = create_user('testuser').person
     blog = fast_create(Blog, :profile_id => p.id, :name => 'Blog test')
-    create(TextileArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
-    create(TextileArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
-    create(TextileArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('11-10-2010'))
+    create(TextArticle, :name => 'Post 1', :parent => blog, :profile => p, :published_at => DateTime.parse('16-08-2010'))
+    create(TextArticle, :name => 'Post 2', :parent => blog, :profile => p, :published_at => DateTime.parse('17-08-2010'))
+    create(TextArticle, :name => 'Post 3', :parent => blog, :profile => p, :published_at => DateTime.parse('11-10-2010'))
     assert_equal [[10.0, 1], [8.0, 2]], blog.total_number_of_posts(:by_month, 2010)
   end
 

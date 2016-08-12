@@ -47,7 +47,9 @@ function tinymce_macros_setup(editor) {
 tinymce.PluginManager.add('macrosPlugin', tinymce.plugins.MacrosPlugin);
 
 jQuery(document).ready(function () {
-  <%= tinymce_init_js :mode => mode %>
+  <%= tinymce_init_js %>
+  <%= tinymce_init_js :mode => 'simple' %>
+  <%= tinymce_init_js :mode => 'restricted' %>
 });
 </script>
 

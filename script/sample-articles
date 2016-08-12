@@ -9,13 +9,13 @@ TAGS = ['free-software', 'noosfero', 'development', 'rails', 'ruby']
 EVENT_SUBJECTS = ['International Conference on %s', '%s day', '%s World Congress', '%s World Forum', '%s Summit', '%s Week']
 THEMES = ['Sustainability', 'Free Software', 'Climate Change', 'Environment', 'Agile Development', 'Solidarity Economy', 'Debian', 'Perl']
 
-print "Creating some TinyMce articles: "
+print "Creating some Text articles: "
 for subject in SUBJECTS
   rand(20).times do |i|
     profile = profiles.sample
     name = "%s #{subject}" % profile.name
     next if profile.articles.where(:slug => name.to_slug).first
-    article = TinyMceArticle.new(
+    article = TextArticle.new(
       :name => name,
       :body => name,
       :tag_list => [TAGS.sample, TAGS.sample],
@@ -71,7 +71,7 @@ for subject in SUBJECTS
   rand(20).times do |i|
     profile = profiles.sample
     name = "%s #{subject}" % profile.name
-    article = TinyMceArticle.new(
+    article = TextArticle.new(
       :name => name,
       :body => name,
       :tag_list => [TAGS.sample, TAGS.sample],

@@ -180,8 +180,9 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
 
     get :edit, :profile => profile.identifier, :id => form.id
+    expects(:current_editor).returns(Article::Editor::TINY_MCE)
 
-    assert_tag :tag => 'textarea', :attributes => { :id => 'form_description', :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :id => 'form_description', :class => /#{current_editor}/ }
   end
 
   should 'export submissions as csv' do

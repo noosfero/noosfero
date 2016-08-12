@@ -5,7 +5,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   def setup
     @profile = Community.create!(:name => 'Sample community', :identifier => 'sample-community')
     @track = create_track('track', @profile)
-    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day, :tool_type => TinyMceArticle.name)
+    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day, :tool_type => TextArticle.name)
 
     user = create_user('testinguser')
     login_as(user.login)
@@ -49,7 +49,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'show tools for a step' do
-    TinyMceArticle.create!(:profile => @profile, :name => 'article', :parent => @step)
+    TextArticle.create!(:profile => @profile, :name => 'article', :parent => @step)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'tools' }, :descendant => { :tag => 'div', :attributes => { :class => 'item' } }
   end

@@ -25,7 +25,7 @@ class ExternalFeed < ApplicationRecord
     end
     content = doc.to_s
 
-    article = TinyMceArticle.new
+    article = TextArticle.new
     article.name = title
     article.profile = blog.profile
     article.body = content

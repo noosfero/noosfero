@@ -16,6 +16,8 @@
     </div>
   </div>
 
+  <%= select_editor(_('Editor'), 'profile_data', 'editor', {}) %>
+
   <%= safe_join(@plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
   <div class="formfieldline">
