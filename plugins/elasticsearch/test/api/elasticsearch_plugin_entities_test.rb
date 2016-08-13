@@ -15,8 +15,8 @@ class ElasticsearchPluginEntitiesTest < ActiveSupport::TestCase
 
     fast_create UploadedFile, name: "sample uploadedfile", created_at: 3.days.ago, updated_at: 1.days.ago, author_id: user.person.id, abstract: "sample abstract", profile_id: user.person.id
     fast_create Event, name: "sample event", created_at: 20.days.ago, updated_at: 5.days.ago, author_id: user.person.id, abstract: "sample abstract", profile_id: user.person.id
-    fast_create RawHTMLArticle, name: "sample raw html article", created_at: 15.days.ago ,updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
-    fast_create TinyMceArticle, name: "sample tiny mce article", created_at: 5.days.ago, updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
+    fast_create TextArticle, name: "sample raw html article", created_at: 15.days.ago ,updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
+    fast_create TextArticle, name: "sample tiny mce article", created_at: 5.days.ago, updated_at: 5.days.ago, author_id: user.person.id, profile_id: user.person.id
   end
 
   should 'show attributes from person' do

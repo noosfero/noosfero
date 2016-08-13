@@ -1,6 +1,4 @@
 # REQUIRE TO LOAD DESCENDANTS FROM TEXT_ARTICLE
-require_dependency 'raw_html_article'
-require_dependency 'tiny_mce_article'
 require_dependency 'text_article'
 
 require_relative '../searchable_model_helper'
