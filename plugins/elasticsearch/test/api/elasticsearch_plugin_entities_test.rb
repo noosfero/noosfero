@@ -9,8 +9,9 @@ class ElasticsearchPluginEntitiesTest < ActiveSupport::TestCase
   end
 
   def create_instances
+    Article.delete_all
     user = create_user "sample person", environment_id: 1
-
+    
     fast_create Community, name: "sample community", created_at: 10.days.ago,updated_at: 5.days.ago, environment_id: 1
 
     fast_create UploadedFile, name: "sample uploadedfile", created_at: 3.days.ago, updated_at: 1.days.ago, author_id: user.person.id, abstract: "sample abstract", profile_id: user.person.id
