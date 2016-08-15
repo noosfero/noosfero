@@ -59,18 +59,18 @@ selenium-6:
 # NOOSFERO_BUNDLE_OPTS=install makes migrations fails
 # probably because of rubygems-integration
 plugins-1:
-  script: SLICE=1/5 bundle exec rake test:noosfero_plugins
+  script: SLICE=1/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-2:
-  script: SLICE=2/5 bundle exec rake test:noosfero_plugins
+  script: SLICE=2/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-3:
-  script: SLICE=3/5 bundle exec rake test:noosfero_plugins
+  script: SLICE=3/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-4:
-  script: SLICE=4/5 bundle exec rake test:noosfero_plugins
+  script: SLICE=4/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-5:
-  script: SLICE=5/5 bundle exec rake test:noosfero_plugins
+  script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 
