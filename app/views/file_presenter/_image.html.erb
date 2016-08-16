@@ -30,7 +30,10 @@
 
 <img src="<%= [Noosfero.root, image.public_filename(:display)].join %>" class="<%=image.css_class_name%>">
 
+<% if image.parent.is_a?(Gallery) && image.parent.allow_download %>
+  <%= link_to _('Download image'),  [Noosfero.root, image.public_filename(:display)].join, download: image.filename, id: 'download-image-id', class: "button with-text icon-save" %>
+<% end %>
+
 <div class="uploaded-file-description <%= 'empty' if image.abstract.blank? %>">
   <%= image.abstract %>
 </div>
-

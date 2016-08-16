@@ -604,6 +604,22 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_template 'view_page'
   end
 
+  should 'display download button to images in galleries that allow downloads' do
+    login_as(profile.identifier)
+    gallery = Gallery.create!(:name => 'gallery1', :profile => profile, :allow_download => true)
+    image = UploadedFile.create!(:profile => profile, :parent => gallery, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+    get :view_page, :profile => profile.identifier, :page => image.path, :view => true
+    assert_tag :tag => 'a', :content => 'Download image', :attributes => { :id => 'download-image-id' }
+  end
+
+  should 'not display download button to images in galleries that do not allow downloads' do
+    login_as(profile.identifier)
+    gallery = Gallery.create!(:name => 'gallery1', :profile => profile, :allow_download => false)
+    image = UploadedFile.create!(:profile => profile, :parent => gallery, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+    get :view_page, :profile => profile.identifier, :page => image.path, :view => true
+    assert_no_tag :tag => 'a', :content => 'Download image', :attributes => { :id => 'download-image-id' }
+  end
+
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)

@@ -1,5 +1,8 @@
 class Gallery < Folder
 
+  settings_items :allow_download, :type => :boolean, :default => false
+  attr_accessible :allow_download
+
   def self.type_name
     _('Gallery')
   end

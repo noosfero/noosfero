@@ -60,7 +60,9 @@ module ArticleHelper
         'div',
         check_box(:article, :display_versions) +
         content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
-      ) : '')
+      ) : '') +
+
+      (self.respond_to?(:extra_options) ? self.extra_options : "")
     )
   end
 
