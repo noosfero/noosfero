@@ -62,6 +62,22 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/#{profile.identifier}/cms/new", :method => /post/i }, :descendant => { :tag => "input", :attributes => { :type => 'hidden', :value => 'TextArticle' }}
   end
 
+  should 'inherit parents visibility by default' do
+    p1 = fast_create(Folder, :published => true, :profile_id => profile.id)
+    get :new, :profile => profile.identifier, :type => 'TextArticle', :parent_id => p1.id
+    assert_equal assigns(:article).published, p1.published
+
+    p2 = fast_create(Folder, :published => false, :show_to_followers => true, :profile_id => profile.id)
+    get :new, :profile => profile.identifier, :type => 'TextArticle', :parent_id => p2.id
+    assert_equal assigns(:article).published, p2.published
+    assert_equal assigns(:article).show_to_followers, p2.show_to_followers
+
+    p3 = fast_create(Folder, :published => false, :show_to_followers => false, :profile_id => profile.id)
+    get :new, :profile => profile.identifier, :type => 'TextArticle', :parent_id => p3.id
+    assert_equal assigns(:article).published, p3.published
+    assert_equal assigns(:article).show_to_followers, p3.show_to_followers
+  end
+
   should 'be able to save a document' do
     assert_difference 'Article.count' do
       post :new, :type => 'TextArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }

@@ -146,6 +146,8 @@ class CmsController < MyProfileController
     parent = check_parent(params[:parent_id])
     if parent
       @article.parent = parent
+      @article.published = parent.published
+      @article.show_to_followers = parent.show_to_followers
       @parent_id = parent.id
     end
 
