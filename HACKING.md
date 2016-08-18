@@ -31,7 +31,7 @@ If you want to use a different port than 3000, pass `-p <PORT>` to `./script/dev
 Instructions for other systems
 ------------------------------
 
-On other OS, you have 2 options:
+On other OS, you have many options:
 
 ### 1) using a chroot or a VM with Debian stable (easier)
 
@@ -44,6 +44,14 @@ If you want to setup a development environment in another OS, you can create a f
 You can check `./script/install-dependencies/debian-squeeze.sh` to have an idea of what kind of stuff that script has to do.
 
 If you write such script for your own OS, *please* share it with us at the development mailing list so that we can include it in the official repository. This way other people using the same OS will have to put less effort to develop Noosfero.
+
+### 3) Installing dependencies via Rubygems and RVM
+
+To setup the development environment through Rubygems you just need to install some basic deps and then install the gems defined on the Gemfile. Further instructions can be found on: http://noosfero.org/bin/view/Development/DepsWithRVMAndGems
+
+### 4) Using a docker image
+
+Use a docker image to run an out-of-the-box development environment. Further information can be found on: https://hub.docker.com/r/noosfero/dev-rails4/
 
 Submitting your changes back
 ----------------------------
