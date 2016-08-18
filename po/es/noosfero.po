@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-08-12 12:01+0000\n"
+"PO-Revision-Date: 2016-08-18 21:49+0000\n"
 "Last-Translator: Alipio muñiz <alipio@ecoalternative.net>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -9448,9 +9448,8 @@ msgstr "Buscar en:"
 #: app/views/search/enterprises.html.erb:1 app/views/search/people.html.erb:1
 #: app/views/search/products.html.erb:1
 #: app/views/search/search_page.html.erb:1
-#, fuzzy
 msgid "Type words about the %s you're looking for"
-msgstr "Escribe palabras sobre la persona que estás buscando"
+msgstr "Escribe palabras sobre la %s que estás buscando"
 
 #: app/views/search/category_index.html.erb:7
 #, fuzzy
