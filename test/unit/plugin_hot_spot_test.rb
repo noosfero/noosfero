@@ -17,9 +17,13 @@ class PluginHotSpotTest < ActiveSupport::TestCase
 
   Noosfero::Plugin::HotSpot::CALLBACK_HOTSPOTS.each do |callback|
     should "call #{callback} hotspot" do
-      class CoolPlugin < Noosfero::Plugin; end
+      class CoolPlugin < Noosfero::Plugin
+        include Noosfero::Plugin::HotSpot
+      end
 
-      Noosfero::Plugin.stubs(:all).returns([CoolPlugin.name])
+      CoolPlugin.any_instance.stubs("comment_#{callback}_callback".to_sym).returns(";)")
+
+      Noosfero::Plugin.stubs(:all).returns(['PluginHotSpotTest::CoolPlugin'])
       Environment.default.enable_plugin(CoolPlugin)
       CoolPlugin.any_instance.expects("comment_#{callback}_callback".to_sym)
 

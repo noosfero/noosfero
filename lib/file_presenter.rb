@@ -124,3 +124,8 @@ end
 Dir.glob(File.join('app', 'presenters', '*.rb')) do |file|
   load file
 end
+
+# Preload FilePresenters from plugins to allow `FilePresenter.for()` to work
+Dir.glob(File.join('plugins', '*', 'lib', 'presenters', '*.rb')) do |file|
+  load file
+end

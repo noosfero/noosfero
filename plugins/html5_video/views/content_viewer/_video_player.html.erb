@@ -1,0 +1,29 @@
+<div class="video-box">
+  <%
+    if video
+      video_ogv = video.tiniest_web_version :OGV
+      video_mp4 = video.tiniest_web_version :MP4
+      video_webm = video.tiniest_web_version :WEBM
+      video_ogv_path = video_ogv ? video_ogv[:path] : ''
+      video_mp4_path = video_mp4 ? video_mp4[:path] : ''
+      video_webm_path = video_webm ? video_webm[:path] : ''
+      embed_video_path = video_webm ? video_webm_path : \
+                         video_ogv ? video_ogv_path : video_mp4_path
+    end
+  %>
+  <video class="article-video-player"
+         style="width:100%; height:auto;"
+         preload="metadata"
+         controls="controls">
+    <% if video_webm %><source src="<%= video_webm_path %>" type="video/webm" /><% end %>
+    <% if video_ogv %><source src="<%= video_ogv_path %>" type="video/ogg" /><% end %>
+    <% if video_mp4 %><source src="<%= video_mp4_path %>" type="video/mp4" /><% end %>
+    <strong><%= _('Sorry, your browser doesn&rsquo;t support video.') %></strong>
+    <br/> <%= _('Please try the new %s or %s.') % [
+      '<a href="http://getfirefox.com">Firefox</a>',
+      '<a href="http://www.chromium.org/Home">Chromium</a>' ] %>
+  </video>
+  <div class="video-ctrl">
+    <a href="<%= video ? video.public_filename : '' %>" class="download-bt"><%=_('Download')%></a>
+  </div>
+</div><!-- video-box -->

@@ -10,7 +10,8 @@ class Noosfero::Plugin::Settings
   end
 
   def settings
-    @base.settings["#{@plugin.public_name}_plugin".to_sym] ||= {}
+    settings_field = @base.class.settings_field
+    @base.send(settings_field)["#{@plugin.public_name}_plugin".to_sym] ||= {}
   end
 
   def method_missing(method, *args, &block)

@@ -118,6 +118,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
     language = item.delete("language")
     category = item.delete("category")
     filename = item.delete("filename")
+    mime = item.delete("mime") || 'binary/octet-stream'
     translation_of_id = nil
     if item["translation_of"]
       if item["translation_of"] != "nil"
@@ -131,7 +132,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
       :language => language,
       :translation_of_id => translation_of_id)
     if !filename.blank?
-      item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", 'binary/octet-stream'))
+      item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", mime))
     end
     result = klass.new(item)
     if !parent.blank?
@@ -364,6 +365,10 @@ end
 
 Then /^The page should not contain "(.*)"$/ do |selector|
   page.should have_no_css("#{selector}")
+end
+
+Then /^The page should contain only (\d+) "(.*)"$/ do |count, selector|
+  page.should have_css(selector, :count => count)
 end
 
 Given /^the mailbox is empty$/ do
@@ -653,6 +658,15 @@ Given /^the environment is configured to (.*) after signup$/ do |option|
   environment.save
 end
 
+When /^I click "(.*?)"$/ do |selector|
+  find(selector).click
+end
+
+Then /^the element "(.*)" has class "(.*)"$/ do |el_selector, el_class|
+  class_list = find(el_selector)[:class].split(' ')
+  class_list.should include(el_class)
+end
+
 When /^wait for the captcha signup time$/ do
   environment = Environment.default
   sleep environment.min_signup_delay + 1
@@ -670,4 +684,8 @@ Given /^the field (.*) is public for all users$/ do |field|
     person.fields_privacy[field] = "public"
     person.save!
   end
+end
+
+When(/^I press "(.*?)" by selector$/) do |selector|
+   page.execute_script("jQuery('#{selector}').click();")
 end
