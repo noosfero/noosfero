@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-08-19 02:43+0000\n"
-"Last-Translator: Вадим Кардашьян <iosphone77@gmail.com>\n"
+"PO-Revision-Date: 2016-08-19 09:31+0000\n"
+"Last-Translator: Valet 322 <petymakar@gmail.com>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/ru/>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
-msgstr "Анонимный"
+msgstr "Аноним"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:31
 msgid "Article removed."
@@ -37,25 +37,21 @@ msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
 
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:91
-#, fuzzy
 msgid "The article was removed."
-msgstr "Текст был удален"
+msgstr "Статья была удалена."
 
 #: app/models/approve_comment.rb:81
-#, fuzzy
 msgid "%{requestor} wants to comment the article: %{article}."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+msgstr "%{requestor} хочет прокомментировать запись: %{article}."
 
 #: app/models/approve_comment.rb:83
-#, fuzzy
 msgid "%{requestor} wanted to comment the article but it was removed."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+msgstr "%{requestor} хотел бы прокомментировать статью, но она была удалена."
 
 #: app/models/approve_comment.rb:89
-#, fuzzy
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
-msgstr "Необходимо войти в %{system} для утверждения статьи"
+msgstr "Необходимо войти в %{system} для утверждения статьи."
 
 #: app/models/approve_comment.rb:94
 msgid ""
@@ -64,16 +60,17 @@ msgid ""
 "\n"
 "%{comment} "
 msgstr ""
+"Ваш комментарий к статье \"%{article}\" был одобрен. Это отзыв, оставленный "
+"модератором кто одобрил ваш комментарий: \n"
+"%{comment} ."
 
 #: app/models/approve_comment.rb:96
-#, fuzzy
 msgid "Your request for comment the article \"%{article}\" was approved."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+msgstr "Ваш запрос на комментирование статьи \"%{article}\" был одобрен."
 
 #: app/models/approve_comment.rb:101
-#, fuzzy
 msgid "Your request for commenting the article \"%{article}\" was rejected."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+msgstr "Ваш запрос на комментирование статьи \"%{article}\" был отвергнут."
 
 #: app/models/approve_comment.rb:103
 msgid ""
@@ -82,6 +79,8 @@ msgid ""
 "\n"
 "%{reject_explanation}"
 msgstr ""
+"Это пояснение к отвергнутому комментарию, оставленное администратором:\n"
+"%{reject_explanation}"
 
 #: app/models/comment.rb:4 app/models/article.rb:186
 #: app/views/content_viewer/_comment_form.html.erb:70
@@ -127,7 +126,6 @@ msgid "Content"
 msgstr "Контент"
 
 #: app/models/comment.rb:34
-#, fuzzy
 msgid "{fn} can only be informed for unauthenticated authors"
 msgstr "%{fn} - информация, видимая неавторизованным пользователям"
 
@@ -155,43 +153,40 @@ msgstr "Продукт без категории"
 
 #: app/models/product.rb:268
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: app/models/product.rb:269
 msgid "25%"
-msgstr ""
+msgstr "25%"
 
 #: app/models/product.rb:270
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #: app/models/product.rb:271
 msgid "75%"
-msgstr ""
+msgstr "75%"
 
 #: app/models/product.rb:272
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: app/models/invite_member.rb:20
-#, fuzzy
 msgid "Community invitation"
-msgstr "Информатика"
+msgstr "Приглашение сообщества"
 
 #: app/models/invite_member.rb:28
-#, fuzzy
 msgid "%{requestor} invited you to join %{linked_subject}."
-msgstr "%s приглашает Вас присоединиться к %s"
+msgstr "%{requestor} приглашает вас присоединиться к %{linked_subject}."
 
 #: app/models/invite_member.rb:40
-#, fuzzy
 msgid "%{requestor} invited you to join %{community}."
-msgstr "%s приглашает Вас присоединиться к %s"
+msgstr "%{requestor} приглашает вас присоединиться к %{community}."
 
 #: app/models/invite_member.rb:45
-#, fuzzy
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
-msgstr "%s приглашает Вас присоединиться к %s"
+msgstr ""
+"%{requestor} приглашает вас присоединиться к \"%{community}\" в %{system}."
 
 #: app/models/invite_member.rb:57 app/models/invite_friend.rb:37
 msgid "Hello <friend>,"
@@ -212,12 +207,11 @@ msgstr "Моя сеть"
 
 #: app/models/my_network_block.rb:14
 msgid "This block displays some info about your networking."
-msgstr "Блок, показывающий некоторую информацию о вашей сети"
+msgstr "Блок, показывающий некоторую информацию о вашей сети."
 
 #: app/models/sellers_search_block.rb:6
-#, fuzzy
 msgid "Search for enterprises and products"
-msgstr "Поиск компаний по местным и проданным продуктам"
+msgstr "Поиск предприятий и продуктов"
 
 #: app/models/sellers_search_block.rb:10
 msgid "Products/Enterprises search"
@@ -229,7 +223,7 @@ msgstr "Поиск продавцов"
 
 #: app/models/sellers_search_block.rb:18
 msgid "This block presents a search engine for products."
-msgstr "Блок, представляющий поисковую машину для продуктов"
+msgstr "Блок, представляющий поисковую систему для продуктов."
 
 #: app/models/categories_block.rb:4
 msgid "Generic category"
@@ -250,28 +244,27 @@ msgstr "Меню \"Категории\""
 
 #: app/models/categories_block.rb:22
 msgid "This block presents the categories like a web site menu."
-msgstr "Этот блок отображает категории как меню веб-сайта"
+msgstr "Этот блок отображает категории такие как меню веб-сайта."
 
 #: app/models/contact_list.rb:18
 msgid ""
 "There was an error while authenticating. Did you enter correct login and "
 "password?"
-msgstr "Ошибка при аутентификации, вы ввели корректные логин/пароль?"
+msgstr "Ошибка при аутентификации, вы указали верные данные логина и пароля?"
 
 #: app/models/contact_list.rb:25
 msgid ""
 "There was an error while looking for your contact list. Please, try again"
-msgstr "Ошибка при поиске списка контактов. Попробуйте позже снова."
+msgstr "Ошибка при поиске списка контактов. Попробуйте позже"
 
 #: app/models/uploaded_file.rb:10
-#, fuzzy
 msgid "File"
 msgstr "Имя файла"
 
 #: app/models/uploaded_file.rb:68
 #, fuzzy
 msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
-msgstr "%{fn} загруженного превысило максимальный размер - 5.0 MB"
+msgstr "%{fn} загруженного файла превысило максимальный размер - %{size}"
 
 #: app/models/uploaded_file.rb:95
 msgid "Uploaded file"
@@ -279,33 +272,32 @@ msgstr "Загруженный файл"
 
 #: app/models/uploaded_file.rb:99
 msgid "Upload any kind of file you want."
-msgstr "Загрузите любой тип файла"
+msgstr "Загрузите любой тип файла."
 
 #: app/models/invite_friend.rb:12
-#, fuzzy
 msgid "Friend invitation"
-msgstr "Информатика"
+msgstr "Приглашение друзей"
 
 #: app/models/invite_friend.rb:16 app/models/invite_friend.rb:28
 #: app/models/add_friend.rb:35 app/models/add_friend.rb:48
-#, fuzzy
 msgid "%{requestor} wants to be your friend."
-msgstr "%s хочет быть вашим другом"
+msgstr "%{requestor} хочет быть вашим другом."
 
 #: app/models/invite_friend.rb:38
 msgid "<user> is inviting you to participate on <environment>."
-msgstr "<user>приглашает тебя записаться в %{environment}."
+msgstr "<user>приглашает тебя участвовать в %{environment}."
 
 #: app/models/fans_block.rb:4
 msgid "Displays the people who like the enterprise"
-msgstr ""
+msgstr "Отображает число людей кому нравится коллектив"
 
 #: app/models/fans_block.rb:8
 #, fuzzy
 msgid "{#} fan"
 msgid_plural "{#} fans"
-msgstr[0] "Друг"
-msgstr[1] "{#} Друзья"
+msgstr[0] "{#} Поклонник"
+msgstr[1] "{#} Поклонники"
+msgstr[2] ""
 
 #: app/models/fans_block.rb:12
 #, fuzzy
@@ -334,7 +326,7 @@ msgstr "Акроним"
 #: app/models/category.rb:8
 #, fuzzy
 msgid "Abbreviation"
-msgstr "Текст приглашения"
+msgstr "Аббревиатура"
 
 #: app/models/category.rb:9 app/models/article.rb:20
 msgid "Slug"
@@ -346,13 +338,12 @@ msgid "{fn} cannot be like that."
 msgstr "Значение %{fn} недопустимо."
 
 #: app/models/category.rb:14
-#, fuzzy
 msgid "{fn} is already being used by another category."
-msgstr "%{fn} уже используется другой категорией"
+msgstr "%{fn} уже используется другой категорией."
 
 #: app/models/environment.rb:41
 msgid "View environment admin panel"
-msgstr "Панель управления средой"
+msgstr "Просмотр панели администратора среды"
 
 #: app/models/environment.rb:42
 msgid "Edit environment features"
@@ -360,7 +351,7 @@ msgstr "Редактировать возможности среды"
 
 #: app/models/environment.rb:43
 msgid "Edit environment design"
-msgstr "Редактировать вид среды"
+msgstr "Редактировать дизайн окружения"
 
 #: app/models/environment.rb:44
 msgid "Manage environment categories"
@@ -371,6 +362,7 @@ msgid "Manage environment roles"
 msgstr "Управлять ролями среды"
 
 #: app/models/environment.rb:46
+#, fuzzy
 msgid "Manage environment validators"
 msgstr "Управлять утверждениями среды"
 
@@ -394,7 +386,6 @@ msgid "Manage environment licenses"
 msgstr "Управлять ролями среды"
 
 #: app/models/environment.rb:51
-#, fuzzy
 msgid "Manage environment trusted sites"
 msgstr "Управлять пользователями среды"
 
@@ -427,7 +418,7 @@ msgstr "Модератор"
 
 #: app/models/environment.rb:118
 msgid "Disable search for articles "
-msgstr "Отключить поиск по статьям"
+msgstr "Отключить поиск по статьям "
 
 #: app/models/environment.rb:119
 msgid "Disable search for enterprises"
@@ -478,19 +469,17 @@ msgid "Disable contact for groups/communities"
 msgstr "Отключить контакты для групп и сообществ"
 
 #: app/models/environment.rb:131
-#, fuzzy
 msgid "Forbid users of removing profiles"
-msgstr "Невозможно обновить профиль"
+msgstr "Запретить пользователям удалять профиля"
 
 #: app/models/environment.rb:133
-#, fuzzy
 msgid "Enable products for enterprises"
-msgstr "Отключить продукты для компаний"
+msgstr "Включить продукты для компаний"
 
 #: app/models/environment.rb:134 app/models/create_enterprise.rb:154
 #: app/views/enterprise_registration/basic_information.html.erb:3
 msgid "Enterprise registration"
-msgstr "Регистрация предприятия"
+msgstr "Регистрация компании"
 
 #: app/models/environment.rb:135
 msgid "Enable activation of enterprises"
@@ -501,9 +490,8 @@ msgid "Enterprises are disabled when created"
 msgstr "При регистрации компании отключаются"
 
 #: app/models/environment.rb:137
-#, fuzzy
 msgid "Enterprises are validated when created"
-msgstr "При регистрации компании отключаются"
+msgstr "Компании проверяются при создании"
 
 #: app/models/environment.rb:139
 msgid "Media panel in WYSIWYG editor"
@@ -532,7 +520,7 @@ msgstr ""
 
 #: app/models/environment.rb:146
 msgid "Display explanation about header and footer"
-msgstr "Отображать вспомогательную информацию о header и footer"
+msgstr "Отображать вспомогательную информацию о заголовке и нижнем колонтитуле"
 
 #: app/models/environment.rb:147
 msgid "Articles don't accept comments by default"
@@ -559,7 +547,7 @@ msgstr "Администратор должен утвердить все нов
 msgid "Show a balloon with profile links when a profile image is clicked"
 msgstr ""
 "При нажатии на картинку профиля показывать всплывающее облако со ссылкой на "
-"профиль "
+"профиль"
 
 #: app/models/environment.rb:153
 msgid "XMPP/Jabber based chat"
@@ -567,29 +555,29 @@ msgstr "Чат, основанный на XMPP/Jabber"
 
 #: app/models/environment.rb:154
 msgid "Show a zoom link on all article images"
-msgstr ""
+msgstr "Показать ссылку с увеличением на всех картинках статьи"
 
 #: app/models/environment.rb:155
+#, fuzzy
 msgid "Ask captcha when a logged user comments too"
-msgstr ""
+msgstr "Спросить капчу когда авторизированный пользователь комментирует"
 
 #: app/models/environment.rb:156
-#, fuzzy
 msgid "Skip e-mail confirmation for new users"
-msgstr "Конфигурация E-Mail для POP и IMAP"
+msgstr "Пропускать подтверждение почты для новых пользователей"
 
 #: app/models/environment.rb:157
-#, fuzzy
 msgid "Send welcome e-mail to new users"
-msgstr "Послать e-mail пользователям"
+msgstr "Послать приветственное письмо новым пользователям"
 
 #: app/models/environment.rb:158
 msgid "Allow users to set the page to redirect after login"
 msgstr ""
+"Позволить пользователям задать страницу для перенаправления после авторизации"
 
 #: app/models/environment.rb:159
 msgid "Display on menu the list of communities the user can manage"
-msgstr ""
+msgstr "Показать в меню список сообществ контролируемых пользователем"
 
 #: app/models/environment.rb:160
 msgid "Display on menu the list of enterprises the user can manage"
