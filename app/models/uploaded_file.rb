@@ -9,6 +9,12 @@ class UploadedFile < Article
 
   attr_accessible :uploaded_data, :title
 
+  include Noosfero::Plugin::HotSpot
+
+  def environment
+    profile.environment
+  end
+
   def self.type_name
     _('File')
   end

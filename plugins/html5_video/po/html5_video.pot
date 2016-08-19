@@ -6,9 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-19 19:54+0000\n"
+"PO-Revision-Date: 2016-08-19 19:54+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,10 +18,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/html5_video/lib/file_presenter/video.rb:8
+#: ../lib/html5_video_plugin.rb:16
+msgid "A plugin to enable the video suport, with auto conversion for the web."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:26
+msgid "Unknow error"
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:29
+msgid "No such file or directory \"%s\"."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:32
+msgid "No output defined."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:35
+msgid "Unknown encoder \"%s\"."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:38
+msgid ""
+"Error while opening encoder for output - maybe incorrect parameters such as bi"
+"t rate, frame rate, width or height."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:41
+msgid "Could not open \"%s\"."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:44
+msgid "Unsupported codec %{codec} for %{act} stream %{id}."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:48
+msgid "Unable to find a suitable output format for %{file}."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:52
+msgid "Invalid data found when processing input."
+msgstr ""
+
+#: ../lib/html5_video_plugin/ffmpeg.rb:190
+msgid "Success."
+msgstr ""
+
+#: ../lib/html5_video_plugin/video_channel.rb:4
+msgid "Video Channel"
+msgstr ""
+
+#: ../lib/html5_video_plugin/video_channel.rb:8
+msgid "A video channel, where you can make your own web TV."
+msgstr ""
+
+#: ../lib/presenters/video.rb:9
 msgid "Video (%s)"
 msgstr ""
 
-#: plugins/html5_video/lib/html5_video_plugin.rb:10
-msgid "A plugin to enable the video suport, with auto conversion for the web."
+#: ../lib/presenters/video.rb:137
+msgid "Undefined"
+msgstr ""
+
+#: ../views/content_viewer/_video_player.html.erb:21
+msgid "Sorry, your browser doesn&rsquo;t support video."
+msgstr ""
+
+#: ../views/content_viewer/_video_player.html.erb:22
+msgid "Please try the new %s or %s."
+msgstr ""
+
+#: ../views/content_viewer/_video_player.html.erb:27
+msgid "Download"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:7
+msgid "This channel contains no videos yet"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:14
+#: ../views/file_presenter/_video.html.erb:15
+msgid "Quality options"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:18
+msgid "Tags"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:22
+#: ../views/file_presenter/_video.html.erb:17
+msgid "Description"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:66
+msgid "This channel has one video waiting to be converted"
+msgid_plural "This channel has %d videos waiting to be converted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../views/content_viewer/video_channel.html.erb:83
+msgid "Non video files"
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:7
+msgid "Queued to generate the web version. Come back soon."
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:11
+msgid "This video is not queued to the video conversor. Contact the site admin."
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:34
+msgid "Video conversion errors"
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:44
+msgid "Error while converting %{orig_type} to %{new_type}, %{size} size."
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:47
+msgid "Code %s"
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:49
+msgid "display full output"
 msgstr ""

@@ -1,8 +1,58 @@
-<video class="video-js vjs-default-skin" controls poster="video.jpg" preload="auto" data-setup="{}">
-  <source type="video/ogg" src="<%= video.public_filename %>"/>
-</video>
+<% pub_path = __FILE__.sub /.*(\/plugins\/[^\/]+\/).*/, '\1' %>
+<div class="video-player">
+  <% if video.has_web_version %>
+    <%= render :partial => 'video_player', :locals => {:video => video} %>
+  <% elsif not video.web_version_jobs.empty? %>
+    <div class="message">
+      <%=_('Queued to generate the web version. Come back soon.')%>
+    </div>
+  <% else %>
+    <div class="message">
+      <%=_('This video is not queued to the video conversor. Contact the site admin.')%>
+    </div>
+  <% end %>
+  <div class="video-player-info">
+    <div class="quality"><strong><%=_('Quality options')%>:</strong> <ul></ul></div>
+    <div class="abstract">
+      <strong><%=_('Description')%>:</strong>
+      <div class="data"><%= video.abstract %></div>
+    </div>
+  </div><!-- class="video-player-info" -->
+  <br style="clear: both"/>
+</div><!-- class="video-player" -->
 
-<div class="uploaded-file-description <%= 'empty' if video.abstract.blank? %>">
-  <%= video.abstract %>
+<% if video.has_web_version %>
+  <script type="text/javascript">
+    var player = new NoosferoVideoPlayer( jQuery(".article-body").last() );
+    player.videoList = <%= video.web_versions!.to_json %>;
+    player.selectWebVersion();
+  </script>
+<% end %>
+
+<% if video.allow_edit?(user) && !video.conversion_errors.blank? %>
+<div class="conversion-error">
+<h2><%=_('Video conversion errors')%></h2>
+<ul>
+  <% video.conversion_errors.each do |type, type_block| %>
+    <% type_block.each do |size, size_block| %>
+      <%
+        message, code, output = size_block[:message], size_block[:code], size_block[:output]
+        # hide version header to non admins
+        message.sub!(/^([^\n]*\n){2}/,'') unless user.is_admin?
+      %>
+      <li>
+        <h3><%= _('Error while converting %{orig_type} to %{new_type}, %{size} size.') % {
+          :orig_type=>video.content_type.split('/')[1], :new_type=>type, :size=>size
+        } %></h3>
+        <%= _('Code %s') % content_tag('strong',code) +' &mdash; '+ message.to_s %>
+        <pre class="output" style="display:none"><%= output %></pre>
+        <%= link_to _('display full output'), '#',
+          :class => 'show-output',
+          :onclick => 'jQuery(".output",this.parentNode).show(); jQuery(this).hide(); return false'
+        %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
 </div>
-
+<% end %>
