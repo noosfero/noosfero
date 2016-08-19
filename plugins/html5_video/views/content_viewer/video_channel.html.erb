@@ -1,0 +1,93 @@
+<div>
+  <%= @page.body %>
+</div>
+
+<div class="video-channel">
+  <% if ! @page.children.all.find {|f| f.content_type =~ /^video\//} %>
+    <p><em><%= _('This channel contains no videos yet') %></em></p>
+  <% else %>
+    <div class="video-player">
+      <h2></h2>
+      <%= render :partial => 'video_player', :locals => {:video => nil} %>
+      <div class="video-player-info">
+        <div class="quality">
+          <strong><%=_('Quality options')%>:</strong>
+          <ul></ul>
+        </div>
+        <div class="tags">
+          <strong><%=_('Tags')%>:</strong>
+          <div class="data"></div>
+        </div>
+        <div class="abstract">
+          <strong><%=_('Description')%>:</strong>
+          <div class="data"></div>
+        </div>
+      </div>
+      <br style="clear: both"/>
+    </div>
+    <ul class="video-list">
+      <% unconverted_videos = []
+         @page.children.
+               map{|f| FilePresenter.for f }.
+               select{|f| f.class == FilePresenter::Video}.
+               sort_by{|f| - f.created_at.to_i}.each do |f|
+           unless f.has_web_version
+             unconverted_videos << f
+           else %>
+        <li class="video-list-item" title="<%=html_escape f.title%>">
+          <%= link_to(
+                content_tag('strong',
+                  f.title.
+                    gsub(/([a-z0-9])_+([a-z0-9])/i, '\1 \2').
+                    gsub(/\.[a-z0-9]{2,4}$/i, '')
+                ),
+                f.view_url,
+                {
+                  'data-poster'      => f.image_preview(:big),
+                  'data-download'    => f.public_filename,
+                  'data-webversions' => CGI::escapeHTML(f.web_versions!.to_json),
+                  :style => "background-image:url(#{f.image_preview(:big)})"
+                }) %>
+          <ul>
+            <li class="vli-data-tags">
+              <strong>tags:</strong>
+              <div><%= linked_article_tags f %></div>
+            </li>
+          </ul>
+          <div class="abstract"><%= f.abstract %></div>
+        </li>
+      <% end end %>
+    </ul>
+  <% end %>
+
+  <% if unconverted_videos && !unconverted_videos.empty? %>
+    <div class="unconverted-videos">
+      <p onclick="jQuery('ul',this.parentNode).slideToggle()">
+        <span><%= n_(
+            'This channel has one video waiting to be converted',
+            'This channel has %d videos waiting to be converted',
+            unconverted_videos.length
+          ) % unconverted_videos.length
+        %></span>
+      </p>
+      <ul style="display:none">
+        <% unconverted_videos.each do |f| %>
+          <li><%= link_to f.title, f.view_url %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @page.children.all.find {|f| f.content_type !~ /^video\//} %>
+    <div class="non-video-list">
+      <h3><%=_('Non video files')%></h3>
+      <%= list_articles( @page.children.all.select {|f| f.content_type !~ /^video\// } ) %>
+    </div>
+  <% end %>
+
+</div>
+
+<script type="text/javascript">
+  new VideoChannel( jQuery(".video-channel").last() );
+</script>
+

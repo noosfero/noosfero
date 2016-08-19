@@ -137,6 +137,18 @@ class ActiveSupport::TestCase
     assert reference.blank?, "The following elements are not in the collection: #{reference.inspect}"
   end
 
+  def h2s(value) # make a string from ordered hash to simplify tests
+    case value
+      when Hash, HashWithIndifferentAccess
+        '{'+ value.stringify_keys.to_a.sort{|a,b|a[0]<=>b[0]}.map{ |k,v| k+':'+h2s(v) }.join(',') +'}'
+      when Array
+        '['+ value.map{|i|h2s(i)}.join(',') +']'
+      when NilClass
+        '<nil>'
+      else value.to_s
+    end
+  end
+
   # For models that render views (blocks, articles, ...)
   def self.action_view
     @action_view ||= begin
