@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2016-08-19 22:05+0000\n"
+"PO-Revision-Date: 2016-08-19 22:29+0000\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
 "Language-Team: Portuguese "
 "<https://hosted.weblate.org/projects/noosfero/documentation/pt/>\n"
@@ -28,7 +28,7 @@ msgstr "SendEmailPlugin"
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:2
 msgid "Allows to send e-mails through an e-mail form."
-msgstr "Permite enviar e-mails por um formulário"
+msgstr "Permite enviar e-mails por um formulário web."
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -132,7 +132,7 @@ msgstr "Campo &#8216;Messagem&#8217;"
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:20
 msgid "Body of message."
-msgstr "Corpo da mensagem"
+msgstr "Corpo da mensagem."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -221,13 +221,15 @@ msgstr "Utilizando ajax"
 msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
-msgstr "Ajax é suportado utilizando #ajax-form como 'id' do "
+msgstr ""
+"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class=\""
+"caps\">HTML</span>."
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:39
 msgid "Example:"
-msgstr "Exemplo"
+msgstr "Exemplo:"
 
 # type: Content of: <pre>
 #. type: Content of: <pre>
@@ -323,8 +325,8 @@ msgid ""
 "&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
 "span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 msgstr ""
-">> env.settings[:google_cse_id] = &#8216;&lt;PUT <span class=\"caps\">ID "
-"HERE</span>&gt;&#8217;"
+"&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\""
+">PUT</span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
@@ -788,7 +790,8 @@ msgid ""
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
 "Se você sentir falta do seu lindo carrinho novamente, basta apertar &#8220;"
-"Mostrar carrinho&#8221; e ele irá deslizar graciosamente de volta para você."
+"Mostrar carrinho&#8221; e ele irá deslizar graciosamente de volta para você. "
+"^^"
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -1398,7 +1401,7 @@ msgstr "No menu de usuário, clique em Painel de Controle:"
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:11
 #: doc/noosfero/user/accepting-friends.en.xhtml:11
 msgid "Control panel on menu"
-msgstr "Control panel on menu"
+msgstr "Painel de controle no menu"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -1992,7 +1995,7 @@ msgstr "Lista de grupos com permissão de gerenciar empreendimento"
 #: doc/noosfero/community/editing-header-footer.en.xhtml:14
 #: doc/noosfero/user/editing-header-footer.en.xhtml:12
 msgid "Then, click on &#8220;Edit Header and Footer&#8221;:"
-msgstr "Depois, clique em &#8220;Editar cabeçalho e rodapé&#8221;"
+msgstr "Depois, clique em &#8220;Editar cabeçalho e rodapé&#8221:"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -2035,7 +2038,7 @@ msgstr ""
 #: doc/noosfero/cms/writing-article.en.xhtml:31
 #: doc/noosfero/user/editing-header-footer.en.xhtml:17
 msgid "WYSIWYG buttons"
-msgstr "WYSIWYG buttons"
+msgstr "Botões WYSIWYG"
 
 # type: Content of: <ol><li><ul><li><p>
 #. type: Content of: <ol><li><ul><li>
@@ -2164,9 +2167,9 @@ msgid ""
 "formats, select text/word, click on this button and select the desired "
 "format."
 msgstr ""
-"<strong>Formatação:</strong> para utilizar alguma das formatações já "
+"<strong>Formatação:</strong> para utilizar alguma das formatações pré-"
 "configuradas, selecione um trecho do texto, clique nesse botão e selecione a "
-"formatação desejada"
+"formatação desejada."
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -2242,8 +2245,8 @@ msgid ""
 "<strong>Unordered list:</strong> it creates a list, inserting a small ball "
 "before each item."
 msgstr ""
-"<strong>Marcadores:</strong> utilizado para criar uma lista, inserindo uma "
-"bolinha antes de cada item, como esta com a lista de botões"
+"<strong>Lista não ordenada:</strong> cria uma lista, inserindo uma bolinha "
+"antes de cada item."
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -2255,8 +2258,8 @@ msgid ""
 "<strong>Ordered list</strong> it creates a numbered list, adding a number "
 "before each item."
 msgstr ""
-"<strong>Numeração:</strong> utilizado para criar uma lista numerada, "
-"inserindo o número do item antes de cada item"
+"<strong>Lista ordenada:</strong> cria uma lista numerada, inserindo o número "
+"do item antes de cada item."
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -2378,9 +2381,9 @@ msgid ""
 "<span class=\"caps\">HTML</span> code. You should use it after pasting a "
 "formatted text from another place"
 msgstr ""
-"<strong>Limpar código incorreto: </strong>esse botão remove código HTML "
-"desnecessário do seu texto. É aconselhável utilizar após colar um texto "
-"formatado originado de outra página"
+"<strong>Limpar código confuso:</strong> esse botão remove código <span class="
+"\"caps\">HTML</span> desnecessário do seu texto. É aconselhável utilizar "
+"após colar um texto formatado de outra origem."
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -2394,9 +2397,9 @@ msgid ""
 "\"caps\">HTML</span> code of your header/footer."
 msgstr ""
 "<strong>Editar código fonte:</strong> o texto escrito nesse editor é "
-"transformado em código HTML, para poder ser visualizado nos navegadoores. "
-"Utilize esse botão para visualizar/editar o código HTML do seu cabeçalho/"
-"rodapé."
+"transformado em código HTML, para poder ser visualizado nos navegadores. "
+"Utilize esse botão para visualizar/editar o código <span class=\"caps\""
+">HTML</span> do seu cabeçalho/rodapé."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -2505,7 +2508,7 @@ msgstr ""
 "Você verá uma tela com o primeiro passo da ativação, a pergunta sobre o "
 "empreendimento. Você deve preencher o campo com a resposta correta, ou seu "
 "empreendimento será bloqueado. Se você tiver certeza que sua resposta está "
-"correta, clique no botão &#8220;Continue&#8221;"
+"correta, clique no botão &#8220;Continue&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -2771,8 +2774,9 @@ msgid ""
 msgstr ""
 "<strong>Leitor de Feed:</strong> Este bloco pode ser utilizado para listar "
 "as últimas notícias de qualquer site que desejar. Você só precisa informar o "
-"endereço de um feed RSS clicando no botão &#8220;Editar&#8221;. Você também "
-"pode selecionar o número de itens que serão mostrados."
+"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão "
+"&#8220;Editar&#8221;. Você também pode selecionar o número de itens que "
+"serão mostrados."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -3258,7 +3262,7 @@ msgstr ""
 #: doc/noosfero/community/invite-contacts.en.xhtml:12
 #: doc/noosfero/community/moderating-articles.en.xhtml:12
 msgid "Then, click on &#8220;Manage my groups&#8221; button:"
-msgstr "Depois, clique no botão &#8220;Gerenciar meus grupos&#8221;"
+msgstr "Depois, clique no botão &#8220;Gerenciar meus grupos&#8221;:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
