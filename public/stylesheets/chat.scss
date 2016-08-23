@@ -242,12 +242,12 @@
 }
 
 #chat-window .history .message .time {
-  float: right;
   color: white;
   font-style: italic;
   font-size: 10px;
   border-bottom: 1px solid #d3d7cf;
-  width: 100%;
+  width: 245px;
+  display: inline-block;
   text-align: right;
   margin-bottom: 5px;
 }

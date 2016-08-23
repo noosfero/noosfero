@@ -147,22 +147,18 @@ jQuery(function($) {
         if(offset_container.length == 0)
           offset_container = $('<div class="chat-offset-container-'+offset+'"></div>').prependTo(history);
 
-        if (offset_container.find('.message:last').attr('data-who') == who) {
-          offset_container.find('.message:last .content').append('<p>' + body + '</p>');
+        if (time==undefined) {
+          time = new Date().toISOString();
         }
-        else {
-          if (time==undefined) {
-            time = new Date().toISOString();
-          }
-          var message_html = Jabber.template('.message')
-          .replace('%{message}', body)
-          .replace(/%{who}/g, who)
-          .replace('%{time}', time)
-          .replace('%{name}', name)
-          .replace('%{avatar}', getAvatar(identifier));
-          offset_container.append(message_html);
-          $(".message span.time").timeago();
-        }
+        var message_html = Jabber.template('.message')
+        .replace('%{message}', body)
+        .replace(/%{who}/g, who)
+        .replace('%{time}', time)
+        .replace('%{name}', name)
+        .replace('%{avatar}', getAvatar(identifier));
+        offset_container.append(message_html);
+        $(".message span.time").timeago();
+
         if(offset == 0) history.scrollTo({top:'100%', left:'0%'});
         else history.scrollTo(offset_container.height());
         if (who != "self") {
@@ -271,28 +267,36 @@ jQuery(function($) {
       var contacts_to_insert = {};
       var groups_to_insert = [];
 
-      $(iq).find('item').each(function () {
-        var jid = $(this).attr('jid');
-        profiles.push(getIdentifier(jid));
-        var name = $(this).attr('name') || jid;
-        var jid_id = Jabber.jid_to_id(jid);
-        contacts_to_insert[jid] = name;
-      });
+      //FIXME User ejabberd roster when the username length limit bug is solved.
+      // $(iq).find('item').each(function () {
+      //   var jid = $(this).attr('jid');
+      //   profiles.push(getIdentifier(jid));
+      //   var name = $(this).attr('name') || jid;
+      //   var jid_id = Jabber.jid_to_id(jid);
+      //   contacts_to_insert[jid] = name;
+      // });
 
-      //TODO Add groups through roster too...
       $.ajax({
-        url: '/chat/roster_groups',
+        url: '/chat/rosters',
         dataType: 'json',
         success: function(data){
-          $(data).each(function(index, room){
+          $(data.friends).each(function(index, friend){
+            var jid = friend.jid;
+            profiles.push(getIdentifier(jid));
+            var name = friend.name;
+            var jid_id = Jabber.jid_to_id(jid);
+            contacts_to_insert[jid] = name;
+          });
+
+          $(data.rooms).each(function(index, room){
             profiles.push(getIdentifier(room.jid));
             var jid_id = Jabber.jid_to_id(room.jid);
             Jabber.jids[jid_id] = {jid: room.jid, name: room.name, type: 'groupchat'};
             //FIXME This must check on session if the user is inside the room...
             groups_to_insert.push(room.jid);
-
           });
-          $.getJSON('/chat/avatars', {profiles: profiles}, function(data) {
+
+          $.post('/chat/avatars', {profiles: profiles}, function(data) {
             for(identifier in data)
               Jabber.avatars[identifier] = data[identifier];
 
@@ -313,13 +317,13 @@ jQuery(function($) {
             Jabber.connection.addHandler(Jabber.on_presence, null, "presence");
             Jabber.send_availability_status(Jabber.presence_status);
             load_defaults();
-          });
+            updateAvailabilities();
+          }, 'json');
         },
         error: function(data, textStatus, jqXHR){
           console.log(data);
         },
       });
-
     },
 
     // NOTE: cause Noosfero store's rosters in database based on friendship relation between people
@@ -405,21 +409,7 @@ jQuery(function($) {
         else {
           log('receiving contact presence from ' + presence.from + ' as ' + presence.show);
           var jid = Strophe.getBareJidFromJid(presence.from);
-          if (jid != Jabber.connection.jid) {
-            var jid_id = Jabber.jid_to_id(jid);
-            var name = Jabber.name_of(jid_id);
-            if(presence.show == 'chat')
-              Jabber.remove_notice(jid_id);
-            Jabber.insert_or_update_contact(jid, name, presence.show);
-            Jabber.update_chat_title();
-          }
-          else {
-            // why server sends presence from myself to me?
-            log('ignoring presence from myself');
-            if(presence.show=='offline') {
-              Jabber.send_availability_status(Jabber.presence_status);
-            }
-          }
+          setFriendStatus(jid, presence.show);
         }
       }
       return true;
@@ -898,6 +888,24 @@ jQuery(function($) {
     }
   }
 
+  function setFriendStatus(jid, status) {
+    if (jid != Jabber.connection.jid) {
+      var jid_id = Jabber.jid_to_id(jid);
+      var name = Jabber.name_of(jid_id);
+      if(status == 'chat')
+        Jabber.remove_notice(jid_id);
+      Jabber.insert_or_update_contact(jid, name, status);
+      Jabber.update_chat_title();
+    }
+    else {
+      // why server sends presence from myself to me?
+      log('ignoring presence from myself');
+      if(status=='offline') {
+        Jabber.send_availability_status(Jabber.presence_status);
+      }
+    }
+  }
+
   $('.title-bar a').click(function() {
     $(this).parents('.status-group').find('.buddies').toggle('fast');
     return false;
@@ -967,4 +975,23 @@ jQuery(function($) {
 
   window.onfocus = function() {Jabber.window_visibility = true};
   window.onblur = function() {Jabber.window_visibility = false};
+
+  //FIXME Workaround to solve availability problems
+  function updateAvailabilities() {
+    $.ajax({
+      url: '/chat/availabilities',
+      dataType: 'json',
+      success: function(data){
+        $(data).each(function(index, friend){
+          var jid_id = Jabber.jid_to_id(friend.jid);
+          if (Jabber.jids[jid_id].presence != friend.status)
+            setFriendStatus(friend.jid, friend.status)
+        });
+      },
+      complete: function(data){ setTimeout(updateAvailabilities, 10000) },
+      error: function(data, textStatus, jqXHR){
+        console.log(data);
+      },
+    });
+  }
 });

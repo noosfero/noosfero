@@ -4,18 +4,32 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-echo -n "Fetching noosfero domain ..."
-domain=$(noosfero-runner 'puts Environment.default.default_hostname(true)')
+db_get noosfero-chat/environment
+if [ ! -z "$RET" ]; then
+  environment="${RET}_production"
+else
+  environment="production"
+fi
+
+domain=$(noosfero-runner 'puts Environment.default.default_hostname(true)' $environment)
 echo " [domain = $domain]"
 
-ejabberd_config='/etc/ejabberd/ejabberd.cfg'
+db_get noosfero-chat/admin
+if [ ! -z "$RET" ]; then
+  admin="$RET@$domain"
+else
+  admin="admin@$domain"
+fi
+echo " [admin = $admin]"
+
+ejabberd_config='/etc/ejabberd/ejabberd.yml'
 if test -f $ejabberd_config; then
-  sed -i "s/acl, *\([^,]*\), *{user, *\([^,]*\), *[^}]*/acl, \1, {user, \2, \"$domain\"/" /etc/ejabberd/ejabberd.cfg
-  sed -i "s/hosts, *\[[^]]*/hosts, [\"$domain\"/" /etc/ejabberd/ejabberd.cfg
+  sed -i "s/HOST_DOMAIN/$domain/" /etc/ejabberd/ejabberd.yml
+  sed -i "s/ACL_ADMIN_ACCOUNT/$admin/" /etc/ejabberd/ejabberd.yml
 fi
 
 echo -n 'Fetching noosfero database name ...'
-noosfero_database=$(noosfero-runner 'puts Environment.connection_config[:database]')
+noosfero_database=$(noosfero-runner 'puts Environment.connection_config[:database]' $environment)
 echo " [database = $noosfero_database]"
 
 echo 'Creating ejabberd schema ...'
@@ -29,7 +43,7 @@ else
   echo " => GRANT CREATE ON DATABASE $noosfero_database TO $noosfero_user;"
 fi
 
-su - $noosfero_user -c 'rails dbconsole production < /usr/share/noosfero/util/chat/postgresql/ejabberd.sql > /dev/null'
+su - $noosfero_user -c "rails dbconsole $environment < /usr/share/noosfero/util/chat/postgresql/ejabberd.sql > /dev/null"
 
 if which update-noosfero-odbc &> /dev/null ; then
   update-noosfero-odbc
@@ -37,6 +51,7 @@ fi
 
 ejabberd_default='/etc/default/ejabberd'
 noosfero_chat_default='/etc/default/noosfero-chat'
+
 if test -f $ejabberd_default; then
   if ! cat $ejabberd_default | grep "^\. $noosfero_chat_default" > /dev/null ; then
     echo 'Extending ejabberd defaults with noosfero-chat defaults ...'

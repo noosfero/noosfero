@@ -156,6 +156,7 @@ class AccountController < ApplicationController
   def logout
     if logged_in?
       self.current_user.forget_me
+      current_user.update({:chat_status_at => DateTime.now}.merge({:last_chat_status => current_user.chat_status, :chat_status => 'offline'}))
     end
     reset_session
     session[:notice] = _("You have been logged out.")

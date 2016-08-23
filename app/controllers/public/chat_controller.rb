@@ -113,8 +113,20 @@ class ChatController < PublicController
   end
 
   #TODO Ideally this is done through roster table on ejabberd.
-  def roster_groups
-    render :text => user.memberships.map {|m| {:jid => m.jid, :name => m.name}}.to_json
+  def rosters
+    rooms = user.memberships.map {|m| {:jid => m.jid, :name => m.name}}
+    friends = user.friends.map {|f| {:jid => f.jid, :name => f.name}}
+    rosters = {:rooms => rooms, :friends => friends}
+    render :text => rosters.to_json
+  end
+
+  def availabilities
+    availabilities = user.friends.map do |friend|
+      status = friend.user.chat_status
+      status = 'offline' if status.blank?
+      {:jid => friend.jid, :status => status}
+    end
+    render :text => availabilities.to_json
   end
 
   protected
