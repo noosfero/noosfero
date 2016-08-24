@@ -75,7 +75,7 @@
         </div><!-- end id="content" -->
       </div><!-- end id="wrap-2" -->
     </div><!-- end id="wrap-1" -->
-    <%= render_environment_features(:logged_in) if logged_in? %>
+    <%= render_environment_features(:logged_in).html_safe if logged_in? %>
     <div id="footer">
       <div id="theme-footer">
         <%= theme_footer %>
