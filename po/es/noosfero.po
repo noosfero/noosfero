@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2016-08-18 21:49+0000\n"
+"PO-Revision-Date: 2016-08-25 19:14+0000\n"
 "Last-Translator: Alipio muñiz <alipio@ecoalternative.net>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -1038,9 +1038,8 @@ msgid "Article"
 msgstr "Artículo"
 
 #: app/helpers/application_helper.rb:944
-#, fuzzy
 msgid "Clone %s"
-msgstr "Clónico %s"
+msgstr "Clonar %s"
 
 #: app/helpers/application_helper.rb:958
 msgid "Online Manual"
@@ -1624,7 +1623,7 @@ msgstr "%{day} de %{month_name} de %{year}"
 # LAs cadenas de este tipo NO se traducen
 #: app/helpers/dates_helper.rb:26
 msgid "%{month_name} %{day}"
-msgstr "%{nombre_del_mes} %{día}"
+msgstr "%{month_name} %{day}"
 
 # LAs cadenas de este tipo NO se traducen
 #: app/helpers/dates_helper.rb:35
@@ -1634,7 +1633,7 @@ msgstr "%{mes}/%{año}"
 # LAs cadenas de este tipo NO se traducen
 #: app/helpers/dates_helper.rb:38
 msgid "%{month_name}"
-msgstr "%{nombre_del_mes}"
+msgstr "%{month_name}"
 
 #: app/helpers/dates_helper.rb:38
 msgid "%{month_name}, %{year}"
@@ -1843,7 +1842,7 @@ msgstr "Cancelar"
 
 #: app/helpers/forms_helper.rb:62
 msgid "Select the State"
-msgstr "Seleccione el Estado"
+msgstr "Seleccione la provincia"
 
 #: app/helpers/forms_helper.rb:63
 msgid "Select the City"
@@ -1851,7 +1850,7 @@ msgstr "Seleccione la ciudad"
 
 #: app/helpers/forms_helper.rb:86
 msgid "State:"
-msgstr "Estado:"
+msgstr "Provincia:"
 
 #: app/helpers/forms_helper.rb:89
 msgid "City:"
@@ -2597,14 +2596,12 @@ msgid "Map"
 msgstr "Mapa"
 
 #: app/helpers/search_helper.rb:18 app/helpers/search_helper.rb:116
-#, fuzzy
 msgid "Full"
 msgstr "Completo"
 
 #: app/helpers/search_helper.rb:19 app/helpers/search_helper.rb:114
-#, fuzzy
 msgid "Compact"
-msgstr "Compacto"
+msgstr "Reducido"
 
 #: app/helpers/search_helper.rb:52
 msgid ", "
@@ -2695,7 +2692,7 @@ msgstr "[%s] %s ha comentado en un contendio de %s"
 #: app/mailers/contact.rb:23 app/views/contact/new.html.erb:23
 #: app/views/contact/sender/notification.html.erb:14
 msgid "City and state"
-msgstr "Ciudad y estado"
+msgstr "Ciudad y provincia"
 
 #: app/mailers/contact.rb:23
 #: app/views/admin_panel/_signup_welcome_text.html.erb:6
@@ -3533,7 +3530,7 @@ msgstr "Ciudad"
 #: app/views/maps/edit_location.html.erb:10
 #: app/views/profile_editor/_person_form.html.erb:22
 msgid "State"
-msgstr "Estado"
+msgstr "Provincia"
 
 #: app/models/enterprise.rb:32 app/models/person.rb:261
 #: app/views/maps/edit_location.html.erb:9
@@ -4297,7 +4294,7 @@ msgstr "Código postal"
 
 #: app/models/national_region.rb:72
 msgid "Invalid city or state name."
-msgstr "Nombre nombre de ciudad o estado inválido."
+msgstr "Nombre nombre de ciudad o provincia inválido."
 
 #: app/models/organization.rb:138 app/models/person.rb:261
 #: app/views/profile_editor/_person_form.html.erb:26
@@ -7091,7 +7088,7 @@ msgid ""
 msgstr ""
 "Para registrar una nueva empresa, llena el formulario y pulsa el botón "
 "'Registrar'. Entonces la empresa se someterá a evaluación con la entidad de "
-"validación de tu elección (dentro de tu estado) y cuando la empresa sea "
+"validación de tu elección (dentro de tu provincia) y cuando la empresa sea "
 "aprobada serás capaz de activar su perfil."
 
 #: app/views/enterprise_registration/confirmation.html.erb:1
@@ -7799,6 +7796,8 @@ msgstr "Pedir la amistad"
 #: app/views/invite/invite_friends.html.erb:3
 msgid "You can search for user profiles and ask them to become your friends."
 msgstr ""
+"Puedes buscar otros perfiles de usuari@s y preguntas si quieren ser tus "
+"amig@s."
 
 #: app/views/invite/invite_friends.html.erb:5
 #: app/views/invite/select_friends.html.erb:6
@@ -7813,18 +7812,16 @@ msgid "You can search for user profiles and invite them to join this group."
 msgstr ""
 
 #: app/views/invite/invite_friends.html.erb:10
-#, fuzzy
 msgid "Choose person by:"
-msgstr "Selecciona una blog:"
+msgstr "Selecciona una persona por:"
 
 #: app/views/invite/invite_friends.html.erb:24
 msgid "Type in the person's %{search_fields}"
 msgstr ""
 
 #: app/views/invite/invite_friends.html.erb:28
-#, fuzzy
 msgid "Invite"
-msgstr "Invitación"
+msgstr "Invitar"
 
 #: app/views/invite/invite_friends.html.erb:35
 msgid "Invite people from my e-mail contacts"
@@ -9435,9 +9432,8 @@ msgid "cert. "
 msgstr "cert. "
 
 #: app/views/search/_search_content.html.erb:3
-#, fuzzy
 msgid "Total of %s results "
-msgstr "%s resultados encontrados"
+msgstr "%s resultados encontrados "
 
 #: app/views/search/_sellers_form.html.erb:5
 msgid "Search in:"
