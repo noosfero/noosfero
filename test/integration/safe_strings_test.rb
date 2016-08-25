@@ -185,5 +185,14 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'div', :attributes => {:class => 'read-more'}, :child => {:tag => 'a', :content => 'Read more'}
   end
 
+  should 'not scape sex radio button' do
+    env = Environment.default
+    env.custom_person_fields = { 'sex' => { 'active' => 'true' } }
+    env.save!
+    create_user('marley', :password => 'test', :password_confirmation => 'test').activate
+    login 'marley', 'test'
+    get "/myprofile/marley/profile_editor/edit"
+    assert_tag :tag => 'input', :attributes => { :id => "profile_data_sex_male" }
+  end
 
 end

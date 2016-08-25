@@ -518,8 +518,6 @@ module ApplicationHelper
       html = "\n"
       values.each { |val, h_val|
         id = object_name.to_s() +'_'+ method.to_s() +'_'+ val.to_s()
-        # Não está apresentando o sexo selecionado ao revisitar
-        # http://localhost:3000/myprofile/manuel/profile_editor/edit  :-(
         html += self.class.content_tag( 'span',
             @template.radio_button( object_name, method, val,
                                     :id => id, :object => @object ) +
@@ -530,6 +528,7 @@ module ApplicationHelper
           html += "<br />\n".html_safe
         end
       }
+      html = html.html_safe
       html += "<br />\n".html_safe if line_size == 0 || ( values.size % line_size ) > 0
       column = object.class.columns_hash[method.to_s] if object
       text =
