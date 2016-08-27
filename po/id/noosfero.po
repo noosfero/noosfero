@@ -7,46 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "POT-Creation-Date: 2015-11-04 12:36-0300\n"
-"PO-Revision-Date: 2007-08-30 18:47-0300\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2016-08-27 19:49+0000\n"
+"Last-Translator: Izharul Haq <atoz.chevara.2013@gmail.com>\n"
+"Language-Team: Indonesian "
+"<https://hosted.weblate.org/projects/noosfero/noosfero/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.8-dev\n"
 
 #: app/models/approve_comment.rb:17
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonim"
 
 #: app/models/approve_comment.rb:25 app/models/approve_article.rb:31
 msgid "Article removed."
-msgstr ""
+msgstr "Artikel telah dihapus."
 
 #: app/models/approve_comment.rb:33
 msgid "New comment to article"
-msgstr ""
+msgstr "Komentar baru ke artikel"
 
 #: app/models/approve_comment.rb:49 app/models/approve_comment.rb:51
 msgid "%{requestor} commented on the article: %{linked_subject}."
-msgstr ""
+msgstr "%{requestor} berkomentar pada artikel: %{linked_subject}."
 
 #: app/models/approve_comment.rb:55 app/models/approve_article.rb:91
 msgid "The article was removed."
-msgstr ""
+msgstr "Artikel telah dihapus."
 
 #: app/models/approve_comment.rb:81
 msgid "%{requestor} wants to comment the article: %{article}."
-msgstr ""
+msgstr "%{requestor} ingin berkomentar pada artikel: %{article}."
 
 #: app/models/approve_comment.rb:83
 msgid "%{requestor} wanted to comment the article but it was removed."
-msgstr ""
+msgstr "%{requestor} ingin berkomentar di artikel namun artikel telah dihapus."
 
 #: app/models/approve_comment.rb:89
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
 msgstr ""
+"Anda perlu masuk ke %{system} untuk mengizinkan atau menolak komentar ini."
 
 #: app/models/approve_comment.rb:94
 msgid ""
@@ -59,10 +63,13 @@ msgstr ""
 #: app/models/approve_comment.rb:96
 msgid "Your request for comment the article \"%{article}\" was approved."
 msgstr ""
+"Permintaan anda untuk berkomentar pada artikel \"%{article}\" telah "
+"diizinkan."
 
 #: app/models/approve_comment.rb:101
 msgid "Your request for commenting the article \"%{article}\" was rejected."
 msgstr ""
+"Permintaan anda untuk berkomentar pada artikel \"%{article}\" telah ditolak."
 
 #: app/models/approve_comment.rb:103
 msgid ""
@@ -88,7 +95,7 @@ msgstr ""
 #: app/views/cms/publish.html.erb:43 app/views/cms/publish.html.erb:59
 #: app/views/comment/_comment_form.html.erb:77
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: app/models/comment.rb:5 app/models/product.rb:4 app/models/category.rb:6
 #: app/models/article.rb:17 app/models/profile.rb:17
@@ -108,12 +115,12 @@ msgstr ""
 #: app/views/enterprise_validation/_details.html.erb:3
 #: app/views/contact/sender/notification.html.erb:11
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: app/models/comment.rb:6 app/models/article.rb:19 app/models/article.rb:49
 #: app/models/scrap.rb:6
 msgid "Content"
-msgstr ""
+msgstr "Konten"
 
 #: app/models/comment.rb:34
 msgid "{fn} can only be informed for unauthenticated authors"
@@ -121,7 +128,7 @@ msgstr ""
 
 #: app/models/comment.rb:82
 msgid "(removed user)"
-msgstr ""
+msgstr "(pengguna dihapus)"
 
 #: app/models/comment.rb:82
 msgid "(unauthenticated user)"
@@ -134,7 +141,7 @@ msgstr ""
 #: app/views/cms/_uploaded_file.html.erb:5
 #: app/views/manage_products/show.html.erb:32
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #: app/models/product.rb:128 app/helpers/display_helper.rb:42
 #: app/helpers/display_helper.rb:51
@@ -143,71 +150,75 @@ msgstr ""
 
 #: app/models/product.rb:268
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: app/models/product.rb:269
 msgid "25%"
-msgstr ""
+msgstr "25%"
 
 #: app/models/product.rb:270
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #: app/models/product.rb:271
 msgid "75%"
-msgstr ""
+msgstr "75%"
 
 #: app/models/product.rb:272
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: app/models/invite_member.rb:20
 msgid "Community invitation"
-msgstr ""
+msgstr "Undangan Komunitas"
 
 #: app/models/invite_member.rb:28
 msgid "%{requestor} invited you to join %{linked_subject}."
-msgstr ""
+msgstr "%{requestor} mengundang anda untuk bergabung di %{linked_subject}."
 
 #: app/models/invite_member.rb:40
 msgid "%{requestor} invited you to join %{community}."
-msgstr ""
+msgstr "%{requestor} mengundang anda untuk bergabung di %{community}."
 
 #: app/models/invite_member.rb:45
 msgid "%{requestor} is inviting you to join \"%{community}\" on %{system}."
 msgstr ""
+"%{requestor} mengundang anda untuk bergabung di \"%{community}\" dalam "
+"%{system}."
 
 #: app/models/invite_member.rb:57 app/models/invite_friend.rb:37
 msgid "Hello <friend>,"
-msgstr ""
+msgstr "Hallo <friend>,"
 
 #: app/models/invite_member.rb:58
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
 msgstr ""
+"<user> mengundang anda untuk bergabung di \"<community>\" dalam "
+"<environment>."
 
 #: app/models/invite_member.rb:59 app/models/invite_friend.rb:39
 msgid "To accept the invitation, please follow this link:"
-msgstr ""
+msgstr "Untuk menerima undangan ini, silahkan menuju ke tautan berikut:"
 
 #: app/models/my_network_block.rb:6 app/models/my_network_block.rb:10
 msgid "My network"
-msgstr ""
+msgstr "Jaringan saya"
 
 #: app/models/my_network_block.rb:14
 msgid "This block displays some info about your networking."
-msgstr ""
+msgstr "Tampilan pembelokiran ini merupakan informasi tentang jaringan anda."
 
 #: app/models/sellers_search_block.rb:6
 msgid "Search for enterprises and products"
-msgstr ""
+msgstr "Pencarian untuk perusahaan dan produk"
 
 #: app/models/sellers_search_block.rb:10
 msgid "Products/Enterprises search"
-msgstr ""
+msgstr "Pencarian Produk/Perusahaan"
 
 #: app/models/sellers_search_block.rb:14
 msgid "Search for sellers"
-msgstr ""
+msgstr "Pencarian untuk penjual"
 
 #: app/models/sellers_search_block.rb:18
 msgid "This block presents a search engine for products."
@@ -215,20 +226,20 @@ msgstr ""
 
 #: app/models/categories_block.rb:4
 msgid "Generic category"
-msgstr ""
+msgstr "Kategori umum"
 
 #: app/models/categories_block.rb:5 app/helpers/categories_helper.rb:6
 #: app/views/enterprise_registration/basic_information.html.erb:25
 msgid "Region"
-msgstr ""
+msgstr "Wilayah"
 
 #: app/models/categories_block.rb:6 app/views/manage_products/index.html.erb:5
 msgid "Product"
-msgstr ""
+msgstr "Produk"
 
 #: app/models/categories_block.rb:14 app/models/categories_block.rb:18
 msgid "Categories Menu"
-msgstr ""
+msgstr "Menu Kategori"
 
 #: app/models/categories_block.rb:22
 msgid "This block presents the categories like a web site menu."
@@ -247,32 +258,32 @@ msgstr ""
 
 #: app/models/uploaded_file.rb:10
 msgid "File"
-msgstr ""
+msgstr "Berkas"
 
 #: app/models/uploaded_file.rb:68
 msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
-msgstr ""
+msgstr "{fn} berkas yang diunggah melebihi ukuran maksimum dari %{size}"
 
 #: app/models/uploaded_file.rb:95
 msgid "Uploaded file"
-msgstr ""
+msgstr "Mengunggah berkas"
 
 #: app/models/uploaded_file.rb:99
 msgid "Upload any kind of file you want."
-msgstr ""
+msgstr "Unggah berkas apa saja yang anda inginkan."
 
 #: app/models/invite_friend.rb:12
 msgid "Friend invitation"
-msgstr ""
+msgstr "Undangan pertemanan"
 
 #: app/models/invite_friend.rb:16 app/models/invite_friend.rb:28
 #: app/models/add_friend.rb:35 app/models/add_friend.rb:48
 msgid "%{requestor} wants to be your friend."
-msgstr ""
+msgstr "%{requestor} ingin menjadi teman anda."
 
 #: app/models/invite_friend.rb:38
 msgid "<user> is inviting you to participate on <environment>."
-msgstr ""
+msgstr "<user> mengundang anda untuk berpartisipasi dalam <environment>."
 
 #: app/models/fans_block.rb:4
 msgid "Displays the people who like the enterprise"
@@ -281,7 +292,7 @@ msgstr ""
 #: app/models/fans_block.rb:8
 msgid "{#} fan"
 msgid_plural "{#} fans"
-msgstr[0] ""
+msgstr[0] "{#} penggemar"
 
 #: app/models/fans_block.rb:12
 msgid "This block presents the fans of an enterprise."
@@ -289,22 +300,22 @@ msgstr ""
 
 #: app/models/fans_block.rb:18 app/views/cms/_published_media_items.html.erb:7
 msgid "View all"
-msgstr ""
+msgstr "Tampilkan semua"
 
 #: app/models/slideshow_block.rb:12
 msgid "Slideshow"
-msgstr ""
+msgstr "Slideshow"
 
 #: app/models/featured_products_block.rb:20
 #: app/views/box_organizer/_featured_products_block.html.erb:1
 msgid "Featured Products"
-msgstr ""
+msgstr "Produk Terpilih"
 
 #: app/models/category.rb:7 app/models/organization.rb:138
 #: app/models/create_enterprise.rb:8
 #: app/views/enterprise_validation/_details.html.erb:19
 msgid "Acronym"
-msgstr ""
+msgstr "Akronim"
 
 #: app/models/category.rb:8
 msgid "Abbreviation"
@@ -320,23 +331,23 @@ msgstr ""
 
 #: app/models/category.rb:14
 msgid "{fn} is already being used by another category."
-msgstr ""
+msgstr "{fn} telah digunakan oleh ketegori lain."
 
 #: app/models/environment.rb:41
 msgid "View environment admin panel"
-msgstr ""
+msgstr "Tampilkan antar muka panel admin"
 
 #: app/models/environment.rb:42
 msgid "Edit environment features"
-msgstr ""
+msgstr "Sunting antar muka fitur"
 
 #: app/models/environment.rb:43
 msgid "Edit environment design"
-msgstr ""
+msgstr "Sunting antar muka desain"
 
 #: app/models/environment.rb:44
 msgid "Manage environment categories"
-msgstr ""
+msgstr "Kelola antar muka kategori"
 
 #: app/models/environment.rb:45
 msgid "Manage environment roles"
@@ -348,36 +359,36 @@ msgstr ""
 
 #: app/models/environment.rb:47
 msgid "Manage environment users"
-msgstr ""
+msgstr "Kelola lingkungan pengguna"
 
 #: app/models/environment.rb:48
 msgid "Manage environment organizations"
-msgstr ""
+msgstr "Kelola lingkungan organisasi"
 
 #: app/models/environment.rb:49
 msgid "Manage environment templates"
-msgstr ""
+msgstr "Kelola lingkungan tema"
 
 #: app/models/environment.rb:50
 msgid "Manage environment licenses"
-msgstr ""
+msgstr "Kelola lingkungan lisensi"
 
 #: app/models/environment.rb:51
 msgid "Manage environment trusted sites"
-msgstr ""
+msgstr "Kelola lingkungan web yang diizinkan"
 
 #: app/models/environment.rb:52 app/models/profile.rb:78
 #: app/views/templates/index.html.erb:34
 msgid "Edit appearance"
-msgstr ""
+msgstr "Sunting tampilan"
 
 #: app/models/environment.rb:65
 msgid "Environment Administrator"
-msgstr ""
+msgstr "Lingkungan Administrator"
 
 #: app/models/environment.rb:71
 msgid "Profile Administrator"
-msgstr ""
+msgstr "Profil Administrator"
 
 #: app/models/environment.rb:78
 #: app/views/profile_members/unassociate.html.erb:9
@@ -387,63 +398,63 @@ msgstr ""
 #: app/views/profile_members/add_admin.html.erb:9
 #: app/views/users/_users_list.html.erb:13
 msgid "Member"
-msgstr ""
+msgstr "Anggota"
 
 #: app/models/environment.rb:87
 msgid "Moderator"
-msgstr ""
+msgstr "Moderator"
 
 #: app/models/environment.rb:118
 msgid "Disable search for articles "
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk artikel "
 
 #: app/models/environment.rb:119
 msgid "Disable search for enterprises"
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk perusahaan"
 
 #: app/models/environment.rb:120
 msgid "Disable search for people"
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk orang"
 
 #: app/models/environment.rb:121
 msgid "Disable search for communities"
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk komunitas"
 
 #: app/models/environment.rb:122
 msgid "Disable search for products"
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk produk"
 
 #: app/models/environment.rb:123
 msgid "Disable search for events"
-msgstr ""
+msgstr "Nonaktifkan pencarian untuk acara"
 
 #: app/models/environment.rb:124
 msgid "Disable categories"
-msgstr ""
+msgstr "Nonaktifkan kategori"
 
 #: app/models/environment.rb:125
 msgid "Disable header/footer editing by users"
-msgstr ""
+msgstr "Nonaktifkan penyuntingan header/footer oleh pengguna"
 
 #: app/models/environment.rb:126
 msgid "Disable gender icon"
-msgstr ""
+msgstr "Nonaktifkan ikon jenis kelamin"
 
 #: app/models/environment.rb:127
 msgid "Disable the categories menu"
-msgstr ""
+msgstr "Nonaktifkan menu kategori"
 
 #: app/models/environment.rb:128
 msgid "Disable state/city select for contact form"
-msgstr ""
+msgstr "Nonaktifkan pilihan provinsi/kota untuk form kontak"
 
 #: app/models/environment.rb:129
 msgid "Disable contact for people"
-msgstr ""
+msgstr "Nonaktifkan kontak untuk orang"
 
 #: app/models/environment.rb:130
 msgid "Disable contact for groups/communities"
-msgstr ""
+msgstr "Nonaktifkan kontak untuk kelompok/komunitas"
 
 #: app/models/environment.rb:131
 msgid "Forbid users of removing profiles"
@@ -451,16 +462,16 @@ msgstr ""
 
 #: app/models/environment.rb:133
 msgid "Enable products for enterprises"
-msgstr ""
+msgstr "Aktifkan produk untuk perusahaan"
 
 #: app/models/environment.rb:134 app/models/create_enterprise.rb:154
 #: app/views/enterprise_registration/basic_information.html.erb:3
 msgid "Enterprise registration"
-msgstr ""
+msgstr "Pendaftaran Perusahaan"
 
 #: app/models/environment.rb:135
 msgid "Enable activation of enterprises"
-msgstr ""
+msgstr "Aktifkan aktifasi perusahaan"
 
 #: app/models/environment.rb:136
 msgid "Enterprises are disabled when created"
@@ -472,7 +483,7 @@ msgstr ""
 
 #: app/models/environment.rb:139
 msgid "Media panel in WYSIWYG editor"
-msgstr ""
+msgstr "Panel media di editor WYSIWYG"
 
 #: app/models/environment.rb:140
 msgid "Select preferred domains per profile"
@@ -4772,7 +4783,7 @@ msgstr ""
 
 #: app/views/layouts/_user.html.erb:10
 msgid "<span class='login'>%s</span>"
-msgstr ""
+msgstr "<span class='login'>%s</span>"
 
 #: app/views/layouts/_user.html.erb:18
 msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
