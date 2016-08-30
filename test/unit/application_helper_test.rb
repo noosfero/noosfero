@@ -973,10 +973,16 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should "show task information without target detail information on suggest article tasks if it's in the same profile" do
-    person = create_user('usertest').person
-    task = create(SuggestArticle, :target => person)
-    self.stubs(:params).returns({:profile => person.identifier})
-    assert_no_match /in.*#{person.name}/, task_information(task)
+    profile = fast_create(Community)
+    task = create(SuggestArticle, :target => profile)
+    assert_no_match /in.*#{profile.name}/, task_information(task, {:profile => profile.identifier})
+  end
+
+  should "show task information with target detail information on suggest article with profile parameter to another profile" do
+    profile = fast_create(Community)
+    another_profile = fast_create(Community)
+    task = create(SuggestArticle, :target => profile)
+    assert_match /in.*#{profile.name}/, task_information(task, {:profile => another_profile.identifier})
   end
 
   protected

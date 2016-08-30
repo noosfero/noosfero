@@ -2,7 +2,7 @@
   <%= render :partial => 'tasks/task_icon', :locals => {:task => task} %>
   <%= render :partial => 'tasks/task_title', :locals => {:task => task} %>
   <div class="task-information">
-    <%= task_information(task) %>
+    <%= task_information(task, params) %>
   </div>
 
   <%= yield %> <%# ??? %>

@@ -964,7 +964,7 @@ module ApplicationHelper
     content_tag(:div, _('Source: %s') % source_url, :id => 'article-source') unless source_url.nil?
   end
 
-  def task_information(task)
+  def task_information(task, params = {})
     values = {}
     values.merge!(task.information[:variables]) if task.information[:variables]
     values.merge!({:requestor => link_to(task.requestor.name, task.requestor.url)}) if task.requestor

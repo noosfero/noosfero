@@ -1,5 +1,5 @@
 <div class="title">
-  <%= task_information(task) %>
+  <%= task_information(task, params) %>
 </div>
 <div class="status">
   <%= _(Task::Status.names[task.status]) %>

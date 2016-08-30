@@ -47,7 +47,7 @@
 
 
   <div class="task_information">
-    <%= task_information(task) %>
+    <%= task_information(task, params) %>
   </div>
 
   <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
