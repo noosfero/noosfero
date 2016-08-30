@@ -9,9 +9,6 @@ class ApproveArticle < Task
       if target.person? && requestor != target
         self.errors.add(:requestor, _('You can not post articles to other users.'))
       end
-      if target.organization? && !target.members.include?(requestor) && target.environment.portal_community != target
-        self.errors.add(:requestor, _('Only members can post articles on communities.'))
-      end
     end
   end
 

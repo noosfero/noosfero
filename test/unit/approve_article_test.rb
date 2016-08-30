@@ -462,7 +462,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert t2.invalid?(:requestor)
   end
 
-  should 'allow only members to be requestors when target is a community' do
+  should 'allow anyone to be requestors when target is a community' do
     community = fast_create(Community)
     member = fast_create(Person)
     community.add_member(member)
@@ -472,8 +472,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     t2 = ApproveArticle.new(:requestor => non_member, :target => community)
 
     assert t1.valid?
-    assert !t2.valid?
-    assert t2.invalid?(:requestor)
+    assert t2.valid?
   end
 
   should 'allow any user to be requestor whe the target is the portal community' do
