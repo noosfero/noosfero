@@ -539,7 +539,7 @@ module ApplicationHelper
         )
       label_html = self.class.content_tag 'label', text,
                                         :class => 'formlabel'
-      control_html = self.class.content_tag 'div', html,
+      control_html = self.class.content_tag 'div', html.html_safe,
                                         :class => 'formfield type-radio '+
                                         'fieldgroup linesize'+line_size.to_s()
 
