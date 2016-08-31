@@ -545,12 +545,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal ["1 for b", "2 for c", "3 for a"], unique_with_count(%w(a b c a c a))
   end
 
-  should 'show task information with the requestor' do
-    person = create_user('usertest').person
-    task = create(Task, :requestor => person)
-    assert_match person.name, task_information(task)
-  end
-
   should 'return nil when :show_zoom_button_on_article_images is not enabled in environment' do
     env = Environment.default
     env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(false)
@@ -958,6 +952,37 @@ class ApplicationHelperTest < ActionView::TestCase
     refute current_editor_is?(nil)
     stubs(:current_editor).returns(Article::Editor::TINY_MCE)
     refute current_editor_is?(nil)
+  end
+
+  should 'show task information with the requestor' do
+    person = create_user('usertest').person
+    task = create(Task, :requestor => person)
+    assert_match person.name, task_information(task)
+  end
+
+  should 'show task information with variables information on suggest article tasks' do
+    person = create_user('usertest').person
+    task = create(SuggestArticle, :name => person.name, :target => person)
+    assert_match person.name, task_information(task)
+  end
+
+  should 'show task information with target detail information on suggest article tasks' do
+    person = create_user('usertest').person
+    task = create(SuggestArticle, :target => person)
+    assert_match /in.*#{person.name}/, task_information(task)
+  end
+
+  should "show task information without target detail information on suggest article tasks if it's in the same profile" do
+    profile = fast_create(Community)
+    task = create(SuggestArticle, :target => profile)
+    assert_no_match /in.*#{profile.name}/, task_information(task, {:profile => profile.identifier})
+  end
+
+  should "show task information with target detail information on suggest article with profile parameter to another profile" do
+    profile = fast_create(Community)
+    another_profile = fast_create(Community)
+    task = create(SuggestArticle, :target => profile)
+    assert_match /in.*#{profile.name}/, task_information(task, {:profile => another_profile.identifier})
   end
 
   protected
