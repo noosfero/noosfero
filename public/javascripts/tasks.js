@@ -9,8 +9,8 @@
     reject_container.hide('fast');
     $('#on-skip-information-'   + task_id).hide('fast');
     $('#custom-field-information-' + task_id).show('fast');
-    reject_container.find('input, select').prop('disabled', true);
-    accept_container.find('input, select').prop('disabled', false);
+    reject_container.find('input, select, textarea').prop('disabled', true);
+    accept_container.find('input, select, textarea').prop('disabled', false);
   })
 
   $("input.task_reject_radio").click(function(){
@@ -22,8 +22,8 @@
     reject_container.show('fast');
     $('#on-skip-information-'   + task_id).hide('fast');
     $('#custom-field-information-' + task_id).show('fast');
-    reject_container.find('input, select').prop('disabled', false);
-    accept_container.find('input, select').prop('disabled', true);
+    reject_container.find('input, select, textarea').prop('disabled', false);
+    accept_container.find('input, select, textarea').prop('disabled', true);
   })
 
   $("input.task_skip_radio").click(function(){
