@@ -39,7 +39,7 @@ module Api
     end
 
     def self.expose_optional_field?(field, options = {})
-      return false if options[:params].nil? 
+      return false if options[:params].nil?
       optional_fields = options[:params][:optional_fields] || []
       optional_fields.include?(field.to_s)
     end
@@ -159,6 +159,9 @@ module Api
       end
       expose :articles_count do |person, options|
         person.articles.count
+      end
+      expose :friends_count do |person, options|
+        person.friends.size
       end
     end
 
@@ -316,7 +319,7 @@ module Api
       end
       expose :params, :if => lambda { |activity, options| activity.kind_of?(ActionTracker::Record)}
       expose :content, :if => lambda { |activity, options| activity.kind_of?(Scrap)}
-      expose :verb do |activity, options| 
+      expose :verb do |activity, options|
         activity.kind_of?(Scrap) ? 'leave_scrap' : activity.verb
       end
 
