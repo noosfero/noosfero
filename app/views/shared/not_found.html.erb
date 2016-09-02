@@ -1,5 +1,5 @@
 <div id='not-found'>
-    <h1><%= _('There is no such page: %s') % (content_tag('tt', @path)) %></h1>
+    <h1><%= _('There is no such page: %s').html_safe % (content_tag('tt', @path)) %></h1>
     <p>
     <%= _('You may have clicked an expired link or mistyped the address.') %>
     <%= _('If you clicked a link that was in another site, or was given to you by someone else, it would be nice if you tell them that their link is not valid anymore.') %>
