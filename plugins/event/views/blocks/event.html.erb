@@ -20,7 +20,7 @@
           title: '<%= link_to(event.title, event.view_url) %>',
           description: '',
           datetime: new Date(<%= event.start_date.to_i %>000)
-        }
+        },
       <% end %>
       ]
     });
