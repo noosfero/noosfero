@@ -17,8 +17,10 @@
   </small>
 <% end %>
 
-<%= labelled_check_box(_('Only show future events'), "block[future_only]", "1", @block.future_only) %>
+<p><%= labelled_check_box(_('Only show future events'), "block[future_only]", "1", @block.future_only) %></p>
 
-<%= labelled_form_field _('Limit of days to display'),
-                        text_field(:block, :date_distance_limit, :size => 4) %>
+<p><%= labelled_check_box(_('Display as a calendar'), "block[display_as_calendar]", "1", @block.display_as_calendar) %></p>
+
+<p><%= labelled_form_field _('Limit of days to display'), text_field(:block, :date_distance_limit, :size => 4) %></p>
+
 <small class='event-plugin-config-tip'>(<%=_('Only show events in this interval of days.')%>)</small>

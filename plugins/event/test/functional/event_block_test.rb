@@ -60,4 +60,15 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ev + 'time.duration[itemprop="endDate"]', false
   end
 
+  should 'have different displays' do
+    @block.display_as_calendar = false
+    @block.save!
+    get :index
+    assert_select '.events-block', false
+
+    @block.display_as_calendar = true
+    @block.save!
+    get :index
+    assert_select '.events-block', true
+  end
 end

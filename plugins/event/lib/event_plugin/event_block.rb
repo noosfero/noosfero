@@ -1,10 +1,11 @@
 class EventPlugin::EventBlock < Block
-  attr_accessible :all_env_events, :limit, :future_only, :date_distance_limit
+  attr_accessible :all_env_events, :limit, :future_only, :date_distance_limit, :display_as_calendar
 
   settings_items :all_env_events, :type => :boolean, :default => false
   settings_items :limit, :type => :integer, :default => 4
   settings_items :future_only, :type => :boolean, :default => true
   settings_items :date_distance_limit, :type => :integer, :default => 0
+  settings_items :display_as_calendar, :type => :boolean, :default => false
 
   def self.description
     _('Events')
@@ -51,4 +52,11 @@ class EventPlugin::EventBlock < Block
       { :profile => [:article], :environment => [:article] }
   end
 
+  def api_content
+    content = []
+    events.each do |event|
+      content << { title: event.title, id: event.id, date: event.start_date.to_i * 1000, view_url: event.view_url }
+    end
+    { events: content }
+  end
 end
