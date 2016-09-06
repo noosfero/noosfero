@@ -2,7 +2,7 @@ class FavoriteEnterprisePerson < ApplicationRecord
 
   attr_accessible :person, :enterprise
 
-  track_actions :favorite_enterprise, :after_create, keep_params: [:enterprise_name, :enterprise_url], if: proc{ |f| f.is_trackable? }
+  track_actions :favorite_enterprise, :after_create, keep_params: [:enterprise_name, :enterprise_url], if: proc{ |f| f.notifiable? }
 
   belongs_to :enterprise
   belongs_to :person
@@ -13,7 +13,7 @@ class FavoriteEnterprisePerson < ApplicationRecord
 
   protected
 
-  def is_trackable?
+  def notifiable?
     self.enterprise.public?
   end
 

@@ -48,9 +48,9 @@ class ProductsPlugin::Product < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
-  track_actions :create_product, :after_create, keep_params: [:name, :url ], if: Proc.new { |a| a.is_trackable? }, custom_user: :action_tracker_user
-  track_actions :update_product, :before_update, keep_params: [:name, :url], if: Proc.new { |a| a.is_trackable? }, custom_user: :action_tracker_user
-  track_actions :remove_product, :before_destroy, keep_params: [:name], if: Proc.new { |a| a.is_trackable? }, custom_user: :action_tracker_user
+  track_actions :create_product, :after_create, keep_params: [:name, :url ], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
+  track_actions :update_product, :before_update, keep_params: [:name, :url], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
+  track_actions :remove_product, :before_destroy, keep_params: [:name], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
 
   validates_uniqueness_of :name, scope: :profile_id, allow_nil: true, if: :validate_uniqueness_of_column_name?
 
@@ -290,7 +290,7 @@ class ProductsPlugin::Product < ApplicationRecord
     true
   end
 
-  def is_trackable?
+  def notifiable?
     # shopping_cart create products without profile
     self.profile.present?
   end

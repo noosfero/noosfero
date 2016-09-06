@@ -11,7 +11,7 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
     tracked_action = ActionTracker::Record.find(tracked_action_id)
     return unless tracked_action.user.present?
     target = tracked_action.target
-    if target.is_a?(Community) && ( NOTIFY_ONLY_COMMUNITY.include?(tracked_action.verb) || ! target.public_profile )
+    if target.is_a?(Community) && NOTIFY_ONLY_COMMUNITY.include?(tracked_action.verb)
       ActionTrackerNotification.create(:profile_id => target.id, :action_tracker_id => tracked_action.id)
       return
     end

@@ -824,13 +824,14 @@ private :generate_url, :url_options
 
   # returns +true+ if the given +user+ can see profile information about this
   # +profile+, and +false+ otherwise.
-  def display_info_to?(user)
+  def display_info_to?(user = nil)
     if self.public?
       true
     else
       display_private_info_to?(user)
     end
   end
+  alias_method :display_to?, :display_info_to?
 
   after_save :update_category_from_region
   def update_category_from_region

@@ -319,13 +319,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_equal approved_article, ActionTracker::Record.last.target
   end
 
-  should "have the same is_trackable method as original article" do
-    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
-    a.finish
-
-    assert_equal article.is_trackable?, article.class.last.is_trackable?
-  end
-
   should 'not have target notification message if it is not a moderated oganization' do
     community.moderated_articles = false; community.save
     task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)

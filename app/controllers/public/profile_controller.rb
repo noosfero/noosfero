@@ -13,17 +13,13 @@ class ProfileController < PublicController
 
   protect 'send_mail_to_members', :profile, :only => [:send_mail]
 
+  ACTIVITIES_PER_PAGE = 15
+
   def index
-    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) : []
-    if logged_in? && current_person.follows?(@profile)
-      @network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) if @network_activities.empty?
-      @activities = @profile.activities.paginate(:per_page => 15, :page => params[:page])
-    end
-
-    # TODO Find a way to filter these through sql
-    @network_activities = filter_private_scraps(@network_activities)
-    @activities = filter_private_scraps(@activities)
-
+    @offsets = {:wall => 0, :network => 0}
+    page = (params[:page] || 1).to_i
+    @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if !@profile.is_a?(Person) || follow_profile?
+    @activities = loop_fetch_activities(@profile.activities, :wall, page) if follow_profile?
     @tags = profile.article_tags
     allow_access_to_page
   end
@@ -255,7 +251,7 @@ class ProfileController < PublicController
       render :partial => 'profile_activities_list', :locals => {:activities => activities}
     else
       network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page])
-      render :partial => 'profile_network_activities', :locals => {:network_activities => network_activities}
+      render :partial => 'profile_network_activities', :locals => {:activities => network_activities}
     end
   end
 
@@ -267,14 +263,32 @@ class ProfileController < PublicController
     render :text => prepare_to_token_input_by_class(result).to_json
   end
 
-  def view_more_activities
-    @activities = @profile.activities.paginate(:per_page => 10, :page => params[:page])
-    render :partial => 'profile_activities_list', :locals => {:activities => @activities}
+  def loop_fetch_activities(base_activities, kind, page)
+    activities = nil
+    while activities.nil? || (activities.empty? && page <= activities.total_pages)
+      activities = base_activities.offset(@offsets[kind.to_sym]).paginate(:per_page => ACTIVITIES_PER_PAGE, :page => page)
+      activities = filter_activities(activities, kind.to_sym)
+      page += 1
+    end
+    activities
   end
 
-  def view_more_network_activities
-    @activities = @profile.tracked_notifications.paginate(:per_page => 10, :page => params[:page])
-    render :partial => 'profile_network_activities', :locals => {:network_activities => @activities}
+  def view_more_activities
+    @activities = nil
+    @offsets = params[:offsets]
+    page = (params[:page] || 1).to_i
+    kind = params[:kind]
+
+    if kind == 'wall'
+      base_activities = @profile.activities
+      partial = 'profile_activities_list'
+    else
+      base_activities = @profile.tracked_notifications
+      partial = 'profile_network_activities'
+    end
+
+    @activities = loop_fetch_activities(base_activities, kind, page)
+    render :partial => partial, :locals => {:activities => @activities}
   end
 
   def more_comments
@@ -510,22 +524,22 @@ class ProfileController < PublicController
     followed.uniq
   end
 
-  def filter_private_scraps(activities)
+  def filter_activities(activities, kind)
+    @offsets ||= {:wall => 0, :network => 0}
+    return activities if environment.admins.include?(user)
     activities = Array(activities)
-    activities.delete_if do |item|
-      if item.kind_of?(ProfileActivity)
-        target = item.activity
-        owner = profile
-      else
-        target = item.target
-        owner = item.user
-      end
-      !environment.admins.include?(user) &&
-      owner != user &&
-      target.is_a?(Scrap) &&
-      target.marked_people.present? &&
-      !target.marked_people.include?(user)
+    initial_count = activities.count
+    activities.delete_if do |activity|
+      activity = ActivityPresenter.for(activity)
+      next if activity.involved?(user)
+      activity.hidden_for?(user)
     end
+    @offsets[kind] = @offsets[kind].to_i
+    @offsets[kind] += initial_count - activities.count
     activities
+  end
+
+  def follow_profile?
+    logged_in? && current_person.follows?(@profile)
   end
 end

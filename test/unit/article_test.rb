@@ -1044,34 +1044,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal profile, article.action_tracker_target
   end
 
-  should "have defined the is_trackable method defined" do
-    assert Article.method_defined?(:is_trackable?)
-  end
-
-  should "the common trackable conditions return the correct value" do
-    a =  Article.new
-    a.published = a.advertise = true
-    assert_equal true, a.published?
-    assert_equal false, a.notifiable?
-    assert_equal true, a.advertise?
-    assert_equal false, a.is_trackable?
-
-    a.published=false
-    assert_equal false, a.published?
-    assert_equal false, a.is_trackable?
-
-    a.published=true
-    a.advertise=false
-    assert_equal false, a.advertise?
-    assert_equal false, a.is_trackable?
-  end
-
-  should "not be trackable if article is inside a private community" do
-    private_community = fast_create(Community, :public_profile => false)
-    a =  fast_create(TextArticle, :profile_id => private_community.id)
-    assert_equal false, a.is_trackable?
-  end
-
   should 'create the notification to organization and all organization members' do
     Profile.destroy_all
     ActionTracker::Record.destroy_all

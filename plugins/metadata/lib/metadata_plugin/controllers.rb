@@ -8,8 +8,8 @@ class MetadataPlugin::Controllers
     lambda do
       if profile and @page and profile.home_page_id == @page.id
         @profile
-      elsif @page.respond_to? :encapsulated_file
-        @page.encapsulated_file
+      elsif @page.respond_to? :encapsulated_instance
+        @page.encapsulated_instance
       else
         @page
       end

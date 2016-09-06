@@ -1,8 +1,8 @@
-<% network_activities.each do |activity| %>
+<% activities.each do |activity| %>
   <%= render :partial => 'profile_activity', :locals => { :activity => activity, :tab_action => 'network' } if activity.visible? %>
 <% end %>
-<% if network_activities.current_page < network_activities.total_pages %>
-  <div id='profile_network_activities_page_<%= network_activities.current_page %>'>
-    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_network_activities', :page => (network_activities.current_page + 1)}, :update => "profile_network_activities_page_#{network_activities.current_page}" %>
+<% if activities.current_page < activities.total_pages %>
+  <div id='profile_network_activities_page_<%= activities.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (activities.current_page + 1), :offsets => @offsets, :kind => 'network'}, :update => "profile_network_activities_page_#{activities.current_page}" %>
   </div>
 <% end %>

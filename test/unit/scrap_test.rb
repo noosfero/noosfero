@@ -313,4 +313,20 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal s, p2.activities.first.activity
   end
 
+  should 'display to anyone if nobody marked' do
+    assert Scrap.new.display_to?(fast_create(Person))
+  end
+
+  should 'display only to marked people' do
+    scrap = Scrap.new
+    u1 = mock
+    u2 = mock
+    u3 = mock
+    scrap.stubs(:marked_people).returns([u1, u3])
+
+    assert scrap.display_to?(u1)
+    refute scrap.display_to?(u2)
+    assert scrap.display_to?(u3)
+  end
+
 end

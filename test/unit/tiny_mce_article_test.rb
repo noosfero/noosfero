@@ -162,38 +162,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_equal article, ActionTracker::Record.last.target
   end
 
-  should 'not notify activity if the article is not advertise' do
-    ActionTracker::Record.delete_all
-    a = create TextArticle, name: 'bar', profile_id: profile.id, published: true, advertise: false
-    assert_equal true, a.published?
-    assert_equal true, a.notifiable?
-    assert_equal false, a.image?
-    assert_equal false, a.profile.is_a?(Community)
-    assert_equal 0, ActionTracker::Record.count
-  end
-
-  should "have defined the is_trackable method defined" do
-    assert TextArticle.method_defined?(:is_trackable?)
-  end
-
-  should "the common trackable conditions return the correct value" do
-    a =  build(TextArticle, :profile => profile)
-    a.published = a.advertise = true
-    assert_equal true, a.published?
-    assert_equal true, a.notifiable?
-    assert_equal true, a.advertise?
-    assert_equal true, a.is_trackable?
-
-    a.published=false
-    assert_equal false, a.published?
-    assert_equal false, a.is_trackable?
-
-    a.published=true
-    a.advertise=false
-    assert_equal false, a.advertise?
-    assert_equal false, a.is_trackable?
-  end
-
   should 'not sanitize html5 audio tag on body' do
     article = TextArticle.create!(:name => 'html5 audio', :body => "Audio: <audio controls='controls'><source src='http://example.ogg' type='audio/ogg' />Audio not playing?.</audio>", :profile => profile)
     assert_tag_in_string article.body, :tag => 'audio', :attributes => {:controls => 'controls'}

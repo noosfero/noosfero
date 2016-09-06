@@ -63,7 +63,7 @@ class Article < ApplicationRecord
     _('Content')
   end
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
 
   # xss_terminate plugin can't sanitize array fields
   # sanitize_tag_list is used with SanitizeHelper
@@ -181,10 +181,6 @@ class Article < ApplicationRecord
       end
       current_parent = current_parent.parent
     end
-  end
-
-  def is_trackable?
-    self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
   end
 
   def external_link=(link)
@@ -845,7 +841,7 @@ class Article < ApplicationRecord
   end
 
   def create_activity
-    if is_trackable? && !image?
+    if notifiable? && !image?
       save_action_for_verb 'create_article', [:name, :url, :lead, :first_image], Proc.new{}, :author
     end
   end
