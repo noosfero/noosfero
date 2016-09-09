@@ -5,71 +5,51 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
   def setup
     @auth = mock
     @auth.stubs(:info).returns(mock)
+    @auth.info.stubs(:email).returns("user@email.com")
+    @auth.info.stubs(:name).returns("User")
+    @auth.info.stubs(:nickname).returns("user")
+    @auth.info.stubs(:image).returns("url.to.image.com")
+    @auth.stubs(:provider).returns("testprovider")
+    @auth.stubs(:uid).returns("jh12j3h12kjh312")
+
     request.env["omniauth.auth"] = @auth
     @environment = Environment.default
-    @provider = OauthClientPlugin::Provider.create!(:name => 'provider', :strategy => 'provider', :enabled => true)
+    @provider = OauthClientPlugin::Provider.create!(:name => 'provider', :strategy => 'github', :enabled => true)
+
+    session[:provider_id] = provider.id
   end
   attr_reader :auth, :environment, :provider
 
   should 'redirect to signup when user is not found' do
-    auth.info.stubs(:email).returns("xyz123@noosfero.org")
-    auth.info.stubs(:name).returns('xyz123')
-    session[:provider_id] = provider.id
-
     get :callback
     assert_match /.*\/account\/signup/, @response.redirect_url
   end
 
-  should 'redirect to login when user is found' do
-    user = create_user
-    auth.info.stubs(:email).returns(user.email)
-    auth.info.stubs(:name).returns(user.name)
-    session[:provider_id] = provider.id
+  should 'login when user already signed up' do
+    create_user(@auth.info.name, email: @auth.info.email)
 
     get :callback
-    assert_redirected_to :controller => :account, :action => :login
-    assert_equal user.id, session[:user]
+    assert session[:user].present?
   end
 
-  should 'do not login when the provider is disabled' do
-    user = create_user
-    auth.info.stubs(:email).returns(user.email)
-    auth.info.stubs(:name).returns(user.name)
-    session[:provider_id] = provider.id
+  should 'not login when user already signed up and the provider is disabled' do
+    create_user(@auth.info.name, email: @auth.info.email)
     provider.update_attribute(:enabled, false)
 
     get :callback
-    assert_redirected_to :controller => :account, :action => :login
-    assert_equal nil, session[:user]
+    assert session[:user].nil?
   end
 
-  should 'do not login when the provider is disabled for a user' do
-    user = create_user
-    auth.info.stubs(:email).returns(user.email)
-    auth.info.stubs(:name).returns(user.name)
-    session[:provider_id] = provider.id
-    user.person.oauth_auths.create!(profile: user.person, provider: provider, enabled: false)
+  should 'not login when user already signed up and the provider is disabled for him' do
+    create_user(@auth.info.name, email: @auth.info.email)
+    OauthClientPlugin::Auth.any_instance.stubs(:enabled?).returns(false)
 
     get :callback
-    assert_redirected_to :controller => :account, :action => :login
-    assert_equal nil, session[:user]
+    assert session[:user].nil?
   end
 
-  should 'save provider when an user login with it' do
-    user = create_user
-    auth.info.stubs(:email).returns(user.email)
-    auth.info.stubs(:name).returns(user.name)
-    session[:provider_id] = provider.id
-
-    get :callback
-    assert_equal [provider], user.oauth_providers
-  end
-
-  should 'do not duplicate relations between an user and a provider when the same provider was used again in a login' do
-    user = create_user
-    auth.info.stubs(:email).returns(user.email)
-    auth.info.stubs(:name).returns(user.name)
-    session[:provider_id] = provider.id
+  should 'not duplicate oauth_auths when the same provider is used several times' do
+    user = create_user(@auth.info.name, email: @auth.info.email)
 
     get :callback
     assert_no_difference 'user.oauth_auths.count' do
@@ -77,4 +57,45 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
     end
   end
 
+  should 'perform external login using provider when url param is present' do
+    request.env["omniauth.params"] = {"action" => "external_login"}
+
+    get :callback
+    assert_redirected_to :controller => :account, :action => :login
+    assert session[:external].present?
+  end
+
+  should 'not create an user when performing external login' do
+    request.env["omniauth.params"] = {"action" => "external_login"}
+
+    assert_no_difference 'User.count' do
+      get :callback
+    end
+  end
+
+  should 'not perform external login when the provider is disabled' do
+    request.env["omniauth.params"] = {"action" => "external_login"}
+    provider.update_attribute(:enabled, false)
+
+    get :callback
+    assert_redirected_to :controller => :account, :action => :login
+    assert session[:external].nil?
+  end
+
+  should 'not perform external login when the provider is disabled for a user' do
+    request.env["omniauth.params"] = {"action" => "external_login"}
+    OauthClientPlugin::GithubAuth.any_instance.stubs(:enabled?).returns(false)
+
+    get :callback
+    assert_redirected_to :controller => :account, :action => :login
+    assert session[:external].nil?
+  end
+
+  should 'save provider when an external person logs in with it' do
+    request.env["omniauth.params"] = {"action" => "external_login"}
+
+    get :callback
+    external_person = OauthClientPlugin::OauthExternalPerson.find_by(identifier: auth.info.nickname)
+    assert_equal provider, external_person.oauth_auth.provider
+  end
 end

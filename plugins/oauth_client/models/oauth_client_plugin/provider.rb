@@ -4,6 +4,8 @@ class OauthClientPlugin::Provider < ApplicationRecord
 
   validates_presence_of :name, :strategy
 
+  validate :noosfero_provider_must_have_a_site
+
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
@@ -19,4 +21,9 @@ class OauthClientPlugin::Provider < ApplicationRecord
 
   scope :enabled, -> { where enabled: true }
 
+  def noosfero_provider_must_have_a_site
+    if self.strategy == 'noosfero_oauth2' && (self.client_options.nil? || self.client_options[:site].blank?)
+      self.errors.add(:site, "A Noosfero provider must have a site")
+    end
+  end
 end

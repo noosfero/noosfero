@@ -1,6 +1,7 @@
 class OauthClientPluginAdminController < AdminController
 
   def index
+    @config = OauthClientPlugin::Configuration.instance
   end
 
   def new
@@ -13,6 +14,11 @@ class OauthClientPluginAdminController < AdminController
     redirect_to :action => 'index'
   end
 
+  def update_configs
+    OauthClientPlugin::Configuration.instance.update_attributes(params[:oauth_client_config])
+    redirect_to :action => 'index'
+  end
+
   def edit
     @provider = params[:id] ? environment.oauth_providers.find(params[:id]) : environment.oauth_providers.new
     if request.post?
@@ -22,6 +28,10 @@ class OauthClientPluginAdminController < AdminController
         session[:notice] = _('Error!')
       end
     end
+  end
+
+  def edit_login_option
+    option = params['oauth_client_plugin_option']
   end
 
 end

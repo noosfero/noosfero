@@ -1,0 +1,5 @@
+<% providers.each do |provider| %>
+  <span class="provider">
+    <%= link_to provider.image ? image_tag(provider.image.public_filename) : provider.name, "/plugin/oauth_client/#{provider.strategy}?id=#{provider.id}&action=#{action}", :class => provider.strategy, :title => provider.name %>
+  </span>
+<% end %>

@@ -8,7 +8,7 @@
   </div>
 
   <div class="name">
-    <%= labelled_form_field _('Name'), f.text_field(:name) %>
+    <%= required labelled_form_field _('Name'), f.text_field(:name) %>
   </div>
 
   <div class="strategy">
@@ -27,8 +27,10 @@
     <%= labelled_form_field _('Client Secret'), f.text_field(:client_secret) %>
   </div>
 
-  <% if File.exists?(File.join(File.dirname(__FILE__), "_#{@provider.strategy}.html.erb")) %>
-    <%= render :partial => "#{@provider.strategy}", :locals => {:f => f, :provider => @provider} %>
+  <%= f.fields_for :client_options, OpenStruct.new(@provider.options[:client_options]) do |c| %>
+    <div class="client-url <%= "required-field" if @provider.strategy == "noosfero_oauth2" %>" title="<%= _("The service URL. If this value is informed, it will be used to identify the users, replacing the provider name") %>">
+      <%= labelled_form_field _('Client Url'), c.text_field(:site) %>
+    </div>
   <% end %>
 
   <div class="image-icon">
