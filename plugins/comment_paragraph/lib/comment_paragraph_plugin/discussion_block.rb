@@ -22,7 +22,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
 
   def discussions
     current_time = Time.now
-    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date ASC, end_date DESC, created_at DESC').limit(self.total_items)
+    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date ASC, end_date ASC, created_at DESC').limit(self.total_items)
     case discussion_status
     when STATUS_NOT_OPENED
       discussions = discussions.where("start_date > ?", current_time)

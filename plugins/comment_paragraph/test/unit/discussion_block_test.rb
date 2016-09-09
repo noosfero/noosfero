@@ -79,6 +79,21 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_equivalent [a1, a2], b.discussions
   end
 
+  should 'return only not opened discussions if discussion status is not opened odered by end_date' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_NOT_OPENED
+    b.save
+    current_date = DateTime.now + 1
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 4.day)
+    assert_equal [a3, a2, a4, a1], b.discussions
+  end
+
   should 'return only not opened discussions if discussion status is not opened' do
     community = fast_create(Community)
     community.boxes << Box.new
@@ -108,6 +123,21 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_equivalent [a2, a3, a5], b.discussions
   end
 
+  should 'return only available discussions if discussion status is available odered by end_date' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_AVAILABLE
+    b.save
+    current_date = DateTime.now
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 4.day)
+    assert_equal [a3, a2, a4, a1], b.discussions
+  end
+
   should 'return only closed discussions if discussion status is closed' do
     community = fast_create(Community)
     community.boxes << Box.new
@@ -120,6 +150,21 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 1.day)
     a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 2.day, :end_date => DateTime.now - 1.day)
     assert_equivalent [a4], b.discussions
+  end
+
+  should 'return only closed discussions if discussion status is closed odered by end_date' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_CLOSED
+    b.save
+    current_date = DateTime.now - 10
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 4.day)
+    assert_equal [a1, a4, a2, a3], b.discussions
   end
 
 end

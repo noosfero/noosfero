@@ -49,7 +49,8 @@ class Article
         commentable.inner_html = paragraph.inner_html
         paragraph.inner_html = commentable
       end
-      self.body = doc.at('body').inner_html
+      doc_body =  doc.at('body')
+      self.body = doc_body.inner_html if doc_body
     end
   end
 
