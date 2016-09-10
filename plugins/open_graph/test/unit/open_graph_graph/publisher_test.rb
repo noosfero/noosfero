@@ -54,12 +54,12 @@ class OpenGraphPlugin::PublisherTest < ActiveSupport::TestCase
     blog_post = TextArticle.create! profile: user, parent: blog, name: 'blah', author: user
     assert_last_activity user, :create_an_article, url_for(blog_post)
 
+    document = UploadedFile.create! uploaded_data: fixture_file_upload('/files/doctest.en.xhtml', 'text/html'), profile: user
+    assert_last_activity user, :add_a_document, url_for(document, document.url.merge(view: true))
+
     gallery = Gallery.create! name: 'gallery', profile: user
     image = UploadedFile.create! uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'), parent: gallery, profile: user
     assert_last_activity user, :add_an_image, url_for(image, image.url.merge(view: true))
-
-    document = UploadedFile.create! uploaded_data: fixture_file_upload('/files/doctest.en.xhtml', 'text/html'), profile: user
-    assert_last_activity user, :add_a_document, url_for(document, document.url.merge(view: true))
 
     event = Event.create! name: 'event', profile: user
     assert_last_activity user, :create_an_event, url_for(event)

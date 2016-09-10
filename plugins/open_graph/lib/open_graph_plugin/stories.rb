@@ -28,11 +28,9 @@ class OpenGraphPlugin::Stories
       models: :UploadedFile,
       on: :create,
       criteria: proc do |article, actor|
-        article.is_a? UploadedFile
+        article.is_a? UploadedFile and not article.image?
       end,
       publish_if: proc do |uploaded_file, actor|
-        # done in add_an_image
-        next false if uploaded_file.image?
         uploaded_file.published?
       end,
       object_data_url: proc do |uploaded_file, actor|
@@ -49,10 +47,10 @@ class OpenGraphPlugin::Stories
       models: :UploadedFile,
       on: :create,
       criteria: proc do |article, actor|
-        article.is_a? UploadedFile
+        article.is_a? UploadedFile and article.image?
       end,
       publish_if: proc do |uploaded_file, actor|
-        uploaded_file.image? and uploaded_file.parent.is_a? Gallery
+        uploaded_file.published? and uploaded_file.parent.is_a? Gallery
       end,
       object_data_url: proc do |uploaded_file, actor|
         uploaded_file.url.merge view: true
