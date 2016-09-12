@@ -12,11 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"plugin-recent-content/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/plugin"
+"-recent-content/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,70 +23,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#: plugins/recent_content/lib/recent_content_plugin.rb:10
 msgid ""
-"A plugin that adds a block where you can display the content of any of your "
-"blogs."
+"This block displays all articles inside the blog you choose. You can edit the "
+"block to select which of your blogs is going to be displayed in the block."
 msgstr ""
-"Um plugin que adiciona blocos onde você pode mostrar o conteúdo de qualquer "
-"um dos seus blogs."
+"Esse bloco apresenta todos os conteúdos do blog escolhido. Você pode editar es"
+"se bloco para escolher qual dos seus blogs será mostrado nele."
 
-#: plugins/recent_content/lib/recent_content_block.rb:17
 msgid ""
-"This block displays all articles inside the blog you choose. You can edit "
-"the block to select which of your blogs is going to be displayed in the "
-"block."
+"A plugin that adds a block where you can display the content of any of your bl"
+"ogs."
 msgstr ""
-"Esse bloco apresenta todos os conteúdos do blog escolhido. Você pode editar "
-"esse bloco para escolher qual dos seus blogs será mostrado nele."
+"Um plugin que adiciona blocos onde você pode mostrar o conteúdo de qualquer um"
+" dos seus blogs."
 
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:3
-msgid "No blogs found. Please add a blog in order to configure this block."
-msgstr ""
-"Nenhum blog encontrado. Por favor adicione um blog para configurar esse "
-"bloco."
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:6
-msgid "Choose which blog should be displayed"
-msgstr "Escolha qual blog deve ser mostrado"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:14
-msgid "Choose how the content should be displayed"
-msgstr "Escolha como o conteúdo deve ser mostrado"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:19
-msgid "Title only"
-msgstr "Somente título"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:20
-msgid "Title and abstract"
-msgstr "Título e resumo"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:21
-msgid "Full content"
-msgstr "Conteúdo completo"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:28
-msgid "Choose how many items will be displayed"
-msgstr "Escolha quantos itens devem ser mostrados"
-
-#: plugins/recent_content/views/box_organizer/_recent_content_block.html.erb:33
-msgid "Display blog cover image"
-msgstr "Mostrar imagem de capa do blog"
-
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:26
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:35
 msgid "Read more"
 msgstr "Leia mais"
 
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:39
 msgid "View All"
 msgstr "Ver Todos(as)"
 
-#: plugins/recent_content/views/blocks/recent_content_block.html.erb:43
-msgid ""
-"This is the recent content block. Please edit it to show the content you "
-"want."
+msgid "This is the recent content block. Please edit it to show the content you want."
 msgstr ""
-"Esse é o bloco de conteúdo recente. Por favor edite-o para mostrar o "
-"conteúdo que você deseja."
+"Esse é o bloco de conteúdo recente. Por favor edite-o para mostrar o conteúdo "
+"que você deseja."
+
+msgid "No blogs found. Please add a blog in order to configure this block."
+msgstr "Nenhum blog encontrado. Por favor adicione um blog para configurar esse bloco."
+
+msgid "Choose which blog should be displayed"
+msgstr "Escolha qual blog deve ser mostrado"
+
+msgid "Choose how the content should be displayed"
+msgstr "Escolha como o conteúdo deve ser mostrado"
+
+msgid "Title only"
+msgstr "Somente título"
+
+msgid "Title and abstract"
+msgstr "Título e resumo"
+
+msgid "Full content"
+msgstr "Conteúdo completo"
+
+msgid "Choose how many items will be displayed"
+msgstr "Escolha quantos itens devem ser mostrados"
+
+msgid "Display blog cover image"
+msgstr "Mostrar imagem de capa do blog"

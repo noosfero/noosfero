@@ -9,8 +9,8 @@ msgstr ""
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
 "PO-Revision-Date: 2016-08-19 22:29+0000\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
-"Language-Team: Portuguese "
-"<https://hosted.weblate.org/projects/noosfero/documentation/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"documentation/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,8 +222,8 @@ msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
 msgstr ""
-"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class=\""
-"caps\">HTML</span>."
+"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class="
+"\"caps\">HTML</span>."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -325,8 +325,8 @@ msgid ""
 "&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
 "span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 msgstr ""
-"&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\""
-">PUT</span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
+"&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
+"span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
@@ -2398,8 +2398,8 @@ msgid ""
 msgstr ""
 "<strong>Editar código fonte:</strong> o texto escrito nesse editor é "
 "transformado em código HTML, para poder ser visualizado nos navegadores. "
-"Utilize esse botão para visualizar/editar o código <span class=\"caps\""
-">HTML</span> do seu cabeçalho/rodapé."
+"Utilize esse botão para visualizar/editar o código <span class=\"caps"
+"\">HTML</span> do seu cabeçalho/rodapé."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -2774,9 +2774,9 @@ msgid ""
 msgstr ""
 "<strong>Leitor de Feed:</strong> Este bloco pode ser utilizado para listar "
 "as últimas notícias de qualquer site que desejar. Você só precisa informar o "
-"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão "
-"&#8220;Editar&#8221;. Você também pode selecionar o número de itens que "
-"serão mostrados."
+"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão &#8220;"
+"Editar&#8221;. Você também pode selecionar o número de itens que serão "
+"mostrados."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -8279,8 +8279,8 @@ msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article "
 "(inserting images, links, videos and audio)</a>"
 msgstr ""
-"<a href=\"/doc/cms/writing-advanced-article\">Escrever um artigo "
-"avançado(inserindo imagens, links, vídeos e áudio)</a>"
+"<a href=\"/doc/cms/writing-advanced-article\">Escrever um artigo avançado"
+"(inserindo imagens, links, vídeos e áudio)</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>

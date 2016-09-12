@@ -12,11 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/noosfe"
+"ro/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,22 +23,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: plugins/anti_spam/lib/anti_spam_plugin.rb:8
 msgid ""
-"Tests comments and suggested articles against a spam checking service "
-"compatible with the Akismet API"
+"Tests comments and suggested articles against a spam checking service compatib"
+"le with the Akismet API"
 msgstr ""
-"Testa comentários e sugestões de artigo contra um serviço de verificação de "
-"spams compatível com a API Akismet"
+"Testa comentários e sugestões de artigo contra um serviço de verificação de sp"
+"ams compatível com a API Akismet"
 
-#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:1
 msgid "AntiSpam settings"
 msgstr "Configurações de AntiSpam"
 
-#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:5
 msgid "Host"
 msgstr "Host"
 
-#: plugins/anti_spam/views/anti_spam_plugin_admin/index.html.erb:7
 msgid "API key"
 msgstr "Chave da API"

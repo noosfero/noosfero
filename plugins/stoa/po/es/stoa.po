@@ -6,11 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
 "PO-Revision-Date: 2014-11-03 15:52+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,92 +17,71 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-#: plugins/stoa/lib/stoa_plugin.rb:10
-msgid "Add Stoa features"
-msgstr "Añadir características Stoa"
+msgid "Incorrect user/password pair."
+msgstr "Nombre de usuario o contraseña incorrecta."
 
-#: plugins/stoa/lib/stoa_plugin.rb:19 plugins/stoa/lib/stoa_plugin.rb:35
-msgid "USP number"
-msgstr "Numero de USP"
-
-#: plugins/stoa/lib/stoa_plugin.rb:20
 #, fuzzy
-msgid ""
-"The usp id grants you special powers in the network. Don't forget to fill it "
-"with a valid number if you have one."
-msgstr ""
-"El identificador usp te otorga poderes especiales en la red. No te olvides "
-"de llenarlo si tienes uno."
+msgid "Conection requires post method."
+msgstr "La conexión requiere certificación SSL y el método post."
 
-#: plugins/stoa/lib/stoa_plugin.rb:21
-msgid "Either this usp number is being used by another user or is not valid"
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:22
-msgid "Checking usp number..."
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:38
-msgid "Birth date (yyyy-mm-dd)"
-msgstr "Fecha de nacimiento (yyyy-mm-dd)"
-
-#: plugins/stoa/lib/stoa_plugin.rb:24
-msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:39
-msgid "CPF"
-msgstr "CPF"
-
-#: plugins/stoa/lib/stoa_plugin.rb:26
-#, fuzzy
-msgid "Confirm your CPF number."
-msgstr "Confirma tu nueva contraseña"
-
-#: plugins/stoa/lib/stoa_plugin.rb:36
-msgid ""
-"The usp id grants you special powers in the network. Don't forget to fill it "
-"if you have one."
-msgstr ""
-"El identificador usp te otorga poderes especiales en la red. No te olvides "
-"de llenarlo si tienes uno."
-
-#: plugins/stoa/lib/stoa_plugin.rb:37
-#, fuzzy
-msgid "This field must be private"
-msgstr "Este archivo no puede ser guardado"
-
-#: plugins/stoa/lib/stoa_plugin.rb:47
-#, fuzzy
-msgid "USP number / Username"
-msgstr "Numero de USP"
-
-#: plugins/stoa/lib/stoa_plugin.rb:71 plugins/stoa/lib/stoa_plugin.rb:90
-msgid " validation failed"
-msgstr " la validación falló"
-
-#: plugins/stoa/lib/stoa_plugin.rb:122 plugins/stoa/lib/stoa_plugin.rb:126
-#: plugins/stoa/lib/ext/person.rb:6
 #, fuzzy
 msgid "USP Number"
 msgstr "Numero de USP"
 
-#: plugins/stoa/lib/ext/profile_suggestion.rb:5
-msgid "Classroom in common"
-msgstr ""
-
-#: plugins/stoa/lib/ext/person.rb:18
 #, fuzzy
 msgid "is being used by another user or is not valid"
 msgstr "%{fn} ya está siendo usado por otra categoría."
 
-#: plugins/stoa/lib/stoa_plugin/auth.rb:26
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:21
-msgid "Incorrect user/password pair."
-msgstr "Nombre de usuario o contraseña incorrecta."
+msgid "Classroom in common"
+msgstr ""
 
-#: plugins/stoa/lib/stoa_plugin/auth.rb:33
-#: plugins/stoa/controllers/stoa_plugin_controller.rb:25
+msgid "Add Stoa features"
+msgstr "Añadir características Stoa"
+
+msgid "USP number"
+msgstr "Numero de USP"
+
 #, fuzzy
-msgid "Conection requires post method."
-msgstr "La conexión requiere certificación SSL y el método post."
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it w"
+"ith a valid number if you have one."
+msgstr ""
+"El identificador usp te otorga poderes especiales en la red. No te olvides de "
+"llenarlo si tienes uno."
+
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr ""
+
+msgid "Checking usp number..."
+msgstr ""
+
+msgid "Birth date (yyyy-mm-dd)"
+msgstr "Fecha de nacimiento (yyyy-mm-dd)"
+
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr ""
+
+msgid "CPF"
+msgstr "CPF"
+
+#, fuzzy
+msgid "Confirm your CPF number."
+msgstr "Confirma tu nueva contraseña"
+
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it i"
+"f you have one."
+msgstr ""
+"El identificador usp te otorga poderes especiales en la red. No te olvides de "
+"llenarlo si tienes uno."
+
+#, fuzzy
+msgid "This field must be private"
+msgstr "Este archivo no puede ser guardado"
+
+#, fuzzy
+msgid "USP number / Username"
+msgstr "Numero de USP"
+
+msgid " validation failed"
+msgstr " la validación falló"

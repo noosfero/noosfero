@@ -12,11 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2016-08-19 19:54+0000\n"
 "PO-Revision-Date: 2016-08-19 21:45+0000\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
-"/plugin-html5-video/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/plugin"
+"-html5-video/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,135 +23,102 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.8-dev\n"
 
-#: ../lib/html5_video_plugin.rb:16
 msgid "A plugin to enable the video suport, with auto conversion for the web."
 msgstr ""
-"Um plugin para habilitar o suporte de video, com conversão automática para a "
-"web."
+"Um plugin para habilitar o suporte de video, com conversão automática para a w"
+"eb."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:26
 msgid "Unknow error"
 msgstr "Erro desconhecido"
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:29
 msgid "No such file or directory \"%s\"."
 msgstr "O arquivo ou diretório \"%s\" não existe."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:32
 msgid "No output defined."
 msgstr "Sem saída definida."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:35
 msgid "Unknown encoder \"%s\"."
 msgstr "Codificador \"%s\" desconhecido."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:38
 msgid ""
 "Error while opening encoder for output - maybe incorrect parameters such as bi"
 "t rate, frame rate, width or height."
 msgstr ""
-"Erro enquanto abria o codificador para gerar a saída - talvez por parâmetros "
-"incorretos como bit rate, frame rate, largura ou altura."
+"Erro enquanto abria o codificador para gerar a saída - talvez por parâmetros i"
+"ncorretos como bit rate, frame rate, largura ou altura."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:41
 msgid "Could not open \"%s\"."
 msgstr "Não pude abrir \"%s\"."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:44
 msgid "Unsupported codec %{codec} for %{act} stream %{id}."
 msgstr "Codec %{codec} não suportado para %{act} no fluxo %{id}."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:48
 msgid "Unable to find a suitable output format for %{file}."
 msgstr "Incapaz de encontrar um formato de saída adequado para %{file}."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:52
 msgid "Invalid data found when processing input."
 msgstr "Foi encontrado um dado inválido enquanto processava a entrada."
 
-#: ../lib/html5_video_plugin/ffmpeg.rb:190
 msgid "Success."
 msgstr "Sucesso."
 
-#: ../lib/html5_video_plugin/video_channel.rb:4
 msgid "Video Channel"
 msgstr "Canal de Vídeo"
 
-#: ../lib/html5_video_plugin/video_channel.rb:8
 msgid "A video channel, where you can make your own web TV."
 msgstr "Um canal de vídeo, no qual você pode criar sua própria TV na web."
 
-#: ../lib/presenters/video.rb:9
 msgid "Video (%s)"
 msgstr "Vídeo (%s)"
 
-#: ../lib/presenters/video.rb:137
 msgid "Undefined"
 msgstr "Indefinido"
 
-#: ../views/content_viewer/_video_player.html.erb:21
 msgid "Sorry, your browser doesn&rsquo;t support video."
 msgstr "Desculpe, o seu navegador não tem suporte a vídeo."
 
-#: ../views/content_viewer/_video_player.html.erb:22
 msgid "Please try the new %s or %s."
 msgstr "Por favor tente o novo %s ou %s."
 
-#: ../views/content_viewer/_video_player.html.erb:27
 msgid "Download"
 msgstr "Baixar"
 
-#: ../views/content_viewer/video_channel.html.erb:7
 msgid "This channel contains no videos yet"
 msgstr "Este canal ainda não contém vídeos"
 
-#: ../views/content_viewer/video_channel.html.erb:14
-#: ../views/file_presenter/_video.html.erb:15
 msgid "Quality options"
 msgstr "Opções de qualidade"
 
-#: ../views/content_viewer/video_channel.html.erb:18
 msgid "Tags"
 msgstr "Tags"
 
-#: ../views/content_viewer/video_channel.html.erb:22
-#: ../views/file_presenter/_video.html.erb:17
 msgid "Description"
 msgstr "Descrição"
 
-#: ../views/content_viewer/video_channel.html.erb:66
 msgid "This channel has one video waiting to be converted"
 msgid_plural "This channel has %d videos waiting to be converted"
 msgstr[0] "Esse canal tem um vídeo esperando para ser convertido"
 msgstr[1] "Esse canal tem %d vídeos esperando para serem convertidos"
 
-#: ../views/content_viewer/video_channel.html.erb:83
 msgid "Non video files"
 msgstr "Arquivos que não são vídeo"
 
-#: ../views/file_presenter/_video.html.erb:7
 msgid "Queued to generate the web version. Come back soon."
 msgstr "Encaminhado para gerar a versão para a web. Volte em breve."
 
-#: ../views/file_presenter/_video.html.erb:11
 msgid "This video is not queued to the video conversor. Contact the site admin."
 msgstr ""
-"Esse vídeo não foi encaminhado para o conversor. Contate o administrador do "
-"site."
+"Esse vídeo não foi encaminhado para o conversor. Contate o administrador do si"
+"te."
 
-#: ../views/file_presenter/_video.html.erb:34
 msgid "Video conversion errors"
 msgstr "Erros de conversão do vídeo"
 
-#: ../views/file_presenter/_video.html.erb:44
 msgid "Error while converting %{orig_type} to %{new_type}, %{size} size."
-msgstr ""
-"Erro durante a conversão de %{orig_type} para %{new_type}, tamanho %{size}."
+msgstr "Erro durante a conversão de %{orig_type} para %{new_type}, tamanho %{size}."
 
-#: ../views/file_presenter/_video.html.erb:47
 msgid "Code %s"
 msgstr "Código %s"
 
-#: ../views/file_presenter/_video.html.erb:49
 msgid "display full output"
 msgstr "Mostrar toda a saída"

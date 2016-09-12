@@ -3,11 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-03-03 07:41-0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-12 13:14-0300\n"
+"PO-Revision-Date: 2016-09-12 13:14-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,54 +18,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/comment_paragraph/lib/comment_paragraph_plugin.rb:8
-msgid "A plugin that display comments divided by paragraphs."
-msgstr ""
-
-#: plugins/comment_paragraph/lib/comment_paragraph_plugin.rb:51
-msgid "Deactivate Comments"
-msgstr ""
-
-#: plugins/comment_paragraph/lib/comment_paragraph_plugin.rb:51
-msgid "Activate Comments"
-msgstr ""
-
-#: plugins/comment_paragraph/controllers/comment_paragraph_plugin_admin_controller.rb:8
+#: ../controllers/comment_paragraph_plugin_admin_controller.rb:8
 msgid "Settings successfuly saved"
 msgstr ""
 
-#: plugins/comment_paragraph/views/tasks/_approve_comment_accept_details.html.erb:2
-msgid "Title: "
+#: ../lib/comment_paragraph_plugin.rb:8
+msgid "A plugin that display comments divided by paragraphs."
 msgstr ""
 
-#: plugins/comment_paragraph/views/tasks/_approve_comment_accept_details.html.erb:11
-msgid "Paragraph: "
+#: ../lib/comment_paragraph_plugin.rb:52
+msgid "Deactivate Comments"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:2
+#: ../lib/comment_paragraph_plugin.rb:52
+msgid "Activate Comments"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin.rb:58
+msgid "Export Comments"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/comments_report.rb:28
+msgid ""
+"No comments for article[%{id}]: %{path}\n"
+"\n"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/discussion.rb:4
+#: ../lib/comment_paragraph_plugin/discussion.rb:8
+msgid "Comments Discussion"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/discussion.rb:12
+msgid "Article with paragraph comments"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/discussion_block.rb:20
+msgid "This block displays all profile's article discussion"
+msgstr ""
+
+#: ../views/blocks/discussion.html.erb:20
+#: ../views/blocks/discussion.html.erb:29
+msgid "Read more"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:2
+msgid "Choose which blog should be displayed"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Not Opened Discussions"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Available Discussions"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Closed Discussions"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:10
+msgid "Choose how the content should be displayed"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:15
+msgid "Title only"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:16
+msgid "Title and abstract"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:17
+msgid "Full content"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:24
+msgid "Choose how many items will be displayed"
+msgstr ""
+
+#: ../views/cms/comment_paragraph_plugin/_discussion.html.erb:4
+msgid "Title"
+msgstr ""
+
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:2
 msgid "Comment Paragraph Plugin Settings"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:7
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:7
 msgid "Activation Mode"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:10
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:10
 msgid "Auto"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:11
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:11
 msgid "(all text articles will be activated by default)"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:15
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:15
 msgid "Manual"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:16
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:16
 msgid "(click on \"Activate Comment Paragraph\" )"
 msgstr ""
 
-#: plugins/comment_paragraph/views/comment_paragraph_plugin_admin/index.html.erb:21
+#: ../views/comment_paragraph_plugin_admin/index.html.erb:21
 msgid "Save"
+msgstr ""
+
+#: ../views/tasks/_approve_comment_accept_details.html.erb:2
+msgid "Title: "
+msgstr ""
+
+#: ../views/tasks/_approve_comment_accept_details.html.erb:11
+msgid "Paragraph: "
 msgstr ""
