@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-12 16:02-0300\n"
+"PO-Revision-Date: 2016-09-12 16:02-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,30 +17,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin.rb:8
+#: ../lib/breadcrumbs_plugin.rb:8
 msgid "A plugin that add a block to display breadcrumbs."
 msgstr ""
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
-msgid "Content Breadcrumbs"
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
+msgid ""
+"<p>Display a breadcrumb of the current content navigation.</p><p>You could cho"
+"ose if the breadcrumb is going to appear in the cms editing or not.</p> <p>The"
+"re is either the option of display the profile location in the breadcrumb path"
+".</p>"
 msgstr ""
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:14
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:14
+msgid "Breadcrumb"
+msgstr ""
+
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:18
+msgid "Breadcrumbs Block"
+msgstr ""
+
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:22
 msgid "This block displays breadcrumb trail."
 msgstr ""
 
-#: plugins/breadcrumbs/lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:68
+#: ../lib/breadcrumbs_plugin_helper.rb:5
 msgid "Upload Files"
 msgstr ""
 
-#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:2
+#: ../lib/breadcrumbs_plugin_helper.rb:7
+msgid "Members"
+msgstr ""
+
+#: ../lib/breadcrumbs_plugin_helper.rb:8
+msgid "Events"
+msgstr ""
+
+#: ../lib/breadcrumbs_plugin_helper.rb:32
+msgid "Profile"
+msgstr ""
+
+#:
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:2
 msgid "Show cms action"
 msgstr ""
 
-#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:3
+#:
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:3
 msgid "Show profile"
 msgstr ""
 
-#: plugins/breadcrumbs/views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
+#:
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
 msgid "Show section name"
 msgstr ""

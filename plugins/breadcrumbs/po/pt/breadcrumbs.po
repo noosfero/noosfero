@@ -26,14 +26,37 @@ msgstr ""
 msgid "A plugin that add a block to display breadcrumbs."
 msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
-msgid "Content Breadcrumbs"
-msgstr "Conteúdo de Caminho de Pão"
+msgid ""
+"<p>Display a breadcrumb of the current content navigation.</p><p>You could cho"
+"ose if the breadcrumb is going to appear in the cms editing or not.</p> <p>The"
+"re is either the option of display the profile location in the breadcrumb path"
+".</p>"
+msgstr ""
+"<p>Mostra um caminho de pão do conteúdo atual da navegação.</p><p>Você pode es"
+"colher se o caminho de pão aparecerá na edição do cms ou não.</p> <p>Existe ta"
+"mbém a opção de mostrar a localização do perfil no endereço do caminho de pão."
+"</p>"
+
+msgid "Breadcrumb"
+msgstr "Caminho de Pão"
+
+msgid "Breadcrumbs Block"
+msgstr "Bloco de Caminho de Pão"
 
 msgid "This block displays breadcrumb trail."
-msgstr "Esse bloco mostra o rastro de caminho de pão."
+msgstr "Esse bloco mostra o rastro do caminho de pão."
 
 msgid "Upload Files"
 msgstr "Enviar Arquivos"
+
+msgid "Members"
+msgstr "Integrantes"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Profile"
+msgstr "Perfil"
 
 msgid "Show cms action"
 msgstr "Mostrar cms"
@@ -41,6 +64,5 @@ msgstr "Mostrar cms"
 msgid "Show profile"
 msgstr "Mostrar perfil"
 
-#, fuzzy
 msgid "Show section name"
-msgstr "Mostrar cms"
+msgstr "Mostrar nome da seção"
