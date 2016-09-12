@@ -45,7 +45,8 @@ module SearchHelper
   def search_page_title(title, category = nil)
     title = "<h1>" + title
     title += ' - <small>' + category.name + '</small>' if category
-    title + "</h1>"
+    title += "</h1>"
+    title.html_safe
   end
 
   def category_context(category, url)
