@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2016-08-25 18:59+0000\n"
 "Last-Translator: Alipio muñiz <alipio@ecoalternative.net>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-di"
-"splay-content/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
+"display-content/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +23,11 @@ msgstr "Mostrar alguno de tus contenidos"
 
 #, fuzzy
 msgid ""
-"This block displays articles chosen by you. You can edit the block to select w"
-"hich of your articles is going to be displayed in the block."
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
 msgstr ""
-"Este bloque muestra uno de tus artículos. Puedes editar el bloque seleccionand"
-"ocuál de tus artículos será mostrado en el bloque."
+"Este bloque muestra uno de tus artículos. Puedes editar el bloque "
+"seleccionandocuál de tus artículos será mostrado en el bloque."
 
 #, fuzzy
 msgid "Publish date"
@@ -52,8 +52,8 @@ msgid "%{month_name} %{day}"
 msgstr "%{month_name} %{day}"
 
 msgid ""
-"A plugin that adds a block where you could choose any of your content and disp"
-"lay it."
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
 msgstr ""
 
 #, fuzzy

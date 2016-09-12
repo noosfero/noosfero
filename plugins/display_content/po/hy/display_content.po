@@ -21,8 +21,8 @@ msgid "Display your contents"
 msgstr "Ցուցադրիր հոդվածներիցդ որևէ մեկը:"
 
 msgid ""
-"This block displays articles chosen by you. You can edit the block to select w"
-"hich of your articles is going to be displayed in the block."
+"This block displays articles chosen by you. You can edit the block to select "
+"which of your articles is going to be displayed in the block."
 msgstr ""
 
 #, fuzzy
@@ -49,8 +49,8 @@ msgid "%{month_name} %{day}"
 msgstr ""
 
 msgid ""
-"A plugin that adds a block where you could choose any of your content and disp"
-"lay it."
+"A plugin that adds a block where you could choose any of your content and "
+"display it."
 msgstr ""
 
 #, fuzzy

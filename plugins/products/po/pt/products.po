@@ -29,7 +29,7 @@ msgid "The input was not found"
 msgstr "O insumo não foi encontrado"
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 msgid "created the product %{title}"
 msgstr "criou o produto %{title}"
@@ -44,41 +44,40 @@ msgid "Product Category"
 msgstr "Categoria do Produto"
 
 msgid "Enterprises's profile"
-msgstr ""
+msgstr "Perfil do empreendimento"
 
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 msgid "Products"
 msgstr "Produtos"
 
-#, fuzzy
 msgid "Manage Products/Services"
-msgstr "Produtos/Serviços"
+msgstr "Gerenciar Produtos/Serviços"
 
 msgid "Start"
 msgstr "Início"
 
 msgid "Contact person:"
-msgstr ""
+msgstr "Pessoa de contato:"
 
 msgid "e-Mail:"
-msgstr ""
+msgstr "e-mail:"
 
 msgid "Phone(s):"
-msgstr ""
+msgstr "Telefone(s):"
 
 msgid "Location:"
-msgstr ""
+msgstr "Localização"
 
 msgid "Address:"
-msgstr ""
+msgstr "Endereço"
 
 msgid "Economic activity:"
-msgstr ""
+msgstr "Atividade economica"
 
 msgid "Distance:"
-msgstr ""
+msgstr "Distância:"
 
 msgid "Uncategorized product"
 msgstr "Produto não categorizado"
@@ -87,7 +86,7 @@ msgid "No product"
 msgstr "Sem produto"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "Change category"
 msgstr "Alterar categoria"
@@ -125,9 +124,8 @@ msgstr "Selecione a unidade"
 msgid "Product from solidarity economy"
 msgstr "Produto da economia solidária"
 
-#, fuzzy
 msgid "by"
-msgstr "por "
+msgstr "por"
 
 msgid "Amount used in this product or service"
 msgstr "Quantidade utilizada neste produto ou serviço"
@@ -153,26 +151,25 @@ msgid "%{currency} %{production_cost} of %{currency} %{product_price}"
 msgstr "%{currency} %{production_cost} de %{currency} %{product_price}"
 
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 msgid "Link"
-msgstr ""
+msgstr "Endereço"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Página Inicial"
 
 msgid "Enterprise homepage"
-msgstr ""
+msgstr "Página inicial do empreendimento"
 
 msgid "Display the summary of profile."
-msgstr ""
+msgstr "Mostrar o resumo do perfil."
 
 msgid "Featured Products"
 msgstr "Produtos em destaque"
 
-#, fuzzy
 msgid "Other costs"
-msgstr "Outro custo"
+msgstr "Outros custos"
 
 msgid "0%"
 msgstr "0%"
@@ -205,10 +202,10 @@ msgid "This block presents a list of your products."
 msgstr "Este bloco apresenta a lista de seus produtos."
 
 msgid "Property1"
-msgstr ""
+msgstr "Propriedade1"
 
 msgid "Property2"
-msgstr ""
+msgstr "Propriedade2"
 
 msgid "Catalog start"
 msgstr "Início do catálogo"
@@ -217,10 +214,10 @@ msgid "There are no sub-categories for %s"
 msgstr "Não há subcategorias para %s"
 
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 msgid "Are you sure you want to remove this activity and all its replies?"
-msgstr ""
+msgstr "Você tem certeza que você quer remover esta atividade e todas as suas respostas?"
 
 msgid "Products/Services"
 msgstr "Produtos/Serviços"
@@ -229,10 +226,10 @@ msgid "Highlighted product"
 msgstr "Produto destacado"
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Mais zoom"
 
 msgid "No image"
-msgstr ""
+msgstr "Nenhum imagem"
 
 msgid "from "
 msgstr "de "
@@ -246,9 +243,8 @@ msgstr " / "
 msgid "unit"
 msgstr "unidade"
 
-#, fuzzy
 msgid "description"
-msgstr "Editar descrição"
+msgstr "descrição"
 
 msgid "price composition"
 msgstr "composição de preço"
@@ -269,14 +265,14 @@ msgid "Choose an input or raw material to this product:"
 msgstr "Selecione um insumo ou matéria-prima para este produto:"
 
 msgid "Save and continue"
-msgstr ""
+msgstr "Salvar e continuar"
 
 msgid ""
-"This category does not allow registration of products, select a more specific "
-"category"
+"This category does not allow registration of products, select a more "
+"specific category"
 msgstr ""
-"Esta categoria não aceita registro de produtos, selecione uma categoria mais e"
-"specífica"
+"Esta categoria não aceita registro de produtos, selecione uma categoria mais "
+"específica"
 
 msgid "type a category for the product"
 msgstr "digite uma categoria para o produto"
@@ -285,21 +281,21 @@ msgid "Edit description"
 msgstr "Editar descrição"
 
 msgid ""
-"Edit the description of your product and give consumers more information about"
-" what you are advertising"
+"Edit the description of your product and give consumers more information "
+"about what you are advertising"
 msgstr ""
-"Edite a descrição do seu produto e dê aos consumidores mais informações sobre "
-"o que você está anunciando"
+"Edite a descrição do seu produto e dê aos consumidores mais informações "
+"sobre o que você está anunciando"
 
 msgid "Add some description to your product"
 msgstr "Adicione alguma descrição ao seu produto"
 
 msgid ""
-"Add a description to your product and give consumers more information about wh"
-"at you are advertising"
+"Add a description to your product and give consumers more information about "
+"what you are advertising"
 msgstr ""
-"Adicione ao seu produto uma descrição para dar aos consumidores mais informaçõ"
-"es sobre o que você está anunciando"
+"Adicione ao seu produto uma descrição para dar aos consumidores mais "
+"informações sobre o que você está anunciando"
 
 msgid "Change image"
 msgstr ""
@@ -308,25 +304,24 @@ msgid "Edit basic information"
 msgstr "Editar informações básicas"
 
 msgid ""
-"Click here to edit price, discount and qualifiers/certifiers to make your prod"
-"uct more attractive and detailed for the consumers"
+"Click here to edit price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
 msgstr ""
-"Clique aqui para adicionar preço, desconto e qualificadores/certificadores par"
-"a deixar seu produto mais atrativo e detalhado para os consumidores"
+"Clique aqui para adicionar preço, desconto e qualificadores/certificadores "
+"para deixar seu produto mais atrativo e detalhado para os consumidores"
 
 msgid "Add price and other basic information"
 msgstr "Adicionar preço e outras informações básicas"
 
 msgid ""
-"Click here to add price, discount and qualifiers/certifiers to make your produ"
-"ct more attractive and detailed for the consumers"
+"Click here to add price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
 msgstr ""
-"Clique aqui para adicionar preço, desconto e qualificadores/certificadores par"
-"a deixar seu produto mais atrativo e detalhado para os consumidores"
+"Clique aqui para adicionar preço, desconto e qualificadores/certificadores "
+"para deixar seu produto mais atrativo e detalhado para os consumidores"
 
-#, fuzzy
 msgid "Edit"
-msgstr "Editando"
+msgstr "Editar"
 
 msgid "Are you sure that you want to remove this input or raw material?"
 msgstr "Tem certeza que quer excluir este insumo ou matéria-prima?"
@@ -338,21 +333,21 @@ msgid "Add the inputs or raw material used by this product"
 msgstr "Adicionar insumos ou matéria-prima utilizados por este produto"
 
 msgid ""
-"Add inputs or raw materials used by this product and give more transparency to"
-" consumers about your enterprise"
+"Add inputs or raw materials used by this product and give more transparency "
+"to consumers about your enterprise"
 msgstr ""
-"Adicione insumos ou matéria-prima usado por este produto e dê mais transparênc"
-"ia aos consumidores sobre seu empreendimento"
+"Adicione insumos ou matéria-prima usado por este produto e dê mais "
+"transparência aos consumidores sobre seu empreendimento"
 
 msgid "Add new input or raw material"
 msgstr "Adicionar novo insumo ou matéria-prima"
 
 msgid ""
-"Add new input or raw material used by this product and give more transparency "
-"to consumers about your enterprise"
+"Add new input or raw material used by this product and give more "
+"transparency to consumers about your enterprise"
 msgstr ""
-"Adicione novo insumo ou matéria-prime usado por este produto e dê mais transpa"
-"rência aos consumidores sobre seu empreendimento"
+"Adicione novo insumo ou matéria-prime usado por este produto e dê mais "
+"transparência aos consumidores sobre seu empreendimento"
 
 msgid "Drag the input with the mouse to change the order"
 msgstr "Mova o insumo com o mouse para alterar a ordem"
@@ -370,13 +365,13 @@ msgid "Inputs:"
 msgstr "Insumos:"
 
 msgid "Description:"
-msgstr ""
+msgstr "Descrição:"
 
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 msgid "Max size: %s (.jpg, .gif, .png)"
-msgstr ""
+msgstr "Tamanho máximo: %s  (.jpg, .gif, .png)"
 
 msgid "Price (%s)"
 msgstr "Preço (%s)"
@@ -385,16 +380,17 @@ msgid "Discount (%s)"
 msgstr "Desconto (%s)"
 
 msgid "If your product is on sale, fill this field with the discount value"
-msgstr "Se o seu produto está à venda, preencha este campo com o valor de desconto"
+msgstr ""
+"Se o seu produto está à venda, preencha este campo com o valor de desconto"
 
 msgid "Available"
 msgstr "Disponível"
 
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 msgid "Highlight this product?"
 msgstr "Destacar este produto?"
@@ -427,7 +423,7 @@ msgid "Are you sure that you want to remove this cost?"
 msgstr "Tem certeza que quer excluir este custo?"
 
 msgid "Name:"
-msgstr ""
+msgstr "Nome"
 
 msgid "Price:"
 msgstr "Preço:"
@@ -436,13 +432,13 @@ msgid "Highlight this product"
 msgstr "Destacar este produto"
 
 msgid "Image:"
-msgstr ""
+msgstr "Imagem:"
 
 msgid "Create product"
 msgstr "Criar produto"
 
 msgid "Save changes"
-msgstr ""
+msgstr "Salvar alterações"
 
 msgid "Inputs"
 msgstr "Insumos"
@@ -451,28 +447,28 @@ msgid "This value is composed by the total value of registered inputs"
 msgstr "Este valor é composto pelo valor total de insumos registrados"
 
 msgid ""
-"If you leave, you will lose all unsaved information. Are you sure you want to "
-"quit?"
+"If you leave, you will lose all unsaved information. Are you sure you want "
+"to quit?"
 msgstr ""
-"Se você sair, perderá todas as informações não salvas. Tem certeza que deseja "
-"sair?"
+"Se você sair, perderá todas as informações não salvas. Tem certeza que "
+"deseja sair?"
 
 msgid "New cost"
 msgstr "Novo custo"
 
 msgid ""
-"The production cost of your product is not described yet. If you want to displ"
-"ay the price composition, please add all the costs"
+"The production cost of your product is not described yet. If you want to "
+"display the price composition, please add all the costs"
 msgstr ""
-"O custo de produção do seu produto ainda não está descrito. Se desejar exibir "
-"a composição do preço, por favor adicione todos os custos"
+"O custo de produção do seu produto ainda não está descrito. Se desejar "
+"exibir a composição do preço, por favor adicione todos os custos"
 
 msgid ""
-"The production cost of your product is fully described and will be displayed o"
-"n your product's page"
+"The production cost of your product is fully described and will be displayed "
+"on your product's page"
 msgstr ""
-"O custo de produção do seu produto está totalmente descrito e será exibido na "
-"página do seu produto"
+"O custo de produção do seu produto está totalmente descrito e será exibido "
+"na página do seu produto"
 
 msgid "Congratulations! Now the price is open to the public"
 msgstr "Parabéns! Agora o preço está aberto para o público"
@@ -514,7 +510,7 @@ msgid "New product or service"
 msgstr "Novo produto ou serviço"
 
 msgid "Back"
-msgstr ""
+msgstr "Voltar"
 
 msgid "Select the category of the new product or service"
 msgstr "Selecione a categoria de seu novo produto ou serviço"
@@ -550,7 +546,7 @@ msgid "Supplier"
 msgstr "Fornecedor"
 
 msgid "City"
-msgstr ""
+msgstr "Cidade"
 
 msgid "Qualifiers"
 msgstr "Qualificadores"
@@ -577,4 +573,4 @@ msgid "Select the products that must be shown."
 msgstr "Escolha os produtos que serão exibidos."
 
 msgid "Type words about the %s you're looking for"
-msgstr ""
+msgstr "Escreva palavras sobre o %s que você está procurando"
