@@ -17,15 +17,22 @@ s/André Guedes <andrebsguedes@fedora.local>/André Guedes <andrebsguedes@gmail.
 
 s/Alex de Souza <campelo.al1@gmail.com>/Alex Campelo <campelo.al1@gmail.com>/
 s/alcampelo <alcampelo@alcampelo.(none)>/Alex Campelo <campelo.al1@gmail.com>/
+
 s/Alvaro Fernando <alvarofernandoms@gmail.com>/Álvaro Fernando <alvarofernandoms@gmail.com>/
 
 s/athurmde@yahoo.com.br/arthurmde@yahoo.com.br/
+
+s/Artur Bersan de Faria <artur_bersan@hotmail.com>/Artur Bersan de Faria <arturbersan@gmail.com>/
+
+s/ArthurJahn <stutrzbecher@gmail.com>/Arthur Jahn <stutrzbecher@gmail.com>/
+
 s/^Antonio Terceiro$/Antonio Terceiro <terceiro@colivre.coop.br>/
 
 s/Arhur Del Esposte/Arthur Del Esposte/
 s/Arthur Del Esposte <arthurmde@yahoo.com.br>/Arthur Del Esposte <arthurmde@gmail.com>/
 
 s/Aurélio A. Heckert/Aurelio A. Heckert/
+s/Aurelio A. Heckert <aurelio@colivre.coop.br>/Aurelio A. Heckert <aurium@colivre.coop.br>/
 
 s/Bráulio Bhavamitra <brauliobo@gmail.com>/Braulio Bhavamitra <braulio@eita.org.br>/
 s/Braulio Bhavamitra <brauliobo@gmail.com>/Braulio Bhavamitra <braulio@eita.org.br>/
@@ -60,6 +67,7 @@ s/daniel <dtygel@eita.org.br>/Daniel Tygel <dtygel@eita.org.br>/
 s/dtygel <dtygel@gmail.com>/Daniel Tygel <dtygel@eita.org.br>/
 
 /^Daniela Feitosa$/d
+s/Daniela Feitosa <alessandro.palmeira@gmail.com>/Daniela Soares Feitosa <danielafeitosa@colivre.coop.br>/
 s/DylanGuedes/Dylan Guedes/
 
 s/Diego$/Diego Araujo <diegoamc90@gmail.com>/
@@ -99,6 +107,7 @@ s/navarro1703@gmail.com$/&>/
 
 s/Gustavo Cruz <darksshades@hotmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
 s/Gustavo Jaruga <darksshades@hotmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
+s/Gustavo Jaruga Cruz <darksshades@gmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
 s/Gust <darksshades@hotmail.com>/Gustavo Jaruga <darksshades@gmail.com>/
 
 s/Guilherme Rojas <alessandro.palmeira@gmail.com>/Guilherme Rojas <guilhermehrojas@gmail.com>/
@@ -152,6 +161,7 @@ s/juniorsilva <juniorsilva@QonoS.localhost.localdomain>/Junior Silva <juniorsilv
 s/Larissa Reis <reiss.larissa@gmail.com>/Larissa Reis <larissa@colivre.coop.br>/
 
 s/Leandro Nunes$/Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>/
+s/Leandro Nunes <lenadronunes@gmail.com>/Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>/
 s/Leandro Nunes dos Santos <81665687568@serpro-1541727.Home>/Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>/
 s/Leandro Nunes dos Santos <81665687568@serpro-1541727.(none)>/Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>/
 s/Leandro Nunes dos Santos <leandronunes@gmail.com>/Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>/
@@ -164,6 +174,7 @@ s/Luciano Prestes Cavacanti <lucianopcbr@gmail.com>/Luciano Prestes Cavalcanti <
 s/luciano@luciano.luciano/lucianopcbr@gmail.com/
 
 s/Macartur Sousa/Macartur de Sousa/
+s/Macártur Sousa <macartur.sc@gmail.com>/Macartur de Sousa <macartur.sc@gmail.com>/
 s/macartur.sc@gmail.com$/macartur.sc@gmail.com>/
 
 s/Marcos da Silva Ramos <ms.ramos@outlook.com>/Marcos Ramos <ms.ramos@outlook.com>/
@@ -207,6 +218,7 @@ s/Rafael Manzo <jeffs.fernandes@gmail.com>/Rafael Reggiani Manzo <rr.manzo@gmail
 s/Rafael Manzo <paulo@softwarelivre.org>/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
 s/Rafael Manzo <renanteruoc@gmail.com>/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
 s/Rafael Manzo <rr.manzo@gmail.com>/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
+s/Rafael Reggiani Manzo <rr.manzo@protonmail.com>/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
 s/Rafael Reggiani Manzo$/Rafael Reggiani Manzo <rr.manzo@gmail.com>/
 
 s/Renan <renanteruoc@gmail.com>/Renan Teruo <renanteruoc@gmail.com>/
@@ -235,6 +247,7 @@ s/Thiago Ribeiro <thiagitosouza@gmail.com>/Thiago Ribeiro <thiagitosouza@hotmail
 s/Valéssio Brito <contato@valessiobrito.com.br>/Valessio Brito <contato@valessiobrito.com.br>/
 s/Valessio Brito <contato@valessiobrito.info>/Valessio Brito <contato@valessiobrito.com.br>/
 s/Valessio Brito <valessio@gmail.com>/Valessio Brito <contato@valessiobrito.com.br>/
+s/ValessioBrito <contato@valessiobrito.com.br>/Valessio Brito <contato@valessiobrito.com.br>/
 /Visita <visita@debian.(none)>/d
 
 s/vitorbaraujo/Vitor Barbosa/
