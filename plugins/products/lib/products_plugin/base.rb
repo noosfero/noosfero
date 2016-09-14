@@ -30,7 +30,7 @@ module ProductsPlugin
     end
 
     def content_types
-      [EnterpriseHomepage] if context.profile.enterprise?
+      [EnterpriseHomepage] if context.kind_of?(Enterprise)
     end
 
   end
