@@ -23,9 +23,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
+#: ../lib/display_content_block.rb:35
 msgid "Display your contents"
 msgstr "Apresente seus conteúdos"
 
+#: ../lib/display_content_block.rb:39
 msgid ""
 "This block displays articles chosen by you. You can edit the block to select "
 "which of your articles is going to be displayed in the block."
@@ -33,27 +35,31 @@ msgstr ""
 "Este bloco apresenta artigos escolhidos por você. Você pode editar o bloco "
 "para escolher qual dos seus artigos será apresentado nele."
 
+#: ../lib/display_content_block.rb:44
 msgid "Publish date"
 msgstr "Data de publicação"
 
+#: ../lib/display_content_block.rb:46
 msgid "Abstract"
 msgstr "Resumo"
 
-msgid "Read more"
-msgstr "Leia mais"
-
+#: ../lib/display_content_block.rb:163
 msgid "%{month}/%{day}/%{year}"
 msgstr "%{day}/%{month}/%{year}"
 
+#: ../lib/display_content_block.rb:163
 msgid "%{month}/%{day}"
 msgstr "%{day}/%{month}"
 
+#: ../lib/display_content_block.rb:166
 msgid "%{month_name} %{day}, %{year}"
 msgstr "%{day} de %{month_name} de %{year}"
 
+#: ../lib/display_content_block.rb:166
 msgid "%{month_name} %{day}"
 msgstr "%{day} de %{month_name}"
 
+#: ../lib/display_content_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you could choose any of your content and "
 "display it."
@@ -61,36 +67,58 @@ msgstr ""
 "Um plugin que adiciona blocos onde você pode escolher qualuer um dos seus "
 "conteúdos e mostrá-lo."
 
+#: ../views/box_organizer/_choose_by_content_type.html.erb:1
 msgid "Display content types:"
 msgstr "Mostrar tipos de conteúdos:"
 
+#: ../views/box_organizer/_choose_by_content_type.html.erb:7
 msgid "more"
 msgstr "mais"
 
+#: ../views/box_organizer/_choose_directly.html.erb:5
 msgid "Dinamically load children of selected folders"
 msgstr "Carregar dinamicamente filhos das pastas selecionadas"
 
+#: ../views/box_organizer/_choose_directly.html.erb:9
 msgid "Limit:"
 msgstr "Limite:"
 
+#: ../views/box_organizer/_display_content_block.html.erb:5
 msgid "Choose which attributes should be displayed and drag to reorder them:"
 msgstr ""
 "Escolha quais atributos devem ser mostrados e mova-os parar reordená-los:"
 
+#: ../views/box_organizer/_display_content_block.html.erb:21
 msgid "Choose which content should be displayed:"
 msgstr "Escolha qual conteúdo deve ser mostrado:"
 
+#: ../views/box_organizer/_display_content_block.html.erb:23
 msgid "Choose directly"
 msgstr "Escolha diretamente"
 
+#: ../views/box_organizer/_display_content_block.html.erb:24
 msgid "Choose by Content Type"
 msgstr "Escolha pelo Tipo de conteúdo"
 
+#: ../views/box_organizer/_display_content_block.html.erb:28
 msgid "Order by:"
 msgstr "Ordenar por:"
 
+#: ../views/box_organizer/_display_content_block.html.erb:29
 msgid "Most recent"
 msgstr "Mais recentes"
 
+#: ../views/box_organizer/_display_content_block.html.erb:30
 msgid "Most oldest"
 msgstr "Mais antigas"
+
+#: ../views/box_organizer/_display_content_block.html.erb:32
+msgid "Translations:"
+msgstr ""
+
+#: ../views/box_organizer/_display_content_block.html.erb:33
+msgid "List only translated content"
+msgstr ""
+
+#~ msgid "Read more"
+#~ msgstr "Leia mais"

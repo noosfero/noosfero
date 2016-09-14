@@ -16,65 +16,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: ../helpers/elasticsearch_helper.rb:5
 msgid "All results"
 msgstr "Todos os resultados"
 
+#: ../helpers/elasticsearch_helper.rb:6
 msgid "Articles"
 msgstr "Artigos"
 
+#: ../helpers/elasticsearch_helper.rb:7
 msgid "Files"
 msgstr "Arquivos"
 
+#: ../helpers/elasticsearch_helper.rb:8
 msgid "Communities"
 msgstr "Comunidades"
 
+#: ../helpers/elasticsearch_helper.rb:9
 msgid "Events"
 msgstr "Eventos"
 
+#: ../helpers/elasticsearch_helper.rb:10
 msgid "People"
 msgstr "Pessoas"
 
+#: ../helpers/elasticsearch_helper.rb:16
 msgid "Relevance"
 msgstr "Relevância"
 
+#: ../helpers/elasticsearch_helper.rb:17
 msgid "Alphabetical"
 msgstr "Alfabético"
 
+#: ../helpers/elasticsearch_helper.rb:18
 msgid "More recent"
 msgstr "Mais recentes"
 
+#: ../lib/elasticsearch_plugin.rb:12
 msgid "This plugin is used to communicate with elasticsearch engine."
 msgstr "Este plugin é utilizado na comunicação com a engine elasticsearch."
 
+#: ../lib/ext/community.rb:28 ../lib/ext/person.rb:29
 msgid "More active"
 msgstr "Mais ativos"
 
+#: ../lib/ext/community.rb:29 ../lib/ext/person.rb:30
 msgid "More popular"
 msgstr "Mais populares"
 
+#: ../lib/ext/text_article.rb:37
 msgid "More viewed"
 msgstr "Mais vistos"
 
+#: ../lib/ext/text_article.rb:38
 msgid "Most commented"
 msgstr "Mais comentados"
 
+#: ../views/elasticsearch_plugin/_results_count.html.erb:4
 msgid " results for "
 msgstr " resultados para "
 
+#: ../views/elasticsearch_plugin/_results_count.html.erb:6
 msgid " total results"
 msgstr " resultados"
 
+#: ../views/elasticsearch_plugin/_search_field.html.erb:10
 msgid "Send"
 msgstr "Enviar"
 
+#: ../views/elasticsearch_plugin/_search_filter.html.erb:1
 msgid "Sort by"
 msgstr "Ordenar por"
 
+#: ../views/elasticsearch_plugin/_text_article_display.html.erb:6
 msgid "Abstract"
 msgstr "Resumo"
 
+#: ../views/elasticsearch_plugin/_uploaded_file_display.html.erb:6
 msgid "Type of file"
 msgstr "Tipo de arquivo"
 
+#: ../views/elasticsearch_plugin/search.html.erb:23
 msgid "Categories"
 msgstr "Categorias"

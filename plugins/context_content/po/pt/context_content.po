@@ -23,29 +23,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/context_content_plugin.rb:8
 msgid "A plugin that display content based on page context."
 msgstr "Um plugin que mostra conteúdo baseado do contexto da página."
 
+#: ../lib/context_content_plugin/context_content_block.rb:17
 msgid "Display context content"
 msgstr "Mostrar conteúdo contextual"
 
+#: ../lib/context_content_plugin/context_content_block.rb:21
 msgid "This block displays content based on context."
 msgstr "Este bloco apresenta conteúdo baseado no contexto."
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:3
 msgid "Show content name"
 msgstr "Mostrar o nome do conteúdo"
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:4
 msgid "Show content image"
 msgstr "Mostrar imagem do conteúdo"
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:5
 msgid "Use the name of the source folder as block title"
 msgstr "Usar o nome da pasta de origem como título do bloco"
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:6
 msgid "Show block on all existing pages in the source folder"
 msgstr "Exibir o bloco em todas as páginas existentes na pasta de origem"
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:9
 msgid "Display content types:"
 msgstr "Mostrar tipos de conteúdos:"
 
+#: ../views/box_organizer/context_content_plugin/_context_content_block.html.erb:15
 msgid "more"
 msgstr "mais"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 15:38-0300\n"
-"PO-Revision-Date: 2016-05-17 15:38-0300\n"
+"POT-Creation-Date: 2016-09-14 13:36+0000\n"
+"PO-Revision-Date: 2016-09-14 13:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -66,69 +66,69 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:11
+#: ../views/shared/_form.html.erb:9
 msgid "Optional Title:"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:13
+#: ../views/shared/_form.html.erb:11
 msgid "Enter your message here:"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:15
+#: ../views/shared/_form.html.erb:13
 msgid ""
 "Obs: You can use %{name} and %{email} variables to put the user's name and ema"
 "il in the message."
 msgstr ""
 
-#: ../views/shared/_form.html.erb:18
+#: ../views/shared/_form.html.erb:16
 msgid "Notifications Status"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:18
+#: ../views/shared/_form.html.erb:16
 msgid "Active"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:18
+#: ../views/shared/_form.html.erb:16
 msgid "Inactive"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:20
+#: ../views/shared/_form.html.erb:18
 msgid "Notifications Color/Type"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:20
+#: ../views/shared/_form.html.erb:18
 msgid "Blue - Information"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:20
+#: ../views/shared/_form.html.erb:18
 msgid "Yellow - Warning"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:20
-msgid "Green - Success"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:20
+#: ../views/shared/_form.html.erb:18
 msgid "Red - Danger"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:23
+#: ../views/shared/_form.html.erb:18
+msgid "Green - Success"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:21
 msgid "Display only in the profile homepage"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:23
+#: ../views/shared/_form.html.erb:21
 msgid "Display only in the homepage"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:27
+#: ../views/shared/_form.html.erb:25
 msgid "Display to not logged users too"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:31
+#: ../views/shared/_form.html.erb:29
 msgid "Display popup until user close the notification"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:35
+#: ../views/shared/_form.html.erb:33
 msgid "Save"
 msgstr ""
 

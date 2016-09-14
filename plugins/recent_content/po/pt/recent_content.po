@@ -23,6 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
+#: ../lib/recent_content_block.rb:17
 msgid ""
 "This block displays all articles inside the blog you choose. You can edit "
 "the block to select which of your blogs is going to be displayed in the "
@@ -31,6 +32,7 @@ msgstr ""
 "Esse bloco apresenta todos os conteúdos do blog escolhido. Você pode editar "
 "esse bloco para escolher qual dos seus blogs será mostrado nele."
 
+#: ../lib/recent_content_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can display the content of any of your "
 "blogs."
@@ -38,12 +40,16 @@ msgstr ""
 "Um plugin que adiciona blocos onde você pode mostrar o conteúdo de qualquer "
 "um dos seus blogs."
 
+#: ../views/blocks/recent_content.html.erb:26
+#: ../views/blocks/recent_content.html.erb:35
 msgid "Read more"
 msgstr "Leia mais"
 
+#: ../views/blocks/recent_content.html.erb:40
 msgid "View All"
 msgstr "Ver Todos(as)"
 
+#: ../views/blocks/recent_content.html.erb:45
 msgid ""
 "This is the recent content block. Please edit it to show the content you "
 "want."
@@ -51,28 +57,36 @@ msgstr ""
 "Esse é o bloco de conteúdo recente. Por favor edite-o para mostrar o "
 "conteúdo que você deseja."
 
+#: ../views/box_organizer/_recent_content_block.html.erb:3
 msgid "No blogs found. Please add a blog in order to configure this block."
 msgstr ""
 "Nenhum blog encontrado. Por favor adicione um blog para configurar esse "
 "bloco."
 
+#: ../views/box_organizer/_recent_content_block.html.erb:6
 msgid "Choose which blog should be displayed"
 msgstr "Escolha qual blog deve ser mostrado"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:14
 msgid "Choose how the content should be displayed"
 msgstr "Escolha como o conteúdo deve ser mostrado"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:19
 msgid "Title only"
 msgstr "Somente título"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:20
 msgid "Title and abstract"
 msgstr "Título e resumo"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:21
 msgid "Full content"
 msgstr "Conteúdo completo"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:28
 msgid "Choose how many items will be displayed"
 msgstr "Escolha quantos itens devem ser mostrados"
 
+#: ../views/box_organizer/_recent_content_block.html.erb:33
 msgid "Display blog cover image"
 msgstr "Mostrar imagem de capa do blog"

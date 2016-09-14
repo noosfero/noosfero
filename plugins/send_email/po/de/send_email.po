@@ -18,40 +18,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
+#: ../controllers/send_email_plugin_admin_controller.rb:7
 msgid "Configurations was saved"
 msgstr "Die Konfiguration wurde gespeichert"
 
+#: ../controllers/send_email_plugin_admin_controller.rb:10
 msgid "Configurations could not be saved"
 msgstr "Die Konfiguration konnte nicht gespeichert werden"
 
+#: ../controllers/send_email_plugin_base_controller.rb:17
+#: ../views/send_email_plugin/success.html.erb:1
 msgid "Message sent"
 msgstr "Nachricht gesendet"
 
+#: ../lib/send_email_plugin.rb:10
 msgid "A plugin that allows sending e-mails via HTML forms."
 msgstr ""
 "Ein Plugin, welches die Zustellung von E-Mails von HTML-Formularen erlaubt."
 
+#: ../lib/send_email_plugin/mail.rb:4
 msgid "To"
 msgstr "An"
 
+#: ../lib/send_email_plugin/mail.rb:23
 msgid "'%s' isn't a valid e-mail address"
 msgstr "%s ist keine gültige E-Mail-Adresse"
 
+#: ../lib/send_email_plugin/mail.rb:30
 msgid "'%s' address is not allowed (see SendEmailPlugin config)"
 msgstr ""
 "Die Adresse von %s ist nicht erlaubt (siehe Einstellungen zu SendEmailPlugin)"
 
+#: ../views/send_email_plugin/fail.html.erb:1
 msgid "The message could not be sent"
 msgstr "Die Nachricht konnte nicht abgeschickt werden"
 
+#: ../views/send_email_plugin/sender/send_message.html.erb:1
 msgid "Contact from %s"
 msgstr "Kontakt von %s"
 
+#: ../views/send_email_plugin_admin/index.html.erb:1
 msgid "SendEmailPlugin's config"
 msgstr "Konfiguration des SendEmailPlugins"
 
+#: ../views/send_email_plugin_admin/index.html.erb:4
 msgid "E-Mail addresses you want to allow to send"
 msgstr "E-Mail-Adressen, welche Sie zum Senden freigeben möchten"
 
+#: ../views/send_email_plugin_admin/index.html.erb:5
 msgid "(list of email addresses separated by comma)"
 msgstr "(liste von kommagetrennten E-Mail-Adressen)"

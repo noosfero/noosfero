@@ -48,8 +48,7 @@ msgstr[0] "\"{#} #{display_type[:title]} organização\""
 msgstr[1] "\"{#} #{display_type[:title]} organizações\""
 
 msgid "This block displays %s organizations of this organization"
-msgstr ""
-"\"Este bloco mostra %s organizações desta organização\""
+msgstr "\"Este bloco mostra %s organizações desta organização\""
 
 msgid "Sub-groups"
 msgstr "Sub-grupos"

@@ -38,8 +38,9 @@ msgstr "Тело статьи"
 msgid "Form could not be removed"
 msgstr "Адрес не может быть сохранен"
 
-msgid "Submission saved"
-msgstr ""
+#, fuzzy
+msgid "Add a new alternative"
+msgstr "Одна компания"
 
 #, fuzzy
 msgid "Submission could not be saved"
@@ -57,8 +58,9 @@ msgstr "Управлять%s"
 msgid "Admission survey"
 msgstr "Участники: %s"
 
-msgid "%{requestor} wants you to fill in some information before joining."
-msgstr "%s хочет чтоб вы внесли информацию, прежде чем присоединиться."
+#, fuzzy
+msgid "Preselected"
+msgstr "Отклонено"
 
 #, fuzzy
 msgid ""
@@ -74,18 +76,21 @@ msgstr "%s хочет быть вашим другом"
 msgid "is mandatory."
 msgstr "%{fn} обязательное поле"
 
-msgid "Invalid string format of access."
-msgstr "Недействительный формат строки доступа."
+#, fuzzy
+msgid "Edit form"
+msgstr "Редактировать папку"
 
 #, fuzzy
 msgid "There is no profile with the provided id."
 msgstr "Со следующими файлами возникли проблемы:"
 
-msgid "Invalid type format of access."
-msgstr "Недействительный тип формата доступа."
+#, fuzzy
+msgid "Manage forms"
+msgstr "Редактировать друзей"
 
-msgid "The time range selected is invalid."
-msgstr "Диапазон времени выбран неверно."
+#, fuzzy
+msgid "Submissions"
+msgstr "Разрешения"
 
 #, fuzzy
 msgid "Logged users"
@@ -95,11 +100,13 @@ msgstr "В системе как %s"
 msgid "Custom"
 msgstr "Пользовательский заголовок"
 
-msgid "Always"
-msgstr "Всегда"
+#, fuzzy
+msgid "Default text:"
+msgstr "Языки"
 
-msgid "Until %s"
-msgstr "До %"
+#, fuzzy
+msgid "There are no submissions for this form."
+msgstr "Нет подкатегорий %s."
 
 #, fuzzy
 msgid "From %s until %s"
@@ -109,14 +116,17 @@ msgstr "с %s по %s"
 msgid "Select"
 msgstr "Выбрать..."
 
-msgid "Text field"
-msgstr "Поле текста"
+#, fuzzy
+msgid "Submissions for %s"
+msgstr "Статистика для %s"
 
-msgid "Select field"
-msgstr "Выбрать поле"
+#, fuzzy
+msgid "Checkbox"
+msgstr "Выбрать все"
 
-msgid "Hold down Ctrl to select options"
-msgstr "Держать нажатой клавишу Ctrl для выбора опций"
+#, fuzzy
+msgid "Author"
+msgstr "Автор"
 
 #, fuzzy
 msgid "Membership survey"
@@ -126,35 +136,13 @@ msgstr "Участники: %s"
 msgid "%{requestor} wants you to fill in some information."
 msgstr "%s хочет быть вашим другом"
 
-msgid ""
-"After joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
+#, fuzzy
+msgid "Submission date"
+msgstr "Разрешения"
 
 #, fuzzy
 msgid "%{requestor} wants to fill in some further information."
 msgstr "%s хочет быть вашим другом"
-
-msgid "Name"
-msgstr "Имя"
-
-msgid "Value"
-msgstr ""
-
-#, fuzzy
-msgid "Add a new option"
-msgstr "Одна компания"
-
-msgid "Ok"
-msgstr "OK"
-
-#, fuzzy
-msgid "Are you sure you want to remove this field?"
-msgstr "Вы уверены что хотите удалить этот элемент?"
-
-#, fuzzy
-msgid "Are you sure you want to remove this option?"
-msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
 msgid "Mandatory"
@@ -164,25 +152,33 @@ msgstr "Модератор"
 msgid "Remove field"
 msgstr "Удалить блок"
 
-msgid "What is the time limit for this form to be filled?"
-msgstr ""
+#, fuzzy
+msgid "Back to forms"
+msgstr "Назад к %s"
+
+#, fuzzy
+msgid "Sort by"
+msgstr "Отправлено %s."
 
 #, fuzzy
 msgid "Access"
 msgstr "Подтвердить"
 
-msgid "Triggered on membership request as requirement for approval"
-msgstr ""
+#, fuzzy
+msgid "There are no pending submissions for this form."
+msgstr "Нет подкатегорий %s."
 
 #, fuzzy
 msgid "Triggered after membership"
 msgstr "Управление членствами"
 
-msgid "This field will be added automatically to your form"
-msgstr ""
+#, fuzzy
+msgid "Pending submissions for %s"
+msgstr "Статистика для %s"
 
-msgid "Email"
-msgstr ""
+#, fuzzy
+msgid "New form"
+msgstr "Новая папка"
 
 #, fuzzy
 msgid "Add a new text field"
@@ -196,123 +192,179 @@ msgstr "Одна компания"
 msgid "Remove alternative"
 msgstr "Удалить участника"
 
-msgid "Type:"
-msgstr "Тип:"
-
-msgid "Radio"
-msgstr ""
-
 #, fuzzy
-msgid "Checkbox"
-msgstr "Выбрать все"
-
-msgid "Drop down"
-msgstr ""
-
-msgid "Multiple Select"
-msgstr ""
-
-msgid "Alternative"
-msgstr ""
-
-#, fuzzy
-msgid "Preselected"
-msgstr "Отклонено"
-
-#, fuzzy
-msgid "Add a new alternative"
+msgid "Add a new form"
 msgstr "Одна компания"
-
-#, fuzzy
-msgid "Default text:"
-msgstr "Языки"
-
-#, fuzzy
-msgid "Edit form"
-msgstr "Редактировать папку"
-
-#, fuzzy
-msgid "Manage forms"
-msgstr "Редактировать друзей"
-
-msgid "Period"
-msgstr ""
-
-#, fuzzy
-msgid "Submissions"
-msgstr "Разрешения"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "Pending"
-msgstr ""
 
 #, fuzzy
 msgid "Are you sure you want to remove this form?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
-msgid "Add a new form"
-msgstr "Одна компания"
-
-#, fuzzy
-msgid "New form"
-msgstr "Новая папка"
-
-#, fuzzy
-msgid "Pending submissions for %s"
-msgstr "Статистика для %s"
-
-#, fuzzy
-msgid "There are no pending submissions for this form."
-msgstr "Нет подкатегорий %s."
-
-#, fuzzy
-msgid "Sort by"
-msgstr "Отправлено %s."
-
-msgid "Time"
-msgstr ""
-
-msgid "User"
-msgstr "Пользователь"
-
-#, fuzzy
-msgid "Back to forms"
-msgstr "Назад к %s"
-
-#, fuzzy
-msgid "Submission date"
-msgstr "Разрешения"
-
-#, fuzzy
-msgid "Author"
-msgstr "Автор"
-
-msgid "Unauthenticated"
-msgstr ""
-
-#, fuzzy
 msgid "Back to submissions"
 msgstr "Назад к %s"
 
-#, fuzzy
-msgid "Submissions for %s"
-msgstr "Статистика для %s"
+#: ../controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr ""
 
-#, fuzzy
-msgid "There are no submissions for this form."
-msgstr "Нет подкатегорий %s."
+#: ../lib/custom_forms_plugin/admission_survey.rb:13
+msgid "%{requestor} wants you to fill in some information before joining."
+msgstr "%s хочет чтоб вы внесли информацию, прежде чем присоединиться."
 
+#: ../lib/custom_forms_plugin/form.rb:68
+msgid "Invalid string format of access."
+msgstr "Недействительный формат строки доступа."
+
+#: ../lib/custom_forms_plugin/form.rb:82
+msgid "Invalid type format of access."
+msgstr "Недействительный тип формата доступа."
+
+#: ../lib/custom_forms_plugin/form.rb:88
+msgid "The time range selected is invalid."
+msgstr "Диапазон времени выбран неверно."
+
+#: ../lib/custom_forms_plugin/helper.rb:24
+msgid "Always"
+msgstr "Всегда"
+
+#: ../lib/custom_forms_plugin/helper.rb:28
+msgid "Until %s"
+msgstr "До %"
+
+#: ../lib/custom_forms_plugin/helper.rb:61
+msgid "Text field"
+msgstr "Поле текста"
+
+#: ../lib/custom_forms_plugin/helper.rb:62
+msgid "Select field"
+msgstr "Выбрать поле"
+
+#: ../lib/custom_forms_plugin/helper.rb:106
+msgid "Hold down Ctrl to select options"
+msgstr "Держать нажатой клавишу Ctrl для выбора опций"
+
+#: ../lib/custom_forms_plugin/membership_survey.rb:44
+msgid ""
+"After joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:30
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:6
+#: ../views/custom_forms_plugin_profile/show.html.erb:19
+msgid "Name"
+msgstr "Имя"
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:5
+msgid "What is the time limit for this form to be filled?"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:14
+msgid "Triggered on membership request as requirement for approval"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:27
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:36
+msgid "This field will be added automatically to your form"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:39
+#: ../views/custom_forms_plugin_profile/show.html.erb:20
+msgid "Email"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
+msgid "Type:"
+msgstr "Тип:"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
+msgid "Radio"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
+msgid "Drop down"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
+msgid "Multiple Select"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
+msgid "Alternative"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
+msgid "One-line text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
+msgid "Multiline text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
+msgid "Maximum of 255 characters"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr "Действия"
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:20
+msgid "Pending"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:18
+msgid "Time"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+msgid "User"
+msgstr "Пользователь"
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
+msgid "Unauthenticated"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 msgid "Download all form responses as"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:9
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:11
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Add a new option"
+#~ msgstr "Одна компания"
+
+#~ msgid "Ok"
+#~ msgstr "OK"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this field?"
+#~ msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this option?"
+#~ msgstr "Вы уверены что хотите удалить этот элемент?"

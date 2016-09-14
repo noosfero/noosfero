@@ -23,77 +23,112 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-msgid "Published date"
-msgstr "Data de publicação"
-
+#: ../lib/ext/article.rb:13
 msgid "Older than one year"
 msgstr "Mais de um ano"
 
-msgid "In the last year"
-msgstr "No último ano"
+#: ../lib/ext/article.rb:13
+msgid "Published date"
+msgstr "Data de publicação"
 
-msgid "In the last month"
-msgstr "No último mês"
-
+#: ../lib/ext/article.rb:14
 msgid "In the last week"
 msgstr "Na última semana"
 
+#: ../lib/ext/article.rb:14
 msgid "In the last day"
 msgstr "No último dia"
 
+#: ../lib/ext/article.rb:14
+msgid "In the last month"
+msgstr "No último mês"
+
+#: ../lib/ext/article.rb:14
+msgid "In the last year"
+msgstr "No último ano"
+
+#: ../lib/ext/product.rb:7
 msgid "Related products"
 msgstr "Produtos relacionados"
 
+#: ../lib/ext/product.rb:73
 msgid " cert. "
 msgstr " cert. "
 
+#: ../lib/ext/profile.rb:14
 msgid "Situation"
 msgstr "Situação"
 
-msgid "facets|Enabled"
-msgstr "Habilitado"
-
+#: ../lib/ext/profile.rb:103
 msgid "facets|Not enabled"
 msgstr "Não habilitado"
 
+#: ../lib/ext/profile.rb:103
+msgid "facets|Enabled"
+msgstr "Habilitado"
+
+#: ../lib/solr_plugin.rb:14
 msgid "Uses Solr as search engine."
 msgstr "Usa Solr como motor de busca."
 
+#: ../lib/solr_plugin/search_helper.rb:12
+#: ../lib/solr_plugin/search_helper.rb:19
+#: ../lib/solr_plugin/search_helper.rb:22
+#: ../lib/solr_plugin/search_helper.rb:26
+#: ../lib/solr_plugin/search_helper.rb:29
+#: ../lib/solr_plugin/search_helper.rb:32
 msgid "Relevance"
 msgstr "Relevância"
 
+#: ../lib/solr_plugin/search_helper.rb:14
+#: ../lib/solr_plugin/search_helper.rb:20
+#: ../lib/solr_plugin/search_helper.rb:23
+#: ../lib/solr_plugin/search_helper.rb:27
+#: ../lib/solr_plugin/search_helper.rb:30
+#: ../lib/solr_plugin/search_helper.rb:33
 msgid "Name"
 msgstr "Nome"
 
+#: ../lib/solr_plugin/search_helper.rb:15
 msgid "Closest to me"
 msgstr "Mais próximo de mim"
 
+#: ../lib/solr_plugin/search_helper.rb:126
 msgid "Sort results by "
 msgstr "Ordenar resultados por "
 
+#: ../lib/solr_plugin/search_helper.rb:136
 msgid "%s products offers found"
 msgstr "%s ofertas de produtos encontrados"
 
+#: ../lib/solr_plugin/search_helper.rb:137
 msgid "%s articles found"
 msgstr "%s artigos encontrados"
 
+#: ../lib/solr_plugin/search_helper.rb:138
 msgid "%s events found"
 msgstr "%s eventos encontrados"
 
+#: ../lib/solr_plugin/search_helper.rb:139
 msgid "%s people found"
 msgstr "%s pessoas encontradas"
 
+#: ../lib/solr_plugin/search_helper.rb:140
 msgid "%s enterprises found"
 msgstr "%s empreendimentos encontrados"
 
+#: ../lib/solr_plugin/search_helper.rb:141
 msgid "%s communities found"
 msgstr "%s comunidades encontradas"
 
+#: ../lib/solr_plugin/search_helper.rb:223
 msgid "Type in an option"
 msgstr "Digite uma opção"
 
+#: ../views/search/_facets_menu.html.erb:32
 msgid "No filter available"
 msgstr "Nenhum filtro disponível"
 
+#: ../views/search/_results_header.html.erb:7
 msgid "Showing page %s of %s"
 msgstr "Mostrando página %d de %d"

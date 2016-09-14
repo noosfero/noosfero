@@ -37,8 +37,9 @@ msgstr "Contrato eliminado."
 msgid "Form could not be removed"
 msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
 
-msgid "Submission saved"
-msgstr ""
+#, fuzzy
+msgid "Add a new alternative"
+msgstr "Añadir nueva empresa"
 
 #, fuzzy
 msgid "Submission could not be saved"
@@ -74,31 +75,37 @@ msgstr "%{requestor} quiere ser tu amigo."
 msgid "is mandatory."
 msgstr "%{fn} es obligatorio"
 
-msgid "Invalid string format of access."
-msgstr "Formato de texto inválido."
+#, fuzzy
+msgid "Default text:"
+msgstr "todos los idiomas"
 
-msgid "There is no profile with the provided id."
-msgstr "No hay perfil con este id."
+#, fuzzy
+msgid "Edit form"
+msgstr "Editar carpeta"
 
 #, fuzzy
 msgid "Invalid type format of access."
 msgstr "Nombre nombre de ciudad o estado inválido."
 
-msgid "The time range selected is invalid."
-msgstr ""
+#, fuzzy
+msgid "Checkbox"
+msgstr "Marcar todos"
 
-msgid "Logged users"
-msgstr "Usuarios registrados"
+#, fuzzy
+msgid "Manage forms"
+msgstr "Administrar amigos"
 
 #, fuzzy
 msgid "Custom"
 msgstr "Cliente"
 
-msgid "Always"
-msgstr ""
+#, fuzzy
+msgid "Preselected"
+msgstr "Rechazado"
 
-msgid "Until %s"
-msgstr ""
+#, fuzzy
+msgid "Submissions for %s"
+msgstr "Estadísticas para %s"
 
 #, fuzzy
 msgid "From %s until %s"
@@ -108,15 +115,17 @@ msgstr "desde %s hasta %s"
 msgid "Select"
 msgstr "Seleccione ..."
 
-msgid "Text field"
-msgstr ""
+#, fuzzy
+msgid "Submissions"
+msgstr "Permisos"
 
 #, fuzzy
 msgid "Select field"
 msgstr "Selecciona las carpetas"
 
-msgid "Hold down Ctrl to select options"
-msgstr ""
+#, fuzzy
+msgid "Author"
+msgstr "Autor"
 
 #, fuzzy
 msgid "Membership survey"
@@ -126,35 +135,13 @@ msgstr "Miembros: %s"
 msgid "%{requestor} wants you to fill in some information."
 msgstr "%{requestor} quiere ser tu amigo."
 
-msgid ""
-"After joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
+#, fuzzy
+msgid "Submission date"
+msgstr "Permisos"
 
 #, fuzzy
 msgid "%{requestor} wants to fill in some further information."
 msgstr "%{requestor} quiere ser tu amigo."
-
-msgid "Name"
-msgstr "Nombre"
-
-msgid "Value"
-msgstr ""
-
-#, fuzzy
-msgid "Add a new option"
-msgstr "Añadir nuevo producto"
-
-msgid "Ok"
-msgstr "Ok"
-
-#, fuzzy
-msgid "Are you sure you want to remove this field?"
-msgstr "¿Estás seguro de que deseas eliminar este elemento?"
-
-#, fuzzy
-msgid "Are you sure you want to remove this option?"
-msgstr "¿Estás seguro de que deseas eliminar este elemento?"
 
 #, fuzzy
 msgid "Mandatory"
@@ -164,25 +151,33 @@ msgstr "Moderador"
 msgid "Remove field"
 msgstr "Eliminar bloque"
 
-msgid "What is the time limit for this form to be filled?"
-msgstr ""
+#, fuzzy
+msgid "Back to forms"
+msgstr "Regresar a %s"
+
+#, fuzzy
+msgid "Pending submissions for %s"
+msgstr "Estadísticas para %s"
 
 #, fuzzy
 msgid "Access"
 msgstr "Accesor"
 
-msgid "Triggered on membership request as requirement for approval"
-msgstr ""
+#, fuzzy
+msgid "New form"
+msgstr "Forma Legal"
 
 #, fuzzy
 msgid "Triggered after membership"
 msgstr "Administrar membresías"
 
-msgid "This field will be added automatically to your form"
-msgstr ""
+#, fuzzy
+msgid "Add a new form"
+msgstr "Añadir un nuevo calificador"
 
-msgid "Email"
-msgstr "Correo electrónico"
+#, fuzzy
+msgid "Are you sure you want to remove this form?"
+msgstr "¿Estás seguro de que deseas eliminar este elemento?"
 
 #, fuzzy
 msgid "Add a new text field"
@@ -196,120 +191,181 @@ msgstr "Agregar un archivo CSS"
 msgid "Remove alternative"
 msgstr "Eliminar miembro"
 
-msgid "Type:"
-msgstr "Tipo:"
-
-msgid "Radio"
-msgstr ""
-
-#, fuzzy
-msgid "Checkbox"
-msgstr "Marcar todos"
-
-msgid "Drop down"
-msgstr ""
-
-msgid "Multiple Select"
-msgstr ""
-
-msgid "Alternative"
-msgstr ""
-
-#, fuzzy
-msgid "Preselected"
-msgstr "Rechazado"
-
-#, fuzzy
-msgid "Add a new alternative"
-msgstr "Añadir nueva empresa"
-
-#, fuzzy
-msgid "Default text:"
-msgstr "todos los idiomas"
-
-#, fuzzy
-msgid "Edit form"
-msgstr "Editar carpeta"
-
-#, fuzzy
-msgid "Manage forms"
-msgstr "Administrar amigos"
-
-msgid "Period"
-msgstr ""
-
-#, fuzzy
-msgid "Submissions"
-msgstr "Permisos"
-
-msgid "Actions"
-msgstr "Acciones"
-
-msgid "Pending"
-msgstr "Pendiente"
-
-#, fuzzy
-msgid "Are you sure you want to remove this form?"
-msgstr "¿Estás seguro de que deseas eliminar este elemento?"
-
-#, fuzzy
-msgid "Add a new form"
-msgstr "Añadir un nuevo calificador"
-
-#, fuzzy
-msgid "New form"
-msgstr "Forma Legal"
-
-#, fuzzy
-msgid "Pending submissions for %s"
-msgstr "Estadísticas para %s"
-
-msgid "There are no pending submissions for this form."
-msgstr ""
-
-msgid "Sort by"
-msgstr "Ordenar por"
-
-msgid "Time"
-msgstr ""
-
-msgid "User"
-msgstr "Usuario"
-
-#, fuzzy
-msgid "Back to forms"
-msgstr "Regresar a %s"
-
-#, fuzzy
-msgid "Submission date"
-msgstr "Permisos"
-
-#, fuzzy
-msgid "Author"
-msgstr "Autor"
-
-msgid "Unauthenticated"
-msgstr ""
-
 #, fuzzy
 msgid "Back to submissions"
 msgstr "Regresar a %s"
 
-#, fuzzy
-msgid "Submissions for %s"
-msgstr "Estadísticas para %s"
+#: ../controllers/custom_forms_plugin_profile_controller.rb:31
+msgid "Submission saved"
+msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:68
+msgid "Invalid string format of access."
+msgstr "Formato de texto inválido."
+
+#: ../lib/custom_forms_plugin/form.rb:72 ../lib/custom_forms_plugin/form.rb:77
+msgid "There is no profile with the provided id."
+msgstr "No hay perfil con este id."
+
+#: ../lib/custom_forms_plugin/form.rb:88
+msgid "The time range selected is invalid."
+msgstr ""
+
+#: ../lib/custom_forms_plugin/helper.rb:14
+#: ../lib/custom_forms_plugin/helper.rb:47
+msgid "Logged users"
+msgstr "Usuarios registrados"
+
+#: ../lib/custom_forms_plugin/helper.rb:24
+msgid "Always"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/helper.rb:28
+msgid "Until %s"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/helper.rb:61
+msgid "Text field"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/helper.rb:106
+msgid "Hold down Ctrl to select options"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/membership_survey.rb:44
+msgid ""
+"After joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:30
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:6
+#: ../views/custom_forms_plugin_profile/show.html.erb:19
+msgid "Name"
+msgstr "Nombre"
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:5
+msgid "What is the time limit for this form to be filled?"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:14
+msgid "Triggered on membership request as requirement for approval"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:27
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:36
+msgid "This field will be added automatically to your form"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:39
+#: ../views/custom_forms_plugin_profile/show.html.erb:20
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
+msgid "Type:"
+msgstr "Tipo:"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
+msgid "Radio"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
+msgid "Drop down"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
+msgid "Multiple Select"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
+msgid "Alternative"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
+msgid "One-line text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
+msgid "Multiline text"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
+msgid "Maximum of 255 characters"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:10
+msgid "Actions"
+msgstr "Acciones"
+
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:20
+msgid "Pending"
+msgstr "Pendiente"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:6
+msgid "There are no pending submissions for this form."
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+msgid "User"
+msgstr "Usuario"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:18
+msgid "Time"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
+msgid "Unauthenticated"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:6
 msgid "There are no submissions for this form."
 msgstr ""
 
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 msgid "Download all form responses as"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:9
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:11
+#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Add a new option"
+#~ msgstr "Añadir nuevo producto"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this field?"
+#~ msgstr "¿Estás seguro de que deseas eliminar este elemento?"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this option?"
+#~ msgstr "¿Estás seguro de que deseas eliminar este elemento?"

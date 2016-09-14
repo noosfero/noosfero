@@ -23,11 +23,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/mark_comment_as_read_plugin.rb:10
 msgid "Provide a button to mark a comment as read."
 msgstr "Prover um botão para marcar um comentário como lido."
 
+#: ../lib/mark_comment_as_read_plugin.rb:23
 msgid "Mark as not read"
 msgstr "Marcar como não lido"
 
+#: ../lib/mark_comment_as_read_plugin.rb:24
 msgid "Mark as read"
 msgstr "Marcar como lido"

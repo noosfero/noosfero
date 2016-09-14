@@ -23,6 +23,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/relevant_content_plugin.rb:8
+#: ../test/unit/relevant_content_plugin_test.rb:18
 msgid ""
 "A plugin that lists the most accessed, most commented, most liked and most "
 "disliked contents."
@@ -30,41 +32,50 @@ msgstr ""
 "Um plugin que lista os conteúdos mais acessados, mais comentados, mais "
 "curtidos e mais rejeitados."
 
+#: ../lib/relevant_content_plugin/relevant_content_block.rb:3
+#: ../lib/relevant_content_plugin/relevant_content_block.rb:7
 msgid "Relevant content"
 msgstr "Conteúdo relevante"
 
+#: ../lib/relevant_content_plugin/relevant_content_block.rb:11
 msgid "This block lists the most popular content."
 msgstr "Este bloco apresenta o conteúdo mais popular."
 
-msgid "Most read articles"
-msgstr "Artigos mais lidos"
-
-msgid "Most commented articles"
-msgstr "Artigos mais comentados"
-
-msgid "Most liked articles"
-msgstr "Artigos mais curtidos"
-
-msgid "Most disliked articles"
-msgstr "Artigos mais rejeitados"
-
-msgid "Most voted articles"
-msgstr "Artigos mais votados"
-
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:2
 msgid "Limit of items per category"
 msgstr "Limite de itens por categoria"
 
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:3
 msgid "Display most accessed content"
 msgstr "Mostrar conteúdo mais acessado"
 
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:4
 msgid "Display most commented content"
 msgstr "Mostrar conteúdo mais comentado"
 
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:5
 msgid "Display most liked content"
 msgstr "Mostrar conteúdo mais curtido"
 
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:6
 msgid "Display most voted content"
 msgstr "Mostrar conteúdo mais votado"
 
+#: ../views/box_organizer/relevant_content_plugin/_relevant_content_block.html.erb:7
 msgid "Display most disliked content"
 msgstr "Mostrar conteúdo mais rejeitado"
+
+#~ msgid "Most read articles"
+#~ msgstr "Artigos mais lidos"
+
+#~ msgid "Most commented articles"
+#~ msgstr "Artigos mais comentados"
+
+#~ msgid "Most liked articles"
+#~ msgstr "Artigos mais curtidos"
+
+#~ msgid "Most disliked articles"
+#~ msgstr "Artigos mais rejeitados"
+
+#~ msgid "Most voted articles"
+#~ msgstr "Artigos mais votados"

@@ -23,20 +23,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/ext/vote.rb:11
+msgid "The target is achived and can't accept votes"
+msgstr ""
+
+#: ../lib/vote_plugin.rb:8
 msgid "Provide buttons to like/dislike a articles and comments."
 msgstr "Provê botões de curtir/rejeitar para artigos e comentários."
 
+#: ../views/vote_plugin_admin/index.html.erb:1
 msgid "Vote settings"
 msgstr "Configurações de voto"
 
+#: ../views/vote_plugin_admin/index.html.erb:6
 msgid "Enable on %s:"
 msgstr "Habilitar em %s:"
 
+#: ../views/vote_plugin_admin/index.html.erb:7
 msgid "Like"
 msgstr "Curtir"
 
+#: ../views/vote_plugin_admin/index.html.erb:8
 msgid "Dislike"
 msgstr "Rejeitar"
 
+#: ../views/vote_plugin_admin/index.html.erb:13
 msgid "Limit of voters to display:"
 msgstr "Limite de votantes para exibir:"
