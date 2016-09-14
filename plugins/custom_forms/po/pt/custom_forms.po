@@ -246,12 +246,11 @@ msgstr "Adicionar nova alternativa"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
 msgid "One-line text"
-msgstr ""
+msgstr "Texto de uma linha"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
-#, fuzzy
 msgid "Multiline text"
-msgstr "Select Múltiplo"
+msgstr "Texto de múltiplas linhas"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:11
 msgid "Default text:"
@@ -259,7 +258,7 @@ msgstr "Texto padrão:"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
 msgid "Maximum of 255 characters"
-msgstr ""
+msgstr "Máximo de 255 caractéres"
 
 #: ../views/custom_forms_plugin_myprofile/edit.html.erb:1
 msgid "Edit form"

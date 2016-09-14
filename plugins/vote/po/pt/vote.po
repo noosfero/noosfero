@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../lib/ext/vote.rb:11
 msgid "The target is achived and can't accept votes"
-msgstr ""
+msgstr "O alvo está arquivado e não pode receber votos"
 
 #: ../lib/vote_plugin.rb:8
 msgid "Provide buttons to like/dislike a articles and comments."

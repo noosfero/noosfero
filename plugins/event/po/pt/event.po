@@ -91,7 +91,7 @@ msgstr "Mostrar apenas eventos futuros"
 
 #: ../views/profile_design/event_plugin/_event_block.html.erb:22
 msgid "Display as a calendar"
-msgstr ""
+msgstr "Mostrar como calendário"
 
 #: ../views/profile_design/event_plugin/_event_block.html.erb:24
 msgid "Limit of days to display"

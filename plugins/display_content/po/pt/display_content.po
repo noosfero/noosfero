@@ -114,11 +114,11 @@ msgstr "Mais antigas"
 
 #: ../views/box_organizer/_display_content_block.html.erb:32
 msgid "Translations:"
-msgstr ""
+msgstr "Traduções:"
 
 #: ../views/box_organizer/_display_content_block.html.erb:33
 msgid "List only translated content"
-msgstr ""
+msgstr "Listar apenas conteúdos traduzidos"
 
 #~ msgid "Read more"
 #~ msgstr "Leia mais"

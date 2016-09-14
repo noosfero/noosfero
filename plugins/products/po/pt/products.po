@@ -430,7 +430,7 @@ msgstr ""
 
 #: ../views/products_plugin/page/_display_image.html.erb:11
 msgid "Change image"
-msgstr ""
+msgstr "Mudar imagem"
 
 #: ../views/products_plugin/page/_display_info.html.erb:7
 msgid ""
@@ -697,7 +697,7 @@ msgstr "Preço"
 
 #: ../views/products_plugin/page/index.html.erb:7
 msgid "Actions"
-msgstr ""
+msgstr "Ações"
 
 #: ../views/products_plugin/page/index.html.erb:11
 msgid "(no product registered yet)"
