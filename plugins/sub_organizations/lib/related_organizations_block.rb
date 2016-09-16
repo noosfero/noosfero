@@ -41,7 +41,7 @@ class RelatedOrganizationsBlock < ProfileListBlock
 
   def related_organizations
     profile = self.owner
-    organizations = Organization.parents(profile)
+    organizations = Organization.parentz(profile)
 
     if organizations.blank?
       @display_type = {:title => 'sub', :action => 'children'}

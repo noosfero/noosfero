@@ -21,7 +21,7 @@ class SubOrganizationsPlugin::Relation < ApplicationRecord
   end
 
   def no_multi_level
-    if Organization.parents(parent).present? || Organization.children(child).present?
+    if Organization.parentz(parent).present? || Organization.children(child).present?
       errors.add(:child, _('multi-level paternity is not allowed.'))
     end
   end
