@@ -39,8 +39,8 @@ class RelationTest < ActiveSupport::TestCase
     SubOrganizationsPlugin::Relation.create!(:parent => parent1, :child => child)
     SubOrganizationsPlugin::Relation.create!(:parent => parent2, :child => child)
 
-    assert_includes Organization.parents(child), parent1
-    assert_includes Organization.parents(child), parent2
+    assert_includes Organization.parentz(child), parent1
+    assert_includes Organization.parentz(child), parent2
   end
 
   should 'be able to retrieve children of an organization' do

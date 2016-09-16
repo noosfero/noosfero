@@ -10,7 +10,7 @@ class SubOrganizationsPluginProfileController < ProfileController
   end
 
   def parents
-    parents = Organization.parents(profile)
+    parents = Organization.parentz(profile)
     family_relation(parents)
     render 'related_organizations'
   end

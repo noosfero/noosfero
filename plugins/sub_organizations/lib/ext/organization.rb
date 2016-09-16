@@ -18,7 +18,7 @@ class Organization
     where("relations.parent_id = ?", parent.id)
   }
 
-  scope :parents, -> *children {
+  scope :parentz, -> *children {
     joins("inner join sub_organizations_plugin_relations as relations on profiles.id=relations.parent_id").
     where("relations.child_id in (?)", children.map(&:id))
   }
