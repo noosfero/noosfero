@@ -719,6 +719,35 @@ class TasksControllerTest < ActionController::TestCase
     assert_tag :tag=> 'div', :attributes => { :class => 'field-name' }, :content => /great_field: new_value!/
   end
 
+  should 'list custom fields in moderation email if moderation tasks if true' do
+    person_custom_field = CustomField.create(:name => "registration_reason", :format=>"string", :default_value => "because i want to", :customized_type=>"Person", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)
+    p1 = create_user("great_person").person
+    p1.custom_values = {"registration_reason" => "I want to send my TCC"}
+    p1.save!
+    p1.reload
+    admin = create_user("admin").person
+    Environment.default.add_admin(admin)
+
+    task = ModerateUserRegistration.create!(:requestor => p1, :name => "great_person", :email => "alo@alo.alo", :target => Environment.default)
+    email = ActionMailer::Base.deliveries.last
+    assert_match /#{task.target_custom_fields}/, email.body.to_s
+  end
+
+  should 'not list custom fields in moderation email if moderation tasks is false' do
+    person_custom_field = CustomField.create(:name => "registration_reason", :format=>"string", :default_value => "because i want to", :customized_type=>"Person", :active => true, :environment => Environment.default, :moderation_task => false, :required => true)
+    p1 = create_user("great_person").person
+    p1.custom_values = {"registration_reason" => "I want to send my TCC"}
+    p1.save!
+    p1.reload
+    admin = create_user("admin").person
+    Environment.default.add_admin(admin)
+
+    task = ModerateUserRegistration.create!(:requestor => p1, :name => "great_person", :email => "alo@alo.alo", :target => Environment.default)
+    email = ActionMailer::Base.deliveries.last
+    assert_no_match /#{person_custom_field.name}/, email.body.to_s
+  end
+
+
   should 'list custom field details in moderation of community creation tasks when moderation_tasks is true' do
     community_custom_field = CustomField.create(:name => "great_field", :format=>"string", :default_value => "value for community", :customized_type=>"Community", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)
     p1 = create_user("great_person").person

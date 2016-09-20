@@ -59,7 +59,21 @@ class ModerateUserRegistration < Task
   end
 
   def target_notification_message
-    _("User \"%{user}\" just requested to register. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.name }
+    _("User \"%{user}\" just requested to register. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.name } + target_custom_fields
+  end
+
+  def target_custom_fields
+    header = ""
+    reason = ""
+    if requestor.present?
+      requestor.custom_field_values.includes(:custom_field).each do |custom_value|
+          if custom_value.custom_field.moderation_task
+            header = _("\nModerated Fields\n")
+            reason += "#{custom_value.custom_field.name}: #{custom_value.value}\n"
+          end
+      end
+    end
+    header + reason
   end
 
 end
