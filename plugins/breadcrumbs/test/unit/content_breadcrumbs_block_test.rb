@@ -5,8 +5,12 @@ class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
   include NoosferoTestHelper
 
   def setup
-    @block = BreadcrumbsPlugin::ContentBreadcrumbsBlock.new
+    @profile = fast_create(Profile)
+    box = Box.create!(owner: profile)
+    @block = fast_create(BreadcrumbsPlugin::ContentBreadcrumbsBlock, box_id: box.id)
   end
+
+  attr_accessor :block, :profile
 
   should 'has a description' do
     assert_not_equal Block.description, BreadcrumbsPlugin::ContentBreadcrumbsBlock.description
@@ -16,11 +20,18 @@ class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
     assert @block.help
   end
 
-
   should 'not be cacheable' do
     refute @block.cacheable?
   end
 
+  should 'return page links in api_content' do
+    folder = fast_create(Folder, profile_id: profile.id, name: 'folder')
+    article = Article.create!(profile: profile, parent: folder, name: 'child')
+    block.api_content_params = { page: article.path, profile: profile.identifier }
+    links = block.api_content[:links]
+    assert_equal [profile.name, 'folder', 'child'], links.map {|l| l[:name]}
+    assert_equal article.full_path, links.last[:url]
+  end
 end
 
 require 'boxes_helper'
