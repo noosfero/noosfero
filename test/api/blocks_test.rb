@@ -141,4 +141,18 @@ class BlocksTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_includes json["block"]["permissions"], 'allow_edit'
   end
+
+  should 'get a block with api content params' do
+    class MyTestBlock < Block
+      def api_content
+        api_content_params
+      end
+    end
+    box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)
+    block = fast_create(MyTestBlock, box_id: box.id)
+    params["custom_param"] = "custom_value"
+    get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "custom_value", json["block"]["api_content"]["custom_param"]
+  end
 end

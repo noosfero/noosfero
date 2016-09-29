@@ -320,6 +320,8 @@ class Block < ApplicationRecord
     false
   end
 
+  attr_accessor :api_content_params
+
   private
 
   def home_page_path

@@ -6,6 +6,7 @@ module Api
         get ':id' do
           block = Block.find(params["id"])
           return forbidden! unless block.visible_to_user?(current_person) || block.allow_edit?(current_person)
+          block.api_content_params = params.except("id")
           present block, :with => Entities::Block, display_api_content: true, current_person: current_person
         end
 
