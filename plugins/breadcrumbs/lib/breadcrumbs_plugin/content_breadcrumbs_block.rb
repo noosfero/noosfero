@@ -26,4 +26,31 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
     false
   end
 
+  def api_content
+    links = []
+    links << profile_link
+    links << page_links
+    { links: links.compact.flatten }
+  end
+
+  private
+
+  def profile_link
+    return nil if (api_content_params || {})[:profile].blank?
+    profile = environment.profiles.find_by(identifier: api_content_params[:profile])
+    return nil if profile.blank?
+    { :name => profile.name, :url => "/#{profile.identifier}" }
+  end
+
+  def page_links
+    return nil if (api_content_params || {})[:page].blank?
+    page = owner.articles.find_by(path: api_content_params[:page])
+    return nil if page.blank?
+    page_trail(page)
+  end
+
+  def page_trail(page)
+    links = page.ancestors.reverse.map { |p| { :name => p.title, :url => p.full_path } } || []
+    links << { :name => page.title, :url => page.full_path }
+  end
 end
