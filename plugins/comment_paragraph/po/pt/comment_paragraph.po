@@ -6,14 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2015-03-03 07:41-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2016-10-03 18:28+0000\n"
+"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero"
+"/plugin-comment-paragraph/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.9-dev\n"
 
 msgid "Settings successfuly saved"
 msgstr "Configurações salvas com sucesso"
@@ -28,24 +30,26 @@ msgid "Activate Comments"
 msgstr "Ativar Comentários"
 
 msgid "Export Comments"
-msgstr ""
+msgstr "Exportar Comentários"
 
 msgid ""
 "No comments for article[%{id}]: %{path}\n"
 "\n"
 msgstr ""
+"Nenhum comentário para o artigo [%{id}]: %{path}\n"
+"\n"
 
 msgid "Comments Discussion"
 msgstr ""
 
 msgid "Article with paragraph comments"
-msgstr ""
+msgstr "Artigo com parágrafos comentados"
 
 msgid "This block displays all profile's article discussion"
-msgstr ""
+msgstr "Este bloco mostra todos os debates neste perfil"
 
 msgid "Read more"
-msgstr ""
+msgstr "Leia mais"
 
 msgid "Choose which blog should be displayed"
 msgstr ""
@@ -74,9 +78,8 @@ msgstr ""
 msgid "Choose how many items will be displayed"
 msgstr ""
 
-#, fuzzy
 msgid "Title"
-msgstr "Título: "
+msgstr "Título"
 
 msgid "Comment Paragraph Plugin Settings"
 msgstr "Configurações do Plugin de Comentário por Parágrafos"
