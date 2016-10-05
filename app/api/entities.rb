@@ -302,6 +302,9 @@ module Api
       expose :terms_of_use
       expose :top_url, as: :host
       expose :settings, if: lambda { |instance, options| options[:is_admin] }
+      expose :permissions, if: lambda { |environment, options| options[:current_person].present? } do |environment, options|
+        environment.permissions_for(options[:current_person])
+      end
     end
 
     class Tag < Entity

@@ -18,7 +18,7 @@ module Api
           else
             local_environment = Environment.find(params[:id])
           end
-          present_partial local_environment, :with => Entities::Environment, :is_admin => is_admin?(local_environment)
+          present_partial local_environment, with: Entities::Environment, is_admin: is_admin?(local_environment), current_person: current_person
         end
 
       end

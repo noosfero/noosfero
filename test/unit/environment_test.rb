@@ -1721,4 +1721,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_respond_to Environment.new, :https_feed_proxy
   end
 
+  should 'list permissions for person' do
+    environment = Environment.default
+    person = create_user.person
+    environment.add_admin(person)
+    assert !environment.permissions_for(person).empty?
+  end
+
 end
