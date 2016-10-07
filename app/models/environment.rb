@@ -1008,6 +1008,10 @@ class Environment < ApplicationRecord
     HashWithIndifferentAccess.new :name => name
   end
 
+  def permissions_for(person)
+    person.role_assignments.where(resource: self).map {|ra| ra.role.permissions}.flatten.uniq
+  end
+
   private
 
   def default_language_available

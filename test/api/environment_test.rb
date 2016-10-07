@@ -67,4 +67,22 @@ class EnvironmentTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal context_env.id, json['id']
   end
+
+  should 'return no permissions for the current person that has no role in the environment' do
+    login_api
+    environment = Environment.default
+    get "/api/v1/environment/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [], json['permissions']
+  end
+
+  should 'return permissions for the current person in the environment' do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    get "/api/v1/environment/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.permissions_for(person), json['permissions']
+  end
+
 end
