@@ -33,6 +33,13 @@ module ProductsPlugin
       [EnterpriseHomepage] if context.kind_of?(Enterprise)
     end
 
+    def extra_categories
+      products = Category.where(type: 'ProductCategory')
+      proc do
+        render :partial => 'products_plugin/admin/categories/product_categories', :locals => {:categories => products}
+      end
+    end
+
   end
 end
 

@@ -7,6 +7,8 @@
   <%= link_to _('New category'), :action => 'new' %>
 </div>
 
+<%= safe_join(@plugins.dispatch(:extra_categories).collect { |content| instance_exec(&content) }, "") %>
+
 <h1><%= _('Regions') %></h1>
 <ul class='tree'>
   <%= render :partial => 'category', :collection => @regions %>

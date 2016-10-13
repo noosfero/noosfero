@@ -516,6 +516,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds a block with extra categories
+  # returns = lambda block that creates html code.
+  def extra_categories
+    nil
+  end
+
   # -> Add an alternative authentication method.
   # Your plugin have to make the access control and return the logged user.
   # returns = User
