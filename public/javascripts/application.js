@@ -1161,7 +1161,9 @@ function notifyMe(title, options) {
     });
   }
 
-  setTimeout(function() {notification.close()}, 5000);
+  if(!PERMANENT_NOTIFICATIONS)
+    setTimeout(function() {notification.close()}, 5000);
+
   notification.onclick = function(){
     notification.close();
     // Chromium tweak

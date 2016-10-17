@@ -356,6 +356,8 @@ class Environment < ApplicationRecord
   settings_items :members_whitelist_enabled, :type => :boolean, :default => false
   settings_items :members_whitelist, :type => Array, :default => []
 
+  settings_items :permanent_notifications, :type => :boolean, :default => false
+
   def in_whitelist?(person)
     !members_whitelist_enabled || members_whitelist.include?(person.id)
   end
