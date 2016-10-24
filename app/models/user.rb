@@ -411,6 +411,10 @@ class User < ApplicationRecord
     15 # in minutes
   end
 
+  # Chat was not refreshed in the last 20 seconds. The window was closed.
+  def chat_alive?
+    (DateTime.now - chat_status_at.to_datetime) * 1.day <= 20
+  end
 
   def not_require_password!
     @is_password_required = false
