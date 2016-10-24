@@ -121,9 +121,10 @@ class ChatController < PublicController
   end
 
   def availabilities
+    current_user.update_column(:chat_status_at, DateTime.now)
     availabilities = user.friends.map do |friend|
       status = friend.user.chat_status
-      status = 'offline' if status.blank?
+      status = 'offline' if status.blank? || !friend.user.chat_alive?
       {:jid => friend.jid, :status => status}
     end
     render :text => availabilities.to_json
