@@ -32,6 +32,7 @@
 
     <script type="text/javascript">
       DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'".html_safe %>;
+      PERMANENT_NOTIFICATIONS = <%= @environment.permanent_notifications %>;
       noosfero.profile = <%= (@profile.identifier if @profile).to_json.html_safe %>
     </script>
 
