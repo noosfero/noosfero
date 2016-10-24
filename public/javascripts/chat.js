@@ -493,7 +493,7 @@ jQuery(function($) {
     },
 
     connect: function() {
-      if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+      if (("Notification" in window) && Notification.permission !== "granted" && Notification.permission !== "denied") {
         Notification.requestPermission(function (permission) {
           if (!('permission' in Notification)) {
             Notification.permission = permission;
@@ -874,6 +874,8 @@ jQuery(function($) {
   }
 
   function notifyMessage(message) {
+    if(!("Notification" in window))
+      return null;
     var jid = Strophe.getBareJidFromJid(message.from);
     var jid_id = Jabber.jid_to_id(jid);
     var name = Jabber.name_of(jid_id);
