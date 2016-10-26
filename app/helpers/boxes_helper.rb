@@ -285,7 +285,7 @@ module BoxesHelper
     end
 
     if block.respond_to?(:help)
-      buttons << modal_inline_icon(:help, _('Help on this block'), {}, "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;') + modal_close_button(_('Close')), :style => 'display: none;', :id => "help-on-box-#{block.id}")
+      buttons << modal_inline_icon(:help, _('Help on this block'), {}, "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;'), :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
     if block.embedable?
