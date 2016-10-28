@@ -5,10 +5,18 @@ module SanitizeHelper
   end
 
   def sanitize_link(text)
-      sanitizer(:white_list).sanitize(text, scrubber:permit_scrubber)
+      sanitizer(:white_list).sanitize(text, tags: allowed_tags, attributes: allowed_attributes)
   end
 
 protected
+
+  def allowed_tags
+    Rails.application.config.action_view.sanitized_allowed_tags
+  end
+
+  def allowed_attributes
+    Rails.application.config.action_view.sanitized_allowed_attributes
+  end
 
   def permit_scrubber
       scrubber = Rails::Html::PermitScrubber.new
