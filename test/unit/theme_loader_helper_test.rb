@@ -34,6 +34,11 @@ class ThemeLoaderHelperTest < ActionView::TestCase
     assert_equal '/user_themes/theme-under-test', theme_path
   end
 
+  should 'point to session theme path when testing theme' do
+    stubs(:session).returns({:theme => 'theme-under-test'})
+    assert_equal '/designs/themes/theme-under-test', theme_path
+  end
+
   should 'point to session theme is defined' do
     session = mock
     stubs(:session).returns(session)
