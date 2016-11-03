@@ -6,7 +6,7 @@
     <p>
       <span style="font-size: 14px;">
         <%= link_to activity.user.name, activity.user.url %>
-        <%= describe activity %>
+        <%= describe(activity).html_safe %>
       </span>
       <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_in_words(activity.created_at) %></span>
     </p>
