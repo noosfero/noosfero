@@ -1,3 +1,6 @@
 <div id="footer-content">
-  <p><%= _('This site uses <a href="http://noosfero.org/">Noosfero</a>, developed by %s and licensed under the <a href="http://www.gnu.org/licenses/agpl.html">GNU Affero General Public License</a> version 3 or any later version.') % link_to('Colivre', 'http://colivre.coop.br/').html_safe %></p>
+  <% noosfero_url = link_to("Noosfero", "http://noosfero.org/").html_safe %>
+  <% colivre_url = link_to('Colivre', 'http://colivre.coop.br/').html_safe %>
+  <% agpl_url = link_to("GNU Affero General Public License", "http://www.gnu.org/licenses/agpl.html").html_safe %>
+  <p><%= _("This site uses %{noosfero_url}, developed by %{colivre_url} and licensed under the %{agpl_url} version 3 or any later version." % {:noosfero_url => noosfero_url, :colivre_url => colivre_url, :agpl_url => agpl_url}) %></p>
 </div>

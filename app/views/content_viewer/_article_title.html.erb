@@ -9,7 +9,7 @@
   <%= render :partial => "publishing_info" %>
   <% if @page.display_preview? %>
     <div class="preview">
-      <%= @page.lead %>
+      <%= @page.lead.html_safe %>
     </div>
   <% end %>
 <% else %>
