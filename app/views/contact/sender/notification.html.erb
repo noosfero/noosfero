@@ -16,7 +16,7 @@
     </ul>
     <hr/>
     <%= content_tag('b', _('Message:')) %>
-    <p><%= word_wrap(@message) %></p>
+    <p><%= word_wrap(@message).html_safe %></p>
 
     --<br/>
     <%= _('Greetings,') %><br/>
@@ -24,4 +24,3 @@
     <%= @url %>
   </body>
 </html>
-
