@@ -68,4 +68,11 @@ class ContactTest < ActiveSupport::TestCase
     assert_equal c.email, email.reply_to.first.to_s
   end
 
+  should 'not escape html tags in message' do
+    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
+    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => '<b>hi, all</b>', :dest => ent)
+    email = c.deliver
+    assert_match /<b>hi, all<\/b>/, email.body.to_s
+  end
+
 end
