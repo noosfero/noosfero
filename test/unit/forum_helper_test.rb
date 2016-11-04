@@ -73,6 +73,13 @@ class ForumHelperTest < ActionView::TestCase
     assert_match(/#{result} by John/m, last_topic_update(some_post))
   end
 
+  should "not escape html in last topic update" do
+    person = create_user('john').person
+    some_post = create(TextArticle, name: 'First post', profile: profile, parent: forum, published: true)
+    some_post.comments << build(Comment, author: person, title: 'test', body: 'test')
+    assert_tag_in_string list_forum_posts(forum.posts), tag: 'a', content: 'john'
+  end
+
   protected
 
   include NoosferoTestHelper
