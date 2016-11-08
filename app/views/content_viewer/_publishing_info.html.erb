@@ -40,7 +40,7 @@
 
     <% if @page.license.present? %>
       <div id="article-license">
-        <%= _('Licensed under %s') % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
+        <%= _('Licensed under %s').html_safe % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
       </div>
     <% end %>
   </div>
