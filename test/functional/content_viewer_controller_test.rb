@@ -687,7 +687,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
 
-  should 'display default image in the slideshow if thumbnails were not processed' do
+  should 'display original image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
@@ -695,7 +695,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
-    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
+    assert_tag :tag => 'img', :attributes => {:src => /\/other-pic.jpg/}
   end
 
   should 'display thumbnail image in the slideshow if thumbnails were processed' do
@@ -710,7 +710,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
   end
 
-  should 'display default image in gallery if thumbnails were not processed' do
+  should 'display original image in gallery if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
@@ -718,7 +718,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => folder.path
 
-    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(.*\/other-pic.jpg\)/}
   end
 
   should 'display thumbnail image in gallery if thumbnails were processed' do
