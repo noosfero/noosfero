@@ -335,5 +335,16 @@ module Api
       expose :name
       expose :key
     end
+
+    class AbuseReport < Entity
+      expose :id
+      expose :reporter, using: Person
+      expose :reason
+      expose :created_at
+    end
+
+    class AbuseComplaint < Task
+      expose :abuse_reports, using: AbuseReport
+    end
   end
 end
