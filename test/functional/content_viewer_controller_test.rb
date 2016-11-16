@@ -686,11 +686,22 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_select '.image-gallery-item', 0
   end
 
-
-  should 'display original image in the slideshow if thumbnails were not processed' do
+  should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
+
+    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
+  end
+
+  should 'display original image in the slideshow if thumbnails were not processed and fallback is enabled' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    NOOSFERO_CONF['delayed_attachment_fallback_original_image'] = true
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
     get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
@@ -710,10 +721,22 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
   end
 
-  should 'display original image in gallery if thumbnails were not processed' do
+  should 'display default image in gallery if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.path
+
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
+  end
+
+  should 'display original image in gallery if thumbnails were not processed and fallback is enabled' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    NOOSFERO_CONF['delayed_attachment_fallback_original_image'] = true
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
     get :view_page, :profile => profile.identifier, :page => folder.path

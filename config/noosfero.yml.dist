@@ -14,6 +14,7 @@ development:
   api_recaptcha_site_key:      '6LdsWAcTAAAAAChTUUD6yu9fCDhdIZzNd7F53zf-'
   api_recaptcha_private_key:   '6LdsWAcTAAAAAB6maB_HalVyCc4asDAxPxloIMvY'
   api_recaptcha_verify_uri:    'https://www.google.com/recaptcha/api/siteverify'  
+  delayed_attachment_fallback_original_image: false
 
 test:
 

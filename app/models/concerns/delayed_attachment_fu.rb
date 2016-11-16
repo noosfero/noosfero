@@ -45,7 +45,7 @@ module DelayedAttachmentFu
       else
         size ||= :thumb
 
-        if self.full_filename
+        if NOOSFERO_CONF['delayed_attachment_fallback_original_image'] && self.full_filename
           self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ''
         else
           '/images/icons-app/image-loading-%s.png' % size

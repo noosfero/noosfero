@@ -186,7 +186,14 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert file.thumbnails_processed
   end
 
-  should 'use origin image if thumbnails were not processed' do
+  should 'have a default image if thumbnails were not processed' do
+    file = UploadedFile.new
+    file.expects(:thumbnailable?).returns(true)
+    assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
+  end
+
+  should 'use origin image if thumbnails were not processed and fallback is enabled' do
+    NOOSFERO_CONF.expects(:[]).with('delayed_attachment_fallback_original_image').returns(true).at_least_once
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
 
     assert_match(/rails.png/, UploadedFile.find(file.id).public_filename(:thumb))
