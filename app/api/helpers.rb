@@ -178,6 +178,11 @@ module Api
     def present_task(asset, method_or_relation = 'tasks')
       task = find_task(asset, method_or_relation, params[:id])
       present_partial task, :with => Entities::Task
+      if task.kind_of?(AbuseComplaint)
+        present_partial task, :with => Entities::AbuseComplaint
+      else
+        present_partial task, :with => Entities::Task
+      end
     end
 
     def present_tasks_for_asset(asset, method_or_relation = 'tasks')
