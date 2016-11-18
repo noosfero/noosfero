@@ -10,7 +10,7 @@
         </div>
         <div style="font-size: 14px">
           <span style="font-size: 14px">
-            <%= task_information(task) %>
+            <%= task_information(task).html_safe %>
           </span>
           <span style="font-size: 10px; color: #929292; float: right;"><%= time_ago_in_words(task.created_at) %></span>
         </div>

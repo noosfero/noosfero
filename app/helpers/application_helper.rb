@@ -720,7 +720,7 @@ module ApplicationHelper
              ),
              :class => 'short-post'
            )
-    html
+    html.html_safe
   end
 
   def ui_icon(icon_class, extra_class = '')
@@ -857,7 +857,7 @@ module ApplicationHelper
         result << render(:file => file, :use_full_path => false)
       end
     end
-    result
+    result.html_safe
   end
 
   def manage_link(list, kind, title)
@@ -960,7 +960,7 @@ module ApplicationHelper
     elsif page.reference_article
       source_url = link_to(page.reference_article.profile.name, page.reference_article.url)
     end
-    content_tag(:div, _('Source: %s') % source_url, :id => 'article-source') unless source_url.nil?
+    content_tag(:div, _('Source: %s') % source_url.html_safe, :id => 'article-source') unless source_url.nil?
   end
 
   def task_information(task, params = {})
