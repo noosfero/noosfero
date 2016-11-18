@@ -21,6 +21,6 @@
       <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
     <% end %>
   </ul>
-  <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } %>
+  <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } if allow_comment? %>
   <hr />
 </li>

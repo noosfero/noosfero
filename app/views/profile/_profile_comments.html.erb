@@ -9,4 +9,4 @@
   </div>
 </div>
 <% end %>
-<%= render :partial => 'profile_comment_form', :locals => { :activity => activity, :tab_action => tab_action } %>
+<%= render :partial => 'profile_comment_form', :locals => { :activity => activity, :tab_action => tab_action } if allow_comment? %>

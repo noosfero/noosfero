@@ -27,6 +27,6 @@
       </div>
     </div>
   <% end %>
-  <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } %>
+  <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } if allow_comment? %>
   <hr />
 </li>
