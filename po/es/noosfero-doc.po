@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2016-06-15 12:16+0000\n"
-"Last-Translator: Becca Cook <b.cook28@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
-"documentation/es/>\n"
+"PO-Revision-Date: 2016-11-20 00:16+0000\n"
+"Last-Translator: Nathania Saphira <nathaniasaphira@gmail.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/noosfero/documentation/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.7-dev\n"
+"X-Generator: Weblate 2.10-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -85,7 +85,8 @@ msgstr "Formulario de accin"
 msgid ""
 "You should use {sendemail} macro as form action, it will be expanded as:"
 msgstr ""
-"Debes usar un macro {sendmail} como formulario de accin, que se ampliar como:"
+"Debes usar un macro {sendemail} como formulario de accin, que se ampliar "
+"como:"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
