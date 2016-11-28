@@ -1,19 +1,10 @@
-require_dependency 'application_record'
+require_dependency 'pg_search_plugin/search_scope'
 
-class ApplicationRecord
+searchables = %w[ article comment national_region profile license scrap category ]
+searchables.each do |class_file|
+  require_dependency class_file
 
-  def self.pg_search_plugin_search(query)
-    filtered_query = query.gsub(/[\|\(\)\\\/\s\[\]'"*%&!:]/,' ').split.map{|w| w += ":*"}.join('|')
-    if defined?(self::SEARCHABLE_FIELDS)
-      where("to_tsvector('simple', #{pg_search_plugin_fields}) @@ to_tsquery('#{filtered_query}')").
-        order("ts_rank(to_tsvector('simple', #{pg_search_plugin_fields}), to_tsquery('#{filtered_query}')) DESC")
-    else
-      raise "No searchable fields defined for #{self.name}"
-    end
+  class_file.classify.constantize.class_eval do
+    include PgSearchPlugin::SearchScope
   end
-
-  def self.pg_search_plugin_fields
-    self::SEARCHABLE_FIELDS.keys.map(&:to_s).sort.map {|f| "coalesce(#{table_name}.#{f}, '')"}.join(" || ' ' || ")
-  end
-
 end

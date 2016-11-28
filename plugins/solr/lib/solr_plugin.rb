@@ -18,6 +18,10 @@ class SolrPlugin < Noosfero::Plugin
     true
   end
 
+  def search_facets?
+    true
+  end
+
   def solr_search? empty_query, klass
     not empty_query or klass == Product
   end

@@ -25,9 +25,6 @@
 .controller-search .current-cat-path * {
   white-space: nowrap;
 }
-.controller-search #search-results {
-  margin-top: 5px;
-}
 .controller-search #search-whole-site {
   text-align: right;
   margin-top: -15px;
@@ -172,7 +169,7 @@
   padding: 2px 0px 4px 0px;
 }
 .controller-search #content .search-results-type-article li {
-  padding: 10px 0;
+  padding: 10px;
   background-repeat: no-repeat;
 }
 .controller-search #content .search-results-type-article li:hover,
@@ -201,7 +198,7 @@
 .search-results-type-article li.article-item,
 .search-tagged-items li.article-item,
 .only-one-result-box li.search-product-item {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #ddd;
 }
 .search-result-title {
   display:inline-block;
@@ -448,16 +445,21 @@ li.search-product-item {
 .controller-search .profile-info {
   text-align: left;
 }
+
+.controller-search #search-column {
+  margin-top: 5px;
+}
 .controller-search #search-column-left {
   float: left;
-  width: 21.5%;
+  width: 230px;
+  background-color: #EFEFEF;
 }
 #search-column-left .button-bar {
   margin-top: 0px;
 }
 .controller-search #search-column-right {
-  float: right;
-  width: 76.5%;
+  width: auto;
+  margin-left: 260px;
 }
 .controller-search #facets-menu {
   min-height: 300px;
@@ -787,17 +789,6 @@ ul.clean-list .search-gallery-content {
   width:655px;
 }
 a.search-image-pic {
-  border: 1px solid #F2F2F2;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
-  -moz-box-shadow: 2px 2px 1px #999999;
-  -webkit-box-shadow: 2px 2px 1px #999999;
-  -o-box-shadow: 2px 2px 1px #999999;
-  -khtml-box-shadow: 2px 2px 1px #999999;
-  box-shadow: 2px 2px 1px #999999;
   display: block;
   height: 98px;
   width: 130px;
@@ -1052,10 +1043,14 @@ ul#assets-links li.selected a {
   border-bottom: 1px solid #ebebeb;
 }
 
-#search-content .total{
+.controller-search #total-results{
   color: #808080;
   line-height: 20px;
   font-style: oblique;
+}
+
+.pagination {
+  margin-top: 5px;
 }
 
 /* * * Sub-category stuff * * * * * * * */

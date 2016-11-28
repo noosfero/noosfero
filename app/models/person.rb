@@ -123,7 +123,7 @@ class Person < Profile
 
   has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, :class_name => 'Scrap'
 
-  scope :more_popular, -> { order 'friends_count DESC' }
+  scope :more_popular, -> { order 'profiles.friends_count DESC' }
 
   scope :abusers, -> {
     joins(:abuse_complaints).where('tasks.status = 3').distinct.select('profiles.*')

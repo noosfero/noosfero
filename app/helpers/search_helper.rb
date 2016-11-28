@@ -11,6 +11,7 @@ module SearchHelper
         'more_popular' => _('More popular'),
         'more_active' => _('More active'),
         'more_recent' => _('More recent'),
+        'more_relevant' => _('More relevant'),
         'more_comments' => _('More comments')
       },
       :display => {

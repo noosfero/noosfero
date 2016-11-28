@@ -1,0 +1,3 @@
+<div id='total-results'>
+  <%= n_('Total of 1 result', 'Total of %s results'.html_safe, @searches[@asset][:results].total_entries) % @searches[@asset][:results].total_entries.inspect %>
+</div>

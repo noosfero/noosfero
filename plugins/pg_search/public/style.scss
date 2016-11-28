@@ -1,0 +1,83 @@
+.facet {
+  position: relative;
+  padding-bottom: 10px;
+
+  .clear-facet {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    color: transparent;
+    text-decoration: none;
+  }
+
+  .facet-option {
+    padding: 4px 5px 2px 20px;
+    position: relative;
+
+    input {
+      left: 0;
+      top: 1px;
+      position: absolute;
+    }
+
+    label {
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+  }
+
+  .facet-refine {
+    width: 100%;
+    padding: 2px 0px;
+    border: 1px solid #ccc;
+    text-indent: 4px;
+    position: relative;
+    top: -5px;
+  }
+
+  .undefined-value label {
+    opacity: 0.3;
+  }
+
+  .facets-block {
+    max-height: 200px;
+    overflow: auto;
+  }
+}
+
+.period {
+  position: relative;
+  padding-bottom: 10px;
+
+  label {
+    display: inline-block;
+    width: 49%;
+
+    &:first-child {
+      margin-right: 2%;
+    }
+
+    input {
+      width: 100%;
+      padding: 2px 0px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+  }
+}
+
+
+.facet-count {
+  font-size: 10px;
+  color: #888a85;
+  margin-left: 5px;
+}
+
+#facets h1 {
+  text-align: center;
+}
+

@@ -160,18 +160,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'offer text box to enter a new search in general context' do
     get :index, :query => 'a sample search'
-    assert_tag :tag => 'form', :attributes => { :action => '/search' }, :descendant => {
-      :tag => 'input',
-      :attributes => { :name => 'query', :value => 'a sample search' }
-    }
+    assert_tag :tag => 'input', :attributes => { :id => 'search-input', :value => 'a sample search'}
   end
 
   should 'offer text box to enter a new seach in specific context' do
     get :index, :category_path => [ 'my-category'], :query => 'a sample search'
-    assert_tag :tag => 'form', :attributes => { :action => '/search/index/my-category' }, :descendant => {
-      :tag => 'input',
-      :attributes => { :name => 'query', :value => 'a sample search' }
-    }
+    assert_tag :tag => 'input', :attributes => { :id => 'search-input', :value => 'a sample search'}
   end
 
   should 'search in category hierachy' do
@@ -343,7 +337,7 @@ class SearchControllerTest < ActionController::TestCase
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'enterprises', :query => 'enterprise', :display => 'map'
 
-    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
+    assert_tag :tag => 'script', :attributes => { :src => 'https://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'show events of specific day' do

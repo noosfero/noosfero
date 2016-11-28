@@ -1,2 +1,6 @@
 jQuery('#search-content').replaceWith('<%= escape_javascript(render "search_content") %>');
+<% if @plugins.dispatch_first(:search_facets?).present? %>
+    jQuery('#facets').replaceWith('<%= escape_javascript(render "facets") %>');
+<% end %>
+jQuery('#total-results').replaceWith('<%= escape_javascript(render "total_results") %>');
 

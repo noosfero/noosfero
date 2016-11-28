@@ -3,8 +3,8 @@
   $('#search-content').on('click', '.pagination a', function () {
     $.ajax({
       url: this.href,
-      beforeSend: function(){$('#search-content').addClass('fetching')},
-      complete: function() {$('#search-content').removeClass('fetching')},
+      beforeSend: function(){$('#search-content, #facets').addClass('fetching')},
+      complete: function() {$('#search-content, #facets').removeClass('fetching')},
       dataType: 'script'
     })
     return false;
@@ -25,8 +25,8 @@
     $.ajax({
       url: this.action,
       data: $(this).serialize(),
-      beforeSend: function(){$('#search-content').addClass('fetching')},
-      complete: function() {$('#search-content').removeClass('fetching')},
+      beforeSend: function(){$('#search-content, #facets').addClass('fetching')},
+      complete: function() {$('#search-content, #facets').removeClass('fetching')},
       dataType: 'script'
     })
     return false;
