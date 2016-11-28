@@ -4,7 +4,7 @@
 class Profile < ApplicationRecord
 
   attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
-    :redirection_after_login, :custom_url_redirection,
+    :redirection_after_login, :custom_url_redirection, :layout_template,
     :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :allow_followers
 
   # use for internationalizable human type names in search facets
