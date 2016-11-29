@@ -1,0 +1,10 @@
+<%= stylesheet_link_tag 'vendor/spectrum.css' %>
+<%= javascript_include_tag "vendor/spectrum.js" %>
+<%= javascript_include_tag "colorpicker-noosfero.js" %>
+
+<div id="section_block_plugin">
+  <%= labelled_form_field( _('Section name:'), text_field(:block, 'name') ) %>
+  <%= labelled_form_field( _('Section description:'), text_area(:block, 'description', rows: 5) ) %>
+  <%= labelled_colorpicker_field(_('Pick a font color'), :block, 'font_color' ) %>
+  <%= labelled_colorpicker_field(_('Pick a background color'), :block, 'background_color' ) %>
+</div>

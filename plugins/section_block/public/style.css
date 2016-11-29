@@ -1,0 +1,27 @@
+.section-block-plugin_section-block .section-block {
+  background-color: transparent;
+  padding: 10px;
+}
+
+.section-block-plugin_section-block .section-block > .section-block-name {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.section-block-plugin_section-block .section-block > .section-block-description {
+  font-style: italic;
+  background-color: transparent;
+  border-width: 0px;
+}
+
+.SectionBlockPlugin\:\:SectionBlock-options {
+  padding: 0px 10px 0px 10px;
+}
+
+#block_section_name {
+  width: 99%;
+}
+
+#block_section_description {
+  width: 98%;
+}
