@@ -30,7 +30,7 @@
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 
   <% unless logged_in? %>
-    <%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} %>
+    <%= recaptcha_tags :ajax => true, :ssl => true, :display => {:theme => 'clean'} %>
   <% end %>
 
   <%= submit_button(:send, _('Send'), :onclick => "jQuery('#confirm').val('true')") %>
