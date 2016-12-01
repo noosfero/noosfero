@@ -85,4 +85,21 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal environment.permissions_for(person), json['permissions']
   end
 
+  should 'update environment' do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    params[:environment] = {layout_template: "leftbar"}
+    post "/api/v1/environment/#{environment.id}?#{params.to_query}"
+    assert_equal "leftbar", environment.reload.layout_template
+  end
+
+  should 'forbid update for non admin users' do
+    login_api
+    environment = Environment.default
+    params[:environment] = {layout_template: "leftbar"}
+    post "/api/v1/environment/#{environment.id}?#{params.to_query}"
+    assert_equal 403, last_response.status
+    assert_equal "default", environment.reload.layout_template
+  end
 end

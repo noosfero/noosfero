@@ -21,6 +21,15 @@ module Api
           present_partial local_environment, with: Entities::Environment, is_admin: is_admin?(local_environment), current_person: current_person
         end
 
+        desc "Update environment information"
+        post ':id' do
+          authenticate!
+          environment = Environment.find_by(id: params[:id])
+          return forbidden! unless is_admin?(environment)
+          environment.update_attributes!(params[:environment])
+          present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person
+        end
+
       end
 
     end
