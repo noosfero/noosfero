@@ -1,6 +1,7 @@
 module ArticleHelper
 
   include TokenHelper
+  include FormsHelper
 
   def article_reported_version(article)
     search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
@@ -91,17 +92,9 @@ module ArticleHelper
   def topic_creation(article)
     return '' unless article.forum?
 
-    general_options = Forum::TopicCreation.general_options(article)
-    slider_options = {:id => 'topic-creation-slider'}
-    slider_options = general_options.keys.inject(slider_options) do |result, option|
-      result.merge!({'data-'+option => general_options[option]})
-    end
-
     content_tag('h4', _('Topic creation')) +
     content_tag( 'small', _('Who will be able to create new topics on this forum?')) +
-    content_tag('div', '', slider_options) +
-    hidden_field_tag('article[topic_creation]', article.topic_creation) +
-    javascript_include_tag("#{Noosfero.root}/assets/topic-creation-config.js")
+    slider_field_tag('topic-creation', 'article[topic_creation]', article.profile, article.topic_creation_access, article.topic_creation)
   end
 
   def privacity_exceptions(article, tokenized_children)

@@ -47,9 +47,6 @@ class Forum < Folder
     GROUP['self'] = _('Administrators')
     GROUP['related'] = _('Members')
 
-    def self.general_options(forum)
-      forum.profile.person? ? PERSON.merge(BASE) : GROUP.merge(BASE)
-    end
   end
 
   include ActionView::Helpers::TagHelper
@@ -86,6 +83,10 @@ class Forum < Folder
     return true unless self.has_terms_of_use
     return false unless user
     self.users_with_agreement.exists? user
+  end
+
+  def topic_creation_access
+    AccessLevels.options(profile, 1)
   end
 
   def can_create_topic?(user)
