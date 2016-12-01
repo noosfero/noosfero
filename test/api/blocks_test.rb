@@ -155,4 +155,31 @@ class BlocksTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal "custom_value", json["block"]["api_content"]["custom_param"]
   end
+
+  should 'be able to upload images when updating a block' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(RawHTMLBlock, box_id: box.id)
+    Environment.default.add_admin(person)
+    base64_image = create_base64_image
+    params[:block] = {images_builder: [base64_image]}
+    post "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 201, last_response.status
+    assert_equal base64_image[:filename], json['block']['images'].first['filename']
+    assert_equal 1, block.images.size
+  end
+
+  should 'be able to remove images when updating a block' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    Environment.default.add_admin(person)
+    block = create(Block, box: box, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    base64_image = create_base64_image
+    params[:block] = {images_builder: [{remove_image: 'true', id: block.images.first.id}]}
+    post "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 0, block.images.size
+  end
+
 end

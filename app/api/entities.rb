@@ -99,6 +99,7 @@ module Api
       expose :permissions do |block, options|
         Entities.permissions_for_entity(block, options[:current_person], :allow_edit?)
       end
+      expose :images, :using => Image
     end
 
     class Box < Entity

@@ -418,6 +418,15 @@ module Api
       params
     end
 
+    def asset_with_images params
+      return params if params.nil? || !params.has_key?(:images_builder)
+      asset_api_params = params
+      asset_api_params[:images_builder] = asset_api_params[:images_builder].map do |image_builder|
+        image_builder[:tempfile] ? base64_to_uploadedfile(image_builder) : image_builder
+      end
+      asset_api_params
+    end
+
     def base64_to_uploadedfile(base64_image)
       tempfile = base64_to_tempfile base64_image
       converted_image = base64_image
@@ -450,7 +459,7 @@ module Api
     def is_a_relation?(method_or_relation)
       method_or_relation.kind_of?(ActiveRecord::Relation)
     end
-  
+
 
     def parser_params(params)
       parsed_params = {}
