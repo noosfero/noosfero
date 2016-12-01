@@ -133,4 +133,10 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 'hello_world.php.txt', file.filename
   end
 
+  should 'have an owner' do
+    owner = fast_create(Block)
+    file = create(Image, uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'), owner: owner)
+    assert_equal owner, file.owner
+  end
+
 end

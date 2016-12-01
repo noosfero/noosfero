@@ -2,7 +2,7 @@ class Block < ApplicationRecord
 
   attr_accessible :title, :subtitle, :display, :limit, :box_id, :posts_per_page,
                   :visualization_format, :language, :display_user,
-                  :box, :edit_modes, :move_modes, :mirror, :visualization
+                  :box, :edit_modes, :move_modes, :mirror, :visualization, :images_builder
 
   include ActionView::Helpers::TagHelper
 
@@ -16,6 +16,7 @@ class Block < ApplicationRecord
   belongs_to :box
   belongs_to :mirror_block, :class_name => "Block"
   has_many :observers, :class_name => "Block", :foreign_key => "mirror_block_id"
+  has_many :images, foreign_key: "owner_id"
 
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings
@@ -320,6 +321,16 @@ class Block < ApplicationRecord
       return person.has_permission?(:edit_environment_design, owner)
     end
     false
+  end
+
+  def images_builder=(raw_images)
+    raw_images.each do |img|
+      if img[:remove_image] == 'true'
+        images.find_by(id: img[:id]).destroy!
+      elsif !img[:uploaded_data].blank?
+        images.build(img)
+      end
+    end
   end
 
   attr_accessor :api_content_params
