@@ -26,3 +26,6 @@ labelled_form_field(_('Choose how the content should be displayed'),
         @block.total_items, :size => 3, :maxlength => 5)
     )
 %>
+<% if @block.environment_owner? %>
+  <%= labelled_check_box(_('Display only discussions from portal community'), 'block[use_portal_community]', true, @block.use_portal_community, :id => 'checkbox-use-portal-community') %>
+<% end %>

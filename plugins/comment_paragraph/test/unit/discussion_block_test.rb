@@ -24,20 +24,21 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_nil b.holder
   end
 
-  should 'holder be nil if there is no portal community in environment' do
+  should 'holder be the environment if there is no portal community in environment' do
     b = CommentParagraphPlugin::DiscussionBlock.new
     environment.boxes<< Box.new
     b.box = environment.boxes.last
     assert_nil environment.portal_community
-    assert_nil b.holder
+    assert_equal environment, b.holder
   end
 
-  should 'holder be the portal community for environments blocks' do
+  should 'holder be the portal community for environments blocks when use_portal_community is true' do
     community = fast_create(Community)
     environment.portal_community= community
     environment.save!
     environment.boxes<< Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
+    b.use_portal_community = true
     b.box = environment.boxes.last
     assert_equal environment.portal_community, b.holder
   end
@@ -64,6 +65,11 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = enterprise.boxes.last
     assert_equal enterprise, b.holder
+  end
+
+  should 'discussions be empty when holder is nil' do
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    assert b.discussions.blank?
   end
 
   should 'discussions return only discussion articles' do
