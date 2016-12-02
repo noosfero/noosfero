@@ -4,6 +4,7 @@ before_script:
   - mkdir -p locale # makes quick-start skip compiling translations
   - ./script/set-apt-proxy
   - ./script/silent-quick-start
+  - bundle exec rake db:migrate RAILS_ENV=test
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
@@ -73,4 +74,3 @@ plugins-4:
 plugins-5:
   script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
-
