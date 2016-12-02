@@ -23,9 +23,11 @@
   </div>
 
   <h2><%= _('Privacy options') %></h2>
+  <%= content_tag('h4', _('Followers')) %>
   <div>
     <%= labelled_check_box _("Allow other users to follow me"), 'profile_data[allow_followers]', true, @profile.allow_followers?, :class => "person-can-be-followed" %>
   </div>
+  <%= content_tag('h4', _('Visibility')) %>
   <% if profile.person? %>
     <div id="profile_allow_follows">
       <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
@@ -44,6 +46,10 @@
       <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
     </div>
   <% end %>
+
+  <%= content_tag('h4', _('Wall access')) %>
+  <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
+  <%= slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access_levels, @profile.wall_access) %>
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
     <%= render 'redirection_after_login', f: f %>

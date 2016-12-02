@@ -2038,15 +2038,19 @@ class ProfileControllerTest < ActionController::TestCase
     assert assigns(:activities).include?(scrap_activity)
   end
 
-  should 'not fetch or show wall activities for visitor' do
+  should 'not fetch or show wall activities if user does not have wall access' do
+    sample_user = create_user('sample-user').person
+    login_as(sample_user.identifier)
+    AccessLevels.stubs(:can_access?).returns(false)
     get :index, :profile => @profile.identifier
     assert_nil assigns(:activities)
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
   end
 
-  should 'fetch and show wall activities for logged users' do
+  should 'fetch and show wall activities if user has wall access' do
     sample_user = create_user('sample-user').person
     login_as(sample_user.identifier)
+    AccessLevels.stubs(:can_access?).returns(true)
     get :index, :profile => @profile.identifier
     assert_not_nil assigns(:activities)
     assert_tag :tag => 'div', :attributes => {:id => 'profile-wall'}

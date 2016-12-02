@@ -3,9 +3,15 @@
 # which by default is the one returned by Environment:default.
 class Profile < ApplicationRecord
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids, :country, :city, :state, :national_region_code, :email, :contact_email, :redirect_l10n, :notification_time,
-    :redirection_after_login, :custom_url_redirection, :layout_template,
-    :email_suggestions, :allow_members_to_invite, :invite_friends_only, :secret, :profile_admin_mail_notification, :allow_followers
+  attr_accessible :name, :identifier, :public_profile, :nickname,
+    :custom_footer, :custom_header, :address, :zip_code, :contact_phone,
+    :image_builder, :description, :closed, :template_id, :environment, :lat,
+    :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids,
+    :country, :city, :state, :national_region_code, :email, :contact_email,
+    :redirect_l10n, :notification_time, :redirection_after_login,
+    :custom_url_redirection, :layout_template, :email_suggestions,
+    :allow_members_to_invite, :invite_friends_only, :secret,
+    :profile_admin_mail_notification, :allow_followers, :wall_access
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -237,6 +243,7 @@ class Profile < ApplicationRecord
     where('circles.id = ?', circle.id)
   }
 
+  settings_items :wall_access, :type => :string, :default => 'users'
   settings_items :allow_followers, :type => :boolean, :default => true
   alias_method :allow_followers?, :allow_followers
 
@@ -344,6 +351,10 @@ class Profile < ApplicationRecord
       ret[p] = (ret[p] || []) + [c.category]
     end
     ret
+  end
+
+  def wall_access_levels
+    AccessLevels.options(1)
   end
 
   def interests

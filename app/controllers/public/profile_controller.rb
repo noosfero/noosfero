@@ -21,7 +21,7 @@ class ProfileController < PublicController
     @offsets = {:wall => 0, :network => 0}
     page = (params[:page] || 1).to_i
     if logged_in?
-      @activities = loop_fetch_activities(@profile.activities, :wall, page)
+      @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
       @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if @profile == user
     end
     @tags = profile.article_tags

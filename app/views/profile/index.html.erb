@@ -24,10 +24,12 @@
           kind = 'organization-profile'
         elsif @profile.person?
           kind = 'person-profile'
+        else
+          kind = 'profile'
         end %>
 
         <% if logged_in? %>
-          <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} %>
+          <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} if AccessLevels.can_access?(@profile.wall_access, user, @profile) %>
           <% tabs << {:title => _('Network'), :id => 'profile-network', :content => (render :partial => 'profile_network')} if @profile == user %>
         <% end %>
         <% tabs << {:title => _('Profile'), :id => kind, :content => (render :partial => kind.gsub('-', '_'))} %>
