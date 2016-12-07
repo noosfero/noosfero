@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809123835) do
+ActiveRecord::Schema.define(version: 20161201191313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,8 +454,11 @@ ActiveRecord::Schema.define(version: 20160809123835) do
     t.integer "height"
     t.boolean "thumbnails_processed", default: false
     t.string  "label",                default: ""
+    t.integer "owner_id"
+    t.string  "owner_type"
   end
 
+  add_index "images", ["owner_type", "owner_id"], name: "index_images_on_owner_type_and_owner_id", using: :btree
   add_index "images", ["parent_id"], name: "index_images_on_parent_id", using: :btree
 
   create_table "inputs", force: :cascade do |t|
