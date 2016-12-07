@@ -477,4 +477,30 @@ class BlockTest < ActiveSupport::TestCase
     give_permission(person, 'edit_environment_design', environment)
     assert block.allow_edit?(person)
   end
+
+  should 'be able to create images' do
+    block = fast_create(Block)
+    5.times { block.images.create }
+    assert_equal 5, block.images.size
+  end
+
+  should 'be able to upload images when creating a block' do
+    block = create(Block, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    assert_equal 1, block.images.size
+  end
+
+  should 'be able to update existing images when update a block' do
+    block = create(Block, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    block.update!(images_builder: [{
+      id: block.images.first.id,
+      remove_image: 'true'
+    }, {
+      uploaded_data: fixture_file_upload('/files/shoes.png', 'image/png')
+    }])
+    assert_equal 'shoes.png', block.reload.images.first.filename
+  end
 end

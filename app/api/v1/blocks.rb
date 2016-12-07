@@ -13,7 +13,7 @@ module Api
         post ':id' do
           block = Block.find(params["id"])
           return forbidden! unless block.allow_edit?(current_person)
-          block.update_attributes!(params[:block])
+          block.update_attributes!(asset_with_images(params[:block]))
           present block, :with => Entities::Block, display_api_content: true, current_person: current_person
         end
       end

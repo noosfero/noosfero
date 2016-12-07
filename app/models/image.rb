@@ -3,6 +3,8 @@ class Image < ApplicationRecord
   attr_accessible :uploaded_data, :label, :remove_image
   attr_accessor :remove_image
 
+  belongs_to :owner, polymorphic: true
+
   def self.max_size
     Image.attachment_options[:max_size]
   end
