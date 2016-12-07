@@ -4223,7 +4223,7 @@ msgid "Custom title for this block: "
 msgstr "Título personalizado para este bloco: "
 
 msgid "Custom subtitle for this block: "
-msgstr "Título personalizado para este bloco: "
+msgstr "Subtítulo personalizado para este bloco: "
 
 msgid "Display this block:"
 msgstr "Mostrar este bloco:"
