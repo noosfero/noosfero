@@ -8,7 +8,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
 
   should 'have field images' do
     h = HighlightsBlock.new
-    assert_respond_to h, :images
+    assert_respond_to h, :block_images
   end
 
   should 'have field interval' do
@@ -28,7 +28,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
 
   should 'default value of images' do
     h = HighlightsBlock.new
-    assert_equal [], h.images
+    assert_equal [], h.block_images
   end
 
   should 'default interval between transitions is 4 seconds' do
@@ -52,21 +52,21 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   end
 
   should 'remove images with blank fields' do
-    h = HighlightsBlock.new(:images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => '', :position => '', :title => ''}])
+    h = HighlightsBlock.new(:block_images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => '', :position => '', :title => ''}])
     h.save!
-    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => nil}], h.images
+    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => nil}], h.block_images
   end
 
   should 'replace 1 and 0 by true and false in new_window attribute' do
     image1 = {:image_id => 1, :address => '/address-1', :position => 1, :title => 'address-1', :new_window => '0'}
     image2 = {:image_id => 2, :address => '/address-2', :position => 2, :title => 'address-2', :new_window => '1'}
-    h = HighlightsBlock.new(:images => [image1, image2])
+    h = HighlightsBlock.new(:block_images => [image1, image2])
     h.save!
     image1[:new_window] = false
     image1[:image_src] = nil
     image2[:new_window] = true
     image2[:image_src] = nil
-    assert_equivalent [image1, image2], h.images
+    assert_equivalent [image1, image2], h.block_images
   end
 
   should 'be able to update display setting' do
@@ -94,10 +94,10 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     UploadedFile.expects(:find).with(1).returns(file)
     file.expects(:public_filename).returns('address')
     UploadedFile.expects(:find).with(0).returns(nil)
-    block = HighlightsBlock.new(:images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => 'some', :position => '2', :title => 'Some'}])
+    block = HighlightsBlock.new(:block_images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => 'some', :position => '2', :title => 'Some'}])
     block.save!
     block.reload
-    assert_equal 2, block.images.count
+    assert_equal 2, block.block_images.count
     assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => 'address'}], block.featured_images
   end
 
@@ -115,10 +115,10 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
     i2 = {:image_id => 2, :address => '/address', :position => 1, :title => 'address'}
     i3 = {:image_id => 3, :address => '/address', :position => 2, :title => 'address'}
-    block.images = [i1,i2,i3]
+    block.block_images = [i1,i2,i3]
     block.save!
     block.reload
-    assert_equal [i1,i2,i3], block.images
+    assert_equal [i1,i2,i3], block.block_images
     assert_equal [i2,i3,i1], block.featured_images
   end
 
@@ -140,10 +140,10 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     UploadedFile.expects(:find).with(1).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
-    block.images = [i1]
+    block.block_images = [i1]
     block.save!
     block.reload
-    assert_equal block.images.first[:address], "/social/address"
+    assert_equal block.block_images.first[:address], "/social/address"
   end
 
   should 'not duplicate sub-dir address before save' do
@@ -153,10 +153,10 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     UploadedFile.expects(:find).with(1).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/social/address', :position => 3, :title => 'address'}
-    block.images = [i1]
+    block.block_images = [i1]
     block.save!
     block.reload
-    assert_equal block.images.first[:address], "/social/address"
+    assert_equal block.block_images.first[:address], "/social/address"
   end
 
   should 'display images with subdir src' do
@@ -166,7 +166,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     UploadedFile.expects(:find).with(1).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address'}
-    block.images = [i1]
+    block.block_images = [i1]
     block.save!
 
     assert_tag_in_string render_block_content(block), :tag => 'img', :attributes => { :src => "/social/img_address" }

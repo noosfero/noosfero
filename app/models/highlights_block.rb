@@ -1,15 +1,15 @@
 class HighlightsBlock < Block
 
-  attr_accessible :images, :interval, :shuffle, :navigation
+  attr_accessible :block_images, :interval, :shuffle, :navigation
 
-  settings_items :images, :type => Array, :default => []
+  settings_items :block_images, :type => Array, :default => []
   settings_items :interval, :type => 'integer', :default => 4
   settings_items :shuffle, :type => 'boolean', :default => false
   settings_items :navigation, :type => 'boolean', :default => false
 
   before_save do |block|
-    block.images = block.images.delete_if { |i| i[:image_id].blank? and i[:address].blank? and i[:position].blank? and i[:title].blank? }
-    block.images.each do |i|
+    block.block_images = block.block_images.delete_if { |i| i[:image_id].blank? and i[:address].blank? and i[:position].blank? and i[:title].blank? }
+    block.block_images.each do |i|
       i[:image_id] = i[:image_id].to_i
       i[:position] = i[:position].to_i
       if !Noosfero.root.nil? and !i[:address].start_with?(Noosfero.root + '/')
@@ -36,7 +36,7 @@ class HighlightsBlock < Block
   end
 
   def get_images
-    images.select do |i|
+    block_images.select do |i|
       !i[:image_src].nil?
     end.sort do |x, y|
       x[:position] <=> y[:position]
