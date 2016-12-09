@@ -182,4 +182,38 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 0, block.images.size
   end
 
+  should 'save multiple blocks' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    block2 = fast_create(Block, box_id: box.id)
+    Environment.default.add_admin(person)
+    params[:blocks] = [{id: block.id, title: 'block1 title'}, {id: block2.id, title: 'block2 title'}]
+    patch "/api/v1/blocks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 200, last_response.status
+    assert_equal ['block1 title', 'block2 title'], json['blocks'].map {|b| b['title']}
+  end
+
+  should 'return forbidden when at least one block cannot be saved' do
+    box = fast_create(Box, :owner_id => person.id, :owner_type => Profile.name)
+    box2 = fast_create(Box, :owner_id => fast_create(Profile).id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id)
+    block2 = fast_create(Block, box_id: box2.id)
+    params[:blocks] = [{id: block.id, title: 'block1 title'}, {id: block2.id, title: 'block2 title'}]
+    patch "/api/v1/blocks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 403, last_response.status
+  end
+
+  should 'not save any block modifications when an error was found' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(Block, box_id: box.id, title: 'block1 title')
+    block2 = fast_create(Block, box_id: box.id, title: 'block2 title')
+    Environment.default.add_admin(person)
+    params[:blocks] = [{id: block.id, title: 'block1 title modified'}, {id: block2.id, title: 'block2 title modified', other_attribute: 'some value'}]
+    patch "/api/v1/blocks?#{params.to_query}"
+    assert_equal 500, last_response.status
+    assert_equal 'block1 title', block.reload.title
+    assert_equal 'block2 title', block2.reload.title
+  end
 end
