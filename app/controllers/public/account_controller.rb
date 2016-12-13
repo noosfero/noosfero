@@ -106,6 +106,7 @@ class AccountController < ApplicationController
       @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
+      @kinds = environment.kinds.where(:type => 'Person')
 
       if request.post?
         if may_be_a_bot

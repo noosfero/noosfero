@@ -128,6 +128,7 @@ class Organization < Profile
     district
     address_line2
     address_reference
+    profile_kinds
   ]
 
   def self.fields

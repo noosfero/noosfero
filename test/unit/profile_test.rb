@@ -2241,4 +2241,40 @@ class ProfileTest < ActiveSupport::TestCase
       c.add_member(p)
     end
   end
+
+  should 'have kinds' do
+    k1 = fast_create(Kind, :name => 'Captain', :type => 'Profile', :environment_id => Environment.default.id)
+    k2 = fast_create(Kind, :name => 'Number One', :type => 'Profile', :environment_id => Environment.default.id)
+    k3 = fast_create(Kind, :name => 'Officer', :type => 'Profile', :environment_id => Environment.default.id)
+    profile = fast_create(Profile)
+
+    profile.kinds << k1
+    profile.kinds << k3
+
+    assert_includes profile.kinds, k1
+    assert_includes profile.kinds, k3
+    assert_not_includes profile.kinds, k2
+  end
+
+  should 'use profile_kinds to define kinds after save' do
+    to_add1 = fast_create(Kind, :name => 'Captain', :type => 'Profile', :environment_id => Environment.default.id)
+    to_add2 = fast_create(Kind, :name => 'Number One', :type => 'Profile', :environment_id => Environment.default.id)
+    to_remove = fast_create(Kind, :name => 'Officer', :type => 'Profile', :environment_id => Environment.default.id)
+
+    profile = fast_create(Profile)
+    profile.kinds << to_remove
+
+    assert_includes profile.kinds, to_remove
+    assert_not_includes profile.kinds, to_add1
+    assert_not_includes profile.kinds, to_add2
+
+    profile.profile_kinds = {to_add1.id.to_s => '1', to_add2.id.to_s => '1', to_remove.id.to_s => '0'}
+    profile.save! ; profile.save!
+    profile.reload
+
+    assert_not_includes profile.kinds, to_remove
+    assert_includes profile.kinds, to_add1
+    assert_includes profile.kinds, to_add2
+    assert profile.profile_kinds.blank?
+  end
 end

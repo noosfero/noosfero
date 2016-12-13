@@ -1728,4 +1728,15 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !environment.permissions_for(person).empty?
   end
 
+  should 'have kinds' do
+    environment = Environment.default
+    k1 = fast_create(Kind, :name => 'Captain', :type => 'Profile', :environment_id => environment.id)
+    k2 = fast_create(Kind, :name => 'Number One', :type => 'Profile', :environment_id => environment.id)
+    k3 = fast_create(Kind, :name => 'Officer', :type => 'Profile', :environment_id => fast_create(Environment).id)
+
+    assert_includes environment.kinds, k1
+    assert_includes environment.kinds, k2
+    assert_not_includes environment.kinds, k3
+  end
+
 end

@@ -65,4 +65,6 @@
 
 <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 
+<%= render :partial => 'shared/profile_kinds', :locals => {:form_field => 'profile_data'} %>
+
 <%= render :partial => 'moderation', :locals => { :profile => @profile } %>

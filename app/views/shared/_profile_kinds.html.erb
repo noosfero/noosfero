@@ -1,0 +1,6 @@
+<% if @kinds.present? %>
+  <%= labelled_form_field(_('Profile kinds'), nil) %>
+  <% @kinds.each do |kind| %>
+    <%= labelled_check_box(_(kind.name), "#{form_field}[profile_kinds[#{kind.id}]]", '1', profile ? profile.kinds.include?(kind): false) %>
+  <% end %>
+<% end %>

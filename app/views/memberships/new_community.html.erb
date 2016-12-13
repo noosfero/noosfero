@@ -15,6 +15,8 @@
   <%= required_fields_message %>
   <%= required f.text_field(:name) %>
 
+  <%= render :partial => 'shared/profile_kinds', :locals => {:form_field => 'community'} %>
+
   <% @plugins.dispatch(:new_community_hidden_fields).each do |field| %>
     <% field.each do |key, value| %>
       <%= f.hidden_field(key, :value => value) %>
