@@ -1,6 +1,6 @@
 <% if @has_news %>
   <h1><%= _('News') %></h1>
-  <% cache @news_cache_key do %>
+  <% cache @news_cache_key, skip_digest: true do %>
     <div id='highlighted-news'>
       <% @highlighted_news.each_with_index do |highlighted, index| %>
         <div class='highlighted-news-item post-<%= index + 1 %>'>
