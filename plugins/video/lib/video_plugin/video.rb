@@ -112,6 +112,20 @@ class VideoPlugin::Video < Article
     vimeo_match[1] unless vimeo_match.nil?
   end
 
+  def self.detect_file_format(video_url)
+    video_type = 'video/unknown'
+
+    if /.mp4/i =~ video_url or /.mov/i =~ video_url
+      video_type='video/mp4'
+    elsif /.webm/i =~ video_url
+      video_type='video/webm'
+    elsif /.og[vg]/i =~ video_url
+      video_type='video/ogg'
+    end
+
+    video_type
+  end
+
   private
 
   YOUTUBE_ID_FORMAT = '\w-'
@@ -157,15 +171,7 @@ class VideoPlugin::Video < Article
   end
 
   def detect_file_format
-   video_type = 'video/unknown'
-   if /.mp4/i =~ self.video_url or /.mov/i =~ self.video_url
-    video_type='video/mp4'
-   elsif /.webm/i =~ self.video_url
-    video_type='video/webm'
-   elsif /.og[vg]/i =~ self.video_url
-    video_type='video/ogg'
-   end
-   video_type
+    VideoPlugin::Video.detect_file_format(self.video_url)
   end
 
   def extract_youtube_id
