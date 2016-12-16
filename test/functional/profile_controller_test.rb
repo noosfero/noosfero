@@ -744,25 +744,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'p', :content => 'A scrap'
   end
 
-  should 'not display activities of the current profile when he is not followed by the viewer' do
-    p1= create_user.person
-    p2= create_user.person
-
-    User.current = p1.user
-    scrap1 = create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p2))
-
-    User.current = p2.user
-    scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p1))
-
-    User.current = p1.user
-    create(TextArticle, :profile => p1, :name => 'An article about free software')
-    a1 = ActionTracker::Record.last
-
-    login_as(profile.identifier)
-    get :index, :profile => p1.identifier
-    assert assigns(:activities).blank?
-  end
-
   should 'see the activities_items paginated' do
     p1 = create_user('some').person
     ActionTracker::Record.destroy_all
@@ -822,39 +803,9 @@ class ProfileControllerTest < ActionController::TestCase
 
     process_delayed_job_queue
 
-    login_as p3.user.login
+    login_as p1.user.login
     get :index, :profile => p1.identifier
     assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
-  end
-
-  should 'the network activity be visible only to profile followers' do
-    p1= create_user.person
-    p2= create_user.person
-    refute p1.is_a_friend?(p2)
-
-    p3= create_user.person
-    p3.add_friend(p1)
-    p1.add_friend(p3)
-
-    ActionTracker::Record.delete_all
-
-    User.current = p1.user
-    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
-    a1 = ActionTracker::Record.last
-
-    User.current = p2.user
-    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
-    a2 = ActionTracker::Record.last
-
-    User.current = p3.user
-    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
-    a3 = ActionTracker::Record.last
-
-    process_delayed_job_queue
-
-    login_as p2.user.login
-    get :index, :profile => p1.identifier
-    assert assigns(:network_activities).blank?
   end
 
   should 'the network activity be paginated' do
@@ -866,116 +817,6 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     get :index, :profile => p1.identifier
     assert_equal 15, assigns(:network_activities).size
-  end
-
-  should 'the network activity be visible only to logged users' do
-    p1= create_user.person
-    p2= create_user.person
-    refute p1.is_a_friend?(p2)
-    p3= create_user.person
-    p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
-    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
-    a1 = ActionTracker::Record.last
-    User.current = p2.user
-    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
-    a2 = ActionTracker::Record.last
-    User.current = p3.user
-    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
-    a3 = ActionTracker::Record.last
-
-    login_as(profile.identifier)
-    ActionTracker::Record.delete_all
-    get :index, :profile => p1.identifier
-    assert assigns(:network_activities).blank?
-    assert_response :success
-    assert_template 'index'
-
-    get :index, :profile => p2.identifier
-    assert assigns(:network_activities).blank?
-    assert_response :success
-    assert_template 'index'
-
-    get :index, :profile => p3.identifier
-    assert assigns(:network_activities).blank?
-    assert_response :success
-    assert_template 'index'
-  end
-
-  should 'the network activity be visible to uses not logged in on communities and enterprises' do
-    p1= fast_create(Person)
-    community = fast_create(Community)
-    p2= fast_create(Person)
-    refute p1.is_a_friend?(p2)
-    community.add_member(p1)
-    community.add_member(p2)
-    ActionTracker::Record.destroy_all
-    create(Article, :name => 'a', :profile_id => community.id)
-    create(Article, :name => 'b', :profile_id => community.id)
-    User.current = p2.user
-    create(Article, :name => 'c', :profile_id => community.id)
-    process_delayed_job_queue
-
-    get :index, :profile => community.identifier
-    assert_not_equal [], assigns(:network_items)
-    assert_response :success
-    assert_template 'index'
-  end
-
-  should 'paginate the network activity listing on communities' do
-    community = fast_create(Community)
-    40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
-    get :index, :profile => community.identifier
-    assert_equal 15, assigns(:network_activities).to_a.size
-  end
-
-  should 'the self activity not crashes with user not logged in' do
-    p1= create_user.person
-    p2= create_user.person
-    refute p1.is_a_friend?(p2)
-    p3= create_user.person
-    p3.add_friend(p1)
-    assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
-    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
-    a1 = ActionTracker::Record.last
-    User.current = p2.user
-    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
-    a2 = ActionTracker::Record.last
-    User.current = p3.user
-    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
-    a3 = ActionTracker::Record.last
-
-    get :index, :profile => p1.identifier
-    assert_response :success
-    assert_template 'index'
-  end
-
-  should 'not have activities defined if not logged in' do
-    p1= fast_create(Person)
-    get :index, :profile => p1.identifier
-    assert assigns(:actvities).blank?
-  end
-
-  should 'not have activities defined if logged in but is not following profile' do
-    login_as(profile.identifier)
-    p1= fast_create(Person)
-    get :index, :profile => p1.identifier
-    assert assigns(:activities).blank?
-  end
-
-  should 'have activities defined if logged in and is following profile' do
-    login_as(profile.identifier)
-    p1= fast_create(Person)
-
-    circle = Circle.create!(:person=> profile, :name => "Zombies", :profile_type => 'Person')
-
-    profile.follow(p1, circle)
-
-    ActionTracker::Record.destroy_all
-    get :index, :profile => p1.identifier
-    assert_equal [], assigns(:activities)
   end
 
   should 'the activities be the received scraps in people profile' do
@@ -1122,18 +963,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
-  should "show the network activity if the viewer follows the profile" do
-    login_as(profile.identifier)
-    person = fast_create(Person)
-    at = fast_create(ActionTracker::Record, :user_id => person.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
-
-    person.add_friend(profile)
-    profile.add_friend(person)
-    get :index, :profile => person.identifier
-    assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
-  end
-
   should "not show the scrap button on network activity if the user is himself" do
     login_as(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
@@ -1142,23 +971,40 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
   end
 
-  should "not show the scrap area on wall if the user don't follow the user" do
-    login_as(profile.identifier)
-    person = fast_create(Person)
-    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
-    get :index, :profile => person.identifier
+  should "not show the scrap area on wall for visitor" do
+    get :index, :profile => profile.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
-  should "show the scrap area on wall if the user follows the user" do
+  should "not show the scrap area on wall for stranger" do
+    person = create_user('stranger').person
+    login_as(person.identifier)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+  end
+
+  should "show the scrap area on wall for the user" do
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+  end
+
+  should "show the scrap area on wall for a friend" do
     login_as(profile.identifier)
     person = fast_create(Person)
-    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
-
     person.add_friend(profile)
     profile.add_friend(person)
 
     get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+  end
+
+  should "show the scrap area on wall for a member" do
+    login_as(profile.identifier)
+    community = fast_create(Community)
+    community.add_member(profile)
+
+    get :index, :profile => community.identifier
     assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
@@ -2192,72 +2038,52 @@ class ProfileControllerTest < ActionController::TestCase
     assert assigns(:activities).include?(scrap_activity)
   end
 
-  should 'list private scraps on network for marked people' do
-    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
-    p1 = create_user('emily').person
-    p2 = create_user('wollie').person
-    p2.add_friend(p1)
-    p1.add_friend(p2)
-    ProfileFollower.create!(:profile => p1, :circle => c1)
-    ProfileFollower.create!(:profile => p2, :circle => c1)
-    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1,p2])
-    process_delayed_job_queue
-    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
-    login_as(p2.identifier)
-
-    get :index, :profile => p1.identifier
-
-    assert assigns(:network_activities).include?(scrap_activity)
+  should 'not fetch or show wall activities if user does not have wall access' do
+    sample_user = create_user('sample-user').person
+    login_as(sample_user.identifier)
+    AccessLevels.stubs(:can_access?).returns(false)
+    get :index, :profile => @profile.identifier
+    assert_nil assigns(:activities)
+    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
   end
 
-  should 'not list private scraps on network for not marked people' do
-    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
-    p1 = create_user('emily').person
-    not_marked = create_user('jack').person
-    not_marked.add_friend(p1)
-    ProfileFollower.create!(:profile => p1, :circle => c1)
-    ProfileFollower.create!(:profile => not_marked, :circle => c1)
-    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
-    process_delayed_job_queue
-    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
-    login_as(not_marked.identifier)
-
-    get :index, :profile => p1.identifier
-
-    assert !assigns(:network_activities).include?(scrap_activity)
+  should 'fetch and show wall activities if user has wall access' do
+    sample_user = create_user('sample-user').person
+    login_as(sample_user.identifier)
+    AccessLevels.stubs(:can_access?).returns(true)
+    get :index, :profile => @profile.identifier
+    assert_not_nil assigns(:activities)
+    assert_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
   end
 
-  should 'list private scraps on network for creator' do
-    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
-    p1 = create_user('emily').person
-    p1.add_friend(@profile)
-    ProfileFollower.create!(:profile => p1, :circle => c1)
-    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
-    process_delayed_job_queue
-    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
+  should 'not fetch or show network activities for visitor' do
+    get :index, :profile => @profile.identifier
+    assert_nil assigns(:network_activities)
+    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+  end
+
+  should 'not fetch or show network activities for logged users' do
+    sample_user = create_user('sample-user').person
+    login_as(sample_user.identifier)
+    get :index, :profile => @profile.identifier
+    assert_nil assigns(:network_activities)
+    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+  end
+
+  should 'not fetch or show network activities for friends' do
+    friend = create_user('friend').person
+    friend.add_friend(@profile)
+    login_as(friend.identifier)
+    get :index, :profile => @profile.identifier
+    assert_nil assigns(:network_activities)
+    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+  end
+
+  should 'fetch and show network activities for the user' do
     login_as(@profile.identifier)
-
-    get :index, :profile => p1.identifier
-
-    assert assigns(:network_activities).include?(scrap_activity)
-  end
-
-  should 'list private scraps on network for environment admin' do
-    c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
-    p1 = create_user('emily').person
-    admin = create_user('env-admin').person
-    env = @profile.environment
-    env.add_admin(admin)
-    admin.add_friend(p1)
-    ProfileFollower.create!(:profile => p1, :circle => c1)
-    scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
-    process_delayed_job_queue
-    scrap_activity = p1.tracked_notifications.where(:target => scrap).first
-    login_as(admin.identifier)
-
-    get :index, :profile => p1.identifier
-
-    assert assigns(:network_activities).include?(scrap_activity)
+    get :index, :profile => @profile.identifier
+    assert_not_nil assigns(:network_activities)
+    assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'not filter any activity if the user is an environment admin' do

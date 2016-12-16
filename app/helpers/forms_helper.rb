@@ -290,6 +290,21 @@ module FormsHelper
     return result
   end
 
+  def slider_field_tag(id, field_name, profile, access_levels, value='self', html_options={})
+    html_options.merge!({:class=> "slider"})
+    html_options.merge!({data: {
+      keys: AccessLevels::VALUES.to_json.gsub('"', "'"),
+      values: AccessLevels::VALUES.invert.to_json.gsub('"', "'"),
+      labels: AccessLevels.labels(profile).to_json.gsub('"', "'"),
+      options: access_levels.to_json.gsub('"', "'"),
+      input: id}
+    })
+
+    content_tag('div', '', html_options) +
+    hidden_field_tag(field_name, value, :id => id) +
+    javascript_include_tag("#{Noosfero.root}/assets/slider.js")
+  end
+
 protected
   def self.next_id_number
     if defined? @@id_num

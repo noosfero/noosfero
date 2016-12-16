@@ -6,6 +6,8 @@ class ProfileController < PublicController
   before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail, :follow, :unfollow]
   before_filter :allow_followers?, :only => [:follow, :unfollow]
   before_filter :accept_only_post, :only => [:follow, :unfollow]
+  before_filter :allow_scrap?, :only => [:leave_scrap]
+  before_filter :allow_comment?, :only => [:leave_comment_on_activity]
 
   helper TagsHelper
   helper ActionTrackerHelper
@@ -18,8 +20,10 @@ class ProfileController < PublicController
   def index
     @offsets = {:wall => 0, :network => 0}
     page = (params[:page] || 1).to_i
-    @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if !@profile.is_a?(Person) || follow_profile?
-    @activities = loop_fetch_activities(@profile.activities, :wall, page) if follow_profile?
+    if logged_in?
+      @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
+      @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if @profile == user
+    end
     @tags = profile.article_tags
     allow_access_to_page
   end
@@ -542,4 +546,14 @@ class ProfileController < PublicController
   def follow_profile?
     logged_in? && current_person.follows?(@profile)
   end
+
+  def allow_scrap?
+    logged_in? && (current_person == @profile || (current_person.is_member_of?(@profile) || current_person.is_a_friend?(@profile)))
+  end
+  helper_method :allow_scrap?
+
+  def allow_comment?
+    logged_in?
+  end
+  helper_method :allow_comment?
 end
