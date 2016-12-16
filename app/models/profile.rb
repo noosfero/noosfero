@@ -1148,7 +1148,7 @@ private :generate_url, :url_options
   end
 
   def followed_by?(person)
-    (person == self) || (person.in? self.followers)
+    (person == self) || (person.is_member_of?(self)) || (person.in? self.followers)
   end
 
   def in_social_circle?(person)
