@@ -90,6 +90,29 @@ class VideoTest < ActiveSupport::TestCase
     assert @video.is_vimeo?
   end
 
+  should "mime-type return video/webm if url ends with webm" do
+    url = "http://www.vmsd.com/98979.webm"
+    assert_equal 'video/webm', @video.class.mime_type(url)
+  end
 
+  should "mime-type return video/ogg if url ends with ogg" do
+    url = "http://www.vmsd.com/98979.ogg"
+    assert_equal 'video/ogg', @video.class.mime_type(url)
+  end
+
+  should "mime-type return video/unknown if platform is youtube" do
+    url = "https://youtube.com/?v=XXXXX"
+    assert_equal 'video/unknown', @video.class.mime_type(url)
+  end
+
+  should "mime-type return video/unknown if platform is vimeo" do
+    url = "http://vimeo.com/98979"
+    assert_equal 'video/unknown', @video.class.mime_type(url)
+  end
+
+  should "mime-type return video/mp4 if url ends with mp4" do
+    url = "http://www.vmsd.com/98979.mp4"
+    assert_equal 'video/mp4', @video.class.mime_type(url)
+  end
 
 end

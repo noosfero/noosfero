@@ -8,23 +8,11 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   ### Tests for YouTube
 
-  should "mime-type return video/unknown if platform is youtube" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "https://youtube.com/?v=XXXXX"
-    assert_equal 'video/unknown', block.mime_type
-  end
-
   should "api_content no contains mime-type if platform is youtube" do
     block = VideoPlugin::VideoBlock.new
     block.url = "https://youtube.com/?v=XXXXX"
-    assert_includes block.api_content, :platform
+    assert_includes block.api_content, :url
     refute_includes block.api_content, :mime_type
-  end
-
-  should "platform return youtube when the url contains https://youtube.com" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "https://youtube.com/?v=XXXXX"
-    assert_equal 'youtube', block.platform
   end
 
   should "is_youtube return true when the url contains http://youtube.com" do
@@ -116,23 +104,11 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   #### Tests for Vimeo Videos
 
-  should "mime-type return video/unknown if platform is vimeo" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://vimeo.com/98979"
-    assert_equal 'video/unknown', block.mime_type
-  end
-
   should "api_content no contains mime-type if platform is vimeo" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://vimeo.com/98979"
-    assert_includes block.api_content, :platform
+    assert_includes block.api_content, :url
     refute_includes block.api_content, :mime_type
-  end
-
-  should "platform return vimeo when the url contains http://vimeo.com" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://vimeo.com/98979"
-    assert_equal 'vimeo', block.platform
   end
 
   should "is_vimeo return true when the url contains http://vimeo.com" do
@@ -216,35 +192,11 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   # Other video formats
 
-  should "mime-type return video/mp4 if url ends with mp4" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://www.vmsd.com/98979.mp4"
-    assert_equal 'video/mp4', block.mime_type
-  end
-
-  should "mime-type return video/webm if url ends with webm" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://www.vmsd.com/98979.webm"
-    assert_equal 'video/webm', block.mime_type
-  end
-
-  should "mime-type return video/ogg if url ends with ogg" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://www.vmsd.com/98979.ogg"
-    assert_equal 'video/ogg', block.mime_type
-  end
-
   should "api_content contains plaform and mime-type if platform is \'file\'" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4"
-    assert_includes block.api_content, :platform
+    assert_includes block.api_content, :url
     assert_includes block.api_content, :mime_type
-  end
-
-  should "platform return \'file\' when the url is not from youtube or vimeo" do
-    block = VideoPlugin::VideoBlock.new
-    block.url = "http://www.vmsd.com/98979.mp4"
-    assert_equal 'file', block.platform
   end
 
   should "is_video return true if url ends with mp4" do
