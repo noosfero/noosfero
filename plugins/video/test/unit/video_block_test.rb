@@ -1,7 +1,19 @@
 require_relative '../test_helper'
 class VideoBlockTest < ActiveSupport::TestCase
 
+  should "display api_content enabled by default" do
+    block = VideoPlugin::VideoBlock.new
+    assert block.display_api_content_by_default?
+  end
+
   ### Tests for YouTube
+
+  should "api_content no contains mime-type if platform is youtube" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "https://youtube.com/?v=XXXXX"
+    assert_includes block.api_content, :url
+    refute_includes block.api_content, :mime_type
+  end
 
   should "is_youtube return true when the url contains http://youtube.com" do
     block = VideoPlugin::VideoBlock.new
@@ -92,6 +104,13 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   #### Tests for Vimeo Videos
 
+  should "api_content no contains mime-type if platform is vimeo" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "http://vimeo.com/98979"
+    assert_includes block.api_content, :url
+    refute_includes block.api_content, :mime_type
+  end
+
   should "is_vimeo return true when the url contains http://vimeo.com" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://vimeo.com/98979"
@@ -172,6 +191,14 @@ class VideoBlockTest < ActiveSupport::TestCase
   end
 
   # Other video formats
+
+  should "api_content contains plaform and mime-type if platform is \'file\'" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "http://www.vmsd.com/98979.mp4"
+    assert_includes block.api_content, :url
+    assert_includes block.api_content, :mime_type
+  end
+
   should "is_video return true if url ends with mp4" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4"
