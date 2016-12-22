@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2015-06-29 22:07+0200\n"
-"Last-Translator: Christophe DANIEL <papaeng@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/"
-"documentation/fr/>\n"
+"PO-Revision-Date: 2016-12-22 12:57+0000\n"
+"Last-Translator: Olivier Meinguet <olivier.meinguet@claroline.net>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/noosfero/documentation/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 2.10\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -46,7 +46,7 @@ msgid ""
 "RawHTMLArticle that invokes the {sendemail} action"
 msgstr ""
 "Créer un formulaire <span class=\"caps\">HTML</span> utilisant RawHTMLBlock "
-"ou RawHTMLArticle qui appel l'action {sendemail}"
+"ou RawHTMLArticle qui appelle l'action {sendemail}"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -2341,7 +2341,7 @@ msgstr ""
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:18
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:16
 msgid "Edit sideboxes"
-msgstr "Éditer les boîtes de menus"
+msgstr "Éditer les boîtes latérales"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
