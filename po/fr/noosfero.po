@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-11-06 12:44+0000\n"
-"Last-Translator: Nathania Saphira <nathaniasaphira@gmail.com>\n"
+"PO-Revision-Date: 2016-12-22 12:57+0000\n"
+"Last-Translator: Olivier Meinguet <olivier.meinguet@claroline.net>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.9\n"
+"X-Generator: Weblate 2.10\n"
 
 #, fuzzy
 msgid "Profile type"
@@ -1215,9 +1215,8 @@ msgstr "Amis"
 msgid "Allow only community members entered below to view this content"
 msgstr " à "
 
-#, fuzzy
 msgid "Type in a name of a community member"
-msgstr "nom"
+msgstr "Tapez le nom d'un membre de la communauté"
 
 #, fuzzy
 msgid "%{month_name} %{day} %{hour}:%{minutes}"
@@ -1231,13 +1230,12 @@ msgstr "%{day} %{month} %{year}, %{hour}:%{minutes}"
 msgid "%{month}/%{day}/%{year}, %{hour}:%{minutes}"
 msgstr "%{day} %{month} %{year}, %{hour}:%{minutes}"
 
-#, fuzzy
 msgid "Date"
-msgstr "Département"
+msgstr "Date"
 
 #: ../app/api/helpers.rb:342
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Requête non valide) %s ne peut être sauvegardée"
 
 #: ../app/api/helpers.rb:347
 msgid "(Invalid request) %s not given"
@@ -1249,7 +1247,7 @@ msgstr ""
 
 #: ../app/api/helpers.rb:361
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Méthode non-autorisée"
 
 #: ../app/api/v1/articles.rb:93
 #: ../app/controllers/public/profile_controller.rb:423
@@ -1685,6 +1683,8 @@ msgstr "Admins actuelles"
 #: ../app/controllers/my_profile/profile_members_controller.rb:166
 msgid "The members list couldn't be updated. Please contact the administrator."
 msgstr ""
+"La liste des membres n'a pas pu être mise à jour. Veuillez contacter "
+"l'administrateur."
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:172
 msgid "The members list was updated."
@@ -1700,11 +1700,11 @@ msgstr "Impossible de supprimer le rôle !"
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:86
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:40
 msgid "Task already assigned!"
-msgstr ""
+msgstr "Cette tâche est déjà attribuée!"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:46
 msgid "Task responsible successfully updated!"
@@ -1724,7 +1724,7 @@ msgstr "Cette action n'est pas disponible pour «%s»."
 
 #: ../app/controllers/public/account_controller.rb:24
 msgid "Your account has been activated, now you can log in!"
-msgstr ""
+msgstr "Votre compte a été activé. Vous pouvez à présent vous connecter!"
 
 #: ../app/controllers/public/account_controller.rb:31
 msgid "Thanks for registering. The administrators were notified."
@@ -1789,7 +1789,7 @@ msgstr ""
 #: ../app/controllers/public/account_controller.rb:295
 #: ../app/views/account/_signup_form.html.erb:194
 msgid "This login name is available"
-msgstr "Le nom d'utilisateur est disponible"
+msgstr "Ce nom d'utilisateur est disponible"
 
 #: ../app/controllers/public/account_controller.rb:299
 msgid "This login name is unavailable"
@@ -1797,7 +1797,7 @@ msgstr "Le nom d'utilisateur est indisponible"
 
 #: ../app/controllers/public/account_controller.rb:303
 msgid "This field can't be blank"
-msgstr "Le champs ne peut être vide"
+msgstr "Ce champs ne peut être vide"
 
 #: ../app/controllers/public/account_controller.rb:310
 msgid "This e-mail address is available"
@@ -1813,7 +1813,7 @@ msgstr "Page non trouvée."
 
 #: ../app/controllers/public/comment_controller.rb:27
 msgid "Comment not allowed in this article"
-msgstr "Vous n'êtes pas autorisé(e) à voir cet article"
+msgstr "Vous n'êtes pas autorisé(e) à commenter cet article"
 
 #: ../app/controllers/public/comment_controller.rb:44
 msgid "Comment was rejected"
@@ -1825,11 +1825,11 @@ msgstr "Votre commentaire est en attente d'approbation."
 
 #: ../app/controllers/public/comment_controller.rb:84
 msgid "Comment successfully created."
-msgstr "Le commentaire à été créé avec succès."
+msgstr "Commentaire créé avec succès."
 
 #: ../app/controllers/public/comment_controller.rb:96
 msgid "The comment was not removed."
-msgstr "Le commentaire a été supprimé."
+msgstr "Le commentaire n'a pas été supprimé."
 
 #: ../app/controllers/public/comment_controller.rb:107
 msgid "You couldn't mark this comment as spam."
@@ -8903,7 +8903,7 @@ msgstr "Paramètres de messagerie"
 
 #: ../app/views/profile_editor/index.html.erb:23
 msgid "Edit sideboxes"
-msgstr "Éditer les boîtes de menus"
+msgstr "Éditer les boîtes latérales"
 
 #: ../app/views/profile_editor/index.html.erb:25
 msgid "Edit Appearance"
