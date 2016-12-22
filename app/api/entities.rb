@@ -48,6 +48,7 @@ module Api
     class Image < Entity
       root 'images', 'image'
 
+      expose :id
       expose :filename
       expose  :url do |image, options|
         image.public_filename

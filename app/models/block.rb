@@ -325,7 +325,7 @@ class Block < ApplicationRecord
 
   def images_builder=(raw_images)
     raw_images.each do |img|
-      if img[:remove_image] == 'true'
+      if img[:remove_image] == true || img[:remove_image] == 'true'
         images.find_by(id: img[:id]).destroy!
       elsif !img[:uploaded_data].blank?
         images.build(img)
