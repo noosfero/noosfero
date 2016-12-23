@@ -19,12 +19,8 @@ class HighlightsBlock < Block
       end
       i[:new_window] = i[:new_window] == '1' ? true : false
 
-      begin
-        file = UploadedFile.find(i[:image_id])
-        i[:image_src] = file.public_filename
-      rescue
-        i[:image_src] = nil
-      end
+      uploaded_file = UploadedFile.find_by(id: i[:image_id])
+      i[:image_src] = uploaded_file.public_filename if uploaded_file.present?
     end
   end
 

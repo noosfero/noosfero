@@ -54,7 +54,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   should 'remove images with blank fields' do
     h = HighlightsBlock.new(:block_images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => '', :position => '', :title => ''}])
     h.save!
-    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false, :image_src => nil}], h.block_images
+    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false}], h.block_images
   end
 
   should 'replace 1 and 0 by true and false in new_window attribute' do
@@ -91,9 +91,9 @@ class HighlightsBlockTest < ActiveSupport::TestCase
 
   should 'not list non existent image' do
     file = mock()
-    UploadedFile.expects(:find).with(1).returns(file)
+    UploadedFile.expects(:find_by).with({id: 1}).returns(file)
     file.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(0).returns(nil)
+    UploadedFile.expects(:find_by).with({id: 0}).returns(nil)
     block = HighlightsBlock.new(:block_images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => 'some', :position => '2', :title => 'Some'}])
     block.save!
     block.reload
@@ -104,13 +104,13 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   should 'list images in order' do
     f1 = mock()
     f1.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(1).returns(f1)
+    UploadedFile.expects(:find_by).with({id: 1}).returns(f1)
     f2 = mock()
     f2.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(2).returns(f2)
+    UploadedFile.expects(:find_by).with({id: 2}).returns(f2)
     f3 = mock()
     f3.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(3).returns(f3)
+    UploadedFile.expects(:find_by).with({id: 3}).returns(f3)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
     i2 = {:image_id => 2, :address => '/address', :position => 1, :title => 'address'}
@@ -137,7 +137,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     Noosfero.stubs(:root).returns("/social")
     f1 = mock()
     f1.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(1).returns(f1)
+    UploadedFile.expects(:find_by).with({id: 1}).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
     block.block_images = [i1]
@@ -150,7 +150,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     Noosfero.stubs(:root).returns("/social")
     f1 = mock()
     f1.expects(:public_filename).returns('address')
-    UploadedFile.expects(:find).with(1).returns(f1)
+    UploadedFile.expects(:find_by).with({id: 1}).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/social/address', :position => 3, :title => 'address'}
     block.block_images = [i1]
@@ -163,7 +163,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     Noosfero.stubs(:root).returns("/social")
     f1 = mock()
     f1.expects(:public_filename).returns('/img_address')
-    UploadedFile.expects(:find).with(1).returns(f1)
+    UploadedFile.expects(:find_by).with({id: 1}).returns(f1)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address'}
     block.block_images = [i1]
@@ -207,5 +207,14 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.block_images = [{image_id: block.images.first.id}]
     block.images.first.destroy
     assert_nil block.api_content[:slides].first[:image_id]
+  end
+
+  should 'keep image_src for images that was not found as uploaded_file' do
+    block = create(HighlightsBlock, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    block.block_images = [{image_id: block.images.first.id, image_src: block.images.first.public_filename}]
+    block.save!
+    assert block.block_images.first[:image_src].present?
   end
 end
