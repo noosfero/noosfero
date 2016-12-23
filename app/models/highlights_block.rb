@@ -7,6 +7,8 @@ class HighlightsBlock < Block
   settings_items :shuffle, :type => 'boolean', :default => false
   settings_items :navigation, :type => 'boolean', :default => false
 
+  before_save :remove_unused_images
+
   before_save do |block|
     block.block_images = block.block_images.delete_if { |i| i[:image_id].blank? and i[:address].blank? and i[:position].blank? and i[:title].blank? }
     block.block_images.each do |i|
@@ -45,6 +47,28 @@ class HighlightsBlock < Block
 
   def folder_choices
     owner.image_galleries
+  end
+
+  def display_api_content_by_default?
+    true
+  end
+
+  def api_content
+    slides = self.block_images
+    slides.each do |slide|
+      image = self.images.find_by(id: slide[:image_id])
+      if image.present?
+        slide[:image_src] = image.public_filename
+      else
+        slide[:image_id] = nil
+      end
+    end
+    { slides: slides }
+  end
+
+  def remove_unused_images
+    image_ids = self.block_images.map { |slide| slide[:image_id] }
+    images.where.not(id: image_ids).destroy_all
   end
 
 end

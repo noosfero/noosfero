@@ -183,4 +183,29 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     end
   end
 
+  should 'remove unused images when save' do
+    block = create(HighlightsBlock, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    assert_equal 1, block.images.size
+    block.save!
+    assert_equal 0, block.images.size
+  end
+
+  should 'return slides in api_content' do
+    block = create(HighlightsBlock, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    block.block_images = [{image_id: block.images.first.id}]
+    assert_equal 1, block.api_content[:slides].size
+  end
+
+  should 'not return image_id for images that does not exists anymore' do
+    block = create(HighlightsBlock, images_builder: [{
+      uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
+    }])
+    block.block_images = [{image_id: block.images.first.id}]
+    block.images.first.destroy
+    assert_nil block.api_content[:slides].first[:image_id]
+  end
 end
