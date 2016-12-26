@@ -183,6 +183,7 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
 
   def unsubscribe(email)
     unsubscribers.push(email).uniq!
+    save!
   end
 
 end
