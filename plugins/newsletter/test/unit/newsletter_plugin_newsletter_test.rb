@@ -440,7 +440,7 @@ EOS
       :person => fast_create(Person)
     )
     newsletter.unsubscribe(p2.email)
-    assert_equivalent [p1, p3], newsletter.people
+    assert_equivalent [p1, p3], newsletter.reload.people
   end
 
   should "no filter newsletter's recipients if unsubscribers list empty" do
