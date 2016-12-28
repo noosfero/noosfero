@@ -6,7 +6,7 @@ class Circle < ApplicationRecord
   _('Circle')
 
   has_many :profile_followers
-  belongs_to :person
+  belongs_to :person, touch: true
 
   attr_accessible :name, :person, :profile_type
 
