@@ -1,4 +1,4 @@
-<div class="vcard">
+<div class="<%= kindify_class(profile, 'vcard') %>">
 
 <h2 class="<%= profile.class == Person ? 'fn' : 'org' %>"><%= h block.owner.short_name %></h2>
 

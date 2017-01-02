@@ -1,0 +1,34 @@
+<h1><%= _('Manage Kinds') %></h1>
+
+<%= _('Manage the kinds of profiles available on this environment.') %>
+
+<% @kinds.each do |type, entries| %>
+  <h2><%= _(type) %></h2>
+  <%= button :add, _('New'), {:action => "new", :kind => {:type => type}} %>
+  <table class='actions'>
+    <tr>
+      <th><%= _('Kind') %></th>
+      <th><%= _('Moderated?') %></th>
+      <th><%= _('Actions') %></th>
+    </tr>
+    <% entries.each do |entry| %>
+      <tr>
+        <td><%= entry.name %></td>
+        <td style="text-align: center"><%= entry.moderated ? _('Yes') : _('No') %></td>
+        <td>
+          <%= button_without_text 'edit', _('Edit'), {:action => 'edit', :id => entry.id} %>
+          <%= button_without_text 'delete', _('Delete'), {:action => 'destroy', :id => entry.id}, data: {confirm: _("Do you want to delete this kind?")} %>
+        </td>
+      </tr>
+    <% end %>
+    <% if entries.blank? %>
+      <tr>
+        <td colspan=3><i><%= _('There no kinds of this type yet.') %></i></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<%= button_bar do %>
+  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+<% end %>

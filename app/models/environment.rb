@@ -56,6 +56,7 @@ class Environment < ApplicationRecord
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
     'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
+    'manage_environment_kinds' => N_('Manage environment kinds'),
     'edit_appearance'      => N_('Edit appearance'),
     'edit_raw_html_block'      => N_('Edit Raw HTML block'),
     'manage_email_templates' => N_('Manage Email Templates'),
@@ -239,6 +240,7 @@ class Environment < ApplicationRecord
   has_many :cities
 
   has_many :roles, :dependent => :destroy
+  has_many :kinds
 
   has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
 

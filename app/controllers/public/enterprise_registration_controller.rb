@@ -10,6 +10,7 @@ class EnterpriseRegistrationController < ApplicationController
   def index
     @validation = environment.organization_approval_method
     @create_enterprise = CreateEnterprise.new(params[:create_enterprise])
+    @kinds = environment.kinds.where(:type => 'Enterprise')
     if @validation == :region
       if params[:create_enterprise] && params[:create_enterprise][:target_id]
         @create_enterprise.target = Profile.find(params[:create_enterprise][:target_id])

@@ -111,6 +111,8 @@
 
   <%= template_options(:people, 'profile_data') %>
 
+  <%= render :partial => 'shared/profile_kinds', :locals => {:form_field => 'profile_data'} %>
+
   <% unless @terms_of_use.blank? %>
     <div id='terms-of-use-box' class='formfieldline'>
       <%= labelled_check_box(_('I accept the %s').html_safe % link_to(_('terms of use'), {:controller => 'home', :action => 'terms'}, :target => '_blank'), 'user[terms_accepted]') %>

@@ -1,4 +1,4 @@
-<li class='profile-activity-item' id='profile-activity-item-<%= scrap.id %>'>
+<li class="<%= kindify_class(scrap.sender, 'profile-activity-item') %>" id='profile-activity-item-<%= scrap.id %>'>
   <div class='profile-activity-image'>
     <%= link_to(profile_image(scrap.sender, :minor), scrap.sender.url) %>
   </div>

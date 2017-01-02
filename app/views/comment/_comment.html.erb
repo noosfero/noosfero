@@ -1,4 +1,4 @@
-<li id="<%= comment.anchor %>" class="article-comment">
+<li id="<%= comment.anchor %>" class="<%= kindify_class(comment.author, 'article-comment') %>">
   <div class="article-comment-inner">
 
   <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %> <%= 'comment-from-owner' if ( comment.author && (profile == comment.author) ) %>">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213173859) do
+ActiveRecord::Schema.define(version: 20161213193521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -478,6 +478,18 @@ ActiveRecord::Schema.define(version: 20161213173859) do
 
   add_index "inputs", ["product_category_id"], name: "index_inputs_on_product_category_id", using: :btree
   add_index "inputs", ["product_id"], name: "index_inputs_on_product_id", using: :btree
+
+  create_table "kinds", force: :cascade do |t|
+    t.string  "name"
+    t.string  "type"
+    t.boolean "moderated",      default: false
+    t.integer "environment_id"
+  end
+
+  create_table "kinds_profiles", force: :cascade do |t|
+    t.integer "kind_id"
+    t.integer "profile_id"
+  end
 
   create_table "licenses", force: :cascade do |t|
     t.string  "name",           null: false

@@ -1,4 +1,4 @@
-<li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
+<li class="<%= kindify_class(activity.user, 'profile-activity-item') %>" id='profile-activity-item-<%= activity.id %>'>
   <%= render :partial => activity.verb, :locals => { :activity => activity, :tab_action => tab_action }%>
   <hr />
 </li>

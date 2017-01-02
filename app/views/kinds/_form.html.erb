@@ -1,0 +1,10 @@
+<%= labelled_form_for :kind do |f| %>
+  <%= error_messages_for :kind %>
+  <%= f.text_field(:name) %>
+  <%= f.check_box(:moderated) %>
+  <%= hidden_field(:kind, :type) %>
+
+  <%= button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
+  <% end%>
+<% end %>

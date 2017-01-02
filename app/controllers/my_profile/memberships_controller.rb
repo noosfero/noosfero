@@ -22,6 +22,7 @@ class MembershipsController < MyProfileController
     @community.custom_values = custom_values
     @community.environment = environment
     @back_to = params[:back_to] || url_for(:action => 'index')
+    @kinds = environment.kinds.where(:type => 'Community')
     if request.post? && @community.valid?
       begin
         # Community was created

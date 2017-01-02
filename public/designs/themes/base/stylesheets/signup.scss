@@ -92,8 +92,18 @@
   width: auto;
 }
 
+#signup-form input[type=checkbox] {
+  height: 20px;
+  width: 20px;
+  margin: 0px 5px 0px 3px;
+}
+
 #signup-form .fieldgroup {
   margin: 5px 10px;
+}
+
+#signup-form label{
+  font-size: 16px;
 }
 
 #signup-form #template-options li label {
