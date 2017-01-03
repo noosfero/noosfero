@@ -99,4 +99,12 @@ class Domain < ApplicationRecord
     FastGettext.translation_repositories.keys.include?(domain) ? domain : FastGettext.default_text_domain
   end
 
+  def self.default
+    Domain.find_by(is_default: true)
+  end
+
+  def self.by_context(name)
+    self.by_name(name) || self.default || Domain.new(owner: Environment.default)
+  end
+
 end
