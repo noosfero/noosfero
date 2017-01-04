@@ -232,4 +232,29 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal community.image.filename, base64_image[:filename]
   end
 
+  should 'update top image' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    base64_image = create_base64_image
+    params.merge!({profile: {top_image_builder: base64_image}})
+    assert_nil person.image
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    community.reload
+    assert_not_nil community.top_image
+    assert_equal community.top_image.filename, base64_image[:filename]
+  end
+
+  should 'update top image and profile image at the same time' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    base64_image = create_base64_image
+    base64_top_image = create_base64_image
+    params.merge!({profile: {top_image_builder: base64_top_image, image_builder: base64_image}})
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    community.reload
+    assert_equal community.top_image.filename, base64_top_image[:filename]
+    assert_equal community.image.filename, base64_image[:filename]
+  end
 end

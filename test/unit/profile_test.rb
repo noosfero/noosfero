@@ -120,6 +120,16 @@ class ProfileTest < ActiveSupport::TestCase
     end
   end
 
+  should 'remove top images when removing profile' do
+    profile = build(Profile, :top_image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    top_image = profile.top_image
+    top_image.save!
+    profile.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      top_image.reload
+    end
+  end
+
   def test_should_avoid_reserved_identifiers
     Profile::RESERVED_IDENTIFIERS.each do |identifier|
       assert_invalid_identifier identifier
@@ -1876,6 +1886,28 @@ class ProfileTest < ActiveSupport::TestCase
     with_image = fast_create(Person, :name => 'with_image', :environment_id => env.id, :image_id => img.id)
     assert_equal 2, env.profiles.without_image.count
     assert_not_includes env.profiles.without_image, with_image
+  end
+  
+  should 'find profiles with top image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      fast_create(Person, :name => "with_top_image_#{n}", :environment_id => env.id, :top_image_id => img.id)
+    end
+    without_top_image = fast_create(Person, :name => 'without_top_image', :environment_id => env.id)
+    assert_equal 2, env.profiles.with_top_image.count
+    assert_not_includes env.profiles.with_top_image, without_top_image
+  end
+
+  should 'find profiles withouth top image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      fast_create(Person, :name => "without_top_image_#{n}", :environment_id => env.id)
+    end
+    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    with_top_image = fast_create(Person, :name => 'with_top_image', :environment_id => env.id, :top_image_id => img.id)
+    assert_equal 2, env.profiles.without_top_image.count
+    assert_not_includes env.profiles.without_top_image, with_top_image
   end
 
   should 'return enterprises subclasses too on namedscope enterprises' do

@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
 
   attr_accessible :name, :identifier, :public_profile, :nickname,
     :custom_footer, :custom_header, :address, :zip_code, :contact_phone,
-    :image_builder, :description, :closed, :template_id, :environment, :lat,
+    :image_builder, :top_image_builder, :description, :closed, :template_id, :environment, :lat,
     :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids,
     :country, :city, :state, :national_region_code, :email, :contact_email,
     :redirect_l10n, :notification_time, :redirection_after_login,
@@ -321,6 +321,7 @@ class Profile < ApplicationRecord
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
+  acts_as_having_image field: :top_image
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
