@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 13:14-0300\n"
-"PO-Revision-Date: 2016-09-12 13:14-0300\n"
+"POT-Creation-Date: 2017-01-05 19:28+0000\n"
+"PO-Revision-Date: 2017-01-05 19:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Article with paragraph comments"
 msgstr ""
 
-#: ../lib/comment_paragraph_plugin/discussion_block.rb:20
+#: ../lib/comment_paragraph_plugin/discussion_block.rb:21
 msgid "This block displays all profile's article discussion"
 msgstr ""
 
@@ -67,15 +67,15 @@ msgid "Choose which blog should be displayed"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Not Opened Discussions"
-msgstr ""
-
-#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Available Discussions"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Closed Discussions"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Not Opened Discussions"
 msgstr ""
 
 #:
@@ -101,6 +101,11 @@ msgstr ""
 #:
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:24
 msgid "Choose how many items will be displayed"
+msgstr ""
+
+#:
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:30
+msgid "Display only discussions from portal community"
 msgstr ""
 
 #: ../views/cms/comment_paragraph_plugin/_discussion.html.erb:4

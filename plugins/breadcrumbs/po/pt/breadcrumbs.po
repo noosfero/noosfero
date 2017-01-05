@@ -23,9 +23,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/breadcrumbs_plugin.rb:8
 msgid "A plugin that add a block to display breadcrumbs."
 msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
 msgid ""
 "<p>Display a breadcrumb of the current content navigation.</p><p>You could "
 "choose if the breadcrumb is going to appear in the cms editing or not.</p> "
@@ -37,32 +39,42 @@ msgstr ""
 "<p>Existe também a opção de mostrar a localização do perfil no endereço do "
 "caminho de pão.</p>"
 
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:14
 msgid "Breadcrumb"
 msgstr "Caminho de Pão"
 
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:18
 msgid "Breadcrumbs Block"
 msgstr "Bloco de Caminho de Pão"
 
+#: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:22
 msgid "This block displays breadcrumb trail."
 msgstr "Esse bloco mostra o rastro do caminho de pão."
 
+#: ../lib/breadcrumbs_plugin_helper.rb:5
 msgid "Upload Files"
 msgstr "Enviar Arquivos"
 
+#: ../lib/breadcrumbs_plugin_helper.rb:7
 msgid "Members"
 msgstr "Integrantes"
 
+#: ../lib/breadcrumbs_plugin_helper.rb:8
 msgid "Events"
 msgstr "Eventos"
 
+#: ../lib/breadcrumbs_plugin_helper.rb:32
 msgid "Profile"
 msgstr "Perfil"
 
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:2
 msgid "Show cms action"
 msgstr "Mostrar cms"
 
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:3
 msgid "Show profile"
 msgstr "Mostrar perfil"
 
+#: ../views/box_organizer/breadcrumbs_plugin/_content_breadcrumbs_block.html.erb:4
 msgid "Show section name"
 msgstr "Mostrar nome da seção"

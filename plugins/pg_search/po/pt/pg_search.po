@@ -23,5 +23,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/pg_search_plugin.rb:8
 msgid "Search engine that uses Postgres Full-Text Search."
 msgstr "Motor de busca que usa a Busca Full-Text do Postgres."

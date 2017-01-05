@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-msgid "Incorrect user/password pair."
-msgstr "Nombre de usuario o contraseña incorrecta."
+#, fuzzy
+msgid "This field must be private"
+msgstr "Este archivo no puede ser guardado"
 
 #, fuzzy
 msgid "Conection requires post method."
@@ -32,14 +33,13 @@ msgstr "Numero de USP"
 msgid "is being used by another user or is not valid"
 msgstr "%{fn} ya está siendo usado por otra categoría."
 
-msgid "Classroom in common"
-msgstr ""
-
-msgid "Add Stoa features"
-msgstr "Añadir características Stoa"
-
-msgid "USP number"
+#, fuzzy
+msgid "USP number / Username"
 msgstr "Numero de USP"
+
+#, fuzzy
+msgid "Confirm your CPF number."
+msgstr "Confirma tu nueva contraseña"
 
 #, fuzzy
 msgid ""
@@ -49,25 +49,43 @@ msgstr ""
 "El identificador usp te otorga poderes especiales en la red. No te olvides "
 "de llenarlo si tienes uno."
 
+#: ../controllers/stoa_plugin_controller.rb:21 ../lib/stoa_plugin/auth.rb:26
+msgid "Incorrect user/password pair."
+msgstr "Nombre de usuario o contraseña incorrecta."
+
+#: ../lib/ext/profile_suggestion.rb:5
+msgid "Classroom in common"
+msgstr ""
+
+#: ../lib/stoa_plugin.rb:10
+msgid "Add Stoa features"
+msgstr "Añadir características Stoa"
+
+#: ../lib/stoa_plugin.rb:19 ../lib/stoa_plugin.rb:35
+msgid "USP number"
+msgstr "Numero de USP"
+
+#: ../lib/stoa_plugin.rb:21
 msgid "Either this usp number is being used by another user or is not valid"
 msgstr ""
 
+#: ../lib/stoa_plugin.rb:22
 msgid "Checking usp number..."
 msgstr ""
 
+#: ../lib/stoa_plugin.rb:23 ../lib/stoa_plugin.rb:38
 msgid "Birth date (yyyy-mm-dd)"
 msgstr "Fecha de nacimiento (yyyy-mm-dd)"
 
+#: ../lib/stoa_plugin.rb:24
 msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
 msgstr ""
 
+#: ../lib/stoa_plugin.rb:25 ../lib/stoa_plugin.rb:39
 msgid "CPF"
 msgstr "CPF"
 
-#, fuzzy
-msgid "Confirm your CPF number."
-msgstr "Confirma tu nueva contraseña"
-
+#: ../lib/stoa_plugin.rb:36
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
@@ -75,13 +93,6 @@ msgstr ""
 "El identificador usp te otorga poderes especiales en la red. No te olvides "
 "de llenarlo si tienes uno."
 
-#, fuzzy
-msgid "This field must be private"
-msgstr "Este archivo no puede ser guardado"
-
-#, fuzzy
-msgid "USP number / Username"
-msgstr "Numero de USP"
-
+#: ../lib/stoa_plugin.rb:71 ../lib/stoa_plugin.rb:90
 msgid " validation failed"
 msgstr " la validación falló"
