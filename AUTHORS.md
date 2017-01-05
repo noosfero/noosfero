@@ -93,6 +93,7 @@ Larissa Reis <larissa@colivre.coop.br>
 Leandro Alves <leandrosustenido@gmail.com>
 Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>
 Leandro Veloso <leandrovelosorodrigues@gmail.com>
+Leonardo Soares <leors75@gmail.com>
 LinguÁgil 2010 <linguagil.bahia@gmail.com>
 Luan Guimarães <guimaraesluan@me.com>
 Lucas Couto <loc.unb@gmail.com>
@@ -121,8 +122,10 @@ Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
 Moises Machado <moises@colivre.coop.br>
 Murilo Duarte <muriloduartegoncalves@hotmail.com>
 Nanda Lopes <nanda.listas+psl@gmail.com>
+Nathania Saphira <nathaniasaphira@gmail.com>
 Naíla Alves <naila@colivre.coop.br>
 Niemand Jedermann <predatorix@web.de>
+Olivier Meinguet <olivier.meinguet@claroline.net>
 Omar Junior <omarroinuj@gmail.com>
 Parley Martins <parleypachecomartins@gmail.com>
 Paulo Meirelles <paulo@softwarelivre.org>
