@@ -134,6 +134,7 @@ module Api
         hash
       end
       expose :image, :using => Image
+      expose :top_image, :using => Image
       expose :region, :using => Region
       expose :type
       expose :custom_header

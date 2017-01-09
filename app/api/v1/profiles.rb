@@ -28,7 +28,8 @@ module Api
           authenticate!
           profile = environment.profiles.find_by(id: params[:id])
           return forbidden! unless profile.allow_edit?(current_person)
-          profile.update_attributes!(asset_with_image(params[:profile]))
+          profile_params = asset_with_image(params[:profile])
+          profile.update_attributes!(asset_with_custom_image(:top_image, profile_params))
           present profile, :with => Entities::Profile, :current_person => current_person
         end
 

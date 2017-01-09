@@ -410,9 +410,14 @@ module Api
     end
 
     def asset_with_image params
-      if !params.nil? && params.has_key?(:image_builder)
+      asset_with_custom_image(:image, params)
+    end
+
+    def asset_with_custom_image(field, params)
+      builder_field = "#{field}_builder".to_sym
+      if !params.nil? && params.has_key?(builder_field)
         asset_api_params = params
-        asset_api_params[:image_builder] = base64_to_uploadedfile(asset_api_params[:image_builder])
+        asset_api_params[builder_field] = base64_to_uploadedfile(asset_api_params[builder_field])
         return asset_api_params
       end
       params
