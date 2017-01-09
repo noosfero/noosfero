@@ -1,12 +1,17 @@
 <%= block_title(block.title, block.subtitle) %>
 
 <% if !block.featured_images.empty? %>
-  <div class='highlights-border'>
-    <div class='highlights-container'>
+  <div class="highlights-border">
+    <div class="highlights-container">
       <% block.featured_images.each do |img| %>
-        <a href="<%= img[:address] %>" <%= 'target="_blank"' if img[:new_window] %> title="<%= img[:title] %>" class="highlights-image-link">
-          <%= image_tag [Noosfero.root, img[:image_src]].join, alt: img[:title] %>
-          <p class="highlights-label"><%= img[:title] %></p>
+        <% imgsrc = "#{Noosfero.root}#{img[:image_src]}" %>
+        <a href="<%= img[:address] %>"
+           target="<%= '_blank' if img[:new_window] %>"
+           title="<%= img[:title] %>"
+           class="highlights-image-link">
+          <div class="highlights-img2" style="background-image:url(<%=imgsrc%>)"></div>
+          <div class="highlights-img1" style="background-image:url(<%=imgsrc%>)"></div>
+          <p class="highlights-label <%= 'empty' if img[:title].blank? %>"><%= img[:title] %></p>
         </a>
       <% end %>
     </div>
