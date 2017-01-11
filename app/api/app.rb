@@ -55,6 +55,7 @@ module Api
     mount V1::Profiles
     mount V1::Activities
     mount V1::Roles
+    mount V1::Domains
 
     # hook point which allow plugins to add Grape::API extensions to Api::App
     #finds for plugins which has api mount points classes defined (the class should extends Grape::API)

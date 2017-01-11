@@ -127,4 +127,28 @@ class DomainTest < ActiveSupport::TestCase
     assert_equal 'DOMAIN_KEY', domain.google_maps_key
   end
 
+  should 'return default domain' do
+    d1 = fast_create(Domain, :name => 'example1.net')
+    d2 = fast_create(Domain, :name => 'example2.net', is_default: true)
+    d3 = fast_create(Domain, :name => 'example3.net')
+    assert_equal d2, Domain.default
+  end
+
+  should 'return by_context' do
+    d1 = fast_create(Domain, :name => 'example1.net')
+    d2 = fast_create(Domain, :name => 'example2.net', is_default: true)
+    d3 = fast_create(Domain, :name => 'example3.net')
+    assert_equal d3, Domain.by_context('example3.net')
+  end
+
+  should 'return default when passing a unknow domain' do
+    d1 = fast_create(Domain, :name => 'example1.net')
+    d2 = fast_create(Domain, :name => 'example2.net', is_default: true)
+    d3 = fast_create(Domain, :name => 'example3.net')
+    assert_equal d2, Domain.by_context('unknown.net')
+  end
+
+  should 'return a domain with the default environment when no domains exists' do
+    assert_equal Environment.default, Domain.by_context('unknown.net').owner
+  end
 end
