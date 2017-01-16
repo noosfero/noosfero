@@ -21,6 +21,7 @@
 *= require vendor/jrails.js
 *= require vendor/slick.js
 *= require vendor/autogrow.js
+*= require vendor/favico.js
 *
 * noosfero libraries
 *= require_self
