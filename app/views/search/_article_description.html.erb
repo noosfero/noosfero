@@ -3,8 +3,10 @@
 <tr class="search-article-description">
   <td class="search-field-label"><%= _("Description") %></td>
 
-  <% if !article.body.blank? %>
-    <% description = strip_tags(article.body.to_s) %>
+  <% content = article.abstract.present? ? article.abstract : article.body %>
+
+  <% if content.present? %>
+    <% description = strip_tags(content.to_s) %>
     <% description.gsub!(/\s{2,}/, ' ') %>
     <% description = excerpt description, description.first(3), radius: 200 %>
 
