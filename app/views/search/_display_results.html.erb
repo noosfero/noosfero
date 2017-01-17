@@ -2,6 +2,8 @@
   <% @assets.each do |name| %>
     <% search = @searches[name] %>
 
+    <% next if environment.enabled?("disable_asset_#{name}") %>
+
     <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if search[:results].blank? %>">
       <% if !search[:results].blank? %>
 
