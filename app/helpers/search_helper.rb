@@ -50,9 +50,9 @@ module SearchHelper
   end
 
   def category_context(category, url)
-    content_tag('div', category.full_name + _(', ') +
+    content_tag('div', (category.full_name + _(', ') +
         link_to(_('search in all categories'),
-          url.merge(:category_path => [], :action => (params[:action] == 'category_index' ? 'index' : params[:action]) )),
+          url.merge(:category_path => [], :action => (params[:action] == 'category_index' ? 'index' : params[:action]) ))).html_safe,
       :align => 'center', :class => 'search-category-context') if category
   end
 
