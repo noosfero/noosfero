@@ -460,13 +460,11 @@ class Profile < ApplicationRecord
 
   def self.is_available?(identifier, environment, profile_id=nil)
     return false unless identifier =~ IDENTIFIER_FORMAT &&
-      !RESERVED_IDENTIFIERS.include?(identifier) &&
+      !Profile::RESERVED_IDENTIFIERS.include?(identifier) &&
       (NOOSFERO_CONF['exclude_profile_identifier_pattern'].blank? || identifier !~ /#{NOOSFERO_CONF['exclude_profile_identifier_pattern']}/)
     return true if environment.nil?
 
-    profiles = environment.profiles.where(:identifier => identifier)
-    profiles = profiles.where(['id != ?', profile_id]) if profile_id.present?
-    !profiles.exists?
+    environment.is_identifier_available?(identifier, profile_id)
   end
 
   def self.visible_for_person(person)

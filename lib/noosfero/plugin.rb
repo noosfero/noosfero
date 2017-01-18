@@ -647,6 +647,18 @@ class Noosfero::Plugin
     false
   end
 
+  # -> Adds reserved identifiers to profile
+  # returns = ['identifier1', 'identifier2']
+  def reserved_identifiers
+    []
+  end
+
+  # -> Adds new items to the user menu
+  # returns = [item1, item2]
+  def user_menu_items(user)
+    []
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.
