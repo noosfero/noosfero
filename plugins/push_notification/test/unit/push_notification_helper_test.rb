@@ -4,13 +4,26 @@ require 'test_helper'
 class PushNotificationHelperTest < ActiveSupport::TestCase
   include  PushNotificationHelper
 
+  def setup
+    @environment = Environment.default
+  end
+  attr_reader :environment
+
+  should 'get FCM instance with api key' do
+    data = {:server_api_key => "mykey"}
+    settings = Noosfero::Plugin::Settings.new(environment, PushNotificationPlugin, data)
+    settings.save!
+
+    assert_equal "mykey", fcm_instance.api_key
+  end
+
   should 'get all tokens for a group of users' do
-    user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
+    user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => environment)
     user.activate
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenHomer1", device_name: "my device", :user => user)
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenHomer2", device_name: "my device", :user => user)
 
-    user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => Environment.default)
+    user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => environment)
     user2.activate
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenBart1", device_name: "my device", :user => user2)
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenBart2", device_name: "my device", :user => user2)
@@ -22,9 +35,9 @@ class PushNotificationHelperTest < ActiveSupport::TestCase
   end
 
   should 'filter users registered for a notification' do
-    user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
+    user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => environment)
     user.activate
-    user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => Environment.default)
+    user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => environment)
     user2.activate
 
     user.notification_settings.activate_notification "new_comment"
@@ -34,5 +47,5 @@ class PushNotificationHelperTest < ActiveSupport::TestCase
 
     assert_equivalent [user], users
   end
-
 end
+

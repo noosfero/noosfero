@@ -1,4 +1,4 @@
-README - GCM - Google Cloud Message Plugin
+README - Push Notification - Firebase Cloud Message Plugin
 ==========================================
 
 This plugin enables push notifications for mobile platforms
@@ -10,11 +10,11 @@ INSTALL
 Enable Plugin
 -------------
 
-You need to enable GCM Plugin on your Noosfero:
+You need to enable Push Notification Plugin on your Noosfero:
 
 cd <your_noosfero_dir>
-./script/noosfero-plugins install gcm
-./script/noosfero-plugins enable gcm
+./script/noosfero-plugins install push_notification
+./script/noosfero-plugins enable push_notification
 
 Activation and Plugin Configuration
 -----------------------------------
@@ -22,24 +22,24 @@ Activation and Plugin Configuration
 As a Noosfero administrator user, go to administrator panel:
 
 - Click on "Enable/disable plugins" option
-- Click on "Google Cloud Message Plugin" check-box
+- Click on "Push Notification Plugin" check-box
 - Click on "Configurations" just below the previous step
-- *Fill in the form with your server API key registered for GCM
-- Select from the check-boxes the notifications you want GCM plugin to send.
+- *Fill in the form with your server API key registered for FCM
+- Select from the check-boxes the notifications you want FCM plugin to send.
 
-*API key can be obtained creating a project in the GCM console, needed when preparing the application to use push notification.
+*API key can be obtained creating a project in the FCM console, needed when preparing the application to use push notification.
 Link below:
 
 - https://console.developers.google.com/start
 
 More information can be found in the following links:
-- https://developers.google.com/cloud-messaging/gcm
+- https://developers.google.com/cloud-messaging/fcm
 - https://developers.google.com/cloud-messaging/server
 - https://developers.google.com/cloud-messaging/registration
 - https://developers.google.com/instance-id/
 
-After that, the mobile application need to take care of device registration to GCM and send the device token
-to GCM plugin through noosfero API. There are endpoints to add, see and remove device tokens.
+After that, the mobile application need to take care of device registration to FCM and send the device token
+to FCM plugin through noosfero API. There are endpoints to add, see and remove device tokens.
 
 - post request to /api/v1/push_notification_plugin/device_tokens with "tokens" parameter like token1,token2,token3
 will register the tokens token1, token2 and token3 to the api current logged user, defined by noosfero's private token
