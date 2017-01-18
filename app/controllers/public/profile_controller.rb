@@ -28,6 +28,15 @@ class ProfileController < PublicController
     allow_access_to_page
   end
 
+  def about
+  end
+
+  def activities
+    @offsets = {:wall => 0, :network => 0}
+    page = (params[:page] || 1).to_i
+    @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
+  end
+
   def tags
     @tags_cache_key = "tags_profile_#{profile.id.to_s}"
     if is_cache_expired?(@tags_cache_key)

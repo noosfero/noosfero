@@ -122,7 +122,6 @@ class LinkListBlockTest < ActiveSupport::TestCase
   end
 
   should 'link with title' do
-    l = LinkListBlock.new
     l = LinkListBlock.new(:links => [{:name => 'mylink', :address => '/myaddress', :title => 'mytitle'}])
     assert_match /title="mytitle"/, render_block_content(l)
   end

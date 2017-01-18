@@ -168,6 +168,21 @@ class Article < ApplicationRecord
 
   validate :parent_archived?
 
+  validate :valid_slug
+
+  RESERVED_SLUGS = %w[
+    about
+    activities
+  ] 
+
+  def valid_slug
+    errors.add(:title, _('is not available as article name.')) unless Article.is_slug_available?(slug)
+  end
+
+  def self.is_slug_available?(slug)
+    !RESERVED_SLUGS.include?(slug)
+  end
+
   def no_self_reference
     errors.add(:parent_id, _('self-reference is not allowed.')) if id && parent_id == id
   end

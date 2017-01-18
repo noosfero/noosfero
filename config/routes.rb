@@ -63,6 +63,9 @@ Noosfero::Application.routes.draw do
     "/profile/#{request.params[:profile]}/plugin/products/page/#{request.params[:action]}/#{request.params[:id]}"
   end)
 
+  match ':profile/about', controller: 'profile', action: 'about', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
+  match ':profile/activities', controller: 'profile', action: 'activities', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
+
   # events
   match 'profile/:profile/events_by_day', controller: 'events', action: 'events_by_day', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events_by_month', controller: 'events', action: 'events_by_month', profile: /#{Noosfero.identifier_format_in_url}/i, via: :all

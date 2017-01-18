@@ -2312,4 +2312,18 @@ class ArticleTest < ActiveSupport::TestCase
     assert !article.editor?(Article::Editor::TINY_MCE)
   end
 
+  RESERVED_SLUGS = %w[
+    about
+    activities
+  ]
+   
+  RESERVED_SLUGS.map do |reserved|
+    define_method "test_should_not_create_an_article_with_#{reserved}_title" do
+      article = fast_create(Article)
+      article.name = reserved
+      article.valid?
+      assert !article.errors[:title].empty?
+    end
+  end
+
 end

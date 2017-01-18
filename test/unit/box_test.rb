@@ -45,6 +45,7 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.raw-html-block')
     assert blocks.include?('.recent-documents-block')
     assert blocks.include?('.tags-block')
+    assert blocks.include?('.menu-block')
   end
 
   should 'list allowed blocks for box at position 2' do
@@ -75,6 +76,7 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.recent-documents-block')
     assert blocks.include?('.slideshow-block')
     assert blocks.include?('.tags-block')
+    assert blocks.include?('.menu-block')
   end
 
   should 'list plugin block as allowed for box at position 1' do
