@@ -127,7 +127,7 @@
   <% end %>
 </div>
 
-<%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} if @block_bot %>
+<%= recaptcha_tags :ajax => true, :ssl => true, :display => {:theme => 'clean'} if @block_bot %>
 <%= render :partial => 'shared/custom_fields', :locals => {:f => f, :profile => @person, :signup => true} %>
 
 <p style="text-align: center">
