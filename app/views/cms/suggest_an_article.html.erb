@@ -19,7 +19,7 @@
 
   <%= hidden_field_tag('back_to', @back_to) %>
 
-  <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) unless logged_in? %>
+  <%= recaptcha_tags(:display => { :theme => 'clean' }, :ssl => true, :ajax => true) unless logged_in? %>
 
   <%= button_bar do %>
     <%= submit_button :save, _('Save') %>

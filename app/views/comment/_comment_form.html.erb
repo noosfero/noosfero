@@ -7,8 +7,8 @@
 <% if !edition_mode && !pass_without_comment_captcha? %>
   <div id="recaptcha-container" style="display: none">
     <h3><%= _('Please type the two words below') %></h3>
-    <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
-    <%= button_bar do %>
+    <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true, :ssl => true) %>
+    <% button_bar do %>
       <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
       <%= button_to_function :cancel, _('Cancel'), "noosfero.modal.close()" %>
     <% end %>
