@@ -8,6 +8,7 @@ class ProfileController < PublicController
   before_filter :accept_only_post, :only => [:follow, :unfollow]
   before_filter :allow_scrap?, :only => [:leave_scrap]
   before_filter :allow_comment?, :only => [:leave_comment_on_activity]
+  before_filter :load_tags, only: [:index, :about]
 
   helper TagsHelper
   helper ActionTrackerHelper
@@ -24,7 +25,6 @@ class ProfileController < PublicController
       @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
       @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if @profile == user
     end
-    @tags = profile.article_tags
     allow_access_to_page
   end
 
@@ -567,4 +567,8 @@ class ProfileController < PublicController
     logged_in?
   end
   helper_method :allow_comment?
+
+  def load_tags
+    @tags = profile.article_tags
+  end
 end
