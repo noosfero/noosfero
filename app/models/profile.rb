@@ -265,7 +265,7 @@ class Profile < ApplicationRecord
     where('circles.id = ?', circle.id)
   }
 
-  settings_items :wall_access, :type => :string, :default => 'users'
+  settings_items :wall_access, :type => :integer, :default => AccessLevels::LEVELS[:users]
   settings_items :allow_followers, :type => :boolean, :default => true
   alias_method :allow_followers?, :allow_followers
 
