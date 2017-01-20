@@ -9,7 +9,7 @@ class Forum < Folder
 
   settings_items :terms_of_use, :type => :string, :default => ""
   settings_items :has_terms_of_use, :type => :boolean, :default => false
-  settings_items :topic_creation, :type => :string, :default => 'self'
+  settings_items :topic_creation, :type => :integer, :default => AccessLevels::LEVELS[:self]
   has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'
 
   before_save do |forum|
