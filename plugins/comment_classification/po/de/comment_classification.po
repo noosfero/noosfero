@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2015-02-23 11:38+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2017-01-23 21:10+0000\n"
+"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "comment-classification/de/>\n"
 "Language: de\n"
@@ -16,106 +16,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 
-#, fuzzy
 msgid "Label created"
-msgstr "Lizenz erstellt"
+msgstr "Label erstellt"
 
-#, fuzzy
 msgid "Label could not be created"
-msgstr "Die Lizenz konnte nicht erstellt werden"
+msgstr "Das Label konnte nicht erstellt werden"
 
-#, fuzzy
 msgid "Label updated"
-msgstr "Letzte Änderung"
+msgstr "Label aktualisiert"
 
-#, fuzzy
 msgid "Failed to edit label"
-msgstr "Änderung der Aufgabe fehlgeschlagen"
+msgstr "Änderung des Labels fehlgeschlagen"
 
-#, fuzzy
 msgid "Label removed"
-msgstr "Lizenz entfernt"
+msgstr "Label entfernt"
 
-#, fuzzy
 msgid "Label could not be removed"
-msgstr "Lizenz konnte nicht entfernt werden"
+msgstr "Label konnte nicht entfernt werden"
 
-#, fuzzy
 msgid "Status created"
-msgstr "Vertrag erstellt."
+msgstr "Status erstellt"
 
-#, fuzzy
 msgid "Status could not be created"
-msgstr "Das Formular konnte nicht erstellt werden"
+msgstr "Status konnte nicht erstellt werden"
 
-#, fuzzy
 msgid "Status updated"
-msgstr "Startdatum"
+msgstr "Status aktualisiert"
 
-#, fuzzy
 msgid "Failed to edit status"
-msgstr "Änderung der Aufgabe fehlgeschlagen"
+msgstr "Änderung des Status fehlgeschlagen"
 
-#, fuzzy
 msgid "Status removed"
-msgstr "Vertrag entfernt."
+msgstr "Status entfernt"
 
-#, fuzzy
 msgid "Status could not be removed"
-msgstr "Das Formular konnte nicht entfernt werden"
+msgstr "Status konnte nicht entfernt werden"
 
-#, fuzzy
 msgid "A plugin that allow classification of comments."
-msgstr "Ein Block, der Ihre Gruppen anzeigt"
+msgstr "Ein Plugin, das die Klassifizierung von Kommentaren erlaubt."
 
 msgid "Status"
 msgstr "Status"
 
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 msgid "[Select ...]"
 msgstr "[Auswahl...]"
 
-#, fuzzy
 msgid "Comments classification options"
-msgstr "Moderationseinstellungen"
+msgstr "Kommentarklassifizierungs-Einstellungen"
 
-#, fuzzy
 msgid "Manage Labels"
-msgstr "Felder verwalten"
+msgstr "Label verwalten"
 
-#, fuzzy
 msgid "Manage Status"
-msgstr "Kontakte verwalten"
+msgstr "Status verwalten"
 
 msgid "Name"
 msgstr "Name"
 
 msgid "Color"
-msgstr ""
+msgstr "Farbe"
 
-#, fuzzy
 msgid "Enable this label?"
-msgstr "Unternehmen aktivieren"
+msgstr "Dieses Label bearbeiten?"
 
-#, fuzzy
 msgid "Add a new label"
-msgstr "Neues Feld hinzufügen"
+msgstr "Neues Label hinzufügen"
 
-#, fuzzy
 msgid "Editing label %s"
-msgstr "Ändere %s"
+msgstr "Ändere Label %s"
 
-#, fuzzy
 msgid "Manage comments labels"
-msgstr "Communityfelder verwalten"
+msgstr "Kommentarlabels verwalten"
 
-#, fuzzy
 msgid "(no label registered yet)"
-msgstr "(bisher kein Produkt registriert)"
+msgstr "(bisher kein Label registriert)"
 
 msgid "Enabled"
 msgstr "Aktiviert"
@@ -123,54 +102,45 @@ msgstr "Aktiviert"
 msgid "Actions"
 msgstr "Aktionen"
 
-#, fuzzy
 msgid "Are you sure you want to  remove this label?"
-msgstr "Sind Sie sicher, dass Sie diesen Block löschen wollen?"
+msgstr "Sind Sie sicher, dass Sie dieses Label löschen wollen?"
 
-#, fuzzy
 msgid "Reason:"
-msgstr "Grund"
+msgstr "Grund:"
 
-#, fuzzy
 msgid "Status for comment"
-msgstr "Spam auf Kommentaren"
+msgstr "Status für Kommentar"
 
 msgid ""
 "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
 "i>."
 msgstr ""
+"<i>%{user}</i> hat den Status <i>%{status_name}</i> am/um "
+"<i>%{created_at}</i> hinzugefügt."
 
 msgid "<i>Reason:</i> %s"
-msgstr ""
+msgstr "<i>Grund:</i> %s"
 
-#, fuzzy
 msgid "Add a new status"
-msgstr "Neue Option hinzufügen"
+msgstr "Neuen Status hinzufügen"
 
-#, fuzzy
 msgid "Manage comment classification"
-msgstr "Verwaltungsinformationen"
+msgstr "Kommentarklassifizierung verwalten"
 
-#, fuzzy
 msgid "Enable this status?"
-msgstr "\"Kontaktieren Sie uns\" aktivieren"
+msgstr "Diesen Status aktivieren?"
 
-#, fuzzy
 msgid "Editing status %s"
-msgstr "Ändere %s"
+msgstr "Ändere Status %s"
 
-#, fuzzy
 msgid "Manage comments status"
-msgstr "Kontakte verwalten"
+msgstr "Kommentarstatus verwalten"
 
-#, fuzzy
 msgid "(no status registered yet)"
-msgstr "(bisher kein Produkt registriert)"
+msgstr "(bisher keinen Status registriert)"
 
-#, fuzzy
 msgid "Reason enabled?"
-msgstr "facets|Nicht aktiviert"
+msgstr "Grund aktiviert?"
 
-#, fuzzy
 msgid "Are you sure you want to remove this status?"
-msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
+msgstr "Sind Sie sicher, dass Sie diesen Status entfernen möchten?"
