@@ -1,7 +1,7 @@
 <h1><%= _('Sign up for %s!') % environment.name %></h1>
 
 <div id='signup-intro'>
-  <%= environment.signup_intro %>
+  <%= environment.signup_intro.try(:html_safe) %>
 </div>
 
 <%= render :partial => 'signup_form' %>

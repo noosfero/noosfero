@@ -6,7 +6,7 @@
     <% if !abuse_report.content.blank? %>
       <button class="display-abuse-report-details" data-report="<%=abuse_report.id%>"><%=_('View details')%></button>
       <div style='display: none' id=<%= 'abuse-report-details-'+abuse_report.id.to_s %> class="abuse-report-details">
-        <%= abuse_report.content %>
+        <%= abuse_report.content.html_safe %>
       </div>
     <% end %>
     <br />
