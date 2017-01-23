@@ -1,16 +1,16 @@
 class AccessLevels
 
   LEVELS = {
-    # The profile will always be visible, even to anonymous users
+    # Accessible to any visitor
     visitors: 0,
 
-    # Any logged user will be able to view the profile
+    # Accessible only to logged users
     users: 1,
 
-    # The profile will be visible for friends and members
+    # Accessible only to friends or members
     related: 2,
 
-    # Only owners or admins can view the profile
+    # Accessible only to owners or administrators
     self: 3
   }
 
