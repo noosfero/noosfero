@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2015-02-23 11:36+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2017-01-23 18:42+0000\n"
+"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "shopping-cart/de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 msgid ""
 "Your order has been sent successfully! You will receive a confirmation e-"
@@ -123,7 +123,7 @@ msgid "Price"
 msgstr ""
 
 msgid "haven't finished yet: back to shopping"
-msgstr ""
+msgstr "noch nicht fertig: weiter einkaufen"
 
 msgid "Personal identification"
 msgstr ""
@@ -131,12 +131,11 @@ msgstr ""
 msgid "Name"
 msgstr "Name"
 
-#, fuzzy
 msgid "Email"
 msgstr "E-Mail"
 
 msgid "Contact phone"
-msgstr ""
+msgstr "Kontakt-Telefonnummer"
 
 #, fuzzy
 msgid "Payment's method"
