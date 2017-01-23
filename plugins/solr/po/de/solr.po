@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2017-01-23 19:59+0000\n"
+"PO-Revision-Date: 2017-01-23 20:01+0000\n"
 "Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "solr/de/>\n"
@@ -94,7 +94,7 @@ msgstr "Ergebnisse sortieren nach "
 
 #: ../lib/solr_plugin/search_helper.rb:136
 msgid "%s products offers found"
-msgstr "%d Produktangebote gefunden"
+msgstr "%s Produktangebote gefunden"
 
 #: ../lib/solr_plugin/search_helper.rb:137
 msgid "%s articles found"
@@ -102,11 +102,11 @@ msgstr "%s Artikel gefunden"
 
 #: ../lib/solr_plugin/search_helper.rb:138
 msgid "%s events found"
-msgstr "%d Ereignisse gefunden"
+msgstr "%s Ereignisse gefunden"
 
 #: ../lib/solr_plugin/search_helper.rb:139
 msgid "%s people found"
-msgstr "%d Leute gefunden"
+msgstr "%s Leute gefunden"
 
 #: ../lib/solr_plugin/search_helper.rb:140
 msgid "%s enterprises found"
