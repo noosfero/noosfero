@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2017-01-23 19:44+0000\n"
+"PO-Revision-Date: 2017-01-23 22:51+0000\n"
 "Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/de/>\n"
@@ -74,7 +74,6 @@ msgstr "[%s] Nachrichten"
 msgid "View tasks"
 msgstr "Aufgaben ansehen"
 
-#, fuzzy
 msgid "Manage custom roles"
 msgstr "Benutzerdefinierte Rollen verwalten"
 
@@ -116,7 +115,6 @@ msgstr "Leitet den Nutzer auf die Umgebungs-Willkommens-Seite weiter."
 msgid "Show last updates"
 msgstr "Letzte Änderungen anzeigen"
 
-#, fuzzy
 msgid "Recent Content"
 msgstr "Neuer Inhalt"
 
@@ -156,9 +154,8 @@ msgstr "Rolle erfolgreich entfernt!"
 msgid "Text article"
 msgstr "Text Artikel"
 
-#, fuzzy
 msgid "Text article to create user content."
-msgstr "Text Artikel zum Erstellen von Nutzer-Inhalt"
+msgstr "Text Artikel zum Erstellen von Nutzer-Inhalt."
 
 msgid "Image (%s)"
 msgstr "Bild (%s)"
@@ -276,9 +273,8 @@ msgstr "Run"
 msgid "Some suggestions for you"
 msgstr "Einige Vorschläge für dich"
 
-#, fuzzy
 msgid "The circle could not be saved"
-msgstr "Die Vorlage konnte nicht gespeichert werden"
+msgstr "Der Kreis konnte nicht gespeichert werden"
 
 msgid "Homepage reseted."
 msgstr "Startseite zurückgesetzt."
@@ -416,622 +412,487 @@ msgstr "Kreis erstellen"
 msgid "Task already assigned!"
 msgstr "Aufgabe bereits zugewiesen!"
 
-#, fuzzy
 msgid "Task responsible successfully updated!"
-msgstr "Aufgaben erfolgreich aktualisiert"
+msgstr "Aufgabenverantwortlichen erfolgreich aktualisiert!"
 
-#, fuzzy
 msgid "Edit circle"
-msgstr "Ändern"
+msgstr "Kreis bearbeiten"
 
-#, fuzzy
 msgid "Manage circles"
-msgstr "Verwalte %s"
+msgstr "Kreise verwalten"
 
-#, fuzzy
 msgid "Create a new circle"
-msgstr "Eine neue Rolle erzeugen"
+msgstr "Einen neuen Kreis erstellen"
 
-#, fuzzy
 msgid "New circle"
-msgstr "Neu"
+msgstr "Neuer Kreis"
 
-#, fuzzy
 msgid "Thanks for registering. The administrators were notified."
 msgstr ""
-"Vielen Dank für Ihren Vorschlag. Die Administratoren der Community werden "
-"darüber informiert."
+"Vielen Dank für Ihre Registrierung. Die Administratoren wurden informiert."
 
-#, fuzzy
 msgid "Manage environment organizations"
-msgstr "Umgebungsvalidatoren verwalten"
+msgstr "Umgebungsorganisationen verwalten"
 
-#, fuzzy
 msgid "Cover image:"
-msgstr "Kein Bild"
+msgstr "Titelbild:"
 
-#, fuzzy
 msgid "First paragraph, with post picture"
-msgstr "Erster Absatz"
+msgstr "Erster Absatz, mit Bild"
 
-#, fuzzy
 msgid ""
 "Drag images to add them to the text or click on file names to add links to "
 "the text."
-msgstr " zu "
+msgstr ""
+"Bilder via Drag and Drop zum Text hinzufügen oder Dateinamen anklicken, um "
+"Links zum Text hinzuzufügen."
 
-#, fuzzy
 msgid "Has terms of use:"
-msgstr "Nutzungsbedingungen"
+msgstr "Hat Nutzungsbedingungen:"
 
-#, fuzzy
 msgid "Thanks for registering!"
-msgstr "Vielen Dank für Ihre Anmeldung!"
+msgstr "Vielen Dank für Ihre Registrierung!"
 
-#, fuzzy
 msgid "Terms of use:"
-msgstr "Nutzungsbedingungen"
+msgstr "Nutzungsbedingungen:"
 
-#, fuzzy
 msgid "Reference"
-msgstr "URL-Referenz"
+msgstr "Referenz"
 
-#, fuzzy
 msgid "Create new folder"
-msgstr "Eine neue Rolle erzeugen"
+msgstr "Einen neuen Ordner erzeugen"
 
-#, fuzzy
 msgid "Please type the captcha text correctly"
-msgstr "Bitte geben Sie die Wörter korrekt ein"
+msgstr "Bitte geben Sie den Text korrekt ein"
 
-#, fuzzy
 msgid "Can not recover user password with blank value."
-msgstr ""
-"Sie können Ihr Passwort wiederherstellen, wenn Sie auf diesen Link klicken"
+msgstr "Kann das Passwort nicht mit leerem Wert wiederherstellen."
 
-#, fuzzy
 msgid "Choose parent folder:"
-msgstr "Übergeordneter Ordner"
+msgstr "Übergeordneten Ordner wählen:"
 
-#, fuzzy
 msgid "Could not perform password recovery for the user."
-msgstr "Anweisungen zur Passwortrücksetzung konnten nicht versandt werden"
-
-#, fuzzy
-msgid "Show/Hide"
-msgstr "Zeige"
-
-#, fuzzy
-msgid "New folder"
-msgstr "Übergeordneter Ordner"
-
-#, fuzzy
-msgid "This field can't be blank"
-msgstr "Dieses Feld muss öffentlich sein"
-
-#, fuzzy
-msgid "Hide all uploads"
-msgstr "Zeige alle Produkte"
-
-#, fuzzy
-msgid "Show all uploads"
-msgstr "Zeige alle Produkte"
-
-#, fuzzy
-msgid "Page not found."
-msgstr "Übergeordneter Ordner:"
-
-#, fuzzy
-msgid "Comment not allowed in this article"
-msgstr "Es ist Ihnen nicht erlaubt, diese Seite anzusehen."
-
-#, fuzzy
-msgid "Comment was rejected"
-msgstr "Anzahl der Kommentare"
-
-#, fuzzy
-msgid "Your comment is waiting for approval."
-msgstr "Assoziierungen, welche noch bestätigt werden müssen:"
-
-#, fuzzy
-msgid "The comment was not removed."
-msgstr "Der Artikel wurde gelöscht."
-
-#, fuzzy
-msgid "You couldn't mark this comment as spam."
-msgstr "Sind Sie sicher, dass Sie diesen Kommentar als Spam markieren möchten?"
-
-#, fuzzy
-msgid "Recent media"
-msgstr "Medien einfügen"
-
-#, fuzzy
-msgid "Search among your uploaded files"
-msgstr "Suche"
-
-#, fuzzy
-msgid "Write words about the file you are looking for"
-msgstr "Geben Sie Stichwörter zu der von Ihnen gesuchten Person an"
-
-#, fuzzy
-msgid "Publish date"
-msgstr "Inhalt heraufladen"
-
-#, fuzzy
-msgid "Reset homepage"
-msgstr "Nutze als Homepage"
-
-#, fuzzy
-msgid "Please enter a valid profile."
-msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
-
-#, fuzzy
-msgid "Where do you want to publish this article?"
 msgstr ""
-"Wählen Sie die Gruppen aus, in die Sie Ihren Artikel publizieren möchten"
+"Passwortwiederherstellung für den Nutzer konnte nicht ausgeführt werden."
 
-#, fuzzy
+msgid "Show/Hide"
+msgstr "Zeigen/verstecken"
+
+msgid "New folder"
+msgstr "Neuer Ordner"
+
+msgid "This field can't be blank"
+msgstr "Dieses Feld kann nicht leer sein"
+
+msgid "Hide all uploads"
+msgstr "Alle Uploads verstecken"
+
+msgid "Show all uploads"
+msgstr "Alle Uploads anzeigen"
+
+msgid "Page not found."
+msgstr "Seite nicht gefunden."
+
+msgid "Comment not allowed in this article"
+msgstr "In diesem Artikel sind Kommentare nicht erlaubt"
+
+msgid "Comment was rejected"
+msgstr "Kommentar wurde zurückgewiesen"
+
+msgid "Your comment is waiting for approval."
+msgstr "Ihr Kommentar muss noch bestätigt werden."
+
+msgid "The comment was not removed."
+msgstr "Der Kommentar wurde nicht gelöscht."
+
+msgid "You couldn't mark this comment as spam."
+msgstr "Sie konnten diesen Kommentar nicht als Spam markieren."
+
+msgid "Recent media"
+msgstr "Neue Medien"
+
+msgid "Search among your uploaded files"
+msgstr "in Ihren hochgeladenen Dateien suchen"
+
+msgid "Write words about the file you are looking for"
+msgstr "Geben Sie Stichwörter zu der von Ihnen gesuchten Datei an"
+
+msgid "Publish date"
+msgstr "Veröffentlichungsdatum"
+
+msgid "Reset homepage"
+msgstr "Startseite zurücksetzen"
+
+msgid "Please enter a valid profile."
+msgstr "Bitte geben Sie ein gültiges Profil an."
+
+msgid "Where do you want to publish this article?"
+msgstr "Wo möchten Sie diesen Artikel veröffentlichen?"
+
 msgid "Publish this article on your profile"
-msgstr "Publizieren Sie Ihren Artikel in einer Community des Portals"
+msgstr "Diesen Artikel auf Ihrem Profil veröffentlichen"
 
-#, fuzzy
 msgid "Publish this article on communities you are part of"
-msgstr "Publizieren Sie Ihren Artikel in einer Community des Portals"
+msgstr ""
+"Diesen Artikel in Communities veröffentlichen, von denen Sie ein Teil sind"
 
-#, fuzzy
 msgid "Type in a search for your community"
-msgstr "Geben Sie einen Suchbegriff für Benutzer ein"
+msgstr "Suchen Sie in Ihrer Community"
 
-#, fuzzy
 msgid "Profile homepage:"
-msgstr "Profilbild"
+msgstr "Profil-Startseite:"
 
-#, fuzzy
 msgid "All versions"
-msgstr "Zeige alle Versionen"
+msgstr "Alle Versionen"
 
-#, fuzzy
 msgid "enterprise"
 msgstr "Unternehmen"
 
-#, fuzzy
 msgid "You are already following %s."
-msgstr "Sie sind bereits ein Freund von %s."
+msgstr "Sie folgen %s bereits."
 
-#, fuzzy
 msgid "Change User Password"
 msgstr "Passwort ändern"
 
-#, fuzzy
 msgid "Select at least one circle to follow %s."
-msgstr " zu "
+msgstr "Wählen Sie mindestens einen Kreis um %s zu folgen."
 
-#, fuzzy
 msgid "RSS feed"
 msgstr "RSS Feed"
 
-#, fuzzy
 msgid "Organization Members"
-msgstr "Organisation"
+msgstr "Organisationsmitglieder"
 
-#, fuzzy
 msgid "Task Acceptance"
-msgstr "Akzeptieren"
+msgstr "Aufgabe Akzeptiert"
 
-#, fuzzy
 msgid "Task Rejection"
-msgstr "Zurückweisen"
+msgstr "Aufgabe Zurückgewiesen"
 
-#, fuzzy
 msgid "No one attending this event yet."
-msgstr "Nein"
+msgstr "Es besucht noch niemand dieses Event."
 
-#, fuzzy
 msgid "No one following this article yet."
-msgstr "Nein"
+msgstr "Es folgt noch niemand diesem Artikel."
 
-#, fuzzy
 msgid "Viewed one time %{desc}"
 msgid_plural "Viewed %{num} times %{desc}"
-msgstr[0] "ein Mal angesehen"
-msgstr[1] "%{num} Mal angesehen"
+msgstr[0] "Ein Mal angesehen: %{desc}"
+msgstr[1] "%{num} Mal angesehen: %{desc}"
 
-#, fuzzy
 msgid "(Not countable anymore)"
-msgstr "Nein"
+msgstr "(Nicht mehr zählbar)"
 
-#, fuzzy
 msgid "Go back to latest version"
-msgstr "Zurück zu %s"
+msgstr "Zurück zur neuesten Version"
 
-#, fuzzy
 msgid "Version %s"
-msgstr "Rechte"
+msgstr "Version %s"
 
-#, fuzzy
 msgid "by %{author}"
-msgstr "Autor"
+msgstr "von %{author}"
 
-#, fuzzy
 msgid "Back to the versions"
-msgstr "Zurück zur Produktliste"
+msgstr "Zurück zu den Versionen"
 
-#, fuzzy
 msgid "New field related to existent one with same name"
-msgstr " zu "
+msgstr "Neues Feld zugehörig zu einem bereits existierendem mit selben Namen"
 
-#, fuzzy
 msgid "There is a field with the same name for this type in this environment"
-msgstr "Name"
+msgstr ""
+"Es gibt bereits ein Feld mit dem selben Namen für diesen Typ in dieser "
+"Umgebung"
 
-#, fuzzy
 msgid "Revert to this version"
-msgstr "Keine Ereignisse an diesem Tag"
+msgstr "Zu dieser Version zurückkehren"
 
-#, fuzzy
 msgid "Go to latest version"
-msgstr "Keine Ereignisse an diesem Tag"
+msgstr "Gehe zur neuesten Version"
 
-#, fuzzy
 msgid "Changes on \"%s\""
-msgstr "Ändere die Funktion von %s"
+msgstr "Änderungen an \"%s\""
 
-#, fuzzy
 msgid "comments"
-msgstr "Kommentar"
+msgstr "Kommentare"
 
-#, fuzzy
 msgid "Newest first"
-msgstr "Datum (neueste zuerst)"
+msgstr "Neueste zuerst"
 
-#, fuzzy
 msgid "Oldest first"
-msgstr "Datum (älteste zuerst)"
+msgstr "Älteste zuerst"
 
-#, fuzzy
 msgid "Template Name:"
-msgstr "Templates ändern"
+msgstr "Name der Vorlage:"
 
-#, fuzzy
 msgid "has 1 new follower:<br />%{name}"
 msgid_plural "has %{num} new followers:<br />%{name}"
-msgstr[0] "Name"
+msgstr[0] "hat einen neuen Follower:<br />%{name}"
+msgstr[1] "hat %{num} neue Follower:<br />%{name}"
 
-#, fuzzy
 msgid "Template Type:"
-msgstr "Templates ändern"
+msgstr "Typ der Vorlage:"
 
-#, fuzzy
 msgid "Template language reference"
-msgstr "Templates ändern"
+msgstr "Vorlagen-Sprachenreferenz"
 
 #, fuzzy
 msgid "The following parameters may be used in subject and body:"
-msgstr "Do"
+msgstr ""
+"Die folgenden Parameter können sowohl im Betreff als auch im Hauptteil "
+"benutzt werden:"
 
-#, fuzzy
 msgid "Email Templates"
-msgstr "Templates ändern"
+msgstr "E-Mail Vorlagen"
 
-#, fuzzy
 msgid "New template"
-msgstr "Vorlage wählen"
+msgstr "Neue Vorlage"
 
-#, fuzzy
 msgid "favorited enterprise %{title}"
-msgstr "%ss bevorzugte Unternehmen"
+msgstr "hat das Unternehmen %{title} favorisiert"
 
-#, fuzzy
 msgid "Embed unavailable."
-msgstr "Produkt ist nicht verfügbar"
+msgstr "Einbettung nicht verfügbar."
 
-#, fuzzy
 msgid "Check/Uncheck All"
-msgstr "Auswahl rückgängig machen"
+msgstr "Alles (De-)Selektieren"
 
-#, fuzzy
 msgid "Custom Fields"
-msgstr "Felder"
+msgstr "Benutzerdefinierte Felder"
 
-#, fuzzy
 msgid "New field"
-msgstr "Neuer Freund"
+msgstr "Neues Feld"
 
-#, fuzzy
 msgid "Type: "
-msgstr "Typ"
+msgstr "Typ: "
 
-#, fuzzy
 msgid "Remove field"
-msgstr "Entferne"
+msgstr "Feld entfernen"
 
-#, fuzzy
 msgid "Default value"
-msgstr "Standardsprache"
+msgstr "Standardwert"
 
 #, fuzzy
 msgid "Display on moderation?"
 msgstr "Bei der Erstellung anzeigen?"
 
-#, fuzzy
 msgid "Add option"
-msgstr "Hinzufügen"
+msgstr "Option hinzufügen"
 
-#, fuzzy
 msgid "Page to redirect after signup"
 msgstr "Weiterleitungsseite nach der Anmeldung"
 
-#, fuzzy
 msgid "Members Whitelist"
-msgstr "Mitglieder: %s"
+msgstr "Mitglieder-Whitelist"
 
-#, fuzzy
 msgid "Enable whitelist"
-msgstr "Unternehmen aktivieren"
+msgstr "Whitelist aktivieren"
 
-#, fuzzy
 msgid "Allow these people to access this environment:"
-msgstr "Wollen sie andere Leute in dieser Umgebung angezeigt bekommen?"
+msgstr "Diesen Personen erlauben, auf diese Umgebung zuzugreifen:"
 
-#, fuzzy
 msgid "Enable feed proxy"
-msgstr "Aktivieren"
+msgstr "Feed proxy aktivieren"
 
-#, fuzzy
 msgid "Clone %s"
-msgstr "Duplizieren"
+msgstr "Dupliziere %s"
 
-#, fuzzy
 msgid "Allow images from this gallery to be downloaded"
-msgstr "von "
+msgstr "Erlauben, dass Bilder aus dieser Galerie heruntergeladen werden können"
 
-#, fuzzy
 msgid "Disable feed SSL"
-msgstr "Deaktivieren"
+msgstr "Feed SSL deaktivieren"
 
 #, fuzzy
 msgid "Manage fields displayed for profiles"
-msgstr ""
-"Verwalten Sie die Vorlagen, die bei der Erzeugung von Profilen genutzt werden"
+msgstr "Felder für die Anzeige von Profilen verwalten"
 
-#, fuzzy
 msgid "Person's fields"
-msgstr "Verwalte persönliche Felder"
+msgstr "Felder der Person"
 
-#, fuzzy
 msgid "Community's fields"
-msgstr "Communities Profil"
+msgstr "Felder der Community"
 
-#, fuzzy
 msgid "Enterprise's fields"
-msgstr "Unternehmensprofil"
+msgstr "Felder des Unternehmens"
 
-#, fuzzy
 msgid "Download"
-msgstr "Unten"
+msgstr "Herunterladen"
 
-#, fuzzy
 msgid "Download image"
-msgstr "Unten"
+msgstr "Bild herunterladen"
 
-#, fuzzy
 msgid "change category"
-msgstr "Ändere Kategorie"
+msgstr "Kategorie ändern"
 
-#, fuzzy
 msgid "Connections with %s"
-msgstr "Inhalt gekennzeichnet mit \"%s\""
+msgstr "Verbindungen mit %s"
 
-#, fuzzy
 msgid "Go to friends list"
-msgstr "Sie haben bisher noch keine Freunde."
+msgstr "Zur Freundesliste gehen"
 
-#, fuzzy
 msgid "Invite people"
-msgstr "Mitglieder einladen"
+msgstr "Personen einladen"
 
-#, fuzzy
 msgid "Friends suggestions"
-msgstr "Artikelvorschläge"
+msgstr "Freundesvorschläge"
 
-#, fuzzy
 msgid "community"
 msgstr "Community"
 
-#, fuzzy
 msgid "Removing suggestion for friend: %s"
-msgstr "Freund entfernen"
+msgstr "Vorschlag für Freund entfernen: %s"
 
-#, fuzzy
 msgid "Friends suggestions for %s"
-msgstr "Profileinstellungen für %s"
+msgstr "Freundesvorschläge für %s"
 
 #, fuzzy
 msgid "Communities Block"
-msgstr "Communities"
+msgstr "Communities Block"
 
-#, fuzzy
 msgid ""
 "<p>Display all of your communities.</p><p>You could choose the amount of "
 "communities will be displayed and you could priorize that profiles with "
 "images.</p> <p>The view all button is always present in the block.</p>"
-msgstr "Namen anzeigen"
-
-#, fuzzy
-msgid "You won't appear as %s until your account is approved."
 msgstr ""
-"Sie werden nicht als %s erscheinen, bis Ihr Zugang bestätigt werden wird."
+"<p>Alle Ihre Communities anzeigen.</p><p>Sie können sowohl die Anzahl der "
+"angezeigten Communities wählen als auch Profile mit Bilder "
+"priorisieren.</p><p>Der Zeigen-Button ist in diesem Block immer "
+"vorhanden.</p>"
 
-#, fuzzy
+msgid "You won't appear as %s until your account is approved."
+msgstr "Sie werden nicht als %s erscheinen, bis Ihr Zugang bestätigt wurde."
+
 msgid "Ask for friendship"
-msgstr "%s Freunde"
+msgstr "Freundschaftsanfrage"
 
-#, fuzzy
 msgid "Invite people to join"
-msgstr "Laden Sie Freunde ein, sich bei %s anzumelden"
+msgstr "Personen einladen, beizutreten"
 
-#, fuzzy
 msgid "{fn} can only be informed for unauthenticated authors"
-msgstr "%{fn} kann nur von angemeldeten Autoren informiert werden"
+msgstr "{fn} kann nur von unangemeldeten Autoren informiert werden"
 
-#, fuzzy
 msgid "Choose person by:"
-msgstr "Blog auswählen:"
+msgstr "Person wählen nach:"
 
-#, fuzzy
 msgid "Invite"
 msgstr "Einladung"
 
-#, fuzzy
 msgid "Step 2 of 2: Selecting People"
-msgstr "Schritt 2 von 2: Wählen Sie Freunde aus"
+msgstr "Schritt 2 von 2: Wählen Sie Personen aus"
 
-#, fuzzy
 msgid "Indicate which people you want to invite."
-msgstr "Wählen Sie, welche Freunde Sie einladen möchten."
+msgstr "Wählen Sie, welche Personen Sie einladen möchten."
 
-#, fuzzy
 msgid "Edit settings"
-msgstr "Maileinstellungen"
+msgstr "Einstellungen bearbeiten"
 
-#, fuzzy
 msgid "Do you want to remove this user?"
-msgstr "Möchten Sie dieser Gruppe beitreten?"
+msgstr "Möchten Sie diesen Nutzer entfernen?"
 
-#, fuzzy
 msgid "Go to groups list"
-msgstr "Als Gruppen von"
+msgstr "Zu Gruppen gehen"
 
-#, fuzzy
 msgid "See some suggestions of communities..."
-msgstr "Administrator muss die Erstellung von Communities bestätigen"
+msgstr "Sieh einige Vorschläge für Communities..."
 
-#, fuzzy
 msgid "No groups to list"
-msgstr "Als Gruppen von"
+msgstr "Keine Gruppen zum anzeigen"
 
-#, fuzzy
 msgid "Communities suggestions for %s"
-msgstr "Profileinstellungen für %s"
+msgstr "Communitiy-Voschläge für %s"
 
-#, fuzzy
 msgid "Abbreviation"
-msgstr "Einladung"
-
-#, fuzzy
-msgid "Community created"
-msgstr "Community"
-
-#, fuzzy
-msgid "Your community (%s) was successfully created."
-msgstr "Ihr Unternehmen (%s) wurde erfolgreich registriert."
-
-#, fuzzy
-msgid "You can manage your community now."
-msgstr "Sie können nun Ihr Unternehmen managen."
-
-#, fuzzy
-msgid "Do you want to deactivate this organization?"
-msgstr "Möchten Sie dieser Gruppe beitreten?"
-
-#, fuzzy
-msgid "Deactivate"
-msgstr "Aktivieren"
-
-#, fuzzy
-msgid "Do you want to activate this organization?"
-msgstr "Möchten Sie dieser Gruppe beitreten?"
-
-#, fuzzy
-msgid "Do you want to destroy this organization?"
-msgstr "Möchten Sie dieser Communitie beitreten?"
-
-#, fuzzy
-msgid "Cannot be moved"
-msgstr "Lizenz konnte nicht entfernt werden"
-
-#, fuzzy
-msgid "Find organizations"
-msgstr "Organisationsprofil"
-
-#, fuzzy
-msgid "Filter by: "
-msgstr "Filter"
-
-#, fuzzy
-msgid "Any"
 msgstr "Abkürzung"
 
-#, fuzzy
-msgid "Enabled"
-msgstr "Aktivieren?"
+msgid "Community created"
+msgstr "Community erstellt"
 
-#, fuzzy
-msgid "Disabled"
+msgid "Your community (%s) was successfully created."
+msgstr "Ihre Community (%s) wurde erfolgreich erstellt."
+
+msgid "You can manage your community now."
+msgstr "Sie können nun Ihre Community verwalten."
+
+msgid "Do you want to deactivate this organization?"
+msgstr "Möchten Sie diese Organisation deaktivieren?"
+
+msgid "Deactivate"
 msgstr "Deaktivieren"
 
-#, fuzzy
+msgid "Do you want to activate this organization?"
+msgstr "Möchten Sie diese Organisation aktivieren?"
+
+msgid "Do you want to destroy this organization?"
+msgstr "Möchten Sie diese Organisation löschen?"
+
+msgid "Cannot be moved"
+msgstr "Kann nicht verschoben werden"
+
+msgid "Find organizations"
+msgstr "Organisationen finden"
+
+msgid "Filter by: "
+msgstr "Filtern nach: "
+
+msgid "Any"
+msgstr "Beliebig"
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
 msgid "has published on community %s"
-msgstr "in Communitiy %s"
+msgstr "hat in Communitiy %s veröffentlicht"
 
-#, fuzzy
 msgid "%s's Notifications"
-msgstr "Moderationseinstellungen"
+msgstr "%ss Nachrichten"
 
-#, fuzzy
 msgid "Network Activity"
-msgstr "%s's Netzwerkaktivitäten"
+msgstr "Netzwerkaktivität"
 
-#, fuzzy
 msgid "More"
-msgstr "Sehe mehr"
+msgstr "Mehr"
 
-#, fuzzy
 msgid "View comment"
 msgid_plural "View all %s comments"
-msgstr[0] "Ein Kommentar"
-msgstr[1] "Ein Kommentar"
+msgstr[0] "Kommentar anzeigen"
+msgstr[1] "Alle %s Kommentare anzeigen"
 
-#, fuzzy
 msgid "Show one article"
-msgstr "Zeige"
+msgstr "Einen Artikel anzeigen"
 
-#, fuzzy
 msgid "See all connections"
-msgstr "Im gesamten Inhalt suchen"
+msgstr "Alle Verbindungen zeigen"
 
-#, fuzzy
 msgid "Full screen"
-msgstr "gesamtes Post"
+msgstr "Vollbild"
 
-#, fuzzy
 msgid "Display one of your contents."
-msgstr "Zeige einen Ihrer Inhalte an"
+msgstr "Zeige einen deiner Kontakte an."
 
-#, fuzzy
 msgid "Sort by:"
-msgstr "Gesendet von: "
+msgstr "Sortieren nach:"
 
-#, fuzzy
 msgid "Name A-Z"
-msgstr "Name"
+msgstr "Name A-Z"
 
-#, fuzzy
 msgid "Name Z-A"
-msgstr "Name"
+msgstr "Name Z-A"
 
 #, fuzzy
 msgid ""
 "Filter followed, friends or group of friends to send them a private scrap..."
-msgstr "Freunde"
+msgstr ""
+"Gefolgte, Freunde oder Gruppen von Freunden filtern, um ihnen ein privates "
+"Teil zu schicken..."
 
-#, fuzzy
 msgid "%s is followed by"
-msgstr "von"
+msgstr "%s wird gefolgt von"
 
-#, fuzzy
 msgid "To join %s, you must:"
-msgstr ", "
+msgstr "Um %s beizutreten, müssen Sie:"
 
 #, fuzzy
 msgid ""
@@ -1287,9 +1148,8 @@ msgstr "Wartung"
 msgid "Profiles in common:"
 msgstr "Profilinformationen"
 
-#, fuzzy
 msgid "Date"
-msgstr "Bundesland"
+msgstr "Datum"
 
 #, fuzzy
 msgid "You have no more suggestions :("
@@ -1324,13 +1184,11 @@ msgstr "Ja, ich möchte verlassen."
 msgid "Selected categories:"
 msgstr "Produktkategorien"
 
-#, fuzzy
 msgid "%{month_name} %{day}"
-msgstr "%{month} %{year}"
+msgstr "%{day}.%{month_name}"
 
-#, fuzzy
 msgid "%{month_name} %{day}, %{year}"
-msgstr "%{day}.%{month}.%{year}"
+msgstr "%{day}. %{month_name} %{year}"
 
 #, fuzzy
 msgid "%{month}/%{year}"
@@ -1464,13 +1322,11 @@ msgstr "E-Mail"
 msgid "Type of task"
 msgstr "Kategorietyp"
 
-#, fuzzy
 msgid "Status"
-msgstr "Status:"
+msgstr "Status"
 
-#, fuzzy
 msgid "Text Filter:"
-msgstr "Filter"
+msgstr "Text-Filter:"
 
 #, fuzzy
 msgid "Processed date"
@@ -2903,7 +2759,7 @@ msgstr ""
 #: ../app/helpers/custom_fields_helper.rb:11
 #: ../app/helpers/custom_fields_helper.rb:23
 msgid "Checkbox"
-msgstr ""
+msgstr "Checkbox"
 
 #: ../app/helpers/custom_fields_helper.rb:52
 #: ../app/views/account/activate_enterprise.html.erb:11
@@ -6002,7 +5858,7 @@ msgstr ""
 
 #: ../app/views/account/activation_question.html.erb:33
 msgid "What is the CNPJ of your enterprise?"
-msgstr "Was ist die CNPJ Ihres Unternehmens"
+msgstr "Was ist die CNPJ Ihres Unternehmens?"
 
 #: ../app/views/account/already_activated.html.erb:1
 msgid "This enterprise is already active"
@@ -7201,7 +7057,7 @@ msgstr "Speichern und Fortfahren"
 #: ../app/views/cms/edit.html.erb:30
 #: ../app/views/cms/why_categorize.html.erb:1
 msgid "Why categorize?"
-msgstr "Weshalb kategorisieren"
+msgstr "Weshalb kategorisieren?"
 
 #: ../app/views/cms/edit.html.erb:33
 msgid "Categorize your article"
@@ -8043,7 +7899,7 @@ msgstr "Bei der Anmeldung anzeigen?"
 
 #: ../app/views/features/custom_fields/_form.html.erb:26
 msgid "Alternative"
-msgstr ""
+msgstr "Alternativ"
 
 #: ../app/views/features/custom_fields/_form.html.erb:27
 msgid "Default"
@@ -8773,7 +8629,7 @@ msgstr "Verlasse %s"
 
 #: ../app/views/profile/leave.html.erb:4
 msgid "Are you sure you want to leave %s?"
-msgstr "Sind Sie sicher, dass Sie %s verlassen möchten"
+msgstr "Sind Sie sicher, dass Sie %s verlassen möchten?"
 
 #: ../app/views/profile/leave.html.erb:10
 msgid "Yes, I want to leave."
