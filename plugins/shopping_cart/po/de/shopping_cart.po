@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2017-01-23 18:42+0000\n"
+"PO-Revision-Date: 2017-01-23 20:55+0000\n"
 "Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "shopping-cart/de/>\n"
@@ -22,49 +22,52 @@ msgid ""
 "Your order has been sent successfully! You will receive a confirmation e-"
 "mail shortly."
 msgstr ""
+"Ihre Bestellung wurde erfolgreich abgeschickt! Sie erhalten in Kürze eine "
+"Bestätigungs-E-Mail."
 
 msgid "Basket displayed."
-msgstr "Einkaufskorb angezeigt."
+msgstr "Warenkorb angezeigt."
 
 msgid "Basket hidden."
-msgstr "Einkaufskorb versteckt."
+msgstr "Warenkorb versteckt."
 
 msgid "Delivery option updated."
-msgstr "Auslieferungsoptionen aktualisiert."
+msgstr "Lieferoptionen aktualisiert."
 
 msgid ""
 "Your basket contains items from '%{profile_name}'. Please empty the basket "
 "or checkout before adding items from here."
 msgstr ""
+"Ihr Warenkorb enthält Artikel von '%{profile_name}'. Bitte leeren Sie den "
+"Warenkorb oder schließen Sie die Bestellung ab, bevor Sie Artikel von hier "
+"hinzufügen."
 
 msgid "There is no basket."
-msgstr "Es gibt keinen Einkaufskorb."
+msgstr "Es gibt keinen Warenkorb."
 
 msgid "This enterprise doesn't have this product."
 msgstr "Dieses Unternehmen besitzt das gewählte Produkt nicht."
 
 msgid "The basket doesn't have this product."
-msgstr "Der Einkaufskorb beinhaltet das gewählte Produkt nicht."
+msgstr "Der Warenkorb beinhaltet das gewählte Produkt nicht."
 
 msgid "Invalid quantity."
 msgstr "Ungültige Menge."
 
-#, fuzzy
 msgid "Undefined product"
-msgstr "Produkt ohne Kategorie"
+msgstr "Nicht definiertes Produkt"
 
-#, fuzzy
 msgid "Wrong product id"
-msgstr "Kein Produkt"
+msgstr "Falsche Produkt ID"
 
 msgid "A shopping basket feature for enterprises"
-msgstr "Ein Einkaufskorb für Unternehmen"
+msgstr "Eine Warenkorbs-Funktion für Unternehmen"
 
 msgid "Shopping basket"
-msgstr "Einkaufskorb"
+msgstr "Warenkorb"
 
 msgid "Add to basket"
-msgstr "Zum Einkaufskorb hinzufügen"
+msgstr "Zum Warenkorb hinzufügen"
 
 msgid "[%s] Your buy request was performed successfully."
 msgstr "[%s] Ihr beabsichtigter Kauf wurde erfolgreich durchgeführt."
@@ -75,58 +78,58 @@ msgstr "[%s] Sie haben eine neue Kaufanfrage von %s."
 msgid "Shopping checkout"
 msgstr "Einkauf beenden"
 
-#, fuzzy
 msgid "Basket is empty"
-msgstr "Einkaufskorb angezeigt."
+msgstr "Warenkorb ist leer"
 
 msgid "Basket"
-msgstr "Einkaufskorb"
+msgstr "Warenkorb"
 
 msgid "Clean basket"
-msgstr "Einkaufskorb leeren"
+msgstr "Warenkorb leeren"
 
 msgid "Total:"
 msgstr "Gesamt:"
 
 msgid "Show basket"
-msgstr "Einkaufskorb anzeigen"
+msgstr "Warenkorb anzeigen"
 
 msgid "Hide basket"
-msgstr "Einkaufskorb verstecken"
+msgstr "Warenkorb verstecken"
 
 msgid "Ups... I had a problem to load the basket list."
-msgstr ""
+msgstr "Ups... Es gab ein Problem, den Warenkorb zu laden."
 
-#, fuzzy
 msgid "Did you want to reload this page?"
-msgstr "Möchten Sie dieser Gruppe beitreten?"
+msgstr "Wolltest du diese Seite neu laden?"
 
 msgid "Sorry, you can't have more then 100 kinds of items on this basket."
 msgstr ""
+"Entschuldigung, aber Sie können nicht mehr als 100 Arten von Artikeln in "
+"diesem Warenkorb haben."
 
 msgid "Oops, you must wait your last request to finish first!"
-msgstr ""
+msgstr "Ups, Sie müssen warten, bis Ihre letzte Anfrage abgeschlossen ist!"
 
 msgid "Are you sure you want to remove this item?"
 msgstr "Sind Sie sicher, dass Sie diesen Eintrag entfernen möchten?"
 
 msgid "Are you sure you want to clean your basket?"
-msgstr "Sind Sie sicher, dass Sie den Einkaufskorb leeren möchten?"
+msgstr "Sind Sie sicher, dass Sie den Warenkorb leeren möchten?"
 
 msgid "repeat order"
-msgstr ""
+msgstr "Bestellung wiederholen"
 
 msgid "Item name"
-msgstr "Name der Sache"
+msgstr "Name des Artikels"
 
 msgid "Price"
-msgstr ""
+msgstr "Preis"
 
 msgid "haven't finished yet: back to shopping"
 msgstr "noch nicht fertig: weiter einkaufen"
 
 msgid "Personal identification"
-msgstr ""
+msgstr "Persönliche Identifikation"
 
 msgid "Name"
 msgstr "Name"
@@ -137,9 +140,8 @@ msgstr "E-Mail"
 msgid "Contact phone"
 msgstr "Kontakt-Telefonnummer"
 
-#, fuzzy
 msgid "Payment's method"
-msgstr "Bezahlung"
+msgstr "Zahlungsmethode"
 
 msgid "Payment"
 msgstr "Bezahlung"
@@ -148,12 +150,11 @@ msgstr "Bezahlung"
 msgid "shopping_cart|Change"
 msgstr "Einkaufskorb"
 
-#, fuzzy
 msgid "Delivery or pickup method"
-msgstr "Auslieferungsoptionen aktualisiert."
+msgstr "Lieferungs- oder Abholungsmethode"
 
 msgid "Your Order"
-msgstr ""
+msgstr "Ihre Bestellung"
 
 msgid "Send buy request"
 msgstr "Kaufanfrage senden"
@@ -161,34 +162,30 @@ msgstr "Kaufanfrage senden"
 msgid "Hi %s!"
 msgstr "Hallo %s!"
 
-#, fuzzy
 msgid ""
 "This is a notification e-mail about your buy request on the enterprise %s."
 msgstr ""
-"Dies ist eine Benachrichtigungs-E-Mail über Ihre Anfrage, %s kaufen zu "
-"wollen."
+"Dies ist eine Benachrichtigungs-E-Mail über Ihre Kaufanfrage an das "
+"Unternehmen %s."
 
-#, fuzzy
 msgid ""
 "The enterprise already received your buy request and will contact you for "
 "confirmation."
 msgstr ""
-"Der Zulieferer hat Ihre Kaufanfrage bereits erhalten und wird Sie für eine "
+"Das Unternehmen hat Ihre Kaufanfrage bereits erhalten und wird Sie für eine "
 "Bestätigung kontaktieren."
 
-#, fuzzy
 msgid "If you have any doubts about your order, write to us at: %s."
-msgstr "Wenn Sie Fragen haben, wenden Sie sich an uns: %s"
+msgstr "Wenn Sie Fragen zu Ihrer Bestellung haben, wenden Sie sich an uns: %s."
 
 msgid "Review below the informations of your order:"
-msgstr ""
+msgstr "Prüfen Sie die folgenden Informationen Ihrer Bestellung:"
 
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#, fuzzy
 msgid "Delivery or pickup"
-msgstr "Auslieferungsmethode"
+msgstr "Lieferung oder Abholung"
 
 msgid "Here are the products you bought:"
 msgstr "Hier sind die von Ihnen gekauften Produkte:"
@@ -200,7 +197,7 @@ msgid "A service of %s."
 msgstr "Eine Dienstleistung von %s."
 
 msgid "This is a buy request made by %s."
-msgstr "Das ist eine Anfrage von %s."
+msgstr "Dies ist eine Anfrage von %s."
 
 msgid "Below follows the customer informations:"
 msgstr "Nachfolgend die Informationen über den Kunden:"
@@ -214,12 +211,10 @@ msgstr ""
 "Administrator von %s."
 
 msgid "Basket options"
-msgstr "Optionen zum Einkaufskorb"
+msgstr "Optionen zum Warenkorb"
 
-#, fuzzy
 msgid "Enable shopping basket"
-msgstr "Einkaufskorb"
+msgstr "Warenkorb aktivieren"
 
-#, fuzzy
 msgid "Deliveries or pickups"
-msgstr "Auslieferungsmethode"
+msgstr "Lieferungen oder Abholungen"
