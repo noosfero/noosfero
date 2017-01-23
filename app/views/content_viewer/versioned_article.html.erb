@@ -41,7 +41,7 @@
 
   <% cache(@page.cache_key(params, user, language)) do %>
     <div class="<%="article-body article-body-" + @page.css_class_name %>">
-      <%= @versioned_article.body %>
+      <%= @versioned_article.body.html_safe %>
       <br style="clear:both" />
     </div> <!-- end class="article-body" -->
   <% end %>
