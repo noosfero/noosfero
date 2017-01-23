@@ -13,7 +13,7 @@ class InviteMember < Invitation
   end
 
   def perform
-    community.add_member(friend)
+    community.add_member(friend, true)
   end
 
   def title
