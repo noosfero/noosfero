@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2017-01-23 19:24+0000\n"
+"PO-Revision-Date: 2017-01-23 20:31+0000\n"
 "Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
 "people-block/de/>\n"
@@ -18,43 +18,37 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
-#, fuzzy
 msgid "Clicking a friend takes you to his/her homepage"
-msgstr "Klicken Sie auf eine Person, um zu ihrer Homepage zu gelangen"
+msgstr "Klicken Sie auf eine Person, um zu ihrer Startseite zu gelangen"
 
 msgid "{#} friend"
 msgid_plural "{#} friends"
 msgstr[0] "Freund"
 msgstr[1] "{#} Freunde"
 
-#, fuzzy
 msgid "Clicking a member takes you to his/her homepage"
-msgstr "Klicken Sie auf eine Person, um zu ihrer Homepage zu gelangen"
+msgstr "Klicken Sie auf eine Mitglied, um zu seiner Startseite zu gelangen"
 
-#, fuzzy
 msgid "members"
 msgstr "Mitglieder"
 
-#, fuzzy
 msgid "{#} %s"
-msgstr "{#} Gruppen"
+msgstr "{#} %s"
 
 msgid "Show join leave button"
-msgstr ""
+msgstr "Beitreten/Verlassen Button anzeigen"
 
 msgid "Clicking a person takes you to his/her homepage"
 msgstr "Klicken Sie auf eine Person, um zu ihrer Homepage zu gelangen"
 
-#, fuzzy
 msgid "{#} People"
-msgstr "Nutzer"
+msgstr "{#} Personen"
 
 msgid "Random people"
 msgstr "Zufällig ausgewählte Leute"
 
-#, fuzzy
 msgid "A plugin that adds a people block"
-msgstr "Ein Plugin, welches dies und jenes tut."
+msgstr "Ein Plugin, das einen Personen Block hinzufügt"
 
 msgid "friends|View all"
 msgstr "friends|Zeige alle"
@@ -66,4 +60,4 @@ msgid "See all suggestions"
 msgstr "Alle Vorschläge anzeigen"
 
 msgid "Filter by role:"
-msgstr ""
+msgstr "Nach Rolle filtern:"
