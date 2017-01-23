@@ -116,6 +116,8 @@ s/Guilherme Rojas <diegoamc90@gmail.com>/Guilherme Rojas <guilhermehrojas@gmail.
 
 s/Hebert Douglas <hebertdougl@gmail>/Hebert Douglas <hebertdougl@gmail.com>/
 
+s/Italo Valcy <italo@dcc.ufba.br>/Italo Valcy <italovalcy@ufba.br>/
+
 s/Jefferson <diegoamc90@gmail.com>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 s/Jefferson Fernandes$/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
 s/Jefferson Fernandes <alessandro.palmeira@gmail.com>/Jefferson Fernandes <jeffs.fernandes@gmail.com>/
