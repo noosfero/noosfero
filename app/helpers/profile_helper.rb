@@ -17,7 +17,7 @@ module ProfileHelper
   ORGANIZATION_CATEGORIES = {}
   ORGANIZATION_CATEGORIES[:basic_information] = [:display_name, :created_at, :foundation_year, :type, :language, :members_count, :location, :address_reference, :historic_and_current_context, :admins]
   ORGANIZATION_CATEGORIES[:contact] = [:contact_person, :contact_phone, :contact_email, :organization_website, :jabber_id]
-  ORGANIZATION_CATEGORIES[:economic] = [:business_name, :acronym, :economic_activity, :legal_form, :products, :activities_short_description, :management_information]
+  ORGANIZATION_CATEGORIES[:economic] = [:business_name, :acronym, :economic_activity, :legal_form, :activities_short_description, :management_information]
   ORGANIZATION_CATEGORIES.merge!(COMMON_CATEGORIES)
 
   CATEGORY_MAP = {}
@@ -125,12 +125,6 @@ module ProfileHelper
 
   def treat_members_count(count)
     link_to count, :controller => 'profile', :action => 'members'
-  end
-
-  def treat_products(products)
-    if profile.kind_of?(Enterprise) && profile.environment.enabled?('products_for_enterprises')
-      link_to _('Products/Services'), :controller => 'catalog', :action => 'index'
-    end
   end
 
   def treat_admins(admins)
