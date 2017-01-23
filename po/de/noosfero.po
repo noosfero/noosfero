@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "PO-Revision-Date: 2017-01-23 18:26+0000\n"
-"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
+"Last-Translator: Thomas Zach <tz2@aon.at>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/de/>\n"
 "Language: de\n"
@@ -1922,7 +1922,7 @@ msgstr "Der Name ist bereit in Verwendung"
 #: ../app/controllers/admin/templates_controller.rb:65
 #: ../app/controllers/admin/templates_controller.rb:79
 msgid "%s defined as default"
-msgstr ""
+msgstr "%s wurde als Standart definiert"
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:14
 msgid "New trusted site added."
