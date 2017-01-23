@@ -75,7 +75,7 @@ Iago Rodrigues <iago006@hotmailcom>
 Iolane Andrade <andrade.icaa@gmail.com>
 Iryna Pruitt <jdpruitt2807@prodigy.net>
 Isaac Canan <isaac@intelletto.com.br>
-Italo Valcy <italo@dcc.ufba.br>
+Italo Valcy <italovalcy@ufba.br>
 Izharul Haq <atoz.chevara.2013@gmail.com>
 Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Joenio Costa <joenio@colivre.coop.br>
