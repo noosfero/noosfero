@@ -22,6 +22,22 @@ class InviteMemberTest < ActiveSupport::TestCase
     ok('friend is member of community') { community.members.include?(friend) }
   end
 
+  should 'actually add as member when confirmed if the community is secret' do
+    person = fast_create(Person)
+    friend = fast_create(Person)
+    friend.stubs(:user).returns(User.new(:email => 'garotos@podres.punk.oi'))
+    person.stubs(:user).returns(User.new(:email => 'suburbio-operario@podres.podres'))
+    community = fast_create(Community, secret: true)
+
+    assert_equal [], community.members
+
+    task = InviteMember.create!(:person => person, :friend => friend, :community_id => community.id)
+    task.finish
+    community.reload
+
+    ok('friend is member of secret community') { community.members.include?(friend) }
+  end
+
   should 'cancel other invitations for same community when confirmed' do
     friend = create_user('friend').person
     p1 = create_user('testuser1').person

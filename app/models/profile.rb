@@ -821,8 +821,8 @@ private :generate_url, :url_options
   end
 
   # Adds a person as member of this Profile.
-  def add_member(person, attributes={})
-    if self.has_members? && !self.secret
+  def add_member(person, invited=false, **attributes)
+    if self.has_members? && (!self.secret || invited)
       if self.closed? && members.count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else

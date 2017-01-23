@@ -2274,6 +2274,13 @@ class ProfileTest < ActiveSupport::TestCase
     end
   end
 
+  should 'allow to add members in secret profiles if they are invited' do
+    community = fast_create(Community, secret: true)
+    person = create_user('mytestuser').person
+    community.add_member(person, true)
+    assert_includes community.members, person
+  end
+
   should 'have kinds' do
     k1 = fast_create(Kind, :name => 'Captain', :type => 'Profile', :environment_id => Environment.default.id)
     k2 = fast_create(Kind, :name => 'Number One', :type => 'Profile', :environment_id => Environment.default.id)
