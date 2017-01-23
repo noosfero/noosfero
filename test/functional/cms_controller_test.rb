@@ -1657,7 +1657,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => 'self',
+                                      :topic_creation => AccessLevels::LEVELS[:self],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1672,7 +1672,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => 'related',
+                                      :topic_creation => AccessLevels::LEVELS[:related],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1687,7 +1687,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => 'users',
+                                      :topic_creation => AccessLevels::LEVELS[:users],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',

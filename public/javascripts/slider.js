@@ -3,12 +3,11 @@
 var s =  jQuery('.slider');
 var input = jQuery('#' + s.data('input'));
 var keys = jQuery.parseJSON(s.data('keys').replace(/'/g, '"'));
-var values = jQuery.parseJSON(s.data('values').replace(/'/g, '"'));
 var labels = jQuery.parseJSON(s.data('labels').replace(/'/g, '"'));
 var options = jQuery.parseJSON(s.data('options').replace(/'/g, '"'));
 
 function setValue(event, ui){
-  input.val(values[ui.value]);
+  input.val(ui.value);
 }
 
 s.slider({
@@ -16,7 +15,7 @@ s.slider({
   min: keys[options[0]],
   max: keys[options[options.length - 1]],
   step: 1,
-  value: keys[input.val()],
+  value: input.val(),
   range: 'max',
   change: setValue
 }).each(function() {

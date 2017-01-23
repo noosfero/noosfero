@@ -290,11 +290,10 @@ module FormsHelper
     return result
   end
 
-  def slider_field_tag(id, field_name, profile, access_levels, value='self', html_options={})
+  def slider_field_tag(id, field_name, profile, access_levels, value=AccessLevels::LEVEL[:self], html_options={})
     html_options.merge!({:class=> "slider"})
     html_options.merge!({data: {
-      keys: AccessLevels::VALUES.to_json.gsub('"', "'"),
-      values: AccessLevels::VALUES.invert.to_json.gsub('"', "'"),
+      keys: AccessLevels::LEVELS.to_json.gsub('"', "'"),
       labels: AccessLevels.labels(profile).to_json.gsub('"', "'"),
       options: access_levels.to_json.gsub('"', "'"),
       input: id}
