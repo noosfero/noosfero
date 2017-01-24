@@ -10,7 +10,7 @@ class FilePresenter::Video < FilePresenter
   end
 
   def meta_data #video_info
-    Noosfero::Plugin::Settings.new(encapsulated_file, Html5VideoPlugin)
+    Noosfero::Plugin::Settings.new(encapsulated_instance, Html5VideoPlugin)
   end
 
   def original_video
