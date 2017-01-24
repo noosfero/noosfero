@@ -1135,6 +1135,9 @@ function notifyMe(title, options) {
      return null;
    }
 
+  if(PERMANENT_NOTIFICATIONS)
+    options.requireInteraction = true
+
   // Let's check if the user is okay to get some notification
   var notification = null;
   if (Notification.permission === "granted") {
@@ -1159,15 +1162,11 @@ function notifyMe(title, options) {
     });
   }
 
-  if(!PERMANENT_NOTIFICATIONS)
-    setTimeout(function() {notification.close()}, 5000);
-
   notification.onclick = function(){
     notification.close();
     // Chromium tweak
     window.open().close();
     window.focus();
-    this.cancel();
   };
 
   return notification;
