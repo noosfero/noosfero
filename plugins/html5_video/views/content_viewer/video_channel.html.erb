@@ -81,7 +81,7 @@
   <% if @page.children.all.find {|f| f.content_type !~ /^video\//} %>
     <div class="non-video-list">
       <h3><%=_('Non video files')%></h3>
-      <%= list_articles( @page.children.all.select {|f| f.content_type !~ /^video\// } ) %>
+      <%= list_contents contents: @page.children.all.select {|f| f.content_type !~ /^video\// } %>
     </div>
   <% end %>
 
