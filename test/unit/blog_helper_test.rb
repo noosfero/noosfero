@@ -32,23 +32,14 @@ class BlogHelperTest < ActionView::TestCase
     blog.children << newer_post = create(TextArticle, :name => 'Last post',
                      :profile => profile, :parent => blog, :published => true)
 
-    def content_tag(tag, content_or_options_with_block = nil, options = nil, &block)
-      if block_given?
-        options = content_or_options_with_block
-        content = block.call
-      else
-        content = content_or_options_with_block
-      end
-      options ||= {}
-      "<#{tag}#{options.map{|k,v| " #{k}=\"#{[v].flatten.join(' ')}\""}.join}>#{content}</#{tag}>"
-    end
-
     html = Nokogiri::HTML list_posts(blog.posts).html_safe
 
     assert_select html, "div#post-#{newer_post.id}.blog-post.position-1.first.odd-post" +
                         " > div.odd-post-inner.blog-post-inner > .title", 'Last post'
-    assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.not-published.even-post" +
+    assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.even-post" +
                         " > div.even-post-inner.blog-post-inner > .title", 'Hidden post'
+    assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.even-post" +
+                        " > div.even-post-inner.blog-post-inner > .not-published", true
     assert_select html, "div#post-#{some_post.id}.blog-post.position-3.odd-post" +
                         " > div.odd-post-inner.blog-post-inner > .title", 'Some post'
     assert_select html, "div#post-#{older_post.id}.blog-post.position-4.last.even-post" +

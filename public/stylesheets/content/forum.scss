@@ -1,3 +1,15 @@
 .forum-posts .pagination {
   margin-top: 20px;
 }
+
+.forum-post td.forum-post-title {
+  position: relative;
+  padding-left: 15px;
+
+  span.ui-icon {
+    position: absolute;
+    display: inline-block;
+    left: -1px;
+    top: 7px;
+  }
+}

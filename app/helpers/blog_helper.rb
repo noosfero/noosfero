@@ -37,7 +37,6 @@ module BlogHelper
       position = (i%2 == 0) ? 'odd-post' : 'even-post'
       css_add << 'first' if i == 0
       css_add << 'last'  if i == (artic_len-1)
-      css_add << 'not-published' if !art.published?
       css_add << position
       content << (content_tag 'div', id: "post-#{art.id}", class: css_add do
         content_tag 'div', class: position + '-inner blog-post-inner' do
