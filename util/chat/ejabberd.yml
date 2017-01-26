@@ -256,7 +256,7 @@ s2s_protocol_options:
 ## Authentication using SQL
 ## Remember to setup a database in the next section.
 ##
-auth_method: sql
+#auth_method: sql
 
 ##
 ## Authentication using PAM
@@ -299,9 +299,15 @@ auth_method: sql
 
 ##
 ## Anonymous login support:
-##   auth_method: anonymous
-##   anonymous_protocol: sasl_anon | login_anon | both
-##   allow_multiple_connections: true | false
+
+# FIXME Ejabberd 16.09 has issues with sasl authentication therefore we are
+# bypassing authentication using anonymous login. This is not a real security
+# issue since ejabberd is only accessed through Noosfero which handles the
+# authentication before but we might want to fix this eventually.
+auth_method: anonymous
+anonymous_protocol: both
+allow_multiple_connections: true
+
 ##
 ## host_config:
 ##   "public.example.org":
