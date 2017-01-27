@@ -16,7 +16,7 @@ class ProfileDescriptionBlock < Block
     _('PROFILE DESCRIPTION')
   end
 
-  def api_content
+  def api_content(params = {})
     description = self.owner.description.present? ? self.owner.description : _("Description field is empty or not enabled on enviroment")
     hash = { description: description }
     Grape::Presenters::Presenter.represent(hash).as_json

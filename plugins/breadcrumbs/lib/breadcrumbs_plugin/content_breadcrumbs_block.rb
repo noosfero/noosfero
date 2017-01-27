@@ -26,25 +26,25 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
     false
   end
 
-  def api_content
+  def api_content(params = {})
     links = []
-    links << profile_link
-    links << page_links
+    links << profile_link(params)
+    links << page_links(params)
     { links: links.compact.flatten }
   end
 
   private
 
-  def profile_link
-    return nil if (api_content_params || {})[:profile].blank?
-    profile = environment.profiles.find_by(identifier: api_content_params[:profile])
+  def profile_link(params)
+    return nil if (params || {})[:profile].blank?
+    profile = environment.profiles.find_by(identifier: params[:profile])
     return nil if profile.blank?
     { :name => profile.name, :url => "/#{profile.identifier}" }
   end
 
-  def page_links
-    return nil if (api_content_params || {})[:page].blank?
-    page = owner.articles.find_by(path: api_content_params[:page])
+  def page_links(params)
+    return nil if (params || {})[:page].blank?
+    page = owner.articles.find_by(path: params[:page])
     return nil if page.blank?
     page_trail(page)
   end

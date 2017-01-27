@@ -36,7 +36,7 @@ class VideoPlugin::VideoBlock < Block
     _('This block presents a video from youtube, vimeo and some video formats (mp4, ogg, ogv and webm)')
   end
 
-  def api_content
+  def api_content(params = {})
     content = {:url => self.url}
     content[:mime_type] = VideoPlugin::Video.mime_type(self.url) if VideoPlugin::Video.is_video_file?(self.url)
     content

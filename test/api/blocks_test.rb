@@ -83,7 +83,7 @@ class BlocksTest < ActiveSupport::TestCase
 
   should 'display api content of a specific block' do
     class SomeBlock < Block
-      def api_content
+      def api_content(params = {})
         {some_content: { name: 'test'} }
       end
     end
@@ -142,10 +142,10 @@ class BlocksTest < ActiveSupport::TestCase
     assert_includes json["block"]["permissions"], 'allow_edit'
   end
 
-  should 'get a block with api content params' do
+  should 'get a block with params passed to api content' do
     class MyTestBlock < Block
-      def api_content
-        api_content_params
+      def api_content(params = {})
+        params
       end
     end
     box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)

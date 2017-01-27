@@ -49,7 +49,7 @@ class HighlightsBlock < Block
     true
   end
 
-  def api_content
+  def api_content(params = {})
     slides = self.block_images
     slides.each do |slide|
       image = self.images.find_by(id: slide[:image_id])

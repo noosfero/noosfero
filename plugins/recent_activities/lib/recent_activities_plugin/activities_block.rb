@@ -28,7 +28,7 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
     _('Recent activities')
   end
 
-  def api_content
+  def api_content(options = {})
     Api::Entities::Activity.represent(activities).as_json
   end
 

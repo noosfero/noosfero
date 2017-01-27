@@ -305,7 +305,7 @@ class Block < ApplicationRecord
     self.observers << block
   end
 
-  def api_content
+  def api_content(options = {})
     nil
   end
 
@@ -332,8 +332,6 @@ class Block < ApplicationRecord
       end
     end
   end
-
-  attr_accessor :api_content_params
 
   private
 

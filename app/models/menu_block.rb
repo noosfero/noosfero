@@ -23,6 +23,15 @@ class MenuBlock < Block
     links
   end
 
+  def api_content(options = {})
+    links = self.enabled_links(options[:current_person])
+    links
+  end
+
+  def display_api_content_by_default?
+    true
+  end
+
   protected
     
   def display_activities?(user)

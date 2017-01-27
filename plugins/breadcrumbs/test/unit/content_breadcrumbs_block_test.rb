@@ -27,8 +27,8 @@ class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
   should 'return page links in api_content' do
     folder = fast_create(Folder, profile_id: profile.id, name: 'folder')
     article = Article.create!(profile: profile, parent: folder, name: 'child')
-    block.api_content_params = { page: article.path, profile: profile.identifier }
-    links = block.api_content[:links]
+    params = { page: article.path, profile: profile.identifier }
+    links = block.api_content(params)[:links]
     assert_equal [profile.name, 'folder', 'child'], links.map {|l| l[:name]}
     assert_equal article.full_path, links.last[:url]
   end
