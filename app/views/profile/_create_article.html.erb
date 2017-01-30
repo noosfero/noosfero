@@ -9,7 +9,7 @@
   <div class='profile-activity-lead'>
     <div class='article-name'><%= link_to(activity.params['name'], activity.params['url']) %></div>
     <span title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-new<%= activity.target.class.icon_name %>'></span>
-    <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(truncate(activity.params['lead'].html_safe, :length => 1000, :ommision => '...')).gsub(/(\xC2\xA0|\s)+/, ' ').gsub(/^\s+/, '') unless activity.params['lead'].blank? %><small><%= link_to(_('See more'), activity.params['url']) unless activity.get_lead.blank? %></small>
+    <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(truncate(activity.params['lead'].html_safe, :length => 1000, :ommision => '...', :escape => false)).gsub(/(\xC2\xA0|\s)+/, ' ').gsub(/^\s+/, '') unless activity.params['lead'].blank? %><small><%= link_to(_('See more'), activity.params['url']) unless activity.get_lead.blank? %></small>
   </div>
   <%= content_tag(:p, link_to(_('See complete forum'), activity.get_url), :class => 'see-forum') if activity.target.is_a?(Forum) %>
   <p class='profile-activity-time'><%= time_ago_in_words(activity.created_at) %></p>
