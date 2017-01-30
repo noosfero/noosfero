@@ -12,12 +12,15 @@ class ProfileControllerTest < ActionController::TestCase
   end
   attr_reader :profile
 
-  should 'list friends' do
-    get :friends
+  should 'list friends in alphabetical order' do
+    profile.add_friend(create_user('angela').person)
+    profile.add_friend(create_user('paula').person)
+    profile.add_friend(create_user('jose').person)
 
+    get :friends
     assert_response :success
     assert_template 'friends'
-    assert assigns(:friends)
+    assert_equal assigns(:friends).map(&:name), ['angela', 'jose', 'paula']
   end
 
   should 'remove person from article followers when unfollow' do

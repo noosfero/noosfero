@@ -5,7 +5,8 @@ class FriendsController < MyProfileController
   def index
     @suggestions = profile.suggested_profiles.of_person.enabled.includes(:suggestion).limit(per_page)
     if is_cache_expired?(profile.manage_friends_cache_key(params))
-      @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
+      @friends = profile.friends.order(:name)
+        .paginate(:per_page => per_page, :page => params[:npage])
     end
   end
 
