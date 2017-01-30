@@ -28,7 +28,7 @@ module ForumHelper
       css_add << 'not-published' if !art.published?
       css_add << position
       content << content_tag('tr',
-                             content_tag('td', link_to(art.title, art.url), :class => "forum-post-title") +
+                             content_tag('td', topic_title(art), :class => 'forum-post-title') +
                              content_tag('td', link_to(art.comments.count, art.url.merge(:anchor => 'comments_list')), :class => "forum-post-answers") +
                              content_tag('td', last_topic_update(art).html_safe, :class => "forum-post-last-answer"),
                              :class => 'forum-post ' + css_add.join(' '),
@@ -36,6 +36,16 @@ module ForumHelper
                             )
     }
     content_tag('table', safe_join(content, "")) + (pagination or '').html_safe
+  end
+
+  def topic_title(article)
+    topic_link = link_to(article.title, article.url)
+    if article.published?
+      topic_link
+    else
+      content_tag(:span, '', :class => 'ui-icon ui-icon-locked', :title => ('This is a private content')) +
+        topic_link
+    end
   end
 
   def last_topic_update(article)
