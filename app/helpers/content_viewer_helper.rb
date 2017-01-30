@@ -33,6 +33,11 @@ module ContentViewerHelper
         content_tag('span', comments, :class => 'comments'),
         :class => 'publishing-info'
       )
+      title << content_tag(:div,
+        content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
+        content_tag(:span, _("This is a private content"), :class => 'alert-message'),
+        :class => 'not-published'
+      ) unless article.published?
     end
     title
   end
