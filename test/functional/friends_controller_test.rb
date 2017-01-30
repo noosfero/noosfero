@@ -13,11 +13,15 @@ class FriendsControllerTest < ActionController::TestCase
   end
   attr_accessor :profile, :friend
 
-  should 'list friends' do
+  should 'list friends in alphabetical order' do
+    profile.add_friend(create_user('angela').person)
+    profile.add_friend(create_user('paula').person)
+    profile.add_friend(create_user('jose').person)
+
     get :index
     assert_response :success
     assert_template 'index'
-    assert assigns(:friends)
+    assert_equal assigns(:friends).map(&:name), ['angela', 'jose', 'paula']
   end
 
   should 'confirm removal of friend' do
