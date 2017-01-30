@@ -105,8 +105,8 @@ function enablePriceDetailSubmit() {
 
 function calculateValuesForBar() {
   jQuery('.cancel-price-details').addClass('form-changed');
-  var product_price = parseFloat(jQuery('form #product_price').val());
-  var total_cost = parseFloat(jQuery('form #product_inputs_cost').val());
+  var product_price = parseFloat(jQuery('form #product_price').val()) || 0.0;
+  var total_cost = parseFloat(jQuery('form #product_inputs_cost').val()) || 0.0;
 
   jQuery('form .price-details-price').each(function() {
     var this_val = parseFloat(jQuery(this).val().replace(currency_format.separator, '.')) || 0;
