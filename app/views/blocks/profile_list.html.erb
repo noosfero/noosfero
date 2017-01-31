@@ -1,8 +1,9 @@
 <%= block_title(block.view_title, block.subtitle) %>
 
 <%
+  size = theme_option(:profile_list_imgs_size) || :minor
   list = block.profile_list.map do |item|
-    profile_image_link(item, :minor)
+    profile_image_link(item, size.to_sym)
   end.join("\n ")
 %>
 

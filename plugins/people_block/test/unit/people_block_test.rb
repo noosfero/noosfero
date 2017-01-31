@@ -129,6 +129,7 @@ class PeopleBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.expects(:profile_image_link).with(person1, :minor).returns(person1.name)
     ActionView::Base.any_instance.expects(:profile_image_link).with(person2, :minor).returns(person2.name)
     ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     content = render_block_content(block)
 
@@ -153,6 +154,7 @@ class PeopleBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
     ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     # no people
     block.reload

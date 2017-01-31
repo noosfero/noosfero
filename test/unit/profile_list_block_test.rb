@@ -37,6 +37,10 @@ class ProfileListBlockTest < ActiveSupport::TestCase
       def profile_image_link( profile, size=:portrait, tag='li', extra_info = nil )
         "<#{profile.name}>"
       end
+
+      def theme_option(opt = nil)
+        nil
+      end
     end
 
     content = render_block_content(block)

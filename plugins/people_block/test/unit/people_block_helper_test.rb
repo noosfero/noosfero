@@ -16,6 +16,8 @@ class PeopleBlockHelperTest < ActionView::TestCase
       expects(:profile_image_link).with(profile, :minor).returns(link_html)
     end
 
+    self.stubs(:theme_option).returns(nil)
+
     list = profiles_images_list(profiles)
 
     assert_equal list, ([link_html]*profiles.count).join("\n")

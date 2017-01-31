@@ -18,15 +18,3 @@
   float: right;
   width: 190px;
 }
-
-#profile-activity ul,
-#profile-network ul,
-#profile-wall ul {
-  width: 460px;
-}
-#profile-activity ul.comment-replies,
-#profile-network ul.comment-replies,
-#profile-wall ul.comment-replies {
-  width: auto;
-}
-

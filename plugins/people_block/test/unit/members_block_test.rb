@@ -249,6 +249,7 @@ class MembersBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.expects(:profile_image_link).with(person1, :minor).returns(person1.name)
     ActionView::Base.any_instance.expects(:profile_image_link).with(person2, :minor).returns(person2.name)
     ActionView::Base.any_instance.expects(:block_title).with(anything, anything).returns('')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     content = render_block_content(block)
 
@@ -314,6 +315,7 @@ class MembersBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
     ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     # no people
     block.reload
@@ -369,7 +371,6 @@ class MembersBlockViewTest < ActionView::TestCase
     block.expects(:owner).returns(owner.reload).at_least_once
     json = block.api_content
     assert_equal 3, json["people"].size
-    assert_equal 5, json["#"]
   end
 
   should 'not list templates as community members' do

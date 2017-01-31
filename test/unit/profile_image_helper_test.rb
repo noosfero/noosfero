@@ -5,6 +5,7 @@ class ProfileImageHelperTest < ActionView::TestCase
   include Noosfero::Gravatar
   include ThemeLoaderHelper
   include ProfileImageHelper
+  include ApplicationHelper
 
   should "Extra info with hash" do
     @plugins = mock
