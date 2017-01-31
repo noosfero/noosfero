@@ -31,9 +31,15 @@ module CommentHelper
   def comment_actions(comment)
     url = url_for(:profile => profile.identifier, :controller => :comment, :action => :check_actions, :id => comment.id)
     links = links_for_comment_actions(comment)
-    links_submenu = links.select{|link| link[:action_bar].blank?}
-    links_action_bar = links - links_submenu
-    links_submenu = links_submenu.collect {|link| link.slice(:link)}
+    links_submenu = {}
+    links_action_bar = []
+    links.each_with_index do |link, i|
+      if link[:action_bar].blank?
+        links_submenu["link#{i}"] = link[:link]
+      else
+        links_action_bar << link
+      end
+    end
     render :partial => 'comment/comment_actions', :locals => {:links_submenu => links_submenu, :links_action_bar => links_action_bar, :url => url, :comment => comment}
   end
 

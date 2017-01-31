@@ -1,9 +1,7 @@
 <ul>
   <% if !links_submenu.empty? %>
     <div class="comment-actions">
-      <li class="vcard">
-        <%= popover_menu(_('Contents menu'),'',links_submenu,:class => 'comment-trigger', :url => url) %>
-      </li>
+      <%= popover_menu(_('Contents menu'),'',links_submenu,:class => 'comment-trigger', :url => url) %>
     </div>
   <% end %>
 </ul>

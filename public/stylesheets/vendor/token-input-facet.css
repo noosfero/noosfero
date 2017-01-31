@@ -4,7 +4,7 @@ ul.token-input-list-facet {
     height: auto !important; 
     height: 1%;
     width: 95%;
-    border: 1px solid #999;
+    border: 1px solid #ABC;
     cursor: text;
     font-size: 12px;
     font-family: Verdana;
@@ -22,7 +22,8 @@ ul.token-input-list-facet li {
 
 ul.token-input-list-facet li input {
     border: 0;
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
     padding: 3px 8px;
     background-color: white;
     -webkit-appearance: caret;

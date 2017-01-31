@@ -341,7 +341,6 @@ module ApplicationHelper
   def popover_menu(title,menu_title,links,html_options={})
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " menu-submenu-trigger"
-
     html_options[:onclick] = "toggleSubmenu(this, '#{menu_title}', #{CGI::escapeHTML(links.to_json)}); return false".html_safe
     link_to(content_tag(:span, title), '#', html_options)
   end
@@ -794,13 +793,13 @@ module ApplicationHelper
 
   def search_contents_menu
     host = environment.default_hostname
-    links = [
-      {s_('contents|More recent') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_recent'})}},
-      {s_('contents|More viewed') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_popular'})}},
-      {s_('contents|Most commented') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_comments'})}}
-    ]
+    links = {
+      s_('contents|More recent') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_recent'})},
+      s_('contents|More viewed') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_popular'})},
+      s_('contents|Most commented') => {href: url_for({host: host, controller: 'search', action: 'contents', filter: 'more_comments'})}
+    }
     if logged_in?
-      links.push(_('New content') => modal_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+      links.merge(_('New content') => modal_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => nil}, :id => 'submenu-contents') +
@@ -810,14 +809,14 @@ module ApplicationHelper
 
   def search_people_menu
     host = environment.default_hostname
-     links = [
-       {s_('people|More recent') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_recent'})}},
-       {s_('people|More active') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_active'})}},
-       {s_('people|More popular') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_popular'})}}
-     ]
+     links = {
+       s_('people|More recent') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_recent'})},
+       s_('people|More active') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_active'})},
+       s_('people|More popular') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_popular'})}
+     }
      if logged_in?
-       links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
-       links.push(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
+       links.merge(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
+       links.merge(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
@@ -827,14 +826,14 @@ module ApplicationHelper
 
   def search_communities_menu
     host = environment.default_hostname
-     links = [
-       {s_('communities|More recent') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_recent'})}},
-       {s_('communities|More active') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_active'})}},
-       {s_('communities|More popular') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_popular'})}}
-     ]
+     links = {
+       s_('communities|More recent') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_recent'})},
+       s_('communities|More active') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_active'})},
+       s_('communities|More popular') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_popular'})}
+     }
      if logged_in?
-       links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
-       links.push(_('New community') => {:href => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'})})
+       links.merge(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
+       links.merge(_('New community') => {:href => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'})})
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +

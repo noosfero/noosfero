@@ -1,6 +1,7 @@
 module PeopleBlockHelper
   def profiles_images_list(profiles)
-    profiles.map { |profile| profile_image_link(profile, :minor) }.join("\n").html_safe
+    size = theme_option(:profile_list_imgs_size) || :minor
+    profiles.map { |profile| profile_image_link(profile, size.to_sym) }.join("\n").html_safe
   end
 
   def set_address_protocol(address)
