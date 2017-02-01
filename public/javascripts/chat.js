@@ -29,7 +29,7 @@ jQuery(function($) {
     notification_sound: new Audio('/sounds/receive.wav'),
     notification_counter: 0,
     window_visibility: null,
-    window_title: document.title;
+    window_title: document.title,
     jids: {},
     rooms: {},
     no_more_messages: {},
