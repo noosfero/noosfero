@@ -24,7 +24,7 @@ class FriendsBlock < PeopleBlockBase
     { :profile => [:profile] }
   end
 
-  def api_content
+  def api_content(params = {})
     content = Api::Entities::Person.represent(profiles.limit(self.limit)).as_json
     content['#'] = profiles.size
     content
