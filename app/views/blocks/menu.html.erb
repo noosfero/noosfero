@@ -1,0 +1,9 @@
+<%= block_title(block.title, block.subtitle) %>
+
+<ul>
+  <% block.enabled_links(user).each do |link| %>
+    <li class="<%= current_page?(:controller => link[:controller], :action => link[:action]) ? 'active' : '' %>">
+      <%= link_to link[:title], {:controller => link[:controller], :action => link[:action], :profile => block.owner.identifier} %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,33 @@
+
+.menu-block ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+.menu-block li {
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  background-color: #EEE;
+  border: 1px solid #dbdbdb;
+  padding: 5px;
+  margin: 2px;
+  list-style: none;
+
+}
+
+.menu-block li.active {
+  background-color: #555753;
+}
+
+.menu-block li.active a {
+  color: white;
+}
+
+.box-1 .menu-block li {
+  display: inline-block;
+}
+
+.menu-block a {
+  text-decoration: none;
+}

@@ -52,7 +52,7 @@ class EventPlugin::EventBlock < Block
       { :profile => [:article], :environment => [:article] }
   end
 
-  def api_content
+  def api_content(params = {})
     content = []
     events.each do |event|
       content << { title: event.title, id: event.id, date: event.start_date.to_i * 1000, view_url: event.view_url }

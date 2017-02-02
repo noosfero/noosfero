@@ -48,7 +48,7 @@ class RecentContentBlock < Block
     attr == self.presentation_mode
   end
 
-  def api_content
+  def api_content(params = {})
     children = self.articles_of_folder(self.root, self.total_items)
     Api::Entities::ArticleBase.represent(children).as_json
   end

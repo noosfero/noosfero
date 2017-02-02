@@ -41,7 +41,8 @@ class Box < ApplicationRecord
       ProfileImageBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      TagsBlock ]
+      TagsBlock,
+      MenuBlock]
   end
 
   def self.acceptable_side_blocks
@@ -65,7 +66,8 @@ class Box < ApplicationRecord
       RawHTMLBlock,
       RecentDocumentsBlock,
       SlideshowBlock,
-      TagsBlock
+      TagsBlock,
+      MenuBlock
     ]
   end
 

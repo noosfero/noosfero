@@ -96,7 +96,9 @@ module Api
       root 'blocks', 'block'
       expose :id, :type, :settings, :position, :enabled
       expose :mirror, :mirror_block_id, :title
-      expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? }
+      expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? } do |block, options|
+        block.api_content({:current_person => options[:current_person]}.merge(options[:api_content_params] || {}))
+      end
       expose :permissions do |block, options|
         Entities.permissions_for_entity(block, options[:current_person], :allow_edit?)
       end

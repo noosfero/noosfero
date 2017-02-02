@@ -1,0 +1,19 @@
+<h1><%= h profile.name %></h1>
+
+<table>
+  <%= display_basic_information %>
+  <%= display_contact %>
+  <%= display_location %>
+
+  <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
+    <%= display_work %>
+    <%= display_study %>
+    <%= display_network %>
+
+    <%= render :partial => 'common' %>
+  <% end %>
+
+  <%= render :partial => 'custom_fields'%>
+</table>
+
+

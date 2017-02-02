@@ -20,7 +20,7 @@ class RawHTMLBlock < Block
     user.has_permission?('edit_raw_html_block', environment)
   end
 
-  def api_content
+  def api_content(params = {})
     { html: html }
   end
 

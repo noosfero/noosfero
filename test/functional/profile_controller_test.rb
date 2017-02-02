@@ -2132,4 +2132,35 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equivalent [a1,a3], result
   end
 
+  should 'display about' do
+    get :about
+
+    assert_response :success
+    assert_template 'about'
+  end
+
+  should 'display profile tags in about' do
+    Person.any_instance.stubs(:article_tags).returns({ 'first profile tag' => 1, 'second profile tag' => 2})
+    get :about
+    assert_response :success
+    assert_template 'about'
+    assert_match /first profile tag/, @response.body
+    assert_match /second profile tag/, @response.body
+  end
+
+  should 'display activities' do
+    p1= fast_create(Person)
+    40.times{create(Scrap, sender: p1, receiver: p1, created_at: Time.now)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    get :activities, :profile => p1.identifier
+    assert_response :success
+    assert_template 'activities'
+    assert assigns(:activities)
+  end
+
 end

@@ -50,7 +50,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
     attr == self.presentation_mode
   end
 
-  def api_content
+  def api_content(params = {})
     Api::Entities::ArticleBase.represent(self.discussions).as_json
   end
 

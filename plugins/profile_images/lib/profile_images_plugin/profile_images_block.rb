@@ -27,7 +27,7 @@ class ProfileImagesPlugin::ProfileImagesBlock < Block
     _('Profile images')
   end
 
-  def api_content
+  def api_content(params = {})
     content = []
     images.each do |image|
       content << { title: image.title, view_url: image.view_url, path: image.public_filename(:thumb), id: image.id }
