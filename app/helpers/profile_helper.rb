@@ -34,17 +34,21 @@ module ProfileHelper
     :organization => [:blogs, :image_galleries, :interests],
   }
 
-  CUSTOM_LABELS = {
-    :zip_code => _('ZIP code'),
-    :email => _('e-Mail'),
-    :jabber_id => _('Jabber'),
-    :birth_date => _('Date of birth'),
-    :created_at => _('Profile created at'),
-    :members_count => _('Members'),
-    :privacy_setting => _('Privacy setting'),
-    :article_tags => _('Tags'),
-    :followed_profiles => _('Following')
-  }
+  def custom_labels
+    {
+      :zip_code => _('ZIP code'),
+      :email => _('e-Mail'),
+      :jabber_id => _('Jabber'),
+      :birth_date => _('Date of birth'),
+      :created_at => _('Profile created at'),
+      :members_count => _('Members'),
+      :privacy_setting => _('Privacy setting'),
+      :article_tags => _('Tags'),
+      :followed_profiles => _('Following'),
+      :basic_information => _('Basic information'),
+      :contact => _('Contact')
+    }
+  end
 
   EXCEPTION = {
     :person => [:image, :preferred_domain, :description, :tag_list],
@@ -66,7 +70,7 @@ module ProfileHelper
 
   def title(field, entry = nil)
     return self.send("#{field}_custom_title", entry) if MULTIPLE[kind].include?(field) && entry.present?
-    CUSTOM_LABELS[field.to_sym] || _(field.to_s.humanize)
+    custom_labels[field.to_sym] || _(field.to_s.humanize)
   end
 
   def display_field(field)
