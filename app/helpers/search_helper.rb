@@ -27,6 +27,13 @@ module SearchHelper
     :communities
   ]
 
+  def asset_to_human(asset)
+    custom_names = {
+      articles:    _('content')
+    }
+    custom_names[asset] || _(asset.to_s.singularize)
+  end
+
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
