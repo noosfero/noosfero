@@ -1,7 +1,7 @@
 <div id="custom-forms-plugin_submission-view">
 
 <h1><%= @form.name %></h1>
-<p><%= @form.description %></p>
+<p><%= @form.description.html_safe %></p>
 
 <% sanitizer = ActionView::Base.white_list_sanitizer %>
 
@@ -35,10 +35,10 @@
         answer.to_s.gsub("\n", '<br>')
       else
         content_tag :ul do
-          answer.to_text_list.map {|a| content_tag :li, a }.join("\n")
+          answer.to_text_list.map {|a| content_tag :li, a }.join("\n").html_safe
         end
       end
-      sanitizer.sanitize answer
+      sanitizer.sanitize(answer).html_safe
     %></td>
   </tr>
 <% end %>
