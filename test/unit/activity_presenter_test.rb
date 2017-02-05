@@ -50,6 +50,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
 
     AccessLevels.stubs(:can_access?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
+    @target.stubs(:allow_followers?).returns(true)
 
     refute presenter.hidden_for?(@user)
   end
@@ -58,11 +59,25 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     presenter = ActivityPresenter.new(@target)
     AccessLevels.stubs(:can_access?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
+    @target.stubs(:allow_followers?).returns(true)
 
     @target.stubs(:display_to?).with(@user).returns(false)
     assert presenter.hidden_for?(@user)
 
     @target.stubs(:display_to?).with(@user).returns(true)
+    refute presenter.hidden_for?(@user)
+  end
+
+  should 'be hidden if user disabled the followers feature' do
+    presenter = ActivityPresenter.new(@target)
+    AccessLevels.stubs(:can_access?).returns(true)
+    @target.stubs(:is_a?).with(Profile).returns(true)
+    @target.stubs(:display_to?).with(@user).returns(true)
+
+    @target.stubs(:allow_followers?).returns(false)
+    assert presenter.hidden_for?(@user)
+
+    @target.stubs(:allow_followers?).returns(true)
     refute presenter.hidden_for?(@user)
   end
 

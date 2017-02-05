@@ -32,7 +32,8 @@ class ActivityPresenter < Presenter
   def hidden_for?(user)
     (target.respond_to?(:display_to?) &&
      !target.display_to?(user)) ||
-    !AccessLevels.can_access?(target_profile.wall_access, user, target_profile)
+    !AccessLevels.can_access?(target_profile.wall_access, user, target_profile) ||
+    !target_profile.allow_followers?
   end
 
   def involved?(user)
