@@ -194,6 +194,19 @@ class PersonTest < ActiveSupport::TestCase
     refute p.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
+  should 'create a default set of blocks for angular theme' do
+    e = Environment.default
+    e.update_attribute(:theme, 'angular-theme')
+    Theme.expects(:angular_theme?).with('angular-theme').returns(true)
+    p = create(User).person
+
+    assert_equal 2, p.boxes_limit
+    assert_equal 'rightbar', p.layout_template
+    refute p.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    refute p.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert p.boxes[2].blocks.empty?, 'person must not have blocks in area 3'
+  end
+
   should 'link to all articles created by default' do
     p = create(User).person
     blocks = p.blocks.select { |b| b.is_a?(LinkListBlock) }

@@ -209,4 +209,17 @@ class ThemeTest < ActiveSupport::TestCase
       assert_not_includes themes, t3
     end
   end
+
+  should 'find system theme by id' do
+    assert_not_nil Theme.find_system_theme('noosfero')
+  end
+
+  should 'return nil when find an invalid system theme' do
+    assert_nil Theme.find_system_theme('noosfero-invalid')
+  end
+
+  should 'return when theme was made for angular' do
+    Theme.expects(:find_system_theme).with('angular').returns(Theme.new('angular', { angular_theme: true }))
+    assert Theme.angular_theme?('angular')
+  end
 end

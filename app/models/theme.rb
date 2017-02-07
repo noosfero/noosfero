@@ -28,6 +28,15 @@ class Theme
       Theme.new(id, attributes).save
     end
 
+    def find_system_theme(theme_id)
+      Theme.system_themes.find { |t| t.id == theme_id }
+    end
+
+    def angular_theme?(theme_id)
+      theme = Theme.find_system_theme(theme_id)
+      !theme.nil? && theme.config['angular_theme']
+    end
+
     def find(the_id)
       if File.directory?(File.join(user_themes_dir, the_id))
         Theme.new(the_id)
@@ -95,6 +104,14 @@ class Theme
 
   def public=(value)
     config['public'] = value
+  end
+
+  def angular_theme
+    config['angular_theme'] || false
+  end
+
+  def angular_theme=(value)
+    config['angular_theme'] = value
   end
 
   def public_path
