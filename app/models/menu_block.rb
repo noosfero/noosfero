@@ -20,6 +20,7 @@ class MenuBlock < Block
     links << {title: _('Communities'), controller: 'memberships', action: 'index'} if display_communities?(user)
     links << {title: _('People'), controller: 'friends', action: 'index'} if display_friends?(user)
     links << {title: _('People'), controller: 'profile_members', action: 'index'} if display_members?(user)
+    links << {title: _('Control Panel')}.merge(owner.admin_url) if display_control_panel?(user)
     links
   end
 
@@ -33,6 +34,10 @@ class MenuBlock < Block
   end
 
   protected
+
+  def display_control_panel?(user)
+    user && user.has_permission?('edit_profile', owner)
+  end
     
   def display_activities?(user)
     AccessLevels.can_access?(owner.wall_access, user, owner)

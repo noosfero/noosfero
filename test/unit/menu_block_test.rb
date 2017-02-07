@@ -39,12 +39,12 @@ class MenuBlockTest < ActiveSupport::TestCase
   should 'return all community links for an owner' do
     profile.add_admin(person)
     links = block.enabled_links(person)
-    assert_equal ['Activities', 'People'], links.map { |l| l[:title] }
+    assert_equal ['Activities', 'People', 'Control Panel'], links.map { |l| l[:title] }
   end
 
   should 'return all person links for the current person' do
     block.box = create(Box, owner: person)
     links = block.enabled_links(person)
-    assert_equal ['Activities', 'About', 'Communities', 'People'], links.map { |l| l[:title] }
+    assert_equal ['Activities', 'About', 'Communities', 'People', 'Control Panel'], links.map { |l| l[:title] }
   end
 end
