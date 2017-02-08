@@ -165,7 +165,7 @@ jQuery(function($) {
         if(offset == 0) history.scrollTo({top:'100%', left:'0%'});
         else history.scrollTo(offset_container.height());
         if (who != "self") {
-          if ($(tab_id).find('.history:visible').length == 0) {
+          if ($(tab_id).find('.history:visible').length == 0 || !$('#chat').hasClass('opened')) {
             count_unread_messages(jid_id);
           }
           document.alert_title = name;
@@ -641,6 +641,11 @@ jQuery(function($) {
     if(jQuery('#conversations .conversation').length == 0) jQuery('.buddies a').first().click();
     jQuery('#chat').toggleClass('opened');
     jQuery('#chat-label').toggleClass('opened');
+
+    if($('#chat').hasClass('opened')) {
+      var jid_id = $('#chat-window .conversation:visible').attr('id').replace(/^conversation-/, '');
+      count_unread_messages(jid_id, true);
+    }
   }
 
   function load_conversation(jid) {
