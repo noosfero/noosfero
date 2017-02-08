@@ -34,15 +34,7 @@
 
   <br />
 
-  <%= f.text_field 'tag_list', size: 64, value: @article.tag_list.join(',') %>
-  <%= content_tag( 'small', _('Separate tags with commas') ) %>
-
-  <script>
-    jQuery('#article_tag_list').inputosaurus({
-      autoCompleteSource: <%= "'/myprofile/#{profile.identifier}/cms/search_tags',".html_safe %>
-      activateFinalResult : true
-    })
-  </script>
+  <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @article.tag_list} %>
 
   <div id='edit-article-options'>
     <%= options_for_article(@article, @tokenized_children) %>

@@ -41,7 +41,8 @@ class Box < ApplicationRecord
       ProfileImageBlock,
       RawHTMLBlock,
       RecentDocumentsBlock,
-      TagsBlock,
+      TagsCloudBlock,
+      InterestTagsBlock,
       MenuBlock]
   end
 
@@ -66,7 +67,8 @@ class Box < ApplicationRecord
       RawHTMLBlock,
       RecentDocumentsBlock,
       SlideshowBlock,
-      TagsBlock,
+      TagsCloudBlock,
+      InterestTagsBlock,
       MenuBlock
     ]
   end

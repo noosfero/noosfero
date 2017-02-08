@@ -44,7 +44,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.profile-image-block')
     assert blocks.include?('.raw-html-block')
     assert blocks.include?('.recent-documents-block')
-    assert blocks.include?('.tags-block')
+    assert blocks.include?('.tags-cloud-block')
+    assert blocks.include?('.interest-tags-block')
     assert blocks.include?('.menu-block')
   end
 
@@ -75,7 +76,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('.raw-html-block')
     assert blocks.include?('.recent-documents-block')
     assert blocks.include?('.slideshow-block')
-    assert blocks.include?('.tags-block')
+    assert blocks.include?('.tags-cloud-block')
+    assert blocks.include?('.interest-tags-block')
     assert blocks.include?('.menu-block')
   end
 

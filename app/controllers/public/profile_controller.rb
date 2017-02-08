@@ -48,7 +48,7 @@ class ProfileController < PublicController
     @tag = params[:id]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_#{profile.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @tagged = profile.tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
+      @tagged = profile.articles.tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
     end
   end
 

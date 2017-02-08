@@ -12,7 +12,7 @@ class Profile < ApplicationRecord
     :custom_url_redirection, :layout_template, :email_suggestions,
     :allow_members_to_invite, :invite_friends_only, :secret,
     :profile_admin_mail_notification, :allow_followers, :wall_access,
-    :profile_kinds
+    :profile_kinds, :tag_list
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -566,6 +566,8 @@ class Profile < ApplicationRecord
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'
   xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
 
+  include SanitizeTags
+
   include WhiteListFilter
   filter_iframes :custom_header, :custom_footer
   def iframe_whitelist
@@ -741,10 +743,6 @@ private :generate_url, :url_options
       memo[tag.name] = tag.count
       memo
     end
-  end
-
-  def tagged_with(tag)
-    self.articles.tagged_with(tag)
   end
 
   # Tells whether a specified profile has members or nor.

@@ -1,6 +1,5 @@
-
 <div class='search-form'>
-  <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.path : nil ) },
+  <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => @category.try(:path), :tag => @tag },
                  :method => 'get', :class => 'search_form' ) do %>
     <div id='search-header'>
       <%= assets_menu(@asset) %>

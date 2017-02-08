@@ -16,7 +16,7 @@ class SearchHelperTest < ActiveSupport::TestCase
     category = mock
     category.stubs(:name).returns('category_name')
     assert_equal '<h1>page_title - <small>category_name</small></h1>',
-      search_page_title(title, category)
+      search_page_title(title, {:category => category})
   end
 
   should 'display category context' do

@@ -1,0 +1,14 @@
+<%= block_title(block.view_title, block.subtitle) %>
+
+<div class="interest-tags-block">
+  <% unless block.tags.size == 0 %>
+    <ul>
+      <% block.tags.each do |tag| %>
+        <%= link_to(content_tag('li', tag.name), {:controller => 'search', :action => 'tag', :tag => tag.name}) %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="interest-tags-block-none"><%= c_('None') %></div>
+  <% end %>
+  <br style="clear:both" />
+</div>

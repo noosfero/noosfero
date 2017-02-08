@@ -35,7 +35,16 @@
   // Assets links
   $('#assets-menu a').click(function(e){
     e.preventDefault();
-    window.location.href = $(this).attr("href") + '?query=' + $('#search-input').val();
+    var parameters = {}
+    var tag = $(this).data('tag');
+    var category_path = $(this).data('category_path');
+    var query = $('#search-input').val();
+
+    if(tag) parameters.tag = tag;
+    if(category_path) parameters.category_path = category_path;
+    if(query) parameters.query = query;
+
+    window.location.href = $(this).attr("href") + '?' + $.param(parameters);
   });
 
   // Real time search

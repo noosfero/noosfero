@@ -396,7 +396,7 @@ class Person < Profile
     self.layout_template = 'rightbar'
     [
       [MenuBlock.new, MainBlock.new],
-      [FriendsBlock.new, CommunitiesBlock.new, TagsBlock.new]
+      [FriendsBlock.new, CommunitiesBlock.new, TagsCloudBlock.new]
     ]
   end
 

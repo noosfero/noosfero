@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class ProfileDesignControllerTest < ActionController::TestCase
 
-  COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock, MenuBlock ]
+  COMMOM_BLOCKS = [ ArticleBlock, InterestTagsBlock, TagsCloudBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock, MenuBlock ]
   PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
@@ -309,9 +309,9 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'display avaliable blocks in alphabetical order' do
-    @controller.stubs(:available_blocks).returns([TagsBlock, ArticleBlock])
+    @controller.stubs(:available_blocks).returns([TagsCloudBlock, ArticleBlock])
     get :index, :profile => 'designtestuser'
-    assert_equal assigns(:available_blocks), [ArticleBlock, TagsBlock]
+    assert_equivalent assigns(:available_blocks), [ArticleBlock, TagsCloudBlock]
   end
 
   should 'create back link to profile control panel' do
@@ -390,7 +390,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
-    assert_equal PERSON_BLOCKS, @controller.available_blocks
+    assert_equivalent PERSON_BLOCKS, @controller.available_blocks
   end
 
   should 'the person with blog blocks are all available' do
@@ -637,7 +637,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'not fail when a profile has a tag block' do
     a = create(Article, :name => 'my article', :profile_id => holder.id, :tag_list => 'tag')
-    @box1.blocks << TagsBlock.new
+    @box1.blocks << TagsCloudBlock.new
     get :index, :profile => 'designtestuser'
   end
 end

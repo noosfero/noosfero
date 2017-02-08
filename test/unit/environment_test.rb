@@ -1068,6 +1068,17 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal({}, Environment.default.tag_counts)
   end
 
+  should 'list tags from profiles and articles' do
+    environment = Environment.default
+    person = create_user('person', :environment => environment).person
+    person.tag_list = 'second-tag, third-tag'
+    person.save!
+    person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
+    person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
+
+    assert_equal({ 'first-tag' => 2, 'second-tag' => 2, 'third-tag' => 1 }, environment.tag_counts)
+  end
+
   should 'have a list of local documentation links' do
     e = fast_create(Environment)
     e.local_docs = [['/doccommunity/link1', 'Link 1'], ['/doccommunity/link2', 'Link 2']]
