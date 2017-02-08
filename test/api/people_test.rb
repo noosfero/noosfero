@@ -455,4 +455,153 @@ class PeopleTest < ActiveSupport::TestCase
     assert !person.is_member_of?(profile)
     assert_equal 403, last_response.status
   end
+
+  should 'list all people of enviroment' do
+    environment = fast_create(Environment)
+    person1 = fast_create(Person, :public_profile => true, :environment_id => environment.id)
+    person2 = fast_create(Person, :environment_id => environment.id)
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [person1.id, person2.id], json['people'].map {|c| c['id']}
+  end
+
+  should 'logged user not list invisible people of environment' do
+    environment = fast_create(Environment)
+    login_api
+    invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    assert_not_includes json_response_ids(:people), invisible_person.id
+  end
+
+  should 'annoymous not list invisible people of environment' do
+    environment = fast_create(Environment)
+    invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    assert_not_includes json_response_ids(:people), invisible_person.id
+  end
+
+  should 'logged user list private people of environment' do
+    environment = fast_create(Environment)
+    login_api
+    private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), private_person.id
+  end
+
+  should 'anonymous list private people of environment' do
+    environment = fast_create(Environment)
+    private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), private_person.id
+  end
+
+  should 'logged user list private person for friends of environment' do
+    environment = fast_create(Environment)
+    login_api
+    p1 = fast_create(Person, :environment_id => environment.id)
+    p2 = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+    person.add_friend(p2)
+    p2.add_friend(person)
+
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), p2.id
+  end
+
+  should 'people endpoint filter by fields parameter for logged user of environment' do
+    environment = fast_create(Environment)
+    person  = fast_create(Person, :environment_id => environment.id)
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}&fields=name"
+    json = JSON.parse(last_response.body)
+    expected = {'people' => [{'name' => person.name}]}
+    assert_equal expected, json
+  end
+
+  should 'people endpoint filter by fields parameter with hierarchy for logged user of environment' do
+    environment = fast_create(Environment)
+    person  = create_user('someuser', :environment_id => environment.id).person
+    params[:fields] = {only: [:name, {user: [:login]}]}
+    get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    expected = {'people' => [{'name' => 'someuser', 'user' => {'login' => 'someuser'}}]}
+    assert_equal expected, json
+  end
+
+  should 'list all people of default enviroment' do
+    environment = Environment.default
+    person1 = fast_create(Person, :public_profile => true, :environment_id => environment.id)
+    person2 = fast_create(Person, :environment_id => environment.id)
+    get "/api/v1/environments/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [person1.id, person2.id, person.id], json['people'].map {|c| c['id']}
+  end
+
+  should 'logged user not list invisible people of default environment' do
+    environment = Environment.default
+    login_api
+    invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/people?#{params.to_query}"
+    assert_not_includes json_response_ids(:people), invisible_person.id
+  end
+
+  should 'annoymous not list invisible people of default environment' do
+    environment = Environment.default
+    invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/people?#{params.to_query}"
+    assert_not_includes json_response_ids(:people), invisible_person.id
+  end
+
+  should 'logged user list private people of default environment' do
+    environment = Environment.default
+    login_api
+    private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), private_person.id
+  end
+
+  should 'anonymous list private people of default environment' do
+    environment = Environment.default
+    private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+
+    get "/api/v1/environments/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), private_person.id
+  end
+
+  should 'logged user list private person for friends of default environment' do
+    environment = Environment.default
+    login_api
+    p1 = fast_create(Person, :environment_id => environment.id)
+    p2 = fast_create(Person, :public_profile => false, :environment_id => environment.id)
+    person.add_friend(p2)
+    p2.add_friend(person)
+
+    get "/api/v1/environments/people?#{params.to_query}"
+    assert_includes json_response_ids(:people), p2.id
+  end
+
+  should 'people endpoint filter by fields parameter for logged user of default environment' do
+    environment = Environment.default
+    login_api
+    get "/api/v1/environments/people?#{params.to_query}&fields=name"
+    json = JSON.parse(last_response.body)
+    expected = {'people' => [{'name' => person.name}]}
+    assert_equal expected, json
+  end
+
+  should 'people endpoint filter by fields parameter with hierarchy for logged user of default environment' do
+    environment = Environment.default
+    login_api
+    params[:fields] = {only: [:name, {user: [:login]}]}
+    get "/api/v1/environments/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    expected = {'people' => [{'name' => person.name, 'user' => {'login' => 'testapi'}}]}
+    assert_equal expected, json
+  end
+
 end
