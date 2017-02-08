@@ -70,27 +70,4 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
       process_delayed_job_queue
     end
   end
-
-  should 'not notify friends if they do not follow the person' do
-    @follower.add_friend(@person)
-    @person.add_friend(@follower)
-    @follower.unfollow(@person)
-    process_delayed_job_queue
-
-    assert_no_difference '@follower.tracked_notifications.count' do
-      Scrap.create(sender_id: @person.id, receiver_id: @profile.id, content: 'hello')
-      process_delayed_job_queue
-    end
-  end
-
-  should 'not notify members if they do not follow the community' do
-    @profile.add_member(@follower)
-    @follower.unfollow(@profile)
-    process_delayed_job_queue
-
-    assert_no_difference '@follower.tracked_notifications.count' do
-      Scrap.create(sender_id: @person.id, receiver_id: @profile.id, content: 'hello')
-      process_delayed_job_queue
-    end
-  end
 end

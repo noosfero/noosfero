@@ -2,8 +2,11 @@
 <% if logged_in? && (user != profile) && profile.allow_followers? %>
   <li>
     <% follow = user.follows?(profile) %>
-    <%= button(:unfollow, content_tag('span', _('Unfollow')), {:profile => profile.identifier, :controller => 'profile', :action => 'unfollow'}, :method => :post, :id => 'action-unfollow', :title => _("Unfollow"), :style => follow ? "" : "display: none;") %>
-    <%= button(:ok, content_tag('span', _('Follow')), {:profile => profile.identifier, :controller => 'profile', :action => 'find_profile_circles'}, :id => 'action-follow', :title => _("Follow"), :style => follow ? "display: none;" : "") %>
+    <% if !user.follows? profile %>
+      <%= button(:ok, content_tag('span', _('Follow')), {:profile => profile.identifier, :controller => 'profile', :action => 'find_profile_circles'}, :id => 'action-follow', :title => _("Follow")) %>
+    <% elsif !profile.in_social_circle?(user) %>
+      <%= button(:unfollow, content_tag('span', _('Unfollow')), {:profile => profile.identifier, :controller => 'profile', :action => 'unfollow'}, :method => :post, :id => 'action-unfollow', :title => _("Unfollow")) %>
+    <% end %>
     <div id="circles-container" style="display: none;">
     </div>
   </li>
