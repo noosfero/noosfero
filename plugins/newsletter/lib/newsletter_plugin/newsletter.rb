@@ -136,7 +136,7 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
         else
           post_without_image(post)
         end
-      end.join().html_safe+content_tag(:tr, content_tag(:td, self.footer.html_safe, :colspan => 2)),:style => CSS['breakingnews']).html_safe+content_tag(:div,message_to_unsubscribe, :style => CSS['newsletter-unsubscribe']),:style => CSS['breakingnews-wrap']).html_safe
+      end.join().html_safe+content_tag(:tr, content_tag(:td, (self.footer || "").html_safe, :colspan => 2)),:style => CSS['breakingnews']).html_safe+content_tag(:div,message_to_unsubscribe, :style => CSS['newsletter-unsubscribe']),:style => CSS['breakingnews-wrap']).html_safe
   end
 
   def default_subject
