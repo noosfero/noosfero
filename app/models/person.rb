@@ -222,6 +222,7 @@ class Person < Profile
   end
 
   def unfollow(profile)
+    return if profile.in_social_circle?(self)
     ProfileFollower.with_follower(self).with_profile(profile).destroy_all
   end
 
@@ -512,7 +513,7 @@ class Person < Profile
   end
 
   def is_member_of?(profile)
-    profile.members.include?(self)
+    profile.try(:members).try(:include?, self)
   end
 
   def follows?(profile)

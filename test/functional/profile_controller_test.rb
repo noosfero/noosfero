@@ -1884,6 +1884,15 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'not display the unfollow button if the person is in the social circle' do
+    login_as(@profile.identifier)
+    community = fast_create(Community)
+    community.add_member(@profile)
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => {:id => 'action-unfollow'}
+  end
+
   should "redirect to page after unfollow" do
     login_as(@profile.identifier)
     person = fast_create(Person)

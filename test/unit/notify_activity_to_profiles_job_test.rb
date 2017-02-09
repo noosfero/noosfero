@@ -80,8 +80,12 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Article', :target_id => article.id, :verb => 'create_article')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
-    fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => community.id)
-    fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
+
+    circle1 = Circle.create!(:person=> m1, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> m2, :name => "Zombies", :profile_type => 'Community')
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle1.id)
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle2.id)
+
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
     job.perform
@@ -104,8 +108,11 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
     fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle1.id)
 
-    fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => community.id)
-    fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
+    circle1 = Circle.create!(:person=> m1, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> m2, :name => "Zombies", :profile_type => 'Community')
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle1.id)
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle2.id)
+
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
     job.perform
@@ -125,8 +132,12 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     p1, p2, m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
     fast_create(Friendship, :person_id => person.id, :friend_id => p1.id)
     fast_create(Friendship, :person_id => person.id, :friend_id => p2.id)
-    fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => private_community.id)
-    fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => private_community.id)
+
+    circle1 = Circle.create!(:person=> m1, :name => "Zombies", :profile_type => 'Community')
+    circle2 = Circle.create!(:person=> m2, :name => "Zombies", :profile_type => 'Community')
+    fast_create(ProfileFollower, :profile_id => private_community.id, :circle_id => circle1.id)
+    fast_create(ProfileFollower, :profile_id => private_community.id, :circle_id => circle2.id)
+
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
     job.perform
@@ -160,12 +171,14 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
     circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
     circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+    circle3 = Circle.create!(:person=> m1, :name => "Zombies", :profile_type => 'Community')
+    circle4 = Circle.create!(:person=> m2, :name => "Zombies", :profile_type => 'Community')
 
     fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle1.id)
     fast_create(ProfileFollower, :profile_id => person.id, :circle_id => circle2.id)
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle3.id)
+    fast_create(ProfileFollower, :profile_id => community.id, :circle_id => circle4.id)
 
-    fast_create(RoleAssignment, :accessor_id => m1.id, :role_id => 3, :resource_id => community.id)
-    fast_create(RoleAssignment, :accessor_id => m2.id, :role_id => 3, :resource_id => community.id)
     ActionTrackerNotification.delete_all
     job = NotifyActivityToProfilesJob.new(action_tracker.id)
     job.perform
