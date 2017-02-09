@@ -762,6 +762,13 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal false, p3.follows?(p1)
   end
 
+  should 'return for is_member_of? false when profile is not an Organization' do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+
+    refute p1.is_member_of? p2
+  end
+
   should "a person member of a community follows the community" do
     c = fast_create(Community)
     p1 = fast_create(Person)
@@ -1994,6 +2001,26 @@ class PersonTest < ActiveSupport::TestCase
     person.follow(community, circle)
     person.unfollow(community)
     assert_not_includes person.followed_profiles, community
+  end
+
+  should 'not unfollow a profile if it is a friend' do
+    follower = create_user.person
+    person = create_user.person
+
+    person.add_friend(follower)
+    follower.add_friend(person)
+
+    follower.unfollow(person)
+    assert_includes follower.followed_profiles, person
+  end
+
+  should 'not unfollow a profile if it is a member' do
+    follower = create_user.person
+    community = fast_create(Community)
+
+    community.add_member(follower)
+    follower.unfollow(community)
+    assert_includes follower.followed_profiles, community
   end
 
   should 'a person remove a profile from a circle' do
