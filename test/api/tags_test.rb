@@ -59,7 +59,15 @@ class TagsTest < ActiveSupport::TestCase
 
     get '/api/v1/environments/tags'
     json = JSON.parse(last_response.body)
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, json)
+    json.map do |tag|
+      if tag['name'] == 'first-tag'
+        assert_equal(3, tag['count'])
+      elsif tag['name'] == 'second-tag'
+        assert_equal(2, tag['count'])
+      elsif tag['name'] == 'third-tag'
+        assert_equal(1, tag['count'])
+      end
+    end
   end
 
   should 'get environment tags for path environments with status OK' do
@@ -76,7 +84,15 @@ class TagsTest < ActiveSupport::TestCase
 
     get "/api/v1/environments/#{environment.id}/tags"
     json = JSON.parse(last_response.body)
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, json)
+    json.map do |tag|
+      if tag['name'] == 'first-tag'
+        assert_equal(3, tag['count'])
+      elsif tag['name'] == 'second-tag'
+        assert_equal(2, tag['count'])
+      elsif tag['name'] == 'third-tag'
+        assert_equal(1, tag['count'])
+      end
+    end
   end
 
   should 'get environment tags for path environments/:id with status OK' do

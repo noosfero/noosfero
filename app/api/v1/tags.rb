@@ -31,13 +31,13 @@ module Api
         resource ':id/tags' do
           get do
             local_environment = Environment.find(params[:id])
-            present local_environment.tag_counts
+            present local_environment.articles.tag_counts
           end
         end
 
         desc 'Return the tag counts for this environment'
         get '/tags' do
-          present environment.tag_counts
+          present environment.articles.tag_counts
         end
       end
     end
