@@ -4,8 +4,8 @@ class SuppliersPlugin::SourceProduct < ApplicationRecord
 
   default_scope -> { includes :from_product, :to_product }
 
-  belongs_to :from_product, class_name: 'Product'
-  belongs_to :to_product, class_name: 'Product'
+  belongs_to :from_product, class_name: 'ProductsPlugin::Product'
+  belongs_to :to_product, class_name: 'ProductsPlugin::Product'
   belongs_to :supplier, class_name: 'SuppliersPlugin::Supplier'
 
   has_many :sources_from_products, through: :from_product
