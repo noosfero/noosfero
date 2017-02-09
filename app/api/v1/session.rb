@@ -16,7 +16,7 @@ module Api
         begin
           user ||= User.authenticate(params[:login], params[:password], environment)
         rescue User::UserNotActivated => e
-          render_api_error!(e.message, 401)
+          render_api_error!(e.message, Api::Status::UNAUTHORIZED)
         end
 
         return unauthorized! unless user
@@ -58,7 +58,7 @@ module Api
           present user, :with => Entities::UserLogin, :current_person => user.person
         rescue ActiveRecord::RecordInvalid
           message = user.errors.as_json.merge((user.person.present? ? user.person.errors : {}).as_json).to_json
-          render_api_error!(message, 400)
+          render_api_error!(message, Api::Status::BAD_REQUEST)
         end
       end
 
@@ -147,7 +147,7 @@ module Api
           change_password.finish
           present change_password.requestor.user, :with => Entities::UserLogin, :current_person => current_person
         rescue Exception => ex
-          render_api_error!(ex.message, 400)
+          render_api_error!(ex.message, Api::Status::BAD_REQUEST)
         end
       end
 

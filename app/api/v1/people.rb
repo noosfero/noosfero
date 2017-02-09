@@ -136,6 +136,50 @@ module Api
           end
         end
       end
+
+      resource :environments do
+        paginate max_per_page: MAX_PER_PAGE
+
+        # -- A note about privacy --
+        # We wold find people by location, but we must test if the related
+        # fields are public. We can't do it now, with SQL, while the location
+        # data and the fields_privacy are a serialized settings.
+        # We must build a new table for profile data, where we can set meta-data
+        # like:
+        # | id | profile_id | key  | value    | privacy_level | source    |
+        # |  1 |         99 | city | Salvador | friends       | user      |
+        # |  2 |         99 | lng  |  -38.521 | me only       | automatic |
+
+        # Collect people from environment
+        #
+        # Parameters:
+        #   from             - date where the search will begin. If nothing is passed the default date will be the date of the first article created
+        #   oldest           - Collect the oldest comments from reference_id comment. If nothing is passed the newest comments are collected
+        #   limit            - amount of comments returned. The default value is 20
+        #
+        # Example Request:
+        #  GET /environments/1/people?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
+        #  GET /environments/people?reference_id=10&limit=10&oldest
+
+        resource ':id/people' do
+          get do
+            local_environment = Environment.find(params[:id])
+            people = select_filtered_collection_of(local_environment, 'people', params)
+            people = people.visible
+            present_partial people, :with => Entities::Person, :current_person => current_person
+          end
+        end
+
+
+        resource :people do
+          desc "Find environment's people"
+          get do
+            people = select_filtered_collection_of(environment, 'people', params)
+            people = people.visible
+            present_partial people, :with => Entities::Person, :current_person => current_person
+          end
+        end
+      end
     end
   end
 end

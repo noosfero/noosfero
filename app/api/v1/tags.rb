@@ -22,7 +22,22 @@ module Api
       resource :environment do
         desc 'Return the tag counts for this environment'
         get '/tags' do
+          status Api::Status::DEPRECATED
           present environment.tag_counts
+        end
+      end
+
+      resource :environments do
+        resource ':id/tags' do
+          get do
+            local_environment = Environment.find(params[:id])
+            present local_environment.articles.tag_counts
+          end
+        end
+
+        desc 'Return the tag counts for this environment'
+        get '/tags' do
+          present environment.articles.tag_counts
         end
       end
     end

@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 require 'tag'
 
-class UserTest < ActiveSupport::TestCase
+class TagTest < ActiveSupport::TestCase
 
   def test_find_without_pendings
     tag1 = Tag.create(name: 'pending_tag', pending: true)
