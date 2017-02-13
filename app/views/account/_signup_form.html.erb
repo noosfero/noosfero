@@ -109,6 +109,7 @@
 
   <%= safe_join(@plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }, "") %>
 
+  <%= render :partial => 'shared/custom_fields', :locals => {:f => f, :profile => @person, :signup => true} %>
   <%= template_options(:people, 'profile_data') %>
 
   <%= render :partial => 'shared/profile_kinds', :locals => {:form_field => 'profile_data'} %>
@@ -128,7 +129,6 @@
 </div>
 
 <%= recaptcha_tags :ajax => true, :ssl => true, :display => {:theme => 'clean'} if @block_bot %>
-<%= render :partial => 'shared/custom_fields', :locals => {:f => f, :profile => @person, :signup => true} %>
 
 <p style="text-align: center">
   <%= submit_button('save', _('Create my account')) %>
