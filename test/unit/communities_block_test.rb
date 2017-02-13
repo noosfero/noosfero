@@ -92,4 +92,29 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
     assert_equal '', render_block_footer(block)
   end
+
+  should 'list communities in api content' do
+    owner = fast_create(Person)
+    community1 = fast_create(Community)
+    community2 = fast_create(Community)
+    community1.add_member(owner)
+    community2.add_member(owner)
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    json = block.api_content
+    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map {|p| p[:identifier]}
+  end
+
+  should 'limit communities list in api content' do
+    owner = fast_create(Person)
+    5.times do
+      community = fast_create(Community)
+      community.add_member(owner)
+    end
+    block = CommunitiesBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json = block.api_content
+    assert_equal 3, json["communities"].size
+    assert_equal 5, json["#"]
+  end
 end
