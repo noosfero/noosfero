@@ -154,7 +154,7 @@ class Environment < ApplicationRecord
       'display_header_footer_explanation' => _("Display explanation about header and footer"),
       'articles_dont_accept_comments_by_default' => _("Articles don't accept comments by default"),
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
-      'enable_organization_url_change' => _("Allow organizations to change their URL"),
+      'enable_profile_url_change' => _("Allow profiles to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
       'admin_must_approve_new_users' => _("Admin must approve registration of new users"),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
