@@ -52,7 +52,7 @@ module ProductsPlugin
       field = params[:field]
       if request.post?
         begin
-          @product.update!(params[:product])
+          @product.update!(params[:products_plugin_product])
           render partial: "display_#{field}", locals: {product: @product}
         rescue
           render partial: "edit_#{field}", locals: {product: @product, errors: true}
