@@ -43,7 +43,7 @@
         <li class="product-price-line">
           <% unless product.discount.blank? or product.discount == 0 %>
             <span class="product-discount">
-              <span><%= _('from ') + price_span(product.price) %></span>
+              <span><%= (_('from ') + price_span(product.price)).html_safe %></span>
               <span class="product-discount-by"><%= _('by ') %></span>
             </span>
           <% end %>

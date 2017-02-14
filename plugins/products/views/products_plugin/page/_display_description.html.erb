@@ -1,5 +1,5 @@
 <% if !@product.description.blank? %>
-  <%= @product.description %>
+  <%= @product.description.html_safe %>
   <%= edit_product_button_to_remote(@product, 'description', _('Edit description'), {:title => _('Edit the description of your product and give consumers more information about what you are advertising')}) %>
 <% else %>
   <%= edit_product_ui_button_to_remote(
