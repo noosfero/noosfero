@@ -257,4 +257,15 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal community.top_image.filename, base64_top_image[:filename]
     assert_equal community.image.filename, base64_image[:filename]
   end
+
+  should 'display error when update person with invalid params' do
+    login_api
+    environment.enable(:enable_person_url_change)
+    params[:profile] = {}
+    params[:profile][:name] = nil
+    post "/api/v1/profiles/#{person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 400, last_response.status
+    assert_equal ["can't be blank"], json['message']['name']
+  end
 end
