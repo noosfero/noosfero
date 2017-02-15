@@ -745,7 +745,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'have url field for identifier when environment allows' do
     c = fast_create(Community)
     env = c.environment
-    env.enable('enable_organization_url_change')
+    env.enable('enable_profile_url_change')
     env.save!
 
     get :edit, :profile => c.identifier
@@ -758,7 +758,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not have url field for identifier when environment not allows' do
     c = fast_create(Community)
     env = c.environment
-    env.disable('enable_organization_url_change')
+    env.disable('enable_profile_url_change')
     env.save!
 
     get :edit, :profile => c.identifier
@@ -1196,4 +1196,14 @@ class ProfileEditorControllerTest < ActionController::TestCase
     refute comm.reload.profile_admin_mail_notification
   end
 
+  should 'not display option to change identifier for person' do
+    get :edit, :profile => profile.identifier
+    assert_select '#profile-identifier-formitem', 0
+  end
+
+  should 'display option to change identifier for person when allowed by environment' do
+    profile.environment.enable(:enable_profile_url_change)
+    get :edit, :profile => profile.identifier
+    assert_select '#profile-identifier-formitem', 1
+  end
 end

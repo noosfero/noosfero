@@ -641,6 +641,13 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
+  should 'be renamed when allowed by environment' do
+    p = create_user('test_user').person
+    p.environment.enable(:enable_profile_url_change)
+    p.identifier = 'other_person_name'
+    assert p.valid?
+  end
+
   should "return none on label if the person hasn't friends" do
     p = fast_create(Person)
     assert_equal 0, p.friends.count

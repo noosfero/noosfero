@@ -177,9 +177,9 @@ class Person < Profile
   end
 
   # Sets the identifier for this person. Raises an exception when called on a
-  # existing person (since peoples' identifiers cannot be changed)
+  # existing person and the environment don't allow identifier changes
   def identifier=(value)
-    unless self.new_record?
+    unless self.new_record? || environment.enabled?(:enable_profile_url_change)
       raise ArgumentError.new(_('An existing person cannot be renamed.'))
     end
     self[:identifier] = value
