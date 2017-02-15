@@ -348,17 +348,17 @@ module ApplicationHelper
 
   attr_reader :environment
 
-  def select_categories(object_name, title=nil, title_size=4)
+  def select_categories(object_name, title=nil, title_size=4, kind=:categories)
     return nil if environment.enabled?(:disable_categories)
     if title.nil?
       title = _('Categories')
     end
 
     @object = instance_variable_get("@#{object_name}")
-    @categories = environment.top_level_categories
+    @categories = environment.send("top_level_#{kind}")
 
-    @current_categories = environment.top_level_categories.select{|i| !i.children.empty?}
-    render :partial => 'shared/select_categories_top', :locals => {:object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => @object.categories }, :layout => false
+    @current_categories = @categories.select{|i| !i.children.empty?}
+    render :partial => 'shared/select_categories_top', :locals => {:object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => @object.categories, :kind => kind }, :layout => false
   end
 
   def theme_option(opt = nil)

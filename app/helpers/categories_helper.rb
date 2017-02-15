@@ -15,13 +15,16 @@ module CategoriesHelper
     'background-color: #'+category.display_color+';'
   end
 
-  #FIXME make this test
-  def selected_category_link(cat)
-    js_remove = "jQuery('#selected-category-#{cat.id}').remove();"
-    content_tag('div', button_to_function_without_text(:remove, _('Remove'), js_remove) +
-      link_to_function(cat.full_name(' &rarr; ').html_safe, js_remove, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link'),
-      :class => 'selected-category'
-    )
+  def category_humane_path(category)
+    category.full_name(' &rarr; ').html_safe
+  end
+
+  def category_remove_button(category)
+    js_remove = "jQuery('#selected-category-#{category.id}').remove();"
+    button_to_function_without_text(:remove, _('Remove'), js_remove)
+  end
+
+  def category_add_button(category)
   end
 
   #TODO: remove this function and, in views, use existing basic buttons
@@ -31,6 +34,11 @@ module CategoriesHelper
     link_to body,
       { :action => "update_categories", :category_id => category_id, :id => @object },
       {:id => category_id ? "select-category-#{category_id}-link" : nil, :remote => true, :class => html_class}.merge(html_options)
+  end
+
+  def update_categories
+    @object = profile
+    render_categories 'profile_data'
   end
 
   def render_categories object_name

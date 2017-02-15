@@ -1,0 +1,5 @@
+<tr id="selected-category-<%= category.id %>">
+  <%= hidden_field_tag("#{object_name}[category_ids][]", category.id) %>
+  <td style='width: 90%'><%= category_humane_path(category) %></td>
+  <td style="text-align: center; width: 10%"><%= category_remove_button(category) %></td>
+</tr>

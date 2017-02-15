@@ -359,6 +359,7 @@ class Profile < ApplicationRecord
 
   has_many :profile_categorizations, -> { where 'categories_profiles.virtual = ?', false }
   has_many :categories, :through => :profile_categorizations
+  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, :through => :profile_categorizations, :source => :category
 
   has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
   has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
@@ -871,17 +872,18 @@ private :generate_url, :url_options
   end
   alias_method :display_to?, :display_info_to?
 
-  after_save :update_category_from_region
-  def update_category_from_region
-    ProfileCategorization.remove_region(self)
-    if region
-      self.add_category(region)
-    end
-  end
+#  after_save :update_category_from_region
+#  def update_category_from_region
+#    ProfileCategorization.remove_region(self)
+#    if region
+#      self.add_category(region)
+#    end
+#  end
 
   def accept_category?(cat)
-    forbidden = [ Region ]
-    !forbidden.include?(cat.class)
+    true
+    #forbidden = [ Region ]
+    #!forbidden.include?(cat.class)
   end
 
   include ActionView::Helpers::TextHelper
