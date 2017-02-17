@@ -25,6 +25,7 @@ module Api
         desc "Return one enterprise by id"
         get ':id' do
           enterprise = environment.enterprises.visible.find_by(id: params[:id])
+          not_found! unless enterprise.present?
           present enterprise, :with => Entities::Enterprise, :current_person => current_person
         end
 

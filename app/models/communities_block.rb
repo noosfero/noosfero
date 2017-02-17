@@ -32,7 +32,8 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def api_content(params = {})
-    content = Api::Entities::Community.represent(profiles.limit(self.limit)).as_json
+    content = {}
+    content['communities'] = Api::Entities::Community.represent(profiles.limit(self.limit)).as_json
     content['#'] = profiles.size
     content
   end

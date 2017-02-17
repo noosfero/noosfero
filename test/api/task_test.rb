@@ -16,7 +16,7 @@ class TasksTest < ActiveSupport::TestCase
     task = create(Task, :requestor => person, :target => environment)
     get "/api/v1/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["tasks"].map { |a| a["id"] }, task.id
+    assert_includes json.map { |a| a["id"] }, task.id
   end
 
   should 'not list tasks of environment for unlogged users' do
@@ -33,7 +33,7 @@ class TasksTest < ActiveSupport::TestCase
     task = create(Task, :requestor => person, :target => environment)
     get "/api/v1/tasks/#{task.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal task.id, json["task"]["id"]
+    assert_equal task.id, json["id"]
   end
 
   should 'not return environment task by id for unlogged users' do
@@ -59,7 +59,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/tasks/#{t4.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal t4.id, json["task"]["id"]
+    assert_equal t4.id, json["id"]
   end
 
   should 'find the current user task even it is for community' do
@@ -71,7 +71,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/tasks/#{t2.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal t2.id, json["task"]["id"]
+    assert_equal t2.id, json["id"]
   end
 
   should 'find the current user task even it is for environment' do
@@ -82,7 +82,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/tasks/#{t1.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal t1.id, json["task"]["id"]
+    assert_equal t1.id, json["id"]
   end
 
 
@@ -99,7 +99,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [t1.id, t2.id, t3.id, t4.id], json["tasks"].map { |a| a["id"] }
+    assert_equivalent [t1.id, t2.id, t3.id, t4.id], json.map { |a| a["id"] }
   end
 
   should 'list all pending tasks of user' do
@@ -115,7 +115,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/tasks?#{params.merge(:status => Task::Status::ACTIVE).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [t1.id, t2.id, t3.id], json["tasks"].map { |a| a["id"] }
+    assert_equivalent [t1.id, t2.id, t3.id], json.map { |a| a["id"] }
   end
 
 
@@ -134,11 +134,11 @@ class TasksTest < ActiveSupport::TestCase
     get "/api/v1/tasks/?#{params.to_query}"
     json_page_two = JSON.parse(last_response.body)
 
-    assert_includes json_page_one["tasks"].map { |a| a["id"] }, t2.id
-    assert_not_includes json_page_one["tasks"].map { |a| a["id"] }, t1.id
+    assert_includes json_page_one.map { |a| a["id"] }, t2.id
+    assert_not_includes json_page_one.map { |a| a["id"] }, t1.id
 
-    assert_includes json_page_two["tasks"].map { |a| a["id"] }, t1.id
-    assert_not_includes json_page_two["tasks"].map { |a| a["id"] }, t2.id
+    assert_includes json_page_two.map { |a| a["id"] }, t1.id
+    assert_not_includes json_page_two.map { |a| a["id"] }, t2.id
   end
 
   should 'list tasks with timestamp' do
@@ -153,8 +153,8 @@ class TasksTest < ActiveSupport::TestCase
     get "/api/v1/tasks/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["tasks"].map { |a| a["id"] }, t1.id
-    assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
+    assert_includes json.map { |a| a["id"] }, t1.id
+    assert_not_includes json.map { |a| a["id"] }, t2.id
   end
 
   should 'list tasks with timestamp considering timezone' do
@@ -169,8 +169,8 @@ class TasksTest < ActiveSupport::TestCase
     get "/api/v1/tasks/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["tasks"].map { |a| a["id"] }, t1.id
-    assert_not_includes json["tasks"].map { |a| a["id"] }, t2.id
+    assert_includes json.map { |a| a["id"] }, t1.id
+    assert_not_includes json.map { |a| a["id"] }, t2.id
   end
 
   task_actions=%w[finish cancel]
@@ -252,7 +252,7 @@ class TasksTest < ActiveSupport::TestCase
       task = create(Task, :requestor => person, :target => target)
       get "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks/#{task.id}?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal task.id, json["task"]["id"]
+      assert_equal task.id, json["id"]
     end
 
     define_method "test_should_not_return_task_ by#{profile_class.name.underscore}_for_unlogged_users" do
@@ -280,7 +280,7 @@ class TasksTest < ActiveSupport::TestCase
 
       post "/api/v1/#{profile_class.name.underscore.pluralize}/#{target.id}/tasks?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_not_nil json["task"]["id"]
+      assert_not_nil json["id"]
     end
 
     define_method "test_should_not_create_task_for_#{profile_class.name.underscore}_person_has_no_permission" do
@@ -335,7 +335,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/tasks?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [t1.id, t2.id, t3.id], json["tasks"].map { |a| a["id"] }
+    assert_equivalent [t1.id, t2.id, t3.id], json.map { |a| a["id"] }
   end
 
   should 'list all pending tasks of user in people context' do
@@ -353,7 +353,7 @@ class TasksTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/tasks?#{params.merge(:status => Task::Status::ACTIVE).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [t1.id, t3.id, t5.id], json["tasks"].map { |a| a["id"] }
+    assert_equivalent [t1.id, t3.id, t5.id], json.map { |a| a["id"] }
   end
 
 end

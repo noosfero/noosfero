@@ -13,8 +13,8 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json['enterprises'].map {|c| c['id']}, enterprise.id
-    assert_not_includes json['enterprises'].map {|c| c['id']}, community.id
+    assert_includes json.map {|c| c['id']}, enterprise.id
+    assert_not_includes json.map {|c| c['id']}, community.id
   end
 
   should 'anonymous list only enterprises' do
@@ -22,8 +22,8 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json['enterprises'].map {|c| c['id']}, enterprise.id
-    assert_not_includes json['enterprises'].map {|c| c['id']}, community.id
+    assert_includes json.map {|c| c['id']}, enterprise.id
+    assert_not_includes json.map {|c| c['id']}, community.id
   end
 
   should 'anonymous list all enterprises' do
@@ -31,7 +31,7 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [enterprise1.id, enterprise2.id], json.map {|c| c['id']}
   end
 
   should 'logger user list all enterprises' do
@@ -40,7 +40,7 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [enterprise1.id, enterprise2.id], json.map {|c| c['id']}
   end
 
   should 'not list invisible enterprises' do
@@ -50,7 +50,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
+    assert_equal [enterprise1.id], json.map {|c| c['id']}
   end
 
   should 'not, anonymous list invisible enterprises' do
@@ -59,7 +59,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
+    assert_equal [enterprise1.id], json.map {|c| c['id']}
   end
 
   should 'not, logged user list invisible enterprises' do
@@ -69,7 +69,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [enterprise1.id], json['enterprises'].map {|c| c['id']}
+    assert_equal [enterprise1.id], json.map {|c| c['id']}
   end
 
   should 'anonymous list private enterprises' do
@@ -78,7 +78,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [enterprise1.id, enterprise2.id], json.map {|c| c['id']}
   end
 
   should 'logged user list private enterprises' do
@@ -88,7 +88,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [enterprise1.id, enterprise2.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [enterprise1.id, enterprise2.id], json.map {|c| c['id']}
   end
 
   should 'logged user list private enterprise for members' do
@@ -99,7 +99,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [c1.id, c2.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [c1.id, c2.id], json.map {|c| c['id']}
   end
 
   should 'anonymous get enterprise' do
@@ -107,7 +107,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal enterprise.id, json['enterprise']['id']
+    assert_equal enterprise.id, json['id']
   end
 
   should 'logged user get enterprise' do
@@ -116,7 +116,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal enterprise.id, json['enterprise']['id']
+    assert_equal enterprise.id, json['id']
   end
 
   should 'not, logger user get invisible enterprise' do
@@ -124,16 +124,14 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert json['enterprise'].blank?
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'not, anonymous get invisible enterprise' do
     enterprise = fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert json['enterprise'].blank?
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'not get private enterprises without permission' do
@@ -143,7 +141,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal enterprise.id, json['enterprise']['id']
+    assert_equal enterprise.id, json['id']
   end
 
   should 'not, anonymous get private enterprises' do
@@ -152,7 +150,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal enterprise.id, json['enterprise']['id']
+    assert_equal enterprise.id, json['id']
   end
 
   should 'get private enterprise for members' do
@@ -162,7 +160,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal enterprise.id, json['enterprise']['id']
+    assert_equal enterprise.id, json['id']
   end
 
   should 'list person enterprises' do
@@ -173,7 +171,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [enterprise.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [enterprise.id], json.map {|c| c['id']}
   end
 
   should 'not list person enterprises invisible' do
@@ -185,7 +183,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [c1.id], json['enterprises'].map {|c| c['id']}
+    assert_equivalent [c1.id], json.map {|c| c['id']}
   end
 
   should 'display public custom fields to anonymous' do
@@ -196,8 +194,8 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['enterprise']['additional_data'].has_key?('Rating')
-    assert_equal "Five stars", json['enterprise']['additional_data']['Rating']
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
   end
 
   should 'not display public custom fields to anonymous' do
@@ -208,7 +206,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
     get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json['enterprise']['additional_data'].has_key?('Rating')
+    refute json['additional_data'].has_key?('Rating')
   end
 
 end

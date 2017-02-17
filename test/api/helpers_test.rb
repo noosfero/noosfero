@@ -54,7 +54,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
     get "/api/v1/people/me"
 
     json = JSON.parse(last_response.body)
-    assert_equal "zombie", json['person']['name']
+    assert_equal "zombie", json['name']
   end
 
   should 'limit be defined as the params limit value' do
@@ -110,7 +110,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
 
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
-    assert_equal a, find_article(user.person.articles, a.id)
+    assert_equal a, find_article(user.person.articles,{:id => a.id})
   end
 
   should 'find_article return forbidden when a user try to access an article without permission' do
@@ -121,7 +121,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
 
     self.params = {private_token: user.private_token}
     User.expects(:find_by).with(private_token: user.private_token).returns(user)
-    assert_equal 403, find_article(p.articles, a.id).last
+    assert_equal 403, find_article(p.articles, {:id => a.id}).last
   end
 
   should 'make_conditions_with_parameter return no created at parameter if it was not defined from or until parameters' do

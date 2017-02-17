@@ -46,8 +46,6 @@ module Api
 
 
     class Image < Entity
-      root 'images', 'image'
-
       expose :id
       expose :filename
       expose  :url do |image, options|
@@ -72,12 +70,10 @@ module Api
     end
 
     class CategoryBase < Entity
-      root 'categories', 'category'
       expose :name, :id, :slug
     end
 
     class Category < CategoryBase
-      root 'categories', 'category'
       expose :full_name do |category, options|
         category.full_name
       end
@@ -88,12 +84,10 @@ module Api
     end
 
     class Region < Category
-      root 'regions', 'region'
       expose :parent_id
     end
 
     class Block < Entity
-      root 'blocks', 'block'
       expose :id, :type, :settings, :position, :enabled
       expose :mirror, :mirror_block_id, :title
       expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? } do |block, options|
@@ -106,7 +100,6 @@ module Api
     end
 
     class Box < Entity
-      root 'boxes', 'box'
       expose :id, :position
       expose :blocks, :using => Block do |box, options|
         box.blocks.select {|block| block.visible_to_user?(options[:current_person]) || block.allow_edit?(options[:current_person]) }
@@ -154,7 +147,6 @@ module Api
     end
 
     class Person < Profile
-      root 'people', 'person'
       expose :user, :using => UserBasic, documentation: {type: 'User', desc: 'The user data of a person' }
       expose :vote_count
       expose :comments_count do |person, options|
@@ -172,11 +164,9 @@ module Api
     end
 
     class Enterprise < Profile
-      root 'enterprises', 'enterprise'
     end
 
     class Community < Profile
-      root 'communities', 'community'
       expose :description
       expose :admins, :if => lambda { |community, options| community.display_info_to? options[:current_person]} do |community, options|
         community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
@@ -198,7 +188,6 @@ module Api
     end
 
     class Comment < CommentBase
-      root 'comments', 'comment'
       expose :children, as: :replies, :using => Comment
     end
 
@@ -251,8 +240,6 @@ module Api
     end
 
     class User < Entity
-      root 'users', 'user'
-
       attrs = [:id,:login,:email,:activated?]
       aliases = {:activated? => :activated}
 
@@ -274,12 +261,10 @@ module Api
     end
 
     class UserLogin < User
-      root 'users', 'user'
       expose :private_token, documentation: {type: 'String', desc: 'A valid authentication code for post/delete api actions'}, if: lambda {|object, options| object.activated? }
     end
 
     class Task < Entity
-      root 'tasks', 'task'
       expose :id
       expose :type
       expose :requestor, using: Profile
@@ -314,7 +299,6 @@ module Api
     end
 
     class Tag < Entity
-      root 'tags', 'tag'
       expose :name
     end
 
@@ -335,7 +319,6 @@ module Api
     end
 
     class Role < Entity
-      root 'roles', 'role'
       expose :id
       expose :name
       expose :key

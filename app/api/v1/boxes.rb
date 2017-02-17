@@ -13,7 +13,7 @@ module Api
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
                 return forbidden! unless profile.display_info_to?(current_person)
-                present profile.boxes, with: Entities::Box, current_person: current_person
+                present_partial profile.boxes, with: Entities::Box, current_person: current_person
               end
             end
           end
@@ -33,7 +33,7 @@ module Api
                 else
                   env = Environment.find(params[:environment_id])
                 end
-                present env.boxes, with: Entities::Box, current_person: current_person
+                present_partial env.boxes, with: Entities::Box, current_person: current_person
               end
             end
           end

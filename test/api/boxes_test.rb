@@ -14,7 +14,7 @@ class BoxesTest < ActiveSupport::TestCase
       box = fast_create(Box, :owner_id => context_obj.id, :owner_type => (kind == 'Environment') ? 'Environment' : 'Profile')
       get "/api/v1/#{kind.downcase.pluralize}/#{context_obj.id}/boxes?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal box.id, json["boxes"].first["id"]
+      assert_equal box.id, json.first["id"]
     end
   end
 
@@ -24,7 +24,7 @@ class BoxesTest < ActiveSupport::TestCase
     box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
     get "/api/v1/environments/default/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal box.id, json["boxes"].first["id"]
+    assert_equal box.id, json.first["id"]
   end
 
   should 'get boxes from context environment' do
@@ -34,7 +34,7 @@ class BoxesTest < ActiveSupport::TestCase
     get "/api/v1/environments/context/boxes?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equal box.id, json["boxes"].first["id"]
+    assert_equal box.id, json.first["id"]
   end
 
   should 'not display block api_content by default' do
@@ -44,7 +44,7 @@ class BoxesTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/environments/default/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert !json["boxes"].first["blocks"].first.key?('api_content')
+    assert !json.first["blocks"].first.key?('api_content')
   end
 
   should 'get blocks from boxes' do
@@ -54,7 +54,7 @@ class BoxesTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/environments/default/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
+    assert_equal [block.id], json.first["blocks"].map {|b| b['id']}
   end
 
   should 'not list a block for not logged users' do
@@ -66,7 +66,7 @@ class BoxesTest < ActiveSupport::TestCase
     block.save!
     get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [], json["boxes"].first["blocks"].map {|b| b['id']}
+    assert_equal [], json.first["blocks"].map {|b| b['id']}
   end
 
   should 'list a block with logged in display_user for a logged user' do
@@ -77,7 +77,7 @@ class BoxesTest < ActiveSupport::TestCase
     block.save!
     get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
+    assert_equal [block.id], json.first["blocks"].map {|b| b['id']}
   end
 
   should 'list a block with not logged in display_user for an admin user' do
@@ -89,7 +89,7 @@ class BoxesTest < ActiveSupport::TestCase
     block.save!
     get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [block.id], json["boxes"].first["blocks"].map {|b| b['id']}
+    assert_equal [block.id], json.first["blocks"].map {|b| b['id']}
   end
 
   should 'not list boxes for user without permission' do

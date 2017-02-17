@@ -14,8 +14,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json['communities'].map {|c| c['id']}, enterprise.id
-    assert_includes json['communities'].map {|c| c['id']}, community.id
+    assert_not_includes json.map {|c| c['id']}, enterprise.id
+    assert_includes json.map {|c| c['id']}, community.id
   end
 
   should 'list all communities to logged user' do
@@ -25,7 +25,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
   end
 
   should 'not list invisible communities to logged user' do
@@ -35,7 +35,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [community1.id], json['communities'].map {|c| c['id']}
+    assert_equal [community1.id], json.map {|c| c['id']}
   end
 
   should 'list private communities to logged user' do
@@ -45,7 +45,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
   end
 
   should 'list private communities to logged members' do
@@ -56,7 +56,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
   end
 
   should 'create a community with logged user' do
@@ -64,7 +64,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     params[:community] = {:name => 'some'}
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 'some', json['community']['name']
+    assert_equal 'some', json['name']
   end
 
   should 'return 400 status for invalid community creation to logged user ' do
@@ -80,7 +80,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
+    assert_equal community.id, json['id']
   end
 
   should 'not list invisible community to logged users' do
@@ -88,9 +88,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_nil json["community"]
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'not get private community content to non member' do
@@ -99,8 +97,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_nil json['community']['admins']
+    assert_equal community.id, json['id']
+    assert_nil json['admins']
   end
 
   should 'get private community to logged member' do
@@ -111,8 +109,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     params[:optional_fields] = ['members']
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_not_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_not_nil json['members']
   end
 
   should 'list person communities to logged user' do
@@ -123,7 +121,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community.id], json.map {|c| c['id']}
   end
 
   should 'not list person invisible communities to logged user' do
@@ -135,7 +133,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id], json.map {|c| c['id']}
   end
 
   should 'logged user list communities with pagination' do
@@ -153,11 +151,11 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities?#{params.to_query}"
     json_page_one = JSON.parse(last_response.body)
 
-    assert_includes json_page_one["communities"].map { |a| a["id"] }, community1.id
-    assert_not_includes json_page_one["communities"].map { |a| a["id"] }, community2.id
+    assert_includes json_page_one.map { |a| a["id"] }, community1.id
+    assert_not_includes json_page_one.map { |a| a["id"] }, community2.id
 
-    assert_includes json_page_two["communities"].map { |a| a["id"] }, community2.id
-    assert_not_includes json_page_two["communities"].map { |a| a["id"] }, community1.id
+    assert_includes json_page_two.map { |a| a["id"] }, community2.id
+    assert_not_includes json_page_two.map { |a| a["id"] }, community1.id
   end
 
   should 'list communities with timestamp to logged user' do
@@ -172,8 +170,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["communities"].map { |a| a["id"] }, community1.id
-    assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
+    assert_includes json.map { |a| a["id"] }, community1.id
+    assert_not_includes json.map { |a| a["id"] }, community2.id
   end
 
   should 'anonymous list only communities' do
@@ -182,8 +180,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json['communities'].map {|c| c['id']}, enterprise.id
-    assert_includes json['communities'].map {|c| c['id']}, community.id
+    assert_not_includes json.map {|c| c['id']}, enterprise.id
+    assert_includes json.map {|c| c['id']}, community.id
   end
 
   should 'anonymous list all communities' do
@@ -192,7 +190,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
   end
 
   should 'not list invisible communities to anonymous' do
@@ -201,7 +199,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [community1.id], json['communities'].map {|c| c['id']}
+    assert_equal [community1.id], json.map {|c| c['id']}
   end
 
   should 'list all visible communities except secret ones to anonymous' do
@@ -211,7 +209,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community.id, private_community.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community.id, private_community.id], json.map {|c| c['id']}
   end
 
   should 'list private communities to anonymous' do
@@ -220,7 +218,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
   end
 
   should 'not create a community as an anonymous user' do
@@ -235,14 +233,13 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community, :environment_id => environment.id)
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
+    assert_equal community.id, json['id']
   end
 
   should 'not get invisible community to anonymous user' do
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
     get "/api/v1/communities/#{community.id}"
-    json = JSON.parse(last_response.body)
-    assert json['community'].blank?
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'get private community to anonymous user' do
@@ -250,8 +247,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_nil json['members']
   end
 
   should 'list public person communities to anonymous' do
@@ -261,7 +258,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community.id], json['communities'].map {|c| c['id']}
+    assert_equivalent [community.id], json.map {|c| c['id']}
   end
 
   should 'not list private person communities to anonymous' do
@@ -289,11 +286,11 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities?#{params.to_query}"
     json_page_one = JSON.parse(last_response.body)
 
-    assert_includes json_page_one["communities"].map { |a| a["id"] }, community1.id
-    assert_not_includes json_page_one["communities"].map { |a| a["id"] }, community2.id
+    assert_includes json_page_one.map { |a| a["id"] }, community1.id
+    assert_not_includes json_page_one.map { |a| a["id"] }, community2.id
 
-    assert_includes json_page_two["communities"].map { |a| a["id"] }, community2.id
-    assert_not_includes json_page_two["communities"].map { |a| a["id"] }, community1.id
+    assert_includes json_page_two.map { |a| a["id"] }, community2.id
+    assert_not_includes json_page_two.map { |a| a["id"] }, community1.id
   end
 
   should 'list communities with timestamp to anonymous ' do
@@ -307,8 +304,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     get "/api/v1/communities/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["communities"].map { |a| a["id"] }, community1.id
-    assert_not_includes json["communities"].map { |a| a["id"] }, community2.id
+    assert_includes json.map { |a| a["id"] }, community1.id
+    assert_not_includes json.map { |a| a["id"] }, community2.id
   end
 
   should 'display public custom fields to anonymous' do
@@ -319,8 +316,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['community']['additional_data'].has_key?('Rating')
-    assert_equal "Five stars", json['community']['additional_data']['Rating']
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
   end
 
   should 'not display private custom fields to anonymous' do
@@ -331,7 +328,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json['community']['additional_data'].has_key?('Rating')
+    refute json['additional_data'].has_key?('Rating')
   end
 
   should 'not display members value by default' do
@@ -341,8 +338,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_nil json['members']
   end
 
   should 'display members values if optional field parameter is passed' do
@@ -350,8 +347,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => [:members]}).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_not_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_not_nil json['members']
   end
 
   should 'display members values if optional_fields has members value as string in array' do
@@ -359,8 +356,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => ['members']}).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_not_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_not_nil json['members']
   end
 
   should 'display members values if optional_fields has members value in array' do
@@ -368,8 +365,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => ['members', 'another']}).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_not_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_not_nil json['members']
   end
 
   should 'display members values if optional_fields has members value as string' do
@@ -377,8 +374,8 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{community.id}?#{params.merge({:optional_fields => 'members'}).to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal community.id, json['community']['id']
-    assert_not_nil json['community']['members']
+    assert_equal community.id, json['id']
+    assert_not_nil json['members']
   end
 
 end

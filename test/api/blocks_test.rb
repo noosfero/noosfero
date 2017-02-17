@@ -16,7 +16,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal block.id, json["block"]["id"]
+    assert_equal block.id, json["id"]
   end
 
   should 'get a profile block' do
@@ -24,7 +24,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal block.id, json["block"]["id"]
+    assert_equal block.id, json["id"]
   end
 
   should 'get a profile block for a not logged in user' do
@@ -33,7 +33,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal block.id, json["block"]["id"]
+    assert_equal block.id, json["id"]
   end
 
   should 'not get a profile block for a not logged in user' do
@@ -60,7 +60,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal block.id, json["block"]["id"]
+    assert_equal block.id, json["id"]
   end
 
   should 'get a block for an user with permission in a private profile' do
@@ -70,7 +70,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal block.id, json["block"]["id"]
+    assert_equal block.id, json["id"]
   end
 
   should 'display api content by default' do
@@ -78,7 +78,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["block"].key?('api_content')
+    assert json.key?('api_content')
   end
 
   should 'display api content of a specific block' do
@@ -91,7 +91,7 @@ class BlocksTest < ActiveSupport::TestCase
     block = fast_create(SomeBlock, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal "test", json["block"]["api_content"]["some_content"]["name"]
+    assert_equal "test", json["api_content"]["some_content"]["name"]
   end
 
   should 'display api content of raw html block' do
@@ -101,7 +101,7 @@ class BlocksTest < ActiveSupport::TestCase
     block.save!
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal "<div>test</div>", json["block"]["api_content"]["html"]
+    assert_equal "<div>test</div>", json["api_content"]["html"]
   end
 
   should 'not allow block edition when user has not the permission for profile' do
@@ -119,7 +119,7 @@ class BlocksTest < ActiveSupport::TestCase
     post "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 201, last_response.status
-    assert_equal 'block title', json['block']['title']
+    assert_equal 'block title', json['title']
   end
 
   should 'save custom block parameters' do
@@ -130,7 +130,7 @@ class BlocksTest < ActiveSupport::TestCase
     post "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 201, last_response.status
-    assert_equal 'block content', json['block']['api_content']['html']
+    assert_equal 'block content', json['api_content']['html']
   end
 
   should 'list block permissions when get a block' do
@@ -139,7 +139,7 @@ class BlocksTest < ActiveSupport::TestCase
     give_permission(person, 'edit_profile_design', profile)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["block"]["permissions"], 'allow_edit'
+    assert_includes json["permissions"], 'allow_edit'
   end
 
   should 'get a block with params passed to api content' do
@@ -153,7 +153,7 @@ class BlocksTest < ActiveSupport::TestCase
     params["custom_param"] = "custom_value"
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal "custom_value", json["block"]["api_content"]["custom_param"]
+    assert_equal "custom_value", json["api_content"]["custom_param"]
   end
 
   should 'be able to upload images when updating a block' do
@@ -165,7 +165,7 @@ class BlocksTest < ActiveSupport::TestCase
     post "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 201, last_response.status
-    assert_equal base64_image[:filename], json['block']['images'].first['filename']
+    assert_equal base64_image[:filename], json['images'].first['filename']
     assert_equal 1, block.images.size
   end
 
@@ -191,7 +191,7 @@ class BlocksTest < ActiveSupport::TestCase
     patch "/api/v1/blocks?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal ['block1 title', 'block2 title'], json['blocks'].map {|b| b['title']}
+    assert_equal ['block1 title', 'block2 title'], json.map {|b| b['title']}
   end
 
   should 'return forbidden when at least one block cannot be saved' do
