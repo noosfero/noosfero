@@ -61,7 +61,12 @@ module Api
           options[:only] = Array.wrap(fields)
         end
       end
-      present model, options
+      if params[:count].to_s == 'true' && model.respond_to?(:size)
+        value = {:count => model.size}
+        present value
+      else
+        present model, options
+      end
     end
 
     include FindByContents

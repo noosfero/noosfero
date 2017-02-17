@@ -129,18 +129,6 @@ module Api
           end
         end
 
-        #FIXME see if this is the better place for this endpoint
-        desc "Returns the total followers for the article" do
-          detail 'Get the followers of a specific article by id'
-          failure [[Api::Status::FORBIDDEN, 'Forbidden']]
-          named 'ArticleFollowers'
-        end
-        get ':id/followers' do
-          article = find_article(environment.articles, params)
-          total = article.person_followers.count
-          {:total_followers => total}
-        end
-
         desc "Return the articles followed by me"
         get 'followed_by_me' do
           present_articles_for_asset(current_person, 'following_articles')

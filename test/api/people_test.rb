@@ -604,4 +604,34 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal expected, json
   end
 
+  should 'return the followers of a article identified by id' do
+    person1 = fast_create(Person)
+    article = fast_create(Article, :profile_id => person1.id, :name => "Some thing")
+
+    ArticleFollower.create!(:article_id => article.id, :person_id => person1.id)
+
+    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal 1, json.length
+    assert_equal person1.id, json.first['id']
+  end
+
+  should 'return the amount of followers of a article identified by id' do
+    person1 = fast_create(Person)
+    article = fast_create(Article, :profile_id => person1.id, :name => "Some thing")
+
+    person2 = fast_create(Person)
+    person3 = fast_create(Person)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person1.id)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person2.id)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person3.id)
+
+    params[:count] = true
+    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 3, json['count']
+  end
+
+
 end

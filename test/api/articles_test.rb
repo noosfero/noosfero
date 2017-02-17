@@ -101,21 +101,6 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal 1, json['followers_count']
   end
 
-  should 'return the followers of a article identified by id' do
-    article = fast_create(Article, :profile_id => @person.id, :name => "Some thing")
-
-    article_follower = ArticleFollower.new
-    article_follower.article = article
-    article_follower.person = @person
-    article_follower.save!
-
-    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_equal 200, last_response.status
-    assert_equal 1, json['total_followers']
-  end
-
   should 'list articles followed by me' do
     article1 = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     fast_create(Article, :profile_id => user.person.id, :name => "Some other thing")
@@ -124,7 +109,6 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal [article1.id], json.map { |a| a['id'] }
   end
-
 
   should 'list article children' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
