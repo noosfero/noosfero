@@ -13,8 +13,8 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert 1, json["activities"].count
-    assert_equivalent person.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+    assert 1, json.count
+    assert_equivalent person.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
   should 'not get private community activities' do
@@ -23,7 +23,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_nil json["activities"]
+    assert_not_nil json['message']
     assert_equal 403, last_response.status
   end
 
@@ -34,7 +34,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_nil json["activities"]
+    assert_not_nil json['message']
     assert_equal 403, last_response.status
   end
 
@@ -45,7 +45,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent community.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+    assert_equivalent community.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
   should 'not get other person activities' do
@@ -54,7 +54,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{other_person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_nil json["activities"]
+    assert_not_nil json['message']
     assert_equal 403, last_response.status
   end
 
@@ -65,7 +65,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{other_person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent other_person.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+    assert_equivalent other_person.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
   should 'get activities for non logged user in a public community' do
@@ -74,7 +74,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     community.add_member(person)
     get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent community.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+    assert_equivalent community.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
   should 'not crash api if an scrap activity is in the list' do
@@ -93,7 +93,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_equivalent person.activities.map(&:activity).map(&:id), json["activities"].map{|c| c["id"]}
+    assert_equivalent person.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
   should 'always return the activity verb parameter' do
@@ -102,7 +102,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     create_activity(:target => person)
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 'create_article', json["activities"].last['verb']
+    assert_equal 'create_article', json.last['verb']
   end
 
   should 'scrap activity return leave_scrap verb' do
@@ -111,7 +111,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     create(Scrap, :sender_id => person.id, :receiver_id => person.id)
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent ['create_article', 'leave_scrap'], json["activities"].map{|a|a['verb']}
+    assert_equivalent ['create_article', 'leave_scrap'], json.map{|a|a['verb']}
   end
 
   should 'the content be returned in scrap activities' do
@@ -120,7 +120,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     create(Scrap, :sender_id => person.id, :receiver_id => person.id, :content => content)
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal content, json["activities"].last['content']
+    assert_equal content, json.last['content']
   end
 
   should 'not return the content in other kind of activities except scrap' do
@@ -128,7 +128,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     create_activity(:target => person)
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_nil json["activities"].last['content']
+    assert_nil json.last['content']
   end
 
   should 'list activities with pagination' do
@@ -146,11 +146,11 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json_page_two = JSON.parse(last_response.body)
 
-    assert_includes json_page_one["activities"].map { |a| a["id"] }, a2.id
-    assert_not_includes json_page_one["activities"].map { |a| a["id"] }, a1.id
+    assert_includes json_page_one.map { |a| a["id"] }, a2.id
+    assert_not_includes json_page_one.map { |a| a["id"] }, a1.id
 
-    assert_includes json_page_two["activities"].map { |a| a["id"] }, a1.id
-    assert_not_includes json_page_two["activities"].map { |a| a["id"] }, a2.id
+    assert_includes json_page_two.map { |a| a["id"] }, a1.id
+    assert_not_includes json_page_two.map { |a| a["id"] }, a2.id
   end
 
   should 'list only 20 elements by page if no limit param is passed' do
@@ -160,7 +160,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     end
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 20, json["activities"].length
+    assert_equal 20, json.length
   end
 
   should 'list activities with timestamp' do
@@ -178,8 +178,8 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["activities"].map { |a| a["id"] }, a1.id
-    assert_not_includes json["activities"].map { |a| a["id"] }, a2.id
+    assert_includes json.map { |a| a["id"] }, a1.id
+    assert_not_includes json.map { |a| a["id"] }, a2.id
   end
 
   should 'list activities with timestamp considering timezone' do
@@ -197,8 +197,8 @@ class ActivitiesTest < ActiveSupport::TestCase
     get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["activities"].map { |a| a["id"] }, a1.id
-    assert_not_includes json["activities"].map { |a| a["id"] }, a2.id
+    assert_includes json.map { |a| a["id"] }, a1.id
+    assert_not_includes json.map { |a| a["id"] }, a2.id
   end
 
   def create_activity(params = {})

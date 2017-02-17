@@ -203,7 +203,6 @@ module Api
     end
 
     class ArticleBase < Entity
-      root 'articles', 'article'
       expose :id
       expose :body
       expose :abstract, documentation: {type: 'String', desc: 'Teaser of the body'}
@@ -240,7 +239,6 @@ module Api
     end
 
     class Article < ArticleBase
-      root 'articles', 'article'
       expose :parent, :using => ArticleBase
       expose :children, :using => ArticleBase do |article, options|
         article.children.published.limit(V1::Articles::MAX_PER_PAGE)
@@ -321,7 +319,6 @@ module Api
     end
 
     class Activity < Entity
-      root 'activities', 'activity'
       expose :id, :created_at, :updated_at
       expose :user, :using => Profile
 

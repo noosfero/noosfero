@@ -31,7 +31,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["articles"].map { |a| a["id"] }, article.id
+    assert_includes json.map { |a| a["id"] }, article.id
   end
 
   should 'list all text articles' do
@@ -42,7 +42,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params['content_type']='TextArticle'
     get "api/v1/communities/#{profile.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 3, json['articles'].count
+    assert_equal 3, json.count
   end
 
   should 'get profile homepage' do
@@ -52,7 +52,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{person.id}/home_page?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["article"]["id"]
+    assert_equal article.id, json["id"]
   end
 
   should 'not list forbidden article when listing articles' do
@@ -62,14 +62,14 @@ class ArticlesTest < ActiveSupport::TestCase
 
     get "/api/v1/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json['articles'].map {|a| a['id']}, article.id
+    assert_not_includes json.map {|a| a['id']}, article.id
   end
 
   should 'return article by id' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["article"]["id"]
+    assert_equal article.id, json["id"]
   end
 
   should 'not return article if user has no permission to view it' do
@@ -98,7 +98,7 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
 
     assert_equal 200, last_response.status
-    assert_equal 1, json['article']['followers_count']
+    assert_equal 1, json['followers_count']
   end
 
   should 'return the followers of a article identified by id' do
@@ -122,7 +122,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article1.person_followers << @person
     get "/api/v1/articles/followed_by_me?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [article1.id], json['articles'].map { |a| a['id'] }
+    assert_equal [article1.id], json.map { |a| a['id'] }
   end
 
 
@@ -132,7 +132,7 @@ class ArticlesTest < ActiveSupport::TestCase
     child2 = fast_create(Article, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [child1.id, child2.id], json["articles"].map { |a| a["id"] }
+    assert_equivalent [child1.id, child2.id], json.map { |a| a["id"] }
   end
 
   should 'list all text articles of children' do
@@ -142,7 +142,7 @@ class ArticlesTest < ActiveSupport::TestCase
     child3 = fast_create(TextArticle, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing 3")
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [child1.id, child2.id, child3.id], json["articles"].map { |a| a["id"] }
+    assert_equivalent [child1.id, child2.id, child3.id], json.map { |a| a["id"] }
   end
 
 
@@ -152,7 +152,7 @@ class ArticlesTest < ActiveSupport::TestCase
     child2 = fast_create(Article, :parent_id => article.id, :profile_id => user.person.id, :name => "Some thing")
     get "/api/v1/articles/#{article.id}/children"
     json = JSON.parse(last_response.body)
-    assert_equivalent [child1.id, child2.id], json["articles"].map { |a| a["id"] }
+    assert_equivalent [child1.id, child2.id], json.map { |a| a["id"] }
   end
 
   should 'not list children of forbidden article' do
@@ -186,7 +186,7 @@ class ArticlesTest < ActiveSupport::TestCase
     child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json['articles'].map {|a| a['id']}, child.id
+    assert_not_includes json.map {|a| a['id']}, child.id
   end
 
   should 'perform a vote in a article identified by id' do
@@ -207,7 +207,7 @@ class ArticlesTest < ActiveSupport::TestCase
       article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
       get "/api/v1/articles/?#{params.to_query}"
       json = JSON.parse(last_response.body)
-     assert json["articles"].last.has_key?(attr)
+     assert json.last.has_key?(attr)
     end
   end
 
@@ -250,7 +250,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :parent_id => folder.id, :profile_id => user.person.id)
     get "/api/v1/articles/#{folder.id}/children/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 0, json['article']['hits']
+    assert_equal 0, json['hits']
   end
 
   should 'find archived articles' do
@@ -259,8 +259,8 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:archived] = true
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json["articles"].map { |a| a["id"] }, article1.id
-    assert_includes json["articles"].map { |a| a["id"] }, article2.id
+    assert_not_includes json.map { |a| a["id"] }, article1.id
+    assert_includes json.map { |a| a["id"] }, article2.id
   end
 
   should "update body of article created by me" do
@@ -269,7 +269,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => person.id)
     post "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal new_value, json["article"]["body"]
+    assert_equal new_value, json["body"]
   end
 
   should "update title of article created by me" do
@@ -278,7 +278,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => person.id)
     post "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal new_value, json["article"]["title"]
+    assert_equal new_value, json["title"]
   end
 
   should 'not update article of another user' do
@@ -306,7 +306,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:body => new_value}
     post "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal new_value, json["article"]["body"]
+    assert_equal new_value, json["body"]
   end
 
   should 'list articles with pagination' do
@@ -324,11 +324,11 @@ class ArticlesTest < ActiveSupport::TestCase
     get "/api/v1/articles/?#{params.to_query}"
     json_page_two = JSON.parse(last_response.body)
 
-    assert_includes json_page_one["articles"].map { |a| a["id"] }, article_two.id
-    assert_not_includes json_page_one["articles"].map { |a| a["id"] }, article_one.id
+    assert_includes json_page_one.map { |a| a["id"] }, article_two.id
+    assert_not_includes json_page_one.map { |a| a["id"] }, article_one.id
 
-    assert_includes json_page_two["articles"].map { |a| a["id"] }, article_one.id
-    assert_not_includes json_page_two["articles"].map { |a| a["id"] }, article_two.id
+    assert_includes json_page_two.map { |a| a["id"] }, article_one.id
+    assert_not_includes json_page_two.map { |a| a["id"] }, article_two.id
   end
 
   should 'list articles with timestamp' do
@@ -342,8 +342,8 @@ class ArticlesTest < ActiveSupport::TestCase
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_includes json["articles"].map { |a| a["id"] }, article_one.id
-    assert_not_includes json["articles"].map { |a| a["id"] }, article_two.id
+    assert_includes json.map { |a| a["id"] }, article_one.id
+    assert_not_includes json.map { |a| a["id"] }, article_two.id
   end
 
   #############################
@@ -357,7 +357,7 @@ class ArticlesTest < ActiveSupport::TestCase
       article = fast_create(Article, :profile_id => profile.id, :name => "Some thing")
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.id}?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal article.id, json["article"]["id"]
+      assert_equal article.id, json["id"]
     end
 
     should "not return article by #{kind} if user has no permission to view it" do
@@ -376,7 +376,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_not_includes json['articles'].map {|a| a['id']}, article.id
+      assert_not_includes json.map {|a| a['id']}, article.id
     end
 
     should "return article by #{kind} and path" do
@@ -387,7 +387,7 @@ class ArticlesTest < ActiveSupport::TestCase
       params[:path] = parent_article.slug+'/'+article.slug
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal article.id, json["article"]["id"]
+      assert_equal article.id, json["id"]
     end
 
     should "return an empty array if theres id no article in path of #{kind}" do
@@ -398,7 +398,7 @@ class ArticlesTest < ActiveSupport::TestCase
       params[:path] = 'no-path'
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_nil json["article"]
+      assert json.empty?
     end
 
     should "not return article by #{kind} and path if user has no permission to view it" do
@@ -412,6 +412,31 @@ class ArticlesTest < ActiveSupport::TestCase
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       assert_equal 403, last_response.status
     end
+
+    should "get article in #{kind} by path in articles endpoint be deprecated" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
+      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
+
+      params[:path] = parent_article.slug+'/'+article.slug
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      assert_equal Api::Status::DEPRECATED, last_response.status
+    end
+
+    should "return article by #{kind} and path with key parameter" do
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      folder = Folder.create!(:profile => profile, :name => "Folder")
+      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder", :parent => folder)
+      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
+
+      path = folder.slug + '/' + parent_article.slug+'/'+article.slug
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{path}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal article.id, json["id"]
+    end
+
+
   end
 
   #############################
@@ -426,7 +451,7 @@ class ArticlesTest < ActiveSupport::TestCase
       params[:article] = {:name => "Title"}
       post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal "Title", json["article"]["title"]
+      assert_equal "Title", json["title"]
     end
 
     should "#{kind}: do not create article if user has no permission to post content" do
@@ -445,7 +470,7 @@ class ArticlesTest < ActiveSupport::TestCase
       params[:article] = {:name => "Title", :parent_id => article.id}
       post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal article.id, json["article"]["parent"]["id"]
+      assert_equal article.id, json["parent"]["id"]
     end
 
     should "#{kind} create article with content type passed as parameter" do
@@ -504,7 +529,7 @@ class ArticlesTest < ActiveSupport::TestCase
       post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
 
-      assert_equal profile.id, json['article']['profile']['id']
+      assert_equal profile.id, json['profile']['id']
     end
 
     should "#{kind}: create article defining the created_by" do
@@ -538,7 +563,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => "Title"}
     post "/api/v1/people/#{user.person.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal "Title", json["article"]["title"]
+    assert_equal "Title", json["title"]
   end
 
   should 'person do not create article if user has no permission to post content' do
@@ -554,7 +579,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => "Title", :parent_id => article.id}
     post "/api/v1/people/#{user.person.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["article"]["parent"]["id"]
+    assert_equal article.id, json["parent"]["id"]
   end
 
   should 'person create article with content type passed as parameter' do
@@ -614,7 +639,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:fields] = [:title]
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ['title'], json['articles'].first.keys
+    assert_equal ['title'], json.first.keys
   end
 
   should "create article child" do
@@ -622,7 +647,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => "Title"}
     post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["article"]["parent"]["id"]
+    assert_equal article.id, json["parent"]["id"]
   end
 
   should "do not create article child if user has no permission to post content" do
@@ -662,7 +687,7 @@ class ArticlesTest < ActiveSupport::TestCase
     a3 = fast_create(Article, :parent_id => a1.id, :profile_id => user.person.id)
     get "/api/v1/articles/#{a1.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [1, 1], json['articles'].map { |a| a['hits']}
+    assert_equal [1, 1], json.map { |a| a['hits']}
     assert_equal [0, 1, 1], [a1.reload.hits, a2.reload.hits, a3.reload.hits]
   end
 
@@ -671,7 +696,7 @@ class ArticlesTest < ActiveSupport::TestCase
     a2 = fast_create(Article, :parent_id => a1.id, :profile_id => user.person.id)
     get "/api/v1/articles/#{a1.id}/children/#{a2.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 1, json['article']['hits']
+    assert_equal 1, json['hits']
   end
 
   should 'list all events of a community in a given category' do
@@ -687,7 +712,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params['content_type']='Event'
     get "api/v1/communities/#{co.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['articles'].count, 2
+    assert_equal json.count, 2
   end
 
   should 'list a event of a community in a given category' do
@@ -705,8 +730,8 @@ class ArticlesTest < ActiveSupport::TestCase
     get "api/v1/communities/#{co.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
     #should show only one article, since the other not in the same category
-    assert_equal 1, json['articles'].count
-    assert_equal e1.id, json['articles'][0]['id']
+    assert_equal 1, json.count
+    assert_equal e1.id, json[0]['id']
   end
 
   should 'not list uncategorized event of a community if a category is given' do
@@ -722,8 +747,8 @@ class ArticlesTest < ActiveSupport::TestCase
     params['content_type']='Event'
     get "api/v1/communities/#{co.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 1, json['articles'].count
-    assert_equal e1.id, json['articles'][0]['id']
+    assert_equal 1, json.count
+    assert_equal e1.id, json[0]['id']
   end
 
   should 'list events of a community in a given 2 categories' do
@@ -740,7 +765,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params['categories_ids'] = [c1.id, c2.id]
     get "api/v1/communities/#{co.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['articles'].count, 2
+    assert_equal json.count, 2
   end
 
   should 'Show 2 events since it uses an IN operator for category instead of an OR' do
@@ -758,7 +783,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params['categories_ids'] = [c1.id, c2.id, c3.id]
     get "api/v1/communities/#{co.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['articles'].count, 2
+    assert_equal json.count, 2
   end
 
   ARTICLE_ATTRIBUTES = %w(followers_count votes_count comments_count)
@@ -769,7 +794,7 @@ class ArticlesTest < ActiveSupport::TestCase
       article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
       get "/api/v1/articles/#{article.id}?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_not_nil json['article'][attribute]
+      assert_not_nil json[attribute]
     end
   end
 
@@ -780,12 +805,12 @@ class ArticlesTest < ActiveSupport::TestCase
 
     get "/api/v1/articles/#{article.id}/?#{params.merge(:optional_fields => [:comments]).to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["article"].keys, "comments"
-    assert_equal json["article"]["comments"].first["body"], "another comment"
+    assert_includes json.keys, "comments"
+    assert_equal json["comments"].first["body"], "another comment"
 
     get "/api/v1/articles/#{article.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json["article"].keys, "comments"
+    assert_not_includes json.keys, "comments"
   end
 
   should 'not list private child when get the parent article' do
@@ -794,7 +819,7 @@ class ArticlesTest < ActiveSupport::TestCase
     child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
     get "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json['article']['children'].map {|a| a['id']}, child.id
+    assert_not_includes json['children'].map {|a| a['id']}, child.id
   end
 
   should 'list article permissions when get an article' do
@@ -803,7 +828,7 @@ class ArticlesTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => community.id)
     get "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["article"]["permissions"], 'allow_post_content'
+    assert_includes json["permissions"], 'allow_post_content'
   end
 
   should 'return only article fields defined in parameter' do
@@ -812,7 +837,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:fields] = {:only => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent ['id', 'title'], json["articles"].first.keys
+    assert_equivalent ['id', 'title'], json.first.keys
   end
 
   should 'return all article fields except the ones defined in parameter' do
@@ -821,8 +846,8 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:fields] = {:except => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_not_includes json["articles"].first.keys, 'id'
-    assert_not_includes json["articles"].first.keys, 'title'
+    assert_not_includes json.first.keys, 'id'
+    assert_not_includes json.first.keys, 'title'
   end
 
 end
