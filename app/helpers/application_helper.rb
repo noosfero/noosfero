@@ -958,7 +958,7 @@ module ApplicationHelper
     elsif page.reference_article
       source_url = link_to(page.reference_article.profile.name, page.reference_article.url)
     end
-    content_tag(:div, _('Source: %s') % source_url.html_safe, :id => 'article-source') unless source_url.nil?
+    content_tag(:div, _('Source: %s').html_safe % source_url.html_safe, :id => 'article-source') unless source_url.nil?
   end
 
   def task_information(task, params = {})
