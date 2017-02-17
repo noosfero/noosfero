@@ -7,7 +7,7 @@
       <%= _('Item') %>
     </th>
     <th class='cart-table-quantity' <%= "align='center'" if by_mail %>>
-      <%= if by_mail then '&nbsp;'+_('Qtty')+'&nbsp;' else _('Qtty') end %>
+      <%= if by_mail then ('&nbsp;'+_('Qtty')+'&nbsp;').html_safe else _('Qtty') end %>
     </th>
     <th class='cart-table-price' <%= "align='center'" if by_mail %>>
       <%= _('Unit price') + " (#{@environment.currency_unit})" %>

@@ -7,12 +7,12 @@
   = labelled_field f, :delivery_type, t('delivery_plugin.models.method.delivery_type'),
     f.select(:delivery_type, DeliveryPlugin::Method::Types.map{ |t| [t("delivery_plugin.models.method.#{t}"), t] },
       onchange: 'delivery.method.changeType(this)', onkeyup: 'this.onchange()'),
-    help: t('delivery_plugin.models.method.delivery_type_help')
+    help: t('delivery_plugin.models.method.delivery_type_help').html_safe
 
   = labelled_field f, :name, t('delivery_plugin.models.method.name'), f.text_field(:name),
-    help: t('delivery_plugin.models.method.name_help')
+    help: t('delivery_plugin.models.method.name_help').html_safe
   = labelled_field f, :description, t('delivery_plugin.models.method.instructions'),
-    f.text_area(:description, rows: 5, class: current_editor('simple')), help: t('delivery_plugin.models.method.instructions_help')
+    f.text_area(:description, rows: 5, class: current_editor('simple')), help: t('delivery_plugin.models.method.instructions_help').html_safe
 
   fieldset
     legend= t'delivery_plugin.models.method.costs_legend'
