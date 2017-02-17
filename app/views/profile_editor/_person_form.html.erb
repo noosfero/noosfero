@@ -31,7 +31,7 @@
   <%= optional_field(@person, field[:name], labelled_form_field(field[:label], text_field(field[:object_name], field[:method], :rel => field[:label], :value => field[:value]))) %>
 <% end %>
 
-<% optional_field(@person, 'schooling') do %>
+<%= optional_field(@person, 'schooling') do %>
   <div class="formfieldline">
     <label class='formlabel' for='profile_data_schooling'><%= _('Schooling') %></label>
     <div class="formfield type-select">
