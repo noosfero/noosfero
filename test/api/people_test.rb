@@ -633,5 +633,64 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal 3, json['count']
   end
 
+  #####
+  
+  ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]
 
+  ATTRIBUTES.map do |attr|
+
+    define_method "test_should_show_#{attr}_if_it_is_a_public_attribute_to_logged_user" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'public'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr.to_s)
+      assert_equal json[attr.to_s],target_person.send(attr)
+    end
+  
+    define_method "test_should_not_show_#{attr}_if_it_is_an_private_attribute_to_logged_user_without_permission" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert !json.has_key?(attr.to_s)
+    end
+  
+    define_method "test_should_not_show_#{attr}_if_it_is_an_private_attribute_to_logged_user_with_permission" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+      target_person.add_friend(person)
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr.to_s)
+    end
+  
+    define_method "test_should_not_show_email_if_it_is_a_private_attribute_to_logged_off_user" do
+      logout_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert !json.has_key?(attr.to_s)
+    end
+  end
 end

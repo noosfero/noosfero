@@ -149,6 +149,13 @@ module Api
     class Person < Profile
       expose :user, :using => UserBasic, documentation: {type: 'User', desc: 'The user data of a person' }
       expose :vote_count
+
+      attrs = [:email, :country, :state, :city, :nationality, :formation, :schooling]
+      attrs.each do |attribute|
+        name = attribute
+        expose attribute, :as => name, :if => lambda{|person,options| Entities.can_display_profile_field?(person, options, {:field =>  attribute})}
+      end
+
       expose :comments_count do |person, options|
         person.comments.count
       end
