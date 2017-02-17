@@ -2,7 +2,12 @@
 <% if allow_scrap? %>
   <div id='leave_scrap'>
   <%= flash[:error] %>
-  <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :tab_action => 'wall' }, :update => 'profile_activities', :success => "jQuery('#leave_scrap_content').val(''); jQuery('#filter-followed').tokenInput('clear')", :complete => "jQuery('#leave_scrap_form').removeClass('loading').find('*').attr('disabled', false)", :loading => "jQuery('#leave_scrap_form').addClass('loading').find('*').attr('disabled', true)", :html => {:id => 'leave_scrap_form' } do %>
+  <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :tab_action => 'wall' },
+                      :update => 'profile_activities',
+                      :success => "jQuery('#leave_scrap_content').val(''); if (jQuery('#filter-followed').length) jQuery('#filter-followed').tokenInput('clear')",
+                      :complete => "jQuery('#leave_scrap_form').removeClass('loading').find('*').attr('disabled', false)",
+                      :loading => "jQuery('#leave_scrap_form').addClass('loading').find('*').attr('disabled', true)",
+                      :html => {:id => 'leave_scrap_form' } do %>
     <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :rows => 2, :class => 'autogrow' %>
     <% if profile == user %>
       <%= token_input_field_tag(:filter_followed, 'filter-followed', {:action => 'search_followed'}, {:theme => 'facebook', :placeholder => _('Filter followed, friends or group of friends to send them a private scrap...')}) %>
