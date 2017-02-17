@@ -25,7 +25,7 @@ Feature: manage categories
     Given I go to /admin/categories/new
       And I fill in "Name" with "Category 1"
      When I press "Save"
-     Then I should see "Categories"
+     Then I should see "General categories"
       And I should see "Category 1"
 
   @selenium

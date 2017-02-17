@@ -49,7 +49,7 @@ class Category < ApplicationRecord
   scope :from_types, -> types {
     if types.select{ |t| t.blank? }.empty? then
       where(type: types) else
-      where("type IN (?) OR type IS NULL", types.reject{ |t| t.blank? }) end
+      where("type IN (?) OR type='Category'", types.reject{ |t| t.blank? }) end
   }
 
   def recent_people(limit = 10)

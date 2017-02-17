@@ -1,25 +1,19 @@
 class CategoriesController < AdminController
+  include CategoriesHelper
 
   protect 'manage_environment_categories', :environment
 
   helper :categories
-
-  def index
-    @categories = environment.categories.where("parent_id is null AND type is null")
-    @regions = environment.regions.where(:parent_id => nil)
-  end
 
   def get_children
     children = Category.find(params[:id]).children
     render :partial => 'category_children', :locals => {:children => children}
   end
 
-  ALLOWED_TYPES = CategoriesHelper::TYPES.map {|item| item[1] }
-
   # posts back
   def new
     type = (params[:type] || params[:parent_type] || 'Category')
-    raise 'Type not allowed' unless ALLOWED_TYPES.include?(type)
+    raise 'Type not allowed' unless allowed_types.include?(type)
 
     @category = type.constantize.new(params[:category])
     @category.environment = environment
@@ -67,6 +61,10 @@ class CategoriesController < AdminController
     if @saved && request.post? && @category.display_in_menu?
       expire_fragment(:controller => 'public', :action => 'categories_menu')
     end
+  end
+
+  def allowed_types
+    category_types.map {|item| item[1] }
   end
 
 end

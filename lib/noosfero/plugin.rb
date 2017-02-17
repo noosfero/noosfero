@@ -516,9 +516,11 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Adds a block with extra categories
-  # returns = lambda block that creates html code.
-  def extra_categories
+  # -> Adds custom category types
+  # returns = [ [category_name, category_type], ... ]
+  #   category_name = The name of the category to be displayed
+  #   category_type = The type of the custom category (the class name)
+  def extra_category_types(plural)
     nil
   end
 

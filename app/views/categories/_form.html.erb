@@ -11,7 +11,7 @@
   <% if @category.new_record? %>
     <% if @category.parent %>
       <%= hidden_field_tag('parent_id', @category.parent.id) %>
-      <%= hidden_field_tag('parent_type', @category.parent.class.name) %>
+      <%= hidden_field_tag('parent_type', @category.parent.class.sti_name) %>
     <% else %>
         <%= select_category_type :type %>
     <% end %>

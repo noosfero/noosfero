@@ -18,7 +18,7 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 		assert_tag :tag => 'a', :attributes => { :href =>	'/admin/categories/new?type=ProductCategory'}
 	end
 
-	should 'do not display products categories when plugin is disabled' do 
+	should 'do not display products categories when plugin is disabled' do
 		@environment = Environment.default
     @environment.disable_plugin('ProductsPlugin')
     @environment.save!
@@ -31,7 +31,7 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 	should 'list products categories correctely' do
 		@environment = Environment.default
     @environment.enable_plugin('ProductsPlugin')
-    @environment.save!		
+    @environment.save!
 
     @product_category = create ProductsPlugin::ProductCategory, name: 'Products'
     @product_category = create ProductsPlugin::ProductCategory, name: 'Test'

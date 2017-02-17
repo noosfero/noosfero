@@ -1,11 +1,5 @@
 class CategoriesBlock < Block
 
-  CATEGORY_TYPES = {
-    _('Generic category') => nil,
-    _('Region') => 'Region',
-    _('Product') => 'ProductCategory'
-  }
-
   settings_items :category_types, :type => Array, :default => []
 
   attr_accessible :category_types
@@ -20,10 +14,6 @@ class CategoriesBlock < Block
 
   def help
     _('This block presents the categories like a web site menu.')
-  end
-
-  def available_category_types
-    CATEGORY_TYPES
   end
 
   def selected_categories

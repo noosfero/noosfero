@@ -33,11 +33,8 @@ module ProductsPlugin
       [EnterpriseHomepage] if context.kind_of?(Enterprise)
     end
 
-    def extra_categories
-      products = Category.where(type: 'ProductCategory')
-      proc do
-        render :partial => 'products_plugin/admin/categories/product_categories', :locals => {:categories => products}
-      end
+    def extra_category_types(plural)
+      [ [ n_('Product category', 'Product categories', plural), ProductCategory.sti_name ] ]
     end
 
   end
