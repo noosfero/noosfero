@@ -31,7 +31,7 @@ class CategoriesHelperTest < ActiveSupport::TestCase
     categories = mock
     categories.stubs(:where).returns([])
 
-    Environment.any_instance.expects(:try).with("Regions").returns(categories)
+    Environment.any_instance.expects(:try).with("regions").returns(categories)
     Environment.any_instance.expects(:categories).never
 
     root_categories_for('Region')

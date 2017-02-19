@@ -90,3 +90,71 @@ div#category-ajax-selector {
     }
   }
 }
+
+.categories-wrapper {
+  ul {
+    list-style: none;
+
+    &.categories-list {
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    li {
+      padding: 10px 0 10px 15px;
+      background-color: #f5f5f5;
+
+      &:nth-child(odd) {
+        background-color: #f0f0f0;
+      }
+
+      &:hover {
+        border-left: 5px solid #ccc;
+        padding-left: 10px;
+      }
+
+      .category-name {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        background-color: #777;
+        border-radius: 2px;
+        font-style: normal;
+        color: white;
+        text-transform: capitalize;
+
+        .color_marker {
+          border: none;
+          width: 15px;
+          margin-right: 5px;
+        }
+      }
+
+      .show-button, .hide-button {
+        margin-left: 5px;
+      }
+
+      .category-actions {
+        margin-top: 3px;
+
+        a {
+          font-size: 11px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      li {
+        border-left: 1px solid #aaa;
+        padding-top: 15px;
+
+        &:hover {
+          border-left: 1px solid #aaa;
+          padding-left: 15px;
+        }
+      }
+    }
+  }
+}

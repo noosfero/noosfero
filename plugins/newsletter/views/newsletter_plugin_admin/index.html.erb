@@ -71,9 +71,7 @@
   <%= _('Layout') %>
   </h2>
 
-  <%= f.fields_for :image_builder, @newsletter.image do |i| %>
-    <%= file_field_or_thumbnail(_('Header image (images with 640px width):'), @newsletter.image, i) %>
-  <% end %>
+  <%= file_field_or_thumbnail(_('Header image (images with 640px width):'), @newsletter.image, 'newsletter[image_builder]') %>
 
   <%= labelled_form_field(
     content_tag('h3', ui_icon('ui-icon-triangle-1-s') +

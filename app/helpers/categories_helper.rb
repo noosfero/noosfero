@@ -9,7 +9,7 @@ module CategoriesHelper
   end
 
   def root_categories_for(category_type)
-    categories = environment.try(category_type.pluralize) ||
+    categories = environment.try(category_type.underscore.pluralize) ||
                  environment.categories.where("type='#{category_type}'")
     categories.where(parent_id: nil)
   end

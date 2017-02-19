@@ -375,7 +375,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal 2, c.children.size
   end
 
-  should 'get categories by type including nil' do
+  should 'get categories by type including default type' do
     category = create(Category, :name => 'test category', :environment => Environment.default)
     region = create(Region, :name => 'test region', :environment => Environment.default)
     result = Category.from_types(['City', '']).all
@@ -383,7 +383,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert result.include?(category)
   end
 
-  should 'get categories by type and not nil' do
+  should 'get categories by type and not default type' do
     category = create(Category, :name => 'test category', :environment => Environment.default)
     region = create(Region, :name => 'test region', :environment => Environment.default)
     result = Category.from_types(['Region', 'City']).all

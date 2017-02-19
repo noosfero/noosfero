@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(version: 20170805065322) do
     t.text    "path",                      default: ""
     t.integer "environment_id"
     t.integer "parent_id"
-    t.string  "type"
+    t.string  "type",                      default: 'Category'
     t.float   "lat"
     t.float   "lng"
     t.boolean "display_in_menu",           default: false

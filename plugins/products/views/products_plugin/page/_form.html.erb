@@ -7,9 +7,7 @@
   <%= display_form_field( _('Price:'), f.text_field(:price) ) %>
   <%= display_form_field( _('Description:'), f.text_area(:description, :rows => 10, :class => current_editor('simples')) ) %>
   <%= labelled_form_field(f.check_box(:highlighted) + _('Highlight this product'),'') %>
-  <%= f.fields_for :image_builder, @product.image do |i| %>
-    <%= file_field_or_thumbnail(_('Image:'), @product.image, i) %>
-  <% end %>
+  <%= file_field_or_thumbnail(_('Image:'), @product.image, 'product[image_builder]') %>
 
   <%= button_bar do %>
     <%= submit_button('save', (mode == 'new' ? _('Create product') : _('Save changes')), :cancel => {:action => 'index'} ) %>
