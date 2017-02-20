@@ -4,14 +4,14 @@ module Api
       resource :articles do
         resource ':id/tags' do
           get do
-            article = find_article(environment.articles, params)
+            article = find_article(environment.articles, {:id => params[:id]})
             present_partial article.tag_list, {}
           end
 
           desc "Add a tag to an article"
           post do
             authenticate!
-            article = find_article(environment.articles, params)
+            article = find_article(environment.articles, {:id => params[:id]})
             article.tag_list=params[:tags]
             article.save
             present_partial article.tag_list, {}

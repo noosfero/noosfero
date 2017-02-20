@@ -72,7 +72,7 @@ module Api
           named 'ArticleReportAbuse'
         end
         post ':id/report_abuse' do
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]})
           profile = article.profile
           begin
             abuse_report = AbuseReport.new(:reason => params[:report_abuse])
@@ -120,7 +120,7 @@ module Api
           value = (params[:value] || 1).to_i
           # FIXME verify allowed values
           render_api_error!('Vote value not allowed', Api::Status::BAD_REQUEST) unless [-1, 1].include?(value)
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]})
           begin
             vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
             {:vote => vote.save!}
@@ -142,7 +142,7 @@ module Api
         end
         post ':id/follow' do
           authenticate!
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]})
           if article.article_followers.exists?(:person_id => current_person.id)
             {:success => false, :already_follow => true}
           else
@@ -163,7 +163,7 @@ module Api
 
         paginate per_page: MAX_PER_PAGE, max_per_page: MAX_PER_PAGE
         get ':id/children' do
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]})
 
           #TODO make tests for this situation
           votes_order = params.delete(:order) if params[:order]=='votes_score'
@@ -186,7 +186,7 @@ module Api
           named 'ArticleChild'
         end
         get ':id/children/:child_id' do
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]})
           child_params = {}
           child_params[:id] = params[:child_id]
           child = find_article(article.children, child_params)

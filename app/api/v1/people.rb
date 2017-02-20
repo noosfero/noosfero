@@ -188,7 +188,7 @@ module Api
           named 'ArticleFollowers'
         end
         get ':id/followers' do
-          article = find_article(environment.articles, params)
+          article = find_article(environment.articles, {:id => params[:id]} )
           people = article.person_followers
           present_partial people, :with => Entities::Person, :current_person => current_person
         end
