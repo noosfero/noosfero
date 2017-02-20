@@ -28,7 +28,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def profiles
-    owner.communities
+    owner.communities.no_templates
   end
 
   def api_content(params = {})
