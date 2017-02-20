@@ -37,7 +37,7 @@ module ProfileImageHelper
             '/images/icons-app/enterprise-'+ size.to_s() +'.png'
           end
         else
-          pixels = Image.attachment_options[:thumbnails][size].split('x').first
+          pixels = Image.attachment_options[:thumbnails][size.to_sym].split('x').first
           gravatar_profile_image_url(
             profile.email,
             :size => pixels,
