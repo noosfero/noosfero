@@ -14,10 +14,18 @@ module Api
         get ':id' do
           profiles = environment.profiles
           profiles = profiles.visible
-          profile = profiles.find_by id: params[:id]
+          key = params[:key].to_s == "identifier" ? :identifier : :id
+
+          profile = profiles.find_by key => params[:id]
 
           if profile
-            present profile, :with => Entities::Profile, :current_person => current_person
+            type_map = {
+              Person => Entities::Person, 
+              Community => Entities::Community,
+              Enterprise => Entities::Enterprise
+            }[profile.class] || Entities::Profile
+
+            present profile, :with => type_map, :current_person => current_person
           else
             not_found!
           end

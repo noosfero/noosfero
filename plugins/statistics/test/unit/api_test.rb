@@ -22,7 +22,7 @@ class ApiTest < ActiveSupport::TestCase
       StatisticsBlock.any_instance.stubs(counter_method).returns(20)
       get "/api/v1/profiles/#{person.id}/boxes?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      statistics = json['boxes'].first['blocks'].first['statistics']
+      statistics = json.first['blocks'].first['statistics']
       statistic_for_method = statistics.select {|statistic| statistic if statistic['name'].eql? counter_method.to_s }
       assert_equal statistic_for_method.first['quantity'], 20
     end
@@ -36,7 +36,7 @@ class ApiTest < ActiveSupport::TestCase
       StatisticsBlock.any_instance.stubs(counter_method).returns(20)
       get "/api/v1/profiles/#{person.id}/boxes?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      statistics = json['boxes'].first['blocks'].first['statistics']
+      statistics = json.first['blocks'].first['statistics']
       statistic_for_method = statistics.select {|statistic| statistic if statistic['name'].eql? counter_method.to_s }
       assert_nil statistic_for_method.first["quantity"]
     end

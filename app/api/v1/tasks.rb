@@ -24,7 +24,8 @@ module Api
 
         desc "Return the task id"
         get ':id' do
-          present_task(current_person, Task.to(current_person))
+          task = find_task(current_person, Task.to(current_person), params[:id])
+          present_partial task, :with => Entities::Task
         end
 
         %w[finish cancel].each do |action|
@@ -49,13 +50,14 @@ module Api
             resource :tasks do
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
-                tasks = Task.to(profile)
-                present_tasks_for_asset(profile, tasks)
+                tasks = find_tasks(profile, Task.to(current_person))
+                present_partial tasks, :with => Entities::Task
               end
 
               get ':id' do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
-                present_task(profile)
+                task = find_task(profile, :tasks, params[:id])
+                present_partial task, :with => Entities::Task
               end
 
               post do

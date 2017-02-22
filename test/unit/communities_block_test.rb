@@ -16,15 +16,16 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list owner communities' do
+    owner = fast_create(Person)
+    community1 = fast_create(Community)
+    community2 = fast_create(Community)
+    community1.add_member(owner)
+    community2.add_member(owner)
+
     block = CommunitiesBlock.new
-
-    owner = mock
-    block.stubs(:owner).returns(owner)
-
-    list = []
-    owner.stubs(:communities).returns(list)
-
-    assert_same list, block.profiles
+    block.expects(:owner).returns(owner).at_least_once
+    json = block.api_content
+    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map {|p| p[:identifier]}
   end
 
   should 'list non-public communities' do
@@ -117,4 +118,17 @@ class CommunitiesBlockViewTest < ActionView::TestCase
     assert_equal 3, json["communities"].size
     assert_equal 5, json["#"]
   end
+
+  should 'not list communities templates in api content' do
+    owner = fast_create(Person)
+    community1 = fast_create(Community)
+    community2 = fast_create(Community, :is_template => true)
+    community1.add_member(owner)
+    community2.add_member(owner)
+    block = CommunitiesBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    json = block.api_content
+    assert_equivalent [community1.identifier], json["communities"].map {|p| p[:identifier]}
+  end
+
 end

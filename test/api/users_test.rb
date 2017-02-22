@@ -11,14 +11,14 @@ class UsersTest < ActiveSupport::TestCase
     login_api
     get "/api/v1/users/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["users"].map { |a| a["login"] }, user.login
+    assert_includes json.map { |a| a["login"] }, user.login
   end
 
   should 'logger user get user info' do
     login_api
     get "/api/v1/users/#{user.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal user.id, json['user']['id']
+    assert_equal user.id, json['id']
   end
 
   should 'logger user list user permissions' do
@@ -27,14 +27,14 @@ class UsersTest < ActiveSupport::TestCase
     community.add_admin(person)
     get "/api/v1/users/#{user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["user"]["permissions"], community.identifier
+    assert_includes json["permissions"], community.identifier
   end
 
   should 'get logged user' do
     login_api
     get "/api/v1/users/me?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal user.id, json['user']['id']
+    assert_equal user.id, json['id']
   end
 
   should 'not show permissions to logged user' do
@@ -42,14 +42,14 @@ class UsersTest < ActiveSupport::TestCase
     target_user = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment)
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json["user"].has_key?("permissions")
+    refute json.has_key?("permissions")
   end
 
   should 'logger user show permissions to self' do
     login_api
     get "/api/v1/users/#{user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["user"].has_key?("permissions")
+    assert json.has_key?("permissions")
   end
 
   should 'not show permissions to friend' do
@@ -61,7 +61,7 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json["user"].has_key?("permissions")
+    refute json.has_key?("permissions")
   end
 
   should 'not show private attribute to logged user' do
@@ -71,8 +71,8 @@ class UsersTest < ActiveSupport::TestCase
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_nil json['user']['email']
-    assert_nil json['user']['person']
+    assert_nil json['email']
+    assert_nil json['person']
   end
 
   should 'show private attr to friend' do
@@ -83,8 +83,8 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["user"].has_key?("email")
-    assert_equal target_person.email, json["user"]["email"]
+    assert json.has_key?("email")
+    assert_equal target_person.email, json["email"]
   end
 
   should 'show public attribute to logged user' do
@@ -97,8 +97,8 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["user"].has_key?("email")
-    assert_equal json["user"]["email"],target_person.email
+    assert json.has_key?("email")
+    assert_equal json["email"],target_person.email
   end
 
   should 'show public and private field to admin' do
@@ -111,9 +111,9 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["user"].has_key?("email")
-    assert json["user"].has_key?("permissions")
-    assert json["user"].has_key?("activated")
+    assert json.has_key?("email")
+    assert json.has_key?("permissions")
+    assert json.has_key?("activated")
   end
 
   should 'show public fields to anonymous' do
@@ -125,7 +125,7 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json["user"].has_key?("email")
+    assert json.has_key?("email")
   end
 
   should 'hide private fields to anonymous' do
@@ -133,8 +133,8 @@ class UsersTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json["user"].has_key?("permissions")
-    refute json["user"].has_key?("activated")
+    refute json.has_key?("permissions")
+    refute json.has_key?("activated")
   end
 
 end

@@ -5,6 +5,9 @@ module Api
   module Helpers
     PRIVATE_TOKEN_PARAM = :private_token
     ALLOWED_PARAMETERS = [:parent_id, :from, :until, :content_type, :author_id, :identifier, :archived, :status]
+    ALLOWED_KEY_PARAMETERS = {
+      Article => [:path]
+    }
 
     include SanitizeParams
     include Noosfero::Plugin::HotSpot
@@ -58,7 +61,12 @@ module Api
           options[:only] = Array.wrap(fields)
         end
       end
-      present model, options
+      if params[:count].to_s == 'true' && model.respond_to?(:size)
+        value = {:count => model.size}
+        present value
+      else
+        present model, options
+      end
     end
 
     include FindByContents
@@ -99,8 +107,9 @@ module Api
       end
     end
 
-    def find_article(articles, id)
-      article = articles.find(id)
+    def find_article(articles, params)
+      conditions = make_conditions_with_parameter(params, Article)
+      article = articles.find_by(conditions)
       article.display_to?(current_person) ? article : forbidden!
     end
 
@@ -122,7 +131,7 @@ module Api
     end
 
     def present_article(asset)
-      article = find_article(asset.articles, params[:id])
+      article = find_article(asset.articles, params)
       present_partial article, with: Entities::Article, params: params, current_person: current_person
     end
 
@@ -216,8 +225,8 @@ module Api
       present_partial activities, :with => Entities::Activity, :current_person => current_person
     end
 
-    def make_conditions_with_parameter(params = {})
-      parsed_params = parser_params(params)
+    def make_conditions_with_parameter(params = {}, class_type = nil)
+      parsed_params = class_type.nil? ? parser_params(params) : parser_params_by_type(class_type, params)
       conditions = {}
       from_date = DateTime.parse(parsed_params.delete(:from)) if parsed_params[:from]
       until_date = DateTime.parse(parsed_params.delete(:until)) if parsed_params[:until]
@@ -470,6 +479,17 @@ module Api
       parsed_params = {}
       params.map do |k,v|
         parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
+      end
+      parsed_params
+    end
+
+    def parser_params_by_type(class_type, params)
+      parsed_params = parser_params(params)
+      key = params[:key].to_sym if params[:key].present?
+      if key.present? && ALLOWED_KEY_PARAMETERS[class_type].include?(key)
+         parsed_params[key] = params[:id]
+      else
+         parsed_params[:id] = params[:id]
       end
       parsed_params
     end

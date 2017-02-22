@@ -51,9 +51,9 @@ class ActiveSupport::TestCase
 
   private
 
-  def json_response_ids(kind)
+  def json_response_ids(kind = nil)
     json = JSON.parse(last_response.body)
-    json[kind.to_s].map {|c| c['id']}
+    kind.nil? ? json.map {|c| c['id']} : json[kind.to_s].map {|c| c['id']}
   end
 
 end

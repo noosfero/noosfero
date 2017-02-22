@@ -7,6 +7,7 @@ class DomainsTest < ActiveSupport::TestCase
   end
 
   should 'return all domains' do
+    Domain.delete_all
     environment = Environment.default
     profile = fast_create(Profile, name: 'save-free-software')
     domain1 = create(Domain, name: 'test1.org', owner: environment)
@@ -35,5 +36,14 @@ class DomainsTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal domain.id, json['id']
   end
+
+  should 'paginate domains' do
+    environment = Environment.default
+    profile = fast_create(Profile, name: 'save-free-software')
+    1.upto(30){|n| create(Domain, name: "test#{n}.org", owner: profile)}
+    get "/api/v1/domains"
+    assert_equal 20, json_response_ids.length
+  end
+
 
 end

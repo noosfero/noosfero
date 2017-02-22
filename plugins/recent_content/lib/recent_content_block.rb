@@ -50,7 +50,7 @@ class RecentContentBlock < Block
 
   def api_content(params = {})
     children = self.articles_of_folder(self.root, self.total_items)
-    Api::Entities::ArticleBase.represent(children).as_json
+    {:articles => Api::Entities::ArticleBase.represent(children)}.as_json
   end
 
   def display_api_content_by_default?

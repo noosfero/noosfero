@@ -72,7 +72,7 @@ module Api
           named 'ArticleReportAbuse'
         end
         post ':id/report_abuse' do
-          article = find_article(environment.articles, params[:id])
+          article = find_article(environment.articles, {:id => params[:id]})
           profile = article.profile
           begin
             abuse_report = AbuseReport.new(:reason => params[:report_abuse])
@@ -120,24 +120,13 @@ module Api
           value = (params[:value] || 1).to_i
           # FIXME verify allowed values
           render_api_error!('Vote value not allowed', Api::Status::BAD_REQUEST) unless [-1, 1].include?(value)
-          article = find_article(environment.articles, params[:id])
+          article = find_article(environment.articles, {:id => params[:id]})
           begin
             vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
             {:vote => vote.save!}
           rescue ActiveRecord::RecordInvalid => e
             render_api_error!(e.message, Api::Status::BAD_REQUEST)
           end
-        end
-
-        desc "Returns the total followers for the article" do
-          detail 'Get the followers of a specific article by id'
-          failure [[Api::Status::FORBIDDEN, 'Forbidden']]
-          named 'ArticleFollowers'
-        end
-        get ':id/followers' do
-          article = find_article(environment.articles, params[:id])
-          total = article.person_followers.count
-          {:total_followers => total}
         end
 
         desc "Return the articles followed by me"
@@ -153,7 +142,7 @@ module Api
         end
         post ':id/follow' do
           authenticate!
-          article = find_article(environment.articles, params[:id])
+          article = find_article(environment.articles, {:id => params[:id]})
           if article.article_followers.exists?(:person_id => current_person.id)
             {:success => false, :already_follow => true}
           else
@@ -174,7 +163,7 @@ module Api
 
         paginate per_page: MAX_PER_PAGE, max_per_page: MAX_PER_PAGE
         get ':id/children' do
-          article = find_article(environment.articles, params[:id])
+          article = find_article(environment.articles, {:id => params[:id]})
 
           #TODO make tests for this situation
           votes_order = params.delete(:order) if params[:order]=='votes_score'
@@ -197,8 +186,10 @@ module Api
           named 'ArticleChild'
         end
         get ':id/children/:child_id' do
-          article = find_article(environment.articles, params[:id])
-          child = find_article(article.children, params[:child_id])
+          article = find_article(environment.articles, {:id => params[:id]})
+          child_params = {}
+          child_params[:id] = params[:child_id]
+          child = find_article(article.children, child_params)
           child.hit
           present_partial child, :with => Entities::Article
         end
@@ -272,6 +263,8 @@ module Api
                   if article && !article.display_to?(current_person)
                     article = forbidden!
                   end
+                  article ||= []
+                  status Api::Status::DEPRECATED
 
                   present_partial article, :with => Entities::Article, current_person: current_person
                 else
@@ -287,7 +280,7 @@ module Api
                 failure [[Api::Status::FORBIDDEN, 'Forbidden']]
                 named 'ArticleOfProfile'
               end
-              get ':id' do
+              get '/*id' do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
                 present_article(profile)
               end

@@ -22,4 +22,4 @@ end
 run Rack::Cascade.new([
   Api::App,
   rails_app
-])
+], [])

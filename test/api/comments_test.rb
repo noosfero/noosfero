@@ -44,7 +44,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal 2, json["comments"].length
+    assert_equal 2, json.length
   end
 
   should 'logged user return comment of an article' do
@@ -55,7 +55,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal comment.id, json['comment']['id']
+    assert_equal comment.id, json['id']
   end
 
   should 'logged user comment an article' do
@@ -67,7 +67,7 @@ class CommentsTest < ActiveSupport::TestCase
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 201, last_response.status
-    assert_equal body, json['comment']['body']
+    assert_equal body, json['body']
   end
 
   should 'not create comment when an article does not accept comments' do
@@ -118,7 +118,7 @@ class CommentsTest < ActiveSupport::TestCase
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
+    assert_equal ["comment 2"], json.map {|c| c["body"]}
   end
 
   should 'anonymous do not return comments marked as spam' do
@@ -127,7 +127,7 @@ class CommentsTest < ActiveSupport::TestCase
     c2 = fast_create(Comment, source_id: article.id, body: "comment 2")
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ["comment 2"], json["comments"].map {|c| c["body"]}
+    assert_equal ["comment 2"], json.map {|c| c["body"]}
   end
 
   should 'not list comments if anonymous has no permission to view the source article' do
@@ -146,7 +146,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal 2, json["comments"].length
+    assert_equal 2, json.length
   end
 
   should 'return comment of an article for anonymous' do
@@ -156,7 +156,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal comment.id, json['comment']['id']
+    assert_equal comment.id, json['id']
   end
 
   should 'anonymous user not comment an article' do
@@ -180,7 +180,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal 3, json["comments"].length
+    assert_equal 3, json.length
   end
 
   should 'logged user return only root comments' do
@@ -193,7 +193,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal [comment1.id], json["comments"].map { |c| c['id'] }
+    assert_equal [comment1.id], json.map { |c| c['id'] }
   end
 
   should 'delete comment successfully' do
@@ -203,7 +203,7 @@ class CommentsTest < ActiveSupport::TestCase
     delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_equal comment.id, json['comment']['id']
+    assert_equal comment.id, json['id']
     assert_not_includes article.comments, comment
   end
 
@@ -253,7 +253,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_includes json["comments"][0]["permissions"], 'allow_destroy'
+    assert_includes json[0]["permissions"], 'allow_destroy'
   end
 
   should 'anonymous not allowed to destroy comments' do
@@ -262,7 +262,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_not_includes json["comments"][0]["permissions"], 'allow_destroy'
+    assert_not_includes json[0]["permissions"], 'allow_destroy'
   end
 
   should 'unprivileged user not be allowed to destroy other people comments' do
@@ -272,7 +272,7 @@ class CommentsTest < ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status
-    assert_not_includes json["comments"][0]["permissions"], 'allow_destroy'
+    assert_not_includes json[0]["permissions"], 'allow_destroy'
   end
 
 end

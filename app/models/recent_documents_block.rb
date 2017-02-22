@@ -31,7 +31,7 @@ class RecentDocumentsBlock < Block
   end
 
   def api_content(params = {})
-    Api::Entities::ArticleBase.represent(docs).as_json
+    {:articles => Api::Entities::ArticleBase.represent(docs)}.as_json
   end
 
   def display_api_content_by_default?

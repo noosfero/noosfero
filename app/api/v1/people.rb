@@ -47,7 +47,7 @@ module Api
         get ':id' do
           person = environment.people.visible.find_by(id: params[:id])
           return not_found! if person.blank?
-          present person, :with => Entities::Person, :current_person => current_person
+          present_partial person, :with => Entities::Person, :current_person => current_person
         end
 
         desc "Update person information"
@@ -55,7 +55,7 @@ module Api
           authenticate!
           return forbidden! if current_person.id.to_s != params[:id]
           current_person.update_attributes!(asset_with_image(params[:person]))
-          present current_person, :with => Entities::Person, :current_person => current_person
+          present_partial current_person, :with => Entities::Person, :current_person => current_person
         end
 
         #  POST api/v1/people?person[login]=some_login&person[password]=some_password&person[name]=Jack
@@ -82,7 +82,7 @@ module Api
             render_api_errors!(user.errors.full_messages)
           end
 
-          present user.person, :with => Entities::Person, :current_person => user.person
+          present_partial user.person, :with => Entities::Person, :current_person => user.person
         end
 
         desc "Return the person friends"
@@ -90,7 +90,7 @@ module Api
           person = environment.people.visible.find_by(id: params[:id])
           return not_found! if person.blank?
           friends = person.friends.visible
-          present friends, :with => Entities::Person, :current_person => current_person
+          present_partial friends, :with => Entities::Person, :current_person => current_person
         end
 
         desc "Return the person permissions on other profiles"
@@ -117,7 +117,7 @@ module Api
             get do
               profile = environment.profiles.find_by id: params[:profile_id]
               members = select_filtered_collection_of(profile, 'members', params)
-              present members, :with => Entities::Person, :current_person => current_person
+              present_partial members, :with => Entities::Person, :current_person => current_person
             end
 
             post do
@@ -131,7 +131,7 @@ module Api
               authenticate!
               profile = environment.profiles.find_by id: params[:profile_id]
               profile.remove_member(current_person)
-              present current_person, :with => Entities::Person, :current_person => current_person
+              present_partial current_person, :with => Entities::Person, :current_person => current_person
             end
           end
         end
@@ -178,6 +178,19 @@ module Api
             people = people.visible
             present_partial people, :with => Entities::Person, :current_person => current_person
           end
+        end
+      end
+      resource :articles do
+        #FIXME see if this is the better place for this endpoint
+        desc "Returns the total followers for the article" do
+          detail 'Get the followers of a specific article by id'
+          failure [[Api::Status::FORBIDDEN, 'Forbidden']]
+          named 'ArticleFollowers'
+        end
+        get ':id/followers' do
+          article = find_article(environment.articles, {:id => params[:id]} )
+          people = article.person_followers
+          present_partial people, :with => Entities::Person, :current_person => current_person
         end
       end
     end

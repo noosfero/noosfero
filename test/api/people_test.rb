@@ -13,7 +13,7 @@ class PeopleTest < ActiveSupport::TestCase
     person2 = fast_create(Person)
     get "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person2.id, person.id], json['people'].map {|c| c['id']}
+    assert_equivalent [person1.id, person2.id, person.id], json.map {|c| c['id']}
   end
 
   should 'anonymous list all people' do
@@ -21,7 +21,7 @@ class PeopleTest < ActiveSupport::TestCase
     person2 = fast_create(Person)
     get "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [person.id, person1.id, person2.id], json['people'].map {|c| c['id']}
+    assert_equivalent [person.id, person1.id, person2.id], json.map {|c| c['id']}
   end
 
   should 'logged user list all members of a community' do
@@ -34,8 +34,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{community.id}/members?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 2, json["people"].count
-    assert_equivalent [person1.id,person2.id], json["people"].map{|p| p["id"]}
+    assert_equal 2, json.count
+    assert_equivalent [person1.id,person2.id], json.map{|p| p["id"]}
   end
 
   should 'anonymous list all members of a community' do
@@ -47,8 +47,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{community.id}/members?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 2, json["people"].count
-    assert_equivalent [person1.id,person2.id], json["people"].map{|p| p["id"]}
+    assert_equal 2, json.count
+    assert_equivalent [person1.id,person2.id], json.map{|p| p["id"]}
   end
 
   should 'logged user not list invisible people' do
@@ -56,14 +56,14 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'annoymous not list invisible people' do
     invisible_person = fast_create(Person, :visible => false)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'logged user list private people' do
@@ -71,14 +71,14 @@ class PeopleTest < ActiveSupport::TestCase
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'anonymous list private people' do
     private_person = fast_create(Person, :public_profile => false)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'logged user list private person for friends' do
@@ -89,7 +89,7 @@ class PeopleTest < ActiveSupport::TestCase
     p2.add_friend(person)
 
     get "/api/v1/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), p2.id
+    assert_includes json_response_ids, p2.id
   end
 
   should 'logged user get person' do
@@ -98,7 +98,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal some_person.id, json['person']['id']
+    assert_equal some_person.id, json['id']
   end
 
   should 'anonymous get person' do
@@ -106,14 +106,14 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal some_person.id, json['person']['id']
+    assert_equal some_person.id, json['id']
   end
 
   should 'people endpoint filter by fields parameter for logged user' do
     login_api
     get "/api/v1/people?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => person.name}]}
+    expected = [{'name' => person.name}]
     assert_equal expected, json
   end
 
@@ -122,7 +122,7 @@ class PeopleTest < ActiveSupport::TestCase
     params[:fields] = {only: [:name, {user: [:login]}]}
     get "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => person.name, 'user' => {'login' => 'testapi'}}]}
+    expected = [{'name' => person.name, 'user' => {'login' => 'testapi'}}]
     assert_equal expected, json
   end
 
@@ -130,14 +130,14 @@ class PeopleTest < ActiveSupport::TestCase
     login_api
     get "/api/v1/people/me?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal person.id, json['person']['id']
+    assert_equal person.id, json['id']
   end
 
   should 'access me endpoint filter by fields parameter' do
     login_api
     get "/api/v1/people/me?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
-    expected = {'person' => {'name' => person.name}}
+    expected = {'name' => person.name}
     assert_equal expected, json
   end
 
@@ -147,7 +147,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person'].blank?
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'anonymous not get invisible person' do
@@ -155,7 +155,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person'].blank?
+    assert_equal Api::Status::NOT_FOUND, last_response.status
   end
 
   should 'get private people' do
@@ -164,7 +164,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['person']['id'], private_person.id
+    assert_equal json['id'], private_person.id
   end
 
   should 'anonymous get private people' do
@@ -172,7 +172,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['person']['id'], private_person.id
+    assert_equal json['id'], private_person.id
   end
 
   should 'get private person for friends' do
@@ -183,7 +183,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{private_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal private_person.id, json['person']['id']
+    assert_equal private_person.id, json['id']
   end
 
   should 'list person friends' do
@@ -192,7 +192,7 @@ class PeopleTest < ActiveSupport::TestCase
     person.add_friend(friend)
     friend.add_friend(person)
     get "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
-    assert_includes json_response_ids(:people), person.id
+    assert_includes json_response_ids, person.id
   end
 
   should 'anonymous list person friends' do
@@ -201,7 +201,7 @@ class PeopleTest < ActiveSupport::TestCase
     person.add_friend(friend)
     friend.add_friend(person)
     get "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
-    assert_includes json_response_ids(:people), person.id
+    assert_includes json_response_ids, person.id
   end
 
   should 'not list person invisible friends' do
@@ -214,7 +214,7 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_friend.add_friend(person)
 
     get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
-    friends = json_response_ids(:people)
+    friends = json_response_ids
     assert_includes friends, friend.id
     assert_not_includes friends, invisible_friend.id
   end
@@ -225,7 +225,7 @@ class PeopleTest < ActiveSupport::TestCase
     params[:person] = {:login => login, :password => '123456', :password_confirmation => '123456', :email => 'some@some.com'}
     post "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal login, json['person']['identifier']
+    assert_equal login, json['identifier']
   end
 
   should 'return 400 status for invalid person creation' do
@@ -302,8 +302,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person']['additional_data'].has_key?('Custom Blog')
-    assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
+    assert json['additional_data'].has_key?('Custom Blog')
+    assert_equal "www.blog.org", json['additional_data']['Custom Blog']
   end
 
   should 'logged user not display non-public custom fields' do
@@ -316,7 +316,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['person']['additional_data'], {}
+    assert_equal json['additional_data'], {}
   end
 
   should 'display public custom fields to anonymous' do
@@ -327,8 +327,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person']['additional_data'].has_key?('Custom Blog')
-    assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
+    assert json['additional_data'].has_key?('Custom Blog')
+    assert_equal "www.blog.org", json['additional_data']['Custom Blog']
   end
 
   should 'not display non-public custom fields to anonymous' do
@@ -338,7 +338,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['person']['additional_data'], {}
+    assert_equal json['additional_data'], {}
   end
 
   should 'hide private fields to anonymous' do
@@ -346,8 +346,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    refute json["user"].has_key?("permissions")
-    refute json["user"].has_key?("activated")
+    refute json.has_key?("permissions")
+    refute json.has_key?("activated")
   end
 
   should 'display non-public custom fields to friend' do
@@ -365,8 +365,8 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['person']['additional_data'].has_key?("Custom Blog")
-    assert_equal "www.blog.org", json['person']['additional_data']['Custom Blog']
+    assert json['additional_data'].has_key?("Custom Blog")
+    assert_equal "www.blog.org", json['additional_data']['Custom Blog']
   end
 
   PERSON_ATTRIBUTES = %w(vote_count comments_count articles_count following_articles_count friends_count)
@@ -376,14 +376,14 @@ class PeopleTest < ActiveSupport::TestCase
       login_api
       get "/api/v1/people/me?#{params.to_query}&fields=name"
       json = JSON.parse(last_response.body)
-      assert_nil json['person'][attribute]
+      assert_nil json[attribute]
     end
 
     define_method "test_should_expose_#{attribute}_attribute_in_person_enpoints_if_field_parameter_is_passed" do
       login_api
       get "/api/v1/people/me?#{params.to_query}&fields=#{attribute}"
       json = JSON.parse(last_response.body)
-      assert_not_nil json['person'][attribute]
+      assert_not_nil json[attribute]
     end
   end
 
@@ -425,7 +425,7 @@ class PeopleTest < ActiveSupport::TestCase
     profile.add_member(person)
     delete "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal person.identifier, json['person']['identifier']
+    assert_equal person.identifier, json['identifier']
     assert !person.is_member_of?(profile)
   end
 
@@ -462,7 +462,7 @@ class PeopleTest < ActiveSupport::TestCase
     person2 = fast_create(Person, :environment_id => environment.id)
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person2.id], json['people'].map {|c| c['id']}
+    assert_equivalent [person1.id, person2.id], json.map {|c| c['id']}
   end
 
   should 'logged user not list invisible people of environment' do
@@ -471,7 +471,7 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
 
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'annoymous not list invisible people of environment' do
@@ -479,7 +479,7 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
 
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'logged user list private people of environment' do
@@ -488,7 +488,7 @@ class PeopleTest < ActiveSupport::TestCase
     private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
 
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'anonymous list private people of environment' do
@@ -496,7 +496,7 @@ class PeopleTest < ActiveSupport::TestCase
     private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
 
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'logged user list private person for friends of environment' do
@@ -508,7 +508,7 @@ class PeopleTest < ActiveSupport::TestCase
     p2.add_friend(person)
 
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), p2.id
+    assert_includes json_response_ids, p2.id
   end
 
   should 'people endpoint filter by fields parameter for logged user of environment' do
@@ -516,7 +516,7 @@ class PeopleTest < ActiveSupport::TestCase
     person  = fast_create(Person, :environment_id => environment.id)
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => person.name}]}
+    expected = [{'name' => person.name}]
     assert_equal expected, json
   end
 
@@ -526,7 +526,7 @@ class PeopleTest < ActiveSupport::TestCase
     params[:fields] = {only: [:name, {user: [:login]}]}
     get "/api/v1/environments/#{environment.id}/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => 'someuser', 'user' => {'login' => 'someuser'}}]}
+    expected = [{'name' => 'someuser', 'user' => {'login' => 'someuser'}}]
     assert_equal expected, json
   end
 
@@ -536,7 +536,7 @@ class PeopleTest < ActiveSupport::TestCase
     person2 = fast_create(Person, :environment_id => environment.id)
     get "/api/v1/environments/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [person1.id, person2.id, person.id], json['people'].map {|c| c['id']}
+    assert_equivalent [person1.id, person2.id, person.id], json.map {|c| c['id']}
   end
 
   should 'logged user not list invisible people of default environment' do
@@ -545,7 +545,7 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
 
     get "/api/v1/environments/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'annoymous not list invisible people of default environment' do
@@ -553,7 +553,7 @@ class PeopleTest < ActiveSupport::TestCase
     invisible_person = fast_create(Person, :visible => false, :environment_id => environment.id)
 
     get "/api/v1/environments/people?#{params.to_query}"
-    assert_not_includes json_response_ids(:people), invisible_person.id
+    assert_not_includes json_response_ids, invisible_person.id
   end
 
   should 'logged user list private people of default environment' do
@@ -562,7 +562,7 @@ class PeopleTest < ActiveSupport::TestCase
     private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
 
     get "/api/v1/environments/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'anonymous list private people of default environment' do
@@ -570,7 +570,7 @@ class PeopleTest < ActiveSupport::TestCase
     private_person = fast_create(Person, :public_profile => false, :environment_id => environment.id)
 
     get "/api/v1/environments/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), private_person.id
+    assert_includes json_response_ids, private_person.id
   end
 
   should 'logged user list private person for friends of default environment' do
@@ -582,7 +582,7 @@ class PeopleTest < ActiveSupport::TestCase
     p2.add_friend(person)
 
     get "/api/v1/environments/people?#{params.to_query}"
-    assert_includes json_response_ids(:people), p2.id
+    assert_includes json_response_ids, p2.id
   end
 
   should 'people endpoint filter by fields parameter for logged user of default environment' do
@@ -590,7 +590,7 @@ class PeopleTest < ActiveSupport::TestCase
     login_api
     get "/api/v1/environments/people?#{params.to_query}&fields=name"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => person.name}]}
+    expected = [{'name' => person.name}]
     assert_equal expected, json
   end
 
@@ -600,8 +600,97 @@ class PeopleTest < ActiveSupport::TestCase
     params[:fields] = {only: [:name, {user: [:login]}]}
     get "/api/v1/environments/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    expected = {'people' => [{'name' => person.name, 'user' => {'login' => 'testapi'}}]}
+    expected = [{'name' => person.name, 'user' => {'login' => 'testapi'}}]
     assert_equal expected, json
   end
 
+  should 'return the followers of a article identified by id' do
+    person1 = fast_create(Person)
+    article = fast_create(Article, :profile_id => person1.id, :name => "Some thing")
+
+    ArticleFollower.create!(:article_id => article.id, :person_id => person1.id)
+
+    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal 1, json.length
+    assert_equal person1.id, json.first['id']
+  end
+
+  should 'return the amount of followers of a article identified by id' do
+    person1 = fast_create(Person)
+    article = fast_create(Article, :profile_id => person1.id, :name => "Some thing")
+
+    person2 = fast_create(Person)
+    person3 = fast_create(Person)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person1.id)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person2.id)
+    ArticleFollower.create!(:article_id => article.id, :person_id => person3.id)
+
+    params[:count] = true
+    get "/api/v1/articles/#{article.id}/followers?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 3, json['count']
+  end
+
+  #####
+  
+  ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]
+
+  ATTRIBUTES.map do |attr|
+
+    define_method "test_should_show_#{attr}_if_it_is_a_public_attribute_to_logged_user" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'public'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr.to_s)
+      assert_equal json[attr.to_s],target_person.send(attr)
+    end
+  
+    define_method "test_should_not_show_#{attr}_if_it_is_an_private_attribute_to_logged_user_without_permission" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert !json.has_key?(attr.to_s)
+    end
+  
+    define_method "test_should_not_show_#{attr}_if_it_is_an_private_attribute_to_logged_user_with_permission" do
+      login_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+      target_person.add_friend(person)
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr.to_s)
+    end
+  
+    define_method "test_should_not_show_email_if_it_is_a_private_attribute_to_logged_off_user" do
+      logout_api
+      target_person =  User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+      target_person.public_profile = true
+      target_person.visible = true
+      target_person.fields_privacy={attr=> 'private'}
+      target_person.save!
+  
+      get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert !json.has_key?(attr.to_s)
+    end
+  end
 end

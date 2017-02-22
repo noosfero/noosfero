@@ -19,9 +19,9 @@ class APITest <  ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/comments?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equivalent ['1'], json['comments'].map {|c| c['paragraph_uuid']}
-    assert_equivalent ['area'], json['comments'].map {|c| c['comment_paragraph_selected_area']}
-    assert_equivalent ['content'], json['comments'].map {|c| c['comment_paragraph_selected_content']}
+    assert_equivalent ['1'], json.map {|c| c['paragraph_uuid']}
+    assert_equivalent ['area'], json.map {|c| c['comment_paragraph_selected_area']}
+    assert_equivalent ['content'], json.map {|c| c['comment_paragraph_selected_content']}
   end
 
   should 'return comments that belongs to a paragraph' do
@@ -33,7 +33,7 @@ class APITest <  ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/comments?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equivalent [comment1.id], json['comments'].map {|c| c['id']}
+    assert_equivalent [comment1.id], json.map {|c| c['id']}
   end
 
   {activate: true, deactivate: false}.each do |method, value|
@@ -41,7 +41,7 @@ class APITest <  ActiveSupport::TestCase
       article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :author_id => person.id)
       post "/api/v1/articles/#{article.id}/comment_paragraph_plugin/#{method}?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal value, json["article"]["setting"]["comment_paragraph_plugin_activate"]
+      assert_equal value, json["setting"]["comment_paragraph_plugin_activate"]
     end
 
     should "not allow #{method} paragraph comment when not logged in" do
@@ -79,7 +79,7 @@ class APITest <  ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/comments?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equivalent [comment1.id], json['comments'].map {|c| c['id']}
+    assert_equivalent [comment1.id], json.map {|c| c['id']}
   end
 
   should "create discussion article" do
@@ -87,8 +87,8 @@ class APITest <  ActiveSupport::TestCase
     params[:article] = {name: "Title", type: "CommentParagraphPlugin::Discussion"}
     post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal "CommentParagraphPlugin::Discussion", json["article"]["type"]
-    assert json["article"]["setting"]["comment_paragraph_plugin_activate"]
+    assert_equal "CommentParagraphPlugin::Discussion", json["type"]
+    assert json["setting"]["comment_paragraph_plugin_activate"]
   end
 
   should 'export comments' do

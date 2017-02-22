@@ -12,7 +12,7 @@ class CommentParagraphPlugin::API < Grape::API
   resource :articles do
     paginate max_per_page: MAX_PER_PAGE
     get ':id/comment_paragraph_plugin/comments' do
-      article = find_article(environment.articles, params[:id])
+      article = find_article(environment.articles, params)
       comments = select_filtered_collection_of(article, :comments, params)
       comments = comments.without_spam
       comments = comments.in_paragraph(params[:paragraph_uuid])
@@ -23,7 +23,7 @@ class CommentParagraphPlugin::API < Grape::API
     {activate: true, deactivate: false}.each do |method, value|
       post ":id/comment_paragraph_plugin/#{method}" do
         authenticate!
-        article = find_article(environment.articles, params[:id])
+        article = find_article(environment.articles, params)
         return forbidden! unless article.comment_paragraph_plugin_enabled? && article.allow_edit?(current_person)
         article.comment_paragraph_plugin_activate = value
         article.save!
@@ -32,13 +32,13 @@ class CommentParagraphPlugin::API < Grape::API
     end
 
     get ':id/comment_paragraph_plugin/comments/count' do
-      article = find_article(environment.articles, params[:id])
+      article = find_article(environment.articles, params)
       comments = select_filtered_collection_of(article, :comments, params)
       comments.group(:paragraph_uuid).count
     end
 
     get ":id/comment_paragraph_plugin/export" do
-      article = find_article(environment.articles, params[:id])
+      article = find_article(environment.articles, params)
       result = export_comments_csv(article)
       filename = "#{article.slug}_#{DateTime.now.strftime("%Y%m%d%H%M")}.csv"
       content_type 'text/csv; charset=UTF-8; header=present'

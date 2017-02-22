@@ -51,7 +51,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def api_content(params = {})
-    Api::Entities::ArticleBase.represent(self.discussions).as_json
+    {:articles => Api::Entities::ArticleBase.represent(self.discussions)}.as_json
   end
 
   def display_api_content_by_default?

@@ -11,7 +11,7 @@ class CategoriesTest < ActiveSupport::TestCase
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["categories"].map { |c| c["name"] }, category.name
+    assert_includes json.map { |c| c["name"] }, category.name
   end
 
   should 'get category by id to logged user' do
@@ -19,7 +19,7 @@ class CategoriesTest < ActiveSupport::TestCase
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal category.name, json["category"]["name"]
+    assert_equal category.name, json["name"]
   end
 
   should 'list parent and children when get category by id to logged user' do
@@ -36,8 +36,8 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal({'id' => parent.id, 'name' => parent.name, 'slug' => parent.slug}, json['category']['parent'])
-    assert_equivalent [child_1.id, child_2.id], json['category']['children'].map { |c| c['id'] }
+    assert_equal({'id' => parent.id, 'name' => parent.name, 'slug' => parent.slug}, json['parent'])
+    assert_equivalent [child_1.id, child_2.id], json['children'].map { |c| c['id'] }
   end
 
   should 'include parent in categories list if params is true to logged_user' do
@@ -54,13 +54,13 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [nil], json['categories'].map { |c| c['parent'] }.uniq
+    assert_equal [nil], json.map { |c| c['parent'] }.uniq
 
     params[:include_parent] = true
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [parent_1.parent, parent_2.parent.id, child_1.parent.id, child_2.parent.id],
-      json["categories"].map { |c| c['parent'] && c['parent']['id'] }
+      json.map { |c| c['parent'] && c['parent']['id'] }
   end
 
   should 'include children in categories list if params is true to logged user' do
@@ -79,13 +79,13 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [nil], json['categories'].map { |c| c['children'] }.uniq
+    assert_equal [nil], json.map { |c| c['children'] }.uniq
 
     params[:include_children] = true
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [category.children.map(&:id).sort, child_1.children.map(&:id).sort, child_2.children.map(&:id).sort, child_3.children.map(&:id).sort],
-      json["categories"].map{ |c| c['children'].map{ |child| child['id'] }.sort  }
+      json.map{ |c| c['children'].map{ |child| child['id'] }.sort  }
   end
 
   expose_attributes = %w(id name full_name image display_color)
@@ -96,7 +96,7 @@ class CategoriesTest < ActiveSupport::TestCase
       category = fast_create(Category, :environment_id => environment.id)
       get "/api/v1/categories/?#{params.to_query}"
       json = JSON.parse(last_response.body)
-     assert json["categories"].last.has_key?(attr)
+     assert json.last.has_key?(attr)
     end
   end
 
@@ -104,14 +104,14 @@ class CategoriesTest < ActiveSupport::TestCase
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json["categories"].map { |c| c["name"] }, category.name
+    assert_includes json.map { |c| c["name"] }, category.name
   end
 
   should 'get category by id to anonymous' do
     category = fast_create(Category, :environment_id => environment.id)
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal category.name, json["category"]["name"]
+    assert_equal category.name, json["name"]
   end
 
   should 'list parent and children when get category by id to anonymous' do
@@ -127,8 +127,8 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/#{category.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal({'id' => parent.id, 'name' => parent.name, 'slug' => parent.slug}, json['category']['parent'])
-    assert_equivalent [child_1.id, child_2.id], json['category']['children'].map { |c| c['id'] }
+    assert_equal({'id' => parent.id, 'name' => parent.name, 'slug' => parent.slug}, json['parent'])
+    assert_equivalent [child_1.id, child_2.id], json['children'].map { |c| c['id'] }
   end
 
   should 'anonymous include parent in categories list if params is true' do
@@ -144,13 +144,13 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [nil], json['categories'].map { |c| c['parent'] }.uniq
+    assert_equal [nil], json.map { |c| c['parent'] }.uniq
 
     params[:include_parent] = true
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [parent_1.parent, parent_2.parent.id, child_1.parent.id, child_2.parent.id],
-      json["categories"].map { |c| c['parent'] && c['parent']['id'] }
+      json.map { |c| c['parent'] && c['parent']['id'] }
   end
 
   should 'anonymous include children in categories list if params is true' do
@@ -168,13 +168,13 @@ class CategoriesTest < ActiveSupport::TestCase
 
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal [nil], json['categories'].map { |c| c['children'] }.uniq
+    assert_equal [nil], json.map { |c| c['children'] }.uniq
 
     params[:include_children] = true
     get "/api/v1/categories/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [category.children.map(&:id).sort, child_1.children.map(&:id).sort, child_2.children.map(&:id).sort, child_3.children.map(&:id).sort],
-      json["categories"].map{ |c| c['children'].map{ |child| child['id'] }.sort  }
+      json.map{ |c| c['children'].map{ |child| child['id'] }.sort  }
   end
 
   expose_attributes.each do |attr|
@@ -182,7 +182,7 @@ class CategoriesTest < ActiveSupport::TestCase
       category = fast_create(Category, :environment_id => environment.id)
       get "/api/v1/categories/?#{params.to_query}"
       json = JSON.parse(last_response.body)
-     assert json["categories"].last.has_key?(attr)
+     assert json.last.has_key?(attr)
     end
   end
 
