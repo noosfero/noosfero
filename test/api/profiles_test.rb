@@ -260,12 +260,15 @@ class ProfilesTest < ActiveSupport::TestCase
 
   should 'display error when update person with invalid params' do
     login_api
-    environment.enable(:enable_person_url_change)
+    environment.enable(:enable_profile_url_change)
+    other_person = fast_create(Person)
     params[:profile] = {}
     params[:profile][:name] = nil
+    params[:profile][:identifier] = other_person.identifier
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 400, last_response.status
-    assert_equal ["can't be blank"], json['message']['name']
+    assert_equal "blank", json['message']['name'].first['error']
+    assert_equal "not_available", json['message']['identifier'].first['error']
   end
 end

@@ -41,7 +41,7 @@ module Api
             profile.update_attributes!(asset_with_custom_image(:top_image, profile_params))
             present profile, :with => Entities::Profile, :current_person => current_person
           rescue ActiveRecord::RecordInvalid
-            render_api_error!(profile.errors, Api::Status::BAD_REQUEST)
+            render_api_error!(profile.errors.details, Api::Status::BAD_REQUEST)
           end
         end
 

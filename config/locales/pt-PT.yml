@@ -214,6 +214,7 @@
       even: "tem de ser par"
       taken: "não está disponível"
       record_invalid: "A validação falhou: %{errors}"
+      not_available: "não está disponível."
     template: &errors_template
       header:
         one:    "Não foi possível guardar %{model}: 1 erro"

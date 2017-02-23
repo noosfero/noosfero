@@ -471,7 +471,7 @@ class Profile < ApplicationRecord
   validate :valid_identifier
 
   def valid_identifier
-    errors.add(:identifier, _('is not available.')) unless Profile.is_available?(identifier, environment, id)
+    errors.add(:identifier, :not_available) unless Profile.is_available?(identifier, environment, id)
   end
 
   def valid_template

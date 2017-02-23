@@ -208,6 +208,7 @@ fr: &fr
       even: "doit être pair"
       taken: "n'est pas disponible"
       record_invalid: "La validation a échoué : %{errors}"
+      not_available: "n'est pas disponible."
     template: &errors_template
       header:
         one:   "Impossible d'enregistrer ce(tte) %{model} : 1 erreur"
@@ -225,4 +226,3 @@ fr: &fr
 
 fr-FR:
   <<: *fr
-

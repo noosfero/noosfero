@@ -208,6 +208,7 @@ hy: &hy
       even: "must be even"
       taken: "has already been taken"
       record_invalid: "Validation failed: %{errors}"
+      not_available: "Արտադրանք և ծառայություններ"
     template: &errors_template
       header:
         one: "1 error prohibited this %{model} from being saved"
