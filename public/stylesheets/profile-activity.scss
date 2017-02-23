@@ -395,7 +395,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   overflow: hidden;
 }
 #leave_scrap .loading textarea {
-  background: url('/images/loading-small.gif') 50% 50% no-repeat;
+  background: #ffffff url('/images/loading-small.gif') 50% 50% no-repeat;
+  cursor: progress;
 }
 #leave_scrap .submit {
   margin-top: 5px;
