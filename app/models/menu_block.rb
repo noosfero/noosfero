@@ -40,7 +40,11 @@ class MenuBlock < Block
   end
     
   def display_activities?(user)
-    AccessLevels.can_access?(owner.wall_access, user, owner)
+    AccessLevels.can_access?(access_level, user, owner)
+  end
+
+  def access_level 
+    owner.person? ? AccessLevels::LEVELS[:users] : AccessLevels::LEVELS[:visitors]
   end
 
   def display_about?(user)

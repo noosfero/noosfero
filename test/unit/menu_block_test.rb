@@ -18,11 +18,6 @@ class MenuBlockTest < ActiveSupport::TestCase
     assert block.editable?
   end
 
-  should 'return empty in enabled links for community when not logged in' do
-    links = block.enabled_links(nil)
-    assert_equal 0, links.size
-  end
-
   should 'return only about link for person when not logged in' do
     block.box = create(Box, owner: fast_create(Person))
     links = block.enabled_links(nil)
@@ -30,10 +25,22 @@ class MenuBlockTest < ActiveSupport::TestCase
     assert_equal 'About', links.first[:title]
   end
 
-  should 'return only about link for community when user has no permission' do
+  should 'return activities link for community when user has no permission' do
     links = block.enabled_links(person)
-    assert_equal 1, links.size
-    assert_equal 'Activities', links.first[:title]
+    assert links.detect{|link| link[:title] == 'Activities' }
+  end
+
+  should 'return activities link for community for visitors' do
+    links = block.enabled_links(nil)
+    assert links.detect{|link| link[:title] == 'Activities' }
+  end
+
+  should 'not return activities link for person visitors' do
+    person = fast_create(Person)
+    box = create(Box, owner: person)
+    block = MenuBlock.new(box: box)
+    links = block.enabled_links(nil)
+    assert !links.detect{|link| link[:title] == 'Activities' }
   end
 
   should 'return all community links for an owner' do
