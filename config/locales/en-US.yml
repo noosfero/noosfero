@@ -207,6 +207,7 @@
       even: "must be even"
       taken: "has already been taken"
       record_invalid: "Validation failed: %{errors}"
+      not_available: "is not available."
     template: &errors_template
       header:
         one: "1 error prohibited this %{model} from being saved"

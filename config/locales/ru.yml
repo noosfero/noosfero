@@ -274,6 +274,7 @@ ru: &ru
       odd: "может иметь лишь четное значение"
       even: "может иметь лишь нечетное значение"
       record_invalid: "Возникли ошибки: %{errors}"
+      not_available: "Продукт не доступен!"
     template: &errors_template
       header:
         one:   "%{model}: сохранение не удалось из-за %{count} ошибки"
@@ -303,4 +304,3 @@ ru: &ru
 
 ru_RU:
   <<: *ru
-

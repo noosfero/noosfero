@@ -206,6 +206,7 @@ de: &de
       not_an_integer: "muss ganzzahlig sein"
       taken: "ist bereits vergeben"
       record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
+      not_available: "ist nicht verfügbar."
     template: &errors_template
       header:
         one:    "Konnte %{model} nicht speichern: ein Fehler."

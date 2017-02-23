@@ -208,6 +208,7 @@ es: &es
       even: "debe ser par"
       taken: "ya está en uso"
       record_invalid: "La validación falló: %{errors}"
+      not_available: "No disponible."
     template: &errors_template
       header:
         one:   "No se pudo guardar este/a %{model} porque se encontró 1 error"

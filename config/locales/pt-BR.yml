@@ -217,6 +217,7 @@
       even: "deve ser par"
       taken: "já está em uso"
       record_invalid: "A validação falhou: %{errors}"
+      not_available: "não está disponível."
     template: &errors_template
       header:
         one: "Não foi possível gravar %{model}: 1 erro"
