@@ -586,7 +586,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal region, profile.region
   end
 
-  should 'categorized automatically in its region' do
+  should 'also add the profile region to the categories list' do
     region = fast_create(Region)
     profile = create(Profile, :region => region)
 
@@ -633,6 +633,7 @@ class ProfileTest < ActiveSupport::TestCase
     category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
+    assert_equal region, profile.region
     assert_equivalent [region, category], profile.categories(true)
     assert_equivalent [region, category, pcat], profile.categories_including_virtual(true)
   end
@@ -663,8 +664,31 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes profile.categories_including_virtual(true), pcat
   end
 
-  should 'not accept region as a category' do
-    refute Profile.new.accept_category?(Region.new)
+  should 'accept region as a category' do
+    assert Profile.new.accept_category?(Region.new)
+  end
+
+  should 'accept several category regions besides the profile region' do
+    profile_region = fast_create(Region)
+    region1 = fast_create(Region)
+    region2 = fast_create(Region)
+
+    profile = create(Profile, :region => profile_region)
+    profile.add_category(region1)
+    profile.add_category(region2)
+
+    assert_equivalent [profile_region, region1, region2], profile.categories(true)
+  end
+
+  should 'not remove region categories if profile region is updated' do
+    profile_region1 = fast_create(Region)
+    profile_region2 = fast_create(Region)
+    region1 = fast_create(Region)
+    region2 = fast_create(Region)
+    profile = create(Profile, region: profile_region1, category_ids: [region1.id, region2.id])
+
+    profile.update_attribute(:region, profile_region2)
+    assert_equivalent [profile_region2, region1, region2], profile.categories(true)
   end
 
   should 'query region for location' do

@@ -13,9 +13,8 @@ class ProfileCategorization < ApplicationRecord
   end
 
   def self.remove_region(profile)
-    region = profile.categories.where(type: [Region, State, City].map(&:name)).first
-    if region
-      ids = region.hierarchy.map(&:id)
+    if profile.old_region_id
+      ids = Region.find(profile.old_region_id).hierarchy.map(&:id)
       self.delete_all(:profile_id => profile.id, :category_id => ids)
     end
   end

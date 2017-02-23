@@ -14,6 +14,8 @@ class Profile < ApplicationRecord
     :profile_admin_mail_notification, :allow_followers, :wall_access,
     :profile_kinds
 
+  attr_accessor :old_region_id
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
@@ -390,6 +392,11 @@ class Profile < ApplicationRecord
   belongs_to :region
 
   LOCATION_FIELDS = %w[address district city state country_name zip_code]
+
+  before_save :save_old_region
+  def save_old_region
+    self.old_region_id = self.region_id_was || self.region_id
+  end
 
   def location(separator = ' - ')
     myregion = self.region
@@ -872,18 +879,16 @@ private :generate_url, :url_options
   end
   alias_method :display_to?, :display_info_to?
 
-#  after_save :update_category_from_region
-#  def update_category_from_region
-#    ProfileCategorization.remove_region(self)
-#    if region
-#      self.add_category(region)
-#    end
-#  end
+  after_save :update_category_from_region
+  def update_category_from_region
+    ProfileCategorization.remove_region(self)
+    if region
+      self.add_category(region)
+    end
+  end
 
   def accept_category?(cat)
     true
-    #forbidden = [ Region ]
-    #!forbidden.include?(cat.class)
   end
 
   include ActionView::Helpers::TextHelper

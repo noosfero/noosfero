@@ -9,17 +9,18 @@
 
 <div id="category-ajax-selector">
   <table id='selected-categories' class='actions'>
+    <tr id='empty-row' <%= 'hidden' if categories_selected.present? %>>
+      <td colspan=2>
+        <i><%= _('There are no categories selected yet.') %></i>
+      </td>
+    </tr>
+
     <% categories_selected.each do |category| %>
       <%= render :partial => 'shared/category_row', :locals => {:category => category, :object_name => object_name} %>
     <% end %>
-    <% if categories_selected.blank? %>
-      <tr>
-        <td colspan=2><i><%= _('There are no categories selected yet.') %></i></td>
-      </tr>
-    <% end %>
   </table>
 
-  <table id='select-categories' class='actions'>
-    <%= render :partial => 'shared/select_categories', :locals => {:object_name => object_name, :multiple => true, :categories_selected => categories_selected }, :layout => false %>
-  </table>
+  <div id='select-categories'>
+    <%= render :partial => 'shared/select_categories', :locals => {:object_name => object_name, :multiple => true, :kind => kind }, :layout => false %>
+  </div>
 </div>
