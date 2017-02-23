@@ -2172,4 +2172,20 @@ class ProfileControllerTest < ActionController::TestCase
     assert assigns(:activities)
   end
 
+  should 'follow a community after creating it' do
+    user = create_user('sample-user').person
+    community = Community.create!(:name => 'my test community')
+    community.add_admin(user)
+
+    assert community.followed_by?user
+  end
+
+  should 'follow an enterprise after creating it' do
+    user = create_user('sample-user').person
+    enterprise = Enterprise.create!(:name => 'my test enterprise', :identifier =>'my-test-enterprise')
+    enterprise.add_admin(user)
+
+    assert enterprise.followed_by?user
+  end
+
 end

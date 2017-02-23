@@ -13,7 +13,7 @@ class Circle < ApplicationRecord
   validates :name, presence: true
   validates :person_id, presence: true
   validates :profile_type, presence: true
-  validates :person_id, :uniqueness => {:scope => :name, :message => "can't add two circles with the same name"}
+  validates_uniqueness_of :person_id, scope: [:name, :profile_type], :message => N_("can't add two circles with the same name")
 
   validate :profile_type_must_be_in_list
 
