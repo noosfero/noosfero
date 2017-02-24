@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213193521) do
+ActiveRecord::Schema.define(version: 20170401104432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,7 +283,7 @@ ActiveRecord::Schema.define(version: 20161213193521) do
     t.datetime "updated_at"
   end
 
-  add_index "circles", ["person_id", "name"], name: "circles_composite_key_index", unique: true, using: :btree
+  add_index "circles", ["person_id", "name", "profile_type"], name: "circles_composite_key_index", unique: true, using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title"
@@ -659,6 +659,7 @@ ActiveRecord::Schema.define(version: 20161213193521) do
     t.boolean  "invite_friends_only",                default: false
     t.boolean  "secret",                             default: false
     t.string   "editor",                             default: "tiny_mce", null: false
+    t.integer  "top_image_id"
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
