@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-05-09 16:11+0000\n"
-"Last-Translator: daniel <dtygel@eita.org.br>\n"
+"PO-Revision-Date: 2017-02-25 13:04+0000\n"
+"Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/es/>\n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.7-dev\n"
+"X-Generator: Weblate 2.12-dev\n"
 
 #, fuzzy
 msgid "Custom form %s was successfully created."
@@ -89,7 +89,7 @@ msgstr "Nombre nombre de ciudad o estado inválido."
 
 #, fuzzy
 msgid "Checkbox"
-msgstr "Marcar todos"
+msgstr "Checkbox"
 
 #, fuzzy
 msgid "Manage forms"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
 msgid "Alternative"
-msgstr ""
+msgstr "Alternativa"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
 msgid "One-line text"
