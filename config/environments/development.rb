@@ -6,7 +6,7 @@ Noosfero::Application.configure do
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
 
-  config.eager_load = false
+  config.eager_load = true
 
   # Show full error reports and disable caching
   config.action_controller.perform_caching             = false

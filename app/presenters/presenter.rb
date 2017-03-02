@@ -57,7 +57,3 @@ class Presenter
   end
 end
 
-# Preload Presenters to allow `Presenter.for()` to work
-Dir.glob(File.join('app', 'presenters', '*.rb')) do |file|
-  load file
-end
