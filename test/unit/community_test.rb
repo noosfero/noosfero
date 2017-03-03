@@ -29,9 +29,22 @@ class CommunityTest < ActiveSupport::TestCase
   should 'create default set of blocks' do
     c = create(Community, :environment => Environment.default, :name => 'my new community')
 
-    refute c.boxes[0].blocks.empty?, 'person must have blocks in area 1'
-    refute c.boxes[1].blocks.empty?, 'person must have blocks in area 2'
-    refute c.boxes[2].blocks.empty?, 'person must have blocks in area 3'
+    refute c.boxes[0].blocks.empty?, 'community must have blocks in area 1'
+    refute c.boxes[1].blocks.empty?, 'community must have blocks in area 2'
+    assert c.boxes[2].blocks.empty?, 'community must not have blocks in area 3'
+  end
+
+  should 'create a default set of blocks for angular theme' do
+    e = Environment.default
+    e.update_attribute(:theme, 'angular-theme')
+    Theme.expects(:angular_theme?).with('angular-theme').returns(true)
+    c = create(Community, :environment => Environment.default, :name => 'my new community')
+
+    assert_equal 2, c.boxes_limit
+    assert_equal 'rightbar', c.layout_template
+    refute c.boxes[0].blocks.empty?, 'community must have blocks in area 1'
+    refute c.boxes[1].blocks.empty?, 'community must have blocks in area 2'
+    assert c.boxes[2].blocks.empty?, 'community must not have blocks in area 3'
   end
 
   should 'create a default set of articles' do
