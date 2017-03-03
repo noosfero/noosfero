@@ -346,4 +346,30 @@ class MembersBlockViewTest < ActionView::TestCase
     assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
   end
 
+  should 'list members in api content' do
+    owner = fast_create(Community)
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    owner.add_member(person1)
+    owner.add_member(person2)
+
+    block = MembersBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    json = block.api_content
+    assert_equivalent [person1.identifier, person2.identifier], json["people"].map {|p| p[:identifier]}
+  end
+
+  should 'limit friends list in api content' do
+    owner = fast_create(Community)
+    5.times do
+      member = fast_create(Person)
+      owner.add_member(member)
+    end
+    block = MembersBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json = block.api_content
+    assert_equal 3, json["people"].size
+    assert_equal 5, json["#"]
+  end
+
 end
