@@ -182,4 +182,28 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
   end
 
+  should 'list people api content' do
+    owner = fast_create(Environment)
+    person1 = fast_create(Person, :environment_id => owner.id)
+    person2 = fast_create(Person, :environment_id => owner.id)
+
+    block = PeopleBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    json = block.api_content
+    assert_equivalent [person1.identifier, person2.identifier], json["people"].map {|p| p[:identifier]}
+  end
+
+  should 'limit people list in api content' do
+    owner = fast_create(Environment)
+    5.times do
+      fast_create(Person, :environment_id => owner.id)
+    end
+    block = PeopleBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json = block.api_content
+    assert_equal 3, json["people"].size
+    assert_equal 5, json["#"]
+  end
+
+
 end
