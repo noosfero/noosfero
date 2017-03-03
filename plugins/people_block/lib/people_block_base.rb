@@ -46,4 +46,11 @@ class PeopleBlockBase < Block
     { }
   end
 
+  def api_content(params = {})
+    content = {}
+    content['people'] = Api::Entities::Person.represent(profiles.limit(self.limit)).as_json
+    content['#'] = profiles.size
+    content
+  end
+
 end
