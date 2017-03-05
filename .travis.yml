@@ -32,6 +32,7 @@ addons:
   artifacts:
     paths:
       - $(ls tmp/artifact* | tr "\n" ":")
+  firefox: '48.0.2'
 
 before_install:
   # geckodriver, from http://www.columbia.edu/~njn2118/journal/2016/10/28.html
