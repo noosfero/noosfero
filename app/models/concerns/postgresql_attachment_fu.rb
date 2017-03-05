@@ -16,5 +16,3 @@ module PostgresqlAttachmentFu
 
 end
 
-ActiveRecord::Base.extend PostgresqlAttachmentFu::ClassMethods
-

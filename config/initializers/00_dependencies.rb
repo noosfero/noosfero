@@ -15,7 +15,3 @@ end
 # extensions
 require 'extensions'
 
-# locally-developed modules
-require 'route_if'
-require 'maybe_add_http'
-

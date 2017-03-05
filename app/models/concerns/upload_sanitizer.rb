@@ -10,4 +10,3 @@ module UploadSanitizer
   end
 end
 
-ActiveRecord::Base.send :include, UploadSanitizer
