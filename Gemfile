@@ -70,7 +70,7 @@ group :test do
   gem 'minitest-reporters'
 end
 
-group :cucumber do
+group :cucumber, :test do
   gem 'capybara',               '~> 2.2'
   gem 'launchy'
   gem 'cucumber',               '~> 1.3'
