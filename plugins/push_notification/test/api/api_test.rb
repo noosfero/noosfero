@@ -48,7 +48,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     params.merge!(:device_name => "my_device", :token => "token1")
     post "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent ["token1"], json["user"]["device_tokens"]
+    assert_equivalent ['token1'], json['device_tokens']
   end
 
   should 'not add device tokens for other people' do
@@ -71,7 +71,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     post "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equivalent ["tokenY"], json["user"]["device_tokens"]
+    assert_equivalent ['tokenY'], json['device_tokens']
   end
 
 #------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     params.merge!(:token => "secondtoken")
     delete "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent ["firsttoken"], json["user"]["device_tokens"]
+    assert_equivalent ['firsttoken'], json['device_tokens']
   end
 
   should 'not delete device tokens for other people' do
@@ -116,7 +116,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     delete "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
 
     json = JSON.parse(last_response.body)
-    assert_equivalent ["firsttoken"], json["user"]["device_tokens"]
+    assert_equivalent ['firsttoken'], json['device_tokens']
   end
 
 #--------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
   should 'list all notifications disabled by default for new users' do
     get "/api/v1/push_notification_plugin/notification_settings?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    json["user"]["notification_settings"].each_pair do |notification, status|
+    json['notification_settings'].each_pair do |notification, status|
       refute status
     end
   end
@@ -136,8 +136,8 @@ class PushNotificationApiTest < ActiveSupport::TestCase
 
     get "/api/v1/push_notification_plugin/notification_settings?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal true, json["user"]["notification_settings"]["new_comment"]
-		assert_equal false, json["user"]["notification_settings"]["add_friend"]
+    assert_equal true, json['notification_settings']['new_comment']
+		assert_equal false, json['notification_settings']['add_friend']
   end
 
   should 'get possible notifications' do
@@ -153,7 +153,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     post "/api/v1/push_notification_plugin/notification_settings?#{params.to_query}"
 		logged_user.reload
     json = JSON.parse(last_response.body)
-    assert_equal true, json["user"]["notification_settings"]["new_comment"]
+    assert_equal true, json['notification_settings']['new_comment']
 		assert_equal true, logged_user.notification_settings.hash_flags["new_comment"]
 	end
 
