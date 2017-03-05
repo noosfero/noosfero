@@ -73,10 +73,10 @@ end
 group :cucumber do
   gem 'capybara',               '~> 2.2'
   gem 'launchy'
-  gem 'cucumber',                '~> 1.3'
+  gem 'cucumber',               '~> 1.3'
   gem 'cucumber-rails',         '~> 1.4.2', :require => false
   gem 'database_cleaner',       '~> 1.3'
-  gem 'selenium-webdriver',     '>= 2.53'
+  gem 'selenium-webdriver',     '>= 2.53', '< 3.0'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
 
@@ -97,3 +97,4 @@ end
 Dir.glob('config/plugins/*/Gemfile').each do |gemfile|
   eval File.read(gemfile)
 end
+

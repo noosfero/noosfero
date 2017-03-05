@@ -32,7 +32,8 @@ addons:
   artifacts:
     paths:
       - $(ls tmp/artifact* | tr "\n" ":")
-  firefox: '48.0.2'
+  # same as in docker ci image
+  firefox: '45.7.0'
 
 before_install:
   # geckodriver, from http://www.columbia.edu/~njn2118/journal/2016/10/28.html
