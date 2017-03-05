@@ -1587,7 +1587,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list all events' do
     profile = fast_create(Profile)
     event1 = Event.new(:name => 'Ze Birthday', :start_date => DateTime.now.in_time_zone)
-    event2 = Event.new(:name => 'Mane Birthday', :start_date => DateTime.now.in_time_zone >> 1)
+    event2 = Event.new(:name => 'Mane Birthday', :start_date => DateTime.now.in_time_zone + 1.day)
     profile.events << [event1, event2]
     assert_includes profile.events, event1
     assert_includes profile.events, event2
@@ -1887,7 +1887,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 2, env.profiles.without_image.count
     assert_not_includes env.profiles.without_image, with_image
   end
-  
+
   should 'find profiles with top image' do
     env = fast_create(Environment)
     2.times do |n|
@@ -2245,7 +2245,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes profiles, p3
     assert_not_includes profiles, p4
   end
-  
+
   ['post_content', 'edit_profile', 'destroy_profile'].each do |permission|
     should "return true in #{permission} when user has this permission" do
       profile = fast_create(Profile)
