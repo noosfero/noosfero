@@ -74,8 +74,9 @@ group :cucumber do
   gem 'capybara',               '~> 2.2'
   gem 'launchy'
   gem 'cucumber',               '~> 1.3'
-  gem 'cucumber-rails',         '~> 1.4.2', :require => false
+  gem 'cucumber-rails',         '~> 1.4.2', require: false
   gem 'database_cleaner',       '~> 1.3'
+  # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver',     '>= 2.53', '< 3.0'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
@@ -83,6 +84,9 @@ end
 # Requires custom dependencies
 eval(File.read('config/Gemfile'), binding) rescue nil
 
+##
+# Gems inside repository, to move outside
+#
 vendor = Dir.glob('vendor/{,plugins/}*') - ['vendor/plugins']
 vendor.each do |dir|
   plugin = File.basename dir
