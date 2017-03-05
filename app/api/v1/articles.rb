@@ -59,10 +59,10 @@ module Api
           return forbidden! unless article.allow_delete?(current_person)
           begin
             article.destroy
-            { :success => true }
+            { success: true }.to_json
           rescue Exception => exception
             render_api_error!(_('The article couldn\'t be removed due to some problem. Please contact the administrator.'), Api::Status::BAD_REQUEST)
-          end          
+          end
         end
 
         desc 'Report a abuse and/or violent content in a article by id' do

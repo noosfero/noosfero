@@ -50,7 +50,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
       delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
 
-      assert_equal 200, last_response.status
+      assert_includes [200, 204], last_response.status
       assert_nil Profile.find_by_id profile.id
     end
 
@@ -69,7 +69,7 @@ class ProfilesTest < ActiveSupport::TestCase
   should 'person delete itself' do
     login_api
     delete "/api/v1/profiles/#{@person.id}?#{params.to_query}"
-    assert_equal 200, last_response.status
+    assert_includes [200, 204], last_response.status
     assert_nil Profile.find_by_id @person.id
   end
 
@@ -87,7 +87,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
     delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
 
-    assert_equal 200, last_response.status
+    assert_includes [200, 204], last_response.status
     assert_nil Profile.find_by_id profile.id
 
   end
