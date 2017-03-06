@@ -53,7 +53,7 @@ class OrdersPlugin::Item < ApplicationRecord
     has_one :to_product, through: :product
     has_many :sources_supplier_products, through: :product
     has_one :sources_supplier_product, through: :product
-    has_many :supplier_products, through: :product
+    has_many :supplier_products, through: :product, :class_name => "ProductsPlugin::Product"
     has_one :supplier_product, through: :product
     has_many :suppliers, through: :product
     has_one :supplier, through: :product

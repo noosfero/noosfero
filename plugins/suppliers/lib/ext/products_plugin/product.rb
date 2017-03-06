@@ -1,7 +1,7 @@
 require_dependency 'products_plugin/product'
 
 # FIXME: The lines bellow should be on the core
-class Product
+class ProductsPlugin::Product
 
   extend CurrencyHelper::ClassMethods
   has_currency :price
@@ -36,7 +36,7 @@ class Product
 
 end
 
-class Product
+class ProductsPlugin::Product
 
   attr_accessible :from_products, :from_product, :supplier_id, :supplier
 
