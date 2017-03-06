@@ -92,4 +92,28 @@ class Community < Organization
     %w[join_community leave_scrap]
   end
 
+  def default_set_of_blocks
+    return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
+    links = [
+      {:name => _('Community\'s profile'), :address => '/profile/{profile}', :icon => 'ok'},
+      {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
+      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    ]
+    [
+      [MainBlock.new],
+      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new]
+    ]
+  end
+
+  def angular_theme_default_set_of_blocks
+    @boxes_limit = 2
+    self.layout_template = 'rightbar'
+    [
+      [MenuBlock.new, MainBlock.new],
+      [CommunitiesBlock.new, TagsBlock.new]
+    ]
+  end
+
 end
