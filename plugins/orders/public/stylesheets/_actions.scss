@@ -11,14 +11,28 @@ $actions-bg: #D7FFB9;
     padding: $padding ($wireframe-padding + $padding);
   }
 
-  .labels, .buttons {
-  }
-
   .labels {
     font-weight: bold;
 
     .select {
       height: $height;
+    }
+  }
+
+  .buttons {
+    padding-top: $padding;
+
+    .select, .with-selection {
+      display: inline-block;
+      width: $module06;
+
+      .select-actions a, .generate-report-actions a {
+        padding: 0 $padding;
+
+        &:first-child {
+          border-right: 1px solid #aaa;
+        }
+      }
     }
   }
 }

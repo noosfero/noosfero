@@ -45,6 +45,24 @@
         width: $module02;
       }
     }
+
+    .table-content > .value-row {
+      width: $wireframe + 2*$base;
+      margin-left: 0;
+
+      .box-field {
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &.code {
+          width: $module01 - ($sortable-table-negative-area + $base);
+        }
+
+        &.situation {
+          width: $module02 - ($sortable-table-negative-area + $base);
+        }
+      }
+    }
   }
 
   .order {

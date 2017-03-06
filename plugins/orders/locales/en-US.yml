@@ -189,7 +189,7 @@ en-US: &en-US
           placeholder: "Type to find and add products"
 
         _index:
-          header: "Purchase %{profile.code} - %{profile} / Sale - %{consumer}"
+          header: "Purchase %{profile_code} - %{profile} / Sale - %{consumer}"
           empty_order: "Empty order"
           supplier: "%{terms.supplier.singular}"
           product: "product"
@@ -235,7 +235,7 @@ en-US: &en-US
           supplier_heading: "Data %{terms.supplier.from_article.singular}"
       admin:
         reports:
-          generate_spreadsheets: "Generate spreadsheets"
+          generate: "Generate spreadsheets"
           products_spreadsheet: "Products"
           orders_spreadsheet: "Orders"
         index:
