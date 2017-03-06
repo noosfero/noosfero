@@ -1,0 +1,92 @@
+& {
+  background-color: #f9f9f9;
+  top: 0;
+  right: -5px;
+  bottom: 100px;
+  position: absolute;
+  border-left: 1px solid #DCE4E7;
+  border-bottom: 1px solid #DCE4E7;
+  z-index: 2;
+}
+&:hover {
+  right: 0;
+  width: 190px;
+  transition: width 0.3s ease-in;
+  .buddies {
+    top: 57px;
+    left: 15px;
+    right: 0;
+    transition: all 0.3s ease-in;
+  }
+}
+
+.buddies {
+  position: absolute;
+  bottom: 0;
+  top: 25px;
+  right: 6px;
+  left: 7px;
+  bottom: 7px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.3s ease-in;
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  a:hover {
+    background-color: #EEE;
+  }
+}
+
+.toolbar {
+  height: 45px;
+  width: 100%;
+  display: table;
+  .dialog-error {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    padding: 5px;
+    width: 170px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: white;
+    border: 1px solid #888;
+    z-index: 10;
+    p {
+      margin: 0 0 5px 0;
+    }
+  }
+}
+
+.body{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 20px;
+  padding: 15px;
+  transition: top 0.3s ease-in;
+}
+&:hover .body{
+  top: 45px;
+  transition: top 0.3s ease-in;
+}
+
+.search{
+  width: 142px;
+  padding: 0;
+  height: 0;
+  color: #000;
+  background-color: #dee1da;
+  border: 0;
+  transition: all 0.2s ease-in;
+}
+&:hover .search{
+  transition: all 0.3s ease-in 0.3;
+  height: 16px;
+  padding: 9px;
+}
+

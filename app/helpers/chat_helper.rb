@@ -8,7 +8,7 @@ module ChatHelper
     ]
     avatar = profile_image(user, :portrait, :class => 'avatar')
     content_tag('span',
-      link_to(avatar + content_tag('span', user.name) + ui_icon('ui-icon-triangle-1-s'),
+      link_to(avatar + content_tag('span', user.name),
         '',
         :onclick => 'toggleMenu(this); return false',
         :class => icon_class + ' simplemenu-trigger'

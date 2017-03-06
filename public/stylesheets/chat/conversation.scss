@@ -1,0 +1,113 @@
+& {
+  height: 100%;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #333;
+  .other-name {
+   color: #EEE;
+  }
+  .chat-target span {
+    max-width: 140px;
+    font-weight: 900;
+    color: white;
+    display: inline-block;
+  }
+}
+
+.conversation {
+  height: 100%;
+  position: relative;
+
+  .conversation-header {
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-color: #2e3436;
+    color: white;
+    width: 284px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    .chat-target {
+      line-height: 45px;
+    }
+  }
+
+  .author {
+    width: 32px;
+    display: inline-block;
+    vertical-align: top;
+    float: left;
+  }
+  .self .author {
+    float: right;
+  }
+
+  .room-action {
+    position: absolute;
+    bottom: 100px;
+    left: 7px;
+    right: 79px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+
+  .join {
+   background-color: #4E9A06;
+  }
+
+  .leave {
+   background-color: #A40000;
+  }
+
+  .input-div {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 33px;
+    height: 80px;
+    padding-left: 7px;
+    .icon-chat {
+      width: 16px;
+      height: 16px;
+      position: relative;
+      bottom: -23px;
+      left: 5px;
+    }
+  }
+
+  textarea {
+    height: 100%;
+    width: 304px;
+    overflow: auto;
+    padding-left: 25px;
+    padding-top: 3px;
+  }
+  div.occupants {
+    bottom: 118px;
+    background-color: #2e3436;
+  }
+}
+
+.history {
+  overflow: hidden;
+  position: absolute;
+  right: 66px;
+  left: 0;
+  top: 45px;
+  bottom: 100px;
+}
+
+.history.room {
+  bottom: 132px;
+}
