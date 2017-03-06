@@ -80,7 +80,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product name" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post :edit, profile: @enterprise.identifier, product: {name: 'new test product'}, id: product.id, field: 'name'
+    post :edit, profile: @enterprise.identifier, products_plugin_product: {name: 'new test product'}, id: product.id, field: 'name'
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -89,7 +89,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product description" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id, description: 'My product is very good')
-    post :edit, profile: @enterprise.identifier, product: {description: 'A very good product!'}, id: product.id, field: 'info'
+    post :edit, profile: @enterprise.identifier, products_plugin_product: {description: 'A very good product!'}, id: product.id, field: 'info'
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -98,7 +98,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product image" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post :edit, profile: @enterprise.identifier, product: { image_builder: { uploaded_data: fixture_file_upload('/files/rails.png', 'image/png') } }, id: product.id, field: 'image'
+    post :edit, profile: @enterprise.identifier, products_plugin_product: { image_builder: { uploaded_data: fixture_file_upload('/files/rails.png', 'image/png') } }, id: product.id, field: 'image'
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -164,13 +164,13 @@ class PageControllerTest < ActionController::TestCase
   end
 
   should 'filter html from name of product' do
-    post 'new', profile: @enterprise.identifier, product: { name: "<b id='html_name'>name bold</b>" }, selected_category_id: @product_category.id
+    post 'new', profile: @enterprise.identifier, products_plugin_product: { name: "<b id='html_name'>name bold</b>" }, selected_category_id: @product_category.id
     assert_sanitized assigns(:product).name
   end
 
   should 'filter html with white list from description of product' do
     product = fast_create(Product, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post 'edit', profile: @enterprise.identifier, id: product.id, field: 'info', product: { name: 'name', description: "<b id=\"html_descr\">descr bold</b>" }
+    post 'edit', profile: @enterprise.identifier, id: product.id, field: 'info', products_plugin_product: { name: 'name', description: "<b id=\"html_descr\">descr bold</b>" }
     assert_equal "<b id=\"html_descr\">descr bold</b>", assigns(:product).description
   end
 

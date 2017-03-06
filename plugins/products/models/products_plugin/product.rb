@@ -59,6 +59,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   validates_numericality_of :price, allow_nil: true
   validates_numericality_of :discount, allow_nil: true
+  validate :valid_discount
 
   scope :more_recent, -> { order 'created_at DESC' }
 
@@ -297,6 +298,12 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def action_tracker_user
     self.profile
+  end
+
+  def valid_discount
+    if discount && (price.blank? || discount > price)
+      self.errors.add(:discount, _("should not be bigger than the price"))
+    end
   end
 
 end

@@ -10,7 +10,7 @@
       <td class='formfield'><%= f.text_field(:amount_used, value: @input.formatted_amount, class: 'numbers-only amount-used') + select_unit(@input) %></td>
     </tr>
     <tr>
-      <td><%= f.label :price_per_unit, _('Price %s (%s)') % [display_price_by(@input.unit), environment.currency_unit], class: 'formlabel' %></td>
+      <td><%= f.label :price_per_unit, _('Price %s (%s)').html_safe % [display_price_by(@input.unit), environment.currency_unit], class: 'formlabel' %></td>
       <td class='formfield'><%= f.text_field(:price_per_unit, value: @input.formatted_value(:price_per_unit), class: 'numbers-only price-per-unit') %></td>
     </tr>
     <tr>

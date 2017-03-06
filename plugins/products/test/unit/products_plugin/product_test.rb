@@ -172,6 +172,16 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
     assert_equal product.price, product.price_with_discount
   end
 
+  should 'not accept a discount bigger than the price' do
+    refute product.update(price: 10.00, discount: 200.00)
+    assert product.errors.include?(:discount)
+  end
+
+  should 'not accept a discount and no price' do
+    refute product.update(discount: 200.00)
+    assert product.errors.include?(:discount)
+  end
+
   should 'have default image' do
     assert_equal '/images/icons-app/product-default-pic-thumb.png', product.default_image
   end

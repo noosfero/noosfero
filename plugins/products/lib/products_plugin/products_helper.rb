@@ -182,7 +182,7 @@ module ProductsPlugin::ProductsHelper
   def cancel_edit_product_link(product, field, html_options = {})
     return '' unless (user && user.has_permission?('manage_products', profile))
     button_to_function(:cancel, _('Cancel'), nil, html_options) do |page|
-      page.replace_html "product-#{field}", CGI::escapeHTML(render "products_plugin/page/display_#{field}", product: product)
+      page.replace_html "product-#{field}", (render "products_plugin/page/display_#{field}", product: product)
     end
   end
 
