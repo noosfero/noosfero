@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-12-10 15:48-0300\n"
-"PO-Revision-Date: 2016-11-20 00:16+0000\n"
-"Last-Translator: Nathania Saphira <nathaniasaphira@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
-"documentation/es/>\n"
+"PO-Revision-Date: 2017-03-07 08:38+0000\n"
+"Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
+"Language-Team: Spanish "
+"<https://hosted.weblate.org/projects/noosfero/documentation/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.10-dev\n"
+"X-Generator: Weblate 2.12\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -289,7 +289,7 @@ msgid ""
 "A plugin that uses the Google Custom Search as Noosfero general search "
 "engine."
 msgstr ""
-"Un complemento que utiliza Google Custom Search como motor de bsqueda "
+"Un complemento que utiliza Google Custom Search como motor de búsqueda "
 "general de Noosfero."
 
 #. type: Content of: <ul><li>
@@ -514,8 +514,9 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:18
+#, fuzzy
 msgid "/catalog/enterprise-identifier."
-msgstr ""
+msgstr "/catalog/enterprise-identifier."
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -810,8 +811,8 @@ msgid ""
 "As you can see in your cart, there is a &#8220;Shopping Checkout&#8221; "
 "button:"
 msgstr ""
-"Como puedes ver en tu carrito, hay un botn &#8220;Realizar pago de la "
-"compra&#8221; "
+"Como puedes ver en tu carrito, hay un botn &#8220; Realizar pago de la "
+"compra&#8221:"
 
 # type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -826,8 +827,8 @@ msgid ""
 "After pressing this button, a box will appear with some fields for you to "
 "fill and your cart review:"
 msgstr ""
-"Despus de presionar este botn, una caja aparecer con algunos campos para que "
-"los llenes y revises tu carrito: "
+"Después de presionar este botón, una caja aparecerá con algunos campos para "
+"que los rellenes y revises tu carrito:"
 
 # type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -876,8 +877,8 @@ msgid ""
 "After filling your information press the button &#8220;Send buy "
 "request&#8221;:"
 msgstr ""
-"Despus de llenar tu informacin presiona el botn &#8220;Enviar solicitud de "
-"compra&#8221;"
+"Después de llenar tu información presiona el botón &#8220;Enviar solicitud "
+"de compra&#8221:"
 
 # type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -1399,7 +1400,7 @@ msgstr "Panel de control en el men"
 #: doc/noosfero/community/editing-header-footer.en.xhtml:12
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:12
 msgid "Click on &#8220;Manage my groups&#8221; button:"
-msgstr "Clic en el botn &#8220;Administrar mis grupos&#8221;"
+msgstr "Clic en el botón &#8220;Administrar mis grupos&#8221:"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5611,7 +5612,7 @@ msgstr "Encuentra tu men en la arra superior:"
 #: doc/noosfero/cms/writing-article.en.xhtml:12
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
 msgid "Then, click on &#8220;Manage content&#8221;:"
-msgstr "Entonces, presiona en &#8220;Administrar contenido:&#8221;"
+msgstr "Luego presiona sobre &#8220;Administrar contenido:&#8221:"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5862,7 +5863,7 @@ msgstr "A travs de Gestor de Contenido"
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:15
 msgid "Click on &#8220;Manage content&#8221;:"
-msgstr "Presiona en &#8220;Administrar contenido&#8221;"
+msgstr "Presiona en &#8220;Administrar contenido&#8221:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5954,8 +5955,8 @@ msgstr ""
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:11
 msgid "To find your blog, first find you user menu on top bar:"
 msgstr ""
-"Para encontrar tu blog, primero encuentra el men de usuario en la barra "
-"superior."
+"Para encontrar tu blog, primero encuentra el menú de usuario en la barra "
+"superior:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6909,7 +6910,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/user/editing-person-info.en.xhtml:19
 msgid "Change picture when editing person profile info"
-msgstr "Cambiar imagen al editar informacin personal del perfil "
+msgstr "Cambiar imagen al editar información personal del perfil"
 
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:20
@@ -7351,7 +7352,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:12
 msgid "Edit sideboxes on user control panel"
-msgstr "Editar cajas laterales en panel de control de usuarios "
+msgstr "Editar cajas laterales en panel de control de usuarios"
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -7506,7 +7507,7 @@ msgid ""
 "can choose how many enterprises will be listed."
 msgstr ""
 "<strong>Empresas favoritas:</strong> Enlista tus empresas favoritas. Puedes "
-"elegir cuntas empresas son listadas. "
+"elegir cuántas empresas son listadas."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -7803,9 +7804,10 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/invite-contacts.en.xhtml:16
+#, fuzzy
 msgid ""
 "You will your list of friends and the invitation button. Click on the button."
-msgstr ""
+msgstr "Vas a invitar a tu lista de amigos. Pulsa sobre el botón."
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:17
