@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2017-02-25 13:19+0000\n"
+"PO-Revision-Date: 2017-03-07 08:36+0000\n"
 "Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/es/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12-dev\n"
+"X-Generator: Weblate 2.12\n"
 
 #, fuzzy
 msgid "Creates image slideshow"
@@ -9202,7 +9202,7 @@ msgstr "Configuración del correo"
 
 #: ../app/views/profile_editor/index.html.erb:23
 msgid "Edit sideboxes"
-msgstr "Editar cajas laterales"
+msgstr "Editar bandejas Laterales"
 
 #: ../app/views/profile_editor/index.html.erb:25
 msgid "Edit Appearance"
