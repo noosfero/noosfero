@@ -1,8 +1,3 @@
-# to run by hand
-if $PROGRAM_NAME == __FILE__
-  require File.dirname(__FILE__) + '/../config/environment'
-end
-
 # This class implements the feed updater. To change how often a feed gets
 # updated, change FeedUpdater#update_interval in your config/local.rb file like
 # this:
@@ -102,9 +97,4 @@ Backtrace:
       end
     end
   end
-end
-
-# run the updater
-if ($PROGRAM_NAME == __FILE__)
-  FeedUpdater.new.start
 end
