@@ -1,2 +1,0 @@
-deb http://download.noosfero.org/debian/jessie-test ./
-deb-src http://download.noosfero.org/debian/jessie-test ./
