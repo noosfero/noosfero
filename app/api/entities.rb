@@ -228,6 +228,9 @@ module Api
       expose :comments, using: CommentBase, :if => lambda{|comment,options| Entities.expose_optional_field?(:comments, options)}
       expose :published
       expose :accept_comments?, as: :accept_comments
+      expose :mime_type
+      expose :size, :if => lambda { |article, options| article.kind_of?(UploadedFile)}
+      expose :name
     end
 
     def self.permissions_for_entity(entity, current_person, *method_names)
