@@ -6,6 +6,3 @@ require 'role'
 require 'role_assignment'
 require 'permission_check'
 
-module ApplicationHelper
-  include PermissionNameHelper
-end

@@ -1,5 +1,3 @@
-require_relative '../helpers/application_helper'
-
 class ApplicationMailer < ActionMailer::Base
 
   include AuthenticatedSystem

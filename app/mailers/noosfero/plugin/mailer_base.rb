@@ -1,5 +1,3 @@
-require_relative '../../../app/mailers/application_mailer'
-
 class Noosfero::Plugin::MailerBase < ApplicationMailer
 
   def self.plugin_name

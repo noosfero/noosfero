@@ -1,6 +1,6 @@
 module FbAppPlugin::DisplayHelper
 
-  extend CatalogHelper
+  extend ProductsPlugin::CatalogHelper
 
   def fb_url_options options
     options.merge! page_id: @page_ids, signed_request: @signed_requests, id: nil

@@ -1,13 +1,24 @@
 require_relative 'boot'
 
+require 'pp'
+require 'redcloth'
 require 'rails/all'
-require 'active_support/dependencies'
 
 # Silence Rails 5 deprecation warnings
 ActiveSupport::Deprecation.silenced = true
 
 Bundler.require(:default, :assets, Rails.env)
 $: << File.expand_path('../lib', File.dirname(__FILE__))
+
+# init dependencies at vendor, loaded at the Gemfile
+$: << 'vendor/plugins'
+vendor = Dir['vendor/{,plugins/}*'] - ['vendor/plugins']
+vendor.each do |dir|
+  init_rb = "#{dir}/init.rb"
+  require_relative "../#{init_rb}" if File.file? init_rb
+end
+
+require_dependency 'extensions'
 
 require_dependency 'noosfero'
 require_dependency 'noosfero/plugin'
@@ -38,11 +49,12 @@ module Noosfero
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths << config.root.join('lib')
-    config.autoload_paths << config.root.join('app')
-    config.autoload_paths << config.root.join('app/sweepers')
-    config.autoload_paths.concat Dir["#{config.root}/app/controllers/**/"]
-    config.autoload_paths << config.root.join('test', 'mocks', Rails.env)
+    [config.eager_load_paths, config.autoload_paths].each do |path|
+      path << config.root.join('app')
+      path << config.root.join('app/sweepers')
+      path.concat Dir["#{config.root}/app/controllers/**/"]
+      path << config.root.join('test', 'mocks', Rails.env) if Rails.env.test?
+    end
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -116,10 +128,11 @@ module Noosfero
     config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
     config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
 
-    config.eager_load = true
-
     config.middleware.use Noosfero::MultiTenancy::Middleware
 
-    Noosfero::Plugin.setup(config)
+    Noosfero::Plugin.setup config
+
+    #config.eager_load_paths.concat config.autoload_paths
+    config.eager_load = true
   end
 end

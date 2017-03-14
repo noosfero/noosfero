@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
-include Noosfero::SampleDataHelper
+include SampleData
 
 QUALIFIERS = ['Organic', 'Ecological', 'Biodynamic farming', 'Sustainable', 'Agroecological', 'Craft', 'Free as in freedom']
 CERTIFIERS = ['FBES', 'Colivre', 'Circuito Fora do Eixo', 'Instituto Paulo Freire', 'Free Software Foundation', 'Linux Foundation', 'GNU', 'Perl Foundation']

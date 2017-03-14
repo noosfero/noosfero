@@ -678,7 +678,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'find more popular people' do
-    extend CacheCounterHelper
+    extend CacheCounter
 
     Person.delete_all
     p1 = fast_create(Person)

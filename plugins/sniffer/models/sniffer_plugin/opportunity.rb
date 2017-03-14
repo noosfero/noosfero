@@ -20,6 +20,8 @@ class SnifferPlugin::Opportunity < ApplicationRecord
   }
 
   if defined? SolrPlugin
+    extend SolrPlugin::ActsAsSearchable
+
     acts_as_searchable fields: [
         # searched fields
         # filtered fields

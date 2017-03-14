@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 require File.dirname(__FILE__) + '/../config/environment'
-include Noosfero::SampleDataHelper
+include SampleData
 
 def new_category(parent, name, color = nil)
   save $environment.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)

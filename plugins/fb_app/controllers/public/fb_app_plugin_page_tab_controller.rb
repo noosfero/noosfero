@@ -5,9 +5,9 @@ class FbAppPluginPageTabController < FbAppPluginController
   before_filter :change_theme
   before_filter :disable_cache
 
-  include CatalogHelper
+  include ProductsPlugin::CatalogHelper
 
-  helper ManageProductsHelper
+  helper ProductsPlugin::ProductsHelper
   helper FbAppPlugin::DisplayHelper
 
   def index

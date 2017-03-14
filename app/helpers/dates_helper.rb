@@ -1,5 +1,3 @@
-require 'noosfero/i18n'
-
 module DatesHelper
 
   include ActionView::Helpers::DateHelper

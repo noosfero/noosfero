@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
-include Noosfero::SampleDataHelper
+include SampleData
 
 enterprises = $environment.enterprises
 categories = $environment.product_categories

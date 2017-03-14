@@ -1,5 +1,4 @@
 require_dependency 'noosfero'
-require 'environment_domain_constraint'
 
 Noosfero::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
@@ -11,15 +10,18 @@ Noosfero::Application.routes.draw do
   # map.purchase 'products/:id/purchase', controller: 'catalog', action: 'purchase'
   # This route can be invoked with purchase_url(id: product.id)
 
+  environment_domain_constraint = -> request { !Domain.hosting_profile_at(request.host) }
+
   ######################################################
   ## Public controllers
   ######################################################
+
 
   match 'test/:controller(/:action(/:id))', controller: /.*test.*/, via: :all
 
   # -- just remember to delete public/index.html.
   # You can have the root of your site routed by hooking up ''
-  root to: 'home#index', constraints: EnvironmentDomainConstraint.new, via: :all
+  root to: 'home#index', constraints: environment_domain_constraint, via: :all
 
   match 'site(/:action)', controller: 'home', via: :all
   match 'api(/:action)', controller: 'api', via: :all
@@ -136,14 +138,15 @@ Noosfero::Application.routes.draw do
   # cache stuff - hack
   match 'public/:action/:id', controller: 'public', via: :all
 
-  match ':profile/*page/versions', controller: 'content_viewer', action: 'article_versions', profile: /#{Noosfero.identifier_format_in_url}/i, constraints: EnvironmentDomainConstraint.new, via: :all
+  match ':profile/*page/versions', controller: 'content_viewer', action: 'article_versions', profile: /#{Noosfero.identifier_format_in_url}/i, constraints: environment_domain_constraint, via: :all
   match '*page/versions', controller: 'content_viewer', action: 'article_versions', via: :all
 
-  match ':profile/*page/versions_diff', controller: 'content_viewer', action: 'versions_diff', profile: /#{Noosfero.identifier_format_in_url}/i, constraints: EnvironmentDomainConstraint.new, via: :all
+  match ':profile/*page/versions_diff', controller: 'content_viewer', action: 'versions_diff', profile: /#{Noosfero.identifier_format_in_url}/i, constraints: environment_domain_constraint, via: :all
   match '*page/versions_diff', controller: 'content_viewer', action: 'versions_diff', via: :all
 
   # match requests for profiles that don't have a custom domain
-  match ':profile(/*page)', controller: 'content_viewer', action: 'view_page', profile: /#{Noosfero.identifier_format_in_url}/i, constraints: EnvironmentDomainConstraint.new, via: :all
+  match ':profile(/*page)', controller: 'content_viewer', action: 'view_page', profile: /#{Noosfero.identifier_format_in_url}/i,
+    constraints: environment_domain_constraint, via: :all, as: :page
 
   # match requests for content in domains hosted for profiles
   match '/(*page)', controller: 'content_viewer', action: 'view_page', via: :all
