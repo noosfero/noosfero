@@ -1,6 +1,8 @@
+require_relative '../../test/setup_db' if Rails.env.test?
+
 class StoaPlugin::UspAlunoTurmaGrad < ApplicationRecord
 
-  establish_connection(:stoa)
+  establish_connection :stoa
 
   self.table_name = :alunoturma_gr
 

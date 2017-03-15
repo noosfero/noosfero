@@ -1,7 +1,10 @@
+require_relative '../../test/setup_db' if Rails.env.test?
+
 class StoaPlugin::UspUser < ApplicationRecord
 
-  establish_connection(:stoa)
-  self.table_name = 'pessoa'
+  establish_connection :stoa
+
+  self.table_name = :pessoa
 
   SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
 
