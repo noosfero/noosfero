@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require_relative '../config/environment'
+require_relative '../lib/sample_data'
 include SampleData
 
 id = ARGV.first || ''
