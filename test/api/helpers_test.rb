@@ -256,6 +256,14 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert asset_params[:image_builder][:uploaded_data].is_a? ActionDispatch::Http::UploadedFile
   end
 
+  should 'parse_parent_id return nil' do
+    assert_nil parse_parent_id("")
+  end
+
+  should 'parse_parent_id return number' do
+    assert 2, parse_parent_id(2)
+  end
+
   protected
 
   def error!(info, status)

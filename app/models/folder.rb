@@ -67,4 +67,8 @@ class Folder < Article
     !self.has_posts? || self.gallery?
   end
 
+  def mime_type
+    'application/folder'
+  end
+
 end

@@ -107,6 +107,11 @@ module Api
       end
     end
 
+    def parse_parent_id(parent_id)
+      return nil if parent_id.blank?
+      parent_id
+    end
+
     def find_article(articles, params)
       conditions = make_conditions_with_parameter(params, Article)
       article = articles.find_by(conditions)
@@ -226,13 +231,18 @@ module Api
     end
 
     def make_conditions_with_parameter(params = {}, class_type = nil)
+
       parsed_params = class_type.nil? ? parser_params(params) : parser_params_by_type(class_type, params)
       conditions = {}
       from_date = DateTime.parse(parsed_params.delete(:from)) if parsed_params[:from]
       until_date = DateTime.parse(parsed_params.delete(:until)) if parsed_params[:until]
+
       conditions[:type] = parse_content_type(parsed_params.delete(:content_type)) unless parsed_params[:content_type].nil?
 
       conditions[:created_at] = period(from_date, until_date) if from_date || until_date
+
+      conditions[:parent_id] = parse_parent_id(parsed_params.delete(:parent_id)) if parsed_params.key? :parent_id
+
       conditions.merge!(parsed_params)
 
       conditions
