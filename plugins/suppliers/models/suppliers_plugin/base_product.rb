@@ -56,7 +56,7 @@ class SuppliersPlugin::BaseProduct < Product
   default_delegate :unit_detail, default_setting: :default_unit, to: :supplier_product
   default_delegate_setting :minimum_selleable, to: :supplier_product
 
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_currency :own_price
   has_currency :original_price
   has_number_with_locale :minimum_selleable

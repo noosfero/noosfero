@@ -1,4 +1,4 @@
-module OrdersPlugin::FieldHelper
+module DeliveryPlugin::FieldHelper
 
   protected
 

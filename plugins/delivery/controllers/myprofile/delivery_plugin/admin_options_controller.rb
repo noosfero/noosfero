@@ -1,6 +1,6 @@
 class DeliveryPlugin::AdminOptionsController < DeliveryPlugin::AdminMethodController
 
-  helper OrdersPlugin::FieldHelper
+  helper DeliveryPlugin::FieldHelper
   helper DeliveryPlugin::DisplayHelper
 
   protect 'edit_profile', :profile

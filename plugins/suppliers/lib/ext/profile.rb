@@ -80,7 +80,7 @@ class Profile
   end
 
   delegate :margin_percentage, :margin_percentage=, to: :supplier_settings
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_number_with_locale :margin_percentage
 
   def supplier_products_default_margins

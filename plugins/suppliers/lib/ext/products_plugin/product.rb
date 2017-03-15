@@ -3,7 +3,7 @@ require_dependency 'products_plugin/product'
 # FIXME: The lines bellow should be on the core
 class ProductsPlugin::Product
 
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_currency :price
   has_currency :discount
 

@@ -38,7 +38,7 @@ class OrdersPluginItemController < MyProfileController
   protected
 
   def set_quantity_consumer_ordered value
-    @quantity_consumer_ordered = CurrencyHelper.parse_localized_number value
+    @quantity_consumer_ordered = HasCurrency.parse_localized_number value
 
     if @quantity_consumer_ordered > 0
       min = @item.product.minimum_selleable rescue nil

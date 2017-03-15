@@ -4,7 +4,7 @@ class DeliveryPlugin::AdminMethodController < MyProfileController
 
   protect 'edit_profile', :profile
 
-  helper OrdersPlugin::FieldHelper
+  helper DeliveryPlugin::FieldHelper
   helper DeliveryPlugin::DisplayHelper
 
   def new

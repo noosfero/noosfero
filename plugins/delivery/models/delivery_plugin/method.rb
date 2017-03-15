@@ -21,7 +21,7 @@ class DeliveryPlugin::Method < ApplicationRecord
   scope :pickup, -> { where delivery_type: 'pickup' }
   scope :delivery, -> { where delivery_type: 'deliver'}
 
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_currency :fixed_cost
   has_currency :free_over_price
   has_currency :distribution_margin_percentage

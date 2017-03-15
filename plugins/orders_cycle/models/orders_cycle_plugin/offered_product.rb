@@ -28,7 +28,7 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   has_one  :supplier, -> { order 'id ASC' }, through: :sources_supplier_product
 
   instance_exec &OrdersPlugin::Item::DefineTotals
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_currency :buy_price
 
   # test this before use!

@@ -1,4 +1,4 @@
-module CurrencyHelper
+module CurrencyFields
 
   extend ActionView::Helpers::NumberHelper
 
@@ -54,7 +54,7 @@ module CurrencyHelper
 
       if method_defined? "#{attr}="
         define_method "#{attr}_with_locale=" do |value|
-          value = CurrencyHelper.parse_localized_number value if value.is_a? String
+          value = CurrencyFields.parse_localized_number value if value.is_a? String
           self.send "#{attr}_without_locale=", value
         end
         alias_method_chain "#{attr}=", :locale
@@ -62,7 +62,7 @@ module CurrencyHelper
 
       define_method "#{attr}_localized" do |*args, &block|
         number = self.send attr, *args, &block
-        CurrencyHelper.localized_number number
+        CurrencyFields.localized_number number
       end
     end
 
@@ -71,11 +71,11 @@ module CurrencyHelper
 
       define_method "#{attr}_as_currency" do |*args, &block|
         number = self.send attr, *args, &block
-        CurrencyHelper.number_as_currency number
+        CurrencyFields.number_as_currency number
       end
       define_method "#{attr}_as_currency_number" do |*args, &block|
         number = self.send attr, *args, &block
-        CurrencyHelper.number_as_currency_number number
+        CurrencyFields.number_as_currency_number number
       end
     end
 

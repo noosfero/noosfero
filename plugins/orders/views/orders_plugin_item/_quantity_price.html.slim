@@ -1,5 +1,5 @@
 div class="quantity-price-row #{status} #{status_data[:flags].keys.join ' '}"
-  - quantity_localized = CurrencyHelper.localized_number status_data[:quantity]
+  - quantity_localized = CurrencyFields.localized_number status_data[:quantity]
   .box-field.quantity title="#{"#{quantity_localized} #{item.unit_name}" unless status_data[:flags][:removed]}"
     span.value
       - if status_data[:flags][:removed]

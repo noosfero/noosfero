@@ -171,7 +171,7 @@ module OrdersPlugin::Report
         order.items.each do |item|
 
           formula_value = item.price * item.status_quantity rescue 0
-          formula_value_s = CurrencyHelper.localized_number(formula_value)
+          formula_value_s = CurrencyFields.localized_number(formula_value)
           unit = item.product.unit.singular rescue ''
 
           # for the case in which the item is aggregated by other products we chose to use the item idhave to

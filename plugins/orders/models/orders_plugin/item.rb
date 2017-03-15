@@ -93,7 +93,7 @@ class OrdersPlugin::Item < ApplicationRecord
     end
   end
 
-  extend CurrencyHelper::ClassMethods
+  extend CurrencyFields::ClassMethods
   has_currency :price
   StatusDataMap.each do |status, data|
     quantity = "quantity_#{data}"

@@ -11,7 +11,7 @@ module ProductsPlugin
 
     attr_accessor :quantity_ordered
 
-    extend CurrencyHelper::ClassMethods
+    extend CurrencyFields::ClassMethods
     instance_exec &OrdersPlugin::Item::DefineTotals
 
   end

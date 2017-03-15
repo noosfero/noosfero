@@ -1,15 +1,13 @@
 ENV["RAILS_ENV"] = "test"
 
-require_relative "../config/environment"
-# FIXME: shouldn't be necessary
-require 'user'
+require_relative '../config/environment'
 
 require 'rails/test_help'
 
 require 'mocha'
 require 'mocha/mini_test'
-require "minitest/spec"
-require "minitest/reporters"
+require 'minitest/spec'
+require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
 require_relative 'support/should'
