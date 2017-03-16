@@ -71,7 +71,7 @@ module ContentViewerHelper
         { article.environment.locales[translation.language] => { :href => url_for(translation.url) } }
       end
       content_tag(:div, link_to(_('Translations'), '#',
-                                :onmouseover => "toggleSubmenu(this, '#{_('Translations')}', #{CGI::escape_html(links.to_json)}); return false",
+                                :onmouseover => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
                                 :class => 'article-translations-menu simplemenu-trigger up'),
                   :class => 'article-translations')
     end
