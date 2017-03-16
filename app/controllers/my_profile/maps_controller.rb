@@ -1,6 +1,7 @@
 class MapsController < MyProfileController
 
   skip_before_filter :verify_authenticity_token, only: [:google_map]
+  include CategoriesHelper
 
   protect 'edit_profile', :profile
 

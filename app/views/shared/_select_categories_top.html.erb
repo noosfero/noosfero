@@ -8,19 +8,19 @@
 <%= hidden_field_tag "#{object_name}[category_ids][]", nil %>
 
 <div id="category-ajax-selector">
-<% unless categories_selected.nil? %>
-<div id="selected-categories">
-  <div class="label"><%= _('Selected categories:') %></div>
-  <% categories_selected.each do |cat| %>
-    <div id="selected-category-<%= cat.id %>">
-      <%= hidden_field_tag("#{object_name}[category_ids][]", cat.id) %>
-      <%= selected_category_link(cat) %>
-    </div>
-  <% end %>
-</div>
-<% end %>
-<div id="select-categories">
-  <%= render :partial => 'shared/select_categories', :locals => {:object_name => object_name, :multiple => true, :categories_selected => categories_selected }, :layout => false %>
-</div>
+  <table id='selected-categories' class='actions'>
+    <tr id='empty-row' <%= 'hidden' if categories_selected.present? %>>
+      <td colspan=2>
+        <i><%= _('There are no categories selected yet.') %></i>
+      </td>
+    </tr>
 
+    <% categories_selected.each do |category| %>
+      <%= render :partial => 'shared/category_row', :locals => {:category => category, :object_name => object_name} %>
+    <% end %>
+  </table>
+
+  <div id='select-categories'>
+    <%= render :partial => 'shared/select_categories', :locals => {:object_name => object_name, :multiple => true, :kind => kind }, :layout => false %>
+  </div>
 </div>

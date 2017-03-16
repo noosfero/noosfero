@@ -703,6 +703,11 @@ class Environment < ApplicationRecord
     Category.top_level_for(self)
   end
 
+  # returns an array with the top level regions for this environment.
+  def top_level_regions
+    Region.top_level_for(self)
+  end
+
   # Returns the hostname of the first domain associated to this environment.
   #
   # If #force_www is true, adds 'www.' at the beginning of the hostname. If the

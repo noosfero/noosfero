@@ -61,11 +61,6 @@ class ProfileEditorController < MyProfileController
     end
   end
 
-  def update_categories
-    @object = profile
-    render_categories 'profile_data'
-  end
-
   def header_footer
     @no_design_blocks = true
     if request.post?

@@ -1,0 +1,7 @@
+<tr id="selected-category-<%= category.id %>" class="selected-category" data-id="<%= category.id %>">
+  <%= hidden_field_tag("#{object_name}[category_ids][]", category.id) %>
+  <td style='width: 90%'><%= category_humane_path(category) %></td>
+  <td style="text-align: center; width: 10%">
+    <%= button_to_function_without_text(:remove, _('Remove'), "remove_category(#{category.id})") %>
+  </td>
+</tr>

@@ -1,8 +1,9 @@
 <% if !categories.nil? && !categories.empty? && !@object.nil? %>
-  <hr>
-  <div class="category-helper-label"><%= _('Click to select a category') %></div>
-
-  <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
-    <%= update_categories_link(nil,category.name, category.id) %>
-  <% end %>
+  <div class="toplevel-categories">
+    <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
+      <%= link_to category.name,
+        { :action => "update_categories", :category_id => category.id, :id => @object, :kind => kind },
+        { :id => "select-category-#{category.id}-link", :remote => true, :class => "select-subcategory-link", 'data-children' => category.children.map(&:id).to_s } %>
+    <% end %>
+  </div>
 <% end %>

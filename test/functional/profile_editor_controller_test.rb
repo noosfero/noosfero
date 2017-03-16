@@ -84,6 +84,20 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_includes person.categories, cat2
   end
 
+  should 'display profile categories and regions' do
+    profile_region = fast_create(Region, name: 'Profile Region')
+    region = fast_create(Region, name: 'Region')
+    category = fast_create(Category, name: 'Category')
+
+    profile.region = profile_region
+    profile.update_attributes(category_ids: [region.id, category.id])
+
+    get :edit, :profile => profile.identifier
+    assert_tag :tag => 'td', :content => profile_region.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
+    assert_tag :tag => 'td', :content => region.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
+    assert_tag :tag => 'td', :content => category.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
+  end
+
   should 'filter html from person name' do
     name = "name <strong id='name_html_test'>with</strong> html"
     post :edit, :profile => profile.identifier, :profile_data => { :name => name }

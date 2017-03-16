@@ -8,11 +8,11 @@ class MapsControllerTest < ActionController::TestCase
     @controller = MapsController.new
 
     @profile = create_user('test_profile').person
+    @env = Environment.default
     login_as(@profile.identifier)
-
   end
 
-  attr_reader :profile
+  attr_reader :profile, :env
 
   should 'save profile address' do
     post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
@@ -62,13 +62,34 @@ class MapsControllerTest < ActionController::TestCase
   end
 
   should 'dispĺay form for address with profile address' do
-    env = Environment.default
     env.custom_person_fields = { 'city' => { 'active' => 'true' } }
     env.save!
 
-
     get :edit_location, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[city]' }
+  end
+
+  should 'display only region categories for selection' do
+    fast_create(Region, name: 'Region')
+    fast_create(State, name: 'City', environment_id: env.id)
+    fast_create(City, name: 'State', environment_id: env.id)
+    fast_create(Category, name: 'Not a Region')
+
+    get :edit_location, profile: profile.identifier
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'Region'
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'City'
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'State'
+    assert_no_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'Not a Region'
+  end
+
+  should 'display only regions in the selected categories list' do
+    region = fast_create(Region, name: 'Region')
+    category = fast_create(Category, name: 'Not a Region')
+    profile.update_attributes(category_ids: [region.id, category.id])
+
+    get :edit_location, profile: profile.identifier
+    assert_tag :tag => 'td', :content => region.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
+    assert_no_tag :tag => 'td', :content => category.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
   end
 
   should 'autocomplete search_city' do

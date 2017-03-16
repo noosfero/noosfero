@@ -1,5 +1,6 @@
 <%
   content = render :partial => 'shared/select_categories',
-      :locals => {:object_name => object_name, :multiple => true}, :layout => false
+      :locals => {:object_name => object_name, :multiple => true, :kind => kind}, :layout => false
 %>
 jQuery('#select-categories').html('<%= j(content) %>');
+filter_category_links()

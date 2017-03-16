@@ -37,6 +37,7 @@
 *= require require_login.js
 *= require block-store.js
 *= require email_templates.js
+*= require categories_selector.js
 */
 
 // lodash configuration
