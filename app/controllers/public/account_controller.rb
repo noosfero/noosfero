@@ -116,6 +116,7 @@ class AccountController < ApplicationController
         else
           if session[:may_be_a_bot]
             return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
+            session[:may_be_a_bot] = false
           end
           @user.community_to_join = session[:join]
           @user.signup!
