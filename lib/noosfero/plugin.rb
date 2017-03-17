@@ -587,10 +587,11 @@ class Noosfero::Plugin
   end
 
   def autocomplete asset, scope, query, paginate_options={:page => 1}, options={:field => 'name'}
-    {}
+    nil
   end
 
   def catalog_autocomplete_item_extras product
+    nil
   end
 
   def search_order asset
