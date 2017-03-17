@@ -1,14 +1,14 @@
+require_relative 'dotenv'
+
 RailsRoot      = Dir.pwd
-BindPort       = 3000
+BindPort       = (ENV['BIND_PORT'] || '3000').to_i
 Production     = if ENV['RAILS_ENV'] == 'production' then true else false end
 
-Workers        = 2
-Threads        = 16 # db pool must be higher than this
+Workers        = (ENV['WORKERS'] || '2').to_i
+Threads        = (ENV['THREADS'] || '5').to_i
+WorkerMaxMem   = (ENV['WORKER_MAX_MEM'] || '512').to_i
 
-WorkerKiller   = true
-WorkerMaxMem   = 256*2
-
-DaemonPriority = -5
+DaemonPriority = (ENV['DAEMON_PRIORITY'] || '-5').to_i
 WorkerDaemons  = {
   delayed_job: {
     worker_nr: 0,
@@ -39,19 +39,17 @@ workers Workers
 threads 0,Threads
 
 before_fork do
-  if WorkerKiller
-    begin
-      require 'puma_worker_killer'
-      PumaWorkerKiller.config do |config|
-        config.ram           = Workers * WorkerMaxMem # mb
-        config.frequency     = 15                     # seconds
-        config.percent_usage = 0.90
-        config.rolling_restart_frequency = 12 * 3600  # 12 hours in seconds
-      end
-      PumaWorkerKiller.start
-    rescue LoadError
-      puts 'Add `puma_worker_killer` to `config/Gemfile` to use worker killer'
+  begin
+    require 'puma_worker_killer'
+    PumaWorkerKiller.config do |config|
+      config.ram           = Workers * WorkerMaxMem # mb
+      config.frequency     = 15                     # seconds
+      config.percent_usage = 0.90
+      config.rolling_restart_frequency = 12 * 3600  # 12 hours in seconds
     end
+    PumaWorkerKiller.start
+  rescue LoadError
+    puts 'Add `puma_worker_killer` to `config/Gemfile` to use worker killer'
   end
 end
 
