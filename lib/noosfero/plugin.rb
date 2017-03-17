@@ -586,6 +586,25 @@ class Noosfero::Plugin
     {:results => scope.paginate(paginate_options)}
   end
 
+  def autocomplete asset, scope, query, paginate_options={:page => 1}, options={:field => 'name'}
+    {}
+  end
+
+  def catalog_autocomplete_item_extras product
+  end
+
+  def search_order asset
+    nil
+  end
+
+  def catalog_search_extras_begin
+    nil
+  end
+
+  def catalog_search_extras_end
+    nil
+  end
+
   # -> Suggests terms based on asset and query
   # returns = [a, b, c, ...]
   def find_suggestions(query, context, asset, options={:limit => 5})
