@@ -1,7 +1,6 @@
 require_relative 'boot'
 
 require 'pp'
-require 'redcloth'
 require 'rails/all'
 
 # Silence Rails 5 deprecation warnings

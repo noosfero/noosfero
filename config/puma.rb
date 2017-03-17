@@ -35,7 +35,7 @@ bind            "unix://#{RailsRoot}/run/puma.sock" if Production
 bind            "tcp://0.0.0.0:#{BindPort}" unless Production
 stdout_redirect "#{RailsRoot}/log/puma.stdout.log", "#{RailsRoot}/log/puma.stderr.log", true if Production
 
-workers Workers
+workers Workers unless RUBY_ENGINE == 'jruby'
 threads 0,Threads
 
 before_fork do

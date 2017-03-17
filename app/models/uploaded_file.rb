@@ -3,7 +3,7 @@
 # Limitation: only file metadata are versioned. Only the latest version
 # of the file itself is kept. (FIXME?)
 
-require 'sdbm'
+require 'sdbm' unless RUBY_ENGINE == 'jruby'
 
 class UploadedFile < Article
 
@@ -30,7 +30,7 @@ class UploadedFile < Article
       end
       dbm.close
     end
-  end
+  end unless RUBY_ENGINE == 'jruby'
 
   track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :parent
 
