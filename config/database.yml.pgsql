@@ -15,7 +15,7 @@ development:
   template: template0
   username: noosfero
   password:
-  pool: 20
+  pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -50,7 +50,7 @@ production:
   template: template0
   username: noosfero
   password:
-  pool: 20
+  pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
 cucumber:
   <<: *TEST

@@ -1,3 +1,4 @@
+require_relative 'dotenv'
 require_relative 'application'
 
 Noosfero::Application.initialize!
