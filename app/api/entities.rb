@@ -231,6 +231,7 @@ module Api
       expose :mime_type
       expose :size, :if => lambda { |article, options| article.kind_of?(UploadedFile)}
       expose :name
+      expose :public_filename, :if => lambda { |article, options| article.kind_of?(UploadedFile)}
     end
 
     def self.permissions_for_entity(entity, current_person, *method_names)

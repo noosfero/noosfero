@@ -18,6 +18,15 @@ class ArticlesTest < ActiveSupport::TestCase
     assert !Article.exists?(article.id)
   end
 
+  should 'create uploaded file type article' do
+    params['article'] = { name: 'UploadedFileArticle', type: 'UploadedFile', uploaded_data: {path: '/files/rails.png'} }
+    ActionDispatch::Http::UploadedFile.expects(:new).with({'path' => '/files/rails.png'}).returns(fixture_file_upload('/files/rails.png', 'image/png'))
+    post "/api/v1/profiles/#{person.id}/articles?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['public_filename'].present?
+    assert Article.find(json['id']).present?
+  end
+
   should 'not remove article without permission' do
     otherPerson = fast_create(Person, :name => "Other Person")
     article = fast_create(Article, :profile_id => otherPerson.id, :name => "Some thing")

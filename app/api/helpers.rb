@@ -124,6 +124,10 @@ module Api
       klass_type = params[:content_type] || params[:article].delete(:type) || TextArticle.name
       return forbidden! unless klass_type.constantize <= Article
 
+      if params[:article][:uploaded_data].present?
+        params[:article][:uploaded_data] = ActionDispatch::Http::UploadedFile.new(params[:article][:uploaded_data])
+      end
+
       article = klass_type.constantize.new(params[:article])
       article.last_changed_by = current_person
       article.created_by= current_person
