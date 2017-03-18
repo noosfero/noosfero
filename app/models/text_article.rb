@@ -1,3 +1,5 @@
+require 'redcloth' unless RUBY_ENGINE == 'jruby'
+
 # a base class for all text article types.
 class TextArticle < Article
 
