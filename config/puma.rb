@@ -58,8 +58,9 @@ end
 after_worker_fork do |worker_nr|
   begin
     ActiveRecord::Base.establish_connection
+    Rails.cache.reconnect
   rescue
-    retry #if this fail it will stop worker killer
+    retry #if this fail it will stop worker init
   end
 
   WorkerDaemons.each do |daemon, opts|
