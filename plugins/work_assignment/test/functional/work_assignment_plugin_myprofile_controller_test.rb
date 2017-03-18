@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'work_assignment_plugin_myprofile_controller'
 
 class WorkAssignmentPluginMyprofileControllerTest < ActionController::TestCase
 

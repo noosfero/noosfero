@@ -1,6 +1,4 @@
-# encoding: UTF-8
-require_relative "../test_helper"
-require 'maps_controller'
+require_relative '../test_helper'
 
 class MapsControllerTest < ActionController::TestCase
 

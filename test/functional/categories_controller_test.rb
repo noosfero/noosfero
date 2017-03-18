@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'categories_controller'
+require_relative '../test_helper'
 
 class CategoriesControllerTest < ActionController::TestCase
   all_fixtures

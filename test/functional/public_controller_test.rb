@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'public_controller'
+require_relative '../test_helper'
 
 class PublicControllerTest < ActionController::TestCase
 

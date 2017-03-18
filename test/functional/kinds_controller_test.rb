@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'kinds_controller'
+require_relative '../test_helper'
 
 class KindsControllerTest < ActionController::TestCase
   def setup

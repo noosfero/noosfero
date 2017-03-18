@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'favorite_enterprises_controller'
+require_relative '../test_helper'
 
 class FavoriteEnterprisesControllerTest < ActionController::TestCase
 

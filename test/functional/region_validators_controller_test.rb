@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'region_validators_controller'
+require_relative '../test_helper'
 
 class RegionValidatorsControllerTest < ActionController::TestCase
   all_fixtures

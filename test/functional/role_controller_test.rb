@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'role_controller'
+require_relative '../test_helper'
 
 class RoleControllerTest < ActionController::TestCase
   all_fixtures

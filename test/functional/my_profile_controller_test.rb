@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'my_profile_controller'
+require_relative '../test_helper'
 
 class OnlyForPersonTestController < MyProfileController
   requires_profile_class Person

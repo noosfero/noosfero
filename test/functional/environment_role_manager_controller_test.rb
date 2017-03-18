@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'environment_role_manager_controller'
+require_relative '../test_helper'
 
 class EnvironmentRoleManagerControllerTest < ActionController::TestCase
   def setup

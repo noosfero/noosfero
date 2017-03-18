@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'open_graph_plugin/myprofile_controller'
 
 # Re-raise errors caught by the controller.
 class OpenGraphPlugin::MyprofileController; def rescue_action(e) raise e end; end

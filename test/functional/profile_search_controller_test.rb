@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'profile_search_controller'
+require_relative '../test_helper'
 
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup

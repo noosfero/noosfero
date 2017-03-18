@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'trusted_sites_controller'
+require_relative '../test_helper'
 
 class TrustedSitesControllerTest < ActionController::TestCase
   all_fixtures

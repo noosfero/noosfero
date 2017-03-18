@@ -1,7 +1,6 @@
 # FIXME: this tests must me moved into design plugin
 
-require_relative "../test_helper"
-require 'edit_template_controller'
+require_relative '../test_helper'
 
 class EditTemplateControllerTest < ActionController::TestCase
   all_fixtures

@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'profile_editor_controller'
 
 class ProfileEditorControllerTest < ActionController::TestCase
 

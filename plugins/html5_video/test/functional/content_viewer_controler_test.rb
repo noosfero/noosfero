@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require 'content_viewer_controller'
+require 'test_helper'
 
 class ContentViewerController
   # Re-raise errors caught by the controller.

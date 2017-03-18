@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'environment_design_controller'
+require_relative '../test_helper'
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 

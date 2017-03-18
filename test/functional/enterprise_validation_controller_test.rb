@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'enterprise_validation_controller'
+require_relative '../test_helper'
 
 class EnterpriseValidationControllerTest < ActionController::TestCase
 

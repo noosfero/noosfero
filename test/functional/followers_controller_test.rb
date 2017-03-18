@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'followers_controller'
+require_relative '../test_helper'
 
 class FollowersControllerTest < ActionController::TestCase
   def setup

@@ -1,5 +1,4 @@
 require_relative "../test_helper"
-require 'admin_panel_controller'
 
 class AdminPanelControllerTest < ActionController::TestCase
 

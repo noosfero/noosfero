@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'content_viewer_controller'
+require_relative '../test_helper'
 
 class ContentViewerControllerTest < ActionController::TestCase
 

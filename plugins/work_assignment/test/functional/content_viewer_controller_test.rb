@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'content_viewer_controller'
 
 class ContentViewerControllerTest < ActionController::TestCase
 

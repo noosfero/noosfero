@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
-require 'account_controller'
+require 'test_helper'
 
 class AccountController
   include AdminNotificationsPlugin::NotificationHelper

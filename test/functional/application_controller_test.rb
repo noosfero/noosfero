@@ -1,6 +1,4 @@
-# encoding: UTF-8
-require_relative "../test_helper"
-require 'test_controller'
+require_relative '../test_helper'
 
 class ApplicationControllerTest < ActionController::TestCase
   all_fixtures

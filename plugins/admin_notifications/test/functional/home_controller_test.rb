@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
-require 'home_controller'
+require 'test_helper'
 
 class HomeController; def rescue_action(e) raise e end;
 end

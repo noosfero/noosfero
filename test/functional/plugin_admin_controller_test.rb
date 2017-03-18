@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'plugin_admin_controller'
+require_relative '../test_helper'
 
 class PluginAdminController
   def index

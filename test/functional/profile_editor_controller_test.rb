@@ -1,5 +1,4 @@
-require_relative "../test_helper"
-require 'profile_editor_controller'
+require_relative '../test_helper'
 
 class ProfileEditorControllerTest < ActionController::TestCase
   all_fixtures

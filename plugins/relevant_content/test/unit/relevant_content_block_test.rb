@@ -1,7 +1,5 @@
 require_relative '../test_helper'
 
-require 'comment_controller'
-
 class RelevantContentBlockTest < ActiveSupport::TestCase
 
   include AuthenticatedTestHelper
