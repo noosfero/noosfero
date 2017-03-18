@@ -39,6 +39,8 @@ workers Workers unless RUBY_ENGINE == 'jruby'
 threads 0,Threads
 
 before_fork do
+  ActiveRecord::Base.clear_all_connections!
+
   begin
     require 'puma_worker_killer'
     PumaWorkerKiller.config do |config|
