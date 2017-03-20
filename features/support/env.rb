@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] ||= "cucumber"
+require 'simplecov'
 
 require 'cucumber/rails'
 

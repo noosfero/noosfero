@@ -21,7 +21,7 @@ Noosfero is written in Ruby with the "[Rails framework](http://www.rubyonrails.o
 You need to install some packages Noosfero depends on. On Debian GNU/Linux or Debian-based systems, all of these packages are available through the Debian archive. You can install them with the following command:
 
     # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 \
-      libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby \
+      libsqlite3-ruby librmagick-ruby libredcloth-ruby \
       libwill-paginate-ruby iso-codes libfeedparser-ruby libdaemons-ruby thin \
       tango-icon-theme
 
@@ -31,7 +31,6 @@ On other systems, they may or may not be available through your regular package 
 * Rake: http://rake.rubyforge.org
 * po4a: http://po4a.alioth.debian.org
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
-* rcov: http://eigenclass.org/hiki/rcov
 * RMagick: http://rmagick.rubyforge.org
 * RedCloth: http://redcloth.org
 * will_paginate: http://github.com/mislav/will_paginate/wikis

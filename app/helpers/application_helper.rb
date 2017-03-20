@@ -127,7 +127,6 @@ module ApplicationHelper
   # TODO: do something more useful here
   # TODO: test this helper
   # TODO: add an icon?
-  # TODO: the command rake test:rcov didn't works because of this method. See what it's the problem
   def environment_identification
     content_tag('div', @environment.name, :id => 'environment_identification')
   end

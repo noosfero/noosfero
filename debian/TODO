@@ -20,6 +20,5 @@ remove /etc/noosfero in postrm/purge! in special:
 
 fix problems reported by lintian (start by removing the overrides)
 
-try to get rid of dependencies that should be needed only in development (such
-as rcov)
+try to get rid of dependencies that should be needed only in development
 
