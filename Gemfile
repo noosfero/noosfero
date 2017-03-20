@@ -33,7 +33,7 @@ gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
 gem 'slim'
 gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
-gem 'simplecov', :require => false
+gem 'simplecov',                 '~> 0.7.1'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
