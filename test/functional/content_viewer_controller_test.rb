@@ -395,6 +395,24 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_select "ul#article-versions a[href=http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1]"
   end
 
+  should "display correct author for each article versions" do
+    community = fast_create(Community)
+    author1 = create_user.person
+    author2 = create_user.person
+    article = create(TextArticle, :name => 'article', :body => 'first version', :display_versions => true,
+                     :profile => community, :author => author1, :last_changed_by => author1)
+
+    article.body = 'second version'
+    article.last_changed_by = author2
+    article.save
+
+    get :article_versions, :profile => community.identifier, :page => article.path
+    assert_tag :tag => 'span', :attributes => { :class => 'updated-by' },
+               :child => { :tag => 'a', :content => author1.name }
+    assert_tag :tag => 'span', :attributes => { :class => 'updated-by' },
+               :child => { :tag => 'a', :content => author2.name }
+  end
+
   should "fetch correct article version" do
     page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
     page.body = 'edited article'; page.save

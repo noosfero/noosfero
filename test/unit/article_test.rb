@@ -1781,9 +1781,9 @@ class ArticleTest < ActiveSupport::TestCase
   should "return the author_name of a specific version" do
     author1 = fast_create(Person)
     author2 = fast_create(Person)
-    article = create(Article, :name => 'first version', :profile => profile, :author => author1)
+    article = create(Article, :name => 'first version', :profile => profile, :author => author1, :last_changed_by => author1)
     article.name = 'second version'
-    article.author = author2
+    article.last_changed_by = author2
     article.save
     assert_equal author1.name, article.author_name(1)
     assert_equal author2.name, article.author_name(2)
@@ -1854,13 +1854,13 @@ class ArticleTest < ActiveSupport::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
-    article = create(Article, :name => 'first version', :profile => profile, :author => p1)
+    article = create(Article, :name => 'first version', :profile => profile, :author => p1, :last_changed_by => p1)
 
     article.name = 'second version'
-    article.author = p2
+    article.last_changed_by = p2
     article.save!
 
-    article.author = p3
+    article.last_changed_by = p3
     article.name = 'third version'
     article.save!
 
