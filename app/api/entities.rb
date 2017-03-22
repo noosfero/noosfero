@@ -335,7 +335,7 @@ module Api
       expose :name
       expose :key
       expose :assigned do |role, options|
-        options[:person_roles].include?(role)
+        (options[:person_roles] || []).include?(role)
       end
     end
 

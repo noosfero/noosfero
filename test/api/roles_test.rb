@@ -38,4 +38,18 @@ class TolesTest < ActiveSupport::TestCase
     assert !json.find { |r|  r['key'] == 'profile_administrator' }['assigned']
     assert json.find { |r| r['key'] == 'profile_moderator' }['assigned']
   end
+
+  should 'assign roles to a person into an organization' do
+    environment.roles.delete_all
+    role1 = Role.create!(key: 'profile_administrator', name: 'admin', environment: environment)
+    role2 = Role.create!(key: 'profile_moderator', name: 'moderator', environment: environment)
+    role3 = Role.create!(key: 'member', name: 'member', environment: environment)
+    profile.affiliate(person, [role3])
+    params[:person_id] = person.id
+    params[:role_ids] = [role2.id]
+    params[:remove_role_ids] = [role3.id]
+    post "/api/v1/profiles/#{profile.id}/roles/assign?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ['profile_moderator'], json.map { |r| r['key'] }
+  end
 end
