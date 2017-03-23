@@ -744,11 +744,25 @@ class Environment < ApplicationRecord
 
   has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event'
 
-  has_many :tags, :through => :articles
+  has_many :article_tags, :through => :articles, :source => :tags
+  has_many :profile_tags, :through => :profiles, :source => :tags
+
+  include ScopeTool
+  scope :tags, -> environment {ScopeTool.union(environment.article_tags, environment.profile_tags)}
+
+  def tags
+    self.class.tags(self)
+  end
+
 
   def tag_counts
-    articles.tag_counts.inject({}) do |memo,tag|
+    results = articles.tag_counts.inject({}) do |memo,tag|
       memo[tag.name] = tag.count
+      memo
+    end
+
+    profiles.tag_counts.inject(results) do |memo,tag|
+      memo[tag.name].present? ? memo[tag.name] += tag.count : memo[tag.name] = tag.count
       memo
     end
   end

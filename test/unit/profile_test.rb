@@ -319,9 +319,9 @@ class ProfileTest < ActiveSupport::TestCase
     second  = create(Article, :profile => profile, :tag_list => 'first-tag, second-tag')
     third   = create(Article, :profile => profile, :tag_list => 'first-tag, second-tag, third-tag')
 
-    assert_equivalent [ first, second, third], profile.tagged_with('first-tag')
-    assert_equivalent [ second, third ], profile.tagged_with('second-tag')
-    assert_equivalent [ third], profile.tagged_with('third-tag')
+    assert_equivalent [ first, second, third], profile.articles.tagged_with('first-tag')
+    assert_equivalent [ second, third ], profile.articles.tagged_with('second-tag')
+    assert_equivalent [ third], profile.articles.tagged_with('third-tag')
   end
 
   should 'provide tag count' do

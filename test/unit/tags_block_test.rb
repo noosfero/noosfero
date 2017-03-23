@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class TagsBlockTest < ActiveSupport::TestCase
+class TagsCloudBlockTest < ActiveSupport::TestCase
 
   def setup
     @user = create_user('testinguser').person
@@ -11,29 +11,29 @@ class TagsBlockTest < ActiveSupport::TestCase
     box = Box.new
     box.owner = @user
     box.save!
-    @block = TagsBlock.new
+    @block = TagsCloudBlock.new
     @block.box = box
     @block.save
   end
   attr_reader :block
 
   should 'describe itself' do
-    assert_not_equal Block.description, TagsBlock.description
+    assert_not_equal Block.description, TagsCloudBlock.description
   end
 
   should 'provide a default title' do
-    assert_not_equal Block.new.default_title, TagsBlock.new.default_title
+    assert_not_equal Block.new.default_title, TagsCloudBlock.new.default_title
   end
 
   include BoxesHelper
 
   should 'return the max value in the range between zero and limit' do
-    block = TagsBlock.new
+    block = TagsCloudBlock.new
     assert_equal 12, block.get_limit
   end
 
   should '' do
-    block = TagsBlock.new
+    block = TagsCloudBlock.new
     block.limit = -5
     assert_equal 0, block.get_limit
   end
@@ -41,7 +41,7 @@ end
 
 require 'tags_helper'
 
-class TagsBlockViewTest < ActionView::TestCase
+class TagsCloudBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
   ActionView::Base.send :include, TagsHelper
@@ -55,7 +55,7 @@ class TagsBlockViewTest < ActionView::TestCase
     box = Box.new
     box.owner = @user
     box.save!
-    @block = TagsBlock.new
+    @block = TagsCloudBlock.new
     @block.box = box
     @block.save
   end
@@ -85,7 +85,7 @@ class TagsBlockViewTest < ActionView::TestCase
     @otheruser.articles.build(:name => 'article A', :tag_list => 'other-tag').save!
     @otheruser.articles.build(:name => 'article B', :tag_list => 'other-tag, second-tag').save!
     box = create(Box, :owner => Environment.default)
-    @block = create(TagsBlock, :box => box)
+    @block = create(TagsCloudBlock, :box => box)
     ActionView::Base.any_instance.stubs(:block_title).returns("")
 
     content = render_block_content(block)

@@ -19,6 +19,24 @@ module Api
         end
       end
 
+      resource :profiles do
+        resource ':id/tags' do
+          get do
+            profile = environment.profiles.find params[:id]
+            present profile.tag_list
+          end
+
+          desc "Add a tag to a profile"
+          post do
+            authenticate!
+            profile = environment.profiles.find params[:id]
+            profile.tag_list=params[:tags]
+            profile.save
+            present profile.tag_list
+          end
+        end
+      end
+
       resource :environment do
         desc 'Return the tag counts for this environment'
         get '/tags' do
@@ -31,13 +49,13 @@ module Api
         resource ':id/tags' do
           get do
             local_environment = Environment.find(params[:id])
-            present_partial local_environment.articles.tag_counts, {}
+            present_partial local_environment.tag_counts, {}
           end
         end
 
         desc 'Return the tag counts for this environment'
         get '/tags' do
-          present_partial environment.articles.tag_counts, {}
+          present_partial environment.tag_counts, {}
         end
       end
     end

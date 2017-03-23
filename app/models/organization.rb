@@ -123,7 +123,6 @@ class Organization < Profile
     city
     state
     country
-    tag_list
     template_id
     district
     address_line2

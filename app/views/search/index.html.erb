@@ -4,7 +4,7 @@
     <div id="category-image"><%= image_tag(@category.image.public_filename(:thumb), :id => 'category-image') if @category.image %></div>
   <% end %>
 
-  <%= search_page_title(_('Search Results'), @category) %>
+  <%= search_page_title(_('Search Results'), {:category => @category, :tag => @tag}) %>
   <%= render :partial => 'search_form', :locals => { :hint => '' } %>
   <%= category_context(@category, params) %>
   <%= display_results(@searches, @asset) %>
@@ -27,3 +27,5 @@
 </div>
 
 <div style="clear: both"></div>
+
+<%= javascript_include_tag 'search' %>

@@ -1,0 +1,18 @@
+.interest-tags-block ul {
+  padding: 0;
+  margin: 0;
+}
+
+.interest-tags-block li {
+  float: left;
+  list-style: none;
+  padding: 5px;
+  color: #fff;
+  background: #000;
+  margin: 5px;
+}
+
+.interest-tags-block li:hover {
+  background: #2e3436;
+  margin: 5px;
+}

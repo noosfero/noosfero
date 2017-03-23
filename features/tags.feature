@@ -43,4 +43,4 @@ Feature: tags
 
   Scenario: trying to view a tag not used
     When I go to /tag/shark
-    Then I should see /Tagged with "shark"/
+    Then I should see /Tagged with shark/

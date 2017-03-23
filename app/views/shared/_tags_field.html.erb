@@ -1,0 +1,10 @@
+<%= f.text_field 'tag_list', size: 64, value: value.join(','), :id => 'tag-list' %>
+<%= content_tag( 'small', _('Separate tags with commas') ) %>
+
+<script>
+  jQuery('#tag-list').inputosaurus({
+    autoCompleteSource: <%= "'#{url_for(:action => 'search_tags', :profile => profile.identifier, :only_path => true)}',".html_safe %>
+    activateFinalResult : true
+  })
+</script>
+

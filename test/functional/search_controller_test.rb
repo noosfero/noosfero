@@ -474,11 +474,11 @@ class SearchControllerTest < ActionController::TestCase
 
     get :tag, :tag => 'two'
 
-    assert_equivalent [a, a2], assigns(:searches)[:tag][:results]
+    assert_equivalent [a, a2], assigns(:searches)[:articles][:results]
 
     get :tag, :tag => 'one'
 
-    assert_equivalent [a], assigns(:searches)[:tag][:results]
+    assert_equivalent [a], assigns(:searches)[:articles][:results]
   end
 
   should 'not show assets from other environments' do
@@ -650,14 +650,11 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'not allow query injection in array' do
-    injection = ['<iMg SrC=x OnErRoR=document.documentElement.innerHTML=1>',
-                 '<script>document.innerHTML = \'x\'</script>']
+    injection = '<iMg SrC=x OnErRoR=document.documentElement.innerHTML=1><script>document.innerHTML = \'x\'</script>'
     get :tag, :tag => injection
     tag = assigns(:tag)
-    tag.each { |t|
-      assert !t.upcase.include?('IMG')
-      assert !t.upcase.include?('SCRIPT')
-    }
+    assert !tag.upcase.include?('IMG')
+    assert !tag.upcase.include?('SCRIPT')
   end
 
   protected

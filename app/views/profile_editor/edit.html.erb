@@ -73,7 +73,10 @@
     end, "\n")
   %>
 
-  <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
+  <h2><%= _('Tags of your interest') %></h2>
+  <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @profile.tag_list} %>
+
+  <%= select_categories(:profile_data, _('Categories of your interest'), 2) %>
 
   <%= button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>

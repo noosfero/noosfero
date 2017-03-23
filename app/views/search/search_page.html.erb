@@ -1,3 +1,5 @@
+<%= search_page_title(_('Search Results'), {:category => @category, :tag => @tag}) %>
+
 <%= render :partial => 'search_form', :locals => { :hint => _("Type words about the %s you're looking for").html_safe % asset_to_human(@asset) } %>
 <%= render :partial => 'search_content' %>
 

@@ -38,7 +38,7 @@ module SearchHelper
   include EventsHelper
 
   def multiple_search?(searches=nil)
-    ['index', 'category_index'].include?(params[:action]) || (searches && searches.size > 1)
+    ['index', 'category_index', 'tag'].include?(params[:action]) || (searches && searches.size > 1)
   end
 
   def map_search?(searches=nil)
@@ -49,9 +49,10 @@ module SearchHelper
     asset.to_s.singularize.camelize.constantize
   end
 
-  def search_page_title(title, category = nil)
+  def search_page_title(title, options = {})
     title = "<h1>" + title
-    title += ' - <small>' + category.name + '</small>' if category
+    title += ' - <small>' + options[:category].name + '</small>' if options[:category]
+    title += ' - <small>' + _('Tagged with')  + ' ' + options[:tag] + '</small>' if options[:tag]
     title += "</h1>"
     title.html_safe
   end
@@ -130,7 +131,7 @@ module SearchHelper
   end
 
   def filters(asset)
-    return if !asset
+    return if !asset || asset == :tag
     klass = asset_class(asset)
     content_tag('div', safe_join(klass::SEARCH_FILTERS.map do |name, options|
       default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
@@ -154,7 +155,7 @@ module SearchHelper
   end
 
   def asset_link(asset)
-    link_to(@enabled_searches[asset], "/search/#{asset}")
+    link_to(@enabled_searches[asset], {:controller => 'search', :action => asset}, 'data-tag' => @tag, 'data-category_path' => @category.try(:path))
   end
 
   def assets_submenu(asset)

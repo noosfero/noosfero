@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
-  ALL_BLOCKS = [ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
+  ALL_BLOCKS = [ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsCloudBlock ]
 
   def setup
     @controller = EnvironmentDesignController.new
@@ -130,9 +130,9 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :id => 'block_address' }
   end
 
-  should 'be able to edit TagsBlock' do
+  should 'be able to edit TagsCloudBlock' do
     login_as(create_admin_user(Environment.default))
-    b = TagsBlock.create!
+    b = TagsCloudBlock.create!
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
@@ -260,8 +260,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
   should 'clone a block' do
     login_as(create_admin_user(Environment.default))
-    block = TagsBlock.create!
-    assert_difference 'TagsBlock.count', 1 do
+    block = TagsCloudBlock.create!
+    assert_difference 'TagsCloudBlock.count', 1 do
       post :clone_block, :id => block.id
       assert_response :redirect
     end

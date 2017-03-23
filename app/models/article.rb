@@ -8,6 +8,7 @@ class Article < ApplicationRecord
   end
 
   include SanitizeHelper
+  include SanitizeTags
 
   attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent,
                   :allow_members_to_edit, :translation_of_id, :language,
@@ -64,10 +65,6 @@ class Article < ApplicationRecord
   end
 
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
-
-  # xss_terminate plugin can't sanitize array fields
-  # sanitize_tag_list is used with SanitizeHelper
-  before_save :sanitize_tag_list
 
   before_create do |article|
     if article.author
@@ -889,15 +886,6 @@ class Article < ApplicationRecord
   end
 
   private
-
-  def sanitize_tag_list
-    sanitizer = HTML::FullSanitizer.new
-    self.tag_list.map!{|i| strip_tag_name sanitizer.sanitize(i) }
-  end
-
-  def strip_tag_name(tag_name)
-    tag_name.gsub(/[<>]/, '')
-  end
 
   def parent_archived?
      if self.parent_id_changed? && self.parent && self.parent.archived?

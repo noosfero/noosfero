@@ -131,6 +131,7 @@ module Api
       expose :image, :using => Image
       expose :top_image, :using => Image
       expose :region, :using => Region
+      expose :tag_list
       expose :type
       expose :custom_header
       expose :custom_footer

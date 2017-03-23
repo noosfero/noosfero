@@ -7,6 +7,7 @@ Background:
   And I am logged in as "joao"
   And "PersonTags" plugin is enabled
 
+@fixme
 Scenario: add tags to person
   Given I am on joao's control panel
   And I follow "Edit Profile"

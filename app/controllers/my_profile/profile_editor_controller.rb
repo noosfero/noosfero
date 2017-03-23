@@ -11,6 +11,8 @@ class ProfileEditorController < MyProfileController
   helper CustomFieldsHelper
   include CategoriesHelper
 
+  include SearchTags
+
   def index
     @pending_tasks = Task.to(profile).pending.without_spam
     @show_appearance_option = user.is_admin?(environment) || environment.enabled?('enable_appearance')

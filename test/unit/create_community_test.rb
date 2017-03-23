@@ -10,7 +10,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
   should 'provide needed data' do
     task = CreateCommunity.new
 
-    Community.fields + %w[ name closed tag_list ].each do |field|
+    Community.fields + %w[ name closed ].each do |field|
       assert task.respond_to?(field)
       assert task.respond_to?("#{field}=")
     end

@@ -16,7 +16,6 @@
 <%= optional_field(profile, 'city', f.text_field(:city, :id =>'city_field')) %>
 <%= optional_field(profile, 'state', f.text_field(:state,:id =>'state_field')) %>
 <%= optional_field(profile, 'country', select_country(_('Country'), object_name, 'country', {:class => 'type-select'})) %>
-<%= optional_field(profile, 'tag_list', f.text_field(:tag_list)) %>
 
 <% if profile.community? %>
   <%= optional_field(profile, 'language', f.text_field(:language)) %>

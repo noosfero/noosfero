@@ -610,13 +610,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'display categories if environment disable_categories disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
     get :edit, :profile => profile.identifier
-    assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
+    assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Categories of your interest' }
   end
 
   should 'not display categories if environment disable_categories enabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
     get :edit, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Select the categories of your interest' }
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Categories of your interest' }
   end
 
   should 'show a e-mail field in profile editor' do
@@ -1218,5 +1218,22 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.environment.enable(:enable_profile_url_change)
     get :edit, :profile => profile.identifier
     assert_select '#profile-identifier-formitem', 1
+  end
+
+  should 'response of search_tags be json' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal 'application/json', @response.content_type
+  end
+
+  should 'return empty json if does not find tag' do
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal "[]", @response.body
+  end
+
+  should 'return tags found' do
+    a = profile.articles.create(:name => 'blablabla')
+    a.tags.create! name: 'linux'
+    get :search_tags, :profile => profile.identifier, :term => 'linux'
+    assert_equal '[{"label":"linux","value":"linux"}]', @response.body
   end
 end

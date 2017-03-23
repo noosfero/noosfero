@@ -1,4 +1,4 @@
-class TagsBlock < Block
+class TagsCloudBlock < Block
 
   include TagsHelper
   include BlockHelper
@@ -20,12 +20,12 @@ class TagsBlock < Block
   end
 
   def default_title
-    _('tags')
+    _('Tags Cloud')
   end
 
   def help
-    _("Tags are created when you add some of them one to your contents. <p/>
-       Try to add some tags to some articles and you'l see your tag cloud growing.")
+    _("Tags are created when you add some of them one to your contents or mark a profile with them. <p/>
+       Try to create some tags and you'll see your tag cloud growing.")
   end
 
   def timeout
