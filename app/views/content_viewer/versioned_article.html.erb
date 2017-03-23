@@ -13,7 +13,7 @@
       <%= expirable_button @page, :undo, content, url, :id => 'article-revert-version-link' %>
     <% end %>
 
-    <%= button(:forward, _('Go to latest version'), {:action => 'view_page'}) %>
+    <%= button(:forward, _('Go to latest version'), @page.url) %>
 </div>
   <div id="article-header">
     <h1 class='title'><%= @versioned_article.name %></h1>

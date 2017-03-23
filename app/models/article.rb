@@ -754,7 +754,9 @@ class Article < ApplicationRecord
   end
 
   def author_by_version(version_number = nil)
-    if version_number then profile.environment.people.where(id: get_version(version_number).author_id).first else author end
+    return author unless version_number
+    author_id = get_version(version_number).last_changed_by_id
+    profile.environment.people.where(id: author_id).first
   end
 
   def author_name(version_number = nil)
