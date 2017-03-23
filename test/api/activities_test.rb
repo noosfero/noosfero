@@ -17,6 +17,15 @@ class ActivitiesTest < ActiveSupport::TestCase
     assert_equivalent person.activities.map(&:activity).map(&:id), json.map{|c| c["id"]}
   end
 
+  should 'get network activities' do
+    fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => user.id))
+    
+    get "/api/v1/profiles/#{person.id}/network_activities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert 1, json.count
+    assert_equivalent person.tracked_notifications.map(&:id), json.map{|c| c["id"]}
+  end
+
   should 'not get private community activities' do
     community = fast_create(Community, :public_profile => false)
     create_activity(:target => community)
