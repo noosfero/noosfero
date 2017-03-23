@@ -215,17 +215,20 @@ module Api
     ###########################
     #        Activities       #
     ###########################
-    def find_activities(asset, method_or_relation = 'activities')
+    def find_activities(asset, method_or_relation = 'tracked_notifications')
 
       not_found! if asset.blank? || asset.secret || !asset.visible
       forbidden! if !asset.display_private_info_to?(current_person)
-
-      activities = select_filtered_collection_of(asset, method_or_relation, params)
-      activities = activities.map(&:activity)
+      if method_or_relation == 'activities'
+        activities = select_filtered_collection_of(asset, method_or_relation, params)
+        activities = activities.map(&:activity)
+      else
+        activities = select_filtered_collection_of(asset, method_or_relation, params)
+      end
       activities
     end
 
-    def present_activities_for_asset(asset, method_or_relation = 'activities')
+    def present_activities_for_asset(asset, method_or_relation = 'tracked_notifications')
       tasks = find_activities(asset, method_or_relation)
       present_activities(tasks)
     end
