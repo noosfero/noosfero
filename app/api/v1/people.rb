@@ -93,6 +93,42 @@ module Api
           present_partial friends, :with => Entities::Person, :current_person => current_person
         end
 
+        desc "Return the person friend by id"
+        get ':id/friends/:friend_id' do
+          person = environment.people.visible.find_by(id: params[:id])
+          friend = person.friends.visible.find_by(id: params[:friend_id])
+          return not_found! if friend.blank?
+          present(friend, :with => Entities::Person, :current_person => current_person)
+        end
+
+        desc "Add a new friend"
+        post ':id/friends' do
+          authenticate!
+          person = environment.people.visible.find_by(id: params[:id])
+          return not_found! if person.blank?
+          return bad_request!(('You are already a friend of %s.').html_safe % person.name) if current_person.memberships.include?(person)
+          add_friend = AddFriend.new(:person => current_person, :friend => person)
+          begin
+            add_friend.save!
+            present({ message: 'WAITING_APPROVAL' })            
+          rescue ActiveRecord::RecordInvalid
+            render_api_error!(add_friend.errors.details, Api::Status::BAD_REQUEST)
+          end
+        end
+
+        desc "Remove a friend"
+        delete ':id/friends' do
+          authenticate!
+          person = environment.people.visible.find_by(id: params[:id])
+          return not_found! if person.blank?
+          begin
+            current_person.remove_friend(person);
+            present({ message: 'Friend successfuly removed' })            
+          rescue ActiveRecord::RecordInvalid
+            bad_request!
+          end
+        end
+
         desc "Return the person permissions on other profiles"
         get ":id/permissions" do
           authenticate!

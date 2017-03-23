@@ -633,6 +633,36 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal 3, json['count']
   end
 
+  should 'add a new person friend' do
+    login_api
+    friend = create_user('friend').person
+    person.add_friend(friend)
+    friend.add_friend(person)
+    post "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['message'], 'WAITING_APPROVAL'
+  end
+  
+  should 'remove person friend' do
+    login_api
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+    delete "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['message'], "Friend successfuly removed"
+  end  
+
+  should 'list a person friend' do
+    login_api
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+    get "/api/v1/people/#{friend.id}/friends/#{person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['id'], person.id
+  end  
+  
   #####
   
   ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]
