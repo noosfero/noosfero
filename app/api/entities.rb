@@ -334,6 +334,9 @@ module Api
       expose :id
       expose :name
       expose :key
+      expose :assigned do |role, options|
+        (options[:person_roles] || []).include?(role)
+      end
     end
 
     class AbuseReport < Entity
