@@ -843,4 +843,22 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_not_includes json.first.keys, 'title'
   end
 
+  should 'search for articles' do
+    article1 = fast_create(Article, profile_id: user.person.id, name: "Some thing")
+    article2 = fast_create(Article, profile_id: user.person.id, name: "Other thing")
+    params[:search] = 'some'
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [article1.id], json.map { |a| a["id"] }
+  end
+
+  should 'search for articles of different types' do
+    article1 = fast_create(Event, profile_id: user.person.id, name: "Some thing")
+    article2 = fast_create(TextArticle, profile_id: user.person.id, name: "Some other thing")
+    article3 = fast_create(Article, profile_id: user.person.id, name: "Other thing")
+    params[:search] = 'some'
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equivalent [article1.id, article2.id], json.map { |a| a["id"] }
+  end
 end
