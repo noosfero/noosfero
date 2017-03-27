@@ -3,10 +3,10 @@ module LayoutHelper
   def body_classes
     [
       (logged_in? ? " logged-in" : nil),
-      " controller-#{controller.controller_name}",
-      " action-#{controller.controller_name}-#{controller.action_name}",
-      " template-#{@layout_template || layout_template}",
-      (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : nil),
+      "controller-#{controller.controller_name}",
+      "action-#{controller.controller_name}-#{controller.action_name}",
+      "template-#{@layout_template || layout_template}",
+      (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? "profile-homepage" : nil),
       profile.present? ? profile.kinds_style_classes : nil,
     ].compact.join(' ')
   end
