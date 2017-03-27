@@ -155,4 +155,8 @@ class SearchTest < ActiveSupport::TestCase
     assert_equal [article2.id], json.map {|a| a['id']}
   end
 
+  should 'list articles in search endpoint be deprecated' do
+    get "/api/v1/search/article"
+    assert_equal Api::Status::DEPRECATED, last_response.status
+  end
 end

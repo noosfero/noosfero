@@ -662,7 +662,26 @@ class PeopleTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal json['id'], person.id
   end  
-  
+
+  should 'search for people' do
+    person1 = fast_create(Person, :public_profile => true)
+    person2 = fast_create(Person, name: 'John Snow')
+    params[:search] = 'john'
+    get "/api/v1/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [person2.id], json.map {|c| c['id']}
+  end
+
+  should 'search for people with pagination' do
+    5.times { fast_create(Person, name: 'John Snow') }
+    params[:search] = 'john'
+    params[:per_page] = 2
+    get "/api/v1/people?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 2, json.length
+    assert_equal 5, last_response.headers['Total'].to_i
+  end
+
   #####
   
   ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]

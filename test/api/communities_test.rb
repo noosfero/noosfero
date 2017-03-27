@@ -378,4 +378,12 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_nil json['members']
   end
 
+  should 'search for communities' do
+    community1 = fast_create(Community)
+    community2 = fast_create(Community, name: 'Rails Community')
+    params[:search] = 'rails'
+    get "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [community2.id], json.map {|c| c['id']}
+  end
 end

@@ -26,7 +26,7 @@ module Api
             search_result = find_by_contents(asset, context, scope, query, {:page => 1}, options)
 
             articles = search_result[:results]
-
+            status Api::Status::DEPRECATED
             present_articles(articles)
           end
         end

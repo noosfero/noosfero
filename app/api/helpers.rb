@@ -321,6 +321,11 @@ module Api
 
       objects = objects.where(conditions).where(timestamp).reorder(order)
 
+      if params[:search].present?
+        asset = objects.model.name.underscore.pluralize
+        objects = find_by_contents(asset, object, objects, params[:search])[:results]
+      end
+
       params[:page] ||= 1
       params[:per_page] ||= limit
       paginate(objects)
