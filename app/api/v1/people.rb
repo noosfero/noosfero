@@ -89,7 +89,7 @@ module Api
         get ':id/friends' do
           person = environment.people.visible.find_by(id: params[:id])
           return not_found! if person.blank?
-          friends = person.friends.visible
+          friends = select_filtered_collection_of(person, person.friends.visible, params)
           present_partial friends, :with => Entities::Person, :current_person => current_person
         end
 
