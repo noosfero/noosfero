@@ -303,8 +303,11 @@ class ScrapTest < ActiveSupport::TestCase
     assert_difference 'ActionTracker::Record.count', 1 do
       reply = create(Scrap, :sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
     end
+
     activity = ActionTracker::Record.last
     assert_equal 'reply_scrap_on_self', activity.verb.to_s
+    assert_equal s.name, activity.get_receiver_name
+    assert_equal s.url, activity.get_receiver_url
   end
 
   should 'create profile activity' do
