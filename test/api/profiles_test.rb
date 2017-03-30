@@ -124,21 +124,64 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'display profile public fields to anonymous' do
-    some_person = create_user('test', { :email => "lappis@unb.br" }).person
-    Person.any_instance.stubs(:public_fields).returns(["email"])
+    some_person = create_user('test').person
 
+     Environment.any_instance.stubs(:active_person_fields).returns(['email'])
+    some_person.data = { :email => 'lappis@unb.br', :fields_privacy => { 'email' => 'public' } }
+
+
+    # Person.any_instance.stubs(:public_fields).returns(["email"])
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
+    puts '##############################3'
+    puts json['additional_data']
+    puts '##############################3'
     assert json['additional_data'].has_key?('email')
     assert_equal "lappis@unb.br", json['additional_data']['email']
   end
 
-  should 'not display private fields to anonymous' do
-    some_person = create_user('test', { :email => "lappis@unb.br" }).person
+  def setup_one_custom_public_field
+    person.email = "one_email@me.com"
+    person.fields_privacy =  { 'state' => 'public' }
+    person.save!
 
-    get "/api/v1/profiles/#{some_person.id}/?#{params.to_query}"
+    activate_profile_field('state')
+  end
+
+
+  def setup_one_custom_private_field
+    person.state = "one state"
+    person.fields_privacy =  { 'state' => 'private_content' }
+    person.save!
+
+    activate_profile_field('state')
+  end
+
+  def activate_profile_field (field)
+    environment = Environment.default
+    environment.custom_person_fields = { field => { 'active' => 'true' } }
+    environment.save!
+    environment.reload
+  end
+
+  should 'not display private fields to anonymous' do
+    setup_one_custom_private_field
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert !json['additional_data'].has_key?('email')
+
+    assert !json['additional_data'].has_key?('state')
+  end
+
+  should 'display private fields to self' do
+    login_api
+
+    setup_one_custom_private_field
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json['additional_data'].has_key?('state')
   end
 
   should 'display public custom fields to anonymous' do
