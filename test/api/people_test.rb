@@ -682,6 +682,18 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal 5, last_response.headers['Total'].to_i
   end
 
+  should 'search for friends' do
+    login_api
+    friend1 = fast_create(Person, name: 'John Snow')
+    person.add_friend(friend1)
+    friend2 = fast_create(Person, name: 'Other')
+    person.add_friend(friend2)
+    params[:search] = 'john'
+    get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [friend1.id], json_response_ids
+  end
+
   #####
   
   ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]
