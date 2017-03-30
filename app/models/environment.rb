@@ -29,7 +29,7 @@ class Environment < ApplicationRecord
   has_many :custom_fields, :dependent => :destroy
   has_many :email_templates, :foreign_key => :owner_id
 
-  IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
+  IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/ unless const_defined?(:IDENTIFY_SCRIPTS)
 
   validates_inclusion_of :date_format,
                          :in => [ 'numbers_with_year', 'numbers',

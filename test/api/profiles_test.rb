@@ -127,39 +127,15 @@ class ProfilesTest < ActiveSupport::TestCase
     some_person = create_user('test', { :email => "lappis@unb.br" }).person
 	
     Person.any_instance.stubs(:public_fields).returns(["email"])
-
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('email')
     assert_equal "lappis@unb.br", json['additional_data']['email']
   end
 
-  def setup_one_custom_public_field
-    person.email = "one_email@me.com"
-    person.fields_privacy =  { 'state' => 'public' }
-    person.save!
-
-    activate_profile_field('state')
-  end
-
-
-  def setup_one_custom_private_field
-    person.state = "one state"
-    person.fields_privacy =  { 'state' => 'private_content' }
-    person.save!
-
-    activate_profile_field('state')
-  end
-
-  def activate_profile_field (field)
-    environment = Environment.default
-    environment.custom_person_fields = { field => { 'active' => 'true' } }
-    environment.save!
-    environment.reload
-  end
-
   should 'not display private fields to anonymous' do
-    setup_one_custom_private_field
+    set_profile_field_privacy(person,'state', 'private_content')
+    person.state = 'some state' 
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -170,7 +146,8 @@ class ProfilesTest < ActiveSupport::TestCase
   should 'display private fields to self' do
     login_api
 
-    setup_one_custom_private_field
+    set_profile_field_privacy(person,'state', 'private_content')
+    person.state = 'some state' 
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)

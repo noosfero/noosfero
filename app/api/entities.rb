@@ -110,15 +110,15 @@ module Api
       expose :identifier, :name, :id
       expose :created_at, :format_with => :timestamp
       expose :updated_at, :format_with => :timestamp
+
       expose :additional_data do |profile, options|
         hash ={}
-        puts 'publiccccccccccccccccccc'
-        puts profile.public_values
-        puts profile.public_fields
         profile.public_values.each do |value|
           hash[value.custom_field.name]=value.value
         end
-
+        profile.public_fields.each do |field|
+          hash[field] = profile.send(field.to_sym)
+        end
         private_values = profile.custom_field_values - profile.public_values
         private_values.each do |value|
           if Entities.can_display_profile_field?(profile,options)
@@ -126,7 +126,6 @@ module Api
           end
         end
         profile.environment.send("custom_#{profile.type.downcase}_fields").each  do |field, settings|
-
           if settings['active'].to_s == 'true'
             field_privacy = profile.fields_privacy[field]
             value = field_privacy == 'public' ? :anonymous : :private_content
@@ -138,6 +137,7 @@ module Api
         end  if profile.environment.respond_to?("custom_#{profile.type.downcase}_fields") 
 
         hash
+
       end
       expose :image, :using => Image
       expose :top_image, :using => Image
