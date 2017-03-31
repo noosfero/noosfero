@@ -69,8 +69,10 @@ class ProfilesTest < ActiveSupport::TestCase
   should 'person delete itself' do
     login_api
     delete "/api/v1/profiles/#{@person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
     assert_includes [200, 204], last_response.status
     assert_nil Profile.find_by_id @person.id
+    assert json['success']
   end
 
   should 'only admin delete other people' do

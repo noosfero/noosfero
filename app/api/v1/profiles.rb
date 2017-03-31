@@ -53,7 +53,7 @@ module Api
           not_found! if profile.blank?
 
           if profile.allow_destroy?(current_person)
-            profile.destroy
+            present({ success: profile.destroy })
           else
             forbidden!
           end
