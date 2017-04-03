@@ -149,5 +149,15 @@ class CustomFieldTest < ActiveSupport::TestCase
   should 'get correct customized ancestors list' do
     assert (Person.customized_ancestors_list-["Person","Profile"]).blank?
   end
+
+  should 'signup be true for required fields' do
+    assert !@community_custom_field.required
+    assert !@community_custom_field.signup
+    @community_custom_field.update_attributes(:required=>true)
+    @community.reload
+    assert @community_custom_field.required
+    assert @community_custom_field.signup
+  end
+
 end
 

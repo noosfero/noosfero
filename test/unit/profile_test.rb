@@ -2070,6 +2070,22 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal f, p.fields_privacy
   end
 
+  should 'fields_privacy return an empty hash instead of nil' do
+    p = fast_create(Profile)
+    expected = {}
+    assert_equal expected, p.fields_privacy
+  end
+
+  should 'fields_privacy return privacy of custom field elements' do
+    CustomField.create!(:name => "rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    c = fast_create(Community)
+    c.custom_values = { "rating" => { "value" => "Five stars", "public" => "true"} }
+    c.save!
+    expected = {'rating' => 'public'}
+    assert_equal expected, c.fields_privacy
+  end
+
+
   should 'not display field if field is active but not public and user not logged in' do
     profile = fast_create(Profile)
     profile.stubs(:active_fields).returns(['field'])
@@ -2339,5 +2355,35 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes profile.kinds, to_add1
     assert_includes profile.kinds, to_add2
     assert profile.profile_kinds.blank?
+  end
+
+  should 'custom_field_value return the value of custom field values' do
+    CustomField.create!(:name => "rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    c = fast_create(Community)
+    c.custom_values = { "rating" => { "value" => "Five stars", "public" => "true"} }
+    c.save!
+    assert_equal 'Five stars', c.custom_field_value('rating')
+  end
+
+  should 'custom_field_value return the value of custom field values passsing symbol as parameter' do
+    CustomField.create!(:name => "rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    c = fast_create(Community)
+    c.custom_values = { "rating" => { "value" => "Five stars", "public" => "true"} }
+    c.save!
+    assert_equal 'Five stars', c.custom_field_value(:rating)
+  end
+
+  should 'custom_field_value return the value of custom values' do
+    c = fast_create(Community)
+    c.description = 'some description'
+    c.save!
+    assert_equal 'some description', c.custom_field_value('description')
+  end
+
+  should 'custom_field_value return the value of custom values passing symbol as paremeter' do
+    c = fast_create(Community)
+    c.description = 'some description'
+    c.save!
+    assert_equal 'some description', c.custom_field_value(:description)
   end
 end

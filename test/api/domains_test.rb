@@ -9,7 +9,7 @@ class DomainsTest < ActiveSupport::TestCase
   should 'return all domains' do
     Domain.delete_all
     environment = Environment.default
-    profile = fast_create(Profile, name: 'save-free-software')
+    profile = fast_create(Community, name: 'save-free-software')
     domain1 = create(Domain, name: 'test1.org', owner: environment)
     domain2 = create(Domain, name: 'test2.org', owner: profile)
     get "/api/v1/domains"
@@ -39,7 +39,7 @@ class DomainsTest < ActiveSupport::TestCase
 
   should 'paginate domains' do
     environment = Environment.default
-    profile = fast_create(Profile, name: 'save-free-software')
+    profile = fast_create(Community, name: 'save-free-software')
     1.upto(30){|n| create(Domain, name: "test#{n}.org", owner: profile)}
     get "/api/v1/domains"
     assert_equal 20, json_response_ids.length

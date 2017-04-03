@@ -130,7 +130,7 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
   end
 
   should 'return articles in api_content' do
-    profile = fast_create(Profile)
+    profile = fast_create(Community)
     article = fast_create(TextArticle, profile_id: profile.id)
     block = RecentDocumentsBlock.new
     block.stubs(:owner).returns(profile)

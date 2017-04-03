@@ -213,5 +213,25 @@ class ActiveSupport::TestCase
     ActiveSupport::JSON.decode(@response.body)
   end
 
+  def set_profile_field_privacy(profile, field, privacy = 'private_content')
+    environment = profile.environment
+    environment.send("custom_#{profile.type.downcase}_fields=", { field => { 'active' => 'true' } })
+    environment.save!
+    profile.fields_privacy =  { field => privacy }
+    profile.save!
+  end
+
+  def create_base64_image
+    image_path = File.absolute_path(Rails.root + 'public/images/noosfero-network.png')
+    image_name = File.basename(image_path)
+    image_type = "image/#{File.extname(image_name).delete "."}"
+    encoded_base64_img = Base64.encode64(File.open(image_path) {|io| io.read })
+    base64_image = {}
+    base64_image[:tempfile] = encoded_base64_img
+    base64_image[:filename] = image_name
+    base64_image[:type] = image_type
+    base64_image
+  end
+
 end
 

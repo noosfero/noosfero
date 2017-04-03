@@ -1134,7 +1134,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'uncheck all field privacy fields' do
     person = profile
-    assert_nil person.fields_privacy
+    assert_equal({}, person.fields_privacy)
     post :edit, :profile => profile.identifier, :profile_data => {}
     assert_equal({}, person.reload.fields_privacy)
   end

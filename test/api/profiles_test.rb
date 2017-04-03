@@ -126,28 +126,87 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'display profile public fields to anonymous' do
-    some_person = create_user('test', { :email => "lappis@unb.br" }).person
-    Person.any_instance.stubs(:public_fields).returns(["email"])
-
+    some_person = create_user('testuser', { :email => "lappis@unb.br" }).person
+    some_person.description = 'some description'
+    set_profile_field_privacy(some_person,'description', 'public')
+ 
+    some_person.save!
+	
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['additional_data'].has_key?('email')
-    assert_equal "lappis@unb.br", json['additional_data']['email']
+    assert json['additional_data'].has_key?('description')
+    assert_equal "some description", json['additional_data']['description']
   end
 
   should 'not display private fields to anonymous' do
-    some_person = create_user('test', { :email => "lappis@unb.br" }).person
+    set_profile_field_privacy(person,'state', 'private_content')
+    person.state = 'some state' 
 
-    get "/api/v1/profiles/#{some_person.id}/?#{params.to_query}"
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert !json['additional_data'].has_key?('email')
+
+    assert !json['additional_data'].has_key?('state')
+  end
+
+  should 'display private fields to self' do
+    login_api
+
+    set_profile_field_privacy(person,'state', 'private_content')
+    person.state = 'some state' 
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json['additional_data'].has_key?('state')
+  end
+
+  should 'display private custom fields to self' do
+    login_api
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+
+    person.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    person.save!
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
+  end
+
+  should 'display private custom fields to self if no public value is defined' do
+    login_api
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+
+    person.custom_values = { "Rating" => { "value" => "Five stars"} }
+    person.save!
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
+  end
+
+
+  should 'display private custom fields to self even if there is no value defined to profile' do
+    login_api
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Person", :active => true, :environment => Environment.default)
+    person.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    person.save!
+
+    get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
   end
 
   should 'display public custom fields to anonymous' do
-    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
-    some_profile = fast_create(Profile)
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_profile = fast_create(Community)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
     some_profile.save!
+    set_profile_field_privacy(some_profile,'Rating', 'public')
 
     get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -155,9 +214,22 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal "Five stars", json['additional_data']['Rating']
   end
 
+  should 'not display private custom fields to logged in user' do
+    login_api
+    
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_profile = fast_create(Community, public_profile: false) 
+    some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
+    some_profile.save!
+
+    get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert !json['additional_data'].has_key?('Rating')
+  end
+
   should 'not display private custom fields to anonymous' do
-    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Profile", :active => true, :environment => Environment.default)
-    some_profile = fast_create(Profile)
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_profile = fast_create(Community)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_profile.save!
 
@@ -214,7 +286,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
   should 'list profile permissions when get an article' do
     login_api
-    profile = fast_create(Profile)
+    profile = fast_create(Community)
     give_permission(person, 'post_content', profile)
     get "/api/v1/profiles/#{profile.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)

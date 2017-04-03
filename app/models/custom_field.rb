@@ -9,6 +9,10 @@ class CustomField < ApplicationRecord
   validates_presence_of :name, :format, :customized_type, :environment
   validate :related_to_other?
   validate :unique?
+  
+  before_validation do |custom_field|
+    custom_field.signup = true if custom_field.required
+  end
 
   def unique?
     if environment.custom_fields.any?{|cf| cf.name==name && cf.environment == environment && cf.customized_type==customized_type && new_record?}

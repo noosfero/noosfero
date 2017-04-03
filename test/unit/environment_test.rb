@@ -1750,4 +1750,42 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_not_includes environment.kinds, k3
   end
 
+  should 'return all custom person fields' do
+    env = Environment.default
+    Person.stubs(:fields).returns(['cell_phone'])
+
+    env.custom_person_fields = {'cell_phone' => {'required' => 'true', 'active' => 'true'}}
+
+    CustomField.create(:name => "person_field", :format=>"myFormat", :default_value => "value for person", :customized_type=>"Person", :active => true, :environment => env, :required=>true)
+
+    expected_hash = {'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'person_field' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}}
+    assert_equal expected_hash, env.all_custom_person_fields
+  end
+
+  should 'return all custom community fields' do
+    env = Environment.default
+    Community.stubs(:fields).returns(['cell_phone'])
+
+    env.custom_community_fields = {'cell_phone' => {'required' => 'true', 'active' => 'true'}}
+
+    CustomField.create(:name => "community_field", :format=>"myFormat", :default_value => "value for person", :customized_type=>"Community", :active => true, :environment => env, :required=>true)
+
+    expected_hash = {'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'community_field' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}}
+    assert_equal expected_hash, env.all_custom_community_fields
+  end
+
+  should 'return all custom enterprise fields' do
+    env = Environment.default
+    Enterprise.stubs(:fields).returns(['cell_phone'])
+
+    env.custom_enterprise_fields = {'cell_phone' => {'required' => 'true', 'active' => 'true'}}
+
+    CustomField.create(:name => "enterprise_field", :format=>"myFormat", :default_value => "value for person", :customized_type=>"Enterprise", :active => true, :environment => env, :required=>true)
+
+    expected_hash = {'cell_phone' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}, 'enterprise_field' => {'required' => 'true', 'active' => 'true', 'signup' => 'true'}}
+    assert_equal expected_hash, env.all_custom_enterprise_fields
+  end
+
+
+
 end
