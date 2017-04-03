@@ -115,10 +115,9 @@ module Api
         hash = {}
         profile.environment.send("all_custom_#{profile.type.downcase}_fields").each  do |field, settings|
           if settings['active'].to_s == 'true'
-            field_privacy = profile.fields_privacy[field]
+            field_privacy = profile.fields_privacy[field.to_sym]
             value = field_privacy == 'public' ? :anonymous : :private_content
-            
-            if Entities.can_display_profile_field?(profile, options, { permission: value })
+            if Entities.can_display_profile_field?(profile, options, { :field => field, permission: value })
               hash[field] = profile.send('custom_field_value', field)
             end
           end    

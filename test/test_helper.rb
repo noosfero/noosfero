@@ -213,11 +213,11 @@ class ActiveSupport::TestCase
     ActiveSupport::JSON.decode(@response.body)
   end
 
-  def set_profile_field_privacy(profile, field, privacy = 'public')
+  def set_profile_field_privacy(profile, field, privacy = 'private_content')
     environment = profile.environment
     environment.send("custom_#{profile.type.downcase}_fields=", { field => { 'active' => 'true' } })
     environment.save!
-    profile.fields_privacy =  { field => 'private_content' }
+    profile.fields_privacy =  { field => privacy }
     profile.save!
   end
 
