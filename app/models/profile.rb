@@ -1163,7 +1163,24 @@ private :generate_url, :url_options
 
   # field => privacy (e.g.: "address" => "public")
   def fields_privacy
+    self.data[:fields_privacy] ||= {}
+    custom_field_privacy = {}
+    self.custom_field_values.includes(:custom_field).pluck("custom_fields.name", :public).to_h.map do |field, is_public|
+      custom_field_privacy[field] = 'public' if is_public
+    end
+    self.data[:fields_privacy].merge!(custom_field_privacy)
+
     self.data[:fields_privacy]
+  end
+
+  def custom_field_value(field_name)
+    value = nil
+    begin
+     value = self.send(field_name)
+    rescue NoMethodError
+      value = self.custom_field_values.by_field(field_name).pluck(:value).first
+    end
+    value
   end
 
   # abstract

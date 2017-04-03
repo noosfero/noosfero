@@ -26,8 +26,11 @@ class Environment < ApplicationRecord
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
   has_many :search_terms, :as => :context
-  has_many :custom_fields, :dependent => :destroy
   has_many :email_templates, :foreign_key => :owner_id
+  has_many :custom_fields, :dependent => :destroy
+  has_many :person_custom_fields, -> { where(customized_type: 'Person')}, class_name: 'CustomField'
+  has_many :community_custom_fields, -> { where(customized_type: 'Community')}, class_name: 'CustomField'
+  has_many :enterprise_custom_fields, -> { where(customized_type: 'Enterprise')}, class_name: 'CustomField'
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/ unless const_defined?(:IDENTIFY_SCRIPTS)
 
@@ -494,6 +497,15 @@ class Environment < ApplicationRecord
     self.settings[:organization_approval_method] = actual_value
   end
 
+  def all_custom_person_fields
+    fields = self.settings[:custom_person_fields].nil? ? {} : self.settings[:custom_person_fields]
+    self.person_custom_fields.map do |cf|
+      fields[cf.name] = {'active' => cf.active.to_s, 'required' => cf.required.to_s, 'signup' => cf.signup.to_s }
+    end
+
+    fields
+  end
+
   def custom_person_fields
     self.settings[:custom_person_fields].nil? ? {} : self.settings[:custom_person_fields]
   end
@@ -554,6 +566,15 @@ class Environment < ApplicationRecord
     end
   end
 
+  def all_custom_enterprise_fields
+    fields = self.settings[:custom_enterprise_fields].nil? ? {} : self.settings[:custom_enterprise_fields]
+    self.enterprise_custom_fields.map do |cf|
+      fields[cf.name] = {'active' => cf.active.to_s, 'required' => cf.required.to_s, 'signup' => cf.signup.to_s }
+    end
+
+    fields
+  end
+
   def custom_enterprise_fields
     self.settings[:custom_enterprise_fields].nil? ? {} : self.settings[:custom_enterprise_fields]
   end
@@ -598,9 +619,19 @@ class Environment < ApplicationRecord
     signup_fields
   end
 
+  def all_custom_community_fields
+    fields = self.settings[:custom_community_fields].nil? ? {} : self.settings[:custom_community_fields]
+    self.community_custom_fields.map do |cf|
+      fields[cf.name] = {'active' => cf.active.to_s, 'required' => cf.required.to_s, 'signup' => cf.signup.to_s }
+    end
+
+    fields
+  end
+
   def custom_community_fields
     self.settings[:custom_community_fields].nil? ? {} : self.settings[:custom_community_fields]
   end
+
   def custom_community_fields=(values)
     self.settings[:custom_community_fields] = values.delete_if { |key, value| ! Community.fields.include?(key) }
     self.settings[:custom_community_fields].each_pair do |key, value|

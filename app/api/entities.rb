@@ -112,29 +112,17 @@ module Api
       expose :updated_at, :format_with => :timestamp
 
       expose :additional_data do |profile, options|
-        hash ={}
-        profile.public_values.each do |value|
-          hash[value.custom_field.name]=value.value
-        end
-        profile.public_fields.each do |field|
-          hash[field] = profile.send(field.to_sym)
-        end
-        private_values = profile.custom_field_values - profile.public_values
-        private_values.each do |value|
-          if Entities.can_display_profile_field?(profile,options)
-            hash[value.custom_field.name]=value.value
-          end
-        end
-        profile.environment.send("custom_#{profile.type.downcase}_fields").each  do |field, settings|
+        hash = {}
+        profile.environment.send("all_custom_#{profile.type.downcase}_fields").each  do |field, settings|
           if settings['active'].to_s == 'true'
             field_privacy = profile.fields_privacy[field]
             value = field_privacy == 'public' ? :anonymous : :private_content
             
             if Entities.can_display_profile_field?(profile, options, { permission: value })
-              hash[field] = profile.send(field.to_sym)
+              hash[field] = profile.send('custom_field_value', field)
             end
           end    
-        end  if profile.environment.respond_to?("custom_#{profile.type.downcase}_fields") 
+        end  
 
         hash
 
