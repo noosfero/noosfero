@@ -36,6 +36,19 @@ module Api
           present output
         end
 
+        patch ":id" do
+          authenticate!
+          begin
+            current_person.user.change_password!(params[:current_password],
+                               params[:new_password],
+                               params[:new_password_confirmation])
+            present({ success: true })
+          rescue Exception
+            render_api_error!(current_person.user.errors.details, Api::Status::BAD_REQUEST)
+          end
+
+        end
+
       end
 
     end

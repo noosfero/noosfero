@@ -137,4 +137,14 @@ class UsersTest < ActiveSupport::TestCase
     refute json.has_key?("activated")
   end
 
+  should 'change password successfully' do
+    login_api
+    params[:current_password] = 'testapi';
+    params[:new_password] = 'USER_NEW_PASSWORD';
+    params[:new_password_confirmation] = 'USER_NEW_PASSWORD';
+    patch "/api/v1/users/#{user.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['success'], true
+  end
+
 end
