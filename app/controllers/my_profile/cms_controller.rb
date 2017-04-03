@@ -193,9 +193,7 @@ class CmsController < MyProfileController
     @uploaded_files = []
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
-    if @article
-      record_coming
-    end
+    record_coming
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
         unless file == ''
