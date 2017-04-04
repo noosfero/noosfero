@@ -227,4 +227,20 @@ class SessionTest < ActiveSupport::TestCase
      assert json.first['private_token']
    end
 
+   should 'authenticate from plugin when fail to login with user/password' do
+     user = create_user
+     user.activate
+     class Plugin1 < Noosfero::Plugin
+       def alternative_authentication
+         User.last
+       end
+     end
+     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
+     Environment.default.enable_plugin(Plugin1)
+
+     params = {:login => "testplugin", :password => "testplugin"}
+     post "/api/v1/login?#{params.to_query}"
+     json = JSON.parse(last_response.body)
+     assert json["private_token"].present?
+   end
 end
