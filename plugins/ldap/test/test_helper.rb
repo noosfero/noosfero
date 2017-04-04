@@ -1,4 +1,5 @@
 require 'test_helper'
+require_relative '../../../test/api/test_helper'
 
 def load_ldap_config
   begin
