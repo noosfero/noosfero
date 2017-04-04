@@ -1,7 +1,7 @@
 <% extend WorkAssignmentPlugin::Helper %>
 
 <% unless @page.body.blank? %>
-  <div><%= @page.body %></div>
+  <div><%= @page.body.html_safe %></div>
   <hr/>
 <% end %>
 
