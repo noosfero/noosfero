@@ -1,0 +1,22 @@
+<h1><%= _('Custom Route Plugin Settings') %></h1>
+<h3><%= _('Custom Route Mappings') %></h3>
+
+<div id="custom-routes">
+  <table>
+    <thead>
+      <tr>
+        <th>From URL</th>
+        <th>To URL</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'route_entry', collection: @routes, as: :route %>
+    </tbody>
+  </table>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Go back'), { :controller => 'plugins', :action => 'index' }) %>
+    <%= button(:add, _('New mapping'), { :action => 'new' }) %>
+  <% end %>
+</div>
