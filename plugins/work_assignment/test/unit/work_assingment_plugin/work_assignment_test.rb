@@ -41,15 +41,4 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     assert_equal author_folder, submission.parent
   end
 
-  should 'add logged user on cache_key if is a member' do
-    organization = fast_create(Organization)
-    not_member = fast_create(Person)
-    member = fast_create(Person)
-    organization.add_member(member)
-    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => organization)
-
-    assert_no_match(/-#{not_member.identifier}/, work_assignment.cache_key({}, not_member))
-    assert_match(/-#{member.identifier}/, work_assignment.cache_key({}, member))
-  end
-
 end
