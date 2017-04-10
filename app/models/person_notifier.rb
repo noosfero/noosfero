@@ -67,12 +67,8 @@ class PersonNotifier
     end
 
     def failure(job)
-      begin
-        person = Person.find(person_id)
-        person.notifier.dispatch_notification_mail
-      rescue
-        Rails.logger.error "PersonNotifier::NotifyJob: Cannot recover from failure"
-      end
+      person = Person.find(person_id)
+      person.notifier.dispatch_notification_mail
     end
 
   end
@@ -80,6 +76,17 @@ class PersonNotifier
   class Mailer < ApplicationMailer
 
     helper ActionTrackerHelper
+    helper do
+      def render_activity(activity)
+        begin
+          render activity.verb, activity: activity
+        rescue => error
+          Delayed::Worker.logger.warn "PersonNotifier::NotifyJob: Cannot "\
+                                      "render template for #{activity.verb} "\
+                                      "notification: #{error}"
+        end
+      end
+    end
 
     def session
       {:user_theme => nil}

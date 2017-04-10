@@ -25,7 +25,7 @@
           <% @notifications.each do |activity| %>
               <div style="border-bottom:1px solid #e2e2e2;padding:15px 0;width:600px">
               <table style="width:100%;table-layout:fixed;">
-                <%= render activity.verb, activity: activity %>
+                <%= render_activity(activity) %>
               </table>
             </div>
           <% end %>

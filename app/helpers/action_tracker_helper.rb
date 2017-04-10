@@ -61,15 +61,19 @@ module ActionTrackerHelper
       tag(:br, style: 'clear: both')
   end
 
-  def reply_scrap_description ta
+  def leave_scrap_description ta
     _('sent a message to %{receiver}: <br /> "%{message}"') % {
       receiver: link_to(ta.get_receiver_name, ta.get_receiver_url),
       message: auto_link_urls(ta.get_content)
     }
   end
 
-  alias :leave_scrap_description :reply_scrap_description
-  alias :reply_scrap_on_self_description :reply_scrap_description
+  def reply_scrap_on_self_description ta
+    _('replied to a scrap from %{receiver}: <br /> "%{message}"') % {
+      receiver: link_to(ta.get_receiver_name, ta.get_receiver_url),
+      message: auto_link_urls(ta.get_content)
+    }
+  end
 
   def leave_scrap_to_self_description ta
     _('wrote: <br /> "%{text}"') % {
