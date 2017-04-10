@@ -35,3 +35,7 @@ Dir.glob(Rails.root.join(plugins_root, '*', 'controllers')) do |controllers_dir|
   match "myprofile/:profile/plugin/#{plugin_name}(/:action(/:id))", controller: "#{plugin_name}_plugin_myprofile", profile: /#{Noosfero.identifier_format}/i, via: :all
   match 'admin/plugin/' + plugin_name + '(/:action(/:id))', controller: plugin_name + '_plugin_admin', via: :all
 end
+
+Dir.glob(Rails.root.join(plugins_root, '*', 'config', 'routes.rb')) do |route|
+  eval(IO.read(route), binding, route)
+end

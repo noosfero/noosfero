@@ -1,0 +1,21 @@
+<div class="new-route-form"> 
+  <%= error_messages_for :route %>
+
+  <%= labelled_form_for :route, url: url_for(action: action) do |f| %>
+    <%= hidden_field_tag(:route_id, route.id) %>
+    <div>
+      <%= required f.text_field(:source_url) %>
+    </div>
+    <div>
+      <%= f.text_field(:target_url) %>
+    </div>
+    <div>
+      <%= f.check_box(:enabled, {}) %>
+    </div>
+
+    <%= button_bar do %>
+      <%= button(:back, _('Go back'), { :action => 'index' }) %>
+      <%= submit_button(:save, _('Save')) %>
+    <% end %>
+  <% end %>
+</div>

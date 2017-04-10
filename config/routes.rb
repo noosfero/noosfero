@@ -151,5 +151,4 @@ Noosfero::Application.routes.draw do
   # match requests for content in domains hosted for profiles
   match '/(*page)', controller: 'content_viewer', action: 'view_page', via: :all
 
-
 end

@@ -1,0 +1,7 @@
+div#custom-routes {
+  tr.route-entry.loading {
+    background-color: #ddd;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}

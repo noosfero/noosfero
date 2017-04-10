@@ -1,0 +1,8 @@
+<tr class="route-entry"> 
+  <td><%= route.source_url %></td>
+  <td><%= route.target_url %></td>
+  <td>
+    <%= button_without_text(:edit, _('Edit'), { action: :edit, route_id: route.id }) %>
+    <%= button_without_text(:remove, _('Remove'), { action: :destroy }, 'data-id' => route.id) %>
+  </td>
+</tr>
