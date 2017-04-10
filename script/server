@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -e
+
+export RAILS_ENV=development
+
+stop() {
+  echo "Stopping ..."
+  if [ -f tmp/pids/unicorn.pid ]; then
+    kill -9 $(cat tmp/pids/unicorn.pid)
+    rm -f tmp/pids/unicorn.pid
+  fi
+  exit
+}
+
+start() {
+  rake db:abort_if_pending_migrations
+  trap stop INT TERM EXIT
+  mkdir -p log
+  touch log/development.log log/development_api.log
+  if [ -z "$RAILS_RELATIVE_URL_ROOT" ]; then
+    unicorn_rails --config-file lib/noosfero/unicorn.rb --daemonize $@
+  else
+    unicorn_rails \
+      --path "$RAILS_RELATIVE_URL_ROOT" \
+      --config-file lib/noosfero/unicorn.rb \
+      --daemonize
+  fi
+  tail -n 0 -f log/development.log log/development_api.log || true
+}
+
+start $@
