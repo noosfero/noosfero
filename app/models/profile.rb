@@ -12,7 +12,7 @@ class Profile < ApplicationRecord
     :custom_url_redirection, :layout_template, :email_suggestions,
     :allow_members_to_invite, :invite_friends_only, :secret,
     :profile_admin_mail_notification, :allow_followers, :wall_access,
-    :profile_kinds, :tag_list
+    :profile_kinds, :tag_list, :boxes_attributes
 
   attr_accessor :old_region_id
 

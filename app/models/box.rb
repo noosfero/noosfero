@@ -4,8 +4,9 @@ class Box < ApplicationRecord
 
   belongs_to :owner, :polymorphic => true
   has_many :blocks, -> { order 'position' }, dependent: :destroy
+  accepts_nested_attributes_for :blocks, allow_destroy: true
 
-  attr_accessible :owner
+  attr_accessible :owner, :blocks_attributes
 
   include Noosfero::Plugin::HotSpot
 
