@@ -14,8 +14,11 @@ module DatesHelper
   end
 
   # formats a date for displaying.
-  def show_date(date, use_numbers = false, year = true, left_time = false)
-    if date && use_numbers
+  def show_date(date, use_numbers = false, year = true, left_time = false, abbreviated = false)
+    if date && abbreviated
+      date_format = year ? _('%{month_name} %{year}') : _('%{month_name} %{day}')
+      date_format % { :day => date.day, :month_name => month_name(date.month, true), :year => date.year }
+    elsif date && use_numbers
       date_format = year ? _('%{month}/%{day}/%{year}') : _('%{month}/%{day}')
       date_format % { :day => date.day, :month => date.month, :year => date.year }
     elsif date && left_time
