@@ -160,9 +160,9 @@ class PersonNotifierTest < ActiveSupport::TestCase
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     process_delayed_job_queue
-    assert_raise ActionView::Template::Error do
-      notify
-    end
+
+    Logger.any_instance.expects(:warn).with(regexp_matches(/#{:some_invalid_verb}/)).at_least(1)
+    notify
   end
 
   Targets = {
@@ -284,6 +284,16 @@ class PersonNotifierTest < ActiveSupport::TestCase
     notify
     sent = ActionMailer::Base.deliveries.last
     assert_match /href=".*\/myprofile\/member\/tasks"/, sent.body.to_s
+  end
+
+  should 'send the content summary even if one notification raise an exception during render' do
+    @community.add_member(@member)
+    process_delayed_job_queue
+
+    ActionTracker::Record.any_instance.stubs(:get_resource_name).raises(StandardError)
+    assert_difference 'ActionMailer::Base.deliveries.count' do
+      notify
+    end
   end
 
   private

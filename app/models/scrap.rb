@@ -32,7 +32,7 @@ class Scrap < ApplicationRecord
 
   track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}, :custom_user => :sender
 
-  track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}, :custom_user => :sender
+  track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}, :custom_user => :sender
 
   after_create :send_notification
 
