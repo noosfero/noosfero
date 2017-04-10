@@ -15,7 +15,7 @@ class Environment < ApplicationRecord
                   :members_whitelist, :highlighted_news_amount,
                   :portal_news_amount, :date_format, :signup_intro,
                   :enable_feed_proxy, :http_feed_proxy, :https_feed_proxy,
-                  :disable_feed_ssl, :layout_template
+                  :disable_feed_ssl, :layout_template, :boxes_attributes
 
   has_many :users
 
