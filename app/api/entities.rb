@@ -178,7 +178,7 @@ module Api
         community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
       end
       expose :categories, :using => Category
-      expose :members_count
+      expose :members_count, :closed
       expose :members, :if => lambda {|community, options| Entities.expose_optional_field?(:members, options)}
     end
 
