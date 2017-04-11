@@ -114,7 +114,6 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     create_enterprise.expects(:valid_before_selecting_target?).returns(true)
     create_enterprise.stubs(:valid?).returns(true) # validator already selected
     create_enterprise.expects(:save!)
-    create_enterprise.expects(:target).returns(validator)
 
     post :index, :create_enterprise => data
     assert_template 'confirmation'

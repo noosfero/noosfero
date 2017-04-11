@@ -1,9 +1,15 @@
-<h1><%= _('Enterprise registration completed') %></h1>
+<% if @current_user.person.is_admin? %>
+  <h1><%= _('Enterprise was created') %></h1>
+  <p>
+    <%= _('Your new enterprise has been created.') %>
+  </p>
+<% else %>
+  <h1><%= _('Enterprise registration completed') %></h1>
+  <p>
+    <%= _("Your enterprise registration request was successfully registered. The validator organization you choose (%s) should get in touch with to start the validation process. As soon as the validators approve (or reject) your request, you will be notified by e-mail.") % @create_enterprise.target.name %>
+  </p>
+<% end %>
 
 <p>
-<%= _("Your enterprise registration request was successfully registered. The validator organization you choose (%s) should get in touch with to start the validation process. As soon as the validators approve (or reject) your request, you will be notified by e-mail.") % @create_enterprise.target.name %>
-</p>
-
-<p>
-<%= link_to _('You can continue to browse this environment.'), :controller => 'home' %>
+  <%= link_to _('You can continue to browse this environment.'), :controller => 'home' %>
 </p>

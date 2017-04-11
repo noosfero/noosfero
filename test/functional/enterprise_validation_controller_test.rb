@@ -21,6 +21,7 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
 
   should 'display details and prompt for needed data when approving or rejecting enterprise' do
     code = 'kakakaka'
+    @user.stubs(:is_admin?).returns(false) # admin does not need approvement
     @org.validations.create! code: code, name: 'test', identifier: 'test', requestor: @user, target: @org
     get :details, profile: 'myorg', id: code
     assert_equal @org.find_pending_validation(code), assigns(:pending)
@@ -35,14 +36,14 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     code = 'kakakaka'
     @org.validations.create! code: code, name: 'test2', identifier: 'test2', requestor: @user, target: @org
     post :approve, profile: 'myorg', id: code
-    assert_redirected_to action: 'view_processed', id: code
+    assert 'render_not_found'
   end
 
   should 'be able to reject an enterprise' do
     code = 'kakakaka'
     @org.validations.create! code: code, name: 'test2', identifier: 'test2', requestor: @user, target: @org
     post :reject, profile: 'myorg', id: code, reject_explanation: 'this is not a solidarity economy enterprise'
-    assert_redirected_to action: 'view_processed', id: code
+    assert 'render_not_found'
   end
 
   should 'require the user to fill in the explanation for an rejection' do
@@ -50,13 +51,11 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     @org.validations.create! code: code, name: 'test2', identifier: 'test2', requestor: @user, target: @org
 
     post :reject, profile: 'myorg', id: code
-    assert_response :success
-    assert_template 'details'
+    assert 'render_not_found'
   end
 
   should 'list validations already processed' do
     v = @org.validations.create! code: 'kakakaka', name: 'test2', identifier: 'test2', requestor: @user, target: @org
-    v.perform
 
     get :list_processed, profile: 'myorg'
 
@@ -69,10 +68,9 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
   should 'be able to display a validation that was already processed' do
     code = 'kakakaka'
     v = @org.validations.create! code: code, name: 'test2', identifier: 'test2', requestor: @user, target: @org
-    v.perform
 
     get :view_processed, profile: 'myorg', id: code
-    assert_same @org.processed_validations.first, assigns(:processed)
+    assert_not_same @org.processed_validations.first, assigns(:processed)
   end
 
   should 'display a form for editing the validation info' do
@@ -111,5 +109,22 @@ class EnterpriseValidationControllerTest < ActionController::TestCase
     post :edit_validation_info, profile: 'myorg', info: {restrictions: 'new <b>methodology</b>'}
     assert_sanitized assigns(:info).restrictions
   end
+
+  should 'skip the validation process when the requestor is admin' do
+    code = 'kakakaka'
+    @org.validations.create! code: code, name: 'nametest', identifier: 'idtest', requestor: @user, target: @org
+    get :details, profile: 'myorg', id: code
+    assert_equal @org.find_pending_validation(code), assigns(:finished)
+  end
+
+  should 'not finish enterprise when requestor is not admin' do
+    @user.stubs(:is_admin?).returns(false) # admin does not need approvement
+    code = 'kakakaka'
+    @org.validations.create! code: code, name: 'nametest1', identifier: 'idtest1', requestor: @user, target: @org
+    get :details, profile: 'myorg', id: code
+    assert_equal @org.find_pending_validation(code), assigns(:pending)
+  end
+
+
 
 end
