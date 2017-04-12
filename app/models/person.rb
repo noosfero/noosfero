@@ -1,7 +1,7 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
-  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
+  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :address_line2, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
 
   SEARCH_FILTERS = {
     :order => %w[more_recent more_popular more_active],
@@ -13,6 +13,22 @@ class Person < Profile
   end
 
   N_('person')
+
+  def self.human_attribute_name_with_customization(attrib, options={})
+    case attrib.to_sym
+    when :lat
+      _('Latitude')
+    when :lng
+      _('Longitude')
+    when :address
+      _('Address (street and number)')
+    else
+      _(self.human_attribute_name_without_customization(attrib))
+    end
+  end
+  class << self
+    alias_method_chain :human_attribute_name, :customization
+  end
 
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
@@ -246,14 +262,6 @@ class Person < Profile
   sex
   birth_date
   nationality
-  country
-  state
-  city
-  district
-  zip_code
-  address
-  address_line2
-  address_reference
   cell_phone
   comercial_phone
   personal_website
@@ -268,6 +276,7 @@ class Person < Profile
   organization_website
   contact_phone
   contact_information
+  location
   ]
 
   validates_multiparameter_assignments
@@ -278,11 +287,26 @@ class Person < Profile
 
   validate :presence_of_required_fields, :unless => :is_template
 
+  # Special cases for presence_of_required_fields. You can set:
+  # - cond: to be executed rather than checking if the field is blank
+  # - unless: an exception for when the field is not present
+  # - to_fields: map the errors to these fields rather than `field`
+  REQUIRED_FIELDS_EXCEPTIONS = {
+    custom_area_of_study: { unless: Proc.new{|p| p.area_of_study != 'Others' } },
+    custom_formation: { unless: Proc.new{|p| p.formation != 'Others' } },
+    location: { cond: Proc.new{|p| p.lat.nil? || p.lng.nil? }, to_fields: [:lat, :lng] }
+  }
+
   def presence_of_required_fields
     self.required_fields.each do |field|
-      if self.send(field).blank?
-        unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')
-          self.errors.add_on_blank(field)
+      opts = REQUIRED_FIELDS_EXCEPTIONS[field.to_sym] || {}
+      if (opts[:cond] ? opts[:cond].call(self) : self.send(field).blank?)
+        unless opts[:unless].try(:call, self)
+          fields = opts[:to_fields] || field
+          fields = fields.kind_of?(Array) ? fields : [fields]
+          fields.each do |to_field|
+            self.errors.add_on_blank(to_field)
+          end
         end
       end
     end

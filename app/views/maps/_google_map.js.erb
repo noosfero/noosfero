@@ -1,110 +1,101 @@
-
 var geocoder;
 var map;
 var marker;
-var center;
-var move = true;
-var previousCenter;
-var mapZoom = 15;
+var mapZoom = <%= GoogleMaps.initial_zoom.to_json %>;
 var delay_autocomplete = 500;
+var previousMsg = '';
 
 function pointToAddress(latlng) {
-  jQuery('#location-fields').addClass("loading");
-
   if (latlng == null)
     return;
 
+  jQuery('#location-support-fields').addClass("loading");
+
   geocoder.geocode( {'latLng': latlng}, function(results, status) {
+    jQuery('#location-support-fields').removeClass("loading");
+
     if (status != google.maps.GeocoderStatus.OK) {
       alert("<%=_("Address not found, reason:")%>" + statusErrorMessage(status));
       return;
     }
 
-    var place = results[0];
-
-    jQuery('#location-fields').removeClass("loading");
-
     var position = marker.getPosition();
     jQuery('#profile_data_lat').val(position.lat());
     jQuery('#profile_data_lng').val(position.lng());
 
-    form = jQuery('#location-form')[0];
-    form.lat = marker.getPosition().lat();
-    form.lng = marker.getPosition().lng();
-
-    var components_len = place.address_components.size();
+    var place = results[0];
+    var components_len = place.address_components.length;
     if (components_len < 2)
       return;
 
-    var country_code = "";
-    var state = "";
-    var city = "";
-    var zip_code = "";
-    var route = "";
-    var number = "";
-    var sublocality = "";
-    var address = "";
-
-    var i;
-    var has_postal_code = false;
-    for (i=0; i < components_len; i++) {
-      type = place.address_components[i].types[0];
-      if (type == 'postal_code')
-        has_postal_code = true;
+    var location_values = {
+      country: '',
+      state: '',
+      city: '',
+      district: '',
+      zip_code: '',
+      route: '',
+      number: '',
+      address: ''
     }
 
-    for (i=0; i < components_len; i++) {
-      type = place.address_components[i].types[0];
-      value = place.address_components[i];
+    var location_fields = {
+      country: { field: 'country', type: 'short' },
+      administrative_area_level_1: { field: 'state', type: 'long' },
+      locality: { field: 'city', type: 'long' },
+      administrative_area_level_2: { field: 'city', type: 'long' },
+      sublocality: { field: 'district', type: 'long' },
+      administrative_area_level_4: { field: 'district', type: 'long' },
+      postal_code: { field: 'zip_code', type: 'short' },
+      route: { field: 'route', type: 'long' },
+      street_number: { fueld: 'number', type: 'short' }
+    }
 
-      if (type == 'country')
-        country_code = value.short_name;
-      else if (type == 'administrative_area_level_1')
-        state = value.long_name;
-      else if (type == 'locality')
-        city = value.long_name;
-      else if (type == 'postal_code')
-        zip_code = value.short_name;
-      if (has_postal_code) {
-        if (type == "route")
-          route = value.long_name;
-        else if (type == "street_number")
-          number = value.short_name;
-        else if (type == 'sublocality')
-          sublocality = value.long_name;
+    for (var i = 0; i < components_len; i++) {
+      value = place.address_components[i];
+      types = value.types;
+
+      for (var j = 0; j < types.length; j++) {
+        location_field = location_fields[types[j]];
+        if (location_field) {
+          var content = value[location_field.type + '_name']
+          location_values[location_field.field] = content
+          break;
+        }
       }
     }
 
-    // build address
-    if (route) {
-      address = route;
-      if (number)
-       address = address + ', ' + number;
-      if (sublocality && sublocality != city)
-       address = address + ', ' + sublocality;
+    // Build address
+    if (location_values.route) {
+      location_values.address = location_values.route;
+      if (location_values.number)
+       location_values.address += ', ' + number;
+      if (location_values.sublocality &&
+          location_values.sublocality != location_values.city)
+       location_values.address += ', ' + location_values.sublocality;
     }
 
-    if (country_code)
-      jQuery('#profile_data_country').val(country_code);
-    if (state)
-      jQuery('#profile_data_state').val(state);
-    if (city)
-      jQuery('#profile_data_city').val(city);
-    if (zip_code)
-      jQuery('#profile_data_zip_code').val(zip_code);
-    if (address)
-      jQuery('#profile_data_address').val(address);
-
-    map.setCenter(marker.getPosition());
+    jQuery.each(location_values, function(field, value) {
+      jQuery('#profile_data_' + field).val(value);
+    })
   });
 }
 
 function addressToPoint() {
-  jQuery('#location-fields').addClass("loading");
+  jQuery('#location-support-fields').addClass("loading");
 
-  var country_option = jQuery('#profile_data_country').val();
-  var address = jQuery('#profile_data_address').val() + ", " + jQuery('#profile_data_zip_code').val() + ", "
-    + jQuery('#profile_data_city').val() + ", " + jQuery('#profile_data_state').val() + ", " + country_option;
+  var address_components = [
+    jQuery('#profile_data_address').val(),
+    jQuery('#profile_data_zip_code').val(),
+    jQuery('#profile_data_district').val(),
+    jQuery('#profile_data_city').val(),
+    jQuery('#profile_data_state').val(),
+    jQuery('#profile_data_country').val()
+  ];
+
+  var address = address_components.filter(function (el) {
+    return el != undefined
+  }).join(', ');
 
   if (geocoder) {
    geocoder.geocode({ 'address': address}, function(results, status) {
@@ -115,7 +106,7 @@ function addressToPoint() {
 
        jQuery('#profile_data_lat').val(results[0].geometry.location.lat());
        jQuery('#profile_data_lng').val(results[0].geometry.location.lng());
-       jQuery('#location-fields').removeClass("loading");
+       jQuery('#location-support-fields').removeClass("loading");
        enable_save();
      } else {
        jQuery('#location-fields').removeClass("loading");
@@ -144,20 +135,19 @@ function statusErrorMessage(status)
 }
 
 function initializeMap() {
+  <% if profile.required_fields.include?('location') && (profile.lat.nil? || profile.lng.nil?) %>
+    disable_save();
+  <% end %>
+
   geocoder = new google.maps.Geocoder();
 
-  var lat = <%= profile.lat || 'false' %>;
-  var lng = <%= profile.lng || 'false' %>;
-  if ( !(lat && lng) ) {
-    lat = -15.7605361485013;
-    lng = -47.933349609375;
-  }
+  var lat = <%= profile.try(:lat) || '-15.793926031041158' %>;
+  var lng = <%= profile.try(:lng) || '-47.88270950317383' %>;
 
   var center = new google.maps.LatLng(lat,lng);;
   map = new google.maps.Map(document.getElementById("location-map"), {
     zoom: mapZoom,
-    center: center,
-    mapTypeId: google.maps.MapTypeId.HYBRID
+    center: center
   });
 
   marker = new google.maps.Marker({
@@ -167,19 +157,17 @@ function initializeMap() {
   });
 
   google.maps.event.addListener(marker, "dragend", function() {
-    move = false;
     pointToAddress(marker.getPosition());
     map.setCenter(marker.getPosition());
     enable_save();
   });
-
 }
 
 jQuery(document).ready(function () {
 
   initializeMap();
 
-  jQuery.widget( "custom.catcomplete",jQuery.ui.autocomplete, {
+  jQuery.widget("custom.catcomplete", jQuery.ui.autocomplete, {
     _renderMenu: function( ul, items ) {
       var self = this,
       currentCategory = "";
@@ -220,13 +208,17 @@ jQuery(document).ready(function () {
 
 function disable_save()
 {
-  jQuery('input[type="submit"]').attr("disabled", "true");
-  jQuery('input[type="submit"]').val('<%=_("Localize before save")%>');
-  jQuery('input[type="submit"]').addClass('disabled');
+  var button = $('#location-map').closest('form').find('input[type="submit"]')
+  previousMsg = previousMsg ? previousMsg : button.val();
+  button.attr("disabled", "true");
+  button.val('<%=_("Localize before saving")%>');
+  button.addClass('disabled');
 }
+
 function enable_save()
 {
-  jQuery('input[type="submit"]').removeAttr("disabled");
-  jQuery('input[type="submit"]').val('<%=_("Save")%>');
-  jQuery('input[type="submit"]').removeClass('disabled');
+  var button = $('#location-map').closest('form').find('input[type="submit"]')
+  button.removeAttr("disabled");
+  if (previousMsg != '') { button.val(previousMsg) };
+  button.removeClass('disabled');
 }

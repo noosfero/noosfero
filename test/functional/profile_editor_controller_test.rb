@@ -280,7 +280,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'render person partial' do
     person = profile
-    Person.any_instance.expects(:active_fields).returns(['contact_phone', 'address']).at_least_once
+    Person.any_instance.expects(:active_fields).returns(['contact_phone', 'nickname']).at_least_once
     get :edit, :profile => person.identifier
     person.active_fields.each do |field|
       assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
@@ -1235,5 +1235,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
     a.tags.create! name: 'linux'
     get :search_tags, :profile => profile.identifier, :term => 'linux'
     assert_equal '[{"label":"linux","value":"linux"}]', @response.body
+  end
+
+  should 'not display location fields when editing a profile' do
+    Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
+    get :edit, :profile => profile.identifier
+
+    assert_no_tag 'input', attributes: { id: 'profile_data_state' }
+    assert_no_tag 'input', attributes: { id: 'profile_data_city' }
   end
 end

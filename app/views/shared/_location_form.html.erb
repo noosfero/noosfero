@@ -1,0 +1,46 @@
+<% field = optional_field(profile, 'location') do %>
+  <div style='overflow: hidden'>
+    <div id="location-map"></div>
+  </div>
+  <p class='help-message'>
+    <%= _('Drag the balloon to find the exact location.') %>
+  </p>
+
+  <%= f.hidden_field :lat, :id => 'profile_data_lat' %>
+  <%= f.hidden_field :lng, :id => 'profile_data_lng' %>
+
+  <%= content_tag('script', '', :src => "https://maps.googleapis.com/maps/api/js?key=#{GoogleMaps.api_key}", :type => 'text/javascript') %>
+  <%= content_tag('script', render(:partial => 'maps/google_map.js', :locals => { profile: profile }), :type => 'text/javascript') %>
+<% end %>
+
+<% unless field.blank? %>
+  <% if profile.active_fields.include?('location') %>
+    <label class='formlabel location-title'><%= _('Location') %></label>
+
+    <div id='location-support-fields'>
+      <div class='location-support-fields-row'>
+        <%= f.text_field(:city, :id => 'profile_data_city', :rel => _('City')) %>
+        <%= f.text_field(:state, :id => 'profile_data_state', :rel => _('State')) %>
+      </div>
+      <div class='location-support-fields-row'>
+        <%= select_country(_('Country'), f.object_name, 'country', {:class => 'type-select', :id => 'profile_data_country'}, :selected => profile.country) %>
+        <%= f.text_field(:zip_code, :id => 'profile_data_zip_code', :rel => _('ZIP code')) %>
+      </div>
+      <div class='location-support-fields-row'>
+        <%= f.text_field(:district, :id => 'profile_data_district', :rel => _('District')) %>
+        <%= f.text_field(:address, :id => 'profile_data_address', :rel => _('Address')) %>
+      </div>
+
+      <div class='location-support-fields-row button-bar'>
+        <p class='help-message'>
+          <%= _('Fill an address to find it easier in the map') %>
+        </p>
+        <%= button_to_function :search, _('Locate in the map'), "addressToPoint()", :title => _("Locate the address informed above in the map below (note that you'll probably need to adjust the marker to get a precise position)")  %>
+      </div>
+    </div>
+  <% end %>
+
+  <div id='location-fields'>
+    <%= field %>
+  </div>
+<% end %>

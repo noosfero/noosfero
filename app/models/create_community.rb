@@ -15,7 +15,8 @@ class CreateCommunity < Task
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
 
-  DATA_FIELDS = Community.fields + ['name', 'closed', 'description']
+  DATA_FIELDS = Community.fields + %w[ name closed description address
+    zip_code city state country district lat lng ]
   DATA_FIELDS.each do |field|
     settings_items field.to_sym
     attr_accessible field.to_sym

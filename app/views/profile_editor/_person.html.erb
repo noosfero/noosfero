@@ -32,7 +32,7 @@
   </div>
   <%= link_to("Reset token", {:controller => :profile_editor, :action => :reset_private_token, :id => @profile.id}, :class => "button with-text") %>
 
-  <%= render :partial => 'person_form', :locals => {:f => f} %>
+  <%= render :partial => 'person_form', :locals => {:f => f, :editing_profile => true} %>
   <%= render :partial => 'shared/custom_fields', :locals => {:f => f, :profile => @profile, :editing_profile => true} %>
 
   <h2><%= _('Notification options') %></h2>

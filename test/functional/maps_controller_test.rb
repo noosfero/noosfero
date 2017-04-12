@@ -60,7 +60,7 @@ class MapsControllerTest < ActionController::TestCase
   end
 
   should 'dispĺay form for address with profile address' do
-    env.custom_person_fields = { 'city' => { 'active' => 'true' } }
+    env.custom_person_fields = { 'location' => { 'active' => 'true' } }
     env.save!
 
     get :edit_location, :profile => profile.identifier
@@ -132,5 +132,22 @@ class MapsControllerTest < ActionController::TestCase
     label =  json_response[0]['label']
 
     assert_equal state, label
+  end
+
+  should 'display location fields along with the map' do
+    Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
+    get :edit_location, :profile => profile.identifier
+
+    assert_tag 'input', attributes: { id: 'profile_data_state' }
+    assert_tag 'input', attributes: { id: 'profile_data_city' }
+  end
+
+  should 'accept blank address with lat and lng' do
+    Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
+    post :edit_location, profile: profile.identifier, profile_data: { state: '', city: '', lat: 30, lng: 15 }
+
+    profile.reload
+    assert_equal 30, profile.lat
+    assert_equal 15, profile.lng
   end
 end

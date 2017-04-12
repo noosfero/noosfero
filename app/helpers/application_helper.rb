@@ -491,7 +491,7 @@ module ApplicationHelper
       content_tag('div', label_html + control_html, :class => 'formfieldline' )
     end
 
-    (field_helpers - %w(hidden_field)).each do |selector|
+    (field_helpers - %i(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
           begin

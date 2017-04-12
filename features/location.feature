@@ -11,18 +11,14 @@ Feature: Location
 
   Scenario: editing my address
     Given the following Person fields are active fields
-      | address  |
-      | country  |
-      | state    |
-      | city     |
-      | zip_code |
+      | location |
     And I go to zezinho's control panel
     And I follow "Location"
     When I fill in "Address" with "Rua Marechal Floriano, 28"
     And I select "Brazil" from "Country"
     And I fill in "State" with "Bahia"
     And I fill in "City" with "Salvador"
-    And I fill in "ZIP code" with "40110010"
+    And I fill in "Zip code" with "40110010"
     And I follow "Locate in the map"
     And I press "Save"
     Then "zezinho" should have the following data
@@ -31,11 +27,7 @@ Feature: Location
 
   Scenario Outline: editing address of collectives
     Given the following <class> fields are active fields
-      | address  |
-      | country  |
-      | state    |
-      | city     |
-      | zip_code |
+      | location  |
     Given the following <plural>
       | identifier   | name    | owner   |
       | mycollective | My Collective | zezinho |
@@ -46,7 +38,7 @@ Feature: Location
       | Address   | Rua Marechal Floriano, 28 |
       | State    | Bahia                     |
       | City     | Salvador                  |
-      | ZIP code | 40110010                  |
+      | Zip code | 40110010                  |
     When I press "Save"
     Then "mycollective" should have the following data
       | address                   | country | state | city     | zip_code |

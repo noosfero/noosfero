@@ -30,10 +30,6 @@ class MapsController < MyProfileController
     end
   end
 
-  def google_map
-    render :partial => 'google_map.js'
-  end
-
   def search_city
     render :json => MapsHelper.search_city(params[:term])
   end

@@ -118,16 +118,11 @@ class Organization < Profile
     legal_form
     economic_activity
     management_information
-    address
-    zip_code
-    city
-    state
-    country
     template_id
-    district
     address_line2
     address_reference
     profile_kinds
+    location
   ]
 
   def self.fields

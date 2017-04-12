@@ -211,10 +211,10 @@ class EnterpriseTest < ActiveSupport::TestCase
     environment = fast_create(Environment, :name => 'my test environment')
     enterprise = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false, :environment_id => environment.id)
 
-    # administrator decides now that the 'city' field is mandatory
-    environment.custom_enterprise_fields = { 'city' => { 'active' => 'true', 'required' => 'true' } }
+    # administrator decides now that the 'location' field is mandatory
+    environment.custom_enterprise_fields = { 'location' => { 'active' => 'true', 'required' => 'true' } }
     environment.save!
-    assert_equal ['city'], environment.required_enterprise_fields
+    assert_equal ['location'], environment.required_enterprise_fields
 
     # then we try to enable the enterprise with a required field is blank
     enterprise = Enterprise.find(enterprise.id)
