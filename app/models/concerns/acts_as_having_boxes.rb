@@ -3,6 +3,7 @@ module ActsAsHavingBoxes
   module ClassMethods
     def acts_as_having_boxes
       has_many :boxes, -> { order :position }, as: :owner, dependent: :destroy
+      accepts_nested_attributes_for :boxes
       self.send(:include, ActsAsHavingBoxes)
     end
   end
@@ -34,4 +35,3 @@ module ActsAsHavingBoxes
   end
 
 end
-

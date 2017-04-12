@@ -345,4 +345,41 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal "blank", json['message']['name'].first['error']
     assert_equal "not_available", json['message']['identifier'].first['error']
   end
+
+  should 'add block in a profile' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    community.boxes << Box.new
+
+    block = { title: 'test' }
+    params.merge!({profile: {boxes_attributes: [{id: community.boxes.first.id, blocks_attributes: [block] }] } })
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    assert_equal ['test'], community.reload.blocks.map(&:title)
+  end
+
+  should 'remove blocks in a profile' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    community.boxes << Box.new
+    community.boxes.first.blocks << Block.new(title: 'test')
+    block = { id: community.boxes.first.blocks.first.id, _destroy: true }
+    params.merge!({profile: {boxes_attributes: [{id: community.boxes.first.id, blocks_attributes: [block] }] } })
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    assert community.reload.blocks.empty?
+  end
+
+  should 'edit block in a profile' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    community.boxes << Box.new
+    community.boxes.first.blocks << Block.new(title: 'test')
+
+    block = { id: community.boxes.first.blocks.first.id, title: 'test 2' }
+    params.merge!({profile: {boxes_attributes: [{id: community.boxes.first.id, blocks_attributes: [block] }] } })
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    assert_equal ['test 2'], community.reload.blocks.map(&:title)
+  end
 end
