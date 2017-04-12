@@ -9,7 +9,7 @@ module TokenHelper
     options[:hint_text] ||= _("Type in a search term")
     options[:no_results_text] ||= _("No results")
     options[:searching_text] ||= _("Searching...")
-    options[:placeholder] ||= 'null'
+    options[:placeholder] ||= ''
     options[:search_delay] ||= 1000
     options[:prevent_duplicates] ||=  true
     options[:backspace_delete_item] ||= false
