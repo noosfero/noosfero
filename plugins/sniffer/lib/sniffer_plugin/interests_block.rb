@@ -18,11 +18,11 @@ class SnifferPlugin::InterestsBlock < Block
 
   def interests
     results = nil
-    profile = block.owner
+    profile = self.owner
 
     if profile.is_a?(Profile)
-      results = profile.snnifer_opportunities
-      results |= profile.inputs if sniffer.profile.enterprise?
+      results = profile.sniffer_opportunities
+      results |= profile.inputs if profile.enterprise?
     else # Environment
       results = SnifferPlugin::Opportunity.product_categories.limit(5).order('created_at DESC').all
       results += Input.limit(5).order('created_at DESC').all
