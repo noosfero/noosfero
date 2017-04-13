@@ -46,6 +46,16 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal 20, assigns(:events).size
   end
 
+  should "show events for current month only" do
+    profile.events << Event.create(:name => 'Maria Birthday', :start_date => DateTime.now.at_end_of_month - 1)
+    profile.events << Event.create(:name => 'Joao Birthday', :start_date => DateTime.now + 31)
+
+    get :events, :profile => profile.identifier
+
+    assert_no_tag :tag =>'a', :content => /Joao Birthday/
+    assert_tag :tag =>'a', :content => /Maria Birthday/
+  end
+
   should 'show events of specific day' do
     profile.events << Event.new(:name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28))
 

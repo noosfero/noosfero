@@ -41,8 +41,9 @@ class Event < Article
 
   scope :next_events_from_month, -> date {
     date_temp = date.strftime("%Y-%m-%d")
+    final_day = date.at_end_of_month
     order('start_date ASC')
-    .where("start_date >= ?","#{date_temp}")
+    .where("start_date >= ? AND start_date <= ?", "#{date_temp}", "#{final_day}")
   }
 
   scope :by_month, -> date {
