@@ -1,3 +1,5 @@
+<% extend ProductsPlugin::ProductsHelper %>
+
 <%= block_title(block.title, block.subtitle) %>
 <% unless block.products.blank? %>
   <%= link_to content_tag(:span, _('Previous')), '#', :class => 'featured-product-prev featured-product-arrow'  %>
