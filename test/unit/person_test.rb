@@ -829,7 +829,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the person see all of your scraps" do
-    person = fast_create(Person)
+    person = create_user.person
+    User.current = person.user
     s1 = fast_create(Scrap, :sender_id => person.id)
     assert_equal [s1], person.scraps
     s2 = fast_create(Scrap, :sender_id => person.id)
