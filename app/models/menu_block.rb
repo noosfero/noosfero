@@ -32,12 +32,15 @@ class MenuBlock < Block
     filter_links user, enabled_links.empty? ? available_links : enabled_links
   end
 
-  def api_content(options = {})    
-    { :enabled_items => self.enabled_links_for(options[:current_person]), :available_items => filter_links(available_links) }
+  def api_content(options = {})
+    {
+      enabled_items: enabled_links_for(options[:current_person]),
+      available_items: filter_links(options[:current_person], available_links)
+    }
   end
 
   def api_content=(values = {})
-    settings[:enabled_links] = values.enabled_items    
+    settings[:enabled_links] = values[:enabled_items]
   end
 
   def display_api_content_by_default?
@@ -47,20 +50,18 @@ class MenuBlock < Block
   protected
 
   def filter_links(user, links)
-    links.select do |link|
-      !link[:condition] || link[:condition].call(user)
-    end
+    links.select { |link| permission_control(link, user) }
   end
 
   def display_control_panel?(user)
     user && user.has_permission?('edit_profile', owner)
   end
-    
+
   def display_activities?(user)
     AccessLevels.can_access?(access_level, user, owner)
   end
 
-  def access_level 
+  def access_level
     owner.person? ? AccessLevels::LEVELS[:users] : AccessLevels::LEVELS[:visitors]
   end
 
@@ -81,7 +82,13 @@ class MenuBlock < Block
   end
 
   def display_article?(user)
-    true    
+    true
+  end
+
+  def permission_control(link, user)
+    return true if !link[:controller] || !link[:action]
+    available_link = available_links.find { |l| l[:controller] == link[:controller] && l[:action] == link[:action] }
+    return available_link[:condition].call(user)
   end
 
 end
