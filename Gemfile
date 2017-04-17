@@ -33,7 +33,7 @@ gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
 gem 'slim'
 gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
-gem 'simplecov'
+
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -71,6 +71,7 @@ group :test do
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
   gem 'minitest-reporters'
+  gem 'simplecov', require: false
 end
 
 group :cucumber, :test do
