@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 require 'simplecov'
 SimpleCov.start
+SimpleCov.command_name 'test'
 
 require_relative '../config/environment'
 
