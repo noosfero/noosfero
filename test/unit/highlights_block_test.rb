@@ -169,7 +169,8 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     block.block_images = [i1]
     block.save!
 
-    assert_tag_in_string render_block_content(block), :tag => 'img', :attributes => { :src => "/social/img_address" }
+    assert_tag_in_string render_block_content(block), :tag => 'div', :attributes => { :class => 'highlights-img1', :style => "background-image:url(/social/img_address)" }
+    assert_tag_in_string render_block_content(block), :tag => 'div', :attributes => { :class => 'highlights-img2', :style => "background-image:url(/social/img_address)" }
   end
 
   [Environment, Profile].each do |klass|
