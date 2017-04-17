@@ -363,7 +363,7 @@ module Api
     end
 
     ##########################################
-    #              error helpers             #
+    #           response helpers             #
     ##########################################
 
     def not_found!

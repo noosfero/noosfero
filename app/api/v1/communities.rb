@@ -53,6 +53,15 @@ module Api
           present_partial community, :with => Entities::Community, :current_person => current_person, :params => params
         end
 
+        post ':id/invite' do
+          authenticate!
+          community = profiles_for_person(environment.communities, current_person).find_by_id(params[:id])
+          not_found! unless community.present?
+          Delayed::Job.enqueue InvitationJob.new(current_person.id, params[:contacts], '', community.id, nil, I18n.locale)
+
+          present_partial community, :with => Entities::Community, :current_person => current_person, :params => params
+        end
+
       end
 
       resource :people do
