@@ -41,7 +41,7 @@ module Api
         desc 'Return the tag counts for this environment'
         get '/tags' do
           status Api::Status::DEPRECATED
-          present_partial environment.tag_counts, {}
+          present_partial environment.tags, :with => Entities::Tag
         end
       end
 
@@ -49,13 +49,13 @@ module Api
         resource ':id/tags' do
           get do
             local_environment = Environment.find(params[:id])
-            present_partial local_environment.tag_counts, {}
+            present_partial local_environment.tags, :with => Entities::Tag
           end
         end
 
         desc 'Return the tag counts for this environment'
         get '/tags' do
-          present_partial environment.tag_counts, {}
+          present_partial environment.tags, :with => Entities::Tag
         end
       end
     end
