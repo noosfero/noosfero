@@ -2,6 +2,7 @@
 
 tasks = %w[
   test:api
+  test:specs
   test:units
   test:functionals
   test:integration
