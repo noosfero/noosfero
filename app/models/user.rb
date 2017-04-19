@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
   attr_accessible :login, :email, :password, :password_confirmation, :activated_at
 
+  store_accessor :metadata
+  include MetadataScopes
+
   N_('Password')
   N_('Password confirmation')
   N_('Terms accepted')

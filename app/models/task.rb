@@ -14,6 +14,9 @@ class Task < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
+  store_accessor :metadata
+  include MetadataScopes
+
   module Status
     # the status of tasks just created
     ACTIVE = 1

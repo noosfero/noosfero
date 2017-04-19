@@ -202,6 +202,9 @@ class Profile < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
+  store_accessor :metadata
+  include MetadataScopes
+
   def settings
     data
   end
