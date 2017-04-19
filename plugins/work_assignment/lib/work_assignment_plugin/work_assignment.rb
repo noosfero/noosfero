@@ -54,9 +54,4 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   def submissions
     children.map(&:children).flatten.compact
   end
-
-  def cache_key_with_person(params = {}, user = nil, language = 'en')
-    cache_key_without_person + (user && profile.members.include?(user) ? "-#{user.identifier}" : '')
-  end
-  alias_method_chain :cache_key, :person
 end
