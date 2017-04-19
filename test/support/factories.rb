@@ -231,7 +231,8 @@ module Noosfero::Factory
 
   def defaults_for_article
     name = 'My article ' + factory_num_seq.to_s
-    { :name => name, :slug => name.to_slug, :path => name.to_slug }
+    profile = fast_create(Person, :environment_id => fast_create(Environment).id)
+    { :name => name, :slug => name.to_slug, :path => name.to_slug, :profile_id => profile.id }
   end
 
   alias :defaults_for_text_article       :defaults_for_article
