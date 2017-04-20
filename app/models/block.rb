@@ -2,7 +2,7 @@ class Block < ApplicationRecord
 
   attr_accessible :title, :subtitle, :display, :limit, :box_id, :posts_per_page,
                   :visualization_format, :language, :display_user,
-                  :box, :edit_modes, :move_modes, :mirror, :visualization, :images_builder
+                  :box, :edit_modes, :move_modes, :mirror, :visualization, :images_builder, :api_content
 
   include ActionView::Helpers::TagHelper
 
@@ -307,6 +307,9 @@ class Block < ApplicationRecord
 
   def api_content(options = {})
     nil
+  end
+
+  def api_content=(values = {})
   end
 
   def display_api_content_by_default?
