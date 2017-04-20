@@ -10,7 +10,7 @@
           <%= 
             _('Event on <b>%s</b> at %s - %s').html_safe %
               [
-                l(activity.target.start_date, format: :medium),
+                time_ago_in_words(activity.target.start_date),
                 activity.target.start_date.strftime("%H:%M"),
                 link_to(activity.user.name, activity.user.url)
               ]
@@ -19,7 +19,7 @@
           <%= 
             _('On <b>%s</b> at %s - %s').html_safe %
               [
-                l(activity.created_at, format: :medium),
+                time_ago_in_words(activity.created_at),
                 activity.created_at.strftime("%H:%M"),
                 link_to(activity.user.name, activity.user.url)
               ]
