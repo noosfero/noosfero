@@ -69,7 +69,7 @@ class TagsTest < ActiveSupport::TestCase
 
     get '/api/v1/environment/tags'
     json = JSON.parse(last_response.body)
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, json)
+    assert_equal([{ 'name' => 'first-tag', 'count' => 3}, {'name' => 'second-tag', 'count' => 2}, { 'name' => 'third-tag', 'count' => 1 }], json)
   end
 
   should 'get environment tags with status DEPRECATED' do
