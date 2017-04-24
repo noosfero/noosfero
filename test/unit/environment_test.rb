@@ -1057,7 +1057,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
     person.articles.create!(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag')
 
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.tag_counts)
+    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, Environment.default.environment_tags)
   end
 
   should 'not list tags count from other environment' do
@@ -1065,7 +1065,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     user = create_user('testinguser', :environment => e).person
     user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
 
-    assert_equal({}, Environment.default.tag_counts)
+    assert_equal({}, Environment.default.environment_tags)
   end
 
   should 'list tags from profiles and articles' do
@@ -1076,7 +1076,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
     person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
 
-    assert_equal({ 'first-tag' => 2, 'second-tag' => 2, 'third-tag' => 1 }, environment.tag_counts)
+    assert_equal({ 'first-tag' => 2, 'second-tag' => 2, 'third-tag' => 1 }, environment.environment_tags)
   end
 
   should 'have a list of local documentation links' do

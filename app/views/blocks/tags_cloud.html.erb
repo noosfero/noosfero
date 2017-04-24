@@ -3,7 +3,7 @@
 
 <%
   is_env = block.owner.class == Environment
-  tags = is_env ? block.owner.tag_counts : block.owner.article_tags
+  tags = is_env ? block.owner.environment_tags : block.owner.article_tags
   if block.limit
     tags_tmp = tags.sort_by{ |k,v| -v }[0..(block.limit-1)]
     tags = {}
