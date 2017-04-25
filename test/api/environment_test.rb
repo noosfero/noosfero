@@ -198,10 +198,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.add_admin(person)
     environment.boxes << Box.new
 
-    block = { title: 'test' }
+    block = { title: 'test', type: RawHTMLBlock }
     params[:environment] = { boxes_attributes: [{id: environment.boxes.first.id, blocks_attributes: [block] }] }
     post "/api/v1/environments/#{environment.id}?#{params.to_query}"
     assert_equal ['test'], environment.reload.blocks.map(&:title)
+    assert_equal ['RawHTMLBlock'], environment.reload.blocks.map(&:type)
   end
 
   should 'remove blocks from environment' do
