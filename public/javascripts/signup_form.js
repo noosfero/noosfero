@@ -1,6 +1,5 @@
 function verifyLoginLoad() {
   jQuery('#user_login').removeClass('available unavailable valid validated invalid checking').addClass('checking');
-  jQuery('#url-check').html(jQuery('#checking-message').html());
 }
 
 function verifyLoginAjax(value) {

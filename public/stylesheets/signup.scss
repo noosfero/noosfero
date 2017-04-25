@@ -50,9 +50,12 @@
 #email-check p,
 #password-rate p,
 #password-check p,
-#url-check p {
+#url-check p ,
+#signup-form span.invalid,
+#signup-form span.validated,
+#url-check .suggested_usernames,
+#url-check .suggested_usernames a{
   margin: 0;
-  text-transform: lowercase;
   font-size: 11px;
   clear: both;
 }
@@ -145,19 +148,14 @@
   font-size: 20px;
 }
 
-#signup-form #result-short {
-  color: red;
-}
-
+#signup-form #result-short,
 #signup-form #result-bad {
-  color: #825A2C;
+  color: #7f0000;
+  font-weight: normal;
 }
 
-#signup-form #result-good {
-  color: #32CD32;
-}
-
+#signup-form #result-good,
 #signup-form #result-strong {
-  color: green;
+  color: #005000;
+  font-weight: normal;
 }
-
