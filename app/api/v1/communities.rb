@@ -53,14 +53,27 @@ module Api
           present_partial community, :with => Entities::Community, :current_person => current_person, :params => params
         end
 
+
+
+        desc 'Send invitations of users to community' do
+          detail 'The invitation must be provided by a user logged user with permission'
+          params Entities::Response.documentation
+          success Entities::Response
+          named 'CommunityInvite'
+        end
         post ':id/invite' do
           authenticate!
           community = profiles_for_person(environment.communities, current_person).find_by_id(params[:id])
           not_found! unless community.present?
           forbidden! unless community.allow_invitation_from?(current_person)
           Delayed::Job.enqueue InvitationJob.new(current_person.id, params[:contacts], '', community.id, nil, I18n.locale)
+          msg = {
+            :success => true,
+            :message => _('Your invitation was registered. The community administrators are reviewing your solicitation.'),
+            :code => Api::Status::INVITATION_SENT_TO_BE_PROCESSED 
+          }
 
-          present_partial community, :with => Entities::Community, :current_person => current_person, :params => params
+          present msg, :with => Entities::Response
         end
 
       end
