@@ -134,7 +134,7 @@ module Api
       article.profile = asset
 
       if !article.save
-        render_api_errors!(article.errors.full_messages)
+        render_model_errors!(article.errors)
       end
       present_partial article, :with => Entities::Article
     end
@@ -181,7 +181,7 @@ module Api
       task.target_type = 'Profile'
 
       if !task.save
-        render_api_errors!(task.errors.full_messages)
+        render_model_errors!(task.errors)
       end
       present_partial task, :with => Entities::Task
     end
@@ -397,20 +397,23 @@ module Api
       render_api_error!(_('Method Not Allowed'), Api::Status::METHOD_NOT_ALLOWED)
     end
 
-    # javascript_console_message is supposed to be executed as console.log()
-    def render_api_error!(user_message, status, log_message = nil, javascript_console_message = nil)
-      message_hash = {'message' => user_message, :code => status}
-      message_hash[:javascript_console_message] = javascript_console_message if javascript_console_message.present?
-      log_msg = "#{status}, User message: #{user_message}"
-      log_msg = "#{log_message}, #{log_msg}" if log_message.present?
-      log_msg = "#{log_msg}, Javascript Console Message: #{javascript_console_message}" if javascript_console_message.present?
-      logger.error log_msg unless Rails.env.test?
+    def render_api_error!(user_message, status = Api::Status::BAD_REQUEST)
+      message_hash = {'message' => user_message}
+      log_message = "#{status}, User message: #{user_message}"
+      logger.error log_message unless Rails.env.test?
       error!(message_hash, status)
     end
 
-    def render_api_errors!(messages)
-      messages = messages.to_a if messages.class == ActiveModel::Errors
-      render_api_error!(messages.join(','), Api::Status::BAD_REQUEST)
+    def render_model_errors!(active_model_errors)
+      message_hash = {}
+      message_hash[:errors_details] = active_model_errors.details if active_model_errors.details
+      message_hash[:errors_messages] = active_model_errors.messages if active_model_errors.messages
+      message_hash[:full_messages] = active_model_errors.full_messages if active_model_errors.full_messages
+      full_messages = ''
+      full_messages = active_model_errors.full_messages.join(', ') if active_model_errors.full_messages
+      log_message = "#{status}, model errors: #{full_messages}"
+      logger.error log_message unless Rails.env.test?
+      error!(message_hash, Api::Status::BAD_REQUEST)
     end
 
     protected

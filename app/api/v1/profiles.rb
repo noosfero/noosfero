@@ -20,7 +20,7 @@ module Api
 
           if profile
             type_map = {
-              Person => Entities::Person, 
+              Person => Entities::Person,
               Community => Entities::Community,
               Enterprise => Entities::Enterprise
             }[profile.class] || Entities::Profile
@@ -30,7 +30,7 @@ module Api
             not_found!
           end
         end
-        
+
         desc "Update profile information"
         post ':id' do
           authenticate!
@@ -41,7 +41,7 @@ module Api
             profile.update_attributes!(asset_with_custom_image(:top_image, profile_params))
             present profile, :with => Entities::Profile, :current_person => current_person
           rescue ActiveRecord::RecordInvalid
-            render_api_error!(profile.errors.details, Api::Status::BAD_REQUEST)
+            render_model_errors!(profile.errors)
           end
         end
 
