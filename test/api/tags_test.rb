@@ -13,7 +13,7 @@ class TagsTest < ActiveSupport::TestCase
 
     get "/api/v1/articles/#{a.id}/tags?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ['foo'], json
+    assert_equal ['name' => 'foo', 'count' => 1], json
   end
 
   should 'post article tags' do
@@ -41,7 +41,7 @@ class TagsTest < ActiveSupport::TestCase
 
     get "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ['foo'], json
+    assert_equal ['name' => 'foo', 'count' => 1], json
   end
 
   should 'post profile tags' do
@@ -59,22 +59,6 @@ class TagsTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}&tags=foo"
     assert_equal 401, last_response.status
     assert_equal [], profile.reload.tag_list
-  end
-
-  should 'get environment tags' do
-    person = fast_create(Person)
-    person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
-    person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
-    person.articles.create!(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag')
-
-    get '/api/v1/environment/tags'
-    json = JSON.parse(last_response.body)
-    assert_equal({ 'first-tag' => 3, 'second-tag' => 2, 'third-tag' => 1 }, json)
-  end
-
-  should 'get environment tags with status DEPRECATED' do
-    get '/api/v1/environment/tags'
-    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'get environment tags for path environments' do

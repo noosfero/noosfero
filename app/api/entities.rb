@@ -310,6 +310,7 @@ module Api
 
     class Tag < Entity
       expose :name
+      expose :taggings_count, as: :count
     end
 
     class Activity < Entity

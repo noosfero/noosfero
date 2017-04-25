@@ -121,7 +121,7 @@ class StatisticsBlock < Block
 
   def tags
     if owner.kind_of?(Environment) then
-      owner.tag_counts.count
+      owner.environment_tags.count
     elsif owner.kind_of?(Profile) then
       owner.article_tags.count
     else

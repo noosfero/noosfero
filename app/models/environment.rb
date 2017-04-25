@@ -786,7 +786,7 @@ class Environment < ApplicationRecord
   end
 
 
-  def tag_counts
+  def environment_tags
     results = articles.tag_counts.inject({}) do |memo,tag|
       memo[tag.name] = tag.count
       memo
