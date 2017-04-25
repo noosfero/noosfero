@@ -79,7 +79,7 @@ module Api
           begin
             user.signup!
           rescue ActiveRecord::RecordInvalid
-            render_api_errors!(user.errors.full_messages)
+            render_model_errors!(user.errors)
           end
 
           present_partial user.person, :with => Entities::Person, :current_person => user.person
@@ -110,9 +110,9 @@ module Api
           add_friend = AddFriend.new(:person => current_person, :friend => person)
           begin
             add_friend.save!
-            present({ message: 'WAITING_APPROVAL' })            
+            present({ message: 'WAITING_APPROVAL' })
           rescue ActiveRecord::RecordInvalid
-            render_api_error!(add_friend.errors.details, Api::Status::BAD_REQUEST)
+            render_model_errors!(add_friend.errors)
           end
         end
 
@@ -123,7 +123,7 @@ module Api
           return not_found! if person.blank?
           begin
             current_person.remove_friend(person);
-            present({ message: 'Friend successfuly removed' })            
+            present({ message: 'Friend successfuly removed' })
           rescue ActiveRecord::RecordInvalid
             bad_request!
           end

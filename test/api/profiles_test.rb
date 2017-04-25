@@ -129,9 +129,9 @@ class ProfilesTest < ActiveSupport::TestCase
     some_person = create_user('testuser', { :email => "lappis@unb.br" }).person
     some_person.description = 'some description'
     set_profile_field_privacy(some_person,'description', 'public')
- 
+
     some_person.save!
-	
+
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('description')
@@ -140,7 +140,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
   should 'not display private fields to anonymous' do
     set_profile_field_privacy(person,'state', 'private_content')
-    person.state = 'some state' 
+    person.state = 'some state'
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -152,7 +152,7 @@ class ProfilesTest < ActiveSupport::TestCase
     login_api
 
     set_profile_field_privacy(person,'state', 'private_content')
-    person.state = 'some state' 
+    person.state = 'some state'
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -216,9 +216,9 @@ class ProfilesTest < ActiveSupport::TestCase
 
   should 'not display private custom fields to logged in user' do
     login_api
-    
+
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
-    some_profile = fast_create(Community, public_profile: false) 
+    some_profile = fast_create(Community, public_profile: false)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_profile.save!
 
@@ -342,8 +342,8 @@ class ProfilesTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 400, last_response.status
-    assert_equal "blank", json['message']['name'].first['error']
-    assert_equal "not_available", json['message']['identifier'].first['error']
+    assert_equal "blank", json['errors_details']['name'].first['error']
+    assert_equal "not_available", json['errors_details']['identifier'].first['error']
   end
 
   should 'add block in a profile' do
@@ -382,4 +382,16 @@ class ProfilesTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{community.id}?#{params.to_query}"
     assert_equal ['test 2'], community.reload.blocks.map(&:title)
   end
+
+  should "match error messages" do
+    login_api
+    params[:profile] = {}
+    params[:profile][:name] = ''
+    post "/api/v1/profiles/#{person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ({"name" => [{"error"=>"blank"}]}), json["errors_details"]
+    assert_equal ({"name"=>["can't be blank"]}), json["errors_messages"]
+    assert_equal (["Name can't be blank"]), json["full_messages"]
+  end
+
 end

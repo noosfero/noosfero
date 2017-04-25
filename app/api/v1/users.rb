@@ -44,7 +44,7 @@ module Api
                                params[:new_password_confirmation])
             present({ success: true })
           rescue Exception
-            render_api_error!(current_person.user.errors.details, Api::Status::BAD_REQUEST)
+            render_model_errors!(current_person.user.errors)
           end
 
         end

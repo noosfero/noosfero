@@ -41,7 +41,7 @@ module Api
           end
 
           if !community.save
-            render_api_errors!(community.errors.full_messages)
+            render_model_errors!(community.errors)
           end
 
           present_partial community, :with => Entities::Community, :current_person => current_person

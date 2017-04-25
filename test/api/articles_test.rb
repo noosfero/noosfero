@@ -861,4 +861,16 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equivalent [article1.id, article2.id], json.map { |a| a["id"] }
   end
+
+  should "match error messages" do
+    profile = fast_create(Community, :environment_id => environment.id)
+    give_permission(user.person, 'post_content', profile)
+    params[:article] = {:name => ""}
+    post "/api/v1/communities/#{profile.id}/articles?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ({"name" => [{"error"=>"blank"}]}), json["errors_details"]
+    assert_equal ({"name"=>["can't be blank"]}), json["errors_messages"]
+    assert_equal (["Title can't be blank"]), json["full_messages"]
+  end
+
 end

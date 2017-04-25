@@ -125,7 +125,7 @@ module Api
             vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
             {:vote => vote.save!}
           rescue ActiveRecord::RecordInvalid => e
-            render_api_error!(e.message, Api::Status::BAD_REQUEST)
+            render_model_errors!(vote.errors)
           end
         end
 
@@ -212,7 +212,7 @@ module Api
           suggest_article.requestor = current_person
 
           unless suggest_article.save
-            render_api_errors!(suggest_article.article_object.errors.full_messages)
+            render_model_errors!(suggest_article.article_object.errors)
           end
           present_partial suggest_article, :with => Entities::Task
         end

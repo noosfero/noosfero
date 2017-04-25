@@ -43,7 +43,7 @@ class PushNotificationPlugin::API < Grape::API
 
 
       unless target_user.save
-        render_api_errors!(target_user.errors.full_messages)
+        render_model_errors!(target_user.errors)
       end
       present target_user, :with => PushNotificationPlugin::Entities::DeviceUser
     end
