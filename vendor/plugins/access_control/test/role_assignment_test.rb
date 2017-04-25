@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require_relative 'test_helper'
 
 class RoleAssignmentTest < Test::Unit::TestCase
 
@@ -11,8 +11,8 @@ class RoleAssignmentTest < Test::Unit::TestCase
     ra = RoleAssignment.create(:role_id => role.id, :is_global => true)
     assert ra.has_permission?('permission', 'global')
     assert !ra.has_permission?('not_permitted', 'global')
-  end  
-  
+  end
+
   def test_has_global_permission_with_global_resource
     role = Role.create(:name => 'new_role', :permissions => ['permission'])
     accessor = AccessControlTestAccessor.create(:name => 'accessor')

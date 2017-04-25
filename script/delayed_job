@@ -6,6 +6,7 @@
 # The role of this script is to just start/stop the daemon, write a PID file,
 # etc. The actual feed update logic is DelayedJob plugin.
 
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require_relative '../config/environment'
 require 'delayed/command'
+
 Delayed::Command.new(ARGV).daemonize

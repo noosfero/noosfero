@@ -1,6 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) +  "/../../../app/models/environment")
-
-class Environment < ApplicationRecord
+class Environment
   def self.available_features
     {
     'feature1' => 'Enable Feature 1',

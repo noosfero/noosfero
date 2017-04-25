@@ -1,5 +1,4 @@
-require File.join(File.dirname(__FILE__), 'test_helper')
-
+require_relative 'test_helper'
 
 class RoleTest < Test::Unit::TestCase
 
@@ -15,11 +14,11 @@ class RoleTest < Test::Unit::TestCase
     assert role.save
     assert_equal count + 1, Role.count
   end
-  
+
   def test_uniqueness_of_name
     Role.create(:name => 'role_name')
     role = Role.new(:name => 'role_name')
-    assert ! role.save    
+    assert ! role.save
   end
 
   def test_uniqueness_of_key

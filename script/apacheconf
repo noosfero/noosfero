@@ -2,7 +2,8 @@
 
 case ARGV.first
 when 'virtualhosts'
-  require File.dirname(__FILE__) + '/../config/environment'
+  require_relative '../config/environment'
+
   Environment.all.each do |environment|
     domains = environment.domains.sort do |domain|
       domain.is_default ? 0 : 1

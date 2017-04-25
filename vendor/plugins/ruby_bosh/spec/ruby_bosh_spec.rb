@@ -1,7 +1,7 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
+require_relative 'spec_helper'
 
 describe RubyBOSH do
-  before(:each) do 
+  before(:each) do
     RubyBOSH.logging = false
     @rbosh = RubyBOSH.new("skyfallsin@localhost", "skyfallsin",
                           "http://localhost:5280/http-bind")
@@ -29,7 +29,7 @@ describe RubyBOSH do
     s = @rbosh.connect
     s.should be_kind_of(Array)
     s.size.should == 3
-    s.first.should == 'skyfallsin@localhost' 
+    s.first.should == 'skyfallsin@localhost'
     s.last.should be_kind_of(Fixnum)
     s[1].should == '123456'
   end

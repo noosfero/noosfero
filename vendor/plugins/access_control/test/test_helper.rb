@@ -1,5 +1,5 @@
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environment")
+require_relative '../../../../config/environment'
 
 require 'test/unit'
 require 'mocha'

@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__) + '/../config/environment'
+
+require_relative '../config/environment'
 
 system "rm #{Rails.root.join('tmp', '*.db')}"
 system "rm #{Rails.root.join('db', '*.db')}"

@@ -1,5 +1,3 @@
-require File.dirname(__FILE__) + '/../../config/environment'
-
 class AddBirthDateToPerson < ActiveRecord::Migration
 
   class ConvertDates
@@ -50,7 +48,7 @@ class AddBirthDateToPerson < ActiveRecord::Migration
 end
 
 if $PROGRAM_NAME == __FILE__
-  require File.dirname(__FILE__) + '/../../test/test_helper'
+  require_relative '../../test/test_helper'
 
   class ConvertDatesTest <  Test::Unit::TestCase
     SAMPLE = [

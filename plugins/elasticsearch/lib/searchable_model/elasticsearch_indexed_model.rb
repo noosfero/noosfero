@@ -16,6 +16,7 @@ module ElasticsearchIndexedModel
         mappings dynamic: 'false' do
           base.indexed_fields.each do |field, value|
             type = value[:type].presence
+            type = :string if type == :text
 
             if type == :nested
               indexes(field, type: type) do

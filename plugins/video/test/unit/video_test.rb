@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
+
 class VideoTest < ActiveSupport::TestCase
 
   include AuthenticatedTestHelper

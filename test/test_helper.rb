@@ -10,6 +10,11 @@ require 'minitest/spec'
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
+require_relative 'mocks/environment'
+require_relative 'mocks/profile'
+require_relative 'mocks/test_controller'
+require_relative 'mocks/uploaded_file'
+
 require_relative 'support/should'
 require_relative 'support/factories'
 require_relative 'support/integration_test'

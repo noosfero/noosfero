@@ -1,7 +1,5 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../download_fixture'
-$LOAD_PATH << File.dirname(__FILE__) + '/../../lib/'
-require 'html5_video_plugin.rb'
+require 'test_helper'
+require_relative '../download_fixture'
 
 class CreateVideoForWebJobTest < ActiveSupport::TestCase
 
@@ -72,7 +70,7 @@ class CreateVideoForWebJobTest < ActiveSupport::TestCase
                         :acodec, 'libvorbis', :ar, 44100, :ab, '192k',
                         "#{@temp}/firebus.ogv" ]
     assert_equal 0, resp[:error][:code], 'creating a valid OGV'
-    
+
     video = FilePresenter.for UploadedFile.create!(
       uploaded_data: Rack::Test::UploadedFile.new("#{@temp}/firebus.ogv", 'video/ogv'),
       profile: fast_create(Person) )

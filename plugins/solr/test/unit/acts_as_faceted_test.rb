@@ -1,6 +1,5 @@
 require_relative '../test_helper'
-require "#{File.dirname(__FILE__)}/../../lib/acts_as_faceted"
-
+require_relative '../../lib/acts_as_faceted'
 
 class TestModel < ApplicationRecord
   def self.f_type_proc(klass)

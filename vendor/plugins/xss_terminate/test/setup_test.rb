@@ -2,15 +2,14 @@
 
 # set up test environment
 RAILS_ENV = 'test'
-require File.expand_path(File.join(File.dirname(__FILE__), '../../../../config/environment.rb'))
-require 'test/unit'
+require_relative '../../../../config/environment.rb'
 
 # load test schema
 load(File.dirname(__FILE__) + "/schema.rb")
 
 # load test models
-require File.join(File.dirname(__FILE__), 'models/person')
-require File.join(File.dirname(__FILE__), 'models/entry')
-require File.join(File.dirname(__FILE__), 'models/comment')
-require File.join(File.dirname(__FILE__), 'models/message')
-require File.join(File.dirname(__FILE__), 'models/review')
+require_relative 'models/person'
+require_relative 'models/entry'
+require_relative 'models/comment'
+require_relative 'models/message'
+require_relative 'models/review'

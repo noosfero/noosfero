@@ -1,6 +1,5 @@
-
-require File.dirname(__FILE__) + '/abstract_unit'
-require '../lib/validates_as_cnpj'
+require_relative 'abstract_unit'
+require_relative '../lib/validates_as_cnpj'
 
 # Modelo
 class CNPJData < ActiveRecord::Base

@@ -1,8 +1,4 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../test/test_helper'
-require(
-  File.expand_path(File.dirname(__FILE__)) +
-  '/../../controllers/public/admin_notifications_plugin_public_controller'
-)
+require 'test_helper'
 
 class AdminNotificationsPluginPublicControllerTest < ActionController::TestCase
   def setup

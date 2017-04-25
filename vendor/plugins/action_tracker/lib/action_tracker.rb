@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'action_tracker_model.rb')
+require_relative 'action_tracker_model'
 
 module ActionTracker
 

@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require_relative '../test_helper'
+
 class VideoGaleryTest < ActiveSupport::TestCase
 
   should "define its type_name as Video Gallery" do

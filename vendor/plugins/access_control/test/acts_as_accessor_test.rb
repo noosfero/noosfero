@@ -1,5 +1,5 @@
 require 'test/unit'
-require File.dirname(__FILE__) + '/test_helper'
+require_relative 'test_helper'
 
 class ActAsAccessorTest < Test::Unit::TestCase
 
@@ -57,7 +57,7 @@ class ActAsAccessorTest < Test::Unit::TestCase
     a = AccessControlTestAccessor.create!(:name => 'ze')
     role = Role.create!(:name => 'an_author', :permissions => ['bli'])
 
-    assert !a.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([role, a, res]) 
+    assert !a.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([role, a, res])
     assert !a.remove_role(role, res)
   end
 

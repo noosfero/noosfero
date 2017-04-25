@@ -1,5 +1,5 @@
 $:.unshift(File.dirname(__FILE__) + "/../lib/")
-require File.join(File.dirname(__FILE__), 'test_helper')
+require_relative 'test_helper'
 require 'test/unit'
 require 'active_crypto'
 

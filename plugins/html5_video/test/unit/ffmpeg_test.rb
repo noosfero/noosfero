@@ -1,10 +1,5 @@
-#require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require 'test_helper'
-#require File.dirname(__FILE__) + '/../download_fixture'
 require_relative '../download_fixture'
-$LOAD_PATH << File.dirname(__FILE__) + '/../../lib/'
-require 'html5_video_plugin.rb'
-require 'html5_video_plugin/ffmpeg.rb'
 
 class FfmpegTest < ActiveSupport::TestCase
 

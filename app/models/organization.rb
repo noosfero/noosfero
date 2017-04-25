@@ -37,7 +37,7 @@ class Organization < Profile
   scope :visible_for_person, lambda { |person|
 	    listed_for_person(person).where( ['
         ( ( role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR
-          ( profiles.enabled = ? AND profiles.public_profile = ? ) )',      
+          ( profiles.enabled = ? AND profiles.public_profile = ? ) )',
       Profile.name, person.id,  true, true]
     )
   }

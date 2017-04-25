@@ -40,6 +40,6 @@ if ENV["RAILS_ENV"] == 'test'
   require "active_record"
   DB = (ENV['DB'] ? ENV['DB'] : 'sqlite') unless defined?(DB)
   MYSQL_USER = (ENV['MYSQL_USER'].nil? ? 'root' : ENV['MYSQL_USER']) unless defined? MYSQL_USER
-  require File.join(File.dirname(File.expand_path(__FILE__)), '..', 'test', 'db', 'connections', DB, 'connection.rb')
+  require_relative "../test/db/connections/#{DB}/connection"
 end
 

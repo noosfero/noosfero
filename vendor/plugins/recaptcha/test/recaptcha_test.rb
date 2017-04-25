@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'cgi'
-require File.dirname(File.expand_path(__FILE__)) + '/../lib/recaptcha'
+require_relative '../lib/recaptcha'
 
 class RecaptchaClientHelperTest < Test::Unit::TestCase
   include Recaptcha
