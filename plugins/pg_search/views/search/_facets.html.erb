@@ -1,0 +1,12 @@
+<div id="facets">
+  <% require_dependency 'pg_search_plugin/search_helper' %>
+  <% extend PgSearchPlugin::SearchHelper %>
+
+  <% @searches[@asset][:facets].each do |f| %>
+    <%= facet(f) %>
+  <% end %>
+
+  <% @searches[@asset][:periods].each do |attribute, period| %>
+    <%= date_filter(attribute, period) %>
+  <% end %>
+</div>

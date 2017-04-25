@@ -1007,13 +1007,7 @@ div#notice {
 }
 
 .search-results-innerbox {
-  border: 1px solid #CCC;
-  border-top: 2px solid #2e3436;
-  border-bottom: none;
-  background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
-}
-.only-one-result-box .search-results-innerbox {
-  border-top: 1px solid #CCC;
+  border: none;
 }
 
 #content .search-results-type-article li,

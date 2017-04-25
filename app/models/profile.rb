@@ -250,8 +250,8 @@ class Profile < ApplicationRecord
 
   # subclass specific
   scope :more_popular, -> { }
-  scope :more_active, -> { order 'activities_count DESC' }
-  scope :more_recent, -> { order "created_at DESC" }
+  scope :more_active, -> { order 'profiles.activities_count DESC' }
+  scope :more_recent, -> { order "profiles.created_at DESC" }
 
   scope :followed_by, -> person{
     distinct.select('profiles.*').

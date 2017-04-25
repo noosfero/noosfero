@@ -1,16 +1,21 @@
-require "test_helper"
+require_relative '../../../../test/test_helper'
 
 class CmsControllerTest < ActionController::TestCase
 
+  def setup
+    @environment = Environment.default
+    @environment.enable_plugin('PgSearchPlugin')
+  end
+
+  attr_accessor :environment
+
   should 'list communities available to spread' do
-    env = Environment.default
-    env.enable_plugin(PgSearchPlugin)
     profile = create_user('profile').person
     login_as(profile.identifier)
 
-    c1 = fast_create(Community, :name => 'Testing community 1', :identifier => 'testcommunity1', :environment_id => env)
+    c1 = fast_create(Community, :name => 'Testing community 1', :identifier => 'testcommunity1', :environment_id => environment.id)
     c1.add_member profile
-    c2 = fast_create(Community, :name => 'Testing community 2', :identifier => 'testcommunity2', :environment_id => env)
+    c2 = fast_create(Community, :name => 'Testing community 2', :identifier => 'testcommunity2', :environment_id => environment.id)
     c2.add_member profile
     c2.add_admin profile
 
@@ -23,14 +28,12 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'not duplicated a community in list of communities available to spread' do
-    env = Environment.default
-    env.enable_plugin(PgSearchPlugin)
     profile = create_user('profile').person
     login_as(profile.identifier)
 
-    c1 = fast_create(Community, :name => 'Testing community 1', :identifier => 'testcommunity1', :environment_id => env)
+    c1 = fast_create(Community, :name => 'Testing community 1', :identifier => 'testcommunity1', :environment_id => environment)
     c1.add_member profile
-    c2 = fast_create(Community, :name => 'Testing community 2', :identifier => 'testcommunity2', :environment_id => env)
+    c2 = fast_create(Community, :name => 'Testing community 2', :identifier => 'testcommunity2', :environment_id => environment)
     c2.add_member profile
     c2.add_admin profile
 

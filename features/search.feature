@@ -23,7 +23,7 @@ Feature: search
       | login      | name        |
       | joaosilva  | Joao Silva  |
       | josearaujo | Jose Araujo |
-    When I go to the search page
+    When I go to the search people page
     And I fill in "search-input" with "Silva"
     And I press "Search"
     Then I should see "Joao Silva" within ".common-profile-list-block"
@@ -56,7 +56,7 @@ Feature: search
       | identifier       | name             | img |
       | boring-community | Boring community | semterrinha |
       | fancy-community  | Fancy community  | agrotox |
-    And I go to the search page
+    And I go to the search communities page
     And I fill in "search-input" with "fancy"
     And I press "Search"
     Then I should see "Fancy community" within ".common-profile-list-block"
@@ -67,7 +67,7 @@ Feature: search
       | identifier | name |
       | shop1 | Shoes shop |
       | shop2 | Fruits shop |
-    And I go to the search page
+    And I go to the search enterprises page
     And I fill in "search-input" with "shoes"
     And I press "Search"
     Then I should see "Shoes shop" within ".common-profile-list-block"
@@ -81,25 +81,11 @@ Feature: search
       | owner     | name                 | body |
       | joaosilva | bees and butterflies | this is an article about bees and butterflies |
       | joaosilva | whales and dolphins | this is an article about whales and dolphins |
-    When I go to the search page
+    When I go to the search articles page
     And I fill in "search-input" with "whales"
     And I press "Search"
     Then I should see "whales and dolphins" within "div.search-results-articles"
     And I should not see "bees and butterflies"
-
-  Scenario: simple search for event
-    Given the following communities
-      | identifier | name |
-      | nice-people | Nice people |
-    And the following events
-      | owner | name | start_date |
-      | nice-people | Group meeting | 2009-10-01 |
-      | nice-people | John Doe's birthday | 2009-09-01 |
-    When I go to the search page
-    And I fill in "search-input" with "birthday"
-    And I press "Search"
-    Then I should see "John Doe's birthday" within "div.search-results-events"
-    And I should not see "Group meeting"
 
   Scenario: search different types of entities with the same query
     Given the following enterprises

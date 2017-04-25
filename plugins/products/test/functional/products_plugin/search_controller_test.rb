@@ -119,7 +119,7 @@ module ProductsPlugin
     should 'add script tag for google maps if searching products' do
       get 'products', query: 'product', display: 'map'
 
-      assert_tag tag: 'script', attributes: { src: 'http://maps.google.com/maps/api/js?sensor=true'}
+      assert_tag tag: 'script', attributes: { src: 'https://maps.google.com/maps/api/js?sensor=true'}
     end
 
     should 'add highlighted CSS class around a highlighted product' do

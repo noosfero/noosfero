@@ -34,7 +34,7 @@ class Article < ApplicationRecord
   }
 
   SEARCH_FILTERS = {
-    :order => %w[more_recent more_popular more_comments],
+    :order => %w[more_recent more_popular more_comments more_relevant],
     :display => %w[full]
   }
 
@@ -541,9 +541,9 @@ class Article < ApplicationRecord
   scope :files, -> { where :type => 'UploadedFile' }
   scope :with_types, -> types { where 'articles.type IN (?)', types }
 
-  scope :more_popular, -> { order 'hits DESC' }
-  scope :more_comments, -> { order "comments_count DESC" }
-  scope :more_recent, -> { order "created_at DESC" }
+  scope :more_popular, -> { order 'articles.hits DESC' }
+  scope :more_comments, -> { order "articles.comments_count DESC" }
+  scope :more_recent, -> { order "articles.created_at DESC" }
 
   scope :display_filter, lambda {|user, profile|
     return published if (user.nil? && profile && profile.public?)

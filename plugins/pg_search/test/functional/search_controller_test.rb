@@ -1,14 +1,15 @@
-require "test_helper"
+require_relative '../../../../test/test_helper'
 
 class SearchControllerTest < ActionController::TestCase
 
   def setup
-    environment = Environment.default
-    environment.enable_plugin(PgSearchPlugin)
+    @environment = Environment.default
+    @environment.enable_plugin(PgSearchPlugin)
   end
 
+  attr_accessor :environment
+
   should 'list all communities' do
-    plugin = PgSearchPlugin.new
     c1 = fast_create(Community, :name => 'Testing community 1')
     c2 = fast_create(Community, :name => 'Testing community 3')
     c3 = fast_create(Community, :name => 'Testing community 3')
@@ -18,7 +19,6 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'list communities of a specific template' do
-    plugin = PgSearchPlugin.new
     t1 = fast_create(Community, :is_template => true)
     t2 = fast_create(Community, :is_template => true)
     c1 = fast_create(Community, :template_id => t1.id, :name => 'Testing community 1')
