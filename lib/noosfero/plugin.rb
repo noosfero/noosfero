@@ -751,6 +751,3 @@ class Noosfero::Plugin
 
 end
 
-require 'noosfero/plugin/hot_spot'
-require 'noosfero/plugin/manager'
-require 'noosfero/plugin/settings'

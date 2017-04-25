@@ -1,4 +1,4 @@
-require 'cache_counter'
+require_relative '../cache_counter'
 
 class RoleAssignment
 

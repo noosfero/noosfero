@@ -16,11 +16,10 @@ vendor.each do |dir|
   require_relative "../#{init_rb}" if File.file? init_rb
 end
 
-require_dependency 'extensions'
-
-require_dependency 'noosfero'
-require_dependency 'noosfero/plugin'
-require_dependency 'noosfero/multi_tenancy'
+require_relative '../lib/extensions'
+require_relative '../lib/noosfero'
+require_relative '../lib/noosfero/plugin'
+require_relative '../lib/noosfero/multi_tenancy'
 
 module Noosfero
   class Application < Rails::Application
