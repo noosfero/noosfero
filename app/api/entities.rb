@@ -358,5 +358,11 @@ module Api
         type_map.first.represent(domain.owner, options) unless type_map.nil?
       end
     end
+
+    class Response < Entity
+      expose :success
+      expose :code
+      expose :message
+    end
   end
 end

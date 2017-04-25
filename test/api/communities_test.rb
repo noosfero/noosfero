@@ -386,4 +386,63 @@ class CommunitiesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal [community2.id], json.map {|c| c['id']}
   end
+
+  should 'send inviation for comunity' do
+    login_api
+    community = fast_create(Community)
+    community.add_admin(person)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::CREATED, last_response.status
+  end
+
+  should 'not send inviation for unexisting community ' do
+    login_api
+    community = fast_create(Community)
+    post "/api/v1/communities/100/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::NOT_FOUND, last_response.status
+  end
+
+  should 'not send inviation for comunity if user has no permission' do
+    login_api
+    community = fast_create(Community)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::FORBIDDEN, last_response.status
+  end
+
+  should 'not send invitation unlogged' do
+    community = fast_create(Community)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    assert_equal Api::Status::UNAUTHORIZED, last_response.status
+  end
+
+  should 'the invitation response return success true if the inivitation was sent' do
+    login_api
+    community = fast_create(Community)
+    community.add_admin(person)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['success']
+  end
+
+  should "the inviation response return the code #{Api::Status::INVITATION_SENT_TO_BE_PROCESSED}" do
+    login_api
+    community = fast_create(Community)
+    community.add_admin(person)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['code'], Api::Status::INVITATION_SENT_TO_BE_PROCESSED
+  end
+
+  should "the inviation response have some message" do
+    login_api
+    community = fast_create(Community)
+    community.add_admin(person)
+    post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_nil json['message']
+  end
+
 end

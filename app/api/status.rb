@@ -12,6 +12,7 @@ module Api
 
     # Noosfero API Status
     DEPRECATED = 299
+    INVITATION_SENT_TO_BE_PROCESSED = 298
 
   end
 end
