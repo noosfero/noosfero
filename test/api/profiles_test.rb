@@ -352,10 +352,11 @@ class ProfilesTest < ActiveSupport::TestCase
     community.add_member(person)
     community.boxes << Box.new
 
-    block = { title: 'test' }
+    block = { title: 'test', type: RawHTMLBlock }
     params.merge!({profile: {boxes_attributes: [{id: community.boxes.first.id, blocks_attributes: [block] }] } })
     post "/api/v1/profiles/#{community.id}?#{params.to_query}"
     assert_equal ['test'], community.reload.blocks.map(&:title)
+    assert_equal ['RawHTMLBlock'], community.reload.blocks.map(&:type)
   end
 
   should 'remove blocks in a profile' do
