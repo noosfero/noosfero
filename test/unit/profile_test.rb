@@ -2374,4 +2374,24 @@ class ProfileTest < ActiveSupport::TestCase
     c.save!
     assert_equal 'some description', c.custom_field_value(:description)
   end
+
+  should 'list available blocks' do
+    profile = Profile.new
+    person = create_user('mytestuser').person
+    assert_includes profile.available_blocks(person), ArticleBlock
+  end
+
+  should 'list BlogArchivesBlock as available block when profile has a blog' do
+    profile = Profile.new
+    profile.expects(:has_blog?).returns(true)
+    person = create_user('mytestuser').person
+    assert_includes profile.available_blocks(person), BlogArchivesBlock
+  end
+
+  should 'list RawHTMLBlock as available block when person has permission' do
+    profile = fast_create(Profile)
+    person = create_user('mytestuser').person
+    profile.environment.add_admin(person)
+    assert_includes profile.available_blocks(person), RawHTMLBlock
+  end
 end

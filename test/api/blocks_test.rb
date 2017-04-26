@@ -216,4 +216,18 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 'block1 title', block.reload.title
     assert_equal 'block2 title', block2.reload.title
   end
+
+  should 'list available blocks for profile' do
+    profile = fast_create(Profile)
+    get "/api/v1/profiles/#{profile.id}/blocks/available_blocks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json.map { |b| b['type'] }, 'ProfileImageBlock'
+  end
+
+  should 'list available blocks for environment' do
+    environment = Environment.default
+    get "/api/v1/environments/#{environment.id}/blocks/available_blocks?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json.map { |b| b['type'] }, 'CommunitiesBlock'
+  end
 end

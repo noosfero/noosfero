@@ -38,7 +38,23 @@ module Api
           end
         end
       end
-    end
 
+      kinds = %w[profile environment]
+      kinds.each do |kind|
+        resource kind.pluralize.to_sym do
+          segment "/:#{kind}_id" do
+            resource :blocks do
+              get 'available_blocks' do
+                  owner = kind=='environment' ? Environment.find(params["#{kind}_id"]) : environment.send(kind.pluralize).find(params["#{kind}_id"])
+                  available_blocks = owner.available_blocks(current_person)
+                  available_blocks += @plugins.dispatch(:extra_blocks, type: owner.class)
+                  present_partial available_blocks, :with => Entities::BlockDefinition, current_person: current_person
+              end
+            end
+          end
+        end
+      end
+
+    end
   end
 end

@@ -667,4 +667,8 @@ class Person < Profile
     available_editors
   end
 
+  def available_blocks(person)
+    super(person) + [FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock]
+  end
+
 end

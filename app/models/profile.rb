@@ -1239,4 +1239,13 @@ private :generate_url, :url_options
   def in_circle?(circle, follower)
     ProfileFollower.with_follower(follower).with_circle(circle).with_profile(self).present?
   end
+
+  def available_blocks(person)
+    blocks = [ ArticleBlock, TagsCloudBlock, InterestTagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock, MenuBlock ]
+    # block exclusive to profiles that have blog
+    blocks << BlogArchivesBlock if self.has_blog?
+    # block exclusive for environment admin
+    blocks << RawHTMLBlock if person.present? && person.is_admin?(self.environment)
+    blocks
+  end
 end

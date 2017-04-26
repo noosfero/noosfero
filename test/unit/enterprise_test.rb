@@ -455,5 +455,9 @@ class EnterpriseTest < ActiveSupport::TestCase
     refute c.is_admin?(moderator)
   end
 
-
+  should 'list available blocks' do
+    profile = Enterprise.new
+    person = create_user('mytestuser').person
+    assert_includes profile.available_blocks(person), DisabledEnterpriseMessageBlock
+  end
 end

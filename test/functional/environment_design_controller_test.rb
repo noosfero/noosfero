@@ -6,21 +6,25 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
   def setup
     @controller = EnvironmentDesignController.new
+    @controller.stubs(:boxes_holder).returns(Environment.default)
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
   end
 
   should 'indicate only actual blocks as such' do
+    @controller.stubs(:user).returns(create_user.person)
     assert(@controller.available_blocks.all? {|item| item.new.is_a? Block})
   end
 
   ALL_BLOCKS.map do |block|
     define_method "test_should_#{block.to_s}_is_available" do
+      @controller.stubs(:user).returns(create_user.person)
       assert_includes @controller.available_blocks,block
     end
   end
 
   should 'all available block in test' do
+    @controller.stubs(:user).returns(create_user.person)
     assert_equal ALL_BLOCKS, @controller.available_blocks
   end
 
@@ -160,12 +164,14 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
         }
       end
     end
-
+    @controller.stubs(:user).returns(create_user.person)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
     assert @controller.available_blocks.include?(CustomBlock1)
   end
 
   should 'a person, enterprise and community blocks plugins do not add new blocks for environments' do
+    @controller.stubs(:user).returns(create_user.person)
+
     class CustomBlock1 < Block; end;
     class CustomBlock2 < Block; end;
     class CustomBlock3 < Block; end;

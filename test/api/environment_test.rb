@@ -229,4 +229,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     post "/api/v1/environments/#{environment.id}?#{params.to_query}"
     assert_equal ['test 2'], environment.reload.blocks.map(&:title)
   end
+
+  should 'list available blocks' do
+    environment = Environment.default
+    person = create_user('mytestuser').person
+    assert_includes environment.available_blocks(person), CommunitiesBlock
+  end
 end

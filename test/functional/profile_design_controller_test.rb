@@ -377,11 +377,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the person blocks are all available' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -389,16 +385,13 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equivalent PERSON_BLOCKS, @controller.available_blocks
   end
 
   should 'the person with blog blocks are all available' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Person.new
     profile.stubs(:has_blog?).returns(true)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -406,16 +399,13 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_BLOG
   end
 
   should 'the enterprise blocks are all available' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(false)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(true)
+    profile = Enterprise.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -423,6 +413,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(true)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS
   end
@@ -449,11 +440,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the block plugin add a new block' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -461,6 +448,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
 
     class CustomBlock1 < Block; end;
 
@@ -477,11 +465,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a person block plugin add new blocks for person profile' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(false)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -489,6 +473,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
 
     class CustomBlock1 < Block; end;
 
@@ -505,11 +490,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a community block plugin add new blocks for community profile' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(false)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Community.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -517,6 +498,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
 
     class CustomBlock1 < Block; end;
 
@@ -533,18 +515,16 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a enterprise block plugin add new blocks for enterprise profile' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(false)
-    profile.stubs(:community?).returns(false)
-    profile.stubs(:enterprise?).returns(true)
+    profile = Enterprise.new
+    person = Person.new
     profile.stubs(:has_blog?).returns(false)
-    profile.stubs(:is_admin?).with(anything).returns(false)
+    person.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
-    @controller.stubs(:user).returns(profile)
+    @controller.stubs(:user).returns(person)
+    @controller.stubs(:boxes_holder).returns(profile)
 
     class CustomBlock1 < Block; end;
 
@@ -560,12 +540,8 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert @controller.available_blocks.include?(CustomBlock1)
   end
 
-  should 'an environment block plugin not add new blocks for enterprise, person or community profiles' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(true)
+  should 'an environment block plugin not add new blocks for person profiles' do
+    profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -573,6 +549,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    @controller.stubs(:boxes_holder).returns(profile)
 
     class CustomBlock1 < Block; end;
 
