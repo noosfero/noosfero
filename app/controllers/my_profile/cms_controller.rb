@@ -253,8 +253,10 @@ class CmsController < MyProfileController
   end
 
   def search_communities_to_publish
-    scope = user.memberships.distinct(false).group("profiles.id")
-    render :text => find_by_contents(:profiles, environment, scope, params['q'], {:page => 1}, {:fields => ['name']})[:results].map {|community| {:id => community.id, :name => community.name} }.to_json
+    scope = user.memberships.distinct(false)
+    results = find_by_contents(:profiles, environment, scope, params['q'], {:page => 1}, {:fields => ['name']})[:results]
+    render :text => results.map {|community| {:id => community.id, :name => community.name} }
+                           .uniq {|c| c[:id] }.to_json
   end
 
   def publish
