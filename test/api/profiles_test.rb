@@ -341,7 +341,7 @@ class ProfilesTest < ActiveSupport::TestCase
     params[:profile][:identifier] = other_person.identifier
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 400, last_response.status
+    assert_equal Api::Status::UNPROCESSABLE_ENTITY, last_response.status
     assert_equal "blank", json['errors_details']['name'].first['error']
     assert_equal "not_available", json['errors_details']['identifier'].first['error']
   end
