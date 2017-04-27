@@ -1,6 +1,7 @@
 <% @person ||= @profile %>
+<% editing_profile ||= false %>
 
-<% optional_field(@person, 'nickname') do %>
+<%= optional_field(@person, 'nickname') do %>
   <%= f.text_field(:nickname, :maxlength => 16, :size => 30, :rel => _('Nickname')) %>
   <div>
     <small><%= _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') %></small>
@@ -18,14 +19,9 @@
 <%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
 <%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), date_field('profile_data[birth_date]', @profile_data. birth_date, {:change_month => true, :change_year => true, :year_range => '-100:-5', :date_format => 'yy-mm-dd'}, {:id => 'profile_data_birth_date'}))) %>
 <%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>
-<%= optional_field(@person, 'country', select_country(_('Country'), 'profile_data', 'country', {:class => 'type-select'})) %>
-<%= optional_field(@person, 'state', f.text_field(:state, :id => 'state_field', :rel => _('State'))) %>
-<%= optional_field(@person, 'city', f.text_field(:city, :id => 'city_field', :rel => _('City'))) %>
-<%= optional_field(@person, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code, :rel => _('ZIP code')))) %>
-<%= optional_field(@person, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address, :rel => _('Address')))) %>
-<%= optional_field(@person, 'address_reference', labelled_form_field(_('Address reference'), text_field(:profile_data, :address_reference, :rel => _('Address reference')))) %>
-<%= optional_field(@person, 'district', labelled_form_field(_('District'), text_field(:profile_data, :district, :rel => _('District')))) %>
 <%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
+
+<%= render partial: 'shared/location_form', locals: { f: f, profile: @person } unless editing_profile %>
 
 <% @plugins.dispatch(:extra_optional_fields).each do |field| %>
   <%= optional_field(@person, field[:name], labelled_form_field(field[:label], text_field(field[:object_name], field[:method], :rel => field[:label], :value => field[:value]))) %>

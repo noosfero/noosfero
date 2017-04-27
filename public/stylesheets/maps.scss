@@ -1,15 +1,89 @@
+.action-maps-edit_location label.location-title {
+  font-size: 20px;
+  font-variant: small-caps;
+  color: #555753;
+  border-bottom: 2px solid #2e3436;
+  margin: 10px 0px;
+  font-weight: bold;
+}
 
-#location-map {
+#content #location-support-fields {
+  border-bottom: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  label {
+    font-size: 10px;
+    font-weight: normal;
+    color: #444;
+  }
+
+  .location-support-fields-row {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .formfieldline {
+      width: 49%;
+
+      &:first-child {
+        padding-right: 10px;
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+
+    &.button-bar {
+      margin-bottom: 5px;
+
+      a.button.with-text {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &.loading {
+    cursor: progress;
+    pointer-events: none;
+    background: transparent url(../images/loading.gif) no-repeat scroll center 50px;
+    opacity: 0.5;
+  }
+}
+
+#signup-form #location-support-fields input {
+  padding: 2px 0;
+}
+
+p.help-message {
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+#location-fields {
+  display: table;
   width: 100%;
-  height: 320px;
-}
 
-.map-or-list-search-results {
-}
-#map {
-  height: 500px;
-  margin-top: 10px;
-}
-.map {
-  clear: both;
+  span {
+    display: table-row-group;
+  }
+
+
+  #location-map {
+    width: 100%;
+    height: 320px;
+  }
+
+  #map {
+    height: 500px;
+    margin-top: 10px;
+  }
+
+  .map {
+    clear: both;
+  }
 }

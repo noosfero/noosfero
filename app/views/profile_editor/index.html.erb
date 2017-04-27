@@ -14,7 +14,7 @@
                            profile.control_panel_settings_button[:icon],
                            :controller => 'profile_editor', :action => 'edit') %>
 
-  <%= control_panel_button(_('Location'), 'edit-location', :controller => 'maps', :action => 'edit_location') %>
+  <%= control_panel_button(_('Location and Regions of Interest'), 'edit-location', :controller => 'maps', :action => 'edit_location') %>
 
   <%= control_panel_button(_('Mail settings'), 'mail', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
 

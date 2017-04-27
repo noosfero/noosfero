@@ -15,7 +15,7 @@ Feature: organization custom fields
     Given the following <organization> fields are active fields
       | display_name  |
       | contact_email |
-      | city          |
+      | location      |
     And I follow "Manage my groups"
     When I follow <creation_button>
     Then I should not see "Display name"
@@ -30,7 +30,6 @@ Feature: organization custom fields
     Given the following <organization> fields are active fields
       | display_name  |
       | contact_email |
-      | city          |
     And the following <organization>
       | name          | identifier    |
       | Organization  | organization  |
@@ -39,7 +38,6 @@ Feature: organization custom fields
     And I follow <information>
     Then I should see "Display name"
     Then I should see "Contact email"
-    Then I should see "City"
   Examples:
     | organization  | information                     |
     | community     | "Community Info and settings"   |
@@ -49,13 +47,11 @@ Feature: organization custom fields
     Given the following <organization> fields are required fields
       | display_name  |
       | contact_email |
-      | city          |
     And I follow "Manage my groups"
     And I follow <creation_button>
     When I press <confirmation_button>
     Then I should see "Display name can't be blank"
     Then I should see "Contact email can't be blank"
-    Then I should see "City can't be blank"
   Examples:
     | organization  | creation_button             | confirmation_button |
     | community     | "Create a new community"    | "Create"            |
@@ -65,7 +61,6 @@ Feature: organization custom fields
     Given the following <organization> fields are required fields
       | display_name  |
       | contact_email |
-      | city          |
     And the following <organization>
       | name          | identifier    | display_name | contact_email | city |
       | Organization  |  organization | organization | bla@bleee.com | city |
@@ -75,11 +70,9 @@ Feature: organization custom fields
     And I fill in the following:
       | Display name  | |
       | Contact email | |
-      | City          | |
     When I press "Save"
     Then I should see "Display name can't be blank"
     Then I should see "Contact email can't be blank"
-    Then I should see "City can't be blank"
   Examples:
     | organization  | information                     |
     | community     | "Community Info and settings"   |
@@ -89,7 +82,7 @@ Feature: organization custom fields
     Given the following <organization> fields are signup fields
       | display_name  |
       | contact_email |
-      | city          |
+      | location      |
     And I follow "Manage my groups"
     When I follow <creation_button>
     Then I should see "Display name"

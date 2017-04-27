@@ -1,31 +1,11 @@
-<h1><%= _('Location') %></h1>
-<div class="error">
-  <%= flash[:error] %>
-</div>
-
-<%= form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
-
-  <div id='location-fields'>
-    <%= select_country _('Country'), 'profile_data', 'country', {:class => 'type-select'} %>
-    <%= labelled_form_field _('State'), f.text_field(:state) %>
-    <%= labelled_form_field _('City'), f.text_field(:city) %>
-    <%= labelled_form_field _('ZIP code'), text_field(:profile_data, :zip_code) %>
-    <%= labelled_form_field _('Address (street and number)'), text_field(:profile_data, :address) %>
-    <%= button_bar do %>
-      <%= button_to_function :search, _('Locate in the map'), "addressToPoint()", :title => _("Locate the address informed above in the map below (note that you'll probably need to adjust the marker to get a precise position)")  %>
-    <% end %>
+<%= labelled_form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
+  <div class="error">
+    <%= flash[:error] %>
   </div>
 
-  <p><%= _('Drag the balloon to find the exact location.') %> </p>
+  <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
 
-  <div style='overflow: hidden'>
-    <p><div id="location-map"></div></p>
-  </div>
-
-  <%= f.hidden_field :lat %>
-  <%= f.hidden_field :lng %>
-
-  <h1><%= _('Regions') %></h1>
+  <h1><%= _('Regions of Interest') %></h1>
   <%= select_categories(:profile_data, _('Select the regions in which you are inserted'), 4, :regions) %>
 
   <%= button_bar do %>
@@ -33,6 +13,3 @@
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
   <% end %>
 <% end %>
-
-<%= content_tag('script', '', :src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => 'text/javascript') %>
-<%= content_tag('script', '', :src => url_for(:controller => :maps, :action => :google_map), :type => 'text/javascript') %>

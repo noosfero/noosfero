@@ -2087,4 +2087,14 @@ class PersonTest < ActiveSupport::TestCase
     assert person.save
   end
 
+  should 'not validate if location is required and lat and lng are not provided' do
+    person = create_user('testuser').person
+    Environment.any_instance.stubs(:required_person_fields).returns(['location'])
+    refute person.valid?
+
+    person.lat = 30
+    person.lng = 40
+    assert person.valid?
+  end
+
 end

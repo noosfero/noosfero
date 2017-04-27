@@ -139,25 +139,25 @@ class ProfilesTest < ActiveSupport::TestCase
   end
 
   should 'not display private fields to anonymous' do
-    set_profile_field_privacy(person,'state', 'private_content')
-    person.state = 'some state'
+    set_profile_field_privacy(person, 'nickname', 'private_content')
+    person.nickname = 'nickname'
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert !json['additional_data'].has_key?('state')
+    assert !json['additional_data'].has_key?('nickname')
   end
 
   should 'display private fields to self' do
     login_api
 
-    set_profile_field_privacy(person,'state', 'private_content')
-    person.state = 'some state'
+    set_profile_field_privacy(person, 'nickname', 'private_content')
+    person.nickname = 'nickname'
 
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert json['additional_data'].has_key?('state')
+    assert json['additional_data'].has_key?('nickname')
   end
 
   should 'display private custom fields to self' do

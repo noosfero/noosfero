@@ -1154,13 +1154,6 @@ private :generate_url, :url_options
     end
   end
 
-  def may_display_location_to? user = nil
-    LOCATION_FIELDS.each do |field|
-      return false if !self.may_display_field_to? field, user
-    end
-    return true
-  end
-
   # field => privacy (e.g.: "address" => "public")
   def fields_privacy
     self.data[:fields_privacy] ||= {}

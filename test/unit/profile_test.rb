@@ -2129,18 +2129,6 @@ class ProfileTest < ActiveSupport::TestCase
     profile.may_display_field_to?('bundle', user)
   end
 
-  # TODO Eventually we would like to specify it in a deeper granularity...
-  should 'not display location if any field is private' do
-    user = fast_create(Person)
-    profile = fast_create(Profile)
-    profile.stubs(:active_fields).returns(Profile::LOCATION_FIELDS)
-    Profile::LOCATION_FIELDS.each { |field| profile.stubs(:may_display_field_to?).with(field, user).returns(true)}
-    assert profile.may_display_location_to?(user)
-
-    profile.stubs(:may_display_field_to?).with(Profile::LOCATION_FIELDS[0], user).returns(false)
-    refute profile.may_display_location_to?(user)
-  end
-
   should 'destroy profile if its environment is destroyed' do
     environment = fast_create(Environment)
     profile = fast_create(Profile, :environment_id => environment.id)

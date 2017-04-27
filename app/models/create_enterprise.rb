@@ -11,7 +11,8 @@ class CreateEnterprise < Task
   N_('Economic activity')
   N_('Management information')
 
-  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id]
+  DATA_FIELDS = Enterprise.fields + %w[ name identifier region_id address
+    zip_code city state country district lat lng ] - [ 'location' ]
   DATA_FIELDS.each do |field|
     settings_items field.to_sym
   end

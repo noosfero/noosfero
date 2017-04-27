@@ -20,7 +20,7 @@ Feature: import lattes information
     When I follow "Edit Profile"
     And I fill in "Lattes URL" with "http://youtube.com.br/"
     And I press "Save"
-    Then I should see "Academic info lattes url is invalid"
+    Then I should see "Lattes url is invalid."
 
   Scenario: Import lattes informations
     Given I am on admin_user's control panel

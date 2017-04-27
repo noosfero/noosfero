@@ -6,7 +6,8 @@ development:
   addthis_logo: http://localhost:3000/images/logo-200x50.png
   addthis_options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
   gravatar: mm
-  googlemaps_initial_zoom: 4
+  googlemaps_initial_zoom: 15
+  googlemaps_api_key: your-key
   exception_recipients: [admin@example.com]
   max_upload_size: 5MB
   hours_until_user_activation_check: 72
