@@ -71,7 +71,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     login_api
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 400, last_response.status
+    assert_equal 422, last_response.status
   end
 
   should 'get community to logged user' do

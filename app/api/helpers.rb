@@ -404,16 +404,16 @@ module Api
       error!(message_hash, status)
     end
 
-    def render_model_errors!(active_model_errors)
+    def render_model_errors!(active_record_errors)
       message_hash = {}
-      message_hash[:errors_details] = active_model_errors.details if active_model_errors.details
-      message_hash[:errors_messages] = active_model_errors.messages if active_model_errors.messages
-      message_hash[:full_messages] = active_model_errors.full_messages if active_model_errors.full_messages
+      message_hash[:errors_details] = active_record_errors.details if active_record_errors.details
+      message_hash[:errors_messages] = active_record_errors.messages if active_record_errors.messages
+      message_hash[:full_messages] = active_record_errors.full_messages if active_record_errors.full_messages
       full_messages = ''
-      full_messages = active_model_errors.full_messages.join(', ') if active_model_errors.full_messages
+      full_messages = active_record_errors.full_messages.join(', ') if active_record_errors.full_messages
       log_message = "#{status}, model errors: #{full_messages}"
       logger.error log_message unless Rails.env.test?
-      error!(message_hash, Api::Status::BAD_REQUEST)
+      error!(message_hash, Api::Status::UNPROCESSABLE_ENTITY)
     end
 
     protected
