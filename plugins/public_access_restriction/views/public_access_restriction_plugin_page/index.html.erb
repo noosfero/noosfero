@@ -1,0 +1,30 @@
+<div class='public-page-form'>
+  <h1><%= _('Public Welcome Page') %></h1>
+
+  <%= form_for @settings, as: :profile_data, url: { action: 'update' } do |f| %>
+
+    <div class='public-page-options'>
+      <div clas='options-inputs'>
+        <%= f.check_box(:show_public_page) %>
+      </div>
+      <div class='options-labels'>
+        <%= _('Enables a public welcome page that replaces the default profile'\
+              ' page when the user is not authorized to access it') %>
+      </div>
+    </div>
+
+    <div class='public-page-content'>
+      <p class=''>
+        <%= _('The following content will be displyed in the public welcome '\
+              'page, along with a button to the sign up page. If you do not '\
+              'set a custom content, only a default message will be displayed.') %>
+      </p>
+      <%= f.text_area(:public_page_content, class: current_editor, rows: 20) %>
+    </div>
+
+    <%= button_bar do %>
+      <%= submit_button(:save, _('Save'), :cancel => { controller: 'profile_editor', :action => 'index' }) %>
+    <% end %>
+
+  <% end %>
+</div>
