@@ -371,5 +371,10 @@ module Api
       expose :code
       expose :message
     end
+
+    class Setting < Entity
+      expose :available_blocks, :using => BlockDefinition
+    end
+
   end
 end
