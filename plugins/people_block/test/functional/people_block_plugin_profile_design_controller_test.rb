@@ -32,11 +32,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the people block is available for person profile' do
-    profile = mock
-    profile.stubs(:has_members?).returns(false)
-    profile.stubs(:person?).returns(true)
-    profile.stubs(:community?).returns(false)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
@@ -48,11 +44,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the people block is available for community profile' do
-    profile = mock
-    profile.stubs(:has_members?).returns(true)
-    profile.stubs(:person?).returns(false)
-    profile.stubs(:community?).returns(true)
-    profile.stubs(:enterprise?).returns(false)
+    profile = Community.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock

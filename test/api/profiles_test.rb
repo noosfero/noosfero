@@ -384,6 +384,19 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal ['test 2'], community.reload.blocks.map(&:title)
   end
 
+  should 'edit block position in a profile' do
+    login_api
+    community = fast_create(Community)
+    community.add_member(person)
+    community.boxes << Box.new
+    community.boxes.first.blocks << Block.new(title: 'test')
+
+    block = { id: community.boxes.first.blocks.first.id, position: 2 }
+    params.merge!({profile: {boxes_attributes: [{id: community.boxes.first.id, blocks_attributes: [block] }] } })
+    post "/api/v1/profiles/#{community.id}?#{params.to_query}"
+    assert_equal [2], community.reload.blocks.map(&:position)
+  end
+
   should "match error messages" do
     login_api
     params[:profile] = {}

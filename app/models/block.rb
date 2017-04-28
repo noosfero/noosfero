@@ -1,7 +1,7 @@
 class Block < ApplicationRecord
 
   attr_accessible :title, :subtitle, :display, :limit, :box_id, :posts_per_page,
-                  :visualization_format, :language, :display_user,
+                  :visualization_format, :language, :display_user, :position,
                   :box, :edit_modes, :move_modes, :mirror, :visualization, :images_builder, :api_content
 
   include ActionView::Helpers::TagHelper

@@ -87,6 +87,13 @@ module Api
       expose :parent_id
     end
 
+    class BlockDefinition < Entity
+      expose :description
+      expose :short_description
+      expose :pretty_name, as: :name
+      expose :name, as: :type
+    end
+
     class Block < Entity
       expose :id, :type, :settings, :position, :enabled
       expose :mirror, :mirror_block_id, :title
@@ -364,5 +371,10 @@ module Api
       expose :code
       expose :message
     end
+
+    class Setting < Entity
+      expose :available_blocks, :using => BlockDefinition
+    end
+
   end
 end

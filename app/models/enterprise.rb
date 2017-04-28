@@ -175,4 +175,7 @@ class Enterprise < Organization
     ''
   end
 
+  def available_blocks(person)
+    super(person) + [DisabledEnterpriseMessageBlock, HighlightsBlock, FansBlock]
+  end
 end

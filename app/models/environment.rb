@@ -1066,6 +1066,12 @@ class Environment < ApplicationRecord
     person.role_assignments.where(resource: self).map {|ra| ra.role.permissions}.flatten.uniq
   end
 
+  def available_blocks(person)
+    [ ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock,
+      CommunitiesBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock,
+      HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsCloudBlock ]
+  end
+
   private
 
   def default_language_available

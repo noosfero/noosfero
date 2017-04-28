@@ -2097,4 +2097,9 @@ class PersonTest < ActiveSupport::TestCase
     assert person.valid?
   end
 
+  should 'list available blocks' do
+    profile = Person.new
+    person = create_user('mytestuser').person
+    assert_includes profile.available_blocks(person), CommunitiesBlock
+  end
 end

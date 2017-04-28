@@ -535,5 +535,11 @@ module Api
       end_period = until_date.nil? ? DateTime.now : until_date
       begin_period..end_period
     end
+
+    def settings(owner)
+      blocks = owner.available_blocks(current_person)
+      settings = {:available_blocks => blocks}
+      settings
+    end
   end
 end
