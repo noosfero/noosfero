@@ -10,6 +10,9 @@ config/initializers               usr/share/noosfero/config
 config/locales                    usr/share/noosfero/config
 config/routes.rb                  usr/share/noosfero/config
 config/schedule.rb                usr/share/noosfero/config
+config/dotenv.rb                  usr/share/noosfero/config
+.env                              usr/share/noosfero/
+.env.production                   usr/share/noosfero/
 db                                usr/share/noosfero
 debian/database.yml.template      usr/share/noosfero/config
 debian/dbinstall                  usr/lib/noosfero
