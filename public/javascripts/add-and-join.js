@@ -64,7 +64,7 @@ jQuery(function($) {
     return false;
   })
 
-  $(".person-trigger").click(function(){
+  $('body').on('click', '.person-trigger', function(){
     clicked = $(this);
     url = clicked.attr("url");
     $.get(url, function(data){
@@ -81,7 +81,7 @@ jQuery(function($) {
     })
   })
 
-  $(".community-trigger").click(function(){
+  $('body').on('click', '.community-trigger', function(){
     clicked = $(this);
     url = clicked.attr("url");
     $.get(url, function(data){
@@ -100,7 +100,7 @@ jQuery(function($) {
     })
   })
 
-  $(".enterprise-trigger").click(function(){
+  $('body').on('click', '.enterprise-trigger', function(){
     clicked = $(this);
     url = clicked.attr("url");
     $.get(url, function(data){
