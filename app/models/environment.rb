@@ -1072,6 +1072,23 @@ class Environment < ApplicationRecord
       HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsCloudBlock ]
   end
 
+  include Noosfero::Plugin::HotSpot
+  def environment
+    self
+  end
+
+  def reserved_identifiers
+    plugins.dispatch(:reserved_identifiers).inject([]) do |result, identifier|
+      result << identifier.to_s
+    end
+  end
+
+  def is_identifier_available?(identifier, profile_id = nil)
+    profiles = environment.profiles.where(:identifier => identifier)
+    profiles = profiles.where(['id != ?', profile_id]) if profile_id.present?
+    !reserved_identifiers.include?(identifier) && !profiles.exists?
+  end
+
   private
 
   def default_language_available

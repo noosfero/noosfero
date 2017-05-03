@@ -256,6 +256,21 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag tag: 'div', attributes: {id: 'user_menu_ul'}, descendant: {tag: 'a', attributes: { href: '/admin' }}
   end
 
+  should 'add plugin items on user menu' do
+    create_user 'testuser'
+    login_as 'testuser'
+    class Plugin1 < Noosfero::Plugin
+      def user_menu_items(user)
+        proc { content_tag('span', 'Plugin1')}
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
+
+    get :index
+    assert_tag :tag => 'div', :attributes => {:id => 'user'}
+    assert_tag tag: 'div', attributes: {id: 'user'}, descendant: {tag: 'span', content: 'Plugin1' }
+  end
+
   should 'not display invisible blocks' do
     @controller.expects(:uses_design_blocks?).returns(true)
     p = create_user('test_user').person

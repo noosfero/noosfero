@@ -58,6 +58,7 @@
 /*.icon-menu-edit     { background-image: url(edit-HC.gif) } UNUSED */
 .icon-menu-ctrl-panel { background-image: url(Tango/16x16/categories/preferences-desktop.png) }
 .icon-menu-admin      { background-image: url(Tango/16x16/categories/preferences-system.png) }
+.icon-menu-stats      { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png) }
 .icon-menu-my-groups  { background-image: url(Tango/16x16/apps/system-config-users.png) }
 .icon-menu-login      { background-image: url(mod/16x16/actions/log-in.png) }
 .icon-menu-logout     { background-image: url(mod/16x16/actions/log-out.png) }
