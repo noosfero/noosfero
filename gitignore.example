@@ -1,10 +1,16 @@
 .gitignore
+
+/Gemfile.lock
 .rbenv-*
 .vagrant
-vendor/rails
+
+# docs
 doc/api
 doc/noosfero/plugins
-tmp
+doc/noosfero/*.xhtml
+doc/noosfero/*/*.xhtml
+
+# configs
 config/database.yml
 config/session.secret
 config/noosfero.yml
@@ -13,9 +19,15 @@ config/plugins
 config/unicorn.rb
 config/local.rb
 config/initializers/local.rb
+
+tags
+vendor/rails
+tmp
 index
 locale
 log
+
+# uploaded and custom data
 public/articles
 public/image_uploads
 public/thumbnails
@@ -23,30 +35,30 @@ public/user_themes
 public/designs/themes/default
 public/designs/themes/*
 public/designs/icons/default
-cache
 
+# caches
+cache
 public/assets
 .sass-cache
 public/javascripts/cache*
 public/stylesheets/cache*
 
-public/plugins
-db/development.db
-db/production.db
-db/test.db
-doc/noosfero/*.xhtml
-doc/noosfero/*/*.xhtml
-tags
-pkg
+# editors
 *~
 *.swp
+*.swo
+
+# debian package
+pkg
 debian/*.log
 debian/*.substvars
 debian/*.debhelper
 debian/files
 debian/noosfero/
 debian/noosfero-apache/
+
+# plugins
+public/plugins
 features/plugins/*
 plugins/solr/config/solr.yml
 /solr
-/Gemfile.lock
