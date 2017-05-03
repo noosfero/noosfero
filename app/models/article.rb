@@ -99,6 +99,9 @@ class Article < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
 
+  store_accessor :metadata
+  include MetadataScopes
+
   settings_items :display_hits, :type => :boolean, :default => true
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false

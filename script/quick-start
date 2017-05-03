@@ -100,11 +100,22 @@ while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
   sleep 5s
 done
 
+# Enable extensions on template
+sudo su - postgres -c "psql template1 -c 'CREATE EXTENSION IF NOT EXISTS hstore;'"
+if psql -lqt | cut -d \| -f 1 | grep -qw noosfero_development; then
+  sudo su - postgres -c "psql noosfero_development -c 'CREATE EXTENSION IF NOT EXISTS hstore;'"
+fi
+if psql -lqt | cut -d \| -f 1 | grep -qw noosfero_test; then
+  sudo su - postgres -c "psql noosfero_test -c 'CREATE EXTENSION IF NOT EXISTS hstore;'"
+fi
+
 if test -e config/database.yml && test "$force_install" = 'false'; then
   say 'Not updating existent database.yml.'
   say 'If you wish to automatic reconfigure your database connection and'
   say 'recreate the database, you can delete config/database.yml and run'
   say 'this script again.'
+
+  # Enable extensions on already created databases
 else
   # create the database with sample data
   say 'Configuring Noosfero to use PostgreSQL, with your user.'
@@ -113,13 +124,16 @@ else
     USER=$(stat -c %U $0)
   fi
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
+
+  # Create database and users
   sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
   sudo su - postgres -c "createdb noosfero_development -O $USER" || true
   sudo su - postgres -c "createdb noosfero_test -O $USER" || true
 
+  # Create table and sample data
   run rake db:schema:load
+  run rake db:schema:load RAILS_ENV=test
   run rake db:data:minimal
-  run rake db:test:prepare
   rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
 fi
 

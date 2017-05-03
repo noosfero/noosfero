@@ -886,8 +886,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should "current editor be tiny mce if an article is present and no editor is defined" do
     person = fast_create(Person)
     @article = fast_create(Article)
-    @article.editor = nil
-    @article.save
+    @article.stubs(:editor).returns(nil)
     stubs(:current_person).returns(person)
     assert_equal Article::Editor::TINY_MCE, current_editor
   end
@@ -921,8 +920,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should "current editor be tiny mce if an article is present and no editor is defined  even if there is a person editor defined" do
     person = fast_create(Person)
     @article = fast_create(Article)
-    @article.editor = nil
-    @article.save
+    @article.stubs(:editor).returns(nil)
     stubs(:current_person).returns(person)
     person.stubs(:editor).returns(Article::Editor::TINY_MCE)
     assert_equal Article::Editor::TINY_MCE, current_editor

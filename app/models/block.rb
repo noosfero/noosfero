@@ -23,6 +23,9 @@ class Block < ApplicationRecord
 
   settings_items :visualization, :type => Hash, :default => {}
 
+  store_accessor :metadata
+  include MetadataScopes
+
   scope :enabled, -> { where :enabled => true }
 
   after_save do |block|

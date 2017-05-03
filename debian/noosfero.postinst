@@ -70,9 +70,14 @@ fi
 
 /etc/init.d/noosfero setup
 
+# Enable postgresql extensions
+su - postgres -c "psql template1 -c 'CREATE EXTENSION IF NOT EXISTS hstore;'"
+su - postgres -c "psql noosfero  -c 'CREATE EXTENSION IF NOT EXISTS hstore;'"
+
 # dbconfig-common magic
 . /usr/share/dbconfig-common/dpkg/postinst
 dbc_go noosfero $@
+
 
 if [ ! -f /usr/share/noosfero/cache/private_files.pag ] && [ $1 = "configure" ] && [ -n  $2 ]; then
   echo "Creating private files dbm map..."

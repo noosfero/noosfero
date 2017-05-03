@@ -86,8 +86,10 @@ Depends: adduser,
          ruby-slim,
          tango-icon-theme,
          unicorn (>= 4.8),
+         postgresql,
+         postgresql-client,
+         postgresql-contrib,
          ${misc:Depends}
-Recommends: postgresql, postgresql-client
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with
  blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective

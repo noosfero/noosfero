@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170401104533) do
+ActiveRecord::Schema.define(version: 20170417135607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,11 +169,13 @@ ActiveRecord::Schema.define(version: 20170401104533) do
     t.integer  "followers_count",      default: 0
     t.boolean  "archived",             default: false
     t.string   "editor",               default: "tiny_mce", null: false
+    t.hstore   "metadata",             default: {}
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
   add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
   add_index "articles", ["hits"], name: "index_articles_on_hits", using: :btree
+  add_index "articles", ["metadata"], name: "index_articles_on_metadata", using: :gist
   add_index "articles", ["name"], name: "index_articles_on_name", using: :btree
   add_index "articles", ["parent_id"], name: "index_articles_on_parent_id", using: :btree
   add_index "articles", ["path", "profile_id"], name: "index_articles_on_path_and_profile_id", using: :btree
@@ -209,11 +211,13 @@ ActiveRecord::Schema.define(version: 20170401104533) do
     t.integer  "mirror_block_id"
     t.integer  "observers_id"
     t.string   "subtitle",        default: ""
+    t.hstore   "metadata",        default: {}
   end
 
   add_index "blocks", ["box_id"], name: "index_blocks_on_box_id", using: :btree
   add_index "blocks", ["enabled"], name: "index_blocks_on_enabled", using: :btree
   add_index "blocks", ["fetched_at"], name: "index_blocks_on_fetched_at", using: :btree
+  add_index "blocks", ["metadata"], name: "index_blocks_on_metadata", using: :gist
   add_index "blocks", ["type"], name: "index_blocks_on_type", using: :btree
 
   create_table "boxes", force: :cascade do |t|
@@ -660,6 +664,7 @@ ActiveRecord::Schema.define(version: 20170401104533) do
     t.boolean  "secret",                             default: false
     t.string   "editor",                             default: "tiny_mce", null: false
     t.integer  "top_image_id"
+    t.hstore   "metadata",                           default: {}
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
@@ -668,6 +673,7 @@ ActiveRecord::Schema.define(version: 20170401104533) do
   add_index "profiles", ["friends_count"], name: "index_profiles_on_friends_count", using: :btree
   add_index "profiles", ["identifier"], name: "index_profiles_on_identifier", using: :btree
   add_index "profiles", ["members_count"], name: "index_profiles_on_members_count", using: :btree
+  add_index "profiles", ["metadata"], name: "index_profiles_on_metadata", using: :gist
   add_index "profiles", ["region_id"], name: "index_profiles_on_region_id", using: :btree
   add_index "profiles", ["user_id", "type"], name: "index_profiles_on_user_id_and_type", using: :btree
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -825,8 +831,10 @@ ActiveRecord::Schema.define(version: 20170401104533) do
     t.boolean  "spam",                      default: false
     t.integer  "responsible_id"
     t.integer  "closed_by_id"
+    t.hstore   "metadata",                  default: {}
   end
 
+  add_index "tasks", ["metadata"], name: "index_tasks_on_metadata", using: :gist
   add_index "tasks", ["requestor_id"], name: "index_tasks_on_requestor_id", using: :btree
   add_index "tasks", ["spam"], name: "index_tasks_on_spam", using: :btree
   add_index "tasks", ["status"], name: "index_tasks_on_status", using: :btree
@@ -883,7 +891,10 @@ ActiveRecord::Schema.define(version: 20170401104533) do
     t.datetime "last_login_at"
     t.string   "private_token"
     t.datetime "private_token_generated_at"
+    t.hstore   "metadata",                              default: {}
   end
+
+  add_index "users", ["metadata"], name: "index_users_on_metadata", using: :gist
 
   create_table "validation_infos", force: :cascade do |t|
     t.text    "validation_methodology"
