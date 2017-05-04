@@ -5,8 +5,7 @@
   text-align: right;
 }
 
-#url-check .suggested_usernames,
-#url-check .suggested_usernames a {
+#url-check .suggested_usernames {
   color: #005000;
 }
 
@@ -53,8 +52,7 @@
 #url-check p ,
 #signup-form span.invalid,
 #signup-form span.validated,
-#url-check .suggested_usernames,
-#url-check .suggested_usernames a{
+#url-check .suggested_usernames {
   margin: 0;
   font-size: 11px;
   clear: both;
@@ -125,6 +123,10 @@
 
 #signup-form .formfieldline {
   padding: 0;
+}
+
+#signup-form #signup-login-field {
+  max-width: 190px;
 }
 
 #thanks-for-signing {
