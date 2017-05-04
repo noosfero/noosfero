@@ -2,14 +2,21 @@ machine:
   timezone:
     America/Bahia
   ruby:
-    version: 2.3.1
+    version: 2.4.1
   services:
     - postgresql
+    - elasticsearch
 
 dependencies:
+  cache_directories:
+    - elasticsearch-2.4.3
   pre:
     - sudo apt-get install po4a iso-codes tango-icon-theme pidgin-data libpq-dev libreadline-dev libxslt1-dev
     - mkdir -p tmp/{pids,cache} log cache
+  post:
+    - wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.3/elasticsearch-2.4.3.tar.gz
+    - tar -xvf elasticsearch-2.4.3.tar.gz
+    - elasticsearch-2.4.3/bin/elasticsearch: {background: true}
 
 database:
   override:
@@ -36,7 +43,7 @@ test:
           SLICE=2/4 NOOSFERO_BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
           ;;
         2)
-          bundle exec rake test:specs
+          bundle exec rake spec SPEC=spec/models
           bundle exec rake test:units
           SLICE=3/4 bundle exec rake selenium
           SLICE=3/4 NOOSFERO_BUNDLE_OPTS=install bundle exec rake test:noosfero_plugins
