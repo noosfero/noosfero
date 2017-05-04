@@ -78,7 +78,7 @@ class MenuBlock < Block
   end
 
   def display_members?(user)
-    owner.community? && user && user.has_permission?(:manage_memberships, owner)
+    owner.community?
   end
 
   def display_article?(user)
