@@ -38,7 +38,7 @@ Dir.glob Rails.root.join plugins_root, '*', 'controllers' do |controllers_dir|
   end
 
   # DEPRECATED default controllers
-  paths.merge!(
+  paths.reverse_merge!(
     "plugin/#{plugin_name}(/:action(/:id))" => {
       controller: "#{plugin_name}_plugin",
       via:        :all,
