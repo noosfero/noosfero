@@ -9,6 +9,7 @@ machine:
 
 dependencies:
   cache_directories:
+    - vendor/bundle
     - elasticsearch-2.4.3
   pre:
     - sudo apt-get install po4a iso-codes tango-icon-theme pidgin-data libpq-dev libreadline-dev libxslt1-dev
