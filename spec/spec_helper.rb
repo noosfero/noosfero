@@ -2,6 +2,7 @@ require_relative '../config/environment'
 require 'rspec/rails'
 
 require_relative 'support/factories'
+require_relative 'concerns/metadata_scopes_spec'
 
 require 'database_cleaner'
 

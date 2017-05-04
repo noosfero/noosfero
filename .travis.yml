@@ -56,6 +56,7 @@ env:
   global:
     - LANG=en
   matrix:
+    - TASK=spec SPEC=spec/models
     - TASK=test:api
     - TASK=test:units
     - TASK=test:functionals
