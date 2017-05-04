@@ -50,7 +50,7 @@ module LayoutHelper
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin|
       plugin.class.public_path('style.css', true)
     }
-    global_css_pub = "/designs/themes/#{environment.theme}/global.css"
+    global_css_pub = "/designs/themes/#{session[:theme] || environment.theme}/global.css"
     global_css_at_fs = Rails.root.join 'public' + global_css_pub
 
     output = []

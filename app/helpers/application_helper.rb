@@ -280,7 +280,7 @@ module ApplicationHelper
   end
 
   def env_theme_include(template, options = {})
-    from_theme_include(environment.theme, template, options)
+    from_theme_include(session[:theme] || environment.theme, template, options)
   end
 
   def from_theme_include(theme, template, options = {})
