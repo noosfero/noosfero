@@ -35,6 +35,7 @@ addons:
       - $(ls tmp/artifact* | tr "\n" ":")
   # same as in docker ci image
   firefox: '45.7.0'
+  postgresql: '9.4'
 
 before_install:
   # geckodriver, from http://www.columbia.edu/~njn2118/journal/2016/10/28.html
