@@ -264,6 +264,17 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert 2, parse_parent_id(2)
   end
 
+  should 'return errors with full messages' do
+    object = Person.new
+    object.valid?
+    hash = render_model_errors!(object.errors)
+    expected = [
+      {error: :blank, full_message: "Identifier can't be blank"},
+      {error: :not_available, full_message: "Identifier is not available."}
+    ]
+    assert_equal expected, hash.first[:errors][:identifier]
+  end
+
   protected
 
   def error!(info, status)
