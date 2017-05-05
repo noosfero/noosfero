@@ -1067,9 +1067,10 @@ class Environment < ApplicationRecord
   end
 
   def available_blocks(person)
-    [ ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock,
+    core_blocks = [ ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock,
       CommunitiesBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock,
       HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsCloudBlock ]
+    core_blocks + plugins.dispatch(:extra_blocks, type: self.class)
   end
 
   include Noosfero::Plugin::HotSpot

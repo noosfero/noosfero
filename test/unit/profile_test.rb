@@ -2375,11 +2375,26 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'some description', c.custom_field_value(:description)
   end
 
-  should 'list available blocks' do
+  should 'list available core\'s block' do
     profile = Profile.new
     person = create_user('mytestuser').person
     assert_includes profile.available_blocks(person), ArticleBlock
   end
+
+  should 'list available blocks' do
+    class CustomBlock1 < Block; end;
+    person = create_user('mytestuser').person
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Person},
+        }
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert_includes person.available_blocks(person), CustomBlock1
+  end
+
 
   should 'list BlogArchivesBlock as available block when profile has a blog' do
     profile = Profile.new

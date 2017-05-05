@@ -24,7 +24,7 @@ class ProfileDesignController < BoxOrganizerController
   end
 
   def available_blocks
-    profile.available_blocks(user) + plugins.dispatch(:extra_blocks, type: boxes_holder.class)
+    profile.available_blocks(user)
   end
 
   def update_categories
