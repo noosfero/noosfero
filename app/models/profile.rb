@@ -1247,6 +1247,6 @@ private :generate_url, :url_options
     blocks << BlogArchivesBlock if self.has_blog?
     # block exclusive for environment admin
     blocks << RawHTMLBlock if person.present? && person.is_admin?(self.environment)
-    blocks
+    blocks + plugins.dispatch(:extra_blocks, type: self.class)
   end
 end
