@@ -13,6 +13,7 @@ notifications:
 # Also container-based environments have the fatest boot times and
 # are the only one with cache available for public projects.
 # See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
+dist: trusty
 sudo: false
 cache: bundler
 
@@ -20,7 +21,7 @@ language: ruby
 rvm:
   - 2.4.1
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 services:
   - postgresql
@@ -60,8 +61,8 @@ before_script:
 
 env:
   global:
-    - ES_VERSION=5.3.2
-    - ES_DOWNLOAD_URL=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz
+    - ES_VERSION=1.7.6
+    - ES_DOWNLOAD_URL=https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz
     - LANG=en
   matrix:
     - TASK=spec SPEC=spec/models
