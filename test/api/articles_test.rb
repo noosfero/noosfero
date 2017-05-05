@@ -868,9 +868,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => ""}
     post "/api/v1/communities/#{profile.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ({"name" => [{"error"=>"blank"}]}), json["errors_details"]
-    assert_equal ({"name"=>["can't be blank"]}), json["errors_messages"]
-    assert_equal (["Title can't be blank"]), json["full_messages"]
+    assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Title can't be blank"}]}), json["errors"]
   end
 
 end

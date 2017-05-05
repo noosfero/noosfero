@@ -342,8 +342,8 @@ class ProfilesTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal Api::Status::UNPROCESSABLE_ENTITY, last_response.status
-    assert_equal "blank", json['errors_details']['name'].first['error']
-    assert_equal "not_available", json['errors_details']['identifier'].first['error']
+    assert_equal "blank", json['errors']['name'].first['error']
+    assert_equal "not_available", json['errors']['identifier'].first['error']
   end
 
   should 'add block in a profile' do
@@ -403,9 +403,7 @@ class ProfilesTest < ActiveSupport::TestCase
     params[:profile][:name] = ''
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal ({"name" => [{"error"=>"blank"}]}), json["errors_details"]
-    assert_equal ({"name"=>["can't be blank"]}), json["errors_messages"]
-    assert_equal (["Name can't be blank"]), json["full_messages"]
+    assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Name can't be blank"}]}), json["errors"]
   end
 
 end
