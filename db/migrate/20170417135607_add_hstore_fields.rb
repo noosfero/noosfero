@@ -1,7 +1,5 @@
 class AddHstoreFields < ActiveRecord::Migration
   def change
-    enable_extension :hstore
-
     add_column :profiles, :metadata, :hstore, :default => {}
     add_column :articles, :metadata, :hstore, :default => {}
     add_column :tasks, :metadata, :hstore, :default => {}
