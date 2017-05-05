@@ -1,24 +1,24 @@
 module PushNotificationHelper
 
-  def gcm_instance
-    api_key = settings[:server_api_key]
-    gcm = GCM.new(api_key)
-    gcm
+  def fcm_instance
+    api_key = plugin_settings.settings[:server_api_key]
+    fcm = FCM.new(api_key)
+    fcm
   end
 
-  def settings
-    return Noosfero::Plugin::Settings.new(environment, PushNotificationPlugin.class)
+  def plugin_settings
+    return Noosfero::Plugin::Settings.new(environment, PushNotificationPlugin)
   end
 
-  #data should be a hash, like {some_info: 123123}
+  #data should be a hash inside `data` attribute, like {some_info: 123123}
   def send_to_users(flag, users, data)
     return false unless users.present?
     users |= subscribers_additional_users(flag, users.first.environment)
     users = filter_users_for_flag(flag, users)
     return false unless users.present?
     tokens = tokens_for_users(users)
-    gcm = gcm_instance
-    response = gcm.send(tokens, data)
+    fcm = fcm_instance
+    response = fcm.send(tokens, {data: data})
     response[:response]
   end
 
