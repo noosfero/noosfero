@@ -5,6 +5,8 @@ module MembershipsHelper
 
     if show_confirmation_modal? profile
       modal_button :add, _('Join this community'), url, class: 'join-community'
+    elsif !options[:logged]
+      modal_button :add, _('Join this community'), url, class: 'join-community'
     else
       button :add, _('Join this community'), url, class: 'join-community'
     end

@@ -139,7 +139,7 @@ class ProfileController < PublicController
     if user
       redirect_to :controller => 'profile', :action => 'join'
     else
-      redirect_to :controller => '/account', :action => 'login'
+      redirect_to :controller => '/account', :action => 'login', :return_to => profile.url
     end
   end
 
