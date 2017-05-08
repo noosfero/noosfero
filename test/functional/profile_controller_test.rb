@@ -497,7 +497,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :join_not_logged, :profile => community.identifier
 
     assert_equal community.identifier, @request.session[:join]
-    assert_redirected_to :controller => :account, :action => :login
+    assert_redirected_to :controller => :account, :action => :login, :return_to => community.url
   end
 
   should 'redirect to join after user logged asks to join_not_logged a community' do
