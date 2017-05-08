@@ -12,6 +12,7 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "https://youtube.com/?v=XXXXX"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
     refute_includes block.api_content, :mime_type
   end
 
@@ -108,6 +109,7 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "http://vimeo.com/98979"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
     refute_includes block.api_content, :mime_type
   end
 
@@ -196,6 +198,7 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
     assert_includes block.api_content, :mime_type
   end
 
