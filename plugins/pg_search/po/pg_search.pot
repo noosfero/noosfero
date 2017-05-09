@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-05 19:28+0000\n"
-"PO-Revision-Date: 2017-01-05 19:28+0000\n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,6 +18,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../lib/pg_search_plugin.rb:8
+#: ../lib/pg_search_plugin.rb:10
 msgid "Search engine that uses Postgres Full-Text Search."
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:220
+msgid "Created at"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:221
+msgid "Updated at"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:222
+msgid "Types"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:223
+msgid "TextArticle"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:224
+msgid "UploadedFile"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:225
+msgid "RSSFeed"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:226
+msgid "Content types"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:227
+msgid "Tags"
+msgstr ""
+
+#: ../lib/pg_search_plugin/search_helper.rb:7
+msgid "Clear"
+msgstr ""
+
+#: ../lib/pg_search_plugin/search_helper.rb:8
+msgid "Refine options"
+msgstr ""
+
+#: ../lib/pg_search_plugin/search_helper.rb:21
+msgid "Undefined"
 msgstr ""

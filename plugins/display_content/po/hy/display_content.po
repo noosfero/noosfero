@@ -108,6 +108,5 @@ msgstr ""
 msgid "List only translated content"
 msgstr ""
 
-#, fuzzy
 #~ msgid "Read more"
 #~ msgstr "ավելին..."

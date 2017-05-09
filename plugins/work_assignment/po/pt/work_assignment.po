@@ -23,45 +23,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.5\n"
 
+#: ../lib/work_assignment_plugin.rb:8
 msgid "New kind of content for organizations."
 msgstr "Novo tipo de conteúdo para organizações."
 
+#: ../lib/work_assignment_plugin.rb:62
 msgid "Notification successfully sent"
 msgstr "Notificação enviada com sucesso"
 
+#: ../lib/work_assignment_plugin.rb:64
 msgid "Notification not sent"
 msgstr "Notificação não enviada"
 
-msgid "Subject"
-msgstr "Assunto"
-
-msgid "Message"
-msgstr "Mensagem"
-
-msgid "e-Mail"
-msgstr "e-Mail"
-
+#: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Name"
 msgstr "Nome"
 
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr "e-Mail"
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr "Assunto"
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr "Mensagem"
+
+#: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"
 msgstr "Data da submissão"
 
+#: ../lib/work_assignment_plugin/helper.rb:10
 msgid "Versions"
 msgstr "Versões"
 
+#: ../lib/work_assignment_plugin/helper.rb:24
 msgid "View all versions"
 msgstr "Ver todas as versões"
 
+#: ../lib/work_assignment_plugin/helper.rb:70
 msgid "Delete"
 msgstr "Remover"
 
+#: ../lib/work_assignment_plugin/helper.rb:88
 msgid "Edit"
 msgstr "Editar"
 
+#: ../lib/work_assignment_plugin/work_assignment.rb:16
 msgid "Work Assignment"
 msgstr "Trabalho a ser entregue"
 
+#: ../lib/work_assignment_plugin/work_assignment.rb:20
 msgid ""
 "Defines a work to be done by the members and receives their submissions "
 "about this work."
@@ -69,6 +83,7 @@ msgstr ""
 "Define um trabalho a ser feito pelos membros e recebe as submissõs do "
 "trabalho."
 
+#: ../views/cms/_notify_text_field.html.erb:1
 msgid ""
 "If you want to notify someone about this action, fill the field below with "
 "the emails of the destinies, separated by comma."
@@ -76,20 +91,26 @@ msgstr ""
 "Se você quiser notificar alguém sobre esta ação, preenha o campo abaixo com "
 "os e-mails dos destinatários, separados por vírgula."
 
+#: ../views/cms/_notify_text_field.html.erb:3
 msgid "Send notification to: "
 msgstr "Enviar notificação para: "
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:3
 msgid "Default email message:"
 msgstr "Mensagem de e-mail padrão:"
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:5
 msgid "The submissions can be viewed by anyone"
 msgstr "As submissões podem ser revistar por qualquer um"
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"
 msgstr "Permitir que usuários alterem o nível de privacidade de submissões?"
 
+#: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
 msgid "Save"
 msgstr "Salvar"
 
+#: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
 msgid "Cancel"
 msgstr "Cancelar"

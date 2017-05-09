@@ -6,9 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-09-11 18:56-0000\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,234 +18,233 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/organization_ratings/lib/organization_ratings_plugin.rb:9
-msgid "A plugin that allows you to rate a organization and comment about it."
+#: ../controllers/organization_ratings_plugin_admin_controller.rb:12
+msgid "Configuration updated successfully."
 msgstr ""
 
-#: plugins/organization_ratings/lib/organization_ratings_config.rb:8
-msgid "More Recent"
+#: ../controllers/organization_ratings_plugin_admin_controller.rb:14
+msgid "Configuration could not be saved."
 msgstr ""
 
-#: plugins/organization_ratings/lib/organization_ratings_config.rb:8
-msgid "Best Ratings"
+#: ../controllers/organization_ratings_plugin_profile_controller.rb:15
+msgid "You can not vote on this %s"
 msgstr ""
 
-#: plugins/organization_ratings/lib/organization_ratings_block.rb:5
-msgid "Organization Ratings"
+#: ../controllers/organization_ratings_plugin_profile_controller.rb:48
+msgid "%s successfully rated!"
 msgstr ""
 
-#: plugins/organization_ratings/lib/organization_ratings_block.rb:9
-msgid "This block displays the organization ratings."
-msgstr ""
-
-#: plugins/organization_ratings/lib/average_rating_block.rb:5
+#: ../lib/average_rating_block.rb:5
 msgid "Organization Average Rating"
 msgstr ""
 
-#: plugins/organization_ratings/lib/average_rating_block.rb:9
+#: ../lib/average_rating_block.rb:9
 msgid "This block displays the organization average rating."
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:31
-msgid "Comment waiting for approval"
+#: ../lib/create_organization_rating_comment.rb:43
+msgid "New Report"
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:48
-msgid "Comment rejected"
-msgstr ""
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:52
-#: plugins/organization_ratings/views/shared/_user_rating_container.html.erb:28
-msgid "No comment"
-msgstr ""
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:61
-msgid "New Comment"
-msgstr ""
-
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:65
+#: ../lib/create_organization_rating_comment.rb:47
 msgid ""
-"<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this "
-"%{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> wants to leave a report about this %"
+"{target_class}"
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:90
-msgid "%{requestor} wants to create a comment in this \"%{target}\""
+#: ../lib/create_organization_rating_comment.rb:72
+msgid "%{requestor} wants to leave a report about this \"%{target}\""
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:95
+#: ../lib/create_organization_rating_comment.rb:77
 msgid ""
-"User \"%{user}\" requested to create a comment in the %{target_class}\n"
+"User \"%{user}\" just made a report at %{target_class}\n"
 "      \"%{target_name}\".\n"
 "      You have to approve or reject it through the \"Pending Validations\"\n"
 "      section in your control panel.\n"
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:103
+#: ../lib/create_organization_rating_comment.rb:87
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      just sent. The administrator will receive it and will approve or\n"
 "      reject your request according to his methods and criteria.\n"
-"      You will be notified as soon as environment administrator has a "
-"position\n"
+"      You will be notified as soon as environment administrator has a position"
+"\n"
 "      about your request."
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:112
+#: ../lib/create_organization_rating_comment.rb:96
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      not approved by the administrator. The following explanation\n"
 "      was given: \n"
 "\n"
 "%{explanation}"
 msgstr ""
 
-#: plugins/organization_ratings/lib/create_organization_rating_comment.rb:120
+#: ../lib/create_organization_rating_comment.rb:105
 msgid ""
-"Your request for commenting at %{target} was approved.\n"
+"Your report at %{target_class} \"%{target}\" was approved.\n"
 "      You can access %{url} to see your comment."
 msgstr ""
 
-#: plugins/organization_ratings/lib/organization_rating.rb:10
+#: ../lib/organization_rating.rb:10
 msgid "must be between 1 and 5"
 msgstr ""
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:12
-msgid "Configuration updated successfully."
+#: ../lib/organization_ratings_block.rb:5
+msgid "Organization Ratings"
 msgstr ""
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_admin_controller.rb:14
-msgid "Configuration could not be saved."
+#: ../lib/organization_ratings_block.rb:9
+msgid "This block displays the organization ratings."
 msgstr ""
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:15
-msgid "You can not vote on this %s"
+#: ../lib/organization_ratings_config.rb:9
+msgid "Best Ratings"
 msgstr ""
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:47
-msgid "%s successfully rated!"
+#: ../lib/organization_ratings_config.rb:9
+msgid "More Recent"
 msgstr ""
 
-#: plugins/organization_ratings/controllers/organization_ratings_plugin_profile_controller.rb:49
-msgid "Sorry, there were problems rating this profile."
+#: ../lib/organization_ratings_plugin.rb:9
+msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
 
-#: plugins/organization_ratings/views/tasks/_create_organization_rating_comment_accept_details.html.erb:2
-msgid "Comment:"
+#: ../lib/ratings_helper.rb:19
+msgid "Report waiting for approval"
 msgstr ""
 
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:3
-msgid "Rate %s "
+#: ../lib/ratings_helper.rb:21
+msgid "Report rejected"
 msgstr ""
 
-#: plugins/organization_ratings/views/shared/_rating_button.html.erb:7
-msgid "Log in"
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:11
-msgid "User not logged"
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:17
-msgid "Report your experiences."
-msgstr ""
-
-#: plugins/organization_ratings/views/shared/_make_report_block.html.erb:24
-msgid "* You must be logged in to submit a report."
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:3
-msgid "Organization Rating Settings"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:10
-msgid "Value"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:13
-msgid "Default amount of stars marked on evaluations"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:17
-msgid "Users can rate an organization only once"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:21
-msgid "The comments are moderated"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:26
-msgid "Time in hours between evaluations from the same user."
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:27
-msgid "To disable cooldown use zero (0) value."
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:35
-msgid "Order ratings by"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:41
-msgid "Ratings amount per page"
-msgstr ""
-
-#: plugins/organization_ratings/views/organization_ratings_plugin_admin/index.html.erb:50
-msgid "Back"
-msgstr ""
-
-#: plugins/organization_ratings/views/blocks/organization_ratings_block.html.erb:17
-msgid "See more"
-msgstr ""
-
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:4
+#: ../views/blocks/average_rating.html.erb:6
 msgid "Rating: "
 msgstr ""
 
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:18
+#: ../views/blocks/average_rating.html.erb:29
 msgid "Be the first to rate!"
 msgstr ""
 
-#: plugins/organization_ratings/views/blocks/display_organization_average_rating.html.erb:23
+#: ../views/blocks/average_rating.html.erb:34
 msgid "Rate this %s"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:39
-msgid "Rated as"
+#: ../views/blocks/organization_ratings.html.erb:17
+msgid "See more"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:39
+#: ../views/organization_ratings_plugin_admin/index.html.erb:3
+msgid "Organization Rating Settings"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:10
+msgid "Value"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:13
+msgid "Default amount of stars marked on evaluations"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:17
+msgid "Users can rate an organization only once"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:21
+msgid "The comments are moderated"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:26
+msgid "Time in hours between evaluations from the same user."
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:27
+msgid "To disable cooldown use zero (0) value."
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:35
+msgid "Order ratings by"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:41
+msgid "Ratings amount per page"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:47
+msgid "Ratings amount on initial page"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:56
+msgid "Back"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
 msgid "stars"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:46
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
+msgid "Rated as"
+msgstr ""
+
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:41
 msgid "Comment (Optional):"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:53
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:48
 msgid "Save"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:63
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:58
 msgid "Hi, %s! The administrators set that you can vote"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:64
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:59
 msgid "only once"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:65
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:60
 msgid "for this %s."
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:70
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:65
 msgid "Hi, %s! The administrators set the minimum time of"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:71
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:66
 msgid "%d hour(s)"
 msgstr ""
 
-#: plugins/organization_ratings/views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:72
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:67
 msgid "between each evaluation."
+msgstr ""
+
+#: ../views/shared/_make_report_block.html.erb:12
+msgid "User not logged"
+msgstr ""
+
+#: ../views/shared/_make_report_block.html.erb:18
+msgid "Report your experiences."
+msgstr ""
+
+#: ../views/shared/_make_report_block.html.erb:25
+msgid "* You must be logged in to submit a report."
+msgstr ""
+
+#: ../views/shared/_rating_button.html.erb:3
+msgid "Rate %s "
+msgstr ""
+
+#: ../views/shared/_rating_button.html.erb:7
+msgid "Log in"
+msgstr ""
+
+#: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:5
+msgid "Description:"
+msgstr ""
+
+#: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
+msgid "* The rating score is not moderated."
 msgstr ""

@@ -357,18 +357,14 @@ msgstr ""
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
-# (second try of this knid of contents)
-#, fuzzy
 #~ msgid "Add a new option"
 #~ msgstr "Une entreprise"
 
 #~ msgid "Ok"
 #~ msgstr "Ok"
 
-#, fuzzy
 #~ msgid "Are you sure you want to remove this field?"
 #~ msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"
 
-#, fuzzy
 #~ msgid "Are you sure you want to remove this option?"
 #~ msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"

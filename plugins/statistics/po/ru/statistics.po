@@ -18,51 +18,17 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-msgid "Statistics for %s"
-msgstr "Статистика для %s"
-
-#, fuzzy
-msgid "This block presents some statistics about your context."
-msgstr "Данный блок представляет некоторую статистику вашей среды"
-
-msgid ""
-"A plugin that adds a block where you can see statistics of it's context."
-msgstr ""
-
 #, fuzzy
 msgid "Show user counter"
 msgstr "Расположение:"
 
 #, fuzzy
-msgid "Show community counter"
-msgstr "В сообществе %s"
-
-#, fuzzy
-msgid "Show enterprise counter"
-msgstr "%s: компании"
-
-#, fuzzy
-msgid "Show product counter"
-msgstr "Весь контент"
-
-#, fuzzy
-msgid "Show category counter"
-msgstr "Новая категория"
-
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Весь контент"
-
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Комментарий для автора"
+msgid "This block presents some statistics about your context."
+msgstr "Данный блок представляет некоторую статистику вашей среды"
 
 #, fuzzy
 msgid "Show hit counter"
 msgstr "Весь контент"
-
-msgid "Show counter for communities with template %s"
-msgstr ""
 
 #, fuzzy
 msgid "users"
@@ -72,15 +38,55 @@ msgstr "Пользователь"
 msgid "enterprises"
 msgstr "Компании"
 
-msgid "products"
-msgstr ""
+#, fuzzy
+msgid "Show comment counter"
+msgstr "Комментарий для автора"
 
-msgid "communities"
-msgstr "Сообщества"
+#, fuzzy
+msgid "Show tag counter"
+msgstr "Весь контент"
 
 #, fuzzy
 msgid "categories"
 msgstr "Категории"
 
+#, fuzzy
+msgid "Show category counter"
+msgstr "Новая категория"
+
+#, fuzzy
+msgid "Show product counter"
+msgstr "Весь контент"
+
+#, fuzzy
+msgid "Show community counter"
+msgstr "В сообществе %s"
+
+#, fuzzy
+msgid "Show enterprise counter"
+msgstr "%s: компании"
+
+#: ../lib/statistics_block.rb:24
+msgid "Statistics for %s"
+msgstr "Статистика для %s"
+
+#: ../lib/statistics_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
+
+#: ../views/blocks/statistics.html.erb:13
+msgid "products"
+msgstr ""
+
+#: ../views/blocks/statistics.html.erb:16
+msgid "communities"
+msgstr "Сообщества"
+
+#: ../views/blocks/statistics.html.erb:28
 msgid "hits"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:34
+msgid "Show counter for communities with template %s"
 msgstr ""

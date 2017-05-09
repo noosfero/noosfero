@@ -17,201 +17,329 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.5-dev\n"
 
+#: ../controllers/organization_ratings_plugin_admin_controller.rb:12
 msgid "Configuration updated successfully."
 msgstr "Configurações atualizadas com sucesso."
 
+#: ../controllers/organization_ratings_plugin_admin_controller.rb:14
 msgid "Configuration could not be saved."
 msgstr "Configurações não puderam ser salvas."
 
+#: ../controllers/organization_ratings_plugin_profile_controller.rb:15
 msgid "You can not vote on this %s"
 msgstr "Você não pode votar nesta %s"
 
+#: ../controllers/organization_ratings_plugin_profile_controller.rb:48
 msgid "%s successfully rated!"
 msgstr "%s avaliado(a) com sucesso!"
 
-msgid "Sorry, there were problems rating this profile."
-msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
-
+#: ../lib/average_rating_block.rb:5
 msgid "Organization Average Rating"
 msgstr "Média de Avaliações da Organização"
 
+#: ../lib/average_rating_block.rb:9
 msgid "This block displays the organization average rating."
 msgstr "Este bloco mostra a média de avaliações da organização."
 
-msgid "Comment waiting for approval"
-msgstr "Comentario aguardando aprovação"
+#: ../lib/create_organization_rating_comment.rb:43
+msgid "New Report"
+msgstr "Novo Relato"
 
-msgid "Comment rejected"
-msgstr "Comentário rejeitado"
-
-msgid "No comment"
-msgstr "Sem comentário"
-
-msgid "New Comment"
-msgstr "Novo Comentário"
-
+#: ../lib/create_organization_rating_comment.rb:47
 msgid ""
-"<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in this "
+"<a href=%{requestor_url}>%{requestor}</a> wants to leave a report about this "
 "%{target_class}"
 msgstr ""
-"<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
-"neste(a) %{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> deseja deixar um relato sobre essa(e) "
+"%{target_class}"
 
-msgid "%{requestor} wants to create a comment in this \"%{target}\""
-msgstr "%{requestor} deseja criar um comentário neste(a) \"%{target}\""
+#: ../lib/create_organization_rating_comment.rb:72
+msgid "%{requestor} wants to leave a report about this \"%{target}\""
+msgstr "%{requestor} deseja deixar um relato sobre esta(e) \"%{target}\""
 
+#: ../lib/create_organization_rating_comment.rb:77
 msgid ""
-"User \"%{user}\" requested to create a comment in the %{target_class}\n"
+"User \"%{user}\" just made a report at %{target_class}\n"
 "      \"%{target_name}\".\n"
 "      You have to approve or reject it through the \"Pending Validations\"\n"
 "      section in your control panel.\n"
 msgstr ""
-"O usuário \"%{user}\" requisitou a criação de um comentário na "
-"%{target_class}\n"
+"Usuário \"%{user}\" acabou de fazer um novo relato em %{target_class}\n"
 "      \"%{target_name}\".\n"
-"      Você deve aprová-lo ou rejeitá-lo através da seção de \"Validações "
-"Pendentes\"\n"
-"      no seu painel de controle.\n"
+"      Você deve aprova-lo ou rejeita-lo através da seção \"Validações Pendentes\"\n"
+"      em seu painel de controle.\n"
 
+#: ../lib/create_organization_rating_comment.rb:87
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      just sent. The administrator will receive it and will approve or\n"
 "      reject your request according to his methods and criteria.\n"
 "      You will be notified as soon as environment administrator has a "
 "position\n"
 "      about your request."
 msgstr ""
-"Seu pedido para comentar em %{target} foi\n"
+"Seu relato em %{target_class} \"%{target}\" foi\n"
 "      enviado. O administrador irá recebê-lo e aprovar ou\n"
-" rejeitar seu pedido de acordo com seus métodos e critérios.\n"
-"      Você será notificado assim que o administrador tenha uma posição\n"
-"      sobre seu pedido."
+"      rejeitar o seu pedido de acordo com seus critérios e métodos.\n"
+"      Você será notificado em breve assim que o administrador do ambiente"
+"uma posição\n"
+"      sobre o seu pedido."
 
+#: ../lib/create_organization_rating_comment.rb:96
 msgid ""
-"Your request for commenting at %{target} was\n"
+"Your report at %{target_class} \"%{target}\" was\n"
 "      not approved by the administrator. The following explanation\n"
 "      was given: \n"
 "\n"
 "%{explanation}"
 msgstr ""
-"Seu pedido para comentar em %{target} não\n"
+"Seu relato em %{target_class} \"%{target}\" não\n"
 "      foi aprovado pelo administrador. A seguinte explicação\n"
 "      foi dada: \n"
 "\n"
 "%{explanation}"
 
+#: ../lib/create_organization_rating_comment.rb:105
 msgid ""
-"Your request for commenting at %{target} was approved.\n"
+"Your report at %{target_class} \"%{target}\" was approved.\n"
 "      You can access %{url} to see your comment."
 msgstr ""
-"Seu pedido para comentar em %{target} foi aprovado.\n"
-"\tVocê pode acessar %{url} para ver seu comentário."
+"Seu relato em  %{target_class} \"%{target}\" foi aprovado.\n"
+"      Você pode acessar %{url} para ver o seu comentário."
 
+#: ../lib/organization_rating.rb:10
 msgid "must be between 1 and 5"
 msgstr "deve ser entre 1 e 5"
 
+#: ../lib/organization_ratings_block.rb:5
 msgid "Organization Ratings"
 msgstr "Avaliações da Organização"
 
+#: ../lib/organization_ratings_block.rb:9
 msgid "This block displays the organization ratings."
 msgstr "Este bloco mostra as avaliações da organização."
 
-msgid "More Recent"
-msgstr "Mais Recentes"
-
+#: ../lib/organization_ratings_config.rb:9
 msgid "Best Ratings"
 msgstr "Melhores Avaliações"
 
+#: ../lib/organization_ratings_config.rb:9
+msgid "More Recent"
+msgstr "Mais Recentes"
+
+#: ../lib/organization_ratings_plugin.rb:9
 msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
 "Um plugin que permite que você avalie uma organização e comente sobre ela."
 
+#: ../lib/ratings_helper.rb:19
+msgid "Report waiting for approval"
+msgstr "Relato aguardando aprovação"
+
+#: ../lib/ratings_helper.rb:21
+msgid "Report rejected"
+msgstr "Relato rejeitado"
+
+#: ../views/blocks/average_rating.html.erb:6
 msgid "Rating: "
 msgstr "Avaliação: "
 
+#: ../views/blocks/average_rating.html.erb:29
 msgid "Be the first to rate!"
 msgstr "Seja o primeiro a avaliar!"
 
+#: ../views/blocks/average_rating.html.erb:34
 msgid "Rate this %s"
 msgstr "Avalie esta %s"
 
+#: ../views/blocks/organization_ratings.html.erb:17
 msgid "See more"
 msgstr "Veja mais"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:3
 msgid "Organization Rating Settings"
 msgstr "Configuração para Avaliações em Organizações"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:10
 msgid "Value"
 msgstr "Valor"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:13
 msgid "Default amount of stars marked on evaluations"
 msgstr "Quantidade padrão de estrelas marcadas nas avaliações"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:17
 msgid "Users can rate an organization only once"
 msgstr "Usuários podem avaliar uma organização apenas uma vez"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:21
 msgid "The comments are moderated"
 msgstr "Os comentários são moderados"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:26
 msgid "Time in hours between evaluations from the same user."
 msgstr "Tempo em horas entre avaliações do mesmo usuário."
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:27
 msgid "To disable cooldown use zero (0) value."
 msgstr "Para desabilitar o tempo de espera utilize o valor zero (0)."
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:35
 msgid "Order ratings by"
 msgstr "Ordenar avaliações por"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:41
 msgid "Ratings amount per page"
 msgstr "Quantidade de avaliações por página"
 
+#: ../views/organization_ratings_plugin_admin/index.html.erb:47
+msgid "Ratings amount on initial page"
+msgstr "Quantidade de avaliações na página inicial"
+
+#: ../views/organization_ratings_plugin_admin/index.html.erb:56
 msgid "Back"
 msgstr "Voltar"
 
-msgid "Rated as"
-msgstr "Avaliado em"
-
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
 msgid "stars"
 msgstr "estrelas"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
+msgid "Rated as"
+msgstr "Avaliado em"
+
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:41
 msgid "Comment (Optional):"
 msgstr "Comentário (Opcional):"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:48
 msgid "Save"
 msgstr "Salvar"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:58
 msgid "Hi, %s! The administrators set that you can vote"
 msgstr "Olá, %s! Os administradores configuraram que você pode votar apenas"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:59
 msgid "only once"
 msgstr "uma vez"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:60
 msgid "for this %s."
 msgstr "para esta %s."
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:65
 msgid "Hi, %s! The administrators set the minimum time of"
 msgstr "Olá, %s! Os administradores configuraram o tempo mínimo de"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:66
 msgid "%d hour(s)"
 msgstr "%d hora(s)"
 
+#: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:67
 msgid "between each evaluation."
 msgstr "entre cada avaliação."
 
+#: ../views/shared/_make_report_block.html.erb:12
 msgid "User not logged"
 msgstr "Usuário não logado"
 
+#: ../views/shared/_make_report_block.html.erb:18
 msgid "Report your experiences."
 msgstr "Relate suas experiências."
 
+#: ../views/shared/_make_report_block.html.erb:25
 msgid "* You must be logged in to submit a report."
 msgstr "* Você precisa estar logado para enviar um relato."
 
+#: ../views/shared/_rating_button.html.erb:3
 msgid "Rate %s "
 msgstr "Avaliar %s "
 
+#: ../views/shared/_rating_button.html.erb:7
 msgid "Log in"
 msgstr "Entrar"
 
-msgid "Comment:"
-msgstr "Comentário:"
+#: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:5
+msgid "Description:"
+msgstr "Descrição:"
+
+#: ../views/tasks/_create_organization_rating_comment_accept_details.html.erb:9
+msgid "* The rating score is not moderated."
+msgstr "* A pontuação de avaliação não é moderada."
+
+#~ msgid "Sorry, there were problems rating this profile."
+#~ msgstr "Desculpe, ocorreram problemas na avaliação deste perfil."
+
+#~ msgid "Comment waiting for approval"
+#~ msgstr "Comentario aguardando aprovação"
+
+#~ msgid "Comment rejected"
+#~ msgstr "Comentário rejeitado"
+
+#~ msgid "No comment"
+#~ msgstr "Sem comentário"
+
+#~ msgid "New Comment"
+#~ msgstr "Novo Comentário"
+
+#~ msgid ""
+#~ "<a href=%{requestor_url}>%{requestor}</a> wants to create a comment in "
+#~ "this %{target_class}"
+#~ msgstr ""
+#~ "<a href=%{requestor_url}>%{requestor}</a> deseja criar um comentário "
+#~ "neste(a) %{target_class}"
+
+#~ msgid "%{requestor} wants to create a comment in this \"%{target}\""
+#~ msgstr "%{requestor} deseja criar um comentário neste(a) \"%{target}\""
+
+#~ msgid ""
+#~ "User \"%{user}\" requested to create a comment in the %{target_class}\n"
+#~ "      \"%{target_name}\".\n"
+#~ "      You have to approve or reject it through the \"Pending Validations"
+#~ "\"\n"
+#~ "      section in your control panel.\n"
+#~ msgstr ""
+#~ "O usuário \"%{user}\" requisitou a criação de um comentário na "
+#~ "%{target_class}\n"
+#~ "      \"%{target_name}\".\n"
+#~ "      Você deve aprová-lo ou rejeitá-lo através da seção de \"Validações "
+#~ "Pendentes\"\n"
+#~ "      no seu painel de controle.\n"
+
+#~ msgid ""
+#~ "Your request for commenting at %{target} was\n"
+#~ "      just sent. The administrator will receive it and will approve or\n"
+#~ "      reject your request according to his methods and criteria.\n"
+#~ "      You will be notified as soon as environment administrator has a "
+#~ "position\n"
+#~ "      about your request."
+#~ msgstr ""
+#~ "Seu pedido para comentar em %{target} foi\n"
+#~ "      enviado. O administrador irá recebê-lo e aprovar ou\n"
+#~ " rejeitar seu pedido de acordo com seus métodos e critérios.\n"
+#~ "      Você será notificado assim que o administrador tenha uma posição\n"
+#~ "      sobre seu pedido."
+
+#~ msgid ""
+#~ "Your request for commenting at %{target} was\n"
+#~ "      not approved by the administrator. The following explanation\n"
+#~ "      was given: \n"
+#~ "\n"
+#~ "%{explanation}"
+#~ msgstr ""
+#~ "Seu pedido para comentar em %{target} não\n"
+#~ "      foi aprovado pelo administrador. A seguinte explicação\n"
+#~ "      foi dada: \n"
+#~ "\n"
+#~ "%{explanation}"
+
+#~ msgid ""
+#~ "Your request for commenting at %{target} was approved.\n"
+#~ "      You can access %{url} to see your comment."
+#~ msgstr ""
+#~ "Seu pedido para comentar em %{target} foi aprovado.\n"
+#~ "\tVocê pode acessar %{url} para ver seu comentário."
+
+#~ msgid "Comment:"
+#~ msgstr "Comentário:"

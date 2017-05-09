@@ -23,6 +23,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: ../lib/pg_search_plugin.rb:8
+#: ../lib/pg_search_plugin.rb:10
 msgid "Search engine that uses Postgres Full-Text Search."
 msgstr "Motor de busca que usa a Busca Full-Text do Postgres."
+
+#: ../lib/pg_search_plugin.rb:220
+msgid "Created at"
+msgstr "Criado em"
+
+#: ../lib/pg_search_plugin.rb:221
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: ../lib/pg_search_plugin.rb:222
+msgid "Types"
+msgstr "Formatos"
+
+#: ../lib/pg_search_plugin.rb:223
+msgid "TextArticle"
+msgstr "Artigo de Texto"
+
+#: ../lib/pg_search_plugin.rb:224
+msgid "UploadedFile"
+msgstr "Arquivo"
+
+#: ../lib/pg_search_plugin.rb:225
+msgid "RSSFeed"
+msgstr "RSS"
+
+#: ../lib/pg_search_plugin.rb:226
+msgid "Content types"
+msgstr "Tipos de conteúdo"
+
+#: ../lib/pg_search_plugin.rb:227
+msgid "Tags"
+msgstr "Labels"
+
+#: ../lib/pg_search_plugin/search_helper.rb:7
+msgid "Clear"
+msgstr "Limpar"
+
+#: ../lib/pg_search_plugin/search_helper.rb:8
+msgid "Refine options"
+msgstr "Refinar opções"
+
+#: ../lib/pg_search_plugin/search_helper.rb:21
+msgid "Undefined"
+msgstr "Indefinido"

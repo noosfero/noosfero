@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-05 19:28+0000\n"
-"PO-Revision-Date: 2017-01-05 19:28+0000\n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -39,6 +39,10 @@ msgstr ""
 #: ../models/products_plugin/product.rb:13
 #: ../models/products_plugin/qualifier.rb:8
 msgid "Name"
+msgstr ""
+
+#: ../helpers/products_plugin/catalog_helper.rb:20
+msgid "Start"
 msgstr ""
 
 #: ../lib/ext/action_tracker_helper.rb:6
@@ -75,10 +79,6 @@ msgstr ""
 msgid "Manage Products/Services"
 msgstr ""
 
-#: ../lib/products_plugin/catalog_helper.rb:20
-msgid "Start"
-msgstr ""
-
 #: ../lib/products_plugin/enterprise_homepage_helper.rb:7
 msgid "Contact person:"
 msgstr ""
@@ -108,7 +108,7 @@ msgid "Distance:"
 msgstr ""
 
 #: ../lib/products_plugin/products_helper.rb:17
-#: ../models/products_plugin/product.rb:141
+#: ../models/products_plugin/product.rb:142
 msgid "Uncategorized product"
 msgstr ""
 
@@ -244,24 +244,28 @@ msgstr ""
 msgid "Other costs"
 msgstr ""
 
-#: ../models/products_plugin/product.rb:277
+#: ../models/products_plugin/product.rb:278
 msgid "0%"
 msgstr ""
 
-#: ../models/products_plugin/product.rb:278
+#: ../models/products_plugin/product.rb:279
 msgid "25%"
 msgstr ""
 
-#: ../models/products_plugin/product.rb:279
+#: ../models/products_plugin/product.rb:280
 msgid "50%"
 msgstr ""
 
-#: ../models/products_plugin/product.rb:280
+#: ../models/products_plugin/product.rb:281
 msgid "75%"
 msgstr ""
 
-#: ../models/products_plugin/product.rb:281
+#: ../models/products_plugin/product.rb:282
 msgid "100%"
+msgstr ""
+
+#: ../models/products_plugin/product.rb:305
+msgid "should not be bigger than the price"
 msgstr ""
 
 #: ../models/products_plugin/product_categories_block.rb:11
@@ -290,6 +294,22 @@ msgstr ""
 
 #: ../test/functional/products_plugin/search_controller_test.rb:53
 msgid "Property2"
+msgstr ""
+
+#: ../views/blocks/featured_products.html.erb:5
+msgid "Previous"
+msgstr ""
+
+#: ../views/blocks/featured_products.html.erb:20
+msgid "See More"
+msgstr ""
+
+#: ../views/blocks/featured_products.html.erb:31
+msgid "Next"
+msgstr ""
+
+#: ../views/blocks/featured_products.html.erb:56
+msgid "Please, edit this block and choose some products"
 msgstr ""
 
 #: ../views/blocks/product_categories.html.erb:9
@@ -402,21 +422,21 @@ msgstr ""
 msgid "type a category for the product"
 msgstr ""
 
-#: ../views/products_plugin/page/_display_description.html.erb:4
+#: ../views/products_plugin/page/_display_description.html.erb:3
+msgid "Edit description"
+msgstr ""
+
+#: ../views/products_plugin/page/_display_description.html.erb:3
 msgid ""
 "Edit the description of your product and give consumers more information about"
 " what you are advertising"
 msgstr ""
 
-#: ../views/products_plugin/page/_display_description.html.erb:4
-msgid "Edit description"
-msgstr ""
-
-#: ../views/products_plugin/page/_display_description.html.erb:9
+#: ../views/products_plugin/page/_display_description.html.erb:8
 msgid "Add some description to your product"
 msgstr ""
 
-#: ../views/products_plugin/page/_display_description.html.erb:12
+#: ../views/products_plugin/page/_display_description.html.erb:11
 msgid ""
 "Add a description to your product and give consumers more information about wh"
 "at you are advertising"
@@ -469,13 +489,13 @@ msgid ""
 msgstr ""
 
 #: ../views/products_plugin/page/_display_inputs.html.erb:15
-msgid ""
-"Add new input or raw material used by this product and give more transparency "
-"to consumers about your enterprise"
+msgid "Add new input or raw material"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_inputs.html.erb:15
-msgid "Add new input or raw material"
+msgid ""
+"Add new input or raw material used by this product and give more transparency "
+"to consumers about your enterprise"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_inputs.html.erb:16
@@ -487,23 +507,23 @@ msgid "Order inputs"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_name.html.erb:3
-msgid "Click here to edit the name of your product and the unit"
+msgid "Edit name and unit"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_name.html.erb:3
-msgid "Edit name and unit"
+msgid "Click here to edit the name of your product and the unit"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_price_details.html.erb:6
 msgid "Inputs:"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_description.html.erb:7
+#: ../views/products_plugin/page/_edit_description.html.erb:8
 #: ../views/products_plugin/page/_form.html.erb:8
 msgid "Description:"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_description.html.erb:9
+#: ../views/products_plugin/page/_edit_description.html.erb:10
 #: ../views/products_plugin/page/_edit_image.html.erb:11
 #: ../views/products_plugin/page/_edit_info.html.erb:58
 #: ../views/products_plugin/page/_edit_input.html.erb:36
@@ -778,5 +798,9 @@ msgid "Select the products that must be shown."
 msgstr ""
 
 #: ../views/search/products.html.erb:1
+msgid "Search Results"
+msgstr ""
+
+#: ../views/search/products.html.erb:7
 msgid "Type words about the %s you're looking for"
 msgstr ""
