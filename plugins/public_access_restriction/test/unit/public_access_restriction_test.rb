@@ -45,4 +45,27 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
     assert ! @plugin.should_block?(user, @env, {controller:'account'}, nil)
   end
 
+  should 'not block a unauthenticated user on public_access_restriction plugin public_page controller' do
+    user = nil
+    assert ! @plugin.should_block?(user, @env, {controller:'public_access_restriction_plugin_public_page'}, nil)
+  end
+
+  should 'display public page if profile says so' do
+    profile = fast_create(Organization)
+    settings = { public_access_restriction_plugin: { show_public_page: true } }
+    Organization.any_instance.stubs(:data).returns(settings)
+    assert @plugin.should_display_public_page?(profile: profile.identifier)
+  end
+
+  should 'not display public page if profile does not say so' do
+    profile = fast_create(Organization)
+    settings = { public_access_restriction_plugin: { show_public_page: false } }
+    Organization.any_instance.stubs(:data).returns(settings)
+    refute @plugin.should_display_public_page?(profile: profile.identifier)
+  end
+
+  should 'not display public page if there is no profile' do
+    refute @plugin.should_display_public_page?(profile: nil)
+  end
+
 end

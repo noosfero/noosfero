@@ -1,0 +1,70 @@
+.public-page-form {
+  .public-page-options {
+    display: flex;
+    flex-dirextion: row;
+
+    .options-labels {
+      margin-left: 5px;
+    }
+  }
+
+  .public-page-content {
+    margin: 20px 0;
+
+    p {
+      padding: 10px;
+      background-color: #E6E6E6;
+    }
+  }
+}
+
+.action-public_access_restriction_plugin_public_page-index .main-content {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#content .public-page {
+  display: flex;
+  flex-direction: column;
+
+  .public-page-header {
+    display: flex;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #2e3436;
+
+    span {
+      display: inline-flex;
+    }
+
+    .public-page-profile-name {
+      margin-left: 15px;
+      align-items: flex-end;
+      font-size: 20px;
+      font-variant: small-caps;
+      color: #555753;
+      font-weight: bold;
+    }
+  }
+
+  .public-page-content {
+    margin: 15px 0;
+  }
+
+  .public-page-call {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #eee;
+    padding: 15px;
+    font-size: 14px;
+
+    span {
+      margin-bottom: 20px;
+    }
+
+    a {
+      font-size: 14px;
+      background-color: white;
+    }
+  }
+}
