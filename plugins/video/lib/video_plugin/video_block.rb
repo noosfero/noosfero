@@ -42,12 +42,10 @@ class VideoPlugin::VideoBlock < Block
     if is_youtube?
       content[:video_type] = 'youtube' 
       content[:url_formatted] = format_embed_video_url_for_youtube
-    end
-    if is_vimeo?
+    elsif is_vimeo?
       content[:video_type] = "vimeo"
       content[:url_formatted] = format_embed_video_url_for_vimeo
-    end
-    if is_video_file?
+    else is_video_file?
       content[:video_type] = "video"
       content[:url_formatted] = self.url
     end
