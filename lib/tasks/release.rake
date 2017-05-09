@@ -181,7 +181,7 @@ EOF
 
     puts "Current version: #{$version}"
     new_version = ask("Version to release", new_version)
-    release_message = ask("Release message")
+    release_message = ask("Release message", "Noosfero #{new_version}")
 
     sh 'git checkout debian/changelog lib/noosfero/version.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{new_version}'/\" lib/noosfero/version.rb"
