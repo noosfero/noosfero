@@ -39,6 +39,16 @@ class VideoPlugin::VideoBlock < Block
   def api_content(params = {})
     content = {:url => self.url}
     content[:mime_type] = VideoPlugin::Video.mime_type(self.url) if VideoPlugin::Video.is_video_file?(self.url)
+    if is_youtube?
+      content[:video_type] = 'youtube' 
+      content[:url_formatted] = format_embed_video_url_for_youtube
+    elsif is_vimeo?
+      content[:video_type] = "vimeo"
+      content[:url_formatted] = format_embed_video_url_for_vimeo
+    else is_video_file?
+      content[:video_type] = "video"
+      content[:url_formatted] = self.url
+    end
     content
   end
 
