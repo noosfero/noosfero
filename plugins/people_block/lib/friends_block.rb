@@ -13,7 +13,7 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def profiles
-    owner.friends
+    owner.friends.no_templates
   end
 
   def suggestions

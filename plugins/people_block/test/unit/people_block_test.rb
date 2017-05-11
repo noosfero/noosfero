@@ -205,5 +205,14 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert_equal 5, json["#"]
   end
 
+  should 'not list person template from environment' do
+    owner = fast_create(Environment)
+    person1 = fast_create(Person, :environment_id => owner.id)
+    person2 = fast_create(Person, :environment_id => owner.id)
+    template = fast_create(Person, :environment_id => owner.id, is_template: true)
+    block = PeopleBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    assert_equal 2, block.profile_list.count
+  end
 
 end

@@ -114,6 +114,17 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equivalent block.suggestions, [suggestion1,suggestion2]
   end
 
+  should 'not list templates as friends' do
+    owner = fast_create(Person)
+    friend1 = fast_create(Person)
+    template = fast_create(Person, is_template: true)
+    owner.add_friend(friend1)
+    owner.add_friend(template)
+    block = FriendsBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    assert_equal 1, block.profile_count
+  end
+
   protected
   include NoosferoTestHelper
 

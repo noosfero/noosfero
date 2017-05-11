@@ -17,7 +17,7 @@ class MembersBlock < PeopleBlockBase
   end
 
   def profiles
-    role ? owner.members.with_role(role.id) : owner.members
+    role ? owner.members.with_role(role.id) : owner.members.no_templates
   end
 
   def role
