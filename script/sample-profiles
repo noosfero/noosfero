@@ -111,7 +111,7 @@ User.where("login NOT LIKE '%%_template'").each do |user|
 end
 done
 
-people = $environment.people
+people = $environment.people.no_templates
 print "Creating some friendships: "
 rand(people.size * 3).times do
   from = people.sample
