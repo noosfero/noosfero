@@ -39,6 +39,10 @@ msgstr "O insumo não foi encontrado"
 msgid "Name"
 msgstr "Nome"
 
+#: ../helpers/products_plugin/catalog_helper.rb:20
+msgid "Start"
+msgstr "Início"
+
 #: ../lib/ext/action_tracker_helper.rb:6
 msgid "created the product %{title}"
 msgstr "criou o produto %{title}"
@@ -73,10 +77,6 @@ msgstr "Produtos"
 msgid "Manage Products/Services"
 msgstr "Gerenciar Produtos/Serviços"
 
-#: ../lib/products_plugin/catalog_helper.rb:20
-msgid "Start"
-msgstr "Início"
-
 #: ../lib/products_plugin/enterprise_homepage_helper.rb:7
 msgid "Contact person:"
 msgstr "Pessoa de contato:"
@@ -106,7 +106,7 @@ msgid "Distance:"
 msgstr "Distância:"
 
 #: ../lib/products_plugin/products_helper.rb:17
-#: ../models/products_plugin/product.rb:141
+#: ../models/products_plugin/product.rb:142
 msgid "Uncategorized product"
 msgstr "Produto não categorizado"
 
@@ -242,25 +242,29 @@ msgstr "Produtos em destaque"
 msgid "Other costs"
 msgstr "Outros custos"
 
-#: ../models/products_plugin/product.rb:277
+#: ../models/products_plugin/product.rb:278
 msgid "0%"
 msgstr "0%"
 
-#: ../models/products_plugin/product.rb:278
+#: ../models/products_plugin/product.rb:279
 msgid "25%"
 msgstr "25%"
 
-#: ../models/products_plugin/product.rb:279
+#: ../models/products_plugin/product.rb:280
 msgid "50%"
 msgstr "50%"
 
-#: ../models/products_plugin/product.rb:280
+#: ../models/products_plugin/product.rb:281
 msgid "75%"
 msgstr "75%"
 
-#: ../models/products_plugin/product.rb:281
+#: ../models/products_plugin/product.rb:282
 msgid "100%"
 msgstr "100%"
+
+#: ../models/products_plugin/product.rb:305
+msgid "should not be bigger than the price"
+msgstr "não pode ser maior que o preço"
 
 #: ../models/products_plugin/product_categories_block.rb:11
 msgid "Product category menu"
@@ -289,6 +293,22 @@ msgstr "Propriedade1"
 #: ../test/functional/products_plugin/search_controller_test.rb:53
 msgid "Property2"
 msgstr "Propriedade2"
+
+#: ../views/blocks/featured_products.html.erb:5
+msgid "Previous"
+msgstr "Anterior"
+
+#: ../views/blocks/featured_products.html.erb:20
+msgid "See More"
+msgstr "Ver mais"
+
+#: ../views/blocks/featured_products.html.erb:31
+msgid "Next"
+msgstr "Próximo"
+
+#: ../views/blocks/featured_products.html.erb:56
+msgid "Please, edit this block and choose some products"
+msgstr "Por favor, edite esse bloco e escolha alguns produtos"
 
 #: ../views/blocks/product_categories.html.erb:9
 msgid "Catalog start"
@@ -404,7 +424,11 @@ msgstr ""
 msgid "type a category for the product"
 msgstr "digite uma categoria para o produto"
 
-#: ../views/products_plugin/page/_display_description.html.erb:4
+#: ../views/products_plugin/page/_display_description.html.erb:3
+msgid "Edit description"
+msgstr "Editar descrição"
+
+#: ../views/products_plugin/page/_display_description.html.erb:3
 msgid ""
 "Edit the description of your product and give consumers more information "
 "about what you are advertising"
@@ -412,15 +436,11 @@ msgstr ""
 "Edite a descrição do seu produto e dê aos consumidores mais informações "
 "sobre o que você está anunciando"
 
-#: ../views/products_plugin/page/_display_description.html.erb:4
-msgid "Edit description"
-msgstr "Editar descrição"
-
-#: ../views/products_plugin/page/_display_description.html.erb:9
+#: ../views/products_plugin/page/_display_description.html.erb:8
 msgid "Add some description to your product"
 msgstr "Adicione alguma descrição ao seu produto"
 
-#: ../views/products_plugin/page/_display_description.html.erb:12
+#: ../views/products_plugin/page/_display_description.html.erb:11
 msgid ""
 "Add a description to your product and give consumers more information about "
 "what you are advertising"
@@ -481,16 +501,16 @@ msgstr ""
 "transparência aos consumidores sobre seu empreendimento"
 
 #: ../views/products_plugin/page/_display_inputs.html.erb:15
+msgid "Add new input or raw material"
+msgstr "Adicionar novo insumo ou matéria-prima"
+
+#: ../views/products_plugin/page/_display_inputs.html.erb:15
 msgid ""
 "Add new input or raw material used by this product and give more "
 "transparency to consumers about your enterprise"
 msgstr ""
 "Adicione novo insumo ou matéria-prime usado por este produto e dê mais "
 "transparência aos consumidores sobre seu empreendimento"
-
-#: ../views/products_plugin/page/_display_inputs.html.erb:15
-msgid "Add new input or raw material"
-msgstr "Adicionar novo insumo ou matéria-prima"
 
 #: ../views/products_plugin/page/_display_inputs.html.erb:16
 msgid "Drag the input with the mouse to change the order"
@@ -501,23 +521,23 @@ msgid "Order inputs"
 msgstr "Ordenar insumos"
 
 #: ../views/products_plugin/page/_display_name.html.erb:3
-msgid "Click here to edit the name of your product and the unit"
-msgstr "Clique aqui para editar o nome do seu produto e a unidade"
-
-#: ../views/products_plugin/page/_display_name.html.erb:3
 msgid "Edit name and unit"
 msgstr "Editar nome e unidade"
+
+#: ../views/products_plugin/page/_display_name.html.erb:3
+msgid "Click here to edit the name of your product and the unit"
+msgstr "Clique aqui para editar o nome do seu produto e a unidade"
 
 #: ../views/products_plugin/page/_display_price_details.html.erb:6
 msgid "Inputs:"
 msgstr "Insumos:"
 
-#: ../views/products_plugin/page/_edit_description.html.erb:7
+#: ../views/products_plugin/page/_edit_description.html.erb:8
 #: ../views/products_plugin/page/_form.html.erb:8
 msgid "Description:"
 msgstr "Descrição:"
 
-#: ../views/products_plugin/page/_edit_description.html.erb:9
+#: ../views/products_plugin/page/_edit_description.html.erb:10
 #: ../views/products_plugin/page/_edit_image.html.erb:11
 #: ../views/products_plugin/page/_edit_info.html.erb:58
 #: ../views/products_plugin/page/_edit_input.html.erb:36
@@ -799,5 +819,9 @@ msgid "Select the products that must be shown."
 msgstr "Escolha os produtos que serão exibidos."
 
 #: ../views/search/products.html.erb:1
+msgid "Search Results"
+msgstr "Resultados da Busca"
+
+#: ../views/search/products.html.erb:7
 msgid "Type words about the %s you're looking for"
 msgstr "Escreva palavras sobre o %s que você está procurando"

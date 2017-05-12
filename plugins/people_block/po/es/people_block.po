@@ -21,10 +21,9 @@ msgstr ""
 msgid "Clicking a friend takes you to his/her homepage"
 msgstr "Presionando en una persona te lleva a su página de inicio"
 
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] "{#} amigo"
-msgstr[1] "{#} amigos"
+#, fuzzy
+msgid "A plugin that adds a people block"
+msgstr "Un plugin que hace ésto y aquello."
 
 #, fuzzy
 msgid "Clicking a member takes you to his/her homepage"
@@ -38,31 +37,40 @@ msgstr "Miembros"
 msgid "{#} %s"
 msgstr "{#} grupos"
 
-msgid "Show join leave button"
-msgstr ""
-
-msgid "Clicking a person takes you to his/her homepage"
-msgstr "Presionando en una persona te lleva a su página de inicio"
-
 #, fuzzy
 msgid "{#} People"
 msgstr "Personas"
 
+#: ../lib/friends_block.rb:12
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "{#} amigo"
+msgstr[1] "{#} amigos"
+
+#: ../lib/members_block.rb:33
+msgid "Show join leave button"
+msgstr ""
+
+#: ../lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Presionando en una persona te lleva a su página de inicio"
+
+#: ../lib/people_block_base.rb:9
 msgid "Random people"
 msgstr "Gente aleatoria"
 
-#, fuzzy
-msgid "A plugin that adds a people block"
-msgstr "Un plugin que hace ésto y aquello."
-
+#: ../views/blocks/footers/friends.html.erb:1
 msgid "friends|View all"
 msgstr "Ver todos"
 
+#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr "Algunas sugerencias para ti"
 
+#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr "Ver todas las sugerencias"
 
+#: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr ""

@@ -18,76 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:26
 msgid "Custom form %s was successfully created."
 msgstr "Benutzerdefiniertes Formular %s wurde erfolgreich erstellt."
 
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:46
 msgid "Custom form %s was successfully updated."
 msgstr "Benutzerdefiniertes Formular %s wurde erfolgreich aktualisiert."
-
-msgid "Add a new select field"
-msgstr "Neues Auswahlfeld hinzufügen"
-
-msgid "Remove alternative"
-msgstr "Alternative entfernen"
-
-msgid "Remove field"
-msgstr "Feld entfernen"
-
-msgid "Checkbox"
-msgstr "Checkbox"
-
-msgid "Multiple Select"
-msgstr "Mehrfachauswahl"
-
-msgid "Preselected"
-msgstr "Vorgewählt"
-
-msgid "Add a new alternative"
-msgstr "Neue Alternative hinzufügen"
-
-msgid "Admission survey"
-msgstr "Zugangsumfrage"
-
-msgid "%{requestor} wants you to fill in some information before joining."
-msgstr ""
-"%{requestor} möchte von Ihnen, dass Sie vorm Beitreten ein paar "
-"Informationen ausfüllen."
-
-msgid ""
-"Before joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
-"Bevor Sie %{requestor} beitreten, möchte der Administrator dieser "
-"Organisation,\n"
-"      dass Sie noch weitere Informationen ausfüllen."
-
-msgid "%{requestor} wants you to fill in some further information."
-msgstr ""
-"%{requestor} möchte von Ihnen, dass Sie weitere Informationen ausfüllen."
-
-msgid "Default text:"
-msgstr "Standardtext:"
-
-msgid "Select field"
-msgstr "Feld auswählen"
-
-msgid "Pending submissions for %s"
-msgstr "Ausstehende Einreichungen für %s"
-
-msgid "There are no pending submissions for this form."
-msgstr "Es gibt keine ausstehenden Einreichungen für dieses Formular."
-
-msgid "Author"
-msgstr "Autor"
-
-msgid "Submission date"
-msgstr "Einreichungsdatum"
-
-msgid "Triggered after membership"
-msgstr "Ausgelöst nach Mitgliedschaft"
-
-msgid "Add a new text field"
-msgstr "Neues Textfeld hinzufügen"
 
 #: ../controllers/custom_forms_plugin_myprofile_controller.rb:49
 msgid "Form could not be updated"
@@ -116,6 +53,30 @@ msgstr "Ermöglicht die Erstellung von Formularen."
 #: ../lib/custom_forms_plugin.rb:16
 msgid "Manage Forms"
 msgstr "Formulare verwalten"
+
+#: ../lib/custom_forms_plugin/admission_survey.rb:9
+msgid "Admission survey"
+msgstr "Zugangsumfrage"
+
+#: ../lib/custom_forms_plugin/admission_survey.rb:13
+msgid "%{requestor} wants you to fill in some information before joining."
+msgstr ""
+"%{requestor} möchte von Ihnen, dass Sie vorm Beitreten ein paar "
+"Informationen ausfüllen."
+
+#: ../lib/custom_forms_plugin/admission_survey.rb:17
+msgid ""
+"Before joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr ""
+"Bevor Sie %{requestor} beitreten, möchte der Administrator dieser "
+"Organisation,\n"
+"      dass Sie noch weitere Informationen ausfüllen."
+
+#: ../lib/custom_forms_plugin/admission_survey.rb:22
+msgid "%{requestor} wants you to fill in some further information."
+msgstr ""
+"%{requestor} möchte von Ihnen, dass Sie weitere Informationen ausfüllen."
 
 #: ../lib/custom_forms_plugin/answer.rb:13
 msgid "is mandatory."
@@ -166,6 +127,10 @@ msgstr "Auswählen"
 msgid "Text field"
 msgstr "Textfeld"
 
+#: ../lib/custom_forms_plugin/helper.rb:62
+msgid "Select field"
+msgstr "Feld auswählen"
+
 #: ../lib/custom_forms_plugin/helper.rb:106
 msgid "Hold down Ctrl to select options"
 msgstr "Halte Strg, um Optionen auszuwählen"
@@ -195,6 +160,10 @@ msgstr "%{requestor} möchte von Ihnen, dass Sie weitere Felder ausfüllen."
 msgid "Mandatory"
 msgstr "Pflichtangabe"
 
+#: ../views/custom_forms_plugin_myprofile/_field.html.erb:15
+msgid "Remove field"
+msgstr "Feld entfernen"
+
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:30
 #: ../views/custom_forms_plugin_myprofile/index.html.erb:6
@@ -216,6 +185,10 @@ msgid "Triggered on membership request as requirement for approval"
 msgstr ""
 "Auf Mitgliedschaftsanfrage als Voraussetzung für die Zulassung ausgelöst"
 
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:16
+msgid "Triggered after membership"
+msgstr "Ausgelöst nach Mitgliedschaft"
+
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:36
 msgid "This field will be added automatically to your form"
@@ -226,6 +199,18 @@ msgstr "Dieses Feld wird automatisch zu Ihrem Formular hinzugefügt werden"
 msgid "Email"
 msgstr "E-Mail"
 
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:53
+msgid "Add a new text field"
+msgstr "Neues Textfeld hinzufügen"
+
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:54
+msgid "Add a new select field"
+msgstr "Neues Auswahlfeld hinzufügen"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
+msgid "Remove alternative"
+msgstr "Alternative entfernen"
+
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3
 msgid "Type:"
@@ -235,17 +220,42 @@ msgstr "Typ:"
 msgid "Radio"
 msgstr "Radio"
 
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
+msgid "Checkbox"
+msgstr "Checkbox"
+
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
 msgid "Drop down"
 msgstr "Dropdown"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
+msgid "Multiple Select"
+msgstr "Mehrfachauswahl"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
 msgid "Alternative"
 msgstr "Alternativ"
 
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:18
+msgid "Preselected"
+msgstr "Vorgewählt"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:25
+msgid "Add a new alternative"
+msgstr "Neue Alternative hinzufügen"
+
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
 msgid "One-line text"
 msgstr "Einzeiliger Text"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
+#, fuzzy
+msgid "Multiline text"
+msgstr "Einzeiliger Text"
+
+#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:11
+msgid "Default text:"
+msgstr "Standardtext:"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
 msgid "Maximum of 255 characters"
@@ -287,10 +297,13 @@ msgstr "Neues Formular hinzufügen"
 msgid "New form"
 msgstr "Neues Formular"
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
-msgid "Sort by"
-msgstr "Sortieren nach"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:3
+msgid "Pending submissions for %s"
+msgstr "Ausstehende Einreichungen für %s"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:6
+msgid "There are no pending submissions for this form."
+msgstr "Es gibt keine ausstehenden Einreichungen für dieses Formular."
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
@@ -304,10 +317,23 @@ msgstr "Nutzer"
 msgid "Time"
 msgstr "Zeit"
 
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
+msgid "Sort by"
+msgstr "Sortieren nach"
+
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:31
 msgid "Back to forms"
 msgstr "Zurück zu den Formularen"
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:10
+msgid "Submission date"
+msgstr "Einreichungsdatum"
+
+#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:14
+msgid "Author"
+msgstr "Autor"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
 msgid "Unauthenticated"

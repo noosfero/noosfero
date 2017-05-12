@@ -23,45 +23,58 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../controllers/sub_organizations_plugin_myprofile_controller.rb:25
 msgid "Sub-organizations updated"
 msgstr "Sub-organizações atualizadas"
 
+#: ../controllers/sub_organizations_plugin_myprofile_controller.rb:28
 msgid "Sub-organizations could not be updated"
 msgstr "As sub-organizações não puderam ser salvas"
 
+#: ../lib/related_organizations_block.rb:8
 msgid "Related Organizations"
 msgstr "Organizações Relacionadas"
 
+#: ../lib/related_organizations_block.rb:18
 msgid "\"{#} #{display_type[:title]} enterprise\""
 msgid_plural " \"{#} #{display_type[:title]} enterprises\""
 msgstr[0] "\"{#} #{display_type[:title]} empreendimento\""
 msgstr[1] "\"{#} #{display_type[:title]} empreendimentos\""
 
+#: ../lib/related_organizations_block.rb:20
 msgid "\"{#} #{display_type[:title]} community\""
 msgid_plural " \"{#} #{display_type[:title]} communities\""
 msgstr[0] "\"{#} #{display_type[:title]} comunidade\""
 msgstr[1] "\"{#} #{display_type[:title]} comunidades\""
 
+#: ../lib/related_organizations_block.rb:22
 msgid "\"{#} #{display_type[:title]} organization\""
 msgid_plural " \"{#} #{display_type[:title]} organizations\""
 msgstr[0] "\"{#} #{display_type[:title]} organização\""
 msgstr[1] "\"{#} #{display_type[:title]} organizações\""
 
+#: ../lib/related_organizations_block.rb:27
 msgid "This block displays %s organizations of this organization"
 msgstr "\"Este bloco mostra %s organizações desta organização\""
 
+#: ../lib/sub_organizations_plugin.rb:14
 msgid "Sub-groups"
 msgstr "Sub-grupos"
 
+#: ../lib/sub_organizations_plugin.rb:18
 msgid "Adds the ability for groups to have sub-groups."
 msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
 
+#: ../lib/sub_organizations_plugin.rb:23
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:1
 msgid "Manage sub-groups"
 msgstr "Gerenciar sub-grupos"
 
+#: ../lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
 msgstr "Requisição de paternidade"
 
+#: ../lib/sub_organizations_plugin/approve_paternity.rb:28
 msgid ""
 "%{requestor} wants to add this organization as a sub-organization of "
 "%{linked_subject}."
@@ -69,24 +82,31 @@ msgstr ""
 "%{requestor} quer associar esta organização como sub-organização de "
 "%{linked_subject}."
 
+#: ../lib/sub_organizations_plugin/relation.rb:25
 msgid "multi-level paternity is not allowed."
 msgstr "paternidade multi-nível não é permitido."
 
+#: ../views/box_organizer/_related_organizations_block.html.erb:2
 msgid "Type of organizations to be displayed"
 msgstr "Tipo de organizações para serem mostradas"
 
+#: ../views/box_organizer/_related_organizations_block.html.erb:3
 msgid "Both"
 msgstr "Ambos"
 
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:4
 msgid "Sub-groups awaiting approval:"
 msgstr "Sub-grupos aguardando aprovação:"
 
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:14
 msgid "Create a new sub-community"
 msgstr "Criar nova sub-comunidade"
 
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:15
 msgid "Register a new sub-enterprise"
 msgstr "Registrar um novo sub-empreendimento"
 
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:18
 msgid ""
 "Fill in the search field to find the groups that should be added as sub-"
 "group of this organization:"
@@ -94,14 +114,20 @@ msgstr ""
 "Preencha o campo de busca para encontrar grupos que devem ser adicionados "
 "como sub-grupo dessa organização:"
 
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:21
 msgid "Type in a search term for a group"
 msgstr "Digite um termo de pesquisa para um grupo"
 
+#: ../views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:4
+#: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:2
 msgid "%s's sub-%s"
 msgstr "sub-%s de %s"
 
+#: ../views/sub_organizations_plugin_profile/_full_related_organizations.html.erb:56
+#: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:14
 msgid "Add a new %s"
 msgstr "Adicionar uma nova %s"
 
+#: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "There are no sub-%s yet."
 msgstr "Não existe nenhuma sub-%s ainda"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-05 19:28+0000\n"
-"PO-Revision-Date: 2017-01-05 19:28+0000\n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -28,15 +28,15 @@ msgstr ""
 msgid "New Video"
 msgstr ""
 
-#: ../lib/video_plugin/video.rb:23 ../test/unit/video_test.rb:12
+#: ../lib/video_plugin/video.rb:23 ../test/unit/video_test.rb:13
 msgid "Video"
 msgstr ""
 
-#: ../lib/video_plugin/video.rb:31 ../test/unit/video_test.rb:20
+#: ../lib/video_plugin/video.rb:31 ../test/unit/video_test.rb:21
 msgid "Embedded Video"
 msgstr ""
 
-#: ../lib/video_plugin/video.rb:35 ../test/unit/video_test.rb:24
+#: ../lib/video_plugin/video.rb:35 ../test/unit/video_test.rb:25
 msgid "Display embedded videos."
 msgstr ""
 
@@ -51,22 +51,22 @@ msgid ""
 msgstr ""
 
 #: ../lib/video_plugin/video_gallery.rb:4
-#: ../lib/video_plugin/video_gallery.rb:29 ../test/unit/video_galery_test.rb:5
-#: ../test/unit/video_galery_test.rb:9
+#: ../lib/video_plugin/video_gallery.rb:29 ../test/unit/video_galery_test.rb:6
+#: ../test/unit/video_galery_test.rb:10
 msgid "Video Gallery"
 msgstr ""
 
-#: ../lib/video_plugin/video_gallery.rb:33 ../test/unit/video_galery_test.rb:13
+#: ../lib/video_plugin/video_gallery.rb:33 ../test/unit/video_galery_test.rb:14
 msgid "A gallery of link to videos that are hosted elsewhere."
 msgstr ""
 
 #: ../lib/video_plugin/video_gallery_block.rb:10
-#: ../test/unit/video_galery_block_test.rb:5
+#: ../test/unit/video_galery_block_test.rb:6
 msgid "Display a Video Gallery"
 msgstr ""
 
 #: ../lib/video_plugin/video_gallery_block.rb:14
-#: ../test/unit/video_galery_block_test.rb:9
+#: ../test/unit/video_galery_block_test.rb:10
 msgid "This block presents a video gallery"
 msgstr ""
 
@@ -74,9 +74,9 @@ msgstr ""
 msgid "(empty folder)"
 msgstr ""
 
-#: ../test/unit/video_galery_block_test.rb:39
-#: ../test/unit/video_galery_block_test.rb:55
-#: ../test/unit/video_galery_test.rb:22 ../test/unit/video_galery_test.rb:34
+#: ../test/unit/video_galery_block_test.rb:40
+#: ../test/unit/video_galery_block_test.rb:56
+#: ../test/unit/video_galery_test.rb:23 ../test/unit/video_galery_test.rb:35
 #: ../views/shared/_video_gallery.html.erb:11
 msgid "(empty video gallery)"
 msgstr ""

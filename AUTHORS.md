@@ -29,12 +29,14 @@ Athos Ribeiro <athoscribeiro@gmail.com>
 Aurelio A. Heckert <aurium@colivre.coop.br>
 Becca Cook <b.cook28@gmail.com>
 Braulio Bhavamitra <braulio@eita.org.br>
+Braulio Bhavamitra <braulio@prout.io>
 Brenddon Gontijo <brenddongontijo@msn.com>
 Caio Formiga <caio.formiga@gmail.com>
 Caio SBA <caio@colivre.coop.br>
 Caio Salgado <caio.csalgado@gmail.com>
 Caio Tiago Oliveira <caiotiago@colivre.coop.br>
 Carlos Andre de Souza <carlos.andre.souza@msn.com>
+Carlos Duque Guasch <c.duqueguasch@gmx.com>
 Carlos Morais <carlos88morais@gmail.com>
 Carlos Purificacao <carloseugenio@gmail.com>
 Christophe DANIEL <papaeng@gmail.com>
@@ -69,17 +71,22 @@ Gustavo Cavalcante <gustavo.cavalcante.oliveira@live.com>
 Gustavo Coelho <gust.rod.coelho@gmail.com>
 Gustavo Jaruga <darkshades@gmail.com>
 Gustavo Jaruga <darksshades@gmail.com>
+Hannes Olszewski <sorro17@gmail.com>
 Hebert Douglas <hebertdougl@gmail.com>
 Hugo Melo <hugo@riseup.net>
+Iago Rodrigues <iago006@hotmail.com>
 Iago Rodrigues <iago006@hotmailcom>
 Iolane Andrade <andrade.icaa@gmail.com>
 Iryna Pruitt <jdpruitt2807@prodigy.net>
 Isaac Canan <isaac@intelletto.com.br>
 Italo Valcy <italo@dcc.ufba.br>
+Italo Valcy <italovalcy@ufba.br>
 Izharul Haq <atoz.chevara.2013@gmail.com>
 Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Joenio Costa <joenio@colivre.coop.br>
 Joenio Costa <joenio@joenio.me>
+Josafá Souza Jr <josafa.souza@serpro.gov.br>
+Josafá Souza Jr <josafassj@gmail.com>
 Jose Pedro <1jpsneto@gmail.com>
 Josef Spillner <josef.spillner@tu-dresden.de>
 João M. M. da Silva <jaodsilv@linux.ime.usp.br>
@@ -137,6 +144,7 @@ Rafael Gomes <rafaelgomes@techfree.com.br>
 Rafael Martins <rmmartins@gmail.com>
 Rafael Reggiani Manzo <rr.manzo@gmail.com>
 Rafael de Souza Queiroz <querafael@live.com>
+Raphael Matos da Costa <mdc.rapha@gmail.com>
 Raphaël Rousseau <raph@r4f.org>
 Raquel <rcordioli@gmail.com>
 Raquel Lira <raquel.lira@gmail.com>
@@ -156,16 +164,20 @@ Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Kairala <thiagor.kairala@gmail.com>
 Thiago Ribeiro <thiagitosouza@hotmail.com>
 Thiago Zoroastro <thiago.zoroastro@bol.com.br>
+Thomas Zach <tz2@aon.at>
 Tuux <tuxa@galaxie.eu.org>
 Valessio Brito <contato@valessiobrito.com.br>
 Valet 322 <petymakar@gmail.com>
 Victor Costa <vfcosta@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
 Victor Navarro <victor.matias.navarro@gmail.com>
+Vinicius Borges <vbda123@gmail.com>
 Vinicius Brand <viniciuscb@gmail.com>
 Vitor Barbosa <vitornga15@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
+matheuslacerda <matheusmirandalacerda@gmail.com>
+mendesiasmin <mendesiasmin96@gmail.com>
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Álvaro Fernando <alvarofernandoms@gmail.com>
 Вадим Кардашьян <iosphone77@gmail.com>

@@ -352,14 +352,11 @@ msgstr ""
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
-#, fuzzy
 #~ msgid "Add a new option"
 #~ msgstr "Մեկ ձեռնարկություն"
 
-#, fuzzy
 #~ msgid "Are you sure you want to remove this field?"
 #~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
-#, fuzzy
 #~ msgid "Are you sure you want to remove this option?"
 #~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"

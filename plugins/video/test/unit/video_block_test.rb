@@ -12,7 +12,16 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "https://youtube.com/?v=XXXXX"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
+    assert_includes block.api_content, :url_formatted
     refute_includes block.api_content, :mime_type
+  end
+
+  should "api_content video_type is youtube" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "https://youtube.com/?v=XXXXX"
+    assert block.api_content[:video_type] == 'youtube'
+    assert_includes block.api_content[:url_formatted], 'www.youtube-nocookie.com'
   end
 
   should "is_youtube return true when the url contains http://youtube.com" do
@@ -108,7 +117,16 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "http://vimeo.com/98979"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
+    assert_includes block.api_content, :url_formatted
     refute_includes block.api_content, :mime_type
+  end
+
+  should "api_content video_type is vimeo" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "http://vimeo.com/98979"
+    assert block.api_content[:video_type] == 'vimeo'
+    assert_includes block.api_content[:url_formatted], '//player.vimeo.com/'
   end
 
   should "is_vimeo return true when the url contains http://vimeo.com" do
@@ -196,7 +214,16 @@ class VideoBlockTest < ActiveSupport::TestCase
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4"
     assert_includes block.api_content, :url
+    assert_includes block.api_content, :video_type
+    assert_includes block.api_content, :url_formatted
     assert_includes block.api_content, :mime_type
+  end
+
+  should "api_content video_type is video" do
+    block = VideoPlugin::VideoBlock.new
+    block.url = "http://www.vmsd.com/98979.mp4"
+    assert block.api_content[:video_type] == 'video'
+    assert_includes block.api_content[:url_formatted], block.url
   end
 
   should "is_video return true if url ends with mp4" do

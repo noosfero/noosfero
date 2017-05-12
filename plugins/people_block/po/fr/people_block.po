@@ -17,46 +17,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
 
+#: ../lib/friends_block.rb:8
 msgid "Clicking a friend takes you to his/her homepage"
 msgstr "Cliquer sur une personne vous amène à sa page personnelle"
 
+#: ../lib/friends_block.rb:12
 msgid "{#} friend"
 msgid_plural "{#} friends"
 msgstr[0] "{#} ami"
 msgstr[1] "{#} amis"
 
+#: ../lib/members_block.rb:11
 msgid "Clicking a member takes you to his/her homepage"
 msgstr "Cliquer sur un membre vous amène à sa page personnelle"
 
+#: ../lib/members_block.rb:15
 msgid "members"
 msgstr "membres"
 
+#: ../lib/members_block.rb:16
 msgid "{#} %s"
 msgstr "{#} %s"
 
+#: ../lib/members_block.rb:33
 msgid "Show join leave button"
 msgstr "Afficher le bouton quitter"
 
+#: ../lib/people_block.rb:8
 msgid "Clicking a person takes you to his/her homepage"
 msgstr "Cliquer sur une personne vous amène à sa page personnelle"
 
+#: ../lib/people_block.rb:12 ../lib/people_block_base.rb:17
 msgid "{#} People"
 msgstr "{#} Personne"
 
+#: ../lib/people_block_base.rb:9
 msgid "Random people"
 msgstr "Personnes au hasard"
 
+#: ../lib/people_block_plugin.rb:8
 msgid "A plugin that adds a people block"
 msgstr "Un plugin qui ajoute un bloc de personnes"
 
+#: ../views/blocks/footers/friends.html.erb:1
 msgid "friends|View all"
 msgstr "Voir tout"
 
+#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr "Quelques suggestions pour vous"
 
+#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr "Voir toutes les suggestions"
 
+#: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr "Filtrer par rôle :"

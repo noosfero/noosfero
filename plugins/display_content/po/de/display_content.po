@@ -18,9 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
+#: ../lib/display_content_block.rb:35
 msgid "Display your contents"
 msgstr "Ihre Inhalte anzeigen"
 
+#: ../lib/display_content_block.rb:39
 msgid ""
 "This block displays articles chosen by you. You can edit the block to select "
 "which of your articles is going to be displayed in the block."
@@ -29,29 +31,21 @@ msgstr ""
 "ändern, um auszuwählen, welcher Ihrer Artikel in diesem Block angezeigt "
 "werden soll."
 
+#: ../lib/display_content_block.rb:44
 msgid "Publish date"
 msgstr "Veröffentlichungsdatum"
-
-msgid "more"
-msgstr "mehr"
-
-msgid "Display content types:"
-msgstr "Inhaltstypen anzeigen:"
-
-msgid "Choose by Content Type"
-msgstr "Nach Inhaltstyp auswählen"
 
 #: ../lib/display_content_block.rb:46
 msgid "Abstract"
 msgstr "Zusammenfassung"
 
 #: ../lib/display_content_block.rb:163
-msgid "%{month}/%{day}"
-msgstr "%{day}.%{month}."
-
-#: ../lib/display_content_block.rb:163
 msgid "%{month}/%{day}/%{year}"
 msgstr "%{day}.%{month}.%{year}"
+
+#: ../lib/display_content_block.rb:163
+msgid "%{month}/%{day}"
+msgstr "%{day}.%{month}."
 
 #: ../lib/display_content_block.rb:166
 msgid "%{month_name} %{day}, %{year}"
@@ -68,6 +62,14 @@ msgid ""
 msgstr ""
 "Ein Plugin, das einen Block hinzufügt, welcher einen von Ihnen gewählten "
 "Inhalt anzeigt."
+
+#: ../views/box_organizer/_choose_by_content_type.html.erb:1
+msgid "Display content types:"
+msgstr "Inhaltstypen anzeigen:"
+
+#: ../views/box_organizer/_choose_by_content_type.html.erb:7
+msgid "more"
+msgstr "mehr"
 
 #: ../views/box_organizer/_choose_directly.html.erb:5
 msgid "Dinamically load children of selected folders"
@@ -90,6 +92,10 @@ msgstr "Wähle, welcher Inhalt angezeigt werden soll:"
 #: ../views/box_organizer/_display_content_block.html.erb:23
 msgid "Choose directly"
 msgstr "Wähle direkt"
+
+#: ../views/box_organizer/_display_content_block.html.erb:24
+msgid "Choose by Content Type"
+msgstr "Nach Inhaltstyp auswählen"
 
 #: ../views/box_organizer/_display_content_block.html.erb:28
 msgid "Order by:"

@@ -372,4 +372,21 @@ class MembersBlockViewTest < ActionView::TestCase
     assert_equal 5, json["#"]
   end
 
+  should 'not list templates as community members' do
+    env = fast_create(Environment)
+    env.boxes << Box.new
+    community = fast_create(Community)
+    p1 = fast_create(Person)
+    community.add_member(p1)
+    identifier = "fake_template"
+    template = User.new(:login => identifier, :email => identifier+'@templates.noo', :password => identifier, :password_confirmation => identifier, :person_data => {:name => identifier, :is_template => true}, :environment_id => env.id)
+    template.save!
+    block = MembersBlock.new
+    community.add_member(template.person)
+    block.stubs(:owner).returns(community)
+    env.boxes.first.blocks << block
+    block.save!
+    assert_equal 1, block.profile_list.size
+  end
+
 end

@@ -35,15 +35,15 @@ msgstr ""
 msgid "New Video"
 msgstr "Novo Vídeo"
 
-#: ../lib/video_plugin/video.rb:23 ../test/unit/video_test.rb:12
+#: ../lib/video_plugin/video.rb:23 ../test/unit/video_test.rb:13
 msgid "Video"
 msgstr "Vídeo"
 
-#: ../lib/video_plugin/video.rb:31 ../test/unit/video_test.rb:20
+#: ../lib/video_plugin/video.rb:31 ../test/unit/video_test.rb:21
 msgid "Embedded Video"
 msgstr "Vídeo Embutido"
 
-#: ../lib/video_plugin/video.rb:35 ../test/unit/video_test.rb:24
+#: ../lib/video_plugin/video.rb:35 ../test/unit/video_test.rb:25
 msgid "Display embedded videos."
 msgstr "Mostrar vídeos embutidos."
 
@@ -60,23 +60,23 @@ msgstr ""
 "(mp4, ogg, ogv e webm)"
 
 #: ../lib/video_plugin/video_gallery.rb:4
-#: ../lib/video_plugin/video_gallery.rb:29 ../test/unit/video_galery_test.rb:5
-#: ../test/unit/video_galery_test.rb:9
+#: ../lib/video_plugin/video_gallery.rb:29 ../test/unit/video_galery_test.rb:6
+#: ../test/unit/video_galery_test.rb:10
 msgid "Video Gallery"
 msgstr "Galeria de Vídeos"
 
 #: ../lib/video_plugin/video_gallery.rb:33
-#: ../test/unit/video_galery_test.rb:13
+#: ../test/unit/video_galery_test.rb:14
 msgid "A gallery of link to videos that are hosted elsewhere."
 msgstr "Uma galeria de links para vídeos que estão hospedados em outro lugar."
 
 #: ../lib/video_plugin/video_gallery_block.rb:10
-#: ../test/unit/video_galery_block_test.rb:5
+#: ../test/unit/video_galery_block_test.rb:6
 msgid "Display a Video Gallery"
 msgstr "Mostrar uma Galeria de Vídeos"
 
 #: ../lib/video_plugin/video_gallery_block.rb:14
-#: ../test/unit/video_galery_block_test.rb:9
+#: ../test/unit/video_galery_block_test.rb:10
 msgid "This block presents a video gallery"
 msgstr "Esse bloco apresenta uma galeria de vídeos"
 
@@ -84,9 +84,9 @@ msgstr "Esse bloco apresenta uma galeria de vídeos"
 msgid "(empty folder)"
 msgstr "(pasta vazia)"
 
-#: ../test/unit/video_galery_block_test.rb:39
-#: ../test/unit/video_galery_block_test.rb:55
-#: ../test/unit/video_galery_test.rb:22 ../test/unit/video_galery_test.rb:34
+#: ../test/unit/video_galery_block_test.rb:40
+#: ../test/unit/video_galery_block_test.rb:56
+#: ../test/unit/video_galery_test.rb:23 ../test/unit/video_galery_test.rb:35
 #: ../views/shared/_video_gallery.html.erb:11
 msgid "(empty video gallery)"
 msgstr "(galeria de vídeos vazia)"

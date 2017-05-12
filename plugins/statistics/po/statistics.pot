@@ -6,9 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,75 +18,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/statistics/lib/statistics_block.rb:24
+#: ../lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr ""
 
-#: plugins/statistics/lib/statistics_block.rb:46
+#: ../lib/statistics_block.rb:46
 msgid "This block presents some statistics about your context."
 msgstr ""
 
-#: plugins/statistics/lib/statistics_plugin.rb:10
-msgid ""
-"A plugin that adds a block where you can see statistics of it's context."
+#: ../lib/statistics_plugin.rb:10
+msgid "A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:1
-msgid "Show user counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:4
-msgid "Show community counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:8
-msgid "Show enterprise counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:12
-msgid "Show product counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:16
-msgid "Show category counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:20
-msgid "Show tag counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:24
-msgid "Show comment counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:28
-msgid "Show hit counter"
-msgstr ""
-
-#: plugins/statistics/views/box_organizer/_statistics_block.html.erb:34
-msgid "Show counter for communities with template %s"
-msgstr ""
-
-#: plugins/statistics/views/statistics_block.html.erb:7
+#: ../views/blocks/statistics.html.erb:7
 msgid "users"
 msgstr ""
 
-#: plugins/statistics/views/statistics_block.html.erb:10
+#: ../views/blocks/statistics.html.erb:10
 msgid "enterprises"
 msgstr ""
 
-#: plugins/statistics/views/statistics_block.html.erb:13
+#: ../views/blocks/statistics.html.erb:13
 msgid "products"
 msgstr ""
 
-#: plugins/statistics/views/statistics_block.html.erb:16
+#: ../views/blocks/statistics.html.erb:16
 msgid "communities"
 msgstr ""
 
-#: plugins/statistics/views/statistics_block.html.erb:19
+#: ../views/blocks/statistics.html.erb:19
 msgid "categories"
 msgstr ""
 
-#: plugins/statistics/views/statistics_block.html.erb:28
+#: ../views/blocks/statistics.html.erb:28
 msgid "hits"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:1
+msgid "Show user counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:4
+msgid "Show community counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:8
+msgid "Show enterprise counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:12
+msgid "Show product counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:16
+msgid "Show category counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:20
+msgid "Show tag counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:24
+msgid "Show comment counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:28
+msgid "Show hit counter"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:34
+msgid "Show counter for communities with template %s"
 msgstr ""

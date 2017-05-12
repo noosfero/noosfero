@@ -38,33 +38,38 @@ msgstr "Անդամներ"
 msgid "{#} %s"
 msgstr "%{num} խմբեր"
 
-msgid "Show join leave button"
-msgstr ""
-
-msgid "Clicking a person takes you to his/her homepage"
-msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
-
 #, fuzzy
-msgid "{#} People"
-msgstr "Մարդիկ"
-
-#, fuzzy
-msgid "Random people"
-msgstr "Բոլոր մարդիկ"
+msgid "friends|View all"
+msgstr "Տեսնել բոլորին"
 
 #, fuzzy
 msgid "A plugin that adds a people block"
 msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
 #, fuzzy
-msgid "friends|View all"
-msgstr "Տեսնել բոլորին"
+msgid "Random people"
+msgstr "Բոլոր մարդիկ"
 
+#, fuzzy
+msgid "{#} People"
+msgstr "Մարդիկ"
+
+#: ../lib/members_block.rb:33
+msgid "Show join leave button"
+msgstr ""
+
+#: ../lib/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
+
+#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr ""
 
+#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr ""
 
+#: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr ""

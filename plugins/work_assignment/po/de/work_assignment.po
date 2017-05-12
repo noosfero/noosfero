@@ -18,45 +18,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
+#: ../lib/work_assignment_plugin.rb:8
 msgid "New kind of content for organizations."
 msgstr "Neue Art von Beiträgen für Organisationen."
 
+#: ../lib/work_assignment_plugin.rb:62
 msgid "Notification successfully sent"
 msgstr "Benachrichtigung erfolgreich versandt"
 
+#: ../lib/work_assignment_plugin.rb:64
 msgid "Notification not sent"
 msgstr "Benachrichtigung nicht versandt"
 
-msgid "Subject"
-msgstr "Betreff"
-
-msgid "Message"
-msgstr "Nachricht"
-
-msgid "e-Mail"
-msgstr "E-Mail"
-
+#: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Name"
 msgstr "Name"
 
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr "E-Mail"
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr "Betreff"
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Message"
+msgstr "Nachricht"
+
+#: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"
 msgstr "Einreichungsdatum"
 
+#: ../lib/work_assignment_plugin/helper.rb:10
 msgid "Versions"
 msgstr "Versionen"
 
+#: ../lib/work_assignment_plugin/helper.rb:24
 msgid "View all versions"
 msgstr "Zeige alle Versionen"
 
+#: ../lib/work_assignment_plugin/helper.rb:70
 msgid "Delete"
 msgstr "Löschen"
 
+#: ../lib/work_assignment_plugin/helper.rb:88
 msgid "Edit"
 msgstr "Ändern"
 
+#: ../lib/work_assignment_plugin/work_assignment.rb:16
 msgid "Work Assignment"
 msgstr "Zuweisung von Arbeiten"
 
+#: ../lib/work_assignment_plugin/work_assignment.rb:20
 msgid ""
 "Defines a work to be done by the members and receives their submissions "
 "about this work."
@@ -64,6 +78,7 @@ msgstr ""
 "Definiert ein Arbeit, die von den Mitgliedern erledigt werden muss, und "
 "empfängt diese Arbeit."
 
+#: ../views/cms/_notify_text_field.html.erb:1
 msgid ""
 "If you want to notify someone about this action, fill the field below with "
 "the emails of the destinies, separated by comma."
@@ -72,20 +87,26 @@ msgstr ""
 "nachfolgende Feld mit den E-Mail-Adressen der Adressaten aus, durch Kommata "
 "getrennt."
 
+#: ../views/cms/_notify_text_field.html.erb:3
 msgid "Send notification to: "
 msgstr "Sende Benachrichtigung an: "
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:3
 msgid "Default email message:"
 msgstr "Standart E-Mail-Nachricht:"
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:5
 msgid "The submissions can be viewed by anyone"
 msgstr "Die Einreichungen können von jedem gesehen werden"
 
+#: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"
 msgstr "Nutzern erlauben, die Privatsphäre der Einreichungen zu verändern?"
 
+#: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
 msgid "Save"
 msgstr "Speichern"
 
+#: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:17
 msgid "Cancel"
 msgstr "Abbrechen"

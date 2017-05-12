@@ -1,8 +1,15 @@
 # encoding: UTF-8
 
-$version = Noosfero::VERSION
+$version = Noosfero::VERSION.split('-')[0]
+$last_version = $version
 
 namespace :noosfero do
+
+  def pendencies_on_changelog
+    sh "git status | grep 'CHANGELOG.md' > /dev/null" do |ok, res|
+      return {:ok => !ok, :res => res}
+    end
+  end
 
   def pendencies_on_authors
     sh "git status | grep 'AUTHORS.md' > /dev/null" do |ok, res|
@@ -94,6 +101,23 @@ EOF
     end
   end
 
+  desc 'updates the changelog file'
+  task :changelog do
+    begin
+      File.open("CHANGELOG.md.tmp", 'w') do |output|
+        output.puts "# #{$version}\n"
+        output.puts `./script/changelog #{$last_version}`
+        output.puts "\n"
+        output.puts `cat CHANGELOG.md`
+      end
+      `mv CHANGELOG.md.tmp CHANGELOG.md`
+      commit_changes(['CHANGELOG.md'], 'Updating changelog file') if !pendencies_on_changelog[:ok]
+    rescue Exception => e
+      rm_f 'CHANGELOG.md.tmp'
+      raise e
+    end
+  end
+
   def ask(message, default = nil, default_message = nil, symbol = ':')
     default_choice = default ? " [#{default_message || default}]#{symbol} " : "#{symbol} "
     print message + default_choice
@@ -157,7 +181,7 @@ EOF
 
     puts "Current version: #{$version}"
     new_version = ask("Version to release", new_version)
-    release_message = ask("Release message")
+    release_message = ask("Release message", "Noosfero #{new_version}")
 
     sh 'git checkout debian/changelog lib/noosfero/version.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{new_version}'/\" lib/noosfero/version.rb"
@@ -222,6 +246,8 @@ EOF
     end
 
     Rake::Task['noosfero:set_version'].invoke(target)
+
+    Rake::Task['noosfero:changelog'].invoke
 
     puts "==> Checking tags..."
     Rake::Task['noosfero:check_tag'].invoke

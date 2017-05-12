@@ -12,27 +12,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.9-dev\n"
 
+#: ../lib/site_tour_plugin.rb:8
 msgid "A site tour to show users how to use the application."
 msgstr "Um plugin para apresentar aos usuários um tour da aplicação"
 
+#: ../lib/site_tour_plugin/tour_block.rb:3
 msgid "Click to start tour!"
 msgstr "Clique para iniciar o tour!"
 
+#: ../lib/site_tour_plugin/tour_block.rb:15
 msgid "Site Tour Block"
 msgstr "Bloco para Site Tour"
 
+#: ../lib/site_tour_plugin/tour_block.rb:19
 msgid "Configure a step-by-step tour."
 msgstr "Configure o passo a passo do tour."
 
+#: ../views/blocks/tour.html.erb:4
 msgid "Help"
 msgstr "Ajuda"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:4
 msgid "Display help button"
 msgstr "Mostrar o botão de ajuda"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:8
 msgid "Tooltip Actions"
 msgstr "Ações do Tooltip"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:9
 msgid ""
 "Special fields for description: {profile.name}, {profile.identifier}, "
 "{profile.url}."
@@ -40,36 +48,50 @@ msgstr ""
 "Campos especiais para a descrição: {profile.name}, {profile.identifier}, "
 "{profile.url}"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:11
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:29
 msgid "Group Name"
 msgstr "Nome do Grupo"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:12
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:30
 msgid "Selector"
 msgstr "Seletor"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:13
 msgid "Description"
 msgstr "Descrição"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:23
 msgid "New Tooltip"
 msgstr "Novo Tooltip"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:27
 msgid "Group Triggers"
 msgstr "Gatilhos dos Grupos"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:31
 msgid "Event"
 msgstr "Evento"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:41
 msgid "New Group Trigger"
 msgstr "Novo Gatilho de Grupo"
 
+#: ../views/box_organizer/site_tour_plugin/_tour_block_group_item.html.erb:15
+#: ../views/box_organizer/site_tour_plugin/_tour_block_item.html.erb:13
 msgid "Delete"
 msgstr "Remover"
 
+#: ../views/site_tour_plugin_admin/index.html.erb:1
 msgid "Site Tour Settings"
 msgstr "Configurações do Site Tour"
 
+#: ../views/site_tour_plugin_admin/index.html.erb:5
 msgid "Tooltips (CSV format: language, group name, selector, description)"
 msgstr "Tooltips (Formato CSV: idioma, nome do grupo, seletor, descrição)"
 
+#: ../views/site_tour_plugin_admin/index.html.erb:6
 msgid ""
 "Group Triggers (CSV format: group name, selector, event (e.g. mouseenter, "
 "click))"
@@ -77,17 +99,22 @@ msgstr ""
 "Gatilhos dos grupos (Formato CSV: nome do grupo, seletor, evento (e.g. "
 "mouseenter, click))"
 
+#: ../views/site_tour_plugin_admin/index.html.erb:9
 msgid "Save"
 msgstr "Salvar"
 
+#: ../views/tour_actions.html.erb:16
 msgid "Next"
 msgstr "Próximo"
 
+#: ../views/tour_actions.html.erb:17
 msgid "Back"
 msgstr "Voltar"
 
+#: ../views/tour_actions.html.erb:18
 msgid "Skip"
 msgstr "Pular"
 
+#: ../views/tour_actions.html.erb:19
 msgid "Finish"
 msgstr "Fim"

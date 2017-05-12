@@ -13,6 +13,6 @@ class PeopleBlock < PeopleBlockBase
   end
 
   def profiles
-    owner.people
+    owner.people.no_templates
   end
 end

@@ -16,20 +16,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-msgid "Statistics for %s"
-msgstr "Վիճակագրություն"
+#, fuzzy
+msgid "Show user counter"
+msgstr "Վայր"
 
 #, fuzzy
 msgid "This block presents some statistics about your context."
 msgstr "Ձեր նախընտրած ձեռնարկությունները ցուցադրող բաժին"
 
-msgid ""
-"A plugin that adds a block where you can see statistics of it's context."
-msgstr ""
+#, fuzzy
+msgid "Show hit counter"
+msgstr "Ամբողջ բովանդակությունը"
 
 #, fuzzy
-msgid "Show user counter"
-msgstr "Վայր"
+msgid "users"
+msgstr "մասնակից"
+
+#, fuzzy
+msgid "enterprises"
+msgstr "Կազմակերպություն Ձեռնարկություն"
+
+#, fuzzy
+msgid "Show comment counter"
+msgstr "Մեկնաբանությունների հաշվարկում"
+
+#, fuzzy
+msgid "communities"
+msgstr "Համայնքներ"
+
+#, fuzzy
+msgid "categories"
+msgstr "Կատեգորիաներ"
+
+#, fuzzy
+msgid "Show tag counter"
+msgstr "Ամբողջ բովանդակությունը"
+
+#, fuzzy
+msgid "Show category counter"
+msgstr "Նոր կատեգորիա"
 
 #, fuzzy
 msgid "Show community counter"
@@ -43,43 +68,23 @@ msgstr "%s-ի բոլոր ձեռնարկությունները"
 msgid "Show product counter"
 msgstr "Ամբողջ բովանդակությունը"
 
-#, fuzzy
-msgid "Show category counter"
-msgstr "Նոր կատեգորիա"
+#: ../lib/statistics_block.rb:24
+msgid "Statistics for %s"
+msgstr "Վիճակագրություն"
 
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Ամբողջ բովանդակությունը"
-
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Մեկնաբանությունների հաշվարկում"
-
-#, fuzzy
-msgid "Show hit counter"
-msgstr "Ամբողջ բովանդակությունը"
-
-msgid "Show counter for communities with template %s"
+#: ../lib/statistics_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 
-#, fuzzy
-msgid "users"
-msgstr "մասնակից"
-
-#, fuzzy
-msgid "enterprises"
-msgstr "Կազմակերպություն Ձեռնարկություն"
-
+#: ../views/blocks/statistics.html.erb:13
 msgid "products"
 msgstr ""
 
-#, fuzzy
-msgid "communities"
-msgstr "Համայնքներ"
-
-#, fuzzy
-msgid "categories"
-msgstr "Կատեգորիաներ"
-
+#: ../views/blocks/statistics.html.erb:28
 msgid "hits"
+msgstr ""
+
+#: ../views/box_organizer/_statistics_block.html.erb:34
+msgid "Show counter for communities with template %s"
 msgstr ""

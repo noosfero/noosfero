@@ -18,59 +18,77 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
+#: ../lib/statistics_block.rb:24
 msgid "Statistics for %s"
 msgstr "Statistik für %s"
 
+#: ../lib/statistics_block.rb:46
 msgid "This block presents some statistics about your context."
 msgstr "Dieser Block stellt einige Statistiken über Ihre Umgebung dar."
 
+#: ../lib/statistics_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 "Ein Plugin, das einen Block hinzufügt, der die Statistiken seines Kontexts "
 "anzeigt."
 
-msgid "Show user counter"
-msgstr "Anzahl der Nutzer anzeigen"
-
-msgid "Show community counter"
-msgstr "Anzahl der Communities anzeigen"
-
-msgid "Show enterprise counter"
-msgstr "Anzahl der Unternehmen anzeigen"
-
-msgid "Show product counter"
-msgstr "Anzahl der Produkte anzeigen"
-
-msgid "Show category counter"
-msgstr "Anzahl der Kategorien anzeigen"
-
-msgid "Show tag counter"
-msgstr "Anzahl der Schlagworte anzeigen"
-
-msgid "Show comment counter"
-msgstr "Anzahl der Kommentare anzeigen"
-
-msgid "Show hit counter"
-msgstr "Anzahl der Treffer anzeigen"
-
-msgid "Show counter for communities with template %s"
-msgstr "Zahl der Communities mit der Vorlage %s anzeigen"
-
+#: ../views/blocks/statistics.html.erb:7
 msgid "users"
 msgstr "Nutzer"
 
+#: ../views/blocks/statistics.html.erb:10
 msgid "enterprises"
 msgstr "Unternehmen"
 
+#: ../views/blocks/statistics.html.erb:13
 msgid "products"
 msgstr "Produkte"
 
+#: ../views/blocks/statistics.html.erb:16
 msgid "communities"
 msgstr "Communities"
 
+#: ../views/blocks/statistics.html.erb:19
 msgid "categories"
 msgstr "Kategorien"
 
+#: ../views/blocks/statistics.html.erb:28
 msgid "hits"
 msgstr "Treffer"
+
+#: ../views/box_organizer/_statistics_block.html.erb:1
+msgid "Show user counter"
+msgstr "Anzahl der Nutzer anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:4
+msgid "Show community counter"
+msgstr "Anzahl der Communities anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:8
+msgid "Show enterprise counter"
+msgstr "Anzahl der Unternehmen anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:12
+msgid "Show product counter"
+msgstr "Anzahl der Produkte anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:16
+msgid "Show category counter"
+msgstr "Anzahl der Kategorien anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:20
+msgid "Show tag counter"
+msgstr "Anzahl der Schlagworte anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:24
+msgid "Show comment counter"
+msgstr "Anzahl der Kommentare anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:28
+msgid "Show hit counter"
+msgstr "Anzahl der Treffer anzeigen"
+
+#: ../views/box_organizer/_statistics_block.html.erb:34
+msgid "Show counter for communities with template %s"
+msgstr "Zahl der Communities mit der Vorlage %s anzeigen"

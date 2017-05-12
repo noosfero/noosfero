@@ -1,0 +1,26 @@
+<div class='public-page'>
+
+  <div class='public-page-header'>
+    <span class='public-page-profile-image'>
+      <%= profile_image(@profile) %>
+    </span>
+    <span class='public-page-profile-name'>
+      <%= @profile.name %>
+    </span>
+  </div>
+
+  <div class='public-page-content'>
+    <%= @settings.public_page_content.try(:html_safe) %>
+  </div>
+
+  <div class='public-page-call'>
+    <span>
+      <%= _('This profile is not public. Only authenticated users can join, '\
+            'see its information, read and publish contents, and interact '\
+            'with its members.') %>
+    </span>
+
+    <%= button(:add, _('Do you want to find out more? Sign in and join this organization'),
+               { controller: 'account', action: 'login' }) %>
+  </div>
+</div>
