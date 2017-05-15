@@ -1,3 +1,9 @@
+# 1.8.1
+  * Bumping version 1.8.1 (Rodrigo Souto) [1c40929]
+  * debian-package: create rails binaries (Rodrigo Souto) [253ab2c]
+  * gemspec: avoid use of git (Rodrigo Souto) [02fc630]
+  * debian-package: add rspec on control (Rodrigo Souto) [6f4990c]
+
 # 1.8.0
   * Bumping version 1.8.0 (Rodrigo Souto) [fc45320]
   * Updating authors file (Rodrigo Souto) [3922c14]
