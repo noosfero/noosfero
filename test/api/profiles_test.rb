@@ -413,4 +413,20 @@ class ProfilesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal some_person.id, json['id']
   end
+
+  should "return profile theme when it is defined" do
+    some_person = fast_create(Person, theme: 'person-theme')
+    get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 'person-theme', json['theme']
+  end
+
+  should "return environment theme when profile theme is not defined" do
+    some_person = fast_create(Person)
+    environment = some_person.environment
+    environment.update_attribute(:theme, 'environment-theme')
+    get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 'environment-theme', json['theme']
+  end
 end

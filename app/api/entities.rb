@@ -148,7 +148,9 @@ module Api
         Entities.permissions_for_entity(profile, options[:current_person],
         :allow_post_content?, :allow_edit?, :allow_destroy?)
       end
-      expose :theme
+      expose :theme do |profile, options|
+        profile.theme || profile.environment.theme
+      end
     end
 
     class UserBasic < Entity
