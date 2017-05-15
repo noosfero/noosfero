@@ -70,6 +70,14 @@ fi
 
 /etc/init.d/noosfero setup
 
+# Create rails binaries
+if [ ! -d /usr/share/noosfero/bin ]; then
+  mkdir -p /usr/share/noosfero/bin
+  chown -R noosfero /usr/share/noosfero/bin
+  cd /usr/share/noosfero && su noosfero -c "rake rails:update:bin"
+  chown -R root /usr/share/noosfero/bin
+fi
+
 # dbconfig-common magic
 . /usr/share/dbconfig-common/dpkg/postinst
 dbc_go noosfero $@
