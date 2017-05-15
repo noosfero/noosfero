@@ -406,4 +406,11 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Name can't be blank"}]}), json["errors"]
   end
 
+  should 'get profile from identifier with dot' do
+    some_person = fast_create(Person, identifier: 'profile.test')
+    params[:key] = :identifier
+    get "/api/v1/profiles/profile.test?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal some_person.id, json['id']
+  end
 end

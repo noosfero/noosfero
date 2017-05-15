@@ -11,7 +11,7 @@ module Api
           present profiles, :with => Entities::Profile, :current_person => current_person
         end
 
-        get ':id' do
+        get ':id', requirements: { id: /#{Noosfero.identifier_format}/ } do
           profiles = environment.profiles
           profiles = profiles.visible
           key = params[:key].to_s == "identifier" ? :identifier : :id
