@@ -9,16 +9,21 @@ notifications:
 # Ensure Container-based environment for faster boot times.
 # See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
 sudo: false
+
+##
 # Stick with precise as trusty is at least 50% slower.
+#
 #dist: trusty
 
-cache: bundler
+jdk:
+  # openjdk8 isn't available on precise
+  - oraclejdk8
 
 language: ruby
 rvm:
   - 2.4.1
-jdk:
-  - openjdk8
+
+cache: bundler
 
 services:
   - postgresql
