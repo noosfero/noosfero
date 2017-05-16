@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'spaminator_plugin/mailer'
 
 class SpaminatorPlugin::Spaminator
 
@@ -178,4 +177,3 @@ class SpaminatorPlugin::Spaminator
     @report[:failed][kind.to_sym] << failed.id
   end
 end
-
