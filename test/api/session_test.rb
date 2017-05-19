@@ -179,9 +179,8 @@ class SessionTest < ActiveSupport::TestCase
     assert_equal Task::Status::ACTIVE, task.reload.status
     assert !user.reload.authenticated?('secret')
     json = JSON.parse(last_response.body)
-    assert_match /doesn't match/, json['message']
-
-    assert_equal 400, last_response.status
+    assert_match /doesn't match/, json['errors']['password_confirmation'].first['full_message']
+    assert_equal 422, last_response.status
   end
 
   should 'render not found when provide a wrong code on password change' do
