@@ -1,7 +1,7 @@
 class CustomRoutesPlugin < Noosfero::Plugin
 
   def self.plugin_name
-    "Custom Routes Plugin"
+    _("Custom Routes")
   end
 
   def self.plugin_description

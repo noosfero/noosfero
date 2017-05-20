@@ -40,4 +40,27 @@ class RouteTest < ActiveSupport::TestCase
     assert route.valid?
   end
 
+  should 'destroy a route and reload the mappings' do
+    CustomRoutesPlugin::CustomRoutes.expects(:reload).returns(true).at_least(2)
+    route = CustomRoutesPlugin::Route.create(
+      source_url: '/source',
+      target_url: '/',
+      environment_id: Environment.default.id
+    )
+    route.destroy
+  end
+
+  should 'save route info in a hash' do
+    CustomRoutesPlugin::CustomRoutes.expects(:reload).returns(true)
+    ActionDispatch::Routing::RouteSet.any_instance.stubs(:recognize_path)
+                                     .returns({ route: 'info' })
+
+    route = CustomRoutesPlugin::Route.create(
+      source_url: '/source',
+      target_url: '/',
+      environment_id: Environment.default.id
+    )
+    assert_equal 'info', route.metadata.symbolize_keys[:route]
+  end
+
 end
