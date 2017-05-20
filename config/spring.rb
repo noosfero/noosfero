@@ -3,7 +3,7 @@ paths = %w(
   .env.local
   .ruby-version
   .rbenv-vars
-  lib
+  lib/**
   tmp/restart.txt
   tmp/caching-dev.txt
   db/migrate
