@@ -121,8 +121,16 @@ module Noosfero
     }
     config.session_store :active_record_store, key: '_noosfero_session'
 
-    config.paths['db/migrate'].concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/db/migrate")
-    config.i18n.load_path.concat Dir.glob("#{Rails.root}/{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
+    config.paths['config/routes.rb'] =
+      Dir['config/routes/*.rb'] +
+      Dir['config/routes/profile/*.rb'] +
+      Dir['config/routes/myprofile/*.rb'] +
+      Dir['config/routes/admin/*.rb'] +
+      Dir['{baseplugins,config/plugins}/*/config/routes**.rb'] +
+      Dir['config/routes/cms/*.rb']
+
+    config.paths['db/migrate'].concat Dir.glob("{baseplugins,config/plugins}/*/db/migrate")
+    config.i18n.load_path.concat Dir.glob("{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
 
     config.middleware.use Noosfero::MultiTenancy::Middleware
 

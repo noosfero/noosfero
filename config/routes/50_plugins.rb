@@ -1,3 +1,5 @@
+paths              = {}
+profile_format     = /#{Noosfero.identifier_format}/i
 plugins_root       = if Rails.env.test? then 'plugins' else '{baseplugins,config/plugins}' end
 prefixes_by_folder = {
   public:    'plugin',
@@ -17,8 +19,6 @@ Dir.glob Rails.root.join plugins_root, '*', 'controllers' do |controllers_dir|
     hash
   end
 
-  paths          = {}
-  profile_format = /#{Noosfero.identifier_format}/i
 
   controllers_by_folder.each do |folder, controllers|
     controllers.each do |controller|
@@ -59,6 +59,9 @@ Dir.glob Rails.root.join plugins_root, '*', 'controllers' do |controllers_dir|
       profile:    profile_format,
     },
   )
+end
+
+Noosfero::Application.routes.draw do
 
   paths.each do |url, opts|
     controller_klass = "#{opts[:controller]}_controller".camelize.constantize rescue nil
@@ -66,8 +69,5 @@ Dir.glob Rails.root.join plugins_root, '*', 'controllers' do |controllers_dir|
 
     match url, opts
   end
-end
 
-Dir.glob Rails.root.join plugins_root, '*', 'config', 'routes.rb' do |route|
-  eval IO.read(route), binding, route
 end

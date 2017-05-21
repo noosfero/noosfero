@@ -1,1 +1,2 @@
-CustomRoutesPlugin::CustomRoutes.load if defined?(CustomRoutesPlugin)
+CustomRoutesPlugin::CustomRoutes.load
+

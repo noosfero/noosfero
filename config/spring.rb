@@ -3,6 +3,7 @@ paths = %w(
   .env.local
   .ruby-version
   .rbenv-vars
+  config/**
   lib/**
   tmp/restart.txt
   tmp/caching-dev.txt

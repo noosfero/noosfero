@@ -70,6 +70,7 @@ class Noosfero::Plugin
 
       if plugin_dependencies_ok
         [config.autoload_paths, config.eager_load_paths].each do |path|
+          path.concat Dir["#{dir}/app/*/"]
           path.concat Dir["#{dir}/controllers/{,public,profile,myprofile,admin,concerns}"]
           path.concat Dir["#{dir}/models{,/concerns}"]
           path.concat Dir["#{dir}/lib"]
