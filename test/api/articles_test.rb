@@ -871,4 +871,11 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Title can't be blank"}]}), json["errors"]
   end
 
+  should "return error messages when update an article with invalid data" do
+    params[:article] = {:name => nil}
+    article = fast_create(Article, :profile_id => person.id)
+    post "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Title can't be blank"}]}), json["errors"]
+  end
 end
