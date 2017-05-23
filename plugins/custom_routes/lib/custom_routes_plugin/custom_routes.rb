@@ -5,8 +5,7 @@ class CustomRoutesPlugin::CustomRoutes
     Noosfero::Application.routes.draw do
       CustomRoutesPlugin::Route.where(enabled: true).each do |route|
         # TODO: also set query params? Maybe using a controller before_action
-        route_hash = Rails.application.routes.recognize_path(route.target_url)
-        get route.source_url, route_hash
+        get route.source_url, route.metadata.symbolize_keys
       end
     end
   end

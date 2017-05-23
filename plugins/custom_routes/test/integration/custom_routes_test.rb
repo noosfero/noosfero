@@ -22,4 +22,10 @@ class CustomRoutesTest < ActionDispatch::IntegrationTest
     assert_template "shared/not_found"
   end
 
+  should 'remove route mapping if route is destroyed' do
+    @route.destroy
+    get @route.source_url
+    assert_template "not_found"
+  end
+
 end

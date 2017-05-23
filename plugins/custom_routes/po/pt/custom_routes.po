@@ -1,0 +1,75 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"PO-Revision-Date: 2014-12-18 18:40-0200\n"
+"Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/noosfe"
+"ro/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.0\n"
+
+msgid "Could not save the route mapping."
+msgstr "Não foi possível salvar o mapeamento de rota."
+
+msgid "Could not update the route mapping."
+msgstr "Não foi possível atualizar o mapeamento de rota."
+
+msgid "Custom Routes"
+msgstr "Rotas Customizadas"
+
+msgid "Add and manage custom route mappings"
+msgstr "Adiciona e gerencia mapeamentos customizados de rotas"
+
+msgid "What is the custom route address?"
+msgstr "Qual é o endereço da rota customizada?"
+
+msgid "Where should this route point to?"
+msgstr "Para onde essa rota deve apontar?"
+
+msgid "Enabled"
+msgstr "Ativado"
+
+msgid "Go back"
+msgstr "Voltar"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Remove"
+msgstr "Remover"
+
+msgid "Custom Routes Plugin"
+msgstr "Plugin de Rotas Customizadas"
+
+msgid "Edit Route Mapping"
+msgstr "Editar Mapeamento de Rota"
+
+msgid "Custom Routes Plugin Settings"
+msgstr "Preferências do Plugin de Rotas Customizadas"
+
+msgid "Custom Route Mappings"
+msgstr "Mapeamentos Customizados de Rotas"
+
+msgid "New mapping"
+msgstr "Novo mapeamento"
+
+msgid "New Route Mapping"
+msgstr "Nova Rota Customizada"
