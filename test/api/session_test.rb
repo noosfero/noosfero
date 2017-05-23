@@ -61,40 +61,36 @@ class SessionTest < ActiveSupport::TestCase
   should 'not register a user with invalid login' do
     params = {:login => "c", :password => "newuserapi", :password_confirmation => "newuserapi", :email => "newuserapi@email.com" }
     post "/api/v1/register?#{params.to_query}"
-    assert_equal 400, last_response.status
     json = JSON.parse(last_response.body)
-    msg = json['message'].split(':')
-    key = msg[0][2, 5]
-    val = msg[1][2, 38]
-    assert_equal "login", key
-    assert_equal "is too short (minimum is 2 characters)", val
+    assert_equal 422, last_response.status
+    assert_equal 'too_short', json['errors']['login'].first['error']
   end
 
-  should 'not register a user with invalid login pt' do
+  should 'return translated message when fail to register a user with invalid login' do
     I18n.locale = "pt-BR"
     params = {:lang => "pt-BR", :login => "c", :password => "newuserapi", :password_confirmation => "newuserapi", :email => "newuserapi@email.com" }
     post "/api/v1/register?#{params.to_query}"
-    assert_equal 400, last_response.status
     json = JSON.parse(last_response.body)
-    msg = json['message'].split(':')
-    key = msg[0][2, 5]
-    val = msg[1][2, 35]
-    assert_equal "login", key
-    assert val.include? "muito curto"
+    assert_equal 422, last_response.status
+    assert_match /muito curto/, json['errors']['login'].first['full_message']
   end
 
   should 'not register a user without email' do
     params = {:login => "newuserapi", :password => "newuserapi", :password_confirmation => "newuserapi", :email => nil }
     post "/api/v1/register?#{params.to_query}"
-    assert_equal 400, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_equal 422, last_response.status
+    assert_equal 'blank', json['errors']['email'].first['error']
   end
 
   should 'not register a duplicated user' do
     params = {:login => "newuserapi", :password => "newuserapi", :password_confirmation => "newuserapi", :email => "newuserapi@email.com" }
     post "/api/v1/register?#{params.to_query}"
     post "/api/v1/register?#{params.to_query}"
-    assert_equal 400, last_response.status
     json = JSON.parse(last_response.body)
+    assert_equal 422, last_response.status
+    assert_equal 'taken', json['errors']['login'].first['error']
+    assert_equal 'taken', json['errors']['email'].first['error']
   end
 
   # TODO: Add another test cases to check register situations
