@@ -1,15 +1,20 @@
 <div class="new-route-form"> 
   <%= error_messages_for :route %>
 
-  <%= labelled_form_for :route, url: url_for(action: action) do |f| %>
+  <%= form_for :route, url: url_for(action: action) do |f| %>
     <%= hidden_field_tag(:route_id, route.id) %>
-    <div>
+    <label><%= _('What is the custom route address?') %></label>
+    <div class='formfield type-text'>
       <%= required f.text_field(:source_url) %>
     </div>
-    <div>
+
+    <label><%= _('Where should this route point to?') %></label>
+    <div class='formfield type-text'>
       <%= f.text_field(:target_url) %>
     </div>
+
     <div>
+      <label><%= _('Enabled') %></label>
       <%= f.check_box(:enabled, {}) %>
     </div>
 
