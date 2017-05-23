@@ -150,6 +150,8 @@ module Api
           change_password.update_attributes!(:password => params[:password], :password_confirmation => params[:password_confirmation])
           change_password.finish
           present change_password.requestor.user, :with => Entities::UserLogin, :current_person => current_person
+        rescue ActiveRecord::RecordInvalid => ex
+          render_model_errors!(change_password.errors)
         rescue Exception => ex
           render_api_error!(ex.message, Api::Status::BAD_REQUEST)
         end
