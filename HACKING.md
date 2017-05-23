@@ -4,17 +4,18 @@ Noosfero instructions for developers
 A work about your the development platform
 ------------------------------------------
 
-These instructions are tested and known to work on Debian stable, which is the system that the Noosfero core developers use to work on Noosfero.
+These instructions are tested and known to work on Debian stable and via Rubygems, which is the system that the Noosfero core developers use to work on Noosfero.
 
 If you want to use another OS, read "Instructions for other systems" below.
-
-Instructions for Debian stable
-------------------------------
 
 Download the source code:
 
     $ git clone https://gitlab.com/noosfero/noosfero.git
     $ cd noosfero
+
+
+Instructions for Debian stable
+------------------------------
 
 Run the quick start script:
 
@@ -22,11 +23,34 @@ Run the quick start script:
 
 Now you can execute the development server with:
 
-    $ ./script/development
+    $ rails s
 
 You will be able to access Noosfero at http://localhost:3000/
 
 If you want to use a different port than 3000, pass `-p <PORT>` to `./script/development`
+
+
+Instructions for Rubygems
+------------------------------
+
+Setup an RVM development environment. Further instructions can be found on: http://noosfero.org/bin/view/Development/DepsWithRVMAndGems
+
+Run the bundle command
+
+    $ bundle install
+
+Configure your PostgreSQL database on:
+
+    $ vim config/database.yml
+   
+You should see an example of configuration here 'config/database.yml.pgsql'
+
+Now you can execute the development server with:
+
+    $ rails s
+
+You will be able to access Noosfero at http://localhost:3000/
+
 
 Instructions for other systems
 ------------------------------
@@ -45,11 +69,7 @@ You can check `./script/install-dependencies/debian-squeeze.sh` to have an idea 
 
 If you write such script for your own OS, *please* share it with us at the development mailing list so that we can include it in the official repository. This way other people using the same OS will have to put less effort to develop Noosfero.
 
-### 3) Installing dependencies via Rubygems and RVM
-
-To setup the development environment through Rubygems you just need to install some basic deps and then install the gems defined on the Gemfile. Further instructions can be found on: http://noosfero.org/bin/view/Development/DepsWithRVMAndGems
-
-### 4) Using a docker image
+### 3) Using a docker image
 
 Use a docker image to run an out-of-the-box development environment. Further information can be found on: https://hub.docker.com/r/noosfero/dev-rails4/
 
