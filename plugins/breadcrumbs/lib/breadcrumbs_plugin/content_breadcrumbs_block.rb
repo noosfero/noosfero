@@ -28,6 +28,7 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   def api_content(params = {})
     links = []
+    params = HashWithIndifferentAccess.new(params)
     links << profile_link(params)
     links << page_links(params)
     { links: links.compact.flatten }
