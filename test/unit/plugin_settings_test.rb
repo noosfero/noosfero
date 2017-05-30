@@ -47,4 +47,11 @@ class PluginSettingsTest < ActiveSupport::TestCase
     assert_equal 42, settings.secret
   end
 
+  should 'create attributes with types setted' do
+    base = environment
+    settings = Noosfero::Plugin::Settings.new(base, plugin, {:string_attribute => "test", :boolean_attribute => "0"}, {:boolean_attribute => "boolean"})
+
+    assert_equal "test", base.settings[:solar_system_plugin][:string_attribute]
+    assert_equal FalseClass, base.settings[:solar_system_plugin][:boolean_attribute].class
+  end
 end
