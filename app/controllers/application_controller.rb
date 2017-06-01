@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_to_current_user
 
   before_filter :set_session_theme
+  before_filter :verify_angular_theme
 
   # FIXME: only include necessary methods
   include ApplicationHelper
@@ -210,6 +211,10 @@ class ApplicationController < ActionController::Base
         render_not_found
       end
     end
+  end
+
+  def verify_angular_theme
+    render 'home/index' if Theme.angular_theme?(current_theme) && !request.path.starts_with?('/api/')
   end
 
 end
