@@ -33,4 +33,10 @@ class MainBlockTest < ActiveSupport::TestCase
     assert_equal MainBlock.new.display_user_options, {"all"=>_('All users')}
   end
 
+  should 'not save main block with never visibility' do
+    block = MainBlock.new
+    block.display = 'never'
+    block.save
+    assert_equal ["You cannot hide this block"], block.errors[:display]
+  end
 end
