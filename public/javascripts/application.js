@@ -1147,10 +1147,8 @@ function notifyMe(title, options) {
     notification = new Notification(title, options);
   }
 
-  // Otherwise, we need to ask the user for permission
-  // Note, Chrome does not implement the permission static property
-  // So we have to check for NOT 'denied' instead of 'default'
-  else if (Notification.permission !== 'denied') {
+  // Otherwise, we need to ask the user for permission.
+  else if (Notification.permission === 'default') {
     Notification.requestPermission(function (permission) {
       // Whatever the user answers, we make sure we store the information
       if (!('permission' in Notification)) {
@@ -1164,12 +1162,14 @@ function notifyMe(title, options) {
     });
   }
 
-  notification.onclick = function(){
-    notification.close();
-    // Chromium tweak
-    window.open().close();
-    window.focus();
-  };
+  if(notification) {
+    notification.onclick = function(){
+      notification.close();
+      // Chromium tweak
+      window.open().close();
+      window.focus();
+    };
+  }
 
   return notification;
   // At last, if the user already denied any notification, and you
