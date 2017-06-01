@@ -147,4 +147,16 @@ class InvitationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'invite friends through profile id as integer' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    community = fast_create(Community)
+
+    assert_difference 'InviteMember.count' do
+      Invitation.invite(person, [friend.id], 'hello friend <url>', community)
+    end
+    assert_difference 'InviteFriend.count' do
+      Invitation.invite(person, [friend.id], 'hello friend <url>', person)
+    end
+  end
 end
