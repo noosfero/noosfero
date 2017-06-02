@@ -52,7 +52,7 @@ class Invitation < Task
     contacts_to_invite.each do |contact_to_invite|
       next if contact_to_invite == _("Firstname Lastname <friend@email.com>")
 
-      contact_to_invite.strip!
+      contact_to_invite = contact_to_invite.to_s.strip
       find_by_profile_id = false
       if contact_to_invite.match(/^\d*$/)
         find_by_profile_id = true
