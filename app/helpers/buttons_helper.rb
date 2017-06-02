@@ -37,7 +37,7 @@ module ButtonsHelper
   def button_to_function(type, label, js_code, html_options = {}, &block)
     html_options[:class] = "button with-text" unless html_options[:class]
     html_options[:class] << " icon-#{type}"
-    link_to_function(label, js_code, html_options, &block)
+    link_to_function(label, j(js_code), html_options, &block)
   end
 
   def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
