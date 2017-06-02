@@ -1,5 +1,7 @@
 class MainBlock < Block
 
+  validate :cannnot_be_unacessible
+
   def self.description
     _('Main content')
   end
@@ -24,6 +26,13 @@ class MainBlock < Block
     @display_user_options = {
       'all'            => _('All users')
     }
+  end
+
+  private
+  def cannnot_be_unacessible
+    if display == 'never'
+      self.errors.add(:display, :cannot_hide_block)
+    end
   end
 
 end

@@ -208,6 +208,7 @@
       taken: "has already been taken"
       record_invalid: "Validation failed: %{errors}"
       not_available: "is not available."
+      cannot_hide_block: "You cannot hide this block"
     template: &errors_template
       header:
         one: "1 error prohibited this %{model} from being saved"
