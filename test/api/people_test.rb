@@ -694,6 +694,40 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal [friend1.id], json_response_ids
   end
 
+  should 'get membership state equal to 0 when user is not member' do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    params[:identifier] = person.identifier
+    get "/api/v1/profiles/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 0, json['membership_state']
+  end
+
+  should 'get membership state equal to 1 when user is waiting approval' do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+    TaskMailer.stubs(:deliver_target_notification)
+    task = create(AddMember, :requestor_id => person.id, :target_id => community.id, :target_type => 'Profile')
+    params[:identifier] = person.identifier
+    get "/api/v1/profiles/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json['membership_state']
+  end
+
+  should 'get membership state equal to 2 when user is member' do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+    params[:identifier] = person.identifier
+    get "/api/v1/profiles/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 2, json['membership_state']
+  end
+
   #####
   
   ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]

@@ -170,6 +170,26 @@ module Api
               present_partial current_person, :with => Entities::Person, :current_person => current_person
             end
           end
+
+          resource :membership do
+            get do
+              organization = environment.profiles.find_by id: params[:profile_id]
+              person = environment.profiles.find_by identifier: params[:identifier]
+              output = {}
+
+              if organization.already_request_membership?(person)
+                  output[:membership_state] = 1
+              else
+                  if person.in?(organization.members)
+                      output[:membership_state] = 2
+                  else
+                      output[:membership_state] = 0
+                  end
+              end
+              present output
+            end
+          end
+
         end
       end
 
