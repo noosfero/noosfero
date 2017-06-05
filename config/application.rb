@@ -127,7 +127,8 @@ module Noosfero
       Dir['config/routes/myprofile/*.rb'] +
       Dir['config/routes/admin/*.rb'] +
       Dir['{baseplugins,config/plugins}/*/config/routes**.rb'] +
-      Dir['config/routes/cms/*.rb']
+      Dir['config/routes/cms/*.rb'] +
+      Dir['config/routes/angular_theme/*.rb']
 
     config.paths['db/migrate'].concat Dir.glob("{baseplugins,config/plugins}/*/db/migrate")
     config.i18n.load_path.concat Dir.glob("{baseplugins,config/plugins}/*/locales/*.{rb,yml}")

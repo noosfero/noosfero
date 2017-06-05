@@ -602,10 +602,4 @@ class ApplicationControllerTest < ActionController::TestCase
     get :index, :theme => 'another_theme'
     assert_nil @request.session[:theme]
   end
-
-  should 'render index page when theme is angular' do
-    Theme.stubs(:angular_theme?).returns(true)
-    get :index
-    assert_template 'home/index'
-  end
 end

@@ -22,4 +22,13 @@ class AngularThemeTest < ActionDispatch::IntegrationTest
     get "/api/v1/some_endpoint"
     assert_response 404
   end
+
+  should 'render index page for angular theme when access myprofile route of an angular profile' do
+    Theme.stubs(:angular_theme?).with('noosfero').returns(false)
+    Theme.stubs(:angular_theme?).with('angular').returns(true)
+    profile = fast_create(Community)
+    profile.update_attribute(:theme, 'angular')
+    get "/myprofile/#{profile.identifier}/members"
+    assert_response 200
+  end
 end
