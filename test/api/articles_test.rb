@@ -413,7 +413,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
       params[:path] = parent_article.slug+'/'+article.slug
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
-      assert_equal Api::Status::Http::DEPRECATED, last_response.status
+      assert_equal Api::Status::DEPRECATED, last_response.status
     end
 
     should "return article by #{kind} and path with key parameter" do

@@ -7,7 +7,7 @@ module Api
   
           desc "Return the person information"
           get '/signup_person_fields' do
-            status Api::Status::Http::DEPRECATED if path == 'environment'
+            status Api::Status::DEPRECATED if path == 'environment'
             present environment.signup_person_fields
           end
   
@@ -20,7 +20,7 @@ module Api
             else
               local_environment = Environment.find(params[:id])
             end
-            status Api::Status::Http::DEPRECATED if path == 'environment'
+            status Api::Status::DEPRECATED if path == 'environment'
             present_partial local_environment, with: Entities::Environment, is_admin: is_admin?(local_environment), current_person: current_person
           end
   
@@ -30,7 +30,7 @@ module Api
             environment = Environment.find_by(id: params[:id])
             return forbidden! unless is_admin?(environment)
             environment.update_attributes!(params[:environment])
-            status Api::Status::Http::DEPRECATED if path == 'environment'
+            status Api::Status::DEPRECATED if path == 'environment'
             present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person
           end
   

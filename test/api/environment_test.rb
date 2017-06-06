@@ -158,13 +158,13 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'return the default environment with status DEPRECATED' do
     environment = Environment.default
     get "/api/v1/environment/default"
-    assert_equal Api::Status::Http::DEPRECATED, last_response.status
+    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'return the context environment with status DEPRECATED' do
     environment = Environment.default
     get "/api/v1/environment/context"
-    assert_equal Api::Status::Http::DEPRECATED, last_response.status
+    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'return created environment with status DEPRECATED' do
@@ -172,7 +172,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     default_env = Environment.default
     assert_not_equal environment.id, default_env.id
     get "/api/v1/environment/#{environment.id}"
-    assert_equal Api::Status::Http::DEPRECATED, last_response.status
+    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'return signup_person_fields with status DEPRECATED' do
@@ -180,7 +180,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     fields = ['field1', 'field2']
     Environment.any_instance.expects(:signup_person_fields).returns(fields)
     get "/api/v1/environment/signup_person_fields"
-    assert_equal Api::Status::Http::DEPRECATED, last_response.status
+    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'update environment with status DEPRECATED' do
@@ -189,7 +189,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.add_admin(person)
     params[:environment] = {layout_template: "leftbar"}
     post "/api/v1/environment/#{environment.id}?#{params.to_query}"
-    assert_equal Api::Status::Http::DEPRECATED, last_response.status
+    assert_equal Api::Status::DEPRECATED, last_response.status
   end
 
   should 'add block in environment' do
