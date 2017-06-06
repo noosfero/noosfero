@@ -76,6 +76,27 @@ module Api
           present msg, :with => Entities::Response
         end
 
+        segment '/:profile_id' do
+
+          resource :membership do
+            get do
+              organization = environment.profiles.find_by id: params[:profile_id]
+              person = environment.profiles.find_by identifier: params[:identifier]
+              output = {}
+
+              if organization.already_request_membership?(person)
+                  output[:membership_state] = Api::Status::Membership::WAITING_FOR_APPROVAL
+              else
+                  if person.in?(organization.members)
+                      output[:membership_state] = Api::Status::Membership::MEMBER
+                  else
+                      output[:membership_state] = Api::Status::Membership::NOT_MEMBER
+                  end
+              end
+              present output
+            end
+          end
+        end
       end
 
       resource :people do

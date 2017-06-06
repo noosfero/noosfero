@@ -268,7 +268,7 @@ module Api
                     article = forbidden!
                   end
                   article ||= []
-                  status Api::Status::DEPRECATED
+                  status Api::Status::Http::DEPRECATED
 
                   present_partial article, :with => Entities::Article, current_person: current_person
                 else
