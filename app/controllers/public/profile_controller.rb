@@ -318,14 +318,14 @@ class ProfileController < PublicController
     no_more_pages = comments_count <= comment_page * comments_per_page
 
     render :update do |page|
-      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
+      page.insert_html :bottom, "profile-#{params[:tab_action]}-activities-comments-#{params[:activity]}",
         :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
 
       if no_more_pages
-        page.remove 'profile-wall-activities-comments-more-'+params[:activity]
+        page.remove "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}"
       else
-        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity],
-          :partial => 'more_comments', :locals => {:activity => activity, :comment_page => comment_page}
+        page.replace_html "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}",
+          :partial => 'more_comments', :locals => {activity: activity, comment_page: comment_page, tab_action: params[:tab_action]}
       end
     end
   end

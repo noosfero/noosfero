@@ -1,11 +1,12 @@
 <hr />
 
-<ul id="profile-wall-activities-comments-<%= activity.id %>" class="profile-wall-activities-comments"  >
+<ul id=<%= "profile-#{tab_action}-activities-comments-#{activity.id}"%> class=<%= "profile-wall-activities-comments" %> >
 </ul>
 <% if activity.comments_count > 0 %>
-<div id="profile-wall-activities-comments-more-<%= activity.id %>" class="profile-wall-activities-comments" >
+  <div id=<%= "profile-#{tab_action}-activities-comments-more-#{activity.id}" %> class=<%= "profile-wall-activities-comments" %> >
   <div class='view-all-comments icon-chat'>
-     <%= link_to(n_('View comment', "View all %s comments".html_safe, activity.comments_count) % activity.comments_count, :profile => profile.identifier, :controller => 'profile', :action => 'more_comments', :activity => activity, :comment_page => (1)) %>
+    <%= link_to(n_('View comment', "View all %s comments".html_safe, activity.comments_count) % activity.comments_count,
+                profile: profile.identifier, controller: 'profile', action: 'more_comments', activity: activity, comment_page: 1, tab_action: tab_action) %>
   </div>
 </div>
 <% end %>
