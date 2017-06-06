@@ -124,14 +124,14 @@ class EnterprisesTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'not, anonymous get invisible enterprise' do
     enterprise = fast_create(Enterprise, :visible => false)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'not get private enterprises without permission' do

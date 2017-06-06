@@ -178,12 +178,12 @@ module Api
               output = {}
 
               if organization.already_request_membership?(person)
-                  output[:membership_state] = 1
+                  output[:membership_state] = Api::Status::Membership::WAITING_FOR_APPROVAL
               else
                   if person.in?(organization.members)
-                      output[:membership_state] = 2
+                      output[:membership_state] = Api::Status::Membership::MEMBER
                   else
-                      output[:membership_state] = 0
+                      output[:membership_state] = Api::Status::Membership::NOT_MEMBER
                   end
               end
               present output
@@ -240,7 +240,7 @@ module Api
         #FIXME see if this is the better place for this endpoint
         desc "Returns the total followers for the article" do
           detail 'Get the followers of a specific article by id'
-          failure [[Api::Status::FORBIDDEN, 'Forbidden']]
+          failure [[Api::Status::Http::FORBIDDEN, 'Forbidden']]
           named 'ArticleFollowers'
         end
         get ':id/followers' do

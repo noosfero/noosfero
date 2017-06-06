@@ -70,7 +70,7 @@ module Api
           msg = {
             :success => true,
             :message => _('Your invitation was registered. The community administrators are reviewing your solicitation.'),
-            :code => Api::Status::INVITATION_SENT_TO_BE_PROCESSED 
+            :code => Api::Status::Membership::INVITATION_SENT_TO_BE_PROCESSED 
           }
 
           present msg, :with => Entities::Response

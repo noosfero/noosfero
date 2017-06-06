@@ -228,14 +228,14 @@ class ArticlesTest < ActiveSupport::TestCase
     post "/api/v1/articles/#{article.id}/vote?#{params.to_query}"
     json = JSON.parse(last_response.body)
     ## The api should not allow to save this vote
-    assert_equal Api::Status::UNPROCESSABLE_ENTITY, last_response.status
+    assert_equal Api::Status::Http::UNPROCESSABLE_ENTITY, last_response.status
   end
 
   should 'not perform a vote in a archived article' do
     article = fast_create(Article, :profile_id => @person.id, :name => "Some thing", :archived => true)
     @params[:value] = 1
     post "/api/v1/articles/#{article.id}/vote?#{params.to_query}"
-    assert_equal Api::Status::UNPROCESSABLE_ENTITY, last_response.status
+    assert_equal Api::Status::Http::UNPROCESSABLE_ENTITY, last_response.status
   end
 
   should 'not update hit attribute of a specific child if a article is archived' do

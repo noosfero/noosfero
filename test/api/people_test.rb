@@ -147,7 +147,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'anonymous not get invisible person' do
@@ -155,7 +155,7 @@ class PeopleTest < ActiveSupport::TestCase
 
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'get private people' do
@@ -228,12 +228,12 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal login, json['identifier']
   end
 
-  should "return #{Api::Status::UNPROCESSABLE_ENTITY} status for invalid person creation" do
+  should "return #{Api::Status::Http::UNPROCESSABLE_ENTITY} status for invalid person creation" do
     login_api
     params[:person] = {:login => 'some'}
     post "/api/v1/people?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::UNPROCESSABLE_ENTITY, last_response.status
+    assert_equal Api::Status::Http::UNPROCESSABLE_ENTITY, last_response.status
   end
 
   should 'display permissions' do
