@@ -1,3 +1,4 @@
 <div class='view-more-comments'>
-  <%= link_to(_('More'), :profile => @profile.identifier, :controller => 'profile', :action => 'more_comments', :activity => activity, :comment_page => (comment_page + 1)) %>
+  <%= link_to(_('More'), profile: @profile.identifier, controller: 'profile', action: 'more_comments',
+                         activity: activity, comment_page: (comment_page + 1), tab_action: tab_action) %>
 </div>

@@ -2097,6 +2097,23 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
+  should 'display comments of an article in network activities tab' do
+    login_as(profile.identifier)
+    article = TextArticle.create!(profile: profile, name: 'An article about free software')
+    20.times do |i|
+      comment = fast_create(Comment, source_id: article, title: "Comment #{i}",
+                                     body: "lalala", created_at: Time.now)
+    end
+    assert_equal 20, article.comments.count
+    activity = ActionTracker::Record.last
+    xhr :get, :more_comments, profile: profile.identifier, activity: activity.id, comment_page: 1, tab_action: 'network'
+    assert_response :success
+    assert_template '_comment'
+    assert_select_rjs :insert_html, :bottom, "profile-network-activities-comments-#{activity.id}" do
+      assert_select 'li', 5 # 5 comments per page
+    end
+  end
+
   should 'not filter any activity if the user is an environment admin' do
     admin = create_user('env-admin').person
     env = @profile.environment
