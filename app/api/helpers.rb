@@ -367,37 +367,37 @@ module Api
     ##########################################
 
     def not_found!
-      render_api_error!('404 Not found', Api::Status::NOT_FOUND)
+      render_api_error!('404 Not found', Api::Status::Http::NOT_FOUND)
     end
 
     def forbidden!
-      render_api_error!('403 Forbidden', Api::Status::FORBIDDEN)
+      render_api_error!('403 Forbidden', Api::Status::Http::FORBIDDEN)
     end
 
     def cant_be_saved_request!(attribute)
       message = _("(Invalid request) %s can't be saved").html_safe % attribute
-      render_api_error!(message, Api::Status::BAD_REQUEST)
+      render_api_error!(message, Api::Status::Http::BAD_REQUEST)
     end
 
     def bad_request!(attribute)
       message = _("(Invalid request) %s not given").html_safe % attribute
-      render_api_error!(message, Api::Status::BAD_REQUEST)
+      render_api_error!(message, Api::Status::Http::BAD_REQUEST)
     end
 
     def something_wrong!
       message = _("Something wrong happened")
-      render_api_error!(message, Api::Status::BAD_REQUEST)
+      render_api_error!(message, Api::Status::Http::BAD_REQUEST)
     end
 
     def unauthorized!
-      render_api_error!(_('Unauthorized'), Api::Status::UNAUTHORIZED)
+      render_api_error!(_('Unauthorized'), Api::Status::Http::UNAUTHORIZED)
     end
 
     def not_allowed!
-      render_api_error!(_('Method Not Allowed'), Api::Status::METHOD_NOT_ALLOWED)
+      render_api_error!(_('Method Not Allowed'), Api::Status::Http::METHOD_NOT_ALLOWED)
     end
 
-    def render_api_error!(user_message, status = Api::Status::BAD_REQUEST)
+    def render_api_error!(user_message, status = Api::Status::Http::BAD_REQUEST)
       message_hash = {'message' => user_message}
       log_message = "#{status}, User message: #{user_message}"
       logger.error log_message unless Rails.env.test?
@@ -413,7 +413,7 @@ module Api
           errors.each_with_index {|error, i| error[:full_message] = full_messages[i] }
         end
       end
-      error!(message_hash, Api::Status::UNPROCESSABLE_ENTITY)
+      error!(message_hash, Api::Status::Http::UNPROCESSABLE_ENTITY)
     end
 
     protected

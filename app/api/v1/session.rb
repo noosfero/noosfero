@@ -20,7 +20,7 @@ module Api
             break unless user.nil?
           end
         rescue User::UserNotActivated => e
-          render_api_error!(e.message, Api::Status::UNAUTHORIZED)
+          render_api_error!(e.message, Api::Status::Http::UNAUTHORIZED)
         end
 
         return unauthorized! unless user
@@ -152,7 +152,7 @@ module Api
         rescue ActiveRecord::RecordInvalid => ex
           render_model_errors!(change_password.errors)
         rescue Exception => ex
-          render_api_error!(ex.message, Api::Status::BAD_REQUEST)
+          render_api_error!(ex.message, Api::Status::Http::BAD_REQUEST)
         end
       end
 

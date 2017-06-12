@@ -220,7 +220,7 @@ module Api
         #FIXME see if this is the better place for this endpoint
         desc "Returns the total followers for the article" do
           detail 'Get the followers of a specific article by id'
-          failure [[Api::Status::FORBIDDEN, 'Forbidden']]
+          failure [[Api::Status::Http::FORBIDDEN, 'Forbidden']]
           named 'ArticleFollowers'
         end
         get ':id/followers' do

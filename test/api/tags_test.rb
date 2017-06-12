@@ -82,7 +82,7 @@ class TagsTest < ActiveSupport::TestCase
 
   should 'get environment tags for path environments with status OK' do
     get '/api/v1/environments/tags'
-    assert_equal Api::Status::OK, last_response.status
+    assert_equal Api::Status::Http::OK, last_response.status
   end
 
   should 'get environment tags for path environments/:id path' do
@@ -108,7 +108,7 @@ class TagsTest < ActiveSupport::TestCase
   should 'get environment tags for path environments/:id with status OK' do
     environment = fast_create(Environment)
     get "/api/v1/environments/#{environment.id}/tags"
-    assert_equal Api::Status::OK, last_response.status
+    assert_equal Api::Status::Http::OK, last_response.status
   end
 
 end

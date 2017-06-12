@@ -39,7 +39,7 @@ module Api
           begin
             comment = Comment.create!(options)
           rescue ActiveRecord::RecordInvalid => e
-            render_api_error!(e.message, Api::Status::BAD_REQUEST)
+            render_api_error!(e.message, Api::Status::Http::BAD_REQUEST)
           end
           present_partial comment, :with => Entities::Comment, :current_person => current_person
         end

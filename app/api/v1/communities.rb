@@ -70,12 +70,34 @@ module Api
           msg = {
             :success => true,
             :message => _('Your invitation was registered. The community administrators are reviewing your solicitation.'),
-            :code => Api::Status::INVITATION_SENT_TO_BE_PROCESSED 
+            :code => Api::Status::Membership::INVITATION_SENT_TO_BE_PROCESSED 
           }
 
           present msg, :with => Entities::Response
         end
 
+        segment '/:profile_id' do
+
+          resource :membership do
+            get do
+              organization = environment.profiles.find_by id: params[:profile_id]
+              person = environment.profiles.find_by identifier: params[:identifier]
+              output = {:success => true}
+
+              if organization.already_request_membership?(person)
+                output[:message] = _('You already request a membership for this community.')
+                output[:code] = Api::Status::Membership::WAITING_FOR_APPROVAL
+              elsif person.in?(organization.members)
+                output[:message] = _('You already member of this community.')
+                output[:code] = Api::Status::Membership::MEMBER
+              else
+                output[:message] = _('You are not member of this community and you did not made a membership request.')
+                output[:code] = Api::Status::Membership::NOT_MEMBER
+              end
+              present output, :with => Entities::Response
+            end
+          end
+        end
       end
 
       resource :people do

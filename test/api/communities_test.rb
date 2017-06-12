@@ -88,7 +88,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'not get private community content to non member' do
@@ -239,7 +239,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   should 'not get invisible community to anonymous user' do
     community = fast_create(Community, :environment_id => environment.id, :visible => false)
     get "/api/v1/communities/#{community.id}"
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'get private community to anonymous user' do
@@ -393,7 +393,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     community.add_admin(person)
     post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::CREATED, last_response.status
+    assert_equal Api::Status::Http::CREATED, last_response.status
   end
 
   should 'not send inviation for unexisting community ' do
@@ -401,7 +401,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community)
     post "/api/v1/communities/100/invite?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::NOT_FOUND, last_response.status
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'not send inviation for comunity if user has no permission' do
@@ -409,13 +409,13 @@ class CommunitiesTest < ActiveSupport::TestCase
     community = fast_create(Community)
     post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal Api::Status::FORBIDDEN, last_response.status
+    assert_equal Api::Status::Http::FORBIDDEN, last_response.status
   end
 
   should 'not send invitation unlogged' do
     community = fast_create(Community)
     post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
-    assert_equal Api::Status::UNAUTHORIZED, last_response.status
+    assert_equal Api::Status::Http::UNAUTHORIZED, last_response.status
   end
 
   should 'the invitation response return success true if the inivitation was sent' do
@@ -427,13 +427,13 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert json['success']
   end
 
-  should "the inviation response return the code #{Api::Status::INVITATION_SENT_TO_BE_PROCESSED}" do
+  should "the inviation response return the code #{Api::Status::Membership::INVITATION_SENT_TO_BE_PROCESSED}" do
     login_api
     community = fast_create(Community)
     community.add_admin(person)
     post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['code'], Api::Status::INVITATION_SENT_TO_BE_PROCESSED
+    assert_equal json['code'], Api::Status::Membership::INVITATION_SENT_TO_BE_PROCESSED
   end
 
   should "the inviation response have some message" do
@@ -443,6 +443,40 @@ class CommunitiesTest < ActiveSupport::TestCase
     post "/api/v1/communities/#{community.id}/invite?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_nil json['message']
+  end
+
+  should "get membership state equal to #{Api::Status::Membership::NOT_MEMBER} when user is not member" do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    params[:identifier] = person.identifier
+    get "/api/v1/communities/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::Membership::NOT_MEMBER, json['code']
+  end
+
+  should "get membership state equal to #{Api::Status::Membership::WAITING_FOR_APPROVAL} when user is waiting approval" do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+    TaskMailer.stubs(:deliver_target_notification)
+    task = create(AddMember, :requestor_id => person.id, :target_id => community.id, :target_type => 'Profile')
+    params[:identifier] = person.identifier
+    get "/api/v1/communities/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::Membership::WAITING_FOR_APPROVAL, json['code']
+  end
+
+  should "get membership state equal to #{Api::Status::Membership::MEMBER} when user is member" do
+    login_api
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+    params[:identifier] = person.identifier
+    get "/api/v1/communities/#{community.id}/membership?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal Api::Status::Membership::MEMBER, json['code']
   end
 
 end
