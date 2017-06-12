@@ -71,7 +71,7 @@ group :test do
   gem 'test-unit' if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
   gem 'minitest-reporters'
-  gem 'simplecov', require: false
+  gem 'simplecov', '~> 0.7.1', :require => false
 end
 
 group :cucumber, :test do
