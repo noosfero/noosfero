@@ -503,4 +503,19 @@ class BlockTest < ActiveSupport::TestCase
     }])
     assert_equal 'shoes.png', block.reload.images.first.filename
   end
+
+  should 'destroy mirrored block when deleted from template' do
+    profile_template = create_user('test_template').person
+    profile_template.is_template = true
+    profile_template.save!
+
+    template_block = create(RecentDocumentsBlock, :mirror => true, :title => 'template block')
+    mirrored_block = create(RecentDocumentsBlock, :mirror => false, :mirror_block_id => template_block, :title => 'mirrored block')
+    template_block.observers << mirrored_block
+
+    template_block.stubs(:owner).returns(profile_template)
+    template_block.destroy!
+
+    assert_nil RecentDocumentsBlock.find_by_id mirrored_block.id
+  end
 end
