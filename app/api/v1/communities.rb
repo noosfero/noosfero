@@ -82,18 +82,19 @@ module Api
             get do
               organization = environment.profiles.find_by id: params[:profile_id]
               person = environment.profiles.find_by identifier: params[:identifier]
-              output = {}
+              output = {:success => true}
 
               if organization.already_request_membership?(person)
-                  output[:membership_state] = Api::Status::Membership::WAITING_FOR_APPROVAL
+                output[:message] = _('You already request a membership for this community.')
+                output[:code] = Api::Status::Membership::WAITING_FOR_APPROVAL
+              elsif person.in?(organization.members)
+                output[:message] = _('You already member of this community.')
+                output[:code] = Api::Status::Membership::MEMBER
               else
-                  if person.in?(organization.members)
-                      output[:membership_state] = Api::Status::Membership::MEMBER
-                  else
-                      output[:membership_state] = Api::Status::Membership::NOT_MEMBER
-                  end
+                output[:message] = _('You are not member of this community and you did not made a membership request.')
+                output[:code] = Api::Status::Membership::NOT_MEMBER
               end
-              present output
+              present output, :with => Entities::Response
             end
           end
         end
