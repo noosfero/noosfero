@@ -1,5 +1,5 @@
 ENV["RAILS_ENV"] = "test"
-
+require 'simplecov'
 require_relative '../config/environment'
 
 require 'rails/test_help'
@@ -25,6 +25,7 @@ require_relative 'support/noosfero_doc_test'
 require_relative 'support/performance_helper'
 require_relative 'support/noosfero_test_helper'
 
+
 FileUtils.rm_rf(Rails.root.join('index', 'test'))
 
 Image.attachment_options[:path_prefix] = 'test/tmp/public/images'
@@ -32,6 +33,7 @@ Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
 
 FastGettext.add_text_domain 'noosferotest', :type => :chain, :chain => []
 FastGettext.default_text_domain = 'noosferotest'
+
 
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method

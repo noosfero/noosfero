@@ -243,9 +243,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal [2], environment.reload.blocks.map(&:position)
   end
 
-  should 'list available blocks' do
+  should 'list available blocks of environment' do
     environment = Environment.default
     person = create_user('mytestuser').person
     assert_includes environment.available_blocks(person), CommunitiesBlock
   end
+
 end

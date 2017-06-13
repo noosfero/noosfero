@@ -10,4 +10,5 @@ namespace :test do
 
   desc "Run the Rspec tests"
   RSpec::Core::RakeTask.new :specs
+
 end
