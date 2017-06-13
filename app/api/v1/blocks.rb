@@ -3,6 +3,25 @@ module Api
 
     class Blocks < Grape::API
 
+      resource :profiles do
+        segment '/:profile_id' do
+          resource :blocks do
+            resource :preview do
+              get do
+                profile = environment.profiles.find_by(id: params[:profile_id])
+                block_type = params[:block_type]
+                box = Box.new
+                box.owner = profile
+                block_class = block_type.constantize
+                block = block_class.new
+                block.box = box
+                present_partial block, :with => Entities::Block, display_api_content: true
+              end
+            end
+          end
+        end
+      end
+
       resource :blocks do
         get ':id' do
           block = Block.find(params["id"])
