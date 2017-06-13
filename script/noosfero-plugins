@@ -20,6 +20,7 @@ base_plugins_dir="$NOOSFERO_DIR/baseplugins"
 available_plugins=$(find -L "$available_plugins_dir" -maxdepth 1 -mindepth 1 -type d -not -name 'template' -printf '%f\n' | sort)
 enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 base_plugins=$(find -L "$base_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
+debian_install="$NOOSFERO_DIR/script/debian-install"
 
 # operation defaults
 quiet=false
@@ -111,6 +112,12 @@ _enable(){
     fi
     installation_ok=true
     installation_file="$source/install.rb"
+    debian_dependencies="$source/debian-dependencies"
+
+    if [ -f /etc/debian_version ] && [ -f "$debian_dependencies" ] && ! $debian_install $debian_dependencies; then
+      installation_ok=false
+    fi
+
     if ! run $installation_file; then
       installation_ok=false
     else

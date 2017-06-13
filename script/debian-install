@@ -1,0 +1,27 @@
+#!/bin/bash
+
+update=false
+
+echo "=> Verifying debian dependencies..."
+
+install () {
+  if ! dpkg -s $1 &> /dev/null; then
+    if ! $update; then
+      echo "=> Updating repositories..."
+      sudo apt-get update > /dev/null
+      update=true
+    fi
+
+    echo "=> Installing $1..."
+    if ! sudo apt-get install -y $1; then
+      exit 1
+    fi
+  fi
+}
+
+for package in `cat $1`
+do
+  install $package
+done
+
+echo "=> Done!"
