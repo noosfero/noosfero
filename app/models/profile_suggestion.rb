@@ -115,8 +115,10 @@ class ProfileSuggestion < ApplicationRecord
     suggested_profiles = all_suggestions(person)
     return if suggested_profiles.nil?
 
-    already_suggested_profiles = person.suggested_profiles.map(&:suggestion_id).join(',')
-    suggested_profiles = suggested_profiles.where("profiles.id NOT IN (#{already_suggested_profiles})") if already_suggested_profiles.present?
+    # Filter communities that person has already join and people that are already his friends.
+    suggested_profiles = suggested_profiles.where.not(id: person.memberships.map { |p| p.id } | person.friends.map { |f| f.id })
+    already_suggested_profiles = person.suggested_profiles
+    suggested_profiles = suggested_profiles.where.not(id: already_suggested_profiles)
     #TODO suggested_profiles = suggested_profiles.order('score DESC')
     suggested_profiles = suggested_profiles.limit(N_SUGGESTIONS)
     return if suggested_profiles.blank?
